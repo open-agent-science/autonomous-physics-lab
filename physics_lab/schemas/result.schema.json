@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "title",
+    "hypothesis_id",
+    "train_range",
+    "test_range",
+    "best_model_id",
+    "scores"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^EXP-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hypothesis_id": {
+      "type": "string",
+      "pattern": "^HYP-[0-9]{4}$"
+    },
+    "train_range": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false
+    },
+    "test_range": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false
+    },
+    "best_model_id": {
+      "type": "string",
+      "pattern": "^model_[a-z0-9_]+$"
+    },
+    "scores": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "model_id",
+          "formula",
+          "coefficients",
+          "complexity_score",
+          "train_metrics",
+          "test_metrics",
+          "composite_score",
+          "verdict"
+        ],
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "pattern": "^model_[a-z0-9_]+$"
+          },
+          "formula": {
+            "type": "string",
+            "minLength": 1
+          },
+          "coefficients": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "complexity_score": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "train_metrics": {
+            "$ref": "#/$defs/errorMetrics"
+          },
+          "test_metrics": {
+            "$ref": "#/$defs/errorMetrics"
+          },
+          "composite_score": {
+            "type": "number",
+            "minimum": 0
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "VALID",
+              "PARTIALLY_VALID",
+              "INVALID",
+              "OVERFITTED",
+              "INCONCLUSIVE"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "errorMetrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mean_relative_error",
+        "max_relative_error"
+      ],
+      "properties": {
+        "mean_relative_error": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_relative_error": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Experiment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "domain",
+    "status",
+    "hypothesis_id",
+    "method",
+    "data",
+    "candidate_models",
+    "outputs"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EXP-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PLANNED",
+        "RUNNING",
+        "COMPLETED",
+        "FAILED"
+      ]
+    },
+    "hypothesis_id": {
+      "type": "string",
+      "pattern": "^HYP-[0-9]{4}$"
+    },
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "simulator",
+        "fitter"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "simulator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fitter": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amplitude_range_radians",
+        "sample_count"
+      ],
+      "properties": {
+        "amplitude_range_radians": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end"
+          ],
+          "properties": {
+            "start": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "end": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          }
+        },
+        "sample_count": {
+          "type": "integer",
+          "minimum": 3
+        }
+      }
+    },
+    "candidate_models": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "formula"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^model_[a-z0-9_]+$"
+          },
+          "formula": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "report_path",
+        "result_dir"
+      ],
+      "properties": {
+        "report_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result_dir": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

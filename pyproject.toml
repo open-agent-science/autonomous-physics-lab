@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 dependencies = [
+    "jsonschema>=4.0",
     "numpy>=1.26",
     "scipy>=1.11",
     "sympy>=1.12",

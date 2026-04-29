@@ -13,6 +13,9 @@ from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_all_models
 from physics_lab.engines.scoring import ModelScore, score_model
 from physics_lab.engines.simulation import generate_pendulum_dataset
+from physics_lab.registry.experiments import load_experiment
+from physics_lab.registry.hypotheses import load_hypothesis
+from physics_lab.registry.results import validate_result_payload
 
 
 @dataclass(frozen=True)
@@ -47,7 +50,21 @@ def load_yaml_file(path: str | Path) -> dict[str, Any]:
 
 
 def _resolve_path(base_path: Path, relative_path: str) -> Path:
-    return (base_path.parent / relative_path).resolve()
+    candidate = Path(relative_path)
+    if candidate.is_absolute():
+        return candidate.resolve()
+    base_directory = base_path.parent if base_path.is_file() else base_path
+    return (base_directory / candidate).resolve()
+
+
+def _find_repo_root(start_path: Path) -> Path:
+    current = start_path.resolve()
+    if current.is_file():
+        current = current.parent
+    for directory in [current, *current.parents]:
+        if (directory / "pyproject.toml").exists():
+            return directory
+    return current
 
 
 def _split_dataset(sample_count: int, train_fraction: float) -> int:
@@ -142,8 +159,16 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     """Execute the pendulum formula discovery workflow from an example config."""
     config_path = Path(config_path).resolve()
     config = load_yaml_file(config_path)
-    experiment = load_yaml_file(_resolve_path(config_path, config["experiment_path"]))
-    hypothesis = load_yaml_file(_resolve_path(config_path, config["hypothesis_path"]))
+    experiment_path = _resolve_path(config_path, config["experiment_path"])
+    hypothesis_path = _resolve_path(config_path, config["hypothesis_path"])
+    repo_root = _find_repo_root(config_path)
+    experiment = load_experiment(experiment_path)
+    hypothesis = load_hypothesis(hypothesis_path)
+    if experiment["hypothesis_id"] != hypothesis["id"]:
+        raise ValueError(
+            "Experiment hypothesis_id does not match loaded hypothesis id: "
+            f"{experiment['hypothesis_id']} != {hypothesis['id']}"
+        )
 
     amplitude_range = experiment["data"]["amplitude_range_radians"]
     sample_count = int(experiment["data"]["sample_count"])
@@ -175,10 +200,12 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     verdicts = {score.model_id: classify_model_score(score) for score in scores}
     best_model_id = scores[0].model_id
 
-    report_path = _resolve_path(config_path, config["report_path"])
-    metrics_path = _resolve_path(config_path, config["metrics_path"])
+    experiment_outputs = experiment["outputs"]
+    report_path = _resolve_path(repo_root, experiment_outputs["report_path"])
+    result_dir = _resolve_path(repo_root, experiment_outputs["result_dir"])
+    metrics_path = result_dir / "metrics.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    metrics_path.parent.mkdir(parents=True, exist_ok=True)
+    result_dir.mkdir(parents=True, exist_ok=True)
 
     report_text = _build_report(
         title=str(experiment["title"]),
@@ -201,6 +228,7 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         "best_model_id": best_model_id,
         "scores": _serialize_scores(scores, verdicts),
     }
+    validate_result_payload(metrics_payload, source=metrics_path)
     metrics_path.write_text(json.dumps(metrics_payload, indent=2), encoding="utf-8")
 
     return ExperimentOutcome(
