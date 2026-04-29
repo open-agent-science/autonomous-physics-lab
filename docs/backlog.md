@@ -1,0 +1,54 @@
+# Backlog
+
+## Purpose
+
+This file stores important but not-immediate work.
+
+It should contain:
+
+- medium-term engineering tasks;
+- scientific extensions;
+- quality improvements;
+- contributor-experience work.
+
+Items can move from here into [next-steps.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/next-steps.md)
+when they become active priorities.
+
+## Registry and Validation
+
+- Add schema and validation flow for `knowledge/`.
+- Add schema and validation flow for example config files.
+- Add optional strict mode for `validate-repo`.
+- Add detection of orphaned artifacts not referenced by any experiment or claim.
+- Add validation that claim status is consistent with available result evidence.
+
+## Scientific Verification
+
+- Add known-limit checks for pendulum approximations.
+- Add symbolic validation helpers in `physics_lab/engines/symbolic.py`.
+- Add dimensional analysis support for future workflows.
+- Add benchmark workflows beyond pendulum:
+  - orbital perturbation
+  - diffusion scaling
+  - damped oscillator correction
+
+## Workflow and Reporting
+
+- Add richer result metadata.
+- Add plots as optional artifacts.
+- Add structured report sections for limitations and failure cases.
+- Add a helper for claim and knowledge update proposals after successful runs.
+
+## Contributor Experience
+
+- Add a contributor guide for humans and LLM agents.
+- Add a repo-level command that prints current project status.
+- Add CI step that explicitly runs `python -m physics_lab.cli validate-repo .`.
+- Add a compact architecture index for quick onboarding.
+
+## Longer-Term
+
+- Literature ingestion adapters for arXiv, OpenAlex, and Crossref.
+- Importers into graph or database backends.
+- Open task assignment and external agent submission workflow.
+- Public dashboard once the scientific core is mature enough.

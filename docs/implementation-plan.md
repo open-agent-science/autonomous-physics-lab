@@ -8,6 +8,24 @@ Start with a narrow but complete vertical slice:
 
 The first slice is `Pendulum Formula Discovery`.
 
+## Status Snapshot
+
+Completed so far:
+
+- Phase 0 foundation work;
+- Phase 1 pendulum MVP;
+- a substantial part of Phase 2 public-memory integration:
+  - versioned hypothesis, experiment, task, claim, agent, and result artifacts;
+  - schema validation;
+  - repo-wide validation;
+  - referential integrity checks.
+
+Use [next-steps.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/next-steps.md)
+for the active short-term queue.
+
+Use [backlog.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/backlog.md)
+for medium-term and deferred work.
+
 ## Phase 0: Foundation
 
 Goal: create the repository contract before writing scientific code.
@@ -51,6 +69,10 @@ Definition of done:
 - tests pass quickly;
 - lint passes.
 
+Status:
+
+- implemented
+
 ## Phase 2: Public Memory Integration
 
 Goal: connect the code workflow to repository knowledge objects.
@@ -67,6 +89,11 @@ Definition of done:
 - experiment inputs come from versioned files;
 - outputs can be traced back to ids;
 - artifact naming is stable and reviewable.
+
+Status:
+
+- partially implemented
+- remaining work includes richer claim/knowledge update flow and additional schema coverage
 
 ## Phase 3: Verification Stack Expansion
 
@@ -101,14 +128,11 @@ Implementation targets:
 
 This is the practical order I recommend next:
 
-1. create the minimal package and `pyproject.toml`;
-2. add pendulum example config;
-3. implement simulation engine;
-4. implement formula fitting;
-5. implement scoring and verdicts;
-6. implement report generation and CLI;
-7. add tests;
-8. add CI workflow.
+1. add richer result metadata and result semantics;
+2. add schema coverage for `knowledge/` and example config files;
+3. add claim and knowledge update helpers;
+4. add known-limit and symbolic verification hooks;
+5. add the next benchmark physics workflow.
 
 ## Risks to Avoid
 

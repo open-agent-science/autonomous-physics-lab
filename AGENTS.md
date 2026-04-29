@@ -67,6 +67,18 @@ Goal:
 4. Score accuracy and complexity.
 5. Produce a reproducible report.
 
+## Planning Files
+
+To continue work consistently, use these project documents:
+
+- `docs/implementation-plan.md` for the broader phased strategy;
+- `docs/next-steps.md` for the current short-term execution queue;
+- `docs/backlog.md` for deferred or medium-term work.
+
+If you complete a meaningful block of work or if priorities change, update the
+planning files so the next contributor can continue without reconstructing
+project state from commits alone.
+
 ## Architecture
 
 Use this package structure:

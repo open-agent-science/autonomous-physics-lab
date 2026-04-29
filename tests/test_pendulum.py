@@ -4,7 +4,8 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from physics_lab.cli import app
-from physics_lab.registry import load_agent, load_experiment, load_hypothesis, load_result, load_task
+from physics_lab.registry import load_agent, load_claim, load_experiment, load_hypothesis, load_result, load_task
+from physics_lab.registry.repository import validate_repository
 from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_all_models
 from physics_lab.engines.scoring import ModelScore, compute_error_metrics
@@ -237,6 +238,7 @@ def test_cli_run_smoke() -> None:
 
 def test_registry_files_validate_against_schemas() -> None:
     repo_root = Path(__file__).resolve().parent.parent
+    load_claim(repo_root / "claims" / "CLAIM-0001-pendulum-period-amplitude.md")
     load_hypothesis(repo_root / "hypotheses" / "HYP-0001-pendulum-correction.yaml")
     load_experiment(repo_root / "experiments" / "EXP-0001-pendulum-formula-discovery.yaml")
     load_task(repo_root / "tasks" / "TASK-0001-fit-better-pendulum-model.yaml")
@@ -249,3 +251,64 @@ def test_cli_validate_hypothesis_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Validated hypotheses/HYP-0001-pendulum-correction.yaml as hypothesis." in result.stdout
+
+
+def test_validate_repository_smoke() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    summary = validate_repository(repo_root)
+
+    assert summary.counts["claims"] == 1
+    assert summary.counts["hypotheses"] == 1
+    assert summary.counts["experiments"] == 1
+    assert summary.counts["tasks"] == 1
+    assert summary.counts["agents"] == 1
+    assert summary.counts["results"] >= 1
+
+
+def test_validate_repository_detects_missing_reference(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    for directory in ("agents", "claims", "experiments", "hypotheses", "results", "tasks"):
+        (repo_root / directory).mkdir(parents=True, exist_ok=True)
+
+    (repo_root / "hypotheses" / "HYP-0001.yaml").write_text(
+        "\n".join(
+            [
+                'id: "HYP-0001"',
+                'title: "Hypothesis"',
+                'domain: "test"',
+                'status: "FORMALIZED"',
+                "hypothesis:",
+                '  statement: "Test statement"',
+                "  formula_candidates:",
+                '    - "x"',
+                "assumptions:",
+                '  - "Assumption"',
+                "variables:",
+                "  x:",
+                '    unit: "1"',
+                '    description: "Variable"',
+                "evidence:",
+                "  experiments:",
+                '    - "EXP-9999"',
+                'verdict: "Pending"',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    try:
+        validate_repository(repo_root)
+    except ValueError as exc:
+        assert "missing experiment id" in str(exc)
+    else:
+        raise AssertionError("Expected missing reference validation to fail")
+
+
+def test_cli_validate_repo_smoke() -> None:
+    runner = CliRunner()
+    result = runner.invoke(app, ["validate-repo", "."])
+
+    assert result.exit_code == 0
+    assert "Validated repository:" in result.stdout
+    assert "- hypotheses: 1" in result.stdout

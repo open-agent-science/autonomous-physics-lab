@@ -1,5 +1,6 @@
 """Registry helpers for public scientific memory."""
 
+from physics_lab.registry.claims import load_claim
 from physics_lab.registry.agents import load_agent
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
@@ -9,6 +10,7 @@ from physics_lab.registry.validation import infer_kind_from_path, load_schema, v
 
 __all__ = [
     "infer_kind_from_path",
+    "load_claim",
     "load_agent",
     "load_experiment",
     "load_hypothesis",

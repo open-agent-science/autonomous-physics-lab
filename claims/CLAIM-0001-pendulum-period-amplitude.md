@@ -1,3 +1,15 @@
+---
+id: CLAIM-0001
+title: Pendulum Period Depends on Amplitude
+domain: classical_mechanics
+status: DRAFT
+hypothesis_id: HYP-0001
+evidence:
+  experiments:
+    - EXP-0001
+scope: Initial scope covers amplitude correction for the ideal pendulum in classical mechanics.
+---
+
 # CLAIM-0001: Pendulum Period Depends on Amplitude
 
 ## Statement

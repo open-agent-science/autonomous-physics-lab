@@ -7,7 +7,8 @@ from typing import Optional
 
 import typer
 
-from physics_lab.registry import infer_kind_from_path, load_agent, load_experiment, load_hypothesis, load_result, load_task
+from physics_lab.registry import infer_kind_from_path, load_agent, load_claim, load_experiment, load_hypothesis, load_result, load_task
+from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.runner import run_pendulum_experiment
 
 app = typer.Typer(help="Autonomous Physics Lab command line interface.")
@@ -35,6 +36,7 @@ def validate(path: str, kind: Optional[str] = None) -> None:
     resolved_kind = kind or infer_kind_from_path(artifact_path)
     loaders = {
         "agent": load_agent,
+        "claim": load_claim,
         "experiment": load_experiment,
         "hypothesis": load_hypothesis,
         "result": load_result,
@@ -45,6 +47,16 @@ def validate(path: str, kind: Optional[str] = None) -> None:
     except KeyError as exc:
         raise typer.BadParameter(f"Unsupported validation kind: {resolved_kind}") from exc
     typer.echo(f"Validated {artifact_path} as {resolved_kind}.")
+
+
+@app.command("validate-repo")
+def validate_repo(root: str = typer.Argument(".")) -> None:
+    """Validate all structured repository artifacts and cross-references."""
+    summary = validate_repository(Path(root))
+    typer.echo(f"Validated repository: {summary.root}")
+    for kind, count in summary.counts.items():
+        typer.echo(f"- {kind}: {count}")
+    typer.echo(f"Total validated files: {summary.total_files}")
 
 
 if __name__ == "__main__":

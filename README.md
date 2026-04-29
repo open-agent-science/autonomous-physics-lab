@@ -57,12 +57,21 @@ autonomous-physics-lab/
 
 ## Status
 
-The repository is currently in foundation stage:
+The repository currently has a working first vertical slice:
 
-- architecture and documentation are being set up;
+- architecture and documentation are in place;
 - the public knowledge layout is defined;
-- the first scientific workflow is the next implementation target.
+- the pendulum formula discovery MVP works end-to-end;
+- structured artifact validation and repo-wide checks are implemented.
 
 See [docs/architecture.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/architecture.md),
 [docs/roadmap.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/roadmap.md), and
 [docs/implementation-plan.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/implementation-plan.md).
+
+## Planning Docs
+
+Use these files to continue the project without guessing:
+
+- [docs/implementation-plan.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/implementation-plan.md) for phased strategy
+- [docs/next-steps.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/next-steps.md) for the immediate working queue
+- [docs/backlog.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/backlog.md) for medium-term and deferred tasks
