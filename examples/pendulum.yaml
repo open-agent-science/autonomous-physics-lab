@@ -1,0 +1,5 @@
+experiment_path: ../experiments/EXP-0001-pendulum-formula-discovery.yaml
+hypothesis_path: ../hypotheses/HYP-0001-pendulum-correction.yaml
+report_path: reports/pendulum_formula_discovery.md
+metrics_path: ../results/EXP-0001/metrics.json
+train_fraction: 0.7
