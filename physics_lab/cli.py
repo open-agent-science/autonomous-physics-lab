@@ -7,7 +7,7 @@ from typing import Optional
 
 import typer
 
-from physics_lab.registry import infer_kind_from_path, load_agent, load_claim, load_experiment, load_hypothesis, load_result, load_task
+from physics_lab.registry import infer_kind_from_path, load_agent, load_claim, load_example_config, load_experiment, load_hypothesis, load_knowledge, load_result, load_task
 from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.runner import run_pendulum_experiment
 
@@ -37,8 +37,10 @@ def validate(path: str, kind: Optional[str] = None) -> None:
     loaders = {
         "agent": load_agent,
         "claim": load_claim,
+        "example_config": load_example_config,
         "experiment": load_experiment,
         "hypothesis": load_hypothesis,
+        "knowledge": load_knowledge,
         "result": load_result,
         "task": load_task,
     }

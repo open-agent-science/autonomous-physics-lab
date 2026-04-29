@@ -34,6 +34,9 @@ Completed:
   - `limitations`
   - `engine_version`
   - `generated_at`
+- schema coverage for:
+  - `knowledge/`
+  - example configs such as `examples/pendulum.yaml`
 
 Current validation commands:
 
@@ -46,20 +49,7 @@ python3 -m physics_lab.cli validate-repo .
 
 ## Recommended Next Work
 
-### 1. Add Knowledge and Example Schemas
-
-The public-memory layer is still missing formal contracts for:
-
-- `knowledge/`;
-- example config files such as `examples/pendulum.yaml`.
-
-Definition of done:
-
-- JSON schema(s) added;
-- loader/validator helpers added if needed;
-- `validate-repo` or a related command checks them.
-
-### 2. Add Claim/Knowledge Update Workflow
+### 1. Add Claim/Knowledge Update Workflow
 
 Right now claims and knowledge notes are manually curated.
 
@@ -73,7 +63,7 @@ Definition of done:
 - workflow can emit structured summary text;
 - claim and knowledge update path is documented and testable.
 
-### 3. Expand the Physics Verification Stack
+### 2. Expand the Physics Verification Stack
 
 The next scientific layer should go beyond numeric fit quality.
 
@@ -86,6 +76,16 @@ Best next checks:
 Definition of done:
 
 - at least one extra verification signal beyond curve fit metrics is active.
+
+### 3. Add Repo Status and Contributor Docs
+
+The project now has enough moving parts that handoff quality matters more.
+
+Best next docs/tools:
+
+- a contributor guide for humans and LLM agents;
+- a repo-level status command;
+- a short architecture index or map.
 
 ## Do Not Prioritize Yet
 

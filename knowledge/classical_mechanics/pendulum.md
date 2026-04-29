@@ -1,3 +1,19 @@
+---
+id: KNOW-0001
+title: Pendulum
+domain: classical_mechanics
+topic: ideal mathematical pendulum
+linked_objects:
+  hypotheses:
+    - HYP-0001
+  experiments:
+    - EXP-0001
+  claims:
+    - CLAIM-0001
+  tasks:
+    - TASK-0001
+---
+
 # Pendulum
 
 ## Topic

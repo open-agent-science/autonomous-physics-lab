@@ -13,8 +13,10 @@ from jsonschema import Draft202012Validator
 SCHEMA_DIRECTORY = Path(__file__).resolve().parent.parent / "schemas"
 SCHEMA_FILE_BY_KIND = {
     "claim": "claim.schema.json",
+    "example_config": "example_config.schema.json",
     "hypothesis": "hypothesis.schema.json",
     "experiment": "experiment.schema.json",
+    "knowledge": "knowledge.schema.json",
     "task": "task.schema.json",
     "agent": "agent.schema.json",
     "result": "result.schema.json",
@@ -23,9 +25,11 @@ KIND_BY_DIRECTORY = {
     "claims": "claim",
     "hypotheses": "hypothesis",
     "experiments": "experiment",
+    "knowledge": "knowledge",
     "tasks": "task",
     "agents": "agent",
     "results": "result",
+    "examples": "example_config",
 }
 
 

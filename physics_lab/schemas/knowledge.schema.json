@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "domain",
+    "topic",
+    "linked_objects",
+    "body"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^KNOW-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain": {
+      "type": "string",
+      "minLength": 1
+    },
+    "topic": {
+      "type": "string",
+      "minLength": 1
+    },
+    "linked_objects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hypotheses",
+        "experiments",
+        "claims",
+        "tasks"
+      ],
+      "properties": {
+        "hypotheses": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^HYP-[0-9]{4}$"
+          }
+        },
+        "experiments": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^EXP-[0-9]{4}$"
+          }
+        },
+        "claims": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^CLAIM-[0-9]{4}$"
+          }
+        },
+        "tasks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^TASK-[0-9]{4}$"
+          }
+        }
+      }
+    },
+    "body": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

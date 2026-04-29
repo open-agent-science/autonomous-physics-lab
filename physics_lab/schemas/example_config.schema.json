@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExampleConfig",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_path",
+    "hypothesis_path",
+    "task_id",
+    "train_fraction"
+  ],
+  "properties": {
+    "experiment_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hypothesis_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^TASK-[0-9]{4}$"
+    },
+    "train_fraction": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "exclusiveMaximum": 1
+    }
+  }
+}

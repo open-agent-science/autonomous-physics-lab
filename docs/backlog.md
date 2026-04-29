@@ -16,8 +16,6 @@ when they become active priorities.
 
 ## Registry and Validation
 
-- Add schema and validation flow for `knowledge/`.
-- Add schema and validation flow for example config files.
 - Add optional strict mode for `validate-repo`.
 - Add detection of orphaned artifacts not referenced by any experiment or claim.
 - Add validation that claim status is consistent with available result evidence.

@@ -4,7 +4,7 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from physics_lab.cli import app
-from physics_lab.registry import load_agent, load_claim, load_experiment, load_hypothesis, load_result, load_task
+from physics_lab.registry import load_agent, load_claim, load_example_config, load_experiment, load_hypothesis, load_knowledge, load_result, load_task
 from physics_lab.registry.repository import validate_repository
 from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_all_models
@@ -246,8 +246,10 @@ def test_cli_run_smoke() -> None:
 def test_registry_files_validate_against_schemas() -> None:
     repo_root = Path(__file__).resolve().parent.parent
     load_claim(repo_root / "claims" / "CLAIM-0001-pendulum-period-amplitude.md")
+    load_example_config(repo_root / "examples" / "pendulum.yaml")
     load_hypothesis(repo_root / "hypotheses" / "HYP-0001-pendulum-correction.yaml")
     load_experiment(repo_root / "experiments" / "EXP-0001-pendulum-formula-discovery.yaml")
+    load_knowledge(repo_root / "knowledge" / "classical_mechanics" / "pendulum.md")
     load_task(repo_root / "tasks" / "TASK-0001-fit-better-pendulum-model.yaml")
     load_agent(repo_root / "agents" / "example-agent.yaml")
 
@@ -266,8 +268,10 @@ def test_validate_repository_smoke() -> None:
     summary = validate_repository(repo_root)
 
     assert summary.counts["claims"] == 1
+    assert summary.counts["examples"] == 1
     assert summary.counts["hypotheses"] == 1
     assert summary.counts["experiments"] == 1
+    assert summary.counts["knowledge"] == 1
     assert summary.counts["tasks"] == 1
     assert summary.counts["agents"] == 1
     assert summary.counts["results"] >= 1
@@ -321,4 +325,6 @@ def test_cli_validate_repo_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Validated repository:" in result.stdout
+    assert "- examples: 1" in result.stdout
     assert "- hypotheses: 1" in result.stdout
+    assert "- knowledge: 1" in result.stdout
