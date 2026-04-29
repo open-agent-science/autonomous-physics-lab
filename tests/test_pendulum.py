@@ -135,7 +135,11 @@ def test_runner_generates_report_and_metrics(tmp_path) -> None:
     assert outcome.best_model_id
     assert report_path.exists()
     metrics_path = result_dir / "metrics.json"
+    claim_update_path = result_dir / "claim_update.md"
+    knowledge_update_path = result_dir / "knowledge_update.md"
     assert metrics_path.exists()
+    assert claim_update_path.exists()
+    assert knowledge_update_path.exists()
     payload = json.loads(metrics_path.read_text(encoding="utf-8"))
     assert payload["experiment_id"] == "EXP-0001"
     assert payload["task_id"] == "TASK-0001"
@@ -144,6 +148,8 @@ def test_runner_generates_report_and_metrics(tmp_path) -> None:
     assert payload["engine_version"]
     assert payload["generated_at"]
     assert payload["scores"]
+    assert "Proposed Update for CLAIM-0001" in claim_update_path.read_text(encoding="utf-8")
+    assert "Proposed Update for KNOW-0001" in knowledge_update_path.read_text(encoding="utf-8")
     load_result(metrics_path)
 
 
@@ -231,8 +237,12 @@ def test_runner_resolves_experiment_outputs_from_repo_root(tmp_path) -> None:
 
     assert outcome.artifacts.report_path == repo_root / "examples" / "reports" / "pendulum_formula_discovery.md"
     assert outcome.artifacts.metrics_path == repo_root / "results" / "EXP-0001" / "metrics.json"
+    assert outcome.artifacts.claim_update_path == repo_root / "results" / "EXP-0001" / "claim_update.md"
+    assert outcome.artifacts.knowledge_update_path == repo_root / "results" / "EXP-0001" / "knowledge_update.md"
     assert outcome.artifacts.report_path.exists()
     assert outcome.artifacts.metrics_path.exists()
+    assert outcome.artifacts.claim_update_path.exists()
+    assert outcome.artifacts.knowledge_update_path.exists()
 
 
 def test_cli_run_smoke() -> None:
@@ -241,6 +251,8 @@ def test_cli_run_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Completed: Pendulum Formula Discovery" in result.stdout
+    assert "Claim update:" in result.stdout
+    assert "Knowledge update:" in result.stdout
 
 
 def test_registry_files_validate_against_schemas() -> None:

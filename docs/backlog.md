@@ -34,7 +34,7 @@ when they become active priorities.
 
 - Add plots as optional artifacts.
 - Add structured report sections for limitations and failure cases.
-- Add a helper for claim and knowledge update proposals after successful runs.
+- Make claim and knowledge update artifacts more structured and easier to apply automatically.
 
 ## Contributor Experience
 

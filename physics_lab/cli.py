@@ -27,6 +27,8 @@ def run(config_path: str) -> None:
     typer.echo(f"Best model: {outcome.best_model_id}")
     typer.echo(f"Report: {outcome.artifacts.report_path}")
     typer.echo(f"Metrics: {outcome.artifacts.metrics_path}")
+    typer.echo(f"Claim update: {outcome.artifacts.claim_update_path}")
+    typer.echo(f"Knowledge update: {outcome.artifacts.knowledge_update_path}")
 
 
 @app.command("validate")

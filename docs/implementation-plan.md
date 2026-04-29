@@ -21,6 +21,7 @@ Completed so far:
   - referential integrity checks.
   - richer result semantics and traceability metadata
   - schema coverage for knowledge notes and example configs
+  - generated claim and knowledge update helper artifacts
 
 Use [next-steps.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/next-steps.md)
 for the active short-term queue.
@@ -95,7 +96,7 @@ Definition of done:
 Status:
 
 - partially implemented
-- remaining work includes claim/knowledge update flow and deeper evidence semantics
+- remaining work includes deeper evidence semantics and more automated public-memory updates
 
 ## Phase 3: Verification Stack Expansion
 
@@ -130,10 +131,10 @@ Implementation targets:
 
 This is the practical order I recommend next:
 
-1. add claim and knowledge update helpers;
-2. add known-limit and symbolic verification hooks;
-3. add the next benchmark physics workflow;
-4. improve contributor docs and project status tooling.
+1. add known-limit and symbolic verification hooks;
+2. add the next benchmark physics workflow;
+3. improve contributor docs and project status tooling;
+4. deepen claim and knowledge evidence semantics.
 
 ## Risks to Avoid
 

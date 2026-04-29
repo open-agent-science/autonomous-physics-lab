@@ -26,6 +26,8 @@ class ExperimentArtifacts:
 
     report_path: Path
     metrics_path: Path
+    claim_update_path: Path
+    knowledge_update_path: Path
 
 
 @dataclass(frozen=True)
@@ -177,6 +179,104 @@ def _build_limitations() -> list[str]:
     ]
 
 
+def _build_claim_update(
+    claim_id: str,
+    experiment_id: str,
+    hypothesis_id: str,
+    task_id: str,
+    best_score: ModelScore,
+    best_verdict: str,
+    train_range: tuple[float, float],
+    test_range: tuple[float, float],
+) -> str:
+    return "\n".join(
+        [
+            f"# Proposed Update for {claim_id}",
+            "",
+            f"- Hypothesis: `{hypothesis_id}`",
+            f"- Experiment: `{experiment_id}`",
+            f"- Task: `{task_id}`",
+            "",
+            "## Suggested Evidence Update",
+            "",
+            (
+                "The pendulum period depends on amplitude, and within the tested benchmark "
+                f"the best candidate approximation was `{best_score.model_id}` "
+                f"with verdict `{best_verdict}`."
+            ),
+            "",
+            "## Suggested Range Language",
+            "",
+            (
+                "Valid only within the sampled ranges used by this workflow: "
+                f"train `{train_range[0]:.4f}` to `{train_range[1]:.4f}` rad, "
+                f"test `{test_range[0]:.4f}` to `{test_range[1]:.4f}` rad."
+            ),
+            "",
+            "## Suggested Metrics",
+            "",
+            f"- Mean relative error (test): `{best_score.test_metrics.mean_relative_error:.6f}`",
+            f"- Max relative error (test): `{best_score.test_metrics.max_relative_error:.6f}`",
+            f"- Complexity score: `{best_score.complexity_score}`",
+            "",
+            "## Suggested Caution",
+            "",
+            "Keep the claim range-aware and avoid wording that implies exact discovery or universal validity.",
+            "",
+        ]
+    )
+
+
+def _build_knowledge_update(
+    knowledge_id: str,
+    experiment_id: str,
+    hypothesis_id: str,
+    task_id: str,
+    best_score: ModelScore,
+    best_verdict: str,
+    limitations: list[str],
+) -> str:
+    lines = [
+        f"# Proposed Update for {knowledge_id}",
+        "",
+        f"- Hypothesis: `{hypothesis_id}`",
+        f"- Experiment: `{experiment_id}`",
+        f"- Task: `{task_id}`",
+        "",
+        "## Suggested Addition",
+        "",
+        (
+            f"The current pendulum benchmark selected `{best_score.model_id}` "
+            f"(`{best_score.formula}`) as the best-performing candidate with verdict `{best_verdict}`."
+        ),
+        "",
+        "## Suggested Coefficients",
+        "",
+    ]
+    lines.extend(
+        [f"- `{name}` = `{value:.8f}`" for name, value in best_score.coefficients.items()]
+    )
+    lines.extend(
+        [
+            "",
+            "## Suggested Limitations Section",
+            "",
+        ]
+    )
+    lines.extend([f"- {limitation}" for limitation in limitations])
+    lines.extend(
+        [
+            "",
+            "## Suggested Open Questions",
+            "",
+            "- Can a known-limit-aware approximation outperform the current candidate?",
+            "- Should the next benchmark include damping, forcing, or a wider amplitude regime?",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     """Execute the pendulum formula discovery workflow from an example config."""
     config_path = Path(config_path).resolve()
@@ -229,15 +329,18 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     report_path = _resolve_path(repo_root, experiment_outputs["report_path"])
     result_dir = _resolve_path(repo_root, experiment_outputs["result_dir"])
     metrics_path = result_dir / "metrics.json"
+    claim_update_path = result_dir / "claim_update.md"
+    knowledge_update_path = result_dir / "knowledge_update.md"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     result_dir.mkdir(parents=True, exist_ok=True)
+    limitations = _build_limitations()
 
     report_text = _build_report(
         title=str(experiment["title"]),
         hypothesis_id=str(experiment["hypothesis_id"]),
         task_id=task_id,
         assumptions=list(hypothesis.get("assumptions", [])),
-        limitations=_build_limitations(),
+        limitations=limitations,
         train_range=(float(train_theta[0]), float(train_theta[-1])),
         test_range=(float(test_theta[0]), float(test_theta[-1])),
         scores=scores,
@@ -252,7 +355,7 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         "hypothesis_id": str(experiment["hypothesis_id"]),
         "task_id": task_id,
         "code_reference": "physics_lab/workflows/runner.py",
-        "limitations": _build_limitations(),
+        "limitations": limitations,
         "engine_version": __version__,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "train_range": [float(train_theta[0]), float(train_theta[-1])],
@@ -263,6 +366,30 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     validate_result_payload(metrics_payload, source=metrics_path)
     metrics_path.write_text(json.dumps(metrics_payload, indent=2), encoding="utf-8")
 
+    best_score = scores[0]
+    best_verdict = verdicts[best_model_id]
+    claim_update_text = _build_claim_update(
+        claim_id="CLAIM-0001",
+        experiment_id=str(experiment["id"]),
+        hypothesis_id=str(experiment["hypothesis_id"]),
+        task_id=task_id,
+        best_score=best_score,
+        best_verdict=best_verdict,
+        train_range=(float(train_theta[0]), float(train_theta[-1])),
+        test_range=(float(test_theta[0]), float(test_theta[-1])),
+    )
+    knowledge_update_text = _build_knowledge_update(
+        knowledge_id="KNOW-0001",
+        experiment_id=str(experiment["id"]),
+        hypothesis_id=str(experiment["hypothesis_id"]),
+        task_id=task_id,
+        best_score=best_score,
+        best_verdict=best_verdict,
+        limitations=limitations,
+    )
+    claim_update_path.write_text(claim_update_text, encoding="utf-8")
+    knowledge_update_path.write_text(knowledge_update_text, encoding="utf-8")
+
     return ExperimentOutcome(
         title=str(experiment["title"]),
         hypothesis_id=str(experiment["hypothesis_id"]),
@@ -272,5 +399,10 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         scores=scores,
         verdicts=verdicts,
         best_model_id=best_model_id,
-        artifacts=ExperimentArtifacts(report_path=report_path, metrics_path=metrics_path),
+        artifacts=ExperimentArtifacts(
+            report_path=report_path,
+            metrics_path=metrics_path,
+            claim_update_path=claim_update_path,
+            knowledge_update_path=knowledge_update_path,
+        ),
     )

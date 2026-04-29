@@ -37,6 +37,7 @@ Completed:
 - schema coverage for:
   - `knowledge/`
   - example configs such as `examples/pendulum.yaml`
+- claim and knowledge update helper artifacts generated from validated runs
 
 Current validation commands:
 
@@ -49,21 +50,7 @@ python3 -m physics_lab.cli validate-repo .
 
 ## Recommended Next Work
 
-### 1. Add Claim/Knowledge Update Workflow
-
-Right now claims and knowledge notes are manually curated.
-
-Next improvement:
-
-- add a helper that updates or proposes updates after a validated run;
-- keep wording cautious and range-aware.
-
-Definition of done:
-
-- workflow can emit structured summary text;
-- claim and knowledge update path is documented and testable.
-
-### 2. Expand the Physics Verification Stack
+### 1. Expand the Physics Verification Stack
 
 The next scientific layer should go beyond numeric fit quality.
 
@@ -77,7 +64,7 @@ Definition of done:
 
 - at least one extra verification signal beyond curve fit metrics is active.
 
-### 3. Add Repo Status and Contributor Docs
+### 2. Add Repo Status and Contributor Docs
 
 The project now has enough moving parts that handoff quality matters more.
 
@@ -86,6 +73,16 @@ Best next docs/tools:
 - a contributor guide for humans and LLM agents;
 - a repo-level status command;
 - a short architecture index or map.
+
+### 3. Tighten Claim/Knowledge Evidence Semantics
+
+The project now generates update suggestions, but evidence handling can still be stronger.
+
+Best next improvements:
+
+- derive claim status suggestions from validated results;
+- make knowledge updates more structured and section-aware;
+- optionally track which result artifact informed a proposed update.
 
 ## Do Not Prioritize Yet
 
