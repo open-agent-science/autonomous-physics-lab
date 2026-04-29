@@ -1,0 +1,31 @@
+id: EXP-0001
+title: "Pendulum Formula Discovery"
+domain: classical_mechanics
+status: PLANNED
+
+hypothesis_id: HYP-0001
+
+method:
+  type: formula_discovery
+  simulator: exact_pendulum_period_ratio
+  fitter: deterministic_least_squares
+
+data:
+  amplitude_range_radians:
+    start: 0.01
+    end: 1.5707963267948966
+  sample_count: 200
+
+candidate_models:
+  - id: model_theta2
+    formula: "1 + a*theta^2"
+  - id: model_theta2_theta4
+    formula: "1 + a*theta^2 + b*theta^4"
+  - id: model_sin2
+    formula: "1 + a*sin(theta/2)^2"
+  - id: model_x_x2
+    formula: "1 + a*x + b*x^2, x = sin(theta/2)^2"
+
+outputs:
+  report_path: "examples/reports/pendulum_formula_discovery.md"
+  result_dir: "results/EXP-0001"

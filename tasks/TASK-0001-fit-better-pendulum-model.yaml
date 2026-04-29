@@ -1,0 +1,28 @@
+id: TASK-0001
+title: "Find better pendulum correction formula"
+type: formula_discovery
+status: OPEN
+difficulty: medium
+priority: high
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Use deterministic code"
+  - "Report train and test ranges"
+  - "Include mean and max relative error"
+  - "List assumptions and limitations"
+  - "Avoid unsupported discovery claims"
+
+accepted_outputs:
+  - "result yaml or json"
+  - "markdown report"
+  - "code reference"
+
+can_be_done_by:
+  - human
+  - llm_agent
+  - symbolic_agent
+  - simulation_agent

@@ -1,0 +1,124 @@
+# Implementation Plan
+
+## Current Decision
+
+Start with a narrow but complete vertical slice:
+
+`Hypothesis -> Experiment -> Result -> Claim -> Knowledge -> Next Task`
+
+The first slice is `Pendulum Formula Discovery`.
+
+## Phase 0: Foundation
+
+Goal: create the repository contract before writing scientific code.
+
+Done in this phase:
+
+- define positioning;
+- define architecture;
+- define public knowledge layout;
+- define agent/task model;
+- define roadmap and MVP boundaries.
+
+Outputs:
+
+- `README.md`
+- `AGENTS.md`
+- `CODEX_TASK.md`
+- `docs/*.md`
+- starter registry files
+
+## Phase 1: Scientific Core MVP
+
+Goal: make one deterministic experiment run end-to-end.
+
+Implementation targets:
+
+1. minimal Python package scaffold;
+2. exact pendulum simulator using elliptic integral;
+3. candidate formula fitting;
+4. scoring and verdict engine;
+5. Markdown report writer;
+6. CLI command for running an example experiment;
+7. fast tests;
+8. minimal CI.
+
+Definition of done:
+
+- `physics-lab run examples/pendulum.yaml` works;
+- report file is produced;
+- metrics artifact is stored;
+- tests pass quickly;
+- lint passes.
+
+## Phase 2: Public Memory Integration
+
+Goal: connect the code workflow to repository knowledge objects.
+
+Implementation targets:
+
+1. load hypothesis and experiment definitions from files;
+2. write result artifacts into `results/`;
+3. link results to claim and knowledge references;
+4. validate structured object shape with schemas.
+
+Definition of done:
+
+- experiment inputs come from versioned files;
+- outputs can be traced back to ids;
+- artifact naming is stable and reviewable.
+
+## Phase 3: Verification Stack Expansion
+
+Goal: move from one simulator into a real verification platform.
+
+Implementation targets:
+
+1. dimensional analysis hooks;
+2. symbolic validation helpers;
+3. known-limit tests;
+4. more benchmark physics problems.
+
+Candidate next domains:
+
+- orbital perturbation;
+- diffusion scaling;
+- damped oscillator corrections.
+
+## Phase 4: Open Agent Workflow
+
+Goal: allow others to contribute in a controlled way.
+
+Implementation targets:
+
+1. task schema;
+2. agent manifest schema;
+3. contribution guide;
+4. CI checks for structured files;
+5. result review flow.
+
+## Near-Term Execution Order
+
+This is the practical order I recommend next:
+
+1. create the minimal package and `pyproject.toml`;
+2. add pendulum example config;
+3. implement simulation engine;
+4. implement formula fitting;
+5. implement scoring and verdicts;
+6. implement report generation and CLI;
+7. add tests;
+8. add CI workflow.
+
+## Risks to Avoid
+
+- adding too much infra before one workflow works;
+- mixing scientific claims with unverified prose;
+- adding LLM logic before deterministic validation exists;
+- building dashboard or agent orchestration too early;
+- over-promising with "new physics" language before verification is mature.
+
+## Working Principle
+
+At each step, prefer a smaller reproducible system over a broader speculative
+one.
