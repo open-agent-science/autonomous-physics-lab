@@ -61,9 +61,11 @@ def _validate_references(
     tasks: list[tuple[Path, dict[str, Any]]],
     claims: list[tuple[Path, dict[str, Any]]],
     results: list[tuple[Path, dict[str, Any]]],
+    root_path: Path,
 ) -> None:
     hypothesis_ids = {payload["id"] for _, payload in hypotheses}
     experiment_ids = {payload["id"] for _, payload in experiments}
+    task_ids = {payload["id"] for _, payload in tasks}
 
     for path, payload in experiments:
         if payload["hypothesis_id"] not in hypothesis_ids:
@@ -105,6 +107,13 @@ def _validate_references(
             raise ValueError(
                 f"{path} lives in {path.parent.name} but declares experiment_id {payload['experiment_id']}"
             )
+        if payload["task_id"] not in task_ids:
+            raise ValueError(f"{path} references missing task_id: {payload['task_id']}")
+        code_reference = (root_path / payload["code_reference"]).resolve()
+        if not code_reference.exists():
+            raise ValueError(
+                f"{path} references missing code_reference: {payload['code_reference']}"
+            )
 
 
 def validate_repository(root: str | Path) -> RepositoryValidationSummary:
@@ -123,6 +132,7 @@ def validate_repository(root: str | Path) -> RepositoryValidationSummary:
         tasks=tasks,
         claims=claims,
         results=results,
+        root_path=root_path,
     )
 
     counts = {

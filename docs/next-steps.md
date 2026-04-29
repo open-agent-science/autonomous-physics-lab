@@ -28,6 +28,12 @@ Completed:
 - JSON schema validation for hypothesis, experiment, task, agent, claim, and result;
 - `physics-lab validate` and `physics-lab validate-repo`;
 - referential integrity checks across core registry objects.
+- richer result metadata:
+  - `task_id`
+  - `code_reference`
+  - `limitations`
+  - `engine_version`
+  - `generated_at`
 
 Current validation commands:
 
@@ -40,25 +46,7 @@ python3 -m physics_lab.cli validate-repo .
 
 ## Recommended Next Work
 
-### 1. Strengthen Result Semantics
-
-Add richer result metadata so outputs are more reusable by humans and agents.
-
-Recommended additions:
-
-- `task_id`;
-- `code_reference`;
-- `limitations`;
-- `engine_version`;
-- `generated_at`.
-
-Definition of done:
-
-- result schema updated;
-- workflow writes the new fields;
-- tests cover them.
-
-### 2. Add Knowledge and Example Schemas
+### 1. Add Knowledge and Example Schemas
 
 The public-memory layer is still missing formal contracts for:
 
@@ -71,7 +59,7 @@ Definition of done:
 - loader/validator helpers added if needed;
 - `validate-repo` or a related command checks them.
 
-### 3. Add Claim/Knowledge Update Workflow
+### 2. Add Claim/Knowledge Update Workflow
 
 Right now claims and knowledge notes are manually curated.
 
@@ -85,7 +73,7 @@ Definition of done:
 - workflow can emit structured summary text;
 - claim and knowledge update path is documented and testable.
 
-### 4. Expand the Physics Verification Stack
+### 3. Expand the Physics Verification Stack
 
 The next scientific layer should go beyond numeric fit quality.
 

@@ -1,3 +1,4 @@
 experiment_path: ../experiments/EXP-0001-pendulum-formula-discovery.yaml
 hypothesis_path: ../hypotheses/HYP-0001-pendulum-correction.yaml
+task_id: TASK-0001
 train_fraction: 0.7

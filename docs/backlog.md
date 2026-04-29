@@ -34,7 +34,6 @@ when they become active priorities.
 
 ## Workflow and Reporting
 
-- Add richer result metadata.
 - Add plots as optional artifacts.
 - Add structured report sections for limitations and failure cases.
 - Add a helper for claim and knowledge update proposals after successful runs.

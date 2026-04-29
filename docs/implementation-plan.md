@@ -19,6 +19,7 @@ Completed so far:
   - schema validation;
   - repo-wide validation;
   - referential integrity checks.
+  - richer result semantics and traceability metadata
 
 Use [next-steps.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/next-steps.md)
 for the active short-term queue.
@@ -128,11 +129,10 @@ Implementation targets:
 
 This is the practical order I recommend next:
 
-1. add richer result metadata and result semantics;
-2. add schema coverage for `knowledge/` and example config files;
-3. add claim and knowledge update helpers;
-4. add known-limit and symbolic verification hooks;
-5. add the next benchmark physics workflow.
+1. add schema coverage for `knowledge/` and example config files;
+2. add claim and knowledge update helpers;
+3. add known-limit and symbolic verification hooks;
+4. add the next benchmark physics workflow.
 
 ## Risks to Avoid
 

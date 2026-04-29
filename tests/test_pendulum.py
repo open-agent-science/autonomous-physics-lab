@@ -122,6 +122,7 @@ def test_runner_generates_report_and_metrics(tmp_path) -> None:
             [
                 f"experiment_path: {experiment_path}",
                 f"hypothesis_path: {hypothesis_path}",
+                "task_id: TASK-0001",
                 "train_fraction: 0.7",
             ]
         )
@@ -137,6 +138,11 @@ def test_runner_generates_report_and_metrics(tmp_path) -> None:
     assert metrics_path.exists()
     payload = json.loads(metrics_path.read_text(encoding="utf-8"))
     assert payload["experiment_id"] == "EXP-0001"
+    assert payload["task_id"] == "TASK-0001"
+    assert payload["code_reference"] == "physics_lab/workflows/runner.py"
+    assert payload["limitations"]
+    assert payload["engine_version"]
+    assert payload["generated_at"]
     assert payload["scores"]
     load_result(metrics_path)
 
@@ -213,6 +219,7 @@ def test_runner_resolves_experiment_outputs_from_repo_root(tmp_path) -> None:
             [
                 f"experiment_path: {experiment_path}",
                 f"hypothesis_path: {hypothesis_path}",
+                "task_id: TASK-0001",
                 "train_fraction: 0.7",
             ]
         )
@@ -255,6 +262,7 @@ def test_cli_validate_hypothesis_smoke() -> None:
 
 def test_validate_repository_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
+    run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
     summary = validate_repository(repo_root)
 
     assert summary.counts["claims"] == 1
@@ -306,6 +314,8 @@ def test_validate_repository_detects_missing_reference(tmp_path) -> None:
 
 
 def test_cli_validate_repo_smoke() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
     runner = CliRunner()
     result = runner.invoke(app, ["validate-repo", "."])
 

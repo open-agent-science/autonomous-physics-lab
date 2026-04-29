@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import yaml
 
+from physics_lab import __version__
 from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_all_models
 from physics_lab.engines.scoring import ModelScore, score_model
@@ -32,6 +34,7 @@ class ExperimentOutcome:
 
     title: str
     hypothesis_id: str
+    task_id: str
     train_range: tuple[float, float]
     test_range: tuple[float, float]
     scores: list[ModelScore]
@@ -97,7 +100,9 @@ def _serialize_scores(scores: list[ModelScore], verdicts: dict[str, str]) -> lis
 def _build_report(
     title: str,
     hypothesis_id: str,
+    task_id: str,
     assumptions: list[str],
+    limitations: list[str],
     train_range: tuple[float, float],
     test_range: tuple[float, float],
     scores: list[ModelScore],
@@ -109,6 +114,7 @@ def _build_report(
         f"# {title}",
         "",
         f"- Hypothesis: `{hypothesis_id}`",
+        f"- Task: `{task_id}`",
         f"- Train range (rad): `{train_range[0]:.4f}` to `{train_range[1]:.4f}`",
         f"- Test range (rad): `{test_range[0]:.4f}` to `{test_range[1]:.4f}`",
         "",
@@ -116,6 +122,14 @@ def _build_report(
         "",
     ]
     lines.extend([f"- {assumption}" for assumption in assumptions])
+    lines.extend(
+        [
+            "",
+            "## Limitations",
+            "",
+        ]
+    )
+    lines.extend([f"- {limitation}" for limitation in limitations])
     lines.extend(
         [
             "",
@@ -155,6 +169,14 @@ def _build_report(
     return "\n".join(lines) + "\n"
 
 
+def _build_limitations() -> list[str]:
+    return [
+        "This workflow assumes an ideal mathematical pendulum with no damping or driving force.",
+        "Verdicts apply only to the sampled amplitude ranges used in the train and test split.",
+        "Candidate formulas are limited to predefined low-order approximation families.",
+    ]
+
+
 def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     """Execute the pendulum formula discovery workflow from an example config."""
     config_path = Path(config_path).resolve()
@@ -164,11 +186,14 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     repo_root = _find_repo_root(config_path)
     experiment = load_experiment(experiment_path)
     hypothesis = load_hypothesis(hypothesis_path)
+    task_id = str(config.get("task_id", ""))
     if experiment["hypothesis_id"] != hypothesis["id"]:
         raise ValueError(
             "Experiment hypothesis_id does not match loaded hypothesis id: "
             f"{experiment['hypothesis_id']} != {hypothesis['id']}"
         )
+    if not task_id:
+        raise ValueError("Experiment config must define task_id for result traceability")
 
     amplitude_range = experiment["data"]["amplitude_range_radians"]
     sample_count = int(experiment["data"]["sample_count"])
@@ -210,7 +235,9 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     report_text = _build_report(
         title=str(experiment["title"]),
         hypothesis_id=str(experiment["hypothesis_id"]),
+        task_id=task_id,
         assumptions=list(hypothesis.get("assumptions", [])),
+        limitations=_build_limitations(),
         train_range=(float(train_theta[0]), float(train_theta[-1])),
         test_range=(float(test_theta[0]), float(test_theta[-1])),
         scores=scores,
@@ -223,6 +250,11 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         "experiment_id": str(experiment["id"]),
         "title": str(experiment["title"]),
         "hypothesis_id": str(experiment["hypothesis_id"]),
+        "task_id": task_id,
+        "code_reference": "physics_lab/workflows/runner.py",
+        "limitations": _build_limitations(),
+        "engine_version": __version__,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "train_range": [float(train_theta[0]), float(train_theta[-1])],
         "test_range": [float(test_theta[0]), float(test_theta[-1])],
         "best_model_id": best_model_id,
@@ -234,6 +266,7 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     return ExperimentOutcome(
         title=str(experiment["title"]),
         hypothesis_id=str(experiment["hypothesis_id"]),
+        task_id=task_id,
         train_range=(float(train_theta[0]), float(train_theta[-1])),
         test_range=(float(test_theta[0]), float(test_theta[-1])),
         scores=scores,
