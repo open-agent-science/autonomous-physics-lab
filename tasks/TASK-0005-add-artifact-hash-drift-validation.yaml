@@ -1,0 +1,26 @@
+id: TASK-0005
+title: "Add artifact hash drift validation"
+type: repository_validation
+status: OPEN
+difficulty: medium
+priority: medium
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Detect when committed result metadata no longer matches current input hashes"
+  - "Keep routine validation fast"
+  - "Preserve non-dirty example-run behavior"
+  - "Document the limits of hash-based drift detection"
+
+accepted_outputs:
+  - "code reference"
+  - "markdown report"
+  - "verification summary"
+
+can_be_done_by:
+  - human
+  - llm_agent
+  - simulation_agent

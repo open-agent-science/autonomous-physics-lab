@@ -1,7 +1,7 @@
 id: TASK-0001
 title: "Find better pendulum correction formula"
 type: formula_discovery
-status: OPEN
+status: DONE
 difficulty: medium
 priority: high
 
@@ -20,6 +20,7 @@ accepted_outputs:
   - "result yaml or json"
   - "markdown report"
   - "code reference"
+  - "verification summary"
 
 can_be_done_by:
   - human

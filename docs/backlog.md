@@ -29,7 +29,7 @@ when they become active priorities.
 - Add benchmark workflows beyond pendulum:
   - orbital perturbation
   - diffusion scaling
-  - damped oscillator correction
+  - driven or nonlinear oscillator
 
 ## Workflow and Reporting
 
@@ -39,9 +39,8 @@ when they become active priorities.
 
 ## Contributor Experience
 
-- Add a contributor guide for humans and LLM agents.
-- Add a repo-level command that prints current project status.
 - Add a compact architecture index for quick onboarding.
+- Add a maintainer-facing claim promotion policy checklist.
 
 ## Longer-Term
 

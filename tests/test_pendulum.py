@@ -516,7 +516,7 @@ def test_validate_repository_smoke() -> None:
     assert summary.counts["hypotheses"] == 2
     assert summary.counts["experiments"] == 2
     assert summary.counts["knowledge"] == 2
-    assert summary.counts["tasks"] == 2
+    assert summary.counts["tasks"] == 5
     assert summary.counts["agents"] == 1
     assert summary.counts["results"] >= 2
 

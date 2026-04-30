@@ -1,0 +1,28 @@
+id: TASK-0003
+title: "Add theory-aware pendulum approximation near the separatrix"
+type: verifier_extension
+status: OPEN
+difficulty: high
+priority: high
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Use deterministic code"
+  - "Preserve the current in-range benchmark semantics"
+  - "Add explicit near-separatrix theory-aware checks or candidate families"
+  - "Explain scope limits in any updated claim suggestions"
+
+accepted_outputs:
+  - "result yaml or json"
+  - "markdown report"
+  - "code reference"
+  - "verification summary"
+
+can_be_done_by:
+  - human
+  - llm_agent
+  - symbolic_agent
+  - simulation_agent

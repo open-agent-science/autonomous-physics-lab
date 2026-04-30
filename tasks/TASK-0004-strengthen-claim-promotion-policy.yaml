@@ -1,0 +1,26 @@
+id: TASK-0004
+title: "Strengthen claim promotion policy"
+type: evidence_policy
+status: OPEN
+difficulty: medium
+priority: high
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Define when CLAIM files may move from DRAFT to PARTIALLY_SUPPORTED or SUPPORTED"
+  - "Keep evidence wording linked to concrete RESULT ids"
+  - "Document maintainer review expectations"
+  - "Avoid automatic promotion without human review"
+
+accepted_outputs:
+  - "markdown policy"
+  - "code reference"
+  - "verification summary"
+
+can_be_done_by:
+  - human
+  - llm_agent
+  - review_agent

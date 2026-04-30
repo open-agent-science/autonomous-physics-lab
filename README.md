@@ -40,6 +40,28 @@ The repository currently stabilizes two verification-first benchmark slices:
 Both benchmarks produce run-based artifacts under `results/<experiment>/<run>/`
 and are validated through the repository registry and CLI tooling.
 
+## Quickstart
+
+```bash
+git clone https://github.com/gladunrv/autonomous-physics-lab.git
+cd autonomous-physics-lab
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+python -m pip install --upgrade pip
+pip install -e ".[dev]"
+
+python -m ruff check .
+python -m pytest
+
+python -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
+python -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
+
+python -m physics_lab.cli validate-repo .
+python -m physics_lab.cli status .
+```
+
 ## Repository Shape
 
 ```text

@@ -155,19 +155,18 @@ Core relationships:
 
 v0.1 stays intentionally narrow.
 
-It should implement:
+It started with one deterministic workflow and now includes two stabilized
+public-alpha benchmark slices:
 
-- one deterministic workflow;
-- one hypothesis file;
-- one experiment file;
-- one claim;
-- one result directory;
-- one task definition;
-- one knowledge note.
+- `Pendulum Formula Discovery`
+- `Damped Oscillator Regime Verification`
 
-The first domain is classical mechanics:
+The current boundary still stays intentionally small:
 
-`Pendulum Formula Discovery`
+- classical mechanics only;
+- deterministic benchmark workflows only;
+- committed canonical result artifacts for a small number of curated runs;
+- public-memory objects that stay reviewable by humans and LLM contributors.
 
 ## Data Flow for v0.1
 

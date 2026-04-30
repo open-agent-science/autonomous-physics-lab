@@ -52,9 +52,9 @@ Next physics benchmarks.
 
 Deliverables:
 
-- damped oscillator benchmark;
 - diffusion scaling benchmark;
-- orbital perturbation benchmark candidates.
+- orbital perturbation benchmark candidates;
+- driven or nonlinear oscillator benchmark candidates.
 
 ## v0.6
 
