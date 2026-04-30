@@ -2,6 +2,7 @@
 __pycache__/
 .pytest_cache/
 .ruff_cache/
+_snapshots/
 *.pyc
 *.pyo
 *.pyd

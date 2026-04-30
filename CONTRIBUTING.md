@@ -16,6 +16,14 @@ python3 -m physics_lab.cli run examples/pendulum.yaml
 python3 -m physics_lab.cli validate-repo .
 ```
 
+For larger milestones, schema changes, roadmap updates, or public-release
+prep, generate a repository snapshot:
+
+```bash
+./scripts/apl_snapshot.sh
+RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh
+```
+
 ## Contribution Rules
 
 1. Do not submit unverifiable scientific claims.

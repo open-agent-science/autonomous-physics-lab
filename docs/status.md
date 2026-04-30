@@ -52,3 +52,21 @@ Suitable for public alpha once:
 - local validation stays green;
 - GitHub Actions is green;
 - roadmap and next steps remain honest about scope.
+
+## Snapshot Utility
+
+Use the repository snapshot script when you want a compact project state dump:
+
+```bash
+./scripts/apl_snapshot.sh
+RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh
+```
+
+Recommended times to run it:
+
+- after a meaningful Codex task;
+- before making the repository public;
+- before a tag or release;
+- after roadmap or architecture changes;
+- after schema or result-format changes;
+- after adding a new benchmark.
