@@ -45,9 +45,9 @@
 
 ## Verdict
 
-Best candidate: `model_theta2_theta4` with verdict `VALID`.
+Best candidate: `model_theta2_theta4` with verdict `VALID_IN_RANGE`.
 
 ## Conclusion
 
-This report describes approximation behavior within the tested amplitude ranges.
-It does not claim exact discovery; it identifies the best-performing candidate formula under the current benchmark.
+This report describes approximation behavior only within the configured train and test amplitude ranges.
+It does not claim exact discovery or validity near the separatrix; it identifies the best-performing candidate formula under the current benchmark.

@@ -1,78 +1,72 @@
-# Codex Task: Build v0.1 Pendulum Formula Discovery MVP
+# Codex Task: Continue the v0.2 Verification Stack
 
 Read `AGENTS.md` first and follow it.
 
 ## Goal
 
-Create a standalone Python package that can run a pendulum formula discovery
-experiment and store its artifacts in the public repository structure.
+Strengthen the pendulum benchmark as verification-backed scientific evidence.
 
-The experiment should:
+The current vertical slice already exists:
 
-1. generate exact pendulum period ratio data;
-2. fit simple correction formulas;
-3. compute errors;
-4. score models;
-5. write a Markdown report.
+`Hypothesis -> Experiment -> Result -> Claim -> Knowledge -> Next Task`
 
-## Required Files
+The next work should deepen verification quality, keep artifacts reproducible,
+and avoid overclaiming scientific validity.
 
-Create or update:
+## Priority Areas
+
+Work in or around:
 
 ```text
-physics_lab/cli.py
-physics_lab/engines/simulation.py
-physics_lab/engines/formula_discovery.py
-physics_lab/engines/scoring.py
-physics_lab/engines/critic.py
+physics_lab/engines/verification.py
+physics_lab/engines/symbolic.py
 physics_lab/workflows/runner.py
-examples/pendulum.yaml
+results/EXP-0001/RUN-0001/
 tests/test_pendulum.py
+docs/status.md
+docs/next-steps.md
 ```
 
-## CLI
+## Current Canonical Outputs
 
-This command should work:
-
-```bash
-physics-lab run examples/pendulum.yaml
-```
-
-## Expected Output
-
-Generate:
+The canonical artifacts live here:
 
 ```text
-examples/reports/pendulum_formula_discovery.md
-results/EXP-0001/
+results/EXP-0001/RUN-0001/result.yaml
+results/EXP-0001/RUN-0001/metrics.json
+results/EXP-0001/RUN-0001/report.md
+results/EXP-0001/RUN-0001/claim_update.md
+results/EXP-0001/RUN-0001/knowledge_update.md
 ```
 
-The report should include:
+## What To Improve Next
 
-- experiment title;
-- data range;
-- candidate formulas;
-- fitted coefficients;
-- mean relative error;
-- max relative error;
-- verdict;
-- short conclusion.
+Examples:
+
+1. deepen known-limit checks;
+2. improve behavior diagnostics near `theta -> pi`;
+3. keep result semantics range-aware;
+4. tighten contributor and snapshot tooling;
+5. preserve reproducibility and schema validity.
 
 ## Constraints
 
 - Do not add dashboard.
+- Do not add web API.
 - Do not add LLM calls.
 - Do not add ScienceClaw, OpenClaw, or LabClaw integration yet.
 - Keep it deterministic and testable.
-- Use SciPy for elliptic integral.
-- Use NumPy for fitting.
 - Keep tests fast.
+- Do not weaken verification-first wording.
+- Do not promote claims directly from code execution.
 
 ## Before Finishing
 
 Run:
 
 ```bash
-ruff check .
-pytest
+python3 -m ruff check .
+python3 -m pytest
+python3 -m physics_lab.cli run examples/pendulum.yaml
+python3 -m physics_lab.cli validate-repo .
 ```

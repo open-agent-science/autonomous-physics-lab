@@ -92,6 +92,9 @@ def _validate_references(
         for experiment_id in payload["evidence"]["experiments"]:
             if experiment_id not in experiment_ids:
                 raise ValueError(f"{path} references missing experiment id: {experiment_id}")
+        for result_id in payload["evidence"].get("results", []):
+            if result_id not in result_ids:
+                raise ValueError(f"{path} references missing result id: {result_id}")
 
     for path, payload in tasks:
         hypothesis_id = payload["input"]["hypothesis_id"]

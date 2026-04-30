@@ -4,9 +4,9 @@ experiment_id: EXP-0001
 title: Pendulum Formula Discovery
 hypothesis_id: HYP-0001
 task_id: TASK-0001
-generated_at: '2026-04-30T05:19:10.797953+00:00'
+generated_at: '2026-04-30T05:29:51.568163+00:00'
 engine_version: 0.1.0
-git_commit: 8877f535c0e6fe5d500dec8e6c446fe7f8d0e83d
+git_commit: 621d3349df2e8a9d7652f79ae9b2b177ee2ac73a
 command: physics-lab run examples/pendulum.yaml
 input_file_hashes:
   config:
@@ -14,10 +14,10 @@ input_file_hashes:
     sha256: 95bb3ab9d9478ffadeb400ce10ae5d1a1dabe618f6b31d7f14ed132b6a981978
   experiment:
     path: experiments/EXP-0001-pendulum-formula-discovery.yaml
-    sha256: 835053274434a0a213596d7d5edd5c980422b1c56a717142703a857c5de232d1
+    sha256: 440e8c7207ecaf3f96d7d57bce307a21f733ca144df8533c3d2c26a77d4478c2
   hypothesis:
     path: hypotheses/HYP-0001-pendulum-correction.yaml
-    sha256: da6aeac4bd8ef5bebbc68f03b89e93f490f5d64f41bb989b66016a9cc377b55d
+    sha256: b04429bf8fb3daefb33027dbd2496ca2d7ee7e90133a8c818e741736c10ff186
   task:
     path: tasks/TASK-0001-fit-better-pendulum-model.yaml
     sha256: f461ec338340366b81358d5ac67d184df5428a343fd0220665f60b192c716bad
@@ -34,7 +34,7 @@ test_range:
 - 1.108047667091887
 - 1.5707963267948966
 best_model_id: model_theta2_theta4
-best_verdict: VALID
+best_verdict: VALID_IN_RANGE
 verification:
   passed: true
   checks:

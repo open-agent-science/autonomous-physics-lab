@@ -7,6 +7,7 @@ mkdir -p _snapshots
 
 TS="$(date -u +%Y%m%d_%H%M%S)"
 OUT="_snapshots/apl_snapshot_${TS}.md"
+PYTHON_BIN="${PYTHON_BIN:-python3}"
 
 section() {
   echo ""
@@ -142,12 +143,12 @@ cmd_block() {
 
   section "Validation Commands"
 
-  cmd_block "ruff" python3 -m ruff check .
-  cmd_block "pytest" python3 -m pytest
-  cmd_block "validate repo" python3 -m physics_lab.cli validate-repo .
+  cmd_block "ruff" "$PYTHON_BIN" -m ruff check .
+  cmd_block "pytest" "$PYTHON_BIN" -m pytest
+  cmd_block "validate repo" "$PYTHON_BIN" -m physics_lab.cli validate-repo .
 
   if [ "${RUN_EXPERIMENT:-0}" = "1" ]; then
-    cmd_block "run pendulum example" python3 -m physics_lab.cli run examples/pendulum.yaml
+    cmd_block "run pendulum example" "$PYTHON_BIN" -m physics_lab.cli run examples/pendulum.yaml
   else
     echo ""
     echo "### run pendulum example"
@@ -155,6 +156,7 @@ cmd_block() {
     echo "Skipped. To include it, run:"
     echo ""
     echo '```bash'
+    echo "PYTHON_BIN=python3.11 ./scripts/apl_snapshot.sh"
     echo "RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh"
     echo '```'
   fi

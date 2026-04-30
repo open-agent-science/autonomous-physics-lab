@@ -2,7 +2,7 @@
   "result_id": "RESULT-0001",
   "run_id": "RUN-0001",
   "best_model_id": "model_theta2_theta4",
-  "best_verdict": "VALID",
+  "best_verdict": "VALID_IN_RANGE",
   "verification": {
     "passed": true,
     "checks": [

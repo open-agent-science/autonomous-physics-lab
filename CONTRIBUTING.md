@@ -22,6 +22,7 @@ prep, generate a repository snapshot:
 ```bash
 ./scripts/apl_snapshot.sh
 RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh
+PYTHON_BIN=python3.11 ./scripts/apl_snapshot.sh
 ```
 
 ## Contribution Rules

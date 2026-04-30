@@ -25,6 +25,8 @@ Current working vertical slice:
 - small-angle exact-window agreement;
 - small-angle curvature agreement;
 - upper-range exact-window agreement;
+- near-separatrix extrapolation diagnostic (non-gating);
+- separatrix asymptotic-alignment diagnostic (non-gating);
 - evenness;
 - monotonicity;
 - dimensional consistency;
@@ -60,6 +62,7 @@ Use the repository snapshot script when you want a compact project state dump:
 ```bash
 ./scripts/apl_snapshot.sh
 RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh
+PYTHON_BIN=python3.11 ./scripts/apl_snapshot.sh
 ```
 
 Recommended times to run it:

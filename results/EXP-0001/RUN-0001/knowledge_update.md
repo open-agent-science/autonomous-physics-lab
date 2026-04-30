@@ -7,7 +7,7 @@
 
 ## Suggested Addition
 
-The current pendulum benchmark selected `model_theta2_theta4` (`1 + a*theta^2 + b*theta^4`) as the best-performing candidate with verdict `VALID`.
+The current pendulum benchmark selected `model_theta2_theta4` (`1 + a*theta^2 + b*theta^4`) as the best-performing candidate with verdict `VALID_IN_RANGE`.
 
 ## Suggested Coefficients
 

@@ -8,7 +8,7 @@
 
 ## Suggested Evidence Update
 
-The pendulum period depends on amplitude, and within the tested benchmark the best candidate approximation was `model_theta2_theta4` with verdict `VALID`.
+The pendulum period depends on amplitude, and within the tested benchmark the best candidate approximation was `model_theta2_theta4` with verdict `VALID_IN_RANGE`.
 
 ## Suggested Range Language
 
@@ -22,4 +22,4 @@ Valid only within the sampled ranges used by this workflow: train `0.0100` to `1
 
 ## Suggested Caution
 
-Keep the claim range-aware and avoid wording that implies exact discovery or universal validity. Do not auto-promote the claim status unless verification checks pass.
+Keep the claim range-aware and avoid wording that implies exact discovery or universal validity. Do not auto-promote the claim status unless verification checks pass, and do not extend this verdict beyond the configured amplitude ranges.

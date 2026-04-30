@@ -135,6 +135,7 @@
     "best_verdict": {
       "type": "string",
       "enum": [
+        "VALID_IN_RANGE",
         "VALID",
         "PARTIALLY_VALID",
         "INVALID",

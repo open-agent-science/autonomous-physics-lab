@@ -157,7 +157,7 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
                 'id: "EXP-0001"',
                 'title: "Pendulum Formula Discovery"',
                 'domain: "classical_mechanics"',
-                'status: "PLANNED"',
+                'status: "COMPLETED"',
                 'hypothesis_id: "HYP-0001"',
                 "method:",
                 '  type: "formula_discovery"',
@@ -184,7 +184,7 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
                 'id: "HYP-0001"',
                 'title: "Pendulum period correction with amplitude terms"',
                 'domain: "classical_mechanics"',
-                'status: "FORMALIZED"',
+                'status: "TESTING"',
                 "hypothesis:",
                 '  statement: "The pendulum period ratio can be approximated by low-order amplitude correction formulas."',
                 "  formula_candidates:",
@@ -198,7 +198,7 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
                 "evidence:",
                 "  experiments:",
                 '    - "EXP-0001"',
-                'verdict: "Pending numerical validation."',
+                'verdict: "Initial benchmark completed. Low-order approximations are valid only within tested amplitude ranges; near-separatrix diagnostics fail for the current best candidate."',
             ]
         )
         + "\n",
@@ -245,6 +245,7 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert result_payload["run_id"] == "RUN-0001"
     assert result_payload["experiment_id"] == "EXP-0001"
     assert result_payload["task_id"] == "TASK-0001"
+    assert result_payload["best_verdict"] == "VALID_IN_RANGE"
     assert result_payload["code_reference"] == "physics_lab/workflows/runner.py"
     assert result_payload["limitations"]
     assert result_payload["engine_version"]
@@ -286,7 +287,7 @@ def test_runner_resolves_config_paths_relative_to_config_location(tmp_path) -> N
                 'id: "EXP-0001"',
                 'title: "Pendulum Formula Discovery"',
                 'domain: "classical_mechanics"',
-                'status: "PLANNED"',
+                'status: "COMPLETED"',
                 'hypothesis_id: "HYP-0001"',
                 "method:",
                 '  type: "formula_discovery"',
@@ -311,7 +312,7 @@ def test_runner_resolves_config_paths_relative_to_config_location(tmp_path) -> N
                 'id: "HYP-0001"',
                 'title: "Pendulum period correction with amplitude terms"',
                 'domain: "classical_mechanics"',
-                'status: "FORMALIZED"',
+                'status: "TESTING"',
                 "hypothesis:",
                 '  statement: "The pendulum period ratio can be approximated by low-order amplitude correction formulas."',
                 "  formula_candidates:",
@@ -325,7 +326,7 @@ def test_runner_resolves_config_paths_relative_to_config_location(tmp_path) -> N
                 "evidence:",
                 "  experiments:",
                 '    - "EXP-0001"',
-                'verdict: "Pending numerical validation."',
+                'verdict: "Initial benchmark completed. Low-order approximations are valid only within tested amplitude ranges; near-separatrix diagnostics fail for the current best candidate."',
             ]
         )
         + "\n",

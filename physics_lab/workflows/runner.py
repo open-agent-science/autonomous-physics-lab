@@ -218,12 +218,12 @@ def _build_report(
             "",
             "## Verdict",
             "",
-            f"Best candidate: `{best_score.model_id}` with verdict `{verdicts[best_model_id]}`.",
+            f"Best candidate: `{best_score.model_id}` with verdict `{_best_result_verdict(verdicts[best_model_id])}`.",
             "",
             "## Conclusion",
             "",
-            "This report describes approximation behavior within the tested amplitude ranges.",
-            "It does not claim exact discovery; it identifies the best-performing candidate formula under the current benchmark.",
+            "This report describes approximation behavior only within the configured train and test amplitude ranges.",
+            "It does not claim exact discovery or validity near the separatrix; it identifies the best-performing candidate formula under the current benchmark.",
         ]
     )
     return "\n".join(lines) + "\n"
@@ -244,6 +244,12 @@ def _best_fitted_model(fitted_models: list[FittedModel], model_id: str) -> Fitte
     raise ValueError(f"Unable to find fitted model for {model_id}")
 
 
+def _best_result_verdict(model_verdict: str) -> str:
+    if model_verdict == "VALID":
+        return "VALID_IN_RANGE"
+    return model_verdict
+
+
 def _build_claim_update(
     claim_id: str,
     result_id: str,
@@ -256,7 +262,11 @@ def _build_claim_update(
     test_range: tuple[float, float],
     verification_passed: bool,
 ) -> str:
-    suggested_status = "PARTIALLY_SUPPORTED" if verification_passed and best_verdict in {"VALID", "PARTIALLY_VALID"} else "DRAFT"
+    suggested_status = (
+        "PARTIALLY_SUPPORTED"
+        if verification_passed and best_verdict in {"VALID", "VALID_IN_RANGE", "PARTIALLY_VALID"}
+        else "DRAFT"
+    )
     return "\n".join(
         [
             f"# Proposed Update for {claim_id}",
@@ -293,7 +303,8 @@ def _build_claim_update(
             "",
             (
                 "Keep the claim range-aware and avoid wording that implies exact discovery or universal validity. "
-                "Do not auto-promote the claim status unless verification checks pass."
+                "Do not auto-promote the claim status unless verification checks pass, and do not extend this verdict "
+                "beyond the configured amplitude ranges."
             ),
             "",
         ]
@@ -421,7 +432,7 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     scores.sort(key=lambda model_score: model_score.composite_score)
     verdicts = {score.model_id: classify_model_score(score) for score in scores}
     best_model_id = scores[0].model_id
-    best_verdict = verdicts[best_model_id]
+    best_verdict = _best_result_verdict(verdicts[best_model_id])
     best_score = scores[0]
     best_model = _best_fitted_model(fitted_models, best_model_id)
 

@@ -107,6 +107,14 @@
             "type": "string",
             "pattern": "^EXP-[0-9]{4}$"
           }
+        },
+        "results": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^RESULT-[0-9]{4}$"
+          }
         }
       }
     },
