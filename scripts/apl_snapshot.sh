@@ -76,6 +76,7 @@ cmd_block() {
     -path ./.ruff_cache -prune -o \
     -path ./__pycache__ -prune -o \
     -path ./_snapshots -prune -o \
+    -name .DS_Store -prune -o \
     -print | sort
   echo '```'
 
@@ -122,17 +123,17 @@ cmd_block() {
 
   while IFS= read -r f; do
     file_block "$f" 260
-  done < <(find knowledge -type f -name '*.md' | sort 2>/dev/null || true)
+  done < <(find knowledge -type f -name '*.md' ! -name '.DS_Store' | sort 2>/dev/null || true)
 
   section "Result Artifacts"
 
   echo '```text'
-  find results -maxdepth 5 -type f | sort 2>/dev/null || true
+  find results -maxdepth 5 -type f ! -name '.DS_Store' | sort 2>/dev/null || true
   echo '```'
 
   while IFS= read -r f; do
     file_block "$f" 320
-  done < <(find results -maxdepth 5 -type f \( -name '*.yaml' -o -name '*.json' -o -name '*.md' \) | sort 2>/dev/null || true)
+  done < <(find results -maxdepth 5 -type f \( -name '*.yaml' -o -name '*.json' -o -name '*.md' \) ! -name '.DS_Store' | sort 2>/dev/null || true)
 
   section "Schemas"
 

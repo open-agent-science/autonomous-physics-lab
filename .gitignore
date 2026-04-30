@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 _snapshots/
+.DS_Store
 *.pyc
 *.pyo
 *.pyd

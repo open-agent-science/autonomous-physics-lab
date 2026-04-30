@@ -1,60 +1,41 @@
-# Codex Task: TASK-0003 — Theory-aware Pendulum Approximation Near Separatrix
+# Codex Task: Post-release Evidence Review and Knowledge Application
 
-Read `AGENTS.md`, `docs/status.md`, and
-`tasks/TASK-0003-theory-aware-pendulum-near-separatrix.yaml` first.
+Read `AGENTS.md`, `docs/status.md`, `docs/claim-promotion-policy.md`, and
+`results/EXP-0001/RUN-0002/report.md` first.
 
 ## Goal
 
-Improve the pendulum benchmark by adding at least one theory-aware candidate
-family that behaves better as `theta` approaches `pi`.
-
-The current best low-order polynomial candidate is `VALID_IN_RANGE`, but it
-still fails near-separatrix diagnostics.
+Stabilize the post-release public-alpha state after `RUN-0002`.
 
 ## Required Work
 
-1. Add candidate families that include known logarithmic behavior near `theta -> pi`.
-2. Keep the current low-order polynomial candidates unchanged.
-3. Add or extend separatrix-aware verification checks.
-4. Produce a new canonical run:
-   - `results/EXP-0001/RUN-0002/result.yaml`
-   - `metrics.json`
-   - `report.md`
-   - `claim_update.md`
-   - `knowledge_update.md`
-5. Compare `RUN-0001` vs `RUN-0002`:
-   - in-range accuracy
-   - near-separatrix behavior
-   - complexity score
-   - limitations
-6. Do not overwrite `RUN-0001`.
-
-## Candidate Ideas
-
-Consider forms involving:
-
-- `epsilon = pi - theta`
-- `log(1 / epsilon)`
-- `log(8 / (pi - theta))`
-- `sin(theta / 2)^2`
-- rational or blended formulas with a complexity penalty
+1. Update `docs/status.md` from `candidate` to `released`.
+2. Update `CODEX_TASK.md` to this post-release task.
+3. Remove `.DS_Store` noise from snapshot output and ensure it is ignored.
+4. Review `CLAIM-0001` and `CLAIM-0002`:
+   - do not auto-promote;
+   - suggest whether each should stay `DRAFT`, become `PARTIALLY_SUPPORTED`, or be split.
+5. Apply section-aware knowledge updates:
+   - update `KNOW-0001` with `RESULT-0001` and `RESULT-0003`;
+   - update `KNOW-0002` with `RESULT-0002` verification checks.
+6. Add `docs/notes/pendulum-separatrix-followup.md` explaining:
+   - `RUN-0001` failure mode;
+   - `TASK-0003` motivation;
+   - `RUN-0002` improvement;
+   - remaining limits.
 
 ## Scientific Rules
 
-- Do not claim exact discovery.
 - Keep verdicts range-aware.
-- If the candidate improves separatrix behavior but worsens small-angle accuracy,
-  report that tradeoff explicitly.
-- The result must clearly state the validity regime.
+- Do not auto-promote claims from generated evidence suggestions.
+- Prefer explicit review notes over silent semantic drift.
 
 ## Constraints
 
-- Do not add a third benchmark.
+- Do not add `EXP-0003`.
 - Do not add dashboard.
-- Do not add web API.
 - Do not add LLM calls.
 - Do not add literature ingestion.
-- Do not add multi-agent runtime.
 - Keep tests fast.
 
 ## Before Finishing

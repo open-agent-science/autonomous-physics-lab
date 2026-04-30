@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-`v0.1-public-alpha` candidate
+`v0.1-public-alpha` released
 
 Current working slices:
 

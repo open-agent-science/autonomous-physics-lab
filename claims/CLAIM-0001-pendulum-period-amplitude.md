@@ -27,6 +27,24 @@ verification-backed benchmark for low-order and theory-aware pendulum
 approximations. This claim remains in `DRAFT` until a human or later workflow
 explicitly accepts the suggested evidence update.
 
+## Review Recommendation
+
+Keep this claim in `DRAFT` for now.
+
+Reason:
+
+- the current benchmark is still range-limited;
+- the best overall verdict remains `VALID_IN_RANGE`;
+- the theory-aware candidate improves near-separatrix behavior, but the overall
+  evidence is still benchmark-scoped rather than globally valid.
+
+If a maintainer wants to promote it later, the safest next status is
+`PARTIALLY_SUPPORTED` with explicit range-aware wording. A later split could
+separate:
+
+- a narrow claim about in-range approximation quality;
+- a broader claim about large-amplitude or separatrix-aware behavior.
+
 ## Scope
 
 Initial scope: amplitude correction for the ideal pendulum in classical

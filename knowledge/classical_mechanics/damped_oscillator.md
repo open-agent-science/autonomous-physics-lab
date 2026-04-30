@@ -32,6 +32,22 @@ The solution structure depends on the damping ratio:
 - critically damped;
 - overdamped.
 
+The current canonical benchmark result is:
+
+- `RESULT-0002` / `RUN-0001`
+
+Its verification summary passes all current checks, including:
+
+- regime classification;
+- initial-condition recovery;
+- underdamped energy decay;
+- oscillatory vs non-oscillatory behavior;
+- dimensional consistency;
+- `c -> 0` undamped-limit behavior;
+- underdamped envelope decay-rate behavior;
+- critical damping boundary behavior;
+- overdamped asymptotic tail behavior.
+
 ## Why It Matters
 
 This is a strong second benchmark because:
@@ -47,6 +63,7 @@ This is a strong second benchmark because:
 - Experiment: `EXP-0002`
 - Claim: `CLAIM-0002`
 - Task: `TASK-0002`
+- Canonical result: `RESULT-0002`
 
 ## Open Questions
 
