@@ -30,6 +30,16 @@ It should:
 4. Score accuracy and complexity.
 5. Produce a reproducible Markdown report.
 
+## Current Benchmarks
+
+The repository currently stabilizes two verification-first benchmark slices:
+
+1. `EXP-0001` — `Pendulum Formula Discovery`
+2. `EXP-0002` — `Damped Oscillator Regime Verification`
+
+Both benchmarks produce run-based artifacts under `results/<experiment>/<run>/`
+and are validated through the repository registry and CLI tooling.
+
 ## Repository Shape
 
 ```text
@@ -57,11 +67,12 @@ autonomous-physics-lab/
 
 ## Status
 
-The repository currently has a working first vertical slice:
+The repository currently has two working benchmark slices:
 
 - architecture and documentation are in place;
 - the public knowledge layout is defined;
-- the pendulum formula discovery MVP works end-to-end;
+- the pendulum formula discovery workflow works end-to-end;
+- the damped-oscillator regime verification workflow works end-to-end;
 - structured artifact validation and repo-wide checks are implemented.
 
 See [docs/architecture.md](docs/architecture.md),

@@ -94,6 +94,7 @@ Best next checks:
 - stronger asymptotic checks for more candidate families.
 - better non-polynomial or theory-aware checks for behavior closer to the separatrix as `theta` approaches `pi`.
 - stronger damped-oscillator checks such as envelope fitting, decay-rate checks, and `c -> 0` limit behavior.
+- keep the two workflow modules stable and avoid pushing benchmark-specific logic back into `runner.py`.
 
 Definition of done:
 
@@ -118,6 +119,17 @@ Best next docs/tools:
 - expand the contributor guide for humans and LLM agents;
 - add a short architecture index or map;
 - consider a status view that lists benchmark-specific readiness instead of only the latest result.
+
+### 4. Keep Multi-Benchmark CI Non-Dirty
+
+The repository now has two canonical benchmark slices, so CI and smoke tests
+must keep using temp outputs.
+
+Best next checks:
+
+- preserve `--output-dir` coverage for both workflows;
+- keep `git diff --exit-code` in CI after example runs;
+- avoid tests that rewrite committed `results/` artifacts as part of normal validation.
 
 ## Do Not Prioritize Yet
 

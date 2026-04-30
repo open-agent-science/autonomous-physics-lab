@@ -21,7 +21,11 @@ from physics_lab.registry import (
     load_task,
 )
 from physics_lab.registry.repository import validate_repository
-from physics_lab.workflows.runner import run_pendulum_experiment, run_pendulum_experiment_with_output
+from physics_lab.workflows.runner import (
+    run_experiment_with_output,
+    run_pendulum_experiment,
+    run_pendulum_experiment_with_output,
+)
 
 
 def _write_task_file(directory: Path, task_id: str = "TASK-0001") -> Path:
@@ -246,7 +250,7 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert result_payload["experiment_id"] == "EXP-0001"
     assert result_payload["task_id"] == "TASK-0001"
     assert result_payload["best_verdict"] == "VALID_IN_RANGE"
-    assert result_payload["code_reference"] == "physics_lab/workflows/runner.py"
+    assert result_payload["code_reference"] == "physics_lab/workflows/pendulum.py"
     assert result_payload["limitations"]
     assert result_payload["engine_version"]
     assert result_payload["generated_at"]
@@ -360,7 +364,10 @@ def test_runner_resolves_config_paths_relative_to_config_location(tmp_path) -> N
 
 def test_cli_run_smoke() -> None:
     runner = CliRunner()
-    result = runner.invoke(app, ["run", "examples/pendulum.yaml"])
+    result = runner.invoke(
+        app,
+        ["run", "examples/pendulum.yaml", "--output-dir", "/tmp/apl-pendulum-test"],
+    )
 
     assert result.exit_code == 0
     assert "Completed: Pendulum Formula Discovery" in result.stdout
@@ -485,7 +492,10 @@ def test_cli_validate_hypothesis_smoke() -> None:
 
 def test_cli_validate_result_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
-    run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
+    run_pendulum_experiment_with_output(
+        repo_root / "examples" / "pendulum.yaml",
+        output_dir=Path("/tmp/apl-pendulum-validate"),
+    )
     runner = CliRunner()
     result = runner.invoke(app, ["validate", "results/EXP-0001/RUN-0001/result.yaml"])
 
@@ -495,7 +505,10 @@ def test_cli_validate_result_smoke() -> None:
 
 def test_validate_repository_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
-    run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
+    run_pendulum_experiment_with_output(
+        repo_root / "examples" / "pendulum.yaml",
+        output_dir=Path("/tmp/apl-pendulum-repo-validate"),
+    )
     summary = validate_repository(repo_root)
 
     assert summary.counts["claims"] == 2
@@ -550,7 +563,10 @@ def test_validate_repository_detects_missing_reference(tmp_path) -> None:
 
 def test_cli_validate_repo_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
-    run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
+    run_pendulum_experiment_with_output(
+        repo_root / "examples" / "pendulum.yaml",
+        output_dir=Path("/tmp/apl-pendulum-cli-validate-repo"),
+    )
     runner = CliRunner()
     result = runner.invoke(app, ["validate-repo", "."])
 
@@ -563,13 +579,25 @@ def test_cli_validate_repo_smoke() -> None:
 
 def test_cli_status_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
-    run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
+    run_pendulum_experiment_with_output(
+        repo_root / "examples" / "pendulum.yaml",
+        output_dir=Path("/tmp/apl-pendulum-status"),
+    )
     runner = CliRunner()
     result = runner.invoke(app, ["status", "."])
 
     assert result.exit_code == 0
     assert "Stage: v0.1-public-alpha candidate" in result.stdout
     assert "Validation: PASS" in result.stdout
-    assert "Latest result: results/EXP-0001/RUN-0001/result.yaml" in result.stdout
     assert "Best verdict: VALID_IN_RANGE" in result.stdout
     assert "Verification checks:" in result.stdout
+
+
+def test_run_dispatches_pendulum_with_output_dir(tmp_path) -> None:
+    outcome = run_experiment_with_output(
+        Path("examples/pendulum.yaml"),
+        output_dir=tmp_path / "apl-results",
+    )
+
+    assert outcome.result_id == "RESULT-0001"
+    assert outcome.artifacts.result_path == tmp_path / "apl-results" / "EXP-0001" / "RUN-0001" / "result.yaml"

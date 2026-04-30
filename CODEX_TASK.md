@@ -1,63 +1,54 @@
-# Codex Task: Continue the v0.2 Verification Stack
+# Codex Task: Stabilize Multi-Benchmark Workflow Architecture
 
-Read `AGENTS.md` first and follow it.
+Read `AGENTS.md` and `docs/status.md` first.
 
 ## Goal
 
-Strengthen the pendulum benchmark as verification-backed scientific evidence.
+Stabilize the two-benchmark public-alpha state before adding any new physics
+benchmark.
 
-The current vertical slice already exists:
+The current repository now has two runnable slices:
 
-`Hypothesis -> Experiment -> Result -> Claim -> Knowledge -> Next Task`
+- `EXP-0001` — `Pendulum Formula Discovery`
+- `EXP-0002` — `Damped Oscillator Regime Verification`
 
-The next work should deepen verification quality, keep artifacts reproducible,
-and avoid overclaiming scientific validity.
+The next work should keep both workflows reproducible, non-dirty in CI, and
+easy to hand off to future contributors.
 
 ## Priority Areas
 
 Work in or around:
 
 ```text
-physics_lab/engines/verification.py
-physics_lab/engines/symbolic.py
+physics_lab/workflows/artifacts.py
+physics_lab/workflows/pendulum.py
+physics_lab/workflows/damped_oscillator.py
 physics_lab/workflows/runner.py
-results/EXP-0001/RUN-0001/
+.github/workflows/ci.yml
 tests/test_pendulum.py
+tests/test_damped_oscillator.py
+README.md
 docs/status.md
-docs/next-steps.md
 ```
 
-## Current Canonical Outputs
+## Required Outcomes
 
-The canonical artifacts live here:
-
-```text
-results/EXP-0001/RUN-0001/result.yaml
-results/EXP-0001/RUN-0001/metrics.json
-results/EXP-0001/RUN-0001/report.md
-results/EXP-0001/RUN-0001/claim_update.md
-results/EXP-0001/RUN-0001/knowledge_update.md
-```
-
-## What To Improve Next
-
-Examples:
-
-1. deepen known-limit checks;
-2. improve behavior diagnostics near `theta -> pi`;
-3. keep result semantics range-aware;
-4. tighten contributor and snapshot tooling;
-5. preserve reproducibility and schema validity.
+1. Keep `runner.py` thin and use workflow-specific modules.
+2. Ensure example runs support `--output-dir` and do not dirty committed artifacts in CI.
+3. Keep repository validation green with 2 hypotheses, 2 experiments, 2 claims,
+   2 tasks, 2 knowledge notes, 2 examples, and 2 canonical results.
+4. Keep docs honest about the current two-benchmark scope.
 
 ## Constraints
 
+- Do not add a third benchmark.
 - Do not add dashboard.
 - Do not add web API.
 - Do not add LLM calls.
-- Do not add ScienceClaw, OpenClaw, or LabClaw integration yet.
-- Keep it deterministic and testable.
+- Do not add literature ingestion.
+- Do not add multi-agent runtime.
 - Keep tests fast.
-- Do not weaken verification-first wording.
+- Keep scientific semantics unchanged.
 - Do not promote claims directly from code execution.
 
 ## Before Finishing
@@ -67,6 +58,8 @@ Run:
 ```bash
 python3 -m ruff check .
 python3 -m pytest
-python3 -m physics_lab.cli run examples/pendulum.yaml
+python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
+python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
+git status --short
 ```

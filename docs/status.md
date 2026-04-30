@@ -60,6 +60,13 @@ Damped oscillator:
 - public dashboard;
 - theory graph.
 
+## Current Risks
+
+- `runner.py` must stay a thin dispatcher so workflow logic does not drift back into one file.
+- Canonical artifacts under `results/` can become stale if contributors run examples without `--output-dir`.
+- The result schema is shared by both benchmarks, so benchmark-specific semantics still need careful wording.
+- Public alpha is stable for two slices, but not yet broad enough for a wider “many benchmark” claim.
+
 ## Public Repo Status
 
 Suitable for public alpha once:

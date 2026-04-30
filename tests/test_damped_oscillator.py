@@ -1,5 +1,8 @@
 from pathlib import Path
 
+from typer.testing import CliRunner
+
+from physics_lab.cli import app
 from physics_lab.engines.damped_oscillator import (
     DampedOscillatorParameters,
     classify_damping_regime,
@@ -7,7 +10,10 @@ from physics_lab.engines.damped_oscillator import (
 )
 from physics_lab.registry import load_claim, load_experiment, load_hypothesis, load_knowledge, load_task
 from physics_lab.registry.results import load_result
-from physics_lab.workflows.runner import run_damped_oscillator_experiment_with_output
+from physics_lab.workflows.runner import (
+    run_damped_oscillator_experiment_with_output,
+    run_experiment_with_output,
+)
 
 
 def test_damped_oscillator_regime_classification() -> None:
@@ -70,3 +76,25 @@ def test_damped_oscillator_runner_writes_temp_artifacts(tmp_path) -> None:
         "oscillatory_vs_nonoscillatory_behavior",
         "dimensional_consistency",
     } <= check_names
+
+
+def test_damped_oscillator_dispatch_writes_temp_artifacts(tmp_path) -> None:
+    outcome = run_experiment_with_output(
+        config_path=Path("examples/damped_oscillator.yaml"),
+        output_dir=tmp_path / "apl-results",
+    )
+
+    assert outcome.result_id == "RESULT-0002"
+    assert outcome.artifacts.result_path == tmp_path / "apl-results" / "EXP-0002" / "RUN-0001" / "result.yaml"
+
+
+def test_cli_run_damped_oscillator_smoke() -> None:
+    runner = CliRunner()
+    result = runner.invoke(
+        app,
+        ["run", "examples/damped_oscillator.yaml", "--output-dir", "/tmp/apl-damped-test"],
+    )
+
+    assert result.exit_code == 0
+    assert "Completed: Damped Oscillator Regime Verification" in result.stdout
+    assert "Result:" in result.stdout

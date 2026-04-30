@@ -148,6 +148,12 @@ This is the practical order I recommend next:
 3. improve contributor docs and project status tooling;
 4. decide the third benchmark physics workflow.
 
+Current stabilization rule:
+
+- keep workflow-specific implementation in dedicated modules;
+- keep `runner.py` as dispatch only;
+- keep CI example runs non-dirty by using temp output roots.
+
 ## Risks to Avoid
 
 - adding too much infra before one workflow works;
