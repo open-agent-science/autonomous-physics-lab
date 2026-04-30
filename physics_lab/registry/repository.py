@@ -34,7 +34,7 @@ PATTERNS: dict[str, str] = {
     "experiments": "*.yaml",
     "hypotheses": "*.yaml",
     "knowledge": "*.md",
-    "results": "*.json",
+    "results": "result.yaml",
     "tasks": "*.yaml",
 }
 
@@ -80,6 +80,7 @@ def _validate_references(
     experiment_ids = {payload["id"] for _, payload in experiments}
     task_ids = {payload["id"] for _, payload in tasks}
     claim_ids = {payload["id"] for _, payload in claims}
+    result_ids = {payload["result_id"] for _, payload in results}
 
     for path, payload in experiments:
         if payload["hypothesis_id"] not in hypothesis_ids:
@@ -107,6 +108,9 @@ def _validate_references(
         for experiment_id in payload["evidence"]["experiments"]:
             if experiment_id not in experiment_ids:
                 raise ValueError(f"{path} references missing experiment id: {experiment_id}")
+        for result_id in payload["evidence"]["results"]:
+            if result_id not in result_ids:
+                raise ValueError(f"{path} references missing result id: {result_id}")
 
     for path, payload in knowledge_files:
         for hypothesis_id in payload["linked_objects"]["hypotheses"]:
@@ -125,12 +129,18 @@ def _validate_references(
     for path, payload in example_configs:
         experiment_path = (path.parent / payload["experiment_path"]).resolve()
         hypothesis_path = (path.parent / payload["hypothesis_path"]).resolve()
+        result_root = (path.parent / payload["result_root"]).resolve()
         if not experiment_path.exists():
             raise ValueError(f"{path} references missing experiment_path: {payload['experiment_path']}")
         if not hypothesis_path.exists():
             raise ValueError(f"{path} references missing hypothesis_path: {payload['hypothesis_path']}")
         if payload["task_id"] not in task_ids:
             raise ValueError(f"{path} references missing task_id: {payload['task_id']}")
+        expected_run_dir = result_root / payload["run_id"]
+        if not expected_run_dir.exists():
+            raise ValueError(
+                f"{path} references missing run directory for run_id {payload['run_id']}: {expected_run_dir}"
+            )
 
     for path, payload in results:
         if payload["hypothesis_id"] not in hypothesis_ids:
@@ -141,9 +151,13 @@ def _validate_references(
             raise ValueError(
                 f"{path} references missing experiment_id: {payload['experiment_id']}"
             )
-        if path.parent.name != payload["experiment_id"]:
+        if path.parent.name != payload["run_id"]:
             raise ValueError(
-                f"{path} lives in {path.parent.name} but declares experiment_id {payload['experiment_id']}"
+                f"{path} lives in {path.parent.name} but declares run_id {payload['run_id']}"
+            )
+        if path.parent.parent.name != payload["experiment_id"]:
+            raise ValueError(
+                f"{path} lives under {path.parent.parent.name} but declares experiment_id {payload['experiment_id']}"
             )
         if payload["task_id"] not in task_ids:
             raise ValueError(f"{path} references missing task_id: {payload['task_id']}")
@@ -152,6 +166,12 @@ def _validate_references(
             raise ValueError(
                 f"{path} references missing code_reference: {payload['code_reference']}"
             )
+        for artifact_name, artifact_path in payload["artifacts"].items():
+            resolved_artifact = (root_path / artifact_path).resolve()
+            if not resolved_artifact.exists():
+                raise ValueError(
+                    f"{path} references missing artifact {artifact_name}: {artifact_path}"
+                )
 
 
 def validate_repository(root: str | Path) -> RepositoryValidationSummary:

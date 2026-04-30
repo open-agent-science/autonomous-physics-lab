@@ -3,12 +3,13 @@
 This directory is reserved for reproducible artifacts produced by the pendulum
 formula discovery workflow.
 
-Expected outputs:
+Run-based outputs live under subdirectories such as `RUN-0001/`.
 
-- Markdown report;
-- machine-readable metrics;
-- optional plots;
-- engine metadata if needed.
+Expected outputs per run:
 
-No result artifacts are committed yet because the workflow has not been
-implemented.
+- `result.yaml`
+- `metrics.json`
+- `report.md`
+- `claim_update.md`
+- `knowledge_update.md`
+- optional plots in later phases

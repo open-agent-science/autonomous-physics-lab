@@ -7,6 +7,9 @@
     "experiment_path",
     "hypothesis_path",
     "task_id",
+    "run_id",
+    "result_id",
+    "result_root",
     "train_fraction"
   ],
   "properties": {
@@ -21,6 +24,18 @@
     "task_id": {
       "type": "string",
       "pattern": "^TASK-[0-9]{4}$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^RUN-[0-9]{4}$"
+    },
+    "result_id": {
+      "type": "string",
+      "pattern": "^RESULT-[0-9]{4}$"
+    },
+    "result_root": {
+      "type": "string",
+      "minLength": 1
     },
     "train_fraction": {
       "type": "number",

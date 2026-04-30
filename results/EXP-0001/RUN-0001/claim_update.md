@@ -1,8 +1,10 @@
 # Proposed Update for CLAIM-0001
 
+- Result: `RESULT-0001`
 - Hypothesis: `HYP-0001`
 - Experiment: `EXP-0001`
 - Task: `TASK-0001`
+- Suggested claim status: `PARTIALLY_SUPPORTED`
 
 ## Suggested Evidence Update
 
@@ -20,4 +22,4 @@ Valid only within the sampled ranges used by this workflow: train `0.0100` to `1
 
 ## Suggested Caution
 
-Keep the claim range-aware and avoid wording that implies exact discovery or universal validity.
+Keep the claim range-aware and avoid wording that implies exact discovery or universal validity. Do not auto-promote the claim status unless verification checks pass.

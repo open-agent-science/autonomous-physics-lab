@@ -4,6 +4,8 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "result_id",
+    "run_id",
     "experiment_id",
     "title",
     "hypothesis_id",
@@ -12,12 +14,26 @@
     "limitations",
     "engine_version",
     "generated_at",
+    "command",
+    "input_file_hashes",
+    "git_commit",
     "train_range",
     "test_range",
     "best_model_id",
+    "best_verdict",
+    "verification",
+    "artifacts",
     "scores"
   ],
   "properties": {
+    "result_id": {
+      "type": "string",
+      "pattern": "^RESULT-[0-9]{4}$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^RUN-[0-9]{4}$"
+    },
     "experiment_id": {
       "type": "string",
       "pattern": "^EXP-[0-9]{4}$"
@@ -54,6 +70,40 @@
       "type": "string",
       "format": "date-time"
     },
+    "git_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "command": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_file_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "config",
+        "experiment",
+        "hypothesis",
+        "task"
+      ],
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/fileHash"
+        },
+        "experiment": {
+          "$ref": "#/$defs/fileHash"
+        },
+        "hypothesis": {
+          "$ref": "#/$defs/fileHash"
+        },
+        "task": {
+          "$ref": "#/$defs/fileHash"
+        }
+      }
+    },
     "train_range": {
       "type": "array",
       "prefixItems": [
@@ -81,6 +131,47 @@
     "best_model_id": {
       "type": "string",
       "pattern": "^model_[a-z0-9_]+$"
+    },
+    "best_verdict": {
+      "type": "string",
+      "enum": [
+        "VALID",
+        "PARTIALLY_VALID",
+        "INVALID",
+        "OVERFITTED",
+        "INCONCLUSIVE"
+      ]
+    },
+    "verification": {
+      "$ref": "#/$defs/verificationSummary"
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "report",
+        "metrics",
+        "claim_update",
+        "knowledge_update"
+      ],
+      "properties": {
+        "report": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metrics": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_update": {
+          "type": "string",
+          "minLength": 1
+        },
+        "knowledge_update": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     },
     "scores": {
       "type": "array",
@@ -143,6 +234,24 @@
     }
   },
   "$defs": {
+    "fileHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
     "errorMetrics": {
       "type": "object",
       "additionalProperties": false,
@@ -158,6 +267,64 @@
         "max_relative_error": {
           "type": "number",
           "minimum": 0
+        }
+      }
+    },
+    "verificationCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "status",
+        "details",
+        "metrics"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "FAIL",
+            "PLACEHOLDER"
+          ]
+        },
+        "details": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "number",
+              "string",
+              "boolean"
+            ]
+          }
+        }
+      }
+    },
+    "verificationSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passed",
+        "checks"
+      ],
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/verificationCheck"
+          }
         }
       }
     }

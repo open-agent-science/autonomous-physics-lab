@@ -25,7 +25,3 @@ candidate_models:
     formula: "1 + a*sin(theta/2)^2"
   - id: model_x_x2
     formula: "1 + a*x + b*x^2, x = sin(theta/2)^2"
-
-outputs:
-  report_path: "examples/reports/pendulum_formula_discovery.md"
-  result_dir: "results/EXP-0001"

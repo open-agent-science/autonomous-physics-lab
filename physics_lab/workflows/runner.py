@@ -5,16 +5,20 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from dataclasses import dataclass
+import hashlib
 from pathlib import Path
+import subprocess
 from typing import Any
 
 import yaml
 
 from physics_lab import __version__
 from physics_lab.engines.critic import classify_model_score
-from physics_lab.engines.formula_discovery import fit_all_models
+from physics_lab.engines.formula_discovery import FittedModel, fit_all_models
 from physics_lab.engines.scoring import ModelScore, score_model
 from physics_lab.engines.simulation import generate_pendulum_dataset
+from physics_lab.engines.verification import serialize_verification_summary, verify_candidate_model
+from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.results import validate_result_payload
@@ -24,6 +28,7 @@ from physics_lab.registry.results import validate_result_payload
 class ExperimentArtifacts:
     """Filesystem artifact locations for a workflow run."""
 
+    result_path: Path
     report_path: Path
     metrics_path: Path
     claim_update_path: Path
@@ -35,6 +40,8 @@ class ExperimentOutcome:
     """Structured result of a workflow run."""
 
     title: str
+    result_id: str
+    run_id: str
     hypothesis_id: str
     task_id: str
     train_range: tuple[float, float]
@@ -45,21 +52,49 @@ class ExperimentOutcome:
     artifacts: ExperimentArtifacts
 
 
-def load_yaml_file(path: str | Path) -> dict[str, Any]:
-    """Load a YAML document from disk."""
-    with Path(path).open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
-    if not isinstance(data, dict):
-        raise ValueError(f"Expected mapping in YAML file: {path}")
-    return data
-
-
 def _resolve_path(base_path: Path, relative_path: str) -> Path:
     candidate = Path(relative_path)
     if candidate.is_absolute():
         return candidate.resolve()
     base_directory = base_path.parent if base_path.is_file() else base_path
     return (base_directory / candidate).resolve()
+
+
+def _hash_file(path: Path, repo_root: Path) -> dict[str, str]:
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    try:
+        relative_path = path.resolve().relative_to(repo_root.resolve())
+        normalized_path = relative_path.as_posix()
+    except ValueError:
+        normalized_path = str(path.resolve())
+    return {"path": normalized_path, "sha256": digest}
+
+
+def _relative_or_absolute(path: Path, repo_root: Path) -> str:
+    try:
+        return path.resolve().relative_to(repo_root.resolve()).as_posix()
+    except ValueError:
+        return str(path.resolve())
+
+
+def _git_commit(repo_root: Path) -> str | None:
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(repo_root), "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+    return result.stdout.strip() or None
+
+
+def _task_path(repo_root: Path, task_id: str) -> Path:
+    matches = sorted((repo_root / "tasks").glob(f"{task_id}-*.yaml"))
+    if not matches:
+        raise ValueError(f"Unable to locate task file for {task_id}")
+    return matches[0]
 
 
 def _find_repo_root(start_path: Path) -> Path:
@@ -101,6 +136,8 @@ def _serialize_scores(scores: list[ModelScore], verdicts: dict[str, str]) -> lis
 
 def _build_report(
     title: str,
+    result_id: str,
+    run_id: str,
     hypothesis_id: str,
     task_id: str,
     assumptions: list[str],
@@ -110,11 +147,14 @@ def _build_report(
     scores: list[ModelScore],
     verdicts: dict[str, str],
     best_model_id: str,
+    verification_summary: dict[str, Any],
 ) -> str:
     best_score = next(score for score in scores if score.model_id == best_model_id)
     lines = [
         f"# {title}",
         "",
+        f"- Result: `{result_id}`",
+        f"- Run: `{run_id}`",
         f"- Hypothesis: `{hypothesis_id}`",
         f"- Task: `{task_id}`",
         f"- Train range (rad): `{train_range[0]:.4f}` to `{train_range[1]:.4f}`",
@@ -134,6 +174,18 @@ def _build_report(
     lines.extend([f"- {limitation}" for limitation in limitations])
     lines.extend(
         [
+            "",
+            "## Verification",
+            "",
+            f"- Verification gate passed: `{verification_summary['passed']}`",
+        ]
+    )
+    lines.extend(
+        [
+            *[
+                f"- {check['name']}: `{check['status']}`"
+                for check in verification_summary["checks"]
+            ],
             "",
             "## Candidate Models",
             "",
@@ -179,8 +231,16 @@ def _build_limitations() -> list[str]:
     ]
 
 
+def _best_fitted_model(fitted_models: list[FittedModel], model_id: str) -> FittedModel:
+    for model in fitted_models:
+        if model.candidate.model_id == model_id:
+            return model
+    raise ValueError(f"Unable to find fitted model for {model_id}")
+
+
 def _build_claim_update(
     claim_id: str,
+    result_id: str,
     experiment_id: str,
     hypothesis_id: str,
     task_id: str,
@@ -188,14 +248,18 @@ def _build_claim_update(
     best_verdict: str,
     train_range: tuple[float, float],
     test_range: tuple[float, float],
+    verification_passed: bool,
 ) -> str:
+    suggested_status = "PARTIALLY_SUPPORTED" if verification_passed and best_verdict in {"VALID", "PARTIALLY_VALID"} else "DRAFT"
     return "\n".join(
         [
             f"# Proposed Update for {claim_id}",
             "",
+            f"- Result: `{result_id}`",
             f"- Hypothesis: `{hypothesis_id}`",
             f"- Experiment: `{experiment_id}`",
             f"- Task: `{task_id}`",
+            f"- Suggested claim status: `{suggested_status}`",
             "",
             "## Suggested Evidence Update",
             "",
@@ -221,7 +285,10 @@ def _build_claim_update(
             "",
             "## Suggested Caution",
             "",
-            "Keep the claim range-aware and avoid wording that implies exact discovery or universal validity.",
+            (
+                "Keep the claim range-aware and avoid wording that implies exact discovery or universal validity. "
+                "Do not auto-promote the claim status unless verification checks pass."
+            ),
             "",
         ]
     )
@@ -229,16 +296,19 @@ def _build_claim_update(
 
 def _build_knowledge_update(
     knowledge_id: str,
+    result_id: str,
     experiment_id: str,
     hypothesis_id: str,
     task_id: str,
     best_score: ModelScore,
     best_verdict: str,
     limitations: list[str],
+    verification_summary: dict[str, Any],
 ) -> str:
     lines = [
         f"# Proposed Update for {knowledge_id}",
         "",
+        f"- Result: `{result_id}`",
         f"- Hypothesis: `{hypothesis_id}`",
         f"- Experiment: `{experiment_id}`",
         f"- Task: `{task_id}`",
@@ -258,6 +328,18 @@ def _build_knowledge_update(
     )
     lines.extend(
         [
+            "",
+            "## Suggested Verification Notes",
+            "",
+            f"- Verification gate passed: `{verification_summary['passed']}`",
+        ]
+    )
+    lines.extend(
+        [
+            *[
+                f"- {check['name']}: `{check['status']}`"
+                for check in verification_summary["checks"]
+            ],
             "",
             "## Suggested Limitations Section",
             "",
@@ -280,13 +362,16 @@ def _build_knowledge_update(
 def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     """Execute the pendulum formula discovery workflow from an example config."""
     config_path = Path(config_path).resolve()
-    config = load_yaml_file(config_path)
+    config = load_example_config(config_path)
     experiment_path = _resolve_path(config_path, config["experiment_path"])
     hypothesis_path = _resolve_path(config_path, config["hypothesis_path"])
     repo_root = _find_repo_root(config_path)
     experiment = load_experiment(experiment_path)
     hypothesis = load_hypothesis(hypothesis_path)
     task_id = str(config.get("task_id", ""))
+    run_id = str(config.get("run_id", ""))
+    result_id = str(config.get("result_id", ""))
+    result_root = _resolve_path(config_path, str(config.get("result_root", "")))
     if experiment["hypothesis_id"] != hypothesis["id"]:
         raise ValueError(
             "Experiment hypothesis_id does not match loaded hypothesis id: "
@@ -294,6 +379,12 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         )
     if not task_id:
         raise ValueError("Experiment config must define task_id for result traceability")
+    if not run_id:
+        raise ValueError("Experiment config must define run_id for run-based artifacts")
+    if not result_id:
+        raise ValueError("Experiment config must define result_id for result traceability")
+    if not str(config.get("result_root", "")):
+        raise ValueError("Experiment config must define result_root for run-based outputs")
 
     amplitude_range = experiment["data"]["amplitude_range_radians"]
     sample_count = int(experiment["data"]["sample_count"])
@@ -324,19 +415,39 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     scores.sort(key=lambda model_score: model_score.composite_score)
     verdicts = {score.model_id: classify_model_score(score) for score in scores}
     best_model_id = scores[0].model_id
+    best_verdict = verdicts[best_model_id]
+    best_score = scores[0]
+    best_model = _best_fitted_model(fitted_models, best_model_id)
 
-    experiment_outputs = experiment["outputs"]
-    report_path = _resolve_path(repo_root, experiment_outputs["report_path"])
-    result_dir = _resolve_path(repo_root, experiment_outputs["result_dir"])
-    metrics_path = result_dir / "metrics.json"
-    claim_update_path = result_dir / "claim_update.md"
-    knowledge_update_path = result_dir / "knowledge_update.md"
-    report_path.parent.mkdir(parents=True, exist_ok=True)
-    result_dir.mkdir(parents=True, exist_ok=True)
+    verification_summary = verify_candidate_model(
+        best_model,
+        theta_range=(float(dataset.theta[0]), float(dataset.theta[-1])),
+    )
+    verification_payload = serialize_verification_summary(verification_summary)
+
+    run_dir = result_root / run_id
+    result_path = run_dir / "result.yaml"
+    report_path = run_dir / "report.md"
+    metrics_path = run_dir / "metrics.json"
+    claim_update_path = run_dir / "claim_update.md"
+    knowledge_update_path = run_dir / "knowledge_update.md"
+    run_dir.mkdir(parents=True, exist_ok=True)
     limitations = _build_limitations()
+    task_path = _task_path(repo_root, task_id)
+    command_path = _relative_or_absolute(config_path, repo_root)
+    command = f"physics-lab run {command_path}"
+    input_hashes = {
+        "config": _hash_file(config_path, repo_root),
+        "experiment": _hash_file(experiment_path, repo_root),
+        "hypothesis": _hash_file(hypothesis_path, repo_root),
+        "task": _hash_file(task_path, repo_root),
+    }
+    git_commit = _git_commit(repo_root)
 
     report_text = _build_report(
         title=str(experiment["title"]),
+        result_id=result_id,
+        run_id=run_id,
         hypothesis_id=str(experiment["hypothesis_id"]),
         task_id=task_id,
         assumptions=list(hypothesis.get("assumptions", [])),
@@ -346,30 +457,53 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         scores=scores,
         verdicts=verdicts,
         best_model_id=best_model_id,
+        verification_summary=verification_payload,
     )
     report_path.write_text(report_text, encoding="utf-8")
 
-    metrics_payload = {
+    result_payload = {
+        "result_id": result_id,
+        "run_id": run_id,
         "experiment_id": str(experiment["id"]),
         "title": str(experiment["title"]),
         "hypothesis_id": str(experiment["hypothesis_id"]),
         "task_id": task_id,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "engine_version": __version__,
+        "git_commit": git_commit,
+        "command": command,
+        "input_file_hashes": input_hashes,
         "code_reference": "physics_lab/workflows/runner.py",
         "limitations": limitations,
-        "engine_version": __version__,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
         "train_range": [float(train_theta[0]), float(train_theta[-1])],
         "test_range": [float(test_theta[0]), float(test_theta[-1])],
         "best_model_id": best_model_id,
+        "best_verdict": best_verdict,
+        "verification": verification_payload,
+        "artifacts": {
+            "report": _relative_or_absolute(report_path, repo_root),
+            "metrics": _relative_or_absolute(metrics_path, repo_root),
+            "claim_update": _relative_or_absolute(claim_update_path, repo_root),
+            "knowledge_update": _relative_or_absolute(knowledge_update_path, repo_root),
+        },
         "scores": _serialize_scores(scores, verdicts),
     }
-    validate_result_payload(metrics_payload, source=metrics_path)
+    validate_result_payload(result_payload, source=result_path)
+    result_path.write_text(yaml.safe_dump(result_payload, sort_keys=False), encoding="utf-8")
+
+    metrics_payload = {
+        "result_id": result_id,
+        "run_id": run_id,
+        "best_model_id": best_model_id,
+        "best_verdict": best_verdict,
+        "verification": verification_payload,
+        "scores": result_payload["scores"],
+    }
     metrics_path.write_text(json.dumps(metrics_payload, indent=2), encoding="utf-8")
 
-    best_score = scores[0]
-    best_verdict = verdicts[best_model_id]
     claim_update_text = _build_claim_update(
         claim_id="CLAIM-0001",
+        result_id=result_id,
         experiment_id=str(experiment["id"]),
         hypothesis_id=str(experiment["hypothesis_id"]),
         task_id=task_id,
@@ -377,21 +511,26 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         best_verdict=best_verdict,
         train_range=(float(train_theta[0]), float(train_theta[-1])),
         test_range=(float(test_theta[0]), float(test_theta[-1])),
+        verification_passed=verification_summary.passed,
     )
     knowledge_update_text = _build_knowledge_update(
         knowledge_id="KNOW-0001",
+        result_id=result_id,
         experiment_id=str(experiment["id"]),
         hypothesis_id=str(experiment["hypothesis_id"]),
         task_id=task_id,
         best_score=best_score,
         best_verdict=best_verdict,
         limitations=limitations,
+        verification_summary=verification_payload,
     )
     claim_update_path.write_text(claim_update_text, encoding="utf-8")
     knowledge_update_path.write_text(knowledge_update_text, encoding="utf-8")
 
     return ExperimentOutcome(
         title=str(experiment["title"]),
+        result_id=result_id,
+        run_id=run_id,
         hypothesis_id=str(experiment["hypothesis_id"]),
         task_id=task_id,
         train_range=(float(train_theta[0]), float(train_theta[-1])),
@@ -400,6 +539,7 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         verdicts=verdicts,
         best_model_id=best_model_id,
         artifacts=ExperimentArtifacts(
+            result_path=result_path,
             report_path=report_path,
             metrics_path=metrics_path,
             claim_update_path=claim_update_path,

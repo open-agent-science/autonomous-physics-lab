@@ -38,6 +38,18 @@ Completed:
   - `knowledge/`
   - example configs such as `examples/pendulum.yaml`
 - claim and knowledge update helper artifacts generated from validated runs
+- run-based artifact layout under `results/<experiment>/<run>/`
+- pendulum verification checks for:
+  - small-angle limit
+  - evenness
+  - monotonicity
+  - known small-angle coefficient comparisons
+  - dimensional consistency placeholder
+- CI coverage for:
+  - `ruff`
+  - `pytest`
+  - example workflow execution
+  - `validate-repo`
 
 Current validation commands:
 
@@ -50,19 +62,19 @@ python3 -m physics_lab.cli validate-repo .
 
 ## Recommended Next Work
 
-### 1. Expand the Physics Verification Stack
+### 1. Replace Verification Placeholders with Real Physics Checks
 
-The next scientific layer should go beyond numeric fit quality.
+The first verification gate now exists, but one part is still explicitly a placeholder.
 
 Best next checks:
 
-- known-limit checks;
 - symbolic consistency hooks;
-- dimensional analysis hooks.
+- real dimensional analysis instead of placeholder status;
+- range-aware checks that compare model behavior against exact known limits beyond the current small-angle series.
 
 Definition of done:
 
-- at least one extra verification signal beyond curve fit metrics is active.
+- the verification summary contains at least one non-placeholder structural physics check beyond fit quality.
 
 ### 2. Add Repo Status and Contributor Docs
 
@@ -80,9 +92,9 @@ The project now generates update suggestions, but evidence handling can still be
 
 Best next improvements:
 
-- derive claim status suggestions from validated results;
+- derive claim status suggestions from validated results and verification gate outcomes;
 - make knowledge updates more structured and section-aware;
-- optionally track which result artifact informed a proposed update.
+- optionally track which result artifact informed a proposed update in more than one knowledge note.
 
 ## Do Not Prioritize Yet
 

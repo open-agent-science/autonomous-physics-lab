@@ -7,6 +7,8 @@ hypothesis_id: HYP-0001
 evidence:
   experiments:
     - EXP-0001
+  results:
+    - RESULT-0001
 scope: Initial scope covers amplitude correction for the ideal pendulum in classical mechanics.
 ---
 
@@ -19,8 +21,10 @@ cannot be captured exactly by the small-angle approximation alone.
 
 ## Evidence Status
 
-This claim is expected to be supported by `EXP-0001`, which will compare exact
-pendulum period ratios against low-order approximation families.
+`EXP-0001` has produced `RESULT-0001`, which contains a verification-backed
+benchmark for low-order pendulum period approximations. This claim remains in
+`DRAFT` until a human or later workflow explicitly accepts the suggested
+evidence update.
 
 ## Scope
 
@@ -30,4 +34,4 @@ mechanics.
 ## Caution
 
 This claim file is a scientific placeholder until reproducible experiment
-artifacts are generated and linked.
+artifacts are reviewed and the claim status is intentionally updated.

@@ -19,12 +19,13 @@ when they become active priorities.
 - Add optional strict mode for `validate-repo`.
 - Add detection of orphaned artifacts not referenced by any experiment or claim.
 - Add validation that claim status is consistent with available result evidence.
+- Add artifact-hash drift checks so committed result metadata can be revalidated after input changes.
 
 ## Scientific Verification
 
-- Add known-limit checks for pendulum approximations.
 - Add symbolic validation helpers in `physics_lab/engines/symbolic.py`.
-- Add dimensional analysis support for future workflows.
+- Replace the pendulum dimensional-consistency placeholder with real symbolic or unit-aware checks.
+- Add stronger range-aware comparison checks against exact pendulum behavior.
 - Add benchmark workflows beyond pendulum:
   - orbital perturbation
   - diffusion scaling
@@ -40,7 +41,6 @@ when they become active priorities.
 
 - Add a contributor guide for humans and LLM agents.
 - Add a repo-level command that prints current project status.
-- Add CI step that explicitly runs `python -m physics_lab.cli validate-repo .`.
 - Add a compact architecture index for quick onboarding.
 
 ## Longer-Term

@@ -9,5 +9,4 @@ build/
 dist/
 *.egg-info/
 examples/reports/*.md
-results/**/metrics.json
 results/**/plots/

@@ -11,8 +11,7 @@
     "hypothesis_id",
     "method",
     "data",
-    "candidate_models",
-    "outputs"
+    "candidate_models"
   ],
   "properties": {
     "id": {
@@ -114,24 +113,6 @@
             "type": "string",
             "minLength": 1
           }
-        }
-      }
-    },
-    "outputs": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "report_path",
-        "result_dir"
-      ],
-      "properties": {
-        "report_path": {
-          "type": "string",
-          "minLength": 1
-        },
-        "result_dir": {
-          "type": "string",
-          "minLength": 1
         }
       }
     }

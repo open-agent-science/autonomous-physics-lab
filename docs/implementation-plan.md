@@ -22,6 +22,8 @@ Completed so far:
   - richer result semantics and traceability metadata
   - schema coverage for knowledge notes and example configs
   - generated claim and knowledge update helper artifacts
+  - run-based evidence artifacts under `results/<experiment>/<run>/`
+  - first verification gate for pendulum evidence
 
 Use [next-steps.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/next-steps.md)
 for the active short-term queue.
@@ -95,7 +97,7 @@ Definition of done:
 
 Status:
 
-- partially implemented
+- implemented for the pendulum slice
 - remaining work includes deeper evidence semantics and more automated public-memory updates
 
 ## Phase 3: Verification Stack Expansion
@@ -106,7 +108,7 @@ Implementation targets:
 
 1. dimensional analysis hooks;
 2. symbolic validation helpers;
-3. known-limit tests;
+3. replace placeholder checks with stronger known-limit and structure-aware tests;
 4. more benchmark physics problems.
 
 Candidate next domains:
@@ -131,10 +133,10 @@ Implementation targets:
 
 This is the practical order I recommend next:
 
-1. add known-limit and symbolic verification hooks;
-2. add the next benchmark physics workflow;
-3. improve contributor docs and project status tooling;
-4. deepen claim and knowledge evidence semantics.
+1. replace placeholder dimensional checks with real symbolic and unit-aware validation;
+2. improve contributor docs and project status tooling;
+3. deepen claim and knowledge evidence semantics;
+4. add the next benchmark physics workflow.
 
 ## Risks to Avoid
 

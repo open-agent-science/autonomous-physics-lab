@@ -4,13 +4,51 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from physics_lab.cli import app
-from physics_lab.registry import load_agent, load_claim, load_example_config, load_experiment, load_hypothesis, load_knowledge, load_result, load_task
-from physics_lab.registry.repository import validate_repository
 from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_all_models
 from physics_lab.engines.scoring import ModelScore, compute_error_metrics
 from physics_lab.engines.simulation import exact_pendulum_period_ratio, generate_pendulum_dataset
+from physics_lab.engines.verification import verify_candidate_model
+from physics_lab.registry import (
+    load_agent,
+    load_claim,
+    load_example_config,
+    load_experiment,
+    load_hypothesis,
+    load_knowledge,
+    load_result,
+    load_task,
+)
+from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.runner import run_pendulum_experiment
+
+
+def _write_task_file(directory: Path, task_id: str = "TASK-0001") -> Path:
+    path = directory / f"{task_id}-temp.yaml"
+    path.write_text(
+        "\n".join(
+            [
+                f'id: "{task_id}"',
+                'title: "Task"',
+                'type: "formula_discovery"',
+                'status: "OPEN"',
+                'difficulty: "medium"',
+                'priority: "high"',
+                "input:",
+                '  hypothesis_id: "HYP-0001"',
+                '  experiment_id: "EXP-0001"',
+                "requirements:",
+                '  - "req"',
+                "accepted_outputs:",
+                '  - "yaml"',
+                "can_be_done_by:",
+                '  - "human"',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return path
 
 
 def test_exact_pendulum_period_ratio_matches_small_angle_limit() -> None:
@@ -36,10 +74,7 @@ def test_formula_discovery_prefers_two_term_sine_family_on_test_range() -> None:
         )
         for model in fitted_models
     }
-    assert (
-        scores["model_x_x2"].mean_relative_error
-        < scores["model_theta2"].mean_relative_error
-    )
+    assert scores["model_x_x2"].mean_relative_error < scores["model_theta2"].mean_relative_error
 
 
 def test_critic_flags_invalid_model_when_errors_are_large() -> None:
@@ -55,11 +90,30 @@ def test_critic_flags_invalid_model_when_errors_are_large() -> None:
     assert classify_model_score(score) == "INVALID"
 
 
-def test_runner_generates_report_and_metrics(tmp_path) -> None:
+def test_verification_summary_contains_expected_checks() -> None:
+    dataset = generate_pendulum_dataset(0.01, 1.5707963267948966, 120)
+    fitted_models = fit_all_models(dataset.theta[:80], dataset.period_ratio[:80])
+    best_model = fitted_models[1]
+    summary = verify_candidate_model(
+        best_model,
+        theta_range=(float(dataset.theta[0]), float(dataset.theta[-1])),
+    )
+
+    check_names = {check.name for check in summary.checks}
+    assert {
+        "small_angle_limit",
+        "evenness",
+        "monotonicity",
+        "dimensional_consistency",
+        "known_small_angle_coefficients",
+    } <= check_names
+
+
+def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     experiment_path = tmp_path / "EXP-0001-pendulum-formula-discovery.yaml"
     hypothesis_path = tmp_path / "HYP-0001-pendulum-correction.yaml"
-    result_dir = tmp_path / "results"
-    report_path = tmp_path / "report.md"
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir()
     config_path = tmp_path / "pendulum.yaml"
     experiment_path.write_text(
         "\n".join(
@@ -83,9 +137,6 @@ def test_runner_generates_report_and_metrics(tmp_path) -> None:
                 '    formula: "1 + a*theta^2"',
                 '  - id: "model_theta2_theta4"',
                 '    formula: "1 + a*theta^2 + b*theta^4"',
-                'outputs:',
-                f'  report_path: "{report_path}"',
-                f'  result_dir: "{result_dir}"',
             ]
         )
         + "\n",
@@ -117,12 +168,16 @@ def test_runner_generates_report_and_metrics(tmp_path) -> None:
         + "\n",
         encoding="utf-8",
     )
+    _write_task_file(tasks_dir)
     config_path.write_text(
         "\n".join(
             [
                 f"experiment_path: {experiment_path}",
                 f"hypothesis_path: {hypothesis_path}",
                 "task_id: TASK-0001",
+                "run_id: RUN-0001",
+                "result_id: RESULT-0001",
+                "result_root: results/EXP-0001",
                 "train_fraction: 0.7",
             ]
         )
@@ -132,35 +187,58 @@ def test_runner_generates_report_and_metrics(tmp_path) -> None:
 
     outcome = run_pendulum_experiment(config_path)
 
-    assert outcome.best_model_id
+    run_dir = tmp_path / "results" / "EXP-0001" / "RUN-0001"
+    result_path = run_dir / "result.yaml"
+    report_path = run_dir / "report.md"
+    metrics_path = run_dir / "metrics.json"
+    claim_update_path = run_dir / "claim_update.md"
+    knowledge_update_path = run_dir / "knowledge_update.md"
+
+    assert outcome.result_id == "RESULT-0001"
+    assert outcome.run_id == "RUN-0001"
+    assert result_path.exists()
     assert report_path.exists()
-    metrics_path = result_dir / "metrics.json"
-    claim_update_path = result_dir / "claim_update.md"
-    knowledge_update_path = result_dir / "knowledge_update.md"
     assert metrics_path.exists()
     assert claim_update_path.exists()
     assert knowledge_update_path.exists()
-    payload = json.loads(metrics_path.read_text(encoding="utf-8"))
-    assert payload["experiment_id"] == "EXP-0001"
-    assert payload["task_id"] == "TASK-0001"
-    assert payload["code_reference"] == "physics_lab/workflows/runner.py"
-    assert payload["limitations"]
-    assert payload["engine_version"]
-    assert payload["generated_at"]
-    assert payload["scores"]
+
+    result_payload = load_result(result_path)
+    metrics_payload = json.loads(metrics_path.read_text(encoding="utf-8"))
+
+    assert result_payload["result_id"] == "RESULT-0001"
+    assert result_payload["run_id"] == "RUN-0001"
+    assert result_payload["experiment_id"] == "EXP-0001"
+    assert result_payload["task_id"] == "TASK-0001"
+    assert result_payload["code_reference"] == "physics_lab/workflows/runner.py"
+    assert result_payload["limitations"]
+    assert result_payload["engine_version"]
+    assert result_payload["generated_at"]
+    assert result_payload["command"]
+    assert result_payload["input_file_hashes"]["config"]["sha256"]
+    assert result_payload["input_file_hashes"]["task"]["sha256"]
+    assert result_payload["verification"]["checks"]
+    assert result_payload["artifacts"]["report"].endswith("report.md")
+    assert result_payload["git_commit"] is None
+
+    assert metrics_payload["result_id"] == "RESULT-0001"
+    assert metrics_payload["run_id"] == "RUN-0001"
+    assert metrics_payload["verification"]["checks"]
+
     assert "Proposed Update for CLAIM-0001" in claim_update_path.read_text(encoding="utf-8")
     assert "Proposed Update for KNOW-0001" in knowledge_update_path.read_text(encoding="utf-8")
-    load_result(metrics_path)
+    assert "## Verification" in report_path.read_text(encoding="utf-8")
 
 
-def test_runner_resolves_experiment_outputs_from_repo_root(tmp_path) -> None:
+def test_runner_resolves_config_paths_relative_to_config_location(tmp_path) -> None:
     repo_root = tmp_path / "repo"
     examples_dir = repo_root / "examples"
     experiments_dir = repo_root / "experiments"
     hypotheses_dir = repo_root / "hypotheses"
+    tasks_dir = repo_root / "tasks"
     examples_dir.mkdir(parents=True)
     experiments_dir.mkdir()
     hypotheses_dir.mkdir()
+    tasks_dir.mkdir()
     (repo_root / "pyproject.toml").write_text("[project]\nname='tmp'\nversion='0.0.0'\n", encoding="utf-8")
 
     config_path = examples_dir / "pendulum.yaml"
@@ -186,9 +264,6 @@ def test_runner_resolves_experiment_outputs_from_repo_root(tmp_path) -> None:
                 "candidate_models:",
                 '  - id: "model_theta2"',
                 '    formula: "1 + a*theta^2"',
-                'outputs:',
-                '  report_path: "examples/reports/pendulum_formula_discovery.md"',
-                '  result_dir: "results/EXP-0001"',
             ]
         )
         + "\n",
@@ -220,12 +295,16 @@ def test_runner_resolves_experiment_outputs_from_repo_root(tmp_path) -> None:
         + "\n",
         encoding="utf-8",
     )
+    _write_task_file(tasks_dir)
     config_path.write_text(
         "\n".join(
             [
-                f"experiment_path: {experiment_path}",
-                f"hypothesis_path: {hypothesis_path}",
+                "experiment_path: ../experiments/EXP-0001-pendulum-formula-discovery.yaml",
+                "hypothesis_path: ../hypotheses/HYP-0001-pendulum-correction.yaml",
                 "task_id: TASK-0001",
+                "run_id: RUN-0001",
+                "result_id: RESULT-0001",
+                "result_root: ../results/EXP-0001",
                 "train_fraction: 0.7",
             ]
         )
@@ -235,14 +314,11 @@ def test_runner_resolves_experiment_outputs_from_repo_root(tmp_path) -> None:
 
     outcome = run_pendulum_experiment(config_path)
 
-    assert outcome.artifacts.report_path == repo_root / "examples" / "reports" / "pendulum_formula_discovery.md"
-    assert outcome.artifacts.metrics_path == repo_root / "results" / "EXP-0001" / "metrics.json"
-    assert outcome.artifacts.claim_update_path == repo_root / "results" / "EXP-0001" / "claim_update.md"
-    assert outcome.artifacts.knowledge_update_path == repo_root / "results" / "EXP-0001" / "knowledge_update.md"
-    assert outcome.artifacts.report_path.exists()
-    assert outcome.artifacts.metrics_path.exists()
-    assert outcome.artifacts.claim_update_path.exists()
-    assert outcome.artifacts.knowledge_update_path.exists()
+    assert outcome.artifacts.result_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "result.yaml"
+    assert outcome.artifacts.report_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "report.md"
+    assert outcome.artifacts.metrics_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "metrics.json"
+    assert outcome.artifacts.claim_update_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "claim_update.md"
+    assert outcome.artifacts.knowledge_update_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.md"
 
 
 def test_cli_run_smoke() -> None:
@@ -251,6 +327,7 @@ def test_cli_run_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Completed: Pendulum Formula Discovery" in result.stdout
+    assert "Result:" in result.stdout
     assert "Claim update:" in result.stdout
     assert "Knowledge update:" in result.stdout
 
@@ -272,6 +349,16 @@ def test_cli_validate_hypothesis_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Validated hypotheses/HYP-0001-pendulum-correction.yaml as hypothesis." in result.stdout
+
+
+def test_cli_validate_result_smoke() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
+    runner = CliRunner()
+    result = runner.invoke(app, ["validate", "results/EXP-0001/RUN-0001/result.yaml"])
+
+    assert result.exit_code == 0
+    assert "Validated results/EXP-0001/RUN-0001/result.yaml as result." in result.stdout
 
 
 def test_validate_repository_smoke() -> None:
