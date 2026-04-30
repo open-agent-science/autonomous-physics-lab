@@ -148,16 +148,18 @@ cmd_block() {
   cmd_block "validate repo" "$PYTHON_BIN" -m physics_lab.cli validate-repo .
 
   if [ "${RUN_EXPERIMENT:-0}" = "1" ]; then
-    cmd_block "run pendulum example" "$PYTHON_BIN" -m physics_lab.cli run examples/pendulum.yaml
+    cmd_block "run pendulum example" "$PYTHON_BIN" -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
+    cmd_block "run damped oscillator example" "$PYTHON_BIN" -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
+    cmd_block "git dirty check after examples" git diff --exit-code
   else
     echo ""
-    echo "### run pendulum example"
+    echo "### run examples"
     echo ""
     echo "Skipped. To include it, run:"
     echo ""
     echo '```bash'
-    echo "PYTHON_BIN=python3.11 ./scripts/apl_snapshot.sh"
     echo "RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh"
+    echo "PYTHON_BIN=python3.11 RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh"
     echo '```'
   fi
 
