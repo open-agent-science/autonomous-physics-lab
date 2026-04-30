@@ -34,6 +34,7 @@ Completed so far:
   - second runnable benchmark for exact damped-oscillator regime verification
   - committed `RESULT-0002` artifact set under `results/EXP-0002/RUN-0001/`
   - maintainer-facing claim promotion policy linked to generated claim suggestions
+  - result input-hash drift detection for committed canonical artifacts
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.

@@ -4,9 +4,9 @@ experiment_id: EXP-0002
 title: Damped Oscillator Regime Verification
 hypothesis_id: HYP-0002
 task_id: TASK-0002
-generated_at: '2026-04-30T07:10:45.990845+00:00'
+generated_at: '2026-04-30T13:16:53.765506+00:00'
 engine_version: 0.1.0
-git_commit: 570c21b06cc925e888ef81e010a68b3b72a6544e
+git_commit: 63c6919ff4504f7b5627e42992ba5778c9e581cc
 command: physics-lab run examples/damped_oscillator.yaml
 input_file_hashes:
   config:
@@ -20,7 +20,7 @@ input_file_hashes:
     sha256: 0335a56d292b78fc31819bc1294e053abb1c1aa6a62894956008b3d44eb0d34c
   task:
     path: tasks/TASK-0002-verify-damped-oscillator-regimes.yaml
-    sha256: cab0c82d798b605490264aaa6537bac99efec30113572e51b2eff409cf789ac3
+    sha256: ffc62c2e33e9c7d63f7bb8d3a846bfe4b840caf5b08fd7d9c9cbbb50eedfe55f
 code_reference: physics_lab/workflows/damped_oscillator.py
 limitations:
 - This benchmark assumes a linear damped harmonic oscillator with no external driving

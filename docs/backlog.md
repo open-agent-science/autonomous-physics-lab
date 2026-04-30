@@ -19,7 +19,7 @@ when they become active priorities.
 - Add optional strict mode for `validate-repo`.
 - Add detection of orphaned artifacts not referenced by any experiment or claim.
 - Add validation that claim status is consistent with available result evidence.
-- Add artifact-hash drift checks so committed result metadata can be revalidated after input changes.
+- Add a lighter-weight report that explains detected artifact drift before regeneration.
 
 ## Scientific Verification
 

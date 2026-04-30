@@ -14,6 +14,7 @@ from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
 from physics_lab.registry.results import load_result
 from physics_lab.registry.tasks import load_task
+from physics_lab.workflows.artifacts import hash_file
 
 
 Loader = Callable[[Union[str, Path]], dict[str, Any]]
@@ -200,6 +201,22 @@ def _validate_references(
             raise ValueError(
                 f"{path} references missing code_reference: {payload['code_reference']}"
             )
+        for artifact_kind, hash_payload in payload["input_file_hashes"].items():
+            recorded_input_path = Path(str(hash_payload["path"]))
+            resolved_input_path = (
+                recorded_input_path.resolve()
+                if recorded_input_path.is_absolute()
+                else (root_path / recorded_input_path).resolve()
+            )
+            if not resolved_input_path.exists():
+                raise ValueError(
+                    f"{path} references missing input file for {artifact_kind}: {hash_payload['path']}"
+                )
+            current_hash = hash_file(resolved_input_path, root_path)["sha256"]
+            if current_hash != hash_payload["sha256"]:
+                raise ValueError(
+                    f"{path} has input hash drift for {artifact_kind}: {hash_payload['path']}"
+                )
         for artifact_name, artifact_path in payload["artifacts"].items():
             resolved_artifact = (root_path / artifact_path).resolve()
             if not resolved_artifact.exists():

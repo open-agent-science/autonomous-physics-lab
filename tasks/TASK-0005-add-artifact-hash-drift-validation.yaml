@@ -1,7 +1,7 @@
 id: TASK-0005
 title: "Add artifact hash drift validation"
 type: repository_validation
-status: OPEN
+status: DONE
 difficulty: medium
 priority: medium
 

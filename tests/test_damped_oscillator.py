@@ -1,5 +1,6 @@
 from pathlib import Path
 import textwrap
+from typing import Optional
 
 from typer.testing import CliRunner
 
@@ -12,6 +13,7 @@ from physics_lab.engines.damped_oscillator import (
 from physics_lab.registry import load_claim, load_experiment, load_hypothesis, load_knowledge, load_task
 from physics_lab.registry.results import load_result
 from physics_lab.registry.repository import validate_repository
+from physics_lab.workflows.artifacts import hash_file
 from physics_lab.workflows.claim_semantics import suggest_claim_status
 from physics_lab.workflows.runner import (
     run_damped_oscillator_experiment_with_output,
@@ -143,9 +145,23 @@ def test_claim_status_suggestion_for_range_limited_benchmark() -> None:
     assert suggestion.status == "PARTIALLY_SUPPORTED"
 
 
-def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> None:
-    repo_root = tmp_path / "repo"
-    for directory in ("agents", "claims", "experiments", "hypotheses", "knowledge", "results/EXP-0001/RUN-0001", "tasks", "examples"):
+def _write_minimal_repository_fixture(
+    repo_root: Path,
+    *,
+    claim_scope: str,
+    claim_body: str,
+    hash_overrides: Optional[dict[str, str]] = None,
+) -> None:
+    for directory in (
+        "agents",
+        "claims",
+        "experiments",
+        "hypotheses",
+        "knowledge",
+        "results/EXP-0001/RUN-0001",
+        "tasks",
+        "examples",
+    ):
         (repo_root / directory).mkdir(parents=True, exist_ok=True)
     (repo_root / "tests").mkdir(parents=True, exist_ok=True)
     (repo_root / "tests" / "test_damped_oscillator.py").write_text("# temp\n", encoding="utf-8")
@@ -243,7 +259,7 @@ def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> 
     )
     (repo_root / "claims" / "CLAIM-0001-temp.md").write_text(
         textwrap.dedent(
-            """\
+            f"""\
             ---
             id: CLAIM-0001
             title: Temp Claim
@@ -255,10 +271,10 @@ def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> 
                 - EXP-0001
               results:
                 - RESULT-0001
-            scope: General statement with no bounded-scope wording.
+            scope: {claim_scope}
             ---
 
-            Claim body without bounded-scope wording.
+            {claim_body}
             """
         ),
         encoding="utf-8",
@@ -305,9 +321,16 @@ def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> 
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "metrics.json").write_text("{}", encoding="utf-8")
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "claim_update.md").write_text("claim\n", encoding="utf-8")
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.md").write_text("knowledge\n", encoding="utf-8")
+
+    config_hash = hash_file(repo_root / "examples" / "temp.yaml", repo_root)["sha256"]
+    experiment_hash = hash_file(repo_root / "experiments" / "EXP-0001-temp.yaml", repo_root)["sha256"]
+    hypothesis_hash = hash_file(repo_root / "hypotheses" / "HYP-0001-temp.yaml", repo_root)["sha256"]
+    task_hash = hash_file(repo_root / "tasks" / "TASK-0001-temp.yaml", repo_root)["sha256"]
+
+    overrides = hash_overrides or {}
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "result.yaml").write_text(
         textwrap.dedent(
-            """\
+            f"""\
             result_id: RESULT-0001
             run_id: RUN-0001
             experiment_id: EXP-0001
@@ -322,10 +345,10 @@ def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> 
             git_commit: null
             command: temp
             input_file_hashes:
-              config: {path: examples/temp.yaml, sha256: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
-              experiment: {path: experiments/EXP-0001-temp.yaml, sha256: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
-              hypothesis: {path: hypotheses/HYP-0001-temp.yaml, sha256: "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"}
-              task: {path: tasks/TASK-0001-temp.yaml, sha256: "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"}
+              config: {{path: examples/temp.yaml, sha256: "{overrides.get('config', config_hash)}"}}
+              experiment: {{path: experiments/EXP-0001-temp.yaml, sha256: "{overrides.get('experiment', experiment_hash)}"}}
+              hypothesis: {{path: hypotheses/HYP-0001-temp.yaml, sha256: "{overrides.get('hypothesis', hypothesis_hash)}"}}
+              task: {{path: tasks/TASK-0001-temp.yaml, sha256: "{overrides.get('task', task_hash)}"}}
             train_range: [0.01, 0.7]
             test_range: [0.71, 1.0]
             best_model_id: model_theta2
@@ -336,7 +359,7 @@ def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> 
                 - name: small_angle_limit
                   status: PASS
                   details: ok
-                  metrics: {}
+                  metrics: {{}}
             artifacts:
               report: results/EXP-0001/RUN-0001/report.md
               metrics: results/EXP-0001/RUN-0001/metrics.json
@@ -345,15 +368,24 @@ def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> 
             scores:
               - model_id: model_theta2
                 formula: 1 + a*theta^2
-                coefficients: {a: 0.0625}
+                coefficients: {{a: 0.0625}}
                 complexity_score: 1
-                train_metrics: {mean_relative_error: 0.0, max_relative_error: 0.0}
-                test_metrics: {mean_relative_error: 0.0, max_relative_error: 0.0}
+                train_metrics: {{mean_relative_error: 0.0, max_relative_error: 0.0}}
+                test_metrics: {{mean_relative_error: 0.0, max_relative_error: 0.0}}
                 composite_score: 0.001
                 verdict: VALID
             """
         ),
         encoding="utf-8",
+    )
+
+
+def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_minimal_repository_fixture(
+        repo_root,
+        claim_scope="General statement with no bounded-scope wording.",
+        claim_body="Claim body without bounded-scope wording.",
     )
 
     try:
@@ -362,3 +394,20 @@ def test_repository_rejects_supported_claim_without_scope_language(tmp_path) -> 
         assert "range-limited evidence" in str(exc)
     else:
         raise AssertionError("Expected SUPPORTED claim without range language to fail validation")
+
+
+def test_repository_rejects_result_input_hash_drift(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_minimal_repository_fixture(
+        repo_root,
+        claim_scope="Valid only within the tested range for this temporary benchmark.",
+        claim_body="Claim body with explicit in-scope wording.",
+        hash_overrides={"config": "0" * 64},
+    )
+
+    try:
+        validate_repository(repo_root)
+    except ValueError as exc:
+        assert "input hash drift" in str(exc)
+    else:
+        raise AssertionError("Expected result input hash drift to fail validation")

@@ -18,6 +18,7 @@ Current working slices:
 - run-based result artifact generation;
 - public memory registry for hypothesis, experiment, claim, task, result, and knowledge;
 - repository-wide validation and referential integrity checks;
+- repository-wide validation, referential integrity checks, and result input-hash drift detection;
 - basic CI configuration with lint, tests, example run, and repository validation;
 - damped-oscillator exact-solution benchmark with run-based artifacts;
 - contributor workflow documentation and GitHub issue and PR templates.
@@ -75,6 +76,7 @@ Damped oscillator:
 - Public alpha is stable for two slices, but not yet broad enough for a wider “many benchmark” claim.
 - Claim files still need deliberate human review before moving from draft text to stronger public statuses.
 - Claim suggestions are generated automatically, but promotion decisions still rely on maintainer judgment.
+- Canonical result artifacts must be regenerated intentionally when tracked input files change.
 
 ## Public Repo Status
 

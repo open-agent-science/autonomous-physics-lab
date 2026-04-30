@@ -114,7 +114,7 @@ Best next improvements:
 
 - make knowledge updates more structured and section-aware;
 - optionally track which result artifact informed a proposed update in more than one knowledge note;
-- add artifact-level drift checks so evidence summaries can be revalidated after input changes.
+- add maintainer-facing review summaries that explain why a canonical artifact changed after regeneration.
 
 ### 3. Improve Maintainer Review Discipline
 
