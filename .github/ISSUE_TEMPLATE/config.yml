@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Project Status
+    url: https://github.com/gladunrv/autonomous-physics-lab/blob/main/docs/status.md
+    about: Check the current project stage and benchmark status before opening a new issue.
+  - name: Contributing Workflow
+    url: https://github.com/gladunrv/autonomous-physics-lab/blob/main/docs/contributing-workflow.md
+    about: Read the verification-first contribution workflow before proposing changes.

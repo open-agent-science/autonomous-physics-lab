@@ -19,7 +19,8 @@ Current working slices:
 - public memory registry for hypothesis, experiment, claim, task, result, and knowledge;
 - repository-wide validation and referential integrity checks;
 - basic CI configuration with lint, tests, example run, and repository validation;
-- damped-oscillator exact-solution benchmark with run-based artifacts.
+- damped-oscillator exact-solution benchmark with run-based artifacts;
+- contributor workflow documentation and GitHub issue and PR templates.
 
 ## Current Verification Checks
 
@@ -42,7 +43,7 @@ Damped oscillator:
 - initial-condition recovery;
 - underdamped energy decay;
 - oscillatory vs non-oscillatory behavior;
-- dimensional consistency.
+- dimensional consistency;
 - `c -> 0` undamped-limit check;
 - underdamped envelope decay-rate check;
 - critical damping boundary check;
@@ -56,6 +57,7 @@ Damped oscillator:
 - `python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped`
 - `python3 -m physics_lab.cli validate-repo .`
 - `python3 -m physics_lab.cli status .`
+- verification-first contributor workflow and GitHub issue templates.
 
 ## Not Ready Yet
 
@@ -70,6 +72,7 @@ Damped oscillator:
 - Canonical artifacts under `results/` can become stale if contributors run examples without `--output-dir`.
 - The result schema is shared by both benchmarks, so benchmark-specific semantics still need careful wording.
 - Public alpha is stable for two slices, but not yet broad enough for a wider “many benchmark” claim.
+- Claim files still need deliberate human review before moving from draft text to stronger public statuses.
 
 ## Public Repo Status
 

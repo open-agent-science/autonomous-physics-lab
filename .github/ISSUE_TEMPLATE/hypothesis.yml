@@ -1,0 +1,60 @@
+name: Hypothesis Proposal
+description: Propose a new hypothesis, task, or benchmark scaffold.
+title: "[hypothesis] "
+labels:
+  - hypothesis
+body:
+  - type: input
+    id: hypothesis_id
+    attributes:
+      label: Proposed hypothesis ID
+      description: Use an existing ID if continuing work, or suggest the next one.
+      placeholder: HYP-0003
+    validations:
+      required: true
+
+  - type: textarea
+    id: statement
+    attributes:
+      label: Hypothesis statement
+      description: State the hypothesis in cautious, testable language.
+      placeholder: A narrow, testable statement.
+    validations:
+      required: true
+
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: Assumptions
+      description: List physical assumptions and boundaries clearly.
+      placeholder: Ideal system, no forcing, limited regime, known simplifications
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Proposed verification path
+      description: How could this be tested deterministically?
+      placeholder: exact solution, limit check, dimensional analysis, benchmark against known result
+    validations:
+      required: true
+
+  - type: textarea
+    id: public_memory
+    attributes:
+      label: Repository objects to add or update
+      description: Which files should this proposal likely touch?
+      placeholder: hypotheses/, experiments/, tasks/, claims/, knowledge/
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Verification-first checklist
+      options:
+        - label: I am proposing a testable hypothesis, not a final theory claim.
+          required: true
+        - label: I understand the claim must remain cautious until evidence exists.
+          required: true

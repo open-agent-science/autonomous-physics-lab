@@ -5,6 +5,12 @@ Autonomous Physics Lab is a verification-first research codebase.
 Contributions are welcome, but every scientific claim must stay reproducible,
 reviewable, and linked to repository artifacts.
 
+For the full repository workflow, read
+[docs/contributing-workflow.md](docs/contributing-workflow.md).
+
+If you are opening a GitHub issue or pull request, use the repository templates
+so the change stays linked to experiments, tasks, results, and claim scope.
+
 ## Before Opening a PR
 
 Run:
@@ -49,3 +55,4 @@ PYTHON_BIN=python3.11 ./scripts/apl_snapshot.sh
 - [AGENTS.md](AGENTS.md)
 - [docs/status.md](docs/status.md)
 - [docs/next-steps.md](docs/next-steps.md)
+- [docs/contributing-workflow.md](docs/contributing-workflow.md)

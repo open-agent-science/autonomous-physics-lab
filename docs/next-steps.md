@@ -115,15 +115,16 @@ Best next improvements:
 - make knowledge updates more structured and section-aware;
 - optionally track which result artifact informed a proposed update in more than one knowledge note.
 
-### 3. Add Repo Status and Contributor Docs
+### 3. Deepen Public Contribution Policy
 
-The project now has enough moving parts that handoff quality matters more.
+The first public collaboration layer now exists, but the review policy can still
+be stronger.
 
 Best next docs/tools:
 
-- expand the contributor guide for humans and LLM agents;
-- add a short architecture index or map;
-- consider a status view that lists benchmark-specific readiness instead of only the latest result.
+- define when a claim file may move from `DRAFT` to `PARTIALLY_SUPPORTED` or `SUPPORTED`;
+- document who is expected to make that promotion decision;
+- add a short architecture index or contributor map for faster handoff.
 
 ### 4. Keep Multi-Benchmark CI Non-Dirty
 

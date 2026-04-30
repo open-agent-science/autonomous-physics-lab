@@ -1,0 +1,60 @@
+name: Benchmark Improvement
+description: Propose or track work on an existing benchmark or verification slice.
+title: "[benchmark] "
+labels:
+  - benchmark
+body:
+  - type: input
+    id: benchmark_id
+    attributes:
+      label: Benchmark / Experiment ID
+      description: Which experiment is this about?
+      placeholder: EXP-0001 or EXP-0002
+    validations:
+      required: true
+
+  - type: input
+    id: task_id
+    attributes:
+      label: Task ID
+      description: Link this issue to an existing task when possible.
+      placeholder: TASK-0001
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or limitation
+      description: What is weak, missing, or misleading in the current benchmark?
+      placeholder: Describe the current limitation clearly and narrowly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_change
+    attributes:
+      label: Expected change
+      description: What should improve after this work lands?
+      placeholder: New verification check, stronger evidence semantics, cleaner artifact flow, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: Which commands or artifacts should confirm the change?
+      placeholder: ruff, pytest, run examples with --output-dir, validate-repo, result artifact review
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Verification-first checklist
+      options:
+        - label: I am not proposing unverifiable scientific claims.
+          required: true
+        - label: I will keep artifact updates reproducible and reviewable.
+          required: true
+        - label: I understand canonical results should not be regenerated casually.
+          required: true
