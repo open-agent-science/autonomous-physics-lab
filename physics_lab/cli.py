@@ -9,7 +9,7 @@ import typer
 
 from physics_lab.registry import infer_kind_from_path, load_agent, load_claim, load_example_config, load_experiment, load_hypothesis, load_knowledge, load_result, load_task
 from physics_lab.registry.repository import validate_repository
-from physics_lab.workflows.runner import run_pendulum_experiment
+from physics_lab.workflows.runner import run_pendulum_experiment_with_output
 
 app = typer.Typer(help="Autonomous Physics Lab command line interface.")
 
@@ -45,9 +45,19 @@ def _latest_result_path(root: Path) -> Path | None:
 
 
 @app.command("run")
-def run(config_path: str) -> None:
+def run(
+    config_path: str,
+    output_dir: Optional[str] = typer.Option(
+        None,
+        "--output-dir",
+        help="Override the base output directory for generated run artifacts.",
+    ),
+) -> None:
     """Run a configured experiment workflow."""
-    outcome = run_pendulum_experiment(Path(config_path))
+    outcome = run_pendulum_experiment_with_output(
+        config_path=Path(config_path),
+        output_dir=Path(output_dir) if output_dir is not None else None,
+    )
     typer.echo(f"Completed: {outcome.title}")
     typer.echo(f"Best model: {outcome.best_model_id}")
     typer.echo(f"Result: {outcome.artifacts.result_path}")

@@ -21,7 +21,7 @@ from physics_lab.registry import (
     load_task,
 )
 from physics_lab.registry.repository import validate_repository
-from physics_lab.workflows.runner import run_pendulum_experiment
+from physics_lab.workflows.runner import run_pendulum_experiment, run_pendulum_experiment_with_output
 
 
 def _write_task_file(directory: Path, task_id: str = "TASK-0001") -> Path:
@@ -367,6 +367,101 @@ def test_cli_run_smoke() -> None:
     assert "Result:" in result.stdout
     assert "Claim update:" in result.stdout
     assert "Knowledge update:" in result.stdout
+
+
+def test_runner_output_override_writes_outside_repo_results(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    examples_dir = repo_root / "examples"
+    experiments_dir = repo_root / "experiments"
+    hypotheses_dir = repo_root / "hypotheses"
+    tasks_dir = repo_root / "tasks"
+    results_dir = repo_root / "results"
+    examples_dir.mkdir(parents=True)
+    experiments_dir.mkdir()
+    hypotheses_dir.mkdir()
+    tasks_dir.mkdir()
+    results_dir.mkdir()
+    (repo_root / "pyproject.toml").write_text("[project]\nname='tmp'\nversion='0.0.0'\n", encoding="utf-8")
+
+    config_path = examples_dir / "pendulum.yaml"
+    experiment_path = experiments_dir / "EXP-0001-pendulum-formula-discovery.yaml"
+    hypothesis_path = hypotheses_dir / "HYP-0001-pendulum-correction.yaml"
+    experiment_path.write_text(
+        "\n".join(
+            [
+                'id: "EXP-0001"',
+                'title: "Pendulum Formula Discovery"',
+                'domain: "classical_mechanics"',
+                'status: "COMPLETED"',
+                'hypothesis_id: "HYP-0001"',
+                "method:",
+                '  type: "formula_discovery"',
+                '  simulator: "exact_pendulum_period_ratio"',
+                '  fitter: "deterministic_least_squares"',
+                "data:",
+                "  amplitude_range_radians:",
+                "    start: 0.01",
+                "    end: 1.5707963267948966",
+                "  sample_count: 40",
+                "candidate_models:",
+                '  - id: "model_theta2"',
+                '    formula: "1 + a*theta^2"',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    hypothesis_path.write_text(
+        "\n".join(
+            [
+                'id: "HYP-0001"',
+                'title: "Pendulum period correction with amplitude terms"',
+                'domain: "classical_mechanics"',
+                'status: "TESTING"',
+                "hypothesis:",
+                '  statement: "The pendulum period ratio can be approximated by low-order amplitude correction formulas."',
+                "  formula_candidates:",
+                '    - "T/T0 = 1 + a*theta^2"',
+                'assumptions:',
+                '  - "Ideal mathematical pendulum"',
+                'variables:',
+                "  theta:",
+                '    unit: "radian"',
+                '    description: "Initial angular amplitude"',
+                "evidence:",
+                "  experiments:",
+                '    - "EXP-0001"',
+                "  results:",
+                '    - "RESULT-0001"',
+                'verdict: "Initial benchmark completed. Low-order approximations are valid only within tested amplitude ranges; near-separatrix diagnostics fail for the current best candidate."',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    _write_task_file(tasks_dir)
+    config_path.write_text(
+        "\n".join(
+            [
+                "experiment_path: ../experiments/EXP-0001-pendulum-formula-discovery.yaml",
+                "hypothesis_path: ../hypotheses/HYP-0001-pendulum-correction.yaml",
+                "task_id: TASK-0001",
+                "run_id: RUN-0001",
+                "result_id: RESULT-0001",
+                "result_root: ../results/EXP-0001",
+                "train_fraction: 0.7",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    output_dir = tmp_path / "external-results"
+    outcome = run_pendulum_experiment_with_output(config_path, output_dir=output_dir)
+
+    assert outcome.artifacts.result_path == output_dir / "EXP-0001" / "RUN-0001" / "result.yaml"
+    assert outcome.artifacts.result_path.exists()
+    assert not (repo_root / "results" / "EXP-0001" / "RUN-0001" / "result.yaml").exists()
 
 
 def test_registry_files_validate_against_schemas() -> None:

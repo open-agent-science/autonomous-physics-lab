@@ -378,6 +378,14 @@ def _build_knowledge_update(
 
 def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     """Execute the pendulum formula discovery workflow from an example config."""
+    return run_pendulum_experiment_with_output(config_path=config_path)
+
+
+def run_pendulum_experiment_with_output(
+    config_path: str | Path,
+    output_dir: str | Path | None = None,
+) -> ExperimentOutcome:
+    """Execute the pendulum workflow, optionally overriding the result root."""
     config_path = Path(config_path).resolve()
     config = load_example_config(config_path)
     experiment_path = _resolve_path(config_path, config["experiment_path"])
@@ -388,7 +396,12 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     task_id = str(config.get("task_id", ""))
     run_id = str(config.get("run_id", ""))
     result_id = str(config.get("result_id", ""))
-    result_root = _resolve_path(config_path, str(config.get("result_root", "")))
+    default_result_root = _resolve_path(config_path, str(config.get("result_root", "")))
+    result_root = (
+        Path(output_dir).resolve() / str(experiment["id"])
+        if output_dir is not None
+        else default_result_root
+    )
     if experiment["hypothesis_id"] != hypothesis["id"]:
         raise ValueError(
             "Experiment hypothesis_id does not match loaded hypothesis id: "
@@ -453,6 +466,8 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     task_path = _task_path(repo_root, task_id)
     command_path = _relative_or_absolute(config_path, repo_root)
     command = f"physics-lab run {command_path}"
+    if output_dir is not None:
+        command += f" --output-dir {_relative_or_absolute(Path(output_dir).resolve(), repo_root)}"
     input_hashes = {
         "config": _hash_file(config_path, repo_root),
         "experiment": _hash_file(experiment_path, repo_root),

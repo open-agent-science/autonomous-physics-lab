@@ -42,7 +42,7 @@ jobs:
 
       - name: Run example workflow
         run: |
-          python -m physics_lab.cli run examples/pendulum.yaml
+          python -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-results
 
       - name: Validate repository artifacts
         run: |
