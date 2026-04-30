@@ -4,9 +4,9 @@ experiment_id: EXP-0001
 title: Pendulum Formula Discovery
 hypothesis_id: HYP-0001
 task_id: TASK-0003
-generated_at: '2026-04-30T13:43:44.582862+00:00'
+generated_at: '2026-04-30T17:26:33.955052+00:00'
 engine_version: 0.1.0
-git_commit: 02b24414c05dfe7c7b79dd20f0f3de2b659d3bb5
+git_commit: dc4767ac39698cd8965226e36fb09a8ec5a1cc37
 command: physics-lab run examples/pendulum.yaml
 input_file_hashes:
   config:
@@ -20,7 +20,7 @@ input_file_hashes:
     sha256: 8efb43e0a7dd0803c1a2595d66bb021f6f082688e8f6bf38682682777d31118a
   task:
     path: results/EXP-0001/RUN-0002/inputs/task.yaml
-    sha256: 0fa06adb81c9d7de6bb14011f2831c3b060458a22df84cbcf58d6c30fe2c1ec1
+    sha256: 8e8bc7e034d6785be3ef3ba80d3bcd2d5516bb531bf8ff6199a27970832af301
 code_reference: physics_lab/workflows/pendulum.py
 limitations:
 - This workflow assumes an ideal mathematical pendulum with no damping or driving

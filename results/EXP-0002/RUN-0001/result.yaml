@@ -4,9 +4,9 @@ experiment_id: EXP-0002
 title: Damped Oscillator Regime Verification
 hypothesis_id: HYP-0002
 task_id: TASK-0002
-generated_at: '2026-04-30T13:43:44.569959+00:00'
+generated_at: '2026-04-30T17:26:33.934871+00:00'
 engine_version: 0.1.0
-git_commit: 02b24414c05dfe7c7b79dd20f0f3de2b659d3bb5
+git_commit: dc4767ac39698cd8965226e36fb09a8ec5a1cc37
 command: physics-lab run examples/damped_oscillator.yaml
 input_file_hashes:
   config:

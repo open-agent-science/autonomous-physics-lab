@@ -5,11 +5,16 @@
 - Experiment: `EXP-0002`
 - Task: `TASK-0002`
 
-## Suggested Addition
+## Target Knowledge Note
+
+- File: `knowledge/classical_mechanics/damped_oscillator.md`
+- Sections to review: `Known Baseline`, `Linked Objects`, `Open Questions`
+
+## Suggested Known Baseline Update
 
 The current damped-oscillator benchmark verified the expected analytic regime split between underdamped, critically damped, and overdamped motion.
 
-## Suggested Verification Notes
+Suggested verification summary:
 
 - Verification gate passed: `True`
 - regime_classification: `PASS`
@@ -22,12 +27,17 @@ The current damped-oscillator benchmark verified the expected analytic regime sp
 - critical_damping_boundary: `PASS`
 - overdamped_asymptotic_behavior: `PASS`
 
+## Suggested Linked Objects Update
+
+- Ensure result link includes `RESULT-0002`.
+- Ensure task link includes `TASK-0002`.
+
 ## Suggested Limitations Section
 
 - This benchmark assumes a linear damped harmonic oscillator with no external driving force.
 - Reported verdicts apply only to the configured time range and scenario parameters.
 - Current verification covers exact linear regimes only; it does not address nonlinear or driven oscillators.
 
-## Suggested Open Questions
+## Suggested Open Questions Update
 
 - Should the next benchmark add forcing or nonlinear restoring terms?

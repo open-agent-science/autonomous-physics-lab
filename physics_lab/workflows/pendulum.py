@@ -348,25 +348,40 @@ def _build_knowledge_update(
         f"- Experiment: `{experiment_id}`",
         f"- Task: `{task_id}`",
         "",
-        "## Suggested Addition",
+        "## Target Knowledge Note",
         "",
-        (
-            f"The current pendulum benchmark selected `{best_score.model_id}` "
-            f"(`{best_score.formula}`) as the best-performing candidate with verdict `{best_verdict}`."
-        ),
+        "- File: `knowledge/classical_mechanics/pendulum.md`",
+        "- Sections to review: `Known Baseline`, `Linked Objects`, `Open Questions`",
         "",
-        "## Suggested Coefficients",
+        "## Suggested Known Baseline Update",
         "",
     ]
+    lines.extend(
+        [
+            (
+                f"The current pendulum benchmark selected `{best_score.model_id}` "
+                f"(`{best_score.formula}`) as the best-performing candidate with verdict `{best_verdict}`."
+            ),
+            "",
+            "Suggested coefficient summary:",
+        ]
+    )
     lines.extend([f"- `{name}` = `{value:.8f}`" for name, value in best_score.coefficients.items()])
-    lines.extend(["", "## Suggested Verification Notes", "", f"- Verification gate passed: `{verification_summary['passed']}`"])
+    lines.extend(
+        [
+            "",
+            "Suggested verification summary:",
+            "",
+            f"- Verification gate passed: `{verification_summary['passed']}`",
+        ]
+    )
     lines.extend([*[f"- {check['name']}: `{check['status']}`" for check in verification_summary["checks"]]])
     if run_comparison is not None:
         comparison = run_comparison["comparison"]
         lines.extend(
             [
                 "",
-                "## Suggested RUN Comparison Note",
+                "Suggested comparison note for the same section:",
                 "",
                 (
                     f"Theory-aware candidate `{run_comparison['theory_aware_model_id']}` "
@@ -378,12 +393,23 @@ def _build_knowledge_update(
                 f"- Theory-aware asymptotic max relative error: `{comparison['theory_aware_separatrix_max_relative_error']:.6f}`",
             ]
         )
-    lines.extend(["", "## Suggested Limitations Section", ""])
+    lines.extend(
+        [
+            "",
+            "## Suggested Linked Objects Update",
+            "",
+            f"- Ensure result link includes `{result_id}`.",
+            f"- Ensure task link includes `{task_id}`.",
+            "",
+            "## Suggested Limitations Section",
+            "",
+        ]
+    )
     lines.extend([f"- {limitation}" for limitation in limitations])
     lines.extend(
         [
             "",
-            "## Suggested Open Questions",
+            "## Suggested Open Questions Update",
             "",
             "- Can a known-limit-aware approximation outperform the current candidate?",
             "- Should the next benchmark include damping, forcing, or a wider amplitude regime?",

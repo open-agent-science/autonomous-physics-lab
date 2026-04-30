@@ -86,6 +86,11 @@ def test_damped_oscillator_runner_writes_temp_artifacts(tmp_path) -> None:
         "overdamped_asymptotic_behavior",
     } <= check_names
     assert all(check["status"] == "PASS" for check in result_payload["verification"]["checks"])
+    knowledge_update_text = (
+        tmp_path / "apl-results" / "EXP-0002" / "RUN-0001" / "knowledge_update.md"
+    ).read_text(encoding="utf-8")
+    assert "## Target Knowledge Note" in knowledge_update_text
+    assert "## Suggested Linked Objects Update" in knowledge_update_text
 
 
 def test_damped_oscillator_dispatch_writes_temp_artifacts(tmp_path) -> None:

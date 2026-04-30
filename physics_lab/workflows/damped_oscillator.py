@@ -551,22 +551,44 @@ def _build_damped_knowledge_update(
         f"- Experiment: `{experiment_id}`",
         f"- Task: `{task_id}`",
         "",
-        "## Suggested Addition",
+        "## Target Knowledge Note",
+        "",
+        "- File: `knowledge/classical_mechanics/damped_oscillator.md`",
+        "- Sections to review: `Known Baseline`, `Linked Objects`, `Open Questions`",
+        "",
+        "## Suggested Known Baseline Update",
         "",
         (
             "The current damped-oscillator benchmark verified the expected analytic regime split "
             "between underdamped, critically damped, and overdamped motion."
         ),
         "",
-        "## Suggested Verification Notes",
+        "Suggested verification summary:",
         "",
         f"- Verification gate passed: `{verification_summary['passed']}`",
     ]
     lines.extend([f"- {check['name']}: `{check['status']}`" for check in verification_summary["checks"]])
-    lines.extend(["", "## Suggested Limitations Section", ""])
+    lines.extend(
+        [
+            "",
+            "## Suggested Linked Objects Update",
+            "",
+            f"- Ensure result link includes `{result_id}`.",
+            f"- Ensure task link includes `{task_id}`.",
+            "",
+            "## Suggested Limitations Section",
+            "",
+        ]
+    )
     lines.extend([f"- {limitation}" for limitation in limitations])
     lines.extend(
-        ["", "## Suggested Open Questions", "", "- Should the next benchmark add forcing or nonlinear restoring terms?", ""]
+        [
+            "",
+            "## Suggested Open Questions Update",
+            "",
+            "- Should the next benchmark add forcing or nonlinear restoring terms?",
+            "",
+        ]
     )
     return "\n".join(lines)
 

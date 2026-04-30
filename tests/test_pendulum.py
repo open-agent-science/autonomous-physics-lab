@@ -302,7 +302,10 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert metrics_payload["verification"]["checks"]
 
     assert "Proposed Update for CLAIM-0001" in claim_update_path.read_text(encoding="utf-8")
-    assert "Proposed Update for KNOW-0001" in knowledge_update_path.read_text(encoding="utf-8")
+    knowledge_update_text = knowledge_update_path.read_text(encoding="utf-8")
+    assert "Proposed Update for KNOW-0001" in knowledge_update_text
+    assert "## Target Knowledge Note" in knowledge_update_text
+    assert "## Suggested Linked Objects Update" in knowledge_update_text
     assert "## Verification" in report_path.read_text(encoding="utf-8")
 
 
