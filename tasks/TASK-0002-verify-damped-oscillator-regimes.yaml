@@ -1,0 +1,28 @@
+id: TASK-0002
+title: "Verify damped oscillator regimes against exact solutions"
+type: regime_verification
+status: OPEN
+difficulty: medium
+priority: high
+
+input:
+  hypothesis_id: HYP-0002
+  experiment_id: EXP-0002
+
+requirements:
+  - "Use deterministic code"
+  - "Report the identified damping regime"
+  - "Check exact-solution agreement"
+  - "Check monotonic energy decay when physically expected"
+  - "List assumptions and limitations"
+
+accepted_outputs:
+  - "result yaml or json"
+  - "markdown report"
+  - "code reference"
+
+can_be_done_by:
+  - human
+  - llm_agent
+  - symbolic_agent
+  - simulation_agent

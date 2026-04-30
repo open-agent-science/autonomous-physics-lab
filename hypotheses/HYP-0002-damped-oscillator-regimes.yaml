@@ -1,0 +1,45 @@
+id: HYP-0002
+title: "Damped oscillator regimes can be verified against exact analytic solutions"
+domain: classical_mechanics
+status: TESTING
+
+hypothesis:
+  statement: "The damped harmonic oscillator can be verified across underdamped, critically damped, and overdamped regimes using exact analytic solutions and regime-aware checks."
+  formula_candidates:
+    - "m*x'' + c*x' + k*x = 0"
+    - "Underdamped solution with oscillatory exponential decay"
+    - "Critically damped solution with repeated real root"
+    - "Overdamped solution with distinct real roots"
+
+assumptions:
+  - "Linear damping"
+  - "No external driving force"
+  - "Constant mass, damping, and stiffness"
+
+variables:
+  t:
+    unit: second
+    description: "Time coordinate"
+  x:
+    unit: meter
+    description: "Oscillator displacement"
+  v:
+    unit: meter_per_second
+    description: "Oscillator velocity"
+  m:
+    unit: kilogram
+    description: "Mass"
+  c:
+    unit: kilogram_per_second
+    description: "Damping coefficient"
+  k:
+    unit: kilogram_per_second_squared
+    description: "Spring stiffness"
+
+evidence:
+  experiments:
+    - EXP-0002
+  results:
+    - RESULT-0002
+
+verdict: "Initial regime verification completed. The exact linear damped-oscillator benchmark distinguishes underdamped, critically damped, and overdamped cases under the configured assumptions."

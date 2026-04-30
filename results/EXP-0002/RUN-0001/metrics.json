@@ -1,0 +1,118 @@
+{
+  "result_id": "RESULT-0002",
+  "run_id": "RUN-0001",
+  "best_model_id": "model_critical",
+  "best_verdict": "VALID_IN_RANGE",
+  "verification": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "regime_classification",
+        "status": "PASS",
+        "details": "Configured damping scenarios resolve to the expected analytic damping regimes.",
+        "metrics": {
+          "matched_cases": 3,
+          "total_cases": 3
+        }
+      },
+      {
+        "name": "initial_condition_recovery",
+        "status": "PASS",
+        "details": "Exact analytic trajectories recover the configured initial displacement and velocity.",
+        "metrics": {
+          "max_absolute_error": 2.220446049250313e-16
+        }
+      },
+      {
+        "name": "underdamped_energy_decay",
+        "status": "PASS",
+        "details": "Mechanical energy decays monotonically for the configured underdamped case.",
+        "metrics": {
+          "checked_cases": 1
+        }
+      },
+      {
+        "name": "oscillatory_vs_nonoscillatory_behavior",
+        "status": "PASS",
+        "details": "Underdamped motion oscillates while critical and overdamped cases remain non-oscillatory.",
+        "metrics": {
+          "oscillatory_passes": 1,
+          "oscillatory_cases": 1,
+          "non_oscillatory_passes": 2,
+          "non_oscillatory_cases": 2
+        }
+      },
+      {
+        "name": "dimensional_consistency",
+        "status": "PASS",
+        "details": "The governing equation uses dimensionally consistent mass, damping, stiffness, displacement, and time quantities.",
+        "metrics": {
+          "dimensionless_damping_ratio": true,
+          "positive_physical_parameters": true
+        }
+      }
+    ]
+  },
+  "scores": [
+    {
+      "model_id": "model_critical",
+      "formula": "x(t) = exp(-alpha*t) * (A + B*t)",
+      "coefficients": {
+        "alpha": 2.0,
+        "damping_ratio": 1.0,
+        "natural_frequency": 2.0
+      },
+      "complexity_score": 1,
+      "train_metrics": {
+        "mean_relative_error": 0.0,
+        "max_relative_error": 0.0
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.0,
+        "max_relative_error": 0.0
+      },
+      "composite_score": 0.001,
+      "verdict": "VALID"
+    },
+    {
+      "model_id": "model_underdamped",
+      "formula": "x(t) = exp(-alpha*t) * (A*cos(omega_d*t) + B*sin(omega_d*t))",
+      "coefficients": {
+        "alpha": 0.2,
+        "omega_d": 1.98997487421324,
+        "damping_ratio": 0.1
+      },
+      "complexity_score": 2,
+      "train_metrics": {
+        "mean_relative_error": 0.0,
+        "max_relative_error": 0.0
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.0,
+        "max_relative_error": 0.0
+      },
+      "composite_score": 0.002,
+      "verdict": "VALID"
+    },
+    {
+      "model_id": "model_overdamped",
+      "formula": "x(t) = A*exp(r1*t) + B*exp(r2*t)",
+      "coefficients": {
+        "r1": -1.0,
+        "r2": -4.0,
+        "damping_ratio": 1.25
+      },
+      "complexity_score": 2,
+      "train_metrics": {
+        "mean_relative_error": 0.0,
+        "max_relative_error": 0.0
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.0,
+        "max_relative_error": 0.0
+      },
+      "composite_score": 0.002,
+      "verdict": "VALID"
+    }
+  ]
+}

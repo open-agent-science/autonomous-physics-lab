@@ -4,9 +4,10 @@
 
 `v0.1-public-alpha` candidate
 
-Current working vertical slice:
+Current working slices:
 
-`Hypothesis -> Experiment -> Result -> Claim -> Knowledge -> Next Task`
+- `Pendulum Formula Discovery`
+- `Damped Oscillator Regime Verification`
 
 ## Completed
 
@@ -17,9 +18,12 @@ Current working vertical slice:
 - run-based result artifact generation;
 - public memory registry for hypothesis, experiment, claim, task, result, and knowledge;
 - repository-wide validation and referential integrity checks;
-- basic CI configuration with lint, tests, example run, and repository validation.
+- basic CI configuration with lint, tests, example run, and repository validation;
+- damped-oscillator exact-solution benchmark with run-based artifacts.
 
 ## Current Verification Checks
+
+Pendulum:
 
 - small-angle limit;
 - small-angle exact-window agreement;
@@ -32,18 +36,26 @@ Current working vertical slice:
 - dimensional consistency;
 - known small-angle coefficient comparison.
 
+Damped oscillator:
+
+- regime classification;
+- initial-condition recovery;
+- underdamped energy decay;
+- oscillatory vs non-oscillatory behavior;
+- dimensional consistency.
+
 ## Ready Now
 
 - `python3 -m ruff check .`
 - `python3 -m pytest`
 - `python3 -m physics_lab.cli run examples/pendulum.yaml`
+- `python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-results`
 - `python3 -m physics_lab.cli validate-repo .`
 - `python3 -m physics_lab.cli status .`
 
 ## Not Ready Yet
 
 - external agent contribution flow;
-- second physics benchmark;
 - literature ingestion;
 - public dashboard;
 - theory graph.

@@ -7,6 +7,7 @@ Start with a narrow but complete vertical slice:
 `Hypothesis -> Experiment -> Result -> Claim -> Knowledge -> Next Task`
 
 The first slice is `Pendulum Formula Discovery`.
+The second slice is `Damped Oscillator Regime Verification`.
 
 ## Status Snapshot
 
@@ -30,6 +31,8 @@ Completed so far:
   - upper-range exact-window verification on the configured amplitude interval
   - non-gating near-separatrix extrapolation diagnostic
   - theory-aware separatrix asymptotic diagnostic
+  - second runnable benchmark for exact damped-oscillator regime verification
+  - committed `RESULT-0002` artifact set under `results/EXP-0002/RUN-0001/`
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.
@@ -104,6 +107,7 @@ Definition of done:
 Status:
 
 - implemented for the pendulum slice
+- implemented for the damped-oscillator slice
 - remaining work includes deeper evidence semantics and more automated public-memory updates
 
 ## Phase 3: Verification Stack Expansion
@@ -121,7 +125,7 @@ Candidate next domains:
 
 - orbital perturbation;
 - diffusion scaling;
-- damped oscillator corrections.
+- driven oscillator or nonlinear oscillator extensions.
 
 ## Phase 4: Open Agent Workflow
 
@@ -139,10 +143,10 @@ Implementation targets:
 
 This is the practical order I recommend next:
 
-1. deepen known-limit and structural verification checks for pendulum;
-2. improve contributor docs and project status tooling;
-3. deepen claim and knowledge evidence semantics;
-4. add the next benchmark physics workflow.
+1. deepen known-limit and structural verification checks for pendulum and damped oscillator;
+2. deepen claim and knowledge evidence semantics;
+3. improve contributor docs and project status tooling;
+4. decide the third benchmark physics workflow.
 
 ## Risks to Avoid
 

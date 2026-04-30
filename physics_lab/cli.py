@@ -9,7 +9,7 @@ import typer
 
 from physics_lab.registry import infer_kind_from_path, load_agent, load_claim, load_example_config, load_experiment, load_hypothesis, load_knowledge, load_result, load_task
 from physics_lab.registry.repository import validate_repository
-from physics_lab.workflows.runner import run_pendulum_experiment_with_output
+from physics_lab.workflows.runner import run_experiment_with_output
 
 app = typer.Typer(help="Autonomous Physics Lab command line interface.")
 
@@ -54,7 +54,7 @@ def run(
     ),
 ) -> None:
     """Run a configured experiment workflow."""
-    outcome = run_pendulum_experiment_with_output(
+    outcome = run_experiment_with_output(
         config_path=Path(config_path),
         output_dir=Path(output_dir) if output_dir is not None else None,
     )
@@ -139,8 +139,8 @@ def status(root: str = typer.Argument(".")) -> None:
     )
     typer.echo(
         "Range: "
-        f"train {result_payload['train_range'][0]:.4f}-{result_payload['train_range'][1]:.4f} rad, "
-        f"test {result_payload['test_range'][0]:.4f}-{result_payload['test_range'][1]:.4f} rad"
+        f"train {result_payload['train_range'][0]:.4f}-{result_payload['train_range'][1]:.4f}, "
+        f"test {result_payload['test_range'][0]:.4f}-{result_payload['test_range'][1]:.4f}"
     )
 
 

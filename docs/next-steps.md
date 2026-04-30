@@ -55,6 +55,21 @@ Completed:
   - `pytest`
   - example workflow execution
   - `validate-repo`
+- damped-oscillator benchmark scaffold:
+  - `HYP-0002`
+  - `EXP-0002`
+  - `TASK-0002`
+  - `CLAIM-0002`
+  - `KNOW-0002`
+  - exact-solution engine helpers
+- runnable damped-oscillator verification workflow with committed `RESULT-0002`;
+- second benchmark example config: `examples/damped_oscillator.yaml`;
+- deterministic damped-oscillator checks for:
+  - regime classification
+  - initial-condition recovery
+  - underdamped energy decay
+  - oscillatory vs non-oscillatory behavior
+  - dimensional consistency
 
 Current validation commands:
 
@@ -62,6 +77,7 @@ Current validation commands:
 python3 -m ruff check .
 python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml
+python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-results
 python3 -m physics_lab.cli validate-repo .
 ```
 
@@ -69,7 +85,7 @@ python3 -m physics_lab.cli validate-repo .
 
 ### 1. Deepen the Physics Verification Stack
 
-The first verification gate is real now, but it is still intentionally narrow.
+The first two verification benchmarks are real now, but the verification stack is still intentionally narrow.
 
 Best next checks:
 
@@ -77,21 +93,13 @@ Best next checks:
 - theory-aware candidate families that behave better near the separatrix.
 - stronger asymptotic checks for more candidate families.
 - better non-polynomial or theory-aware checks for behavior closer to the separatrix as `theta` approaches `pi`.
+- stronger damped-oscillator checks such as envelope fitting, decay-rate checks, and `c -> 0` limit behavior.
 
 Definition of done:
 
 - the verification summary contains more than one structural physics check beyond fit quality and simple monotonic behavior.
 
-### 2. Add Repo Status and Contributor Docs
-
-The project now has enough moving parts that handoff quality matters more.
-
-Best next docs/tools:
-
-- a contributor guide for humans and LLM agents;
-- a short architecture index or map.
-
-### 3. Tighten Claim/Knowledge Evidence Semantics
+### 2. Tighten Claim/Knowledge Evidence Semantics
 
 The project now generates update suggestions, but evidence handling can still be stronger.
 
@@ -100,6 +108,16 @@ Best next improvements:
 - derive claim status suggestions from validated results and verification gate outcomes;
 - make knowledge updates more structured and section-aware;
 - optionally track which result artifact informed a proposed update in more than one knowledge note.
+
+### 3. Add Repo Status and Contributor Docs
+
+The project now has enough moving parts that handoff quality matters more.
+
+Best next docs/tools:
+
+- expand the contributor guide for humans and LLM agents;
+- add a short architecture index or map;
+- consider a status view that lists benchmark-specific readiness instead of only the latest result.
 
 ## Do Not Prioritize Yet
 

@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0002-damped-oscillator-regimes.yaml
+hypothesis_path: ../hypotheses/HYP-0002-damped-oscillator-regimes.yaml
+task_id: TASK-0002
+run_id: RUN-0001
+result_id: RESULT-0002
+result_root: ../results/EXP-0002
+train_fraction: 0.6

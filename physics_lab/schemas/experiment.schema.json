@@ -63,36 +63,122 @@
       }
     },
     "data": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "amplitude_range_radians",
-        "sample_count"
-      ],
-      "properties": {
-        "amplitude_range_radians": {
+      "oneOf": [
+        {
           "type": "object",
           "additionalProperties": false,
           "required": [
-            "start",
-            "end"
+            "amplitude_range_radians",
+            "sample_count"
           ],
           "properties": {
-            "start": {
-              "type": "number",
-              "exclusiveMinimum": 0
+            "amplitude_range_radians": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "start",
+                "end"
+              ],
+              "properties": {
+                "start": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "end": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              }
             },
-            "end": {
-              "type": "number",
-              "exclusiveMinimum": 0
+            "sample_count": {
+              "type": "integer",
+              "minimum": 3
             }
           }
         },
-        "sample_count": {
-          "type": "integer",
-          "minimum": 3
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "time_range_seconds",
+            "sample_count",
+            "scenarios"
+          ],
+          "properties": {
+            "time_range_seconds": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "start",
+                "end"
+              ],
+              "properties": {
+                "start": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "end": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              }
+            },
+            "sample_count": {
+              "type": "integer",
+              "minimum": 3
+            },
+            "scenarios": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "expected_regime",
+                  "mass",
+                  "damping",
+                  "stiffness",
+                  "x0",
+                  "v0"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^case_[a-z0-9_]+$"
+                  },
+                  "expected_regime": {
+                    "type": "string",
+                    "enum": [
+                      "underdamped",
+                      "critical",
+                      "overdamped"
+                    ]
+                  },
+                  "mass": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "damping": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "stiffness": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "x0": {
+                    "type": "number"
+                  },
+                  "v0": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
         }
-      }
+      ]
     },
     "candidate_models": {
       "type": "array",

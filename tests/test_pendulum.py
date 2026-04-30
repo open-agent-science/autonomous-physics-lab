@@ -498,14 +498,14 @@ def test_validate_repository_smoke() -> None:
     run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
     summary = validate_repository(repo_root)
 
-    assert summary.counts["claims"] == 1
-    assert summary.counts["examples"] == 1
-    assert summary.counts["hypotheses"] == 1
-    assert summary.counts["experiments"] == 1
-    assert summary.counts["knowledge"] == 1
-    assert summary.counts["tasks"] == 1
+    assert summary.counts["claims"] == 2
+    assert summary.counts["examples"] == 2
+    assert summary.counts["hypotheses"] == 2
+    assert summary.counts["experiments"] == 2
+    assert summary.counts["knowledge"] == 2
+    assert summary.counts["tasks"] == 2
     assert summary.counts["agents"] == 1
-    assert summary.counts["results"] >= 1
+    assert summary.counts["results"] >= 2
 
 
 def test_validate_repository_detects_missing_reference(tmp_path) -> None:
@@ -556,9 +556,9 @@ def test_cli_validate_repo_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Validated repository:" in result.stdout
-    assert "- examples: 1" in result.stdout
-    assert "- hypotheses: 1" in result.stdout
-    assert "- knowledge: 1" in result.stdout
+    assert "- examples: 2" in result.stdout
+    assert "- hypotheses: 2" in result.stdout
+    assert "- knowledge: 2" in result.stdout
 
 
 def test_cli_status_smoke() -> None:
