@@ -29,6 +29,7 @@ Completed so far:
   - derivative-based small-angle curvature verification
   - upper-range exact-window verification on the configured amplitude interval
   - non-gating near-separatrix extrapolation diagnostic
+  - theory-aware separatrix asymptotic diagnostic
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.

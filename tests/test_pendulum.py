@@ -107,6 +107,7 @@ def test_verification_summary_contains_expected_checks() -> None:
         "small_angle_curvature",
         "large_angle_window_accuracy",
         "near_separatrix_extrapolation",
+        "separatrix_asymptotic_alignment",
         "evenness",
         "monotonicity",
         "dimensional_consistency",
@@ -125,11 +126,15 @@ def test_verification_summary_contains_expected_checks() -> None:
     separatrix_check = next(
         check for check in summary.checks if check.name == "near_separatrix_extrapolation"
     )
+    asymptotic_check = next(
+        check for check in summary.checks if check.name == "separatrix_asymptotic_alignment"
+    )
     assert dimensional_check.status == "PASS"
     assert small_angle_window_check.status == "PASS"
     assert small_angle_curvature_check.status == "PASS"
     assert large_angle_window_check.status == "PASS"
     assert separatrix_check.metrics["gate"] is False
+    assert asymptotic_check.metrics["gate"] is False
 
 
 def test_symbolic_dimension_check_is_active_for_pendulum_models() -> None:

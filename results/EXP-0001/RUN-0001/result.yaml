@@ -4,9 +4,9 @@ experiment_id: EXP-0001
 title: Pendulum Formula Discovery
 hypothesis_id: HYP-0001
 task_id: TASK-0001
-generated_at: '2026-04-30T04:51:41.857167+00:00'
+generated_at: '2026-04-30T04:55:28.962023+00:00'
 engine_version: 0.1.0
-git_commit: 4b89084ce4f5ce343271783221595f735a461b51
+git_commit: f350d932489d7e43f559ceded7e4dcaff24402c9
 command: physics-lab run examples/pendulum.yaml
 input_file_hashes:
   config:
@@ -82,6 +82,17 @@ verification:
       mean_relative_error: 0.16486469263618897
       max_relative_error: 0.6499992566684917
       end_ratio_to_exact: 0.3500007433315084
+  - name: separatrix_asymptotic_alignment
+    status: FAIL
+    details: Diagnostic comparison against the known logarithmic asymptotic growth
+      of the pendulum period ratio as theta approaches pi. This check does not gate
+      the current in-range verdict.
+    metrics:
+      gate: false
+      theta_window_start: 3.041592653589793
+      theta_window_end: 3.1405926535897932
+      mean_relative_error: 0.4113999249600798
+      max_relative_error: 0.649999235595837
   - name: evenness
     status: PASS
     details: Checks whether the candidate model is even in theta.

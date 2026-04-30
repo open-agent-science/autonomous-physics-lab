@@ -45,6 +45,7 @@ Completed:
   - small-angle curvature agreement
   - upper-range exact-window agreement
   - near-separatrix extrapolation diagnostic
+  - separatrix asymptotic-alignment diagnostic
   - evenness
   - monotonicity
   - known small-angle coefficient comparisons
@@ -73,6 +74,7 @@ The first verification gate is real now, but it is still intentionally narrow.
 Best next checks:
 
 - symbolic consistency hooks;
+- theory-aware candidate families that behave better near the separatrix.
 - stronger asymptotic checks for more candidate families.
 - better non-polynomial or theory-aware checks for behavior closer to the separatrix as `theta` approaches `pi`.
 

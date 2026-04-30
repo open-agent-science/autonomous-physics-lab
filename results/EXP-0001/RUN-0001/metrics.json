@@ -62,6 +62,18 @@
         }
       },
       {
+        "name": "separatrix_asymptotic_alignment",
+        "status": "FAIL",
+        "details": "Diagnostic comparison against the known logarithmic asymptotic growth of the pendulum period ratio as theta approaches pi. This check does not gate the current in-range verdict.",
+        "metrics": {
+          "gate": false,
+          "theta_window_start": 3.041592653589793,
+          "theta_window_end": 3.1405926535897932,
+          "mean_relative_error": 0.4113999249600798,
+          "max_relative_error": 0.649999235595837
+        }
+      },
+      {
         "name": "evenness",
         "status": "PASS",
         "details": "Checks whether the candidate model is even in theta.",
