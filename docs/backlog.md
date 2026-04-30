@@ -40,7 +40,7 @@ when they become active priorities.
 ## Contributor Experience
 
 - Add a compact architecture index for quick onboarding.
-- Add a maintainer-facing claim promotion policy checklist.
+- Add a lightweight release-review checklist for public-alpha milestones.
 
 ## Longer-Term
 

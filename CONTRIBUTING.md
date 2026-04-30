@@ -7,6 +7,8 @@ reviewable, and linked to repository artifacts.
 
 For the full repository workflow, read
 [docs/contributing-workflow.md](docs/contributing-workflow.md).
+For claim-status review, read
+[docs/claim-promotion-policy.md](docs/claim-promotion-policy.md).
 
 If you are opening a GitHub issue or pull request, use the repository templates
 so the change stays linked to experiments, tasks, results, and claim scope.
@@ -56,3 +58,4 @@ PYTHON_BIN=python3.11 ./scripts/apl_snapshot.sh
 - [docs/status.md](docs/status.md)
 - [docs/next-steps.md](docs/next-steps.md)
 - [docs/contributing-workflow.md](docs/contributing-workflow.md)
+- [docs/claim-promotion-policy.md](docs/claim-promotion-policy.md)

@@ -33,6 +33,7 @@ Completed so far:
   - theory-aware separatrix asymptotic diagnostic
   - second runnable benchmark for exact damped-oscillator regime verification
   - committed `RESULT-0002` artifact set under `results/EXP-0002/RUN-0001/`
+  - maintainer-facing claim promotion policy linked to generated claim suggestions
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.
@@ -153,6 +154,7 @@ Current stabilization rule:
 - keep workflow-specific implementation in dedicated modules;
 - keep `runner.py` as dispatch only;
 - keep CI example runs non-dirty by using temp output roots.
+- keep claim promotion as a human review gate even when automated suggestions exist.
 
 ## Risks to Avoid
 

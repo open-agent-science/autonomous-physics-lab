@@ -107,24 +107,25 @@ Definition of done:
 
 ### 2. Tighten Claim/Knowledge Evidence Semantics
 
-The project now generates update suggestions, but evidence handling can still be stronger.
+The project now has generated status suggestions and a maintainer-facing claim
+promotion policy, but evidence handling can still be stronger.
 
 Best next improvements:
 
-- derive claim status suggestions from validated results and verification gate outcomes;
 - make knowledge updates more structured and section-aware;
-- optionally track which result artifact informed a proposed update in more than one knowledge note.
+- optionally track which result artifact informed a proposed update in more than one knowledge note;
+- add artifact-level drift checks so evidence summaries can be revalidated after input changes.
 
-### 3. Deepen Public Contribution Policy
+### 3. Improve Maintainer Review Discipline
 
-The first public collaboration layer now exists, but the review policy can still
-be stronger.
+The public collaboration layer now exists and claim-promotion rules are
+documented.
 
 Best next docs/tools:
 
-- define when a claim file may move from `DRAFT` to `PARTIALLY_SUPPORTED` or `SUPPORTED`;
-- document who is expected to make that promotion decision;
-- add a short architecture index or contributor map for faster handoff.
+- add a compact architecture index or contributor map for faster handoff;
+- add a lightweight maintainer checklist for releases and public-alpha reviews;
+- keep claim-promotion language consistent across claims, result artifacts, and review templates.
 
 ### 4. Keep Multi-Benchmark CI Non-Dirty
 

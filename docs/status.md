@@ -58,6 +58,7 @@ Damped oscillator:
 - `python3 -m physics_lab.cli validate-repo .`
 - `python3 -m physics_lab.cli status .`
 - verification-first contributor workflow and GitHub issue templates.
+- maintainer-facing claim promotion policy.
 
 ## Not Ready Yet
 
@@ -73,6 +74,7 @@ Damped oscillator:
 - The result schema is shared by both benchmarks, so benchmark-specific semantics still need careful wording.
 - Public alpha is stable for two slices, but not yet broad enough for a wider “many benchmark” claim.
 - Claim files still need deliberate human review before moving from draft text to stronger public statuses.
+- Claim suggestions are generated automatically, but promotion decisions still rely on maintainer judgment.
 
 ## Public Repo Status
 

@@ -63,6 +63,7 @@ Rules:
 - keep scope language explicit;
 - prefer `PARTIALLY_SUPPORTED` when evidence is range-limited;
 - use `SUPPORTED` only when the referenced evidence really matches the claim scope.
+- follow [claim-promotion-policy.md](./claim-promotion-policy.md) before changing a claim status.
 
 ### New Task / Hypothesis
 
@@ -120,4 +121,5 @@ Review should confirm:
 - scientific claims remain cautious;
 - validation is green;
 - claim and knowledge wording matches the actual evidence strength;
+- claim promotions follow the maintainer review policy;
 - no unrelated artifact churn was introduced.
