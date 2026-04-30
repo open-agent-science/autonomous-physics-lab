@@ -10,10 +10,10 @@ Use it for:
 - the current recommended order of work;
 - quick reality checks before starting new changes.
 
-Use [implementation-plan.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/implementation-plan.md)
+Use [implementation-plan.md](./implementation-plan.md)
 for the broader phased strategy.
 
-Use [backlog.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/backlog.md)
+Use [backlog.md](./backlog.md)
 for lower-priority or later work.
 
 ## Current State

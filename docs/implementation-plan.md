@@ -25,10 +25,10 @@ Completed so far:
   - run-based evidence artifacts under `results/<experiment>/<run>/`
   - first verification gate for pendulum evidence
 
-Use [next-steps.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/next-steps.md)
+Use [next-steps.md](./next-steps.md)
 for the active short-term queue.
 
-Use [backlog.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/backlog.md)
+Use [backlog.md](./backlog.md)
 for medium-term and deferred work.
 
 ## Phase 0: Foundation

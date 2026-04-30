@@ -11,7 +11,7 @@ It should contain:
 - quality improvements;
 - contributor-experience work.
 
-Items can move from here into [next-steps.md](/Users/roman/Documents/Autonomous%20Physics%20Lab/docs/next-steps.md)
+Items can move from here into [next-steps.md](./next-steps.md)
 when they become active priorities.
 
 ## Registry and Validation
