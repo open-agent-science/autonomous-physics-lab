@@ -125,7 +125,7 @@ documented.
 Best next docs/tools:
 
 - add a compact architecture index or contributor map for faster handoff;
-- add a lightweight maintainer checklist for releases and public-alpha reviews;
+- keep the release checklist and prepared release notes in sync with the actual public-alpha state;
 - keep claim-promotion language consistent across claims, result artifacts, and review templates.
 
 ### 4. Keep Multi-Benchmark CI Non-Dirty

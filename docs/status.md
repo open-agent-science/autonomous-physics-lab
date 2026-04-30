@@ -86,6 +86,7 @@ Suitable for public alpha once:
 - local validation stays green;
 - GitHub Actions is green;
 - roadmap and next steps remain honest about scope.
+- release checklist in `docs/release-checklist.md` is satisfied.
 
 ## Snapshot Utility
 
