@@ -23,9 +23,9 @@ when they become active priorities.
 
 ## Scientific Verification
 
-- Add symbolic validation helpers in `physics_lab/engines/symbolic.py`.
-- Replace the pendulum dimensional-consistency placeholder with real symbolic or unit-aware checks.
+- Extend symbolic validation helpers in `physics_lab/engines/symbolic.py` beyond pendulum formula families.
 - Add stronger range-aware comparison checks against exact pendulum behavior.
+- Add explicit asymptotic and derivative-based checks for pendulum candidates.
 - Add benchmark workflows beyond pendulum:
   - orbital perturbation
   - diffusion scaling

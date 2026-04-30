@@ -26,7 +26,7 @@
 - small_angle_limit: `PASS`
 - evenness: `PASS`
 - monotonicity: `PASS`
-- dimensional_consistency: `PLACEHOLDER`
+- dimensional_consistency: `PASS`
 - known_small_angle_coefficients: `PASS`
 
 ## Candidate Models

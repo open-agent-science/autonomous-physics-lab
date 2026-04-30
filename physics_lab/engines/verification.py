@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 
 from physics_lab.engines.formula_discovery import FittedModel
+from physics_lab.engines.symbolic import validate_pendulum_model_dimensions
 
 
 THETA2_EXPECTED = 1.0 / 16.0
@@ -78,12 +79,13 @@ def _monotonicity_check(model: FittedModel, theta_range: tuple[float, float]) ->
     )
 
 
-def _dimensional_consistency_placeholder() -> VerificationCheck:
+def _dimensional_consistency_check(model: FittedModel) -> VerificationCheck:
+    result = validate_pendulum_model_dimensions(model.candidate.model_id)
     return VerificationCheck(
         name="dimensional_consistency",
-        status="PLACEHOLDER",
-        details="Placeholder until symbolic and dimensional analysis are implemented.",
-        metrics={},
+        status=result.status,
+        details=result.details,
+        metrics=result.metrics,
     )
 
 
@@ -133,7 +135,7 @@ def verify_candidate_model(
         _small_angle_limit_check(model),
         _evenness_check(model, theta_range=theta_range),
         _monotonicity_check(model, theta_range=theta_range),
-        _dimensional_consistency_placeholder(),
+        _dimensional_consistency_check(model),
         _known_small_angle_coefficients_check(model),
     ]
     return VerificationSummary(checks=checks)

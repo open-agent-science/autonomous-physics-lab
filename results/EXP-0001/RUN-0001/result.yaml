@@ -4,9 +4,9 @@ experiment_id: EXP-0001
 title: Pendulum Formula Discovery
 hypothesis_id: HYP-0001
 task_id: TASK-0001
-generated_at: '2026-04-30T04:08:11.449368+00:00'
+generated_at: '2026-04-30T04:18:43.796262+00:00'
 engine_version: 0.1.0
-git_commit: ead9c84eb8d902b3643556894ede79cee04bde94
+git_commit: cd26f08699717739ac4b808abb647edb27d90024
 command: physics-lab run examples/pendulum.yaml
 input_file_hashes:
   config:
@@ -56,9 +56,14 @@ verification:
     metrics:
       min_step: 3.5164198390003065e-05
   - name: dimensional_consistency
-    status: PLACEHOLDER
-    details: Placeholder until symbolic and dimensional analysis are implemented.
-    metrics: {}
+    status: PASS
+    details: 'The candidate formula is dimensionless: theta is treated as a radian-valued
+      dimensionless quantity, coefficients are dimensionless, and the target T/T0
+      is dimensionless.'
+    metrics:
+      free_symbol_count: 3
+      auxiliary_definition_count: 0
+      supported_function_count: 1
   - name: known_small_angle_coefficients
     status: PASS
     details: Compares fitted low-order coefficients to the known small-angle series.

@@ -33,9 +33,13 @@
       },
       {
         "name": "dimensional_consistency",
-        "status": "PLACEHOLDER",
-        "details": "Placeholder until symbolic and dimensional analysis are implemented.",
-        "metrics": {}
+        "status": "PASS",
+        "details": "The candidate formula is dimensionless: theta is treated as a radian-valued dimensionless quantity, coefficients are dimensionless, and the target T/T0 is dimensionless.",
+        "metrics": {
+          "free_symbol_count": 3,
+          "auxiliary_definition_count": 0,
+          "supported_function_count": 1
+        }
       },
       {
         "name": "known_small_angle_coefficients",

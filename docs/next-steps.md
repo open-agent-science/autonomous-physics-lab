@@ -44,7 +44,7 @@ Completed:
   - evenness
   - monotonicity
   - known small-angle coefficient comparisons
-  - dimensional consistency placeholder
+  - structure-aware dimensional consistency checks
 - CI coverage for:
   - `ruff`
   - `pytest`
@@ -62,19 +62,19 @@ python3 -m physics_lab.cli validate-repo .
 
 ## Recommended Next Work
 
-### 1. Replace Verification Placeholders with Real Physics Checks
+### 1. Deepen the Physics Verification Stack
 
-The first verification gate now exists, but one part is still explicitly a placeholder.
+The first verification gate is real now, but it is still intentionally narrow.
 
 Best next checks:
 
 - symbolic consistency hooks;
-- real dimensional analysis instead of placeholder status;
 - range-aware checks that compare model behavior against exact known limits beyond the current small-angle series.
+- stronger coefficient and asymptotic checks for more candidate families.
 
 Definition of done:
 
-- the verification summary contains at least one non-placeholder structural physics check beyond fit quality.
+- the verification summary contains more than one structural physics check beyond fit quality and simple monotonic behavior.
 
 ### 2. Add Repo Status and Contributor Docs
 

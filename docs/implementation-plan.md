@@ -24,6 +24,7 @@ Completed so far:
   - generated claim and knowledge update helper artifacts
   - run-based evidence artifacts under `results/<experiment>/<run>/`
   - first verification gate for pendulum evidence
+  - structure-aware dimensional consistency validation for pendulum candidates
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.
@@ -108,7 +109,7 @@ Implementation targets:
 
 1. dimensional analysis hooks;
 2. symbolic validation helpers;
-3. replace placeholder checks with stronger known-limit and structure-aware tests;
+3. stronger known-limit and structure-aware tests;
 4. more benchmark physics problems.
 
 Candidate next domains:
@@ -133,7 +134,7 @@ Implementation targets:
 
 This is the practical order I recommend next:
 
-1. replace placeholder dimensional checks with real symbolic and unit-aware validation;
+1. deepen known-limit and structural verification checks for pendulum;
 2. improve contributor docs and project status tooling;
 3. deepen claim and knowledge evidence semantics;
 4. add the next benchmark physics workflow.

@@ -8,6 +8,7 @@ from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_all_models
 from physics_lab.engines.scoring import ModelScore, compute_error_metrics
 from physics_lab.engines.simulation import exact_pendulum_period_ratio, generate_pendulum_dataset
+from physics_lab.engines.symbolic import symbolic_validation_available, validate_pendulum_model_dimensions
 from physics_lab.engines.verification import verify_candidate_model
 from physics_lab.registry import (
     load_agent,
@@ -107,6 +108,16 @@ def test_verification_summary_contains_expected_checks() -> None:
         "dimensional_consistency",
         "known_small_angle_coefficients",
     } <= check_names
+    dimensional_check = next(check for check in summary.checks if check.name == "dimensional_consistency")
+    assert dimensional_check.status == "PASS"
+
+
+def test_symbolic_dimension_check_is_active_for_pendulum_models() -> None:
+    assert symbolic_validation_available() is True
+    result = validate_pendulum_model_dimensions("model_x_x2")
+
+    assert result.status == "PASS"
+    assert result.metrics["auxiliary_definition_count"] == 1
 
 
 def test_runner_generates_run_based_artifacts(tmp_path) -> None:

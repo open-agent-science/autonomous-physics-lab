@@ -20,7 +20,7 @@ The current pendulum benchmark selected `model_theta2_theta4` (`1 + a*theta^2 + 
 - small_angle_limit: `PASS`
 - evenness: `PASS`
 - monotonicity: `PASS`
-- dimensional_consistency: `PLACEHOLDER`
+- dimensional_consistency: `PASS`
 - known_small_angle_coefficients: `PASS`
 
 ## Suggested Limitations Section
