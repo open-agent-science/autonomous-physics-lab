@@ -103,13 +103,18 @@ def test_verification_summary_contains_expected_checks() -> None:
     check_names = {check.name for check in summary.checks}
     assert {
         "small_angle_limit",
+        "small_angle_window_accuracy",
         "evenness",
         "monotonicity",
         "dimensional_consistency",
         "known_small_angle_coefficients",
     } <= check_names
     dimensional_check = next(check for check in summary.checks if check.name == "dimensional_consistency")
+    small_angle_window_check = next(
+        check for check in summary.checks if check.name == "small_angle_window_accuracy"
+    )
     assert dimensional_check.status == "PASS"
+    assert small_angle_window_check.status == "PASS"
 
 
 def test_symbolic_dimension_check_is_active_for_pendulum_models() -> None:

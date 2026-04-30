@@ -16,6 +16,17 @@
         }
       },
       {
+        "name": "small_angle_window_accuracy",
+        "status": "PASS",
+        "details": "Compares candidate predictions to the exact elliptic-integral solution on a small-angle window.",
+        "metrics": {
+          "theta_window_start": 0.001,
+          "theta_window_end": 0.2,
+          "mean_relative_error": 1.7679146573470122e-06,
+          "max_relative_error": 4.97916008021824e-06
+        }
+      },
+      {
         "name": "evenness",
         "status": "PASS",
         "details": "Checks whether the candidate model is even in theta.",

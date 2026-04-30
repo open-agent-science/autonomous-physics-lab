@@ -25,6 +25,7 @@ Completed so far:
   - run-based evidence artifacts under `results/<experiment>/<run>/`
   - first verification gate for pendulum evidence
   - structure-aware dimensional consistency validation for pendulum candidates
+  - small-angle exact-window verification against the elliptic-integral reference
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.

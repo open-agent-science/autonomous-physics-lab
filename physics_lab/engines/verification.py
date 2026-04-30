@@ -8,6 +8,7 @@ from typing import Any
 import numpy as np
 
 from physics_lab.engines.formula_discovery import FittedModel
+from physics_lab.engines.simulation import exact_pendulum_period_ratio
 from physics_lab.engines.symbolic import validate_pendulum_model_dimensions
 
 
@@ -48,6 +49,35 @@ def _small_angle_limit_check(model: FittedModel) -> VerificationCheck:
         status=status,
         details="Checks whether the candidate returns T/T0 ~= 1 near zero amplitude.",
         metrics={"predicted": predicted, "deviation": deviation},
+    )
+
+
+def _small_angle_window_accuracy_check(
+    model: FittedModel,
+    theta_range: tuple[float, float],
+) -> VerificationCheck:
+    theta_end = min(theta_range[1], 0.2)
+    theta_start = min(theta_range[0], theta_end / 2.0, 1.0e-3)
+    theta = np.linspace(max(theta_start, 1.0e-4), theta_end, 50, dtype=float)
+    predicted = model.predict(theta)
+    exact = exact_pendulum_period_ratio(theta)
+    relative_error = np.abs(predicted - exact) / exact
+    mean_relative_error = float(np.mean(relative_error))
+    max_relative_error = float(np.max(relative_error))
+    status = "PASS" if max_relative_error <= 1.0e-5 else "FAIL"
+    return VerificationCheck(
+        name="small_angle_window_accuracy",
+        status=status,
+        details=(
+            "Compares candidate predictions to the exact elliptic-integral solution "
+            "on a small-angle window."
+        ),
+        metrics={
+            "theta_window_start": float(theta[0]),
+            "theta_window_end": float(theta[-1]),
+            "mean_relative_error": mean_relative_error,
+            "max_relative_error": max_relative_error,
+        },
     )
 
 
@@ -133,6 +163,7 @@ def verify_candidate_model(
     """Run the pendulum evidence checks for a candidate model."""
     checks = [
         _small_angle_limit_check(model),
+        _small_angle_window_accuracy_check(model, theta_range=theta_range),
         _evenness_check(model, theta_range=theta_range),
         _monotonicity_check(model, theta_range=theta_range),
         _dimensional_consistency_check(model),
