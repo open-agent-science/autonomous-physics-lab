@@ -1,8 +1,8 @@
-id: TASK-0003
-title: "Add theory-aware pendulum approximation near the separatrix"
-type: verifier_extension
+id: TASK-0001
+title: "Find better pendulum correction formula"
+type: formula_discovery
 status: DONE
-difficulty: high
+difficulty: medium
 priority: high
 
 input:
@@ -11,9 +11,10 @@ input:
 
 requirements:
   - "Use deterministic code"
-  - "Preserve the current in-range benchmark semantics"
-  - "Add explicit near-separatrix theory-aware checks or candidate families"
-  - "Explain scope limits in any updated claim suggestions"
+  - "Report train and test ranges"
+  - "Include mean and max relative error"
+  - "List assumptions and limitations"
+  - "Avoid unsupported discovery claims"
 
 accepted_outputs:
   - "result yaml or json"

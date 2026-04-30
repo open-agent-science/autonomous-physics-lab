@@ -45,9 +45,19 @@ def _column_stack(*columns: np.ndarray) -> np.ndarray:
     return np.column_stack(columns).astype(float)
 
 
-def build_candidate_models() -> list[CandidateModel]:
-    """Return the baseline pendulum approximation families for v0.1."""
-    return [
+def _x(theta: np.ndarray) -> np.ndarray:
+    return np.sin(theta / 2.0) ** 2
+
+
+def _x_log_one_minus_x(theta: np.ndarray) -> np.ndarray:
+    x = _x(theta)
+    epsilon = np.clip(1.0 - x, 1.0e-12, None)
+    return x * np.log(1.0 / epsilon)
+
+
+def build_candidate_models(candidate_ids: list[str] | None = None) -> list[CandidateModel]:
+    """Return the supported pendulum approximation families for the benchmark."""
+    available_models = [
         CandidateModel(
             model_id="model_theta2",
             formula="1 + a*theta^2",
@@ -64,18 +74,34 @@ def build_candidate_models() -> list[CandidateModel]:
             model_id="model_sin2",
             formula="1 + a*sin(theta/2)^2",
             coefficient_names=("a",),
-            feature_builder=lambda theta: _column_stack(np.sin(theta / 2.0) ** 2),
+            feature_builder=lambda theta: _column_stack(_x(theta)),
         ),
         CandidateModel(
             model_id="model_x_x2",
             formula="1 + a*x + b*x^2 where x = sin(theta/2)^2",
             coefficient_names=("a", "b"),
+            feature_builder=lambda theta: _column_stack(_x(theta), _x(theta) ** 2),
+        ),
+        CandidateModel(
+            model_id="model_x_x2_log",
+            formula="1 + a*x + b*x^2 + c*x*log(1/(1 - x)) where x = sin(theta/2)^2",
+            coefficient_names=("a", "b", "c"),
             feature_builder=lambda theta: _column_stack(
-                np.sin(theta / 2.0) ** 2,
-                np.sin(theta / 2.0) ** 4,
+                _x(theta),
+                _x(theta) ** 2,
+                _x_log_one_minus_x(theta),
             ),
         ),
     ]
+    if candidate_ids is None:
+        return available_models
+    requested_ids = set(candidate_ids)
+    selected_models = [model for model in available_models if model.model_id in requested_ids]
+    if len(selected_models) != len(requested_ids):
+        available_ids = {model.model_id for model in available_models}
+        missing_ids = sorted(requested_ids - available_ids)
+        raise ValueError(f"Unsupported candidate model ids: {', '.join(missing_ids)}")
+    return selected_models
 
 
 def fit_candidate_model(model: CandidateModel, theta: np.ndarray, target: np.ndarray) -> FittedModel:
@@ -90,6 +116,13 @@ def fit_candidate_model(model: CandidateModel, theta: np.ndarray, target: np.nda
     return FittedModel(candidate=model, coefficients=coefficients)
 
 
-def fit_all_models(theta: np.ndarray, target: np.ndarray) -> list[FittedModel]:
+def fit_all_models(
+    theta: np.ndarray,
+    target: np.ndarray,
+    candidate_ids: list[str] | None = None,
+) -> list[FittedModel]:
     """Fit the default candidate families to the training data."""
-    return [fit_candidate_model(model, theta, target) for model in build_candidate_models()]
+    return [
+        fit_candidate_model(model, theta, target)
+        for model in build_candidate_models(candidate_ids=candidate_ids)
+    ]

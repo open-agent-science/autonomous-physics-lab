@@ -10,7 +10,6 @@ hypothesis:
     - "T/T0 = 1 + a*theta^2 + b*theta^4"
     - "T/T0 = 1 + a*sin(theta/2)^2"
     - "T/T0 = 1 + a*x + b*x^2, x = sin(theta/2)^2"
-    - "T/T0 = 1 + a*x + b*x^2 + c*x*log(1/(1 - x)), x = sin(theta/2)^2"
 
 assumptions:
   - "Ideal mathematical pendulum"
@@ -34,6 +33,5 @@ evidence:
     - EXP-0001
   results:
     - RESULT-0001
-    - RESULT-0003
 
-verdict: "The benchmark now includes a theory-aware separatrix-aware candidate family. Current evidence remains range-limited: low-order models stay strong in-range, while logarithmic candidates improve near-separatrix behavior without becoming exact."
+verdict: "Initial benchmark completed. Low-order approximations are valid only within tested amplitude ranges; near-separatrix diagnostics fail for the current best candidate."

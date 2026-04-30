@@ -25,5 +25,3 @@ candidate_models:
     formula: "1 + a*sin(theta/2)^2"
   - id: model_x_x2
     formula: "1 + a*x + b*x^2, x = sin(theta/2)^2"
-  - id: model_x_x2_log
-    formula: "1 + a*x + b*x^2 + c*x*log(1/(1 - x)), x = sin(theta/2)^2"

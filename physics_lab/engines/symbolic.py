@@ -34,6 +34,16 @@ def _pendulum_expression(model_id: str) -> tuple[str, dict[str, str], set[str], 
             {"theta", "a", "b", "x"},
             {"sin"},
         )
+    if model_id == "model_x_x2_log":
+        return (
+            "1 + a * x + b * x**2 + c * x_log",
+            {
+                "x": "sin(theta / 2)**2",
+                "x_log": "x * log(1 / (1 - x))",
+            },
+            {"theta", "a", "b", "c", "x", "x_log"},
+            {"sin", "log"},
+        )
     raise ValueError(f"Unsupported pendulum model for symbolic validation: {model_id}")
 
 

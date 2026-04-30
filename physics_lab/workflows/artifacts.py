@@ -74,6 +74,13 @@ def write_text_atomic(path: Path, content: str) -> None:
     temporary_path.replace(path)
 
 
+def write_bytes_atomic(path: Path, content: bytes) -> None:
+    """Write a binary file via a temporary path, then replace atomically."""
+    temporary_path = path.with_name(f"{path.name}.tmp")
+    temporary_path.write_bytes(content)
+    temporary_path.replace(path)
+
+
 def git_commit(repo_root: Path) -> str | None:
     """Return the current git commit hash when available."""
     try:
@@ -86,6 +93,23 @@ def git_commit(repo_root: Path) -> str | None:
     except (subprocess.CalledProcessError, FileNotFoundError):
         return None
     return result.stdout.strip() or None
+
+
+def snapshot_input_files(
+    *,
+    run_dir: Path,
+    repo_root: Path,
+    input_files: dict[str, Path],
+) -> dict[str, dict[str, str]]:
+    """Freeze workflow input files inside the run directory and hash the snapshots."""
+    snapshots_dir = run_dir / "inputs"
+    snapshots_dir.mkdir(parents=True, exist_ok=True)
+    snapshot_hashes: dict[str, dict[str, str]] = {}
+    for artifact_kind, source_path in input_files.items():
+        snapshot_path = snapshots_dir / f"{artifact_kind}{source_path.suffix or '.txt'}"
+        write_bytes_atomic(snapshot_path, source_path.read_bytes())
+        snapshot_hashes[artifact_kind] = hash_file(snapshot_path, repo_root)
+    return snapshot_hashes
 
 
 def task_path(repo_root: Path, task_id: str) -> Path:

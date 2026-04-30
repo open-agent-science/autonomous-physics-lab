@@ -35,13 +35,26 @@ def _project_stage(root: Path) -> str:
 
 
 def _latest_result_path(root: Path) -> Path | None:
-    result_paths = sorted(
-        (root / "results").glob("*/*/result.yaml"),
-        key=lambda path: path.stat().st_mtime,
-    )
+    result_paths = sorted((root / "results").glob("*/*/result.yaml"))
     if not result_paths:
         return None
-    return result_paths[-1]
+    latest_path: Path | None = None
+    latest_generated_at = ""
+    latest_mtime = float("-inf")
+    for path in result_paths:
+        generated_at = ""
+        try:
+            generated_at = str(load_result(path).get("generated_at", ""))
+        except Exception:
+            generated_at = ""
+        mtime = path.stat().st_mtime
+        if generated_at > latest_generated_at or (
+            generated_at == latest_generated_at and mtime > latest_mtime
+        ):
+            latest_path = path
+            latest_generated_at = generated_at
+            latest_mtime = mtime
+    return latest_path
 
 
 @app.command("run")

@@ -20,6 +20,7 @@ SECOND_DERIVATIVE_EXPECTED = 1.0 / 8.0
 NON_GATING_CHECK_NAMES = {
     "near_separatrix_extrapolation",
     "separatrix_asymptotic_alignment",
+    "separatrix_log_growth_rate",
 }
 
 
@@ -197,6 +198,35 @@ def _separatrix_asymptotic_alignment_check(model: FittedModel) -> VerificationCh
     )
 
 
+def _separatrix_log_growth_rate_check(model: FittedModel) -> VerificationCheck:
+    theta = np.linspace(np.pi - 0.1, np.pi - 1.0e-3, 80, dtype=float)
+    epsilon = np.pi - theta
+    log_term = np.log(8.0 / epsilon)
+    predicted = model.predict(theta)
+    fitted_slope, fitted_intercept = np.polyfit(log_term, predicted, 1)
+    expected_slope = 2.0 / np.pi
+    relative_slope_error = abs(float(fitted_slope) - expected_slope) / expected_slope
+    status = "PASS" if relative_slope_error <= 0.4 else "FAIL"
+    return VerificationCheck(
+        name="separatrix_log_growth_rate",
+        status=status,
+        details=(
+            "Diagnostic comparison of the model's near-separatrix growth rate "
+            "against the expected logarithmic asymptotic slope. This check does "
+            "not gate the current in-range verdict."
+        ),
+        metrics={
+            "gate": False,
+            "theta_window_start": float(theta[0]),
+            "theta_window_end": float(theta[-1]),
+            "expected_slope": expected_slope,
+            "fitted_slope": float(fitted_slope),
+            "fitted_intercept": float(fitted_intercept),
+            "relative_slope_error": relative_slope_error,
+        },
+    )
+
+
 def _evenness_check(model: FittedModel, theta_range: tuple[float, float]) -> VerificationCheck:
     theta = np.linspace(theta_range[0], theta_range[1], 25, dtype=float)
     positive = model.predict(theta)
@@ -284,6 +314,7 @@ def verify_candidate_model(
         _large_angle_window_accuracy_check(model, theta_range=theta_range),
         _near_separatrix_extrapolation_check(model),
         _separatrix_asymptotic_alignment_check(model),
+        _separatrix_log_growth_rate_check(model),
         _evenness_check(model, theta_range=theta_range),
         _monotonicity_check(model, theta_range=theta_range),
         _dimensional_consistency_check(model),

@@ -141,12 +141,21 @@ defined regime, not universally.
 - Link artifacts explicitly by id.
 - Avoid implicit state hidden in code or notebooks.
 
-## v0.1 Starter Set
+## Public-Alpha Starter Set
 
-The first public memory set should include:
+The current public memory set should include:
 
 - `HYP-0001` for pendulum amplitude correction;
 - `EXP-0001` for pendulum formula discovery;
 - `CLAIM-0001` for pendulum period amplitude correction;
-- `TASK-0001` for searching a better pendulum approximation;
-- a pendulum knowledge note under `knowledge/classical_mechanics/`.
+- `TASK-0001` for the original pendulum approximation search;
+- `TASK-0003` for the theory-aware near-separatrix pendulum extension;
+- `RESULT-0001` for the first canonical pendulum run;
+- `RESULT-0003` for the theory-aware pendulum comparison run;
+- a pendulum knowledge note under `knowledge/classical_mechanics/`;
+- `HYP-0002` for damped oscillator regime verification;
+- `EXP-0002` for damped oscillator regimes;
+- `CLAIM-0002` for damped oscillator regime structure;
+- `TASK-0002` for exact damped-oscillator verification;
+- `RESULT-0002` for the first canonical damped-oscillator run;
+- a damped-oscillator knowledge note under `knowledge/classical_mechanics/`.

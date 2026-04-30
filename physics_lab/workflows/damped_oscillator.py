@@ -30,10 +30,10 @@ from physics_lab.workflows.artifacts import (
     best_result_verdict,
     find_repo_root,
     git_commit,
-    hash_file,
     relative_or_absolute,
     resolve_path,
     serialize_scores,
+    snapshot_input_files,
     split_dataset,
     task_path,
     write_text_atomic,
@@ -637,12 +637,16 @@ def run_damped_oscillator_experiment_with_output(
     command = f"physics-lab run {command_path}"
     if output_dir is not None:
         command += f" --output-dir {relative_or_absolute(Path(output_dir).resolve(), repo_root)}"
-    input_hashes = {
-        "config": hash_file(config_path, repo_root),
-        "experiment": hash_file(experiment_path, repo_root),
-        "hypothesis": hash_file(hypothesis_path, repo_root),
-        "task": hash_file(task_file, repo_root),
-    }
+    input_hashes = snapshot_input_files(
+        run_dir=run_dir,
+        repo_root=repo_root,
+        input_files={
+            "config": config_path,
+            "experiment": experiment_path,
+            "hypothesis": hypothesis_path,
+            "task": task_file,
+        },
+    )
     current_commit = git_commit(repo_root)
     train_range = (float(time_seconds[0]), float(time_seconds[split_index - 1]))
     test_range = (float(time_seconds[split_index]), float(time_seconds[-1]))

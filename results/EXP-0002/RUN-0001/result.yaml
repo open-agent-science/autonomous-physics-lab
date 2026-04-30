@@ -4,22 +4,22 @@ experiment_id: EXP-0002
 title: Damped Oscillator Regime Verification
 hypothesis_id: HYP-0002
 task_id: TASK-0002
-generated_at: '2026-04-30T13:16:53.765506+00:00'
+generated_at: '2026-04-30T13:43:44.569959+00:00'
 engine_version: 0.1.0
-git_commit: 63c6919ff4504f7b5627e42992ba5778c9e581cc
+git_commit: 02b24414c05dfe7c7b79dd20f0f3de2b659d3bb5
 command: physics-lab run examples/damped_oscillator.yaml
 input_file_hashes:
   config:
-    path: examples/damped_oscillator.yaml
+    path: results/EXP-0002/RUN-0001/inputs/config.yaml
     sha256: a6fb8c9e1c9a4d6cb4f713f06ad91f35813d711e06c5dc7922fffed9fe7ff556
   experiment:
-    path: experiments/EXP-0002-damped-oscillator-regimes.yaml
+    path: results/EXP-0002/RUN-0001/inputs/experiment.yaml
     sha256: a61d99bb0f80dd483f2dcca2c120d292e61022da89563c0e535cceb383b9a534
   hypothesis:
-    path: hypotheses/HYP-0002-damped-oscillator-regimes.yaml
+    path: results/EXP-0002/RUN-0001/inputs/hypothesis.yaml
     sha256: 0335a56d292b78fc31819bc1294e053abb1c1aa6a62894956008b3d44eb0d34c
   task:
-    path: tasks/TASK-0002-verify-damped-oscillator-regimes.yaml
+    path: results/EXP-0002/RUN-0001/inputs/task.yaml
     sha256: ffc62c2e33e9c7d63f7bb8d3a846bfe4b840caf5b08fd7d9c9cbbb50eedfe55f
 code_reference: physics_lab/workflows/damped_oscillator.py
 limitations:

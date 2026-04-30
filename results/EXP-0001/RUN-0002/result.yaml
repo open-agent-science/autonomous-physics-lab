@@ -1,32 +1,33 @@
-result_id: RESULT-0001
-run_id: RUN-0001
+result_id: RESULT-0003
+run_id: RUN-0002
 experiment_id: EXP-0001
 title: Pendulum Formula Discovery
 hypothesis_id: HYP-0001
-task_id: TASK-0001
-generated_at: '2026-04-30T13:16:53.765482+00:00'
+task_id: TASK-0003
+generated_at: '2026-04-30T13:43:44.582862+00:00'
 engine_version: 0.1.0
-git_commit: 63c6919ff4504f7b5627e42992ba5778c9e581cc
+git_commit: 02b24414c05dfe7c7b79dd20f0f3de2b659d3bb5
 command: physics-lab run examples/pendulum.yaml
 input_file_hashes:
   config:
-    path: results/EXP-0001/RUN-0001/inputs/config.yaml
-    sha256: 95bb3ab9d9478ffadeb400ce10ae5d1a1dabe618f6b31d7f14ed132b6a981978
+    path: results/EXP-0001/RUN-0002/inputs/config.yaml
+    sha256: 1e72a8372b94d06d03dc025b2dc01c0a4e09cd84d809a406c8ea5272748c4b1a
   experiment:
-    path: results/EXP-0001/RUN-0001/inputs/experiment.yaml
-    sha256: 440e8c7207ecaf3f96d7d57bce307a21f733ca144df8533c3d2c26a77d4478c2
+    path: results/EXP-0001/RUN-0002/inputs/experiment.yaml
+    sha256: 6663a2c6304bf5a8fcd8e272ebbc182bb8ff793fa3ca41a9a560ff8e3c00484c
   hypothesis:
-    path: results/EXP-0001/RUN-0001/inputs/hypothesis.yaml
-    sha256: b04429bf8fb3daefb33027dbd2496ca2d7ee7e90133a8c818e741736c10ff186
+    path: results/EXP-0001/RUN-0002/inputs/hypothesis.yaml
+    sha256: 8efb43e0a7dd0803c1a2595d66bb021f6f082688e8f6bf38682682777d31118a
   task:
-    path: results/EXP-0001/RUN-0001/inputs/task.yaml
-    sha256: a8fa2dfa82cea0a2ff59aeb98e0c159e2ee8f3594ebb04cc2a29ddb3915c764d
+    path: results/EXP-0001/RUN-0002/inputs/task.yaml
+    sha256: 0fa06adb81c9d7de6bb14011f2831c3b060458a22df84cbcf58d6c30fe2c1ec1
 code_reference: physics_lab/workflows/pendulum.py
 limitations:
 - This workflow assumes an ideal mathematical pendulum with no damping or driving
   force.
 - Verdicts apply only to the sampled amplitude ranges used in the train and test split.
-- Candidate formulas are limited to predefined low-order approximation families.
+- Candidate formulas are limited to predefined polynomial, trigonometric, and theory-aware
+  separatrix approximation families.
 train_range:
 - 0.01
 - 1.100204469469802
@@ -93,6 +94,19 @@ verification:
       theta_window_end: 3.1405926535897932
       mean_relative_error: 0.4113999249600798
       max_relative_error: 0.649999235595837
+  - name: separatrix_log_growth_rate
+    status: FAIL
+    details: Diagnostic comparison of the model's near-separatrix growth rate against
+      the expected logarithmic asymptotic slope. This check does not gate the current
+      in-range verdict.
+    metrics:
+      gate: false
+      theta_window_start: 3.041592653589793
+      theta_window_end: 3.1405926535897932
+      expected_slope: 0.6366197723675814
+      fitted_slope: 0.023787165755769488
+      fitted_intercept: 1.8323096835139978
+      relative_slope_error: 0.962635207405976
   - name: evenness
     status: PASS
     details: Checks whether the candidate model is even in theta.
@@ -124,10 +138,10 @@ verification:
       actual_b: 0.003982436969251462
       abs_error_b: 0.00040170780258479534
 artifacts:
-  report: results/EXP-0001/RUN-0001/report.md
-  metrics: results/EXP-0001/RUN-0001/metrics.json
-  claim_update: results/EXP-0001/RUN-0001/claim_update.md
-  knowledge_update: results/EXP-0001/RUN-0001/knowledge_update.md
+  report: results/EXP-0001/RUN-0002/report.md
+  metrics: results/EXP-0001/RUN-0002/metrics.json
+  claim_update: results/EXP-0001/RUN-0002/claim_update.md
+  knowledge_update: results/EXP-0001/RUN-0002/knowledge_update.md
 scores:
 - model_id: model_theta2_theta4
   formula: 1 + a*theta^2 + b*theta^4
@@ -143,19 +157,34 @@ scores:
     max_relative_error: 0.0018887002075346894
   composite_score: 0.003107125251147017
   verdict: VALID
+- model_id: model_x_x2_log
+  formula: 1 + a*x + b*x^2 + c*x*log(1/(1 - x)) where x = sin(theta/2)^2
+  coefficients:
+    a: 0.2500443713421685
+    b: -0.06649688548055445
+    c: 0.2061616440346294
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 4.057916678309157e-07
+    max_relative_error: 1.7075839679807872e-06
+  test_metrics:
+    mean_relative_error: 0.00011457753869838952
+    max_relative_error: 0.00041721310311436014
+  composite_score: 0.0032188808144769797
+  verdict: VALID
 - model_id: model_x_x2
   formula: 1 + a*x + b*x^2 where x = sin(theta/2)^2
   coefficients:
     a: 0.24631141111919141
-    b: 0.1847422929631692
+    b: 0.18474229296316916
   complexity_score: 2
   train_metrics:
-    mean_relative_error: 5.657441747420888e-05
+    mean_relative_error: 5.657441747420735e-05
     max_relative_error: 0.0002252305701512783
   test_metrics:
-    mean_relative_error: 0.003317022772527134
+    mean_relative_error: 0.003317022772527137
     max_relative_error: 0.009318768010587068
-  composite_score: 0.007646714775173901
+  composite_score: 0.007646714775173904
   verdict: PARTIALLY_VALID
 - model_id: model_theta2
   formula: 1 + a*theta^2

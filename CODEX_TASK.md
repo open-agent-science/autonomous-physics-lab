@@ -1,43 +1,51 @@
-# Codex Task: Stabilize Multi-Benchmark Workflow Architecture
+# Codex Task: TASK-0003 — Theory-aware Pendulum Approximation Near Separatrix
 
-Read `AGENTS.md` and `docs/status.md` first.
+Read `AGENTS.md`, `docs/status.md`, and
+`tasks/TASK-0003-theory-aware-pendulum-near-separatrix.yaml` first.
 
 ## Goal
 
-Stabilize the two-benchmark public-alpha state before adding any new physics
-benchmark.
+Improve the pendulum benchmark by adding at least one theory-aware candidate
+family that behaves better as `theta` approaches `pi`.
 
-The current repository now has two runnable slices:
+The current best low-order polynomial candidate is `VALID_IN_RANGE`, but it
+still fails near-separatrix diagnostics.
 
-- `EXP-0001` — `Pendulum Formula Discovery`
-- `EXP-0002` — `Damped Oscillator Regime Verification`
+## Required Work
 
-The next work should keep both workflows reproducible, non-dirty in CI, and
-easy to hand off to future contributors.
+1. Add candidate families that include known logarithmic behavior near `theta -> pi`.
+2. Keep the current low-order polynomial candidates unchanged.
+3. Add or extend separatrix-aware verification checks.
+4. Produce a new canonical run:
+   - `results/EXP-0001/RUN-0002/result.yaml`
+   - `metrics.json`
+   - `report.md`
+   - `claim_update.md`
+   - `knowledge_update.md`
+5. Compare `RUN-0001` vs `RUN-0002`:
+   - in-range accuracy
+   - near-separatrix behavior
+   - complexity score
+   - limitations
+6. Do not overwrite `RUN-0001`.
 
-## Priority Areas
+## Candidate Ideas
 
-Work in or around:
+Consider forms involving:
 
-```text
-physics_lab/workflows/artifacts.py
-physics_lab/workflows/pendulum.py
-physics_lab/workflows/damped_oscillator.py
-physics_lab/workflows/runner.py
-.github/workflows/ci.yml
-tests/test_pendulum.py
-tests/test_damped_oscillator.py
-README.md
-docs/status.md
-```
+- `epsilon = pi - theta`
+- `log(1 / epsilon)`
+- `log(8 / (pi - theta))`
+- `sin(theta / 2)^2`
+- rational or blended formulas with a complexity penalty
 
-## Required Outcomes
+## Scientific Rules
 
-1. Keep `runner.py` thin and use workflow-specific modules.
-2. Ensure example runs support `--output-dir` and do not dirty committed artifacts in CI.
-3. Keep repository validation green with 2 hypotheses, 2 experiments, 2 claims,
-   2 tasks, 2 knowledge notes, 2 examples, and 2 canonical results.
-4. Keep docs honest about the current two-benchmark scope.
+- Do not claim exact discovery.
+- Keep verdicts range-aware.
+- If the candidate improves separatrix behavior but worsens small-angle accuracy,
+  report that tradeoff explicitly.
+- The result must clearly state the validity regime.
 
 ## Constraints
 
@@ -48,8 +56,6 @@ docs/status.md
 - Do not add literature ingestion.
 - Do not add multi-agent runtime.
 - Keep tests fast.
-- Keep scientific semantics unchanged.
-- Do not promote claims directly from code execution.
 
 ## Before Finishing
 
@@ -61,5 +67,5 @@ python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
-git status --short
+git diff --exit-code
 ```

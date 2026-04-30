@@ -9,6 +9,7 @@ evidence:
     - EXP-0001
   results:
     - RESULT-0001
+    - RESULT-0003
 scope: Initial scope covers amplitude correction for the ideal pendulum in classical mechanics.
 ---
 
@@ -21,10 +22,10 @@ cannot be captured exactly by the small-angle approximation alone.
 
 ## Evidence Status
 
-`EXP-0001` has produced `RESULT-0001`, which contains a verification-backed
-benchmark for low-order pendulum period approximations. This claim remains in
-`DRAFT` until a human or later workflow explicitly accepts the suggested
-evidence update.
+`EXP-0001` has produced `RESULT-0001` and `RESULT-0003`. Together they show a
+verification-backed benchmark for low-order and theory-aware pendulum
+approximations. This claim remains in `DRAFT` until a human or later workflow
+explicitly accepts the suggested evidence update.
 
 ## Scope
 

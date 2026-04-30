@@ -31,6 +31,8 @@ Completed so far:
   - upper-range exact-window verification on the configured amplitude interval
   - non-gating near-separatrix extrapolation diagnostic
   - theory-aware separatrix asymptotic diagnostic
+  - theory-aware pendulum candidate family with committed `RESULT-0003` under `results/EXP-0001/RUN-0002/`
+  - immutable run-input snapshots so historical canonical results remain validation-stable as repository inputs evolve
   - second runnable benchmark for exact damped-oscillator regime verification
   - committed `RESULT-0002` artifact set under `results/EXP-0002/RUN-0001/`
   - maintainer-facing claim promotion policy linked to generated claim suggestions
@@ -148,7 +150,7 @@ This is the practical order I recommend next:
 1. deepen known-limit and structural verification checks for pendulum and damped oscillator;
 2. deepen claim and knowledge evidence semantics;
 3. improve contributor docs and project status tooling;
-4. decide the third benchmark physics workflow.
+4. decide the third benchmark physics workflow after the two current slices are fully release-ready.
 
 Current stabilization rule:
 

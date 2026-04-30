@@ -67,6 +67,16 @@ Goal:
 4. Score accuracy and complexity.
 5. Produce a reproducible report.
 
+## Current Public-Alpha Scope
+
+The repository currently has two working benchmark slices:
+
+- `EXP-0001` — `Pendulum Formula Discovery`
+- `EXP-0002` — `Damped Oscillator Regime Verification`
+
+Use that broader public-alpha scope when updating docs, status snapshots, and
+contributor guidance.
+
 ## Planning Files
 
 To continue work consistently, use these project documents:
@@ -198,8 +208,12 @@ Do not make tests depend on external APIs.
 Before marking work complete, run:
 
 ```bash
-ruff check .
-pytest
+python3 -m ruff check .
+python3 -m pytest
+python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
+python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
+python3 -m physics_lab.cli validate-repo .
+git diff --exit-code
 ```
 
 If a change touches CLI behavior, include a smoke test.

@@ -74,6 +74,8 @@ Completed:
   - underdamped envelope decay-rate behavior
   - critical damping boundary behavior
   - overdamped asymptotic tail behavior
+- theory-aware pendulum extension with committed `RESULT-0003` under `results/EXP-0001/RUN-0002/`;
+- immutable run-input snapshots for canonical result artifacts to keep historical runs validation-stable.
 
 Current validation commands:
 
@@ -93,11 +95,10 @@ The first two verification benchmarks are real now, but the verification stack i
 
 Best next checks:
 
-- symbolic consistency hooks;
-- theory-aware candidate families that behave better near the separatrix.
-- stronger asymptotic checks for more candidate families.
-- better non-polynomial or theory-aware checks for behavior closer to the separatrix as `theta` approaches `pi`.
-- stronger damped-oscillator checks such as envelope fitting, decay-rate checks, and `c -> 0` limit behavior.
+- symbolic consistency hooks beyond current pendulum families;
+- stronger asymptotic or regime-aware checks for future candidate families.
+- theory-aware follow-up improvements that can push pendulum performance closer to the separatrix without losing in-range clarity.
+- keep damped-oscillator checks extensible for future driven or nonlinear variants.
 - keep the two workflow modules stable and avoid pushing benchmark-specific logic back into `runner.py`.
 - deepen evidence semantics now that both benchmarks have stronger verification gates.
 

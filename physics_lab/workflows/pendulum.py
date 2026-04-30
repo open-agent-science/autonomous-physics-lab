@@ -26,10 +26,10 @@ from physics_lab.workflows.artifacts import (
     best_result_verdict,
     find_repo_root,
     git_commit,
-    hash_file,
     relative_or_absolute,
     resolve_path,
     serialize_scores,
+    snapshot_input_files,
     split_dataset,
     task_path,
     write_text_atomic,
@@ -40,7 +40,7 @@ def _build_limitations() -> list[str]:
     return [
         "This workflow assumes an ideal mathematical pendulum with no damping or driving force.",
         "Verdicts apply only to the sampled amplitude ranges used in the train and test split.",
-        "Candidate formulas are limited to predefined low-order approximation families.",
+        "Candidate formulas are limited to predefined polynomial, trigonometric, and theory-aware separatrix approximation families.",
     ]
 
 
@@ -49,6 +49,73 @@ def _best_fitted_model(fitted_models: list[FittedModel], model_id: str) -> Fitte
         if model.candidate.model_id == model_id:
             return model
     raise ValueError(f"Unable to find fitted model for {model_id}")
+
+
+def _best_theory_aware_score(scores: list[ModelScore]) -> ModelScore | None:
+    theory_aware_scores = [score for score in scores if "log" in score.model_id]
+    if not theory_aware_scores:
+        return None
+    return min(theory_aware_scores, key=lambda score: score.composite_score)
+
+
+def _verification_check_map(verification_summary: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {check["name"]: check for check in verification_summary["checks"]}
+
+
+def _run_comparison_payload(
+    *,
+    baseline_result_path: Path | None,
+    baseline_result_payload: dict[str, Any] | None,
+    theory_aware_score: ModelScore | None,
+    theory_aware_verification_payload: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    if baseline_result_payload is None or baseline_result_path is None or theory_aware_score is None:
+        return None
+
+    def _score_by_model(payload: dict[str, Any], model_id: str) -> dict[str, Any]:
+        for score in payload["scores"]:
+            if score["model_id"] == model_id:
+                return score
+        raise ValueError(f"Missing score for model {model_id}")
+
+    baseline_checks = _verification_check_map(baseline_result_payload["verification"])
+    theory_checks = _verification_check_map(theory_aware_verification_payload or {"checks": []})
+    baseline_best_score = _score_by_model(
+        baseline_result_payload,
+        str(baseline_result_payload["best_model_id"]),
+    )
+    baseline_sep = baseline_checks.get("near_separatrix_extrapolation", {}).get("metrics", {})
+    baseline_asym = baseline_checks.get("separatrix_asymptotic_alignment", {}).get("metrics", {})
+    theory_sep = theory_checks.get("near_separatrix_extrapolation", {}).get("metrics", {})
+    theory_asym = theory_checks.get("separatrix_asymptotic_alignment", {}).get("metrics", {})
+
+    return {
+        "baseline_run_id": str(baseline_result_payload["run_id"]),
+        "baseline_result_id": str(baseline_result_payload["result_id"]),
+        "baseline_best_model_id": str(baseline_result_payload["best_model_id"]),
+        "theory_aware_model_id": theory_aware_score.model_id,
+        "baseline_result_path": relative_or_absolute(baseline_result_path, find_repo_root(baseline_result_path)),
+        "comparison": {
+            "baseline_in_range_mean_relative_error": float(
+                baseline_best_score["test_metrics"]["mean_relative_error"]
+            ),
+            "baseline_in_range_max_relative_error": float(
+                baseline_best_score["test_metrics"]["max_relative_error"]
+            ),
+            "baseline_complexity_score": int(baseline_best_score["complexity_score"]),
+            "baseline_end_ratio_to_exact": float(baseline_sep.get("end_ratio_to_exact", float("nan"))),
+            "baseline_separatrix_max_relative_error": float(
+                baseline_asym.get("max_relative_error", float("nan"))
+            ),
+            "theory_aware_in_range_mean_relative_error": theory_aware_score.test_metrics.mean_relative_error,
+            "theory_aware_in_range_max_relative_error": theory_aware_score.test_metrics.max_relative_error,
+            "theory_aware_complexity_score": theory_aware_score.complexity_score,
+            "theory_aware_end_ratio_to_exact": float(theory_sep.get("end_ratio_to_exact", float("nan"))),
+            "theory_aware_separatrix_max_relative_error": float(
+                theory_asym.get("max_relative_error", float("nan"))
+            ),
+        },
+    }
 
 
 def _build_report(
@@ -65,6 +132,7 @@ def _build_report(
     verdicts: dict[str, str],
     best_model_id: str,
     verification_summary: dict[str, Any],
+    run_comparison: dict[str, Any] | None,
 ) -> str:
     best_score = next(score for score in scores if score.model_id == best_model_id)
     lines = [
@@ -114,6 +182,58 @@ def _build_report(
             "## Verdict",
             "",
             f"Best candidate: `{best_score.model_id}` with verdict `{best_result_verdict(verdicts[best_model_id])}`.",
+        ]
+    )
+    if run_comparison is not None:
+        comparison = run_comparison["comparison"]
+        lines.extend(
+            [
+                "",
+                "## RUN-0001 vs RUN-0002 Comparison",
+                "",
+                f"- Baseline run: `{run_comparison['baseline_run_id']}` / `{run_comparison['baseline_result_id']}`",
+                f"- Baseline best model: `{run_comparison['baseline_best_model_id']}`",
+                f"- Best theory-aware candidate in this run: `{run_comparison['theory_aware_model_id']}`",
+                "",
+                "### In-range accuracy",
+                "",
+                (
+                    f"- Baseline mean/max relative error: "
+                    f"`{comparison['baseline_in_range_mean_relative_error']:.6f}` / "
+                    f"`{comparison['baseline_in_range_max_relative_error']:.6f}`"
+                ),
+                (
+                    f"- Theory-aware mean/max relative error: "
+                    f"`{comparison['theory_aware_in_range_mean_relative_error']:.6f}` / "
+                    f"`{comparison['theory_aware_in_range_max_relative_error']:.6f}`"
+                ),
+                "",
+                "### Near-separatrix behavior",
+                "",
+                f"- Baseline end-ratio-to-exact: `{comparison['baseline_end_ratio_to_exact']:.6f}`",
+                f"- Theory-aware end-ratio-to-exact: `{comparison['theory_aware_end_ratio_to_exact']:.6f}`",
+                (
+                    f"- Baseline asymptotic max relative error: "
+                    f"`{comparison['baseline_separatrix_max_relative_error']:.6f}`"
+                ),
+                (
+                    f"- Theory-aware asymptotic max relative error: "
+                    f"`{comparison['theory_aware_separatrix_max_relative_error']:.6f}`"
+                ),
+                "",
+                "### Complexity and limitations",
+                "",
+                f"- Baseline complexity score: `{comparison['baseline_complexity_score']}`",
+                f"- Theory-aware complexity score: `{comparison['theory_aware_complexity_score']}`",
+                (
+                    "- Tradeoff: the theory-aware candidate improves separatrix behavior substantially "
+                    "and also improves in-range error, but it pays a higher complexity penalty and "
+                    "still remains range-limited rather than exact."
+                ),
+            ]
+        )
+    lines.extend(
+        [
             "",
             "## Conclusion",
             "",
@@ -135,6 +255,7 @@ def _build_claim_update(
     train_range: tuple[float, float],
     test_range: tuple[float, float],
     verification_summary: dict[str, Any],
+    run_comparison: dict[str, Any] | None,
 ) -> str:
     suggestion = suggest_claim_status(
         verification_summary=verification_summary,
@@ -142,8 +263,7 @@ def _build_claim_update(
         range_limited=True,
         exact_verification=False,
     )
-    return "\n".join(
-        [
+    lines = [
             f"# Proposed Update for {claim_id}",
             "",
             f"- Result: `{result_id}`",
@@ -187,9 +307,25 @@ def _build_claim_update(
                 "Do not auto-promote the claim status unless verification checks pass, and do not extend this verdict "
                 "beyond the configured amplitude ranges."
             ),
-            "",
         ]
-    )
+    if run_comparison is not None:
+        comparison = run_comparison["comparison"]
+        lines.extend(
+            [
+                "",
+                "## Suggested RUN Comparison Note",
+                "",
+                (
+                    "Compared with `RUN-0001`, the new benchmark includes a theory-aware "
+                    f"candidate `{run_comparison['theory_aware_model_id']}` that improves "
+                    "near-separatrix behavior while remaining explicitly range-limited."
+                ),
+                f"- Baseline end-ratio-to-exact: `{comparison['baseline_end_ratio_to_exact']:.6f}`",
+                f"- Theory-aware end-ratio-to-exact: `{comparison['theory_aware_end_ratio_to_exact']:.6f}`",
+            ]
+        )
+    lines.append("")
+    return "\n".join(lines)
 
 
 def _build_knowledge_update(
@@ -202,6 +338,7 @@ def _build_knowledge_update(
     best_verdict: str,
     limitations: list[str],
     verification_summary: dict[str, Any],
+    run_comparison: dict[str, Any] | None,
 ) -> str:
     lines = [
         f"# Proposed Update for {knowledge_id}",
@@ -224,6 +361,23 @@ def _build_knowledge_update(
     lines.extend([f"- `{name}` = `{value:.8f}`" for name, value in best_score.coefficients.items()])
     lines.extend(["", "## Suggested Verification Notes", "", f"- Verification gate passed: `{verification_summary['passed']}`"])
     lines.extend([*[f"- {check['name']}: `{check['status']}`" for check in verification_summary["checks"]]])
+    if run_comparison is not None:
+        comparison = run_comparison["comparison"]
+        lines.extend(
+            [
+                "",
+                "## Suggested RUN Comparison Note",
+                "",
+                (
+                    f"Theory-aware candidate `{run_comparison['theory_aware_model_id']}` "
+                    "improves near-separatrix behavior relative to the RUN-0001 baseline."
+                ),
+                f"- Baseline end-ratio-to-exact: `{comparison['baseline_end_ratio_to_exact']:.6f}`",
+                f"- Theory-aware end-ratio-to-exact: `{comparison['theory_aware_end_ratio_to_exact']:.6f}`",
+                f"- Baseline asymptotic max relative error: `{comparison['baseline_separatrix_max_relative_error']:.6f}`",
+                f"- Theory-aware asymptotic max relative error: `{comparison['theory_aware_separatrix_max_relative_error']:.6f}`",
+            ]
+        )
     lines.extend(["", "## Suggested Limitations Section", ""])
     lines.extend([f"- {limitation}" for limitation in limitations])
     lines.extend(
@@ -294,7 +448,12 @@ def run_pendulum_experiment_with_output(
     test_theta = dataset.theta[split_index:]
     test_target = dataset.period_ratio[split_index:]
 
-    fitted_models = fit_all_models(train_theta, train_target)
+    candidate_ids = [candidate["id"] for candidate in experiment.get("candidate_models", [])]
+    fitted_models = fit_all_models(
+        train_theta,
+        train_target,
+        candidate_ids=candidate_ids or None,
+    )
     scores = [
         score_model(
             fitted_model=model,
@@ -317,6 +476,16 @@ def run_pendulum_experiment_with_output(
         theta_range=(float(dataset.theta[0]), float(dataset.theta[-1])),
     )
     verification_payload = serialize_verification_summary(verification_summary)
+    theory_aware_score = _best_theory_aware_score(scores)
+    theory_aware_verification_payload = None
+    if theory_aware_score is not None:
+        theory_aware_model = _best_fitted_model(fitted_models, theory_aware_score.model_id)
+        theory_aware_verification_payload = serialize_verification_summary(
+            verify_candidate_model(
+                theory_aware_model,
+                theta_range=(float(dataset.theta[0]), float(dataset.theta[-1])),
+            )
+        )
 
     run_dir = result_root / run_id
     result_path = run_dir / "result.yaml"
@@ -331,13 +500,30 @@ def run_pendulum_experiment_with_output(
     command = f"physics-lab run {command_path}"
     if output_dir is not None:
         command += f" --output-dir {relative_or_absolute(Path(output_dir).resolve(), repo_root)}"
-    input_hashes = {
-        "config": hash_file(config_path, repo_root),
-        "experiment": hash_file(experiment_path, repo_root),
-        "hypothesis": hash_file(hypothesis_path, repo_root),
-        "task": hash_file(task_file, repo_root),
-    }
+    input_hashes = snapshot_input_files(
+        run_dir=run_dir,
+        repo_root=repo_root,
+        input_files={
+            "config": config_path,
+            "experiment": experiment_path,
+            "hypothesis": hypothesis_path,
+            "task": task_file,
+        },
+    )
     current_commit = git_commit(repo_root)
+    baseline_result_path = default_result_root / "RUN-0001" / "result.yaml"
+    baseline_result_payload = None
+    if baseline_result_path.exists() and run_id != "RUN-0001":
+        baseline_result_payload = validate_result_payload(
+            yaml.safe_load(baseline_result_path.read_text(encoding="utf-8")),
+            source=baseline_result_path,
+        )
+    run_comparison = _run_comparison_payload(
+        baseline_result_path=baseline_result_path if baseline_result_payload is not None else None,
+        baseline_result_payload=baseline_result_payload,
+        theory_aware_score=theory_aware_score,
+        theory_aware_verification_payload=theory_aware_verification_payload,
+    )
 
     report_text = _build_report(
         title=str(experiment["title"]),
@@ -353,6 +539,7 @@ def run_pendulum_experiment_with_output(
         verdicts=verdicts,
         best_model_id=best_model_id,
         verification_summary=verification_payload,
+        run_comparison=run_comparison,
     )
     write_text_atomic(report_path, report_text)
 
@@ -393,6 +580,7 @@ def run_pendulum_experiment_with_output(
         "best_verdict": best_verdict,
         "verification": verification_payload,
         "scores": result_payload["scores"],
+        "run_comparison": run_comparison,
     }
     write_text_atomic(metrics_path, json.dumps(metrics_payload, indent=2))
 
@@ -407,6 +595,7 @@ def run_pendulum_experiment_with_output(
         train_range=(float(train_theta[0]), float(train_theta[-1])),
         test_range=(float(test_theta[0]), float(test_theta[-1])),
         verification_summary=verification_payload,
+        run_comparison=run_comparison,
     )
     knowledge_update_text = _build_knowledge_update(
         knowledge_id="KNOW-0001",
@@ -418,6 +607,7 @@ def run_pendulum_experiment_with_output(
         best_verdict=best_verdict,
         limitations=limitations,
         verification_summary=verification_payload,
+        run_comparison=run_comparison,
     )
     write_text_atomic(claim_update_path, claim_update_text)
     write_text_atomic(knowledge_update_path, knowledge_update_text)

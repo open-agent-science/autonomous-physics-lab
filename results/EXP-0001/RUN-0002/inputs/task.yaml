@@ -1,7 +1,7 @@
 id: TASK-0003
 title: "Add theory-aware pendulum approximation near the separatrix"
 type: verifier_extension
-status: DONE
+status: OPEN
 difficulty: high
 priority: high
 

@@ -1,0 +1,47 @@
+id: EXP-0002
+title: "Damped Oscillator Regime Verification"
+domain: classical_mechanics
+status: COMPLETED
+
+hypothesis_id: HYP-0002
+
+method:
+  type: "regime_verification"
+  simulator: "exact_damped_oscillator_solution"
+  fitter: "deterministic_regime_checks"
+
+data:
+  time_range_seconds:
+    start: 0.0
+    end: 12.0
+  sample_count: 240
+  scenarios:
+    - id: case_underdamped
+      expected_regime: underdamped
+      mass: 1.0
+      damping: 0.4
+      stiffness: 4.0
+      x0: 1.0
+      v0: 0.0
+    - id: case_critical
+      expected_regime: critical
+      mass: 1.0
+      damping: 4.0
+      stiffness: 4.0
+      x0: 1.0
+      v0: 0.0
+    - id: case_overdamped
+      expected_regime: overdamped
+      mass: 1.0
+      damping: 5.0
+      stiffness: 4.0
+      x0: 1.0
+      v0: 0.0
+
+candidate_models:
+  - id: model_underdamped
+    formula: "x(t) = exp(-alpha*t) * (A*cos(omega_d*t) + B*sin(omega_d*t))"
+  - id: model_critical
+    formula: "x(t) = exp(-alpha*t) * (A + B*t)"
+  - id: model_overdamped
+    formula: "x(t) = A*exp(r1*t) + B*exp(r2*t)"

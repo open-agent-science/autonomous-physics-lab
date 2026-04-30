@@ -82,6 +82,34 @@ def test_formula_discovery_prefers_two_term_sine_family_on_test_range() -> None:
     assert scores["model_x_x2"].mean_relative_error < scores["model_theta2"].mean_relative_error
 
 
+def test_theory_aware_candidate_improves_separatrix_behavior() -> None:
+    dataset = generate_pendulum_dataset(0.01, 1.5707963267948966, 200)
+    split_index = 140
+    fitted_models = fit_all_models(dataset.theta[:split_index], dataset.period_ratio[:split_index])
+    models_by_id = {model.candidate.model_id: model for model in fitted_models}
+
+    baseline_summary = verify_candidate_model(
+        models_by_id["model_theta2_theta4"],
+        theta_range=(float(dataset.theta[0]), float(dataset.theta[-1])),
+    )
+    theory_aware_summary = verify_candidate_model(
+        models_by_id["model_x_x2_log"],
+        theta_range=(float(dataset.theta[0]), float(dataset.theta[-1])),
+    )
+    baseline_checks = {check.name: check for check in baseline_summary.checks}
+    theory_aware_checks = {check.name: check for check in theory_aware_summary.checks}
+
+    assert theory_aware_checks["near_separatrix_extrapolation"].metrics["end_ratio_to_exact"] > baseline_checks[
+        "near_separatrix_extrapolation"
+    ].metrics["end_ratio_to_exact"]
+    assert theory_aware_checks["separatrix_asymptotic_alignment"].metrics["max_relative_error"] < baseline_checks[
+        "separatrix_asymptotic_alignment"
+    ].metrics["max_relative_error"]
+    assert theory_aware_checks["separatrix_log_growth_rate"].metrics["relative_slope_error"] < baseline_checks[
+        "separatrix_log_growth_rate"
+    ].metrics["relative_slope_error"]
+
+
 def test_critic_flags_invalid_model_when_errors_are_large() -> None:
     score = ModelScore(
         model_id="bad_model",
@@ -112,6 +140,7 @@ def test_verification_summary_contains_expected_checks() -> None:
         "large_angle_window_accuracy",
         "near_separatrix_extrapolation",
         "separatrix_asymptotic_alignment",
+        "separatrix_log_growth_rate",
         "evenness",
         "monotonicity",
         "dimensional_consistency",
@@ -133,20 +162,27 @@ def test_verification_summary_contains_expected_checks() -> None:
     asymptotic_check = next(
         check for check in summary.checks if check.name == "separatrix_asymptotic_alignment"
     )
+    log_growth_check = next(
+        check for check in summary.checks if check.name == "separatrix_log_growth_rate"
+    )
     assert dimensional_check.status == "PASS"
     assert small_angle_window_check.status == "PASS"
     assert small_angle_curvature_check.status == "PASS"
     assert large_angle_window_check.status == "PASS"
     assert separatrix_check.metrics["gate"] is False
     assert asymptotic_check.metrics["gate"] is False
+    assert log_growth_check.metrics["gate"] is False
 
 
 def test_symbolic_dimension_check_is_active_for_pendulum_models() -> None:
     assert symbolic_validation_available() is True
     result = validate_pendulum_model_dimensions("model_x_x2")
+    theory_aware_result = validate_pendulum_model_dimensions("model_x_x2_log")
 
     assert result.status == "PASS"
     assert result.metrics["auxiliary_definition_count"] == 1
+    assert theory_aware_result.status == "PASS"
+    assert theory_aware_result.metrics["auxiliary_definition_count"] == 2
 
 
 def test_runner_generates_run_based_artifacts(tmp_path) -> None:
@@ -497,10 +533,10 @@ def test_cli_validate_result_smoke() -> None:
         output_dir=Path("/tmp/apl-pendulum-validate"),
     )
     runner = CliRunner()
-    result = runner.invoke(app, ["validate", "results/EXP-0001/RUN-0001/result.yaml"])
+    result = runner.invoke(app, ["validate", "results/EXP-0001/RUN-0002/result.yaml"])
 
     assert result.exit_code == 0
-    assert "Validated results/EXP-0001/RUN-0001/result.yaml as result." in result.stdout
+    assert "Validated results/EXP-0001/RUN-0002/result.yaml as result." in result.stdout
 
 
 def test_validate_repository_smoke() -> None:
@@ -518,7 +554,7 @@ def test_validate_repository_smoke() -> None:
     assert summary.counts["knowledge"] == 2
     assert summary.counts["tasks"] == 5
     assert summary.counts["agents"] == 1
-    assert summary.counts["results"] >= 2
+    assert summary.counts["results"] == 3
 
 
 def test_validate_repository_detects_missing_reference(tmp_path) -> None:
@@ -588,6 +624,7 @@ def test_cli_status_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Stage: v0.1-public-alpha candidate" in result.stdout
+    assert "Run id: RUN-0002" in result.stdout
     assert "Validation: PASS" in result.stdout
     assert "Best verdict: VALID_IN_RANGE" in result.stdout
     assert "Verification checks:" in result.stdout
@@ -599,5 +636,5 @@ def test_run_dispatches_pendulum_with_output_dir(tmp_path) -> None:
         output_dir=tmp_path / "apl-results",
     )
 
-    assert outcome.result_id == "RESULT-0001"
-    assert outcome.artifacts.result_path == tmp_path / "apl-results" / "EXP-0001" / "RUN-0001" / "result.yaml"
+    assert outcome.result_id == "RESULT-0003"
+    assert outcome.artifacts.result_path == tmp_path / "apl-results" / "EXP-0001" / "RUN-0002" / "result.yaml"

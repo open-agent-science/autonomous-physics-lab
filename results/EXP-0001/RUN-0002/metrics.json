@@ -1,0 +1,246 @@
+{
+  "result_id": "RESULT-0003",
+  "run_id": "RUN-0002",
+  "best_model_id": "model_theta2_theta4",
+  "best_verdict": "VALID_IN_RANGE",
+  "verification": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "small_angle_limit",
+        "status": "PASS",
+        "details": "Checks whether the candidate returns T/T0 ~= 1 near zero amplitude.",
+        "metrics": {
+          "predicted": 1.0000000000000624,
+          "deviation": 6.23945339839338e-14
+        }
+      },
+      {
+        "name": "small_angle_window_accuracy",
+        "status": "PASS",
+        "details": "Compares candidate predictions to the exact elliptic-integral solution on a small-angle window.",
+        "metrics": {
+          "theta_window_start": 0.001,
+          "theta_window_end": 0.2,
+          "mean_relative_error": 1.7679146573470122e-06,
+          "max_relative_error": 4.97916008021824e-06
+        }
+      },
+      {
+        "name": "small_angle_curvature",
+        "status": "PASS",
+        "details": "Checks whether the local second derivative near zero matches the exact pendulum small-angle curvature.",
+        "metrics": {
+          "step": 0.0001,
+          "expected_second_derivative": 0.125,
+          "estimated_second_derivative": 0.12471903509947424,
+          "abs_error": 0.00028096490052575973
+        }
+      },
+      {
+        "name": "large_angle_window_accuracy",
+        "status": "PASS",
+        "details": "Compares candidate predictions to the exact elliptic-integral solution on the upper end of the configured amplitude range.",
+        "metrics": {
+          "theta_window_start": 1.3707963267948966,
+          "theta_window_end": 1.5707963267948966,
+          "mean_relative_error": 0.0011407308412689778,
+          "max_relative_error": 0.0018887002075346894
+        }
+      },
+      {
+        "name": "near_separatrix_extrapolation",
+        "status": "FAIL",
+        "details": "Diagnostic extrapolation beyond the validated range toward theta -> pi. This check does not gate the current in-range verdict.",
+        "metrics": {
+          "gate": false,
+          "theta_window_start": 2.356194490192345,
+          "theta_window_end": 3.1405926535897932,
+          "mean_relative_error": 0.16486469263618897,
+          "max_relative_error": 0.6499992566684917,
+          "end_ratio_to_exact": 0.3500007433315084
+        }
+      },
+      {
+        "name": "separatrix_asymptotic_alignment",
+        "status": "FAIL",
+        "details": "Diagnostic comparison against the known logarithmic asymptotic growth of the pendulum period ratio as theta approaches pi. This check does not gate the current in-range verdict.",
+        "metrics": {
+          "gate": false,
+          "theta_window_start": 3.041592653589793,
+          "theta_window_end": 3.1405926535897932,
+          "mean_relative_error": 0.4113999249600798,
+          "max_relative_error": 0.649999235595837
+        }
+      },
+      {
+        "name": "separatrix_log_growth_rate",
+        "status": "FAIL",
+        "details": "Diagnostic comparison of the model's near-separatrix growth rate against the expected logarithmic asymptotic slope. This check does not gate the current in-range verdict.",
+        "metrics": {
+          "gate": false,
+          "theta_window_start": 3.041592653589793,
+          "theta_window_end": 3.1405926535897932,
+          "expected_slope": 0.6366197723675814,
+          "fitted_slope": 0.023787165755769488,
+          "fitted_intercept": 1.8323096835139978,
+          "relative_slope_error": 0.962635207405976
+        }
+      },
+      {
+        "name": "evenness",
+        "status": "PASS",
+        "details": "Checks whether the candidate model is even in theta.",
+        "metrics": {
+          "max_difference": 0.0
+        }
+      },
+      {
+        "name": "monotonicity",
+        "status": "PASS",
+        "details": "Checks whether the candidate is non-decreasing on the configured theta range.",
+        "metrics": {
+          "min_step": 3.5164198390003065e-05
+        }
+      },
+      {
+        "name": "dimensional_consistency",
+        "status": "PASS",
+        "details": "The candidate formula is dimensionless: theta is treated as a radian-valued dimensionless quantity, coefficients are dimensionless, and the target T/T0 is dimensionless.",
+        "metrics": {
+          "free_symbol_count": 3,
+          "auxiliary_definition_count": 0,
+          "supported_function_count": 1
+        }
+      },
+      {
+        "name": "known_small_angle_coefficients",
+        "status": "PASS",
+        "details": "Compares fitted low-order coefficients to the known small-angle series.",
+        "metrics": {
+          "expected_a": 0.0625,
+          "actual_a": 0.06235951732172892,
+          "abs_error_a": 0.00014048267827108246,
+          "expected_b": 0.0035807291666666665,
+          "actual_b": 0.003982436969251462,
+          "abs_error_b": 0.00040170780258479534
+        }
+      }
+    ]
+  },
+  "scores": [
+    {
+      "model_id": "model_theta2_theta4",
+      "formula": "1 + a*theta^2 + b*theta^4",
+      "coefficients": {
+        "a": 0.06235951732172892,
+        "b": 0.003982436969251462
+      },
+      "complexity_score": 2,
+      "train_metrics": {
+        "mean_relative_error": 9.02844573480801e-06,
+        "max_relative_error": 3.596893582589875e-05
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.0006349501992633444,
+        "max_relative_error": 0.0018887002075346894
+      },
+      "composite_score": 0.003107125251147017,
+      "verdict": "VALID"
+    },
+    {
+      "model_id": "model_x_x2_log",
+      "formula": "1 + a*x + b*x^2 + c*x*log(1/(1 - x)) where x = sin(theta/2)^2",
+      "coefficients": {
+        "a": 0.2500443713421685,
+        "b": -0.06649688548055445,
+        "c": 0.2061616440346294
+      },
+      "complexity_score": 3,
+      "train_metrics": {
+        "mean_relative_error": 4.057916678309157e-07,
+        "max_relative_error": 1.7075839679807872e-06
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.00011457753869838952,
+        "max_relative_error": 0.00041721310311436014
+      },
+      "composite_score": 0.0032188808144769797,
+      "verdict": "VALID"
+    },
+    {
+      "model_id": "model_x_x2",
+      "formula": "1 + a*x + b*x^2 where x = sin(theta/2)^2",
+      "coefficients": {
+        "a": 0.24631141111919141,
+        "b": 0.18474229296316916
+      },
+      "complexity_score": 2,
+      "train_metrics": {
+        "mean_relative_error": 5.657441747420735e-05,
+        "max_relative_error": 0.0002252305701512783
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.003317022772527137,
+        "max_relative_error": 0.009318768010587068
+      },
+      "composite_score": 0.007646714775173904,
+      "verdict": "PARTIALLY_VALID"
+    },
+    {
+      "model_id": "model_theta2",
+      "formula": "1 + a*theta^2",
+      "coefficients": {
+        "a": 0.06582719013647112
+      },
+      "complexity_score": 1,
+      "train_metrics": {
+        "mean_relative_error": 0.00043925803498797653,
+        "max_relative_error": 0.0015503423881012106
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.007046359788883798,
+        "max_relative_error": 0.015180802609405653
+      },
+      "composite_score": 0.011841560441235213,
+      "verdict": "OVERFITTED"
+    },
+    {
+      "model_id": "model_sin2",
+      "formula": "1 + a*sin(theta/2)^2",
+      "coefficients": {
+        "a": 0.28298542491733963
+      },
+      "complexity_score": 1,
+      "train_metrics": {
+        "mean_relative_error": 0.0010570539148746236,
+        "max_relative_error": 0.003716659700560343
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.015772194191804433,
+        "max_relative_error": 0.0329124378080438
+      },
+      "composite_score": 0.025000303643815384,
+      "verdict": "OVERFITTED"
+    }
+  ],
+  "run_comparison": {
+    "baseline_run_id": "RUN-0001",
+    "baseline_result_id": "RESULT-0001",
+    "baseline_best_model_id": "model_theta2_theta4",
+    "theory_aware_model_id": "model_x_x2_log",
+    "baseline_result_path": "results/EXP-0001/RUN-0001/result.yaml",
+    "comparison": {
+      "baseline_in_range_mean_relative_error": 0.0006349501992633444,
+      "baseline_in_range_max_relative_error": 0.0018887002075346894,
+      "baseline_complexity_score": 2,
+      "baseline_end_ratio_to_exact": 0.3500007433315084,
+      "baseline_separatrix_max_relative_error": 0.649999235595837,
+      "theory_aware_in_range_mean_relative_error": 0.00011457753869838952,
+      "theory_aware_in_range_max_relative_error": 0.00041721310311436014,
+      "theory_aware_complexity_score": 3,
+      "theory_aware_end_ratio_to_exact": 0.7546326079638014,
+      "theory_aware_separatrix_max_relative_error": 0.24536734660168855
+    }
+  }
+}
