@@ -4,9 +4,9 @@ experiment_id: EXP-0001
 title: Pendulum Formula Discovery
 hypothesis_id: HYP-0001
 task_id: TASK-0001
-generated_at: '2026-04-30T06:24:38.589260+00:00'
+generated_at: '2026-04-30T07:10:45.986345+00:00'
 engine_version: 0.1.0
-git_commit: ac4901a6856f3148f44738e643382ca9d5b31b1b
+git_commit: 570c21b06cc925e888ef81e010a68b3b72a6544e
 command: physics-lab run examples/pendulum.yaml
 input_file_hashes:
   config:

@@ -19,6 +19,7 @@ from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.results import validate_result_payload
+from physics_lab.workflows.claim_semantics import suggest_claim_status
 from physics_lab.workflows.artifacts import (
     ExperimentArtifacts,
     ExperimentOutcome,
@@ -133,12 +134,13 @@ def _build_claim_update(
     best_verdict: str,
     train_range: tuple[float, float],
     test_range: tuple[float, float],
-    verification_passed: bool,
+    verification_summary: dict[str, Any],
 ) -> str:
-    suggested_status = (
-        "PARTIALLY_SUPPORTED"
-        if verification_passed and best_verdict in {"VALID", "VALID_IN_RANGE", "PARTIALLY_VALID"}
-        else "DRAFT"
+    suggestion = suggest_claim_status(
+        verification_summary=verification_summary,
+        best_verdict=best_verdict,
+        range_limited=True,
+        exact_verification=False,
     )
     return "\n".join(
         [
@@ -148,7 +150,7 @@ def _build_claim_update(
             f"- Hypothesis: `{hypothesis_id}`",
             f"- Experiment: `{experiment_id}`",
             f"- Task: `{task_id}`",
-            f"- Suggested claim status: `{suggested_status}`",
+            f"- Suggested claim status: `{suggestion.status}`",
             "",
             "## Suggested Evidence Update",
             "",
@@ -171,6 +173,12 @@ def _build_claim_update(
             f"- Mean relative error (test): `{best_score.test_metrics.mean_relative_error:.6f}`",
             f"- Max relative error (test): `{best_score.test_metrics.max_relative_error:.6f}`",
             f"- Complexity score: `{best_score.complexity_score}`",
+            "",
+            "## Suggested Evidence Basis",
+            "",
+            f"- Passed checks: `{suggestion.pass_count}`",
+            f"- Failed checks: `{suggestion.fail_count}`",
+            f"- Rationale: {suggestion.rationale}",
             "",
             "## Suggested Caution",
             "",
@@ -398,7 +406,7 @@ def run_pendulum_experiment_with_output(
         best_verdict=best_verdict,
         train_range=(float(train_theta[0]), float(train_theta[-1])),
         test_range=(float(test_theta[0]), float(test_theta[-1])),
-        verification_passed=verification_summary.passed,
+        verification_summary=verification_payload,
     )
     knowledge_update_text = _build_knowledge_update(
         knowledge_id="KNOW-0001",

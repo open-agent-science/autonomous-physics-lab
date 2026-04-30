@@ -4,11 +4,17 @@
 - Hypothesis: `HYP-0002`
 - Experiment: `EXP-0002`
 - Task: `TASK-0002`
-- Suggested claim status: `PARTIALLY_SUPPORTED`
+- Suggested claim status: `SUPPORTED`
 
 ## Suggested Evidence Update
 
 The configured damped-oscillator benchmark reproduced the expected underdamped, critical, and overdamped regimes with deterministic analytic checks.
+
+## Suggested Evidence Basis
+
+- Passed checks: `9`
+- Failed checks: `0`
+- Rationale: The configured benchmark passed exact, in-scope verification checks without failure.
 
 ## Suggested Caution
 

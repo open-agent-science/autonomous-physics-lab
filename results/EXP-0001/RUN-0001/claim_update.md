@@ -20,6 +20,12 @@ Valid only within the sampled ranges used by this workflow: train `0.0100` to `1
 - Max relative error (test): `0.001889`
 - Complexity score: `2`
 
+## Suggested Evidence Basis
+
+- Passed checks: `8`
+- Failed checks: `2`
+- Rationale: The benchmark supports the claim only within the tested scope and should remain range-aware.
+
 ## Suggested Caution
 
 Keep the claim range-aware and avoid wording that implies exact discovery or universal validity. Do not auto-promote the claim status unless verification checks pass, and do not extend this verdict beyond the configured amplitude ranges.

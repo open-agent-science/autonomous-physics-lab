@@ -27,6 +27,15 @@ LOADERS: dict[str, Loader] = {
     "results": load_result,
     "tasks": load_task,
 }
+RANGE_LANGUAGE_MARKERS = (
+    "valid only",
+    "tested range",
+    "configured range",
+    "range-limited",
+    "within the tested",
+    "within the sampled",
+    "in scope",
+)
 PATTERNS: dict[str, str] = {
     "agents": "*.yaml",
     "claims": "*.md",
@@ -80,6 +89,7 @@ def _validate_references(
     experiment_ids = {payload["id"] for _, payload in experiments}
     task_ids = {payload["id"] for _, payload in tasks}
     claim_ids = {payload["id"] for _, payload in claims}
+    results_by_id = {payload["result_id"]: payload for _, payload in results}
     result_ids = {payload["result_id"] for _, payload in results}
 
     for path, payload in experiments:
@@ -114,6 +124,27 @@ def _validate_references(
         for result_id in payload["evidence"]["results"]:
             if result_id not in result_ids:
                 raise ValueError(f"{path} references missing result id: {result_id}")
+        referenced_results = [results_by_id[result_id] for result_id in payload["evidence"]["results"]]
+        verification_all_pass = all(
+            bool(result["verification"]["passed"]) for result in referenced_results
+        )
+        has_range_limited_result = any(
+            str(result["best_verdict"]) == "VALID_IN_RANGE" for result in referenced_results
+        )
+        claim_status = str(payload["status"])
+        if claim_status == "SUPPORTED":
+            if not verification_all_pass:
+                raise ValueError(
+                    f"{path} is marked SUPPORTED but references result evidence with failing verification checks"
+                )
+            if has_range_limited_result:
+                body = str(payload["body"])
+                scope = str(payload["scope"])
+                combined_text = f"{scope}\n{body}".lower()
+                if not any(marker in combined_text for marker in RANGE_LANGUAGE_MARKERS):
+                    raise ValueError(
+                        f"{path} is marked SUPPORTED from range-limited evidence but does not describe scope or range limits clearly"
+                    )
 
     for path, payload in knowledge_files:
         for hypothesis_id in payload["linked_objects"]["hypotheses"]:

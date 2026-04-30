@@ -23,6 +23,7 @@ from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.results import validate_result_payload
+from physics_lab.workflows.claim_semantics import suggest_claim_status
 from physics_lab.workflows.artifacts import (
     ExperimentArtifacts,
     ExperimentOutcome,
@@ -491,9 +492,14 @@ def _build_damped_claim_update(
     experiment_id: str,
     hypothesis_id: str,
     task_id: str,
-    verification_passed: bool,
+    verification_summary: dict[str, Any],
 ) -> str:
-    suggested_status = "PARTIALLY_SUPPORTED" if verification_passed else "DRAFT"
+    suggestion = suggest_claim_status(
+        verification_summary=verification_summary,
+        best_verdict="VALID_IN_RANGE",
+        range_limited=False,
+        exact_verification=True,
+    )
     return "\n".join(
         [
             f"# Proposed Update for {claim_id}",
@@ -502,7 +508,7 @@ def _build_damped_claim_update(
             f"- Hypothesis: `{hypothesis_id}`",
             f"- Experiment: `{experiment_id}`",
             f"- Task: `{task_id}`",
-            f"- Suggested claim status: `{suggested_status}`",
+            f"- Suggested claim status: `{suggestion.status}`",
             "",
             "## Suggested Evidence Update",
             "",
@@ -510,6 +516,12 @@ def _build_damped_claim_update(
                 "The configured damped-oscillator benchmark reproduced the expected underdamped, "
                 "critical, and overdamped regimes with deterministic analytic checks."
             ),
+            "",
+            "## Suggested Evidence Basis",
+            "",
+            f"- Passed checks: `{suggestion.pass_count}`",
+            f"- Failed checks: `{suggestion.fail_count}`",
+            f"- Rationale: {suggestion.rationale}",
             "",
             "## Suggested Caution",
             "",
@@ -701,7 +713,7 @@ def run_damped_oscillator_experiment_with_output(
             experiment_id=str(experiment["id"]),
             hypothesis_id=str(experiment["hypothesis_id"]),
             task_id=task_id,
-            verification_passed=bool(verification_payload["passed"]),
+            verification_summary=verification_payload,
         ),
     )
     write_text_atomic(
