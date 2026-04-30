@@ -75,3 +75,5 @@ Use these files to continue the project without guessing:
 - [docs/implementation-plan.md](docs/implementation-plan.md) for phased strategy
 - [docs/next-steps.md](docs/next-steps.md) for the immediate working queue
 - [docs/backlog.md](docs/backlog.md) for medium-term and deferred tasks
+- [docs/status.md](docs/status.md) for the current project readiness snapshot
+- [CONTRIBUTING.md](CONTRIBUTING.md) for contributor expectations
