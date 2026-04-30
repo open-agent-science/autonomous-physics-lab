@@ -4,9 +4,9 @@ experiment_id: EXP-0001
 title: Pendulum Formula Discovery
 hypothesis_id: HYP-0001
 task_id: TASK-0001
-generated_at: '2026-04-30T04:44:25.265131+00:00'
+generated_at: '2026-04-30T04:51:41.857167+00:00'
 engine_version: 0.1.0
-git_commit: a73b12abed826d74ca617c62117fa407f6a4d266
+git_commit: 4b89084ce4f5ce343271783221595f735a461b51
 command: physics-lab run examples/pendulum.yaml
 input_file_hashes:
   config:
@@ -71,6 +71,17 @@ verification:
       theta_window_end: 1.5707963267948966
       mean_relative_error: 0.0011407308412689778
       max_relative_error: 0.0018887002075346894
+  - name: near_separatrix_extrapolation
+    status: FAIL
+    details: Diagnostic extrapolation beyond the validated range toward theta -> pi.
+      This check does not gate the current in-range verdict.
+    metrics:
+      gate: false
+      theta_window_start: 2.356194490192345
+      theta_window_end: 3.1405926535897932
+      mean_relative_error: 0.16486469263618897
+      max_relative_error: 0.6499992566684917
+      end_ratio_to_exact: 0.3500007433315084
   - name: evenness
     status: PASS
     details: Checks whether the candidate model is even in theta.

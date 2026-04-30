@@ -17,6 +17,7 @@ THETA4_EXPECTED = 11.0 / 3072.0
 SIN2_EXPECTED = 0.25
 X2_EXPECTED = 9.0 / 64.0
 SECOND_DERIVATIVE_EXPECTED = 1.0 / 8.0
+NON_GATING_CHECK_NAMES = {"near_separatrix_extrapolation"}
 
 
 @dataclass(frozen=True)
@@ -37,7 +38,11 @@ class VerificationSummary:
 
     @property
     def passed(self) -> bool:
-        return all(check.status == "PASS" for check in self.checks if check.status != "PLACEHOLDER")
+        return all(
+            check.status == "PASS"
+            for check in self.checks
+            if check.status != "PLACEHOLDER" and check.name not in NON_GATING_CHECK_NAMES
+        )
 
 
 def _small_angle_limit_check(model: FittedModel) -> VerificationCheck:
@@ -137,6 +142,31 @@ def _large_angle_window_accuracy_check(
     )
 
 
+def _near_separatrix_extrapolation_check(model: FittedModel) -> VerificationCheck:
+    theta = np.linspace(np.pi * 0.75, np.pi - 1.0e-3, 80, dtype=float)
+    predicted = model.predict(theta)
+    exact = exact_pendulum_period_ratio(theta)
+    relative_error = np.abs(predicted - exact) / exact
+    end_ratio = float(predicted[-1] / exact[-1])
+    status = "PASS" if end_ratio >= 0.8 else "FAIL"
+    return VerificationCheck(
+        name="near_separatrix_extrapolation",
+        status=status,
+        details=(
+            "Diagnostic extrapolation beyond the validated range toward theta -> pi. "
+            "This check does not gate the current in-range verdict."
+        ),
+        metrics={
+            "gate": False,
+            "theta_window_start": float(theta[0]),
+            "theta_window_end": float(theta[-1]),
+            "mean_relative_error": float(np.mean(relative_error)),
+            "max_relative_error": float(np.max(relative_error)),
+            "end_ratio_to_exact": end_ratio,
+        },
+    )
+
+
 def _evenness_check(model: FittedModel, theta_range: tuple[float, float]) -> VerificationCheck:
     theta = np.linspace(theta_range[0], theta_range[1], 25, dtype=float)
     positive = model.predict(theta)
@@ -222,6 +252,7 @@ def verify_candidate_model(
         _small_angle_window_accuracy_check(model, theta_range=theta_range),
         _small_angle_curvature_check(model),
         _large_angle_window_accuracy_check(model, theta_range=theta_range),
+        _near_separatrix_extrapolation_check(model),
         _evenness_check(model, theta_range=theta_range),
         _monotonicity_check(model, theta_range=theta_range),
         _dimensional_consistency_check(model),

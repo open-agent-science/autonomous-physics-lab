@@ -28,6 +28,7 @@ Completed so far:
   - small-angle exact-window verification against the elliptic-integral reference
   - derivative-based small-angle curvature verification
   - upper-range exact-window verification on the configured amplitude interval
+  - non-gating near-separatrix extrapolation diagnostic
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.

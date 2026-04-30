@@ -25,7 +25,7 @@ when they become active priorities.
 
 - Extend symbolic validation helpers in `physics_lab/engines/symbolic.py` beyond pendulum formula families.
 - Add explicit asymptotic checks for pendulum candidates.
-- Add checks for behavior closer to the separatrix as amplitude approaches `pi`.
+- Replace the current separatrix diagnostic with stronger theory-aware checks for behavior as amplitude approaches `pi`.
 - Add benchmark workflows beyond pendulum:
   - orbital perturbation
   - diffusion scaling

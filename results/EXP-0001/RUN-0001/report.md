@@ -27,6 +27,7 @@
 - small_angle_window_accuracy: `PASS`
 - small_angle_curvature: `PASS`
 - large_angle_window_accuracy: `PASS`
+- near_separatrix_extrapolation: `FAIL`
 - evenness: `PASS`
 - monotonicity: `PASS`
 - dimensional_consistency: `PASS`

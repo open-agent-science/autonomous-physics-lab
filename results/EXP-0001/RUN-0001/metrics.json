@@ -49,6 +49,19 @@
         }
       },
       {
+        "name": "near_separatrix_extrapolation",
+        "status": "FAIL",
+        "details": "Diagnostic extrapolation beyond the validated range toward theta -> pi. This check does not gate the current in-range verdict.",
+        "metrics": {
+          "gate": false,
+          "theta_window_start": 2.356194490192345,
+          "theta_window_end": 3.1405926535897932,
+          "mean_relative_error": 0.16486469263618897,
+          "max_relative_error": 0.6499992566684917,
+          "end_ratio_to_exact": 0.3500007433315084
+        }
+      },
+      {
         "name": "evenness",
         "status": "PASS",
         "details": "Checks whether the candidate model is even in theta.",
