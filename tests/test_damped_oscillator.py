@@ -75,7 +75,12 @@ def test_damped_oscillator_runner_writes_temp_artifacts(tmp_path) -> None:
         "underdamped_energy_decay",
         "oscillatory_vs_nonoscillatory_behavior",
         "dimensional_consistency",
+        "c_to_zero_limit",
+        "envelope_decay_rate",
+        "critical_damping_boundary",
+        "overdamped_asymptotic_behavior",
     } <= check_names
+    assert all(check["status"] == "PASS" for check in result_payload["verification"]["checks"])
 
 
 def test_damped_oscillator_dispatch_writes_temp_artifacts(tmp_path) -> None:

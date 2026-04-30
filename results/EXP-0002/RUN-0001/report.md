@@ -33,6 +33,10 @@
 - underdamped_energy_decay: `PASS`
 - oscillatory_vs_nonoscillatory_behavior: `PASS`
 - dimensional_consistency: `PASS`
+- c_to_zero_limit: `PASS`
+- envelope_decay_rate: `PASS`
+- critical_damping_boundary: `PASS`
+- overdamped_asymptotic_behavior: `PASS`
 
 ## Exact Regime Models
 

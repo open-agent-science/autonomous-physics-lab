@@ -70,6 +70,10 @@ Completed:
   - underdamped energy decay
   - oscillatory vs non-oscillatory behavior
   - dimensional consistency
+  - `c -> 0` undamped-limit behavior
+  - underdamped envelope decay-rate behavior
+  - critical damping boundary behavior
+  - overdamped asymptotic tail behavior
 
 Current validation commands:
 
@@ -95,6 +99,7 @@ Best next checks:
 - better non-polynomial or theory-aware checks for behavior closer to the separatrix as `theta` approaches `pi`.
 - stronger damped-oscillator checks such as envelope fitting, decay-rate checks, and `c -> 0` limit behavior.
 - keep the two workflow modules stable and avoid pushing benchmark-specific logic back into `runner.py`.
+- deepen evidence semantics now that both benchmarks have stronger verification gates.
 
 Definition of done:
 

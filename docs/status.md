@@ -43,6 +43,10 @@ Damped oscillator:
 - underdamped energy decay;
 - oscillatory vs non-oscillatory behavior;
 - dimensional consistency.
+- `c -> 0` undamped-limit check;
+- underdamped envelope decay-rate check;
+- critical damping boundary check;
+- overdamped asymptotic tail check.
 
 ## Ready Now
 

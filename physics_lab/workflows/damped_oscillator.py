@@ -14,6 +14,7 @@ from physics_lab import __version__
 from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.damped_oscillator import (
     DampedOscillatorParameters,
+    classify_damping_regime,
     exact_damped_oscillator_solution,
     generate_damped_oscillator_dataset,
 )
@@ -155,6 +156,7 @@ def _build_damped_verification(
     oscillatory_cases = 0
     oscillatory_passes = 0
     initial_condition_error = 0.0
+    scenarios_by_regime = {str(scenario["expected_regime"]): scenario for scenario in scenarios}
 
     for scenario in scenarios:
         parameters = DampedOscillatorParameters(
@@ -240,6 +242,172 @@ def _build_damped_verification(
             metrics={"dimensionless_damping_ratio": True, "positive_physical_parameters": True},
         )
     )
+
+    underdamped = scenarios_by_regime.get("underdamped")
+    if underdamped is not None:
+        parameters = DampedOscillatorParameters(
+            mass=float(underdamped["mass"]),
+            damping=float(underdamped["damping"]),
+            stiffness=float(underdamped["stiffness"]),
+            x0=float(underdamped["x0"]),
+            v0=float(underdamped["v0"]),
+        )
+        near_zero_damping = max(1.0e-4 * (2.0 * np.sqrt(parameters.mass * parameters.stiffness)), 1.0e-6)
+        near_undamped = DampedOscillatorParameters(
+            mass=parameters.mass,
+            damping=near_zero_damping,
+            stiffness=parameters.stiffness,
+            x0=parameters.x0,
+            v0=parameters.v0,
+        )
+        omega_n = near_undamped.natural_frequency
+        horizon = min(time_end, 3.0 * (2.0 * np.pi / omega_n))
+        limit_times = np.linspace(0.0, horizon, 240)
+        damped_displacement, _ = exact_damped_oscillator_solution(limit_times, near_undamped)
+        undamped_displacement = (
+            near_undamped.x0 * np.cos(omega_n * limit_times)
+            + (near_undamped.v0 / omega_n) * np.sin(omega_n * limit_times)
+        )
+        limit_error = float(np.max(np.abs(damped_displacement - undamped_displacement)))
+        amplitude_scale = max(abs(near_undamped.x0), 1.0)
+        checks.append(
+            _verification_check(
+                name="c_to_zero_limit",
+                status="PASS" if (limit_error / amplitude_scale) <= 5.0e-3 else "FAIL",
+                details="For sufficiently small damping, the damped solution approaches the undamped harmonic-oscillator limit.",
+                metrics={
+                    "test_damping": float(near_zero_damping),
+                    "max_absolute_error": float(limit_error),
+                    "normalized_error": float(limit_error / amplitude_scale),
+                },
+            )
+        )
+
+        underdamped_dataset = generate_damped_oscillator_dataset(
+            time_start=time_start,
+            time_end=time_end,
+            sample_count=sample_count,
+            parameters=parameters,
+        )
+        alpha = parameters.alpha
+        omega_d = float(np.sqrt(parameters.natural_frequency**2 - alpha**2))
+        c1 = parameters.x0
+        c2 = (parameters.v0 + alpha * parameters.x0) / omega_d
+        envelope_amplitude = float(np.sqrt(c1**2 + c2**2))
+        abs_displacement = np.abs(underdamped_dataset.displacement)
+        local_peak_indices = np.where(
+            (abs_displacement[1:-1] >= abs_displacement[:-2])
+            & (abs_displacement[1:-1] >= abs_displacement[2:])
+        )[0] + 1
+        if abs_displacement[0] >= abs_displacement[1]:
+            local_peak_indices = np.concatenate(([0], local_peak_indices))
+        local_peak_indices = np.unique(local_peak_indices)
+        if local_peak_indices.size >= 3:
+            peak_times = underdamped_dataset.time_seconds[local_peak_indices]
+            peak_values = abs_displacement[local_peak_indices]
+            expected_envelope = envelope_amplitude * np.exp(-alpha * peak_times)
+            envelope_relative_error = np.abs(peak_values - expected_envelope) / np.maximum(
+                expected_envelope,
+                1.0e-12,
+            )
+            max_envelope_error = float(np.max(envelope_relative_error))
+            envelope_status = "PASS" if max_envelope_error <= 5.0e-2 else "FAIL"
+        else:
+            max_envelope_error = float("inf")
+            envelope_status = "FAIL"
+        checks.append(
+            _verification_check(
+                name="envelope_decay_rate",
+                status=envelope_status,
+                details="Underdamped peak amplitudes follow the expected exponential decay envelope.",
+                metrics={
+                    "peak_count": int(local_peak_indices.size),
+                    "max_relative_error": float(max_envelope_error),
+                    "alpha": float(alpha),
+                },
+            )
+        )
+
+    critical = scenarios_by_regime.get("critical")
+    if critical is not None:
+        mass = float(critical["mass"])
+        stiffness = float(critical["stiffness"])
+        critical_damping = 2.0 * np.sqrt(mass * stiffness)
+        epsilon = 1.0e-3
+        near_critical_below = DampedOscillatorParameters(
+            mass=mass,
+            damping=critical_damping * (1.0 - epsilon),
+            stiffness=stiffness,
+            x0=float(critical["x0"]),
+            v0=float(critical["v0"]),
+        )
+        exactly_critical = DampedOscillatorParameters(
+            mass=mass,
+            damping=critical_damping,
+            stiffness=stiffness,
+            x0=float(critical["x0"]),
+            v0=float(critical["v0"]),
+        )
+        near_critical_above = DampedOscillatorParameters(
+            mass=mass,
+            damping=critical_damping * (1.0 + epsilon),
+            stiffness=stiffness,
+            x0=float(critical["x0"]),
+            v0=float(critical["v0"]),
+        )
+        checks.append(
+            _verification_check(
+                name="critical_damping_boundary",
+                status=(
+                    "PASS"
+                    if classify_damping_regime(near_critical_below) == "underdamped"
+                    and classify_damping_regime(exactly_critical) == "critical"
+                    and classify_damping_regime(near_critical_above) == "overdamped"
+                    else "FAIL"
+                ),
+                details="The regime classifier changes correctly on either side of the critical-damping boundary.",
+                metrics={
+                    "critical_damping": float(critical_damping),
+                    "relative_epsilon": float(epsilon),
+                },
+            )
+        )
+
+    overdamped = scenarios_by_regime.get("overdamped")
+    if overdamped is not None:
+        parameters = DampedOscillatorParameters(
+            mass=float(overdamped["mass"]),
+            damping=float(overdamped["damping"]),
+            stiffness=float(overdamped["stiffness"]),
+            x0=float(overdamped["x0"]),
+            v0=float(overdamped["v0"]),
+        )
+        dataset = generate_damped_oscillator_dataset(
+            time_start=time_start,
+            time_end=time_end,
+            sample_count=sample_count,
+            parameters=parameters,
+        )
+        radical = float(np.sqrt(parameters.alpha**2 - parameters.natural_frequency**2))
+        slow_rate = -parameters.alpha + radical
+        tail_start = int(0.8 * sample_count)
+        tail_times = dataset.time_seconds[tail_start:]
+        tail_values = np.abs(dataset.displacement[tail_start:])
+        tail_values = np.maximum(tail_values, 1.0e-15)
+        fitted_slope, _ = np.polyfit(tail_times, np.log(tail_values), 1)
+        slope_error = abs(float(fitted_slope) - slow_rate)
+        checks.append(
+            _verification_check(
+                name="overdamped_asymptotic_behavior",
+                status="PASS" if slope_error <= 5.0e-2 else "FAIL",
+                details="The overdamped tail approaches the slow exponential mode expected from the exact roots.",
+                metrics={
+                    "expected_slow_rate": float(slow_rate),
+                    "fitted_tail_rate": float(fitted_slope),
+                    "absolute_error": float(slope_error),
+                },
+            )
+        )
     return {"passed": all(check["status"] == "PASS" for check in checks), "checks": checks}
 
 

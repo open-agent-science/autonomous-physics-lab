@@ -50,6 +50,45 @@
           "dimensionless_damping_ratio": true,
           "positive_physical_parameters": true
         }
+      },
+      {
+        "name": "c_to_zero_limit",
+        "status": "PASS",
+        "details": "For sufficiently small damping, the damped solution approaches the undamped harmonic-oscillator limit.",
+        "metrics": {
+          "test_damping": 0.0004,
+          "max_absolute_error": 0.0018831801884733324,
+          "normalized_error": 0.0018831801884733324
+        }
+      },
+      {
+        "name": "envelope_decay_rate",
+        "status": "PASS",
+        "details": "Underdamped peak amplitudes follow the expected exponential decay envelope.",
+        "metrics": {
+          "peak_count": 8,
+          "max_relative_error": 0.010406616274174841,
+          "alpha": 0.2
+        }
+      },
+      {
+        "name": "critical_damping_boundary",
+        "status": "PASS",
+        "details": "The regime classifier changes correctly on either side of the critical-damping boundary.",
+        "metrics": {
+          "critical_damping": 4.0,
+          "relative_epsilon": 0.001
+        }
+      },
+      {
+        "name": "overdamped_asymptotic_behavior",
+        "status": "PASS",
+        "details": "The overdamped tail approaches the slow exponential mode expected from the exact roots.",
+        "metrics": {
+          "expected_slow_rate": -1.0,
+          "fitted_tail_rate": -0.9999999999999807,
+          "absolute_error": 1.9317880628477724e-14
+        }
       }
     ]
   },

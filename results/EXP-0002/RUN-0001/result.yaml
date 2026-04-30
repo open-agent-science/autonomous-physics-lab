@@ -4,9 +4,9 @@ experiment_id: EXP-0002
 title: Damped Oscillator Regime Verification
 hypothesis_id: HYP-0002
 task_id: TASK-0002
-generated_at: '2026-04-30T06:02:21.446336+00:00'
+generated_at: '2026-04-30T07:07:01.366112+00:00'
 engine_version: 0.1.0
-git_commit: 04c41208bc638dbf1c17ceefad2d3e895c001fa7
+git_commit: c1112c15ec531c7ccd1f55b7906465de8e189609
 command: physics-lab run examples/damped_oscillator.yaml
 input_file_hashes:
   config:
@@ -21,7 +21,7 @@ input_file_hashes:
   task:
     path: tasks/TASK-0002-verify-damped-oscillator-regimes.yaml
     sha256: cab0c82d798b605490264aaa6537bac99efec30113572e51b2eff409cf789ac3
-code_reference: physics_lab/workflows/runner.py
+code_reference: physics_lab/workflows/damped_oscillator.py
 limitations:
 - This benchmark assumes a linear damped harmonic oscillator with no external driving
   force.
@@ -74,6 +74,36 @@ verification:
     metrics:
       dimensionless_damping_ratio: true
       positive_physical_parameters: true
+  - name: c_to_zero_limit
+    status: PASS
+    details: For sufficiently small damping, the damped solution approaches the undamped
+      harmonic-oscillator limit.
+    metrics:
+      test_damping: 0.0004
+      max_absolute_error: 0.0018831801884733324
+      normalized_error: 0.0018831801884733324
+  - name: envelope_decay_rate
+    status: PASS
+    details: Underdamped peak amplitudes follow the expected exponential decay envelope.
+    metrics:
+      peak_count: 8
+      max_relative_error: 0.010406616274174841
+      alpha: 0.2
+  - name: critical_damping_boundary
+    status: PASS
+    details: The regime classifier changes correctly on either side of the critical-damping
+      boundary.
+    metrics:
+      critical_damping: 4.0
+      relative_epsilon: 0.001
+  - name: overdamped_asymptotic_behavior
+    status: PASS
+    details: The overdamped tail approaches the slow exponential mode expected from
+      the exact roots.
+    metrics:
+      expected_slow_rate: -1.0
+      fitted_tail_rate: -0.9999999999999807
+      absolute_error: 1.9317880628477724e-14
 artifacts:
   report: results/EXP-0002/RUN-0001/report.md
   metrics: results/EXP-0002/RUN-0001/metrics.json
