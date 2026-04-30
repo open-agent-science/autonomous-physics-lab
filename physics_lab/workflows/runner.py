@@ -77,6 +77,12 @@ def _relative_or_absolute(path: Path, repo_root: Path) -> str:
         return str(path.resolve())
 
 
+def _write_text_atomic(path: Path, content: str) -> None:
+    temporary_path = path.with_name(f"{path.name}.tmp")
+    temporary_path.write_text(content, encoding="utf-8")
+    temporary_path.replace(path)
+
+
 def _git_commit(repo_root: Path) -> str | None:
     try:
         result = subprocess.run(
@@ -459,7 +465,7 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         best_model_id=best_model_id,
         verification_summary=verification_payload,
     )
-    report_path.write_text(report_text, encoding="utf-8")
+    _write_text_atomic(report_path, report_text)
 
     result_payload = {
         "result_id": result_id,
@@ -489,7 +495,7 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         "scores": _serialize_scores(scores, verdicts),
     }
     validate_result_payload(result_payload, source=result_path)
-    result_path.write_text(yaml.safe_dump(result_payload, sort_keys=False), encoding="utf-8")
+    _write_text_atomic(result_path, yaml.safe_dump(result_payload, sort_keys=False))
 
     metrics_payload = {
         "result_id": result_id,
@@ -499,7 +505,7 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         "verification": verification_payload,
         "scores": result_payload["scores"],
     }
-    metrics_path.write_text(json.dumps(metrics_payload, indent=2), encoding="utf-8")
+    _write_text_atomic(metrics_path, json.dumps(metrics_payload, indent=2))
 
     claim_update_text = _build_claim_update(
         claim_id="CLAIM-0001",
@@ -524,8 +530,8 @@ def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
         limitations=limitations,
         verification_summary=verification_payload,
     )
-    claim_update_path.write_text(claim_update_text, encoding="utf-8")
-    knowledge_update_path.write_text(knowledge_update_text, encoding="utf-8")
+    _write_text_atomic(claim_update_path, claim_update_text)
+    _write_text_atomic(knowledge_update_path, knowledge_update_text)
 
     return ExperimentOutcome(
         title=str(experiment["title"]),

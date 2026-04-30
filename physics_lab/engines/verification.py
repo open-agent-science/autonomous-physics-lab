@@ -16,6 +16,7 @@ THETA2_EXPECTED = 1.0 / 16.0
 THETA4_EXPECTED = 11.0 / 3072.0
 SIN2_EXPECTED = 0.25
 X2_EXPECTED = 9.0 / 64.0
+SECOND_DERIVATIVE_EXPECTED = 1.0 / 8.0
 
 
 @dataclass(frozen=True)
@@ -71,6 +72,61 @@ def _small_angle_window_accuracy_check(
         details=(
             "Compares candidate predictions to the exact elliptic-integral solution "
             "on a small-angle window."
+        ),
+        metrics={
+            "theta_window_start": float(theta[0]),
+            "theta_window_end": float(theta[-1]),
+            "mean_relative_error": mean_relative_error,
+            "max_relative_error": max_relative_error,
+        },
+    )
+
+
+def _small_angle_curvature_check(model: FittedModel) -> VerificationCheck:
+    step = 1.0e-4
+    theta = np.array([step], dtype=float)
+    origin = np.array([0.0], dtype=float)
+    positive = float(model.predict(theta)[0])
+    center = float(model.predict(origin)[0])
+    negative = float(model.predict(-theta)[0])
+    estimated_second_derivative = (positive - 2.0 * center + negative) / (step**2)
+    abs_error = abs(estimated_second_derivative - SECOND_DERIVATIVE_EXPECTED)
+    status = "PASS" if abs_error <= 0.01 else "FAIL"
+    return VerificationCheck(
+        name="small_angle_curvature",
+        status=status,
+        details=(
+            "Checks whether the local second derivative near zero matches the exact "
+            "pendulum small-angle curvature."
+        ),
+        metrics={
+            "step": step,
+            "expected_second_derivative": SECOND_DERIVATIVE_EXPECTED,
+            "estimated_second_derivative": estimated_second_derivative,
+            "abs_error": abs_error,
+        },
+    )
+
+
+def _large_angle_window_accuracy_check(
+    model: FittedModel,
+    theta_range: tuple[float, float],
+) -> VerificationCheck:
+    theta_end = theta_range[1]
+    theta_start = max(theta_range[0], theta_end - 0.2)
+    theta = np.linspace(theta_start, theta_end, 50, dtype=float)
+    predicted = model.predict(theta)
+    exact = exact_pendulum_period_ratio(theta)
+    relative_error = np.abs(predicted - exact) / exact
+    mean_relative_error = float(np.mean(relative_error))
+    max_relative_error = float(np.max(relative_error))
+    status = "PASS" if max_relative_error <= 0.005 else "FAIL"
+    return VerificationCheck(
+        name="large_angle_window_accuracy",
+        status=status,
+        details=(
+            "Compares candidate predictions to the exact elliptic-integral solution "
+            "on the upper end of the configured amplitude range."
         ),
         metrics={
             "theta_window_start": float(theta[0]),
@@ -164,6 +220,8 @@ def verify_candidate_model(
     checks = [
         _small_angle_limit_check(model),
         _small_angle_window_accuracy_check(model, theta_range=theta_range),
+        _small_angle_curvature_check(model),
+        _large_angle_window_accuracy_check(model, theta_range=theta_range),
         _evenness_check(model, theta_range=theta_range),
         _monotonicity_check(model, theta_range=theta_range),
         _dimensional_consistency_check(model),

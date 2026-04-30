@@ -26,6 +26,8 @@ Completed so far:
   - first verification gate for pendulum evidence
   - structure-aware dimensional consistency validation for pendulum candidates
   - small-angle exact-window verification against the elliptic-integral reference
+  - derivative-based small-angle curvature verification
+  - upper-range exact-window verification on the configured amplitude interval
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.

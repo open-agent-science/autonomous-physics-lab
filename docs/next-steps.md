@@ -42,6 +42,8 @@ Completed:
 - pendulum verification checks for:
   - small-angle limit
   - small-angle exact-window agreement
+  - small-angle curvature agreement
+  - upper-range exact-window agreement
   - evenness
   - monotonicity
   - known small-angle coefficient comparisons
@@ -70,8 +72,8 @@ The first verification gate is real now, but it is still intentionally narrow.
 Best next checks:
 
 - symbolic consistency hooks;
-- broader range-aware checks that compare model behavior against exact known limits beyond the current small-angle window.
-- stronger coefficient and asymptotic checks for more candidate families.
+- behavior checks closer to the separatrix as `theta` approaches `pi`;
+- stronger asymptotic checks for more candidate families.
 
 Definition of done:
 

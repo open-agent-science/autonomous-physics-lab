@@ -4,9 +4,9 @@ experiment_id: EXP-0001
 title: Pendulum Formula Discovery
 hypothesis_id: HYP-0001
 task_id: TASK-0001
-generated_at: '2026-04-30T04:21:48.118336+00:00'
+generated_at: '2026-04-30T04:29:28.811912+00:00'
 engine_version: 0.1.0
-git_commit: 6bf268d41b746061157cca198c9ec3f888c5cde1
+git_commit: 636e008ad1c540936ce771a635936bffa05758fb
 command: physics-lab run examples/pendulum.yaml
 input_file_hashes:
   config:
@@ -53,6 +53,24 @@ verification:
       theta_window_end: 0.2
       mean_relative_error: 1.7679146573470122e-06
       max_relative_error: 4.97916008021824e-06
+  - name: small_angle_curvature
+    status: PASS
+    details: Checks whether the local second derivative near zero matches the exact
+      pendulum small-angle curvature.
+    metrics:
+      step: 0.0001
+      expected_second_derivative: 0.125
+      estimated_second_derivative: 0.12471903509947424
+      abs_error: 0.00028096490052575973
+  - name: large_angle_window_accuracy
+    status: PASS
+    details: Compares candidate predictions to the exact elliptic-integral solution
+      on the upper end of the configured amplitude range.
+    metrics:
+      theta_window_start: 1.3707963267948966
+      theta_window_end: 1.5707963267948966
+      mean_relative_error: 0.0011407308412689778
+      max_relative_error: 0.0018887002075346894
   - name: evenness
     status: PASS
     details: Checks whether the candidate model is even in theta.

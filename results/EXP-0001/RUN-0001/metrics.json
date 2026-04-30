@@ -27,6 +27,28 @@
         }
       },
       {
+        "name": "small_angle_curvature",
+        "status": "PASS",
+        "details": "Checks whether the local second derivative near zero matches the exact pendulum small-angle curvature.",
+        "metrics": {
+          "step": 0.0001,
+          "expected_second_derivative": 0.125,
+          "estimated_second_derivative": 0.12471903509947424,
+          "abs_error": 0.00028096490052575973
+        }
+      },
+      {
+        "name": "large_angle_window_accuracy",
+        "status": "PASS",
+        "details": "Compares candidate predictions to the exact elliptic-integral solution on the upper end of the configured amplitude range.",
+        "metrics": {
+          "theta_window_start": 1.3707963267948966,
+          "theta_window_end": 1.5707963267948966,
+          "mean_relative_error": 0.0011407308412689778,
+          "max_relative_error": 0.0018887002075346894
+        }
+      },
+      {
         "name": "evenness",
         "status": "PASS",
         "details": "Checks whether the candidate model is even in theta.",

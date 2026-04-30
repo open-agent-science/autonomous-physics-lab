@@ -104,6 +104,8 @@ def test_verification_summary_contains_expected_checks() -> None:
     assert {
         "small_angle_limit",
         "small_angle_window_accuracy",
+        "small_angle_curvature",
+        "large_angle_window_accuracy",
         "evenness",
         "monotonicity",
         "dimensional_consistency",
@@ -113,8 +115,16 @@ def test_verification_summary_contains_expected_checks() -> None:
     small_angle_window_check = next(
         check for check in summary.checks if check.name == "small_angle_window_accuracy"
     )
+    small_angle_curvature_check = next(
+        check for check in summary.checks if check.name == "small_angle_curvature"
+    )
+    large_angle_window_check = next(
+        check for check in summary.checks if check.name == "large_angle_window_accuracy"
+    )
     assert dimensional_check.status == "PASS"
     assert small_angle_window_check.status == "PASS"
+    assert small_angle_curvature_check.status == "PASS"
+    assert large_angle_window_check.status == "PASS"
 
 
 def test_symbolic_dimension_check_is_active_for_pendulum_models() -> None:
