@@ -89,7 +89,6 @@ The project now has enough moving parts that handoff quality matters more.
 Best next docs/tools:
 
 - a contributor guide for humans and LLM agents;
-- a repo-level status command;
 - a short architecture index or map.
 
 ### 3. Tighten Claim/Knowledge Evidence Semantics

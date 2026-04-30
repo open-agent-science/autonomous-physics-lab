@@ -464,3 +464,17 @@ def test_cli_validate_repo_smoke() -> None:
     assert "- examples: 1" in result.stdout
     assert "- hypotheses: 1" in result.stdout
     assert "- knowledge: 1" in result.stdout
+
+
+def test_cli_status_smoke() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    run_pendulum_experiment(repo_root / "examples" / "pendulum.yaml")
+    runner = CliRunner()
+    result = runner.invoke(app, ["status", "."])
+
+    assert result.exit_code == 0
+    assert "Stage: v0.1-public-alpha candidate" in result.stdout
+    assert "Validation: PASS" in result.stdout
+    assert "Latest result: results/EXP-0001/RUN-0001/result.yaml" in result.stdout
+    assert "Best verdict: VALID_IN_RANGE" in result.stdout
+    assert "Verification checks:" in result.stdout

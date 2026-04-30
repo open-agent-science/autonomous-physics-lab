@@ -19,6 +19,31 @@ def main() -> None:
     """Top-level CLI group for future subcommands."""
 
 
+def _project_stage(root: Path) -> str:
+    status_path = root / "docs" / "status.md"
+    if not status_path.exists():
+        return "unknown"
+
+    lines = status_path.read_text(encoding="utf-8").splitlines()
+    for index, line in enumerate(lines):
+        if line.strip() == "## Current Stage":
+            for candidate in lines[index + 1 :]:
+                candidate = candidate.strip()
+                if candidate:
+                    return candidate.replace("`", "")
+    return "unknown"
+
+
+def _latest_result_path(root: Path) -> Path | None:
+    result_paths = sorted(
+        (root / "results").glob("*/*/result.yaml"),
+        key=lambda path: path.stat().st_mtime,
+    )
+    if not result_paths:
+        return None
+    return result_paths[-1]
+
+
 @app.command("run")
 def run(config_path: str) -> None:
     """Run a configured experiment workflow."""
@@ -62,6 +87,51 @@ def validate_repo(root: str = typer.Argument(".")) -> None:
     for kind, count in summary.counts.items():
         typer.echo(f"- {kind}: {count}")
     typer.echo(f"Total validated files: {summary.total_files}")
+
+
+@app.command("status")
+def status(root: str = typer.Argument(".")) -> None:
+    """Print a compact project status snapshot."""
+    root_path = Path(root).resolve()
+    summary = validate_repository(root_path)
+    stage = _project_stage(root_path)
+    latest_result_path = _latest_result_path(root_path)
+
+    typer.echo(f"Stage: {stage}")
+    typer.echo(f"Repository: {summary.root}")
+    typer.echo(f"Validation: PASS ({summary.total_files} structured files)")
+    typer.echo(f"Benchmarks: {summary.counts['examples']} example config(s)")
+
+    if latest_result_path is None:
+        typer.echo("Latest result: none")
+        return
+
+    result_payload = load_result(latest_result_path)
+    verification_checks = result_payload["verification"]["checks"]
+    pass_count = sum(1 for check in verification_checks if check["status"] == "PASS")
+    fail_count = sum(1 for check in verification_checks if check["status"] == "FAIL")
+    placeholder_count = sum(1 for check in verification_checks if check["status"] == "PLACEHOLDER")
+
+    try:
+        relative_result = latest_result_path.relative_to(root_path).as_posix()
+    except ValueError:
+        relative_result = str(latest_result_path)
+
+    typer.echo(f"Latest result: {relative_result}")
+    typer.echo(f"Result id: {result_payload['result_id']}")
+    typer.echo(f"Run id: {result_payload['run_id']}")
+    typer.echo(f"Best model: {result_payload['best_model_id']}")
+    typer.echo(f"Best verdict: {result_payload['best_verdict']}")
+    typer.echo(
+        "Verification checks: "
+        f"{len(verification_checks)} total "
+        f"({pass_count} PASS, {fail_count} FAIL, {placeholder_count} PLACEHOLDER)"
+    )
+    typer.echo(
+        "Range: "
+        f"train {result_payload['train_range'][0]:.4f}-{result_payload['train_range'][1]:.4f} rad, "
+        f"test {result_payload['test_range'][0]:.4f}-{result_payload['test_range'][1]:.4f} rad"
+    )
 
 
 if __name__ == "__main__":

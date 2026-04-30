@@ -38,6 +38,7 @@ Current working vertical slice:
 - `python3 -m pytest`
 - `python3 -m physics_lab.cli run examples/pendulum.yaml`
 - `python3 -m physics_lab.cli validate-repo .`
+- `python3 -m physics_lab.cli status .`
 
 ## Not Ready Yet
 
