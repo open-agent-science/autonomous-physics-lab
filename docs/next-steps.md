@@ -77,6 +77,7 @@ Completed:
 - theory-aware pendulum extension with committed `RESULT-0003` under `results/EXP-0001/RUN-0002/`;
 - immutable run-input snapshots for canonical result artifacts to keep historical runs validation-stable.
 - section-aware knowledge update artifacts for both benchmark slices, so proposed changes map more directly onto `knowledge/*.md`.
+- strict repository validation with severity-based integrity checks for canonical run artifacts and orphan detection.
 
 Current validation commands:
 
@@ -86,11 +87,22 @@ python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
+python3 -m physics_lab.cli validate-repo . --strict
 ```
 
 ## Recommended Next Work
 
-### 1. Deepen the Physics Verification Stack
+### 1. Improve Contributor and Maintainer Navigation
+
+The public-alpha codebase is now stable enough that faster orientation will
+help both humans and future LLM sessions.
+
+Best next docs/tools:
+
+- add a compact contributor map from workflow modules to registry objects;
+- keep release and claim-review docs cross-linked from the architecture index.
+
+### 2. Deepen the Physics Verification Stack
 
 The first two verification benchmarks are real now, but the verification stack is still intentionally narrow.
 
@@ -107,7 +119,7 @@ Definition of done:
 
 - the verification summary contains more than one structural physics check beyond fit quality and simple monotonic behavior.
 
-### 2. Tighten Claim/Knowledge Evidence Semantics
+### 3. Tighten Claim/Knowledge Evidence Semantics
 
 The project now has generated status suggestions and a maintainer-facing claim
 promotion policy, but evidence handling can still be stronger.
@@ -117,7 +129,7 @@ Best next improvements:
 - optionally track which result artifact informed a proposed update in more than one knowledge note;
 - add maintainer-facing review summaries that explain why a canonical artifact changed after regeneration.
 
-### 3. Improve Maintainer Review Discipline
+### 4. Improve Maintainer Review Discipline
 
 The public collaboration layer now exists and claim-promotion rules are
 documented.
@@ -128,7 +140,7 @@ Best next docs/tools:
 - keep the release checklist and prepared release notes in sync with the actual public-alpha state;
 - keep claim-promotion language consistent across claims, result artifacts, and review templates.
 
-### 4. Keep Multi-Benchmark CI Non-Dirty
+### 5. Keep Multi-Benchmark CI Non-Dirty
 
 The repository now has two canonical benchmark slices, so CI and smoke tests
 must keep using temp outputs.

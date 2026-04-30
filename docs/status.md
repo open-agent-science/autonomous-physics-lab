@@ -19,6 +19,7 @@ Current working slices:
 - run-based result artifact generation;
 - public memory registry for hypothesis, experiment, claim, task, result, and knowledge;
 - repository-wide validation, referential integrity checks, result input-hash drift detection, and immutable run-input snapshots;
+- strict repository validation with severity-based integrity checks for orphan results, canonical run artifacts, input snapshots, and hygiene issues;
 - basic CI configuration with lint, tests, example run, and repository validation;
 - damped-oscillator exact-solution benchmark with run-based artifacts;
 - contributor workflow documentation and GitHub issue and PR templates.
@@ -58,7 +59,9 @@ Damped oscillator:
 - `python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum`
 - `python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped`
 - `python3 -m physics_lab.cli validate-repo .`
+- `python3 -m physics_lab.cli validate-repo . --strict`
 - `python3 -m physics_lab.cli status .`
+- [architecture-index.md](./architecture-index.md) for fast contributor and LLM handoff.
 - verification-first contributor workflow and GitHub issue templates.
 - maintainer-facing claim promotion policy.
 

@@ -616,6 +616,16 @@ def test_cli_validate_repo_smoke() -> None:
     assert "- knowledge: 2" in result.stdout
 
 
+def test_cli_validate_repo_strict_smoke() -> None:
+    runner = CliRunner()
+    result = runner.invoke(app, ["validate-repo", ".", "--strict"])
+
+    assert result.exit_code == 0
+    assert "Strict validation: PASS" in result.stdout
+    assert "ERROR" in result.stdout
+    assert "INFO" in result.stdout
+
+
 def test_cli_status_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(

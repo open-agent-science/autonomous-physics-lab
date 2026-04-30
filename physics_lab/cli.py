@@ -7,7 +7,17 @@ from typing import Optional
 
 import typer
 
-from physics_lab.registry import infer_kind_from_path, load_agent, load_claim, load_example_config, load_experiment, load_hypothesis, load_knowledge, load_result, load_task
+from physics_lab.registry import (
+    infer_kind_from_path,
+    load_agent,
+    load_claim,
+    load_example_config,
+    load_experiment,
+    load_hypothesis,
+    load_knowledge,
+    load_result,
+    load_task,
+)
 from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.runner import run_experiment_with_output
 
@@ -103,13 +113,35 @@ def validate(path: str, kind: Optional[str] = None) -> None:
 
 
 @app.command("validate-repo")
-def validate_repo(root: str = typer.Argument(".")) -> None:
+def validate_repo(
+    root: str = typer.Argument("."),
+    strict: bool = typer.Option(
+        False,
+        "--strict",
+        help="Enable stricter repository integrity checks and severity reporting.",
+    ),
+) -> None:
     """Validate all structured repository artifacts and cross-references."""
-    summary = validate_repository(Path(root))
+    summary = validate_repository(Path(root), strict=strict)
     typer.echo(f"Validated repository: {summary.root}")
     for kind, count in summary.counts.items():
         typer.echo(f"- {kind}: {count}")
     typer.echo(f"Total validated files: {summary.total_files}")
+    if strict:
+        status = "PASS" if summary.error_count == 0 else "FAIL"
+        typer.echo(
+            "Strict validation: "
+            f"{status} "
+            f"({summary.error_count} ERROR, {summary.warning_count} WARNING, {summary.info_count} INFO)"
+        )
+        for issue in summary.issues:
+            prefix = f"[{issue.severity}] [{issue.code}]"
+            if issue.path:
+                typer.echo(f"- {prefix} {issue.path}: {issue.message}")
+            else:
+                typer.echo(f"- {prefix} {issue.message}")
+        if summary.error_count > 0:
+            raise typer.Exit(code=1)
 
 
 @app.command("status")

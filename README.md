@@ -109,6 +109,7 @@ Use these files to continue the project without guessing:
 - [docs/next-steps.md](docs/next-steps.md) for the immediate working queue
 - [docs/backlog.md](docs/backlog.md) for medium-term and deferred tasks
 - [docs/status.md](docs/status.md) for the current project readiness snapshot
+- [docs/architecture-index.md](docs/architecture-index.md) for the fastest codebase and artifact map
 - [docs/release-checklist.md](docs/release-checklist.md) for public-alpha tag and release prep
 - [docs/releases/v0.1-public-alpha.md](docs/releases/v0.1-public-alpha.md) for prepared release notes
 - [CONTRIBUTING.md](CONTRIBUTING.md) for contributor expectations

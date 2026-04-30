@@ -156,6 +156,7 @@ def _write_minimal_repository_fixture(
     claim_scope: str,
     claim_body: str,
     hash_overrides: Optional[dict[str, str]] = None,
+    strict_snapshots: bool = False,
 ) -> None:
     for directory in (
         "agents",
@@ -327,10 +328,30 @@ def _write_minimal_repository_fixture(
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "claim_update.md").write_text("claim\n", encoding="utf-8")
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.md").write_text("knowledge\n", encoding="utf-8")
 
-    config_hash = hash_file(repo_root / "examples" / "temp.yaml", repo_root)["sha256"]
-    experiment_hash = hash_file(repo_root / "experiments" / "EXP-0001-temp.yaml", repo_root)["sha256"]
-    hypothesis_hash = hash_file(repo_root / "hypotheses" / "HYP-0001-temp.yaml", repo_root)["sha256"]
-    task_hash = hash_file(repo_root / "tasks" / "TASK-0001-temp.yaml", repo_root)["sha256"]
+    config_input = repo_root / "examples" / "temp.yaml"
+    experiment_input = repo_root / "experiments" / "EXP-0001-temp.yaml"
+    hypothesis_input = repo_root / "hypotheses" / "HYP-0001-temp.yaml"
+    task_input = repo_root / "tasks" / "TASK-0001-temp.yaml"
+    if strict_snapshots:
+        inputs_dir = repo_root / "results" / "EXP-0001" / "RUN-0001" / "inputs"
+        inputs_dir.mkdir(parents=True, exist_ok=True)
+        config_input = inputs_dir / "config.yaml"
+        experiment_input = inputs_dir / "experiment.yaml"
+        hypothesis_input = inputs_dir / "hypothesis.yaml"
+        task_input = inputs_dir / "task.yaml"
+        config_input.write_text((repo_root / "examples" / "temp.yaml").read_text(encoding="utf-8"), encoding="utf-8")
+        experiment_input.write_text((repo_root / "experiments" / "EXP-0001-temp.yaml").read_text(encoding="utf-8"), encoding="utf-8")
+        hypothesis_input.write_text((repo_root / "hypotheses" / "HYP-0001-temp.yaml").read_text(encoding="utf-8"), encoding="utf-8")
+        task_input.write_text((repo_root / "tasks" / "TASK-0001-temp.yaml").read_text(encoding="utf-8"), encoding="utf-8")
+
+    config_hash = hash_file(config_input, repo_root)["sha256"]
+    experiment_hash = hash_file(experiment_input, repo_root)["sha256"]
+    hypothesis_hash = hash_file(hypothesis_input, repo_root)["sha256"]
+    task_hash = hash_file(task_input, repo_root)["sha256"]
+    config_input_path = config_input.relative_to(repo_root).as_posix()
+    experiment_input_path = experiment_input.relative_to(repo_root).as_posix()
+    hypothesis_input_path = hypothesis_input.relative_to(repo_root).as_posix()
+    task_input_path = task_input.relative_to(repo_root).as_posix()
 
     overrides = hash_overrides or {}
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "result.yaml").write_text(
@@ -350,10 +371,10 @@ def _write_minimal_repository_fixture(
             git_commit: null
             command: temp
             input_file_hashes:
-              config: {{path: examples/temp.yaml, sha256: "{overrides.get('config', config_hash)}"}}
-              experiment: {{path: experiments/EXP-0001-temp.yaml, sha256: "{overrides.get('experiment', experiment_hash)}"}}
-              hypothesis: {{path: hypotheses/HYP-0001-temp.yaml, sha256: "{overrides.get('hypothesis', hypothesis_hash)}"}}
-              task: {{path: tasks/TASK-0001-temp.yaml, sha256: "{overrides.get('task', task_hash)}"}}
+              config: {{path: {config_input_path}, sha256: "{overrides.get('config', config_hash)}"}}
+              experiment: {{path: {experiment_input_path}, sha256: "{overrides.get('experiment', experiment_hash)}"}}
+              hypothesis: {{path: {hypothesis_input_path}, sha256: "{overrides.get('hypothesis', hypothesis_hash)}"}}
+              task: {{path: {task_input_path}, sha256: "{overrides.get('task', task_hash)}"}}
             train_range: [0.01, 0.7]
             test_range: [0.71, 1.0]
             best_model_id: model_theta2
@@ -416,3 +437,110 @@ def test_repository_rejects_result_input_hash_drift(tmp_path) -> None:
         assert "input hash drift" in str(exc)
     else:
         raise AssertionError("Expected result input hash drift to fail validation")
+
+
+def test_validate_repository_strict_smoke() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+
+    summary = validate_repository(repo_root, strict=True)
+
+    assert summary.strict is True
+    assert summary.error_count == 0
+    assert summary.warning_count == 0
+    assert summary.info_count >= 1
+
+
+def test_repository_strict_detects_noncanonical_input_snapshots(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_minimal_repository_fixture(
+        repo_root,
+        claim_scope="Valid only within the tested range for this temporary benchmark.",
+        claim_body="Claim body with explicit in-scope wording.",
+    )
+
+    summary = validate_repository(repo_root, strict=True)
+
+    assert summary.error_count > 0
+    assert any(issue.code == "noncanonical_input_snapshot" for issue in summary.issues)
+
+
+def test_repository_strict_detects_orphan_result(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_minimal_repository_fixture(
+        repo_root,
+        claim_scope="Valid only within the tested range for this temporary benchmark.",
+        claim_body="Claim body with explicit in-scope wording.",
+        strict_snapshots=True,
+    )
+    orphan_run_dir = repo_root / "results" / "EXP-0001" / "RUN-9999"
+    orphan_run_dir.mkdir(parents=True, exist_ok=True)
+    (orphan_run_dir / "report.md").write_text("report\n", encoding="utf-8")
+    (orphan_run_dir / "metrics.json").write_text("{}", encoding="utf-8")
+    (orphan_run_dir / "claim_update.md").write_text("claim\n", encoding="utf-8")
+    (orphan_run_dir / "knowledge_update.md").write_text("knowledge\n", encoding="utf-8")
+    inputs_dir = orphan_run_dir / "inputs"
+    inputs_dir.mkdir(parents=True, exist_ok=True)
+    for name in ("config.yaml", "experiment.yaml", "hypothesis.yaml", "task.yaml"):
+        (inputs_dir / name).write_text(
+            (repo_root / "results" / "EXP-0001" / "RUN-0001" / "inputs" / name).read_text(encoding="utf-8"),
+            encoding="utf-8",
+        )
+    config_hash = hash_file(inputs_dir / "config.yaml", repo_root)["sha256"]
+    experiment_hash = hash_file(inputs_dir / "experiment.yaml", repo_root)["sha256"]
+    hypothesis_hash = hash_file(inputs_dir / "hypothesis.yaml", repo_root)["sha256"]
+    task_hash = hash_file(inputs_dir / "task.yaml", repo_root)["sha256"]
+    (orphan_run_dir / "result.yaml").write_text(
+        textwrap.dedent(
+            f"""\
+            result_id: RESULT-9999
+            run_id: RUN-9999
+            experiment_id: EXP-0001
+            title: Orphan Result
+            hypothesis_id: HYP-0001
+            task_id: TASK-0001
+            code_reference: tests/test_damped_oscillator.py
+            limitations:
+              - temp
+            engine_version: 0.1.0
+            generated_at: "2026-04-30T00:00:01+00:00"
+            git_commit: null
+            command: temp
+            input_file_hashes:
+              config: {{path: results/EXP-0001/RUN-9999/inputs/config.yaml, sha256: "{config_hash}"}}
+              experiment: {{path: results/EXP-0001/RUN-9999/inputs/experiment.yaml, sha256: "{experiment_hash}"}}
+              hypothesis: {{path: results/EXP-0001/RUN-9999/inputs/hypothesis.yaml, sha256: "{hypothesis_hash}"}}
+              task: {{path: results/EXP-0001/RUN-9999/inputs/task.yaml, sha256: "{task_hash}"}}
+            train_range: [0.01, 0.7]
+            test_range: [0.71, 1.0]
+            best_model_id: model_theta2
+            best_verdict: VALID_IN_RANGE
+            verification:
+              passed: true
+              checks:
+                - name: small_angle_limit
+                  status: PASS
+                  details: ok
+                  metrics: {{}}
+            artifacts:
+              report: results/EXP-0001/RUN-9999/report.md
+              metrics: results/EXP-0001/RUN-9999/metrics.json
+              claim_update: results/EXP-0001/RUN-9999/claim_update.md
+              knowledge_update: results/EXP-0001/RUN-9999/knowledge_update.md
+            scores:
+              - model_id: model_theta2
+                formula: 1 + a*theta^2
+                coefficients: {{a: 0.0625}}
+                complexity_score: 1
+                train_metrics: {{mean_relative_error: 0.0, max_relative_error: 0.0}}
+                test_metrics: {{mean_relative_error: 0.0, max_relative_error: 0.0}}
+                composite_score: 0.001
+                verdict: VALID
+            """
+        ),
+        encoding="utf-8",
+    )
+
+    summary = validate_repository(repo_root, strict=True)
+
+    assert summary.warning_count > 0
+    assert any(issue.code == "orphan_result" for issue in summary.issues)
