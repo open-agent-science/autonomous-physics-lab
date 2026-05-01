@@ -83,6 +83,8 @@ Completed:
 - strict repository validation with severity-based integrity checks for canonical run artifacts and orphan detection.
 - patch-style claim and knowledge update artifacts plus maintainer-facing review summaries for canonical runs.
 - shared agent task board and operating model for seamless Codex / Claude / human handoff.
+- machine-readable `review_metadata.yaml` companion files for patch-style artifacts with a JSON Schema contract.
+- pendulum hypothesis gauntlet: 100 deterministic candidates evaluated in `RUN-0003` / `RESULT-0004`; best model `model_t4_x1` (`1 + a·θ⁴ + b·sin²(θ/2)`) achieves VALID_IN_RANGE with test mean error 3.1×10⁻⁴.
 
 Current validation commands:
 
@@ -107,19 +109,17 @@ Best next operating rule:
 - keep local work sequential by default unless tasks are clearly independent;
 - update task state before and after meaningful work.
 
-### 2. Deepen the Physics Verification Stack
+### 2. Plan the Third Benchmark (EXP-0003)
 
-The first two verification benchmarks are real now, but the verification stack is still intentionally narrow.
+The pendulum gauntlet milestone is complete. The next recommended step is planning EXP-0003 as a
+diffusion scaling benchmark (TASK-0009, READY).
 
-Best next checks:
+Best next steps:
 
-- symbolic consistency hooks beyond current pendulum families;
-- stronger asymptotic or regime-aware checks for future candidate families.
-- theory-aware follow-up improvements that can push pendulum performance closer to the separatrix without losing in-range clarity.
-- keep damped-oscillator checks extensible for future driven or nonlinear variants.
+- choose one `READY` task from `tasks/ACTIVE.md` (currently TASK-0009);
+- produce a benchmark candidate comparison and task spec — no implementation yet;
+- keep damped-oscillator checks extensible for future driven or nonlinear variants;
 - keep the two workflow modules stable and avoid pushing benchmark-specific logic back into `runner.py`.
-- deepen evidence semantics now that both benchmarks have stronger verification gates.
-- execute a broader deterministic pendulum candidate gauntlet before adding a third benchmark.
 
 Definition of done:
 

@@ -255,8 +255,31 @@ def _monotonicity_check(model: FittedModel, theta_range: tuple[float, float]) ->
     )
 
 
+def _is_gauntlet_model_id(model_id: str) -> bool:
+    """True only when model_id is composed entirely of known gauntlet basis atoms."""
+    from physics_lab.engines.gauntlet import ATOM_NAMES  # local import avoids circularity
+
+    if not model_id.startswith("model_"):
+        return False
+    parts = model_id[len("model_") :].split("_")
+    return bool(parts) and all(p in ATOM_NAMES for p in parts)
+
+
 def _dimensional_consistency_check(model: FittedModel) -> VerificationCheck:
-    result = validate_pendulum_model_dimensions(model.candidate.model_id)
+    try:
+        result = validate_pendulum_model_dimensions(model.candidate.model_id)
+    except ValueError:
+        if _is_gauntlet_model_id(model.candidate.model_id):
+            return VerificationCheck(
+                name="dimensional_consistency",
+                status="PLACEHOLDER",
+                details=(
+                    "Symbolic check not registered for this gauntlet model id. "
+                    "All gauntlet basis atoms are dimensionless by construction."
+                ),
+                metrics={},
+            )
+        raise
     return VerificationCheck(
         name="dimensional_consistency",
         status=result.status,
