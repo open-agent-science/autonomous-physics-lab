@@ -7,6 +7,8 @@ from pathlib import Path
 import subprocess
 from typing import Any, Callable, Union
 
+import yaml
+
 from physics_lab.registry.agents import load_agent
 from physics_lab.registry.claims import load_claim
 from physics_lab.registry.examples import load_example_config
@@ -15,6 +17,7 @@ from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
 from physics_lab.registry.results import load_result
 from physics_lab.registry.tasks import load_task
+from physics_lab.registry.validation import validate_document
 from physics_lab.workflows.artifacts import hash_file
 
 
@@ -52,6 +55,7 @@ PATTERNS: dict[str, str] = {
 STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "agent_workflow",
     "evidence_policy",
+    "knowledge_update",
     "repository_validation",
     "release_preparation",
     "release_prep",
@@ -353,6 +357,7 @@ def _strict_required_run_artifacts(
         "knowledge_update.md": run_dir / "knowledge_update.md",
         "knowledge_update.patch.md": run_dir / "knowledge_update.patch.md",
         "review_summary.md": run_dir / "review_summary.md",
+        "review_metadata.yaml": run_dir / "review_metadata.yaml",
         "inputs/config.yaml": run_dir / "inputs" / "config.yaml",
         "inputs/experiment.yaml": run_dir / "inputs" / "experiment.yaml",
         "inputs/hypothesis.yaml": run_dir / "inputs" / "hypothesis.yaml",
@@ -370,6 +375,24 @@ def _strict_required_run_artifacts(
                 )
             )
 
+    review_metadata_path = run_dir / "review_metadata.yaml"
+    if review_metadata_path.exists():
+        try:
+            review_metadata_data = yaml.safe_load(
+                review_metadata_path.read_text(encoding="utf-8")
+            )
+            validate_document(review_metadata_data, "review_metadata", review_metadata_path)
+        except Exception as exc:
+            issues.append(
+                _issue(
+                    "ERROR",
+                    "invalid_review_metadata",
+                    f"review_metadata.yaml failed schema validation: {exc}",
+                    path=result_path,
+                    root=root_path,
+                )
+            )
+
     expected_artifact_paths = {
         "report": _relative_path(run_dir / "report.md", root_path),
         "metrics": _relative_path(run_dir / "metrics.json", root_path),
@@ -378,6 +401,7 @@ def _strict_required_run_artifacts(
         "knowledge_update": _relative_path(run_dir / "knowledge_update.md", root_path),
         "knowledge_update_patch": _relative_path(run_dir / "knowledge_update.patch.md", root_path),
         "review_summary": _relative_path(run_dir / "review_summary.md", root_path),
+        "review_metadata": _relative_path(run_dir / "review_metadata.yaml", root_path),
     }
     for artifact_name, expected_path in expected_artifact_paths.items():
         actual_path = str(payload["artifacts"].get(artifact_name, ""))

@@ -96,6 +96,8 @@ def test_damped_oscillator_runner_writes_temp_artifacts(tmp_path) -> None:
     assert "## Suggested Linked Objects Update" in knowledge_update_text
     assert "## Proposed Diff" in claim_patch_text
     assert (tmp_path / "apl-results" / "EXP-0002" / "RUN-0001" / "review_summary.md").exists()
+    assert (tmp_path / "apl-results" / "EXP-0002" / "RUN-0001" / "review_metadata.yaml").exists()
+    assert result_payload["artifacts"]["review_metadata"].endswith("review_metadata.yaml")
 
 
 def test_damped_oscillator_dispatch_writes_temp_artifacts(tmp_path) -> None:
@@ -120,6 +122,7 @@ def test_cli_run_damped_oscillator_smoke() -> None:
     assert "Result:" in result.stdout
     assert "Claim patch:" in result.stdout
     assert "Review summary:" in result.stdout
+    assert "Review metadata:" in result.stdout
 
 
 def test_claim_status_suggestion_for_exact_verified_benchmark() -> None:
@@ -337,6 +340,29 @@ def _write_minimal_repository_fixture(
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.md").write_text("knowledge\n", encoding="utf-8")
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.patch.md").write_text("knowledge patch\n", encoding="utf-8")
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "review_summary.md").write_text("summary\n", encoding="utf-8")
+    (repo_root / "results" / "EXP-0001" / "RUN-0001" / "review_metadata.yaml").write_text(
+        textwrap.dedent("""\
+            schema_version: '1'
+            artifact_type: review_metadata
+            result_id: RESULT-0001
+            run_id: RUN-0001
+            experiment_id: EXP-0001
+            claim_id: CLAIM-0001
+            knowledge_id: KNOW-0001
+            generated_at: '2026-04-30T00:00:00+00:00'
+            proposed_claim_status: PARTIALLY_SUPPORTED
+            required_human_review: true
+            evidence_basis:
+            - RESULT-0001
+            claim_target_file: claims/CLAIM-0001-pendulum-period-amplitude.md
+            knowledge_target_file: knowledge/classical_mechanics/pendulum.md
+            patch_artifacts:
+              claim_patch: results/EXP-0001/RUN-0001/claim_update.patch.md
+              knowledge_patch: results/EXP-0001/RUN-0001/knowledge_update.patch.md
+              review_summary: results/EXP-0001/RUN-0001/review_summary.md
+            """),
+        encoding="utf-8",
+    )
 
     config_input = repo_root / "examples" / "temp.yaml"
     experiment_input = repo_root / "experiments" / "EXP-0001-temp.yaml"
@@ -404,6 +430,7 @@ def _write_minimal_repository_fixture(
               knowledge_update: results/EXP-0001/RUN-0001/knowledge_update.md
               knowledge_update_patch: results/EXP-0001/RUN-0001/knowledge_update.patch.md
               review_summary: results/EXP-0001/RUN-0001/review_summary.md
+              review_metadata: results/EXP-0001/RUN-0001/review_metadata.yaml
             scores:
               - model_id: model_theta2
                 formula: 1 + a*theta^2
@@ -480,6 +507,29 @@ def test_cli_validate_repo_strict_fail_on_warnings(tmp_path) -> None:
     (orphan_run_dir / "knowledge_update.md").write_text("knowledge\n", encoding="utf-8")
     (orphan_run_dir / "knowledge_update.patch.md").write_text("knowledge patch\n", encoding="utf-8")
     (orphan_run_dir / "review_summary.md").write_text("summary\n", encoding="utf-8")
+    (orphan_run_dir / "review_metadata.yaml").write_text(
+        textwrap.dedent("""\
+            schema_version: '1'
+            artifact_type: review_metadata
+            result_id: RESULT-9999
+            run_id: RUN-9999
+            experiment_id: EXP-0001
+            claim_id: CLAIM-0001
+            knowledge_id: KNOW-0001
+            generated_at: '2026-04-30T00:00:01+00:00'
+            proposed_claim_status: PARTIALLY_SUPPORTED
+            required_human_review: true
+            evidence_basis:
+            - RESULT-9999
+            claim_target_file: claims/CLAIM-0001-pendulum-period-amplitude.md
+            knowledge_target_file: knowledge/classical_mechanics/pendulum.md
+            patch_artifacts:
+              claim_patch: results/EXP-0001/RUN-9999/claim_update.patch.md
+              knowledge_patch: results/EXP-0001/RUN-9999/knowledge_update.patch.md
+              review_summary: results/EXP-0001/RUN-9999/review_summary.md
+            """),
+        encoding="utf-8",
+    )
     inputs_dir = orphan_run_dir / "inputs"
     inputs_dir.mkdir(parents=True, exist_ok=True)
     for name in ("config.yaml", "experiment.yaml", "hypothesis.yaml", "task.yaml"):
@@ -531,6 +581,7 @@ def test_cli_validate_repo_strict_fail_on_warnings(tmp_path) -> None:
               knowledge_update: results/EXP-0001/RUN-9999/knowledge_update.md
               knowledge_update_patch: results/EXP-0001/RUN-9999/knowledge_update.patch.md
               review_summary: results/EXP-0001/RUN-9999/review_summary.md
+              review_metadata: results/EXP-0001/RUN-9999/review_metadata.yaml
             scores:
               - model_id: model_theta2
                 formula: 1 + a*theta^2
@@ -586,6 +637,29 @@ def test_repository_strict_detects_orphan_result(tmp_path) -> None:
     (orphan_run_dir / "knowledge_update.md").write_text("knowledge\n", encoding="utf-8")
     (orphan_run_dir / "knowledge_update.patch.md").write_text("knowledge patch\n", encoding="utf-8")
     (orphan_run_dir / "review_summary.md").write_text("summary\n", encoding="utf-8")
+    (orphan_run_dir / "review_metadata.yaml").write_text(
+        textwrap.dedent("""\
+            schema_version: '1'
+            artifact_type: review_metadata
+            result_id: RESULT-9999
+            run_id: RUN-9999
+            experiment_id: EXP-0001
+            claim_id: CLAIM-0001
+            knowledge_id: KNOW-0001
+            generated_at: '2026-04-30T00:00:01+00:00'
+            proposed_claim_status: PARTIALLY_SUPPORTED
+            required_human_review: true
+            evidence_basis:
+            - RESULT-9999
+            claim_target_file: claims/CLAIM-0001-pendulum-period-amplitude.md
+            knowledge_target_file: knowledge/classical_mechanics/pendulum.md
+            patch_artifacts:
+              claim_patch: results/EXP-0001/RUN-9999/claim_update.patch.md
+              knowledge_patch: results/EXP-0001/RUN-9999/knowledge_update.patch.md
+              review_summary: results/EXP-0001/RUN-9999/review_summary.md
+            """),
+        encoding="utf-8",
+    )
     inputs_dir = orphan_run_dir / "inputs"
     inputs_dir.mkdir(parents=True, exist_ok=True)
     for name in ("config.yaml", "experiment.yaml", "hypothesis.yaml", "task.yaml"):
@@ -637,6 +711,7 @@ def test_repository_strict_detects_orphan_result(tmp_path) -> None:
               knowledge_update: results/EXP-0001/RUN-9999/knowledge_update.md
               knowledge_update_patch: results/EXP-0001/RUN-9999/knowledge_update.patch.md
               review_summary: results/EXP-0001/RUN-9999/review_summary.md
+              review_metadata: results/EXP-0001/RUN-9999/review_metadata.yaml
             scores:
               - model_id: model_theta2
                 formula: 1 + a*theta^2
@@ -655,3 +730,25 @@ def test_repository_strict_detects_orphan_result(tmp_path) -> None:
 
     assert summary.warning_count > 0
     assert any(issue.code == "orphan_result" for issue in summary.issues)
+
+
+def test_repository_strict_rejects_malformed_review_metadata(tmp_path) -> None:
+    """Strict validation must raise invalid_review_metadata for a structurally invalid file."""
+    repo_root = tmp_path / "repo"
+    _write_minimal_repository_fixture(
+        repo_root,
+        claim_scope="Valid only within the tested range for this temporary benchmark.",
+        claim_body="Claim body with explicit in-scope wording.",
+        strict_snapshots=True,
+    )
+    # Overwrite the valid review_metadata.yaml with a structurally incomplete one
+    # (missing required fields: artifact_type, result_id, claim_id, …)
+    (repo_root / "results" / "EXP-0001" / "RUN-0001" / "review_metadata.yaml").write_text(
+        "schema_version: '1'\n",
+        encoding="utf-8",
+    )
+
+    summary = validate_repository(repo_root, strict=True)
+
+    assert summary.error_count > 0
+    assert any(issue.code == "invalid_review_metadata" for issue in summary.issues)
