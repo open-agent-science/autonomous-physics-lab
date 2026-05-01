@@ -1,0 +1,35 @@
+id: TASK-XXXX
+title: ""
+type: ""
+status: PROPOSED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - ""
+
+input:
+  hypothesis_id: HYP-XXXX
+  experiment_id: EXP-XXXX
+
+requirements:
+  - "Use deterministic code"
+  - "Keep claims range-aware"
+  - "Do not promote claims automatically"
+
+accepted_outputs:
+  - "code reference"
+  - "tests"
+  - "docs update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

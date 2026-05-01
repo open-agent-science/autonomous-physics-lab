@@ -1,0 +1,27 @@
+id: TASK-0008
+title: "Add machine-readable review metadata for patch-style evidence artifacts"
+type: knowledge_update
+status: READY
+difficulty: medium
+priority: medium
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Preserve current human-readable patch-style artifacts"
+  - "Add a machine-readable companion format only if it improves maintainer review flow"
+  - "Keep claim promotion human-reviewed"
+  - "Document the review metadata contract"
+
+accepted_outputs:
+  - "code reference"
+  - "tests"
+  - "docs update"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

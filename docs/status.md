@@ -24,6 +24,7 @@ Current working slices:
 - damped-oscillator exact-solution benchmark with run-based artifacts;
 - contributor workflow documentation and GitHub issue and PR templates.
 - patch-style claim and knowledge review artifacts with maintainer-facing review summaries.
+- shared agent task board, strategy file, and operating model for multi-agent handoff.
 
 ## Current Verification Checks
 
@@ -63,6 +64,7 @@ Damped oscillator:
 - `python3 -m physics_lab.cli validate-repo . --strict`
 - `python3 -m physics_lab.cli status .`
 - [architecture-index.md](./architecture-index.md) for fast contributor and LLM handoff.
+- [strategy.md](./strategy.md), [agent-operating-model.md](./agent-operating-model.md), and [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for the shared task protocol.
 - verification-first contributor workflow and GitHub issue templates.
 - maintainer-facing claim promotion policy.
 

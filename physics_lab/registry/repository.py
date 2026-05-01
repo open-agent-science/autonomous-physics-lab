@@ -50,10 +50,13 @@ PATTERNS: dict[str, str] = {
     "tasks": "*.yaml",
 }
 STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
+    "agent_workflow",
     "evidence_policy",
     "repository_validation",
     "release_preparation",
     "release_prep",
+    "benchmark_planning",
+    "documentation",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
@@ -143,6 +146,8 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
         else (root / directory).glob(pattern)
     )
     for path in sorted(iterator):
+        if directory == "tasks" and path.name == "TASK-TEMPLATE.yaml":
+            continue
         items.append((path, loader(path)))
     return items
 

@@ -1,0 +1,27 @@
+id: TASK-0007
+title: "Add fail-on-warnings support for strict repository validation"
+type: repository_validation
+status: READY
+difficulty: low
+priority: high
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Add --fail-on-warnings support to strict validation"
+  - "Keep default validation behavior lightweight"
+  - "Preserve severity-based strict output"
+  - "Add tests and docs updates"
+
+accepted_outputs:
+  - "code reference"
+  - "tests"
+  - "docs update"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

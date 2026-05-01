@@ -105,6 +105,9 @@ See [docs/architecture.md](docs/architecture.md),
 
 Use these files to continue the project without guessing:
 
+- [docs/strategy.md](docs/strategy.md) for the current strategic compass
+- [tasks/ACTIVE.md](tasks/ACTIVE.md) for the shared live task board
+- [docs/agent-operating-model.md](docs/agent-operating-model.md) for multi-agent handoff and task execution
 - [docs/implementation-plan.md](docs/implementation-plan.md) for phased strategy
 - [docs/next-steps.md](docs/next-steps.md) for the immediate working queue
 - [docs/backlog.md](docs/backlog.md) for medium-term and deferred tasks

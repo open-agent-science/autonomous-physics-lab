@@ -41,6 +41,8 @@ when they become active priorities.
 
 - Add a compact architecture index for quick onboarding.
 - Add a lightweight release-review checklist for public-alpha milestones.
+- Add a contributor map if the shared task board grows large enough that `architecture-index.md` is no longer sufficient.
+- Improve the live task board only when it clearly reduces handoff friction rather than adding management overhead.
 
 ## Longer-Term
 

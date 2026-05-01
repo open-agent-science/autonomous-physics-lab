@@ -1,0 +1,30 @@
+id: TASK-0006
+title: "Establish shared agent task board and operating model"
+type: agent_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Create a shared task board for humans and coding agents"
+  - "Document a role-free agent operating model"
+  - "Keep CODEX_TASK.md as a compatibility entrypoint rather than a single active task file"
+  - "Preserve verification-first strategy language"
+
+accepted_outputs:
+  - "tasks/ACTIVE.md"
+  - "docs/agent-operating-model.md"
+  - "docs/strategy.md"
+  - "tasks/TASK-TEMPLATE.yaml"
+  - "updated AGENTS.md"
+  - "updated CODEX_TASK.md"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

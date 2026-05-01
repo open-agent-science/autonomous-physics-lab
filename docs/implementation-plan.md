@@ -37,6 +37,7 @@ Completed so far:
   - committed `RESULT-0002` artifact set under `results/EXP-0002/RUN-0001/`
   - maintainer-facing claim promotion policy linked to generated claim suggestions
   - result input-hash drift detection for committed canonical artifacts
+  - shared agent task board, strategy file, and operating model for role-free multi-agent handoff
 
 Use [next-steps.md](./next-steps.md)
 for the active short-term queue.
@@ -142,6 +143,12 @@ Implementation targets:
 3. contribution guide;
 4. CI checks for structured files;
 5. result review flow.
+
+Status:
+
+- partially implemented through shared task board, operating model, claim policy,
+  contributor workflow, and task template
+- still intentionally sequential-first in normal local use
 
 ## Near-Term Execution Order
 

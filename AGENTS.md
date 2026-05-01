@@ -55,6 +55,27 @@ Every agent output must include:
 
 No anonymous unverifiable scientific claim should be accepted as a result.
 
+## Shared Task Pool
+
+Agents do not own permanent roles in this repository.
+
+Instead:
+
+- the task defines the contract;
+- any compatible agent may pick a `READY` task;
+- agents should prefer one atomic task at a time;
+- tasks may be taken out of order only when they do not depend on each other or
+  create artifact conflicts.
+
+Use these files as the shared coordination layer:
+
+- `docs/strategy.md`
+- `docs/agent-operating-model.md`
+- `tasks/ACTIVE.md`
+- `tasks/TASK-TEMPLATE.yaml`
+
+Do not treat `CODEX_TASK.md` as the single source of truth for active work.
+
 ## Current MVP
 
 The first MVP is `Pendulum Formula Discovery`.
@@ -81,6 +102,9 @@ contributor guidance.
 
 To continue work consistently, use these project documents:
 
+- `docs/strategy.md` for the strategic compass;
+- `docs/agent-operating-model.md` for the shared agent workflow;
+- `tasks/ACTIVE.md` for the live task board;
 - `docs/implementation-plan.md` for the broader phased strategy;
 - `docs/next-steps.md` for the current short-term execution queue;
 - `docs/backlog.md` for deferred or medium-term work.

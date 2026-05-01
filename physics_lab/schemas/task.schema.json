@@ -31,10 +31,15 @@
     "status": {
       "type": "string",
       "enum": [
+        "PROPOSED",
+        "READY",
+        "CLAIMED",
         "OPEN",
+        "REVIEW_READY",
         "IN_PROGRESS",
         "BLOCKED",
-        "DONE"
+        "DONE",
+        "REJECTED"
       ]
     },
     "difficulty": {
@@ -52,6 +57,13 @@
         "medium",
         "high"
       ]
+    },
+    "strategy_alignment": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "input": {
       "type": "object",
@@ -85,6 +97,23 @@
       "items": {
         "type": "string",
         "minLength": 1
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commands"
+      ],
+      "properties": {
+        "commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "can_be_done_by": {

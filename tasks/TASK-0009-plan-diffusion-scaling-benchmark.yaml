@@ -1,0 +1,27 @@
+id: TASK-0009
+title: "Plan EXP-0003 as a diffusion scaling benchmark"
+type: benchmark_planning
+status: READY
+difficulty: medium
+priority: high
+
+input:
+  hypothesis_id: HYP-0002
+  experiment_id: EXP-0002
+
+requirements:
+  - "Do planning only, with no benchmark implementation yet"
+  - "Compare diffusion scaling against other benchmark candidates"
+  - "Keep the proposal verification-first"
+  - "Define accepted outputs for a future EXP-0003 scaffold"
+
+accepted_outputs:
+  - "task spec"
+  - "docs update"
+  - "benchmark candidate comparison"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

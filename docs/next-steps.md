@@ -13,6 +13,9 @@ Use it for:
 Use [implementation-plan.md](./implementation-plan.md)
 for the broader phased strategy.
 
+Use [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+for the live task board and actual claimable work.
+
 Use [backlog.md](./backlog.md)
 for lower-priority or later work.
 
@@ -79,6 +82,7 @@ Completed:
 - section-aware knowledge update artifacts for both benchmark slices, so proposed changes map more directly onto `knowledge/*.md`.
 - strict repository validation with severity-based integrity checks for canonical run artifacts and orphan detection.
 - patch-style claim and knowledge update artifacts plus maintainer-facing review summaries for canonical runs.
+- shared agent task board and operating model for seamless Codex / Claude / human handoff.
 
 Current validation commands:
 
@@ -93,15 +97,15 @@ python3 -m physics_lab.cli validate-repo . --strict
 
 ## Recommended Next Work
 
-### 1. Improve Contributor and Maintainer Navigation
+### 1. Use the Shared Task Board for Ready Work
 
-The public-alpha codebase is now stable enough that faster orientation will
-help both humans and future LLM sessions.
+The repository now has a dedicated live task board and agent operating model.
 
-Best next docs/tools:
+Best next operating rule:
 
-- add a compact contributor map from workflow modules to registry objects;
-- keep release and claim-review docs cross-linked from the architecture index.
+- choose one `READY` task from [../tasks/ACTIVE.md](../tasks/ACTIVE.md);
+- keep local work sequential by default unless tasks are clearly independent;
+- update task state before and after meaningful work.
 
 ### 2. Deepen the Physics Verification Stack
 
@@ -137,9 +141,9 @@ documented.
 
 Best next docs/tools:
 
-- add a compact architecture index or contributor map for faster handoff;
 - keep the release checklist and prepared release notes in sync with the actual public-alpha state;
-- keep claim-promotion language consistent across claims, result artifacts, and review templates.
+- keep claim-promotion language consistent across claims, result artifacts, and review templates;
+- keep `tasks/ACTIVE.md` and `docs/strategy.md` aligned so agents do not drift into stale priorities.
 
 ### 5. Keep Multi-Benchmark CI Non-Dirty
 

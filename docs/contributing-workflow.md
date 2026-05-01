@@ -18,11 +18,13 @@ Every meaningful change should connect back to one or more of:
 
 1. Read [AGENTS.md](../AGENTS.md).
 2. Read [docs/status.md](./status.md).
-3. Read [docs/next-steps.md](./next-steps.md).
-4. Pick an existing task, benchmark, or documentation gap.
-5. Make the smallest reproducible change that advances the repository state.
-6. Run validation before asking for review.
-7. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
+3. Read [docs/strategy.md](./strategy.md).
+4. Read [tasks/ACTIVE.md](../tasks/ACTIVE.md).
+5. Read [docs/agent-operating-model.md](./agent-operating-model.md).
+6. Pick one existing `READY` task, benchmark, or documentation gap.
+7. Make the smallest reproducible change that advances the repository state.
+8. Run validation before asking for review.
+9. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
 
 ## Typical Contribution Types
 
