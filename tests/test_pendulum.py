@@ -591,13 +591,20 @@ def test_validate_repository_smoke() -> None:
         output_dir=Path("/tmp/apl-pendulum-repo-validate"),
     )
     summary = validate_repository(repo_root)
+    expected_task_count = len(
+        [
+            path
+            for path in (repo_root / "tasks").glob("TASK-*.yaml")
+            if path.name != "TASK-TEMPLATE.yaml"
+        ]
+    )
 
     assert summary.counts["claims"] == 2
     assert summary.counts["examples"] == 3
     assert summary.counts["hypotheses"] == 2
     assert summary.counts["experiments"] == 2
     assert summary.counts["knowledge"] == 2
-    assert summary.counts["tasks"] == 11
+    assert summary.counts["tasks"] == expected_task_count
     assert summary.counts["agents"] == 1
     assert summary.counts["results"] == 4
 

@@ -40,6 +40,16 @@ The repository currently stabilizes two verification-first benchmark slices:
 Both benchmarks produce run-based artifacts under `results/<experiment>/<run>/`
 and are validated through the repository registry and CLI tooling.
 
+## Contribute with an AI coding agent
+
+Put your coding agent to work on reproducible physics tasks.
+
+Invited contributors can use Codex, Claude Code, or other coding agents to
+pick atomic tasks from [tasks/ACTIVE.md](tasks/ACTIVE.md), work in branches,
+open PRs, and submit reproducible scientific changes for maintainer review.
+Start with [docs/private-contributor-pilot.md](docs/private-contributor-pilot.md)
+for the private-alpha workflow and validation expectations.
+
 ## Quickstart
 
 ```bash
@@ -113,6 +123,9 @@ Use these files to continue the project without guessing:
 - [docs/backlog.md](docs/backlog.md) for medium-term and deferred tasks
 - [docs/status.md](docs/status.md) for the current project readiness snapshot
 - [docs/architecture-index.md](docs/architecture-index.md) for the fastest codebase and artifact map
+- [docs/private-contributor-pilot.md](docs/private-contributor-pilot.md) for invited private contributors using coding agents
+- [docs/public-release-gates.md](docs/public-release-gates.md) for the gates that must be satisfied before the repository becomes public
+- [docs/github-branch-protection-plan.md](docs/github-branch-protection-plan.md) for staged PR and branch-protection setup
 - [docs/release-checklist.md](docs/release-checklist.md) for public-alpha tag and release prep
 - [docs/releases/v0.1-public-alpha.md](docs/releases/v0.1-public-alpha.md) for prepared release notes
 - [CONTRIBUTING.md](CONTRIBUTING.md) for contributor expectations

@@ -1,13 +1,20 @@
 # Active Task Board
 
-## Strategy Reminder
+## CURRENT STRATEGY
 
 APL is verification-first scientific infrastructure.
 
-Do not add speculative claims.
-Do not add dashboard, web API, literature ingestion, or multi-agent runtime
-before current verification goals are met.
-Prefer atomic tasks with reproducible outputs and small commits.
+Current phase: `v0.1-private-alpha`
+
+Current goal:
+
+- private contributor pilot
+- measurable scientific result
+- public release only after explicit gates are satisfied
+
+The repository remains private until
+[../docs/public-release-gates.md](../docs/public-release-gates.md) are
+satisfied.
 
 Use [../docs/strategy.md](../docs/strategy.md) as the strategic compass and
 [../docs/agent-operating-model.md](../docs/agent-operating-model.md) as the
@@ -15,33 +22,99 @@ shared execution protocol.
 
 ## READY
 
-### TASK-0011 — Audit numerical vs model error for pendulum benchmark results
+### TASK-0011 — Audit numerical precision versus model residual for the pendulum gauntlet run
 
-Type: `verification_extension`  
+Type: `numerical_audit`  
 Priority: `high`  
 Suggested size: `medium`
 
 Expected output:
 
-- high-precision reference audit for pendulum benchmark reporting
-- tolerance-aware wording update for pendulum result artifacts or notes
-- deterministic tests distinguishing approximation residual from reference uncertainty
+- `docs/numerical-accuracy-policy.md`
+- `results/EXP-0001/RUN-0003/precision_audit.yaml`
+- `results/EXP-0001/RUN-0003/precision_audit.md`
+- tests
+- updated report wording if needed
 
-### TASK-0009 — Plan `EXP-0003` as a diffusion scaling benchmark
+### TASK-0012 — Run a private multi-agent contributor dry run
 
-Type: `benchmark_planning`  
+Type: `agent_workflow`  
 Priority: `high`  
-Suggested size: `small`
+Suggested size: `medium`
 
 Expected output:
 
-- task spec only
-- benchmark candidate comparison
-- no implementation yet
+- `docs/multi-agent-dry-run.md`
+- pilot summary
+- linked PR list
+- workflow lessons learned
 
-## CLAIMED
+### TASK-0013 — Plan a particle mass relation falsifier inspired by Koide-style formulas
 
-None.
+Type: `benchmark_planning`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- task spec
+- benchmark plan
+- evaluation design
+- scientific constraint summary
+
+### TASK-0014 — Plan a thought-experiment consistency suite
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- task spec
+- consistency-suite plan
+- candidate thought-experiment inventory
+- future validation outline
+
+### TASK-0015 — Plan the diffusion scaling benchmark
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- task spec
+- benchmark plan
+- future `EXP-0003` output outline
+- limitation summary
+
+### TASK-0017 — Create a dimensional analysis challenge set
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- task spec
+- challenge-set plan
+- formula category inventory
+- future public-result angle
+
+## PROPOSED
+
+### TASK-0016 — Plan an electromagnetic invariance mini-benchmark
+
+Type: `benchmark_planning`  
+Priority: `medium`  
+Suggested size: `medium`
+
+Expected output:
+
+- task spec
+- mini-benchmark plan
+- scope constraints
+- candidate check inventory
 
 ## IN_PROGRESS
 
@@ -65,10 +138,6 @@ Completed outputs:
 - tests updated in `test_pendulum.py` and `test_damped_oscillator.py`
 - `docs/notes/review-metadata-contract.md`
 
-## BLOCKED
-
-None.
-
 ## DONE RECENTLY
 
 - `TASK-0003`
@@ -77,3 +146,13 @@ None.
 - `TASK-0006`
 - `TASK-0007`
 - `TASK-0010` — pendulum gauntlet (100 candidates) → `RESULT-0004` / `RUN-0003`
+
+## DO NOT START YET
+
+- dashboard
+- web API
+- arXiv or OpenAlex ingestion
+- multi-agent runtime
+- database backend
+- public launch
+- claims of "new physics"

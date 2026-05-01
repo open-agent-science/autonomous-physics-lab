@@ -85,6 +85,7 @@ Completed:
 - shared agent task board and operating model for seamless Codex / Claude / human handoff.
 - machine-readable `review_metadata.yaml` companion files for patch-style artifacts with a JSON Schema contract.
 - pendulum hypothesis gauntlet: 100 deterministic candidates evaluated in `RUN-0003` / `RESULT-0004`; best model `model_t4_x1` (`1 + a·θ⁴ + b·sin²(θ/2)`) achieves VALID_IN_RANGE with test mean error 3.1×10⁻⁴.
+- private-alpha contributor workflow docs, release-gating docs, and branch-protection planning for invited contributors.
 
 Current validation commands:
 
@@ -99,79 +100,76 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Use the Shared Task Board for Ready Work
+### 1. Run the Numerical Accuracy Audit for RUN-0003
 
-The repository now has a dedicated live task board and agent operating model.
+Highest-value next task:
 
-Best next operating rule:
+- `TASK-0011`
 
-- choose one `READY` task from [../tasks/ACTIVE.md](../tasks/ACTIVE.md);
-- keep local work sequential by default unless tasks are clearly independent;
-- update task state before and after meaningful work.
+Why first:
 
-### 2. Plan the Third Benchmark (EXP-0003)
-
-The pendulum gauntlet milestone is complete. One strong next step remains
-planning EXP-0003 as a diffusion scaling benchmark (TASK-0009, READY).
-
-Best next steps:
-
-- choose one `READY` task from `tasks/ACTIVE.md` (currently TASK-0009 or TASK-0011);
-- produce a benchmark candidate comparison and task spec — no implementation yet;
-- keep damped-oscillator checks extensible for future driven or nonlinear variants;
-- keep the two workflow modules stable and avoid pushing benchmark-specific logic back into `runner.py`.
+- it sharpens the credibility of the next measurable pendulum result;
+- it separates numerical tolerance issues from actual model residuals;
+- it forces report wording to stay honest before broader contributor traffic.
 
 Definition of done:
 
-- the verification summary contains more than one structural physics check beyond fit quality and simple monotonic behavior.
+- the error source is classified as precision, rounding, residual, mixed, or inconclusive;
+- wording uses "validated to tolerance" when symbolic exactness is not proven;
+- validation stays green.
 
-### 3. Add Numerical Accuracy Audit and Tolerance-Aware Reporting
+### 2. Complete a Private Multi-Agent Dry Run
 
-The gauntlet result is strong enough that the project now needs sharper language
-about what the reported residuals mean.
+Next operational milestone:
 
-Best next steps:
+- `TASK-0012`
 
-- treat `VALID_IN_RANGE` as a range-limited numerical validation result, not a
-  claim of symbolic exactness;
-- implement a deterministic high-precision audit for `EXP-0001` so model
-  residuals can be separated from reference-computation uncertainty;
-- prefer wording such as "validated to tolerance" and "approximation residual"
-  in future pendulum-facing notes and reports;
-- use [numerical-accuracy-policy.md](./numerical-accuracy-policy.md) as the
-  baseline wording contract.
+Success looks like:
 
-### 4. Tighten Claim/Knowledge Evidence Semantics
+- at least 3 task-based PRs;
+- at least 2 contributors or agent sessions;
+- each PR links to a task and passes CI;
+- maintainer review happens before merge;
+- the workflow pain points are written down in `docs/multi-agent-dry-run.md`.
 
-The project now has generated status suggestions and a maintainer-facing claim
-promotion policy, but evidence handling can still be stronger.
+### 3. Expand the Physics Planning Queue Without Implementing It Yet
 
-Best next improvements:
+Ready planning tasks:
 
-- optionally track which result artifact informed a proposed update in more than one knowledge note;
-- make patch artifacts easier to consume automatically if future tooling wants machine-readable review hints.
+- `TASK-0013` particle mass relation falsifier planning
+- `TASK-0014` thought-experiment consistency suite planning
+- `TASK-0015` diffusion scaling benchmark planning
+- `TASK-0017` dimensional analysis challenge set
 
-### 5. Improve Maintainer Review Discipline
+Proposed only:
 
-The public collaboration layer now exists and claim-promotion rules are
-documented.
+- `TASK-0016` electromagnetic invariance mini-benchmark planning
 
-Best next docs/tools:
+Rule:
 
-- keep the release checklist and prepared release notes in sync with the actual pre-public validation state;
-- keep claim-promotion language consistent across claims, result artifacts, and review templates;
-- keep `tasks/ACTIVE.md` and `docs/strategy.md` aligned so agents do not drift into stale priorities.
+- plan and scope these tasks now;
+- do not implement the physics or add new benchmark code unless explicitly requested.
 
-### 6. Keep Multi-Benchmark CI Non-Dirty
+### 4. Keep Docs and Gates Aligned
 
-The repository now has two canonical benchmark slices, so CI and smoke tests
-must keep using temp outputs.
+Always keep these files aligned when priorities change:
 
-Best next checks:
+- [status.md](./status.md)
+- [strategy.md](./strategy.md)
+- [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+- [public-release-gates.md](./public-release-gates.md)
+- [private-contributor-pilot.md](./private-contributor-pilot.md)
 
-- preserve `--output-dir` coverage for both workflows;
-- keep `git diff --exit-code` in CI after example runs;
-- avoid tests that rewrite committed `results/` artifacts as part of normal validation.
+### 5. Public Release Remains Gated
+
+Do not prepare the repository as public-ready until all gates are satisfied.
+
+Public release is explicitly downstream of:
+
+- technical stability
+- private contributor pilot evidence
+- at least one measurable scientific result
+- cautious public narrative and README summary
 
 ## Do Not Prioritize Yet
 
@@ -179,6 +177,9 @@ Best next checks:
 - web APIs;
 - multi-agent orchestration runtime;
 - literature ingestion;
+- public launch work before the gates are satisfied;
+- Koide or particle-mass implementation work;
+- `EXP-0003` implementation work;
 - heavy storage backends;
 - speculative theory-graph features before verification quality improves.
 

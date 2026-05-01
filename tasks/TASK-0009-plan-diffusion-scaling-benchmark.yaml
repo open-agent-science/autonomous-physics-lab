@@ -1,7 +1,7 @@
 id: TASK-0009
 title: "Plan EXP-0003 as a diffusion scaling benchmark"
 type: benchmark_planning
-status: READY
+status: REJECTED
 difficulty: medium
 priority: high
 
