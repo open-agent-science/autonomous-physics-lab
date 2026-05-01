@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewMetadata",
+  "description": "Machine-readable companion to patch-style review artifacts for a workflow run.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "result_id",
+    "run_id",
+    "experiment_id",
+    "claim_id",
+    "knowledge_id",
+    "generated_at",
+    "proposed_claim_status",
+    "required_human_review",
+    "evidence_basis",
+    "claim_target_file",
+    "knowledge_target_file",
+    "patch_artifacts"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1"
+    },
+    "artifact_type": {
+      "type": "string",
+      "const": "review_metadata"
+    },
+    "result_id": {
+      "type": "string",
+      "pattern": "^RESULT-[0-9]{4}$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^RUN-[0-9]{4}$"
+    },
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^EXP-[0-9]{4}$"
+    },
+    "claim_id": {
+      "type": "string",
+      "pattern": "^CLAIM-[0-9]{4}$"
+    },
+    "knowledge_id": {
+      "type": "string",
+      "pattern": "^KNOW-[0-9]{4}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "proposed_claim_status": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "PARTIALLY_SUPPORTED",
+        "SUPPORTED",
+        "DISPUTED",
+        "RETRACTED"
+      ]
+    },
+    "required_human_review": {
+      "type": "boolean"
+    },
+    "evidence_basis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "claim_target_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "knowledge_target_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "patch_artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_patch",
+        "knowledge_patch",
+        "review_summary"
+      ],
+      "properties": {
+        "claim_patch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "knowledge_patch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

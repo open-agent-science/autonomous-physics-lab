@@ -16,6 +16,7 @@ from physics_lab.registry import (
     load_hypothesis,
     load_knowledge,
     load_result,
+    load_review_metadata,
     load_task,
 )
 from physics_lab.registry.repository import validate_repository
@@ -91,6 +92,7 @@ def run(
     typer.echo(f"Knowledge update: {outcome.artifacts.knowledge_update_path}")
     typer.echo(f"Knowledge patch: {outcome.artifacts.knowledge_update_patch_path}")
     typer.echo(f"Review summary: {outcome.artifacts.review_summary_path}")
+    typer.echo(f"Review metadata: {outcome.artifacts.review_metadata_path}")
 
 
 @app.command("validate")
@@ -106,6 +108,7 @@ def validate(path: str, kind: Optional[str] = None) -> None:
         "hypothesis": load_hypothesis,
         "knowledge": load_knowledge,
         "result": load_result,
+        "review_metadata": load_review_metadata,
         "task": load_task,
     }
     try:

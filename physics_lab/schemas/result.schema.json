@@ -156,7 +156,8 @@
         "claim_update_patch",
         "knowledge_update",
         "knowledge_update_patch",
-        "review_summary"
+        "review_summary",
+        "review_metadata"
       ],
       "properties": {
         "report": {
@@ -184,6 +185,10 @@
           "minLength": 1
         },
         "review_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_metadata": {
           "type": "string",
           "minLength": 1
         }
