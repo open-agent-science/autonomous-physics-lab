@@ -545,7 +545,7 @@ def _build_knowledge_patch(
         "",
         "`T / T0 = (2 / pi) * K(k^2)` where `k = sin(theta / 2)`.",
         "",
-        "The current public-alpha benchmark has two canonical pendulum runs:",
+        "The current private-alpha benchmark has two canonical pendulum runs:",
         "",
         "- `RESULT-0001` / `RUN-0001` for the original low-order candidate comparison;",
         "- `RESULT-0003` / `RUN-0002` for the theory-aware near-separatrix follow-up.",

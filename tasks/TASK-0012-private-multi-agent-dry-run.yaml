@@ -1,0 +1,44 @@
+id: TASK-0012
+title: "Run a private multi-agent contributor dry run"
+type: agent_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Validate the branch-based contributor workflow before public launch."
+  - "Confirm that invited contributors can complete atomic tasks with reproducible review artifacts."
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Run a controlled private contributor pilot."
+  - "Complete at least 3 task-based PRs."
+  - "Use at least 2 contributors or agent sessions."
+  - "Ensure every PR links to a task."
+  - "Ensure every PR passes CI."
+  - "Require maintainer review before merge."
+
+accepted_outputs:
+  - "docs/multi-agent-dry-run.md"
+  - "pilot summary"
+  - "linked PR list"
+  - "workflow lessons learned"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum"
+    - "python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

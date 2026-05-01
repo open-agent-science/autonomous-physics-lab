@@ -1,0 +1,41 @@
+id: TASK-0015
+title: "Plan the diffusion scaling benchmark"
+type: benchmark_planning
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Plan the third benchmark candidate without implementing it yet."
+  - "Keep future scope tied to deterministic references and honest limitations."
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Do planning only, with no benchmark implementation yet."
+  - "Use the core physics relation <x^2> ~ 2Dt."
+  - "Include units."
+  - "Include a stochastic simulation or analytic reference."
+  - "Include scaling-law validation."
+  - "Include noise and finite-sample limitations."
+  - "Define candidate outputs for future EXP-0003."
+
+accepted_outputs:
+  - "task spec"
+  - "benchmark plan"
+  - "future EXP-0003 output outline"
+  - "limitation summary"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
