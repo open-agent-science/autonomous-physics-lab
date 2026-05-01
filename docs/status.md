@@ -23,6 +23,7 @@ Current working slices:
 - basic CI configuration with lint, tests, example run, and repository validation;
 - damped-oscillator exact-solution benchmark with run-based artifacts;
 - contributor workflow documentation and GitHub issue and PR templates.
+- patch-style claim and knowledge review artifacts with maintainer-facing review summaries.
 
 ## Current Verification Checks
 

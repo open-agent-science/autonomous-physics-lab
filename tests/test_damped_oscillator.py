@@ -89,8 +89,13 @@ def test_damped_oscillator_runner_writes_temp_artifacts(tmp_path) -> None:
     knowledge_update_text = (
         tmp_path / "apl-results" / "EXP-0002" / "RUN-0001" / "knowledge_update.md"
     ).read_text(encoding="utf-8")
+    claim_patch_text = (
+        tmp_path / "apl-results" / "EXP-0002" / "RUN-0001" / "claim_update.patch.md"
+    ).read_text(encoding="utf-8")
     assert "## Target Knowledge Note" in knowledge_update_text
     assert "## Suggested Linked Objects Update" in knowledge_update_text
+    assert "## Proposed Diff" in claim_patch_text
+    assert (tmp_path / "apl-results" / "EXP-0002" / "RUN-0001" / "review_summary.md").exists()
 
 
 def test_damped_oscillator_dispatch_writes_temp_artifacts(tmp_path) -> None:
@@ -113,6 +118,8 @@ def test_cli_run_damped_oscillator_smoke() -> None:
     assert result.exit_code == 0
     assert "Completed: Damped Oscillator Regime Verification" in result.stdout
     assert "Result:" in result.stdout
+    assert "Claim patch:" in result.stdout
+    assert "Review summary:" in result.stdout
 
 
 def test_claim_status_suggestion_for_exact_verified_benchmark() -> None:
@@ -326,7 +333,10 @@ def _write_minimal_repository_fixture(
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "report.md").write_text("report\n", encoding="utf-8")
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "metrics.json").write_text("{}", encoding="utf-8")
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "claim_update.md").write_text("claim\n", encoding="utf-8")
+    (repo_root / "results" / "EXP-0001" / "RUN-0001" / "claim_update.patch.md").write_text("claim patch\n", encoding="utf-8")
     (repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.md").write_text("knowledge\n", encoding="utf-8")
+    (repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.patch.md").write_text("knowledge patch\n", encoding="utf-8")
+    (repo_root / "results" / "EXP-0001" / "RUN-0001" / "review_summary.md").write_text("summary\n", encoding="utf-8")
 
     config_input = repo_root / "examples" / "temp.yaml"
     experiment_input = repo_root / "experiments" / "EXP-0001-temp.yaml"
@@ -390,7 +400,10 @@ def _write_minimal_repository_fixture(
               report: results/EXP-0001/RUN-0001/report.md
               metrics: results/EXP-0001/RUN-0001/metrics.json
               claim_update: results/EXP-0001/RUN-0001/claim_update.md
+              claim_update_patch: results/EXP-0001/RUN-0001/claim_update.patch.md
               knowledge_update: results/EXP-0001/RUN-0001/knowledge_update.md
+              knowledge_update_patch: results/EXP-0001/RUN-0001/knowledge_update.patch.md
+              review_summary: results/EXP-0001/RUN-0001/review_summary.md
             scores:
               - model_id: model_theta2
                 formula: 1 + a*theta^2
@@ -477,7 +490,10 @@ def test_repository_strict_detects_orphan_result(tmp_path) -> None:
     (orphan_run_dir / "report.md").write_text("report\n", encoding="utf-8")
     (orphan_run_dir / "metrics.json").write_text("{}", encoding="utf-8")
     (orphan_run_dir / "claim_update.md").write_text("claim\n", encoding="utf-8")
+    (orphan_run_dir / "claim_update.patch.md").write_text("claim patch\n", encoding="utf-8")
     (orphan_run_dir / "knowledge_update.md").write_text("knowledge\n", encoding="utf-8")
+    (orphan_run_dir / "knowledge_update.patch.md").write_text("knowledge patch\n", encoding="utf-8")
+    (orphan_run_dir / "review_summary.md").write_text("summary\n", encoding="utf-8")
     inputs_dir = orphan_run_dir / "inputs"
     inputs_dir.mkdir(parents=True, exist_ok=True)
     for name in ("config.yaml", "experiment.yaml", "hypothesis.yaml", "task.yaml"):
@@ -525,7 +541,10 @@ def test_repository_strict_detects_orphan_result(tmp_path) -> None:
               report: results/EXP-0001/RUN-9999/report.md
               metrics: results/EXP-0001/RUN-9999/metrics.json
               claim_update: results/EXP-0001/RUN-9999/claim_update.md
+              claim_update_patch: results/EXP-0001/RUN-9999/claim_update.patch.md
               knowledge_update: results/EXP-0001/RUN-9999/knowledge_update.md
+              knowledge_update_patch: results/EXP-0001/RUN-9999/knowledge_update.patch.md
+              review_summary: results/EXP-0001/RUN-9999/review_summary.md
             scores:
               - model_id: model_theta2
                 formula: 1 + a*theta^2

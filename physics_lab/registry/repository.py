@@ -344,7 +344,10 @@ def _strict_required_run_artifacts(
         "metrics.json": run_dir / "metrics.json",
         "report.md": run_dir / "report.md",
         "claim_update.md": run_dir / "claim_update.md",
+        "claim_update.patch.md": run_dir / "claim_update.patch.md",
         "knowledge_update.md": run_dir / "knowledge_update.md",
+        "knowledge_update.patch.md": run_dir / "knowledge_update.patch.md",
+        "review_summary.md": run_dir / "review_summary.md",
         "inputs/config.yaml": run_dir / "inputs" / "config.yaml",
         "inputs/experiment.yaml": run_dir / "inputs" / "experiment.yaml",
         "inputs/hypothesis.yaml": run_dir / "inputs" / "hypothesis.yaml",
@@ -366,7 +369,10 @@ def _strict_required_run_artifacts(
         "report": _relative_path(run_dir / "report.md", root_path),
         "metrics": _relative_path(run_dir / "metrics.json", root_path),
         "claim_update": _relative_path(run_dir / "claim_update.md", root_path),
+        "claim_update_patch": _relative_path(run_dir / "claim_update.patch.md", root_path),
         "knowledge_update": _relative_path(run_dir / "knowledge_update.md", root_path),
+        "knowledge_update_patch": _relative_path(run_dir / "knowledge_update.patch.md", root_path),
+        "review_summary": _relative_path(run_dir / "review_summary.md", root_path),
     }
     for artifact_name, expected_path in expected_artifact_paths.items():
         actual_path = str(payload["artifacts"].get(artifact_name, ""))

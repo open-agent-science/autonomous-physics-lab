@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import difflib
 import hashlib
 from pathlib import Path
+import re
 import subprocess
 from typing import Any
 
@@ -19,7 +21,10 @@ class ExperimentArtifacts:
     report_path: Path
     metrics_path: Path
     claim_update_path: Path
+    claim_update_patch_path: Path
     knowledge_update_path: Path
+    knowledge_update_patch_path: Path
+    review_summary_path: Path
 
 
 @dataclass(frozen=True)
@@ -165,3 +170,118 @@ def best_result_verdict(model_verdict: str) -> str:
     if model_verdict == "VALID":
         return "VALID_IN_RANGE"
     return model_verdict
+
+
+def replace_frontmatter_field(text: str, field_name: str, new_value: str) -> str:
+    """Replace a simple scalar field inside YAML front matter."""
+    pattern = re.compile(rf"(?m)^({re.escape(field_name)}:\s*).*$")
+    updated_text, count = pattern.subn(rf"\1{new_value}", text, count=1)
+    if count != 1:
+        raise ValueError(f"Unable to replace front matter field: {field_name}")
+    return updated_text
+
+
+def replace_markdown_section(text: str, heading: str, new_body: str) -> str:
+    """Replace the body of a markdown `## Heading` section."""
+    normalized_body = new_body.strip("\n")
+    pattern = re.compile(
+        rf"(?ms)(^## {re.escape(heading)}\n\n)(.*?)(?=^## |\Z)"
+    )
+
+    def _replace(match: re.Match[str]) -> str:
+        return f"{match.group(1)}{normalized_body}\n\n"
+
+    updated_text, count = pattern.subn(_replace, text, count=1)
+    if count != 1:
+        raise ValueError(f"Unable to replace markdown section: {heading}")
+    return updated_text
+
+
+def render_patch_artifact(
+    *,
+    title: str,
+    target_file: str,
+    evidence_basis: list[str],
+    original_text: str,
+    proposed_text: str,
+    proposed_status: str | None = None,
+    sections_to_update: list[str] | None = None,
+    rationale: str | None = None,
+) -> str:
+    """Render a maintainer-facing patch artifact with a unified diff."""
+    diff_lines = list(
+        difflib.unified_diff(
+            original_text.splitlines(),
+            proposed_text.splitlines(),
+            fromfile=target_file,
+            tofile=f"{target_file} (proposed)",
+            lineterm="",
+        )
+    )
+    diff_text = (
+        "\n".join(diff_lines)
+        if diff_lines
+        else "# No textual diff proposed; the current file already matches this suggested update."
+    )
+    lines = [
+        f"# {title}",
+        "",
+        "## Target File",
+        "",
+        f"`{target_file}`",
+        "",
+    ]
+    if proposed_status is not None:
+        lines.extend(["## Proposed Status", "", f"`{proposed_status}`", ""])
+    if sections_to_update:
+        lines.extend(["## Sections To Update", ""])
+        lines.extend([f"- `{section}`" for section in sections_to_update])
+        lines.append("")
+    lines.extend(["## Evidence Basis", ""])
+    lines.extend([f"- `{item}`" for item in evidence_basis])
+    lines.extend(["", "## Required Human Review", "", "Yes", ""])
+    if rationale is not None:
+        lines.extend(["## Rationale", "", rationale, ""])
+    lines.extend(["## Proposed Diff", "", "```diff", diff_text, "```", ""])
+    return "\n".join(lines)
+
+
+def render_review_summary(
+    *,
+    result_id: str,
+    claim_id: str,
+    knowledge_id: str,
+    suggested_status: str,
+    rationale: str,
+    highlights: list[str],
+    limitations: list[str],
+) -> str:
+    """Render a short maintainer-facing review summary for a canonical run."""
+    lines = [
+        "# Review Summary",
+        "",
+        f"- Result: `{result_id}`",
+        f"- Claim target: `{claim_id}`",
+        f"- Knowledge target: `{knowledge_id}`",
+        f"- Suggested claim status if accepted: `{suggested_status}`",
+        "",
+        "## Why This Artifact Changed",
+        "",
+        rationale,
+        "",
+        "## Highlights",
+        "",
+    ]
+    lines.extend([f"- {highlight}" for highlight in highlights])
+    lines.extend(["", "## Limitations To Preserve", ""])
+    lines.extend([f"- {limitation}" for limitation in limitations])
+    lines.extend(
+        [
+            "",
+            "## Required Maintainer Action",
+            "",
+            "Review the patch artifacts before editing any canonical claim or knowledge file. Do not copy these suggestions blindly into public scientific memory.",
+            "",
+        ]
+    )
+    return "\n".join(lines)

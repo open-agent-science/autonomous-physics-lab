@@ -26,7 +26,11 @@ from physics_lab.workflows.artifacts import (
     best_result_verdict,
     find_repo_root,
     git_commit,
+    render_patch_artifact,
+    render_review_summary,
     relative_or_absolute,
+    replace_frontmatter_field,
+    replace_markdown_section,
     resolve_path,
     serialize_scores,
     snapshot_input_files,
@@ -419,6 +423,227 @@ def _build_knowledge_update(
     return "\n".join(lines)
 
 
+def _build_claim_patch(
+    *,
+    repo_root: Path,
+    claim_id: str,
+    result_id: str,
+    suggestion_status: str,
+    suggestion_rationale: str,
+    train_range: tuple[float, float],
+    test_range: tuple[float, float],
+    run_comparison: dict[str, Any] | None,
+) -> str:
+    claim_path = repo_root / "claims" / "CLAIM-0001-pendulum-period-amplitude.md"
+    if not claim_path.exists():
+        return render_patch_artifact(
+            title=f"Claim Patch Proposal for {claim_id}",
+            target_file="claims/CLAIM-0001-pendulum-period-amplitude.md",
+            proposed_status=suggestion_status,
+            evidence_basis=["RESULT-0001", result_id],
+            original_text="",
+            proposed_text="",
+            rationale="Target claim file is not available in this temporary repository fixture, so no direct diff was generated.",
+        )
+    original_text = claim_path.read_text(encoding="utf-8")
+    proposed_text = replace_frontmatter_field(original_text, "status", suggestion_status)
+    proposed_text = replace_frontmatter_field(
+        proposed_text,
+        "scope",
+        (
+            "Pendulum amplitude correction for the ideal pendulum within the configured benchmark "
+            f"ranges (train {train_range[0]:.4f}-{train_range[1]:.4f} rad; "
+            f"test {test_range[0]:.4f}-{test_range[1]:.4f} rad)."
+        ),
+    )
+    evidence_status = "\n".join(
+        [
+            (
+                "`RESULT-0001` and `RESULT-0003` together support a bounded, "
+                "verification-backed update for amplitude-dependent ideal-pendulum behavior."
+            ),
+            "",
+            (
+                "The evidence remains explicitly range-limited: the best overall verdict is "
+                "`VALID_IN_RANGE`, and the near-separatrix diagnostics still fail even after the "
+                "theory-aware follow-up."
+            ),
+        ]
+    )
+    review_recommendation_lines = [
+        f"A maintainer may promote this claim to `{suggestion_status}` after review.",
+        "",
+        "Reason:",
+        "",
+        "- `RESULT-0001` and `RESULT-0003` both pass the in-range verification gate;",
+        "- the theory-aware follow-up improves separatrix behavior without making the claim exact;",
+        "- remaining separatrix failures still require clearly bounded wording.",
+        "",
+        f"Promotion rationale: {suggestion_rationale}",
+        "",
+        "Do not promote this claim beyond `PARTIALLY_SUPPORTED` unless future evidence removes the remaining separatrix failure mode or narrows the claim further.",
+    ]
+    if run_comparison is not None:
+        comparison = run_comparison["comparison"]
+        review_recommendation_lines.extend(
+            [
+                "",
+                "Evidence from `RUN-0002` relative to `RUN-0001`:",
+                "",
+                f"- Baseline end-ratio-to-exact: `{comparison['baseline_end_ratio_to_exact']:.6f}`",
+                f"- Theory-aware end-ratio-to-exact: `{comparison['theory_aware_end_ratio_to_exact']:.6f}`",
+            ]
+        )
+    proposed_text = replace_markdown_section(proposed_text, "Evidence Status", evidence_status)
+    proposed_text = replace_markdown_section(
+        proposed_text,
+        "Review Recommendation",
+        "\n".join(review_recommendation_lines),
+    )
+    return render_patch_artifact(
+        title=f"Claim Patch Proposal for {claim_id}",
+        target_file="claims/CLAIM-0001-pendulum-period-amplitude.md",
+        proposed_status=suggestion_status,
+        evidence_basis=["RESULT-0001", result_id],
+        original_text=original_text,
+        proposed_text=proposed_text,
+        rationale="Promote only to a range-aware supported status that preserves the remaining near-separatrix limitations.",
+    )
+
+
+def _build_knowledge_patch(
+    *,
+    repo_root: Path,
+    knowledge_id: str,
+    result_id: str,
+    task_id: str,
+    best_score: ModelScore,
+    best_verdict: str,
+    limitations: list[str],
+    verification_summary: dict[str, Any],
+    run_comparison: dict[str, Any] | None,
+) -> str:
+    knowledge_path = repo_root / "knowledge" / "classical_mechanics" / "pendulum.md"
+    if not knowledge_path.exists():
+        return render_patch_artifact(
+            title=f"Knowledge Patch Proposal for {knowledge_id}",
+            target_file="knowledge/classical_mechanics/pendulum.md",
+            evidence_basis=["RESULT-0001", result_id, task_id],
+            original_text="",
+            proposed_text="",
+            sections_to_update=["Known Baseline", "Linked Objects", "Open Questions"],
+            rationale="Target knowledge note is not available in this temporary repository fixture, so no direct diff was generated.",
+        )
+    original_text = knowledge_path.read_text(encoding="utf-8")
+    known_baseline_lines = [
+        "The small-angle period is:",
+        "",
+        "`T0 = 2*pi*sqrt(L/g)`",
+        "",
+        "For finite amplitude, the exact period ratio is:",
+        "",
+        "`T / T0 = (2 / pi) * K(k^2)` where `k = sin(theta / 2)`.",
+        "",
+        "The current public-alpha benchmark has two canonical pendulum runs:",
+        "",
+        "- `RESULT-0001` / `RUN-0001` for the original low-order candidate comparison;",
+        "- `RESULT-0003` / `RUN-0002` for the theory-aware near-separatrix follow-up.",
+        "",
+        "The current best overall candidate remains:",
+        "",
+        f"- `{best_score.model_id}`",
+        f"- verdict: `{best_verdict}`",
+        "",
+        "Verification summary for the latest canonical run:",
+        "",
+        f"- Verification gate passed: `{verification_summary['passed']}`",
+    ]
+    known_baseline_lines.extend(
+        [f"- {check['name']}: `{check['status']}`" for check in verification_summary["checks"]]
+    )
+    if run_comparison is not None:
+        comparison = run_comparison["comparison"]
+        known_baseline_lines.extend(
+            [
+                "",
+                "Theory-aware comparison note:",
+                "",
+                (
+                    f"- Candidate `{run_comparison['theory_aware_model_id']}` improves separatrix "
+                    "behavior relative to `RUN-0001`, but does not replace the simpler best-in-range model."
+                ),
+                f"- Baseline end-ratio-to-exact: `{comparison['baseline_end_ratio_to_exact']:.6f}`",
+                f"- Theory-aware end-ratio-to-exact: `{comparison['theory_aware_end_ratio_to_exact']:.6f}`",
+                f"- Baseline asymptotic max relative error: `{comparison['baseline_separatrix_max_relative_error']:.6f}`",
+                f"- Theory-aware asymptotic max relative error: `{comparison['theory_aware_separatrix_max_relative_error']:.6f}`",
+            ]
+        )
+    linked_objects = "\n".join(
+        [
+            "- Hypothesis: `HYP-0001`",
+            "- Experiment: `EXP-0001`",
+            "- Claim: `CLAIM-0001`",
+            "- Tasks:",
+            "  - `TASK-0001`",
+            f"  - `{task_id}`",
+            "- Canonical results:",
+            "  - `RESULT-0001`",
+            f"  - `{result_id}`",
+        ]
+    )
+    open_questions = "\n".join(
+        [
+            "- Which low-order formula gives the best accuracy/complexity tradeoff?",
+            "- How quickly do polynomial amplitude corrections fail near large angles?",
+            "- Can a theory-aware approximation improve separatrix behavior further without losing in-range clarity or increasing complexity too much?",
+            "- Which limitations must remain explicit if the claim is promoted to `PARTIALLY_SUPPORTED`?",
+        ]
+    )
+    proposed_text = replace_markdown_section(
+        original_text,
+        "Known Baseline",
+        "\n".join(known_baseline_lines),
+    )
+    proposed_text = replace_markdown_section(proposed_text, "Linked Objects", linked_objects)
+    proposed_text = replace_markdown_section(proposed_text, "Open Questions", open_questions)
+    return render_patch_artifact(
+        title=f"Knowledge Patch Proposal for {knowledge_id}",
+        target_file="knowledge/classical_mechanics/pendulum.md",
+        evidence_basis=["RESULT-0001", result_id, task_id],
+        original_text=original_text,
+        proposed_text=proposed_text,
+        sections_to_update=["Known Baseline", "Linked Objects", "Open Questions"],
+        rationale="Expand the knowledge note with explicit verification detail and the theory-aware RUN-0002 comparison without overstating global validity.",
+    )
+
+
+def _build_review_summary_artifact(
+    *,
+    result_id: str,
+    suggestion_status: str,
+    suggestion_rationale: str,
+    limitations: list[str],
+    run_comparison: dict[str, Any] | None,
+) -> str:
+    highlights = [
+        "Best overall model remains `model_theta2_theta4` with verdict `VALID_IN_RANGE`.",
+        "Claim promotion, if accepted, should stop at `PARTIALLY_SUPPORTED` rather than stronger language.",
+    ]
+    if run_comparison is not None:
+        highlights.append(
+            f"Theory-aware candidate `{run_comparison['theory_aware_model_id']}` improves near-separatrix metrics relative to `RUN-0001` without becoming exact."
+        )
+    return render_review_summary(
+        result_id=result_id,
+        claim_id="CLAIM-0001",
+        knowledge_id="KNOW-0001",
+        suggested_status=suggestion_status,
+        rationale=suggestion_rationale,
+        highlights=highlights,
+        limitations=limitations,
+    )
+
+
 def run_pendulum_experiment(config_path: str | Path) -> ExperimentOutcome:
     """Execute the pendulum formula discovery workflow from an example config."""
     return run_pendulum_experiment_with_output(config_path=config_path)
@@ -518,7 +743,10 @@ def run_pendulum_experiment_with_output(
     report_path = run_dir / "report.md"
     metrics_path = run_dir / "metrics.json"
     claim_update_path = run_dir / "claim_update.md"
+    claim_update_patch_path = run_dir / "claim_update.patch.md"
     knowledge_update_path = run_dir / "knowledge_update.md"
+    knowledge_update_patch_path = run_dir / "knowledge_update.patch.md"
+    review_summary_path = run_dir / "review_summary.md"
     run_dir.mkdir(parents=True, exist_ok=True)
     limitations = _build_limitations()
     task_file = task_path(repo_root, task_id)
@@ -568,6 +796,12 @@ def run_pendulum_experiment_with_output(
         run_comparison=run_comparison,
     )
     write_text_atomic(report_path, report_text)
+    claim_status_suggestion = suggest_claim_status(
+        verification_summary=verification_payload,
+        best_verdict=best_verdict,
+        range_limited=True,
+        exact_verification=False,
+    )
 
     result_payload = {
         "result_id": result_id,
@@ -592,7 +826,10 @@ def run_pendulum_experiment_with_output(
             "report": relative_or_absolute(report_path, repo_root),
             "metrics": relative_or_absolute(metrics_path, repo_root),
             "claim_update": relative_or_absolute(claim_update_path, repo_root),
+            "claim_update_patch": relative_or_absolute(claim_update_patch_path, repo_root),
             "knowledge_update": relative_or_absolute(knowledge_update_path, repo_root),
+            "knowledge_update_patch": relative_or_absolute(knowledge_update_patch_path, repo_root),
+            "review_summary": relative_or_absolute(review_summary_path, repo_root),
         },
         "scores": serialize_scores(scores, verdicts),
     }
@@ -635,8 +872,39 @@ def run_pendulum_experiment_with_output(
         verification_summary=verification_payload,
         run_comparison=run_comparison,
     )
+    claim_patch_text = _build_claim_patch(
+        repo_root=repo_root,
+        claim_id="CLAIM-0001",
+        result_id=result_id,
+        suggestion_status=claim_status_suggestion.status,
+        suggestion_rationale=claim_status_suggestion.rationale,
+        train_range=(float(train_theta[0]), float(train_theta[-1])),
+        test_range=(float(test_theta[0]), float(test_theta[-1])),
+        run_comparison=run_comparison,
+    )
+    knowledge_patch_text = _build_knowledge_patch(
+        repo_root=repo_root,
+        knowledge_id="KNOW-0001",
+        result_id=result_id,
+        task_id=task_id,
+        best_score=best_score,
+        best_verdict=best_verdict,
+        limitations=limitations,
+        verification_summary=verification_payload,
+        run_comparison=run_comparison,
+    )
+    review_summary_text = _build_review_summary_artifact(
+        result_id=result_id,
+        suggestion_status=claim_status_suggestion.status,
+        suggestion_rationale=claim_status_suggestion.rationale,
+        limitations=limitations,
+        run_comparison=run_comparison,
+    )
     write_text_atomic(claim_update_path, claim_update_text)
+    write_text_atomic(claim_update_patch_path, claim_patch_text)
     write_text_atomic(knowledge_update_path, knowledge_update_text)
+    write_text_atomic(knowledge_update_patch_path, knowledge_patch_text)
+    write_text_atomic(review_summary_path, review_summary_text)
 
     return ExperimentOutcome(
         title=str(experiment["title"]),
@@ -654,6 +922,9 @@ def run_pendulum_experiment_with_output(
             report_path=report_path,
             metrics_path=metrics_path,
             claim_update_path=claim_update_path,
+            claim_update_patch_path=claim_update_patch_path,
             knowledge_update_path=knowledge_update_path,
+            knowledge_update_patch_path=knowledge_update_patch_path,
+            review_summary_path=review_summary_path,
         ),
     )

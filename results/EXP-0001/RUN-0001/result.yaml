@@ -127,7 +127,10 @@ artifacts:
   report: results/EXP-0001/RUN-0001/report.md
   metrics: results/EXP-0001/RUN-0001/metrics.json
   claim_update: results/EXP-0001/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0001/RUN-0001/claim_update.patch.md
   knowledge_update: results/EXP-0001/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0001/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0001/RUN-0001/review_summary.md
 scores:
 - model_id: model_theta2_theta4
   formula: 1 + a*theta^2 + b*theta^4

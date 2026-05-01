@@ -4,8 +4,9 @@
 
 This document defines when a `CLAIM-*` file may move beyond `DRAFT`.
 
-The repository already generates `claim_update.md` artifacts from validated
-results, but those artifacts are suggestions, not automatic repository edits.
+The repository already generates `claim_update.md` and
+`claim_update.patch.md` artifacts from validated results, but those artifacts
+are suggestions, not automatic repository edits.
 
 Claim promotion is a deliberate maintainer review step.
 
@@ -87,7 +88,7 @@ Use `SUPERSEDED` when:
 
 Before promoting a claim, confirm:
 
-1. `claim_update.md` has been reviewed but not copied blindly.
+1. `claim_update.md` and `claim_update.patch.md` have been reviewed but not copied blindly.
 2. Every referenced `RESULT-*` exists and passes repository validation.
 3. The claim `scope` field matches the evidence scope.
 4. The body text does not overclaim beyond the referenced benchmark.

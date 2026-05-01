@@ -11,5 +11,8 @@ Expected outputs per run:
 - `metrics.json`
 - `report.md`
 - `claim_update.md`
+- `claim_update.patch.md`
 - `knowledge_update.md`
+- `knowledge_update.patch.md`
+- `review_summary.md`
 - optional plots in later phases

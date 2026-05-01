@@ -30,7 +30,11 @@ from physics_lab.workflows.artifacts import (
     best_result_verdict,
     find_repo_root,
     git_commit,
+    render_patch_artifact,
+    render_review_summary,
     relative_or_absolute,
+    replace_frontmatter_field,
+    replace_markdown_section,
     resolve_path,
     serialize_scores,
     snapshot_input_files,
@@ -593,6 +597,166 @@ def _build_damped_knowledge_update(
     return "\n".join(lines)
 
 
+def _build_damped_claim_patch(
+    *,
+    repo_root: Path,
+    result_id: str,
+    suggestion_status: str,
+    suggestion_rationale: str,
+) -> str:
+    claim_path = repo_root / "claims" / "CLAIM-0002-damped-oscillator-regimes.md"
+    if not claim_path.exists():
+        return render_patch_artifact(
+            title="Claim Patch Proposal for CLAIM-0002",
+            target_file="claims/CLAIM-0002-damped-oscillator-regimes.md",
+            proposed_status=suggestion_status,
+            evidence_basis=[result_id],
+            original_text="",
+            proposed_text="",
+            rationale="Target claim file is not available in this temporary repository fixture, so no direct diff was generated.",
+        )
+    original_text = claim_path.read_text(encoding="utf-8")
+    proposed_text = replace_frontmatter_field(original_text, "status", suggestion_status)
+    proposed_text = replace_frontmatter_field(
+        proposed_text,
+        "scope",
+        "Exact regime verification for the linear, unforced damped harmonic oscillator under the configured benchmark scenarios.",
+    )
+    evidence_status = "\n".join(
+        [
+            "`RESULT-0002` passes the current exact, in-scope verification stack for the configured damped-oscillator scenarios.",
+            "",
+            "This remains maintainer-reviewed evidence rather than an automatic promotion, but the current benchmark supports a narrow `SUPPORTED` interpretation within its stated scope.",
+        ]
+    )
+    review_recommendation = "\n".join(
+        [
+            f"A maintainer may promote this claim to `{suggestion_status}` after review.",
+            "",
+            "Reason:",
+            "",
+            "- `RESULT-0002` passes all configured analytic verification checks;",
+            "- the claim is already scoped to the linear, unforced damped oscillator;",
+            "- no in-scope verification failures remain for this benchmark.",
+            "",
+            f"Promotion rationale: {suggestion_rationale}",
+            "",
+            "Do not broaden the claim beyond the exact linear benchmark without additional evidence for driven or nonlinear cases.",
+        ]
+    )
+    proposed_text = replace_markdown_section(proposed_text, "Evidence Status", evidence_status)
+    proposed_text = replace_markdown_section(
+        proposed_text,
+        "Review Recommendation",
+        review_recommendation,
+    )
+    return render_patch_artifact(
+        title="Claim Patch Proposal for CLAIM-0002",
+        target_file="claims/CLAIM-0002-damped-oscillator-regimes.md",
+        proposed_status=suggestion_status,
+        evidence_basis=[result_id],
+        original_text=original_text,
+        proposed_text=proposed_text,
+        rationale="If a maintainer accepts the current exact benchmark as sufficient, the claim can move from DRAFT to SUPPORTED without widening its scope.",
+    )
+
+
+def _build_damped_knowledge_patch(
+    *,
+    repo_root: Path,
+    result_id: str,
+    task_id: str,
+    verification_summary: dict[str, Any],
+) -> str:
+    knowledge_path = repo_root / "knowledge" / "classical_mechanics" / "damped_oscillator.md"
+    if not knowledge_path.exists():
+        return render_patch_artifact(
+            title="Knowledge Patch Proposal for KNOW-0002",
+            target_file="knowledge/classical_mechanics/damped_oscillator.md",
+            evidence_basis=[result_id, task_id],
+            original_text="",
+            proposed_text="",
+            sections_to_update=["Known Baseline", "Linked Objects", "Open Questions"],
+            rationale="Target knowledge note is not available in this temporary repository fixture, so no direct diff was generated.",
+        )
+    original_text = knowledge_path.read_text(encoding="utf-8")
+    known_baseline = [
+        "The governing equation is:",
+        "",
+        "`m*x'' + c*x' + k*x = 0`",
+        "",
+        "The solution structure depends on the damping ratio:",
+        "",
+        "- underdamped;",
+        "- critically damped;",
+        "- overdamped.",
+        "",
+        "The current canonical benchmark result is:",
+        "",
+        f"- `{result_id}` / `RUN-0001`",
+        "",
+        "Its verification summary passes all current checks:",
+        "",
+        f"- Verification gate passed: `{verification_summary['passed']}`",
+    ]
+    known_baseline.extend(
+        [f"- {check['name']}: `{check['status']}`" for check in verification_summary["checks"]]
+    )
+    linked_objects = "\n".join(
+        [
+            "- Hypothesis: `HYP-0002`",
+            "- Experiment: `EXP-0002`",
+            "- Claim: `CLAIM-0002`",
+            f"- Task: `{task_id}`",
+            f"- Canonical result: `{result_id}`",
+        ]
+    )
+    open_questions = "\n".join(
+        [
+            "- Which exact checks are most reusable when the project adds driven or nonlinear oscillators?",
+            "- How should future benchmarks report energy decay and asymptotic behavior in one shared format?",
+            "- When should this exact linear benchmark be treated as a baseline rather than the main claim evidence?",
+        ]
+    )
+    proposed_text = replace_markdown_section(
+        original_text,
+        "Known Baseline",
+        "\n".join(known_baseline),
+    )
+    proposed_text = replace_markdown_section(proposed_text, "Linked Objects", linked_objects)
+    proposed_text = replace_markdown_section(proposed_text, "Open Questions", open_questions)
+    return render_patch_artifact(
+        title="Knowledge Patch Proposal for KNOW-0002",
+        target_file="knowledge/classical_mechanics/damped_oscillator.md",
+        evidence_basis=[result_id, task_id],
+        original_text=original_text,
+        proposed_text=proposed_text,
+        sections_to_update=["Known Baseline", "Linked Objects", "Open Questions"],
+        rationale="Preserve the exact linear benchmark as a reusable knowledge baseline with explicit verification detail.",
+    )
+
+
+def _build_damped_review_summary(
+    *,
+    result_id: str,
+    suggestion_status: str,
+    suggestion_rationale: str,
+    limitations: list[str],
+) -> str:
+    return render_review_summary(
+        result_id=result_id,
+        claim_id="CLAIM-0002",
+        knowledge_id="KNOW-0002",
+        suggested_status=suggestion_status,
+        rationale=suggestion_rationale,
+        highlights=[
+            "All configured damped-oscillator verification checks pass.",
+            "The claim can stay narrow and benchmark-scoped even if a maintainer promotes it to `SUPPORTED`.",
+        ],
+        limitations=limitations,
+    )
+
+
 def run_damped_oscillator_experiment_with_output(
     config_path: str | Path,
     output_dir: str | Path | None = None,
@@ -650,7 +814,10 @@ def run_damped_oscillator_experiment_with_output(
     report_path = run_dir / "report.md"
     metrics_path = run_dir / "metrics.json"
     claim_update_path = run_dir / "claim_update.md"
+    claim_update_patch_path = run_dir / "claim_update.patch.md"
     knowledge_update_path = run_dir / "knowledge_update.md"
+    knowledge_update_patch_path = run_dir / "knowledge_update.patch.md"
+    review_summary_path = run_dir / "review_summary.md"
     run_dir.mkdir(parents=True, exist_ok=True)
 
     limitations = _damped_limitations()
@@ -690,6 +857,12 @@ def run_damped_oscillator_experiment_with_output(
         verification_summary=verification_payload,
     )
     write_text_atomic(report_path, report_text)
+    claim_status_suggestion = suggest_claim_status(
+        verification_summary=verification_payload,
+        best_verdict="VALID_IN_RANGE",
+        range_limited=False,
+        exact_verification=True,
+    )
 
     result_payload = {
         "result_id": result_id,
@@ -714,7 +887,10 @@ def run_damped_oscillator_experiment_with_output(
             "report": relative_or_absolute(report_path, repo_root),
             "metrics": relative_or_absolute(metrics_path, repo_root),
             "claim_update": relative_or_absolute(claim_update_path, repo_root),
+            "claim_update_patch": relative_or_absolute(claim_update_patch_path, repo_root),
             "knowledge_update": relative_or_absolute(knowledge_update_path, repo_root),
+            "knowledge_update_patch": relative_or_absolute(knowledge_update_patch_path, repo_root),
+            "review_summary": relative_or_absolute(review_summary_path, repo_root),
         },
         "scores": serialize_scores(scores, verdicts),
     }
@@ -743,6 +919,15 @@ def run_damped_oscillator_experiment_with_output(
         ),
     )
     write_text_atomic(
+        claim_update_patch_path,
+        _build_damped_claim_patch(
+            repo_root=repo_root,
+            result_id=result_id,
+            suggestion_status=claim_status_suggestion.status,
+            suggestion_rationale=claim_status_suggestion.rationale,
+        ),
+    )
+    write_text_atomic(
         knowledge_update_path,
         _build_damped_knowledge_update(
             knowledge_id="KNOW-0002",
@@ -751,6 +936,24 @@ def run_damped_oscillator_experiment_with_output(
             hypothesis_id=str(experiment["hypothesis_id"]),
             task_id=task_id,
             verification_summary=verification_payload,
+            limitations=limitations,
+        ),
+    )
+    write_text_atomic(
+        knowledge_update_patch_path,
+        _build_damped_knowledge_patch(
+            repo_root=repo_root,
+            result_id=result_id,
+            task_id=task_id,
+            verification_summary=verification_payload,
+        ),
+    )
+    write_text_atomic(
+        review_summary_path,
+        _build_damped_review_summary(
+            result_id=result_id,
+            suggestion_status=claim_status_suggestion.status,
+            suggestion_rationale=claim_status_suggestion.rationale,
             limitations=limitations,
         ),
     )
@@ -771,6 +974,9 @@ def run_damped_oscillator_experiment_with_output(
             report_path=report_path,
             metrics_path=metrics_path,
             claim_update_path=claim_update_path,
+            claim_update_patch_path=claim_update_patch_path,
             knowledge_update_path=knowledge_update_path,
+            knowledge_update_patch_path=knowledge_update_patch_path,
+            review_summary_path=review_summary_path,
         ),
     )

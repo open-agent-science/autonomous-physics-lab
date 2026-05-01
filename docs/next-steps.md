@@ -78,6 +78,7 @@ Completed:
 - immutable run-input snapshots for canonical result artifacts to keep historical runs validation-stable.
 - section-aware knowledge update artifacts for both benchmark slices, so proposed changes map more directly onto `knowledge/*.md`.
 - strict repository validation with severity-based integrity checks for canonical run artifacts and orphan detection.
+- patch-style claim and knowledge update artifacts plus maintainer-facing review summaries for canonical runs.
 
 Current validation commands:
 
@@ -127,7 +128,7 @@ promotion policy, but evidence handling can still be stronger.
 Best next improvements:
 
 - optionally track which result artifact informed a proposed update in more than one knowledge note;
-- add maintainer-facing review summaries that explain why a canonical artifact changed after regeneration.
+- make patch artifacts easier to consume automatically if future tooling wants machine-readable review hints.
 
 ### 4. Improve Maintainer Review Discipline
 

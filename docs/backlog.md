@@ -35,7 +35,7 @@ when they become active priorities.
 
 - Add plots as optional artifacts.
 - Add structured report sections for limitations and failure cases.
-- Make claim and knowledge update artifacts easier to apply automatically, potentially through patch-style or section-targeted formats.
+- If maintainers want stronger automation later, add a machine-readable companion format for claim and knowledge patch artifacts.
 
 ## Contributor Experience
 

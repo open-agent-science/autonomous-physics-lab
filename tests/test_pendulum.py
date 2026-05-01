@@ -268,7 +268,10 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     report_path = run_dir / "report.md"
     metrics_path = run_dir / "metrics.json"
     claim_update_path = run_dir / "claim_update.md"
+    claim_update_patch_path = run_dir / "claim_update.patch.md"
     knowledge_update_path = run_dir / "knowledge_update.md"
+    knowledge_update_patch_path = run_dir / "knowledge_update.patch.md"
+    review_summary_path = run_dir / "review_summary.md"
 
     assert outcome.result_id == "RESULT-0001"
     assert outcome.run_id == "RUN-0001"
@@ -276,7 +279,10 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert report_path.exists()
     assert metrics_path.exists()
     assert claim_update_path.exists()
+    assert claim_update_patch_path.exists()
     assert knowledge_update_path.exists()
+    assert knowledge_update_patch_path.exists()
+    assert review_summary_path.exists()
 
     result_payload = load_result(result_path)
     metrics_payload = json.loads(metrics_path.read_text(encoding="utf-8"))
@@ -295,6 +301,9 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert result_payload["input_file_hashes"]["task"]["sha256"]
     assert result_payload["verification"]["checks"]
     assert result_payload["artifacts"]["report"].endswith("report.md")
+    assert result_payload["artifacts"]["claim_update_patch"].endswith("claim_update.patch.md")
+    assert result_payload["artifacts"]["knowledge_update_patch"].endswith("knowledge_update.patch.md")
+    assert result_payload["artifacts"]["review_summary"].endswith("review_summary.md")
     assert result_payload["git_commit"] is None
 
     assert metrics_payload["result_id"] == "RESULT-0001"
@@ -302,10 +311,16 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert metrics_payload["verification"]["checks"]
 
     assert "Proposed Update for CLAIM-0001" in claim_update_path.read_text(encoding="utf-8")
+    claim_patch_text = claim_update_patch_path.read_text(encoding="utf-8")
+    assert "## Proposed Diff" in claim_patch_text
+    assert "CLAIM-0001" in claim_patch_text
     knowledge_update_text = knowledge_update_path.read_text(encoding="utf-8")
+    knowledge_patch_text = knowledge_update_patch_path.read_text(encoding="utf-8")
     assert "Proposed Update for KNOW-0001" in knowledge_update_text
     assert "## Target Knowledge Note" in knowledge_update_text
     assert "## Suggested Linked Objects Update" in knowledge_update_text
+    assert "## Proposed Diff" in knowledge_patch_text
+    assert "## Required Maintainer Action" in review_summary_path.read_text(encoding="utf-8")
     assert "## Verification" in report_path.read_text(encoding="utf-8")
 
 
@@ -398,7 +413,10 @@ def test_runner_resolves_config_paths_relative_to_config_location(tmp_path) -> N
     assert outcome.artifacts.report_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "report.md"
     assert outcome.artifacts.metrics_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "metrics.json"
     assert outcome.artifacts.claim_update_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "claim_update.md"
+    assert outcome.artifacts.claim_update_patch_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "claim_update.patch.md"
     assert outcome.artifacts.knowledge_update_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.md"
+    assert outcome.artifacts.knowledge_update_patch_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "knowledge_update.patch.md"
+    assert outcome.artifacts.review_summary_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "review_summary.md"
 
 
 def test_cli_run_smoke() -> None:
@@ -412,7 +430,10 @@ def test_cli_run_smoke() -> None:
     assert "Completed: Pendulum Formula Discovery" in result.stdout
     assert "Result:" in result.stdout
     assert "Claim update:" in result.stdout
+    assert "Claim patch:" in result.stdout
     assert "Knowledge update:" in result.stdout
+    assert "Knowledge patch:" in result.stdout
+    assert "Review summary:" in result.stdout
 
 
 def test_runner_output_override_writes_outside_repo_results(tmp_path) -> None:

@@ -87,7 +87,10 @@ def run(
     typer.echo(f"Report: {outcome.artifacts.report_path}")
     typer.echo(f"Metrics: {outcome.artifacts.metrics_path}")
     typer.echo(f"Claim update: {outcome.artifacts.claim_update_path}")
+    typer.echo(f"Claim patch: {outcome.artifacts.claim_update_patch_path}")
     typer.echo(f"Knowledge update: {outcome.artifacts.knowledge_update_path}")
+    typer.echo(f"Knowledge patch: {outcome.artifacts.knowledge_update_patch_path}")
+    typer.echo(f"Review summary: {outcome.artifacts.review_summary_path}")
 
 
 @app.command("validate")

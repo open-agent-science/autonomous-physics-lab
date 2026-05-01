@@ -4,9 +4,9 @@ experiment_id: EXP-0002
 title: Damped Oscillator Regime Verification
 hypothesis_id: HYP-0002
 task_id: TASK-0002
-generated_at: '2026-04-30T17:26:33.934871+00:00'
+generated_at: '2026-04-30T18:35:27.014501+00:00'
 engine_version: 0.1.0
-git_commit: dc4767ac39698cd8965226e36fb09a8ec5a1cc37
+git_commit: 2815a08004b0c71b3f63d8e64f514ff081ca87ea
 command: physics-lab run examples/damped_oscillator.yaml
 input_file_hashes:
   config:
@@ -108,7 +108,10 @@ artifacts:
   report: results/EXP-0002/RUN-0001/report.md
   metrics: results/EXP-0002/RUN-0001/metrics.json
   claim_update: results/EXP-0002/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0002/RUN-0001/claim_update.patch.md
   knowledge_update: results/EXP-0002/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0002/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0002/RUN-0001/review_summary.md
 scores:
 - model_id: model_critical
   formula: x(t) = exp(-alpha*t) * (A + B*t)
