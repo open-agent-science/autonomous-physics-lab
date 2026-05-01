@@ -593,13 +593,13 @@ def test_validate_repository_smoke() -> None:
     summary = validate_repository(repo_root)
 
     assert summary.counts["claims"] == 2
-    assert summary.counts["examples"] == 2
+    assert summary.counts["examples"] == 3
     assert summary.counts["hypotheses"] == 2
     assert summary.counts["experiments"] == 2
     assert summary.counts["knowledge"] == 2
-    assert summary.counts["tasks"] == 10
+    assert summary.counts["tasks"] == 11
     assert summary.counts["agents"] == 1
-    assert summary.counts["results"] == 3
+    assert summary.counts["results"] == 4
 
 
 def test_validate_repository_detects_missing_reference(tmp_path) -> None:
@@ -653,7 +653,7 @@ def test_cli_validate_repo_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Validated repository:" in result.stdout
-    assert "- examples: 2" in result.stdout
+    assert "- examples: 3" in result.stdout
     assert "- hypotheses: 2" in result.stdout
     assert "- knowledge: 2" in result.stdout
 
@@ -679,7 +679,7 @@ def test_cli_status_smoke() -> None:
 
     assert result.exit_code == 0
     assert "Stage: v0.1-private-alpha in validation" in result.stdout
-    assert "Run id: RUN-0002" in result.stdout
+    assert "Run id: RUN-0003" in result.stdout
     assert "Validation: PASS" in result.stdout
     assert "Best verdict: VALID_IN_RANGE" in result.stdout
     assert "Verification checks:" in result.stdout
@@ -712,3 +712,159 @@ def test_infer_kind_from_path_review_metadata() -> None:
 
     assert infer_kind_from_path("results/EXP-0001/RUN-0001/review_metadata.yaml") == "review_metadata"
     assert infer_kind_from_path("/absolute/results/EXP-0002/RUN-0001/review_metadata.yaml") == "review_metadata"
+
+
+def test_gauntlet_produces_100_unique_candidates() -> None:
+    from physics_lab.engines.gauntlet import build_gauntlet_candidates, atom_family
+
+    atom_groups, models = build_gauntlet_candidates()
+
+    assert len(models) == 100
+    assert len(atom_groups) == 100
+
+    model_ids = [m.model_id for m in models]
+    assert len(set(model_ids)) == 100, "All model IDs must be unique"
+
+    for mid in model_ids:
+        assert mid.startswith("model_"), f"model_id must match schema pattern: {mid}"
+        assert mid == mid.lower(), f"model_id must be lowercase: {mid}"
+
+    families = {atom_family(g) for g in atom_groups}
+    assert "theta_poly" in families
+    assert "x_poly" in families
+
+    size1 = [g for g in atom_groups if len(g) == 1]
+    size2 = [g for g in atom_groups if len(g) == 2]
+    size3 = [g for g in atom_groups if len(g) == 3]
+    assert len(size1) == 10
+    assert len(size2) == 45
+    assert len(size3) == 45
+
+
+def test_gauntlet_candidates_are_numerically_stable() -> None:
+    import numpy as np
+    from physics_lab.engines.gauntlet import build_gauntlet_candidates
+
+    theta = np.linspace(1e-4, np.pi - 1e-3, 50)
+    _, models = build_gauntlet_candidates()
+    for model in models:
+        features = model.feature_builder(theta)
+        assert features.shape == (50, model.complexity_score)
+        assert np.all(np.isfinite(features)), f"Non-finite features for {model.model_id}"
+
+
+def test_gauntlet_run_produces_leaderboard(tmp_path) -> None:
+    import json
+    experiment_path = tmp_path / "EXP-0001-pendulum-formula-discovery.yaml"
+    hypothesis_path = tmp_path / "HYP-0001-pendulum-correction.yaml"
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir()
+    config_path = tmp_path / "pendulum_gauntlet.yaml"
+    experiment_path.write_text(
+        "\n".join([
+            'id: "EXP-0001"',
+            'title: "Pendulum Formula Discovery"',
+            'domain: "classical_mechanics"',
+            'status: "COMPLETED"',
+            'hypothesis_id: "HYP-0001"',
+            "method:",
+            '  type: "formula_discovery"',
+            '  simulator: "exact_pendulum_period_ratio"',
+            '  fitter: "deterministic_least_squares"',
+            "data:",
+            "  amplitude_range_radians:",
+            "    start: 0.01",
+            "    end: 1.5707963267948966",
+            "  sample_count: 80",
+            "candidate_models:",
+            '  - id: "model_theta2"',
+            '    formula: "1 + a*theta^2"',
+        ]) + "\n",
+        encoding="utf-8",
+    )
+    hypothesis_path.write_text(
+        "\n".join([
+            'id: "HYP-0001"',
+            'title: "Pendulum period correction with amplitude terms"',
+            'domain: "classical_mechanics"',
+            'status: "TESTING"',
+            "hypothesis:",
+            '  statement: "The pendulum period ratio can be approximated by low-order amplitude correction formulas."',
+            "  formula_candidates:",
+            '    - "T/T0 = 1 + a*theta^2"',
+            "assumptions:",
+            '  - "Ideal mathematical pendulum"',
+            "variables:",
+            "  theta:",
+            '    unit: "radian"',
+            '    description: "Initial angular amplitude"',
+            "evidence:",
+            "  experiments:",
+            '    - "EXP-0001"',
+            'verdict: "Pending"',
+        ]) + "\n",
+        encoding="utf-8",
+    )
+    _write_task_file(tasks_dir, task_id="TASK-0010")
+    config_path.write_text(
+        "\n".join([
+            f"experiment_path: {experiment_path}",
+            f"hypothesis_path: {hypothesis_path}",
+            "task_id: TASK-0010",
+            "run_id: RUN-0003",
+            "result_id: RESULT-0004",
+            "result_root: results/EXP-0001",
+            "train_fraction: 0.7",
+            "workflow: gauntlet",
+        ]) + "\n",
+        encoding="utf-8",
+    )
+
+    from physics_lab.workflows.gauntlet import run_gauntlet_experiment_with_output
+
+    outcome = run_gauntlet_experiment_with_output(config_path)
+
+    run_dir = tmp_path / "results" / "EXP-0001" / "RUN-0003"
+    assert (run_dir / "result.yaml").exists()
+    assert (run_dir / "report.md").exists()
+    assert (run_dir / "metrics.json").exists()
+    assert (run_dir / "leaderboard.json").exists()
+    assert (run_dir / "leaderboard.md").exists()
+    assert (run_dir / "claim_update.md").exists()
+    assert (run_dir / "review_metadata.yaml").exists()
+
+    assert outcome.result_id == "RESULT-0004"
+    assert outcome.run_id == "RUN-0003"
+    assert len(outcome.scores) == 100
+
+    leaderboard = json.loads((run_dir / "leaderboard.json").read_text(encoding="utf-8"))
+    assert leaderboard["total_candidates"] == 100
+    assert len(leaderboard["entries"]) == 100
+    assert leaderboard["entries"][0]["rank"] == 1
+
+    from physics_lab.registry.results import load_result
+    result_payload = load_result(run_dir / "result.yaml")
+    assert result_payload["result_id"] == "RESULT-0004"
+    assert result_payload["best_verdict"] in ("VALID_IN_RANGE", "PARTIALLY_VALID", "INVALID")
+    assert len(result_payload["scores"]) == 100
+
+
+def test_gauntlet_config_validates_as_example_config() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    load_example_config(repo_root / "examples" / "pendulum_gauntlet.yaml")
+
+
+def test_cli_run_gauntlet_smoke() -> None:
+    runner = CliRunner()
+    result = runner.invoke(
+        app,
+        ["run", "examples/pendulum_gauntlet.yaml", "--output-dir", "/tmp/apl-gauntlet-test"],
+    )
+
+    assert result.exit_code == 0, result.output
+    assert "Completed:" in result.stdout
+    assert "Gauntlet" in result.stdout
+    assert "Best model:" in result.stdout
+    assert "Result:" in result.stdout
+    assert "Claim update:" in result.stdout
+    assert "Review metadata:" in result.stdout

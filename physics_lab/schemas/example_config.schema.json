@@ -41,6 +41,10 @@
       "type": "number",
       "exclusiveMinimum": 0,
       "exclusiveMaximum": 1
+    },
+    "workflow": {
+      "type": "string",
+      "enum": ["standard", "gauntlet"]
     }
   }
 }
