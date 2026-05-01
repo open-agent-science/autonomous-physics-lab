@@ -111,12 +111,12 @@ Best next operating rule:
 
 ### 2. Plan the Third Benchmark (EXP-0003)
 
-The pendulum gauntlet milestone is complete. The next recommended step is planning EXP-0003 as a
-diffusion scaling benchmark (TASK-0009, READY).
+The pendulum gauntlet milestone is complete. One strong next step remains
+planning EXP-0003 as a diffusion scaling benchmark (TASK-0009, READY).
 
 Best next steps:
 
-- choose one `READY` task from `tasks/ACTIVE.md` (currently TASK-0009);
+- choose one `READY` task from `tasks/ACTIVE.md` (currently TASK-0009 or TASK-0011);
 - produce a benchmark candidate comparison and task spec — no implementation yet;
 - keep damped-oscillator checks extensible for future driven or nonlinear variants;
 - keep the two workflow modules stable and avoid pushing benchmark-specific logic back into `runner.py`.
@@ -125,7 +125,23 @@ Definition of done:
 
 - the verification summary contains more than one structural physics check beyond fit quality and simple monotonic behavior.
 
-### 3. Tighten Claim/Knowledge Evidence Semantics
+### 3. Add Numerical Accuracy Audit and Tolerance-Aware Reporting
+
+The gauntlet result is strong enough that the project now needs sharper language
+about what the reported residuals mean.
+
+Best next steps:
+
+- treat `VALID_IN_RANGE` as a range-limited numerical validation result, not a
+  claim of symbolic exactness;
+- implement a deterministic high-precision audit for `EXP-0001` so model
+  residuals can be separated from reference-computation uncertainty;
+- prefer wording such as "validated to tolerance" and "approximation residual"
+  in future pendulum-facing notes and reports;
+- use [numerical-accuracy-policy.md](./numerical-accuracy-policy.md) as the
+  baseline wording contract.
+
+### 4. Tighten Claim/Knowledge Evidence Semantics
 
 The project now has generated status suggestions and a maintainer-facing claim
 promotion policy, but evidence handling can still be stronger.
@@ -135,7 +151,7 @@ Best next improvements:
 - optionally track which result artifact informed a proposed update in more than one knowledge note;
 - make patch artifacts easier to consume automatically if future tooling wants machine-readable review hints.
 
-### 4. Improve Maintainer Review Discipline
+### 5. Improve Maintainer Review Discipline
 
 The public collaboration layer now exists and claim-promotion rules are
 documented.
@@ -146,7 +162,7 @@ Best next docs/tools:
 - keep claim-promotion language consistent across claims, result artifacts, and review templates;
 - keep `tasks/ACTIVE.md` and `docs/strategy.md` aligned so agents do not drift into stale priorities.
 
-### 5. Keep Multi-Benchmark CI Non-Dirty
+### 6. Keep Multi-Benchmark CI Non-Dirty
 
 The repository now has two canonical benchmark slices, so CI and smoke tests
 must keep using temp outputs.

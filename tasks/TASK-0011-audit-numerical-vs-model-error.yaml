@@ -1,0 +1,38 @@
+id: TASK-0011
+title: "Audit numerical vs model error for pendulum benchmark results"
+type: verification_extension
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep benchmark claims tolerance-aware and verification-first"
+  - "Separate approximation residuals from reference-computation uncertainty"
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Use deterministic code only"
+  - "Compare standard reference computation against a higher-precision reference"
+  - "Do not claim exactness without symbolic proof"
+  - "Keep wording range-aware in result artifacts and notes"
+
+accepted_outputs:
+  - "high-precision audit code"
+  - "tests"
+  - "docs update"
+  - "report wording update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
