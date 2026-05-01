@@ -15,6 +15,18 @@ shared execution protocol.
 
 ## READY
 
+### TASK-0011 — Audit numerical vs model error for pendulum benchmark results
+
+Type: `verification_extension`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- high-precision reference audit for pendulum benchmark reporting
+- tolerance-aware wording update for pendulum result artifacts or notes
+- deterministic tests distinguishing approximation residual from reference uncertainty
+
 ### TASK-0009 — Plan `EXP-0003` as a diffusion scaling benchmark
 
 Type: `benchmark_planning`  

@@ -27,6 +27,7 @@ Current working slices:
 - machine-readable `review_metadata.yaml` companion files for patch-style artifacts with a JSON Schema contract.
 - shared agent task board, strategy file, and operating model for multi-agent handoff.
 - pendulum hypothesis gauntlet: 100 deterministic candidates (`RUN-0003` / `RESULT-0004`) with full leaderboard, failure-mode classification, and best model `model_t4_x1` at VALID_IN_RANGE.
+- numerical accuracy and tolerance policy documenting the difference between approximation residuals, coefficient-rounding effects, and reference-computation error.
 
 ## Current Verification Checks
 
@@ -86,6 +87,7 @@ Damped oscillator:
 - Claim files still need deliberate human review before moving from draft text to stronger public statuses.
 - Claim suggestions are generated automatically, but promotion decisions still rely on maintainer judgment.
 - Theory-aware pendulum candidates improve separatrix behavior, but the overall best verdict still remains range-limited rather than globally valid.
+- Public-facing pendulum reporting still needs a deterministic audit that distinguishes model residual from numerical reference error before stronger precision claims are made.
 
 ## Public Repo Status
 
