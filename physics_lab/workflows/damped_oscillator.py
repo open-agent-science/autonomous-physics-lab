@@ -31,6 +31,7 @@ from physics_lab.workflows.artifacts import (
     find_repo_root,
     git_commit,
     render_patch_artifact,
+    render_review_metadata,
     render_review_summary,
     relative_or_absolute,
     replace_frontmatter_field,
@@ -818,6 +819,7 @@ def run_damped_oscillator_experiment_with_output(
     knowledge_update_path = run_dir / "knowledge_update.md"
     knowledge_update_patch_path = run_dir / "knowledge_update.patch.md"
     review_summary_path = run_dir / "review_summary.md"
+    review_metadata_path = run_dir / "review_metadata.yaml"
     run_dir.mkdir(parents=True, exist_ok=True)
 
     limitations = _damped_limitations()
@@ -891,6 +893,7 @@ def run_damped_oscillator_experiment_with_output(
             "knowledge_update": relative_or_absolute(knowledge_update_path, repo_root),
             "knowledge_update_patch": relative_or_absolute(knowledge_update_patch_path, repo_root),
             "review_summary": relative_or_absolute(review_summary_path, repo_root),
+            "review_metadata": relative_or_absolute(review_metadata_path, repo_root),
         },
         "scores": serialize_scores(scores, verdicts),
     }
@@ -958,6 +961,23 @@ def run_damped_oscillator_experiment_with_output(
         ),
     )
 
+    review_metadata_payload = render_review_metadata(
+        result_id=result_id,
+        run_id=run_id,
+        experiment_id=str(experiment["id"]),
+        claim_id="CLAIM-0002",
+        knowledge_id="KNOW-0002",
+        generated_at=str(result_payload["generated_at"]),
+        proposed_claim_status=claim_status_suggestion.status,
+        evidence_basis=[result_id],
+        claim_target_file="claims/CLAIM-0002-damped-oscillator-regimes.md",
+        knowledge_target_file="knowledge/classical_mechanics/damped_oscillator.md",
+        claim_patch_path=relative_or_absolute(claim_update_patch_path, repo_root),
+        knowledge_patch_path=relative_or_absolute(knowledge_update_patch_path, repo_root),
+        review_summary_path=relative_or_absolute(review_summary_path, repo_root),
+    )
+    write_text_atomic(review_metadata_path, yaml.safe_dump(review_metadata_payload, sort_keys=False))
+
     return ExperimentOutcome(
         title=str(experiment["title"]),
         result_id=result_id,
@@ -978,5 +998,6 @@ def run_damped_oscillator_experiment_with_output(
             knowledge_update_path=knowledge_update_path,
             knowledge_update_patch_path=knowledge_update_patch_path,
             review_summary_path=review_summary_path,
+            review_metadata_path=review_metadata_path,
         ),
     )

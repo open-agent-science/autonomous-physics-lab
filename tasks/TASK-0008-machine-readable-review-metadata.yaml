@@ -1,7 +1,7 @@
 id: TASK-0008
 title: "Add machine-readable review metadata for patch-style evidence artifacts"
 type: knowledge_update
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 

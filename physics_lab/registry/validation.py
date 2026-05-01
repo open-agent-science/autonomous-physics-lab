@@ -20,6 +20,7 @@ SCHEMA_FILE_BY_KIND = {
     "task": "task.schema.json",
     "agent": "agent.schema.json",
     "result": "result.schema.json",
+    "review_metadata": "review_metadata.schema.json",
 }
 KIND_BY_DIRECTORY = {
     "claims": "claim",
@@ -68,9 +69,21 @@ def validate_document(data: dict[str, Any], kind: str, source: str | Path) -> di
     return data
 
 
+FILENAME_KIND_MAP: dict[str, str] = {
+    "review_metadata.yaml": "review_metadata",
+}
+
+
 def infer_kind_from_path(path: str | Path) -> str:
-    """Infer schema kind from a repository-relative path."""
+    """Infer schema kind from a repository-relative path.
+
+    Filename-based mappings take precedence over directory-based ones so that
+    files such as ``review_metadata.yaml`` (which live under a ``results/``
+    directory) are not misclassified as ``result`` artifacts.
+    """
     resolved = Path(path)
+    if resolved.name in FILENAME_KIND_MAP:
+        return FILENAME_KIND_MAP[resolved.name]
     for part in reversed(resolved.parts):
         if part in KIND_BY_DIRECTORY:
             return KIND_BY_DIRECTORY[part]

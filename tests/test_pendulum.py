@@ -273,6 +273,8 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     knowledge_update_patch_path = run_dir / "knowledge_update.patch.md"
     review_summary_path = run_dir / "review_summary.md"
 
+    review_metadata_path = run_dir / "review_metadata.yaml"
+
     assert outcome.result_id == "RESULT-0001"
     assert outcome.run_id == "RUN-0001"
     assert result_path.exists()
@@ -283,6 +285,7 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert knowledge_update_path.exists()
     assert knowledge_update_patch_path.exists()
     assert review_summary_path.exists()
+    assert review_metadata_path.exists()
 
     result_payload = load_result(result_path)
     metrics_payload = json.loads(metrics_path.read_text(encoding="utf-8"))
@@ -304,6 +307,7 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert result_payload["artifacts"]["claim_update_patch"].endswith("claim_update.patch.md")
     assert result_payload["artifacts"]["knowledge_update_patch"].endswith("knowledge_update.patch.md")
     assert result_payload["artifacts"]["review_summary"].endswith("review_summary.md")
+    assert result_payload["artifacts"]["review_metadata"].endswith("review_metadata.yaml")
     assert result_payload["git_commit"] is None
 
     assert metrics_payload["result_id"] == "RESULT-0001"
@@ -322,6 +326,22 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert "## Proposed Diff" in knowledge_patch_text
     assert "## Required Maintainer Action" in review_summary_path.read_text(encoding="utf-8")
     assert "## Verification" in report_path.read_text(encoding="utf-8")
+
+    import yaml as _yaml
+    review_metadata = _yaml.safe_load(review_metadata_path.read_text(encoding="utf-8"))
+    assert review_metadata["schema_version"] == "1"
+    assert review_metadata["artifact_type"] == "review_metadata"
+    assert review_metadata["result_id"] == "RESULT-0001"
+    assert review_metadata["run_id"] == "RUN-0001"
+    assert review_metadata["experiment_id"] == "EXP-0001"
+    assert review_metadata["claim_id"] == "CLAIM-0001"
+    assert review_metadata["knowledge_id"] == "KNOW-0001"
+    assert review_metadata["required_human_review"] is True
+    assert isinstance(review_metadata["evidence_basis"], list)
+    assert len(review_metadata["evidence_basis"]) >= 1
+    assert review_metadata["patch_artifacts"]["claim_patch"].endswith("claim_update.patch.md")
+    assert review_metadata["patch_artifacts"]["knowledge_patch"].endswith("knowledge_update.patch.md")
+    assert review_metadata["patch_artifacts"]["review_summary"].endswith("review_summary.md")
 
 
 def test_runner_resolves_config_paths_relative_to_config_location(tmp_path) -> None:
@@ -434,6 +454,7 @@ def test_cli_run_smoke() -> None:
     assert "Knowledge update:" in result.stdout
     assert "Knowledge patch:" in result.stdout
     assert "Review summary:" in result.stdout
+    assert "Review metadata:" in result.stdout
 
 
 def test_runner_output_override_writes_outside_repo_results(tmp_path) -> None:
@@ -657,7 +678,7 @@ def test_cli_status_smoke() -> None:
     result = runner.invoke(app, ["status", "."])
 
     assert result.exit_code == 0
-    assert "Stage: v0.1-public-alpha released" in result.stdout
+    assert "Stage: v0.1-private-alpha in validation" in result.stdout
     assert "Run id: RUN-0002" in result.stdout
     assert "Validation: PASS" in result.stdout
     assert "Best verdict: VALID_IN_RANGE" in result.stdout
@@ -672,3 +693,22 @@ def test_run_dispatches_pendulum_with_output_dir(tmp_path) -> None:
 
     assert outcome.result_id == "RESULT-0003"
     assert outcome.artifacts.result_path == tmp_path / "apl-results" / "EXP-0001" / "RUN-0002" / "result.yaml"
+
+
+def test_cli_validate_review_metadata_smoke() -> None:
+    """CLI validate must correctly identify and validate review_metadata.yaml by filename."""
+    runner = CliRunner()
+    result = runner.invoke(
+        app, ["validate", "results/EXP-0001/RUN-0002/review_metadata.yaml"]
+    )
+
+    assert result.exit_code == 0
+    assert "review_metadata" in result.stdout
+
+
+def test_infer_kind_from_path_review_metadata() -> None:
+    """infer_kind_from_path must return review_metadata for any review_metadata.yaml path."""
+    from physics_lab.registry.validation import infer_kind_from_path
+
+    assert infer_kind_from_path("results/EXP-0001/RUN-0001/review_metadata.yaml") == "review_metadata"
+    assert infer_kind_from_path("/absolute/results/EXP-0002/RUN-0001/review_metadata.yaml") == "review_metadata"

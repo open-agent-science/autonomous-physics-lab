@@ -25,6 +25,7 @@ class ExperimentArtifacts:
     knowledge_update_path: Path
     knowledge_update_patch_path: Path
     review_summary_path: Path
+    review_metadata_path: Path
 
 
 @dataclass(frozen=True)
@@ -244,6 +245,50 @@ def render_patch_artifact(
         lines.extend(["## Rationale", "", rationale, ""])
     lines.extend(["## Proposed Diff", "", "```diff", diff_text, "```", ""])
     return "\n".join(lines)
+
+
+def render_review_metadata(
+    *,
+    result_id: str,
+    run_id: str,
+    experiment_id: str,
+    claim_id: str,
+    knowledge_id: str,
+    generated_at: str,
+    proposed_claim_status: str,
+    evidence_basis: list[str],
+    claim_target_file: str,
+    knowledge_target_file: str,
+    claim_patch_path: str,
+    knowledge_patch_path: str,
+    review_summary_path: str,
+) -> dict[str, Any]:
+    """Build a machine-readable review metadata payload for a workflow run.
+
+    The returned dict is intended to be serialised as YAML alongside the
+    human-readable patch artifacts.  It captures the structured information that
+    a tool or automated reviewer would otherwise have to parse from markdown.
+    """
+    return {
+        "schema_version": "1",
+        "artifact_type": "review_metadata",
+        "result_id": result_id,
+        "run_id": run_id,
+        "experiment_id": experiment_id,
+        "claim_id": claim_id,
+        "knowledge_id": knowledge_id,
+        "generated_at": generated_at,
+        "proposed_claim_status": proposed_claim_status,
+        "required_human_review": True,
+        "evidence_basis": list(evidence_basis),
+        "claim_target_file": claim_target_file,
+        "knowledge_target_file": knowledge_target_file,
+        "patch_artifacts": {
+            "claim_patch": claim_patch_path,
+            "knowledge_patch": knowledge_patch_path,
+            "review_summary": review_summary_path,
+        },
+    }
 
 
 def render_review_summary(

@@ -24,6 +24,7 @@ Current working slices:
 - damped-oscillator exact-solution benchmark with run-based artifacts;
 - contributor workflow documentation and GitHub issue and PR templates.
 - patch-style claim and knowledge review artifacts with maintainer-facing review summaries.
+- machine-readable `review_metadata.yaml` companion files for patch-style artifacts with a JSON Schema contract.
 - shared agent task board, strategy file, and operating model for multi-agent handoff.
 
 ## Current Verification Checks

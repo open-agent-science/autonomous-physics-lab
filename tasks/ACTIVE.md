@@ -30,18 +30,6 @@ Expected output:
 - `results/EXP-0001/RUN-0003/report.md`
 - `docs/notes/pendulum-gauntlet-100.md`
 
-### TASK-0008 — Add machine-readable review metadata for patch-style artifacts
-
-Type: `knowledge_update`  
-Priority: `medium`  
-Suggested size: `medium`
-
-Expected output:
-
-- patch artifact metadata format
-- tests
-- docs update
-
 ### TASK-0009 — Plan `EXP-0003` as a diffusion scaling benchmark
 
 Type: `benchmark_planning`  
@@ -64,7 +52,21 @@ None.
 
 ## REVIEW_READY
 
-None.
+### TASK-0008 — Add machine-readable review metadata for patch-style artifacts
+
+Type: `knowledge_update`  
+Priority: `medium`  
+Suggested size: `medium`
+
+Completed outputs:
+
+- `review_metadata.yaml` generated per-run alongside existing patch artifacts
+- `physics_lab/schemas/review_metadata.schema.json` — JSON Schema 2020-12
+- `render_review_metadata()` in `artifacts.py`
+- `review_metadata` added to result schema artifacts, repository strict validation, CLI output
+- `knowledge_update` added to `STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS`
+- tests updated in `test_pendulum.py` and `test_damped_oscillator.py`
+- `docs/notes/review-metadata-contract.md`
 
 ## BLOCKED
 
