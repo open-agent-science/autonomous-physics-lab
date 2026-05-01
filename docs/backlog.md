@@ -19,13 +19,13 @@ when they become active priorities.
 - Add detection of orphaned artifacts not referenced by any experiment or claim.
 - Add validation that claim status is consistent with available result evidence.
 - Add a lighter-weight report that explains detected artifact drift before regeneration.
-- Add `--fail-on-warnings` support for `validate-repo --strict`.
 
 ## Scientific Verification
 
 - Extend symbolic validation helpers in `physics_lab/engines/symbolic.py` beyond pendulum formula families.
 - Add explicit asymptotic checks for pendulum candidates.
 - Explore whether a future pendulum candidate can outperform the current range-limited best model while also preserving the improved separatrix behavior from `RUN-0002`.
+- Implement `EXP-0003` only after the pendulum gauntlet milestone has been completed and reviewed.
 - Add benchmark workflows beyond pendulum:
   - orbital perturbation
   - diffusion scaling

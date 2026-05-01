@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-`v0.1-public-alpha` released
+`v0.1-private-alpha` in validation
 
 Current working slices:
 
@@ -61,7 +61,7 @@ Damped oscillator:
 - `python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum`
 - `python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped`
 - `python3 -m physics_lab.cli validate-repo .`
-- `python3 -m physics_lab.cli validate-repo . --strict`
+- `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`
 - `python3 -m physics_lab.cli status .`
 - [architecture-index.md](./architecture-index.md) for fast contributor and LLM handoff.
 - [strategy.md](./strategy.md), [agent-operating-model.md](./agent-operating-model.md), and [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for the shared task protocol.
@@ -70,7 +70,7 @@ Damped oscillator:
 
 ## Not Ready Yet
 
-- external agent contribution flow;
+- automated external agent execution and review flow;
 - literature ingestion;
 - public dashboard;
 - theory graph.
@@ -87,12 +87,16 @@ Damped oscillator:
 
 ## Public Repo Status
 
-Suitable for public alpha once:
+Repository is still private while multi-agent workflow and the next visible
+scientific result are being tested.
 
-- local validation stays green;
-- GitHub Actions is green;
-- roadmap and next steps remain honest about scope.
-- release checklist in `docs/release-checklist.md` is satisfied.
+Future public-facing updates should stay gated by:
+
+- local validation;
+- GitHub Actions;
+- `python3 -m physics_lab.cli validate-repo .`;
+- `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`;
+- honest roadmap, status, and task-board docs.
 
 ## Snapshot Utility
 

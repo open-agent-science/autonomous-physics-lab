@@ -15,17 +15,20 @@ shared execution protocol.
 
 ## READY
 
-### TASK-0007 — Add `--fail-on-warnings` support for strict repository validation
+### TASK-0010 — Run Pendulum Hypothesis Gauntlet with 100 candidate formulas
 
-Type: `repository_validation`  
+Type: `formula_discovery`  
 Priority: `high`  
-Suggested size: `small`
+Suggested size: `high`
 
 Expected output:
 
-- `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`
-- tests
-- docs update
+- `results/EXP-0001/RUN-0003/result.yaml`
+- `results/EXP-0001/RUN-0003/metrics.json`
+- `results/EXP-0001/RUN-0003/leaderboard.json`
+- `results/EXP-0001/RUN-0003/leaderboard.md`
+- `results/EXP-0001/RUN-0003/report.md`
+- `docs/notes/pendulum-gauntlet-100.md`
 
 ### TASK-0008 — Add machine-readable review metadata for patch-style artifacts
 
@@ -73,3 +76,4 @@ None.
 - `TASK-0004`
 - `TASK-0005`
 - `TASK-0006`
+- `TASK-0007`

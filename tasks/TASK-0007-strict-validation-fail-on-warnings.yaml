@@ -1,7 +1,7 @@
 id: TASK-0007
 title: "Add fail-on-warnings support for strict repository validation"
 type: repository_validation
-status: READY
+status: DONE
 difficulty: low
 priority: high
 
@@ -19,6 +19,7 @@ accepted_outputs:
   - "code reference"
   - "tests"
   - "docs update"
+  - "CI update"
 
 can_be_done_by:
   - human

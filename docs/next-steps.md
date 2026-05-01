@@ -92,7 +92,7 @@ python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
-python3 -m physics_lab.cli validate-repo . --strict
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
 
 ## Recommended Next Work
@@ -119,6 +119,7 @@ Best next checks:
 - keep damped-oscillator checks extensible for future driven or nonlinear variants.
 - keep the two workflow modules stable and avoid pushing benchmark-specific logic back into `runner.py`.
 - deepen evidence semantics now that both benchmarks have stronger verification gates.
+- execute a broader deterministic pendulum candidate gauntlet before adding a third benchmark.
 
 Definition of done:
 
@@ -141,7 +142,7 @@ documented.
 
 Best next docs/tools:
 
-- keep the release checklist and prepared release notes in sync with the actual public-alpha state;
+- keep the release checklist and prepared release notes in sync with the actual pre-public validation state;
 - keep claim-promotion language consistent across claims, result artifacts, and review templates;
 - keep `tasks/ACTIVE.md` and `docs/strategy.md` aligned so agents do not drift into stale priorities.
 

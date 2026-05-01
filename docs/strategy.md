@@ -2,8 +2,8 @@
 
 ## Current Phase
 
-Post-`v0.1-public-alpha` stabilization with shared agent handoff and tighter
-scientific execution discipline.
+Pre-public alpha validation with shared agent handoff, tighter scientific
+execution discipline, and one measurable benchmark result worth reviewing.
 
 ## Mission
 
@@ -21,7 +21,9 @@ and reusable.
 3. Improve agent handoff so different developers and coding agents can continue
    work without losing context.
 4. Prefer atomic tasks with deterministic outputs and clear validation.
-5. Avoid feature expansion that outruns current verification quality.
+5. Produce one measurable benchmark result before broadening
+   scope.
+6. Avoid feature expansion that outruns current verification quality.
 
 ## Current North-Star Result
 
@@ -37,6 +39,9 @@ The current visible examples are:
 - `EXP-0001` — pendulum formula discovery with range-aware and
   separatrix-aware review artifacts;
 - `EXP-0002` — damped oscillator regime verification with exact linear checks.
+
+The next visible milestone should be a deterministic pendulum candidate
+gauntlet rather than a third benchmark implementation.
 
 ## Current Execution Model
 

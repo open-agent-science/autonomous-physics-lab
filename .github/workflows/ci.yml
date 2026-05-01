@@ -52,3 +52,7 @@ jobs:
       - name: Validate repository artifacts
         run: |
           python -m physics_lab.cli validate-repo .
+
+      - name: Strict validate repository artifacts
+        run: |
+          python -m physics_lab.cli validate-repo . --strict --fail-on-warnings

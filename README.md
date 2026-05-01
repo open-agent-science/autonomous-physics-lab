@@ -18,9 +18,9 @@ The project combines three cores:
 2. A public knowledge base for storing hypotheses, claims, experiments, and results.
 3. An open agent task network so humans and external agents can contribute reproducible work.
 
-## First MVP
+## Original MVP
 
-The first MVP is `Pendulum Formula Discovery`.
+The original MVP was `Pendulum Formula Discovery`.
 
 It should:
 

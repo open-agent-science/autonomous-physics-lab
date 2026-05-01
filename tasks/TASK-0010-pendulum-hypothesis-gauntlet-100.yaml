@@ -1,0 +1,47 @@
+id: TASK-0010
+title: "Run pendulum hypothesis gauntlet with 100 candidate formulas"
+type: formula_discovery
+status: READY
+difficulty: high
+priority: high
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+strategy_alignment:
+  - "Produce a measurable benchmark result from deterministic verification."
+  - "Test many candidate formulas through fixed physics checks rather than broadening scope prematurely."
+
+requirements:
+  - "Generate or enumerate 100 deterministic candidate formulas"
+  - "Use fixed deterministic generation rules, not opaque LLM guesses"
+  - "Check small-angle behavior, in-range accuracy, monotonicity, evenness, separatrix diagnostics, and complexity"
+  - "Classify failure modes"
+  - "Produce a leaderboard"
+  - "Keep all verdicts range-aware"
+  - "Do not promote claims automatically"
+
+accepted_outputs:
+  - "results/EXP-0001/RUN-0003/result.yaml"
+  - "results/EXP-0001/RUN-0003/metrics.json"
+  - "results/EXP-0001/RUN-0003/leaderboard.json"
+  - "results/EXP-0001/RUN-0003/leaderboard.md"
+  - "results/EXP-0001/RUN-0003/report.md"
+  - "docs/notes/pendulum-gauntlet-100.md"
+  - "tests"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum"
+    - "python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

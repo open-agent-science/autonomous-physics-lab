@@ -109,7 +109,7 @@ python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp
 If canonical artifacts or repository rules changed, also run:
 
 ```bash
-python3 -m physics_lab.cli validate-repo . --strict
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
 
 ## Commit Discipline

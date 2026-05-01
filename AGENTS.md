@@ -76,9 +76,9 @@ Use these files as the shared coordination layer:
 
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 
-## Current MVP
+## Original MVP
 
-The first MVP is `Pendulum Formula Discovery`.
+The first MVP was `Pendulum Formula Discovery`.
 
 Goal:
 
@@ -88,15 +88,16 @@ Goal:
 4. Score accuracy and complexity.
 5. Produce a reproducible report.
 
-## Current Public-Alpha Scope
+## Current Benchmark Scope
 
 The repository currently has two working benchmark slices:
 
 - `EXP-0001` — `Pendulum Formula Discovery`
 - `EXP-0002` — `Damped Oscillator Regime Verification`
+- `EXP-0001/RUN-0002` — theory-aware pendulum near-separatrix follow-up
 
-Use that broader public-alpha scope when updating docs, status snapshots, and
-contributor guidance.
+Use that broader benchmark scope when updating docs, status snapshots, and
+contributor guidance during pre-public validation.
 
 ## Planning Files
 

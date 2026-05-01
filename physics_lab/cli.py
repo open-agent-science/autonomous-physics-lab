@@ -123,8 +123,15 @@ def validate_repo(
         "--strict",
         help="Enable stricter repository integrity checks and severity reporting.",
     ),
+    fail_on_warnings: bool = typer.Option(
+        False,
+        "--fail-on-warnings",
+        help="Exit non-zero when strict validation reports warnings.",
+    ),
 ) -> None:
     """Validate all structured repository artifacts and cross-references."""
+    if fail_on_warnings and not strict:
+        raise typer.BadParameter("--fail-on-warnings requires --strict")
     summary = validate_repository(Path(root), strict=strict)
     typer.echo(f"Validated repository: {summary.root}")
     for kind, count in summary.counts.items():
@@ -143,7 +150,7 @@ def validate_repo(
                 typer.echo(f"- {prefix} {issue.path}: {issue.message}")
             else:
                 typer.echo(f"- {prefix} {issue.message}")
-        if summary.error_count > 0:
+        if summary.error_count > 0 or (fail_on_warnings and summary.warning_count > 0):
             raise typer.Exit(code=1)
 
 
