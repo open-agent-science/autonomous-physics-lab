@@ -26,6 +26,7 @@ Current working slices:
 - patch-style claim and knowledge review artifacts with maintainer-facing review summaries.
 - machine-readable `review_metadata.yaml` companion files for patch-style artifacts with a JSON Schema contract.
 - shared agent task board, strategy file, and operating model for multi-agent handoff.
+- pendulum hypothesis gauntlet: 100 deterministic candidates (`RUN-0003` / `RESULT-0004`) with full leaderboard, failure-mode classification, and best model `model_t4_x1` at VALID_IN_RANGE.
 
 ## Current Verification Checks
 
