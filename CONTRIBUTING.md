@@ -16,6 +16,8 @@ If you are opening a GitHub issue or pull request, use the repository templates
 so the change stays linked to experiments, tasks, results, and claim scope.
 Do not invent branch, commit, or PR title formats; use
 `docs/agent-task-protocol.md`.
+The canonical branch format is
+`agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`.
 
 ## Before Opening a PR
 
@@ -56,7 +58,8 @@ If you used an AI agent (Claude Code, Codex, or any LLM tool) to produce or
 review part of a contribution:
 
 - Do **not** add `Co-Authored-By` for AI tools in commit messages.
-- Fill in the **Agent assistance** section in the PR description instead.
+- Fill in the **Agent / Contributor Metadata** section in the PR description instead.
+- Record both the human contributor and the execution tool there.
 - The human opening or approving the PR is the responsible reviewer.
 
 Git history must reflect human authors only. Agent involvement is recorded at

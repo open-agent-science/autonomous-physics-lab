@@ -1,0 +1,70 @@
+id: TASK-0033
+title: "Standardize contributor-agent identity format"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep contributor workflow auditable as more humans use the same agent tools."
+  - "Preserve human accountability while making agent-tool usage analyzable."
+
+input:
+  mode: workflow
+  related_domain: contributor_identity
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/private-contributor-pilot.md"
+    - "docs/contributing-workflow.md"
+    - "CONTRIBUTING.md"
+    - "CLAUDE.md"
+    - "CODEX_TASK.md"
+    - ".github/pull_request_template.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    The repository currently mixes branch names that identify only an agent
+    tool with branch names that identify only a human contributor. That works
+    for a small private pilot, but it does not scale when many contributors
+    use the same tools. The repository needs one canonical identity format
+    that preserves both the human owner and the execution tool.
+
+requirements:
+  - "Update the canonical branch naming convention to agent/<contributor-id>/<agent-id>/task-XXXX-short-slug."
+  - "Define contributor-id as the human responsible for the PR."
+  - "Define agent-id as the execution tool or mode, such as codex, claude, cursor, human, or other."
+  - "Update the PR template to require Agent / Contributor Metadata fields."
+  - "State that AI agents are tools, not git co-authors."
+  - "State that agent attribution belongs in PR metadata, not commit history."
+  - "State that agents must not invent local identity formats."
+  - "Update contributor and agent entrypoint docs to reference the new format."
+  - "Define when agents may create git commits and which git actions remain restricted."
+  - "Do not rename old branches or rewrite git history."
+  - "Set this task to REVIEW_READY when finished, not DONE."
+
+accepted_outputs:
+  - "updated AGENTS.md"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/private-contributor-pilot.md"
+  - "updated docs/contributing-workflow.md"
+  - "updated CONTRIBUTING.md"
+  - "updated CLAUDE.md"
+  - "updated CODEX_TASK.md"
+  - "updated .github/pull_request_template.md"
+  - "updated docs/first-contributor-runbook.md"
+  - "tasks/TASK-0033-standardize-contributor-agent-identity-format.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "./scripts/apl_review_bundle.sh"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
