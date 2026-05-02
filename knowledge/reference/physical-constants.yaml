@@ -1,0 +1,178 @@
+# physical-constants.yaml
+#
+# Reference data warning:
+#   These values are taken from CODATA 2018 recommended values published by
+#   NIST (https://physics.nist.gov/cuu/Constants/). They are standard
+#   reference data, not scientific claims made by this project.
+#   Values marked with uncertainty are exact or have the stated relative
+#   standard uncertainty from CODATA 2018.
+#
+# Format:
+#   symbol:
+#     name: human-readable name
+#     value: numerical value
+#     unit: SI unit string
+#     dimension: dimensional formula (SI base dimensions)
+#     uncertainty: absolute standard uncertainty (omitted if exact)
+#     source: reference
+
+constants:
+
+  # --- Universal ---
+
+  c:
+    name: Speed of light in vacuum
+    value: 299792458
+    unit: "m/s"
+    dimension: "L T^-1"
+    uncertainty: exact
+    source: CODATA 2018 / SI definition
+
+  h:
+    name: Planck constant
+    value: 6.62607015e-34
+    unit: "J·s"
+    dimension: "M L^2 T^-1"
+    uncertainty: exact
+    source: CODATA 2018 / SI definition
+
+  hbar:
+    name: Reduced Planck constant (h-bar)
+    value: 1.054571817e-34
+    unit: "J·s"
+    dimension: "M L^2 T^-1"
+    uncertainty: exact
+    source: "h / (2*pi)"
+
+  G:
+    name: Newtonian constant of gravitation
+    value: 6.67430e-11
+    unit: "m^3 kg^-1 s^-2"
+    dimension: "M^-1 L^3 T^-2"
+    uncertainty: 1.5e-15
+    source: CODATA 2018
+
+  k_B:
+    name: Boltzmann constant
+    value: 1.380649e-23
+    unit: "J/K"
+    dimension: "M L^2 T^-2 Theta^-1"
+    uncertainty: exact
+    source: CODATA 2018 / SI definition
+
+  # --- Electromagnetic ---
+
+  e:
+    name: Elementary charge
+    value: 1.602176634e-19
+    unit: "C"
+    dimension: "I T"
+    uncertainty: exact
+    source: CODATA 2018 / SI definition
+
+  epsilon_0:
+    name: Vacuum electric permittivity
+    value: 8.8541878128e-12
+    unit: "F/m"
+    dimension: "M^-1 L^-3 T^4 I^2"
+    uncertainty: 1.3e-21
+    source: CODATA 2018
+
+  mu_0:
+    name: Vacuum magnetic permeability
+    value: 1.25663706212e-6
+    unit: "N/A^2"
+    dimension: "M L T^-2 I^-2"
+    uncertainty: 1.9e-16
+    source: CODATA 2018
+
+  # --- Atomic and particle ---
+
+  m_e:
+    name: Electron mass
+    value: 9.1093837015e-31
+    unit: "kg"
+    dimension: "M"
+    uncertainty: 2.8e-40
+    source: CODATA 2018
+
+  m_p:
+    name: Proton mass
+    value: 1.67262192369e-27
+    unit: "kg"
+    dimension: "M"
+    uncertainty: 5.1e-37
+    source: CODATA 2018
+
+  m_n:
+    name: Neutron mass
+    value: 1.67492749804e-27
+    unit: "kg"
+    dimension: "M"
+    uncertainty: 9.5e-37
+    source: CODATA 2018
+
+  alpha:
+    name: Fine-structure constant
+    value: 7.2973525693e-3
+    unit: "dimensionless"
+    dimension: "1"
+    uncertainty: 1.1e-12
+    source: CODATA 2018
+
+  N_A:
+    name: Avogadro constant
+    value: 6.02214076e23
+    unit: "mol^-1"
+    dimension: "N^-1"
+    uncertainty: exact
+    source: CODATA 2018 / SI definition
+
+  # --- Thermodynamic ---
+
+  R:
+    name: Molar gas constant
+    value: 8.314462618
+    unit: "J mol^-1 K^-1"
+    dimension: "M L^2 T^-2 N^-1 Theta^-1"
+    uncertainty: exact
+    source: "k_B * N_A"
+
+  sigma:
+    name: Stefan-Boltzmann constant
+    value: 5.670374419e-8
+    unit: "W m^-2 K^-4"
+    dimension: "M T^-3 Theta^-4"
+    uncertainty: exact
+    source: "2*pi^5*k_B^4 / (15*h^3*c^2)"
+
+  # --- Gravitational / geophysical reference ---
+
+  g_n:
+    name: Standard acceleration of gravity (sea level, standard)
+    value: 9.80665
+    unit: "m/s^2"
+    dimension: "L T^-2"
+    uncertainty: exact
+    source: ISO 80000-3 / BIPM
+    note: >
+      This is a conventional reference value, not a measured local value.
+      Actual gravitational acceleration varies by location.
+
+  # --- Mathematical constants used in physics ---
+
+  pi:
+    name: Pi
+    value: 3.141592653589793
+    unit: "dimensionless"
+    dimension: "1"
+    uncertainty: exact
+    source: mathematical constant
+
+  e_euler:
+    name: Euler's number
+    value: 2.718281828459045
+    unit: "dimensionless"
+    dimension: "1"
+    uncertainty: exact
+    source: mathematical constant
