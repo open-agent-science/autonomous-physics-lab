@@ -50,7 +50,6 @@ Expected output:
 - evaluation design
 - scientific constraint summary
 
-
 ### TASK-0015 — Plan the diffusion scaling benchmark
 
 Type: `benchmark_planning`  
@@ -63,7 +62,6 @@ Expected output:
 - benchmark plan
 - future `EXP-0003` output outline
 - limitation summary
-
 
 
 ## PROPOSED
@@ -87,44 +85,16 @@ None.
 
 ## REVIEW_READY
 
-### TASK-0021 — Add AI agent attribution policy
+### TASK-0022 — Add PR review bundle snapshot script
 
 Type: `agent_workflow`  
 Priority: `medium`  
-Branch: `agent/claude/task-0021-ai-attribution-policy`
+Branch: `agent/claude/task-0022-review-bundle-script`
 
 Completed outputs:
 
-- `docs/agent-task-protocol.md` — AI Agent Attribution section added
-- `.github/pull_request_template.md` — Agent assistance section added
-- `CONTRIBUTING.md` — AI Agent Attribution section added
-- `docs/contributing-workflow.md` — AI Agent Attribution section added
-
-### TASK-0017 — Create a dimensional analysis challenge set
-
-Type: `benchmark_planning`  
-Priority: `high`  
-Branch: `agent/claude/task-0017-dimensional-analysis-challenge`
-
-Completed outputs:
-
-- task spec: `tasks/TASK-0017-dimensional-analysis-challenge-set.yaml`
-- challenge-set plan + formula category inventory: `docs/notes/dimensional-analysis-challenge-set.md`
-- machine-readable dataset (50 items): `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml`
-- future public-result angle: EXP-0004 path and public framing in the planning doc
-
-### TASK-0020 — Add pytest-timeout and validation safeguards against hanging tests
-
-Type: `repository_validation`  
-Priority: `medium`  
-Branch: `agent/claude/task-0020-pytest-timeout-safeguards`
-
-Completed outputs:
-
-- `pytest-timeout>=2.0` added to `pyproject.toml` dev dependencies
-- `timeout = 60` configured in `[tool.pytest.ini_options]`
-- `scripts/validate_quick.sh` — fast local iteration shortcut (ruff + pytest only)
-- all 48 tests pass in ~3s under the new timeout
+- `scripts/apl_review_bundle.sh` — produces full diff + commit list vs main
+- `docs/agent-task-protocol.md` — review bundle referenced under Required Validation
 
 ### TASK-0011 — Audit numerical precision versus model residual for the pendulum gauntlet run
 
@@ -187,7 +157,10 @@ Completed outputs:
 
 ## DONE RECENTLY
 
-- `TASK-0014` — thought-experiment consistency-suite planning merged from `agent/claude/task-0014-thought-experiment-plan`
+- `TASK-0021` — AI agent attribution policy (merged)
+- `TASK-0020` — pytest-timeout and quick validation script (merged)
+- `TASK-0017` — dimensional analysis challenge set (merged)
+- `TASK-0014` — thought-experiment consistency-suite planning (merged)
 - `TASK-0003`
 - `TASK-0004`
 - `TASK-0005`
