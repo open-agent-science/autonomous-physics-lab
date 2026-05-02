@@ -112,19 +112,6 @@ None.
 
 ## REVIEW_READY
 
-### TASK-0014 — Plan a thought-experiment consistency suite
-
-Type: `benchmark_planning`  
-Priority: `high`  
-Branch: `agent/claude/task-0014-thought-experiment-plan`
-
-Completed outputs:
-
-- task spec: `tasks/TASK-0014-thought-experiment-consistency-suite-planning.yaml`
-- consistency-suite plan: `docs/notes/thought-experiment-consistency-suite.md`
-- candidate thought-experiment inventory: six SR scenarios (TE-001 through TE-006)
-- future validation outline: four-phase implementation path in the same doc
-
 ### TASK-0019 — Standardize agent branch, commit, and pull request protocol
 
 Type: `agent_workflow`  
@@ -172,6 +159,7 @@ Completed outputs:
 
 ## DONE RECENTLY
 
+- `TASK-0014` — thought-experiment consistency-suite planning merged from `agent/claude/task-0014-thought-experiment-plan`
 - `TASK-0003`
 - `TASK-0004`
 - `TASK-0005`
