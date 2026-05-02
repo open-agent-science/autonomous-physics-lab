@@ -10,8 +10,10 @@ strategy_alignment:
   - "Build toward a public-facing result about catching invalid physics formulas."
 
 input:
-  hypothesis_id: HYP-0001
-  experiment_id: EXP-0001
+  mode: planning_only
+  related_domain: physics_validation
+  related_objects: []
+  planning_context: "Dimensional analysis challenge-set planning"
 
 requirements:
   - "Define a challenge set of formulas for dimensional validation."

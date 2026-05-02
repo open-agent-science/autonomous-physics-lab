@@ -10,8 +10,10 @@ strategy_alignment:
   - "Define falsification-first evaluation before any implementation work."
 
 input:
-  hypothesis_id: HYP-0001
-  experiment_id: EXP-0001
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects: []
+  planning_context: "Particle mass relation falsifier planning"
 
 requirements:
   - "Do planning only, with no implementation yet."

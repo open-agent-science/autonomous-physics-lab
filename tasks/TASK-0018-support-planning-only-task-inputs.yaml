@@ -1,0 +1,53 @@
+id: TASK-0018
+title: "Support planning-only and workflow tasks without fake hypothesis references"
+type: repository_validation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Remove semantic noise before broader contributor testing."
+  - "Keep planning and workflow task metadata honest and easier to understand."
+  - "Preserve strict benchmark references for science execution tasks."
+
+input:
+  mode: workflow
+  related_objects:
+    - TASK-0012
+    - TASK-0013
+    - TASK-0014
+    - TASK-0015
+    - TASK-0016
+    - TASK-0017
+  planning_context: "Support planning-only and workflow task inputs without fake benchmark references."
+
+requirements:
+  - "Allow planning and workflow tasks to avoid fake hypothesis_id and experiment_id references."
+  - "Keep science execution tasks unchanged."
+  - "Update repository validation so science-task references remain strict."
+  - "Update task docs and templates so future contributors use the right input mode."
+  - "Do not add new physics implementation."
+
+accepted_outputs:
+  - "physics_lab/schemas/task.schema.json"
+  - "physics_lab/registry/tasks.py"
+  - "physics_lab/registry/repository.py"
+  - "updated planning and workflow task specs"
+  - "tests"
+  - "docs update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum"
+    - "python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
