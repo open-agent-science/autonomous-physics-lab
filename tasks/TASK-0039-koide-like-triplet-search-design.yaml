@@ -1,0 +1,52 @@
+id: TASK-0039
+title: "Design Koide-like triplet search with baselines"
+type: benchmark_planning
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Define search guardrails before implementing broader particle-mass scans."
+  - "Prevent numerology-driven search scope from outrunning verification quality."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "docs/notes/particle-mass-relation-track.md"
+    - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
+    - "tasks/TASK-0038-historical-tau-holdout-prediction.yaml"
+  planning_context: >
+    The first broad search task should not be implemented until APL has a clear
+    design for allowed triplets, forbidden combinations, baseline comparisons,
+    uncertainty handling, and overfit risk control.
+
+requirements:
+  - "Create docs/notes/koide-like-triplet-search-design.md."
+  - "Define candidate particle families and explicit family-specific cautions."
+  - "List allowed combinations and forbidden-by-default combinations."
+  - "Require a random baseline."
+  - "Require comparison against simpler ratio or power-law baselines."
+  - "Require uncertainty propagation."
+  - "Describe overfit and cherry-picking risks."
+  - "Do not implement the search in this task."
+  - "Do not promote claims."
+
+accepted_outputs:
+  - "docs/notes/koide-like-triplet-search-design.md"
+  - "triplet-search plan"
+  - "baseline design"
+  - "overfit-risk summary"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

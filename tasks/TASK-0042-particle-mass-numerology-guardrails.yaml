@@ -1,0 +1,50 @@
+id: TASK-0042
+title: "Add numerology guardrails for particle mass relation work"
+type: scientific_safety_review
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Protect APL from overclaim and cherry-picking risk in particle-mass work."
+  - "Make the particle-mass track reviewable even when relations look numerically impressive."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "docs/claim-promotion-policy.md"
+    - "docs/notes/particle-mass-relation-track.md"
+  planning_context: >
+    Particle-mass relations are unusually vulnerable to numerology and
+    retrospective storytelling. A dedicated guardrail document should set the
+    rules before implementation work begins.
+
+requirements:
+  - "Create docs/notes/particle-mass-numerology-guardrails.md."
+  - "State that no discovery claim follows from fit quality alone."
+  - "Forbid cherry-picked particle triplets without explicit search accounting."
+  - "Require a complexity penalty for arbitrary constants or tuned exponents."
+  - "Require a random baseline for search tasks."
+  - "Require holdout validation for prediction tasks."
+  - "Require uncertainty propagation where applicable."
+  - "Require explicit particle-mass data sources."
+  - "Do not promote claims."
+
+accepted_outputs:
+  - "docs/notes/particle-mass-numerology-guardrails.md"
+  - "guardrail policy"
+  - "review checklist for future particle-mass tasks"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
