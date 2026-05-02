@@ -62,7 +62,7 @@ Example:
 git checkout -b agent/your-id/task-0023-first-contributor-runbook
 ```
 
-## 7) Run a quick validation pass
+## 7) Run validation before handoff
 
 Use the quick local script first:
 
@@ -70,15 +70,31 @@ Use the quick local script first:
 ./scripts/validate_quick.sh
 ```
 
-Before PR handoff, run repository validation:
+Then run the full required validation set:
 
 ```bash
+python3 -m ruff check .
+python3 -m pytest
+python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
+python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```
 
-## 8) Open a pull request
+## 8) Generate a review bundle
+
+Before opening PR, generate the maintainer review snapshot:
+
+```bash
+./scripts/apl_review_bundle.sh
+```
+
+This creates:
+
+`_snapshots/review_<branch>_<timestamp>.md`
+
+## 9) Open a pull request
 
 Use one PR for one task branch and keep scope atomic.
 
@@ -94,17 +110,6 @@ Example:
 
 `docs(task-0023): add first contributor runbook`
 
-## 9) Generate a review bundle
-
-Before opening PR, generate the maintainer review snapshot:
-
-```bash
-./scripts/apl_review_bundle.sh
-```
-
-This creates:
-
-`_snapshots/review_<branch>_<timestamp>.md`
 
 ## Onboarding Checklist
 
@@ -115,7 +120,7 @@ This creates:
 - Pick one `READY` task from `tasks/ACTIVE.md`.
 - Create branch with the required naming pattern.
 - Run quick validation.
-- Run strict repository validation before PR.
+- Run full required validation before PR handoff.
 - Generate review bundle.
 - Open one PR tied to one task.
 
