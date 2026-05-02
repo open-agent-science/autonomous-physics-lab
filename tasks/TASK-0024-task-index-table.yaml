@@ -1,0 +1,49 @@
+id: TASK-0024
+title: "Create task index table"
+type: documentation
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Improve task discoverability for invited contributors."
+  - "Reduce coordination friction during the private multi-agent pilot."
+
+input:
+  mode: workflow
+  related_domain: task_coordination
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+  planning_context: >
+    Contributors need a compact index of task metadata so they can choose a
+    suitable starting task without scanning every task file manually.
+
+requirements:
+  - "Create docs/task-index.md."
+  - "List each task id."
+  - "List each task title."
+  - "List each task type."
+  - "List each task status."
+  - "List each task difficulty."
+  - "List each task priority."
+  - "Indicate whether the task is a good first-contributor candidate."
+  - "Keep the document in sync with the current task inventory."
+
+accepted_outputs:
+  - "docs/task-index.md"
+  - "task inventory table"
+  - "first-contributor suitability column"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

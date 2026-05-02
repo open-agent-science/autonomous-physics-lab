@@ -63,6 +63,117 @@ Expected output:
 - future `EXP-0003` output outline
 - limitation summary
 
+### TASK-0023 — Create first contributor runbook
+
+Type: `contributor_experience`  
+Priority: `high`  
+Suggested size: `small`
+
+Expected output:
+
+- `docs/first-contributor-runbook.md`
+- onboarding checklist
+- first-contributor workflow note
+
+### TASK-0024 — Create task index table
+
+Type: `documentation`  
+Priority: `medium`  
+Suggested size: `small`
+
+Expected output:
+
+- `docs/task-index.md`
+- task inventory table
+- first-contributor suitability column
+
+### TASK-0025 — Create result artifacts index
+
+Type: `documentation`  
+Priority: `medium`  
+Suggested size: `small`
+
+Expected output:
+
+- `docs/result-artifacts-index.md`
+- run-by-run result summary
+- artifact navigation guide
+
+### TASK-0026 — Add 10 more dimensional-analysis challenge items
+
+Type: `physics_dataset_extension`  
+Priority: `high`  
+Suggested size: `small`
+
+Expected output:
+
+- extended `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml`
+- 10 new challenge items
+- domain coverage note
+
+### TASK-0027 — Create units and physical constants reference
+
+Type: `physics_reference`  
+Priority: `medium`  
+Suggested size: `small`
+
+Expected output:
+
+- `knowledge/reference/units-and-dimensions.md`
+- `knowledge/reference/physical-constants.yaml`
+- reference-data warning note
+
+### TASK-0028 — Plan light-clock thought experiment consistency check
+
+Type: `thought_experiment_planning`  
+Priority: `high`  
+Suggested size: `small`
+
+Expected output:
+
+- `docs/notes/light-clock-consistency-check.md`
+- light-clock planning note
+- future benchmark outline
+
+### TASK-0029 — Audit project language for overclaim risk
+
+Type: `scientific_safety_review`  
+Priority: `high`  
+Suggested size: `small`
+
+Expected output:
+
+- `docs/notes/overclaim-language-audit.md`
+- risky-language inventory
+- safer replacement guidance
+
+### TASK-0030 — Record first friend contributor dry run
+
+Type: `contributor_pilot`  
+Priority: `medium`  
+Suggested size: `small`
+
+Expected output:
+
+- updated `docs/multi-agent-dry-run.md`
+- friend-contributor dry-run entry
+- workflow friction summary
+
+## Recommended first tasks for new contributors
+
+These tasks are independent and safe for first-time contributors.
+
+- `TASK-0023` — create first contributor runbook
+- `TASK-0024` — create task index table
+- `TASK-0025` — create result artifacts index
+- `TASK-0026` — add 10 more dimensional-analysis challenge items
+- `TASK-0027` — create units and physical constants reference
+- `TASK-0028` — plan light-clock thought experiment consistency check
+- `TASK-0029` — audit project language for overclaim risk
+- `TASK-0030` — record first friend contributor dry run
+
+`TASK-0030` should be started after a real first-contributor PR exists, since it
+records an actual dry-run event rather than planning one in the abstract.
 
 ## PROPOSED
 
@@ -84,6 +195,24 @@ Expected output:
 None.
 
 ## REVIEW_READY
+
+### TASK-0031 — Add beginner-friendly contributor task set
+
+Type: `agent_workflow`  
+Priority: `high`  
+Suggested size: `small`
+
+Completed outputs:
+
+- `tasks/TASK-0023-first-contributor-runbook.yaml`
+- `tasks/TASK-0024-task-index-table.yaml`
+- `tasks/TASK-0025-result-artifacts-index.yaml`
+- `tasks/TASK-0026-extend-dimensional-analysis-challenge-set.yaml`
+- `tasks/TASK-0027-units-and-constants-reference.yaml`
+- `tasks/TASK-0028-light-clock-consistency-check-planning.yaml`
+- `tasks/TASK-0029-overclaim-language-audit.yaml`
+- `tasks/TASK-0030-record-friend-contributor-dry-run.yaml`
+- updated `tasks/ACTIVE.md`
 
 ### TASK-0022 — Add PR review bundle snapshot script
 

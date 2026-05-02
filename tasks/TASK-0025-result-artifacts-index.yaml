@@ -1,0 +1,54 @@
+id: TASK-0025
+title: "Create result artifacts index"
+type: documentation
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make existing benchmark outputs easier to inspect without rewriting artifacts."
+  - "Help contributors understand the current scientific memory before adding new work."
+
+input:
+  mode: workflow
+  related_domain: result_navigation
+  related_objects:
+    - "results/EXP-0001/RUN-0001"
+    - "results/EXP-0001/RUN-0002"
+    - "results/EXP-0001/RUN-0003"
+    - "results/EXP-0002/RUN-0001"
+  planning_context: >
+    The repository needs a compact index that explains what the current result
+    runs are for and which files matter, without modifying any canonical result
+    artifacts.
+
+requirements:
+  - "Create docs/result-artifacts-index.md."
+  - "Summarize EXP-0001/RUN-0001."
+  - "Summarize EXP-0001/RUN-0002."
+  - "Summarize EXP-0001/RUN-0003."
+  - "Summarize EXP-0002/RUN-0001."
+  - "For each run, record the result id."
+  - "For each run, record the purpose."
+  - "For each run, record key files."
+  - "For each run, record the main conclusion."
+  - "For each run, record limitations."
+  - "Do not change any result artifacts."
+
+accepted_outputs:
+  - "docs/result-artifacts-index.md"
+  - "run-by-run result summary"
+  - "artifact navigation guide"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

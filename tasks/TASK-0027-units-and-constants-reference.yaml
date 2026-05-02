@@ -1,0 +1,47 @@
+id: TASK-0027
+title: "Create units and physical constants reference"
+type: physics_reference
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Create reusable reference material for future validation tasks."
+  - "Keep common units and constants explicit without promoting them as scientific claims."
+
+input:
+  mode: planning_only
+  related_domain: physics_reference
+  related_objects:
+    - "knowledge"
+    - "docs/strategy.md"
+  planning_context: >
+    The repository needs a small reference layer for dimensions and constants
+    so future tasks can reuse consistent terminology and baseline data.
+
+requirements:
+  - "Create knowledge/reference/units-and-dimensions.md."
+  - "Create knowledge/reference/physical-constants.yaml."
+  - "Include base dimensions."
+  - "Include common derived dimensions."
+  - "Include common physical constants."
+  - "State clearly that constants are reference data, not scientific claims."
+  - "Keep the reference conservative and reusable."
+
+accepted_outputs:
+  - "knowledge/reference/units-and-dimensions.md"
+  - "knowledge/reference/physical-constants.yaml"
+  - "reference-data warning note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
