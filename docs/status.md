@@ -35,6 +35,7 @@ Current working slices:
 - pendulum hypothesis gauntlet: 100 deterministic candidates (`RUN-0003` / `RESULT-0004`) with full leaderboard, failure-mode classification, and best model `model_t4_x1` at VALID_IN_RANGE.
 - numerical accuracy and tolerance policy documenting the difference between approximation residuals, coefficient-rounding effects, and reference-computation error.
 - `TASK-0011` precision-audit artifacts for `RUN-0003`, classifying the reported `3.1e-4` in-range error as model residual rather than elliptic-reference precision drift or six-decimal coefficient rounding.
+- public-facing pendulum gauntlet result-package docs that summarize `RUN-0003`, explain the precision-audit interpretation, and preserve range-aware wording for future release work.
 - private-alpha contribution and release-gating documentation for invited
   branch-based contributors.
 
@@ -83,6 +84,7 @@ Damped oscillator:
 - [private-contributor-pilot.md](./private-contributor-pilot.md) for invited contributors.
 - [public-release-gates.md](./public-release-gates.md) for the conditions required before going public.
 - [github-branch-protection-plan.md](./github-branch-protection-plan.md) for staged PR discipline.
+- [results/pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) for the current measurable pendulum result package.
 
 ## Not Ready Yet
 
@@ -107,6 +109,9 @@ Damped oscillator:
 
 Repository is still private while the contributor pilot and the next visible
 scientific result are being tested.
+
+A public-facing pendulum result package is now prepared internally, but that
+does not change the private-repo gate or authorize broader public claims.
 
 Future public-facing updates should stay gated by:
 
