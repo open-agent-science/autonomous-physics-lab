@@ -1,0 +1,49 @@
+id: TASK-0020
+title: "Add pytest-timeout and validation safeguards against hanging tests"
+type: repository_validation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep CI and local validation fast and reliable."
+  - "Prevent silent hangs from blocking agent task execution."
+
+input:
+  mode: workflow
+  related_objects: []
+  planning_context: >
+    Observed: a validation command chain (ruff + pytest + validate-repo) ran
+    for 20+ minutes in a Claude Code session without completing. Root cause
+    was likely a slow API response during generation, not a code hang — but
+    the repository has no safeguard against genuinely hanging tests either.
+    This task adds pytest-timeout so any future stuck test fails fast, and
+    optionally adds a lightweight validation shortcut for quick iteration.
+
+requirements:
+  - "Add pytest-timeout to dev dependencies (pyproject.toml or requirements)."
+  - "Configure a per-test timeout in pyproject.toml [tool.pytest.ini_options] (suggested: 60s)."
+  - "Verify all existing 48 tests still pass within the timeout."
+  - "Optionally add a Makefile or scripts/validate_quick.sh shortcut that runs only ruff and pytest (no example runs) for fast iteration feedback."
+  - "Do not change any test logic — only add the timeout guard."
+  - "Update agent-task-protocol.md or AGENTS.md if the validation section should mention the timeout."
+
+accepted_outputs:
+  - "pytest-timeout installed and configured"
+  - "all 48 tests pass under the new timeout"
+  - "optional quick-validation shortcut script or Makefile target"
+  - "updated pyproject.toml"
+  - "docs update if validation instructions changed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
