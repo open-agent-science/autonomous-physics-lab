@@ -1,0 +1,49 @@
+id: TASK-0028
+title: "Plan light-clock thought experiment consistency check"
+type: thought_experiment_planning
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Extend verification-first thought-experiment planning in small reviewable increments."
+  - "Create a beginner-friendly planning task tied to known invariants rather than speculative claims."
+
+input:
+  mode: planning_only
+  related_domain: relativity
+  related_objects:
+    - "TASK-0014"
+    - "docs/notes/thought-experiment-consistency-suite.md"
+  planning_context: >
+    Break the broader thought-experiment suite into a single light-clock
+    planning artifact that can later become a scoped deterministic benchmark.
+
+requirements:
+  - "Create docs/notes/light-clock-consistency-check.md."
+  - "Do planning only, with no implementation yet."
+  - "Include assumptions."
+  - "Include variables."
+  - "Include the invariant speed of light."
+  - "Include the expected relation."
+  - "Include known limits."
+  - "Include possible failure modes."
+  - "Include a future benchmark plan."
+
+accepted_outputs:
+  - "docs/notes/light-clock-consistency-check.md"
+  - "light-clock planning note"
+  - "future benchmark outline"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
