@@ -24,20 +24,6 @@ supporting workflow context and handoff norms.
 
 ## READY
 
-### TASK-0011 — Audit numerical precision versus model residual for the pendulum gauntlet run
-
-Type: `numerical_audit`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- `docs/numerical-accuracy-policy.md`
-- `results/EXP-0001/RUN-0003/precision_audit.yaml`
-- `results/EXP-0001/RUN-0003/precision_audit.md`
-- tests
-- updated report wording if needed
-
 ### TASK-0012 — Run a private multi-agent contributor dry run
 
 Type: `agent_workflow`  
@@ -111,6 +97,20 @@ Expected output:
 None.
 
 ## REVIEW_READY
+
+### TASK-0011 — Audit numerical precision versus model residual for the pendulum gauntlet run
+
+Type: `numerical_audit`  
+Priority: `high`  
+Branch: `agent/codex/task-0011-numerical-audit`
+
+Completed outputs:
+
+- `docs/numerical-accuracy-policy.md`
+- `results/EXP-0001/RUN-0003/precision_audit.yaml`
+- `results/EXP-0001/RUN-0003/precision_audit.md`
+- tests
+- updated `results/EXP-0001/RUN-0003/report.md` wording
 
 ### TASK-0019 — Standardize agent branch, commit, and pull request protocol
 

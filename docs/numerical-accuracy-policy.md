@@ -127,3 +127,25 @@ For public summaries, use statements like:
 - "Near-separatrix behavior remains a separate verification problem"
 
 This keeps APL scientifically honest while still communicating strong results.
+
+## Current Audited Example: RUN-0003
+
+`TASK-0011` audits the `RUN-0003` best candidate (`model_t4_x1`) against an
+independent quadrature reference for the complete elliptic integral.
+
+Current audit outcome:
+
+- reported test mean relative error: about `3.0524596e-4`;
+- standard reference vs independent quadrature reference mean discrepancy:
+  about `7.2e-17`;
+- six-decimal coefficient-rounding mean discrepancy: about `8.4e-7`;
+- classification: `model_residual`.
+
+Interpretation:
+
+- the reported `3.1e-4` is not a floating-point precision artifact at the
+  scale relevant to the benchmark;
+- it is not primarily a coefficient-rounding artifact from the presentation
+  values used in human-readable notes;
+- it should be interpreted as approximation residual on the configured
+  `RUN-0003` test range.
