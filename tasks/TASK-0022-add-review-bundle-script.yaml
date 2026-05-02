@@ -1,0 +1,43 @@
+id: TASK-0022
+title: "Add PR review bundle snapshot script"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make PR review artifacts consistent and easy to produce for any contributor or agent."
+  - "Support the private multi-agent contributor pilot with better review tooling."
+
+input:
+  mode: workflow
+  related_objects: []
+  planning_context: >
+    The existing apl_snapshot.sh gives a file-tree view but no git diff,
+    making it insufficient for proper PR review. A dedicated review bundle
+    script should produce: branch name, git status, commits vs main, changed
+    files, diff stat, and full diff — all in one Markdown file that can be
+    shared with a reviewer or pasted into a PR comment.
+
+requirements:
+  - "Create scripts/apl_review_bundle.sh."
+  - "Bundle includes: branch, generated_at, git status, commits vs main, changed files, diff stat, full diff."
+  - "Output goes to _snapshots/review_<safe-branch>_<timestamp>.md."
+  - "Script is executable and works from any directory inside the repo."
+  - "Reference the script in docs/agent-task-protocol.md under Required Validation."
+
+accepted_outputs:
+  - "scripts/apl_review_bundle.sh"
+  - "updated docs/agent-task-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

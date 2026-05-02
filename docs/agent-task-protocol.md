@@ -149,6 +149,15 @@ git diff --exit-code
 Use `--output-dir` for routine example runs so committed canonical artifacts do
 not change accidentally.
 
+Before opening a PR, also generate a review bundle for the maintainer:
+
+```bash
+./scripts/apl_review_bundle.sh
+```
+
+This produces `_snapshots/review_<branch>_<timestamp>.md` with the full diff
+vs `main`, commit list, and changed-file summary.
+
 ## Task Execution Flow
 
 1. Read the files listed above.
