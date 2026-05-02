@@ -64,20 +64,6 @@ Expected output:
 - future `EXP-0003` output outline
 - limitation summary
 
-### TASK-0017 — Create a dimensional analysis challenge set
-
-Type: `benchmark_planning`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- task spec
-- challenge-set plan
-- formula category inventory
-- future public-result angle
-
-
 ## PROPOSED
 
 ### TASK-0016 — Plan an electromagnetic invariance mini-benchmark
@@ -98,6 +84,19 @@ Expected output:
 None.
 
 ## REVIEW_READY
+
+### TASK-0017 — Create a dimensional analysis challenge set
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Branch: `agent/claude/task-0017-dimensional-analysis-challenge`
+
+Completed outputs:
+
+- task spec: `tasks/TASK-0017-dimensional-analysis-challenge-set.yaml`
+- challenge-set plan + formula category inventory: `docs/notes/dimensional-analysis-challenge-set.md`
+- machine-readable dataset (50 items): `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml`
+- future public-result angle: EXP-0004 path and public framing in the planning doc
 
 ### TASK-0020 — Add pytest-timeout and validation safeguards against hanging tests
 
