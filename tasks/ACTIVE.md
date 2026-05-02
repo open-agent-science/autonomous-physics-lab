@@ -63,18 +63,6 @@ Expected output:
 - future `EXP-0003` output outline
 - limitation summary
 
-### TASK-0023 — Create first contributor runbook
-
-Type: `contributor_experience`  
-Priority: `high`  
-Suggested size: `small`
-
-Expected output:
-
-- `docs/first-contributor-runbook.md`
-- onboarding checklist
-- first-contributor workflow note
-
 ### TASK-0024 — Create task index table
 
 Type: `documentation`  
@@ -211,6 +199,18 @@ Completed outputs:
 - updated `README.md`
 - updated `docs/status.md`
 - updated `tasks/ACTIVE.md`
+
+### TASK-0023 — Create first contributor runbook
+
+Type: `contributor_experience`  
+Priority: `high`  
+Branch: `agent/codex/task-0023-first-contributor-runbook`
+
+Completed outputs:
+
+- `docs/first-contributor-runbook.md`
+- onboarding checklist
+- first-contributor workflow note
 
 ### TASK-0031 — Add beginner-friendly contributor task set
 
