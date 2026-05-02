@@ -147,6 +147,18 @@ Expected output:
 - friend-contributor dry-run entry
 - workflow friction summary
 
+### TASK-0035 — Refactor maintainer review checks into smaller modules
+
+Type: `code_quality_refactor`  
+Priority: `medium`  
+Suggested size: `medium`
+
+Expected output:
+
+- smaller maintainer review modules under `physics_lab/registry/`
+- stable `apl_review_pr.py` and `apl_closeout_task.py` behavior
+- updated maintainer review tests
+
 ### Developer-friendly tasks
 
 ### TASK-0036 — Create agent contributor quickstart
@@ -321,23 +333,9 @@ Expected output:
 - `tasks/TASK-0036-*.yaml` through `tasks/TASK-0045-*.yaml`
 - updated `tasks/ACTIVE.md`
 - grouped developer/scientist/review task sections
-
-### TASK-0034 — Add maintainer review agent mode
-
-Type: `maintainer_workflow`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- `docs/maintainer-review-agent.md`
-- `docs/review-checklists/maintainer-pr-review-checklist.md`
-- `docs/review-checklists/task-closeout-checklist.md`
-- `scripts/apl_task_closeout_check.py`
-- maintainer closeout guidance
-
 ## DONE RECENTLY
 
+- `TASK-0034` — Add maintainer review agent mode (merged)
 - `TASK-0032` — public scientific result package for Pendulum Gauntlet 100 (merged)
 - `TASK-0031` — beginner-friendly contributor task set (merged)
 - `TASK-0023` — first contributor runbook (merged)
