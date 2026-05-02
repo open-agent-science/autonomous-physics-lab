@@ -64,18 +64,6 @@ Expected output:
 - evaluation design
 - scientific constraint summary
 
-### TASK-0014 — Plan a thought-experiment consistency suite
-
-Type: `benchmark_planning`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- task spec
-- consistency-suite plan
-- candidate thought-experiment inventory
-- future validation outline
 
 ### TASK-0015 — Plan the diffusion scaling benchmark
 
@@ -123,6 +111,19 @@ Expected output:
 None.
 
 ## REVIEW_READY
+
+### TASK-0014 — Plan a thought-experiment consistency suite
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Branch: `agent/claude/task-0014-thought-experiment-plan`
+
+Completed outputs:
+
+- task spec: `tasks/TASK-0014-thought-experiment-consistency-suite-planning.yaml`
+- consistency-suite plan: `docs/notes/thought-experiment-consistency-suite.md`
+- candidate thought-experiment inventory: six SR scenarios (TE-001 through TE-006)
+- future validation outline: four-phase implementation path in the same doc
 
 ### TASK-0019 — Standardize agent branch, commit, and pull request protocol
 
