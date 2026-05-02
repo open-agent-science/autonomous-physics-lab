@@ -17,8 +17,10 @@ The repository remains private until
 satisfied.
 
 Use [../docs/strategy.md](../docs/strategy.md) as the strategic compass and
-[../docs/agent-operating-model.md](../docs/agent-operating-model.md) as the
-shared execution protocol.
+[../docs/agent-task-protocol.md](../docs/agent-task-protocol.md) as the
+canonical execution protocol. Use
+[../docs/agent-operating-model.md](../docs/agent-operating-model.md) for
+supporting workflow context and handoff norms.
 
 ## READY
 
@@ -122,6 +124,20 @@ None.
 
 ## REVIEW_READY
 
+### TASK-0019 — Standardize agent branch, commit, and pull request protocol
+
+Type: `agent_workflow`  
+Priority: `high`  
+Suggested size: `medium`
+
+Completed outputs:
+
+- `docs/agent-task-protocol.md`
+- `CLAUDE.md`
+- updated agent and contributor entrypoints
+- updated PR template
+- aligned task-board guidance
+
 ### TASK-0018 — Support planning-only and workflow tasks without fake hypothesis references
 
 Type: `repository_validation`  
@@ -171,3 +187,8 @@ Completed outputs:
 - database backend
 - public launch
 - claims of "new physics"
+
+## PROPOSED NOTE
+
+`PROPOSED` items are backlog ideas, not active execution tasks. Agents should
+start from `READY` tasks unless a maintainer explicitly redirects them.

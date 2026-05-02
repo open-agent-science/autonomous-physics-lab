@@ -70,11 +70,14 @@ Instead:
 Use these files as the shared coordination layer:
 
 - `docs/strategy.md`
+- `docs/agent-task-protocol.md`
 - `docs/agent-operating-model.md`
 - `tasks/ACTIVE.md`
 - `tasks/TASK-TEMPLATE.yaml`
 
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
+Do not invent task branch, commit, PR, or task-state formats locally.
+Use `docs/agent-task-protocol.md`.
 
 ## Original MVP
 
@@ -104,6 +107,7 @@ contributor guidance during pre-public validation.
 To continue work consistently, use these project documents:
 
 - `docs/strategy.md` for the strategic compass;
+- `docs/agent-task-protocol.md` for the canonical execution protocol;
 - `docs/agent-operating-model.md` for the shared agent workflow;
 - `tasks/ACTIVE.md` for the live task board;
 - `docs/implementation-plan.md` for the broader phased strategy;
@@ -238,8 +242,11 @@ python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```
 
 If a change touches CLI behavior, include a smoke test.
 If a change touches scientific formulas, include a numerical regression test.
+For branch naming, commit messages, PR titles, task-state transitions, and the
+standard execution flow, use `docs/agent-task-protocol.md`.
