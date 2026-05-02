@@ -17,14 +17,17 @@ Every meaningful change should connect back to one or more of:
 ## Recommended Flow
 
 1. Read [AGENTS.md](../AGENTS.md).
-2. Read [docs/status.md](./status.md).
-3. Read [docs/strategy.md](./strategy.md).
-4. Read [tasks/ACTIVE.md](../tasks/ACTIVE.md).
-5. Read [docs/agent-operating-model.md](./agent-operating-model.md).
-6. Pick one existing `READY` task, benchmark, or documentation gap.
-7. Make the smallest reproducible change that advances the repository state.
-8. Run validation before asking for review.
-9. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
+2. Read [docs/agent-task-protocol.md](./agent-task-protocol.md).
+3. Read [docs/status.md](./status.md).
+4. Read [docs/strategy.md](./strategy.md).
+5. Read [tasks/ACTIVE.md](../tasks/ACTIVE.md).
+6. Read [docs/agent-operating-model.md](./agent-operating-model.md).
+7. Pick one existing `READY` task, benchmark, or documentation gap.
+8. Make the smallest reproducible change that advances the repository state.
+9. Run validation before asking for review.
+10. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
+11. Use the branch, commit, PR title, and task-state protocol from
+    [docs/agent-task-protocol.md](./agent-task-protocol.md).
 
 ## Typical Contribution Types
 
@@ -92,6 +95,8 @@ python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+git diff --exit-code
 ```
 
 Optional but recommended for larger work:
@@ -106,7 +111,8 @@ Use the built-in repository templates when contributing through GitHub:
 
 - `Benchmark Improvement` for work on an existing benchmark or verifier;
 - `Hypothesis Proposal` for a new narrow claim, task, or experiment scaffold;
-- the PR template for linked artifacts, validation, and claim-scope review.
+- the PR template for linked artifacts, validation, claim-scope review, and
+  task protocol metadata.
 
 ## Artifact Policy
 
