@@ -147,6 +147,18 @@ Expected output:
 - friend-contributor dry-run entry
 - workflow friction summary
 
+### TASK-0035 — Refactor maintainer review checks into smaller modules
+
+Type: `code_quality_refactor`  
+Priority: `medium`  
+Suggested size: `medium`
+
+Expected output:
+
+- smaller maintainer review modules under `physics_lab/registry/`
+- stable `apl_review_pr.py` and `apl_closeout_task.py` behavior
+- updated maintainer review tests
+
 ## Recommended first tasks for new contributors
 
 These tasks are independent and safe for first-time contributors.
