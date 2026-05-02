@@ -28,6 +28,8 @@ Every meaningful change should connect back to one or more of:
 10. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
 11. Use the branch, commit, PR title, and task-state protocol from
     [docs/agent-task-protocol.md](./agent-task-protocol.md).
+12. When an AI tool is used, record both the human contributor and the agent
+    tool in the PR metadata block.
 
 ## Typical Contribution Types
 
@@ -126,7 +128,8 @@ Use the built-in repository templates when contributing through GitHub:
 If an AI agent assisted with any part of the contribution:
 
 - Do **not** add `Co-Authored-By` for AI tools in commit messages.
-- Fill in the **Agent assistance** section in the PR description.
+- Fill in the **Agent / Contributor Metadata** section in the PR description.
+- Record both the human contributor id and the execution tool.
 - The human opening or approving the PR is responsible for the change.
 
 This keeps git history clean and human accountability explicit. The full

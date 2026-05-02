@@ -54,13 +54,15 @@ Do not start multiple tasks in one branch.
 
 Required branch format:
 
-`agent/<agent-id>/task-<task-number>-<short-slug>`
+`agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
 
 Example:
 
 ```bash
-git checkout -b agent/your-id/task-0023-first-contributor-runbook
+git checkout -b agent/your-id/codex/task-0023-first-contributor-runbook
 ```
+
+Use your human contributor id first, then the execution tool id.
 
 ## 7) Run validation before handoff
 
@@ -97,6 +99,8 @@ This creates:
 ## 9) Open a pull request
 
 Use one PR for one task branch and keep scope atomic.
+Fill in the Agent / Contributor Metadata block in the PR template so both the
+human owner and the execution tool are recorded.
 
 PR title format:
 

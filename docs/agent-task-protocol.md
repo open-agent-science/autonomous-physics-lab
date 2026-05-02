@@ -57,13 +57,19 @@ Rules:
 
 Use exactly this format:
 
-`agent/<agent-id>/task-<task-number>-<short-slug>`
+`agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
 
 Examples:
 
-- `agent/roman/task-0011-numerical-audit`
-- `agent/codex/task-0017-dimensional-challenge`
-- `agent/claude/task-0014-thought-experiment-plan`
+- `agent/roman/codex/task-0011-numerical-audit`
+- `agent/roman/claude/task-0017-dimensional-challenge`
+- `agent/ihor/human/task-0032-public-result-package`
+
+Field meanings:
+
+- `contributor-id`: the human responsible for the PR and review loop.
+- `agent-id`: the execution mode or tool, such as `codex`, `claude`,
+  `cursor`, `human`, or `other`.
 
 Rules:
 
@@ -72,6 +78,12 @@ Rules:
 - no underscores
 - include the task number
 - keep the slug short
+- do not invent fantasy agent identities as the canonical id
+
+Historical note:
+
+- older private-pilot branches may still use `agent/<agent-id>/...`
+- do not rename old branches or rewrite history just to match the new format
 
 ## Commit Message Format
 
@@ -123,6 +135,12 @@ Every PR should include:
 - Task ID
 - task file path
 - branch name
+- contributor id
+- GitHub username
+- agent tool
+- model/version if known
+- agent session id
+- human reviewer
 - summary
 - changed files
 - validation commands
@@ -172,17 +190,18 @@ vs `main`, commit list, and changed-file summary.
 
 ## AI Agent Attribution
 
-AI agents (Claude Code, Codex, or any LLM tool) must be recorded in PR
-metadata, not in git commit history.
+AI agents (Claude Code, Codex, Cursor, or any LLM tool) are execution tools,
+not git co-authors. Record them in PR metadata, not in git commit history.
 
 Rules:
 
 - Do **not** add `Co-Authored-By` trailers for AI agents in commit messages.
-- Record agent involvement in the **Agent assistance** section of the PR
-  description (see PR template).
-- The human who opens or approves the PR is the responsible reviewer and is
-  accountable for the change.
+- Record agent involvement in the **Agent / Contributor Metadata** section of
+  the PR description (see PR template).
+- The human contributor remains the git author and the responsible reviewer.
 - Git history must reflect only human authors.
+- Agents must not invent their own identity format for branches, PRs, or
+  attribution fields.
 
 ## Scientific Claim Restrictions
 
@@ -210,6 +229,7 @@ Use this prompt when assigning work to an agent:
 
 ```text
 Execute TASK-0011 according to AGENTS.md and docs/agent-task-protocol.md.
+Use contributor id: roman.
 Use agent id: codex.
 Do not start any other task.
 ```
