@@ -4,6 +4,11 @@
 
 `v0.1-private-alpha` in validation
 
+## Current Goal
+
+Private contributor pilot plus one measurable scientific result, without making
+the repository public yet.
+
 Current working slices:
 
 - `Pendulum Formula Discovery`
@@ -28,6 +33,8 @@ Current working slices:
 - shared agent task board, strategy file, and operating model for multi-agent handoff.
 - pendulum hypothesis gauntlet: 100 deterministic candidates (`RUN-0003` / `RESULT-0004`) with full leaderboard, failure-mode classification, and best model `model_t4_x1` at VALID_IN_RANGE.
 - numerical accuracy and tolerance policy documenting the difference between approximation residuals, coefficient-rounding effects, and reference-computation error.
+- private-alpha contribution and release-gating documentation for invited
+  branch-based contributors.
 
 ## Current Verification Checks
 
@@ -70,6 +77,9 @@ Damped oscillator:
 - [strategy.md](./strategy.md), [agent-operating-model.md](./agent-operating-model.md), and [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for the shared task protocol.
 - verification-first contributor workflow and GitHub issue templates.
 - maintainer-facing claim promotion policy.
+- [private-contributor-pilot.md](./private-contributor-pilot.md) for invited contributors.
+- [public-release-gates.md](./public-release-gates.md) for the conditions required before going public.
+- [github-branch-protection-plan.md](./github-branch-protection-plan.md) for staged PR discipline.
 
 ## Not Ready Yet
 
@@ -84,6 +94,7 @@ Damped oscillator:
 - Canonical artifacts under `results/` can become stale if contributors run examples without `--output-dir`.
 - The result schema is shared by both benchmarks, so benchmark-specific semantics still need careful wording.
 - Public alpha is stable for two slices, but not yet broad enough for a wider “many benchmark” claim.
+- The private contributor workflow still needs a dry run across multiple PRs before public exposure.
 - Claim files still need deliberate human review before moving from draft text to stronger public statuses.
 - Claim suggestions are generated automatically, but promotion decisions still rely on maintainer judgment.
 - Theory-aware pendulum candidates improve separatrix behavior, but the overall best verdict still remains range-limited rather than globally valid.
@@ -91,7 +102,7 @@ Damped oscillator:
 
 ## Public Repo Status
 
-Repository is still private while multi-agent workflow and the next visible
+Repository is still private while the contributor pilot and the next visible
 scientific result are being tested.
 
 Future public-facing updates should stay gated by:
@@ -100,6 +111,7 @@ Future public-facing updates should stay gated by:
 - GitHub Actions;
 - `python3 -m physics_lab.cli validate-repo .`;
 - `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`;
+- [public-release-gates.md](./public-release-gates.md);
 - honest roadmap, status, and task-board docs.
 
 ## Snapshot Utility

@@ -1,0 +1,38 @@
+id: TASK-0016
+title: "Plan an electromagnetic invariance mini-benchmark"
+type: benchmark_planning
+status: PROPOSED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Explore a future benchmark candidate without committing to implementation scope too early."
+  - "Keep electromagnetic checks small, sanity-oriented, and verification-first."
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Do planning only, with no implementation yet."
+  - "Keep the scope small and explicit."
+  - "Consider Lorentz force dimensional consistency, gauge-invariance-inspired sanity checks, electromagnetic field invariant checks, and simple transformations."
+  - "Stay PROPOSED until the benchmark contract is clearer."
+
+accepted_outputs:
+  - "task spec"
+  - "mini-benchmark plan"
+  - "scope constraints"
+  - "candidate check inventory"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,40 @@
+id: TASK-0017
+title: "Create a dimensional analysis challenge set"
+type: benchmark_planning
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Create a crisp future challenge set for dimensional validation."
+  - "Build toward a public-facing result about catching invalid physics formulas."
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Define a challenge set of formulas for dimensional validation."
+  - "Include valid formulas."
+  - "Include invalid unit formulas."
+  - "Include dimensionless but physically suspicious formulas."
+  - "Include formulas with missing constants."
+  - "Keep the output framed as a validation benchmark, not a discovery claim."
+
+accepted_outputs:
+  - "task spec"
+  - "challenge-set plan"
+  - "formula category inventory"
+  - "future public-result angle"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

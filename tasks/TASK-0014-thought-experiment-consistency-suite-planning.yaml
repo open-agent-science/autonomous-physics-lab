@@ -1,0 +1,38 @@
+id: TASK-0014
+title: "Plan a thought-experiment consistency suite"
+type: benchmark_planning
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Expand verification-oriented benchmark planning without premature implementation."
+  - "Test whether APL can formalize assumptions, invariants, and known limits."
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Do planning only, with no implementation yet."
+  - "Cover candidate thought experiments including light clock, Einstein elevator, twin paradox, rotating disk, falling elevator, and relativity simultaneity cases."
+  - "Define how assumptions, invariants, and known limits would be formalized."
+  - "Keep the scope verification-first rather than narrative-only."
+
+accepted_outputs:
+  - "task spec"
+  - "consistency-suite plan"
+  - "candidate thought-experiment inventory"
+  - "future validation outline"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
