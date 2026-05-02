@@ -31,6 +31,7 @@ Current working slices:
 - patch-style claim and knowledge review artifacts with maintainer-facing review summaries.
 - machine-readable `review_metadata.yaml` companion files for patch-style artifacts with a JSON Schema contract.
 - shared agent task board, strategy file, and operating model for multi-agent handoff.
+- canonical `docs/agent-task-protocol.md` execution rules for task pickup, branch naming, commit messages, PR titles, validation, and task-state transitions across Codex, Claude Code, humans, and other agents.
 - pendulum hypothesis gauntlet: 100 deterministic candidates (`RUN-0003` / `RESULT-0004`) with full leaderboard, failure-mode classification, and best model `model_t4_x1` at VALID_IN_RANGE.
 - numerical accuracy and tolerance policy documenting the difference between approximation residuals, coefficient-rounding effects, and reference-computation error.
 - private-alpha contribution and release-gating documentation for invited
@@ -75,6 +76,7 @@ Damped oscillator:
 - `python3 -m physics_lab.cli status .`
 - [architecture-index.md](./architecture-index.md) for fast contributor and LLM handoff.
 - [strategy.md](./strategy.md), [agent-operating-model.md](./agent-operating-model.md), and [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for the shared task protocol.
+- [agent-task-protocol.md](./agent-task-protocol.md) for the canonical branch, commit, PR, and task-state rules.
 - verification-first contributor workflow and GitHub issue templates.
 - maintainer-facing claim promotion policy.
 - [private-contributor-pilot.md](./private-contributor-pilot.md) for invited contributors.

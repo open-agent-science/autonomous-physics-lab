@@ -7,11 +7,15 @@ reviewable, and linked to repository artifacts.
 
 For the full repository workflow, read
 [docs/contributing-workflow.md](docs/contributing-workflow.md).
+For the canonical task protocol, read
+[docs/agent-task-protocol.md](docs/agent-task-protocol.md).
 For claim-status review, read
 [docs/claim-promotion-policy.md](docs/claim-promotion-policy.md).
 
 If you are opening a GitHub issue or pull request, use the repository templates
 so the change stays linked to experiments, tasks, results, and claim scope.
+Do not invent branch, commit, or PR title formats; use
+`docs/agent-task-protocol.md`.
 
 ## Before Opening a PR
 
@@ -24,6 +28,7 @@ python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pend
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+git diff --exit-code
 ```
 
 For larger milestones, schema changes, roadmap updates, or public-release
@@ -58,5 +63,6 @@ PYTHON_BIN=python3.11 ./scripts/apl_snapshot.sh
 - [AGENTS.md](AGENTS.md)
 - [docs/status.md](docs/status.md)
 - [docs/next-steps.md](docs/next-steps.md)
+- [docs/agent-task-protocol.md](docs/agent-task-protocol.md)
 - [docs/contributing-workflow.md](docs/contributing-workflow.md)
 - [docs/claim-promotion-policy.md](docs/claim-promotion-policy.md)
