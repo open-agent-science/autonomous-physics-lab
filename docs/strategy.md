@@ -76,8 +76,11 @@ The repository remains private until
 - Use [tasks/ACTIVE.md](../tasks/ACTIVE.md) as the live task board.
 - Use [docs/agent-operating-model.md](./agent-operating-model.md) for the shared
   execution protocol.
-- Use [tasks/TASK-TEMPLATE.yaml](../tasks/TASK-TEMPLATE.yaml) when proposing a
-  new task.
+- Use [docs/task-proposal-protocol.md](./task-proposal-protocol.md) and
+  [tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml)
+  when proposing a new task idea.
+- Use [tasks/TASK-TEMPLATE.yaml](../tasks/TASK-TEMPLATE.yaml) only for
+  maintainer-approved canonical tasks.
 
 ## Non-Goals
 

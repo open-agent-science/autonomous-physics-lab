@@ -22,6 +22,9 @@ canonical execution protocol. Use
 [../docs/agent-operating-model.md](../docs/agent-operating-model.md) for
 supporting workflow context and handoff norms.
 
+For new task ideas without a maintainer-assigned canonical `TASK-XXXX` id, use
+the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-proposal-protocol.md).
+
 ## READY
 
 ### TASK-0012 — Run a private multi-agent contributor dry run
@@ -213,6 +216,20 @@ Expected output:
 None.
 
 ## REVIEW_READY
+
+### TASK-0043 — Add task proposal protocol and id allocation rules
+
+Type: `maintainer_workflow`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- `docs/task-proposal-protocol.md`
+- `tasks/proposals/README.md`
+- `tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml`
+- proposal-aware validation support
+- updated contributor and maintainer workflow docs
 
 ### TASK-0013 — Plan a particle mass relation falsifier inspired by Koide-style formulas
 
