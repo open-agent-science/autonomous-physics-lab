@@ -34,6 +34,7 @@ Current working slices:
 - canonical `docs/agent-task-protocol.md` execution rules for task pickup, branch naming, commit messages, PR titles, validation, and task-state transitions across Codex, Claude Code, humans, and other agents.
 - pendulum hypothesis gauntlet: 100 deterministic candidates (`RUN-0003` / `RESULT-0004`) with full leaderboard, failure-mode classification, and best model `model_t4_x1` at VALID_IN_RANGE.
 - numerical accuracy and tolerance policy documenting the difference between approximation residuals, coefficient-rounding effects, and reference-computation error.
+- `TASK-0011` precision-audit artifacts for `RUN-0003`, classifying the reported `3.1e-4` in-range error as model residual rather than elliptic-reference precision drift or six-decimal coefficient rounding.
 - private-alpha contribution and release-gating documentation for invited
   branch-based contributors.
 
@@ -100,7 +101,7 @@ Damped oscillator:
 - Claim files still need deliberate human review before moving from draft text to stronger public statuses.
 - Claim suggestions are generated automatically, but promotion decisions still rely on maintainer judgment.
 - Theory-aware pendulum candidates improve separatrix behavior, but the overall best verdict still remains range-limited rather than globally valid.
-- Public-facing pendulum reporting still needs a deterministic audit that distinguishes model residual from numerical reference error before stronger precision claims are made.
+- Public-facing pendulum wording should continue to preserve the distinction between approximation residual, range-limited validation, and symbolic exactness.
 
 ## Public Repo Status
 

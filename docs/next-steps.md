@@ -100,29 +100,19 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Run the Numerical Accuracy Audit for RUN-0003
+### 1. Complete a Private Multi-Agent Dry Run
 
-Highest-value next task:
+`TASK-0011` now has a review-ready audit showing that the `RUN-0003` in-range
+`3.1e-4` error is dominated by approximation residual rather than elliptic
+reference precision or six-decimal coefficient rounding.
 
-- `TASK-0011`
+Current highest-value next operational task:
 
-Why first:
-
-- it sharpens the credibility of the next measurable pendulum result;
-- it separates numerical tolerance issues from actual model residuals;
-- it forces report wording to stay honest before broader contributor traffic.
-
-Definition of done:
-
-- the error source is classified as precision, rounding, residual, mixed, or inconclusive;
-- wording uses "validated to tolerance" when symbolic exactness is not proven;
-- validation stays green.
-
-### 2. Complete a Private Multi-Agent Dry Run
+- `TASK-0012`
 
 Next operational milestone:
 
-- `TASK-0012`
+- record and expand the private contributor dry run
 
 Success looks like:
 
@@ -132,7 +122,7 @@ Success looks like:
 - maintainer review happens before merge;
 - the workflow pain points are written down in `docs/multi-agent-dry-run.md`.
 
-### 3. Expand the Physics Planning Queue Without Implementing It Yet
+### 2. Expand the Physics Planning Queue Without Implementing It Yet
 
 Ready planning tasks:
 
