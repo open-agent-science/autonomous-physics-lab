@@ -60,4 +60,4 @@ Formula: `1 + a*theta^4 + b*x`
 
 ## Conclusion
 
-This report describes approximation behavior only within the configured amplitude ranges. It does not claim exact discovery or validity near the separatrix. The leaderboard identifies the best-performing candidate formula under the current benchmark across a systematic search of 100 deterministic candidates.
+This report describes approximation behavior only within the configured amplitude ranges. It does not claim exact discovery or validity near the separatrix. The leaderboard identifies the best-performing candidate formula under the current benchmark across a systematic search of 100 deterministic candidates. Independent precision audit work for `TASK-0011` indicates that the reported `3.1e-4` test error for `model_t4_x1` is dominated by approximation residual, not by the elliptic-integral reference computation or by six-decimal coefficient rounding.

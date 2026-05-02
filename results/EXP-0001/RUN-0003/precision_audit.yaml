@@ -1,0 +1,59 @@
+schema_version: '1'
+artifact_type: precision_audit
+task_id: TASK-0011
+result_id: RESULT-0004
+run_id: RUN-0003
+model_id: model_t4_x1
+formula: 1 + a*theta^4 + b*x
+grid:
+  amplitude_start_radians: 0.01
+  amplitude_end_radians: 1.5707963267948966
+  sample_count: 200
+  train_fraction: 0.7
+  split_index: 140
+  test_sample_count: 60
+  test_range_radians:
+    start: 1.108047667091887
+    end: 1.5707963267948966
+reference_methods:
+  standard_reference: scipy.special.ellipk over float64
+  independent_reference: scipy.integrate.quad over the complete elliptic-integral
+    definition
+coefficients:
+  full_precision:
+    a: 0.008923301235509813
+    b: 0.24979180460285416
+  rounded_precision:
+    a: 0.008923
+    b: 0.249792
+  rounded_digits: 6
+metrics:
+  model_vs_standard_reference:
+    mean_relative_error: 0.00030524596412228103
+    max_relative_error: 0.0009480571262666894
+  model_vs_independent_reference:
+    mean_relative_error: 0.000305245964122241
+    max_relative_error: 0.0009480571262666894
+  standard_vs_independent_reference:
+    mean_relative_error: 7.223512191352866e-17
+    max_relative_error: 3.9204559821888114e-16
+  rounded_model_vs_independent_reference:
+    mean_relative_error: 0.0003060840326348823
+    max_relative_error: 0.0009495280946916756
+  full_vs_rounded_prediction:
+    mean_relative_error: 8.384100009881783e-07
+    max_relative_error: 1.4723664783230474e-06
+  independent_reference_quadrature_max_abs_error_estimate: 3.6982235836657614e-14
+  reference_to_model_mean_error_ratio: 2.3664562485288373e-13
+  rounding_to_model_mean_error_ratio: 0.0027466702251054908
+classification:
+  error_source: model_residual
+  summary: Reported in-range error is dominated by model residual rather than reference
+    precision or coefficient rounding.
+limitations:
+- The independent reference still uses double-precision quadrature, not arbitrary
+  precision arithmetic.
+- The coefficient-rounding audit uses six decimal places because that is the current
+  presentation precision in docs/notes/pendulum-gauntlet-100.md.
+- This audit only covers the configured RUN-0003 test grid, not behavior outside that
+  range.
