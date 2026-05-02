@@ -184,7 +184,19 @@ None.
 
 ## REVIEW_READY
 
-None.
+### TASK-0034 — Add maintainer review agent mode
+
+Type: `maintainer_workflow`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- `docs/maintainer-review-agent.md`
+- `docs/review-checklists/maintainer-pr-review-checklist.md`
+- `docs/review-checklists/task-closeout-checklist.md`
+- `scripts/apl_task_closeout_check.py`
+- maintainer closeout guidance
 
 ## DONE RECENTLY
 
