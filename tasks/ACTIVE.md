@@ -64,6 +64,19 @@ Expected output:
 - future `EXP-0003` output outline
 - limitation summary
 
+### TASK-0021 — Add AI agent attribution policy
+
+Type: `agent_workflow`  
+Priority: `medium`  
+Suggested size: `small`
+
+Expected output:
+
+- updated `docs/agent-task-protocol.md`
+- updated `.github/pull_request_template.md` with Agent assistance section
+- updated contributing docs
+
+
 ## PROPOSED
 
 ### TASK-0016 — Plan an electromagnetic invariance mini-benchmark
