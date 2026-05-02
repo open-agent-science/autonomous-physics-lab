@@ -46,6 +46,16 @@ Describe the change in narrow, verification-first terms.
 - [ ] I intentionally updated committed `results/` artifacts, or I left them untouched.
 - [ ] If canonical artifacts changed, the change is scientifically meaningful and explained in this PR.
 
+## Agent assistance
+
+If an AI agent (Claude Code, Codex, or other LLM tool) was used, record it
+here. Do not add Co-Authored-By to commits — agent attribution belongs in PR
+metadata only.
+
+- Agent used:
+- Model / tool:
+- Human responsible reviewer:
+
 ## Maintainer Review Notes
 
 - 

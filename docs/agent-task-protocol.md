@@ -161,6 +161,20 @@ not change accidentally.
 7. Set the task to `REVIEW_READY` when implementation and validation are done.
 8. Leave clear maintainer review notes and limitations.
 
+## AI Agent Attribution
+
+AI agents (Claude Code, Codex, or any LLM tool) must be recorded in PR
+metadata, not in git commit history.
+
+Rules:
+
+- Do **not** add `Co-Authored-By` trailers for AI agents in commit messages.
+- Record agent involvement in the **Agent assistance** section of the PR
+  description (see PR template).
+- The human who opens or approves the PR is the responsible reviewer and is
+  accountable for the change.
+- Git history must reflect only human authors.
+
 ## Scientific Claim Restrictions
 
 - Do not promote claims automatically.
