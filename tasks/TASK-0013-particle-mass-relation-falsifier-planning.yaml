@@ -1,7 +1,7 @@
 id: TASK-0013
 title: "Plan a particle mass relation falsifier inspired by Koide-style formulas"
 type: benchmark_planning
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -25,18 +25,23 @@ requirements:
   - "Include a train/test split or holdout strategy."
   - "Avoid numerology claims."
   - "Do not promote claims."
+  - "Create a planning note for the particle-mass relation / Koide track."
+  - "Decompose the track into follow-on task files."
+  - "Use the next available task ids rather than colliding with existing task numbers."
 
 accepted_outputs:
-  - "task spec"
-  - "benchmark plan"
+  - "docs/notes/particle-mass-relation-track.md"
+  - "follow-on task specs"
   - "evaluation design"
   - "scientific constraint summary"
 
 validation:
   commands:
-    - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "./scripts/validate_quick.sh"
     - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "./scripts/apl_review_bundle.sh"
+    - "git diff --exit-code"
 
 can_be_done_by:
   - human

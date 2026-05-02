@@ -1,0 +1,52 @@
+id: TASK-0040
+title: "Build particle mass relation falsifier MVP"
+type: scientific_falsification
+status: PROPOSED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Implement the particle-mass relation track only after the benchmark logic is scoped carefully."
+  - "Keep implementation downstream of guardrails, source policy, and holdout design."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "docs/notes/particle-mass-relation-track.md"
+    - "tasks/TASK-0036-particle-mass-dataset-scaffold.yaml"
+    - "tasks/TASK-0039-koide-like-triplet-search-design.yaml"
+    - "tasks/TASK-0041-mass-formula-complexity-penalty-design.yaml"
+    - "tasks/TASK-0042-particle-mass-numerology-guardrails.yaml"
+  planning_context: >
+    This future implementation task should build the first APL particle-mass
+    relation falsifier only after the planning, guardrail, and scoring-design
+    tasks are reviewed and accepted.
+
+requirements:
+  - "Implement only after upstream planning tasks are reviewed."
+  - "Use explicit particle-mass data sources."
+  - "Require uncertainty propagation where applicable."
+  - "Require random baselines for search components."
+  - "Require holdout validation for prediction components."
+  - "Apply a complexity penalty."
+  - "Do not treat fit quality alone as evidence of new physics."
+  - "Do not promote claims."
+
+accepted_outputs:
+  - "particle-mass relation falsifier workflow"
+  - "scoring and baseline integration"
+  - "reproducible benchmark result artifacts"
+  - "documentation of limitations and verdict vocabulary"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

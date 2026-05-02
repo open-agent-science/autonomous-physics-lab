@@ -126,10 +126,19 @@ Success looks like:
 
 Ready planning tasks:
 
-- `TASK-0013` particle mass relation falsifier planning
 - `TASK-0014` thought-experiment consistency suite planning
 - `TASK-0015` diffusion scaling benchmark planning
 - `TASK-0017` dimensional analysis challenge set
+
+Particle-mass planning note:
+
+- `TASK-0013` should decompose the Koide / particle-mass direction into
+  verification-first follow-on tasks without implementing the benchmark yet.
+- After `TASK-0013`, claimable follow-on work should stay planning-first:
+  `TASK-0036` dataset scaffold, `TASK-0037` charged-lepton reproduction,
+  `TASK-0038` tau holdout benchmark, `TASK-0039` triplet-search design,
+  `TASK-0041` complexity-penalty design, and `TASK-0042` numerology
+  guardrails.
 
 Proposed only:
 

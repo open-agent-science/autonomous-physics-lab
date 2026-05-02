@@ -1,0 +1,52 @@
+id: TASK-0036
+title: "Create particle mass dataset scaffold"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Create explicit particle-mass data scaffolding before any formula-testing implementation."
+  - "Keep the particle-mass track source-aware and compatible with verification-first review."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0013-particle-mass-relation-falsifier-planning.yaml"
+    - "docs/notes/particle-mass-relation-track.md"
+  planning_context: >
+    The Koide / particle-mass track needs a source-explicit dataset scaffold
+    before any relation testing begins. This task should create the file layout
+    and schema guidance without turning the dataset into a claim about any
+    formula.
+
+requirements:
+  - "Create data/particle_masses/README.md."
+  - "Create data/particle_masses/charged_leptons.yaml."
+  - "Create data/particle_masses/schema.md."
+  - "Record explicit fields for particle, family, mass_value, mass_unit, uncertainty, source, mass_type, and notes."
+  - "Require explicit scheme and scale fields where applicable."
+  - "Use an explicit primary data source policy."
+  - "Do not add formula claims or benchmark verdicts."
+  - "Do not promote claims."
+  - "Do not silently mix pole and running masses."
+
+accepted_outputs:
+  - "data/particle_masses/README.md"
+  - "data/particle_masses/charged_leptons.yaml"
+  - "data/particle_masses/schema.md"
+  - "source-policy note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
