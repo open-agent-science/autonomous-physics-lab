@@ -1,35 +1,42 @@
 id: TASK-0011
-title: "Audit numerical vs model error for pendulum benchmark results"
-type: verification_extension
+title: "Audit numerical precision versus model residual for the pendulum gauntlet run"
+type: numerical_audit
 status: READY
 difficulty: medium
 priority: high
 
 strategy_alignment:
-  - "Keep benchmark claims tolerance-aware and verification-first"
-  - "Separate approximation residuals from reference-computation uncertainty"
+  - "Strengthen measurable-result evidence before public launch."
+  - "Separate numerical tolerance issues from actual model residuals."
+  - "Keep scientific wording honest and reviewable."
 
 input:
   hypothesis_id: HYP-0001
   experiment_id: EXP-0001
 
 requirements:
-  - "Use deterministic code only"
-  - "Compare standard reference computation against a higher-precision reference"
-  - "Do not claim exactness without symbolic proof"
-  - "Keep wording range-aware in result artifacts and notes"
+  - "Audit whether the observed RUN-0003 error comes from numerical precision, coefficient rounding, actual model residual, or a mixed or inconclusive source."
+  - "Preserve the distinction between deterministic evidence and wording assumptions."
+  - "Do not say 100% exact unless symbolic equality is proven."
+  - "Prefer validated to tolerance wording for numerical agreement."
+  - "Update report wording if the current language overstates certainty."
 
 accepted_outputs:
-  - "high-precision audit code"
+  - "docs/numerical-accuracy-policy.md"
+  - "results/EXP-0001/RUN-0003/precision_audit.yaml"
+  - "results/EXP-0001/RUN-0003/precision_audit.md"
   - "tests"
-  - "docs update"
-  - "report wording update"
+  - "updated report wording if needed"
 
 validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest"
+    - "python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum"
+    - "python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped"
     - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
 
 can_be_done_by:
   - human

@@ -2,8 +2,10 @@
 
 ## Current Phase
 
-Pre-public alpha validation with shared agent handoff, tighter scientific
-execution discipline, and one measurable benchmark result worth reviewing.
+`v0.1-private-alpha`
+
+Private contributor pilot with verification-first execution discipline, branch-
+based agent collaboration, and one measurable scientific result worth review.
 
 ## Mission
 
@@ -18,12 +20,16 @@ and reusable.
 
 1. Maintain verification-first discipline across all benchmarks.
 2. Keep public scientific memory internally consistent and reviewable.
-3. Improve agent handoff so different developers and coding agents can continue
-   work without losing context.
+3. Prepare the private repository for a controlled multi-agent contributor
+   pilot.
 4. Prefer atomic tasks with deterministic outputs and clear validation.
-5. Produce one measurable benchmark result before broadening
-   scope.
+5. Produce one measurable benchmark result before broadening scope.
 6. Avoid feature expansion that outruns current verification quality.
+
+## Current Goal
+
+Complete a private contributor pilot and produce at least one measurable
+scientific result before any public launch work.
 
 ## Current North-Star Result
 
@@ -40,8 +46,12 @@ The current visible examples are:
   separatrix-aware review artifacts;
 - `EXP-0002` — damped oscillator regime verification with exact linear checks.
 
-The next visible milestone should be a deterministic pendulum candidate
-gauntlet rather than a third benchmark implementation.
+The next visible milestones are:
+
+- a numerical accuracy audit for the future pendulum gauntlet artifacts;
+- a private multi-agent dry run across task-based PRs;
+- an expanded planning queue for future benchmark slices;
+- public release only after explicit gates are satisfied.
 
 ## Current Execution Model
 
@@ -58,6 +68,9 @@ Agents are not assigned permanent roles. Instead:
 Sequential local work is preferred by default, but independent `READY` tasks may
 be taken out of order when they do not create hidden coupling or artifact churn.
 
+The repository remains private until
+[public-release-gates.md](./public-release-gates.md) are satisfied.
+
 ## Task Selection Rules
 
 - Use [tasks/ACTIVE.md](../tasks/ACTIVE.md) as the live task board.
@@ -72,6 +85,8 @@ be taken out of order when they do not create hidden coupling or artifact churn.
 - Do not claim global validity from range-limited evidence.
 - Do not add dashboard, web API, literature ingestion, or multi-agent runtime
   before current verification goals are met.
+- Do not make the repository public before the private contributor pilot and
+  measurable-result gates are satisfied.
 - Do not use LLM output as a substitute for deterministic validation.
 - Do not frame the project as "solving physics" or "finding a theory of
   everything."

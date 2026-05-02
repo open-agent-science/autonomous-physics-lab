@@ -1,0 +1,43 @@
+id: TASK-0013
+title: "Plan a particle mass relation falsifier inspired by Koide-style formulas"
+type: benchmark_planning
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Expand the future task pool without promoting numerology claims."
+  - "Define falsification-first evaluation before any implementation work."
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Do planning only, with no implementation yet."
+  - "Treat the work as falsification and statistical testing rather than new-physics discovery."
+  - "Include dataset versioning."
+  - "Include particle mass values and uncertainties."
+  - "Include a random baseline."
+  - "Include a complexity penalty."
+  - "Include a train/test split or holdout strategy."
+  - "Avoid numerology claims."
+  - "Do not promote claims."
+
+accepted_outputs:
+  - "task spec"
+  - "benchmark plan"
+  - "evaluation design"
+  - "scientific constraint summary"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

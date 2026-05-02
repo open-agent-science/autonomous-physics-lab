@@ -74,6 +74,7 @@ cmd_block() {
     -path ./.venv -prune -o \
     -path ./.pytest_cache -prune -o \
     -path ./.ruff_cache -prune -o \
+    -path ./.claude -prune -o \
     -path ./__pycache__ -prune -o \
     -path ./_snapshots -prune -o \
     -name .DS_Store -prune -o \
