@@ -13,6 +13,7 @@ input:
   mode: workflow
   related_domain: contributor_identity
   related_objects:
+    - "AGENTS.md"
     - "docs/agent-task-protocol.md"
     - "docs/private-contributor-pilot.md"
     - "docs/contributing-workflow.md"
@@ -37,10 +38,12 @@ requirements:
   - "State that agent attribution belongs in PR metadata, not commit history."
   - "State that agents must not invent local identity formats."
   - "Update contributor and agent entrypoint docs to reference the new format."
+  - "Define when agents may create git commits and which git actions remain restricted."
   - "Do not rename old branches or rewrite git history."
   - "Set this task to REVIEW_READY when finished, not DONE."
 
 accepted_outputs:
+  - "updated AGENTS.md"
   - "updated docs/agent-task-protocol.md"
   - "updated docs/private-contributor-pilot.md"
   - "updated docs/contributing-workflow.md"

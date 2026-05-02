@@ -109,6 +109,16 @@ Allowed commit types:
 
 Keep commits narrow. Do not mix unrelated tasks in one commit.
 
+## Commit Permission
+
+Agents may commit only when explicitly instructed.
+
+A commit means the agent believes the task is ready for maintainer review.
+
+After committing, the task status should be `REVIEW_READY`, not `DONE`.
+
+`DONE` is set only by the maintainer after review and merge.
+
 ## Pull Request Title Format
 
 Use exactly this format:
