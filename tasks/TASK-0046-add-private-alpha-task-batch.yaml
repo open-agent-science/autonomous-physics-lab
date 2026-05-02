@@ -1,0 +1,61 @@
+id: TASK-0046
+title: "Add developer and scientist task batch for private alpha"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Expand the private-alpha task pool with developer-interesting and scientist-interesting work before public launch."
+  - "Prepare a clearer backlog for invited contributors without implementing the planned tasks yet."
+
+input:
+  mode: workflow
+  related_domain: task_batch_planning
+  related_objects:
+    - "AGENTS.md"
+    - "docs/strategy.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/public-release-gates.md"
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+  planning_context: >
+    The repository needs a fresh batch of private-alpha tasks that are useful
+    for developers, scientists, and future launch preparation. This task is
+    specifically about adding the task specs and task-board structure for that
+    batch, not implementing the tasks themselves.
+
+requirements:
+  - "Create TASK-0036 through TASK-0045 task specs, skipping the already-claimed TASK-0035 slot."
+  - "Keep the new tasks focused on developer appeal, scientist appeal, and measurable research preparation."
+  - "Do not implement the planned tasks in this change."
+  - "Do not add defense-adjacent, operational, or public-release execution scope."
+  - "Update tasks/ACTIVE.md with Developer-friendly tasks, Scientist-friendly tasks, and High-impact but needs careful review sections."
+  - "Set this planning task to REVIEW_READY when the batch is complete."
+
+accepted_outputs:
+  - "tasks/TASK-0036-agent-contributor-quickstart.yaml"
+  - "tasks/TASK-0037-agent-performance-metrics-design.yaml"
+  - "tasks/TASK-0038-static-benchmark-index.yaml"
+  - "tasks/TASK-0039-maintainer-review-agent-smoke-tests.yaml"
+  - "tasks/TASK-0040-pendulum-gauntlet-v2-separatrix-aware-candidates.yaml"
+  - "tasks/TASK-0041-dimensional-analysis-engine-mvp.yaml"
+  - "tasks/TASK-0042-light-clock-thought-experiment-formalization.yaml"
+  - "tasks/TASK-0043-particle-mass-relation-falsifier-planning.yaml"
+  - "tasks/TASK-0044-diffusion-scaling-benchmark-planning.yaml"
+  - "tasks/TASK-0045-negative-result-registry-format.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "./scripts/apl_review_bundle.sh"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

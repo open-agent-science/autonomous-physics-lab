@@ -310,6 +310,18 @@ None.
 
 ## REVIEW_READY
 
+### TASK-0046 — Add developer and scientist task batch for private alpha
+
+Type: `agent_workflow`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- `tasks/TASK-0036-*.yaml` through `tasks/TASK-0045-*.yaml`
+- updated `tasks/ACTIVE.md`
+- grouped developer/scientist/review task sections
+
 ### TASK-0034 — Add maintainer review agent mode
 
 Type: `maintainer_workflow`  
