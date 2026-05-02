@@ -184,6 +184,22 @@ None.
 
 ## REVIEW_READY
 
+### TASK-0032 — Build public scientific result package for Pendulum Gauntlet 100
+
+Type: `release_preparation`  
+Priority: `high`  
+Suggested size: `medium`
+
+Completed outputs:
+
+- `tasks/TASK-0032-public-pendulum-gauntlet-result-package.yaml`
+- `docs/results/pendulum-gauntlet-100-summary.md`
+- `docs/results/pendulum-gauntlet-100-short.md`
+- `docs/announcement-draft-pendulum-gauntlet.md`
+- updated `README.md`
+- updated `docs/status.md`
+- updated `tasks/ACTIVE.md`
+
 ### TASK-0023 — Create first contributor runbook
 
 Type: `contributor_experience`  
