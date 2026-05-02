@@ -184,124 +184,18 @@ None.
 
 ## REVIEW_READY
 
-### TASK-0032 — Build public scientific result package for Pendulum Gauntlet 100
-
-Type: `release_preparation`  
-Priority: `high`  
-Suggested size: `medium`
-
-Completed outputs:
-
-- `tasks/TASK-0032-public-pendulum-gauntlet-result-package.yaml`
-- `docs/results/pendulum-gauntlet-100-summary.md`
-- `docs/results/pendulum-gauntlet-100-short.md`
-- `docs/announcement-draft-pendulum-gauntlet.md`
-- updated `README.md`
-- updated `docs/status.md`
-- updated `tasks/ACTIVE.md`
-
-### TASK-0023 — Create first contributor runbook
-
-Type: `contributor_experience`  
-Priority: `high`  
-Branch: `agent/codex/task-0023-first-contributor-runbook`
-
-Completed outputs:
-
-- `docs/first-contributor-runbook.md`
-- onboarding checklist
-- first-contributor workflow note
-
-### TASK-0031 — Add beginner-friendly contributor task set
-
-Type: `agent_workflow`  
-Priority: `high`  
-Suggested size: `small`
-
-Completed outputs:
-
-- `tasks/TASK-0023-first-contributor-runbook.yaml`
-- `tasks/TASK-0024-task-index-table.yaml`
-- `tasks/TASK-0025-result-artifacts-index.yaml`
-- `tasks/TASK-0026-extend-dimensional-analysis-challenge-set.yaml`
-- `tasks/TASK-0027-units-and-constants-reference.yaml`
-- `tasks/TASK-0028-light-clock-consistency-check-planning.yaml`
-- `tasks/TASK-0029-overclaim-language-audit.yaml`
-- `tasks/TASK-0030-record-friend-contributor-dry-run.yaml`
-- updated `tasks/ACTIVE.md`
-
-### TASK-0022 — Add PR review bundle snapshot script
-
-Type: `agent_workflow`  
-Priority: `medium`  
-Branch: `agent/claude/task-0022-review-bundle-script`
-
-Completed outputs:
-
-- `scripts/apl_review_bundle.sh` — produces full diff + commit list vs main
-- `docs/agent-task-protocol.md` — review bundle referenced under Required Validation
-
-### TASK-0011 — Audit numerical precision versus model residual for the pendulum gauntlet run
-
-Type: `numerical_audit`  
-Priority: `high`  
-Branch: `agent/codex/task-0011-numerical-audit`
-
-Completed outputs:
-
-- `docs/numerical-accuracy-policy.md`
-- `results/EXP-0001/RUN-0003/precision_audit.yaml`
-- `results/EXP-0001/RUN-0003/precision_audit.md`
-- tests
-- updated `results/EXP-0001/RUN-0003/report.md` wording
-
-### TASK-0019 — Standardize agent branch, commit, and pull request protocol
-
-Type: `agent_workflow`  
-Priority: `high`  
-Suggested size: `medium`
-
-Completed outputs:
-
-- `docs/agent-task-protocol.md`
-- `CLAUDE.md`
-- updated agent and contributor entrypoints
-- updated PR template
-- aligned task-board guidance
-
-### TASK-0018 — Support planning-only and workflow tasks without fake hypothesis references
-
-Type: `repository_validation`  
-Priority: `high`  
-Suggested size: `medium`
-
-Completed outputs:
-
-- multi-mode task input schema for science, planning-only, and workflow tasks
-- repository validation that keeps science-task references strict without forcing fake benchmark links for planning/workflow tasks
-- updated planning and workflow task specs without fake pendulum references
-- updated `tasks/TASK-TEMPLATE.yaml`
-- updated contributor and operating-model docs
-- tests covering the new task input modes
-
-### TASK-0008 — Add machine-readable review metadata for patch-style artifacts
-
-Type: `knowledge_update`  
-Priority: `medium`  
-Suggested size: `medium`
-
-Completed outputs:
-
-- `review_metadata.yaml` generated per-run alongside existing patch artifacts
-- `physics_lab/schemas/review_metadata.schema.json` — JSON Schema 2020-12
-- `render_review_metadata()` in `artifacts.py`
-- `review_metadata` added to result schema artifacts, repository strict validation, CLI output
-- `knowledge_update` added to `STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS`
-- tests updated in `test_pendulum.py` and `test_damped_oscillator.py`
-- `docs/notes/review-metadata-contract.md`
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0032` — public scientific result package for Pendulum Gauntlet 100 (merged)
+- `TASK-0031` — beginner-friendly contributor task set (merged)
+- `TASK-0023` — first contributor runbook (merged)
+- `TASK-0022` — PR review bundle snapshot script (merged)
+- `TASK-0019` — standardize agent branch, commit, and PR protocol (merged)
+- `TASK-0018` — planning-only and workflow task input modes (merged)
+- `TASK-0011` — numerical precision audit for pendulum gauntlet (merged)
+- `TASK-0008` — machine-readable review metadata artifacts (merged)
 - `TASK-0033` — contributor-agent identity format and agent commit rules (merged)
 - `TASK-0021` — AI agent attribution policy (merged)
 - `TASK-0020` — pytest-timeout and quick validation script (merged)
