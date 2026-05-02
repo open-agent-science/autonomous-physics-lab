@@ -40,6 +40,18 @@ The repository currently stabilizes two verification-first benchmark slices:
 Both benchmarks produce run-based artifacts under `results/<experiment>/<run>/`
 and are validated through the repository registry and CLI tooling.
 
+## Current measurable result
+
+APL evaluated 100 deterministic candidate formulas for the ideal pendulum
+period ratio in `EXP-0001/RUN-0003`. The top leaderboard candidate
+`model_t4_x1` reached approximately `3.1e-4` mean relative residual on the
+configured test range. A dedicated precision audit classified that error as
+model residual, not numerical reference noise. No symbolic exactness claim and
+no global validity claim are made.
+
+See [docs/results/pendulum-gauntlet-100-summary.md](docs/results/pendulum-gauntlet-100-summary.md)
+for the full package and limitations.
+
 ## Contribute with an AI coding agent
 
 Put your coding agent to work on reproducible physics tasks.

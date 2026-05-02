@@ -1,0 +1,64 @@
+id: TASK-0032
+title: "Build public scientific result package for Pendulum Gauntlet 100"
+type: release_preparation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare the strongest honest measurable result for future public release without making the repository public yet."
+  - "Translate existing RUN-0003 artifacts into a reproducible, reviewable, non-overclaiming scientific narrative."
+
+input:
+  mode: workflow
+  related_domain: public_result_packaging
+  related_objects:
+    - "docs/status.md"
+    - "docs/numerical-accuracy-policy.md"
+    - "docs/notes/pendulum-gauntlet-100.md"
+    - "results/EXP-0001/RUN-0003/result.yaml"
+    - "results/EXP-0001/RUN-0003/leaderboard.md"
+    - "results/EXP-0001/RUN-0003/metrics.json"
+    - "results/EXP-0001/RUN-0003/precision_audit.md"
+  planning_context: >
+    APL already has a strong pendulum gauntlet result with canonical artifacts
+    and a precision audit. The repository now needs a public-facing result
+    package that explains the benchmark, the measurable outcome, the limits,
+    and how to reproduce the evidence without promoting the claim beyond its
+    validated range.
+
+requirements:
+  - "Create docs/results/pendulum-gauntlet-100-summary.md."
+  - "Create docs/results/pendulum-gauntlet-100-short.md."
+  - "Create docs/announcement-draft-pendulum-gauntlet.md."
+  - "Use the actual RUN-0003 artifacts as the evidence source."
+  - "Explain what was tested and why pendulum period approximation is a good benchmark."
+  - "Explain the difference between top leaderboard rank and lower raw-residual higher-complexity models."
+  - "Explain failure modes and the precision audit interpretation."
+  - "State limitations clearly."
+  - "State that no symbolic exactness claim and no global validity claim are made."
+  - "Do not modify canonical result artifacts."
+  - "Do not make the repository public."
+  - "Set this task to REVIEW_READY when finished, not DONE."
+
+accepted_outputs:
+  - "docs/results/pendulum-gauntlet-100-summary.md"
+  - "docs/results/pendulum-gauntlet-100-short.md"
+  - "docs/announcement-draft-pendulum-gauntlet.md"
+  - "updated README.md"
+  - "updated docs/status.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+    - "./scripts/apl_review_bundle.sh"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
