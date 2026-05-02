@@ -77,6 +77,19 @@ Expected output:
 - formula category inventory
 - future public-result angle
 
+### TASK-0020 — Add pytest-timeout and validation safeguards against hanging tests
+
+Type: `repository_validation`  
+Priority: `medium`  
+Suggested size: `small`
+
+Expected output:
+
+- `pytest-timeout` installed and configured with per-test timeout
+- all existing tests pass under the new timeout
+- optional quick-validation shortcut script
+- updated `pyproject.toml`
+
 ## PROPOSED
 
 ### TASK-0016 — Plan an electromagnetic invariance mini-benchmark
