@@ -3,9 +3,12 @@ from __future__ import annotations
 from physics_lab.registry.maintainer_review import (
     ReviewReport,
     branch_task_id,
+    line_is_rule_catalog_line,
     missing_pr_metadata_fields,
     overclaim_hits,
+    parse_added_lines,
     render_review_report,
+    run_task_validation,
     security_pattern_hits,
     sensitive_surface_hits,
 )
@@ -88,3 +91,49 @@ def test_render_review_report_includes_security_section() -> None:
 
     assert "Security risks:" in rendered
     assert "Repository scripts changed." in rendered
+
+
+def test_run_task_validation_skips_self_referential_review_command(tmp_path) -> None:
+    payload = {
+        "validation": {
+            "commands": [
+                "python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034 || true",
+                "python3 -c 'print(123)'",
+            ]
+        }
+    }
+
+    summary = run_task_validation(
+        tmp_path,
+        payload,
+        enabled=True,
+        skip_commands_containing=("scripts/apl_review_pr.py",),
+    )
+
+    assert summary.status == "pass"
+
+
+def test_parse_added_lines_can_exclude_tests_or_limit_prefixes() -> None:
+    diff_text = "\n".join(
+        [
+            "+++ b/tests/test_maintainer_review.py",
+            "+We solved physics with a 100% correct model.",
+            "+++ b/scripts/apl_review_pr.py",
+            "+value = eval(user_input)",
+        ]
+    )
+
+    assert parse_added_lines(diff_text, exclude_prefixes=("tests/",)) == (
+        "value = eval(user_input)",
+    )
+    assert parse_added_lines(
+        diff_text,
+        include_prefixes=("scripts/",),
+    ) == ("value = eval(user_input)",)
+
+
+def test_rule_catalog_lines_are_not_treated_as_live_risk() -> None:
+    assert line_is_rule_catalog_line('    "solved",')
+    assert line_is_rule_catalog_line(
+        '    (re.compile(r"\\beval\\s*\\("), "Introduces eval(...)."),'
+    )
