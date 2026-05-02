@@ -64,6 +64,8 @@ git checkout -b agent/your-id/codex/task-0023-first-contributor-runbook
 
 Use your human contributor id first, then the execution tool id.
 
+Do this before editing repository files. Do not work on `main`.
+
 ## 7) Run validation before handoff
 
 Use the quick local script first:

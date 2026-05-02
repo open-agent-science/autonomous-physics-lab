@@ -1,0 +1,1024 @@
+"""Deterministic helpers for maintainer PR review and task closeout."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import date
+import json
+from pathlib import Path
+import re
+import subprocess
+from typing import Any
+
+from physics_lab.registry.claims import load_claim
+from physics_lab.registry.tasks import load_task
+
+
+BRANCH_PATTERN = re.compile(
+    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
+    r"task-(?P<number>[0-9]{4})-(?P<slug>[a-z0-9-]+)$"
+)
+PR_TITLE_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}): .+")
+REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
+RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
+OVERCLAIM_TERMS = (
+    "solved",
+    "proved",
+    "exact discovery",
+    "100% correct",
+    "new physics",
+    "theory of everything",
+    "global validity",
+)
+NEGATION_MARKERS = ("do not", "don't", "must not", "should not", "no ", "avoid ")
+OVERCLAIM_PATTERNS = tuple(
+    re.compile(rf"(?<![a-z]){re.escape(term)}(?![a-z])") for term in OVERCLAIM_TERMS
+)
+PROTECTED_PREFIXES = ("results/", "claims/", "hypotheses/", "experiments/")
+PR_METADATA_FIELDS = (
+    "Contributor ID",
+    "GitHub username",
+    "Agent tool",
+    "Task ID",
+    "Branch",
+    "Human reviewer",
+)
+KNOWN_OUTPUT_EXTENSIONS = (
+    ".md",
+    ".yaml",
+    ".yml",
+    ".py",
+    ".json",
+    ".txt",
+    ".csv",
+    ".ipynb",
+)
+DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
+SENSITIVE_PATH_RULES = (
+    (".github/workflows/", "CI workflow files changed."),
+    ("scripts/", "Repository scripts changed."),
+    ("pyproject.toml", "Project dependency or tooling configuration changed."),
+)
+SECURITY_BLOCK_RULES = (
+    (re.compile(r"\beval\s*\("), "Introduces eval(...)."),
+    (re.compile(r"\bexec\s*\("), "Introduces exec(...)."),
+    (re.compile(r"\bpickle\.loads\s*\("), "Introduces pickle.loads(...)."),
+    (re.compile(r"\byaml\.load\s*\("), "Introduces yaml.load(...)."),
+    (re.compile(r"\bos\.system\s*\("), "Introduces os.system(...)."),
+    (
+        re.compile(r"\bsubprocess\.(?:Popen|run|call)\b.*shell\s*=\s*True"),
+        "Introduces subprocess shell=True execution.",
+    ),
+    (re.compile(r"curl\b.*\|\s*(?:sh|bash)\b"), "Introduces curl-pipe-shell execution."),
+)
+QUOTED_LINE_PATTERN = re.compile(r'^\s*["\'].*["\'],?\s*$')
+
+
+@dataclass(frozen=True)
+class CommandResult:
+    """Captured subprocess result."""
+
+    returncode: int
+    stdout: str
+    stderr: str
+
+
+@dataclass(frozen=True)
+class PullRequestMetadata:
+    """Best-effort metadata loaded from GitHub CLI."""
+
+    number: int
+    title: str
+    body: str
+    branch: str
+    state: str
+    merged: bool
+    status_checks_passed: bool | None
+    status_checks_pending: bool
+
+
+@dataclass(frozen=True)
+class ValidationSummary:
+    """Result of running task validation commands."""
+
+    status: str
+    failed_commands: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class ReviewReport:
+    """Rendered maintainer review decision."""
+
+    verdict: str
+    risk: str
+    task_id: str
+    branch: str
+    changed_files: tuple[str, ...]
+    validation: str
+    security_risks: tuple[str, ...]
+    blockers: tuple[str, ...]
+    required_fixes: tuple[str, ...]
+    recommended_action: str
+
+
+@dataclass(frozen=True)
+class CloseoutReport:
+    """Rendered maintainer closeout decision."""
+
+    outcome: str
+    task_id: str
+    pull_request: int
+    branch: str
+    task_status: str
+    merged: str
+    accepted_outputs: str
+    ci_status: str
+    blockers: tuple[str, ...]
+    required_actions: tuple[str, ...]
+    applied_changes: tuple[str, ...]
+
+
+def run_command(
+    command: str | list[str],
+    *,
+    cwd: Path,
+    shell: bool = False,
+    timeout: int = 60,
+) -> CommandResult:
+    """Run a command and return captured output without raising."""
+    completed = subprocess.run(
+        command,
+        cwd=cwd,
+        shell=shell,
+        text=True,
+        capture_output=True,
+        timeout=timeout,
+        check=False,
+    )
+    return CommandResult(
+        returncode=completed.returncode,
+        stdout=completed.stdout,
+        stderr=completed.stderr,
+    )
+
+
+def current_branch(root: Path) -> str:
+    """Return the current git branch name."""
+    result = run_command(["git", "branch", "--show-current"], cwd=root)
+    return result.stdout.strip()
+
+
+def git_status_clean(root: Path) -> bool:
+    """Return whether the worktree is clean."""
+    result = run_command(["git", "status", "--short"], cwd=root)
+    return result.returncode == 0 and result.stdout.strip() == ""
+
+
+def branch_task_id(branch: str) -> str | None:
+    """Extract TASK-XXXX from a canonical branch name."""
+    match = BRANCH_PATTERN.match(branch)
+    if match is None:
+        return None
+    return f"TASK-{match.group('number')}"
+
+
+def resolve_task_file(root: Path, task_id: str) -> Path:
+    """Resolve a task id to its unique task file."""
+    matches = sorted((root / "tasks").glob(f"{task_id}-*.yaml"))
+    if not matches:
+        raise FileNotFoundError(f"No task file found for {task_id}")
+    if len(matches) > 1:
+        rendered = ", ".join(path.name for path in matches)
+        raise ValueError(f"Multiple task files found for {task_id}: {rendered}")
+    return matches[0]
+
+
+def changed_files_vs_main(root: Path, branch: str) -> tuple[str, ...]:
+    """Return changed files for a branch relative to main."""
+    result = run_command(
+        ["git", "diff", "--name-only", f"main...{branch}"],
+        cwd=root,
+    )
+    changed = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+    if branch == current_branch(root):
+        changed.extend(working_tree_changed_files(root))
+    return tuple(dict.fromkeys(changed))
+
+
+def local_branch_exists(root: Path, branch: str) -> bool:
+    """Return whether a local branch exists."""
+    result = run_command(
+        ["git", "rev-parse", "--verify", branch],
+        cwd=root,
+    )
+    return result.returncode == 0
+
+
+def added_lines_vs_main(root: Path, branch: str) -> tuple[str, ...]:
+    """Return added diff lines for a branch relative to main."""
+    result = run_command(
+        ["git", "diff", "--unified=0", f"main...{branch}"],
+        cwd=root,
+        timeout=120,
+    )
+    added_lines = list(parse_added_lines(result.stdout))
+    if branch == current_branch(root):
+        worktree_result = run_command(
+            ["git", "diff", "--unified=0"],
+            cwd=root,
+            timeout=120,
+        )
+        added_lines.extend(parse_added_lines(worktree_result.stdout))
+    return tuple(added_lines)
+
+
+def parse_added_lines(
+    diff_text: str,
+    *,
+    include_prefixes: tuple[str, ...] | None = None,
+    exclude_prefixes: tuple[str, ...] = (),
+) -> tuple[str, ...]:
+    """Extract added diff lines from unified diff text."""
+    added_lines: list[str] = []
+    current_path: str | None = None
+    for line in diff_text.splitlines():
+        if line.startswith("+++ b/"):
+            current_path = line.removeprefix("+++ b/").strip()
+            continue
+        if line.startswith("+++ "):
+            current_path = None
+            continue
+        if line.startswith("+++ ") or line.startswith("@@"):
+            continue
+        if line.startswith("+"):
+            if current_path is None:
+                continue
+            if include_prefixes is not None and not any(
+                current_path.startswith(prefix) for prefix in include_prefixes
+            ):
+                continue
+            if any(current_path.startswith(prefix) for prefix in exclude_prefixes):
+                continue
+            added_lines.append(line[1:])
+    return tuple(added_lines)
+
+
+def working_tree_changed_files(root: Path) -> tuple[str, ...]:
+    """Return changed files from git status for the current worktree."""
+    result = run_command(["git", "status", "--short"], cwd=root)
+    paths: list[str] = []
+    for line in result.stdout.splitlines():
+        if not line.strip():
+            continue
+        entry = line[3:] if len(line) > 3 else line
+        if " -> " in entry:
+            entry = entry.split(" -> ", 1)[1]
+        paths.append(entry.strip())
+    return tuple(paths)
+
+
+def latest_review_bundle(root: Path, branch: str) -> Path | None:
+    """Return the latest review bundle for a branch if present."""
+    safe_branch = branch.replace("/", "-")
+    bundles = sorted((root / "_snapshots").glob(f"review_{safe_branch}_*.md"))
+    if not bundles:
+        return None
+    return bundles[-1]
+
+
+def ensure_review_bundle(root: Path, branch: str, *, can_generate: bool) -> tuple[Path | None, str]:
+    """Return a valid review bundle path or a status string."""
+    bundle = latest_review_bundle(root, branch)
+    if bundle is not None:
+        if review_bundle_branch(bundle) == branch:
+            return bundle, "present"
+        return bundle, "invalid"
+    if not can_generate:
+        return None, "missing"
+    result = run_command(["./scripts/apl_review_bundle.sh"], cwd=root, timeout=120)
+    if result.returncode != 0:
+        return None, "missing"
+    bundle = latest_review_bundle(root, branch)
+    if bundle is None:
+        return None, "missing"
+    if review_bundle_branch(bundle) != branch:
+        return bundle, "invalid"
+    return bundle, "generated"
+
+
+def review_bundle_branch(path: Path) -> str | None:
+    """Read the branch metadata from a review bundle."""
+    for line in path.read_text(encoding="utf-8").splitlines():
+        match = REVIEW_BUNDLE_BRANCH_PATTERN.match(line.strip())
+        if match is not None:
+            return match.group("branch")
+    return None
+
+
+def output_paths(task_payload: dict[str, Any]) -> tuple[str, ...]:
+    """Return accepted output paths that look like tracked files."""
+    paths: list[str] = []
+    for item in task_payload.get("accepted_outputs", []):
+        path = normalize_output_path(str(item))
+        if path is not None:
+            paths.append(path)
+    return tuple(paths)
+
+
+def normalize_output_path(raw_output: str) -> str | None:
+    """Extract a path-like accepted output from a human string."""
+    cleaned = raw_output.strip().strip("`")
+    if cleaned.startswith("updated "):
+        cleaned = cleaned.removeprefix("updated ").strip().strip("`")
+    if "/" not in cleaned:
+        return None
+    if cleaned.endswith(KNOWN_OUTPUT_EXTENSIONS):
+        return cleaned
+    parts = cleaned.split()
+    if len(parts) == 1:
+        return cleaned
+    return None
+
+
+def path_exists_in_ref(root: Path, ref: str, repo_path: str) -> bool:
+    """Return whether a path exists in a git ref."""
+    result = run_command(
+        ["git", "cat-file", "-e", f"{ref}:{repo_path}"],
+        cwd=root,
+    )
+    return result.returncode == 0
+
+
+def missing_expected_outputs(
+    root: Path,
+    branch: str,
+    task_payload: dict[str, Any],
+    changed_files: tuple[str, ...],
+) -> tuple[str, ...]:
+    """Return accepted output paths that appear to be missing."""
+    missing: list[str] = []
+    for output_path in output_paths(task_payload):
+        if output_path.startswith("tasks/") and output_path.endswith(".yaml"):
+            if path_exists_in_ref(root, branch, output_path):
+                continue
+        if output_path in changed_files:
+            continue
+        if branch == current_branch(root) and (root / output_path).exists():
+            continue
+        if path_exists_in_ref(root, branch, output_path):
+            continue
+        missing.append(output_path)
+    return tuple(missing)
+
+
+def task_allows_prefix(task_payload: dict[str, Any], prefix: str) -> bool:
+    """Return whether task metadata explicitly allows a protected prefix."""
+    texts = []
+    texts.extend(str(item) for item in task_payload.get("accepted_outputs", []))
+    texts.extend(str(item) for item in task_payload.get("requirements", []))
+    texts.extend(str(item) for item in task_payload.get("input", {}).get("related_objects", []))
+    normalized_prefix = prefix.rstrip("/")
+    return any(normalized_prefix in text or prefix in text for text in texts)
+
+
+def unexpected_protected_changes(
+    changed_files: tuple[str, ...],
+    task_payload: dict[str, Any],
+) -> tuple[str, ...]:
+    """Return protected file changes that are not task-authorized."""
+    unexpected: list[str] = []
+    for path in changed_files:
+        for prefix in PROTECTED_PREFIXES:
+            if path.startswith(prefix) and not task_allows_prefix(task_payload, prefix):
+                unexpected.append(path)
+                break
+    return tuple(unexpected)
+
+
+def load_claim_status_from_ref(root: Path, ref: str, repo_path: str) -> str | None:
+    """Load claim status from a git ref if the file exists."""
+    if not path_exists_in_ref(root, ref, repo_path):
+        return None
+    show_result = run_command(["git", "show", f"{ref}:{repo_path}"], cwd=root)
+    if show_result.returncode != 0:
+        return None
+    temp_path = root / ".git" / "tmp_claim_check.md"
+    temp_path.write_text(show_result.stdout, encoding="utf-8")
+    try:
+        return str(load_claim(temp_path)["status"])
+    finally:
+        if temp_path.exists():
+            temp_path.unlink()
+
+
+def claim_status_promotions(root: Path, branch: str, changed_files: tuple[str, ...]) -> tuple[str, ...]:
+    """Return claim files whose status changed away from DRAFT or PARTIALLY_SUPPORTED."""
+    promotions: list[str] = []
+    for path in changed_files:
+        if not path.startswith("claims/") or not path.endswith(".md"):
+            continue
+        before_status = load_claim_status_from_ref(root, "main", path)
+        after_status = load_claim_status_from_ref(root, branch, path)
+        if before_status is None or after_status is None:
+            continue
+        if before_status != after_status and after_status not in {"DRAFT", "PARTIALLY_SUPPORTED"}:
+            promotions.append(f"{path}: {before_status} -> {after_status}")
+    return tuple(promotions)
+
+
+def overclaim_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
+    """Return overclaim terms found in added diff lines."""
+    hits: list[str] = []
+    for line in added_lines:
+        lowered = line.lower()
+        if any(marker in lowered for marker in NEGATION_MARKERS):
+            continue
+        if line_is_rule_catalog_line(line):
+            continue
+        for term, pattern in zip(OVERCLAIM_TERMS, OVERCLAIM_PATTERNS):
+            if pattern.search(lowered):
+                hits.append(term)
+    return tuple(hits)
+
+
+def security_pattern_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
+    """Return dangerous code patterns found in added diff lines."""
+    hits: list[str] = []
+    for line in added_lines:
+        lowered = line.lower()
+        if line_is_rule_catalog_line(line):
+            continue
+        for pattern, description in SECURITY_BLOCK_RULES:
+            if pattern.search(lowered):
+                hits.append(description)
+    return tuple(dict.fromkeys(hits))
+
+
+def line_is_rule_catalog_line(line: str) -> bool:
+    """Return whether a diff line is clearly a catalog entry rather than live code."""
+    stripped = line.strip()
+    if "re.compile(" in stripped:
+        return True
+    return QUOTED_LINE_PATTERN.match(stripped) is not None
+
+
+def sensitive_surface_hits(changed_files: tuple[str, ...]) -> tuple[str, ...]:
+    """Return security-relevant changed surfaces that deserve maintainer review."""
+    hits: list[str] = []
+    for path in changed_files:
+        for prefix, description in SENSITIVE_PATH_RULES:
+            if path == prefix or path.startswith(prefix):
+                hits.append(f"{description} Path: {path}")
+                break
+    return tuple(dict.fromkeys(hits))
+
+
+def run_task_validation(
+    root: Path,
+    task_payload: dict[str, Any],
+    *,
+    enabled: bool,
+    skip_commands_containing: tuple[str, ...] = (),
+) -> ValidationSummary:
+    """Run validation commands from the task file when feasible."""
+    if not enabled:
+        return ValidationSummary(status="not_run", failed_commands=())
+    failed_commands: list[str] = []
+    for command in task_payload.get("validation", {}).get("commands", []):
+        command_text = str(command)
+        if any(token in command_text for token in skip_commands_containing):
+            continue
+        result = run_command(command_text, cwd=root, shell=True, timeout=300)
+        if result.returncode != 0:
+            failed_commands.append(command_text)
+    if failed_commands:
+        return ValidationSummary(status="fail", failed_commands=tuple(failed_commands))
+    return ValidationSummary(status="pass", failed_commands=())
+
+
+def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
+    """Load PR metadata through the GitHub CLI when available."""
+    result = run_command(
+        [
+            "gh",
+            "pr",
+            "view",
+            str(number),
+            "--json",
+            "number,title,body,headRefName,state,mergedAt,statusCheckRollup",
+        ],
+        cwd=root,
+        timeout=30,
+    )
+    if result.returncode != 0:
+        return None
+    payload = json.loads(result.stdout)
+    status_checks = payload.get("statusCheckRollup") or []
+    has_failure = False
+    has_pending = False
+    has_success = False
+    for item in status_checks:
+        conclusion = str(item.get("conclusion") or "").upper()
+        state = str(item.get("state") or "").upper()
+        if conclusion in {"FAILURE", "TIMED_OUT", "CANCELLED", "ACTION_REQUIRED"}:
+            has_failure = True
+        elif conclusion == "SUCCESS":
+            has_success = True
+        elif state and state not in {"COMPLETED", "SUCCESS"}:
+            has_pending = True
+    status_passed: bool | None
+    if has_failure:
+        status_passed = False
+    elif has_success and not has_pending:
+        status_passed = True
+    else:
+        status_passed = None
+    return PullRequestMetadata(
+        number=int(payload["number"]),
+        title=str(payload.get("title") or ""),
+        body=str(payload.get("body") or ""),
+        branch=str(payload.get("headRefName") or ""),
+        state=str(payload.get("state") or ""),
+        merged=bool(payload.get("mergedAt")),
+        status_checks_passed=status_passed,
+        status_checks_pending=has_pending,
+    )
+
+
+def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
+    """Return required PR metadata fields that are still blank."""
+    missing: list[str] = []
+    lines = body.splitlines()
+    for field in PR_METADATA_FIELDS:
+        prefix = f"- {field}:"
+        matching_line = next((line for line in lines if line.startswith(prefix)), None)
+        if matching_line is None:
+            missing.append(field)
+            continue
+        value = matching_line.split(":", 1)[1].strip()
+        if value == "":
+            missing.append(field)
+    return tuple(missing)
+
+
+def build_review_report(
+    root: Path,
+    *,
+    pull_request: int | None = None,
+    branch: str | None = None,
+    task_id: str | None = None,
+) -> ReviewReport:
+    """Build a maintainer review verdict for the current or provided branch."""
+    current = current_branch(root)
+    pr_metadata = load_pr_metadata(root, pull_request) if pull_request is not None else None
+    target_branch = branch or (pr_metadata.branch if pr_metadata is not None else current)
+    blockers: list[str] = []
+    required_fixes: list[str] = []
+    security_risks: list[str] = []
+
+    if target_branch == "main":
+        blockers.append("Branch is main. PR review must target a task branch, not main.")
+
+    branch_match = BRANCH_PATTERN.match(target_branch)
+    if branch_match is None:
+        blockers.append(
+            "Branch does not follow agent/<contributor-id>/<agent-id>/task-XXXX-short-slug."
+        )
+    elif not local_branch_exists(root, target_branch):
+        blockers.append(
+            f"Local branch {target_branch} is not available. Checkout the PR branch locally first."
+        )
+    branch_task = branch_task_id(target_branch)
+    resolved_task_id = task_id or branch_task
+    if resolved_task_id is None:
+        blockers.append("Task id could not be inferred from the branch and was not provided.")
+        resolved_task_id = "TASK-UNKNOWN"
+    elif branch_task is not None and task_id is not None and branch_task != task_id:
+        blockers.append(
+            f"Explicit task id {task_id} does not match branch task id {branch_task}."
+        )
+
+    task_payload: dict[str, Any] | None = None
+    if resolved_task_id != "TASK-UNKNOWN":
+        try:
+            task_file = resolve_task_file(root, resolved_task_id)
+            task_payload = load_task(task_file)
+        except (FileNotFoundError, ValueError) as exc:
+            blockers.append(str(exc))
+            task_file = None
+        if task_payload is not None and str(task_payload["status"]) != "REVIEW_READY":
+            required_fixes.append(
+                f"Task status is {task_payload['status']}. Set it to REVIEW_READY before merge."
+            )
+    else:
+        task_file = None
+
+    changed_files = changed_files_vs_main(root, target_branch)
+    if not changed_files:
+        blockers.append("Diff vs main is empty. There is no reviewable task change.")
+
+    if target_branch == current and not git_status_clean(root):
+        required_fixes.append("Git status is not clean on the review branch.")
+    elif target_branch != current:
+        required_fixes.append(
+            "Switch to the PR branch locally to verify clean git status and run validations."
+        )
+
+    if pr_metadata is not None:
+        title_match = PR_TITLE_PATTERN.match(pr_metadata.title)
+        if title_match is None:
+            required_fixes.append("PR title does not follow TASK-XXXX: ... format.")
+        elif title_match.group("task_id") != resolved_task_id:
+            blockers.append(
+                f"PR title task id {title_match.group('task_id')} does not match {resolved_task_id}."
+            )
+        if pr_metadata.branch and pr_metadata.branch != target_branch:
+            blockers.append(
+                f"PR branch {pr_metadata.branch} does not match reviewed branch {target_branch}."
+            )
+        missing_fields = missing_pr_metadata_fields(pr_metadata.body)
+        if missing_fields:
+            required_fixes.append(
+                "PR metadata is incomplete: " + ", ".join(missing_fields) + "."
+            )
+        if pr_metadata.status_checks_passed is False:
+            blockers.append("GitHub status checks are failing.")
+        elif pr_metadata.status_checks_pending:
+            required_fixes.append("GitHub status checks are still pending.")
+    elif pull_request is not None:
+        pass
+
+    if task_payload is not None:
+        missing_outputs = missing_expected_outputs(
+            root,
+            target_branch,
+            task_payload,
+            changed_files,
+        )
+        if missing_outputs:
+            required_fixes.append(
+                "Accepted outputs appear to be missing: " + ", ".join(missing_outputs) + "."
+            )
+        unexpected_paths = unexpected_protected_changes(changed_files, task_payload)
+        if unexpected_paths:
+            blockers.append(
+                "Unexpected protected artifact changes: "
+                + ", ".join(unexpected_paths)
+                + "."
+            )
+        promotions = claim_status_promotions(root, target_branch, changed_files)
+        if promotions:
+            blockers.append("Claim status promotion detected: " + ", ".join(promotions) + ".")
+
+    overclaim_lines = tuple(
+        parse_added_lines(
+            run_command(
+                ["git", "diff", "--unified=0", f"main...{target_branch}"],
+                cwd=root,
+                timeout=120,
+            ).stdout,
+            exclude_prefixes=("tests/",),
+        )
+    )
+    if target_branch == current and not git_status_clean(root):
+        overclaim_lines = overclaim_lines + parse_added_lines(
+            run_command(["git", "diff", "--unified=0"], cwd=root, timeout=120).stdout,
+            exclude_prefixes=("tests/",),
+        )
+    overclaims = overclaim_hits(overclaim_lines)
+    if overclaims:
+        blockers.append("Overclaim language detected: " + ", ".join(overclaims) + ".")
+    security_lines = tuple(
+        parse_added_lines(
+            run_command(
+                ["git", "diff", "--unified=0", f"main...{target_branch}"],
+                cwd=root,
+                timeout=120,
+            ).stdout,
+            include_prefixes=("physics_lab/", "scripts/", ".github/workflows/"),
+        )
+    )
+    if target_branch == current and not git_status_clean(root):
+        security_lines = security_lines + parse_added_lines(
+            run_command(["git", "diff", "--unified=0"], cwd=root, timeout=120).stdout,
+            include_prefixes=("physics_lab/", "scripts/", ".github/workflows/"),
+        )
+    dangerous_patterns = security_pattern_hits(security_lines)
+    if dangerous_patterns:
+        security_risks.extend(dangerous_patterns)
+        blockers.append(
+            "Dangerous code patterns detected: " + ", ".join(dangerous_patterns) + "."
+        )
+    security_risks.extend(sensitive_surface_hits(changed_files))
+
+    bundle_path, bundle_status = ensure_review_bundle(
+        root,
+        target_branch,
+        can_generate=target_branch == current and target_branch != "main",
+    )
+    if bundle_status == "missing":
+        required_fixes.append("Review bundle is missing and could not be generated.")
+    elif bundle_status == "invalid":
+        blockers.append(
+            "Review bundle exists but was generated from the wrong branch, not the PR branch."
+        )
+
+    validation = run_task_validation(
+        root,
+        task_payload or {},
+        enabled=bool(task_payload) and target_branch == current and git_status_clean(root),
+        skip_commands_containing=("scripts/apl_review_pr.py",),
+    )
+    if validation.status == "fail":
+        blockers.append(
+            "Validation commands failed: " + ", ".join(validation.failed_commands) + "."
+        )
+    elif validation.status == "not_run":
+        required_fixes.append("Validation commands were not executed during this review run.")
+
+    if blockers:
+        verdict = "BLOCKED"
+        risk = "high"
+        recommended_action = "Do not merge. Return the blockers to the developer."
+    elif required_fixes:
+        verdict = "NEEDS_CHANGES"
+        risk = "medium"
+        recommended_action = "Request changes and re-run the maintainer review."
+    elif security_risks:
+        verdict = "MERGE_OK"
+        risk = "medium"
+        recommended_action = (
+            "Merge after GitHub CI is green and the maintainer accepts the listed "
+            "security-sensitive changes."
+        )
+    else:
+        verdict = "MERGE_OK"
+        risk = "low"
+        recommended_action = "Merge after GitHub CI is green."
+
+    if bundle_path is not None and bundle_status == "generated":
+        required_fixes = [
+            item for item in required_fixes if item != "Review bundle is missing and could not be generated."
+        ]
+
+    return ReviewReport(
+        verdict=verdict,
+        risk=risk,
+        task_id=resolved_task_id,
+        branch=target_branch,
+        changed_files=changed_files,
+        validation=validation.status,
+        security_risks=tuple(dict.fromkeys(security_risks)),
+        blockers=tuple(blockers),
+        required_fixes=tuple(required_fixes),
+        recommended_action=recommended_action,
+    )
+
+
+def render_review_report(report: ReviewReport) -> str:
+    """Render a stable PR review report."""
+    lines = [
+        f"Verdict: {report.verdict}",
+        f"Risk: {report.risk}",
+        f"Task: {report.task_id}",
+        f"Branch: {report.branch}",
+        "Changed files:",
+    ]
+    if report.changed_files:
+        lines.extend(f"- {path}" for path in report.changed_files)
+    else:
+        lines.append("- none")
+    lines.append(f"Validation: {report.validation}")
+    lines.append("Security risks:")
+    if report.security_risks:
+        lines.extend(f"- {item}" for item in report.security_risks)
+    else:
+        lines.append("- none")
+    lines.append("Blockers:")
+    if report.blockers:
+        lines.extend(f"- {item}" for item in report.blockers)
+    else:
+        lines.append("- none")
+    lines.append("Required fixes:")
+    if report.required_fixes:
+        lines.extend(f"- {item}" for item in report.required_fixes)
+    else:
+        lines.append("- none")
+    lines.append("Recommended action:")
+    lines.append(f"- {report.recommended_action}")
+    return "\n".join(lines)
+
+
+def update_task_status(task_file: Path, new_status: str) -> None:
+    """Set the status field in a task YAML file."""
+    text = task_file.read_text(encoding="utf-8")
+    updated_text, count = re.subn(
+        r"^status:\s+.+$",
+        f"status: {new_status}",
+        text,
+        count=1,
+        flags=re.MULTILINE,
+    )
+    if count != 1:
+        raise ValueError(f"Could not update status in {task_file}")
+    task_file.write_text(updated_text, encoding="utf-8")
+
+
+def update_active_board_for_done(root: Path, task_id: str, task_title: str) -> None:
+    """Move a task from REVIEW_READY details to DONE RECENTLY bullet list."""
+    active_path = root / "tasks" / "ACTIVE.md"
+    lines = active_path.read_text(encoding="utf-8").splitlines()
+    start_index: int | None = None
+    end_index: int | None = None
+    for index, line in enumerate(lines):
+        if line.startswith(f"### {task_id}"):
+            start_index = index
+            end_index = index + 1
+            while end_index < len(lines):
+                candidate = lines[end_index]
+                if candidate.startswith("### TASK-") or candidate.startswith("## "):
+                    break
+                end_index += 1
+            break
+    if start_index is not None and end_index is not None:
+        while start_index > 0 and lines[start_index - 1] == "":
+            start_index -= 1
+        del lines[start_index:end_index]
+
+    done_header_index = lines.index("## DONE RECENTLY")
+    insert_index = done_header_index + 1
+    while insert_index < len(lines) and lines[insert_index] == "":
+        insert_index += 1
+    done_entry = f"- `{task_id}` — {task_title} (merged)"
+    if done_entry not in lines:
+        lines.insert(insert_index, done_entry)
+    active_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def should_append_dry_run_entry(task_payload: dict[str, Any]) -> bool:
+    """Return whether a merged task should be recorded in multi-agent dry run notes."""
+    related_objects = [str(item).lower() for item in task_payload.get("input", {}).get("related_objects", [])]
+    planning_context = str(task_payload.get("input", {}).get("planning_context", "")).lower()
+    task_type = str(task_payload.get("type", "")).lower()
+    if any("multi-agent-dry-run" in item or "task-0012" in item for item in related_objects):
+        return True
+    if any(keyword in planning_context for keyword in DRY_RUN_KEYWORDS):
+        return True
+    return task_type in {"contributor_pilot", "agent_workflow"}
+
+
+def append_dry_run_entry(root: Path, task_id: str, pull_request: int) -> bool:
+    """Append a minimal dry-run closeout entry if the task is not already recorded."""
+    doc_path = root / "docs" / "multi-agent-dry-run.md"
+    text = doc_path.read_text(encoding="utf-8")
+    if task_id in text:
+        return False
+    run_numbers = [int(match.group("number")) for match in RUN_ENTRY_PATTERN.finditer(text)]
+    next_run = max(run_numbers, default=0) + 1
+    entry = "\n".join(
+        [
+            "",
+            f"## Run #{next_run}",
+            "",
+            f"- Date: `{date.today().isoformat()}`",
+            f"- Task: `{task_id}`",
+            f"- Pull request: `#{pull_request}`",
+            "- Scope: maintainer closeout entry for a merged contributor or workflow task",
+            "",
+            "### Outcome",
+            "",
+            "- the merged PR was reviewed and closed out on `main`;",
+            "- the task moved from `REVIEW_READY` to `DONE`.",
+            "",
+            "### Limitations",
+            "",
+            "- this note is a short maintainer closeout summary only;",
+            "- detailed review discussion remains in the PR thread.",
+            "",
+        ]
+    )
+    doc_path.write_text(text.rstrip() + "\n" + entry, encoding="utf-8")
+    return True
+
+
+def build_closeout_report(
+    root: Path,
+    *,
+    task_id: str,
+    pull_request: int,
+    apply: bool,
+) -> CloseoutReport:
+    """Build and optionally apply a maintainer closeout decision on main."""
+    blockers: list[str] = []
+    required_actions: list[str] = []
+    applied_changes: list[str] = []
+    branch = current_branch(root)
+
+    if branch != "main":
+        blockers.append("Current branch is not main. Closeout must run on main after merge.")
+    if not git_status_clean(root):
+        blockers.append("Git status is not clean before closeout.")
+
+    pr_metadata = load_pr_metadata(root, pull_request)
+    merged = "unknown"
+    ci_status = "unknown"
+    if pr_metadata is None:
+        required_actions.append("Could not verify PR metadata via gh CLI.")
+    else:
+        merged = "yes" if pr_metadata.merged else "no"
+        if pr_metadata.status_checks_passed is True:
+            ci_status = "pass"
+        elif pr_metadata.status_checks_passed is False:
+            ci_status = "fail"
+            blockers.append("GitHub status checks for the PR are failing.")
+        elif pr_metadata.status_checks_pending:
+            ci_status = "pending"
+            required_actions.append("GitHub status checks are still pending.")
+        if not pr_metadata.merged:
+            blockers.append("PR is not merged.")
+
+    task_file = resolve_task_file(root, task_id)
+    task_payload = load_task(task_file)
+    task_status = str(task_payload["status"])
+    if task_status != "REVIEW_READY":
+        blockers.append(f"Task status is {task_status}, not REVIEW_READY.")
+
+    missing_outputs = missing_expected_outputs(
+        root,
+        "HEAD",
+        task_payload,
+        changed_files=(),
+    )
+    if missing_outputs:
+        blockers.append(
+            "Accepted outputs are missing in main: " + ", ".join(missing_outputs) + "."
+        )
+        accepted_outputs_status = "fail"
+    else:
+        accepted_outputs_status = "pass"
+
+    if blockers:
+        outcome = "BLOCKED"
+    elif required_actions and not apply:
+        outcome = "NEEDS_ATTENTION"
+    elif required_actions and apply:
+        outcome = "BLOCKED"
+        blockers.extend(required_actions)
+        required_actions = []
+    elif apply:
+        outcome = "APPLIED"
+    else:
+        outcome = "READY_TO_APPLY"
+
+    if apply and outcome == "APPLIED":
+        update_task_status(task_file, "DONE")
+        applied_changes.append(f"Updated {task_file.as_posix()} status to DONE.")
+        update_active_board_for_done(root, task_id, str(task_payload["title"]))
+        applied_changes.append("Moved the task entry from REVIEW_READY to DONE RECENTLY in tasks/ACTIVE.md.")
+        if should_append_dry_run_entry(task_payload):
+            if append_dry_run_entry(root, task_id, pull_request):
+                applied_changes.append("Appended a closeout note to docs/multi-agent-dry-run.md.")
+
+    return CloseoutReport(
+        outcome=outcome,
+        task_id=task_id,
+        pull_request=pull_request,
+        branch=branch,
+        task_status=task_status,
+        merged=merged,
+        accepted_outputs=accepted_outputs_status,
+        ci_status=ci_status,
+        blockers=tuple(blockers),
+        required_actions=tuple(required_actions),
+        applied_changes=tuple(applied_changes),
+    )
+
+
+def render_closeout_report(report: CloseoutReport) -> str:
+    """Render a stable closeout report."""
+    lines = [
+        f"Closeout: {report.outcome}",
+        f"Task: {report.task_id}",
+        f"PR: #{report.pull_request}",
+        f"Branch: {report.branch}",
+        f"Task status: {report.task_status}",
+        f"PR merged: {report.merged}",
+        f"Accepted outputs in main: {report.accepted_outputs}",
+        f"CI: {report.ci_status}",
+        "Blockers:",
+    ]
+    if report.blockers:
+        lines.extend(f"- {item}" for item in report.blockers)
+    else:
+        lines.append("- none")
+    lines.append("Required actions:")
+    if report.required_actions:
+        lines.extend(f"- {item}" for item in report.required_actions)
+    else:
+        lines.append("- none")
+    lines.append("Applied changes:")
+    if report.applied_changes:
+        lines.extend(f"- {item}" for item in report.applied_changes)
+    else:
+        lines.append("- none")
+    return "\n".join(lines)
