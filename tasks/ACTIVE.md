@@ -122,6 +122,21 @@ None.
 
 ## REVIEW_READY
 
+### TASK-0018 — Support planning-only and workflow tasks without fake hypothesis references
+
+Type: `repository_validation`  
+Priority: `high`  
+Suggested size: `medium`
+
+Completed outputs:
+
+- multi-mode task input schema for science, planning-only, and workflow tasks
+- repository validation that keeps science-task references strict without forcing fake benchmark links for planning/workflow tasks
+- updated planning and workflow task specs without fake pendulum references
+- updated `tasks/TASK-TEMPLATE.yaml`
+- updated contributor and operating-model docs
+- tests covering the new task input modes
+
 ### TASK-0008 — Add machine-readable review metadata for patch-style artifacts
 
 Type: `knowledge_update`  

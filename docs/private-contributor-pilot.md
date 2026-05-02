@@ -39,6 +39,15 @@ Before starting:
 If a task is unclear, narrow it first. Do not combine several unrelated tasks in
 one PR.
 
+Not every task points to a concrete benchmark.
+
+- science execution tasks should reference a real `hypothesis_id` and `experiment_id`
+- planning tasks may use `mode: planning_only`
+- contributor or workflow tasks may use `mode: workflow`
+
+Do not add fake pendulum references to unrelated planning tasks just to match an
+older task shape.
+
 ## Branch Naming Convention
 
 Use this format:

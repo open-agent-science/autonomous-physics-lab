@@ -10,8 +10,9 @@ strategy_alignment:
   - "Confirm that invited contributors can complete atomic tasks with reproducible review artifacts."
 
 input:
-  hypothesis_id: HYP-0001
-  experiment_id: EXP-0001
+  mode: workflow
+  related_objects: []
+  planning_context: "Private multi-agent contributor dry run"
 
 requirements:
   - "Run a controlled private contributor pilot."

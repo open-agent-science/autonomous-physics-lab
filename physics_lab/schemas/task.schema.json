@@ -1,6 +1,97 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Task",
+  "$defs": {
+    "scienceExecutionInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hypothesis_id",
+        "experiment_id"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "science_execution"
+          ]
+        },
+        "hypothesis_id": {
+          "type": "string",
+          "pattern": "^HYP-[0-9]{4}$"
+        },
+        "experiment_id": {
+          "type": "string",
+          "pattern": "^EXP-[0-9]{4}$"
+        }
+      }
+    },
+    "planningOnlyInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "related_domain",
+        "related_objects",
+        "planning_context"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "planning_only"
+          ]
+        },
+        "related_domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "related_objects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "planning_context": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "workflowInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "related_objects",
+        "planning_context"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "workflow"
+          ]
+        },
+        "related_domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "related_objects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "planning_context": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -66,22 +157,17 @@
       }
     },
     "input": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "hypothesis_id",
-        "experiment_id"
-      ],
-      "properties": {
-        "hypothesis_id": {
-          "type": "string",
-          "pattern": "^HYP-[0-9]{4}$"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/scienceExecutionInput"
         },
-        "experiment_id": {
-          "type": "string",
-          "pattern": "^EXP-[0-9]{4}$"
+        {
+          "$ref": "#/$defs/planningOnlyInput"
+        },
+        {
+          "$ref": "#/$defs/workflowInput"
         }
-      }
+      ]
     },
     "requirements": {
       "type": "array",

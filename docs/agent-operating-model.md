@@ -51,6 +51,33 @@ A task is atomic when it has:
 - a clear commit scope;
 - no hidden assumptions that require an additional untracked follow-up.
 
+## Task Input Modes
+
+Tasks may use more than one input shape.
+
+Use science references when the task directly operates on a real benchmark:
+
+- `hypothesis_id`
+- `experiment_id`
+
+Use planning metadata instead when the task is setting up future work or
+contributor process and is not actually about an existing benchmark:
+
+- `mode: planning_only`
+- `related_domain`
+- `related_objects`
+- `planning_context`
+
+Use workflow metadata when the task coordinates contributor flow, review
+discipline, or branch-based execution rather than a specific experiment:
+
+- `mode: workflow`
+- `related_objects`
+- `planning_context`
+
+Do not attach planning or workflow tasks to unrelated benchmark objects just to
+satisfy schema shape.
+
 ## Task States
 
 `TASK-*.yaml` may use:

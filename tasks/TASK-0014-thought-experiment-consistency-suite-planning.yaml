@@ -10,8 +10,10 @@ strategy_alignment:
   - "Test whether APL can formalize assumptions, invariants, and known limits."
 
 input:
-  hypothesis_id: HYP-0001
-  experiment_id: EXP-0001
+  mode: planning_only
+  related_domain: relativity
+  related_objects: []
+  planning_context: "Thought-experiment consistency suite planning"
 
 requirements:
   - "Do planning only, with no implementation yet."
