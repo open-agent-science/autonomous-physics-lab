@@ -86,18 +86,6 @@ Expected output:
 - 10 new challenge items
 - domain coverage note
 
-### TASK-0027 — Create units and physical constants reference
-
-Type: `physics_reference`  
-Priority: `medium`  
-Suggested size: `small`
-
-Expected output:
-
-- `knowledge/reference/units-and-dimensions.md`
-- `knowledge/reference/physical-constants.yaml`
-- reference-data warning note
-
 ### TASK-0028 — Plan light-clock thought experiment consistency check
 
 Type: `thought_experiment_planning`  
@@ -172,7 +160,6 @@ These tasks are independent and safe for first-time contributors.
 - `TASK-0024` — create task index table
 - `TASK-0025` — create result artifacts index
 - `TASK-0026` — add 10 more dimensional-analysis challenge items
-- `TASK-0027` — create units and physical constants reference
 - `TASK-0028` — plan light-clock thought experiment consistency check
 - `TASK-0029` — audit project language for overclaim risk
 - `TASK-0030` — record first friend contributor dry run
@@ -214,6 +201,18 @@ None.
 
 ## REVIEW_READY
 
+### TASK-0027 — Create units and physical constants reference
+
+Type: `physics_reference`  
+Priority: `medium`  
+Branch: `agent/akutenyov/claude/task-0027-units-and-constants-reference`
+
+Completed outputs:
+
+- `knowledge/reference/units-and-dimensions.md`
+- `knowledge/reference/physical-constants.yaml`
+- reference-data warning note
+
 ### TASK-0013 — Plan a particle mass relation falsifier inspired by Koide-style formulas
 
 Type: `benchmark_planning`  
@@ -226,6 +225,7 @@ Expected output:
 - benchmark plan
 - evaluation design
 - scientific constraint summary
+
 ## DONE RECENTLY
 
 - `TASK-0034` — Add maintainer review agent mode (merged)
