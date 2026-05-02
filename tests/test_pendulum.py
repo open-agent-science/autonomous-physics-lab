@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Optional
 
 from typer.testing import CliRunner
 
@@ -28,20 +29,29 @@ from physics_lab.workflows.runner import (
 )
 
 
-def _write_task_file(directory: Path, task_id: str = "TASK-0001") -> Path:
+def _write_task_file(
+    directory: Path,
+    task_id: str = "TASK-0001",
+    *,
+    task_type: str = "formula_discovery",
+    input_lines: Optional[list[str]] = None,
+) -> Path:
     path = directory / f"{task_id}-temp.yaml"
+    task_input_lines = input_lines or [
+        "input:",
+        '  hypothesis_id: "HYP-0001"',
+        '  experiment_id: "EXP-0001"',
+    ]
     path.write_text(
         "\n".join(
             [
                 f'id: "{task_id}"',
                 'title: "Task"',
-                'type: "formula_discovery"',
+                f'type: "{task_type}"',
                 'status: "OPEN"',
                 'difficulty: "medium"',
                 'priority: "high"',
-                "input:",
-                '  hypothesis_id: "HYP-0001"',
-                '  experiment_id: "EXP-0001"',
+                *task_input_lines,
                 "requirements:",
                 '  - "req"',
                 "accepted_outputs:",
@@ -80,6 +90,44 @@ def test_formula_discovery_prefers_two_term_sine_family_on_test_range() -> None:
         for model in fitted_models
     }
     assert scores["model_x_x2"].mean_relative_error < scores["model_theta2"].mean_relative_error
+
+
+def test_load_task_accepts_planning_only_input_mode(tmp_path) -> None:
+    task_path = _write_task_file(
+        tmp_path,
+        task_id="TASK-0100",
+        task_type="benchmark_planning",
+        input_lines=[
+            "input:",
+            '  mode: "planning_only"',
+            '  related_domain: "particle_physics"',
+            "  related_objects: []",
+            '  planning_context: "Particle mass relation falsifier planning"',
+        ],
+    )
+
+    payload = load_task(task_path)
+
+    assert payload["input"]["mode"] == "planning_only"
+    assert payload["input"]["related_domain"] == "particle_physics"
+
+
+def test_load_task_accepts_workflow_input_mode(tmp_path) -> None:
+    task_path = _write_task_file(
+        tmp_path,
+        task_id="TASK-0101",
+        task_type="agent_workflow",
+        input_lines=[
+            "input:",
+            '  mode: "workflow"',
+            "  related_objects: []",
+            '  planning_context: "Private multi-agent contributor dry run"',
+        ],
+    )
+
+    payload = load_task(task_path)
+
+    assert payload["input"]["mode"] == "workflow"
 
 
 def test_theory_aware_candidate_improves_separatrix_behavior() -> None:
@@ -647,6 +695,79 @@ def test_validate_repository_detects_missing_reference(tmp_path) -> None:
         assert "missing experiment id" in str(exc)
     else:
         raise AssertionError("Expected missing reference validation to fail")
+
+
+def test_validate_repository_allows_planning_task_without_fake_science_refs(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    for directory in ("agents", "claims", "experiments", "hypotheses", "results", "tasks"):
+        (repo_root / directory).mkdir(parents=True, exist_ok=True)
+
+    (repo_root / "tasks" / "TASK-0018-temp.yaml").write_text(
+        "\n".join(
+            [
+                'id: "TASK-0018"',
+                'title: "Planning Task"',
+                'type: "benchmark_planning"',
+                'status: "READY"',
+                'difficulty: "medium"',
+                'priority: "high"',
+                "input:",
+                '  mode: "planning_only"',
+                '  related_domain: "particle_physics"',
+                "  related_objects: []",
+                '  planning_context: "Particle mass relation falsifier planning"',
+                "requirements:",
+                '  - "deterministic"',
+                "accepted_outputs:",
+                '  - "markdown"',
+                "can_be_done_by:",
+                '  - "human"',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    summary = validate_repository(repo_root)
+
+    assert summary.counts["tasks"] == 1
+
+
+def test_validate_repository_keeps_science_task_references_strict(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    for directory in ("agents", "claims", "experiments", "hypotheses", "results", "tasks"):
+        (repo_root / directory).mkdir(parents=True, exist_ok=True)
+
+    (repo_root / "tasks" / "TASK-0001-temp.yaml").write_text(
+        "\n".join(
+            [
+                'id: "TASK-0001"',
+                'title: "Science Task"',
+                'type: "formula_discovery"',
+                'status: "READY"',
+                'difficulty: "medium"',
+                'priority: "high"',
+                "input:",
+                '  hypothesis_id: "HYP-9999"',
+                '  experiment_id: "EXP-9999"',
+                "requirements:",
+                '  - "deterministic"',
+                "accepted_outputs:",
+                '  - "markdown"',
+                "can_be_done_by:",
+                '  - "human"',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    try:
+        validate_repository(repo_root)
+    except ValueError as exc:
+        assert "missing hypothesis_id" in str(exc)
+    else:
+        raise AssertionError("Expected science task reference validation to fail")
 
 
 def test_cli_validate_repo_smoke() -> None:

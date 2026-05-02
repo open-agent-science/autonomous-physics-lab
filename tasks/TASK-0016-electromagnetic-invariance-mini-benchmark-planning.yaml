@@ -10,8 +10,10 @@ strategy_alignment:
   - "Keep electromagnetic checks small, sanity-oriented, and verification-first."
 
 input:
-  hypothesis_id: HYP-0001
-  experiment_id: EXP-0001
+  mode: planning_only
+  related_domain: electromagnetism
+  related_objects: []
+  planning_context: "Electromagnetic invariance mini-benchmark planning"
 
 requirements:
   - "Do planning only, with no implementation yet."

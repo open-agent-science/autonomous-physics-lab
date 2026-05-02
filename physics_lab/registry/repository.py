@@ -16,7 +16,7 @@ from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
 from physics_lab.registry.results import load_result
-from physics_lab.registry.tasks import load_task
+from physics_lab.registry.tasks import load_task, task_input_mode
 from physics_lab.registry.validation import validate_document
 from physics_lab.workflows.artifacts import hash_file
 
@@ -188,12 +188,13 @@ def _validate_references(
                 raise ValueError(f"{path} references missing result id: {result_id}")
 
     for path, payload in tasks:
-        hypothesis_id = payload["input"]["hypothesis_id"]
-        experiment_id = payload["input"]["experiment_id"]
-        if hypothesis_id not in hypothesis_ids:
-            raise ValueError(f"{path} references missing hypothesis_id: {hypothesis_id}")
-        if experiment_id not in experiment_ids:
-            raise ValueError(f"{path} references missing experiment_id: {experiment_id}")
+        if task_input_mode(payload) == "science_execution":
+            hypothesis_id = payload["input"]["hypothesis_id"]
+            experiment_id = payload["input"]["experiment_id"]
+            if hypothesis_id not in hypothesis_ids:
+                raise ValueError(f"{path} references missing hypothesis_id: {hypothesis_id}")
+            if experiment_id not in experiment_ids:
+                raise ValueError(f"{path} references missing experiment_id: {experiment_id}")
 
     for path, payload in claims:
         hypothesis_id = payload["hypothesis_id"]

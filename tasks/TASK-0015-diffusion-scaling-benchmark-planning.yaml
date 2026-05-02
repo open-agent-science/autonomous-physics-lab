@@ -10,8 +10,10 @@ strategy_alignment:
   - "Keep future scope tied to deterministic references and honest limitations."
 
 input:
-  hypothesis_id: HYP-0001
-  experiment_id: EXP-0001
+  mode: planning_only
+  related_domain: statistical_physics
+  related_objects: []
+  planning_context: "Diffusion scaling benchmark planning"
 
 requirements:
   - "Do planning only, with no benchmark implementation yet."
