@@ -184,6 +184,25 @@ None.
 
 ## REVIEW_READY
 
+### TASK-0033 — Standardize contributor-agent identity format
+
+Type: `agent_workflow`
+Priority: `high`
+Branch: `agent/roman/codex/task-0033-standardize-contributor-agent-identity-format`
+
+Completed outputs:
+
+- `tasks/TASK-0033-standardize-contributor-agent-identity-format.yaml`
+- updated `docs/agent-task-protocol.md`
+- updated `docs/private-contributor-pilot.md`
+- updated `docs/contributing-workflow.md`
+- updated `CONTRIBUTING.md`
+- updated `CLAUDE.md`
+- updated `CODEX_TASK.md`
+- updated `.github/pull_request_template.md`
+- updated `docs/first-contributor-runbook.md`
+- updated `tasks/ACTIVE.md`
+
 ### TASK-0032 — Build public scientific result package for Pendulum Gauntlet 100
 
 Type: `release_preparation`  

@@ -22,3 +22,5 @@ Then:
 
 If no existing task fits, propose a new one from `tasks/TASK-TEMPLATE.yaml`.
 Do not invent branch, PR, or commit formats locally.
+Use branch format `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`.
+Codex is a tool identifier, not the human owner of the PR.

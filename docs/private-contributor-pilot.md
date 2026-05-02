@@ -54,16 +54,18 @@ older task shape.
 Use the canonical format from
 [agent-task-protocol.md](./agent-task-protocol.md):
 
-`agent/<agent-id>/task-<task-number>-<short-slug>`
+`agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
 
 Example:
 
 ```bash
-git checkout -b agent/roman/task-0011-numerical-audit
+git checkout -b agent/roman/codex/task-0011-numerical-audit
 ```
 
 Rules:
 
+- `contributor-id` is the human responsible for the PR
+- `agent-id` is the execution tool or mode
 - lowercase only
 - no spaces
 - no underscores
@@ -71,6 +73,8 @@ Rules:
 - keep the slug short
 
 Do not work directly on `main`. Do not invent alternate branch formats.
+Older private-pilot branches may still use the legacy `agent/<agent-id>/...`
+shape; keep them as historical records rather than renaming them.
 
 ## Commit and Pull Request Format
 
@@ -94,6 +98,7 @@ Every PR must:
 - explain what changed and why
 - state any scientific limitations clearly
 - include validation results
+- include the Agent / Contributor Metadata block from the PR template
 - wait for maintainer review before merge
 
 ## Required Validation Before PR
@@ -116,6 +121,7 @@ not change accidentally.
 ## What Not to Do
 
 - do not work directly on `main`
+- do not invent local branch, PR, or identity formats
 - do not rewrite canonical `results/` artifacts casually
 - do not expand a task into dashboard, web API, database, ingestion, or runtime work
 - do not promote claims without maintainer review
