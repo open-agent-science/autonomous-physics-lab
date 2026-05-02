@@ -6,9 +6,10 @@ Every human or coding agent should read these files in order before starting:
 
 1. [README.md](../README.md)
 2. [AGENTS.md](../AGENTS.md)
-3. [docs/status.md](./status.md)
-4. [docs/strategy.md](./strategy.md)
-5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+3. [docs/agent-task-protocol.md](./agent-task-protocol.md)
+4. [docs/status.md](./status.md)
+5. [docs/strategy.md](./strategy.md)
+6. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
 
 Then use [docs/architecture-index.md](./architecture-index.md) and
 [docs/contributing-workflow.md](./contributing-workflow.md) as needed.
@@ -34,8 +35,8 @@ The repository currently prefers sequential local work.
 
 That means:
 
-- only one task should usually be marked `CLAIMED` or `IN_PROGRESS` at a time
-  in the local repository state;
+- only one task should usually be marked `IN_PROGRESS` at a time in the local
+  repository state;
 - a second task may be started out of order only if it does not depend on the
   first task and does not touch the same artifact surface;
 - if in doubt, finish the current atomic task first.
@@ -80,16 +81,17 @@ satisfy schema shape.
 
 ## Task States
 
-`TASK-*.yaml` may use:
+Active task execution should use the canonical states from
+[agent-task-protocol.md](./agent-task-protocol.md):
 
-- `PROPOSED`
 - `READY`
-- `CLAIMED`
 - `IN_PROGRESS`
 - `REVIEW_READY`
-- `BLOCKED`
 - `DONE`
+- `BLOCKED`
 - `REJECTED`
+
+`PROPOSED` may still appear for backlog ideas that are not yet executable.
 
 The live human-readable board is [tasks/ACTIVE.md](../tasks/ACTIVE.md).
 
@@ -106,15 +108,15 @@ The live human-readable board is [tasks/ACTIVE.md](../tasks/ACTIVE.md).
 Before substantial work:
 
 1. update `tasks/ACTIVE.md`;
-2. update the corresponding `TASK-*.yaml` status to `CLAIMED` or
-   `IN_PROGRESS` when appropriate;
+2. update the corresponding `TASK-*.yaml` status to `IN_PROGRESS`;
 3. note the active agent and date in the board if useful.
 
 After completion:
 
-1. set the task to `DONE` or `REVIEW_READY`;
+1. set the task to `REVIEW_READY`;
 2. update `tasks/ACTIVE.md`;
 3. update `docs/status.md` or `docs/next-steps.md` if project reality changed.
+4. wait for maintainer review before the task becomes `DONE`.
 
 ## Validation Protocol
 
@@ -141,16 +143,9 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Commit Discipline
 
-Use small commits with clear scope:
-
-- `feat`
-- `fix`
-- `refactor`
-- `docs`
-- `test`
-- `chore`
-
-Do not mix unrelated task work into one commit.
+Use the canonical branch, commit, and PR formats from
+[agent-task-protocol.md](./agent-task-protocol.md). Do not mix unrelated task
+work into one commit.
 
 ## New Task Proposal
 
@@ -181,6 +176,7 @@ A new task should:
 Leave the repository in a state where the next agent can continue by reading:
 
 - [docs/status.md](./status.md)
+- [docs/agent-task-protocol.md](./agent-task-protocol.md)
 - [docs/strategy.md](./strategy.md)
 - [tasks/ACTIVE.md](../tasks/ACTIVE.md)
 

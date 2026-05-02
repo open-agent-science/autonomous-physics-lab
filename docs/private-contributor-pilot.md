@@ -32,9 +32,10 @@ Choose one `READY` task from [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
 Before starting:
 
 1. Read [../AGENTS.md](../AGENTS.md).
-2. Read [status.md](./status.md), [strategy.md](./strategy.md), and
+2. Read [agent-task-protocol.md](./agent-task-protocol.md).
+3. Read [status.md](./status.md), [strategy.md](./strategy.md), and
    [agent-operating-model.md](./agent-operating-model.md).
-3. Confirm that the task is atomic and does not silently expand scope.
+4. Confirm that the task is atomic and does not silently expand scope.
 
 If a task is unclear, narrow it first. Do not combine several unrelated tasks in
 one PR.
@@ -50,9 +51,10 @@ older task shape.
 
 ## Branch Naming Convention
 
-Use this format:
+Use the canonical format from
+[agent-task-protocol.md](./agent-task-protocol.md):
 
-`agent/<contributor-name>/task-XXXX-short-name`
+`agent/<agent-id>/task-<task-number>-<short-slug>`
 
 Example:
 
@@ -60,13 +62,34 @@ Example:
 git checkout -b agent/roman/task-0011-numerical-audit
 ```
 
-Do not work directly on `main`.
+Rules:
+
+- lowercase only
+- no spaces
+- no underscores
+- include the task number
+- keep the slug short
+
+Do not work directly on `main`. Do not invent alternate branch formats.
+
+## Commit and Pull Request Format
+
+Use the canonical commit and PR title formats from
+[agent-task-protocol.md](./agent-task-protocol.md).
+
+Examples:
+
+```text
+docs(task-0019): standardize agent task protocol
+TASK-0019: Standardize agent branch, commit, and pull request protocol
+```
 
 ## Pull Request Requirements
 
 Every PR must:
 
 - link to a `TASK-*` id
+- use the standard PR title format
 - stay within one atomic task scope
 - explain what changed and why
 - state any scientific limitations clearly
