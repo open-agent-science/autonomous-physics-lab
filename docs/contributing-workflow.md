@@ -23,13 +23,16 @@ Every meaningful change should connect back to one or more of:
 5. Read [tasks/ACTIVE.md](../tasks/ACTIVE.md).
 6. Read [docs/agent-operating-model.md](./agent-operating-model.md).
 7. Pick one existing `READY` task, benchmark, or documentation gap.
-8. Make the smallest reproducible change that advances the repository state.
-9. Run validation before asking for review.
-10. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
-11. Use the branch, commit, PR title, and task-state protocol from
+8. Create and switch to the canonical task branch before changing repository files.
+9. Make the smallest reproducible change that advances the repository state.
+10. Run validation before asking for review.
+11. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
+12. Use the branch, commit, PR title, and task-state protocol from
     [docs/agent-task-protocol.md](./agent-task-protocol.md).
-12. When an AI tool is used, record both the human contributor and the agent
+13. When an AI tool is used, record both the human contributor and the agent
     tool in the PR metadata block.
+
+Do not start task implementation on `main`.
 
 ## Typical Contribution Types
 
@@ -142,6 +145,13 @@ Review should confirm:
 - the change is linked to repository memory;
 - scientific claims remain cautious;
 - validation is green;
+- task status remains `REVIEW_READY` until maintainer review and merge;
 - claim and knowledge wording matches the actual evidence strength;
 - claim promotions follow the maintainer review policy;
 - no unrelated artifact churn was introduced.
+
+Maintainers may use
+[maintainer-review-agent.md](./maintainer-review-agent.md) and the review
+checklists under `docs/review-checklists/` to standardize PR review and
+post-merge closeout. The review agent returns recommendations only; it does not
+merge PRs or make automatic scientific decisions.

@@ -1,0 +1,82 @@
+id: TASK-0034
+title: "Add maintainer review agent mode"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep the shared task board synchronized with maintainer review reality after merge."
+  - "Add a deterministic maintainer review layer without delegating scientific authority to automation."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/contributing-workflow.md"
+    - "docs/private-contributor-pilot.md"
+    - "docs/claim-promotion-policy.md"
+    - "docs/multi-agent-dry-run.md"
+    - "tasks/ACTIVE.md"
+    - ".github/pull_request_template.md"
+    - "scripts/apl_review_bundle.sh"
+  planning_context: >
+    The repository already enforces task-based PR review and REVIEW_READY
+    handoff, but it still needs a maintainer-run review and closeout protocol
+    so merged work consistently transitions from review-ready state to task
+    completion without overclaiming or stale task-board entries.
+
+requirements:
+  - "Create docs/maintainer-review-agent.md."
+  - "Define pre-merge review mode and post-merge closeout mode."
+  - "State that the maintainer review agent must not auto-merge PRs."
+  - "State that the maintainer review agent must not promote claims automatically."
+  - "State that the maintainer review agent must not rewrite result artifacts or scientific verdicts."
+  - "Create docs/review-checklists/maintainer-pr-review-checklist.md."
+  - "Create docs/review-checklists/task-closeout-checklist.md."
+  - "Create scripts/apl_review_pr.py as a lightweight deterministic maintainer review helper."
+  - "Create scripts/apl_closeout_task.py as a deterministic post-merge closeout helper."
+  - "Return MERGE_OK, NEEDS_CHANGES, or BLOCKED for PR review."
+  - "Return risk, blockers, required fixes, and recommended action in maintainer review output."
+  - "Include repository-safety and security-risk review in maintainer review output."
+  - "Keep scripts usable either directly or as agent-internal protocol helpers."
+  - "Keep scripts deterministic and read-only unless closeout apply mode is requested."
+  - "Do not add GitHub API automation."
+  - "Do not add dashboard, web API, or public-release changes."
+  - "Set this task to REVIEW_READY when finished, not DONE."
+
+accepted_outputs:
+  - "docs/maintainer-review-agent.md"
+  - "docs/review-checklists/maintainer-pr-review-checklist.md"
+  - "docs/review-checklists/task-closeout-checklist.md"
+  - "scripts/apl_review_pr.py"
+  - "scripts/apl_closeout_task.py"
+  - "scripts/apl_task_closeout_check.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_task_closeout.py"
+  - "tests/test_maintainer_review.py"
+  - "updated AGENTS.md"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/contributing-workflow.md"
+  - "updated docs/private-contributor-pilot.md"
+  - "updated tasks/ACTIVE.md"
+  - "updated tasks/TASK-0034-maintainer-review-agent-and-task-closeout-protocol.yaml"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034 || true"
+    - "python3 scripts/apl_closeout_task.py --task TASK-0033 --pr 16 || true"
+    - "python3 scripts/apl_task_closeout_check.py --task TASK-0033"
+    - "./scripts/apl_review_bundle.sh"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -60,6 +60,10 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "release_preparation",
     "release_prep",
     "benchmark_planning",
+    "contributor_experience",
+    "contributor_pilot",
+    "maintainer_workflow",
+    "numerical_audit",
     "documentation",
 }
 STRICT_TEXT_SCAN_ROOTS = (
