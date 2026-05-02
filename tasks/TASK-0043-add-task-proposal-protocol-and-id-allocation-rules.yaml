@@ -1,0 +1,66 @@
+id: TASK-0043
+title: "Add task proposal protocol and id allocation rules"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce contributor friction when proposing new work."
+  - "Prevent canonical TASK id conflicts during parallel agent activity."
+  - "Keep proposal-first governance simple without weakening repository review discipline."
+
+input:
+  mode: workflow
+  related_domain: task_coordination
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/contributing-workflow.md"
+    - "docs/private-contributor-pilot.md"
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+  planning_context: >
+    The repository needs a simpler proposal-first flow for new task ideas. Agents
+    should be able to suggest work without guessing the next canonical TASK id,
+    while maintainers keep control over canonical numbering and acceptance.
+
+requirements:
+  - "Create docs/task-proposal-protocol.md."
+  - "Create tasks/proposals/README.md."
+  - "Create tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml."
+  - "Add proposal-aware validation support so tasks/proposals/*.yaml do not collide with canonical task validation."
+  - "Define proposal file naming as tasks/proposals/YYYYMMDD-<contributor-id>-<short-slug>.yaml."
+  - "Define proposal branch naming as agent/<contributor-id>/<agent-id>/propose-task-<short-slug>."
+  - "Define proposal PR title format as TASK-PROPOSAL: <short title>."
+  - "State that normal agents should create proposals, not canonical TASK-XXXX ids."
+  - "State that maintainers may create canonical TASK-XXXX ids directly."
+  - "State that review or closeout agents may assign canonical ids only when the maintainer explicitly requests it."
+  - "State that agents must not guess the next task number during parallel work."
+  - "Update AGENTS.md, CODEX_TASK.md, CLAUDE.md, CONTRIBUTING.md, docs/agent-task-protocol.md, docs/contributing-workflow.md, docs/private-contributor-pilot.md, docs/maintainer-review-agent.md, and tasks/ACTIVE.md."
+  - "Do not add new physics implementation."
+  - "Do not promote claims."
+  - "Do not change existing result artifacts."
+
+accepted_outputs:
+  - "docs/task-proposal-protocol.md"
+  - "tasks/proposals/README.md"
+  - "tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml"
+  - "proposal-aware validation support"
+  - "updated contributor and maintainer workflow docs"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "./scripts/apl_review_bundle.sh"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

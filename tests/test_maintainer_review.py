@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from physics_lab.registry.maintainer_review import (
     ReviewReport,
+    branch_proposal_slug,
     branch_task_id,
+    changed_task_proposal_files,
     line_is_rule_catalog_line,
     missing_pr_metadata_fields,
     overclaim_hits,
@@ -20,6 +22,26 @@ def test_branch_task_id_extracts_task_number() -> None:
         == "TASK-0034"
     )
     assert branch_task_id("main") is None
+
+
+def test_branch_proposal_slug_extracts_task_proposal_slug() -> None:
+    assert (
+        branch_proposal_slug("agent/roman/codex/propose-task-koide-track")
+        == "koide-track"
+    )
+    assert branch_proposal_slug("agent/roman/codex/task-0043-task-proposal-protocol") is None
+
+
+def test_changed_task_proposal_files_filters_template_and_other_paths() -> None:
+    changed_files = (
+        "tasks/proposals/20260502-roman-koide-track.yaml",
+        "tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml",
+        "tasks/TASK-0043-add-task-proposal-protocol-and-id-allocation-rules.yaml",
+    )
+
+    assert changed_task_proposal_files(changed_files) == (
+        "tasks/proposals/20260502-roman-koide-track.yaml",
+    )
 
 
 def test_missing_pr_metadata_fields_detects_blank_template_values() -> None:

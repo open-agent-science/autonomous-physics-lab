@@ -20,7 +20,14 @@ Then:
 - run the required validation commands;
 - update task state and planning docs if project reality changed.
 
-If no existing task fits, propose a new one from `tasks/TASK-TEMPLATE.yaml`.
+If no existing task fits and the maintainer did not assign a canonical
+`TASK-XXXX` id, create a proposal
+using `docs/task-proposal-protocol.md` and
+`tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml` instead of guessing the next task
+number.
 Do not invent branch, PR, or commit formats locally.
-Use branch format `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`.
+Use canonical task branch format
+`agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`.
+Use task-proposal branch format
+`agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`.
 Codex is a tool identifier, not the human owner of the PR.

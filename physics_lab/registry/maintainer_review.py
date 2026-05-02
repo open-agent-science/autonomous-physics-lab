@@ -11,6 +11,7 @@ import subprocess
 from typing import Any
 
 from physics_lab.registry.claims import load_claim
+from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task
 
 
@@ -18,7 +19,12 @@ BRANCH_PATTERN = re.compile(
     r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
     r"task-(?P<number>[0-9]{4})-(?P<slug>[a-z0-9-]+)$"
 )
+PROPOSAL_BRANCH_PATTERN = re.compile(
+    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
+    r"propose-task-(?P<slug>[a-z0-9-]+)$"
+)
 PR_TITLE_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}): .+")
+PROPOSAL_PR_TITLE_PATTERN = re.compile(r"^TASK-PROPOSAL: .+")
 REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
 RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
 OVERCLAIM_TERMS = (
@@ -182,6 +188,14 @@ def branch_task_id(branch: str) -> str | None:
     return f"TASK-{match.group('number')}"
 
 
+def branch_proposal_slug(branch: str) -> str | None:
+    """Extract the task-proposal slug from a proposal branch."""
+    match = PROPOSAL_BRANCH_PATTERN.match(branch)
+    if match is None:
+        return None
+    return str(match.group("slug"))
+
+
 def resolve_task_file(root: Path, task_id: str) -> Path:
     """Resolve a task id to its unique task file."""
     matches = sorted((root / "tasks").glob(f"{task_id}-*.yaml"))
@@ -191,6 +205,17 @@ def resolve_task_file(root: Path, task_id: str) -> Path:
         rendered = ", ".join(path.name for path in matches)
         raise ValueError(f"Multiple task files found for {task_id}: {rendered}")
     return matches[0]
+
+
+def changed_task_proposal_files(changed_files: tuple[str, ...]) -> tuple[str, ...]:
+    """Return changed task proposal files excluding the template."""
+    return tuple(
+        path
+        for path in changed_files
+        if path.startswith("tasks/proposals/")
+        and path.endswith(".yaml")
+        and Path(path).name != "TASK-PROPOSAL-TEMPLATE.yaml"
+    )
 
 
 def changed_files_vs_main(root: Path, branch: str) -> tuple[str, ...]:
@@ -580,26 +605,66 @@ def build_review_report(
         blockers.append("Branch is main. PR review must target a task branch, not main.")
 
     branch_match = BRANCH_PATTERN.match(target_branch)
-    if branch_match is None:
+    proposal_branch_match = PROPOSAL_BRANCH_PATTERN.match(target_branch)
+    is_proposal_review = proposal_branch_match is not None
+    if branch_match is None and proposal_branch_match is None:
         blockers.append(
-            "Branch does not follow agent/<contributor-id>/<agent-id>/task-XXXX-short-slug."
+            "Branch does not follow a canonical task or task-proposal branch format."
         )
     elif not local_branch_exists(root, target_branch):
         blockers.append(
             f"Local branch {target_branch} is not available. Checkout the PR branch locally first."
         )
-    branch_task = branch_task_id(target_branch)
-    resolved_task_id = task_id or branch_task
-    if resolved_task_id is None:
-        blockers.append("Task id could not be inferred from the branch and was not provided.")
-        resolved_task_id = "TASK-UNKNOWN"
-    elif branch_task is not None and task_id is not None and branch_task != task_id:
-        blockers.append(
-            f"Explicit task id {task_id} does not match branch task id {branch_task}."
-        )
+    changed_files = changed_files_vs_main(root, target_branch)
+    if not changed_files:
+        blockers.append("Diff vs main is empty. There is no reviewable task change.")
 
+    branch_task = branch_task_id(target_branch)
     task_payload: dict[str, Any] | None = None
-    if resolved_task_id != "TASK-UNKNOWN":
+    if is_proposal_review:
+        resolved_task_id = "TASK-PROPOSAL"
+        proposal_files = changed_task_proposal_files(changed_files)
+        if len(proposal_files) == 0:
+            blockers.append("Task proposal review requires one changed tasks/proposals/*.yaml file.")
+        elif len(proposal_files) > 1:
+            blockers.append(
+                "Task proposal review found multiple changed proposal files: "
+                + ", ".join(proposal_files)
+                + "."
+            )
+        else:
+            proposal_path = root / proposal_files[0]
+            task_payload = load_task_proposal(proposal_path)
+            if str(task_payload["status"]) != "PROPOSED":
+                required_fixes.append(
+                    f"Task proposal status is {task_payload['status']}. Keep it PROPOSED while requesting acceptance."
+                )
+        canonical_task_files = tuple(
+            path
+            for path in changed_files
+            if path.startswith("tasks/TASK-") and path.endswith(".yaml")
+        )
+        if canonical_task_files:
+            blockers.append(
+                "Task proposal PR must not create or edit canonical task files: "
+                + ", ".join(canonical_task_files)
+                + "."
+            )
+        if "tasks/ACTIVE.md" in changed_files:
+            required_fixes.append(
+                "Task proposal PR should not update tasks/ACTIVE.md before maintainer acceptance."
+            )
+    else:
+        resolved_task_id = task_id or branch_task
+        if resolved_task_id is None:
+            blockers.append("Task id could not be inferred from the branch and was not provided.")
+            resolved_task_id = "TASK-UNKNOWN"
+        elif branch_task is not None and task_id is not None and branch_task != task_id:
+            blockers.append(
+                f"Explicit task id {task_id} does not match branch task id {branch_task}."
+            )
+
+    if not is_proposal_review and resolved_task_id != "TASK-UNKNOWN":
         try:
             task_file = resolve_task_file(root, resolved_task_id)
             task_payload = load_task(task_file)
@@ -613,10 +678,6 @@ def build_review_report(
     else:
         task_file = None
 
-    changed_files = changed_files_vs_main(root, target_branch)
-    if not changed_files:
-        blockers.append("Diff vs main is empty. There is no reviewable task change.")
-
     if target_branch == current and not git_status_clean(root):
         required_fixes.append("Git status is not clean on the review branch.")
     elif target_branch != current:
@@ -625,13 +686,17 @@ def build_review_report(
         )
 
     if pr_metadata is not None:
-        title_match = PR_TITLE_PATTERN.match(pr_metadata.title)
-        if title_match is None:
-            required_fixes.append("PR title does not follow TASK-XXXX: ... format.")
-        elif title_match.group("task_id") != resolved_task_id:
-            blockers.append(
-                f"PR title task id {title_match.group('task_id')} does not match {resolved_task_id}."
-            )
+        if is_proposal_review:
+            if PROPOSAL_PR_TITLE_PATTERN.match(pr_metadata.title) is None:
+                required_fixes.append("PR title does not follow TASK-PROPOSAL: ... format.")
+        else:
+            title_match = PR_TITLE_PATTERN.match(pr_metadata.title)
+            if title_match is None:
+                required_fixes.append("PR title does not follow TASK-XXXX: ... format.")
+            elif title_match.group("task_id") != resolved_task_id:
+                blockers.append(
+                    f"PR title task id {title_match.group('task_id')} does not match {resolved_task_id}."
+                )
         if pr_metadata.branch and pr_metadata.branch != target_branch:
             blockers.append(
                 f"PR branch {pr_metadata.branch} does not match reviewed branch {target_branch}."

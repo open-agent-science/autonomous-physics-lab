@@ -29,6 +29,10 @@ pip install -e ".[dev]"
 
 Choose one `READY` task from [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
 
+If no existing `READY` task fits, create a task proposal instead of guessing a
+new canonical task id. Use
+[task-proposal-protocol.md](./task-proposal-protocol.md).
+
 Before starting:
 
 1. Read [../AGENTS.md](../AGENTS.md).
@@ -79,6 +83,10 @@ Do not work directly on `main`. Do not invent alternate branch formats.
 Older private-pilot branches may still use the legacy `agent/<agent-id>/...`
 shape; keep them as historical records rather than renaming them.
 
+For task proposals, use:
+
+`agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
+
 ## Commit and Pull Request Format
 
 Use the canonical commit and PR title formats from
@@ -89,6 +97,7 @@ Examples:
 ```text
 docs(task-0019): standardize agent task protocol
 TASK-0019: Standardize agent branch, commit, and pull request protocol
+TASK-PROPOSAL: Add contributor task proposal protocol
 ```
 
 ## Pull Request Requirements
@@ -107,7 +116,7 @@ Every PR must:
 
 ## Required Validation Before PR
 
-Run all of the following:
+Run all of the following for canonical task PRs:
 
 ```bash
 python3 -m ruff check .
@@ -117,6 +126,15 @@ python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
+```
+
+For task proposal PRs, use the lighter validation path:
+
+```bash
+./scripts/validate_quick.sh
+python3 -m physics_lab.cli validate-repo .
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+./scripts/apl_review_bundle.sh
 ```
 
 Use `--output-dir` for routine example runs so committed canonical artifacts do
