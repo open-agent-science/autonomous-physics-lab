@@ -1,7 +1,7 @@
 id: TASK-0018
 title: "Support planning-only and workflow tasks without fake hypothesis references"
 type: repository_validation
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
