@@ -1,7 +1,7 @@
 id: TASK-0033
 title: "Standardize contributor-agent identity format"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
