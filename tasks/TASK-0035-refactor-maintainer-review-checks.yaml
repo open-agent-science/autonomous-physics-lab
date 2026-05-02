@@ -1,0 +1,62 @@
+id: TASK-0035
+title: "Refactor maintainer review checks into smaller modules"
+type: code_quality_refactor
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep maintainer review logic understandable and safe to extend as the workflow matures."
+  - "Reduce the risk of false positives and accidental behavior drift in repository review checks."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "TASK-0034"
+    - "docs/maintainer-review-agent.md"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "scripts/apl_closeout_task.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    TASK-0034 introduced a working maintainer review agent mode, but the first
+    implementation concentrated too much logic inside
+    physics_lab/registry/maintainer_review.py. The next step is to refactor
+    those checks into smaller modules without changing the maintainer-facing
+    review contract.
+
+requirements:
+  - "Refactor maintainer review checks into smaller modules with clear responsibilities."
+  - "Keep the public behavior of scripts/apl_review_pr.py and scripts/apl_closeout_task.py stable."
+  - "Preserve verdict vocabulary: MERGE_OK, NEEDS_CHANGES, BLOCKED."
+  - "Preserve repository-safety and security-risk reporting."
+  - "Avoid policy drift while moving logic."
+  - "Keep review output deterministic."
+  - "Update tests as needed to reflect the new module structure."
+  - "Do not add GitHub bot automation, auto-merge, or claim promotion."
+  - "Do not change scientific verdicts or result artifacts."
+  - "Set this task to REVIEW_READY when finished, not DONE."
+
+accepted_outputs:
+  - "refactored maintainer review modules under physics_lab/registry/"
+  - "updated scripts/apl_review_pr.py"
+  - "updated scripts/apl_closeout_task.py"
+  - "updated tests/test_maintainer_review.py"
+  - "updated docs/maintainer-review-agent.md if behavior-facing structure changes"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034 || true"
+    - "python3 scripts/apl_closeout_task.py --task TASK-0033 --pr 16 || true"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
