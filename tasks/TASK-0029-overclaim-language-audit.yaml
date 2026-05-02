@@ -1,0 +1,50 @@
+id: TASK-0029
+title: "Audit project language for overclaim risk"
+type: scientific_safety_review
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Strengthen conservative scientific language before broader contributor activity."
+  - "Reduce overclaim risk in docs and reports without changing scientific results."
+
+input:
+  mode: workflow
+  related_domain: scientific_safety
+  related_objects:
+    - "docs"
+    - "results"
+    - "docs/private-contributor-pilot.md"
+  planning_context: >
+    The private contributor pilot needs a focused language audit that finds
+    risky wording and proposes safer alternatives without promoting or
+    weakening evidence claims inaccurately.
+
+requirements:
+  - "Create docs/notes/overclaim-language-audit.md."
+  - "Search docs and reports for risky language."
+  - "Include the terms exact, proved, discovered, valid, global, solved, and theory of everything."
+  - "Record risky examples with context."
+  - "Suggest safer replacements such as validated to tolerance."
+  - "Suggest safer replacements such as valid in configured range."
+  - "Suggest safer replacements such as supported in scope."
+  - "State clearly that there is no global validity claim."
+
+accepted_outputs:
+  - "docs/notes/overclaim-language-audit.md"
+  - "risky-language inventory"
+  - "safer replacement guidance"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

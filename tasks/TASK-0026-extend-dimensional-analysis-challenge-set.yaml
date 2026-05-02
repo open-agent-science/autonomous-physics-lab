@@ -1,0 +1,52 @@
+id: TASK-0026
+title: "Add 10 more dimensional-analysis challenge items"
+type: physics_dataset_extension
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Expand physics-validation inputs without making new scientific claims."
+  - "Create a beginner-friendly physics task with deterministic reviewable output."
+
+input:
+  mode: planning_only
+  related_domain: physics_validation
+  related_objects:
+    - "TASK-0017"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+  planning_context: >
+    Extend the dimensional-analysis challenge set with additional reference
+    items that improve coverage across physics domains while staying strictly
+    within conservative validation scope.
+
+requirements:
+  - "Extend knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml."
+  - "Add exactly 10 new items."
+  - "Cover at least 2 physics domains."
+  - "Give each item an id."
+  - "Give each item a formula."
+  - "Give each item a domain."
+  - "Give each item variables with dimensions."
+  - "Give each item an expected verdict."
+  - "Give each item a reason."
+  - "Give each item a difficulty."
+  - "Do not claim new physics."
+
+accepted_outputs:
+  - "extended knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+  - "10 new challenge items"
+  - "domain coverage note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

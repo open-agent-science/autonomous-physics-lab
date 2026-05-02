@@ -1,0 +1,52 @@
+id: TASK-0030
+title: "Record first friend contributor dry run"
+type: contributor_pilot
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Capture real contributor friction during the private multi-agent pilot."
+  - "Turn one friend-contributor PR into reusable workflow feedback."
+
+input:
+  mode: workflow
+  related_domain: contributor_pilot
+  related_objects:
+    - "TASK-0012"
+    - "docs/multi-agent-dry-run.md"
+  planning_context: >
+    The private pilot should record at least one friend or invited contributor
+    pull request in a consistent format so the workflow can be reviewed and
+    improved.
+
+requirements:
+  - "Update docs/multi-agent-dry-run.md."
+  - "Add a section for a friend or contributor pull request."
+  - "Record the contributor."
+  - "Record the agent used."
+  - "Record the task id."
+  - "Record the branch."
+  - "Record the pull request link."
+  - "Record the CI result."
+  - "Record the review result."
+  - "Record friction points."
+  - "Record lessons learned."
+
+accepted_outputs:
+  - "updated docs/multi-agent-dry-run.md"
+  - "friend-contributor dry-run entry"
+  - "workflow friction summary"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

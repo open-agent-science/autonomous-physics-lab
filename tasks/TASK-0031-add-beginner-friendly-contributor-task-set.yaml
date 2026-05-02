@@ -1,0 +1,54 @@
+id: TASK-0031
+title: "Add beginner-friendly contributor task set"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Expand the private contributor pilot with safe independent starter tasks."
+  - "Make first external contributions easier to parallelize without hidden coupling."
+
+input:
+  mode: workflow
+  related_domain: contributor_coordination
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/private-contributor-pilot.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+  planning_context: >
+    The repository needs a curated first-contributor task set so invited
+    contributors can work in parallel on simple branch-based pull requests
+    without taking on risky scientific scope.
+
+requirements:
+  - "Create READY task specs for TASK-0023 through TASK-0030."
+  - "Keep the new tasks beginner-friendly and independently executable."
+  - "Avoid implementation work for the new tasks themselves."
+  - "Update tasks/ACTIVE.md to add the new tasks under READY."
+  - "Add a Recommended first tasks for new contributors section."
+  - "Note that TASK-0030 depends on a real first-contributor PR."
+
+accepted_outputs:
+  - "tasks/TASK-0023-first-contributor-runbook.yaml"
+  - "tasks/TASK-0024-task-index-table.yaml"
+  - "tasks/TASK-0025-result-artifacts-index.yaml"
+  - "tasks/TASK-0026-extend-dimensional-analysis-challenge-set.yaml"
+  - "tasks/TASK-0027-units-and-constants-reference.yaml"
+  - "tasks/TASK-0028-light-clock-consistency-check-planning.yaml"
+  - "tasks/TASK-0029-overclaim-language-audit.yaml"
+  - "tasks/TASK-0030-record-friend-contributor-dry-run.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

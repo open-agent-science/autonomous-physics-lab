@@ -1,0 +1,53 @@
+id: TASK-0023
+title: "Create first contributor runbook"
+type: contributor_experience
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Make first external contributions easier to start without hidden project knowledge."
+  - "Support the private contributor pilot with a simple, repeatable onboarding path."
+
+input:
+  mode: workflow
+  related_domain: contributor_onboarding
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "docs/private-contributor-pilot.md"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    First-time invited contributors need a short runbook that explains the
+    repository workflow from clone to pull request without requiring deep
+    project context.
+
+requirements:
+  - "Create docs/first-contributor-runbook.md."
+  - "Explain how to clone the repository."
+  - "Explain how to create and activate a local virtual environment."
+  - "Explain how to install dependencies."
+  - "Tell contributors to read AGENTS.md before starting work."
+  - "Tell contributors how to pick a READY task from tasks/ACTIVE.md."
+  - "Explain the required branch naming pattern."
+  - "Include a quick validation step."
+  - "Explain how to open a pull request."
+  - "Explain how to generate the review bundle."
+  - "Keep the guide suitable for a first friend or invited contributor."
+
+accepted_outputs:
+  - "docs/first-contributor-runbook.md"
+  - "onboarding checklist"
+  - "first-contributor workflow note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
