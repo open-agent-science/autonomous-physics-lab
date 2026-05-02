@@ -183,23 +183,9 @@ Expected output:
 None.
 
 ## REVIEW_READY
-
-### TASK-0034 — Add maintainer review agent mode
-
-Type: `maintainer_workflow`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- `docs/maintainer-review-agent.md`
-- `docs/review-checklists/maintainer-pr-review-checklist.md`
-- `docs/review-checklists/task-closeout-checklist.md`
-- `scripts/apl_task_closeout_check.py`
-- maintainer closeout guidance
-
 ## DONE RECENTLY
 
+- `TASK-0034` — Add maintainer review agent mode (merged)
 - `TASK-0032` — public scientific result package for Pendulum Gauntlet 100 (merged)
 - `TASK-0031` — beginner-friendly contributor task set (merged)
 - `TASK-0023` — first contributor runbook (merged)
