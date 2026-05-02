@@ -9,8 +9,26 @@ strategy_alignment:
   - ""
 
 input:
-  hypothesis_id: HYP-XXXX
-  experiment_id: EXP-XXXX
+  # Choose exactly one input shape.
+  #
+  # Science execution task:
+  # hypothesis_id: HYP-XXXX
+  # experiment_id: EXP-XXXX
+  #
+  # Planning-only task:
+  # mode: planning_only
+  # related_domain: particle_physics
+  # related_objects: []
+  # planning_context: "What this planning task is setting up"
+  #
+  # Workflow task:
+  # mode: workflow
+  # related_objects: []
+  # planning_context: "What this workflow or contributor task is coordinating"
+  mode: planning_only
+  related_domain: ""
+  related_objects: []
+  planning_context: ""
 
 requirements:
   - "Use deterministic code"
