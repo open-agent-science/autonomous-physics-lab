@@ -64,6 +64,8 @@ Expected output:
 - future `EXP-0003` output outline
 - limitation summary
 
+
+
 ## PROPOSED
 
 ### TASK-0016 — Plan an electromagnetic invariance mini-benchmark
@@ -84,6 +86,19 @@ Expected output:
 None.
 
 ## REVIEW_READY
+
+### TASK-0021 — Add AI agent attribution policy
+
+Type: `agent_workflow`  
+Priority: `medium`  
+Branch: `agent/claude/task-0021-ai-attribution-policy`
+
+Completed outputs:
+
+- `docs/agent-task-protocol.md` — AI Agent Attribution section added
+- `.github/pull_request_template.md` — Agent assistance section added
+- `CONTRIBUTING.md` — AI Agent Attribution section added
+- `docs/contributing-workflow.md` — AI Agent Attribution section added
 
 ### TASK-0017 — Create a dimensional analysis challenge set
 
