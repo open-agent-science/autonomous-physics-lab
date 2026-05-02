@@ -9,3 +9,5 @@ Read these files first:
 
 Do not invent branch, PR, or commit formats.
 Use `docs/agent-task-protocol.md`.
+Use branch format `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`.
+Claude is a tool identifier, not a substitute for the human contributor id.

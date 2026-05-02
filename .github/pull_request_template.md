@@ -8,7 +8,7 @@
 
 ## Branch Name
 
-- `agent/<agent-id>/task-<task-number>-<short-slug>`
+- `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
 
 ## Summary
 
@@ -46,15 +46,19 @@ Describe the change in narrow, verification-first terms.
 - [ ] I intentionally updated committed `results/` artifacts, or I left them untouched.
 - [ ] If canonical artifacts changed, the change is scientifically meaningful and explained in this PR.
 
-## Agent assistance
+## Agent / Contributor Metadata
 
-If an AI agent (Claude Code, Codex, or other LLM tool) was used, record it
-here. Do not add Co-Authored-By to commits — agent attribution belongs in PR
-metadata only.
+Record both the human owner and the execution tool here. Do not add
+Co-Authored-By to commits. AI agents are tools, not git co-authors.
 
-- Agent used:
-- Model / tool:
-- Human responsible reviewer:
+- Contributor ID:
+- GitHub username:
+- Agent tool:
+- Model/version if known:
+- Agent session ID:
+- Task ID:
+- Branch:
+- Human reviewer:
 
 ## Maintainer Review Notes
 
