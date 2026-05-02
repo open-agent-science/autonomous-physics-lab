@@ -37,19 +37,6 @@ Expected output:
 - linked PR list
 - workflow lessons learned
 
-### TASK-0013 — Plan a particle mass relation falsifier inspired by Koide-style formulas
-
-Type: `benchmark_planning`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- task spec
-- benchmark plan
-- evaluation design
-- scientific constraint summary
-
 ### TASK-0015 — Plan the diffusion scaling benchmark
 
 Type: `benchmark_planning`  
@@ -159,6 +146,24 @@ Expected output:
 - stable `apl_review_pr.py` and `apl_closeout_task.py` behavior
 - updated maintainer review tests
 
+### Particle mass relation / Koide track
+
+This track was decomposed by `TASK-0013`. Because `TASK-0035` is already in
+use, the new particle-mass tasks start at `TASK-0036`.
+
+#### READY
+
+- `TASK-0036` — create particle mass dataset scaffold
+- `TASK-0037` — reproduce Koide charged-lepton relation
+- `TASK-0038` — reproduce historical tau-mass holdout prediction
+- `TASK-0039` — design Koide-like triplet search with baselines
+- `TASK-0041` — design complexity penalty for mass-relation formulas
+- `TASK-0042` — add numerology guardrails for particle mass relation work
+
+#### PROPOSED
+
+- `TASK-0040` — build particle mass relation falsifier MVP
+
 ## Recommended first tasks for new contributors
 
 These tasks are independent and safe for first-time contributors.
@@ -190,11 +195,37 @@ Expected output:
 - scope constraints
 - candidate check inventory
 
+### TASK-0040 — Build particle mass relation falsifier MVP
+
+Type: `scientific_falsification`  
+Priority: `high`  
+Suggested size: `large`
+
+Expected output:
+
+- falsifier workflow
+- scoring and baseline integration
+- reproducible benchmark result artifacts
+- limitation summary
+
 ## IN_PROGRESS
 
 None.
 
 ## REVIEW_READY
+
+### TASK-0013 — Plan a particle mass relation falsifier inspired by Koide-style formulas
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- task spec
+- benchmark plan
+- evaluation design
+- scientific constraint summary
 ## DONE RECENTLY
 
 - `TASK-0034` — Add maintainer review agent mode (merged)

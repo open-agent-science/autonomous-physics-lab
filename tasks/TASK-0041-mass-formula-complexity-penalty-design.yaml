@@ -1,0 +1,48 @@
+id: TASK-0041
+title: "Design complexity penalty for mass-relation formulas"
+type: scoring_design
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep particle-mass relation scoring honest under flexible formula search."
+  - "Translate numerology risk into explicit scoring design before implementation."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "docs/notes/particle-mass-relation-track.md"
+    - "tasks/TASK-0039-koide-like-triplet-search-design.yaml"
+  planning_context: >
+    The particle-mass track needs an explicit complexity-penalty policy before
+    any broad formula search or ranking can be trusted.
+
+requirements:
+  - "Create docs/notes/mass-relation-complexity-penalty.md."
+  - "Penalize parameter count."
+  - "Penalize formula length or structural flexibility."
+  - "Penalize arbitrary constants and tuned exponents."
+  - "Penalize cross-family mixing when not physically justified."
+  - "Penalize post hoc use of already-known masses in prediction framing."
+  - "Describe how the policy could later map into physics_lab/engines/mass_relation_scoring.py."
+  - "Do not implement scoring code in this task."
+
+accepted_outputs:
+  - "docs/notes/mass-relation-complexity-penalty.md"
+  - "complexity-penalty design"
+  - "future scoring-module outline"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

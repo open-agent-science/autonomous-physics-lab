@@ -1,0 +1,51 @@
+id: TASK-0038
+title: "Reproduce historical tau-mass holdout prediction"
+type: historical_prediction_benchmark
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the Koide relation into a holdout benchmark rather than a fit-only curiosity."
+  - "Stress predictive discipline before any broad relation search."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "docs/notes/particle-mass-relation-track.md"
+    - "data/particle_masses/charged_leptons.yaml"
+  planning_context: >
+    This task should benchmark the historical tau-mass story as a holdout
+    prediction test: use electron and muon masses plus the exact Koide
+    assumption to solve for tau, then compare the predicted value against the
+    measured tau mass.
+
+requirements:
+  - "Create a future experiment spec for the next available particle-mass benchmark id without assuming EXP-0003 automatically."
+  - "Treat tau as the holdout variable."
+  - "Predict tau mass from electron and muon masses plus the exact Koide assumption."
+  - "Compare the predicted tau mass against the measured tau mass."
+  - "Propagate measurement uncertainty where applicable."
+  - "Record explicit source information for all input and comparison masses."
+  - "Treat the result as a historical prediction benchmark, not proof of explanation."
+  - "Do not promote claims."
+
+accepted_outputs:
+  - "result artifact directory for a tau holdout run"
+  - "docs/results/koide-tau-holdout.md"
+  - "holdout prediction summary"
+  - "uncertainty-aware comparison against measured tau mass"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

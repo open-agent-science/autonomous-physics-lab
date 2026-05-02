@@ -1,0 +1,50 @@
+id: TASK-0037
+title: "Reproduce Koide charged-lepton relation"
+type: relation_reproduction
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Test a historically notable particle-mass relation under explicit verification rules."
+  - "Keep the first particle-mass benchmark narrow, source-aware, and non-speculative."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "docs/notes/particle-mass-relation-track.md"
+    - "data/particle_masses/charged_leptons.yaml"
+  planning_context: >
+    After the dataset scaffold exists, APL should reproduce the charged-lepton
+    Koide quantity as a verification benchmark without making an explanatory or
+    new-physics claim.
+
+requirements:
+  - "Create a future experiment spec for the next available particle-mass benchmark id without assuming EXP-0003 automatically."
+  - "Compute the charged-lepton Koide quantity Q from explicit input masses."
+  - "Compare Q against 2/3."
+  - "Propagate measurement uncertainty."
+  - "Use explicit charged-lepton mass definitions and data sources."
+  - "State that agreement is a reproduction result, not an explanation claim."
+  - "Do not promote claims."
+  - "Do not generalize beyond charged leptons."
+
+accepted_outputs:
+  - "experiment spec for charged-lepton Koide reproduction"
+  - "result artifact directory for a charged-lepton reproduction run"
+  - "docs/results/koide-charged-lepton-reproduction.md"
+  - "uncertainty-aware comparison against 2/3"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
