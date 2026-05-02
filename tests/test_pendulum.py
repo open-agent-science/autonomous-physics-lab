@@ -996,3 +996,57 @@ def test_cli_run_gauntlet_smoke() -> None:
     assert "Result:" in result.stdout
     assert "Claim update:" in result.stdout
     assert "Review metadata:" in result.stdout
+
+
+def test_independent_pendulum_reference_matches_standard_reference_on_run_0003_grid() -> None:
+    import numpy as np
+
+    from physics_lab.engines.precision_audit import independent_pendulum_period_ratio
+    from physics_lab.engines.simulation import exact_pendulum_period_ratio
+    from physics_lab.workflows.artifacts import split_dataset
+
+    theta = np.linspace(0.01, np.pi / 2.0, 200)
+    split_index = split_dataset(200, 0.7)
+    test_theta = theta[split_index:]
+
+    standard_reference = exact_pendulum_period_ratio(test_theta)
+    independent_reference, quadrature_error = independent_pendulum_period_ratio(test_theta)
+    relative_error = np.abs(standard_reference - independent_reference) / independent_reference
+
+    assert float(np.mean(relative_error)) < 1.0e-12
+    assert float(np.max(relative_error)) < 1.0e-12
+    assert float(np.max(quadrature_error)) < 1.0e-10
+
+
+def test_run_0003_precision_audit_classifies_error_as_model_residual() -> None:
+    import json
+    import numpy as np
+
+    from physics_lab.engines.precision_audit import audit_gauntlet_run_precision
+
+    metrics_payload = json.loads(
+        (
+            Path(__file__).resolve().parent.parent
+            / "results"
+            / "EXP-0001"
+            / "RUN-0003"
+            / "metrics.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    audit_payload = audit_gauntlet_run_precision(
+        metrics_payload=metrics_payload,
+        amplitude_start=0.01,
+        amplitude_end=np.pi / 2.0,
+        sample_count=200,
+        train_fraction=0.7,
+        rounded_digits=6,
+    )
+
+    assert audit_payload["classification"]["error_source"] == "model_residual"
+    assert audit_payload["metrics"]["reference_to_model_mean_error_ratio"] < 1.0e-10
+    assert audit_payload["metrics"]["rounding_to_model_mean_error_ratio"] < 0.01
+    assert abs(
+        audit_payload["metrics"]["model_vs_standard_reference"]["mean_relative_error"]
+        - metrics_payload["scores"][0]["test_metrics"]["mean_relative_error"]
+    ) < 1.0e-15
