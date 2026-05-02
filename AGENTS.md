@@ -43,6 +43,10 @@ or API jobs.
 Agents may propose hypotheses, run simulations, falsify models, improve
 formulas, or review results.
 
+Maintainer-run review agents may also review pull requests and perform task
+closeout after merge, but they do not make final scientific or merge
+decisions automatically.
+
 Every agent output must include:
 
 - task id;
@@ -78,6 +82,12 @@ Use these files as the shared coordination layer:
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
 Use `docs/agent-task-protocol.md`.
+Use `docs/maintainer-review-agent.md` when the maintainer wants structured PR
+review or task closeout help.
+
+Before starting implementation, agents must create a working task branch using
+the canonical branch format. Agents must not begin editing repository files,
+staging changes, or otherwise performing task work on `main`.
 
 ## Original MVP
 
@@ -224,6 +234,11 @@ For each model, report:
 
 Agents may create git commits only when the maintainer explicitly asks for it.
 
+Agents must create and switch to a task branch before doing any repository
+work for a task.
+
+Agents must not work on `main`.
+
 Agents must commit only on a task branch, never directly on `main`.
 
 Before committing, agents must run:
@@ -269,6 +284,10 @@ Agents must not:
 `git push` requires explicit maintainer approval.
 
 AI assistance should be recorded in PR metadata, not in git co-author trailers.
+
+Maintainer review and task closeout may be assisted by a maintainer-run review
+agent, but that agent must not auto-merge PRs, promote claims, or mark tasks
+`DONE` before maintainer review and merge.
 
 After committing, agents should generate a review bundle:
 

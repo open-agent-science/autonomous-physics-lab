@@ -49,6 +49,8 @@ Rules:
 - An agent may move `READY -> IN_PROGRESS`.
 - An agent may move `IN_PROGRESS -> REVIEW_READY`.
 - Only a maintainer should move `REVIEW_READY -> DONE`.
+- A maintainer may use a maintainer-run review agent to assist review and
+  closeout, but the agent output is advisory rather than autonomous.
 - If blocked, set `BLOCKED` and explain why in the task file, board, or PR.
 - `PROPOSED` may still appear in backlog planning, but it is not an executable
   task state for active task execution.
@@ -84,6 +86,21 @@ Historical note:
 
 - older private-pilot branches may still use `agent/<agent-id>/...`
 - do not rename old branches or rewrite history just to match the new format
+
+## Branch-First Rule
+
+Before making any repository change for a task:
+
+1. confirm the current task is `READY`;
+2. create the task branch using the canonical naming format;
+3. switch to that branch;
+4. only then edit files, run task-related generators, or stage changes.
+
+Agents must not implement task work on `main`.
+
+If an agent notices that work started on `main` by mistake, it should stop and
+move the current worktree state onto a correctly named task branch before
+continuing.
 
 ## Commit Message Format
 
@@ -186,17 +203,50 @@ Before opening a PR, also generate a review bundle for the maintainer:
 This produces `_snapshots/review_<branch>_<timestamp>.md` with the full diff
 vs `main`, commit list, and changed-file summary.
 
+## Maintainer Review And Closeout
+
+Maintainers may use [./maintainer-review-agent.md](./maintainer-review-agent.md)
+for two explicit modes:
+
+1. pre-merge review for an open PR;
+2. post-merge closeout for moving a merged task to `DONE`.
+
+The maintainer review agent may:
+
+- verify PR metadata, scope, validation, accepted outputs, and review bundle
+  integrity;
+- surface repository-safety and security-sensitive changes for maintainer review;
+- return `MERGE_OK`, `NEEDS_CHANGES`, or `BLOCKED`;
+- help close a merged task by updating the task file and
+  [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
+
+The maintainer review agent must not:
+
+- merge PRs;
+- promote claims automatically;
+- rewrite scientific verdicts;
+- rewrite result artifacts unless the task explicitly required it and the
+  maintainer approved that scope.
+
 ## Task Execution Flow
 
 1. Read the files listed above.
 2. Confirm the task is `READY` and atomic.
-3. Create the branch using the required naming format.
+3. Create and switch to the branch using the required naming format before any
+   repository edits.
 4. Set the task status to `IN_PROGRESS` in the task file and update
    [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
 5. Make the smallest reproducible change that satisfies the task.
 6. Run the required validation commands.
 7. Set the task to `REVIEW_READY` when implementation and validation are done.
 8. Leave clear maintainer review notes and limitations.
+
+After merge, maintainer closeout may also:
+
+9. set the task to `DONE`;
+10. move the task entry from `REVIEW_READY` to `DONE RECENTLY` in
+    [../tasks/ACTIVE.md](../tasks/ACTIVE.md);
+11. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution
 
@@ -225,8 +275,10 @@ Rules:
 ## Forbidden Actions
 
 - do not work directly on `main`
+- do not begin task implementation before creating and switching to a task branch
 - do not invent local branch, commit, or PR formats
 - do not mark your own task `DONE`
+- do not use a review agent to bypass maintainer merge or claim-review authority
 - do not start unrelated tasks in the same branch or PR
 - do not add dashboard, web API, database, ingestion, or runtime infrastructure work
 - do not make the repository public
@@ -241,5 +293,6 @@ Use this prompt when assigning work to an agent:
 Execute TASK-0011 according to AGENTS.md and docs/agent-task-protocol.md.
 Use contributor id: roman.
 Use agent id: codex.
+Create the task branch before making any repository changes.
 Do not start any other task.
 ```

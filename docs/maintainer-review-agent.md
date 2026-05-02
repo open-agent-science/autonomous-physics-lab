@@ -1,0 +1,184 @@
+# Maintainer Review Agent
+
+This document defines a maintainer-run review and closeout protocol for
+Autonomous Physics Lab.
+
+The maintainer review agent helps the repository administrator review pull
+requests, confirm task completeness, and close merged tasks without delegating
+final authority away from the maintainer.
+
+It is a review assistant, not an autonomous governance bot.
+
+The intended maintainer workflow is prompt-first:
+
+- the maintainer asks the agent to review a PR;
+- the agent runs the deterministic review protocol under the hood;
+- the agent returns a merge recommendation plus concrete blockers and fixes for
+  the developer.
+
+## Core Rules
+
+- The maintainer review agent may recommend `APPROVE`, `NEEDS_CHANGES`, or
+  `BLOCKED`.
+- The maintainer review agent may help update task state after merge.
+- The maintainer review agent must not merge pull requests.
+- The maintainer review agent must not promote claims automatically.
+- The maintainer review agent must not rewrite scientific verdicts.
+- The maintainer review agent must not regenerate or rewrite result artifacts
+  unless the task explicitly requires it and the maintainer approved that work.
+- The maintainer review agent must not make the repository public.
+
+Use this protocol together with:
+
+- [./agent-task-protocol.md](./agent-task-protocol.md)
+- [./claim-promotion-policy.md](./claim-promotion-policy.md)
+- [./review-checklists/maintainer-pr-review-checklist.md](./review-checklists/maintainer-pr-review-checklist.md)
+- [./review-checklists/task-closeout-checklist.md](./review-checklists/task-closeout-checklist.md)
+
+## Mode 1: Pre-Merge Review
+
+Use this mode for an open pull request before merge.
+
+### Inputs
+
+- PR link, PR description, or review bundle
+- task id
+- branch name
+- task file path
+
+### Required checks
+
+1. Branch name follows:
+   `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
+2. PR title follows:
+   `TASK-XXXX: ...`
+3. PR metadata is filled in using the repository template.
+4. The referenced task file exists.
+5. The task status is `REVIEW_READY`.
+6. The changed files match the task scope and accepted outputs.
+7. Validation commands are reported.
+8. Accepted outputs are present or clearly explained when partial.
+9. No claim is promoted without explicit maintainer review.
+10. No result artifacts are changed unless the task explicitly requires it.
+11. No overclaim language is introduced.
+12. The review bundle was generated from the PR branch, not from `main`.
+13. No obvious repository-safety or security risk is introduced without
+    explicit maintainer awareness.
+
+### Verdicts
+
+- `MERGE_OK`: scope, validation, review metadata, and safety checks are
+  adequate for merge.
+- `NEEDS_CHANGES`: work is directionally correct, but gaps remain.
+- `BLOCKED`: a protocol, validation, scope, or evidence issue prevents review
+  completion.
+
+### Recommended output format
+
+- `Verdict: MERGE_OK | NEEDS_CHANGES | BLOCKED`
+- `Risk: low | medium | high`
+- `Task: TASK-XXXX`
+- `Branch: ...`
+- `Changed files: ...`
+- `Validation: pass | fail | not_run`
+- `Security risks: [...]`
+- `Blockers: [...]`
+- `Required fixes: [...]`
+- `Recommended action: merge | wait | request changes`
+
+Use `Security risks` to surface repository-safety concerns even when the PR is
+otherwise reviewable. Examples:
+
+- CI workflow or maintainer script changes;
+- newly introduced unsafe execution patterns;
+- suspicious artifact, claim, or dependency-surface edits.
+
+## Mode 2: Post-Merge Closeout
+
+Use this mode only after the maintainer has already merged the PR.
+
+### Inputs
+
+- merged PR number or merge reference
+- task id
+- `main` branch state after merge
+
+### Required checks
+
+1. The PR was merged.
+2. The task accepted outputs exist in `main`.
+3. The task was `REVIEW_READY` before closeout.
+4. CI passed for the merged work.
+5. No unresolved follow-up blockers remain.
+
+### Allowed actions
+
+- set task status to `DONE`
+- move the task from `REVIEW_READY` to `DONE RECENTLY` in
+  [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+- add a short closeout note when helpful
+- add an entry to [./multi-agent-dry-run.md](./multi-agent-dry-run.md) when the
+  merged PR is part of a dry run or contributor pilot
+
+### Not allowed
+
+- merge pull requests
+- delete branches
+- promote claims
+- rewrite result artifacts
+- change scientific verdicts
+- make the repository public
+
+## Deterministic Helper
+
+The agent may use the scripts below internally when following this protocol.
+The maintainer does not need to remember the scripts if they prefer prompt-only
+usage.
+
+### Pre-merge review helper
+
+```bash
+python3 scripts/apl_review_pr.py --pr 18
+python3 scripts/apl_review_pr.py --pr 18 --task TASK-0034
+python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034
+```
+
+### Post-merge closeout helper
+
+```bash
+python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18
+python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply
+```
+
+For a quick local closeout snapshot, run:
+
+```bash
+python3 scripts/apl_task_closeout_check.py --task TASK-0033
+```
+
+This helper is intentionally lightweight. It reports the task file path, task
+status, `tasks/ACTIVE.md` presence, accepted outputs, warnings, and suggested
+closeout actions. It does not edit files.
+
+Use `--suggest` for additional closeout suggestions without applying changes.
+
+## Maintainer Prompts
+
+### Pre-merge review
+
+```text
+Review PR #18 according to docs/maintainer-review-agent.md.
+Task: TASK-0034.
+Use the review bundle and PR metadata.
+Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
+Include risk, security risks, blockers, and required fixes for the developer.
+Do not edit files.
+```
+
+### Post-merge closeout
+
+```text
+Run task closeout for TASK-0034 according to docs/maintainer-review-agent.md.
+Check that the PR is merged and accepted outputs exist in main.
+If valid, update task status to DONE and update tasks/ACTIVE.md.
+```

@@ -72,6 +72,9 @@ Rules:
 - include the task number
 - keep the slug short
 
+Create and switch to this branch before editing repository files or generating
+task artifacts.
+
 Do not work directly on `main`. Do not invent alternate branch formats.
 Older private-pilot branches may still use the legacy `agent/<agent-id>/...`
 shape; keep them as historical records rather than renaming them.
@@ -100,6 +103,7 @@ Every PR must:
 - include validation results
 - include the Agent / Contributor Metadata block from the PR template
 - wait for maintainer review before merge
+- remain `REVIEW_READY` until the maintainer completes review and merge
 
 ## Required Validation Before PR
 
@@ -140,3 +144,11 @@ Keep scientific wording conservative:
 Claims must not be promoted without maintainer review. Follow
 [claim-promotion-policy.md](./claim-promotion-policy.md) before changing any
 claim status.
+
+## Maintainer Closeout
+
+After merge, the maintainer may use
+[maintainer-review-agent.md](./maintainer-review-agent.md) to confirm that the
+accepted outputs landed in `main`, move the task to `DONE`, update
+[../tasks/ACTIVE.md](../tasks/ACTIVE.md), and record a dry-run note when the PR
+belongs to the private pilot.
