@@ -220,6 +220,62 @@ For each model, report:
 - Do not integrate ScienceClaw, OpenClaw, or LabClaw yet.
 - Prepare adapters later, but keep v0.1 standalone.
 
+## Git Commit Rules for Agents
+
+Agents may create git commits only when the maintainer explicitly asks for it.
+
+Agents must commit only on a task branch, never directly on `main`.
+
+Before committing, agents must run:
+
+```bash
+git status --short
+git diff
+```
+
+Agents should stage only files relevant to the current task. Prefer explicit
+file paths over broad staging.
+
+Use commit messages in this format:
+
+`<type>(task-XXXX): <short meaningful summary>`
+
+Examples:
+
+- `docs(task-0033): standardize contributor-agent identity format`
+- `feat(task-0011): add numerical precision audit`
+- `test(task-0017): add dimensional challenge validation`
+- `fix(task-0018): support planning-only task inputs`
+
+Allowed commit types:
+
+- `docs`
+- `feat`
+- `fix`
+- `test`
+- `refactor`
+- `chore`
+
+Agents must not:
+
+- commit directly to `main`
+- merge branches
+- rebase shared branches
+- force-push
+- create tags
+- mark their own task as `DONE`
+- use `Co-Authored-By` for AI agents
+
+`git push` requires explicit maintainer approval.
+
+AI assistance should be recorded in PR metadata, not in git co-author trailers.
+
+After committing, agents should generate a review bundle:
+
+```bash
+./scripts/apl_review_bundle.sh
+```
+
 ## Testing Rules
 
 Add tests for:

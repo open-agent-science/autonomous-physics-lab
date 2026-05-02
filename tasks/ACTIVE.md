@@ -193,6 +193,7 @@ Branch: `agent/roman/codex/task-0033-standardize-contributor-agent-identity-form
 Completed outputs:
 
 - `tasks/TASK-0033-standardize-contributor-agent-identity-format.yaml`
+- updated `AGENTS.md`
 - updated `docs/agent-task-protocol.md`
 - updated `docs/private-contributor-pilot.md`
 - updated `docs/contributing-workflow.md`
