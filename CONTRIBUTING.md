@@ -50,6 +50,18 @@ PYTHON_BIN=python3.11 ./scripts/apl_snapshot.sh
    `experiments/`, `results/`, `knowledge/`, or `tasks/` when your change
    affects them.
 
+## AI Agent Attribution
+
+If you used an AI agent (Claude Code, Codex, or any LLM tool) to produce or
+review part of a contribution:
+
+- Do **not** add `Co-Authored-By` for AI tools in commit messages.
+- Fill in the **Agent assistance** section in the PR description instead.
+- The human opening or approving the PR is the responsible reviewer.
+
+Git history must reflect human authors only. Agent involvement is recorded at
+the PR level, not in commits.
+
 ## What To Avoid
 
 - dashboards or web APIs in the current alpha phase;

@@ -121,6 +121,17 @@ Use the built-in repository templates when contributing through GitHub:
 - Only regenerate committed `results/` artifacts when the benchmark itself has meaningfully changed.
 - If canonical artifacts change, include a short explanation in the PR.
 
+## AI Agent Attribution
+
+If an AI agent assisted with any part of the contribution:
+
+- Do **not** add `Co-Authored-By` for AI tools in commit messages.
+- Fill in the **Agent assistance** section in the PR description.
+- The human opening or approving the PR is responsible for the change.
+
+This keeps git history clean and human accountability explicit. The full
+policy is in [docs/agent-task-protocol.md](./agent-task-protocol.md).
+
 ## Review Expectations
 
 Review should confirm:

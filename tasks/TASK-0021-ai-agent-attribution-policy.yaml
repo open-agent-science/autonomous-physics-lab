@@ -1,0 +1,44 @@
+id: TASK-0021
+title: "Add AI agent attribution policy"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep contributor workflow honest and auditable."
+  - "Record AI agent involvement in PR metadata, not in git history."
+
+input:
+  mode: workflow
+  related_objects: []
+  planning_context: >
+    AI agents (Claude Code, Codex, etc.) currently have no formal attribution
+    policy. Co-Authored-By git trailers are not appropriate for AI tools.
+    Agent involvement should be recorded in PR metadata instead, so git
+    history stays clean and human accountability is explicit.
+
+requirements:
+  - "Update docs/agent-task-protocol.md to define the attribution rule."
+  - "Update .github/pull_request_template.md to add an Agent assistance section."
+  - "Update CONTRIBUTING.md (or docs/contributing-workflow.md) to reference the policy."
+  - "Define: AI agents are recorded in PR metadata only, not as Co-Authored-By in commits."
+  - "Define: the human who opens or approves the PR is the responsible reviewer."
+  - "Do not change any existing commit history."
+
+accepted_outputs:
+  - "updated docs/agent-task-protocol.md"
+  - "updated .github/pull_request_template.md with Agent assistance section"
+  - "updated contributing docs"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
