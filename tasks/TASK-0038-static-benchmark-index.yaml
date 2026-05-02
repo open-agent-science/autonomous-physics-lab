@@ -1,0 +1,48 @@
+id: TASK-0038
+title: "Create static benchmark index"
+type: documentation
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make current benchmark slices legible to developers and scientists without requiring them to inspect the whole repository."
+  - "Prepare a stable navigation surface for future public-facing benchmark summaries."
+
+input:
+  mode: workflow
+  related_domain: benchmark_navigation
+  related_objects:
+    - "docs/status.md"
+    - "docs/strategy.md"
+    - "experiments"
+    - "results"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    The repository now has multiple experiments, result artifacts, and
+    planning threads, but there is no single static benchmark index that shows
+    what exists, what is reproducible, and what remains planned.
+
+requirements:
+  - "Create a single static benchmark index page."
+  - "List active benchmark slices, linked artifacts, and current status."
+  - "Distinguish implemented benchmarks from planned benchmarks."
+  - "Keep the index factual and non-promotional."
+  - "Do not create dynamic dashboards or generated web views."
+
+accepted_outputs:
+  - "docs/benchmark-index.md"
+  - "updated docs/status.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

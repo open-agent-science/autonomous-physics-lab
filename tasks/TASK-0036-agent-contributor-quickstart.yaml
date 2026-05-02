@@ -1,0 +1,49 @@
+id: TASK-0036
+title: "Create agent contributor quickstart"
+type: contributor_experience
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Make the private-alpha workflow easier for invited developers to enter without maintainer handholding."
+  - "Reduce friction before broader DOU-facing developer interest and future public launch."
+
+input:
+  mode: workflow
+  related_domain: contributor_onboarding
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/contributing-workflow.md"
+    - "docs/private-contributor-pilot.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    The repository already has branch and PR rules, but new contributors still
+    need a short, practical onboarding path that explains how to pick a task,
+    create the correct branch, validate work, and hand off for review.
+
+requirements:
+  - "Create a concise quickstart for invited developers using agent tools."
+  - "Explain the branch-first rule and canonical branch format."
+  - "Explain the READY -> IN_PROGRESS -> REVIEW_READY workflow."
+  - "Show the minimum validation loop before asking for maintainer review."
+  - "Link to the canonical protocol docs instead of duplicating long rules."
+  - "Keep the onboarding focused on private-alpha contribution, not public launch."
+
+accepted_outputs:
+  - "docs/agent-contributor-quickstart.md"
+  - "updated docs/contributing-workflow.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

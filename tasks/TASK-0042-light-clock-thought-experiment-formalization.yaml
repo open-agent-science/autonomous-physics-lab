@@ -1,0 +1,47 @@
+id: TASK-0042
+title: "Formalize light-clock thought experiment benchmark"
+type: thought_experiment_formalization
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn a classic thought experiment into a reviewable, deterministic benchmark slice."
+  - "Give science contributors a precise task that strengthens reasoning quality without speculative claims."
+
+input:
+  mode: workflow
+  related_domain: thought_experiment_consistency
+  related_objects:
+    - "tasks/TASK-0028-light-clock-consistency-check-planning.yaml"
+    - "docs/notes/light-clock-consistency-check.md"
+    - "docs/strategy.md"
+  planning_context: >
+    The repository already has planning notes for a light-clock consistency
+    check. The next useful step is to formalize assumptions, observables,
+    expected invariants, and deterministic comparison rules so the benchmark
+    can later be implemented without ambiguity.
+
+requirements:
+  - "Translate the existing light-clock planning note into a formal benchmark spec."
+  - "State assumptions, coordinate conventions, and expected invariants explicitly."
+  - "Define what data or symbolic checks an implementation must produce."
+  - "Define limitations and non-goals clearly."
+  - "Do not claim new physics or experimental novelty."
+
+accepted_outputs:
+  - "docs/notes/light-clock-formalization.md"
+  - "formal check inventory"
+  - "implementation-ready benchmark specification"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

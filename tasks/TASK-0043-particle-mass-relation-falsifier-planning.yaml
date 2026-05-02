@@ -1,0 +1,47 @@
+id: TASK-0043
+title: "Re-scope particle mass relation falsifier planning"
+type: benchmark_planning
+status: PROPOSED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep speculative particle-mass benchmark work falsification-oriented rather than discovery-oriented."
+  - "Prepare a scientist-interesting benchmark without implying endorsement of numerology-style claims."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics_benchmarking
+  related_objects:
+    - "tasks/TASK-0013-particle-mass-relation-falsifier-planning.yaml"
+    - "docs/strategy.md"
+    - "docs/public-release-gates.md"
+  planning_context: >
+    The repository already has an early particle-mass falsifier planning task,
+    but before implementation work proceeds it should be re-scoped around data
+    quality, null expectations, and falsification criteria that are honest
+    about the scientific risk of overinterpreting coincidental fits.
+
+requirements:
+  - "Clarify the falsifier-first framing for particle-mass relation work."
+  - "Define required datasets, baseline null models, and failure criteria."
+  - "State what evidence would count against a proposed relation."
+  - "State what this benchmark must not claim even if a fit looks numerically interesting."
+  - "Do not implement the benchmark in this task."
+
+accepted_outputs:
+  - "docs/notes/particle-mass-falsifier-rescope.md"
+  - "baseline and null-model checklist"
+  - "scientific risk note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

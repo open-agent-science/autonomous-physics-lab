@@ -147,6 +147,82 @@ Expected output:
 - friend-contributor dry-run entry
 - workflow friction summary
 
+### Developer-friendly tasks
+
+### TASK-0036 — Create agent contributor quickstart
+
+Type: `contributor_experience`  
+Priority: `high`  
+Suggested size: `small`
+
+Expected output:
+
+- `docs/agent-contributor-quickstart.md`
+- updated contributor workflow docs
+- concise branch/validation onboarding
+
+### TASK-0038 — Create static benchmark index
+
+Type: `documentation`  
+Priority: `medium`  
+Suggested size: `small`
+
+Expected output:
+
+- `docs/benchmark-index.md`
+- benchmark navigation table
+- implemented vs planned benchmark summary
+
+### TASK-0039 — Add maintainer review agent smoke tests
+
+Type: `repository_validation`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- expanded maintainer review smoke tests
+- CLI helper coverage
+- review-safety regression checks
+
+### Scientist-friendly tasks
+
+### TASK-0041 — Build dimensional analysis engine MVP
+
+Type: `engine_implementation`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- dimensional analysis engine module
+- deterministic challenge evaluation
+- tests and smoke validation path
+
+### TASK-0042 — Formalize light-clock thought experiment benchmark
+
+Type: `thought_experiment_formalization`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- `docs/notes/light-clock-formalization.md`
+- formal benchmark assumptions
+- implementation-ready check inventory
+
+### TASK-0045 — Define negative-result registry format
+
+Type: `knowledge_update`  
+Priority: `high`  
+Suggested size: `small`
+
+Expected output:
+
+- `docs/negative-result-registry-format.md`
+- negative-result entry template
+- linkage guidance for tasks, hypotheses, and results
+
 ## Recommended first tasks for new contributors
 
 These tasks are independent and safe for first-time contributors.
@@ -177,6 +253,56 @@ Expected output:
 - mini-benchmark plan
 - scope constraints
 - candidate check inventory
+
+### High-impact but needs careful review
+
+### TASK-0037 — Design agent performance metrics for private alpha
+
+Type: `benchmark_planning`  
+Priority: `medium`  
+Suggested size: `medium`
+
+Expected output:
+
+- metric design note
+- maintainer burden metrics
+- measurement caveats summary
+
+### TASK-0040 — Plan Pendulum Gauntlet v2 with separatrix-aware candidates
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Suggested size: `large`
+
+Expected output:
+
+- `docs/notes/pendulum-gauntlet-v2-plan.md`
+- candidate-family inventory
+- evaluation-range policy note
+
+### TASK-0043 — Re-scope particle mass relation falsifier planning
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- particle-mass falsifier rescope note
+- baseline/null-model checklist
+- scientific risk summary
+
+### TASK-0044 — Re-scope diffusion scaling benchmark planning
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Suggested size: `medium`
+
+Expected output:
+
+- diffusion scaling rescope note
+- metric and compute budget outline
+- deferral decision guidance
 
 ## IN_PROGRESS
 

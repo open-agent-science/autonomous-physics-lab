@@ -1,0 +1,48 @@
+id: TASK-0045
+title: "Define negative-result registry format"
+type: knowledge_update
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Strengthen APL public scientific memory by preserving failed or null outcomes in a reusable format."
+  - "Make future research outcomes more honest and more useful to outside scientists."
+
+input:
+  mode: workflow
+  related_domain: negative_results
+  related_objects:
+    - "docs/claim-promotion-policy.md"
+    - "results"
+    - "knowledge"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    The repository already stores positive benchmark artifacts, but it does
+    not yet have a consistent way to record failed candidate families, null
+    findings, or benchmark attempts that were informative precisely because
+    they did not support the hoped-for pattern.
+
+requirements:
+  - "Define a registry format for negative or null scientific outcomes."
+  - "Explain what metadata a negative-result entry must include."
+  - "Distinguish failed implementation runs from meaningful negative scientific results."
+  - "State how negative results relate to claims, hypotheses, and benchmark memory."
+  - "Do not retroactively rewrite existing result artifacts in this task."
+
+accepted_outputs:
+  - "docs/negative-result-registry-format.md"
+  - "negative-result entry template"
+  - "linkage guidance for tasks, hypotheses, and results"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

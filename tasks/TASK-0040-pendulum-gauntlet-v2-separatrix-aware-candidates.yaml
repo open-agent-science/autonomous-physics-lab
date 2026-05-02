@@ -1,0 +1,48 @@
+id: TASK-0040
+title: "Plan Pendulum Gauntlet v2 with separatrix-aware candidates"
+type: benchmark_planning
+status: PROPOSED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Extend the strongest current benchmark slice without overclaiming from existing v1 results."
+  - "Design a more scientifically interesting pendulum benchmark that tests candidate behavior near hard regimes."
+
+input:
+  mode: planning_only
+  related_domain: pendulum_benchmark_extension
+  related_objects:
+    - "results/EXP-0001/RUN-0003"
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+    - "docs/numerical-accuracy-policy.md"
+    - "tasks/TASK-0010-pendulum-hypothesis-gauntlet-100.yaml"
+  planning_context: >
+    The current pendulum gauntlet established a useful first benchmark, but a
+    follow-up version should define which candidate families and scoring rules
+    better expose separatrix behavior without pretending the first run already
+    answered that question.
+
+requirements:
+  - "Define the scope for a second pendulum gauntlet centered on separatrix-aware candidates."
+  - "Describe candidate-family selection rules and evaluation ranges."
+  - "Define what counts as a fair comparison against the existing gauntlet."
+  - "State artifact and compute expectations before implementation."
+  - "Do not generate new result artifacts in this planning task."
+
+accepted_outputs:
+  - "docs/notes/pendulum-gauntlet-v2-plan.md"
+  - "candidate-family inventory"
+  - "evaluation-range policy note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

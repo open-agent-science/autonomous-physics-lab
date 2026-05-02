@@ -1,0 +1,47 @@
+id: TASK-0037
+title: "Design agent performance metrics for private alpha"
+type: benchmark_planning
+status: PROPOSED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make contributor throughput and review quality measurable before public launch."
+  - "Let the maintainer compare usefulness, friction, and safety across different agent-assisted contribution styles."
+
+input:
+  mode: planning_only
+  related_domain: contributor_metrics
+  related_objects:
+    - "docs/private-contributor-pilot.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/multi-agent-dry-run.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    The private alpha now has multiple agent-mediated workflows, but it does
+    not yet have a principled way to measure review burden, turnaround time,
+    fix-loop count, or safety regressions across contributors and tasks.
+
+requirements:
+  - "Propose a small, deterministic metric set for agent-assisted contribution quality."
+  - "Cover velocity, review quality, validation reliability, and maintainer burden."
+  - "Define which metrics can be extracted from repository state versus maintainer notes."
+  - "Avoid vanity metrics that reward volume over correctness."
+  - "Do not add telemetry, tracking infrastructure, or external services yet."
+
+accepted_outputs:
+  - "docs/notes/agent-performance-metrics-design.md"
+  - "proposed metric inventory"
+  - "measurement caveats summary"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

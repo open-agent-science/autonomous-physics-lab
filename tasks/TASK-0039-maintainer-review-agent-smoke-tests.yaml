@@ -1,0 +1,50 @@
+id: TASK-0039
+title: "Add maintainer review agent smoke tests"
+type: repository_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the maintainer review workflow safer before relying on it for repeated PR review."
+  - "Keep private-alpha review automation deterministic and easy to trust."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review_validation
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "scripts/apl_closeout_task.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    The maintainer review agent now exists, but it needs explicit smoke tests
+    for common review paths so future refactors do not silently break verdict
+    formatting, security warnings, or closeout gating behavior.
+
+requirements:
+  - "Add smoke tests for the maintainer review CLI helpers."
+  - "Cover MERGE_OK, NEEDS_CHANGES, and BLOCKED outcomes at a lightweight level."
+  - "Cover branch safety, empty diff, and task-status mismatch handling."
+  - "Cover repository-safety warnings for scripts or workflow changes."
+  - "Keep the tests deterministic and local-only."
+
+accepted_outputs:
+  - "updated tests/test_maintainer_review.py"
+  - "new smoke-test coverage for scripts/apl_review_pr.py"
+  - "new smoke-test coverage for scripts/apl_closeout_task.py"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,47 @@
+id: TASK-0044
+title: "Re-scope diffusion scaling benchmark planning"
+type: benchmark_planning
+status: PROPOSED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep future non-physics benchmarks tied to measurable scientific or modeling value."
+  - "Avoid broadening scope until a diffusion benchmark has a crisp, reproducible falsification-oriented design."
+
+input:
+  mode: planning_only
+  related_domain: diffusion_model_benchmarking
+  related_objects:
+    - "tasks/TASK-0015-diffusion-scaling-benchmark-planning.yaml"
+    - "docs/strategy.md"
+    - "docs/public-release-gates.md"
+  planning_context: >
+    A diffusion scaling benchmark could attract developer attention, but it
+    risks scope creep unless the benchmark is carefully narrowed to clear
+    metrics, compute constraints, and honest limitations before any
+    implementation starts.
+
+requirements:
+  - "Define a narrower diffusion scaling benchmark scope."
+  - "State target metrics, reproducibility rules, and compute budget assumptions."
+  - "Explain why the benchmark belongs in APL despite not being a core physics benchmark."
+  - "State deferral conditions if the repository should postpone this area."
+  - "Do not implement runners, model integrations, or artifact generation yet."
+
+accepted_outputs:
+  - "docs/notes/diffusion-scaling-benchmark-rescope.md"
+  - "metric and compute budget outline"
+  - "deferral decision note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

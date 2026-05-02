@@ -1,0 +1,51 @@
+id: TASK-0041
+title: "Build dimensional analysis engine MVP"
+type: engine_implementation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Add a second developer-interesting scientific capability beyond pendulum fitting."
+  - "Create a reusable deterministic engine that can support future benchmark tasks and contributor experiments."
+
+input:
+  mode: workflow
+  related_domain: dimensional_analysis
+  related_objects:
+    - "tasks/TASK-0017-dimensional-analysis-challenge-set.yaml"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "physics_lab/engines"
+    - "tests"
+  planning_context: >
+    The repository already has a dimensional-analysis challenge set, but it
+    does not yet have a small reusable engine that can parse candidate
+    dimensions, check consistency, and score challenge attempts deterministically.
+
+requirements:
+  - "Create an MVP dimensional-analysis engine with deterministic checks."
+  - "Support challenge-item evaluation against the existing challenge set."
+  - "Return clear pass/fail or mismatch diagnostics for candidate dimension expressions."
+  - "Keep the first version small and benchmark-oriented."
+  - "Add tests and one CLI or script entrypoint for smoke validation."
+  - "Do not add a web UI or generalized symbolic physics platform."
+
+accepted_outputs:
+  - "physics_lab/engines/dimensional_analysis.py"
+  - "tests for dimensional analysis engine behavior"
+  - "lightweight CLI or helper integration for challenge evaluation"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
