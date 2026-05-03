@@ -45,7 +45,6 @@ the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-prop
 - `TASK-0038` — Reproduce historical tau-mass holdout prediction (`historical_prediction_benchmark`, priority `high`, difficulty `medium`)
 - `TASK-0039` — Design Koide-like triplet search with baselines (`benchmark_planning`, priority `high`, difficulty `medium`)
 - `TASK-0041` — Design complexity penalty for mass-relation formulas (`scoring_design`, priority `medium`, difficulty `medium`)
-- `TASK-0042` — Add numerology guardrails for particle mass relation work (`scientific_safety_review`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -64,6 +63,7 @@ None.
 ## DONE RECENTLY
 
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
+- `TASK-0042` — Add numerology guardrails for particle mass relation work (merged)
 - `TASK-0034` — Add maintainer review agent mode (merged)
 - `TASK-0033` — Standardize contributor-agent identity format (merged)
 - `TASK-0032` — Build public scientific result package for Pendulum Gauntlet 100 (merged)
