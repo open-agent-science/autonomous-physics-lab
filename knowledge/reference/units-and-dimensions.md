@@ -1,14 +1,14 @@
 ---
-id: REF-0001
+id: KNOW-0003
 title: Units and Dimensions Reference
-type: reference
-status: stable
 domain: physics_reference
-source: "SI 9th edition (BIPM 2019); NIST https://physics.nist.gov/cuu/Units/"
-warning: >
-  This file contains standard reference material from established physics
-  literature (SI system, BIPM). These are not scientific claims made by this
-  project. No original research is presented here.
+topic: SI base dimensions, derived dimensions, and dimensionless quantities
+linked_objects:
+  hypotheses: []
+  experiments: []
+  claims: []
+  tasks:
+    - TASK-0027
 ---
 
 # Units and Dimensions Reference
