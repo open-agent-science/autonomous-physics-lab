@@ -25,177 +25,27 @@ supporting workflow context and handoff norms.
 For new task ideas without a maintainer-assigned canonical `TASK-XXXX` id, use
 the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-proposal-protocol.md).
 
+<!-- BEGIN AUTO TASK STATUS BOARD -->
+
+> This task-status snapshot is generated from canonical task YAML files.
+> Edit `tasks/TASK-*.yaml` for routine status transitions, then run
+> `python3 -m physics_lab.cli sync-active-board .` on the maintainer branch.
+
 ## READY
 
-### TASK-0012 — Run a private multi-agent contributor dry run
-
-Type: `agent_workflow`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- `docs/multi-agent-dry-run.md`
-- pilot summary
-- linked PR list
-- workflow lessons learned
-
-### TASK-0024 — Create task index table
-
-Type: `documentation`  
-Priority: `medium`  
-Suggested size: `small`
-
-Expected output:
-
-- `docs/task-index.md`
-- task inventory table
-- first-contributor suitability column
-
-### TASK-0025 — Create result artifacts index
-
-Type: `documentation`  
-Priority: `medium`  
-Suggested size: `small`
-
-Expected output:
-
-- `docs/result-artifacts-index.md`
-- run-by-run result summary
-- artifact navigation guide
-
-### TASK-0026 — Add 10 more dimensional-analysis challenge items
-
-Type: `physics_dataset_extension`  
-Priority: `high`  
-Suggested size: `small`
-
-Expected output:
-
-- extended `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml`
-- 10 new challenge items
-- domain coverage note
-
-### TASK-0027 — Create units and physical constants reference
-
-Type: `physics_reference`  
-Priority: `medium`  
-Suggested size: `small`
-
-Expected output:
-
-- `knowledge/reference/units-and-dimensions.md`
-- `knowledge/reference/physical-constants.yaml`
-- reference-data warning note
-
-### TASK-0028 — Plan light-clock thought experiment consistency check
-
-Type: `thought_experiment_planning`  
-Priority: `high`  
-Suggested size: `small`
-
-Expected output:
-
-- `docs/notes/light-clock-consistency-check.md`
-- light-clock planning note
-- future benchmark outline
-
-### TASK-0029 — Audit project language for overclaim risk
-
-Type: `scientific_safety_review`  
-Priority: `high`  
-Suggested size: `small`
-
-Expected output:
-
-- `docs/notes/overclaim-language-audit.md`
-- risky-language inventory
-- safer replacement guidance
-
-### TASK-0030 — Record first friend contributor dry run
-
-Type: `contributor_pilot`  
-Priority: `medium`  
-Suggested size: `small`
-
-Expected output:
-
-- updated `docs/multi-agent-dry-run.md`
-- friend-contributor dry-run entry
-- workflow friction summary
-
-### TASK-0035 — Refactor maintainer review checks into smaller modules
-
-Type: `code_quality_refactor`  
-Priority: `medium`  
-Suggested size: `medium`
-
-Expected output:
-
-- smaller maintainer review modules under `physics_lab/registry/`
-- stable `apl_review_pr.py` and `apl_closeout_task.py` behavior
-- updated maintainer review tests
-
-### Particle mass relation / Koide track
-
-This track was decomposed by `TASK-0013`. Because `TASK-0035` is already in
-use, the new particle-mass tasks start at `TASK-0036`.
-
-#### READY
-
-- `TASK-0037` — reproduce Koide charged-lepton relation
-- `TASK-0038` — reproduce historical tau-mass holdout prediction
-- `TASK-0039` — design Koide-like triplet search with baselines
-- `TASK-0041` — design complexity penalty for mass-relation formulas
-- `TASK-0042` — add numerology guardrails for particle mass relation work
-
-#### PROPOSED
-
-- `TASK-0040` — build particle mass relation falsifier MVP
-
-## Recommended first tasks for new contributors
-
-These tasks are independent and safe for first-time contributors.
-
-- `TASK-0023` — create first contributor runbook
-- `TASK-0024` — create task index table
-- `TASK-0025` — create result artifacts index
-- `TASK-0026` — add 10 more dimensional-analysis challenge items
-- `TASK-0027` — create units and physical constants reference
-- `TASK-0028` — plan light-clock thought experiment consistency check
-- `TASK-0029` — audit project language for overclaim risk
-- `TASK-0030` — record first friend contributor dry run
-
-`TASK-0030` should be started after a real first-contributor PR exists, since it
-records an actual dry-run event rather than planning one in the abstract.
-
-## PROPOSED
-
-### TASK-0016 — Plan an electromagnetic invariance mini-benchmark
-
-Type: `benchmark_planning`  
-Priority: `medium`  
-Suggested size: `medium`
-
-Expected output:
-
-- task spec
-- mini-benchmark plan
-- scope constraints
-- candidate check inventory
-
-### TASK-0040 — Build particle mass relation falsifier MVP
-
-Type: `scientific_falsification`  
-Priority: `high`  
-Suggested size: `large`
-
-Expected output:
-
-- falsifier workflow
-- scoring and baseline integration
-- reproducible benchmark result artifacts
-- limitation summary
+- `TASK-0012` — Run a private multi-agent contributor dry run (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0024` — Create task index table (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0025` — Create result artifacts index (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0026` — Add 10 more dimensional-analysis challenge items (`physics_dataset_extension`, priority `high`, difficulty `low`)
+- `TASK-0027` — Create units and physical constants reference (`physics_reference`, priority `medium`, difficulty `low`)
+- `TASK-0028` — Plan light-clock thought experiment consistency check (`thought_experiment_planning`, priority `high`, difficulty `low`)
+- `TASK-0029` — Audit project language for overclaim risk (`scientific_safety_review`, priority `high`, difficulty `low`)
+- `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
+- `TASK-0037` — Reproduce Koide charged-lepton relation (`relation_reproduction`, priority `high`, difficulty `medium`)
+- `TASK-0038` — Reproduce historical tau-mass holdout prediction (`historical_prediction_benchmark`, priority `high`, difficulty `medium`)
+- `TASK-0039` — Design Koide-like triplet search with baselines (`benchmark_planning`, priority `high`, difficulty `medium`)
+- `TASK-0041` — Design complexity penalty for mass-relation formulas (`scoring_design`, priority `medium`, difficulty `medium`)
+- `TASK-0042` — Add numerology guardrails for particle mass relation work (`scientific_safety_review`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -203,67 +53,64 @@ None.
 
 ## REVIEW_READY
 
-### TASK-0036 — Create particle mass dataset scaffold
-
-Type: `scientific_dataset`  
-Priority: `high`  
-Branch: `agent/roman/codex/task-0036-particle-mass-dataset-scaffold`
-
-Completed outputs:
-
-- `data/particle_masses/README.md`
-- `data/particle_masses/charged_leptons.yaml`
-- `data/particle_masses/schema.md`
-- explicit PDG 2025 charged-lepton source metadata and mass-definition rules
-
-### TASK-0035 — Refactor maintainer review checks into smaller modules
-
-Type: `code_quality_refactor`  
-Priority: `medium`  
-Branch: `agent/roman/claude/task-0035-maintainer-review-refactor`
-
-Completed outputs:
-
-- fixed multi-proposal PR blocker in `physics_lab/registry/maintainer_review.py`
-- new test in `tests/test_maintainer_review.py`
-- updated `tasks/ACTIVE.md`
-
-### TASK-0015 — Plan the diffusion scaling benchmark
-
-Type: `benchmark_planning`  
-Priority: `high`  
-Branch: `agent/roman/claude/task-0015-diffusion-scaling-benchmark`
-
-Completed outputs:
-
-- `docs/notes/diffusion-scaling-benchmark.md`
-- benchmark plan with scoring criteria and EXP-0003 output outline
-- limitation summary
+- `TASK-0015` — Plan the diffusion scaling benchmark (`benchmark_planning`, priority `high`, difficulty `medium`)
+- `TASK-0017` — Create a dimensional analysis challenge set (`benchmark_planning`, priority `high`, difficulty `medium`)
+- `TASK-0020` — Add pytest-timeout and validation safeguards against hanging tests (`repository_validation`, priority `medium`, difficulty `low`)
+- `TASK-0021` — Add AI agent attribution policy (`agent_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0035` — Refactor maintainer review checks into smaller modules (`code_quality_refactor`, priority `medium`, difficulty `medium`)
+- `TASK-0036` — Create particle mass dataset scaffold (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0044` — Sync active task board from task files to reduce merge conflicts (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
-- `TASK-0043` — task proposal protocol and id allocation rules (merged)
-- `TASK-0013` — particle mass relation falsifier planning / Koide track (merged)
+- `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
 - `TASK-0034` — Add maintainer review agent mode (merged)
-- `TASK-0032` — public scientific result package for Pendulum Gauntlet 100 (merged)
-- `TASK-0031` — beginner-friendly contributor task set (merged)
-- `TASK-0023` — first contributor runbook (merged)
-- `TASK-0022` — PR review bundle snapshot script (merged)
-- `TASK-0019` — standardize agent branch, commit, and PR protocol (merged)
-- `TASK-0018` — planning-only and workflow task input modes (merged)
-- `TASK-0011` — numerical precision audit for pendulum gauntlet (merged)
-- `TASK-0008` — machine-readable review metadata artifacts (merged)
-- `TASK-0033` — contributor-agent identity format and agent commit rules (merged)
-- `TASK-0021` — AI agent attribution policy (merged)
-- `TASK-0020` — pytest-timeout and quick validation script (merged)
-- `TASK-0017` — dimensional analysis challenge set (merged)
-- `TASK-0014` — thought-experiment consistency-suite planning (merged)
-- `TASK-0003`
-- `TASK-0004`
-- `TASK-0005`
-- `TASK-0006`
-- `TASK-0007`
-- `TASK-0010` — pendulum gauntlet (100 candidates) → `RESULT-0004` / `RUN-0003`
+- `TASK-0033` — Standardize contributor-agent identity format (merged)
+- `TASK-0032` — Build public scientific result package for Pendulum Gauntlet 100 (merged)
+- `TASK-0031` — Add beginner-friendly contributor task set (merged)
+- `TASK-0023` — Create first contributor runbook (merged)
+- `TASK-0022` — Add PR review bundle snapshot script (merged)
+- `TASK-0019` — Standardize agent branch, commit, and pull request protocol (merged)
+- `TASK-0018` — Support planning-only and workflow tasks without fake hypothesis references (merged)
+- `TASK-0014` — Plan a thought-experiment consistency suite (merged)
+- `TASK-0013` — Plan a particle mass relation falsifier inspired by Koide-style formulas (merged)
+- `TASK-0011` — Audit numerical precision versus model residual for the pendulum gauntlet run (merged)
+- `TASK-0010` — Run pendulum hypothesis gauntlet with 100 candidate formulas (merged)
+- `TASK-0008` — Add machine-readable review metadata for patch-style evidence artifacts (merged)
+- `TASK-0007` — Add fail-on-warnings support for strict repository validation (merged)
+- `TASK-0006` — Establish shared agent task board and operating model (merged)
+- `TASK-0005` — Add artifact hash drift validation (merged)
+- `TASK-0004` — Strengthen claim promotion policy (merged)
+- `TASK-0003` — Add theory-aware pendulum approximation near the separatrix (merged)
+- `TASK-0002` — Verify damped oscillator regimes against exact solutions (merged)
+- `TASK-0001` — Find better pendulum correction formula (merged)
+
+## PROPOSED
+
+- `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
+- `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
+
+## BLOCKED
+
+None.
+
+## REJECTED
+
+- `TASK-0009` — Plan EXP-0003 as a diffusion scaling benchmark (`benchmark_planning`, priority `high`, difficulty `medium`)
+
+<!-- END AUTO TASK STATUS BOARD -->
+
+## Recommended first tasks for new contributors
+
+Prefer independent `READY` tasks with:
+
+- documentation-only scope;
+- no canonical result-artifact churn;
+- no shared branch or board-maintenance coupling;
+- validation that does not require regenerating benchmark outputs.
+
+If multiple `READY` tasks fit, pick the smallest one that does not touch the
+same artifact surface as another open PR.
 
 ## DO NOT START YET
 
