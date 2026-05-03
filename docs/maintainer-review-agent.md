@@ -124,8 +124,8 @@ Use this mode only after the maintainer has already merged the PR.
 ### Allowed actions
 
 - set task status to `DONE`
-- move the task from `REVIEW_READY` to `DONE RECENTLY` in
-  [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+- run `python3 -m physics_lab.cli sync-active-board .` so
+  [../tasks/ACTIVE.md](../tasks/ACTIVE.md) reflects current task statuses
 - add a short closeout note when helpful
 - add an entry to [./multi-agent-dry-run.md](./multi-agent-dry-run.md) when the
   merged PR is part of a dry run or contributor pilot
@@ -201,5 +201,5 @@ Do not edit files.
 ```text
 Run task closeout for TASK-0034 according to docs/maintainer-review-agent.md.
 Check that the PR is merged and accepted outputs exist in main.
-If valid, update task status to DONE and update tasks/ACTIVE.md.
+If valid, update task status to DONE and run `python3 -m physics_lab.cli sync-active-board .`.
 ```
