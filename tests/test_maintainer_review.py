@@ -3,8 +3,6 @@ from __future__ import annotations
 from pathlib import Path
 from unittest.mock import patch
 
-import pytest
-
 from physics_lab.registry.maintainer_review import (
     ReviewReport,
     branch_proposal_slug,
