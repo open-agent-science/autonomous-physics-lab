@@ -71,10 +71,8 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0051
+  decision: accepted
   notes: >
-    High priority because hypothesis entries feed other tracks
-    (falsification, Koide-like triplet search, thought experiments).
-    Should be promoted before the constants-verification and
-    approximation-probes tracks are fully executed.
+    Accepted as TASK-0051. High priority because hypothesis entries feed other
+    tracks (falsification, Koide-like triplet search, thought experiments).
