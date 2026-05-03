@@ -59,10 +59,10 @@ None.
 - `TASK-0021` — Add AI agent attribution policy (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0035` — Refactor maintainer review checks into smaller modules (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0036` — Create particle mass dataset scaffold (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0044` — Sync active task board from task files to reduce merge conflicts (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0044` — Sync active task board from task files to reduce merge conflicts (merged)
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
 - `TASK-0034` — Add maintainer review agent mode (merged)
 - `TASK-0033` — Standardize contributor-agent identity format (merged)
