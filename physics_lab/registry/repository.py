@@ -57,6 +57,7 @@ PATTERNS: dict[str, str] = {
 }
 STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "agent_workflow",
+    "code_quality_refactor",
     "evidence_policy",
     "knowledge_update",
     "repository_validation",
@@ -68,7 +69,10 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "maintainer_workflow",
     "numerical_audit",
     "documentation",
+    "scientific_dataset",
     "scientific_safety_review",
+    "schema_extension",
+    "scoring_design",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
