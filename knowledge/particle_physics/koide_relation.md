@@ -6,12 +6,16 @@ topic: charged-lepton Koide reproduction benchmark
 linked_objects:
   hypotheses:
     - HYP-0004
+    - HYP-0005
   experiments:
     - EXP-0004
+    - EXP-0005
   claims:
     - CLAIM-0003
+    - CLAIM-0004
   tasks:
     - TASK-0037
+    - TASK-0038
 ---
 
 # Koide Relation
@@ -29,12 +33,19 @@ The charged-lepton Koide quantity is:
 The current canonical benchmark result is:
 
 - `RESULT-0005` / `RUN-0004`
+- `RESULT-0006` / `RUN-0005`
 
 This repository treats that result as:
 
 - charged-lepton scoped;
 - dataset-backed and uncertainty-aware;
 - reproduction evidence only, not explanation.
+
+The tau holdout extension now adds:
+
+- a historical prediction benchmark using only electron and muon inputs;
+- an uncertainty-aware comparison against the measured tau mass;
+- no explanatory promotion from holdout success alone.
 
 ## Why It Matters
 
@@ -47,10 +58,14 @@ This is the first particle-mass benchmark slice in APL because:
 ## Linked Objects
 
 - Hypothesis: `HYP-0004`
+- Hypothesis: `HYP-0005`
 - Experiment: `EXP-0004`
+- Experiment: `EXP-0005`
 - Claim: `CLAIM-0003`
+- Claim: `CLAIM-0004`
 - Task: `TASK-0037`
-- Canonical result: `RESULT-0005`
+- Task: `TASK-0038`
+- Canonical results: `RESULT-0005`, `RESULT-0006`
 
 ## Open Questions
 

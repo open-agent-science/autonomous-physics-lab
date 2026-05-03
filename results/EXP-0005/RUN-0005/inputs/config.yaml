@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0005-koide-tau-holdout.yaml
+hypothesis_path: ../hypotheses/HYP-0005-koide-tau-holdout.yaml
+task_id: TASK-0038
+run_id: RUN-0005
+result_id: RESULT-0006
+result_root: ../results/EXP-0005
+workflow: reproduction
