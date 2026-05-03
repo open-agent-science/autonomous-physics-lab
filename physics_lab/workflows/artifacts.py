@@ -37,12 +37,13 @@ class ExperimentOutcome:
     run_id: str
     hypothesis_id: str
     task_id: str
-    train_range: tuple[float, float]
-    test_range: tuple[float, float]
-    scores: list[ModelScore]
-    verdicts: dict[str, str]
-    best_model_id: str
     artifacts: ExperimentArtifacts
+    train_range: tuple[float, float] | None = None
+    test_range: tuple[float, float] | None = None
+    scores: list[ModelScore] | None = None
+    verdicts: dict[str, str] | None = None
+    best_model_id: str | None = None
+    summary_lines: tuple[str, ...] = ()
 
 
 def resolve_path(base_path: Path, relative_path: str) -> Path:

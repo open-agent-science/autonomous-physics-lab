@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0004-koide-charged-lepton-reproduction.yaml
+hypothesis_path: ../hypotheses/HYP-0004-koide-charged-lepton-reproduction.yaml
+task_id: TASK-0037
+run_id: RUN-0004
+result_id: RESULT-0005
+result_root: ../results/EXP-0004
+workflow: reproduction
