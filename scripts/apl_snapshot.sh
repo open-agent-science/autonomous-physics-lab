@@ -60,6 +60,20 @@ cmd_block() {
   cmd_block "Diff stat" git diff --stat
   cmd_block "Tracked cache check" git ls-files .pytest_cache .ruff_cache
 
+  section "Open Pull Requests"
+
+  echo '```text'
+  if command -v gh >/dev/null 2>&1; then
+    if gh auth status >/dev/null 2>&1; then
+      gh pr list --state open --limit 30
+    else
+      echo "Skipped: gh is installed but not authenticated."
+    fi
+  else
+    echo "Skipped: gh CLI is not installed."
+  fi
+  echo '```'
+
   section "Local Path Leak Check"
 
   cmd_block "Absolute local path grep" \
