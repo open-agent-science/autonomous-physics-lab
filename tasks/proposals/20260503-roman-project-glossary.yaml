@@ -1,0 +1,64 @@
+proposal_id: 20260503-roman-project-glossary
+title: "Write APL project glossary"
+status: PROPOSED
+type: documentation
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Lower the barrier for new contributors to understand APL-specific terminology."
+  - "Keep onboarding documentation complete and accurate."
+
+summary: >
+  Create docs/glossary.md that defines every domain-specific term used across
+  the repository. New contributors constantly encounter terms like hypothesis,
+  claim, experiment, result, gauntlet, knowledge, candidate, verdict, and
+  review_metadata without a single place to look them up. A glossary removes
+  that friction.
+
+rationale: >
+  The project uses precise, overlapping terms (hypothesis vs claim vs result)
+  that are easy to confuse. The runbook references these terms but does not
+  define them. A glossary is pure reading and writing — no code, no physics
+  background required — making it a perfect first contribution for a junior
+  developer who is learning the project.
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "AGENTS.md"
+    - "docs/first-contributor-runbook.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/contributing-workflow.md"
+    - "physics_lab/schemas/"
+  planning_context: >
+    The contributor reads existing docs and schema files to extract all
+    domain-specific terms, then writes short plain-English definitions for
+    each. No agents required — this is best done by a human who is learning
+    the project and notices their own confusion along the way.
+
+requirements:
+  - "Create docs/glossary.md."
+  - "Cover at minimum: hypothesis, claim, experiment, result, run, gauntlet, candidate, verdict, knowledge, task, proposal, review_metadata, EXP-XXXX, RUN-XXXX, HYP-XXXX."
+  - "Each entry: term, one-sentence definition, and a pointer to the canonical file or schema where it is used."
+  - "Add a link to docs/glossary.md from docs/first-contributor-runbook.md."
+  - "Do not invent definitions — derive them from existing docs and schemas."
+  - "Do not add code, tests, or result artifacts."
+
+accepted_outputs:
+  - "docs/glossary.md"
+  - "updated docs/first-contributor-runbook.md (link only)"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "pending maintainer review"
