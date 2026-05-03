@@ -1,0 +1,65 @@
+proposal_id: 20260503-roman-pytest-conftest-fixtures
+title: "Extract shared test fixtures into conftest.py"
+status: PROPOSED
+type: code_quality_refactor
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Make tests easier to read and extend for new contributors."
+  - "Reduce repeated boilerplate across test files."
+
+summary: >
+  Create tests/conftest.py with shared pytest fixtures for common test data —
+  sample YAML task files, minimal experiment configs, and tmp_path-based
+  directory scaffolds. Currently each test file duplicates the same setup
+  inline, making it harder to add new tests without copying boilerplate.
+
+rationale: >
+  The five test files share patterns — creating a tmp_path, writing a minimal
+  task YAML, pointing the validator at it — repeated three or more times each.
+  A junior Python developer can read the existing tests, identify the
+  repetition, extract fixtures into conftest.py, and verify the tests still
+  pass. This is a pure Python skill exercise with a clear success criterion
+  (green tests before and after) and no physics knowledge required.
+
+input:
+  mode: workflow
+  related_domain: testing
+  related_objects:
+    - "tests/test_pendulum.py"
+    - "tests/test_damped_oscillator.py"
+    - "tests/test_maintainer_review.py"
+    - "tests/test_task_closeout.py"
+    - "tests/test_task_proposals.py"
+    - "pyproject.toml"
+  planning_context: >
+    The contributor reads all five test files, identifies repeated setup
+    patterns, extracts them into fixtures in tests/conftest.py, updates the
+    test files to use the fixtures, and confirms pytest still passes with the
+    same number of tests.
+
+requirements:
+  - "Create tests/conftest.py."
+  - "Extract at least three shared fixtures used in more than one test file."
+  - "Do not change test logic or assertions — only move setup code."
+  - "All existing tests must pass before and after the refactor."
+  - "Keep fixtures minimal — do not abstract things that are only used once."
+  - "Do not add new tests in this task."
+
+accepted_outputs:
+  - "tests/conftest.py"
+  - "updated test files that use the new fixtures"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m ruff check ."
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "pending maintainer review"

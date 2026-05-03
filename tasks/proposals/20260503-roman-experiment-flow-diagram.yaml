@@ -1,0 +1,66 @@
+proposal_id: 20260503-roman-experiment-flow-diagram
+title: "Add experiment flow diagram to architecture docs"
+status: PROPOSED
+type: documentation
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Make the APL verification pipeline easy to understand at a glance."
+  - "Support onboarding of new contributors and future public readers."
+
+summary: >
+  Add a Mermaid flowchart to docs/architecture.md (or a new
+  docs/experiment-flow.md) showing the full lifecycle of an idea in APL:
+  from task proposal through hypothesis, experiment, run, scoring, claim
+  update, and knowledge update. GitHub renders Mermaid natively, so no
+  tooling is required.
+
+rationale: >
+  The architecture and protocol docs are thorough but text-heavy. A single
+  diagram showing "task → branch → implement → validate → PR → review →
+  merge → result → claim" communicates the pipeline faster than three pages
+  of prose. This is a creative contribution with a concrete deliverable,
+  no code required, and is a great way for a new contributor to demonstrate
+  they understand the project end-to-end.
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "docs/architecture.md"
+    - "docs/architecture-index.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/strategy.md"
+    - "AGENTS.md"
+  planning_context: >
+    The contributor reads the architecture and protocol docs to understand
+    the flow, then writes a Mermaid flowchart that captures the key steps
+    and decision points. The diagram should be accurate and minimal — not
+    every edge case, just the happy path and the main branch points.
+
+requirements:
+  - "Add at least one Mermaid flowchart showing the APL experiment lifecycle."
+  - "Cover: task (READY) → branch → implement → validate → PR → review → merge → result artifacts → claim/knowledge update."
+  - "Add the diagram to docs/architecture.md or a new docs/experiment-flow.md."
+  - "If a new file is created, link it from docs/architecture-index.md."
+  - "The diagram must be accurate — verify each step against agent-task-protocol.md."
+  - "Do not add code, tests, or result artifacts."
+  - "Keep the diagram readable at GitHub default font size."
+
+accepted_outputs:
+  - "Mermaid diagram in docs/architecture.md or docs/experiment-flow.md"
+  - "link from docs/architecture-index.md if a new file is created"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "pending maintainer review"
