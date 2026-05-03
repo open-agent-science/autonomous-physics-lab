@@ -1,0 +1,69 @@
+proposal_id: 20260503-roman-validation-temp-output-isolation
+title: "Isolate validation temp output paths across concurrent smoke runs"
+status: PROPOSED
+type: validation_hardening
+priority: medium
+
+proposed_by:
+  contributor_id: "roman"
+  agent_id: "codex"
+
+strategy_alignment:
+  - "Keep the private-alpha validation workflow reproducible under parallel agent execution."
+  - "Reduce avoidable maintainer noise before public-facing contributor work expands."
+
+summary: >
+  Introduce isolated temporary output paths for CLI smoke runs used by tests,
+  validation scripts, and contributor workflow docs so parallel executions do
+  not collide on shared `/tmp/apl-*` directories.
+
+rationale: >
+  During TASK-0037 validation, running `pytest` and `validate_quick.sh`
+  concurrently exposed a real race: multiple smoke runs wrote to the same
+  fixed `/tmp/apl-*` locations, which intermittently produced
+  `FileNotFoundError` during atomic artifact replacement. The failure is not a
+  scientific bug, but it does create avoidable false negatives in parallel
+  validation and multi-agent workflows.
+
+input:
+  mode: planning_only
+  related_domain: repository_workflow
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/agent-operating-model.md"
+    - "docs/contributing-workflow.md"
+    - "docs/first-contributor-runbook.md"
+    - "docs/private-contributor-pilot.md"
+    - "scripts/validate_quick.sh"
+    - "tests/test_pendulum.py"
+    - "tests/test_damped_oscillator.py"
+  planning_context: >
+    APL now relies more heavily on parallel validation and multi-agent PR
+    throughput. Shared temp output directories should not remain a hidden
+    source of flaky smoke failures.
+
+requirements:
+  - "Keep the task atomic and focused on temp-path isolation only."
+  - "Support parallel smoke runs without requiring serialized validation."
+  - "Avoid changing scientific result semantics or canonical artifact content."
+  - "Update contributor-facing docs if command examples must change."
+  - "Do not promote claims automatically."
+
+accepted_outputs:
+  - "canonical task spec"
+  - "test and script updates for isolated temp outputs"
+  - "docs update"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Good candidate for a small maintainer-approved workflow hardening task once
+    TASK-0037 and the next Koide execution steps are safely handed off.
