@@ -79,6 +79,21 @@ Example:
 
 `TASK-PROPOSAL: Add Koide particle mass relation track`
 
+## Multiple Proposals Per PR
+
+A single proposal PR may include more than one `tasks/proposals/*.yaml` file.
+
+This is explicitly supported — for example, when a contributor wants to batch
+related task ideas for a single review cycle. The review agent validates each
+proposal file individually:
+
+- each file must have `status: PROPOSED`;
+- none may invent canonical `TASK-XXXX` ids;
+- the PR must not touch `tasks/ACTIVE.md` or canonical task files.
+
+Bundling unrelated proposals into one PR is discouraged but not blocked.
+Maintainers may ask for splits at review time.
+
 ## Proposal Validation
 
 Task proposal PRs should stay lightweight.
