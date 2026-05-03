@@ -64,9 +64,9 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0049
+  decision: accepted
   notes: >
-    Soft dependency on TASK-0027 (units and constants reference) being
-    available before track execution begins, but planning can proceed in
-    parallel.
+    Accepted as TASK-0049. Treat as a high-priority follow-on to TASK-0027 for
+    source consistency, uncertainty metadata, and deterministic constants
+    verification.

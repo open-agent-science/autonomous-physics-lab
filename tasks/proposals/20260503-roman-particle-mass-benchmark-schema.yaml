@@ -67,6 +67,6 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Needed to unblock TASK-0037 and related particle-mass reproduction work."
+  canonical_task_id: TASK-0048
+  decision: accepted
+  notes: "Accepted as TASK-0048 and already landed to unblock particle-mass reproduction work."

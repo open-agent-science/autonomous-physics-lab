@@ -66,8 +66,8 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0050
+  decision: accepted
   notes: >
-    Independent of other proposed tracks. Can be promoted and executed
-    immediately. Aligns with existing EXP-0001/RUN-0002 separatrix work.
+    Accepted as TASK-0050. Independent of other proposed tracks and aligned
+    with existing EXP-0001/RUN-0002 separatrix-style work.
