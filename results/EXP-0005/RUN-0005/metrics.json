@@ -1,0 +1,61 @@
+{
+  "result_id": "RESULT-0006",
+  "run_id": "RUN-0005",
+  "dataset_id": "DATASET-PM-0001",
+  "target_id": "target_tau_mass",
+  "predicted_tau_mass_mev": 1776.9690270830142,
+  "alternative_tau_mass_mev": 3.317356546468011,
+  "measured_tau_mass_mev": 1776.93,
+  "absolute_difference_mev": 0.03902708301416169,
+  "relative_difference": 2.1963207900233375e-05,
+  "predicted_uncertainty_mev": 3.5293821004320466e-05,
+  "measured_uncertainty_mev": 0.09,
+  "combined_uncertainty_mev": 0.09000000692029862,
+  "z_score": 0.4336342223698153,
+  "within_combined_uncertainty": true,
+  "best_verdict": "VALID",
+  "verification": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "charged_lepton_holdout_inputs_complete",
+        "status": "PASS",
+        "details": "Electron and muon inputs plus measured tau comparison entry are present with explicit source metadata.",
+        "metrics": {
+          "input_count": 2,
+          "holdout_particle": "tau"
+        }
+      },
+      {
+        "name": "tau_holdout_applied",
+        "status": "PASS",
+        "details": "Tau mass was treated as a holdout comparison target rather than an input to the exact Koide prediction.",
+        "metrics": {
+          "input_particles": "electron,muon",
+          "holdout_particle": "tau"
+        }
+      },
+      {
+        "name": "koide_prediction_branch_selected",
+        "status": "PASS",
+        "details": "Selected the large-mass Koide solution branch consistent with charged-lepton mass ordering.",
+        "metrics": {
+          "predicted_tau_mass_mev": 1776.9690270830142,
+          "alternative_tau_mass_mev": 3.317356546468011
+        }
+      },
+      {
+        "name": "prediction_uncertainty_propagated",
+        "status": "PASS",
+        "details": "Propagated electron and muon one-sigma uncertainties into the holdout tau prediction and compared against measured tau uncertainty.",
+        "metrics": {
+          "predicted_uncertainty_mev": 3.5293821004320466e-05,
+          "combined_uncertainty_mev": 0.09000000692029862,
+          "within_combined_uncertainty": true,
+          "z_score": 0.4336342223698153,
+          "measured_tau_mass_mev": 1776.93
+        }
+      }
+    ]
+  }
+}

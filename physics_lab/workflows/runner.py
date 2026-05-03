@@ -9,6 +9,10 @@ from physics_lab.registry.experiments import load_experiment
 from physics_lab.workflows.artifacts import ExperimentOutcome, resolve_path
 from physics_lab.workflows.damped_oscillator import run_damped_oscillator_experiment_with_output
 from physics_lab.workflows.gauntlet import run_gauntlet_experiment_with_output
+from physics_lab.workflows.particle_mass import (
+    run_particle_mass_holdout_with_output,
+    run_particle_mass_reproduction_with_output,
+)
 from physics_lab.workflows.pendulum import (
     run_pendulum_experiment,
     run_pendulum_experiment_with_output,
@@ -40,6 +44,16 @@ def run_experiment_with_output(
             config_path=config_path,
             output_dir=output_dir,
         )
+    if method_type == "dataset_reproduction":
+        return run_particle_mass_reproduction_with_output(
+            config_path=config_path,
+            output_dir=output_dir,
+        )
+    if method_type == "holdout_prediction":
+        return run_particle_mass_holdout_with_output(
+            config_path=config_path,
+            output_dir=output_dir,
+        )
     raise ValueError(f"Unsupported experiment method type: {method_type}")
 
 
@@ -50,4 +64,6 @@ __all__ = [
     "run_pendulum_experiment_with_output",
     "run_damped_oscillator_experiment_with_output",
     "run_gauntlet_experiment_with_output",
+    "run_particle_mass_holdout_with_output",
+    "run_particle_mass_reproduction_with_output",
 ]

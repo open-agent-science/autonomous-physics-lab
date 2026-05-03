@@ -1,6 +1,7 @@
 # Public Alpha Announcement Draft
 
-Opened public alpha of Autonomous Physics Lab.
+Draft wording for a future public alpha announcement. Do not use this text
+until the release gates in `docs/public-release-gates.md` are satisfied.
 
 APL is an open-source, verification-first engine for physics hypotheses.
 
@@ -32,9 +33,9 @@ What is not included yet:
 - multi-agent runtime
 - theory graph
 
-Suggested short post:
+Suggested short post after the release decision:
 
-> Opened public alpha of Autonomous Physics Lab.  
+> Launching the public alpha of Autonomous Physics Lab.  
 > Verification-first infrastructure for physics hypotheses.  
 > Current benchmarks: pendulum formula discovery and damped oscillator regime verification.  
 > Repo: https://github.com/gladunrv/autonomous-physics-lab
