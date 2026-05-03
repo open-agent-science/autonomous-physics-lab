@@ -40,19 +40,6 @@ Expected output:
 - linked PR list
 - workflow lessons learned
 
-### TASK-0015 — Plan the diffusion scaling benchmark
-
-Type: `benchmark_planning`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- task spec
-- benchmark plan
-- future `EXP-0003` output outline
-- limitation summary
-
 ### TASK-0024 — Create task index table
 
 Type: `documentation`  
@@ -217,7 +204,17 @@ None.
 
 ## REVIEW_READY
 
-None.
+### TASK-0015 — Plan the diffusion scaling benchmark
+
+Type: `benchmark_planning`  
+Priority: `high`  
+Branch: `agent/roman/claude/task-0015-diffusion-scaling-benchmark`
+
+Completed outputs:
+
+- `docs/notes/diffusion-scaling-benchmark.md`
+- benchmark plan with scoring criteria and EXP-0003 output outline
+- limitation summary
 
 ## DONE RECENTLY
 
