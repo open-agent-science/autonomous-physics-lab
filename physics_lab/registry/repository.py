@@ -16,6 +16,7 @@ from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
 from physics_lab.registry.results import load_result
+from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task, task_input_mode
 from physics_lab.registry.validation import validate_document
 from physics_lab.workflows.artifacts import hash_file
@@ -31,6 +32,7 @@ LOADERS: dict[str, Loader] = {
     "knowledge": load_knowledge,
     "results": load_result,
     "tasks": load_task,
+    "task_proposals": load_task_proposal,
 }
 RANGE_LANGUAGE_MARKERS = (
     "valid only",
@@ -51,6 +53,7 @@ PATTERNS: dict[str, str] = {
     "knowledge": "*.md",
     "results": "result.yaml",
     "tasks": "*.yaml",
+    "task_proposals": "*.yaml",
 }
 STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "agent_workflow",
@@ -65,6 +68,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "maintainer_workflow",
     "numerical_audit",
     "documentation",
+    "scientific_safety_review",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
@@ -147,14 +151,21 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
     loader = LOADERS[directory]
     pattern = PATTERNS[directory]
     items: list[tuple[Path, dict[str, Any]]] = []
+    base_path = (
+        root / "tasks" / "proposals"
+        if directory == "task_proposals"
+        else root / directory
+    )
     recursive_directories = {"knowledge", "results"}
     iterator = (
-        (root / directory).rglob(pattern)
+        base_path.rglob(pattern)
         if directory in recursive_directories
-        else (root / directory).glob(pattern)
+        else base_path.glob(pattern)
     )
     for path in sorted(iterator):
         if directory == "tasks" and path.name == "TASK-TEMPLATE.yaml":
+            continue
+        if directory == "task_proposals" and path.name == "TASK-PROPOSAL-TEMPLATE.yaml":
             continue
         items.append((path, loader(path)))
     return items
@@ -664,6 +675,7 @@ def validate_repository(
     hypotheses = _load_directory(root_path, "hypotheses")
     experiments = _load_directory(root_path, "experiments")
     tasks = _load_directory(root_path, "tasks")
+    task_proposals = _load_directory(root_path, "task_proposals")
     agents = _load_directory(root_path, "agents")
     claims = _load_directory(root_path, "claims")
     knowledge_files = _load_directory(root_path, "knowledge")
@@ -688,6 +700,7 @@ def validate_repository(
         "hypotheses": len(hypotheses),
         "experiments": len(experiments),
         "tasks": len(tasks),
+        "task_proposals": len(task_proposals),
         "agents": len(agents),
         "claims": len(claims),
         "knowledge": len(knowledge_files),

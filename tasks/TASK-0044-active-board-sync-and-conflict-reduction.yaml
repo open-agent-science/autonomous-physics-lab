@@ -1,0 +1,70 @@
+id: TASK-0044
+title: "Sync active task board from task files to reduce merge conflicts"
+type: maintainer_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce merge-conflict pressure in the shared task board during parallel contributor work."
+  - "Make canonical task files the source of truth for task status transitions."
+  - "Speed up maintainer review and closeout by replacing manual board edits with deterministic synchronization."
+
+input:
+  mode: workflow
+  related_domain: task_coordination
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "tasks/proposals/20260503-roman-active-board-conflict-reduction.yaml"
+    - "docs/agent-task-protocol.md"
+    - "docs/agent-operating-model.md"
+    - "docs/contributing-workflow.md"
+    - "docs/maintainer-review-agent.md"
+    - "scripts/apl_closeout_task.py"
+    - "scripts/apl_task_closeout_check.py"
+    - "physics_lab/registry/maintainer_review.py"
+  planning_context: >
+    The repository currently accumulates frequent merge conflicts in
+    tasks/ACTIVE.md because many task branches and maintainer closeout flows
+    edit the same human-readable sections manually. This task should make task
+    YAML status the canonical source of truth and provide a deterministic way
+    to regenerate the board snapshot.
+
+requirements:
+  - "Create a deterministic active-board synchronization helper driven by canonical task files."
+  - "Keep tasks/ACTIVE.md as a human-readable snapshot, not the primary source of task status truth."
+  - "Add a CLI command that refreshes tasks/ACTIVE.md from task YAML metadata."
+  - "Update maintainer closeout flow to synchronize the board instead of hand-editing DONE RECENTLY."
+  - "Update contributor and maintainer docs to say routine task branches should not edit tasks/ACTIVE.md for ordinary status transitions."
+  - "Preserve proposal-first governance and maintainer authority over final closeout."
+  - "Add tests for board synchronization and closeout behavior."
+  - "Do not add physics benchmark implementation."
+  - "Do not promote claims automatically."
+
+accepted_outputs:
+  - "physics_lab/registry/active_board.py"
+  - "python3 -m physics_lab.cli sync-active-board"
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated physics_lab/registry/task_closeout.py"
+  - "updated tasks/ACTIVE.md"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/agent-operating-model.md"
+  - "updated docs/contributing-workflow.md"
+  - "updated docs/maintainer-review-agent.md"
+  - "updated docs/review-checklists/task-closeout-checklist.md"
+  - "updated tests"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

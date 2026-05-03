@@ -1,3 +1,7 @@
+# Canonical task template.
+# For new task ideas without a maintainer-assigned TASK-XXXX id, use
+# tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml instead.
+
 id: TASK-XXXX
 title: ""
 type: ""
