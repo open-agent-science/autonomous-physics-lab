@@ -1,0 +1,40 @@
+proposal_id: 20260503-contributor-short-slug
+title: ""
+status: PROPOSED
+type: ""
+priority: medium
+
+proposed_by:
+  contributor_id: ""
+  agent_id: ""
+
+strategy_alignment:
+  - ""
+
+summary: ""
+rationale: ""
+
+input:
+  mode: planning_only
+  related_domain: ""
+  related_objects: []
+  planning_context: ""
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+
+accepted_outputs:
+  - "canonical task spec"
+  - "docs update"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: ""

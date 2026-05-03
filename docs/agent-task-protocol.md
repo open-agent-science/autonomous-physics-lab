@@ -12,9 +12,10 @@ Before starting a task, read:
 
 1. [../AGENTS.md](../AGENTS.md)
 2. [./agent-task-protocol.md](./agent-task-protocol.md)
-3. [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
-4. the matching `tasks/TASK-XXXX-*.yaml` file
-5. [./strategy.md](./strategy.md)
+3. [./task-proposal-protocol.md](./task-proposal-protocol.md) when proposing a new task idea
+4. [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+5. the matching `tasks/TASK-XXXX-*.yaml` file when working on a canonical task
+6. [./strategy.md](./strategy.md)
 
 Use [./agent-operating-model.md](./agent-operating-model.md) and
 [./contributing-workflow.md](./contributing-workflow.md) for supporting
@@ -29,6 +30,34 @@ context, not as competing protocol definitions.
    explicitly redirects you.
 4. If no existing task fits, ask for or propose a new task before doing
    substantial work.
+
+## Task Proposals
+
+If no existing `READY` task fits, do not guess the next canonical task number
+during parallel work.
+
+Default rule:
+
+- create a proposal under `tasks/proposals/`
+- let the maintainer accept it before assigning `TASK-XXXX`
+
+Proposal file format:
+
+`tasks/proposals/YYYYMMDD-<contributor-id>-<short-slug>.yaml`
+
+Proposal branch format:
+
+`agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
+
+Proposal PR title format:
+
+`TASK-PROPOSAL: <short title>`
+
+Use [./task-proposal-protocol.md](./task-proposal-protocol.md) and
+[../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml).
+
+Only the maintainer may assign canonical ids directly unless a maintainer-run
+task-admin or review agent is explicitly told to do so.
 
 ## Task Status Protocol
 
@@ -87,6 +116,10 @@ Historical note:
 - older private-pilot branches may still use `agent/<agent-id>/...`
 - do not rename old branches or rewrite history just to match the new format
 
+For task proposals, use:
+
+`agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
+
 ## Branch-First Rule
 
 Before making any repository change for a task:
@@ -143,6 +176,10 @@ Use exactly this format:
 `TASK-0011: Audit numerical precision vs model residual`
 
 The PR must stay within one task scope and make the linked task easy to review.
+
+For task proposals, use:
+
+`TASK-PROPOSAL: <short title>`
 
 ## Open a Pull Request
 
@@ -202,6 +239,9 @@ Before opening a PR, also generate a review bundle for the maintainer:
 
 This produces `_snapshots/review_<branch>_<timestamp>.md` with the full diff
 vs `main`, commit list, and changed-file summary.
+
+For task proposal PRs, the lighter validation path from
+[./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
 
 ## Maintainer Review And Closeout
 

@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Task Proposal",
+  "$defs": {
+    "scienceExecutionInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hypothesis_id",
+        "experiment_id"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "science_execution"
+          ]
+        },
+        "hypothesis_id": {
+          "type": "string",
+          "pattern": "^HYP-[0-9]{4}$"
+        },
+        "experiment_id": {
+          "type": "string",
+          "pattern": "^EXP-[0-9]{4}$"
+        }
+      }
+    },
+    "planningOnlyInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "related_domain",
+        "related_objects",
+        "planning_context"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "planning_only"
+          ]
+        },
+        "related_domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "related_objects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "planning_context": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "workflowInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "related_objects",
+        "planning_context"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "workflow"
+          ]
+        },
+        "related_domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "related_objects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "planning_context": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "proposedBy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contributor_id",
+        "agent_id"
+      ],
+      "properties": {
+        "contributor_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "agent_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "proposal_id",
+    "title",
+    "status",
+    "type",
+    "priority",
+    "proposed_by",
+    "summary",
+    "input",
+    "requirements",
+    "accepted_outputs"
+  ],
+  "properties": {
+    "proposal_id": {
+      "type": "string",
+      "pattern": "^[0-9]{8}-[a-z0-9-]+-[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "ACCEPTED",
+        "REJECTED",
+        "SUPERSEDED"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "proposed_by": {
+      "$ref": "#/$defs/proposedBy"
+    },
+    "strategy_alignment": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/scienceExecutionInput"
+        },
+        {
+          "$ref": "#/$defs/planningOnlyInput"
+        },
+        {
+          "$ref": "#/$defs/workflowInput"
+        }
+      ]
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "accepted_outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commands"
+      ],
+      "properties": {
+        "commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "promotion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "canonical_task_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^TASK-[0-9]{4}$"
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "accepted",
+            "rejected",
+            "superseded"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

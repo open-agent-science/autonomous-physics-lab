@@ -18,6 +18,7 @@ from physics_lab.registry import (
     load_result,
     load_review_metadata,
     load_task,
+    load_task_proposal,
 )
 from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.runner import run_experiment_with_output
@@ -110,6 +111,7 @@ def validate(path: str, kind: Optional[str] = None) -> None:
         "result": load_result,
         "review_metadata": load_review_metadata,
         "task": load_task,
+        "task_proposal": load_task_proposal,
     }
     try:
         loaders[resolved_kind](artifact_path)
