@@ -1,0 +1,72 @@
+proposal_id: 20260503-roman-particle-mass-benchmark-schema
+title: "Add schema support for dataset-based particle-mass reproduction benchmarks"
+status: PROPOSED
+type: schema_extension
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+
+strategy_alignment:
+  - "Unblock verification-first particle-mass reproduction work without inventing misleading fit metadata."
+  - "Preserve honest repository semantics as APL broadens beyond the first two benchmark shapes."
+
+summary: >
+  The current experiment, example-config, and result schemas are still tailored
+  to pendulum-style and damped-oscillator-style workflows with train/test
+  splits, fitted-model score tables, and fit-oriented metadata. This blocks an
+  honest implementation of TASK-0037 and related particle-mass reproduction
+  tasks, which need source-aware dataset inputs and reproduction-style result
+  semantics.
+
+rationale: >
+  Charged-lepton Koide reproduction is already scoped as a narrow,
+  falsification-first benchmark, and TASK-0036 plus TASK-0042 established its
+  dataset and guardrail prerequisites. However, forcing that benchmark into the
+  current fit-oriented schemas would require fake train/test ranges, artificial
+  model score tables, or other misleading artifact fields. A dedicated schema
+  support task should land first so future particle-mass reproduction and
+  holdout work can remain source-aware and scientifically honest.
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
+    - "tasks/TASK-0038-historical-tau-holdout-prediction.yaml"
+    - "tasks/TASK-0036-particle-mass-dataset-scaffold.yaml"
+    - "tasks/TASK-0042-particle-mass-numerology-guardrails.yaml"
+    - "docs/notes/particle-mass-relation-track.md"
+    - "physics_lab/schemas/experiment.schema.json"
+    - "physics_lab/schemas/example_config.schema.json"
+    - "physics_lab/schemas/result.schema.json"
+  planning_context: >
+    APL needs a benchmark shape for dataset-based reproduction tasks that use
+    explicit particle-mass inputs and benchmark comparisons without pretending
+    to run train/test fit workflows.
+
+requirements:
+  - "Define a schema extension path for dataset-based reproduction benchmarks."
+  - "Allow experiment specs to reference explicit datasets without reusing amplitude- or time-range-only data shapes."
+  - "Allow result artifacts to report comparison targets, uncertainty-aware differences, and verification checks without fake fitted-model score tables."
+  - "Keep backward compatibility for existing pendulum and damped-oscillator artifacts."
+  - "Document when reproduction-style benchmark artifacts should be used instead of fit-oriented artifacts."
+  - "Do not implement the full particle-mass falsifier MVP in this task."
+  - "Do not promote claims automatically."
+
+accepted_outputs:
+  - "canonical task spec or implementation plan for schema support"
+  - "clear artifact semantics for reproduction-style benchmarks"
+  - "documentation update for allowed benchmark shapes"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Needed to unblock TASK-0037 and related particle-mass reproduction work."
