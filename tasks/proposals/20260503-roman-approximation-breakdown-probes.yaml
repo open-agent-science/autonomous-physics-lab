@@ -1,0 +1,73 @@
+proposal_id: 20260503-roman-approximation-breakdown-probes
+title: "Define approximation-breakdown probe micro-task track"
+status: PROPOSED
+type: benchmark_planning
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Quantifies where known physics approximations fail — a direct falsification contribution."
+  - "Extends the pendulum separatrix work pattern to a broader class of approximations."
+  - "Each probe is atomic, deterministic, and produces a range-bounded result."
+
+summary: >
+  Define a micro-task track where each task finds the quantitative breakdown
+  point of a well-known physics approximation. Each probe answers: at what
+  parameter value does this approximation exceed X% relative error compared
+  to an exact or higher-order reference?
+  Examples: small-angle pendulum (sin θ ≈ θ), Newtonian vs relativistic
+  kinetic energy, Stirling approximation for ln(n!), ideal gas vs van der
+  Waals at high pressure, geometric optics vs wave optics at small aperture.
+
+rationale: >
+  The project already produced a separatrix-aware pendulum follow-up
+  (EXP-0001/RUN-0002) that quantified near-breakdown behaviour. This track
+  generalises that pattern across physics domains. Each probe is falsification-
+  first: we start with a known approximation, compute its error boundary
+  deterministically, and record the result as a range-limited verdict. No
+  novel hypothesis is required for the first batch — results are immediately
+  verifiable against textbook values.
+
+input:
+  mode: planning_only
+  related_domain: classical_mechanics_and_approximation_theory
+  related_objects:
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/notes/pendulum-separatrix-followup.md"
+    - "results/EXP-0001/RUN-0002/"
+    - "AGENTS.md"
+  planning_context: >
+    Define the track: which approximations to probe, what error threshold
+    to use (e.g. 1%, 0.1%), what reference (exact or higher-order) to compare
+    against, and how to store results. Produce a canonical task spec and a
+    list of at least 8 candidate probes ready for agents to pick up.
+
+requirements:
+  - "Enumerate at least 8 candidate approximation-breakdown probes."
+  - "Each probe must specify: approximation, exact reference, error threshold, parameter range."
+  - "Code must be deterministic; no external API calls at runtime."
+  - "Result must state the breakdown point as a concrete parameter value with units."
+  - "Verdict must use vocabulary from docs/scientific-micro-task-protocol.md."
+  - "Do not claim the result is novel unless it deviates from textbook values."
+  - "Do not promote results automatically to project-level claims."
+
+accepted_outputs:
+  - "docs note describing the approximation-probes track and candidate probe list"
+  - "canonical task spec (TASK-XXXX) for track execution"
+  - "sample probe result artifact demonstrating the format"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Independent of other proposed tracks. Can be promoted and executed
+    immediately. Aligns with existing EXP-0001/RUN-0002 separatrix work.
