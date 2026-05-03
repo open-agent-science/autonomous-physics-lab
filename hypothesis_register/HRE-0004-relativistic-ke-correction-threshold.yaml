@@ -1,0 +1,38 @@
+id: HRE-0004
+title: "Relativistic kinetic energy correction exceeds 1% at beta > 0.115"
+domain: special_relativity
+status: PROPOSED
+
+mathematical_form: >
+  |KE_rel - KE_newt| / KE_rel > 0.01  for beta > beta_threshold
+  where KE_rel = (gamma - 1) * m * c^2,
+        KE_newt = (1/2) * m * v^2,
+        gamma = 1 / sqrt(1 - beta^2), beta = v / c.
+  Hypothesis: beta_threshold ≈ 0.115.
+
+assumptions:
+  - "Particle is a free, non-interacting massive point particle."
+  - "No gravitational field, no quantum effects."
+  - "Reference frame is inertial."
+  - "Exact relativistic formula is the ground truth."
+
+falsification_test: >
+  Compute KE_rel and KE_newt for beta in [0.01, 0.99] at 1000 evenly spaced
+  points. Find the smallest beta where |KE_rel - KE_newt| / KE_rel >= 0.01.
+  If that threshold deviates from 0.115 by more than 0.001, the stated
+  numerical value is falsified (though the qualitative behaviour holds).
+
+claim_ceiling: >
+  If verified: the Newtonian kinetic energy approximation deviates from the
+  relativistic value by more than 1% for beta > 0.115 (exact value to 3
+  decimal places). Result is exact within double-precision floating-point
+  arithmetic; no experimental uncertainty applies.
+
+notes: >
+  Intended as a worked example for the approximation-breakdown-probes track
+  (TASK-0050). The threshold value can be derived analytically from the
+  Taylor expansion of gamma but is here treated as a hypothesis to be
+  verified numerically.
+
+related_objects:
+  - "tasks/TASK-0050-approximation-breakdown-probes-track.yaml"

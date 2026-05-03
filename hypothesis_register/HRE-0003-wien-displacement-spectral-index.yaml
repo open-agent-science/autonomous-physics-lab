@@ -1,0 +1,38 @@
+id: HRE-0003
+title: "Wien displacement law generalisation for modified Planck spectrum"
+domain: thermodynamics
+status: PROPOSED
+
+mathematical_form: >
+  For a spectral radiance B(lambda) = C1 / (lambda^n * (exp(C2 / (lambda*T)) - 1)),
+  the peak wavelength satisfies:
+  lambda_max * T = h*c / (k_B * W(n))
+  where W(n) is the solution to n = x / (1 - exp(-x)) and x = h*c / (lambda*T*k_B).
+  Standard Planck corresponds to n = 5.
+
+assumptions:
+  - "The spectrum has the modified Planck form with integer or rational n >= 1."
+  - "The medium is non-dispersive."
+  - "Wien's approximation is not used; the full Planck-like denominator is kept."
+  - "h, c, k_B are standard CODATA values."
+
+falsification_test: >
+  Numerically maximise B(lambda) at temperature T = 5778 K for n in {3, 4, 5, 6, 7}.
+  For each n, solve W(n) analytically via Newton's method and compare
+  lambda_max to the numerical peak. If the analytic formula deviates from the
+  numerical peak by more than 0.01%, the formula is falsified for that n.
+
+claim_ceiling: >
+  If verified: lambda_max * T = h*c / (k_B * W(n)) correctly predicts the
+  spectral peak of modified Planck distributions to 0.01% for n in {3,...,7}
+  at the tested temperature. No claim about physical applicability of modified
+  Planck spectra to real blackbodies.
+
+notes: >
+  Standard Wien displacement (n=5) is THEORETICALLY_DERIVED and well-tested.
+  This hypothesis extends it to the family parameterised by n.
+  Relevant to TASK-0049 (constants verification) as a worked example of
+  deriving a constant (Wien's displacement constant b) from fundamentals.
+
+related_objects:
+  - "tasks/TASK-0049-physical-constants-verification-track.yaml"

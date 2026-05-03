@@ -22,10 +22,12 @@ SCHEMA_FILE_BY_KIND = {
     "agent": "agent.schema.json",
     "result": "result.schema.json",
     "review_metadata": "review_metadata.schema.json",
+    "hypothesis_register_entry": "hypothesis_register_entry.schema.json",
 }
 KIND_BY_DIRECTORY = {
     "claims": "claim",
     "hypotheses": "hypothesis",
+    "hypothesis_register": "hypothesis_register_entry",
     "experiments": "experiment",
     "knowledge": "knowledge",
     "proposals": "task_proposal",
