@@ -1,0 +1,43 @@
+id: TASK-0053
+title: "Create scientific micro-task protocol"
+type: documentation
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Defines a lightweight atomic contribution pattern for any agent."
+  - "Enables 4 new science tracks (TASK-0049–0052) with shared vocabulary and rules."
+
+input:
+  mode: planning_only
+  related_domain: agent_workflow
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/task-proposal-protocol.md"
+    - "AGENTS.md"
+  planning_context: >
+    Define a protocol for atomic scientific micro-tasks completable in
+    5–30 minutes. Specify output types, spec template, verdict vocabulary,
+    claim restrictions, and relationship to canonical tasks.
+
+requirements:
+  - "Define 5 micro-task output types."
+  - "Define micro-task spec template."
+  - "Define verdict vocabulary per output type."
+  - "State claim restrictions consistent with AGENTS.md."
+  - "Document relationship to canonical TASK-XXXX items."
+
+accepted_outputs:
+  - "docs/scientific-micro-task-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -67,6 +67,7 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0053` — Create scientific micro-task protocol (merged)
 - `TASK-0044` — Sync active task board from task files to reduce merge conflicts (merged)
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
 - `TASK-0042` — Add numerology guardrails for particle mass relation work (merged)
