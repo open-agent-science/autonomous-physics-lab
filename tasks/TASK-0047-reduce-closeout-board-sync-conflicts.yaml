@@ -1,0 +1,62 @@
+id: TASK-0047
+title: "Reduce closeout PR conflicts around active board sync"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer closeout lightweight even when several task PRs merge close together."
+  - "Prevent tasks/ACTIVE.md from remaining the main conflict surface after TASK-0044."
+  - "Make the fork-based maintainer workflow resilient under small merge batches."
+
+input:
+  mode: workflow
+  related_domain: task_coordination
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0044-active-board-sync-and-conflict-reduction.yaml"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/active_board.py"
+    - "scripts/apl_closeout_task.py"
+  planning_context: >
+    TASK-0044 moved routine task-state updates out of ordinary contributor PRs,
+    but post-merge closeout still regenerates tasks/ACTIVE.md inside each
+    closeout branch. When several PRs merge close together, those closeout PRs
+    still conflict with one another on the shared board snapshot.
+
+requirements:
+  - "Implement a lower-conflict post-merge closeout flow."
+  - "Ensure per-task closeout does not require every closeout PR to regenerate tasks/ACTIVE.md."
+  - "Either batch board synchronization or serialize it explicitly with maintainer-facing rules."
+  - "Keep task YAML as the canonical source of truth for DONE transitions."
+  - "Update closeout helper behavior and maintainer docs to match the new flow."
+  - "Add regression coverage for multiple merged tasks being closed out in sequence."
+  - "Preserve deterministic reviewability and proposal-first governance."
+  - "Do not add physics benchmark implementation."
+  - "Do not promote claims automatically."
+
+accepted_outputs:
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated scripts/apl_closeout_task.py or equivalent closeout helper path"
+  - "updated docs/maintainer-review-agent.md"
+  - "updated docs/review-checklists/task-closeout-checklist.md"
+  - "tests covering reduced-conflict closeout behavior"
+  - "maintainer-facing migration note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
