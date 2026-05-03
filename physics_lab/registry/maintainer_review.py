@@ -625,20 +625,22 @@ def build_review_report(
         resolved_task_id = "TASK-PROPOSAL"
         proposal_files = changed_task_proposal_files(changed_files)
         if len(proposal_files) == 0:
-            blockers.append("Task proposal review requires one changed tasks/proposals/*.yaml file.")
-        elif len(proposal_files) > 1:
-            blockers.append(
-                "Task proposal review found multiple changed proposal files: "
-                + ", ".join(proposal_files)
-                + "."
-            )
-        else:
+            blockers.append("Task proposal review requires at least one changed tasks/proposals/*.yaml file.")
+        elif len(proposal_files) == 1:
             proposal_path = root / proposal_files[0]
             task_payload = load_task_proposal(proposal_path)
             if str(task_payload["status"]) != "PROPOSED":
                 required_fixes.append(
                     f"Task proposal status is {task_payload['status']}. Keep it PROPOSED while requesting acceptance."
                 )
+        else:
+            # Multiple proposals in one PR is allowed — validate each one individually.
+            for pf in proposal_files:
+                payload = load_task_proposal(root / pf)
+                if str(payload["status"]) != "PROPOSED":
+                    required_fixes.append(
+                        f"Proposal {pf} status is {payload['status']}. Keep it PROPOSED while requesting acceptance."
+                    )
         canonical_task_files = tuple(
             path
             for path in changed_files
