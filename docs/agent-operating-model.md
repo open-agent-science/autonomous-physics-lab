@@ -149,17 +149,22 @@ work into one commit.
 
 ## New Task Proposal
 
-If no existing task fits, create a new task from
-[tasks/TASK-TEMPLATE.yaml](../tasks/TASK-TEMPLATE.yaml) and mark it
-`PROPOSED`.
+If no existing task fits, create a proposal under `tasks/proposals/` using
+[docs/task-proposal-protocol.md](./task-proposal-protocol.md) and
+[tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml).
 
-A new task should:
+Do not guess the next canonical `TASK-XXXX` id during parallel work.
+
+A new task proposal should:
 
 - align with [docs/strategy.md](./strategy.md);
 - be atomic;
 - include accepted outputs;
 - include validation commands;
 - avoid hidden benchmark or claim expansion.
+
+Create a canonical `tasks/TASK-XXXX-*.yaml` file only when the maintainer
+explicitly assigns or approves the canonical id.
 
 ## Forbidden Without Human Review
 
