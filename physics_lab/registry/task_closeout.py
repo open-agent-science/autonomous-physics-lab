@@ -82,7 +82,10 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
             "REVIEW_READY after merge."
         )
     if not board_match.present:
-        warnings.append("Task does not appear in tasks/ACTIVE.md.")
+        warnings.append(
+            "Task does not appear in tasks/ACTIVE.md. Sync the board snapshot on "
+            "the maintainer branch if task YAML status is already canonical."
+        )
     elif board_match.section not in expected_sections:
         rendered_sections = ", ".join(repr(section) for section in sorted(expected_sections))
         warnings.append(
@@ -98,8 +101,8 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
             "Verify accepted outputs exist in main before updating the task file."
         )
         suggested_actions.append(
-            "Move the task from REVIEW_READY to DONE RECENTLY in tasks/ACTIVE.md "
-            "after closeout."
+            "Run python3 -m physics_lab.cli sync-active-board . after closeout so "
+            "tasks/ACTIVE.md reflects DONE."
         )
     elif status == "DONE":
         suggested_actions.append(
@@ -184,7 +187,7 @@ def render_closeout_report(
         lines.append("Suggested file updates (not applied):")
         if report.status == "REVIEW_READY":
             lines.append("- Change task status from REVIEW_READY to DONE after merge verification.")
-            lines.append("- Move the task entry from REVIEW_READY to DONE RECENTLY in tasks/ACTIVE.md.")
+            lines.append("- Run python3 -m physics_lab.cli sync-active-board . after the status change.")
         else:
             lines.append(
                 "- No direct file update is suggested until the task reaches "

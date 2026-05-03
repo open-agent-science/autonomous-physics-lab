@@ -18,6 +18,7 @@ from physics_lab.registry.review_git import (
     changed_files_vs_main,
     parse_added_lines,  # noqa: F401 — re-exported; tests import from here
 )
+from physics_lab.registry.active_board import sync_active_board
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
     overclaim_hits,
@@ -579,34 +580,9 @@ def update_task_status(task_file: Path, new_status: str) -> None:
 
 
 def update_active_board_for_done(root: Path, task_id: str, task_title: str) -> None:
-    """Move a task from REVIEW_READY details to DONE RECENTLY bullet list."""
-    active_path = root / "tasks" / "ACTIVE.md"
-    lines = active_path.read_text(encoding="utf-8").splitlines()
-    start_index: int | None = None
-    end_index: int | None = None
-    for index, line in enumerate(lines):
-        if line.startswith(f"### {task_id}"):
-            start_index = index
-            end_index = index + 1
-            while end_index < len(lines):
-                candidate = lines[end_index]
-                if candidate.startswith("### TASK-") or candidate.startswith("## "):
-                    break
-                end_index += 1
-            break
-    if start_index is not None and end_index is not None:
-        while start_index > 0 and lines[start_index - 1] == "":
-            start_index -= 1
-        del lines[start_index:end_index]
-
-    done_header_index = lines.index("## DONE RECENTLY")
-    insert_index = done_header_index + 1
-    while insert_index < len(lines) and lines[insert_index] == "":
-        insert_index += 1
-    done_entry = f"- `{task_id}` — {task_title} (merged)"
-    if done_entry not in lines:
-        lines.insert(insert_index, done_entry)
-    active_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    """Refresh the active board after a task transitions to DONE."""
+    del task_id, task_title
+    sync_active_board(root)
 
 
 def should_append_dry_run_entry(task_payload: dict[str, Any]) -> bool:
@@ -728,7 +704,7 @@ def build_closeout_report(
         update_task_status(task_file, "DONE")
         applied_changes.append(f"Updated {task_file.as_posix()} status to DONE.")
         update_active_board_for_done(root, task_id, str(task_payload["title"]))
-        applied_changes.append("Moved the task entry from REVIEW_READY to DONE RECENTLY in tasks/ACTIVE.md.")
+        applied_changes.append("Synchronized tasks/ACTIVE.md from canonical task files.")
         if should_append_dry_run_entry(task_payload):
             if append_dry_run_entry(root, task_id, pull_request):
                 applied_changes.append("Appended a closeout note to docs/multi-agent-dry-run.md.")
