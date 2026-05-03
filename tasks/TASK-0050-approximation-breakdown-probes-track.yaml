@@ -1,0 +1,53 @@
+id: TASK-0050
+title: "Define and launch approximation-breakdown probes micro-task track"
+type: benchmark_planning
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Quantifies where known physics approximations fail — direct falsification work."
+  - "Generalises the EXP-0001/RUN-0002 separatrix pattern to a broader class of approximations."
+  - "Each probe is atomic, deterministic, and produces a range-bounded result."
+
+input:
+  mode: planning_only
+  related_domain: classical_mechanics_and_approximation_theory
+  related_objects:
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/notes/pendulum-separatrix-followup.md"
+    - "tasks/proposals/20260503-roman-approximation-breakdown-probes.yaml"
+    - "results/EXP-0001/RUN-0002/"
+  planning_context: >
+    Define the approximation-probes track: enumerate at least 8 candidate
+    probes, specify for each the approximation, exact reference, error
+    threshold, and parameter range. Produce a sample probe result as a
+    worked example. Each probe finds the parameter value at which a
+    well-known approximation exceeds a stated relative error threshold.
+
+requirements:
+  - "Enumerate at least 8 candidate approximation-breakdown probes."
+  - "Each probe must specify: approximation, exact reference, error threshold, parameter range."
+  - "Code must be deterministic; no external API calls at runtime."
+  - "Result must state breakdown point as a concrete parameter value with units."
+  - "Verdict must use vocabulary from docs/scientific-micro-task-protocol.md."
+  - "Do not claim results are novel unless they deviate from textbook values."
+  - "Do not promote results to project-level claims automatically."
+
+accepted_outputs:
+  - "docs note describing the approximation-probes track and candidate probe list"
+  - "sample probe result artifact demonstrating the format"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

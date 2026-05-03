@@ -1,0 +1,57 @@
+id: TASK-0052
+title: "Define empirical regularities catalog schema and populate initial entries"
+type: physics_dataset_extension
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Catalogs known empirical patterns with explicit falsification status."
+  - "Separates observation from explanation — consistent with hypothesis-vs-claim distinction."
+  - "Generalises the Koide-relation track pattern to a broader class of empirical observations."
+
+input:
+  mode: planning_only
+  related_domain: empirical_physics
+  related_objects:
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/notes/particle-mass-relation-track.md"
+    - "docs/notes/particle-mass-numerology-guardrails.md"
+    - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
+    - "tasks/TASK-0039-design-koide-like-triplet-search.yaml"
+    - "tasks/proposals/20260503-roman-empirical-regularities-catalog.yaml"
+  planning_context: >
+    Define the empirical-regularities catalog: schema for machine-readable
+    entries, falsification_status vocabulary, and at least 6 seed entries
+    covering at least 3 different physics domains. Each entry must document
+    one empirical regularity — its mathematical form, observed dataset,
+    supporting/counter evidence, and falsification status.
+
+requirements:
+  - "Define machine-readable empirical-regularity catalog schema (YAML)."
+  - "Required entry fields: id, name, domain, mathematical_form, observed_in, supporting_evidence, counter_evidence, falsification_status, notes."
+  - "falsification_status vocabulary: UNEXPLAINED | PARTIALLY_EXPLAINED | THEORETICALLY_DERIVED | FALSIFIED | COINCIDENCE_SUSPECTED."
+  - "Provide at least 6 seed entries covering at least 3 physics domains."
+  - "Each entry must cite a primary source or dataset."
+  - "Do not label UNEXPLAINED entries as 'new physics'."
+  - "Apply numerology guardrails from docs/notes/particle-mass-numerology-guardrails.md."
+  - "Do not run numerical falsification code in this task."
+
+accepted_outputs:
+  - "empirical regularities catalog schema file"
+  - "docs note describing the catalog track"
+  - "at least 6 seed catalog entries"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

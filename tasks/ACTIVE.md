@@ -44,6 +44,10 @@ the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-prop
 - `TASK-0037` — Reproduce Koide charged-lepton relation (`relation_reproduction`, priority `high`, difficulty `medium`)
 - `TASK-0038` — Reproduce historical tau-mass holdout prediction (`historical_prediction_benchmark`, priority `high`, difficulty `medium`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0049` — Define and launch physical constants verification micro-task track (`benchmark_planning`, priority `medium`, difficulty `low`)
+- `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (`benchmark_planning`, priority `medium`, difficulty `low`)
+- `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
+- `TASK-0052` — Define empirical regularities catalog schema and populate initial entries (`physics_dataset_extension`, priority `medium`, difficulty `low`)
 
 ## IN_PROGRESS
 
