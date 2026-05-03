@@ -1,0 +1,58 @@
+id: TASK-0058
+title: "Standardize scoped verdict wording for tau holdout"
+type: scientific_safety_review
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep particle-mass benchmark wording range-aware and resistant to numerology overclaim."
+  - "Prevent a local holdout benchmark verdict from being misread as a global explanatory claim."
+  - "Make the tau holdout result publishable in a disciplined scope before broader summary work."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0038-historical-tau-holdout-prediction.yaml"
+    - "docs/results/koide-tau-holdout.md"
+    - "results/EXP-0005/RUN-0005/result.yaml"
+    - "results/EXP-0005/RUN-0005/report.md"
+    - "docs/status.md"
+    - "claims/CLAIM-0004-koide-tau-holdout.md"
+  planning_context: >
+    The tau holdout benchmark is valuable, but its public wording and verdict
+    label should be reviewed for scope discipline before broader summary or
+    announcement work. The goal is to remove the risk that a broad verdict
+    such as VALID is read as a global claim. This task may tighten wording,
+    standardize the scoped verdict label, and refresh project-status text, but
+    must not promote claims.
+
+requirements:
+  - "Review docs/results/koide-tau-holdout.md for overclaim or overscoped wording."
+  - "Review result/report verdict wording for the historical tau holdout benchmark."
+  - "If needed, replace a broad verdict such as VALID with a narrower scoped verdict label."
+  - "Prefer verdict language like VALID_ON_HOLDOUT or SUPPORTED_IN_SCOPE if that better matches the benchmark semantics."
+  - "Make the wording explicitly local to the tau holdout benchmark and not a global Koide claim."
+  - "Update docs/status.md if the project summary should reflect the scoped wording change."
+  - "Do not promote any claim or knowledge status."
+  - "Do not broaden the result beyond charged leptons, the explicit dataset snapshot, and the holdout benchmark scope."
+
+accepted_outputs:
+  - "updated docs/results/koide-tau-holdout.md if needed"
+  - "updated results/EXP-0005/RUN-0005/result.yaml if verdict wording changes"
+  - "updated results/EXP-0005/RUN-0005/report.md if wording changes"
+  - "updated docs/status.md if wording changes"
+  - "no claim promotion"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
