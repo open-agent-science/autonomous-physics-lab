@@ -24,8 +24,8 @@ instruction, may perform closeout after merge.
 ## Closeout Actions
 
 - Set the task file status to `DONE`.
-- Move the task from `REVIEW_READY` to `DONE RECENTLY` in
-  [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md).
+- Run `python3 -m physics_lab.cli sync-active-board .` so
+  [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md) reflects the new status.
 - Add a short closeout note if the maintainer wants a persistent explanation.
 - Add an entry to [../multi-agent-dry-run.md](../multi-agent-dry-run.md) when
   the merged PR belongs to a dry run or contributor pilot.

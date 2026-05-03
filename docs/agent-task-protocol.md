@@ -258,7 +258,7 @@ The maintainer review agent may:
 - surface repository-safety and security-sensitive changes for maintainer review;
 - return `MERGE_OK`, `NEEDS_CHANGES`, or `BLOCKED`;
 - help close a merged task by updating the task file and
-  [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
+  synchronizing [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
 
 The maintainer review agent must not:
 
@@ -274,19 +274,24 @@ The maintainer review agent must not:
 2. Confirm the task is `READY` and atomic.
 3. Create and switch to the branch using the required naming format before any
    repository edits.
-4. Set the task status to `IN_PROGRESS` in the task file and update
-   [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
-5. Make the smallest reproducible change that satisfies the task.
-6. Run the required validation commands.
-7. Set the task to `REVIEW_READY` when implementation and validation are done.
-8. Leave clear maintainer review notes and limitations.
+4. Set the task status to `IN_PROGRESS` in the task file.
+5. Do not edit [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for routine task
+   status transitions. Task YAML is the canonical source of truth; the board is
+   a maintainer-synchronized snapshot.
+6. If the task itself changes active-board behavior or presentation, update the
+   board and run `python3 -m physics_lab.cli sync-active-board .` as part of
+   that scoped task.
+7. Make the smallest reproducible change that satisfies the task.
+8. Run the required validation commands.
+9. Set the task to `REVIEW_READY` when implementation and validation are done.
+10. Leave clear maintainer review notes and limitations.
 
 After merge, maintainer closeout may also:
 
-9. set the task to `DONE`;
-10. move the task entry from `REVIEW_READY` to `DONE RECENTLY` in
-    [../tasks/ACTIVE.md](../tasks/ACTIVE.md);
-11. add a dry-run note when the merged PR belongs to a contributor pilot.
+11. set the task to `DONE`;
+12. run `python3 -m physics_lab.cli sync-active-board .` so
+    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) reflects the new task state;
+13. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution
 
