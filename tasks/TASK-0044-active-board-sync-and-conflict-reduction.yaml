@@ -1,7 +1,7 @@
 id: TASK-0044
 title: "Sync active task board from task files to reduce merge conflicts"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
