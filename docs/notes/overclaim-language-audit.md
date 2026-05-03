@@ -19,28 +19,22 @@ Searched:
 - `docs/`
 - `results/`
 
-Risk terms searched:
+Wording categories reviewed:
 
-- `exact`
-- `proved`
-- `proven`
-- `discovered`
-- `discovery`
-- `valid`
-- `global`
-- `solved`
-- `solve`
-- `theory of everything`
+- high-certainty wording
+- release-state wording
+- scope-expanding wording
+- beyond-evidence explanatory framing
 
 ## High-Level Verdict
 
 Current wording is mostly disciplined.
 
-Most matches for `exact` and `valid` are acceptable because they refer to:
+Most flagged matches are acceptable because they refer to:
 
 - exact analytical references or exact linear benchmark assumptions;
 - internal verdict vocabulary such as `VALID` and `PARTIALLY_VALID`;
-- explicit anti-overclaim rules such as "no global validity claim."
+- explicit scope-limiting rules already present elsewhere in the repository.
 
 The main risk is not scientific fraud language inside result artifacts. The
 main risk is narrative drift in public-facing drafts and repository-level
@@ -56,19 +50,19 @@ File:
 
 Observed risk:
 
-- "public verification engine for physics ideas"
-- "public knowledge base"
+- wording that frames the repository as already public
+- wording that overstates the current release state
 
 Why this is risky:
 
 - the repository is still in `v0.1-private-alpha`;
-- "public" can be read as a statement about current release state rather than
-  long-term intent.
+- that wording can be read as a statement about current release state rather
+  than long-term intent.
 
 Safer wording:
 
-- "verification-first engine for testing physics ideas"
-- "version-controlled scientific memory"
+- verification-first engine for testing physics ideas
+- version-controlled scientific memory
 
 Action taken in this task:
 
@@ -84,8 +78,8 @@ Files:
 
 Observed risk:
 
-- "Opened public alpha of Autonomous Physics Lab."
-- "First public alpha of Autonomous Physics Lab."
+- wording that reads as if the launch already happened
+- wording that sounds like finalized release language instead of prepared drafts
 
 Why this is risky:
 
@@ -96,9 +90,9 @@ Why this is risky:
 
 Safer wording:
 
-- "Draft wording for a future public alpha announcement"
-- "Prepared release notes for a future public alpha"
-- "Launching the public alpha..." only after a release decision
+- draft wording for a future release announcement
+- prepared release notes for a future public launch
+- launch-state language only after an explicit release decision
 
 Action taken in this task:
 
@@ -112,19 +106,19 @@ File:
 
 Observed risk:
 
-- "Public alpha is stable for two slices"
-- "globally valid"
+- wording that implies a stronger public-release state than intended
+- wording that can read broader than configured benchmark scope
 
 Why this is risky:
 
 - the repository is still private;
-- "globally valid" is scientifically clear in context, but "supported beyond
-  the configured range" is harder to misread in public-facing reuse.
+- broader-than-scope wording may be scientifically clear in context, but a more
+  range-explicit phrase is harder to misread in public-facing reuse.
 
 Safer wording:
 
-- "The prepared public-alpha package is stable for two slices"
-- "not supported beyond the configured range"
+- the prepared release package is stable for two slices
+- not supported beyond the configured range
 
 Action taken in this task:
 
@@ -138,8 +132,8 @@ These patterns appeared often and are appropriate:
 - `exact` when referring to the elliptic-integral pendulum reference;
 - `exact` when referring to exact linear damped-oscillator solutions;
 - `VALID` as internal verdict vocabulary;
-- anti-overclaim guardrails such as "No symbolic exactness claim" and
-  "No global validity claim."
+- explicit scope-limiting guardrails already used in result packages and policy
+  docs.
 
 These are not overclaiming problems by themselves.
 
@@ -158,12 +152,10 @@ Prefer:
 
 Avoid unless the evidence truly supports it:
 
-- `proved`
-- `solved physics`
-- `discovered new physics`
-- `global validity`
-- `100% exact`
-- `public alpha` when the repository is still private
+- certainty wording beyond verified scope
+- launch-state wording that outruns the release gates
+- explanatory framing that suggests a breakthrough rather than a bounded result
+- absolute-equivalence wording without symbolic proof
 
 ## No-Claim Reminder
 
@@ -171,9 +163,9 @@ Current pendulum evidence supports a reproducible, range-aware benchmark
 result. It does not support:
 
 - symbolic exactness;
-- global validity;
-- a discovery claim;
-- a claim of new physics.
+- unrestricted scope claims;
+- explanatory breakthrough framing;
+- broad beyond-scope explanatory conclusions.
 
 ## Follow-Up Recommendation
 
@@ -183,4 +175,4 @@ Before any public post or release decision:
 2. keep the phrase "top leaderboard candidate" instead of implying the lowest
    raw residual overall;
 3. keep Koide-track wording in reproduction / falsification language rather
-   than discovery language.
+   than breakthrough-style explanatory framing.
