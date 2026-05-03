@@ -1,0 +1,87 @@
+result_id: RESULT-0005
+run_id: RUN-0004
+experiment_id: EXP-0004
+title: Charged-Lepton Koide Reproduction
+hypothesis_id: HYP-0004
+task_id: TASK-0037
+generated_at: '2026-05-03T12:36:28.243157+00:00'
+engine_version: 0.1.0
+git_commit: 22ad895c03bf92e61435829b022015243d0662f1
+command: physics-lab run examples/koide_charged_lepton.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0004/RUN-0004/inputs/config.yaml
+    sha256: 87e7b69693fb2c0ed9d131707eaf0a8dafc4ff2594e5e2c77a35576ac06ff6a3
+  experiment:
+    path: results/EXP-0004/RUN-0004/inputs/experiment.yaml
+    sha256: e30e60a3e44614f099c658b518dbf6250c3eb2d10a1abeb8dc7221b796374728
+  hypothesis:
+    path: results/EXP-0004/RUN-0004/inputs/hypothesis.yaml
+    sha256: bff444ddfd535e84fbb52e8e026b7994fb8105a9513e5c25f36a3c7ba7f32370
+  task:
+    path: results/EXP-0004/RUN-0004/inputs/task.yaml
+    sha256: 2ee2ede11851f465d47d2ab14197175d629be66b9913d785d37ca377b2e9836f
+code_reference: physics_lab/workflows/particle_mass.py
+limitations:
+- Charged-lepton scope only; no generalization beyond this particle family is implied.
+- This benchmark compares one computed quantity against the benchmark target 2/3 and
+  does not explain the origin of particle masses.
+- Uncertainty propagation uses first-order derivative propagation with independent
+  one-sigma input uncertainties.
+best_verdict: VALID
+verification:
+  passed: true
+  checks:
+  - name: charged_lepton_dataset_complete
+    status: PASS
+    details: Electron, muon, and tau entries are present with explicit source metadata.
+    metrics:
+      entry_count: 3
+  - name: mass_definition_consistency
+    status: PASS
+    details: All benchmark inputs use charged-lepton pole masses without scheme or
+      scale mixing.
+    metrics:
+      all_pole_masses: true
+      all_same_unit: true
+  - name: koide_quantity_computed
+    status: PASS
+    details: Computed the charged-lepton Koide quantity from the explicit dataset
+      inputs.
+    metrics:
+      observed_q: 0.6666644634145
+      reference_q: 0.6666666666666666
+  - name: uncertainty_propagated
+    status: PASS
+    details: Propagated one-sigma mass uncertainty into the Koide quantity using first-order
+      derivatives.
+    metrics:
+      q_uncertainty: 5.080958197422744e-06
+      within_combined_uncertainty: true
+      z_score: 0.43362926459755324
+artifacts:
+  report: results/EXP-0004/RUN-0004/report.md
+  metrics: results/EXP-0004/RUN-0004/metrics.json
+  claim_update: results/EXP-0004/RUN-0004/claim_update.md
+  claim_update_patch: results/EXP-0004/RUN-0004/claim_update.patch.md
+  knowledge_update: results/EXP-0004/RUN-0004/knowledge_update.md
+  knowledge_update_patch: results/EXP-0004/RUN-0004/knowledge_update.patch.md
+  review_summary: results/EXP-0004/RUN-0004/review_summary.md
+  review_metadata: results/EXP-0004/RUN-0004/review_metadata.yaml
+comparison_summary:
+- target_id: target_koide_q
+  label: Koide Q target
+  reference_value: 0.6666666666666666
+  observed_value: 0.6666644634145
+  unit: null
+  absolute_difference: 2.2032521665993343e-06
+  relative_difference: 3.3048782498990015e-06
+  notes: Comparison against the benchmark target value 2/3.
+uncertainty_summary:
+  method: first_order_uncertainty_propagation
+  observed_uncertainty: 5.080958197422744e-06
+  reference_uncertainty: null
+  combined_uncertainty: 5.080958197422744e-06
+  z_score: 0.43362926459755324
+  within_combined_uncertainty: true
+  notes: Reference benchmark target 2/3 treated as exact for this comparison.

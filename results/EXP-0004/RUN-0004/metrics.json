@@ -1,0 +1,55 @@
+{
+  "result_id": "RESULT-0005",
+  "run_id": "RUN-0004",
+  "dataset_id": "DATASET-PM-0001",
+  "target_id": "target_koide_q",
+  "observed_q": 0.6666644634145,
+  "reference_q": 0.6666666666666666,
+  "absolute_difference": 2.2032521665993343e-06,
+  "relative_difference": 3.3048782498990015e-06,
+  "q_uncertainty": 5.080958197422744e-06,
+  "z_score": 0.43362926459755324,
+  "within_combined_uncertainty": true,
+  "best_verdict": "VALID",
+  "verification": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "charged_lepton_dataset_complete",
+        "status": "PASS",
+        "details": "Electron, muon, and tau entries are present with explicit source metadata.",
+        "metrics": {
+          "entry_count": 3
+        }
+      },
+      {
+        "name": "mass_definition_consistency",
+        "status": "PASS",
+        "details": "All benchmark inputs use charged-lepton pole masses without scheme or scale mixing.",
+        "metrics": {
+          "all_pole_masses": true,
+          "all_same_unit": true
+        }
+      },
+      {
+        "name": "koide_quantity_computed",
+        "status": "PASS",
+        "details": "Computed the charged-lepton Koide quantity from the explicit dataset inputs.",
+        "metrics": {
+          "observed_q": 0.6666644634145,
+          "reference_q": 0.6666666666666666
+        }
+      },
+      {
+        "name": "uncertainty_propagated",
+        "status": "PASS",
+        "details": "Propagated one-sigma mass uncertainty into the Koide quantity using first-order derivatives.",
+        "metrics": {
+          "q_uncertainty": 5.080958197422744e-06,
+          "within_combined_uncertainty": true,
+          "z_score": 0.43362926459755324
+        }
+      }
+    ]
+  }
+}
