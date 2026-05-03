@@ -69,7 +69,7 @@ def test_build_closeout_report_for_review_ready_task(tmp_path: Path) -> None:
     assert report.active_board_match.section == "REVIEW_READY"
     assert report.accepted_outputs == ("docs/example.md", "tasks/ACTIVE.md")
     assert report.warnings == ()
-    assert any("Move the task from REVIEW_READY to DONE RECENTLY" in item for item in report.suggested_actions)
+    assert any("sync-active-board" in item for item in report.suggested_actions)
 
 
 def test_build_closeout_report_warns_when_not_review_ready(tmp_path: Path) -> None:
