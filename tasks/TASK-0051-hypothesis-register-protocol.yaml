@@ -1,0 +1,54 @@
+id: TASK-0051
+title: "Define hypothesis register schema and launch entry micro-task track"
+type: benchmark_planning
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Creates a structured path for any agent to contribute a new testable physics hypothesis."
+  - "Enforces hypothesis lifecycle discipline from AGENTS.md: PROPOSED -> FORMALIZED -> TESTING."
+  - "Builds machine-readable scientific memory that cleanly separates proposal, verification, and claim promotion."
+
+input:
+  mode: planning_only
+  related_domain: hypothesis_lifecycle
+  related_objects:
+    - "AGENTS.md"
+    - "docs/notes/particle-mass-relation-track.md"
+    - "docs/notes/thought-experiment-consistency-suite.md"
+    - "tasks/proposals/20260503-roman-hypothesis-register-protocol.yaml"
+  planning_context: >
+    Define the hypothesis register: schema for machine-readable entries,
+    hypothesis-entry micro-task template, lifecycle transition rules, and at
+    least 5 seed hypotheses as examples. Entries at PROPOSED must not be
+    promoted to VALID without a separate verification task.
+
+requirements:
+  - "Define machine-readable hypothesis register schema (YAML or JSON)."
+  - "Required entry fields: id, title, domain, mathematical_form, assumptions, falsification_test, claim_ceiling, status."
+  - "Lifecycle states must match AGENTS.md vocabulary."
+  - "Provide at least 5 seed hypothesis entries in PROPOSED status."
+  - "Seed entries must not use overclaim language."
+  - "Define the path from proposal to hypothesis draft to experiment plan to result to claim/knowledge update."
+  - "Do not implement full falsification code in this task."
+  - "Do not promote any hypothesis automatically."
+
+accepted_outputs:
+  - "hypothesis register schema file"
+  - "docs note describing the register protocol"
+  - "at least 5 seed hypothesis entries in PROPOSED status"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
