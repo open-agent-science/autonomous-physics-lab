@@ -112,6 +112,10 @@
           "reference_value": {
             "type": "number"
           },
+          "reference_uncertainty": {
+            "type": "number",
+            "minimum": 0
+          },
           "unit": {
             "type": [
               "string",
@@ -458,6 +462,18 @@
                 "minLength": 1
               }
             },
+            "holdout_particle": {
+              "type": "string",
+              "minLength": 1
+            },
+            "input_particles": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
             "notes": {
               "type": "string"
             }
@@ -507,6 +523,10 @@
               },
               "reference_value": {
                 "type": "number"
+              },
+              "reference_uncertainty": {
+                "type": "number",
+                "minimum": 0
               },
               "unit": {
                 "type": [
