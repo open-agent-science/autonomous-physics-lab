@@ -1,0 +1,25 @@
+id: EXP-0004
+title: "Charged-Lepton Koide Reproduction"
+domain: particle_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0004
+
+method:
+  type: "dataset_reproduction"
+  simulator: "explicit_particle_mass_dataset_loader"
+  comparator: "target_difference"
+
+data:
+  dataset_path: ../data/particle_masses/charged_leptons.yaml
+  dataset_kind: particle_mass_dataset
+  sample_axes:
+    - particle
+  notes: "Use charged-lepton pole masses only; do not mix families or schemes."
+
+comparison_targets:
+  - id: target_koide_q
+    label: "Koide Q target"
+    reference_value: 0.6666666666666666
+    unit: null
+    notes: "Benchmark target value 2/3."

@@ -85,7 +85,10 @@ def run(
         output_dir=Path(output_dir) if output_dir is not None else None,
     )
     typer.echo(f"Completed: {outcome.title}")
-    typer.echo(f"Best model: {outcome.best_model_id}")
+    if outcome.best_model_id is not None:
+        typer.echo(f"Best model: {outcome.best_model_id}")
+    for line in outcome.summary_lines:
+        typer.echo(line)
     typer.echo(f"Result: {outcome.artifacts.result_path}")
     typer.echo(f"Report: {outcome.artifacts.report_path}")
     typer.echo(f"Metrics: {outcome.artifacts.metrics_path}")
@@ -198,18 +201,34 @@ def status(root: str = typer.Argument(".")) -> None:
     typer.echo(f"Latest result: {relative_result}")
     typer.echo(f"Result id: {result_payload['result_id']}")
     typer.echo(f"Run id: {result_payload['run_id']}")
-    typer.echo(f"Best model: {result_payload['best_model_id']}")
     typer.echo(f"Best verdict: {result_payload['best_verdict']}")
     typer.echo(
         "Verification checks: "
         f"{len(verification_checks)} total "
         f"({pass_count} PASS, {fail_count} FAIL, {placeholder_count} PLACEHOLDER)"
     )
-    typer.echo(
-        "Range: "
-        f"train {result_payload['train_range'][0]:.4f}-{result_payload['train_range'][1]:.4f}, "
-        f"test {result_payload['test_range'][0]:.4f}-{result_payload['test_range'][1]:.4f}"
-    )
+    if "best_model_id" in result_payload:
+        typer.echo(f"Best model: {result_payload['best_model_id']}")
+    if "train_range" in result_payload and "test_range" in result_payload:
+        typer.echo(
+            "Range: "
+            f"train {result_payload['train_range'][0]:.4f}-{result_payload['train_range'][1]:.4f}, "
+            f"test {result_payload['test_range'][0]:.4f}-{result_payload['test_range'][1]:.4f}"
+        )
+    elif result_payload.get("comparison_summary"):
+        primary_target = result_payload["comparison_summary"][0]
+        typer.echo(
+            "Primary comparison: "
+            f"{primary_target['label']} observed {primary_target['observed_value']:.10f} "
+            f"vs reference {primary_target['reference_value']:.10f}"
+        )
+        uncertainty = result_payload.get("uncertainty_summary", {})
+        if uncertainty.get("combined_uncertainty") is not None:
+            typer.echo(
+                "Uncertainty: "
+                f"combined {float(uncertainty['combined_uncertainty']):.10f}, "
+                f"within target uncertainty = {uncertainty.get('within_combined_uncertainty')}"
+            )
 
 
 if __name__ == "__main__":

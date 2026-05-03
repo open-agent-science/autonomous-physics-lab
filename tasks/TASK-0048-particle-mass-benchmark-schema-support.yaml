@@ -1,7 +1,7 @@
 id: TASK-0048
 title: "Add schema support for dataset-based particle-mass reproduction benchmarks"
 type: schema_extension
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

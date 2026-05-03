@@ -63,6 +63,39 @@ def test_reproduction_experiment_schema_accepts_dataset_based_benchmark() -> Non
     assert validate_document(payload, "experiment", "experiments/EXP-0003.yaml") == payload
 
 
+def test_holdout_experiment_schema_accepts_reference_uncertainty() -> None:
+    payload = {
+        "id": "EXP-0005",
+        "title": "Historical Tau Holdout Prediction",
+        "domain": "particle_physics",
+        "status": "COMPLETED",
+        "hypothesis_id": "HYP-0005",
+        "method": {
+            "type": "holdout_prediction",
+            "simulator": "explicit_dataset_loader",
+            "comparator": "target_difference",
+        },
+        "data": {
+            "dataset_path": "data/particle_masses/charged_leptons.yaml",
+            "dataset_kind": "particle_mass_dataset",
+            "sample_axes": ["particle"],
+            "holdout_particle": "tau",
+            "input_particles": ["electron", "muon"],
+        },
+        "comparison_targets": [
+            {
+                "id": "target_tau_mass",
+                "label": "Measured tau mass",
+                "reference_value": 1776.93,
+                "reference_uncertainty": 0.09,
+                "unit": "MeV",
+            }
+        ],
+    }
+
+    assert validate_document(payload, "experiment", "experiments/EXP-0005.yaml") == payload
+
+
 def test_reproduction_result_schema_accepts_comparison_and_uncertainty_summary() -> None:
     payload = {
         "result_id": "RESULT-0005",
