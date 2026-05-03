@@ -9,8 +9,7 @@
     "task_id",
     "run_id",
     "result_id",
-    "result_root",
-    "train_fraction"
+    "result_root"
   ],
   "properties": {
     "experiment_path": {
@@ -44,7 +43,23 @@
     },
     "workflow": {
       "type": "string",
-      "enum": ["standard", "gauntlet"]
+      "enum": ["standard", "gauntlet", "reproduction"]
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["workflow"],
+        "properties": {
+          "workflow": {
+            "const": "reproduction"
+          }
+        }
+      },
+      "then": {},
+      "else": {
+        "required": ["train_fraction"]
+      }
+    }
+  ]
 }
