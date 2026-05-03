@@ -12,9 +12,10 @@ Before starting a task, read:
 
 1. [../AGENTS.md](../AGENTS.md)
 2. [./agent-task-protocol.md](./agent-task-protocol.md)
-3. [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
-4. the matching `tasks/TASK-XXXX-*.yaml` file
-5. [./strategy.md](./strategy.md)
+3. [./task-proposal-protocol.md](./task-proposal-protocol.md) when proposing a new task idea
+4. [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+5. the matching `tasks/TASK-XXXX-*.yaml` file when working on a canonical task
+6. [./strategy.md](./strategy.md)
 
 Use [./agent-operating-model.md](./agent-operating-model.md) and
 [./contributing-workflow.md](./contributing-workflow.md) for supporting
@@ -29,6 +30,34 @@ context, not as competing protocol definitions.
    explicitly redirects you.
 4. If no existing task fits, ask for or propose a new task before doing
    substantial work.
+
+## Task Proposals
+
+If no existing `READY` task fits, do not guess the next canonical task number
+during parallel work.
+
+Default rule:
+
+- create a proposal under `tasks/proposals/`
+- let the maintainer accept it before assigning `TASK-XXXX`
+
+Proposal file format:
+
+`tasks/proposals/YYYYMMDD-<contributor-id>-<short-slug>.yaml`
+
+Proposal branch format:
+
+`agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
+
+Proposal PR title format:
+
+`TASK-PROPOSAL: <short title>`
+
+Use [./task-proposal-protocol.md](./task-proposal-protocol.md) and
+[../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml).
+
+Only the maintainer may assign canonical ids directly unless a maintainer-run
+task-admin or review agent is explicitly told to do so.
 
 ## Task Status Protocol
 
@@ -87,6 +116,10 @@ Historical note:
 - older private-pilot branches may still use `agent/<agent-id>/...`
 - do not rename old branches or rewrite history just to match the new format
 
+For task proposals, use:
+
+`agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
+
 ## Branch-First Rule
 
 Before making any repository change for a task:
@@ -143,6 +176,10 @@ Use exactly this format:
 `TASK-0011: Audit numerical precision vs model residual`
 
 The PR must stay within one task scope and make the linked task easy to review.
+
+For task proposals, use:
+
+`TASK-PROPOSAL: <short title>`
 
 ## Open a Pull Request
 
@@ -203,6 +240,9 @@ Before opening a PR, also generate a review bundle for the maintainer:
 This produces `_snapshots/review_<branch>_<timestamp>.md` with the full diff
 vs `main`, commit list, and changed-file summary.
 
+For task proposal PRs, the lighter validation path from
+[./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
+
 ## Maintainer Review And Closeout
 
 Maintainers may use [./maintainer-review-agent.md](./maintainer-review-agent.md)
@@ -218,7 +258,7 @@ The maintainer review agent may:
 - surface repository-safety and security-sensitive changes for maintainer review;
 - return `MERGE_OK`, `NEEDS_CHANGES`, or `BLOCKED`;
 - help close a merged task by updating the task file and
-  [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
+  synchronizing [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
 
 The maintainer review agent must not:
 
@@ -234,19 +274,24 @@ The maintainer review agent must not:
 2. Confirm the task is `READY` and atomic.
 3. Create and switch to the branch using the required naming format before any
    repository edits.
-4. Set the task status to `IN_PROGRESS` in the task file and update
-   [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
-5. Make the smallest reproducible change that satisfies the task.
-6. Run the required validation commands.
-7. Set the task to `REVIEW_READY` when implementation and validation are done.
-8. Leave clear maintainer review notes and limitations.
+4. Set the task status to `IN_PROGRESS` in the task file.
+5. Do not edit [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for routine task
+   status transitions. Task YAML is the canonical source of truth; the board is
+   a maintainer-synchronized snapshot.
+6. If the task itself changes active-board behavior or presentation, update the
+   board and run `python3 -m physics_lab.cli sync-active-board .` as part of
+   that scoped task.
+7. Make the smallest reproducible change that satisfies the task.
+8. Run the required validation commands.
+9. Set the task to `REVIEW_READY` when implementation and validation are done.
+10. Leave clear maintainer review notes and limitations.
 
 After merge, maintainer closeout may also:
 
-9. set the task to `DONE`;
-10. move the task entry from `REVIEW_READY` to `DONE RECENTLY` in
-    [../tasks/ACTIVE.md](../tasks/ACTIVE.md);
-11. add a dry-run note when the merged PR belongs to a contributor pilot.
+11. set the task to `DONE`;
+12. run `python3 -m physics_lab.cli sync-active-board .` so
+    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) reflects the new task state;
+13. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution
 

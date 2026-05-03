@@ -23,16 +23,23 @@ Every meaningful change should connect back to one or more of:
 5. Read [tasks/ACTIVE.md](../tasks/ACTIVE.md).
 6. Read [docs/agent-operating-model.md](./agent-operating-model.md).
 7. Pick one existing `READY` task, benchmark, or documentation gap.
-8. Create and switch to the canonical task branch before changing repository files.
-9. Make the smallest reproducible change that advances the repository state.
-10. Run validation before asking for review.
-11. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
-12. Use the branch, commit, PR title, and task-state protocol from
+8. If no existing `READY` task fits, create a task proposal using
+   [task-proposal-protocol.md](./task-proposal-protocol.md).
+9. Create and switch to the canonical task branch or proposal branch before changing repository files.
+10. Make the smallest reproducible change that advances the repository state.
+11. Run validation before asking for review.
+12. Use the GitHub issue and PR templates so the contribution stays linked to repository memory.
+13. Use the branch, commit, PR title, and task-state protocol from
     [docs/agent-task-protocol.md](./agent-task-protocol.md).
-13. When an AI tool is used, record both the human contributor and the agent
+14. When an AI tool is used, record both the human contributor and the agent
     tool in the PR metadata block.
 
 Do not start task implementation on `main`.
+
+For routine canonical task work, treat the `TASK-*.yaml` file as the source of
+truth for task status. Do not hand-edit `tasks/ACTIVE.md` just to move a task
+between `READY`, `IN_PROGRESS`, `REVIEW_READY`, or `DONE`; maintainers refresh
+the board snapshot with `python3 -m physics_lab.cli sync-active-board .`.
 
 ## Typical Contribution Types
 
@@ -81,7 +88,7 @@ Use this when proposing new work without fully implementing it yet.
 
 Expected links:
 
-- one `HYP-*` or `TASK-*`
+- one `HYP-*` or task proposal
 - optional `EXP-*` scaffold
 
 Rules:
@@ -89,10 +96,12 @@ Rules:
 - keep the proposal narrow;
 - define assumptions clearly;
 - avoid speculative universal claims.
+- use `tasks/proposals/` unless the maintainer explicitly assigned a canonical
+  `TASK-XXXX` id.
 
 ## Validation Checklist
 
-Run before asking for review:
+Run before asking for review on a canonical task PR:
 
 ```bash
 python3 -m ruff check .
@@ -102,6 +111,15 @@ python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
+```
+
+For task proposal PRs, use the lighter validation path:
+
+```bash
+./scripts/validate_quick.sh
+python3 -m physics_lab.cli validate-repo .
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+./scripts/apl_review_bundle.sh
 ```
 
 Optional but recommended for larger work:

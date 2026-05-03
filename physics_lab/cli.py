@@ -18,7 +18,9 @@ from physics_lab.registry import (
     load_result,
     load_review_metadata,
     load_task,
+    load_task_proposal,
 )
+from physics_lab.registry.active_board import sync_active_board
 from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.runner import run_experiment_with_output
 
@@ -110,6 +112,7 @@ def validate(path: str, kind: Optional[str] = None) -> None:
         "result": load_result,
         "review_metadata": load_review_metadata,
         "task": load_task,
+        "task_proposal": load_task_proposal,
     }
     try:
         loaders[resolved_kind](artifact_path)
@@ -155,6 +158,13 @@ def validate_repo(
                 typer.echo(f"- {prefix} {issue.message}")
         if summary.error_count > 0 or (fail_on_warnings and summary.warning_count > 0):
             raise typer.Exit(code=1)
+
+
+@app.command("sync-active-board")
+def sync_active_board_command(root: str = typer.Argument(".")) -> None:
+    """Refresh tasks/ACTIVE.md from canonical task YAML files."""
+    active_path = sync_active_board(Path(root).resolve())
+    typer.echo(f"Synchronized active board: {active_path}")
 
 
 @app.command("status")

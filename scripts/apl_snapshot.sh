@@ -116,6 +116,7 @@ cmd_block() {
     hypotheses/*.yaml \
     experiments/*.yaml \
     tasks/*.yaml \
+    tasks/proposals/*.yaml \
     agents/*.yaml \
     claims/*.md
   do
