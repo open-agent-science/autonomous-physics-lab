@@ -651,7 +651,7 @@ def test_validate_repository_smoke() -> None:
     assert summary.counts["examples"] == 3
     assert summary.counts["hypotheses"] == 2
     assert summary.counts["experiments"] == 2
-    assert summary.counts["knowledge"] == 2
+    assert summary.counts["knowledge"] == 3
     assert summary.counts["tasks"] == expected_task_count
     assert summary.counts["agents"] == 1
     assert summary.counts["results"] == 4
@@ -783,7 +783,7 @@ def test_cli_validate_repo_smoke() -> None:
     assert "Validated repository:" in result.stdout
     assert "- examples: 3" in result.stdout
     assert "- hypotheses: 2" in result.stdout
-    assert "- knowledge: 2" in result.stdout
+    assert "- knowledge: 3" in result.stdout
 
 
 def test_cli_validate_repo_strict_smoke() -> None:
