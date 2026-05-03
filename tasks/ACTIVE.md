@@ -45,6 +45,7 @@ the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-prop
 - `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (`benchmark_planning`, priority `medium`, difficulty `low`)
 - `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
 - `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0058` — Standardize scoped verdict wording for tau holdout (`scientific_safety_review`, priority `high`, difficulty `low`)
 
 ## IN_PROGRESS
 
@@ -98,6 +99,7 @@ None.
 
 - `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
 - `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
+- `TASK-0059` — Prepare Koide tau holdout public summary package (`documentation`, priority `medium`, difficulty `low`)
 
 ## BLOCKED
 
