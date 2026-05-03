@@ -1,7 +1,7 @@
 id: TASK-0015
 title: "Plan the diffusion scaling benchmark"
 type: benchmark_planning
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
