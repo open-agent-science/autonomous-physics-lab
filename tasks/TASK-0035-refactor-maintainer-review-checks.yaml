@@ -1,7 +1,7 @@
 id: TASK-0035
 title: "Refactor maintainer review checks into smaller modules"
 type: code_quality_refactor
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 

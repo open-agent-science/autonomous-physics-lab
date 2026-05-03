@@ -154,6 +154,23 @@ def test_parse_added_lines_can_exclude_tests_or_limit_prefixes() -> None:
     ) == ("value = eval(user_input)",)
 
 
+def test_changed_task_proposal_files_returns_multiple_files() -> None:
+    changed_files = (
+        "tasks/proposals/20260503-roman-glossary.yaml",
+        "tasks/proposals/20260503-roman-conftest.yaml",
+        "tasks/proposals/20260503-roman-diagram.yaml",
+        "tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml",
+        "tasks/ACTIVE.md",
+    )
+
+    result = changed_task_proposal_files(changed_files)
+    assert result == (
+        "tasks/proposals/20260503-roman-glossary.yaml",
+        "tasks/proposals/20260503-roman-conftest.yaml",
+        "tasks/proposals/20260503-roman-diagram.yaml",
+    )
+
+
 def test_rule_catalog_lines_are_not_treated_as_live_risk() -> None:
     assert line_is_rule_catalog_line('    "solved",')
     assert line_is_rule_catalog_line(

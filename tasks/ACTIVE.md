@@ -204,6 +204,18 @@ None.
 
 ## REVIEW_READY
 
+### TASK-0035 — Refactor maintainer review checks into smaller modules
+
+Type: `code_quality_refactor`  
+Priority: `medium`  
+Branch: `agent/roman/claude/task-0035-maintainer-review-refactor`
+
+Completed outputs:
+
+- fixed multi-proposal PR blocker in `physics_lab/registry/maintainer_review.py`
+- new test in `tests/test_maintainer_review.py`
+- updated `tasks/ACTIVE.md`
+
 ### TASK-0015 — Plan the diffusion scaling benchmark
 
 Type: `benchmark_planning`  
