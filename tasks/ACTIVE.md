@@ -148,7 +148,6 @@ use, the new particle-mass tasks start at `TASK-0036`.
 - `TASK-0038` — reproduce historical tau-mass holdout prediction
 - `TASK-0039` — design Koide-like triplet search with baselines
 - `TASK-0041` — design complexity penalty for mass-relation formulas
-- `TASK-0042` — add numerology guardrails for particle mass relation work
 
 #### PROPOSED
 
@@ -203,6 +202,18 @@ Expected output:
 None.
 
 ## REVIEW_READY
+
+### TASK-0042 — Add numerology guardrails for particle mass relation work
+
+Type: `scientific_safety_review`  
+Priority: `high`  
+Branch: `agent/roman/codex/task-0042-particle-mass-numerology-guardrails`
+
+Completed outputs:
+
+- `docs/notes/particle-mass-numerology-guardrails.md`
+- guardrail policy for anti-cherry-picking, baselines, holdouts, and uncertainty handling
+- review checklist for future particle-mass tasks
 
 ### TASK-0035 — Refactor maintainer review checks into smaller modules
 
