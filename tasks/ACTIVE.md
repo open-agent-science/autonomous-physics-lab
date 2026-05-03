@@ -100,18 +100,6 @@ Expected output:
 - light-clock planning note
 - future benchmark outline
 
-### TASK-0029 — Audit project language for overclaim risk
-
-Type: `scientific_safety_review`  
-Priority: `high`  
-Suggested size: `small`
-
-Expected output:
-
-- `docs/notes/overclaim-language-audit.md`
-- risky-language inventory
-- safer replacement guidance
-
 ### TASK-0030 — Record first friend contributor dry run
 
 Type: `contributor_pilot`  
@@ -203,6 +191,18 @@ Expected output:
 None.
 
 ## REVIEW_READY
+
+### TASK-0029 — Audit project language for overclaim risk
+
+Type: `scientific_safety_review`  
+Priority: `high`  
+Branch: `agent/roman/codex/task-0029-overclaim-language-audit`
+
+Completed outputs:
+
+- `docs/notes/overclaim-language-audit.md`
+- safer wording updates in `README.md`
+- future-release wording updates in public-alpha draft docs
 
 ### TASK-0035 — Refactor maintainer review checks into smaller modules
 
