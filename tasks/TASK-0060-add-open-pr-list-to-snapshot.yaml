@@ -1,0 +1,46 @@
+id: TASK-0060
+title: "Add open pull request list to repository snapshot"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make maintainer snapshots more useful for triage by surfacing open PR state."
+  - "Keep snapshot tooling robust even when GitHub CLI auth is unavailable."
+
+input:
+  mode: workflow
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - "gh pr list"
+    - "tasks/TASK-0057-snapshot-hygiene-and-proposal-backlog.yaml"
+  planning_context: >
+    Snapshot output already captures repository state, validation, and proposal
+    backlog. Add a compact open-PR section so maintainers can see active GitHub
+    review load directly from the snapshot without breaking the script when gh
+    is unavailable or unauthenticated.
+
+requirements:
+  - "Add an Open Pull Requests section to scripts/apl_snapshot.sh."
+  - "Use gh pr list when gh is available and authenticated."
+  - "Do not fail the snapshot when gh is unavailable or not authenticated."
+  - "Keep output compact and readable in the markdown snapshot."
+
+accepted_outputs:
+  - "updated scripts/apl_snapshot.sh"
+  - "updated tasks/TASK-0060-add-open-pr-list-to-snapshot.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/apl_snapshot.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

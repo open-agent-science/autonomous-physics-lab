@@ -61,6 +61,7 @@ None.
 - `TASK-0054` — Fix maintainer review helper temp claim path handling in git worktrees (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0056` — Accept selected science-track proposals into canonical tasks (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0060` — Add open pull request list to repository snapshot (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
