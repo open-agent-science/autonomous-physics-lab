@@ -143,7 +143,6 @@ use, the new particle-mass tasks start at `TASK-0036`.
 
 #### READY
 
-- `TASK-0036` — create particle mass dataset scaffold
 - `TASK-0037` — reproduce Koide charged-lepton relation
 - `TASK-0038` — reproduce historical tau-mass holdout prediction
 - `TASK-0039` — design Koide-like triplet search with baselines
@@ -214,6 +213,19 @@ Completed outputs:
 - `docs/notes/particle-mass-numerology-guardrails.md`
 - guardrail policy for anti-cherry-picking, baselines, holdouts, and uncertainty handling
 - review checklist for future particle-mass tasks
+
+### TASK-0036 — Create particle mass dataset scaffold
+
+Type: `scientific_dataset`  
+Priority: `high`  
+Branch: `agent/roman/codex/task-0036-particle-mass-dataset-scaffold`
+
+Completed outputs:
+
+- `data/particle_masses/README.md`
+- `data/particle_masses/charged_leptons.yaml`
+- `data/particle_masses/schema.md`
+- explicit PDG 2025 charged-lepton source metadata and mass-definition rules
 
 ### TASK-0035 — Refactor maintainer review checks into smaller modules
 
