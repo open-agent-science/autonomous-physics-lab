@@ -43,9 +43,6 @@ the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-prop
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0037` — Reproduce Koide charged-lepton relation (`relation_reproduction`, priority `high`, difficulty `medium`)
 - `TASK-0038` — Reproduce historical tau-mass holdout prediction (`historical_prediction_benchmark`, priority `high`, difficulty `medium`)
-- `TASK-0039` — Design Koide-like triplet search with baselines (`benchmark_planning`, priority `high`, difficulty `medium`)
-- `TASK-0041` — Design complexity penalty for mass-relation formulas (`scoring_design`, priority `medium`, difficulty `medium`)
-- `TASK-0042` — Add numerology guardrails for particle mass relation work (`scientific_safety_review`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -59,11 +56,14 @@ None.
 - `TASK-0021` — Add AI agent attribution policy (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0035` — Refactor maintainer review checks into smaller modules (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0036` — Create particle mass dataset scaffold (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0039` — Design Koide-like triplet search with baselines (`benchmark_planning`, priority `high`, difficulty `medium`)
+- `TASK-0041` — Design complexity penalty for mass-relation formulas (`scoring_design`, priority `medium`, difficulty `medium`)
+- `TASK-0044` — Sync active task board from task files to reduce merge conflicts (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
-- `TASK-0044` — Sync active task board from task files to reduce merge conflicts (merged)
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
+- `TASK-0042` — Add numerology guardrails for particle mass relation work (merged)
 - `TASK-0034` — Add maintainer review agent mode (merged)
 - `TASK-0033` — Standardize contributor-agent identity format (merged)
 - `TASK-0032` — Build public scientific result package for Pendulum Gauntlet 100 (merged)
