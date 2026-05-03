@@ -71,6 +71,7 @@ cmd_block() {
   echo '```text'
   find . \
     -path ./.git -prune -o \
+    -path ./.worktrees -prune -o \
     -path ./.venv -prune -o \
     -path ./.pytest_cache -prune -o \
     -path ./.ruff_cache -prune -o \
@@ -109,6 +110,48 @@ cmd_block() {
   do
     file_block "$f" 260
   done
+
+  section "Proposal Backlog"
+
+  echo '```text'
+  "$PYTHON_BIN" - <<'PY'
+from pathlib import Path
+import yaml
+
+task_paths = sorted(Path("tasks").glob("TASK-*.yaml"))
+proposal_paths = sorted(Path("tasks/proposals").glob("*.yaml"))
+
+print("Canonical tasks with status PROPOSED:")
+found_proposed_tasks = False
+for path in task_paths:
+    if path.name == "TASK-TEMPLATE.yaml":
+        continue
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    if payload.get("status") == "PROPOSED":
+        found_proposed_tasks = True
+        print(
+            f"- {payload.get('id', path.stem)} — "
+            f"{payload.get('title', '')} [{path.as_posix()}]"
+        )
+if not found_proposed_tasks:
+    print("- none")
+
+print("")
+print("Task proposal files:")
+found_proposals = False
+for path in proposal_paths:
+    if path.name == "TASK-PROPOSAL-TEMPLATE.yaml":
+        continue
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    found_proposals = True
+    print(
+        f"- {payload.get('proposal_id', path.stem)} — "
+        f"{payload.get('title', '')} [{path.as_posix()}]"
+    )
+if not found_proposals:
+    print("- none")
+PY
+  echo '```'
 
   section "Registry Objects"
 
