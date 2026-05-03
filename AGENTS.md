@@ -76,6 +76,7 @@ Use these files as the shared coordination layer:
 - `docs/strategy.md`
 - `docs/agent-task-protocol.md`
 - `docs/task-proposal-protocol.md`
+- `docs/scientific-micro-task-protocol.md`
 - `docs/agent-operating-model.md`
 - `tasks/ACTIVE.md`
 - `tasks/TASK-TEMPLATE.yaml`
@@ -86,6 +87,9 @@ Do not invent task branch, commit, PR, or task-state formats locally.
 Use `docs/agent-task-protocol.md`.
 Use `docs/task-proposal-protocol.md` when suggesting new task ideas that do
 not yet have a maintainer-assigned canonical `TASK-XXXX` id.
+Use `docs/scientific-micro-task-protocol.md` when picking up an atomic
+scientific micro-task (formula check, hypothesis entry, approximation probe,
+empirical catalog entry, or dataset entry).
 Use `docs/maintainer-review-agent.md` when the maintainer wants structured PR
 review or task closeout help.
 

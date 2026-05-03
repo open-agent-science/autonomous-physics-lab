@@ -13,9 +13,10 @@ Before starting a task, read:
 1. [../AGENTS.md](../AGENTS.md)
 2. [./agent-task-protocol.md](./agent-task-protocol.md)
 3. [./task-proposal-protocol.md](./task-proposal-protocol.md) when proposing a new task idea
-4. [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
-5. the matching `tasks/TASK-XXXX-*.yaml` file when working on a canonical task
-6. [./strategy.md](./strategy.md)
+4. [./scientific-micro-task-protocol.md](./scientific-micro-task-protocol.md) when picking up an atomic scientific micro-task
+5. [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+6. the matching `tasks/TASK-XXXX-*.yaml` file when working on a canonical task
+7. [./strategy.md](./strategy.md)
 
 Use [./agent-operating-model.md](./agent-operating-model.md) and
 [./contributing-workflow.md](./contributing-workflow.md) for supporting
