@@ -7,10 +7,26 @@ from datetime import date
 import json
 from pathlib import Path
 import re
-import subprocess
 from typing import Any
 
-from physics_lab.registry.claims import load_claim
+from physics_lab.registry.review_git import (
+    CommandResult,  # noqa: F401 — re-exported for backwards compatibility
+    run_command,
+    current_branch,
+    git_status_clean,
+    local_branch_exists,
+    changed_files_vs_main,
+    parse_added_lines,  # noqa: F401 — re-exported; tests import from here
+)
+from physics_lab.registry.review_checks import (
+    line_is_rule_catalog_line,  # noqa: F401 — re-exported
+    overclaim_hits,
+    security_pattern_hits,
+    sensitive_surface_hits,
+    missing_expected_outputs,
+    unexpected_protected_changes,
+    claim_status_promotions,
+)
 from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task
 
@@ -27,20 +43,6 @@ PR_TITLE_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}): .+")
 PROPOSAL_PR_TITLE_PATTERN = re.compile(r"^TASK-PROPOSAL: .+")
 REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
 RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
-OVERCLAIM_TERMS = (
-    "solved",
-    "proved",
-    "exact discovery",
-    "100% correct",
-    "new physics",
-    "theory of everything",
-    "global validity",
-)
-NEGATION_MARKERS = ("do not", "don't", "must not", "should not", "no ", "avoid ")
-OVERCLAIM_PATTERNS = tuple(
-    re.compile(rf"(?<![a-z]){re.escape(term)}(?![a-z])") for term in OVERCLAIM_TERMS
-)
-PROTECTED_PREFIXES = ("results/", "claims/", "hypotheses/", "experiments/")
 PR_METADATA_FIELDS = (
     "Contributor ID",
     "GitHub username",
@@ -49,44 +51,7 @@ PR_METADATA_FIELDS = (
     "Branch",
     "Human reviewer",
 )
-KNOWN_OUTPUT_EXTENSIONS = (
-    ".md",
-    ".yaml",
-    ".yml",
-    ".py",
-    ".json",
-    ".txt",
-    ".csv",
-    ".ipynb",
-)
 DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
-SENSITIVE_PATH_RULES = (
-    (".github/workflows/", "CI workflow files changed."),
-    ("scripts/", "Repository scripts changed."),
-    ("pyproject.toml", "Project dependency or tooling configuration changed."),
-)
-SECURITY_BLOCK_RULES = (
-    (re.compile(r"\beval\s*\("), "Introduces eval(...)."),
-    (re.compile(r"\bexec\s*\("), "Introduces exec(...)."),
-    (re.compile(r"\bpickle\.loads\s*\("), "Introduces pickle.loads(...)."),
-    (re.compile(r"\byaml\.load\s*\("), "Introduces yaml.load(...)."),
-    (re.compile(r"\bos\.system\s*\("), "Introduces os.system(...)."),
-    (
-        re.compile(r"\bsubprocess\.(?:Popen|run|call)\b.*shell\s*=\s*True"),
-        "Introduces subprocess shell=True execution.",
-    ),
-    (re.compile(r"curl\b.*\|\s*(?:sh|bash)\b"), "Introduces curl-pipe-shell execution."),
-)
-QUOTED_LINE_PATTERN = re.compile(r'^\s*["\'].*["\'],?\s*$')
-
-
-@dataclass(frozen=True)
-class CommandResult:
-    """Captured subprocess result."""
-
-    returncode: int
-    stdout: str
-    stderr: str
 
 
 @dataclass(frozen=True)
@@ -144,42 +109,6 @@ class CloseoutReport:
     applied_changes: tuple[str, ...]
 
 
-def run_command(
-    command: str | list[str],
-    *,
-    cwd: Path,
-    shell: bool = False,
-    timeout: int = 60,
-) -> CommandResult:
-    """Run a command and return captured output without raising."""
-    completed = subprocess.run(
-        command,
-        cwd=cwd,
-        shell=shell,
-        text=True,
-        capture_output=True,
-        timeout=timeout,
-        check=False,
-    )
-    return CommandResult(
-        returncode=completed.returncode,
-        stdout=completed.stdout,
-        stderr=completed.stderr,
-    )
-
-
-def current_branch(root: Path) -> str:
-    """Return the current git branch name."""
-    result = run_command(["git", "branch", "--show-current"], cwd=root)
-    return result.stdout.strip()
-
-
-def git_status_clean(root: Path) -> bool:
-    """Return whether the worktree is clean."""
-    result = run_command(["git", "status", "--short"], cwd=root)
-    return result.returncode == 0 and result.stdout.strip() == ""
-
-
 def branch_task_id(branch: str) -> str | None:
     """Extract TASK-XXXX from a canonical branch name."""
     match = BRANCH_PATTERN.match(branch)
@@ -218,90 +147,6 @@ def changed_task_proposal_files(changed_files: tuple[str, ...]) -> tuple[str, ..
     )
 
 
-def changed_files_vs_main(root: Path, branch: str) -> tuple[str, ...]:
-    """Return changed files for a branch relative to main."""
-    result = run_command(
-        ["git", "diff", "--name-only", f"main...{branch}"],
-        cwd=root,
-    )
-    changed = [line.strip() for line in result.stdout.splitlines() if line.strip()]
-    if branch == current_branch(root):
-        changed.extend(working_tree_changed_files(root))
-    return tuple(dict.fromkeys(changed))
-
-
-def local_branch_exists(root: Path, branch: str) -> bool:
-    """Return whether a local branch exists."""
-    result = run_command(
-        ["git", "rev-parse", "--verify", branch],
-        cwd=root,
-    )
-    return result.returncode == 0
-
-
-def added_lines_vs_main(root: Path, branch: str) -> tuple[str, ...]:
-    """Return added diff lines for a branch relative to main."""
-    result = run_command(
-        ["git", "diff", "--unified=0", f"main...{branch}"],
-        cwd=root,
-        timeout=120,
-    )
-    added_lines = list(parse_added_lines(result.stdout))
-    if branch == current_branch(root):
-        worktree_result = run_command(
-            ["git", "diff", "--unified=0"],
-            cwd=root,
-            timeout=120,
-        )
-        added_lines.extend(parse_added_lines(worktree_result.stdout))
-    return tuple(added_lines)
-
-
-def parse_added_lines(
-    diff_text: str,
-    *,
-    include_prefixes: tuple[str, ...] | None = None,
-    exclude_prefixes: tuple[str, ...] = (),
-) -> tuple[str, ...]:
-    """Extract added diff lines from unified diff text."""
-    added_lines: list[str] = []
-    current_path: str | None = None
-    for line in diff_text.splitlines():
-        if line.startswith("+++ b/"):
-            current_path = line.removeprefix("+++ b/").strip()
-            continue
-        if line.startswith("+++ "):
-            current_path = None
-            continue
-        if line.startswith("+++ ") or line.startswith("@@"):
-            continue
-        if line.startswith("+"):
-            if current_path is None:
-                continue
-            if include_prefixes is not None and not any(
-                current_path.startswith(prefix) for prefix in include_prefixes
-            ):
-                continue
-            if any(current_path.startswith(prefix) for prefix in exclude_prefixes):
-                continue
-            added_lines.append(line[1:])
-    return tuple(added_lines)
-
-
-def working_tree_changed_files(root: Path) -> tuple[str, ...]:
-    """Return changed files from git status for the current worktree."""
-    result = run_command(["git", "status", "--short"], cwd=root)
-    paths: list[str] = []
-    for line in result.stdout.splitlines():
-        if not line.strip():
-            continue
-        entry = line[3:] if len(line) > 3 else line
-        if " -> " in entry:
-            entry = entry.split(" -> ", 1)[1]
-        paths.append(entry.strip())
-    return tuple(paths)
-
-
 def latest_review_bundle(root: Path, branch: str) -> Path | None:
     """Return the latest review bundle for a branch if present."""
     safe_branch = branch.replace("/", "-")
@@ -338,164 +183,6 @@ def review_bundle_branch(path: Path) -> str | None:
         if match is not None:
             return match.group("branch")
     return None
-
-
-def output_paths(task_payload: dict[str, Any]) -> tuple[str, ...]:
-    """Return accepted output paths that look like tracked files."""
-    paths: list[str] = []
-    for item in task_payload.get("accepted_outputs", []):
-        path = normalize_output_path(str(item))
-        if path is not None:
-            paths.append(path)
-    return tuple(paths)
-
-
-def normalize_output_path(raw_output: str) -> str | None:
-    """Extract a path-like accepted output from a human string."""
-    cleaned = raw_output.strip().strip("`")
-    if cleaned.startswith("updated "):
-        cleaned = cleaned.removeprefix("updated ").strip().strip("`")
-    if "/" not in cleaned:
-        return None
-    if cleaned.endswith(KNOWN_OUTPUT_EXTENSIONS):
-        return cleaned
-    parts = cleaned.split()
-    if len(parts) == 1:
-        return cleaned
-    return None
-
-
-def path_exists_in_ref(root: Path, ref: str, repo_path: str) -> bool:
-    """Return whether a path exists in a git ref."""
-    result = run_command(
-        ["git", "cat-file", "-e", f"{ref}:{repo_path}"],
-        cwd=root,
-    )
-    return result.returncode == 0
-
-
-def missing_expected_outputs(
-    root: Path,
-    branch: str,
-    task_payload: dict[str, Any],
-    changed_files: tuple[str, ...],
-) -> tuple[str, ...]:
-    """Return accepted output paths that appear to be missing."""
-    missing: list[str] = []
-    for output_path in output_paths(task_payload):
-        if output_path.startswith("tasks/") and output_path.endswith(".yaml"):
-            if path_exists_in_ref(root, branch, output_path):
-                continue
-        if output_path in changed_files:
-            continue
-        if branch == current_branch(root) and (root / output_path).exists():
-            continue
-        if path_exists_in_ref(root, branch, output_path):
-            continue
-        missing.append(output_path)
-    return tuple(missing)
-
-
-def task_allows_prefix(task_payload: dict[str, Any], prefix: str) -> bool:
-    """Return whether task metadata explicitly allows a protected prefix."""
-    texts = []
-    texts.extend(str(item) for item in task_payload.get("accepted_outputs", []))
-    texts.extend(str(item) for item in task_payload.get("requirements", []))
-    texts.extend(str(item) for item in task_payload.get("input", {}).get("related_objects", []))
-    normalized_prefix = prefix.rstrip("/")
-    return any(normalized_prefix in text or prefix in text for text in texts)
-
-
-def unexpected_protected_changes(
-    changed_files: tuple[str, ...],
-    task_payload: dict[str, Any],
-) -> tuple[str, ...]:
-    """Return protected file changes that are not task-authorized."""
-    unexpected: list[str] = []
-    for path in changed_files:
-        for prefix in PROTECTED_PREFIXES:
-            if path.startswith(prefix) and not task_allows_prefix(task_payload, prefix):
-                unexpected.append(path)
-                break
-    return tuple(unexpected)
-
-
-def load_claim_status_from_ref(root: Path, ref: str, repo_path: str) -> str | None:
-    """Load claim status from a git ref if the file exists."""
-    if not path_exists_in_ref(root, ref, repo_path):
-        return None
-    show_result = run_command(["git", "show", f"{ref}:{repo_path}"], cwd=root)
-    if show_result.returncode != 0:
-        return None
-    temp_path = root / ".git" / "tmp_claim_check.md"
-    temp_path.write_text(show_result.stdout, encoding="utf-8")
-    try:
-        return str(load_claim(temp_path)["status"])
-    finally:
-        if temp_path.exists():
-            temp_path.unlink()
-
-
-def claim_status_promotions(root: Path, branch: str, changed_files: tuple[str, ...]) -> tuple[str, ...]:
-    """Return claim files whose status changed away from DRAFT or PARTIALLY_SUPPORTED."""
-    promotions: list[str] = []
-    for path in changed_files:
-        if not path.startswith("claims/") or not path.endswith(".md"):
-            continue
-        before_status = load_claim_status_from_ref(root, "main", path)
-        after_status = load_claim_status_from_ref(root, branch, path)
-        if before_status is None or after_status is None:
-            continue
-        if before_status != after_status and after_status not in {"DRAFT", "PARTIALLY_SUPPORTED"}:
-            promotions.append(f"{path}: {before_status} -> {after_status}")
-    return tuple(promotions)
-
-
-def overclaim_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
-    """Return overclaim terms found in added diff lines."""
-    hits: list[str] = []
-    for line in added_lines:
-        lowered = line.lower()
-        if any(marker in lowered for marker in NEGATION_MARKERS):
-            continue
-        if line_is_rule_catalog_line(line):
-            continue
-        for term, pattern in zip(OVERCLAIM_TERMS, OVERCLAIM_PATTERNS):
-            if pattern.search(lowered):
-                hits.append(term)
-    return tuple(hits)
-
-
-def security_pattern_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
-    """Return dangerous code patterns found in added diff lines."""
-    hits: list[str] = []
-    for line in added_lines:
-        lowered = line.lower()
-        if line_is_rule_catalog_line(line):
-            continue
-        for pattern, description in SECURITY_BLOCK_RULES:
-            if pattern.search(lowered):
-                hits.append(description)
-    return tuple(dict.fromkeys(hits))
-
-
-def line_is_rule_catalog_line(line: str) -> bool:
-    """Return whether a diff line is clearly a catalog entry rather than live code."""
-    stripped = line.strip()
-    if "re.compile(" in stripped:
-        return True
-    return QUOTED_LINE_PATTERN.match(stripped) is not None
-
-
-def sensitive_surface_hits(changed_files: tuple[str, ...]) -> tuple[str, ...]:
-    """Return security-relevant changed surfaces that deserve maintainer review."""
-    hits: list[str] = []
-    for path in changed_files:
-        for prefix, description in SENSITIVE_PATH_RULES:
-            if path == prefix or path.startswith(prefix):
-                hits.append(f"{description} Path: {path}")
-                break
-    return tuple(dict.fromkeys(hits))
 
 
 def run_task_validation(
