@@ -53,6 +53,7 @@ None.
 - `TASK-0020` — Add pytest-timeout and validation safeguards against hanging tests (`repository_validation`, priority `medium`, difficulty `low`)
 - `TASK-0021` — Add AI agent attribution policy (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0029` — Audit project language for overclaim risk (`scientific_safety_review`, priority `high`, difficulty `low`)
+- `TASK-0054` — Fix maintainer review helper temp claim path handling in git worktrees (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 

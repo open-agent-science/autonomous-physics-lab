@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import re
+import tempfile
 from typing import Any
 
 from physics_lab.registry.claims import load_claim
@@ -188,8 +189,18 @@ def load_claim_status_from_ref(root: Path, ref: str, repo_path: str) -> str | No
     show_result = run_command(["git", "show", f"{ref}:{repo_path}"], cwd=root)
     if show_result.returncode != 0:
         return None
-    temp_path = root / ".git" / "tmp_claim_check.md"
-    temp_path.write_text(show_result.stdout, encoding="utf-8")
+    temp_handle = tempfile.NamedTemporaryFile(
+        mode="w",
+        encoding="utf-8",
+        suffix=".md",
+        prefix="claim_status_",
+        delete=False,
+    )
+    temp_path = Path(temp_handle.name)
+    try:
+        temp_handle.write(show_result.stdout)
+    finally:
+        temp_handle.close()
     try:
         return str(load_claim(temp_path)["status"])
     finally:
