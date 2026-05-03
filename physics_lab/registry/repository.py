@@ -68,6 +68,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "maintainer_workflow",
     "numerical_audit",
     "documentation",
+    "scientific_safety_review",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
