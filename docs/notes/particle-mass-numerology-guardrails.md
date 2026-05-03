@@ -16,7 +16,7 @@ particle-mass work falsification-first, source-aware, and reviewable.
 
 ## Core Rule
 
-No discovery claim follows from fit quality alone.
+No explanatory conclusion follows from fit quality alone.
 
 A numerically impressive relation must still survive:
 
@@ -35,7 +35,7 @@ Future particle-mass tasks must not treat a good fit as evidence that a
 relation:
 
 - explains the origin of particle masses;
-- establishes new physics;
+- supports broad explanatory conclusions;
 - generalizes across all particle families;
 - survives scheme or scale changes without testing;
 - remains meaningful after a broad search unless the search accounting is made
@@ -159,7 +159,7 @@ confirm:
 6. A simpler structured baseline is included when ranking formulas.
 7. Uncertainty propagation is present or its absence is explained.
 8. Any predictive framing uses a real holdout, not a refit disguised as prediction.
-9. The wording avoids "discovery", "new physics", and broad explanatory claims.
+9. The wording avoids breakthrough-style or beyond-scope explanatory framing.
 10. The result is described as benchmark evidence, not as autonomous scientific conclusion.
 
 ## Allowed Safe Wording
@@ -171,14 +171,13 @@ Prefer wording such as:
 - `candidate relation`
 - `benchmark-scoped evidence`
 - `numerically interesting but not explanatory`
-- `not evidence of new physics by itself`
+- `not standalone evidence of deeper explanation by itself`
 
 Avoid wording such as:
 
-- `solved particle masses`
-- `discovered the mass formula`
-- `proof of hidden structure`
-- `new physics from fit quality alone`
+- `breakthrough-style framing from fit quality alone`
+- `claims that outrun benchmark scope`
+- `explanatory certainty without baseline and holdout discipline`
 
 ## Interaction With Other Tasks
 
