@@ -217,34 +217,12 @@ None.
 
 ## REVIEW_READY
 
-### TASK-0043 — Add task proposal protocol and id allocation rules
+None.
 
-Type: `maintainer_workflow`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- `docs/task-proposal-protocol.md`
-- `tasks/proposals/README.md`
-- `tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml`
-- proposal-aware validation support
-- updated contributor and maintainer workflow docs
-
-### TASK-0013 — Plan a particle mass relation falsifier inspired by Koide-style formulas
-
-Type: `benchmark_planning`  
-Priority: `high`  
-Suggested size: `medium`
-
-Expected output:
-
-- task spec
-- benchmark plan
-- evaluation design
-- scientific constraint summary
 ## DONE RECENTLY
 
+- `TASK-0043` — task proposal protocol and id allocation rules (merged)
+- `TASK-0013` — particle mass relation falsifier planning / Koide track (merged)
 - `TASK-0034` — Add maintainer review agent mode (merged)
 - `TASK-0032` — public scientific result package for Pendulum Gauntlet 100 (merged)
 - `TASK-0031` — beginner-friendly contributor task set (merged)
