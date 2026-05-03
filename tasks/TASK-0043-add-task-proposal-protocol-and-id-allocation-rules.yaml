@@ -1,7 +1,7 @@
 id: TASK-0043
 title: "Add task proposal protocol and id allocation rules"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
