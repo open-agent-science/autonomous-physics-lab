@@ -59,6 +59,7 @@ None.
 - `TASK-0038` — Reproduce historical tau-mass holdout prediction (`historical_prediction_benchmark`, priority `high`, difficulty `medium`)
 - `TASK-0054` — Fix maintainer review helper temp claim path handling in git worktrees (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0056` — Accept selected science-track proposals into canonical tasks (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
