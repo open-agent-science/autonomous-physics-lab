@@ -18,6 +18,7 @@ from physics_lab.registry.maintainer_review import (
     security_pattern_hits,
     sensitive_surface_hits,
 )
+from physics_lab.registry.review_checks import load_claim_status_from_ref
 from physics_lab.registry.review_git import CommandResult
 
 
@@ -248,3 +249,40 @@ def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) ->
     assert not any("multiple" in b.lower() and "proposal" in b.lower() for b in report.blockers), (
         f"Unexpected multi-proposal blocker: {report.blockers}"
     )
+
+
+def test_load_claim_status_from_ref_handles_git_worktree_layout(tmp_path: Path) -> None:
+    """The helper must work when .git is a file, as in git worktrees."""
+    (tmp_path / ".git").write_text("gitdir: /tmp/fake-worktree-gitdir\n", encoding="utf-8")
+    claim_markdown = "\n".join(
+        [
+            "---",
+            "id: CLAIM-0001",
+            "title: Test claim",
+            "domain: testing",
+            "status: DRAFT",
+            "hypothesis_id: HYP-0001",
+            "evidence:",
+            "  experiments:",
+            "    - EXP-0001",
+            "  results:",
+            "    - RESULT-0001",
+            "scope: Temporary review helper regression fixture.",
+            "---",
+            "",
+            "# Claim body",
+            "",
+            "Worktree-safe temp file handling should preserve claim parsing.",
+        ]
+    )
+
+    with (
+        patch("physics_lab.registry.review_checks.path_exists_in_ref", return_value=True),
+        patch(
+            "physics_lab.registry.review_checks.run_command",
+            return_value=CommandResult(returncode=0, stdout=claim_markdown, stderr=""),
+        ),
+    ):
+        assert (
+            load_claim_status_from_ref(tmp_path, "main", "claims/CLAIM-TEST.md") == "DRAFT"
+        )
