@@ -36,6 +36,11 @@ Every meaningful change should connect back to one or more of:
 
 Do not start task implementation on `main`.
 
+For routine canonical task work, treat the `TASK-*.yaml` file as the source of
+truth for task status. Do not hand-edit `tasks/ACTIVE.md` just to move a task
+between `READY`, `IN_PROGRESS`, `REVIEW_READY`, or `DONE`; maintainers refresh
+the board snapshot with `python3 -m physics_lab.cli sync-active-board .`.
+
 ## Typical Contribution Types
 
 ### Benchmark Improvement
