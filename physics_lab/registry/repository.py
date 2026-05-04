@@ -69,6 +69,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "maintainer_workflow",
     "numerical_audit",
     "documentation",
+    "physics_reference",
     "scientific_dataset",
     "scientific_safety_review",
     "schema_extension",
