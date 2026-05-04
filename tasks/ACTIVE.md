@@ -63,6 +63,7 @@ None.
 - `TASK-0024` — Create task index table (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0025` — Create result artifacts index (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0029` — Audit project language for overclaim risk (`scientific_safety_review`, priority `high`, difficulty `low`)
+- `TASK-0071` — Support closeout batch PRs in review helper (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0073` — Define maintainer automation agent architecture and routine instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
