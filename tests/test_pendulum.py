@@ -811,7 +811,10 @@ def test_cli_status_smoke() -> None:
     result = runner.invoke(app, ["status", "."])
 
     assert result.exit_code == 0
-    assert "Stage: v0.1-private-alpha in validation" in result.stdout
+    assert (
+        "Stage: v0.1-private-alpha — scientific campaign and contributor workflow validation"
+        in result.stdout
+    )
     assert f"Run id: {latest_result['run_id']}" in result.stdout
     assert "Validation: PASS" in result.stdout
     assert f"Best verdict: {latest_result['best_verdict']}" in result.stdout
