@@ -40,7 +40,7 @@
       "properties": {
         "hypotheses": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "items": {
             "type": "string",
             "pattern": "^HYP-[0-9]{4}$"
@@ -48,7 +48,7 @@
         },
         "experiments": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "items": {
             "type": "string",
             "pattern": "^EXP-[0-9]{4}$"
@@ -56,7 +56,7 @@
         },
         "claims": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "items": {
             "type": "string",
             "pattern": "^CLAIM-[0-9]{4}$"
@@ -64,7 +64,7 @@
         },
         "tasks": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "items": {
             "type": "string",
             "pattern": "^TASK-[0-9]{4}$"
