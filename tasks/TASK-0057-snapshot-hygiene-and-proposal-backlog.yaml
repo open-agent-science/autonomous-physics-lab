@@ -1,0 +1,48 @@
+id: TASK-0057
+title: "Reduce snapshot noise from worktrees and include proposal backlog"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep maintainer snapshots compact enough for fast review."
+  - "Expose proposal backlog directly in snapshots so planning state is visible without extra grep steps."
+
+input:
+  mode: workflow
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - ".gitignore"
+    - "tasks/proposals/"
+    - "tasks/TASK-*.yaml"
+  planning_context: >
+    Snapshot output currently becomes noisy when local worktree directories are
+    present, and proposal backlog state is not surfaced directly in the
+    generated snapshot. Tighten the snapshot script so it prunes .worktrees and
+    prints a compact proposal backlog summary.
+
+requirements:
+  - "Prune .worktrees from the repository tree section of scripts/apl_snapshot.sh."
+  - "Ensure .worktrees/ is ignored by git."
+  - "Add a Proposal Backlog section to the snapshot."
+  - "List both canonical tasks with status PROPOSED and task proposal files."
+  - "Do not change tracked scientific results."
+
+accepted_outputs:
+  - "updated scripts/apl_snapshot.sh"
+  - "updated .gitignore"
+  - "updated tasks/TASK-0057-snapshot-hygiene-and-proposal-backlog.yaml"
+
+validation:
+  commands:
+    - "./scripts/apl_snapshot.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -60,6 +60,20 @@ cmd_block() {
   cmd_block "Diff stat" git diff --stat
   cmd_block "Tracked cache check" git ls-files .pytest_cache .ruff_cache
 
+  section "Open Pull Requests"
+
+  echo '```text'
+  if command -v gh >/dev/null 2>&1; then
+    if gh auth status >/dev/null 2>&1; then
+      gh pr list --state open --limit 30
+    else
+      echo "Skipped: gh is installed but not authenticated."
+    fi
+  else
+    echo "Skipped: gh CLI is not installed."
+  fi
+  echo '```'
+
   section "Local Path Leak Check"
 
   cmd_block "Absolute local path grep" \
@@ -71,6 +85,7 @@ cmd_block() {
   echo '```text'
   find . \
     -path ./.git -prune -o \
+    -path ./.worktrees -prune -o \
     -path ./.venv -prune -o \
     -path ./.pytest_cache -prune -o \
     -path ./.ruff_cache -prune -o \
@@ -110,12 +125,55 @@ cmd_block() {
     file_block "$f" 260
   done
 
+  section "Proposal Backlog"
+
+  echo '```text'
+  "$PYTHON_BIN" - <<'PY'
+from pathlib import Path
+import yaml
+
+task_paths = sorted(Path("tasks").glob("TASK-*.yaml"))
+proposal_paths = sorted(Path("tasks/proposals").glob("*.yaml"))
+
+print("Canonical tasks with status PROPOSED:")
+found_proposed_tasks = False
+for path in task_paths:
+    if path.name == "TASK-TEMPLATE.yaml":
+        continue
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    if payload.get("status") == "PROPOSED":
+        found_proposed_tasks = True
+        print(
+            f"- {payload.get('id', path.stem)} — "
+            f"{payload.get('title', '')} [{path.as_posix()}]"
+        )
+if not found_proposed_tasks:
+    print("- none")
+
+print("")
+print("Task proposal files:")
+found_proposals = False
+for path in proposal_paths:
+    if path.name == "TASK-PROPOSAL-TEMPLATE.yaml":
+        continue
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    found_proposals = True
+    print(
+        f"- {payload.get('proposal_id', path.stem)} — "
+        f"{payload.get('title', '')} [{path.as_posix()}]"
+    )
+if not found_proposals:
+    print("- none")
+PY
+  echo '```'
+
   section "Registry Objects"
 
   for f in \
     hypotheses/*.yaml \
     experiments/*.yaml \
     tasks/*.yaml \
+    tasks/proposals/*.yaml \
     agents/*.yaml \
     claims/*.md
   do

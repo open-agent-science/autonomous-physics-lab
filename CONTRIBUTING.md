@@ -9,6 +9,8 @@ For the full repository workflow, read
 [docs/contributing-workflow.md](docs/contributing-workflow.md).
 For the canonical task protocol, read
 [docs/agent-task-protocol.md](docs/agent-task-protocol.md).
+For new task ideas and proposal-first workflow, read
+[docs/task-proposal-protocol.md](docs/task-proposal-protocol.md).
 For claim-status review, read
 [docs/claim-promotion-policy.md](docs/claim-promotion-policy.md).
 
@@ -18,10 +20,13 @@ Do not invent branch, commit, or PR title formats; use
 `docs/agent-task-protocol.md`.
 The canonical branch format is
 `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`.
+For new task ideas without a maintainer-assigned canonical id, use the proposal
+branch format
+`agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`.
 
 ## Before Opening a PR
 
-Run:
+Canonical task PRs should run:
 
 ```bash
 python3 -m ruff check .
@@ -31,6 +36,16 @@ python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
+```
+
+Task proposal PRs may use the lighter validation path from
+[docs/task-proposal-protocol.md](docs/task-proposal-protocol.md):
+
+```bash
+./scripts/validate_quick.sh
+python3 -m physics_lab.cli validate-repo .
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+./scripts/apl_review_bundle.sh
 ```
 
 For larger milestones, schema changes, roadmap updates, or public-release

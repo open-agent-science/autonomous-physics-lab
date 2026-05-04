@@ -1,0 +1,76 @@
+proposal_id: 20260503-roman-active-board-conflict-reduction
+title: "Reduce tasks/ACTIVE.md merge-conflict pressure"
+status: PROPOSED
+type: maintainer_workflow
+priority: high
+
+proposed_by:
+  contributor_id: "roman"
+  agent_id: "codex"
+
+strategy_alignment:
+  - "Reduce maintainer and contributor friction during parallel PR review and closeout."
+  - "Keep the shared task board useful without making it the main merge-conflict hotspot."
+  - "Speed up pre-merge review and post-merge closeout by simplifying board synchronization."
+
+summary: >
+  Design and implement a lower-conflict workflow for task-state transitions so
+  tasks/ACTIVE.md stops being the most common manual merge-conflict surface
+  during review-ready handoff and post-merge closeout.
+
+rationale: >
+  The current workflow requires many task branches and closeout branches to
+  edit the same sections of tasks/ACTIVE.md. In practice, even clean
+  documentation or workflow PRs often become technically blocked because the
+  shared board changes between review and merge. This slows maintainer review,
+  creates repetitive merge work, and makes the closeout path heavier than it
+  needs to be. A dedicated workflow task should define a simpler source of
+  truth or a safer synchronization pattern before this friction scales further.
+
+input:
+  mode: planning_only
+  related_domain: task_coordination
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/agent-operating-model.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+    - "scripts/apl_closeout_task.py"
+    - "scripts/apl_task_closeout_check.py"
+  planning_context: >
+    Multiple open PRs and post-merge closeout flows currently collide in
+    tasks/ACTIVE.md, especially around READY, REVIEW_READY, and DONE RECENTLY.
+    The repository needs a simpler board-update flow, clearer ownership rules,
+    or partial automation so contributors spend less time resolving board
+    conflicts and more time reviewing actual task content.
+
+requirements:
+  - "Keep the future canonical task atomic and workflow-scoped."
+  - "Analyze why tasks/ACTIVE.md conflicts happen during both pre-merge review and post-merge closeout."
+  - "Compare at least two lower-conflict alternatives, such as narrowing board edits, changing the source-of-truth flow, or generating parts of the board from task files."
+  - "Recommend a preferred approach with explicit tradeoffs."
+  - "Define how READY, REVIEW_READY, and DONE RECENTLY should stay synchronized under the new flow."
+  - "Preserve proposal-first governance and maintainer authority over final task closeout."
+  - "Do not promote claims automatically."
+  - "Do not add physics benchmark implementation."
+
+accepted_outputs:
+  - "canonical task spec"
+  - "conflict-reduction workflow design"
+  - "recommended board synchronization approach"
+  - "maintainer-facing migration note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    This proposal is intended to become a single maintainer-workflow task if
+    accepted, rather than splitting immediately into multiple implementation
+    tasks before the preferred flow is chosen.

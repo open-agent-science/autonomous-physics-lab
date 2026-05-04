@@ -94,6 +94,8 @@ Active task execution should use the canonical states from
 `PROPOSED` may still appear for backlog ideas that are not yet executable.
 
 The live human-readable board is [tasks/ACTIVE.md](../tasks/ACTIVE.md).
+It is a generated snapshot backed by canonical task YAML files, not the
+primary source of truth for routine task-state transitions.
 
 ## Choosing a Task
 
@@ -107,15 +109,16 @@ The live human-readable board is [tasks/ACTIVE.md](../tasks/ACTIVE.md).
 
 Before substantial work:
 
-1. update `tasks/ACTIVE.md`;
-2. update the corresponding `TASK-*.yaml` status to `IN_PROGRESS`;
-3. note the active agent and date in the board if useful.
+1. update the corresponding `TASK-*.yaml` status to `IN_PROGRESS`;
+2. do not edit `tasks/ACTIVE.md` for ordinary task-state changes;
+3. note local handoff details in PR metadata or supporting docs if useful.
 
 After completion:
 
 1. set the task to `REVIEW_READY`;
-2. update `tasks/ACTIVE.md`;
-3. update `docs/status.md` or `docs/next-steps.md` if project reality changed.
+2. update `docs/status.md` or `docs/next-steps.md` if project reality changed.
+3. leave `tasks/ACTIVE.md` to maintainer sync unless the task explicitly
+   changes board behavior.
 4. wait for maintainer review before the task becomes `DONE`.
 
 ## Validation Protocol
@@ -149,17 +152,22 @@ work into one commit.
 
 ## New Task Proposal
 
-If no existing task fits, create a new task from
-[tasks/TASK-TEMPLATE.yaml](../tasks/TASK-TEMPLATE.yaml) and mark it
-`PROPOSED`.
+If no existing task fits, create a proposal under `tasks/proposals/` using
+[docs/task-proposal-protocol.md](./task-proposal-protocol.md) and
+[tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml).
 
-A new task should:
+Do not guess the next canonical `TASK-XXXX` id during parallel work.
+
+A new task proposal should:
 
 - align with [docs/strategy.md](./strategy.md);
 - be atomic;
 - include accepted outputs;
 - include validation commands;
 - avoid hidden benchmark or claim expansion.
+
+Create a canonical `tasks/TASK-XXXX-*.yaml` file only when the maintainer
+explicitly assigns or approves the canonical id.
 
 ## Forbidden Without Human Review
 

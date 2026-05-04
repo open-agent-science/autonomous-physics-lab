@@ -1,0 +1,52 @@
+id: TASK-0050
+title: "Define and launch approximation-breakdown probes micro-task track"
+type: benchmark_planning
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Quantifies where known physics approximations fail through deterministic falsification-style checks."
+  - "Generalises the separatrix-aware pendulum pattern to broader approximation families."
+  - "Builds reusable range-bounded methodology for pendulum, diffusion, and particle-mass tracks."
+
+input:
+  mode: planning_only
+  related_domain: classical_mechanics_and_approximation_theory
+  related_objects:
+    - "docs/notes/pendulum-separatrix-followup.md"
+    - "results/EXP-0001/RUN-0002/"
+    - "tasks/proposals/20260503-roman-approximation-breakdown-probes.yaml"
+    - "AGENTS.md"
+  planning_context: >
+    Define the approximation-probes track: enumerate at least 8 candidate
+    probes, specify for each the approximation, exact reference, error
+    threshold, and parameter range, and produce a sample probe result as a
+    worked example.
+
+requirements:
+  - "Enumerate at least 8 candidate approximation-breakdown probes."
+  - "Each probe must specify: approximation, exact reference, error threshold, parameter range."
+  - "Include examples spanning at least two physics domains."
+  - "Code must be deterministic; no external API calls at runtime."
+  - "Result must state breakdown point as a concrete parameter value with units."
+  - "Do not claim results are novel unless they deviate from textbook values."
+  - "Do not promote results to project-level claims automatically."
+
+accepted_outputs:
+  - "docs note describing the approximation-probes track and candidate probe list"
+  - "sample probe result artifact demonstrating the format"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

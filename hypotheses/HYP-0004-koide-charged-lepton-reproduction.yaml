@@ -1,0 +1,36 @@
+id: HYP-0004
+title: "Charged-lepton Koide quantity is numerically close to 2/3"
+domain: particle_physics
+status: TESTING
+
+hypothesis:
+  statement: "Charged-lepton pole masses define a Koide quantity numerically close to 2/3 under explicit PDG-backed inputs."
+  formula_candidates:
+    - "Q = (m_e + m_mu + m_tau) / (sqrt(m_e) + sqrt(m_mu) + sqrt(m_tau))^2"
+
+assumptions:
+  - "Use charged-lepton pole masses from one explicit PDG-backed dataset snapshot."
+  - "Treat the benchmark as reproduction only, not explanation."
+  - "Propagate one-sigma measurement uncertainty explicitly."
+
+variables:
+  m_e:
+    unit: MeV
+    description: "Electron pole mass"
+  m_mu:
+    unit: MeV
+    description: "Muon pole mass"
+  m_tau:
+    unit: MeV
+    description: "Tau pole mass"
+  Q:
+    unit: dimensionless
+    description: "Charged-lepton Koide quantity"
+
+evidence:
+  experiments:
+    - EXP-0004
+  results:
+    - RESULT-0005
+
+verdict: "Testing the charged-lepton Koide reproduction benchmark under explicit dataset and uncertainty assumptions."

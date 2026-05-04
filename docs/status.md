@@ -36,6 +36,9 @@ Current working slices:
 - numerical accuracy and tolerance policy documenting the difference between approximation residuals, coefficient-rounding effects, and reference-computation error.
 - `TASK-0011` precision-audit artifacts for `RUN-0003`, classifying the reported `3.1e-4` in-range error as model residual rather than elliptic-reference precision drift or six-decimal coefficient rounding.
 - public-facing pendulum gauntlet result-package docs that summarize `RUN-0003`, explain the precision-audit interpretation, and preserve range-aware wording for future release work.
+- mission-control and campaign-map docs that connect repository strategy,
+  current evidence, and contributor entry points without changing scientific
+  claims.
 - private-alpha contribution and release-gating documentation for invited
   branch-based contributors.
 
@@ -85,6 +88,8 @@ Damped oscillator:
 - [public-release-gates.md](./public-release-gates.md) for the conditions required before going public.
 - [github-branch-protection-plan.md](./github-branch-protection-plan.md) for staged PR discipline.
 - [results/pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) for the current measurable pendulum result package.
+- [mission-control.md](./mission-control.md) for project-level orientation.
+- [campaigns/README.md](./campaigns/README.md) for the scientific campaign map.
 
 ## Not Ready Yet
 
@@ -98,12 +103,27 @@ Damped oscillator:
 - `runner.py` must stay a thin dispatcher so workflow logic does not drift back into one file.
 - Canonical artifacts under `results/` can become stale if contributors run examples without `--output-dir`.
 - The result schema is shared by both benchmarks, so benchmark-specific semantics still need careful wording.
-- Public alpha is stable for two slices, but not yet broad enough for a wider “many benchmark” claim.
+- The prepared public-alpha package is stable for two slices, but not yet broad
+  enough for a wider “many benchmark” claim.
 - The private contributor workflow still needs a dry run across multiple PRs before public exposure.
 - Claim files still need deliberate human review before moving from draft text to stronger public statuses.
 - Claim suggestions are generated automatically, but promotion decisions still rely on maintainer judgment.
-- Theory-aware pendulum candidates improve separatrix behavior, but the overall best verdict still remains range-limited rather than globally valid.
+- Theory-aware pendulum candidates improve separatrix behavior, but the overall
+  best verdict still remains range-limited rather than supported beyond the
+  configured range.
 - Public-facing pendulum wording should continue to preserve the distinction between approximation residual, range-limited validation, and symbolic exactness.
+- The repository now has clearer campaign-level orientation, but public-release
+  readiness still depends on validation discipline rather than documentation
+  polish alone.
+
+## Campaign Map
+
+Current contributor-facing campaigns:
+
+- [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) — strongest current measurable benchmark result.
+- [Particle Mass Relations](./campaigns/particle-mass-relations.md) — narrow charged-lepton results with strong numerology guardrails.
+- [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) — planning-complete validator benchmark, implementation pending.
+- [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) — planning-first analytical consistency track with no canonical run yet.
 
 ## Public Repo Status
 
