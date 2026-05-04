@@ -1,0 +1,60 @@
+id: TASK-0065
+title: "Finalize Koide tau holdout public result package"
+type: release_preparation
+status: BLOCKED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Convert the tau holdout benchmark from an internal result artifact into a disciplined public-facing result package."
+  - "Keep Koide-related messaging historical, scoped, and resistant to numerology overclaim."
+  - "Pair wording discipline with visuals and limitations before any public-facing release decision."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0058-standardize-koide-tau-holdout-verdict-wording.yaml"
+    - "tasks/TASK-0059-koide-tau-holdout-public-summary-package.yaml"
+    - "tasks/TASK-0038-historical-tau-holdout-prediction.yaml"
+    - "docs/results/koide-tau-holdout.md"
+    - "results/EXP-0005/RUN-0005/result.yaml"
+    - "results/EXP-0005/RUN-0005/report.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+  planning_context: >
+    The tau holdout benchmark is one of the strongest current particle-mass
+    results, but it should become public-ready only after verdict wording is
+    narrowed and summary packaging is complete. This task integrates the
+    wording, visuals, limitations, and summary surfaces into one scoped
+    release-facing package.
+
+requirements:
+  - "Do not start execution until TASK-0058 is complete."
+  - "Use or subsume the summary-package outputs expected by TASK-0059."
+  - "Keep all wording historical, scoped, and explicitly non-explanatory."
+  - "Explain limitations and why the result is not a broad mass-theory claim."
+  - "Include at least one static visual comparison for the tau holdout result."
+  - "Refresh docs/status.md and docs/mission-control.md if public-facing links or scoped wording need alignment."
+  - "Do not promote any claim automatically."
+  - "Do not describe the benchmark as evidence of solved masses or deeper structure by itself."
+
+accepted_outputs:
+  - "updated docs/results/koide-tau-holdout.md"
+  - "docs/results/koide-tau-holdout-summary.md"
+  - "docs/announcement-draft-koide-tau-holdout.md"
+  - "at least one Koide tau holdout static figure under docs/figures/"
+  - "updated docs/status.md if needed"
+  - "updated docs/mission-control.md if needed"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
