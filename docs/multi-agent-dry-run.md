@@ -196,3 +196,20 @@ Three dry-run events have now been recorded across two contributors
 - at least one more PR from a distinct contributor or task type is recommended;
 - maintainer must review and merge all REVIEW_READY PRs from this pilot;
 - lessons learned should be incorporated into contributor documentation.
+
+## Run #1
+
+- Date: `2026-05-04`
+- Task: `TASK-0062`
+- Pull request: `#64`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.

@@ -1,7 +1,7 @@
 id: TASK-0054
 title: "Fix maintainer review helper temp claim path handling in git worktrees"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
