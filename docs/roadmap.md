@@ -1,110 +1,72 @@
 # Roadmap
 
-## v0.1
+## Private Alpha Infrastructure — Mostly Done
 
-Pendulum formula discovery plus public hypothesis registry.
+The repository already has the core private-alpha foundation needed to support
+scientific campaigns:
 
-Deliverables:
+- deterministic benchmark execution and CLI workflows;
+- repository validation and strict validation modes;
+- version-controlled scientific memory;
+- task protocol, proposal workflow, and active-board sync;
+- maintainer review and closeout helpers;
+- contributor pilot documentation and branch-based execution rules.
 
-- deterministic pendulum workflow;
-- CLI entrypoint;
-- exact simulator;
-- candidate model fitting;
-- Markdown report;
-- first hypothesis, experiment, claim, task, and knowledge files.
+This layer is still being polished, but it is no longer the main strategic
+bottleneck.
 
-## v0.2
+## Scientific Campaign Layer — Active
 
-Physics verification stack.
+Current focus is on turning APL from a narrow infrastructure prototype into a
+campaign-oriented scientific system.
 
-Deliverables:
+Near-term campaign work:
 
-- known-limit checks;
-- symbolic consistency hooks;
-- dimensional analysis hooks;
-- stronger verification summaries in result artifacts.
+- keep the pendulum benchmark legible through better summaries and diagnostics;
+- keep the particle-mass track falsification-first and scope-limited;
+- connect benchmark results, campaign pages, and status docs through a clearer
+  Mission Control layer;
+- improve visual result summaries so current evidence is easier to review.
 
-## v0.3
+## Contributor Pilot — Active
 
-Evidence semantics and run artifacts.
+APL is actively validating whether invited humans and coding agents can
+contribute safely through canonical task files, proposal-first intake, active
+board sync, validation, and maintainer review.
 
-Deliverables:
+Near-term contributor-workflow goals:
 
-- run-based result conventions;
-- result-linked claim evidence;
-- claim status suggestion rules;
-- stronger update helpers for claim and knowledge files.
+- reduce coordination friction around the active board and closeout flow;
+- keep task and proposal surfaces easy to understand for new contributors;
+- collect more evidence from real private-alpha task execution.
 
-## v0.4
+## Public Launch Package — Pending
 
-Task registry and external agent contribution format.
+Public launch is intentionally downstream of the current campaign and workflow
+validation work.
 
-Deliverables:
+Before launch, APL needs:
 
-- formal task schema;
-- agent manifest schema;
-- contribution guide;
-- external contribution review rules.
+- stable status, roadmap, and README narrative;
+- honest public-facing result summaries;
+- release-gate evidence across technical stability, contributor workflow, and
+  measurable results;
+- confidence that the public story matches the actual repository state.
 
-## v0.5
+## Public Task Network — Future
 
-Next physics benchmarks.
+After private-alpha gates are satisfied, APL can expand toward a more openly
+participatory task network.
 
-Deliverables:
+Future-facing possibilities include:
 
-- diffusion scaling benchmark;
-- orbital perturbation benchmark candidates;
-- driven or nonlinear oscillator benchmark candidates.
+- broader public contributor intake;
+- more visible campaign dashboards or status surfaces;
+- additional benchmark families once current workflow discipline is stable.
 
-## v0.6
-
-Knowledge graph importer.
-
-Deliverables:
-
-- importer from YAML and Markdown into queryable graph structures;
-- first relation model across hypotheses, claims, and results.
-
-## v0.7
-
-Literature ingestion.
-
-Deliverables:
-
-- adapters for arXiv, OpenAlex, and Crossref metadata;
-- paper-to-claim linking workflow.
-
-## v0.8
-
-Multi-agent task execution.
-
-Deliverables:
-
-- task runner contracts;
-- agent result validation;
-- reproducibility metadata standards.
-
-## v0.9
-
-Public dashboard or live lab interface.
-
-Deliverables:
-
-- browseable hypothesis registry;
-- experiment/result explorer;
-- task board view.
-
-## v1.0
-
-Theory graph.
-
-Deliverables:
-
-- connected hypothesis structures;
-- reusable claim clusters;
-- candidate theory map across domains.
+These remain future work, not current commitments.
 
 ## Guiding Rule
 
-Each release should widen the system only after the previous scientific core is
-reproducible and well tested.
+Widen the system only after the current scientific and contributor layer is
+reproducible, reviewable, and honestly described.
