@@ -4,12 +4,12 @@
 
 APL is verification-first scientific infrastructure.
 
-Current phase: `v0.1-private-alpha`
+Current phase: `v0.1-private-alpha — scientific campaign and contributor workflow validation`
 
 Current goal:
 
-- private contributor pilot
-- measurable scientific result
+- active scientific campaigns with conservative result wording
+- private contributor pilot and maintainer review workflow validation
 - public release only after explicit gates are satisfied
 
 The repository remains private until
@@ -38,7 +38,6 @@ the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-prop
 
 ## READY
 
-- `TASK-0012` — Run a private multi-agent contributor dry run (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0024` — Create task index table (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0025` — Create result artifacts index (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0026` — Add 10 more dimensional-analysis challenge items (`physics_dataset_extension`, priority `high`, difficulty `low`)
@@ -57,6 +56,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0012` — Run a private multi-agent contributor dry run (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0017` — Create a dimensional analysis challenge set (`benchmark_planning`, priority `high`, difficulty `medium`)
 - `TASK-0020` — Add pytest-timeout and validation safeguards against hanging tests (`repository_validation`, priority `medium`, difficulty `low`)
 - `TASK-0021` — Add AI agent attribution policy (`agent_workflow`, priority `medium`, difficulty `low`)
@@ -67,6 +67,7 @@ None.
 - `TASK-0056` — Accept selected science-track proposals into canonical tasks (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0060` — Add open pull request list to repository snapshot (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0062` — Update project status and roadmap for scientific campaign phase (`documentation`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
@@ -142,7 +143,7 @@ same artifact surface as another open PR.
 - multi-agent runtime
 - database backend
 - public launch
-- claims of "new physics"
+- discovery-level physics claims
 
 ## PROPOSED NOTE
 

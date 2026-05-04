@@ -1,0 +1,69 @@
+id: TASK-0062
+title: "Update project status and roadmap for scientific campaign phase"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Align project-facing docs with the shift from pure infrastructure bootstrapping to active scientific campaigns and contributor workflow validation."
+  - "Keep public-facing wording conservative while making current results and workflow maturity easier to understand."
+  - "Improve mission-control, status, and roadmap coherence before any public launch decision."
+
+input:
+  mode: workflow
+  related_objects:
+    - "README.md"
+    - "docs/status.md"
+    - "docs/strategy.md"
+    - "docs/roadmap.md"
+    - "docs/implementation-plan.md"
+    - "docs/public-release-gates.md"
+    - "docs/mission-control.md"
+    - "tasks/ACTIVE.md"
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+    - "docs/results/koide-charged-lepton-reproduction.md"
+    - "docs/results/koide-tau-holdout.md"
+  planning_context: >
+    Update the repository's status and roadmap layer so it reflects the current
+    scientific campaign phase: Pendulum Gauntlet 100, charged-lepton Koide
+    reproduction, tau holdout, proposal-first task workflow, active-board sync,
+    maintainer review and closeout tooling, and the private contributor pilot.
+    Keep wording verification-first and conservative.
+
+requirements:
+  - "Update docs/status.md to reflect v0.1-private-alpha scientific campaign and contributor workflow validation."
+  - "Update docs/strategy.md to reflect the shift toward campaign curation and contributor onboarding."
+  - "Update docs/roadmap.md with campaign-oriented phases."
+  - "Lightly update README.md with current major results."
+  - "Create or update docs/mission-control.md with current campaigns, results, contributor entry points, and claim guardrails."
+  - "Create tasks/TASK-0062-update-project-status-and-roadmap.yaml."
+  - "Update tasks/ACTIVE.md through the canonical sync flow."
+  - "Do not change result artifacts."
+  - "Do not add new benchmark code."
+  - "Do not promote claims."
+  - "Do not add dashboard, API, or literature-ingestion work."
+
+accepted_outputs:
+  - "updated README.md"
+  - "updated docs/status.md"
+  - "updated docs/strategy.md"
+  - "updated docs/roadmap.md"
+  - "updated docs/mission-control.md"
+  - "updated tasks/ACTIVE.md"
+  - "canonical TASK-0062 file"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "./scripts/apl_review_bundle.sh"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
