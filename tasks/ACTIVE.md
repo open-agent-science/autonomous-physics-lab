@@ -49,6 +49,8 @@ the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-prop
 - `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
 - `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0058` — Standardize scoped verdict wording for tau holdout (`scientific_safety_review`, priority `high`, difficulty `low`)
+- `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
+- `TASK-0064` — Implement dimensional analysis validator MVP (`physics_validation_engine`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -111,7 +113,8 @@ None.
 
 ## BLOCKED
 
-None.
+- `TASK-0065` — Finalize Koide tau holdout public result package (`release_preparation`, priority `medium`, difficulty `medium`)
+- `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
 
 ## REJECTED
 
