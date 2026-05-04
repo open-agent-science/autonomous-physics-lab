@@ -36,6 +36,9 @@ Current working slices:
 - numerical accuracy and tolerance policy documenting the difference between approximation residuals, coefficient-rounding effects, and reference-computation error.
 - `TASK-0011` precision-audit artifacts for `RUN-0003`, classifying the reported `3.1e-4` in-range error as model residual rather than elliptic-reference precision drift or six-decimal coefficient rounding.
 - public-facing pendulum gauntlet result-package docs that summarize `RUN-0003`, explain the precision-audit interpretation, and preserve range-aware wording for future release work.
+- mission-control and campaign-map docs that connect repository strategy,
+  current evidence, and contributor entry points without changing scientific
+  claims.
 - private-alpha contribution and release-gating documentation for invited
   branch-based contributors.
 
@@ -85,6 +88,8 @@ Damped oscillator:
 - [public-release-gates.md](./public-release-gates.md) for the conditions required before going public.
 - [github-branch-protection-plan.md](./github-branch-protection-plan.md) for staged PR discipline.
 - [results/pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) for the current measurable pendulum result package.
+- [mission-control.md](./mission-control.md) for project-level orientation.
+- [campaigns/README.md](./campaigns/README.md) for the scientific campaign map.
 
 ## Not Ready Yet
 
@@ -107,6 +112,18 @@ Damped oscillator:
   best verdict still remains range-limited rather than supported beyond the
   configured range.
 - Public-facing pendulum wording should continue to preserve the distinction between approximation residual, range-limited validation, and symbolic exactness.
+- The repository now has clearer campaign-level orientation, but public-release
+  readiness still depends on validation discipline rather than documentation
+  polish alone.
+
+## Campaign Map
+
+Current contributor-facing campaigns:
+
+- [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) — strongest current measurable benchmark result.
+- [Particle Mass Relations](./campaigns/particle-mass-relations.md) — narrow charged-lepton results with strong numerology guardrails.
+- [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) — planning-complete validator benchmark, implementation pending.
+- [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) — planning-first analytical consistency track with no canonical run yet.
 
 ## Public Repo Status
 
