@@ -1,0 +1,42 @@
+id: HYP-0006
+title: "Dimensional analysis validator correctly classifies physics formulas"
+domain: physics_validation
+status: TESTING
+
+hypothesis:
+  statement: >
+    A deterministic SI-dimension validator, given variable dimension declarations
+    and an algebraic formula, correctly classifies at least 90% of curated
+    challenge-set items into VALID, INVALID, or a flagged category (SUSPICIOUS /
+    INCONCLUSIVE) without external API calls or symbolic algebra systems.
+  formula_candidates:
+    - "dim(LHS) == dim(RHS)"
+    - "dim_mismatch => INVALID"
+    - "dim_match => VALID (or SUSPICIOUS if all-dimensionless)"
+
+assumptions:
+  - "Variable dimension annotations in the challenge set are correct."
+  - "SI base-unit symbol table is complete for the items in the challenge set."
+  - "The formula grammar is limited to arithmetic operators and standard
+    dimensionless math functions."
+  - "KNOWN_LIMIT_FAIL items are dimensionally consistent; the validator
+    should return VALID for those (limit violations are outside its scope)."
+  - "SUSPICIOUS items with explicit dimensional mismatch are acceptably
+    classified as INVALID by the MVP validator."
+
+variables:
+  formula:
+    unit: dimensionless
+    description: "Symbolic physics formula string with one '=' separator"
+  variable_dims:
+    unit: dimensionless
+    description: "Map from variable name to SI dimension string"
+  verdict:
+    unit: dimensionless
+    description: "Validator output: VALID / INVALID / SUSPICIOUS / INCONCLUSIVE"
+
+evidence:
+  experiments:
+    - EXP-0006
+
+verdict: INCONCLUSIVE

@@ -1,0 +1,365 @@
+{
+  "run_id": "RUN-0006",
+  "experiment_id": "EXP-0006",
+  "total_items": 50,
+  "agree": 49,
+  "agreement_fraction": 0.98,
+  "agreement_threshold": 0.9,
+  "valid_count": 21,
+  "invalid_count": 29,
+  "suspicious_count": 0,
+  "inconclusive_count": 0,
+  "best_verdict": "VALID",
+  "item_results": [
+    {
+      "id": "DA-001",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L T^-2"
+    },
+    {
+      "id": "DA-002",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DA-003",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DA-004",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-3 I^-1"
+    },
+    {
+      "id": "DA-005",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DA-006",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = T"
+    },
+    {
+      "id": "DA-007",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-3"
+    },
+    {
+      "id": "DA-008",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = L T^-1"
+    },
+    {
+      "id": "DA-009",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-3"
+    },
+    {
+      "id": "DA-010",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-2 Theta^-1"
+    },
+    {
+      "id": "DA-101",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L T^-2 != RHS dim M"
+    },
+    {
+      "id": "DA-102",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L T^-1"
+    },
+    {
+      "id": "DA-103",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^2 T^-3 I^-1 != RHS dim I"
+    },
+    {
+      "id": "DA-104",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^-1 T^-2 != RHS dim M L^3 T^-2"
+    },
+    {
+      "id": "DA-105",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L T^-2 != RHS dim M L^3 T^-2"
+    },
+    {
+      "id": "DA-106",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^2 T^-3 != RHS dim M L T^-2"
+    },
+    {
+      "id": "DA-107",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L T^-1 != RHS dim M L^2 T^-2"
+    },
+    {
+      "id": "DA-108",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L T^-2"
+    },
+    {
+      "id": "DA-109",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim Theta != RHS dim M L T^-1"
+    },
+    {
+      "id": "DA-110",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim I != RHS dim T I^2"
+    },
+    {
+      "id": "DA-111",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim L != RHS dim T^-1"
+    },
+    {
+      "id": "DA-112",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^2 T^-2 != RHS dim M L"
+    },
+    {
+      "id": "DA-113",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^2 T^-2 != RHS dim Theta N"
+    },
+    {
+      "id": "DA-114",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L T^-2 != RHS dim L I"
+    },
+    {
+      "id": "DA-115",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim L != RHS dim Theta"
+    },
+    {
+      "id": "DA-201",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L T^-2 != RHS dim M^2 L^-2"
+    },
+    {
+      "id": "DA-202",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L T^-2 != RHS dim L^-2 T^2 I^2"
+    },
+    {
+      "id": "DA-203",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^2 T^-2 != RHS dim T^-1"
+    },
+    {
+      "id": "DA-204",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L^2 T^-3 != RHS dim L^2 Theta^4"
+    },
+    {
+      "id": "DA-205",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M T^-2 I^-1 != RHS dim L^-1 I"
+    },
+    {
+      "id": "DA-206",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim L != RHS dim Theta^-1"
+    },
+    {
+      "id": "DA-207",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M T^-2 I^-1 != RHS dim L^-1 I"
+    },
+    {
+      "id": "DA-208",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim L != RHS dim M^-1 L^-1 T"
+    },
+    {
+      "id": "DA-209",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim L T^-1 != RHS dim M^0.5 L^-0.5"
+    },
+    {
+      "id": "DA-210",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim M L T^-3 I^-1 != RHS dim L^-2 T I"
+    },
+    {
+      "id": "DA-301",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = 1"
+    },
+    {
+      "id": "DA-302",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = 1"
+    },
+    {
+      "id": "DA-303",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = 1"
+    },
+    {
+      "id": "DA-304",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim 1 != RHS dim M T^-1"
+    },
+    {
+      "id": "DA-305",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = 1"
+    },
+    {
+      "id": "DA-306",
+      "expected": "SUSPICIOUS",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim 1 != RHS dim L^-1 T Theta"
+    },
+    {
+      "id": "DA-307",
+      "expected": "SUSPICIOUS",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim 1 != RHS dim M^-2 L^-3 T^4 I^2"
+    },
+    {
+      "id": "DA-308",
+      "expected": "INVALID",
+      "computed": "INVALID",
+      "agrees": true,
+      "detail": "LHS dim 1 != RHS dim M T^-1 I^-1"
+    },
+    {
+      "id": "DA-309",
+      "expected": "VALID",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = 1"
+    },
+    {
+      "id": "DA-310",
+      "expected": "SUSPICIOUS",
+      "computed": "VALID",
+      "agrees": false,
+      "detail": "LHS = RHS = 1"
+    },
+    {
+      "id": "DA-401",
+      "expected": "KNOWN_LIMIT_FAIL",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = 1"
+    },
+    {
+      "id": "DA-402",
+      "expected": "KNOWN_LIMIT_FAIL",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-2"
+    },
+    {
+      "id": "DA-403",
+      "expected": "KNOWN_LIMIT_FAIL",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L T^-2"
+    },
+    {
+      "id": "DA-404",
+      "expected": "KNOWN_LIMIT_FAIL",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = 1"
+    },
+    {
+      "id": "DA-405",
+      "expected": "KNOWN_LIMIT_FAIL",
+      "computed": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = M L^2 T^-2"
+    }
+  ]
+}
