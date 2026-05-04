@@ -6,7 +6,11 @@ from dataclasses import dataclass
 from pathlib import Path
 import re
 
-from physics_lab.registry.maintainer_review import build_closeout_report
+from physics_lab.registry.maintainer_review import (
+    branch_task_id,
+    build_closeout_report,
+    load_pr_metadata,
+)
 from physics_lab.registry.review_git import current_branch, run_command
 from physics_lab.registry.tasks import load_task
 
@@ -50,6 +54,34 @@ class CloseoutSweepReport:
     ready: tuple[CloseoutSweepCandidate, ...]
     blocked: tuple[CloseoutSweepCandidate, ...]
     skipped: tuple[CloseoutSweepCandidate, ...]
+
+
+def closeout_pr_binding_blockers(root: Path, *, task_id: str, pull_request: int) -> tuple[str, ...]:
+    """Verify that GitHub PR metadata still binds the PR to the expected task id."""
+    pr_metadata = load_pr_metadata(root, pull_request)
+    if pr_metadata is None:
+        return ()
+
+    title_match = PR_TITLE_TASK_PATTERN.match(pr_metadata.title.strip())
+    title_task_id = title_match.group("task_id") if title_match is not None else None
+    branch_task = branch_task_id(pr_metadata.branch.strip())
+
+    if title_task_id == task_id or branch_task == task_id:
+        return ()
+
+    detail_parts: list[str] = []
+    if title_task_id is not None:
+        detail_parts.append(f"title task id is {title_task_id}")
+    if branch_task is not None:
+        detail_parts.append(f"branch task id is {branch_task}")
+    if not detail_parts:
+        detail_parts.append("neither PR title nor head branch resolves to a canonical task id")
+
+    return (
+        "Merged PR metadata does not match canonical task id: "
+        + ", ".join(detail_parts)
+        + ".",
+    )
 
 
 def list_review_ready_tasks(root: Path) -> tuple[tuple[str, str], ...]:
@@ -173,22 +205,29 @@ def build_closeout_sweep_report(
             pull_request=pr.number,
             apply=False,
         )
+        binding_blockers = closeout_pr_binding_blockers(
+            root,
+            task_id=task_id,
+            pull_request=pr.number,
+        )
+        blockers = closeout.blockers + binding_blockers
+        outcome = closeout.outcome if not binding_blockers else "BLOCKED"
         candidate = CloseoutSweepCandidate(
             task_id=task_id,
             task_title=task_title,
             pull_request=pr.number,
             pr_title=pr.title,
             pr_url=pr.url,
-            outcome=closeout.outcome,
-            blockers=closeout.blockers,
+            outcome=outcome,
+            blockers=blockers,
             required_actions=closeout.required_actions,
             recommended_apply_command=(
                 f"python3 scripts/apl_closeout_task.py --task {task_id} --pr {pr.number} --apply"
-                if closeout.outcome == "READY_TO_APPLY"
+                if outcome == "READY_TO_APPLY"
                 else None
             ),
         )
-        if closeout.outcome == "READY_TO_APPLY":
+        if outcome == "READY_TO_APPLY":
             ready.append(candidate)
         else:
             blocked.append(candidate)
