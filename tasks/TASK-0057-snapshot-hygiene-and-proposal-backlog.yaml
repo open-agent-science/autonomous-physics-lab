@@ -1,7 +1,7 @@
 id: TASK-0057
 title: "Reduce snapshot noise from worktrees and include proposal backlog"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
