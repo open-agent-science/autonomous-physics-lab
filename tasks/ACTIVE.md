@@ -67,10 +67,10 @@ None.
 - `TASK-0056` — Accept selected science-track proposals into canonical tasks (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0060` — Add open pull request list to repository snapshot (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0061` — Create Mission Control and campaign map (`documentation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0061` — Create Mission Control and campaign map (merged)
 - `TASK-0048` — Add schema support for dataset-based particle-mass reproduction benchmarks (merged)
 - `TASK-0044` — Sync active task board from task files to reduce merge conflicts (merged)
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
