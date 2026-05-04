@@ -1,0 +1,58 @@
+id: TASK-0064
+title: "Implement dimensional analysis validator MVP"
+type: physics_validation_engine
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Add one clear executable scientific capability to balance the repository's documentation and workflow maturity."
+  - "Use dimensional analysis as a safe, legible quality-floor engine for future benchmark work."
+  - "Make APL's public message stronger with a deterministic validator that catches invalid formulas."
+
+input:
+  mode: workflow
+  related_domain: physics_validation
+  related_objects:
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "knowledge/reference/units-and-dimensions.md"
+    - "docs/campaigns/dimensional-analysis-validator.md"
+    - "tasks/TASK-0017-dimensional-analysis-challenge-set.yaml"
+    - "tasks/TASK-0026-extend-dimensional-analysis-challenge-set.yaml"
+  planning_context: >
+    APL already has a dimensional-analysis campaign surface and challenge-set
+    groundwork. Implement a small deterministic validator MVP so the project
+    can demonstrate a concrete quality-floor engine rather than only planning
+    docs.
+
+requirements:
+  - "Implement a deterministic dimensional-analysis validation engine."
+  - "Consume the canonical challenge-set and units reference artifacts."
+  - "Classify formulas into at least VALID, INVALID, and a conservative suspicious or known-limit category where appropriate."
+  - "Create an example configuration for running the validator benchmark."
+  - "Produce one canonical result artifact directory for the MVP run."
+  - "Create a short public-facing result summary for the validator MVP."
+  - "Add fast tests covering dimension parsing or validation behavior."
+  - "Keep the engine verification-first and avoid symbolic discovery or explanatory overclaim."
+  - "Do not add external API dependencies."
+
+accepted_outputs:
+  - "physics_lab/engines/dimensions.py"
+  - "examples/dimensional_analysis.yaml"
+  - "canonical dimensional-analysis MVP result artifact directory"
+  - "docs/results/dimensional-analysis-validator-summary.md"
+  - "tests for dimensional-analysis validator behavior"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
