@@ -5,6 +5,8 @@ from unittest.mock import patch
 
 from physics_lab.registry.maintainer_review import (
     ReviewReport,
+    PullRequestMetadata,
+    ValidationSummary,
     branch_proposal_slug,
     branch_task_id,
     build_review_report,
@@ -286,3 +288,148 @@ def test_load_claim_status_from_ref_handles_git_worktree_layout(tmp_path: Path) 
         assert (
             load_claim_status_from_ref(tmp_path, "main", "claims/CLAIM-TEST.md") == "DRAFT"
         )
+
+
+def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    (tmp_path / "docs").mkdir(parents=True)
+    (tmp_path / "docs" / "multi-agent-dry-run.md").write_text("# dry run\n", encoding="utf-8")
+
+    for task_id, slug in (("TASK-0027", "units"), ("TASK-0062", "roadmap")):
+        (tasks_dir / f"{task_id}-{slug}.yaml").write_text(
+            "\n".join(
+                [
+                    f"id: {task_id}",
+                    'title: "Test closeout task"',
+                    "type: documentation",
+                    "status: DONE",
+                    "difficulty: low",
+                    "priority: medium",
+                    "strategy_alignment:",
+                    '  - "Closeout regression fixture"',
+                    "input:",
+                    "  mode: workflow",
+                    '  related_domain: "testing"',
+                    "  related_objects: []",
+                    '  planning_context: "Closeout review fixture"',
+                    "requirements:",
+                    '  - "Keep task status at DONE in closeout branch"',
+                    "accepted_outputs:",
+                    '  - "updated task status"',
+                    "validation:",
+                    "  commands:",
+                    '    - "python3 -m physics_lab.cli validate-repo ."',
+                    "can_be_done_by: [human]",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+    branch = "agent/roman/codex/closeout-confirmed-merged-tasks"
+    changed = (
+        "docs/multi-agent-dry-run.md",
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0027-units.yaml",
+        "tasks/TASK-0062-roadmap.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
+        body="closeout batch",
+        branch=branch,
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "MERGE_OK"
+    assert report.blockers == ()
+
+
+def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout(tmp_path: Path) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+
+    for task_id, slug in (("TASK-0027", "units"), ("TASK-0062", "roadmap")):
+        (tasks_dir / f"{task_id}-{slug}.yaml").write_text(
+            "\n".join(
+                [
+                    f"id: {task_id}",
+                    'title: "Test closeout task"',
+                    "type: documentation",
+                    "status: DONE",
+                    "difficulty: low",
+                    "priority: medium",
+                    "strategy_alignment:",
+                    '  - "Closeout regression fixture"',
+                    "input:",
+                    '  mode: workflow',
+                    '  related_domain: "testing"',
+                    "  related_objects: []",
+                    '  planning_context: "Closeout review fixture"',
+                    "requirements:",
+                    '  - "Keep task status at DONE in closeout branch"',
+                    "accepted_outputs:",
+                    '  - "updated task status"',
+                    "validation:",
+                    "  commands:",
+                    '    - "python3 -m physics_lab.cli validate-repo ."',
+                    "can_be_done_by: [human]",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+    branch = "agent/roman/codex/closeout-confirmed-merged-tasks"
+    changed = (
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0027-units.yaml",
+        "tasks/TASK-0062-roadmap.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
+        body="closeout batch",
+        branch=branch,
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "MERGE_OK"
+    assert not any("Switch to the PR branch" in item for item in report.required_fixes)
