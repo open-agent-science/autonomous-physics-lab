@@ -6,11 +6,12 @@ from unittest.mock import patch
 from physics_lab.registry.closeout_sweep import (
     CloseoutSweepReport,
     build_closeout_sweep_report,
+    closeout_pr_binding_blockers,
     list_review_ready_tasks,
     load_merged_task_pull_requests,
     render_closeout_sweep_report,
 )
-from physics_lab.registry.maintainer_review import CloseoutReport
+from physics_lab.registry.maintainer_review import CloseoutReport, PullRequestMetadata
 from physics_lab.registry.review_git import CommandResult
 
 
@@ -164,6 +165,7 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
     with (
         patch("physics_lab.registry.closeout_sweep.load_merged_task_pull_requests", side_effect=_fake_prs),
         patch("physics_lab.registry.closeout_sweep.build_closeout_report", side_effect=_fake_closeout_report),
+        patch("physics_lab.registry.closeout_sweep.load_pr_metadata", return_value=None),
         patch("physics_lab.registry.closeout_sweep.current_branch", return_value="main"),
     ):
         report = build_closeout_sweep_report(tmp_path)
@@ -174,6 +176,103 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
     assert report.blocked[0].task_id == "TASK-1001"
     assert len(report.skipped) == 1
     assert report.skipped[0].task_id == "TASK-1002"
+
+
+def test_closeout_pr_binding_blockers_flags_mismatched_pr_metadata(tmp_path: Path) -> None:
+    pr_metadata = PullRequestMetadata(
+        number=10,
+        title="TASK-1001: Different task",
+        body="",
+        branch="agent/roman/codex/task-1001-different-task",
+        state="MERGED",
+        merged=True,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with patch("physics_lab.registry.closeout_sweep.load_pr_metadata", return_value=pr_metadata):
+        blockers = closeout_pr_binding_blockers(
+            tmp_path,
+            task_id="TASK-1000",
+            pull_request=10,
+        )
+
+    assert blockers == (
+        "Merged PR metadata does not match canonical task id: title task id is TASK-1001, "
+        "branch task id is TASK-1001.",
+    )
+
+
+def test_build_closeout_sweep_report_blocks_ready_candidate_on_pr_binding_mismatch(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_task(
+        tasks_dir / "TASK-1000-alpha.yaml",
+        task_id="TASK-1000",
+        title="Alpha",
+        status="REVIEW_READY",
+    )
+
+    merged_payload = {
+        "TASK-1000": {
+            "number": 10,
+            "title": "TASK-1000: Alpha",
+            "merged_at": "2026-05-04T10:00:00Z",
+            "url": "https://example/10",
+        },
+    }
+
+    def _fake_prs(_root: Path, *, limit: int = 200):  # noqa: ARG001
+        from physics_lab.registry.closeout_sweep import MergedTaskPullRequest
+
+        return {
+            task_id: MergedTaskPullRequest(task_id=task_id, **values)
+            for task_id, values in merged_payload.items()
+        }
+
+    ready_closeout = CloseoutReport(
+        outcome="READY_TO_APPLY",
+        task_id="TASK-1000",
+        pull_request=10,
+        branch="main",
+        task_status="REVIEW_READY",
+        merged="yes",
+        accepted_outputs="pass",
+        ci_status="pass",
+        blockers=(),
+        required_actions=(),
+        applied_changes=(),
+    )
+    mismatched_pr = PullRequestMetadata(
+        number=10,
+        title="TASK-1001: Different task",
+        body="",
+        branch="agent/roman/codex/task-1001-different-task",
+        state="MERGED",
+        merged=True,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with (
+        patch("physics_lab.registry.closeout_sweep.load_merged_task_pull_requests", side_effect=_fake_prs),
+        patch("physics_lab.registry.closeout_sweep.build_closeout_report", return_value=ready_closeout),
+        patch("physics_lab.registry.closeout_sweep.load_pr_metadata", return_value=mismatched_pr),
+        patch("physics_lab.registry.closeout_sweep.current_branch", return_value="main"),
+    ):
+        report = build_closeout_sweep_report(tmp_path)
+
+    assert len(report.ready) == 0
+    assert len(report.blocked) == 1
+    assert report.blocked[0].task_id == "TASK-1000"
+    assert report.blocked[0].outcome == "BLOCKED"
+    assert report.blocked[0].recommended_apply_command is None
+    assert report.blocked[0].blockers == (
+        "Merged PR metadata does not match canonical task id: title task id is TASK-1001, "
+        "branch task id is TASK-1001.",
+    )
 
 
 def test_render_closeout_sweep_report_lists_sections() -> None:
