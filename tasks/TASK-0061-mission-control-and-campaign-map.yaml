@@ -1,0 +1,67 @@
+id: TASK-0061
+title: "Create Mission Control and campaign map"
+type: documentation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the repository legible to new contributors before public launch."
+  - "Connect strategy, status, result packages, and task flow through one clear navigation layer."
+  - "Reduce onboarding friction without changing scientific claims or canonical result artifacts."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "README.md"
+    - "docs/status.md"
+    - "docs/strategy.md"
+    - "docs/architecture.md"
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+    - "docs/results/koide-tau-holdout.md"
+    - "tasks/ACTIVE.md"
+    - "tasks/proposals/README.md"
+  planning_context: >
+    Create a Mission Control layer that explains what APL is trying to achieve,
+    which scientific campaigns are active, what evidence already exists, and
+    where humans or coding agents can contribute next. Keep the outcome
+    navigation-first and verification-first.
+
+requirements:
+  - "Create docs/mission-control.md."
+  - "Create docs/campaigns/README.md."
+  - "Create campaign pages for pendulum formula falsification, particle mass relations, dimensional analysis validator, and thought-experiment consistency."
+  - "Update README.md, docs/status.md, and tasks/ACTIVE.md so the new navigation layer is discoverable."
+  - "Create tasks/TASK-0061-mission-control-and-campaign-map.yaml."
+  - "Include goal, why it matters, current results, open questions, recommended tasks, recommended contributor types, what not to claim, and visualization ideas on each campaign page."
+  - "Do not add new physics implementation."
+  - "Do not change canonical result artifacts."
+  - "Do not promote claims."
+  - "Do not add dashboard or public-launch work."
+
+accepted_outputs:
+  - "docs/mission-control.md"
+  - "docs/campaigns/README.md"
+  - "docs/campaigns/pendulum-formula-falsification.md"
+  - "docs/campaigns/particle-mass-relations.md"
+  - "docs/campaigns/dimensional-analysis-validator.md"
+  - "docs/campaigns/thought-experiment-consistency.md"
+  - "updated README.md"
+  - "updated docs/status.md"
+  - "updated tasks/ACTIVE.md"
+  - "canonical TASK-0061 file"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "./scripts/apl_review_bundle.sh"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
