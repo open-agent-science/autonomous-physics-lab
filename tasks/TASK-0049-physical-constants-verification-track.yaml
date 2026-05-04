@@ -1,0 +1,51 @@
+id: TASK-0049
+title: "Define and launch physical constants verification micro-task track"
+type: benchmark_planning
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Extends verification-first discipline to fundamental physical constants."
+  - "Provides a deterministic contribution path that pairs naturally with the units/constants reference."
+  - "Improves source consistency, uncertainty metadata, and reproducible validation of published constants."
+
+input:
+  mode: planning_only
+  related_domain: fundamental_constants
+  related_objects:
+    - "tasks/TASK-0027-units-and-constants-reference.yaml"
+    - "tasks/proposals/20260503-roman-physical-constants-verification-track.yaml"
+    - "AGENTS.md"
+  planning_context: >
+    Define the constants-verification track: enumerate at least 10 candidate
+    micro-tasks, define the result artifact format, and produce a sample
+    verification artifact for one constant. The track should make constant
+    sources, uncertainty metadata, and derivation assumptions explicit.
+
+requirements:
+  - "Enumerate at least 10 candidate constant-verification micro-tasks."
+  - "Define result artifact format: symbolic derivation + numerical check + verdict."
+  - "Record source edition and uncertainty metadata for each tracked constant."
+  - "Verify one sample constant as a worked example."
+  - "Code must be deterministic; no external API calls at runtime."
+  - "State claim ceiling: 'verified to tolerance X from CODATA YYYY'."
+  - "Do not promote results to project-level claims automatically."
+
+accepted_outputs:
+  - "docs note describing the constants-verification track and micro-task list"
+  - "sample result artifact for one constant"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

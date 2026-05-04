@@ -1,0 +1,79 @@
+proposal_id: 20260503-roman-empirical-regularities-catalog
+title: "Define empirical regularities catalog micro-task track"
+status: PROPOSED
+type: physics_dataset_extension
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Catalogs known empirical patterns with explicit falsification status."
+  - "Produces verifiable scientific memory entries that can seed future hypothesis work."
+  - "Extends the Koide-relation track pattern to a broader class of empirical observations."
+
+summary: >
+  Define a micro-task track where each task documents one empirical
+  regularity in physics — a pattern observed in data that lacks a fully
+  accepted theoretical explanation. Each entry includes: the pattern's
+  mathematical form, the dataset it was observed in, known supporting
+  and counter evidence, and an explicit falsification status.
+  Examples: Titius–Bode rule for planetary orbital radii, Balmer series
+  before Bohr's derivation, Koide formula for charged leptons, Geiger–Nuttall
+  law for alpha decay, Weinberg angle empirical value.
+
+rationale: >
+  The Koide formula work (TASK-0037–0039) shows the project already has a
+  pattern for empirical relation work. That track is deep and specific.
+  An empirical-regularities catalog generalises it: instead of committing to
+  a full falsification pipeline for each pattern, an agent catalogs the
+  pattern with its evidence base and a falsification_status field. This
+  separates observation from explanation, consistent with the project's
+  hypothesis-vs-claim distinction. The catalog entries can later seed
+  dedicated falsification tasks.
+
+input:
+  mode: planning_only
+  related_domain: empirical_physics
+  related_objects:
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/notes/particle-mass-relation-track.md"
+    - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
+    - "tasks/TASK-0039-design-koide-like-triplet-search.yaml"
+    - "AGENTS.md"
+  planning_context: >
+    Define: catalog file location and schema, the per-entry micro-task
+    template, falsification_status vocabulary, and at least 6 seed entries
+    covering different physics domains. Produce a canonical task spec.
+
+requirements:
+  - "Define a machine-readable empirical-regularity catalog schema (YAML)."
+  - "Required entry fields: id, name, domain, mathematical_form, observed_in, supporting_evidence, counter_evidence, falsification_status, notes."
+  - "falsification_status vocabulary: UNEXPLAINED | PARTIALLY_EXPLAINED | THEORETICALLY_DERIVED | FALSIFIED | COINCIDENCE_SUSPECTED."
+  - "Provide at least 6 seed entries covering at least 3 different physics domains."
+  - "Each entry must cite a primary source or dataset."
+  - "Do not claim entries with status UNEXPLAINED are 'new physics'."
+  - "Do not run numerical falsification code in this planning task."
+  - "Align with docs/notes/particle-mass-numerology-guardrails.md numerology guardrails."
+
+accepted_outputs:
+  - "docs note describing the empirical-regularities track"
+  - "catalog schema file"
+  - "canonical task spec (TASK-XXXX) for catalog population"
+  - "at least 6 seed catalog entries"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Related to the Koide track but broader in scope. Should be reviewed
+    alongside the hypothesis-register-protocol proposal since both produce
+    input for future falsification tasks. Numerology guardrails from
+    TASK-0042 apply to all entries.

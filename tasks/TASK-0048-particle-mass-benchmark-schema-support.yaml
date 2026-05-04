@@ -1,0 +1,60 @@
+id: TASK-0048
+title: "Add schema support for dataset-based particle-mass reproduction benchmarks"
+type: schema_extension
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Unblock verification-first particle-mass reproduction work without inventing misleading fit metadata."
+  - "Preserve honest repository semantics as APL broadens beyond pendulum-style benchmark shapes."
+  - "Keep future particle-mass artifacts source-aware, uncertainty-aware, and compatible with repository validation."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
+    - "tasks/TASK-0038-historical-tau-holdout-prediction.yaml"
+    - "tasks/TASK-0036-particle-mass-dataset-scaffold.yaml"
+    - "tasks/TASK-0042-particle-mass-numerology-guardrails.yaml"
+    - "docs/notes/particle-mass-relation-track.md"
+    - "physics_lab/schemas/experiment.schema.json"
+    - "physics_lab/schemas/example_config.schema.json"
+    - "physics_lab/schemas/result.schema.json"
+  planning_context: >
+    TASK-0037 and related particle-mass reproduction tasks are blocked by
+    fit-oriented schema assumptions. APL needs a benchmark shape for explicit
+    datasets and reproduction-style result semantics without fake train/test
+    ranges or fitted-model score tables.
+
+requirements:
+  - "Implement schema support for dataset-based reproduction benchmarks."
+  - "Allow experiment specs to reference explicit datasets without reusing amplitude- or time-range-only data shapes."
+  - "Allow result artifacts to report comparison targets, uncertainty-aware differences, and verification checks without fake fitted-model score tables."
+  - "Keep backward compatibility for existing pendulum and damped-oscillator artifacts."
+  - "Document when reproduction-style benchmark artifacts should be used instead of fit-oriented artifacts."
+  - "Add validation or regression coverage for the new schema shape."
+  - "Do not implement the full particle-mass falsifier MVP in this task."
+  - "Do not promote claims automatically."
+
+accepted_outputs:
+  - "updated physics_lab/schemas/experiment.schema.json"
+  - "updated physics_lab/schemas/example_config.schema.json"
+  - "updated physics_lab/schemas/result.schema.json"
+  - "tests covering dataset-based reproduction benchmark schema support"
+  - "documentation update for reproduction-style benchmark artifacts"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

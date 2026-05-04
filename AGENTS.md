@@ -75,19 +75,34 @@ Use these files as the shared coordination layer:
 
 - `docs/strategy.md`
 - `docs/agent-task-protocol.md`
+- `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
 - `tasks/ACTIVE.md`
 - `tasks/TASK-TEMPLATE.yaml`
+- `tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml`
 
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
 Use `docs/agent-task-protocol.md`.
+Use `docs/task-proposal-protocol.md` when suggesting new task ideas that do
+not yet have a maintainer-assigned canonical `TASK-XXXX` id.
 Use `docs/maintainer-review-agent.md` when the maintainer wants structured PR
 review or task closeout help.
 
 Before starting implementation, agents must create a working task branch using
 the canonical branch format. Agents must not begin editing repository files,
 staging changes, or otherwise performing task work on `main`.
+
+## Task Proposal Rule
+
+If no existing `READY` task fits and the maintainer did not explicitly assign a
+canonical `TASK-XXXX` id, agents should create a proposal under
+`tasks/proposals/` instead of guessing the next task number.
+
+Normal agents should not assign canonical task ids during parallel work.
+
+Maintainers may create canonical ids directly. Maintainer-directed review or
+task-admin agents may do so only on explicit maintainer instruction.
 
 ## Original MVP
 

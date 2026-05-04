@@ -1,0 +1,30 @@
+id: EXP-0005
+title: "Historical Tau Holdout Prediction"
+domain: particle_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0005
+
+method:
+  type: "holdout_prediction"
+  simulator: "explicit_particle_mass_dataset_loader"
+  comparator: "target_difference"
+
+data:
+  dataset_path: ../data/particle_masses/charged_leptons.yaml
+  dataset_kind: particle_mass_dataset
+  sample_axes:
+    - particle
+  holdout_particle: tau
+  input_particles:
+    - electron
+    - muon
+  notes: "Use electron and muon pole masses only for prediction; tau remains the holdout comparison target."
+
+comparison_targets:
+  - id: target_tau_mass
+    label: "Measured tau mass"
+    reference_value: 1776.93
+    reference_uncertainty: 0.09
+    unit: MeV
+    notes: "PDG-backed measured tau pole mass used as the holdout comparison target."

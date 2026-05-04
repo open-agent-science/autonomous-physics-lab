@@ -1,0 +1,103 @@
+dataset_id: DATASET-PM-0001
+title: Charged lepton mass scaffold
+status: DRAFT
+description: >
+  Source-explicit charged-lepton mass inputs for future Koide-style
+  reproduction and falsification tasks. This file records input data only and
+  does not imply any relation claim or benchmark verdict.
+
+source_policy:
+  primary_authority: Particle Data Group
+  edition: "2025 update"
+  citation: >
+    S. Navas et al. (Particle Data Group), Phys. Rev. D 110, 030001 (2024)
+    and 2025 update
+  policy_note: >
+    Prefer explicit PDG listings or summary values with stable URLs and
+    versioning. Preserve per-entry notes when PDG values are themselves derived
+    from CODATA or a specific averaging procedure.
+
+entries:
+  - particle: electron
+    symbol: e
+    family: charged_lepton
+    mass_value: 0.51099895000
+    mass_unit: MeV
+    uncertainty:
+      type: symmetric
+      value: 0.00000000015
+      unit: MeV
+      confidence: one_sigma
+    source:
+      authority: Particle Data Group
+      edition: "2025 update"
+      citation: >
+        S. Navas et al. (Particle Data Group), Phys. Rev. D 110, 030001 (2024)
+        and 2025 update
+      url: https://pdg.lbl.gov/2025/listings/rpp2025-list-electron.pdf
+      accessed_on: "2026-05-03"
+      value_origin_note: >
+        PDG 2025 electron listing reports the 2018 CODATA value in MeV.
+    mass_type: pole
+    scheme: null
+    scale: null
+    notes: >
+      Charged-lepton on-shell mass. PDG notes that the mass is known more
+      precisely in atomic mass units than in MeV because conversion uncertainty
+      dominates the MeV representation.
+
+  - particle: muon
+    symbol: mu
+    family: charged_lepton
+    mass_value: 105.6583755
+    mass_unit: MeV
+    uncertainty:
+      type: symmetric
+      value: 0.0000023
+      unit: MeV
+      confidence: one_sigma
+    source:
+      authority: Particle Data Group
+      edition: "2025 update"
+      citation: >
+        S. Navas et al. (Particle Data Group), Phys. Rev. D 110, 030001 (2024)
+        and 2025 update
+      url: https://pdg.lbl.gov/2025/listings/rpp2025-list-muon.pdf
+      accessed_on: "2026-05-03"
+      value_origin_note: >
+        PDG 2025 muon listing reports the 2018 CODATA value in MeV.
+    mass_type: pole
+    scheme: null
+    scale: null
+    notes: >
+      Charged-lepton on-shell mass. The PDG listing states that the value is
+      derived from the muon-electron mass ratio and is known more precisely in
+      atomic mass units than in MeV.
+
+  - particle: tau
+    symbol: tau
+    family: charged_lepton
+    mass_value: 1776.93
+    mass_unit: MeV
+    uncertainty:
+      type: symmetric
+      value: 0.09
+      unit: MeV
+      confidence: one_sigma
+    source:
+      authority: Particle Data Group
+      edition: "2025 update"
+      citation: >
+        S. Navas et al. (Particle Data Group), Phys. Rev. D 110, 030001 (2024)
+        and 2025 update
+      url: https://pdg.lbl.gov/2025/listings/rpp2025-list-tau.pdf
+      accessed_on: "2026-05-03"
+      value_origin_note: >
+        PDG 2025 tau listing reports an "OUR AVERAGE" mass value in MeV.
+    mass_type: pole
+    scheme: null
+    scale: null
+    notes: >
+      Charged-lepton on-shell mass. The PDG listing aggregates threshold and
+      pseudomass-style determinations; several listed measurements note the
+      assumption m_nu_tau = 0 in their extraction method.

@@ -1,7 +1,7 @@
 id: TASK-0039
 title: "Design Koide-like triplet search with baselines"
 type: benchmark_planning
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

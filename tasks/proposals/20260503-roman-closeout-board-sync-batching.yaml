@@ -1,0 +1,78 @@
+proposal_id: 20260503-roman-closeout-board-sync-batching
+title: "Reduce closeout PR conflicts around tasks/ACTIVE.md synchronization"
+status: PROPOSED
+type: maintainer_workflow
+priority: high
+
+proposed_by:
+  contributor_id: "roman"
+  agent_id: "codex"
+
+strategy_alignment:
+  - "Keep maintainer closeout lightweight even when several task PRs merge close together."
+  - "Prevent tasks/ACTIVE.md from becoming the main conflict surface during post-merge closeout."
+  - "Make the fork-based maintainer workflow more resilient under small merge batches."
+
+summary: >
+  Define a lower-conflict post-merge closeout workflow so per-task closeout
+  PRs no longer collide on tasks/ACTIVE.md whenever multiple task PRs are
+  merged before closeout branches land.
+
+rationale: >
+  TASK-0044 moved routine task-state updates out of ordinary contributor PRs by
+  treating task YAML as the canonical source of truth and generating
+  tasks/ACTIVE.md as a snapshot. That removed many pre-merge conflicts, but the
+  current closeout flow still edits tasks/ACTIVE.md in every closeout PR. When
+  several task PRs merge close together, each closeout branch regenerates the
+  same shared board, creating a new conflict hotspot in fork-based maintainer
+  flow. A dedicated follow-up task should reduce or serialize board sync during
+  closeout so task completion can proceed without repetitive merge repair.
+
+input:
+  mode: planning_only
+  related_domain: task_coordination
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0044-active-board-sync-and-conflict-reduction.yaml"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/active_board.py"
+    - "scripts/apl_closeout_task.py"
+  planning_context: >
+    Post-merge closeout currently applies two changes together: it flips a task
+    file from REVIEW_READY to DONE and it regenerates tasks/ACTIVE.md. In a
+    fork workflow, multiple closeout PRs opened after a merge batch all touch
+    the same board snapshot and conflict with one another, even when each task
+    YAML update is independent.
+
+requirements:
+  - "Keep the future canonical task atomic and maintainer-workflow scoped."
+  - "Analyze why closeout PRs still conflict after TASK-0044."
+  - "Compare at least two safer closeout patterns, such as per-task YAML-only closeout plus batched board sync, or a dedicated serial board-sync PR."
+  - "Recommend a preferred approach with explicit maintainer tradeoffs."
+  - "Define how DONE and DONE RECENTLY should stay consistent when board sync is decoupled from each closeout PR."
+  - "Preserve deterministic reviewability and proposal-first governance."
+  - "Do not promote claims automatically."
+  - "Do not add physics benchmark implementation."
+
+accepted_outputs:
+  - "canonical task spec"
+  - "closeout conflict-reduction workflow design"
+  - "recommended batching or serialization policy for tasks/ACTIVE.md sync"
+  - "maintainer-facing migration note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    This proposal should become one focused maintainer-workflow task that
+    refines the post-merge closeout path without reopening the broader TASK-0044
+    source-of-truth decision.

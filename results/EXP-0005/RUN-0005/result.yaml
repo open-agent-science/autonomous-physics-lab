@@ -1,0 +1,93 @@
+result_id: RESULT-0006
+run_id: RUN-0005
+experiment_id: EXP-0005
+title: Historical Tau Holdout Prediction
+hypothesis_id: HYP-0005
+task_id: TASK-0038
+generated_at: '2026-05-03T17:18:14.035364+00:00'
+engine_version: 0.1.0
+git_commit: 86e07e349fcf26f241508427e20104ca89fae5a2
+command: physics-lab run examples/koide_tau_holdout.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0005/RUN-0005/inputs/config.yaml
+    sha256: 01a9dbe14e02c488f37ed8f30ea7e49fedef4e0812431d98909222bf281e82ec
+  experiment:
+    path: results/EXP-0005/RUN-0005/inputs/experiment.yaml
+    sha256: 871d73e67e640e5e47ebae7a68d4f06e4e8481bfbdb3a568077086ec7ad9a195
+  hypothesis:
+    path: results/EXP-0005/RUN-0005/inputs/hypothesis.yaml
+    sha256: e5b43230d745b8f09e320670b02696593da7bb77352e1f5e21e2b2482e1f4ac9
+  task:
+    path: results/EXP-0005/RUN-0005/inputs/task.yaml
+    sha256: c710817477a2ec484f52e1d033907d38a085a2b2d262030279ac0131efcce2c8
+code_reference: physics_lab/workflows/particle_mass.py
+limitations:
+- Charged-lepton holdout scope only; no cross-family generalization is implied.
+- This benchmark tests the historical tau prediction under the exact Koide assumption
+  and does not explain the origin of particle masses.
+- Prediction uncertainty uses first-order propagation from electron and muon one-sigma
+  input uncertainties.
+best_verdict: VALID
+verification:
+  passed: true
+  checks:
+  - name: charged_lepton_holdout_inputs_complete
+    status: PASS
+    details: Electron and muon inputs plus measured tau comparison entry are present
+      with explicit source metadata.
+    metrics:
+      input_count: 2
+      holdout_particle: tau
+  - name: tau_holdout_applied
+    status: PASS
+    details: Tau mass was treated as a holdout comparison target rather than an input
+      to the exact Koide prediction.
+    metrics:
+      input_particles: electron,muon
+      holdout_particle: tau
+  - name: koide_prediction_branch_selected
+    status: PASS
+    details: Selected the large-mass Koide solution branch consistent with charged-lepton
+      mass ordering.
+    metrics:
+      predicted_tau_mass_mev: 1776.9690270830142
+      alternative_tau_mass_mev: 3.317356546468011
+  - name: prediction_uncertainty_propagated
+    status: PASS
+    details: Propagated electron and muon one-sigma uncertainties into the holdout
+      tau prediction and compared against measured tau uncertainty.
+    metrics:
+      predicted_uncertainty_mev: 3.5293821004320466e-05
+      combined_uncertainty_mev: 0.09000000692029862
+      within_combined_uncertainty: true
+      z_score: 0.4336342223698153
+      measured_tau_mass_mev: 1776.93
+artifacts:
+  report: results/EXP-0005/RUN-0005/report.md
+  metrics: results/EXP-0005/RUN-0005/metrics.json
+  claim_update: results/EXP-0005/RUN-0005/claim_update.md
+  claim_update_patch: results/EXP-0005/RUN-0005/claim_update.patch.md
+  knowledge_update: results/EXP-0005/RUN-0005/knowledge_update.md
+  knowledge_update_patch: results/EXP-0005/RUN-0005/knowledge_update.patch.md
+  review_summary: results/EXP-0005/RUN-0005/review_summary.md
+  review_metadata: results/EXP-0005/RUN-0005/review_metadata.yaml
+comparison_summary:
+- target_id: target_tau_mass
+  label: Measured tau mass
+  reference_value: 1776.93
+  observed_value: 1776.9690270830142
+  unit: MeV
+  absolute_difference: 0.03902708301416169
+  relative_difference: 2.1963207900233375e-05
+  notes: Comparison between the exact-Koide tau holdout prediction and the measured
+    tau mass.
+uncertainty_summary:
+  method: first_order_uncertainty_propagation
+  observed_uncertainty: 3.5293821004320466e-05
+  reference_uncertainty: 0.09
+  combined_uncertainty: 0.09000000692029862
+  z_score: 0.4336342223698153
+  within_combined_uncertainty: true
+  notes: Combined uncertainty includes propagated input uncertainty for the predicted
+    tau mass and the measured tau comparison uncertainty.

@@ -39,30 +39,40 @@ Use this protocol together with:
 
 Use this mode for an open pull request before merge.
 
+This mode supports:
+
+- canonical task PRs
+- task proposal PRs
+
 ### Inputs
 
 - PR link, PR description, or review bundle
-- task id
+- task id or `TASK-PROPOSAL`
 - branch name
-- task file path
+- task file path or proposal file path
 
 ### Required checks
 
-1. Branch name follows:
+1. Branch name follows either:
    `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
-2. PR title follows:
+   or
+   `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
+2. PR title follows either:
    `TASK-XXXX: ...`
+   or
+   `TASK-PROPOSAL: ...`
 3. PR metadata is filled in using the repository template.
-4. The referenced task file exists.
-5. The task status is `REVIEW_READY`.
-6. The changed files match the task scope and accepted outputs.
+4. The referenced canonical task file or task proposal file exists.
+5. Canonical task PRs keep task status at `REVIEW_READY`; task proposal PRs keep proposal status at `PROPOSED`.
+6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
 8. Accepted outputs are present or clearly explained when partial.
 9. No claim is promoted without explicit maintainer review.
 10. No result artifacts are changed unless the task explicitly requires it.
 11. No overclaim language is introduced.
-12. The review bundle was generated from the PR branch, not from `main`.
-13. No obvious repository-safety or security risk is introduced without
+12. Task proposal PRs do not guess canonical `TASK-XXXX` ids or edit canonical task files.
+13. The review bundle was generated from the PR branch, not from `main`.
+14. No obvious repository-safety or security risk is introduced without
     explicit maintainer awareness.
 
 ### Verdicts
@@ -114,8 +124,8 @@ Use this mode only after the maintainer has already merged the PR.
 ### Allowed actions
 
 - set task status to `DONE`
-- move the task from `REVIEW_READY` to `DONE RECENTLY` in
-  [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+- run `python3 -m physics_lab.cli sync-active-board .` so
+  [../tasks/ACTIVE.md](../tasks/ACTIVE.md) reflects current task statuses
 - add a short closeout note when helpful
 - add an entry to [./multi-agent-dry-run.md](./multi-agent-dry-run.md) when the
   merged PR is part of a dry run or contributor pilot
@@ -175,10 +185,21 @@ Include risk, security risks, blockers, and required fixes for the developer.
 Do not edit files.
 ```
 
+### Pre-merge review for a task proposal
+
+```text
+Review PR #18 according to docs/maintainer-review-agent.md.
+Task: TASK-PROPOSAL.
+Check branch, proposal file, PR title, proposal scope, review bundle, and overclaim risk.
+Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
+Do not create a canonical TASK id unless I explicitly ask.
+Do not edit files.
+```
+
 ### Post-merge closeout
 
 ```text
 Run task closeout for TASK-0034 according to docs/maintainer-review-agent.md.
 Check that the PR is merged and accepted outputs exist in main.
-If valid, update task status to DONE and update tasks/ACTIVE.md.
+If valid, update task status to DONE and run `python3 -m physics_lab.cli sync-active-board .`.
 ```
