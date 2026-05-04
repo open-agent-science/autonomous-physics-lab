@@ -31,9 +31,23 @@ The intended maintainer workflow is prompt-first:
 Use this protocol together with:
 
 - [./agent-task-protocol.md](./agent-task-protocol.md)
+- [./maintainer-automation-architecture.md](./maintainer-automation-architecture.md)
 - [./claim-promotion-policy.md](./claim-promotion-policy.md)
 - [./review-checklists/maintainer-pr-review-checklist.md](./review-checklists/maintainer-pr-review-checklist.md)
 - [./review-checklists/task-closeout-checklist.md](./review-checklists/task-closeout-checklist.md)
+
+If this agent is executed by a periodic or reusable automation rather than by
+an ad hoc prompt, also use:
+
+- [./automation/maintainer-routine-mode.md](./automation/maintainer-routine-mode.md)
+- [./automation/maintainer-manual-mode.md](./automation/maintainer-manual-mode.md)
+- [./automation/maintainer-action-mode.md](./automation/maintainer-action-mode.md) when the automation is allowed to perform a bounded maintainer action
+
+The recommended first bounded action is:
+
+- open a closeout PR for verified merged tasks;
+- run this review agent on that closeout PR;
+- stop and wait for maintainer merge.
 
 ## Mode 1: Pre-Merge Review
 
@@ -159,6 +173,25 @@ python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer
 python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18
 python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply
 ```
+
+### Closeout sweep helper
+
+Use this helper to find tasks that are still `REVIEW_READY` but already have a
+merged canonical task PR in local `main` history.
+
+It performs a minimal closeout-protocol gate before calling something a
+closeout candidate. It does not just trust that a PR was merged.
+
+```bash
+python3 scripts/apl_closeout_sweep.py
+```
+
+Expected behavior:
+
+- on a non-`main` or dirty branch, candidates will usually stay blocked with a
+  clear reason;
+- on a clean `main` checkout, verified tasks can become ready closeout
+  candidates for the next action step.
 
 For a quick local closeout snapshot, run:
 
