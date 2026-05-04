@@ -1,0 +1,45 @@
+id: CV-0001
+constant_symbol: alpha
+constant_name: "Fine-structure constant"
+domain: fundamental_constants
+
+source:
+  edition: "CODATA 2018 (via scipy.constants)"
+  reference_value: "7.2973525693e-3"
+  uncertainty: "1.1e-12 (relative)"
+  units: "dimensionless"
+
+derivation:
+  symbolic_form: "alpha = e^2 / (4 * pi * epsilon_0 * hbar * c)"
+  assumptions:
+    - "SI units throughout."
+    - "CODATA 2018 values for input constants e, epsilon_0, hbar, c (via scipy.constants)."
+    - "No QED corrections beyond the definition are applied."
+    - "Computation uses double-precision IEEE 754 floating-point arithmetic."
+  input_constants:
+    - "e (elementary charge)"
+    - "epsilon_0 (vacuum permittivity)"
+    - "hbar (reduced Planck constant)"
+    - "c (speed of light in vacuum)"
+
+check:
+  code_reference: "physics_lab/engines/constants_verifier.py:fine_structure_constant"
+  computed_value: "7.297352564333013e-3"
+  relative_error: "4.524e-12"
+  tolerance: "1e-9"
+
+verdict: VERIFIED
+
+claim_ceiling: >
+  The formula alpha = e^2 / (4*pi*epsilon_0*hbar*c) reproduces
+  scipy.constants.alpha (CODATA 2018) to within 1e-9 relative error
+  using scipy.constants input values. No claim about the physical origin
+  or theoretical significance of the value.
+
+notes: >
+  Worked example for the constants-verification micro-task track (TASK-0049).
+  This is definitionally consistent — scipy.constants computes alpha from
+  the same base constants — but the verification exercise confirms
+  software-level numerical consistency and establishes the result-artifact
+  format for future micro-tasks. Re-verify whenever scipy.constants is
+  updated or when CODATA publishes a new edition.
