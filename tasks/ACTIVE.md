@@ -38,8 +38,6 @@ the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-prop
 
 ## READY
 
-- `TASK-0024` — Create task index table (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0025` — Create result artifacts index (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0026` — Add 10 more dimensional-analysis challenge items (`physics_dataset_extension`, priority `high`, difficulty `low`)
 - `TASK-0028` — Plan light-clock thought experiment consistency check (`thought_experiment_planning`, priority `high`, difficulty `low`)
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
@@ -62,7 +60,10 @@ None.
 - `TASK-0017` — Create a dimensional analysis challenge set (`benchmark_planning`, priority `high`, difficulty `medium`)
 - `TASK-0020` — Add pytest-timeout and validation safeguards against hanging tests (`repository_validation`, priority `medium`, difficulty `low`)
 - `TASK-0021` — Add AI agent attribution policy (`agent_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0024` — Create task index table (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0025` — Create result artifacts index (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0029` — Audit project language for overclaim risk (`scientific_safety_review`, priority `high`, difficulty `low`)
+- `TASK-0073` — Define maintainer automation agent architecture and routine instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
