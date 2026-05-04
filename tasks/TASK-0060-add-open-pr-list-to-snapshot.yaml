@@ -1,7 +1,7 @@
 id: TASK-0060
 title: "Add open pull request list to repository snapshot"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
