@@ -1,7 +1,7 @@
 id: TASK-0064
 title: "Implement dimensional analysis validator MVP"
 type: physics_validation_engine
-status: REVIEW_READY
+status: READY
 difficulty: medium
 priority: high
 
