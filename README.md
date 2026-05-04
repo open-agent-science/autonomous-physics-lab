@@ -54,6 +54,33 @@ no global validity claim are made.
 See [docs/results/pendulum-gauntlet-100-summary.md](docs/results/pendulum-gauntlet-100-summary.md)
 for the full package and limitations.
 
+## Start Here
+
+If you are new to the repository, use this order:
+
+1. [docs/mission-control.md](docs/mission-control.md)
+2. [docs/campaigns/README.md](docs/campaigns/README.md)
+3. [docs/status.md](docs/status.md)
+4. [tasks/ACTIVE.md](tasks/ACTIVE.md)
+5. [docs/agent-task-protocol.md](docs/agent-task-protocol.md)
+
+This gives you the shortest path from "what is APL?" to "which campaign
+already has evidence?" to "which task can I pick up safely?"
+
+## Active Scientific Campaigns
+
+APL currently organizes contributor-facing scientific work around four campaign
+surfaces:
+
+1. [Pendulum Formula Falsification](docs/campaigns/pendulum-formula-falsification.md)
+2. [Particle Mass Relations](docs/campaigns/particle-mass-relations.md)
+3. [Dimensional Analysis Validator](docs/campaigns/dimensional-analysis-validator.md)
+4. [Thought-Experiment Consistency](docs/campaigns/thought-experiment-consistency.md)
+
+The pendulum and particle-mass tracks already have scoped canonical results.
+The dimensional-analysis and thought-experiment tracks are still planning-first
+and should not be described as finished benchmark implementations.
+
 ## Contribute with an AI coding agent
 
 Put your coding agent to work on reproducible physics tasks.
@@ -129,6 +156,8 @@ See [docs/architecture.md](docs/architecture.md),
 
 Use these files to continue the project without guessing:
 
+- [docs/mission-control.md](docs/mission-control.md) for the fastest project-level orientation
+- [docs/campaigns/README.md](docs/campaigns/README.md) for the scientific campaign map
 - [docs/strategy.md](docs/strategy.md) for the current strategic compass
 - [tasks/ACTIVE.md](tasks/ACTIVE.md) for the shared live task board
 - [docs/agent-operating-model.md](docs/agent-operating-model.md) for multi-agent handoff and task execution

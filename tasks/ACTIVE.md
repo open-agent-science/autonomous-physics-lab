@@ -22,6 +22,11 @@ canonical execution protocol. Use
 [../docs/agent-operating-model.md](../docs/agent-operating-model.md) for
 supporting workflow context and handoff norms.
 
+Repository-level orientation now starts with
+[../docs/mission-control.md](../docs/mission-control.md) and
+[../docs/campaigns/README.md](../docs/campaigns/README.md) before drilling
+into task-level work.
+
 For new task ideas without a maintainer-assigned canonical `TASK-XXXX` id, use
 the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-proposal-protocol.md).
 
@@ -62,6 +67,7 @@ None.
 - `TASK-0056` — Accept selected science-track proposals into canonical tasks (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0060` — Add open pull request list to repository snapshot (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0061` — Create Mission Control and campaign map (`documentation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -120,6 +126,10 @@ Prefer independent `READY` tasks with:
 - no canonical result-artifact churn;
 - no shared branch or board-maintenance coupling;
 - validation that does not require regenerating benchmark outputs.
+
+If a contributor first needs scientific context rather than a task, start with
+[../docs/campaigns/README.md](../docs/campaigns/README.md) and then return to
+the `READY` section.
 
 If multiple `READY` tasks fit, pick the smallest one that does not touch the
 same artifact surface as another open PR.
