@@ -34,25 +34,30 @@ It should:
 
 ## Current Benchmarks
 
-The repository currently stabilizes two verification-first benchmark slices:
+The repository currently has four canonical experiment slices across two active
+scientific tracks:
 
 1. `EXP-0001` — `Pendulum Formula Discovery`
 2. `EXP-0002` — `Damped Oscillator Regime Verification`
+3. `EXP-0004` — `Charged-Lepton Koide Reproduction`
+4. `EXP-0005` — `Historical Tau Holdout Prediction`
 
-Both benchmarks produce run-based artifacts under `results/<experiment>/<run>/`
-and are validated through the repository registry and CLI tooling.
+Both tracks are verification-first and store run-based artifacts under
+`results/<experiment>/<run>/`.
 
-## Current measurable result
+## Current Major Results
 
-APL evaluated 100 deterministic candidate formulas for the ideal pendulum
-period ratio in `EXP-0001/RUN-0003`. The top leaderboard candidate
-`model_t4_x1` reached approximately `3.1e-4` mean relative residual on the
-configured test range. A dedicated precision audit classified that error as
-model residual, not numerical reference noise. No symbolic exactness claim and
-no global validity claim are made.
+- [Pendulum Gauntlet 100](docs/results/pendulum-gauntlet-100-summary.md):
+  100 deterministic candidate formulas tested against the exact pendulum
+  reference with explicit leaderboard, diagnostics, and limitation wording.
+- [Koide tau holdout](docs/results/koide-tau-holdout.md): a narrow historical
+  holdout benchmark that predicts tau from electron and muon inputs under the
+  exact Koide assumption, compared against measured tau with uncertainty-aware
+  wording.
 
-See [docs/results/pendulum-gauntlet-100-summary.md](docs/results/pendulum-gauntlet-100-summary.md)
-for the full package and limitations.
+These are scoped benchmark results with explicit limits, not discovery-level
+physical conclusions, complete particle-mass explanations, or exact symbolic
+proof.
 
 ## Start Here
 
@@ -140,15 +145,11 @@ autonomous-physics-lab/
 
 ## Status
 
-The repository currently has two working benchmark slices:
+The repository is currently in:
 
-- architecture and documentation are in place;
-- the public knowledge layout is defined;
-- the pendulum formula discovery workflow works end-to-end;
-- the damped-oscillator regime verification workflow works end-to-end;
-- structured artifact validation and repo-wide checks are implemented.
+`v0.1-private-alpha — scientific campaign and contributor workflow validation`
 
-See [docs/architecture.md](docs/architecture.md),
+See [docs/status.md](docs/status.md),
 [docs/roadmap.md](docs/roadmap.md), and
 [docs/implementation-plan.md](docs/implementation-plan.md).
 
