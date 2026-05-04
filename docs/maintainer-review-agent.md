@@ -31,9 +31,23 @@ The intended maintainer workflow is prompt-first:
 Use this protocol together with:
 
 - [./agent-task-protocol.md](./agent-task-protocol.md)
+- [./maintainer-automation-architecture.md](./maintainer-automation-architecture.md)
 - [./claim-promotion-policy.md](./claim-promotion-policy.md)
 - [./review-checklists/maintainer-pr-review-checklist.md](./review-checklists/maintainer-pr-review-checklist.md)
 - [./review-checklists/task-closeout-checklist.md](./review-checklists/task-closeout-checklist.md)
+
+If this agent is executed by a periodic or reusable automation rather than by
+an ad hoc prompt, also use:
+
+- [./automation/maintainer-routine-mode.md](./automation/maintainer-routine-mode.md)
+- [./automation/maintainer-manual-mode.md](./automation/maintainer-manual-mode.md)
+- [./automation/maintainer-action-mode.md](./automation/maintainer-action-mode.md) when the automation is allowed to perform a bounded maintainer action
+
+The recommended first bounded action is:
+
+- open a closeout PR for verified merged tasks;
+- run this review agent on that closeout PR;
+- stop and wait for maintainer merge.
 
 ## Mode 1: Pre-Merge Review
 
