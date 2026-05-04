@@ -1,0 +1,63 @@
+id: TASK-0073
+title: "Define maintainer automation agent architecture and routine instructions"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce maintainer routine load around PR triage, proposal acceptance, and task closeout without delegating merge authority."
+  - "Create a reusable automation architecture that supports periodic sweeps, on-demand review requests, and policy-limited action runs."
+  - "Keep repository governance verification-first and human-approved even when routine instructions are executed automatically."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "docs/agent-operating-model.md"
+    - "tasks/ACTIVE.md"
+    - "docs/review-checklists/maintainer-pr-review-checklist.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+  planning_context: >
+    The maintainer wants a file-backed automation architecture for recurring
+    review and closeout routines. The repository needs a documented agent
+    catalog, boundaries, and three prompt-style instruction modes: periodic
+    routine sweeps, manual targeted runs, and policy-limited action runs.
+
+requirements:
+  - "Create a maintainer automation architecture document describing agent roles, boundaries, and execution model."
+  - "Document the current review-and-closeout agent as one automation surface, not the only future agent."
+  - "Define three modes: periodic routine mode, manual targeted mode, and policy-limited action mode."
+  - "Provide file-backed instructions that future automations can execute without inventing repository policy."
+  - "Keep human approval boundaries explicit for merge, claim promotion, and repository publicity."
+  - "Define a bounded action layer whose first enabled action is preparing a closeout PR for verified merged tasks and then running the review agent on that PR."
+  - "Provide at least one deterministic helper for closeout-sweep candidate discovery so the routine can verify tasks before acting."
+  - "Do not introduce automatic merge, automatic claim promotion, or automatic repository-publication behavior."
+  - "Update maintainer review documentation to point to the new automation docs."
+  - "Update tasks/ACTIVE.md through the canonical sync flow."
+
+accepted_outputs:
+  - "docs/maintainer-automation-architecture.md"
+  - "docs/automation/maintainer-routine-mode.md"
+  - "docs/automation/maintainer-manual-mode.md"
+  - "docs/automation/maintainer-action-mode.md"
+  - "physics_lab/registry/closeout_sweep.py"
+  - "scripts/apl_closeout_sweep.py"
+  - "tests/test_closeout_sweep.py"
+  - "updated docs/maintainer-review-agent.md"
+  - "tasks/TASK-0073-maintainer-automation-agent-architecture.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
