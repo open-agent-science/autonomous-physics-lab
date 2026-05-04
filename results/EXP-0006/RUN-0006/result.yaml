@@ -1,4 +1,4 @@
-generated_at: '2026-05-04T19:38:12.932640+00:00'
+generated_at: '2026-05-04T19:51:53.951740+00:00'
 result_id: RESULT-0007
 run_id: RUN-0006
 experiment_id: EXP-0006
@@ -6,12 +6,12 @@ title: Dimensional Analysis Validator MVP Benchmark
 hypothesis_id: HYP-0006
 task_id: TASK-0064
 engine_version: 0.1.0
-git_commit: 6cce543f57d12ad664dc365a9d296a0e652f115d
+git_commit: 1034912dee10dfbffda3a3b429690902d8e8a7b5
 command: physics-lab run dimensional_analysis.yaml
 input_file_hashes:
   config:
     path: results/EXP-0006/RUN-0006/inputs/config.yaml
-    sha256: 425c8f943562b4437aa09d12316977697d9c5b136fb7b5bab99275527d0fbd49
+    sha256: 60cea66310a25d5d27ba2a384452316fa6f75db24204e25e444e619e7cc9bbd0
   experiment:
     path: results/EXP-0006/RUN-0006/inputs/experiment.yaml
     sha256: b28cbd5b523740aa5dcf58946da5ec73296a58b677b8f62d79f72f54d6de412f
@@ -20,7 +20,7 @@ input_file_hashes:
     sha256: 9b2d287dee14bd8ada684f668ecaf92eb4471981a14b853239824c362ada1375
   task:
     path: results/EXP-0006/RUN-0006/inputs/task.yaml
-    sha256: 69ec96ffca6ce8141534642b8c981cef92c2520acb49dc9546ebba243821390a
+    sha256: 640812db9b708507ed4714bd6da778a81b250812f73cc8bdac925ad2923f7d6f
 code_reference: physics_lab/workflows/dimensional_validator.py
 limitations:
 - 'MVP scope: dimensional check only; cannot detect known-limit violations.'
@@ -38,13 +38,14 @@ comparison_summary:
   relative_difference: 0.088889
   notes: Validator agreed with 49/50 curated labels; threshold 90%.
 uncertainty_summary:
-  method: exact count (no uncertainty propagation needed)
-  observed_uncertainty: null
-  reference_uncertainty: null
-  combined_uncertainty: null
+  method: binomial standard error sqrt(p(1-p)/n) on agreement fraction
+  observed_uncertainty: 0.019799
+  reference_uncertainty: 0.0
+  combined_uncertainty: 0.019799
   z_score: null
-  within_combined_uncertainty: null
-  notes: Agreement fraction is an exact integer ratio; no uncertainty propagation.
+  within_combined_uncertainty: false
+  notes: Binomial standard error on the agreement fraction. Reference uncertainty
+    is 0 because the threshold is a fixed target.
 verification:
   passed: true
   checks:
