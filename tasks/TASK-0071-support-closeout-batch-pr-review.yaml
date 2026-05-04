@@ -1,0 +1,54 @@
+id: TASK-0071
+title: "Support closeout batch PRs in review helper"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review automation aligned with the repo's actual closeout workflow."
+  - "Prevent false blockers on legitimate batch closeout PRs so completed tasks can be closed promptly."
+  - "Improve maintainer confidence in structured review output without weakening normal task checks."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+    - "tasks/ACTIVE.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    The maintainer review helper currently treats TASK-CLOSEOUT batch PRs like
+    ordinary task execution PRs, which causes false BLOCKED verdicts even when
+    the closeout diff and CI status are correct. This task updates the helper
+    to recognize legitimate closeout batch reviews and adds regression
+    coverage.
+
+requirements:
+  - "Teach the maintainer review helper to recognize canonical closeout batch branches and PR titles."
+  - "Allow a closeout batch PR with green GitHub checks to pass review even when the reviewer is not checked out on that PR branch."
+  - "Do not weaken review checks for normal task PRs or task-proposal PRs."
+  - "Add regression tests for closeout batch review behavior."
+  - "Create tasks/TASK-0071-support-closeout-batch-pr-review.yaml."
+  - "Update tasks/ACTIVE.md through the canonical sync flow."
+
+accepted_outputs:
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "regression tests for closeout batch PR review"
+  - "tasks/TASK-0071-support-closeout-batch-pr-review.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
