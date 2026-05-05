@@ -1,0 +1,36 @@
+id: HRE-0002
+title: "Leading-order period correction for weakly anharmonic oscillator"
+domain: classical_mechanics
+status: PROPOSED
+
+mathematical_form: >
+  T(A) ≈ T0 * (1 + (3*lambda / (4*k^2)) * A^2)
+  where V(x) = (1/2)*k*x^2 + (1/4)*lambda*x^4,
+  T0 = 2*pi*sqrt(m/k), and A is the amplitude.
+
+assumptions:
+  - "Perturbative regime: lambda*A^2 / k << 1."
+  - "No damping or driving force."
+  - "Single degree of freedom, one-dimensional motion."
+  - "Formula is first-order in the anharmonic parameter lambda/k."
+
+falsification_test: >
+  Numerically integrate the equation of motion m*x'' + k*x + lambda*x^3 = 0
+  for a range of amplitudes A and anharmonicity ratios lambda/k in [0.01, 0.3].
+  Compare the simulated period to T(A) above.
+  If the relative error exceeds 1% for lambda*A^2/k < 0.1, the formula
+  is falsified within that perturbative range.
+
+claim_ceiling: >
+  If verified: the leading-order correction T(A)/T0 = 1 + (3*lambda/4*k^2)*A^2
+  approximates the anharmonic oscillator period to within 1% for
+  lambda*A^2/k < 0.1. No claim about large amplitudes or higher-order terms.
+
+notes: >
+  This is a classical perturbation theory result. The interest here is
+  quantifying exactly where the leading-order approximation breaks down,
+  analogous to the small-angle pendulum separatrix work (EXP-0001/RUN-0002).
+
+related_objects:
+  - "docs/notes/pendulum-separatrix-followup.md"
+  - "tasks/TASK-0050-approximation-breakdown-probes-track.yaml"
