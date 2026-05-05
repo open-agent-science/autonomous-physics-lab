@@ -59,6 +59,7 @@ Good examples:
 4. Scan for merged tasks that still are not `DONE`.
    Verify before recommending closeout:
    - merged PR exists
+   - GitHub PR metadata still binds that PR to the same canonical task id
    - accepted outputs exist in `main`
    - no unresolved blocker remains
 
@@ -134,5 +135,7 @@ Stop and ask for maintainer direction when:
 
 - a proposal has strategic value but changes roadmap direction;
 - a PR changes protected scientific artifacts outside its task contract;
+- a merged-task candidate cannot be rebound to the same `TASK-XXXX` through
+  GitHub PR metadata;
 - a closeout candidate looks merged but accepted outputs are ambiguous;
 - multiple open PRs conflict over the same task or artifact surface.

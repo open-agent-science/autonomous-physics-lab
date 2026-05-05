@@ -182,6 +182,17 @@ merged canonical task PR in local `main` history.
 It performs a minimal closeout-protocol gate before calling something a
 closeout candidate. It does not just trust that a PR was merged.
 
+The sweep may use merge history as a first-pass discovery source, but action
+mode must not trust merge commit text alone as the task-to-PR source of truth.
+Before a candidate can be treated as verified for closeout preparation, the
+automation must also confirm the binding through GitHub PR metadata, such as:
+
+- the PR title still resolves to the same `TASK-XXXX`; and/or
+- the PR head branch still resolves to the same canonical task id.
+
+If GitHub PR metadata cannot be loaded, the candidate must not advance to
+closeout preparation.
+
 ```bash
 python3 scripts/apl_closeout_sweep.py
 ```
@@ -191,7 +202,10 @@ Expected behavior:
 - on a non-`main` or dirty branch, candidates will usually stay blocked with a
   clear reason;
 - on a clean `main` checkout, verified tasks can become ready closeout
-  candidates for the next action step.
+  candidates for the next action step;
+- if GitHub PR metadata is unavailable or does not match the expected task id,
+  the candidate must stay blocked or needs-attention rather than advancing to
+  an automatic closeout PR.
 
 For a quick local closeout snapshot, run:
 
