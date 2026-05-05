@@ -49,6 +49,10 @@ one PR.
 - `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0058` — Standardize scoped verdict wording for tau holdout (`scientific_safety_review`, priority `high`, difficulty `low`)
 - `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
+- `TASK-0078` — Add Agent Work Menu for spare-token scientific work (`contributor_experience`, priority `high`, difficulty `low`)
+- `TASK-0080` — Run first dimensional-analysis scientific microtask batch (`scientific_microtask_execution`, priority `high`, difficulty `medium`)
+- `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (`workflow_pilot`, priority `medium`, difficulty `medium`)
+- `TASK-0082` — Add Koide baseline planning for guarded next-step evaluation (`benchmark_planning`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 

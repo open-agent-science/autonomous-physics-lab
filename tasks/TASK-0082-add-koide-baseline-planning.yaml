@@ -1,0 +1,53 @@
+id: TASK-0082
+title: "Add Koide baseline planning for guarded next-step evaluation"
+type: benchmark_planning
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep particle-mass work honest by requiring baseline context before stronger Koide-style follow-up claims."
+  - "Create a safer bridge from historical reproduction work toward future falsifier or search tasks."
+  - "Support the agent-ready scientific work loop with one narrow, reviewable particle-mass planning task."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0039-koide-like-triplet-search-design.yaml"
+    - "tasks/TASK-0042-particle-mass-numerology-guardrails.yaml"
+    - "tasks/TASK-0058-standardize-koide-tau-holdout-verdict-wording.yaml"
+    - "docs/notes/particle-mass-relation-track.md"
+    - "docs/notes/koide-like-triplet-search-design.md"
+    - "docs/results/koide-charged-lepton-reproduction.md"
+    - "docs/results/koide-tau-holdout.md"
+  planning_context: >
+    Before a larger Koide-style falsifier or search expansion, APL should have
+    a simple baseline design that explains what random or toy comparison would
+    make future particle-mass results more interpretable. This is a planning
+    task only, not a new engine implementation.
+
+requirements:
+  - "Define at least one random baseline or toy baseline for Koide-style relation evaluation."
+  - "State the eligible pool, comparison rule, and what the baseline is intended to calibrate."
+  - "Explain how the baseline interacts with numerology guardrails and scoped verdict wording."
+  - "Keep the task planning-only; do not implement a new falsifier engine here."
+  - "Do not promote any particle-mass claim."
+  - "Do not frame the baseline as evidence for deeper structure by itself."
+
+accepted_outputs:
+  - "docs/notes/koide-baseline-planning.md"
+  - "updated docs/notes/particle-mass-relation-track.md if needed"
+  - "baseline-design note suitable for future falsifier or search tasks"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
