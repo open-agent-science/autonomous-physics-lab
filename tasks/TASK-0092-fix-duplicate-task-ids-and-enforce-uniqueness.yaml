@@ -1,0 +1,55 @@
+id: TASK-0092
+title: "Fix duplicate canonical task ids and enforce uniqueness"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review, closeout, and automation flows reliable by enforcing one canonical TASK-XXXX id per task file."
+  - "Prevent ambiguous task resolution in ACTIVE board sync, closeout checks, and PR review tooling."
+  - "Fail fast on duplicate canonical task ids before new agent work builds on inconsistent repository state."
+
+input:
+  mode: workflow
+  related_domain: task_coordination
+  related_objects:
+    - "tasks/TASK-0087-stabilize-windows-input-hash-validation.yaml"
+    - "tasks/TASK-0093-neutrino-koide-extension.yaml"
+    - "physics_lab/registry/repository.py"
+    - "tests/test_pendulum.py"
+  planning_context: >
+    A clean repository snapshot revealed two canonical task files declaring
+    the same id TASK-0087: the merged Windows hash-validation fix and a
+    separate neutrino Koide extension task. This ambiguity can break
+    maintainer review, task closeout, board sync, and any automation that
+    resolves tasks by TASK-XXXX. One task must be renumbered and repository
+    validation must reject duplicate canonical task ids as a hard error.
+
+requirements:
+  - "Preserve the merged Windows hash-validation task as TASK-0087."
+  - "Renumber the duplicate neutrino Koide task to a free canonical id."
+  - "Make duplicate canonical task ids fail repository validation with an explicit error."
+  - "Add regression coverage for duplicate task id detection."
+  - "Update tasks/ACTIVE.md through the canonical sync flow."
+
+accepted_outputs:
+  - "updated tasks/TASK-0093-neutrino-koide-extension.yaml"
+  - "updated physics_lab/registry/repository.py"
+  - "updated tests/test_pendulum.py"
+  - "tasks/TASK-0092-fix-duplicate-task-ids-and-enforce-uniqueness.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_pendulum.py"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
