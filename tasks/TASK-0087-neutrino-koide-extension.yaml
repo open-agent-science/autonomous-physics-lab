@@ -1,0 +1,63 @@
+id: TASK-0087
+title: "Test Koide relation for neutrino masses"
+type: scientific_experiment
+status: PROPOSED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Extend the Koide track beyond charged leptons to neutrinos, the only sector where the relation is untested with current data."
+  - "Leverage APL's particle-mass falsification infrastructure on a genuine open question in particle physics."
+  - "If the relation holds, it predicts absolute neutrino masses from mass-squared differences alone — a falsifiable, publication-worthy finding."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "results/EXP-0005/RUN-0005/result.yaml"
+    - "docs/results/koide-charged-lepton-reproduction.md"
+    - "docs/results/koide-tau-holdout.md"
+    - "knowledge/particle_physics/particle_masses.md"
+  planning_context: >
+    The Koide formula Q = (me + mμ + mτ) / (√me + √mμ + √mτ)² = 2/3 holds
+    for charged leptons to 9 significant figures. It is unknown whether an
+    analogous relation holds for neutrinos. Neutrino masses are constrained
+    only by oscillation data (Δm²₂₁ and |Δm²₃₁|) plus upper bounds from
+    KATRIN (mν < 0.45 eV) and Planck CMB (Σmν < 0.12 eV). If a Koide
+    relation is imposed on the three mass eigenstates, it uniquely determines
+    all three absolute masses given the two measured differences. The
+    predicted values can then be compared against KATRIN and Planck bounds.
+    Both normal and inverted hierarchy cases must be tested.
+
+    Key data sources (PDG 2024):
+      Δm²₂₁ = (7.53 ± 0.18) × 10⁻⁵ eV²
+      Δm²₃₁ = (2.453 ± 0.033) × 10⁻³ eV² [normal hierarchy]
+      KATRIN 90% CL: mν < 0.45 eV
+      Planck 2018 95% CL: Σmν < 0.12 eV
+
+requirements:
+  - "Add neutrino mass squared differences as a dataset in knowledge/particle_physics/."
+  - "Formulate the Koide constraint as a system of equations and solve numerically for both hierarchies."
+  - "Report whether solutions exist within experimental uncertainties for NH and IH."
+  - "Compare predicted masses against KATRIN and Planck bounds."
+  - "Store result as a new EXP under particle_physics domain."
+  - "If consistent: file a DRAFT hypothesis. If ruled out: document the failure mode."
+  - "Do not promote any claim automatically."
+
+accepted_outputs:
+  - "knowledge/particle_physics/neutrino_masses.yaml"
+  - "results/EXP-XXXX/RUN-XXXX/result.yaml"
+  - "results/EXP-XXXX/RUN-XXXX/report.md"
+  - "docs/notes/koide-neutrino-extension.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/ -x -q"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

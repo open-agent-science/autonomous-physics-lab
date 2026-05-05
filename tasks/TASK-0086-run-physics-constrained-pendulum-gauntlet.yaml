@@ -1,7 +1,7 @@
 id: TASK-0086
 title: "Run physics-constrained pendulum gauntlet with fixed log coefficient"
 type: scientific_experiment
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

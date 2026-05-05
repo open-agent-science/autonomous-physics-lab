@@ -1,0 +1,59 @@
+id: TASK-0091
+title: "Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers"
+type: scientific_experiment
+status: PROPOSED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Nuclear binding energies are well-measured for >3000 nuclides; magic number deviations are systematic and unexplained by the liquid-drop model."
+  - "APL's formula discovery framework applies directly: fit residuals of the BW formula as a function of N, Z."
+  - "A simple analytic correction that captures shell closures would be scientifically useful for nuclear astrophysics."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects: []
+  planning_context: >
+    The semi-empirical Bethe-Weizsäcker (BW) mass formula:
+      B(Z,N) = aV·A - aS·A^(2/3) - aC·Z(Z-1)/A^(1/3) - aA·(N-Z)²/A + δ(A,Z)
+    reproduces nuclear binding energies to ~1 MeV but has systematic
+    deviations of 2-5 MeV at magic numbers N,Z ∈ {2,8,20,28,50,82,126}.
+
+    The AME2020 atomic mass evaluation provides binding energies for
+    ~3500 nuclides with uncertainties < 10 keV for stable nuclei.
+
+    Candidate correction families:
+    - Gaussian bumps at magic numbers: δshell = Σᵢ aᵢ·exp(-((N-Nᵢ)/σ)²)
+    - Polynomial in (N mod period) near magic numbers
+    - Shell-model inspired: terms in (N-Nclose)/(Nfull-Nclose)
+
+    The task is to download/load the AME2020 dataset, compute BW residuals,
+    and apply APL's gauntlet-style search over shell-correction formula
+    families to find the best analytic approximation.
+
+requirements:
+  - "Create knowledge/nuclear_physics/ directory and AME2020 dataset loader."
+  - "Implement Bethe-Weizsäcker formula and compute residuals on experimental data."
+  - "Define a formula family set for shell correction (at least 20 candidates)."
+  - "Fit candidates by least squares on training nuclides; test on holdout nuclides."
+  - "Report best candidate, RMS error improvement vs. bare BW formula."
+  - "Store result as EXP under nuclear_physics domain."
+
+accepted_outputs:
+  - "knowledge/nuclear_physics/binding_energies.yaml (or loader script)"
+  - "physics_lab/engines/nuclear_formula.py"
+  - "results/EXP-XXXX/RUN-XXXX/result.yaml"
+  - "results/EXP-XXXX/RUN-XXXX/report.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/ -x -q"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
