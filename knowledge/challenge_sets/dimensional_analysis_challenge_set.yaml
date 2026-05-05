@@ -3,7 +3,7 @@ id: DA-CHALLENGE-001
 title: "Dimensional Analysis Challenge Set"
 task_id: TASK-0017
 domain: physics_validation
-total_items: 60
+total_items: 63
 status: draft
 description: >
   A curated set of 50 physics formulas for testing dimensional analysis
@@ -847,6 +847,37 @@ items:
     difficulty: medium
     reason: "kg m s^-3 K^-1 * m^2 * K m^-1 = kg m^2 s^-3 = W."
 
+  - id: DA-016
+    name: "Mean thermal speed"
+    domain: statistical_physics
+    formula: "v_th = sqrt(3 * k_B * T / m)"
+    variables:
+      v_th: "m s^-1"
+      k_B: "kg m^2 s^-2 K^-1"
+      T: "K"
+      m: "kg"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "sqrt(3 k_B T / m) = sqrt(J kg^-1) = sqrt(m^2 s^-2) = m s^-1; factor 3 is dimensionless."
+
+  - id: DA-018
+    name: "Doppler frequency shift"
+    domain: waves
+    formula: "f_obs = f_src * (v_s + v_obs) / (v_s + v_src)"
+    variables:
+      f_obs: "s^-1"
+      f_src: "s^-1"
+      v_s: "m s^-1"
+      v_obs: "m s^-1"
+      v_src: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "(v_s + v_obs) / (v_s + v_src) is dimensionless; f_obs = f_src [s^-1]. LHS and RHS are both Hz."
+
   # -- Category 2 extension: Invalid unit formulas -----------------------------
 
   - id: DA-116
@@ -888,6 +919,20 @@ items:
     check_type: dimensional
     difficulty: medium
     reason: "V^2 = kg^2 m^4 s^-6 A^-2 != J; missing C (F = kg^-1 m^-2 s^4 A^2)."
+
+  - id: DA-119
+    name: "Entropy with wrong temperature exponent"
+    domain: thermodynamics
+    formula: "S = Q / T**2"
+    variables:
+      S: "kg m^2 s^-2 K^-1"
+      Q: "kg m^2 s^-2"
+      T: "K"
+    expected_verdict: INVALID
+    failure_mode: "wrong_exponent"
+    check_type: dimensional
+    difficulty: easy
+    reason: "Q/T^2 = J K^-2 = kg m^2 s^-2 K^-2 != J K^-1 (entropy); exponent on T should be 1, not 2."
 
   # -- Category 3 extension: Missing constants ---------------------------------
 
