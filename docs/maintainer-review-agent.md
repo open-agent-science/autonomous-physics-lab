@@ -56,7 +56,9 @@ Maintainer review should not use the same heavy cycle for every PR shape.
 Choose one of two lanes before running the review:
 
 - `fast review`
-  for low-risk docs, planning, task-admin, proposal-only, and closeout PRs
+  for low-risk docs, planning, task-admin, proposal-only, closeout PRs, and
+  microtask PRs (`microtask(<queue-id>): ...`) that touch only challenge-set
+  entries, notes, or dataset audit outputs
 - `deep review`
   for engines, workflows, schemas, claims, results, maintainer scripts, CI,
   automation logic, and public-facing scientific wording
@@ -116,17 +118,24 @@ This mode supports:
 
 ### Required checks
 
-1. Branch name follows either:
+1. Branch name follows one of:
    `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
    or
    `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
-2. PR title follows either:
+   or
+   `agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
+2. PR title follows one of:
    `TASK-XXXX: ...`
    or
    `TASK-PROPOSAL: ...`
+   or
+   `microtask(<queue-id>): ...`
 3. PR metadata is filled in using the repository template.
-4. The referenced canonical task file or task proposal file exists.
+4. Canonical and proposal PRs: the referenced task or proposal file exists.
+   Microtask PRs: no canonical task file required; queue id must match a file
+   in `tasks/microtasks/`.
 5. Canonical task PRs keep task status at `REVIEW_READY`; task proposal PRs keep proposal status at `PROPOSED`.
+   Microtask PRs have no task-status requirement.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
 8. Accepted outputs are present or clearly explained when partial.
