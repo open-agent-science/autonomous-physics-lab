@@ -46,8 +46,6 @@ one PR.
 
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0049` — Define and launch physical constants verification micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
-- `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
 - `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0058` — Standardize scoped verdict wording for tau holdout (`scientific_safety_review`, priority `high`, difficulty `low`)
 - `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
@@ -58,26 +56,27 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0026` — Add 10 more dimensional-analysis challenge items (`physics_dataset_extension`, priority `high`, difficulty `low`)
-- `TASK-0028` — Plan light-clock thought experiment consistency check (`thought_experiment_planning`, priority `high`, difficulty `low`)
-- `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (`benchmark_planning`, priority `medium`, difficulty `low`)
-- `TASK-0064` — Implement dimensional analysis validator MVP (`physics_validation_engine`, priority `high`, difficulty `medium`)
-- `TASK-0074` — Harden closeout protocol binding checks for automation (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0075` — Add scientific microtask queues for agent work (`agent_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0076` — Add fast and deep maintainer review lanes (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0077` — Add proposal PR format and salvage guardrails (`maintainer_workflow`, priority `high`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0077` — Add proposal PR format and salvage guardrails (merged)
+- `TASK-0076` — Add fast and deep maintainer review lanes (merged)
+- `TASK-0075` — Add scientific microtask queues for agent work (merged)
+- `TASK-0074` — Harden closeout protocol binding checks for automation (merged)
 - `TASK-0073` — Define maintainer automation agent architecture and routine instructions (merged)
 - `TASK-0071` — Support closeout batch PRs in review helper (merged)
 - `TASK-0067` — Add v0.2 release-focused campaign tasks (merged)
+- `TASK-0064` — Implement dimensional analysis validator MVP (merged)
 - `TASK-0062` — Update project status and roadmap for scientific campaign phase (merged)
 - `TASK-0061` — Create Mission Control and campaign map (merged)
 - `TASK-0060` — Add open pull request list to repository snapshot (merged)
 - `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (merged)
 - `TASK-0056` — Accept selected science-track proposals into canonical tasks (merged)
 - `TASK-0054` — Fix maintainer review helper temp claim path handling in git worktrees (merged)
+- `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (merged)
+- `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (merged)
+- `TASK-0049` — Define and launch physical constants verification micro-task track (merged)
 - `TASK-0048` — Add schema support for dataset-based particle-mass reproduction benchmarks (merged)
 - `TASK-0044` — Sync active task board from task files to reduce merge conflicts (merged)
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
@@ -93,7 +92,9 @@ None.
 - `TASK-0032` — Build public scientific result package for Pendulum Gauntlet 100 (merged)
 - `TASK-0031` — Add beginner-friendly contributor task set (merged)
 - `TASK-0029` — Audit project language for overclaim risk (merged)
+- `TASK-0028` — Plan light-clock thought experiment consistency check (merged)
 - `TASK-0027` — Create units and physical constants reference (merged)
+- `TASK-0026` — Add 10 more dimensional-analysis challenge items (merged)
 - `TASK-0025` — Create result artifacts index (merged)
 - `TASK-0024` — Create task index table (merged)
 - `TASK-0023` — Create first contributor runbook (merged)
