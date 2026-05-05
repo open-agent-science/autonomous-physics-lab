@@ -83,16 +83,46 @@ Example:
 
 A single proposal PR may include more than one `tasks/proposals/*.yaml` file.
 
-This is explicitly supported — for example, when a contributor wants to batch
-related task ideas for a single review cycle. The review agent validates each
-proposal file individually:
+This is allowed when the PR stays clearly proposal-only and the ideas are
+coherent enough to review as one batch.
 
-- each file must have `status: PROPOSED`;
-- none may invent canonical `TASK-XXXX` ids;
-- the PR must not touch `tasks/ACTIVE.md` or canonical task files.
+Use a batched proposal PR when:
 
-Bundling unrelated proposals into one PR is discouraged but not blocked.
-Maintainers may ask for splits at review time.
+- the proposals belong to the same theme, campaign, or salvage pass;
+- the maintainer asked for a batch;
+- or splitting them would add review overhead without making acceptance
+  meaningfully clearer.
+
+Split the PR instead when:
+
+- the proposals are unrelated;
+- one of them is likely to need much deeper discussion than the others;
+- or the diff is no longer obviously a lightweight proposal-only review.
+
+Every proposal file in a batched PR must still:
+
+- keep `status: PROPOSED`;
+- avoid guessing canonical `TASK-XXXX` ids;
+- avoid touching `tasks/ACTIVE.md` or canonical task files.
+
+Bundling unrelated proposals is discouraged even when technically allowed.
+
+## Salvaging Useful Ideas From Stale PRs
+
+If an older PR is stale, superseded, or poorly shaped but still contains one
+or more useful task ideas:
+
+1. Do not keep patching the old mixed-context PR.
+2. Create a fresh proposal file under `tasks/proposals/`.
+3. Start a clean branch using the canonical proposal branch format:
+   `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`.
+4. Open a clean replacement PR titled:
+   `TASK-PROPOSAL: <short title>`.
+5. Close the stale PR as `superseded` or `stale` once the replacement exists.
+
+Salvaged ideas may be grouped into one clean proposal PR when they are closely
+related and the PR remains proposal-only. If the ideas are unrelated, split
+them into separate proposal PRs.
 
 ## Proposal Validation
 

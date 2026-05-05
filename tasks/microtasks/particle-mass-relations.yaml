@@ -1,0 +1,213 @@
+queue_id: particle-mass-relations
+campaign: particle-mass-relations
+campaign_status: active_with_narrow_results
+selection_guidance:
+  - "Prefer falsification-first, source-aware, and uncertainty-aware items."
+  - "Do not turn narrow numerology observations into explanatory claims."
+microtasks:
+  - id: PMR-001
+    campaign: particle-mass-relations
+    title: Audit one particle-mass dataset entry against its stated source
+    type: dataset-audit
+    estimated_effort: 15-30 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One narrow audit note confirming mass value, mass type, units, and source wording for a single entry."
+    validation:
+      - "State the exact dataset entry audited."
+      - "Record any ambiguity as REVIEW_NEEDED."
+    risk_level: medium
+    forbidden_claims:
+      - "the relation is explained"
+      - "particle masses are fully explained"
+      - "source ambiguity is irrelevant"
+  - id: PMR-002
+    campaign: particle-mass-relations
+    title: Compute one Koide-like Q value for a specified triplet
+    type: narrow-computation
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One computation note reporting the triplet, Q value, and limitation on interpretation."
+    validation:
+      - "Name the three masses and mass definitions used."
+      - "State that numeric closeness alone is not explanatory evidence."
+    risk_level: medium
+    forbidden_claims:
+      - "deep structure established"
+      - "family-wide law confirmed"
+      - "discovery-level physical conclusion"
+  - id: PMR-003
+    campaign: particle-mass-relations
+    title: Document one mass-scheme or scale ambiguity risk
+    type: ambiguity-note
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One short note on why a chosen quark or lepton relation is sensitive to scheme, scale, or mass-type choice."
+    validation:
+      - "Name the affected particle family."
+      - "Name the specific ambiguity source."
+    risk_level: medium
+    forbidden_claims:
+      - "scheme choice does not matter"
+      - "all definitions are equivalent"
+      - "numerics alone settle the problem"
+  - id: PMR-004
+    campaign: particle-mass-relations
+    title: Compare one Koide-like triplet against one simple null baseline
+    type: baseline-comparison
+    estimated_effort: 15-30 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One comparison note showing whether the triplet looks better than a clearly named null baseline."
+    validation:
+      - "State the baseline explicitly."
+      - "Avoid broader physical interpretation."
+    risk_level: medium
+    forbidden_claims:
+      - "baseline beaten therefore theory true"
+      - "origin of masses established"
+      - "field-wide breakthrough"
+  - id: PMR-005
+    campaign: particle-mass-relations
+    title: Define one falsification condition for a candidate mass relation
+    type: falsification-condition
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One crisp note stating what observation or comparison would count against the relation."
+    validation:
+      - "The falsification condition must be operational."
+      - "The note must not present the relation as already validated."
+    risk_level: low
+    forbidden_claims:
+      - "unfalsifiable pattern"
+      - "already established law"
+      - "complete explanation"
+  - id: PMR-006
+    campaign: particle-mass-relations
+    title: Write one limitation note for tau-holdout interpretation
+    type: limitation-note
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One conservative wording note for what the tau holdout does and does not support."
+    validation:
+      - "Reference the holdout as historical and narrow."
+      - "Avoid explanatory language."
+    risk_level: low
+    forbidden_claims:
+      - "mass origin explained"
+      - "general particle law validated"
+      - "discovery-level physical result"
+  - id: PMR-007
+    campaign: particle-mass-relations
+    title: Propose one complexity-penalty example for an over-tuned relation
+    type: complexity-penalty-note
+    estimated_effort: 15-30 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One worked note describing why a specific exponents-and-constants relation should be penalized more heavily."
+    validation:
+      - "Name the tuning source."
+      - "State why the penalty is methodological rather than metaphysical."
+    risk_level: low
+    forbidden_claims:
+      - "penalty proves falsehood"
+      - "all tuned relations are useless"
+      - "complete falsification"
+  - id: PMR-008
+    campaign: particle-mass-relations
+    title: Audit one uncertainty-propagation step in a narrow mass relation computation
+    type: uncertainty-audit
+    estimated_effort: 15-30 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One narrow audit note explaining one propagated uncertainty step and its limitation."
+    validation:
+      - "State the specific quantity whose uncertainty is propagated."
+      - "Flag any approximation assumption explicitly."
+    risk_level: medium
+    forbidden_claims:
+      - "uncertainty fully resolves interpretation"
+      - "all error bars settled"
+      - "explanatory evidence established"
+  - id: PMR-009
+    campaign: particle-mass-relations
+    title: Classify one candidate relation as retrospective fit or holdout-capable
+    type: methodology-classification
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One methodology note classifying whether a relation supports only retrospective fit analysis or a real holdout test."
+    validation:
+      - "State the classification rule used."
+      - "Explain the limiting assumption."
+    risk_level: low
+    forbidden_claims:
+      - "retrospective fit equals prediction"
+      - "classification proves truth"
+      - "major physics conclusion"
+  - id: PMR-010
+    campaign: particle-mass-relations
+    title: Assemble one allowed-versus-disallowed triplet-mixing note
+    type: guardrail-note
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note clarifying a safe or unsafe triplet-mixing pattern under current numerology guardrails."
+    validation:
+      - "State the family mix being evaluated."
+      - "Tie the note back to explicit guardrail reasoning."
+    risk_level: low
+    forbidden_claims:
+      - "guardrails are optional"
+      - "mixing proves hidden theory"
+      - "complete particle-mass explanation"

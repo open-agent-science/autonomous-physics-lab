@@ -1,0 +1,112 @@
+queue_id: diffusion-scaling
+campaign: diffusion-scaling
+campaign_status: planning_only_future_campaign
+selection_guidance:
+  - "Prefer planning, falsification, units, and limitation notes."
+  - "Do not add simulation code or canonical result artifacts in routine microtask work."
+microtasks:
+  - id: DFS-001
+    campaign: diffusion-scaling
+    title: Propose one false diffusion scaling relation and how to falsify it
+    type: false-relation-proposal
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note proposing a plausible-but-wrong MSD relation and a concrete falsification test."
+    validation:
+      - "State the wrong exponent, coefficient, or offset explicitly."
+      - "State which deterministic check should reject it."
+    risk_level: low
+    forbidden_claims:
+      - "benchmark already implemented"
+      - "diffusion theory settled"
+      - "complete statistical-physics engine exists"
+  - id: DFS-002
+    campaign: diffusion-scaling
+    title: Audit units for one MSD relation variant
+    type: units-audit
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One units audit note for a candidate MSD relation."
+    validation:
+      - "Show the SI units of each term."
+      - "State the resulting verdict as units-consistent or not."
+    risk_level: low
+    forbidden_claims:
+      - "units check equals full benchmark support"
+      - "all diffusion behavior captured"
+      - "physical truth established"
+  - id: DFS-003
+    campaign: diffusion-scaling
+    title: Specify one log-log slope test case for future diffusion validation
+    type: validation-case-proposal
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One test-case note specifying a target slope alpha, parameter regime, and expected failure interpretation."
+    validation:
+      - "State the target alpha."
+      - "State the tolerance or comparison rule."
+    risk_level: low
+    forbidden_claims:
+      - "slope already validated in repo artifacts"
+      - "full stochastic benchmark complete"
+      - "discovery-level physical conclusion"
+  - id: DFS-004
+    campaign: diffusion-scaling
+    title: Define one finite-sample limitation note for future MSD estimation
+    type: limitation-note
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note on finite-N variance, short-time bias, or long-time drift for future diffusion runs."
+    validation:
+      - "Name the limitation source."
+      - "State how it constrains interpretation."
+    risk_level: low
+    forbidden_claims:
+      - "noise is negligible by default"
+      - "all stochastic uncertainty settled"
+      - "complete diffusion result"
+  - id: DFS-005
+    campaign: diffusion-scaling
+    title: Propose one out-of-scope anomalous-diffusion note or dimension-generalization note
+    type: scope-boundary-note
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One scope note explaining why anomalous diffusion or multi-dimensional extension should remain outside the first narrow batch."
+    validation:
+      - "State the excluded extension explicitly."
+      - "State why exclusion protects benchmark clarity."
+    risk_level: low
+    forbidden_claims:
+      - "out-of-scope means physically invalid"
+      - "first version covers all diffusion regimes"
+      - "full statistical-physics generality"

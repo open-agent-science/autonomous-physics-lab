@@ -1,0 +1,54 @@
+id: TASK-0076
+title: "Add fast and deep maintainer review lanes"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce maintainer latency by avoiding the same heavy review loop for every PR shape."
+  - "Keep deep review for engines, results, claims, and repository-risk surfaces while speeding up low-risk docs and planning merges."
+  - "Make maintainer automation more practical by adding an explicit fast path for safe PR categories."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "docs/automation/maintainer-routine-mode.md"
+    - "docs/automation/maintainer-manual-mode.md"
+    - "docs/maintainer-automation-architecture.md"
+  planning_context: >
+    Review work is taking longer than many small tasks themselves. The
+    repository needs a protocol-level split between a fast low-risk review
+    lane and a deeper review lane reserved for engines, claims, results,
+    security-sensitive tooling, and public scientific wording.
+
+requirements:
+  - "Document a fast maintainer review lane for low-risk docs, planning, task-admin, proposal, and closeout PRs."
+  - "Document a deep maintainer review lane for engines, workflows, schemas, claims, results, maintainer scripts, CI, and public-facing scientific wording."
+  - "Explain lane-selection rules in the maintainer review protocol."
+  - "Update routine and manual automation instructions so they choose the review lane before running a full review cycle."
+  - "Keep merge authority and scientific authority unchanged."
+  - "Update tasks/ACTIVE.md through the canonical sync flow."
+
+accepted_outputs:
+  - "updated docs/maintainer-review-agent.md"
+  - "updated docs/automation/maintainer-routine-mode.md"
+  - "updated docs/automation/maintainer-manual-mode.md"
+  - "updated docs/maintainer-automation-architecture.md"
+  - "tasks/TASK-0076-add-fast-and-deep-maintainer-review-lanes.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

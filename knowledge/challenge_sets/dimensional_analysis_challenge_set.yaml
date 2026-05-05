@@ -3,7 +3,7 @@ id: DA-CHALLENGE-001
 title: "Dimensional Analysis Challenge Set"
 task_id: TASK-0017
 domain: physics_validation
-total_items: 50
+total_items: 60
 status: draft
 description: >
   A curated set of 50 physics formulas for testing dimensional analysis
@@ -767,3 +767,157 @@ items:
     difficulty: easy
     condition: "E_kin < 0"
     reason: "p²/(2m) ≥ 0 always for real p and positive m; a negative result signals an input error."
+
+  # -- New items added by TASK-0026 -------------------------------------------
+  # Domain coverage: optics, quantum_mechanics, mechanics, thermodynamics,
+  # electromagnetism. All items follow the existing schema exactly.
+  # No new physics is claimed; all formulas are standard reference material.
+
+  # -- Category 1 extension: Valid formulas ------------------------------------
+
+  - id: DA-011
+    name: "Snell's law (index of refraction ratio)"
+    domain: optics
+    formula: "n1 * sin(theta1) = n2 * sin(theta2)"
+    variables:
+      n1: "dimensionless"
+      theta1: "dimensionless"
+      n2: "dimensionless"
+      theta2: "dimensionless"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "All factors are dimensionless; both sides are dimensionless. Standard form of Snell's law."
+
+  - id: DA-012
+    name: "de Broglie wavelength"
+    domain: quantum_mechanics
+    formula: "lambda = h / p"
+    variables:
+      lambda: "m"
+      h: "kg m^2 s^-1"
+      p: "kg m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "kg m^2 s^-1 / (kg m s^-1) = m. Correct."
+
+  - id: DA-013
+    name: "Centripetal acceleration"
+    domain: mechanics
+    formula: "a_c = v**2 / r"
+    variables:
+      a_c: "m s^-2"
+      v: "m s^-1"
+      r: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "(m s^-1)^2 / m = m s^-2. Correct."
+
+  - id: DA-014
+    name: "Capacitor stored energy"
+    domain: electromagnetism
+    formula: "U = (1/2) * C * V**2"
+    variables:
+      U: "kg m^2 s^-2"
+      C: "kg^-1 m^-2 s^4 A^2"
+      V: "kg m^2 s^-3 A^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "F V^2 = (kg^-1 m^-2 s^4 A^2)(kg m^2 s^-3 A^-1)^2 = kg m^2 s^-2 = J."
+
+  - id: DA-015
+    name: "Heat conduction (Fourier's law)"
+    domain: thermodynamics
+    formula: "Q_dot = -k * A * dT_dx"
+    variables:
+      Q_dot: "kg m^2 s^-3"
+      k: "kg m s^-3 K^-1"
+      A: "m^2"
+      dT_dx: "K m^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "kg m s^-3 K^-1 * m^2 * K m^-1 = kg m^2 s^-3 = W."
+
+  # -- Category 2 extension: Invalid unit formulas -----------------------------
+
+  - id: DA-116
+    name: "de Broglie without h"
+    domain: quantum_mechanics
+    formula: "lambda = 1 / p"
+    variables:
+      lambda: "m"
+      p: "kg m s^-1"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: easy
+    reason: "1/(kg m s^-1) = kg^-1 m^-1 s != m; missing h (kg m^2 s^-1)."
+
+  - id: DA-117
+    name: "Centripetal force without mass"
+    domain: mechanics
+    formula: "F_c = v**2 / r"
+    variables:
+      F_c: "kg m s^-2"
+      v: "m s^-1"
+      r: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: easy
+    reason: "v^2/r = m s^-2 (acceleration); missing m (kg) to give force kg m s^-2."
+
+  - id: DA-118
+    name: "Capacitor energy without C"
+    domain: electromagnetism
+    formula: "U = V**2"
+    variables:
+      U: "kg m^2 s^-2"
+      V: "kg m^2 s^-3 A^-1"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: medium
+    reason: "V^2 = kg^2 m^4 s^-6 A^-2 != J; missing C (F = kg^-1 m^-2 s^4 A^2)."
+
+  # -- Category 3 extension: Missing constants ---------------------------------
+
+  - id: DA-211
+    name: "Photon momentum without h"
+    domain: quantum_mechanics
+    formula: "p = 1 / lambda"
+    variables:
+      p: "kg m s^-1"
+      lambda: "m"
+    expected_verdict: INVALID
+    failure_mode: "missing_constant"
+    check_type: dimensional
+    difficulty: easy
+    reason: "m^-1 != kg m s^-1; missing h so p = h/lambda."
+
+  # -- Category 5 extension: Known-limit violations ----------------------------
+
+  - id: DA-406
+    name: "Refractive index below unity in Snell's law"
+    domain: optics
+    formula: "n1 * sin(theta1) = n2 * sin(theta2)"
+    variables:
+      n1: "dimensionless"
+      theta1: "dimensionless"
+      n2: "dimensionless"
+      theta2: "dimensionless"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "violates_physical_limit"
+    check_type: known_limit
+    difficulty: medium
+    condition: "n2 < 1 in a standard dielectric medium"
+    reason: "Dimensionally valid, but the refractive index of a passive dielectric is always >= 1. n < 1 requires a dispersive or active medium and signals a physical-limit violation in the standard regime."
