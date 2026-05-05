@@ -1,0 +1,43 @@
+id: TASK-0084
+title: "Add explicit no-direct-main-push guardrail to agent instructions"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Enforce the task → branch → PR → merge workflow for all changes without exception."
+  - "Prevent agents from bypassing the task protocol even for small or obvious changes."
+
+input:
+  mode: workflow
+  related_domain: agent_workflow
+  related_objects:
+    - "CLAUDE.md"
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    An agent pushed changes directly to main without creating a task file,
+    branch, or PR. This bypassed the entire task lifecycle and repository
+    workflow. The root cause was missing explicit guardrail language in the
+    agent instruction files.
+
+requirements:
+  - "Add an explicit rule to CLAUDE.md and AGENTS.md: never push directly to main."
+  - "State that ALL changes — including documentation, scripts, and minor fixes — must go through the task → branch → PR → merge flow."
+  - "The rule must be prominent enough that an agent reads it before starting any work."
+
+accepted_outputs:
+  - "updated CLAUDE.md with explicit no-direct-main-push rule"
+  - "updated AGENTS.md with explicit no-direct-main-push rule"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
