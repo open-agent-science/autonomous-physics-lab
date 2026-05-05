@@ -1,0 +1,67 @@
+proposal_id: 20260505-roman-light-clock-formalization
+title: "Formalize light-clock thought-experiment benchmark"
+status: PROPOSED
+type: thought_experiment_formalization
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+
+strategy_alignment:
+  - "Turns current light-clock planning into an implementation-ready benchmark spec without speculative claims."
+  - "Supports the thought-experiment campaign with a deterministic next step after planning."
+  - "Creates a science-contributor-friendly formalization task that is narrow, reviewable, and useful."
+
+summary: >
+  Convert the current light-clock planning note into a formal benchmark spec
+  with explicit assumptions, observables, invariants, coordinate conventions,
+  and deterministic check inventory, so a later implementation task does not
+  need to reconstruct the benchmark semantics from narrative notes.
+
+rationale: >
+  TASK-0028 now covers the planning note for the light-clock consistency
+  check. The next meaningful step is not broadening the thought-experiment
+  suite again, but formalizing one benchmark-ready slice. This idea comes from
+  the older private-alpha batch in PR #22, but it is still scientifically
+  relevant and cleaner now because there is already a concrete planning note
+  to build on.
+
+input:
+  mode: planning_only
+  related_domain: relativity
+  related_objects:
+    - "tasks/TASK-0028-light-clock-consistency-check-planning.yaml"
+    - "docs/notes/light-clock-consistency-check.md"
+    - "docs/campaigns/thought-experiment-consistency.md"
+  planning_context: >
+    The repository already has a scoped light-clock planning artifact. This
+    proposal asks for the next narrow step: formalize assumptions, variables,
+    expected invariant relationships, and deterministic comparison rules so
+    future implementation work can be benchmarked rather than improvised.
+
+requirements:
+  - "Translate the current light-clock planning note into a formal benchmark specification."
+  - "State assumptions, observables, coordinate conventions, and expected invariants explicitly."
+  - "Define what a later implementation must produce and how it would be checked."
+  - "Document limitations and non-goals clearly."
+  - "Keep the task verification-first and do not imply new physics or novelty."
+  - "Do not implement the benchmark in this task."
+
+accepted_outputs:
+  - "canonical task spec"
+  - "formal check inventory"
+  - "implementation-ready benchmark specification"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Salvaged from PR #22, but refreshed to depend on the already-merged
+    TASK-0028 planning note instead of the old private-alpha backlog shape.
