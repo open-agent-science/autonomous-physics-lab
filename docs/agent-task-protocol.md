@@ -59,6 +59,35 @@ Use [./task-proposal-protocol.md](./task-proposal-protocol.md) and
 Only the maintainer may assign canonical ids directly unless a maintainer-run
 task-admin or review agent is explicitly told to do so.
 
+## Scientific Microtask Queues
+
+Default execution still starts from canonical `TASK-XXXX` items.
+
+Exception:
+
+- when a maintainer explicitly asks for spare token or time budget work;
+- when the maintainer invokes agent scientific work mode;
+- when a narrow campaign-facing contribution is better handled as a small queue
+  item than as a brand-new canonical task.
+
+In those cases, agents may work from `tasks/microtasks/*.yaml` and the rules in
+[./scientific-micro-task-protocol.md](./scientific-micro-task-protocol.md).
+
+Microtask rules:
+
+- prefer one campaign queue at a time;
+- one PR may complete a small batch of related microtasks from the same
+  campaign;
+- do not mix many campaigns in one microtask PR unless the maintainer asks;
+- do not create many new canonical `TASK-XXXX` files just to represent tiny
+  queue items;
+- do not promote claims from microtask outputs;
+- report limitations for every completed item;
+- if uncertain, mark the output `REVIEW_NEEDED`.
+
+Use [./agent-scientific-work-mode.md](./agent-scientific-work-mode.md) for the
+practical operating pattern.
+
 ## Task Status Protocol
 
 Use these execution states:

@@ -2,145 +2,175 @@
 
 ## Purpose
 
-A scientific micro-task is an atomic, self-contained scientific contribution
-that any compatible agent can complete in approximately 5–30 minutes.
+Scientific micro-tasks are the smallest campaign-facing scientific work units
+that APL wants humans and coding agents to complete safely.
 
-Unlike canonical `TASK-XXXX` tasks (which may span hours and produce
-multiple artifacts), micro-tasks are designed to be:
+They exist to make spare token budgets and short contributor sessions useful
+without requiring a new full benchmark implementation every time.
 
-- completed in a single focused agent session;
-- independently verifiable by deterministic code;
-- additive — many micro-tasks build toward a larger benchmark or dataset;
-- overclaim-safe by design.
+A micro-task should be:
 
-This protocol defines how micro-tasks are scoped, executed, and stored as
-scientific memory.
+- small enough to complete in one focused session;
+- tied to an existing campaign or planning surface;
+- explicit about limits, assumptions, and claim ceiling;
+- safe to review in batches;
+- useful even when it produces only a note, classification, or dataset entry.
 
 ## Relationship to Canonical Tasks
 
-Micro-tasks are **not** standalone canonical `TASK-XXXX` items.
+Micro-tasks do **not** replace canonical `TASK-XXXX` governance.
 
-They are sub-atomic units. A canonical task may authorize a batch of
-micro-tasks. Multiple micro-tasks may be bundled into one canonical task PR.
+Rules:
 
-Example flow:
+- the queue files under `tasks/microtasks/` are campaign backlogs, not
+  canonical task files;
+- a maintainer may direct an agent to work from these queues when using spare
+  time or token budget;
+- one canonical task or one maintainer-approved PR may complete a small batch
+  of related micro-tasks from the same campaign;
+- agents should not create a new canonical `TASK-XXXX` for every tiny
+  scientific subproblem.
 
-1. Canonical task `TASK-XXXX: Build physical constants verification track`
-   authorizes 10 micro-tasks.
-2. An agent picks one micro-task (e.g., verify fine-structure constant α).
-3. The result is committed as a dataset entry or result artifact.
-4. The canonical task is complete when all authorized micro-tasks pass.
+Use canonical tasks for broad implementation, new benchmark machinery, schema
+changes, or anything that materially changes repository architecture.
 
-## Output Types
+## Where The Queues Live
 
-A micro-task produces exactly one primary output:
+Campaign micro-task queues live in:
 
-| Type | Description |
-|---|---|
-| `formula-check` | Verify a known formula or constant numerically or symbolically |
-| `hypothesis-entry` | Propose a new testable hypothesis in machine-readable form |
-| `dataset-entry` | Add verified items to an existing challenge dataset |
-| `approximation-probe` | Quantify where a known approximation breaks down |
-| `empirical-catalog-entry` | Document an empirical regularity with falsification status |
+- `tasks/microtasks/README.md`
+- `tasks/microtasks/pendulum-formula-falsification.yaml`
+- `tasks/microtasks/particle-mass-relations.yaml`
+- `tasks/microtasks/dimensional-analysis-validator.yaml`
+- `tasks/microtasks/thought-experiment-consistency.yaml`
+- `tasks/microtasks/diffusion-scaling.yaml`
 
-## Micro-Task Specification Template
+These files are seed queues for contributor-facing scientific work.
 
-Each micro-task is described in a lightweight YAML block (not a full
-canonical task file):
+## Required Micro-Task Format
+
+Each queue entry should include the fields below:
 
 ```yaml
-micro_task_id: "<track-slug>/<short-id>"
-track: "<track name>"
-type: "<output type from table above>"
-title: "<short title>"
-status: READY  # READY | IN_PROGRESS | REVIEW_READY | DONE
-
-input:
-  description: "<what data or formula this task works with>"
-  references:
-    - "<dataset file, knowledge doc, or external standard>"
-
-output:
-  artifact: "<file path where result will be stored>"
-  format: "<result format: yaml | md | json>"
-
-acceptance_criteria:
-  - "<deterministic check 1>"
-  - "<deterministic check 2>"
-
-claim_ceiling: "<maximum allowed claim — e.g. 'verified to 1e-6 from CODATA 2018'>"
+- id: "PFF-001"
+  campaign: "pendulum-formula-falsification"
+  title: "Propose one even pendulum candidate family in x = sin^2(theta/2)"
+  type: "formula-family-proposal"
+  estimated_effort: "15-30 minutes"
+  recommended_for:
+    - codex
+    - claude
+    - human
+  autonomy_level:
+    - agent_can_complete
+    - human_review_required
+  expected_output: "Short markdown note or PR summary with assumptions, limits, and next deterministic check."
+  validation:
+    - "State why the candidate is dimensionless."
+    - "State where the family is expected to fail or remain untested."
+  risk_level: "low"
+  forbidden_claims:
+    - "exact symbolic proof"
+    - "universal validity"
+    - "discovery-level physics conclusion"
 ```
+
+Recommended interpretation:
+
+- `agent_can_complete` means a coding agent can finish the scoped work without
+  waiting on a new engine feature;
+- `human_review_required` means the result still needs maintainer or reviewer
+  judgment before being treated as stable repository memory.
 
 ## Execution Rules
 
-1. Read the parent canonical task to understand track scope.
-2. Pick one `READY` micro-task from the track's micro-task list.
-3. Set status to `IN_PROGRESS`.
-4. Produce the required output — code must be deterministic with no external
-   API calls at runtime.
-5. Verify the output satisfies all `acceptance_criteria`.
-6. Set status to `REVIEW_READY` and record limitations.
+1. Start from one queue file only.
+2. Prefer one small batch from one campaign per PR.
+3. Keep the batch narrow enough that a reviewer can understand it quickly.
+4. Do not widen the work into a new benchmark implementation.
+5. Report limitations in every output.
+6. If uncertainty remains, mark the output `REVIEW_NEEDED`.
 
-Agents must not:
+Agents should prefer micro-tasks when:
 
-- execute more than one micro-task per session unless explicitly authorized;
-- promote a micro-task result to a project-level claim automatically;
-- claim discovery or global validity from a single micro-task result;
-- skip deterministic code verification for `formula-check` or
-  `approximation-probe` outputs.
+- a human explicitly asks to use spare token or time budget;
+- the session is too small for a large implementation task;
+- the best next contribution is a campaign note, dataset addition, formula
+  classification, or falsification-ready hypothesis stub.
 
-## Verdict Vocabulary
+Agents should avoid micro-tasks when:
 
-For `formula-check` and `approximation-probe` outputs use:
+- the work needs a new benchmark engine or validator implementation;
+- the work changes canonical result artifacts;
+- the work would implicitly promote a claim;
+- the work crosses many campaigns at once.
 
-- `VERIFIED` — result matches reference to stated tolerance;
-- `FAILS_AT_TOLERANCE` — result diverges beyond tolerance; document where;
-- `INVALID_DERIVATION` — symbolic derivation contains an error;
-- `INCONCLUSIVE` — insufficient data or ambiguous reference.
+## Batching Rules
 
-For `hypothesis-entry` outputs use the lifecycle states from `AGENTS.md`:
+One PR may complete a small batch of related micro-tasks when all of the
+following are true:
 
-- `PROPOSED` — new hypothesis, no code verification yet;
-- `FORMALIZED` — hypothesis stated in testable mathematical form;
-- `TESTING` — deterministic test is being run.
+- the micro-tasks come from the same campaign queue;
+- the outputs fit one coherent review story;
+- limitations stay explicit;
+- no result artifact churn is introduced.
 
-A hypothesis micro-task result must **never** use `VALID_IN_RANGE` or
-`INTEGRATED` without a separate canonical verification task being completed
-first.
+Good batch examples:
+
+- three pendulum candidate-family notes;
+- two particle-mass data audits plus one narrow baseline comparison note;
+- five dimensional-analysis challenge entries from the same topic family.
+
+Bad batch examples:
+
+- mixing pendulum, Koide, and thought-experiment work in one PR;
+- mixing queue work with a new validator implementation;
+- treating a batch of notes as evidence for a stronger claim.
+
+## Output Discipline
+
+Micro-task outputs should usually be one of:
+
+- a queue-driven note or planning artifact;
+- a narrow dataset or challenge-set addition;
+- a scoped classification note;
+- a deterministic calculation summary;
+- a falsification-ready proposal with explicit assumptions.
+
+Every output should include:
+
+- input references;
+- method;
+- limitations;
+- verdict or review state.
+
+If the result is uncertain, use `REVIEW_NEEDED` rather than forcing a stronger
+scientific conclusion.
 
 ## Claim Restrictions
 
-All restrictions from `AGENTS.md` and `docs/agent-task-protocol.md` apply.
+Micro-task work must not:
 
-Additional micro-task restrictions:
+- promote a `CLAIM-*` status automatically;
+- treat a local observation as a repository-level conclusion;
+- present narrow benchmark notes as universal theory statements;
+- use marketing language in place of scientific scope.
 
-- Every `formula-check` result must state the reference source and tolerance.
-- Every `hypothesis-entry` must state falsification conditions explicitly.
-- Every `empirical-catalog-entry` must include a known counter-example search
-  or state why none was performed.
-- Range limits and assumptions must be explicit in every output.
-
-## Tracks
-
-Tracks group related micro-tasks. Each track is proposed and authorized as a
-canonical task. Current planned tracks:
-
-| Track slug | Domain | Status |
-|---|---|---|
-| `constants-verification` | Fundamental physical constants | proposed |
-| `approximation-probes` | Approximation breakdown quantification | proposed |
-| `hypothesis-register` | New testable hypotheses | proposed |
-| `empirical-regularities` | Empirical patterns with falsification status | proposed |
+The safe default is conservative wording plus explicit limitations.
 
 ## Validation
 
-Before committing a micro-task result run:
+For queue-definition and documentation work, run:
 
 ```bash
 ./scripts/validate_quick.sh
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+python3 -m physics_lab.cli sync-active-board .
+./scripts/apl_review_bundle.sh
+git diff --exit-code
 ```
 
-Micro-task PRs that only add dataset entries or planning docs may use the
-lightweight validation path from `docs/task-proposal-protocol.md`.
+For future micro-task execution PRs, use the validation appropriate to the
+changed artifacts, but keep the same safety posture: deterministic checks, no
+claim promotion, and explicit review notes.

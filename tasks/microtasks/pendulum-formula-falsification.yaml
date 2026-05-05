@@ -1,0 +1,214 @@
+queue_id: pendulum-formula-falsification
+campaign: pendulum-formula-falsification
+campaign_status: active
+selection_guidance:
+  - "Prefer narrow approximation, diagnostics, and wording tasks."
+  - "Do not change canonical result artifacts in routine microtask work."
+microtasks:
+  - id: PFF-001
+    campaign: pendulum-formula-falsification
+    title: Propose one even candidate family using x = sin^2(theta/2)
+    type: formula-family-proposal
+    estimated_effort: 15-30 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One short note that defines the family, why it is dimensionless, and what benchmark window it targets."
+    validation:
+      - "Show the family is even in theta."
+      - "State at least one expected failure regime."
+    risk_level: low
+    forbidden_claims:
+      - "exact symbolic proof"
+      - "universal pendulum validity"
+      - "real-world pendulum performance without damping analysis"
+  - id: PFF-002
+    campaign: pendulum-formula-falsification
+    title: Classify one near-separatrix failure mode for a chosen gauntlet candidate
+    type: failure-mode-classification
+    estimated_effort: 15-30 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One narrow classification note explaining why the candidate should degrade as theta approaches pi."
+    validation:
+      - "Reference the candidate family explicitly."
+      - "Describe whether the issue is missing logarithmic growth, wrong curvature, or another concrete mechanism."
+    risk_level: low
+    forbidden_claims:
+      - "the candidate is globally wrong"
+      - "the benchmark is complete and final"
+      - "discovery-level physics conclusion"
+  - id: PFF-003
+    campaign: pendulum-formula-falsification
+    title: Map one gauntlet model id to a more human-readable symbolic description
+    type: registry-clarification
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "A short mapping note that translates one model id into explicit symbolic structure and known check coverage."
+    validation:
+      - "Name the exact model id."
+      - "State which symbolic checks still remain unavailable or placeholder."
+    risk_level: low
+    forbidden_claims:
+      - "symbolic closure achieved"
+      - "complete proof"
+      - "universal formula identification"
+  - id: PFF-004
+    campaign: pendulum-formula-falsification
+    title: Compare one low-complexity top model against one higher-complexity competitor
+    type: score-tradeoff-note
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One comparison note on accuracy-versus-complexity tradeoff for two named models."
+    validation:
+      - "State which metric favors each model."
+      - "Keep the conclusion configured-range only."
+    risk_level: low
+    forbidden_claims:
+      - "best possible formula"
+      - "final answer"
+      - "universal superiority"
+  - id: PFF-005
+    campaign: pendulum-formula-falsification
+    title: Propose one separatrix-aware log-term variant and how to falsify it
+    type: falsification-ready-proposal
+    estimated_effort: 20-35 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One proposal note with formula sketch, rationale, and specific failure test near the separatrix."
+    validation:
+      - "State why the log term was introduced."
+      - "State which diagnostic should reject the family if it is wrong."
+    risk_level: medium
+    forbidden_claims:
+      - "solves the pendulum"
+      - "exact asymptotic derivation"
+      - "complete physical explanation"
+  - id: PFF-006
+    campaign: pendulum-formula-falsification
+    title: Audit coefficient-rounding sensitivity for one named candidate
+    type: numerical-sensitivity-note
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note comparing full-precision versus rounded-coefficient interpretation for a chosen model."
+    validation:
+      - "State the candidate id."
+      - "State whether rounding appears secondary or material for the observed residual scale."
+    risk_level: low
+    forbidden_claims:
+      - "reference error disproved"
+      - "numerical issue fully resolved for all models"
+      - "exact coefficient truth"
+  - id: PFF-007
+    campaign: pendulum-formula-falsification
+    title: Write one conservative limitation note for a configured-range result
+    type: limitation-note
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One wording-focused note that explains what the result does not establish."
+    validation:
+      - "Keep the note benchmark-specific."
+      - "Avoid discovery-level language."
+    risk_level: low
+    forbidden_claims:
+      - "physics-resolution claim"
+      - "universal pendulum law"
+      - "field-wide breakthrough"
+  - id: PFF-008
+    campaign: pendulum-formula-falsification
+    title: Design one approximation-breakdown probe around a large-angle threshold
+    type: approximation-probe-design
+    estimated_effort: 20-30 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One small probe design stating approximation, reference, threshold, and target angle interval."
+    validation:
+      - "Specify the threshold metric."
+      - "Specify the parameter range with angle units."
+    risk_level: low
+    forbidden_claims:
+      - "breakdown point is already validated"
+      - "exact threshold proven"
+      - "general approximation law"
+  - id: PFF-009
+    campaign: pendulum-formula-falsification
+    title: Explain why one candidate should pass evenness and monotonicity checks
+    type: structural-check-rationale
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One rationale note tying a candidate family to the expected structural checks."
+    validation:
+      - "Name the structural checks explicitly."
+      - "State what remains untested beyond those checks."
+    risk_level: low
+    forbidden_claims:
+      - "full benchmark validation"
+      - "complete correctness"
+      - "discovery-level result"
+  - id: PFF-010
+    campaign: pendulum-formula-falsification
+    title: Propose one future data slice that stresses the large-angle regime more directly
+    type: dataset-slice-proposal
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One proposal for a future amplitude slice or sampling pattern aimed at harder large-angle falsification."
+    validation:
+      - "State the intended amplitude interval."
+      - "State why the slice improves falsification value."
+    risk_level: low
+    forbidden_claims:
+      - "future data will prove the model"
+      - "global benchmark coverage"
+      - "exact pendulum completion"
