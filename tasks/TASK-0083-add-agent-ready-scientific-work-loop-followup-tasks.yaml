@@ -1,0 +1,55 @@
+id: TASK-0083
+title: "Add agent-ready scientific work loop follow-up tasks"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Convert the latest snapshot review into a small set of focused READY tasks instead of expanding task sprawl."
+  - "Keep contributor and agent effort centered on agent-ready scientific work loops rather than more infrastructure."
+  - "Avoid duplicating existing canonical tasks that already cover experiment flow diagrams and the first visual result pack."
+
+input:
+  mode: workflow
+  related_domain: scientific_campaigns
+  related_objects:
+    - "docs/mission-control.md"
+    - "docs/status.md"
+    - "docs/agent-scientific-work-mode.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    The latest repository review recommended four missing follow-ups:
+    an agent work menu, a first scientific microtask execution batch, a
+    first hypothesis register pilot, and guarded Koide baseline planning.
+    Existing tasks already cover the experiment flow diagram and the first
+    visual result pack, so this task should add only the missing canonical
+    READY records.
+
+requirements:
+  - "Add canonical READY task records for the missing follow-ups recommended by the latest snapshot review."
+  - "Do not duplicate TASK-0055 or TASK-0063 under new ids."
+  - "Keep the new tasks aligned with current private-alpha scientific campaign execution."
+  - "Sync tasks/ACTIVE.md through the canonical board sync flow."
+
+accepted_outputs:
+  - "tasks/TASK-0078-add-agent-work-menu-for-spare-token-scientific-work.yaml"
+  - "tasks/TASK-0080-run-first-dimensional-analysis-scientific-microtask-batch.yaml"
+  - "tasks/TASK-0081-run-first-hypothesis-register-pilot.yaml"
+  - "tasks/TASK-0082-add-koide-baseline-planning.yaml"
+  - "tasks/TASK-0083-add-agent-ready-scientific-work-loop-followup-tasks.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

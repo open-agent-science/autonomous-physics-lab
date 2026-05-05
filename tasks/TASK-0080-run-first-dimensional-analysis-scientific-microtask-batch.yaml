@@ -1,0 +1,55 @@
+id: TASK-0080
+title: "Run first dimensional-analysis scientific microtask batch"
+type: scientific_microtask_execution
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prove that APL's new scientific microtask mode works on real campaign work rather than only on queue definition."
+  - "Turn the dimensional-analysis campaign into a visible stream of small deterministic contributions."
+  - "Give contributors and agents a first canonical example of how to convert one queue into one reviewable batch PR."
+
+input:
+  mode: workflow
+  related_domain: physics_validation
+  related_objects:
+    - "tasks/microtasks/dimensional-analysis-validator.yaml"
+    - "docs/agent-scientific-work-mode.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "docs/results/dimensional-analysis-validator-summary.md"
+    - "tasks/TASK-0075-scientific-microtask-queues-for-agent-work.yaml"
+  planning_context: >
+    APL now has a dimensional-analysis microtask queue, but it still needs one
+    real batch run to show contributors how the queue translates into
+    repository artifacts. Use one coherent batch from the dimensional-analysis
+    queue rather than mixing campaigns.
+
+requirements:
+  - "Complete at least 5 microtasks from tasks/microtasks/dimensional-analysis-validator.yaml in one coherent batch."
+  - "Keep all completed items within the dimensional-analysis campaign."
+  - "Prefer challenge entries, wording audits, boundary notes, or manual classifications over new engine implementation."
+  - "If challenge-set items are added, record explicit SI-dimension rationale."
+  - "Create a short batch summary note listing completed microtask ids, method, limitations, and verdict or review state for each item."
+  - "Do not promote claims."
+  - "Do not widen the work into a new validator engine feature."
+
+accepted_outputs:
+  - "queue-driven dimensional-analysis artifact updates tied to at least 5 completed microtasks"
+  - "docs/notes/dimensional-analysis-microtask-batch-01.md"
+  - "explicit list of completed DAV microtask ids in the summary note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
