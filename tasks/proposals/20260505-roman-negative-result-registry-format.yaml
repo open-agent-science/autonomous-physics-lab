@@ -1,0 +1,71 @@
+proposal_id: 20260505-roman-negative-result-registry-format
+title: "Define negative-result registry format"
+status: PROPOSED
+type: knowledge_update
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+
+strategy_alignment:
+  - "Strengthens public scientific memory by preserving null and failed outcomes in a reusable format."
+  - "Improves release credibility by making unsuccessful benchmark work visible instead of silently disappearing."
+  - "Fits v0.2 scientific campaign mode by making campaigns honest about what did not work."
+
+summary: >
+  Define a repository format for negative or null scientific outcomes so APL
+  can preserve failed candidate families, null findings, and informative
+  benchmark misses as first-class scientific memory rather than leaving them
+  buried in reports or PR discussion.
+
+rationale: >
+  Several APL benchmark slices already produce meaningful failure information:
+  near-separatrix pendulum diagnostics, approximation breakdown cases, and
+  future dimensional-analysis or particle-mass falsification misses. The
+  repository has result artifacts and claim rules, but it does not yet have a
+  stable format for "this did not support the hoped-for pattern, and that is
+  scientifically useful". A negative-result registry would improve reuse,
+  reduce repeated dead ends, and make public-facing summaries more honest.
+
+input:
+  mode: planning_only
+  related_domain: scientific_memory
+  related_objects:
+    - "docs/claim-promotion-policy.md"
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+    - "docs/notes/pendulum-separatrix-followup.md"
+    - "tasks/TASK-0050-approximation-breakdown-probes-track.yaml"
+    - "results"
+  planning_context: >
+    This proposal is salvaged from the old private-alpha batch in PR #22, but
+    refreshed for the current scientific-campaign phase. The repository now
+    has enough real benchmark work that a negative-result format would be
+    immediately useful rather than purely speculative.
+
+requirements:
+  - "Define a registry format for negative or null scientific outcomes."
+  - "Distinguish failed implementation runs from meaningful negative scientific results."
+  - "Specify required metadata fields, including benchmark/task linkage and reason the result is informative."
+  - "Explain how negative results relate to hypotheses, claims, knowledge, and result artifacts."
+  - "Keep the proposal documentation-only; do not rewrite existing result artifacts in this task."
+  - "Do not weaken claim-promotion or scientific-safety guardrails."
+
+accepted_outputs:
+  - "canonical task spec"
+  - "negative-result entry template"
+  - "relationship note for tasks, hypotheses, claims, and results"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Useful salvaged idea from PR #22. Best treated as a fresh proposal aligned
+    to current scientific-campaign memory needs rather than reviving the old
+    private-alpha batch.
