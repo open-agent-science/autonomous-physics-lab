@@ -19,6 +19,7 @@ class CandidateModel:
     formula: str
     coefficient_names: tuple[str, ...]
     feature_builder: FeatureBuilder
+    fixed_offset_fn: FeatureBuilder | None = None
 
     @property
     def complexity_score(self) -> int:
@@ -38,7 +39,10 @@ class FittedModel:
             [self.coefficients[name] for name in self.candidate.coefficient_names],
             dtype=float,
         )
-        return 1.0 + features @ coefficient_vector
+        result = 1.0 + features @ coefficient_vector
+        if self.candidate.fixed_offset_fn is not None:
+            result = result + self.candidate.fixed_offset_fn(theta)
+        return result
 
 
 def _column_stack(*columns: np.ndarray) -> np.ndarray:
@@ -106,8 +110,11 @@ def build_candidate_models(candidate_ids: list[str] | None = None) -> list[Candi
 
 def fit_candidate_model(model: CandidateModel, theta: np.ndarray, target: np.ndarray) -> FittedModel:
     """Fit a candidate model with a fixed intercept of 1.0."""
-    features = model.feature_builder(np.asarray(theta, dtype=float))
+    theta_arr = np.asarray(theta, dtype=float)
+    features = model.feature_builder(theta_arr)
     response = np.asarray(target, dtype=float) - 1.0
+    if model.fixed_offset_fn is not None:
+        response = response - model.fixed_offset_fn(theta_arr)
     solution, *_ = np.linalg.lstsq(features, response, rcond=None)
     coefficients = {
         name: float(value)
