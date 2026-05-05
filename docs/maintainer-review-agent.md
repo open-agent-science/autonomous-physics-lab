@@ -281,6 +281,22 @@ closeout actions. It does not edit files.
 
 Use `--suggest` for additional closeout suggestions without applying changes.
 
+## Context Bundle
+
+After major batches of merges, regenerate the single-file context bundle so
+it stays current for chat-LLM users and agents reading `CONTEXT.md`:
+
+```bash
+python3 scripts/generate_context_bundle.py
+git add CONTEXT.md && git commit -m "chore: regenerate context bundle"
+git push origin main
+```
+
+Run this after:
+- merging several tasks in a batch;
+- updating `docs/strategy.md` or `docs/mission-control.md`;
+- significant changes to `tasks/ACTIVE.md` beyond a routine board sync.
+
 ## Maintainer Prompts
 
 ### Pre-merge review
