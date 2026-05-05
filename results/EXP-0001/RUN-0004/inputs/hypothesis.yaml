@@ -36,6 +36,5 @@ evidence:
     - RESULT-0001
     - RESULT-0003
     - RESULT-0004
-    - RESULT-0008
 
 verdict: "A systematic gauntlet of 100 deterministic candidates confirms the cross-domain family (theta^4 + x) as best-performing within the tested range. Evidence remains range-limited; near-separatrix diagnostics still fail for all candidates."
