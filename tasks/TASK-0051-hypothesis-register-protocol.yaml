@@ -1,7 +1,7 @@
 id: TASK-0051
 title: "Define hypothesis register schema and launch entry micro-task track"
 type: benchmark_planning
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

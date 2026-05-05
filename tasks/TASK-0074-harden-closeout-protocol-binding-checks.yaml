@@ -1,7 +1,7 @@
 id: TASK-0074
 title: "Harden closeout protocol binding checks for automation"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

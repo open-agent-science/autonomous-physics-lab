@@ -1,7 +1,7 @@
 id: TASK-0075
 title: "Add scientific microtask queues for agent work"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
