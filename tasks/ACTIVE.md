@@ -30,6 +30,12 @@ into task-level work.
 For new task ideas without a maintainer-assigned canonical `TASK-XXXX` id, use
 the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-proposal-protocol.md).
 
+For spare token or time budget scientific work, use
+[../tasks/microtasks/README.md](../tasks/microtasks/README.md) together with
+[../docs/agent-scientific-work-mode.md](../docs/agent-scientific-work-mode.md).
+Prefer one small batch from one campaign queue rather than mixing campaigns in
+one PR.
+
 <!-- BEGIN AUTO TASK STATUS BOARD -->
 
 > This task-status snapshot is generated from canonical task YAML files.
@@ -57,6 +63,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0074` — Harden closeout protocol binding checks for automation (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0075` — Add scientific microtask queues for agent work (`agent_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

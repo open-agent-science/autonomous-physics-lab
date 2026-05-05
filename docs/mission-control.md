@@ -57,8 +57,13 @@ The current contributor workflow is branch-based and task-driven.
 Operational entry points:
 
 - [tasks/ACTIVE.md](../tasks/ACTIVE.md) for the live board of canonical tasks;
+- [tasks/microtasks/README.md](../tasks/microtasks/README.md) for campaign-specific scientific microtask queues;
 - [docs/agent-task-protocol.md](./agent-task-protocol.md) for branch, task,
   PR, validation, and task-state rules;
+- [docs/agent-scientific-work-mode.md](./agent-scientific-work-mode.md) for
+  spare-budget scientific work mode;
+- [docs/scientific-micro-task-protocol.md](./scientific-micro-task-protocol.md)
+  for queue and batching rules;
 - [tasks/proposals/README.md](../tasks/proposals/README.md) for the
   proposal-first workflow when no canonical task fits;
 - [docs/private-contributor-pilot.md](./private-contributor-pilot.md) for the
@@ -71,6 +76,7 @@ Low-risk contribution patterns right now:
 
 - improve status, roadmap, onboarding, or campaign documentation;
 - tighten wording, diagnostics, or visual summaries around existing results;
+- complete one small batch from a single scientific microtask queue;
 - work on planning or validation tasks that do not churn canonical result
   artifacts.
 
