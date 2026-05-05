@@ -66,12 +66,11 @@ Effort: 15–30 min · Risk: medium · autonomy: agent_can_complete
 
 ### Canonical READY task (low difficulty)
 
-Pick one `READY` task from `tasks/ACTIVE.md` with `difficulty: low`.
+Open [`tasks/ACTIVE.md`](../tasks/ACTIVE.md) and pick any task where:
+- `status: READY`
+- `difficulty: low`
 
-Good current options:
-- **TASK-0058** — Standardize scoped verdict wording for tau holdout (`scientific_safety_review`, high/low)
-- **TASK-0055** — Add experiment flow diagram to architecture docs (`documentation`, medium/low)
-- **TASK-0030** — Record first friend contributor dry run (`contributor_pilot`, medium/low)
+Good filters to apply: `priority: high` first, then `priority: medium`.
 
 Full lifecycle: create branch → implement → validate → open PR → wait for review.  
 Do not merge your own PR.
