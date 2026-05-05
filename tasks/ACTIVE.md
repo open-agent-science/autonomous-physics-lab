@@ -58,7 +58,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (`repository_validation`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
