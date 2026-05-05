@@ -56,7 +56,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0074` — Harden closeout protocol binding checks for automation (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
