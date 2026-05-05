@@ -56,18 +56,12 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0012` — Run a private multi-agent contributor dry run (`agent_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0017` — Create a dimensional analysis challenge set (`benchmark_planning`, priority `high`, difficulty `medium`)
-- `TASK-0020` — Add pytest-timeout and validation safeguards against hanging tests (`repository_validation`, priority `medium`, difficulty `low`)
-- `TASK-0021` — Add AI agent attribution policy (`agent_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0024` — Create task index table (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0025` — Create result artifacts index (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0029` — Audit project language for overclaim risk (`scientific_safety_review`, priority `high`, difficulty `low`)
-- `TASK-0071` — Support closeout batch PRs in review helper (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0073` — Define maintainer automation agent architecture and routine instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0073` — Define maintainer automation agent architecture and routine instructions (merged)
+- `TASK-0071` — Support closeout batch PRs in review helper (merged)
 - `TASK-0067` — Add v0.2 release-focused campaign tasks (merged)
 - `TASK-0062` — Update project status and roadmap for scientific campaign phase (merged)
 - `TASK-0061` — Create Mission Control and campaign map (merged)
@@ -89,14 +83,21 @@ None.
 - `TASK-0033` — Standardize contributor-agent identity format (merged)
 - `TASK-0032` — Build public scientific result package for Pendulum Gauntlet 100 (merged)
 - `TASK-0031` — Add beginner-friendly contributor task set (merged)
+- `TASK-0029` — Audit project language for overclaim risk (merged)
 - `TASK-0027` — Create units and physical constants reference (merged)
+- `TASK-0025` — Create result artifacts index (merged)
+- `TASK-0024` — Create task index table (merged)
 - `TASK-0023` — Create first contributor runbook (merged)
 - `TASK-0022` — Add PR review bundle snapshot script (merged)
+- `TASK-0021` — Add AI agent attribution policy (merged)
+- `TASK-0020` — Add pytest-timeout and validation safeguards against hanging tests (merged)
 - `TASK-0019` — Standardize agent branch, commit, and pull request protocol (merged)
 - `TASK-0018` — Support planning-only and workflow tasks without fake hypothesis references (merged)
+- `TASK-0017` — Create a dimensional analysis challenge set (merged)
 - `TASK-0015` — Plan the diffusion scaling benchmark (merged)
 - `TASK-0014` — Plan a thought-experiment consistency suite (merged)
 - `TASK-0013` — Plan a particle mass relation falsifier inspired by Koide-style formulas (merged)
+- `TASK-0012` — Run a private multi-agent contributor dry run (merged)
 - `TASK-0011` — Audit numerical precision versus model residual for the pendulum gauntlet run (merged)
 - `TASK-0010` — Run pendulum hypothesis gauntlet with 100 candidate formulas (merged)
 - `TASK-0008` — Add machine-readable review metadata for patch-style evidence artifacts (merged)
