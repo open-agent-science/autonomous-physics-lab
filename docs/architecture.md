@@ -22,37 +22,67 @@ The correct positioning is:
 
 ---
 
+## Experiment Flow
+
+This document provides a visual overview of the Autonomous Physics Lab (APL) experiment lifecycle.
+
+The diagram illustrates the verification-first workflow from task selection through implementation, validation, review, and integration into scientific memory.
+
+---
+
 ## Experiment Lifecycle (Happy Path)
 
-The following diagram illustrates the canonical APL workflow, aligned with `docs/agent-task-protocol.md`.
-
-```mermaid
+The following diagram illustrates the standard APL verification-first workflow from task selection to integration into scientific memory.
 flowchart TD
 
+%% --- Task Selection ---
 A["TASK (READY)"] --> B["Create task branch"]
+
+%% --- Implementation ---
 B --> C["Implement changes"]
-C --> D["Run validation (ruff, pytest, CLI validate)"]
+C --> D["Run validation\n(ruff, pytest, CLI validate)"]
+
+%% --- PR Flow ---
 D --> E["Open Pull Request"]
 E --> F["Maintainer review"]
 
+%% --- Decision ---
 F -->|Changes requested| C
 F -->|Approved| G["Merge to main"]
 
+%% --- Post-Merge Scientific Flow ---
 G --> H["Run experiment (if applicable)"]
-H --> I["Generate result artifacts (results/...)"]
+H --> I["Generate result artifacts\n(results/...)"]
 
+%% --- Knowledge System ---
 I --> J["Evaluate results"]
 J --> K["Update claims / knowledge"]
 
+%% --- End ---
 K --> L["Scientific memory updated"]
-```
 
+%% --- Styling (optional, but improves readability) ---
+classDef process fill:#1f2937,stroke:#374151,color:#fff;
+classDef decision fill:#92400e,stroke:#b45309,color:#fff;
+classDef result fill:#065f46,stroke:#047857,color:#fff;
+
+class A,B,C,D,E,F,G process;
+class H,I result;
+class J,K,L decision;
 ### Notes
 
-* This diagram represents the standard "happy path".
-* All contributions must pass deterministic validation before review.
+* This diagram represents the standard "happy path" workflow.
+* All changes must pass validation before review.
 * Scientific results must be reproducible and linked to repository artifacts.
 * Claims are updated only after validated results are produced.
+---
+
+## References
+
+* `docs/agent-task-protocol.md`
+* `AGENTS.md`
+* `docs/architecture.md`
+* `docs/strategy.md`
 
 ---
 
