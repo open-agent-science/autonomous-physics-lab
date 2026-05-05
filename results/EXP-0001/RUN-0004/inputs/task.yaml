@@ -1,0 +1,58 @@
+id: TASK-0086
+title: "Run physics-constrained pendulum gauntlet with fixed log coefficient"
+type: scientific_experiment
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Test whether physics-informed parameter constraints produce a VALID_IN_RANGE candidate across [0, 3.0] rad."
+  - "Advance the pendulum falsification campaign from microtask notes to a formal experiment run."
+  - "Demonstrate that APL can improve on pure data-driven fitting by encoding known analytic structure."
+
+input:
+  mode: workflow
+  related_domain: pendulum_physics
+  related_objects:
+    - "docs/notes/pff-physics-constrained-log-coefficient.md"
+    - "docs/notes/pff-002-model-t2x1-separatrix-failure.md"
+    - "results/EXP-0001/RUN-0003/result.yaml"
+    - "examples/pendulum.yaml"
+    - "physics_lab/engines/formula_discovery.py"
+    - "physics_lab/workflows/runner.py"
+  planning_context: >
+    PFF microtask analysis showed that the gauntlet top log-enhanced candidate
+    (model_t2_x4_l1) has a log coefficient c=0.060, which is 5x smaller than
+    the theoretically correct value 1/pi derived from the asymptotic expansion
+    of K(k^2). Fixing c=1/pi and re-fitting only a,b on an extended range
+    [0.01, 3.00] rad reduces near-separatrix error by up to 17x. This task
+    formalises that finding as a reproducible experiment run EXP-0001/RUN-0004.
+    Hypothesis to test: fixing c=1/pi is necessary and sufficient to produce
+    a log-enhanced candidate that achieves VALID_IN_RANGE across [0.01, 3.00]
+    rad with mean relative error below 2%.
+
+requirements:
+  - "Extend the gauntlet train/test range to cover [0.01, 3.00] rad."
+  - "Add a physics-constrained candidate family where the log coefficient is fixed to 1/pi."
+  - "Compare the constrained candidate against the best unconstrained gauntlet candidate (model_t2_x4_l1) on the extended range."
+  - "Store results as EXP-0001/RUN-0004 following the existing result schema."
+  - "Report verdict per the standard APL vocabulary (VALID_IN_RANGE, PARTIALLY_VALID, etc.)."
+  - "Do not promote a claim automatically; leave CLAIM-0001 as DRAFT."
+
+accepted_outputs:
+  - "results/EXP-0001/RUN-0004/result.yaml"
+  - "results/EXP-0001/RUN-0004/report.md"
+  - "results/EXP-0001/RUN-0004/metrics.json"
+  - "updated or new example config for the constrained gauntlet run"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/ -x -q"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
