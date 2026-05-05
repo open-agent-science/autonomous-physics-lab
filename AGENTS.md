@@ -9,6 +9,17 @@ testing, simulating, falsifying, scoring, and reusing physics hypotheses.
 
 It is not a chatbot. It is a hypothesis-testing machine.
 
+## Quick Orientation (single file)
+
+If you prefer to read the full project context in one place, run:
+
+```bash
+python3 scripts/generate_context_bundle.py
+```
+
+This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
+active task board. The file is also committed to the repo root for download.
+
 ## Core Principle
 
 LLMs may propose, explain, and organize hypotheses, but numerical and symbolic
