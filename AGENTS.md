@@ -20,6 +20,23 @@ python3 scripts/generate_context_bundle.py
 This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
 active task board. The file is also committed to the repo root for download.
 
+## CRITICAL: Never push directly to main
+
+Every change must go through the full task lifecycle:
+
+1. `tasks/TASK-XXXX-*.yaml` — create or reference a task file
+2. branch: `agent/<contributor-id>/<agent-id>/task-<number>-<slug>`
+3. PR — open it, do not merge it yourself
+4. maintainer review → merge
+
+No exceptions for "small", "obvious", or "urgent" changes.
+Documentation, scripts, config, and fixes all follow the same flow.
+Pushing directly to `main` violates the repository protocol.
+
+The only operations allowed directly on `main` are:
+- post-merge task closeout (`status: DONE` + `sync-active-board`)
+- `CONTEXT.md` regeneration after a batch merge
+
 ## Core Principle
 
 LLMs may propose, explain, and organize hypotheses, but numerical and symbolic
