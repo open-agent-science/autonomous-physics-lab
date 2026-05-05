@@ -138,6 +138,11 @@ This mode supports:
 14. No obvious repository-safety or security risk is introduced without
     explicit maintainer awareness.
 15. The selected review lane matches the actual PR surface.
+16. Proposal PRs may contain multiple proposal files, but the batch should be
+    intentional, coherent, and still clearly proposal-only.
+17. Salvaged ideas from stale PRs should appear in a clean replacement
+    `propose-task-...` PR rather than being patched onto a generic or
+    mixed-context branch.
 
 ### Verdicts
 
