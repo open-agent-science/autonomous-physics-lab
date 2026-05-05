@@ -109,6 +109,9 @@ open PRs, and submit reproducible scientific changes for maintainer review.
 Start with [docs/private-contributor-pilot.md](docs/private-contributor-pilot.md)
 for the private-alpha workflow and validation expectations.
 
+Not sure where to start? Use the **[Agent Work Menu](docs/agent-work-menu.md)**
+to find safe, reviewable work sized for your session budget (30 min / 1 h / 2 h).
+
 ## Quickstart
 
 ```bash

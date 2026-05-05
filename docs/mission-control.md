@@ -56,6 +56,8 @@ The current contributor workflow is branch-based and task-driven.
 
 Operational entry points:
 
+- [docs/agent-work-menu.md](./agent-work-menu.md) for a fast time-budgeted
+  menu of safe, reviewable work (30 min / 1 h / 2 h);
 - [tasks/ACTIVE.md](../tasks/ACTIVE.md) for the live board of canonical tasks;
 - [tasks/microtasks/README.md](../tasks/microtasks/README.md) for campaign-specific scientific microtask queues;
 - [docs/agent-task-protocol.md](./agent-task-protocol.md) for branch, task,
