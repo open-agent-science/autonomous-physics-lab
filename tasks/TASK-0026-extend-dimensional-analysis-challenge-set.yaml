@@ -34,7 +34,7 @@ requirements:
   - "Do not claim new physics."
 
 accepted_outputs:
-  - "extended knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+  - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
   - "10 new challenge items"
   - "domain coverage note"
 
