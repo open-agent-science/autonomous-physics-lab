@@ -59,11 +59,12 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0080` — Run first dimensional-analysis scientific microtask batch (`scientific_microtask_execution`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
 - `TASK-0083` — Add agent-ready scientific work loop follow-up tasks (merged)
+- `TASK-0080` — Run first dimensional-analysis scientific microtask batch (merged)
 - `TASK-0077` — Add proposal PR format and salvage guardrails (merged)
 - `TASK-0076` — Add fast and deep maintainer review lanes (merged)
 - `TASK-0075` — Add scientific microtask queues for agent work (merged)
