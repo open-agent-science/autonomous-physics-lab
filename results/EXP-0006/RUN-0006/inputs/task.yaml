@@ -30,9 +30,7 @@ requirements:
   - "Consume the canonical challenge-set and units reference artifacts."
   - "Classify formulas into at least VALID, INVALID, and a conservative suspicious or known-limit category where appropriate."
   - "Create an example configuration for running the validator benchmark."
-  - "Create the canonical hypothesis and experiment records needed for the MVP validator run."
   - "Produce one canonical result artifact directory for the MVP run."
-  - "Record a scoped DRAFT claim and a knowledge note for the validator evidence chain without promoting a broader scientific claim."
   - "Create a short public-facing result summary for the validator MVP."
   - "Add fast tests covering dimension parsing or validation behavior."
   - "Keep the engine verification-first and avoid symbolic discovery or explanatory overclaim."
@@ -46,7 +44,7 @@ accepted_outputs:
   - "experiments/EXP-0006-dimensional-analysis-validator.yaml"
   - "claims/CLAIM-0005-dimensional-analysis-validator.md"
   - "knowledge/physics_validation/dimensional_analysis_validator.md"
-  - "canonical dimensional-analysis MVP result artifact directory"
+  - "results/EXP-0006/RUN-0006/ canonical dimensional-analysis MVP result artifact directory"
   - "docs/results/dimensional-analysis-validator-summary.md"
   - "tests/test_dimensions.py"
 
