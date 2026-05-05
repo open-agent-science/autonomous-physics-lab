@@ -22,6 +22,7 @@ SCHEMA_FILE_BY_KIND = {
     "agent": "agent.schema.json",
     "result": "result.schema.json",
     "review_metadata": "review_metadata.schema.json",
+    "approximation_probe": "approximation_probe.schema.json",
 }
 KIND_BY_DIRECTORY = {
     "claims": "claim",
@@ -33,6 +34,7 @@ KIND_BY_DIRECTORY = {
     "agents": "agent",
     "results": "result",
     "examples": "example_config",
+    "approximation_probes": "approximation_probe",
 }
 
 
