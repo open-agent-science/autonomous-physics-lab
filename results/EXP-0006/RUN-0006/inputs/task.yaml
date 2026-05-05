@@ -1,7 +1,7 @@
 id: TASK-0064
 title: "Implement dimensional analysis validator MVP"
 type: physics_validation_engine
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -38,10 +38,15 @@ requirements:
 
 accepted_outputs:
   - "physics_lab/engines/dimensions.py"
+  - "physics_lab/workflows/dimensional_validator.py"
   - "examples/dimensional_analysis.yaml"
-  - "canonical dimensional-analysis MVP result artifact directory"
+  - "hypotheses/HYP-0006-dimensional-analysis-validator.yaml"
+  - "experiments/EXP-0006-dimensional-analysis-validator.yaml"
+  - "claims/CLAIM-0005-dimensional-analysis-validator.md"
+  - "knowledge/physics_validation/dimensional_analysis_validator.md"
+  - "results/EXP-0006/RUN-0006/ canonical dimensional-analysis MVP result artifact directory"
   - "docs/results/dimensional-analysis-validator-summary.md"
-  - "tests for dimensional-analysis validator behavior"
+  - "tests/test_dimensions.py"
 
 validation:
   commands:
