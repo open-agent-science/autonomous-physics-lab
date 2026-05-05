@@ -79,6 +79,17 @@ Primary helpers:
 - `python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number>`
 - `python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply`
 
+This agent should operate with two review lanes:
+
+- `fast review`
+  for low-risk docs, planning, proposal-only, task-admin, and closeout PRs
+- `deep review`
+  for engines, workflows, schemas, claims, results, maintainer scripts, CI,
+  automation logic, and public scientific wording
+
+The lane must be chosen before running a full review cycle. This reduces queue
+latency by keeping deep review for truly sensitive surfaces.
+
 ### 2. Proposal Acceptance Triage Agent
 
 Purpose:
