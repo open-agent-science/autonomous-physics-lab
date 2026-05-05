@@ -63,6 +63,7 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0084` — Add explicit no-direct-main-push guardrail to agent instructions (merged)
 - `TASK-0083` — Add agent-ready scientific work loop follow-up tasks (merged)
 - `TASK-0080` — Run first dimensional-analysis scientific microtask batch (merged)
 - `TASK-0077` — Add proposal PR format and salvage guardrails (merged)

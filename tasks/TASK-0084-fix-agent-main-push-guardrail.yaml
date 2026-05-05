@@ -1,7 +1,7 @@
 id: TASK-0084
 title: "Add explicit no-direct-main-push guardrail to agent instructions"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
