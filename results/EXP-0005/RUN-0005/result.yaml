@@ -28,7 +28,7 @@ limitations:
   and does not explain the origin of particle masses.
 - Prediction uncertainty uses first-order propagation from electron and muon one-sigma
   input uncertainties.
-best_verdict: VALID
+best_verdict: VALID_IN_RANGE
 verification:
   passed: true
   checks:

@@ -42,6 +42,6 @@
 
 ## Verdict
 
-Repository verdict: `VALID`.
+Repository verdict: `VALID_IN_RANGE`.
 
-The historical tau holdout benchmark records that the exact Koide assumption predicts a tau mass numerically close to the measured charged-lepton value under explicit uncertainty-aware comparison.
+The historical tau holdout benchmark records that the exact Koide assumption predicts a tau mass numerically close to the measured charged-lepton value under explicit uncertainty-aware comparison. This verdict is local to this holdout benchmark and does not generalize beyond charged leptons, this dataset snapshot, or this benchmark scope.
