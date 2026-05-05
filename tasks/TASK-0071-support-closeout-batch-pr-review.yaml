@@ -1,7 +1,7 @@
 id: TASK-0071
 title: "Support closeout batch PRs in review helper"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
