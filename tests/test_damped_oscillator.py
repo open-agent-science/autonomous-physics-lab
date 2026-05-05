@@ -479,6 +479,39 @@ def test_repository_rejects_result_input_hash_drift(tmp_path) -> None:
         raise AssertionError("Expected result input hash drift to fail validation")
 
 
+def test_repository_accepts_crlf_text_snapshot_with_same_content(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_minimal_repository_fixture(
+        repo_root,
+        claim_scope="Valid only within the tested range for this temporary benchmark.",
+        claim_body="Claim body with explicit in-scope wording.",
+        strict_snapshots=True,
+    )
+
+    config_path = repo_root / "results" / "EXP-0001" / "RUN-0001" / "inputs" / "config.yaml"
+    config_text = config_path.read_text(encoding="utf-8")
+    with config_path.open("w", encoding="utf-8", newline="\r\n") as handle:
+        handle.write(config_text)
+
+    summary = validate_repository(repo_root)
+
+    assert summary.root == repo_root.resolve()
+
+
+def test_hash_file_preserves_binary_line_ending_bytes(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    first = repo_root / "blob_a.bin"
+    second = repo_root / "blob_b.bin"
+    first.write_bytes(b"a\r\nb\r\n")
+    second.write_bytes(b"a\nb\n")
+
+    first_hash = hash_file(first, repo_root)["sha256"]
+    second_hash = hash_file(second, repo_root)["sha256"]
+
+    assert first_hash != second_hash
+
+
 def test_validate_repository_strict_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
 

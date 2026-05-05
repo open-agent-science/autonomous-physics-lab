@@ -13,6 +13,19 @@ from typing import Any
 from physics_lab.engines.scoring import ModelScore
 
 
+TEXT_HASH_SUFFIXES = {
+    ".csv",
+    ".json",
+    ".md",
+    ".py",
+    ".svg",
+    ".toml",
+    ".txt",
+    ".yaml",
+    ".yml",
+}
+
+
 @dataclass(frozen=True)
 class ExperimentArtifacts:
     """Filesystem artifact locations for a workflow run."""
@@ -57,7 +70,10 @@ def resolve_path(base_path: Path, relative_path: str) -> Path:
 
 def hash_file(path: Path, repo_root: Path) -> dict[str, str]:
     """Return a stable SHA-256 digest payload for a repository input file."""
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    payload = path.read_bytes()
+    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+        payload = payload.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    digest = hashlib.sha256(payload).hexdigest()
     try:
         relative_path = path.resolve().relative_to(repo_root.resolve())
         normalized_path = relative_path.as_posix()
