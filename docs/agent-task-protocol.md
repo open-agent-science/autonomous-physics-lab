@@ -53,11 +53,57 @@ Proposal PR title format:
 
 `TASK-PROPOSAL: <short title>`
 
+Default proposal PR scope:
+
+- one or more `tasks/proposals/*.yaml` files in a proposal-only PR
+
+Use a multi-proposal PR when the ideas are tightly coupled, come from the same
+salvage pass, or when the maintainer explicitly asks for a batch. Split the
+PR when the proposals are unrelated or the batch stops being lightweight.
+
 Use [./task-proposal-protocol.md](./task-proposal-protocol.md) and
 [../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml).
 
 Only the maintainer may assign canonical ids directly unless a maintainer-run
 task-admin or review agent is explicitly told to do so.
+
+If rescuing useful ideas from a stale or superseded PR:
+
+- create fresh proposal file(s) under `tasks/proposals/`;
+- start from a clean `propose-task-...` branch immediately;
+- do not reuse a generic docs/task branch just because it already exists;
+- open a clean replacement `TASK-PROPOSAL` PR and then close the stale PR;
+- a salvage batch is allowed when the rescued ideas are closely related and
+  the replacement PR stays proposal-only.
+
+## Scientific Microtask Queues
+
+Default execution still starts from canonical `TASK-XXXX` items.
+
+Exception:
+
+- when a maintainer explicitly asks for spare token or time budget work;
+- when the maintainer invokes agent scientific work mode;
+- when a narrow campaign-facing contribution is better handled as a small queue
+  item than as a brand-new canonical task.
+
+In those cases, agents may work from `tasks/microtasks/*.yaml` and the rules in
+[./scientific-micro-task-protocol.md](./scientific-micro-task-protocol.md).
+
+Microtask rules:
+
+- prefer one campaign queue at a time;
+- one PR may complete a small batch of related microtasks from the same
+  campaign;
+- do not mix many campaigns in one microtask PR unless the maintainer asks;
+- do not create many new canonical `TASK-XXXX` files just to represent tiny
+  queue items;
+- do not promote claims from microtask outputs;
+- report limitations for every completed item;
+- if uncertain, mark the output `REVIEW_NEEDED`.
+
+Use [./agent-scientific-work-mode.md](./agent-scientific-work-mode.md) for the
+practical operating pattern.
 
 ## Task Status Protocol
 

@@ -1,0 +1,59 @@
+id: TASK-0056
+title: "Accept selected science-track proposals into canonical tasks"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Convert approved proposal backlog into canonical tasks without duplicate task-id churn."
+  - "Preserve traceability from proposal files to maintainer-accepted TASK-XXXX records."
+  - "Keep the shared task pool aligned with current blocker and science-track priorities."
+
+input:
+  mode: workflow
+  related_objects:
+    - "tasks/proposals/20260503-roman-particle-mass-benchmark-schema.yaml"
+    - "tasks/proposals/20260503-roman-physical-constants-verification-track.yaml"
+    - "tasks/proposals/20260503-roman-hypothesis-register-protocol.yaml"
+    - "tasks/proposals/20260503-roman-approximation-breakdown-probes.yaml"
+    - "tasks/proposals/20260503-roman-experiment-flow-diagram.yaml"
+    - "tasks/TASK-0048-particle-mass-benchmark-schema-support.yaml"
+  planning_context: >
+    The maintainer explicitly accepted a subset of proposal backlog items for
+    promotion into canonical tasks. Record the acceptance deterministically by
+    creating the missing TASK-XXXX files, updating proposal promotion metadata,
+    and synchronizing the active board snapshot.
+
+requirements:
+  - "Do not create a duplicate canonical task for the already accepted particle-mass benchmark schema proposal."
+  - "Create canonical task files for the newly accepted proposals only."
+  - "Update proposal promotion metadata with canonical_task_id and decision."
+  - "Keep proposal file status as PROPOSED so historical proposal records remain schema-valid."
+  - "Sync tasks/ACTIVE.md after canonical task creation."
+  - "Do not implement the newly accepted execution tasks in this maintainer workflow change."
+
+accepted_outputs:
+  - "tasks/TASK-0049-physical-constants-verification-track.yaml"
+  - "tasks/TASK-0050-approximation-breakdown-probes-track.yaml"
+  - "tasks/TASK-0051-hypothesis-register-protocol.yaml"
+  - "tasks/TASK-0055-experiment-flow-diagram.yaml"
+  - "tasks/TASK-0056-accept-selected-science-track-proposals.yaml"
+  - "updated tasks/proposals/20260503-roman-particle-mass-benchmark-schema.yaml"
+  - "updated tasks/proposals/20260503-roman-physical-constants-verification-track.yaml"
+  - "updated tasks/proposals/20260503-roman-hypothesis-register-protocol.yaml"
+  - "updated tasks/proposals/20260503-roman-approximation-breakdown-probes.yaml"
+  - "updated tasks/proposals/20260503-roman-experiment-flow-diagram.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

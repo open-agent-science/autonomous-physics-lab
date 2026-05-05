@@ -1,0 +1,48 @@
+id: TASK-0059
+title: "Prepare Koide tau holdout public summary package"
+type: documentation
+status: PROPOSED
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Turn the tau holdout benchmark into a compact public-facing summary only after scope wording is stable."
+  - "Mirror the successful pendulum result-package pattern without overstating the Koide benchmark."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0038-historical-tau-holdout-prediction.yaml"
+    - "tasks/TASK-0058-standardize-koide-tau-holdout-verdict-wording.yaml"
+    - "docs/results/koide-tau-holdout.md"
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+  planning_context: >
+    After the tau holdout wording and scoped verdict are reviewed, prepare a
+    compact public-facing result package analogous to the pendulum summary
+    package. This task should not start until TASK-0058 has stabilized the
+    wording and verdict scope.
+
+requirements:
+  - "Do not start execution until TASK-0058 is complete."
+  - "Create docs/results/koide-tau-holdout-summary.md."
+  - "Create docs/announcement-draft-koide-tau-holdout.md."
+  - "Keep all wording historical, scope-limited, and non-explanatory."
+  - "Do not promote any claim automatically."
+  - "Do not describe the benchmark as evidence of deeper structure by itself."
+
+accepted_outputs:
+  - "docs/results/koide-tau-holdout-summary.md"
+  - "docs/announcement-draft-koide-tau-holdout.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

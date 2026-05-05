@@ -5,7 +5,8 @@ Generate. Simulate. Falsify. Reuse.
 Autonomous Physics Lab (APL) is an open-source infrastructure for generating,
 testing, simulating, falsifying, and reusing physics hypotheses.
 
-APL is not a chatbot. It is a public verification engine for physics ideas.
+APL is not a chatbot. It is a verification-first engine for testing physics
+ideas.
 
 ## Positioning
 
@@ -15,7 +16,8 @@ The goal is to build infrastructure for systematic theory search in physics.
 The project combines three cores:
 
 1. A hypothesis engine for proposing and testing candidate formulas or models.
-2. A public knowledge base for storing hypotheses, claims, experiments, and results.
+2. A version-controlled scientific memory for storing hypotheses, claims,
+   experiments, and results.
 3. An open agent task network so humans and external agents can contribute reproducible work.
 
 ## Original MVP
@@ -32,25 +34,57 @@ It should:
 
 ## Current Benchmarks
 
-The repository currently stabilizes two verification-first benchmark slices:
+The repository currently has four canonical experiment slices across two active
+scientific tracks:
 
 1. `EXP-0001` — `Pendulum Formula Discovery`
 2. `EXP-0002` — `Damped Oscillator Regime Verification`
+3. `EXP-0004` — `Charged-Lepton Koide Reproduction`
+4. `EXP-0005` — `Historical Tau Holdout Prediction`
 
-Both benchmarks produce run-based artifacts under `results/<experiment>/<run>/`
-and are validated through the repository registry and CLI tooling.
+Both tracks are verification-first and store run-based artifacts under
+`results/<experiment>/<run>/`.
 
-## Current measurable result
+## Current Major Results
 
-APL evaluated 100 deterministic candidate formulas for the ideal pendulum
-period ratio in `EXP-0001/RUN-0003`. The top leaderboard candidate
-`model_t4_x1` reached approximately `3.1e-4` mean relative residual on the
-configured test range. A dedicated precision audit classified that error as
-model residual, not numerical reference noise. No symbolic exactness claim and
-no global validity claim are made.
+- [Pendulum Gauntlet 100](docs/results/pendulum-gauntlet-100-summary.md):
+  100 deterministic candidate formulas tested against the exact pendulum
+  reference with explicit leaderboard, diagnostics, and limitation wording.
+- [Koide tau holdout](docs/results/koide-tau-holdout.md): a narrow historical
+  holdout benchmark that predicts tau from electron and muon inputs under the
+  exact Koide assumption, compared against measured tau with uncertainty-aware
+  wording.
 
-See [docs/results/pendulum-gauntlet-100-summary.md](docs/results/pendulum-gauntlet-100-summary.md)
-for the full package and limitations.
+These are scoped benchmark results with explicit limits, not discovery-level
+physical conclusions, complete particle-mass explanations, or exact symbolic
+proof.
+
+## Start Here
+
+If you are new to the repository, use this order:
+
+1. [docs/mission-control.md](docs/mission-control.md)
+2. [docs/campaigns/README.md](docs/campaigns/README.md)
+3. [docs/status.md](docs/status.md)
+4. [tasks/ACTIVE.md](tasks/ACTIVE.md)
+5. [docs/agent-task-protocol.md](docs/agent-task-protocol.md)
+
+This gives you the shortest path from "what is APL?" to "which campaign
+already has evidence?" to "which task can I pick up safely?"
+
+## Active Scientific Campaigns
+
+APL currently organizes contributor-facing scientific work around four campaign
+surfaces:
+
+1. [Pendulum Formula Falsification](docs/campaigns/pendulum-formula-falsification.md)
+2. [Particle Mass Relations](docs/campaigns/particle-mass-relations.md)
+3. [Dimensional Analysis Validator](docs/campaigns/dimensional-analysis-validator.md)
+4. [Thought-Experiment Consistency](docs/campaigns/thought-experiment-consistency.md)
+
+The pendulum and particle-mass tracks already have scoped canonical results.
+The dimensional-analysis and thought-experiment tracks are still planning-first
+and should not be described as finished benchmark implementations.
 
 ## Contribute with an AI coding agent
 
@@ -111,15 +145,11 @@ autonomous-physics-lab/
 
 ## Status
 
-The repository currently has two working benchmark slices:
+The repository is currently in:
 
-- architecture and documentation are in place;
-- the public knowledge layout is defined;
-- the pendulum formula discovery workflow works end-to-end;
-- the damped-oscillator regime verification workflow works end-to-end;
-- structured artifact validation and repo-wide checks are implemented.
+`v0.1-private-alpha — scientific campaign and contributor workflow validation`
 
-See [docs/architecture.md](docs/architecture.md),
+See [docs/status.md](docs/status.md),
 [docs/roadmap.md](docs/roadmap.md), and
 [docs/implementation-plan.md](docs/implementation-plan.md).
 
@@ -127,6 +157,8 @@ See [docs/architecture.md](docs/architecture.md),
 
 Use these files to continue the project without guessing:
 
+- [docs/mission-control.md](docs/mission-control.md) for the fastest project-level orientation
+- [docs/campaigns/README.md](docs/campaigns/README.md) for the scientific campaign map
 - [docs/strategy.md](docs/strategy.md) for the current strategic compass
 - [tasks/ACTIVE.md](tasks/ACTIVE.md) for the shared live task board
 - [docs/agent-operating-model.md](docs/agent-operating-model.md) for multi-agent handoff and task execution
