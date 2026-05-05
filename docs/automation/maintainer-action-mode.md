@@ -101,12 +101,18 @@ Allowed when:
 
 - the task PR is merged;
 - accepted outputs are confirmed in `main`;
+- task-to-PR binding is confirmed through GitHub metadata rather than merge
+  commit text alone;
 - closeout helper checks pass;
 - no unresolved blocker remains.
 
 Action mode may prepare and open the closeout PR and then run the maintainer
 review agent on that PR. It should not silently mark a task `DONE` on `main`
 outside the normal PR flow.
+
+If GitHub PR metadata cannot be loaded or the PR title / head branch does not
+bind back to the same canonical `TASK-XXXX`, action mode must stop and return
+the candidate as blocked or needs-attention.
 
 ### 4. Maintainer-Admin PR Preparation
 
@@ -146,6 +152,7 @@ Stop immediately and return a recommendation when:
 - scientific scope is ambiguous;
 - the action would touch claims or result artifacts;
 - GitHub CI and local validation disagree;
+- GitHub PR metadata cannot be verified for a closeout candidate;
 - the branch is contaminated with unrelated work;
 - the action depends on a proposal or task whose status is unclear;
 - the action would effectively replace human merge or scientific authority.
