@@ -49,6 +49,54 @@ The recommended first bounded action is:
 - run this review agent on that closeout PR;
 - stop and wait for maintainer merge.
 
+## Review Lanes
+
+Maintainer review should not use the same heavy cycle for every PR shape.
+
+Choose one of two lanes before running the review:
+
+- `fast review`
+  for low-risk docs, planning, task-admin, proposal-only, and closeout PRs
+- `deep review`
+  for engines, workflows, schemas, claims, results, maintainer scripts, CI,
+  automation logic, and public-facing scientific wording
+
+### Fast Review Lane
+
+Use this lane when all of the following are true:
+
+- the PR is limited to docs, notes, task files, proposal files, closeout
+  updates, or maintainer-admin workflow text
+- no claim, result artifact, hypothesis, or experiment semantics are being
+  changed beyond already-approved task scope
+- no engine, workflow, schema, maintainer script, or CI surface is touched
+- there is no obvious overclaim or repository-safety risk
+
+Fast review should focus on:
+
+1. branch and title protocol
+2. task/proposal status correctness
+3. accepted outputs roughly matching the PR scope
+4. validation presence
+5. obvious wording or governance issues
+
+If the PR passes those checks, avoid escalating into a full deep review loop.
+
+### Deep Review Lane
+
+Use this lane whenever any of the following is true:
+
+- the PR changes executable engine or workflow code
+- the PR changes schemas, maintainer scripts, CI, or automation helpers
+- the PR introduces or modifies claim, result, hypothesis, or experiment
+  artifacts
+- the PR changes public-facing scientific wording that could affect scope,
+  verdict interpretation, or overclaim risk
+- the PR has ambiguous task-contract fit or protected-artifact scope
+
+Deep review should include the full deterministic helper cycle and content
+verification appropriate to the changed surface.
+
 ## Mode 1: Pre-Merge Review
 
 Use this mode for an open pull request before merge.
@@ -64,6 +112,7 @@ This mode supports:
 - task id or `TASK-PROPOSAL`
 - branch name
 - task file path or proposal file path
+- selected review lane (`fast` or `deep`) when helpful
 
 ### Required checks
 
@@ -88,6 +137,7 @@ This mode supports:
 13. The review bundle was generated from the PR branch, not from `main`.
 14. No obvious repository-safety or security risk is introduced without
     explicit maintainer awareness.
+15. The selected review lane matches the actual PR surface.
 
 ### Verdicts
 
@@ -96,6 +146,13 @@ This mode supports:
 - `NEEDS_CHANGES`: work is directionally correct, but gaps remain.
 - `BLOCKED`: a protocol, validation, scope, or evidence issue prevents review
   completion.
+
+Lane mismatch rule:
+
+- if a PR was treated as `fast review` but touches deep-review surfaces, stop
+  and switch to `deep review`
+- if a PR stays entirely within fast-review surfaces, do not force a full
+  deep-review loop unless a real blocker appears
 
 ### Recommended output format
 

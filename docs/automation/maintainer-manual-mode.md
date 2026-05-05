@@ -30,6 +30,12 @@ The maintainer should provide one of:
 
 Use the maintainer review agent.
 
+Select the review lane first:
+- `fast review` for low-risk docs, planning, proposal-only, task-admin, and
+  closeout PRs
+- `deep review` for engines, workflows, schemas, claims, results, maintainer
+  scripts, CI, and public scientific wording
+
 Return:
 - `MERGE_OK`
 - `NEEDS_CHANGES`
@@ -42,6 +48,9 @@ Also return:
 
 If useful, offer an English PR comment draft, but do not post it unless the
 maintainer asks.
+
+Prefer the fast lane when the PR obviously fits it. Do not default to deep
+review just because a deterministic helper exists.
 
 ### 2. Proposal Acceptance Review
 
