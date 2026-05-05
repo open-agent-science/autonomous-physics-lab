@@ -1,7 +1,7 @@
 id: TASK-0058
 title: "Standardize scoped verdict wording for tau holdout"
 type: scientific_safety_review
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: high
 

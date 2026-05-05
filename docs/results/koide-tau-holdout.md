@@ -35,7 +35,7 @@ Primary comparison:
 
 Repository verdict:
 
-- `VALID`
+- `VALID_IN_RANGE`
 
 ## Interpretation
 
