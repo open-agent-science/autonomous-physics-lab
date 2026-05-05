@@ -50,7 +50,6 @@ one PR.
 - `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
 - `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (`workflow_pilot`, priority `medium`, difficulty `medium`)
 - `TASK-0082` — Add Koide baseline planning for guarded next-step evaluation (`benchmark_planning`, priority `medium`, difficulty `medium`)
-- `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (`scientific_experiment`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -62,6 +61,7 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (merged)
 - `TASK-0085` — Define PR title format for microtask PRs without a canonical TASK-XXXX (merged)
 - `TASK-0084` — Add explicit no-direct-main-push guardrail to agent instructions (merged)
 - `TASK-0083` — Add agent-ready scientific work loop follow-up tasks (merged)
@@ -132,6 +132,11 @@ None.
 - `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
 - `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
 - `TASK-0059` — Prepare Koide tau holdout public summary package (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0087` — Test Koide relation for neutrino masses (`scientific_experiment`, priority `high`, difficulty `medium`)
+- `TASK-0088` — Test Brannen quark-mass Koide cascade for up and down sectors (`scientific_experiment`, priority `high`, difficulty `medium`)
+- `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
+- `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
+- `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
 
 ## BLOCKED
 
