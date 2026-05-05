@@ -72,6 +72,19 @@ If you are new to the repository, use this order:
 This gives you the shortest path from "what is APL?" to "which campaign
 already has evidence?" to "which task can I pick up safely?"
 
+### Using a chat-based LLM instead of an agent?
+
+Download [CONTEXT.md](CONTEXT.md) — a single-file bundle of the core
+instructions, strategy, and current task board. Upload it to your chat session
+to get full project context without reading multiple files.
+
+To regenerate it locally after pulling updates:
+
+```bash
+python3 scripts/generate_context_bundle.py          # core (44 KB)
+python3 scripts/generate_context_bundle.py --full   # + extended docs (~60 KB)
+```
+
 ## Active Scientific Campaigns
 
 APL currently organizes contributor-facing scientific work around four campaign

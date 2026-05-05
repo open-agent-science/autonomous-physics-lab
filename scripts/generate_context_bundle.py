@@ -1,0 +1,124 @@
+"""Generate a single-file context bundle for Autonomous Physics Lab.
+
+Usage
+-----
+    python3 scripts/generate_context_bundle.py            # writes CONTEXT.md
+    python3 scripts/generate_context_bundle.py --full     # includes extended docs
+    python3 scripts/generate_context_bundle.py --out FILE # custom output path
+    python3 scripts/generate_context_bundle.py --stdout   # print to stdout
+
+The bundle is intended for use with chat-based LLMs or as a quick orientation
+file for agents. It contains the core instructions, strategy, and current task
+board in one place. Extended docs (--full) add contributing workflow, review
+agent protocol, and micro-task protocol.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+CORE_FILES: list[tuple[str, str]] = [
+    ("Agent & Contributor Rules", "AGENTS.md"),
+    ("Claude Code Entry Point", "CLAUDE.md"),
+    ("Project Strategy", "docs/strategy.md"),
+    ("Mission Control (Current Phase)", "docs/mission-control.md"),
+    ("Agent Task Protocol", "docs/agent-task-protocol.md"),
+    ("Agent Scientific Work Mode", "docs/agent-scientific-work-mode.md"),
+    ("Active Task Board", "tasks/ACTIVE.md"),
+]
+
+EXTENDED_FILES: list[tuple[str, str]] = [
+    ("Contributing Workflow", "docs/contributing-workflow.md"),
+    ("Maintainer Review Agent", "docs/maintainer-review-agent.md"),
+    ("Scientific Micro-Task Protocol", "docs/scientific-micro-task-protocol.md"),
+]
+
+SEPARATOR = "\n\n" + "─" * 72 + "\n\n"
+
+
+def _section(title: str, rel_path: str, content: str) -> str:
+    return (
+        f"# {title}\n"
+        f"<!-- source: {rel_path} -->\n\n"
+        f"{content.strip()}\n"
+    )
+
+
+def build_bundle(*, full: bool = False) -> str:
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    files = CORE_FILES + (EXTENDED_FILES if full else [])
+
+    header = (
+        "# Autonomous Physics Lab — Context Bundle\n\n"
+        f"Generated: {now}  \n"
+        f"Mode: {'full' if full else 'core'}  \n"
+        f"Repo: gladunrv/autonomous-physics-lab\n\n"
+        "This file bundles the core project instructions, strategy, and current\n"
+        "task board into one document for use with chat-based LLMs or as a\n"
+        "quick agent orientation file.\n\n"
+        "For the live repository see: https://github.com/gladunrv/autonomous-physics-lab\n"
+    )
+
+    sections: list[str] = [header]
+    missing: list[str] = []
+
+    for title, rel_path in files:
+        full_path = REPO_ROOT / rel_path
+        if not full_path.exists():
+            missing.append(rel_path)
+            continue
+        content = full_path.read_text(encoding="utf-8")
+        sections.append(_section(title, rel_path, content))
+
+    bundle = SEPARATOR.join(sections)
+
+    if missing:
+        bundle += (
+            SEPARATOR
+            + "# Missing Files\n\n"
+            + "\n".join(f"- {p}" for p in missing)
+            + "\n"
+        )
+
+    return bundle
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        help="Include extended docs (contributing, review agent, micro-task protocol).",
+    )
+    parser.add_argument(
+        "--out",
+        default="CONTEXT.md",
+        help="Output file path relative to repo root (default: CONTEXT.md).",
+    )
+    parser.add_argument(
+        "--stdout",
+        action="store_true",
+        help="Print bundle to stdout instead of writing a file.",
+    )
+    args = parser.parse_args()
+
+    bundle = build_bundle(full=args.full)
+
+    if args.stdout:
+        sys.stdout.write(bundle)
+        return
+
+    out_path = REPO_ROOT / args.out
+    out_path.write_text(bundle, encoding="utf-8")
+    lines = bundle.count("\n")
+    size_kb = len(bundle.encode()) / 1024
+    print(f"Written: {out_path.relative_to(REPO_ROOT)}  ({lines} lines, {size_kb:.0f} KB)")
+
+
+if __name__ == "__main__":
+    main()

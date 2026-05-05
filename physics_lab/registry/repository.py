@@ -76,6 +76,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "schema_extension",
     "scoring_design",
     "thought_experiment_planning",
+    "scientific_microtask_execution",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
