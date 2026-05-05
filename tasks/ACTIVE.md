@@ -61,6 +61,7 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0085` — Define PR title format for microtask PRs without a canonical TASK-XXXX (merged)
 - `TASK-0084` — Add explicit no-direct-main-push guardrail to agent instructions (merged)
 - `TASK-0083` — Add agent-ready scientific work loop follow-up tasks (merged)
 - `TASK-0080` — Run first dimensional-analysis scientific microtask batch (merged)
