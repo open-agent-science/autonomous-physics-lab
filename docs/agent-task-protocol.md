@@ -53,11 +53,28 @@ Proposal PR title format:
 
 `TASK-PROPOSAL: <short title>`
 
+Default proposal PR scope:
+
+- one or more `tasks/proposals/*.yaml` files in a proposal-only PR
+
+Use a multi-proposal PR when the ideas are tightly coupled, come from the same
+salvage pass, or when the maintainer explicitly asks for a batch. Split the
+PR when the proposals are unrelated or the batch stops being lightweight.
+
 Use [./task-proposal-protocol.md](./task-proposal-protocol.md) and
 [../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml).
 
 Only the maintainer may assign canonical ids directly unless a maintainer-run
 task-admin or review agent is explicitly told to do so.
+
+If rescuing useful ideas from a stale or superseded PR:
+
+- create fresh proposal file(s) under `tasks/proposals/`;
+- start from a clean `propose-task-...` branch immediately;
+- do not reuse a generic docs/task branch just because it already exists;
+- open a clean replacement `TASK-PROPOSAL` PR and then close the stale PR;
+- a salvage batch is allowed when the rescued ideas are closely related and
+  the replacement PR stays proposal-only.
 
 ## Scientific Microtask Queues
 

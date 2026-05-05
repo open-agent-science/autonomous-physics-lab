@@ -65,6 +65,7 @@ None.
 - `TASK-0074` — Harden closeout protocol binding checks for automation (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0075` — Add scientific microtask queues for agent work (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0076` — Add fast and deep maintainer review lanes (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0077` — Add proposal PR format and salvage guardrails (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
