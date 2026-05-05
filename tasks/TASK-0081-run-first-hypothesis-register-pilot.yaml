@@ -1,0 +1,54 @@
+id: TASK-0081
+title: "Run first hypothesis register pilot through an APL next-step flow"
+type: workflow_pilot
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Turn the new hypothesis register from a static schema into a usable contributor workflow."
+  - "Test whether one HRE entry can cleanly progress toward experiment planning without premature claim promotion."
+  - "Create a reusable example of how APL should treat promising, weak, or too-speculative register entries."
+
+input:
+  mode: workflow
+  related_domain: hypothesis_lifecycle
+  related_objects:
+    - "tasks/TASK-0051-hypothesis-register-protocol.yaml"
+    - "docs/notes/hypothesis-register-protocol.md"
+    - "hypothesis_register/HRE-0001-neutrino-koide-candidate.yaml"
+    - "hypothesis_register/HRE-0002-anharmonic-oscillator-period-correction.yaml"
+    - "hypothesis_register/HRE-0003-wien-displacement-spectral-index.yaml"
+    - "hypothesis_register/HRE-0004-relativistic-ke-correction-threshold.yaml"
+    - "hypothesis_register/HRE-0005-fine-structure-constant-derivation.yaml"
+  planning_context: >
+    The hypothesis register now exists, but APL still needs one concrete pilot
+    showing how a register entry moves toward an experiment plan, verification
+    plan, deferral, or negative-result route. This task does not need to run a
+    full benchmark if the selected entry is not ready.
+
+requirements:
+  - "Choose one HRE-0001 through HRE-0005 entry as the pilot."
+  - "Document whether the chosen entry is ready for formal hypothesis drafting, needs better assumptions, or should be deferred."
+  - "Create at least one concrete next-step artifact such as a hypothesis draft, experiment plan, verification plan, or scoped deferral note."
+  - "Explain why the chosen path is appropriate for the selected entry."
+  - "If the entry is too speculative, stop at a disciplined pilot note instead of forcing execution."
+  - "Do not promote claims."
+  - "Do not describe the pilot as validation of the underlying hypothesis."
+
+accepted_outputs:
+  - "docs/reviews/hypothesis-register-pilot-01.md"
+  - "one linked next-step artifact for the chosen HRE entry"
+  - "updated docs/notes/hypothesis-register-protocol.md if the pilot reveals a workflow gap"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
