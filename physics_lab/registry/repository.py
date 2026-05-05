@@ -179,6 +179,22 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
     return items
 
 
+def _validate_unique_task_ids(
+    tasks: list[tuple[Path, dict[str, Any]]],
+) -> None:
+    """Fail fast when canonical task ids are duplicated."""
+    seen_by_id: dict[str, Path] = {}
+    for path, payload in tasks:
+        task_id = str(payload["id"])
+        previous_path = seen_by_id.get(task_id)
+        if previous_path is not None:
+            raise ValueError(
+                "Duplicate canonical task id "
+                f"{task_id}: {previous_path} and {path}"
+            )
+        seen_by_id[task_id] = path
+
+
 def _validate_references(
     hypotheses: list[tuple[Path, dict[str, Any]]],
     experiments: list[tuple[Path, dict[str, Any]]],
@@ -692,6 +708,7 @@ def validate_repository(
         for path in sorted((root_path / "examples").glob("*.yaml"))
     ]
     results = _load_directory(root_path, "results")
+    _validate_unique_task_ids(tasks)
 
     _validate_references(
         hypotheses=hypotheses,

@@ -734,6 +734,44 @@ def test_validate_repository_allows_planning_task_without_fake_science_refs(tmp_
     assert summary.counts["tasks"] == 1
 
 
+def test_validate_repository_rejects_duplicate_canonical_task_ids(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    for directory in ("agents", "claims", "experiments", "hypotheses", "results", "tasks"):
+        (repo_root / directory).mkdir(parents=True, exist_ok=True)
+
+    task_payload = "\n".join(
+        [
+            'id: "TASK-0087"',
+            'title: "Duplicate Task"',
+            'type: "benchmark_planning"',
+            'status: "READY"',
+            'difficulty: "low"',
+            'priority: "high"',
+            "input:",
+            '  mode: "planning_only"',
+            '  related_domain: "task_coordination"',
+            "  related_objects: []",
+            '  planning_context: "Duplicate task id regression test"',
+            "requirements:",
+            '  - "stay unique"',
+            "accepted_outputs:",
+            '  - "canonical task spec"',
+            "can_be_done_by:",
+            '  - "human"',
+        ]
+    ) + "\n"
+
+    (repo_root / "tasks" / "TASK-0087-first.yaml").write_text(task_payload, encoding="utf-8")
+    (repo_root / "tasks" / "TASK-0087-second.yaml").write_text(task_payload, encoding="utf-8")
+
+    try:
+        validate_repository(repo_root)
+    except ValueError as exc:
+        assert "Duplicate canonical task id TASK-0087" in str(exc)
+    else:
+        raise AssertionError("Expected duplicate task id validation to fail")
+
+
 def test_validate_repository_keeps_science_task_references_strict(tmp_path) -> None:
     repo_root = tmp_path / "repo"
     for directory in ("agents", "claims", "experiments", "hypotheses", "results", "tasks"):
