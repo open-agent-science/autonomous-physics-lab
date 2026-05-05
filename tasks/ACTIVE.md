@@ -4,12 +4,12 @@
 
 APL is verification-first scientific infrastructure.
 
-Current phase: `v0.1-private-alpha`
+Current phase: `v0.1-private-alpha — scientific campaign and contributor workflow validation`
 
 Current goal:
 
-- private contributor pilot
-- measurable scientific result
+- active scientific campaigns with conservative result wording
+- private contributor pilot and maintainer review workflow validation
 - public release only after explicit gates are satisfied
 
 The repository remains private until
@@ -22,8 +22,19 @@ canonical execution protocol. Use
 [../docs/agent-operating-model.md](../docs/agent-operating-model.md) for
 supporting workflow context and handoff norms.
 
+Repository-level orientation now starts with
+[../docs/mission-control.md](../docs/mission-control.md) and
+[../docs/campaigns/README.md](../docs/campaigns/README.md) before drilling
+into task-level work.
+
 For new task ideas without a maintainer-assigned canonical `TASK-XXXX` id, use
 the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-proposal-protocol.md).
+
+For spare token or time budget scientific work, use
+[../tasks/microtasks/README.md](../tasks/microtasks/README.md) together with
+[../docs/agent-scientific-work-mode.md](../docs/agent-scientific-work-mode.md).
+Prefer one small batch from one campaign queue rather than mixing campaigns in
+one PR.
 
 <!-- BEGIN AUTO TASK STATUS BOARD -->
 
@@ -33,19 +44,13 @@ the proposal-first flow in [../docs/task-proposal-protocol.md](../docs/task-prop
 
 ## READY
 
-- `TASK-0012` — Run a private multi-agent contributor dry run (`agent_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0024` — Create task index table (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0025` — Create result artifacts index (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0026` — Add 10 more dimensional-analysis challenge items (`physics_dataset_extension`, priority `high`, difficulty `low`)
-- `TASK-0027` — Create units and physical constants reference (`physics_reference`, priority `medium`, difficulty `low`)
-- `TASK-0028` — Plan light-clock thought experiment consistency check (`thought_experiment_planning`, priority `high`, difficulty `low`)
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0049` — Define and launch physical constants verification micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
-- `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (`benchmark_planning`, priority `medium`, difficulty `low`)
 - `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
 - `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0058` — Standardize scoped verdict wording for tau holdout (`scientific_safety_review`, priority `high`, difficulty `low`)
+- `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -53,24 +58,33 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0017` — Create a dimensional analysis challenge set (`benchmark_planning`, priority `high`, difficulty `medium`)
-- `TASK-0020` — Add pytest-timeout and validation safeguards against hanging tests (`repository_validation`, priority `medium`, difficulty `low`)
-- `TASK-0021` — Add AI agent attribution policy (`agent_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0029` — Audit project language for overclaim risk (`scientific_safety_review`, priority `high`, difficulty `low`)
-- `TASK-0038` — Reproduce historical tau-mass holdout prediction (`historical_prediction_benchmark`, priority `high`, difficulty `medium`)
-- `TASK-0054` — Fix maintainer review helper temp claim path handling in git worktrees (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0056` — Accept selected science-track proposals into canonical tasks (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0060` — Add open pull request list to repository snapshot (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0026` — Add 10 more dimensional-analysis challenge items (`physics_dataset_extension`, priority `high`, difficulty `low`)
+- `TASK-0028` — Plan light-clock thought experiment consistency check (`thought_experiment_planning`, priority `high`, difficulty `low`)
+- `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (`benchmark_planning`, priority `medium`, difficulty `low`)
+- `TASK-0064` — Implement dimensional analysis validator MVP (`physics_validation_engine`, priority `high`, difficulty `medium`)
+- `TASK-0074` — Harden closeout protocol binding checks for automation (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0075` — Add scientific microtask queues for agent work (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0076` — Add fast and deep maintainer review lanes (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0077` — Add proposal PR format and salvage guardrails (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0073` — Define maintainer automation agent architecture and routine instructions (merged)
+- `TASK-0071` — Support closeout batch PRs in review helper (merged)
+- `TASK-0067` — Add v0.2 release-focused campaign tasks (merged)
+- `TASK-0062` — Update project status and roadmap for scientific campaign phase (merged)
+- `TASK-0061` — Create Mission Control and campaign map (merged)
+- `TASK-0060` — Add open pull request list to repository snapshot (merged)
+- `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (merged)
+- `TASK-0056` — Accept selected science-track proposals into canonical tasks (merged)
+- `TASK-0054` — Fix maintainer review helper temp claim path handling in git worktrees (merged)
 - `TASK-0048` — Add schema support for dataset-based particle-mass reproduction benchmarks (merged)
 - `TASK-0044` — Sync active task board from task files to reduce merge conflicts (merged)
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
 - `TASK-0042` — Add numerology guardrails for particle mass relation work (merged)
 - `TASK-0041` — Design complexity penalty for mass-relation formulas (merged)
 - `TASK-0039` — Design Koide-like triplet search with baselines (merged)
+- `TASK-0038` — Reproduce historical tau-mass holdout prediction (merged)
 - `TASK-0037` — Reproduce Koide charged-lepton relation (merged)
 - `TASK-0036` — Create particle mass dataset scaffold (merged)
 - `TASK-0035` — Refactor maintainer review checks into smaller modules (merged)
@@ -78,13 +92,21 @@ None.
 - `TASK-0033` — Standardize contributor-agent identity format (merged)
 - `TASK-0032` — Build public scientific result package for Pendulum Gauntlet 100 (merged)
 - `TASK-0031` — Add beginner-friendly contributor task set (merged)
+- `TASK-0029` — Audit project language for overclaim risk (merged)
+- `TASK-0027` — Create units and physical constants reference (merged)
+- `TASK-0025` — Create result artifacts index (merged)
+- `TASK-0024` — Create task index table (merged)
 - `TASK-0023` — Create first contributor runbook (merged)
 - `TASK-0022` — Add PR review bundle snapshot script (merged)
+- `TASK-0021` — Add AI agent attribution policy (merged)
+- `TASK-0020` — Add pytest-timeout and validation safeguards against hanging tests (merged)
 - `TASK-0019` — Standardize agent branch, commit, and pull request protocol (merged)
 - `TASK-0018` — Support planning-only and workflow tasks without fake hypothesis references (merged)
+- `TASK-0017` — Create a dimensional analysis challenge set (merged)
 - `TASK-0015` — Plan the diffusion scaling benchmark (merged)
 - `TASK-0014` — Plan a thought-experiment consistency suite (merged)
 - `TASK-0013` — Plan a particle mass relation falsifier inspired by Koide-style formulas (merged)
+- `TASK-0012` — Run a private multi-agent contributor dry run (merged)
 - `TASK-0011` — Audit numerical precision versus model residual for the pendulum gauntlet run (merged)
 - `TASK-0010` — Run pendulum hypothesis gauntlet with 100 candidate formulas (merged)
 - `TASK-0008` — Add machine-readable review metadata for patch-style evidence artifacts (merged)
@@ -104,7 +126,8 @@ None.
 
 ## BLOCKED
 
-None.
+- `TASK-0065` — Finalize Koide tau holdout public result package (`release_preparation`, priority `medium`, difficulty `medium`)
+- `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
 
 ## REJECTED
 
@@ -121,6 +144,10 @@ Prefer independent `READY` tasks with:
 - no shared branch or board-maintenance coupling;
 - validation that does not require regenerating benchmark outputs.
 
+If a contributor first needs scientific context rather than a task, start with
+[../docs/campaigns/README.md](../docs/campaigns/README.md) and then return to
+the `READY` section.
+
 If multiple `READY` tasks fit, pick the smallest one that does not touch the
 same artifact surface as another open PR.
 
@@ -132,7 +159,7 @@ same artifact surface as another open PR.
 - multi-agent runtime
 - database backend
 - public launch
-- claims of "new physics"
+- discovery-level physics claims
 
 ## PROPOSED NOTE
 

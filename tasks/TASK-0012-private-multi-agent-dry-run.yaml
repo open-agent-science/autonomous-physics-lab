@@ -1,7 +1,7 @@
 id: TASK-0012
 title: "Run a private multi-agent contributor dry run"
 type: agent_workflow
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

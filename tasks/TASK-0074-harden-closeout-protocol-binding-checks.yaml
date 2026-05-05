@@ -1,0 +1,52 @@
+id: TASK-0074
+title: "Harden closeout protocol binding checks for automation"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce maintainer automation risk by making closeout-task to PR binding explicit in protocol docs."
+  - "Keep closeout automation verification-first and resilient to malformed merge metadata."
+  - "Clarify that action mode must stop when GitHub PR metadata is unavailable or ambiguous."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "docs/automation/maintainer-routine-mode.md"
+    - "docs/automation/maintainer-action-mode.md"
+    - "physics_lab/registry/closeout_sweep.py"
+  planning_context: >
+    A review finding highlighted that closeout automation must not trust merge
+    commit text alone as the task-to-PR source of truth. The repository needs
+    protocol-level wording that requires an additional PR binding check and a
+    safe stop when GitHub metadata is unavailable.
+
+requirements:
+  - "Document that closeout sweep candidate discovery may start from merge history but must not trust merge commit text alone."
+  - "Require a task-to-PR binding check through GitHub PR metadata such as PR title task id and/or head branch task id before action mode treats a candidate as verified."
+  - "Document that closeout automation must stop without opening a PR when GitHub PR metadata cannot be verified."
+  - "Keep the update protocol-focused; do not change scientific rules, claim policy, or merge authority."
+  - "Update tasks/ACTIVE.md through the canonical sync flow."
+
+accepted_outputs:
+  - "updated docs/maintainer-review-agent.md"
+  - "updated docs/automation/maintainer-routine-mode.md"
+  - "updated docs/automation/maintainer-action-mode.md"
+  - "tasks/TASK-0074-harden-closeout-protocol-binding-checks.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

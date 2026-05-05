@@ -1,0 +1,57 @@
+id: TASK-0066
+title: "Review v0.2 public readiness gates"
+type: release_review
+status: BLOCKED
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Turn the current private-alpha campaign work into an explicit release decision instead of an implicit drift toward public launch."
+  - "Force one disciplined maintainer review across results, visuals, contributor workflow, and release wording."
+  - "Keep APL private until public-release gates are reviewed against actual artifacts rather than intent."
+
+input:
+  mode: workflow
+  related_domain: release_governance
+  related_objects:
+    - "docs/public-release-gates.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/strategy.md"
+    - "docs/roadmap.md"
+    - "README.md"
+    - "docs/results/visual-summary.md"
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+    - "docs/results/koide-tau-holdout-summary.md"
+    - "docs/results/dimensional-analysis-validator-summary.md"
+    - "docs/multi-agent-dry-run.md"
+  planning_context: >
+    After the visual pack, dimensional-analysis validator MVP, and Koide
+    packaging work have landed, run one release-gate review that answers
+    whether APL is ready for a v0.2-style public-facing scientific campaign
+    release candidate or still needs another private-alpha cycle.
+
+requirements:
+  - "Do not start execution until the visual-result pack and dimensional-analysis MVP exist."
+  - "Review public-release gates against actual repository artifacts, not planned work."
+  - "State a clear verdict: public now, not yet, or public after named blockers."
+  - "Record what is ready, what remains uneven, and what should not be claimed."
+  - "Update docs/public-release-gates.md only if the review shows the wording is stale."
+  - "Keep the output decision-oriented rather than roadmap-only."
+
+accepted_outputs:
+  - "docs/reviews/v0.2-public-readiness.md"
+  - "updated docs/public-release-gates.md if needed"
+  - "updated docs/status.md if needed"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
