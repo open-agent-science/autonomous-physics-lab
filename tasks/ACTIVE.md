@@ -44,17 +44,13 @@ one PR.
 
 ## READY
 
-- `TASK-0026` — Add 10 more dimensional-analysis challenge items (`physics_dataset_extension`, priority `high`, difficulty `low`)
-- `TASK-0028` — Plan light-clock thought experiment consistency check (`thought_experiment_planning`, priority `high`, difficulty `low`)
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0049` — Define and launch physical constants verification micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
-- `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (`benchmark_planning`, priority `medium`, difficulty `low`)
 - `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (`benchmark_planning`, priority `high`, difficulty `low`)
 - `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0058` — Standardize scoped verdict wording for tau holdout (`scientific_safety_review`, priority `high`, difficulty `low`)
 - `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
-- `TASK-0064` — Implement dimensional analysis validator MVP (`physics_validation_engine`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -62,8 +58,13 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0026` — Add 10 more dimensional-analysis challenge items (`physics_dataset_extension`, priority `high`, difficulty `low`)
+- `TASK-0028` — Plan light-clock thought experiment consistency check (`thought_experiment_planning`, priority `high`, difficulty `low`)
+- `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (`benchmark_planning`, priority `medium`, difficulty `low`)
+- `TASK-0064` — Implement dimensional analysis validator MVP (`physics_validation_engine`, priority `high`, difficulty `medium`)
 - `TASK-0074` — Harden closeout protocol binding checks for automation (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0075` — Add scientific microtask queues for agent work (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0076` — Add fast and deep maintainer review lanes (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 

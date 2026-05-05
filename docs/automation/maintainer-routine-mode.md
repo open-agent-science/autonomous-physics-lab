@@ -51,10 +51,19 @@ Good examples:
    - reduce maintainer friction or review load.
 
 3. For ordinary task PRs, run the maintainer review agent when needed.
+   First choose a lane:
+   - `fast review` for low-risk docs, planning, proposal-only, task-admin, and
+     closeout PRs
+   - `deep review` for engines, workflows, schemas, claims, results,
+     maintainer scripts, CI, and public scientific wording
    Return:
    - `MERGE_OK`
    - `NEEDS_CHANGES`
    - `BLOCKED`
+
+   Prefer `fast review` by default when the PR clearly stays in low-risk
+   surfaces. Escalate to `deep review` only when the changed files or wording
+   justify it.
 
 4. Scan for merged tasks that still are not `DONE`.
    Verify before recommending closeout:
