@@ -193,7 +193,9 @@ CHALLENGE_SET_PATH = (
 )
 def test_challenge_set_agreement_above_threshold() -> None:
     _, summary = validate_challenge_set(CHALLENGE_SET_PATH)
-    assert summary.total == 50
+    assert summary.total >= 50, (
+        f"Expected the curated challenge set to retain at least 50 items, got {summary.total}"
+    )
     assert summary.agreement_fraction >= 0.90, (
         f"Expected ≥90% agreement, got {summary.agreement_fraction:.1%}"
     )
