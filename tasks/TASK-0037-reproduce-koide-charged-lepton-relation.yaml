@@ -1,7 +1,7 @@
 id: TASK-0037
 title: "Reproduce Koide charged-lepton relation"
 type: relation_reproduction
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

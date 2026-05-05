@@ -4,7 +4,7 @@ from typing import Optional
 
 from typer.testing import CliRunner
 
-from physics_lab.cli import app
+from physics_lab.cli import _latest_result_path, app
 from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_all_models
 from physics_lab.engines.scoring import ModelScore, compute_error_metrics
@@ -646,15 +646,16 @@ def test_validate_repository_smoke() -> None:
             if path.name != "TASK-TEMPLATE.yaml"
         ]
     )
+    expected_knowledge_count = len(list((repo_root / "knowledge").rglob("*.md")))
 
-    assert summary.counts["claims"] == 2
-    assert summary.counts["examples"] == 3
-    assert summary.counts["hypotheses"] == 2
-    assert summary.counts["experiments"] == 2
-    assert summary.counts["knowledge"] == 2
+    assert summary.counts["claims"] == len(list((repo_root / "claims").glob("CLAIM-*.md")))
+    assert summary.counts["examples"] == len(list((repo_root / "examples").glob("*.yaml")))
+    assert summary.counts["hypotheses"] == len(list((repo_root / "hypotheses").glob("HYP-*.yaml")))
+    assert summary.counts["experiments"] == len(list((repo_root / "experiments").glob("EXP-*.yaml")))
+    assert summary.counts["knowledge"] == expected_knowledge_count
     assert summary.counts["tasks"] == expected_task_count
     assert summary.counts["agents"] == 1
-    assert summary.counts["results"] == 4
+    assert summary.counts["results"] == len(list((repo_root / "results").glob("*/*/result.yaml")))
 
 
 def test_validate_repository_detects_missing_reference(tmp_path) -> None:
@@ -776,14 +777,15 @@ def test_cli_validate_repo_smoke() -> None:
         repo_root / "examples" / "pendulum.yaml",
         output_dir=Path("/tmp/apl-pendulum-cli-validate-repo"),
     )
+    summary = validate_repository(repo_root)
     runner = CliRunner()
     result = runner.invoke(app, ["validate-repo", "."])
 
     assert result.exit_code == 0
     assert "Validated repository:" in result.stdout
-    assert "- examples: 3" in result.stdout
-    assert "- hypotheses: 2" in result.stdout
-    assert "- knowledge: 2" in result.stdout
+    assert f"- examples: {summary.counts['examples']}" in result.stdout
+    assert f"- hypotheses: {summary.counts['hypotheses']}" in result.stdout
+    assert f"- knowledge: {summary.counts['knowledge']}" in result.stdout
 
 
 def test_cli_validate_repo_strict_smoke() -> None:
@@ -802,15 +804,26 @@ def test_cli_status_smoke() -> None:
         repo_root / "examples" / "pendulum.yaml",
         output_dir=Path("/tmp/apl-pendulum-status"),
     )
+    latest_result_path = _latest_result_path(repo_root)
+    assert latest_result_path is not None
+    latest_result = load_result(latest_result_path)
     runner = CliRunner()
     result = runner.invoke(app, ["status", "."])
 
     assert result.exit_code == 0
-    assert "Stage: v0.1-private-alpha in validation" in result.stdout
-    assert "Run id: RUN-0003" in result.stdout
+    assert (
+        "Stage: v0.1-private-alpha — scientific campaign and contributor workflow validation"
+        in result.stdout
+    )
+    assert f"Run id: {latest_result['run_id']}" in result.stdout
     assert "Validation: PASS" in result.stdout
-    assert "Best verdict: VALID_IN_RANGE" in result.stdout
+    assert f"Best verdict: {latest_result['best_verdict']}" in result.stdout
     assert "Verification checks:" in result.stdout
+    if latest_result.get("comparison_summary"):
+        assert "Primary comparison:" in result.stdout
+        assert "Uncertainty:" in result.stdout
+    else:
+        assert "Best model:" in result.stdout
 
 
 def test_run_dispatches_pendulum_with_output_dir(tmp_path) -> None:

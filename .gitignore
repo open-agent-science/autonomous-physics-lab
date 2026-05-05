@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 _snapshots/
+.worktrees/
 .claude/
 .claude/settings.local.json
 .DS_Store

@@ -1,0 +1,212 @@
+"""Tests for ``physics_lab.engines.dimensions``."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import pytest
+
+from physics_lab.engines.dimensions import (
+    DIMENSIONLESS,
+    Dimension,
+    DimensionError,
+    evaluate_expression_dimension,
+    parse_dimension_string,
+    validate_challenge_set,
+    validate_item,
+)
+
+# ── Unit parsing ─────────────────────────────────────────────────────────── #
+
+
+def test_parse_dimensionless_empty() -> None:
+    assert parse_dimension_string("") == DIMENSIONLESS
+
+
+def test_parse_dimensionless_one() -> None:
+    assert parse_dimension_string("1") == DIMENSIONLESS
+
+
+def test_parse_single_base_unit() -> None:
+    d = parse_dimension_string("kg")
+    assert d == Dimension(M=1)
+
+
+def test_parse_compound_unit() -> None:
+    d = parse_dimension_string("kg m s^-2")
+    assert d == Dimension(M=1, L=1, T=-2)
+
+
+def test_parse_derived_unit_newton() -> None:
+    assert parse_dimension_string("N") == Dimension(M=1, L=1, T=-2)
+
+
+def test_parse_unknown_unit_raises() -> None:
+    with pytest.raises(DimensionError, match="Unknown unit symbol"):
+        parse_dimension_string("Qb")
+
+
+# ── Dimension arithmetic ──────────────────────────────────────────────────── #
+
+
+def test_dimension_multiply() -> None:
+    kg = Dimension(M=1)
+    m_s2 = Dimension(L=1, T=-2)
+    assert kg * m_s2 == Dimension(M=1, L=1, T=-2)
+
+
+def test_dimension_divide() -> None:
+    m = Dimension(L=1)
+    s = Dimension(T=1)
+    assert m / s == Dimension(L=1, T=-1)
+
+
+def test_dimension_power_integer() -> None:
+    m = Dimension(L=1)
+    assert m**2 == Dimension(L=2)
+
+
+def test_dimension_power_half() -> None:
+    m2 = Dimension(L=2)
+    assert m2**0.5 == Dimension(L=1)
+
+
+def test_dimensionless_is_dimensionless() -> None:
+    assert DIMENSIONLESS.is_dimensionless()
+    assert not Dimension(M=1).is_dimensionless()
+
+
+# ── Expression evaluation ─────────────────────────────────────────────────── #
+
+
+def test_eval_simple_multiply() -> None:
+    dims = {"m": parse_dimension_string("kg"), "a": parse_dimension_string("m s^-2")}
+    result = evaluate_expression_dimension("m * a", dims)
+    assert result == Dimension(M=1, L=1, T=-2)
+
+
+def test_eval_power() -> None:
+    dims = {"v": parse_dimension_string("m s^-1")}
+    result = evaluate_expression_dimension("v**2", dims)
+    assert result == Dimension(L=2, T=-2)
+
+
+def test_eval_division() -> None:
+    dims = {"d": parse_dimension_string("m"), "t": parse_dimension_string("s")}
+    result = evaluate_expression_dimension("d / t", dims)
+    assert result == Dimension(L=1, T=-1)
+
+
+def test_eval_compatible_addition() -> None:
+    dims = {"a": parse_dimension_string("m s^-2"), "b": parse_dimension_string("m s^-2")}
+    result = evaluate_expression_dimension("a + b", dims)
+    assert result == Dimension(L=1, T=-2)
+
+
+def test_eval_incompatible_addition_raises() -> None:
+    dims = {"a": parse_dimension_string("kg"), "b": parse_dimension_string("m")}
+    with pytest.raises(DimensionError, match="incompatible dimensions"):
+        evaluate_expression_dimension("a + b", dims)
+
+
+def test_eval_sqrt_dimensionless() -> None:
+    dims = {"x": DIMENSIONLESS}
+    result = evaluate_expression_dimension("sqrt(x)", dims)
+    assert result == DIMENSIONLESS
+
+
+def test_eval_sqrt_dimensional() -> None:
+    dims = {"v": parse_dimension_string("m^2 s^-2")}
+    result = evaluate_expression_dimension("sqrt(v)", dims)
+    assert result == Dimension(L=1, T=-1)
+
+
+def test_eval_lambda_reserved_word() -> None:
+    dims = {
+        "v_wave": parse_dimension_string("m s^-1"),
+        "f": parse_dimension_string("s^-1"),
+        "lambda": parse_dimension_string("m"),
+    }
+    result = evaluate_expression_dimension("f * lambda", dims)
+    assert result == Dimension(L=1, T=-1)
+
+
+# ── validate_item ─────────────────────────────────────────────────────────── #
+
+
+def test_validate_valid_formula() -> None:
+    item = {
+        "id": "TEST-001",
+        "formula": "F = m * a",
+        "variables": {"F": "kg m s^-2", "m": "kg", "a": "m s^-2"},
+        "expected_verdict": "VALID",
+    }
+    result = validate_item(item)
+    assert result.computed_verdict == "VALID"
+    assert result.agrees
+
+
+def test_validate_invalid_formula() -> None:
+    item = {
+        "id": "TEST-002",
+        "formula": "E = m * v",
+        "variables": {"E": "kg m^2 s^-2", "m": "kg", "v": "m s^-1"},
+        "expected_verdict": "INVALID",
+    }
+    result = validate_item(item)
+    assert result.computed_verdict == "INVALID"
+    assert result.agrees
+
+
+def test_validate_multiterm_lhs() -> None:
+    item = {
+        "id": "TEST-003",
+        "formula": "p * V = n * R_gas * T",
+        "variables": {
+            "p": "kg m^-1 s^-2",
+            "V": "m^3",
+            "n": "mol",
+            "R_gas": "kg m^2 s^-2 mol^-1 K^-1",
+            "T": "K",
+        },
+        "expected_verdict": "VALID",
+    }
+    result = validate_item(item)
+    assert result.computed_verdict == "VALID"
+    assert result.agrees
+
+
+# ── Full challenge-set integration ────────────────────────────────────────── #
+
+
+CHALLENGE_SET_PATH = (
+    Path(__file__).resolve().parent.parent
+    / "knowledge"
+    / "challenge_sets"
+    / "dimensional_analysis_challenge_set.yaml"
+)
+
+
+@pytest.mark.skipif(
+    not CHALLENGE_SET_PATH.exists(),
+    reason="Challenge set not available",
+)
+def test_challenge_set_agreement_above_threshold() -> None:
+    _, summary = validate_challenge_set(CHALLENGE_SET_PATH)
+    assert summary.total >= 50, (
+        f"Expected the curated challenge set to retain at least 50 items, got {summary.total}"
+    )
+    assert summary.agreement_fraction >= 0.90, (
+        f"Expected ≥90% agreement, got {summary.agreement_fraction:.1%}"
+    )
+
+
+@pytest.mark.skipif(
+    not CHALLENGE_SET_PATH.exists(),
+    reason="Challenge set not available",
+)
+def test_challenge_set_no_inconclusive() -> None:
+    _, summary = validate_challenge_set(CHALLENGE_SET_PATH)
+    assert summary.inconclusive_count == 0, (
+        f"Expected 0 INCONCLUSIVE, got {summary.inconclusive_count}"
+    )

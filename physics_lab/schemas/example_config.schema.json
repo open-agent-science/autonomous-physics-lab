@@ -43,7 +43,7 @@
     },
     "workflow": {
       "type": "string",
-      "enum": ["standard", "gauntlet", "reproduction"]
+      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation"]
     }
   },
   "allOf": [
@@ -52,7 +52,7 @@
         "required": ["workflow"],
         "properties": {
           "workflow": {
-            "const": "reproduction"
+            "enum": ["reproduction", "dimensional_validation"]
           }
         }
       },

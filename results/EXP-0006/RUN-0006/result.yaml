@@ -1,0 +1,78 @@
+generated_at: '2026-05-04T19:51:53.951740+00:00'
+result_id: RESULT-0007
+run_id: RUN-0006
+experiment_id: EXP-0006
+title: Dimensional Analysis Validator MVP Benchmark
+hypothesis_id: HYP-0006
+task_id: TASK-0064
+engine_version: 0.1.0
+git_commit: 1034912dee10dfbffda3a3b429690902d8e8a7b5
+command: physics-lab run dimensional_analysis.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0006/RUN-0006/inputs/config.yaml
+    sha256: 60cea66310a25d5d27ba2a384452316fa6f75db24204e25e444e619e7cc9bbd0
+  experiment:
+    path: results/EXP-0006/RUN-0006/inputs/experiment.yaml
+    sha256: b28cbd5b523740aa5dcf58946da5ec73296a58b677b8f62d79f72f54d6de412f
+  hypothesis:
+    path: results/EXP-0006/RUN-0006/inputs/hypothesis.yaml
+    sha256: 9b2d287dee14bd8ada684f668ecaf92eb4471981a14b853239824c362ada1375
+  task:
+    path: results/EXP-0006/RUN-0006/inputs/task.yaml
+    sha256: 640812db9b708507ed4714bd6da778a81b250812f73cc8bdac925ad2923f7d6f
+code_reference: physics_lab/workflows/dimensional_validator.py
+limitations:
+- 'MVP scope: dimensional check only; cannot detect known-limit violations.'
+- SUSPICIOUS items with explicit dimensional mismatch are classified INVALID.
+- Unit symbol table covers SI base units and common derived units only.
+- Natural-unit or Gaussian-unit formulas are outside scope.
+best_verdict: VALID
+comparison_summary:
+- target_id: target_agreement
+  label: Agreement fraction target
+  reference_value: 0.9
+  observed_value: 0.98
+  unit: null
+  absolute_difference: 0.08
+  relative_difference: 0.088889
+  notes: Validator agreed with 49/50 curated labels; threshold 90%.
+uncertainty_summary:
+  method: binomial standard error sqrt(p(1-p)/n) on agreement fraction
+  observed_uncertainty: 0.019799
+  reference_uncertainty: 0.0
+  combined_uncertainty: 0.019799
+  z_score: null
+  within_combined_uncertainty: false
+  notes: Binomial standard error on the agreement fraction. Reference uncertainty
+    is 0 because the threshold is a fixed target.
+verification:
+  passed: true
+  checks:
+  - name: challenge_set_loaded
+    status: PASS
+    details: Loaded 50 items from the curated challenge set.
+    metrics:
+      item_count: 50
+  - name: no_inconclusive_items
+    status: PASS
+    details: All items produced a definite verdict.
+    metrics:
+      inconclusive_count: 0
+  - name: agreement_fraction
+    status: PASS
+    details: Validator agreed with 49/50 curated labels (98.0%), threshold 90%.
+    metrics:
+      agree: 49
+      total: 50
+      agreement_fraction: 0.98
+      threshold: 0.9
+artifacts:
+  report: results/EXP-0006/RUN-0006/report.md
+  metrics: results/EXP-0006/RUN-0006/metrics.json
+  claim_update: results/EXP-0006/RUN-0006/claim_update.md
+  claim_update_patch: results/EXP-0006/RUN-0006/claim_update.patch.md
+  knowledge_update: results/EXP-0006/RUN-0006/knowledge_update.md
+  knowledge_update_patch: results/EXP-0006/RUN-0006/knowledge_update.patch.md
+  review_summary: results/EXP-0006/RUN-0006/review_summary.md
+  review_metadata: results/EXP-0006/RUN-0006/review_metadata.yaml

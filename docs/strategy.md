@@ -2,99 +2,89 @@
 
 ## Current Phase
 
-`v0.1-private-alpha`
-
-Private contributor pilot with verification-first execution discipline, branch-
-based agent collaboration, and one measurable scientific result worth review.
+`v0.1-private-alpha — scientific campaign and contributor workflow validation`
 
 ## Mission
 
-Build open scientific infrastructure for testing, falsifying, scoring, and
-reusing physics hypotheses.
+Build verification-first scientific infrastructure for testing, falsifying,
+scoring, and reusing physics hypotheses.
 
-The repository is not trying to produce speculative "AI discoveries" on demand.
-It is trying to make verification-first scientific work reproducible, reviewable,
-and reusable.
+APL is not trying to generate dramatic claims on demand. It is trying to make
+scientific work reproducible, reviewable, and reusable through deterministic
+code and version-controlled evidence.
+
+## Strategic Shift
+
+The repository is no longer focused mainly on bootstrap infrastructure work.
+That base now exists well enough to support a new emphasis:
+
+- curate active scientific campaigns with clear scope and honest limitations;
+- onboard contributors into a branch-based, reviewable workflow;
+- improve project-level orientation so results, tasks, and risks stay legible;
+- keep public-launch work gated behind validation and review discipline.
 
 ## Current Priorities
 
-1. Maintain verification-first discipline across all benchmarks.
-2. Keep public scientific memory internally consistent and reviewable.
-3. Prepare the private repository for a controlled multi-agent contributor
-   pilot.
-4. Prefer atomic tasks with deterministic outputs and clear validation.
-5. Produce one measurable benchmark result before broadening scope.
-6. Avoid feature expansion that outruns current verification quality.
+1. Curate scientific campaigns rather than broadening into many unfinished
+   benchmark ideas at once.
+2. Prepare and maintain a clear Mission Control and campaign-map layer so new
+   contributors can see what APL is trying to do and where evidence already
+   exists.
+3. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+   resistant to numerology overclaim.
+4. Improve visual result summaries and contributor-facing navigation around the
+   strongest current evidence.
+5. Continue the private contributor pilot and maintainer review loop before any
+   public rollout.
+6. Prepare public launch only after the explicit gates in
+   [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 ## Current Goal
 
-Complete a private contributor pilot and produce at least one measurable
-scientific result before any public launch work.
+Demonstrate that APL can run honest scientific campaigns and a disciplined
+contributor workflow at the same time, without relaxing verification standards
+or overstating benchmark results.
 
-## Current North-Star Result
+## Current North-Star Outcomes
 
-Produce benchmark slices where many candidate physics formulations can be:
+- campaign-oriented scientific work with explicit boundaries, current evidence,
+  and next-safe-task surfaces;
+- reproducible results that preserve failure modes and limitation wording;
+- contributor onboarding that does not require tribal knowledge to understand
+  tasks, review expectations, or release posture.
 
-- generated or proposed;
-- tested deterministically;
-- classified by failure mode and validity range;
-- stored as public scientific memory.
+Current visible evidence includes:
 
-The current visible examples are:
+- the pendulum gauntlet result package from `EXP-0001/RUN-0003`;
+- charged-lepton Koide reproduction from `EXP-0004/RUN-0004`;
+- the tau holdout benchmark from `EXP-0005/RUN-0005`.
 
-- `EXP-0001` — pendulum formula discovery with range-aware and
-  separatrix-aware review artifacts;
-- `EXP-0002` — damped oscillator regime verification with exact linear checks.
-
-The next visible milestones are:
-
-- a numerical accuracy audit for the future pendulum gauntlet artifacts;
-- a private multi-agent dry run across task-based PRs;
-- an expanded planning queue for future benchmark slices;
-- public release only after explicit gates are satisfied.
+These results are useful because they are reviewable and reproducible, not
+because they justify expansive scientific claims.
 
 ## Current Execution Model
 
-The repository uses a shared task pool.
-
-Agents are not assigned permanent roles. Instead:
+The repository uses a shared task pool with branch-based execution.
 
 - a task defines the contract;
-- an agent picks one atomic task;
-- the agent runs validation;
-- the agent updates task state and docs if the task changes project reality;
-- the next agent continues from the same repository state.
+- an agent or human picks one atomic task;
+- validation runs before handoff;
+- task files and board state remain the coordination layer;
+- maintainer review stays the decision point for merge and closeout.
 
-Sequential local work is preferred by default, but independent `READY` tasks may
-be taken out of order when they do not create hidden coupling or artifact churn.
-
-The repository remains private until
-[public-release-gates.md](./public-release-gates.md) are satisfied.
-
-## Task Selection Rules
-
-- Use [tasks/ACTIVE.md](../tasks/ACTIVE.md) as the live task board.
-- Use [docs/agent-operating-model.md](./agent-operating-model.md) for the shared
-  execution protocol.
-- Use [docs/task-proposal-protocol.md](./task-proposal-protocol.md) and
-  [tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml](../tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml)
-  when proposing a new task idea.
-- Use [tasks/TASK-TEMPLATE.yaml](../tasks/TASK-TEMPLATE.yaml) only for
-  maintainer-approved canonical tasks.
+The repository remains private until the release gates are satisfied and a
+maintainer decides the narrative matches the evidence.
 
 ## Non-Goals
 
-- Do not auto-promote claims.
-- Do not claim global validity from range-limited evidence.
-- Do not add dashboard, web API, literature ingestion, or multi-agent runtime
-  before current verification goals are met.
-- Do not make the repository public before the private contributor pilot and
-  measurable-result gates are satisfied.
-- Do not use LLM output as a substitute for deterministic validation.
-- Do not frame the project as "solving physics" or "finding a theory of
-  everything."
+- Do not frame narrow benchmark outputs as discovery-level physics.
+- Do not describe particle-mass results as explanations of mass generation.
+- Do not claim universal validity from configured-range validation.
+- Do not add dashboard, public API, literature ingestion, or public task
+  network before current campaign and workflow gates are met.
+- Do not use LLM prose as a substitute for deterministic validation.
 
 ## Decision Rule
 
-When choosing between broader scope and stronger verification, choose stronger
-verification.
+When choosing between faster expansion and stronger verification, choose
+stronger verification.
