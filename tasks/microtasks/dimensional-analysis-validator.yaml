@@ -1,0 +1,215 @@
+queue_id: dimensional-analysis-validator
+campaign: dimensional-analysis-validator
+campaign_status: planning_complete_implementation_pending
+selection_guidance:
+  - "Prefer challenge-set curation, verdict-boundary notes, and assumption-explicit examples."
+  - "Do not imply the validator implementation already exists."
+microtasks:
+  - id: DAV-001
+    campaign: dimensional-analysis-validator
+    title: Add one clearly dimensionally valid formula to the challenge set
+    type: challenge-entry
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One challenge entry with explicit SI base-dimension rationale."
+    validation:
+      - "State the expected verdict as VALID."
+      - "Show the SI dimension balance explicitly."
+    risk_level: low
+    forbidden_claims:
+      - "validator already passes it"
+      - "full engine support exists"
+      - "physical correctness fully established"
+  - id: DAV-002
+    campaign: dimensional-analysis-validator
+    title: Add one clearly dimensionally invalid formula to the challenge set
+    type: challenge-entry
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One challenge entry whose mismatch is unambiguous in SI dimensions."
+    validation:
+      - "State the expected verdict as INVALID."
+      - "Identify the mismatched dimension term."
+    risk_level: low
+    forbidden_claims:
+      - "validator already catches this"
+      - "all dimensional errors are trivial"
+      - "complete checker exists"
+  - id: DAV-003
+    campaign: dimensional-analysis-validator
+    title: Add one SUSPICIOUS challenge item that is dimensionally balanced but physically questionable
+    type: challenge-entry
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One challenge entry plus a note on why balance alone does not guarantee a safe formula."
+    validation:
+      - "State the expected verdict as SUSPICIOUS."
+      - "State the missing physical assumption."
+    risk_level: medium
+    forbidden_claims:
+      - "dimensionally balanced means correct"
+      - "physical interpretation settled"
+      - "validator equivalent to full physics reasoning"
+  - id: DAV-004
+    campaign: dimensional-analysis-validator
+    title: Add one KNOWN_LIMIT_FAIL challenge item
+    type: challenge-entry
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One challenge entry where dimensions work but a known physical limit breaks the formula."
+    validation:
+      - "State the expected verdict as KNOWN_LIMIT_FAIL."
+      - "Name the violated limit explicitly."
+    risk_level: medium
+    forbidden_claims:
+      - "dimensional analysis alone is enough"
+      - "limit reasoning unnecessary"
+      - "complete validation already achieved"
+  - id: DAV-005
+    campaign: dimensional-analysis-validator
+    title: Audit one existing challenge item for wording clarity
+    type: wording-audit
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One wording-improvement note for an existing challenge item that reduces ambiguity."
+    validation:
+      - "Reference the exact challenge item."
+      - "State what ambiguity is being removed."
+    risk_level: low
+    forbidden_claims:
+      - "dataset already perfect"
+      - "engine behavior proven"
+      - "classification certainty beyond the item scope"
+  - id: DAV-006
+    campaign: dimensional-analysis-validator
+    title: Classify one formula manually using explicit SI base dimensions
+    type: manual-classification
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One manual worked example of dimensional classification suitable for future validator tests."
+    validation:
+      - "State the formula and final verdict."
+      - "Show the base dimensions used."
+    risk_level: low
+    forbidden_claims:
+      - "manual example equals full validator"
+      - "all domains covered"
+      - "complete physical verification"
+  - id: DAV-007
+    campaign: dimensional-analysis-validator
+    title: Propose one natural-unit formula that should remain out of v1 scope
+    type: scope-boundary-note
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note explaining why a natural-unit example is intentionally excluded from the first SI-focused benchmark."
+    validation:
+      - "Name the natural-unit convention involved."
+      - "State why the exclusion is a scope choice, not a truth judgment."
+    risk_level: low
+    forbidden_claims:
+      - "natural units unsupported forever"
+      - "scope exclusion proves invalidity"
+      - "full domain coverage"
+  - id: DAV-008
+    campaign: dimensional-analysis-validator
+    title: Add one cross-domain challenge item outside mechanics
+    type: challenge-entry
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One challenge item from thermodynamics, electromagnetism, or waves with explicit verdict rationale."
+    validation:
+      - "State the domain."
+      - "State the intended verdict and why."
+    risk_level: low
+    forbidden_claims:
+      - "broad benchmark already implemented"
+      - "full science-domain coverage"
+      - "complete validator maturity"
+  - id: DAV-009
+    campaign: dimensional-analysis-validator
+    title: Write one ambiguity note for handling a dimensionless constant
+    type: ambiguity-note
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One short note on how a dimensionless constant should or should not affect verdict classification."
+    validation:
+      - "Name the constant category."
+      - "State the boundary between harmless and misleading use."
+    risk_level: low
+    forbidden_claims:
+      - "dimensionless constants solve ambiguity automatically"
+      - "implementation complete"
+      - "full physical interpretation"
+  - id: DAV-010
+    campaign: dimensional-analysis-validator
+    title: Define one boundary case between SUSPICIOUS and INVALID
+    type: verdict-boundary-note
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note clarifying when a formula should be marked SUSPICIOUS instead of INVALID."
+    validation:
+      - "State the exact boundary criterion."
+      - "Give one example on each side of the boundary."
+    risk_level: medium
+    forbidden_claims:
+      - "boundary fully settled forever"
+      - "future reviewer judgment unnecessary"
+      - "validator semantics finalized by one example"

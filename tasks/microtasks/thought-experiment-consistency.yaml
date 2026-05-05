@@ -1,0 +1,111 @@
+queue_id: thought-experiment-consistency
+campaign: thought-experiment-consistency
+campaign_status: planning_active
+selection_guidance:
+  - "Prefer assumption formalization and invariant mapping."
+  - "Do not imply executable benchmark support already exists."
+microtasks:
+  - id: TEC-001
+    campaign: thought-experiment-consistency
+    title: Formalize assumptions for one light-clock scenario
+    type: assumption-formalization
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One compact assumptions note for a specified light-clock setup."
+    validation:
+      - "State inertial-frame assumptions explicitly."
+      - "State the undefined region such as v >= c."
+    risk_level: low
+    forbidden_claims:
+      - "benchmark already implemented"
+      - "empirical validation achieved"
+      - "complete relativity engine exists"
+  - id: TEC-002
+    campaign: thought-experiment-consistency
+    title: List invariants for one simultaneity scenario
+    type: invariant-map
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One small invariant map for a chosen relativity-of-simultaneity case."
+    validation:
+      - "State the frame relation explicitly."
+      - "State what should remain invariant and what should not."
+    risk_level: low
+    forbidden_claims:
+      - "theoretical verification complete"
+      - "empirical confirmation"
+      - "general-relativity support"
+  - id: TEC-003
+    campaign: thought-experiment-consistency
+    title: Define one parameter-domain note for the twin-paradox simplified model
+    type: domain-note
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note on allowed parameter domain, idealizations, and undefined regions for the simplified twin-paradox model."
+    validation:
+      - "State the turnaround idealization explicitly."
+      - "State which parameter values should be treated as undefined."
+    risk_level: medium
+    forbidden_claims:
+      - "all acceleration issues settled"
+      - "full relativistic coverage"
+      - "discovery-level theoretical conclusion"
+  - id: TEC-004
+    campaign: thought-experiment-consistency
+    title: Write one REVIEW_NEEDED note for acceleration-heavy assumptions
+    type: review-needed-note
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One explicit REVIEW_NEEDED note explaining why an acceleration-heavy case should not be simplified too aggressively."
+    validation:
+      - "State the unresolved assumption."
+      - "State why maintainer or reviewer judgment is still needed."
+    risk_level: medium
+    forbidden_claims:
+      - "issue settled without implementation"
+      - "accelerated cases already supported"
+      - "complete scenario correctness"
+  - id: TEC-005
+    campaign: thought-experiment-consistency
+    title: Propose one verdict mapping for a future elevator scenario
+    type: verdict-mapping-proposal
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One proposal for how an elevator scenario could map assumptions, checks, and verdicts without implementing code."
+    validation:
+      - "Keep the proposal planning-only."
+      - "State what remains out of first-version scope."
+    risk_level: medium
+    forbidden_claims:
+      - "elevator benchmark already exists"
+      - "general-relativity benchmark complete"
+      - "physical validation achieved"
