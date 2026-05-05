@@ -16,6 +16,7 @@ Verdict:
 from __future__ import annotations
 
 import json
+import math
 import textwrap
 from datetime import datetime, timezone
 from pathlib import Path
@@ -80,7 +81,7 @@ def run_dimensional_validator_with_output(
     if output_dir is not None:
         run_dir = Path(output_dir).resolve()
     else:
-        run_dir = result_root / experiment_id / run_id
+        run_dir = result_root / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
 
     # Snapshot inputs
@@ -361,13 +362,31 @@ def run_dimensional_validator_with_output(
             }
         ],
         "uncertainty_summary": {
-            "method": "exact count (no uncertainty propagation needed)",
-            "observed_uncertainty": None,
-            "reference_uncertainty": None,
-            "combined_uncertainty": None,
+            "method": "binomial standard error sqrt(p(1-p)/n) on agreement fraction",
+            "observed_uncertainty": round(
+                math.sqrt(agreement * (1.0 - agreement) / summary.total)
+                if summary.total > 0
+                else 0.0,
+                6,
+            ),
+            "reference_uncertainty": 0.0,
+            "combined_uncertainty": round(
+                math.sqrt(agreement * (1.0 - agreement) / summary.total)
+                if summary.total > 0
+                else 0.0,
+                6,
+            ),
             "z_score": None,
-            "within_combined_uncertainty": None,
-            "notes": "Agreement fraction is an exact integer ratio; no uncertainty propagation.",
+            "within_combined_uncertainty": (
+                abs(agreement - agreement_threshold)
+                <= math.sqrt(agreement * (1.0 - agreement) / summary.total)
+                if summary.total > 0
+                else None
+            ),
+            "notes": (
+                "Binomial standard error on the agreement fraction. "
+                "Reference uncertainty is 0 because the threshold is a fixed target."
+            ),
         },
         "verification": {
             "passed": best_verdict == "VALID",

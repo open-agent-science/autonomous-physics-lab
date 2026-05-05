@@ -3,5 +3,5 @@ hypothesis_path: ../hypotheses/HYP-0006-dimensional-analysis-validator.yaml
 task_id: TASK-0064
 run_id: RUN-0006
 result_id: RESULT-0007
-result_root: ../results
+result_root: ../results/EXP-0006
 workflow: dimensional_validation

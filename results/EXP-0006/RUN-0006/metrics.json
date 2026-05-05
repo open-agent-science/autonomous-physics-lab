@@ -37,7 +37,7 @@
       "expected": "VALID",
       "computed": "VALID",
       "agrees": true,
-      "detail": "LHS = RHS = M L^2 T^-3 I^-1"
+      "detail": "LHS = RHS = M L^2 T^-3 Amp^-1"
     },
     {
       "id": "DA-005",
@@ -100,7 +100,7 @@
       "expected": "INVALID",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim M L^2 T^-3 I^-1 != RHS dim I"
+      "detail": "LHS dim M L^2 T^-3 Amp^-1 != RHS dim Amp"
     },
     {
       "id": "DA-104",
@@ -149,7 +149,7 @@
       "expected": "INVALID",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim I != RHS dim T I^2"
+      "detail": "LHS dim Amp != RHS dim T Amp^2"
     },
     {
       "id": "DA-111",
@@ -177,7 +177,7 @@
       "expected": "INVALID",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim M L T^-2 != RHS dim L I"
+      "detail": "LHS dim M L T^-2 != RHS dim L Amp"
     },
     {
       "id": "DA-115",
@@ -198,7 +198,7 @@
       "expected": "INVALID",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim M L T^-2 != RHS dim L^-2 T^2 I^2"
+      "detail": "LHS dim M L T^-2 != RHS dim L^-2 T^2 Amp^2"
     },
     {
       "id": "DA-203",
@@ -219,7 +219,7 @@
       "expected": "INVALID",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim M T^-2 I^-1 != RHS dim L^-1 I"
+      "detail": "LHS dim M T^-2 Amp^-1 != RHS dim L^-1 Amp"
     },
     {
       "id": "DA-206",
@@ -233,7 +233,7 @@
       "expected": "INVALID",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim M T^-2 I^-1 != RHS dim L^-1 I"
+      "detail": "LHS dim M T^-2 Amp^-1 != RHS dim L^-1 Amp"
     },
     {
       "id": "DA-208",
@@ -254,7 +254,7 @@
       "expected": "INVALID",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim M L T^-3 I^-1 != RHS dim L^-2 T I"
+      "detail": "LHS dim M L T^-3 Amp^-1 != RHS dim L^-2 T Amp"
     },
     {
       "id": "DA-301",
@@ -303,14 +303,14 @@
       "expected": "SUSPICIOUS",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim 1 != RHS dim M^-2 L^-3 T^4 I^2"
+      "detail": "LHS dim 1 != RHS dim M^-2 L^-3 T^4 Amp^2"
     },
     {
       "id": "DA-308",
       "expected": "INVALID",
       "computed": "INVALID",
       "agrees": true,
-      "detail": "LHS dim 1 != RHS dim M T^-1 I^-1"
+      "detail": "LHS dim 1 != RHS dim M T^-1 Amp^-1"
     },
     {
       "id": "DA-309",
