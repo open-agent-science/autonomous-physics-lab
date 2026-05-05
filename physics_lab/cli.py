@@ -223,12 +223,18 @@ def status(root: str = typer.Argument(".")) -> None:
             f"vs reference {primary_target['reference_value']:.10f}"
         )
         uncertainty = result_payload.get("uncertainty_summary", {})
-        if uncertainty.get("combined_uncertainty") is not None:
-            typer.echo(
-                "Uncertainty: "
-                f"combined {float(uncertainty['combined_uncertainty']):.10f}, "
-                f"within target uncertainty = {uncertainty.get('within_combined_uncertainty')}"
-            )
+        if uncertainty:
+            if uncertainty.get("combined_uncertainty") is not None:
+                typer.echo(
+                    "Uncertainty: "
+                    f"combined {float(uncertainty['combined_uncertainty']):.10f}, "
+                    f"within target uncertainty = {uncertainty.get('within_combined_uncertainty')}"
+                )
+            else:
+                typer.echo(
+                    "Uncertainty: "
+                    f"{uncertainty.get('notes') or uncertainty.get('method') or 'reported'}"
+                )
 
 
 if __name__ == "__main__":
