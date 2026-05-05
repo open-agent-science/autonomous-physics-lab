@@ -181,8 +181,8 @@ amplitude range.
   van der Waals roots), the artifact must record the numerical method and
   convergence tolerance.
 - This track records **where** approximations break down; it does not
-  produce new physics. Any claim about novel breakdown behaviour requires
-  a separate canonical task.
+  establish a broader physical claim. Any claim about novel breakdown
+  behaviour requires a separate canonical task.
 - Relativistic and quantum probes that depend on `c`, `h`, `k_B` use the
   same `scipy.constants` source as the constants-verification track
   (`docs/notes/physical-constants-verification-track.md`); both tracks
