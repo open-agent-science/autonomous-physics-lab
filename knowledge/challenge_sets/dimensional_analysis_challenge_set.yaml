@@ -3,7 +3,7 @@ id: DA-CHALLENGE-001
 title: "Dimensional Analysis Challenge Set"
 task_id: TASK-0017
 domain: physics_validation
-total_items: 63
+total_items: 64
 status: draft
 description: >
   A curated set of 50 physics formulas for testing dimensional analysis
@@ -861,6 +861,21 @@ items:
     check_type: dimensional
     difficulty: medium
     reason: "sqrt(3 k_B T / m) = sqrt(J kg^-1) = sqrt(m^2 s^-2) = m s^-1; factor 3 is dimensionless."
+
+  - id: DA-017
+    name: "Gravitational surface acceleration"
+    domain: mechanics
+    formula: "g = G * M / R^2"
+    variables:
+      g: "m s^-2"
+      G: "m^3 kg^-1 s^-2"
+      M: "kg"
+      R: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "G * M / R^2 = [m^3 kg^-1 s^-2][kg][m^-2] = m s^-2; dimensions balance exactly."
 
   - id: DA-018
     name: "Doppler frequency shift"
