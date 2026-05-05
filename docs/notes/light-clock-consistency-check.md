@@ -216,7 +216,7 @@ implementation tasks atomic.
 ## Limitations of This Plan
 
 - Thought-experiment checks test internal consistency within Special Relativity,
-  not discovery of new physics.
+  not discovery of a broader physical claim.
 - SR is self-consistent by construction; this suite validates that APL
   implements SR correctly, not that SR is empirically correct.
 - The light-clock derivation assumes idealized mirrors and a single spatial
@@ -224,4 +224,4 @@ implementation tasks atomic.
   outside scope.
 - Length contraction along the direction of motion is not tested here; that
   belongs to a separate scenario (e.g. a longitudinal light clock).
-- No claim of new physics is made or implied.
+- No broader physical claim is made or implied.
