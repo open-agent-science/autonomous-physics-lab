@@ -1,0 +1,56 @@
+id: TASK-0089
+title: "Search for empirical formula for muon g-2 anomaly using fundamental constants"
+type: benchmark_planning
+status: PROPOSED
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Apply APL formula discovery to the strongest current hint of new physics beyond the Standard Model."
+  - "A formula that reproduces aμ(exp) − aμ(SM) from known constants would be a significant empirical result."
+  - "This is explicitly a formula search, not a theory derivation — APL's appropriate scope."
+
+input:
+  mode: planning_only
+  related_domain: particle_physics
+  related_objects:
+    - "docs/notes/particle-mass-relation-track.md"
+    - "tasks/TASK-0042-particle-mass-numerology-guardrails.yaml"
+  planning_context: >
+    The anomalous magnetic moment of the muon has a persistent discrepancy
+    between experiment and Standard Model prediction:
+      aμ(exp) = 116 592 059(22) × 10⁻¹¹  [Fermilab 2023 combined]
+      aμ(SM)  = 116 591 810(43) × 10⁻¹¹  [2020 White Paper consensus]
+      Δaμ = (249 ± 48) × 10⁻¹¹           [~4.2σ discrepancy]
+
+    This task is planning-only. The goal is to design a formula search that:
+    1. Defines the target quantity: Δaμ in units of (α/2π)² or similar
+    2. Proposes candidate formula families in terms of α, mμ/me, mμ/mτ, mW, etc.
+    3. Specifies the complexity penalty and numerology guardrails
+    4. Defines what 'match' means given experimental uncertainties
+    5. Identifies what would constitute a scientifically credible result vs. numerology
+
+    Before implementing, a planning document must exist that a physicist
+    would consider non-embarrassing.
+
+requirements:
+  - "Write docs/notes/g2-anomaly-formula-search-design.md with full design."
+  - "Define the formula families to test (polynomial in α, mass ratios, etc.)."
+  - "Specify the numerology guardrail: how many random dimension-free combinations of 5 constants hit the target accidentally?"
+  - "Define the threshold for a 'credible' formula match vs. coincidence."
+  - "List the constants to include: α, mμ/me, mμ/mτ, mW/mZ, GF·mμ², etc."
+  - "Do not implement the search engine here — this is design-only."
+
+accepted_outputs:
+  - "docs/notes/g2-anomaly-formula-search-design.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
