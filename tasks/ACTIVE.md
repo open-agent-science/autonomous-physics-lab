@@ -59,6 +59,7 @@ None.
 
 - `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (`repository_validation`, priority `high`, difficulty `low`)
 - `TASK-0092` — Fix duplicate canonical task ids and enforce uniqueness (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0093` — Test Koide relation for neutrino masses (`scientific_experiment`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -137,7 +138,6 @@ None.
 - `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
 - `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
 - `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
-- `TASK-0093` — Test Koide relation for neutrino masses (`scientific_experiment`, priority `high`, difficulty `medium`)
 
 ## BLOCKED
 

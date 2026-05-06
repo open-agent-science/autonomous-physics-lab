@@ -1,0 +1,39 @@
+id: EXP-0007
+title: "Neutrino Koide Consistency Test"
+domain: particle_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0007
+
+method:
+  type: consistency_test
+  simulator: neutrino_koide_consistency_solver
+  comparator: target_difference
+
+data:
+  dataset_path: ../data/particle_physics/neutrino_oscillations.yaml
+  dataset_kind: neutrino_oscillation_dataset
+  sample_axes:
+    - hierarchy
+  notes: >
+    Oscillation data from PDG 2024 / NuFIT 5.3. Mass bounds from KATRIN 2022
+    and Planck 2018 + BAO. No mixing-angle data needed for this test (masses only).
+
+comparison_targets:
+  - id: target_koide_q
+    label: "Koide Q target"
+    reference_value: 0.6666666666666666
+    unit: null
+    notes: "Benchmark target value 2/3 from charged-lepton Koide formula."
+
+  - id: target_planck_sum_bound
+    label: "Planck 2018 sum neutrino mass upper bound"
+    reference_value: 0.12
+    unit: eV
+    notes: "95% CL upper bound on sum m1+m2+m3 from Planck 2018 + BAO."
+
+  - id: target_katrin_bound
+    label: "KATRIN 2022 effective neutrino mass upper bound"
+    reference_value: 0.45
+    unit: eV
+    notes: "90% CL upper bound on effective electron-neutrino mass."

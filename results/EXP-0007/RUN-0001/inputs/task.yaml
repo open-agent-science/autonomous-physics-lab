@@ -1,7 +1,7 @@
 id: TASK-0093
 title: "Test Koide relation for neutrino masses"
 type: scientific_experiment
-status: REVIEW_READY
+status: PROPOSED
 difficulty: medium
 priority: high
 
@@ -45,14 +45,10 @@ requirements:
   - "Do not promote any claim automatically."
 
 accepted_outputs:
-  - "data/particle_physics/neutrino_oscillations.yaml"
-  - "experiments/EXP-0007-neutrino-koide-consistency.yaml"
-  - "hypotheses/HYP-0007-neutrino-koide-consistency.yaml"
-  - "physics_lab/engines/koide_neutrino.py"
-  - "physics_lab/workflows/koide_neutrino.py"
-  - "examples/koide_neutrino.yaml"
-  - "results/EXP-0007/RUN-0001/result.yaml"
-  - "results/EXP-0007/RUN-0001/report.md"
+  - "knowledge/particle_physics/neutrino_masses.yaml"
+  - "results/EXP-XXXX/RUN-XXXX/result.yaml"
+  - "results/EXP-XXXX/RUN-XXXX/report.md"
+  - "docs/notes/koide-neutrino-extension.md"
 
 validation:
   commands:
