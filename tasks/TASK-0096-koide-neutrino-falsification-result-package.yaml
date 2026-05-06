@@ -1,0 +1,49 @@
+id: TASK-0096
+title: "Write Koide neutrino falsification public result package"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Document the EXP-0007 falsification result in a human-readable public summary."
+  - "Mirror the format of koide-tau-holdout.md and pendulum-gauntlet-100-summary.md."
+  - "Negative results deserve the same documentation quality as positive ones."
+
+input:
+  mode: workflow
+  related_objects:
+    - "results/EXP-0007/RUN-0001/result.yaml"
+    - "results/EXP-0007/RUN-0001/report.md"
+    - "results/EXP-0007/RUN-0001/metrics.json"
+    - "hypotheses/HYP-0007-neutrino-koide-consistency.yaml"
+    - "experiments/EXP-0007-neutrino-koide-consistency.yaml"
+    - "docs/results/koide-tau-holdout.md"
+  planning_context: >
+    EXP-0007/RUN-0001 (RESULT-0009) produced a clean falsification of the
+    Koide relation Q=2/3 for neutrino masses. NH: Q_max=0.584, gap=70.7σ.
+    IH: Q_max=0.500, gap=421889σ. This needs a proper public summary document
+    in docs/results/ matching the style of existing result packages.
+
+requirements:
+  - "Create docs/results/koide-neutrino-falsification.md."
+  - "Include: experiment summary, key metrics, physical interpretation, limitations."
+  - "Reference RESULT-0009, EXP-0007, HYP-0007."
+  - "Use scoped verdict wording — no overclaiming."
+  - "Mirror structure and tone of docs/results/koide-tau-holdout.md."
+  - "Link from README.md Current Major Results section."
+
+accepted_outputs:
+  - "docs/results/koide-neutrino-falsification.md"
+  - "README.md (updated Current Major Results)"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
