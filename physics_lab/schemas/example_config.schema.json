@@ -44,6 +44,18 @@
     "workflow": {
       "type": "string",
       "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation"]
+    },
+    "amplitude_range_override": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"type": "number"},
+        "end": {"type": "number"}
+      }
+    },
+    "include_constrained_candidate": {
+      "type": "boolean"
     }
   },
   "allOf": [

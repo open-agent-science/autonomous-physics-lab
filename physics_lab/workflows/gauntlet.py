@@ -15,6 +15,7 @@ from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_candidate_model
 from physics_lab.engines.gauntlet import (
     atom_family,
+    build_constrained_candidate,
     build_gauntlet_candidates,
     classify_failure_mode,
 )
@@ -452,6 +453,62 @@ def _build_knowledge_patch(
     )
 
 
+def _build_constrained_comparison_section(
+    constrained_score: ModelScore,
+    constrained_verdict: str,
+    reference_score: ModelScore | None,
+    reference_verdict: str | None,
+    constrained_coefficients: dict[str, float],
+) -> str:
+    """Build a markdown section comparing the constrained candidate to the reference."""
+    lines = [
+        "## Physics-Constrained Candidate (c = 1/π fixed)",
+        "",
+        "| Property | Value |",
+        "| --- | --- |",
+        f"| Model ID | `{constrained_score.model_id}` |",
+        f"| Formula | `{constrained_score.formula}` |",
+        f"| Test mean relative error | `{constrained_score.test_metrics.mean_relative_error:.6f}` |",
+        f"| Test max relative error | `{constrained_score.test_metrics.max_relative_error:.6f}` |",
+        f"| Verdict | `{constrained_verdict}` |",
+        "",
+        "### Fitted Coefficients",
+        "",
+    ]
+    for name, value in constrained_coefficients.items():
+        lines.append(f"- `{name}` = `{value:.8f}`")
+    lines.append(f"- `c` = `1/π = {1.0 / 3.141592653589793:.8f}` (fixed)")
+    lines.append("")
+
+    if reference_score is not None and reference_verdict is not None:
+        lines.extend(
+            [
+                "### Comparison with Best Unconstrained Log Candidate",
+                "",
+                "| Metric | Unconstrained (`model_t2_x4_l1`) | Constrained (`model_phys_constrained_l1`) |",
+                "| --- | ---: | ---: |",
+                f"| Test mean relative error | `{reference_score.test_metrics.mean_relative_error:.6f}` | `{constrained_score.test_metrics.mean_relative_error:.6f}` |",
+                f"| Test max relative error | `{reference_score.test_metrics.max_relative_error:.6f}` | `{constrained_score.test_metrics.max_relative_error:.6f}` |",
+                f"| Verdict | `{reference_verdict}` | `{constrained_verdict}` |",
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "### Physical Interpretation",
+            "",
+            "The log coefficient `c = 1/π` is derived from the exact asymptotic expansion",
+            "of `K(k²) ≈ ln(4/√(1-k²))` as `k → 1` (near-separatrix limit).",
+            "Fixing this coefficient to its theoretically correct value allows the free",
+            "parameters `a` and `b` to capture intermediate-angle corrections without",
+            "sacrificing near-separatrix divergence behavior.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def run_gauntlet_experiment_with_output(
     config_path: str | Path,
     output_dir: str | Path | None = None,
@@ -485,12 +542,19 @@ def run_gauntlet_experiment_with_output(
     if not result_id:
         raise ValueError("Config must define result_id for result traceability")
 
-    amplitude_range = experiment["data"]["amplitude_range_radians"]
+    amplitude_range_override = config.get("amplitude_range_override")
+    if amplitude_range_override:
+        amplitude_start = float(amplitude_range_override["start"])
+        amplitude_end = float(amplitude_range_override["end"])
+    else:
+        amplitude_range = experiment["data"]["amplitude_range_radians"]
+        amplitude_start = float(amplitude_range["start"])
+        amplitude_end = float(amplitude_range["end"])
     sample_count = int(experiment["data"]["sample_count"])
     train_fraction = float(config.get("train_fraction", 0.7))
     dataset = generate_pendulum_dataset(
-        amplitude_start=float(amplitude_range["start"]),
-        amplitude_end=float(amplitude_range["end"]),
+        amplitude_start=amplitude_start,
+        amplitude_end=amplitude_end,
         sample_count=sample_count,
     )
     split_index = split_dataset(sample_count=sample_count, train_fraction=train_fraction)
@@ -540,6 +604,23 @@ def run_gauntlet_experiment_with_output(
         )
         for rank in range(len(scores))
     ]
+
+    # Optional: fit and score the physics-constrained candidate.
+    constrained_score: ModelScore | None = None
+    constrained_verdict: str | None = None
+    constrained_coefficients: dict[str, float] = {}
+    if config.get("include_constrained_candidate"):
+        constrained_atoms, constrained_model = build_constrained_candidate()
+        constrained_fitted = fit_candidate_model(constrained_model, train_theta, train_target)
+        constrained_coefficients = constrained_fitted.coefficients
+        constrained_score = score_model(
+            fitted_model=constrained_fitted,
+            train_theta=train_theta,
+            train_target=train_target,
+            test_theta=test_theta,
+            test_target=test_target,
+        )
+        constrained_verdict = classify_model_score(constrained_score)
 
     run_dir = result_root / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -609,6 +690,20 @@ def run_gauntlet_experiment_with_output(
         best_verdict=verdicts[best_model_id],
         verification_summary=verification_payload,
     )
+    if constrained_score is not None and constrained_verdict is not None:
+        reference_score_for_constrained = next(
+            (s for s in scores if s.model_id == "model_t2_x4_l1"), None
+        )
+        reference_verdict_for_constrained = (
+            verdicts.get("model_t2_x4_l1") if reference_score_for_constrained else None
+        )
+        report_text = report_text.rstrip("\n") + "\n\n" + _build_constrained_comparison_section(
+            constrained_score=constrained_score,
+            constrained_verdict=constrained_verdict,
+            reference_score=reference_score_for_constrained,
+            reference_verdict=reference_verdict_for_constrained,
+            constrained_coefficients=constrained_coefficients,
+        )
     write_text_atomic(report_path, report_text)
 
     claim_status_suggestion = suggest_claim_status(
@@ -663,6 +758,18 @@ def run_gauntlet_experiment_with_output(
         "leaderboard_top10": leaderboard_entries[:10],
         "failure_mode_summary": _failure_mode_summary(leaderboard_entries),
     }
+    if constrained_score is not None and constrained_verdict is not None:
+        metrics_payload["constrained_candidate"] = {
+            "model_id": constrained_score.model_id,
+            "formula": constrained_score.formula,
+            "verdict": constrained_verdict,
+            "coefficients": constrained_coefficients,
+            "fixed_coefficient": {"c": 1.0 / 3.141592653589793},
+            "test_mean_relative_error": constrained_score.test_metrics.mean_relative_error,
+            "test_max_relative_error": constrained_score.test_metrics.max_relative_error,
+            "train_mean_relative_error": constrained_score.train_metrics.mean_relative_error,
+            "composite_score": constrained_score.composite_score,
+        }
     write_text_atomic(metrics_path, json.dumps(metrics_payload, indent=2))
 
     claim_update_text = _build_claim_update(
