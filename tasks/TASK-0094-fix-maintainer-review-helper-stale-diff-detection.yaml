@@ -1,0 +1,55 @@
+id: TASK-0094
+title: "Fix maintainer review helper false-positive stale diff detection"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review fast and trustworthy by removing false blockers from review helper output."
+  - "Ensure clean replacement PRs and closeout PRs are judged from the real PR diff, not stale local branch context."
+  - "Reduce maintainer review drag so scientific tasks can merge faster with reliable automation support."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Recent clean replacement and closeout PRs showed a repeated helper bug:
+    the maintainer review script reported large stale changed-file sets and
+    unrelated overclaim/protected-artifact blockers even when the GitHub-side
+    PR diff was clean and limited to a few expected files. This slows maintainer
+    review and can block merge decisions for otherwise healthy PRs. The helper
+    should resolve reviewable changed files from the actual PR diff or from a
+    correct local merge-base instead of stale local branch context.
+
+requirements:
+  - "Reproduce the false-positive changed-file scenario for a clean replacement or closeout PR."
+  - "Make the maintainer review helper derive its changed-file set from the actual PR diff or an equivalent correct merge-base."
+  - "Prevent unrelated protected-artifact and overclaim checks from firing when those files are not part of the actual PR."
+  - "Add regression coverage for at least one clean replacement PR case and one closeout PR case."
+  - "Keep the fix protocol-safe; do not weaken real protected-artifact or overclaim checks."
+
+accepted_outputs:
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated scripts/apl_review_pr.py if needed"
+  - "updated maintainer review tests covering stale diff false positives"
+  - "updated docs/maintainer-review-agent.md if helper behavior or assumptions change"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 scripts/apl_review_pr.py --pr 100"
+    - "python3 scripts/apl_review_pr.py --pr 102"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
