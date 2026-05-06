@@ -35,38 +35,40 @@ The diagram illustrates the verification-first workflow from task selection thro
 The following diagram illustrates the standard APL verification-first workflow from task selection to integration into scientific memory.
 
 
+```mermaid
 flowchart TD
 
-    T_READY["TASK (READY)"] --> BR["Create branch"]
-    BR --> CODE["Implement changes"]
+T_READY["TASK (READY)"] --> BR["Create branch"]
+BR --> CODE["Implement changes"]
 
-    CODE --> VAL["Validation (ruff, pytest, CLI)"]
+CODE --> VAL["Validation (ruff, pytest, CLI)"]
 
-    VAL --> PR["Open Pull Request"]
-    PR --> MAINT["Maintainer review"]
+VAL --> PR["Open Pull Request"]
+PR --> MAINT["Maintainer review"]
 
-    VAL -- Failure --> CODE
-    MAINT -- Needs changes --> CODE
+VAL -- Failure --> CODE
+MAINT -- Needs changes --> CODE
 
-    MAINT -- Approved --> MERGE["Merge to main"]
+MAINT -- Approved --> MERGE["Merge to main"]
 
-    MERGE --> EXP["Run experiment"]
-    EXP --> RES["Generate results"]
+MERGE --> EXP["Run experiment"]
+EXP --> RES["Generate results"]
 
-    RES --> EVAL["Evaluate results"]
-    EVAL --> KNOW["Update claims / knowledge"]
+RES --> EVAL["Evaluate results"]
+EVAL --> KNOW["Update claims / knowledge"]
 
-    classDef task fill:#1f2937,stroke:#374151,color:#ffffff;
-    classDef dev fill:#1d4ed8,stroke:#1e40af,color:#ffffff;
-    classDef validation fill:#b45309,stroke:#92400e,color:#ffffff;
-    classDef review fill:#7c3aed,stroke:#5b21b6,color:#ffffff;
-    classDef science fill:#065f46,stroke:#047857,color:#ffffff;
+classDef task fill:#1f2937,stroke:#374151,color:#ffffff;
+classDef dev fill:#1d4ed8,stroke:#1e40af,color:#ffffff;
+classDef validation fill:#b45309,stroke:#92400e,color:#ffffff;
+classDef review fill:#7c3aed,stroke:#5b21b6,color:#ffffff;
+classDef science fill:#065f46,stroke:#047857,color:#ffffff;
 
-    class T_READY task;
-    class BR,CODE dev;
-    class VAL validation;
-    class PR,MAINT,MERGE review;
-    class EXP,RES,EVAL,KNOW science;
+class T_READY task;
+class BR,CODE dev;
+class VAL validation;
+class PR,MAINT,MERGE review;
+class EXP,RES,EVAL,KNOW science;
+
 
 ## References
 
