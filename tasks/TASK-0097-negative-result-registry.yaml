@@ -1,0 +1,48 @@
+id: TASK-0097
+title: "Create negative result registry for APL falsifications"
+type: documentation
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Negative results are scientifically valuable and should be catalogued, not buried."
+  - "A registry makes falsifications discoverable and prevents redundant re-testing."
+  - "Supports the verification-first mission: falsification is a first-class outcome."
+
+input:
+  mode: workflow
+  related_objects:
+    - "results/EXP-0007/RUN-0001/result.yaml"
+    - "docs/results/koide-neutrino-falsification.md"
+    - "claims/"
+    - "hypotheses/"
+  planning_context: >
+    APL has produced its first clean falsification (EXP-0007, Koide Q=2/3
+    for neutrinos). As the experiment count grows, a registry of negative
+    results prevents duplicate work and makes the falsification history
+    searchable. The registry should be a simple YAML or Markdown document
+    listing each falsified hypothesis with key metrics and a link to the
+    result artifact.
+
+requirements:
+  - "Create docs/negative-results-registry.md (or knowledge/negative_results/registry.yaml)."
+  - "Include at minimum: EXP-0007 neutrino Koide falsification."
+  - "Each entry: hypothesis id, experiment id, result id, verdict, key metric, date."
+  - "Add link to registry from docs/mission-control.md or docs/result-artifacts-index.md."
+  - "Use conservative wording — FALSIFIED in this domain, not globally."
+
+accepted_outputs:
+  - "docs/negative-results-registry.md"
+  - "docs/mission-control.md or docs/result-artifacts-index.md (link added)"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

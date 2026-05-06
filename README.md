@@ -74,6 +74,10 @@ Both tracks are verification-first and store run-based artifacts under
   holdout benchmark that predicts tau from electron and muon inputs under the
   exact Koide assumption, compared against measured tau with uncertainty-aware
   wording.
+- [Koide neutrino falsification](docs/results/koide-neutrino-falsification.md):
+  consistency test showing the original Koide relation Q = 2/3 is incompatible
+  with neutrino oscillation data for both normal and inverted hierarchy
+  (NH: 70.7σ gap, IH: 421,889σ gap). Clean falsification result, not marginal.
 
 These are scoped benchmark results with explicit limits, not discovery-level
 physical conclusions, complete particle-mass explanations, or exact symbolic
