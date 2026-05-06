@@ -96,10 +96,12 @@ def run_hierarchy_test(
     """
     if hierarchy == "NH":
         label = "m1"
-        m_fn = lambda m: nh_masses(m, dm2_21, dm2_31_or_32)
+        def m_fn(m: float) -> tuple[float, float, float]:
+            return nh_masses(m, dm2_21, dm2_31_or_32)
     elif hierarchy == "IH":
         label = "m3"
-        m_fn = lambda m: ih_masses(m, dm2_21, dm2_31_or_32)
+        def m_fn(m: float) -> tuple[float, float, float]:
+            return ih_masses(m, dm2_21, dm2_31_or_32)
     else:
         raise ValueError(f"Unknown hierarchy: {hierarchy!r}")
 
