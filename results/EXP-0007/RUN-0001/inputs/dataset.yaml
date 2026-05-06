@@ -1,0 +1,126 @@
+dataset_id: DATASET-PM-0002
+title: Neutrino mass-squared differences and mass bounds
+status: DRAFT
+description: >
+  Source-explicit neutrino oscillation inputs for Koide consistency tests.
+  Records mass-squared differences from global oscillation fits and upper
+  bounds from direct-search and cosmological experiments.
+  This file records input data only and does not imply any mass relation
+  claim or pattern.
+
+source_policy:
+  primary_authority: Particle Data Group
+  edition: "2024"
+  citation: >
+    S. Navas et al. (Particle Data Group), Phys. Rev. D 110, 030001 (2024).
+    Oscillation parameters based on NuFIT 5.3 (2023) global analysis,
+    see also nufit.org.
+  policy_note: >
+    Oscillation data are convention-dependent. The sign convention used here
+    follows PDG 2024: Δm²₂₁ > 0 always; Δm²₃₁ > 0 for NH, < 0 for IH.
+    All mass-squared differences in eV². All mass bounds in eV.
+
+oscillation_parameters:
+  - id: dm2_21
+    label: "Delta m^2_21 (solar)"
+    value: 7.53e-5
+    unit: eV2
+    uncertainty:
+      type: symmetric
+      value: 0.18e-5
+      unit: eV2
+      confidence: one_sigma
+    source:
+      authority: Particle Data Group
+      edition: "2024"
+      url: https://pdg.lbl.gov/2024/tables/contents_tables.html
+      accessed_on: "2026-05-06"
+      value_origin_note: >
+        PDG 2024 Table of neutrino mixing parameters, based on NuFIT 5.3 (2023)
+        global fit to solar, reactor, accelerator, and atmospheric data.
+    hierarchy_dependence: none
+    notes: >
+      Sign is positive by convention (m2 > m1 in both hierarchies).
+
+  - id: dm2_31_NH
+    label: "Delta m^2_31 (atmospheric, normal hierarchy)"
+    value: 2.453e-3
+    unit: eV2
+    uncertainty:
+      type: symmetric
+      value: 0.033e-3
+      unit: eV2
+      confidence: one_sigma
+    source:
+      authority: Particle Data Group
+      edition: "2024"
+      url: https://pdg.lbl.gov/2024/tables/contents_tables.html
+      accessed_on: "2026-05-06"
+      value_origin_note: >
+        PDG 2024 Table of neutrino mixing parameters, NH column.
+    hierarchy_dependence: NH
+    notes: >
+      Positive: m3 > m1 in normal hierarchy.
+
+  - id: dm2_32_IH
+    label: "|Delta m^2_32| (atmospheric, inverted hierarchy)"
+    value: 2.536e-3
+    unit: eV2
+    uncertainty:
+      type: symmetric
+      value: 0.034e-3
+      unit: eV2
+      confidence: one_sigma
+    source:
+      authority: Particle Data Group
+      edition: "2024"
+      url: https://pdg.lbl.gov/2024/tables/contents_tables.html
+      accessed_on: "2026-05-06"
+      value_origin_note: >
+        PDG 2024 Table of neutrino mixing parameters, IH column.
+        In IH: m3 < m1 < m2, so Δm²₃₂ = m3² - m2² < 0; this entry stores |Δm²₃₂|.
+    hierarchy_dependence: IH
+    notes: >
+      In IH: m1² = m3² + |Δm²₃₂| - Δm²₂₁, m2² = m1² + Δm²₂₁.
+      Equivalently: m1 = sqrt(m3² + |Δm²₃₂| - Δm²₂₁), m2 = sqrt(m1² + Δm²₂₁).
+
+mass_bounds:
+  - id: katrin_2022
+    label: "KATRIN 2022 effective electron-neutrino mass upper bound"
+    bound_type: upper
+    value: 0.45
+    unit: eV
+    confidence: 90_percent_CL
+    source:
+      authority: KATRIN Collaboration
+      citation: >
+        M. Aker et al. (KATRIN Collaboration), Nat. Phys. 18, 160-166 (2022).
+        DOI: 10.1038/s41567-021-01463-1
+      accessed_on: "2026-05-06"
+      value_origin_note: >
+        Direct kinematic bound on the effective electron-antineutrino mass
+        from tritium beta-decay endpoint spectrum.
+    notes: >
+      The effective mass m_beta = sqrt(sum_i |Uei|^2 * mi^2). For normal
+      hierarchy with m1 << m_atm, m_beta ≈ m1. The bound constrains the
+      lightest mass eigenstate for quasi-degenerate spectrum.
+
+  - id: planck_2018_sum
+    label: "Planck 2018 + BAO sum of neutrino masses upper bound"
+    bound_type: upper
+    value: 0.12
+    unit: eV
+    confidence: 95_percent_CL
+    source:
+      authority: Planck Collaboration
+      citation: >
+        N. Aghanim et al. (Planck Collaboration), A&A 641, A6 (2020).
+        DOI: 10.1051/0004-6361/201833910
+      accessed_on: "2026-05-06"
+      value_origin_note: >
+        Planck 2018 CMB power spectra + CMB lensing + baryon acoustic oscillations.
+        Reports 95% CL upper bound on sum of neutrino masses.
+    notes: >
+      Sum bound: m1 + m2 + m3 < 0.12 eV. This is the most constraining
+      bound on the absolute neutrino mass scale and is the primary
+      cosmological limit used in this analysis.

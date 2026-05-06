@@ -1,0 +1,53 @@
+id: HYP-0007
+title: "Koide relation Q = 2/3 is consistent with neutrino mass-squared differences"
+domain: particle_physics
+status: TESTING
+
+hypothesis:
+  statement: >
+    The Koide quantity Q = (m1 + m2 + m3) / (sqrt(m1) + sqrt(m2) + sqrt(m3))^2
+    equals 2/3 for some physically admissible neutrino mass triplet (m1, m2, m3)
+    consistent with the measured oscillation parameters (Δm²₂₁, Δm²₃₁) and
+    the cosmological and direct-search mass bounds.
+  formula_candidates:
+    - "Q = (m1 + m2 + m3) / (sqrt(m1) + sqrt(m2) + sqrt(m3))^2 = 2/3"
+
+assumptions:
+  - "Neutrino masses are real and positive (Majorana or Dirac, both require m > 0)."
+  - "Mass-squared differences are taken from PDG 2024 / NuFIT 5.3 oscillation fits."
+  - "Both normal hierarchy (NH: m1 < m2 < m3) and inverted hierarchy (IH: m3 < m1 < m2) are tested."
+  - "The lightest neutrino mass is a free parameter >= 0."
+  - "Mass bounds from KATRIN 2022 (direct) and Planck 2018 + BAO (cosmological) are treated as hard constraints."
+  - "The Koide formula is applied in the mass-eigenstate basis, not the flavour basis."
+
+variables:
+  m1:
+    unit: eV
+    description: "Mass of the lightest eigenstate (NH) or second-heaviest eigenstate (IH)"
+  m2:
+    unit: eV
+    description: "Second eigenstate mass"
+  m3:
+    unit: eV
+    description: "Heaviest eigenstate mass (NH) or lightest eigenstate (IH)"
+  Q:
+    unit: dimensionless
+    description: "Koide quantity for the neutrino mass triplet"
+  dm2_21:
+    unit: eV2
+    description: "Solar mass-squared difference m2^2 - m1^2"
+  dm2_31:
+    unit: eV2
+    description: "Atmospheric mass-squared difference m3^2 - m1^2 (NH > 0, IH < 0)"
+
+evidence:
+  experiments:
+    - EXP-0007
+  results:
+    - RESULT-0009
+
+verdict: >
+  Falsification test in progress. If no physical solution exists for Q = 2/3
+  under either hierarchy, the Koide relation in its original form is
+  inconsistent with neutrino oscillation data. This is a meaningful negative
+  result, not a null result.

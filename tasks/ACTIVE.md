@@ -62,6 +62,7 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0093` — Test Koide relation for neutrino masses (merged)
 - `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (merged)
 - `TASK-0085` — Define PR title format for microtask PRs without a canonical TASK-XXXX (merged)
 - `TASK-0084` — Add explicit no-direct-main-push guardrail to agent instructions (merged)
@@ -137,7 +138,6 @@ None.
 - `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
 - `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
 - `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
-- `TASK-0093` — Test Koide relation for neutrino masses (`scientific_experiment`, priority `high`, difficulty `medium`)
 
 ## BLOCKED
 

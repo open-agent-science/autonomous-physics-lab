@@ -1,0 +1,83 @@
+result_id: RESULT-0009
+run_id: RUN-0001
+experiment_id: EXP-0007
+title: "Neutrino Koide Consistency Test \u2014 Neutrino Koide Consistency Test"
+hypothesis_id: HYP-0007
+task_id: TASK-0093
+generated_at: '2026-05-06T05:27:25.509956+00:00'
+engine_version: 0.1.0
+git_commit: 308684f47ebfaa8fb0d611ef7e4bb0676d72c5d2
+command: physics-lab run examples/koide_neutrino.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0007/RUN-0001/inputs/config.yaml
+    sha256: b4109a20da6c8083d10f523763626c899abe65b48a935c8fc13534b231e76445
+  experiment:
+    path: results/EXP-0007/RUN-0001/inputs/experiment.yaml
+    sha256: a62af1a970f2bc461953e59af0016b34a4b6c64937259bdd461857ae51114be5
+  hypothesis:
+    path: results/EXP-0007/RUN-0001/inputs/hypothesis.yaml
+    sha256: ae2e50025ac1c9601a6d1f209a4bee8dc008a5c7771e2b73e973f2a710c5db59
+  task:
+    path: results/EXP-0007/RUN-0001/inputs/task.yaml
+    sha256: 0cb29c7c83bf47fe6371afdb571cd185d870251a9b414235de6c186dc0057d84
+code_reference: physics_lab/workflows/koide_neutrino.py
+limitations:
+- Applies the Koide formula in its original charged-lepton form only.
+- "Phase-modified Brannen-type variants (\u03B4 \u2260 0) are not tested."
+- Uses PDG 2024 / NuFIT 5.3 oscillation best-fit values without pull-based uncertainty.
+- Majorana vs Dirac mass nature does not affect this eigenvalue-only test.
+- Does not test modified Koide formulas with different target Q values.
+best_verdict: INVALID
+verification:
+  passed: true
+  checks:
+  - name: NH Q_max below 2/3
+    status: PASS
+    details: Q_max(NH) = 0.583994 < 2/3 = 0.666667
+    metrics:
+      q_max: 0.58399446
+      target: 0.6666666666666666
+      gap: 0.08267221
+      gap_in_sigma: 70.7
+  - name: IH Q_max below 2/3
+    status: PASS
+    details: Q_max(IH) = 0.500007 < 2/3 = 0.666667
+    metrics:
+      q_max: 0.5000071
+      target: 0.6666666666666666
+      gap: 0.16665957
+      gap_in_sigma: 421889.0
+artifacts:
+  report: results/EXP-0007/RUN-0001/report.md
+  metrics: results/EXP-0007/RUN-0001/metrics.json
+  claim_update: results/EXP-0007/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0007/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0007/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0007/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0007/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0007/RUN-0001/review_metadata.yaml
+comparison_summary:
+- target_id: target_q_nh
+  label: Q_max (NH) vs Koide target 2/3
+  reference_value: 0.6666666666666666
+  observed_value: 0.58399446
+  absolute_difference: 0.08267221
+  relative_difference: 0.12400831
+  notes: "NH Q_max at m1=0. Gap = 70.7\u03C3 below target."
+- target_id: target_q_ih
+  label: Q_max (IH) vs Koide target 2/3
+  reference_value: 0.6666666666666666
+  observed_value: 0.5000071
+  absolute_difference: 0.16665957
+  relative_difference: 0.24998935
+  notes: "IH Q_max at m3=0. Gap = 421889.0\u03C3 below target."
+uncertainty_summary:
+  method: "finite_difference_1sigma on \u0394m\xB2 oscillation parameters"
+  observed_uncertainty: 0.00116945
+  reference_uncertainty: null
+  combined_uncertainty: 0.00116945
+  z_score: 70.7
+  within_combined_uncertainty: false
+  notes: "NH: Q_max = 0.583994 \xB1 0.001169 (1\u03C3), gap = 70.7\u03C3. IH: Q_max\
+    \ = 0.500007 \xB1 0.000000 (1\u03C3), gap = 421889.0\u03C3."
