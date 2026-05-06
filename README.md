@@ -8,6 +8,26 @@ testing, simulating, falsifying, and reusing physics hypotheses.
 APL is not a chatbot. It is a verification-first engine for testing physics
 ideas.
 
+## How APL Works
+
+```mermaid
+flowchart TD
+    classDef hyp fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef exp fill:#fef3c7,stroke:#f59e0b,color:#78350f,font-weight:bold
+    classDef res fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef bad fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
+    classDef mem fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+
+    H["💡 Hypothesis"]:::hyp --> E["🔬 Experiment & Simulate"]:::exp --> R["📊 Result"]:::res
+    R -->|"supported"| C["✅ Claim"]:::res
+    R -->|"falsified"| F["❌ Falsification"]:::bad
+    C & F --> M["🧠 Memory"]:::mem
+    M -.->|"next cycle"| H
+```
+
+Every claim is backed by a reproducible experiment. Every falsification is
+stored, not discarded. The memory grows with each run.
+
 ## Positioning
 
 The long-term goal is not to claim a "theory of everything" from day one.
@@ -87,8 +107,20 @@ python3 scripts/generate_context_bundle.py --full   # + extended docs (~60 KB)
 
 ## Active Scientific Campaigns
 
-APL currently organizes contributor-facing scientific work around four campaign
-surfaces:
+```mermaid
+flowchart LR
+    classDef pend fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef part fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef da   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+
+    P["🔭 Pendulum Track\nEXP-0001  Formula Discovery ✅\nEXP-0002  Damped Oscillator ✅\nRUN-0004  c=1/π fixed ✅"]:::pend
+    K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nTASK-0088  Quark Koide ⏳"]:::part
+    D["📐 Dimensional Analysis\nMVP implemented ✅\n17+ challenge items"]:::da
+
+    P ~~~ K ~~~ D
+```
+
+Full campaign details:
 
 1. [Pendulum Formula Falsification](docs/campaigns/pendulum-formula-falsification.md)
 2. [Particle Mass Relations](docs/campaigns/particle-mass-relations.md)
@@ -101,13 +133,32 @@ and should not be described as finished benchmark implementations.
 
 ## Contribute with an AI coding agent
 
-Put your coding agent to work on reproducible physics tasks.
+```mermaid
+flowchart LR
+    classDef quick  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef task   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef sci    fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+    classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
 
-Invited contributors can use Codex, Claude Code, or other coding agents to
-pick atomic tasks from [tasks/ACTIVE.md](tasks/ACTIVE.md), work in branches,
-open PRs, and submit reproducible scientific changes for maintainer review.
+    Start(["▶ Enter repo"]) --> Read["📋 AGENTS.md\n+ ACTIVE.md"]
+
+    Read -->|"~30 min"| MT["⚡ Microtask"]:::quick
+    Read -->|"1–2 hrs"| RT["🎯 READY task"]:::task
+    Read -->|"scientific"| Sci["🔬 Campaign track\nKoide · Pendulum · DA"]:::sci
+    Read -->|"new idea"| Prop["💡 Task proposal\ntasks/proposals/"]:::prop
+
+    MT  --> PR["📬 branch → PR\n→ maintainer review"]:::finish
+    RT  --> PR
+    Sci --> PR
+    Prop --> PropPR["📋 TASK-PROPOSAL PR\nwait for TASK-XXXX"]:::prop
+```
+
+Every path ends with a PR — agents never merge their own work.
+
+Invited contributors can use Codex, Claude Code, or other coding agents.
 Start with [docs/private-contributor-pilot.md](docs/private-contributor-pilot.md)
-for the private-alpha workflow and validation expectations.
+for the private-alpha workflow and [AGENTS.md](AGENTS.md) for the canonical rules.
 
 Not sure where to start? Use the **[Agent Work Menu](docs/agent-work-menu.md)**
 to find safe, reviewable work sized for your session budget (30 min / 1 h / 2 h).
