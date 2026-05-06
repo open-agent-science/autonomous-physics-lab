@@ -1,7 +1,7 @@
 id: TASK-0088
 title: "Test Brannen quark-mass Koide cascade for up and down sectors"
 type: scientific_experiment
-status: REVIEW_READY
+status: READY
 difficulty: medium
 priority: high
 
