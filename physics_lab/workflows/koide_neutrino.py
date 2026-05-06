@@ -22,7 +22,6 @@ from physics_lab.workflows.artifacts import (
     ExperimentOutcome,
     find_repo_root,
     git_commit,
-    hash_file,
     relative_or_absolute,
     render_review_metadata,
     render_review_summary,
@@ -101,9 +100,9 @@ def _build_report(
         "| --- | ---: | --- |",
         f"| Δm²₂₁ (solar) | {dm2_21:.2e} | eV² |",
         f"| Δm²₃₁ (NH, atmospheric) | {dm2_31_NH:.2e} | eV² |",
-        f"| \|Δm²₃₂\| (IH, atmospheric) | {dm2_32_IH:.2e} | eV² |",
-        f"| Planck 2018 sum bound | < 0.12 | eV |",
-        f"| KATRIN 2022 direct bound | < 0.45 | eV |",
+        f"| |Δm²₃₂| (IH, atmospheric) | {dm2_32_IH:.2e} | eV² |",
+        "| Planck 2018 sum bound | < 0.12 | eV |",
+        "| KATRIN 2022 direct bound | < 0.45 | eV |",
         "",
         "## Method",
         "",
@@ -135,7 +134,6 @@ def _build_report(
 
     # Get masses at m1=0 from profile
     if nh.q_profile:
-        p0 = nh.q_profile[0]
         import math
         m2_0 = math.sqrt(dm2_21)
         m3_0 = math.sqrt(dm2_31_NH)
@@ -164,7 +162,6 @@ def _build_report(
         ]
         for res in [nh, ih]:
             if res.solution_exists and res.solution_masses_eV:
-                ms = res.solution_masses_eV
                 lines += [
                     f"### {res.hierarchy}",
                     f"- {res.lightest_mass_label} = {fmt_mev(res.solution_lightest_mass_eV or 0.0)}",
