@@ -12,20 +12,18 @@ ideas.
 
 ```mermaid
 flowchart LR
-    classDef hyp  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
-    classDef exp  fill:#fef3c7,stroke:#f59e0b,color:#78350f,font-weight:bold
-    classDef res  fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
-    classDef bad  fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
-    classDef mem  fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef hyp fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef exp fill:#fef3c7,stroke:#f59e0b,color:#78350f,font-weight:bold
+    classDef res fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef bad fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
+    classDef mem fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
 
-    H["💡 Hypothesis"]:::hyp  --> E["🔬 Experiment"]:::exp
-    E                          --> S["⚙️ Simulation"]:::exp
-    S                          --> R["📊 Result"]:::res
-    R                          --> V{"Verdict?"}
+    H["💡 Hypothesis"]:::hyp --> E["🔬 Experiment"]:::exp --> S["⚙️ Simulate"]:::exp --> R["📊 Result"]:::res
+    R --> V{"Verdict?"}
     V -->|"supported"| C["✅ Claim"]:::res
     V -->|"falsified"| F["❌ Falsification"]:::bad
-    C & F                      --> M["🧠 Scientific Memory"]:::mem
-    M -.->|"informs next hypothesis"| H
+    C & F --> M["🧠 Scientific Memory"]:::mem
+    M -.->|"informs next"| H
 ```
 
 Every claim is backed by a reproducible experiment. Every falsification is
@@ -111,25 +109,15 @@ python3 scripts/generate_context_bundle.py --full   # + extended docs (~60 KB)
 ## Active Scientific Campaigns
 
 ```mermaid
-flowchart TB
-    classDef done fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
-    classDef fail fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
-    classDef next fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+flowchart LR
+    classDef track fill:#f8fafc,stroke:#94a3b8,color:#1e293b,font-weight:bold
+    classDef done  fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef fail  fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
+    classDef next  fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
 
-    subgraph Pendulum["🔭 Pendulum Track"]
-        direction LR
-        P1["EXP-0001\nFormula Discovery ✅"]:::done --> P2["EXP-0002\nDamped Oscillator ✅"]:::done --> P3["RUN-0004\nc = 1/π fixed ✅"]:::done
-    end
-
-    subgraph Particle["⚛️ Particle Physics Track"]
-        direction LR
-        K1["EXP-0004\nKoide Q = 2/3 ✅"]:::done --> K2["EXP-0005\nTau Holdout ✅"]:::done --> K3["EXP-0007\nNeutrino ❌ 70σ"]:::fail --> K4["TASK-0088\nQuark Koide ⏳"]:::next
-    end
-
-    subgraph DA["📐 Dimensional Analysis"]
-        direction LR
-        D1["MVP · 17+ items ✅"]:::done
-    end
+    P0["🔭 Pendulum"]:::track --> P1["EXP-0001\nFormula Discovery ✅"]:::done --> P2["EXP-0002\nDamped Oscillator ✅"]:::done --> P3["RUN-0004\nc=1/π fixed ✅"]:::done
+    K0["⚛️ Particle Physics"]:::track --> K1["EXP-0004\nKoide Q=2/3 ✅"]:::done --> K2["EXP-0005\nTau Holdout ✅"]:::done --> K3["EXP-0007\nNeutrino ❌ 70σ"]:::fail --> K4["TASK-0088\nQuark Koide ⏳"]:::next
+    D0["📐 Dim. Analysis"]:::track --> D1["MVP · 17+ items ✅"]:::done
 ```
 
 Full campaign details:
