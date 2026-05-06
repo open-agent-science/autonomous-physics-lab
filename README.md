@@ -11,17 +11,14 @@ ideas.
 ## How APL Works
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef hyp fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
     classDef exp fill:#fef3c7,stroke:#f59e0b,color:#78350f,font-weight:bold
     classDef res fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
     classDef bad fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
     classDef mem fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
 
-    H["💡 Hypothesis"]:::hyp
-    H --> E["🔬 Experiment"]:::exp
-    E --> S["⚙️ Simulate"]:::exp
-    S --> R["📊 Result"]:::res
+    H["💡 Hypothesis"]:::hyp --> E["🔬 Experiment"]:::exp --> S["⚙️ Simulate"]:::exp --> R["📊 Result"]:::res
     R -->|"supported"| C["✅ Claim"]:::res
     R -->|"falsified"| F["❌ Falsification"]:::bad
     C & F --> M["🧠 Memory"]:::mem
