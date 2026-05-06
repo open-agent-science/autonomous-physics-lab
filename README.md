@@ -19,11 +19,10 @@ flowchart LR
     classDef mem fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
 
     H["💡 Hypothesis"]:::hyp --> E["🔬 Experiment"]:::exp --> S["⚙️ Simulate"]:::exp --> R["📊 Result"]:::res
-    R --> V{"Verdict?"}
-    V -->|"supported"| C["✅ Claim"]:::res
-    V -->|"falsified"| F["❌ Falsification"]:::bad
-    C & F --> M["🧠 Scientific Memory"]:::mem
-    M -.->|"informs next"| H
+    R -->|"supported"| C["✅ Claim"]:::res
+    R -->|"falsified"| F["❌ Falsification"]:::bad
+    C & F --> M["🧠 Memory"]:::mem
+    M -.->|"next cycle"| H
 ```
 
 Every claim is backed by a reproducible experiment. Every falsification is
@@ -110,14 +109,15 @@ python3 scripts/generate_context_bundle.py --full   # + extended docs (~60 KB)
 
 ```mermaid
 flowchart LR
-    classDef track fill:#f8fafc,stroke:#94a3b8,color:#1e293b,font-weight:bold
-    classDef done  fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
-    classDef fail  fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
-    classDef next  fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+    classDef pend fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef part fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef da   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
 
-    P0["🔭 Pendulum"]:::track --> P1["EXP-0001\nFormula Discovery ✅"]:::done --> P2["EXP-0002\nDamped Oscillator ✅"]:::done --> P3["RUN-0004\nc=1/π fixed ✅"]:::done
-    K0["⚛️ Particle Physics"]:::track --> K1["EXP-0004\nKoide Q=2/3 ✅"]:::done --> K2["EXP-0005\nTau Holdout ✅"]:::done --> K3["EXP-0007\nNeutrino ❌ 70σ"]:::fail --> K4["TASK-0088\nQuark Koide ⏳"]:::next
-    D0["📐 Dim. Analysis"]:::track --> D1["MVP · 17+ items ✅"]:::done
+    P["🔭 Pendulum Track\nEXP-0001  Formula Discovery ✅\nEXP-0002  Damped Oscillator ✅\nRUN-0004  c=1/π fixed ✅"]:::pend
+    K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nTASK-0088  Quark Koide ⏳"]:::part
+    D["📐 Dimensional Analysis\nMVP implemented ✅\n17+ challenge items"]:::da
+
+    P ~~~ K ~~~ D
 ```
 
 Full campaign details:
