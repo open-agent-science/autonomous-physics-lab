@@ -34,9 +34,6 @@ The diagram illustrates the verification-first workflow from task selection thro
 
 The following diagram illustrates the standard APL verification-first workflow from task selection to integration into scientific memory.
 
-
-The following diagram illustrates the standard APL verification-first workflow.
-
 ```mermaid
 flowchart TD
     T_READY["TASK (READY)"] --> BR["Create branch"]
@@ -72,7 +69,6 @@ flowchart TD
 
 * `docs/agent-task-protocol.md`
 * `AGENTS.md`
-* `docs/architecture.md`
 * `docs/strategy.md`
 
 ---
