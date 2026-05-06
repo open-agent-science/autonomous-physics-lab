@@ -12,6 +12,7 @@ from typing import Any
 from physics_lab.registry.review_git import (
     CommandResult,  # noqa: F401 — re-exported for backwards compatibility
     run_command,
+    branch_exists,
     current_branch,
     git_status_clean,
     local_branch_exists,
@@ -72,6 +73,7 @@ class PullRequestMetadata:
     title: str
     body: str
     branch: str
+    base_branch: str
     state: str
     merged: bool
     status_checks_passed: bool | None
@@ -227,7 +229,7 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
             "view",
             str(number),
             "--json",
-            "number,title,body,headRefName,state,mergedAt,statusCheckRollup",
+            "number,title,body,headRefName,baseRefName,state,mergedAt,statusCheckRollup",
         ],
         cwd=root,
         timeout=30,
@@ -260,11 +262,21 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
         title=str(payload.get("title") or ""),
         body=str(payload.get("body") or ""),
         branch=str(payload.get("headRefName") or ""),
+        base_branch=str(payload.get("baseRefName") or "main"),
         state=str(payload.get("state") or ""),
         merged=bool(payload.get("mergedAt")),
         status_checks_passed=status_passed,
         status_checks_pending=has_pending,
     )
+
+
+def diff_base_ref(root: Path, pr_metadata: PullRequestMetadata | None) -> str:
+    """Return the best available diff base ref for PR review."""
+    base_branch = pr_metadata.base_branch if pr_metadata is not None else "main"
+    remote_base = f"origin/{base_branch}"
+    if branch_exists(root, remote_base):
+        return remote_base
+    return base_branch
 
 
 def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
@@ -294,6 +306,7 @@ def build_review_report(
     current = current_branch(root)
     pr_metadata = load_pr_metadata(root, pull_request) if pull_request is not None else None
     target_branch = branch or (pr_metadata.branch if pr_metadata is not None else current)
+    base_ref = diff_base_ref(root, pr_metadata)
     blockers: list[str] = []
     required_fixes: list[str] = []
     security_risks: list[str] = []
@@ -316,7 +329,7 @@ def build_review_report(
         blockers.append(
             f"Local branch {target_branch} is not available. Checkout the PR branch locally first."
         )
-    changed_files = changed_files_vs_main(root, target_branch)
+    changed_files = changed_files_vs_main(root, target_branch, base_ref=base_ref)
     if not changed_files:
         blockers.append("Diff vs main is empty. There is no reviewable task change.")
 
@@ -474,7 +487,7 @@ def build_review_report(
     overclaim_lines = tuple(
         parse_added_lines(
             run_command(
-                ["git", "diff", "--unified=0", f"main...{target_branch}"],
+                ["git", "diff", "--unified=0", f"{base_ref}...{target_branch}"],
                 cwd=root,
                 timeout=120,
             ).stdout,
@@ -492,7 +505,7 @@ def build_review_report(
     security_lines = tuple(
         parse_added_lines(
             run_command(
-                ["git", "diff", "--unified=0", f"main...{target_branch}"],
+                ["git", "diff", "--unified=0", f"{base_ref}...{target_branch}"],
                 cwd=root,
                 timeout=120,
             ).stdout,
