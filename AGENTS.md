@@ -20,6 +20,30 @@ python3 scripts/generate_context_bundle.py
 This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
 active task board. The file is also committed to the repo root for download.
 
+## Agent Work Paths
+
+Choose your path based on available token or time budget:
+
+```mermaid
+flowchart TD
+    Start([Enter repo]) --> Read["Read AGENTS.md\n+ tasks/ACTIVE.md"]
+    Read --> Budget{Available time?}
+
+    Budget -->|"~30 min"| MT["Microtask\ndocs/agent-work-menu.md\nno canonical task needed"]
+    Budget -->|"1–2 hrs"| RT["READY task\ntasks/ACTIVE.md\nfull lifecycle PR"]
+    Budget -->|"Full session"| Intent{Intent?}
+
+    Intent -->|"Scientific"| Sci["Scientific track\nKoide · Pendulum · DA\ndocs/campaigns/README.md"]
+    Intent -->|"Infrastructure"| Infra["Infra task\nschemas · workflows · docs\ntasks/ACTIVE.md"]
+    Intent -->|"New idea"| Prop["Task proposal\ntasks/proposals/\nTASK-PROPOSAL PR"]
+    Intent -->|"Autonomous"| Auto["Self-directed mode\ndocs/agent-scientific-work-mode.md"]
+
+    MT & RT & Sci & Infra & Auto --> PR["branch → implement\n→ validate → PR\n→ maintainer review"]
+    Prop --> PropPR["open TASK-PROPOSAL PR\nwait for maintainer\nto assign TASK-XXXX"]
+```
+
+All paths follow `docs/agent-task-protocol.md`. Never push directly to `main`.
+
 ## CRITICAL: Never push directly to main
 
 Every change must go through the full task lifecycle:

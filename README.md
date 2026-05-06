@@ -8,6 +8,24 @@ testing, simulating, falsifying, and reusing physics hypotheses.
 APL is not a chatbot. It is a verification-first engine for testing physics
 ideas.
 
+## How APL Works
+
+```mermaid
+flowchart LR
+    H["💡 Hypothesis\nhypotheses/"] --> E["🔬 Experiment\nexperiments/"]
+    E --> S["⚙️ Simulation\nphysics_lab/"]
+    S --> R["📊 Result\nresults/"]
+    R --> V{Verdict}
+    V -->|"✅ Supported"| C["Claim\nclaims/"]
+    V -->|"❌ Falsified"| F["Falsification\nresult stored"]
+    C --> M["🧠 Scientific Memory\nknowledge/"]
+    F --> M
+    M -.->|"informs next"| H
+```
+
+Every claim is backed by a reproducible experiment. Every falsification is
+stored, not discarded. The memory grows with each run.
+
 ## Positioning
 
 The long-term goal is not to claim a "theory of everything" from day one.
@@ -87,8 +105,26 @@ python3 scripts/generate_context_bundle.py --full   # + extended docs (~60 KB)
 
 ## Active Scientific Campaigns
 
-APL currently organizes contributor-facing scientific work around four campaign
-surfaces:
+```mermaid
+flowchart LR
+    subgraph Pendulum["🔭 Pendulum Track"]
+        direction TB
+        P1["EXP-0001\nFormula Discovery\n✅ 100 candidates tested"] --> P2["EXP-0002\nDamped Oscillator\n✅ regimes verified"]
+        P2 --> P3["RUN-0004\nPhysics-constrained\n✅ c = 1/π fixed"]
+    end
+    subgraph Particle["⚛️ Particle Physics Track"]
+        direction TB
+        K1["EXP-0004\nKoide Reproduction\n✅ Q = 2/3 confirmed"] --> K2["EXP-0005\nTau Holdout\n✅ historical prediction"]
+        K2 --> K3["EXP-0007\nNeutrino Koide\n❌ falsified 70σ gap"]
+        K3 --> K4["TASK-0088\nQuark Koide\n⏳ proposed"]
+    end
+    subgraph DA["📐 Dimensional Analysis"]
+        direction TB
+        D1["MVP\n✅ 17+ challenge items"]
+    end
+```
+
+Full campaign details:
 
 1. [Pendulum Formula Falsification](docs/campaigns/pendulum-formula-falsification.md)
 2. [Particle Mass Relations](docs/campaigns/particle-mass-relations.md)
@@ -101,13 +137,29 @@ and should not be described as finished benchmark implementations.
 
 ## Contribute with an AI coding agent
 
-Put your coding agent to work on reproducible physics tasks.
+```mermaid
+flowchart TD
+    Start([Enter repo]) --> Read["Read AGENTS.md\n+ tasks/ACTIVE.md"]
+    Read --> Budget{Available time?}
 
-Invited contributors can use Codex, Claude Code, or other coding agents to
-pick atomic tasks from [tasks/ACTIVE.md](tasks/ACTIVE.md), work in branches,
-open PRs, and submit reproducible scientific changes for maintainer review.
+    Budget -->|"~30 min"| MT["Microtask\ndocs/agent-work-menu.md\nno canonical task needed"]
+    Budget -->|"1–2 hrs"| RT["READY task\ntasks/ACTIVE.md\nfull lifecycle PR"]
+    Budget -->|"Full session"| Intent{Intent?}
+
+    Intent -->|"Scientific"| Sci["Scientific track\nKoide · Pendulum · DA\ndocs/campaigns/README.md"]
+    Intent -->|"Infrastructure"| Infra["Infra task\nschemas · workflows · docs\ntasks/ACTIVE.md"]
+    Intent -->|"New idea"| Prop["Task proposal\ntasks/proposals/\nTASK-PROPOSAL PR"]
+    Intent -->|"Autonomous"| Auto["Self-directed mode\ndocs/agent-scientific-work-mode.md"]
+
+    MT & RT & Sci & Infra & Auto --> PR["branch → implement\n→ validate → PR\n→ maintainer review"]
+    Prop --> PropPR["open TASK-PROPOSAL PR\nwait for maintainer\nto assign TASK-XXXX"]
+```
+
+Every path ends with a PR for maintainer review — agents never merge their own work.
+
+Invited contributors can use Codex, Claude Code, or other coding agents.
 Start with [docs/private-contributor-pilot.md](docs/private-contributor-pilot.md)
-for the private-alpha workflow and validation expectations.
+for the private-alpha workflow and [AGENTS.md](AGENTS.md) for the canonical rules.
 
 Not sure where to start? Use the **[Agent Work Menu](docs/agent-work-menu.md)**
 to find safe, reviewable work sized for your session budget (30 min / 1 h / 2 h).
