@@ -10,6 +10,7 @@ from physics_lab.workflows.artifacts import ExperimentOutcome, resolve_path
 from physics_lab.workflows.damped_oscillator import run_damped_oscillator_experiment_with_output
 from physics_lab.workflows.dimensional_validator import run_dimensional_validator_with_output
 from physics_lab.workflows.gauntlet import run_gauntlet_experiment_with_output
+from physics_lab.workflows.koide_neutrino import run_neutrino_koide_experiment
 from physics_lab.workflows.particle_mass import (
     run_particle_mass_holdout_with_output,
     run_particle_mass_reproduction_with_output,
@@ -37,6 +38,8 @@ def run_experiment_with_output(
         return run_gauntlet_experiment_with_output(config_path=config_path, output_dir=output_dir)
     if workflow == "dimensional_validation":
         return run_dimensional_validator_with_output(config_path=config_path, output_dir=output_dir)
+    if workflow == "neutrino_koide":
+        return run_neutrino_koide_experiment(config_path=config_path, output_dir=output_dir)
     experiment_path = resolve_path(config_path, config["experiment_path"])
     experiment = load_experiment(experiment_path)
     method_type = str(experiment["method"]["type"])
@@ -67,6 +70,7 @@ __all__ = [
     "run_pendulum_experiment_with_output",
     "run_damped_oscillator_experiment_with_output",
     "run_gauntlet_experiment_with_output",
+    "run_neutrino_koide_experiment",
     "run_particle_mass_holdout_with_output",
     "run_particle_mass_reproduction_with_output",
     "run_dimensional_validator_with_output",

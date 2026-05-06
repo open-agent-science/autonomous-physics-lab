@@ -1,0 +1,22 @@
+{
+  "result_id": "RESULT-0009",
+  "run_id": "RUN-0001",
+  "overall_verdict": "INCONSISTENT",
+  "koide_target": 0.6666666666666666,
+  "NH": {
+    "q_max": 0.5839944574961611,
+    "q_max_uncertainty_1sigma": 0.001169452783842157,
+    "gap_to_target": 0.08267220917050555,
+    "gap_in_sigma": 70.69307142002917,
+    "solution_exists": false,
+    "verdict": "INCONSISTENT"
+  },
+  "IH": {
+    "q_max": 0.5000070979849278,
+    "q_max_uncertainty_1sigma": 3.9503177434064615e-07,
+    "gap_to_target": 0.1666595686817388,
+    "gap_in_sigma": 421889.02135761856,
+    "solution_exists": false,
+    "verdict": "INCONSISTENT"
+  }
+}
