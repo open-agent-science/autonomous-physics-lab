@@ -57,11 +57,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (`repository_validation`, priority `high`, difficulty `low`)
 - `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (merged)
 - `TASK-0093` — Test Koide relation for neutrino masses (merged)
 - `TASK-0092` — Fix duplicate canonical task ids and enforce uniqueness (merged)
 - `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (merged)
