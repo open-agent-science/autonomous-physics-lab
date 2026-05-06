@@ -40,6 +40,15 @@ def run_command(
     )
 
 
+def branch_exists(root: Path, ref: str) -> bool:
+    """Return whether a git ref exists locally or as a remote-tracking ref."""
+    result = run_command(
+        ["git", "rev-parse", "--verify", ref],
+        cwd=root,
+    )
+    return result.returncode == 0
+
+
 def current_branch(root: Path) -> str:
     """Return the current git branch name."""
     result = run_command(["git", "branch", "--show-current"], cwd=root)
@@ -54,11 +63,7 @@ def git_status_clean(root: Path) -> bool:
 
 def local_branch_exists(root: Path, branch: str) -> bool:
     """Return whether a local branch exists."""
-    result = run_command(
-        ["git", "rev-parse", "--verify", branch],
-        cwd=root,
-    )
-    return result.returncode == 0
+    return branch_exists(root, branch)
 
 
 def working_tree_changed_files(root: Path) -> tuple[str, ...]:
@@ -106,10 +111,15 @@ def parse_added_lines(
     return tuple(added_lines)
 
 
-def changed_files_vs_main(root: Path, branch: str) -> tuple[str, ...]:
-    """Return changed files for a branch relative to main."""
+def changed_files_vs_main(
+    root: Path,
+    branch: str,
+    *,
+    base_ref: str = "main",
+) -> tuple[str, ...]:
+    """Return changed files for a branch relative to the chosen base ref."""
     result = run_command(
-        ["git", "diff", "--name-only", f"main...{branch}"],
+        ["git", "diff", "--name-only", f"{base_ref}...{branch}"],
         cwd=root,
     )
     changed = [line.strip() for line in result.stdout.splitlines() if line.strip()]
@@ -118,10 +128,15 @@ def changed_files_vs_main(root: Path, branch: str) -> tuple[str, ...]:
     return tuple(dict.fromkeys(changed))
 
 
-def added_lines_vs_main(root: Path, branch: str) -> tuple[str, ...]:
-    """Return added diff lines for a branch relative to main."""
+def added_lines_vs_main(
+    root: Path,
+    branch: str,
+    *,
+    base_ref: str = "main",
+) -> tuple[str, ...]:
+    """Return added diff lines for a branch relative to the chosen base ref."""
     result = run_command(
-        ["git", "diff", "--unified=0", f"main...{branch}"],
+        ["git", "diff", "--unified=0", f"{base_ref}...{branch}"],
         cwd=root,
         timeout=120,
     )

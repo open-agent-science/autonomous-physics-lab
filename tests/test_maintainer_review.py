@@ -340,6 +340,7 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
         title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
         body="closeout batch",
         branch=branch,
+        base_branch="main",
         state="OPEN",
         merged=False,
         status_checks_passed=True,
@@ -413,6 +414,7 @@ def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout
         title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
         body="closeout batch",
         branch=branch,
+        base_branch="main",
         state="OPEN",
         merged=False,
         status_checks_passed=True,
@@ -433,3 +435,81 @@ def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout
     assert report.task_id == "TASK-CLOSEOUT"
     assert report.verdict == "MERGE_OK"
     assert not any("Switch to the PR branch" in item for item in report.required_fixes)
+
+
+def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: Path) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "TASK-0094-helper.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0094",
+                'title: "Helper bug task"',
+                "type: maintainer_workflow",
+                "status: REVIEW_READY",
+                "difficulty: medium",
+                "priority: high",
+                "strategy_alignment:",
+                '  - "Test fixture"',
+                "input:",
+                '  mode: workflow',
+                '  related_domain: "maintainer_review"',
+                "  related_objects: []",
+                '  planning_context: "Fixture"',
+                "requirements:",
+                '  - "Keep review helper deterministic"',
+                "accepted_outputs:",
+                '  - "tasks/TASK-0094-helper.yaml"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    pr_metadata = PullRequestMetadata(
+        number=103,
+        title="TASK-0094: Track maintainer review helper stale diff false positives",
+        body="\n".join(
+            [
+                "- Contributor ID: roman",
+                "- GitHub username: gladunrv",
+                "- Agent tool: codex",
+                "- Task ID: TASK-0094",
+                "- Branch: agent/roman/codex/task-0094-fix-helper-stale-diff",
+                "- Human reviewer: roman",
+            ]
+        ),
+        branch="agent/roman/codex/task-0094-fix-helper-stale-diff",
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+    changed = ("tasks/TASK-0094-helper.yaml",)
+
+    with (
+        patch(
+            "physics_lab.registry.maintainer_review.current_branch",
+            return_value="agent/roman/codex/task-0094-fix-helper-stale-diff",
+        ),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.branch_exists", side_effect=lambda _root, ref: ref == "origin/main"),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed) as changed_mock,
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=103)
+
+    assert report.verdict == "MERGE_OK"
+    assert changed_mock.call_args.kwargs["base_ref"] == "origin/main"
