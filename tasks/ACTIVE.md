@@ -59,10 +59,10 @@ None.
 
 - `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (`repository_validation`, priority `high`, difficulty `low`)
 - `TASK-0092` — Fix duplicate canonical task ids and enforce uniqueness (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0093` — Test Koide relation for neutrino masses (`scientific_experiment`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
-- `TASK-0093` — Test Koide relation for neutrino masses (merged)
 - `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (merged)
 - `TASK-0085` — Define PR title format for microtask PRs without a canonical TASK-XXXX (merged)
 - `TASK-0084` — Add explicit no-direct-main-push guardrail to agent instructions (merged)
