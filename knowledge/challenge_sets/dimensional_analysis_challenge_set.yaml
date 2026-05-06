@@ -865,7 +865,7 @@ items:
   - id: DA-017
     name: "Gravitational surface acceleration"
     domain: mechanics
-    formula: "g = G * M / R^2"
+    formula: "g = G * M / R**2"
     variables:
       g: "m s^-2"
       G: "m^3 kg^-1 s^-2"
@@ -875,7 +875,7 @@ items:
     failure_mode: null
     check_type: dimensional
     difficulty: easy
-    reason: "G * M / R^2 = [m^3 kg^-1 s^-2][kg][m^-2] = m s^-2; dimensions balance exactly."
+    reason: "G * M / R**2 = [m^3 kg^-1 s^-2][kg][m^-2] = m s^-2; dimensions balance exactly."
 
   - id: DA-018
     name: "Doppler frequency shift"

@@ -1,0 +1,111 @@
+# Pendulum Gauntlet Leaderboard
+
+- Result: `RESULT-0008` / Run: `RUN-0004`
+- Train range (rad): `0.0100` to `2.0985`
+- Test range (rad): `2.1135` to `3.0000`
+- Total candidates: 100
+
+| Rank | Model ID | Family | Cpx | Test Mean Err | Test Max Err | Verdict | Failure Mode |
+| ---: | --- | --- | ---: | ---: | ---: | --- | --- |
+| 1 | `model_t2_x4_l2` | mixed | 3 | 0.004347 | 0.021261 | OVERFITTED | none |
+| 2 | `model_t2_t8_x2` | cross_domain | 3 | 0.013831 | 0.027170 | OVERFITTED | moderate_error |
+| 3 | `model_t2_t8_l1` | mixed | 3 | 0.008078 | 0.063770 | OVERFITTED | moderate_error |
+| 4 | `model_x1_l2` | log_enhanced | 2 | 0.015348 | 0.077104 | OVERFITTED | moderate_error |
+| 5 | `model_t2_t8_x1` | cross_domain | 3 | 0.014010 | 0.097797 | OVERFITTED | moderate_error |
+| 6 | `model_t2_t6` | theta_poly | 2 | 0.015322 | 0.100917 | OVERFITTED | moderate_error |
+| 7 | `model_t2_t4_t8` | theta_poly | 3 | 0.018573 | 0.112545 | OVERFITTED | moderate_error |
+| 8 | `model_t4_t8_x1` | cross_domain | 3 | 0.024291 | 0.129910 | OVERFITTED | moderate_error |
+| 9 | `model_t2_x2_l1` | mixed | 3 | 0.029290 | 0.115307 | OVERFITTED | moderate_error |
+| 10 | `model_t2_t4_x3` | cross_domain | 3 | 0.025089 | 0.137474 | OVERFITTED | moderate_error |
+| 11 | `model_t2_t8_x3` | cross_domain | 3 | 0.027837 | 0.131465 | OVERFITTED | moderate_error |
+| 12 | `model_t2_t6_l1` | mixed | 3 | 0.029300 | 0.136501 | OVERFITTED | moderate_error |
+| 13 | `model_t2_t6_x2` | cross_domain | 3 | 0.029442 | 0.146406 | OVERFITTED | moderate_error |
+| 14 | `model_t6_x1` | cross_domain | 2 | 0.048889 | 0.081772 | OVERFITTED | moderate_error |
+| 15 | `model_t2_t6_x1` | cross_domain | 3 | 0.034898 | 0.161921 | OVERFITTED | moderate_error |
+| 16 | `model_t2_t4_t6` | theta_poly | 3 | 0.035297 | 0.163113 | OVERFITTED | moderate_error |
+| 17 | `model_t2_x3_l1` | mixed | 3 | 0.042171 | 0.138686 | OVERFITTED | moderate_error |
+| 18 | `model_t4_t6_x1` | cross_domain | 3 | 0.036033 | 0.165304 | OVERFITTED | moderate_error |
+| 19 | `model_t2_l2` | mixed | 2 | 0.040189 | 0.156314 | OVERFITTED | moderate_error |
+| 20 | `model_x1_l1` | log_enhanced | 2 | 0.046207 | 0.139443 | OVERFITTED | moderate_error |
+| 21 | `model_t2_t4_x1` | cross_domain | 3 | 0.037696 | 0.170206 | OVERFITTED | moderate_error |
+| 22 | `model_t2_l1_l2` | mixed | 3 | 0.042717 | 0.160499 | OVERFITTED | moderate_error |
+| 23 | `model_t2_t6_l2` | mixed | 3 | 0.043863 | 0.162761 | OVERFITTED | moderate_error |
+| 24 | `model_t2_x2_l2` | mixed | 3 | 0.044026 | 0.165269 | OVERFITTED | moderate_error |
+| 25 | `model_t2_x3_l2` | mixed | 3 | 0.044602 | 0.168038 | OVERFITTED | moderate_error |
+| 26 | `model_t2_t8_l2` | mixed | 3 | 0.044786 | 0.167768 | OVERFITTED | moderate_error |
+| 27 | `model_t2_x1_l2` | mixed | 3 | 0.044634 | 0.169024 | OVERFITTED | moderate_error |
+| 28 | `model_t2_t4_l2` | mixed | 3 | 0.044478 | 0.169787 | OVERFITTED | moderate_error |
+| 29 | `model_t2_t6_x3` | cross_domain | 3 | 0.043922 | 0.183684 | OVERFITTED | moderate_error |
+| 30 | `model_t2_t4_x2` | cross_domain | 3 | 0.044863 | 0.190072 | OVERFITTED | moderate_error |
+| 31 | `model_t2_x1_x2` | cross_domain | 3 | 0.049194 | 0.202113 | OVERFITTED | moderate_error |
+| 32 | `model_t2_l1` | mixed | 2 | 0.057444 | 0.185294 | OVERFITTED | high_error |
+| 33 | `model_t4_x1` | cross_domain | 2 | 0.055107 | 0.208986 | OVERFITTED | high_error |
+| 34 | `model_t2_t4` | theta_poly | 2 | 0.062654 | 0.225825 | OVERFITTED | high_error |
+| 35 | `model_t2_t8` | theta_poly | 2 | 0.079499 | 0.158885 | OVERFITTED | high_error |
+| 36 | `model_x3` | x_poly | 1 | 0.069720 | 0.213222 | INVALID | high_error |
+| 37 | `model_t2_x1` | cross_domain | 2 | 0.073089 | 0.248865 | OVERFITTED | high_error |
+| 38 | `model_t2_x4_l1` | mixed | 3 | 0.072166 | 0.252768 | OVERFITTED | high_error |
+| 39 | `model_t2_t6_t8` | theta_poly | 3 | 0.068974 | 0.267070 | OVERFITTED | high_error |
+| 40 | `model_t2_t6_x4` | cross_domain | 3 | 0.071139 | 0.262100 | OVERFITTED | high_error |
+| 41 | `model_t2_t4_x4` | cross_domain | 3 | 0.072627 | 0.260893 | OVERFITTED | high_error |
+| 42 | `model_t2_x1_x3` | cross_domain | 3 | 0.074928 | 0.253286 | OVERFITTED | high_error |
+| 43 | `model_t2_x1_x4` | cross_domain | 3 | 0.076961 | 0.272557 | OVERFITTED | high_error |
+| 44 | `model_t2_x4` | cross_domain | 2 | 0.078784 | 0.281727 | OVERFITTED | high_error |
+| 45 | `model_t2_t8_x4` | cross_domain | 3 | 0.081414 | 0.288739 | OVERFITTED | high_error |
+| 46 | `model_t2_x3_x4` | cross_domain | 3 | 0.082292 | 0.286657 | OVERFITTED | high_error |
+| 47 | `model_t2_x2_x4` | cross_domain | 3 | 0.082366 | 0.286963 | OVERFITTED | high_error |
+| 48 | `model_t4_x4` | cross_domain | 2 | 0.093173 | 0.259290 | OVERFITTED | high_error |
+| 49 | `model_x1_x4` | x_poly | 2 | 0.084778 | 0.312432 | OVERFITTED | high_error |
+| 50 | `model_t2_x2_x3` | cross_domain | 3 | 0.088937 | 0.295071 | OVERFITTED | high_error |
+| 51 | `model_t2_t4_l1` | mixed | 3 | 0.080515 | 0.360335 | OVERFITTED | high_error |
+| 52 | `model_t2_x3` | cross_domain | 2 | 0.097745 | 0.308007 | OVERFITTED | high_error |
+| 53 | `model_t4` | theta_poly | 1 | 0.141944 | 0.192365 | OVERFITTED | high_error |
+| 54 | `model_x2` | x_poly | 1 | 0.104496 | 0.346946 | OVERFITTED | high_error |
+| 55 | `model_x4` | x_poly | 1 | 0.149896 | 0.212994 | OVERFITTED | high_error |
+| 56 | `model_t2_x2` | cross_domain | 2 | 0.121238 | 0.340559 | OVERFITTED | high_error |
+| 57 | `model_x1_x3` | x_poly | 2 | 0.117703 | 0.355905 | OVERFITTED | high_error |
+| 58 | `model_l1` | log_enhanced | 1 | 0.148644 | 0.244119 | OVERFITTED | high_error |
+| 59 | `model_t2_x1_l1` | mixed | 3 | 0.099416 | 0.454226 | OVERFITTED | high_error |
+| 60 | `model_t2` | theta_poly | 1 | 0.134731 | 0.340149 | OVERFITTED | high_error |
+| 61 | `model_x4_l1` | log_enhanced | 2 | 0.116762 | 0.496887 | OVERFITTED | high_error |
+| 62 | `model_l1_l2` | log_enhanced | 2 | 0.157690 | 0.341538 | OVERFITTED | high_error |
+| 63 | `model_x1_x2` | x_poly | 2 | 0.146885 | 0.390763 | OVERFITTED | high_error |
+| 64 | `model_x2_x3` | x_poly | 2 | 0.175175 | 0.427199 | OVERFITTED | high_error |
+| 65 | `model_x2_x4` | x_poly | 2 | 0.188262 | 0.447089 | OVERFITTED | high_error |
+| 66 | `model_t4_t6_l2` | mixed | 3 | 0.211330 | 0.411859 | OVERFITTED | high_error |
+| 67 | `model_x1` | x_poly | 1 | 0.214561 | 0.456387 | OVERFITTED | high_error |
+| 68 | `model_t4_t6_x3` | cross_domain | 3 | 0.228877 | 0.472659 | OVERFITTED | high_error |
+| 69 | `model_t8_x1` | cross_domain | 2 | 0.226640 | 0.525283 | OVERFITTED | high_error |
+| 70 | `model_t4_x2` | cross_domain | 2 | 0.259450 | 0.633485 | OVERFITTED | high_error |
+| 71 | `model_x3_x4` | x_poly | 2 | 0.282244 | 0.579991 | OVERFITTED | high_error |
+| 72 | `model_x2_l2` | log_enhanced | 2 | 0.261369 | 0.680757 | OVERFITTED | high_error |
+| 73 | `model_t6_l1` | mixed | 2 | 0.299360 | 0.596466 | OVERFITTED | high_error |
+| 74 | `model_t4_l2` | mixed | 2 | 0.253486 | 0.852013 | OVERFITTED | high_error |
+| 75 | `model_t6_x2` | cross_domain | 2 | 0.288039 | 0.716830 | OVERFITTED | high_error |
+| 76 | `model_x2_l1` | log_enhanced | 2 | 0.289310 | 0.777380 | OVERFITTED | high_error |
+| 77 | `model_l2` | log_enhanced | 1 | 0.344387 | 0.629318 | OVERFITTED | high_error |
+| 78 | `model_t8_x2` | cross_domain | 2 | 0.360537 | 0.944014 | OVERFITTED | high_error |
+| 79 | `model_t4_l1` | mixed | 2 | 0.235312 | 1.515791 | OVERFITTED | high_error |
+| 80 | `model_t4_t6` | theta_poly | 2 | 0.405279 | 1.038966 | OVERFITTED | high_error |
+| 81 | `model_t6` | theta_poly | 1 | 0.576896 | 1.056693 | OVERFITTED | high_error |
+| 82 | `model_t8_l1` | mixed | 2 | 0.577065 | 1.448176 | OVERFITTED | high_error |
+| 83 | `model_x3_l1` | log_enhanced | 2 | 0.535976 | 1.613580 | OVERFITTED | high_error |
+| 84 | `model_t4_t6_x2` | cross_domain | 3 | 0.599872 | 1.692225 | OVERFITTED | high_error |
+| 85 | `model_t4_x3` | cross_domain | 2 | 0.665858 | 1.468717 | OVERFITTED | high_error |
+| 86 | `model_t4_t6_x4` | cross_domain | 3 | 0.653177 | 1.719923 | OVERFITTED | high_error |
+| 87 | `model_t4_t8` | theta_poly | 2 | 0.705339 | 1.936096 | OVERFITTED | high_error |
+| 88 | `model_t4_t8_x2` | cross_domain | 3 | 0.723950 | 2.141226 | OVERFITTED | high_error |
+| 89 | `model_t6_l2` | mixed | 2 | 0.850046 | 1.697205 | OVERFITTED | high_error |
+| 90 | `model_t6_x3` | cross_domain | 2 | 0.818933 | 2.044469 | OVERFITTED | high_error |
+| 91 | `model_x3_l2` | log_enhanced | 2 | 0.810813 | 2.268485 | OVERFITTED | high_error |
+| 92 | `model_t4_t6_t8` | theta_poly | 3 | 0.826886 | 2.510280 | OVERFITTED | high_error |
+| 93 | `model_t8_x3` | cross_domain | 2 | 1.043945 | 2.785101 | OVERFITTED | high_error |
+| 94 | `model_t8` | theta_poly | 1 | 1.316128 | 3.041034 | OVERFITTED | high_error |
+| 95 | `model_t8_l2` | mixed | 2 | 1.305999 | 3.370485 | OVERFITTED | high_error |
+| 96 | `model_t6_x4` | cross_domain | 2 | 1.485571 | 4.190627 | OVERFITTED | high_error |
+| 97 | `model_t6_t8` | theta_poly | 2 | 1.658037 | 4.767769 | OVERFITTED | high_error |
+| 98 | `model_x4_l2` | log_enhanced | 2 | 1.931029 | 6.213287 | OVERFITTED | high_error |
+| 99 | `model_t8_x4` | cross_domain | 2 | 2.091923 | 5.821165 | OVERFITTED | high_error |
+| 100 | `model_t4_t6_l1` | mixed | 3 | 1.984310 | 9.023797 | OVERFITTED | high_error |
+
+All errors are mean/max relative error on the test split.

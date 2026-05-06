@@ -33,49 +33,40 @@ The diagram illustrates the verification-first workflow from task selection thro
 ## Experiment Lifecycle (Happy Path)
 
 The following diagram illustrates the standard APL verification-first workflow from task selection to integration into scientific memory.
+
+
 flowchart TD
 
-%% --- Task Selection ---
-A["TASK (READY)"] --> B["Create task branch"]
+    T_READY["TASK (READY)"] --> BR["Create branch"]
+    BR --> CODE["Implement changes"]
 
-%% --- Implementation ---
-B --> C["Implement changes"]
-C --> D["Run validation\n(ruff, pytest, CLI validate)"]
+    CODE --> VAL["Validation (ruff, pytest, CLI)"]
 
-%% --- PR Flow ---
-D --> E["Open Pull Request"]
-E --> F["Maintainer review"]
+    VAL --> PR["Open Pull Request"]
+    PR --> MAINT["Maintainer review"]
 
-%% --- Decision ---
-F -->|Changes requested| C
-F -->|Approved| G["Merge to main"]
+    VAL -- Failure --> CODE
+    MAINT -- Needs changes --> CODE
 
-%% --- Post-Merge Scientific Flow ---
-G --> H["Run experiment (if applicable)"]
-H --> I["Generate result artifacts\n(results/...)"]
+    MAINT -- Approved --> MERGE["Merge to main"]
 
-%% --- Knowledge System ---
-I --> J["Evaluate results"]
-J --> K["Update claims / knowledge"]
+    MERGE --> EXP["Run experiment"]
+    EXP --> RES["Generate results"]
 
-%% --- End ---
-K --> L["Scientific memory updated"]
+    RES --> EVAL["Evaluate results"]
+    EVAL --> KNOW["Update claims / knowledge"]
 
-%% --- Styling (optional, but improves readability) ---
-classDef process fill:#1f2937,stroke:#374151,color:#fff;
-classDef decision fill:#92400e,stroke:#b45309,color:#fff;
-classDef result fill:#065f46,stroke:#047857,color:#fff;
+    classDef task fill:#1f2937,stroke:#374151,color:#ffffff;
+    classDef dev fill:#1d4ed8,stroke:#1e40af,color:#ffffff;
+    classDef validation fill:#b45309,stroke:#92400e,color:#ffffff;
+    classDef review fill:#7c3aed,stroke:#5b21b6,color:#ffffff;
+    classDef science fill:#065f46,stroke:#047857,color:#ffffff;
 
-class A,B,C,D,E,F,G process;
-class H,I result;
-class J,K,L decision;
-### Notes
-
-* This diagram represents the standard "happy path" workflow.
-* All changes must pass validation before review.
-* Scientific results must be reproducible and linked to repository artifacts.
-* Claims are updated only after validated results are produced.
----
+    class T_READY task;
+    class BR,CODE dev;
+    class VAL validation;
+    class PR,MAINT,MERGE review;
+    class EXP,RES,EVAL,KNOW science;
 
 ## References
 

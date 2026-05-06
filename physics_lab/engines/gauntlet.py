@@ -110,6 +110,36 @@ def build_gauntlet_candidates() -> tuple[list[tuple[str, ...]], list[CandidateMo
     return groups, models
 
 
+def build_constrained_candidate() -> tuple[tuple[str, ...], CandidateModel]:
+    """Return a physics-constrained candidate with c = 1/pi fixed.
+
+    Formula: 1 + a*theta^2 + b*x^4 + (1/pi)*x*log(1/(1-x))
+    The log coefficient is fixed to the theoretically correct asymptotic value
+    derived from K(k^2) ~ ln(4/sqrt(1-k^2)) as k -> 1.
+    Free parameters a, b are fitted by least squares.
+    """
+    import math
+
+    fixed_c = 1.0 / math.pi
+    atoms = ("t2", "x4")
+
+    def feature_builder(theta: np.ndarray) -> np.ndarray:
+        x = _x(theta)
+        return np.column_stack([theta**2, x**4]).astype(float)
+
+    def fixed_offset_fn(theta: np.ndarray) -> np.ndarray:
+        return fixed_c * _l1(theta)
+
+    model = CandidateModel(
+        model_id="model_phys_constrained_l1",
+        formula=f"1 + a*theta^2 + b*x^4 + (1/pi)*x*log(1/(1-x)) [c={fixed_c:.6f} fixed]",
+        coefficient_names=("a", "b"),
+        feature_builder=feature_builder,
+        fixed_offset_fn=fixed_offset_fn,
+    )
+    return atoms, model
+
+
 def classify_failure_mode(score: ModelScore) -> str:
     """Classify the primary failure mode for a gauntlet candidate.
 
