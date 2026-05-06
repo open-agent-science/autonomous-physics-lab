@@ -1,7 +1,7 @@
 id: HRE-0002
 title: "Leading-order period correction for weakly anharmonic oscillator"
 domain: classical_mechanics
-status: PROPOSED
+status: FORMALIZED
 
 mathematical_form: >
   T(A) ≈ T0 * (1 + (3*lambda / (4*k^2)) * A^2)
@@ -34,3 +34,5 @@ notes: >
 related_objects:
   - "docs/notes/pendulum-separatrix-followup.md"
   - "tasks/TASK-0050-approximation-breakdown-probes-track.yaml"
+  - "docs/reviews/hypothesis-register-pilot-01.md"
+  - "docs/drafts/anharmonic-period-experiment-plan.md"

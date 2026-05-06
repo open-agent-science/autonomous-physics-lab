@@ -1,7 +1,7 @@
 id: HRE-0001
 title: "Koide-like mass relation candidate for neutrinos"
 domain: particle_physics
-status: PROPOSED
+status: REJECTED
 
 mathematical_form: >
   (sqrt(m1) + sqrt(m2) + sqrt(m3))^2 / (m1 + m2 + m3) = 3/2
@@ -32,6 +32,15 @@ notes: >
   Overclaim risk: high — must not be promoted without careful uncertainty
   accounting.
 
+rejection_reason: >
+  EXP-0007 / RUN-0001 (RESULT-0009) tested an algebraically equivalent form
+  (Q = 2/3) and produced a clean falsification. NH: Q_max = 0.584 (70.7σ gap).
+  IH: Q_max = 0.500 (421,889σ gap). No physically admissible neutrino mass
+  triplet satisfies this relation under PDG 2024 / NuFIT 5.3 data.
+  See docs/negative-results-registry.md and docs/results/koide-neutrino-falsification.md.
+
 related_objects:
   - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
   - "docs/notes/particle-mass-numerology-guardrails.md"
+  - "results/EXP-0007/RUN-0001/result.yaml"
+  - "docs/negative-results-registry.md"
