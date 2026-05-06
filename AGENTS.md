@@ -20,6 +20,33 @@ python3 scripts/generate_context_bundle.py
 This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
 active task board. The file is also committed to the repo root for download.
 
+## Agent Work Paths
+
+Choose your path based on available token or time budget:
+
+```mermaid
+flowchart LR
+    classDef quick  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef task   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef sci    fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+    classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
+
+    Start(["▶ Enter repo"]) --> Read["📋 AGENTS.md\n+ ACTIVE.md"]
+
+    Read -->|"~30 min"| MT["⚡ Microtask"]:::quick
+    Read -->|"1–2 hrs"| RT["🎯 READY task"]:::task
+    Read -->|"scientific"| Sci["🔬 Campaign track\nKoide · Pendulum · DA"]:::sci
+    Read -->|"new idea"| Prop["💡 Task proposal\ntasks/proposals/"]:::prop
+
+    MT  --> PR["📬 branch → PR\n→ maintainer review"]:::finish
+    RT  --> PR
+    Sci --> PR
+    Prop --> PropPR["📋 TASK-PROPOSAL PR\nwait for TASK-XXXX"]:::prop
+```
+
+All paths follow `docs/agent-task-protocol.md`. Never push directly to `main`.
+
 ## CRITICAL: Never push directly to main
 
 Every change must go through the full task lifecycle:
