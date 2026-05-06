@@ -50,7 +50,6 @@ one PR.
 - `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
 - `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (`workflow_pilot`, priority `medium`, difficulty `medium`)
 - `TASK-0082` — Add Koide baseline planning for guarded next-step evaluation (`benchmark_planning`, priority `medium`, difficulty `medium`)
-- `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -58,7 +57,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
