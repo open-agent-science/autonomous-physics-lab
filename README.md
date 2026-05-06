@@ -12,15 +12,20 @@ ideas.
 
 ```mermaid
 flowchart LR
-    H["💡 Hypothesis\nhypotheses/"] --> E["🔬 Experiment\nexperiments/"]
-    E --> S["⚙️ Simulation\nphysics_lab/"]
-    S --> R["📊 Result\nresults/"]
-    R --> V{Verdict}
-    V -->|"✅ Supported"| C["Claim\nclaims/"]
-    V -->|"❌ Falsified"| F["Falsification\nresult stored"]
-    C --> M["🧠 Scientific Memory\nknowledge/"]
-    F --> M
-    M -.->|"informs next"| H
+    classDef hyp  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef exp  fill:#fef3c7,stroke:#f59e0b,color:#78350f,font-weight:bold
+    classDef res  fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef bad  fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
+    classDef mem  fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+
+    H["💡 Hypothesis"]:::hyp  --> E["🔬 Experiment"]:::exp
+    E                          --> S["⚙️ Simulation"]:::exp
+    S                          --> R["📊 Result"]:::res
+    R                          --> V{"Verdict?"}
+    V -->|"supported"| C["✅ Claim"]:::res
+    V -->|"falsified"| F["❌ Falsification"]:::bad
+    C & F                      --> M["🧠 Scientific Memory"]:::mem
+    M -.->|"informs next hypothesis"| H
 ```
 
 Every claim is backed by a reproducible experiment. Every falsification is
@@ -106,21 +111,24 @@ python3 scripts/generate_context_bundle.py --full   # + extended docs (~60 KB)
 ## Active Scientific Campaigns
 
 ```mermaid
-flowchart LR
+flowchart TB
+    classDef done fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef fail fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
+    classDef next fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+
     subgraph Pendulum["🔭 Pendulum Track"]
-        direction TB
-        P1["EXP-0001\nFormula Discovery\n✅ 100 candidates tested"] --> P2["EXP-0002\nDamped Oscillator\n✅ regimes verified"]
-        P2 --> P3["RUN-0004\nPhysics-constrained\n✅ c = 1/π fixed"]
+        direction LR
+        P1["EXP-0001\nFormula Discovery ✅"]:::done --> P2["EXP-0002\nDamped Oscillator ✅"]:::done --> P3["RUN-0004\nc = 1/π fixed ✅"]:::done
     end
+
     subgraph Particle["⚛️ Particle Physics Track"]
-        direction TB
-        K1["EXP-0004\nKoide Reproduction\n✅ Q = 2/3 confirmed"] --> K2["EXP-0005\nTau Holdout\n✅ historical prediction"]
-        K2 --> K3["EXP-0007\nNeutrino Koide\n❌ falsified 70σ gap"]
-        K3 --> K4["TASK-0088\nQuark Koide\n⏳ proposed"]
+        direction LR
+        K1["EXP-0004\nKoide Q = 2/3 ✅"]:::done --> K2["EXP-0005\nTau Holdout ✅"]:::done --> K3["EXP-0007\nNeutrino ❌ 70σ"]:::fail --> K4["TASK-0088\nQuark Koide ⏳"]:::next
     end
+
     subgraph DA["📐 Dimensional Analysis"]
-        direction TB
-        D1["MVP\n✅ 17+ challenge items"]
+        direction LR
+        D1["MVP · 17+ items ✅"]:::done
     end
 ```
 
@@ -138,24 +146,27 @@ and should not be described as finished benchmark implementations.
 ## Contribute with an AI coding agent
 
 ```mermaid
-flowchart TD
-    Start([Enter repo]) --> Read["Read AGENTS.md\n+ tasks/ACTIVE.md"]
-    Read --> Budget{Available time?}
+flowchart LR
+    classDef quick  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef task   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef sci    fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+    classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
 
-    Budget -->|"~30 min"| MT["Microtask\ndocs/agent-work-menu.md\nno canonical task needed"]
-    Budget -->|"1–2 hrs"| RT["READY task\ntasks/ACTIVE.md\nfull lifecycle PR"]
-    Budget -->|"Full session"| Intent{Intent?}
+    Start(["▶ Enter repo"]) --> Read["📋 AGENTS.md\n+ ACTIVE.md"]
 
-    Intent -->|"Scientific"| Sci["Scientific track\nKoide · Pendulum · DA\ndocs/campaigns/README.md"]
-    Intent -->|"Infrastructure"| Infra["Infra task\nschemas · workflows · docs\ntasks/ACTIVE.md"]
-    Intent -->|"New idea"| Prop["Task proposal\ntasks/proposals/\nTASK-PROPOSAL PR"]
-    Intent -->|"Autonomous"| Auto["Self-directed mode\ndocs/agent-scientific-work-mode.md"]
+    Read -->|"~30 min"| MT["⚡ Microtask"]:::quick
+    Read -->|"1–2 hrs"| RT["🎯 READY task"]:::task
+    Read -->|"scientific"| Sci["🔬 Campaign track\nKoide · Pendulum · DA"]:::sci
+    Read -->|"new idea"| Prop["💡 Task proposal\ntasks/proposals/"]:::prop
 
-    MT & RT & Sci & Infra & Auto --> PR["branch → implement\n→ validate → PR\n→ maintainer review"]
-    Prop --> PropPR["open TASK-PROPOSAL PR\nwait for maintainer\nto assign TASK-XXXX"]
+    MT  --> PR["📬 branch → PR\n→ maintainer review"]:::finish
+    RT  --> PR
+    Sci --> PR
+    Prop --> PropPR["📋 TASK-PROPOSAL PR\nwait for TASK-XXXX"]:::prop
 ```
 
-Every path ends with a PR for maintainer review — agents never merge their own work.
+Every path ends with a PR — agents never merge their own work.
 
 Invited contributors can use Codex, Claude Code, or other coding agents.
 Start with [docs/private-contributor-pilot.md](docs/private-contributor-pilot.md)
