@@ -1,5 +1,43 @@
 # Architecture
 
+## APL Experiment Lifecycle
+
+```mermaid
+flowchart TD
+
+READY["TASK (READY)"] --> BRANCH["Create agent branch"]
+BRANCH --> IMPL["Implement hypothesis / code"]
+
+IMPL --> VAL["Validation\n(ruff, pytest, CLI)"]
+
+VAL --> PR["Open Pull Request"]
+PR --> REVIEW["Maintainer review"]
+
+VAL -- Failure --> IMPL
+REVIEW -- Needs changes --> IMPL
+
+REVIEW -- Approved --> MERGE["Merge to main"]
+
+MERGE --> RUN["Run experiment"]
+RUN --> ARTIFACTS["Generate result artifacts\n(results/...)"]
+
+ARTIFACTS --> UPDATE["Update claims / knowledge"]
+
+%% --- Styles ---
+classDef start fill:#f9a8d4,stroke:#333,stroke-width:2px;
+classDef dev fill:#60a5fa,stroke:#1e3a8a,color:#000;
+classDef validation fill:#f59e0b,stroke:#92400e,color:#000;
+classDef review fill:#a78bfa,stroke:#4c1d95,color:#000;
+classDef science fill:#34d399,stroke:#065f46,color:#000;
+
+class READY start;
+class BRANCH,IMPL dev;
+class VAL validation;
+class PR,REVIEW,MERGE review;
+class RUN,ARTIFACTS,UPDATE science;
+
+```
+
 ## Purpose
 
 Autonomous Physics Lab is an open verification infrastructure for physics
@@ -122,6 +160,7 @@ autonomous-physics-lab/
   examples/
   tests/
   docs/
+
 ```
 
 ## Knowledge Object Model
