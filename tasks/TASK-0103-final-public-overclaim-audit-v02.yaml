@@ -1,0 +1,50 @@
+id: TASK-0103
+title: "Run final public overclaim audit for v0.2 materials"
+type: documentation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Public launch readiness depends on disciplined wording at least as much as on technical correctness."
+  - "APL should present falsification and scoped benchmark results honestly without sliding into discovery-level rhetoric."
+  - "A final v0.2 audit should review the current top-level public-facing surfaces, not just older campaign notes."
+
+input:
+  mode: workflow
+  related_objects:
+    - "README.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/results/"
+    - "docs/campaigns/"
+    - "docs/announcement-draft-pendulum-gauntlet.md"
+    - "docs/releases/"
+    - "claims/"
+  planning_context: >
+    Earlier overclaim audits improved repository discipline, but APL now has
+    a larger public-facing surface: newer Koide falsification materials,
+    updated status docs, launch notes, and campaign summaries. Run one final
+    v0.2-focused wording audit before any public-opening decision.
+
+requirements:
+  - "Audit README.md, docs/status.md, docs/mission-control.md, docs/results/*, docs/campaigns/*, docs/releases/*, docs/announcement* and claims/*."
+  - "Flag and fix discovery-level, global-validity, or over-explanatory wording whenever it exceeds the tested scope and stored evidence."
+  - "Keep falsification wording scoped to the tested assumptions and datasets."
+  - "Document the highest-risk wording changes in a short audit note."
+
+accepted_outputs:
+  - "updated public-facing docs with tightened wording"
+  - "docs/notes/v02-overclaim-audit.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
