@@ -72,11 +72,13 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "physics_reference",
     "physics_dataset_extension",
     "scientific_dataset",
+    "scientific_visualization",
     "scientific_safety_review",
     "schema_extension",
     "scoring_design",
     "thought_experiment_planning",
     "scientific_microtask_execution",
+    "workflow_pilot",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
