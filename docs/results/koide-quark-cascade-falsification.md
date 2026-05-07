@@ -67,8 +67,8 @@ What it does not mean:
 
 - it does not rule out all alternative quark-sector constructions;
 - it does not settle scale-unification questions for quark masses;
-- it does not prove that only charged leptons can ever satisfy a Koide-like
-  relation under some other definition.
+- it does not justify a claim that only charged leptons can ever satisfy a
+  Koide-like relation under some other definition.
 
 ## Limitations
 
