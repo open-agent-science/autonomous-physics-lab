@@ -48,7 +48,6 @@ one PR.
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
 - `TASK-0082` — Add Koide baseline planning for guarded next-step evaluation (`benchmark_planning`, priority `medium`, difficulty `medium`)
-- `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -62,6 +61,7 @@ one PR.
 - `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0096` — Write Koide neutrino falsification public result package (`documentation`, priority `high`, difficulty `low`)
 - `TASK-0097` — Create negative result registry for APL falsifications (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
