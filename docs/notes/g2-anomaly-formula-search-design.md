@@ -291,9 +291,8 @@ per family) and each evaluation is O(1). Runtime: < 1 minute.
 
 ## 10. Limitations of This Design
 
-- The SM prediction uncertainty is dominated by HVP; the 4.2σ discrepancy is
-  contested (BMW lattice-QCD gives ~1.5σ). The search target Δaμ may narrow
-  significantly with future lattice results.
+- The SM prediction uncertainty is dominated by HVP; the ~5.1σ discrepancy
+  (data-driven HVP baseline) is contested by the BMW lattice-QCD result (~1.5σ).
 - Formula families are heuristically motivated, not exhaustive. A "correct"
   BSM formula may lie outside all families listed here.
 - Integer/rational exponent constraints exclude smooth BSM contributions that
