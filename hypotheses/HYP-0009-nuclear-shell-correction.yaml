@@ -1,0 +1,56 @@
+id: HYP-0009
+title: "Analytic shell correction to Bethe-Weizsäcker formula based on distance to nearest magic number"
+domain: nuclear_physics
+status: VALID_IN_RANGE
+
+hypothesis:
+  statement: >
+    The systematic deviations of experimental nuclear binding energies from the
+    semi-empirical Bethe-Weizsäcker (BW) formula at magic numbers N,Z ∈
+    {2,8,20,28,50,82,126} can be captured by an analytic shell correction term
+    δ_shell(d_N, d_Z) where d_N = min_{m∈magic}|N−m| and d_Z = min_{m∈magic}|Z−m|
+    are distances to the nearest magic number. The best-fit correction reduces
+    the RMS residual of the BW formula by at least 20%.
+  formula_candidates:
+    - "δ_shell = A·exp(-d_N²/σ²) + B·exp(-d_Z²/σ²)  [Gaussian sum]"
+    - "δ_shell = A·exp(-(d_N²+d_Z²)/σ²)  [Gaussian product]"
+    - "δ_shell = A/(1+(d_N/σ)²) + B/(1+(d_Z/σ)²)  [Lorentzian sum]"
+    - "δ_shell = A·exp(-d_N/τ) + B·exp(-d_Z/τ)  [exponential sum]"
+    - "δ_shell = A·exp(-d_N²/σN²) + B·exp(-d_Z²/σZ²)  [Gaussian independent σ]"
+
+assumptions:
+  - "Standard BW coefficients aV, aS, aC, aA, ap are pre-fit to the training set."
+  - "Magic numbers are exactly {2, 8, 20, 28, 50, 82, 126}."
+  - "d_N and d_Z are non-negative integers (distance to nearest magic number)."
+  - "Shell correction is additive on top of the BW formula."
+  - "Training/test split is 80/20 by nuclide index."
+  - "Dataset is the curated AME2020 subset in knowledge/nuclear_physics/binding_energies.yaml (~100 nuclides)."
+  - "Binding energies are total values (MeV), not per-nucleon."
+
+variables:
+  d_N:
+    unit: dimensionless
+    description: "Distance of neutron number N to nearest magic number"
+  d_Z:
+    unit: dimensionless
+    description: "Distance of proton number Z to nearest magic number"
+  B_BW:
+    unit: MeV
+    description: "BW formula prediction (total binding energy)"
+  B_exp:
+    unit: MeV
+    description: "Experimentally measured total binding energy"
+  residual:
+    unit: MeV
+    description: "B_exp - B_BW (shell correction to explain)"
+
+evidence:
+  experiments:
+    - EXP-0009
+  results:
+    - RESULT-0011
+
+verdict: >
+  Testing in progress. The BW formula systematically underestimates binding
+  energy at magic numbers. Whether an analytic correction captures enough
+  of the shell structure to reduce RMS by ≥20% is the central question.

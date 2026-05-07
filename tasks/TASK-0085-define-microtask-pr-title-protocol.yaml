@@ -1,0 +1,46 @@
+id: TASK-0085
+title: "Define PR title format for microtask PRs without a canonical TASK-XXXX"
+type: agent_workflow
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Ensure agent workflow protocol covers all PR types, including microtask-only contributions."
+  - "Prevent ambiguity that forces agents to invent ad hoc PR title formats."
+
+input:
+  mode: workflow
+  related_domain: agent_workflow
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    The current agent-task-protocol.md defines PR title formats for canonical
+    task PRs (TASK-XXXX: ...) and proposal PRs (TASK-PROPOSAL: ...), but does
+    not specify a format for microtask PRs that have no parent canonical TASK-XXXX.
+    Discovered while testing the Agent Work Menu: a microtask contribution
+    produced a PR with no approved title convention.
+
+requirements:
+  - "Add a microtask PR title format to docs/agent-task-protocol.md."
+  - "Format: microtask(<queue-id>): <short description>"
+  - "Specify that microtask PRs do not require a canonical TASK-XXXX file."
+  - "Specify which review lane applies (fast review)."
+  - "Update docs/maintainer-review-agent.md to add microtask PR to the fast review lane criteria."
+
+accepted_outputs:
+  - "updated docs/agent-task-protocol.md with microtask PR title rule"
+  - "updated docs/maintainer-review-agent.md with microtask in fast review lane"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

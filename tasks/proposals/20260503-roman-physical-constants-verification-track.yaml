@@ -1,0 +1,72 @@
+proposal_id: 20260503-roman-physical-constants-verification-track
+title: "Define physical constants cross-check micro-task track"
+status: PROPOSED
+type: benchmark_planning
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Extends verification-first discipline to fundamental physical constants."
+  - "Each micro-task produces a deterministic, reproducible check completable in minutes."
+  - "Adds a safe overclaim-proof contribution path for any agent."
+
+summary: >
+  Define a new micro-task track where each task verifies one derived physical
+  constant from base CODATA values using SymPy and SciPy to a stated
+  numerical tolerance. Examples: fine-structure constant α,
+  Bohr radius a₀, Stefan–Boltzmann constant σ, Wien displacement constant b,
+  Rydberg constant R∞. Each task is atomic, produces a verifiable result
+  artifact, and requires no experimental data beyond published CODATA values.
+
+rationale: >
+  The project has pendulum and particle-mass tracks but no track anchored to
+  fundamental constants. Constants verification is strictly deterministic,
+  overclaim-safe (ground truth is publicly known), and self-contained. It
+  gives any agent a minimal but scientifically meaningful contribution path
+  consistent with the verification-first mission. It also exercises the
+  scientific micro-task protocol in a well-bounded domain before applying
+  that pattern to riskier hypothesis work.
+
+input:
+  mode: planning_only
+  related_domain: fundamental_constants
+  related_objects:
+    - "docs/scientific-micro-task-protocol.md"
+    - "tasks/TASK-0027-units-and-constants-reference.yaml"
+    - "AGENTS.md"
+  planning_context: >
+    Define the track: which constants to verify, what tolerance to require,
+    what result artifact format to use, and how to store results in the
+    scientific memory. Produce a canonical task spec and a list of at least
+    10 candidate micro-tasks ready for agents to pick up.
+
+requirements:
+  - "Enumerate at least 10 candidate constant-verification micro-tasks."
+  - "Define accepted result format: symbolic derivation + numerical check + verdict."
+  - "Require code to run in under 2 minutes, no external API calls at runtime."
+  - "State claim ceiling for every micro-task: 'verified to tolerance X from CODATA YYYY'."
+  - "Do not promote any result to a project-level claim automatically."
+  - "Align result artifact format with docs/scientific-micro-task-protocol.md."
+  - "Keep each micro-task independent of all others in the track."
+
+accepted_outputs:
+  - "docs note describing the constants-verification track and its micro-task list"
+  - "canonical task spec (TASK-XXXX) for track execution"
+  - "sample result artifact for one constant demonstrating the format"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: TASK-0049
+  decision: accepted
+  notes: >
+    Accepted as TASK-0049. Treat as a high-priority follow-on to TASK-0027 for
+    source consistency, uncertainty metadata, and deterministic constants
+    verification.

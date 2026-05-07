@@ -1,0 +1,46 @@
+id: HRE-0001
+title: "Koide-like mass relation candidate for neutrinos"
+domain: particle_physics
+status: REJECTED
+
+mathematical_form: >
+  (sqrt(m1) + sqrt(m2) + sqrt(m3))^2 / (m1 + m2 + m3) = 3/2
+  where m1, m2, m3 are the three neutrino mass eigenstates.
+
+assumptions:
+  - "Neutrino masses are non-zero and ordered m1 < m2 < m3 (normal hierarchy)."
+  - "The relation uses mass eigenvalues, not mixing-matrix-weighted masses."
+  - "Input masses are in the same unit system (eV/c^2)."
+  - "The relation is evaluated at a single energy scale (no running)."
+
+falsification_test: >
+  Compute (sqrt(m1) + sqrt(m2) + sqrt(m3))^2 / (m1 + m2 + m3) using
+  current best-fit neutrino mass squared differences from PDG
+  (delta_m21^2, delta_m31^2) and an assumed lightest mass m1.
+  If the ratio deviates from 3/2 by more than the experimental uncertainty
+  on m1, the hypothesis is falsified within that parameter range.
+
+claim_ceiling: >
+  If verified: the charged-lepton Koide formula pattern is consistent
+  with neutrino mass data within current measurement uncertainty.
+  Does not imply a common theoretical origin or predict exact masses.
+
+notes: >
+  Analogous to the charged-lepton Koide formula (TASK-0037).
+  Neutrino absolute masses are not yet precisely measured; this
+  hypothesis is currently only testable via the mass-squared differences.
+  Overclaim risk: high — must not be promoted without careful uncertainty
+  accounting.
+
+rejection_reason: >
+  EXP-0007 / RUN-0001 (RESULT-0009) tested an algebraically equivalent form
+  (Q = 2/3) and produced a clean falsification. NH: Q_max = 0.584 (70.7σ gap).
+  IH: Q_max = 0.500 (421,889σ gap). No physically admissible neutrino mass
+  triplet satisfies this relation under PDG 2024 / NuFIT 5.3 data.
+  See docs/negative-results-registry.md and docs/results/koide-neutrino-falsification.md.
+
+related_objects:
+  - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
+  - "docs/notes/particle-mass-numerology-guardrails.md"
+  - "results/EXP-0007/RUN-0001/result.yaml"
+  - "docs/negative-results-registry.md"

@@ -12,6 +12,7 @@ from typing import Any
 from physics_lab.registry.review_git import (
     CommandResult,  # noqa: F401 — re-exported for backwards compatibility
     run_command,
+    branch_exists,
     current_branch,
     git_status_clean,
     local_branch_exists,
@@ -40,8 +41,13 @@ PROPOSAL_BRANCH_PATTERN = re.compile(
     r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
     r"propose-task-(?P<slug>[a-z0-9-]+)$"
 )
+CLOSEOUT_BRANCH_PATTERN = re.compile(
+    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
+    r"closeout-(?P<slug>[a-z0-9-]+)$"
+)
 PR_TITLE_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}): .+")
 PROPOSAL_PR_TITLE_PATTERN = re.compile(r"^TASK-PROPOSAL: .+")
+CLOSEOUT_PR_TITLE_PATTERN = re.compile(r"^TASK-CLOSEOUT: .+")
 REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
 RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
 PR_METADATA_FIELDS = (
@@ -53,6 +59,10 @@ PR_METADATA_FIELDS = (
     "Human reviewer",
 )
 DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
+CLOSEOUT_VALIDATION_COMMANDS = (
+    "python3 -m pytest",
+    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+)
 
 
 @dataclass(frozen=True)
@@ -63,6 +73,7 @@ class PullRequestMetadata:
     title: str
     body: str
     branch: str
+    base_branch: str
     state: str
     merged: bool
     status_checks_passed: bool | None
@@ -218,7 +229,7 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
             "view",
             str(number),
             "--json",
-            "number,title,body,headRefName,state,mergedAt,statusCheckRollup",
+            "number,title,body,headRefName,baseRefName,state,mergedAt,statusCheckRollup",
         ],
         cwd=root,
         timeout=30,
@@ -251,11 +262,21 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
         title=str(payload.get("title") or ""),
         body=str(payload.get("body") or ""),
         branch=str(payload.get("headRefName") or ""),
+        base_branch=str(payload.get("baseRefName") or "main"),
         state=str(payload.get("state") or ""),
         merged=bool(payload.get("mergedAt")),
         status_checks_passed=status_passed,
         status_checks_pending=has_pending,
     )
+
+
+def diff_base_ref(root: Path, pr_metadata: PullRequestMetadata | None) -> str:
+    """Return the best available diff base ref for PR review."""
+    base_branch = pr_metadata.base_branch if pr_metadata is not None else "main"
+    remote_base = f"origin/{base_branch}"
+    if branch_exists(root, remote_base):
+        return remote_base
+    return base_branch
 
 
 def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
@@ -285,6 +306,7 @@ def build_review_report(
     current = current_branch(root)
     pr_metadata = load_pr_metadata(root, pull_request) if pull_request is not None else None
     target_branch = branch or (pr_metadata.branch if pr_metadata is not None else current)
+    base_ref = diff_base_ref(root, pr_metadata)
     blockers: list[str] = []
     required_fixes: list[str] = []
     security_risks: list[str] = []
@@ -294,8 +316,12 @@ def build_review_report(
 
     branch_match = BRANCH_PATTERN.match(target_branch)
     proposal_branch_match = PROPOSAL_BRANCH_PATTERN.match(target_branch)
+    closeout_branch_match = CLOSEOUT_BRANCH_PATTERN.match(target_branch)
     is_proposal_review = proposal_branch_match is not None
-    if branch_match is None and proposal_branch_match is None:
+    is_closeout_review = closeout_branch_match is not None or (
+        pr_metadata is not None and CLOSEOUT_PR_TITLE_PATTERN.match(pr_metadata.title) is not None
+    )
+    if branch_match is None and proposal_branch_match is None and not is_closeout_review:
         blockers.append(
             "Branch does not follow a canonical task or task-proposal branch format."
         )
@@ -303,12 +329,13 @@ def build_review_report(
         blockers.append(
             f"Local branch {target_branch} is not available. Checkout the PR branch locally first."
         )
-    changed_files = changed_files_vs_main(root, target_branch)
+    changed_files = changed_files_vs_main(root, target_branch, base_ref=base_ref)
     if not changed_files:
         blockers.append("Diff vs main is empty. There is no reviewable task change.")
 
     branch_task = branch_task_id(target_branch)
     task_payload: dict[str, Any] | None = None
+    validation_payload: dict[str, Any] = {}
     if is_proposal_review:
         resolved_task_id = "TASK-PROPOSAL"
         proposal_files = changed_task_proposal_files(changed_files)
@@ -344,6 +371,31 @@ def build_review_report(
             required_fixes.append(
                 "Task proposal PR should not update tasks/ACTIVE.md before maintainer acceptance."
             )
+    elif is_closeout_review:
+        resolved_task_id = "TASK-CLOSEOUT"
+        closeout_task_files = tuple(
+            path
+            for path in changed_files
+            if path.startswith("tasks/TASK-") and path.endswith(".yaml")
+        )
+        if not closeout_task_files:
+            blockers.append("Closeout PR requires at least one changed canonical task file.")
+        elif target_branch == current:
+            for task_path in closeout_task_files:
+                payload = load_task(root / task_path)
+                if str(payload["status"]) != "DONE":
+                    required_fixes.append(
+                        f"Closeout PR should mark {task_path} as DONE."
+                    )
+        if "tasks/ACTIVE.md" not in changed_files:
+            required_fixes.append(
+                "Closeout PR should update tasks/ACTIVE.md after task status changes."
+            )
+        validation_payload = {
+            "validation": {
+                "commands": list(CLOSEOUT_VALIDATION_COMMANDS),
+            }
+        }
     else:
         resolved_task_id = task_id or branch_task
         if resolved_task_id is None:
@@ -354,7 +406,7 @@ def build_review_report(
                 f"Explicit task id {task_id} does not match branch task id {branch_task}."
             )
 
-    if not is_proposal_review and resolved_task_id != "TASK-UNKNOWN":
+    if not is_proposal_review and not is_closeout_review and resolved_task_id != "TASK-UNKNOWN":
         try:
             task_file = resolve_task_file(root, resolved_task_id)
             task_payload = load_task(task_file)
@@ -368,9 +420,13 @@ def build_review_report(
     else:
         task_file = None
 
+    closeout_ci_pass = bool(
+        is_closeout_review and pr_metadata is not None and pr_metadata.status_checks_passed is True
+    )
+
     if target_branch == current and not git_status_clean(root):
         required_fixes.append("Git status is not clean on the review branch.")
-    elif target_branch != current:
+    elif target_branch != current and not closeout_ci_pass:
         required_fixes.append(
             "Switch to the PR branch locally to verify clean git status and run validations."
         )
@@ -379,6 +435,9 @@ def build_review_report(
         if is_proposal_review:
             if PROPOSAL_PR_TITLE_PATTERN.match(pr_metadata.title) is None:
                 required_fixes.append("PR title does not follow TASK-PROPOSAL: ... format.")
+        elif is_closeout_review:
+            if CLOSEOUT_PR_TITLE_PATTERN.match(pr_metadata.title) is None:
+                required_fixes.append("PR title does not follow TASK-CLOSEOUT: ... format.")
         else:
             title_match = PR_TITLE_PATTERN.match(pr_metadata.title)
             if title_match is None:
@@ -392,7 +451,7 @@ def build_review_report(
                 f"PR branch {pr_metadata.branch} does not match reviewed branch {target_branch}."
             )
         missing_fields = missing_pr_metadata_fields(pr_metadata.body)
-        if missing_fields:
+        if missing_fields and not is_closeout_review:
             required_fixes.append(
                 "PR metadata is incomplete: " + ", ".join(missing_fields) + "."
             )
@@ -403,7 +462,7 @@ def build_review_report(
     elif pull_request is not None:
         pass
 
-    if task_payload is not None:
+    if task_payload is not None and not is_closeout_review:
         missing_outputs = missing_expected_outputs(
             root,
             target_branch,
@@ -428,7 +487,7 @@ def build_review_report(
     overclaim_lines = tuple(
         parse_added_lines(
             run_command(
-                ["git", "diff", "--unified=0", f"main...{target_branch}"],
+                ["git", "diff", "--unified=0", f"{base_ref}...{target_branch}"],
                 cwd=root,
                 timeout=120,
             ).stdout,
@@ -446,7 +505,7 @@ def build_review_report(
     security_lines = tuple(
         parse_added_lines(
             run_command(
-                ["git", "diff", "--unified=0", f"main...{target_branch}"],
+                ["git", "diff", "--unified=0", f"{base_ref}...{target_branch}"],
                 cwd=root,
                 timeout=120,
             ).stdout,
@@ -471,7 +530,7 @@ def build_review_report(
         target_branch,
         can_generate=target_branch == current and target_branch != "main",
     )
-    if bundle_status == "missing":
+    if bundle_status == "missing" and not closeout_ci_pass:
         required_fixes.append("Review bundle is missing and could not be generated.")
     elif bundle_status == "invalid":
         blockers.append(
@@ -480,15 +539,17 @@ def build_review_report(
 
     validation = run_task_validation(
         root,
-        task_payload or {},
-        enabled=bool(task_payload) and target_branch == current and git_status_clean(root),
+        validation_payload or task_payload or {},
+        enabled=bool(validation_payload or task_payload)
+        and target_branch == current
+        and git_status_clean(root),
         skip_commands_containing=("scripts/apl_review_pr.py",),
     )
     if validation.status == "fail":
         blockers.append(
             "Validation commands failed: " + ", ".join(validation.failed_commands) + "."
         )
-    elif validation.status == "not_run":
+    elif validation.status == "not_run" and not closeout_ci_pass:
         required_fixes.append("Validation commands were not executed during this review run.")
 
     if blockers:

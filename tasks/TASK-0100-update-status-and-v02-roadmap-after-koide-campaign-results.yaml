@@ -1,0 +1,59 @@
+id: TASK-0100
+title: "Update status and v0.2 roadmap after Koide and validator campaign results"
+type: documentation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Public-facing status and roadmap should reflect the actual scientific campaign state, not a stale subset of older results."
+  - "APL now has a stronger falsification-first particle-mass narrative that should be visible in its top-level docs."
+  - "v0.2 packaging should foreground Dimensional Analysis Validator and Koide neutrino/quark falsification results."
+
+input:
+  mode: workflow
+  related_objects:
+    - "docs/status.md"
+    - "docs/strategy.md"
+    - "docs/roadmap.md"
+    - "docs/mission-control.md"
+    - "README.md"
+    - "experiments/EXP-0006-dimensional-analysis-validator.yaml"
+    - "experiments/EXP-0007-neutrino-koide-consistency.yaml"
+    - "experiments/EXP-0008-quark-koide-cascade.yaml"
+    - "results/EXP-0008/RUN-0001/result.yaml"
+    - "docs/negative-results-registry.md"
+  planning_context: >
+    Top-level project status and release-facing docs still lag behind the
+    actual repository state. They understate the Dimensional Analysis
+    Validator and the newer particle-mass falsification results, especially
+    neutrino and quark Koide follow-ups. Refresh the status/roadmap layer so
+    it accurately presents APL as an agent-ready falsification-first
+    scientific lab with current campaign evidence.
+
+requirements:
+  - "Update docs/status.md to reflect EXP-0006, EXP-0007, EXP-0008, and RESULT-0010."
+  - "Update docs/strategy.md and docs/roadmap.md so the near-term narrative reflects v0.2 packaging and launch-prep work."
+  - "Update docs/mission-control.md with the current campaign state and stronger particle-mass falsification storyline."
+  - "Add a short README.md update reflecting the expanded current result surface."
+  - "Mention the negative-results registry as a first-class output surface."
+  - "Keep all wording scoped, reproducible, and non-explanatory."
+
+accepted_outputs:
+  - "updated docs/status.md"
+  - "updated docs/strategy.md"
+  - "updated docs/roadmap.md"
+  - "updated docs/mission-control.md"
+  - "updated README.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

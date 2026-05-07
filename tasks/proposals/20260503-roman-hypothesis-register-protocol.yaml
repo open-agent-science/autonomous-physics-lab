@@ -1,0 +1,78 @@
+proposal_id: 20260503-roman-hypothesis-register-protocol
+title: "Define hypothesis register entry protocol and micro-task track"
+status: PROPOSED
+type: benchmark_planning
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Gives any agent a safe, structured path to propose a new testable physics hypothesis."
+  - "Enforces hypothesis lifecycle discipline: PROPOSED → FORMALIZED → TESTING."
+  - "Builds the project's public scientific memory with verifiable hypothesis records."
+
+summary: >
+  Define a hypothesis register: a machine-readable catalog of physics
+  hypotheses at various lifecycle stages. Each entry is an atomic micro-task.
+  An agent proposes one hypothesis in machine-readable YAML form — including
+  its mathematical form, domain, assumptions, and falsification conditions —
+  and commits it as a PROPOSED entry. Subsequent agents may formalize or
+  falsify it in separate tasks.
+  This track is the generative counterpart to the falsification tracks:
+  it produces the input material that other tracks test.
+
+rationale: >
+  The project's AGENTS.md already defines the hypothesis lifecycle
+  (PROPOSED → FORMALIZED → TESTING → VALID_IN_RANGE / FALSIFIED /
+  INCONCLUSIVE) but there is no lightweight entry point for an agent to
+  contribute a new hypothesis without also running a full benchmark.
+  A hypothesis-register micro-task lowers that barrier: any agent can
+  contribute a structured hypothesis in minutes. The hypothesis is explicitly
+  NOT promoted to a claim until a separate canonical verification task runs.
+  This enforces separation between proposal and verification — the core
+  verification-first principle.
+
+input:
+  mode: planning_only
+  related_domain: hypothesis_lifecycle
+  related_objects:
+    - "docs/scientific-micro-task-protocol.md"
+    - "AGENTS.md"
+    - "docs/notes/particle-mass-relation-track.md"
+    - "docs/notes/thought-experiment-consistency-suite.md"
+  planning_context: >
+    Define: the register file location and schema, the hypothesis-entry
+    micro-task template (lighter than a full experiment spec), the lifecycle
+    transition rules, and at least 5 seed hypotheses as examples.
+    Produce a canonical task spec and the register schema.
+
+requirements:
+  - "Define a machine-readable hypothesis register schema (YAML or JSON)."
+  - "Define hypothesis-entry micro-task template with required fields."
+  - "Required fields: id, title, domain, mathematical_form, assumptions, falsification_test, claim_ceiling, status."
+  - "Lifecycle states must match AGENTS.md vocabulary."
+  - "An entry at status PROPOSED must not be promoted to VALID without a verification task."
+  - "Provide at least 5 seed hypothesis examples covering different physics domains."
+  - "Examples must not use overclaim language."
+  - "Do not implement full falsification code in this planning task."
+
+accepted_outputs:
+  - "docs note describing the hypothesis register protocol"
+  - "hypothesis register schema file"
+  - "canonical task spec (TASK-XXXX) for register population"
+  - "at least 5 seed hypothesis entries in PROPOSED status"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: TASK-0051
+  decision: accepted
+  notes: >
+    Accepted as TASK-0051. High priority because hypothesis entries feed other
+    tracks (falsification, Koide-like triplet search, thought experiments).

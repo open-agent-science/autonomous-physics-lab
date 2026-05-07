@@ -9,6 +9,61 @@ testing, simulating, falsifying, scoring, and reusing physics hypotheses.
 
 It is not a chatbot. It is a hypothesis-testing machine.
 
+## Quick Orientation (single file)
+
+If you prefer to read the full project context in one place, run:
+
+```bash
+python3 scripts/generate_context_bundle.py
+```
+
+This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
+active task board. The file is also committed to the repo root for download.
+
+## Agent Work Paths
+
+Choose your path based on available token or time budget:
+
+```mermaid
+flowchart LR
+    classDef quick  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef task   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef sci    fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+    classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
+
+    Start(["▶ Enter repo"]) --> Read["📋 AGENTS.md\n+ ACTIVE.md"]
+
+    Read -->|"~30 min"| MT["⚡ Microtask"]:::quick
+    Read -->|"1–2 hrs"| RT["🎯 READY task"]:::task
+    Read -->|"scientific"| Sci["🔬 Campaign track\nKoide · Pendulum · DA"]:::sci
+    Read -->|"new idea"| Prop["💡 Task proposal\ntasks/proposals/"]:::prop
+
+    MT  --> PR["📬 branch → PR\n→ maintainer review"]:::finish
+    RT  --> PR
+    Sci --> PR
+    Prop --> PropPR["📋 TASK-PROPOSAL PR\nwait for TASK-XXXX"]:::prop
+```
+
+All paths follow `docs/agent-task-protocol.md`. Never push directly to `main`.
+
+## CRITICAL: Never push directly to main
+
+Every change must go through the full task lifecycle:
+
+1. `tasks/TASK-XXXX-*.yaml` — create or reference a task file
+2. branch: `agent/<contributor-id>/<agent-id>/task-<number>-<slug>`
+3. PR — open it, do not merge it yourself
+4. maintainer review → merge
+
+No exceptions for "small", "obvious", or "urgent" changes.
+Documentation, scripts, config, and fixes all follow the same flow.
+Pushing directly to `main` violates the repository protocol.
+
+The only operations allowed directly on `main` are:
+- post-merge task closeout (`status: DONE` + `sync-active-board`)
+- `CONTEXT.md` regeneration after a batch merge
+
 ## Core Principle
 
 LLMs may propose, explain, and organize hypotheses, but numerical and symbolic

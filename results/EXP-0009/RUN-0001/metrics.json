@@ -1,0 +1,256 @@
+{
+  "bw_rms_train_MeV": 7.935849036348166,
+  "bw_rms_test_MeV": 8.978401176534057,
+  "best_formula": "multi_gauss_NZ_shared_sigma",
+  "best_rms_train_MeV": 5.166798097178091,
+  "best_rms_test_MeV": 6.393216238402013,
+  "best_improvement_train": 0.3489293869486594,
+  "best_improvement_test": 0.28793377432149964,
+  "best_params": [
+    19.999987285708272,
+    18.95398730905854,
+    2.1272544787309315,
+    12.882592539870915,
+    -0.5372408224096525,
+    -0.16612743891828094,
+    -8.730253137168651,
+    -19.999985218907522,
+    -16.472659584316816,
+    -7.296043343804548,
+    -11.160400451875006,
+    -5.129642442340087,
+    19.999999999999996,
+    10.485759131051172
+  ],
+  "n_train": 78,
+  "n_test": 19,
+  "n_total": 97,
+  "bw_coeffs": {
+    "a_V": 15.75,
+    "a_S": 17.8,
+    "a_C": 0.7103,
+    "a_A": 23.69,
+    "a_p": 11.18
+  },
+  "magic_numbers": [
+    2,
+    8,
+    20,
+    28,
+    50,
+    82,
+    126
+  ],
+  "threshold_improvement": 0.2,
+  "threshold_met": true,
+  "all_candidates": [
+    {
+      "name": "multi_gauss_NZ_shared_sigma",
+      "rms_train": 5.166798097178091,
+      "rms_test": 6.393216238402013,
+      "improvement_train": 0.3489293869486594,
+      "improvement_test": 0.28793377432149964,
+      "converged": true
+    },
+    {
+      "name": "multi_gauss_N_shared_sigma",
+      "rms_train": 5.407986993476315,
+      "rms_test": 6.619598582030469,
+      "improvement_train": 0.31853706280117144,
+      "improvement_test": 0.26271967003084606,
+      "converged": true
+    },
+    {
+      "name": "linear_ramp_NZ",
+      "rms_train": 7.931438843085646,
+      "rms_test": 8.916248984220632,
+      "improvement_train": 0.0005557304886119801,
+      "improvement_test": 0.0069224120298685115,
+      "converged": true
+    },
+    {
+      "name": "doubly_magic_plus_sum",
+      "rms_train": 7.931438843136735,
+      "rms_test": 8.916249523385584,
+      "improvement_train": 0.000555730482174243,
+      "improvement_test": 0.006922351978536199,
+      "converged": true
+    },
+    {
+      "name": "gauss_NZ_product",
+      "rms_train": 7.931160400008652,
+      "rms_test": 8.931682262234645,
+      "improvement_train": 0.0005908172292642029,
+      "improvement_test": 0.005203478145030551,
+      "converged": true
+    },
+    {
+      "name": "gauss_min_NZ",
+      "rms_train": 7.935849036348166,
+      "rms_test": 8.978401176534057,
+      "improvement_train": 0.0,
+      "improvement_test": 0.0,
+      "converged": true
+    },
+    {
+      "name": "exp_min_NZ",
+      "rms_train": 7.935849036348166,
+      "rms_test": 8.978401176534057,
+      "improvement_train": 0.0,
+      "improvement_test": 0.0,
+      "converged": true
+    },
+    {
+      "name": "power_lorentz_N",
+      "rms_train": 7.935849036348166,
+      "rms_test": 8.978401176534057,
+      "improvement_train": 0.0,
+      "improvement_test": 0.0,
+      "converged": true
+    },
+    {
+      "name": "power_lorentz_NZ_sum",
+      "rms_train": 7.935849036348166,
+      "rms_test": 8.978401176534057,
+      "improvement_train": 0.0,
+      "improvement_test": 0.0,
+      "converged": true
+    },
+    {
+      "name": "linear_ramp_N",
+      "rms_train": 7.935849036348166,
+      "rms_test": 8.978401176534057,
+      "improvement_train": 0.0,
+      "improvement_test": 0.0,
+      "converged": true
+    },
+    {
+      "name": "exp_Z",
+      "rms_train": 7.935849036348178,
+      "rms_test": 8.978401176534062,
+      "improvement_train": -1.4549570440688333e-15,
+      "improvement_test": -5.935433729703243e-16,
+      "converged": true
+    },
+    {
+      "name": "lorentz_Z",
+      "rms_train": 7.935849036348219,
+      "rms_test": 8.978401176534078,
+      "improvement_train": -6.60326658462009e-15,
+      "improvement_test": -2.374173491881297e-15,
+      "converged": true
+    },
+    {
+      "name": "gauss_Z",
+      "rms_train": 7.935849036348594,
+      "rms_test": 8.978401176534241,
+      "improvement_train": -5.3833410630546834e-14,
+      "improvement_test": -2.057617026297124e-14,
+      "converged": true
+    },
+    {
+      "name": "lorentz_min_NZ",
+      "rms_train": 7.935849036348453,
+      "rms_test": 8.97840117653434,
+      "improvement_train": -3.615008655647948e-14,
+      "improvement_test": -3.1655646558417295e-14,
+      "converged": true
+    },
+    {
+      "name": "exp_NZ_sum_shared",
+      "rms_train": 7.935849036348983,
+      "rms_test": 8.978401176535064,
+      "improvement_train": -1.0285427103840446e-13,
+      "improvement_test": -1.1217969749139128e-13,
+      "converged": true
+    },
+    {
+      "name": "gauss_NZ_sum_shared_sigma",
+      "rms_train": 7.935849036350453,
+      "rms_test": 8.978401176535543,
+      "improvement_train": -2.88081494725629e-13,
+      "improvement_test": -1.6559860105872045e-13,
+      "converged": true
+    },
+    {
+      "name": "exp_NZ_sum_indep",
+      "rms_train": 7.935849036349384,
+      "rms_test": 8.978401176535545,
+      "improvement_train": -1.534420082629516e-13,
+      "improvement_test": -1.6579644884971057e-13,
+      "converged": true
+    },
+    {
+      "name": "power_lorentz_Z",
+      "rms_train": 7.935849036351478,
+      "rms_test": 8.978401176535995,
+      "improvement_train": -4.1734883210251384e-13,
+      "improvement_test": -2.158519399702079e-13,
+      "converged": true
+    },
+    {
+      "name": "lorentz_N",
+      "rms_train": 7.9358490363514544,
+      "rms_test": 8.978401176536277,
+      "improvement_train": -4.1432699824175546e-13,
+      "improvement_test": -2.473097387376351e-13,
+      "converged": true
+    },
+    {
+      "name": "lorentz_NZ_sum_shared",
+      "rms_train": 7.93584903635197,
+      "rms_test": 8.978401176536543,
+      "improvement_train": -4.792404663617496e-13,
+      "improvement_test": -2.769869073861513e-13,
+      "converged": true
+    },
+    {
+      "name": "lorentz_NZ_sum_indep",
+      "rms_train": 7.935849036352544,
+      "rms_test": 8.978401176537382,
+      "improvement_train": -5.516525592473292e-13,
+      "improvement_test": -3.7037106473348234e-13,
+      "converged": true
+    },
+    {
+      "name": "gauss_N_lorentz_Z",
+      "rms_train": 7.9358490363558705,
+      "rms_test": 8.97840117653896,
+      "improvement_train": -9.70792107711774e-13,
+      "improvement_test": -5.460599031326983e-13,
+      "converged": true
+    },
+    {
+      "name": "exp_N",
+      "rms_train": 7.935849036353115,
+      "rms_test": 8.978401176540194,
+      "improvement_train": -6.236169730424261e-13,
+      "improvement_test": -6.835641178708234e-13,
+      "converged": true
+    },
+    {
+      "name": "gauss_N",
+      "rms_train": 7.93584903636099,
+      "rms_test": 8.978401176542583,
+      "improvement_train": -1.6158976770973704e-12,
+      "improvement_test": -9.496693967525188e-13,
+      "converged": true
+    },
+    {
+      "name": "gauss_N_exp_Z",
+      "rms_train": 7.935849036369179,
+      "rms_test": 8.978401176551944,
+      "improvement_train": -2.6477979806600356e-12,
+      "improvement_test": -1.9923272552703884e-12,
+      "converged": true
+    },
+    {
+      "name": "gauss_NZ_sum_indep_sigma",
+      "rms_train": 7.935849043472501,
+      "rms_test": 8.978401179617158,
+      "improvement_train": -8.97740729084985e-10,
+      "improvement_test": -3.4339095717174326e-10,
+      "converged": true
+    }
+  ]
+}

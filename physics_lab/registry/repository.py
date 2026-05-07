@@ -57,6 +57,7 @@ PATTERNS: dict[str, str] = {
 }
 STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "agent_workflow",
+    "code_quality_refactor",
     "evidence_policy",
     "knowledge_update",
     "repository_validation",
@@ -68,7 +69,14 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "maintainer_workflow",
     "numerical_audit",
     "documentation",
+    "physics_reference",
+    "physics_dataset_extension",
+    "scientific_dataset",
     "scientific_safety_review",
+    "schema_extension",
+    "scoring_design",
+    "thought_experiment_planning",
+    "scientific_microtask_execution",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
@@ -169,6 +177,22 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
             continue
         items.append((path, loader(path)))
     return items
+
+
+def _validate_unique_task_ids(
+    tasks: list[tuple[Path, dict[str, Any]]],
+) -> None:
+    """Fail fast when canonical task ids are duplicated."""
+    seen_by_id: dict[str, Path] = {}
+    for path, payload in tasks:
+        task_id = str(payload["id"])
+        previous_path = seen_by_id.get(task_id)
+        if previous_path is not None:
+            raise ValueError(
+                "Duplicate canonical task id "
+                f"{task_id}: {previous_path} and {path}"
+            )
+        seen_by_id[task_id] = path
 
 
 def _validate_references(
@@ -684,6 +708,7 @@ def validate_repository(
         for path in sorted((root_path / "examples").glob("*.yaml"))
     ]
     results = _load_directory(root_path, "results")
+    _validate_unique_task_ids(tasks)
 
     _validate_references(
         hypotheses=hypotheses,

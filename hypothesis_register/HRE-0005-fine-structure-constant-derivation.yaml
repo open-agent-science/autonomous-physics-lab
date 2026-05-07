@@ -1,0 +1,37 @@
+id: HRE-0005
+title: "Fine-structure constant alpha derivable from e, hbar, c, epsilon_0 to 1e-9"
+domain: fundamental_constants
+status: PROPOSED
+
+mathematical_form: >
+  alpha = e^2 / (4 * pi * epsilon_0 * hbar * c)
+  Numerical value: alpha ≈ 7.2973525693e-3 (CODATA 2018)
+
+assumptions:
+  - "SI units throughout."
+  - "Input constants: e, hbar, c, epsilon_0 taken from CODATA 2018."
+  - "No quantum corrections beyond the definition are applied."
+  - "Computation uses double-precision floating-point arithmetic."
+
+falsification_test: >
+  Using scipy.constants values for e, hbar, c, epsilon_0, compute
+  alpha_derived = e**2 / (4 * pi * epsilon_0 * hbar * c).
+  Compare to CODATA 2018 alpha = 7.2973525693e-3.
+  If |alpha_derived - alpha_CODATA| / alpha_CODATA > 1e-9, the formula or
+  constant values are inconsistent at the stated precision.
+
+claim_ceiling: >
+  If verified: the formula alpha = e^2 / (4*pi*epsilon_0*hbar*c) reproduces
+  the CODATA 2018 value of the fine-structure constant to within 1e-9
+  relative error using scipy.constants input values. No claim about the
+  physical origin or theoretical significance of the value.
+
+notes: >
+  Intended as the primary worked example for the physical constants
+  verification track (TASK-0049). This is definitionally true given
+  consistent CODATA values, but the verification exercise confirms
+  software-level consistency and establishes the result-artifact format.
+
+related_objects:
+  - "tasks/TASK-0049-physical-constants-verification-track.yaml"
+  - "tasks/TASK-0027-units-and-constants-reference.yaml"

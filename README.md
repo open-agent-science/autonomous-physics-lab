@@ -5,7 +5,28 @@ Generate. Simulate. Falsify. Reuse.
 Autonomous Physics Lab (APL) is an open-source infrastructure for generating,
 testing, simulating, falsifying, and reusing physics hypotheses.
 
-APL is not a chatbot. It is a public verification engine for physics ideas.
+APL is not a chatbot. It is a verification-first engine for testing physics
+ideas.
+
+## How APL Works
+
+```mermaid
+flowchart TD
+    classDef hyp fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef exp fill:#fef3c7,stroke:#f59e0b,color:#78350f,font-weight:bold
+    classDef res fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef bad fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
+    classDef mem fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+
+    H["💡 Hypothesis"]:::hyp --> E["🔬 Experiment & Simulate"]:::exp --> R["📊 Result"]:::res
+    R -->|"supported"| C["✅ Claim"]:::res
+    R -->|"falsified"| F["❌ Falsification"]:::bad
+    C & F --> M["🧠 Memory"]:::mem
+    M -.->|"next cycle"| H
+```
+
+Every claim is backed by a reproducible experiment. Every falsification is
+stored, not discarded. The memory grows with each run.
 
 ## Positioning
 
@@ -15,7 +36,8 @@ The goal is to build infrastructure for systematic theory search in physics.
 The project combines three cores:
 
 1. A hypothesis engine for proposing and testing candidate formulas or models.
-2. A public knowledge base for storing hypotheses, claims, experiments, and results.
+2. A version-controlled scientific memory for storing hypotheses, claims,
+   experiments, and results.
 3. An open agent task network so humans and external agents can contribute reproducible work.
 
 ## Original MVP
@@ -32,35 +54,128 @@ It should:
 
 ## Current Benchmarks
 
-The repository currently stabilizes two verification-first benchmark slices:
+Seven canonical experiments across three active scientific tracks:
 
-1. `EXP-0001` — `Pendulum Formula Discovery`
-2. `EXP-0002` — `Damped Oscillator Regime Verification`
+1. `EXP-0001` — Pendulum Formula Discovery
+2. `EXP-0002` — Damped Oscillator Regime Verification
+3. `EXP-0004` — Charged-Lepton Koide Reproduction
+4. `EXP-0005` — Historical Tau Holdout Prediction
+5. `EXP-0006` — Dimensional Analysis Validator MVP
+6. `EXP-0007` — Neutrino Koide Falsification
+7. `EXP-0008` — Quark Koide Cascade Falsification
 
-Both benchmarks produce run-based artifacts under `results/<experiment>/<run>/`
-and are validated through the repository registry and CLI tooling.
+All results are stored as versioned run artifacts under `results/<experiment>/<run>/`.
 
-## Current measurable result
+## Key Results at a Glance
 
-APL evaluated 100 deterministic candidate formulas for the ideal pendulum
-period ratio in `EXP-0001/RUN-0003`. The top leaderboard candidate
-`model_t4_x1` reached approximately `3.1e-4` mean relative residual on the
-configured test range. A dedicated precision audit classified that error as
-model residual, not numerical reference noise. No symbolic exactness claim and
-no global validity claim are made.
+| Experiment | Verdict | Key metric |
+|------------|---------|-----------|
+| Pendulum gauntlet (EXP-0001) | VALID | 44/100 candidates pass in range |
+| Koide charged leptons (EXP-0004) | VALID | Q = 0.6667 (gap < 0.5σ) |
+| Tau holdout (EXP-0005) | VALID | Δm = 0.039 MeV, z = 0.43σ |
+| Dimensional validator (EXP-0006) | VALID | 49/50 items correct (98%) |
+| Neutrino Koide (EXP-0007) | INVALID | NH: 70.7σ below 2/3 |
+| Quark Koide (EXP-0008) | INVALID | Down: 8.8σ, Up: 159σ above 2/3 |
 
-See [docs/results/pendulum-gauntlet-100-summary.md](docs/results/pendulum-gauntlet-100-summary.md)
-for the full package and limitations.
+→ **[Full visual result summary](docs/results/visual-summary.md)**
+
+### Selected Figures
+
+**Koide Q across all SM fermion families:**
+
+![Koide Q deviation](docs/figures/koide-q-deviation.png)
+
+**Pendulum gauntlet top-10 leaderboard:**
+
+![Pendulum leaderboard](docs/figures/pendulum-gauntlet-leaderboard.png)
+
+These are scoped benchmark results with explicit limits, not discovery-level
+physical conclusions, complete particle-mass explanations, or exact symbolic
+proof. See `docs/results/visual-summary.md` for all figures with full captions.
+
+## Start Here
+
+If you are new to the repository, use this order:
+
+1. [docs/mission-control.md](docs/mission-control.md)
+2. [docs/campaigns/README.md](docs/campaigns/README.md)
+3. [docs/status.md](docs/status.md)
+4. [tasks/ACTIVE.md](tasks/ACTIVE.md)
+5. [docs/agent-task-protocol.md](docs/agent-task-protocol.md)
+
+This gives you the shortest path from "what is APL?" to "which campaign
+already has evidence?" to "which task can I pick up safely?"
+
+### Using a chat-based LLM instead of an agent?
+
+Download [CONTEXT.md](CONTEXT.md) — a single-file bundle of the core
+instructions, strategy, and current task board. Upload it to your chat session
+to get full project context without reading multiple files.
+
+To regenerate it locally after pulling updates:
+
+```bash
+python3 scripts/generate_context_bundle.py          # core (44 KB)
+python3 scripts/generate_context_bundle.py --full   # + extended docs (~60 KB)
+```
+
+## Active Scientific Campaigns
+
+```mermaid
+flowchart LR
+    classDef pend fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef part fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef da   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+
+    P["🔭 Pendulum Track\nEXP-0001  Formula Discovery ✅\nEXP-0002  Damped Oscillator ✅\nRUN-0004  c=1/π fixed ✅"]:::pend
+    K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nTASK-0088  Quark Koide ⏳"]:::part
+    D["📐 Dimensional Analysis\nMVP implemented ✅\n17+ challenge items"]:::da
+
+    P ~~~ K ~~~ D
+```
+
+Full campaign details:
+
+1. [Pendulum Formula Falsification](docs/campaigns/pendulum-formula-falsification.md)
+2. [Particle Mass Relations](docs/campaigns/particle-mass-relations.md)
+3. [Dimensional Analysis Validator](docs/campaigns/dimensional-analysis-validator.md)
+4. [Thought-Experiment Consistency](docs/campaigns/thought-experiment-consistency.md)
+
+The pendulum and particle-mass tracks already have scoped canonical results.
+The dimensional-analysis and thought-experiment tracks are still planning-first
+and should not be described as finished benchmark implementations.
 
 ## Contribute with an AI coding agent
 
-Put your coding agent to work on reproducible physics tasks.
+```mermaid
+flowchart LR
+    classDef quick  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef task   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef sci    fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
+    classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+    classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
 
-Invited contributors can use Codex, Claude Code, or other coding agents to
-pick atomic tasks from [tasks/ACTIVE.md](tasks/ACTIVE.md), work in branches,
-open PRs, and submit reproducible scientific changes for maintainer review.
+    Start(["▶ Enter repo"]) --> Read["📋 AGENTS.md\n+ ACTIVE.md"]
+
+    Read -->|"~30 min"| MT["⚡ Microtask"]:::quick
+    Read -->|"1–2 hrs"| RT["🎯 READY task"]:::task
+    Read -->|"scientific"| Sci["🔬 Campaign track\nKoide · Pendulum · DA"]:::sci
+    Read -->|"new idea"| Prop["💡 Task proposal\ntasks/proposals/"]:::prop
+
+    MT  --> PR["📬 branch → PR\n→ maintainer review"]:::finish
+    RT  --> PR
+    Sci --> PR
+    Prop --> PropPR["📋 TASK-PROPOSAL PR\nwait for TASK-XXXX"]:::prop
+```
+
+Every path ends with a PR — agents never merge their own work.
+
+Invited contributors can use Codex, Claude Code, or other coding agents.
 Start with [docs/private-contributor-pilot.md](docs/private-contributor-pilot.md)
-for the private-alpha workflow and validation expectations.
+for the private-alpha workflow and [AGENTS.md](AGENTS.md) for the canonical rules.
+
+Not sure where to start? Use the **[Agent Work Menu](docs/agent-work-menu.md)**
+to find safe, reviewable work sized for your session budget (30 min / 1 h / 2 h).
 
 ## Quickstart
 
@@ -111,15 +226,11 @@ autonomous-physics-lab/
 
 ## Status
 
-The repository currently has two working benchmark slices:
+The repository is currently in:
 
-- architecture and documentation are in place;
-- the public knowledge layout is defined;
-- the pendulum formula discovery workflow works end-to-end;
-- the damped-oscillator regime verification workflow works end-to-end;
-- structured artifact validation and repo-wide checks are implemented.
+`v0.1-private-alpha — scientific campaign and contributor workflow validation`
 
-See [docs/architecture.md](docs/architecture.md),
+See [docs/status.md](docs/status.md),
 [docs/roadmap.md](docs/roadmap.md), and
 [docs/implementation-plan.md](docs/implementation-plan.md).
 
@@ -127,6 +238,8 @@ See [docs/architecture.md](docs/architecture.md),
 
 Use these files to continue the project without guessing:
 
+- [docs/mission-control.md](docs/mission-control.md) for the fastest project-level orientation
+- [docs/campaigns/README.md](docs/campaigns/README.md) for the scientific campaign map
 - [docs/strategy.md](docs/strategy.md) for the current strategic compass
 - [tasks/ACTIVE.md](tasks/ACTIVE.md) for the shared live task board
 - [docs/agent-operating-model.md](docs/agent-operating-model.md) for multi-agent handoff and task execution

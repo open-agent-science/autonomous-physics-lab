@@ -1,0 +1,59 @@
+id: TASK-0067
+title: "Add v0.2 release-focused campaign tasks"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Translate the current campaign-review direction into a small canonical task batch without pretending the execution work is already done."
+  - "Keep v0.2 planning focused on visible scientific outcomes rather than more infrastructure churn."
+  - "Create a clean maintainer-admin path for release-facing tasks that can then be executed independently."
+
+input:
+  mode: workflow
+  related_domain: release_task_administration
+  related_objects:
+    - "docs/status.md"
+    - "docs/roadmap.md"
+    - "docs/mission-control.md"
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0058-standardize-koide-tau-holdout-verdict-wording.yaml"
+    - "tasks/TASK-0059-koide-tau-holdout-public-summary-package.yaml"
+    - "tasks/TASK-0049-physical-constants-verification-track.yaml"
+  planning_context: >
+    The repository needs a small set of release-focused canonical tasks to
+    shift the near-term queue toward a v0.2 scientific-campaign release
+    candidate. This maintainer task adds the new task definitions and updates
+    the task board only; it does not execute the new scientific work.
+
+requirements:
+  - "Create TASK-0063 for the static visual result pack."
+  - "Create TASK-0064 for the dimensional-analysis validator MVP."
+  - "Create TASK-0065 for the Koide tau holdout public result package."
+  - "Create TASK-0066 for the v0.2 public-readiness review."
+  - "Create tasks/TASK-0067-add-v02-release-focused-campaign-tasks.yaml."
+  - "Update tasks/ACTIVE.md through the canonical sync flow."
+  - "Do not claim that TASK-0063 through TASK-0066 are already complete."
+  - "Do not modify result artifacts, benchmark code, or release docs in this task."
+
+accepted_outputs:
+  - "tasks/TASK-0063-generate-static-visual-result-pack.yaml"
+  - "tasks/TASK-0064-implement-dimensional-analysis-validator-mvp.yaml"
+  - "tasks/TASK-0065-finalize-koide-tau-holdout-public-result-package.yaml"
+  - "tasks/TASK-0066-review-v0.2-public-readiness-gates.yaml"
+  - "tasks/TASK-0067-add-v02-release-focused-campaign-tasks.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

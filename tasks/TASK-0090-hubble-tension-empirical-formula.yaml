@@ -1,0 +1,60 @@
+id: TASK-0090
+title: "Design empirical formula search for Hubble tension reconciliation"
+type: benchmark_planning
+status: PROPOSED
+difficulty: high
+priority: low
+
+strategy_alignment:
+  - "The Hubble tension (5σ) is the strongest cosmological anomaly with no accepted explanation."
+  - "APL can systematically search for a formula that relates H0(CMB) to H0(local) via known cosmological parameters."
+  - "This is a design task: establish whether a formula search is tractable before committing to implementation."
+
+input:
+  mode: planning_only
+  related_domain: cosmology
+  related_objects: []
+  planning_context: >
+    The Hubble constant measured from the CMB (Planck 2018) is
+      H0(CMB) = 67.4 ± 0.5 km/s/Mpc
+    while local measurements (Cepheids + SNIa, SH0ES 2022) give
+      H0(local) = 73.04 ± 1.04 km/s/Mpc
+    The discrepancy is ~5σ and is called the Hubble tension. No Standard
+    Cosmology modification has been universally accepted.
+
+    A formula search approach: can we express a correction factor
+      f = H0(local) / H0(CMB) = 1.084...
+    as a function of known cosmological parameters (ΩΛ, Ωm, Ωb, ns, σ8,
+    or fundamental constants α, mp/me)?
+
+    This task is design-only. It must answer:
+    1. Is this tractable (low-dimensional enough parameter space)?
+    2. What makes a formula here non-numerological?
+    3. What data inputs are needed?
+    4. What formula families are physically motivated?
+
+    Note: this is likely the hardest track of the five proposed, since
+    f ≈ 1.084 is a ratio of measured values with large systematic
+    uncertainties, and the parameter space is high-dimensional.
+
+requirements:
+  - "Write docs/notes/hubble-tension-formula-search-design.md with feasibility assessment."
+  - "Assess tractability: is a formula search over cosmological parameters meaningful?"
+  - "Enumerate data inputs needed and assess APL's ability to provide them."
+  - "If deemed tractable, propose formula families and guardrails."
+  - "If not tractable at current APL scope, state why and what would be needed."
+  - "Do not implement any search engine here."
+
+accepted_outputs:
+  - "docs/notes/hubble-tension-formula-search-design.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

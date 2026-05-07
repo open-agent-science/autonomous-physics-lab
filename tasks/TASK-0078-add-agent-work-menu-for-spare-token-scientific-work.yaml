@@ -1,0 +1,54 @@
+id: TASK-0078
+title: "Add Agent Work Menu for spare-token scientific work"
+type: contributor_experience
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Turn the new scientific microtask queues into a simple contributor choice surface instead of expecting agents to infer the best next step."
+  - "Reduce task sprawl pressure by routing short sessions toward small scientific contributions rather than more workflow overhead."
+  - "Support an agent-ready scientific work loop where a contributor with 30 minutes, 1 hour, or 2 hours can choose useful work quickly."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "docs/mission-control.md"
+    - "docs/agent-scientific-work-mode.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "tasks/microtasks/README.md"
+    - "tasks/microtasks/dimensional-analysis-validator.yaml"
+    - "tasks/microtasks/particle-mass-relations.yaml"
+    - "tasks/microtasks/pendulum-formula-falsification.yaml"
+  planning_context: >
+    APL now has campaign-specific scientific microtask queues, but contributors
+    and coding agents still need a fast "what should I do with my remaining
+    time budget?" menu. Create one lightweight navigation surface that maps
+    time budget to meaningful, reviewable scientific work.
+
+requirements:
+  - "Create docs/agent-work-menu.md."
+  - "Organize options by short session budgets such as 30 minutes, 1 hour, and 2 hours."
+  - "Recommend concrete campaign-facing work rather than abstract process chores."
+  - "Prefer microtask queues, scoped reviews, small visual work, and deterministic scientific contributions."
+  - "Update docs/mission-control.md to link the new menu."
+  - "Add a short README.md link to the menu or to Mission Control navigation."
+  - "Keep the guidance conservative: no claim promotion, no discovery framing, no large-engine scope hidden inside a short-session suggestion."
+
+accepted_outputs:
+  - "docs/agent-work-menu.md"
+  - "updated docs/mission-control.md"
+  - "updated README.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

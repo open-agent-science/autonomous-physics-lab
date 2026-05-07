@@ -1,0 +1,48 @@
+id: TASK-0054
+title: "Fix maintainer review helper temp claim path handling in git worktrees"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review automation reliable in fork and worktree-based contributor flow."
+  - "Prevent claim-touching PRs from bypassing formal review because of helper crashes."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    The maintainer review helper currently writes a temporary claim file under
+    root/.git/, which fails in git worktrees because .git is a file rather than
+    a directory. This breaks review-agent runs for PRs that modify claims.
+
+requirements:
+  - "Make claim-status review checks work in normal clones and git worktrees."
+  - "Stop writing temporary review artifacts under root/.git/."
+  - "Add regression coverage for a repository layout where .git is a file."
+  - "Do not weaken claim-promotion detection logic."
+  - "Do not change scientific results or result artifacts."
+
+accepted_outputs:
+  - "updated physics_lab/registry/review_checks.py"
+  - "regression test for worktree-safe claim status review"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

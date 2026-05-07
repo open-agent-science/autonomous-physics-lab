@@ -13,6 +13,19 @@ from typing import Any
 from physics_lab.engines.scoring import ModelScore
 
 
+TEXT_HASH_SUFFIXES = {
+    ".csv",
+    ".json",
+    ".md",
+    ".py",
+    ".svg",
+    ".toml",
+    ".txt",
+    ".yaml",
+    ".yml",
+}
+
+
 @dataclass(frozen=True)
 class ExperimentArtifacts:
     """Filesystem artifact locations for a workflow run."""
@@ -37,12 +50,13 @@ class ExperimentOutcome:
     run_id: str
     hypothesis_id: str
     task_id: str
-    train_range: tuple[float, float]
-    test_range: tuple[float, float]
-    scores: list[ModelScore]
-    verdicts: dict[str, str]
-    best_model_id: str
     artifacts: ExperimentArtifacts
+    train_range: tuple[float, float] | None = None
+    test_range: tuple[float, float] | None = None
+    scores: list[ModelScore] | None = None
+    verdicts: dict[str, str] | None = None
+    best_model_id: str | None = None
+    summary_lines: tuple[str, ...] = ()
 
 
 def resolve_path(base_path: Path, relative_path: str) -> Path:
@@ -56,7 +70,10 @@ def resolve_path(base_path: Path, relative_path: str) -> Path:
 
 def hash_file(path: Path, repo_root: Path) -> dict[str, str]:
     """Return a stable SHA-256 digest payload for a repository input file."""
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    payload = path.read_bytes()
+    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+        payload = payload.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    digest = hashlib.sha256(payload).hexdigest()
     try:
         relative_path = path.resolve().relative_to(repo_root.resolve())
         normalized_path = relative_path.as_posix()

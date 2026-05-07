@@ -1,0 +1,49 @@
+id: TASK-0095
+title: "Add visual orientation diagrams for humans and agents"
+type: documentation
+status: IN_PROGRESS
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce onboarding friction for both humans and agents by making the project structure instantly visible."
+  - "Humans should understand what APL does in under 60 seconds from the README."
+  - "Agents should see their available work paths without reading multiple documents."
+
+input:
+  mode: workflow
+  related_objects:
+    - "README.md"
+    - "AGENTS.md"
+    - "docs/agent-work-menu.md"
+    - "docs/mission-control.md"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    Add three Mermaid diagrams to README.md and AGENTS.md so that humans and
+    agents can orient themselves visually without reading multiple documents.
+    Diagram 1: APL core scientific loop. Diagram 2: agent and human work paths
+    by token budget. Diagram 3: active scientific campaigns snapshot.
+
+requirements:
+  - "Add Diagram 1 to README.md: APL core scientific loop (Hypothesis → Experiment → Result → Claim/Falsification → Memory)."
+  - "Add Diagram 2 to README.md and AGENTS.md: agent + human work paths by token budget and intent."
+  - "Add Diagram 3 to README.md: active scientific campaigns snapshot with current status."
+  - "All diagrams use Mermaid syntax (renders natively on GitHub)."
+  - "Do not duplicate content covered by TASK-0055 (experiment lifecycle diagram)."
+  - "Do not introduce code, tests, or result artifacts."
+  - "Diagrams must be readable on GitHub default rendering."
+
+accepted_outputs:
+  - "README.md (updated with 3 Mermaid diagrams)"
+  - "AGENTS.md (updated with agent work paths diagram)"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

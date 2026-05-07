@@ -1,0 +1,78 @@
+id: TASK-0063
+title: "Generate v0.2 static visual result pack"
+type: scientific_visualization
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn existing benchmark evidence into legible release-facing visuals without adding dashboard infrastructure."
+  - "Reduce the gap between strong scientific artifacts and what contributors or readers can quickly understand."
+  - "Support a v0.2 scientific-campaign release candidate with reproducible static figures."
+
+input:
+  mode: workflow
+  related_domain: scientific_campaign_release
+  related_objects:
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+    - "docs/results/koide-charged-lepton-reproduction.md"
+    - "docs/results/koide-tau-holdout.md"
+    - "docs/results/koide-neutrino-falsification.md"
+    - "results/EXP-0001/RUN-0003/"
+    - "results/EXP-0004/RUN-0004/"
+    - "results/EXP-0005/RUN-0005/"
+    - "results/EXP-0007/RUN-0001/"
+    - "results/EXP-0008/RUN-0001/"
+    - "results/EXP-0006/RUN-0001/"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+  planning_context: >
+    APL now has a stronger v0.2 evidence surface than when this task was first
+    created: Pendulum results, charged-lepton and tau Koide benchmarks,
+    neutrino falsification, quark cascade falsification, and dimensional
+    analysis validation. Create a reproducible static figure pack so README,
+    Mission Control, and future public summaries can point to clear, honest
+    images instead of text only.
+
+requirements:
+  - "Create a reproducible script for generating static result figures from canonical artifacts."
+  - "Create docs/figures/pendulum-gauntlet-leaderboard.png."
+  - "Create docs/figures/pendulum-error-curve.png."
+  - "Create docs/figures/pendulum-failure-modes.png."
+  - "Create docs/figures/koide-tau-holdout.png."
+  - "Create docs/figures/koide-q-deviation.png."
+  - "Create docs/figures/koide-neutrino-falsification.png."
+  - "Create docs/figures/koide-quark-cascade-gap.png."
+  - "Create docs/figures/dimensional-validator-summary.png."
+  - "Create docs/results/visual-summary.md linking the figure set."
+  - "Add short visual links from README.md to the most important result figures."
+  - "Keep all captions and surrounding wording conservative and non-explanatory."
+  - "Do not add dashboard, web app, or interactive plotting surfaces."
+  - "Do not promote any scientific claim automatically."
+
+accepted_outputs:
+  - "scripts/generate_result_figures.py"
+  - "docs/figures/pendulum-gauntlet-leaderboard.png"
+  - "docs/figures/pendulum-error-curve.png"
+  - "docs/figures/pendulum-failure-modes.png"
+  - "docs/figures/koide-tau-holdout.png"
+  - "docs/figures/koide-q-deviation.png"
+  - "docs/figures/koide-neutrino-falsification.png"
+  - "docs/figures/koide-quark-cascade-gap.png"
+  - "docs/figures/dimensional-validator-summary.png"
+  - "docs/results/visual-summary.md"
+  - "updated README.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

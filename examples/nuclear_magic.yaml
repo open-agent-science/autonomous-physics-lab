@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0009-nuclear-shell-correction.yaml
+hypothesis_path: ../hypotheses/HYP-0009-nuclear-shell-correction.yaml
+task_id: TASK-0091
+run_id: RUN-0001
+result_id: RESULT-0011
+result_root: ../results/EXP-0009
+workflow: nuclear_magic

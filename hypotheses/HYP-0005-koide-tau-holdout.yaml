@@ -1,0 +1,34 @@
+id: HYP-0005
+title: "Exact Koide assumption predicts tau mass close to the measured charged-lepton value"
+domain: particle_physics
+status: TESTING
+
+hypothesis:
+  statement: "Using only electron and muon pole masses plus the exact Koide assumption predicts a tau mass numerically close to the measured charged-lepton value."
+  formula_candidates:
+    - "Q = (m_e + m_mu + m_tau) / (sqrt(m_e) + sqrt(m_mu) + sqrt(m_tau))^2 = 2/3"
+
+assumptions:
+  - "Use charged-lepton pole masses from one explicit PDG-backed dataset snapshot."
+  - "Treat tau as a holdout comparison target rather than an input to the prediction."
+  - "Propagate one-sigma uncertainty from electron and muon inputs explicitly."
+  - "Treat the benchmark as historical prediction evidence only, not explanation."
+
+variables:
+  m_e:
+    unit: MeV
+    description: "Electron pole mass"
+  m_mu:
+    unit: MeV
+    description: "Muon pole mass"
+  m_tau:
+    unit: MeV
+    description: "Tau pole mass treated as holdout comparison target"
+
+evidence:
+  experiments:
+    - EXP-0005
+  results:
+    - RESULT-0006
+
+verdict: "Testing a charged-lepton tau holdout benchmark under the exact Koide assumption."

@@ -1,0 +1,64 @@
+proposal_id: 20260503-roman-cli-status-test
+title: "Add tests for apl status and validate CLI commands"
+status: PROPOSED
+type: testing
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Keep the CLI regression-safe as the repository grows."
+  - "Give new contributors a low-risk way to learn the test suite."
+
+summary: >
+  The CLI has a `status` command and a `validate` command that are either
+  untested or only tested via a single smoke call. Add focused unit tests
+  that cover their output fields, error paths, and edge cases — for example,
+  what happens when run outside a valid APL repo, or when a required file is
+  missing.
+
+rationale: >
+  The existing `test_cli_run_smoke` and `test_cli_validate_hypothesis_smoke`
+  tests confirm the commands do not crash, but do not assert on output content
+  or error behaviour. A junior developer can read the CLI source code, pick
+  one command, write two or three meaningful assertions (output contains
+  expected field, bad input exits non-zero), and submit a small PR. It is a
+  self-contained Python + pytest task with no physics knowledge required and
+  a clear success criterion.
+
+input:
+  mode: workflow
+  related_domain: testing
+  related_objects:
+    - "physics_lab/cli.py"
+    - "tests/test_pendulum.py"
+    - "tests/test_damped_oscillator.py"
+    - "pyproject.toml"
+  planning_context: >
+    The contributor reads cli.py to understand what `status` and `validate`
+    output, then writes tests using the Typer CliRunner pattern already used
+    in the existing test files. Focus on what the command should print and
+    what exit codes it should return on good and bad input.
+
+requirements:
+  - "Add tests for the `status` CLI command in a new or existing test file."
+  - "Add tests for the `validate` CLI command (at least: valid file passes, missing file exits non-zero)."
+  - "Use the Typer CliRunner pattern already in the test suite."
+  - "Do not duplicate existing smoke tests — add coverage that is not already there."
+  - "All new and existing tests must pass."
+  - "Do not change CLI source code in this task."
+
+accepted_outputs:
+  - "new or extended test file with status and validate command tests"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m ruff check ."
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "pending maintainer review"

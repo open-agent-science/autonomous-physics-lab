@@ -1,0 +1,50 @@
+id: TASK-0055
+title: "Add experiment flow diagram to architecture docs"
+type: documentation
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Makes the APL verification pipeline understandable at a glance for contributors and public readers."
+  - "Reduces onboarding friction by turning text-heavy workflow rules into one accurate visual map."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "docs/architecture.md"
+    - "docs/architecture-index.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/strategy.md"
+    - "AGENTS.md"
+    - "tasks/proposals/20260503-roman-experiment-flow-diagram.yaml"
+  planning_context: >
+    Add a Mermaid flowchart showing the happy-path lifecycle in APL from task
+    and hypothesis work through experiment execution, result artifacts, review,
+    and claim/knowledge updates. Keep it accurate and readable at GitHub
+    default rendering size.
+
+requirements:
+  - "Add at least one Mermaid flowchart showing the APL experiment lifecycle."
+  - "Cover: task (READY) -> branch -> implement -> validate -> PR -> review -> merge -> result artifacts -> claim/knowledge update."
+  - "Place the diagram in docs/architecture.md or a new docs/experiment-flow.md."
+  - "If a new file is created, link it from docs/architecture-index.md."
+  - "Verify each step against docs/agent-task-protocol.md."
+  - "Do not add code, tests, or result artifacts."
+
+accepted_outputs:
+  - "Mermaid diagram in docs/architecture.md or docs/experiment-flow.md"
+  - "link from docs/architecture-index.md if a new file is created"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0007-neutrino-koide-consistency.yaml
+hypothesis_path: ../hypotheses/HYP-0007-neutrino-koide-consistency.yaml
+task_id: TASK-0093
+run_id: RUN-0001
+result_id: RESULT-0009
+result_root: ../results/EXP-0007
+workflow: neutrino_koide

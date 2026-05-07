@@ -1,0 +1,108 @@
+# APL v0.2 Visual Result Summary
+
+Static figures generated from canonical result artifacts by
+`scripts/generate_result_figures.py`. All captions are conservative and
+non-explanatory. No figures license claim promotion.
+
+---
+
+## Pendulum Formula Falsification
+
+### Gauntlet Leaderboard — Top 10 Candidates
+
+![Pendulum Gauntlet Leaderboard](../figures/pendulum-gauntlet-leaderboard.png)
+
+Top-10 formulas from the 100-candidate pendulum gauntlet (EXP-0001 / RUN-0003),
+ranked by composite score. 44 of 100 candidates earned VALID verdicts in range.
+Source: `results/EXP-0001/RUN-0003/metrics.json`
+
+### Period Approximation — Error vs Amplitude
+
+![Pendulum Error Curve](../figures/pendulum-error-curve.png)
+
+Relative error of standard small-angle expansions (θ² and θ⁴ terms) versus the
+exact elliptic-integral period, plotted across the full amplitude range. Shows
+where approximations break down.
+Source: exact elliptic integral (scipy) + EXP-0001 evaluation range.
+
+### Failure Mode Distribution
+
+![Pendulum Failure Modes](../figures/pendulum-failure-modes.png)
+
+Distribution of failure modes across all 100 gauntlet candidates: 44 no-failure
+(VALID), 13 moderate error, 43 high error.
+Source: `results/EXP-0001/RUN-0003/metrics.json`
+
+---
+
+## Particle Mass Relations — Koide Track
+
+### Q Values Across All SM Fermion Families
+
+![Koide Q Deviation](../figures/koide-q-deviation.png)
+
+Koide quantity Q compared to target 2/3 for all four SM fermion family triplets.
+Charged leptons: VALID (Q ≈ 0.6667). Neutrinos, up quarks, down quarks: INVALID.
+Sources: `results/EXP-0004/RUN-0004`, `results/EXP-0007/RUN-0001`,
+`results/EXP-0008/RUN-0001`
+
+### Tau Holdout Prediction
+
+![Koide Tau Holdout](../figures/koide-tau-holdout.png)
+
+Koide-formula prediction of the tau mass from electron and muon masses only,
+compared against the PDG 2024 measured value. Δm = 0.039 MeV, z = 0.43σ, VALID.
+Source: `results/EXP-0005/RUN-0005/metrics.json`
+
+### Neutrino Falsification
+
+![Koide Neutrino Falsification](../figures/koide-neutrino-falsification.png)
+
+Phase-scan Q_max for neutrino mass triplets under Normal Hierarchy (NH) and
+Inverted Hierarchy (IH), compared to target 2/3. Both hierarchies fall short
+by 70.7σ (NH) and 421,889σ (IH). Verdict: INVALID.
+Source: `results/EXP-0007/RUN-0001/metrics.json`
+
+### Quark Cascade Gap
+
+![Koide Quark Cascade Gap](../figures/koide-quark-cascade-gap.png)
+
+Standard Koide Q and phase-scan range for up-type (u,c,t) and down-type (d,s,b)
+quark triplets. Both sectors exceed 2/3: up quarks by 159.2σ, down quarks by
+8.8σ. Phase scan cannot reach 2/3 (Q_min = Q_std analytically). Verdict: INVALID.
+Source: `results/EXP-0008/RUN-0001/metrics.json`
+
+---
+
+## Dimensional Analysis Validator
+
+### Benchmark Summary
+
+![Dimensional Validator Summary](../figures/dimensional-validator-summary.png)
+
+50-item dimensional analysis challenge set: validator agrees with expected
+classification on 49/50 items (98%). 21 VALID formulas, 29 INVALID formulas
+in the challenge set.
+Source: `results/EXP-0006/RUN-0006/metrics.json`
+
+---
+
+## Reproduction
+
+```bash
+python3 scripts/generate_result_figures.py
+```
+
+Requires: `matplotlib`, `scipy`, `numpy` (plus `physics_lab` package).
+All inputs are canonical result artifacts in `results/`. Figures are
+written to `docs/figures/`.
+
+## Limitations
+
+- Figures show central values and uncertainty bands from canonical result YAML/JSON;
+  they do not add new analysis.
+- Pendulum error curve uses the standard small-angle expansion terms, not the
+  gauntlet's best-fit formula coefficients (which are not stored analytically).
+- No interactive or dashboard plots.
+- Captions must not be used as standalone evidence without citing the full result
+  artifact.

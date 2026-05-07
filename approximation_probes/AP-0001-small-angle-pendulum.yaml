@@ -1,0 +1,49 @@
+id: AP-0001
+probe_name: "small_angle_pendulum_period"
+approximation: "sin(theta) ~ theta (linearized pendulum equation of motion)"
+domain: classical_mechanics
+exact_reference: >
+  T_exact(theta_0) = (4 / omega_0) * K(sin^2(theta_0 / 2)),
+  where K is the complete elliptic integral of the first kind
+  (scipy.special.ellipk) and omega_0 = sqrt(g / L).
+error_threshold: 0.01
+parameter_range: "theta_0 in (0, pi) rad; physical pendulum amplitude up to but excluding the separatrix."
+
+derivation:
+  symbolic_form: >
+    rel_err(theta_0) = T_exact(theta_0) / T_approx - 1
+                    = (2 / pi) * K(sin^2(theta_0 / 2)) - 1.
+    Breakdown point: smallest theta_0 with rel_err(theta_0) >= error_threshold.
+  assumptions:
+    - "Frictionless rigid pendulum in uniform gravity."
+    - "Small-angle approximation linearizes equation of motion to simple harmonic oscillator: T_approx = 2 * pi * sqrt(L / g)."
+    - "Exact reference uses scipy.special.ellipk (Carlson algorithm); convention K(m) with m = k^2."
+    - "Computation uses double-precision IEEE 754 floating-point arithmetic."
+    - "Root finding uses scipy.optimize.brentq with xtol = 1e-10."
+  parameters:
+    - "theta_0 (initial angular amplitude in radians)"
+
+check:
+  code_reference: "physics_lab/engines/approximation_probes.py:small_angle_pendulum_breakdown"
+  breakdown_point: "theta_0 = 0.398177 rad (22.8138 deg)"
+  breakdown_units: "radians"
+  computed_value: "0.3981767847"
+  threshold_used: "0.01 (1% relative period error)"
+
+verdict: VERIFIED
+
+claim_ceiling: >
+  The small-angle pendulum period approximation T = 2*pi*sqrt(L/g) exceeds 1%
+  relative error compared to the exact elliptic-integral period at amplitude
+  theta_0 ~ 22.8 deg (0.398 rad). This reproduces a textbook result; no
+  novel claim. Deeper-tolerance probes (e.g. 0.1%) reproduce the textbook
+  breakdown near 7.24 deg. No claim about pendulum dynamics outside this
+  amplitude range.
+
+notes: >
+  Worked example for the approximation-breakdown probes micro-task track
+  (TASK-0050). Uses scipy.special.ellipk and scipy.optimize.brentq with
+  fixed convergence tolerance, so the result is fully deterministic.
+  Re-verify whenever scipy.special.ellipk or scipy.optimize.brentq
+  implementations change. Cross-references docs/notes/pendulum-separatrix-followup.md
+  which uses the same exact reference at higher amplitudes.

@@ -1,0 +1,76 @@
+id: TASK-0075
+title: "Add scientific microtask queues for agent work"
+type: agent_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Create a practical path for small campaign-facing scientific contributions without requiring a new large task for every narrow subproblem."
+  - "Turn campaign planning and benchmark surfaces into actionable microtask queues for humans and coding agents."
+  - "Keep scientific contribution flow conservative, reviewable, and claim-safe."
+
+input:
+  mode: workflow
+  related_domain: scientific_contributor_workflow
+  related_objects:
+    - "docs/mission-control.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/campaigns/README.md"
+    - "docs/campaigns/pendulum-formula-falsification.md"
+    - "docs/campaigns/particle-mass-relations.md"
+    - "docs/campaigns/dimensional-analysis-validator.md"
+    - "docs/campaigns/thought-experiment-consistency.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    Add campaign-specific scientific microtask queues so humans and coding
+    agents can use spare time or token budget for real verification-first
+    physics work in small chunks. Keep the queues tied to campaigns and
+    planning surfaces, and do not implement new benchmark engines in this
+    task.
+
+requirements:
+  - "Create tasks/microtasks/README.md."
+  - "Create queue files for pendulum, particle-mass relations, dimensional-analysis validator, thought-experiment consistency, and diffusion scaling."
+  - "Provide at least 10 pendulum microtasks."
+  - "Provide at least 10 particle-mass microtasks."
+  - "Provide at least 10 dimensional-analysis microtasks."
+  - "Provide at least 5 thought-experiment microtasks."
+  - "Provide at least 5 diffusion-scaling microtasks."
+  - "Create docs/agent-scientific-work-mode.md."
+  - "Update docs/mission-control.md, docs/scientific-micro-task-protocol.md, docs/agent-task-protocol.md, and tasks/ACTIVE.md."
+  - "Create tasks/TASK-0075-scientific-microtask-queues-for-agent-work.yaml."
+  - "Do not add new benchmark or engine implementation."
+  - "Do not change result artifacts."
+  - "Do not promote claims."
+  - "Do not make the repository public."
+
+accepted_outputs:
+  - "tasks/microtasks/README.md"
+  - "tasks/microtasks/pendulum-formula-falsification.yaml"
+  - "tasks/microtasks/particle-mass-relations.yaml"
+  - "tasks/microtasks/dimensional-analysis-validator.yaml"
+  - "tasks/microtasks/thought-experiment-consistency.yaml"
+  - "tasks/microtasks/diffusion-scaling.yaml"
+  - "docs/agent-scientific-work-mode.md"
+  - "updated docs/mission-control.md"
+  - "updated docs/scientific-micro-task-protocol.md"
+  - "updated docs/agent-task-protocol.md"
+  - "updated tasks/ACTIVE.md"
+  - "tasks/TASK-0075-scientific-microtask-queues-for-agent-work.yaml"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "./scripts/apl_review_bundle.sh"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -31,9 +31,73 @@ The intended maintainer workflow is prompt-first:
 Use this protocol together with:
 
 - [./agent-task-protocol.md](./agent-task-protocol.md)
+- [./maintainer-automation-architecture.md](./maintainer-automation-architecture.md)
 - [./claim-promotion-policy.md](./claim-promotion-policy.md)
 - [./review-checklists/maintainer-pr-review-checklist.md](./review-checklists/maintainer-pr-review-checklist.md)
 - [./review-checklists/task-closeout-checklist.md](./review-checklists/task-closeout-checklist.md)
+
+If this agent is executed by a periodic or reusable automation rather than by
+an ad hoc prompt, also use:
+
+- [./automation/maintainer-routine-mode.md](./automation/maintainer-routine-mode.md)
+- [./automation/maintainer-manual-mode.md](./automation/maintainer-manual-mode.md)
+- [./automation/maintainer-action-mode.md](./automation/maintainer-action-mode.md) when the automation is allowed to perform a bounded maintainer action
+
+The recommended first bounded action is:
+
+- open a closeout PR for verified merged tasks;
+- run this review agent on that closeout PR;
+- stop and wait for maintainer merge.
+
+## Review Lanes
+
+Maintainer review should not use the same heavy cycle for every PR shape.
+
+Choose one of two lanes before running the review:
+
+- `fast review`
+  for low-risk docs, planning, task-admin, proposal-only, closeout PRs, and
+  microtask PRs (`microtask(<queue-id>): ...`) that touch only challenge-set
+  entries, notes, or dataset audit outputs
+- `deep review`
+  for engines, workflows, schemas, claims, results, maintainer scripts, CI,
+  automation logic, and public-facing scientific wording
+
+### Fast Review Lane
+
+Use this lane when all of the following are true:
+
+- the PR is limited to docs, notes, task files, proposal files, closeout
+  updates, or maintainer-admin workflow text
+- no claim, result artifact, hypothesis, or experiment semantics are being
+  changed beyond already-approved task scope
+- no engine, workflow, schema, maintainer script, or CI surface is touched
+- there is no obvious overclaim or repository-safety risk
+
+Fast review should focus on:
+
+1. branch and title protocol
+2. task/proposal status correctness
+3. accepted outputs roughly matching the PR scope
+4. validation presence
+5. obvious wording or governance issues
+
+If the PR passes those checks, avoid escalating into a full deep review loop.
+
+### Deep Review Lane
+
+Use this lane whenever any of the following is true:
+
+- the PR changes executable engine or workflow code
+- the PR changes schemas, maintainer scripts, CI, or automation helpers
+- the PR introduces or modifies claim, result, hypothesis, or experiment
+  artifacts
+- the PR changes public-facing scientific wording that could affect scope,
+  verdict interpretation, or overclaim risk
+- the PR has ambiguous task-contract fit or protected-artifact scope
+
+Deep review should include the full deterministic helper cycle and content
+verification appropriate to the changed surface.
 
 ## Mode 1: Pre-Merge Review
 
@@ -50,20 +114,28 @@ This mode supports:
 - task id or `TASK-PROPOSAL`
 - branch name
 - task file path or proposal file path
+- selected review lane (`fast` or `deep`) when helpful
 
 ### Required checks
 
-1. Branch name follows either:
+1. Branch name follows one of:
    `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
    or
    `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
-2. PR title follows either:
+   or
+   `agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
+2. PR title follows one of:
    `TASK-XXXX: ...`
    or
    `TASK-PROPOSAL: ...`
+   or
+   `microtask(<queue-id>): ...`
 3. PR metadata is filled in using the repository template.
-4. The referenced canonical task file or task proposal file exists.
+4. Canonical and proposal PRs: the referenced task or proposal file exists.
+   Microtask PRs: no canonical task file required; queue id must match a file
+   in `tasks/microtasks/`.
 5. Canonical task PRs keep task status at `REVIEW_READY`; task proposal PRs keep proposal status at `PROPOSED`.
+   Microtask PRs have no task-status requirement.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
 8. Accepted outputs are present or clearly explained when partial.
@@ -74,6 +146,12 @@ This mode supports:
 13. The review bundle was generated from the PR branch, not from `main`.
 14. No obvious repository-safety or security risk is introduced without
     explicit maintainer awareness.
+15. The selected review lane matches the actual PR surface.
+16. Proposal PRs may contain multiple proposal files, but the batch should be
+    intentional, coherent, and still clearly proposal-only.
+17. Salvaged ideas from stale PRs should appear in a clean replacement
+    `propose-task-...` PR rather than being patched onto a generic or
+    mixed-context branch.
 
 ### Verdicts
 
@@ -82,6 +160,13 @@ This mode supports:
 - `NEEDS_CHANGES`: work is directionally correct, but gaps remain.
 - `BLOCKED`: a protocol, validation, scope, or evidence issue prevents review
   completion.
+
+Lane mismatch rule:
+
+- if a PR was treated as `fast review` but touches deep-review surfaces, stop
+  and switch to `deep review`
+- if a PR stays entirely within fast-review surfaces, do not force a full
+  deep-review loop unless a real blocker appears
 
 ### Recommended output format
 
@@ -160,6 +245,39 @@ python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18
 python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply
 ```
 
+### Closeout sweep helper
+
+Use this helper to find tasks that are still `REVIEW_READY` but already have a
+merged canonical task PR in local `main` history.
+
+It performs a minimal closeout-protocol gate before calling something a
+closeout candidate. It does not just trust that a PR was merged.
+
+The sweep may use merge history as a first-pass discovery source, but action
+mode must not trust merge commit text alone as the task-to-PR source of truth.
+Before a candidate can be treated as verified for closeout preparation, the
+automation must also confirm the binding through GitHub PR metadata, such as:
+
+- the PR title still resolves to the same `TASK-XXXX`; and/or
+- the PR head branch still resolves to the same canonical task id.
+
+If GitHub PR metadata cannot be loaded, the candidate must not advance to
+closeout preparation.
+
+```bash
+python3 scripts/apl_closeout_sweep.py
+```
+
+Expected behavior:
+
+- on a non-`main` or dirty branch, candidates will usually stay blocked with a
+  clear reason;
+- on a clean `main` checkout, verified tasks can become ready closeout
+  candidates for the next action step;
+- if GitHub PR metadata is unavailable or does not match the expected task id,
+  the candidate must stay blocked or needs-attention rather than advancing to
+  an automatic closeout PR.
+
 For a quick local closeout snapshot, run:
 
 ```bash
@@ -171,6 +289,22 @@ status, `tasks/ACTIVE.md` presence, accepted outputs, warnings, and suggested
 closeout actions. It does not edit files.
 
 Use `--suggest` for additional closeout suggestions without applying changes.
+
+## Context Bundle
+
+After major batches of merges, regenerate the single-file context bundle so
+it stays current for chat-LLM users and agents reading `CONTEXT.md`:
+
+```bash
+python3 scripts/generate_context_bundle.py
+git add CONTEXT.md && git commit -m "chore: regenerate context bundle"
+git push origin main
+```
+
+Run this after:
+- merging several tasks in a batch;
+- updating `docs/strategy.md` or `docs/mission-control.md`;
+- significant changes to `tasks/ACTIVE.md` beyond a routine board sync.
 
 ## Maintainer Prompts
 

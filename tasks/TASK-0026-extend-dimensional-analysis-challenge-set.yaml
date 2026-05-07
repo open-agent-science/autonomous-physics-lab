@@ -1,7 +1,7 @@
 id: TASK-0026
 title: "Add 10 more dimensional-analysis challenge items"
 type: physics_dataset_extension
-status: READY
+status: DONE
 difficulty: low
 priority: high
 
@@ -34,7 +34,7 @@ requirements:
   - "Do not claim new physics."
 
 accepted_outputs:
-  - "extended knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+  - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
   - "10 new challenge items"
   - "domain coverage note"
 

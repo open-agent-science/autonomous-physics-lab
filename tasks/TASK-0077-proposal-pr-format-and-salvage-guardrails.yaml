@@ -1,0 +1,54 @@
+id: TASK-0077
+title: "Add proposal PR format and salvage guardrails"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce maintainer review latency by making proposal PRs arrive in the correct format on the first attempt."
+  - "Prevent salvage work from stale PRs from creating ambiguous branch, title, and review-helper states."
+  - "Keep proposal acceptance lightweight and predictable for v0.2 contributor flow."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - "docs/task-proposal-protocol.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Recent salvage work from stale PRs showed that the repository needs an
+    explicit rule: proposal-only work should start on a canonical
+    propose-task branch and, by default, should open one proposal per PR.
+    When useful ideas are rescued from stale or superseded PRs, agents should
+    create a clean replacement proposal PR instead of trying to repair a
+    generic or mixed-context branch.
+
+requirements:
+  - "Document that proposal batch PRs are allowed when they stay proposal-only and thematically coherent."
+  - "Define when proposal batches should be split, such as unrelated ideas or review scope that becomes noisy."
+  - "Document a salvage flow for rescuing useful ideas from stale or superseded PRs."
+  - "Require salvage work to use a clean propose-task branch and TASK-PROPOSAL PR title from the start."
+  - "Keep canonical task numbering under maintainer control."
+  - "Update tasks/ACTIVE.md through the canonical sync flow."
+
+accepted_outputs:
+  - "updated docs/task-proposal-protocol.md"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/maintainer-review-agent.md"
+  - "tasks/TASK-0077-proposal-pr-format-and-salvage-guardrails.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
