@@ -54,34 +54,44 @@ It should:
 
 ## Current Benchmarks
 
-The repository currently has four canonical experiment slices across two active
-scientific tracks:
+Seven canonical experiments across three active scientific tracks:
 
-1. `EXP-0001` — `Pendulum Formula Discovery`
-2. `EXP-0002` — `Damped Oscillator Regime Verification`
-3. `EXP-0004` — `Charged-Lepton Koide Reproduction`
-4. `EXP-0005` — `Historical Tau Holdout Prediction`
+1. `EXP-0001` — Pendulum Formula Discovery
+2. `EXP-0002` — Damped Oscillator Regime Verification
+3. `EXP-0004` — Charged-Lepton Koide Reproduction
+4. `EXP-0005` — Historical Tau Holdout Prediction
+5. `EXP-0006` — Dimensional Analysis Validator MVP
+6. `EXP-0007` — Neutrino Koide Falsification
+7. `EXP-0008` — Quark Koide Cascade Falsification
 
-Both tracks are verification-first and store run-based artifacts under
-`results/<experiment>/<run>/`.
+All results are stored as versioned run artifacts under `results/<experiment>/<run>/`.
 
-## Current Major Results
+## Key Results at a Glance
 
-- [Pendulum Gauntlet 100](docs/results/pendulum-gauntlet-100-summary.md):
-  100 deterministic candidate formulas tested against the exact pendulum
-  reference with explicit leaderboard, diagnostics, and limitation wording.
-- [Koide tau holdout](docs/results/koide-tau-holdout.md): a narrow historical
-  holdout benchmark that predicts tau from electron and muon inputs under the
-  exact Koide assumption, compared against measured tau with uncertainty-aware
-  wording.
-- [Koide neutrino falsification](docs/results/koide-neutrino-falsification.md):
-  consistency test showing the original Koide relation Q = 2/3 is incompatible
-  with neutrino oscillation data for both normal and inverted hierarchy
-  (NH: 70.7σ gap, IH: 421,889σ gap). Clean falsification result, not marginal.
+| Experiment | Verdict | Key metric |
+|------------|---------|-----------|
+| Pendulum gauntlet (EXP-0001) | VALID | 44/100 candidates pass in range |
+| Koide charged leptons (EXP-0004) | VALID | Q = 0.6667 (gap < 0.5σ) |
+| Tau holdout (EXP-0005) | VALID | Δm = 0.039 MeV, z = 0.43σ |
+| Dimensional validator (EXP-0006) | VALID | 49/50 items correct (98%) |
+| Neutrino Koide (EXP-0007) | INVALID | NH: 70.7σ below 2/3 |
+| Quark Koide (EXP-0008) | INVALID | Down: 8.8σ, Up: 159σ above 2/3 |
+
+→ **[Full visual result summary](docs/results/visual-summary.md)**
+
+### Selected Figures
+
+**Koide Q across all SM fermion families:**
+
+![Koide Q deviation](docs/figures/koide-q-deviation.png)
+
+**Pendulum gauntlet top-10 leaderboard:**
+
+![Pendulum leaderboard](docs/figures/pendulum-gauntlet-leaderboard.png)
 
 These are scoped benchmark results with explicit limits, not discovery-level
 physical conclusions, complete particle-mass explanations, or exact symbolic
-proof.
+proof. See `docs/results/visual-summary.md` for all figures with full captions.
 
 ## Start Here
 
