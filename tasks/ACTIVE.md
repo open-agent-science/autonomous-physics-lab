@@ -47,7 +47,6 @@ one PR.
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0103` — Run final public overclaim audit for v0.2 materials (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0104` — Prepare v0.2 public launch pack (`documentation`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -58,6 +57,7 @@ None.
 
 - `TASK-0100` — Update status and v0.2 roadmap after Koide and validator campaign results (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0102` — Package Koide falsification campaign results (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0103` — Run final public overclaim audit for v0.2 materials (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0106` — Close stale completed tasks and align closeout validation (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY

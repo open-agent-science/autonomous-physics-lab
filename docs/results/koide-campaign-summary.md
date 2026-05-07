@@ -54,7 +54,7 @@ What it does not support:
 
 What this supports:
 
-- under the exact charged-lepton Koide assumption, the historical tau holdout
+- under the stored charged-lepton Koide benchmark assumption, the historical tau holdout
   lands close to the measured tau mass for the stored PDG-backed inputs.
 
 What it does not support:
@@ -72,7 +72,7 @@ What it does not support:
 - inverted hierarchy maximum remains `421,889σ` below `2/3`
 - verdict: `INVALID`
 
-This is a clean falsification of the original charged-lepton Koide target
+This is a clear falsification of the original charged-lepton Koide target
 applied directly to neutrino mass eigenstates under the encoded PDG 2024 /
 NuFIT 5.3 assumptions.
 
@@ -83,7 +83,7 @@ NuFIT 5.3 assumptions.
 - down sector remains `8.8σ` above `2/3`
 - verdict: `INVALID`
 
-This is a clean falsification of the stored quark-sector follow-up under the
+This is a clear falsification of the stored quark-sector follow-up under the
 documented mixed-scale PDG dataset and the tested Brannen-style phase setup.
 
 ## What the Current Campaign Says
