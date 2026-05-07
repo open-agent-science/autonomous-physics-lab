@@ -1,0 +1,55 @@
+proposal_id: 20260507-roman-quantum-dots-size-effects-campaign
+title: "Plan a quantum dots size-effects campaign"
+status: PROPOSED
+type: benchmark_planning
+priority: low
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+
+strategy_alignment:
+  - "Keep potentially interesting future scientific directions visible without diluting the current v0.2 packaging focus."
+  - "Treat quantum-dot work as a future theory/computation/dataset campaign, not an immediate implementation branch."
+
+summary: >
+  Explore a future APL campaign around quantum size effects in semiconductor
+  quantum dots, focused on theory, computation, dataset comparison, and
+  visualization rather than lab protocols or synthesis recipes.
+
+rationale: >
+  Quantum dots may be a strong v0.3-style campaign surface because they offer
+  measurable size-dependent phenomena, compact theory models, and clear
+  visualization opportunities. They are not a current public-launch blocker,
+  so this should remain a proposal until v0.2 packaging work is complete.
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects: []
+  planning_context: >
+    Scope a future campaign around quantum size effects and simple
+    computational or dataset-backed checks. Exclude synthesis procedures,
+    hazardous chemistry guidance, device fabrication instructions, and
+    biomedical claims.
+
+requirements:
+  - "Keep the proposal atomic."
+  - "Focus on theory, computational models, dataset analysis, and visualization only."
+  - "Do not include synthesis recipes, chemical handling, device fabrication, or biomedical claims."
+  - "Do not promote this to a canonical task until v0.2 packaging priorities are complete."
+
+accepted_outputs:
+  - "campaign proposal"
+  - "future canonical task spec if later accepted"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Keep as a v0.3-style proposal unless maintainers explicitly reprioritize."
