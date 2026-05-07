@@ -1,0 +1,44 @@
+id: HYP-0008
+title: "Phase-modified Koide formula Q(δ) = 2/3 is achievable for quark mass triplets"
+domain: particle_physics
+status: TESTING
+
+hypothesis:
+  statement: >
+    The phase-modified Koide quantity Q(δ) = (m₁+m₂+m₃) / |√m₁ + √m₂·e^{iδ} + √m₃·e^{2iδ}|²
+    equals 2/3 for some phase δ ∈ [0, π] applied to the up-type quark mass triplet
+    (mu, mc, mt) or the down-type quark mass triplet (md, ms, mb) using PDG 2024
+    running masses in the MS-bar scheme.
+  formula_candidates:
+    - "Q(δ) = (m₁+m₂+m₃) / |√m₁ + √m₂·e^{iδ} + √m₃·e^{2iδ}|² = 2/3"
+    - "Q_B = (m₁+m₂+m₃) / (m₁+m₂+m₃ − √(m₁m₂) − √(m₁m₃) − √(m₂m₃)) = 2/3"
+
+assumptions:
+  - "Quark masses are taken from PDG 2024 MS-bar scheme."
+  - "Up-type sector: (mu, mc, mt); down-type sector: (md, ms, mb)."
+  - "The phase δ is a free parameter scanned over [0, π]."
+  - "Q at δ=0 reduces to the standard (real) Koide formula."
+  - "The Brannen equal-spacing formula Q_B uses phase increments of 2π/3 between quarks."
+  - "Masses are used without renormalization-group running between scales."
+
+variables:
+  m1_m2_m3:
+    unit: MeV
+    description: "Ordered quark mass triplet (lightest to heaviest) within each sector"
+  delta:
+    unit: radians
+    description: "Phase parameter for the complex generalization, δ ∈ [0, π]"
+  Q:
+    unit: dimensionless
+    description: "Phase-modified Koide ratio"
+
+evidence:
+  experiments:
+    - EXP-0008
+  results:
+    - RESULT-0010
+
+verdict: >
+  Testing in progress. The standard Koide formula (δ=0) gives Q > 2/3 for both
+  quark sectors due to extreme mass hierarchies. The phase scan determines whether
+  any δ can bring Q to 2/3.

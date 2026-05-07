@@ -1,0 +1,18 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0010
+run_id: RUN-0001
+experiment_id: EXP-0008
+claim_id: CLAIM-0006
+knowledge_id: KNOW-0005
+generated_at: '2026-05-06T22:31:59.382724+00:00'
+proposed_claim_status: DRAFT
+required_human_review: true
+evidence_basis:
+- RESULT-0010
+claim_target_file: claims/CLAIM-0006-koide-quark-falsification.md
+knowledge_target_file: knowledge/particle_physics/quark_masses.yaml
+patch_artifacts:
+  claim_patch: N/A
+  knowledge_patch: N/A
+  review_summary: results/EXP-0008/RUN-0001/review_summary.md
