@@ -13,6 +13,7 @@ This result is narrow:
 - oscillation parameters from PDG 2024 / NuFIT 5.3;
 - tests the unmodified Koide formula Q = (m₁+m₂+m₃)/(√m₁+√m₂+√m₃)² = 2/3;
 - does not test modified or extended Koide variants (Brannen, Koide's own neutrino proposals).
+- should be read as one scoped part of the broader [Koide campaign summary](./koide-campaign-summary.md).
 
 ## Canonical Result
 
@@ -56,7 +57,7 @@ the atmospheric mass difference), the Koide formula reduces to a two-body
 system giving Q → 1/2 exactly. The large sigma gap (421,889σ) reflects the
 extreme precision of the atmospheric oscillation measurement.
 
-This is a **clean falsification**, not a marginal or inconclusive result.
+This is a clean falsification in scope, not a marginal or inconclusive result.
 
 ## What This Does and Does Not Mean
 
@@ -90,3 +91,4 @@ This is a **clean falsification**, not a marginal or inconclusive result.
 - [metrics.json](../../results/EXP-0007/RUN-0001/metrics.json)
 - [review_summary.md](../../results/EXP-0007/RUN-0001/review_summary.md)
 - [review_metadata.yaml](../../results/EXP-0007/RUN-0001/review_metadata.yaml)
+- [Koide campaign summary](./koide-campaign-summary.md)
