@@ -47,7 +47,6 @@ one PR.
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0104` — Prepare v0.2 repository opening pack (`documentation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -55,6 +54,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0104` — Prepare v0.2 repository opening pack (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0107` — Reframe TASK-0104 as a repository-native opening pack (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
