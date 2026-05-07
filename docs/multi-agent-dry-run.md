@@ -108,7 +108,54 @@ still requires multiple task-based PRs and a broader workflow summary.
 - merged workflow tasks should be recorded in the dry-run log so protocol
   improvements are visible in repository memory.
 
-## Run #3
+## Run #3 — Friend contributor dry run (TASK-0030)
+
+- Date: `2026-05-02`
+- Task: `TASK-0023`
+- Task file: `tasks/TASK-0023-first-contributor-runbook.yaml`
+- Contributor: `akutenyov` (a.kutenyov@gmail.com)
+- Agent used: `codex`
+- Agent branch: `agent/codex/task-0023-first-contributor-runbook`
+- Pull request: `#15`
+- PR title: `TASK-0023: Create first contributor runbook`
+- Merge commit: `70f65f4`
+- CI result: passed
+- Review result: approved and merged by maintainer
+
+### Maintainer review focus
+
+- confirmed the runbook is self-contained and usable by a new contributor;
+- confirmed validation and handoff order was corrected in a follow-up commit;
+- confirmed no scientific claims or artifact changes were introduced.
+
+### Artifacts reviewed
+
+- `docs/first-contributor-runbook.md`
+- `tasks/TASK-0023-first-contributor-runbook.yaml`
+- `tasks/ACTIVE.md`
+
+### Outcome
+
+- first external (friend) contributor successfully completed an atomic task
+  using the branch/PR/review workflow;
+- the runbook artifact is now part of the repository's contributor infrastructure;
+- this entry closes `TASK-0030`.
+
+### Friction points
+
+- none recorded explicitly; follow-up commit to align validation order suggests
+  minor ambiguity in the original runbook instructions.
+
+### Lessons learned
+
+- the contributor workflow is usable by an external agent without prior project
+  context;
+- small alignment corrections after the initial commit are normal and do not
+  block merge;
+- recording external contributor runs in this log makes the dry-run history
+  auditable and reusable for future onboarding.
+
+## Run #4
 
 - Date: `2026-05-03`
 - Task: `TASK-0027`
