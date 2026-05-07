@@ -16,6 +16,7 @@ already been done.
 | Result ID | Experiment | Hypothesis | Falsified claim | Key metric | Verdict | Date |
 |-----------|-----------|-----------|-----------------|------------|---------|------|
 | [RESULT-0009](../results/EXP-0007/RUN-0001/result.yaml) | EXP-0007 | HYP-0007 | Koide Q = 2/3 for neutrino masses | NH: 70.7σ gap · IH: 421,889σ gap | INVALID | 2026-05-06 |
+| [RESULT-0010](../results/EXP-0008/RUN-0001/result.yaml) | EXP-0008 | HYP-0008 | Tested quark-sector Koide cascade reaches Q = 2/3 | Down: 8.8σ gap · Up: 159.2σ gap | INVALID | 2026-05-06 |
 
 ---
 
@@ -55,6 +56,41 @@ the formula reduces to a two-body system giving Q → 1/2 exactly.
 - [result.yaml](../results/EXP-0007/RUN-0001/result.yaml)
 - [report.md](../results/EXP-0007/RUN-0001/report.md)
 - [metrics.json](../results/EXP-0007/RUN-0001/metrics.json)
+
+---
+
+### RESULT-0010 — Koide Quark Cascade Follow-up
+
+**Hypothesis:** `HYP-0008` — A Brannen-style quark-sector follow-up can reach
+the charged-lepton Koide target `Q = 2/3`.
+
+**Experiment:** `EXP-0008` / `RUN-0001`
+
+**What was tested:** Whether up-type and down-type quark triplets can satisfy
+the charged-lepton Koide target under the stored PDG 2024 mixed-scale dataset
+and the tested phase-family setup.
+
+**Why it was falsified:**
+
+For the tested parameterization, `Q` is minimized at the standard real-valued
+case, so `Q_min = Q_std`. Both quark sectors still remain above `2/3`:
+
+| Sector | `Q_min` | Gap to `2/3` | Gap in `σ` |
+|--------|--------:|-------------:|-----------:|
+| Up (`u,c,t`) | 0.848981 | 0.182314 | **159.2σ** |
+| Down (`d,s,b`) | 0.731497 | 0.064830 | **8.8σ** |
+
+No tested phase rotation reaches the charged-lepton target for either sector.
+
+**Scope:** Mixed-scale PDG quark masses and one tested Brannen-style
+phase-family only. Does not rule out every alternative quark-sector
+construction or common-scale reformulation.
+
+**Artifacts:**
+- [Public summary](results/koide-quark-cascade-falsification.md)
+- [result.yaml](../results/EXP-0008/RUN-0001/result.yaml)
+- [report.md](../results/EXP-0008/RUN-0001/report.md)
+- [metrics.json](../results/EXP-0008/RUN-0001/metrics.json)
 
 ---
 
