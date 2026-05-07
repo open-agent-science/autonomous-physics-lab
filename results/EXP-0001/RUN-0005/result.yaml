@@ -4,9 +4,9 @@ experiment_id: EXP-0001
 title: "Pendulum Formula Discovery \u2014 Gauntlet (102 Candidates)"
 hypothesis_id: HYP-0001
 task_id: TASK-0107
-generated_at: '2026-05-07T20:12:58.515579+00:00'
+generated_at: '2026-05-07T20:31:02.707826+00:00'
 engine_version: 0.1.0
-git_commit: eeacecd81347ff795f28f58f3cea577279ef962f
+git_commit: a6d3261685893f188521504fe8cfa18dc1666695
 command: physics-lab run examples/pendulum_asymptotic_gauntlet.yaml
 input_file_hashes:
   config:
@@ -20,7 +20,7 @@ input_file_hashes:
     sha256: b98dc4b3788dc81bb54ffec1bb0d83ee87edb374b8ff681d8310920fb794c231
   task:
     path: results/EXP-0001/RUN-0005/inputs/task.yaml
-    sha256: c3c34f87eed83f88867170c2c999eb47c42ef0de2cb49c26001836e68bfd76e7
+    sha256: 07a1fd571fbda94645aab680e85514e5295b394f0ce339d28847eb7dfff2df4d
 code_reference: physics_lab/workflows/gauntlet.py
 limitations:
 - This workflow evaluates an ideal mathematical pendulum with no damping or driving

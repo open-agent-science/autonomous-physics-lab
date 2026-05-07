@@ -1,7 +1,7 @@
 id: TASK-0107
 title: "Verify high-precision asymptotic refined pendulum model"
 type: scientific_experiment
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -19,6 +19,14 @@ accepted_outputs:
   - "result yaml in results/EXP-0001/RUN-0005/"
   - "report markdown with comparison section"
   - "metrics json with refined model data"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli run examples/pendulum_asymptotic_gauntlet.yaml --output-dir /tmp/apl-asymptotic-gauntlet-review"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human

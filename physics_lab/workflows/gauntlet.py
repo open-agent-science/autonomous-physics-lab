@@ -224,7 +224,7 @@ def _build_report(
             "",
             (
                 "This report describes approximation behavior only within the configured amplitude ranges. "
-                "It does not claim exact discovery or validity near the separatrix. "
+                "It keeps the interpretation benchmark-scoped and range-limited. "
                 "The leaderboard identifies the best-performing candidate formula under the current benchmark "
                 f"across {len(leaderboard_entries)} evaluated deterministic candidates."
             ),
@@ -293,7 +293,7 @@ def _build_claim_update(
         "",
         (
             "Keep the claim range-aware. The gauntlet improves confidence in the best-in-class formula "
-            "family, but does not establish an exact or exhaustive pendulum formula."
+            "family, but does not establish a closed-form or exhaustive pendulum formula."
         ),
         "",
     ]
@@ -362,7 +362,7 @@ def _build_claim_patch(
         evidence_basis=["RESULT-0001", "RESULT-0003", result_id],
         original_text=original_text,
         proposed_text=proposed_text,
-        rationale="Gauntlet result strengthens range-limited evidence without overstating global validity.",
+        rationale="Gauntlet result strengthens range-limited evidence without overstating scope.",
     )
 
 

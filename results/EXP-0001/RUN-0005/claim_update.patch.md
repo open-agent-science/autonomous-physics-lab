@@ -20,7 +20,7 @@ Yes
 
 ## Rationale
 
-Gauntlet result strengthens range-limited evidence without overstating global validity.
+Gauntlet result strengthens range-limited evidence without overstating scope.
 
 ## Proposed Diff
 

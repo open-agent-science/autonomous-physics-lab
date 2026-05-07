@@ -61,7 +61,7 @@ Formula: `(2/pi) * [ln(4) + 0.5*ln(1/m1) + a*m1 + (pi/2-ln(4)-a)*m1^2 + c*m1*ln(
 
 ## Conclusion
 
-This report describes approximation behavior only within the configured amplitude ranges. It does not claim exact discovery or validity near the separatrix. The leaderboard identifies the best-performing candidate formula under the current benchmark across 102 evaluated deterministic candidates.
+This report describes approximation behavior only within the configured amplitude ranges. It keeps the interpretation benchmark-scoped and range-limited. The leaderboard identifies the best-performing candidate formula under the current benchmark across 102 evaluated deterministic candidates.
 
 ## Physics-Constrained Candidate (c = 1/π fixed)
 

@@ -29,4 +29,4 @@ Valid only within the sampled ranges used by this workflow: train `0.0100` to `2
 
 ## Suggested Caution
 
-Keep the claim range-aware. The gauntlet improves confidence in the best-in-class formula family, but does not establish an exact or exhaustive pendulum formula.
+Keep the claim range-aware. The gauntlet improves confidence in the best-in-class formula family, but does not establish a closed-form or exhaustive pendulum formula.
