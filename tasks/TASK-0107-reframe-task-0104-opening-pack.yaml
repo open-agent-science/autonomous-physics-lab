@@ -1,0 +1,50 @@
+id: TASK-0107
+title: "Reframe TASK-0104 as a repository-native opening pack"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Release blockers should correspond to repository-native artifacts rather than off-platform communication drafts."
+  - "TASK-0104 should stay focused on what the repo itself still needs before opening publicly."
+  - "Maintainer task curation should reduce ambiguity before contributors start implementation work."
+
+input:
+  mode: workflow
+  related_domain: task_admin
+  related_objects:
+    - "tasks/TASK-0104-v02-public-launch-pack.yaml"
+    - "tasks/ACTIVE.md"
+    - "docs/public-release-gates.md"
+    - "docs/release-checklist.md"
+    - "docs/releases/v0.1-public-alpha.md"
+  planning_context: >
+    TASK-0104 was originally framed with external-channel outputs such as a DOU
+    post draft and a vague GitHub post draft. Those are not repository-native
+    blockers. Reframe TASK-0104 so it focuses only on canonical repo opening
+    materials: a maintainer launch summary, repository release notes, a
+    contributor-facing entrypoint, and checklist alignment.
+
+requirements:
+  - "Retitle TASK-0104 so it clearly describes a repository opening pack rather than a generic public launch pack."
+  - "Remove mandatory external-channel outputs such as DOU post drafts."
+  - "Keep TASK-0104 focused on repo-native outputs: launch summary, release notes, contributor entrypoint, and checklist alignment."
+  - "Do not mark TASK-0104 DONE in this task."
+  - "Sync tasks/ACTIVE.md through the canonical board flow."
+
+accepted_outputs:
+  - "updated tasks/TASK-0104-v02-public-launch-pack.yaml"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
