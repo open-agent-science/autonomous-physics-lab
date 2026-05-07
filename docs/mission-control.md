@@ -28,8 +28,8 @@ APL currently organizes work around four contributor-facing campaign surfaces:
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
 | [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation discovery against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
-| [Particle Mass Relations](./campaigns/particle-mass-relations.md) | Active with narrow benchmark results | Test whether impressive mass relations survive disciplined, falsification-first handling | [koide-tau-holdout.md](./results/koide-tau-holdout.md) |
-| [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Planning complete, implementation pending | Build a quality floor for future formula and benchmark work | [dimensional-analysis-challenge-set.md](./notes/dimensional-analysis-challenge-set.md) |
+| [Particle Mass Relations](./campaigns/particle-mass-relations.md) | Active with scoped reproductions and falsifications | Test whether impressive mass relations survive disciplined, falsification-first handling | [koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md) |
+| [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Active with canonical MVP result | Build a quality floor for future formula and benchmark work | [RUN-0006 report](../results/EXP-0006/RUN-0006/report.md) |
 | [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) | Planning active, no canonical run yet | Extend APL into consistency checks that do not depend on curve fitting alone | [thought-experiment-consistency-suite.md](./notes/thought-experiment-consistency-suite.md) |
 
 ## Current Results
@@ -39,16 +39,37 @@ The clearest current repository-level results are:
 1. [Pendulum Gauntlet 100](./results/pendulum-gauntlet-100-summary.md) —
    100 deterministic pendulum candidate formulas evaluated with stored
    leaderboard, diagnostics, and precision audit.
-2. [Koide charged-lepton reproduction](./results/koide-charged-lepton-reproduction.md)
+2. [Dimensional Analysis Validator MVP](../results/EXP-0006/RUN-0006/report.md)
+   — a canonical 50-item validator benchmark with 49/50 agreement under
+   explicit MVP limits.
+3. [Koide charged-lepton reproduction](./results/koide-charged-lepton-reproduction.md)
    — a narrow dataset-based reproduction benchmark with uncertainty-aware
    comparison.
-3. [Koide tau holdout](./results/koide-tau-holdout.md) — a historical
+4. [Koide tau holdout](./results/koide-tau-holdout.md) — a historical
    holdout-style benchmark associated with `RESULT-0006`, kept narrow and
    explicitly non-explanatory.
+5. [Koide neutrino falsification](./results/koide-neutrino-falsification.md)
+   and [Negative Results Registry](./negative-results-registry.md) — clean
+   falsification surfaces for the original neutrino extension and related
+   particle-mass follow-ups.
+6. [`RESULT-0010` quark cascade falsification](./notes/koide-quark-cascade.md)
+   — the current quark-sector falsification result under stored dataset and
+   scale assumptions.
 
 These results matter because they are reproducible and reviewable. They do not
 authorize exact symbolic proof, universal scope, or deeper physical
 explanation by themselves.
+
+## Current Packaging Focus
+
+The near-term documentation goal is a cautious `v0.2` packaging pass:
+
+- top-level docs should reflect the actual benchmark and falsification surface;
+- Koide work should read as one falsification-first campaign, not a handful of
+  disconnected notes;
+- negative results should stay as visible as successful reproductions;
+- public-opening decisions should remain gated behind wording discipline and
+  release checks.
 
 ## How Contributors Can Plug In
 
@@ -60,6 +81,8 @@ Operational entry points:
   menu of safe, reviewable work (30 min / 1 h / 2 h);
 - [tasks/ACTIVE.md](../tasks/ACTIVE.md) for the live board of canonical tasks;
 - [tasks/microtasks/README.md](../tasks/microtasks/README.md) for campaign-specific scientific microtask queues;
+- [docs/negative-results-registry.md](./negative-results-registry.md) for the
+  current falsification index;
 - [docs/agent-task-protocol.md](./agent-task-protocol.md) for branch, task,
   PR, validation, and task-state rules;
 - [docs/agent-scientific-work-mode.md](./agent-scientific-work-mode.md) for
@@ -89,6 +112,8 @@ Low-risk contribution patterns right now:
 - Do not call pendulum approximations exact or globally valid.
 - Do not treat charged-lepton or tau-holdout benchmarks as explanations of
   particle masses.
+- Do not turn neutrino or quark falsifications into a blanket claim about all
+  possible Koide variants.
 - Do not describe planning-only campaigns as implemented benchmark systems.
 - Do not present the repository as public before the release gates are met.
 

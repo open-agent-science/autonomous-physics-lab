@@ -23,9 +23,13 @@ campaign-oriented scientific system.
 Near-term campaign work:
 
 - keep the pendulum benchmark legible through better summaries and diagnostics;
-- keep the particle-mass track falsification-first and scope-limited;
-- connect benchmark results, campaign pages, and status docs through a clearer
-  Mission Control layer;
+- keep the particle-mass track falsification-first and scope-limited while
+  packaging the charged-lepton, tau, neutrino, and quark results as one
+  coherent campaign story;
+- treat the negative-results registry as part of the main scientific output
+  layer rather than as a side note;
+- connect benchmark results, campaign pages, status docs, and release-facing
+  summaries through a clearer Mission Control layer;
 - improve visual result summaries so current evidence is easier to review.
 
 ## Contributor Pilot — Active
@@ -48,10 +52,21 @@ validation work.
 Before launch, APL needs:
 
 - stable status, roadmap, and README narrative;
+- campaign-level result packaging that includes both reproductions and clean
+  falsifications;
 - honest public-facing result summaries;
+- a final wording audit across public-facing docs;
 - release-gate evidence across technical stability, contributor workflow, and
   measurable results;
 - confidence that the public story matches the actual repository state.
+
+Immediate v0.2 packaging work:
+
+- refresh top-level status and roadmap docs to reflect current campaign
+  evidence;
+- package the Koide track as a falsification-first campaign rather than as
+  disconnected notes;
+- run one final public overclaim audit before any public-opening decision.
 
 ## Public Task Network — Future
 
