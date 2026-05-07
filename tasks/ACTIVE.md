@@ -55,7 +55,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0107` — Reframe TASK-0104 as a repository-native opening pack (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
