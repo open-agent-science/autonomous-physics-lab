@@ -1,4 +1,4 @@
-"""Gauntlet workflow: run 100 deterministic pendulum candidates and rank them."""
+"""Gauntlet workflow: run deterministic pendulum candidates and rank them."""
 
 from __future__ import annotations
 
@@ -15,6 +15,7 @@ from physics_lab.engines.critic import classify_model_score
 from physics_lab.engines.formula_discovery import fit_candidate_model
 from physics_lab.engines.gauntlet import (
     atom_family,
+    build_asymptotic_refined_candidate,
     build_constrained_candidate,
     build_gauntlet_candidates,
     classify_failure_mode,
@@ -70,9 +71,10 @@ def _committed_git_commit(repo_root: Path) -> str | None:
 
 _GAUNTLET_LIMITATIONS = [
     "This workflow evaluates an ideal mathematical pendulum with no damping or driving force.",
-    "All 100 candidates are linear-in-coefficients models fitted by least squares.",
+    "Core gauntlet candidates are linear-in-coefficients models fitted by least squares.",
     "Verdicts apply only to the configured train and test amplitude ranges.",
-    "Candidates are drawn from a fixed basis of ten atoms; other functional forms are not tested.",
+    "Core candidates are drawn from a fixed basis of eleven atoms; other functional forms are not tested unless explicitly configured.",
+    "Configured comparison candidates expand the evaluated set but do not make the search exhaustive.",
     "The leaderboard ranks by composite score; top candidates may still fail separatrix diagnostics.",
 ]
 
@@ -224,7 +226,7 @@ def _build_report(
                 "This report describes approximation behavior only within the configured amplitude ranges. "
                 "It does not claim exact discovery or validity near the separatrix. "
                 "The leaderboard identifies the best-performing candidate formula under the current benchmark "
-                "across a systematic search of 100 deterministic candidates."
+                f"across {len(leaderboard_entries)} evaluated deterministic candidates."
             ),
         ]
     )
@@ -291,7 +293,7 @@ def _build_claim_update(
         "",
         (
             "Keep the claim range-aware. The gauntlet improves confidence in the best-in-class formula "
-            "family, but does not remove the near-separatrix limitation."
+            "family, but does not establish an exact or exhaustive pendulum formula."
         ),
         "",
     ]
@@ -307,6 +309,7 @@ def _build_claim_patch(
     suggestion_rationale: str,
     train_range: tuple[float, float],
     test_range: tuple[float, float],
+    total_candidates: int,
 ) -> str:
     claim_path = repo_root / "claims" / "CLAIM-0001-pendulum-period-amplitude.md"
     if not claim_path.exists():
@@ -331,19 +334,20 @@ def _build_claim_patch(
         ),
     )
     evidence_status = (
-        "`RESULT-0001`, `RESULT-0003`, and `RESULT-0004` together support a bounded, "
+        f"`RESULT-0001`, `RESULT-0003`, and `{result_id}` together support a bounded, "
         "verification-backed update for amplitude-dependent ideal-pendulum behavior. "
-        "The gauntlet (100 candidates) confirms the best-in-class formula family "
-        "within the tested range. Near-separatrix diagnostics still fail."
+        f"The latest gauntlet ({total_candidates} evaluated candidates) identifies the "
+        "best-in-class formula family within the tested range. The result still requires "
+        "range-aware wording and maintainer review before claim promotion."
     )
     review_lines = [
         f"A maintainer may promote this claim to `{suggestion_status}` after review.",
         "",
         "Reason:",
         "",
-        "- Three independent runs (RUN-0001, RUN-0002, RUN-0003) pass the in-range gate;",
-        "- a systematic 100-candidate gauntlet confirms the best formula family;",
-        "- remaining separatrix failures require clearly bounded wording.",
+        "- The pendulum evidence set includes multiple reproducible runs;",
+        f"- a systematic gauntlet evaluates {total_candidates} deterministic candidates;",
+        "- non-exhaustive search coverage requires clearly bounded wording.",
         "",
         f"Promotion rationale: {suggestion_rationale}",
     ]
@@ -367,6 +371,7 @@ def _build_knowledge_patch(
     repo_root: Path,
     knowledge_id: str,
     result_id: str,
+    run_id: str,
     task_id: str,
     best_score: ModelScore,
     best_verdict: str,
@@ -399,7 +404,7 @@ def _build_knowledge_patch(
         "",
         "- `RESULT-0001` / `RUN-0001` — original low-order candidate comparison;",
         "- `RESULT-0003` / `RUN-0002` — theory-aware near-separatrix follow-up;",
-        f"- `{result_id}` / `RUN-0003` — systematic gauntlet of {total_candidates} candidates.",
+        f"- `{result_id}` / `{run_id}` — systematic gauntlet of {total_candidates} candidates.",
         "",
         "The gauntlet best candidate is:",
         "",
@@ -433,7 +438,10 @@ def _build_knowledge_patch(
         [
             "- Which low-order formula gives the best accuracy/complexity tradeoff?",
             "- How quickly do polynomial amplitude corrections fail near large angles?",
-            f"- The gauntlet ({total_candidates} candidates) confirms the best family; are there further improvements beyond the tested atom basis?",
+            (
+                f"- The gauntlet ({total_candidates} candidates) identifies a current "
+                "best family; are there further improvements beyond the tested atom basis?"
+            ),
             "- Which limitations must remain explicit if the claim is promoted to `PARTIALLY_SUPPORTED`?",
         ]
     )
@@ -449,7 +457,7 @@ def _build_knowledge_patch(
         original_text=original_text,
         proposed_text=proposed_text,
         sections_to_update=["Known Baseline", "Linked Objects", "Open Questions"],
-        rationale="Expand with gauntlet evidence and all three canonical runs.",
+        rationale="Expand with latest gauntlet evidence and bounded review language.",
     )
 
 
@@ -503,6 +511,48 @@ def _build_constrained_comparison_section(
             "Fixing this coefficient to its theoretically correct value allows the free",
             "parameters `a` and `b` to capture intermediate-angle corrections without",
             "sacrificing near-separatrix divergence behavior.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def _build_asymptotic_comparison_section(
+    asymptotic_score: ModelScore,
+    asymptotic_verdict: str,
+    asymptotic_coefficients: dict[str, float],
+) -> str:
+    """Build a markdown section for the high-precision asymptotic candidate."""
+    import math
+
+    lines = [
+        "## High-Precision Asymptotic Candidate (A&S Inspired)",
+        "",
+        "| Property | Value |",
+        "| --- | --- |",
+        f"| Model ID | `{asymptotic_score.model_id}` |",
+        f"| Formula | `{asymptotic_score.formula}` |",
+        f"| Test mean relative error | `{asymptotic_score.test_metrics.mean_relative_error:.6e}` |",
+        f"| Test max relative error | `{asymptotic_score.test_metrics.max_relative_error:.6e}` |",
+        f"| Verdict | `{asymptotic_verdict}` |",
+        "",
+        "### Fitted Coefficients",
+        "",
+    ]
+    for name, value in asymptotic_coefficients.items():
+        lines.append(f"- `{name}` = `{value:.8f}`")
+        if name == "a":
+            constrained_b = (math.pi / 2.0) - math.log(4.0) - value
+            lines.append(f"- `b` = `{constrained_b:.8f}` (constrained by small-angle limit)")
+    lines.extend(
+        [
+            "",
+            "### Physical Interpretation",
+            "",
+            "This model uses a 4-term polynomial in `(1-x)` and `(1-x)ln(1-x)` to refine",
+            "the basic logarithmic asymptotic expansion from Abramowitz & Stegun.",
+            "The `m1^2` coefficient is constrained so the small-angle limit is exact,",
+            "while the fitted log terms preserve the near-separatrix divergence diagnostics.",
             "",
         ]
     )
@@ -564,8 +614,23 @@ def run_gauntlet_experiment_with_output(
     test_target = dataset.period_ratio[split_index:]
 
     atom_groups, candidates = build_gauntlet_candidates()
+
+    # Collect all candidates to fit and score
+    all_candidates = list(candidates)
+    all_atom_groups = list(atom_groups)
+
+    if config.get("include_constrained_candidate"):
+        c_atoms, c_model = build_constrained_candidate()
+        all_candidates.append(c_model)
+        all_atom_groups.append(c_atoms)
+
+    if config.get("include_asymptotic_refined_candidate"):
+        a_atoms, a_model = build_asymptotic_refined_candidate()
+        all_candidates.append(a_model)
+        all_atom_groups.append(a_atoms)
+
     fitted_models = [
-        fit_candidate_model(model, train_theta, train_target) for model in candidates
+        fit_candidate_model(model, train_theta, train_target) for model in all_candidates
     ]
     scores = [
         score_model(
@@ -580,7 +645,7 @@ def run_gauntlet_experiment_with_output(
 
     # Sort by composite score; keep atom_groups aligned via index lookup.
     model_id_to_atoms: dict[str, tuple[str, ...]] = {
-        candidates[i].model_id: atom_groups[i] for i in range(len(candidates))
+        all_candidates[i].model_id: all_atom_groups[i] for i in range(len(all_candidates))
     }
     scores.sort(key=lambda s: s.composite_score)
     verdicts = {score.model_id: classify_model_score(score) for score in scores}
@@ -605,22 +670,29 @@ def run_gauntlet_experiment_with_output(
         for rank in range(len(scores))
     ]
 
-    # Optional: fit and score the physics-constrained candidate.
-    constrained_score: ModelScore | None = None
-    constrained_verdict: str | None = None
+    # Populate optional candidate data for metrics even if they are in the leaderboard.
+    constrained_score_data: ModelScore | None = next(
+        (s for s in scores if s.model_id == "model_phys_constrained_l1"),
+        None,
+    )
+    asymptotic_score_data: ModelScore | None = next(
+        (s for s in scores if s.model_id == "model_asymptotic_refined"),
+        None,
+    )
+
     constrained_coefficients: dict[str, float] = {}
-    if config.get("include_constrained_candidate"):
-        constrained_atoms, constrained_model = build_constrained_candidate()
-        constrained_fitted = fit_candidate_model(constrained_model, train_theta, train_target)
-        constrained_coefficients = constrained_fitted.coefficients
-        constrained_score = score_model(
-            fitted_model=constrained_fitted,
-            train_theta=train_theta,
-            train_target=train_target,
-            test_theta=test_theta,
-            test_target=test_target,
+    if constrained_score_data:
+        constrained_fitted_model = next(
+            m for m in fitted_models if m.candidate.model_id == "model_phys_constrained_l1"
         )
-        constrained_verdict = classify_model_score(constrained_score)
+        constrained_coefficients = constrained_fitted_model.coefficients
+
+    asymptotic_coefficients: dict[str, float] = {}
+    if asymptotic_score_data:
+        asymptotic_fitted_model = next(
+            m for m in fitted_models if m.candidate.model_id == "model_asymptotic_refined"
+        )
+        asymptotic_coefficients = asymptotic_fitted_model.coefficients
 
     run_dir = result_root / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -676,8 +748,9 @@ def run_gauntlet_experiment_with_output(
         ),
     )
 
+    report_title = f"{experiment['title']} — Gauntlet ({len(leaderboard_entries)} Candidates)"
     report_text = _build_report(
-        title=str(experiment["title"]) + " — Gauntlet (100 Candidates)",
+        title=report_title,
         result_id=result_id,
         run_id=run_id,
         hypothesis_id=str(experiment["hypothesis_id"]),
@@ -690,7 +763,7 @@ def run_gauntlet_experiment_with_output(
         best_verdict=verdicts[best_model_id],
         verification_summary=verification_payload,
     )
-    if constrained_score is not None and constrained_verdict is not None:
+    if constrained_score_data is not None:
         reference_score_for_constrained = next(
             (s for s in scores if s.model_id == "model_t2_x4_l1"), None
         )
@@ -698,11 +771,17 @@ def run_gauntlet_experiment_with_output(
             verdicts.get("model_t2_x4_l1") if reference_score_for_constrained else None
         )
         report_text = report_text.rstrip("\n") + "\n\n" + _build_constrained_comparison_section(
-            constrained_score=constrained_score,
-            constrained_verdict=constrained_verdict,
+            constrained_score=constrained_score_data,
+            constrained_verdict=verdicts[constrained_score_data.model_id],
             reference_score=reference_score_for_constrained,
             reference_verdict=reference_verdict_for_constrained,
             constrained_coefficients=constrained_coefficients,
+        )
+    if asymptotic_score_data is not None:
+        report_text = report_text.rstrip("\n") + "\n\n" + _build_asymptotic_comparison_section(
+            asymptotic_score=asymptotic_score_data,
+            asymptotic_verdict=verdicts[asymptotic_score_data.model_id],
+            asymptotic_coefficients=asymptotic_coefficients,
         )
     write_text_atomic(report_path, report_text)
 
@@ -717,7 +796,7 @@ def run_gauntlet_experiment_with_output(
         "result_id": result_id,
         "run_id": run_id,
         "experiment_id": str(experiment["id"]),
-        "title": str(experiment["title"]) + " — Gauntlet (100 Candidates)",
+        "title": report_title,
         "hypothesis_id": str(experiment["hypothesis_id"]),
         "task_id": task_id,
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -758,17 +837,28 @@ def run_gauntlet_experiment_with_output(
         "leaderboard_top10": leaderboard_entries[:10],
         "failure_mode_summary": _failure_mode_summary(leaderboard_entries),
     }
-    if constrained_score is not None and constrained_verdict is not None:
+    if constrained_score_data is not None:
         metrics_payload["constrained_candidate"] = {
-            "model_id": constrained_score.model_id,
-            "formula": constrained_score.formula,
-            "verdict": constrained_verdict,
+            "model_id": constrained_score_data.model_id,
+            "formula": constrained_score_data.formula,
+            "verdict": verdicts[constrained_score_data.model_id],
             "coefficients": constrained_coefficients,
             "fixed_coefficient": {"c": 1.0 / 3.141592653589793},
-            "test_mean_relative_error": constrained_score.test_metrics.mean_relative_error,
-            "test_max_relative_error": constrained_score.test_metrics.max_relative_error,
-            "train_mean_relative_error": constrained_score.train_metrics.mean_relative_error,
-            "composite_score": constrained_score.composite_score,
+            "test_mean_relative_error": constrained_score_data.test_metrics.mean_relative_error,
+            "test_max_relative_error": constrained_score_data.test_metrics.max_relative_error,
+            "train_mean_relative_error": constrained_score_data.train_metrics.mean_relative_error,
+            "composite_score": constrained_score_data.composite_score,
+        }
+    if asymptotic_score_data is not None:
+        metrics_payload["asymptotic_candidate"] = {
+            "model_id": asymptotic_score_data.model_id,
+            "formula": asymptotic_score_data.formula,
+            "verdict": verdicts[asymptotic_score_data.model_id],
+            "coefficients": asymptotic_coefficients,
+            "test_mean_relative_error": asymptotic_score_data.test_metrics.mean_relative_error,
+            "test_max_relative_error": asymptotic_score_data.test_metrics.max_relative_error,
+            "train_mean_relative_error": asymptotic_score_data.train_metrics.mean_relative_error,
+            "composite_score": asymptotic_score_data.composite_score,
         }
     write_text_atomic(metrics_path, json.dumps(metrics_payload, indent=2))
 
@@ -799,11 +889,13 @@ def run_gauntlet_experiment_with_output(
         suggestion_rationale=claim_status_suggestion.rationale,
         train_range=(float(train_theta[0]), float(train_theta[-1])),
         test_range=(float(test_theta[0]), float(test_theta[-1])),
+        total_candidates=len(leaderboard_entries),
     )
     knowledge_patch_text = _build_knowledge_patch(
         repo_root=repo_root,
         knowledge_id="KNOW-0001",
         result_id=result_id,
+        run_id=run_id,
         task_id=task_id,
         best_score=best_score,
         best_verdict=best_verdict,

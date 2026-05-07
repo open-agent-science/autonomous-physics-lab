@@ -1,0 +1,20 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0009
+run_id: RUN-0005
+experiment_id: EXP-0001
+claim_id: CLAIM-0001
+knowledge_id: KNOW-0001
+generated_at: '2026-05-07T20:12:58.515579+00:00'
+proposed_claim_status: PARTIALLY_SUPPORTED
+required_human_review: true
+evidence_basis:
+- RESULT-0001
+- RESULT-0003
+- RESULT-0009
+claim_target_file: claims/CLAIM-0001-pendulum-period-amplitude.md
+knowledge_target_file: knowledge/classical_mechanics/pendulum.md
+patch_artifacts:
+  claim_patch: results/EXP-0001/RUN-0005/claim_update.patch.md
+  knowledge_patch: results/EXP-0001/RUN-0005/knowledge_update.patch.md
+  review_summary: results/EXP-0001/RUN-0005/review_summary.md

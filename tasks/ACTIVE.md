@@ -59,6 +59,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0106` — Close stale completed tasks and align closeout validation (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0107` — Verify high-precision asymptotic refined pendulum model (`scientific_experiment`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

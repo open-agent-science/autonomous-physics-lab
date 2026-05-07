@@ -44,6 +44,30 @@ def _pendulum_expression(model_id: str) -> tuple[str, dict[str, str], set[str], 
             {"theta", "a", "b", "c", "x", "x_log"},
             {"sin", "log"},
         )
+    if model_id == "model_phys_constrained_l1":
+        return (
+            "1 + a * theta**2 + b * x**4 + c * x_log",
+            {
+                "x": "sin(theta / 2)**2",
+                "x_log": "x * log(1 / (1 - x))",
+            },
+            {"theta", "a", "b", "c", "x", "x_log"},
+            {"sin", "log"},
+        )
+    if model_id == "model_asymptotic_refined":
+        return (
+            (
+                "(2 / pi) * (log(4) + 0.5 * log(1 / m1) + a * m1 "
+                "+ (pi / 2 - log(4) - a) * m1**2 + c * m1_log + d * m2_log)"
+            ),
+            {
+                "m1": "cos(theta / 2)**2",
+                "m1_log": "m1 * log(1 / m1)",
+                "m2_log": "m1**2 * log(1 / m1)",
+            },
+            {"theta", "a", "c", "d", "m1", "m1_log", "m2_log", "pi"},
+            {"cos", "log"},
+        )
     raise ValueError(f"Unsupported pendulum model for symbolic validation: {model_id}")
 
 

@@ -1,0 +1,25 @@
+id: TASK-0107
+title: "Verify high-precision asymptotic refined pendulum model"
+type: scientific_experiment
+status: READY
+difficulty: medium
+priority: high
+
+input:
+  hypothesis_id: HYP-0001
+  experiment_id: EXP-0001
+
+requirements:
+  - "Run the pendulum gauntlet with the new A&S-inspired asymptotic candidate"
+  - "Verify if the new model passes all gating checks (small and large angle accuracy)"
+  - "Compare performance against the previous best candidates"
+  - "Ensure near-separatrix behavior matches theoretical expectations"
+
+accepted_outputs:
+  - "result yaml in results/EXP-0001/RUN-0005/"
+  - "report markdown with comparison section"
+  - "metrics json with refined model data"
+
+can_be_done_by:
+  - human
+  - llm_agent
