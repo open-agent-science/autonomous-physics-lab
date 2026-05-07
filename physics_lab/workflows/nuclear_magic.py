@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -247,8 +248,6 @@ def run_nuclear_magic_experiment(
 
     dataset_path = resolve_path(exp_path, experiment["data"]["dataset_path"])
     shell_result = run_nuclear_shell_correction(dataset_path)
-
-    import shutil
 
     task_file = task_path(repo_root, task_id)
     input_hashes = snapshot_input_files(

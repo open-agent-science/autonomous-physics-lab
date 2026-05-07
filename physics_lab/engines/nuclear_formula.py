@@ -68,7 +68,7 @@ def _dN(N_raw: np.ndarray) -> np.ndarray:
 
 def _dZ(Z_raw: np.ndarray) -> np.ndarray:
     """Distance to nearest magic proton number."""
-    return np.min(np.abs(Z_raw[:, None] - MAGIC_N[None, :]), axis=1)
+    return np.min(np.abs(Z_raw[:, None] - MAGIC_Z[None, :]), axis=1)
 
 
 def _gauss(d: np.ndarray, a: float, sigma: float) -> np.ndarray:
@@ -372,7 +372,8 @@ ALL_CANDIDATES = _make_candidates()
 
 
 def load_binding_energy_dataset(path: Any) -> list[dict]:
-    data = yaml.safe_load(open(path, encoding="utf-8").read())
+    with open(path, encoding="utf-8") as f:
+        data = yaml.safe_load(f)
     return data["nuclides"]
 
 

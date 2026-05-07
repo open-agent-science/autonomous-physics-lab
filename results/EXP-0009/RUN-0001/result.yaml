@@ -4,9 +4,9 @@ experiment_id: EXP-0009
 title: Nuclear Shell Correction — Bethe-Weizsäcker Residual Fit
 hypothesis_id: HYP-0009
 task_id: TASK-0091
-generated_at: '2026-05-07T07:31:24.582251+00:00'
+generated_at: '2026-05-07T08:21:03.932741+00:00'
 engine_version: 0.1.0
-git_commit: 5c00005c3dc9c2184eefc80516d99f79fed3a8a2
+git_commit: 56e4aa09b1ce407c27c77b45e83631f2ec440775
 command: physics-lab run examples/nuclear_magic.yaml
 input_file_hashes:
   config:
@@ -17,10 +17,10 @@ input_file_hashes:
     sha256: fcf05bd3a5828d0b711f592244b9033f3e8fd3bac3395b5f8074de4265968997
   hypothesis:
     path: results/EXP-0009/RUN-0001/inputs/hypothesis.yaml
-    sha256: 03ffe47249fbabab42aedaf990e235961c491d3a762b36098282d75b91bcda4d
+    sha256: d939fd01a0ef44e96f786cbcb3eb6b66fc10f7e5236243862f21e68652b4d291
   task:
     path: results/EXP-0009/RUN-0001/inputs/task.yaml
-    sha256: e04578b8bac8e4012a067b9a9dfb4bcaab174ec8318712b22adeccf60179ce5f
+    sha256: 38773b143050827be603735929e4c2c844c838990ed97f1eec36fbef5af50221
 code_reference: physics_lab/workflows/nuclear_magic.py
 limitations:
 - Curated ~97-nuclide AME2020 subset; not full ~3500-nuclide table.

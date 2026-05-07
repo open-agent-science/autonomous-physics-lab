@@ -1,7 +1,7 @@
 id: HYP-0009
 title: "Analytic shell correction to Bethe-Weizsäcker formula based on distance to nearest magic number"
 domain: nuclear_physics
-status: TESTING
+status: VALID_IN_RANGE
 
 hypothesis:
   statement: >
