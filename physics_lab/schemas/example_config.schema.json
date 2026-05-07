@@ -43,7 +43,7 @@
     },
     "workflow": {
       "type": "string",
-      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide"]
+      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "nuclear_magic"]
     },
     "amplitude_range_override": {
       "type": "object",
@@ -64,7 +64,7 @@
         "required": ["workflow"],
         "properties": {
           "workflow": {
-            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide"]
+            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "nuclear_magic"]
           }
         }
       },

@@ -1,0 +1,75 @@
+result_id: RESULT-0011
+run_id: RUN-0001
+experiment_id: EXP-0009
+title: Nuclear Shell Correction — Bethe-Weizsäcker Residual Fit
+hypothesis_id: HYP-0009
+task_id: TASK-0091
+generated_at: '2026-05-07T07:31:24.582251+00:00'
+engine_version: 0.1.0
+git_commit: 5c00005c3dc9c2184eefc80516d99f79fed3a8a2
+command: physics-lab run examples/nuclear_magic.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0009/RUN-0001/inputs/config.yaml
+    sha256: 7b2617f1a56c12418e9e788de8c13babd74dd952843cc906b35a0c8111b2a071
+  experiment:
+    path: results/EXP-0009/RUN-0001/inputs/experiment.yaml
+    sha256: fcf05bd3a5828d0b711f592244b9033f3e8fd3bac3395b5f8074de4265968997
+  hypothesis:
+    path: results/EXP-0009/RUN-0001/inputs/hypothesis.yaml
+    sha256: 03ffe47249fbabab42aedaf990e235961c491d3a762b36098282d75b91bcda4d
+  task:
+    path: results/EXP-0009/RUN-0001/inputs/task.yaml
+    sha256: e04578b8bac8e4012a067b9a9dfb4bcaab174ec8318712b22adeccf60179ce5f
+code_reference: physics_lab/workflows/nuclear_magic.py
+limitations:
+- Curated ~97-nuclide AME2020 subset; not full ~3500-nuclide table.
+- Standard BW liquid-drop coefficients used (not jointly refit with shell correction).
+- Heavier nuclides (A > 140) have approximate B_exp values (~0.5 MeV uncertainty in
+  dataset).
+- Several multi-magic amplitudes hit fitting bounds (±20 MeV); light-nuclei (A < 10)
+  corrections may absorb A-dependent BW errors.
+- Gaussian width σ shared across all magic numbers; per-closure widths untested.
+- Only stable AME2020 nuclides included; no radioactive isotopes.
+- Simple distance-based models (d_N or d_Z only) provide <1% improvement; improvement
+  requires per-magic-number amplitudes.
+best_verdict: VALID
+verification:
+  passed: true
+  checks:
+  - name: Shell correction RMS improvement ≥ 20% on test set
+    status: PASS
+    details: Best model 'multi_gauss_NZ_shared_sigma' achieves 28.8% test-set improvement
+      (BW RMS 8.978 → 6.393 MeV).
+    metrics:
+      bw_rms_test: 8.978401176534057
+      best_rms_test: 6.393216238402013
+      improvement_test: 0.28793377432149964
+      threshold: 0.2
+artifacts:
+  report: results/EXP-0009/RUN-0001/report.md
+  metrics: results/EXP-0009/RUN-0001/metrics.json
+  claim_update: results/EXP-0009/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0009/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0009/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0009/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0009/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0009/RUN-0001/review_metadata.yaml
+comparison_summary:
+- target_id: target_rms_improvement
+  label: Shell correction RMS improvement vs 20% threshold
+  reference_value: 0.2
+  observed_value: 0.28793377432149964
+  absolute_difference: 0.08793377432149962
+  relative_difference: 0.4396688716074981
+  notes: 'Best model ''multi_gauss_NZ_shared_sigma'': 28.8% test improvement. Threshold:
+    20%.'
+uncertainty_summary:
+  method: 80/20 train/test split by nuclide index; test-set RMS is primary metric
+  observed_uncertainty: 2.585184938132044
+  reference_uncertainty: null
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: true
+  notes: 'BW baseline RMS: 8.978 MeV (test). Best shell correction RMS: 6.393 MeV
+    (test). Absolute improvement: 2.585 MeV.'

@@ -1,0 +1,28 @@
+id: EXP-0009
+title: "Nuclear shell correction — analytic BW residual fit at magic numbers"
+domain: nuclear_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0009
+
+method:
+  type: formula_fitting
+  simulator: bethe_weizsacker_shell_corrector
+  comparator: rms_improvement
+
+data:
+  dataset_path: ../knowledge/nuclear_physics/binding_energies.yaml
+  dataset_kind: nuclear_binding_energy_dataset
+  sample_axes:
+    - nuclide
+  notes: >
+    AME2020-based curated subset of ~100 nuclides. Covers A = 4-210, all
+    magic proton and neutron numbers N,Z ∈ {2,8,20,28,50,82,126}, and
+    nuclides in their neighborhood. 80/20 train/test split by nuclide index.
+
+comparison_targets:
+  - id: target_rms_improvement
+    label: "RMS improvement threshold"
+    reference_value: 0.20
+    unit: fractional
+    notes: "Shell correction should reduce RMS residual by at least 20% vs bare BW."
