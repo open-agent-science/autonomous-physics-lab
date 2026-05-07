@@ -1,0 +1,54 @@
+id: TASK-0109
+title: "Define protocol support for microtask batch PRs"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep microtask contribution flow aligned across docs, helper automation, and maintainer review."
+  - "Remove protocol ambiguity for coherent batch PRs that complete multiple microtasks from one queue."
+  - "Preserve fast review for narrow microtask batches without weakening repository safety checks."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "physics_lab/registry/maintainer_review.py"
+  planning_context: >
+    Current repository docs allow one PR to complete a small coherent batch of
+    related microtasks from the same queue, but the canonical branch and PR
+    protocol still describe only single-microtask naming. This leaves valid
+    batch PRs in a gray zone where the content is acceptable but the protocol
+    and helper expectations are not fully specified. Recent review of PR #129
+    exposed this mismatch.
+
+requirements:
+  - "Define canonical branch naming for batch microtask PRs, or explicitly document the allowed exception path."
+  - "Define the canonical PR title and metadata expectations for microtask batch PRs."
+  - "Clarify how maintainer review helper should validate batch PRs from one queue."
+  - "Clarify whether review bundle naming or validation expectations differ for batch microtask PRs."
+  - "Keep single-microtask PR support intact."
+  - "Avoid reopening canonical TASK-XXXX requirements for queue-driven microtask work."
+
+accepted_outputs:
+  - "updated docs/agent-task-protocol.md covering batch microtask PR format"
+  - "updated docs/maintainer-review-agent.md covering helper expectations for batch microtask PRs"
+  - "updated docs/scientific-micro-task-protocol.md if batching rules need sharper protocol wording"
+  - "updated physics_lab/registry/maintainer_review.py if helper behavior changes"
+  - "updated tests/test_maintainer_review.py covering batch microtask PR review"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
