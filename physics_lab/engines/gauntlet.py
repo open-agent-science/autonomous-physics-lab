@@ -11,8 +11,8 @@ from physics_lab.engines.formula_discovery import CandidateModel
 from physics_lab.engines.scoring import ModelScore
 
 
-# Ten basis atoms ordered for deterministic enumeration.
-ATOM_NAMES: list[str] = ["t2", "t4", "t6", "t8", "x1", "x2", "x3", "x4", "l1", "l2"]
+# Eleven basis atoms ordered for deterministic enumeration.
+ATOM_NAMES: list[str] = ["t2", "t4", "t6", "t8", "x1", "x2", "x3", "x4", "l0", "l1", "l2"]
 
 ATOM_DISPLAY: dict[str, str] = {
     "t2": "theta^2",
@@ -23,6 +23,7 @@ ATOM_DISPLAY: dict[str, str] = {
     "x2": "x^2",
     "x3": "x^3",
     "x4": "x^4",
+    "l0": "log(1/(1-x))",
     "l1": "x*log(1/(1-x))",
     "l2": "x^2*log(1/(1-x))",
 }
@@ -36,6 +37,7 @@ ATOM_FAMILIES: dict[str, str] = {
     "x2": "x_poly",
     "x3": "x_poly",
     "x4": "x_poly",
+    "l0": "log_enhanced",
     "l1": "log_enhanced",
     "l2": "log_enhanced",
 }
@@ -43,6 +45,11 @@ ATOM_FAMILIES: dict[str, str] = {
 
 def _x(theta: np.ndarray) -> np.ndarray:
     return np.sin(theta / 2.0) ** 2
+
+
+def _l0(theta: np.ndarray) -> np.ndarray:
+    x = _x(theta)
+    return np.log(1.0 / np.clip(1.0 - x, 1.0e-12, None))
 
 
 def _l1(theta: np.ndarray) -> np.ndarray:
@@ -64,6 +71,7 @@ _ATOM_FEATURES: dict[str, object] = {
     "x2": lambda theta: _x(theta) ** 2,
     "x3": lambda theta: _x(theta) ** 3,
     "x4": lambda theta: _x(theta) ** 4,
+    "l0": _l0,
     "l1": _l1,
     "l2": _l2,
 }
@@ -95,15 +103,17 @@ def build_gauntlet_candidates() -> tuple[list[tuple[str, ...]], list[CandidateMo
     """Return (atom_groups, models) for exactly 100 deterministic candidates.
 
     Candidates are organised in three tiers:
-    - Tier 1 (size-1): 10 single-atom models
-    - Tier 2 (size-2): 45 two-atom combinations — all C(10,2)
-    - Tier 3 (size-3): 45 three-atom combinations — first C(10,3)[:45]
+    - Tier 1 (size-1): 11 single-atom models
+    - Tier 2 (size-2): 55 two-atom combinations — all C(11,2)
+    - Tier 3 (size-3): 34 three-atom combinations
 
     Total: 100 candidates. The ordering is fixed and reproducible.
     """
     size1: list[tuple[str, ...]] = [(a,) for a in ATOM_NAMES]
     size2: list[tuple[str, ...]] = list(itertools.combinations(ATOM_NAMES, 2))
-    size3: list[tuple[str, ...]] = list(itertools.combinations(ATOM_NAMES, 3))[:45]
+    size3: list[tuple[str, ...]] = list(itertools.combinations(ATOM_NAMES, 3))[
+        : 100 - len(size1) - len(size2)
+    ]
     groups = size1 + size2 + size3
     assert len(groups) == 100, f"Expected 100 candidates, got {len(groups)}"
     models = [_build_candidate(atoms) for atoms in groups]
@@ -140,6 +150,53 @@ def build_constrained_candidate() -> tuple[tuple[str, ...], CandidateModel]:
     return atoms, model
 
 
+def build_asymptotic_refined_candidate() -> tuple[tuple[str, ...], CandidateModel]:
+    """Return a high-precision candidate inspired by Abramowitz & Stegun.
+
+    Formula:
+    (2/pi) * [ln(4) + 0.5*ln(1/m1) + a*m1 + b*m1^2
+              + c*m1*ln(1/m1) + d*m1^2*ln(1/m1)]
+    where m1 = 1 - x and x = sin^2(theta/2).
+    The coefficient b is constrained to pi/2 - ln(4) - a, forcing the
+    exact small-angle limit T/T0 -> 1 at theta -> 0.
+    This form captures the logarithmic divergence at the separatrix (x=1)
+    and uses polynomials in (1-x) to match intermediate and small angles.
+    """
+    import math
+
+    atoms = ("m1", "m2", "ml1", "ml2")
+    constrained_sum = (math.pi / 2.0) - math.log(4.0)
+
+    def feature_builder(theta: np.ndarray) -> np.ndarray:
+        x = _x(theta)
+        m1 = 1.0 - x
+        l1 = np.log(1.0 / np.clip(m1, 1.0e-12, None))
+        features = np.column_stack([m1 - m1**2, m1 * l1, m1**2 * l1])
+        return (2.0 / np.pi) * features.astype(float)
+
+    def fixed_offset_fn(theta: np.ndarray) -> np.ndarray:
+        x = _x(theta)
+        m1 = 1.0 - x
+        l1 = np.log(1.0 / np.clip(m1, 1.0e-12, None))
+        # Subtract 1.0 because FittedModel.predict always adds 1.0 as the implicit intercept.
+        return (
+            (2.0 / np.pi) * (math.log(4.0) + 0.5 * l1 + constrained_sum * m1**2)
+        ) - 1.0
+
+    model = CandidateModel(
+        model_id="model_asymptotic_refined",
+        formula=(
+            "(2/pi) * [ln(4) + 0.5*ln(1/m1) + a*m1 "
+            "+ (pi/2-ln(4)-a)*m1^2 + c*m1*ln(1/m1) "
+            "+ d*m1^2*ln(1/m1)] where m1 = cos^2(theta/2)"
+        ),
+        coefficient_names=("a", "c", "d"),
+        feature_builder=feature_builder,
+        fixed_offset_fn=fixed_offset_fn,
+    )
+    return atoms, model
+
+
 def classify_failure_mode(score: ModelScore) -> str:
     """Classify the primary failure mode for a gauntlet candidate.
 
@@ -164,7 +221,10 @@ def atom_family(atoms: Sequence[str]) -> str:
     atom_set = set(atoms)
     theta_atoms = {"t2", "t4", "t6", "t8"}
     x_atoms = {"x1", "x2", "x3", "x4"}
-    log_atoms = {"l1", "l2"}
+    log_atoms = {"l0", "l1", "l2"}
+
+    if atom_set and atom_set <= {"m1", "m2", "ml1", "ml2"}:
+        return "asymptotic"
 
     has_theta = bool(atom_set & theta_atoms)
     has_x = bool(atom_set & x_atoms)

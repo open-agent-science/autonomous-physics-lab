@@ -915,9 +915,42 @@ def test_gauntlet_produces_100_unique_candidates() -> None:
     size1 = [g for g in atom_groups if len(g) == 1]
     size2 = [g for g in atom_groups if len(g) == 2]
     size3 = [g for g in atom_groups if len(g) == 3]
-    assert len(size1) == 10
-    assert len(size2) == 45
-    assert len(size3) == 45
+    assert len(size1) == 11
+    assert len(size2) == 55
+    assert len(size3) == 34
+
+
+def test_asymptotic_refined_candidate_passes_configured_large_angle_window() -> None:
+    from physics_lab.engines.gauntlet import build_asymptotic_refined_candidate
+    from physics_lab.engines.formula_discovery import fit_candidate_model
+    from physics_lab.engines.scoring import score_model
+    from physics_lab.workflows.artifacts import split_dataset
+
+    dataset = generate_pendulum_dataset(0.01, 3.10, 200)
+    split_index = split_dataset(sample_count=200, train_fraction=0.7)
+    _, candidate = build_asymptotic_refined_candidate()
+    fitted_model = fit_candidate_model(
+        candidate,
+        dataset.theta[:split_index],
+        dataset.period_ratio[:split_index],
+    )
+    score = score_model(
+        fitted_model=fitted_model,
+        train_theta=dataset.theta[:split_index],
+        train_target=dataset.period_ratio[:split_index],
+        test_theta=dataset.theta[split_index:],
+        test_target=dataset.period_ratio[split_index:],
+    )
+    verification = verify_candidate_model(
+        fitted_model,
+        theta_range=(float(dataset.theta[0]), float(dataset.theta[-1])),
+    )
+    checks = {check.name: check for check in verification.checks}
+
+    assert score.test_metrics.max_relative_error < 5.0e-5
+    assert verification.passed is True
+    assert checks["large_angle_window_accuracy"].status == "PASS"
+    assert checks["separatrix_asymptotic_alignment"].status == "PASS"
 
 
 def test_gauntlet_candidates_are_numerically_stable() -> None:
