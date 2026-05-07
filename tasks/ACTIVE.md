@@ -46,24 +46,28 @@ one PR.
 
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
-- `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (`workflow_pilot`, priority `medium`, difficulty `medium`)
 - `TASK-0082` — Add Koide baseline planning for guarded next-step evaluation (`benchmark_planning`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
-None.
+- `TASK-0095` — Add visual orientation diagrams for humans and agents (`documentation`, priority `high`, difficulty `low`)
 
 ## REVIEW_READY
 
+- `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (`workflow_pilot`, priority `medium`, difficulty `medium`)
+- `TASK-0088` — Test Brannen quark-mass Koide cascade for up and down sectors (`scientific_experiment`, priority `high`, difficulty `medium`)
 - `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0096` — Write Koide neutrino falsification public result package (`documentation`, priority `high`, difficulty `low`)
+- `TASK-0097` — Create negative result registry for APL falsifications (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
-- `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (merged)
 - `TASK-0093` — Test Koide relation for neutrino masses (merged)
 - `TASK-0092` — Fix duplicate canonical task ids and enforce uniqueness (merged)
+- `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (merged)
 - `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (merged)
 - `TASK-0085` — Define PR title format for microtask PRs without a canonical TASK-XXXX (merged)
 - `TASK-0084` — Add explicit no-direct-main-push guardrail to agent instructions (merged)
@@ -135,7 +139,6 @@ None.
 - `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
 - `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
 - `TASK-0059` — Prepare Koide tau holdout public summary package (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0088` — Test Brannen quark-mass Koide cascade for up and down sectors (`scientific_experiment`, priority `high`, difficulty `medium`)
 - `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
 - `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
 - `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
