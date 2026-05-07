@@ -55,14 +55,15 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0100` — Update status and v0.2 roadmap after Koide and validator campaign results (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0102` — Package Koide falsification campaign results (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0103` — Run final public overclaim audit for v0.2 materials (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0106` — Close stale completed tasks and align closeout validation (`maintainer_workflow`, priority `high`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0106` — Close stale completed tasks and align closeout validation (merged)
 - `TASK-0105` — Curate v0.2 packaging follow-up queue and close completed task admin items (merged)
+- `TASK-0103` — Run final public overclaim audit for v0.2 materials (merged)
+- `TASK-0102` — Package Koide falsification campaign results (merged)
+- `TASK-0100` — Update status and v0.2 roadmap after Koide and validator campaign results (merged)
 - `TASK-0097` — Create negative result registry for APL falsifications (merged)
 - `TASK-0096` — Write Koide neutrino falsification public result package (merged)
 - `TASK-0095` — Add visual orientation diagrams for humans and agents (merged)
