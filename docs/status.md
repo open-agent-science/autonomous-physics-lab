@@ -7,20 +7,32 @@
 ## Current Goal
 
 Validate APL as verification-first scientific infrastructure through active
-campaigns, reproducible benchmark results, and a private contributor workflow
-before any public launch decision.
+campaigns, reproducible benchmark and falsification results, v0.2 packaging
+work, and a private contributor workflow before any public-opening decision.
 
 ## Current Major Results
 
 - `EXP-0001/RUN-0003` (`RESULT-0004`) — [Pendulum Gauntlet 100](./results/pendulum-gauntlet-100-summary.md):
   100 deterministic candidate formulas tested against the exact pendulum
   reference with explicit leaderboard, diagnostics, and precision audit.
+- `EXP-0006/RUN-0006` (`RESULT-0007`) — [Dimensional Analysis Validator MVP](../results/EXP-0006/RUN-0006/report.md):
+  a 50-item dimensional-analysis benchmark with 49/50 agreement against the
+  curated challenge set under explicit MVP limitations.
 - `EXP-0004/RUN-0004` (`RESULT-0005`) — [Koide charged-lepton reproduction](./results/koide-charged-lepton-reproduction.md):
   a scoped charged-lepton reproduction benchmark using explicit dataset inputs
   and uncertainty-aware comparison.
 - `EXP-0005/RUN-0005` (`RESULT-0006`) — [Koide tau holdout](./results/koide-tau-holdout.md):
   a historical holdout-style tau prediction benchmark kept narrow and
   non-explanatory.
+- `EXP-0007/RUN-0001` (`RESULT-0009`) — [Koide neutrino falsification](./results/koide-neutrino-falsification.md):
+  the original Koide relation fails cleanly for physically admissible
+  neutrino mass triplets under the encoded oscillation-data assumptions.
+- `EXP-0008/RUN-0001` (`RESULT-0010`) — [Quark Koide cascade falsification](../docs/notes/koide-quark-cascade.md):
+  the Brannen-style quark cascade remains outside the charged-lepton target in
+  both up and down sectors under the stored dataset and scale limitations.
+- [Negative Results Registry](./negative-results-registry.md):
+  repository-level index of clean falsifications that should remain visible
+  alongside successful reproductions.
 
 These are benchmark results with stored limitations. They are not evidence of
 discovery-level physics, complete particle-mass explanation, universal scope,
@@ -32,13 +44,18 @@ or symbolic exactness.
 - `EXP-0002` — Damped Oscillator Regime Verification
 - `EXP-0004` — Charged-Lepton Koide Reproduction
 - `EXP-0005` — Historical Tau Holdout Prediction
+- `EXP-0006` — Dimensional Analysis Validator MVP
+- `EXP-0007` — Neutrino Koide Falsification
+- `EXP-0008` — Quark Koide Cascade Falsification
 
-Together these now support two active benchmark surfaces:
+Together these now support three active benchmark surfaces:
 
 - classical-mechanics verification through the pendulum and damped-oscillator
   slices;
-- a falsification-first particle-mass relation track with narrow
-  charged-lepton benchmarks only.
+- a falsification-first particle-mass relation track with narrow charged-lepton
+  reproductions plus explicit neutrino and quark falsification results;
+- a dimensional-analysis validation track with one canonical MVP benchmark run
+  and a growing challenge-set surface.
 
 ## Active Scientific Campaigns
 
@@ -46,10 +63,12 @@ Together these now support two active benchmark surfaces:
   — strongest current measurable result package and the clearest benchmark for
   systematic approximation testing.
 - [Particle Mass Relations](./campaigns/particle-mass-relations.md) — active
-  falsification-first track with charged-lepton reproduction and tau holdout
-  benchmarks, both kept scope-limited.
+  falsification-first track with scoped charged-lepton reproduction, a narrow
+  tau holdout benchmark, and direct neutrino and quark follow-up
+  falsifications.
 - [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md)
-  — planning-complete quality-floor campaign, implementation pending.
+  — active quality-floor campaign with a completed MVP benchmark and follow-on
+  challenge-set work.
 - [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md)
   — planning-first analytical consistency campaign with no canonical run yet.
 
@@ -77,17 +96,24 @@ Current gate categories:
 - technical stability;
 - multi-agent or multi-contributor pilot evidence;
 - at least one honest measurable scientific result with limitation wording;
+- at least one clear falsification surface preserved as first-class evidence;
 - a public narrative that stays verification-first and avoids overclaim.
 
-Current evidence is stronger than before, but the repository is still in gate
-validation rather than public-release mode.
+Current evidence is stronger than before, and the repository now has clearer
+v0.2 packaging inputs. It is still in gate validation rather than
+public-release mode.
 
 ## Current Risks
 
 - Pendulum results remain range-limited benchmark evidence, not exact symbolic
   formulas or globally valid claims.
 - Koide-track results are numerically interesting but should stay
-  falsification-first and non-explanatory.
+  falsification-first, dataset-scoped, and non-explanatory.
+- Quark and neutrino falsifications are strong within their encoded
+  assumptions, but they do not justify broader "Koide is false everywhere"
+  claims.
+- The dimensional-analysis validator has a canonical MVP result, but its unit
+  system and known-limit handling remain intentionally narrow.
 - The contributor workflow is more mature, but the private pilot still needs
   continued use before public rollout.
 - Status, roadmap, and mission-control docs can drift unless task files and
@@ -110,5 +136,9 @@ validation rather than public-release mode.
 - [mission-control.md](./mission-control.md) for project-level orientation;
 - [campaigns/README.md](./campaigns/README.md) for the campaign map;
 - [results/pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md)
-  and [results/koide-tau-holdout.md](./results/koide-tau-holdout.md) for the
-  clearest current result summaries.
+  for the clearest classical benchmark summary;
+- [results/koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md)
+  and [negative-results-registry.md](./negative-results-registry.md) for the
+  falsification-first particle-mass surface;
+- [../results/EXP-0006/RUN-0006/report.md](../results/EXP-0006/RUN-0006/report.md)
+  for the current dimensional-analysis benchmark result.
