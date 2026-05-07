@@ -1,0 +1,61 @@
+id: TASK-0099
+title: "Refresh repository snapshot logic to prefer current source-of-truth state"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Repository snapshots should reflect the current scientific and workflow state, not stale hand-maintained summaries or oversized file dumps."
+  - "Maintainer review, audit, and planning loops depend on snapshots that foreground active tasks, recent results, and current campaign status."
+  - "A source-of-truth-driven snapshot with a clear current-state layer reduces hallucination and stale-context risk for downstream agents while preserving useful archive context."
+
+input:
+  mode: workflow
+  related_domain: repository_snapshot
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - "docs/status.md"
+    - "docs/next-steps.md"
+    - "tasks/ACTIVE.md"
+    - "results/"
+    - "experiments/"
+  planning_context: >
+    The current snapshot script captures a large amount of repository content,
+    but it can still mislead downstream review or audit agents. It depends too
+    heavily on hand-maintained docs such as docs/status.md and docs/next-steps.md,
+    which may lag behind the canonical task board and newest experiment/result
+    artifacts. It also emits broad tree and registry dumps that are useful as
+    archive context, but they are not clearly separated from the small set of
+    sections that should be treated as authoritative current state. The snapshot
+    should be refreshed to emphasize source-of-truth summaries, recent validated
+    results, active READY/REVIEW_READY work, and a cleaner distinction between
+    current state and historical archive context.
+
+requirements:
+  - "Review scripts/apl_snapshot.sh against current repository layout and current maintainer needs."
+  - "Reduce reliance on stale hand-maintained docs as the primary snapshot summary when canonical task/result state disagrees."
+  - "Add or improve generated sections that summarize current READY, REVIEW_READY, PROPOSED, and recently DONE tasks from canonical task YAML files."
+  - "Add or improve generated sections that summarize recent experiments/results from canonical experiment and result artifacts."
+  - "Keep detailed tree, task, result, and knowledge dumps available as archive context, but clearly demote them below the authoritative current-state summary."
+  - "Ensure snapshot metadata identifies the canonical repository root and branch/base context clearly, even when run from a temporary worktree."
+  - "Document any intentional snapshot scope limits so maintainers know what is authoritative and what is only context."
+
+accepted_outputs:
+  - "updated scripts/apl_snapshot.sh"
+  - "updated snapshot-related tests or validation coverage if needed"
+  - "updated docs describing snapshot scope/authority if behavior changes"
+  - "a refreshed snapshot example that demonstrates improved current-state reporting"
+
+validation:
+  commands:
+    - "bash scripts/apl_snapshot.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
