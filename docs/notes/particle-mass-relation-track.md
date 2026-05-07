@@ -3,7 +3,10 @@
 Task: `TASK-0013`  
 Type: `benchmark_planning`  
 Domain: particle physics  
-Status: planning only — no implementation yet
+Status: active campaign — see experiment results below
+
+**Completed experiments:** EXP-0004 (VALID), EXP-0005 (VALID), EXP-0007 (INVALID), EXP-0008 (INVALID)
+**Baseline design:** `docs/notes/koide-baseline-planning.md` (TASK-0082)
 
 ---
 
@@ -155,6 +158,20 @@ must work before search is implemented.
 Only after the above planning and guardrails are in place should APL implement
 the first particle-mass relation falsifier workflow.
 
+### Stage 6 — Full Family Survey (completed)
+
+EXP-0007 tested neutrinos; EXP-0008 tested up and down quarks. Together with
+EXP-0004 and EXP-0005 for charged leptons, this completes a full survey of all
+SM fundamental fermion families under the standard Koide formula.
+
+Result: Q = 2/3 is specific to charged leptons. All other families miss by
+at least 8.8σ under PDG 2024 masses.
+
+### Stage 7 — Baseline Calibration (planned)
+
+Define and implement random and enumeration baselines so that the charged-lepton
+result can be put in statistical context. See `docs/notes/koide-baseline-planning.md`.
+
 ---
 
 ## Task Track
@@ -162,16 +179,18 @@ the first particle-mass relation falsifier workflow.
 The repository already uses `TASK-0035` for maintainer-review refactoring, so
 this Koide / particle-mass track starts at the next available ids:
 
-- `TASK-0036` — particle mass dataset scaffold
-- `TASK-0037` — reproduce Koide charged-lepton relation
-- `TASK-0038` — historical tau holdout prediction
-- `TASK-0039` — Koide-like triplet search design
-- `TASK-0040` — particle mass relation falsifier MVP
-- `TASK-0041` — mass-formula complexity penalty design
-- `TASK-0042` — numerology guardrails for particle mass relations
+- `TASK-0036` — particle mass dataset scaffold *(done)*
+- `TASK-0037` — reproduce Koide charged-lepton relation *(done, EXP-0004)*
+- `TASK-0038` — historical tau holdout prediction *(done, EXP-0005)*
+- `TASK-0039` — Koide-like triplet search design *(done)*
+- `TASK-0040` — particle mass relation falsifier MVP *(PROPOSED)*
+- `TASK-0041` — mass-formula complexity penalty design *(done)*
+- `TASK-0042` — numerology guardrails for particle mass relations *(done)*
+- `TASK-0082` — Koide baseline planning *(this note)*
+- `TASK-0088` — quark Koide cascade (EXP-0008) *(done, INVALID)*
 
-`TASK-0040` should remain `PROPOSED` until the planning and guardrail tasks are
-reviewed. The surrounding planning tasks can be `READY`.
+`TASK-0040` should remain `PROPOSED` until baseline calibration (Stage 7) is
+reviewed and the maintainer decides whether a full triplet search is warranted.
 
 ---
 
