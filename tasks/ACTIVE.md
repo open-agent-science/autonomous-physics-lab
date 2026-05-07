@@ -46,8 +46,13 @@ one PR.
 
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
+- `TASK-0063` — Generate v0.2 static visual result pack (`scientific_visualization`, priority `high`, difficulty `medium`)
 - `TASK-0082` — Add Koide baseline planning for guarded next-step evaluation (`benchmark_planning`, priority `medium`, difficulty `medium`)
+- `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0100` — Update status and v0.2 roadmap after Koide and validator campaign results (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0102` — Package Koide falsification campaign results (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0103` — Run final public overclaim audit for v0.2 materials (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0104` — Prepare v0.2 public launch pack (`documentation`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -55,18 +60,16 @@ one PR.
 
 ## REVIEW_READY
 
-- `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (`workflow_pilot`, priority `medium`, difficulty `medium`)
-- `TASK-0088` — Test Brannen quark-mass Koide cascade for up and down sectors (`scientific_experiment`, priority `high`, difficulty `medium`)
-- `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0096` — Write Koide neutrino falsification public result package (`documentation`, priority `high`, difficulty `low`)
-- `TASK-0097` — Create negative result registry for APL falsifications (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0097` — Create negative result registry for APL falsifications (merged)
+- `TASK-0096` — Write Koide neutrino falsification public result package (merged)
+- `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (merged)
 - `TASK-0093` — Test Koide relation for neutrino masses (merged)
 - `TASK-0092` — Fix duplicate canonical task ids and enforce uniqueness (merged)
+- `TASK-0088` — Test Brannen quark-mass Koide cascade for up and down sectors (merged)
 - `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (merged)
 - `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (merged)
 - `TASK-0085` — Define PR title format for microtask PRs without a canonical TASK-XXXX (merged)
@@ -88,6 +91,7 @@ one PR.
 - `TASK-0058` — Standardize scoped verdict wording for tau holdout (merged)
 - `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (merged)
 - `TASK-0056` — Accept selected science-track proposals into canonical tasks (merged)
+- `TASK-0055` — Add experiment flow diagram to architecture docs (merged)
 - `TASK-0054` — Fix maintainer review helper temp claim path handling in git worktrees (merged)
 - `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (merged)
 - `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (merged)

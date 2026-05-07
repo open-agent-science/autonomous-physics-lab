@@ -1,0 +1,53 @@
+id: TASK-0104
+title: "Prepare v0.2 public launch pack"
+type: documentation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "If APL opens publicly, it should do so with a curated, verification-first launch narrative instead of ad hoc repo browsing."
+  - "A launch pack should translate current scientific evidence into a contributor-facing and public-facing starter set."
+  - "Launch materials should stay downstream of status refresh, result packaging, visuals, and overclaim audit."
+
+input:
+  mode: workflow
+  related_objects:
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/results/"
+    - "docs/figures/"
+    - "docs/public-release-gates.md"
+    - "docs/release-checklist.md"
+  planning_context: >
+    APL is close to a public-facing v0.2 presentation layer, but it still
+    lacks a single coherent launch pack. Once status, visuals, campaign
+    summaries, and wording audits are in place, package them into a reusable
+    public starter set for GitHub, DOU-style communication, and contributor
+    onboarding.
+
+requirements:
+  - "Create docs/v0.2-launch-pack.md."
+  - "Create docs/public-post-draft-dou.md."
+  - "Create docs/public-post-draft-github.md."
+  - "Create docs/use-your-agent.md with a practical contributor-facing invitation."
+  - "Keep all messaging verification-first and explicitly non-discovery-framed."
+  - "Treat this as downstream of status refresh, visuals, Koide campaign summary, and overclaim audit."
+
+accepted_outputs:
+  - "docs/v0.2-launch-pack.md"
+  - "docs/public-post-draft-dou.md"
+  - "docs/public-post-draft-github.md"
+  - "docs/use-your-agent.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
