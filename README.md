@@ -78,6 +78,7 @@ All results are stored as versioned run artifacts under `results/<experiment>/<r
 | Quark Koide (EXP-0008) | INVALID | Down: 8.8σ, Up: 159σ above 2/3 |
 
 → **[Full visual result summary](docs/results/visual-summary.md)**
+→ **[Negative results registry](docs/negative-results-registry.md)**
 
 ### Selected Figures
 
@@ -142,8 +143,9 @@ Full campaign details:
 4. [Thought-Experiment Consistency](docs/campaigns/thought-experiment-consistency.md)
 
 The pendulum and particle-mass tracks already have scoped canonical results.
-The dimensional-analysis and thought-experiment tracks are still planning-first
-and should not be described as finished benchmark implementations.
+The dimensional-analysis track now has a canonical MVP benchmark result. The
+thought-experiment track remains planning-first and should not be described as
+a finished benchmark implementation.
 
 ## Contribute with an AI coding agent
 
