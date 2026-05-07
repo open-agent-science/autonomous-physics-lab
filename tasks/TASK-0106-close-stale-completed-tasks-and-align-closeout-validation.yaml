@@ -1,7 +1,7 @@
 id: TASK-0106
 title: "Close stale completed tasks and align closeout validation"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
