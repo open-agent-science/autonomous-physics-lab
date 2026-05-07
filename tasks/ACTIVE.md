@@ -57,6 +57,7 @@ None.
 - `TASK-0104` — Prepare v0.2 repository opening pack (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0107` — Reframe TASK-0104 as a repository-native opening pack (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0108` — Add microtask PR support to maintainer review helper (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0109` — Define protocol support for microtask batch PRs (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 
 ## DONE RECENTLY
 
