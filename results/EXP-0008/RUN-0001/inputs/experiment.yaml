@@ -1,0 +1,28 @@
+id: EXP-0008
+title: "Quark Koide Cascade — Brannen Phase Extension Test"
+domain: particle_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0008
+
+method:
+  type: consistency_test
+  simulator: quark_koide_brannen_solver
+  comparator: target_difference
+
+data:
+  dataset_path: ../knowledge/particle_physics/quark_masses.yaml
+  dataset_kind: quark_mass_dataset
+  sample_axes:
+    - sector
+  notes: >
+    PDG 2024 MS-bar running masses. Up sector: (mu, mc, mt) at mixed scales.
+    Down sector: (md, ms, mb) at mixed scales. Scale mixing is an explicit
+    limitation documented in the result.
+
+comparison_targets:
+  - id: target_koide_q
+    label: "Koide Q target"
+    reference_value: 0.6666666666666666
+    unit: null
+    notes: "Target value 2/3 from charged-lepton Koide formula."
