@@ -1,0 +1,1601 @@
+result_id: RESULT-0009
+run_id: RUN-0005
+experiment_id: EXP-0001
+title: "Pendulum Formula Discovery \u2014 Gauntlet (102 Candidates)"
+hypothesis_id: HYP-0001
+task_id: TASK-0110
+generated_at: '2026-05-07T20:50:31.964672+00:00'
+engine_version: 0.1.0
+git_commit: 1f3d95269571d619dab2f73085686d5d4266a824
+command: physics-lab run examples/pendulum_asymptotic_gauntlet.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0001/RUN-0005/inputs/config.yaml
+    sha256: 9ef527ad4ca1babf3364b6f4c9c4d56ae4c4ed3c6bb2ebbc8caab043cf1451a8
+  experiment:
+    path: results/EXP-0001/RUN-0005/inputs/experiment.yaml
+    sha256: 6663a2c6304bf5a8fcd8e272ebbc182bb8ff793fa3ca41a9a560ff8e3c00484c
+  hypothesis:
+    path: results/EXP-0001/RUN-0005/inputs/hypothesis.yaml
+    sha256: b98dc4b3788dc81bb54ffec1bb0d83ee87edb374b8ff681d8310920fb794c231
+  task:
+    path: results/EXP-0001/RUN-0005/inputs/task.yaml
+    sha256: 18d70dd72e55b0b6e5f095678d7c8d9684de687b5e63c5d805363f6dbe6f5f9f
+code_reference: physics_lab/workflows/gauntlet.py
+limitations:
+- This workflow evaluates an ideal mathematical pendulum with no damping or driving
+  force.
+- Core gauntlet candidates are linear-in-coefficients models fitted by least squares.
+- Verdicts apply only to the configured train and test amplitude ranges.
+- Core candidates are drawn from a fixed basis of eleven atoms; other functional forms
+  are not tested unless explicitly configured.
+- Configured comparison candidates expand the evaluated set but do not make the search
+  exhaustive.
+- The leaderboard ranks by composite score; top candidates may still fail separatrix
+  diagnostics.
+train_range:
+- 0.01
+- 2.1683417085427137
+test_range:
+- 2.1838693467336685
+- 3.1
+best_model_id: model_asymptotic_refined
+best_verdict: VALID_IN_RANGE
+verification:
+  passed: true
+  checks:
+  - name: small_angle_limit
+    status: PASS
+    details: Checks whether the candidate returns T/T0 ~= 1 near zero amplitude.
+    metrics:
+      predicted: 1.0000000000000626
+      deviation: 6.261657858885883e-14
+  - name: small_angle_window_accuracy
+    status: PASS
+    details: Compares candidate predictions to the exact elliptic-integral solution
+      on a small-angle window.
+    metrics:
+      theta_window_start: 0.001
+      theta_window_end: 0.2
+      mean_relative_error: 2.0427261505503697e-07
+      max_relative_error: 5.85332949548682e-07
+  - name: small_angle_curvature
+    status: PASS
+    details: Checks whether the local second derivative near zero matches the exact
+      pendulum small-angle curvature.
+    metrics:
+      step: 0.0001
+      expected_second_derivative: 0.125
+      estimated_second_derivative: 0.1250316294942877
+      abs_error: 3.1629494287699345e-05
+  - name: large_angle_window_accuracy
+    status: PASS
+    details: Compares candidate predictions to the exact elliptic-integral solution
+      on the upper end of the configured amplitude range.
+    metrics:
+      theta_window_start: 2.9
+      theta_window_end: 3.1
+      mean_relative_error: 1.7072749608745693e-05
+      max_relative_error: 3.206984603706996e-05
+  - name: near_separatrix_extrapolation
+    status: PASS
+    details: Diagnostic extrapolation beyond the validated range toward theta -> pi.
+      This check does not gate the current in-range verdict.
+    metrics:
+      gate: false
+      theta_window_start: 2.356194490192345
+      theta_window_end: 3.1405926535897932
+      mean_relative_error: 2.9547944391991895e-05
+      max_relative_error: 4.403664452226014e-05
+      end_ratio_to_exact: 0.9999999977372289
+  - name: separatrix_asymptotic_alignment
+    status: PASS
+    details: Diagnostic comparison against the known logarithmic asymptotic growth
+      of the pendulum period ratio as theta approaches pi. This check does not gate
+      the current in-range verdict.
+    metrics:
+      gate: false
+      theta_window_start: 3.041592653589793
+      theta_window_end: 3.1405926535897932
+      mean_relative_error: 0.00019274040195052216
+      max_relative_error: 0.0005674410579128589
+  - name: separatrix_log_growth_rate
+    status: PASS
+    details: Diagnostic comparison of the model's near-separatrix growth rate against
+      the expected logarithmic asymptotic slope. This check does not gate the current
+      in-range verdict.
+    metrics:
+      gate: false
+      theta_window_start: 3.041592653589793
+      theta_window_end: 3.1405926535897932
+      expected_slope: 0.6366197723675814
+      fitted_slope: 0.6362086663943134
+      fitted_intercept: 0.002778823356393138
+      relative_slope_error: 0.0006457637527327979
+  - name: evenness
+    status: PASS
+    details: Checks whether the candidate model is even in theta.
+    metrics:
+      max_difference: 0.0
+  - name: monotonicity
+    status: PASS
+    details: Checks whether the candidate is non-decreasing on the configured theta
+      range.
+    metrics:
+      min_step: 9.993794497087372e-05
+  - name: dimensional_consistency
+    status: PASS
+    details: 'The candidate formula is dimensionless: theta is treated as a radian-valued
+      dimensionless quantity, coefficients are dimensionless, and the target T/T0
+      is dimensionless.'
+    metrics:
+      free_symbol_count: 8
+      auxiliary_definition_count: 3
+      supported_function_count: 2
+  - name: known_small_angle_coefficients
+    status: PLACEHOLDER
+    details: No expected coefficient mapping for this model family.
+    metrics: {}
+artifacts:
+  report: results/EXP-0001/RUN-0005/report.md
+  metrics: results/EXP-0001/RUN-0005/metrics.json
+  claim_update: results/EXP-0001/RUN-0005/claim_update.md
+  claim_update_patch: results/EXP-0001/RUN-0005/claim_update.patch.md
+  knowledge_update: results/EXP-0001/RUN-0005/knowledge_update.md
+  knowledge_update_patch: results/EXP-0001/RUN-0005/knowledge_update.patch.md
+  review_summary: results/EXP-0001/RUN-0005/review_summary.md
+  review_metadata: results/EXP-0001/RUN-0005/review_metadata.yaml
+scores:
+- model_id: model_asymptotic_refined
+  formula: (2/pi) * [ln(4) + 0.5*ln(1/m1) + a*m1 + (pi/2-ln(4)-a)*m1^2 + c*m1*ln(1/m1)
+    + d*m1^2*ln(1/m1)] where m1 = cos^2(theta/2)
+  coefficients:
+    a: 0.12063134260560071
+    c: 0.11806651633743737
+    d: 0.023104612364090865
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 1.6106783249793844e-06
+    max_relative_error: 5.577722326966025e-06
+  test_metrics:
+    mean_relative_error: 2.7518720547918328e-05
+    max_relative_error: 4.4037820702786206e-05
+  composite_score: 0.003038528175723615
+  verdict: VALID
+- model_id: model_t2_t4_l0
+  formula: 1 + a*theta^2 + b*theta^4 + c*log(1/(1-x))
+  coefficients:
+    a: -0.02038714090642516
+    b: 0.00014338296739137673
+    c: 0.3314946278458545
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 2.0714478926581203e-06
+    max_relative_error: 8.108155585807398e-06
+  test_metrics:
+    mean_relative_error: 0.0017760465899088554
+    max_relative_error: 0.010935068875981929
+  composite_score: 0.007509813808904337
+  verdict: PARTIALLY_VALID
+- model_id: model_t2_x1_l0
+  formula: 1 + a*theta^2 + b*x + c*log(1/(1-x))
+  coefficients:
+    a: -0.019459951442481586
+    b: -0.006075233852747533
+    c: 0.333837775536739
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 2.9157015694409255e-06
+    max_relative_error: 1.1586759586074324e-05
+  test_metrics:
+    mean_relative_error: 0.0022130798909639417
+    max_relative_error: 0.013248413659959773
+  composite_score: 0.008525183305953886
+  verdict: OVERFITTED
+- model_id: model_t2_x2_l0
+  formula: 1 + a*theta^2 + b*x^2 + c*log(1/(1-x))
+  coefficients:
+    a: -0.022013542488464335
+    b: 0.0018048941648486072
+    c: 0.33789972059330065
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 5.581038599681922e-06
+    max_relative_error: 2.341298238898292e-05
+  test_metrics:
+    mean_relative_error: 0.0031448525109778877
+    max_relative_error: 0.017668358914885107
+  composite_score: 0.010561942239699165
+  verdict: OVERFITTED
+- model_id: model_t2_l0
+  formula: 1 + a*theta^2 + b*log(1/(1-x))
+  coefficients:
+    a: -0.022370385508524555
+    b: 0.3397853885243116
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 2.156942859402182e-05
+    max_relative_error: 8.494130152477786e-05
+  test_metrics:
+    mean_relative_error: 0.0040293749110285795
+    max_relative_error: 0.020467818693425698
+  composite_score: 0.011146329584385004
+  verdict: OVERFITTED
+- model_id: model_t2_t8_l0
+  formula: 1 + a*theta^2 + b*theta^8 + c*log(1/(1-x))
+  coefficients:
+    a: -0.023429757884984043
+    b: -2.2139067985203963e-06
+    c: 0.34370271880880526
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 1.5080179076968018e-06
+    max_relative_error: 8.372720802100497e-06
+  test_metrics:
+    mean_relative_error: 0.0032295397508195463
+    max_relative_error: 0.020850455696886063
+  composite_score: 0.011442153675041061
+  verdict: OVERFITTED
+- model_id: model_t2_t6_l0
+  formula: 1 + a*theta^2 + b*theta^6 + c*log(1/(1-x))
+  coefficients:
+    a: -0.024862313155514137
+    b: -2.673475116115803e-05
+    c: 0.3492744574940124
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 7.1296983529470155e-06
+    max_relative_error: 3.4776900395643766e-05
+  test_metrics:
+    mean_relative_error: 0.004982434851176038
+    max_relative_error: 0.02818133475486946
+  composite_score: 0.015027768539893401
+  verdict: OVERFITTED
+- model_id: model_phys_constrained_l1
+  formula: 1 + a*theta^2 + b*x^4 + (1/pi)*x*log(1/(1-x)) [c=0.318310 fixed]
+  coefficients:
+    a: 0.042024581522764365
+    b: -0.4643120914221977
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0034560387693209934
+    max_relative_error: 0.006742218640951015
+  test_metrics:
+    mean_relative_error: 0.010377406003810957
+    max_relative_error: 0.016856794174464958
+  composite_score: 0.016591604547427197
+  verdict: OVERFITTED
+- model_id: model_t6_l0
+  formula: 1 + a*theta^6 + b*log(1/(1-x))
+  coefficients:
+    a: 0.0002376257951589447
+    b: 0.2547026067683509
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.00022100177484706465
+    max_relative_error: 0.00047008413284500687
+  test_metrics:
+    mean_relative_error: 0.006360766084748241
+    max_relative_error: 0.04917141634211262
+  composite_score: 0.020653620170276395
+  verdict: OVERFITTED
+- model_id: model_x1_l0
+  formula: 1 + a*x + b*log(1/(1-x))
+  coefficients:
+    a: -0.04639935392682217
+    b: 0.29388515804204657
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0001460946648346399
+    max_relative_error: 0.0005142614140873433
+  test_metrics:
+    mean_relative_error: 0.010080496158560244
+    max_relative_error: 0.03536253797414998
+  composite_score: 0.02092113065209774
+  verdict: OVERFITTED
+- model_id: model_l0_l2
+  formula: 1 + a*log(1/(1-x)) + b*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.25282489792428053
+    b: 0.028726154250860222
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 7.807500922901222e-05
+    max_relative_error: 0.00016516548077609046
+  test_metrics:
+    mean_relative_error: 0.012353242138947573
+    max_relative_error: 0.05010179601190297
+  composite_score: 0.026878691141923317
+  verdict: OVERFITTED
+- model_id: model_t8_l0
+  formula: 1 + a*theta^8 + b*log(1/(1-x))
+  coefficients:
+    a: 4.414745546363708e-05
+    b: 0.25750061340111596
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0004967275302737134
+    max_relative_error: 0.0012702257893851886
+  test_metrics:
+    mean_relative_error: 0.01789238651749096
+    max_relative_error: 0.03415617333621355
+  composite_score: 0.02843142985154435
+  verdict: OVERFITTED
+- model_id: model_l0_l1
+  formula: 1 + a*log(1/(1-x)) + b*x*log(1/(1-x))
+  coefficients:
+    a: 0.24503191758564766
+    b: 0.031358600318237825
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.00028585602271222275
+    max_relative_error: 0.001056947599497582
+  test_metrics:
+    mean_relative_error: 0.018289635652521827
+    max_relative_error: 0.0620136087575293
+  composite_score: 0.03579303784190416
+  verdict: OVERFITTED
+- model_id: model_t4_l0
+  formula: 1 + a*theta^4 + b*log(1/(1-x))
+  coefficients:
+    a: 0.001594137602765715
+    b: 0.2465351467224734
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0002181900926201678
+    max_relative_error: 0.000857214460673348
+  test_metrics:
+    mean_relative_error: 0.02156029383307608
+    max_relative_error: 0.08708030859838743
+  composite_score: 0.04533037098267294
+  verdict: OVERFITTED
+- model_id: model_x4_l0
+  formula: 1 + a*x^4 + b*log(1/(1-x))
+  coefficients:
+    a: 0.06590499386964965
+    b: 0.25390738257229134
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.00014551337063453486
+    max_relative_error: 0.0004850995021258501
+  test_metrics:
+    mean_relative_error: 0.02561442776724462
+    max_relative_error: 0.09434470116368605
+  composite_score: 0.051200603058166136
+  verdict: OVERFITTED
+- model_id: model_l0
+  formula: 1 + a*log(1/(1-x))
+  coefficients:
+    a: 0.26489713911876117
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.0018980037839338437
+    max_relative_error: 0.006050091122782026
+  test_metrics:
+    mean_relative_error: 0.033446731814633084
+    max_relative_error: 0.08856995920904567
+  composite_score: 0.0565892216168945
+  verdict: OVERFITTED
+- model_id: model_x3_l0
+  formula: 1 + a*x^3 + b*log(1/(1-x))
+  coefficients:
+    a: 0.0625545742038097
+    b: 0.24936041194341493
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.00030283920011389914
+    max_relative_error: 0.0016441209812333424
+  test_metrics:
+    mean_relative_error: 0.03220098538323303
+    max_relative_error: 0.1058540194245327
+  composite_score: 0.06066449023936621
+  verdict: OVERFITTED
+- model_id: model_x1_l2
+  formula: 1 + a*x + b*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.28598589996051327
+    b: 0.20512064484617368
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0012560739921290572
+    max_relative_error: 0.002509339162457017
+  test_metrics:
+    mean_relative_error: 0.02807634868945361
+    max_relative_error: 0.14189133511738092
+  composite_score: 0.06554918246879884
+  verdict: OVERFITTED
+- model_id: model_t2_t8_x2
+  formula: 1 + a*theta^2 + b*theta^8 + c*x^2
+  coefficients:
+    a: 0.06031323469477741
+    b: 0.00012776044287677763
+    c: 0.10860314700342685
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00026184622274985365
+    max_relative_error: 0.0007791358626581095
+  test_metrics:
+    mean_relative_error: 0.020168194470251196
+    max_relative_error: 0.170440572606457
+  composite_score: 0.06577833762186545
+  verdict: OVERFITTED
+- model_id: model_t2_t8_l1
+  formula: 1 + a*theta^2 + b*theta^8 + c*x*log(1/(1-x))
+  coefficients:
+    a: 0.06183144688317523
+    b: 6.970977113045235e-05
+    c: 0.0729735332743128
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 7.315976250173365e-05
+    max_relative_error: 0.0001710028222254342
+  test_metrics:
+    mean_relative_error: 0.02129241068271939
+    max_relative_error: 0.17761161258146582
+  composite_score: 0.06869531382808584
+  verdict: OVERFITTED
+- model_id: model_t6_x1
+  formula: 1 + a*theta^6 + b*x
+  coefficients:
+    a: 0.001776860219476699
+    b: 0.3018131195904842
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0026179127573032006
+    max_relative_error: 0.006578591540142595
+  test_metrics:
+    mean_relative_error: 0.04149930595636801
+    max_relative_error: 0.14031487257236552
+  composite_score: 0.0785780240994594
+  verdict: OVERFITTED
+- model_id: model_x2_l0
+  formula: 1 + a*x^2 + b*log(1/(1-x))
+  coefficients:
+    a: 0.07780288149752357
+    b: 0.23510693450253953
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0009414453585118794
+    max_relative_error: 0.00448380579212033
+  test_metrics:
+    mean_relative_error: 0.04580622836675419
+    max_relative_error: 0.13426878463607778
+  composite_score: 0.08137342452577363
+  verdict: OVERFITTED
+- model_id: model_t2_x2_l1
+  formula: 1 + a*theta^2 + b*x^2 + c*x*log(1/(1-x))
+  coefficients:
+    a: 0.06366011230334088
+    b: -0.13003984022026743
+    c: 0.16034512005828144
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00015197676429520694
+    max_relative_error: 0.0005957009369255363
+  test_metrics:
+    mean_relative_error: 0.041934160766207935
+    max_relative_error: 0.18669203280236651
+  composite_score: 0.09160716896679957
+  verdict: OVERFITTED
+- model_id: model_t2_t8
+  formula: 1 + a*theta^2 + b*theta^8
+  coefficients:
+    a: 0.06993223197109442
+    b: 0.00018345960877867644
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0019746739824566054
+    max_relative_error: 0.005136221164738588
+  test_metrics:
+    mean_relative_error: 0.06377455029731889
+    max_relative_error: 0.12092291600130127
+  composite_score: 0.09600527929764421
+  verdict: OVERFITTED
+- model_id: model_t2_t8_x1
+  formula: 1 + a*theta^2 + b*theta^8 + c*x
+  coefficients:
+    a: 0.11499030678905467
+    b: 7.463428156263603e-05
+    c: -0.21217218337866994
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 5.6179827063608326e-05
+    max_relative_error: 0.00010796250325518557
+  test_metrics:
+    mean_relative_error: 0.03252304779540122
+    max_relative_error: 0.24457870784254232
+  composite_score: 0.0966677247560368
+  verdict: OVERFITTED
+- model_id: model_t2_t6
+  formula: 1 + a*theta^2 + b*theta^6
+  coefficients:
+    a: 0.06694561104683708
+    b: 0.0009505094351104157
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0008176869925409554
+    max_relative_error: 0.0016622717754059017
+  test_metrics:
+    mean_relative_error: 0.034562812859657316
+    max_relative_error: 0.25730010914737933
+  composite_score: 0.10088784014650215
+  verdict: OVERFITTED
+- model_id: model_t2_t4_t8
+  formula: 1 + a*theta^2 + b*theta^4 + c*theta^8
+  coefficients:
+    a: 0.062227671778768825
+    b: 0.004038693017134424
+    c: 6.0051491427425925e-05
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 2.302543662072267e-05
+    max_relative_error: 4.837287660259544e-05
+  test_metrics:
+    mean_relative_error: 0.03774615750834477
+    max_relative_error: 0.2584243299106935
+  composite_score: 0.10535223998601814
+  verdict: OVERFITTED
+- model_id: model_x1_l1
+  formula: 1 + a*x + b*x*log(1/(1-x))
+  coefficients:
+    a: 0.23189250571563264
+    b: 0.1894399407030164
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0010108114584794848
+    max_relative_error: 0.0035686454908891337
+  test_metrics:
+    mean_relative_error: 0.05868362011511426
+    max_relative_error: 0.1940923866649663
+  composite_score: 0.10920671678135584
+  verdict: OVERFITTED
+- model_id: model_t2_t8_x3
+  formula: 1 + a*theta^2 + b*theta^8 + c*x^3
+  coefficients:
+    a: 0.06474061516912537
+    b: 8.237272418003803e-05
+    c: 0.13836888906484343
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00020565577553456233
+    max_relative_error: 0.0004279243136362578
+  test_metrics:
+    mean_relative_error: 0.04335773097580415
+    max_relative_error: 0.2644769382712832
+  composite_score: 0.11247696554362496
+  verdict: OVERFITTED
+- model_id: model_t2_t4_x3
+  formula: 1 + a*theta^2 + b*theta^4 + c*x^3
+  coefficients:
+    a: 0.056507324884339974
+    b: 0.012367583511609038
+    c: -0.26866622526185735
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0005453203649223764
+    max_relative_error: 0.0012525285498254108
+  test_metrics:
+    mean_relative_error: 0.041250378754375004
+    max_relative_error: 0.27821638799399206
+  composite_score: 0.11380447575287303
+  verdict: OVERFITTED
+- model_id: model_t2_t6_l1
+  formula: 1 + a*theta^2 + b*theta^6 + c*x*log(1/(1-x))
+  coefficients:
+    a: 0.06301985534239149
+    b: 0.0005664567266436072
+    c: 0.04676763949920713
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 7.915734349346494e-05
+    max_relative_error: 0.0003436711086863126
+  test_metrics:
+    mean_relative_error: 0.048157819086834364
+    max_relative_error: 0.26221707820143825
+  composite_score: 0.11671208863719393
+  verdict: OVERFITTED
+- model_id: model_t2_t8_l2
+  formula: 1 + a*theta^2 + b*theta^8 + c*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.06514369508823352
+    b: 4.593277506550192e-06
+    c: 0.10957247087907063
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.000297613112012192
+    max_relative_error: 0.0007078067888301653
+  test_metrics:
+    mean_relative_error: 0.05678067207349338
+    max_relative_error: 0.24944456565693607
+  composite_score: 0.1221418134877274
+  verdict: OVERFITTED
+- model_id: model_t2_t6_l2
+  formula: 1 + a*theta^2 + b*theta^6 + c*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.06512145614079093
+    b: 4.431579780721155e-05
+    c: 0.10705677935807714
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00029805363108167493
+    max_relative_error: 0.0007627609424465477
+  test_metrics:
+    mean_relative_error: 0.05859215125606158
+    max_relative_error: 0.25527670215222903
+  composite_score: 0.12541132679411884
+  verdict: OVERFITTED
+- model_id: model_t2_l2
+  formula: 1 + a*theta^2 + b*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.06503673148451135
+    b: 0.11225560457849616
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.00029525532393669547
+    max_relative_error: 0.0008904830625332767
+  test_metrics:
+    mean_relative_error: 0.059972869260848743
+    max_relative_error: 0.255249474362622
+  composite_score: 0.12578523785150425
+  verdict: OVERFITTED
+- model_id: model_t2_t6_x2
+  formula: 1 + a*theta^2 + b*theta^6 + c*x^2
+  coefficients:
+    a: 0.06272467012629623
+    b: 0.0007984383237903169
+    c: 0.05396404163387854
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 4.78197371857225e-05
+    max_relative_error: 0.00025765960927407285
+  test_metrics:
+    mean_relative_error: 0.050886839995725824
+    max_relative_error: 0.29361776226586506
+  composite_score: 0.12729128056219208
+  verdict: OVERFITTED
+- model_id: model_t2_x1_l2
+  formula: 1 + a*theta^2 + b*x + c*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.0694653896924182
+    b: -0.01948943412960783
+    c: 0.10595102202958315
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0002679703481575642
+    max_relative_error: 0.0010713005148257012
+  test_metrics:
+    mean_relative_error: 0.062206667962643104
+    max_relative_error: 0.2629291342213215
+  composite_score: 0.1309389515179735
+  verdict: OVERFITTED
+- model_id: model_t2_t4_l2
+  formula: 1 + a*theta^2 + b*theta^4 + c*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.0644793187393261
+    b: 0.0005349375281114018
+    c: 0.10203425379577818
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00026007565511946694
+    max_relative_error: 0.001088956337529752
+  test_metrics:
+    mean_relative_error: 0.0625557515124273
+    max_relative_error: 0.2657202328696968
+  composite_score: 0.13198580972985152
+  verdict: OVERFITTED
+- model_id: model_t2_t6_x1
+  formula: 1 + a*theta^2 + b*theta^6 + c*x
+  coefficients:
+    a: 0.09627112960255937
+    b: 0.0005917608922359048
+    c: -0.13248918005944046
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 9.690032738190263e-05
+    max_relative_error: 0.0004081157087369097
+  test_metrics:
+    mean_relative_error: 0.056697927078340364
+    max_relative_error: 0.3077718089759483
+  composite_score: 0.13664087932232744
+  verdict: OVERFITTED
+- model_id: model_t2_t4_t6
+  formula: 1 + a*theta^2 + b*theta^4 + c*theta^6
+  coefficients:
+    a: 0.0631737660922086
+    b: 0.002726279158192038
+    c: 0.00051305142603759
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 9.991769796686361e-05
+    max_relative_error: 0.00041719117721046643
+  test_metrics:
+    mean_relative_error: 0.057128057771663944
+    max_relative_error: 0.3088801005588185
+  composite_score: 0.13734808291136857
+  verdict: OVERFITTED
+- model_id: model_t2_t4_x1
+  formula: 1 + a*theta^2 + b*theta^4 + c*x
+  coefficients:
+    a: -0.1513932022972555
+    b: 0.02041595154104871
+    c: 0.8588204225678864
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00011789225888700709
+    max_relative_error: 0.0004908609053249759
+  test_metrics:
+    mean_relative_error: 0.06008955833010176
+    max_relative_error: 0.3164047181446948
+  composite_score: 0.14219073786627545
+  verdict: OVERFITTED
+- model_id: model_t2_l1
+  formula: 1 + a*theta^2 + b*x*log(1/(1-x))
+  coefficients:
+    a: 0.05777827749895457
+    b: 0.11280107815912635
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0010866714323978777
+    max_relative_error: 0.003953787917156402
+  test_metrics:
+    mean_relative_error: 0.07574637344831206
+    max_relative_error: 0.27470728996183996
+  composite_score: 0.14642319593877207
+  verdict: OVERFITTED
+- model_id: model_t2_t6_x3
+  formula: 1 + a*theta^2 + b*theta^6 + c*x^3
+  coefficients:
+    a: 0.06495667555859175
+    b: 0.0006365604816384405
+    c: 0.08106626322049994
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0002647333006375051
+    max_relative_error: 0.0006889666938445821
+  test_metrics:
+    mean_relative_error: 0.06394678995325759
+    max_relative_error: 0.3220406223692633
+  composite_score: 0.14745694554557343
+  verdict: OVERFITTED
+- model_id: model_t4
+  formula: 1 + a*theta^4
+  coefficients:
+    a: 0.021867260476876735
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.02641044326517469
+    max_relative_error: 0.05115733452584553
+  test_metrics:
+    mean_relative_error: 0.11444867188658653
+    max_relative_error: 0.1617988706481098
+  composite_score: 0.15589838954861399
+  verdict: OVERFITTED
+- model_id: model_t2_t4_x2
+  formula: 1 + a*theta^2 + b*theta^4 + c*x^2
+  coefficients:
+    a: 0.06384170965008773
+    b: 0.007577193825880365
+    c: -0.09428393531507907
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0001850137966059856
+    max_relative_error: 0.000774610366885808
+  test_metrics:
+    mean_relative_error: 0.06892295879003273
+    max_relative_error: 0.33728877535765545
+  composite_score: 0.1562451526294466
+  verdict: OVERFITTED
+- model_id: model_t2_x1_x3
+  formula: 1 + a*theta^2 + b*x + c*x^3
+  coefficients:
+    a: 0.22316203667940773
+    b: -0.6782334542879997
+    c: -0.23538963459527357
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0012163044323810518
+    max_relative_error: 0.0029328728136854792
+  test_metrics:
+    mean_relative_error: 0.07046686737682605
+    max_relative_error: 0.3335627981538531
+  composite_score: 0.15685756691528932
+  verdict: OVERFITTED
+- model_id: model_t2_x1_x2
+  formula: 1 + a*theta^2 + b*x + c*x^2
+  coefficients:
+    a: 0.1909829459928649
+    b: -0.5072392646051567
+    c: -0.15030286883365085
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00022595611151443308
+    max_relative_error: 0.0009355578338865535
+  test_metrics:
+    mean_relative_error: 0.07407612064750925
+    max_relative_error: 0.3495130375326647
+  composite_score: 0.16445438003067542
+  verdict: OVERFITTED
+- model_id: model_t4_x1
+  formula: 1 + a*theta^4 + b*x
+  coefficients:
+    a: 0.009914244150507876
+    b: 0.24120861238071542
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0006067661183611217
+    max_relative_error: 0.0025384349901414896
+  test_metrics:
+    mean_relative_error: 0.08100124031295748
+    max_relative_error: 0.3559182128312114
+  composite_score: 0.17198079352076034
+  verdict: OVERFITTED
+- model_id: model_t4_x4
+  formula: 1 + a*theta^4 + b*x^4
+  coefficients:
+    a: 0.05152815861276626
+    b: -1.979627379026339
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.009278988152292987
+    max_relative_error: 0.020891187716809218
+  test_metrics:
+    mean_relative_error: 0.11446110530024943
+    max_relative_error: 0.26019352564083686
+  composite_score: 0.18150948671045863
+  verdict: OVERFITTED
+- model_id: model_t2_t6_x4
+  formula: 1 + a*theta^2 + b*theta^6 + c*x^4
+  coefficients:
+    a: 0.06637342728169332
+    b: 0.0003128639541498302
+    c: 0.17556869013683793
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0005267960817048073
+    max_relative_error: 0.00108005741508953
+  test_metrics:
+    mean_relative_error: 0.08607919404492953
+    max_relative_error: 0.37560580185343295
+  composite_score: 0.18298064450828777
+  verdict: OVERFITTED
+- model_id: model_t2_t4
+  formula: 1 + a*theta^2 + b*theta^4
+  coefficients:
+    a: 0.05910746718587967
+    b: 0.005818017363721963
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0008555655355109599
+    max_relative_error: 0.003320395673295652
+  test_metrics:
+    mean_relative_error: 0.08910393612432858
+    max_relative_error: 0.3712614257610179
+  composite_score: 0.18391929256458306
+  verdict: OVERFITTED
+- model_id: model_t2_t6_t8
+  formula: 1 + a*theta^2 + b*theta^6 + c*theta^8
+  coefficients:
+    a: 0.06537179948724776
+    b: 0.0014981379069954842
+    c: -0.00010874295230012448
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0003534791614186892
+    max_relative_error: 0.0009039091596547814
+  test_metrics:
+    mean_relative_error: 0.08889434271521045
+    max_relative_error: 0.39364815248774626
+  composite_score: 0.19030638083714702
+  verdict: OVERFITTED
+- model_id: model_t2_t8_x4
+  formula: 1 + a*theta^2 + b*theta^8 + c*x^4
+  coefficients:
+    a: 0.06648242208393043
+    b: 1.9980842694611708e-05
+    c: 0.2337950987189196
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0005618946121784198
+    max_relative_error: 0.001232239295626703
+  test_metrics:
+    mean_relative_error: 0.09380745215698946
+    max_relative_error: 0.38996445369660027
+  composite_score: 0.19429856558113953
+  verdict: OVERFITTED
+- model_id: model_x3
+  formula: 1 + a*x^3
+  coefficients:
+    a: 0.9954971261710326
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.03071990972555158
+    max_relative_error: 0.061116277327959066
+  test_metrics:
+    mean_relative_error: 0.0930273145414165
+    max_relative_error: 0.4044472545133306
+  composite_score: 0.19513912816974915
+  verdict: OVERFITTED
+- model_id: model_x4
+  formula: 1 + a*x^4
+  coefficients:
+    a: 1.3820485672423546
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.04198327171255143
+    max_relative_error: 0.08557909090469294
+  test_metrics:
+    mean_relative_error: 0.12384497046073034
+    max_relative_error: 0.2893348918205616
+  composite_score: 0.19717869341587074
+  verdict: INVALID
+- model_id: model_l1
+  formula: 1 + a*x*log(1/(1-x))
+  coefficients:
+    a: 0.400717855643563
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.02441086176077027
+    max_relative_error: 0.0458545235344631
+  test_metrics:
+    mean_relative_error: 0.14258310495720475
+    max_relative_error: 0.22522427350404078
+  composite_score: 0.19988917333321493
+  verdict: OVERFITTED
+- model_id: model_t2_x1
+  formula: 1 + a*theta^2 + b*x
+  coefficients:
+    a: 0.14265961784724765
+    b: -0.3404550381246913
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0011917706860478303
+    max_relative_error: 0.004578707070733764
+  test_metrics:
+    mean_relative_error: 0.10102343005228112
+    max_relative_error: 0.3935633071085611
+  composite_score: 0.20141425682942138
+  verdict: OVERFITTED
+- model_id: model_t2_t4_x4
+  formula: 1 + a*theta^2 + b*theta^4 + c*x^4
+  coefficients:
+    a: 0.06419180860008948
+    b: 0.001581761146157458
+    c: 0.19059662628125626
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00040387618725449013
+    max_relative_error: 0.0024120215232322634
+  test_metrics:
+    mean_relative_error: 0.10654511370101315
+    max_relative_error: 0.4166846400702454
+  composite_score: 0.2137162737185745
+  verdict: OVERFITTED
+- model_id: model_t2_x1_x4
+  formula: 1 + a*theta^2 + b*x + c*x^4
+  coefficients:
+    a: 0.07837229269415295
+    b: -0.0546149110795162
+    c: 0.21979219149750517
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00045296180377034687
+    max_relative_error: 0.002472713324111246
+  test_metrics:
+    mean_relative_error: 0.11112267552585559
+    max_relative_error: 0.42721196413931467
+  composite_score: 0.22092566656068424
+  verdict: OVERFITTED
+- model_id: model_t2_x4
+  formula: 1 + a*theta^2 + b*x^4
+  coefficients:
+    a: 0.06613312210584314
+    b: 0.2608785408157409
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0005678395773207745
+    max_relative_error: 0.0021634614131325527
+  test_metrics:
+    mean_relative_error: 0.11324056217406107
+    max_relative_error: 0.43378560311778797
+  composite_score: 0.22368696295350807
+  verdict: OVERFITTED
+- model_id: model_t2_x2_x4
+  formula: 1 + a*theta^2 + b*x^2 + c*x^4
+  coefficients:
+    a: 0.06540202054821073
+    b: 0.009820260611460272
+    c: 0.2530077158064423
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0005146090254860043
+    max_relative_error: 0.002429691205252472
+  test_metrics:
+    mean_relative_error: 0.11451091284248445
+    max_relative_error: 0.435300114579548
+  composite_score: 0.22633594148737146
+  verdict: OVERFITTED
+- model_id: model_t2_x2_x3
+  formula: 1 + a*theta^2 + b*x^2 + c*x^3
+  coefficients:
+    a: 0.0699018685279063
+    b: -0.14542816653029766
+    c: 0.348519732888356
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0008661490941115152
+    max_relative_error: 0.003612876430136089
+  test_metrics:
+    mean_relative_error: 0.12052563438762022
+    max_relative_error: 0.4401898376222966
+  composite_score: 0.23357309379319435
+  verdict: OVERFITTED
+- model_id: model_l1_l2
+  formula: 1 + a*x*log(1/(1-x)) + b*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.9220298916603477
+    b: -0.763760183420918
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.010258525531257121
+    max_relative_error: 0.021139461735809748
+  test_metrics:
+    mean_relative_error: 0.1514511400575388
+    max_relative_error: 0.3346266348511169
+  composite_score: 0.237107798770318
+  verdict: OVERFITTED
+- model_id: model_x1_x4
+  formula: 1 + a*x + b*x^4
+  coefficients:
+    a: 0.2948569163568428
+    b: 0.4836438917778124
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0015500246571674761
+    max_relative_error: 0.0033014098048689067
+  test_metrics:
+    mean_relative_error: 0.12451505582686684
+    max_relative_error: 0.4691535985007483
+  composite_score: 0.2438034554520539
+  verdict: OVERFITTED
+- model_id: model_t2_x3
+  formula: 1 + a*theta^2 + b*x^3
+  coefficients:
+    a: 0.06160655246083172
+    b: 0.23605574330205728
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0012132001674082613
+    max_relative_error: 0.006352104623655435
+  test_metrics:
+    mean_relative_error: 0.13200129800884441
+    max_relative_error: 0.4541464667962519
+  composite_score: 0.2475379147079074
+  verdict: OVERFITTED
+- model_id: model_x2
+  formula: 1 + a*x^2
+  coefficients:
+    a: 0.682835410442452
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.013693080443621171
+    max_relative_error: 0.028444642433063817
+  test_metrics:
+    mean_relative_error: 0.14756354838438415
+    max_relative_error: 0.49761183401172077
+  composite_score: 0.27296650688731433
+  verdict: OVERFITTED
+- model_id: model_t2_x2
+  formula: 1 + a*theta^2 + b*x^2
+  coefficients:
+    a: 0.04771188249227269
+    b: 0.2742121257362238
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.003278030664209532
+    max_relative_error: 0.013809007173885028
+  test_metrics:
+    mean_relative_error: 0.15722500332868386
+    max_relative_error: 0.4826077185263678
+  composite_score: 0.2798769329602758
+  verdict: OVERFITTED
+- model_id: model_x1_x3
+  formula: 1 + a*x + b*x^3
+  coefficients:
+    a: 0.2585134936960723
+    b: 0.4161022322771627
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.0013008106667663343
+    max_relative_error: 0.007631557113607638
+  test_metrics:
+    mean_relative_error: 0.1554138150890719
+    max_relative_error: 0.5000847693712633
+  composite_score: 0.28243500743188776
+  verdict: OVERFITTED
+- model_id: model_t2
+  formula: 1 + a*theta^2
+  coefficients:
+    a: 0.07878572343444201
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.008432354057554693
+    max_relative_error: 0.02889565738774466
+  test_metrics:
+    mean_relative_error: 0.16727076907345476
+    max_relative_error: 0.4752478221892053
+  composite_score: 0.28708272462075607
+  verdict: OVERFITTED
+- model_id: model_t2_x1_l1
+  formula: 1 + a*theta^2 + b*x + c*x*log(1/(1-x))
+  coefficients:
+    a: -0.6421975634069107
+    b: 2.808915050658055
+    c: 1.0416626049649305
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.0003242255087937438
+    max_relative_error: 0.0008039295957660785
+  test_metrics:
+    mean_relative_error: 0.13134024086221957
+    max_relative_error: 0.7027097126673999
+  composite_score: 0.3100176690290696
+  verdict: OVERFITTED
+- model_id: model_x1_x2
+  formula: 1 + a*x + b*x^2
+  coefficients:
+    a: 0.16294143483349177
+    b: 0.42504211238448447
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.004518913970785023
+    max_relative_error: 0.017314536201379346
+  test_metrics:
+    mean_relative_error: 0.18358817643593398
+    max_relative_error: 0.5258930104839702
+  composite_score: 0.3170614290569265
+  verdict: OVERFITTED
+- model_id: model_t2_t4_l1
+  formula: 1 + a*theta^2 + b*theta^4 + c*x*log(1/(1-x))
+  coefficients:
+    a: 0.06414732192188766
+    b: 0.02684686464552282
+    c: -0.40897718728348514
+  complexity_score: 3
+  train_metrics:
+    mean_relative_error: 0.00026031207330788234
+    max_relative_error: 0.0013107469775176786
+  test_metrics:
+    mean_relative_error: 0.13841036767257278
+    max_relative_error: 0.722499031206424
+  composite_score: 0.3220351254741788
+  verdict: OVERFITTED
+- model_id: model_t8_x1
+  formula: 1 + a*theta^8 + b*x
+  coefficients:
+    a: 0.0003559783766381855
+    b: 0.3278986513873723
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.005014504961832177
+    max_relative_error: 0.013423331897651755
+  test_metrics:
+    mean_relative_error: 0.21475334878417357
+    max_relative_error: 0.4240592558912927
+  composite_score: 0.3227681627569967
+  verdict: OVERFITTED
+- model_id: model_x2_x3
+  formula: 1 + a*x^2 + b*x^3
+  coefficients:
+    a: 0.9890097389623269
+    b: -0.4647622010893028
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.00996099487172521
+    max_relative_error: 0.020647141003270225
+  test_metrics:
+    mean_relative_error: 0.20244219875494254
+    max_relative_error: 0.544871835377141
+  composite_score: 0.3406601575992278
+  verdict: OVERFITTED
+- model_id: model_x2_x4
+  formula: 1 + a*x^2 + b*x^4
+  coefficients:
+    a: 0.8352276586896957
+    b: -0.34155002603951673
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.011011458605769943
+    max_relative_error: 0.022455436646205598
+  test_metrics:
+    mean_relative_error: 0.20999165291744942
+    max_relative_error: 0.5539652311125319
+  composite_score: 0.3504829606955824
+  verdict: OVERFITTED
+- model_id: model_x4_l1
+  formula: 1 + a*x^4 + b*x*log(1/(1-x))
+  coefficients:
+    a: -1.5867245175577787
+    b: 0.8333917762975185
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.00951781188065424
+    max_relative_error: 0.021068638937880618
+  test_metrics:
+    mean_relative_error: 0.18141861571590742
+    max_relative_error: 0.7526566034445367
+  composite_score: 0.3715827665770416
+  verdict: OVERFITTED
+- model_id: model_t6_l1
+  formula: 1 + a*theta^6 + b*x*log(1/(1-x))
+  coefficients:
+    a: -0.004818871104534203
+    b: 0.7402676273999239
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.012518690686325336
+    max_relative_error: 0.025219044999997785
+  test_metrics:
+    mean_relative_error: 0.2606094183341177
+    max_relative_error: 0.4683220340804
+  composite_score: 0.3796899268542177
+  verdict: OVERFITTED
+- model_id: model_x1
+  formula: 1 + a*x
+  coefficients:
+    a: 0.4136342236101811
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.01864411132910317
+    max_relative_error: 0.06237895146701557
+  test_metrics:
+    mean_relative_error: 0.2521026923934905
+    max_relative_error: 0.5778835722650418
+  composite_score: 0.39757358545975097
+  verdict: OVERFITTED
+- model_id: model_t4_x2
+  formula: 1 + a*theta^4 + b*x^2
+  coefficients:
+    a: -0.010014709234577968
+    b: 0.987292086446005
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.011433499651691345
+    max_relative_error: 0.023153548041778046
+  test_metrics:
+    mean_relative_error: 0.2685110273838408
+    max_relative_error: 0.6829744333546058
+  composite_score: 0.44125463572249224
+  verdict: OVERFITTED
+- model_id: model_x3_x4
+  formula: 1 + a*x^3 + b*x^4
+  coefficients:
+    a: 2.7222800424593334
+    b: -2.4993026961757403
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.017722605225638878
+    max_relative_error: 0.0377887367755793
+  test_metrics:
+    mean_relative_error: 0.28508600343470364
+    max_relative_error: 0.6345322183892356
+  composite_score: 0.4457190580320125
+  verdict: OVERFITTED
+- model_id: model_t6_x2
+  formula: 1 + a*theta^6 + b*x^2
+  coefficients:
+    a: -0.0010388277275683196
+    b: 0.8021083943302271
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.011706404465910926
+    max_relative_error: 0.02378150344526678
+  test_metrics:
+    mean_relative_error: 0.2897899979585398
+    max_relative_error: 0.7373593123823118
+  composite_score: 0.4761298260541178
+  verdict: OVERFITTED
+- model_id: model_x2_l2
+  formula: 1 + a*x^2 + b*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.8475221823051673
+    b: -0.14694455149085056
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.011236391933981224
+    max_relative_error: 0.022686315470529406
+  test_metrics:
+    mean_relative_error: 0.27940245674541464
+    max_relative_error: 0.788106067023795
+  composite_score: 0.4784289735013634
+  verdict: OVERFITTED
+- model_id: model_l2
+  formula: 1 + a*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.5608693947183229
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.038860883294207414
+    max_relative_error: 0.07740875407860288
+  test_metrics:
+    mean_relative_error: 0.3317481095787915
+    max_relative_error: 0.594983014030723
+  composite_score: 0.48149386308647224
+  verdict: OVERFITTED
+- model_id: model_x2_l1
+  formula: 1 + a*x^2 + b*x*log(1/(1-x))
+  coefficients:
+    a: 1.035757031739868
+    b: -0.21141817373976693
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.011477296311451966
+    max_relative_error: 0.023240261049103796
+  test_metrics:
+    mean_relative_error: 0.3037565368911133
+    max_relative_error: 0.8811696853274933
+  composite_score: 0.5260489582229866
+  verdict: OVERFITTED
+- model_id: model_t8_x2
+  formula: 1 + a*theta^8 + b*x^2
+  coefficients:
+    a: -0.0001563566768985242
+    b: 0.7534331590072014
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.01228081237672723
+    max_relative_error: 0.025160576662229164
+  test_metrics:
+    mean_relative_error: 0.3391310064084262
+    max_relative_error: 0.8748006406644434
+  composite_score: 0.559831166574537
+  verdict: OVERFITTED
+- model_id: model_t4_l2
+  formula: 1 + a*theta^4 + b*x^2*log(1/(1-x))
+  coefficients:
+    a: 0.05867486332969606
+    b: -0.9819992393900243
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.010155319013510591
+    max_relative_error: 0.020887896454980143
+  test_metrics:
+    mean_relative_error: 0.3198075797851094
+    max_relative_error: 1.3527978059378902
+  composite_score: 0.6600070312695819
+  verdict: OVERFITTED
+- model_id: model_t4_t6
+  formula: 1 + a*theta^4 + b*theta^6
+  coefficients:
+    a: 0.044661319553667166
+    b: -0.0058836516568244275
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.01296258182593287
+    max_relative_error: 0.025933970174166897
+  test_metrics:
+    mean_relative_error: 0.4140329400520731
+    max_relative_error: 1.0290267154769621
+  composite_score: 0.6732896189213136
+  verdict: OVERFITTED
+- model_id: model_t6
+  formula: 1 + a*theta^6
+  coefficients:
+    a: 0.005263520148785831
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.04439631589357512
+    max_relative_error: 0.09627564933366665
+  test_metrics:
+    mean_relative_error: 0.5383513382761429
+    max_relative_error: 0.8833475147406065
+  composite_score: 0.7601882169612945
+  verdict: OVERFITTED
+- model_id: model_t8_l1
+  formula: 1 + a*theta^8 + b*x*log(1/(1-x))
+  coefficients:
+    a: -0.0006670730594826576
+    b: 0.5885636741605044
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.014809028686541367
+    max_relative_error: 0.02972878181569064
+  test_metrics:
+    mean_relative_error: 0.5307993058533325
+    max_relative_error: 1.1315646429849906
+  composite_score: 0.8156904665995801
+  verdict: OVERFITTED
+- model_id: model_t6_l2
+  formula: 1 + a*theta^6 + b*x^2*log(1/(1-x))
+  coefficients:
+    a: -0.023117261492319456
+    b: 2.9679670694753533
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.022802259468367034
+    max_relative_error: 0.0478025125070764
+  test_metrics:
+    mean_relative_error: 0.6557464056511493
+    max_relative_error: 1.2512056002934688
+  composite_score: 0.9705478057245165
+  verdict: OVERFITTED
+- model_id: model_t4_x3
+  formula: 1 + a*theta^4 + b*x^3
+  coefficients:
+    a: 0.11794025418979498
+    b: -4.417097557256383
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.009719975266575497
+    max_relative_error: 0.0632691598034396
+  test_metrics:
+    mean_relative_error: 0.7524204577116571
+    max_relative_error: 1.4146303437534282
+  composite_score: 1.1080780436500142
+  verdict: OVERFITTED
+- model_id: model_t4_t8
+  formula: 1 + a*theta^4 + b*theta^8
+  coefficients:
+    a: 0.03399583311758094
+    b: -0.0007813904888305474
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.01558001178637744
+    max_relative_error: 0.03116742019918724
+  test_metrics:
+    mean_relative_error: 0.6954068179408146
+    max_relative_error: 1.7540168872909194
+  composite_score: 1.1359110397635444
+  verdict: OVERFITTED
+- model_id: model_t6_x3
+  formula: 1 + a*theta^6 + b*x^3
+  coefficients:
+    a: -0.006357498427617616
+    b: 2.1309649601427956
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.02161258621200617
+    max_relative_error: 0.04543460943477781
+  test_metrics:
+    mean_relative_error: 0.770475956391307
+    max_relative_error: 1.750815056440339
+  composite_score: 1.2101797205013918
+  verdict: OVERFITTED
+- model_id: model_t4_l1
+  formula: 1 + a*theta^4 + b*x*log(1/(1-x))
+  coefficients:
+    a: -0.20460675940271073
+    b: 4.1354405245977235
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.010626561657424536
+    max_relative_error: 0.022082294971632714
+  test_metrics:
+    mean_relative_error: 0.4590912038760809
+    max_relative_error: 3.2179611746779058
+  composite_score: 1.2655814975455573
+  verdict: OVERFITTED
+- model_id: model_x3_l1
+  formula: 1 + a*x^3 + b*x*log(1/(1-x))
+  coefficients:
+    a: -3.3297990282959136
+    b: 1.721944594778224
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.006812949153727293
+    max_relative_error: 0.03242003928300299
+  test_metrics:
+    mean_relative_error: 0.7307896089478464
+    max_relative_error: 2.2871796437159566
+  composite_score: 1.3045845198768355
+  verdict: OVERFITTED
+- model_id: model_x3_l2
+  formula: 1 + a*x^3 + b*x^2*log(1/(1-x))
+  coefficients:
+    a: 2.9529322058069813
+    b: -1.1339419888266744
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.02117107000210862
+    max_relative_error: 0.04450455017213905
+  test_metrics:
+    mean_relative_error: 0.8201013585165869
+    max_relative_error: 2.4415223009637357
+  composite_score: 1.432481933757521
+  verdict: OVERFITTED
+- model_id: model_t8_x3
+  formula: 1 + a*theta^8 + b*x^3
+  coefficients:
+    a: -0.0008205254391175304
+    b: 1.5837255533706585
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.022381874650114226
+    max_relative_error: 0.04701870250664216
+  test_metrics:
+    mean_relative_error: 0.9705090272871312
+    max_relative_error: 2.3189549659655926
+  composite_score: 1.5522477687785294
+  verdict: OVERFITTED
+- model_id: model_t8_l2
+  formula: 1 + a*theta^8 + b*x^2*log(1/(1-x))
+  coefficients:
+    a: -0.0018070164023169695
+    b: 1.3261650349566592
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.023888449093820676
+    max_relative_error: 0.04991120968655793
+  test_metrics:
+    mean_relative_error: 1.1775276183815995
+    max_relative_error: 2.5532347231750596
+  composite_score: 1.8178362991753645
+  verdict: OVERFITTED
+- model_id: model_t8
+  formula: 1 + a*theta^8
+  coefficients:
+    a: 0.0012015894449260104
+  complexity_score: 1
+  train_metrics:
+    mean_relative_error: 0.05527167413553746
+    max_relative_error: 0.12470476823436631
+  test_metrics:
+    mean_relative_error: 1.2622735558619393
+    max_relative_error: 2.5105664499848657
+  composite_score: 1.8909151683581555
+  verdict: OVERFITTED
+- model_id: model_t6_x4
+  formula: 1 + a*theta^6 + b*x^4
+  coefficients:
+    a: -0.01878875747723436
+    b: 6.260596052938195
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.03691885915968558
+    max_relative_error: 0.0852580180026415
+  test_metrics:
+    mean_relative_error: 1.5966316522986639
+    max_relative_error: 3.8409776942439757
+  composite_score: 2.558876075859658
+  verdict: OVERFITTED
+- model_id: model_t6_t8
+  formula: 1 + a*theta^6 + b*theta^8
+  coefficients:
+    a: 0.018732453135735978
+    b: -0.0032822446221865533
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.02478935551582425
+    max_relative_error: 0.05162989408178131
+  test_metrics:
+    mean_relative_error: 1.6109281674582732
+    max_relative_error: 4.101563623546382
+  composite_score: 2.6383190733448685
+  verdict: OVERFITTED
+- model_id: model_t8_x4
+  formula: 1 + a*theta^8 + b*x^4
+  coefficients:
+    a: -0.0019330059766684172
+    b: 3.429292173781299
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.03008744668612075
+    max_relative_error: 0.06494580275875966
+  test_metrics:
+    mean_relative_error: 1.900829643199234
+    max_relative_error: 4.628816013078412
+  composite_score: 3.0600336464688365
+  verdict: OVERFITTED
+- model_id: model_x4_l2
+  formula: 1 + a*x^4 + b*x^2*log(1/(1-x))
+  coefficients:
+    a: -13.189978207724048
+    b: 5.852328508532953
+  complexity_score: 2
+  train_metrics:
+    mean_relative_error: 0.014286782483056103
+    max_relative_error: 0.07385211166604956
+  test_metrics:
+    mean_relative_error: 2.688550721279871
+    max_relative_error: 8.892905104146708
+  composite_score: 4.913776997316548
+  verdict: OVERFITTED
