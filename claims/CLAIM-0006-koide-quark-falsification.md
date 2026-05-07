@@ -1,6 +1,6 @@
 ---
 id: CLAIM-0006
-title: Koide Formula Does Not Extend to Quark Sectors
+title: Quark-Sector Koide Follow-up Fails in Scope
 domain: particle_physics
 status: DRAFT
 hypothesis_id: HYP-0008
@@ -12,14 +12,15 @@ evidence:
 scope: Up-type (u, c, t) and down-type (d, s, b) quark triplets using PDG 2024 MS-bar running masses.
 ---
 
-# CLAIM-0006: Koide Formula Does Not Extend to Quark Sectors
+# CLAIM-0006: Quark-Sector Koide Follow-up Fails in Scope
 
 ## Statement
 
-The Koide quantity Q = (m₁+m₂+m₃)/(√m₁+√m₂+√m₃)² is significantly above
-2/3 for both the up-type quark triplet (Q ≈ 0.849, 159σ gap) and the
-down-type quark triplet (Q ≈ 0.731, 8.8σ gap) using PDG 2024 running masses.
-The phase-modified formula Q(δ) cannot reach 2/3 for either sector.
+In the stored mixed-scale PDG 2024 quark benchmark, the Koide quantity
+Q = (m₁+m₂+m₃)/(√m₁+√m₂+√m₃)² remains above 2/3 for both the up-type quark
+triplet (Q ≈ 0.849, 159σ gap) and the down-type quark triplet
+(Q ≈ 0.731, 8.8σ gap). The tested phase-modified formula Q(δ) does not reach
+2/3 for either sector.
 
 ## Evidence Status
 
@@ -37,4 +38,5 @@ until the maintainer reviews the scope and wording.
 
 This negative result licenses no generalization about why charged leptons
 satisfy Q = 2/3. The mass scale mixing (2 GeV for light quarks vs. pole mass
-for top) is a limitation; results at a common renormalization scale may differ.
+for top) is a limitation, and results at a common renormalization scale could
+shift the benchmark surface.

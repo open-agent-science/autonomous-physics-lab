@@ -1,7 +1,7 @@
 id: TASK-0103
 title: "Run final public overclaim audit for v0.2 materials"
 type: documentation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
