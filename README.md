@@ -78,6 +78,7 @@ All results are stored as versioned run artifacts under `results/<experiment>/<r
 | Quark Koide (EXP-0008) | INVALID | Down: 8.8σ, Up: 159σ above 2/3 |
 
 → **[Full visual result summary](docs/results/visual-summary.md)**
+→ **[Koide campaign summary](docs/results/koide-campaign-summary.md)**
 → **[Negative results registry](docs/negative-results-registry.md)**
 
 ### Selected Figures
@@ -129,7 +130,7 @@ flowchart LR
     classDef da   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
 
     P["🔭 Pendulum Track\nEXP-0001  Formula Discovery ✅\nEXP-0002  Damped Oscillator ✅\nRUN-0004  c=1/π fixed ✅"]:::pend
-    K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nTASK-0088  Quark Koide ⏳"]:::part
+    K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nEXP-0008  Quark ❌  8.8σ / 159σ"]:::part
     D["📐 Dimensional Analysis\nMVP implemented ✅\n17+ challenge items"]:::da
 
     P ~~~ K ~~~ D
