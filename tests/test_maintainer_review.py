@@ -7,6 +7,7 @@ from physics_lab.registry.maintainer_review import (
     ReviewReport,
     PullRequestMetadata,
     ValidationSummary,
+    branch_microtask_id,
     branch_proposal_slug,
     branch_task_id,
     build_review_report,
@@ -38,6 +39,14 @@ def test_branch_proposal_slug_extracts_task_proposal_slug() -> None:
         == "koide-track"
     )
     assert branch_proposal_slug("agent/roman/codex/task-0043-task-proposal-protocol") is None
+
+
+def test_branch_microtask_id_extracts_microtask_id() -> None:
+    assert (
+        branch_microtask_id("agent/roman/codex/microtask-PMR-001-audit-electron-mass")
+        == "PMR-001"
+    )
+    assert branch_microtask_id("agent/roman/codex/microtask-pmr-batch-1") is None
 
 
 def test_changed_task_proposal_files_filters_template_and_other_paths() -> None:
@@ -513,3 +522,116 @@ def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: 
 
     assert report.verdict == "MERGE_OK"
     assert changed_mock.call_args.kwargs["base_ref"] == "origin/main"
+
+
+def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> None:
+    microtasks_dir = tmp_path / "tasks" / "microtasks"
+    microtasks_dir.mkdir(parents=True)
+    (microtasks_dir / "particle-mass-relations.yaml").write_text(
+        "\n".join(
+            [
+                "queue_id: particle-mass-relations",
+                "campaign: particle-mass-relations",
+                "campaign_status: active_with_narrow_results",
+                "selection_guidance:",
+                '  - "Prefer falsification-first notes."',
+                "microtasks:",
+                '  - id: PMR-001',
+                '    campaign: particle-mass-relations',
+                '    title: "Audit one mass entry"',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    pr_metadata = PullRequestMetadata(
+        number=129,
+        title="microtask(particle-mass-relations): add one Koide methodology note",
+        body="\n".join(
+            [
+                "- Contributor ID: roman",
+                "- GitHub username: gladunrv",
+                "- Agent tool: codex",
+                "- Task ID: microtask(PMR-001)",
+                "- Branch: agent/roman/codex/microtask-PMR-001-koide-methodology-note",
+                "- Human reviewer: roman",
+            ]
+        ),
+        branch="agent/roman/codex/microtask-PMR-001-koide-methodology-note",
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+    changed = ("docs/notes/pmr-001-audit-note.md",)
+
+    with (
+        patch(
+            "physics_lab.registry.maintainer_review.current_branch",
+            return_value="agent/roman/codex/microtask-PMR-001-koide-methodology-note",
+        ),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=129)
+
+    assert report.verdict == "MERGE_OK"
+    assert report.task_id == "MICROTASK(particle-mass-relations)"
+    assert not any("task file" in item.lower() for item in report.blockers)
+
+
+def test_build_review_report_blocks_microtask_pr_when_queue_file_missing(tmp_path: Path) -> None:
+    pr_metadata = PullRequestMetadata(
+        number=130,
+        title="microtask(unknown-queue): add one note",
+        body="\n".join(
+            [
+                "- Contributor ID: roman",
+                "- GitHub username: gladunrv",
+                "- Agent tool: codex",
+                "- Task ID: microtask(ABC-001)",
+                "- Branch: agent/roman/codex/microtask-ABC-001-test-note",
+                "- Human reviewer: roman",
+            ]
+        ),
+        branch="agent/roman/codex/microtask-ABC-001-test-note",
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.maintainer_review.current_branch",
+            return_value="agent/roman/codex/microtask-ABC-001-test-note",
+        ),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch(
+            "physics_lab.registry.maintainer_review.changed_files_vs_main",
+            return_value=("docs/notes/test.md",),
+        ),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=130)
+
+    assert report.verdict == "BLOCKED"
+    assert any("No microtask queue file found" in item for item in report.blockers)
