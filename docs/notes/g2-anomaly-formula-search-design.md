@@ -14,16 +14,21 @@ precisely measured quantities in physics. The discrepancy between experiment
 and Standard Model prediction is:
 
 ```
-aμ(exp)  = 116 592 059(22) × 10⁻¹¹   [Fermilab 2023 combined, Phys. Rev. Lett. 131 (2023)]
+aμ(exp)  = 116 592 059(22) × 10⁻¹¹   [Fermilab Run-2&3 + BNL combined, PRL 131 (2023)]
 aμ(SM)   = 116 591 810(43) × 10⁻¹¹   [2020 White Paper consensus, Phys. Rept. 887 (2020)]
 ──────────────────────────────────────────────────────────────────────
-Δaμ      =         249(48) × 10⁻¹¹   [~4.2σ combined significance]
+Δaμ      =         249(48) × 10⁻¹¹   [~5.1σ combined significance]
 ```
 
 This discrepancy has persisted across multiple experimental generations (BNL,
 Fermilab) and is currently the strongest hint of beyond-Standard-Model physics
 in precision observables. The SM uncertainty is dominated by hadronic vacuum
 polarization (HVP), where competing lattice-QCD and data-driven results disagree.
+
+Note: σ_combined = √(22² + 43²) ≈ 48 × 10⁻¹¹ (experimental + theory added in
+quadrature). The earlier 2021 Run-1 result reported ~4.2σ (Δaμ ≈ 251(59) × 10⁻¹¹);
+the 2023 final combination gives ~5.1σ (249/48.3). Both numbers appear in the
+literature — this document uses the 2023 final values throughout.
 
 **Important caveat:** The BMW lattice-QCD 2020 result for HVP predicts a smaller
 discrepancy (~1.5σ). The 4.2σ significance depends on which HVP estimate is used.
@@ -174,7 +179,7 @@ numerology guardrail is mandatory.
 With 6 input constants and integer exponents in [−3, 3]:
 
 - Total power-law combinations: 7⁶ = 117,649
-- Log window for 2σ match: log₁₀((Δaμ + 2σ)/(Δaμ − 2σ)) = 0.34 decades
+- Log window for 2σ match: log₁₀((Δaμ + 2σ)/(Δaμ − 2σ)) ≈ 0.35 decades
 - Assuming formula outputs span ~20 log-decades:
   **Expected random hits: ~2% of all combinations**
 
@@ -203,9 +208,10 @@ Formulas with more free parameters are penalized. The complexity score is:
 C(F) = number of free real-valued parameters in F
 ```
 
-A formula with C > 2 and only 1σ match is not credible. A formula with C = 0
+A formula with C > 1 and only 1σ match is not credible. A formula with C = 0
 (pure prediction from integer/rational exponents of known constants) that matches
-within 1σ is maximally credible.
+within 1σ is maximally credible. C = 1 (one free overall coefficient) is
+acceptable only if P(random match) < 1% and physical motivation exists.
 
 **Guardrail G3 — Physical dimension check:**
 All candidate formulas must be dimensionless. Formulas involving mμ/me (etc.)
@@ -223,7 +229,7 @@ A formula that simply reconstructs a known SM contribution (e.g., the EW
 | --- | --- | --- | --- |
 | F1: (α/π)^a × (mμ/me)^b | a ∈ Z[1,4], b ∈ Z[−3,3] | TBD | < 1% |
 | F2: GF·mμ² × (α/π)^a × ratio^b | a,b ∈ Z[0,3] | TBD | < 1% |
-| F3: (α/π)^a × (mμ/mπ)^b | a ∈ Z[1,4], b ∈ Z[0,4] | TBD | < 1% |
+| F3: c × (α/π)³ × (mμ/mπ⁰)² | c free (1 param) | TBD | < 1% |
 | F4: α^a × (mμ/me)^b × (mμ/mτ)^c | a,b,c ∈ Z[−2,3] | TBD | < 1% |
 | F5: mixed EW+QED | see above | TBD | < 1% |
 | F6: 3-term polynomial | c₁,c₂,c₃ free | likely > 10% | NOT CREDIBLE alone |
