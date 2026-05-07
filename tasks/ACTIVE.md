@@ -61,6 +61,7 @@ one PR.
 ## REVIEW_READY
 
 - `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (`workflow_pilot`, priority `medium`, difficulty `medium`)
+- `TASK-0105` — Curate v0.2 packaging follow-up queue and close completed task admin items (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 

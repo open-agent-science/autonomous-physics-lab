@@ -29,7 +29,7 @@ input:
 
 requirements:
   - "Audit README.md, docs/status.md, docs/mission-control.md, docs/results/*, docs/campaigns/*, docs/releases/*, docs/announcement* and claims/*."
-  - "Flag and fix wording such as solved, proved, discovered, valid globally, explains particle masses, Koide is false, or new physics when used beyond scoped evidence."
+  - "Flag and fix discovery-level, global-validity, or over-explanatory wording whenever it exceeds the tested scope and stored evidence."
   - "Keep falsification wording scoped to the tested assumptions and datasets."
   - "Document the highest-risk wording changes in a short audit note."
 
