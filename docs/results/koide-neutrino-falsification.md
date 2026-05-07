@@ -49,8 +49,9 @@ This result is narrow:
 
 Q is a monotonically decreasing function of the lightest neutrino mass.
 Its maximum is achieved when the lightest eigenstate → 0, giving Q_max.
-Since Q_max < 2/3 for both hierarchies, there is **no physically admissible
-neutrino mass triplet** consistent with oscillation data that satisfies Q = 2/3.
+Since Q_max < 2/3 for both hierarchies, the tested setup contains no
+physically admissible neutrino mass triplet consistent with the encoded
+oscillation data that satisfies Q = 2/3.
 
 The IH result has an analytic explanation: when m₃ → 0 and m₁ ≈ m₂ (from
 the atmospheric mass difference), the Koide formula reduces to a two-body
@@ -64,7 +65,7 @@ This is a clean falsification in scope, not a marginal or inconclusive result.
 **What it means:**
 - The original Koide formula Q = 2/3, applied directly to the three neutrino
   mass eigenstates, is mathematically incompatible with PDG 2024 oscillation data.
-- This holds for both known mass orderings (NH and IH) without exception.
+- This holds for both known mass orderings (NH and IH) within the tested setup.
 
 **What it does not mean:**
 - It does not rule out modified Koide relations (different exponents, phases,
