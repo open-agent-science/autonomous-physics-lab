@@ -1,0 +1,56 @@
+id: TASK-0102
+title: "Package Koide falsification campaign results"
+type: documentation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "The particle-mass campaign is now strongest as a falsification-first story rather than as isolated benchmark notes."
+  - "Koide charged leptons, tau holdout, neutrino falsification, and quark cascade falsification should read as one coherent campaign."
+  - "Negative results should be documented with the same clarity and discoverability as positive reproductions."
+
+input:
+  mode: workflow
+  related_objects:
+    - "docs/results/koide-charged-lepton-reproduction.md"
+    - "docs/results/koide-tau-holdout.md"
+    - "docs/results/koide-neutrino-falsification.md"
+    - "docs/negative-results-registry.md"
+    - "results/EXP-0007/RUN-0001/"
+    - "results/EXP-0008/RUN-0001/"
+    - "docs/notes/koide-quark-cascade.md"
+    - "README.md"
+  planning_context: >
+    APL now has a real particle-mass falsification campaign rather than one
+    isolated Koide benchmark. Charged leptons reproduce in scope, tau
+    holdout reproduces in scope, direct neutrino Koide fails cleanly, and the
+    Brannen quark cascade also fails under the encoded assumptions. Package
+    these as a single campaign result surface with conservative wording.
+
+requirements:
+  - "Create docs/results/koide-campaign-summary.md."
+  - "Create docs/results/koide-quark-cascade-falsification.md."
+  - "Update docs/results/koide-neutrino-falsification.md if campaign framing or wording needs tightening."
+  - "Update docs/negative-results-registry.md to include the quark cascade falsification."
+  - "Add a short README.md mention of the Koide campaign summary."
+  - "Keep wording scoped: reproduced in scope, falsified in scope, no global 'Koide is false' claim."
+
+accepted_outputs:
+  - "docs/results/koide-campaign-summary.md"
+  - "docs/results/koide-quark-cascade-falsification.md"
+  - "updated docs/results/koide-neutrino-falsification.md if needed"
+  - "updated docs/negative-results-registry.md"
+  - "updated README.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,7 +1,7 @@
 id: TASK-0094
 title: "Fix maintainer review helper false-positive stale diff detection"
 type: maintainer_workflow
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

@@ -765,6 +765,74 @@ def test_repository_strict_detects_orphan_result(tmp_path) -> None:
     assert any(issue.code == "orphan_result" for issue in summary.issues)
 
 
+def test_repository_strict_allows_done_non_result_visualization_and_workflow_tasks(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_minimal_repository_fixture(
+        repo_root,
+        claim_scope="Valid only within the tested range for this temporary benchmark.",
+        claim_body="Claim body with explicit in-scope wording.",
+        strict_snapshots=True,
+    )
+    (repo_root / "tasks" / "TASK-1001-temp.yaml").write_text(
+        textwrap.dedent(
+            """\
+            id: TASK-1001
+            title: Temp visualization task
+            type: scientific_visualization
+            status: DONE
+            difficulty: low
+            priority: medium
+            input:
+              mode: planning_only
+              related_domain: classical_mechanics
+              related_objects: []
+              planning_context: Visual summary package
+            requirements:
+              - static figures
+            accepted_outputs:
+              - docs/figures/example.png
+            can_be_done_by:
+              - human
+            """
+        ),
+        encoding="utf-8",
+    )
+    (repo_root / "tasks" / "TASK-1002-temp.yaml").write_text(
+        textwrap.dedent(
+            """\
+            id: TASK-1002
+            title: Temp workflow pilot task
+            type: workflow_pilot
+            status: DONE
+            difficulty: medium
+            priority: medium
+            input:
+              mode: workflow
+              related_objects: []
+              planning_context: Pilot hypothesis review flow
+            requirements:
+              - workflow check
+            accepted_outputs:
+              - docs/reviews/example.md
+            can_be_done_by:
+              - human
+            """
+        ),
+        encoding="utf-8",
+    )
+
+    summary = validate_repository(repo_root, strict=True)
+
+    assert not any(
+        issue.code == "done_task_without_result" and issue.path is not None and issue.path.endswith("TASK-1001-temp.yaml")
+        for issue in summary.issues
+    )
+    assert not any(
+        issue.code == "done_task_without_result" and issue.path is not None and issue.path.endswith("TASK-1002-temp.yaml")
+        for issue in summary.issues
+    )
+
+
 def test_repository_strict_rejects_malformed_review_metadata(tmp_path) -> None:
     """Strict validation must raise invalid_review_metadata for a structurally invalid file."""
     repo_root = tmp_path / "repo"

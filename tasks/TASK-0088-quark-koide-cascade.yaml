@@ -1,7 +1,7 @@
 id: TASK-0088
 title: "Test Brannen quark-mass Koide cascade for up and down sectors"
 type: scientific_experiment
-status: PROPOSED
+status: DONE
 difficulty: medium
 priority: high
 
@@ -41,8 +41,8 @@ requirements:
 
 accepted_outputs:
   - "knowledge/particle_physics/quark_masses.yaml"
-  - "results/EXP-XXXX/RUN-XXXX/result.yaml"
-  - "results/EXP-XXXX/RUN-XXXX/report.md"
+  - "results/EXP-0008/RUN-0001/result.yaml"
+  - "results/EXP-0008/RUN-0001/report.md"
   - "docs/notes/koide-quark-cascade.md"
 
 validation:

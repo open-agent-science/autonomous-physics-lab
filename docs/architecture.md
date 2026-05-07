@@ -1,123 +1,153 @@
-# Architecture
-
-## APL Experiment Lifecycle
-
-```mermaid
-flowchart TD
-
-READY["TASK (READY)"] --> BRANCH["Create agent branch"]
-BRANCH --> IMPL["Implement hypothesis / code"]
-
-IMPL --> VAL["Validation\n(ruff, pytest, CLI)"]
-
-VAL --> PR["Open Pull Request"]
-PR --> REVIEW["Maintainer review"]
-
-VAL -- Failure --> IMPL
-REVIEW -- Needs changes --> IMPL
-
-REVIEW -- Approved --> MERGE["Merge to main"]
-
-MERGE --> RUN["Run experiment"]
-RUN --> ARTIFACTS["Generate result artifacts\n(results/...)"]
-
-ARTIFACTS --> UPDATE["Update claims / knowledge"]
-
-%% --- Styles ---
-classDef start fill:#f9a8d4,stroke:#333,stroke-width:2px;
-classDef dev fill:#60a5fa,stroke:#1e3a8a,color:#000;
-classDef validation fill:#f59e0b,stroke:#92400e,color:#000;
-classDef review fill:#a78bfa,stroke:#4c1d95,color:#000;
-classDef science fill:#34d399,stroke:#065f46,color:#000;
-
-class READY start;
-class BRANCH,IMPL dev;
-class VAL validation;
-class PR,REVIEW,MERGE review;
-class RUN,ARTIFACTS,UPDATE science;
-
-```
-
 ## Purpose
 
-Autonomous Physics Lab is an open verification infrastructure for physics
-hypotheses.
+Autonomous Physics Lab (APL) is an open verification infrastructure for physics hypotheses.
 
-The system is designed around a simple rule:
+The system is built around a strict principle:
 
-Hypotheses may be proposed freely, but they only become reusable knowledge
-after deterministic verification.
+> Hypotheses may be proposed freely, but only become reusable knowledge after deterministic verification.
+
+---
 
 ## Strategic Positioning
 
-APL should be positioned as infrastructure for systematic theory search, not as
-"an AI physicist" and not as a claim of solving fundamental physics directly.
+APL is infrastructure for systematic theory search, not an "AI physicist" and not a system that claims direct discovery of fundamental physics.
 
-The right framing is:
+The correct positioning is:
 
-- open-source;
-- verification-first;
-- reproducible;
-- public-memory oriented;
-- compatible with human and agent collaboration.
+* open-source;
+* verification-first;
+* reproducible;
+* public scientific memory;
+* compatible with human and agent collaboration.
+
+---
+
+## Experiment Flow
+
+This document provides a visual overview of the Autonomous Physics Lab (APL) experiment lifecycle.
+
+The diagram illustrates the verification-first workflow from task selection through implementation, validation, review, and integration into scientific memory.
+
+---
+
+## Experiment Lifecycle (Happy Path)
+
+The following diagram illustrates the standard APL verification-first workflow from task selection to integration into scientific memory.
+
+```mermaid
+flowchart TD
+    T_READY["TASK (READY)"] --> BR["Create branch"]
+    BR --> CODE["Implement changes"]
+    CODE --> VAL["Validation (ruff, pytest, CLI)"]
+    VAL --> PR["Open Pull Request"]
+    PR --> MAINT["Maintainer review"]
+    VAL -- Failure --> CODE
+    MAINT -- Needs changes --> CODE
+    MAINT -- Approved --> MERGE["Merge to main"]
+    MERGE --> EXP["Run experiment"]
+    EXP --> RES["Generate results"]
+    RES --> EVAL["Evaluate results"]
+    EVAL --> KNOW["Update claims / knowledge"]
+
+    classDef task fill:#1f2937,stroke:#374151,color:#ffffff;
+    classDef dev fill:#1d4ed8,stroke:#1e40af,color:#ffffff;
+    classDef validation fill:#b45309,stroke:#92400e,color:#ffffff;
+    classDef review fill:#7c3aed,stroke:#5b21b6,color:#ffffff;
+    classDef science fill:#065f46,stroke:#047857,color:#ffffff;
+
+    class T_READY task;
+    class BR,CODE dev;
+    class VAL validation;
+    class PR,MAINT,MERGE review;
+    class EXP,RES,EVAL,KNOW science;
+
+```
+
+
+
+## References
+
+* `docs/agent-task-protocol.md`
+* `AGENTS.md`
+* `docs/strategy.md`
+
+---
 
 ## Core System Model
 
-The long-term architecture has three cores.
+APL is organized around three core subsystems.
+
+All workflows must follow the canonical agent-task protocol defined in
+`docs/agent-task-protocol.md`.
 
 ### 1. Hypothesis Engine
 
 Responsible for:
 
-- generating or loading candidate hypotheses;
-- simulating reference behavior;
-- fitting approximation families;
-- scoring quality;
-- producing verdicts and reports.
+* generating or loading candidate hypotheses;
+* simulating reference behavior;
+* fitting approximation families;
+* scoring model quality;
+* producing verdicts and reproducible reports.
+
+These capabilities are implemented incrementally across modules in
+`physics_lab/engines`.
+
+---
 
 ### 2. Public Knowledge Base
 
 Responsible for storing:
 
-- hypotheses;
-- claims;
-- experiments;
-- results;
-- reusable knowledge notes;
-- tasks;
-- agent manifests.
+* hypotheses;
+* claims;
+* experiments;
+* results;
+* reusable knowledge notes;
+* tasks;
+* agent manifests.
 
-In v0.1 this is file-based and version-controlled in Git.
+All objects are stored as version-controlled artifacts using structured schemas.
+
+In v0.1 this system is file-based and managed through Git.
+
+---
 
 ### 3. Open Agent Task Network
 
 Responsible for:
 
-- publishing structured tasks;
-- allowing humans and external agents to contribute work;
-- enforcing reproducibility and evidence standards;
-- linking tasks to results and verification outcomes.
+* publishing structured tasks;
+* enabling human and agent contributions;
+* enforcing reproducibility and evidence standards;
+* linking tasks to experiments and results.
+
+Tasks are the primary coordination unit. Agents do not own roles; tasks define execution.
+
+---
 
 ## Verification Stack
 
-Physics does not have a single formal verifier equivalent to Lean, so APL needs
-a layered verification stack.
+APL uses a layered verification approach.
 
-The default stack should support:
+The architecture is designed to support:
 
 1. dimensional analysis;
 2. symbolic consistency checks;
-3. known-limit checks;
+3. known-limit validation;
 4. symmetry checks;
 5. conservation-law checks;
 6. numerical simulation;
 7. benchmark comparison against known solutions;
-8. comparison against experimental or reference data;
+8. comparison with experimental or reference data;
 9. literature cross-check;
 10. reproducible report generation.
 
-Not every workflow will use all layers in v0.1, but the architecture should
-make room for them.
+Not every workflow uses all layers in v0.1, but the system is structured to support them incrementally.
+
+These layers are implemented progressively within `physics_lab/engines`.
+
+---
 
 ## Repository Layout
 
@@ -160,87 +190,99 @@ autonomous-physics-lab/
   examples/
   tests/
   docs/
-
 ```
+
+---
 
 ## Knowledge Object Model
 
-The system should distinguish these object types:
+APL distinguishes the following object types:
 
-- Hypothesis
-- Claim
-- Equation
-- Assumption
-- Experiment
-- Dataset
-- Result
-- Paper
-- Task
-- Agent
-- Theory
+* Hypothesis
+* Claim
+* Equation
+* Assumption
+* Experiment
+* Dataset
+* Result
+* Paper
+* Task
+* Agent
+* Theory
 
-Core relationships:
+### Core Relationships
 
-- `Hypothesis -> tested_by -> Experiment`
-- `Experiment -> produced -> Result`
-- `Result -> supports -> Claim`
-- `Result -> falsifies -> Hypothesis`
-- `Claim -> derived_from -> Paper`
-- `Hypothesis -> depends_on -> Assumption`
-- `Theory -> contains -> Hypothesis`
-- `Task -> assigned_to -> Agent`
+* `Hypothesis -> tested_by -> Experiment`
+* `Experiment -> produced -> Result`
+* `Result -> supports -> Claim`
+* `Result -> falsifies -> Hypothesis`
+* `Claim -> derived_from -> Paper`
+* `Hypothesis -> depends_on -> Assumption`
+* `Theory -> contains -> Hypothesis`
+* `Task -> assigned_to -> Agent`
 
-## First MVP Boundary
+---
 
-v0.1 stays intentionally narrow.
+## MVP Boundary (v0.1)
 
-It started with one deterministic workflow and now includes two stabilized
-public-alpha benchmark slices:
+The current version intentionally limits scope.
 
-- `Pendulum Formula Discovery`
-- `Damped Oscillator Regime Verification`
+Active benchmark slices:
 
-The current boundary still stays intentionally small:
+* `Pendulum Formula Discovery`
+* `Damped Oscillator Regime Verification`
 
-- classical mechanics only;
-- deterministic benchmark workflows only;
-- committed canonical result artifacts for a small number of curated runs;
-- public-memory objects that stay reviewable by humans and LLM contributors.
+Constraints:
 
-## Data Flow for v0.1
+* classical mechanics only;
+* deterministic workflows only;
+* a small set of curated benchmark results;
+* artifacts must remain human-reviewable.
+
+---
+
+## Data Flow (Conceptual)
+
+The canonical workflow is defined by the experiment lifecycle diagram.
+
+At a conceptual level, the system operates as:
 
 ```text
 Hypothesis
-  -> Experiment config
-  -> Exact pendulum simulator
-  -> Candidate formula fitting
-  -> Error and complexity scoring
-  -> Verdict generation
-  -> Markdown report + metrics artifact
+  -> Experiment configuration
+  -> Simulation / data generation
+  -> Model fitting
+  -> Scoring and validation
+  -> Result artifact generation
   -> Claim update
-  -> Knowledge note update
-  -> New task creation
+  -> Knowledge integration
 ```
+
+This section complements, but does not replace, the lifecycle diagram.
+
+---
 
 ## Non-Goals for v0.1
 
-Do not add yet:
+Do not introduce:
 
-- dashboards;
-- web APIs;
-- heavy agent frameworks;
-- large-scale paper ingestion;
-- database backends;
-- distributed execution;
-- speculative "theory of everything" messaging.
+* dashboards;
+* web APIs;
+* heavy agent frameworks;
+* large-scale literature ingestion;
+* database backends;
+* distributed execution;
+* speculative "theory of everything" claims.
+
+---
 
 ## Upgrade Path
 
-After the pendulum MVP is stable, the next architectural extensions should be:
+After stabilizing current benchmarks, the system should evolve toward:
 
-1. schema validation for all public objects;
-2. symbolic validation and dimensional checks;
+1. full schema validation for all public objects;
+2. expanded symbolic and dimensional validation;
 3. task registry tooling;
 4. literature ingestion adapters;
-5. graph/database importer;
+5. graph/database integration;
 6. multi-agent execution and review workflows.

@@ -1,0 +1,57 @@
+id: TASK-0105
+title: "Curate v0.2 packaging follow-up queue and close completed task admin items"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the task board honest by closing already-merged review-ready items and correcting stale planning-task states."
+  - "Translate the latest maintainer analysis into a small, curated v0.2 follow-up queue instead of leaving the roadmap fragmented."
+  - "Prefer extending existing canonical tasks over creating unnecessary duplicates."
+
+input:
+  mode: workflow
+  related_domain: task_admin
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0055-experiment-flow-diagram.yaml"
+    - "tasks/TASK-0063-generate-static-visual-result-pack.yaml"
+    - "tasks/TASK-0088-quark-koide-cascade.yaml"
+    - "tasks/TASK-0094-fix-maintainer-review-helper-stale-diff-detection.yaml"
+    - "tasks/TASK-0096-koide-neutrino-falsification-result-package.yaml"
+    - "tasks/TASK-0097-negative-result-registry.yaml"
+    - "tasks/TASK-0099-refresh-snapshot-source-of-truth.yaml"
+  planning_context: >
+    A new maintainer analysis identified several already-completed tasks that
+    still lingered as REVIEW_READY, one planning task that had been merged in
+    the wrong state, one existing visual-pack task that should be expanded
+    rather than duplicated, and several missing follow-up tasks for v0.2
+    packaging. This task performs that queue curation in one maintainer pass.
+
+requirements:
+  - "Mark already-merged review-ready tasks DONE where the accepted outputs are already in main."
+  - "Return TASK-0099 to READY because the merged PR created the task but did not implement the snapshot refresh."
+  - "Expand TASK-0063 instead of duplicating it with a new visual-pack task."
+  - "Create canonical follow-up tasks for status/roadmap refresh, Koide campaign packaging, final overclaim audit, and launch-pack work."
+  - "Add a future-facing proposal for a quantum-dots size-effects campaign without promoting it to a canonical task."
+  - "Sync tasks/ACTIVE.md through the canonical board flow."
+
+accepted_outputs:
+  - "updated tasks/ACTIVE.md"
+  - "updated existing task files reflecting correct DONE/READY states"
+  - "new canonical v0.2 packaging follow-up tasks"
+  - "new future-facing proposal under tasks/proposals/"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -4,6 +4,11 @@
 
 `v0.1-private-alpha — scientific campaign and contributor workflow validation`
 
+Near-term packaging target:
+
+`v0.2` public-facing material preparation, still gated behind private review
+and release discipline.
+
 ## Mission
 
 Build verification-first scientific infrastructure for testing, falsifying,
@@ -32,11 +37,14 @@ That base now exists well enough to support a new emphasis:
    exists.
 3. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-4. Improve visual result summaries and contributor-facing navigation around the
-   strongest current evidence.
-5. Continue the private contributor pilot and maintainer review loop before any
+4. Improve visual result summaries, campaign summaries, and contributor-facing
+   navigation around the strongest current evidence, including negative-result
+   surfaces.
+5. Package the current result layer into a coherent v0.2 story without
+   relaxing scope or limitation wording.
+6. Continue the private contributor pilot and maintainer review loop before any
    public rollout.
-6. Prepare public launch only after the explicit gates in
+7. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 ## Current Goal
@@ -57,7 +65,11 @@ Current visible evidence includes:
 
 - the pendulum gauntlet result package from `EXP-0001/RUN-0003`;
 - charged-lepton Koide reproduction from `EXP-0004/RUN-0004`;
-- the tau holdout benchmark from `EXP-0005/RUN-0005`.
+- the tau holdout benchmark from `EXP-0005/RUN-0005`;
+- the dimensional-analysis validator MVP result from `EXP-0006/RUN-0006`;
+- the neutrino and quark Koide falsification results from `EXP-0007/RUN-0001`
+  and `EXP-0008/RUN-0001`;
+- the negative-results registry as a maintained output surface.
 
 These results are useful because they are reviewable and reproducible, not
 because they justify expansive scientific claims.
@@ -73,12 +85,14 @@ The repository uses a shared task pool with branch-based execution.
 - maintainer review stays the decision point for merge and closeout.
 
 The repository remains private until the release gates are satisfied and a
-maintainer decides the narrative matches the evidence.
+maintainer decides the v0.2 narrative matches the evidence.
 
 ## Non-Goals
 
 - Do not frame narrow benchmark outputs as discovery-level physics.
 - Do not describe particle-mass results as explanations of mass generation.
+- Do not collapse scoped reproductions and scoped falsifications into a single
+  global statement about all Koide-like ideas.
 - Do not claim universal validity from configured-range validation.
 - Do not add dashboard, public API, literature ingestion, or public task
   network before current campaign and workflow gates are met.

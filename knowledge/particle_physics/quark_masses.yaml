@@ -1,0 +1,96 @@
+id: KN-0006
+title: "Quark Running Masses — PDG 2024 MS-bar Scheme"
+domain: particle_physics
+source: "PDG 2024 Review of Particle Physics"
+
+description: >
+  Running quark masses in the MS-bar renormalization scheme from PDG 2024.
+  Light quark masses (u, d, s) are quoted at μ = 2 GeV.
+  Heavy quark masses (c, b) are quoted at their own mass scale (mc(mc), mb(mb)).
+  Top quark mass is from direct measurements (world average, not MS-bar at mt).
+
+  Mass ordering within each sector:
+    Up-type:   mu < mc < mt
+    Down-type: md < ms < mb
+
+  Uncertainties on light quarks are asymmetric and large (10–20%) due to
+  non-perturbative QCD effects near ΛQCD. Heavy quarks are much better known.
+
+quark_masses:
+  up_sector:
+    - id: m_u
+      name: up quark
+      symbol: "u"
+      value_MeV: 2.16
+      uncertainty_plus_MeV: 0.49
+      uncertainty_minus_MeV: 0.26
+      scheme: MS-bar
+      scale_GeV: 2.0
+      source: "PDG 2024 Table of Particle Properties"
+      notes: "Large relative uncertainty (~20%) from non-perturbative QCD."
+
+    - id: m_c
+      name: charm quark
+      symbol: "c"
+      value_MeV: 1270.0
+      uncertainty_plus_MeV: 20.0
+      uncertainty_minus_MeV: 20.0
+      scheme: MS-bar
+      scale_GeV: 1.27
+      source: "PDG 2024 — mc(mc)"
+      notes: "Mass quoted at the charm scale mc(mc)."
+
+    - id: m_t
+      name: top quark
+      symbol: "t"
+      value_MeV: 172690.0
+      uncertainty_plus_MeV: 300.0
+      uncertainty_minus_MeV: 300.0
+      scheme: direct_measurement
+      scale_GeV: null
+      source: "PDG 2024 world average from collider measurements"
+      notes: "Not a pure MS-bar running mass. Pole mass approximation."
+
+  down_sector:
+    - id: m_d
+      name: down quark
+      symbol: "d"
+      value_MeV: 4.67
+      uncertainty_plus_MeV: 0.48
+      uncertainty_minus_MeV: 0.17
+      scheme: MS-bar
+      scale_GeV: 2.0
+      source: "PDG 2024 Table of Particle Properties"
+      notes: "Large relative uncertainty (~10%) from non-perturbative QCD."
+
+    - id: m_s
+      name: strange quark
+      symbol: "s"
+      value_MeV: 93.4
+      uncertainty_plus_MeV: 8.6
+      uncertainty_minus_MeV: 3.4
+      scheme: MS-bar
+      scale_GeV: 2.0
+      source: "PDG 2024 Table of Particle Properties"
+      notes: "Uncertainty ~10%."
+
+    - id: m_b
+      name: bottom quark
+      symbol: "b"
+      value_MeV: 4183.0
+      uncertainty_plus_MeV: 7.0
+      uncertainty_minus_MeV: 7.0
+      scheme: MS-bar
+      scale_GeV: 4.18
+      source: "PDG 2024 — mb(mb)"
+      notes: "Mass quoted at the bottom scale mb(mb)."
+
+limitations:
+  - "Light quark masses (u, d, s) and heavy quark masses (c, b, t) are quoted at
+    different renormalization scales. Comparing them in a single Koide formula
+    mixes mass schemes and scales without RGE running."
+  - "The top quark mass is from direct measurements, not the MS-bar scheme."
+  - "Running masses are scale-dependent; applying the Koide formula requires
+    choosing a common scale, introducing scheme ambiguity."
+  - "Non-perturbative QCD makes light quark masses inherently ambiguous at the
+    ±10–20% level."

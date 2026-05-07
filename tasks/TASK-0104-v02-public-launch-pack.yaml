@@ -1,0 +1,55 @@
+id: TASK-0104
+title: "Prepare v0.2 repository opening pack"
+type: documentation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "If APL opens publicly, the repository should already contain a clear, verification-first opening narrative without depending on off-platform posts."
+  - "The remaining release-facing work should be repo-native: canonical release notes, a maintainer launch summary, and a contributor-facing entrypoint."
+  - "Opening materials should stay downstream of status refresh, campaign packaging, visual summaries, and the final overclaim audit."
+
+input:
+  mode: workflow
+  related_objects:
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/results/"
+    - "docs/figures/"
+    - "docs/public-release-gates.md"
+    - "docs/release-checklist.md"
+  planning_context: >
+    APL is close to a public-facing v0.2 presentation layer, but the remaining
+    repository-facing release materials are still fragmented. Once status,
+    visuals, campaign summaries, and wording audits are in place, package them
+    into a coherent repo-native opening set for GitHub readers, maintainers,
+    and new contributors. Do not require channel-specific external post drafts
+    such as DOU copy in this task.
+
+requirements:
+  - "Create docs/v0.2-launch-pack.md."
+  - "Create docs/releases/v0.2-public-alpha.md as the canonical repository release-note draft."
+  - "Create docs/use-your-agent.md with a practical contributor-facing invitation."
+  - "Update docs/release-checklist.md if the v0.1 checklist language is stale for the current opening flow."
+  - "Keep the scope repository-native; do not require external-channel drafts such as DOU posts."
+  - "Keep all messaging verification-first and explicitly non-discovery-framed."
+  - "Treat this as downstream of status refresh, visuals, Koide campaign summary, and overclaim audit."
+
+accepted_outputs:
+  - "docs/v0.2-launch-pack.md"
+  - "docs/releases/v0.2-public-alpha.md"
+  - "docs/use-your-agent.md"
+  - "updated docs/release-checklist.md if needed"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

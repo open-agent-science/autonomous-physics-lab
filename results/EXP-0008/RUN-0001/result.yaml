@@ -1,0 +1,88 @@
+result_id: RESULT-0010
+run_id: RUN-0001
+experiment_id: EXP-0008
+title: Quark Koide Cascade — Brannen Phase Extension Test
+hypothesis_id: HYP-0008
+task_id: TASK-0088
+generated_at: '2026-05-06T22:31:59.382724+00:00'
+engine_version: 0.1.0
+git_commit: b4619780d3cb58f1834a795587da0337dc652199
+command: physics-lab run examples/koide_quark.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0008/RUN-0001/inputs/config.yaml
+    sha256: 870ac15f0e6f86513fc211c617e877c28206d7e73422fdc1be0f4ef110f88b8f
+  experiment:
+    path: results/EXP-0008/RUN-0001/inputs/experiment.yaml
+    sha256: 91eac3f1bf29a16ac02988e7d7a5a1980ee7feaf1dafa23858918ae14ca8bd87
+  hypothesis:
+    path: results/EXP-0008/RUN-0001/inputs/hypothesis.yaml
+    sha256: 414d2cc5fbc2e104a91b7ecaf1dea9d0f69b041a6644ea32fa71dd5709d17ad6
+  task:
+    path: results/EXP-0008/RUN-0001/inputs/task.yaml
+    sha256: 4494c33c64a9d24e047e5e3377e396a59e92ec32880fdc4fb99a9fb9024d160c
+code_reference: physics_lab/workflows/koide_quark.py
+limitations:
+- Quark masses at mixed renormalization scales (μ=2 GeV for light quarks, self-consistent
+  pole for c, b, t).
+- No RGE running applied to bring all masses to a common scale.
+- Gaussian uncertainty propagation used for asymmetric PDG uncertainties.
+- Only one class of phase-modified Koide formulas tested; other extensions are out
+  of scope.
+- Brannen equal-spacing Q_B is a distinct quantity from the phase-scan Q(δ).
+- Does not test quark-mixing or GUT-scale mass relations.
+best_verdict: INVALID
+verification:
+  passed: true
+  checks:
+  - name: Up Q_min above 2/3
+    status: PASS
+    details: Q_min(up) = 0.848981 > 2/3 = 0.666667
+    metrics:
+      q_standard: 0.8489807776610612
+      q_phase_min: 0.8489807776610612
+      target: 0.6666666666666666
+      gap: 0.18231411099439454
+      gap_sigma: 159.2
+  - name: Down Q_min above 2/3
+    status: PASS
+    details: Q_min(down) = 0.731497 > 2/3 = 0.666667
+    metrics:
+      q_standard: 0.7314967575627492
+      q_phase_min: 0.7314967575627492
+      target: 0.6666666666666666
+      gap: 0.0648300908960826
+      gap_sigma: 8.8
+artifacts:
+  report: results/EXP-0008/RUN-0001/report.md
+  metrics: results/EXP-0008/RUN-0001/metrics.json
+  claim_update: results/EXP-0008/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0008/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0008/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0008/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0008/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0008/RUN-0001/review_metadata.yaml
+comparison_summary:
+- target_id: target_q_up
+  label: Q_std (up) vs Koide target 2/3
+  reference_value: 0.6666666666666666
+  observed_value: 0.8489807776610612
+  absolute_difference: 0.18231411099439454
+  relative_difference: 0.2734711664915918
+  notes: Up Q_std = 0.848981. Gap = 159.2σ above target.
+- target_id: target_q_down
+  label: Q_std (down) vs Koide target 2/3
+  reference_value: 0.6666666666666666
+  observed_value: 0.7314967575627492
+  absolute_difference: 0.0648300908960826
+  relative_difference: 0.0972451363441239
+  notes: Down Q_std = 0.731497. Gap = 8.8σ above target.
+uncertainty_summary:
+  method: finite_difference_1sigma on PDG quark mass uncertainties
+  observed_uncertainty: 0.0073312402895063696
+  reference_uncertainty: null
+  combined_uncertainty: 0.0073312402895063696
+  z_score: 8.8
+  within_combined_uncertainty: false
+  notes: 'Up: Q_std = 0.848981 ± 0.001145 (1σ), gap = 159.2σ. Down: Q_std = 0.731497
+    ± 0.007331 (1σ), gap = 8.8σ (weakest sector, reported here).'

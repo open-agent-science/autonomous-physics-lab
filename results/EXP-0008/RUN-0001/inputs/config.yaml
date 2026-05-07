@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0008-quark-koide-cascade.yaml
+hypothesis_path: ../hypotheses/HYP-0008-quark-koide-brannen.yaml
+task_id: TASK-0088
+run_id: RUN-0001
+result_id: RESULT-0010
+result_root: ../results/EXP-0008
+workflow: quark_koide

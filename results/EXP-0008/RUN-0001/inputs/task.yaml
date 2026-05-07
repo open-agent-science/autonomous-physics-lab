@@ -1,0 +1,58 @@
+id: TASK-0088
+title: "Test Brannen quark-mass Koide cascade for up and down sectors"
+type: scientific_experiment
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Test whether the Koide-like cascade proposed by Brannen (2006) holds for quark mass triplets."
+  - "Use real PDG quark masses with uncertainties, not theoretical predictions."
+  - "If confirmed, this is a non-trivial pattern in the Standard Model flavour sector with no accepted explanation."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "results/EXP-0005/RUN-0005/result.yaml"
+    - "docs/results/koide-charged-lepton-reproduction.md"
+    - "knowledge/particle_physics/particle_masses.md"
+  planning_context: >
+    Brannen (2006) proposed a 'waterfall' extension of the Koide formula to
+    quarks using a phase-modified form:
+      Q(δ) = (m₁ + m₂ + m₃) / (√m₁ + √m₂ + √m₃)² where √mᵢ are complex
+      with equal phase spacing δ. For charged leptons δ=0 gives Q=2/3.
+    For the up-type quarks (u, c, t) and down-type quarks (d, s, b), a
+    non-zero δ may give Q=2/3 with suitably chosen phase. This is distinct
+    from the lepton case and is a separate empirical test.
+
+    PDG 2024 running masses at μ = 2 GeV (MS-bar scheme):
+      mu = 2.16 MeV,  mc = 1.27 GeV,  mt = 172.69 GeV
+      md = 4.67 MeV,  ms = 93.4 MeV,  mb = 4.18 GeV
+    Uncertainties are ~10-20% for light quarks; heavy quarks are well-known.
+
+requirements:
+  - "Add quark running masses as a dataset with uncertainties in knowledge/particle_physics/."
+  - "Implement the phase-modified Koide formula Q(δ) and scan δ over [0, π]."
+  - "Report whether Q(δ) = 2/3 is achievable within PDG uncertainties for up-type and down-type triplets."
+  - "Apply APL numerology guardrails: compute how many random mass triplets accidentally satisfy Q≈2/3."
+  - "Store result as a new EXP under particle_physics domain."
+  - "Do not promote any claim; use conservative wording about quark mass uncertainty."
+
+accepted_outputs:
+  - "knowledge/particle_physics/quark_masses.yaml"
+  - "results/EXP-0008/RUN-0001/result.yaml"
+  - "results/EXP-0008/RUN-0001/report.md"
+  - "docs/notes/koide-quark-cascade.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/ -x -q"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent

@@ -1,0 +1,61 @@
+{
+  "up_sector": {
+    "quarks": [
+      "u",
+      "c",
+      "t"
+    ],
+    "masses_MeV": [
+      2.16,
+      1270.0,
+      172690.0
+    ],
+    "uncertainties_MeV": [
+      0.49,
+      20.0,
+      300.0
+    ],
+    "q_standard": 0.8489807776610612,
+    "q_standard_uncertainty": 0.0011454613337357371,
+    "q_standard_gap_to_target": 0.18231411099439454,
+    "q_standard_gap_sigma": 159.2,
+    "q_brannen": 1.0976243387481082,
+    "q_brannen_gap_to_target": 0.43095767208144153,
+    "q_brannen_gap_sigma": 450.2,
+    "q_phase_min": 0.8489807776610612,
+    "q_phase_max": 1.1959430503856403,
+    "phase_achieves_target": false,
+    "brannen_fit_B_over_A": 1.7589,
+    "verdict": "INVALID"
+  },
+  "down_sector": {
+    "quarks": [
+      "d",
+      "s",
+      "b"
+    ],
+    "masses_MeV": [
+      4.67,
+      93.4,
+      4183.0
+    ],
+    "uncertainties_MeV": [
+      0.48,
+      8.6,
+      7.0
+    ],
+    "q_standard": 0.7314967575627492,
+    "q_standard_uncertainty": 0.0073312402895063696,
+    "q_standard_gap_to_target": 0.0648300908960826,
+    "q_standard_gap_sigma": 8.8,
+    "q_brannen": 1.2247847877680693,
+    "q_brannen_gap_to_target": 0.5581181211014027,
+    "q_brannen_gap_sigma": 54.3,
+    "q_phase_min": 0.7314967575627492,
+    "q_phase_max": 1.3097062745382004,
+    "phase_achieves_target": false,
+    "brannen_fit_B_over_A": 1.5456,
+    "verdict": "INVALID"
+  },
+  "target": 0.6666666666666666
+}

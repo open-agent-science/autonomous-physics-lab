@@ -46,11 +46,7 @@ one PR.
 
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0055` — Add experiment flow diagram to architecture docs (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0063` — Generate static visual result pack for Pendulum and Koide (`scientific_visualization`, priority `high`, difficulty `medium`)
-- `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (`workflow_pilot`, priority `medium`, difficulty `medium`)
-- `TASK-0082` — Add Koide baseline planning for guarded next-step evaluation (`benchmark_planning`, priority `medium`, difficulty `medium`)
-- `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -58,16 +54,30 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (`repository_validation`, priority `high`, difficulty `low`)
+- `TASK-0104` — Prepare v0.2 repository opening pack (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0107` — Reframe TASK-0104 as a repository-native opening pack (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0106` — Close stale completed tasks and align closeout validation (merged)
+- `TASK-0105` — Curate v0.2 packaging follow-up queue and close completed task admin items (merged)
+- `TASK-0103` — Run final public overclaim audit for v0.2 materials (merged)
+- `TASK-0102` — Package Koide falsification campaign results (merged)
+- `TASK-0100` — Update status and v0.2 roadmap after Koide and validator campaign results (merged)
+- `TASK-0097` — Create negative result registry for APL falsifications (merged)
+- `TASK-0096` — Write Koide neutrino falsification public result package (merged)
+- `TASK-0095` — Add visual orientation diagrams for humans and agents (merged)
+- `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (merged)
 - `TASK-0093` — Test Koide relation for neutrino masses (merged)
 - `TASK-0092` — Fix duplicate canonical task ids and enforce uniqueness (merged)
+- `TASK-0088` — Test Brannen quark-mass Koide cascade for up and down sectors (merged)
+- `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (merged)
 - `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (merged)
 - `TASK-0085` — Define PR title format for microtask PRs without a canonical TASK-XXXX (merged)
 - `TASK-0084` — Add explicit no-direct-main-push guardrail to agent instructions (merged)
 - `TASK-0083` — Add agent-ready scientific work loop follow-up tasks (merged)
+- `TASK-0082` — Add Koide baseline planning for guarded next-step evaluation (merged)
+- `TASK-0081` — Run first hypothesis register pilot through an APL next-step flow (merged)
 - `TASK-0080` — Run first dimensional-analysis scientific microtask batch (merged)
 - `TASK-0078` — Add Agent Work Menu for spare-token scientific work (merged)
 - `TASK-0077` — Add proposal PR format and salvage guardrails (merged)
@@ -78,12 +88,14 @@ None.
 - `TASK-0071` — Support closeout batch PRs in review helper (merged)
 - `TASK-0067` — Add v0.2 release-focused campaign tasks (merged)
 - `TASK-0064` — Implement dimensional analysis validator MVP (merged)
+- `TASK-0063` — Generate v0.2 static visual result pack (merged)
 - `TASK-0062` — Update project status and roadmap for scientific campaign phase (merged)
 - `TASK-0061` — Create Mission Control and campaign map (merged)
 - `TASK-0060` — Add open pull request list to repository snapshot (merged)
 - `TASK-0058` — Standardize scoped verdict wording for tau holdout (merged)
 - `TASK-0057` — Reduce snapshot noise from worktrees and include proposal backlog (merged)
 - `TASK-0056` — Accept selected science-track proposals into canonical tasks (merged)
+- `TASK-0055` — Add experiment flow diagram to architecture docs (merged)
 - `TASK-0054` — Fix maintainer review helper temp claim path handling in git worktrees (merged)
 - `TASK-0051` — Define hypothesis register schema and launch entry micro-task track (merged)
 - `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (merged)
@@ -134,20 +146,19 @@ None.
 
 - `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
 - `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
-- `TASK-0059` — Prepare Koide tau holdout public summary package (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0088` — Test Brannen quark-mass Koide cascade for up and down sectors (`scientific_experiment`, priority `high`, difficulty `medium`)
 - `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
 - `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
 - `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
 
 ## BLOCKED
 
-- `TASK-0065` — Finalize Koide tau holdout public result package (`release_preparation`, priority `medium`, difficulty `medium`)
 - `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
 
 ## REJECTED
 
 - `TASK-0009` — Plan EXP-0003 as a diffusion scaling benchmark (`benchmark_planning`, priority `high`, difficulty `medium`)
+- `TASK-0059` — Prepare Koide tau holdout public summary package (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0065` — Finalize Koide tau holdout public result package (`release_preparation`, priority `medium`, difficulty `medium`)
 
 <!-- END AUTO TASK STATUS BOARD -->
 

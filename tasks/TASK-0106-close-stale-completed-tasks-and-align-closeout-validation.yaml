@@ -1,0 +1,61 @@
+id: TASK-0106
+title: "Close stale completed tasks and align closeout validation"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the task board honest by closing already-merged tasks that still linger as IN_PROGRESS or REVIEW_READY."
+  - "Retire narrow or redundant Koide packaging tasks once wider v0.2 campaign packaging tasks exist."
+  - "Keep strict closeout validation conservative without blocking legitimate non-result task types."
+
+input:
+  mode: workflow
+  related_domain: task_admin
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "docs/notes/hypothesis-register-protocol.md"
+    - "tasks/TASK-0059-koide-tau-holdout-public-summary-package.yaml"
+    - "tasks/TASK-0063-generate-static-visual-result-pack.yaml"
+    - "tasks/TASK-0065-finalize-koide-tau-holdout-public-result-package.yaml"
+    - "tasks/TASK-0081-run-first-hypothesis-register-pilot.yaml"
+    - "tasks/TASK-0082-add-koide-baseline-planning.yaml"
+    - "tasks/TASK-0095-visual-orientation-diagrams.yaml"
+    - "tasks/TASK-0105-curate-v02-packaging-followup-queue.yaml"
+    - "physics_lab/registry/repository.py"
+    - "tests/test_damped_oscillator.py"
+  planning_context: >
+    A maintainer audit found several already-merged tasks that still remained
+    open on the board, one stale hypothesis-register note that still described
+    pre-pilot seed states, and a strict-validation gap where legitimate
+    documentation/workflow task types could not be closed without canonical
+    result artifacts. This task performs that cleanup in one pass.
+
+requirements:
+  - "Mark already-merged completed tasks DONE when their accepted outputs are already present in main."
+  - "Update docs/notes/hypothesis-register-protocol.md to reflect the real HRE-0001/HRE-0002 outcomes after the pilot."
+  - "Reject TASK-0059 and TASK-0065 as superseded by broader Koide v0.2 packaging work."
+  - "Allow strict closeout validation to accept DONE workflow_pilot and scientific_visualization tasks without result artifacts."
+  - "Add a regression test for the non-result DONE-task whitelist behavior."
+  - "Sync tasks/ACTIVE.md through the canonical board flow."
+
+accepted_outputs:
+  - "updated tasks/ACTIVE.md"
+  - "updated docs/notes/hypothesis-register-protocol.md"
+  - "updated/rejected stale task files with corrected statuses"
+  - "validator support for DONE non-result workflow_pilot and scientific_visualization tasks"
+  - "regression test covering the closeout-validation policy"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/test_damped_oscillator.py tests/test_task_closeout.py tests/test_active_board.py tests/test_closeout_sweep.py -q"
+    - "git diff --exit-code"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

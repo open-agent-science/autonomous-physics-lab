@@ -82,21 +82,23 @@ Transition rules:
 - Do not use language like "new physics", "discovery", or "proof" in any
   register entry.
 
-## Seed Entries (as of TASK-0051)
+## Seed Entries (after TASK-0081 pilot)
 
 | ID | Domain | Title | Status |
 |---|---|---|---|
-| HRE-0001 | particle_physics | Koide-like mass relation candidate for neutrinos | PROPOSED |
-| HRE-0002 | classical_mechanics | Leading-order period correction for weakly anharmonic oscillator | PROPOSED |
+| HRE-0001 | particle_physics | Koide-like mass relation candidate for neutrinos | REJECTED |
+| HRE-0002 | classical_mechanics | Leading-order period correction for weakly anharmonic oscillator | FORMALIZED |
 | HRE-0003 | thermodynamics | Wien displacement law generalisation for modified Planck spectrum | PROPOSED |
 | HRE-0004 | special_relativity | Relativistic KE correction exceeds 1% at beta > 0.115 | PROPOSED |
 | HRE-0005 | fundamental_constants | Fine-structure constant alpha derivable from e, hbar, c, epsilon_0 to 1e-9 | PROPOSED |
 
 ## Limitations
 
-- Absolute neutrino masses (HRE-0001) are not yet precisely measured;
-  the Koide test is currently only approximately testable via mass-squared differences.
-- HRE-0002–0005 are deterministically testable with current code infrastructure.
-- No entry has been promoted to `FORMALIZED` or `PROMOTED` status yet.
+- HRE-0001 is now closed as a rejected entry because EXP-0007 / RESULT-0009
+  already falsified the algebraically equivalent neutrino Koide form.
+- HRE-0002 is now the first `FORMALIZED` entry and links to a draft experiment
+  plan created by the TASK-0081 pilot.
+- HRE-0003–0005 remain deterministically testable with current code
+  infrastructure, but have not yet been promoted.
 - The schema does not currently enforce that `claim_ceiling` is conservative —
   this is a human-review responsibility.
