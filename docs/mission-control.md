@@ -55,6 +55,9 @@ The clearest current repository-level results are:
 6. [`RESULT-0010` quark cascade falsification](./notes/koide-quark-cascade.md)
    — the current quark-sector falsification result under stored dataset and
    scale assumptions.
+7. [`RESULT-0011` particle-mass relation falsifier MVP](../results/EXP-0009/RUN-0001/report.md)
+   — fixed-target Koide family-survival falsification with uncertainty,
+   baseline, and complexity-penalty reporting.
 
 These results matter because they are reproducible and reviewable. They do not
 authorize exact symbolic proof, universal scope, or deeper physical
@@ -114,6 +117,8 @@ Low-risk contribution patterns right now:
   particle masses.
 - Do not turn neutrino or quark falsifications into a blanket claim about all
   possible Koide variants.
+- Do not turn the particle-mass falsifier MVP into a blanket claim about all
+  possible mass-relation formulas.
 - Do not describe planning-only campaigns as implemented benchmark systems.
 - Do not present the repository as public before the release gates are met.
 

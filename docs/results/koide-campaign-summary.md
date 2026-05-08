@@ -3,12 +3,14 @@
 ## Scope
 
 APL's Koide campaign is currently a falsification-first particle-mass track
-with four canonical benchmark surfaces:
+with five canonical benchmark surfaces:
 
 1. a charged-lepton reproduction benchmark;
 2. a historical tau holdout benchmark;
 3. a direct neutrino extension falsification;
 4. a quark-sector cascade falsification.
+5. a first falsifier MVP that applies uncertainty propagation, baseline
+   calibration, and a complexity-penalty ledger to the fixed standard target.
 
 These results share one discipline: explicit datasets, stored uncertainty or
 gap metrics, and conservative verdict wording. They do not add up to a global
@@ -23,6 +25,7 @@ Koide-like extension.
 | Tau holdout | `EXP-0005/RUN-0005` (`RESULT-0006`) | Reproduced in scope |
 | Neutrino extension | `EXP-0007/RUN-0001` (`RESULT-0009`) | Falsified in scope |
 | Quark cascade | `EXP-0008/RUN-0001` (`RESULT-0010`) | Falsified in scope |
+| Falsifier MVP | `EXP-0009/RUN-0001` (`RESULT-0011`) | Cross-family survival falsified in scope |
 
 ## Reproductions in Scope
 
@@ -86,12 +89,29 @@ NuFIT 5.3 assumptions.
 This is a clear falsification of the stored quark-sector follow-up under the
 documented mixed-scale PDG dataset and the tested Brannen-style phase setup.
 
+### Particle-Mass Relation Falsifier MVP
+
+- [Canonical report](../../results/EXP-0009/RUN-0001/report.md)
+- charged leptons remain within propagated uncertainty at `0.43σ`
+- up quarks miss the fixed target by `159.2σ`
+- down quarks miss the fixed target by `8.8σ`
+- deterministic random-baseline and complexity-penalty details are stored in
+  `metrics.json`
+- verdict: `INVALID`
+
+This falsifies cross-family survival of the fixed standard Koide target under
+the encoded charged-fermion family triplets. It does not falsify every possible
+Koide-like extension and does not promote any explanatory claim.
+
 ## What the Current Campaign Says
 
 - The charged-lepton benchmark reproduces in scope.
 - The historical tau holdout reproduces in scope.
 - The direct neutrino extension fails in scope.
 - The tested quark follow-up also fails in scope.
+- The first falsifier MVP keeps the charged-lepton reproduction visible while
+  recording that the fixed standard target does not survive the encoded
+  charged-fermion family survey.
 
 This makes the current campaign strongest as a reproducible benchmark and
 falsification package, not as an explanatory theory package.
@@ -104,6 +124,8 @@ falsification package, not as an explanatory theory package.
   for all fermion families.
 - Do not treat the neutrino or quark falsifications as ruling out every
   modified Koide-like construction.
+- Do not use the falsifier MVP to claim that all particle-mass numerology has
+  been settled.
 
 ## Canonical Surfaces
 
@@ -111,4 +133,5 @@ falsification package, not as an explanatory theory package.
 - [Historical Tau Holdout Prediction](./koide-tau-holdout.md)
 - [Koide Neutrino Consistency Test — Falsification Result](./koide-neutrino-falsification.md)
 - [Koide Quark Cascade — Falsification Result](./koide-quark-cascade-falsification.md)
+- [Particle-Mass Relation Falsifier MVP](../../results/EXP-0009/RUN-0001/report.md)
 - [Negative Results Registry](../negative-results-registry.md)
