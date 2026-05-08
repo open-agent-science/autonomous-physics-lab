@@ -1,0 +1,45 @@
+id: TASK-0116
+title: "Add microtask queue summary table generator"
+type: agent_workflow
+status: READY
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "Make the scientific microtask layer easier to scan as more queues are added for v0.3 and v0.4."
+  - "Improve onboarding ergonomics for new contributors and their agents."
+  - "Reduce manual drift in tasks/microtasks/README queue summaries."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "tasks/microtasks/README.md"
+    - "tasks/microtasks/"
+  planning_context: >
+    This task is intentionally useful but low-risk. It should improve the
+    readability of microtask queues for new contributors without touching
+    canonical scientific artifacts.
+
+requirements:
+  - "Generate or refresh a compact summary table for the queue surfaces listed in tasks/microtasks/README.md."
+  - "Prefer simple metadata such as queue_id, campaign, batch guidance, and risk."
+  - "Keep the implementation small and easy for a first-time contributor to understand."
+  - "Do not turn this into a large documentation-site or dashboard feature."
+
+accepted_outputs:
+  - "queue summary generation support or documented update workflow"
+  - "updated tasks/microtasks/README.md with clearer queue summary surface"
+  - "tests if code is added"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
