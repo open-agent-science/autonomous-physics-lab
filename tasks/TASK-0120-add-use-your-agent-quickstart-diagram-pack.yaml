@@ -1,0 +1,49 @@
+id: TASK-0120
+title: "Add use-your-agent quickstart diagram pack"
+type: documentation
+status: READY
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "Make the local multi-agent model easier to understand for future v0.3 and v0.4 contributors."
+  - "Reduce onboarding friction for humans using chat-driven agents instead of maintainers' internal workflow."
+  - "Provide a highly visible starter task that motivates new contributors and their agents."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "docs/use-your-agent.md"
+    - "docs/agent-operating-model.md"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    This task should add a small pack of quickstart diagrams to the current
+    use-your-agent guide. It is meant to be a newcomer-friendly docs task that
+    helps future contributors understand one-task-one-branch-one-worktree
+    discipline and how to choose between microtasks, READY tasks, and
+    proposals. Suggested starting surfaces: docs/use-your-agent.md and
+    docs/agent-operating-model.md. A good first PR shape is 2-3 Mermaid
+    diagrams plus minimal wording cleanup.
+
+requirements:
+  - "Add 2-3 small Mermaid diagrams to docs/use-your-agent.md."
+  - "Include one-task-one-branch-one-worktree guidance."
+  - "Include a simple path chooser for microtask vs READY task vs proposal."
+  - "Keep the first PR within docs/use-your-agent.md and closely related workflow docs."
+  - "Keep the diagrams concise and aligned with current protocol."
+
+accepted_outputs:
+  - "quickstart Mermaid diagram pack in docs/use-your-agent.md"
+  - "small wording cleanup around local multi-agent workflow if needed"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
