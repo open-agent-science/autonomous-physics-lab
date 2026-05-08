@@ -1,0 +1,255 @@
+{
+  "result_id": "RESULT-0011",
+  "run_id": "RUN-0001",
+  "dataset_id": "DATASET-PM-0003",
+  "dataset_hash": {
+    "path": "results/EXP-0009/RUN-0001/inputs/dataset.yaml",
+    "sha256": "d914e7b88e13f1f65b725e5aa9f05e7e94b1b2bc4c0b7878eb863f8667db6df2"
+  },
+  "target": 0.6666666666666666,
+  "best_verdict": "INVALID",
+  "complexity_penalty": {
+    "parameter_count": 0.0,
+    "arbitrary_constants": 0.0,
+    "tuned_exponents": 0.0,
+    "structural_flexibility": 1.0,
+    "cross_family_mixing": 0.0,
+    "post_hoc_prediction": 0.0,
+    "total": 1.0,
+    "severity": "low",
+    "disqualifying_flags": []
+  },
+  "families": [
+    {
+      "family_id": "charged_leptons",
+      "label": "Charged leptons",
+      "particles": [
+        "e",
+        "mu",
+        "tau"
+      ],
+      "masses_mev": [
+        0.51099895,
+        105.6583755,
+        1776.93
+      ],
+      "uncertainties_mev": [
+        1.5e-10,
+        2.3e-06,
+        0.09
+      ],
+      "mass_types": [
+        "pole",
+        "pole",
+        "pole"
+      ],
+      "schemes": [
+        "none",
+        "none",
+        "none"
+      ],
+      "scales": [
+        "none",
+        "none",
+        "none"
+      ],
+      "q_value": 0.6666644634145,
+      "target": 0.6666666666666666,
+      "absolute_gap": 2.2032521665993343e-06,
+      "relative_gap": 3.3048782498990015e-06,
+      "q_uncertainty": 5.080958197422744e-06,
+      "gap_sigma": 0.43362926459755324,
+      "within_uncertainty": true,
+      "analytic_range_fraction": 6.609756499798002e-06,
+      "random_baseline": {
+        "seed": 4040,
+        "sample_count": 10000,
+        "mass_min_mev": 0.51099895,
+        "mass_max_mev": 172690.0,
+        "mean_q": 0.6384121368075902,
+        "std_q": 0.18453460344253714,
+        "best_gap_to_target": 9.438120329496869e-06,
+        "fraction_within_observed_gap": 0.0,
+        "observed_gap_percentile": 0.0
+      },
+      "verdict": "VALID",
+      "limitation": "Pole-mass family with high precision."
+    },
+    {
+      "family_id": "up_quarks",
+      "label": "Up-type quarks",
+      "particles": [
+        "u",
+        "c",
+        "t"
+      ],
+      "masses_mev": [
+        2.16,
+        1270.0,
+        172690.0
+      ],
+      "uncertainties_mev": [
+        0.49,
+        20.0,
+        300.0
+      ],
+      "mass_types": [
+        "running",
+        "running",
+        "direct_measurement"
+      ],
+      "schemes": [
+        "MS-bar",
+        "MS-bar",
+        "direct_measurement"
+      ],
+      "scales": [
+        "2 GeV",
+        "mc(mc)",
+        "none"
+      ],
+      "q_value": 0.8489807776610612,
+      "target": 0.6666666666666666,
+      "absolute_gap": 0.18231411099439454,
+      "relative_gap": 0.2734711664915918,
+      "q_uncertainty": 0.001145461664628846,
+      "gap_sigma": 159.16212355606697,
+      "within_uncertainty": false,
+      "analytic_range_fraction": 0.5469423329831835,
+      "random_baseline": {
+        "seed": 4041,
+        "sample_count": 10000,
+        "mass_min_mev": 0.51099895,
+        "mass_max_mev": 172690.0,
+        "mean_q": 0.6332200470213875,
+        "std_q": 0.18384235388736409,
+        "best_gap_to_target": 7.382196140881536e-05,
+        "fraction_within_observed_gap": 0.5762,
+        "observed_gap_percentile": 57.620000000000005
+      },
+      "verdict": "INVALID",
+      "limitation": "Mixed quark scheme/scale family; explicit limitation."
+    },
+    {
+      "family_id": "down_quarks",
+      "label": "Down-type quarks",
+      "particles": [
+        "d",
+        "s",
+        "b"
+      ],
+      "masses_mev": [
+        4.67,
+        93.4,
+        4183.0
+      ],
+      "uncertainties_mev": [
+        0.48,
+        8.6,
+        7.0
+      ],
+      "mass_types": [
+        "running",
+        "running",
+        "running"
+      ],
+      "schemes": [
+        "MS-bar",
+        "MS-bar",
+        "MS-bar"
+      ],
+      "scales": [
+        "2 GeV",
+        "2 GeV",
+        "mb(mb)"
+      ],
+      "q_value": 0.7314967575627492,
+      "target": 0.6666666666666666,
+      "absolute_gap": 0.0648300908960826,
+      "relative_gap": 0.0972451363441239,
+      "q_uncertainty": 0.00733124307489866,
+      "gap_sigma": 8.842987503449919,
+      "within_uncertainty": false,
+      "analytic_range_fraction": 0.19449027268824778,
+      "random_baseline": {
+        "seed": 4042,
+        "sample_count": 10000,
+        "mass_min_mev": 0.51099895,
+        "mass_max_mev": 172690.0,
+        "mean_q": 0.636970146442717,
+        "std_q": 0.1827814984832262,
+        "best_gap_to_target": 3.3021850331604874e-05,
+        "fraction_within_observed_gap": 0.1732,
+        "observed_gap_percentile": 17.32
+      },
+      "verdict": "INVALID",
+      "limitation": "Mixed quark scheme/scale family; explicit limitation."
+    }
+  ],
+  "verification": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "explicit_family_inputs",
+        "status": "PASS",
+        "details": "Every evaluated family has exactly three source-explicit particle masses.",
+        "metrics": {
+          "family_count": 3,
+          "particle_count": 9
+        }
+      },
+      {
+        "name": "complexity_penalty_applied",
+        "status": "PASS",
+        "details": "The standard Koide relation is scored with a fixed low-complexity penalty ledger.",
+        "metrics": {
+          "complexity_penalty_total": 1.0
+        }
+      },
+      {
+        "name": "random_baseline_applied",
+        "status": "PASS",
+        "details": "Each family is compared with a deterministic log-uniform random triplet baseline.",
+        "metrics": {
+          "minimum_sample_count": 10000
+        }
+      },
+      {
+        "name": "charged_leptons_family_verdict",
+        "status": "PASS",
+        "details": "Charged leptons: Q=0.666664463415, gap=2.203252e-06, verdict=VALID.",
+        "metrics": {
+          "q_value": 0.6666644634145,
+          "absolute_gap": 2.2032521665993343e-06,
+          "q_uncertainty": 5.080958197422744e-06,
+          "gap_sigma": 0.43362926459755324,
+          "within_uncertainty": true
+        }
+      },
+      {
+        "name": "up_quarks_family_verdict",
+        "status": "PASS",
+        "details": "Up-type quarks: Q=0.848980777661, gap=1.823141e-01, verdict=INVALID.",
+        "metrics": {
+          "q_value": 0.8489807776610612,
+          "absolute_gap": 0.18231411099439454,
+          "q_uncertainty": 0.001145461664628846,
+          "gap_sigma": 159.16212355606697,
+          "within_uncertainty": false
+        }
+      },
+      {
+        "name": "down_quarks_family_verdict",
+        "status": "PASS",
+        "details": "Down-type quarks: Q=0.731496757563, gap=6.483009e-02, verdict=INVALID.",
+        "metrics": {
+          "q_value": 0.7314967575627492,
+          "absolute_gap": 0.0648300908960826,
+          "q_uncertainty": 0.00733124307489866,
+          "gap_sigma": 8.842987503449919,
+          "within_uncertainty": false
+        }
+      }
+    ]
+  }
+}

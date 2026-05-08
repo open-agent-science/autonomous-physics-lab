@@ -35,8 +35,9 @@ surfaces:
 - `TASK-0088` produced `EXP-0008/RUN-0001` (`RESULT-0010`), a quark-sector
   cascade falsification under the documented mixed-scale PDG dataset.
 - `TASK-0039` and `TASK-0042` added search-design and numerology guardrails.
-- `TASK-0040` remains `PROPOSED`, which is intentional: broader falsifier
-  implementation should stay downstream of the guardrails.
+- `TASK-0040` produced `EXP-0009/RUN-0001` (`RESULT-0011`), the first
+  particle-mass relation falsifier MVP with uncertainty propagation, a
+  deterministic random baseline, and a fixed complexity-penalty ledger.
 
 Current narrow evidence:
 
@@ -48,6 +49,9 @@ Current narrow evidence:
   orderings in the stored setup;
 - quark follow-up testing keeps both tested sectors above `2/3` in the stored
   setup;
+- the falsifier MVP preserves the charged-lepton in-scope reproduction while
+  falsifying cross-family survival of the fixed standard Koide target across
+  the encoded charged-fermion family triplets;
 - these are scoped benchmark and falsification outputs, not explanatory claims.
 
 Start here:
@@ -57,14 +61,15 @@ Start here:
 - [Historical Tau Holdout Prediction](../results/koide-tau-holdout.md)
 - [Koide Neutrino Falsification](../results/koide-neutrino-falsification.md)
 - [Koide Quark Cascade Falsification](../results/koide-quark-cascade-falsification.md)
+- [Particle-Mass Relation Falsifier MVP](../../results/EXP-0009/RUN-0001/report.md)
 - [Negative Results Registry](../negative-results-registry.md)
 - [Particle Mass Relation / Koide Track](../notes/particle-mass-relation-track.md)
 - [Particle mass numerology guardrails](../notes/particle-mass-numerology-guardrails.md)
 
 ## Open Questions
 
-- What is the smallest safe next implementation step after the current
-  charged-lepton, tau, neutrino, and quark result package?
+- What baseline or dataset extension should come after the first falsifier MVP
+  without reopening numerology loopholes?
 - How should quark scheme/scale handling be encoded before any broader search?
 - Which baseline families should every Koide-like triplet search beat before a
   result is considered interesting?
@@ -79,8 +84,8 @@ Start here:
   promoting claims;
 - future data or baseline tasks that preserve explicit source policy and
   overclaim guardrails;
-- `TASK-0040` only after the maintainer explicitly moves it into executable
-  status.
+- review of `RESULT-0011` before any claim-status or knowledge-status
+  strengthening.
 
 ## Recommended Contributor Types
 

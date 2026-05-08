@@ -53,6 +53,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
 - `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
@@ -151,7 +152,6 @@ None.
 ## PROPOSED
 
 - `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
-- `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
 - `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
 - `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
 - `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
