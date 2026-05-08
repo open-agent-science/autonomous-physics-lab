@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""Scaffold or preflight a microtask PR without network access."""
+
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from physics_lab.registry.microtask_pr_helper import (
+    microtask_branch,
+    microtask_pr_body,
+    microtask_title,
+    preflight_microtask_pr,
+)
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    scaffold = subparsers.add_parser("scaffold", help="Print a suggested branch, title, and PR body.")
+    scaffold.add_argument("--queue-id", required=True)
+    scaffold.add_argument("--contributor-id", required=True)
+    scaffold.add_argument("--agent-id", required=True)
+    scaffold.add_argument("--slug", required=True)
+    scaffold.add_argument("--description", required=True)
+    scaffold.add_argument("--microtask-id")
+    scaffold.add_argument("--microtask-ids", nargs="*", default=[])
+
+    preflight = subparsers.add_parser("preflight", help="Check branch/title/body before opening a PR.")
+    preflight.add_argument("--branch", required=True)
+    preflight.add_argument("--title", required=True)
+    preflight.add_argument("--body-file", required=True)
+    preflight.add_argument("--root", default=".")
+
+    return parser
+
+
+def command_scaffold(args: argparse.Namespace) -> int:
+    branch = microtask_branch(
+        args.contributor_id,
+        args.agent_id,
+        args.slug,
+        queue_id=None if args.microtask_id else args.queue_id,
+        microtask_id=args.microtask_id,
+    )
+    title = microtask_title(args.queue_id, args.description)
+    body = microtask_pr_body(
+        queue_id=args.queue_id,
+        branch=branch,
+        title=title,
+        microtask_ids=tuple(args.microtask_ids),
+    )
+    sys.stdout.write(f"Branch: {branch}\n")
+    sys.stdout.write(f"Title: {title}\n\n")
+    sys.stdout.write(body)
+    return 0
+
+
+def command_preflight(args: argparse.Namespace) -> int:
+    body_path = Path(args.body_file)
+    body_text = body_path.read_text(encoding="utf-8")
+    report = preflight_microtask_pr(
+        Path(args.root),
+        branch=args.branch,
+        title=args.title,
+        body_text=body_text,
+    )
+    if report.errors:
+        sys.stdout.write("Errors:\n")
+        for item in report.errors:
+            sys.stdout.write(f"- {item}\n")
+    else:
+        sys.stdout.write("Errors: none\n")
+    if report.warnings:
+        sys.stdout.write("Warnings:\n")
+        for item in report.warnings:
+            sys.stdout.write(f"- {item}\n")
+    else:
+        sys.stdout.write("Warnings: none\n")
+    return 0 if report.ok else 1
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    if args.command == "scaffold":
+        return command_scaffold(args)
+    if args.command == "preflight":
+        return command_preflight(args)
+    raise AssertionError(f"Unsupported command: {args.command}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
