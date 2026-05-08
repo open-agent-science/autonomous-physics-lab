@@ -25,6 +25,22 @@ OVERCLAIM_PATTERNS = tuple(
     re.compile(rf"(?<![a-z]){re.escape(term)}(?![a-z])") for term in OVERCLAIM_TERMS
 )
 PROTECTED_PREFIXES = ("results/", "claims/", "hypotheses/", "experiments/")
+SEMANTIC_PROTECTED_PREFIX_HINTS = {
+    "results/": (
+        "result artifact",
+        "result artifacts",
+        "run artifact",
+        "run artifacts",
+        "benchmark result artifact",
+        "benchmark result artifacts",
+        "canonical result artifact",
+        "canonical result artifacts",
+        "canonical run artifact",
+        "canonical run artifacts",
+        "reproducible benchmark result artifact",
+        "reproducible benchmark result artifacts",
+    ),
+}
 KNOWN_OUTPUT_EXTENSIONS = (
     ".md",
     ".yaml",
@@ -164,8 +180,12 @@ def task_allows_prefix(task_payload: dict[str, Any], prefix: str) -> bool:
     texts.extend(str(item) for item in task_payload.get("accepted_outputs", []))
     texts.extend(str(item) for item in task_payload.get("requirements", []))
     texts.extend(str(item) for item in task_payload.get("input", {}).get("related_objects", []))
+    lowered_texts = tuple(text.lower() for text in texts)
     normalized_prefix = prefix.rstrip("/")
-    return any(normalized_prefix in text or prefix in text for text in texts)
+    if any(normalized_prefix in text or prefix in text for text in texts):
+        return True
+    semantic_hints = SEMANTIC_PROTECTED_PREFIX_HINTS.get(prefix, ())
+    return any(hint in text for hint in semantic_hints for text in lowered_texts)
 
 
 def unexpected_protected_changes(
