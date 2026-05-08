@@ -21,7 +21,10 @@ from physics_lab.registry.maintainer_review import (
     security_pattern_hits,
     sensitive_surface_hits,
 )
-from physics_lab.registry.review_checks import load_claim_status_from_ref
+from physics_lab.registry.review_checks import (
+    load_claim_status_from_ref,
+    unexpected_protected_changes,
+)
 from physics_lab.registry.review_git import CommandResult
 
 
@@ -662,6 +665,36 @@ def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> N
     assert report.verdict == "MERGE_OK"
     assert report.task_id == "MICROTASK(particle-mass-relations)"
     assert not any("task file" in item.lower() for item in report.blockers)
+
+
+def test_unexpected_protected_changes_allows_task_authorized_result_artifacts() -> None:
+    task_payload = {
+        "accepted_outputs": (
+            "particle-mass relation falsifier workflow",
+            "reproducible benchmark result artifacts",
+        ),
+        "requirements": (),
+        "input": {"related_objects": ()},
+    }
+
+    changed_files = (
+        "results/EXP-0009/RUN-0001/result.yaml",
+        "results/EXP-0009/RUN-0001/report.md",
+    )
+
+    assert unexpected_protected_changes(changed_files, task_payload) == ()
+
+
+def test_unexpected_protected_changes_still_blocks_unauthorized_result_artifacts() -> None:
+    task_payload = {
+        "accepted_outputs": ("docs update",),
+        "requirements": (),
+        "input": {"related_objects": ()},
+    }
+
+    changed_files = ("results/EXP-9999/RUN-0001/result.yaml",)
+
+    assert unexpected_protected_changes(changed_files, task_payload) == changed_files
 
 
 def test_build_review_report_blocks_microtask_pr_when_queue_file_missing(tmp_path: Path) -> None:
