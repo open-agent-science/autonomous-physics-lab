@@ -101,8 +101,9 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
             "Verify accepted outputs exist in main before updating the task file."
         )
         suggested_actions.append(
-            "Run python3 -m physics_lab.cli sync-active-board . after closeout so "
-            "tasks/ACTIVE.md reflects DONE."
+            "Prefer YAML-only per-task closeout first; run python3 -m physics_lab.cli "
+            "sync-active-board . later in a dedicated board-sync step so tasks/ACTIVE.md "
+            "does not become a conflict surface in every closeout PR."
         )
     elif status == "DONE":
         suggested_actions.append(
@@ -187,7 +188,9 @@ def render_closeout_report(
         lines.append("Suggested file updates (not applied):")
         if report.status == "REVIEW_READY":
             lines.append("- Change task status from REVIEW_READY to DONE after merge verification.")
-            lines.append("- Run python3 -m physics_lab.cli sync-active-board . after the status change.")
+            lines.append(
+                "- Run python3 -m physics_lab.cli sync-active-board . later in a dedicated board-sync step if tasks/ACTIVE.md needs refresh."
+            )
         else:
             lines.append(
                 "- No direct file update is suggested until the task reaches "

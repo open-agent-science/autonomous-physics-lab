@@ -24,6 +24,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Apply task closeout changes on main after checks pass.",
     )
+    parser.add_argument(
+        "--sync-board",
+        action="store_true",
+        help="Also regenerate tasks/ACTIVE.md during apply mode. Leave unset for lower-conflict YAML-only closeout.",
+    )
     return parser
 
 
@@ -41,6 +46,7 @@ def main() -> int:
         task_id=args.task,
         pull_request=args.pr,
         apply=args.apply,
+        sync_board=args.sync_board,
     )
     print(render_closeout_report(report))
     return 0

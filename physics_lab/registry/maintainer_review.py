@@ -435,10 +435,6 @@ def build_review_report(
                     required_fixes.append(
                         f"Closeout PR should mark {task_path} as DONE."
                     )
-        if "tasks/ACTIVE.md" not in changed_files:
-            required_fixes.append(
-                "Closeout PR should update tasks/ACTIVE.md after task status changes."
-            )
         validation_payload = {
             "validation": {
                 "commands": list(CLOSEOUT_VALIDATION_COMMANDS),
@@ -784,6 +780,7 @@ def build_closeout_report(
     task_id: str,
     pull_request: int,
     apply: bool,
+    sync_board: bool = False,
 ) -> CloseoutReport:
     """Build and optionally apply a maintainer closeout decision on main."""
     blockers: list[str] = []
@@ -850,8 +847,13 @@ def build_closeout_report(
     if apply and outcome == "APPLIED":
         update_task_status(task_file, "DONE")
         applied_changes.append(f"Updated {task_file.as_posix()} status to DONE.")
-        update_active_board_for_done(root, task_id, str(task_payload["title"]))
-        applied_changes.append("Synchronized tasks/ACTIVE.md from canonical task files.")
+        if sync_board:
+            update_active_board_for_done(root, task_id, str(task_payload["title"]))
+            applied_changes.append("Synchronized tasks/ACTIVE.md from canonical task files.")
+        else:
+            applied_changes.append(
+                "Deferred tasks/ACTIVE.md synchronization; run python3 -m physics_lab.cli sync-active-board . later in a dedicated board-sync step."
+            )
         if should_append_dry_run_entry(task_payload):
             if append_dry_run_entry(root, task_id, pull_request):
                 applied_changes.append("Appended a closeout note to docs/multi-agent-dry-run.md.")
