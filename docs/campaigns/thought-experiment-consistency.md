@@ -6,6 +6,42 @@ Formalize classical thought experiments as deterministic consistency scenarios.
 Instead of fitting formulas to data, this campaign asks whether a candidate
 derivation respects explicit assumptions, invariants, and known limits.
 
+## Orientation Note for New Contributors
+
+This campaign is **planning-first**. There are no executable benchmarks yet.
+Safe contributions right now are planning, scoping, and orientation work —
+not implementation.
+
+### Safe contribution scope
+
+- write or improve planning notes for individual scenarios;
+- add assumption inventories, invariant lists, or known-limit tables;
+- improve cross-links between this campaign and related APL docs;
+- scope one scenario at a time as a narrow planning artifact;
+- add wording that keeps scenario descriptions falsification-first.
+
+### Good first-step patterns
+
+- read the existing suite design at
+  [Thought-Experiment Consistency Suite](../notes/thought-experiment-consistency-suite.md);
+- pick one scenario from the candidate list (light clock, simultaneity,
+  twin paradox, or Einstein elevator) and write a short planning note for it;
+- add explicit assumption, invariant, and known-limit fields to an existing
+  scenario description;
+- open a task proposal if you see a planning gap with no existing task.
+
+### What not to claim or implement yet
+
+- do not implement an executable validator or benchmark runner for this campaign;
+- do not write result artifacts or claim verdicts without a canonical experiment;
+- do not imply General Relativity support — v1 scope is inertial-frame scenarios only;
+- do not describe planning notes as completed theoretical verification;
+- do not open a PR that generates result files under `results/` for this campaign.
+
+The first executable benchmark for this track does not exist yet. Implementation
+tasks will follow only after a stable single-scenario contract has been reviewed
+and accepted by the maintainer.
+
 ## Why It Matters
 
 This campaign broadens APL beyond approximation benchmarking:
@@ -31,7 +67,6 @@ This campaign is still planning-oriented:
   exist yet.
 
 Current campaign state in one sentence:
-
 The scenario inventory exists, but the executable consistency machinery does
 not.
 
