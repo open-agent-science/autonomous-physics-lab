@@ -4,9 +4,9 @@ experiment_id: EXP-0010
 title: Muon g-2 Anomaly Formula Search
 hypothesis_id: HYP-0010
 task_id: TASK-0127
-generated_at: '2026-05-08T18:54:49.353580+00:00'
+generated_at: '2026-05-08T18:58:48.087317+00:00'
 engine_version: 0.1.0
-git_commit: cb7ccf82cc0b41dbb163e97a2646f0eb36185678
+git_commit: 070437e57d87db2ee62351054394b94efeac96bd
 command: physics-lab run g2_formula_search.yaml
 input_file_hashes:
   config:
@@ -20,7 +20,7 @@ input_file_hashes:
     sha256: 6c29e2303d191f008b11115e3283f32832f707507b5a8d1f3913e1d1734046e6
   task:
     path: results/EXP-0010/RUN-0001/inputs/task.yaml
-    sha256: 7f0f66130c27fa0b4018318e4960120aa25ac6f56e50719eb29ee8d3cd95db0b
+    sha256: 7b129d0a6e6234944b8500fef8c37dc00210dabfeb70f9636dbbcb3d4b9b7810
 code_reference: physics_lab/workflows/g2_formula.py
 limitations:
 - Data-driven HVP baseline used (5.1σ). BMW lattice-QCD reduces to ~1.5σ.
