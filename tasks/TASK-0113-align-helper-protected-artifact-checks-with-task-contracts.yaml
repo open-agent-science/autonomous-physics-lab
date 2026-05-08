@@ -1,7 +1,7 @@
 id: TASK-0113
 title: "Align maintainer review helper protected-artifact checks with scientific task contracts"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
