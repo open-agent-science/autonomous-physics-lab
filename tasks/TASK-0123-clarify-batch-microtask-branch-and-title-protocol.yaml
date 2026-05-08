@@ -1,0 +1,52 @@
+id: TASK-0123
+title: "Clarify batch microtask branch and title protocol"
+type: maintainer_workflow
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep branch and PR-title rules aligned with the repository's actual microtask batching policy."
+  - "Reduce false protocol failures for coherent batch PRs from a single queue."
+  - "Lower maintainer review overhead by making valid batch microtask naming unambiguous."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "physics_lab/registry/maintainer_review.py"
+  planning_context: >
+    The repository now allows a small batch of related microtasks from one
+    queue per PR, but the protocol is still clearer for single-item microtask
+    branches than for batch branches. PR #148 exposed this gap: the contributor
+    agent produced a reasonable batch diff but guessed the branch and PR-title
+    shapes. This task should remove that ambiguity for future contributors and
+    their agents.
+
+requirements:
+  - "State one canonical branch naming rule for batch microtask PRs, or one explicit exception rule, and keep it consistent across docs and helper checks."
+  - "State one canonical PR-title format for batch microtask PRs from a single queue."
+  - "Preserve current single-microtask PR support."
+  - "Keep fast review available for narrow same-queue batches."
+  - "Update helper expectations if branch or title parsing changes."
+
+accepted_outputs:
+  - "updated docs/agent-task-protocol.md with batch microtask naming rules"
+  - "updated docs/scientific-micro-task-protocol.md if batching examples or constraints need clarification"
+  - "updated docs/maintainer-review-agent.md with matching review expectations"
+  - "updated helper logic and tests if protocol parsing changes"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
