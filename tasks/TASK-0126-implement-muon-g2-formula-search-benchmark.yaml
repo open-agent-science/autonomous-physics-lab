@@ -1,0 +1,62 @@
+id: TASK-0126
+title: "Implement muon g-2 empirical formula search benchmark"
+type: scientific_falsification
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Keep the muon g-2 campaign verification-first by separating design-only planning from implementation and result generation."
+  - "Allow a legitimate empirical formula-search benchmark without overclaiming new physics or theoretical explanation."
+  - "Make the maintainer review helper and task contract agree on the canonical artifacts required by a first-class scientific result package."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0089-muon-g2-anomaly-formula-search.yaml"
+    - "docs/notes/g2-anomaly-formula-search-design.md"
+    - "docs/notes/particle-mass-numerology-guardrails.md"
+    - "physics_lab/workflows/runner.py"
+    - "physics_lab/schemas/example_config.schema.json"
+  planning_context: >
+    TASK-0089 is a planning-only benchmark design task. A later contributor PR
+    implemented a full muon g-2 empirical formula-search workflow, canonical
+    result artifacts, and draft claim/knowledge outputs against that planning
+    task. This implementation needs its own canonical task contract so the work
+    can be reviewed and merged without rewriting history or pretending that a
+    design-only task authorized code, experiments, results, and claims.
+
+requirements:
+  - "Use TASK-0089 only as upstream planning/design context; do not rewrite TASK-0089 into an implementation task."
+  - "Implement a deterministic muon g-2 formula-search benchmark with explicit formula families, guardrail logic, and random-baseline calibration."
+  - "Create canonical hypothesis, experiment, example, and result artifacts only under this implementation task."
+  - "Keep claims and verdict wording empirical and scope-limited; do not claim new physics, theoretical explanation, or anomaly resolution."
+  - "If internal search verdicts differ from repository schema verdict vocabulary, document the mapping explicitly and conservatively."
+  - "Keep any resulting claim in DRAFT status unless a separate maintainer-reviewed promotion task exists."
+  - "Add regression tests for engine behavior, null-path handling, and workflow/result serialization."
+
+accepted_outputs:
+  - "physics_lab/engines/g2_formula_search.py"
+  - "physics_lab/workflows/g2_formula.py"
+  - "examples/g2_formula_search.yaml"
+  - "hypotheses/HYP-0010-muon-g2-formula-search.yaml"
+  - "experiments/EXP-0010-muon-g2-formula-search.yaml"
+  - "claims/CLAIM-0008-muon-g2-lepton-cascade-empirical.md"
+  - "knowledge/particle_physics/muon_g2.yaml"
+  - "results/EXP-0010/RUN-0001/*"
+  - "tests/test_g2_formula_search.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_g2_formula_search.py"
+    - "python3 -m physics_lab.cli run examples/g2_formula_search.yaml --output-dir /tmp/apl-g2-formula"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
