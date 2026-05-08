@@ -60,17 +60,17 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
-- `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (`agent_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0121` — Curate newcomer contributor task batch for upcoming onboarding (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0124` — Add microtask PR scaffold and preflight helper (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
 - `TASK-0125` — Curate microtask PR flow improvement queue (merged)
+- `TASK-0124` — Add microtask PR scaffold and preflight helper (merged)
 - `TASK-0123` — Clarify batch microtask branch and title protocol (merged)
 - `TASK-0122` — Add microtask PR template and metadata guidance (merged)
+- `TASK-0121` — Curate newcomer contributor task batch for upcoming onboarding (merged)
+- `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (merged)
+- `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (merged)
 - `TASK-0110` — Verify high-precision asymptotic refined pendulum model (merged)
 - `TASK-0109` — Define protocol support for microtask batch PRs (merged)
 - `TASK-0108` — Add microtask PR support to maintainer review helper (merged)
@@ -124,6 +124,7 @@ None.
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
 - `TASK-0042` — Add numerology guardrails for particle mass relation work (merged)
 - `TASK-0041` — Design complexity penalty for mass-relation formulas (merged)
+- `TASK-0040` — Build particle mass relation falsifier MVP (merged)
 - `TASK-0039` — Design Koide-like triplet search with baselines (merged)
 - `TASK-0038` — Reproduce historical tau-mass holdout prediction (merged)
 - `TASK-0037` — Reproduce Koide charged-lepton relation (merged)

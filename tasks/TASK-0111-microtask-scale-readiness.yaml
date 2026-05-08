@@ -1,7 +1,7 @@
 id: TASK-0111
 title: "Plan microtask scale readiness for daily multi-agent scientific work"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
