@@ -21,13 +21,13 @@ MU_OVER_MPI0 = 0.7830
 ALPHA_OVER_PI = ALPHA / math.pi
 EW_SCALE = GF_MMU_SQ / (8.0 * math.pi**2 * math.sqrt(2))
 
-# ── Target ────────────────────────────────────────────────────────────────────
+# ── Target ────────────────────────────────────────────────────────────────────────────
 
 DELTA_AMU = 249.0e-11
 SIGMA_COMBINED = 48.0e-11
 
 
-# ── Result dataclasses ────────────────────────────────────────────────────────
+# ── Result dataclasses ─────────────────────────────────────────────────────────────
 
 @dataclass(frozen=True)
 class FormulaHit:
@@ -38,6 +38,7 @@ class FormulaHit:
     value: float
     z_score: float
     complexity: int
+    is_reference: bool = False  # True for optimal-fit hits (not independently predicted)
 
 
 @dataclass(frozen=True)
@@ -60,7 +61,7 @@ class FamilyResult:
     notes: str
 
 
-# ── Scoring ───────────────────────────────────────────────────────────────────
+# ── Scoring ───────────────────────────────────────────────────────────────────────────
 
 def _z(value: float) -> float:
     return abs(value - DELTA_AMU) / SIGMA_COMBINED
@@ -70,7 +71,7 @@ def _hit(value: float, nsigma: float = 1.0) -> bool:
     return _z(value) < nsigma
 
 
-# ── Family F1 — QED power-law (α/π)^a × (mμ/me)^b ──────────────────────────
+# ── Family F1 — QED power-law (α/π)^a × (mμ/me)^b ──────────────────────────────
 
 def search_f1() -> FamilyResult:
     a_range = range(1, 5)          # a ∈ {1,2,3,4}
@@ -107,7 +108,7 @@ def search_f1() -> FamilyResult:
     )
 
 
-# ── Family F2 — EW scale × integer coefficient c ────────────────────────────
+# ── Family F2 — EW scale × integer coefficient c ───────────────────────────────────
 # f2 = c × GF·mμ²/(8π²√2)   for integer c ∈ {1,...,10}
 
 def search_f2() -> FamilyResult:
@@ -142,7 +143,7 @@ def search_f2() -> FamilyResult:
     )
 
 
-# ── Family F2b — EW scale × QED/mass ratio corrections ──────────────────────
+# ── Family F2b — EW scale × QED/mass ratio corrections ──────────────────────────
 # f2b = GF·mμ²/(8π²√2) × (α/π)^a × ratio^b
 # ratio ∈ {mμ/me, mμ/mτ, mW/mZ, mμ/mπ}; a,b ∈ {0,1,2,3}
 
@@ -193,7 +194,7 @@ def search_f2b() -> FamilyResult:
     )
 
 
-# ── Family F3 — Hadronic: c × (α/π)^3 × (mμ/mπ⁰)^2 ─────────────────────────
+# ── Family F3 — Hadronic: c × (α/π)^3 × (mμ/mπ⁰)^2 ─────────────────────────────────
 
 def search_f3() -> FamilyResult:
     """F3: one free scale factor c, fitted optimally."""
@@ -218,16 +219,17 @@ def search_f3() -> FamilyResult:
                 z_score=_z(val),
                 complexity=1,
             ))
-    # Also report optimal fit
+    # Also report optimal fit (is_reference=True: fitted to target, not independently predicted)
     val_opt = c_opt * f3_base
     hits.insert(0, FormulaHit(
         family="F3",
-        label=f"(optimal c={c_opt:.4f}) × (α/π)³ × (mμ/mπ⁰)²",
+        label=f"(optimal c={c_opt:.4f}) × (α/π)³ × (mμ/mπ⁰)² [fitted]",
         params={"c_num": None, "c_den": None, "c": c_opt},
         formula_str=f"({c_opt:.6f}) × (α/π)^3 × (mμ/mπ⁰)^2",
         value=val_opt,
         z_score=_z(val_opt),
         complexity=1,
+        is_reference=True,
     ))
 
     # Random baseline: c drawn from uniform [0, 2]
@@ -236,18 +238,19 @@ def search_f3() -> FamilyResult:
     rand_vals = c_samp * f3_base
     hit_rate = float(np.mean(np.abs(rand_vals - DELTA_AMU) / SIGMA_COMBINED < 1.0))
     rb = RandomBaseline("F3", 100_000, 1004, hit_rate, hit_rate < 0.01)
+    predicted_hits = [h for h in hits if not h.is_reference]
     return FamilyResult(
         family_id="F3",
         label="Hadronic: c × (α/π)³ × (mμ/mπ⁰)²",
         n_evaluated=len(rational_candidates) + 1,
         hits=hits,
         random_baseline=rb,
-        verdict="HIT",
+        verdict="NULL" if not predicted_hits else "HIT",
         notes=f"One free scale c. Optimal c={c_opt:.4f} ≈ 1/3. C=1 free parameter.",
     )
 
 
-# ── Family F4 — Lepton mass cascade α^a × (mμ/me)^b × (mμ/mτ)^c ─────────────
+# ── Family F4 — Lepton mass cascade α^a × (mμ/me)^b × (mμ/mτ)^c ─────────────────────
 
 def search_f4() -> FamilyResult:
     a_range = range(-2, 4)   # -2,...,3
@@ -290,7 +293,7 @@ def search_f4() -> FamilyResult:
     )
 
 
-# ── Family F5 — Mixed EW+QED ──────────────────────────────────────────────────
+# ── Family F5 — Mixed EW+QED ───────────────────────────────────────────────────────────
 # f5 = (α/π)^a × (mW/mZ)^b × (GF·mμ²)^c
 
 def search_f5() -> FamilyResult:
@@ -333,11 +336,12 @@ def search_f5() -> FamilyResult:
     )
 
 
-# ── Main search ───────────────────────────────────────────────────────────────
+# ── Main search ────────────────────────────────────────────────────────────────────────────
 
 def run_formula_search() -> dict[str, Any]:
     families = [search_f1(), search_f2(), search_f2b(), search_f3(), search_f4(), search_f5()]
-    all_hits = [h for fr in families for h in fr.hits]
+    # Exclude reference (fitted) hits from global verdict logic
+    all_hits = [h for fr in families for h in fr.hits if not h.is_reference]
     # Credible hits: C≤1 AND guardrail passed AND z<1
     credible = [
         h for h in all_hits
@@ -350,6 +354,7 @@ def run_formula_search() -> dict[str, Any]:
     ]
     # Interesting: z < 0.5
     interesting = [h for h in all_hits if h.z_score < 0.5]
+    best_hit = min(all_hits, key=lambda h: h.z_score) if all_hits else None
     return {
         "target_value": DELTA_AMU,
         "sigma": SIGMA_COMBINED,
@@ -368,7 +373,7 @@ def run_formula_search() -> dict[str, Any]:
                 "family_id": fr.family_id,
                 "label": fr.label,
                 "n_evaluated": fr.n_evaluated,
-                "n_hits_1sigma": len(fr.hits),
+                "n_hits_1sigma": len([h for h in fr.hits if not h.is_reference]),
                 "hits": [
                     {
                         "formula": h.formula_str,
@@ -377,6 +382,7 @@ def run_formula_search() -> dict[str, Any]:
                         "value_1e11": h.value / 1e-11,
                         "z_score": h.z_score,
                         "complexity": h.complexity,
+                        "is_reference": h.is_reference,
                     }
                     for h in sorted(fr.hits, key=lambda x: x.z_score)
                 ],
@@ -395,8 +401,10 @@ def run_formula_search() -> dict[str, Any]:
             "total_hits_1sigma": len(all_hits),
             "credible_hits": len(credible),
             "interesting_hits_half_sigma": len(interesting),
-            "best_z_score": min((h.z_score for h in all_hits), default=float("inf")),
-            "best_formula": min(all_hits, key=lambda h: h.z_score).formula_str if all_hits else None,
+            # None when no hits (avoids float("inf") which breaks JSON serialization)
+            "best_z_score": best_hit.z_score if best_hit else None,
+            "best_formula": best_hit.formula_str if best_hit else None,
+            "best_value": best_hit.value if best_hit else None,
         },
         "global_verdict": (
             "VALID_EMPIRICAL" if credible else
