@@ -7,6 +7,39 @@ benchmark track. The purpose is to test whether a relation stays meaningful
 after explicit dataset provenance, uncertainty propagation, holdout checks,
 baseline comparisons, and complexity penalties are applied.
 
+## Campaign Map
+
+This diagram shows the full particle-mass track as one falsification-first
+story. Each node is a scoped benchmark result — not a discovery claim.
+
+```mermaid
+flowchart TD
+    classDef valid   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
+    classDef invalid fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
+    classDef infra   fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
+    classDef open    fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+
+    DS["📦 Dataset Scaffold\nTASK-0036\ncharged leptons · explicit provenance"]:::infra
+
+    DS --> CL["⚛️ Koide Charged-Lepton Reproduction\nEXP-0004 / RUN-0004 · RESULT-0005\nQ = 0.6667 · gap < 0.5σ ✅ VALID"]:::valid
+
+    CL --> TH["🕰️ Tau Holdout Prediction\nEXP-0005 / RUN-0005 · RESULT-0006\nΔm = 0.039 MeV · within 1σ ✅ VALID"]:::valid
+
+    TH --> NU["🔬 Neutrino Koide Falsification\nEXP-0007 / RUN-0001 · RESULT-0009\nNH: 70.7σ below 2/3 ❌ INVALID"]:::invalid
+
+    TH --> QK["⚗️ Quark Cascade Falsification\nEXP-0008 / RUN-0001 · RESULT-0010\nDown: 8.8σ · Up: 159σ above 2/3 ❌ INVALID"]:::invalid
+
+    NU & QK --> MVP["🧪 Falsifier MVP\nEXP-0009 / RUN-0001 · RESULT-0011\ncharged-lepton: in-scope ✅\ncross-family: falsified ❌"]:::valid
+
+    MVP --> OPEN["🔭 Open: Baseline Extensions\nscheme/scale bookkeeping\ncomplexity penalty ledger\nnext search design"]:::open
+```
+
+**Reading guide:**
+- ✅ VALID — reproduces or predicts within stated uncertainty; narrow scope only
+- ❌ INVALID — falsified under stored dataset and assumptions
+- Orange — open questions and next steps
+- No node represents a discovery claim or physical explanation
+
 ## Why It Matters
 
 Particle-mass numerology is exactly the kind of domain where APL's discipline
