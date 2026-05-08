@@ -1,0 +1,46 @@
+id: TASK-0121
+title: "Curate newcomer contributor task batch for upcoming onboarding"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Create a safe, motivating queue of beginner-friendly work before broader v0.3 and v0.4 contributor onboarding."
+  - "Reduce ad hoc task assignment by curating starter tasks with explicit scope and limits."
+  - "Keep maintainer-critical execution separate from newcomer-friendly support work."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "docs/mission-control.md"
+    - "docs/agent-work-menu.md"
+    - "docs/strategy.md"
+  planning_context: >
+    This maintainer-facing task curates a small batch of low-complexity,
+    useful canonical tasks intended for invited contributors and their agents.
+    The output should create a clearer newcomer queue without touching
+    scientific claims, canonical results, or release-gate decisions.
+
+requirements:
+  - "Add only low-complexity newcomer-friendly canonical tasks."
+  - "Keep the tasks useful for current workflow quality or future v0.3/v0.4 onboarding."
+  - "Explicitly discourage maintainers from treating the new tasks as immediate critical-path work."
+  - "Keep the batch docs/task-admin only; do not introduce new scientific claims or result artifacts."
+
+accepted_outputs:
+  - "new canonical READY tasks for newcomer contributors and their agents"
+  - "updated tasks/ACTIVE.md reflecting the newcomer queue"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

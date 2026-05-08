@@ -1,0 +1,50 @@
+id: TASK-0118
+title: "Add particle-mass campaign map diagram"
+type: documentation
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make the particle-mass campaign legible as one falsification-first story."
+  - "Help v0.3 and v0.4 contributors understand what has already been reproduced, falsified, or narrowed."
+  - "Offer a visually rewarding task for new contributors and their agents."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "docs/campaigns/particle-mass-relations.md"
+    - "docs/results/koide-campaign-summary.md"
+    - "docs/negative-results-registry.md"
+    - "docs/mission-control.md"
+  planning_context: >
+    This task should create a single campaign-map style diagram for the
+    particle-mass line: charged leptons, tau holdout, neutrino falsification,
+    quark cascade falsification, and falsifier MVP. It is intended as a
+    newcomer-friendly docs task with real value for future onboarding.
+    Suggested starting surfaces: docs/campaigns/particle-mass-relations.md and
+    docs/results/koide-campaign-summary.md. A good first PR shape is one
+    campaign diagram plus one link from an existing orientation page.
+
+requirements:
+  - "Represent the current particle-mass line as one coherent campaign map."
+  - "Keep wording narrow and falsification-first."
+  - "Keep the first PR within campaign-map and orientation docs surfaces only."
+  - "Avoid introducing discovery framing or broader physics claims."
+  - "Prefer a Mermaid or lightweight static-diagram-friendly format already used in repo docs."
+
+accepted_outputs:
+  - "particle-mass campaign map diagram"
+  - "small docs update linking the diagram from an orientation surface"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

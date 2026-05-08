@@ -46,6 +46,13 @@ one PR.
 
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0114` — Add microtask queue consistency validator (`agent_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
+- `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0118` — Add particle-mass campaign map diagram (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0119` — Add thought-experiment campaign orientation note (`documentation`, priority `low`, difficulty `low`)
+- `TASK-0120` — Add use-your-agent quickstart diagram pack (`documentation`, priority `low`, difficulty `low`)
 
 ## IN_PROGRESS
 
@@ -56,6 +63,7 @@ None.
 - `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
 - `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0121` — Curate newcomer contributor task batch for upcoming onboarding (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

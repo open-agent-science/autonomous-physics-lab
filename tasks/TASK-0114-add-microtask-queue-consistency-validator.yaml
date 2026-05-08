@@ -1,0 +1,52 @@
+id: TASK-0114
+title: "Add microtask queue consistency validator"
+type: agent_workflow
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the microtask layer reliable as APL scales toward v0.3 and v0.4 contributor throughput."
+  - "Reduce low-value maintainer review churn from malformed queue metadata or duplicate microtask ids."
+  - "Create safe, useful technical onboarding work for new contributors and their agents."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "tasks/microtasks/README.md"
+    - "tasks/microtasks/"
+    - "physics_lab/cli.py"
+  planning_context: >
+    This task is intentionally newcomer-friendly. It should add deterministic
+    validation for microtask queue consistency without changing scientific
+    engines, canonical result artifacts, or claim semantics. Prefer assigning
+    it to new contributors or contributor-guided agents during onboarding.
+    Suggested starting surfaces: tasks/microtasks/*.yaml plus the repository
+    validation path. A good first PR shape is one small validator addition and
+    one invalid-fixture regression test.
+
+requirements:
+  - "Validate that each queue file declares a queue_id matching its filename."
+  - "Validate that microtask ids are unique within a queue."
+  - "Keep the first PR within the listed queue and validation surfaces only."
+  - "Keep scope beginner-friendly and avoid touching canonical results, claims, or experiments."
+  - "Add regression coverage for at least one invalid queue fixture."
+  - "Document the new validation behavior if CLI output or contributor expectations change."
+
+accepted_outputs:
+  - "validator support for microtask queue consistency"
+  - "tests covering invalid queue metadata cases"
+  - "small docs update if contributor guidance changes"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
