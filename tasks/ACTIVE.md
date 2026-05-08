@@ -60,12 +60,12 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0126` — Curate canonical implementation task for muon g-2 formula-search salvage (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0127` — Implement muon g-2 empirical formula search benchmark (`scientific_falsification`, priority `high`, difficulty `high`)
 - `TASK-0128` — Add agent catalog and documentation entrypoint links (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0127` — Implement muon g-2 empirical formula search benchmark (merged)
+- `TASK-0126` — Curate canonical implementation task for muon g-2 formula-search salvage (merged)
 - `TASK-0125` — Curate microtask PR flow improvement queue (merged)
 - `TASK-0124` — Add microtask PR scaffold and preflight helper (merged)
 - `TASK-0123` — Clarify batch microtask branch and title protocol (merged)
