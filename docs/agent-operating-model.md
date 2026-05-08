@@ -13,6 +13,8 @@ Every human or coding agent should read these files in order before starting:
 
 Then use [docs/architecture-index.md](./architecture-index.md) and
 [docs/contributing-workflow.md](./contributing-workflow.md) as needed.
+If you need a compact map of active agent roles and maintainer automation
+surfaces, also open [docs/agent-catalog.md](./agent-catalog.md).
 
 ## Core Idea
 

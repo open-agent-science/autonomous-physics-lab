@@ -62,6 +62,7 @@ None.
 
 - `TASK-0126` — Curate canonical implementation task for muon g-2 formula-search salvage (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0127` — Implement muon g-2 empirical formula search benchmark (`scientific_falsification`, priority `high`, difficulty `high`)
+- `TASK-0128` — Add agent catalog and documentation entrypoint links (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
