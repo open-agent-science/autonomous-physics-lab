@@ -4,9 +4,9 @@ experiment_id: EXP-0010
 title: Muon g-2 Anomaly Formula Search
 hypothesis_id: HYP-0010
 task_id: TASK-0089
-generated_at: '2026-05-08T16:39:17.804232+00:00'
+generated_at: '2026-05-08T17:14:44.649593+00:00'
 engine_version: 0.1.0
-git_commit: d05f68e50c69feec1a1a39164f9a6aca2f73e655
+git_commit: 3adbd6f9ed5bc0c3602fc34e2db15687d43cada1
 command: physics-lab run g2_formula_search.yaml
 input_file_hashes:
   config:
@@ -20,7 +20,7 @@ input_file_hashes:
     sha256: 6c29e2303d191f008b11115e3283f32832f707507b5a8d1f3913e1d1734046e6
   task:
     path: results/EXP-0010/RUN-0001/inputs/task.yaml
-    sha256: 8b58d643d422985b202224744c8646fb2d46c950cf1ccf58a5509bb86304e826
+    sha256: 1f6a72eaf3386dd481cfdeec83d9d6477e62e36d32291d2f3f439fe1e517c188
 code_reference: physics_lab/workflows/g2_formula.py
 limitations:
 - Data-driven HVP baseline used (5.1σ). BMW lattice-QCD reduces to ~1.5σ.
@@ -33,7 +33,7 @@ verification:
   checks:
   - name: target_defined
     status: PASS
-    details: Target Δaμ = 249×10⁻¹¹, σ = 48×10⁻¹¹
+    details: "Target Δaμ = 249×10⁻¹¹, σ = 48×10⁻¹¹"
     metrics:
       delta_amu_1e11: 249.0
       sigma_1e11: 48.0
@@ -42,7 +42,7 @@ verification:
     details: 6 formula families evaluated, 381 total formulas
     metrics:
       total_formulas: 381
-      total_hits_1sigma: 5
+      total_hits_1sigma: 4
   - name: random_baseline
     status: PASS
     details: Random baseline computed for each family with N=100,000 samples
@@ -54,26 +54,26 @@ verification:
     details: 'Global verdict: VALID_EMPIRICAL → schema: VALID'
     metrics:
       credible_hits: 1
-      interesting_hits_half_sigma: 4
-      best_z_score: 0.0
+      interesting_hits_half_sigma: 3
+      best_z_score: 0.14839656893220746
 comparison_summary:
 - target_id: target_delta_amu
   label: Muon g-2 anomaly
   reference_value: 2.49e-09
-  observed_value: 2.49e-09
+  observed_value: 2.5612303530874595e-09
   unit: dimensionless
-  absolute_difference: 0.0
-  relative_difference: 0.0
-  notes: 'Best formula: (0.324063) × (α/π)^3 × (mμ/mπ⁰)^2, z=0.000σ. Internal verdict:
+  absolute_difference: 7.123035308745958e-11
+  relative_difference: 0.028606567505003847
+  notes: 'Best formula: (1/3) × (α/π)^3 × (mμ/mπ⁰)^2, z=0.148σ. Internal verdict:
     VALID_EMPIRICAL.'
 uncertainty_summary:
   method: z_score_against_delta_amu_with_random_baseline
   observed_uncertainty: null
   reference_uncertainty: 4.8e-10
   combined_uncertainty: 4.8e-10
-  z_score: 0.0
+  z_score: 0.14839656893220746
   within_combined_uncertainty: true
-  notes: 'Best z=0.000σ. Credible hits (C≤1, P<1%): 1.'
+  notes: 'Best z=0.148σ. Credible hits (C≤1, P<1%): 1.'
 artifacts:
   report: results/EXP-0010/RUN-0001/report.md
   metrics: results/EXP-0010/RUN-0001/metrics.json

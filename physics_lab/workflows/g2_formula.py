@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import math
 import json
 from pathlib import Path
 from typing import Any
@@ -32,15 +33,22 @@ from physics_lab.workflows.artifacts import (
 )
 
 
-def _build_report(search: dict[str, Any], result_id: str, run_id: str) -> str:
+def _build_report(
+    search: dict[str, Any],
+    result_id: str,
+    run_id: str,
+    experiment: dict[str, Any],
+    hypothesis: dict[str, Any],
+    task_id: str,
+) -> str:
     lines = [
         "# Muon g-2 Anomaly Formula Search",
         "",
         f"- Result: `{result_id}`",
         f"- Run: `{run_id}`",
-        "- Experiment: `EXP-0010`",
-        "- Hypothesis: `HYP-0010`",
-        "- Task: `TASK-0089`",
+        f"- Experiment: `{experiment['id']}`",
+        f"- Hypothesis: `{hypothesis['id']}`",
+        f"- Task: `{task_id}`",
         f"- Global verdict: `{search['global_verdict']}`",
         "",
         "## Target",
@@ -166,13 +174,14 @@ def _build_result_payload(
     input_hashes: dict[str, Any],
     generated_at: str,
 ) -> dict[str, Any]:
-    best_z = search["summary"]["best_z_score"]
+    raw_z = search["summary"]["best_z_score"]
+    best_z = raw_z if raw_z is not None else 0.0
     best_formula = search["summary"]["best_formula"] or "none"
-    best_value = DELTA_AMU - best_z * SIGMA_COMBINED if best_z == 0.0 else (
-        DELTA_AMU - best_z * SIGMA_COMBINED
-    )
+    # Use the actual formula value from the engine (not a signed approximation)
+    raw_best_value = search["summary"].get("best_value")
+    best_value = raw_best_value if raw_best_value is not None else DELTA_AMU
     abs_diff = abs(best_value - DELTA_AMU)
-    rel_diff = abs_diff / DELTA_AMU if DELTA_AMU != 0 else 0.0
+    rel_diff = abs_diff / DELTA_AMU if DELTA_AMU != 0 and math.isfinite(abs_diff) else 0.0
 
     schema_verdict = _VERDICT_MAP.get(search["global_verdict"], "INCONCLUSIVE")
 
@@ -260,8 +269,8 @@ def _build_result_payload(
             "observed_uncertainty": None,
             "reference_uncertainty": SIGMA_COMBINED,
             "combined_uncertainty": SIGMA_COMBINED,
-            "z_score": best_z,
-            "within_combined_uncertainty": bool(best_z < 1.0),
+            "z_score": best_z if raw_z is not None else None,
+            "within_combined_uncertainty": bool(best_z < 1.0) if raw_z is not None else False,
             "notes": (
                 f"Best z={best_z:.3f}σ. Credible hits (C≤1, P<1%): "
                 f"{search['summary']['credible_hits']}."
@@ -339,7 +348,7 @@ def run_g2_formula_experiment(
     # Run the search
     search = run_formula_search()
 
-    report_text = _build_report(search, result_id, run_id)
+    report_text = _build_report(search, result_id, run_id, experiment, hypothesis, task_id)
     metrics_payload = {
         "target_value_1e11": DELTA_AMU / 1e-11,
         "sigma_1e11": SIGMA_COMBINED / 1e-11,

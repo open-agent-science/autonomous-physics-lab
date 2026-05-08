@@ -12,7 +12,7 @@ The g-2 formula search applies deterministic enumeration, random baselines, and 
 ## Highlights
 
 - Global verdict: VALID_EMPIRICAL.
-- Best z-score: 0.000σ ((0.324063) × (α/π)^3 × (mμ/mπ⁰)^2).
+- Best z-score: 0.148σ ((1/3) × (α/π)^3 × (mμ/mπ⁰)^2).
 - Credible hits: 1.
 
 ## Limitations To Preserve
