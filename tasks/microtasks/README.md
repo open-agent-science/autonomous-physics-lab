@@ -14,6 +14,16 @@ canonical task for every narrow subproblem.
 - `thought-experiment-consistency.yaml`
 - `diffusion-scaling.yaml`
 
+## Queue Summary
+
+| Queue ID | Campaign Status | Tasks | Low | Medium | High |
+|---|---|---|---|---|---|
+| diffusion-scaling | planning_only_future_campaign | 5 | 5 | 0 | 0 |
+| dimensional-analysis-validator | planning_complete_implementation_pending | 10 | 7 | 3 | 0 |
+| particle-mass-relations | active_with_narrow_results | 10 | 5 | 5 | 0 |
+| pendulum-formula-falsification | active | 10 | 9 | 1 | 0 |
+| thought-experiment-consistency | planning_active | 5 | 2 | 3 | 0 |
+
 ## How To Use These Queues
 
 1. Pick one campaign queue.
