@@ -50,6 +50,10 @@ MICROTASK_BRANCH_PATTERN = re.compile(
     r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
     r"microtask-(?P<microtask_id>[A-Z0-9]{3,8}-[0-9]{3})-(?P<slug>[a-z0-9-]+)$"
 )
+MICROTASK_BATCH_BRANCH_PATTERN = re.compile(
+    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
+    r"microtask-batch-(?P<queue_id>[a-z0-9-]+)--(?P<slug>[a-z0-9-]+)$"
+)
 PR_TITLE_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}): .+")
 PROPOSAL_PR_TITLE_PATTERN = re.compile(r"^TASK-PROPOSAL: .+")
 CLOSEOUT_PR_TITLE_PATTERN = re.compile(r"^TASK-CLOSEOUT: .+")
@@ -153,6 +157,14 @@ def branch_microtask_id(branch: str) -> str | None:
     if match is None:
         return None
     return str(match.group("microtask_id"))
+
+
+def branch_microtask_queue_id(branch: str) -> str | None:
+    """Extract the queue id from a canonical batch microtask branch name."""
+    match = MICROTASK_BATCH_BRANCH_PATTERN.match(branch)
+    if match is None:
+        return None
+    return str(match.group("queue_id"))
 
 
 def resolve_task_file(root: Path, task_id: str) -> Path:
@@ -356,11 +368,12 @@ def build_review_report(
     proposal_branch_match = PROPOSAL_BRANCH_PATTERN.match(target_branch)
     closeout_branch_match = CLOSEOUT_BRANCH_PATTERN.match(target_branch)
     microtask_branch_match = MICROTASK_BRANCH_PATTERN.match(target_branch)
+    microtask_batch_branch_match = MICROTASK_BATCH_BRANCH_PATTERN.match(target_branch)
     is_proposal_review = proposal_branch_match is not None
     is_closeout_review = closeout_branch_match is not None or (
         pr_metadata is not None and CLOSEOUT_PR_TITLE_PATTERN.match(pr_metadata.title) is not None
     )
-    is_microtask_review = microtask_branch_match is not None or (
+    is_microtask_review = microtask_branch_match is not None or microtask_batch_branch_match is not None or (
         pr_metadata is not None and MICROTASK_PR_TITLE_PATTERN.match(pr_metadata.title) is not None
     )
     if (
@@ -382,6 +395,7 @@ def build_review_report(
 
     branch_task = branch_task_id(target_branch)
     branch_microtask = branch_microtask_id(target_branch)
+    branch_microtask_queue = branch_microtask_queue_id(target_branch)
     task_payload: dict[str, Any] | None = None
     validation_payload: dict[str, Any] = {}
     if is_proposal_review:
@@ -458,9 +472,17 @@ def build_review_report(
                 resolve_microtask_queue_file(root, queue_id)
             except (FileNotFoundError, ValueError) as exc:
                 blockers.append(str(exc))
-        if branch_microtask is None:
+        if branch_microtask is None and branch_microtask_queue is None:
             required_fixes.append(
-                "Microtask PR branch should follow agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>."
+                "Microtask PR branch should follow agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug> or agent/<contributor-id>/<agent-id>/microtask-batch-<queue-id>--<short-slug>."
+            )
+        if (
+            queue_id is not None
+            and branch_microtask_queue is not None
+            and branch_microtask_queue != queue_id
+        ):
+            blockers.append(
+                f"Microtask batch branch queue id {branch_microtask_queue} does not match PR title queue id {queue_id}."
             )
         validation_payload = {
             "validation": {

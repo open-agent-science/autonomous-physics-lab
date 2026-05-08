@@ -102,9 +102,12 @@ Microtask rules:
 - report limitations for every completed item;
 - if uncertain, mark the output `REVIEW_NEEDED`.
 
-Microtask branch format:
+Microtask branch formats:
 
-`agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
+- single item:
+  `agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
+- small same-queue batch:
+  `agent/<contributor-id>/<agent-id>/microtask-batch-<queue-id>--<short-slug>`
 
 Microtask PR title format:
 
@@ -114,9 +117,13 @@ Examples:
 - `microtask(DAV-001): add DA-017 gravitational acceleration to challenge set`
 - `microtask(PFF-002): classify near-separatrix failure for gauntlet candidate`
 - `microtask(PMR-001): audit electron mass dataset entry against PDG source`
+- `microtask(dimensional-analysis-validator): add DAV-003 DAV-004 DAV-008 challenge entries`
 
 Microtask PRs do not require a canonical `TASK-XXXX` file. They use the
 `fast review` lane in `docs/maintainer-review-agent.md`.
+Use the repository PR template, delete unused sections, and fill in the
+microtask queue metadata instead of leaving canonical task placeholders in the
+PR body.
 
 Use [./agent-scientific-work-mode.md](./agent-scientific-work-mode.md) for the
 practical operating pattern.

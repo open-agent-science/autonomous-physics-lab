@@ -174,3 +174,21 @@ git diff --exit-code
 For future micro-task execution PRs, use the validation appropriate to the
 changed artifacts, but keep the same safety posture: deterministic checks, no
 claim promotion, and explicit review notes.
+
+## PR Packaging
+
+For a single micro-task item, use:
+
+`agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
+
+For one small batch from one queue, use:
+
+`agent/<contributor-id>/<agent-id>/microtask-batch-<queue-id>--<short-slug>`
+
+In both cases, keep the PR title in the same queue-oriented form:
+
+`microtask(<queue-id>): <short description>`
+
+When opening the PR, use the repository PR template, delete unused sections,
+and fill in queue metadata explicitly. Do not leave `TASK-XXXX` placeholders or
+generic fake branch examples in a microtask PR body.
