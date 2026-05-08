@@ -1,0 +1,47 @@
+id: TASK-0115
+title: "Add docs-link integrity check for campaign and result pages"
+type: maintainer_workflow
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep campaign and result surfaces trustworthy as repository documentation grows toward v0.3."
+  - "Catch stale internal links early so public-facing packaging stays legible."
+  - "Provide a safe technical task for new contributors and their agents."
+
+input:
+  mode: workflow
+  related_domain: documentation_quality
+  related_objects:
+    - "docs/campaigns/"
+    - "docs/results/"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+  planning_context: >
+    This task should add a lightweight internal-link integrity check for core
+    campaign and result documentation. It is intentionally scoped as a
+    low-risk starter task for new contributors or contributor-guided agents.
+
+requirements:
+  - "Check internal markdown links in campaign and result pages for broken repository-local targets."
+  - "Keep the first version narrow; no need to validate every markdown file in the repo."
+  - "Avoid changing scientific wording or canonical result artifacts."
+  - "Add regression coverage or fixtures for at least one broken-link case."
+
+accepted_outputs:
+  - "lightweight docs-link integrity checker or test"
+  - "coverage for campaign and result page link validation"
+  - "small contributor docs note if usage needs explanation"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
