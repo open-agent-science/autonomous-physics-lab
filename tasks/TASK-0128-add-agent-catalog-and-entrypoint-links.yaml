@@ -1,0 +1,50 @@
+id: TASK-0128
+title: "Add agent catalog and documentation entrypoint links"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make contributor and maintainer workflow automation easier to discover from one repository-native entrypoint."
+  - "Reduce onboarding friction for new agents and humans by clarifying which agent roles are already active versus only planned."
+  - "Improve documentation discoverability without changing governance or scientific policy."
+
+input:
+  mode: workflow
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-operating-model.md"
+    - "docs/use-your-agent.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/maintainer-automation-architecture.md"
+  planning_context: >
+    The repository already documents maintainer review, microtask flow,
+    proposal flow, and future automation roles, but the information is spread
+    across multiple files. Add one compact agent catalog page and link to it
+    from the main human and agent entrypoints so contributors can find the
+    current agent map quickly.
+
+requirements:
+  - "Add one repository-native agent catalog page that distinguishes active agent roles from planned future roles."
+  - "Link the new catalog from the main onboarding entrypoints for both humans and coding agents."
+  - "Keep the catalog concise and descriptive; do not invent new governance rules in this task."
+  - "Clarify where to read more for each role or mode."
+
+accepted_outputs:
+  - "docs/agent-catalog.md"
+  - "AGENTS.md"
+  - "docs/agent-operating-model.md"
+  - "docs/use-your-agent.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

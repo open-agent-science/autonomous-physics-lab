@@ -17,6 +17,7 @@ Read these first:
 2. [docs/mission-control.md](./mission-control.md)
 3. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
 4. [docs/agent-task-protocol.md](./agent-task-protocol.md)
+5. [docs/agent-catalog.md](./agent-catalog.md)
 
 If you want a shorter session with safe work, also open:
 
