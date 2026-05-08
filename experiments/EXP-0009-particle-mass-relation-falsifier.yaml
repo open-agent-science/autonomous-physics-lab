@@ -1,0 +1,45 @@
+id: EXP-0009
+title: "Particle-Mass Relation Falsifier MVP"
+domain: particle_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0009
+
+method:
+  type: relation_falsification
+  simulator: particle_mass_falsifier_mvp
+  comparator: target_difference_with_uncertainty_baseline_and_complexity_penalty
+
+data:
+  dataset_path: ../data/particle_masses/fundamental_fermion_families.yaml
+  dataset_kind: charged_fermion_family_triplets
+  sample_axes:
+    - family
+  families:
+    - id: charged_leptons
+      label: "Charged leptons"
+      limitation: "Pole-mass family with high precision."
+    - id: up_quarks
+      label: "Up-type quarks"
+      limitation: "Mixed quark scheme/scale family; explicit limitation."
+    - id: down_quarks
+      label: "Down-type quarks"
+      limitation: "Mixed quark scheme/scale family; explicit limitation."
+  random_baseline:
+    kind: log_uniform_triplets
+    seed: 4040
+    sample_count: 10000
+    notes: >
+      Random masses are drawn over the encoded charged-fermion mass range and
+      used only to calibrate accidental closeness to Q = 2/3.
+  notes: >
+    The MVP intentionally tests the fixed standard Koide target across
+    guardrail-compliant charged fermion families. It does not test cross-family
+    triplets, neutrino scenarios, phase extensions, or alternate target values.
+
+comparison_targets:
+  - id: target_koide_q
+    label: "Standard Koide Q target"
+    reference_value: 0.6666666666666666
+    unit: null
+    notes: "Fixed target value 2/3 used by the standard charged-lepton Koide relation."

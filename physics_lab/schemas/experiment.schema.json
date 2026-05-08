@@ -474,6 +474,50 @@
                 "minLength": 1
               }
             },
+            "families": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["id", "label"],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "limitation": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "random_baseline": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "seed", "sample_count"],
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "seed": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "sample_count": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "notes": {
+                  "type": "string"
+                }
+              }
+            },
             "notes": {
               "type": "string"
             }

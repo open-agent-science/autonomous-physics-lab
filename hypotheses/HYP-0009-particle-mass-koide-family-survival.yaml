@@ -1,0 +1,44 @@
+id: HYP-0009
+title: "Standard Koide target Q = 2/3 survives guardrail-compliant charged fermion family tests"
+domain: particle_physics
+status: TESTING
+
+hypothesis:
+  statement: >
+    The standard Koide relation Q = (m1 + m2 + m3) /
+    (sqrt(m1) + sqrt(m2) + sqrt(m3))^2 = 2/3 remains valid across the
+    guardrail-compliant charged fermion family triplets evaluated by the
+    particle-mass relation falsifier MVP.
+  formula_candidates:
+    - "Q = (m1 + m2 + m3) / (sqrt(m1) + sqrt(m2) + sqrt(m3))^2 = 2/3"
+
+assumptions:
+  - "Only within-family charged fermion triplets are evaluated."
+  - "Charged leptons use PDG 2025 pole masses."
+  - "Quarks use the stored PDG 2024 mass values with their documented scheme and scale limitations."
+  - "The standard Koide formula has no fitted parameters in this MVP."
+  - "A deterministic log-uniform random triplet baseline is used only as calibration, not as a physical prior."
+  - "No cross-family triplets, composite particles, alternate target values, or phase extensions are tested."
+
+variables:
+  m1_m2_m3:
+    unit: MeV
+    description: "Ordered masses of one within-family charged fermion triplet"
+  Q:
+    unit: dimensionless
+    description: "Standard Koide quantity for one triplet"
+  target:
+    unit: dimensionless
+    description: "Fixed target value 2/3"
+
+evidence:
+  experiments:
+    - EXP-0009
+  results:
+    - RESULT-0011
+
+verdict: >
+  Testing in progress. If any guardrail-compliant charged fermion family
+  misses Q = 2/3 outside propagated uncertainty, the cross-family survival
+  hypothesis is falsified for this fixed standard relation under the encoded
+  assumptions. This does not falsify every possible Koide-like extension.

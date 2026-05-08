@@ -30,6 +30,10 @@ work, and a private contributor workflow before any public-opening decision.
 - `EXP-0008/RUN-0001` (`RESULT-0010`) — [Quark Koide cascade falsification](../docs/notes/koide-quark-cascade.md):
   the Brannen-style quark cascade remains outside the charged-lepton target in
   both up and down sectors under the stored dataset and scale limitations.
+- `EXP-0009/RUN-0001` (`RESULT-0011`) — [Particle-Mass Relation Falsifier MVP](../results/EXP-0009/RUN-0001/report.md):
+  a first falsifier workflow applies uncertainty propagation, deterministic
+  random-baseline calibration, and a fixed complexity-penalty ledger to the
+  standard Koide target across encoded charged-fermion family triplets.
 - [Negative Results Registry](./negative-results-registry.md):
   repository-level index of clean falsifications that should remain visible
   alongside successful reproductions.
@@ -47,13 +51,15 @@ or symbolic exactness.
 - `EXP-0006` — Dimensional Analysis Validator MVP
 - `EXP-0007` — Neutrino Koide Falsification
 - `EXP-0008` — Quark Koide Cascade Falsification
+- `EXP-0009` — Particle-Mass Relation Falsifier MVP
 
 Together these now support three active benchmark surfaces:
 
 - classical-mechanics verification through the pendulum and damped-oscillator
   slices;
 - a falsification-first particle-mass relation track with narrow charged-lepton
-  reproductions plus explicit neutrino and quark falsification results;
+  reproductions plus explicit neutrino, quark, and falsifier-MVP negative
+  results;
 - a dimensional-analysis validation track with one canonical MVP benchmark run
   and a growing challenge-set surface.
 
@@ -64,8 +70,8 @@ Together these now support three active benchmark surfaces:
   systematic approximation testing.
 - [Particle Mass Relations](./campaigns/particle-mass-relations.md) — active
   falsification-first track with scoped charged-lepton reproduction, a narrow
-  tau holdout benchmark, and direct neutrino and quark follow-up
-  falsifications.
+  tau holdout benchmark, direct neutrino and quark follow-up falsifications,
+  and the first fixed-target falsifier MVP.
 - [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md)
   — active quality-floor campaign with a completed MVP benchmark and follow-on
   challenge-set work.
@@ -112,6 +118,9 @@ public-release mode.
 - Quark and neutrino falsifications are strong within their encoded
   assumptions, but they do not justify broader "Koide is false everywhere"
   claims.
+- The falsifier MVP rejects cross-family survival of one fixed standard target
+  under encoded charged-fermion triplets; it does not rule out all modified
+  Koide-like constructions.
 - The dimensional-analysis validator has a canonical MVP result, but its unit
   system and known-limit handling remain intentionally narrow.
 - The contributor workflow is more mature, but the private pilot still needs
@@ -140,5 +149,7 @@ public-release mode.
 - [results/koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md)
   and [negative-results-registry.md](./negative-results-registry.md) for the
   falsification-first particle-mass surface;
+- [../results/EXP-0009/RUN-0001/report.md](../results/EXP-0009/RUN-0001/report.md)
+  for the first particle-mass relation falsifier MVP;
 - [../results/EXP-0006/RUN-0006/report.md](../results/EXP-0006/RUN-0006/report.md)
   for the current dimensional-analysis benchmark result.

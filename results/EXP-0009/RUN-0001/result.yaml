@@ -1,0 +1,124 @@
+result_id: RESULT-0011
+run_id: RUN-0001
+experiment_id: EXP-0009
+title: Particle-Mass Relation Falsifier MVP
+hypothesis_id: HYP-0009
+task_id: TASK-0040
+generated_at: '2026-05-08T10:00:28.999188+00:00'
+engine_version: 0.1.0
+git_commit: b2edeb6f4e5dd3a64f05d515d53ee01b09735579
+command: physics-lab run examples/particle_mass_falsifier.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0009/RUN-0001/inputs/config.yaml
+    sha256: 6a250b4f15723b0a54c032ad6917bfd79e39d2fe517a20e596995d8fcc7e2855
+  experiment:
+    path: results/EXP-0009/RUN-0001/inputs/experiment.yaml
+    sha256: eb6cc1c43b6aa4a3191f63cb29733b6eb6c87213ae06b54df53761250b1f9636
+  hypothesis:
+    path: results/EXP-0009/RUN-0001/inputs/hypothesis.yaml
+    sha256: 9620f5916b0776c69000aea1fa307972a74c59666821febe00f6116a8c9023f2
+  task:
+    path: results/EXP-0009/RUN-0001/inputs/task.yaml
+    sha256: b8ccf8bfb55d3d37456eea555105f27502e2d244055dabb1a97aff12dfb1b703
+code_reference: physics_lab/workflows/particle_mass_falsifier.py
+limitations:
+- Standard Koide relation only; no alternate target values or phase extensions are
+  tested in this MVP.
+- Guardrail-compliant within-family charged fermion triplets only; cross-family triplets
+  are intentionally excluded.
+- Quark masses retain documented mixed scheme and scale limitations.
+- Random log-uniform baseline is deterministic calibration, not a physical particle-mass
+  prior.
+- No claim promotion is proposed from this falsifier run.
+best_verdict: INVALID
+verification:
+  passed: true
+  checks:
+  - name: explicit_family_inputs
+    status: PASS
+    details: Every evaluated family has exactly three source-explicit particle masses.
+    metrics:
+      family_count: 3
+      particle_count: 9
+  - name: complexity_penalty_applied
+    status: PASS
+    details: The standard Koide relation is scored with a fixed low-complexity penalty
+      ledger.
+    metrics:
+      complexity_penalty_total: 1.0
+  - name: random_baseline_applied
+    status: PASS
+    details: Each family is compared with a deterministic log-uniform random triplet
+      baseline.
+    metrics:
+      minimum_sample_count: 10000
+  - name: charged_leptons_family_verdict
+    status: PASS
+    details: 'Charged leptons: Q=0.666664463415, gap=2.203252e-06, verdict=VALID.'
+    metrics:
+      q_value: 0.6666644634145
+      absolute_gap: 2.2032521665993343e-06
+      q_uncertainty: 5.080958197422744e-06
+      gap_sigma: 0.43362926459755324
+      within_uncertainty: true
+  - name: up_quarks_family_verdict
+    status: PASS
+    details: 'Up-type quarks: Q=0.848980777661, gap=1.823141e-01, verdict=INVALID.'
+    metrics:
+      q_value: 0.8489807776610612
+      absolute_gap: 0.18231411099439454
+      q_uncertainty: 0.001145461664628846
+      gap_sigma: 159.16212355606697
+      within_uncertainty: false
+  - name: down_quarks_family_verdict
+    status: PASS
+    details: 'Down-type quarks: Q=0.731496757563, gap=6.483009e-02, verdict=INVALID.'
+    metrics:
+      q_value: 0.7314967575627492
+      absolute_gap: 0.0648300908960826
+      q_uncertainty: 0.00733124307489866
+      gap_sigma: 8.842987503449919
+      within_uncertainty: false
+artifacts:
+  report: results/EXP-0009/RUN-0001/report.md
+  metrics: results/EXP-0009/RUN-0001/metrics.json
+  claim_update: results/EXP-0009/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0009/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0009/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0009/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0009/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0009/RUN-0001/review_metadata.yaml
+comparison_summary:
+- target_id: target_charged_leptons_koide_q
+  label: Charged leptons Q vs Koide target 2/3
+  reference_value: 0.6666666666666666
+  observed_value: 0.6666644634145
+  unit: null
+  absolute_difference: 2.2032521665993343e-06
+  relative_difference: 3.3048782498990015e-06
+  notes: Family verdict VALID; gap_sigma=0.43362926459755324.
+- target_id: target_up_quarks_koide_q
+  label: Up-type quarks Q vs Koide target 2/3
+  reference_value: 0.6666666666666666
+  observed_value: 0.8489807776610612
+  unit: null
+  absolute_difference: 0.18231411099439454
+  relative_difference: 0.2734711664915918
+  notes: Family verdict INVALID; gap_sigma=159.16212355606697.
+- target_id: target_down_quarks_koide_q
+  label: Down-type quarks Q vs Koide target 2/3
+  reference_value: 0.6666666666666666
+  observed_value: 0.7314967575627492
+  unit: null
+  absolute_difference: 0.0648300908960826
+  relative_difference: 0.0972451363441239
+  notes: Family verdict INVALID; gap_sigma=8.842987503449919.
+uncertainty_summary:
+  method: first_order_uncertainty_propagation plus deterministic log_uniform_random_baseline
+  observed_uncertainty: 0.00733124307489866
+  reference_uncertainty: null
+  combined_uncertainty: 0.00733124307489866
+  z_score: 159.16212355606697
+  within_combined_uncertainty: false
+  notes: Per-family uncertainty, baseline, and complexity details are stored in metrics.json.
