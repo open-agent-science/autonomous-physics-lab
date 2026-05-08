@@ -1,0 +1,57 @@
+id: TASK-0134
+title: "Salvage dimensional-validator replay and freeze benchmark scope"
+type: scientific_audit
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep benchmark claims reproducible instead of letting challenge-set growth silently change canonical runs."
+  - "Repair the dimensional-analysis MVP so replay, schema validation, and top-level docs agree again."
+  - "Make future challenge-set expansion safer by separating canonical benchmark scope from ongoing curation."
+
+input:
+  mode: workflow
+  related_domain: physics_validation
+  related_objects:
+    - "experiments/EXP-0006-dimensional-analysis-validator.yaml"
+    - "examples/dimensional_analysis.yaml"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "physics_lab/workflows/dimensional_validator.py"
+    - "results/EXP-0006/RUN-0006/"
+    - "docs/status.md"
+  planning_context: >
+    A fresh replay audit found that the dimensional-analysis MVP no longer
+    cleanly replays. EXP-0006 still describes a 50-item benchmark, while the
+    live challenge set has grown to 67 items. The workflow now emits a
+    verification status value WARN, which does not satisfy the current result
+    schema. This task must determine how the benchmark drift happened, repair
+    the replay path, and add a prevention mechanism so future microtask
+    expansions do not silently mutate the canonical MVP benchmark surface.
+
+requirements:
+  - "Identify the root cause of the replay failure: dataset drift, schema drift, workflow drift, or a combination."
+  - "Restore a clean deterministic replay path for the canonical dimensional-analysis MVP benchmark."
+  - "Decide and encode a stable benchmark-scope rule: frozen dataset snapshot, explicit subset selection, or equivalent guardrail."
+  - "Resolve the verification-status schema mismatch without weakening result-schema integrity."
+  - "Update any stale top-level wording that still assumes the old benchmark surface if the canonical contract changes."
+  - "Add regression coverage that would catch future benchmark-scope drift before merge."
+
+accepted_outputs:
+  - "repaired dimensional-analysis benchmark replay path"
+  - "stable benchmark-scope rule preventing silent challenge-set drift"
+  - "tests covering schema and/or dataset replay drift"
+  - "docs update explaining the root cause and the prevention mechanism"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli run examples/dimensional_analysis.yaml --output-dir /tmp/apl-da-replay-audit"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

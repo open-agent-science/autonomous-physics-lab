@@ -1,0 +1,53 @@
+id: TASK-0136
+title: "Split repository validation and scientific-memory integrity checks"
+type: code_quality_refactor
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep repository validation maintainable as APL grows beyond v0.1 private-alpha."
+  - "Separate schema loading, referential integrity, and strict scientific-memory checks into clearer units."
+  - "Reduce the chance that future integrity regressions hide inside one oversized validation module."
+
+input:
+  mode: workflow
+  related_domain: repository_validation
+  related_objects:
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/results.py"
+    - "physics_lab/registry/validation.py"
+    - "tests/"
+  planning_context: >
+    Repository validation currently carries too many responsibilities inside
+    one large module: loading, cross-reference validation, strict text scans,
+    canonical run-artifact checks, and scientific-memory integrity rules. This
+    task should refactor those responsibilities into smaller composable units
+    without changing the public validation contract. The goal is not cosmetic
+    cleanup alone; it is to make result-id uniqueness, replay integrity, and
+    registry consistency easier to reason about and extend safely.
+
+requirements:
+  - "Preserve the existing CLI-facing validation behavior unless an intentional integrity fix requires a documented change."
+  - "Split at least one major validation concern into a smaller, well-named module or function family."
+  - "Keep strict scientific-memory checks easy to discover and test in isolation."
+  - "Avoid mixing unrelated maintainer-review policy into repository validation."
+  - "Add or update tests around the moved integrity checks."
+  - "Document the new validation-layer structure if the refactor changes contributor expectations."
+
+accepted_outputs:
+  - "refactored repository validation modules or helper layers"
+  - "tests covering extracted integrity-check behavior"
+  - "small docs note if validation architecture becomes easier to navigate"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
