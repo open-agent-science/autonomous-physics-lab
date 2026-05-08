@@ -53,8 +53,6 @@ one PR.
 - `TASK-0118` — Add particle-mass campaign map diagram (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0119` — Add thought-experiment campaign orientation note (`documentation`, priority `low`, difficulty `low`)
 - `TASK-0120` — Add use-your-agent quickstart diagram pack (`documentation`, priority `low`, difficulty `low`)
-- `TASK-0122` — Add microtask PR template and metadata guidance (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0123` — Clarify batch microtask branch and title protocol (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0124` — Add microtask PR scaffold and preflight helper (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -67,6 +65,8 @@ None.
 - `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0121` — Curate newcomer contributor task batch for upcoming onboarding (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0122` — Add microtask PR template and metadata guidance (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0123` — Clarify batch microtask branch and title protocol (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0125` — Curate microtask PR flow improvement queue (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY

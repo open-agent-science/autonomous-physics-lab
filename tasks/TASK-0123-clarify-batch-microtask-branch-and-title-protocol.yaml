@@ -1,7 +1,7 @@
 id: TASK-0123
 title: "Clarify batch microtask branch and title protocol"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: high
 
