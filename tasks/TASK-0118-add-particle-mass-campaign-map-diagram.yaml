@@ -23,10 +23,14 @@ input:
     particle-mass line: charged leptons, tau holdout, neutrino falsification,
     quark cascade falsification, and falsifier MVP. It is intended as a
     newcomer-friendly docs task with real value for future onboarding.
+    Suggested starting surfaces: docs/campaigns/particle-mass-relations.md and
+    docs/results/koide-campaign-summary.md. A good first PR shape is one
+    campaign diagram plus one link from an existing orientation page.
 
 requirements:
   - "Represent the current particle-mass line as one coherent campaign map."
   - "Keep wording narrow and falsification-first."
+  - "Keep the first PR within campaign-map and orientation docs surfaces only."
   - "Avoid introducing discovery framing or broader physics claims."
   - "Prefer a Mermaid or lightweight static-diagram-friendly format already used in repo docs."
 

@@ -19,11 +19,14 @@ input:
   planning_context: >
     This task is intentionally useful but low-risk. It should improve the
     readability of microtask queues for new contributors without touching
-    canonical scientific artifacts.
+    canonical scientific artifacts. Suggested starting surfaces:
+    tasks/microtasks/README.md and queue metadata files. A good first PR shape
+    is one small generator or refresh helper plus a README update.
 
 requirements:
   - "Generate or refresh a compact summary table for the queue surfaces listed in tasks/microtasks/README.md."
   - "Prefer simple metadata such as queue_id, campaign, batch guidance, and risk."
+  - "Keep the first PR within queue summary and README surfaces only."
   - "Keep the implementation small and easy for a first-time contributor to understand."
   - "Do not turn this into a large documentation-site or dashboard feature."
 
