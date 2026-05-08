@@ -23,6 +23,7 @@ produced without modifying any result artifacts.
 | RESULT-0006 | EXP-0005/RUN-0005 | EXP-0005 | Historical Tau Holdout Prediction | VALID |
 | RESULT-0007 | EXP-0006/RUN-0006 | EXP-0006 | Dimensional Analysis Validator MVP Benchmark | VALID |
 | RESULT-0009 | EXP-0007/RUN-0001 | EXP-0007 | Koide Neutrino Consistency Test | INVALID |
+| RESULT-0011 | EXP-0009/RUN-0001 | EXP-0009 | Particle-Mass Relation Falsifier MVP | INVALID |
 
 ---
 
@@ -346,6 +347,47 @@ formula reduces to a two-body system giving Q → 1/2 exactly.
 
 ---
 
+## EXP-0009 / RUN-0001 — Particle-Mass Relation Falsifier MVP
+
+**Result ID:** `RESULT-0011`
+**Hypothesis:** `HYP-0009`
+**Task:** `TASK-0040`
+
+### Purpose
+First particle-mass relation falsifier MVP. Tests whether the fixed standard
+Koide target `Q = 2/3` survives guardrail-compliant charged-fermion family
+triplets while recording uncertainty propagation, deterministic random-baseline
+calibration, and a fixed complexity-penalty ledger.
+
+### Key Metrics
+
+| Family | Q | Gap to 2/3 | Gap in sigma | Verdict |
+|--------|--:|-----------:|-------------:|---------|
+| Charged leptons | 0.666664 | 0.000002 | 0.43 | VALID |
+| Up quarks | 0.848981 | 0.182314 | 159.2 | INVALID |
+| Down quarks | 0.731497 | 0.064830 | 8.8 | INVALID |
+
+### Key Files
+- `results/EXP-0009/RUN-0001/result.yaml`
+- `results/EXP-0009/RUN-0001/metrics.json`
+- `results/EXP-0009/RUN-0001/report.md`
+- `results/EXP-0009/RUN-0001/review_summary.md`
+- `results/EXP-0009/RUN-0001/review_metadata.yaml`
+
+### Main Conclusion
+The charged-lepton reproduction remains visible in scope, but the fixed
+standard Koide target does not survive the encoded charged-fermion family
+survey. Verdict: `INVALID`.
+
+### Limitations
+- Fixed standard Koide relation only.
+- Cross-family triplets, neutrino scenarios, alternate target values, and
+  phase extensions are out of scope.
+- Quark inputs retain documented mixed scheme and scale limitations.
+- No claim promotion follows from this falsifier run.
+
+---
+
 ## Artifact Navigation Guide
 
 ### To understand the pendulum campaign
@@ -355,7 +397,8 @@ Start with `EXP-0001/RUN-0003/report.md` (gauntlet summary) and
 ### To understand the particle mass campaign
 Start with `EXP-0004/RUN-0004/report.md` (Koide reproduction) and
 `EXP-0005/RUN-0005/report.md` (tau holdout). Read
-`docs/results/koide-charged-lepton-reproduction.md` for the public summary.
+`EXP-0009/RUN-0001/report.md` for the first falsifier MVP, then read
+`docs/results/koide-campaign-summary.md` for the campaign-level summary.
 
 ### To understand the neutrino Koide falsification
 Start with `EXP-0007/RUN-0001/report.md` and read

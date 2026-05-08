@@ -17,6 +17,7 @@ already been done.
 |-----------|-----------|-----------|-----------------|------------|---------|------|
 | [RESULT-0009](../results/EXP-0007/RUN-0001/result.yaml) | EXP-0007 | HYP-0007 | Koide Q = 2/3 for neutrino masses | NH: 70.7σ gap · IH: 421,889σ gap | INVALID | 2026-05-06 |
 | [RESULT-0010](../results/EXP-0008/RUN-0001/result.yaml) | EXP-0008 | HYP-0008 | Tested quark-sector Koide cascade reaches Q = 2/3 | Down: 8.8σ gap · Up: 159.2σ gap | INVALID | 2026-05-06 |
+| [RESULT-0011](../results/EXP-0009/RUN-0001/result.yaml) | EXP-0009 | HYP-0009 | Standard Koide Q = 2/3 survives encoded charged-fermion family survey | Down: 8.8σ gap · Up: 159.2σ gap | INVALID | 2026-05-08 |
 
 ---
 
@@ -91,6 +92,42 @@ construction or common-scale reformulation.
 - [result.yaml](../results/EXP-0008/RUN-0001/result.yaml)
 - [report.md](../results/EXP-0008/RUN-0001/report.md)
 - [metrics.json](../results/EXP-0008/RUN-0001/metrics.json)
+
+---
+
+### RESULT-0011 — Particle-Mass Relation Falsifier MVP
+
+**Hypothesis:** `HYP-0009` — The standard Koide target `Q = 2/3` survives
+guardrail-compliant charged fermion family tests.
+
+**Experiment:** `EXP-0009` / `RUN-0001`
+
+**What was tested:** Whether the fixed standard Koide relation remains valid
+across the encoded within-family charged-fermion triplets: charged leptons,
+up-type quarks, and down-type quarks. The MVP adds source-explicit inputs,
+first-order uncertainty propagation, deterministic log-uniform random-baseline
+calibration, and a fixed low complexity-penalty ledger.
+
+**Why it was falsified:**
+
+Charged leptons remain within propagated uncertainty, but both encoded quark
+families miss the fixed target outside propagated uncertainty:
+
+| Family | `Q` | Gap to `2/3` | Gap in `σ` |
+|--------|----:|-------------:|-----------:|
+| Charged leptons (`e,mu,tau`) | 0.666664 | 0.000002 | **0.43σ** |
+| Up quarks (`u,c,t`) | 0.848981 | 0.182314 | **159.2σ** |
+| Down quarks (`d,s,b`) | 0.731497 | 0.064830 | **8.8σ** |
+
+**Scope:** Fixed standard Koide relation only, encoded charged-fermion family
+triplets only, and stored PDG-backed quark inputs with their documented mixed
+scheme/scale limitations. Does not rule out every modified Koide-like
+construction, common-scale quark reformulation, or exploratory relation family.
+
+**Artifacts:**
+- [report.md](../results/EXP-0009/RUN-0001/report.md)
+- [result.yaml](../results/EXP-0009/RUN-0001/result.yaml)
+- [metrics.json](../results/EXP-0009/RUN-0001/metrics.json)
 
 ---
 
