@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from unittest.mock import patch
+
+from physics_lab.registry.maintainer_review import PullRequestMetadata, build_closeout_report as build_apply_closeout_report
 from physics_lab.registry.task_closeout import build_closeout_report, render_closeout_report
 
 
@@ -95,3 +98,41 @@ def test_build_closeout_report_warns_when_not_review_ready(tmp_path: Path) -> No
     assert "Task status is DONE, not REVIEW_READY." in report.warnings[0]
     assert "Suggested file updates (not applied):" in rendered
     assert "No direct file update is suggested until the task reaches REVIEW_READY" in rendered
+
+
+def test_apply_closeout_report_defers_board_sync_by_default(tmp_path: Path) -> None:
+    _write_task(tmp_path, task_id="TASK-1234", status="REVIEW_READY")
+    (tmp_path / "tasks" / "ACTIVE.md").write_text("# Active Task Board\n", encoding="utf-8")
+    (tmp_path / "docs").mkdir(parents=True)
+    (tmp_path / "docs" / "multi-agent-dry-run.md").write_text("# dry run\n", encoding="utf-8")
+    (tmp_path / "docs" / "example.md").write_text("done\n", encoding="utf-8")
+
+    pr_metadata = PullRequestMetadata(
+        number=18,
+        title="TASK-1234: Example task",
+        body="",
+        branch="agent/roman/codex/task-1234-example-task",
+        base_branch="main",
+        state="MERGED",
+        merged=True,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.missing_expected_outputs", return_value=()),
+        patch("physics_lab.registry.maintainer_review.should_append_dry_run_entry", return_value=False),
+    ):
+        report = build_apply_closeout_report(
+            tmp_path,
+            task_id="TASK-1234",
+            pull_request=18,
+            apply=True,
+        )
+
+    assert report.outcome == "APPLIED"
+    assert any("Deferred tasks/ACTIVE.md synchronization" in item for item in report.applied_changes)
+    assert not any("Synchronized tasks/ACTIVE.md" in item for item in report.applied_changes)

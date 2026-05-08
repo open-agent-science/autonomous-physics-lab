@@ -24,8 +24,11 @@ instruction, may perform closeout after merge.
 ## Closeout Actions
 
 - Set the task file status to `DONE`.
-- Run `python3 -m physics_lab.cli sync-active-board .` so
-  [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md) reflects the new status.
+- Prefer YAML-only per-task closeout PRs and avoid regenerating
+  [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md) in every closeout branch.
+- Run `python3 -m physics_lab.cli sync-active-board .` later in a dedicated
+  board-sync step or serialized `TASK-CLOSEOUT` PR so the board catches up
+  without becoming the main conflict surface.
 - Add a short closeout note if the maintainer wants a persistent explanation.
 - Add an entry to [../multi-agent-dry-run.md](../multi-agent-dry-run.md) when
   the merged PR belongs to a dry run or contributor pilot.
