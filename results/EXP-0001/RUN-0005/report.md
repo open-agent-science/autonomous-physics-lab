@@ -3,7 +3,7 @@
 - Result: `RESULT-0009`
 - Run: `RUN-0005`
 - Hypothesis: `HYP-0001`
-- Task: `TASK-0107`
+- Task: `TASK-0110`
 - Train range (rad): `0.0100` to `2.1683`
 - Test range (rad): `2.1839` to `3.1000`
 - Total candidates evaluated: 102

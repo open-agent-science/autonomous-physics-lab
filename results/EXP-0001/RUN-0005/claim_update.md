@@ -3,7 +3,7 @@
 - Result: `RESULT-0009`
 - Hypothesis: `HYP-0001`
 - Experiment: `EXP-0001`
-- Task: `TASK-0107`
+- Task: `TASK-0110`
 - Suggested claim status: `PARTIALLY_SUPPORTED`
 - Gauntlet candidates evaluated: 102
 

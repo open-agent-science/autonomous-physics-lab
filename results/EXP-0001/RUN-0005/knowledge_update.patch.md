@@ -15,7 +15,7 @@
 - `RESULT-0001`
 - `RESULT-0003`
 - `RESULT-0009`
-- `TASK-0107`
+- `TASK-0110`
 
 ## Required Human Review
 
@@ -75,7 +75,7 @@ Expand with latest gauntlet evidence and bounded review language.
  - Tasks:
    - `TASK-0001`
    - `TASK-0003`
-+  - `TASK-0107`
++  - `TASK-0110`
  - Canonical results:
    - `RESULT-0001`
    - `RESULT-0003`
