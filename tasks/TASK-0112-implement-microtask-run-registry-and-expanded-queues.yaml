@@ -1,0 +1,62 @@
+id: TASK-0112
+title: "Implement microtask run registry and expanded repeatable queues"
+type: agent_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Support daily short-agent scientific work without duplicate microtask execution."
+  - "Make repeatable formula-search and hypothesis-test attempts visible as reusable scientific memory."
+  - "Scale microtask queues while preserving human review, conservative claims, and low merge-conflict workflow."
+
+input:
+  mode: workflow
+  related_domain: scientific_microtask_workflow
+  related_objects:
+    - "docs/notes/microtask-scaling-readiness.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/agent-scientific-work-mode.md"
+    - "docs/maintainer-review-agent.md"
+    - "tasks/microtasks/"
+  planning_context: >
+    TASK-0111 documented that the current seed microtask queues are enough for
+    small private waves, but not enough for a sustained workflow where a few
+    agents may work in parallel and roughly 20 short agent sessions may happen
+    each day. Implement the next workflow layer: append-only run/claim records,
+    expanded queues, and a repeatable scientific search pattern.
+
+requirements:
+  - "Design and add an append-only microtask run or claim registry that records queue id, microtask id, status, claimant, branch, PR, result note, verdict, and review state."
+  - "Prefer per-run records or append-only files over rewriting queue files for every claim, to reduce merge conflicts."
+  - "Define how agents should check recent claims, open PRs, and completed notes before taking work."
+  - "Add or expand microtask queues so active campaigns have enough low-risk work for daily short-agent sessions."
+  - "Include at least one repeatable formula-search or hypothesis-test queue pattern where agents can propose, test, and record many bounded attempts."
+  - "Define required metadata for repeatable attempts: inputs, method, code reference, metrics, failure mode, verdict, limitations, and novelty check."
+  - "Update maintainer review guidance so duplicate claimed/completed microtasks and oversized batches are easy to detect."
+  - "Add tests or validation support if the registry is machine-readable."
+  - "Do not introduce automatic merge, automatic claim promotion, database infrastructure, or external API dependencies."
+  - "Do not change canonical result artifacts except through separately reviewed scientific result tasks."
+
+accepted_outputs:
+  - "microtask run/claim registry design or initial registry files"
+  - "expanded tasks/microtasks/ queue inventory"
+  - "repeatable formula-search or hypothesis-test microtask pattern"
+  - "updated docs/scientific-micro-task-protocol.md"
+  - "updated docs/agent-scientific-work-mode.md if operating instructions change"
+  - "updated docs/maintainer-review-agent.md if review checks or metadata expectations change"
+  - "tests or validation updates if machine-readable registry support is added"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

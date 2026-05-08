@@ -1,0 +1,60 @@
+id: TASK-0111
+title: "Plan microtask scale readiness for daily multi-agent scientific work"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make short scientific agent sessions useful without creating duplicate work or review overhead."
+  - "Scale campaign microtasks from seed queues toward a daily contributor workflow."
+  - "Preserve verification-first scientific memory and conservative claim boundaries while adding repeatable search loops."
+
+input:
+  mode: workflow
+  related_domain: scientific_microtask_workflow
+  related_objects:
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/agent-scientific-work-mode.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/notes/microtask-scaling-readiness.md"
+    - "tasks/microtasks/README.md"
+    - "tasks/microtasks/"
+  planning_context: >
+    The current microtask queues work for small private waves, but daily
+    multi-agent usage needs clearer batching guidance, duplicate-work
+    avoidance, repeatable formula-search/run logging, and more ready queue
+    inventory. The target operating mode is a few agents occasionally working
+    in parallel and roughly 20 short 10-15 minute agent sessions per day, not
+    a fully autonomous swarm or automatic merge system. This task captures the
+    planning, batching guidance, and follow-up implementation scope.
+
+requirements:
+  - "Assess whether current seed microtask queues can support a realistic daily multi-agent workflow."
+  - "Document when agents should take single microtasks versus coherent batches."
+  - "Document the need for append-only microtask run or claim records."
+  - "Document the repeatable formula-search or hypothesis-test loop needed for repeated bounded attempts."
+  - "Add a follow-up READY task for implementing the registry, expanded queues, and review-helper support."
+  - "Link the scaling guidance from the microtask README and agent scientific work mode."
+  - "Do not introduce automatic merge, automatic claim promotion, database infrastructure, or external API dependencies."
+  - "Do not change canonical result artifacts except through separately reviewed scientific result tasks."
+
+accepted_outputs:
+  - "docs/notes/microtask-scaling-readiness.md"
+  - "updated docs/agent-scientific-work-mode.md"
+  - "updated tasks/microtasks/README.md"
+  - "follow-up READY task for implementation work"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

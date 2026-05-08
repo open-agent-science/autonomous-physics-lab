@@ -1,0 +1,55 @@
+id: TASK-0113
+title: "Align maintainer review helper protected-artifact checks with scientific task contracts"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review strict against accidental artifact rewrites without blocking valid scientific-result PRs."
+  - "Make helper verdicts match task contracts when a scientific task explicitly requires canonical result artifacts."
+  - "Reduce maintainer friction for experiment and falsification PRs that intentionally create first-class repository memory."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_checks.py"
+    - "docs/maintainer-review-agent.md"
+    - "docs/agent-task-protocol.md"
+    - "tasks/TASK-0040-particle-mass-relation-falsifier-mvp.yaml"
+  planning_context: >
+    The maintainer review helper currently treats changes under protected
+    prefixes such as results/, experiments/, hypotheses/, and claims/ as
+    unexpected unless the task metadata contains a literal matching path
+    prefix. This blocks legitimate scientific PRs whose task contract
+    explicitly requires canonical benchmark or run artifacts in human wording
+    such as "reproducible benchmark result artifacts" rather than exact repo
+    paths. The helper should preserve safety while recognizing task-authorized
+    scientific result packages.
+
+requirements:
+  - "Reproduce the current false blocker using a scientific task that intentionally creates canonical run artifacts."
+  - "Allow protected-artifact changes when the task contract explicitly authorizes that artifact class or path scope."
+  - "Do not weaken protection for unrelated protected prefixes or accidental artifact rewrites."
+  - "Keep claim-promotion checks intact."
+  - "Document any updated helper assumptions in maintainer review protocol docs if needed."
+  - "Add regression coverage for at least one valid scientific-result PR case and one still-blocked unauthorized protected-artifact case."
+
+accepted_outputs:
+  - "updated physics_lab/registry/review_checks.py or maintainer review helper logic for contract-aware protected-artifact handling"
+  - "updated tests covering valid and invalid protected-artifact review cases"
+  - "updated docs/maintainer-review-agent.md or docs/agent-task-protocol.md if helper policy semantics change"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
