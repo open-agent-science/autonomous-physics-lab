@@ -1,0 +1,106 @@
+id: KNOW-0007
+title: "Muon g-2 anomaly target value and input constants for formula search"
+domain: particle_physics
+status: REVIEW_NEEDED
+source: "PDG 2024; Muong-2 Collaboration PRL 131 161802 (2023); Aoyama et al. Phys. Rept. 887 (2020)"
+
+# ── Target observable ────────────────────────────────────────────────────────
+target:
+  id: delta_amu
+  label: "Anomalous magnetic moment discrepancy"
+  formula: "Δaμ = aμ(exp) − aμ(SM)"
+  value: 249e-11
+  uncertainty: 48e-11
+  unit: dimensionless
+  significance: "~5.1σ (2023 BNL+FNAL combined, data-driven HVP)"
+  notes: >
+    σ_combined = sqrt(22² + 43²) × 10⁻¹¹ ≈ 48 × 10⁻¹¹
+    (experimental 22 + SM theory 43 added in quadrature).
+    The BMW lattice-QCD HVP (2021) reduces the discrepancy to ~1.5σ;
+    the formula search uses the data-driven HVP baseline.
+
+  references:
+    experimental:
+      label: "Fermilab Run-2&3 + BNL combined"
+      value: "116 592 059(22) × 10⁻¹¹"
+      source: "Muong-2 Collaboration, PRL 131, 161802 (2023)"
+    theory:
+      label: "2020 White Paper SM prediction"
+      value: "116 591 810(43) × 10⁻¹¹"
+      source: "Aoyama et al., Phys. Rept. 887, 1 (2020)"
+    bmw_lattice:
+      label: "BMW lattice-QCD HVP (alternate)"
+      note: "Reduces discrepancy to ~1.5σ; see Borsanyi et al. Nature 593 51 (2021)"
+
+# ── Input constants for formula search ───────────────────────────────────────
+constants:
+  alpha:
+    symbol: α
+    value: 7.2973525693e-3
+    uncertainty: 1.1e-12
+    description: "Fine-structure constant"
+    source: "PDG 2024"
+    dimensionless: true
+
+  mu_over_me:
+    symbol: "mμ/me"
+    value: 206.7682830
+    uncertainty: 0.0000046
+    description: "Muon-to-electron mass ratio"
+    source: "PDG 2024"
+    dimensionless: true
+
+  mu_over_mtau:
+    symbol: "mμ/mτ"
+    value: 0.059462
+    uncertainty: 0.000013
+    description: "Muon-to-tau mass ratio"
+    source: "PDG 2024"
+    dimensionless: true
+
+  mW_over_mZ:
+    symbol: "mW/mZ"
+    value: 0.88145
+    uncertainty: 0.00012
+    description: "W-to-Z boson mass ratio (encodes weak mixing angle)"
+    source: "PDG 2024"
+    dimensionless: true
+
+  GF_mmu_sq:
+    symbol: "GF·mμ²"
+    value: 1.302e-7
+    description: "Dimensionless Fermi scale at the muon mass"
+    notes: "GF = 1.1663788e-5 GeV⁻², mμ = 105.6583755 MeV"
+    source: "PDG 2024"
+    dimensionless: true
+
+  mu_over_mpi0:
+    symbol: "mμ/mπ⁰"
+    value: 0.7830
+    uncertainty: 0.0004
+    description: "Muon-to-neutral-pion mass ratio (hadronic scale proxy)"
+    notes: "mμ = 105.6583755 MeV, mπ⁰ = 134.9768 MeV"
+    source: "PDG 2024"
+    dimensionless: true
+
+# ── Derived constants used internally ────────────────────────────────────────
+derived:
+  alpha_over_pi:
+    symbol: "α/π"
+    value: 2.3219e-3
+    description: "QED loop factor"
+
+  ew_scale:
+    symbol: "GF·mμ²/(8π²√2)"
+    value: 1.166e-9
+    description: "Leading electroweak 1-loop contribution scale"
+    notes: "Known SM EW 1-loop contribution is ~154×10⁻¹¹ (includes sin²θW factors)"
+
+# ── Limitations ──────────────────────────────────────────────────────────────
+limitations:
+  - "The 5.1σ significance uses the data-driven (dispersive) HVP estimate.
+     The BMW lattice-QCD result reduces this to ~1.5σ."
+  - "GF·mμ² is computed at tree level; EW radiative corrections are not included."
+  - "sin²θW is algebraically related to mW/mZ and is excluded to avoid redundancy."
+  - "Higgs mass and quark masses are excluded; they enter only through
+     loop corrections already in the SM prediction."

@@ -1,0 +1,48 @@
+id: HYP-0010
+title: "Muon g-2 anomaly Δaμ is expressible as a power-law combination of SM constants"
+domain: particle_physics
+status: TESTING
+
+hypothesis:
+  statement: >
+    The anomalous magnetic moment discrepancy Δaμ = (249 ± 48) × 10⁻¹¹
+    can be reproduced to within 1σ by a formula from one of the following
+    families, using only known SM dimensionless constants and ≤ 1 free
+    real-valued parameter:
+    F1: (α/π)^a × (mμ/me)^b
+    F2: c × GF·mμ²/(8π²√2)
+    F2b: GF·mμ²/(8π²√2) × (α/π)^a × ratio^b
+    F3: c × (α/π)³ × (mμ/mπ⁰)²
+    F4: α^a × (mμ/me)^b × (mμ/mτ)^c
+    F5: (α/π)^a × (mW/mZ)^b × (GF·mμ²)^c
+  formula_candidates:
+    - "(α/π)^a × (mμ/me)^b — QED power-law"
+    - "c × GF·mμ²/(8π²√2) — EW scale multiple"
+    - "c × (α/π)³ × (mμ/mπ⁰)² — hadronic light-by-light inspired"
+    - "α^a × (mμ/me)^b × (mμ/mτ)^c — lepton mass cascade"
+    - "(α/π)^a × (mW/mZ)^b × (GF·mμ²)^c — mixed EW+QED"
+
+assumptions:
+  - "The SM discrepancy uses the data-driven HVP baseline (5.1σ, 2023 BNL+FNAL combined)."
+  - "All constants are dimensionless combinations from PDG 2024."
+  - "Integer or rational exponents only; no continuous non-integer tuning."
+  - "Complexity C ≤ 1 free real-valued parameter (C=0 for pure power-law families)."
+  - "A formula that reconstructs a known SM contribution is excluded (G4 guardrail)."
+  - "A formula passes only if its family hit-rate under random sampling is < 1% (G1 guardrail)."
+
+variables:
+  delta_amu:
+    unit: dimensionless
+    description: "Anomalous magnetic moment discrepancy (249 ± 48) × 10⁻¹¹"
+
+evidence:
+  experiments:
+    - EXP-0010
+  results:
+    - RESULT-0012
+
+verdict: >
+  Testing in progress. A null result would indicate that the g-2 anomaly
+  is not expressible as a simple power-law combination of the listed SM
+  constants. This would be consistent with either exotic BSM physics with
+  new mass scales or a SM calculation artifact (BMW lattice-QCD scenario).

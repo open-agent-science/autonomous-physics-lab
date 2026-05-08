@@ -43,7 +43,7 @@
     },
     "workflow": {
       "type": "string",
-      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier"]
+      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search"]
     },
     "amplitude_range_override": {
       "type": "object",
@@ -59,6 +59,10 @@
     },
     "include_asymptotic_refined_candidate": {
       "type": "boolean"
+    },
+    "knowledge_path": {
+      "type": "string",
+      "minLength": 1
     }
   },
   "allOf": [
@@ -67,7 +71,7 @@
         "required": ["workflow"],
         "properties": {
           "workflow": {
-            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier"]
+            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search"]
           }
         }
       },

@@ -1,0 +1,98 @@
+{
+  "target_value_1e11": 249.0,
+  "sigma_1e11": 48.0,
+  "total_formulas_evaluated": 381,
+  "total_hits_1sigma": 5,
+  "credible_hits": 1,
+  "interesting_hits_half_sigma": 4,
+  "best_z_score": 0.0,
+  "best_formula": "(0.324063) \u00d7 (\u03b1/\u03c0)^3 \u00d7 (m\u03bc/m\u03c0\u2070)^2",
+  "global_verdict": "VALID_EMPIRICAL",
+  "families": [
+    {
+      "family_id": "F1",
+      "n_evaluated": 28,
+      "n_hits": 0,
+      "random_hit_rate": 0.0,
+      "guardrail_passed": true,
+      "verdict": "NULL"
+    },
+    {
+      "family_id": "F2",
+      "n_evaluated": 10,
+      "n_hits": 1,
+      "random_hit_rate": 0.10078,
+      "guardrail_passed": false,
+      "verdict": "HIT"
+    },
+    {
+      "family_id": "F2b",
+      "n_evaluated": 60,
+      "n_hits": 0,
+      "random_hit_rate": 0.0,
+      "guardrail_passed": true,
+      "verdict": "NULL"
+    },
+    {
+      "family_id": "F3",
+      "n_evaluated": 8,
+      "n_hits": 3,
+      "random_hit_rate": 0.06253,
+      "guardrail_passed": false,
+      "verdict": "HIT"
+    },
+    {
+      "family_id": "F4",
+      "n_evaluated": 215,
+      "n_hits": 1,
+      "random_hit_rate": 0.00486,
+      "guardrail_passed": true,
+      "verdict": "HIT"
+    },
+    {
+      "family_id": "F5",
+      "n_evaluated": 60,
+      "n_hits": 0,
+      "random_hit_rate": 0.0,
+      "guardrail_passed": true,
+      "verdict": "NULL"
+    }
+  ],
+  "all_hits": [
+    {
+      "family": "2",
+      "formula": "2 \u00d7 EW_scale",
+      "value_1e11": 233.20413658202645,
+      "z_score": 0.32908048787444877,
+      "complexity": 0
+    },
+    {
+      "family": "(0.324063)",
+      "formula": "(0.324063) \u00d7 (\u03b1/\u03c0)^3 \u00d7 (m\u03bc/m\u03c0\u2070)^2",
+      "value_1e11": 249.0,
+      "z_score": 0.0,
+      "complexity": 1
+    },
+    {
+      "family": "(1/3)",
+      "formula": "(1/3) \u00d7 (\u03b1/\u03c0)^3 \u00d7 (m\u03bc/m\u03c0\u2070)^2",
+      "value_1e11": 256.12303530874595,
+      "z_score": 0.14839656893220746,
+      "complexity": 1
+    },
+    {
+      "family": "(3/8)",
+      "formula": "(3/8) \u00d7 (\u03b1/\u03c0)^3 \u00d7 (m\u03bc/m\u03c0\u2070)^2",
+      "value_1e11": 288.13841472233923,
+      "z_score": 0.8153836400487344,
+      "complexity": 1
+    },
+    {
+      "family": "\u03b1^3",
+      "formula": "\u03b1^3 \u00d7 (m\u03bc/me)^-2 \u00d7 (m\u03bc/m\u03c4)^-2",
+      "value_1e11": 257.06865230339827,
+      "z_score": 0.16809692298746362,
+      "complexity": 0
+    }
+  ]
+}
