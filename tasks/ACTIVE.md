@@ -65,12 +65,12 @@ None.
 - `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0121` — Curate newcomer contributor task batch for upcoming onboarding (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0122` — Add microtask PR template and metadata guidance (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0123` — Clarify batch microtask branch and title protocol (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0125` — Curate microtask PR flow improvement queue (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0125` — Curate microtask PR flow improvement queue (merged)
+- `TASK-0123` — Clarify batch microtask branch and title protocol (merged)
+- `TASK-0122` — Add microtask PR template and metadata guidance (merged)
 - `TASK-0110` — Verify high-precision asymptotic refined pendulum model (merged)
 - `TASK-0109` — Define protocol support for microtask batch PRs (merged)
 - `TASK-0108` — Add microtask PR support to maintainer review helper (merged)
