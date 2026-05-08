@@ -1,0 +1,49 @@
+id: TASK-0125
+title: "Curate microtask PR flow improvement queue"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Capture the workflow follow-ups surfaced by recent microtask PR review before they are forgotten."
+  - "Keep maintainer process improvement work explicit and reviewable."
+  - "Preserve newcomer momentum by turning observed protocol friction into scoped canonical tasks."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/TASK-0122-add-microtask-pr-template-and-metadata-guidance.yaml"
+    - "tasks/TASK-0123-clarify-batch-microtask-branch-and-title-protocol.yaml"
+    - "tasks/TASK-0124-add-microtask-pr-scaffold-and-preflight-helper.yaml"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    PR #148 exposed repeated microtask contribution friction around PR template
+    metadata, batch branch/title naming, and the lack of a guided scaffold or
+    preflight path. This maintainer task exists only to formalize those
+    follow-ups as canonical queue items so future contributors and agents do
+    not keep falling into the same protocol gaps.
+
+requirements:
+  - "Create canonical follow-up tasks for microtask PR template support, batch naming clarification, and scaffold/preflight tooling."
+  - "Keep the new tasks clearly framed as workflow improvements rather than scientific execution work."
+  - "Preserve newcomer readability by explaining why the follow-ups matter."
+  - "Sync the active board after adding the new tasks."
+
+accepted_outputs:
+  - "new canonical task for microtask PR template and metadata guidance"
+  - "new canonical task for batch microtask branch and title clarification"
+  - "new canonical task for scaffold and preflight helper tooling"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
