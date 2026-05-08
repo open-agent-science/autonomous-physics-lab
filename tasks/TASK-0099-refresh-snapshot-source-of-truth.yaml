@@ -1,7 +1,7 @@
 id: TASK-0099
 title: "Refresh repository snapshot logic to prefer current source-of-truth state"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
