@@ -7,7 +7,7 @@ priority: high
 
 strategy_alignment:
   - "Keep the muon g-2 campaign verification-first by separating design-only planning from implementation and result generation."
-  - "Allow a legitimate empirical formula-search benchmark without overclaiming new physics or theoretical explanation."
+  - "Allow a legitimate empirical formula-search benchmark without overclaiming discovery or theoretical explanation."
   - "Make the maintainer review helper and task contract agree on the canonical artifacts required by a first-class scientific result package."
 
 input:
@@ -31,7 +31,7 @@ requirements:
   - "Use TASK-0089 only as upstream design context; do not rewrite TASK-0089 into an implementation task."
   - "Implement a deterministic muon g-2 formula-search benchmark with explicit formula families, guardrail logic, and random-baseline calibration."
   - "Create canonical hypothesis, experiment, example, and result artifacts only under this implementation task."
-  - "Keep claims and verdict wording empirical and scope-limited; do not claim new physics, theoretical explanation, or anomaly resolution."
+  - "Keep claims and verdict wording empirical and scope-limited; do not claim discovery, theoretical explanation, or anomaly resolution."
   - "Ensure report, metrics, result payload, and draft claim all agree on the best formula, hit counts, best z-score, and global verdict framing."
   - "If internal search verdicts differ from repository schema verdict vocabulary, document the mapping explicitly and conservatively."
   - "Keep any resulting claim in DRAFT status unless a separate maintainer-reviewed promotion task exists."

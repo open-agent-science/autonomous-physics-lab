@@ -29,7 +29,7 @@ requirements:
   - "Keep TASK-0089 as planning-only; do not rewrite it into an implementation task."
   - "Add one new canonical READY implementation task for the muon g-2 empirical formula-search benchmark."
   - "Make the implementation task explicitly reference TASK-0089 as upstream design context."
-  - "State clearly that empirical matches must not be framed as new physics, explanation, or anomaly resolution."
+  - "State clearly that empirical matches must not be framed as a discovery claim, theoretical explanation, or anomaly resolution."
   - "Keep this curation PR docs/task-admin only; do not add scientific code or result artifacts here."
 
 accepted_outputs:
@@ -46,4 +46,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
