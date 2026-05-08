@@ -68,6 +68,9 @@ PR_METADATA_FIELDS = (
     "Branch",
     "Human reviewer",
 )
+PR_METADATA_FIELD_ALIASES = {
+    "Task ID": ("Task ID", "Task ID / Proposal / Queue"),
+}
 DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
 CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
@@ -334,8 +337,13 @@ def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
     missing: list[str] = []
     lines = body.splitlines()
     for field in PR_METADATA_FIELDS:
-        prefix = f"- {field}:"
-        matching_line = next((line for line in lines if line.startswith(prefix)), None)
+        field_names = PR_METADATA_FIELD_ALIASES.get(field, (field,))
+        matching_line = None
+        for field_name in field_names:
+            prefix = f"- {field_name}:"
+            matching_line = next((line for line in lines if line.startswith(prefix)), None)
+            if matching_line is not None:
+                break
         if matching_line is None:
             missing.append(field)
             continue

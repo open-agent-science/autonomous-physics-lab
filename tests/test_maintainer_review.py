@@ -92,6 +92,21 @@ def test_missing_pr_metadata_fields_detects_blank_template_values() -> None:
     assert missing_pr_metadata_fields(body) == ("GitHub username", "Human reviewer")
 
 
+def test_missing_pr_metadata_fields_accepts_task_id_alias() -> None:
+    body = "\n".join(
+        [
+            "- Contributor ID: roman",
+            "- GitHub username: gladunrv",
+            "- Agent tool: codex",
+            "- Task ID / Proposal / Queue: microtask(dimensional-analysis-validator)",
+            "- Branch: agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
+            "- Human reviewer: roman",
+        ]
+    )
+
+    assert missing_pr_metadata_fields(body) == ()
+
+
 def test_overclaim_and_security_hits_detect_obvious_risks() -> None:
     added_lines = (
         "We solved physics with a 100% correct model.",
