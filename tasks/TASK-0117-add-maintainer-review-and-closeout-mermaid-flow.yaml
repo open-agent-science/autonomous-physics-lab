@@ -20,11 +20,15 @@ input:
   planning_context: >
     This is a newcomer-friendly documentation task. It should add one clear
     Mermaid diagram showing the maintainer review and post-merge closeout
-    flow, without changing the underlying repository protocol.
+    flow, without changing the underlying repository protocol. Suggested
+    starting surfaces: docs/maintainer-review-agent.md and
+    docs/contributing-workflow.md. A good first PR shape is one diagram and a
+    short explanatory paragraph.
 
 requirements:
   - "Add one clear Mermaid flow for review -> merge -> closeout lifecycle."
   - "Keep wording aligned with current maintainer review and closeout protocol."
+  - "Keep the first PR within the listed docs files and the diagram itself."
   - "Prefer one concise diagram over a large architecture rewrite."
   - "Do not change claim, experiment, or result semantics."
 

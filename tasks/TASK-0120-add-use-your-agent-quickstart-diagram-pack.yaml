@@ -21,12 +21,16 @@ input:
     This task should add a small pack of quickstart diagrams to the current
     use-your-agent guide. It is meant to be a newcomer-friendly docs task that
     helps future contributors understand one-task-one-branch-one-worktree
-    discipline and how to choose between microtasks, READY tasks, and proposals.
+    discipline and how to choose between microtasks, READY tasks, and
+    proposals. Suggested starting surfaces: docs/use-your-agent.md and
+    docs/agent-operating-model.md. A good first PR shape is 2-3 Mermaid
+    diagrams plus minimal wording cleanup.
 
 requirements:
   - "Add 2-3 small Mermaid diagrams to docs/use-your-agent.md."
   - "Include one-task-one-branch-one-worktree guidance."
   - "Include a simple path chooser for microtask vs READY task vs proposal."
+  - "Keep the first PR within docs/use-your-agent.md and closely related workflow docs."
   - "Keep the diagrams concise and aligned with current protocol."
 
 accepted_outputs:

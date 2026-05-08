@@ -21,11 +21,15 @@ input:
     This task should write a short orientation note for the thought-experiment
     campaign explaining safe contribution scope, what counts as a useful
     planning contribution, and what not to claim yet. It is intentionally
-    suitable for new contributors or contributor-guided agents.
+    suitable for new contributors or contributor-guided agents. Suggested
+    starting surfaces: docs/campaigns/thought-experiment-consistency.md and
+    docs/mission-control.md. A good first PR shape is one short note and one
+    small cross-link update.
 
 requirements:
   - "Explain safe contribution scope for the thought-experiment campaign."
   - "List a few good first-step contribution patterns."
+  - "Keep the first PR within campaign-note and cross-link surfaces only."
   - "State what should not be claimed or implemented yet."
   - "Keep the note aligned with current private-alpha scope."
 

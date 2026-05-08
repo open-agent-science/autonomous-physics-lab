@@ -22,10 +22,14 @@ input:
     validation for microtask queue consistency without changing scientific
     engines, canonical result artifacts, or claim semantics. Prefer assigning
     it to new contributors or contributor-guided agents during onboarding.
+    Suggested starting surfaces: tasks/microtasks/*.yaml plus the repository
+    validation path. A good first PR shape is one small validator addition and
+    one invalid-fixture regression test.
 
 requirements:
   - "Validate that each queue file declares a queue_id matching its filename."
   - "Validate that microtask ids are unique within a queue."
+  - "Keep the first PR within the listed queue and validation surfaces only."
   - "Keep scope beginner-friendly and avoid touching canonical results, claims, or experiments."
   - "Add regression coverage for at least one invalid queue fixture."
   - "Document the new validation behavior if CLI output or contributor expectations change."
