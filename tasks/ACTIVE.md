@@ -60,7 +60,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0128` — Add agent catalog and documentation entrypoint links (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

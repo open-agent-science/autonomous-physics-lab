@@ -143,6 +143,8 @@ Use `docs/task-proposal-protocol.md` when suggesting new task ideas that do
 not yet have a maintainer-assigned canonical `TASK-XXXX` id.
 Use `docs/maintainer-review-agent.md` when the maintainer wants structured PR
 review or task closeout help.
+Use `docs/agent-catalog.md` when you need the shortest map of which agent
+paths, maintainer automation roles, and entrypoints already exist.
 
 Before starting implementation, agents must create a working task branch using
 the canonical branch format. Agents must not begin editing repository files,
