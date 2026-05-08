@@ -1,6 +1,6 @@
 proposal_id: 20260503-roman-particle-mass-benchmark-schema
 title: "Add schema support for dataset-based particle-mass reproduction benchmarks"
-status: PROPOSED
+status: ACCEPTED
 type: schema_extension
 priority: high
 

@@ -45,6 +45,7 @@ one PR.
 ## READY
 
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
+- `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
 - `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0114` — Add microtask queue consistency validator (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
@@ -66,11 +67,12 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0128` — Add agent catalog and documentation entrypoint links (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0140` — Audit and clean up task and proposal backlog status drift (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
+- `TASK-0128` — Add agent catalog and documentation entrypoint links (merged)
 - `TASK-0127` — Implement muon g-2 empirical formula search benchmark (merged)
 - `TASK-0126` — Curate canonical implementation task for muon g-2 formula-search salvage (merged)
 - `TASK-0125` — Curate microtask PR flow improvement queue (merged)
@@ -97,6 +99,7 @@ None.
 - `TASK-0094` — Fix maintainer review helper false-positive stale diff detection (merged)
 - `TASK-0093` — Test Koide relation for neutrino masses (merged)
 - `TASK-0092` — Fix duplicate canonical task ids and enforce uniqueness (merged)
+- `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (merged)
 - `TASK-0088` — Test Brannen quark-mass Koide cascade for up and down sectors (merged)
 - `TASK-0087` — Stabilize strict input-hash validation across Windows line endings (merged)
 - `TASK-0086` — Run physics-constrained pendulum gauntlet with fixed log coefficient (merged)
@@ -174,13 +177,12 @@ None.
 ## PROPOSED
 
 - `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
-- `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
 - `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
 - `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
 
 ## BLOCKED
 
-- `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
+None.
 
 ## REJECTED
 

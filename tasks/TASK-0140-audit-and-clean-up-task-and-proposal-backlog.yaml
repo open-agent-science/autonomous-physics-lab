@@ -1,0 +1,56 @@
+id: TASK-0140
+title: "Audit and clean up task and proposal backlog status drift"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the canonical backlog honest so contributors and agents do not chase already-landed or superseded work."
+  - "Reduce maintainer friction by closing stale curation tasks and clarifying proposal promotion history."
+  - "Improve onboarding by making READY, DONE, and proposal states reflect repository reality."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0066-review-v0.2-public-readiness-gates.yaml"
+    - "tasks/TASK-0089-muon-g2-anomaly-formula-search.yaml"
+    - "tasks/TASK-0128-add-agent-catalog-and-entrypoint-links.yaml"
+    - "tasks/TASK-0139-curate-scientific-audit-and-architecture-followups.yaml"
+    - "tasks/proposals/"
+    - "docs/multi-agent-dry-run.md"
+  planning_context: >
+    A backlog audit found several stale curation tasks that already landed,
+    release-governance status drift after v0.2 packaging work, and multiple
+    historical proposals that were accepted into canonical tasks but still look
+    like live proposals. This task exists only to clean up those status and
+    proposal-history surfaces. It should not rewrite scientific results or
+    force closeout of still-messy workflow evidence like TASK-0030.
+
+requirements:
+  - "Close out stale curation tasks that already landed in main."
+  - "Move TASK-0066 to READY if its documented prerequisites are now satisfied."
+  - "Close the planning-only muon g-2 design task if its accepted design output already exists and implementation moved to TASK-0127."
+  - "Mark historical accepted proposals as ACCEPTED with canonical task ids recorded."
+  - "Clarify proposal records that were absorbed by later canonical tasks so proposal backlog drift is reduced."
+  - "Do not close TASK-0030 unless the dry-run document itself is first cleaned up."
+  - "Resync the active board after the status updates."
+
+accepted_outputs:
+  - "updated canonical task files with corrected statuses"
+  - "updated proposal files with accepted or clarified promotion history"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

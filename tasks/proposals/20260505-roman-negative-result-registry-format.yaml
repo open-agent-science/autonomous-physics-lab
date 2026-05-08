@@ -1,6 +1,6 @@
 proposal_id: 20260505-roman-negative-result-registry-format
 title: "Define negative-result registry format"
-status: PROPOSED
+status: ACCEPTED
 type: knowledge_update
 priority: high
 
@@ -63,9 +63,9 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0097
+  decision: accepted
   notes: >
-    Useful salvaged idea from PR #22. Best treated as a fresh proposal aligned
-    to current scientific-campaign memory needs rather than reviving the old
-    private-alpha batch.
+    Accepted and landed more directly as TASK-0097, which created the
+    repository-native negative-results registry and linked it into mission
+    control surfaces.

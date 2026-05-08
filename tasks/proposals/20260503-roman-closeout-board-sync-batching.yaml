@@ -1,6 +1,6 @@
 proposal_id: 20260503-roman-closeout-board-sync-batching
 title: "Reduce closeout PR conflicts around tasks/ACTIVE.md synchronization"
-status: PROPOSED
+status: ACCEPTED
 type: maintainer_workflow
 priority: high
 
@@ -70,9 +70,8 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0047
+  decision: accepted
   notes: >
-    This proposal should become one focused maintainer-workflow task that
-    refines the post-merge closeout path without reopening the broader TASK-0044
-    source-of-truth decision.
+    Accepted in narrowed form as TASK-0047, which reduced post-merge closeout
+    conflicts around tasks/ACTIVE.md synchronization.
