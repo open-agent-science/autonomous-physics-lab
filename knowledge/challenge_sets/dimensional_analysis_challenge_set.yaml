@@ -6,7 +6,7 @@ domain: physics_validation
 total_items: 70
 status: draft
 description: >
-  A curated set of 50 physics formulas for testing dimensional analysis
+  A curated set of 70 physics formulas for testing dimensional analysis
   verification. Covers five categories: valid, invalid-units,
   missing-constants, dimensionless/suspicious, and known-limit violations.
   Intended as the input dataset for a future EXP-0004 benchmark run.
