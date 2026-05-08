@@ -189,6 +189,35 @@ In both cases, keep the PR title in the same queue-oriented form:
 
 `microtask(<queue-id>): <short description>`
 
+If you want a deterministic scaffold instead of writing the branch, title, and
+PR body by hand, use:
+
+```bash
+python3 scripts/apl_microtask_pr_helper.py scaffold \
+  --queue-id <queue-id> \
+  --contributor-id <contributor-id> \
+  --agent-id <agent-id> \
+  --slug <short-slug> \
+  --description "<short description>"
+```
+
+For a single microtask item, also pass `--microtask-id <microtask-id>`. For a
+small batch from one queue, pass `--microtask-ids <id1> <id2> ...`.
+
 When opening the PR, use the repository PR template, delete unused sections,
 and fill in queue metadata explicitly. Do not leave `TASK-XXXX` placeholders or
 generic fake branch examples in a microtask PR body.
+
+Before asking for maintainer review, you can run a local preflight check on the
+prepared PR metadata:
+
+```bash
+python3 scripts/apl_microtask_pr_helper.py preflight \
+  --branch "<current-branch>" \
+  --title "microtask(<queue-id>): <short description>" \
+  --body-file /tmp/pr-body.md
+```
+
+This preflight does not replace repository validation or maintainer review. It
+only checks common microtask PR mistakes: branch/title shape, leftover template
+placeholders, and missing review-bundle reminder/context.
