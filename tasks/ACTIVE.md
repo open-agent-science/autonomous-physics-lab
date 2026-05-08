@@ -63,6 +63,7 @@ None.
 - `TASK-0040` — Build particle mass relation falsifier MVP (`scientific_falsification`, priority `high`, difficulty `high`)
 - `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0121` — Curate newcomer contributor task batch for upcoming onboarding (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
