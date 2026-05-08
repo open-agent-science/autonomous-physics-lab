@@ -11,12 +11,21 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from physics_lab.registry.microtask_pr_helper import (
-    microtask_branch,
-    microtask_pr_body,
-    microtask_title,
-    preflight_microtask_pr,
-)
+
+def _load_helper():
+    from physics_lab.registry.microtask_pr_helper import (
+        microtask_branch,
+        microtask_pr_body,
+        microtask_title,
+        preflight_microtask_pr,
+    )
+
+    return (
+        microtask_branch,
+        microtask_pr_body,
+        microtask_title,
+        preflight_microtask_pr,
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -42,6 +51,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def command_scaffold(args: argparse.Namespace) -> int:
+    microtask_branch, microtask_pr_body, microtask_title, _ = _load_helper()
     branch = microtask_branch(
         args.contributor_id,
         args.agent_id,
@@ -63,6 +73,7 @@ def command_scaffold(args: argparse.Namespace) -> int:
 
 
 def command_preflight(args: argparse.Namespace) -> int:
+    _, _, _, preflight_microtask_pr = _load_helper()
     body_path = Path(args.body_file)
     body_text = body_path.read_text(encoding="utf-8")
     report = preflight_microtask_pr(
