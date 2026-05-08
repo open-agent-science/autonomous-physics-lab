@@ -53,6 +53,7 @@ one PR.
 - `TASK-0118` — Add particle-mass campaign map diagram (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0119` — Add thought-experiment campaign orientation note (`documentation`, priority `low`, difficulty `low`)
 - `TASK-0120` — Add use-your-agent quickstart diagram pack (`documentation`, priority `low`, difficulty `low`)
+- `TASK-0127` — Implement muon g-2 empirical formula search benchmark (`scientific_falsification`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -60,7 +61,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0126` — Curate canonical implementation task for muon g-2 formula-search salvage (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 

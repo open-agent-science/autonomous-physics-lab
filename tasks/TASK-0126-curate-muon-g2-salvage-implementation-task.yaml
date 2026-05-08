@@ -1,0 +1,48 @@
+id: TASK-0126
+title: "Curate canonical implementation task for muon g-2 formula-search salvage"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep task contracts honest when a contributor PR outgrows an older planning-only task."
+  - "Preserve verification-first review by separating design-only planning from scientific implementation."
+  - "Allow a useful contributor PR to be salvaged through canonical task administration instead of ad hoc exception handling."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "tasks/TASK-0089-muon-g2-anomaly-formula-search.yaml"
+    - "docs/notes/g2-anomaly-formula-search-design.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    TASK-0089 is a planning-only benchmark-design task. A later contributor PR
+    implemented a full muon g-2 formula-search workflow, canonical result
+    artifacts, and draft claim/knowledge surfaces against that planning task.
+    Before that implementation can be repaired or salvaged, the repository
+    needs a new canonical implementation task that matches the actual scope of
+    the contributor work without rewriting the historical design-only contract.
+
+requirements:
+  - "Keep TASK-0089 as planning-only; do not rewrite it into an implementation task."
+  - "Add one new canonical READY implementation task for the muon g-2 empirical formula-search benchmark."
+  - "Make the implementation task explicitly reference TASK-0089 as upstream design context."
+  - "State clearly that empirical matches must not be framed as a discovery claim, theoretical explanation, or anomaly resolution."
+  - "Keep this curation PR docs/task-admin only; do not add scientific code or result artifacts here."
+
+accepted_outputs:
+  - "new canonical READY implementation task for the muon g-2 benchmark"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
