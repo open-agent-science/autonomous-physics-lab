@@ -8,6 +8,7 @@ from physics_lab.registry.maintainer_review import (
     PullRequestMetadata,
     ValidationSummary,
     branch_microtask_id,
+    branch_microtask_queue_id,
     branch_proposal_slug,
     branch_task_id,
     build_review_report,
@@ -52,6 +53,18 @@ def test_branch_microtask_id_extracts_microtask_id() -> None:
     assert branch_microtask_id("agent/roman/codex/microtask-pmr-batch-1") is None
 
 
+def test_branch_microtask_queue_id_extracts_queue_id_from_batch_branch() -> None:
+    assert (
+        branch_microtask_queue_id(
+            "agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-batch-02"
+        )
+        == "dimensional-analysis-validator"
+    )
+    assert branch_microtask_queue_id(
+        "agent/roman/codex/microtask-PMR-001-audit-electron-mass"
+    ) is None
+
+
 def test_changed_task_proposal_files_filters_template_and_other_paths() -> None:
     changed_files = (
         "tasks/proposals/20260502-roman-koide-track.yaml",
@@ -77,6 +90,21 @@ def test_missing_pr_metadata_fields_detects_blank_template_values() -> None:
     )
 
     assert missing_pr_metadata_fields(body) == ("GitHub username", "Human reviewer")
+
+
+def test_missing_pr_metadata_fields_accepts_task_id_alias() -> None:
+    body = "\n".join(
+        [
+            "- Contributor ID: roman",
+            "- GitHub username: gladunrv",
+            "- Agent tool: codex",
+            "- Task ID / Proposal / Queue: microtask(dimensional-analysis-validator)",
+            "- Branch: agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
+            "- Human reviewer: roman",
+        ]
+    )
+
+    assert missing_pr_metadata_fields(body) == ()
 
 
 def test_overclaim_and_security_hits_detect_obvious_risks() -> None:
@@ -665,6 +693,130 @@ def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> N
     assert report.verdict == "MERGE_OK"
     assert report.task_id == "MICROTASK(particle-mass-relations)"
     assert not any("task file" in item.lower() for item in report.blockers)
+
+
+def test_build_review_report_accepts_canonical_microtask_batch_pr(tmp_path: Path) -> None:
+    microtasks_dir = tmp_path / "tasks" / "microtasks"
+    microtasks_dir.mkdir(parents=True)
+    (microtasks_dir / "dimensional-analysis-validator.yaml").write_text(
+        "\n".join(
+            [
+                "queue_id: dimensional-analysis-validator",
+                "campaign: dimensional-analysis-validator",
+                "campaign_status: active_with_narrow_results",
+                "selection_guidance:",
+                '  - "Prefer narrow challenge-set additions."',
+                "microtasks:",
+                '  - id: DAV-003',
+                '    campaign: dimensional-analysis-validator',
+                '    title: "Add one SUSPICIOUS challenge item"',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    pr_metadata = PullRequestMetadata(
+        number=148,
+        title="microtask(dimensional-analysis-validator): add DAV-003 DAV-004 DAV-008 challenge entries",
+        body="\n".join(
+            [
+                "- Contributor ID: roman",
+                "- GitHub username: gladunrv",
+                "- Agent tool: codex",
+                "- Task ID: microtask(dimensional-analysis-validator)",
+                "- Branch: agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
+                "- Human reviewer: roman",
+            ]
+        ),
+        branch="agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+    changed = (
+        "docs/notes/dimensional-analysis-microtask-batch-02.md",
+        "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml",
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.maintainer_review.current_branch",
+                return_value="agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
+        ),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=148)
+
+    assert report.verdict == "MERGE_OK"
+    assert report.task_id == "MICROTASK(dimensional-analysis-validator)"
+
+
+def test_build_review_report_blocks_microtask_batch_when_branch_queue_mismatches_title(
+    tmp_path: Path,
+) -> None:
+    microtasks_dir = tmp_path / "tasks" / "microtasks"
+    microtasks_dir.mkdir(parents=True)
+    (microtasks_dir / "dimensional-analysis-validator.yaml").write_text(
+        "queue_id: dimensional-analysis-validator\nmicrotasks: []\n",
+        encoding="utf-8",
+    )
+
+    pr_metadata = PullRequestMetadata(
+        number=149,
+        title="microtask(dimensional-analysis-validator): add batch note",
+        body="\n".join(
+            [
+                "- Contributor ID: roman",
+                "- GitHub username: gladunrv",
+                "- Agent tool: codex",
+                "- Task ID: microtask(dimensional-analysis-validator)",
+                "- Branch: agent/roman/codex/microtask-batch-particle-mass-relations--challenge-entries",
+                "- Human reviewer: roman",
+            ]
+        ),
+        branch="agent/roman/codex/microtask-batch-particle-mass-relations--challenge-entries",
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.maintainer_review.current_branch",
+                return_value="agent/roman/codex/microtask-batch-particle-mass-relations--challenge-entries",
+        ),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch(
+            "physics_lab.registry.maintainer_review.changed_files_vs_main",
+            return_value=("docs/notes/test.md",),
+        ),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=149)
+
+    assert report.verdict == "BLOCKED"
+    assert any("does not match PR title queue id" in item for item in report.blockers)
 
 
 def test_unexpected_protected_changes_allows_task_authorized_result_artifacts() -> None:

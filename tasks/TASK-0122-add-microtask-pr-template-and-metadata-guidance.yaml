@@ -1,7 +1,7 @@
 id: TASK-0122
 title: "Add microtask PR template and metadata guidance"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: high
 

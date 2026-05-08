@@ -124,6 +124,8 @@ This mode supports:
    `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
    or
    `agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
+   or
+   `agent/<contributor-id>/<agent-id>/microtask-batch-<queue-id>--<short-slug>`
 2. PR title follows one of:
    `TASK-XXXX: ...`
    or
@@ -154,6 +156,10 @@ This mode supports:
 17. Salvaged ideas from stale PRs should appear in a clean replacement
     `propose-task-...` PR rather than being patched onto a generic or
     mixed-context branch.
+
+For microtask PRs, the metadata should name the queue file and queue id
+explicitly, and batch PRs should keep the branch queue id aligned with the PR
+title queue id.
 
 ### Verdicts
 
