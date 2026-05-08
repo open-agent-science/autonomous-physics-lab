@@ -1,0 +1,44 @@
+id: EXP-0010
+title: "Muon g-2 Anomaly Formula Search"
+domain: particle_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0010
+
+method:
+  type: formula_search
+  simulator: g2_formula_search_engine
+  comparator: z_score_against_delta_amu_with_random_baseline
+
+data:
+  dataset_path: ../knowledge/particle_physics/muon_g2.yaml
+  dataset_kind: particle_physics_constants
+
+  families:
+    - id: F1
+      label: "QED power-law"
+    - id: F2
+      label: "EW scale multiple"
+    - id: F2b
+      label: "EW scale with QED/mass corrections"
+    - id: F3
+      label: "Hadronic light-by-light inspired"
+    - id: F4
+      label: "Lepton mass cascade"
+    - id: F5
+      label: "Mixed EW+QED"
+
+  random_baseline:
+    kind: uniform_log_scale
+    seed: 1001
+    sample_count: 100000
+
+  notes: "Target: delta_amu = (249 +/- 48) x 10^-11; BNL+FNAL 2023 combined, data-driven HVP, ~5.1sigma"
+
+comparison_targets:
+  - id: target_delta_amu
+    label: "Muon g-2 anomaly"
+    reference_value: 2.49e-9
+    reference_uncertainty: 4.8e-10
+    unit: dimensionless
+    notes: "Data-driven HVP baseline (2023 BNL+FNAL combined, 5.1sigma)"
