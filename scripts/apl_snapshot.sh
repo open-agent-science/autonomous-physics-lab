@@ -48,8 +48,49 @@ cmd_block() {
   echo "# Autonomous Physics Lab Snapshot"
   echo ""
   echo "- generated_at_utc: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
-  echo "- repo: $(basename "$(pwd)")"
-  echo "- path: $(pwd)"
+  echo "- repo: $("${PYTHON_BIN}" - <<'PY'
+from pathlib import Path
+from physics_lab.registry.snapshot import build_snapshot_context
+
+print(build_snapshot_context(Path(".")).repo_name)
+PY
+)"
+  echo "- invocation_path: $(pwd)"
+  echo "- canonical_repo_root: $("${PYTHON_BIN}" - <<'PY'
+from pathlib import Path
+from physics_lab.registry.snapshot import build_snapshot_context
+
+print(build_snapshot_context(Path(".")).canonical_root)
+PY
+)"
+  echo "- current_branch: $("${PYTHON_BIN}" - <<'PY'
+from pathlib import Path
+from physics_lab.registry.snapshot import build_snapshot_context
+
+print(build_snapshot_context(Path(".")).current_branch)
+PY
+)"
+  echo "- default_base_ref: $("${PYTHON_BIN}" - <<'PY'
+from pathlib import Path
+from physics_lab.registry.snapshot import build_snapshot_context
+
+print(build_snapshot_context(Path(".")).default_base_ref)
+PY
+)"
+
+  section "Current Authoritative State"
+
+  echo '```markdown'
+  "$PYTHON_BIN" - <<'PY'
+from pathlib import Path
+from physics_lab.registry.snapshot import render_authority_notes, render_current_state_summary
+
+root = Path(".")
+print(render_authority_notes(root))
+print("")
+print(render_current_state_summary(root))
+PY
+  echo '```'
 
   section "Git State"
 
@@ -79,6 +120,25 @@ cmd_block() {
   cmd_block "Absolute local path grep" \
     git grep -n "/Users/roman\\|MacBook\\|Autonomous%20Physics%20Lab" \
     README.md AGENTS.md CODEX_TASK.md docs claims knowledge results physics_lab
+
+  section "Maintainer Docs Context"
+
+  for f in \
+    docs/status.md \
+    docs/next-steps.md \
+    docs/roadmap.md \
+    docs/mission-control.md
+  do
+    file_block "$f" 220
+  done
+
+  section "Archive Context"
+
+  echo ""
+  echo "These sections remain intentionally verbose for deep audit and historical"
+  echo "inspection. Treat them as supporting context, not the primary source of"
+  echo "truth when they disagree with the generated current-state summary above."
+  echo ""
 
   section "Repository Tree"
 
@@ -113,10 +173,8 @@ cmd_block() {
   section "Core Docs"
 
   for f in \
-    docs/status.md \
     docs/architecture.md \
     docs/implementation-plan.md \
-    docs/next-steps.md \
     docs/roadmap.md \
     docs/backlog.md \
     docs/knowledge-base.md \
