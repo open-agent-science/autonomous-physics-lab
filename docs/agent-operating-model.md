@@ -97,6 +97,13 @@ The live human-readable board is [tasks/ACTIVE.md](../tasks/ACTIVE.md).
 It is a generated snapshot backed by canonical task YAML files, not the
 primary source of truth for routine task-state transitions.
 
+When using repository-wide snapshots such as `scripts/apl_snapshot.sh`,
+treat the generated "Current Authoritative State" layer as the primary source
+of truth. That layer is derived from canonical task YAML, experiment YAML, and
+committed result artifacts. Large repository tree dumps, task dumps, result
+dumps, and knowledge dumps remain useful for deep audit, but they are archive
+context and should not override the structured current-state summary.
+
 ## Choosing a Task
 
 1. Start with a `READY` task from [tasks/ACTIVE.md](../tasks/ACTIVE.md).
