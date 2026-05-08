@@ -54,16 +54,16 @@ None.
 ## REVIEW_READY
 
 - `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0104` — Prepare v0.2 repository opening pack (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0107` — Reframe TASK-0104 as a repository-native opening pack (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0108` — Add microtask PR support to maintainer review helper (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0109` — Define protocol support for microtask batch PRs (`maintainer_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0110` — Verify high-precision asymptotic refined pendulum model (`scientific_experiment`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0110` — Verify high-precision asymptotic refined pendulum model (merged)
+- `TASK-0109` — Define protocol support for microtask batch PRs (merged)
+- `TASK-0108` — Add microtask PR support to maintainer review helper (merged)
+- `TASK-0107` — Reframe TASK-0104 as a repository-native opening pack (merged)
 - `TASK-0106` — Close stale completed tasks and align closeout validation (merged)
 - `TASK-0105` — Curate v0.2 packaging follow-up queue and close completed task admin items (merged)
+- `TASK-0104` — Prepare v0.2 repository opening pack (merged)
 - `TASK-0103` — Run final public overclaim audit for v0.2 materials (merged)
 - `TASK-0102` — Package Koide falsification campaign results (merged)
 - `TASK-0100` — Update status and v0.2 roadmap after Koide and validator campaign results (merged)
