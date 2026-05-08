@@ -4,9 +4,9 @@ experiment_id: EXP-0010
 title: Muon g-2 Anomaly Formula Search
 hypothesis_id: HYP-0010
 task_id: TASK-0089
-generated_at: '2026-05-08T17:14:44.649593+00:00'
+generated_at: '2026-05-08T18:06:29.171481+00:00'
 engine_version: 0.1.0
-git_commit: 3adbd6f9ed5bc0c3602fc34e2db15687d43cada1
+git_commit: 7db183ea91b363ef56b7f40ac96f9a8a2e3e0336
 command: physics-lab run g2_formula_search.yaml
 input_file_hashes:
   config:
@@ -14,7 +14,7 @@ input_file_hashes:
     sha256: 96f7b76fd370373de5402fe186de371327db644d14800a618cf510abae9952c7
   experiment:
     path: results/EXP-0010/RUN-0001/inputs/experiment.yaml
-    sha256: 7ea57e575c25bae35ec5d665eea75197a33d5f9d9fa452c3e4c02be46bbd7421
+    sha256: e04b5014f036a8ed5ef022530a74af8d4b29469bf2f15597d0f314215df2d3fa
   hypothesis:
     path: results/EXP-0010/RUN-0001/inputs/hypothesis.yaml
     sha256: 6c29e2303d191f008b11115e3283f32832f707507b5a8d1f3913e1d1734046e6

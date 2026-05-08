@@ -92,6 +92,7 @@ def _build_report(
         else:
             lines += ["No hits within 1σ.", ""]
 
+    bz = search["summary"]["best_z_score"]
     lines += [
         "## Summary",
         "",
@@ -101,7 +102,7 @@ def _build_report(
         f"| Hits within 1σ | {search['summary']['total_hits_1sigma']} |",
         f"| Credible hits (C≤1, P<1%) | {search['summary']['credible_hits']} |",
         f"| Interesting hits (z<0.5σ) | {search['summary']['interesting_hits_half_sigma']} |",
-        f"| Best z-score | {search['summary']['best_z_score']:.3f}σ |",
+        "| Best z-score | " + (f"{bz:.3f}σ" if bz is not None else "N/A") + " |",
     ]
     if search["summary"]["best_formula"]:
         lines.append(f"| Best formula | `{search['summary']['best_formula']}` |")
@@ -380,6 +381,7 @@ def run_g2_formula_experiment(
             }
             for fr in search["families"]
             for h in fr["hits"]
+            if not h["is_reference"]
         ],
     }
     result_payload = _build_result_payload(
