@@ -446,6 +446,80 @@ def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout
     assert not any("Switch to the PR branch" in item for item in report.required_fixes)
 
 
+def test_build_review_report_closeout_batch_pr_does_not_require_active_board_sync(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+
+    for task_id, slug in (("TASK-0027", "units"), ("TASK-0062", "roadmap")):
+        (tasks_dir / f"{task_id}-{slug}.yaml").write_text(
+            "\n".join(
+                [
+                    f"id: {task_id}",
+                    'title: "Test closeout task"',
+                    "type: documentation",
+                    "status: DONE",
+                    "difficulty: low",
+                    "priority: medium",
+                    "strategy_alignment:",
+                    '  - "Closeout regression fixture"',
+                    "input:",
+                    '  mode: workflow',
+                    '  related_domain: "testing"',
+                    "  related_objects: []",
+                    '  planning_context: "Closeout review fixture"',
+                    "requirements:",
+                    '  - "Keep task status at DONE in closeout branch"',
+                    "accepted_outputs:",
+                    '  - "updated task status"',
+                    "validation:",
+                    "  commands:",
+                    '    - "python3 -m physics_lab.cli validate-repo ."',
+                    "can_be_done_by: [human]",
+                ]
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+    branch = "agent/roman/codex/closeout-confirmed-merged-tasks"
+    changed = (
+        "tasks/TASK-0027-units.yaml",
+        "tasks/TASK-0062-roadmap.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
+        body="closeout batch",
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "MERGE_OK"
+    assert not any("ACTIVE.md" in item for item in report.required_fixes)
+
+
 def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: Path) -> None:
     tasks_dir = tmp_path / "tasks"
     tasks_dir.mkdir(parents=True)

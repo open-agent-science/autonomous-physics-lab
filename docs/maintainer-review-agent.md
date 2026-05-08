@@ -209,8 +209,10 @@ Use this mode only after the maintainer has already merged the PR.
 ### Allowed actions
 
 - set task status to `DONE`
-- run `python3 -m physics_lab.cli sync-active-board .` so
-  [../tasks/ACTIVE.md](../tasks/ACTIVE.md) reflects current task statuses
+- optionally run `python3 -m physics_lab.cli sync-active-board .` in a later
+  dedicated board-sync step so [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+  reflects current task statuses without becoming a conflict surface in every
+  per-task closeout PR
 - add a short closeout note when helpful
 - add an entry to [./multi-agent-dry-run.md](./multi-agent-dry-run.md) when the
   merged PR is part of a dry run or contributor pilot
@@ -243,7 +245,14 @@ python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer
 ```bash
 python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18
 python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply
+python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply --sync-board
 ```
+
+Default behavior:
+
+- `--apply` updates the canonical task YAML to `DONE`
+- `--sync-board` is optional and should usually be reserved for a dedicated or
+  serialized board-sync step rather than every per-task closeout PR
 
 ### Closeout sweep helper
 
@@ -335,5 +344,6 @@ Do not edit files.
 ```text
 Run task closeout for TASK-0034 according to docs/maintainer-review-agent.md.
 Check that the PR is merged and accepted outputs exist in main.
-If valid, update task status to DONE and run `python3 -m physics_lab.cli sync-active-board .`.
+If valid, update task status to DONE.
+Only run `python3 -m physics_lab.cli sync-active-board .` when we are doing a dedicated board-sync step.
 ```
