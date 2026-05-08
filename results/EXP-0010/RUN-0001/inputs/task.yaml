@@ -1,7 +1,7 @@
 id: TASK-0127
 title: "Implement muon g-2 empirical formula search benchmark"
 type: scientific_falsification
-status: REVIEW_READY
+status: READY
 difficulty: high
 priority: high
 

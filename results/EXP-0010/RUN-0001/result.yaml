@@ -1,0 +1,85 @@
+result_id: RESULT-0012
+run_id: RUN-0001
+experiment_id: EXP-0010
+title: Muon g-2 Anomaly Formula Search
+hypothesis_id: HYP-0010
+task_id: TASK-0127
+generated_at: '2026-05-08T18:54:49.353580+00:00'
+engine_version: 0.1.0
+git_commit: cb7ccf82cc0b41dbb163e97a2646f0eb36185678
+command: physics-lab run g2_formula_search.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0010/RUN-0001/inputs/config.yaml
+    sha256: e2d22da72bdf16c333241bc1faa86a28fa4d767d87ffcbb2c62e63f67b29bb9a
+  experiment:
+    path: results/EXP-0010/RUN-0001/inputs/experiment.yaml
+    sha256: e04b5014f036a8ed5ef022530a74af8d4b29469bf2f15597d0f314215df2d3fa
+  hypothesis:
+    path: results/EXP-0010/RUN-0001/inputs/hypothesis.yaml
+    sha256: 6c29e2303d191f008b11115e3283f32832f707507b5a8d1f3913e1d1734046e6
+  task:
+    path: results/EXP-0010/RUN-0001/inputs/task.yaml
+    sha256: 7f0f66130c27fa0b4018318e4960120aa25ac6f56e50719eb29ee8d3cd95db0b
+code_reference: physics_lab/workflows/g2_formula.py
+limitations:
+- Data-driven HVP baseline used (5.1σ). BMW lattice-QCD reduces to ~1.5σ.
+- Integer/rational exponent constraints only.
+- F3 c≈1/3 is the strongest empirical match but fails P<1% guardrail.
+- No physical mechanism claimed for any matching formula.
+best_verdict: VALID
+verification:
+  passed: true
+  checks:
+  - name: target_defined
+    status: PASS
+    details: Target Δaμ = 249×10⁻¹¹, σ = 48×10⁻¹¹
+    metrics:
+      delta_amu_1e11: 249.0
+      sigma_1e11: 48.0
+  - name: families_evaluated
+    status: PASS
+    details: 6 formula families evaluated, 381 total formulas
+    metrics:
+      total_formulas: 381
+      total_hits_1sigma: 4
+  - name: random_baseline
+    status: PASS
+    details: Random baseline computed for each family with N=100,000 samples
+    metrics:
+      n_samples: 100000
+      threshold_pct: 1.0
+  - name: global_verdict
+    status: PASS
+    details: 'Global verdict: VALID_EMPIRICAL → schema: VALID'
+    metrics:
+      credible_hits: 1
+      interesting_hits_half_sigma: 3
+      best_z_score: 0.16809692298746362
+comparison_summary:
+- target_id: target_delta_amu
+  label: Muon g-2 anomaly
+  reference_value: 2.49e-09
+  observed_value: 2.5706865230339824e-09
+  unit: dimensionless
+  absolute_difference: 8.068652303398254e-11
+  relative_difference: 0.03240422611806528
+  notes: 'Primary empirical formula: α^3 × (mμ/me)^-2 × (mμ/mτ)^-2, z=0.168σ. Internal
+    verdict: VALID_EMPIRICAL.'
+uncertainty_summary:
+  method: z_score_against_delta_amu_with_random_baseline
+  observed_uncertainty: null
+  reference_uncertainty: 4.8e-10
+  combined_uncertainty: 4.8e-10
+  z_score: 0.16809692298746362
+  within_combined_uncertainty: true
+  notes: 'Best z=0.168σ. Credible hits (C≤1, P<1%): 1.'
+artifacts:
+  report: results/EXP-0010/RUN-0001/report.md
+  metrics: results/EXP-0010/RUN-0001/metrics.json
+  claim_update: results/EXP-0010/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0010/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0010/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0010/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0010/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0010/RUN-0001/review_metadata.yaml

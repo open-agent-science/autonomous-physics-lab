@@ -1,0 +1,18 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0012
+run_id: RUN-0001
+experiment_id: EXP-0010
+claim_id: CLAIM-0008
+knowledge_id: KNOW-0007
+generated_at: '2026-05-08T18:54:49.353580+00:00'
+proposed_claim_status: DRAFT
+required_human_review: true
+evidence_basis:
+- RESULT-0012
+claim_target_file: claims/
+knowledge_target_file: knowledge/particle_physics/muon_g2.yaml
+patch_artifacts:
+  claim_patch: results/EXP-0010/RUN-0001/claim_update.patch.md
+  knowledge_patch: results/EXP-0010/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0010/RUN-0001/review_summary.md
