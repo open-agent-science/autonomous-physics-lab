@@ -1,0 +1,60 @@
+id: TASK-0135
+title: "Audit and freeze pendulum gauntlet reproducibility"
+type: scientific_audit
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep flagship pendulum benchmark results reproducible across later engine changes."
+  - "Distinguish legitimate engine improvements from silent drift in canonical scientific memory."
+  - "Add deterministic replay checks so future pendulum changes do not accidentally rewrite benchmark meaning."
+
+input:
+  mode: workflow
+  related_domain: classical_mechanics
+  related_objects:
+    - "examples/pendulum_gauntlet.yaml"
+    - "examples/pendulum_constrained_gauntlet.yaml"
+    - "examples/pendulum_asymptotic_gauntlet.yaml"
+    - "results/EXP-0001/RUN-0003/"
+    - "results/EXP-0001/RUN-0004/"
+    - "results/EXP-0001/RUN-0005/"
+    - "physics_lab/engines/gauntlet.py"
+    - "physics_lab/workflows/gauntlet.py"
+    - "tests/test_pendulum.py"
+  planning_context: >
+    Replay audit showed that current pendulum gauntlet re-runs no longer match
+    canonical saved results for RUN-0003 and RUN-0004. Best model, verdict,
+    candidate count, and separatrix diagnostics drifted materially, while
+    other scientific surfaces replayed cleanly. This task must determine
+    whether the cause is expected engine evolution, unstable candidate
+    ordering, changed feature sets, or stale canonical artifacts, then encode
+    a prevention rule so flagship pendulum benchmarks remain auditable.
+
+requirements:
+  - "Identify the root cause of the pendulum gauntlet replay drift rather than only updating whichever artifact is oldest."
+  - "Decide and encode the intended invariants for canonical gauntlet runs: frozen replay, explicit versioning, or controlled rebaselining."
+  - "Repair the affected canonical surfaces or configuration so the benchmark story becomes internally consistent again."
+  - "Add deterministic replay or regression coverage for the pendulum gauntlet result surface."
+  - "Do not widen scientific claims while repairing reproducibility."
+  - "Document the cause of the drift and the new prevention rule in maintainer-facing workflow docs or audit notes."
+
+accepted_outputs:
+  - "root-cause analysis plus repaired pendulum gauntlet reproducibility surface"
+  - "tests covering pendulum gauntlet replay invariants"
+  - "docs update explaining when gauntlet runs are frozen versus intentionally rebaselined"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_pendulum.py"
+    - "python3 -m physics_lab.cli run examples/pendulum_gauntlet.yaml --output-dir /tmp/apl-pendulum-audit"
+    - "python3 -m physics_lab.cli run examples/pendulum_constrained_gauntlet.yaml --output-dir /tmp/apl-pendulum-constrained-audit"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

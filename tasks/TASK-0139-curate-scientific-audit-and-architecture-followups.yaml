@@ -1,0 +1,51 @@
+id: TASK-0139
+title: "Curate scientific audit and architectural hardening follow-up queue"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Turn recent scientific and architectural audit findings into canonical follow-up tasks instead of leaving them as chat-only notes."
+  - "Separate immediate repair work from medium-term architectural hardening in a reviewable backlog."
+  - "Preserve maintainer visibility over scientific-memory integrity and workflow hardening before v0.3 scale-up."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0133-repair-result-id-collision-and-prevent-duplicate-canonical-results.yaml"
+    - "tasks/TASK-0134-salvage-dimensional-validator-replay-and-freeze-benchmark-scope.yaml"
+    - "tasks/TASK-0135-audit-and-freeze-pendulum-gauntlet-reproducibility.yaml"
+    - "tasks/TASK-0136-split-repository-validation-and-memory-integrity-checks.yaml"
+    - "tasks/TASK-0137-split-maintainer-review-helper-into-clearer-policy-layers.yaml"
+    - "tasks/TASK-0138-add-canonical-replay-and-golden-result-hardening-layer.yaml"
+  planning_context: >
+    A technical audit identified both immediate scientific-memory defects and
+    medium-term architectural hardening needs. This task exists only to add
+    those follow-up tasks into the canonical queue with explicit scope and
+    prioritization. It does not implement the fixes themselves.
+
+requirements:
+  - "Create canonical follow-up tasks for the confirmed scientific-memory and architecture findings."
+  - "Keep the queue split between immediate repair work and architectural hardening."
+  - "Do not mark any implementation follow-up as DONE in this curation PR."
+  - "Resync the active board after adding the new tasks."
+
+accepted_outputs:
+  - "canonical task files for the scientific audit follow-ups"
+  - "canonical task files for the architecture hardening follow-ups"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

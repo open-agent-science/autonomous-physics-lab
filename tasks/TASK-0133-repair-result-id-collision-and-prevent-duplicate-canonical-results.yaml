@@ -1,0 +1,55 @@
+id: TASK-0133
+title: "Repair duplicate result-id collision and prevent duplicate canonical results"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep APL scientific memory trustworthy by guaranteeing unique canonical result ids."
+  - "Repair the current RESULT-0009 collision without silently rewriting repository history."
+  - "Add deterministic validation so duplicate result ids are caught before merge, not during later audits."
+
+input:
+  mode: workflow
+  related_domain: scientific_memory
+  related_objects:
+    - "results/"
+    - "docs/result-artifacts-index.md"
+    - "physics_lab/registry/"
+    - "tests/"
+    - "results/EXP-0001/RUN-0005/result.yaml"
+    - "results/EXP-0007/RUN-0001/result.yaml"
+  planning_context: >
+    A replay audit found that RESULT-0009 is currently used by two different
+    canonical runs: EXP-0001/RUN-0005 and EXP-0007/RUN-0001. This is not just
+    an indexing typo; it is a repository-memory collision that can confuse
+    claims, docs, and future audits. The task must identify how the collision
+    happened, repair the canonical ids and references, and add guardrails so
+    duplicate result ids are rejected automatically in the future.
+
+requirements:
+  - "Identify the root cause of the duplicate result-id collision, not only the visible artifact mismatch."
+  - "Repair the conflicting canonical result ids and update all linked repository surfaces."
+  - "Keep the scientific meaning of both runs intact; do not silently drop one run from history."
+  - "Add deterministic validation that fails on duplicate result ids across canonical result artifacts."
+  - "Add regression coverage for at least one duplicate-result-id failure case."
+  - "Document the root cause and the new prevention rule in a maintainer-facing protocol or notes surface."
+
+accepted_outputs:
+  - "repaired canonical result-id surfaces for the conflicting runs"
+  - "validator support preventing duplicate result ids"
+  - "tests covering duplicate result-id detection"
+  - "docs update describing the cause and prevention rule"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
