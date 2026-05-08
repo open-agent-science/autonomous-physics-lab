@@ -1,0 +1,52 @@
+id: TASK-0124
+title: "Add microtask PR scaffold and preflight helper"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make the microtask contribution path easier to execute correctly than incorrectly."
+  - "Lower repeated maintainer coaching cost for new contributors and their agents."
+  - "Turn protocol knowledge into deterministic repo tooling before v0.3 contributor scale-up."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "scripts/"
+    - "docs/agent-task-protocol.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - ".github/pull_request_template.md"
+  planning_context: >
+    Review of recent microtask PRs shows that contributors can produce useful
+    narrow scientific diffs but still fail on branch naming, title formatting,
+    template placeholders, and review-bundle readiness. A small scaffold or
+    preflight tool could encode the repo's microtask PR expectations directly
+    and reduce repetitive human correction. This task is maintainer-owned
+    workflow tooling, not a newcomer starter task.
+
+requirements:
+  - "Provide one lightweight helper path for preparing a microtask PR: scaffold, preflight, or both."
+  - "The helper should cover at least branch naming, PR title shape, template placeholders, and review-bundle reminder."
+  - "Do not require network access."
+  - "Keep the helper narrow and deterministic; avoid turning it into a general-purpose PR generator."
+  - "Document when contributors should use the helper and what it does not guarantee."
+
+accepted_outputs:
+  - "new script or scripts for microtask PR scaffold and/or preflight checks"
+  - "tests if the helper has non-trivial parsing or validation logic"
+  - "docs update explaining how contributors and their agents should use the helper"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
