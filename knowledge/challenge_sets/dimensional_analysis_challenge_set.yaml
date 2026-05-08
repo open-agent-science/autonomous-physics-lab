@@ -3,7 +3,7 @@ id: DA-CHALLENGE-001
 title: "Dimensional Analysis Challenge Set"
 task_id: TASK-0017
 domain: physics_validation
-total_items: 64
+total_items: 67
 status: draft
 description: >
   A curated set of 50 physics formulas for testing dimensional analysis
@@ -689,6 +689,20 @@ items:
     difficulty: medium
     reason: "m/kg is trivially 1 (number of kilograms), carrying no physical content. The composite ratio has no physical interpretation."
 
+  - id: DA-311
+    name: "Undamped spring period (missing 2pi)"
+    domain: mechanics
+    formula: "T = sqrt(m / k)"
+    variables:
+      T: "s"
+      m: "kg"
+      k: "kg s^-2"
+    expected_verdict: SUSPICIOUS
+    failure_mode: "missing dimensionless factor 2pi; numerically incorrect but dimensionally balanced"
+    check_type: dimensional
+    difficulty: medium
+    reason: "sqrt([kg]/[kg·s⁻²]) = [s]. Dimensionally balanced, but the correct formula is T = 2π·sqrt(m/k). A dimensional-only checker accepts this while the numerical prediction is wrong by a factor of 2π ≈ 6.28."
+
   # ── Category 5: Known-limit violations ──────────────────────────────────
 
   - id: DA-401
@@ -893,6 +907,21 @@ items:
     difficulty: medium
     reason: "(v_s + v_obs) / (v_s + v_src) is dimensionless; f_obs = f_src [s^-1]. LHS and RHS are both Hz."
 
+  - id: DA-019
+    name: "de Broglie wavelength"
+    domain: quantum_mechanics
+    formula: "lambda_dB = h / (m * v)"
+    variables:
+      lambda_dB: "m"
+      h: "kg m^2 s^-1"
+      m: "kg"
+      v: "m s^-1"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: medium
+    reason: "h/(m·v): [kg·m²·s⁻¹] / ([kg]·[m·s⁻¹]) = [m]. Dimensionally consistent."
+
   # -- Category 2 extension: Invalid unit formulas -----------------------------
 
   - id: DA-116
@@ -981,3 +1010,18 @@ items:
     difficulty: medium
     condition: "n2 < 1 in a standard dielectric medium"
     reason: "Dimensionally valid, but the refractive index of a passive dielectric is always >= 1. n < 1 requires a dispersive or active medium and signals a physical-limit violation in the standard regime."
+
+  - id: DA-407
+    name: "Small-angle pendulum period (large-angle regime)"
+    domain: mechanics
+    formula: "T = 2 * pi * sqrt(L / g)"
+    variables:
+      T: "s"
+      L: "m"
+      g: "m s^-2"
+    expected_verdict: KNOWN_LIMIT_FAIL
+    failure_mode: "small_angle_approximation_breakdown"
+    check_type: known_limit
+    difficulty: medium
+    condition: "theta >> 0.24 rad (~14 deg) where relative error exceeds 1%; diverges as theta approaches pi"
+    reason: "sqrt([m]/[m·s⁻²]) = [s]. Dimensionally correct. KNOWN_LIMIT_FAIL because the formula assumes sin(θ) ≈ θ; the exact period is T = (2/π)·T₀·K(sin²(θ/2)) involving the complete elliptic integral K. Error exceeds 1% above ~14° and grows without bound near the separatrix."
