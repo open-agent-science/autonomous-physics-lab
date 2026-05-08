@@ -1,0 +1,8 @@
+experiment_path: ../experiments/EXP-0010-muon-g2-formula-search.yaml
+hypothesis_path: ../hypotheses/HYP-0010-muon-g2-formula-search.yaml
+knowledge_path: ../knowledge/particle_physics/muon_g2.yaml
+task_id: TASK-0127
+run_id: RUN-0001
+result_id: RESULT-0012
+result_root: ../results/EXP-0010
+workflow: g2_formula_search
