@@ -309,6 +309,10 @@ Before opening a PR, also generate a review bundle for the maintainer:
 This produces `_snapshots/review_<branch>_<timestamp>.md` with the full diff
 vs `main`, commit list, and changed-file summary.
 
+For microtask PRs, contributors and their agents may also use
+`python3 scripts/apl_microtask_pr_helper.py` to scaffold canonical branch/title
+metadata and run a local preflight check before maintainer review.
+
 For task proposal PRs, the lighter validation path from
 [./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
 

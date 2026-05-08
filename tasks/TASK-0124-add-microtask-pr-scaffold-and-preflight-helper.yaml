@@ -1,7 +1,7 @@
 id: TASK-0124
 title: "Add microtask PR scaffold and preflight helper"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
