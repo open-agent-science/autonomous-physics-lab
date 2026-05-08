@@ -1,0 +1,51 @@
+id: TASK-0122
+title: "Add microtask PR template and metadata guidance"
+type: maintainer_workflow
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce protocol friction for queue-driven contribution flow as APL scales toward v0.3 and v0.4."
+  - "Make valid microtask work easier for new contributors and their agents to package into maintainer-ready PRs."
+  - "Remove avoidable template errors that currently hide otherwise good narrow scientific work."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - ".github/pull_request_template.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Review of PR #148 showed that a contributor agent could follow the queue
+    content rules correctly while still producing a broken PR body, because the
+    repository's default PR template is still centered on canonical TASK-XXXX
+    work. This task should make microtask PR metadata explicit and easy to fill
+    in so new contributors and their agents do not have to guess how to adapt a
+    task-only template. Prefer this as maintainer-owned workflow improvement
+    work rather than a newcomer starter task.
+
+requirements:
+  - "Add explicit template support for microtask PRs without weakening canonical task or proposal PR requirements."
+  - "Make the required metadata for microtask PRs obvious: queue id, changed files, validation, limitations, and contributor metadata."
+  - "Avoid leaving TASK-XXXX-only placeholders as the default path for queue-driven work."
+  - "Keep the template(s) concise enough that new contributors and their agents can fill them in reliably."
+  - "Update protocol docs anywhere they still imply that one generic PR template is sufficient for all PR shapes."
+
+accepted_outputs:
+  - "updated PR template structure covering microtask PR metadata"
+  - "updated docs/agent-task-protocol.md or docs/scientific-micro-task-protocol.md with microtask PR metadata guidance"
+  - "updated docs/maintainer-review-agent.md if review expectations need template-specific clarification"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
