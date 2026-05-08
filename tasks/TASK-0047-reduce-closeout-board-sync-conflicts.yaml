@@ -1,7 +1,7 @@
 id: TASK-0047
 title: "Reduce closeout PR conflicts around active board sync"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

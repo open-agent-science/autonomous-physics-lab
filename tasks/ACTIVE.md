@@ -52,8 +52,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0047` — Reduce closeout PR conflicts around active board sync (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (`maintainer_workflow`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -67,6 +66,7 @@ None.
 - `TASK-0103` — Run final public overclaim audit for v0.2 materials (merged)
 - `TASK-0102` — Package Koide falsification campaign results (merged)
 - `TASK-0100` — Update status and v0.2 roadmap after Koide and validator campaign results (merged)
+- `TASK-0099` — Refresh repository snapshot logic to prefer current source-of-truth state (merged)
 - `TASK-0097` — Create negative result registry for APL falsifications (merged)
 - `TASK-0096` — Write Koide neutrino falsification public result package (merged)
 - `TASK-0095` — Add visual orientation diagrams for humans and agents (merged)
@@ -104,6 +104,7 @@ None.
 - `TASK-0050` — Define and launch approximation-breakdown probes micro-task track (merged)
 - `TASK-0049` — Define and launch physical constants verification micro-task track (merged)
 - `TASK-0048` — Add schema support for dataset-based particle-mass reproduction benchmarks (merged)
+- `TASK-0047` — Reduce closeout PR conflicts around active board sync (merged)
 - `TASK-0044` — Sync active task board from task files to reduce merge conflicts (merged)
 - `TASK-0043` — Add task proposal protocol and id allocation rules (merged)
 - `TASK-0042` — Add numerology guardrails for particle mass relation work (merged)
