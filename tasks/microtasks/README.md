@@ -35,3 +35,21 @@ Microtask work should be easy to review.
 
 If a batch is too large to explain quickly, it should probably be split or
 turned into a larger canonical task.
+
+## Scaling Readiness
+
+The current queue files are seed queues. For daily multi-agent usage, use the
+batching guidance in `docs/agent-scientific-work-mode.md` and the scaling note
+in `docs/notes/microtask-scaling-readiness.md`.
+
+Current guidance:
+
+- single-item PRs for interpretation-heavy or source-sensitive work;
+- `2-3` item batches for shared formula-family or comparison context;
+- `3-5` item batches for homogeneous dataset or challenge-entry additions;
+- repeatable formula-search attempts only within one campaign and with
+  explicit metrics, novelty check, failure mode, and verdict.
+
+The next infrastructure step is `TASK-0112`, which covers append-only
+microtask run/claim records, expanded queues, and repeatable scientific search
+loops.

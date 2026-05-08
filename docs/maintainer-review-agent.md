@@ -141,6 +141,8 @@ This mode supports:
 8. Accepted outputs are present or clearly explained when partial.
 9. No claim is promoted without explicit maintainer review.
 10. No result artifacts are changed unless the task explicitly requires it.
+    Human task-contract wording such as "benchmark result artifacts" or
+    "canonical run artifacts" counts when it clearly authorizes that scope.
 11. No overclaim language is introduced.
 12. Task proposal PRs do not guess canonical `TASK-XXXX` ids or edit canonical task files.
 13. The review bundle was generated from the PR branch, not from `main`.
