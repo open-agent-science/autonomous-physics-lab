@@ -3,7 +3,7 @@ id: DA-CHALLENGE-001
 title: "Dimensional Analysis Challenge Set"
 task_id: TASK-0017
 domain: physics_validation
-total_items: 67
+total_items: 70
 status: draft
 description: >
   A curated set of 50 physics formulas for testing dimensional analysis
@@ -15,11 +15,11 @@ categories:
   - id: cat1
     name: valid_formulas
     expected_verdict: VALID
-    count: 10
+    count: 12
   - id: cat2
     name: invalid_unit_formulas
     expected_verdict: INVALID
-    count: 15
+    count: 16
   - id: cat3
     name: missing_constants
     expected_verdict: INVALID
@@ -922,6 +922,34 @@ items:
     difficulty: medium
     reason: "h/(m·v): [kg·m²·s⁻¹] / ([kg]·[m·s⁻¹]) = [m]. Dimensionally consistent."
 
+  - id: DA-020
+    name: "Hubble's law"
+    domain: cosmology
+    formula: "v = H0 * d"
+    variables:
+      v: "m s^-1"
+      H0: "s^-1"
+      d: "m"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: easy
+    reason: "H0 [s^-1] * d [m] = m s^-1, which matches velocity units."
+
+  - id: DA-021
+    name: "Magnetic energy density"
+    domain: electromagnetism
+    formula: "u_B = B**2 / (2 * mu_0)"
+    variables:
+      u_B: "kg m^-1 s^-2"
+      B: "kg s^-2 A^-1"
+      mu_0: "kg m s^-2 A^-2"
+    expected_verdict: VALID
+    failure_mode: null
+    check_type: dimensional
+    difficulty: hard
+    reason: "B^2 / mu_0 = (kg^2 s^-4 A^-2) / (kg m s^-2 A^-2) = kg m^-1 s^-2, which matches energy density [J/m^3] = [kg m^2 s^-2 / m^3]."
+
   # -- Category 2 extension: Invalid unit formulas -----------------------------
 
   - id: DA-116
@@ -977,6 +1005,22 @@ items:
     check_type: dimensional
     difficulty: easy
     reason: "Q/T^2 = J K^-2 = kg m^2 s^-2 K^-2 != J K^-1 (entropy); exponent on T should be 1, not 2."
+
+  - id: DA-120
+    name: "Bernoulli's equation (missing density)"
+    domain: fluid_mechanics
+    formula: "p + v**2 / 2 + g * h = C"
+    variables:
+      p: "kg m^-1 s^-2"
+      v: "m s^-1"
+      g: "m s^-2"
+      h: "m"
+      C: "kg m^-1 s^-2"
+    expected_verdict: INVALID
+    failure_mode: "missing_factor"
+    check_type: dimensional
+    difficulty: medium
+    reason: "Pressure p has units kg/(m s^2), but v^2 and g*h have units m^2/s^2. Missing density factor rho [kg/m^3] for the kinetic and potential terms."
 
   # -- Category 3 extension: Missing constants ---------------------------------
 
