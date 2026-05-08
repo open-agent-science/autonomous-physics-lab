@@ -1,0 +1,53 @@
+id: TASK-0137
+title: "Split maintainer review helper into clearer policy layers"
+type: code_quality_refactor
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep maintainer review automation understandable as protocol rules keep expanding."
+  - "Separate git inspection, protocol parsing, policy checks, and report rendering into cleaner layers."
+  - "Reduce the risk of future false blockers when microtask, closeout, and scientific-result rules evolve."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/review_git.py"
+    - "tests/test_maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Maintainer review automation is already useful, but the helper has become
+    a large policy hub that now handles canonical task PRs, proposal PRs,
+    microtasks, closeout batches, protected-artifact rules, and GitHub/branch
+    metadata interpretation. This task should refactor the helper into clearer
+    layers so protocol changes become easier to test and less likely to create
+    accidental false positives or hidden couplings.
+
+requirements:
+  - "Preserve current maintainer review outcomes unless a bug fix is explicitly documented."
+  - "Separate at least two concerns that are currently too coupled: protocol parsing, policy evaluation, git state inspection, or report rendering."
+  - "Keep existing microtask and closeout support working."
+  - "Improve the testability of policy rules without requiring live GitHub access."
+  - "Add regression coverage around any extracted or re-layered policy logic."
+  - "Document the new mental model for maintainers if the helper architecture changes materially."
+
+accepted_outputs:
+  - "refactored maintainer review helper structure"
+  - "updated tests covering extracted review-policy layers"
+  - "docs update for maintainers if the internal helper model changes"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

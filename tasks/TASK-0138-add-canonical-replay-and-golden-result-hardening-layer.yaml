@@ -1,0 +1,54 @@
+id: TASK-0138
+title: "Add canonical replay and golden-result hardening layer"
+type: repository_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make flagship scientific benchmarks auditable against replay drift before public-facing confidence grows."
+  - "Distinguish harmless metadata changes from material result drift in canonical run artifacts."
+  - "Turn replay expectations into deterministic guardrails instead of relying on occasional manual audits."
+
+input:
+  mode: workflow
+  related_domain: scientific_memory
+  related_objects:
+    - "results/"
+    - "examples/"
+    - "physics_lab/registry/repository.py"
+    - "tests/"
+    - "docs/result-artifacts-index.md"
+  planning_context: >
+    Recent replay audit showed that some benchmark surfaces reproduce cleanly
+    while others drift materially or depend on mutable live inputs. The repo
+    needs a more explicit hardening layer for canonical runs: what must match
+    exactly, what may differ only in metadata, and how drift is reported
+    before merge. This task should not make the full benchmark suite too slow,
+    but it should encode at least one deterministic replay/golden-result
+    strategy for high-value canonical surfaces.
+
+requirements:
+  - "Define a narrow but explicit policy for canonical replay expectations."
+  - "Differentiate metadata-only differences from material scientific-result drift."
+  - "Cover at least one flagship benchmark surface with deterministic replay or golden-result checks."
+  - "Keep routine CI/runtime cost reasonable; do not require replaying every benchmark on every fast check."
+  - "Document when a canonical run is frozen, when it may be intentionally rebaselined, and how that change is reviewed."
+  - "Add tests or validation fixtures that fail when material replay drift is introduced."
+
+accepted_outputs:
+  - "canonical replay or golden-result hardening logic"
+  - "tests or fixtures covering material-vs-metadata drift behavior"
+  - "docs update explaining replay policy for canonical scientific results"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
