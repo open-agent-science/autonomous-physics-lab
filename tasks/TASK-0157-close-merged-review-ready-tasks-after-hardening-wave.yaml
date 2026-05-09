@@ -1,7 +1,7 @@
 id: TASK-0157
 title: "Close merged review-ready tasks after public-hardening and autonomy curation wave"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
