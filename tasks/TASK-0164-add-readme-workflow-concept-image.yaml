@@ -1,0 +1,46 @@
+id: TASK-0164
+title: "Add README workflow concept image"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Improve the repository's first-screen orientation for humans and AI agents."
+  - "Make the verification-first workflow visible before readers enter deeper docs."
+  - "Keep public-facing project framing aligned with generate, simulate, falsify, and reuse."
+
+input:
+  mode: workflow
+  related_domain: public_readme
+  related_objects:
+    - "README.md"
+    - "docs/figures/autonomous-physics-lab-workflow-concept.png"
+  planning_context: >
+    The README should open with a concise visual concept image that communicates
+    Autonomous Physics Lab's verification-first scientific workflow for AI
+    agents. The image should live under docs/figures and be referenced near the
+    top of README.md without changing scientific claims or benchmark wording.
+
+requirements:
+  - "Add the provided workflow concept image under docs/figures."
+  - "Reference the image immediately after the README title."
+  - "Keep the existing README tagline visible directly after the image."
+  - "Do not alter scientific result wording, verdicts, or canonical artifacts."
+
+accepted_outputs:
+  - "workflow concept image stored in docs/figures"
+  - "README hero image reference added after the H1 heading"
+  - "updated tasks/ACTIVE.md after task status synchronization"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
