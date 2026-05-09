@@ -1,7 +1,7 @@
 id: TASK-0147
 title: "Harden muon g-2 benchmark wording and guardrails"
 type: scientific_safety_review
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -50,4 +50,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

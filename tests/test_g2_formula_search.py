@@ -43,21 +43,21 @@ def test_summary_best_value_matches_formula() -> None:
         assert abs(z_recomputed - s["best_z_score"]) < 1e-10
 
 
-def test_global_verdict_is_valid_empirical() -> None:
+def test_global_verdict_is_stress_test_hit() -> None:
     result = run_formula_search()
-    assert result["global_verdict"] == "VALID_EMPIRICAL"
+    assert result["global_verdict"] == "STRESS_TEST_HIT"
 
 
-def test_summary_prefers_best_credible_hit() -> None:
+def test_summary_prefers_best_guardrail_screened_hit() -> None:
     result = run_formula_search()
     summary = result["summary"]
-    assert summary["best_formula_basis"] == "credible_hit"
+    assert summary["best_formula_basis"] == "guardrail_screened_hit"
     assert summary["best_formula"] == "α^3 × (mμ/me)^-2 × (mμ/mτ)^-2"
-    assert summary["best_credible_formula"] == summary["best_formula"]
+    assert summary["best_guardrail_screened_formula"] == summary["best_formula"]
     assert summary["closest_hit_formula"] == "(1/3) × (α/π)^3 × (mμ/mπ⁰)^2"
 
 
-def test_f4_credible_hit_present() -> None:
+def test_f4_guardrail_screened_hit_present() -> None:
     """α³(mμ/me)⁻²(mμ/mτ)⁻² must be within 1σ and pass the P<1% guardrail."""
     result = run_formula_search()
     f4 = next(fr for fr in result["families"] if fr["family_id"] == "F4")
@@ -166,14 +166,16 @@ def test_cli_run_artifacts_use_consistent_primary_formula(tmp_path: Path) -> Non
     metrics = json.loads((run_dir / "metrics.json").read_text())
     result_payload = yaml.safe_load((run_dir / "result.yaml").read_text())
 
-    assert metrics["best_formula_basis"] == "credible_hit"
+    assert metrics["best_formula_basis"] == "guardrail_screened_hit"
     assert metrics["best_formula"] == "α^3 × (mμ/me)^-2 × (mμ/mτ)^-2"
     assert metrics["closest_hit_formula"] == "(1/3) × (α/π)^3 × (mμ/mπ⁰)^2"
     assert "| Hits within 1σ | 4 |" in report
-    assert "| Credible hits (C≤1, P<1%) | 1 |" in report
-    assert "| Best credible formula | `α^3 × (mμ/me)^-2 × (mμ/mτ)^-2` |" in report
-    assert "Closest non-credible formula | `(1/3) × (α/π)^3 × (mμ/mπ⁰)^2` (0.148σ)" in report
+    assert "| Guardrail-screened hits (C≤1, P<1%) | 1 |" in report
+    assert "| Best guardrail-screened formula | `α^3 × (mμ/me)^-2 × (mμ/mτ)^-2` |" in report
+    assert "Closest unscreened formula | `(1/3) × (α/π)^3 × (mμ/mπ⁰)^2` (0.148σ)" in report
+    assert "multiple-testing correction" in report
+    assert result_payload["best_verdict"] == "INCONCLUSIVE"
     assert result_payload["task_id"] == "TASK-0127"
-    assert "Primary empirical formula: α^3 × (mμ/me)^-2 × (mμ/mτ)^-2, z=0.168σ." in (
+    assert "Primary stress-test formula: α^3 × (mμ/me)^-2 × (mμ/mτ)^-2, z=0.168σ." in (
         result_payload["comparison_summary"][0]["notes"]
     )
