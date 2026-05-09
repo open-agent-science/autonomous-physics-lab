@@ -13,6 +13,9 @@ linked_objects:
   tasks:
     - TASK-0001
     - TASK-0003
+    - TASK-0010
+    - TASK-0086
+    - TASK-0110
 ---
 
 # Pendulum
@@ -31,19 +34,22 @@ For finite amplitude, the exact period ratio is:
 
 `T / T0 = (2 / pi) * K(k^2)` where `k = sin(theta / 2)`.
 
-The current public-alpha benchmark has two canonical pendulum runs:
+The current public-alpha benchmark has several canonical pendulum runs:
 
 - `RESULT-0001` / `RUN-0001` for the original low-order candidate comparison;
-- `RESULT-0003` / `RUN-0002` for the theory-aware near-separatrix follow-up.
+- `RESULT-0003` / `RUN-0002` for the theory-aware near-separatrix follow-up;
+- `RESULT-0004` / `RUN-0003` for the 100-candidate gauntlet;
+- `RESULT-0008` / `RUN-0004` for the physics-constrained gauntlet;
+- `RESULT-0013` / `RUN-0005` for the asymptotic-refined 102-candidate
+  follow-up.
 
-The current best overall candidate remains:
+The latest asymptotic-refined follow-up identifies:
 
-- `model_theta2_theta4`
+- `model_asymptotic_refined`
 - verdict: `VALID_IN_RANGE`
 
-`RUN-0002` also shows that theory-aware candidate `model_x_x2_log` improves
-near-separatrix behavior relative to `RUN-0001`, but it does not turn the
-benchmark into an exact or globally valid formula.
+This does not turn the benchmark into an exact or globally valid formula. The
+pendulum evidence remains range-limited and candidate-family-limited.
 
 ## Why It Matters
 
@@ -62,9 +68,15 @@ This is a good first benchmark because:
 - Tasks:
   - `TASK-0001`
   - `TASK-0003`
+  - `TASK-0010`
+  - `TASK-0086`
+  - `TASK-0110`
 - Canonical results:
   - `RESULT-0001`
   - `RESULT-0003`
+  - `RESULT-0004`
+  - `RESULT-0008`
+  - `RESULT-0013`
 
 ## Open Questions
 

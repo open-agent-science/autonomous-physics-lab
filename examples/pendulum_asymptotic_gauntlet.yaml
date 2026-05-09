@@ -2,7 +2,7 @@ experiment_path: ../experiments/EXP-0001-pendulum-formula-discovery.yaml
 hypothesis_path: ../hypotheses/HYP-0001-pendulum-correction.yaml
 task_id: TASK-0110
 run_id: RUN-0005
-result_id: RESULT-0009
+result_id: RESULT-0013
 result_root: ../results/EXP-0001
 train_fraction: 0.7
 workflow: gauntlet

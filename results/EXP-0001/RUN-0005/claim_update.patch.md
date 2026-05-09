@@ -12,7 +12,7 @@
 
 - `RESULT-0001`
 - `RESULT-0003`
-- `RESULT-0009`
+- `RESULT-0013`
 
 ## Required Human Review
 
@@ -53,7 +53,7 @@ Gauntlet result strengthens range-limited evidence without overstating scope.
 -verification-backed benchmark for low-order and theory-aware pendulum
 -approximations. This claim remains in `DRAFT` until a human or later workflow
 -explicitly accepts the suggested evidence update.
-+`RESULT-0001`, `RESULT-0003`, and `RESULT-0009` together support a bounded, verification-backed update for amplitude-dependent ideal-pendulum behavior. The latest gauntlet (102 evaluated candidates) identifies the best-in-class formula family within the tested range. The result still requires range-aware wording and maintainer review before claim promotion.
++`RESULT-0001`, `RESULT-0003`, and `RESULT-0013` together support a bounded, verification-backed update for amplitude-dependent ideal-pendulum behavior. The latest gauntlet (102 evaluated candidates) identifies the best-in-class formula family within the tested range. The result still requires range-aware wording and maintainer review before claim promotion.
  
  ## Review Recommendation
  
