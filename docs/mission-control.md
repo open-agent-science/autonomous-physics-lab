@@ -63,6 +63,11 @@ These results matter because they are reproducible and reviewable. They do not
 authorize exact symbolic proof, universal scope, or deeper physical
 explanation by themselves.
 
+For release and review decisions, use the
+[Scientific Result Quality Rubric](./result-quality-rubric.md) to compare
+reproducibility, falsifiability, baseline strength, uncertainty handling, and
+overclaim risk across the current result surface.
+
 ## Current Packaging Focus
 
 The near-term documentation goal is a cautious `v0.2` packaging pass:

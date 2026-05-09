@@ -55,6 +55,9 @@ Required wording discipline:
 - do not claim "new physics" without exceptional evidence and review
 - do not say "100% exact" unless symbolic equality is proven
 - prefer "validated to tolerance" for numerical agreement
+- review candidate public results with
+  [result-quality-rubric.md](./result-quality-rubric.md) before treating them
+  as packaging-ready
 
 ## Gate 4 — Public Narrative
 
