@@ -78,6 +78,7 @@ None.
 - `TASK-0144` — Sync public-facing docs with canonical experiment state (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0145` — Add reproducibility capsules for major canonical results (`reproducibility`, priority `high`, difficulty `medium`)
 - `TASK-0147` — Harden muon g-2 benchmark wording and guardrails (`scientific_safety_review`, priority `high`, difficulty `medium`)
+- `TASK-0156` — Curate Phase B autonomous research follow-up queue (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
