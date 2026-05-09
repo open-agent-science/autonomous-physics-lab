@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hypothesis Proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "campaign_profile_id",
+    "proposal_kind",
+    "status",
+    "claim_ceiling",
+    "proposed_by",
+    "input_references",
+    "hypothesis",
+    "novelty_check",
+    "falsification_plan",
+    "overclaim_risk",
+    "sandbox_evidence",
+    "limitations",
+    "verdict",
+    "maintainer_decision_requested",
+    "promotion_boundary"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^HYP-PROPOSAL-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "campaign_profile_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "proposal_kind": {
+      "type": "string",
+      "enum": [
+        "formula_search",
+        "classification",
+        "audit",
+        "falsification",
+        "other"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "PREFLIGHT_READY",
+        "PREFLIGHT_FAILED",
+        "REVIEW_READY",
+        "REJECTED"
+      ]
+    },
+    "claim_ceiling": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proposed_by": {
+      "$ref": "#/$defs/proposedBy"
+    },
+    "input_references": {
+      "$ref": "#/$defs/nonemptyStringList"
+    },
+    "hypothesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "variables",
+        "assumptions",
+        "expected_scope",
+        "expected_failure_modes"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variables": {
+          "$ref": "#/$defs/nonemptyStringList"
+        },
+        "assumptions": {
+          "$ref": "#/$defs/nonemptyStringList"
+        },
+        "expected_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_failure_modes": {
+          "$ref": "#/$defs/nonemptyStringList"
+        }
+      }
+    },
+    "novelty_check": {
+      "$ref": "#/$defs/noveltyCheck"
+    },
+    "falsification_plan": {
+      "$ref": "#/$defs/falsificationPlan"
+    },
+    "overclaim_risk": {
+      "$ref": "#/$defs/overclaimRisk"
+    },
+    "sandbox_evidence": {
+      "$ref": "#/$defs/sandboxEvidence"
+    },
+    "limitations": {
+      "$ref": "#/$defs/nonemptyStringList"
+    },
+    "verdict": {
+      "$ref": "#/$defs/sandboxVerdict"
+    },
+    "maintainer_decision_requested": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promotion_boundary": {
+      "$ref": "#/$defs/hypothesisPromotionBoundary"
+    }
+  },
+  "$defs": {
+    "nonemptyStringList": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "proposedBy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contributor_id",
+        "agent_id",
+        "task_id"
+      ],
+      "properties": {
+        "contributor_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "agent_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "task_id": {
+          "type": "string",
+          "pattern": "^TASK-[0-9]{4}$"
+        }
+      }
+    },
+    "noveltyCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checked_files",
+        "possible_overlap",
+        "notes"
+      ],
+      "properties": {
+        "checked_files": {
+          "$ref": "#/$defs/nonemptyStringList"
+        },
+        "possible_overlap": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "falsificationPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deterministic_check",
+        "baseline_or_reference",
+        "pass_condition",
+        "fail_condition"
+      ],
+      "properties": {
+        "deterministic_check": {
+          "type": "string",
+          "minLength": 1
+        },
+        "baseline_or_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pass_condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fail_condition": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "overclaimRisk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "public_claim_allowed",
+        "forbidden_language",
+        "mitigations"
+      ],
+      "properties": {
+        "public_claim_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "forbidden_language": {
+          "$ref": "#/$defs/nonemptyStringList"
+        },
+        "mitigations": {
+          "$ref": "#/$defs/nonemptyStringList"
+        }
+      }
+    },
+    "sandboxEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commands",
+        "code_references",
+        "metrics",
+        "output_paths"
+      ],
+      "properties": {
+        "commands": {
+          "$ref": "#/$defs/nonemptyStringList"
+        },
+        "code_references": {
+          "$ref": "#/$defs/nonemptyStringList"
+        },
+        "metrics": {
+          "$ref": "#/$defs/nonemptyStringList"
+        },
+        "output_paths": {
+          "$ref": "#/$defs/nonemptyStringList"
+        }
+      }
+    },
+    "sandboxVerdict": {
+      "type": "string",
+      "enum": [
+        "SANDBOX_PASS",
+        "SANDBOX_FAIL",
+        "FALSIFIED",
+        "INCONCLUSIVE",
+        "OVERFITTED",
+        "REVIEW_NEEDED"
+      ]
+    },
+    "hypothesisPromotionBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_result_allowed",
+        "claim_promotion_allowed",
+        "required_next_step"
+      ],
+      "properties": {
+        "canonical_result_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "claim_promotion_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "required_next_step": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

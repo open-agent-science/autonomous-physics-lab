@@ -1,6 +1,7 @@
 id: HYP-PROPOSAL-XXXX
 title: "Short hypothesis proposal title"
 campaign_profile_id: "campaign-profile-id"
+proposal_kind: formula_search
 status: DRAFT
 
 claim_ceiling: "Sandbox proposal only; no canonical claim or result promotion."
@@ -17,27 +18,42 @@ input_references:
 
 hypothesis:
   statement: "State the candidate idea in one narrow, falsifiable sentence."
-  variables: []
-  assumptions: []
+  variables:
+    - "List variables, units, or dimensions needed for the proposal."
+  assumptions:
+    - "State at least one assumption that can be reviewed."
   expected_scope: "State range, dataset, or benchmark slice."
-  expected_failure_modes: []
+  expected_failure_modes:
+    - "State at least one expected failure mode."
 
 novelty_check:
-  checked_files: []
+  checked_files:
+    - "docs/autonomous-research-loop.md"
   possible_overlap: "NONE"
   notes: ""
 
 falsification_plan:
   deterministic_check: "Describe the check that can reject or limit the idea."
-  baseline_or_reference: "Describe exact reference, null baseline, or prior result."
+  baseline_or_reference: "Describe exact reference, null baseline, random baseline, or prior result."
   pass_condition: "State the sandbox pass condition."
   fail_condition: "State the sandbox fail condition."
 
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No public success or discovery framing."
+  mitigations:
+    - "Keep the proposal sandbox-only until maintainer review."
+
 sandbox_evidence:
-  commands: []
-  code_references: []
-  metrics: []
-  output_paths: []
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal hypothesis_proposals/HYP-PROPOSAL-XXXX.yaml"
+  code_references:
+    - "physics_lab/registry/research_proposals.py"
+  metrics:
+    - "State the planned metric before execution."
+  output_paths:
+    - "agent_runs/AGENT-RUN-XXXX/metrics.json"
 
 limitations:
   - "State the strongest limitation first."
