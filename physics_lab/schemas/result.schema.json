@@ -139,6 +139,10 @@
         "INCONCLUSIVE"
       ]
     },
+    "gauntlet_candidate_set": {
+      "type": "string",
+      "enum": ["current_11", "legacy_10"]
+    },
     "verification": {
       "$ref": "#/$defs/verificationSummary"
     },

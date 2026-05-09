@@ -113,9 +113,10 @@ Stored `RESULT-0004` artifact:
 
 Current-source replay note:
 
-- current gauntlet replay can select `model_t2_l0`;
-- observed current-source test mean relative error: about `1.44e-5`;
-- observed current-source test max relative error: about `4.46e-5`.
+- `RUN-0003` is pinned to `gauntlet_atom_set: legacy_10`;
+- current replay should preserve `model_t4_x1` as the best model;
+- candidate-set changes must use a new reviewed atom-set id or explicit
+  rebaseline task.
 
 ### Replay Caveats
 
@@ -123,8 +124,8 @@ Current-source replay note:
 - Verdict applies only to the configured train/test amplitude ranges.
 - Near-separatrix diagnostics fail and do not gate the in-range verdict.
 - The stored artifact remains the canonical historical `RESULT-0004`; current
-  replay drift reflects later gauntlet and hypothesis-source changes, not a
-  mutation of the committed result.
+  replay is pinned to the same legacy candidate basis so leaderboard semantics
+  remain auditable.
 
 ---
 
