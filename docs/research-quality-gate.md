@@ -70,6 +70,13 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 For future sandbox runs, also run the campaign-specific commands listed in the
 selected profile.
 
+Before sandbox execution, run proposal preflight on both proposal files:
+
+```bash
+python3 -m physics_lab.cli preflight-research-proposal hypothesis_proposals/HYP-PROPOSAL-0001.yaml
+python3 -m physics_lab.cli preflight-research-proposal experiment_proposals/EXP-PROPOSAL-0001.yaml
+```
+
 ## PR Handoff Checklist
 
 Before PR handoff, confirm:

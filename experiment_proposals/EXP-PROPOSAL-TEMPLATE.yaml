@@ -1,6 +1,7 @@
 id: EXP-PROPOSAL-XXXX
 title: "Short experiment proposal title"
 campaign_profile_id: "campaign-profile-id"
+proposal_kind: formula_search
 status: DRAFT
 
 claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
@@ -19,27 +20,45 @@ question: "State the narrow question this sandbox experiment asks."
 
 method:
   summary: "Describe the deterministic method."
-  code_references: []
-  commands: []
+  code_references:
+    - "physics_lab/registry/research_proposals.py"
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal experiment_proposals/EXP-PROPOSAL-XXXX.yaml"
   parameters: {}
 
 inputs:
-  datasets: []
-  constants: []
-  prior_results: []
-  assumptions: []
+  datasets:
+    - "List dataset or exact-reference inputs, or state NONE."
+  constants:
+    - "List constants, units, or dimensions, or state NONE."
+  prior_results:
+    - "List prior result ids or state NONE."
+  assumptions:
+    - "State at least one assumption that can be reviewed."
 
 outputs:
-  sandbox_output_paths: []
-  metrics: []
-  plots: []
-  notes: []
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-XXXX/"
+  metrics:
+    - "State the planned metric before execution."
+  plots:
+    - "State NONE if no plots are expected."
+  notes:
+    - "State expected report or limitation notes."
 
 validation:
   pass_condition: "State the sandbox pass condition."
   fail_condition: "State the sandbox fail condition."
-  baseline_or_reference: "State exact reference, null baseline, or prior result."
-  expected_failure_modes: []
+  baseline_or_reference: "State exact reference, null baseline, random baseline, or prior result."
+  expected_failure_modes:
+    - "State at least one expected failure mode."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No public success or discovery framing."
+  mitigations:
+    - "Keep the proposal sandbox-only until maintainer review."
 
 limitations:
   - "State range, dataset, model, or interpretation limits."
