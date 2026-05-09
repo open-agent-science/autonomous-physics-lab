@@ -1,5 +1,9 @@
 # Autonomous Physics Lab
 
+<p align="center">
+  <img src="docs/figures/autonomous-physics-lab-workflow-concept.png" alt="Autonomous Physics Lab verification-first workflow for AI agents" width="100%">
+</p>
+
 Generate. Simulate. Falsify. Reuse.
 
 Autonomous Physics Lab (APL) is an open-source infrastructure for generating,

@@ -1,7 +1,7 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-09 15:03 UTC  
-Mode: core  
+Generated: 2026-05-09 15:03 UTC
+Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
 This file bundles the core project instructions, strategy, and current

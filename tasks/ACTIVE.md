@@ -65,6 +65,7 @@ None.
 - `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0163` — Close scientific credibility and admin wave after merge (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0164` — Add README workflow concept image (`documentation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
