@@ -1,0 +1,103 @@
+id: EXP-PROPOSAL-0004
+title: "Sandbox anharmonic approximation batch"
+campaign_profile_id: anharmonic-oscillator
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0160
+
+input_references:
+  - "campaign_profiles/anharmonic-oscillator.yaml"
+  - "docs/autonomous-research-loop.md"
+  - "docs/research-quality-gate.md"
+  - "experiments/EXP-0011-anharmonic-oscillator-period.yaml"
+  - "results/EXP-0011/RUN-0001/result.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0014-pade-epsilon-ratio.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0015-amplitude-squared-collapse.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0016-cubic-epsilon-extension-rejected.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0017-negative-lambda-softening-rejected.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0018-quartic-only-axis-collapse-rejected.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0019-critical-pole-epsilon-rejected.yaml"
+
+question: "Can the autonomous loop produce one stronger anharmonic candidate and one clear negative control while rejecting four weaker or riskier proposals before sandbox execution?"
+
+method:
+  summary: "Replay the deterministic EXP-0011 reference surface, fit two selected sandbox candidates on the train slice, and record four pre-execution rejections."
+  code_references:
+    - "physics_lab/engines/anharmonic_oscillator.py"
+    - "tests/test_anharmonic_autonomous_pilot.py"
+    - "physics_lab/registry/research_proposals.py"
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal experiment_proposals/anharmonic/EXP-PROPOSAL-0004-anharmonic-sandbox-batch.yaml"
+    - "python3 -m pytest tests/test_anharmonic_autonomous_pilot.py"
+  parameters:
+    generated_proposals: 6
+    executed_candidates: 2
+    rejected_before_execution: 4
+
+inputs:
+  datasets:
+    - "experiments/EXP-0011-anharmonic-oscillator-period.yaml as the train/holdout/stress slice definition"
+  constants:
+    - "mass = 1.0"
+    - "stiffness = 1.0"
+  prior_results:
+    - "RESULT-0014"
+  assumptions:
+    - "Sandbox execution does not modify EXP-0011 or RESULT-0014."
+    - "The deterministic period-integral reference is reused exactly from the canonical benchmark."
+    - "A stronger holdout score inside sandbox evidence is not a canonical promotion by itself."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0004/"
+  metrics:
+    - "generated_proposal_count"
+    - "executed_candidate_count"
+    - "rejected_before_execution_count"
+    - "beats_current_canonical_holdout_count"
+    - "negative_or_partial_count"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0004/report.md"
+    - "agent_runs/AGENT-RUN-0004/limitations.md"
+    - "docs/reviews/autonomous-anharmonic-pilot-01.md"
+
+validation:
+  pass_condition: "Sandbox pass if one executed candidate improves the current canonical holdout metric, one negative-control candidate is rejected by the benchmark surface, and all non-executed proposals are explicitly triaged."
+  fail_condition: "Sandbox fail if canonical result memory changes, more than two candidates are executed, or weak and out-of-scope items are executed without recorded triage reasons."
+  baseline_or_reference: "EXP-0011 exact reference baseline plus RESULT-0014 holdout metrics."
+  expected_failure_modes:
+    - "A train-fitted family improves holdout inside sandbox evidence but still needs maintainer review before canonical comparison."
+    - "Axis-collapse candidates can fit the train slice loosely while failing holdout and stress checks."
+    - "Scope-expansion or singularity-style proposals add risk without enough value for the first pilot."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not claim RESULT-0014 has been replaced."
+    - "Do not present sandbox fit metrics as canonical benchmark metrics."
+    - "Do not claim a fitted family is a discovered physical law."
+  mitigations:
+    - "Keep outputs only under proposals, agent_runs, tests, and review notes."
+    - "Separate the sandbox comparison from any canonical result wording."
+    - "Require maintainer review before any follow-up canonical task."
+
+limitations:
+  - "Sandbox-only pilot over two executed candidates and four rejected proposals."
+  - "No canonical result, claim, hypothesis, experiment, or knowledge artifact is changed."
+  - "A better sandbox holdout score is evidence for follow-up review, not automatic benchmark promotion."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether the Pade family deserves a later canonical benchmark-comparison task."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical comparison or curation task before any RESULT-* change."

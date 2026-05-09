@@ -1,0 +1,95 @@
+{
+  "agent_run_id": "AGENT-RUN-0004",
+  "campaign_profile_id": "anharmonic-oscillator",
+  "task_id": "TASK-0160",
+  "formula": "batch: two anharmonic sandbox approximation candidates",
+  "verdict": "SANDBOX_PASS",
+  "summary": {
+    "generated_proposal_count": 6,
+    "executed_candidate_count": 2,
+    "rejected_before_execution_count": 4,
+    "beats_current_canonical_holdout_count": 1,
+    "negative_or_partial_count": 1,
+    "canonical_results_changed": false,
+    "canonical_claims_changed": false
+  },
+  "executed_items": [
+    {
+      "proposal_id": "HYP-PROPOSAL-0014",
+      "name": "Pade epsilon ratio candidate",
+      "family": "pade11_epsilon",
+      "formula": "T/T0 = (1 + a*epsilon) / (1 + b*epsilon)",
+      "coefficients": {
+        "a": 0.8209163003050323,
+        "b": 2.3198320364377794
+      },
+      "expected_verdict": "VALID",
+      "observed_verdict": "VALID",
+      "agrees": true,
+      "train_metrics": {
+        "mean_relative_error": 3.1602126822499225e-06,
+        "max_relative_error": 6.927936821868588e-06
+      },
+      "holdout_metrics": {
+        "mean_relative_error": 0.00012302514651448812,
+        "max_relative_error": 0.0003403678686276342
+      },
+      "stress_metrics": {
+        "mean_relative_error": 0.0011462196198869599,
+        "max_relative_error": 0.0027696508793487095
+      },
+      "beats_current_canonical_holdout": true
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0015",
+      "name": "Amplitude-squared only collapse candidate",
+      "family": "amp2_only",
+      "formula": "T/T0 = 1 + c*A^2",
+      "coefficients": {
+        "c": -0.042729142326243426
+      },
+      "expected_verdict": "OVERFITTED",
+      "observed_verdict": "OVERFITTED",
+      "agrees": true,
+      "train_metrics": {
+        "mean_relative_error": 0.01359206491303453,
+        "max_relative_error": 0.048198392152731064
+      },
+      "holdout_metrics": {
+        "mean_relative_error": 0.05036136416186007,
+        "max_relative_error": 0.09024318758605068
+      },
+      "stress_metrics": {
+        "mean_relative_error": 0.10336597633156275,
+        "max_relative_error": 0.15130531187381022
+      },
+      "beats_current_canonical_holdout": false
+    }
+  ],
+  "rejected_before_execution": [
+    {
+      "proposal_id": "HYP-PROPOSAL-0016",
+      "reason": "High-overlap cubic extension of the current empirical family; deferred in favor of broader pilot contrast."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0017",
+      "reason": "Negative-lambda softening branch is outside the current positive-lambda benchmark scope."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0018",
+      "reason": "Quartic-only axis-collapse candidate is redundant once one negative-control collapse family is already selected."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0019",
+      "reason": "Critical-pole framing adds avoidable singularity storytelling to a bounded low-overclaim pilot."
+    }
+  ],
+  "reference_comparison": {
+    "canonical_result": "RESULT-0014",
+    "canonical_best_model": "model_empirical_quadratic",
+    "canonical_holdout_mean_relative_error": 0.0011022495275295335,
+    "canonical_holdout_max_relative_error": 0.0032015249666851276,
+    "result_memory": "No RESULT-* artifact changed.",
+    "claim_memory": "No claim artifact changed."
+  }
+}
