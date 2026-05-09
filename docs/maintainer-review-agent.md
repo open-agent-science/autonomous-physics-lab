@@ -213,6 +213,13 @@ Use this mode only after the maintainer has already merged the PR.
 3. The task was `REVIEW_READY` before closeout.
 4. CI passed for the merged work.
 5. No unresolved follow-up blockers remain.
+6. If the merged work changes the recommended execution order, release-readiness
+   story, or top near-term priorities, review
+   [./next-steps.md](./next-steps.md) for stale guidance before ending the
+   cleanup pass.
+7. During larger workflow-admin or closeout batches, check whether open
+   `READY`, `REVIEW_READY`, or `BLOCKED` tasks still represent real claimable
+   work rather than stale or already-merged drift.
 
 ### Allowed actions
 
@@ -221,9 +228,13 @@ Use this mode only after the maintainer has already merged the PR.
   dedicated board-sync step so [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
   reflects current task statuses without becoming a conflict surface in every
   per-task closeout PR
+- update [./next-steps.md](./next-steps.md) when the recorded immediate queue
+  is stale after the merged work
 - add a short closeout note when helpful
 - add an entry to [./multi-agent-dry-run.md](./multi-agent-dry-run.md) when the
   merged PR is part of a dry run or contributor pilot
+- flag stale open tasks for follow-up closeout, reopening, or curation when a
+  cleanup pass reveals that the board no longer matches reality
 
 ### Not allowed
 
