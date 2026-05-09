@@ -10,10 +10,13 @@ import typer
 from physics_lab.registry import (
     infer_kind_from_path,
     load_agent,
+    load_agent_run,
     load_claim,
     load_example_config,
     load_experiment,
+    load_experiment_proposal,
     load_hypothesis,
+    load_hypothesis_proposal,
     load_knowledge,
     load_result,
     load_review_metadata,
@@ -107,10 +110,13 @@ def validate(path: str, kind: Optional[str] = None) -> None:
     resolved_kind = kind or infer_kind_from_path(artifact_path)
     loaders = {
         "agent": load_agent,
+        "agent_run": load_agent_run,
         "claim": load_claim,
         "example_config": load_example_config,
         "experiment": load_experiment,
+        "experiment_proposal": load_experiment_proposal,
         "hypothesis": load_hypothesis,
+        "hypothesis_proposal": load_hypothesis_proposal,
         "knowledge": load_knowledge,
         "result": load_result,
         "review_metadata": load_review_metadata,
@@ -122,6 +128,32 @@ def validate(path: str, kind: Optional[str] = None) -> None:
     except KeyError as exc:
         raise typer.BadParameter(f"Unsupported validation kind: {resolved_kind}") from exc
     typer.echo(f"Validated {artifact_path} as {resolved_kind}.")
+
+
+@app.command("preflight-research-proposal")
+def preflight_research_proposal(
+    proposal_path: str,
+    root: str = typer.Option(
+        ".",
+        "--root",
+        help="Repository root used for campaign profile and path checks.",
+    ),
+) -> None:
+    """Run the autonomous research proposal preflight gate."""
+    artifact_path = Path(proposal_path)
+    resolved_kind = infer_kind_from_path(artifact_path)
+    root_path = Path(root).resolve()
+    if resolved_kind == "hypothesis_proposal":
+        payload = load_hypothesis_proposal(artifact_path, root=root_path)
+    elif resolved_kind == "experiment_proposal":
+        payload = load_experiment_proposal(artifact_path, root=root_path)
+    else:
+        raise typer.BadParameter(
+            "preflight-research-proposal only supports hypothesis_proposals/ and experiment_proposals/"
+        )
+    typer.echo(f"Preflight PASS: {artifact_path}")
+    typer.echo(f"Campaign profile: {payload['campaign_profile_id']}")
+    typer.echo(f"Verdict: {payload['verdict']}")
 
 
 @app.command("validate-repo")

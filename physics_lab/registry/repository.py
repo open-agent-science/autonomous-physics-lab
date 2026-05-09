@@ -10,11 +10,16 @@ from typing import Any, Callable, Union
 import yaml
 
 from physics_lab.registry.agents import load_agent
+from physics_lab.registry.agent_runs import load_agent_run
 from physics_lab.registry.claims import load_claim
 from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
+from physics_lab.registry.research_proposals import (
+    load_experiment_proposal,
+    load_hypothesis_proposal,
+)
 from physics_lab.registry.results import load_result
 from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task, task_input_mode
@@ -25,9 +30,12 @@ from physics_lab.workflows.artifacts import hash_file
 Loader = Callable[[Union[str, Path]], dict[str, Any]]
 LOADERS: dict[str, Loader] = {
     "agents": load_agent,
+    "agent_runs": load_agent_run,
     "claims": load_claim,
     "examples": load_example_config,
+    "experiment_proposals": load_experiment_proposal,
     "experiments": load_experiment,
+    "hypothesis_proposals": load_hypothesis_proposal,
     "hypotheses": load_hypothesis,
     "knowledge": load_knowledge,
     "results": load_result,
@@ -46,9 +54,12 @@ RANGE_LANGUAGE_MARKERS = (
 )
 PATTERNS: dict[str, str] = {
     "agents": "*.yaml",
+    "agent_runs": "*/agent_run.yaml",
     "claims": "*.md",
     "examples": "*.yaml",
+    "experiment_proposals": "*.yaml",
     "experiments": "*.yaml",
+    "hypothesis_proposals": "*.yaml",
     "hypotheses": "*.yaml",
     "knowledge": "*.md",
     "results": "result.yaml",
@@ -179,7 +190,14 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
             continue
         if directory == "task_proposals" and path.name == "TASK-PROPOSAL-TEMPLATE.yaml":
             continue
-        items.append((path, loader(path)))
+        if directory == "hypothesis_proposals" and path.name == "HYP-PROPOSAL-TEMPLATE.yaml":
+            continue
+        if directory == "experiment_proposals" and path.name == "EXP-PROPOSAL-TEMPLATE.yaml":
+            continue
+        if directory in {"hypothesis_proposals", "experiment_proposals", "agent_runs"}:
+            items.append((path, loader(path, root=root)))
+        else:
+            items.append((path, loader(path)))
     return items
 
 
@@ -720,6 +738,9 @@ def validate_repository(
     experiments = _load_directory(root_path, "experiments")
     tasks = _load_directory(root_path, "tasks")
     task_proposals = _load_directory(root_path, "task_proposals")
+    hypothesis_proposals = _load_directory(root_path, "hypothesis_proposals")
+    experiment_proposals = _load_directory(root_path, "experiment_proposals")
+    agent_runs = _load_directory(root_path, "agent_runs")
     agents = _load_directory(root_path, "agents")
     claims = _load_directory(root_path, "claims")
     knowledge_files = _load_directory(root_path, "knowledge")
@@ -747,6 +768,9 @@ def validate_repository(
         "experiments": len(experiments),
         "tasks": len(tasks),
         "task_proposals": len(task_proposals),
+        "hypothesis_proposals": len(hypothesis_proposals),
+        "experiment_proposals": len(experiment_proposals),
+        "agent_runs": len(agent_runs),
         "agents": len(agents),
         "claims": len(claims),
         "knowledge": len(knowledge_files),
