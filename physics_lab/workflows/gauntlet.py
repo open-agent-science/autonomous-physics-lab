@@ -73,7 +73,7 @@ _GAUNTLET_LIMITATIONS = [
     "This workflow evaluates an ideal mathematical pendulum with no damping or driving force.",
     "Core gauntlet candidates are linear-in-coefficients models fitted by least squares.",
     "Verdicts apply only to the configured train and test amplitude ranges.",
-    "Core candidates are drawn from a fixed basis of eleven atoms; other functional forms are not tested unless explicitly configured.",
+    "Core candidates are drawn from a configured fixed atom basis; other functional forms are not tested unless explicitly configured.",
     "Configured comparison candidates expand the evaluated set but do not make the search exhaustive.",
     "The leaderboard ranks by composite score; top candidates may still fail separatrix diagnostics.",
 ]
@@ -613,7 +613,8 @@ def run_gauntlet_experiment_with_output(
     test_theta = dataset.theta[split_index:]
     test_target = dataset.period_ratio[split_index:]
 
-    atom_groups, candidates = build_gauntlet_candidates()
+    gauntlet_atom_set = str(config.get("gauntlet_atom_set", "current_11"))
+    atom_groups, candidates = build_gauntlet_candidates(atom_set=gauntlet_atom_set)
 
     # Collect all candidates to fit and score
     all_candidates = list(candidates)
@@ -822,6 +823,7 @@ def run_gauntlet_experiment_with_output(
             "review_metadata": relative_or_absolute(review_metadata_path, repo_root),
         },
         "scores": serialize_scores(scores, verdicts),
+        "gauntlet_candidate_set": gauntlet_atom_set,
     }
     validate_result_payload(result_payload, source=result_path)
     write_text_atomic(result_path, yaml.safe_dump(result_payload, sort_keys=False))
@@ -834,6 +836,7 @@ def run_gauntlet_experiment_with_output(
         "total_candidates": len(leaderboard_entries),
         "verification": verification_payload,
         "scores": result_payload["scores"],
+        "gauntlet_candidate_set": gauntlet_atom_set,
         "leaderboard_top10": leaderboard_entries[:10],
         "failure_mode_summary": _failure_mode_summary(leaderboard_entries),
     }

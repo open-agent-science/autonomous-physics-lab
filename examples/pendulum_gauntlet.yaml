@@ -6,3 +6,4 @@ result_id: RESULT-0004
 result_root: ../results/EXP-0001
 train_fraction: 0.7
 workflow: gauntlet
+gauntlet_atom_set: legacy_10

@@ -133,6 +133,9 @@ not numerical reference noise. Best verdict is `VALID_IN_RANGE`.
 - Candidates drawn from a fixed basis of ten atoms; other functional forms not tested.
 - Leaderboard ranks by composite score; top candidates may still fail separatrix diagnostics.
 - No symbolic exactness claim and no global validity claim are made.
+- Replay is pinned by `examples/pendulum_gauntlet.yaml` with
+  `gauntlet_atom_set: legacy_10`; later candidate-basis changes must not alter
+  this run's leaderboard semantics without reviewed rebaselining.
 
 ---
 
@@ -167,6 +170,9 @@ gauntlet with `VALID_IN_RANGE` verdict.
 - Same ideal-pendulum assumptions as prior pendulum runs.
 - Physics constraint tested for one specific log-family basis only.
 - Overfitting verdict applies to the constrained gauntlet configuration only.
+- Replay is pinned by `examples/pendulum_constrained_gauntlet.yaml` with
+  `gauntlet_atom_set: legacy_10`; it preserves the original constrained
+  comparison surface rather than adopting later atom-set defaults.
 
 ---
 
