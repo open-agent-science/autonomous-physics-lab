@@ -57,6 +57,7 @@ one PR.
 - `TASK-0148` — Add scientific result quality rubric (`scientific_governance`, priority `high`, difficulty `medium`)
 - `TASK-0149` — Define blind holdout benchmark protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0154` — Add agent-run PR packaging and maintainer review checklist (`review_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0159` — Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation (`scientific_benchmark`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
@@ -67,15 +68,16 @@ None.
 
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0146` — Add one-command core result reproduction script (`reproducibility`, priority `high`, difficulty `medium`)
-- `TASK-0151` — Define autonomous research loop contract and campaign autonomy profiles (`agent_workflow`, priority `high`, difficulty `high`)
-- `TASK-0152` — Implement research proposal preflight gate and sandbox agent-run layout (`validation`, priority `high`, difficulty `high`)
-- `TASK-0153` — Run first pendulum autonomous research pilot with sandbox-only outputs (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0157` — Close merged review-ready tasks after public-hardening and autonomy curation wave (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0158` — Curate autonomy and scientific-value upgrade queue before public article prep (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0161` — Close autonomy foundation tasks and unblock autonomous PR packaging (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
 - `TASK-0156` — Curate Phase B autonomous research follow-up queue (merged)
+- `TASK-0153` — Run first pendulum autonomous research pilot with sandbox-only outputs (merged)
+- `TASK-0152` — Implement research proposal preflight gate and sandbox agent-run layout (merged)
+- `TASK-0151` — Define autonomous research loop contract and campaign autonomy profiles (merged)
 - `TASK-0147` — Harden muon g-2 benchmark wording and guardrails (merged)
 - `TASK-0145` — Add reproducibility capsules for major canonical results (merged)
 - `TASK-0144` — Sync public-facing docs with canonical experiment state (merged)
@@ -198,7 +200,6 @@ None.
 
 ## BLOCKED
 
-- `TASK-0154` — Add agent-run PR packaging and maintainer review checklist (`review_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
