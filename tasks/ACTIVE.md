@@ -71,6 +71,7 @@ None.
 - `TASK-0158` — Curate autonomy and scientific-value upgrade queue before public article prep (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0161` — Close autonomy foundation tasks and unblock autonomous PR packaging (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0162` — Close PR packaging and core reproduction tasks after merge (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0164` — Add README workflow concept image (`documentation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
