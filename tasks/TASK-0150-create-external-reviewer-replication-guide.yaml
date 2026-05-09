@@ -1,0 +1,47 @@
+id: TASK-0150
+title: "Create external reviewer replication guide"
+type: documentation
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make it easier for a cautious outsider to verify APL's current evidence without first becoming a maintainer."
+  - "Convert internal maintainer know-how into a reviewer-facing replication path."
+  - "Support controlled public alpha with a better trust-on-first-read surface."
+
+input:
+  mode: workflow
+  related_domain: reproducibility
+  related_objects:
+    - "README.md"
+    - "docs/mission-control.md"
+    - "docs/status.md"
+    - "docs/use-your-agent.md"
+    - "scripts/"
+    - "results/"
+  planning_context: >
+    If APL is opened more broadly, outside readers will want a short path for
+    reproducing or sanity-checking the strongest current evidence. The guide
+    should sit between full maintainer protocol docs and raw result folders.
+
+requirements:
+  - "Write a short external-reviewer replication guide focused on the current core result surface."
+  - "Explain what to run, what to expect, and which claims are intentionally out of scope."
+  - "Link to the strongest current result summaries, reproducibility capsules, or reproduction script if they exist."
+  - "Keep the guide reviewer-facing rather than contributor-onboarding-facing."
+
+accepted_outputs:
+  - "external reviewer replication guide doc"
+  - "links from one or more top-level entrypoints if appropriate"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

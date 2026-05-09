@@ -1,0 +1,53 @@
+id: TASK-0147
+title: "Harden muon g-2 benchmark wording and guardrails"
+type: scientific_safety_review
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep EXP-0010 useful as a stress test without letting it drift into numerology-heavy public messaging."
+  - "Raise the evidence threshold for any future muon g-2 benchmark interpretation."
+  - "Preserve APL's verification-first discipline in a high-risk speculative domain."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "experiments/EXP-0010-muon-g2-formula-search.yaml"
+    - "results/EXP-0010/RUN-0001/result.yaml"
+    - "results/EXP-0010/RUN-0001/report.md"
+    - "claims/CLAIM-0008-muon-g2-lepton-cascade-empirical.md"
+    - "docs/notes/g2-anomaly-formula-search-design.md"
+    - "knowledge/particle_physics/muon_g2.yaml"
+  planning_context: >
+    EXP-0010 currently yields a narrow empirical hit under explicit guardrails,
+    but the public-risk profile is high because the target is contested and the
+    search space invites numerology readings. Reframe the benchmark as a
+    stress-test surface and define the next guardrail-hardening checks needed
+    before any stronger interpretation is even discussable.
+
+requirements:
+  - "Audit EXP-0010 wording across experiment, result, claim, note, and knowledge surfaces."
+  - "Keep or tighten the benchmark framing toward 'formula-search stress test' rather than 'success story'."
+  - "Specify concrete next hardening checks such as multiple-testing correction, bootstrap stability, alternate target comparison, or cross-observable checks."
+  - "Do not promote the claim or present the benchmark as anomaly resolution."
+  - "If code changes are needed, keep them limited to guardrail hardening rather than opening new speculative families."
+
+accepted_outputs:
+  - "updated muon g-2 wording surfaces if stale or too strong"
+  - "documented next-step guardrail hardening plan for EXP-0010"
+  - "tests if guardrail logic changes"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_g2_formula_search.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
