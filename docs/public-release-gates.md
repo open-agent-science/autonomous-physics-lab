@@ -55,7 +55,7 @@ only.
 
 Required wording discipline:
 
-- do not claim "AI solved physics"
+- do not claim final physics answers from APL outputs
 - do not claim "new physics" without exceptional evidence and review
 - do not say "100% exact" unless symbolic equality is proven
 - prefer "validated to tolerance" for numerical agreement
@@ -66,7 +66,7 @@ All of the following must be true:
 
 - `README.md` has a result summary
 - an announcement draft exists
-- no "AI solved physics" or "Theory of Everything" overclaim
+- no final-answer, universal-theory, or discovery-level overclaim
 - claims remain review-gated
 - guarded stress-test outputs are not presented as flagship public successes
 
