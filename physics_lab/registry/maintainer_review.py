@@ -80,6 +80,21 @@ MICROTASK_VALIDATION_COMMANDS = (
     "python3 -m physics_lab.cli validate-repo .",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
 )
+CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
+    {
+        "AGENTS.md",
+        "CLAUDE.md",
+        "docs/strategy.md",
+        "docs/mission-control.md",
+        "docs/agent-task-protocol.md",
+        "docs/agent-scientific-work-mode.md",
+        "docs/contributing-workflow.md",
+        "docs/maintainer-review-agent.md",
+        "docs/scientific-micro-task-protocol.md",
+        "tasks/ACTIVE.md",
+        "scripts/generate_context_bundle.py",
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -95,6 +110,7 @@ class PullRequestMetadata:
     merged: bool
     status_checks_passed: bool | None
     status_checks_pending: bool
+    changed_files: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -135,6 +151,7 @@ class CloseoutReport:
     ci_status: str
     blockers: tuple[str, ...]
     required_actions: tuple[str, ...]
+    suggested_actions: tuple[str, ...]
     applied_changes: tuple[str, ...]
 
 
@@ -282,7 +299,7 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
             "view",
             str(number),
             "--json",
-            "number,title,body,headRefName,baseRefName,state,mergedAt,statusCheckRollup",
+            "number,title,body,headRefName,baseRefName,state,mergedAt,statusCheckRollup,files",
         ],
         cwd=root,
         timeout=30,
@@ -290,6 +307,11 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
     if result.returncode != 0:
         return None
     payload = json.loads(result.stdout)
+    changed_files = tuple(
+        str(item.get("path") or "").strip()
+        for item in (payload.get("files") or [])
+        if str(item.get("path") or "").strip()
+    )
     status_checks = payload.get("statusCheckRollup") or []
     has_failure = False
     has_pending = False
@@ -320,6 +342,26 @@ def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
         merged=bool(payload.get("mergedAt")),
         status_checks_passed=status_passed,
         status_checks_pending=has_pending,
+        changed_files=changed_files,
+    )
+
+
+def context_bundle_followups(
+    changed_files: tuple[str, ...],
+    *,
+    sync_board: bool = False,
+) -> tuple[str, ...]:
+    """Return reminders when merged work touched CONTEXT.md source surfaces."""
+    touched = {path for path in changed_files if path in CONTEXT_BUNDLE_SOURCE_FILES}
+    if sync_board:
+        touched.add("tasks/ACTIVE.md")
+    if not touched:
+        return ()
+    rendered = ", ".join(sorted(touched))
+    return (
+        "Regenerate CONTEXT.md after this merge batch because context bundle "
+        f"sources changed: {rendered}. Run python3 scripts/generate_context_bundle.py "
+        "and stage CONTEXT.md if it changes.",
     )
 
 
@@ -815,6 +857,7 @@ def build_closeout_report(
     """Build and optionally apply a maintainer closeout decision on main."""
     blockers: list[str] = []
     required_actions: list[str] = []
+    suggested_actions: list[str] = []
     applied_changes: list[str] = []
     branch = current_branch(root)
 
@@ -826,9 +869,11 @@ def build_closeout_report(
     pr_metadata = load_pr_metadata(root, pull_request)
     merged = "unknown"
     ci_status = "unknown"
+    changed_files: tuple[str, ...] = ()
     if pr_metadata is None:
         required_actions.append("Could not verify PR metadata via gh CLI.")
     else:
+        changed_files = pr_metadata.changed_files
         merged = "yes" if pr_metadata.merged else "no"
         if pr_metadata.status_checks_passed is True:
             ci_status = "pass"
@@ -840,6 +885,13 @@ def build_closeout_report(
             required_actions.append("GitHub status checks are still pending.")
         if not pr_metadata.merged:
             blockers.append("PR is not merged.")
+
+    suggested_actions.extend(
+        context_bundle_followups(
+            changed_files,
+            sync_board=bool(apply and sync_board),
+        )
+    )
 
     task_file = resolve_task_file(root, task_id)
     task_payload = load_task(task_file)
@@ -899,6 +951,7 @@ def build_closeout_report(
         ci_status=ci_status,
         blockers=tuple(blockers),
         required_actions=tuple(required_actions),
+        suggested_actions=tuple(suggested_actions),
         applied_changes=tuple(applied_changes),
     )
 
@@ -923,6 +976,11 @@ def render_closeout_report(report: CloseoutReport) -> str:
     lines.append("Required actions:")
     if report.required_actions:
         lines.extend(f"- {item}" for item in report.required_actions)
+    else:
+        lines.append("- none")
+    lines.append("Suggested follow-ups:")
+    if report.suggested_actions:
+        lines.extend(f"- {item}" for item in report.suggested_actions)
     else:
         lines.append("- none")
     lines.append("Applied changes:")

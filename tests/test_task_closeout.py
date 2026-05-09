@@ -117,6 +117,7 @@ def test_apply_closeout_report_defers_board_sync_by_default(tmp_path: Path) -> N
         merged=True,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=(),
     )
 
     with (
@@ -136,3 +137,41 @@ def test_apply_closeout_report_defers_board_sync_by_default(tmp_path: Path) -> N
     assert report.outcome == "APPLIED"
     assert any("Deferred tasks/ACTIVE.md synchronization" in item for item in report.applied_changes)
     assert not any("Synchronized tasks/ACTIVE.md" in item for item in report.applied_changes)
+
+
+def test_apply_closeout_report_suggests_regenerating_context_bundle_for_source_changes(
+    tmp_path: Path,
+) -> None:
+    _write_task(tmp_path, task_id="TASK-1234", status="REVIEW_READY")
+    (tmp_path / "tasks" / "ACTIVE.md").write_text("# Active Task Board\n", encoding="utf-8")
+    (tmp_path / "docs").mkdir(parents=True)
+    (tmp_path / "docs" / "example.md").write_text("done\n", encoding="utf-8")
+
+    pr_metadata = PullRequestMetadata(
+        number=18,
+        title="TASK-1234: Example task",
+        body="",
+        branch="agent/roman/codex/task-1234-example-task",
+        base_branch="main",
+        state="MERGED",
+        merged=True,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("docs/strategy.md",),
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.missing_expected_outputs", return_value=()),
+        patch("physics_lab.registry.maintainer_review.should_append_dry_run_entry", return_value=False),
+    ):
+        report = build_apply_closeout_report(
+            tmp_path,
+            task_id="TASK-1234",
+            pull_request=18,
+            apply=True,
+        )
+
+    assert any("Regenerate CONTEXT.md" in item for item in report.suggested_actions)

@@ -68,6 +68,7 @@ None.
 - `TASK-0030` — Record first friend contributor dry run (`contributor_pilot`, priority `medium`, difficulty `low`)
 - `TASK-0128` — Add agent catalog and documentation entrypoint links (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0141` — Add context-bundle regeneration check to closeout helper (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

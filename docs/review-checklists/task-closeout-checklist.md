@@ -29,6 +29,9 @@ instruction, may perform closeout after merge.
 - Run `python3 -m physics_lab.cli sync-active-board .` later in a dedicated
   board-sync step or serialized `TASK-CLOSEOUT` PR so the board catches up
   without becoming the main conflict surface.
+- If the merged PR or the applied board-sync step touched files that feed
+  `CONTEXT.md`, rerun `python3 scripts/generate_context_bundle.py` and stage
+  `CONTEXT.md` in a later maintainer branch if it changed.
 - Add a short closeout note if the maintainer wants a persistent explanation.
 - Add an entry to [../multi-agent-dry-run.md](../multi-agent-dry-run.md) when
   the merged PR belongs to a dry run or contributor pilot.
