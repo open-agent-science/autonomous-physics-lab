@@ -16,6 +16,7 @@ from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
+from physics_lab.registry.microtask_runs import load_microtask_run
 from physics_lab.registry.research_proposals import (
     load_experiment_proposal,
     load_hypothesis_proposal,
@@ -38,6 +39,7 @@ LOADERS: dict[str, Loader] = {
     "hypothesis_proposals": load_hypothesis_proposal,
     "hypotheses": load_hypothesis,
     "knowledge": load_knowledge,
+    "microtask_runs": load_microtask_run,
     "results": load_result,
     "tasks": load_task,
     "task_proposals": load_task_proposal,
@@ -62,6 +64,7 @@ PATTERNS: dict[str, str] = {
     "hypothesis_proposals": "**/*.yaml",
     "hypotheses": "*.yaml",
     "knowledge": "*.md",
+    "microtask_runs": "**/*.yaml",
     "results": "result.yaml",
     "tasks": "*.yaml",
     "task_proposals": "*.yaml",
@@ -199,7 +202,9 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
             continue
         if directory == "experiment_proposals" and path.name == "EXP-PROPOSAL-TEMPLATE.yaml":
             continue
-        if directory in {"hypothesis_proposals", "experiment_proposals", "agent_runs"}:
+        if directory == "microtask_runs" and path.name == "MICROTASK-RUN-TEMPLATE.yaml":
+            continue
+        if directory in {"hypothesis_proposals", "experiment_proposals", "agent_runs", "microtask_runs"}:
             items.append((path, loader(path, root=root)))
         else:
             items.append((path, loader(path)))
@@ -746,6 +751,7 @@ def validate_repository(
     hypothesis_proposals = _load_directory(root_path, "hypothesis_proposals")
     experiment_proposals = _load_directory(root_path, "experiment_proposals")
     agent_runs = _load_directory(root_path, "agent_runs")
+    microtask_runs = _load_directory(root_path, "microtask_runs")
     agents = _load_directory(root_path, "agents")
     claims = _load_directory(root_path, "claims")
     knowledge_files = _load_directory(root_path, "knowledge")
@@ -776,6 +782,7 @@ def validate_repository(
         "hypothesis_proposals": len(hypothesis_proposals),
         "experiment_proposals": len(experiment_proposals),
         "agent_runs": len(agent_runs),
+        "microtask_runs": len(microtask_runs),
         "agents": len(agents),
         "claims": len(claims),
         "knowledge": len(knowledge_files),

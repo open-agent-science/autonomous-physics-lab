@@ -212,3 +212,25 @@ microtasks:
       - "future data will prove the model"
       - "global benchmark coverage"
       - "exact pendulum completion"
+  - id: PFF-011
+    campaign: pendulum-formula-falsification
+    title: Run one repeatable bounded formula-search attempt against the pendulum reference
+    type: repeatable-formula-search-attempt
+    estimated_effort: 20-40 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One microtask run record plus a short note with candidate family, input range, metrics, failure mode, verdict, limitations, and novelty check."
+    validation:
+      - "Record the attempt under microtask_runs/pendulum-formula-falsification/."
+      - "State the baseline or exact reference used."
+      - "Report mean and max relative error or explain why metrics were not run."
+    risk_level: medium
+    forbidden_claims:
+      - "new exact pendulum formula"
+      - "broad validity claim"
+      - "candidate promoted to knowledge"
