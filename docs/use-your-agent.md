@@ -150,6 +150,20 @@ If you have a shorter session, use:
 
 Stick to one campaign queue at a time and keep the output narrow.
 
+## Before Reviewing Core Results
+
+If your first goal is to verify the current major benchmark surface rather
+than start new task work, run the bounded replay script:
+
+```bash
+python3 scripts/reproduce_core_results.py
+```
+
+It regenerates the selected public-facing core results into `/tmp`, writes a
+summary file, and leaves canonical `results/` artifacts untouched. See
+[docs/reproducibility-capsules.md](./reproducibility-capsules.md) for expected
+metrics, caveats, and the intentionally skipped Muon g-2 stress-test lane.
+
 ## Minimum Rules Your Agent Must Follow
 
 - do not work directly on `main`
