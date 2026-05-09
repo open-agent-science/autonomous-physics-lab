@@ -1,7 +1,7 @@
 id: TASK-0155
 title: "Run second autonomous research pilot on dimensional-analysis validator"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: medium
 
@@ -34,9 +34,21 @@ requirements:
   - "Do not touch canonical results/, claims/, or accepted knowledge in this pilot."
 
 accepted_outputs:
-  - "hypothesis_proposals/dimensional-analysis/*"
-  - "experiment_proposals/dimensional-analysis/*"
-  - "agent_runs/<dimensional-validator-pilot-run-id>/..."
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0006-rc-time-constant.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0007-lc-angular-frequency.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0008-distance-plus-velocity.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0009-dimensionless-ratio-suspicious.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0010-projectile-range-limit-fail.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0011-compton-wavelength-duplicate-rejected.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0012-natural-unit-energy-mass-rejected.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0013-rayleigh-jeans-duplicate-rejected.yaml"
+  - "experiment_proposals/dimensional-analysis/EXP-PROPOSAL-0003-validator-boundary-batch.yaml"
+  - "agent_runs/AGENT-RUN-0003/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0003/metrics.json"
+  - "agent_runs/AGENT-RUN-0003/report.md"
+  - "agent_runs/AGENT-RUN-0003/limitations.md"
+  - "agent_runs/AGENT-RUN-0003/preflight.md"
+  - "agent_runs/AGENT-RUN-0003/review_summary.md"
   - "docs/reviews/autonomous-dimensional-validator-pilot-01.md"
 
 validation:
