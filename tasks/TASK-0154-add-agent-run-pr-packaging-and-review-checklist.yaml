@@ -1,0 +1,54 @@
+id: TASK-0154
+title: "Add agent-run PR packaging and maintainer review checklist"
+type: review_workflow
+status: BLOCKED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Turn autonomous sandbox work into reviewable scientific PRs rather than opaque dump files."
+  - "Give maintainers one repeatable checklist for deciding whether to reject, keep as negative evidence, or promote autonomous follow-up work."
+  - "Keep APL's autonomy story centered on disciplined review, not automatic publication."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "agent_runs/"
+    - "docs/autonomous-research-loop.md"
+    - "docs/claim-promotion-policy.md"
+    - "docs/review-checklists/"
+  planning_context: >
+    After autonomous agents can create sandbox runs, maintainers need a
+    consistent way to package those runs into PR-ready summaries and review
+    them without re-reading raw draft artifacts manually.
+
+requirements:
+  - "Do not start until TASK-0152 is complete."
+  - "Add one helper path to summarize an agent run into PR-ready maintainer context."
+  - "Include hypothesis summary, experiment summary, preflight result, metrics, limitations, rejected alternatives, and overclaim audit."
+  - "Add a maintainer review checklist specific to autonomous research PRs."
+  - "Document the allowed maintainer outcomes: reject, retain as negative sandbox evidence, promote to canonical follow-up task, or promote to canonical experiment/result after review."
+  - "Do not implement automatic merge or automatic claim promotion."
+
+accepted_outputs:
+  - "physics_lab/registry/agent_run_pr.py"
+  - "scripts/apl_agent_run_pr_helper.py"
+  - "tests/test_agent_run_pr_helper.py"
+  - "docs/review-checklists/autonomous-research-pr-review.md"
+  - "docs/autonomous-research-loop.md updated if needed"
+  - "docs/claim-promotion-policy.md updated if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

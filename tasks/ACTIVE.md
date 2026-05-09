@@ -60,6 +60,8 @@ one PR.
 - `TASK-0148` — Add scientific result quality rubric (`scientific_governance`, priority `medium`, difficulty `medium`)
 - `TASK-0149` — Define blind holdout benchmark protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0151` — Define autonomous research loop contract and campaign autonomy profiles (`agent_workflow`, priority `high`, difficulty `high`)
+- `TASK-0152` — Implement research proposal preflight gate and sandbox agent-run layout (`validation`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -191,7 +193,9 @@ None.
 
 ## BLOCKED
 
-None.
+- `TASK-0153` — Run first pendulum autonomous research pilot with sandbox-only outputs (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0154` — Add agent-run PR packaging and maintainer review checklist (`review_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
