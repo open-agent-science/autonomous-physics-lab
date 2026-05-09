@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-09 15:03 UTC
+Generated: 2026-05-09 19:30 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1224,10 +1224,10 @@ Split the PR if the batch needs different background context for each item, if
 the changed files cross campaign boundaries, or if one item would block the
 rest in review.
 
-When multiple agents may work during the same day, check recent open PRs and
-campaign notes before selecting a microtask. Until APL has a dedicated
-microtask run registry, avoid taking an item that already appears in an open PR
-or recently merged note.
+When multiple agents may work during the same day, check recent open PRs,
+existing `microtask_runs/` records, result notes, and campaign notes before
+selecting a microtask. Avoid taking an item that already appears in an open PR,
+claimed run record, completed run record, or recently merged note.
 
 ## Repeatable Search Loops
 
@@ -1235,7 +1235,8 @@ Some scientific work should be intentionally repeatable: an agent proposes a
 new formula, dataset slice, threshold, or falsification condition, runs the
 deterministic check, and publishes the outcome even if the candidate fails.
 
-For repeatable work, each attempt should record:
+For repeatable work, create or update an append-only run record under
+`microtask_runs/<queue-id>/` and record:
 
 - campaign id and microtask id or run-family id;
 - candidate formula, parameter slice, or hypothesis variant;
@@ -1343,7 +1344,6 @@ one PR.
 ## READY
 
 - `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
-- `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0114` — Add microtask queue consistency validator (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
@@ -1361,8 +1361,10 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0163` — Close scientific credibility and admin wave after merge (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0164` — Add README workflow concept image (`documentation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

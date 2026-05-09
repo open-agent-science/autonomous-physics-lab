@@ -206,3 +206,105 @@ the task itself is moved through normal maintainer closeout.
 
 - this note is a short maintainer closeout summary only;
 - detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-09`
+- Task: `TASK-0066`
+- Pull request: `#199`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-09`
+- Task: `TASK-0112`
+- Pull request: `#200`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-09`
+- Task: `TASK-0114`
+- Pull request: `#201`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-09`
+- Task: `TASK-0133`
+- Pull request: `#185`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-09`
+- Task: `TASK-0163`
+- Pull request: `#197`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-09`
+- Task: `TASK-0164`
+- Pull request: `#198`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.

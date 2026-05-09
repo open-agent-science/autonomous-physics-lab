@@ -32,6 +32,7 @@ def test_render_current_state_summary_uses_structured_repository_state() -> None
     assert "### Current Task State" in rendered
     assert "### Current Experiment State" in rendered
     assert "### Recent Result Surface" in rendered
-    assert "`TASK-0112`" in rendered
-    assert "`TASK-0066`" in rendered
+    assert "### REVIEW_READY now" in rendered
+    assert "- none" in rendered
+    assert "`TASK-0164`" in rendered
     assert "`EXP-0008`" in rendered
