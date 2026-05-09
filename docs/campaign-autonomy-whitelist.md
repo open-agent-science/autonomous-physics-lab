@@ -41,7 +41,7 @@ Allowed autonomous work:
 Forbidden autonomous work:
 
 - claiming exactness;
-- claiming global validity;
+- claiming validity outside the configured range;
 - changing canonical results;
 - promoting a candidate into knowledge.
 

@@ -38,7 +38,7 @@ required_quality_checks:
 forbidden_claims:
   - "The candidate is exact."
   - "The candidate is valid for all amplitudes."
-  - "The candidate supports new physics."
+  - "The candidate supports a stronger physical interpretation."
   - "Sandbox evidence is a canonical result."
 
 sandbox_permissions:

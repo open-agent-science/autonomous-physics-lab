@@ -40,7 +40,7 @@ required_quality_checks:
 forbidden_claims:
   - "A relation explains particle mass generation."
   - "Charged-lepton behavior generalizes to all particle families."
-  - "A numerical fit is evidence of new physics."
+  - "A numerical fit is evidence of a stronger physical interpretation."
   - "Sandbox evidence promotes a claim."
   - "A broad search is authorized without a reviewed baseline."
 
