@@ -213,3 +213,25 @@ microtasks:
       - "boundary fully settled forever"
       - "future reviewer judgment unnecessary"
       - "validator semantics finalized by one example"
+  - id: DAV-011
+    campaign: dimensional-analysis-validator
+    title: Record one repeatable validator-boundary classification attempt
+    type: repeatable-classification-attempt
+    estimated_effort: 15-30 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One microtask run record plus a boundary note naming inputs, method, classification metrics, failure mode, verdict, limitations, and novelty check."
+    validation:
+      - "Record the attempt under microtask_runs/dimensional-analysis-validator/."
+      - "State whether the item is VALID, INVALID, SUSPICIOUS, KNOWN_LIMIT_FAIL, or REVIEW_NEEDED."
+      - "Name the dimension or assumption boundary being tested."
+    risk_level: medium
+    forbidden_claims:
+      - "dimensional consistency proves physical correctness"
+      - "validator semantics finalized"
+      - "canonical benchmark scope changed"

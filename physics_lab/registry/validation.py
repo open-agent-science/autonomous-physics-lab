@@ -28,6 +28,7 @@ SCHEMA_FILE_BY_KIND = {
     "hypothesis_proposal": "hypothesis_proposal.schema.json",
     "experiment_proposal": "experiment_proposal.schema.json",
     "agent_run": "agent_run.schema.json",
+    "microtask_run": "microtask_run.schema.json",
 }
 KIND_BY_DIRECTORY = {
     "claims": "claim",
@@ -45,6 +46,7 @@ KIND_BY_DIRECTORY = {
     "hypothesis_proposals": "hypothesis_proposal",
     "experiment_proposals": "experiment_proposal",
     "agent_runs": "agent_run",
+    "microtask_runs": "microtask_run",
 }
 
 
@@ -86,6 +88,7 @@ def validate_document(data: dict[str, Any], kind: str, source: str | Path) -> di
 FILENAME_KIND_MAP: dict[str, str] = {
     "review_metadata.yaml": "review_metadata",
     "agent_run.yaml": "agent_run",
+    "MICROTASK-RUN-TEMPLATE.yaml": "microtask_run",
 }
 
 
