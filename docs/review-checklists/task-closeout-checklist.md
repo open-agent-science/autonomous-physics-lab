@@ -32,6 +32,12 @@ instruction, may perform closeout after merge.
 - If the merged PR or the applied board-sync step touched files that feed
   `CONTEXT.md`, rerun `python3 scripts/generate_context_bundle.py` and stage
   `CONTEXT.md` in a later maintainer branch if it changed.
+- If the merged work changes what a contributor should do next, review
+  [../next-steps.md](../next-steps.md) and update it when its short-handoff
+  queue has gone stale.
+- In larger cleanup batches, sanity-check open `READY`, `REVIEW_READY`, and
+  `BLOCKED` tasks so the board does not keep advertising already-merged or no
+  longer relevant work.
 - Add a short closeout note if the maintainer wants a persistent explanation.
 - Add an entry to [../multi-agent-dry-run.md](../multi-agent-dry-run.md) when
   the merged PR belongs to a dry run or contributor pilot.

@@ -68,21 +68,19 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0118` — Add particle-mass campaign map diagram (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0119` — Add thought-experiment campaign orientation note (`documentation`, priority `low`, difficulty `low`)
-- `TASK-0120` — Add use-your-agent quickstart diagram pack (`documentation`, priority `low`, difficulty `low`)
-- `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (`scientific_audit`, priority `high`, difficulty `medium`)
-- `TASK-0141` — Add context-bundle regeneration check to closeout helper (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0142` — Curate public-alpha hardening and credibility follow-up queue (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0143` — Close stale merged workflow tasks and unblock release-review queue (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0144` — Sync public-facing docs with canonical experiment state (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0145` — Add reproducibility capsules for major canonical results (`reproducibility`, priority `high`, difficulty `medium`)
-- `TASK-0147` — Harden muon g-2 benchmark wording and guardrails (`scientific_safety_review`, priority `high`, difficulty `medium`)
-- `TASK-0156` — Curate Phase B autonomous research follow-up queue (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0157` — Close merged review-ready tasks after public-hardening and autonomy curation wave (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0156` — Curate Phase B autonomous research follow-up queue (merged)
+- `TASK-0147` — Harden muon g-2 benchmark wording and guardrails (merged)
+- `TASK-0145` — Add reproducibility capsules for major canonical results (merged)
+- `TASK-0144` — Sync public-facing docs with canonical experiment state (merged)
+- `TASK-0143` — Close stale merged workflow tasks and unblock release-review queue (merged)
+- `TASK-0142` — Curate public-alpha hardening and credibility follow-up queue (merged)
+- `TASK-0141` — Add context-bundle regeneration check to closeout helper (merged)
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
+- `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (merged)
 - `TASK-0128` — Add agent catalog and documentation entrypoint links (merged)
 - `TASK-0127` — Implement muon g-2 empirical formula search benchmark (merged)
 - `TASK-0126` — Curate canonical implementation task for muon g-2 formula-search salvage (merged)
@@ -91,6 +89,9 @@ None.
 - `TASK-0123` — Clarify batch microtask branch and title protocol (merged)
 - `TASK-0122` — Add microtask PR template and metadata guidance (merged)
 - `TASK-0121` — Curate newcomer contributor task batch for upcoming onboarding (merged)
+- `TASK-0120` — Add use-your-agent quickstart diagram pack (merged)
+- `TASK-0119` — Add thought-experiment campaign orientation note (merged)
+- `TASK-0118` — Add particle-mass campaign map diagram (merged)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (merged)
 - `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (merged)
 - `TASK-0110` — Verify high-precision asymptotic refined pendulum model (merged)
