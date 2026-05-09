@@ -26,7 +26,7 @@ required_inputs:
   - "Reference to RESULT-0014 when claiming relative improvement inside sandbox only."
 
 required_quality_checks:
-  - "State that no exactness or global-validity claim is made."
+  - "State that no exactness or broad-range claim is made."
   - "Report train, holdout, and stress relative error metrics."
   - "State why rejected proposals were not executed."
   - "Keep all evidence under proposal or agent-run paths only."

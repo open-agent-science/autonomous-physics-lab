@@ -18,7 +18,7 @@ input_references:
   - "docs/results/anharmonic-oscillator-summary.md"
 
 hypothesis:
-  statement: "A two-parameter Pade correction in epsilon may improve the configured anharmonic holdout slice without implying global validity."
+  statement: "A two-parameter Pade correction in epsilon may improve the configured anharmonic holdout slice without implying broad-range validity."
   variables:
     - "T0: harmonic period baseline"
     - "epsilon: lambda*A^2/k"
