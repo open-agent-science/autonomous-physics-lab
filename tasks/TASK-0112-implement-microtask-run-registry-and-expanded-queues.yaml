@@ -1,7 +1,7 @@
 id: TASK-0112
 title: "Implement microtask run registry and expanded repeatable queues"
 type: agent_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
