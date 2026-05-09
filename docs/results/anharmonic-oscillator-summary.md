@@ -11,7 +11,7 @@ This benchmark evaluates the conservative quartic anharmonic oscillator with
 `V(x) = 1/2 k x^2 + lambda x^4` on a predeclared weak-regime train slice,
 holdout slice, and stress slice.
 
-The benchmark is about approximation quality, not new physics.
+The benchmark is about approximation quality, not any broader discovery claim.
 
 ## Candidate Models
 
