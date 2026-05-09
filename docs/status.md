@@ -129,7 +129,7 @@ Current named blockers before any public opening:
 ## Current Risks
 
 - Pendulum results remain range-limited benchmark evidence, not exact symbolic
-  formulas or globally valid claims.
+  formulas or universal-scope claims.
 - Koide-track results are numerically interesting but should stay
   falsification-first, dataset-scoped, and non-explanatory.
 - Quark and neutrino falsifications are strong within their encoded
