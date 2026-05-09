@@ -1,0 +1,97 @@
+id: EXP-PROPOSAL-0003
+title: "Sandbox dimensional-validator boundary batch"
+campaign_profile_id: dimensional-analysis-validator
+proposal_kind: classification
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0155
+
+input_references:
+  - "campaign_profiles/dimensional-analysis-validator.yaml"
+  - "docs/autonomous-research-loop.md"
+  - "docs/research-quality-gate.md"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0006-rc-time-constant.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0007-lc-angular-frequency.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0008-distance-plus-velocity.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0009-dimensionless-ratio-suspicious.yaml"
+  - "hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0010-projectile-range-limit-fail.yaml"
+
+question: "Can the autonomous loop generate, triage, and sandbox-check dimensional-analysis proposals without touching canonical result memory?"
+
+method:
+  summary: "Run deterministic dimensional classifications for five selected proposal items with physics_lab.engines.dimensions.validate_item, while recording three rejected proposals before sandbox execution."
+  code_references:
+    - "physics_lab/engines/dimensions.py"
+    - "physics_lab/registry/research_proposals.py"
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal experiment_proposals/dimensional-analysis/EXP-PROPOSAL-0003-validator-boundary-batch.yaml"
+    - "python3 -m pytest tests/test_dimensional_validator_pilot.py"
+  parameters:
+    generated_proposals: 8
+    executed_items: 5
+    rejected_before_execution: 3
+
+inputs:
+  datasets:
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml as novelty reference only"
+  constants:
+    - "SI base and derived dimensions from physics_lab/engines/dimensions.py"
+  prior_results:
+    - "RESULT-0007"
+  assumptions:
+    - "Sandbox classifications do not update RESULT-0007 metrics."
+    - "Expected KNOWN_LIMIT_FAIL items may compute as VALID under a dimension-only validator."
+    - "Rejected proposals are useful if the rejection reason is auditable."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0003/"
+  metrics:
+    - "generated_proposal_count"
+    - "executed_item_count"
+    - "agreement_count"
+    - "rejected_before_execution_count"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0003/report.md"
+    - "agent_runs/AGENT-RUN-0003/limitations.md"
+    - "docs/reviews/autonomous-dimensional-validator-pilot-01.md"
+
+validation:
+  pass_condition: "Sandbox pass if selected items reproduce their expected classification behavior and rejected items are explicitly triaged."
+  fail_condition: "Sandbox fail if canonical result memory changes, proposal preflight fails, or a weak/duplicate item is executed without a recorded triage reason."
+  baseline_or_reference: "Current challenge-set expected-verdict baseline plus deterministic SI-dimension validator."
+  expected_failure_modes:
+    - "Dimension-only validation computes VALID for a semantically incomplete formula."
+    - "Proposal generation duplicates existing challenge or campaign notes."
+    - "A natural-unit example is outside the SI-focused campaign profile."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not claim the live challenge set changed."
+    - "Do not claim dimensional consistency proves physical correctness."
+    - "Do not present sandbox metrics as RESULT-0007 replay metrics."
+  mitigations:
+    - "Store outputs only under proposals, agent_runs, tests, and review notes."
+    - "Report observed and expected verdicts separately."
+    - "Keep maintainer decision requested before any canonical curation."
+
+limitations:
+  - "Sandbox-only pilot over five executed items and three rejected proposals."
+  - "No canonical challenge-set, result, claim, or knowledge artifact is changed."
+  - "Agreement count is a pilot sanity check, not a benchmark metric."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether any selected item deserves a later canonical challenge-set curation task."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical curation or benchmark task before RESULT-* creation."

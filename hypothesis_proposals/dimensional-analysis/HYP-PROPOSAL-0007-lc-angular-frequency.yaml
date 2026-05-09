@@ -1,0 +1,79 @@
+id: HYP-PROPOSAL-0007
+title: "LC angular-frequency dimensional classification"
+campaign_profile_id: dimensional-analysis-validator
+proposal_kind: classification
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox challenge-item proposal only; no canonical result or claim promotion."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0155
+
+input_references:
+  - "campaign_profiles/dimensional-analysis-validator.yaml"
+  - "docs/autonomous-research-loop.md"
+  - "docs/research-quality-gate.md"
+  - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+
+hypothesis:
+  statement: "The LC oscillator relation omega = 1/sqrt(Lind*Ccap) should classify as VALID under SI dimensions."
+  variables:
+    - "omega: inverse seconds"
+    - "Lind: inductance in henry"
+    - "Ccap: capacitance in farad"
+  assumptions:
+    - "The validator's SI unit table includes henry and farad."
+    - "Only dimensional consistency is checked, not oscillator derivation."
+  expected_scope: "Sandbox classification of one electromagnetism challenge-entry candidate."
+  expected_failure_modes:
+    - "The square-root handling rejects the derived unit product unexpectedly."
+    - "A later reviewer decides this overlaps too much with the RC time-constant item."
+
+novelty_check:
+  checked_files:
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+    - "docs/notes/dimensional-analysis-challenge-set.md"
+  possible_overlap: "No exact LC oscillator angular-frequency challenge item found."
+  notes: "Kept as an executed cross-domain candidate to exercise sqrt over derived units."
+
+falsification_plan:
+  deterministic_check: "Run physics_lab.engines.dimensions.validate_item on omega = 1/sqrt(Lind*Ccap)."
+  baseline_or_reference: "Current challenge-set expected-verdict baseline plus deterministic SI-dimension validator."
+  pass_condition: "Sandbox pass if observed verdict is VALID and agrees with expected verdict."
+  fail_condition: "Sandbox fail if observed verdict is INVALID, SUSPICIOUS, or INCONCLUSIVE."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not claim oscillator behavior has been validated."
+    - "Do not treat sandbox classification as a canonical benchmark update."
+  mitigations:
+    - "Keep execution under agent_runs only."
+    - "Report the derived-unit dependency as a limitation."
+
+sandbox_evidence:
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0007-lc-angular-frequency.yaml"
+  code_references:
+    - "physics_lab/engines/dimensions.py"
+    - "physics_lab/registry/research_proposals.py"
+  metrics:
+    - "expected_verdict"
+    - "observed_verdict"
+    - "agrees"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0003/metrics.json"
+
+limitations:
+  - "Sandbox-only dimensional classification; no canonical challenge-set update."
+  - "Does not test LC oscillator dynamics or numerical period data."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether this item should be retained as a future cross-domain challenge candidate."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer-reviewed canonical task before adding to accepted challenge memory."
