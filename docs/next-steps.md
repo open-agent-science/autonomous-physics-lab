@@ -100,56 +100,59 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Complete a Private Multi-Agent Dry Run
+### 1. Finish the Autonomous Research Foundation First
 
-`TASK-0011` now has a review-ready audit showing that the `RUN-0003` in-range
-`3.1e-4` error is dominated by approximation residual rather than elliptic
-reference precision or six-decimal coefficient rounding.
+The next major proof point is not a public article or a broader roadmap. It
+is one real autonomous loop that produces reviewable sandbox research PR
+artifacts without promoting claims automatically.
 
-Current highest-value next operational task:
+Current highest-value foundation tasks:
 
-- `TASK-0012`
-
-Next operational milestone:
-
-- record and expand the private contributor dry run
+- `TASK-0151` autonomous research loop contract and campaign profiles
+- `TASK-0152` proposal preflight gate and sandbox agent-run layout
+- `TASK-0154` agent-run PR packaging and maintainer review checklist
 
 Success looks like:
 
-- at least 3 task-based PRs;
-- at least 2 contributors or agent sessions;
-- each PR links to a task and passes CI;
-- maintainer review happens before merge;
-- the workflow pain points are written down in `docs/multi-agent-dry-run.md`.
+- agents can generate hypothesis and experiment proposals under repository rules;
+- weak proposals fail deterministically before sandbox execution;
+- sandbox evidence stays outside canonical `results/` until review;
+- maintainers can review one agent-run PR without re-reading raw sandbox files manually.
 
-### 2. Expand the Physics Planning Queue Without Implementing It Yet
+### 2. Raise Scientific Credibility Before Any Public Story
 
-Ready planning tasks:
+The strongest near-term credibility gains are:
 
-- `TASK-0014` thought-experiment consistency suite planning
-- `TASK-0015` diffusion scaling benchmark planning
-- `TASK-0017` dimensional analysis challenge set
+- `TASK-0149` blind holdout benchmark protocol
+- `TASK-0148` scientific result quality rubric
+- `TASK-0146` one-command core result reproduction script
 
-Particle-mass planning note:
+These tasks improve the repository more than another speculative benchmark
+would. They make future autonomous work easier to trust and easier to replay.
 
-- `TASK-0013` should decompose the Koide / particle-mass direction into
-  verification-first follow-on tasks without implementing the benchmark yet.
-- After `TASK-0013`, claimable follow-on work should stay planning-first:
-  `TASK-0036` dataset scaffold, `TASK-0037` charged-lepton reproduction,
-  `TASK-0038` tau holdout benchmark, `TASK-0039` triplet-search design,
-  `TASK-0041` complexity-penalty design, and `TASK-0042` numerology
-  guardrails.
+### 3. Run the First Autonomous Pilots Only After Foundation Work
 
-Proposed only:
+After `TASK-0151` and `TASK-0152` are complete, the next pilots should be:
 
-- `TASK-0016` electromagnetic invariance mini-benchmark planning
+- `TASK-0153` first pendulum autonomous research pilot
+- `TASK-0155` second dimensional-validator autonomous pilot
 
-Rule:
+The pendulum pilot should be the first real autonomy demo because it has exact
+references, low numerology risk, and clear failure modes.
 
-- plan and scope these tasks now;
-- do not implement the physics or add new benchmark code unless explicitly requested.
+### 4. Add a Stronger Non-Numerological Benchmark Path
 
-### 4. Keep Docs and Gates Aligned
+To raise scientific value without drifting into muon g-2, Hubble, or broad
+particle numerology, prefer nonlinear mechanics:
+
+- `TASK-0159` anharmonic oscillator period benchmark
+- `TASK-0160` autonomous anharmonic research pilot
+
+This path should stay behind the autonomy foundation and holdout protocol, but
+it is the best current candidate for a richer benchmark with lower overclaim
+risk.
+
+### 5. Keep Docs and Gates Aligned
 
 Always keep these files aligned when priorities change:
 
@@ -159,15 +162,16 @@ Always keep these files aligned when priorities change:
 - [public-release-gates.md](./public-release-gates.md)
 - [private-contributor-pilot.md](./private-contributor-pilot.md)
 
-### 5. Public Release Remains Gated
+### 6. Public Release Remains Gated
 
 Do not prepare the repository as public-ready until all gates are satisfied.
 
 Public release is explicitly downstream of:
 
 - technical stability
-- private contributor pilot evidence
-- at least one measurable scientific result
+- autonomous pilot evidence
+- holdout or stronger validation evidence
+- at least one reviewable result-draft PR from the autonomous loop
 - cautious public narrative and README summary
 
 ## Do Not Prioritize Yet
@@ -176,9 +180,9 @@ Public release is explicitly downstream of:
 - web APIs;
 - multi-agent orchestration runtime;
 - literature ingestion;
-- public launch work before the gates are satisfied;
-- Koide or particle-mass implementation work;
-- `EXP-0003` implementation work;
+- public article or launch work before the autonomy and credibility gates are satisfied;
+- new speculative particle-physics formula-search tracks;
+- Hubble-tension or broad constants-derivation work;
 - heavy storage backends;
 - speculative theory-graph features before verification quality improves.
 

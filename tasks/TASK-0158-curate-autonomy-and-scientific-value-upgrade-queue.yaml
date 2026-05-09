@@ -1,0 +1,58 @@
+id: TASK-0158
+title: "Curate autonomy and scientific-value upgrade queue before public article prep"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Delay any public article push until APL can demonstrate a real autonomous research loop rather than a roadmap."
+  - "Increase scientific credibility through holdout evaluation, reproducibility, and a stronger non-numerological benchmark path."
+  - "Keep the repository focused on reviewable scientific PRs rather than speculative public narrative work."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "docs/next-steps.md"
+    - "tasks/TASK-0148-add-scientific-result-quality-rubric.yaml"
+    - "tasks/TASK-0149-define-blind-holdout-benchmark-protocol.yaml"
+    - "tasks/TASK-0151-define-autonomous-research-loop-and-campaign-profiles.yaml"
+    - "tasks/TASK-0152-implement-research-preflight-gate-and-sandbox-agent-runs.yaml"
+    - "tasks/TASK-0153-run-first-pendulum-autonomous-research-pilot.yaml"
+    - "tasks/TASK-0154-add-agent-run-pr-packaging-and-review-checklist.yaml"
+    - "tasks/TASK-0155-run-second-dimensional-validator-autonomous-pilot.yaml"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    A fresh strategic review recommends delaying any public article until APL
+    can show real autonomous research behavior: generated hypotheses, rejected
+    weak proposals, sandbox experiments, negative results, and reviewable PR
+    artifacts. The queue already contains much of this foundation, but it
+    needs a stronger benchmark path and a refreshed near-term ordering.
+
+requirements:
+  - "Do not add task records for public-post writing, social distribution, or article drafting."
+  - "Raise the urgency of blind holdout and result-quality work so they read as credibility gates rather than nice-to-have tasks."
+  - "Add only medium or high leverage repository tasks, not a swarm of tiny planning items."
+  - "Add one stronger benchmark path beyond pendulum and particle-mass numerology."
+  - "Refresh docs/next-steps.md so it reflects the current autonomy-first and credibility-first sequence."
+  - "Keep DOU/public language out of the repository task queue except as a reason to harden the repo."
+
+accepted_outputs:
+  - "updated near-term priorities for autonomous research and scientific credibility"
+  - "new canonical task records for the stronger benchmark path"
+  - "updated docs/next-steps.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
