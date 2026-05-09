@@ -1,0 +1,75 @@
+id: particle-mass-relations
+title: "Particle-mass relations"
+autonomy_status: GUARDRAIL_ONLY
+pilot_rank: 3
+
+source_docs:
+  - docs/campaigns/particle-mass-relations.md
+  - docs/results/koide-campaign-summary.md
+  - docs/notes/particle-mass-relation-track.md
+  - docs/notes/particle-mass-numerology-guardrails.md
+  - docs/autonomous-research-loop.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Falsification-first checks for already specified relation forms."
+  - "Null-baseline and complexity-penalty proposals."
+  - "Dataset provenance, uncertainty, scheme, or scale audit proposals."
+  - "Negative-result memory for failed candidate relations."
+
+allowed_experiment_families:
+  - "Sandbox falsification of a predeclared relation against stored data."
+  - "Baseline comparison against random or combinatorial alternatives."
+  - "Uncertainty propagation or source-audit checks."
+  - "Complexity penalty ledger proposals."
+
+required_inputs:
+  - "Particle family and exact mass fields used."
+  - "Data source and citation path already present in the repository."
+  - "Mass type, scheme, scale, and uncertainty assumptions."
+  - "Predeclared target relation."
+  - "Null baseline or falsification criterion."
+
+required_quality_checks:
+  - "State that the work is not discovery-oriented."
+  - "State that fit quality alone is not evidence of explanation."
+  - "Include a baseline or explain why the run is only an audit proposal."
+  - "Include source, scheme, scale, and uncertainty limitations."
+  - "Run the shared research quality gate before PR handoff."
+
+forbidden_claims:
+  - "A relation explains particle mass generation."
+  - "Charged-lepton behavior generalizes to all particle families."
+  - "A numerical fit is evidence of new physics."
+  - "Sandbox evidence promotes a claim."
+  - "A broad search is authorized without a reviewed baseline."
+
+sandbox_permissions:
+  may_create:
+    - hypothesis_proposals
+    - experiment_proposals
+    - scoped_negative_notes
+    - temporary_outputs
+  must_not_edit:
+    - claims
+    - canonical_hypotheses
+    - canonical_results
+    - canonical_particle_mass_datasets
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - hypothesis_or_audit_proposal_path
+  - data_sources
+  - relation_under_test
+  - baseline_or_falsification_criterion
+  - metrics
+  - limitations
+  - verdict
+  - maintainer_decision_requested
