@@ -108,8 +108,8 @@ artifacts without promoting claims automatically.
 
 Current highest-value foundation tasks:
 
-- `TASK-0154` agent-run PR packaging and maintainer review checklist
-- maintain the merged autonomy foundation (`TASK-0151`, `TASK-0152`) through closeout and board-sync hygiene
+- maintain the merged autonomy and reproducibility foundation through closeout and handoff sync hygiene
+- `TASK-0155` second dimensional-validator autonomous pilot
 
 Success looks like:
 
@@ -124,7 +124,6 @@ The strongest near-term credibility gains are:
 
 - `TASK-0149` blind holdout benchmark protocol
 - `TASK-0148` scientific result quality rubric
-- `TASK-0146` one-command core result reproduction script
 
 These tasks improve the repository more than another speculative benchmark
 would. They make future autonomous work easier to trust and easier to replay.
@@ -132,13 +131,12 @@ would. They make future autonomous work easier to trust and easier to replay.
 ### 3. Run the First Autonomous Pilots Only After Foundation Work
 
 After the autonomy foundation and PR packaging layer are complete, the next
-pilots should be:
+pilot should be:
 
-- `TASK-0153` first pendulum autonomous research pilot
 - `TASK-0155` second dimensional-validator autonomous pilot
 
-The pendulum pilot should be the first real autonomy demo because it has exact
-references, low numerology risk, and clear failure modes.
+The pendulum pilot has already established the first real autonomy demo. The
+next value is proving that the loop generalizes beyond pendulum.
 
 ### 4. Add a Stronger Non-Numerological Benchmark Path
 
