@@ -115,6 +115,17 @@ Current evidence is stronger than before, and the repository now has clearer
 v0.2 packaging inputs. It is still in gate validation rather than
 public-release mode.
 
+Latest review verdict:
+
+- `PUBLIC AFTER NAMED BLOCKERS` - see
+  [reviews/v0.2-public-readiness.md](./reviews/v0.2-public-readiness.md)
+
+Current named blockers before any public opening:
+
+- remove local path leaks from public-facing docs;
+- add an external-reviewer replication guide for the flagship evidence surface;
+- record a release-time default-branch validation and CI signoff artifact.
+
 ## Current Risks
 
 - Pendulum results remain range-limited benchmark evidence, not exact symbolic
