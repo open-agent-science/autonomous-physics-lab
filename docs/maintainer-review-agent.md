@@ -159,7 +159,9 @@ This mode supports:
 
 For microtask PRs, the metadata should name the queue file and queue id
 explicitly, and batch PRs should keep the branch queue id aligned with the PR
-title queue id.
+title queue id. Reviewers should also check `microtask_runs/` for duplicate
+claims, duplicate completed records, stale abandoned work, and oversized batches
+that should be split before merge.
 
 ### Verdicts
 

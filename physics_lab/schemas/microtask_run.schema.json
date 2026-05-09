@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Microtask Run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "queue_id",
+    "microtask_id",
+    "status",
+    "claimant",
+    "branch",
+    "pull_request",
+    "result_note",
+    "verdict",
+    "review_state",
+    "metadata"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^MICROTASK-RUN-[0-9]{4}$"
+    },
+    "queue_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "microtask_id": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}-[0-9]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["CLAIMED", "IN_PROGRESS", "PR_OPEN", "REVIEW_READY", "COMPLETED", "ABANDONED"]
+    },
+    "claimant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contributor_id", "agent_id"],
+      "properties": {
+        "contributor_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "agent_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        }
+      }
+    },
+    "branch": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pull_request": {
+      "type": ["string", "null"]
+    },
+    "result_note": {
+      "type": ["string", "null"]
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["VALID", "PARTIALLY_VALID", "INVALID", "FALSIFIED", "INCONCLUSIVE", "OVERFITTED", "REVIEW_NEEDED", "NOT_RUN"]
+    },
+    "review_state": {
+      "type": "string",
+      "enum": ["UNREVIEWED", "REVIEW_READY", "ACCEPTED", "NEEDS_CHANGES", "REJECTED"]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inputs",
+        "method",
+        "code_references",
+        "metrics",
+        "failure_mode",
+        "limitations",
+        "novelty_check"
+      ],
+      "properties": {
+        "inputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code_references": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "metrics": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "failure_mode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "novelty_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["checked_paths", "summary"],
+          "properties": {
+            "checked_paths": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "summary": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

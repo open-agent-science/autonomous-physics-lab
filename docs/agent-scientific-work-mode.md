@@ -72,10 +72,10 @@ Split the PR if the batch needs different background context for each item, if
 the changed files cross campaign boundaries, or if one item would block the
 rest in review.
 
-When multiple agents may work during the same day, check recent open PRs and
-campaign notes before selecting a microtask. Until APL has a dedicated
-microtask run registry, avoid taking an item that already appears in an open PR
-or recently merged note.
+When multiple agents may work during the same day, check recent open PRs,
+existing `microtask_runs/` records, result notes, and campaign notes before
+selecting a microtask. Avoid taking an item that already appears in an open PR,
+claimed run record, completed run record, or recently merged note.
 
 ## Repeatable Search Loops
 
@@ -83,7 +83,8 @@ Some scientific work should be intentionally repeatable: an agent proposes a
 new formula, dataset slice, threshold, or falsification condition, runs the
 deterministic check, and publishes the outcome even if the candidate fails.
 
-For repeatable work, each attempt should record:
+For repeatable work, create or update an append-only run record under
+`microtask_runs/<queue-id>/` and record:
 
 - campaign id and microtask id or run-family id;
 - candidate formula, parameter slice, or hypothesis variant;
