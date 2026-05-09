@@ -311,6 +311,72 @@
                   }
                 }
               }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mass",
+                "stiffness",
+                "amplitude_range",
+                "quartic_coefficients",
+                "train_max_anharmonicity",
+                "holdout_max_anharmonicity",
+                "stress_max_anharmonicity"
+              ],
+              "properties": {
+                "mass": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "stiffness": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "amplitude_range": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "start",
+                    "end",
+                    "sample_count"
+                  ],
+                  "properties": {
+                    "start": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "end": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "sample_count": {
+                      "type": "integer",
+                      "minimum": 3
+                    }
+                  }
+                },
+                "quartic_coefficients": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "train_max_anharmonicity": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "holdout_max_anharmonicity": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "stress_max_anharmonicity": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              }
             }
           ]
         },
