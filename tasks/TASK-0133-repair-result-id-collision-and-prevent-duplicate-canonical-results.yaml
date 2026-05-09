@@ -16,6 +16,8 @@ input:
   related_objects:
     - "results/"
     - "docs/result-artifacts-index.md"
+    - "hypotheses/HYP-0001-pendulum-correction.yaml"
+    - "knowledge/classical_mechanics/pendulum.md"
     - "physics_lab/registry/"
     - "tests/"
     - "results/EXP-0001/RUN-0005/result.yaml"
