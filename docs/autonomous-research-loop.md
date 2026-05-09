@@ -131,12 +131,24 @@ The handoff PR must include:
 - verdict;
 - maintainer decision requested.
 
+Use the helper below to generate a PR-ready maintainer context block from a
+sandbox run manifest:
+
+```bash
+python3 scripts/apl_agent_run_pr_helper.py agent_runs/AGENT-RUN-0001/agent_run.yaml
+```
+
+The helper summarizes hypothesis and experiment proposals, preflight result,
+metrics, limitations, rejected alternatives or failure modes, and overclaim
+boundaries. It does not merge, promote claims, or write canonical results.
+
 Maintainer decisions may include:
 
-- accept as negative sandbox memory;
-- request a canonical experiment task;
-- request a narrower follow-up proposal;
-- reject as overfit, unsafe, or out of scope.
+- reject the sandbox run as overfit, unsafe, under-specified, or out of scope;
+- retain it as negative or sandbox-only scientific memory;
+- promote a follow-up canonical task while leaving the sandbox run non-canonical;
+- promote to canonical experiment/result only through a later reviewed task,
+  reproducible run, and claim-promotion review.
 
 ## Evidence Boundary
 
@@ -153,6 +165,9 @@ objects:
 - maintainer merge and closeout.
 
 This boundary is the core safety property of the loop.
+
+For maintainer review, use
+`docs/review-checklists/autonomous-research-pr-review.md`.
 
 ## First Pilot
 
