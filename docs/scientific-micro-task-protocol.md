@@ -147,6 +147,11 @@ Every output should include:
 If the result is uncertain, use `REVIEW_NEEDED` rather than forcing a stronger
 scientific conclusion.
 
+For repeatable formula-search or benchmark attempts with withheld targets, use
+[blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md).
+Even a small microtask can preserve a pre-reveal note, frozen command, reveal
+record, metrics, and limitations.
+
 ## Claim Restrictions
 
 Micro-task work must not:
