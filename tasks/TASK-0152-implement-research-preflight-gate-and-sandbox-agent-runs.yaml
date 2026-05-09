@@ -1,7 +1,7 @@
 id: TASK-0152
 title: "Implement research proposal preflight gate and sandbox agent-run layout"
 type: validation
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
