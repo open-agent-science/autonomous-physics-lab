@@ -1,7 +1,7 @@
 id: TASK-0160
 title: "Run autonomous research pilot on anharmonic oscillator benchmark"
 type: autonomous_research_pilot
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -55,4 +55,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
