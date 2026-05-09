@@ -1,0 +1,48 @@
+id: TASK-0149
+title: "Define blind holdout benchmark protocol"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Raise future benchmark credibility by separating fit/demo work from prediction-style evaluation."
+  - "Give future campaigns a cleaner path to stronger evidence than post hoc matching."
+  - "Keep APL's next-science direction disciplined rather than novelty-seeking."
+
+input:
+  mode: workflow
+  related_domain: scientific_method
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/notes/hypothesis-register-protocol.md"
+    - "docs/results/"
+    - "tasks/microtasks/README.md"
+  planning_context: >
+    Several current results are honest and useful but still benchmark-like
+    rather than prediction-like. A blind holdout protocol would let future
+    campaigns move toward stronger validation without pretending that today's
+    fits already meet that bar.
+
+requirements:
+  - "Define a repository-native protocol for blind holdout or sealed-target benchmark evaluation."
+  - "Explain what artifacts must be frozen before reveal and how maintainers should record the reveal step."
+  - "Show how the protocol applies to future formula-search or benchmark tasks without rewriting old results."
+  - "Keep the protocol lightweight enough for contributor use, not just theory."
+
+accepted_outputs:
+  - "blind holdout benchmark protocol doc"
+  - "example workflow or checklist for future contributors"
+  - "task/proposal guidance updates if needed"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

@@ -1,0 +1,47 @@
+id: TASK-0148
+title: "Add scientific result quality rubric"
+type: scientific_governance
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make APL evaluate the quality of its own results, not just produce them."
+  - "Give maintainers a structured way to compare benchmark strength, overclaim risk, and reproducibility before public packaging."
+  - "Improve future release-readiness reviews with a repeatable result-quality lens."
+
+input:
+  mode: workflow
+  related_domain: scientific_governance
+  related_objects:
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/public-release-gates.md"
+    - "docs/results/"
+  planning_context: >
+    APL now has enough heterogeneous results that maintainers need a simple,
+    reusable rubric for judging which results are genuinely strong, which are
+    packaging-ready, and which should stay more hidden or caveated.
+
+requirements:
+  - "Define a small result-quality rubric with dimensions such as reproducibility, falsifiability, baseline strength, uncertainty handling, and overclaim risk."
+  - "Keep the rubric decision-supportive rather than pseudo-quantitatively absolute."
+  - "Apply the rubric to a first-pass shortlist of current top repository results."
+  - "Make the output easy to reuse in future release or review docs."
+
+accepted_outputs:
+  - "scientific result quality rubric doc"
+  - "first-pass scoring or assessment for current flagship results"
+  - "links from at least one maintainer-facing review surface"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

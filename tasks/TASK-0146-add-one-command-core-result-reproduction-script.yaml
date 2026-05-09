@@ -1,0 +1,51 @@
+id: TASK-0146
+title: "Add one-command core result reproduction script"
+type: reproducibility
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Let a cautious outsider verify APL's strongest current results in one bounded pass."
+  - "Turn public-alpha trust from documentation-only into runnable evidence."
+  - "Reduce maintainer overhead when asked how to reproduce the core benchmark surface."
+
+input:
+  mode: workflow
+  related_domain: reproducibility
+  related_objects:
+    - "scripts/"
+    - "examples/"
+    - "results/"
+    - "docs/use-your-agent.md"
+    - "README.md"
+  planning_context: >
+    Public-facing trust will rise sharply if the repository exposes one
+    deterministic, bounded script that reproduces the core current result
+    surface in roughly one maintainer session. This should replay the
+    strongest non-speculative slices, not every historical experiment.
+
+requirements:
+  - "Add one top-level script for reproducing the core current result surface."
+  - "Keep the script deterministic and bounded in scope; prefer a curated subset over 'run everything ever'."
+  - "Document expected runtime, outputs, and any intentionally skipped heavy or unstable runs."
+  - "Do not hide failures; if a core slice is not yet stable enough, document that explicitly."
+  - "Link the script from at least one top-level contributor or reviewer entrypoint."
+
+accepted_outputs:
+  - "new core-result reproduction script"
+  - "docs update explaining how to use it"
+  - "tests or smoke validation if the script has non-trivial logic"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

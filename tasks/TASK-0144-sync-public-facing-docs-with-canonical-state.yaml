@@ -1,0 +1,61 @@
+id: TASK-0144
+title: "Sync public-facing docs with canonical experiment state"
+type: documentation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the repository's first-screen story match the actual canonical experiment and result surface."
+  - "Reduce public-alpha risk from stale counts, stale benchmark scope, and inconsistent top-level wording."
+  - "Keep APL's public positioning verification-first rather than novelty-first."
+
+input:
+  mode: workflow
+  related_domain: release_governance
+  related_objects:
+    - "README.md"
+    - "AGENTS.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/roadmap.md"
+    - "docs/releases/v0.2-public-alpha.md"
+    - "docs/results/visual-summary.md"
+  planning_context: >
+    Several public-facing docs still describe the repository as having seven
+    canonical experiments or an older benchmark scope, while the actual
+    canonical state now includes additional experiments and packaging surfaces.
+    Run one disciplined docs-sync pass against the structured repo state and
+    keep all language conservative.
+
+requirements:
+  - "Compare README.md, AGENTS.md, docs/status.md, docs/mission-control.md, docs/roadmap.md, and docs/releases/v0.2-public-alpha.md against canonical experiment/result/task state."
+  - "Fix stale statements about experiment count, current benchmark scope, and current major results."
+  - "Ensure EXP-0010 is described only with safe stress-test wording if it appears in public-facing docs."
+  - "Do not promote claims or add new scientific implementation in this task."
+  - "Keep wording verification-first and avoid discovery-level framing."
+  - "Add or update one short overclaim-audit note for the final wording pass."
+
+accepted_outputs:
+  - "updated README.md if stale"
+  - "updated AGENTS.md if stale"
+  - "updated docs/status.md if stale"
+  - "updated docs/mission-control.md if stale"
+  - "updated docs/roadmap.md if stale"
+  - "updated docs/releases/v0.2-public-alpha.md if stale"
+  - "docs/notes/v02-overclaim-audit.md updated or created"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

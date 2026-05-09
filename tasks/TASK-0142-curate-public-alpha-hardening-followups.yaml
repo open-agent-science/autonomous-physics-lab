@@ -1,0 +1,55 @@
+id: TASK-0142
+title: "Curate public-alpha hardening and credibility follow-up queue"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Turn the latest repository health review into canonical follow-up tasks instead of leaving release-hardening work as chat-only intent."
+  - "Shift short-term focus from new speculative benchmarks toward documentation sync, reproducibility, and credibility hardening."
+  - "Preserve a cautious public-alpha path by making wording, replay, and reviewer surfaces explicit."
+
+input:
+  mode: workflow
+  related_domain: release_governance
+  related_objects:
+    - "README.md"
+    - "AGENTS.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/releases/v0.2-public-alpha.md"
+    - "tasks/TASK-0066-review-v0.2-public-readiness-gates.yaml"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    A fresh maintainer review found that APL is close to controlled public
+    alpha, but the next value is in hardening, documentation sync,
+    reproducibility, and overclaim resistance rather than new speculative
+    science directions. This task exists only to canonize those follow-ups and
+    unblock the already-mature public-readiness review task.
+
+requirements:
+  - "Create canonical follow-up tasks for public-facing docs sync, reproducibility, reviewer guidance, and result-quality hardening."
+  - "Add a dedicated task for muon g-2 guardrail hardening rather than treating EXP-0010 as a public-success story."
+  - "Add a task for cleaning up stale merged workflow tasks and unblocking the release-review queue."
+  - "If TASK-0066 prerequisites are no longer truly blocked, move it back to READY in the same maintainer branch."
+  - "Do not implement the follow-up tasks themselves in this curation pass."
+  - "Resync the active board after adding the new tasks."
+
+accepted_outputs:
+  - "canonical task files for public-alpha hardening follow-ups"
+  - "updated tasks/TASK-0066-review-v0.2-public-readiness-gates.yaml if its blocked state is stale"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
