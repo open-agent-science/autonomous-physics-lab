@@ -455,6 +455,18 @@
               "type": "string",
               "minLength": 1
             },
+            "benchmark_scope": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expected_item_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "source_challenge_set_path": {
+              "type": "string",
+              "minLength": 1
+            },
             "sample_axes": {
               "type": "array",
               "items": {

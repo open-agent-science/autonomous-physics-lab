@@ -16,8 +16,8 @@ work, and a private contributor workflow before any public-opening decision.
   100 deterministic candidate formulas tested against the exact pendulum
   reference with explicit leaderboard, diagnostics, and precision audit.
 - `EXP-0006/RUN-0006` (`RESULT-0007`) — [Dimensional Analysis Validator MVP](../results/EXP-0006/RUN-0006/report.md):
-  a 50-item dimensional-analysis benchmark with 49/50 agreement against the
-  curated challenge set under explicit MVP limitations.
+  a frozen 50-item dimensional-analysis benchmark with 49/50 agreement against
+  the curated MVP replay scope under explicit limitations.
 - `EXP-0004/RUN-0004` (`RESULT-0005`) — [Koide charged-lepton reproduction](./results/koide-charged-lepton-reproduction.md):
   a scoped charged-lepton reproduction benchmark using explicit dataset inputs
   and uncertainty-aware comparison.
@@ -75,8 +75,8 @@ Together these now support three active benchmark surfaces:
   tau holdout benchmark, direct neutrino and quark follow-up falsifications,
   and the first fixed-target falsifier MVP.
 - [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md)
-  — active quality-floor campaign with a completed MVP benchmark and follow-on
-  challenge-set work.
+  — active quality-floor campaign with a completed frozen MVP benchmark and
+  follow-on challenge-set curation work.
 - [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md)
   — planning-first analytical consistency campaign with no canonical run yet.
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -189,6 +190,16 @@ CHALLENGE_SET_PATH = (
     / "challenge_sets"
     / "dimensional_analysis_challenge_set.yaml"
 )
+FROZEN_MVP_CHALLENGE_SET_PATH = (
+    Path(__file__).resolve().parent.parent
+    / "knowledge"
+    / "challenge_sets"
+    / "dimensional_analysis_challenge_set_mvp_50.yaml"
+)
+
+
+def _load_yaml(path: Path) -> dict:
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
 @pytest.mark.skipif(
@@ -214,6 +225,35 @@ def test_challenge_set_no_inconclusive() -> None:
     assert summary.inconclusive_count <= 1, (
         f"Expected at most 1 INCONCLUSIVE, got {summary.inconclusive_count}"
     )
+
+
+def test_dimensional_validator_mvp_scope_is_frozen_apart_from_live_curation() -> None:
+    live_challenge_set = _load_yaml(CHALLENGE_SET_PATH)
+    frozen_challenge_set = _load_yaml(FROZEN_MVP_CHALLENGE_SET_PATH)
+
+    assert frozen_challenge_set["status"] == "frozen"
+    assert frozen_challenge_set["total_items"] == 50
+    assert len(frozen_challenge_set["items"]) == 50
+    assert live_challenge_set["total_items"] > frozen_challenge_set["total_items"]
+    assert len(live_challenge_set["items"]) > len(frozen_challenge_set["items"])
+
+
+def test_dimensional_validator_replay_uses_frozen_mvp_scope(tmp_path: Path) -> None:
+    outcome = run_dimensional_validator_with_output(
+        "examples/dimensional_analysis.yaml",
+        output_dir=tmp_path,
+    )
+
+    metrics = json.loads(outcome.artifacts.metrics_path.read_text(encoding="utf-8"))
+    challenge_snapshot = _load_yaml(tmp_path / "inputs" / "challenge_set.yaml")
+
+    assert metrics["benchmark_scope"] == "frozen_mvp_50"
+    assert metrics["expected_item_count"] == 50
+    assert metrics["total_items"] == 50
+    assert metrics["agree"] == 49
+    assert metrics["agreement_fraction"] == 0.98
+    assert challenge_snapshot["total_items"] == 50
+    assert len(challenge_snapshot["items"]) == 50
 
 
 @pytest.mark.skipif(

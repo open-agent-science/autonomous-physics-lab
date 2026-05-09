@@ -121,7 +121,7 @@ python3 -m physics_lab.cli run examples/dimensional_analysis.yaml --output-dir /
 - `experiments/EXP-0006-dimensional-analysis-validator.yaml`
 - `hypotheses/HYP-0006-dimensional-analysis-validator.yaml`
 - `tasks/TASK-0064-implement-dimensional-analysis-validator-mvp.yaml`
-- `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml`
+- `knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml`
 
 ### Expected Key Metrics
 
@@ -136,10 +136,11 @@ Stored `RESULT-0007` artifact:
 
 Current-source replay note:
 
-- current challenge items loaded: `70`
-- current agreement: `65/70`
-- current agreement fraction: `0.928571`
-- current inconclusive count: `1`, within MVP tolerance
+- current replay is pinned to the frozen 50-item MVP benchmark scope;
+- the live curation surface remains in
+  `knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml`;
+- live curation additions must not silently change `RESULT-0007` replay
+  metrics.
 
 ### Replay Caveats
 
@@ -147,8 +148,9 @@ Current-source replay note:
 - SI and common derived units are covered; natural-unit and Gaussian-unit
   formulas remain outside this MVP scope.
 - SUSPICIOUS items with explicit dimensional mismatch are classified `INVALID`.
-- The stored artifact remains the canonical 50-item `RESULT-0007`; current
-  replay uses the expanded challenge set and validates present workflow health.
+- The stored artifact and current replay both use the canonical 50-item
+  `RESULT-0007` scope; expanded challenge-set curation is follow-on work, not
+  a benchmark redefinition.
 
 ---
 
