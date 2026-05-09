@@ -1,0 +1,62 @@
+id: TASK-0159
+title: "Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Add a stronger nonlinear mechanics benchmark that is scientifically richer than another numerology-style formula search."
+  - "Give autonomous agents a safer next campaign after pendulum by using a problem with exact or numerical references, perturbative baselines, and clear limits."
+  - "Raise APL's scientific value with a benchmark that supports holdout evaluation, breakdown mapping, and approximation-hypothesis testing."
+
+input:
+  mode: workflow
+  related_domain: nonlinear_mechanics
+  related_objects:
+    - "physics_lab/engines/"
+    - "physics_lab/workflows/"
+    - "examples/"
+    - "results/"
+    - "docs/results/"
+    - "tasks/TASK-0149-define-blind-holdout-benchmark-protocol.yaml"
+  planning_context: >
+    The project needs one benchmark path that feels more like controlled
+    research than replaying known fits, but without drifting into speculative
+    particle numerology. An anharmonic oscillator period benchmark provides a
+    nonlinear approximation problem with a harmonic limit, a perturbative
+    baseline, numerical reference behavior, and natural holdout evaluation.
+
+requirements:
+  - "Model the anharmonic oscillator potential V(x) = 1/2 k x^2 + lambda x^4 with amplitude-dependent period evaluation."
+  - "Include a harmonic-limit check as lambda -> 0 and a small-amplitude perturbative baseline."
+  - "Provide a deterministic numerical reference path and document its limits."
+  - "Support train or validation or holdout reporting in a way that is compatible with TASK-0149."
+  - "Report breakdown regions where simple approximations stop being trustworthy."
+  - "Keep result wording scoped to benchmark evaluation only, with no new-physics framing."
+
+accepted_outputs:
+  - "hypotheses/HYP-0011-anharmonic-oscillator-period.yaml"
+  - "experiments/EXP-0011-anharmonic-oscillator-period.yaml"
+  - "examples/anharmonic_oscillator.yaml"
+  - "physics_lab/engines/anharmonic_oscillator.py"
+  - "physics_lab/workflows/anharmonic_oscillator.py"
+  - "results/EXP-0011/RUN-0001/result.yaml"
+  - "results/EXP-0011/RUN-0001/metrics.json"
+  - "results/EXP-0011/RUN-0001/report.md"
+  - "tests/test_anharmonic_oscillator.py"
+  - "docs/results/anharmonic-oscillator-summary.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
