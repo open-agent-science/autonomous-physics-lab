@@ -1,7 +1,7 @@
 id: TASK-0143
 title: "Close stale merged workflow tasks and unblock release-review queue"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: high
 
@@ -53,4 +53,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
