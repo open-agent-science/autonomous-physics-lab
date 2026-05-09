@@ -103,7 +103,7 @@ Strong signals:
 
 Weak signals:
 
-- result invites "AI solved physics" or "new physics" framing;
+- result invites discovery-level or agent-breakthrough framing;
 - benchmark success is phrased as explanation;
 - stress-test or exploratory output is presented as a flagship success.
 
