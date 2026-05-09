@@ -52,6 +52,8 @@ or symbolic exactness.
 - `EXP-0007` — Neutrino Koide Falsification
 - `EXP-0008` — Quark Koide Cascade Falsification
 - `EXP-0009` — Particle-Mass Relation Falsifier MVP
+- `EXP-0010` — Muon g-2 Formula-Search Stress Test (`INCONCLUSIVE`, kept out
+  of the current public-facing success surface)
 
 Together these now support three active benchmark surfaces:
 
@@ -121,6 +123,9 @@ public-release mode.
 - The falsifier MVP rejects cross-family survival of one fixed standard target
   under encoded charged-fermion triplets; it does not rule out all modified
   Koide-like constructions.
+- `EXP-0010` is a high-risk formula-search stress test and should not be
+  presented as a public success story without stronger multiple-testing and
+  alternate-target guardrails.
 - The dimensional-analysis validator has a canonical MVP result, but its unit
   system and known-limit handling remain intentionally narrow.
 - The contributor workflow is more mature, but the private pilot still needs

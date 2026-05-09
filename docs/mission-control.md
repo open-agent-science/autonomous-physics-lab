@@ -71,6 +71,8 @@ The near-term documentation goal is a cautious `v0.2` packaging pass:
 - Koide work should read as one falsification-first campaign, not a handful of
   disconnected notes;
 - negative results should stay as visible as successful reproductions;
+- `EXP-0010` should remain a guarded stress-test surface rather than a flagship
+  public result;
 - public-opening decisions should remain gated behind wording discipline and
   release checks.
 
@@ -119,6 +121,8 @@ Low-risk contribution patterns right now:
   possible Koide variants.
 - Do not turn the particle-mass falsifier MVP into a blanket claim about all
   possible mass-relation formulas.
+- Do not present `EXP-0010` muon g-2 output as a discovery-level, explanatory,
+  or flagship public result.
 - Do not describe planning-only campaigns as implemented benchmark systems.
 - Do not present the repository as public before the release gates are met.
 
