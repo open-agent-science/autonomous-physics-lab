@@ -1,0 +1,28 @@
+id: MICROTASK-RUN-0000
+queue_id: pendulum-formula-falsification
+microtask_id: PFF-001
+status: CLAIMED
+claimant:
+  contributor_id: contributor
+  agent_id: codex
+branch: agent/contributor/codex/microtask-PFF-001-short-slug
+pull_request: null
+result_note: null
+verdict: NOT_RUN
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/pendulum-formula-falsification.yaml
+  method: "Describe the deterministic check, source audit, or note-writing method."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "State what would falsify or invalidate the attempt."
+  limitations:
+    - "State the scope limit before any positive interpretation."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/
+      - docs/notes/
+    summary: "No duplicate run found, or describe the overlap."

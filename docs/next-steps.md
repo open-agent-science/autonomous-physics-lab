@@ -100,57 +100,47 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Finish the Autonomous Research Foundation First
+### 1. Generalize the Autonomous Loop Beyond Pendulum
 
-The next major proof point is not a public article or a broader roadmap. It
-is one real autonomous loop that produces reviewable sandbox research PR
-artifacts without promoting claims automatically.
+The first pendulum autonomous pilot and the PR-packaging layer are now merged.
+The next proof point is breadth: show that the same repository contract works
+for a second campaign without promoting claims automatically.
 
-Current highest-value foundation tasks:
+Highest-value next execution task:
 
-- maintain the merged autonomy and reproducibility foundation through closeout and handoff sync hygiene
 - `TASK-0155` second dimensional-validator autonomous pilot
 
 Success looks like:
 
-- agents can generate hypothesis and experiment proposals under repository rules;
-- weak proposals fail deterministically before sandbox execution;
-- sandbox evidence stays outside canonical `results/` until review;
-- maintainers can review one agent-run PR without re-reading raw sandbox files manually.
+- generated challenge hypotheses enter through the proposal lane;
+- weak items fail deterministic checks before sandbox output is treated as evidence;
+- sandbox evidence remains outside canonical `results/`;
+- maintainers can review a second autonomous PR without reading raw scratch artifacts.
 
-### 2. Raise Scientific Credibility Before Any Public Story
+### 2. Build the Stronger Benchmark Path
 
-The strongest near-term credibility gains are:
+The next scientific-value jump should come from a richer nonlinear mechanics
+benchmark, not another speculative numerology surface.
 
-- `TASK-0149` blind holdout benchmark protocol
-- `TASK-0148` scientific result quality rubric
-
-These tasks improve the repository more than another speculative benchmark
-would. They make future autonomous work easier to trust and easier to replay.
-
-### 3. Run the First Autonomous Pilots Only After Foundation Work
-
-After the autonomy foundation and PR packaging layer are complete, the next
-pilot should be:
-
-- `TASK-0155` second dimensional-validator autonomous pilot
-
-The pendulum pilot has already established the first real autonomy demo. The
-next value is proving that the loop generalizes beyond pendulum.
-
-### 4. Add a Stronger Non-Numerological Benchmark Path
-
-To raise scientific value without drifting into muon g-2, Hubble, or broad
-particle numerology, prefer nonlinear mechanics:
+Current strongest benchmark tasks:
 
 - `TASK-0159` anharmonic oscillator period benchmark
 - `TASK-0160` autonomous anharmonic research pilot
 
-This path should stay behind the autonomy foundation and holdout protocol, but
-it is the best current candidate for a richer benchmark with lower overclaim
-risk.
+This path should remain downstream of the autonomy contract, but it is now the
+best candidate for a higher-value benchmark with lower overclaim risk.
 
-### 5. Keep Docs and Gates Aligned
+### 3. Preserve Replay and Validation Quality
+
+The scientific credibility layer now includes the merged holdout protocol and
+result-quality rubric. The next hardening work should keep repository
+validation and replay surfaces easy to trust:
+
+- `TASK-0136` split repository validation and scientific-memory integrity checks
+- `TASK-0137` split maintainer review helper into clearer policy layers
+- `TASK-0138` add canonical replay and golden-result hardening layer
+
+### 4. Keep Docs and Gates Aligned
 
 Always keep these files aligned when priorities change:
 
@@ -160,7 +150,7 @@ Always keep these files aligned when priorities change:
 - [public-release-gates.md](./public-release-gates.md)
 - [private-contributor-pilot.md](./private-contributor-pilot.md)
 
-### 6. Public Release Remains Gated
+### 5. Public Release Remains Gated
 
 Do not prepare the repository as public-ready until all gates are satisfied.
 

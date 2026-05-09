@@ -1,7 +1,7 @@
 id: TASK-0162
 title: "Close PR packaging and core reproduction tasks after merge"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

@@ -1,0 +1,66 @@
+id: TASK-0163
+title: "Close scientific credibility and admin wave after merge"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the task board truthful immediately after a concentrated merge wave of scientific-governance and reproducibility work."
+  - "Preserve a clean handoff so the next contributor starts from the real autonomy and credibility queue, not stale review-ready admin tasks."
+  - "Treat post-merge closeout, board sync, and context refresh as first-class maintenance work."
+
+input:
+  mode: workflow
+  related_domain: repository_maintenance
+  related_objects:
+    - "tasks/TASK-0135-audit-and-freeze-pendulum-gauntlet-reproducibility.yaml"
+    - "tasks/TASK-0148-add-scientific-result-quality-rubric.yaml"
+    - "tasks/TASK-0149-define-blind-holdout-benchmark-protocol.yaml"
+    - "tasks/TASK-0157-close-merged-review-ready-tasks-after-hardening-wave.yaml"
+    - "tasks/TASK-0158-curate-autonomy-and-scientific-value-upgrade-queue.yaml"
+    - "tasks/TASK-0161-close-autonomy-foundation-tasks-and-unblock-pr-packaging.yaml"
+    - "tasks/TASK-0162-close-pr-packaging-and-core-reproduction-after-merge.yaml"
+    - "tasks/ACTIVE.md"
+    - "docs/next-steps.md"
+    - "CONTEXT.md"
+  planning_context: >
+    PRs #192, #193, and #194 landed after the earlier autonomy and
+    reproducibility admin wave. The board still contains several merged
+    maintainer-workflow tasks in REVIEW_READY, and docs/next-steps still
+    points at work that is now complete. This closeout batch should mark the
+    merged tasks DONE, refresh short-term guidance, and regenerate the context
+    bundle for the next contributor handoff.
+
+requirements:
+  - "Mark TASK-0135, TASK-0148, and TASK-0149 as DONE after verifying merged outputs in main."
+  - "Mark merged maintainer-workflow tasks TASK-0157, TASK-0158, TASK-0161, and TASK-0162 as DONE."
+  - "Refresh docs/next-steps.md so it prioritizes still-open execution work rather than recently merged credibility tasks."
+  - "Run active-board synchronization after status changes."
+  - "Regenerate CONTEXT.md if the board or short-term guidance changed."
+  - "Do not modify claims, canonical result verdicts, or experiment semantics."
+
+accepted_outputs:
+  - "TASK-0135 set to DONE"
+  - "TASK-0148 set to DONE"
+  - "TASK-0149 set to DONE"
+  - "TASK-0157 set to DONE"
+  - "TASK-0158 set to DONE"
+  - "TASK-0161 set to DONE"
+  - "TASK-0162 set to DONE"
+  - "updated tasks/ACTIVE.md"
+  - "updated docs/next-steps.md"
+  - "updated CONTEXT.md if changed"
+
+validation:
+  commands:
+    - "python3 scripts/generate_context_bundle.py"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
