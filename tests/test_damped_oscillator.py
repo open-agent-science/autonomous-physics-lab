@@ -932,6 +932,29 @@ def test_repository_strict_allows_done_non_result_visualization_and_workflow_tas
         ),
         encoding="utf-8",
     )
+    (repo_root / "tasks" / "TASK-1007-temp.yaml").write_text(
+        textwrap.dedent(
+            """\
+            id: TASK-1007
+            title: Temp review workflow task
+            type: review_workflow
+            status: DONE
+            difficulty: medium
+            priority: medium
+            input:
+              mode: workflow
+              related_objects: []
+              planning_context: Package sandbox evidence for maintainer review
+            requirements:
+              - add review helper output
+            accepted_outputs:
+              - docs/review-checklists/temp-review-workflow.md
+            can_be_done_by:
+              - human
+            """
+        ),
+        encoding="utf-8",
+    )
 
     summary = validate_repository(repo_root, strict=True)
 
@@ -957,6 +980,10 @@ def test_repository_strict_allows_done_non_result_visualization_and_workflow_tas
     )
     assert not any(
         issue.code == "done_task_without_result" and issue.path is not None and issue.path.endswith("TASK-1006-temp.yaml")
+        for issue in summary.issues
+    )
+    assert not any(
+        issue.code == "done_task_without_result" and issue.path is not None and issue.path.endswith("TASK-1007-temp.yaml")
         for issue in summary.issues
     )
 
