@@ -1,0 +1,41 @@
+id: AGENT-RUN-0004
+campaign_profile_id: anharmonic-oscillator
+task_id: TASK-0160
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/anharmonic/HYP-PROPOSAL-0014-pade-epsilon-ratio.yaml
+  experiment: experiment_proposals/anharmonic/EXP-PROPOSAL-0004-anharmonic-sandbox-batch.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0004/metrics.json
+  report: agent_runs/AGENT-RUN-0004/report.md
+  limitations: agent_runs/AGENT-RUN-0004/limitations.md
+  preflight: agent_runs/AGENT-RUN-0004/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0004/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: campaign_scope
+      status: PASS
+      notes: "anharmonic-oscillator is WHITELISTED_LIMITED."
+    - name: proposal_schema
+      status: PASS
+      notes: "Executed and rejected anharmonic proposals passed research-proposal preflight."
+    - name: triage_boundary
+      status: PASS
+      notes: "Six proposals generated; two executed and four rejected before sandbox execution."
+    - name: promotion_boundary
+      status: PASS
+      notes: "No canonical results, claims, hypotheses, experiments, or accepted knowledge are changed."
+limitations:
+  - "Sandbox-only pilot; does not update RESULT-0014 or the live anharmonic benchmark memory."
+  - "Two executed candidates are enough to test triage quality, not to exhaust the anharmonic design space."
+  - "A stronger sandbox holdout score still requires a maintainer-reviewed canonical comparison task."
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer-reviewed canonical comparison task before any RESULT-* promotion."

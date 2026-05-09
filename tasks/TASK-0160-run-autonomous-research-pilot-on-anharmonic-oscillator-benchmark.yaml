@@ -1,7 +1,7 @@
 id: TASK-0160
 title: "Run autonomous research pilot on anharmonic oscillator benchmark"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 

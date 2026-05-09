@@ -1,0 +1,81 @@
+id: HYP-PROPOSAL-0014
+title: "Anharmonic Pade epsilon ratio candidate"
+campaign_profile_id: anharmonic-oscillator
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox candidate only; no canonical result or claim promotion."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0160
+
+input_references:
+  - "campaign_profiles/anharmonic-oscillator.yaml"
+  - "experiments/EXP-0011-anharmonic-oscillator-period.yaml"
+  - "results/EXP-0011/RUN-0001/result.yaml"
+  - "docs/results/anharmonic-oscillator-summary.md"
+
+hypothesis:
+  statement: "A two-parameter Pade correction in epsilon may improve the configured anharmonic holdout slice without implying global validity."
+  variables:
+    - "T0: harmonic period baseline"
+    - "epsilon: lambda*A^2/k"
+    - "a, b: train-fitted dimensionless coefficients"
+  assumptions:
+    - "The EXP-0011 deterministic period-integral reference remains the only numerical target."
+    - "The candidate is fit on the existing weak-regime train slice only."
+    - "Any relative improvement over RESULT-0014 remains sandbox evidence until a maintainer requests a canonical comparison task."
+  expected_scope: "Configured EXP-0011 train, holdout, and stress slices only."
+  expected_failure_modes:
+    - "May still degrade outside the current stress slice."
+    - "Could act like a flexible train-fit family without enough physical interpretation for promotion."
+
+novelty_check:
+  checked_files:
+    - "results/EXP-0011/RUN-0001/result.yaml"
+    - "docs/results/anharmonic-oscillator-summary.md"
+  possible_overlap: "Current canonical benchmark includes perturbative and empirical quadratic families, but no Pade ratio family."
+  notes: "Selected as the lead sandbox candidate because it tests a new ratio family against the same deterministic surface."
+
+falsification_plan:
+  deterministic_check: "Fit T/T0 = (1 + a*epsilon) / (1 + b*epsilon) on the EXP-0011 train slice and compare holdout and stress residuals against RESULT-0014."
+  baseline_or_reference: "Exact reference baseline from EXP-0011 plus the RESULT-0014 empirical quadratic holdout metric."
+  pass_condition: "Sandbox pass if the configured holdout mean relative error beats the current RESULT-0014 canonical best while staying sandbox-only."
+  fail_condition: "Sandbox fail if the holdout mean relative error does not beat RESULT-0014 or if the candidate needs broader promotion framing."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not claim the Pade family is exact."
+    - "Do not present sandbox improvement as a canonical benchmark replacement."
+  mitigations:
+    - "Keep all evidence under hypothesis_proposals, experiment_proposals, agent_runs, tests, and review notes."
+    - "Report the comparison to RESULT-0014 explicitly as sandbox-only."
+
+sandbox_evidence:
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal hypothesis_proposals/anharmonic/HYP-PROPOSAL-0014-pade-epsilon-ratio.yaml"
+  code_references:
+    - "physics_lab/engines/anharmonic_oscillator.py"
+    - "tests/test_anharmonic_autonomous_pilot.py"
+  metrics:
+    - "train_mean_relative_error"
+    - "holdout_mean_relative_error"
+    - "stress_mean_relative_error"
+    - "beats_current_canonical_holdout"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0004/metrics.json"
+
+limitations:
+  - "Sandbox-only fit; no canonical result update."
+  - "The candidate is train-fitted and may need a separate canonical comparison task before any benchmark promotion."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether the Pade family deserves a later canonical benchmark-comparison task."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer-reviewed canonical task before any RESULT-* or claim update."
