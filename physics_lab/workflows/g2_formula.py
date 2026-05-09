@@ -43,12 +43,12 @@ def _build_report(
 ) -> str:
     summary = search["summary"]
     primary_label = (
-        "Best credible formula"
-        if summary["best_formula_basis"] == "credible_hit"
+        "Best guardrail-screened formula"
+        if summary["best_formula_basis"] == "guardrail_screened_hit"
         else "Closest formula"
     )
     lines = [
-        "# Muon g-2 Anomaly Formula Search",
+        "# Muon g-2 Formula-Search Stress Test",
         "",
         f"- Result: `{result_id}`",
         f"- Run: `{run_id}`",
@@ -82,12 +82,12 @@ def _build_report(
         ]
         if fr["hits"]:
             lines += [
-                "| Formula | Value (×10⁻¹¹) | z-score | C | Role | Credible? |",
+                "| Formula | Value (×10⁻¹¹) | z-score | C | Role | Screened? |",
                 "|---|---:|---:|---|---|---|",
             ]
             for h in fr["hits"]:
                 role = "Reference fit" if h["is_reference"] else "Predicted"
-                credible = (
+                screened = (
                     "Yes"
                     if (not h["is_reference"] and h["complexity"] <= 1 and rb["guardrail_passed"])
                     else "No"
@@ -98,7 +98,7 @@ def _build_report(
                     f"| {h['z_score']:.3f} "
                     f"| {h['complexity']} "
                     f"| {role} "
-                    f"| {credible} |"
+                    f"| {screened} |"
                 )
             lines.append("")
             if any(h["is_reference"] for h in fr["hits"]):
@@ -118,7 +118,7 @@ def _build_report(
         "|---|---|",
         f"| Total formulas evaluated | {summary['total_formulas_evaluated']} |",
         f"| Hits within 1σ | {summary['total_hits_1sigma']} |",
-        f"| Credible hits (C≤1, P<1%) | {summary['credible_hits']} |",
+        f"| Guardrail-screened hits (C≤1, P<1%) | {summary['guardrail_screened_hits']} |",
         f"| Interesting hits (z<0.5σ) | {summary['interesting_hits_half_sigma']} |",
         "| Best z-score | " + (f"{bz:.3f}σ" if bz is not None else "N/A") + " |",
     ]
@@ -128,16 +128,21 @@ def _build_report(
     if closest_formula and closest_formula != summary["best_formula"]:
         closest_z = summary.get("closest_hit_z_score")
         closest_z_text = f"{closest_z:.3f}σ" if closest_z is not None else "N/A"
-        lines.append(f"| Closest non-credible formula | `{closest_formula}` ({closest_z_text}) |")
+        lines.append(f"| Closest unscreened formula | `{closest_formula}` ({closest_z_text}) |")
     lines += [
         "",
-        "## Numerology Guardrail Assessment",
+        "## Stress-Test Guardrail Assessment",
         "",
-        "A result is **credible** only if ALL hold:",
+        "A result is **guardrail-screened** only if these first-pass mechanical filters hold:",
         "1. z < 1.0 (within 1σ)",
         "2. C ≤ 1 free real-valued parameter",
         "3. P(random match) < 1% within the family",
-        "4. Physical plausibility (SM loop diagram motivation)",
+        "4. Not a fitted reference row or known SM contribution",
+        "",
+        "This screen is not a discovery, anomaly-resolution, or physical-mechanism test.",
+        "Before any stronger interpretation, EXP-0010 needs multiple-testing correction,",
+        "bootstrap stability under target/constant uncertainty, alternate-target comparison,",
+        "cross-observable checks, and a pre-registered physical-motivation review.",
         "",
     ]
     if search["global_verdict"] == "NULL":
@@ -155,12 +160,19 @@ def _build_report(
             "Hits found within 1σ, but none pass the random baseline guardrail (P<1%).",
             "All matches are consistent with accidental coincidence within the tested family.",
         ]
+    elif search["global_verdict"] == "STRESS_TEST_HIT":
+        lines += [
+            "**Global verdict: STRESS_TEST_HIT**",
+            "",
+            "At least one predicted formula passes the first-pass mechanical screen.",
+            "The result remains an inconclusive stress-test observation; no physical",
+            "mechanism, anomaly resolution, or theoretical explanation is claimed.",
+        ]
     else:
         lines += [
-            "**Global verdict: VALID_EMPIRICAL**",
+            f"**Global verdict: {search['global_verdict']}**",
             "",
-            "At least one predicted formula passes all numerology guardrails.",
-            "This is an empirical benchmark hit only — no physical mechanism or anomaly resolution is claimed.",
+            "This nonstandard verdict must be reviewed before interpretation.",
         ]
     lines += [
         "",
@@ -174,13 +186,16 @@ def _build_report(
         "- A null result within these families does not exclude all possible BSM formulas.",
         "- F3 with c≈1/3 has physical motivation (HLbL leading-log estimate) but the",
         "  random baseline for continuous c fails the P<1% threshold.",
+        "- The F4 lepton-cascade screen-passing formula has no known SM loop-diagram",
+        "  motivation and should remain a stress-test hit, not a public success story.",
         "",
     ]
     return "\n".join(lines)
 
 
 _VERDICT_MAP = {
-    "VALID_EMPIRICAL": "VALID",
+    "STRESS_TEST_HIT": "INCONCLUSIVE",
+    "VALID_EMPIRICAL": "INCONCLUSIVE",
     "NUMEROLOGY_ONLY": "PARTIALLY_VALID",
     "NULL": "INVALID",
 }
@@ -230,6 +245,7 @@ def _build_result_payload(
             "Data-driven HVP baseline used (5.1σ). BMW lattice-QCD reduces to ~1.5σ.",
             "Integer/rational exponent constraints only.",
             "F3 c≈1/3 is the strongest empirical match but fails P<1% guardrail.",
+            "First-pass screen is not multiple-testing corrected or cross-observable validated.",
             "No physical mechanism claimed for any matching formula.",
         ],
         "best_verdict": schema_verdict,
@@ -269,7 +285,7 @@ def _build_result_payload(
                     "status": "PASS",
                     "details": f"Global verdict: {search['global_verdict']} → schema: {schema_verdict}",
                     "metrics": {
-                        "credible_hits": summary["credible_hits"],
+                        "guardrail_screened_hits": summary["guardrail_screened_hits"],
                         "interesting_hits_half_sigma": summary["interesting_hits_half_sigma"],
                         "best_z_score": summary["best_z_score"],
                     },
@@ -279,13 +295,13 @@ def _build_result_payload(
         "comparison_summary": [
             {
                 "target_id": "target_delta_amu",
-                "label": "Muon g-2 anomaly",
+                "label": "Muon g-2 data-driven discrepancy stress-test target",
                 "reference_value": DELTA_AMU,
                 "observed_value": best_value,
                 "unit": "dimensionless",
                 "absolute_difference": abs_diff,
                 "relative_difference": rel_diff,
-                "notes": f"Primary empirical formula: {best_formula}, z={best_z:.3f}σ. "
+                "notes": f"Primary stress-test formula: {best_formula}, z={best_z:.3f}σ. "
                          f"Internal verdict: {search['global_verdict']}.",
             }
         ],
@@ -297,8 +313,8 @@ def _build_result_payload(
             "z_score": best_z if raw_z is not None else None,
             "within_combined_uncertainty": bool(best_z < 1.0) if raw_z is not None else False,
             "notes": (
-                f"Best z={best_z:.3f}σ. Credible hits (C≤1, P<1%): "
-                f"{summary['credible_hits']}."
+                f"Best z={best_z:.3f}σ. Guardrail-screened hits (C≤1, P<1%): "
+                f"{summary['guardrail_screened_hits']}. Interpretation remains inconclusive."
             ),
         },
         "artifacts": {
@@ -380,13 +396,13 @@ def run_g2_formula_experiment(
         "sigma_1e11": SIGMA_COMBINED / 1e-11,
         "total_formulas_evaluated": summary["total_formulas_evaluated"],
         "total_hits_1sigma": summary["total_hits_1sigma"],
-        "credible_hits": summary["credible_hits"],
+        "guardrail_screened_hits": summary["guardrail_screened_hits"],
         "interesting_hits_half_sigma": summary["interesting_hits_half_sigma"],
         "best_formula_basis": summary["best_formula_basis"],
         "best_z_score": summary["best_z_score"],
         "best_formula": summary["best_formula"],
-        "best_credible_z_score": summary["best_credible_z_score"],
-        "best_credible_formula": summary["best_credible_formula"],
+        "best_guardrail_screened_z_score": summary["best_guardrail_screened_z_score"],
+        "best_guardrail_screened_formula": summary["best_guardrail_screened_formula"],
         "closest_hit_z_score": summary["closest_hit_z_score"],
         "closest_hit_formula": summary["closest_hit_formula"],
         "global_verdict": search["global_verdict"],
@@ -432,8 +448,11 @@ def run_g2_formula_experiment(
         "- No claim promotion. Verdict remains DRAFT pending maintainer review.",
         "- NUMEROLOGY_ONLY or NULL verdict: the anomaly is not simply expressible as",
         "  a power-law combination of tested SM constants with integer exponents.",
-        "- If VALID_EMPIRICAL: at least one predicted formula passed all guardrails; report for",
-        "  maintainer inspection before any claim update.",
+        "- STRESS_TEST_HIT verdict: at least one predicted formula passed the first-pass",
+        "  mechanical screen; keep it as a stress-test observation only.",
+        "- Required before stronger interpretation: multiple-testing correction, bootstrap",
+        "  stability, alternate-target comparison, cross-observable checks, and",
+        "  pre-registered physical-motivation review.",
         "",
     ])
     knowledge_update_text = "\n".join([
@@ -441,6 +460,7 @@ def run_g2_formula_experiment(
         "",
         f"- Record `{result_id}` as the muon g-2 formula search baseline run.",
         "- Knowledge artifact: knowledge/particle_physics/muon_g2.yaml (KNOW-0007).",
+        "- Treat this as a formula-search stress test, not a public success story.",
         "- Do not promote BSM claims from formula coincidences.",
         "",
     ])
@@ -470,8 +490,8 @@ def run_g2_formula_experiment(
         ),
         highlights=[
             f"Global verdict: {verdict}.",
-            f"Primary empirical z-score: {primary_z_text} ({primary_formula}).",
-            f"Credible hits: {summary['credible_hits']}.",
+            f"Primary stress-test z-score: {primary_z_text} ({primary_formula}).",
+            f"Guardrail-screened hits: {summary['guardrail_screened_hits']}.",
         ],
         limitations=limitations,
     )

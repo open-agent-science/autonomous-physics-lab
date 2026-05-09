@@ -11,9 +11,9 @@ The g-2 formula search applies deterministic enumeration, random baselines, and 
 
 ## Highlights
 
-- Global verdict: VALID_EMPIRICAL.
-- Primary empirical z-score: 0.168σ (α^3 × (mμ/me)^-2 × (mμ/mτ)^-2).
-- Credible hits: 1.
+- Global verdict: STRESS_TEST_HIT.
+- Primary stress-test z-score: 0.168σ (α^3 × (mμ/me)^-2 × (mμ/mτ)^-2).
+- Guardrail-screened hits: 1.
 
 ## Limitations To Preserve
 

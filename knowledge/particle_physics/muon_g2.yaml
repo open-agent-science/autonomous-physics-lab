@@ -1,5 +1,5 @@
 id: KNOW-0007
-title: "Muon g-2 anomaly target value and input constants for formula search"
+title: "Muon g-2 discrepancy stress-test target and formula-search constants"
 domain: particle_physics
 status: REVIEW_NEEDED
 source: "PDG 2024; Muong-2 Collaboration PRL 131 161802 (2023); Aoyama et al. Phys. Rept. 887 (2020)"
@@ -7,7 +7,7 @@ source: "PDG 2024; Muong-2 Collaboration PRL 131 161802 (2023); Aoyama et al. Ph
 # ── Target observable ────────────────────────────────────────────────────────
 target:
   id: delta_amu
-  label: "Anomalous magnetic moment discrepancy"
+  label: "Data-driven anomalous magnetic moment discrepancy stress-test target"
   formula: "Δaμ = aμ(exp) − aμ(SM)"
   value: 249e-11
   uncertainty: 48e-11
@@ -17,7 +17,9 @@ target:
     σ_combined = sqrt(22² + 43²) × 10⁻¹¹ ≈ 48 × 10⁻¹¹
     (experimental 22 + SM theory 43 added in quadrature).
     The BMW lattice-QCD HVP (2021) reduces the discrepancy to ~1.5σ;
-    the formula search uses the data-driven HVP baseline.
+    the formula search uses the data-driven HVP baseline as a contested
+    stress-test target. Formula-search hits against this value are not evidence
+    for anomaly resolution, BSM physics, or a physical mechanism.
 
   references:
     experimental:
@@ -100,6 +102,8 @@ derived:
 limitations:
   - "The 5.1σ significance uses the data-driven (dispersive) HVP estimate.
      The BMW lattice-QCD result reduces this to ~1.5σ."
+  - "This knowledge entry supports a formula-search stress test only; it
+     should not be used as a public success claim."
   - "GF·mμ² is computed at tree level; EW radiative corrections are not included."
   - "sin²θW is algebraically related to mW/mZ and is excluded to avoid redundancy."
   - "Higgs mass and quark masses are excluded; they enter only through

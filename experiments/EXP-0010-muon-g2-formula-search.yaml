@@ -1,5 +1,5 @@
 id: EXP-0010
-title: "Muon g-2 Anomaly Formula Search"
+title: "Muon g-2 Formula-Search Stress Test"
 domain: particle_physics
 status: COMPLETED
 
@@ -33,12 +33,19 @@ data:
     seed: 1001
     sample_count: 100000
 
-  notes: "Target: delta_amu = (249 +/- 48) x 10^-11; BNL+FNAL 2023 combined, data-driven HVP, ~5.1sigma"
+  notes: >
+    Stress-test target: delta_amu = (249 +/- 48) x 10^-11;
+    BNL+FNAL 2023 combined, data-driven HVP, ~5.1sigma. The target is
+    contested by alternate HVP evaluations and must not be framed as an
+    anomaly-resolution success story.
 
 comparison_targets:
   - id: target_delta_amu
-    label: "Muon g-2 anomaly"
+    label: "Muon g-2 data-driven discrepancy stress-test target"
     reference_value: 2.49e-9
     reference_uncertainty: 4.8e-10
     unit: dimensionless
-    notes: "Data-driven HVP baseline (2023 BNL+FNAL combined, 5.1sigma)"
+    notes: >
+      Data-driven HVP baseline (2023 BNL+FNAL combined, 5.1sigma).
+      Used as a high-risk formula-search stress test, not as evidence for
+      anomaly resolution.
