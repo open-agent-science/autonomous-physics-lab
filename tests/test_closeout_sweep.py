@@ -146,6 +146,7 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
                 ci_status="pass",
                 blockers=(),
                 required_actions=(),
+                suggested_actions=(),
                 applied_changes=(),
             )
         return CloseoutReport(
@@ -159,6 +160,7 @@ def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_pat
             ci_status="pass",
             blockers=("Accepted outputs are missing in main: x.",),
             required_actions=(),
+            suggested_actions=(),
             applied_changes=(),
         )
 
@@ -189,6 +191,7 @@ def test_closeout_pr_binding_blockers_flags_mismatched_pr_metadata(tmp_path: Pat
         merged=True,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=(),
     )
 
     with patch("physics_lab.registry.closeout_sweep.load_pr_metadata", return_value=pr_metadata):
@@ -244,6 +247,7 @@ def test_build_closeout_sweep_report_blocks_ready_candidate_on_pr_binding_mismat
         ci_status="pass",
         blockers=(),
         required_actions=(),
+        suggested_actions=(),
         applied_changes=(),
     )
     mismatched_pr = PullRequestMetadata(
@@ -256,6 +260,7 @@ def test_build_closeout_sweep_report_blocks_ready_candidate_on_pr_binding_mismat
         merged=True,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=(),
     )
 
     with (

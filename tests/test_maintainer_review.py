@@ -385,6 +385,7 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
         merged=False,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=changed,
     )
 
     with (
@@ -459,6 +460,7 @@ def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout
         merged=False,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=changed,
     )
 
     with (
@@ -529,6 +531,7 @@ def test_build_review_report_closeout_batch_pr_does_not_require_active_board_syn
         merged=False,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=changed,
     )
 
     with (
@@ -603,6 +606,7 @@ def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: 
         merged=False,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=("tasks/TASK-0094-helper.yaml",),
     )
     changed = ("tasks/TASK-0094-helper.yaml",)
 
@@ -669,6 +673,7 @@ def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> N
         merged=False,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=("docs/notes/pmr-001-audit-note.md",),
     )
     changed = ("docs/notes/pmr-001-audit-note.md",)
 
@@ -716,6 +721,11 @@ def test_build_review_report_accepts_canonical_microtask_batch_pr(tmp_path: Path
         encoding="utf-8",
     )
 
+    changed = (
+        "docs/notes/dimensional-analysis-microtask-batch-02.md",
+        "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml",
+    )
+
     pr_metadata = PullRequestMetadata(
         number=148,
         title="microtask(dimensional-analysis-validator): add DAV-003 DAV-004 DAV-008 challenge entries",
@@ -735,10 +745,7 @@ def test_build_review_report_accepts_canonical_microtask_batch_pr(tmp_path: Path
         merged=False,
         status_checks_passed=True,
         status_checks_pending=False,
-    )
-    changed = (
-        "docs/notes/dimensional-analysis-microtask-batch-02.md",
-        "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml",
+        changed_files=changed,
     )
 
     with (
@@ -792,6 +799,7 @@ def test_build_review_report_blocks_microtask_batch_when_branch_queue_mismatches
         merged=False,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=("docs/notes/test.md",),
     )
 
     with (
@@ -869,6 +877,7 @@ def test_build_review_report_blocks_microtask_pr_when_queue_file_missing(tmp_pat
         merged=False,
         status_checks_passed=True,
         status_checks_pending=False,
+        changed_files=("docs/notes/test.md",),
     )
 
     with (
