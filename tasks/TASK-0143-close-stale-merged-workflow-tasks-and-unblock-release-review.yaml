@@ -1,0 +1,56 @@
+id: TASK-0143
+title: "Close stale merged workflow tasks and unblock release-review queue"
+type: maintainer_workflow
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the task board honest before a public-alpha readiness pass."
+  - "Reduce maintainer confusion by closing merged workflow tasks that still sit in REVIEW_READY."
+  - "Make release-readiness work legible by clearing stale workflow-admin drift first."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/TASK-0030-record-friend-contributor-dry-run.yaml"
+    - "tasks/TASK-0128-add-agent-catalog-and-entrypoint-links.yaml"
+    - "tasks/TASK-0139-curate-scientific-audit-and-architecture-followups.yaml"
+    - "tasks/TASK-0066-review-v0.2-public-readiness-gates.yaml"
+    - "docs/multi-agent-dry-run.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    Several merged workflow tasks still appear as REVIEW_READY in the board,
+    which makes the public-readiness queue look noisier than it really is.
+    Cleanly close the merged workflow/admin tasks, confirm their accepted
+    outputs remain in main, and leave TASK-0066 as the next real release
+    governance step.
+
+requirements:
+  - "Verify merged PR evidence before moving any task to DONE."
+  - "Close TASK-0030, TASK-0128, and TASK-0139 only after confirming their accepted outputs are present in main."
+  - "Keep TASK-0066 as an active release-review task rather than folding it into a broad task-admin batch."
+  - "Resync tasks/ACTIVE.md after closeout."
+  - "Do not add new release wording in this task beyond what is needed for honest closeout notes."
+
+accepted_outputs:
+  - "TASK-0030 marked DONE if merged outputs are verified"
+  - "TASK-0128 marked DONE if merged outputs are verified"
+  - "TASK-0139 marked DONE if merged outputs are verified"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 scripts/apl_closeout_task.py --task TASK-0030 --pr 167"
+    - "python3 scripts/apl_closeout_task.py --task TASK-0128 --pr 160"
+    - "python3 scripts/apl_closeout_task.py --task TASK-0139 --pr 164"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
