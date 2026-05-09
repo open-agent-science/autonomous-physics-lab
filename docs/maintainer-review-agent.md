@@ -261,6 +261,9 @@ Default behavior:
 - `--apply` updates the canonical task YAML to `DONE`
 - `--sync-board` is optional and should usually be reserved for a dedicated or
   serialized board-sync step rather than every per-task closeout PR
+- if the merged PR or the applied board-sync step touched `CONTEXT.md` source
+  files, the helper should suggest rerunning
+  `python3 scripts/generate_context_bundle.py` in a later maintainer branch
 
 ### Closeout sweep helper
 

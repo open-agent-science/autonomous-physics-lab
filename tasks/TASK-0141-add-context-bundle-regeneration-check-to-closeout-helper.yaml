@@ -1,0 +1,52 @@
+id: TASK-0141
+title: "Add context-bundle regeneration check to closeout helper"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the single-file repository context bundle trustworthy after merge batches."
+  - "Reduce maintainer memory burden during closeout by surfacing context-bundle follow-ups automatically."
+  - "Make documentation drift less likely when task board or core protocol docs change."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/generate_context_bundle.py"
+    - "docs/review-checklists/task-closeout-checklist.md"
+    - "docs/maintainer-review-agent.md"
+    - "tests/test_task_closeout.py"
+  planning_context: >
+    The closeout helper already checks merge status, accepted outputs, and
+    optional board sync, but it does not currently remind the maintainer when
+    a merged PR touched files that feed CONTEXT.md. Add a deterministic,
+    non-blocking follow-up signal so closeout runs can suggest regenerating
+    the context bundle after relevant merges without turning routine closeout
+    into a mandatory bundle rewrite step.
+
+requirements:
+  - "Detect when merged work touched one or more context-bundle source files, including tasks/ACTIVE.md when board sync is applied."
+  - "Surface the context-bundle reminder as a suggested follow-up, not a closeout blocker."
+  - "Keep the source-file list deterministic and aligned with scripts/generate_context_bundle.py."
+  - "Add regression coverage for the new reminder behavior."
+  - "Document the reminder in the maintainer closeout guidance."
+
+accepted_outputs:
+  - "closeout helper update that suggests regenerating CONTEXT.md when relevant source files changed"
+  - "tests covering the new context-bundle reminder path"
+  - "docs update in maintainer closeout guidance"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_task_closeout.py tests/test_closeout_sweep.py tests/test_maintainer_review.py -q"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
