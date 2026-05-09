@@ -175,11 +175,22 @@ Goal:
 
 ## Current Benchmark Scope
 
-The repository currently has two working benchmark slices:
+The repository currently has nine canonical experiment files:
 
 - `EXP-0001` — `Pendulum Formula Discovery`
 - `EXP-0002` — `Damped Oscillator Regime Verification`
-- `EXP-0001/RUN-0002` — theory-aware pendulum near-separatrix follow-up
+- `EXP-0004` — `Charged-Lepton Koide Reproduction`
+- `EXP-0005` — `Historical Tau Holdout Prediction`
+- `EXP-0006` — `Dimensional Analysis Validator MVP`
+- `EXP-0007` — `Neutrino Koide Consistency Test`
+- `EXP-0008` — `Quark Koide Cascade — Brannen Phase Extension Test`
+- `EXP-0009` — `Particle-Mass Relation Falsifier MVP`
+- `EXP-0010` — `Muon g-2 Formula-Search Stress Test`
+
+For public-facing summaries, the main benchmark surface is the first eight
+entries above. `EXP-0010` should be described only as a guarded empirical
+formula-search stress test with explicit multiple-testing and numerology
+limitations.
 
 Use that broader benchmark scope when updating docs, status snapshots, and
 contributor guidance during pre-public validation.

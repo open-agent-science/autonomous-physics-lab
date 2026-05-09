@@ -1,7 +1,7 @@
 id: TASK-0144
 title: "Sync public-facing docs with canonical experiment state"
 type: documentation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -58,4 +58,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

@@ -56,8 +56,6 @@ one PR.
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0144` — Sync public-facing docs with canonical experiment state (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0145` — Add reproducibility capsules for major canonical results (`reproducibility`, priority `high`, difficulty `medium`)
 - `TASK-0146` — Add one-command core result reproduction script (`reproducibility`, priority `high`, difficulty `medium`)
 - `TASK-0148` — Add scientific result quality rubric (`scientific_governance`, priority `medium`, difficulty `medium`)
 - `TASK-0149` — Define blind holdout benchmark protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
@@ -75,6 +73,8 @@ None.
 - `TASK-0141` — Add context-bundle regeneration check to closeout helper (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0142` — Curate public-alpha hardening and credibility follow-up queue (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0143` — Close stale merged workflow tasks and unblock release-review queue (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0144` — Sync public-facing docs with canonical experiment state (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0145` — Add reproducibility capsules for major canonical results (`reproducibility`, priority `high`, difficulty `medium`)
 - `TASK-0147` — Harden muon g-2 benchmark wording and guardrails (`scientific_safety_review`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY

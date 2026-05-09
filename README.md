@@ -54,7 +54,10 @@ It should:
 
 ## Current Benchmarks
 
-Seven canonical experiments across three active scientific tracks:
+Nine canonical experiments are currently stored in the repository.
+Eight form the main public-facing benchmark surface across three active
+scientific tracks, while one additional formula-search benchmark is kept in a
+guarded stress-test lane rather than the flagship result set:
 
 1. `EXP-0001` — Pendulum Formula Discovery
 2. `EXP-0002` — Damped Oscillator Regime Verification
@@ -63,6 +66,9 @@ Seven canonical experiments across three active scientific tracks:
 5. `EXP-0006` — Dimensional Analysis Validator MVP
 6. `EXP-0007` — Neutrino Koide Falsification
 7. `EXP-0008` — Quark Koide Cascade Falsification
+8. `EXP-0009` — Particle-Mass Relation Falsifier MVP
+9. `EXP-0010` — Muon g-2 Formula-Search Stress Test (`INCONCLUSIVE`, not a
+   public success story)
 
 All results are stored as versioned run artifacts under `results/<experiment>/<run>/`.
 
@@ -76,10 +82,12 @@ All results are stored as versioned run artifacts under `results/<experiment>/<r
 | Dimensional validator (EXP-0006) | VALID | 49/50 items correct (98%) |
 | Neutrino Koide (EXP-0007) | INVALID | NH: 70.7σ below 2/3 |
 | Quark Koide (EXP-0008) | INVALID | Down: 8.8σ, Up: 159σ above 2/3 |
+| Particle-mass falsifier (EXP-0009) | INVALID | 2 of 3 charged-fermion families fail the standard Koide target |
 
 → **[Full visual result summary](docs/results/visual-summary.md)**
 → **[Koide campaign summary](docs/results/koide-campaign-summary.md)**
 → **[Negative results registry](docs/negative-results-registry.md)**
+→ **[Reproducibility capsules](docs/reproducibility-capsules.md)**
 
 ### Selected Figures
 
@@ -130,8 +138,8 @@ flowchart LR
     classDef da   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
 
     P["🔭 Pendulum Track\nEXP-0001  Formula Discovery ✅\nEXP-0002  Damped Oscillator ✅\nRUN-0004  c=1/π fixed ✅"]:::pend
-    K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nEXP-0008  Quark ❌  8.8σ / 159σ"]:::part
-    D["📐 Dimensional Analysis\nMVP implemented ✅\n17+ challenge items"]:::da
+    K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nEXP-0008  Quark ❌  8.8σ / 159σ\nEXP-0009  Falsifier MVP ❌"]:::part
+    D["📐 Dimensional Analysis\nMVP implemented ✅\n70-item current challenge surface"]:::da
 
     P ~~~ K ~~~ D
 ```
@@ -147,6 +155,8 @@ The pendulum and particle-mass tracks already have scoped canonical results.
 The dimensional-analysis track now has a canonical MVP benchmark result. The
 thought-experiment track remains planning-first and should not be described as
 a finished benchmark implementation.
+`EXP-0010` exists as a guarded empirical formula-search stress test and should
+not be presented as part of the public-facing success surface.
 
 ## Contribute with an AI coding agent
 

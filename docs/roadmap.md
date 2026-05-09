@@ -66,6 +66,8 @@ Immediate v0.2 packaging work:
   evidence;
 - package the Koide track as a falsification-first campaign rather than as
   disconnected notes;
+- keep `EXP-0010` framed as a guarded stress-test surface rather than as a
+  public success result;
 - run one final public overclaim audit before any public-opening decision.
 
 ## Public Task Network — Future
