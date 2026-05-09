@@ -22,6 +22,11 @@ human maintainer must still review:
 - the wording inside the claim file itself;
 - whether the claim text matches the actual strength of evidence.
 
+Sandbox-only autonomous research is never claim-promotion evidence by itself.
+Agent-run summaries may justify rejection, retention as sandbox memory, or a
+follow-up canonical task, but they must pass through a later reviewed canonical
+experiment/result path before any `CLAIM-*` status changes.
+
 ## Allowed Claim Statuses
 
 ### `DRAFT`

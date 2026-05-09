@@ -1,7 +1,7 @@
 id: TASK-0154
 title: "Add agent-run PR packaging and maintainer review checklist"
 type: review_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 

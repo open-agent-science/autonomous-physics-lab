@@ -2,6 +2,7 @@
 
 from physics_lab.registry.active_board import sync_active_board
 from physics_lab.registry.agent_runs import load_agent_run
+from physics_lab.registry.agent_run_pr import build_agent_run_pr_context
 from physics_lab.registry.claims import load_claim
 from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.agents import load_agent
@@ -20,6 +21,7 @@ from physics_lab.registry.validation import infer_kind_from_path, load_schema, v
 
 __all__ = [
     "infer_kind_from_path",
+    "build_agent_run_pr_context",
     "load_agent",
     "load_agent_run",
     "sync_active_board",
