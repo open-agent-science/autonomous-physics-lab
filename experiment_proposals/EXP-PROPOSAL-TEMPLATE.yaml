@@ -1,0 +1,53 @@
+id: EXP-PROPOSAL-XXXX
+title: "Short experiment proposal title"
+campaign_profile_id: "campaign-profile-id"
+status: DRAFT
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: "roman"
+  agent_id: "codex"
+  task_id: "TASK-XXXX"
+
+input_references:
+  - "docs/autonomous-research-loop.md"
+  - "docs/research-quality-gate.md"
+  - "campaign_profiles/<profile>.yaml"
+
+question: "State the narrow question this sandbox experiment asks."
+
+method:
+  summary: "Describe the deterministic method."
+  code_references: []
+  commands: []
+  parameters: {}
+
+inputs:
+  datasets: []
+  constants: []
+  prior_results: []
+  assumptions: []
+
+outputs:
+  sandbox_output_paths: []
+  metrics: []
+  plots: []
+  notes: []
+
+validation:
+  pass_condition: "State the sandbox pass condition."
+  fail_condition: "State the sandbox fail condition."
+  baseline_or_reference: "State exact reference, null baseline, or prior result."
+  expected_failure_modes: []
+
+limitations:
+  - "State range, dataset, model, or interpretation limits."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Decide whether this should become a canonical experiment task."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical experiment task before RESULT-* creation."

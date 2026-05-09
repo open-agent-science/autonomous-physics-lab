@@ -1,0 +1,70 @@
+id: dimensional-analysis-validator
+title: "Dimensional analysis validator"
+autonomy_status: WHITELISTED_LIMITED
+pilot_rank: 2
+
+source_docs:
+  - docs/campaigns/dimensional-analysis-validator.md
+  - docs/results/dimensional-analysis-validator-summary.md
+  - docs/notes/dimensional-analysis-challenge-set.md
+  - docs/autonomous-research-loop.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Challenge-entry proposals with explicit expected dimensional verdicts."
+  - "Known-limit or semantic-suspicion examples with clear rationale."
+  - "Validator limitation probes that do not rewrite the frozen MVP result."
+
+allowed_experiment_families:
+  - "Sandbox classification of proposed formulas."
+  - "Comparison of expected and observed validator verdicts."
+  - "Ambiguity notes for SUSPICIOUS or KNOWN_LIMIT_FAIL cases."
+  - "Follow-up benchmark rebaseline proposals."
+
+required_inputs:
+  - "Formula expression."
+  - "Variable dimension map."
+  - "Expected verdict."
+  - "Rationale for expected verdict."
+  - "Reference to the current challenge set or result summary."
+
+required_quality_checks:
+  - "Do not change frozen RESULT-0007 replay scope."
+  - "Separate live curation examples from canonical MVP metrics."
+  - "State whether the example is SI-focused or outside current scope."
+  - "State why dimensional consistency is or is not enough for the example."
+  - "Run the shared research quality gate before PR handoff."
+
+forbidden_claims:
+  - "Dimensional consistency proves full physical correctness."
+  - "Live challenge additions update RESULT-0007 metrics."
+  - "Natural-unit workflows are supported unless explicitly scoped."
+  - "Sandbox classification is a canonical benchmark rebaseline."
+
+sandbox_permissions:
+  may_create:
+    - hypothesis_proposals
+    - experiment_proposals
+    - scoped_notes
+    - temporary_outputs
+  must_not_edit:
+    - claims
+    - canonical_results
+    - frozen_mvp_replay_inputs
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - proposal_path
+  - formula
+  - expected_verdict
+  - observed_verdict
+  - limitation
+  - verdict
+  - maintainer_decision_requested
