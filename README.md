@@ -129,6 +129,18 @@ python3 scripts/generate_context_bundle.py          # core (44 KB)
 python3 scripts/generate_context_bundle.py --full   # + extended docs (~60 KB)
 ```
 
+To replay the bounded current major result surface into a temporary output tree:
+
+```bash
+python3 scripts/reproduce_core_results.py
+```
+
+The replay leaves canonical `results/` artifacts untouched, writes regenerated
+artifacts into per-slice `/tmp/apl-core-reproduction/*/` folders, and writes a
+compact summary to `/tmp/apl-core-reproduction/CORE_REPRODUCTION_SUMMARY.md`. See
+[docs/reproducibility-capsules.md](docs/reproducibility-capsules.md) for scope,
+expected metrics, and skipped stress-test notes.
+
 ## Active Scientific Campaigns
 
 ```mermaid

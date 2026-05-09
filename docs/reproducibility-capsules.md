@@ -4,6 +4,30 @@ This page gives reviewers a compact replay guide for the current major
 canonical results. It intentionally covers the strongest public-facing result
 surfaces rather than every historical run.
 
+## One-Command Core Replay
+
+For a bounded replay of the current major result surface, run:
+
+```bash
+python3 scripts/reproduce_core_results.py
+```
+
+By default this writes regenerated artifacts into per-slice subdirectories
+under `/tmp/apl-core-reproduction` and writes
+`/tmp/apl-core-reproduction/CORE_REPRODUCTION_SUMMARY.md`. The
+script runs the selected capsules below, validates each regenerated
+`result.yaml` against its expected result id and verdict, and exits non-zero if
+any core slice fails.
+
+Expected runtime depends on the local Python environment, but it is intended to
+fit in one reviewer or maintainer session. Use `--list` to inspect the bounded
+scope without running experiments, `--only <key>` to replay one slice, or
+`--output-dir <path>` to choose a different temporary output tree.
+
+The default replay intentionally excludes `EXP-0010` / Muon g-2. That run is a
+guarded empirical formula-search stress test with explicit multiple-testing and
+numerology limitations, not part of the public-facing success surface.
+
 Use these capsules to answer four questions quickly:
 
 - which command reruns the result;
