@@ -1,0 +1,51 @@
+id: TASK-0145
+title: "Add reproducibility capsules for major canonical results"
+type: reproducibility
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Increase trust in APL by making its strongest current results easier to replay and verify."
+  - "Shift public-alpha value from new benchmark breadth toward reproducibility and auditability."
+  - "Make maintainer and external-reviewer replication paths more deterministic."
+
+input:
+  mode: workflow
+  related_domain: reproducibility
+  related_objects:
+    - "results/"
+    - "examples/"
+    - "docs/results/"
+    - "docs/result-artifacts-index.md"
+  planning_context: >
+    APL now has several flagship results that are strong enough to showcase,
+    but the replay surface is still spread across result folders, examples, and
+    docs. Add compact reproducibility capsules for the top canonical results so
+    a maintainer or outside reviewer can see exactly how to rerun and sanity
+    check each one.
+
+requirements:
+  - "For each selected flagship result, record the canonical command, main inputs, expected key metrics, and known replay caveats."
+  - "Prefer a shared capsule format rather than one-off prose."
+  - "Start with the strongest current public-facing results rather than every historical run."
+  - "Do not regenerate or rewrite canonical result artifacts unless the task explicitly requires it."
+  - "Link the capsules from an obvious reviewer-facing entrypoint."
+
+accepted_outputs:
+  - "reproducibility capsule docs for major canonical results"
+  - "index or entrypoint linking those capsules"
+  - "tests or validation helpers if the capsule format has parsing logic"
+
+validation:
+  commands:
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

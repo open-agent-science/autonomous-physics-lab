@@ -1,7 +1,7 @@
 id: TASK-0066
 title: "Review v0.2 public readiness gates"
 type: release_review
-status: BLOCKED
+status: READY
 difficulty: low
 priority: medium
 
