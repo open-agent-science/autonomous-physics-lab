@@ -1,0 +1,54 @@
+id: TASK-0153
+title: "Run first pendulum autonomous research pilot with sandbox-only outputs"
+type: autonomous_research_pilot
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test whether APL agents can complete one constrained scientific loop without losing reviewability or scientific discipline."
+  - "Use pendulum as the first pilot because it has an exact reference, low numerology risk, and clear failure diagnostics."
+  - "Prove that APL can produce reviewable autonomous research PRs before expanding to hotter scientific domains."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "campaign_profiles/pendulum-formula-falsification.yaml"
+    - "docs/autonomous-research-loop.md"
+    - "agent_runs/"
+    - "hypothesis_proposals/"
+    - "experiment_proposals/"
+  planning_context: >
+    This is the first true Phase B pilot. The agent should work inside the
+    pendulum campaign only, generate multiple candidate hypotheses, reject weak
+    ones explicitly, and preserve at least one negative outcome inside sandbox
+    evidence rather than canonical result memory.
+
+requirements:
+  - "Do not start until TASK-0151 and TASK-0152 are complete."
+  - "Generate at least 5 pendulum hypothesis proposals and reject at least 3 with explicit reasons."
+  - "Select at most 2 proposals for sandbox experiment execution."
+  - "Preserve at least one negative or rejected result as first-class draft evidence."
+  - "Open or prepare a reviewable PR package without touching canonical claims/ or results/."
+  - "Keep all wording scoped, verification-first, and non-discovery."
+
+accepted_outputs:
+  - "hypothesis_proposals/pendulum/*"
+  - "experiment_proposals/pendulum/*"
+  - "agent_runs/<pendulum-pilot-run-id>/..."
+  - "docs/reviews/autonomous-pendulum-pilot-01.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

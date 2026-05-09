@@ -1,0 +1,61 @@
+id: TASK-0152
+title: "Implement research proposal preflight gate and sandbox agent-run layout"
+type: validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Prevent autonomous scientific work from polluting canonical scientific memory before review."
+  - "Make autonomous proposals and sandbox experiments deterministic, schema-checked, and easy to reject."
+  - "Ensure Phase B autonomy raises review quality instead of creating PR noise."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "docs/autonomous-research-loop.md"
+    - "docs/research-quality-gate.md"
+    - "campaign_profiles/"
+    - "physics_lab/cli.py"
+    - "physics_lab/registry/"
+    - "physics_lab/schemas/"
+  planning_context: >
+    Once the contract and campaign profiles exist, autonomous agent proposals
+    need one deterministic preflight gate plus one sandbox evidence layout.
+    The key boundary is draft evidence under agent-controlled paths versus
+    canonical reviewed evidence under results/.
+
+requirements:
+  - "Implement hypothesis-proposal and experiment-proposal schemas with deterministic repository validation."
+  - "Add a CLI or registry validation path for research proposals before sandbox execution."
+  - "Gate proposals on campaign id, assumptions, variables or units, baseline plan, failure criteria, limitations, and overclaim-risk handling."
+  - "Formula-search proposals must include a null or random baseline plan."
+  - "Create a repository-native sandbox layout for autonomous agent runs separate from canonical results/."
+  - "The sandbox layout must capture proposals, metrics, report, limitations, preflight, and review summary artifacts."
+  - "Do not add any path that auto-promotes sandbox outputs into claims, knowledge, or canonical results."
+
+accepted_outputs:
+  - "physics_lab/registry/research_proposals.py"
+  - "physics_lab/registry/agent_runs.py"
+  - "physics_lab/schemas/hypothesis_proposal.schema.json"
+  - "physics_lab/schemas/experiment_proposal.schema.json"
+  - "physics_lab/schemas/agent_run.schema.json"
+  - "tests/test_research_proposals.py"
+  - "tests/test_agent_runs.py"
+  - "agent_runs/README.md"
+  - "validation support for autonomous research proposals"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
