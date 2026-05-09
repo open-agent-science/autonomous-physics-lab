@@ -1,6 +1,6 @@
 # Review Summary
 
-- Result: `RESULT-0009`
+- Result: `RESULT-0013`
 - Claim target: `CLAIM-0001`
 - Knowledge target: `KNOW-0001`
 - Suggested claim status if accepted: `PARTIALLY_SUPPORTED`

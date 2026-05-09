@@ -21,6 +21,7 @@ result set, see [reproducibility-capsules.md](./reproducibility-capsules.md).
 | RESULT-0003 | EXP-0001/RUN-0002 | EXP-0001 | Pendulum Formula Discovery | VALID_IN_RANGE |
 | RESULT-0004 | EXP-0001/RUN-0003 | EXP-0001 | Pendulum Formula Discovery — Gauntlet (100 Candidates) | VALID_IN_RANGE |
 | RESULT-0008 | EXP-0001/RUN-0004 | EXP-0001 | Pendulum Formula Discovery — Gauntlet (100 Candidates) | OVERFITTED |
+| RESULT-0013 | EXP-0001/RUN-0005 | EXP-0001 | Pendulum Formula Discovery — Gauntlet (102 Candidates) | VALID_IN_RANGE |
 | RESULT-0002 | EXP-0002/RUN-0001 | EXP-0002 | Damped Oscillator Regime Verification | VALID_IN_RANGE |
 | RESULT-0005 | EXP-0004/RUN-0004 | EXP-0004 | Charged-Lepton Koide Reproduction | VALID |
 | RESULT-0006 | EXP-0005/RUN-0005 | EXP-0005 | Historical Tau Holdout Prediction | VALID |
@@ -166,6 +167,43 @@ gauntlet with `VALID_IN_RANGE` verdict.
 - Same ideal-pendulum assumptions as prior pendulum runs.
 - Physics constraint tested for one specific log-family basis only.
 - Overfitting verdict applies to the constrained gauntlet configuration only.
+
+---
+
+## EXP-0001 / RUN-0005 — Pendulum Gauntlet (102 Candidates, Asymptotic Refined)
+
+**Result ID:** `RESULT-0013`
+**Hypothesis:** `HYP-0001`
+**Task:** `TASK-0110`
+
+### Purpose
+Follow-up pendulum gauntlet that adds an Abramowitz-and-Stegun-inspired
+asymptotic refined candidate and evaluates 102 deterministic candidates across
+an extended amplitude range up to 3.10 rad.
+
+### Train / Test Range
+- Train: 0.01 to 2.1683 rad
+- Test: 2.1839 to 3.10 rad
+- Total candidates: 102
+
+### Key Files
+- `results/EXP-0001/RUN-0005/result.yaml`
+- `results/EXP-0001/RUN-0005/metrics.json`
+- `results/EXP-0001/RUN-0005/report.md`
+- `results/EXP-0001/RUN-0005/leaderboard.md`
+- `results/EXP-0001/RUN-0005/review_metadata.yaml`
+
+### Main Conclusion
+Top candidate `model_asymptotic_refined` reached `VALID_IN_RANGE` with a
+high-precision fit over the configured train/test ranges and passed the
+non-gating separatrix diagnostics. No symbolic exactness or global-validity
+claim is made.
+
+### Limitations
+- Ideal mathematical pendulum only.
+- Candidate search is broad but not exhaustive.
+- Separatrix diagnostics remain diagnostic and do not promote the result beyond
+  the configured benchmark scope.
 
 ---
 
@@ -395,7 +433,16 @@ survey. Verdict: `INVALID`.
 
 ### To understand the pendulum campaign
 Start with `EXP-0001/RUN-0003/report.md` (gauntlet summary) and
-`docs/results/pendulum-gauntlet-100-summary.md`.
+`docs/results/pendulum-gauntlet-100-summary.md`. Use
+`EXP-0001/RUN-0005/report.md` for the later asymptotic-refined follow-up.
+
+### Result ID Integrity Note
+`EXP-0001/RUN-0005` originally reused `RESULT-0009`, which was already the
+canonical ID for `EXP-0007/RUN-0001` (Koide neutrino falsification). The
+collision came from result-id allocation across separate campaign branches, not
+from a scientific change to either run. `RESULT-0009` remains assigned to the
+neutrino falsification result; the pendulum asymptotic-refined run is now
+`RESULT-0013`. Repository validation rejects duplicate canonical result IDs.
 
 ### To understand the particle mass campaign
 Start with `EXP-0004/RUN-0004/report.md` (Koide reproduction) and

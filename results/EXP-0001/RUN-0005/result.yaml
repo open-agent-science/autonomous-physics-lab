@@ -1,4 +1,4 @@
-result_id: RESULT-0009
+result_id: RESULT-0013
 run_id: RUN-0005
 experiment_id: EXP-0001
 title: "Pendulum Formula Discovery \u2014 Gauntlet (102 Candidates)"
@@ -11,7 +11,7 @@ command: physics-lab run examples/pendulum_asymptotic_gauntlet.yaml
 input_file_hashes:
   config:
     path: results/EXP-0001/RUN-0005/inputs/config.yaml
-    sha256: 9ef527ad4ca1babf3364b6f4c9c4d56ae4c4ed3c6bb2ebbc8caab043cf1451a8
+    sha256: 8d924da58a142a7c2197b05838bc5bb6df6747ec5f193c13bb509553478d4b6d
   experiment:
     path: results/EXP-0001/RUN-0005/inputs/experiment.yaml
     sha256: 6663a2c6304bf5a8fcd8e272ebbc182bb8ff793fa3ca41a9a560ff8e3c00484c

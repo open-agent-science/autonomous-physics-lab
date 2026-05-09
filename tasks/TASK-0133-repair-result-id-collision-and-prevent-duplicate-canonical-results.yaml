@@ -1,7 +1,7 @@
 id: TASK-0133
 title: "Repair duplicate result-id collision and prevent duplicate canonical results"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 

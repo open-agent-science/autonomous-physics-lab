@@ -1,6 +1,6 @@
 schema_version: '1'
 artifact_type: review_metadata
-result_id: RESULT-0009
+result_id: RESULT-0013
 run_id: RUN-0005
 experiment_id: EXP-0001
 claim_id: CLAIM-0001
@@ -11,7 +11,7 @@ required_human_review: true
 evidence_basis:
 - RESULT-0001
 - RESULT-0003
-- RESULT-0009
+- RESULT-0013
 claim_target_file: claims/CLAIM-0001-pendulum-period-amplitude.md
 knowledge_target_file: knowledge/classical_mechanics/pendulum.md
 patch_artifacts:

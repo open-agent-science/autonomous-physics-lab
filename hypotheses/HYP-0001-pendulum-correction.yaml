@@ -37,5 +37,6 @@ evidence:
     - RESULT-0003
     - RESULT-0004
     - RESULT-0008
+    - RESULT-0013
 
-verdict: "A systematic gauntlet of 100 deterministic candidates confirms the cross-domain family (theta^4 + x) as best-performing within the tested range. Evidence remains range-limited; near-separatrix diagnostics still fail for all candidates."
+verdict: "Systematic gauntlets confirm range-limited pendulum correction formulas, including a 102-candidate asymptotic-refined follow-up. Evidence remains benchmark-scoped and does not establish a symbolic exact or globally valid formula."
