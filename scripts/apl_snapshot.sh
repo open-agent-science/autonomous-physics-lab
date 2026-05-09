@@ -105,10 +105,23 @@ PY
 
   echo '```text'
   if command -v gh >/dev/null 2>&1; then
-    if gh auth status >/dev/null 2>&1; then
-      gh pr list --state open --limit 30
+    origin_url="$(git remote get-url origin 2>/dev/null || true)"
+    repo_slug="$(printf '%s\n' "$origin_url" | sed -E 's#^git@github.com:##; s#^https://github.com/##; s#\.git$##')"
+    if [ -n "$repo_slug" ] && [ "$repo_slug" != "$origin_url" ]; then
+      pr_list_output="$(gh pr list --repo "$repo_slug" --state open --limit 30 2>&1)"
     else
-      echo "Skipped: gh is installed but not authenticated."
+      pr_list_output="$(gh pr list --state open --limit 30 2>&1)"
+    fi
+    pr_list_status=$?
+    if [ "$pr_list_status" -eq 0 ]; then
+      if [ -n "$pr_list_output" ]; then
+        printf '%s\n' "$pr_list_output"
+      else
+        echo "No open pull requests."
+      fi
+    else
+      echo "Skipped: gh pr list failed."
+      printf '%s\n' "$pr_list_output"
     fi
   else
     echo "Skipped: gh CLI is not installed."

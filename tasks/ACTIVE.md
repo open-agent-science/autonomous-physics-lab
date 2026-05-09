@@ -60,7 +60,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0165` — Fix snapshot open-PR section when gh auth status is stale (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

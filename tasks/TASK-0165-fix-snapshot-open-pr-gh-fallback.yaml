@@ -1,0 +1,49 @@
+id: TASK-0165
+title: "Fix snapshot open-PR section when gh auth status is stale"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep maintainer snapshots faithful to the actual repository state."
+  - "Avoid hiding open-PR state behind an overly conservative gh auth preflight."
+  - "Make snapshot output clearer when no pull requests are open."
+
+input:
+  mode: workflow
+  related_domain: maintainer_snapshot
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - "tests/test_snapshot.py"
+  planning_context: >
+    After the merged-task closeout wave, the snapshot reported that gh was not
+    authenticated because `gh auth status` failed for the default account, even
+    though `gh pr list --repo gladunrv/autonomous-physics-lab` could still read
+    pull request state. The snapshot should prefer the actual PR-list command
+    result and clearly report when no open PRs exist.
+
+requirements:
+  - "Do not use `gh auth status` as the only gate for the open pull requests section."
+  - "Attempt `gh pr list --state open --limit 30` directly when gh is installed."
+  - "Print a clear no-open-PR message when the command succeeds with empty output."
+  - "Preserve a clear skipped/error message when `gh pr list` itself fails."
+  - "Add or update tests to prevent this regression."
+
+accepted_outputs:
+  - "updated scripts/apl_snapshot.sh"
+  - "updated tests/test_snapshot.py"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_snapshot.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - llm_agent
