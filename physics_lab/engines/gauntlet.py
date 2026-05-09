@@ -13,6 +13,11 @@ from physics_lab.engines.scoring import ModelScore
 
 # Eleven basis atoms ordered for deterministic enumeration.
 ATOM_NAMES: list[str] = ["t2", "t4", "t6", "t8", "x1", "x2", "x3", "x4", "l0", "l1", "l2"]
+LEGACY_10_ATOM_NAMES: list[str] = ["t2", "t4", "t6", "t8", "x1", "x2", "x3", "x4", "l1", "l2"]
+GAUNTLET_ATOM_SETS: dict[str, tuple[str, ...]] = {
+    "current_11": tuple(ATOM_NAMES),
+    "legacy_10": tuple(LEGACY_10_ATOM_NAMES),
+}
 
 ATOM_DISPLAY: dict[str, str] = {
     "t2": "theta^2",
@@ -99,19 +104,23 @@ def _build_candidate(atoms: Sequence[str]) -> CandidateModel:
     )
 
 
-def build_gauntlet_candidates() -> tuple[list[tuple[str, ...]], list[CandidateModel]]:
+def build_gauntlet_candidates(
+    atom_set: str = "current_11",
+) -> tuple[list[tuple[str, ...]], list[CandidateModel]]:
     """Return (atom_groups, models) for exactly 100 deterministic candidates.
 
-    Candidates are organised in three tiers:
-    - Tier 1 (size-1): 11 single-atom models
-    - Tier 2 (size-2): 55 two-atom combinations — all C(11,2)
-    - Tier 3 (size-3): 34 three-atom combinations
-
-    Total: 100 candidates. The ordering is fixed and reproducible.
+    ``current_11`` is the active candidate basis. ``legacy_10`` preserves the
+    exact candidate enumeration used by RUN-0003 and RUN-0004 before TASK-0110
+    introduced the standalone log atom.
     """
-    size1: list[tuple[str, ...]] = [(a,) for a in ATOM_NAMES]
-    size2: list[tuple[str, ...]] = list(itertools.combinations(ATOM_NAMES, 2))
-    size3: list[tuple[str, ...]] = list(itertools.combinations(ATOM_NAMES, 3))[
+    try:
+        atom_names = GAUNTLET_ATOM_SETS[atom_set]
+    except KeyError as exc:
+        allowed = ", ".join(sorted(GAUNTLET_ATOM_SETS))
+        raise ValueError(f"Unsupported gauntlet atom set: {atom_set}. Allowed: {allowed}") from exc
+    size1: list[tuple[str, ...]] = [(a,) for a in atom_names]
+    size2: list[tuple[str, ...]] = list(itertools.combinations(atom_names, 2))
+    size3: list[tuple[str, ...]] = list(itertools.combinations(atom_names, 3))[
         : 100 - len(size1) - len(size2)
     ]
     groups = size1 + size2 + size3

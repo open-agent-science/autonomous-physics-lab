@@ -920,6 +920,23 @@ def test_gauntlet_produces_100_unique_candidates() -> None:
     assert len(size3) == 34
 
 
+def test_gauntlet_legacy_candidate_set_preserves_original_enumeration() -> None:
+    from physics_lab.engines.gauntlet import build_gauntlet_candidates
+
+    atom_groups, models = build_gauntlet_candidates(atom_set="legacy_10")
+
+    assert len(models) == 100
+    assert len({model.model_id for model in models}) == 100
+    assert "model_l0" not in {model.model_id for model in models}
+
+    size1 = [group for group in atom_groups if len(group) == 1]
+    size2 = [group for group in atom_groups if len(group) == 2]
+    size3 = [group for group in atom_groups if len(group) == 3]
+    assert len(size1) == 10
+    assert len(size2) == 45
+    assert len(size3) == 45
+
+
 def test_asymptotic_refined_candidate_passes_configured_large_angle_window() -> None:
     from physics_lab.engines.gauntlet import build_asymptotic_refined_candidate
     from physics_lab.engines.formula_discovery import fit_candidate_model
@@ -1064,6 +1081,36 @@ def test_gauntlet_run_produces_leaderboard(tmp_path) -> None:
 def test_gauntlet_config_validates_as_example_config() -> None:
     repo_root = Path(__file__).resolve().parent.parent
     load_example_config(repo_root / "examples" / "pendulum_gauntlet.yaml")
+
+
+def test_canonical_pendulum_gauntlet_replay_preserves_run_0003_invariants(tmp_path) -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    outcome = run_experiment_with_output(
+        repo_root / "examples" / "pendulum_gauntlet.yaml",
+        output_dir=tmp_path / "replay",
+    )
+    result_payload = load_result(tmp_path / "replay" / "EXP-0001" / "RUN-0003" / "result.yaml")
+
+    assert outcome.best_model_id == "model_t4_x1"
+    assert result_payload["best_model_id"] == "model_t4_x1"
+    assert result_payload["best_verdict"] == "VALID_IN_RANGE"
+    assert result_payload["gauntlet_candidate_set"] == "legacy_10"
+    assert len(result_payload["scores"]) == 100
+
+
+def test_canonical_constrained_gauntlet_replay_preserves_run_0004_invariants(tmp_path) -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    outcome = run_experiment_with_output(
+        repo_root / "examples" / "pendulum_constrained_gauntlet.yaml",
+        output_dir=tmp_path / "replay",
+    )
+    result_payload = load_result(tmp_path / "replay" / "EXP-0001" / "RUN-0004" / "result.yaml")
+
+    assert outcome.best_model_id == "model_t2_x4_l2"
+    assert result_payload["best_model_id"] == "model_t2_x4_l2"
+    assert result_payload["best_verdict"] == "OVERFITTED"
+    assert result_payload["gauntlet_candidate_set"] == "legacy_10"
+    assert len(result_payload["scores"]) == 101
 
 
 def test_cli_run_gauntlet_smoke() -> None:

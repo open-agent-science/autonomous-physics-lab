@@ -60,6 +60,10 @@
     "include_asymptotic_refined_candidate": {
       "type": "boolean"
     },
+    "gauntlet_atom_set": {
+      "type": "string",
+      "enum": ["current_11", "legacy_10"]
+    },
     "knowledge_path": {
       "type": "string",
       "minLength": 1
