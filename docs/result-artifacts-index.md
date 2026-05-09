@@ -8,6 +8,9 @@ produced without modifying any result artifacts.
 > This document is read-only reference material. All result artifacts are
 > canonical and must not be changed outside of a dedicated task PR.
 
+For reviewer-facing replay commands and expected metrics for the current major
+result set, see [reproducibility-capsules.md](./reproducibility-capsules.md).
+
 ---
 
 ## Run Inventory

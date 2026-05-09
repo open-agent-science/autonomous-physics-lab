@@ -1,7 +1,7 @@
 id: TASK-0145
 title: "Add reproducibility capsules for major canonical results"
 type: reproducibility
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -48,4 +48,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

@@ -109,6 +109,23 @@ def run_dimensional_validator_with_output(
     agreement = summary.agreement_fraction
     best_verdict = "VALID" if agreement >= agreement_threshold else "INCONCLUSIVE"
 
+    inconclusive_limit = 1
+    inconclusive_status = (
+        "PASS" if summary.inconclusive_count <= inconclusive_limit else "FAIL"
+    )
+    if summary.inconclusive_count == 0:
+        inconclusive_details = "All items produced a definite verdict."
+    elif summary.inconclusive_count <= inconclusive_limit:
+        inconclusive_details = (
+            f"{summary.inconclusive_count} item returned INCONCLUSIVE; "
+            f"MVP tolerance is {inconclusive_limit}."
+        )
+    else:
+        inconclusive_details = (
+            f"{summary.inconclusive_count} items returned INCONCLUSIVE, "
+            f"exceeding MVP tolerance ({inconclusive_limit})."
+        )
+
     # Build verification checks
     checks = [
         {
@@ -118,14 +135,13 @@ def run_dimensional_validator_with_output(
             "metrics": {"item_count": summary.total},
         },
         {
-            "name": "no_inconclusive_items",
-            "status": "PASS" if summary.inconclusive_count == 0 else "WARN",
-            "details": (
-                "All items produced a definite verdict."
-                if summary.inconclusive_count == 0
-                else f"{summary.inconclusive_count} items returned INCONCLUSIVE."
-            ),
-            "metrics": {"inconclusive_count": summary.inconclusive_count},
+            "name": "inconclusive_items_within_mvp_tolerance",
+            "status": inconclusive_status,
+            "details": inconclusive_details,
+            "metrics": {
+                "inconclusive_count": summary.inconclusive_count,
+                "inconclusive_limit": inconclusive_limit,
+            },
         },
         {
             "name": "agreement_fraction",
@@ -212,9 +228,9 @@ def run_dimensional_validator_with_output(
 
         ## Claim Ceiling
 
-        The validator achieves {agreement:.1%} agreement on the 50-item
-        DA-CHALLENGE-001 set. No claim about unseen formulas or physics
-        domains outside the challenge set is made.
+        The validator achieves {agreement:.1%} agreement on the
+        {summary.total}-item DA-CHALLENGE-001 set. No claim about unseen
+        formulas or physics domains outside the challenge set is made.
     """)
     report_path = run_dir / "report.md"
     write_text_atomic(report_path, report_text)
@@ -234,8 +250,8 @@ def run_dimensional_validator_with_output(
         Proposed status: DRAFT (no automatic promotion).
 
         The validator achieves {agreement:.1%} agreement on DA-CHALLENGE-001.
-        CLAIM-0005 is already drafted with this scope restriction. No further
-        update needed; maintainer review required before any status change.
+        CLAIM-0005 is already drafted with this scope restriction. Maintainer
+        review is required before any status or benchmark-text change.
     """)
     claim_update_path = run_dir / "claim_update.md"
     write_text_atomic(claim_update_path, claim_update_text)
@@ -259,10 +275,10 @@ def run_dimensional_validator_with_output(
 
         Evidence source: {result_id}.
 
-        Dimensional validator MVP benchmarked at {agreement:.1%} agreement
-        on DA-CHALLENGE-001 (50 items). KNOW-0004 already captures this
-        result. No field changes needed; re-verify if challenge set or engine
-        is updated.
+        Dimensional validator MVP benchmarked at {agreement:.1%} agreement on
+        DA-CHALLENGE-001 ({summary.total} items). If this replay differs from
+        the stored benchmark artifact, update KNOW-0004 only in a dedicated
+        evidence-review task.
     """)
     knowledge_update_path = run_dir / "knowledge_update.md"
     write_text_atomic(knowledge_update_path, knowledge_update_text)

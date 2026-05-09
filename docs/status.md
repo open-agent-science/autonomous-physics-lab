@@ -153,3 +153,6 @@ public-release mode.
   for the first particle-mass relation falsifier MVP;
 - [../results/EXP-0006/RUN-0006/report.md](../results/EXP-0006/RUN-0006/report.md)
   for the current dimensional-analysis benchmark result.
+- [reproducibility-capsules.md](./reproducibility-capsules.md) for compact
+  replay commands, expected metrics, and caveats for the current major
+  canonical results.
