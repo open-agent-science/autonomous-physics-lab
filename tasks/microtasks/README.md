@@ -29,6 +29,12 @@ canonical task for every narrow subproblem.
 - not permission to promote claims;
 - not a substitute for benchmark implementation tasks.
 
+## Run Registry
+
+Use `microtask_runs/` for append-only claim and outcome records. Queue files stay
+stable campaign backlogs; routine claims should add run records rather than
+rewriting queue entries.
+
 ## Review Rule
 
 Microtask work should be easy to review.
@@ -53,6 +59,6 @@ Current guidance:
   `docs/blind-holdout-benchmark-protocol.md` with a visible pre-reveal package
   and reveal record.
 
-The next infrastructure step is `TASK-0112`, which covers append-only
+The current infrastructure step is `TASK-0112`, which adds append-only
 microtask run/claim records, expanded queues, and repeatable scientific search
 loops.

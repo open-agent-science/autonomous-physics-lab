@@ -45,7 +45,6 @@ one PR.
 ## READY
 
 - `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
-- `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0114` — Add microtask queue consistency validator (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
@@ -63,6 +62,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0163` — Close scientific credibility and admin wave after merge (`maintainer_workflow`, priority `high`, difficulty `low`)
 
