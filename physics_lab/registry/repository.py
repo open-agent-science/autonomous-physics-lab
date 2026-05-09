@@ -243,6 +243,48 @@ def _validate_unique_result_ids(
         seen_by_id[result_id] = path
 
 
+def _validate_microtask_run_conflicts(
+    microtask_runs: list[tuple[Path, dict[str, Any]]],
+) -> None:
+    """Fail fast when microtask run records duplicate active or completed work."""
+    seen_by_id: dict[str, Path] = {}
+    seen_active_by_item: dict[tuple[str, str], Path] = {}
+    seen_completed_by_item: dict[tuple[str, str], Path] = {}
+    active_statuses = {"CLAIMED", "IN_PROGRESS", "PR_OPEN", "REVIEW_READY"}
+    completed_statuses = {"COMPLETED"}
+
+    for path, payload in microtask_runs:
+        run_id = str(payload["id"])
+        previous_path = seen_by_id.get(run_id)
+        if previous_path is not None:
+            raise ValueError(
+                "Duplicate microtask run id "
+                f"{run_id}: {previous_path} and {path}"
+            )
+        seen_by_id[run_id] = path
+
+        key = (str(payload["queue_id"]), str(payload["microtask_id"]))
+        status = str(payload["status"])
+        if status in active_statuses:
+            previous_active_path = seen_active_by_item.get(key)
+            if previous_active_path is not None:
+                queue_id, microtask_id = key
+                raise ValueError(
+                    "Duplicate active microtask run for "
+                    f"{queue_id}/{microtask_id}: {previous_active_path} and {path}"
+                )
+            seen_active_by_item[key] = path
+        if status in completed_statuses:
+            previous_completed_path = seen_completed_by_item.get(key)
+            if previous_completed_path is not None:
+                queue_id, microtask_id = key
+                raise ValueError(
+                    "Duplicate completed microtask run for "
+                    f"{queue_id}/{microtask_id}: {previous_completed_path} and {path}"
+                )
+            seen_completed_by_item[key] = path
+
+
 def _validate_references(
     hypotheses: list[tuple[Path, dict[str, Any]]],
     experiments: list[tuple[Path, dict[str, Any]]],
@@ -762,6 +804,7 @@ def validate_repository(
     results = _load_directory(root_path, "results")
     _validate_unique_task_ids(tasks)
     _validate_unique_result_ids(results)
+    _validate_microtask_run_conflicts(microtask_runs)
 
     _validate_references(
         hypotheses=hypotheses,

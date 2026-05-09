@@ -74,6 +74,10 @@ def validate_microtask_run_payload(
             raise ValueError(f"{source} must live under repository root {root_path}") from exc
         if not relative_source.parts or relative_source.parts[0] != "microtask_runs":
             raise ValueError(f"{source} must live under microtask_runs/")
+        if len(relative_source.parts) < 3 or relative_source.parts[1] != queue_id:
+            raise ValueError(
+                f"{source} must live under microtask_runs/{queue_id}/"
+            )
         queue_payload = _load_queue_payload(root_path, queue_id)
         if not _queue_contains_microtask(queue_payload, microtask_id):
             raise ValueError(f"{source} references unknown microtask id {microtask_id} in {queue_id}")

@@ -116,5 +116,43 @@ def test_microtask_run_rejects_absolute_result_note(tmp_path: Path) -> None:
         load_microtask_run(run_path, root=tmp_path)
 
 
+def test_microtask_run_rejects_wrong_queue_folder(tmp_path: Path) -> None:
+    run_path = _write_microtask_run(tmp_path)
+    wrong_path = tmp_path / "microtask_runs" / "other-queue" / run_path.name
+    wrong_path.parent.mkdir(parents=True, exist_ok=True)
+    run_path.replace(wrong_path)
+
+    with pytest.raises(ValueError, match="microtask_runs/pendulum-formula-falsification/"):
+        load_microtask_run(wrong_path, root=tmp_path)
+
+
+def test_repository_rejects_duplicate_active_microtask_runs(tmp_path: Path) -> None:
+    first_path = _write_microtask_run(tmp_path)
+    first_text = first_path.read_text(encoding="utf-8").replace("status: COMPLETED", "status: CLAIMED")
+    first_path.write_text(first_text, encoding="utf-8")
+    second_path = first_path.with_name("MICROTASK-RUN-0002.yaml")
+    second_path.write_text(
+        first_text.replace("MICROTASK-RUN-0001", "MICROTASK-RUN-0002"),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="Duplicate active microtask run"):
+        validate_repository(tmp_path)
+
+
+def test_repository_rejects_duplicate_completed_microtask_runs(tmp_path: Path) -> None:
+    first_path = _write_microtask_run(tmp_path)
+    first_text = first_path.read_text(encoding="utf-8")
+    first_path.write_text(first_text, encoding="utf-8")
+    second_path = first_path.with_name("MICROTASK-RUN-0002.yaml")
+    second_path.write_text(
+        first_text.replace("MICROTASK-RUN-0001", "MICROTASK-RUN-0002"),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="Duplicate completed microtask run"):
+        validate_repository(tmp_path)
+
+
 def test_infer_kind_from_microtask_run_path() -> None:
     assert infer_kind_from_path("microtask_runs/pendulum/MICROTASK-RUN-0001.yaml") == "microtask_run"
