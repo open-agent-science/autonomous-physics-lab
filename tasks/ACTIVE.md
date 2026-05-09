@@ -51,7 +51,6 @@ one PR.
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -61,6 +60,7 @@ None.
 
 - `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0159` — Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation (`scientific_benchmark`, priority `high`, difficulty `high`)
+- `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0165` — Fix snapshot open-PR section when gh auth status is stale (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY

@@ -1,7 +1,7 @@
 id: TASK-0160
 title: "Run autonomous research pilot on anharmonic oscillator benchmark"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -38,10 +38,22 @@ requirements:
   - "Do not promote claims, accepted knowledge, or canonical results from this pilot."
 
 accepted_outputs:
-  - "hypothesis_proposals/anharmonic/*"
-  - "experiment_proposals/anharmonic/*"
-  - "agent_runs/<anharmonic-pilot-run-id>/..."
+  - "campaign_profiles/anharmonic-oscillator.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0014-pade-epsilon-ratio.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0015-amplitude-squared-collapse.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0016-cubic-epsilon-extension-rejected.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0017-negative-lambda-softening-rejected.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0018-quartic-only-axis-collapse-rejected.yaml"
+  - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0019-critical-pole-epsilon-rejected.yaml"
+  - "experiment_proposals/anharmonic/EXP-PROPOSAL-0004-anharmonic-sandbox-batch.yaml"
+  - "agent_runs/AGENT-RUN-0004/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0004/metrics.json"
+  - "agent_runs/AGENT-RUN-0004/report.md"
+  - "agent_runs/AGENT-RUN-0004/limitations.md"
+  - "agent_runs/AGENT-RUN-0004/preflight.md"
+  - "agent_runs/AGENT-RUN-0004/review_summary.md"
   - "docs/reviews/autonomous-anharmonic-pilot-01.md"
+  - "tests/test_anharmonic_autonomous_pilot.py"
 
 validation:
   commands:
