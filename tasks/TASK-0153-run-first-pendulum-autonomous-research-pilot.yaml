@@ -1,7 +1,7 @@
 id: TASK-0153
 title: "Run first pendulum autonomous research pilot with sandbox-only outputs"
 type: autonomous_research_pilot
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

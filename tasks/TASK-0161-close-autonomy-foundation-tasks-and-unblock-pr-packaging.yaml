@@ -1,0 +1,55 @@
+id: TASK-0161
+title: "Close autonomy foundation tasks and unblock autonomous PR packaging"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the task board aligned with merged autonomy foundation work so the next contributor can start from the true repository state."
+  - "Unblock the next autonomy milestone by moving agent-run PR packaging into the READY queue once its prerequisite is complete."
+  - "Treat maintainer closeout as disciplined repository maintenance rather than ad hoc branch cleanup."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "tasks/TASK-0151-define-autonomous-research-loop-and-campaign-profiles.yaml"
+    - "tasks/TASK-0152-implement-research-preflight-gate-and-sandbox-agent-runs.yaml"
+    - "tasks/TASK-0153-run-first-pendulum-autonomous-research-pilot.yaml"
+    - "tasks/TASK-0154-add-agent-run-pr-packaging-and-review-checklist.yaml"
+    - "tasks/ACTIVE.md"
+    - "docs/next-steps.md"
+    - "docs/multi-agent-dry-run.md"
+  planning_context: >
+    TASK-0151, TASK-0152, and TASK-0153 have already been merged, but the
+    canonical task files and contributor handoff surfaces still need
+    maintainer-run closeout. After those tasks become DONE, TASK-0154 should
+    be unblocked because its only stated prerequisite is TASK-0152.
+
+requirements:
+  - "Mark TASK-0151, TASK-0152, and TASK-0153 as DONE after confirming their merged outputs are present in main."
+  - "Run active-board synchronization after the closeout status changes."
+  - "Move TASK-0154 from BLOCKED to READY once the TASK-0152 dependency is formally complete."
+  - "Leave TASK-0155 blocked until TASK-0154 is complete."
+  - "Refresh docs/next-steps.md if it still describes TASK-0151 or TASK-0152 as unfinished near-term work."
+  - "Do not change claims, canonical result artifacts, or scientific verdict language in this task."
+
+accepted_outputs:
+  - "TASK-0151, TASK-0152, and TASK-0153 set to DONE"
+  - "TASK-0154 set to READY"
+  - "updated tasks/ACTIVE.md"
+  - "updated docs/next-steps.md if stale"
+  - "closeout note appended where helpful"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

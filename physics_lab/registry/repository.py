@@ -92,6 +92,8 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "thought_experiment_planning",
     "scientific_microtask_execution",
     "workflow_pilot",
+    "validation",
+    "autonomous_research_pilot",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
