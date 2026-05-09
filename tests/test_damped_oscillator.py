@@ -820,6 +820,52 @@ def test_repository_strict_allows_done_non_result_visualization_and_workflow_tas
         ),
         encoding="utf-8",
     )
+    (repo_root / "tasks" / "TASK-1003-temp.yaml").write_text(
+        textwrap.dedent(
+            """\
+            id: TASK-1003
+            title: Temp scientific audit task
+            type: scientific_audit
+            status: DONE
+            difficulty: medium
+            priority: medium
+            input:
+              mode: workflow
+              related_objects: []
+              planning_context: Audit a canonical replay path
+            requirements:
+              - diagnose replay drift
+            accepted_outputs:
+              - docs/notes/audit-example.md
+            can_be_done_by:
+              - human
+            """
+        ),
+        encoding="utf-8",
+    )
+    (repo_root / "tasks" / "TASK-1004-temp.yaml").write_text(
+        textwrap.dedent(
+            """\
+            id: TASK-1004
+            title: Temp reproducibility task
+            type: reproducibility
+            status: DONE
+            difficulty: medium
+            priority: medium
+            input:
+              mode: workflow
+              related_objects: []
+              planning_context: Document replay instructions
+            requirements:
+              - add reproducibility capsule
+            accepted_outputs:
+              - docs/reproducibility-example.md
+            can_be_done_by:
+              - human
+            """
+        ),
+        encoding="utf-8",
+    )
 
     summary = validate_repository(repo_root, strict=True)
 
@@ -829,6 +875,14 @@ def test_repository_strict_allows_done_non_result_visualization_and_workflow_tas
     )
     assert not any(
         issue.code == "done_task_without_result" and issue.path is not None and issue.path.endswith("TASK-1002-temp.yaml")
+        for issue in summary.issues
+    )
+    assert not any(
+        issue.code == "done_task_without_result" and issue.path is not None and issue.path.endswith("TASK-1003-temp.yaml")
+        for issue in summary.issues
+    )
+    assert not any(
+        issue.code == "done_task_without_result" and issue.path is not None and issue.path.endswith("TASK-1004-temp.yaml")
         for issue in summary.issues
     )
 
