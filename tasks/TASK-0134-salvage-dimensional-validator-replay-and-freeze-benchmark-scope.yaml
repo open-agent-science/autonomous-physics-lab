@@ -1,7 +1,7 @@
 id: TASK-0134
 title: "Salvage dimensional-validator replay and freeze benchmark scope"
 type: scientific_audit
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

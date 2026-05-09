@@ -1,0 +1,59 @@
+id: TASK-0157
+title: "Close merged review-ready tasks after public-hardening and autonomy curation wave"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the active board honest after a dense merge wave across reproducibility, docs sync, safety review, and autonomy planning."
+  - "Reduce maintainer confusion before release-readiness and autonomy-foundation work begins."
+  - "Preserve a clean separation between real execution work and stale REVIEW_READY closeout drift."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/TASK-0118-add-particle-mass-campaign-map-diagram.yaml"
+    - "tasks/TASK-0119-add-thought-experiment-campaign-orientation-note.yaml"
+    - "tasks/TASK-0120-add-use-your-agent-quickstart-diagram-pack.yaml"
+    - "tasks/TASK-0134-salvage-dimensional-validator-replay-and-freeze-benchmark-scope.yaml"
+    - "tasks/TASK-0141-add-context-bundle-regeneration-check-to-closeout-helper.yaml"
+    - "tasks/TASK-0142-curate-public-alpha-hardening-followups.yaml"
+    - "tasks/TASK-0143-close-stale-merged-workflow-tasks-and-unblock-release-review.yaml"
+    - "tasks/TASK-0144-sync-public-facing-docs-with-canonical-state.yaml"
+    - "tasks/TASK-0145-add-reproducibility-capsules-for-major-canonical-results.yaml"
+    - "tasks/TASK-0147-harden-muon-g2-benchmark-wording-and-guardrails.yaml"
+    - "tasks/TASK-0156-curate-phase-b-autonomous-research-followup-queue.yaml"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    A sequence of review-ready tasks has already been merged into main, but the
+    canonical task records still show REVIEW_READY. Close the merged tasks in
+    one clean batch so the board reflects the real state before the next wave
+    of public-readiness, reproducibility, and autonomy-foundation work.
+
+requirements:
+  - "Verify merged PR evidence before moving any task to DONE."
+  - "Close only tasks whose accepted outputs are already present in main."
+  - "Leave still-open execution tasks such as TASK-0066, TASK-0146, TASK-0151, and TASK-0152 untouched."
+  - "Resync tasks/ACTIVE.md after closeout."
+  - "Do not introduce new scientific claims or broaden result wording during this cleanup pass."
+
+accepted_outputs:
+  - "TASK-0118, TASK-0119, and TASK-0120 marked DONE after merged docs verification"
+  - "TASK-0134 marked DONE after merged replay-freeze verification"
+  - "TASK-0141 through TASK-0145 marked DONE after merged maintainer/public-hardening verification"
+  - "TASK-0147 marked DONE after merged muon g-2 wording/guardrail verification"
+  - "TASK-0156 marked DONE after merged autonomy-queue curation verification"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
