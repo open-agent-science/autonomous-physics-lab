@@ -1,0 +1,51 @@
+id: TASK-0156
+title: "Curate Phase B autonomous research follow-up queue"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Turn the proposed autonomy roadmap into canonical repository tasks before implementation starts."
+  - "Keep fast Phase B planning separate from the later execution tasks it introduces."
+  - "Preserve maintainer control over sandbox-first scientific autonomy by making the follow-up stack explicit and reviewable."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0151-define-autonomous-research-loop-and-campaign-profiles.yaml"
+    - "tasks/TASK-0152-implement-research-preflight-gate-and-sandbox-agent-runs.yaml"
+    - "tasks/TASK-0153-run-first-pendulum-autonomous-research-pilot.yaml"
+    - "tasks/TASK-0154-add-agent-run-pr-packaging-and-review-checklist.yaml"
+    - "tasks/TASK-0155-run-second-dimensional-validator-autonomous-pilot.yaml"
+  planning_context: >
+    APL is ready to explore a Phase B autonomous research loop, but the safe
+    path is to canonize the foundation tasks first rather than mixing planning
+    and implementation in one conversation. This task exists only to add and
+    stage that autonomy stack in the canonical task queue.
+
+requirements:
+  - "Create a compact follow-up stack for safe autonomous research rather than many tiny tasks."
+  - "Keep the stack split between foundation work, the first pendulum sandbox pilot, PR/review integration, and the second dimensional-validator pilot."
+  - "Leave the pilot and integration tasks blocked until the autonomy contract and sandbox gate exist."
+  - "Do not implement the autonomy runtime, sandbox path, or pilot loop in this curation pass."
+  - "Sync the active board after adding the new tasks."
+
+accepted_outputs:
+  - "canonical task files for the Phase B autonomous research stack"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

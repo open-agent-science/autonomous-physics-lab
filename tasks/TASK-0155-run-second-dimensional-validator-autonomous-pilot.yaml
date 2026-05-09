@@ -1,0 +1,54 @@
+id: TASK-0155
+title: "Run second autonomous research pilot on dimensional-analysis validator"
+type: autonomous_research_pilot
+status: BLOCKED
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Verify that the Phase B loop generalizes beyond pendulum to a second low-risk campaign."
+  - "Use dimensional-analysis validator as a bounded pilot with deterministic checks and low discovery pressure."
+  - "Stress-test proposal filtering, duplicate rejection, and negative-result preservation on a different campaign shape."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "campaign_profiles/dimensional-analysis-validator.yaml"
+    - "docs/autonomous-research-loop.md"
+    - "agent_runs/"
+    - "hypothesis_proposals/"
+    - "experiment_proposals/"
+  planning_context: >
+    Once the first pendulum pilot and PR packaging layer exist, run one second
+    pilot on the dimensional-analysis validator campaign to confirm the loop is
+    not pendulum-specific and that low-risk validator work can also flow
+    through autonomy without touching canonical result memory.
+
+requirements:
+  - "Do not start until TASK-0152, TASK-0153, and TASK-0154 are complete."
+  - "Generate 5 to 10 dimensional-analysis hypothesis or challenge-item proposals."
+  - "Reject duplicates or weak items explicitly before sandbox execution."
+  - "Run the validator only through sandbox outputs and preserve limitations."
+  - "Produce one reviewable sandbox result draft and one pilot review note."
+  - "Do not touch canonical results/, claims/, or accepted knowledge in this pilot."
+
+accepted_outputs:
+  - "hypothesis_proposals/dimensional-analysis/*"
+  - "experiment_proposals/dimensional-analysis/*"
+  - "agent_runs/<dimensional-validator-pilot-run-id>/..."
+  - "docs/reviews/autonomous-dimensional-validator-pilot-01.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+

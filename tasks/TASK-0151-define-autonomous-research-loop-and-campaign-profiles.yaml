@@ -1,0 +1,61 @@
+id: TASK-0151
+title: "Define autonomous research loop contract and campaign autonomy profiles"
+type: agent_workflow
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move APL toward reviewable autonomous scientific work without turning agents into auto-publishers of claims or results."
+  - "Constrain early autonomy to campaign-scoped, sandbox-first, falsification-first loops rather than broad speculative science."
+  - "Make agent autonomy legible to maintainers by turning it into a repository protocol, not an opaque runtime."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/agent-scientific-work-mode.md"
+    - "docs/claim-promotion-policy.md"
+    - "docs/campaigns/"
+    - "tasks/microtasks/README.md"
+  planning_context: >
+    APL is ready to test a limited Phase B autonomous research loop, but only
+    if campaign scope, allowed hypothesis types, forbidden claims, and
+    maintainer review boundaries are explicit. Define one repository-native
+    contract and first campaign autonomy profiles before implementing any
+    sandbox execution path.
+
+requirements:
+  - "Define one autonomous research loop contract from campaign selection through reviewable PR handoff."
+  - "Make the loop sandbox-only: agents may draft hypotheses, experiment plans, and sandbox evidence, but may not promote claims or write canonical results."
+  - "Create explicit campaign autonomy profiles for pendulum, dimensional-analysis validator, and particle-mass relations."
+  - "Pendulum should be the first whitelisted pilot campaign."
+  - "Particle-mass relations should remain guardrail-heavy and falsification-first rather than discovery-oriented."
+  - "Muon g-2, Hubble tension, and broad constants-derivation work should remain outside the first autonomy whitelist."
+  - "Add repository templates for hypothesis and experiment proposals used by autonomous agents."
+
+accepted_outputs:
+  - "docs/autonomous-research-loop.md"
+  - "docs/research-quality-gate.md"
+  - "docs/campaign-autonomy-whitelist.md"
+  - "campaign_profiles/README.md"
+  - "campaign_profiles/pendulum-formula-falsification.yaml"
+  - "campaign_profiles/dimensional-analysis-validator.yaml"
+  - "campaign_profiles/particle-mass-relations.yaml"
+  - "hypothesis_proposals/HYP-PROPOSAL-TEMPLATE.yaml"
+  - "experiment_proposals/EXP-PROPOSAL-TEMPLATE.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
