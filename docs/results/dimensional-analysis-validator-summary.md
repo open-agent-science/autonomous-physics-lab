@@ -12,7 +12,11 @@
 
 We implemented and benchmarked a deterministic SI-dimension validator
 (`physics_lab/engines/dimensions.py`) against the 50-item curated challenge
-set DA-CHALLENGE-001 (TASK-0017).
+set DA-CHALLENGE-001 (TASK-0017). The canonical `EXP-0006/RUN-0006`
+replay now points at the frozen
+`knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml`
+input so follow-on live challenge-set curation does not silently redefine this
+result.
 
 The validator:
 

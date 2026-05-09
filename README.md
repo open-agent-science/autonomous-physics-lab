@@ -139,7 +139,7 @@ flowchart LR
 
     P["🔭 Pendulum Track\nEXP-0001  Formula Discovery ✅\nEXP-0002  Damped Oscillator ✅\nRUN-0004  c=1/π fixed ✅"]:::pend
     K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nEXP-0008  Quark ❌  8.8σ / 159σ\nEXP-0009  Falsifier MVP ❌"]:::part
-    D["📐 Dimensional Analysis\nMVP implemented ✅\n70-item current challenge surface"]:::da
+    D["📐 Dimensional Analysis\nMVP implemented ✅\n50-item frozen benchmark\n70-item curation surface"]:::da
 
     P ~~~ K ~~~ D
 ```

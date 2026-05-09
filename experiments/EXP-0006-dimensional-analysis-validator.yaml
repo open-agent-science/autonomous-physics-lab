@@ -11,11 +11,16 @@ method:
   comparator: "agreement_fraction"
 
 data:
-  dataset_path: ../knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml
+  dataset_path: ../knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml
   dataset_kind: dimensional_challenge_set
+  benchmark_scope: frozen_mvp_50
+  expected_item_count: 50
+  source_challenge_set_path: ../knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml
   notes: >
-    Runs the dimension validator over all 50 items in the curated challenge
-    set and reports agreement with expected_verdict labels.
+    Runs the dimension validator over the frozen 50-item MVP benchmark scope
+    and reports agreement with expected_verdict labels. The live curation
+    challenge set may grow independently, but it must not silently change this
+    canonical EXP-0006/RUN-0006 replay surface.
     Agreement threshold: 0.90.
 
 comparison_targets:

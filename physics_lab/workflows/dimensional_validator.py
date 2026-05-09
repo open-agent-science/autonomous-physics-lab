@@ -102,8 +102,27 @@ def run_dimensional_validator_with_output(
     import shutil
     shutil.copy2(challenge_set_path, challenge_snapshot_dir / "challenge_set.yaml")
 
+    challenge_set_data = (
+        yaml.safe_load(challenge_set_path.read_text(encoding="utf-8")) or {}
+    )
+
     # Run validator
-    item_results, summary = validate_challenge_set(challenge_set_path)
+    item_results, summary = validate_challenge_set(challenge_set_data)
+
+    declared_total = challenge_set_data.get("total_items")
+    if declared_total is not None and int(declared_total) != summary.total:
+        raise ValueError(
+            f"{challenge_set_path} declares total_items={declared_total}, "
+            f"but contains {summary.total} items."
+        )
+
+    expected_item_count = experiment["data"].get("expected_item_count")
+    if expected_item_count is not None and summary.total != int(expected_item_count):
+        raise ValueError(
+            f"{experiment_id} benchmark scope expects {expected_item_count} items, "
+            f"but {challenge_set_path} contains {summary.total}."
+        )
+    benchmark_scope = experiment["data"].get("benchmark_scope", "unspecified")
 
     # Determine verdict
     agreement = summary.agreement_fraction
@@ -131,8 +150,23 @@ def run_dimensional_validator_with_output(
         {
             "name": "challenge_set_loaded",
             "status": "PASS",
-            "details": f"Loaded {summary.total} items from the curated challenge set.",
+            "details": (
+                f"Loaded {summary.total} items from the {benchmark_scope} "
+                "challenge-set scope."
+            ),
             "metrics": {"item_count": summary.total},
+        },
+        {
+            "name": "challenge_set_declared_total_matches_items",
+            "status": "PASS",
+            "details": (
+                f"Challenge-set metadata declares total_items={declared_total}; "
+                f"parsed {summary.total} items."
+            ),
+            "metrics": {
+                "declared_total_items": declared_total,
+                "parsed_item_count": summary.total,
+            },
         },
         {
             "name": "inconclusive_items_within_mvp_tolerance",
@@ -167,6 +201,8 @@ def run_dimensional_validator_with_output(
         "agree": summary.agree,
         "agreement_fraction": round(agreement, 6),
         "agreement_threshold": agreement_threshold,
+        "benchmark_scope": benchmark_scope,
+        "expected_item_count": expected_item_count,
         "valid_count": summary.valid_count,
         "invalid_count": summary.invalid_count,
         "suspicious_count": summary.suspicious_count,
@@ -228,9 +264,10 @@ def run_dimensional_validator_with_output(
 
         ## Claim Ceiling
 
-        The validator achieves {agreement:.1%} agreement on the
-        {summary.total}-item DA-CHALLENGE-001 set. No claim about unseen
-        formulas or physics domains outside the challenge set is made.
+        The validator achieves {agreement:.1%} agreement on the frozen
+        {summary.total}-item DA-CHALLENGE-001 MVP benchmark scope. No claim
+        about unseen formulas, future challenge-set additions, or physics
+        domains outside the benchmark scope is made.
     """)
     report_path = run_dir / "report.md"
     write_text_atomic(report_path, report_text)
@@ -249,7 +286,8 @@ def run_dimensional_validator_with_output(
         Evidence source: {result_id}.
         Proposed status: DRAFT (no automatic promotion).
 
-        The validator achieves {agreement:.1%} agreement on DA-CHALLENGE-001.
+        The validator achieves {agreement:.1%} agreement on the frozen
+        {summary.total}-item DA-CHALLENGE-001 MVP benchmark scope.
         CLAIM-0005 is already drafted with this scope restriction. Maintainer
         review is required before any status or benchmark-text change.
     """)
@@ -276,9 +314,9 @@ def run_dimensional_validator_with_output(
         Evidence source: {result_id}.
 
         Dimensional validator MVP benchmarked at {agreement:.1%} agreement on
-        DA-CHALLENGE-001 ({summary.total} items). If this replay differs from
-        the stored benchmark artifact, update KNOW-0004 only in a dedicated
-        evidence-review task.
+        the frozen DA-CHALLENGE-001 MVP benchmark scope ({summary.total} items).
+        If this replay differs from the stored benchmark artifact, update
+        KNOW-0004 only in a dedicated evidence-review task.
     """)
     knowledge_update_path = run_dir / "knowledge_update.md"
     write_text_atomic(knowledge_update_path, knowledge_update_text)
@@ -304,7 +342,8 @@ def run_dimensional_validator_with_output(
         suggested_status="DRAFT",
         rationale=(
             f"Dimensional validator achieves {agreement:.1%} agreement on "
-            "DA-CHALLENGE-001; keep DRAFT until independent review."
+            f"the frozen {summary.total}-item DA-CHALLENGE-001 MVP scope; "
+            "keep DRAFT until independent review."
         ),
         highlights=[
             f"Agreement: {summary.agree}/{summary.total} ({agreement:.1%})",
@@ -313,6 +352,7 @@ def run_dimensional_validator_with_output(
         ],
         limitations=[
             "MVP scope: dimensional check only; cannot detect KNOWN_LIMIT_FAIL.",
+            "Canonical replay is frozen to the 50-item MVP benchmark scope.",
             "Challenge set is internally curated (TASK-0017); no external validation.",
         ],
     )
@@ -355,6 +395,7 @@ def run_dimensional_validator_with_output(
         "code_reference": "physics_lab/workflows/dimensional_validator.py",
         "limitations": [
             "MVP scope: dimensional check only; cannot detect known-limit violations.",
+            "Canonical EXP-0006 replay is frozen to the 50-item MVP benchmark scope.",
             "SUSPICIOUS items with explicit dimensional mismatch are classified INVALID.",
             "Unit symbol table covers SI base units and common derived units only.",
             "Natural-unit or Gaussian-unit formulas are outside scope.",
