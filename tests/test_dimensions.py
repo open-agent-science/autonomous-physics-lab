@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+import yaml
 
 from physics_lab.engines.dimensions import (
     DIMENSIONLESS,
@@ -14,6 +15,9 @@ from physics_lab.engines.dimensions import (
     parse_dimension_string,
     validate_challenge_set,
     validate_item,
+)
+from physics_lab.workflows.dimensional_validator import (
+    run_dimensional_validator_with_output,
 )
 
 # ── Unit parsing ─────────────────────────────────────────────────────────── #
@@ -209,4 +213,30 @@ def test_challenge_set_no_inconclusive() -> None:
     _, summary = validate_challenge_set(CHALLENGE_SET_PATH)
     assert summary.inconclusive_count <= 1, (
         f"Expected at most 1 INCONCLUSIVE, got {summary.inconclusive_count}"
+    )
+
+
+@pytest.mark.skipif(
+    not CHALLENGE_SET_PATH.exists(),
+    reason="Challenge set not available",
+)
+def test_dimensional_validator_result_schema_accepts_inconclusive_tolerance(
+    tmp_path: Path,
+) -> None:
+    outcome = run_dimensional_validator_with_output(
+        "examples/dimensional_analysis.yaml",
+        output_dir=tmp_path,
+    )
+
+    result_payload = yaml.safe_load(outcome.artifacts.result_path.read_text())
+    inconclusive_check = next(
+        check
+        for check in result_payload["verification"]["checks"]
+        if check["name"] == "inconclusive_items_within_mvp_tolerance"
+    )
+
+    assert inconclusive_check["status"] == "PASS"
+    assert (
+        inconclusive_check["metrics"]["inconclusive_count"]
+        <= inconclusive_check["metrics"]["inconclusive_limit"]
     )
