@@ -1,7 +1,7 @@
 id: TASK-0155
 title: "Run second autonomous research pilot on dimensional-analysis validator"
 type: autonomous_research_pilot
-status: BLOCKED
+status: READY
 difficulty: high
 priority: medium
 
@@ -51,4 +51,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

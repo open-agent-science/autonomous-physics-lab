@@ -1,0 +1,56 @@
+id: TASK-0162
+title: "Close PR packaging and core reproduction tasks after merge"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the autonomy and reproducibility queue aligned with merged work so the next contributor starts from a truthful board."
+  - "Unblock the next autonomous pilot immediately after the PR packaging layer is complete."
+  - "Treat post-merge closeout, handoff sync, and context refresh as first-class repository maintenance."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "tasks/TASK-0146-add-one-command-core-result-reproduction-script.yaml"
+    - "tasks/TASK-0154-add-agent-run-pr-packaging-and-review-checklist.yaml"
+    - "tasks/TASK-0155-run-second-dimensional-validator-autonomous-pilot.yaml"
+    - "tasks/ACTIVE.md"
+    - "docs/next-steps.md"
+    - "CONTEXT.md"
+  planning_context: >
+    TASK-0146 and TASK-0154 have already been merged. The maintainer closeout
+    pass should mark them DONE, move TASK-0155 into READY because all of its
+    stated prerequisites are complete, and refresh the short operational
+    handoff surfaces that still describe the pre-merge autonomy state.
+
+requirements:
+  - "Mark TASK-0146 and TASK-0154 as DONE after verifying merged outputs in main."
+  - "Run active-board synchronization after the closeout status changes."
+  - "Move TASK-0155 from BLOCKED to READY once TASK-0154 is formally complete."
+  - "Refresh docs/next-steps.md so it no longer lists TASK-0146 or TASK-0154 as pending near-term work."
+  - "Regenerate CONTEXT.md if the board or short-term execution guidance changed."
+  - "Do not modify claims, canonical results, or scientific verdict wording."
+
+accepted_outputs:
+  - "TASK-0146 set to DONE"
+  - "TASK-0154 set to DONE"
+  - "TASK-0155 set to READY"
+  - "updated tasks/ACTIVE.md"
+  - "updated docs/next-steps.md"
+  - "updated CONTEXT.md if changed"
+
+validation:
+  commands:
+    - "python3 scripts/generate_context_bundle.py"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

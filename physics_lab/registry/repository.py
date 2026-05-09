@@ -75,6 +75,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "reproducibility",
     "release_preparation",
     "release_prep",
+    "review_workflow",
     "benchmark_planning",
     "contributor_experience",
     "contributor_pilot",
