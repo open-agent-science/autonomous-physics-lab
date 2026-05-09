@@ -124,8 +124,9 @@ benchmark, not another speculative numerology surface.
 
 Current strongest benchmark path:
 
-- `TASK-0159` anharmonic oscillator period benchmark is now implemented and in review-ready state.
-- `TASK-0160` autonomous anharmonic research pilot is the next high-value execution step.
+- `TASK-0159` anharmonic oscillator period benchmark is now implemented.
+- `TASK-0160` autonomous anharmonic research pilot is now packaged as sandbox-only review material.
+- Any next step from this path should be a maintainer-reviewed canonical comparison or curation task, not an automatic result promotion.
 
 This path should remain downstream of the autonomy contract, but it is now the
 best candidate for a higher-value benchmark with lower overclaim risk.

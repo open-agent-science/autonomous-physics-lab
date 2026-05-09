@@ -1,0 +1,70 @@
+id: HYP-PROPOSAL-0018
+title: "Rejected quartic-only axis-collapse candidate"
+campaign_profile_id: anharmonic-oscillator
+proposal_kind: formula_search
+status: REJECTED
+
+claim_ceiling: "Rejected sandbox proposal; no experiment execution."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0160
+
+input_references:
+  - "campaign_profiles/anharmonic-oscillator.yaml"
+  - "experiments/EXP-0011-anharmonic-oscillator-period.yaml"
+
+hypothesis:
+  statement: "A candidate that depends only on lambda and ignores amplitude is redundant once an amplitude-only collapse negative control is already selected."
+  variables:
+    - "lambda: quartic coefficient"
+    - "d: train-fitted coefficient"
+  assumptions:
+    - "The benchmark surface varies amplitude and quartic coefficient together."
+    - "Only one axis-collapse negative control is needed for the pilot."
+  expected_scope: "No execution scope; rejected during proposal triage."
+  expected_failure_modes:
+    - "Teaches the same lesson as the chosen amplitude-only negative control."
+    - "Uses execution budget without adding a distinct failure mode."
+
+novelty_check:
+  checked_files:
+    - "experiment_proposals/anharmonic/EXP-PROPOSAL-0004-anharmonic-sandbox-batch.yaml"
+    - "hypothesis_proposals/anharmonic/HYP-PROPOSAL-0015-amplitude-squared-collapse.yaml"
+  possible_overlap: "Redundant axis-collapse negative control."
+  notes: "Rejected before execution because the amplitude-only candidate already covers this failure family."
+
+falsification_plan:
+  deterministic_check: "Pre-execution redundancy triage only; no sandbox run selected."
+  baseline_or_reference: "Selected amplitude-only negative-control baseline and the EXP-0011 exact reference benchmark design."
+  pass_condition: "Would require a future task if multiple collapse families need comparison."
+  fail_condition: "Rejected while one negative-control execution is enough for this pilot."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not imply that many redundant collapse candidates strengthen the pilot."
+  mitigations:
+    - "Treat rejection as execution-budget triage."
+
+sandbox_evidence:
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal hypothesis_proposals/anharmonic/HYP-PROPOSAL-0018-quartic-only-axis-collapse-rejected.yaml"
+  code_references:
+    - "physics_lab/registry/research_proposals.py"
+  metrics:
+    - "pre_execution_rejection_reason"
+  output_paths:
+    - "docs/reviews/autonomous-anharmonic-pilot-01.md"
+
+limitations:
+  - "Rejected for redundancy rather than numerical failure."
+
+verdict: INCONCLUSIVE
+maintainer_decision_requested: "Confirm that one executed collapse candidate is enough for the first anharmonic pilot."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "A later maintainer-reviewed comparison task if multiple collapse families become useful."

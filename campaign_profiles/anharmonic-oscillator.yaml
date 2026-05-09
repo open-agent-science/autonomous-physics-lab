@@ -1,0 +1,69 @@
+id: anharmonic-oscillator
+title: "Anharmonic oscillator benchmark"
+autonomy_status: WHITELISTED_LIMITED
+pilot_rank: 3
+
+source_docs:
+  - docs/results/anharmonic-oscillator-summary.md
+  - docs/drafts/anharmonic-period-experiment-plan.md
+  - docs/autonomous-research-loop.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Epsilon-based ratio candidates evaluated on the EXP-0011 train, holdout, and stress slices."
+  - "Negative-control candidates that intentionally collapse one benchmark axis."
+  - "Breakdown-mapping probes that remain scoped to approximation quality only."
+
+allowed_experiment_families:
+  - "Deterministic replay of the EXP-0011 anharmonic reference surface."
+  - "Train-fit and holdout comparison against the RESULT-0014 canonical baseline."
+  - "Sandbox-only contrast between one promising candidate and one negative-control candidate."
+
+required_inputs:
+  - "EXP-0011 train, holdout, and stress slice definitions."
+  - "Candidate formula specification with named variables and fit parameters."
+  - "Exact-reference or deterministic-integral baseline path."
+  - "Reference to RESULT-0014 when claiming relative improvement inside sandbox only."
+
+required_quality_checks:
+  - "State that no exactness or global-validity claim is made."
+  - "Report train, holdout, and stress relative error metrics."
+  - "State why rejected proposals were not executed."
+  - "Keep all evidence under proposal or agent-run paths only."
+  - "Run the shared research quality gate before PR handoff."
+
+forbidden_claims:
+  - "A sandbox candidate replaces RESULT-0014 automatically."
+  - "A train-fitted candidate is a discovered physical law."
+  - "A sandbox fit is exact or valid for all anharmonicities."
+  - "Negative-control failure means the benchmark itself is invalid."
+
+sandbox_permissions:
+  may_create:
+    - hypothesis_proposals
+    - experiment_proposals
+    - scoped_notes
+    - temporary_outputs
+  must_not_edit:
+    - claims
+    - canonical_hypotheses
+    - canonical_experiments
+    - canonical_results
+    - knowledge
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - hypothesis_proposal_path
+  - experiment_proposal_path
+  - method
+  - metrics
+  - limitations
+  - verdict
+  - maintainer_decision_requested
