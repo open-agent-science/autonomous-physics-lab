@@ -1,7 +1,7 @@
 id: TASK-0158
 title: "Curate autonomy and scientific-value upgrade queue before public article prep"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
@@ -55,4 +55,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-
