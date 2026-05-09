@@ -38,6 +38,7 @@ requirements:
 accepted_outputs:
   - "hypotheses/HYP-0011-anharmonic-oscillator-period.yaml"
   - "experiments/EXP-0011-anharmonic-oscillator-period.yaml"
+  - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
   - "examples/anharmonic_oscillator.yaml"
   - "physics_lab/engines/anharmonic_oscillator.py"
   - "physics_lab/workflows/anharmonic_oscillator.py"

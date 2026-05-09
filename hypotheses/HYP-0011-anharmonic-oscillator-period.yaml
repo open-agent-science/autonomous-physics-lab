@@ -9,7 +9,7 @@ hypothesis:
     V(x) = 1/2 k x^2 + lambda x^4, the leading-order perturbative period
     correction should stay accurate in a weak anharmonicity window, while a
     train-fitted quadratic correction should generalize better on a predeclared
-    holdout slice without implying new physics.
+    holdout slice without implying any broader physical discovery claim.
   formula_candidates:
     - "T_harmonic = 2*pi*sqrt(m/k)"
     - "T_perturbative ~= T0 * (1 - 3/2 * lambda*A^2/k)"

@@ -1,7 +1,7 @@
 id: TASK-0159
 title: "Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -38,6 +38,7 @@ requirements:
 accepted_outputs:
   - "hypotheses/HYP-0011-anharmonic-oscillator-period.yaml"
   - "experiments/EXP-0011-anharmonic-oscillator-period.yaml"
+  - "claims/CLAIM-0009-anharmonic-oscillator-period.md"
   - "examples/anharmonic_oscillator.yaml"
   - "physics_lab/engines/anharmonic_oscillator.py"
   - "physics_lab/workflows/anharmonic_oscillator.py"
@@ -59,4 +60,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

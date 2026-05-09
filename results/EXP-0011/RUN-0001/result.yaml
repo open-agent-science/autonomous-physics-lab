@@ -4,9 +4,9 @@ experiment_id: EXP-0011
 title: Anharmonic Oscillator Period Benchmark
 hypothesis_id: HYP-0011
 task_id: TASK-0159
-generated_at: '2026-05-09T20:19:18.715534+00:00'
+generated_at: '2026-05-09T20:47:24.569086+00:00'
 engine_version: 0.1.0
-git_commit: 2cd447d798ea34ca6ad93ff6fccf27905cb1a3a1
+git_commit: b5742de0b55bdd6237d03f8b3d646619d3a3536d
 command: physics-lab run examples/anharmonic_oscillator.yaml
 input_file_hashes:
   config:
@@ -17,10 +17,10 @@ input_file_hashes:
     sha256: 4154f17f349fbf3fdb4e41dfe91b801e2aa565a84ebd23acdc6c0b58350617d6
   hypothesis:
     path: results/EXP-0011/RUN-0001/inputs/hypothesis.yaml
-    sha256: 5714940c525eb3ad83354ea674b335fe2ed32582e70a164865c4fc8471299276
+    sha256: 5627b1c7c542ec7ce63426c1adcd7bfc44f70b528097ce4e84221412544cb190
   task:
     path: results/EXP-0011/RUN-0001/inputs/task.yaml
-    sha256: 6c6c1a2e4cf16efaee51eac3dc948c99e079789989561cd478becffacc2d0142
+    sha256: f2c9dfd84e6390c28cef5745ea6a604804bc73afb09dcd2f9f86178480567a8e
 code_reference: physics_lab/workflows/anharmonic_oscillator.py
 limitations:
 - This benchmark covers the conservative 1D quartic anharmonic oscillator with V(x)
