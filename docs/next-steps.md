@@ -108,9 +108,8 @@ artifacts without promoting claims automatically.
 
 Current highest-value foundation tasks:
 
-- `TASK-0151` autonomous research loop contract and campaign profiles
-- `TASK-0152` proposal preflight gate and sandbox agent-run layout
 - `TASK-0154` agent-run PR packaging and maintainer review checklist
+- maintain the merged autonomy foundation (`TASK-0151`, `TASK-0152`) through closeout and board-sync hygiene
 
 Success looks like:
 
@@ -132,7 +131,8 @@ would. They make future autonomous work easier to trust and easier to replay.
 
 ### 3. Run the First Autonomous Pilots Only After Foundation Work
 
-After `TASK-0151` and `TASK-0152` are complete, the next pilots should be:
+After the autonomy foundation and PR packaging layer are complete, the next
+pilots should be:
 
 - `TASK-0153` first pendulum autonomous research pilot
 - `TASK-0155` second dimensional-validator autonomous pilot
