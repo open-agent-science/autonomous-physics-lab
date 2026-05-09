@@ -1,0 +1,40 @@
+{
+  "agent_run_id": "AGENT-RUN-0002",
+  "campaign_profile_id": "pendulum-formula-falsification",
+  "hypothesis_proposal_id": "HYP-PROPOSAL-0002",
+  "experiment_proposal_id": "EXP-PROPOSAL-0002",
+  "model_id": "theta2_only",
+  "formula": "1 + a*theta^2",
+  "coefficients": {
+    "a": 0.06582273609859844
+  },
+  "ranges_rad": {
+    "train": [0.01, 1.1],
+    "test": [1.1, 1.57],
+    "stress": [1.57, 2.8]
+  },
+  "metrics": {
+    "train": {
+      "mean_relative_error": 0.0004383395897751809,
+      "max_relative_error": 0.001552664350425357
+    },
+    "test": {
+      "mean_relative_error": 0.006937605661636237,
+      "max_relative_error": 0.015150484570063277
+    },
+    "stress": {
+      "mean_relative_error": 0.09325946849412604,
+      "max_relative_error": 0.2497787055067132
+    }
+  },
+  "reference_comparison": {
+    "t4_x1_reference_test_mean_relative_error": 0.0002984822711675493,
+    "rational_x1_pole_test_mean_relative_error": 0.0008588074664374319
+  },
+  "verdict": "SANDBOX_FAIL",
+  "limitations": [
+    "Negative-control sandbox run.",
+    "Fails the declared test mean relative error threshold of 1e-3.",
+    "Not intended for canonical promotion."
+  ]
+}

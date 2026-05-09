@@ -1,7 +1,7 @@
 id: TASK-0153
 title: "Run first pendulum autonomous research pilot with sandbox-only outputs"
 type: autonomous_research_pilot
-status: BLOCKED
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -34,9 +34,15 @@ requirements:
   - "Keep all wording scoped, verification-first, and non-discovery."
 
 accepted_outputs:
-  - "hypothesis_proposals/pendulum/*"
-  - "experiment_proposals/pendulum/*"
-  - "agent_runs/<pendulum-pilot-run-id>/..."
+  - "hypothesis_proposals/pendulum/HYP-PROPOSAL-0001-rational-x1-pole.yaml"
+  - "hypothesis_proposals/pendulum/HYP-PROPOSAL-0002-theta2-negative-baseline.yaml"
+  - "hypothesis_proposals/pendulum/HYP-PROPOSAL-0003-odd-theta-term-rejected.yaml"
+  - "hypothesis_proposals/pendulum/HYP-PROPOSAL-0004-free-pole-rejected.yaml"
+  - "hypothesis_proposals/pendulum/HYP-PROPOSAL-0005-high-degree-poly-rejected.yaml"
+  - "experiment_proposals/pendulum/EXP-PROPOSAL-0001-rational-x1-pole.yaml"
+  - "experiment_proposals/pendulum/EXP-PROPOSAL-0002-theta2-negative-baseline.yaml"
+  - "agent_runs/AGENT-RUN-0001/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0002/agent_run.yaml"
   - "docs/reviews/autonomous-pendulum-pilot-01.md"
 
 validation:
@@ -51,4 +57,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

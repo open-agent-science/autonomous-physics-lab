@@ -213,6 +213,21 @@ def test_validate_repository_counts_research_proposals(tmp_path: Path) -> None:
     assert summary.counts["experiment_proposals"] == 1
 
 
+def test_validate_repository_counts_nested_campaign_research_proposals(tmp_path: Path) -> None:
+    _write_campaign_profile(tmp_path)
+    _write_hypothesis_proposal(
+        tmp_path / "hypothesis_proposals" / "pendulum" / "HYP-PROPOSAL-0001.yaml"
+    )
+    _write_experiment_proposal(
+        tmp_path / "experiment_proposals" / "pendulum" / "EXP-PROPOSAL-0001.yaml"
+    )
+
+    summary = validate_repository(tmp_path)
+
+    assert summary.counts["hypothesis_proposals"] == 1
+    assert summary.counts["experiment_proposals"] == 1
+
+
 def test_infer_kind_from_research_proposal_paths() -> None:
     assert infer_kind_from_path("hypothesis_proposals/HYP-PROPOSAL-0001.yaml") == "hypothesis_proposal"
     assert infer_kind_from_path("experiment_proposals/EXP-PROPOSAL-0001.yaml") == "experiment_proposal"
