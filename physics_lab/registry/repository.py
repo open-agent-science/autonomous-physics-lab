@@ -238,6 +238,46 @@ def _validate_unique_result_ids(
         seen_by_id[result_id] = path
 
 
+def _validate_microtask_queue_consistency(root_path: Path) -> None:
+    """Validate basic consistency for campaign microtask queue files."""
+    microtask_root = root_path / "tasks" / "microtasks"
+    if not microtask_root.exists():
+        return
+
+    for path in sorted(microtask_root.glob("*.yaml")):
+        with path.open("r", encoding="utf-8") as handle:
+            payload = yaml.safe_load(handle)
+        if not isinstance(payload, dict):
+            raise ValueError(f"{path} must contain a YAML mapping")
+
+        expected_queue_id = path.stem
+        declared_queue_id = str(payload.get("queue_id") or "").strip()
+        if declared_queue_id != expected_queue_id:
+            raise ValueError(
+                f"{path} declares queue_id {declared_queue_id or '<missing>'}, "
+                f"expected {expected_queue_id}"
+            )
+
+        microtasks = payload.get("microtasks")
+        if not isinstance(microtasks, list):
+            raise ValueError(f"{path} must declare microtasks as a list")
+
+        seen_ids: dict[str, int] = {}
+        for index, item in enumerate(microtasks, start=1):
+            if not isinstance(item, dict):
+                raise ValueError(f"{path} microtasks[{index}] must be a mapping")
+            microtask_id = str(item.get("id") or "").strip()
+            if not microtask_id:
+                raise ValueError(f"{path} microtasks[{index}] is missing id")
+            previous_index = seen_ids.get(microtask_id)
+            if previous_index is not None:
+                raise ValueError(
+                    f"{path} declares duplicate microtask id {microtask_id} "
+                    f"at items {previous_index} and {index}"
+                )
+            seen_ids[microtask_id] = index
+
+
 def _validate_references(
     hypotheses: list[tuple[Path, dict[str, Any]]],
     experiments: list[tuple[Path, dict[str, Any]]],
@@ -756,6 +796,7 @@ def validate_repository(
     results = _load_directory(root_path, "results")
     _validate_unique_task_ids(tasks)
     _validate_unique_result_ids(results)
+    _validate_microtask_queue_consistency(root_path)
 
     _validate_references(
         hypotheses=hypotheses,
