@@ -1,7 +1,7 @@
 id: TASK-0151
 title: "Define autonomous research loop contract and campaign autonomy profiles"
 type: agent_workflow
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -58,4 +58,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

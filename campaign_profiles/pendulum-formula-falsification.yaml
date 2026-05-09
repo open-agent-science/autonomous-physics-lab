@@ -1,0 +1,72 @@
+id: pendulum-formula-falsification
+title: "Pendulum formula falsification"
+autonomy_status: WHITELISTED_PILOT
+pilot_rank: 1
+
+source_docs:
+  - docs/campaigns/pendulum-formula-falsification.md
+  - docs/results/pendulum-gauntlet-100-summary.md
+  - docs/notes/pendulum-gauntlet-100.md
+  - docs/notes/pendulum-separatrix-followup.md
+  - docs/autonomous-research-loop.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Range-aware pendulum period approximation candidates."
+  - "Candidate families with explicit variables and coefficients."
+  - "Falsification probes for large-angle or near-separatrix behavior."
+
+allowed_experiment_families:
+  - "Compare candidate formulas against exact elliptic-integral reference data."
+  - "Report train-range and test-range residual metrics."
+  - "Report large-angle and separatrix-adjacent failure diagnostics."
+  - "Compare against existing leaderboard or baseline formulas when available."
+
+required_inputs:
+  - "Exact pendulum reference definition from project docs or existing engine code."
+  - "Configured amplitude range and train/test split."
+  - "Candidate formula specification."
+  - "Baseline or current best comparison when applicable."
+
+required_quality_checks:
+  - "State that no exactness or global-validity claim is made."
+  - "Report mean and max relative error when running numerical comparisons."
+  - "State the tested amplitude range."
+  - "State failure behavior outside the configured range when checked."
+  - "Run the shared research quality gate before PR handoff."
+
+forbidden_claims:
+  - "The candidate is exact."
+  - "The candidate is valid for all amplitudes."
+  - "The candidate supports a stronger physical interpretation."
+  - "Sandbox evidence is a canonical result."
+
+sandbox_permissions:
+  may_create:
+    - hypothesis_proposals
+    - experiment_proposals
+    - scoped_notes
+    - temporary_outputs
+  must_not_edit:
+    - claims
+    - canonical_hypotheses
+    - canonical_experiments
+    - canonical_results
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - hypothesis_proposal_path
+  - experiment_proposal_path
+  - method
+  - code_references
+  - metrics
+  - limitations
+  - verdict
+  - maintainer_decision_requested
