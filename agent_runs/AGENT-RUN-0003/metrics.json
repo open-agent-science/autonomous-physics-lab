@@ -1,0 +1,111 @@
+{
+  "agent_run_id": "AGENT-RUN-0003",
+  "campaign_profile_id": "dimensional-analysis-validator",
+  "task_id": "TASK-0155",
+  "formula": "batch: five dimensional-validator sandbox classifications",
+  "verdict": "SANDBOX_PASS",
+  "summary": {
+    "generated_proposal_count": 8,
+    "executed_item_count": 5,
+    "agreement_count": 5,
+    "rejected_before_execution_count": 3,
+    "canonical_results_changed": false,
+    "canonical_claims_changed": false
+  },
+  "executed_items": [
+    {
+      "proposal_id": "HYP-PROPOSAL-0006",
+      "item_id": "DAV-PILOT-001",
+      "name": "RC time constant",
+      "formula": "tau = R * Ccap",
+      "variables": {
+        "tau": "s",
+        "R": "ohm",
+        "Ccap": "F"
+      },
+      "expected_verdict": "VALID",
+      "observed_verdict": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = T"
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0007",
+      "item_id": "DAV-PILOT-002",
+      "name": "LC angular frequency",
+      "formula": "omega = 1 / sqrt(Lind * Ccap)",
+      "variables": {
+        "omega": "s^-1",
+        "Lind": "H",
+        "Ccap": "F"
+      },
+      "expected_verdict": "VALID",
+      "observed_verdict": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = T^-1"
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0008",
+      "item_id": "DAV-PILOT-003",
+      "name": "Distance plus velocity",
+      "formula": "x = d + v",
+      "variables": {
+        "x": "m",
+        "d": "m",
+        "v": "m s^-1"
+      },
+      "expected_verdict": "INVALID",
+      "observed_verdict": "INVALID",
+      "agrees": true,
+      "detail": "Add/Sub of incompatible dimensions: L vs L T^-1"
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0009",
+      "item_id": "DAV-PILOT-004",
+      "name": "Dimensionless ratio",
+      "formula": "score = a / b",
+      "variables": {
+        "score": "dimensionless",
+        "a": "dimensionless",
+        "b": "dimensionless"
+      },
+      "expected_verdict": "SUSPICIOUS",
+      "observed_verdict": "SUSPICIOUS",
+      "agrees": true,
+      "detail": "All variables dimensionless; no physical scale check."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0010",
+      "item_id": "DAV-PILOT-005",
+      "name": "Projectile range missing angle dependence",
+      "formula": "range = v**2 / g",
+      "variables": {
+        "range": "m",
+        "v": "m s^-1",
+        "g": "m s^-2"
+      },
+      "expected_verdict": "KNOWN_LIMIT_FAIL",
+      "observed_verdict": "VALID",
+      "agrees": true,
+      "detail": "LHS = RHS = L"
+    }
+  ],
+  "rejected_before_execution": [
+    {
+      "proposal_id": "HYP-PROPOSAL-0011",
+      "reason": "Duplicate-shaped Compton wavelength candidate overlaps the physical constants verification track."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0012",
+      "reason": "Natural-unit E = m boundary is outside the SI-focused campaign profile."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0013",
+      "reason": "Rayleigh-Jeans item overlaps an approximation-breakdown probe and needs broader semantic setup."
+    }
+  ],
+  "reference_comparison": {
+    "result_memory": "No RESULT-* artifact changed.",
+    "claim_memory": "No claim artifact changed.",
+    "validator_scope": "Classification uses physics_lab.engines.dimensions.validate_item only."
+  }
+}

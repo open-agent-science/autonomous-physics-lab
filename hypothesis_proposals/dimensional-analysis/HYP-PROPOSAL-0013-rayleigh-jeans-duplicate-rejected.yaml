@@ -1,0 +1,73 @@
+id: HYP-PROPOSAL-0013
+title: "Rejected Rayleigh-Jeans approximation duplicate"
+campaign_profile_id: dimensional-analysis-validator
+proposal_kind: classification
+status: REJECTED
+
+claim_ceiling: "Rejected sandbox proposal; no experiment execution."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0155
+
+input_references:
+  - "campaign_profiles/dimensional-analysis-validator.yaml"
+  - "docs/notes/approximation-breakdown-probes-track.md"
+
+hypothesis:
+  statement: "A Rayleigh-Jeans spectral-radiance relation is dimensionally interesting but overlaps an approximation-breakdown probe."
+  variables:
+    - "B: spectral radiance"
+    - "nu: frequency"
+    - "k_B: Boltzmann constant"
+    - "T: temperature"
+    - "c: speed"
+  assumptions:
+    - "This autonomous pilot should avoid importing a broader approximation-breakdown task."
+    - "The item needs more semantic setup than a simple validator pilot should carry."
+  expected_scope: "No execution scope; rejected during proposal triage."
+  expected_failure_modes:
+    - "The item pulls the pilot away from bounded dimensional classification."
+    - "The item duplicates AP-0007 in the approximation-breakdown track."
+
+novelty_check:
+  checked_files:
+    - "docs/notes/approximation-breakdown-probes-track.md"
+    - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+  possible_overlap: "AP-0007 already names Rayleigh-Jeans versus Planck behavior."
+  notes: "Rejected before sandbox execution to keep the pilot narrow."
+
+falsification_plan:
+  deterministic_check: "Pre-execution novelty and scope triage only; no validator run selected."
+  baseline_or_reference: "Existing approximation-breakdown probe baseline."
+  pass_condition: "Would require a maintainer-approved cross-track curation task."
+  fail_condition: "Rejected when duplicate and scope risks are present."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not treat a dimensional check as validating spectral physics."
+  mitigations:
+    - "Reject before sandbox execution and name the overlap."
+
+sandbox_evidence:
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal hypothesis_proposals/dimensional-analysis/HYP-PROPOSAL-0013-rayleigh-jeans-duplicate-rejected.yaml"
+  code_references:
+    - "physics_lab/registry/research_proposals.py"
+  metrics:
+    - "pre_execution_rejection_reason"
+  output_paths:
+    - "docs/reviews/autonomous-dimensional-validator-pilot-01.md"
+
+limitations:
+  - "Rejected by novelty and scope triage rather than dimensional execution."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Confirm rejection as a valid duplicate and scope-filtering decision."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed curation task if this cross-track item is desired."
