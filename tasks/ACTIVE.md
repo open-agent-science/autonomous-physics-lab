@@ -44,8 +44,6 @@ one PR.
 
 ## READY
 
-- `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
-- `TASK-0114` — Add microtask queue consistency validator (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
 - `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
@@ -62,13 +60,12 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0163` — Close scientific credibility and admin wave after merge (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0164` — Add README workflow concept image (`documentation`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0164` — Add README workflow concept image (merged)
+- `TASK-0163` — Close scientific credibility and admin wave after merge (merged)
 - `TASK-0162` — Close PR packaging and core reproduction tasks after merge (merged)
 - `TASK-0161` — Close autonomy foundation tasks and unblock autonomous PR packaging (merged)
 - `TASK-0158` — Curate autonomy and scientific-value upgrade queue before public article prep (merged)
@@ -90,6 +87,7 @@ None.
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
 - `TASK-0135` — Audit and freeze pendulum gauntlet reproducibility (merged)
 - `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (merged)
+- `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (merged)
 - `TASK-0128` — Add agent catalog and documentation entrypoint links (merged)
 - `TASK-0127` — Implement muon g-2 empirical formula search benchmark (merged)
 - `TASK-0126` — Curate canonical implementation task for muon g-2 formula-search salvage (merged)
@@ -101,7 +99,9 @@ None.
 - `TASK-0120` — Add use-your-agent quickstart diagram pack (merged)
 - `TASK-0119` — Add thought-experiment campaign orientation note (merged)
 - `TASK-0118` — Add particle-mass campaign map diagram (merged)
+- `TASK-0114` — Add microtask queue consistency validator (merged)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (merged)
+- `TASK-0112` — Implement microtask run registry and expanded repeatable queues (merged)
 - `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (merged)
 - `TASK-0110` — Verify high-precision asymptotic refined pendulum model (merged)
 - `TASK-0109` — Define protocol support for microtask batch PRs (merged)
@@ -137,6 +137,7 @@ None.
 - `TASK-0073` — Define maintainer automation agent architecture and routine instructions (merged)
 - `TASK-0071` — Support closeout batch PRs in review helper (merged)
 - `TASK-0067` — Add v0.2 release-focused campaign tasks (merged)
+- `TASK-0066` — Review v0.2 public readiness gates (merged)
 - `TASK-0064` — Implement dimensional analysis validator MVP (merged)
 - `TASK-0063` — Generate v0.2 static visual result pack (merged)
 - `TASK-0062` — Update project status and roadmap for scientific campaign phase (merged)
