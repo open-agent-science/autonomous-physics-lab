@@ -3,7 +3,7 @@ title: "Define blind holdout benchmark protocol"
 type: benchmark_protocol
 status: READY
 difficulty: medium
-priority: medium
+priority: high
 
 strategy_alignment:
   - "Raise future benchmark credibility by separating fit/demo work from prediction-style evaluation."
@@ -45,4 +45,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

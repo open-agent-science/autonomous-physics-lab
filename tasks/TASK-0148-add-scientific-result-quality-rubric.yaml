@@ -3,7 +3,7 @@ title: "Add scientific result quality rubric"
 type: scientific_governance
 status: READY
 difficulty: medium
-priority: medium
+priority: high
 
 strategy_alignment:
   - "Make APL evaluate the quality of its own results, not just produce them."
@@ -44,4 +44,3 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
-

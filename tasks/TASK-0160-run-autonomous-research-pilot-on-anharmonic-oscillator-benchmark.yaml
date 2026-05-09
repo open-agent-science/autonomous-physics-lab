@@ -1,0 +1,58 @@
+id: TASK-0160
+title: "Run autonomous research pilot on anharmonic oscillator benchmark"
+type: autonomous_research_pilot
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Demonstrate that APL's autonomous research loop can generalize beyond pendulum while staying inside a low-overclaim nonlinear mechanics campaign."
+  - "Pair autonomous hypothesis generation with a benchmark that has holdout discipline and a perturbative baseline."
+  - "Produce a stronger future public proof-of-work than another formula-search numerology artifact."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "tasks/TASK-0149-define-blind-holdout-benchmark-protocol.yaml"
+    - "tasks/TASK-0152-implement-research-preflight-gate-and-sandbox-agent-runs.yaml"
+    - "tasks/TASK-0154-add-agent-run-pr-packaging-and-review-checklist.yaml"
+    - "tasks/TASK-0159-implement-anharmonic-oscillator-period-benchmark.yaml"
+    - "campaign_profiles/"
+    - "agent_runs/"
+    - "hypothesis_proposals/"
+    - "experiment_proposals/"
+  planning_context: >
+    After the autonomy foundation exists and a stronger nonlinear benchmark is
+    implemented, run one autonomous pilot on the anharmonic oscillator rather
+    than immediately escalating into hotter scientific domains. The pilot
+    should preserve rejected hypotheses and sandbox-only evidence while testing
+    whether autonomous approximation search survives a richer benchmark shape.
+
+requirements:
+  - "Do not start until TASK-0149, TASK-0152, TASK-0154, and TASK-0159 are complete."
+  - "Generate at least 5 hypothesis proposals and reject weak ones explicitly before sandbox execution."
+  - "Check dimensional consistency, harmonic-limit behavior, perturbative-baseline fit, and holdout plan before selecting proposals."
+  - "Run at most 2 sandbox experiments and preserve at least one negative or partial result."
+  - "Keep all outputs under proposal or sandbox paths until maintainer review."
+  - "Do not promote claims, accepted knowledge, or canonical results from this pilot."
+
+accepted_outputs:
+  - "hypothesis_proposals/anharmonic/*"
+  - "experiment_proposals/anharmonic/*"
+  - "agent_runs/<anharmonic-pilot-run-id>/..."
+  - "docs/reviews/autonomous-anharmonic-pilot-01.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
+
