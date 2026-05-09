@@ -1,8 +1,9 @@
-# g-2 Anomaly Formula Search Design
+# g-2 Formula-Search Stress Test Design
 
 **Status:** IMPLEMENTED UNDER TASK-0127  
 **Planning Task:** `TASK-0089`  
 **Implementation Task:** `TASK-0127`  
+**Guardrail Hardening Task:** `TASK-0147`
 **Experiment:** `EXP-0010`  
 **Result:** `RESULT-0012`
 
@@ -18,7 +19,8 @@ The muon anomalous magnetic moment discrepancy (data-driven HVP baseline):
 
 Significance: ~5.1σ (BNL+FNAL 2023 combined). The BMW lattice-QCD result
 (Borsanyi et al., Nature 593, 2021) reduces this to ~1.5σ; the formula search
-targets the data-driven baseline as the benchmark case.
+targets the data-driven baseline as a high-risk stress-test case, not as a
+public success story or anomaly-resolution claim.
 
 Uncertainty is combined in quadrature: σ_combined = √(22² + 43²) × 10⁻¹¹ ≈ 48 × 10⁻¹¹.
 
@@ -94,14 +96,14 @@ A formula value `f` is a **hit** if:
 z = |f − Δaμ| / σ_combined < 1.0
 ```
 
-A hit is **credible** if all four guardrails pass:
+A hit is **guardrail-screened** if these first-pass mechanical filters pass:
 
 | Guardrail | Criterion |
 |---|---|
 | G1: Random baseline | Family hit-rate P < 1% (N=100,000 uniform samples) |
 | G2: Complexity | C ≤ 1 free real-valued parameter |
 | G3: Dimensional | All constants are dimensionless (guaranteed by design) |
-| G4: SM cross-check | Formula must not be a known SM contribution |
+| G4: SM cross-check | Formula must not be a fitted reference row or known SM contribution |
 
 ---
 
@@ -118,16 +120,27 @@ accidentally fall within 1σ of the target?"
 
 ---
 
-## 6. What Constitutes a Scientifically Credible Result
+## 6. What Constitutes a Stress-Test Result
 
-**Credible:** passes all four guardrails. This is an empirical observation
-only — it does not claim a physical mechanism.
+**Guardrail-screened:** passes the first-pass mechanical screen. This is an
+empirical stress-test observation only — it does not claim credibility, a
+physical mechanism, or anomaly resolution.
 
 **Numerology only:** within 1σ but fails the random baseline (too many
 accidental matches in the family space). No scientific significance.
 
-**Null:** no formula from any family within 1σ. Indicates the anomaly
-is not simply expressible as a power-law combination of these constants.
+**Null:** no formula from any family within 1σ. Indicates the data-driven
+target is not simply expressible as a power-law combination of these constants.
+
+Before any stronger interpretation of a screened hit, EXP-0010 needs:
+
+- multiple-testing correction across families and candidate counts;
+- bootstrap or perturbation stability under target and constant uncertainties;
+- alternate-target comparison against lattice-HVP and updated-world-average
+  baselines;
+- cross-observable checks against electron g-2 and other lepton precision
+  observables;
+- pre-registered physical-motivation review for any proposed mechanism.
 
 ---
 
@@ -136,9 +149,9 @@ is not simply expressible as a power-law combination of these constants.
 See `results/EXP-0010/RUN-0001/report.md` for the full output. Summary:
 
 - 381 formulas evaluated across 6 families
-- 1 credible hit: **F4** `α³ × (mμ/me)⁻² × (mμ/mτ)⁻²` = 257 × 10⁻¹¹, z = 0.168σ, P = 0.49%
+- 1 guardrail-screened hit: **F4** `α³ × (mμ/me)⁻² × (mμ/mτ)⁻²` = 257 × 10⁻¹¹, z = 0.168σ, P = 0.49%
 - F3 c=1/3 within 1σ (z=0.148σ) but fails P<1% guardrail (6.25%)
-- Global verdict: **VALID_EMPIRICAL**
+- Global verdict: **STRESS_TEST_HIT**
 
 The F4 hit is an empirical coincidence. No loop diagram generating
 `α³(mμ/me)⁻²(mμ/mτ)⁻²` is known in QED or EW theory.

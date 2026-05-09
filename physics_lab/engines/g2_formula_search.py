@@ -342,8 +342,10 @@ def run_formula_search() -> dict[str, Any]:
     families = [search_f1(), search_f2(), search_f2b(), search_f3(), search_f4(), search_f5()]
     # Exclude reference (fitted) hits from global verdict logic
     all_hits = [h for fr in families for h in fr.hits if not h.is_reference]
-    # Credible hits: C≤1 AND guardrail passed AND z<1
-    credible = [
+    # Guardrail-screened hits pass the first mechanical filters only.
+    # This label is deliberately weaker than "credible": muon g-2 is a
+    # high-overclaim-risk, contested-target stress test.
+    guardrail_screened = [
         h for h in all_hits
         if h.complexity <= 1
         and any(
@@ -355,8 +357,8 @@ def run_formula_search() -> dict[str, Any]:
     # Interesting: z < 0.5
     interesting = [h for h in all_hits if h.z_score < 0.5]
     best_overall_hit = min(all_hits, key=lambda h: h.z_score) if all_hits else None
-    best_credible_hit = min(credible, key=lambda h: h.z_score) if credible else None
-    primary_hit = best_credible_hit or best_overall_hit
+    best_screened_hit = min(guardrail_screened, key=lambda h: h.z_score) if guardrail_screened else None
+    primary_hit = best_screened_hit or best_overall_hit
     return {
         "target_value": DELTA_AMU,
         "sigma": SIGMA_COMBINED,
@@ -401,24 +403,24 @@ def run_formula_search() -> dict[str, Any]:
         "summary": {
             "total_formulas_evaluated": sum(fr.n_evaluated for fr in families),
             "total_hits_1sigma": len(all_hits),
-            "credible_hits": len(credible),
+            "guardrail_screened_hits": len(guardrail_screened),
             "interesting_hits_half_sigma": len(interesting),
             # None when no hits (avoids float("inf") which breaks JSON serialization)
             "best_formula_basis": (
-                "credible_hit" if best_credible_hit else "closest_hit" if best_overall_hit else None
+                "guardrail_screened_hit" if best_screened_hit else "closest_hit" if best_overall_hit else None
             ),
             "best_z_score": primary_hit.z_score if primary_hit else None,
             "best_formula": primary_hit.formula_str if primary_hit else None,
             "best_value": primary_hit.value if primary_hit else None,
-            "best_credible_z_score": best_credible_hit.z_score if best_credible_hit else None,
-            "best_credible_formula": best_credible_hit.formula_str if best_credible_hit else None,
-            "best_credible_value": best_credible_hit.value if best_credible_hit else None,
+            "best_guardrail_screened_z_score": best_screened_hit.z_score if best_screened_hit else None,
+            "best_guardrail_screened_formula": best_screened_hit.formula_str if best_screened_hit else None,
+            "best_guardrail_screened_value": best_screened_hit.value if best_screened_hit else None,
             "closest_hit_z_score": best_overall_hit.z_score if best_overall_hit else None,
             "closest_hit_formula": best_overall_hit.formula_str if best_overall_hit else None,
             "closest_hit_value": best_overall_hit.value if best_overall_hit else None,
         },
         "global_verdict": (
-            "VALID_EMPIRICAL" if credible else
+            "STRESS_TEST_HIT" if guardrail_screened else
             "NUMEROLOGY_ONLY" if all_hits else
             "NULL"
         ),
