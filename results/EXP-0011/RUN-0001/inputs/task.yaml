@@ -1,7 +1,7 @@
 id: TASK-0159
 title: "Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation"
 type: scientific_benchmark
-status: REVIEW_READY
+status: READY
 difficulty: high
 priority: high
 
@@ -59,3 +59,4 @@ can_be_done_by:
   - codex
   - claude_code
   - llm_agent
+

@@ -122,10 +122,10 @@ Success looks like:
 The next scientific-value jump should come from a richer nonlinear mechanics
 benchmark, not another speculative numerology surface.
 
-Current strongest benchmark tasks:
+Current strongest benchmark path:
 
-- `TASK-0159` anharmonic oscillator period benchmark
-- `TASK-0160` autonomous anharmonic research pilot
+- `TASK-0159` anharmonic oscillator period benchmark is now implemented and in review-ready state.
+- `TASK-0160` autonomous anharmonic research pilot is the next high-value execution step.
 
 This path should remain downstream of the autonomy contract, but it is now the
 best candidate for a higher-value benchmark with lower overclaim risk.
