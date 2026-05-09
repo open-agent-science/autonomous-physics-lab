@@ -1,11 +1,11 @@
-# Muon g-2 Anomaly Formula Search
+# Muon g-2 Formula-Search Stress Test
 
 - Result: `RESULT-0012`
 - Run: `RUN-0001`
 - Experiment: `EXP-0010`
 - Hypothesis: `HYP-0010`
 - Task: `TASK-0127`
-- Global verdict: `VALID_EMPIRICAL`
+- Global verdict: `STRESS_TEST_HIT`
 
 ## Target
 
@@ -31,7 +31,7 @@ No hits within 1σ.
 - Random baseline hit-rate: 10.08%  (guardrail P<1%: ✗ FAIL)
 - Notes: Integer scale factor c. C=0 free parameters. G4 check: not a known SM term.
 
-| Formula | Value (×10⁻¹¹) | z-score | C | Role | Credible? |
+| Formula | Value (×10⁻¹¹) | z-score | C | Role | Screened? |
 |---|---:|---:|---|---|---|
 | `2 × EW_scale` | 233.2 | 0.329 | 0 | Predicted | No |
 
@@ -51,7 +51,7 @@ No hits within 1σ.
 - Random baseline hit-rate: 6.25%  (guardrail P<1%: ✗ FAIL)
 - Notes: One free scale c. Optimal c=0.3241 ≈ 1/3. C=1 free parameter.
 
-| Formula | Value (×10⁻¹¹) | z-score | C | Role | Credible? |
+| Formula | Value (×10⁻¹¹) | z-score | C | Role | Screened? |
 |---|---:|---:|---|---|---|
 | `(0.324063) × (α/π)^3 × (mμ/mπ⁰)^2` | 249.0 | 0.000 | 1 | Reference fit | No |
 | `(1/3) × (α/π)^3 × (mμ/mπ⁰)^2` | 256.1 | 0.148 | 1 | Predicted | No |
@@ -66,7 +66,7 @@ Reference-fit rows are shown for calibration only and are excluded from hit coun
 - Random baseline hit-rate: 0.49%  (guardrail P<1%: ✓ PASS)
 - Notes: Integer exponents a,b,c ∈ [-2,3]. C=0 free parameters.
 
-| Formula | Value (×10⁻¹¹) | z-score | C | Role | Credible? |
+| Formula | Value (×10⁻¹¹) | z-score | C | Role | Screened? |
 |---|---:|---:|---|---|---|
 | `α^3 × (mμ/me)^-2 × (mμ/mτ)^-2` | 257.1 | 0.168 | 0 | Predicted | Yes |
 
@@ -85,24 +85,30 @@ No hits within 1σ.
 |---|---|
 | Total formulas evaluated | 381 |
 | Hits within 1σ | 4 |
-| Credible hits (C≤1, P<1%) | 1 |
+| Guardrail-screened hits (C≤1, P<1%) | 1 |
 | Interesting hits (z<0.5σ) | 3 |
 | Best z-score | 0.168σ |
-| Best credible formula | `α^3 × (mμ/me)^-2 × (mμ/mτ)^-2` |
-| Closest non-credible formula | `(1/3) × (α/π)^3 × (mμ/mπ⁰)^2` (0.148σ) |
+| Best guardrail-screened formula | `α^3 × (mμ/me)^-2 × (mμ/mτ)^-2` |
+| Closest unscreened formula | `(1/3) × (α/π)^3 × (mμ/mπ⁰)^2` (0.148σ) |
 
-## Numerology Guardrail Assessment
+## Stress-Test Guardrail Assessment
 
-A result is **credible** only if ALL hold:
+A result is **guardrail-screened** only if these first-pass mechanical filters hold:
 1. z < 1.0 (within 1σ)
 2. C ≤ 1 free real-valued parameter
 3. P(random match) < 1% within the family
-4. Physical plausibility (SM loop diagram motivation)
+4. Not a fitted reference row or known SM contribution
 
-**Global verdict: VALID_EMPIRICAL**
+This screen is not a discovery, anomaly-resolution, or physical-mechanism test.
+Before any stronger interpretation, EXP-0010 needs multiple-testing correction,
+bootstrap stability under target/constant uncertainty, alternate-target comparison,
+cross-observable checks, and a pre-registered physical-motivation review.
 
-At least one predicted formula passes all numerology guardrails.
-This is an empirical benchmark hit only — no physical mechanism or anomaly resolution is claimed.
+**Global verdict: STRESS_TEST_HIT**
+
+At least one predicted formula passes the first-pass mechanical screen.
+The result remains an inconclusive stress-test observation; no physical
+mechanism, anomaly resolution, or theoretical explanation is claimed.
 
 ## Limitations
 
@@ -114,3 +120,5 @@ This is an empirical benchmark hit only — no physical mechanism or anomaly res
 - A null result within these families does not exclude all possible BSM formulas.
 - F3 with c≈1/3 has physical motivation (HLbL leading-log estimate) but the
   random baseline for continuous c fails the P<1% threshold.
+- The F4 lepton-cascade screen-passing formula has no known SM loop-diagram
+  motivation and should remain a stress-test hit, not a public success story.

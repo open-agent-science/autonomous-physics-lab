@@ -1,6 +1,6 @@
 ---
 id: CLAIM-0008
-title: Muon g-2 benchmark finds one guardrail-passing lepton-cascade hit within 1σ
+title: Muon g-2 stress test finds one first-pass lepton-cascade hit within 1σ
 domain: particle_physics
 status: DRAFT
 hypothesis_id: HYP-0010
@@ -10,17 +10,20 @@ evidence:
   results:
     - RESULT-0012
 scope: >
-  Power-law formula families F1–F5 tested against data-driven HVP baseline
-  Δaμ = (249 ± 48) × 10⁻¹¹ (BNL+FNAL 2023 combined). Credibility gated on
-  C≤1 free parameter and family hit-rate P<1% random baseline guardrail.
+  Power-law formula families F1–F5 tested against the contested data-driven
+  HVP baseline Δaμ = (249 ± 48) × 10⁻¹¹ (BNL+FNAL 2023 combined).
+  The observed hit passed only the first-pass mechanical screen: C≤1 free
+  parameter and family hit-rate P<1% random-baseline guardrail. This scope
+  does not establish credibility, anomaly resolution, or mechanism.
 ---
 
-# CLAIM-0008: Muon g-2 benchmark finds one guardrail-passing lepton-cascade hit within 1σ
+# CLAIM-0008: Muon g-2 stress test finds one first-pass lepton-cascade hit within 1σ
 
 ## Statement
 
 A single predicted formula from the lepton-cascade family (F4) lands within 1σ
-of the data-driven muon g-2 target and passes all current numerology guardrails:
+of the data-driven muon g-2 target and passes the current first-pass mechanical
+screen:
 
 ```
 α³ × (mμ/me)⁻² × (mμ/mτ)⁻² ≈ 257 × 10⁻¹¹
@@ -29,14 +32,17 @@ of the data-driven muon g-2 target and passes all current numerology guardrails:
 z = 0.168σ from Δaμ = 249 × 10⁻¹¹, with C=0 free parameters and
 random-baseline hit-rate 0.49% (< 1% threshold).
 
-This is an **empirical benchmark hit only**. No physical mechanism,
-anomaly resolution, or theoretical explanation is proposed or claimed.
+This is a **formula-search stress-test observation only**. No physical
+mechanism, anomaly resolution, or theoretical explanation is proposed or
+claimed.
 
 ## Evidence Status
 
 `RESULT-0012` provides the first formula-search baseline run. This claim
 remains `DRAFT` until maintainer review confirms scope, wording, and that
-the guardrail thresholds are appropriate for the family size.
+the guardrail thresholds are appropriate for the family size. Even after that
+review, the current evidence ceiling is an inconclusive stress-test hit unless
+additional hardening checks are satisfied.
 
 ## Scope
 
@@ -46,11 +52,15 @@ the guardrail thresholds are appropriate for the family size.
 - Target: data-driven HVP baseline only. The BMW lattice-QCD value reduces
   the discrepancy to ~1.5σ; this claim does not apply to that baseline.
 - The closest overall predicted hit is F3 with c=1/3 (z=0.148σ), but it fails
-  the P<1% random-baseline guardrail and is therefore not the primary hit.
+  the P<1% random-baseline guardrail and is therefore unscreened.
+- Required before stronger interpretation: multiple-testing correction,
+  bootstrap stability under target and constant uncertainty, alternate-target
+  comparison, cross-observable checks, and pre-registered physical-motivation
+  review.
 
 ## Caution
 
 A formula coincidence within a six-family systematic search is not evidence
 for a physical explanation. The lepton cascade combination has no known SM
-loop-diagram motivation. The claim ceiling is "one guardrail-passing
-empirical hit" — not "explains the anomaly."
+loop-diagram motivation. The claim ceiling is "one first-pass stress-test hit"
+— not "explains the anomaly."
