@@ -44,7 +44,10 @@ That base now exists well enough to support a new emphasis:
    relaxing scope or limitation wording.
 6. Continue the private contributor pilot and maintainer review loop before any
    public rollout.
-7. Prepare public launch only after the explicit gates in
+7. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+   for future prediction-style benchmarks that need a visible before/after
+   target reveal boundary.
+8. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 ## Current Goal

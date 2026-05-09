@@ -49,6 +49,9 @@ Current guidance:
 - `3-5` item batches for homogeneous dataset or challenge-entry additions;
 - repeatable formula-search attempts only within one campaign and with
   explicit metrics, novelty check, failure mode, and verdict.
+- holdout-style attempts should follow
+  `docs/blind-holdout-benchmark-protocol.md` with a visible pre-reveal package
+  and reveal record.
 
 The next infrastructure step is `TASK-0112`, which covers append-only
 microtask run/claim records, expanded queues, and repeatable scientific search
