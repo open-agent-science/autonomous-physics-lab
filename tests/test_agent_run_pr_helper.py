@@ -1,8 +1,15 @@
 from __future__ import annotations
 
 from pathlib import Path
+import sys
 
 from physics_lab.registry.agent_run_pr import build_agent_run_pr_context
+
+
+def _ensure_repo_root_on_sys_path(repo_root: Path) -> None:
+    repo_root_str = str(repo_root)
+    if repo_root_str not in sys.path:
+        sys.path.insert(0, repo_root_str)
 
 
 def test_agent_run_pr_context_includes_required_review_sections() -> None:
@@ -42,9 +49,11 @@ def test_agent_run_pr_context_preserves_negative_sandbox_evidence() -> None:
 
 
 def test_agent_run_pr_helper_writes_output_file(tmp_path: Path) -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    _ensure_repo_root_on_sys_path(repo_root)
+
     from scripts.apl_agent_run_pr_helper import main
 
-    repo_root = Path(__file__).resolve().parent.parent
     output_file = tmp_path / "agent-run-pr-context.md"
 
     exit_code = main(
@@ -63,6 +72,9 @@ def test_agent_run_pr_helper_writes_output_file(tmp_path: Path) -> None:
 
 
 def test_agent_run_pr_helper_stdout_smoke() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    _ensure_repo_root_on_sys_path(repo_root)
+
     from scripts.apl_agent_run_pr_helper import build_parser
 
     parser = build_parser()
