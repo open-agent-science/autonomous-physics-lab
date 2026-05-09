@@ -1,0 +1,41 @@
+{
+  "agent_run_id": "AGENT-RUN-0001",
+  "campaign_profile_id": "pendulum-formula-falsification",
+  "hypothesis_proposal_id": "HYP-PROPOSAL-0001",
+  "experiment_proposal_id": "EXP-PROPOSAL-0001",
+  "model_id": "rational_x1_pole",
+  "formula": "(1 + a*x) / (1 - b*x), x = sin^2(theta/2)",
+  "coefficients": {
+    "a": -0.3433549926706056,
+    "b": 0.5926785232733237
+  },
+  "ranges_rad": {
+    "train": [0.01, 1.1],
+    "test": [1.1, 1.57],
+    "stress": [1.57, 2.8]
+  },
+  "metrics": {
+    "train": {
+      "mean_relative_error": 0.000011190742473946467,
+      "max_relative_error": 0.00004484870135184638
+    },
+    "test": {
+      "mean_relative_error": 0.0008588074664374319,
+      "max_relative_error": 0.002681595861991099
+    },
+    "stress": {
+      "mean_relative_error": 0.061026250621937096,
+      "max_relative_error": 0.2228621113532558
+    }
+  },
+  "reference_comparison": {
+    "t4_x1_reference_test_mean_relative_error": 0.0002984822711675493,
+    "theta2_negative_baseline_test_mean_relative_error": 0.006937605661636237
+  },
+  "verdict": "SANDBOX_PASS",
+  "limitations": [
+    "Sandbox-only result.",
+    "Does not beat the current t4_x1 reference candidate on the configured test range.",
+    "Stress-range diagnostics remain weak near larger amplitudes."
+  ]
+}

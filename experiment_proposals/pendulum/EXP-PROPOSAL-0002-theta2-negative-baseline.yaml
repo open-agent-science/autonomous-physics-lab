@@ -1,0 +1,83 @@
+id: EXP-PROPOSAL-0002
+title: "Sandbox theta2 negative-control pendulum check"
+campaign_profile_id: pendulum-formula-falsification
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox negative-control experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0153
+
+input_references:
+  - "hypothesis_proposals/pendulum/HYP-PROPOSAL-0002-theta2-negative-baseline.yaml"
+  - "campaign_profiles/pendulum-formula-falsification.yaml"
+  - "docs/notes/pendulum-gauntlet-100.md"
+
+question: "Does a theta2-only candidate fail the configured pendulum test range strongly enough to serve as negative sandbox evidence?"
+
+method:
+  summary: "Fit 1 + a*theta^2 to exact pendulum ratios on 0.01 <= theta <= 1.10 rad, then report train, test, and stress residuals."
+  code_references:
+    - "scipy.special.ellipk"
+    - "scipy.optimize.curve_fit"
+    - "physics_lab/registry/research_proposals.py"
+  commands:
+    - "python3 -m physics_lab.cli preflight-research-proposal experiment_proposals/pendulum/EXP-PROPOSAL-0002-theta2-negative-baseline.yaml"
+  parameters:
+    train_range_rad: [0.01, 1.10]
+    test_range_rad: [1.10, 1.57]
+    stress_range_rad: [1.57, 2.80]
+
+inputs:
+  datasets:
+    - "Exact elliptic-integral pendulum ratio generated in sandbox."
+  constants:
+    - "pi"
+  prior_results:
+    - "RESULT-0004"
+  assumptions:
+    - "The model is intentionally weak and one-parameter."
+    - "The expected outcome is negative sandbox evidence."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0002/"
+  metrics:
+    - "mean_relative_error"
+    - "max_relative_error"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0002/report.md"
+    - "agent_runs/AGENT-RUN-0002/limitations.md"
+
+validation:
+  pass_condition: "Would pass only if test mean relative error were below 1e-3."
+  fail_condition: "Sandbox fail when test mean relative error is at or above 1e-3."
+  baseline_or_reference: "Exact reference baseline and current t4_x1 leaderboard reference."
+  expected_failure_modes:
+    - "Missing higher-order curvature."
+    - "Poor moderate-amplitude residuals."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not present the negative-control run as useful beyond its diagnostic role."
+  mitigations:
+    - "Mark verdict as SANDBOX_FAIL."
+    - "Keep output under agent_runs/."
+
+limitations:
+  - "Negative-control sandbox execution only."
+  - "Not a candidate for canonical promotion."
+
+verdict: SANDBOX_FAIL
+maintainer_decision_requested: "Retain as negative sandbox evidence or reject from future candidate queues."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "No promotion requested."
