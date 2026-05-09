@@ -211,3 +211,25 @@ microtasks:
       - "guardrails are optional"
       - "mixing proves hidden theory"
       - "complete particle-mass explanation"
+  - id: PMR-011
+    campaign: particle-mass-relations
+    title: Record one repeatable falsification-first mass-relation attempt
+    type: repeatable-falsification-attempt
+    estimated_effort: 20-40 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One microtask run record plus a note with triplet, input source, baseline, metric, failure mode, verdict, limitations, and novelty check."
+    validation:
+      - "Record the attempt under microtask_runs/particle-mass-relations/."
+      - "Name the mass definitions and source assumptions."
+      - "Keep the conclusion falsification-first and non-explanatory."
+    risk_level: medium
+    forbidden_claims:
+      - "particle masses explained"
+      - "numeric closeness proves theory"
+      - "claim promotion from fit quality"

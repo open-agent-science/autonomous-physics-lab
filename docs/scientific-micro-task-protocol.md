@@ -47,6 +47,25 @@ Campaign micro-task queues live in:
 
 These files are seed queues for contributor-facing scientific work.
 
+## Append-Only Run Registry
+
+Micro-task claims and outcomes are recorded separately from queue files so daily
+parallel agents do not rewrite the same backlog entries. The registry lives in:
+
+- `microtask_runs/README.md`
+- `microtask_runs/MICROTASK-RUN-TEMPLATE.yaml`
+- `microtask_runs/<queue-id>/MICROTASK-RUN-0001.yaml`
+
+Before selecting a micro-task, check the queue file, recent open PRs, existing
+`microtask_runs/` records, and related notes or results. Do not take an item
+that is already claimed, in review, completed, or clearly duplicated by a
+recent note.
+
+Each run record should name the queue id, microtask id, status, claimant,
+branch, PR when available, result note, verdict, review state, and metadata for
+repeatable attempts. Keep records append-only; add a new run file instead of
+editing queue entries for routine claims.
+
 ## Required Micro-Task Format
 
 Each queue entry should include the fields below:
@@ -141,7 +160,11 @@ Every output should include:
 
 - input references;
 - method;
+- code references when executable checks were used;
+- metrics or qualitative review criteria;
+- failure mode;
 - limitations;
+- novelty check against existing notes, results, and `microtask_runs/`;
 - verdict or review state.
 
 If the result is uncertain, use `REVIEW_NEEDED` rather than forcing a stronger
