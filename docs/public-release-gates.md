@@ -49,9 +49,13 @@ At least one public-facing result must exist. Examples:
 - report explains limitations
 - no global or exact discovery claim
 
+At least one clear falsification surface should also remain visible as
+first-class evidence rather than being hidden behind successful reproductions
+only.
+
 Required wording discipline:
 
-- do not claim "AI solved physics"
+- do not claim final physics answers from APL outputs
 - do not claim "new physics" without exceptional evidence and review
 - do not say "100% exact" unless symbolic equality is proven
 - prefer "validated to tolerance" for numerical agreement
@@ -62,8 +66,9 @@ All of the following must be true:
 
 - `README.md` has a result summary
 - an announcement draft exists
-- no "AI solved physics" or "Theory of Everything" overclaim
+- no final-answer, universal-theory, or discovery-level overclaim
 - claims remain review-gated
+- guarded stress-test outputs are not presented as flagship public successes
 
 ## Release Decision
 
