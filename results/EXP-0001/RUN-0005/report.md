@@ -1,6 +1,6 @@
 # Pendulum Formula Discovery — Gauntlet (102 Candidates)
 
-- Result: `RESULT-0009`
+- Result: `RESULT-0013`
 - Run: `RUN-0005`
 - Hypothesis: `HYP-0001`
 - Task: `TASK-0110`

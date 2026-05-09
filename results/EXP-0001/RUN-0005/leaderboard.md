@@ -1,6 +1,6 @@
 # Pendulum Gauntlet Leaderboard
 
-- Result: `RESULT-0009` / Run: `RUN-0005`
+- Result: `RESULT-0013` / Run: `RUN-0005`
 - Train range (rad): `0.0100` to `2.1683`
 - Test range (rad): `2.1839` to `3.1000`
 - Total candidates: 102

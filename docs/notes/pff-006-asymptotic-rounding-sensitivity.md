@@ -2,7 +2,7 @@
 
 **Microtask:** PFF-006  
 **Campaign:** Pendulum Formula Falsification  
-**Candidate:** `model_asymptotic_refined` from `EXP-0001/RUN-0005` (`RESULT-0009`)
+**Candidate:** `model_asymptotic_refined` from `EXP-0001/RUN-0005` (`RESULT-0013`)
 
 ## Question
 

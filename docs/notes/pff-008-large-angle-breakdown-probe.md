@@ -3,7 +3,7 @@
 **Microtask:** PFF-008  
 **Campaign:** Pendulum Formula Falsification  
 **Probe type:** approximation-breakdown design  
-**Candidate:** `model_t2_t4_l0` from `EXP-0001/RUN-0005` (`RESULT-0009`)
+**Candidate:** `model_t2_t4_l0` from `EXP-0001/RUN-0005` (`RESULT-0013`)
 
 ## Question
 

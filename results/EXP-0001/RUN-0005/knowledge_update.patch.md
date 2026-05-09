@@ -14,7 +14,7 @@
 
 - `RESULT-0001`
 - `RESULT-0003`
-- `RESULT-0009`
+- `RESULT-0013`
 - `TASK-0110`
 
 ## Required Human Review
@@ -41,7 +41,7 @@ Expand with latest gauntlet evidence and bounded review language.
 -- `RESULT-0003` / `RUN-0002` for the theory-aware near-separatrix follow-up.
 +- `RESULT-0001` / `RUN-0001` — original low-order candidate comparison;
 +- `RESULT-0003` / `RUN-0002` — theory-aware near-separatrix follow-up;
-+- `RESULT-0009` / `RUN-0005` — systematic gauntlet of 102 candidates.
++- `RESULT-0013` / `RUN-0005` — systematic gauntlet of 102 candidates.
  
 -The current best overall candidate remains:
 +The gauntlet best candidate is:
@@ -79,7 +79,7 @@ Expand with latest gauntlet evidence and bounded review language.
  - Canonical results:
    - `RESULT-0001`
    - `RESULT-0003`
-+  - `RESULT-0009`
++  - `RESULT-0013`
  
  ## Open Questions
  

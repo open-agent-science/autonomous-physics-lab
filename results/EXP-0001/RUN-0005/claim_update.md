@@ -1,6 +1,6 @@
 # Proposed Update for CLAIM-0001
 
-- Result: `RESULT-0009`
+- Result: `RESULT-0013`
 - Hypothesis: `HYP-0001`
 - Experiment: `EXP-0001`
 - Task: `TASK-0110`

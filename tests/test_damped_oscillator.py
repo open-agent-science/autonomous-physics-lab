@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 import textwrap
 from typing import Optional
 
@@ -477,6 +478,25 @@ def test_repository_rejects_result_input_hash_drift(tmp_path) -> None:
         assert "input hash drift" in str(exc)
     else:
         raise AssertionError("Expected result input hash drift to fail validation")
+
+
+def test_validate_repository_rejects_duplicate_canonical_result_ids(tmp_path) -> None:
+    repo_root = tmp_path / "repo"
+    _write_minimal_repository_fixture(
+        repo_root,
+        claim_scope="Valid only within the tested range for this temporary benchmark.",
+        claim_body="Claim body with explicit in-scope wording.",
+    )
+
+    duplicate_run_dir = repo_root / "results" / "EXP-0001" / "RUN-0002"
+    shutil.copytree(repo_root / "results" / "EXP-0001" / "RUN-0001", duplicate_run_dir)
+
+    try:
+        validate_repository(repo_root)
+    except ValueError as exc:
+        assert "Duplicate canonical result id RESULT-0001" in str(exc)
+    else:
+        raise AssertionError("Expected duplicate result id validation to fail")
 
 
 def test_repository_accepts_crlf_text_snapshot_with_same_content(tmp_path) -> None:

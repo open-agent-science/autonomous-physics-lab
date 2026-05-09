@@ -1,7 +1,7 @@
 id: TASK-0133
 title: "Repair duplicate result-id collision and prevent duplicate canonical results"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -16,6 +16,8 @@ input:
   related_objects:
     - "results/"
     - "docs/result-artifacts-index.md"
+    - "hypotheses/HYP-0001-pendulum-correction.yaml"
+    - "knowledge/classical_mechanics/pendulum.md"
     - "physics_lab/registry/"
     - "tests/"
     - "results/EXP-0001/RUN-0005/result.yaml"
