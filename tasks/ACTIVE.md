@@ -53,7 +53,6 @@ one PR.
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0148` — Add scientific result quality rubric (`scientific_governance`, priority `high`, difficulty `medium`)
 - `TASK-0149` — Define blind holdout benchmark protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
@@ -67,6 +66,7 @@ None.
 
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0135` — Audit and freeze pendulum gauntlet reproducibility (`scientific_audit`, priority `high`, difficulty `medium`)
+- `TASK-0148` — Add scientific result quality rubric (`scientific_governance`, priority `high`, difficulty `medium`)
 - `TASK-0157` — Close merged review-ready tasks after public-hardening and autonomy curation wave (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0158` — Curate autonomy and scientific-value upgrade queue before public article prep (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0161` — Close autonomy foundation tasks and unblock autonomous PR packaging (`maintainer_workflow`, priority `high`, difficulty `low`)

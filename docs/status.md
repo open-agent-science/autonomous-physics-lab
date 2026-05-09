@@ -37,6 +37,10 @@ work, and a private contributor workflow before any public-opening decision.
 - [Negative Results Registry](./negative-results-registry.md):
   repository-level index of clean falsifications that should remain visible
   alongside successful reproductions.
+- [Scientific Result Quality Rubric](./result-quality-rubric.md):
+  maintainer-facing assessment of reproducibility, falsifiability, baseline
+  strength, uncertainty handling, and overclaim risk for the current flagship
+  surface.
 
 These are benchmark results with stored limitations. They are not evidence of
 discovery-level physics, complete particle-mass explanation, universal scope,
@@ -136,6 +140,9 @@ public-release mode.
   current evidence harder to scan than it should be.
 - Public launch pressure could outrun review discipline if result wording and
   release gates are not kept aligned.
+- Result-quality assessment should remain visible during release review so that
+  strong negative results, scoped reproductions, and stress-test outputs are not
+  flattened into one public-success narrative.
 
 ## Ready Now
 
@@ -161,3 +168,6 @@ public-release mode.
 - [reproducibility-capsules.md](./reproducibility-capsules.md) for compact
   replay commands, expected metrics, and caveats for the current major
   canonical results.
+- [result-quality-rubric.md](./result-quality-rubric.md) for the current
+  maintainer-facing assessment of which result surfaces are packaging-ready and
+  which need stronger caveats.
