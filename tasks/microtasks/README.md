@@ -14,6 +14,26 @@ canonical task for every narrow subproblem.
 - `thought-experiment-consistency.yaml`
 - `diffusion-scaling.yaml`
 
+## Queue Summary
+
+Refresh this generated table after queue metadata changes:
+
+```bash
+python3 scripts/generate_microtask_queue_summary.py
+```
+
+<!-- BEGIN AUTO MICROTASK QUEUE SUMMARY -->
+
+| Queue | Campaign Status | Items | Risk Levels | Selection Guidance |
+| --- | --- | ---: | --- | --- |
+| [`diffusion-scaling`](diffusion-scaling.yaml) | `planning_only_future_campaign` | 5 | `low` | Prefer planning, falsification, units, and limitation notes. |
+| [`dimensional-analysis-validator`](dimensional-analysis-validator.yaml) | `planning_complete_implementation_pending` | 11 | `low`, `medium` | Prefer challenge-set curation, verdict-boundary notes, and assumption-explicit examples. |
+| [`particle-mass-relations`](particle-mass-relations.yaml) | `active_with_narrow_results` | 11 | `low`, `medium` | Prefer falsification-first, source-aware, and uncertainty-aware items. |
+| [`pendulum-formula-falsification`](pendulum-formula-falsification.yaml) | `active` | 11 | `low`, `medium` | Prefer narrow approximation, diagnostics, and wording tasks. |
+| [`thought-experiment-consistency`](thought-experiment-consistency.yaml) | `planning_active` | 5 | `low`, `medium` | Prefer assumption formalization and invariant mapping. |
+
+<!-- END AUTO MICROTASK QUEUE SUMMARY -->
+
 ## How To Use These Queues
 
 1. Pick one campaign queue.
