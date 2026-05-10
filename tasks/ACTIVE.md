@@ -48,7 +48,6 @@ one PR.
 - `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
 - `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
 
@@ -58,7 +57,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 
 ## DONE RECENTLY
 

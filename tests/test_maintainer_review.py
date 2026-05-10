@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import sys
 from unittest.mock import patch
 
 from physics_lab.registry.maintainer_review import (
@@ -27,6 +28,10 @@ from physics_lab.registry.review_checks import (
     unexpected_protected_changes,
 )
 from physics_lab.registry.review_git import CommandResult
+from physics_lab.registry.review_policy import (
+    classify_review_protocol,
+    validate_pr_title,
+)
 
 
 def test_branch_task_id_extracts_task_number() -> None:
@@ -63,6 +68,71 @@ def test_branch_microtask_queue_id_extracts_queue_id_from_batch_branch() -> None
     assert branch_microtask_queue_id(
         "agent/roman/codex/microtask-PMR-001-audit-electron-mass"
     ) is None
+
+
+def test_review_protocol_classifies_supported_review_lanes() -> None:
+    assert (
+        classify_review_protocol(
+            "agent/roman/codex/task-0137-maintainer-review-policy-layers"
+        ).kind
+        == "task"
+    )
+    assert (
+        classify_review_protocol("agent/roman/codex/propose-task-review-policy").kind
+        == "proposal"
+    )
+    assert (
+        classify_review_protocol("agent/roman/codex/closeout-merged-workflow-tasks").kind
+        == "closeout"
+    )
+    microtask = classify_review_protocol(
+        "agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
+        pr_title="microtask(dimensional-analysis-validator): add challenge entries",
+    )
+    assert microtask.kind == "microtask"
+    assert microtask.microtask_queue_id == "dimensional-analysis-validator"
+    assert microtask.title_microtask_queue_id == "dimensional-analysis-validator"
+
+
+def test_review_protocol_uses_pr_title_for_closeout_and_microtask_lanes() -> None:
+    closeout = classify_review_protocol(
+        "agent/roman/codex/task-9999-admin",
+        pr_title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
+    )
+    microtask = classify_review_protocol(
+        "agent/roman/codex/task-9999-admin",
+        pr_title="microtask(particle-mass-relations): add one audit note",
+    )
+
+    assert closeout.kind == "closeout"
+    assert microtask.kind == "microtask"
+    assert microtask.title_microtask_queue_id == "particle-mass-relations"
+
+
+def test_review_protocol_pr_title_policy_is_testable_without_github() -> None:
+    assert validate_pr_title(
+        review_kind="task",
+        title="TASK-0137: Split maintainer review helper into clearer policy layers",
+        resolved_task_id="TASK-0137",
+    ).required_fixes == ()
+
+    mismatch = validate_pr_title(
+        review_kind="task",
+        title="TASK-0138: Add replay hardening",
+        resolved_task_id="TASK-0137",
+    )
+    assert mismatch.blockers == (
+        "PR title task id TASK-0138 does not match TASK-0137.",
+    )
+
+    microtask = validate_pr_title(
+        review_kind="microtask",
+        title="TASK-0137: Wrong title lane",
+        resolved_task_id="MICROTASK",
+    )
+    assert microtask.required_fixes == (
+        "PR title does not follow microtask(<queue-id>): ... format.",
+    )
 
 
 def test_changed_task_proposal_files_filters_template_and_other_paths() -> None:
@@ -166,12 +236,12 @@ def test_render_review_report_includes_security_section() -> None:
 def test_run_task_validation_skips_self_referential_review_command(tmp_path) -> None:
     payload = {
         "validation": {
-            "commands": [
-                "python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034 || true",
-                "python3 -c 'print(123)'",
-            ]
+                "commands": [
+                    "python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034 || true",
+                    f'"{sys.executable}" -c "print(123)"',
+                ]
+            }
         }
-    }
 
     summary = run_task_validation(
         tmp_path,

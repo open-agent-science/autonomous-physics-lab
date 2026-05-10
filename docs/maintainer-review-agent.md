@@ -253,6 +253,19 @@ The agent may use the scripts below internally when following this protocol.
 The maintainer does not need to remember the scripts if they prefer prompt-only
 usage.
 
+The helper is organized into explicit review layers:
+
+- `review_git.py` collects local git and diff facts without deciding policy.
+- `review_policy.py` parses branch and PR-title protocol lanes and exposes
+  isolated policy helpers for task, proposal, closeout, and microtask reviews.
+- `review_checks.py` evaluates content, protected-artifact, claim-promotion,
+  overclaim, and repository-safety rules.
+- `maintainer_review.py` orchestrates those layers and renders the final review
+  or closeout report.
+
+When adding new protocol rules, prefer extending the narrow layer that owns the
+rule and adding regression coverage there before changing report orchestration.
+
 ### Pre-merge review helper
 
 ```bash
