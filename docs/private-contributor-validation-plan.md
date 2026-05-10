@@ -44,16 +44,29 @@ Before treating the repository as public-ready, collect evidence for:
 - 0 public-facing local path leaks
 - green GitHub CI on a release-candidate branch or PR
 
-## Contributor Tracks
+## Suggested Challenge Lanes
 
-Level 1 contributors should start with replay, audit, docs-path checks, or small
-artifact validation tasks.
+These lanes are onboarding and validation suggestions, not permission levels.
+They help maintainers offer appropriately scoped first tasks and measure where
+the repository workflow is unclear.
 
-Level 2 contributors may run one sandbox proposal batch, create visual evidence,
-or validate one campaign profile.
+Any invited contributor may use their own agent to run approved automated
+scientific tracks, propose new tracks, or execute sandbox work when the task,
+campaign profile, and repository protocol allow it.
 
-Level 3 contributors may run a scientific pilot only inside an approved campaign
-profile, with sandbox-only outputs and maintainer review before any promotion.
+Level 1 tasks are good first checks: replay one result, audit one proposal, or
+check one documentation path.
+
+Level 2 tasks exercise a larger workflow: run one sandbox proposal batch, create
+visual evidence, or validate one campaign profile.
+
+Level 3 tasks are end-to-end scientific pilots inside approved campaign
+profiles: generate proposals, filter weak candidates, run sandbox experiments,
+and prepare reviewable result artifacts.
+
+The guardrail is not who may run science. The guardrail is where outputs land:
+sandbox evidence and proposal artifacts are encouraged, while canonical results,
+claims, and knowledge remain maintainer-review-gated.
 
 ## Current Focus
 
@@ -71,4 +84,3 @@ Near-term queue:
 Keep hype-sensitive topics such as muon g-2, Hubble tension, and broad
 mass-relation searches on the watchlist until the private validation phase has
 strong replay and review evidence.
-
