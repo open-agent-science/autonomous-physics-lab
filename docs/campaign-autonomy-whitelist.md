@@ -14,6 +14,7 @@ agent output into unreviewed claims.
 | --- | --- | --- |
 | `pendulum-formula-falsification` | `WHITELISTED_PILOT` | First autonomous pilot campaign |
 | `dimensional-analysis-validator` | `WHITELISTED_LIMITED` | Validator curation and sandbox classification proposals |
+| `nuclear-mass-surface` | `EXCLUDED` | Flagship campaign exists, but autonomy is deferred until dataset, baseline, and holdout work are complete |
 | `particle-mass-relations` | `GUARDRAIL_ONLY` | Falsification-first proposal work only |
 | Muon g-2 formula search | `EXCLUDED` | Stress-test framing only, no autonomous discovery loop |
 | Hubble tension empirical formulas | `EXCLUDED` | Not in first autonomy whitelist |
@@ -87,6 +88,33 @@ Forbidden autonomous work:
 - broad cross-family generalization;
 - claim promotion from fit quality;
 - dataset changes without source and scheme review.
+
+## Deferred Flagship Campaign
+
+### Nuclear Mass Surface
+
+Nuclear mass surface work is a strong future autonomous target, but it is not
+ready for the autonomy loop yet.
+
+Required groundwork still missing:
+
+- pinned dataset loader and field semantics;
+- first baseline residual benchmark;
+- reviewed holdout protocol;
+- explicit subset and uncertainty policy.
+
+Allowed work for now:
+
+- canonical planning and scaffolding tasks;
+- source-policy and subset-definition notes;
+- baseline and holdout implementation tasks once they are canonical.
+
+Forbidden autonomous work for now:
+
+- sandbox correction-term search;
+- holdout improvement claims;
+- dataset mutation without pinned provenance policy;
+- benchmark-style residual conclusions before the baseline exists.
 
 ## Explicit Exclusions
 

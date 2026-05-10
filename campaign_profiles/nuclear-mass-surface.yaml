@@ -1,0 +1,72 @@
+id: nuclear-mass-surface
+title: "Nuclear mass surface"
+autonomy_status: EXCLUDED
+pilot_rank: 4
+
+source_docs:
+  - docs/campaigns/nuclear-mass-surface.md
+  - docs/notes/nuclear-mass-campaign-plan.md
+  - docs/autonomous-research-loop.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Future shell-aware residual corrections with explicit baseline comparison."
+  - "Future pairing or asymmetry refinement proposals with compact parameterization."
+  - "Future negative-control candidates that intentionally overfit one subset or collapse one diagnostic axis."
+  - "Future source-policy or subset-definition proposals that do not claim benchmark improvements."
+
+allowed_experiment_families:
+  - "Future deterministic residual replay against a pinned nuclear mass dataset."
+  - "Future baseline-versus-candidate comparisons under a reviewed holdout protocol."
+  - "Future sandbox-only comparisons that preserve explicit negative results."
+
+required_inputs:
+  - "Pinned dataset source, version, and checksum policy."
+  - "Explicit measured-versus-extrapolated field semantics."
+  - "Named baseline residual target and unit conventions."
+  - "Reviewed subset definitions for shell, chain, and neutron-rich diagnostics."
+  - "Holdout protocol approved before any candidate-improvement interpretation."
+
+required_quality_checks:
+  - "State that no universal mass-formula or discovery claim is made."
+  - "Keep dataset provenance and field semantics explicit."
+  - "Report baseline-relative metrics and subset behavior, not fit quality alone."
+  - "Preserve negative or overfit results as valid review surfaces."
+  - "Run the shared research quality gate before any later autonomy PR handoff."
+
+forbidden_claims:
+  - "A sandbox candidate explains all nuclear masses."
+  - "Residual improvement alone is evidence of new physics."
+  - "Measured and extrapolated entries may be mixed without explicit semantics."
+  - "Advanced-model comparisons are required before the simple baseline exists."
+  - "Autonomous work is authorized before TASK-0167, TASK-0168, and TASK-0169 land."
+
+sandbox_permissions:
+  may_create:
+    - scoped_notes
+    - temporary_outputs
+    - future_hypothesis_proposals
+    - future_experiment_proposals
+  must_not_edit:
+    - claims
+    - canonical_hypotheses
+    - canonical_experiments
+    - canonical_results
+    - canonical_nuclear_mass_datasets
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - dataset_source_and_version
+  - baseline_definition
+  - holdout_protocol_reference
+  - metrics
+  - limitations
+  - verdict
+  - maintainer_decision_requested
