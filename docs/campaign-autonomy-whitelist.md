@@ -14,7 +14,7 @@ agent output into unreviewed claims.
 | --- | --- | --- |
 | `pendulum-formula-falsification` | `WHITELISTED_PILOT` | First autonomous pilot campaign |
 | `dimensional-analysis-validator` | `WHITELISTED_LIMITED` | Validator curation and sandbox classification proposals |
-| `nuclear-mass-surface` | `EXCLUDED` | Flagship campaign exists, but autonomy is deferred until dataset, baseline, and holdout work are complete |
+| `nuclear-mass-surface` | `WHITELISTED_LIMITED` | Sandbox-only residual pilots are allowed against the frozen baseline, pinned slice, and reviewed holdout protocol |
 | `particle-mass-relations` | `GUARDRAIL_ONLY` | Falsification-first proposal work only |
 | Muon g-2 formula search | `EXCLUDED` | Stress-test framing only, no autonomous sandbox research lane |
 | Hubble tension empirical formulas | `EXCLUDED` | Not in first autonomy whitelist |
@@ -89,32 +89,34 @@ Forbidden autonomous work:
 - claim promotion from fit quality;
 - dataset changes without source and scheme review.
 
-## Deferred Flagship Campaign
+## Limited Nuclear-Mass Campaign
 
 ### Nuclear Mass Surface
 
-Nuclear mass surface work is a strong future autonomous target, but it is not
-ready for the autonomy loop yet.
-
-Required groundwork still missing:
+Nuclear mass surface work is now allowed for limited sandbox autonomy because
+the repository has the minimum benchmark stack in place:
 
 - pinned dataset loader and field semantics;
 - first baseline residual benchmark;
 - reviewed holdout protocol;
 - explicit subset and uncertainty policy.
 
-Allowed work for now:
+Allowed autonomous work:
 
-- canonical planning and scaffolding tasks;
-- source-policy and subset-definition notes;
-- baseline and holdout implementation tasks once they are canonical.
+- propose compact residual-correction families against the frozen `RESULT-0015`
+  baseline on `NMD-0002`;
+- execute at most a small sandbox batch with explicit rejection triage;
+- preserve negative controls and holdout regressions as first-class evidence;
+- package results under `hypothesis_proposals/`, `experiment_proposals/`,
+  `agent_runs/`, tests, and review docs only.
 
-Forbidden autonomous work for now:
+Forbidden autonomous work:
 
-- sandbox correction-term search;
-- holdout improvement claims;
+- claim promotion or canonical `RESULT-*` updates;
+- broad nuclear-theory language or universal-mass-formula framing;
 - dataset mutation without pinned provenance policy;
-- benchmark-style residual conclusions before the baseline exists.
+- comparisons to advanced nuclear models before a reviewed follow-up task asks
+  for them.
 
 ## Explicit Exclusions
 
