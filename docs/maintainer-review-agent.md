@@ -49,6 +49,30 @@ The recommended first bounded action is:
 - run this review agent on that closeout PR;
 - stop and wait for maintainer merge.
 
+## Review To Closeout Flow
+
+This diagram shows the maintainer-facing lifecycle from contributor PR review
+through post-merge task closeout. The review helper can recommend and prepare
+bounded updates, but the maintainer remains the merge and scientific-authority
+decision point.
+
+```mermaid
+flowchart TD
+    A["Contributor opens task PR\nTask status: REVIEW_READY"] --> B["Maintainer selects review lane\nfast review or deep review"]
+    B --> C["Review helper checks\nbranch, title, metadata, scope, validation"]
+    C --> D{Review verdict}
+    D -->|"NEEDS_CHANGES or BLOCKED"| E["Contributor fixes blockers\nand updates the PR"]
+    E --> C
+    D -->|"MERGE_OK"| F["Maintainer reviews recommendation\nand decides whether to merge"]
+    F -->|"Do not merge yet"| E
+    F -->|"Merge PR"| G["Merged task remains REVIEW_READY\nuntil closeout"]
+    G --> H["Post-merge closeout helper verifies\nmerged PR, outputs, CI, and blockers"]
+    H --> I{Closeout ready?}
+    I -->|"No"| J["Report blocker\nno task status promotion"]
+    I -->|"Yes"| K["Maintainer closeout PR may set task DONE\nand optionally sync ACTIVE.md"]
+    K --> L["Maintainer reviews and merges closeout PR"]
+```
+
 ## Review Lanes
 
 Maintainer review should not use the same heavy cycle for every PR shape.
