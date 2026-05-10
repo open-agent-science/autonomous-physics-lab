@@ -1,7 +1,7 @@
 id: TASK-0167
 title: "Add AME nuclear mass dataset loader and schema"
 type: dataset_workflow
-status: BLOCKED
+status: REVIEW_READY
 difficulty: high
 priority: high
 
