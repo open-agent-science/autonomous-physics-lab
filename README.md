@@ -58,10 +58,11 @@ It should:
 
 ## Current Benchmarks
 
-Nine canonical experiments are currently stored in the repository.
-Eight form the main public-facing benchmark surface across three active
-scientific tracks, while one additional formula-search benchmark is kept in a
-guarded stress-test lane rather than the flagship result set:
+Eleven canonical experiments are currently stored in the repository.
+The main public-facing benchmark surface should remain conservative: completed
+benchmarks, falsifications, and sandbox pilots are reviewable evidence, not
+automatic discovery claims. `EXP-0010` remains a guarded formula-search stress
+test rather than a flagship success result.
 
 1. `EXP-0001` — Pendulum Formula Discovery
 2. `EXP-0002` — Damped Oscillator Regime Verification
@@ -73,6 +74,8 @@ guarded stress-test lane rather than the flagship result set:
 8. `EXP-0009` — Particle-Mass Relation Falsifier MVP
 9. `EXP-0010` — Muon g-2 Formula-Search Stress Test (`INCONCLUSIVE`, not a
    public success story)
+10. `EXP-0011` — Anharmonic Oscillator Period Benchmark
+11. `EXP-0012` — Nuclear Mass Baseline Residual Benchmark
 
 All results are stored as versioned run artifacts under `results/<experiment>/<run>/`.
 
@@ -87,6 +90,7 @@ All results are stored as versioned run artifacts under `results/<experiment>/<r
 | Neutrino Koide (EXP-0007) | INVALID | NH: 70.7σ below 2/3 |
 | Quark Koide (EXP-0008) | INVALID | Down: 8.8σ, Up: 159σ above 2/3 |
 | Particle-mass falsifier (EXP-0009) | INVALID | 2 of 3 charged-fermion families fail the standard Koide target |
+| Nuclear mass baseline (EXP-0012) | PARTIAL | NMD-0002 residual surface established for sandbox-only follow-up |
 
 → **[Full visual result summary](docs/results/visual-summary.md)**
 → **[Koide campaign summary](docs/results/koide-campaign-summary.md)**

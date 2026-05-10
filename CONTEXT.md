@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-10 13:07 UTC
+Generated: 2026-05-10 21:28 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -496,7 +496,8 @@ The repository is no longer focused mainly on bootstrap infrastructure work.
 That base now exists well enough to support a new emphasis:
 
 - curate active scientific campaigns with clear scope and honest limitations;
-- onboard contributors into a branch-based, reviewable workflow;
+- validate private contributors and their agents through a branch-based,
+  reviewable workflow before any public opening;
 - improve project-level orientation so results, tasks, and risks stay legible;
 - keep public-launch work gated behind validation and review discipline.
 
@@ -507,18 +508,19 @@ That base now exists well enough to support a new emphasis:
 2. Elevate a nuclear mass surface campaign as the next flagship science track,
    using baseline residual maps, shell-closure diagnostics, holdout discipline,
    and conservative correction-term framing instead of broad discovery claims.
-3. Prepare and maintain a clear Mission Control and campaign-map layer so new
+3. Validate the private contributor and agent workflow with measurable gates:
+   task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
+   clean review-helper behavior, closeout, and zero automatic claim promotion.
+4. Prepare and maintain a clear Mission Control and campaign-map layer so new
    contributors can see what APL is trying to do and where evidence already
    exists.
-4. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+5. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-5. Improve visual result summaries, campaign summaries, and contributor-facing
+6. Improve visual result summaries, campaign summaries, and contributor-facing
    navigation around the strongest current evidence, including negative-result
    surfaces.
-6. Package the current result layer into a coherent v0.2 story without
+7. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-7. Continue the private contributor pilot and maintainer review loop before any
-   public rollout.
 8. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
@@ -528,8 +530,8 @@ That base now exists well enough to support a new emphasis:
 ## Current Goal
 
 Demonstrate that APL can run honest scientific campaigns and a disciplined
-contributor workflow at the same time, without relaxing verification standards
-or overstating benchmark results.
+private contributor validation phase at the same time, without relaxing
+verification standards or overstating benchmark results.
 
 ## Current North-Star Outcomes
 
@@ -1353,6 +1355,11 @@ one PR.
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -1360,7 +1367,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -1514,7 +1521,7 @@ None.
 
 ## BLOCKED
 
-None.
+- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 

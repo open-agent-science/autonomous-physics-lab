@@ -1,0 +1,54 @@
+id: TASK-0176
+title: "Curate future research portfolio and de-prioritize hype tracks"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep the next research queue focused while preserving useful deferred ideas."
+  - "Make nuclear mass surface the current flagship without deleting historical planning context."
+  - "Move high-overclaim topics into watchlist status until stronger guardrails exist."
+
+input:
+  mode: planning_only
+  related_domain: research_strategy
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/backlog.md"
+    - "docs/next-steps.md"
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0089-muon-g2-anomaly-formula-search.yaml"
+    - "tasks/TASK-0090-hubble-tension-empirical-formula.yaml"
+  planning_context: >
+    The repository now has a stronger current flagship in Nuclear Mass Surface
+    and several tempting but high-overclaim tracks. The future research
+    portfolio should separate NOW, NEXT, and WATCHLIST work so agents do not
+    treat muon g-2, Hubble tension, broad constants derivation, or all-mass
+    formula searches as immediate active targets.
+
+requirements:
+  - "Define NOW, NEXT, and WATCHLIST research categories."
+  - "Put Nuclear Mass Surface in NOW with audit-first follow-up."
+  - "Put Quantum Dots or Quantum Size Effects, Thought-Experiment Consistency, and Electromagnetic Invariance into NEXT only if scoped conservatively."
+  - "Keep Hubble tension, muon g-2 follow-up, broad physical-constants derivation, and broad mass-relation searches in WATCHLIST."
+  - "Update planning docs without creating public article tasks."
+
+accepted_outputs:
+  - "docs/future-research-portfolio.md"
+  - "updated docs/strategy.md"
+  - "updated docs/backlog.md"
+  - "updated docs/next-steps.md if the recommended queue changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
