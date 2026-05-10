@@ -82,6 +82,9 @@ The current contributor workflow is branch-based and task-driven.
 
 Operational entry points:
 
+- [docs/external-reviewer-replication-guide.md](./external-reviewer-replication-guide.md)
+  for outside reviewers who want to replay or sanity-check the strongest
+  evidence before learning the contributor workflow;
 - [docs/agent-work-menu.md](./agent-work-menu.md) for a fast time-budgeted
   menu of safe, reviewable work (30 min / 1 h / 2 h);
 - [tasks/ACTIVE.md](../tasks/ACTIVE.md) for the live board of canonical tasks;
