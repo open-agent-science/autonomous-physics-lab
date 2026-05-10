@@ -105,6 +105,13 @@ def test_load_nuclear_mass_dataset_normalizes_derived_fields(tmp_path: Path) -> 
     assert carbon.atomic_mass_uncertainty_u is not None
     assert carbon.mass_excess_uncertainty_keV == pytest.approx(0.0001, rel=0, abs=1e-12)
 
+    target_row = helium.to_target_row()
+    assert target_row["binding_energy_mev"] == pytest.approx(helium.binding_energy_mev)
+    assert target_row["binding_energy_per_nucleon_mev"] == pytest.approx(
+        helium.binding_energy_per_nucleon_mev
+    )
+    assert "binding_energy_meV" not in target_row
+
 
 def test_nuclear_mass_conversion_helpers_are_consistent() -> None:
     mass_excess_keV = 2424.9156

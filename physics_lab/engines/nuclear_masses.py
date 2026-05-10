@@ -62,8 +62,8 @@ class NuclearMassEntry:
             "atomic_mass_uncertainty_u": self.atomic_mass_uncertainty_u,
             "mass_excess_keV": self.mass_excess_keV,
             "mass_excess_uncertainty_keV": self.mass_excess_uncertainty_keV,
-            "binding_energy_meV": self.binding_energy_mev,
-            "binding_energy_per_nucleon_meV": self.binding_energy_per_nucleon_mev,
+            "binding_energy_mev": self.binding_energy_mev,
+            "binding_energy_per_nucleon_mev": self.binding_energy_per_nucleon_mev,
             "source_entry": self.source_entry,
         }
 

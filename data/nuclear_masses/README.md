@@ -66,8 +66,8 @@ The engine normalizes both representations so later baseline tasks can use:
 
 - `atomic_mass_u`
 - `mass_excess_keV`
-- `binding_energy_meV`
-- `binding_energy_per_nucleon_meV`
+- `binding_energy_mev`
+- `binding_energy_per_nucleon_mev`
 
 without re-encoding conversion logic in every workflow.
 
