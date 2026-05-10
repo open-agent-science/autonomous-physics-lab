@@ -16,11 +16,6 @@ input:
   related_objects:
     - "tasks/TASK-0167-add-ame-nuclear-mass-dataset-loader-and-schema.yaml"
     - "tasks/TASK-0091-nuclear-magic-numbers-correction.yaml"
-    - "data/nuclear_masses/"
-    - "hypotheses/"
-    - "experiments/"
-    - "claims/"
-    - "knowledge/nuclear_physics/"
     - "physics_lab/engines/"
     - "examples/"
     - "results/"
@@ -39,15 +34,10 @@ requirements:
   - "Present failures and residual structure as benchmark diagnostics, not discovery claims."
 
 accepted_outputs:
-  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
   - "physics_lab/engines/nuclear_mass_baselines.py"
-  - "physics_lab/workflows/nuclear_mass_baseline.py"
   - "examples/nuclear_mass_baseline.yaml"
-  - "experiments/EXP-0012-nuclear-mass-baseline.yaml"
-  - "hypotheses/HYP-0012-nuclear-mass-baseline.yaml"
-  - "claims/CLAIM-0010-nuclear-mass-baseline.md"
-  - "knowledge/nuclear_physics/nuclear_mass_baseline.md"
-  - "results/EXP-0012/RUN-0001/report.md"
+  - "experiments/EXP-XXXX-nuclear-mass-baseline.yaml"
+  - "results/EXP-XXXX/RUN-0001/report.md"
   - "docs/results/nuclear-mass-baseline-summary.md"
   - "tests/test_nuclear_mass_baselines.py"
 

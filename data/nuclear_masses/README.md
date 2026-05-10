@@ -73,8 +73,15 @@ without re-encoding conversion logic in every workflow.
 
 ## Current State
 
-`TASK-0167` adds the schema and loader layer only.
+The repository now includes one small measured benchmark slice:
 
-No canonical nuclear mass dataset file is committed yet. A later reviewed task
-should add a pinned source file once source packaging, checksum policy, and
-field semantics are finalized.
+- `nmd-0002-curated-measured-slice.yaml`
+
+This file exists to support the first baseline residual benchmark under
+`TASK-0168`. It is intentionally narrow:
+
+- measured entries only;
+- no silent extrapolated merge;
+- no claim that this slice substitutes for a full AME2020 import.
+
+A broader pinned AME-style table is still a later task.
