@@ -12,22 +12,20 @@ tested against real dataset structure, subset behavior, and negative controls.
 
 ## Orientation Note for New Contributors
 
-This campaign is **scaffold-first**. It is the next flagship scientific
-direction, but it does not yet have a canonical dataset loader, baseline
-benchmark, or result artifact.
+This campaign started scaffold-first and now has a first benchmark stack plus
+one sandbox-only autonomous pilot.
 
-Safe contributions right now are campaign-shaping and provenance-shaping work:
+Safe contributions right now are still conservative, but they can now include
+bounded sandbox follow-up work:
 
 - campaign map and guardrail wording;
-- source-policy and dataset-shape planning;
-- microtask queue design for residual-map curation;
-- holdout-split planning;
+- pinned-dataset and provenance expansion work;
+- subset and holdout curation;
+- bounded sandbox follow-up proposals under the frozen `RESULT-0015` baseline;
 - limitation notes that keep the campaign conservative.
 
 ### What not to implement yet
 
-- do not run autonomous residual-search pilots before the dataset, baseline,
-  and holdout tasks land;
 - do not fetch live datasets into canonical memory without pinned source and
   checksum handling;
 - do not mix measured and extrapolated entries without an explicit flag and
@@ -67,7 +65,10 @@ This campaign now has an executable first-wave benchmark stack:
   - pinned measured slice `NMD-0002`
 - `TASK-0169` now defines the structured holdout contract for random,
   chain-based, shell-region, and neutron-rich generalization tests.
-- `TASK-0170` remains downstream of the holdout protocol by design.
+- `TASK-0170` now packages the first sandbox-only residual pilot:
+  - `experiment_proposals/nuclear-mass/EXP-PROPOSAL-0005-nuclear-mass-sandbox-batch.yaml`
+  - `agent_runs/AGENT-RUN-0005/`
+  - `docs/reviews/autonomous-nuclear-mass-pilot-01.md`
 
 Historical context:
 
@@ -77,8 +78,8 @@ Historical context:
   surfaces instead of optional extras.
 
 Current campaign state in one sentence:
-the scientific direction is now explicit, baseline-backed, and holdout-defined,
-but sandbox autonomy is still a downstream step.
+the scientific direction is now explicit, baseline-backed, holdout-defined,
+and proven once through a tightly bounded sandbox autonomy pass.
 
 Start here:
 
@@ -103,10 +104,9 @@ Start here:
 
 ## Recommended Tasks
 
-- `TASK-0169` — define the holdout protocol before interpreting candidate
-  corrections.
-- `TASK-0170` — run the first sandbox-only pilot only after the holdout
-  contract is frozen in reviewed canonical memory.
+- follow-up dataset expansion with pinned AME-style measured rows only;
+- maintainer-reviewed decision on whether any `TASK-0170` candidate deserves a
+  canonical comparison task;
 - narrow queue items from `tasks/microtasks/nuclear-mass-surface.yaml` for
   subset-definition notes, provenance audits, and negative-control planning.
 

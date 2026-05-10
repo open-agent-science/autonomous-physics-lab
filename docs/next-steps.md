@@ -118,8 +118,9 @@ Current nuclear-mass baseline state:
   `2.825 MeV` overall MAE and `2.449 MeV` magic-subset MAE on `NMD-0002`;
 - `TASK-0169` now defines the required structured holdout contract for random,
   isotope-chain, magic-region, and neutron-rich evaluation;
-- the campaign is still benchmark-only and not autonomy-ready until that
-  protocol is reviewed and merged.
+- the campaign now has one sandbox-only autonomy package under
+  `AGENT-RUN-0005`, but it remains benchmark-only until a maintainer requests
+  a canonical follow-up task.
 
 The remaining queue should stay conservative:
 

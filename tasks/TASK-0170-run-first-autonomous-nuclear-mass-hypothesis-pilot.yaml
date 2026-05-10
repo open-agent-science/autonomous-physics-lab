@@ -1,7 +1,7 @@
 id: TASK-0170
 title: "Run first autonomous nuclear-mass residual hypothesis pilot"
 type: autonomous_research_pilot
-status: BLOCKED
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -41,14 +41,21 @@ requirements:
   - "Keep all outputs under proposal or sandbox paths and do not promote claims or canonical results automatically."
 
 accepted_outputs:
-  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-XXXX-*.yaml"
-  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-XXXX-*.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
-  - "agent_runs/AGENT-RUN-XXXX/limitations.md"
-  - "agent_runs/AGENT-RUN-XXXX/preflight.md"
-  - "agent_runs/AGENT-RUN-XXXX/review_summary.md"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0020-shell-dual-heavy-anchor.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0022-quadratic-asymmetry-refinement.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0023-oxygen-chain-latch-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0024-lead-actinide-anchor-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0025-magic-step-cascade-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0026-advanced-model-surrogate-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0027-live-time-split-fetch-rejected.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-0005-nuclear-mass-sandbox-batch.yaml"
+  - "agent_runs/AGENT-RUN-0005/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0005/metrics.json"
+  - "agent_runs/AGENT-RUN-0005/report.md"
+  - "agent_runs/AGENT-RUN-0005/limitations.md"
+  - "agent_runs/AGENT-RUN-0005/preflight.md"
+  - "agent_runs/AGENT-RUN-0005/review_summary.md"
   - "docs/reviews/autonomous-nuclear-mass-pilot-01.md"
 
 validation:
