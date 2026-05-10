@@ -100,36 +100,40 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Generalize the Autonomous Loop Beyond Pendulum
+### 1. Start the Nuclear Mass Surface Campaign
 
-The first pendulum autonomous pilot and the PR-packaging layer are now merged.
-The next proof point is breadth: show that the same repository contract works
-for a second campaign without promoting claims automatically.
+The next flagship science direction should move from toy-like approximation
+surfaces toward a richer real-data domain with uncertainties, shell structure,
+and harder generalization tests.
 
-Highest-value next execution task:
+Recommended queue:
 
-- `TASK-0155` second dimensional-validator autonomous pilot
+- `TASK-0166` create nuclear mass surface campaign scaffold
+- `TASK-0167` add AME nuclear mass dataset loader and schema
+- `TASK-0168` implement baseline nuclear mass formulas and residual reports
+- `TASK-0169` define nuclear mass holdout protocol
+- `TASK-0170` run first autonomous nuclear-mass residual hypothesis pilot
 
-Success looks like:
+This queue should stay conservative:
 
-- generated challenge hypotheses enter through the proposal lane;
-- weak items fail deterministic checks before sandbox output is treated as evidence;
-- sandbox evidence remains outside canonical `results/`;
-- maintainers can review a second autonomous PR without reading raw scratch artifacts.
+- no universal mass-formula claims;
+- no discovery framing;
+- explicit baseline comparison, holdout discipline, and negative-result preservation.
 
-### 2. Build the Stronger Benchmark Path
+### 2. Keep Anharmonic and Pendulum Work as Methodological Proof
 
-The next scientific-value jump should come from a richer nonlinear mechanics
-benchmark, not another speculative numerology surface.
+Pendulum and anharmonic work remain useful as proof that the autonomy loop,
+benchmark framing, and maintainer review workflow can function end to end.
 
-Current strongest benchmark path:
+The next step is not "more approximation for its own sake." It is to carry the
+same protocol into the nuclear mass campaign:
 
-- `TASK-0159` anharmonic oscillator period benchmark is now implemented.
-- `TASK-0160` autonomous anharmonic research pilot is now packaged as sandbox-only review material.
-- Any next step from this path should be a maintainer-reviewed canonical comparison or curation task, not an automatic result promotion.
-
-This path should remain downstream of the autonomy contract, but it is now the
-best candidate for a higher-value benchmark with lower overclaim risk.
+- hypothesis proposals
+- preflight gate
+- sandbox runs
+- holdout evaluation
+- negative controls
+- reviewable PRs
 
 ### 3. Preserve Replay and Validation Quality
 
