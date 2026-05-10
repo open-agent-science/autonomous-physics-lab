@@ -1,0 +1,78 @@
+id: nuclear-mass-surface
+title: "Nuclear mass surface"
+autonomy_status: WHITELISTED_LIMITED
+pilot_rank: 4
+
+source_docs:
+  - docs/campaigns/nuclear-mass-surface.md
+  - docs/notes/nuclear-mass-campaign-plan.md
+  - docs/nuclear-mass-holdout-protocol.md
+  - docs/notes/nuclear-mass-split-rationale.md
+  - docs/autonomous-research-loop.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Shell-aware residual corrections with explicit frozen-baseline comparison."
+  - "Pairing or asymmetry refinement proposals with compact parameterization."
+  - "Negative-control candidates that intentionally overfit one subset or collapse one diagnostic axis."
+  - "Source-policy or subset-definition proposals that do not claim benchmark improvements."
+
+allowed_experiment_families:
+  - "Deterministic residual replay against a pinned nuclear mass dataset."
+  - "Baseline-versus-candidate comparisons under a reviewed holdout protocol."
+  - "Sandbox-only comparisons that preserve explicit negative results."
+
+required_inputs:
+  - "Pinned dataset source, version, and checksum policy."
+  - "Explicit measured-versus-extrapolated field semantics."
+  - "Named baseline residual target and unit conventions."
+  - "Reviewed subset definitions for shell, chain, and neutron-rich diagnostics."
+  - "Holdout protocol approved before any candidate-improvement interpretation."
+  - "Recorded active holdout families and their fixed split definitions."
+  - "Recorded complexity penalty and negative-control plan."
+
+required_quality_checks:
+  - "State that no universal mass-formula or broad-claim wording is used."
+  - "Keep dataset provenance and field semantics explicit."
+  - "Report baseline-relative metrics and subset behavior, not fit quality alone."
+  - "Preserve negative or overfit results as valid review surfaces."
+  - "Report which holdout families were active and whether any shell, chain, or neutron-rich slice regressed."
+  - "Run the shared research quality gate before any later autonomy PR handoff."
+
+forbidden_claims:
+  - "A sandbox candidate explains all nuclear masses."
+  - "Residual improvement alone is evidence of a broader physical conclusion."
+  - "Measured and extrapolated entries may be mixed without explicit semantics."
+  - "Advanced-model comparisons are required before the simple baseline exists."
+  - "Autonomous work may skip the frozen baseline, holdout protocol, or negative-control plan."
+  - "Random holdout improvement alone is enough to claim generalization."
+
+sandbox_permissions:
+  may_create:
+    - scoped_notes
+    - temporary_outputs
+    - future_hypothesis_proposals
+    - future_experiment_proposals
+  must_not_edit:
+    - claims
+    - canonical_hypotheses
+    - canonical_experiments
+    - canonical_results
+    - canonical_nuclear_mass_datasets
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - dataset_source_and_version
+  - baseline_definition
+  - holdout_protocol_reference
+  - metrics
+  - limitations
+  - verdict
+  - maintainer_decision_requested

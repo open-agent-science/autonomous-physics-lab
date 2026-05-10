@@ -1,0 +1,47 @@
+id: HYP-0012
+title: "A simple semi-empirical nuclear-mass baseline can capture coarse binding-energy structure while leaving interpretable shell residuals"
+domain: nuclear_physics
+status: TESTING
+
+hypothesis:
+  statement: >
+    On a small pinned measured nuclear-mass slice, a semi-empirical binding
+    energy baseline with volume, surface, Coulomb, asymmetry, and pairing
+    structure should capture coarse binding-energy trends while leaving
+    reviewable residual concentration near magic-number and related subsets.
+  formula_candidates:
+    - "B = aV*A - aS*A^(2/3) - aC*Z*(Z-1)/A^(1/3) - aA*(N-Z)^2/A"
+    - "B = aV*A - aS*A^(2/3) - aC*Z*(Z-1)/A^(1/3) - aA*(N-Z)^2/A + delta_pair"
+    - "Same semi-empirical structure with coefficients fit on the pinned measured slice"
+
+assumptions:
+  - "The current benchmark slice contains measured entries only and is not the full AME surface."
+  - "Atomic masses are converted deterministically into binding energy with explicit uncertainty propagation."
+  - "Residual structure near shell closures is treated as a diagnostic target, not as evidence of new nuclear theory."
+  - "Any fitted coefficients remain slice-specific until a separate holdout protocol exists."
+
+variables:
+  Z:
+    unit: count
+    description: "Proton number"
+  N:
+    unit: count
+    description: "Neutron number"
+  A:
+    unit: count
+    description: "Mass number"
+  B:
+    unit: megaelectronvolt
+    description: "Total nuclear binding energy"
+  delta_pair:
+    unit: megaelectronvolt
+    description: "Odd-even pairing correction term"
+
+evidence:
+  experiments:
+    - EXP-0012
+  results:
+    - RESULT-0015
+
+verdict: "The benchmark is designed to characterize coarse baseline fit quality, shell-closure residual concentration, and pairing-sensitive subset diagnostics on the pinned slice."
+

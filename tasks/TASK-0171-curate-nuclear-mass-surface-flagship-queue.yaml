@@ -1,0 +1,53 @@
+id: TASK-0171
+title: "Curate nuclear mass surface flagship campaign queue"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Raise scientific value by moving the next flagship campaign toward real nuclear mass data, baseline residuals, and harder holdout structure."
+  - "Keep APL's strongest next queue grounded in reproducible datasets, conservative wording, and explicit negative-result handling."
+  - "Retire narrower or less complete nuclear-mass planning in favor of one coherent campaign path."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/next-steps.md"
+    - "tasks/TASK-0091-nuclear-magic-numbers-correction.yaml"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    A fresh strategic review recommends promoting a nuclear mass surface and
+    shell-correction campaign as APL's next flagship scientific direction.
+    The repository should capture that direction as a coherent canonical task
+    queue rather than as a loose discussion or a single narrow magic-number
+    task.
+
+requirements:
+  - "Create a coherent canonical queue covering campaign scaffold, dataset layer, baseline benchmark, holdout protocol, and first sandbox autonomy pilot."
+  - "Keep the queue focused on residual maps, shell effects, compact correction terms, holdout behavior, and negative results."
+  - "Do not frame the queue as discovery of a universal mass formula or a new law of nuclear physics."
+  - "Update planning docs so this queue appears as the next flagship science path."
+  - "Retire or supersede the narrower TASK-0091 framing so the task board does not point in two competing nuclear directions."
+  - "Do not mention external post ideas or marketing plans in repository task or strategy documents."
+
+accepted_outputs:
+  - "new canonical tasks for the nuclear mass campaign queue"
+  - "updated docs/strategy.md"
+  - "updated docs/next-steps.md"
+  - "updated tasks/ACTIVE.md"
+  - "updated TASK-0091 disposition"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

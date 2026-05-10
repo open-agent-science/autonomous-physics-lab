@@ -50,6 +50,11 @@ one PR.
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -58,20 +63,27 @@ None.
 ## REVIEW_READY
 
 - `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0159` — Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation (`scientific_benchmark`, priority `high`, difficulty `high`)
-- `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0165` — Fix snapshot open-PR section when gh auth status is stale (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
+- `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (merged)
+- `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (merged)
+- `TASK-0168` — Implement baseline nuclear mass formulas and residual reports (merged)
+- `TASK-0167` — Add AME nuclear mass dataset loader and schema (merged)
+- `TASK-0166` — Create nuclear mass surface campaign scaffold (merged)
+- `TASK-0165` — Fix snapshot open-PR section when gh auth status is stale (merged)
 - `TASK-0164` — Add README workflow concept image (merged)
 - `TASK-0163` — Close scientific credibility and admin wave after merge (merged)
 - `TASK-0162` — Close PR packaging and core reproduction tasks after merge (merged)
 - `TASK-0161` — Close autonomy foundation tasks and unblock autonomous PR packaging (merged)
+- `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (merged)
+- `TASK-0159` — Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation (merged)
 - `TASK-0158` — Curate autonomy and scientific-value upgrade queue before public article prep (merged)
 - `TASK-0157` — Close merged review-ready tasks after public-hardening and autonomy curation wave (merged)
 - `TASK-0156` — Curate Phase B autonomous research follow-up queue (merged)
+- `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (merged)
 - `TASK-0154` — Add agent-run PR packaging and maintainer review checklist (merged)
 - `TASK-0153` — Run first pendulum autonomous research pilot with sandbox-only outputs (merged)
 - `TASK-0152` — Implement research proposal preflight gate and sandbox agent-run layout (merged)
@@ -202,17 +214,17 @@ None.
 - `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
 - `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
 - `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
-- `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
 
 ## BLOCKED
 
-None.
+- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
 - `TASK-0009` — Plan EXP-0003 as a diffusion scaling benchmark (`benchmark_planning`, priority `high`, difficulty `medium`)
 - `TASK-0059` — Prepare Koide tau holdout public summary package (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0065` — Finalize Koide tau holdout public result package (`release_preparation`, priority `medium`, difficulty `medium`)
+- `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
 
 <!-- END AUTO TASK STATUS BOARD -->
 

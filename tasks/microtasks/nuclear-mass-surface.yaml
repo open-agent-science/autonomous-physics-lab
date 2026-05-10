@@ -1,0 +1,172 @@
+queue_id: nuclear-mass-surface
+campaign: nuclear-mass-surface
+campaign_status: scaffold_only_dataset_and_baseline_pending
+selection_guidance:
+  - "Prefer provenance, subset-definition, residual-target, and guardrail tasks before any search-style work."
+  - "Do not imply that a canonical nuclear benchmark or autonomy loop already exists."
+microtasks:
+  - id: NMS-001
+    campaign: nuclear-mass-surface
+    title: Define one shell-closure subset note for a future residual benchmark
+    type: subset-definition
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One short note defining a shell-focused subset and why it should matter for baseline residual review."
+    validation:
+      - "Name the exact subset rule."
+      - "State why the subset is diagnostic rather than decorative."
+    risk_level: low
+    forbidden_claims:
+      - "shell structure already modeled correctly"
+      - "subset choice proves physics"
+      - "benchmark result already exists"
+  - id: NMS-002
+    campaign: nuclear-mass-surface
+    title: Write one measured-versus-extrapolated data-policy note
+    type: provenance-policy
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One policy note on how measured and extrapolated entries should be separated or flagged."
+    validation:
+      - "Name the ambiguity being controlled."
+      - "State that silent mixing is disallowed."
+    risk_level: medium
+    forbidden_claims:
+      - "all entries are equivalent"
+      - "flags are optional"
+      - "dataset semantics are trivial"
+  - id: NMS-003
+    campaign: nuclear-mass-surface
+    title: Propose one residual target definition for the first benchmark
+    type: target-definition
+    estimated_effort: 15-30 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One narrow note choosing and motivating a first residual target such as binding-energy residual or a closely related baseline quantity."
+    validation:
+      - "State the target and units explicitly."
+      - "State one limitation of the choice."
+    risk_level: medium
+    forbidden_claims:
+      - "target choice alone completes the campaign"
+      - "one target captures all nuclear structure"
+      - "the benchmark is already implemented"
+  - id: NMS-004
+    campaign: nuclear-mass-surface
+    title: Define one neutron-rich edge subset for future holdout use
+    type: subset-definition
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note defining a neutron-rich subset candidate and why it should count as a harder generalization slice."
+    validation:
+      - "State the cutoff rule explicitly."
+      - "Name the intended stress behavior."
+    risk_level: medium
+    forbidden_claims:
+      - "subset difficulty is already proven"
+      - "extrapolation settled"
+      - "all neutron-rich behavior is uniform"
+  - id: NMS-005
+    campaign: nuclear-mass-surface
+    title: Draft one negative-control family for later correction-term testing
+    type: negative-control-design
+    estimated_effort: 20-35 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note describing a plausible-but-risky correction family that should be expected to overfit or collapse one diagnostic axis."
+    validation:
+      - "Explain why it is attractive."
+      - "Explain why it may fail under holdout."
+    risk_level: low
+    forbidden_claims:
+      - "negative control means useless science"
+      - "failure proves the campaign invalid"
+      - "holdout already run"
+  - id: NMS-006
+    campaign: nuclear-mass-surface
+    title: Write one isotope-chain holdout rationale note
+    type: holdout-rationale
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One short rationale for why an isotope-chain holdout is methodologically different from random nuclide masking."
+    validation:
+      - "Name the comparison being made."
+      - "State one generalization risk it exposes."
+    risk_level: low
+    forbidden_claims:
+      - "random splits are always enough"
+      - "one split proves robustness"
+      - "future holdout results are implied"
+  - id: NMS-007
+    campaign: nuclear-mass-surface
+    title: Record one uncertainty-normalized metric note for future residual reports
+    type: metric-note
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One metric note explaining how uncertainty-normalized residual reporting could complement raw MeV error."
+    validation:
+      - "State what the metric adds."
+      - "State one reason it cannot replace all other metrics."
+    risk_level: medium
+    forbidden_claims:
+      - "uncertainty weighting settles model quality"
+      - "raw error becomes irrelevant"
+      - "the dataset already supports every uncertainty use"
+  - id: NMS-008
+    campaign: nuclear-mass-surface
+    title: Draft one source-checklist for a pinned nuclear mass dataset import
+    type: source-checklist
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One checklist for source version, checksum, field semantics, and redistribution notes that a future dataset task must satisfy."
+    validation:
+      - "List at least four checklist items."
+      - "Keep the checklist reviewable and non-speculative."
+    risk_level: low
+    forbidden_claims:
+      - "live fetching is harmless"
+      - "source pinning is optional"
+      - "dataset provenance can be inferred later"

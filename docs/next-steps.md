@@ -100,36 +100,83 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Generalize the Autonomous Loop Beyond Pendulum
+### 1. Validate Private Contributors And Agents
 
-The first pendulum autonomous pilot and the PR-packaging layer are now merged.
-The next proof point is breadth: show that the same repository contract works
-for a second campaign without promoting claims automatically.
+The nuclear-mass surface campaign has now landed its first complete wave:
+campaign scaffold, dataset layer, baseline residual benchmark, structured
+holdout protocol, and one sandbox-only autonomous residual pilot.
 
-Highest-value next execution task:
+The next goal is to validate the private contributor and agent workflow before
+opening the repository more broadly. This phase should test whether contributors
+can understand APL from repository instructions, follow task and branch
+protocol, produce reviewable artifacts, pass CI, survive maintainer review, and
+complete closeout without automatic claim promotion.
 
-- `TASK-0155` second dimensional-validator autonomous pilot
+Recommended private-validation queue:
 
-Success looks like:
+- `TASK-0172` private contributor and agent validation plan
+- `TASK-0173` independent replay and audit of `HYP-PROPOSAL-0021`
+- `TASK-0174` nuclear pilot evidence card and visual funnel
+- `TASK-0175` public-facing docs sync after the nuclear wave
+- `TASK-0177` private agent challenge pack
 
-- generated challenge hypotheses enter through the proposal lane;
-- weak items fail deterministic checks before sandbox output is treated as evidence;
-- sandbox evidence remains outside canonical `results/`;
-- maintainers can review a second autonomous PR without reading raw scratch artifacts.
+The target evidence before public opening is workflow stability, not another
+large speculative science result:
 
-### 2. Build the Stronger Benchmark Path
+- 3 to 5 contributors using agents;
+- 10 or more task-based PRs;
+- 3 or more scientific sandbox PRs;
+- 2 or more technical, docs, or test PRs;
+- 2 or more independent replay or audit PRs;
+- zero direct pushes to `main`;
+- zero automatic claim promotions;
+- zero dirty active-board sync after merge;
+- zero public-facing local path leaks;
+- green GitHub CI on the release-candidate branch.
 
-The next scientific-value jump should come from a richer nonlinear mechanics
-benchmark, not another speculative numerology surface.
+Also clear the remaining open workflow-maintenance PRs and keep the active
+board synchronized:
 
-Current strongest benchmark path:
+- `TASK-0115` docs-link integrity check
+- `TASK-0116` microtask queue summary generator
+- `TASK-0117` maintainer review and closeout flow diagram
+- `TASK-0136` validation and scientific-memory integrity split
 
-- `TASK-0159` anharmonic oscillator period benchmark is now implemented.
-- `TASK-0160` autonomous anharmonic research pilot is now packaged as sandbox-only review material.
-- Any next step from this path should be a maintainer-reviewed canonical comparison or curation task, not an automatic result promotion.
+Current nuclear-mass baseline state:
 
-This path should remain downstream of the autonomy contract, but it is now the
-best candidate for a higher-value benchmark with lower overclaim risk.
+- `EXP-0012` / `RESULT-0015` now exist as the first reviewable baseline
+  residual surface;
+- the best current model is the slice-fitted semi-empirical baseline with
+  `2.825 MeV` overall MAE and `2.449 MeV` magic-subset MAE on `NMD-0002`;
+- `TASK-0169` now defines the required structured holdout contract for random,
+  isotope-chain, magic-region, and neutron-rich evaluation;
+- the campaign now has one sandbox-only autonomy package under
+  `AGENT-RUN-0005`;
+- `TASK-0170` is complete, so any nuclear-mass continuation should be a new
+  maintainer-reviewed comparison, dataset-expansion, or curation task rather
+  than automatic result promotion.
+
+The nuclear queue should stay conservative:
+
+- no universal mass-formula claims;
+- no discovery framing;
+- explicit baseline comparison, holdout discipline, and negative-result preservation.
+- no second nuclear sandbox batch until `TASK-0173` is done.
+
+### 2. Keep Anharmonic and Pendulum Work as Methodological Proof
+
+Pendulum and anharmonic work remain useful as proof that the autonomy loop,
+benchmark framing, and maintainer review workflow can function end to end.
+
+The next step is not "more approximation for its own sake." It is to keep the
+same protocol visible across every follow-up campaign:
+
+- hypothesis proposals
+- preflight gate
+- sandbox runs
+- holdout evaluation
+- negative controls
+- reviewable PRs
 
 ### 3. Preserve Replay and Validation Quality
 
