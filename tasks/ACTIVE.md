@@ -49,7 +49,6 @@ one PR.
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
 - `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
@@ -63,6 +62,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
