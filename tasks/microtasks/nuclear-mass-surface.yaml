@@ -64,7 +64,7 @@ microtasks:
       - "State one limitation of the choice."
     risk_level: medium
     forbidden_claims:
-      - "target choice alone solves the campaign"
+      - "target choice alone completes the campaign"
       - "one target captures all nuclear structure"
       - "the benchmark is already implemented"
   - id: NMS-004
@@ -86,7 +86,7 @@ microtasks:
     risk_level: medium
     forbidden_claims:
       - "subset difficulty is already proven"
-      - "extrapolation solved"
+      - "extrapolation settled"
       - "all neutron-rich behavior is uniform"
   - id: NMS-005
     campaign: nuclear-mass-surface

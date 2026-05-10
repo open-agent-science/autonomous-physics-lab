@@ -6,7 +6,7 @@ This note turns the high-level nuclear mass direction into a reviewable APL
 campaign plan.
 
 The campaign is about **baseline residuals and controlled correction tests**,
-not about discovering a universal formula for nuclei.
+not about asserting a universal formula for nuclei.
 
 ## Target Question
 
@@ -18,7 +18,7 @@ performance without drifting into overfit or overclaim?
 
 This is intentionally narrower than:
 
-- solving nuclear structure;
+- fully modeling nuclear structure;
 - replacing mature nuclear models;
 - claiming a new law for all nuclides.
 
@@ -47,7 +47,7 @@ The first benchmark does **not** need:
 
 - advanced multi-model comparison;
 - live online fetching;
-- discovery wording;
+- overclaim wording;
 - autonomous search before baseline and holdout are encoded.
 
 ## Candidate Diagnostic Surfaces

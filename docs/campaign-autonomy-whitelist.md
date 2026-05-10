@@ -16,7 +16,7 @@ agent output into unreviewed claims.
 | `dimensional-analysis-validator` | `WHITELISTED_LIMITED` | Validator curation and sandbox classification proposals |
 | `nuclear-mass-surface` | `EXCLUDED` | Flagship campaign exists, but autonomy is deferred until dataset, baseline, and holdout work are complete |
 | `particle-mass-relations` | `GUARDRAIL_ONLY` | Falsification-first proposal work only |
-| Muon g-2 formula search | `EXCLUDED` | Stress-test framing only, no autonomous discovery loop |
+| Muon g-2 formula search | `EXCLUDED` | Stress-test framing only, no autonomous sandbox research lane |
 | Hubble tension empirical formulas | `EXCLUDED` | Not in first autonomy whitelist |
 | Broad constants derivation | `EXCLUDED` | Not in first autonomy whitelist |
 
@@ -83,7 +83,7 @@ Allowed autonomous work:
 
 Forbidden autonomous work:
 
-- discovery-oriented relation search;
+- open-ended relation search;
 - explanatory language about mass generation;
 - broad cross-family generalization;
 - claim promotion from fit quality;
@@ -122,7 +122,7 @@ Muon g-2, Hubble tension, and broad constants-derivation work are outside the
 first autonomous research whitelist.
 
 Muon g-2 may remain a guarded empirical formula-search stress test. It must not
-be presented as a public success story or autonomous discovery target.
+be presented as a public success story or autonomous flagship target.
 
 These exclusions may change only through a future reviewed task that adds a
 campaign profile, quality gate, and maintainer-approved scope.

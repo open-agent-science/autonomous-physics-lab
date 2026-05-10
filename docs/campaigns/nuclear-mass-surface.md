@@ -34,7 +34,7 @@ Safe contributions right now are campaign-shaping and provenance-shaping work:
   reviewable semantics;
 - do not compare against advanced nuclear models before the simple baseline
   path is encoded and understood;
-- do not write result artifacts or claims that imply a discovered nuclear mass
+- do not write result artifacts or claims that imply a broad nuclear mass
   law.
 
 ## Why It Matters
@@ -124,7 +124,7 @@ Start here:
 - Do not say shell-aware corrections imply new nuclear theory.
 - Do not report sandbox fit improvements as canonical benchmark results.
 - Do not blur measured values, extrapolated values, and derived targets.
-- Do not describe baseline residual maps as evidence of discovery by
+- Do not describe baseline residual maps as evidence of a broader conclusion by
   themselves.
 - Do not open public-facing scientific claims before the first baseline and
   residual benchmark exists.
