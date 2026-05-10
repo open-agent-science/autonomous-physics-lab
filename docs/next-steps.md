@@ -100,14 +100,42 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Close Open Workflow PRs Before Starting More Science
+### 1. Validate Private Contributors And Agents
 
 The nuclear-mass surface campaign has now landed its first complete wave:
 campaign scaffold, dataset layer, baseline residual benchmark, structured
 holdout protocol, and one sandbox-only autonomous residual pilot.
 
-Before starting another scientific expansion, clear the remaining open
-workflow-maintenance PRs and keep the active board synchronized:
+The next goal is to validate the private contributor and agent workflow before
+opening the repository more broadly. This phase should test whether contributors
+can understand APL from repository instructions, follow task and branch
+protocol, produce reviewable artifacts, pass CI, survive maintainer review, and
+complete closeout without automatic claim promotion.
+
+Recommended private-validation queue:
+
+- `TASK-0172` private contributor and agent validation plan
+- `TASK-0173` independent replay and audit of `HYP-PROPOSAL-0021`
+- `TASK-0174` nuclear pilot evidence card and visual funnel
+- `TASK-0175` public-facing docs sync after the nuclear wave
+- `TASK-0177` private agent challenge pack
+
+The target evidence before public opening is workflow stability, not another
+large speculative science result:
+
+- 3 to 5 contributors using agents;
+- 10 or more task-based PRs;
+- 3 or more scientific sandbox PRs;
+- 2 or more technical, docs, or test PRs;
+- 2 or more independent replay or audit PRs;
+- zero direct pushes to `main`;
+- zero automatic claim promotions;
+- zero dirty active-board sync after merge;
+- zero public-facing local path leaks;
+- green GitHub CI on the release-candidate branch.
+
+Also clear the remaining open workflow-maintenance PRs and keep the active
+board synchronized:
 
 - `TASK-0115` docs-link integrity check
 - `TASK-0116` microtask queue summary generator
@@ -128,11 +156,12 @@ Current nuclear-mass baseline state:
   maintainer-reviewed comparison, dataset-expansion, or curation task rather
   than automatic result promotion.
 
-The remaining queue should stay conservative:
+The nuclear queue should stay conservative:
 
 - no universal mass-formula claims;
 - no discovery framing;
 - explicit baseline comparison, holdout discipline, and negative-result preservation.
+- no second nuclear sandbox batch until `TASK-0173` is done.
 
 ### 2. Keep Anharmonic and Pendulum Work as Methodological Proof
 

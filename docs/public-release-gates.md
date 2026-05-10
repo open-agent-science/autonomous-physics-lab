@@ -6,6 +6,12 @@ The goal is not to optimize for a fast public launch. The goal is to confirm
 that the private-alpha workflow works with invited contributors, branch-based
 review, reproducible validation, and at least one honest scientific result.
 
+The detailed private validation plan lives in
+[private-contributor-validation-plan.md](./private-contributor-validation-plan.md).
+Use [private-agent-test-metrics.md](./private-agent-test-metrics.md) and
+[private-contributor-scorecard.md](./private-contributor-scorecard.md) to collect
+evidence for Gate 2.
+
 ## Gate 1 — Technical Stability
 
 All of the following must be true:
@@ -27,11 +33,17 @@ Suggested evidence:
 
 All of the following must be true:
 
-- at least 3 atomic tasks completed via branches and PRs
-- at least 2 different contributors or agent sessions
+- 3-5 invited contributors or contributor-agent pairs
+- 10 or more task-based PRs
+- 3 or more scientific sandbox PRs
+- 2 or more technical, docs, or test PRs
+- 2 or more independent replay or audit PRs
 - each PR links to a task
 - each PR passes CI
 - maintainer review happens before merge
+- no direct pushes to `main`
+- no automatic claim or knowledge promotion
+- no dirty active-board or context sync after merge
 
 Suggested evidence:
 
