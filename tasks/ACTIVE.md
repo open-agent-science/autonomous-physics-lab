@@ -58,26 +58,27 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0159` — Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation (`scientific_benchmark`, priority `high`, difficulty `high`)
-- `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0165` — Fix snapshot open-PR section when gh auth status is stale (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0166` — Create nuclear mass surface campaign scaffold (`scientific_campaign`, priority `high`, difficulty `medium`)
-- `TASK-0167` — Add AME nuclear mass dataset loader and schema (`dataset_workflow`, priority `high`, difficulty `high`)
-- `TASK-0168` — Implement baseline nuclear mass formulas and residual reports (`scientific_benchmark`, priority `high`, difficulty `high`)
-- `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (`benchmark_protocol`, priority `high`, difficulty `high`)
-- `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0171` — Curate nuclear mass surface flagship campaign queue (`maintainer_workflow`, priority `high`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
+- `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (merged)
+- `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (merged)
+- `TASK-0168` — Implement baseline nuclear mass formulas and residual reports (merged)
+- `TASK-0167` — Add AME nuclear mass dataset loader and schema (merged)
+- `TASK-0166` — Create nuclear mass surface campaign scaffold (merged)
+- `TASK-0165` — Fix snapshot open-PR section when gh auth status is stale (merged)
 - `TASK-0164` — Add README workflow concept image (merged)
 - `TASK-0163` — Close scientific credibility and admin wave after merge (merged)
 - `TASK-0162` — Close PR packaging and core reproduction tasks after merge (merged)
 - `TASK-0161` — Close autonomy foundation tasks and unblock autonomous PR packaging (merged)
+- `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (merged)
+- `TASK-0159` — Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation (merged)
 - `TASK-0158` — Curate autonomy and scientific-value upgrade queue before public article prep (merged)
 - `TASK-0157` — Close merged review-ready tasks after public-hardening and autonomy curation wave (merged)
 - `TASK-0156` — Curate Phase B autonomous research follow-up queue (merged)
+- `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (merged)
 - `TASK-0154` — Add agent-run PR packaging and maintainer review checklist (merged)
 - `TASK-0153` — Run first pendulum autonomous research pilot with sandbox-only outputs (merged)
 - `TASK-0152` — Implement research proposal preflight gate and sandbox agent-run layout (merged)
