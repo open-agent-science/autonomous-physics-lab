@@ -1,0 +1,65 @@
+id: TASK-0170
+title: "Run first autonomous nuclear-mass residual hypothesis pilot"
+type: autonomous_research_pilot
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Use the nuclear mass campaign as the next serious test of APL's autonomous research loop on richer real-data structure."
+  - "Preserve explicit rejection, preflight, holdout, and negative-result handling in a higher-value scientific domain."
+  - "Reward compact shell-aware or asymmetry-aware correction families only when they survive baseline comparison and holdout discipline."
+
+input:
+  mode: workflow
+  related_domain: autonomous_research
+  related_objects:
+    - "tasks/TASK-0149-define-blind-holdout-benchmark-protocol.yaml"
+    - "tasks/TASK-0152-implement-research-preflight-gate-and-sandbox-agent-runs.yaml"
+    - "tasks/TASK-0154-add-agent-run-pr-packaging-and-review-checklist.yaml"
+    - "tasks/TASK-0166-create-nuclear-mass-surface-campaign-scaffold.yaml"
+    - "tasks/TASK-0167-add-ame-nuclear-mass-dataset-loader-and-schema.yaml"
+    - "tasks/TASK-0168-implement-nuclear-mass-baselines-and-residual-reports.yaml"
+    - "tasks/TASK-0169-define-nuclear-mass-holdout-protocol.yaml"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+    - "hypothesis_proposals/"
+    - "experiment_proposals/"
+    - "agent_runs/"
+  planning_context: >
+    After the campaign scaffold, dataset layer, baseline benchmark, and holdout
+    protocol exist, run one sandbox-only autonomous pilot on nuclear-mass
+    residual hypotheses. The point is not to discover a universal mass law; it
+    is to test whether APL agents can generate, filter, and evaluate compact
+    correction terms honestly on a stronger benchmark.
+
+requirements:
+  - "Do not start until TASK-0149, TASK-0152, TASK-0154, TASK-0166, TASK-0167, TASK-0168, and TASK-0169 are complete."
+  - "Generate 8 to 12 correction hypotheses for nuclear mass residuals."
+  - "Reject weak, duplicate, non-interpretable, or non-physical candidates explicitly before sandbox execution."
+  - "Run at most 3 sandbox candidates and compare each against the documented baseline and holdout protocol."
+  - "Preserve at least one negative or overfit result as an explicit part of the pilot output."
+  - "Keep all outputs under proposal or sandbox paths and do not promote claims or canonical results automatically."
+
+accepted_outputs:
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-XXXX-*.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-XXXX-*.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-XXXX/limitations.md"
+  - "agent_runs/AGENT-RUN-XXXX/preflight.md"
+  - "agent_runs/AGENT-RUN-XXXX/review_summary.md"
+  - "docs/reviews/autonomous-nuclear-mass-pilot-01.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

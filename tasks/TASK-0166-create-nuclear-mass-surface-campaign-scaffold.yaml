@@ -1,0 +1,53 @@
+id: TASK-0166
+title: "Create nuclear mass surface campaign scaffold"
+type: scientific_campaign
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Elevate a dataset-backed nuclear mass campaign as the next flagship scientific direction after pendulum and anharmonic proof-of-method work."
+  - "Keep particle-mass and muon g-2 tracks falsification-first while shifting new scientific-value work toward real nuclear data, uncertainties, and extrapolation tests."
+  - "Reuse APL's proposal, preflight, sandbox, holdout, and negative-result workflow in a domain with richer structure and lower numerology risk."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0091-nuclear-magic-numbers-correction.yaml"
+    - "docs/campaigns/README.md"
+    - "campaign_profiles/"
+    - "tasks/microtasks/README.md"
+  planning_context: >
+    The repository needs a broader nuclear mass campaign that goes beyond the
+    narrower magic-number-only framing in TASK-0091. The scaffold should define
+    a flagship campaign around baseline nuclear mass residuals, shell-closure
+    structure, holdout validation, neutron-rich extrapolation, compact
+    correction hypotheses, and explicit negative-result handling.
+
+requirements:
+  - "Create a campaign scaffold centered on binding-energy residuals and mass-surface diagnostics, not a claim of a universal mass formula."
+  - "Frame the campaign around compact, physically constrained correction terms to baseline nuclear mass models."
+  - "Keep shell closures, magic-number regions, pairing effects, and asymmetry residuals visible as diagnostic targets."
+  - "Define campaign guardrails that forbid discovery wording, automatic claim promotion, and broad new-physics framing."
+  - "Add a microtask queue layout so future residual-map, subset-analysis, and negative-control work can land incrementally."
+  - "Document how this broader campaign relates to the older narrow idea in TASK-0091 without deleting historical context."
+
+accepted_outputs:
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/notes/nuclear-mass-campaign-plan.md"
+  - "tasks/microtasks/nuclear-mass-surface.yaml"
+  - "updated docs/campaigns/README.md"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
