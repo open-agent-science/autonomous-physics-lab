@@ -32,22 +32,25 @@ That base now exists well enough to support a new emphasis:
 
 1. Curate scientific campaigns rather than broadening into many unfinished
    benchmark ideas at once.
-2. Prepare and maintain a clear Mission Control and campaign-map layer so new
+2. Elevate a nuclear mass surface campaign as the next flagship science track,
+   using baseline residual maps, shell-closure diagnostics, holdout discipline,
+   and conservative correction-term framing instead of broad discovery claims.
+3. Prepare and maintain a clear Mission Control and campaign-map layer so new
    contributors can see what APL is trying to do and where evidence already
    exists.
-3. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+4. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-4. Improve visual result summaries, campaign summaries, and contributor-facing
+5. Improve visual result summaries, campaign summaries, and contributor-facing
    navigation around the strongest current evidence, including negative-result
    surfaces.
-5. Package the current result layer into a coherent v0.2 story without
+6. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-6. Continue the private contributor pilot and maintainer review loop before any
+7. Continue the private contributor pilot and maintainer review loop before any
    public rollout.
-7. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+8. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-8. Prepare public launch only after the explicit gates in
+9. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 ## Current Goal

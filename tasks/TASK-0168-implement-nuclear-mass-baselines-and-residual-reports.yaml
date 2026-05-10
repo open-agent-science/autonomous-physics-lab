@@ -1,0 +1,55 @@
+id: TASK-0168
+title: "Implement baseline nuclear mass formulas and residual reports"
+type: scientific_benchmark
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Measure what the baseline already explains before asking agents to search for correction terms."
+  - "Use simple, interpretable nuclear mass baselines as the reference surface for later residual discovery and falsification work."
+  - "Turn shell-closure, pairing, and neutron-rich failure modes into reviewable diagnostic outputs rather than loose intuition."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0167-add-ame-nuclear-mass-dataset-loader-and-schema.yaml"
+    - "tasks/TASK-0091-nuclear-magic-numbers-correction.yaml"
+    - "physics_lab/engines/"
+    - "examples/"
+    - "results/"
+  planning_context: >
+    Once the nuclear mass dataset layer exists, implement a first benchmark
+    surface around semi-empirical baseline formulas and residual diagnostics.
+    This task should characterize where the baseline works, where it fails, and
+    which structured residual regions are worth later sandbox hypothesis work.
+
+requirements:
+  - "Do not start until TASK-0167 is complete."
+  - "Implement a liquid-drop or semi-empirical mass baseline with explicit volume, surface, Coulomb, asymmetry, and pairing structure."
+  - "Report residuals in MeV and uncertainty-normalized form where the dataset supports it."
+  - "Add shell-closure or magic-number diagnostic summaries and subset error reporting."
+  - "Keep richer external baselines such as Duflo-Zuker optional future references rather than required first dependencies."
+  - "Present failures and residual structure as benchmark diagnostics, not discovery claims."
+
+accepted_outputs:
+  - "physics_lab/engines/nuclear_mass_baselines.py"
+  - "examples/nuclear_mass_baseline.yaml"
+  - "experiments/EXP-XXXX-nuclear-mass-baseline.yaml"
+  - "results/EXP-XXXX/RUN-0001/report.md"
+  - "docs/results/nuclear-mass-baseline-summary.md"
+  - "tests/test_nuclear_mass_baselines.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
