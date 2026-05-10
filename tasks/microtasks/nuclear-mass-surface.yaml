@@ -1,9 +1,10 @@
 queue_id: nuclear-mass-surface
 campaign: nuclear-mass-surface
-campaign_status: scaffold_only_dataset_and_baseline_pending
+campaign_status: active_baseline_and_sandbox_guarded
 selection_guidance:
-  - "Prefer provenance, subset-definition, residual-target, and guardrail tasks before any search-style work."
-  - "Do not imply that a canonical nuclear benchmark or autonomy loop already exists."
+  - "Prefer replay, audit, evidence-card, provenance, and guardrail tasks before any second sandbox batch."
+  - "Treat EXP-0012 / RESULT-0015 as a bounded baseline surface, not a finished nuclear theory."
+  - "Do not run a second nuclear sandbox batch until TASK-0173 independently audits HYP-PROPOSAL-0021."
 microtasks:
   - id: NMS-001
     campaign: nuclear-mass-surface
