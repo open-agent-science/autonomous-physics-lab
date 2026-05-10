@@ -1,7 +1,7 @@
 id: TASK-0173
 title: "Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate"
 type: scientific_audit
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
