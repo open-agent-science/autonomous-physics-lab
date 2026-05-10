@@ -1,7 +1,7 @@
 id: TASK-0091
 title: "Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers"
 type: scientific_experiment
-status: PROPOSED
+status: REJECTED
 difficulty: medium
 priority: medium
 
@@ -31,6 +31,11 @@ input:
     The task is to download/load the AME2020 dataset, compute BW residuals,
     and apply APL's gauntlet-style search over shell-correction formula
     families to find the best analytic approximation.
+
+    This narrow framing is now superseded by the broader nuclear mass surface
+    campaign queue in TASK-0166 through TASK-0170, which adds campaign
+    scaffold, dataset provenance, residual benchmarking, holdout protocol, and
+    sandbox-only autonomy guardrails.
 
 requirements:
   - "Create knowledge/nuclear_physics/ directory and AME2020 dataset loader."

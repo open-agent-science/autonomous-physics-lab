@@ -1,0 +1,145 @@
+dataset_id: NMD-0002
+title: "Curated measured nuclear-mass benchmark slice"
+status: curated
+description: >
+  Small pinned measured slice used to bring up the first nuclear-mass baseline
+  residual benchmark before the repository commits a broader AME-style table.
+source_policy: >
+  Pinned benchmark slice with explicit measured-only semantics. Values are
+  stored directly in the repository for deterministic baseline benchmarking and
+  must not be silently expanded or merged with extrapolated entries.
+source_dataset:
+  authority: "Autonomous Physics Lab curated benchmark slice"
+  version: "APL-NMD-0002-v1"
+  citation: >
+    Curated measured atomic-mass slice assembled for TASK-0168 benchmark
+    bring-up, using well-known atomic-mass reference values and a coarse
+    uncertainty floor of roughly 1e-5 u where per-entry source uncertainty was
+    not separately tracked in the pinned slice.
+  url: "https://github.com/gladunrv/autonomous-physics-lab/blob/main/data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  accessed_on: "2026-05-10"
+  checksum_sha256: "d97cf3ddde9dfa77abf1361a44051841b8e1e9f2cd6b2051100ab6e228a19fc9"
+  checksum_scope: "Committed benchmark slice payload with checksum field excluded"
+  license_note: "Repository-curated benchmark slice for scientific software evaluation."
+entries:
+  - nuclide_id: He-4
+    element: helium
+    symbol: He
+    Z: 2
+    N: 2
+    A: 4
+    evaluation: measured
+    source_entry: "curated-he-4"
+    notes: "Doubly magic light nucleus."
+    atomic_mass_u: 4.00260325413
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: N-14
+    element: nitrogen
+    symbol: N
+    Z: 7
+    N: 7
+    A: 14
+    evaluation: measured
+    source_entry: "curated-n-14"
+    notes: "Odd-odd benchmark point."
+    atomic_mass_u: 14.00307400443
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: O-16
+    element: oxygen
+    symbol: O
+    Z: 8
+    N: 8
+    A: 16
+    evaluation: measured
+    source_entry: "curated-o-16"
+    notes: "Doubly magic oxygen benchmark point."
+    atomic_mass_u: 15.99491461957
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: O-17
+    element: oxygen
+    symbol: O
+    Z: 8
+    N: 9
+    A: 17
+    evaluation: measured
+    source_entry: "curated-o-17"
+    notes: "Odd-A neighbor of O-16."
+    atomic_mass_u: 16.9991317565
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: Ca-40
+    element: calcium
+    symbol: Ca
+    Z: 20
+    N: 20
+    A: 40
+    evaluation: measured
+    source_entry: "curated-ca-40"
+    notes: "Doubly magic calcium benchmark point."
+    atomic_mass_u: 39.962590863
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: Ca-48
+    element: calcium
+    symbol: Ca
+    Z: 20
+    N: 28
+    A: 48
+    evaluation: measured
+    source_entry: "curated-ca-48"
+    notes: "Magic-neutron calcium benchmark point."
+    atomic_mass_u: 47.95252276
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: Fe-56
+    element: iron
+    symbol: Fe
+    Z: 26
+    N: 30
+    A: 56
+    evaluation: measured
+    source_entry: "curated-fe-56"
+    notes: "Mid-shell stable benchmark point."
+    atomic_mass_u: 55.93493633
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: Fe-57
+    element: iron
+    symbol: Fe
+    Z: 26
+    N: 31
+    A: 57
+    evaluation: measured
+    source_entry: "curated-fe-57"
+    notes: "Odd-A iron neighbor."
+    atomic_mass_u: 56.93539284
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: Sn-120
+    element: tin
+    symbol: Sn
+    Z: 50
+    N: 70
+    A: 120
+    evaluation: measured
+    source_entry: "curated-sn-120"
+    notes: "Magic-proton heavy benchmark point."
+    atomic_mass_u: 119.90220163
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: Pb-208
+    element: lead
+    symbol: Pb
+    Z: 82
+    N: 126
+    A: 208
+    evaluation: measured
+    source_entry: "curated-pb-208"
+    notes: "Doubly magic heavy benchmark point."
+    atomic_mass_u: 207.9766525
+    atomic_mass_uncertainty_u: 1.0e-5
+  - nuclide_id: U-238
+    element: uranium
+    symbol: U
+    Z: 92
+    N: 146
+    A: 238
+    evaluation: measured
+    source_entry: "curated-u-238"
+    notes: "Neutron-rich heavy benchmark point."
+    atomic_mass_u: 238.05078826
+    atomic_mass_uncertainty_u: 1.0e-5

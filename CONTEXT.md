@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-09 19:30 UTC
+Generated: 2026-05-10 21:28 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -496,7 +496,8 @@ The repository is no longer focused mainly on bootstrap infrastructure work.
 That base now exists well enough to support a new emphasis:
 
 - curate active scientific campaigns with clear scope and honest limitations;
-- onboard contributors into a branch-based, reviewable workflow;
+- validate private contributors and their agents through a branch-based,
+  reviewable workflow before any public opening;
 - improve project-level orientation so results, tasks, and risks stay legible;
 - keep public-launch work gated behind validation and review discipline.
 
@@ -504,29 +505,33 @@ That base now exists well enough to support a new emphasis:
 
 1. Curate scientific campaigns rather than broadening into many unfinished
    benchmark ideas at once.
-2. Prepare and maintain a clear Mission Control and campaign-map layer so new
+2. Elevate a nuclear mass surface campaign as the next flagship science track,
+   using baseline residual maps, shell-closure diagnostics, holdout discipline,
+   and conservative correction-term framing instead of broad discovery claims.
+3. Validate the private contributor and agent workflow with measurable gates:
+   task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
+   clean review-helper behavior, closeout, and zero automatic claim promotion.
+4. Prepare and maintain a clear Mission Control and campaign-map layer so new
    contributors can see what APL is trying to do and where evidence already
    exists.
-3. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+5. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-4. Improve visual result summaries, campaign summaries, and contributor-facing
+6. Improve visual result summaries, campaign summaries, and contributor-facing
    navigation around the strongest current evidence, including negative-result
    surfaces.
-5. Package the current result layer into a coherent v0.2 story without
+7. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-6. Continue the private contributor pilot and maintainer review loop before any
-   public rollout.
-7. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+8. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-8. Prepare public launch only after the explicit gates in
+9. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 ## Current Goal
 
 Demonstrate that APL can run honest scientific campaigns and a disciplined
-contributor workflow at the same time, without relaxing verification standards
-or overstating benchmark results.
+private contributor validation phase at the same time, without relaxing
+verification standards or overstating benchmark results.
 
 ## Current North-Star Outcomes
 
@@ -1343,8 +1348,6 @@ one PR.
 
 ## READY
 
-- `TASK-0066` — Review v0.2 public readiness gates (`release_review`, priority `medium`, difficulty `low`)
-- `TASK-0114` — Add microtask queue consistency validator (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
 - `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
@@ -1352,8 +1355,11 @@ one PR.
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0159` — Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation (`scientific_benchmark`, priority `high`, difficulty `high`)
+- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -1361,18 +1367,27 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0112` — Implement microtask run registry and expanded repeatable queues (`agent_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0163` — Close scientific credibility and admin wave after merge (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0164` — Add README workflow concept image (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
+- `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (merged)
+- `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (merged)
+- `TASK-0168` — Implement baseline nuclear mass formulas and residual reports (merged)
+- `TASK-0167` — Add AME nuclear mass dataset loader and schema (merged)
+- `TASK-0166` — Create nuclear mass surface campaign scaffold (merged)
+- `TASK-0165` — Fix snapshot open-PR section when gh auth status is stale (merged)
+- `TASK-0164` — Add README workflow concept image (merged)
+- `TASK-0163` — Close scientific credibility and admin wave after merge (merged)
 - `TASK-0162` — Close PR packaging and core reproduction tasks after merge (merged)
 - `TASK-0161` — Close autonomy foundation tasks and unblock autonomous PR packaging (merged)
+- `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (merged)
+- `TASK-0159` — Implement anharmonic oscillator period benchmark with perturbative baseline and holdout evaluation (merged)
 - `TASK-0158` — Curate autonomy and scientific-value upgrade queue before public article prep (merged)
 - `TASK-0157` — Close merged review-ready tasks after public-hardening and autonomy curation wave (merged)
 - `TASK-0156` — Curate Phase B autonomous research follow-up queue (merged)
+- `TASK-0155` — Run second autonomous research pilot on dimensional-analysis validator (merged)
 - `TASK-0154` — Add agent-run PR packaging and maintainer review checklist (merged)
 - `TASK-0153` — Run first pendulum autonomous research pilot with sandbox-only outputs (merged)
 - `TASK-0152` — Implement research proposal preflight gate and sandbox agent-run layout (merged)
@@ -1389,6 +1404,7 @@ None.
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
 - `TASK-0135` — Audit and freeze pendulum gauntlet reproducibility (merged)
 - `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (merged)
+- `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (merged)
 - `TASK-0128` — Add agent catalog and documentation entrypoint links (merged)
 - `TASK-0127` — Implement muon g-2 empirical formula search benchmark (merged)
 - `TASK-0126` — Curate canonical implementation task for muon g-2 formula-search salvage (merged)
@@ -1400,7 +1416,9 @@ None.
 - `TASK-0120` — Add use-your-agent quickstart diagram pack (merged)
 - `TASK-0119` — Add thought-experiment campaign orientation note (merged)
 - `TASK-0118` — Add particle-mass campaign map diagram (merged)
+- `TASK-0114` — Add microtask queue consistency validator (merged)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (merged)
+- `TASK-0112` — Implement microtask run registry and expanded repeatable queues (merged)
 - `TASK-0111` — Plan microtask scale readiness for daily multi-agent scientific work (merged)
 - `TASK-0110` — Verify high-precision asymptotic refined pendulum model (merged)
 - `TASK-0109` — Define protocol support for microtask batch PRs (merged)
@@ -1436,6 +1454,7 @@ None.
 - `TASK-0073` — Define maintainer automation agent architecture and routine instructions (merged)
 - `TASK-0071` — Support closeout batch PRs in review helper (merged)
 - `TASK-0067` — Add v0.2 release-focused campaign tasks (merged)
+- `TASK-0066` — Review v0.2 public readiness gates (merged)
 - `TASK-0064` — Implement dimensional analysis validator MVP (merged)
 - `TASK-0063` — Generate v0.2 static visual result pack (merged)
 - `TASK-0062` — Update project status and roadmap for scientific campaign phase (merged)
@@ -1499,17 +1518,17 @@ None.
 - `TASK-0016` — Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`)
 - `TASK-0089` — Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`)
 - `TASK-0090` — Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`)
-- `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
 
 ## BLOCKED
 
-- `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
 - `TASK-0009` — Plan EXP-0003 as a diffusion scaling benchmark (`benchmark_planning`, priority `high`, difficulty `medium`)
 - `TASK-0059` — Prepare Koide tau holdout public summary package (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0065` — Finalize Koide tau holdout public result package (`release_preparation`, priority `medium`, difficulty `medium`)
+- `TASK-0091` — Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`)
 
 <!-- END AUTO TASK STATUS BOARD -->
 

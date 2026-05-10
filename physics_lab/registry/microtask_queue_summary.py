@@ -68,14 +68,15 @@ def load_microtask_queue_summaries(root: str | Path) -> tuple[MicrotaskQueueSumm
 def render_microtask_queue_summary_table(summaries: tuple[MicrotaskQueueSummary, ...]) -> str:
     """Render queue summaries as a compact Markdown table."""
     lines = [
-        "| Queue | Campaign Status | Items | Risk Levels | Selection Guidance |",
-        "| --- | --- | ---: | --- | --- |",
+        "| Queue | Campaign | Campaign Status | Items | Risk Levels | Selection Guidance |",
+        "| --- | --- | --- | ---: | --- | --- |",
     ]
     for summary in summaries:
         queue_link = f"[`{summary.queue_id}`]({summary.filename})"
         lines.append(
             "| "
             f"{queue_link} | "
+            f"{_escape_table_cell(summary.campaign)} | "
             f"`{summary.campaign_status}` | "
             f"{summary.microtask_count} | "
             f"{_format_values(summary.risk_levels)} | "

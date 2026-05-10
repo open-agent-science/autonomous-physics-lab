@@ -62,6 +62,7 @@ def test_render_microtask_queue_summary_table_links_to_queue_file(tmp_path: Path
     table = render_microtask_queue_summary_table(summaries)
 
     assert "[`example-queue`](example-queue.yaml)" in table
+    assert "example-campaign" in table
     assert "`active`" in table
     assert "Prefer narrow reviewable work." in table
 

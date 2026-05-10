@@ -1,0 +1,41 @@
+id: AGENT-RUN-0005
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0170
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0005-nuclear-mass-sandbox-batch.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0005/metrics.json
+  report: agent_runs/AGENT-RUN-0005/report.md
+  limitations: agent_runs/AGENT-RUN-0005/limitations.md
+  preflight: agent_runs/AGENT-RUN-0005/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0005/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: campaign_scope
+      status: PASS
+      notes: "nuclear-mass-surface is WHITELISTED_LIMITED for frozen-baseline sandbox work."
+    - name: proposal_schema
+      status: PASS
+      notes: "Executed and rejected nuclear-mass proposals passed research-proposal preflight."
+    - name: triage_boundary
+      status: PASS
+      notes: "Eight proposals generated; three executed and five rejected before sandbox execution."
+    - name: promotion_boundary
+      status: PASS
+      notes: "No canonical results, claims, hypotheses, experiments, accepted knowledge, or canonical datasets are changed."
+limitations:
+  - "Sandbox-only pilot; it does not update RESULT-0015 or any canonical nuclear-mass result memory."
+  - "The measured-only slice is intentionally tiny, so even the best executed family remains follow-up evidence only."
+  - "Any future promotion requires a maintainer-reviewed task with a broader pinned dataset and the same holdout discipline."
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer-reviewed canonical comparison or dataset-expansion task before any RESULT-* promotion."
