@@ -1,7 +1,7 @@
 id: TASK-0165
 title: "Fix snapshot open-PR section when gh auth status is stale"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
