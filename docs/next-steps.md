@@ -108,13 +108,18 @@ and harder generalization tests.
 
 Recommended queue:
 
-- `TASK-0166` create nuclear mass surface campaign scaffold
-- `TASK-0167` add AME nuclear mass dataset loader and schema
-- `TASK-0168` implement baseline nuclear mass formulas and residual reports
 - `TASK-0169` define nuclear mass holdout protocol
 - `TASK-0170` run first autonomous nuclear-mass residual hypothesis pilot
 
-This queue should stay conservative:
+Current nuclear-mass baseline state:
+
+- `EXP-0012` / `RESULT-0015` now exist as the first reviewable baseline
+  residual surface;
+- the best current model is the slice-fitted semi-empirical baseline with
+  `2.825 MeV` overall MAE and `2.449 MeV` magic-subset MAE on `NMD-0002`;
+- this is still benchmark-only and not autonomy-ready.
+
+The remaining queue should stay conservative:
 
 - no universal mass-formula claims;
 - no discovery framing;
