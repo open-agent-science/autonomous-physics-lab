@@ -1,0 +1,55 @@
+id: TASK-0178
+title: "Run second nuclear-mass sandbox batch after independent audit"
+type: autonomous_research_pilot
+status: BLOCKED
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Continue Nuclear Mass Surface only after the first strong sandbox candidate is independently audited."
+  - "Avoid multiplying an unverified residual-pattern family across more agent outputs."
+  - "Keep second-batch nuclear work sandbox-only, holdout-aware, and negative-result preserving."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0173-independent-audit-hyp-proposal-0021.yaml"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "agent_runs/AGENT-RUN-0005/"
+    - "hypothesis_proposals/nuclear-mass/"
+  planning_context: >
+    A second nuclear-mass sandbox batch is useful only after HYP-PROPOSAL-0021
+    has been independently replayed and audited. Until then, this task should
+    remain blocked so agents do not scale a potentially cherry-picked or
+    leakage-sensitive pattern.
+
+requirements:
+  - "Do not start until TASK-0173 is DONE and its audit does not block follow-up work."
+  - "Generate a second bounded batch of nuclear-mass residual hypotheses under the existing campaign profile."
+  - "Reject weak or duplicate candidates before execution."
+  - "Run only sandbox experiments; do not update canonical results, claims, accepted knowledge, or datasets."
+  - "Preserve at least one negative or overfit result if present."
+  - "Compare every candidate against the frozen baseline and documented holdout protocol."
+
+accepted_outputs:
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-00XX-*.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-00XX-*.yaml"
+  - "agent_runs/AGENT-RUN-00XX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-00XX/metrics.json"
+  - "agent_runs/AGENT-RUN-00XX/report.md"
+  - "docs/reviews/autonomous-nuclear-mass-pilot-02.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
