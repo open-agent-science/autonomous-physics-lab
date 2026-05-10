@@ -31,6 +31,15 @@ from physics_lab.registry.review_checks import (
     claim_status_promotions,
 )
 from physics_lab.registry.review_policy import (
+    BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    CLOSEOUT_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    CLOSEOUT_PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    MICROTASK_BATCH_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    MICROTASK_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    MICROTASK_PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    PROPOSAL_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    PROPOSAL_PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
     branch_microtask_id,  # noqa: F401 — re-exported; tests import from here
     branch_microtask_queue_id,  # noqa: F401 — re-exported; tests import from here
     branch_proposal_slug,  # noqa: F401 — re-exported; tests import from here
