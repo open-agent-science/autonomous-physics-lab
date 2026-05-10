@@ -100,15 +100,19 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Start the Nuclear Mass Surface Campaign
+### 1. Close Open Workflow PRs Before Starting More Science
 
-The next flagship science direction should move from toy-like approximation
-surfaces toward a richer real-data domain with uncertainties, shell structure,
-and harder generalization tests.
+The nuclear-mass surface campaign has now landed its first complete wave:
+campaign scaffold, dataset layer, baseline residual benchmark, structured
+holdout protocol, and one sandbox-only autonomous residual pilot.
 
-Recommended queue:
+Before starting another scientific expansion, clear the remaining open
+workflow-maintenance PRs and keep the active board synchronized:
 
-- `TASK-0170` run first autonomous nuclear-mass residual hypothesis pilot
+- `TASK-0115` docs-link integrity check
+- `TASK-0116` microtask queue summary generator
+- `TASK-0117` maintainer review and closeout flow diagram
+- `TASK-0136` validation and scientific-memory integrity split
 
 Current nuclear-mass baseline state:
 
@@ -119,8 +123,10 @@ Current nuclear-mass baseline state:
 - `TASK-0169` now defines the required structured holdout contract for random,
   isotope-chain, magic-region, and neutron-rich evaluation;
 - the campaign now has one sandbox-only autonomy package under
-  `AGENT-RUN-0005`, but it remains benchmark-only until a maintainer requests
-  a canonical follow-up task.
+  `AGENT-RUN-0005`;
+- `TASK-0170` is complete, so any nuclear-mass continuation should be a new
+  maintainer-reviewed comparison, dataset-expansion, or curation task rather
+  than automatic result promotion.
 
 The remaining queue should stay conservative:
 
@@ -133,8 +139,8 @@ The remaining queue should stay conservative:
 Pendulum and anharmonic work remain useful as proof that the autonomy loop,
 benchmark framing, and maintainer review workflow can function end to end.
 
-The next step is not "more approximation for its own sake." It is to carry the
-same protocol into the nuclear mass campaign:
+The next step is not "more approximation for its own sake." It is to keep the
+same protocol visible across every follow-up campaign:
 
 - hypothesis proposals
 - preflight gate
