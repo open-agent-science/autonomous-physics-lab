@@ -92,6 +92,7 @@ All results are stored as versioned run artifacts under `results/<experiment>/<r
 → **[Koide campaign summary](docs/results/koide-campaign-summary.md)**
 → **[Negative results registry](docs/negative-results-registry.md)**
 → **[Reproducibility capsules](docs/reproducibility-capsules.md)**
+→ **[External reviewer replication guide](docs/external-reviewer-replication-guide.md)**
 
 ### Selected Figures
 
@@ -144,6 +145,9 @@ artifacts into per-slice `/tmp/apl-core-reproduction/*/` folders, and writes a
 compact summary to `/tmp/apl-core-reproduction/CORE_REPRODUCTION_SUMMARY.md`. See
 [docs/reproducibility-capsules.md](docs/reproducibility-capsules.md) for scope,
 expected metrics, and skipped stress-test notes.
+
+If you are reviewing APL from the outside rather than contributing code, start
+with [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md).
 
 ## Active Scientific Campaigns
 
