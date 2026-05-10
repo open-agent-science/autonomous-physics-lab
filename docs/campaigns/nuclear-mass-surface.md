@@ -56,18 +56,18 @@ and reviewable failure modes.
 
 ## Current Results
 
-This campaign is still pre-benchmark:
+This campaign now has an executable first-wave benchmark stack:
 
-- `TASK-0166` creates the campaign scaffold, guardrails, autonomy posture, and
+- `TASK-0166` created the campaign scaffold, guardrails, autonomy posture, and
   microtask queue.
-- `TASK-0167` is the planned dataset layer for AME-style nuclear mass tables
-  with explicit provenance and normalized fields.
-- `TASK-0168` is the planned baseline benchmark for residual reports against a
-  simple semi-empirical mass model.
-- `TASK-0169` is the planned holdout protocol for random, chain-based,
+- `TASK-0167` added the nuclear mass loader and schema layer.
+- `TASK-0168` added the first baseline benchmark:
+  - `EXP-0012`
+  - `RESULT-0015`
+  - pinned measured slice `NMD-0002`
+- `TASK-0169` remains the next required step for random, chain-based,
   shell-region, and neutron-rich generalization tests.
-- `TASK-0170` is the planned first sandbox-only autonomous pilot, explicitly
-  downstream of dataset, baseline, and holdout work.
+- `TASK-0170` remains downstream of the holdout protocol by design.
 
 Historical context:
 
@@ -77,8 +77,8 @@ Historical context:
   surfaces instead of optional extras.
 
 Current campaign state in one sentence:
-the scientific direction is now explicit, but the executable nuclear benchmark
-stack does not exist yet.
+the scientific direction is now explicit and executable at the baseline level,
+but holdout discipline and sandbox autonomy are still downstream steps.
 
 Start here:
 
@@ -103,9 +103,6 @@ Start here:
 
 ## Recommended Tasks
 
-- `TASK-0167` — add the pinned nuclear mass dataset loader and schema.
-- `TASK-0168` — implement the simple baseline mass formula and residual
-  reports before any search-style work.
 - `TASK-0169` — define the holdout protocol before interpreting candidate
   corrections.
 - narrow queue items from `tasks/microtasks/nuclear-mass-surface.yaml` for

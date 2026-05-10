@@ -1,0 +1,554 @@
+{
+  "result_id": "RESULT-0015",
+  "run_id": "RUN-0001",
+  "dataset_id": "NMD-0002",
+  "best_model_id": "model_fitted_semi_empirical",
+  "best_verdict": "PARTIALLY_VALID",
+  "verification": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "dataset_slice_loaded",
+        "status": "PASS",
+        "details": "Loaded the pinned measured nuclear-mass slice with the expected entry count.",
+        "metrics": {
+          "dataset_id": "NMD-0002",
+          "entry_count": 11
+        }
+      },
+      {
+        "name": "binding_energy_reconstruction",
+        "status": "PASS",
+        "details": "Derived binding energies and atomic-mass residuals deterministically from the pinned dataset entries.",
+        "metrics": {
+          "dataset_kind": "nuclear_mass_dataset"
+        }
+      },
+      {
+        "name": "fitted_baseline_improves_overall_mae",
+        "status": "PASS",
+        "details": "Checked whether the fitted semi-empirical baseline improves the overall mean absolute residual on the pinned slice.",
+        "metrics": {
+          "reference_mae_mev": 3.6729255937131056,
+          "fitted_mae_mev": 2.8245215982589085
+        }
+      },
+      {
+        "name": "pairing_term_reduces_pairing_spread",
+        "status": "PASS",
+        "details": "Compared pairing-class residual spread with and without the explicit pairing term.",
+        "metrics": {
+          "no_pairing_odd_even_delta_mae_mev": 4.933667199667976,
+          "with_pairing_odd_even_delta_mae_mev": 4.318288472625085
+        }
+      },
+      {
+        "name": "magic_subset_diagnostics_present",
+        "status": "PASS",
+        "details": "Computed shell-closure subset metrics and top residual rows for review.",
+        "metrics": {
+          "magic_entry_count": 7,
+          "top_residual_count": 5
+        }
+      },
+      {
+        "name": "uncertainty_normalized_residuals_present",
+        "status": "PASS",
+        "details": "Recorded uncertainty-normalized residual summaries for the pinned measured slice.",
+        "metrics": {
+          "mean_abs_normalized_residual": 303.22485036897893
+        }
+      }
+    ]
+  },
+  "dataset_input_hash": {
+    "path": "results/EXP-0012/RUN-0001/inputs/dataset.yaml",
+    "sha256": "e291b56284ac09c7d1daed2e58e1c857d229f6d27edb74a264a999e609816676"
+  },
+  "model_summaries": {
+    "model_reference_liquid_drop_no_pairing": {
+      "overall": {
+        "count": 11.0,
+        "mean_residual_mev": 3.491978797063392,
+        "mae_mev": 4.779789311284105,
+        "rmse_mev": 5.863647779871564,
+        "max_abs_residual_mev": 12.108357144344847,
+        "mean_abs_normalized_residual": 513.1314625467111,
+        "max_abs_normalized_residual": 1299.8855401110557
+      },
+      "magic": {
+        "count": 7.0,
+        "mean_residual_mev": 5.560603864743878,
+        "mae_mev": 5.560603864743878,
+        "rmse_mev": 6.669275205788429,
+        "max_abs_residual_mev": 12.108357144344847,
+        "mean_abs_normalized_residual": 596.9553484340437,
+        "max_abs_normalized_residual": 1299.8855401110557
+      },
+      "pairing_classes": {
+        "even_even": {
+          "count": 8.0,
+          "mean_residual_mev": 4.253581493260437,
+          "mae_mev": 6.024320950313918,
+          "rmse_mev": 6.809716827668945,
+          "max_abs_residual_mev": 12.108357144344847,
+          "mean_abs_normalized_residual": 646.7374226699742,
+          "max_abs_normalized_residual": 1299.8855401110557
+        },
+        "odd_a": {
+          "count": 2.0,
+          "mean_residual_mev": 1.0906537506459415,
+          "mae_mev": 1.0906537506459415,
+          "rmse_mev": 1.0908979077337912,
+          "max_abs_residual_mev": 1.1137327735867757,
+          "mean_abs_normalized_residual": 117.08649016804813,
+          "max_abs_normalized_residual": 119.56412506459503
+        },
+        "odd_odd": {
+          "count": 1.0,
+          "mean_residual_mev": 2.201807320321933,
+          "mae_mev": 2.201807320321933,
+          "rmse_mev": 2.201807320321933,
+          "max_abs_residual_mev": 2.201807320321933,
+          "mean_abs_normalized_residual": 236.37372631793255,
+          "max_abs_normalized_residual": 236.37372631793255
+        }
+      },
+      "magic_mae_inflation": 1.1633575253236432,
+      "odd_even_delta_mae_mev": 4.933667199667976
+    },
+    "model_reference_semi_empirical": {
+      "overall": {
+        "count": 11.0,
+        "mean_residual_mev": 2.243688812535551,
+        "mae_mev": 3.6729255937131056,
+        "rmse_mev": 4.521090505662967,
+        "max_abs_residual_mev": 7.971536242779166,
+        "mean_abs_normalized_residual": 394.3047609395411,
+        "max_abs_normalized_residual": 855.7795719875521
+      },
+      "magic": {
+        "count": 7.0,
+        "mean_residual_mev": 3.481044891455565,
+        "mae_mev": 3.481044891455565,
+        "rmse_mev": 4.306581253171315,
+        "max_abs_residual_mev": 7.971536242779166,
+        "mean_abs_normalized_residual": 373.70552131375734,
+        "max_abs_normalized_residual": 855.7795719875521
+      },
+      "pairing_classes": {
+        "even_even": {
+          "count": 8.0,
+          "mean_residual_mev": 2.1362909016660185,
+          "mae_mev": 4.101491475785156,
+          "rmse_mev": 4.91434228177426,
+          "max_abs_residual_mev": 7.971536242779166,
+          "mean_abs_normalized_residual": 440.3131984549958,
+          "max_abs_normalized_residual": 855.7795719875521
+        },
+        "odd_a": {
+          "count": 2.0,
+          "mean_residual_mev": 1.0906537506459415,
+          "mae_mev": 1.0906537506459415,
+          "rmse_mev": 1.0908979077337912,
+          "max_abs_residual_mev": 1.1137327735867757,
+          "mean_abs_normalized_residual": 117.08649016804813,
+          "max_abs_normalized_residual": 119.56412506459503
+        },
+        "odd_odd": {
+          "count": 1.0,
+          "mean_residual_mev": 5.408942223271026,
+          "mae_mev": 5.408942223271026,
+          "rmse_mev": 5.408942223271026,
+          "max_abs_residual_mev": 5.408942223271026,
+          "mean_abs_normalized_residual": 580.6738023588899,
+          "max_abs_normalized_residual": 580.6738023588899
+        }
+      },
+      "magic_mae_inflation": 0.9477580753103249,
+      "odd_even_delta_mae_mev": 4.318288472625085
+    },
+    "model_fitted_semi_empirical": {
+      "overall": {
+        "count": 11.0,
+        "mean_residual_mev": 0.2523424964176548,
+        "mae_mev": 2.8245215982589085,
+        "rmse_mev": 3.6971171457892873,
+        "max_abs_residual_mev": 8.45368795685954,
+        "mean_abs_normalized_residual": 303.22485036897893,
+        "max_abs_normalized_residual": 907.5406848950579
+      },
+      "magic": {
+        "count": 7.0,
+        "mean_residual_mev": 1.1941508540910724,
+        "mae_mev": 2.4490522731853557,
+        "rmse_mev": 3.544325072682263,
+        "max_abs_residual_mev": 8.45368795685954,
+        "mean_abs_normalized_residual": 262.9165624154544,
+        "max_abs_normalized_residual": 907.5406848950579
+      },
+      "pairing_classes": {
+        "even_even": {
+          "count": 8.0,
+          "mean_residual_mev": 0.18950489643331192,
+          "mae_mev": 2.9982978399335627,
+          "rmse_mev": 4.009989171059284,
+          "max_abs_residual_mev": 8.45368795685954,
+          "mean_abs_normalized_residual": 321.88049630631633,
+          "max_abs_normalized_residual": 907.5406848950579
+        },
+        "odd_a": {
+          "count": 2.0,
+          "mean_residual_mev": -1.4559066430629457,
+          "mae_mev": 1.4559066430629457,
+          "rmse_mev": 1.4685984400797494,
+          "max_abs_residual_mev": 1.6485649543029695,
+          "mean_abs_normalized_residual": 156.29799901905272,
+          "max_abs_normalized_residual": 176.9807183985423
+        },
+        "odd_odd": {
+          "count": 1.0,
+          "mean_residual_mev": 4.171541575253599,
+          "mae_mev": 4.171541575253599,
+          "rmse_mev": 4.171541575253599,
+          "max_abs_residual_mev": 4.171541575253599,
+          "mean_abs_normalized_residual": 447.833385570132,
+          "max_abs_normalized_residual": 447.833385570132
+        }
+      },
+      "magic_mae_inflation": 0.867067992928431,
+      "odd_even_delta_mae_mev": 2.715634932190653
+    }
+  },
+  "top_residual_rows": {
+    "model_reference_liquid_drop_no_pairing": [
+      {
+        "model_id": "model_reference_liquid_drop_no_pairing",
+        "nuclide_id": "He-4",
+        "Z": 2,
+        "N": 2,
+        "A": 4,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 28.29566308856755,
+        "predicted_binding_energy_mev": 16.187305944222704,
+        "residual_mev": 12.108357144344847,
+        "normalized_residual": 1299.8855401110557,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": false
+      },
+      {
+        "model_id": "model_reference_liquid_drop_no_pairing",
+        "nuclide_id": "Pb-208",
+        "Z": 82,
+        "N": 126,
+        "A": 208,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 1636.4297924616908,
+        "predicted_binding_energy_mev": 1627.6262059245737,
+        "residual_mev": 8.803586537117098,
+        "normalized_residual": 945.1038406196653,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": true
+      },
+      {
+        "model_id": "model_reference_liquid_drop_no_pairing",
+        "nuclide_id": "U-238",
+        "Z": 92,
+        "N": 146,
+        "A": 238,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 1801.6888450860072,
+        "predicted_binding_energy_mev": 1808.771802914221,
+        "residual_mev": -7.082957828213921,
+        "normalized_residual": -760.3867603469052,
+        "is_magic_z": false,
+        "is_magic_n": false,
+        "is_magic_any": false,
+        "near_magic": false,
+        "neutron_rich": true
+      },
+      {
+        "model_id": "model_reference_liquid_drop_no_pairing",
+        "nuclide_id": "O-16",
+        "Z": 8,
+        "N": 8,
+        "A": 16,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 127.61931771016013,
+        "predicted_binding_energy_mev": 120.73458208045369,
+        "residual_mev": 6.884735629706441,
+        "normalized_residual": 739.1067331312198,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": false
+      },
+      {
+        "model_id": "model_reference_liquid_drop_no_pairing",
+        "nuclide_id": "Ca-48",
+        "Z": 20,
+        "N": 28,
+        "A": 48,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 416.00110347993024,
+        "predicted_binding_energy_mev": 411.1090169500726,
+        "residual_mev": 4.892086529857636,
+        "normalized_residual": 525.1870642173803,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": false
+      }
+    ],
+    "model_reference_semi_empirical": [
+      {
+        "model_id": "model_reference_semi_empirical",
+        "nuclide_id": "Pb-208",
+        "Z": 82,
+        "N": 126,
+        "A": 208,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 1636.4297924616908,
+        "predicted_binding_energy_mev": 1628.4582562189116,
+        "residual_mev": 7.971536242779166,
+        "normalized_residual": 855.7795719875521,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": true
+      },
+      {
+        "model_id": "model_reference_semi_empirical",
+        "nuclide_id": "U-238",
+        "Z": 92,
+        "N": 146,
+        "A": 238,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 1801.6888450860072,
+        "predicted_binding_energy_mev": 1809.5496473824837,
+        "residual_mev": -7.86080229647655,
+        "normalized_residual": -843.8917944895592,
+        "is_magic_z": false,
+        "is_magic_n": false,
+        "is_magic_any": false,
+        "near_magic": false,
+        "neutron_rich": true
+      },
+      {
+        "model_id": "model_reference_semi_empirical",
+        "nuclide_id": "He-4",
+        "Z": 2,
+        "N": 2,
+        "A": 4,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 28.29566308856755,
+        "predicted_binding_energy_mev": 22.187305944222704,
+        "residual_mev": 6.108357144344847,
+        "normalized_residual": 655.7590787183169,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": false
+      },
+      {
+        "model_id": "model_reference_semi_empirical",
+        "nuclide_id": "N-14",
+        "Z": 7,
+        "N": 7,
+        "A": 14,
+        "pairing_class": "odd_odd",
+        "observed_binding_energy_mev": 104.65860935481271,
+        "predicted_binding_energy_mev": 99.24966713154168,
+        "residual_mev": 5.408942223271026,
+        "normalized_residual": 580.6738023588899,
+        "is_magic_z": false,
+        "is_magic_n": false,
+        "is_magic_any": false,
+        "near_magic": true,
+        "neutron_rich": false
+      },
+      {
+        "model_id": "model_reference_semi_empirical",
+        "nuclide_id": "O-16",
+        "Z": 8,
+        "N": 8,
+        "A": 16,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 127.61931771016013,
+        "predicted_binding_energy_mev": 123.73458208045369,
+        "residual_mev": 3.884735629706441,
+        "normalized_residual": 417.04350243485044,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": false
+      }
+    ],
+    "model_fitted_semi_empirical": [
+      {
+        "model_id": "model_fitted_semi_empirical",
+        "nuclide_id": "Pb-208",
+        "Z": 82,
+        "N": 126,
+        "A": 208,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 1636.4297924616908,
+        "predicted_binding_energy_mev": 1627.9761045048313,
+        "residual_mev": 8.45368795685954,
+        "normalized_residual": 907.5406848950579,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": true
+      },
+      {
+        "model_id": "model_fitted_semi_empirical",
+        "nuclide_id": "U-238",
+        "Z": 92,
+        "N": 146,
+        "A": 238,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 1801.6888450860072,
+        "predicted_binding_energy_mev": 1807.9150460812805,
+        "residual_mev": -6.226200995273302,
+        "normalized_residual": -668.4101358342234,
+        "is_magic_z": false,
+        "is_magic_n": false,
+        "is_magic_any": false,
+        "near_magic": false,
+        "neutron_rich": true
+      },
+      {
+        "model_id": "model_fitted_semi_empirical",
+        "nuclide_id": "N-14",
+        "Z": 7,
+        "N": 7,
+        "A": 14,
+        "pairing_class": "odd_odd",
+        "observed_binding_energy_mev": 104.65860935481271,
+        "predicted_binding_energy_mev": 100.48706777955911,
+        "residual_mev": 4.171541575253599,
+        "normalized_residual": 447.833385570132,
+        "is_magic_z": false,
+        "is_magic_n": false,
+        "is_magic_any": false,
+        "near_magic": true,
+        "neutron_rich": false
+      },
+      {
+        "model_id": "model_fitted_semi_empirical",
+        "nuclide_id": "He-4",
+        "Z": 2,
+        "N": 2,
+        "A": 4,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 28.29566308856755,
+        "predicted_binding_energy_mev": 25.609687625512912,
+        "residual_mev": 2.685975463054639,
+        "normalized_residual": 288.3513117341846,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": false
+      },
+      {
+        "model_id": "model_fitted_semi_empirical",
+        "nuclide_id": "Ca-40",
+        "Z": 20,
+        "N": 20,
+        "A": 40,
+        "pairing_class": "even_even",
+        "observed_binding_energy_mev": 342.052180069746,
+        "predicted_binding_energy_mev": 344.4105134409623,
+        "residual_mev": -2.358333371216304,
+        "normalized_residual": -253.17748819766103,
+        "is_magic_z": true,
+        "is_magic_n": true,
+        "is_magic_any": true,
+        "near_magic": true,
+        "neutron_rich": false
+      }
+    ]
+  },
+  "scores": [
+    {
+      "model_id": "model_fitted_semi_empirical",
+      "formula": "Same semi-empirical structure with coefficients fit on the pinned measured slice",
+      "coefficients": {
+        "volume": 15.51423612106804,
+        "surface": 17.2931812095177,
+        "coulomb": 0.6878156091568888,
+        "asymmetry": 23.846557883948485,
+        "pairing": 15.990845113398912
+      },
+      "complexity_score": 5,
+      "train_metrics": {
+        "mean_relative_error": 0.015842270782314916,
+        "max_relative_error": 0.0949253408427763
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.017690521220027965,
+        "max_relative_error": 0.0949253408427763
+      },
+      "composite_score": 0.03411016169733589,
+      "verdict": "PARTIALLY_VALID"
+    },
+    {
+      "model_id": "model_reference_semi_empirical",
+      "formula": "B = aV*A - aS*A^(2/3) - aC*Z*(Z-1)/A^(1/3) - aA*(N-Z)^2/A + delta_pair",
+      "coefficients": {
+        "volume": 15.8,
+        "surface": 18.3,
+        "coulomb": 0.714,
+        "asymmetry": 23.2,
+        "pairing": 12.0
+      },
+      "complexity_score": 5,
+      "train_metrics": {
+        "mean_relative_error": 0.03032847869158182,
+        "max_relative_error": 0.21587609116016226
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.03885512466805724,
+        "max_relative_error": 0.21587609116016226
+      },
+      "composite_score": 0.06446982219262475,
+      "verdict": "PARTIALLY_VALID"
+    },
+    {
+      "model_id": "model_reference_liquid_drop_no_pairing",
+      "formula": "B = aV*A - aS*A^(2/3) - aC*Z*(Z-1)/A^(1/3) - aA*(N-Z)^2/A",
+      "coefficients": {
+        "volume": 15.8,
+        "surface": 18.3,
+        "coulomb": 0.714,
+        "asymmetry": 23.2,
+        "pairing": 0.0
+      },
+      "complexity_score": 4,
+      "train_metrics": {
+        "mean_relative_error": 0.0502401640164384,
+        "max_relative_error": 0.42792272110551993
+      },
+      "test_metrics": {
+        "mean_relative_error": 0.07411890716363542,
+        "max_relative_error": 0.42792272110551993
+      },
+      "composite_score": 0.10982934438916497,
+      "verdict": "INCONCLUSIVE"
+    }
+  ]
+}
