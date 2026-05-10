@@ -10,6 +10,7 @@ canonical task for every narrow subproblem.
 
 - `pendulum-formula-falsification.yaml`
 - `particle-mass-relations.yaml`
+- `nuclear-mass-surface.yaml`
 - `dimensional-analysis-validator.yaml`
 - `thought-experiment-consistency.yaml`
 - `diffusion-scaling.yaml`
