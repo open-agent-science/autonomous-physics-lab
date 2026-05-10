@@ -24,6 +24,7 @@ only authorize bounded proposal and sandbox work under
 | --- | --- | --- |
 | `pendulum-formula-falsification.yaml` | `WHITELISTED_PILOT` | First pilot for range-aware candidate formula falsification |
 | `dimensional-analysis-validator.yaml` | `WHITELISTED_LIMITED` | Limited classification and challenge-entry proposal work |
+| `nuclear-mass-surface.yaml` | `EXCLUDED` | Flagship campaign scaffold exists, but autonomy is blocked until dataset, baseline, and holdout tasks land |
 | `particle-mass-relations.yaml` | `GUARDRAIL_ONLY` | Falsification-first and provenance-focused proposal work |
 
 ## Review Rule
