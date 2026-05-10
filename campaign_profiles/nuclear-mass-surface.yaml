@@ -28,7 +28,7 @@ required_inputs:
   - "Holdout protocol approved before any candidate-improvement interpretation."
 
 required_quality_checks:
-  - "State that no universal mass-formula or discovery claim is made."
+  - "State that no universal mass-formula or broad-claim wording is used."
   - "Keep dataset provenance and field semantics explicit."
   - "Report baseline-relative metrics and subset behavior, not fit quality alone."
   - "Preserve negative or overfit results as valid review surfaces."
@@ -36,7 +36,7 @@ required_quality_checks:
 
 forbidden_claims:
   - "A sandbox candidate explains all nuclear masses."
-  - "Residual improvement alone is evidence of new physics."
+  - "Residual improvement alone is evidence of a broader physical conclusion."
   - "Measured and extrapolated entries may be mixed without explicit semantics."
   - "Advanced-model comparisons are required before the simple baseline exists."
   - "Autonomous work is authorized before TASK-0167, TASK-0168, and TASK-0169 land."
