@@ -63,6 +63,7 @@ None.
 - `TASK-0160` — Run autonomous research pilot on anharmonic oscillator benchmark (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0165` — Fix snapshot open-PR section when gh auth status is stale (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0166` — Create nuclear mass surface campaign scaffold (`scientific_campaign`, priority `high`, difficulty `medium`)
+- `TASK-0167` — Add AME nuclear mass dataset loader and schema (`dataset_workflow`, priority `high`, difficulty `high`)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
@@ -207,7 +208,6 @@ None.
 
 ## BLOCKED
 
-- `TASK-0167` — Add AME nuclear mass dataset loader and schema (`dataset_workflow`, priority `high`, difficulty `high`)
 - `TASK-0168` — Implement baseline nuclear mass formulas and residual reports (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (`benchmark_protocol`, priority `high`, difficulty `high`)
 - `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
