@@ -1,7 +1,7 @@
 id: TASK-0138
 title: "Add canonical replay and golden-result hardening layer"
 type: repository_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
