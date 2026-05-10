@@ -46,7 +46,7 @@ What the current slice says:
 
 - fitting the semi-empirical coefficients improves the pinned-slice residual surface;
 - explicit pairing helps reduce pairing-class residual spread;
-- the shell-sensitive subset is still not a solved surface, even when the fitted
+- the shell-sensitive subset is still not a clean residual surface, even when the fitted
   baseline wins overall;
 - the heaviest residual pressure remains around very light or very heavy
   nuclei, especially `Pb-208`, `U-238`, and `He-4`.
