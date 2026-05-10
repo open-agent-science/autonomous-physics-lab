@@ -62,6 +62,26 @@ subset.
 The third row is the required negative result. It shows that structured
 holdout is doing useful work even on a tiny pinned slice.
 
+### Per-Holdout Deltas
+
+Negative deltas improve on the frozen `RESULT-0015` baseline. Positive deltas
+are regressions and must stay visible during review.
+
+| Candidate | Holdout | Delta MAE (MeV) | Delta RMSE (MeV) |
+| --- | --- | ---: | ---: |
+| Shell dual heavy anchor | `random_stratified` | `0.166` | `0.178` |
+| Shell dual heavy anchor | `oxygen_chain` | `-0.242` | `-0.063` |
+| Shell dual heavy anchor | `magic_heavy_region` | `-0.242` | `-0.341` |
+| Shell dual heavy anchor | `neutron_rich_edge` | `-0.162` | `-0.222` |
+| Shell dual heavy anchor plus odd-A damping | `random_stratified` | `-0.255` | `0.098` |
+| Shell dual heavy anchor plus odd-A damping | `oxygen_chain` | `-0.681` | `-0.684` |
+| Shell dual heavy anchor plus odd-A damping | `magic_heavy_region` | `-0.242` | `-0.341` |
+| Shell dual heavy anchor plus odd-A damping | `neutron_rich_edge` | `-0.162` | `-0.222` |
+| Quadratic asymmetry refinement | `random_stratified` | `1.249` | `2.022` |
+| Quadratic asymmetry refinement | `oxygen_chain` | `-0.194` | `-0.249` |
+| Quadratic asymmetry refinement | `magic_heavy_region` | `2.487` | `2.897` |
+| Quadratic asymmetry refinement | `neutron_rich_edge` | `0.836` | `1.318` |
+
 ## Metrics
 
 - Generated proposals: `8`
