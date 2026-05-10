@@ -1,0 +1,346 @@
+{
+  "agent_run_id": "AGENT-RUN-0005",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "task_id": "TASK-0170",
+  "formula": "batch: three nuclear-mass residual correction candidates",
+  "verdict": "SANDBOX_PASS",
+  "summary": {
+    "generated_proposal_count": 8,
+    "executed_candidate_count": 3,
+    "rejected_before_execution_count": 5,
+    "improved_all_holdouts_count": 1,
+    "negative_or_overfit_count": 1,
+    "canonical_results_changed": false,
+    "canonical_claims_changed": false
+  },
+  "holdout_definition": {
+    "random_stratified": [
+      "He-4",
+      "Fe-57",
+      "Pb-208"
+    ],
+    "oxygen_chain": [
+      "O-16",
+      "O-17"
+    ],
+    "magic_heavy_region": [
+      "Pb-208",
+      "Sn-120"
+    ],
+    "neutron_rich_edge": [
+      "Sn-120",
+      "Pb-208",
+      "U-238"
+    ]
+  },
+  "executed_items": [
+    {
+      "proposal_id": "HYP-PROPOSAL-0020",
+      "name": "Shell dual heavy-anchor residual candidate",
+      "family": "shell_dual_heavy_anchor",
+      "formula": "r_corr = c1*m2 + c2*mh",
+      "parameter_count": 2,
+      "expected_verdict": "PARTIALLY_VALID",
+      "observed_verdict": "PARTIALLY_VALID",
+      "agrees": true,
+      "holdout_results": [
+        {
+          "holdout_id": "random_stratified",
+          "holdout_count": 3,
+          "coefficients": {
+            "magic_both": -0.24892861522099483,
+            "heavy_double_magic": 0.0
+          },
+          "baseline_metrics": {
+            "mae_mev": 4.262742791405716,
+            "rmse_mev": 5.2088729001144305
+          },
+          "candidate_metrics": {
+            "mae_mev": 4.4286952015530465,
+            "rmse_mev": 5.387236878582739
+          },
+          "delta_mae_mev": 0.1659524101473302,
+          "delta_rmse_mev": 0.17836397846830862
+        },
+        {
+          "holdout_id": "oxygen_chain",
+          "holdout_count": 2,
+          "coefficients": {
+            "magic_both": 0.4849186152361269,
+            "heavy_double_magic": 7.968769341623414
+          },
+          "baseline_metrics": {
+            "mae_mev": 0.8738410517530966,
+            "rmse_mev": 0.9566797862923296
+          },
+          "candidate_metrics": {
+            "mae_mev": 0.6318665876878888,
+            "rmse_mev": 0.8932515275460395
+          },
+          "delta_mae_mev": -0.24197446406520773,
+          "delta_rmse_mev": -0.06342825874629007
+        },
+        {
+          "holdout_id": "magic_heavy_region",
+          "holdout_count": 2,
+          "coefficients": {
+            "magic_both": 0.48479740434791396,
+            "heavy_double_magic": 0.0
+          },
+          "baseline_metrics": {
+            "mae_mev": 4.612130610325153,
+            "rmse_mev": 6.0024421374479395
+          },
+          "candidate_metrics": {
+            "mae_mev": 4.369731908151196,
+            "rmse_mev": 5.661139452123495
+          },
+          "delta_mae_mev": -0.24239870217395687,
+          "delta_rmse_mev": -0.3413026853244443
+        },
+        {
+          "holdout_id": "neutron_rich_edge",
+          "holdout_count": 3,
+          "coefficients": {
+            "magic_both": 0.48479740434791396,
+            "heavy_double_magic": 0.0
+          },
+          "baseline_metrics": {
+            "mae_mev": 5.150154071974536,
+            "rmse_mev": 6.077943787728528
+          },
+          "candidate_metrics": {
+            "mae_mev": 4.988554937191898,
+            "rmse_mev": 5.855555158033566
+          },
+          "delta_mae_mev": -0.1615991347826382,
+          "delta_rmse_mev": -0.22238862969496226
+        }
+      ],
+      "summary": {
+        "improved_holdout_count": 3,
+        "regressed_holdout_count": 1,
+        "unchanged_holdout_count": 0,
+        "mean_delta_mae_mev": -0.12000497271861815,
+        "worst_regression_mev": 0.1659524101473302
+      }
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0021",
+      "name": "Shell dual heavy-anchor plus odd-A damping candidate",
+      "family": "shell_dual_heavy_anchor_odd_a",
+      "formula": "r_corr = c1*m2 + c2*mh + c3*oa",
+      "parameter_count": 3,
+      "expected_verdict": "VALID_IN_RANGE",
+      "observed_verdict": "VALID_IN_RANGE",
+      "agrees": true,
+      "holdout_results": [
+        {
+          "holdout_id": "random_stratified",
+          "holdout_count": 3,
+          "coefficients": {
+            "magic_both": -0.24892861522099483,
+            "heavy_double_magic": 0.0,
+            "odd_a": -1.2632483318229217
+          },
+          "baseline_metrics": {
+            "mae_mev": 4.262742791405716,
+            "rmse_mev": 5.2088729001144305
+          },
+          "candidate_metrics": {
+            "mae_mev": 4.007612424278739,
+            "rmse_mev": 5.3071544807894036
+          },
+          "delta_mae_mev": -0.2551303671269771,
+          "delta_rmse_mev": 0.09828158067497305
+        },
+        {
+          "holdout_id": "oxygen_chain",
+          "holdout_count": 2,
+          "coefficients": {
+            "magic_both": 0.4849186152361269,
+            "heavy_double_magic": 7.968769341623414,
+            "odd_a": -1.64856495430297
+          },
+          "baseline_metrics": {
+            "mae_mev": 0.8738410517530966,
+            "rmse_mev": 0.9566797862923296
+          },
+          "candidate_metrics": {
+            "mae_mev": 0.19290073301645183,
+            "rmse_mev": 0.2724602123546689
+          },
+          "delta_mae_mev": -0.6809403187366447,
+          "delta_rmse_mev": -0.6842195739376607
+        },
+        {
+          "holdout_id": "magic_heavy_region",
+          "holdout_count": 2,
+          "coefficients": {
+            "magic_both": 0.48479740434791396,
+            "heavy_double_magic": 0.0,
+            "odd_a": -1.4559066430629453
+          },
+          "baseline_metrics": {
+            "mae_mev": 4.612130610325153,
+            "rmse_mev": 6.0024421374479395
+          },
+          "candidate_metrics": {
+            "mae_mev": 4.369731908151196,
+            "rmse_mev": 5.661139452123495
+          },
+          "delta_mae_mev": -0.24239870217395687,
+          "delta_rmse_mev": -0.3413026853244443
+        },
+        {
+          "holdout_id": "neutron_rich_edge",
+          "holdout_count": 3,
+          "coefficients": {
+            "magic_both": 0.48479740434791396,
+            "heavy_double_magic": 0.0,
+            "odd_a": -1.4559066430629453
+          },
+          "baseline_metrics": {
+            "mae_mev": 5.150154071974536,
+            "rmse_mev": 6.077943787728528
+          },
+          "candidate_metrics": {
+            "mae_mev": 4.988554937191898,
+            "rmse_mev": 5.855555158033566
+          },
+          "delta_mae_mev": -0.1615991347826382,
+          "delta_rmse_mev": -0.22238862969496226
+        }
+      ],
+      "summary": {
+        "improved_holdout_count": 4,
+        "regressed_holdout_count": 0,
+        "unchanged_holdout_count": 0,
+        "mean_delta_mae_mev": -0.33501713070505423,
+        "worst_regression_mev": 0.0
+      }
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0022",
+      "name": "Quadratic asymmetry residual refinement candidate",
+      "family": "quadratic_asymmetry_refinement",
+      "formula": "r_corr = a*I + b*I^2",
+      "parameter_count": 2,
+      "expected_verdict": "OVERFITTED",
+      "observed_verdict": "OVERFITTED",
+      "agrees": true,
+      "holdout_results": [
+        {
+          "holdout_id": "random_stratified",
+          "holdout_count": 3,
+          "coefficients": {
+            "isospin_asymmetry": 14.01261406678963,
+            "isospin_asymmetry_sq": -147.93312896937846
+          },
+          "baseline_metrics": {
+            "mae_mev": 4.262742791405716,
+            "rmse_mev": 5.2088729001144305
+          },
+          "candidate_metrics": {
+            "mae_mev": 5.511563173014101,
+            "rmse_mev": 7.231287253334109
+          },
+          "delta_mae_mev": 1.2488203816083843,
+          "delta_rmse_mev": 2.0224143532196783
+        },
+        {
+          "holdout_id": "oxygen_chain",
+          "holdout_count": 2,
+          "coefficients": {
+            "isospin_asymmetry": -9.939679097587591,
+            "isospin_asymmetry_sq": 56.98887130797021
+          },
+          "baseline_metrics": {
+            "mae_mev": 0.8738410517530966,
+            "rmse_mev": 0.9566797862923296
+          },
+          "candidate_metrics": {
+            "mae_mev": 0.6800942120454515,
+            "rmse_mev": 0.7076801150099146
+          },
+          "delta_mae_mev": -0.19374683970764506,
+          "delta_rmse_mev": -0.248999671282415
+        },
+        {
+          "holdout_id": "magic_heavy_region",
+          "holdout_count": 2,
+          "coefficients": {
+            "isospin_asymmetry": -0.31241802127863855,
+            "isospin_asymmetry_sq": -88.2016986346341
+          },
+          "baseline_metrics": {
+            "mae_mev": 4.612130610325153,
+            "rmse_mev": 6.0024421374479395
+          },
+          "candidate_metrics": {
+            "mae_mev": 7.099107756584884,
+            "rmse_mev": 8.899891910259628
+          },
+          "delta_mae_mev": 2.486977146259731,
+          "delta_rmse_mev": 2.8974497728116883
+        },
+        {
+          "holdout_id": "neutron_rich_edge",
+          "holdout_count": 3,
+          "coefficients": {
+            "isospin_asymmetry": -45.35537976130359,
+            "isospin_asymmetry_sq": 311.9335471429627
+          },
+          "baseline_metrics": {
+            "mae_mev": 5.150154071974536,
+            "rmse_mev": 6.077943787728528
+          },
+          "candidate_metrics": {
+            "mae_mev": 5.986445224645803,
+            "rmse_mev": 7.395757337409635
+          },
+          "delta_mae_mev": 0.8362911526712669,
+          "delta_rmse_mev": 1.3178135496811065
+        }
+      ],
+      "summary": {
+        "improved_holdout_count": 1,
+        "regressed_holdout_count": 3,
+        "unchanged_holdout_count": 0,
+        "mean_delta_mae_mev": 1.0945854602079343,
+        "worst_regression_mev": 2.486977146259731
+      }
+    }
+  ],
+  "rejected_before_execution": [
+    {
+      "proposal_id": "HYP-PROPOSAL-0023",
+      "reason": "Chain-specific oxygen latch would memorize one held-out chain and duplicate the negative-control lane already covered by the executed asymmetry candidate."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0024",
+      "reason": "Lead-actinide anchors would patch the two largest residual rows directly instead of testing a reusable correction family."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0025",
+      "reason": "A multi-step magic cascade exceeds the first-pilot interpretability and complexity budget."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0026",
+      "reason": "Advanced-model surrogate comparisons are explicitly deferred until a separate reviewed task asks for them."
+    },
+    {
+      "proposal_id": "HYP-PROPOSAL-0027",
+      "reason": "Time-split work cannot start until a separate pinned later-measurement dataset is committed and reviewed."
+    }
+  ],
+  "reference_comparison": {
+    "canonical_result": "RESULT-0015",
+    "frozen_dataset": "NMD-0002",
+    "frozen_baseline_model": "model_fitted_semi_empirical",
+    "frozen_baseline_overall_mae_mev": 2.8245215982589085,
+    "holdout_protocol": "docs/nuclear-mass-holdout-protocol.md",
+    "result_memory": "No RESULT-* artifact changed.",
+    "claim_memory": "No claim artifact changed."
+  }
+}

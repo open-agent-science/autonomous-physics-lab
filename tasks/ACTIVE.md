@@ -66,6 +66,7 @@ None.
 - `TASK-0167` — Add AME nuclear mass dataset loader and schema (`dataset_workflow`, priority `high`, difficulty `high`)
 - `TASK-0168` — Implement baseline nuclear mass formulas and residual reports (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (`benchmark_protocol`, priority `high`, difficulty `high`)
+- `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
@@ -210,7 +211,7 @@ None.
 
 ## BLOCKED
 
-- `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+None.
 
 ## REJECTED
 
