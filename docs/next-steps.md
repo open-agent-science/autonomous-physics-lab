@@ -108,7 +108,6 @@ and harder generalization tests.
 
 Recommended queue:
 
-- `TASK-0169` define nuclear mass holdout protocol
 - `TASK-0170` run first autonomous nuclear-mass residual hypothesis pilot
 
 Current nuclear-mass baseline state:
@@ -117,7 +116,10 @@ Current nuclear-mass baseline state:
   residual surface;
 - the best current model is the slice-fitted semi-empirical baseline with
   `2.825 MeV` overall MAE and `2.449 MeV` magic-subset MAE on `NMD-0002`;
-- this is still benchmark-only and not autonomy-ready.
+- `TASK-0169` now defines the required structured holdout contract for random,
+  isotope-chain, magic-region, and neutron-rich evaluation;
+- the campaign is still benchmark-only and not autonomy-ready until that
+  protocol is reviewed and merged.
 
 The remaining queue should stay conservative:
 

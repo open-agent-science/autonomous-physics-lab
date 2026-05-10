@@ -51,7 +51,6 @@ one PR.
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (`benchmark_protocol`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -66,6 +65,7 @@ None.
 - `TASK-0166` — Create nuclear mass surface campaign scaffold (`scientific_campaign`, priority `high`, difficulty `medium`)
 - `TASK-0167` — Add AME nuclear mass dataset loader and schema (`dataset_workflow`, priority `high`, difficulty `high`)
 - `TASK-0168` — Implement baseline nuclear mass formulas and residual reports (`scientific_benchmark`, priority `high`, difficulty `high`)
+- `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (`benchmark_protocol`, priority `high`, difficulty `high`)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
