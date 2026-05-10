@@ -5,12 +5,14 @@ APL's strongest current evidence without first learning the maintainer task
 workflow.
 
 It is not a contributor onboarding guide and it is not a public-launch
-announcement. It explains how to replay the bounded core result surface, where
-to inspect canonical artifacts, and which interpretations remain out of scope.
+announcement. It explains how to replay the bounded core replay surface, where
+to inspect newer canonical artifacts, and which interpretations remain out of
+scope.
 
 ## Review Scope
 
-Start with the current core result surface:
+Start with the bounded core replay surface exposed by
+`scripts/reproduce_core_results.py`:
 
 | Surface | Canonical Result | Why Review It |
 |---|---|---|
@@ -25,6 +27,17 @@ Start with the current core result surface:
 The default replication path intentionally excludes `EXP-0010` / Muon g-2. That
 run is a guarded empirical formula-search stress test with multiple-testing and
 numerology limitations, not a flagship success surface.
+
+After the default replay, inspect newer canonical surfaces separately:
+
+| Surface | Canonical Result | Why Review It |
+|---|---|---|
+| Anharmonic oscillator period | `EXP-0011/RUN-0001` | nonlinear-mechanics benchmark with perturbative baseline, holdout slice, and breakdown reporting |
+| Nuclear mass baseline | `EXP-0012/RUN-0001` (`RESULT-0015`) | pinned measured nuclear-mass slice and semi-empirical baseline residual surface for sandbox-only follow-up |
+
+Treat the nuclear mass surface as a current flagship campaign candidate, not as
+a finished nuclear theory. Later residual proposals remain sandbox-only until
+independent audit and maintainer review.
 
 ## Quick Replication Path
 
