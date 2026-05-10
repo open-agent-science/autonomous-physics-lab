@@ -1,7 +1,7 @@
 id: TASK-0169
 title: "Define holdout protocol for nuclear mass residual discovery"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 

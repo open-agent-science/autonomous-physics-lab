@@ -65,8 +65,8 @@ This campaign now has an executable first-wave benchmark stack:
   - `EXP-0012`
   - `RESULT-0015`
   - pinned measured slice `NMD-0002`
-- `TASK-0169` remains the next required step for random, chain-based,
-  shell-region, and neutron-rich generalization tests.
+- `TASK-0169` now defines the structured holdout contract for random,
+  chain-based, shell-region, and neutron-rich generalization tests.
 - `TASK-0170` remains downstream of the holdout protocol by design.
 
 Historical context:
@@ -77,8 +77,8 @@ Historical context:
   surfaces instead of optional extras.
 
 Current campaign state in one sentence:
-the scientific direction is now explicit and executable at the baseline level,
-but holdout discipline and sandbox autonomy are still downstream steps.
+the scientific direction is now explicit, baseline-backed, and holdout-defined,
+but sandbox autonomy is still a downstream step.
 
 Start here:
 
@@ -105,6 +105,8 @@ Start here:
 
 - `TASK-0169` — define the holdout protocol before interpreting candidate
   corrections.
+- `TASK-0170` — run the first sandbox-only pilot only after the holdout
+  contract is frozen in reviewed canonical memory.
 - narrow queue items from `tasks/microtasks/nuclear-mass-surface.yaml` for
   subset-definition notes, provenance audits, and negative-control planning.
 
