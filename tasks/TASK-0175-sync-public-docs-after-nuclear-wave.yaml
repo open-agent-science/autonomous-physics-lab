@@ -1,0 +1,56 @@
+id: TASK-0175
+title: "Sync public-facing docs after nuclear wave and private-validation pivot"
+type: documentation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent top-level docs from drifting away from the structured repository state."
+  - "Represent the nuclear-mass wave as benchmark and sandbox evidence without overstating scientific scope."
+  - "Align public-facing wording with the private contributor validation phase before any public opening."
+
+input:
+  mode: workflow
+  related_domain: documentation
+  related_objects:
+    - "README.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/roadmap.md"
+    - "docs/releases/v0.2-public-alpha.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    The authoritative snapshot now shows eleven completed experiments and the
+    completed nuclear wave through TASK-0170. Some public-facing docs still
+    describe the older nine-experiment surface and do not yet reflect the
+    private contributor validation pivot. This task should synchronize the
+    wording without promoting claims.
+
+requirements:
+  - "Compare top-level docs against canonical task, experiment, result, and agent-run state."
+  - "Update stale experiment counts, benchmark surfaces, and nuclear-mass wording."
+  - "Describe EXP-0012 and AGENT-RUN-0005 as benchmark and sandbox evidence, not discovery."
+  - "Keep EXP-0010 framed as a guarded formula-search stress test only."
+  - "Ensure the current phase reads as private contributor and agent workflow validation, not public launch readiness."
+
+accepted_outputs:
+  - "updated README.md"
+  - "updated docs/status.md"
+  - "updated docs/mission-control.md"
+  - "updated docs/roadmap.md"
+  - "updated docs/releases/v0.2-public-alpha.md if stale"
+  - "updated docs/results/visual-summary.md if present or a note if it does not exist"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

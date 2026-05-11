@@ -67,6 +67,8 @@ microtasks:
       - "all definitions are equivalent"
       - "numerics alone settle the problem"
   - id: PMR-004
+    status: completed
+    status_reason: "Covered by docs/notes/koide-null-baseline-PMR-004.md."
     campaign: particle-mass-relations
     title: Compare one Koide-like triplet against one simple null baseline
     type: baseline-comparison
@@ -88,6 +90,8 @@ microtasks:
       - "origin of masses established"
       - "field-wide breakthrough"
   - id: PMR-005
+    status: completed
+    status_reason: "Covered by docs/notes/pmr-005-koide-falsification-condition.md."
     campaign: particle-mass-relations
     title: Define one falsification condition for a candidate mass relation
     type: falsification-condition
@@ -109,6 +113,8 @@ microtasks:
       - "already established law"
       - "complete explanation"
   - id: PMR-006
+    status: completed
+    status_reason: "Covered by docs/notes/pmr-006-tau-holdout-limitation-note.md and docs/notes/pmr-006-tau-holdout-limitations.md."
     campaign: particle-mass-relations
     title: Write one limitation note for tau-holdout interpretation
     type: limitation-note
@@ -170,6 +176,8 @@ microtasks:
       - "all error bars settled"
       - "explanatory evidence established"
   - id: PMR-009
+    status: completed
+    status_reason: "Covered by docs/notes/pmr-009-koide-retrospective-vs-holdout.md."
     campaign: particle-mass-relations
     title: Classify one candidate relation as retrospective fit or holdout-capable
     type: methodology-classification
@@ -191,6 +199,8 @@ microtasks:
       - "classification proves truth"
       - "major physics conclusion"
   - id: PMR-010
+    status: completed
+    status_reason: "Covered by docs/notes/pmr-010-triplet-mixing-guardrail.md."
     campaign: particle-mass-relations
     title: Assemble one allowed-versus-disallowed triplet-mixing note
     type: guardrail-note

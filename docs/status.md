@@ -179,6 +179,9 @@ Current named blockers before any public opening:
 - [reproducibility-capsules.md](./reproducibility-capsules.md) for compact
   replay commands, expected metrics, and caveats for the current major
   canonical results.
+- [external-reviewer-replication-guide.md](./external-reviewer-replication-guide.md)
+  for a short outside-review path from checkout to core replay, strict
+  validation, and scoped interpretation.
 - [result-quality-rubric.md](./result-quality-rubric.md) for the current
   maintainer-facing assessment of which result surfaces are packaging-ready and
   which need stronger caveats.

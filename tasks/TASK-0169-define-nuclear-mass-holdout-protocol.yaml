@@ -1,0 +1,50 @@
+id: TASK-0169
+title: "Define holdout protocol for nuclear mass residual discovery"
+type: benchmark_protocol
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Make nuclear-mass correction work credible by defining holdout structure before autonomous search results are interpreted."
+  - "Separate interpolation wins from harder extrapolation behavior across isotope chains, shell regions, and neutron-rich edges."
+  - "Keep complexity penalties and uncertainty-aware metrics visible so compact corrections beat decorative overfit."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0149-define-blind-holdout-benchmark-protocol.yaml"
+    - "tasks/TASK-0167-add-ame-nuclear-mass-dataset-loader-and-schema.yaml"
+    - "tasks/TASK-0168-implement-nuclear-mass-baselines-and-residual-reports.yaml"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+  planning_context: >
+    The nuclear mass campaign needs a holdout protocol that reflects real
+    structure in the nuclide chart rather than a single random split. The
+    protocol should define which generalization tests matter most before any
+    autonomous correction-term pilot is allowed to claim improvement.
+
+requirements:
+  - "Do not start until TASK-0168 is complete."
+  - "Define random-nuclide, isotope-chain, magic-number-region, and neutron-rich extrapolation holdouts."
+  - "Add a time-split holdout path only if a later curated post-baseline measurement batch is available and documented clearly."
+  - "Specify metrics including MAE or RMSE in MeV, uncertainty-normalized error, improvement over baseline, subset error, extrapolation stability, and complexity penalty."
+  - "Document how negative controls and overfit candidates should be recognized under this protocol."
+  - "Keep the protocol reviewable and conservative, with no discovery wording."
+
+accepted_outputs:
+  - "docs/nuclear-mass-holdout-protocol.md"
+  - "docs/notes/nuclear-mass-split-rationale.md"
+  - "updated campaign_profiles/nuclear-mass-surface.yaml"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

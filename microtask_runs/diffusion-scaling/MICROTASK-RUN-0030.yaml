@@ -1,0 +1,28 @@
+id: MICROTASK-RUN-0030
+queue_id: diffusion-scaling
+microtask_id: DFS-002
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-diffusion-scaling--dfs-001-002-003-004-005
+pull_request: null
+result_note: docs/notes/dfs-002-msd-units-audit.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/diffusion-scaling.yaml
+  method: "SI units audit for standard MSD=2Dt relation. Verdict: units-consistent."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "If a dimensional inconsistency were found (LHS units ≠ RHS units), the formula would fail the audit."
+  limitations:
+    - "Planning note only. No simulation code exists."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/diffusion-scaling/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."

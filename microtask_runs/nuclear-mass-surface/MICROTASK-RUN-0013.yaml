@@ -1,0 +1,29 @@
+id: MICROTASK-RUN-0013
+queue_id: nuclear-mass-surface
+microtask_id: NMS-002
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-nuclear-mass-surface--nms-002-004-005-006-007
+pull_request: null
+result_note: docs/notes/nms-002-measured-vs-extrapolated-data-policy.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/nuclear-mass-surface.yaml
+  method: "Policy note for measured/extrapolated data separation in AME dataset."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Reject if policy omits circular-reasoning risk for extrapolated entries or fails to require explicit flagging of AME # entries in training sets."
+  limitations:
+    - "Policy note only. No code change to the dataset loader is implemented here."
+    - "Maintainer review required before adopting this policy in canonical pipelines."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/nuclear-mass-surface/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."

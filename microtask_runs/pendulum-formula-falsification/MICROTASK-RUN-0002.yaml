@@ -1,0 +1,38 @@
+id: MICROTASK-RUN-0002
+queue_id: pendulum-formula-falsification
+microtask_id: PFF-003
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-pendulum-formula-falsification--model-map-comparison-limitation
+pull_request: null
+result_note: docs/notes/pff-003-model-t4x1-symbolic-mapping.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/pendulum-formula-falsification.yaml
+    - results/EXP-0001/RUN-0003/result.yaml
+  method: "Manual symbolic analysis: unpacked the gauntlet formula for model_t4_x1
+    by substituting x = sin²(θ/2), verified parity (even in θ), decomposed atoms,
+    mapped all structural check outcomes from result.yaml, and documented which symbolic
+    analyses remain unavailable."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+    - docs/agent-task-protocol.md
+  metrics:
+    - "NOT_RUN (note-writing task, no new numerical computation)"
+  failure_mode: "Note could be invalidated if the formula definition of x in the
+    gauntlet source differs from sin²(θ/2), or if result.yaml check statuses are
+    updated by a re-run."
+  limitations:
+    - "All claims are bounded to the configured range of EXP-0001/RUN-0003 (0.01–1.57 rad)."
+    - "No symbolic closure is claimed; no Jacobi/elliptic derivation performed."
+    - "Atom basis is fixed at ten atoms; other functional forms not surveyed."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/
+      - docs/notes/
+    summary: "No prior PFF-003 run record found. Existing notes for PFF-001, PFF-002,
+      PFF-006, PFF-008 are different tasks and do not duplicate this mapping note."

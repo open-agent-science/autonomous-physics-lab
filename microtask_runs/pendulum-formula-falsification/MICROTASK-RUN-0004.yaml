@@ -1,0 +1,41 @@
+id: MICROTASK-RUN-0004
+queue_id: pendulum-formula-falsification
+microtask_id: PFF-007
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-pendulum-formula-falsification--model-map-comparison-limitation
+pull_request: null
+result_note: docs/notes/pff-007-configured-range-limitation.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/pendulum-formula-falsification.yaml
+    - results/EXP-0001/RUN-0003/result.yaml
+  method: "Manual review of result.yaml limitations block, check outcomes, and experiment
+    configuration. Identified the boundary between what the configured-range gauntlet
+    establishes and what it does not establish. Documented five categories of non-established
+    claims (beyond-range extrapolation, damping, non-ideal pendulums, exhaustive
+    formula families, discovery-level physics)."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+    - docs/agent-task-protocol.md
+  metrics:
+    - "NOT_RUN (note-writing task, no new numerical computation)"
+  failure_mode: "Note could become incomplete if the experiment is re-run with a
+    wider range, damping parameters, or additional structural checks that expand
+    what the gauntlet establishes."
+  limitations:
+    - "Note is scoped to EXP-0001/RUN-0003 only; a future run with different configuration
+      would require a separate limitation note."
+    - "Does not enumerate all possible out-of-scope claims, only representative categories."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/
+      - docs/notes/
+    summary: "No prior PFF-007 run record found. Existing notes for PFF-001, PFF-002,
+      PFF-006, PFF-008 are different tasks. pff-physics-constrained-log-coefficient.md
+      and pendulum-gauntlet-replay-freeze.md exist but address different topics
+      (log coefficient physics and replay freeze, not configured-range limitation)."

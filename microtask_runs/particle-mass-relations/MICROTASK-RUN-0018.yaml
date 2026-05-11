@@ -1,0 +1,33 @@
+id: MICROTASK-RUN-0018
+queue_id: particle-mass-relations
+microtask_id: PMR-001
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-particle-mass-relations--pmr-001-002-003-007-008-011
+pull_request: null
+result_note: docs/notes/pmr-001-electron-mass-dataset-audit.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/particle-mass-relations.yaml
+    - data/particle_masses/charged_leptons.yaml
+  method: "Dataset audit for electron mass entry against PDG 2025."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - "electron_mass_stored=0.51099895000 MeV"
+    - "pdg_2025_value=0.51099895069(16) MeV"
+    - "difference=6.9e-10 MeV (~4.6x stored one-sigma uncertainty; likely central-value truncation)"
+    - "uncertainty_discrepancy: stored ±1.5e-10 vs CODATA ±1.6e-10 MeV (minor rounding)"
+  failure_mode: "Reject or update the dataset entry if the stored central value is intended to be a full-precision PDG 2025 value rather than an explicitly truncated MeV representation."
+  limitations:
+    - "Covers only the electron entry in charged_leptons.yaml."
+    - "MeV representation carries conversion-factor uncertainty absent from the atomic mass unit form; this is a representation choice, not an error."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/particle-mass-relations/
+      - docs/notes/
+    summary: "No prior run found for PMR-001."

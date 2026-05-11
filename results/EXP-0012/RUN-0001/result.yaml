@@ -1,0 +1,154 @@
+result_id: RESULT-0015
+run_id: RUN-0001
+experiment_id: EXP-0012
+title: Nuclear Mass Baseline Residual Benchmark
+hypothesis_id: HYP-0012
+task_id: TASK-0168
+generated_at: '2026-05-10T11:58:34.803981+00:00'
+engine_version: 0.1.0
+git_commit: 4fe2de343b13df4e625a61bd8670e65cf6c68e89
+command: physics-lab run examples/nuclear_mass_baseline.yaml
+input_file_hashes:
+  config:
+    path: results/EXP-0012/RUN-0001/inputs/config.yaml
+    sha256: c60cb86307b8fd6c8a430f15b475aba8481cab4bc71f0afb6bc34f2bcf69f9c2
+  experiment:
+    path: results/EXP-0012/RUN-0001/inputs/experiment.yaml
+    sha256: 3ef88bbb2ef71b5414e7e610d06ea58dec374ef824ccf5c21961f7ad7b878c32
+  hypothesis:
+    path: results/EXP-0012/RUN-0001/inputs/hypothesis.yaml
+    sha256: c72a967c7c09b37a863695b30aa322abeaeeb5ff686f6e01e2fd516f483d5beb
+  task:
+    path: results/EXP-0012/RUN-0001/inputs/task.yaml
+    sha256: f8720d43969821309a7b67eeb9e8727576ac11f6501e4c263a8e0622e57bb035
+code_reference: physics_lab/workflows/nuclear_mass_baseline.py
+limitations:
+- This benchmark uses a small pinned measured slice rather than the full AME2020 surface.
+- Residual maps here characterize a simple semi-empirical baseline only; they do not
+  imply a new shell model or universal mass law.
+- The fitted coefficient set is slice-specific and should not be treated as a holdout-validated
+  predictive model before TASK-0169 lands.
+best_model_id: model_fitted_semi_empirical
+best_verdict: PARTIALLY_VALID
+verification:
+  passed: true
+  checks:
+  - name: dataset_slice_loaded
+    status: PASS
+    details: Loaded the pinned measured nuclear-mass slice with the expected entry
+      count.
+    metrics:
+      dataset_id: NMD-0002
+      entry_count: 11
+  - name: binding_energy_reconstruction
+    status: PASS
+    details: Derived binding energies and atomic-mass residuals deterministically
+      from the pinned dataset entries.
+    metrics:
+      dataset_kind: nuclear_mass_dataset
+  - name: fitted_baseline_improves_overall_mae
+    status: PASS
+    details: Checked whether the fitted semi-empirical baseline improves the overall
+      mean absolute residual on the pinned slice.
+    metrics:
+      reference_mae_mev: 3.6729255937131056
+      fitted_mae_mev: 2.8245215982589085
+  - name: pairing_term_reduces_pairing_spread
+    status: PASS
+    details: Compared pairing-class residual spread with and without the explicit
+      pairing term.
+    metrics:
+      no_pairing_odd_even_delta_mae_mev: 4.933667199667976
+      with_pairing_odd_even_delta_mae_mev: 4.318288472625085
+  - name: magic_subset_diagnostics_present
+    status: PASS
+    details: Computed shell-closure subset metrics and top residual rows for review.
+    metrics:
+      magic_entry_count: 7
+      top_residual_count: 5
+  - name: uncertainty_normalized_residuals_present
+    status: PASS
+    details: Recorded uncertainty-normalized residual summaries for the pinned measured
+      slice.
+    metrics:
+      mean_abs_normalized_residual: 303.22485036897893
+comparison_summary:
+- target_id: target_magic_subset_mae
+  label: Magic-subset MAE diagnostic target
+  reference_value: 5.0
+  observed_value: 2.4490522731853557
+  unit: MeV
+  absolute_difference: 2.5509477268146443
+  relative_difference: 0.5101895453629288
+  notes: Diagnostic threshold only; lower shell-subset MAE is better.
+uncertainty_summary:
+  method: atomic_mass_uncertainty_to_binding_energy
+  observed_uncertainty: 303.22485036897893
+  reference_uncertainty: null
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: The pinned slice uses explicit atomic-mass uncertainties, but they are not
+    yet a full-review uncertainty benchmark surface.
+artifacts:
+  report: results/EXP-0012/RUN-0001/report.md
+  metrics: results/EXP-0012/RUN-0001/metrics.json
+  claim_update: results/EXP-0012/RUN-0001/claim_update.md
+  claim_update_patch: results/EXP-0012/RUN-0001/claim_update.patch.md
+  knowledge_update: results/EXP-0012/RUN-0001/knowledge_update.md
+  knowledge_update_patch: results/EXP-0012/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0012/RUN-0001/review_summary.md
+  review_metadata: results/EXP-0012/RUN-0001/review_metadata.yaml
+scores:
+- model_id: model_fitted_semi_empirical
+  formula: Same semi-empirical structure with coefficients fit on the pinned measured
+    slice
+  coefficients:
+    volume: 15.51423612106804
+    surface: 17.2931812095177
+    coulomb: 0.6878156091568888
+    asymmetry: 23.846557883948485
+    pairing: 15.990845113398912
+  complexity_score: 5
+  train_metrics:
+    mean_relative_error: 0.015842270782314916
+    max_relative_error: 0.0949253408427763
+  test_metrics:
+    mean_relative_error: 0.017690521220027965
+    max_relative_error: 0.0949253408427763
+  composite_score: 0.03411016169733589
+  verdict: PARTIALLY_VALID
+- model_id: model_reference_semi_empirical
+  formula: B = aV*A - aS*A^(2/3) - aC*Z*(Z-1)/A^(1/3) - aA*(N-Z)^2/A + delta_pair
+  coefficients:
+    volume: 15.8
+    surface: 18.3
+    coulomb: 0.714
+    asymmetry: 23.2
+    pairing: 12.0
+  complexity_score: 5
+  train_metrics:
+    mean_relative_error: 0.03032847869158182
+    max_relative_error: 0.21587609116016226
+  test_metrics:
+    mean_relative_error: 0.03885512466805724
+    max_relative_error: 0.21587609116016226
+  composite_score: 0.06446982219262475
+  verdict: PARTIALLY_VALID
+- model_id: model_reference_liquid_drop_no_pairing
+  formula: B = aV*A - aS*A^(2/3) - aC*Z*(Z-1)/A^(1/3) - aA*(N-Z)^2/A
+  coefficients:
+    volume: 15.8
+    surface: 18.3
+    coulomb: 0.714
+    asymmetry: 23.2
+    pairing: 0.0
+  complexity_score: 4
+  train_metrics:
+    mean_relative_error: 0.0502401640164384
+    max_relative_error: 0.42792272110551993
+  test_metrics:
+    mean_relative_error: 0.07411890716363542
+    max_relative_error: 0.42792272110551993
+  composite_score: 0.10982934438916497
+  verdict: INCONCLUSIVE

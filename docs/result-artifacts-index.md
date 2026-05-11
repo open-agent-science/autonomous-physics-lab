@@ -11,6 +11,10 @@ produced without modifying any result artifacts.
 For reviewer-facing replay commands and expected metrics for the current major
 result set, see [reproducibility-capsules.md](./reproducibility-capsules.md).
 
+Golden-result expectations for frozen high-value canonical surfaces live in
+`results/golden-results.yaml`. Strict validation uses that manifest to catch
+material scientific-result drift while allowing metadata-only replay changes.
+
 ---
 
 ## Run Inventory
