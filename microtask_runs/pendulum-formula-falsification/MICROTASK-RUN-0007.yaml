@@ -1,0 +1,29 @@
+id: MICROTASK-RUN-0007
+queue_id: pendulum-formula-falsification
+microtask_id: PFF-010
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-pendulum-formula-falsification--pff-005-009-010-011
+pull_request: null
+result_note: docs/notes/pff-010-large-angle-data-slice-proposal.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/pendulum-formula-falsification.yaml
+    - results/EXP-0001/RUN-0003/result.yaml
+  method: "Dataset slice proposal for theta in [1.4, 3.0] rad with dense near-separatrix sampling."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Proposed slice not implemented. No falsification run yet."
+  limitations:
+    - "Future proposal only. No data generated."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/pendulum-formula-falsification/
+      - docs/notes/
+    summary: "pff-008 covers breakdown probe; this proposes a different sampling pattern. No prior PFF-010 run found."

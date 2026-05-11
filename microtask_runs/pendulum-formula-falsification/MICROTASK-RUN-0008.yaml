@@ -1,0 +1,33 @@
+id: MICROTASK-RUN-0008
+queue_id: pendulum-formula-falsification
+microtask_id: PFF-011
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-pendulum-formula-falsification--pff-005-009-010-011
+pull_request: null
+result_note: docs/notes/pff-011-pade-family-repeatable-search.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/pendulum-formula-falsification.yaml
+    - results/EXP-0001/RUN-0003/result.yaml
+  method: "Pade-type (1+ax)/(1-bx) fitted by scipy.optimize.curve_fit against exact elliptic reference. Train 0.01-1.10 rad, test 1.11-pi/2 rad."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - "train_mre: 1.106818e-05"
+    - "test_mre: 8.818868e-04"
+    - "train_max_re: 4.628562e-05"
+    - "test_max_re: 2.703599e-03"
+  failure_mode: "b approaching 1 causes denominator singularity at x=1 (separatrix)."
+  limitations:
+    - "Single attempt. Configured range only: train 0.01-1.10, test 1.11-1.571 rad."
+    - "No promotion to knowledge."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/pendulum-formula-falsification/
+      - docs/notes/
+    summary: "PFF-001 described Pade at note level. This is first numerical fit for (1+ax)/(1-bx) form."
