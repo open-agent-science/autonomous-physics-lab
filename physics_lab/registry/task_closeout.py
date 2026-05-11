@@ -11,6 +11,23 @@ from physics_lab.registry.tasks import load_task
 
 SECTION_HEADER_PATTERN = re.compile(r"^##\s+(?P<name>.+?)\s*$")
 TASK_LINE_PATTERN = re.compile(r"TASK-[0-9]{4}")
+PUBLIC_STATE_TASK_MARKERS = (
+    "agent-run",
+    "autonomous",
+    "benchmark",
+    "campaign",
+    "completed experiment",
+    "experiment",
+    "flagship",
+    "holdout",
+    "mission",
+    "nuclear",
+    "public-facing",
+    "release",
+    "result",
+    "scientific",
+    "status",
+)
 
 
 @dataclass(frozen=True)
@@ -123,6 +140,13 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
         "Add a docs/multi-agent-dry-run.md entry only when the merged PR "
         "belongs to a dry run or contributor pilot."
     )
+    if should_review_public_state_docs(payload):
+        suggested_actions.append(
+            "Review docs/status.md and docs/mission-control.md against "
+            "authoritative task, experiment, result, and mission state; update "
+            "stale experiment counts, flagship campaigns, result surfaces, or "
+            "release-gate wording before final closeout if needed."
+        )
 
     return TaskCloseoutReport(
         task_id=task_id,
@@ -140,6 +164,29 @@ def _expected_board_sections(status: str) -> set[str]:
     if status == "DONE":
         return {"DONE", "DONE RECENTLY"}
     return {status}
+
+
+def should_review_public_state_docs(payload: dict) -> bool:
+    """Return whether closeout should suggest checking public state docs."""
+    parts: list[str] = [
+        str(payload.get("id", "")),
+        str(payload.get("title", "")),
+        str(payload.get("type", "")),
+    ]
+    task_input = payload.get("input", {})
+    if isinstance(task_input, dict):
+        parts.append(str(task_input.get("related_domain", "")))
+        parts.append(str(task_input.get("planning_context", "")))
+        related_objects = task_input.get("related_objects", [])
+        if isinstance(related_objects, list):
+            parts.extend(str(item) for item in related_objects)
+    for key in ("strategy_alignment", "requirements", "accepted_outputs"):
+        items = payload.get(key, [])
+        if isinstance(items, list):
+            parts.extend(str(item) for item in items)
+
+    haystack = " ".join(parts).lower()
+    return any(marker in haystack for marker in PUBLIC_STATE_TASK_MARKERS)
 
 
 def render_closeout_report(

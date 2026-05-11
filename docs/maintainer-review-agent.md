@@ -259,7 +259,15 @@ Use this mode only after the maintainer has already merged the PR.
    story, or top near-term priorities, review
    [./next-steps.md](./next-steps.md) for stale guidance before ending the
    cleanup pass.
-7. During larger workflow-admin or closeout batches, check whether open
+7. If the merged work changes experiments, results, campaign profiles,
+   scientific validation surfaces, mission priorities, or public-release gates,
+   compare [./status.md](./status.md) and
+   [./mission-control.md](./mission-control.md) against authoritative
+   `tasks/TASK-*.yaml`, `experiments/*.yaml`, and `results/*/*/result.yaml`.
+   Update stale experiment counts, active flagship campaigns, result surfaces,
+   or public-readiness wording before final closeout, or record a follow-up task
+   if the sync is intentionally deferred.
+8. During larger workflow-admin or closeout batches, check whether open
    `READY`, `REVIEW_READY`, or `BLOCKED` tasks still represent real claimable
    work rather than stale or already-merged drift.
 
@@ -272,6 +280,9 @@ Use this mode only after the maintainer has already merged the PR.
   per-task closeout PR
 - update [./next-steps.md](./next-steps.md) when the recorded immediate queue
   is stale after the merged work
+- update [./status.md](./status.md) and
+  [./mission-control.md](./mission-control.md) when authoritative experiment,
+  result, campaign, or mission state changed
 - add a short closeout note when helpful
 - add an entry to [./multi-agent-dry-run.md](./multi-agent-dry-run.md) when the
   merged PR is part of a dry run or contributor pilot
@@ -317,6 +328,9 @@ Default behavior:
 - if the merged PR or the applied board-sync step touched `CONTEXT.md` source
   files, the helper should suggest rerunning
   `python3 scripts/generate_context_bundle.py` in a later maintainer branch
+- if the merged PR touched scientific state or its task payload references
+  experiment/result/campaign/mission changes, the helper should suggest
+  reviewing `docs/status.md` and `docs/mission-control.md` for drift
 
 ### Closeout sweep helper
 

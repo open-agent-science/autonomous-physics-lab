@@ -98,6 +98,48 @@ CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
         "scripts/generate_context_bundle.py",
     }
 )
+PUBLIC_STATE_DOCS = (
+    "docs/status.md",
+    "docs/mission-control.md",
+)
+PUBLIC_STATE_DOC_TRIGGER_PREFIXES = (
+    "experiments/",
+    "results/",
+    "claims/",
+    "knowledge/",
+    "campaign_profiles/",
+    "agent_runs/",
+    "hypothesis_proposals/",
+    "experiment_proposals/",
+    "data/nuclear_masses/",
+)
+PUBLIC_STATE_DOC_TRIGGER_FILES = frozenset(
+    {
+        "docs/strategy.md",
+        "docs/current-missions.md",
+        "missions/current.yaml",
+        "docs/next-steps.md",
+        "docs/roadmap.md",
+        "docs/public-release-gates.md",
+    }
+)
+PUBLIC_STATE_TASK_MARKERS = (
+    "agent-run",
+    "autonomous",
+    "benchmark",
+    "campaign",
+    "completed experiment",
+    "experiment",
+    "flagship",
+    "holdout",
+    "mission",
+    "nuclear",
+    "public-facing",
+    "release",
+    "result",
+    "scientific",
+    "status",
+)
 
 
 @dataclass(frozen=True)
@@ -367,6 +409,61 @@ def context_bundle_followups(
         f"sources changed: {rendered}. Run python3 scripts/generate_context_bundle.py "
         "and stage CONTEXT.md if it changes.",
     )
+
+
+def public_state_doc_followups(
+    changed_files: tuple[str, ...],
+    task_payload: dict[str, Any],
+) -> tuple[str, ...]:
+    """Return closeout reminders for docs/status and Mission Control drift."""
+    if not _public_state_docs_need_review(changed_files, task_payload):
+        return ()
+
+    changed = set(changed_files)
+    missing_reviews = tuple(path for path in PUBLIC_STATE_DOCS if path not in changed)
+    if not missing_reviews:
+        return (
+            "Confirm docs/status.md and docs/mission-control.md still match "
+            "authoritative task, experiment, result, and mission state before final closeout.",
+        )
+
+    rendered = ", ".join(missing_reviews)
+    return (
+        "Review public-facing state docs for drift before final closeout: "
+        f"{rendered}. Compare them with authoritative task/experiment/result "
+        "state and update stale experiment counts, flagship campaigns, result "
+        "surfaces, or release-gate wording if needed.",
+    )
+
+
+def _public_state_docs_need_review(
+    changed_files: tuple[str, ...],
+    task_payload: dict[str, Any],
+) -> bool:
+    if any(path.startswith(PUBLIC_STATE_DOC_TRIGGER_PREFIXES) for path in changed_files):
+        return True
+    if any(path in PUBLIC_STATE_DOC_TRIGGER_FILES for path in changed_files):
+        return True
+
+    parts: list[str] = [
+        str(task_payload.get("id", "")),
+        str(task_payload.get("title", "")),
+        str(task_payload.get("type", "")),
+    ]
+    task_input = task_payload.get("input", {})
+    if isinstance(task_input, dict):
+        parts.append(str(task_input.get("related_domain", "")))
+        parts.append(str(task_input.get("planning_context", "")))
+        related_objects = task_input.get("related_objects", [])
+        if isinstance(related_objects, list):
+            parts.extend(str(item) for item in related_objects)
+    for key in ("strategy_alignment", "requirements", "accepted_outputs"):
+        items = task_payload.get(key, [])
+        if isinstance(items, list):
+            parts.extend(str(item) for item in items)
+
+    haystack = " ".join(parts).lower()
+    return any(marker in haystack for marker in PUBLIC_STATE_TASK_MARKERS)
 
 
 def diff_base_ref(root: Path, pr_metadata: PullRequestMetadata | None) -> str:
@@ -913,6 +1010,7 @@ def build_closeout_report(
 
     task_file = resolve_task_file(root, task_id)
     task_payload = load_task(task_file)
+    suggested_actions.extend(public_state_doc_followups(changed_files, task_payload))
     task_status = str(task_payload["status"])
     if task_status != "REVIEW_READY":
         blockers.append(f"Task status is {task_status}, not REVIEW_READY.")
