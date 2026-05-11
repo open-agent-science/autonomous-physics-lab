@@ -1,7 +1,7 @@
 id: TASK-0188
 title: "Implement post-AME2020 time-split nuclear mass benchmark"
 type: scientific_benchmark
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -20,8 +20,8 @@ input:
     - "agent_runs/AGENT-RUN-0006/"
     - "docs/reviews/nuclear-split-sensitivity-replay.md"
   planning_context: >
-    This task is blocked until TASK-0187 provides a reviewed post-AME2020
-    holdout dataset or source manifest. Once that surface exists, the frozen
+    TASK-0187 now provides a reviewed post-AME2020 source manifest, so the
+    next step is to turn that surface into a time-split benchmark. The frozen
     baseline and sandbox candidates should be evaluated on the same time-split
     benchmark with uncertainty-aware, subset-aware, and baseline-relative
     metrics.
