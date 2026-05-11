@@ -113,8 +113,8 @@ def _parallel_hint(entry: TaskBoardEntry) -> str:
 def _candidate_sort_key(candidate: MissionTaskCandidate) -> tuple[int, int, int, int]:
     mode_rank = 0 if candidate.mode == "research" else 1
     return (
-        PRIORITY_RANK.get(candidate.priority, 9),
         mode_rank,
+        PRIORITY_RANK.get(candidate.priority, 9),
         DIFFICULTY_RANK.get(candidate.difficulty, 9),
         int(candidate.task_id.removeprefix("TASK-")),
     )

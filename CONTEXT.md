@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 11:30 UTC
+Generated: 2026-05-11 11:34 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -718,8 +718,10 @@ recommendation remains the current top-ranked mission.
 ## Parallel Agent Work
 
 `python3 scripts/apl_mission.py --json` includes `live_task_candidates` and a
-small `parallel_work_policy` section. Use those candidates as options, not as a
-single global lock.
+small `parallel_work_policy` section. In default Research Mode, research,
+replay, audit, and validation tasks are ranked before support tasks; support
+items are secondary options when they are useful or when a maintainer assigns
+them. Use those candidates as options, not as a single global lock.
 
 Rules:
 
