@@ -43,7 +43,7 @@ artifacts still require maintainer review.
 
 Recommended direction:
 
-1. Run split-sensitivity replay for `HYP-PROPOSAL-0021`.
+1. Review `AGENT-RUN-0006` split-sensitivity replay for `HYP-PROPOSAL-0021`.
 2. Adversarially audit `AGENT-RUN-0005`.
 3. Only then run a second bounded nuclear sandbox batch.
 
@@ -53,6 +53,7 @@ Why:
 - the frozen baseline and holdout protocol already exist;
 - the first autonomous nuclear pilot exists;
 - the strongest candidate is still sandbox-only evidence;
+- split-sensitivity replay now exists as review-ready sandbox evidence;
 - the next scientific value comes from validation, not from broadening claims.
 
 Guardrails:

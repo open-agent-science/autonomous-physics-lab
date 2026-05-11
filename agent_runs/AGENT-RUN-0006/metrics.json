@@ -1,0 +1,192 @@
+{
+  "agent_run_id": "AGENT-RUN-0006",
+  "task_id": "TASK-0183",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "candidate_id": "HYP-PROPOSAL-0021",
+  "source_agent_run_id": "AGENT-RUN-0005",
+  "canonical_result_input": "results/EXP-0012/RUN-0001/result.yaml",
+  "dataset_input": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+  "sandbox_only": true,
+  "canonical_results_changed": false,
+  "canonical_claims_changed": false,
+  "method": {
+    "baseline_model_id": "model_fitted_semi_empirical",
+    "candidate_family": "shell_dual_heavy_anchor_odd_a",
+    "candidate_formula": "r_corr = c1*m2 + c2*mh + c3*oa",
+    "parameter_count": 3,
+    "split_family": "same-shape stratified light/medium/heavy holdouts",
+    "light_pool": [
+      "He-4",
+      "N-14",
+      "O-16",
+      "O-17"
+    ],
+    "medium_pool": [
+      "Ca-40",
+      "Ca-48",
+      "Fe-56",
+      "Fe-57"
+    ],
+    "heavy_pool": [
+      "Sn-120",
+      "Pb-208",
+      "U-238"
+    ]
+  },
+  "selected_split_results": [
+    {
+      "split_id": "pilot_random_stratified",
+      "holdout": [
+        "He-4",
+        "Fe-57",
+        "Pb-208"
+      ],
+      "coefficients": {
+        "magic_both": -0.24892861522099483,
+        "heavy_double_magic": 0.0,
+        "odd_a": -1.2632483318229217
+      },
+      "baseline_mae_mev": 4.262742791405716,
+      "candidate_mae_mev": 4.007612424278739,
+      "delta_mae_mev": -0.2551303671269771,
+      "baseline_rmse_mev": 5.2088729001144305,
+      "candidate_rmse_mev": 5.3071544807894036,
+      "delta_rmse_mev": 0.09828158067497306
+    },
+    {
+      "split_id": "alt_split_light_medium_heavy_a",
+      "holdout": [
+        "N-14",
+        "Fe-56",
+        "Sn-120"
+      ],
+      "coefficients": {
+        "magic_both": 0.48479740434791396,
+        "heavy_double_magic": 7.968890552511622,
+        "odd_a": -1.4559066430629455
+      },
+      "baseline_mae_mev": 2.2740596609216652,
+      "candidate_mae_mev": 2.2740596609216652,
+      "delta_mae_mev": 0.0,
+      "baseline_rmse_mev": 2.6789415480398486,
+      "candidate_rmse_mev": 2.6789415480398486,
+      "delta_rmse_mev": 0.0
+    },
+    {
+      "split_id": "alt_split_light_medium_heavy_b",
+      "holdout": [
+        "O-17",
+        "Ca-48",
+        "U-238"
+      ],
+      "coefficients": {
+        "magic_both": 0.2706919545072015,
+        "heavy_double_magic": 8.182996002352338,
+        "odd_a": -1.6485649543029695
+      },
+      "baseline_mae_mev": 2.8721876936554245,
+      "candidate_mae_mev": 2.489313139038732,
+      "delta_mae_mev": -0.3828745546166923,
+      "baseline_rmse_mev": 3.725218588466037,
+      "candidate_rmse_mev": 3.635359039192947,
+      "delta_rmse_mev": -0.08985954927309026
+    },
+    {
+      "split_id": "alt_split_magic_stress",
+      "holdout": [
+        "O-16",
+        "Ca-40",
+        "Pb-208"
+      ],
+      "coefficients": {
+        "magic_both": 1.9065446084623432,
+        "heavy_double_magic": 0.0,
+        "odd_a": -1.4559066430629453
+      },
+      "baseline_mae_mev": 3.765485033253038,
+      "candidate_mae_mev": 4.078044054951639,
+      "delta_mae_mev": 0.31255902169860095,
+      "baseline_rmse_mev": 5.074815347737353,
+      "candidate_rmse_mev": 4.585363287610334,
+      "delta_rmse_mev": -0.4894520601270189
+    }
+  ],
+  "same_shape_stratified_summary": {
+    "split_count": 48,
+    "improved_count": 28,
+    "regressed_count": 13,
+    "tied_count": 7,
+    "mean_delta_mae_mev": -0.057605339747111635,
+    "median_delta_mae_mev": -0.135265169994792,
+    "best_delta_mae_mev": -0.7440386250631548,
+    "worst_delta_mae_mev": 0.9480738911860487,
+    "pilot_rank_by_delta_mae": 18,
+    "hyp21_better_than_hyp20_count": 18,
+    "hyp21_worse_than_hyp20_count": 0,
+    "hyp21_tied_hyp20_count": 30
+  },
+  "worst_splits_by_delta_mae": [
+    {
+      "holdout": [
+        "O-16",
+        "Ca-40",
+        "Sn-120"
+      ],
+      "delta_mae_mev": 0.9480738911860487,
+      "delta_vs_hyp20_mae_mev": 0.0
+    },
+    {
+      "holdout": [
+        "O-16",
+        "Ca-40",
+        "U-238"
+      ],
+      "delta_mae_mev": 0.9480738911860485,
+      "delta_vs_hyp20_mae_mev": 0.0
+    },
+    {
+      "holdout": [
+        "He-4",
+        "Ca-48",
+        "Pb-208"
+      ],
+      "delta_mae_mev": 0.9369497997665164,
+      "delta_vs_hyp20_mae_mev": 0.0
+    }
+  ],
+  "best_splits_by_delta_mae": [
+    {
+      "holdout": [
+        "O-16",
+        "Fe-57",
+        "Pb-208"
+      ],
+      "delta_mae_mev": -0.7440386250631548,
+      "delta_vs_hyp20_mae_mev": -0.4210827772743073
+    },
+    {
+      "holdout": [
+        "N-14",
+        "Fe-57",
+        "Pb-208"
+      ],
+      "delta_mae_mev": -0.5826819120569455,
+      "delta_vs_hyp20_mae_mev": -0.4210827772743073
+    },
+    {
+      "holdout": [
+        "O-16",
+        "Fe-57",
+        "Sn-120"
+      ],
+      "delta_mae_mev": -0.5823990866511125,
+      "delta_vs_hyp20_mae_mev": -0.4210827772743073
+    }
+  ],
+  "stability_assessment": {
+    "classification": "split_sensitive_partial_signal",
+    "interpretation": "HYP-PROPOSAL-0021 improves more splits than it regresses, but the effect is not stable across same-shape alternatives and should remain sandbox-only.",
+    "leakage_note": "The proposal was selected after AGENT-RUN-0005 exposed the active holdout package, so this replay cannot be treated as blind validation.",
+    "overfit_note": "The odd-A term gives narrow gains tied to odd-A revealed rows; it does not establish a broader nuclear-mass law."
+  }
+}
