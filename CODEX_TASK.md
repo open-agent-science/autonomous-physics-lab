@@ -7,18 +7,25 @@ Do not treat it as the single source of truth for active work.
 Read these files in order:
 
 1. `AGENTS.md`
-2. `docs/agent-task-protocol.md`
-3. `docs/status.md`
-4. `docs/strategy.md`
-5. `tasks/ACTIVE.md`
-6. `docs/agent-operating-model.md`
+2. Run `python3 scripts/apl_mission.py --json`
+3. `docs/agent-task-protocol.md`
+4. `docs/current-missions.md`
+5. `docs/status.md`
+6. `docs/strategy.md`
+7. `tasks/ACTIVE.md`
+8. `docs/agent-operating-model.md`
 
 Then:
 
-- pick one atomic `READY` task;
+- start from the recommended research mission unless the maintainer assigned a
+  stricter task or support/review mode;
 - follow `docs/agent-task-protocol.md` and the task contract;
 - run the required validation commands;
 - update task state and planning docs if project reality changed.
+
+For support work, run `python3 scripts/apl_mission.py --mode support`.
+For maintainer review or closeout assistance, run
+`python3 scripts/apl_mission.py --mode maintainer`.
 
 If no existing task fits and the maintainer did not assign a canonical
 `TASK-XXXX` id, create a proposal

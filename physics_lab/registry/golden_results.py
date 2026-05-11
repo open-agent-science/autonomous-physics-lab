@@ -7,6 +7,7 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+import string
 from typing import Any
 
 import yaml
@@ -100,6 +101,11 @@ def load_golden_result_entries(root: Path) -> tuple[GoldenResultEntry, ...]:
         )
         if not entry.result_path:
             raise ValueError(f"{manifest_path} golden_results[{index}] is missing result_path")
+        entry_path = Path(entry.result_path)
+        if entry_path.is_absolute() or ".." in entry_path.parts:
+            raise ValueError(
+                f"{manifest_path} golden_results[{index}] must use a repository-relative path"
+            )
         if entry.result_path in seen_paths:
             raise ValueError(f"{manifest_path} declares duplicate result_path {entry.result_path}")
         seen_paths.add(entry.result_path)
@@ -108,7 +114,9 @@ def load_golden_result_entries(root: Path) -> tuple[GoldenResultEntry, ...]:
                 f"{manifest_path} golden_results[{index}] uses unsupported policy "
                 f"{entry.policy or '<missing>'}"
             )
-        if len(entry.material_hash_sha256) != 64:
+        if len(entry.material_hash_sha256) != 64 or any(
+            char not in string.hexdigits for char in entry.material_hash_sha256
+        ):
             raise ValueError(
                 f"{manifest_path} golden_results[{index}] must declare a sha256 material hash"
             )
@@ -122,14 +130,6 @@ def golden_result_drifts(root: Path) -> tuple[GoldenResultDrift, ...]:
     for entry in load_golden_result_entries(root):
         result_path = root / entry.result_path
         if not result_path.exists():
-            drifts.append(
-                GoldenResultDrift(
-                    result_path=entry.result_path,
-                    result_id=entry.result_id,
-                    expected_hash=entry.material_hash_sha256,
-                    actual_hash="<missing>",
-                )
-            )
             continue
         payload = load_result(result_path)
         actual_result_id = str(payload["result_id"])

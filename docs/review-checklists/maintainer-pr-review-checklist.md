@@ -46,6 +46,9 @@ Use this checklist during pre-merge maintainer review.
 ## Overclaim Language
 
 - No "proved", "solved physics", or similar overclaim language was introduced.
+- If the review helper reports overclaim terms as advisory warnings, inspect
+  the nearby context. Guardrail or policy wording is acceptable; claim-like
+  wording is not.
 - Workflow or planning tasks stay framed as workflow or planning work.
 - Review notes distinguish evidence from proposal.
 

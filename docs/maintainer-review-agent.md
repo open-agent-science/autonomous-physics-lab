@@ -49,6 +49,30 @@ The recommended first bounded action is:
 - run this review agent on that closeout PR;
 - stop and wait for maintainer merge.
 
+## Review To Closeout Flow
+
+This diagram shows the maintainer-facing lifecycle from contributor PR review
+through post-merge task closeout. The review helper can recommend and prepare
+bounded updates, but the maintainer remains the merge and scientific-authority
+decision point.
+
+```mermaid
+flowchart TD
+    A["Contributor opens task PR\nTask status: REVIEW_READY"] --> B["Maintainer selects review lane\nfast review or deep review"]
+    B --> C["Review helper checks\nbranch, title, metadata, scope, validation"]
+    C --> D{Review verdict}
+    D -->|"NEEDS_CHANGES or BLOCKED"| E["Contributor fixes blockers\nand updates the PR"]
+    E --> C
+    D -->|"MERGE_OK"| F["Maintainer reviews recommendation\nand decides whether to merge"]
+    F -->|"Do not merge yet"| E
+    F -->|"Merge PR"| G["Merged task remains REVIEW_READY\nuntil closeout"]
+    G --> H["Post-merge closeout helper verifies\nmerged PR, outputs, CI, and blockers"]
+    H --> I{Closeout ready?}
+    I -->|"No"| J["Report blocker\nno task status promotion"]
+    I -->|"Yes"| K["Maintainer closeout PR may set task DONE\nand optionally sync ACTIVE.md"]
+    K --> L["Maintainer reviews and merges closeout PR"]
+```
+
 ## Review Lanes
 
 Maintainer review should not use the same heavy cycle for every PR shape.
@@ -98,6 +122,22 @@ Use this lane whenever any of the following is true:
 
 Deep review should include the full deterministic helper cycle and content
 verification appropriate to the changed surface.
+
+### Overclaim Severity
+
+The deterministic review helper treats overclaim language as context-sensitive:
+
+- positive claim phrasing is a blocker, especially in public-facing summaries,
+  claims, results, reports, or review conclusions;
+- guardrail, policy, checklist, or "do not use this wording" contexts should
+  be surfaced as advisory warnings rather than blockers;
+- advisory warnings are a signal for the maintainer or review AI agent to
+  inspect the surrounding text and confirm the risky word is being used as a
+  restriction, not as a scientific claim.
+
+The review AI agent should not ignore advisory warnings. It should read nearby
+context and report whether the wording is safe, ambiguous, or actually
+claim-like.
 
 ## Mode 1: Pre-Merge Review
 
@@ -333,6 +373,12 @@ python3 scripts/generate_context_bundle.py
 git add CONTEXT.md && git commit -m "chore: regenerate context bundle"
 git push origin main
 ```
+
+The generator is intentionally idempotent for timestamp-only differences. If
+the only possible change is the `Generated:` line, it leaves `CONTEXT.md`
+untouched so snapshot and review runs do not create a false dirty worktree.
+Treat any remaining `CONTEXT.md` diff after regeneration as meaningful source
+drift that should be reviewed before PR merge or closeout.
 
 Run this after:
 - merging several tasks in a batch;

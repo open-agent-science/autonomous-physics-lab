@@ -45,11 +45,12 @@ one PR.
 ## READY
 
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
-- `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -57,10 +58,23 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
+- `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
+- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
+- `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
+- `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
+- `TASK-0185` — Make context bundle generation idempotent (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0186` — Make mission control registry-driven and parallel-aware (`agent_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0184` — Align Mission Control read order with Agent First entrypoint (merged)
+- `TASK-0182` — Make maintainer overclaim review severity context-aware (merged)
+- `TASK-0181` — Add Agent First mission control entrypoint (merged)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
 - `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (merged)
 - `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (merged)
@@ -211,7 +225,7 @@ None.
 
 ## BLOCKED
 
-None.
+- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 

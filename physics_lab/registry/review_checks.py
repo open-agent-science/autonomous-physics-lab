@@ -21,6 +21,17 @@ OVERCLAIM_TERMS = (
     "global validity",
 )
 NEGATION_MARKERS = ("do not", "don't", "must not", "should not", "no ", "avoid ")
+GUARDRAIL_CONTEXT_MARKERS = (
+    *NEGATION_MARKERS,
+    "forbidden",
+    "guardrail",
+    "guardrails",
+    "banned",
+    "blocklist",
+    "not a ",
+    "not an ",
+    "without ",
+)
 OVERCLAIM_PATTERNS = tuple(
     re.compile(rf"(?<![a-z]){re.escape(term)}(?![a-z])") for term in OVERCLAIM_TERMS
 )
@@ -79,19 +90,51 @@ def line_is_rule_catalog_line(line: str) -> bool:
     return QUOTED_LINE_PATTERN.match(stripped) is not None
 
 
-def overclaim_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
-    """Return overclaim terms found in added diff lines."""
-    hits: list[str] = []
+def match_is_guardrail_context(
+    line: str,
+    match_start: int,
+    previous_lines: tuple[str, ...] = (),
+) -> bool:
+    """Return whether a matched term is in nearby rule-against-claim context."""
+    previous_context = " ".join(previous_lines[-2:]).lower()
+    if any(marker in previous_context for marker in GUARDRAIL_CONTEXT_MARKERS):
+        return True
+    prefix = line[:match_start].lower()
+    return any(marker in prefix for marker in GUARDRAIL_CONTEXT_MARKERS)
+
+
+def _overclaim_hits_by_severity(
+    added_lines: tuple[str, ...],
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """Return blocking and advisory overclaim terms from added diff lines."""
+    blockers: list[str] = []
+    advisory: list[str] = []
+    previous_lines: list[str] = []
     for line in added_lines:
         lowered = line.lower()
-        if any(marker in lowered for marker in NEGATION_MARKERS):
-            continue
         if line_is_rule_catalog_line(line):
+            previous_lines.append(line)
             continue
         for term, pattern in zip(OVERCLAIM_TERMS, OVERCLAIM_PATTERNS):
-            if pattern.search(lowered):
-                hits.append(term)
-    return tuple(hits)
+            for match in pattern.finditer(lowered):
+                if match_is_guardrail_context(line, match.start(), tuple(previous_lines)):
+                    advisory.append(term)
+                else:
+                    blockers.append(term)
+        previous_lines.append(line)
+    return tuple(dict.fromkeys(blockers)), tuple(dict.fromkeys(advisory))
+
+
+def overclaim_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
+    """Return blocking overclaim terms found in added diff lines."""
+    blockers, _advisory = _overclaim_hits_by_severity(added_lines)
+    return blockers
+
+
+def overclaim_advisory_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
+    """Return non-blocking overclaim terms found in guardrail context."""
+    _blockers, advisory = _overclaim_hits_by_severity(added_lines)
+    return advisory
 
 
 def security_pattern_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:

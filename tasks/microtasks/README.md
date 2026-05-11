@@ -15,6 +15,32 @@ canonical task for every narrow subproblem.
 - `thought-experiment-consistency.yaml`
 - `diffusion-scaling.yaml`
 
+## Queue Summary
+
+Refresh this generated table after queue metadata changes:
+
+```bash
+python3 scripts/generate_microtask_queue_summary.py
+```
+
+Queue items may include `status: completed` or `status: retired` when prior
+notes, run records, or newer canonical tasks make them no longer available for
+new work. Completed and retired items stay in queue files for traceability, but
+agents should pick from the available count in the generated table.
+
+<!-- BEGIN AUTO MICROTASK QUEUE SUMMARY -->
+
+| Queue | Campaign | Campaign Status | Available | Completed | Retired | Risk Levels | Selection Guidance |
+| --- | --- | --- | ---: | ---: | ---: | --- | --- |
+| [`diffusion-scaling`](diffusion-scaling.yaml) | diffusion-scaling | `planning_only_future_campaign` | 5 / 5 | 0 | 0 | `low` | Prefer planning, falsification, units, and limitation notes. |
+| [`dimensional-analysis-validator`](dimensional-analysis-validator.yaml) | dimensional-analysis-validator | `active_with_validator_and_pilot` | 4 / 11 | 7 | 0 | `low`, `medium` | Prefer new boundary cases, repeatable classification runs, and assumption-explicit examples not already covered by existing notes. |
+| [`nuclear-mass-surface`](nuclear-mass-surface.yaml) | nuclear-mass-surface | `active_baseline_and_sandbox_guarded` | 5 / 8 | 1 | 2 | `low`, `medium` | Prefer replay, audit, evidence-card, provenance, and guardrail tasks before any second sandbox batch. |
+| [`particle-mass-relations`](particle-mass-relations.yaml) | particle-mass-relations | `active_with_narrow_results` | 6 / 11 | 5 | 0 | `low`, `medium` | Prefer falsification-first, source-aware, and uncertainty-aware items. |
+| [`pendulum-formula-falsification`](pendulum-formula-falsification.yaml) | pendulum-formula-falsification | `active` | 7 / 11 | 4 | 0 | `low`, `medium` | Prefer narrow approximation, diagnostics, and wording tasks. |
+| [`thought-experiment-consistency`](thought-experiment-consistency.yaml) | thought-experiment-consistency | `planning_active` | 5 / 5 | 0 | 0 | `low`, `medium` | Prefer assumption formalization and invariant mapping. |
+
+<!-- END AUTO MICROTASK QUEUE SUMMARY -->
+
 ## How To Use These Queues
 
 1. Pick one campaign queue.

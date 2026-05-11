@@ -7,6 +7,7 @@ from pathlib import Path
 import yaml
 
 from physics_lab.registry.golden_results import (
+    load_golden_result_entries,
     material_result_hash,
 )
 from physics_lab.registry.repository import _strict_golden_result_issues
@@ -79,3 +80,50 @@ def test_strict_golden_result_policy_reports_material_drift(tmp_path: Path) -> N
 
     assert len(issues) == 1
     assert issues[0].code == "golden_result_material_drift"
+
+
+def test_strict_golden_result_policy_reports_missing_target_once(tmp_path: Path) -> None:
+    _write_manifest(tmp_path, material_hash="0" * 64)
+
+    issues = _strict_golden_result_issues(tmp_path)
+
+    assert [issue.code for issue in issues] == ["missing_golden_result"]
+
+
+def test_golden_manifest_rejects_non_hex_hash(tmp_path: Path) -> None:
+    _write_manifest(tmp_path, material_hash="z" * 64)
+
+    try:
+        load_golden_result_entries(tmp_path)
+    except ValueError as exc:
+        assert "sha256 material hash" in str(exc)
+    else:
+        raise AssertionError("Expected non-hex material hash to be rejected")
+
+
+def test_golden_manifest_rejects_path_escape(tmp_path: Path) -> None:
+    manifest = tmp_path / "results" / "golden-results.yaml"
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    manifest.write_text(
+        yaml.safe_dump(
+            {
+                "golden_results": [
+                    {
+                        "result_path": "../outside.yaml",
+                        "result_id": "RESULT-0004",
+                        "policy": "material_fields_v1",
+                        "material_hash_sha256": "0" * 64,
+                    }
+                ]
+            },
+            sort_keys=False,
+        ),
+        encoding="utf-8",
+    )
+
+    try:
+        load_golden_result_entries(tmp_path)
+    except ValueError as exc:
+        assert "repository-relative path" in str(exc)
+    else:
+        raise AssertionError("Expected path escape to be rejected")

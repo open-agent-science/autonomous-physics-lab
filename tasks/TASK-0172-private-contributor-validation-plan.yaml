@@ -1,0 +1,54 @@
+id: TASK-0172
+title: "Define private contributor and agent validation plan"
+type: contributor_validation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Treat private contributors and agents as a controlled validation phase before public opening."
+  - "Measure whether new humans with agents can follow the repository protocol without maintainer side-channel context."
+  - "Convert private-alpha workflow quality into explicit gates rather than informal confidence."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "docs/private-contributor-pilot.md"
+    - "docs/public-release-gates.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    After the nuclear-mass campaign wave and the first autonomous pilots, the
+    next readiness question is not whether APL can produce another result. It
+    is whether private contributors using agents can repeatedly move through
+    task, branch, PR, validation, review, and closeout without protocol
+    failures or accidental claim promotion.
+
+requirements:
+  - "Define private-alpha validation goals for contributors and agents."
+  - "Specify measurable gates including contributor count, PR count, scientific sandbox PR count, replay or audit PR count, CI health, and zero direct-main-push incidents."
+  - "Include explicit no-automatic-claim-promotion and no-dirty-active-board gates."
+  - "Distinguish private validation from a public contributor network."
+  - "Keep the plan repository-facing; do not draft external marketing or public article copy."
+
+accepted_outputs:
+  - "docs/private-contributor-validation-plan.md"
+  - "docs/private-agent-test-metrics.md"
+  - "docs/private-contributor-scorecard.md"
+  - "updated docs/public-release-gates.md if the gates need cross-linking"
+  - "updated docs/private-contributor-pilot.md if the pilot flow needs cross-linking"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

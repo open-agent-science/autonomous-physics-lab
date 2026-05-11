@@ -1,6 +1,15 @@
 # Agent Work Menu
 
-Pick work that matches your available time budget.
+This is the support and short-session menu.
+
+For the default Agent First research path, start with:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+Use this menu when you intentionally want support work, microtasks, docs,
+packaging, or a narrow queue item that matches your available time budget.
 
 All options here are safe, reviewable, and scoped to one session.
 None require new engine code or large-scope implementation.

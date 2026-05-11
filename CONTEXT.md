@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-10 13:07 UTC
+Generated: 2026-05-11 14:42 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -38,9 +38,38 @@ python3 scripts/generate_context_bundle.py
 This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
 active task board. The file is also committed to the repo root for download.
 
+## Agent First Default
+
+New contributors and coding agents should start with the mission entrypoint:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+Default mode is `research`. The script recommends the highest-value current
+scientific mission and provides guardrails for sandbox-only, reviewable work.
+For machine-readable context or a copy-paste agent prompt, run:
+
+```bash
+python3 scripts/apl_mission.py --json
+python3 scripts/apl_mission.py --agent-prompt
+```
+
+Use explicit modes when the maintainer asks for non-research work:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+Agent First does not replace the task protocol, maintainer review agent, or
+closeout flow. It only changes the default onboarding posture: research,
+replay, audit, hypothesis testing, and sandbox result drafts come before
+microtasks or docs-only support unless the maintainer says otherwise.
+
 ## Agent Work Paths
 
-Choose your path based on available token or time budget:
+Choose your path based on mission mode and available token or time budget:
 
 ```mermaid
 flowchart LR
@@ -50,11 +79,12 @@ flowchart LR
     classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
     classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
 
-    Start(["▶ Enter repo"]) --> Read["📋 AGENTS.md\n+ ACTIVE.md"]
+    Start(["▶ Enter repo"]) --> Mission["🚀 apl_mission.py\nResearch Mode"]
+    Mission --> Read["📋 AGENTS.md\n+ mission context"]
 
-    Read -->|"~30 min"| MT["⚡ Microtask"]:::quick
-    Read -->|"1–2 hrs"| RT["🎯 READY task"]:::task
-    Read -->|"scientific"| Sci["🔬 Campaign track\nKoide · Pendulum · DA"]:::sci
+    Read -->|"default"| Sci["🔬 Research mission\nhypothesis · replay · audit"]:::sci
+    Read -->|"support mode"| MT["⚡ Microtask"]:::quick
+    Read -->|"task mode"| RT["🎯 READY task"]:::task
     Read -->|"new idea"| Prop["💡 Task proposal\ntasks/proposals/"]:::prop
 
     MT  --> PR["📬 branch → PR\n→ maintainer review"]:::finish
@@ -193,7 +223,7 @@ Goal:
 
 ## Current Benchmark Scope
 
-The repository currently has nine canonical experiment files:
+The repository currently has eleven canonical experiment files:
 
 - `EXP-0001` — `Pendulum Formula Discovery`
 - `EXP-0002` — `Damped Oscillator Regime Verification`
@@ -204,11 +234,16 @@ The repository currently has nine canonical experiment files:
 - `EXP-0008` — `Quark Koide Cascade — Brannen Phase Extension Test`
 - `EXP-0009` — `Particle-Mass Relation Falsifier MVP`
 - `EXP-0010` — `Muon g-2 Formula-Search Stress Test`
+- `EXP-0011` — `Anharmonic Oscillator Period Benchmark`
+- `EXP-0012` — `Nuclear Mass Baseline Residual Benchmark`
 
-For public-facing summaries, the main benchmark surface is the first eight
-entries above. `EXP-0010` should be described only as a guarded empirical
-formula-search stress test with explicit multiple-testing and numerology
-limitations.
+For public-facing summaries, keep the benchmark surface conservative:
+completed benchmarks, falsifications, and sandbox pilots are reviewable
+evidence, not automatic discovery claims. `EXP-0010` should be described only
+as a guarded empirical formula-search stress test with explicit
+multiple-testing and numerology limitations. `EXP-0012` is the current
+research-first validation surface, but nuclear residual candidates remain
+sandbox-only unless reviewed and promoted by a maintainer.
 
 Use that broader benchmark scope when updating docs, status snapshots, and
 contributor guidance during pre-public validation.
@@ -438,9 +473,17 @@ standard execution flow, use `docs/agent-task-protocol.md`.
 Read these files first:
 
 1. `AGENTS.md`
-2. `docs/agent-task-protocol.md`
-3. `tasks/ACTIVE.md`
-4. `docs/strategy.md`
+2. Run `python3 scripts/apl_mission.py --json`
+3. `docs/agent-task-protocol.md`
+4. `docs/current-missions.md`
+5. `tasks/ACTIVE.md`
+6. `docs/strategy.md`
+
+Default to the recommended research mission unless the maintainer explicitly
+assigns a support, review, closeout, or specific `TASK-XXXX` workflow.
+For support work, run `python3 scripts/apl_mission.py --mode support`.
+For maintainer review or closeout assistance, run
+`python3 scripts/apl_mission.py --mode maintainer`.
 
 Do not invent branch, PR, or commit formats.
 Use `docs/agent-task-protocol.md`.
@@ -496,7 +539,8 @@ The repository is no longer focused mainly on bootstrap infrastructure work.
 That base now exists well enough to support a new emphasis:
 
 - curate active scientific campaigns with clear scope and honest limitations;
-- onboard contributors into a branch-based, reviewable workflow;
+- validate private contributors and their agents through a branch-based,
+  reviewable workflow before any public opening;
 - improve project-level orientation so results, tasks, and risks stay legible;
 - keep public-launch work gated behind validation and review discipline.
 
@@ -507,18 +551,19 @@ That base now exists well enough to support a new emphasis:
 2. Elevate a nuclear mass surface campaign as the next flagship science track,
    using baseline residual maps, shell-closure diagnostics, holdout discipline,
    and conservative correction-term framing instead of broad discovery claims.
-3. Prepare and maintain a clear Mission Control and campaign-map layer so new
+3. Validate the private contributor and agent workflow with measurable gates:
+   task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
+   clean review-helper behavior, closeout, and zero automatic claim promotion.
+4. Prepare and maintain a clear Mission Control and campaign-map layer so new
    contributors can see what APL is trying to do and where evidence already
    exists.
-4. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+5. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-5. Improve visual result summaries, campaign summaries, and contributor-facing
+6. Improve visual result summaries, campaign summaries, and contributor-facing
    navigation around the strongest current evidence, including negative-result
    surfaces.
-6. Package the current result layer into a coherent v0.2 story without
+7. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-7. Continue the private contributor pilot and maintainer review loop before any
-   public rollout.
 8. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
@@ -528,8 +573,8 @@ That base now exists well enough to support a new emphasis:
 ## Current Goal
 
 Demonstrate that APL can run honest scientific campaigns and a disciplined
-contributor workflow at the same time, without relaxing verification standards
-or overstating benchmark results.
+private contributor validation phase at the same time, without relaxing
+verification standards or overstating benchmark results.
 
 ## Current North-Star Outcomes
 
@@ -584,6 +629,329 @@ stronger verification.
 
 ────────────────────────────────────────────────────────────────────────
 
+# Current Missions
+<!-- source: docs/current-missions.md -->
+
+# Current Missions
+
+APL now uses an **Agent First** entrypoint.
+
+The default path for a new coding agent is no longer "scan every task and pick
+something small." The default path is:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+That command starts **Research Mode** and recommends the highest-value
+reviewable scientific mission. Support, microtask, review, and closeout work
+still exists, but it is explicit:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+Mission policy and campaign guardrails live in
+[`../missions/current.yaml`](../missions/current.yaml). Live task candidates
+come from canonical `tasks/TASK-*.yaml` files through the mission script, so the
+mission YAML does not need to be edited just to rotate the next task after every
+merge.
+
+## Default Mode
+
+Default mode: `research`
+
+Research Mode is for:
+
+- hypothesis testing;
+- replay and split-sensitivity checks;
+- adversarial audits of sandbox evidence;
+- bounded sandbox experiments;
+- negative result preservation;
+- PR-ready result drafts.
+
+It is not a claim-promotion lane. Canonical claims, knowledge, and result
+artifacts still require maintainer review.
+
+## Recommended Mission Now
+
+**Nuclear Mass Surface** is the current flagship validation mission.
+
+Recommended direction:
+
+1. Use `python3 scripts/apl_mission.py --json` to choose among live task
+   candidates from the task registry.
+2. Prefer nuclear validation, evidence packaging, or guarded follow-up tasks
+   before opening a second nuclear sandbox batch.
+3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
+
+Why:
+
+- it uses a real data surface;
+- the frozen baseline and holdout protocol already exist;
+- the first autonomous nuclear pilot exists;
+- the strongest candidate is still sandbox-only evidence;
+- split-sensitivity replay now exists as review-ready sandbox evidence;
+- the next scientific value comes from validation, not from broadening claims.
+
+Guardrails:
+
+- do not promote `HYP-PROPOSAL-0021` to a claim automatically;
+- do not describe the residual candidate as breakthrough physics;
+- do not run unbounded nuclear formula search;
+- do not rewrite canonical result artifacts casually.
+
+## Alternatives
+
+The mission script also exposes secondary research directions and several live
+task candidates from the task registry:
+
+- **Anharmonic Oscillator Period Benchmark** — a safe nonlinear methodology
+  benchmark with perturbative and numerical baselines.
+- **Dimensional Analysis Validator** — a quality-floor track for formula sanity
+  checks and adversarial edge cases.
+
+These are good alternatives when the maintainer wants breadth, but the default
+recommendation remains the current top-ranked mission.
+
+## Parallel Agent Work
+
+`python3 scripts/apl_mission.py --json` includes `live_task_candidates` and a
+small `parallel_work_policy` section. In default Research Mode, research,
+replay, audit, and validation tasks are ranked before support tasks; support
+items are secondary options when they are useful or when a maintainer assigns
+them. Use those candidates as options, not as a single global lock.
+
+Rules:
+
+- one local checkout should usually run one task at a time;
+- multiple local agents may work in parallel only through separate branches or
+  git worktrees;
+- parallel tasks should avoid the same artifact surfaces, especially
+  `tasks/ACTIVE.md`, `CONTEXT.md`, canonical `results/`, and the same docs page;
+- agents should not guess new canonical task ids during parallel work.
+
+## Support And Maintainer Modes
+
+Support Mode is for docs, tests, packaging, task hygiene, and microtasks:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+```
+
+Maintainer Mode is for review and closeout assistance:
+
+```bash
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+This preserves the existing maintainer review agent and closeout workflow.
+Agent First means research-first onboarding for new contributors; it does not
+mean bypassing maintainer authority.
+
+## Copy-Paste Agent Prompt
+
+Generate the current prompt with:
+
+```bash
+python3 scripts/apl_mission.py --agent-prompt
+```
+
+Short version:
+
+```text
+You are working in Autonomous Physics Lab.
+
+Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
+then run `python3 scripts/apl_mission.py --json`. Choose the recommended
+research mission unless the maintainer gave a stricter task. Use the
+recommended `task_id` to create a canonical task branch before editing files.
+Execute the full loop autonomously: inspect
+evidence, test or audit the hypothesis, preserve negative results, update
+sandbox/review artifacts, run validation, generate a review bundle, and prepare
+a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
+promotion. Do not promote claims, rewrite canonical results, or use
+breakthrough-style wording.
+```
+
+
+────────────────────────────────────────────────────────────────────────
+
+# Machine-Readable Missions
+<!-- source: missions/current.yaml -->
+
+default_mode: research
+updated: "2026-05-11"
+
+policy:
+  name: "Agent First, research-first"
+  summary: >
+    New contributors and coding agents should start from the highest-value
+    reviewable research mission by default. Support, microtask, review, and
+    closeout lanes remain available as explicit modes.
+  defaults:
+    - "Start in research mode unless the maintainer explicitly asks for support, review, or closeout."
+    - "Prefer hypothesis testing, replay, falsification, or sandbox result drafts over docs-only work."
+    - "Keep all research outputs reviewable and sandbox-only until maintainer review."
+    - "Never promote claims, rewrite canonical results, or use breakthrough-style wording automatically."
+  maintainer_modes_preserved:
+    - review
+    - closeout
+    - support
+
+global_forbidden:
+  - "no automatic claim promotion"
+  - "no direct pushes to main"
+  - "no canonical result rewrites unless the task explicitly requires it"
+  - "no breakthrough, proof-style, or unlimited-scope wording"
+  - "no speculative Hubble, g-2, or constants formula-search flagship work"
+
+modes:
+  research:
+    label: "Research Mode"
+    description: "Default lane for autonomous scientific work: audit, replay, hypothesis testing, sandbox runs, and reviewable PR artifacts."
+  audit:
+    label: "Research Audit Mode"
+    description: "Adversarial validation of existing sandbox evidence before follow-up work expands the surface."
+  support:
+    label: "Support Mode"
+    description: "Infrastructure, docs, test, packaging, and microtask work. Useful, but not the default for scientific contributors."
+  maintainer:
+    label: "Maintainer Mode"
+    description: "Review, merge recommendation, closeout, board sync, and context-refresh assistance. Advisory only."
+
+missions:
+  - id: nuclear-mass-surface
+    title: "Nuclear Mass Surface"
+    rank: 1
+    status: flagship_validation
+    scientific_value: high
+    risk: medium
+    recommendation: "Main direction now: validate the existing sandbox candidate before expanding the campaign."
+    why_now:
+      - "real AME-style nuclear-mass dataset surface exists"
+      - "frozen baseline and holdout protocol exist"
+      - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
+      - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
+    forbidden:
+      - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
+      - "do not describe the residual candidate as breakthrough physics"
+      - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
+    actions:
+      - id: nuclear-validation-queue
+        label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
+        mode: research
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
+          - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
+        validation:
+          - "python3 -m ruff check ."
+          - "python3 -m pytest"
+          - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+      - id: audit-agent-run-0005
+        label: "Adversarially audit AGENT-RUN-0005 / HYP-PROPOSAL-0021"
+        mode: audit
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "docs/reviews/adversarial-review-AGENT-RUN-0005.md"
+      - id: second-bounded-nuclear-batch
+        label: "Run a second bounded nuclear sandbox batch after audit gates"
+        mode: research
+        priority: medium
+        difficulty: high
+        gated_by:
+          - maintainer-reviewed-split-sensitivity-replay
+          - audit-agent-run-0005
+
+  - id: anharmonic-oscillator
+    title: "Anharmonic Oscillator Period Benchmark"
+    rank: 2
+    status: methodology_validation
+    scientific_value: high
+    risk: low
+    recommendation: "Use as the safest nonlinear benchmark for new autonomous hypothesis loops."
+    why_now:
+      - "nonlinear but controlled physics surface"
+      - "perturbative baseline and numerical reference are available"
+      - "low numerology risk compared with particle-physics formula search"
+    forbidden:
+      - "do not call approximation candidates exact or globally valid"
+      - "do not skip harmonic-limit or holdout checks"
+    actions:
+      - id: anharmonic-replay-and-compare
+        label: "Replay anharmonic benchmark and compare candidate limits"
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "docs/reviews/anharmonic-replay-comparison.md"
+      - id: anharmonic-autonomous-followup
+        label: "Generate and filter new bounded anharmonic candidate hypotheses"
+        mode: research
+        priority: medium
+        difficulty: high
+
+  - id: dimensional-validator
+    title: "Dimensional Analysis Validator"
+    rank: 3
+    status: quality_floor
+    scientific_value: medium
+    risk: low
+    recommendation: "Use as a broad quality-floor track for formula sanity checks and adversarial edge cases."
+    why_now:
+      - "canonical MVP benchmark exists"
+      - "new challenge items are easy to review"
+      - "validator failures improve future research gates"
+    forbidden:
+      - "do not treat dimensional validity as physical truth"
+      - "do not mix many unrelated challenge families in one PR"
+    actions:
+      - id: dimensional-boundary-cases
+        label: "Generate hard dimensional boundary cases and validator limitations"
+        mode: research
+        priority: medium
+        difficulty: medium
+        expected_outputs:
+          - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+          - "docs/notes/dimensional-validator-boundary-cases.md"
+
+support_actions:
+  - id: docs-link-integrity
+    label: "Add docs-link integrity checks for campaign and result pages"
+    task_id: TASK-0115
+    priority: medium
+  - id: public-docs-sync
+    label: "Sync public docs after nuclear wave"
+    task_id: TASK-0175
+    priority: high
+  - id: future-research-portfolio
+    label: "Curate future research portfolio and de-prioritize hype tracks"
+    task_id: TASK-0176
+    priority: medium
+  - id: private-agent-challenge-pack
+    label: "Create private agent challenge pack"
+    task_id: TASK-0177
+    priority: medium
+
+maintainer_actions:
+  - id: review-pr
+    label: "Review a PR with the deterministic maintainer review helper"
+    command: "python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX"
+  - id: closeout-task
+    label: "Prepare post-merge task closeout after maintainer merge"
+    command: "python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply --sync-board"
+  - id: closeout-sweep
+    label: "Find merged tasks that are ready for closeout"
+    command: "python3 scripts/apl_closeout_sweep.py"
+
+
+────────────────────────────────────────────────────────────────────────
+
 # Mission Control (Current Phase)
 <!-- source: docs/mission-control.md -->
 
@@ -601,6 +969,27 @@ APL is currently in:
 
 The repository stays private while current campaigns, contributor workflow, and
 public-release gates are still being validated.
+
+## Agent First Entry Point
+
+New contributors and coding agents should start from the mission script:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+Default mode is `research`. It recommends a current scientific mission,
+guardrails, and PR-ready outputs before showing support work.
+
+Explicit non-default lanes:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+This keeps maintainer review and closeout automation intact while making the
+normal contributor path research-first.
 
 ## What APL Is Not Trying To Do
 
@@ -671,6 +1060,11 @@ The current contributor workflow is branch-based and task-driven.
 
 Operational entry points:
 
+- [docs/current-missions.md](./current-missions.md) and
+  `python3 scripts/apl_mission.py` for the Agent First mission menu;
+- [docs/external-reviewer-replication-guide.md](./external-reviewer-replication-guide.md)
+  for outside reviewers who want to replay or sanity-check the strongest
+  evidence before learning the contributor workflow;
 - [docs/agent-work-menu.md](./agent-work-menu.md) for a fast time-budgeted
   menu of safe, reviewable work (30 min / 1 h / 2 h);
 - [tasks/ACTIVE.md](../tasks/ACTIVE.md) for the live board of canonical tasks;
@@ -717,12 +1111,14 @@ Low-risk contribution patterns right now:
 
 ## Read Order For New Contributors
 
-1. [README.md](../README.md)
-2. [docs/mission-control.md](./mission-control.md)
-3. [docs/campaigns/README.md](./campaigns/README.md)
-4. [docs/status.md](./status.md)
-5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
-6. [docs/agent-task-protocol.md](./agent-task-protocol.md)
+1. Run `python3 scripts/apl_mission.py` for the current research-first mission.
+2. [README.md](../README.md)
+3. [docs/current-missions.md](./current-missions.md)
+4. [docs/mission-control.md](./mission-control.md)
+5. [docs/campaigns/README.md](./campaigns/README.md)
+6. [docs/status.md](./status.md)
+7. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+8. [docs/agent-task-protocol.md](./agent-task-protocol.md)
 
 
 ────────────────────────────────────────────────────────────────────────
@@ -1347,12 +1743,12 @@ one PR.
 ## READY
 
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
-- `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -1360,10 +1756,23 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
+- `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
+- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
+- `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
+- `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
+- `TASK-0185` — Make context bundle generation idempotent (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0186` — Make mission control registry-driven and parallel-aware (`agent_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0184` — Align Mission Control read order with Agent First entrypoint (merged)
+- `TASK-0182` — Make maintainer overclaim review severity context-aware (merged)
+- `TASK-0181` — Add Agent First mission control entrypoint (merged)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
 - `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (merged)
 - `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (merged)
@@ -1514,7 +1923,7 @@ None.
 
 ## BLOCKED
 
-None.
+- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
