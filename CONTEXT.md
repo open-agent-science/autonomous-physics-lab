@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 09:51 UTC
+Generated: 2026-05-11 10:23 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1746,6 +1746,7 @@ None.
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0181` — Add Agent First mission control entrypoint (`agent_workflow`, priority `high`, difficulty `high`)
 - `TASK-0182` — Make maintainer overclaim review severity context-aware (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0184` — Align Mission Control read order with Agent First entrypoint (`documentation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
