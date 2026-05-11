@@ -1,0 +1,159 @@
+manifest_id: POST-AME2020-SOURCES-0001
+title: "Post-AME2020 nuclear-mass holdout source manifest"
+status: reviewed_source_manifest
+task_id: TASK-0187
+created_on: "2026-05-11"
+accessed_on: "2026-05-11"
+claim_ceiling: >
+  Source manifest only. This file does not commit row-level mass values, does
+  not activate a benchmark, and does not support prediction or discovery
+  claims.
+
+activation_status:
+  row_level_holdout_dataset_committed: false
+  time_split_holdout_active: false
+  reason: >
+    TASK-0187 pins reviewed sources and import rules. A later PR must commit a
+    row-level dataset with extraction checksums before TASK-0188 can run a
+    retrospective time-split benchmark.
+
+source_policy:
+  live_fetch_allowed_in_validation: false
+  row_values_committed: false
+  redistribution_boundary: >
+    Do not copy the full post-AME2020 measurement table into the repository in
+    this task. Treat the published table as a reviewed source to be extracted
+    only through a later checksum-recorded import task.
+  future_checksum_requirement: >
+    A row-level import must record the exact downloaded source artifact,
+    extraction script or manual extraction method, source artifact checksum,
+    committed dataset checksum, and any rows intentionally omitted.
+  measured_extrapolated_policy: >
+    Later rows must distinguish newly measured values from AME2020 comparison
+    values and preserve whether AME2020 marked a comparison value as
+    experimental or extrapolated.
+
+baseline_boundary:
+  training_reference: "AME2020 atomic-mass evaluation and existing frozen APL baseline surface"
+  frozen_baseline_surface: "NMD-0002"
+  excluded_frozen_baseline_nuclides:
+    - He-4
+    - N-14
+    - O-16
+    - O-17
+    - Ca-40
+    - Ca-48
+    - Fe-56
+    - Fe-57
+    - Sn-120
+    - Pb-208
+    - U-238
+  exclusion_rules:
+    - "Exclude any row whose new measurement publication date is not after the AME2020 release window."
+    - "Exclude any row that was already part of the frozen APL NMD-0002 baseline slice unless a future task explicitly uses it only as an overlap audit row."
+    - "Do not use AME2020 comparison values as revealed holdout targets."
+    - "Do not include extrapolated-only later rows as measured holdout targets."
+
+sources:
+  - source_id: post_ame2020_compilation_nst_2025
+    role: "candidate post-AME2020 measured-mass holdout source"
+    authority: "Nuclear Science and Techniques"
+    citation: >
+      Xiao-Ying Qu, Kang-Min Chen, Cong Pan, Yang-Yang Yu, and Kai-Yuan Zhang,
+      "Benchmarking nuclear energy density functionals with new mass data",
+      Nuclear Science and Techniques 36, 231 (2025).
+    url: "https://www.nst.sinap.ac.cn/article/doi/10.1007/s41365-025-01821-1"
+    stable_source_identifier: "doi:10.1007/s41365-025-01821-1"
+    source_tables:
+      - "Table 2: newly measured masses of 296 nuclides from 2021 to 2024 compared with AME2020"
+      - "Table 3: sources and measurement methods for the new experimental data"
+    scope_summary: >
+      Peer-reviewed compilation of 296 newly measured masses from 40
+      references published between 2021 and 2024 after AME2020. The article
+      reports that 55 of the AME2020 comparison values were extrapolated
+      empirical values marked with '#'.
+    checksum_policy: >
+      Stable DOI is recorded here. A future row-level import must record a
+      checksum for the exact PDF, HTML, or table artifact used for extraction.
+    measured_extrapolated_semantics: >
+      Treat the compiled post-AME2020 values as candidate measured holdout
+      targets. Preserve the source's AME2020 comparison marker separately so
+      later benchmarks can distinguish new measurements from AME2020
+      extrapolated comparisons.
+    current_task_use: "Reviewed source manifest only; no row-level values committed."
+
+  - source_id: ame2020_amdc_reference
+    role: "training and comparison baseline reference"
+    authority: "Atomic Mass Data Center / AMDC"
+    citation: >
+      AME2020 atomic mass evaluation, Chinese Physics C 45, 030002 (2021)
+      and Chinese Physics C 45, 030003 (2021), as distributed through AMDC.
+    url: "https://amdc.impcas.ac.cn/web/masseval.html"
+    stable_source_identifier: "doi:10.1088/1674-1137/abddb0; doi:10.1088/1674-1137/abddaf"
+    source_tables:
+      - "mass_1.mas20: AME2020 atomic masses"
+      - "massround.mas20: AME2020 rounded atomic masses"
+    scope_summary: >
+      Official AME2020 reference surface for older recommended atomic masses
+      and comparison values. The AMDC page states that users should cite the
+      original AME2020 papers rather than the electronic files.
+    checksum_policy: >
+      Stable AME2020 paper DOIs and source file names are recorded here. A
+      future import must pin the exact AMDC ASCII file checksum if AME2020 rows
+      are parsed directly.
+    measured_extrapolated_semantics: >
+      AME2020 values can be experimental or extrapolated. Later time-split
+      benchmarks must preserve that distinction and must not mix AME2020
+      comparison values into the post-AME2020 target labels.
+    current_task_use: "Baseline provenance reference only; no AME2020 rows are imported in this task."
+
+  - source_id: amdc_iaea_mirror
+    role: "independent AMDC access mirror and citation cross-check"
+    authority: "IAEA Nuclear Data Services / AMDC mirror"
+    citation: "IAEA Nuclear Data Services AMDC page for AME2020 and NUBASE2020 access."
+    url: "https://www-nds.iaea.org/amdc/"
+    stable_source_identifier: "url:https://www-nds.iaea.org/amdc/"
+    source_tables:
+      - "mass_1.mas20 link mirror"
+      - "massround.mas20 link mirror"
+    scope_summary: >
+      Mirror page confirming AME2020 file names, paper references, and the
+      citation rule that work using the files should cite the papers.
+    checksum_policy: >
+      URL is recorded for independent access confirmation only. A future import
+      should use one canonical download source and record one checksum.
+    measured_extrapolated_semantics: >
+      Same as AME2020; mirror does not change row semantics.
+    current_task_use: "Cross-check source reference only."
+
+candidate_row_import_plan:
+  target_file: "data/nuclear_masses/post_ame2020_holdout.yaml"
+  required_columns:
+    - "nuclide_id"
+    - "Z"
+    - "N"
+    - "A"
+    - "new_measurement_value"
+    - "new_measurement_uncertainty"
+    - "source_unit_as_published"
+    - "source_reference"
+    - "measurement_method"
+    - "publication_year"
+    - "ame2020_comparison_value"
+    - "ame2020_comparison_uncertainty"
+    - "ame2020_was_extrapolated"
+    - "included_in_time_split_holdout"
+    - "exclusion_reason"
+  required_row_filters:
+    - "Keep only measurements from publications dated 2021 through 2024 or later than the AME2020 evaluation cutoff."
+    - "Exclude frozen NMD-0002 nuclides from primary holdout scoring."
+    - "Keep AME2020 extrapolated-comparison rows flagged, not discarded silently."
+    - "Resolve source unit semantics before mapping values into the existing nuclear_mass_dataset loader."
+  blocked_until: >
+    A later task commits row-level values with source-artifact checksum,
+    extraction method, and reviewable unit mapping.
+
+limitations:
+  - "No row-level masses are committed in this task."
+  - "The source manifest does not by itself unblock a benchmark result."
+  - "The post-AME2020 evaluation remains retrospective time-split evidence, not prospective prediction."

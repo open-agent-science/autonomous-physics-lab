@@ -1,7 +1,7 @@
 id: TASK-0187
 title: "Curate post-AME2020 nuclear mass holdout dataset"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -35,10 +35,11 @@ requirements:
   - "Do not claim strict prospective prediction. Describe this as retrospective post-AME2020 time-split evaluation unless a future prediction was registered before measurement."
 
 accepted_outputs:
-  - "data/nuclear_masses/post_ame2020_holdout.yaml or data/nuclear_masses/post_ame2020_sources.yaml"
+  - "data/nuclear_masses/post_ame2020_sources.yaml"
   - "data/nuclear_masses/post_ame2020_sources.md"
   - "docs/notes/post-ame2020-holdout-protocol.md"
-  - "tests covering dataset/source-manifest schema and provenance checks"
+  - "physics_lab/schemas/post_ame2020_sources.schema.json"
+  - "tests/test_post_ame2020_sources_manifest.py"
   - "updated docs/nuclear-mass-holdout-protocol.md if the curated dataset activates the time-split holdout family"
 
 validation:

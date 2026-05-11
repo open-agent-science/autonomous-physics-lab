@@ -152,8 +152,13 @@ Rule:
 
 Current status:
 
-- planned through `TASK-0187` and `TASK-0188`; not yet active until a reviewed
-  post-AME2020 holdout artifact is committed.
+- `TASK-0187` provides a reviewed source manifest at
+  `data/nuclear_masses/post_ame2020_sources.yaml`;
+- not yet active for benchmark scoring until a reviewed row-level holdout
+  dataset is committed or a maintainer explicitly requests a source-audit-only
+  dry run;
+- `TASK-0188` remains the benchmark implementation task after that boundary is
+  satisfied.
 
 ### 6. Prospective Prediction Registry
 
