@@ -1,0 +1,57 @@
+id: TASK-0195
+title: "Add reviewed row-level post-AME2020 nuclear mass holdout dataset"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the reviewed post-AME2020 source manifest into auditable row-level holdout data."
+  - "Unlock active time-split evaluation without live fetching or post-hoc data edits."
+  - "Keep retrospective time-split evidence separate from prospective prediction."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "data/nuclear_masses/post_ame2020_sources.yaml"
+    - "data/nuclear_masses/post_ame2020_sources.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "physics_lab/schemas/post_ame2020_sources.schema.json"
+    - "physics_lab/registry/post_ame2020_holdout.py"
+    - "agent_runs/AGENT-RUN-0007/"
+  planning_context: >
+    PR #253 intentionally stopped at a source-manifest-only guard. Active
+    post-AME2020 benchmark metrics require a reviewed row-level holdout dataset
+    with provenance, unit mapping, uncertainty semantics, measured/extrapolated
+    flags, and AME2020 exclusion rules.
+
+requirements:
+  - "Create a pinned row-level post-AME2020 nuclear-mass holdout dataset from reviewed sources."
+  - "Include nuclide identifiers and Z, N, A for every row."
+  - "Include measured value, uncertainty, units, and whether the value is measured, estimated, or extrapolated."
+  - "Include source reference per row or per source batch, plus source artifact checksum or stable identifier."
+  - "Include AME2020 comparison flags and exclusion reasons for rows not used in primary scoring."
+  - "Document row-level provenance and reviewer assumptions before any metric computation."
+  - "Do not live-fetch data during validation."
+  - "Do not compute benchmark metrics or promote claims in this task."
+
+accepted_outputs:
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "physics_lab/schemas/post_ame2020_holdout.schema.json"
+  - "tests/test_post_ame2020_holdout_dataset.py"
+  - "docs/notes/post-ame2020-holdout-dataset-review.md"
+  - "updated docs/nuclear-mass-holdout-protocol.md if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

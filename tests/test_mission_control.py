@@ -253,8 +253,9 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
 
     rendered = json.loads(result.stdout)
     assert rendered["selected_mode"] == "research"
-    assert rendered["recommended"]["action"] == "nuclear-validation-queue"
-    assert rendered["recommended"]["task_id"] is None
+    assert rendered["recommended"]["action"] == "row-level-post-ame2020-holdout"
+    assert rendered["recommended"]["task_id"] == "TASK-0195"
     assert "parallel_work_policy" in rendered
     assert rendered["live_task_candidates"]
+    assert rendered["live_task_candidates"][0]["task_id"] == "TASK-0195"
     assert rendered["live_task_candidates"][0]["mode"] == "research"

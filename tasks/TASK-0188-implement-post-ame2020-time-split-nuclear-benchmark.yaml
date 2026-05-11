@@ -1,7 +1,7 @@
 id: TASK-0188
-title: "Implement post-AME2020 time-split nuclear mass benchmark"
-type: scientific_benchmark
-status: REVIEW_READY
+title: "Implement post-AME2020 time-split nuclear mass benchmark guard"
+type: scientific_validation
+status: DONE
 difficulty: high
 priority: high
 
@@ -20,19 +20,19 @@ input:
     - "agent_runs/AGENT-RUN-0006/"
     - "docs/reviews/nuclear-split-sensitivity-replay.md"
   planning_context: >
-    TASK-0187 now provides a reviewed post-AME2020 source manifest, so the
-    next step is to turn that surface into a time-split benchmark. The frozen
-    baseline and sandbox candidates should be evaluated on the same time-split
-    benchmark with uncertainty-aware, subset-aware, and baseline-relative
-    metrics.
+    TASK-0187 now provides a reviewed post-AME2020 source manifest. PR #253
+    intentionally implemented the conservative activation guard only: it records
+    an INCONCLUSIVE source-manifest-only dry run and refuses active benchmark
+    metrics until reviewed row-level holdout data exists. The real row-level
+    time-split benchmark is tracked separately by TASK-0195 and TASK-0196.
 
 requirements:
   - "Do not start until TASK-0187 is DONE or the maintainer explicitly supplies a reviewed post-AME2020 holdout artifact."
-  - "Evaluate the frozen nuclear baseline on the post-AME2020 holdout."
-  - "Evaluate HYP-PROPOSAL-0021 and any approved sandbox comparator without changing their fitted form after seeing the holdout result."
-  - "Report MAE, RMSE, uncertainty-normalized error where uncertainty semantics are usable, per-region errors, neutron-rich subset errors, and worst-case regressions."
-  - "Include baseline-relative deltas and split-sensitivity context from AGENT-RUN-0006."
-  - "Preserve negative or inconclusive outcomes; do not promote claims or canonical knowledge."
+  - "Evaluate the frozen nuclear baseline only when a row-level post-AME2020 holdout exists."
+  - "Evaluate HYP-PROPOSAL-0021 and approved sandbox comparators only after row-level data is committed."
+  - "Report source-manifest-only guard state as INCONCLUSIVE, not as active benchmark metrics."
+  - "Include baseline-relative and split-sensitivity context only as limitations until row-level time-split scoring exists."
+  - "Preserve the guard outcome; do not promote claims or canonical knowledge."
 
 accepted_outputs:
   - "physics_lab/registry/post_ame2020_holdout.py"

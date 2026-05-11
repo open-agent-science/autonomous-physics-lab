@@ -111,22 +111,23 @@ the evidence boundary around the current nuclear surface:
 
 - package the current pilot evidence without claim promotion;
 - finish independent audit and split-sensitivity interpretation;
-- curate a post-AME2020 measured-mass holdout surface;
-- evaluate the frozen baseline and sandbox candidates on that time-split
-  surface;
+- turn the post-AME2020 source manifest into reviewed row-level holdout data;
+- evaluate the frozen baseline and sandbox candidates on that row-level
+  time-split surface;
 - define a robustness gate before allowing another autonomous nuclear batch;
 - add a prediction registry only for future before-measurement predictions.
 
 Recommended nuclear validation queue:
 
-- `TASK-0174` nuclear pilot evidence card and visual funnel
-- `TASK-0187` post-AME2020 nuclear mass holdout dataset
-- `TASK-0190` nuclear candidate robustness gate
-- `TASK-0188` post-AME2020 time-split nuclear benchmark, now unblocked by the
-  reviewed `TASK-0187` source manifest
+- `TASK-0174` nuclear pilot evidence card and visual funnel, now merged
+- `TASK-0188` post-AME2020 time-split guard, complete in conservative
+  source-manifest-only mode with no active benchmark metrics
+- `TASK-0195` reviewed row-level post-AME2020 nuclear mass holdout dataset
+- `TASK-0196` real post-AME2020 nuclear time-split benchmark, blocked until
+  `TASK-0195` commits validated row-level holdout rows
 - `TASK-0189` nuclear prediction registry policy
-- `TASK-0178` second nuclear sandbox batch, blocked until audit and robustness
-  gates allow it
+- `TASK-0178` second nuclear sandbox batch, blocked until the robustness gate,
+  row-level holdout dataset, and real time-split benchmark all pass review
 
 Current nuclear-mass baseline state:
 
@@ -142,7 +143,9 @@ Current nuclear-mass baseline state:
   maintainer-reviewed comparison, dataset-expansion, or curation task rather
   than automatic result promotion.
 - post-AME2020 measured masses should be treated as a retrospective time-split
-  holdout only after a pinned source manifest or curated dataset is reviewed;
+  holdout only after reviewed row-level data is committed;
+- `AGENT-RUN-0007` is useful guard evidence, but it is not an active
+  post-AME2020 benchmark result;
 - prospective prediction requires a registry entry created before later
   measurements are compared.
 
@@ -151,7 +154,8 @@ The nuclear queue should stay conservative:
 - no universal mass-formula claims;
 - no discovery framing;
 - explicit baseline comparison, holdout discipline, and negative-result preservation.
-- no second nuclear sandbox batch until `TASK-0173` and `TASK-0190` are done.
+- no second nuclear sandbox batch until `TASK-0173`, `TASK-0190`, `TASK-0195`,
+  and `TASK-0196` are done and maintainer review allows follow-up.
 
 ### 2. Validate Private Contributors And Agents
 

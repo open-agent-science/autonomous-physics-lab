@@ -52,14 +52,28 @@ missions:
       - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
       - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
       - "a review-ready robustness gate defines allowed follow-up, negative controls, and promotion blockers"
-      - "post-AME2020 time-split validation is the next harder evidence layer before broader follow-up"
+      - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
+      - "the next unlock is reviewed row-level post-AME2020 holdout data before active time-split metrics"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
       - "do not call retrospective post-AME2020 evaluation strict blind prediction"
       - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
+      - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
+      - "do not start the second nuclear batch before the real time-split benchmark is reviewed"
     actions:
+      - id: row-level-post-ame2020-holdout
+        label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
+        task_id: TASK-0195
+        mode: research
+        priority: high
+        difficulty: high
+        recommended: true
+        expected_outputs:
+          - "data/nuclear_masses/post_ame2020_holdout.yaml"
+          - "tests/test_post_ame2020_holdout_dataset.py"
+          - "docs/notes/post-ame2020-holdout-dataset-review.md"
       - id: nuclear-validation-queue
         label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
         mode: research
@@ -81,14 +95,17 @@ missions:
         expected_outputs:
           - "docs/reviews/adversarial-review-AGENT-RUN-0005.md"
       - id: second-bounded-nuclear-batch
-        label: "Run a second bounded nuclear sandbox batch after audit gates"
-        mode: research
+        label: "Run a second bounded nuclear sandbox batch after row-level time-split gates"
+        mode: future
+        status: blocked
         priority: medium
         difficulty: high
         gated_by:
           - maintainer-reviewed-split-sensitivity-replay
           - audit-agent-run-0005
           - nuclear-robustness-gate-review
+          - reviewed-row-level-post-ame2020-holdout-dataset
+          - reviewed-post-ame2020-time-split-benchmark
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
