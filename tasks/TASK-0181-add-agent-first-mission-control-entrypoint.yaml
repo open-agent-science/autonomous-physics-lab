@@ -1,7 +1,7 @@
 id: TASK-0181
 title: "Add Agent First mission control entrypoint"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
