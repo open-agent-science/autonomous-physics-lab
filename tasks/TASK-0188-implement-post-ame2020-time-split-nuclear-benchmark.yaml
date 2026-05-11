@@ -24,7 +24,7 @@ input:
     intentionally implemented the conservative activation guard only: it records
     an INCONCLUSIVE source-manifest-only dry run and refuses active benchmark
     metrics until reviewed row-level holdout data exists. The real row-level
-    time-split benchmark is tracked separately by TASK-0195 and TASK-0196.
+    time-split benchmark is tracked separately by TASK-0196 and TASK-0197.
 
 requirements:
   - "Do not start until TASK-0187 is DONE or the maintainer explicitly supplies a reviewed post-AME2020 holdout artifact."

@@ -72,7 +72,7 @@ source-audit dry run exists:
 useful evidence that active benchmark metrics are not yet available, but it is
 not a row-level time-split result.
 
-After `TASK-0195` and `TASK-0196`, or an equivalent reviewed row-level
+After `TASK-0196` and `TASK-0197`, or an equivalent reviewed row-level
 time-split benchmark, exist:
 
 - post-AME2020 behavior becomes a required check before claim or canonical

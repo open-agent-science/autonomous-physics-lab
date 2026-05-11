@@ -50,7 +50,7 @@ one PR.
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0195` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -58,7 +58,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0195` — Curate post-AME2020 row-level follow-up queue after time-split guard (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -236,7 +236,7 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0196` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (`scientific_benchmark`, priority `high`, difficulty `high`)
+- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (`scientific_benchmark`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

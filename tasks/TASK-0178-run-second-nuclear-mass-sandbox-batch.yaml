@@ -18,8 +18,8 @@ input:
     - "campaign_profiles/nuclear-mass-surface.yaml"
     - "docs/nuclear-mass-holdout-protocol.md"
     - "tasks/TASK-0190-define-nuclear-candidate-robustness-gate.yaml"
-    - "tasks/TASK-0195-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
-    - "tasks/TASK-0196-run-post-ame2020-row-level-time-split-benchmark.yaml"
+    - "tasks/TASK-0196-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
+    - "tasks/TASK-0197-run-post-ame2020-row-level-time-split-benchmark.yaml"
     - "agent_runs/AGENT-RUN-0005/"
     - "agent_runs/AGENT-RUN-0007/"
     - "hypothesis_proposals/nuclear-mass/"
@@ -33,7 +33,7 @@ input:
     pattern.
 
 requirements:
-  - "Do not start until TASK-0173 is DONE, TASK-0190 is DONE, TASK-0195 is DONE, TASK-0196 is DONE, and maintainer review explicitly allows follow-up work."
+  - "Do not start until TASK-0173 is DONE, TASK-0190 is DONE, TASK-0196 is DONE, TASK-0197 is DONE, and maintainer review explicitly allows follow-up work."
   - "Generate a second bounded batch of nuclear-mass residual hypotheses under the existing campaign profile."
   - "Reject weak or duplicate candidates before execution."
   - "Run only sandbox experiments; do not update canonical results, claims, accepted knowledge, or datasets."
