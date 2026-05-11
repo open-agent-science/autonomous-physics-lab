@@ -1,0 +1,29 @@
+id: MICROTASK-RUN-0015
+queue_id: nuclear-mass-surface
+microtask_id: NMS-005
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-nuclear-mass-surface--nms-002-004-005-006-007
+pull_request: null
+result_note: docs/notes/nms-005-negative-control-correction-family.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/nuclear-mass-surface.yaml
+  method: "Negative-control family proposal sin(pi*N/2)*sin(pi*Z/2) with expected failure analysis."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Reject if the note fails to explain why the family vanishes for even-even nuclei or omits expected failure near magic numbers."
+  limitations:
+    - "No numerical test has been run. This family is proposed as a methodological negative control, not as a correction candidate."
+    - "Failure under holdout is expected by design."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/nuclear-mass-surface/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."

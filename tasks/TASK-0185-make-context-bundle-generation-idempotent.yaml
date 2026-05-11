@@ -1,0 +1,51 @@
+id: TASK-0185
+title: "Make context bundle generation idempotent"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer snapshots and review loops clean after merge batches."
+  - "Prevent timestamp-only CONTEXT.md drift from creating false dirty worktrees."
+  - "Make Agent First context refresh safer for both maintainers and review agents."
+
+input:
+  mode: workflow
+  related_domain: context_bundle
+  related_objects:
+    - "scripts/generate_context_bundle.py"
+    - "CONTEXT.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Repeated post-merge snapshot runs left the repository dirty because
+    scripts/generate_context_bundle.py rewrote CONTEXT.md with a fresh
+    Generated timestamp even when no source content changed. The context
+    generator should be idempotent for timestamp-only differences so review
+    and snapshot runs do not require manual cleanup.
+
+requirements:
+  - "Do not rewrite CONTEXT.md when the only difference is the Generated timestamp line."
+  - "Keep normal CONTEXT.md updates when bundle source content changes."
+  - "Add regression coverage for timestamp-only idempotence."
+  - "Document the behavior in maintainer review guidance."
+
+accepted_outputs:
+  - "scripts/generate_context_bundle.py"
+  - "tests/test_context_bundle.py"
+  - "docs/maintainer-review-agent.md"
+  - "tasks/TASK-0185-make-context-bundle-generation-idempotent.yaml"
+  - "CONTEXT.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_context_bundle.py tests/test_snapshot.py"
+    - "python3 scripts/generate_context_bundle.py"
+    - "git diff --exit-code -- CONTEXT.md"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code

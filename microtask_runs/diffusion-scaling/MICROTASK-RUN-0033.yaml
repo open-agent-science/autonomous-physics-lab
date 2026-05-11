@@ -1,0 +1,28 @@
+id: MICROTASK-RUN-0033
+queue_id: diffusion-scaling
+microtask_id: DFS-005
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-diffusion-scaling--dfs-001-002-003-004-005
+pull_request: null
+result_note: docs/notes/dfs-005-anomalous-diffusion-scope-note.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/diffusion-scaling.yaml
+  method: "Scope boundary note excluding anomalous diffusion (alpha≠1) and multi-dimensional extension from first batch."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "If stakeholders determine that anomalous diffusion must be included in the first batch, this scope note would be overridden."
+  limitations:
+    - "Planning note only. No simulation code exists."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/diffusion-scaling/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."

@@ -13,6 +13,27 @@ APL is currently in:
 The repository stays private while current campaigns, contributor workflow, and
 public-release gates are still being validated.
 
+## Agent First Entry Point
+
+New contributors and coding agents should start from the mission script:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+Default mode is `research`. It recommends a current scientific mission,
+guardrails, and PR-ready outputs before showing support work.
+
+Explicit non-default lanes:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+This keeps maintainer review and closeout automation intact while making the
+normal contributor path research-first.
+
 ## What APL Is Not Trying To Do
 
 - It is not a chatbot for speculative physics claims.
@@ -82,6 +103,11 @@ The current contributor workflow is branch-based and task-driven.
 
 Operational entry points:
 
+- [docs/current-missions.md](./current-missions.md) and
+  `python3 scripts/apl_mission.py` for the Agent First mission menu;
+- [docs/external-reviewer-replication-guide.md](./external-reviewer-replication-guide.md)
+  for outside reviewers who want to replay or sanity-check the strongest
+  evidence before learning the contributor workflow;
 - [docs/agent-work-menu.md](./agent-work-menu.md) for a fast time-budgeted
   menu of safe, reviewable work (30 min / 1 h / 2 h);
 - [tasks/ACTIVE.md](../tasks/ACTIVE.md) for the live board of canonical tasks;
@@ -128,9 +154,11 @@ Low-risk contribution patterns right now:
 
 ## Read Order For New Contributors
 
-1. [README.md](../README.md)
-2. [docs/mission-control.md](./mission-control.md)
-3. [docs/campaigns/README.md](./campaigns/README.md)
-4. [docs/status.md](./status.md)
-5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
-6. [docs/agent-task-protocol.md](./agent-task-protocol.md)
+1. Run `python3 scripts/apl_mission.py` for the current research-first mission.
+2. [README.md](../README.md)
+3. [docs/current-missions.md](./current-missions.md)
+4. [docs/mission-control.md](./mission-control.md)
+5. [docs/campaigns/README.md](./campaigns/README.md)
+6. [docs/status.md](./status.md)
+7. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+8. [docs/agent-task-protocol.md](./agent-task-protocol.md)

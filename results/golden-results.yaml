@@ -1,0 +1,16 @@
+golden_results:
+  - result_path: results/EXP-0001/RUN-0003/result.yaml
+    result_id: RESULT-0004
+    experiment_id: EXP-0001
+    run_id: RUN-0003
+    policy: material_fields_v1
+    material_hash_sha256: 4d67d708372004a6d5fcead2c6a00dceae763bc10e1ff77f0ed7cc75db37ff34
+    frozen_reason: "Flagship pendulum gauntlet benchmark surface for v0.2 public-readiness review."
+    metadata_ignored:
+      - generated_at
+      - git_commit
+      - command
+      - engine_version
+      - artifacts
+      - input_file_hashes.*.path
+    rebaseline_rule: "Only update this hash in a dedicated reviewed task that explains the material scientific drift."

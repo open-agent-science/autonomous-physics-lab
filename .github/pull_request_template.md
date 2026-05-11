@@ -104,7 +104,6 @@ Co-Authored-By to commits. AI agents are tools, not git co-authors.
 - GitHub username:
 - Agent tool:
 - Model/version if known:
-- Agent session ID:
 - Task ID / Proposal / Queue:
 - Branch:
 - Human reviewer:

@@ -1,0 +1,54 @@
+id: TASK-0173
+title: "Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate"
+type: scientific_audit
+status: REVIEW_READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Verify the strongest sandbox candidate from the first nuclear-mass autonomous pilot before allowing follow-up batches."
+  - "Make leakage, split sensitivity, cherry-picking risk, and complexity tradeoffs visible."
+  - "Keep nuclear-mass work falsification-first and sandbox-scoped until independent audit passes."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
+    - "agent_runs/AGENT-RUN-0005/"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+  planning_context: >
+    AGENT-RUN-0005 found one bounded candidate that improved all four active
+    holdout slices on the frozen NMD-0002 benchmark. Before any second nuclear
+    batch or canonical comparison task, an independent audit should replay the
+    candidate, inspect leakage risk, stress split sensitivity, and confirm that
+    the result remains sandbox evidence only.
+
+requirements:
+  - "Replay the HYP-PROPOSAL-0021 calculation against the frozen RESULT-0015 baseline inputs."
+  - "Verify per-holdout MAE and RMSE deltas against AGENT-RUN-0005 metrics."
+  - "Check train and holdout leakage risk, including whether any held-out nuclide information influenced proposal selection."
+  - "Run at least one split-sensitivity or perturbation check that can expose cherry-picking."
+  - "Compare the candidate against the documented complexity-penalty expectations."
+  - "Keep any audit outcome as review evidence; do not promote claims or canonical results."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-hyp-0021-independent-audit.md"
+  - "agent_runs/AGENT-RUN-0005/audit_hyp_0021.md or a new agent_runs audit artifact"
+  - "optional tests or scripts if the replay needs deterministic helper code"
+  - "updated docs/next-steps.md if the audit changes the recommended nuclear queue"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

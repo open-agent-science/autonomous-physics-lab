@@ -1,0 +1,33 @@
+id: MICROTASK-RUN-0020
+queue_id: particle-mass-relations
+microtask_id: PMR-003
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-particle-mass-relations--pmr-001-002-003-007-008-011
+pull_request: null
+result_note: docs/notes/pmr-003-quark-mass-scheme-ambiguity.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/particle-mass-relations.yaml
+    - data/particle_masses/charged_leptons.yaml
+  method: "Ambiguity analysis note for quark mass scheme/scale dependence in Koide-like relations."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - "charm_pole_to_msbar_ratio=1.31"
+    - "bottom_pole_to_msbar_ratio=1.14"
+    - "top_pole_to_msbar_ratio=1.06"
+    - "qualitative_analysis_only"
+  failure_mode: "Reject if note claims scheme choice does not affect Q, or if it omits the renormalon ambiguity for heavy quarks."
+  limitations:
+    - "Does not compute Q for all scheme/scale combinations; documents the ambiguity structure only."
+    - "Light quark (u, d, s) pole masses are not perturbatively defined due to confinement."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/particle-mass-relations/
+      - docs/notes/
+    summary: "No prior run found for PMR-003."

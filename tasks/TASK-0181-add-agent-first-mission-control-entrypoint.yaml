@@ -1,0 +1,74 @@
+id: TASK-0181
+title: "Add Agent First mission control entrypoint"
+type: agent_workflow
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Make APL research-first for new coding agents and private contributors."
+  - "Give agents one command that recommends the highest-value scientific mission before support work."
+  - "Preserve maintainer review, closeout, and support automation as explicit non-default modes."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "missions/current.yaml"
+    - "scripts/apl_mission.py"
+    - "docs/current-missions.md"
+    - "README.md"
+    - "AGENTS.md"
+    - "docs/use-your-agent.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Strategic audit recommends shifting from task-first/microtask-first
+    onboarding to an Agent First, mission/research-first policy. New agents
+    should get a copy-paste prompt and a machine-readable mission menu that can
+    guide them through hypothesis testing, replay, audit, sandbox artifacts,
+    validation, and PR preparation without weakening maintainer authority.
+
+requirements:
+  - "Add a simple mission-control script for humans and agents."
+  - "Default to research mode, not microtasks or support tasks."
+  - "Expose support and maintainer modes explicitly so review and closeout workflows remain intact."
+  - "Provide JSON output and a copy-paste agent prompt."
+  - "Ensure the default research mission points to a canonical task id or explicit proposal path."
+  - "Document Agent First policy in top-level and agent-facing docs."
+  - "Keep wording verification-first and do not promote claims."
+
+accepted_outputs:
+  - "missions/current.yaml"
+  - "scripts/apl_mission.py"
+  - "physics_lab/registry/mission_control.py"
+  - "docs/current-missions.md"
+  - "updated README.md"
+  - "updated AGENTS.md"
+  - "updated CODEX_TASK.md"
+  - "updated CLAUDE.md"
+  - "updated docs/use-your-agent.md"
+  - "updated docs/agent-work-menu.md"
+  - "updated docs/mission-control.md"
+  - "updated scripts/generate_context_bundle.py"
+  - "updated tests/test_mission_control.py"
+  - "tasks/TASK-0183-run-nuclear-split-sensitivity-replay.yaml"
+  - "task moved to REVIEW_READY"
+  - "active board synced"
+
+validation:
+  commands:
+    - "python3 scripts/apl_mission.py"
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 scripts/apl_mission.py --agent-prompt"
+    - "python3 -m physics_lab.cli mission --json"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

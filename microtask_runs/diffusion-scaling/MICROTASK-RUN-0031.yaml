@@ -1,0 +1,28 @@
+id: MICROTASK-RUN-0031
+queue_id: diffusion-scaling
+microtask_id: DFS-003
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-diffusion-scaling--dfs-001-002-003-004-005
+pull_request: null
+result_note: docs/notes/dfs-003-log-log-slope-test-case.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/diffusion-scaling.yaml
+  method: "Log-log slope test case specification: alpha=1.00, tolerance ±0.10, lag range [10,1000]."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "If the fitted α falls outside [0.9, 1.1] or the 95% CI excludes 1.00, the test case specification would need revision."
+  limitations:
+    - "Planning note only. No simulation code exists."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/diffusion-scaling/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."
