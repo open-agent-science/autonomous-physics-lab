@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 10:29 UTC
+Generated: 2026-05-11 10:39 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -677,7 +677,7 @@ artifacts still require maintainer review.
 
 Recommended direction:
 
-1. Run split-sensitivity replay for `HYP-PROPOSAL-0021`.
+1. Review `AGENT-RUN-0006` split-sensitivity replay for `HYP-PROPOSAL-0021`.
 2. Adversarially audit `AGENT-RUN-0005`.
 3. Only then run a second bounded nuclear sandbox batch.
 
@@ -687,6 +687,7 @@ Why:
 - the frozen baseline and holdout protocol already exist;
 - the first autonomous nuclear pilot exists;
 - the strongest candidate is still sandbox-only evidence;
+- split-sensitivity replay now exists as review-ready sandbox evidence;
 - the next scientific value comes from validation, not from broadening claims.
 
 Guardrails:
@@ -809,23 +810,23 @@ missions:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
       - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
-      - "independent audit exists, but split-sensitivity and follow-up gating remain valuable"
+      - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
     actions:
       - id: nuclear-split-sensitivity-replay
-        label: "Run split-sensitivity replay for HYP-PROPOSAL-0021"
+        label: "Review AGENT-RUN-0006 split-sensitivity replay for HYP-PROPOSAL-0021"
         mode: research
         task_id: TASK-0183
         priority: high
         difficulty: high
         recommended: true
         expected_outputs:
-          - "agent_runs/<run-id>/agent_run.yaml"
-          - "agent_runs/<run-id>/metrics.json"
-          - "agent_runs/<run-id>/report.md"
+          - "agent_runs/AGENT-RUN-0006/agent_run.yaml"
+          - "agent_runs/AGENT-RUN-0006/metrics.json"
+          - "agent_runs/AGENT-RUN-0006/report.md"
           - "docs/reviews/nuclear-split-sensitivity-replay.md"
         validation:
           - "python3 -m ruff check ."
@@ -1729,7 +1730,6 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -1744,12 +1744,13 @@ None.
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
 - `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0181` — Add Agent First mission control entrypoint (`agent_workflow`, priority `high`, difficulty `high`)
-- `TASK-0182` — Make maintainer overclaim review severity context-aware (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0184` — Align Mission Control read order with Agent First entrypoint (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
+- `TASK-0184` — Align Mission Control read order with Agent First entrypoint (merged)
+- `TASK-0182` — Make maintainer overclaim review severity context-aware (merged)
+- `TASK-0181` — Add Agent First mission control entrypoint (merged)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
 - `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (merged)
 - `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (merged)

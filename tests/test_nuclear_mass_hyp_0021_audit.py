@@ -129,3 +129,63 @@ def test_hyp_0021_stratified_random_split_sensitivity_is_visible() -> None:
     assert len(better_than_hyp20) == 18
     assert len(worse_than_hyp20) == 0
     assert all(("O-17" in holdout or "Fe-57" in holdout) for holdout, _, _, _ in better_than_hyp20)
+
+
+def test_task_0183_agent_run_metrics_match_split_replay() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    metrics_path = repo_root / "agent_runs" / "AGENT-RUN-0006" / "metrics.json"
+    metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+
+    nuclides, residuals, x20, x21 = _load_residual_surface()
+    selected_splits = {
+        item["split_id"]: tuple(item["holdout"])
+        for item in metrics["selected_split_results"]
+    }
+
+    assert metrics["sandbox_only"] is True
+    assert metrics["canonical_results_changed"] is False
+    assert metrics["canonical_claims_changed"] is False
+    assert selected_splits["pilot_random_stratified"] == PILOT_RANDOM_SPLIT
+    assert len(selected_splits) >= 4
+
+    for split_result in metrics["selected_split_results"]:
+        replayed_delta = _delta_mae_for_holdout(
+            holdout=tuple(split_result["holdout"]),
+            nuclides=nuclides,
+            residuals=residuals,
+            design_matrix=x21,
+        )
+        assert abs(replayed_delta - split_result["delta_mae_mev"]) <= 1.0e-12
+
+    results: list[tuple[tuple[str, ...], float, float, float]] = []
+    for holdout in product(LIGHT_NUCLIDES, MEDIUM_NUCLIDES, HEAVY_NUCLIDES):
+        delta20 = _delta_mae_for_holdout(
+            holdout=holdout,
+            nuclides=nuclides,
+            residuals=residuals,
+            design_matrix=x20,
+        )
+        delta21 = _delta_mae_for_holdout(
+            holdout=holdout,
+            nuclides=nuclides,
+            residuals=residuals,
+            design_matrix=x21,
+        )
+        results.append((holdout, delta20, delta21, delta21 - delta20))
+
+    summary = metrics["same_shape_stratified_summary"]
+    deltas21 = [delta21 for _, _, delta21, _ in results]
+    pilot_rank = [
+        index + 1
+        for index, item in enumerate(sorted(results, key=lambda item: item[2]))
+        if item[0] == PILOT_RANDOM_SPLIT
+    ][0]
+
+    assert summary["split_count"] == len(results) == 48
+    assert summary["improved_count"] == sum(1 for value in deltas21 if value < -1.0e-12)
+    assert summary["regressed_count"] == sum(1 for value in deltas21 if value > 1.0e-12)
+    assert summary["tied_count"] == sum(1 for value in deltas21 if abs(value) <= 1.0e-12)
+    assert abs(summary["median_delta_mae_mev"] - statistics.median(deltas21)) <= 1.0e-12
+    assert abs(summary["best_delta_mae_mev"] - min(deltas21)) <= 1.0e-12
+    assert abs(summary["worst_delta_mae_mev"] - max(deltas21)) <= 1.0e-12
+    assert summary["pilot_rank_by_delta_mae"] == pilot_rank

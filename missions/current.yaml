@@ -50,23 +50,23 @@ missions:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
       - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
-      - "independent audit exists, but split-sensitivity and follow-up gating remain valuable"
+      - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
     actions:
       - id: nuclear-split-sensitivity-replay
-        label: "Run split-sensitivity replay for HYP-PROPOSAL-0021"
+        label: "Review AGENT-RUN-0006 split-sensitivity replay for HYP-PROPOSAL-0021"
         mode: research
         task_id: TASK-0183
         priority: high
         difficulty: high
         recommended: true
         expected_outputs:
-          - "agent_runs/<run-id>/agent_run.yaml"
-          - "agent_runs/<run-id>/metrics.json"
-          - "agent_runs/<run-id>/report.md"
+          - "agent_runs/AGENT-RUN-0006/agent_run.yaml"
+          - "agent_runs/AGENT-RUN-0006/metrics.json"
+          - "agent_runs/AGENT-RUN-0006/report.md"
           - "docs/reviews/nuclear-split-sensitivity-replay.md"
         validation:
           - "python3 -m ruff check ."
