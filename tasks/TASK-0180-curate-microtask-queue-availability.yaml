@@ -35,7 +35,7 @@ accepted_outputs:
   - "updated microtask queue summary generator"
   - "updated microtask queue tests"
   - "curated microtask queue YAML status markers"
-  - "refreshed tasks/microtasks/README.md"
+  - "updated tasks/microtasks/README.md"
   - "task moved to REVIEW_READY"
   - "active board synced"
 
