@@ -374,6 +374,12 @@ git add CONTEXT.md && git commit -m "chore: regenerate context bundle"
 git push origin main
 ```
 
+The generator is intentionally idempotent for timestamp-only differences. If
+the only possible change is the `Generated:` line, it leaves `CONTEXT.md`
+untouched so snapshot and review runs do not create a false dirty worktree.
+Treat any remaining `CONTEXT.md` diff after regeneration as meaningful source
+drift that should be reviewed before PR merge or closeout.
+
 Run this after:
 - merging several tasks in a batch;
 - updating `docs/strategy.md` or `docs/mission-control.md`;

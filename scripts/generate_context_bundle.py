@@ -16,6 +16,7 @@ agent protocol, and micro-task protocol.
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -41,6 +42,8 @@ EXTENDED_FILES: list[tuple[str, str]] = [
 ]
 
 SEPARATOR = "\n\n" + "─" * 72 + "\n\n"
+GENERATED_LINE_RE = re.compile(r"^Generated: .+$", re.MULTILINE)
+NORMALIZED_GENERATED_LINE = "Generated: <timestamp>"
 
 
 def _section(title: str, rel_path: str, content: str) -> str:
@@ -90,6 +93,33 @@ def build_bundle(*, full: bool = False) -> str:
     return bundle
 
 
+def normalize_generated_timestamp(bundle: str) -> str:
+    """Normalize the volatile generated timestamp line for idempotence checks."""
+    return GENERATED_LINE_RE.sub(NORMALIZED_GENERATED_LINE, bundle, count=1)
+
+
+def differs_only_by_generated_timestamp(existing: str, candidate: str) -> bool:
+    """Return true when two bundles differ only in their Generated timestamp."""
+    if existing == candidate:
+        return False
+    return normalize_generated_timestamp(existing) == normalize_generated_timestamp(candidate)
+
+
+def write_bundle_if_changed(out_path: Path, bundle: str) -> bool:
+    """Write a bundle unless it would only refresh the timestamp line.
+
+    Review and snapshot workflows often regenerate CONTEXT.md after merges. A
+    timestamp-only rewrite creates a false dirty worktree, so preserve the
+    existing file whenever the generated content is otherwise identical.
+    """
+    if out_path.exists():
+        existing = out_path.read_text(encoding="utf-8")
+        if existing == bundle or differs_only_by_generated_timestamp(existing, bundle):
+            return False
+    out_path.write_text(bundle, encoding="utf-8")
+    return True
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -116,10 +146,11 @@ def main() -> None:
         return
 
     out_path = REPO_ROOT / args.out
-    out_path.write_text(bundle, encoding="utf-8")
+    changed = write_bundle_if_changed(out_path, bundle)
     lines = bundle.count("\n")
     size_kb = len(bundle.encode()) / 1024
-    print(f"Written: {out_path.relative_to(REPO_ROOT)}  ({lines} lines, {size_kb:.0f} KB)")
+    action = "Written" if changed else "Unchanged"
+    print(f"{action}: {out_path.relative_to(REPO_ROOT)}  ({lines} lines, {size_kb:.0f} KB)")
 
 
 if __name__ == "__main__":
