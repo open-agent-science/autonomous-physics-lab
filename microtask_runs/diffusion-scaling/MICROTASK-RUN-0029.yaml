@@ -1,0 +1,28 @@
+id: MICROTASK-RUN-0029
+queue_id: diffusion-scaling
+microtask_id: DFS-001
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-diffusion-scaling--dfs-001-002-003-004-005
+pull_request: null
+result_note: docs/notes/dfs-001-false-diffusion-relation-proposal.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/diffusion-scaling.yaml
+  method: "False relation proposal MSD=2Dt^2 with log-log slope falsification test."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "If the fitted slope α from a real simulation equals 2.0 rather than 1.0, the false relation would be incorrectly supported."
+  limitations:
+    - "Planning note only. No simulation code exists."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/diffusion-scaling/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."
