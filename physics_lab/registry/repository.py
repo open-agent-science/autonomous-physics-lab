@@ -14,6 +14,11 @@ from physics_lab.registry.agent_runs import load_agent_run
 from physics_lab.registry.claims import load_claim
 from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.experiments import load_experiment
+from physics_lab.registry.golden_results import (
+    GOLDEN_RESULTS_MANIFEST,
+    golden_result_drifts,
+    load_golden_result_entries,
+)
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
 from physics_lab.registry.microtask_runs import load_microtask_run
@@ -504,6 +509,49 @@ def _strict_text_paths(root_path: Path) -> list[Path]:
     return paths
 
 
+def _strict_golden_result_issues(root_path: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    manifest_path = root_path / GOLDEN_RESULTS_MANIFEST
+    try:
+        entries = load_golden_result_entries(root_path)
+        drifts = golden_result_drifts(root_path)
+    except ValueError as exc:
+        return [
+            _issue(
+                "ERROR",
+                "invalid_golden_result_manifest",
+                str(exc),
+                path=manifest_path,
+                root=root_path,
+            )
+        ]
+
+    for entry in entries:
+        if not (root_path / entry.result_path).exists():
+            issues.append(
+                _issue(
+                    "ERROR",
+                    "missing_golden_result",
+                    f"Golden result target is missing: {entry.result_path}",
+                    path=manifest_path,
+                    root=root_path,
+                )
+            )
+
+    for drift in drifts:
+        issues.append(
+            _issue(
+                "ERROR",
+                "golden_result_material_drift",
+                "Golden result material hash drift for "
+                f"{drift.result_id}: expected {drift.expected_hash}, observed {drift.actual_hash}",
+                path=drift.result_path,
+                root=root_path,
+            )
+        )
+    return issues
+
+
 def _line_has_local_path_leak(line: str) -> bool:
     stripped = line.strip()
     if "git grep -n " in stripped:
@@ -760,6 +808,8 @@ def _collect_strict_issues(
                     root=root_path,
                 )
             )
+
+    issues.extend(_strict_golden_result_issues(root_path))
 
     for claim_path, claim_payload in claims:
         referenced_results = [

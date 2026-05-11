@@ -59,6 +59,22 @@ frozen historical checkout. When inputs or workflow code have evolved since the
 stored artifact, the capsule records both the stored canonical metrics and the
 current-source replay drift that a reviewer should expect.
 
+## Golden-Result Guardrail
+
+Strict repository validation includes a lightweight golden-result layer for the
+highest-value canonical surfaces listed in `results/golden-results.yaml`.
+
+The current policy freezes material scientific fields for `RESULT-0004`
+(`EXP-0001/RUN-0003`) by hashing the canonical `result.yaml` after removing
+metadata-only fields such as generated timestamps, git commits, commands,
+artifact paths, and copied-input snapshot paths. This keeps routine validation
+fast while distinguishing harmless replay metadata changes from material drift
+in verdicts, models, verification checks, scores, or input hashes.
+
+Rebaselining a golden result is allowed only in a dedicated reviewed task. The
+PR must explain why the scientific result changed, update the golden manifest,
+and keep the old-vs-new interpretation visible to reviewers.
+
 ## Selected Capsule Set
 
 The first capsule set follows the "Current Major Results" list in

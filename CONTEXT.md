@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 11:34 UTC
+Generated: 2026-05-11 14:42 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1745,7 +1745,6 @@ one PR.
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
@@ -1759,6 +1758,7 @@ None.
 
 - `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
 - `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
