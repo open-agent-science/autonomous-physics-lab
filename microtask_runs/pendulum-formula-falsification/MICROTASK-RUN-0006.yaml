@@ -1,0 +1,29 @@
+id: MICROTASK-RUN-0006
+queue_id: pendulum-formula-falsification
+microtask_id: PFF-009
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-pendulum-formula-falsification--pff-005-009-010-011
+pull_request: null
+result_note: docs/notes/pff-009-t4x1-structural-checks-rationale.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/pendulum-formula-falsification.yaml
+    - results/EXP-0001/RUN-0003/result.yaml
+  method: "Structural analysis of model_t4_x1 atoms for evenness and monotonicity properties."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Coefficient signs are empirical; global monotonicity beyond pi/2 is not proven."
+  limitations:
+    - "Applies to EXP-0001/RUN-0003 fitted coefficients only. Configured range 0.01-1.57 rad."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/pendulum-formula-falsification/
+      - docs/notes/
+    summary: "No prior PFF-009 run found."
