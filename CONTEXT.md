@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 11:02 UTC
+Generated: 2026-05-11 11:30 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -652,8 +652,11 @@ python3 scripts/apl_mission.py --mode support
 python3 scripts/apl_mission.py --mode maintainer
 ```
 
-Machine-readable mission data lives in
-[`../missions/current.yaml`](../missions/current.yaml).
+Mission policy and campaign guardrails live in
+[`../missions/current.yaml`](../missions/current.yaml). Live task candidates
+come from canonical `tasks/TASK-*.yaml` files through the mission script, so the
+mission YAML does not need to be edited just to rotate the next task after every
+merge.
 
 ## Default Mode
 
@@ -677,9 +680,11 @@ artifacts still require maintainer review.
 
 Recommended direction:
 
-1. Review `AGENT-RUN-0006` split-sensitivity replay for `HYP-PROPOSAL-0021`.
-2. Adversarially audit `AGENT-RUN-0005`.
-3. Only then run a second bounded nuclear sandbox batch.
+1. Use `python3 scripts/apl_mission.py --json` to choose among live task
+   candidates from the task registry.
+2. Prefer nuclear validation, evidence packaging, or guarded follow-up tasks
+   before opening a second nuclear sandbox batch.
+3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
 
 Why:
 
@@ -699,7 +704,8 @@ Guardrails:
 
 ## Alternatives
 
-The mission script also exposes secondary research directions:
+The mission script also exposes secondary research directions and several live
+task candidates from the task registry:
 
 - **Anharmonic Oscillator Period Benchmark** — a safe nonlinear methodology
   benchmark with perturbative and numerical baselines.
@@ -708,6 +714,21 @@ The mission script also exposes secondary research directions:
 
 These are good alternatives when the maintainer wants breadth, but the default
 recommendation remains the current top-ranked mission.
+
+## Parallel Agent Work
+
+`python3 scripts/apl_mission.py --json` includes `live_task_candidates` and a
+small `parallel_work_policy` section. Use those candidates as options, not as a
+single global lock.
+
+Rules:
+
+- one local checkout should usually run one task at a time;
+- multiple local agents may work in parallel only through separate branches or
+  git worktrees;
+- parallel tasks should avoid the same artifact surfaces, especially
+  `tasks/ACTIVE.md`, `CONTEXT.md`, canonical `results/`, and the same docs page;
+- agents should not guess new canonical task ids during parallel work.
 
 ## Support And Maintainer Modes
 
@@ -816,18 +837,15 @@ missions:
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
     actions:
-      - id: nuclear-split-sensitivity-replay
-        label: "Review AGENT-RUN-0006 split-sensitivity replay for HYP-PROPOSAL-0021"
+      - id: nuclear-validation-queue
+        label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
         mode: research
-        task_id: TASK-0183
         priority: high
-        difficulty: high
+        difficulty: medium
         recommended: true
         expected_outputs:
-          - "agent_runs/AGENT-RUN-0006/agent_run.yaml"
-          - "agent_runs/AGENT-RUN-0006/metrics.json"
-          - "agent_runs/AGENT-RUN-0006/report.md"
-          - "docs/reviews/nuclear-split-sensitivity-replay.md"
+          - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
+          - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
         validation:
           - "python3 -m ruff check ."
           - "python3 -m pytest"
@@ -845,7 +863,7 @@ missions:
         priority: medium
         difficulty: high
         gated_by:
-          - nuclear-split-sensitivity-replay
+          - maintainer-reviewed-split-sensitivity-replay
           - audit-agent-run-0005
 
   - id: anharmonic-oscillator
@@ -1746,6 +1764,7 @@ None.
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
 - `TASK-0185` — Make context bundle generation idempotent (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0186` — Make mission control registry-driven and parallel-aware (`agent_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

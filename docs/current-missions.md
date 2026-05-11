@@ -18,8 +18,11 @@ python3 scripts/apl_mission.py --mode support
 python3 scripts/apl_mission.py --mode maintainer
 ```
 
-Machine-readable mission data lives in
-[`../missions/current.yaml`](../missions/current.yaml).
+Mission policy and campaign guardrails live in
+[`../missions/current.yaml`](../missions/current.yaml). Live task candidates
+come from canonical `tasks/TASK-*.yaml` files through the mission script, so the
+mission YAML does not need to be edited just to rotate the next task after every
+merge.
 
 ## Default Mode
 
@@ -43,9 +46,11 @@ artifacts still require maintainer review.
 
 Recommended direction:
 
-1. Review `AGENT-RUN-0006` split-sensitivity replay for `HYP-PROPOSAL-0021`.
-2. Adversarially audit `AGENT-RUN-0005`.
-3. Only then run a second bounded nuclear sandbox batch.
+1. Use `python3 scripts/apl_mission.py --json` to choose among live task
+   candidates from the task registry.
+2. Prefer nuclear validation, evidence packaging, or guarded follow-up tasks
+   before opening a second nuclear sandbox batch.
+3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
 
 Why:
 
@@ -65,7 +70,8 @@ Guardrails:
 
 ## Alternatives
 
-The mission script also exposes secondary research directions:
+The mission script also exposes secondary research directions and several live
+task candidates from the task registry:
 
 - **Anharmonic Oscillator Period Benchmark** — a safe nonlinear methodology
   benchmark with perturbative and numerical baselines.
@@ -74,6 +80,21 @@ The mission script also exposes secondary research directions:
 
 These are good alternatives when the maintainer wants breadth, but the default
 recommendation remains the current top-ranked mission.
+
+## Parallel Agent Work
+
+`python3 scripts/apl_mission.py --json` includes `live_task_candidates` and a
+small `parallel_work_policy` section. Use those candidates as options, not as a
+single global lock.
+
+Rules:
+
+- one local checkout should usually run one task at a time;
+- multiple local agents may work in parallel only through separate branches or
+  git worktrees;
+- parallel tasks should avoid the same artifact surfaces, especially
+  `tasks/ACTIVE.md`, `CONTEXT.md`, canonical `results/`, and the same docs page;
+- agents should not guess new canonical task ids during parallel work.
 
 ## Support And Maintainer Modes
 

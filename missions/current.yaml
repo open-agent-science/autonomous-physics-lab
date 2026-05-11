@@ -56,18 +56,15 @@ missions:
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
     actions:
-      - id: nuclear-split-sensitivity-replay
-        label: "Review AGENT-RUN-0006 split-sensitivity replay for HYP-PROPOSAL-0021"
+      - id: nuclear-validation-queue
+        label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
         mode: research
-        task_id: TASK-0183
         priority: high
-        difficulty: high
+        difficulty: medium
         recommended: true
         expected_outputs:
-          - "agent_runs/AGENT-RUN-0006/agent_run.yaml"
-          - "agent_runs/AGENT-RUN-0006/metrics.json"
-          - "agent_runs/AGENT-RUN-0006/report.md"
-          - "docs/reviews/nuclear-split-sensitivity-replay.md"
+          - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
+          - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
         validation:
           - "python3 -m ruff check ."
           - "python3 -m pytest"
@@ -85,7 +82,7 @@ missions:
         priority: medium
         difficulty: high
         gated_by:
-          - nuclear-split-sensitivity-replay
+          - maintainer-reviewed-split-sensitivity-replay
           - audit-agent-run-0005
 
   - id: anharmonic-oscillator

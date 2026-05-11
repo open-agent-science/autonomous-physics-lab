@@ -1,0 +1,57 @@
+id: TASK-0186
+title: "Make mission control registry-driven and parallel-aware"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Agent First onboarding research-first without making missions/current.yaml a constantly edited live queue."
+  - "Let agents see several current high-priority options instead of a single hard-coded task."
+  - "Preserve local multi-agent safety by recommending separate branches or worktrees for parallel tasks."
+
+input:
+  mode: workflow
+  related_domain: mission_control
+  related_objects:
+    - "scripts/apl_mission.py"
+    - "physics_lab/registry/mission_control.py"
+    - "missions/current.yaml"
+    - "docs/agent-operating-model.md"
+    - "docs/current-missions.md"
+  planning_context: >
+    The mission file is useful for stable lanes and guardrails, but it should
+    not behave like a hand-maintained live task queue. Mission Control should
+    derive current task candidates from canonical task YAML files and present
+    multiple prioritized options so different agents can work in parallel on
+    disjoint tasks.
+
+requirements:
+  - "Keep missions/current.yaml as policy/guardrail input, not the sole source of live task recommendations."
+  - "Expose multiple current task candidates from tasks/TASK-*.yaml in JSON and human mission output."
+  - "Label candidates with priority, difficulty, status, type, and a simple parallel-safety hint."
+  - "Document that one local checkout remains sequential, while parallel agents should use separate branches/worktrees and disjoint artifact surfaces."
+  - "Do not introduce a multi-agent runtime or locking service."
+
+accepted_outputs:
+  - "physics_lab/registry/mission_control.py"
+  - "scripts/apl_mission.py"
+  - "tests/test_mission_control.py"
+  - "docs/current-missions.md"
+  - "docs/agent-operating-model.md"
+  - "tasks/TASK-0186-make-mission-control-registry-driven-and-parallel-aware.yaml"
+  - "tasks/ACTIVE.md"
+  - "CONTEXT.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py"
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 scripts/apl_mission.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
