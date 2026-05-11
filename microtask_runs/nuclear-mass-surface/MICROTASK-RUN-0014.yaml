@@ -1,0 +1,29 @@
+id: MICROTASK-RUN-0014
+queue_id: nuclear-mass-surface
+microtask_id: NMS-004
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-nuclear-mass-surface--nms-002-004-005-006-007
+pull_request: null
+result_note: docs/notes/nms-004-neutron-rich-edge-subset.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/nuclear-mass-surface.yaml
+  method: "Subset definition note for N-Z>=20, A>=50 neutron-rich edge."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Reject if subset definition does not exclude AME extrapolated entries or omits physical rationale for the chosen N-Z and A cutoffs."
+  limitations:
+    - "Subset definition only. No data slice has been created or evaluated."
+    - "Cutoff rule (N-Z >= 20, A >= 50) is provisional and may need adjustment based on AME 2020 coverage."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/nuclear-mass-surface/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."

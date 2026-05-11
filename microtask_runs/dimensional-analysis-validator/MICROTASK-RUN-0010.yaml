@@ -1,0 +1,28 @@
+id: MICROTASK-RUN-0010
+queue_id: dimensional-analysis-validator
+microtask_id: DAV-007
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-dimensional-analysis-validator--dav-006-007-009-011
+pull_request: null
+result_note: docs/notes/dav-007-natural-units-scope-boundary.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/dimensional-analysis-validator.yaml
+  method: "Scope boundary note for natural-unit formulas using Compton wavelength example."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Scope boundary may need revision if v2 adds natural-unit support."
+  limitations:
+    - "Planning note only. No implementation for natural-unit handling exists."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/dimensional-analysis-validator/
+      - docs/notes/
+    summary: "No prior DAV-007 run found."

@@ -1,0 +1,53 @@
+id: TASK-0167
+title: "Add AME nuclear mass dataset loader and schema"
+type: dataset_workflow
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Anchor the nuclear mass campaign in reproducible source data with explicit provenance, uncertainties, and parser behavior."
+  - "Make measured versus extrapolated or derived dataset semantics explicit before any correction-term search begins."
+  - "Keep dataset handling deterministic and reusable across baseline, holdout, and autonomous pilot work."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0166-create-nuclear-mass-surface-campaign-scaffold.yaml"
+    - "data/"
+    - "physics_lab/schemas/"
+    - "physics_lab/engines/"
+  planning_context: >
+    After the campaign scaffold exists, the next requirement is a repository
+    native dataset layer for nuclear masses. The loader should support AME-style
+    tables with explicit provenance and enough normalized fields to drive
+    baseline formulas, residual diagnostics, and later holdout splits.
+
+requirements:
+  - "Do not start until TASK-0166 is complete."
+  - "Store dataset source references, versioning, and parsing assumptions explicitly."
+  - "Parse or normalize Z, N, A, mass value or mass excess, uncertainty, and measured-versus-extrapolated style fields when available."
+  - "Provide deterministic helpers for derived binding-energy and residual targets without embedding speculative correction models."
+  - "Keep raw-source acquisition, normalization, and schema constraints reviewable and license-aware."
+  - "Do not promote scientific claims or benchmark results from the dataset task alone."
+
+accepted_outputs:
+  - "data/nuclear_masses/README.md"
+  - "data/nuclear_masses/schema.md"
+  - "physics_lab/engines/nuclear_masses.py"
+  - "physics_lab/schemas/nuclear_mass_dataset.schema.json"
+  - "tests/test_nuclear_mass_dataset.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_dataset.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

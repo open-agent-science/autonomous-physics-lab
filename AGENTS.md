@@ -20,9 +20,38 @@ python3 scripts/generate_context_bundle.py
 This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
 active task board. The file is also committed to the repo root for download.
 
+## Agent First Default
+
+New contributors and coding agents should start with the mission entrypoint:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+Default mode is `research`. The script recommends the highest-value current
+scientific mission and provides guardrails for sandbox-only, reviewable work.
+For machine-readable context or a copy-paste agent prompt, run:
+
+```bash
+python3 scripts/apl_mission.py --json
+python3 scripts/apl_mission.py --agent-prompt
+```
+
+Use explicit modes when the maintainer asks for non-research work:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+Agent First does not replace the task protocol, maintainer review agent, or
+closeout flow. It only changes the default onboarding posture: research,
+replay, audit, hypothesis testing, and sandbox result drafts come before
+microtasks or docs-only support unless the maintainer says otherwise.
+
 ## Agent Work Paths
 
-Choose your path based on available token or time budget:
+Choose your path based on mission mode and available token or time budget:
 
 ```mermaid
 flowchart LR
@@ -32,11 +61,12 @@ flowchart LR
     classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
     classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
 
-    Start(["▶ Enter repo"]) --> Read["📋 AGENTS.md\n+ ACTIVE.md"]
+    Start(["▶ Enter repo"]) --> Mission["🚀 apl_mission.py\nResearch Mode"]
+    Mission --> Read["📋 AGENTS.md\n+ mission context"]
 
-    Read -->|"~30 min"| MT["⚡ Microtask"]:::quick
-    Read -->|"1–2 hrs"| RT["🎯 READY task"]:::task
-    Read -->|"scientific"| Sci["🔬 Campaign track\nKoide · Pendulum · DA"]:::sci
+    Read -->|"default"| Sci["🔬 Research mission\nhypothesis · replay · audit"]:::sci
+    Read -->|"support mode"| MT["⚡ Microtask"]:::quick
+    Read -->|"task mode"| RT["🎯 READY task"]:::task
     Read -->|"new idea"| Prop["💡 Task proposal\ntasks/proposals/"]:::prop
 
     MT  --> PR["📬 branch → PR\n→ maintainer review"]:::finish
@@ -175,7 +205,7 @@ Goal:
 
 ## Current Benchmark Scope
 
-The repository currently has nine canonical experiment files:
+The repository currently has eleven canonical experiment files:
 
 - `EXP-0001` — `Pendulum Formula Discovery`
 - `EXP-0002` — `Damped Oscillator Regime Verification`
@@ -186,11 +216,16 @@ The repository currently has nine canonical experiment files:
 - `EXP-0008` — `Quark Koide Cascade — Brannen Phase Extension Test`
 - `EXP-0009` — `Particle-Mass Relation Falsifier MVP`
 - `EXP-0010` — `Muon g-2 Formula-Search Stress Test`
+- `EXP-0011` — `Anharmonic Oscillator Period Benchmark`
+- `EXP-0012` — `Nuclear Mass Baseline Residual Benchmark`
 
-For public-facing summaries, the main benchmark surface is the first eight
-entries above. `EXP-0010` should be described only as a guarded empirical
-formula-search stress test with explicit multiple-testing and numerology
-limitations.
+For public-facing summaries, keep the benchmark surface conservative:
+completed benchmarks, falsifications, and sandbox pilots are reviewable
+evidence, not automatic discovery claims. `EXP-0010` should be described only
+as a guarded empirical formula-search stress test with explicit
+multiple-testing and numerology limitations. `EXP-0012` is the current
+research-first validation surface, but nuclear residual candidates remain
+sandbox-only unless reviewed and promoted by a maintainer.
 
 Use that broader benchmark scope when updating docs, status snapshots, and
 contributor guidance during pre-public validation.

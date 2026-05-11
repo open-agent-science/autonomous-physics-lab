@@ -29,6 +29,7 @@ SCHEMA_FILE_BY_KIND = {
     "experiment_proposal": "experiment_proposal.schema.json",
     "agent_run": "agent_run.schema.json",
     "microtask_run": "microtask_run.schema.json",
+    "nuclear_mass_dataset": "nuclear_mass_dataset.schema.json",
 }
 KIND_BY_DIRECTORY = {
     "claims": "claim",
@@ -47,6 +48,7 @@ KIND_BY_DIRECTORY = {
     "experiment_proposals": "experiment_proposal",
     "agent_runs": "agent_run",
     "microtask_runs": "microtask_run",
+    "nuclear_masses": "nuclear_mass_dataset",
 }
 
 

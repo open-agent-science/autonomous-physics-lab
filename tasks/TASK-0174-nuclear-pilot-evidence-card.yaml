@@ -1,0 +1,52 @@
+id: TASK-0174
+title: "Create nuclear pilot evidence card and visual funnel"
+type: documentation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the first nuclear-mass autonomous pilot legible to private contributors and reviewers."
+  - "Show the agent workflow as a reviewable evidence funnel, not as automatic scientific discovery."
+  - "Preserve rejection counts, negative controls, and no-claim-promotion boundaries in public-facing summaries."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "agent_runs/AGENT-RUN-0005/"
+    - "docs/reviews/autonomous-nuclear-mass-pilot-01.md"
+    - "hypothesis_proposals/nuclear-mass/"
+    - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-0005-nuclear-mass-sandbox-batch.yaml"
+  planning_context: >
+    The first nuclear-mass autonomous pilot is now merged, but the result is
+    spread across proposal files, metrics JSON, report text, and review notes.
+    A compact evidence card should explain the funnel from eight proposals to
+    five rejected items, three sandbox candidates, one explicit overfit
+    negative control, and zero claim promotions.
+
+requirements:
+  - "Summarize AGENT-RUN-0005 as sandbox-only evidence."
+  - "Include proposal funnel counts, rejected proposal reasons, executed candidate verdicts, and per-holdout delta highlights."
+  - "Include a visual or diagram source for the funnel; PNG output is optional if the repository can generate it deterministically."
+  - "State explicitly that no claim, canonical result, or accepted knowledge was promoted automatically."
+  - "Keep any article-facing text in drafts only and avoid external publication planning tasks."
+
+accepted_outputs:
+  - "docs/results/nuclear-mass-pilot-summary.md"
+  - "docs/agent-research-log.md updated or created"
+  - "docs/figures/nuclear-mass-pilot-funnel.*"
+  - "docs/drafts/dou-nuclear-section.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

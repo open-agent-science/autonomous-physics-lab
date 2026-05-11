@@ -18,6 +18,9 @@ from physics_lab.workflows.particle_mass import (
     run_particle_mass_reproduction_with_output,
 )
 from physics_lab.workflows.g2_formula import run_g2_formula_experiment
+from physics_lab.workflows.nuclear_mass_baseline import (
+    run_nuclear_mass_baseline_experiment_with_output,
+)
 from physics_lab.workflows.particle_mass_falsifier import (
     run_particle_mass_falsifier_with_output,
 )
@@ -60,6 +63,11 @@ def run_experiment_with_output(
             config_path=config_path,
             output_dir=output_dir,
         )
+    if workflow == "nuclear_mass_baseline":
+        return run_nuclear_mass_baseline_experiment_with_output(
+            config_path=config_path,
+            output_dir=output_dir,
+        )
     experiment_path = resolve_path(config_path, config["experiment_path"])
     experiment = load_experiment(experiment_path)
     method_type = str(experiment["method"]["type"])
@@ -89,6 +97,7 @@ __all__ = [
     "run_pendulum_experiment",
     "run_pendulum_experiment_with_output",
     "run_anharmonic_oscillator_experiment_with_output",
+    "run_nuclear_mass_baseline_experiment_with_output",
     "run_damped_oscillator_experiment_with_output",
     "run_gauntlet_experiment_with_output",
     "run_neutrino_koide_experiment",

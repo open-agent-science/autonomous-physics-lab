@@ -7,6 +7,11 @@ The repository is still private. Contributions should optimize for reproducible
 scientific work, task clarity, and review discipline rather than speed or broad
 visibility.
 
+For the current pre-public validation gates, see
+[private-contributor-validation-plan.md](./private-contributor-validation-plan.md),
+[private-agent-test-metrics.md](./private-agent-test-metrics.md), and
+[private-contributor-scorecard.md](./private-contributor-scorecard.md).
+
 ## Clone the Private Repository
 
 After the maintainer grants access, clone the repository with SSH or HTTPS:

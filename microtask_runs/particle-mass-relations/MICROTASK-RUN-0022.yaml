@@ -1,0 +1,36 @@
+id: MICROTASK-RUN-0022
+queue_id: particle-mass-relations
+microtask_id: PMR-008
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-particle-mass-relations--pmr-001-002-003-007-008-011
+pull_request: null
+result_note: docs/notes/pmr-008-uncertainty-propagation-koide-q.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/particle-mass-relations.yaml
+    - data/particle_masses/charged_leptons.yaml
+  method: "Uncertainty propagation analysis: tau mass dominates Q uncertainty by 4+ orders over mu and e."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - "dominant_uncertainty_source: tau mass (delta_m_tau = 0.09 MeV)"
+    - "delta_m_tau / delta_m_mu = 3.9e4"
+    - "delta_m_tau / delta_m_e = 6.0e8"
+    - "sigma_Q_approx = 5.1e-06 (from PMR-002 range width / 2)"
+    - "|Q - 2/3| = 2.20e-06 < sigma_Q"
+    - "fractional_tau_uncertainty = 5.1e-05"
+  failure_mode: "Reject if analysis omits tau-dominance or uses higher-order corrections without justification."
+  limitations:
+    - "PDG tau mass uncertainty is a combined experimental average; correlations between experiments not modelled."
+    - "Correlations between tau and muon mass measurements not included."
+    - "First-order Taylor expansion used; second-order corrections proportional to (5.1e-5)^2 = 2.6e-9, negligible."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/particle-mass-relations/
+      - docs/notes/
+    summary: "No prior run found for PMR-008."

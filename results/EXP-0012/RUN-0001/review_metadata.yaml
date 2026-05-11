@@ -1,0 +1,18 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0015
+run_id: RUN-0001
+experiment_id: EXP-0012
+claim_id: CLAIM-0010
+knowledge_id: KNOW-0009
+generated_at: '2026-05-10T11:58:34.803981+00:00'
+proposed_claim_status: PARTIALLY_SUPPORTED
+required_human_review: true
+evidence_basis:
+- RESULT-0015
+claim_target_file: claims/CLAIM-0010-nuclear-mass-baseline.md
+knowledge_target_file: knowledge/nuclear_physics/nuclear_mass_baseline.md
+patch_artifacts:
+  claim_patch: results/EXP-0012/RUN-0001/claim_update.patch.md
+  knowledge_patch: results/EXP-0012/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0012/RUN-0001/review_summary.md

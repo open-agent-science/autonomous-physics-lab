@@ -1,0 +1,8 @@
+experiment_path: ../experiments/EXP-0012-nuclear-mass-baseline.yaml
+hypothesis_path: ../hypotheses/HYP-0012-nuclear-mass-baseline.yaml
+task_id: TASK-0168
+run_id: RUN-0001
+result_id: RESULT-0015
+result_root: ../results/EXP-0012
+workflow: nuclear_mass_baseline
+

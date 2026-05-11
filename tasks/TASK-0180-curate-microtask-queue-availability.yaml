@@ -1,0 +1,54 @@
+id: TASK-0180
+title: "Curate microtask queue availability and summary counts"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep microtask queues useful for private contributors and their agents."
+  - "Prevent agents from picking stale microtasks that have already been covered by notes, pilots, or canonical tasks."
+  - "Preserve append-only traceability while making the available work pool clearer."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "tasks/microtasks/README.md"
+    - "tasks/microtasks/*.yaml"
+    - "microtask_runs/"
+    - "physics_lab/registry/microtask_queue_summary.py"
+  planning_context: >
+    Several microtask queue items were created before the current microtask run
+    registry and before later canonical results such as EXP-0012 / RESULT-0015.
+    Some items now have notes, run records, or canonical follow-up tasks, but
+    the generated queue summary still counted every item as available.
+
+requirements:
+  - "Make the generated microtask queue summary availability-aware."
+  - "Keep completed or retired microtask ids visible for traceability."
+  - "Mark stale or already-covered queue items as completed or retired instead of presenting them as available."
+  - "Refresh tasks/microtasks/README.md."
+  - "Keep scientific wording conservative, especially for nuclear and particle-mass queues."
+
+accepted_outputs:
+  - "updated microtask queue summary generator"
+  - "updated microtask queue tests"
+  - "curated microtask queue YAML status markers"
+  - "updated tasks/microtasks/README.md"
+  - "task moved to REVIEW_READY"
+  - "active board synced"
+
+validation:
+  commands:
+    - "python3 scripts/generate_microtask_queue_summary.py"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_microtask_queue_summary.py tests/test_microtask_queue_validation.py tests/test_microtask_runs.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

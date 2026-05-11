@@ -15,12 +15,14 @@ Use it when you need to answer four questions quickly:
 | --- | --- | --- | --- |
 | [Pendulum Formula Falsification](./pendulum-formula-falsification.md) | Active benchmark with multiple canonical runs | `EXP-0001/RUN-0001`, `RUN-0002`, `RUN-0003` and the gauntlet result package | stronger falsification probes, clearer diagnostics, safer wording |
 | [Particle Mass Relations](./particle-mass-relations.md) | Active benchmark track with narrow charged-lepton results | `EXP-0004/RUN-0004` and `EXP-0005/RUN-0005` | guardrail-preserving follow-up tasks before broader search |
-| [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Planning complete, implementation pending | challenge-set design plus 50-item dataset scaffold | symbolic checker implementation and benchmark wiring |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark plus first sandbox pilot | `EXP-0012/RUN-0001` plus `AGENT-RUN-0005` sandbox evidence | broader pinned dataset and maintainer-reviewed follow-up candidates |
+| [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Active benchmark plus follow-on curation | `EXP-0006/RUN-0006` plus live challenge-set work | challenge-set curation, benchmark hygiene, and future intentional rebaseline planning |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical run yet | suite design plus light-clock micro-planning task | scoped scenario planning, then deterministic validator design |
 
 ## How To Use This Map
 
 - If you want the strongest existing evidence, start with pendulum.
+- If you want the next flagship real-data campaign, start with nuclear mass surface.
 - If you want the highest scientific-overclaim risk with useful guardrails,
   start with particle-mass relations.
 - If you want a clean validator-style benchmark with no discovery language,
