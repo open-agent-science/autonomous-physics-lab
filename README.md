@@ -12,6 +12,53 @@ testing, simulating, falsifying, and reusing physics hypotheses.
 APL is not a chatbot. It is a verification-first engine for testing physics
 ideas.
 
+## Start With Your AI Agent
+
+APL is now **Agent First**: the default path for Codex, Claude Code, or another
+coding agent is a research mission, not a random support task.
+
+Run:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+This starts Research Mode and recommends the highest-value reviewable
+scientific action. For machine-readable agent context:
+
+```bash
+python3 scripts/apl_mission.py --json
+python3 scripts/apl_mission.py --agent-prompt
+```
+
+Copy-paste prompt for a new agent:
+
+```text
+You are working in Autonomous Physics Lab.
+
+Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
+then run `python3 scripts/apl_mission.py --json`. Choose the recommended
+research mission unless the maintainer gave a stricter task. Use the
+recommended `task_id` to create a canonical task branch before editing files.
+Execute the full loop autonomously: inspect
+evidence, test or audit the hypothesis, preserve negative results, update
+sandbox/review artifacts, run validation, generate a review bundle, and prepare
+a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
+promotion. Do not promote claims, rewrite canonical results, or use
+breakthrough-style wording.
+```
+
+Support and maintainer work remain explicit modes:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+See [docs/current-missions.md](docs/current-missions.md) for the human-readable
+mission board and [missions/current.yaml](missions/current.yaml) for the
+machine-readable source.
+
 ## How APL Works
 
 ```mermaid
@@ -116,11 +163,13 @@ proof. See `docs/results/visual-summary.md` for all figures with full captions.
 
 If you are new to the repository, use this order:
 
-1. [docs/mission-control.md](docs/mission-control.md)
-2. [docs/campaigns/README.md](docs/campaigns/README.md)
-3. [docs/status.md](docs/status.md)
-4. [tasks/ACTIVE.md](tasks/ACTIVE.md)
-5. [docs/agent-task-protocol.md](docs/agent-task-protocol.md)
+1. Run `python3 scripts/apl_mission.py` for the current research-first mission.
+2. [docs/current-missions.md](docs/current-missions.md)
+3. [docs/mission-control.md](docs/mission-control.md)
+4. [docs/campaigns/README.md](docs/campaigns/README.md)
+5. [docs/status.md](docs/status.md)
+6. [tasks/ACTIVE.md](tasks/ACTIVE.md)
+7. [docs/agent-task-protocol.md](docs/agent-task-protocol.md)
 
 This gives you the shortest path from "what is APL?" to "which campaign
 already has evidence?" to "which task can I pick up safely?"
@@ -182,7 +231,7 @@ a finished benchmark implementation.
 `EXP-0010` exists as a guarded empirical formula-search stress test and should
 not be presented as part of the public-facing success surface.
 
-## Contribute with an AI coding agent
+## Contribute With An AI Coding Agent
 
 ```mermaid
 flowchart LR
@@ -192,11 +241,12 @@ flowchart LR
     classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
     classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
 
-    Start(["▶ Enter repo"]) --> Read["📋 AGENTS.md\n+ ACTIVE.md"]
+    Start(["▶ Enter repo"]) --> Mission["🚀 apl_mission.py\nResearch Mode"]
+    Mission --> Read["📋 AGENTS.md\n+ mission context"]
 
-    Read -->|"~30 min"| MT["⚡ Microtask"]:::quick
-    Read -->|"1–2 hrs"| RT["🎯 READY task"]:::task
-    Read -->|"scientific"| Sci["🔬 Campaign track\nKoide · Pendulum · DA"]:::sci
+    Read -->|"default"| Sci["🔬 Research mission\nhypothesis · replay · audit"]:::sci
+    Read -->|"support mode"| MT["⚡ Microtask"]:::quick
+    Read -->|"task mode"| RT["🎯 READY task"]:::task
     Read -->|"new idea"| Prop["💡 Task proposal\ntasks/proposals/"]:::prop
 
     MT  --> PR["📬 branch → PR\n→ maintainer review"]:::finish
@@ -211,8 +261,9 @@ Invited contributors can use Codex, Claude Code, or other coding agents.
 Start with [docs/private-contributor-pilot.md](docs/private-contributor-pilot.md)
 for the private-alpha workflow and [AGENTS.md](AGENTS.md) for the canonical rules.
 
-Not sure where to start? Use the **[Agent Work Menu](docs/agent-work-menu.md)**
-to find safe, reviewable work sized for your session budget (30 min / 1 h / 2 h).
+Not sure where to start? Run `python3 scripts/apl_mission.py`. Use the
+**[Agent Work Menu](docs/agent-work-menu.md)** only when you intentionally want
+support or short-session work sized for your session budget (30 min / 1 h / 2 h).
 
 ## Quickstart
 

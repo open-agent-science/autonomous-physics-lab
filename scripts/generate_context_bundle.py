@@ -26,6 +26,8 @@ CORE_FILES: list[tuple[str, str]] = [
     ("Agent & Contributor Rules", "AGENTS.md"),
     ("Claude Code Entry Point", "CLAUDE.md"),
     ("Project Strategy", "docs/strategy.md"),
+    ("Current Missions", "docs/current-missions.md"),
+    ("Machine-Readable Missions", "missions/current.yaml"),
     ("Mission Control (Current Phase)", "docs/mission-control.md"),
     ("Agent Task Protocol", "docs/agent-task-protocol.md"),
     ("Agent Scientific Work Mode", "docs/agent-scientific-work-mode.md"),
@@ -55,8 +57,8 @@ def build_bundle(*, full: bool = False) -> str:
 
     header = (
         "# Autonomous Physics Lab — Context Bundle\n\n"
-        f"Generated: {now}  \n"
-        f"Mode: {'full' if full else 'core'}  \n"
+        f"Generated: {now}\n"
+        f"Mode: {'full' if full else 'core'}\n"
         f"Repo: gladunrv/autonomous-physics-lab\n\n"
         "This file bundles the core project instructions, strategy, and current\n"
         "task board into one document for use with chat-based LLMs or as a\n"

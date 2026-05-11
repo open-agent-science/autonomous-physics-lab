@@ -1,0 +1,52 @@
+id: TASK-0183
+title: "Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021"
+type: scientific_audit
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Make the Agent First default research mission executable without agents inventing task ids."
+  - "Validate the strongest nuclear residual sandbox candidate before any second nuclear batch expands the surface."
+  - "Keep nuclear mass work sandbox-only and review-gated until split sensitivity and overfit risk are understood."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "hypothesis_proposals/nuclear/HYP-PROPOSAL-0021-nuclear-residual-bounded-shell-smoothness.yaml"
+    - "agent_runs/AGENT-RUN-0005/agent_run.yaml"
+    - "docs/reviews/nuclear-hyp-0021-independent-audit.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    HYP-PROPOSAL-0021 and AGENT-RUN-0005 are useful sandbox-only evidence, but
+    the Agent First default mission should validate split sensitivity before
+    recommending any broader nuclear hypothesis batch. This task gives new
+    research agents a canonical branch/PR target for that default mission.
+
+requirements:
+  - "Replay HYP-PROPOSAL-0021 under at least two alternative frozen split configurations or explain why a split cannot be regenerated safely."
+  - "Compare per-holdout deltas against the frozen baseline without modifying RESULT-0015 canonical artifacts."
+  - "Report whether the candidate remains stable, weakens, or appears split-sensitive."
+  - "Preserve all outputs as sandbox or review artifacts; do not promote claims."
+  - "Include leakage, cherry-pick, complexity, and overfit-risk notes."
+  - "Keep wording conservative and range-limited."
+
+accepted_outputs:
+  - "agent_runs/<run-id>/agent_run.yaml"
+  - "agent_runs/<run-id>/metrics.json"
+  - "agent_runs/<run-id>/report.md"
+  - "docs/reviews/nuclear-split-sensitivity-replay.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
