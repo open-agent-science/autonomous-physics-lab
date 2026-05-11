@@ -1,7 +1,7 @@
 id: TASK-0183
 title: "Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021"
 type: scientific_audit
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -14,7 +14,7 @@ input:
   mode: workflow
   related_domain: nuclear_mass_surface
   related_objects:
-    - "hypothesis_proposals/nuclear/HYP-PROPOSAL-0021-nuclear-residual-bounded-shell-smoothness.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
     - "agent_runs/AGENT-RUN-0005/agent_run.yaml"
     - "docs/reviews/nuclear-hyp-0021-independent-audit.md"
     - "docs/nuclear-mass-holdout-protocol.md"
@@ -34,9 +34,9 @@ requirements:
   - "Keep wording conservative and range-limited."
 
 accepted_outputs:
-  - "agent_runs/<run-id>/agent_run.yaml"
-  - "agent_runs/<run-id>/metrics.json"
-  - "agent_runs/<run-id>/report.md"
+  - "agent_runs/AGENT-RUN-0006/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0006/metrics.json"
+  - "agent_runs/AGENT-RUN-0006/report.md"
   - "docs/reviews/nuclear-split-sensitivity-replay.md"
 
 validation:
