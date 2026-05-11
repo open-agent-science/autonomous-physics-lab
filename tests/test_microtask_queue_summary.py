@@ -37,6 +37,21 @@ def _write_queue(root: Path, name: str = "example-queue") -> Path:
                 validation:
                   - "State scope."
                 risk_level: low
+              - id: EX-002
+                campaign: example-campaign
+                title: Retired item
+                type: note
+                status: retired
+                status_reason: "Covered by a newer canonical task."
+                estimated_effort: 10-20 minutes
+                recommended_for:
+                  - codex
+                autonomy_level:
+                  - agent_can_complete
+                expected_output: "One note."
+                validation:
+                  - "State scope."
+                risk_level: medium
             """
         ),
         encoding="utf-8",
@@ -51,7 +66,10 @@ def test_load_microtask_queue_summaries_reads_queue_metadata(tmp_path: Path) -> 
 
     assert len(summaries) == 1
     assert summaries[0].queue_id == "example-queue"
-    assert summaries[0].microtask_count == 1
+    assert summaries[0].microtask_count == 2
+    assert summaries[0].available_count == 1
+    assert summaries[0].completed_count == 0
+    assert summaries[0].retired_count == 1
     assert summaries[0].risk_levels == ("low",)
 
 
@@ -63,6 +81,7 @@ def test_render_microtask_queue_summary_table_links_to_queue_file(tmp_path: Path
 
     assert "[`example-queue`](example-queue.yaml)" in table
     assert "example-campaign" in table
+    assert "1 / 2" in table
     assert "`active`" in table
     assert "Prefer narrow reviewable work." in table
 

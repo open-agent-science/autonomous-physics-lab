@@ -6,6 +6,8 @@ selection_guidance:
   - "Do not change canonical result artifacts in routine microtask work."
 microtasks:
   - id: PFF-001
+    status: completed
+    status_reason: "Covered by docs/notes/pff-001-pade-rational-family.md and the autonomous pendulum pilot proposal surface."
     campaign: pendulum-formula-falsification
     title: Propose one even candidate family using x = sin^2(theta/2)
     type: formula-family-proposal
@@ -27,6 +29,8 @@ microtasks:
       - "universal pendulum validity"
       - "real-world pendulum performance without damping analysis"
   - id: PFF-002
+    status: completed
+    status_reason: "Covered by docs/notes/pff-002-model-t2x1-separatrix-failure.md."
     campaign: pendulum-formula-falsification
     title: Classify one near-separatrix failure mode for a chosen gauntlet candidate
     type: failure-mode-classification
@@ -110,6 +114,8 @@ microtasks:
       - "exact asymptotic derivation"
       - "complete physical explanation"
   - id: PFF-006
+    status: completed
+    status_reason: "Covered by docs/notes/pff-006-asymptotic-rounding-sensitivity.md."
     campaign: pendulum-formula-falsification
     title: Audit coefficient-rounding sensitivity for one named candidate
     type: numerical-sensitivity-note
@@ -151,6 +157,8 @@ microtasks:
       - "universal pendulum law"
       - "field-wide breakthrough"
   - id: PFF-008
+    status: completed
+    status_reason: "Covered by docs/notes/pff-008-large-angle-breakdown-probe.md."
     campaign: pendulum-formula-falsification
     title: Design one approximation-breakdown probe around a large-angle threshold
     type: approximation-probe-design
