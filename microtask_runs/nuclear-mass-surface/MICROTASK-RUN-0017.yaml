@@ -1,0 +1,29 @@
+id: MICROTASK-RUN-0017
+queue_id: nuclear-mass-surface
+microtask_id: NMS-007
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-nuclear-mass-surface--nms-002-004-005-006-007
+pull_request: null
+result_note: docs/notes/nms-007-uncertainty-normalized-metric.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/nuclear-mass-surface.yaml
+  method: "Metric note for uncertainty-normalized residual reporting in nuclear mass results."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Reject if the note does not address circular-reasoning risk for AME extrapolated uncertainties or omits recommendation to report both raw and normalized metrics."
+  limitations:
+    - "No numerical implementation of this metric exists in the repository. Metric note only."
+    - "One metric cannot settle model quality; multiple metrics and limitations must be reported together."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/nuclear-mass-surface/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."

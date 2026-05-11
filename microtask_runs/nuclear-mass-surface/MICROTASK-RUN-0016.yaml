@@ -1,0 +1,29 @@
+id: MICROTASK-RUN-0016
+queue_id: nuclear-mass-surface
+microtask_id: NMS-006
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-nuclear-mass-surface--nms-002-004-005-006-007
+pull_request: null
+result_note: docs/notes/nms-006-isotope-chain-holdout-rationale.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/nuclear-mass-surface.yaml
+  method: "Methodological rationale for isotope-chain holdout vs random nuclide masking."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "Reject if the note does not distinguish interpolation vs extrapolation failure modes or omits overfitting risk exposed by chain holdout."
+  limitations:
+    - "No holdout has been run in this repository yet. This note is a methodological rationale for future experimental design."
+    - "One holdout split does not prove robustness — multiple chains should be tested if resources allow."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/nuclear-mass-surface/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."
