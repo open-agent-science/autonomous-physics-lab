@@ -1,7 +1,7 @@
 id: TASK-0183
 title: "Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021"
 type: scientific_audit
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
