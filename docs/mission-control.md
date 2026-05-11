@@ -154,9 +154,11 @@ Low-risk contribution patterns right now:
 
 ## Read Order For New Contributors
 
-1. [README.md](../README.md)
-2. [docs/mission-control.md](./mission-control.md)
-3. [docs/campaigns/README.md](./campaigns/README.md)
-4. [docs/status.md](./status.md)
-5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
-6. [docs/agent-task-protocol.md](./agent-task-protocol.md)
+1. Run `python3 scripts/apl_mission.py` for the current research-first mission.
+2. [README.md](../README.md)
+3. [docs/current-missions.md](./current-missions.md)
+4. [docs/mission-control.md](./mission-control.md)
+5. [docs/campaigns/README.md](./campaigns/README.md)
+6. [docs/status.md](./status.md)
+7. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+8. [docs/agent-task-protocol.md](./agent-task-protocol.md)
