@@ -32,6 +32,18 @@ Metrics:
 - Train max RE = 4.628562e-05
 - Test max RE  = 2.703599e-03
 
+## Maintainer Replay Check
+
+The fit was independently replayed during maintainer review with
+`scipy.optimize.curve_fit`, 500 train points on θ ∈ [0.01, 1.10], and 200 test
+points on θ ∈ [1.11, π/2]. The replay reproduced the coefficients and metrics
+to the shown precision:
+
+- replayed a = -0.34321805
+- replayed b = 0.59254746
+- replayed train MRE = 1.1068180886e-05
+- replayed test MRE = 8.8188685981e-04
+
 ## Verdict
 
 VALID_IN_RANGE (configured range only). Test MRE = 8.818868e-04 < 1e-3, so the
