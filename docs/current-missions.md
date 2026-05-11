@@ -58,7 +58,7 @@ Why:
 Guardrails:
 
 - do not promote `HYP-PROPOSAL-0021` to a claim automatically;
-- do not describe the residual candidate as discovered physics;
+- do not describe the residual candidate as breakthrough physics;
 - do not run unbounded nuclear formula search;
 - do not rewrite canonical result artifacts casually.
 
@@ -113,5 +113,5 @@ evidence, test or audit the hypothesis, preserve negative results, update
 sandbox/review artifacts, run validation, generate a review bundle, and prepare
 a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
 promotion. Do not promote claims, rewrite canonical results, or use
-discovery/proved/solved wording.
+breakthrough-style wording.
 ```

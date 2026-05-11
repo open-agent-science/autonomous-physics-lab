@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 08:41 UTC
+Generated: 2026-05-11 08:47 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -692,7 +692,7 @@ Why:
 Guardrails:
 
 - do not promote `HYP-PROPOSAL-0021` to a claim automatically;
-- do not describe the residual candidate as discovered physics;
+- do not describe the residual candidate as breakthrough physics;
 - do not run unbounded nuclear formula search;
 - do not rewrite canonical result artifacts casually.
 
@@ -747,7 +747,7 @@ evidence, test or audit the hypothesis, preserve negative results, update
 sandbox/review artifacts, run validation, generate a review bundle, and prepare
 a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
 promotion. Do not promote claims, rewrite canonical results, or use
-discovery/proved/solved wording.
+breakthrough-style wording.
 ```
 
 
@@ -769,7 +769,7 @@ policy:
     - "Start in research mode unless the maintainer explicitly asks for support, review, or closeout."
     - "Prefer hypothesis testing, replay, falsification, or sandbox result drafts over docs-only work."
     - "Keep all research outputs reviewable and sandbox-only until maintainer review."
-    - "Never promote claims, rewrite canonical results, or use discovery wording automatically."
+    - "Never promote claims, rewrite canonical results, or use breakthrough-style wording automatically."
   maintainer_modes_preserved:
     - review
     - closeout
@@ -779,7 +779,7 @@ global_forbidden:
   - "no automatic claim promotion"
   - "no direct pushes to main"
   - "no canonical result rewrites unless the task explicitly requires it"
-  - "no discovery, proved, solved, or globally valid wording"
+  - "no breakthrough, proof-style, or unlimited-scope wording"
   - "no speculative Hubble, g-2, or constants formula-search flagship work"
 
 modes:
@@ -811,7 +811,7 @@ missions:
       - "independent audit exists, but split-sensitivity and follow-up gating remain valuable"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
-      - "do not describe the residual candidate as discovered physics"
+      - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
     actions:
       - id: nuclear-split-sensitivity-replay

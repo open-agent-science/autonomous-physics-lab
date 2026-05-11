@@ -44,7 +44,7 @@ evidence, test or audit the hypothesis, preserve negative results, update
 sandbox/review artifacts, run validation, generate a review bundle, and prepare
 a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
 promotion. Do not promote claims, rewrite canonical results, or use
-discovery/proved/solved wording.
+breakthrough-style wording.
 ```
 
 Support and maintainer work remain explicit modes:

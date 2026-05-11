@@ -196,7 +196,7 @@ Start in Agent First Research Mode.
 6. Create a canonical task branch before editing files.
 7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve negative results, update sandbox/review artifacts, run validation, generate a review bundle, and prepare a PR.
 8. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
-9. Do not promote claims, rewrite canonical results, or use discovery/proved/solved wording.
+9. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 10. If the work is support/review/closeout rather than research, run the explicit mode: `python3 scripts/apl_mission.py --mode support` or `--mode maintainer`.
 
 Return the selected mission, changed files, validation results, limitations, and PR-ready summary."""
