@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 18:31 UTC
+Generated: 2026-05-11 20:03 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1764,7 +1764,6 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0190` — Define nuclear candidate robustness gate before follow-up batches (`scientific_validation`, priority `high`, difficulty `medium`)
 
@@ -1781,7 +1780,9 @@ None.
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
 - `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0191` — Curate nuclear time-split validation queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0192` — Add closeout checks for public state documentation drift (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

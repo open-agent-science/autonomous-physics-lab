@@ -69,6 +69,7 @@ None.
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0191` — Curate nuclear time-split validation queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0192` — Add closeout checks for public state documentation drift (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
