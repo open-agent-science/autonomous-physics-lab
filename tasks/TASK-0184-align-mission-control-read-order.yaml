@@ -1,0 +1,46 @@
+id: TASK-0184
+title: "Align Mission Control read order with Agent First entrypoint"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep all top-level onboarding paths consistent with Agent First research mode."
+  - "Prevent legacy read-order sections from implying task or microtask-first onboarding."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "docs/mission-control.md"
+    - "CONTEXT.md"
+  planning_context: >
+    After TASK-0181, Mission Control correctly introduces apl_mission.py near
+    the top of the document, but its lower read-order section still starts with
+    README.md. Align that read-order list with the Agent First entrypoint.
+
+requirements:
+  - "Make Mission Control read order start with python3 scripts/apl_mission.py."
+  - "Link docs/current-missions.md in the read order."
+  - "Do not change scientific claims or result artifacts."
+  - "Regenerate CONTEXT.md because docs/mission-control.md is a context-bundle source."
+
+accepted_outputs:
+  - "updated docs/mission-control.md"
+  - "updated CONTEXT.md"
+  - "task moved to REVIEW_READY"
+  - "active board synced"
+
+validation:
+  commands:
+    - "python3 scripts/generate_context_bundle.py"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
