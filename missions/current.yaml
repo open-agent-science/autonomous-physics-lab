@@ -51,10 +51,12 @@ missions:
       - "frozen baseline and holdout protocol exist"
       - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
       - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
+      - "post-AME2020 time-split validation is the next harder evidence layer before broader follow-up"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
+      - "do not call retrospective post-AME2020 evaluation strict blind prediction"
     actions:
       - id: nuclear-validation-queue
         label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
@@ -84,6 +86,7 @@ missions:
         gated_by:
           - maintainer-reviewed-split-sensitivity-replay
           - audit-agent-run-0005
+          - nuclear-robustness-gate
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
