@@ -123,6 +123,22 @@ Use this lane whenever any of the following is true:
 Deep review should include the full deterministic helper cycle and content
 verification appropriate to the changed surface.
 
+### Overclaim Severity
+
+The deterministic review helper treats overclaim language as context-sensitive:
+
+- positive claim phrasing is a blocker, especially in public-facing summaries,
+  claims, results, reports, or review conclusions;
+- guardrail, policy, checklist, or "do not use this wording" contexts should
+  be surfaced as advisory warnings rather than blockers;
+- advisory warnings are a signal for the maintainer or review AI agent to
+  inspect the surrounding text and confirm the risky word is being used as a
+  restriction, not as a scientific claim.
+
+The review AI agent should not ignore advisory warnings. It should read nearby
+context and report whether the wording is safe, ambiguous, or actually
+claim-like.
+
 ## Mode 1: Pre-Merge Review
 
 Use this mode for an open pull request before merge.
