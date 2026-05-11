@@ -9,9 +9,38 @@ The goal is not to let an agent improvise physics claims. The goal is to let
 an agent help with reproducible, reviewable work inside the repository's
 protocol.
 
-## Quickstart: How To Choose Your Contribution Path
+## Quickstart: Start In Research Mode
 
-Use this diagram to find the right starting point for your session budget:
+Run the mission entrypoint first:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+This starts **Research Mode** by default. It recommends the highest-value
+scientific mission and gives guardrails for reviewable sandbox work.
+
+For a coding agent, use:
+
+```bash
+python3 scripts/apl_mission.py --json
+python3 scripts/apl_mission.py --agent-prompt
+```
+
+Use support mode only when you intentionally want docs, tests, packaging,
+microtasks, or other non-research work:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+```
+
+Use maintainer mode for review and closeout assistance:
+
+```bash
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+The default contribution path is now mission-first:
 
 ```mermaid
 flowchart TD
@@ -20,20 +49,25 @@ flowchart TD
     classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
     classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
 
-    Start(["▶ Start here"]) --> Budget{"How much time?"}
+    Start(["▶ Start here"]) --> Mission["🚀 Run apl_mission.py"]
+    Mission --> Mode{"Which mode?"}
 
-    Budget -->|"~30 min"| MT["⚡ Microtask\ntasks/microtasks/README.md"]:::quick
-    Budget -->|"1–2 hrs"| RT["🎯 READY task\ntasks/ACTIVE.md"]:::task
-    Budget -->|"new idea"| Prop["💡 Proposal\ntasks/proposals/"]:::prop
+    Mode -->|"default"| Research["🔬 Research mission\nhypothesis · replay · audit"]:::task
+    Mode -->|"support"| MT["⚡ Microtask / support task\ntasks/microtasks/README.md"]:::quick
+    Mode -->|"assigned TASK"| RT["🎯 READY task\ntasks/ACTIVE.md"]:::task
+    Mode -->|"new idea"| Prop["💡 Proposal\ntasks/proposals/"]:::prop
 
-    MT  --> PR["📬 branch → commit → PR\n→ maintainer review"]:::finish
+    Research --> PR["📬 branch → commit → PR\n→ maintainer review"]:::finish
+    MT  --> PR
     RT  --> PR
     Prop --> PropPR["📋 Proposal PR\nwait for TASK-XXXX id"]:::prop
 ```
 
 **Rule of thumb:**
-- Microtask — one item from a campaign queue, under 30 minutes, narrow scope.
-- READY task — one atomic task from `tasks/ACTIVE.md`, 1-2 hours, broader scope.
+- Research mission — default path for capable coding agents; test, replay, or
+  audit hypotheses and produce PR-ready artifacts.
+- Microtask — support path for one queue item, under 30 minutes, narrow scope.
+- READY task — assigned task from `tasks/ACTIVE.md`, 1-2 hours, broader scope.
 - Proposal — new idea without a canonical `TASK-XXXX` id yet; use `tasks/proposals/`.
 
 ## One-Task One-Branch Discipline
@@ -102,10 +136,12 @@ sequenceDiagram
 Read these first:
 
 1. [README.md](../README.md)
-2. [docs/mission-control.md](./mission-control.md)
-3. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
-4. [docs/agent-task-protocol.md](./agent-task-protocol.md)
-5. [docs/agent-catalog.md](./agent-catalog.md)
+2. Run `python3 scripts/apl_mission.py --json`
+3. [docs/current-missions.md](./current-missions.md)
+4. [docs/mission-control.md](./mission-control.md)
+5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+6. [docs/agent-task-protocol.md](./agent-task-protocol.md)
+7. [docs/agent-catalog.md](./agent-catalog.md)
 
 If you want a shorter session with safe work, also open:
 
@@ -116,9 +152,10 @@ If you want a shorter session with safe work, also open:
 
 Good starting work:
 
-- documentation and onboarding improvements;
-- packaging current result surfaces more clearly;
-- one small scientific microtask batch from a single campaign;
+- research replay, split-sensitivity checks, and adversarial audits;
+- bounded sandbox hypothesis tests under an approved campaign;
+- negative result preservation and PR-ready result drafts;
+- documentation and onboarding improvements when support mode is selected;
 - validation, wording, and contributor-workflow tasks.
 
 Avoid starting with:
@@ -128,9 +165,20 @@ Avoid starting with:
 - unscoped formula speculation;
 - multiple unrelated tasks in one branch.
 
-## Two Safe Ways To Contribute
+## Safe Ways To Contribute
 
-### 1. Pick One READY Task
+### 1. Start From A Research Mission
+
+Run:
+
+```bash
+python3 scripts/apl_mission.py
+```
+
+Follow the recommended mission unless the maintainer assigned something more
+specific. Keep work sandbox-only and reviewable.
+
+### 2. Pick One READY Task
 
 Open [tasks/ACTIVE.md](../tasks/ACTIVE.md) and choose one task with:
 
@@ -141,10 +189,11 @@ Open [tasks/ACTIVE.md](../tasks/ACTIVE.md) and choose one task with:
 Then follow the branch-first workflow from
 [docs/agent-task-protocol.md](./agent-task-protocol.md).
 
-### 2. Use Spare Budget on Microtasks
+### 3. Use Support Mode For Microtasks
 
-If you have a shorter session, use:
+If you have a shorter support session, use:
 
+- `python3 scripts/apl_mission.py --mode support`
 - [tasks/microtasks/README.md](../tasks/microtasks/README.md)
 - [docs/agent-scientific-work-mode.md](./agent-scientific-work-mode.md)
 
@@ -179,11 +228,21 @@ metrics, caveats, and the intentionally skipped Muon g-2 stress-test lane.
 If you are using a coding agent, a good starting prompt is:
 
 ```text
-Read AGENTS.md, docs/agent-task-protocol.md, tasks/ACTIVE.md, and the canonical task file for TASK-XXXX. Work on a task branch, keep wording verification-first, run the required validation commands, and prepare a PR-ready change without promoting claims.
+You are working in Autonomous Physics Lab.
+
+Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
+then run `python3 scripts/apl_mission.py --json`. Choose the recommended
+research mission unless the maintainer gave a stricter task. Create a canonical
+task branch before editing files. Execute the full loop autonomously: inspect
+evidence, test or audit the hypothesis, preserve negative results, update
+sandbox/review artifacts, run validation, generate a review bundle, and prepare
+a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
+promotion. Do not promote claims, rewrite canonical results, or use
+discovery/proved/solved wording.
 ```
 
-If you are using microtasks, replace the `TASK-XXXX` part with the queue file
-and microtask ids you want the agent to complete.
+If you are using support mode, run `python3 scripts/apl_mission.py --mode support`
+and give the agent the selected task or queue item.
 
 ## What a Good Agent Output Looks Like
 
@@ -199,6 +258,8 @@ A good contribution should leave behind:
 
 Best first destinations:
 
+- `python3 scripts/apl_mission.py`
+- [docs/current-missions.md](./current-missions.md)
 - [docs/mission-control.md](./mission-control.md)
 - [docs/results/visual-summary.md](./results/visual-summary.md)
 - [docs/results/koide-campaign-summary.md](./results/koide-campaign-summary.md)

@@ -1,0 +1,169 @@
+default_mode: research
+updated: "2026-05-11"
+
+policy:
+  name: "Agent First, research-first"
+  summary: >
+    New contributors and coding agents should start from the highest-value
+    reviewable research mission by default. Support, microtask, review, and
+    closeout lanes remain available as explicit modes.
+  defaults:
+    - "Start in research mode unless the maintainer explicitly asks for support, review, or closeout."
+    - "Prefer hypothesis testing, replay, falsification, or sandbox result drafts over docs-only work."
+    - "Keep all research outputs reviewable and sandbox-only until maintainer review."
+    - "Never promote claims, rewrite canonical results, or use discovery wording automatically."
+  maintainer_modes_preserved:
+    - review
+    - closeout
+    - support
+
+global_forbidden:
+  - "no automatic claim promotion"
+  - "no direct pushes to main"
+  - "no canonical result rewrites unless the task explicitly requires it"
+  - "no discovery, proved, solved, or globally valid wording"
+  - "no speculative Hubble, g-2, or constants formula-search flagship work"
+
+modes:
+  research:
+    label: "Research Mode"
+    description: "Default lane for autonomous scientific work: audit, replay, hypothesis testing, sandbox runs, and reviewable PR artifacts."
+  audit:
+    label: "Research Audit Mode"
+    description: "Adversarial validation of existing sandbox evidence before follow-up work expands the surface."
+  support:
+    label: "Support Mode"
+    description: "Infrastructure, docs, test, packaging, and microtask work. Useful, but not the default for scientific contributors."
+  maintainer:
+    label: "Maintainer Mode"
+    description: "Review, merge recommendation, closeout, board sync, and context-refresh assistance. Advisory only."
+
+missions:
+  - id: nuclear-mass-surface
+    title: "Nuclear Mass Surface"
+    rank: 1
+    status: flagship_validation
+    scientific_value: high
+    risk: medium
+    recommendation: "Main direction now: validate the existing sandbox candidate before expanding the campaign."
+    why_now:
+      - "real AME-style nuclear-mass dataset surface exists"
+      - "frozen baseline and holdout protocol exist"
+      - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
+      - "independent audit exists, but split-sensitivity and follow-up gating remain valuable"
+    forbidden:
+      - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
+      - "do not describe the residual candidate as discovered physics"
+      - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
+    actions:
+      - id: nuclear-split-sensitivity-replay
+        label: "Run split-sensitivity replay for HYP-PROPOSAL-0021"
+        mode: research
+        priority: high
+        difficulty: high
+        recommended: true
+        expected_outputs:
+          - "agent_runs/<run-id>/agent_run.yaml"
+          - "agent_runs/<run-id>/metrics.json"
+          - "agent_runs/<run-id>/report.md"
+          - "docs/reviews/nuclear-split-sensitivity-replay.md"
+        validation:
+          - "python3 -m ruff check ."
+          - "python3 -m pytest"
+          - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+      - id: audit-agent-run-0005
+        label: "Adversarially audit AGENT-RUN-0005 / HYP-PROPOSAL-0021"
+        mode: audit
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "docs/reviews/adversarial-review-AGENT-RUN-0005.md"
+      - id: second-bounded-nuclear-batch
+        label: "Run a second bounded nuclear sandbox batch after audit gates"
+        mode: research
+        priority: medium
+        difficulty: high
+        gated_by:
+          - nuclear-split-sensitivity-replay
+          - audit-agent-run-0005
+
+  - id: anharmonic-oscillator
+    title: "Anharmonic Oscillator Period Benchmark"
+    rank: 2
+    status: methodology_validation
+    scientific_value: high
+    risk: low
+    recommendation: "Use as the safest nonlinear benchmark for new autonomous hypothesis loops."
+    why_now:
+      - "nonlinear but controlled physics surface"
+      - "perturbative baseline and numerical reference are available"
+      - "low numerology risk compared with particle-physics formula search"
+    forbidden:
+      - "do not call approximation candidates exact or globally valid"
+      - "do not skip harmonic-limit or holdout checks"
+    actions:
+      - id: anharmonic-replay-and-compare
+        label: "Replay anharmonic benchmark and compare candidate limits"
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "docs/reviews/anharmonic-replay-comparison.md"
+      - id: anharmonic-autonomous-followup
+        label: "Generate and filter new bounded anharmonic candidate hypotheses"
+        mode: research
+        priority: medium
+        difficulty: high
+
+  - id: dimensional-validator
+    title: "Dimensional Analysis Validator"
+    rank: 3
+    status: quality_floor
+    scientific_value: medium
+    risk: low
+    recommendation: "Use as a broad quality-floor track for formula sanity checks and adversarial edge cases."
+    why_now:
+      - "canonical MVP benchmark exists"
+      - "new challenge items are easy to review"
+      - "validator failures improve future research gates"
+    forbidden:
+      - "do not treat dimensional validity as physical truth"
+      - "do not mix many unrelated challenge families in one PR"
+    actions:
+      - id: dimensional-boundary-cases
+        label: "Generate hard dimensional boundary cases and validator limitations"
+        mode: research
+        priority: medium
+        difficulty: medium
+        expected_outputs:
+          - "knowledge/challenge_sets/dimensional_analysis_challenge_set.yaml"
+          - "docs/notes/dimensional-validator-boundary-cases.md"
+
+support_actions:
+  - id: docs-link-integrity
+    label: "Add docs-link integrity checks for campaign and result pages"
+    task_id: TASK-0115
+    priority: medium
+  - id: public-docs-sync
+    label: "Sync public docs after nuclear wave"
+    task_id: TASK-0175
+    priority: high
+  - id: future-research-portfolio
+    label: "Curate future research portfolio and de-prioritize hype tracks"
+    task_id: TASK-0176
+    priority: medium
+  - id: private-agent-challenge-pack
+    label: "Create private agent challenge pack"
+    task_id: TASK-0177
+    priority: medium
+
+maintainer_actions:
+  - id: review-pr
+    label: "Review a PR with the deterministic maintainer review helper"
+    command: "python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX"
+  - id: closeout-task
+    label: "Prepare post-merge task closeout after maintainer merge"
+    command: "python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply --sync-board"
+  - id: closeout-sweep
+    label: "Find merged tasks that are ready for closeout"
+    command: "python3 scripts/apl_closeout_sweep.py"

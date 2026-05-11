@@ -85,6 +85,8 @@ CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
         "AGENTS.md",
         "CLAUDE.md",
         "docs/strategy.md",
+        "docs/current-missions.md",
+        "missions/current.yaml",
         "docs/mission-control.md",
         "docs/agent-task-protocol.md",
         "docs/agent-scientific-work-mode.md",
