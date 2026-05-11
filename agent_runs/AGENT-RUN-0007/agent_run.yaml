@@ -1,0 +1,42 @@
+id: AGENT-RUN-0007
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0188
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0005-nuclear-mass-sandbox-batch.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0007/metrics.json
+  report: agent_runs/AGENT-RUN-0007/report.md
+  limitations: agent_runs/AGENT-RUN-0007/limitations.md
+  preflight: agent_runs/AGENT-RUN-0007/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0007/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: source_manifest_available
+      status: PASS
+      notes: "TASK-0187 provides POST-AME2020-SOURCES-0001 with source provenance and import rules."
+    - name: row_level_holdout_dataset
+      status: REVIEW_NEEDED
+      notes: "No reviewed row-level post-AME2020 holdout dataset is committed, so active metrics stay disabled."
+    - name: candidate_freeze
+      status: PASS
+      notes: "HYP-PROPOSAL-0021 remains frozen as r_corr = c1*m2 + c2*mh + c3*oa before any future time-split reveal."
+    - name: claim_boundary
+      status: PASS
+      notes: "No canonical result, claim, knowledge, or dataset is promoted by this dry run."
+limitations:
+  - "This is an activation-guard dry run, not an active post-AME2020 benchmark result."
+  - "No row-level post-AME2020 masses are committed in this PR."
+  - "HYP-PROPOSAL-0021 is not evaluated on a time-split holdout here."
+  - "Retrospective post-AME2020 evidence must not be described as strict blind prediction."
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: "Commit reviewed row-level post-AME2020 holdout data before active TASK-0188 metrics can run."
