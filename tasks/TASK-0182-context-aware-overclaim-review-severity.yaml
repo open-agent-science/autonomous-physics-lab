@@ -1,7 +1,7 @@
 id: TASK-0182
 title: "Make maintainer overclaim review severity context-aware"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
