@@ -9,8 +9,31 @@ from typing import Any
 
 import yaml
 
+from physics_lab.registry.active_board import TaskBoardEntry, load_board_entries
+
 
 SUPPORTED_MODES = ("research", "audit", "support", "maintainer")
+PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2}
+DIFFICULTY_RANK = {"low": 0, "medium": 1, "high": 2}
+RESEARCH_TASK_MARKERS = (
+    "scientific",
+    "research",
+    "benchmark",
+    "audit",
+    "validation",
+    "replay",
+    "autonomous",
+    "result",
+)
+SUPPORT_TASK_MARKERS = (
+    "documentation",
+    "workflow",
+    "maintainer",
+    "contributor",
+    "code_quality",
+    "repository",
+    "agent",
+)
 
 
 @dataclass(frozen=True)
@@ -21,6 +44,33 @@ class MissionSelection:
     mission: dict[str, Any] | None
     action: dict[str, Any] | None
     alternatives: tuple[dict[str, Any], ...]
+
+
+@dataclass(frozen=True)
+class MissionTaskCandidate:
+    """A live task recommendation derived from canonical task YAML files."""
+
+    task_id: str
+    title: str
+    type: str
+    priority: str
+    difficulty: str
+    status: str
+    mode: str
+    parallel_hint: str
+
+    def to_json(self) -> dict[str, str]:
+        """Return a compact JSON-safe representation."""
+        return {
+            "task_id": self.task_id,
+            "title": self.title,
+            "type": self.type,
+            "priority": self.priority,
+            "difficulty": self.difficulty,
+            "status": self.status,
+            "mode": self.mode,
+            "parallel_hint": self.parallel_hint,
+        }
 
 
 def load_current_missions(root: Path) -> dict[str, Any]:
@@ -42,6 +92,90 @@ def _mission_actions_for_mode(
         for action in mission.get("actions", [])
         if isinstance(action, dict) and action.get("mode") == mode
     )
+
+
+def _task_mode(entry: TaskBoardEntry) -> str:
+    task_type = entry.type.lower()
+    if any(marker in task_type for marker in RESEARCH_TASK_MARKERS):
+        return "research"
+    if any(marker in task_type for marker in SUPPORT_TASK_MARKERS):
+        return "support"
+    return "support"
+
+
+def _parallel_hint(entry: TaskBoardEntry) -> str:
+    return (
+        "Parallel-safe if assigned to a separate branch/worktree and no other "
+        f"agent is editing {entry.type} artifacts."
+    )
+
+
+def _candidate_sort_key(candidate: MissionTaskCandidate) -> tuple[int, int, int, int]:
+    mode_rank = 0 if candidate.mode == "research" else 1
+    return (
+        mode_rank,
+        PRIORITY_RANK.get(candidate.priority, 9),
+        DIFFICULTY_RANK.get(candidate.difficulty, 9),
+        int(candidate.task_id.removeprefix("TASK-")),
+    )
+
+
+def task_candidates(
+    root: Path,
+    *,
+    mode: str = "research",
+    limit: int = 5,
+) -> tuple[MissionTaskCandidate, ...]:
+    """Return live task candidates from canonical task YAML files.
+
+    The mission YAML remains useful for stable campaign lanes and guardrails,
+    but live work options should come from the task registry so agents do not
+    depend on a hand-maintained "current task" field.
+    """
+    entries = load_board_entries(root)
+    candidates: list[MissionTaskCandidate] = []
+    for entry in entries:
+        if entry.status != "READY":
+            continue
+        entry_mode = _task_mode(entry)
+        if mode == "audit" and entry_mode != "research":
+            continue
+        if mode == "support" and entry_mode != "support":
+            continue
+        candidates.append(
+            MissionTaskCandidate(
+                task_id=entry.task_id,
+                title=entry.title,
+                type=entry.type,
+                priority=entry.priority,
+                difficulty=entry.difficulty,
+                status=entry.status,
+                mode=entry_mode,
+                parallel_hint=_parallel_hint(entry),
+            )
+        )
+
+    if mode in {"research", "audit"} and not candidates:
+        # If there is no science-lane READY task, show the highest-priority
+        # READY support tasks as alternatives without pretending they are the
+        # research default.
+        for entry in entries:
+            if entry.status != "READY":
+                continue
+            candidates.append(
+                MissionTaskCandidate(
+                    task_id=entry.task_id,
+                    title=entry.title,
+                    type=entry.type,
+                    priority=entry.priority,
+                    difficulty=entry.difficulty,
+                    status=entry.status,
+                    mode=_task_mode(entry),
+                    parallel_hint=_parallel_hint(entry),
+                )
+            )
+
+    return tuple(sorted(candidates, key=_candidate_sort_key)[:limit])
 
 
 def select_mission(payload: dict[str, Any], mode: str | None = None) -> MissionSelection:
@@ -91,9 +225,10 @@ def select_mission(payload: dict[str, Any], mode: str | None = None) -> MissionS
     return MissionSelection(mode=selected_mode, mission=None, action=None, alternatives=())
 
 
-def mission_json(payload: dict[str, Any], mode: str | None = None) -> str:
+def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path | None = None) -> str:
     """Render a compact JSON response for coding agents."""
     selection = select_mission(payload, mode)
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     data = {
         "default_mode": payload.get("default_mode"),
         "selected_mode": selection.mode,
@@ -120,14 +255,21 @@ def mission_json(payload: dict[str, Any], mode: str | None = None) -> str:
             }
             for action in selection.alternatives
         ],
+        "live_task_candidates": [candidate.to_json() for candidate in live_candidates],
+        "parallel_work_policy": {
+            "single_checkout": "Use one active task at a time in a single checkout.",
+            "parallel_agents": "Use separate branches or git worktrees and choose disjoint artifact surfaces.",
+            "coordination": "Do not guess new task ids during parallel work; use proposals or maintainer-assigned tasks.",
+        },
         "global_forbidden": payload.get("global_forbidden", []),
     }
     return json.dumps(data, indent=2, sort_keys=False)
 
 
-def render_human_mission(payload: dict[str, Any], mode: str | None = None) -> str:
+def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, root: Path | None = None) -> str:
     """Render a concise human-readable mission menu."""
     selection = select_mission(payload, mode)
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     mode_info = payload.get("modes", {}).get(selection.mode, {})
     lines = [
         "APL Mission Control",
@@ -172,6 +314,23 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None) -> st
             suffix = f" ({action['task_id']})" if action.get("task_id") else ""
             lines.append(f"{index}. {action.get('label')}{suffix}")
 
+    if live_candidates:
+        lines.extend(["", "Live task candidates from task registry:"])
+        for index, candidate in enumerate(live_candidates, start=1):
+            lines.append(
+                f"{index}. {candidate.task_id} — {candidate.title} "
+                f"[{candidate.priority}/{candidate.difficulty}, {candidate.mode}]"
+            )
+        lines.extend(
+            [
+                "",
+                "Parallel work:",
+                "- one local checkout should usually run one task at a time",
+                "- multiple agents can work in parallel via separate branches or worktrees",
+                "- avoid overlapping artifact surfaces in parallel PRs",
+            ]
+        )
+
     lines.extend(
         [
             "",
@@ -185,12 +344,20 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None) -> st
     return "\n".join(lines)
 
 
-def render_agent_prompt(payload: dict[str, Any]) -> str:
+def render_agent_prompt(payload: dict[str, Any], *, root: Path | None = None) -> str:
     """Render a copy-paste prompt that asks an agent to run the full PR loop."""
     selection = select_mission(payload, None)
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
     action_label = selection.action.get("label") if selection.action else "the recommended action"
     task_id = selection.action.get("task_id") if selection.action else None
+    candidate_block = ""
+    if live_candidates:
+        rendered_candidates = "\n".join(
+            f"- {candidate.task_id}: {candidate.title} ({candidate.priority}/{candidate.difficulty})"
+            for candidate in live_candidates
+        )
+        candidate_block = f"\n\nCurrent live task candidates from the task registry:\n{rendered_candidates}"
     task_instruction = (
         f"Use canonical task {task_id} and create its task branch before editing files."
         if task_id
@@ -210,5 +377,7 @@ Start in Agent First Research Mode.
 8. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 9. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 10. If the work is support/review/closeout rather than research, run the explicit mode: `python3 scripts/apl_mission.py --mode support` or `--mode maintainer`.
+11. If multiple agents are working locally, use separate branches or worktrees and choose disjoint artifact surfaces.
+{candidate_block}
 
 Return the selected mission, changed files, validation results, limitations, and PR-ready summary."""
