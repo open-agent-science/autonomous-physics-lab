@@ -52,6 +52,7 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -66,6 +67,7 @@ None.
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
 - `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0181` — Add Agent First mission control entrypoint (`agent_workflow`, priority `high`, difficulty `high`)
 - `TASK-0182` — Make maintainer overclaim review severity context-aware (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY

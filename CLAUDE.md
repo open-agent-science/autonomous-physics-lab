@@ -3,9 +3,17 @@
 Read these files first:
 
 1. `AGENTS.md`
-2. `docs/agent-task-protocol.md`
-3. `tasks/ACTIVE.md`
-4. `docs/strategy.md`
+2. Run `python3 scripts/apl_mission.py --json`
+3. `docs/agent-task-protocol.md`
+4. `docs/current-missions.md`
+5. `tasks/ACTIVE.md`
+6. `docs/strategy.md`
+
+Default to the recommended research mission unless the maintainer explicitly
+assigns a support, review, closeout, or specific `TASK-XXXX` workflow.
+For support work, run `python3 scripts/apl_mission.py --mode support`.
+For maintainer review or closeout assistance, run
+`python3 scripts/apl_mission.py --mode maintainer`.
 
 Do not invent branch, PR, or commit formats.
 Use `docs/agent-task-protocol.md`.

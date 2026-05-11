@@ -24,6 +24,13 @@ from physics_lab.registry import (
     load_task_proposal,
 )
 from physics_lab.registry.active_board import sync_active_board
+from physics_lab.registry.mission_control import (
+    SUPPORTED_MODES,
+    load_current_missions,
+    mission_json,
+    render_agent_prompt,
+    render_human_mission,
+)
 from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.runner import run_experiment_with_output
 
@@ -200,6 +207,39 @@ def sync_active_board_command(root: str = typer.Argument(".")) -> None:
     """Refresh tasks/ACTIVE.md from canonical task YAML files."""
     active_path = sync_active_board(Path(root).resolve())
     typer.echo(f"Synchronized active board: {active_path}")
+
+
+@app.command("mission")
+def mission(
+    root: str = typer.Argument("."),
+    mode: Optional[str] = typer.Option(
+        None,
+        "--mode",
+        help="Mission mode: research, audit, support, or maintainer.",
+    ),
+    json_output: bool = typer.Option(
+        False,
+        "--json",
+        help="Emit machine-readable mission JSON.",
+    ),
+    agent_prompt: bool = typer.Option(
+        False,
+        "--agent-prompt",
+        help="Emit a copy-paste prompt for a coding agent.",
+    ),
+) -> None:
+    """Print the Agent First mission menu."""
+    if mode is not None and mode not in SUPPORTED_MODES:
+        raise typer.BadParameter(
+            "mode must be one of: " + ", ".join(SUPPORTED_MODES)
+        )
+    payload = load_current_missions(Path(root).resolve())
+    if agent_prompt:
+        typer.echo(render_agent_prompt(payload))
+    elif json_output:
+        typer.echo(mission_json(payload, mode))
+    else:
+        typer.echo(render_human_mission(payload, mode))
 
 
 @app.command("status")
