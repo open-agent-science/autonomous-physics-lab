@@ -1,7 +1,7 @@
 id: TASK-0190
 title: "Define nuclear candidate robustness gate before follow-up batches"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -38,6 +38,7 @@ accepted_outputs:
   - "updated docs/nuclear-mass-holdout-protocol.md"
   - "updated tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
   - "updated docs/current-missions.md or missions/current.yaml if the recommended nuclear queue changes"
+  - "tests/test_nuclear_mass_robustness_gate.py"
 
 validation:
   commands:
