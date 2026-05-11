@@ -21,6 +21,9 @@ class MicrotaskQueueSummary:
     campaign: str
     campaign_status: str
     microtask_count: int
+    available_count: int
+    completed_count: int
+    retired_count: int
     risk_levels: tuple[str, ...]
     guidance: str
 
@@ -29,6 +32,7 @@ def load_microtask_queue_summaries(root: str | Path) -> tuple[MicrotaskQueueSumm
     """Load compact metadata for all queue files under tasks/microtasks/."""
     root_path = Path(root)
     queue_root = root_path / "tasks" / "microtasks"
+    completed_runs = _completed_microtask_ids_by_queue(root_path)
     summaries: list[MicrotaskQueueSummary] = []
     for path in sorted(queue_root.glob("*.yaml")):
         with path.open("r", encoding="utf-8") as handle:
@@ -44,11 +48,15 @@ def load_microtask_queue_summaries(root: str | Path) -> tuple[MicrotaskQueueSumm
         if not isinstance(guidance_items, list):
             raise ValueError(f"{path} selection_guidance must be a list")
 
+        statuses = [_microtask_status(item, completed_runs.get(str(payload.get("queue_id", path.stem)), set())) for item in microtasks]
+        available_count = statuses.count("available")
+        completed_count = statuses.count("completed")
+        retired_count = statuses.count("retired")
         risk_levels = sorted(
             {
                 str(item.get("risk_level", "unspecified"))
-                for item in microtasks
-                if isinstance(item, dict)
+                for item, status in zip(microtasks, statuses)
+                if isinstance(item, dict) and status == "available"
             }
         )
         summaries.append(
@@ -58,6 +66,9 @@ def load_microtask_queue_summaries(root: str | Path) -> tuple[MicrotaskQueueSumm
                 campaign=str(payload.get("campaign", "")),
                 campaign_status=str(payload.get("campaign_status", "")),
                 microtask_count=len(microtasks),
+                available_count=available_count,
+                completed_count=completed_count,
+                retired_count=retired_count,
                 risk_levels=tuple(risk_levels),
                 guidance=str(guidance_items[0]) if guidance_items else "",
             )
@@ -68,8 +79,8 @@ def load_microtask_queue_summaries(root: str | Path) -> tuple[MicrotaskQueueSumm
 def render_microtask_queue_summary_table(summaries: tuple[MicrotaskQueueSummary, ...]) -> str:
     """Render queue summaries as a compact Markdown table."""
     lines = [
-        "| Queue | Campaign | Campaign Status | Items | Risk Levels | Selection Guidance |",
-        "| --- | --- | --- | ---: | --- | --- |",
+        "| Queue | Campaign | Campaign Status | Available | Completed | Retired | Risk Levels | Selection Guidance |",
+        "| --- | --- | --- | ---: | ---: | ---: | --- | --- |",
     ]
     for summary in summaries:
         queue_link = f"[`{summary.queue_id}`]({summary.filename})"
@@ -78,7 +89,9 @@ def render_microtask_queue_summary_table(summaries: tuple[MicrotaskQueueSummary,
             f"{queue_link} | "
             f"{_escape_table_cell(summary.campaign)} | "
             f"`{summary.campaign_status}` | "
-            f"{summary.microtask_count} | "
+            f"{summary.available_count} / {summary.microtask_count} | "
+            f"{summary.completed_count} | "
+            f"{summary.retired_count} | "
             f"{_format_values(summary.risk_levels)} | "
             f"{_escape_table_cell(summary.guidance)} |"
         )
@@ -110,3 +123,36 @@ def _format_values(values: tuple[str, ...]) -> str:
 
 def _escape_table_cell(value: str) -> str:
     return value.replace("|", "\\|")
+
+
+def _completed_microtask_ids_by_queue(root: Path) -> dict[str, set[str]]:
+    runs_root = root / "microtask_runs"
+    completed: dict[str, set[str]] = {}
+    if not runs_root.exists():
+        return completed
+    for path in sorted(runs_root.glob("*/*.yaml")):
+        if path.name == "MICROTASK-RUN-TEMPLATE.yaml":
+            continue
+        with path.open("r", encoding="utf-8") as handle:
+            payload = yaml.safe_load(handle)
+        if not isinstance(payload, dict):
+            continue
+        if str(payload.get("status") or "").strip() != "COMPLETED":
+            continue
+        queue_id = str(payload.get("queue_id") or "").strip()
+        microtask_id = str(payload.get("microtask_id") or "").strip()
+        if queue_id and microtask_id:
+            completed.setdefault(queue_id, set()).add(microtask_id)
+    return completed
+
+
+def _microtask_status(item: object, completed_run_ids: set[str]) -> str:
+    if not isinstance(item, dict):
+        return "retired"
+    microtask_id = str(item.get("id") or "").strip()
+    if microtask_id in completed_run_ids:
+        return "completed"
+    status = str(item.get("status") or "available").strip().lower()
+    if status in {"completed", "retired"}:
+        return status
+    return "available"
