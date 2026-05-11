@@ -233,8 +233,29 @@ Interpretive rule:
   slice but regresses badly on chain, shell, or neutron-rich holdouts;
 - a candidate should be labeled `INCONCLUSIVE` when the dataset is too thin or
   uncertainty semantics are not trustworthy enough for the claimed distinction.
-- a candidate should not trigger another autonomous batch until it passes the
-  nuclear robustness gate planned in `TASK-0190`.
+- a candidate should not trigger another autonomous batch until it is reviewed
+  through the nuclear robustness gate in
+  [Nuclear Mass Candidate Robustness Gate](./nuclear-mass-robustness-gate.md).
+
+### Robustness Gate Boundary
+
+The robustness gate is advisory for bounded sandbox follow-up and strict for
+claim or canonical result promotion.
+
+Before a second nuclear sandbox batch expands a candidate family, the batch
+must report:
+
+- primary holdout behavior;
+- split-sensitivity behavior;
+- leakage and cherry-pick review;
+- complexity penalty;
+- negative-control comparison;
+- post-AME2020 status or limitation;
+- conservative limitation wording.
+
+Until a reviewed row-level post-AME2020 dataset exists, post-AME2020 behavior
+must be listed as pending external-style validation rather than silently
+omitted.
 
 ## Negative Controls
 
