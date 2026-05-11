@@ -3,7 +3,7 @@
 **Microtask ID:** PMR-001  
 **Queue:** particle-mass-relations  
 **Run:** MICROTASK-RUN-0018  
-**Verdict:** VALID  
+**Verdict:** REVIEW_NEEDED  
 **Review state:** UNREVIEWED  
 
 ---
@@ -33,7 +33,11 @@ The dataset stores 0.51099895000 MeV — 11 significant figures. Comparing with 
 
 Difference: |0.51099895069 − 0.51099895000| = 6.9×10⁻¹⁰ MeV
 
-This difference is within 5× the stated uncertainty (±1.5×10⁻¹⁰ MeV), consistent with rounding the PDG central value to 11 significant figures. The dataset value is consistent with PDG 2025 within stated precision.
+This difference is about 4.6× the stored one-sigma uncertainty
+(±1.5×10⁻¹⁰ MeV), so it should not be described as a strict uncertainty-band
+match. It is consistent with a deliberately truncated 11-significant-figure
+MeV representation, but the source note should be reviewed or refreshed so the
+stored central value, precision, and uncertainty convention are explicit.
 
 ---
 
@@ -68,10 +72,16 @@ The electron is stable and carries a well-defined pole mass (the on-shell renorm
 
 ## Verdict
 
-VALID — the dataset value 0.51099895000 MeV is consistent with PDG 2025 within stated precision. Two items are noted for future maintenance:
+REVIEW_NEEDED — the dataset value 0.51099895000 MeV is compatible with a
+truncated MeV representation of the PDG/CODATA value, but it is not a strict
+match to the PDG central value within the stored one-sigma uncertainty. Two
+items are noted for future maintenance:
 
 1. The uncertainty ±1.5×10⁻¹⁰ MeV is a slight rounding from the CODATA 2018 value of ±1.6×10⁻¹⁰ MeV. This is a minor source-note inconsistency, not an error.
-2. The MeV representation carries conversion-factor uncertainty absent from the atomic mass unit form. This is a representation choice and must be acknowledged in downstream analyses.
+2. The stored central value appears intentionally truncated relative to the full
+   PDG/CODATA MeV value. This is likely acceptable for current Koide-style ratio
+   checks but should be made explicit in a future dataset hygiene update.
+3. The MeV representation carries conversion-factor uncertainty absent from the atomic mass unit form. This is a representation choice and must be acknowledged in downstream analyses.
 
 ---
 
