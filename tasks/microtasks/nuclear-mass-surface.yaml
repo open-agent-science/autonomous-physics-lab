@@ -7,6 +7,8 @@ selection_guidance:
   - "Do not run a second nuclear sandbox batch until TASK-0173 independently audits HYP-PROPOSAL-0021."
 microtasks:
   - id: NMS-001
+    status: retired
+    status_reason: "Superseded by the landed EXP-0012 baseline and follow-up evidence-card/audit tasks."
     campaign: nuclear-mass-surface
     title: Define one shell-closure subset note for a future residual benchmark
     type: subset-definition
@@ -48,6 +50,8 @@ microtasks:
       - "flags are optional"
       - "dataset semantics are trivial"
   - id: NMS-003
+    status: retired
+    status_reason: "The first residual target is now established by EXP-0012 / RESULT-0015."
     campaign: nuclear-mass-surface
     title: Propose one residual target definition for the first benchmark
     type: target-definition
@@ -151,6 +155,8 @@ microtasks:
       - "raw error becomes irrelevant"
       - "the dataset already supports every uncertainty use"
   - id: NMS-008
+    status: completed
+    status_reason: "Completed by MICROTASK-RUN-0001 and docs/notes/nms-008-pinned-dataset-import-checklist.md."
     campaign: nuclear-mass-surface
     title: Draft one source-checklist for a pinned nuclear mass dataset import
     type: source-checklist

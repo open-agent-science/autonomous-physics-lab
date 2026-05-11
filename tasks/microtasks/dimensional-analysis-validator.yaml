@@ -1,11 +1,13 @@
 queue_id: dimensional-analysis-validator
 campaign: dimensional-analysis-validator
-campaign_status: planning_complete_implementation_pending
+campaign_status: active_with_validator_and_pilot
 selection_guidance:
-  - "Prefer challenge-set curation, verdict-boundary notes, and assumption-explicit examples."
-  - "Do not imply the validator implementation already exists."
+  - "Prefer new boundary cases, repeatable classification runs, and assumption-explicit examples not already covered by existing notes."
+  - "The validator and first autonomous pilot already exist; do not frame remaining work as implementation pending."
 microtasks:
   - id: DAV-001
+    status: completed
+    status_reason: "Covered by docs/notes/dav-001-hubble-law.md and dimensional-analysis batch notes."
     campaign: dimensional-analysis-validator
     title: Add one clearly dimensionally valid formula to the challenge set
     type: challenge-entry
@@ -27,6 +29,8 @@ microtasks:
       - "full engine support exists"
       - "physical correctness fully established"
   - id: DAV-002
+    status: completed
+    status_reason: "Covered by docs/notes/dav-002-bernoulli-density-mismatch.md and dimensional-analysis batch notes."
     campaign: dimensional-analysis-validator
     title: Add one clearly dimensionally invalid formula to the challenge set
     type: challenge-entry
@@ -48,6 +52,8 @@ microtasks:
       - "all dimensional errors are trivial"
       - "complete checker exists"
   - id: DAV-003
+    status: completed
+    status_reason: "Covered by docs/notes/dimensional-analysis-microtask-batch-02.md."
     campaign: dimensional-analysis-validator
     title: Add one SUSPICIOUS challenge item that is dimensionally balanced but physically questionable
     type: challenge-entry
@@ -68,6 +74,8 @@ microtasks:
       - "physical interpretation settled"
       - "validator equivalent to full physics reasoning"
   - id: DAV-004
+    status: completed
+    status_reason: "Covered by docs/notes/dimensional-analysis-microtask-batch-02.md."
     campaign: dimensional-analysis-validator
     title: Add one KNOWN_LIMIT_FAIL challenge item
     type: challenge-entry
@@ -89,6 +97,8 @@ microtasks:
       - "limit reasoning unnecessary"
       - "complete validation already achieved"
   - id: DAV-005
+    status: completed
+    status_reason: "Covered by docs/notes/dimensional-analysis-microtask-batch-01.md."
     campaign: dimensional-analysis-validator
     title: Audit one existing challenge item for wording clarity
     type: wording-audit
@@ -151,6 +161,8 @@ microtasks:
       - "scope exclusion proves invalidity"
       - "full domain coverage"
   - id: DAV-008
+    status: completed
+    status_reason: "Covered by docs/notes/dav-008-magnetic-energy-density.md and dimensional-analysis batch notes."
     campaign: dimensional-analysis-validator
     title: Add one cross-domain challenge item outside mechanics
     type: challenge-entry
@@ -193,6 +205,8 @@ microtasks:
       - "implementation complete"
       - "full physical interpretation"
   - id: DAV-010
+    status: completed
+    status_reason: "Covered by docs/notes/dimensional-analysis-microtask-batch-01.md."
     campaign: dimensional-analysis-validator
     title: Define one boundary case between SUSPICIOUS and INVALID
     type: verdict-boundary-note
