@@ -58,7 +58,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0193` — Write repository snapshots to the canonical local repo root (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
