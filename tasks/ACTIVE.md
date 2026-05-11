@@ -67,6 +67,7 @@ None.
 - `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
+- `TASK-0185` — Make context bundle generation idempotent (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
