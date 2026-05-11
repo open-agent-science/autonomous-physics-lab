@@ -85,3 +85,12 @@ This file exists to support the first baseline residual benchmark under
 - no claim that this slice substitutes for a full AME2020 import.
 
 A broader pinned AME-style table is still a later task.
+
+The repository also includes a reviewed source manifest for the future
+post-AME2020 time-split lane:
+
+- `post_ame2020_sources.yaml`
+- `post_ame2020_sources.md`
+
+That manifest pins source references and import rules only. It does not commit
+row-level later measurements or activate a benchmark by itself.
