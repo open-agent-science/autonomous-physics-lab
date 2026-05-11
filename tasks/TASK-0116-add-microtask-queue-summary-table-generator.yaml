@@ -1,7 +1,7 @@
 id: TASK-0116
 title: "Add microtask queue summary table generator"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: low
 
