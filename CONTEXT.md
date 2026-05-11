@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 21:39 UTC
+Generated: 2026-05-11 22:42 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -853,14 +853,28 @@ missions:
       - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
       - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
       - "a review-ready robustness gate defines allowed follow-up, negative controls, and promotion blockers"
-      - "post-AME2020 time-split validation is the next harder evidence layer before broader follow-up"
+      - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
+      - "the next unlock is reviewed row-level post-AME2020 holdout data before active time-split metrics"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
       - "do not call retrospective post-AME2020 evaluation strict blind prediction"
       - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
+      - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
+      - "do not start the second nuclear batch before the real time-split benchmark is reviewed"
     actions:
+      - id: row-level-post-ame2020-holdout
+        label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
+        task_id: TASK-0196
+        mode: research
+        priority: high
+        difficulty: high
+        recommended: true
+        expected_outputs:
+          - "data/nuclear_masses/post_ame2020_holdout.yaml"
+          - "tests/test_post_ame2020_holdout_dataset.py"
+          - "docs/notes/post-ame2020-holdout-dataset-review.md"
       - id: nuclear-validation-queue
         label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
         mode: research
@@ -882,14 +896,17 @@ missions:
         expected_outputs:
           - "docs/reviews/adversarial-review-AGENT-RUN-0005.md"
       - id: second-bounded-nuclear-batch
-        label: "Run a second bounded nuclear sandbox batch after audit gates"
-        mode: research
+        label: "Run a second bounded nuclear sandbox batch after row-level time-split gates"
+        mode: future
+        status: blocked
         priority: medium
         difficulty: high
         gated_by:
           - maintainer-reviewed-split-sensitivity-replay
           - audit-agent-run-0005
           - nuclear-robustness-gate-review
+          - reviewed-row-level-post-ame2020-holdout-dataset
+          - reviewed-post-ame2020-time-split-benchmark
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -1770,8 +1787,8 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -1779,14 +1796,16 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0193` — Write repository snapshots to the canonical local repo root (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0194` — Unblock post-AME2020 time-split nuclear benchmark (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0195` — Curate post-AME2020 row-level follow-up queue after time-split guard (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0194` — Unblock post-AME2020 time-split nuclear benchmark (merged)
+- `TASK-0193` — Write repository snapshots to the canonical local repo root (merged)
 - `TASK-0192` — Add closeout checks for public state documentation drift (merged)
 - `TASK-0191` — Curate nuclear time-split validation queue (merged)
 - `TASK-0190` — Define nuclear candidate robustness gate before follow-up batches (merged)
+- `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark guard (merged)
 - `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (merged)
 - `TASK-0186` — Make mission control registry-driven and parallel-aware (merged)
 - `TASK-0185` — Make context bundle generation idempotent (merged)
@@ -1955,6 +1974,7 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (`scientific_benchmark`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

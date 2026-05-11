@@ -68,7 +68,12 @@ source-audit dry run exists:
 - no candidate may be promoted to a canonical result or claim on internal
   slices alone.
 
-After `TASK-0188` or an equivalent reviewed time-split task exists:
+`TASK-0188` now records the conservative source-manifest-only guard. It is
+useful evidence that active benchmark metrics are not yet available, but it is
+not a row-level time-split result.
+
+After `TASK-0196` and `TASK-0197`, or an equivalent reviewed row-level
+time-split benchmark, exist:
 
 - post-AME2020 behavior becomes a required check before claim or canonical
   result promotion;

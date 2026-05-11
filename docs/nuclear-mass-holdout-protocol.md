@@ -157,8 +157,11 @@ Current status:
 - not yet active for benchmark scoring until a reviewed row-level holdout
   dataset is committed or a maintainer explicitly requests a source-audit-only
   dry run;
-- `TASK-0188` remains the benchmark implementation task after that boundary is
-  satisfied.
+- `TASK-0188` records the source-audit-only guard and remains `INCONCLUSIVE`
+  for active metrics;
+- `TASK-0196` is the next row-level dataset task;
+- `TASK-0197` is the real post-AME2020 row-level time-split benchmark task
+  after that boundary is satisfied.
 
 ### 6. Prospective Prediction Registry
 

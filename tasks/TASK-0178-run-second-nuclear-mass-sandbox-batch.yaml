@@ -18,24 +18,30 @@ input:
     - "campaign_profiles/nuclear-mass-surface.yaml"
     - "docs/nuclear-mass-holdout-protocol.md"
     - "tasks/TASK-0190-define-nuclear-candidate-robustness-gate.yaml"
+    - "tasks/TASK-0196-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
+    - "tasks/TASK-0197-run-post-ame2020-row-level-time-split-benchmark.yaml"
     - "agent_runs/AGENT-RUN-0005/"
+    - "agent_runs/AGENT-RUN-0007/"
     - "hypothesis_proposals/nuclear-mass/"
   planning_context: >
     A second nuclear-mass sandbox batch is useful only after HYP-PROPOSAL-0021
-    has been independently replayed and audited, and after a robustness gate
-    makes clear which follow-up patterns are allowed. Until then, this task
-    should remain blocked so agents do not scale a potentially cherry-picked,
-    split-sensitive, or leakage-sensitive pattern.
+    has been independently replayed and audited, after a robustness gate makes
+    clear which follow-up patterns are allowed, and after post-AME2020
+    validation moves beyond the source-manifest-only guard. Until then, this
+    task should remain blocked so agents do not scale a potentially
+    cherry-picked, split-sensitive, leakage-sensitive, or untested time-split
+    pattern.
 
 requirements:
-  - "Do not start until TASK-0173 is DONE, TASK-0190 is DONE, and maintainer review does not block follow-up work."
+  - "Do not start until TASK-0173 is DONE, TASK-0190 is DONE, TASK-0196 is DONE, TASK-0197 is DONE, and maintainer review explicitly allows follow-up work."
   - "Generate a second bounded batch of nuclear-mass residual hypotheses under the existing campaign profile."
   - "Reject weak or duplicate candidates before execution."
   - "Run only sandbox experiments; do not update canonical results, claims, accepted knowledge, or datasets."
   - "Preserve at least one negative or overfit result if present."
   - "Compare every candidate against the frozen baseline, documented holdout protocol, and robustness gate."
   - "Include a robustness-gate section for every executed candidate with outcome, split-sensitivity summary, leakage review, complexity note, negative control, post-AME2020 status, and limitations."
-  - "If a post-AME2020 time-split holdout exists by then, report it as a primary external-style validation slice."
+  - "Report primary holdout, split-sensitivity, post-AME2020 time-split, robustness classification, and no-claim-promotion status for every executed candidate."
+  - "Do not treat AGENT-RUN-0007 as active benchmark evidence; use it only as guard context."
 
 accepted_outputs:
   - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-00XX-*.yaml"
