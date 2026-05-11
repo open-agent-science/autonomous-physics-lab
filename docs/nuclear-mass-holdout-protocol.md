@@ -138,6 +138,8 @@ Purpose:
 
 - provide the strongest future external-style check when a later curated
   post-baseline measurement batch exists.
+- distinguish retrospective post-baseline validation from true prospective
+  prediction.
 
 Rule:
 
@@ -145,10 +147,32 @@ Rule:
   documented clearly;
 - do not silently merge later measurements into the training surface;
 - report the older training source and newer revealed source separately.
+- call AME2020-trained and post-AME2020-evaluated work a retrospective
+  time-split benchmark, not strict blind prediction.
 
 Current status:
 
-- not yet active.
+- planned through `TASK-0187` and `TASK-0188`; not yet active until a reviewed
+  post-AME2020 holdout artifact is committed.
+
+### 6. Prospective Prediction Registry
+
+Purpose:
+
+- support true before-measurement predictions only when they are registered
+  before later measurements are known.
+
+Rule:
+
+- keep prospective predictions in a dedicated prediction registry;
+- freeze target nuclides, model state, prediction values, uncertainty semantics,
+  and reveal conditions before measurement comparison;
+- do not treat registry entries as claims or accepted knowledge before later
+  review.
+
+Current status:
+
+- planned through `TASK-0189`.
 
 ## Metrics
 
@@ -204,6 +228,8 @@ Interpretive rule:
   slice but regresses badly on chain, shell, or neutron-rich holdouts;
 - a candidate should be labeled `INCONCLUSIVE` when the dataset is too thin or
   uncertainty semantics are not trustworthy enough for the claimed distinction.
+- a candidate should not trigger another autonomous batch until it passes the
+  nuclear robustness gate planned in `TASK-0190`.
 
 ## Negative Controls
 

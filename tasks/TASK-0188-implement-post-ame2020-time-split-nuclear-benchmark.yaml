@@ -1,0 +1,56 @@
+id: TASK-0188
+title: "Implement post-AME2020 time-split nuclear mass benchmark"
+type: scientific_benchmark
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Evaluate nuclear-mass residual candidates against a harder time-split surface instead of relying only on configured internal holdouts."
+  - "Compare AI-generated correction candidates against the frozen baseline under the same pinned benchmark contract."
+  - "Report failures, regressions, and uncertainty-aware metrics before any follow-up batch is treated as promising."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0187-curate-post-ame2020-nuclear-mass-holdout-dataset.yaml"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "agent_runs/AGENT-RUN-0005/"
+    - "agent_runs/AGENT-RUN-0006/"
+    - "docs/reviews/nuclear-split-sensitivity-replay.md"
+  planning_context: >
+    This task is blocked until TASK-0187 provides a reviewed post-AME2020
+    holdout dataset or source manifest. Once that surface exists, the frozen
+    baseline and sandbox candidates should be evaluated on the same time-split
+    benchmark with uncertainty-aware, subset-aware, and baseline-relative
+    metrics.
+
+requirements:
+  - "Do not start until TASK-0187 is DONE or the maintainer explicitly supplies a reviewed post-AME2020 holdout artifact."
+  - "Evaluate the frozen nuclear baseline on the post-AME2020 holdout."
+  - "Evaluate HYP-PROPOSAL-0021 and any approved sandbox comparator without changing their fitted form after seeing the holdout result."
+  - "Report MAE, RMSE, uncertainty-normalized error where uncertainty semantics are usable, per-region errors, neutron-rich subset errors, and worst-case regressions."
+  - "Include baseline-relative deltas and split-sensitivity context from AGENT-RUN-0006."
+  - "Preserve negative or inconclusive outcomes; do not promote claims or canonical knowledge."
+
+accepted_outputs:
+  - "physics_lab/registry/post_ame2020_holdout.py or equivalent benchmark helper"
+  - "docs/reviews/post-ame2020-nuclear-time-split-benchmark.md"
+  - "agent_runs/AGENT-RUN-00XX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-00XX/metrics.json"
+  - "agent_runs/AGENT-RUN-00XX/report.md"
+  - "tests covering time-split metric calculation and no-post-hoc candidate mutation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
