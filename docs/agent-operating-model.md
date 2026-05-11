@@ -31,9 +31,10 @@ Tasks own the contract:
 Any compatible agent may work on a task if it follows the same repository
 protocol.
 
-## Sequential-First Mode
+## Local And Parallel Work Mode
 
-The repository currently prefers sequential local work.
+The repository supports parallel contributors, but a single local checkout
+should stay sequential by default.
 
 That means:
 
@@ -42,6 +43,18 @@ That means:
 - a second task may be started out of order only if it does not depend on the
   first task and does not touch the same artifact surface;
 - if in doubt, finish the current atomic task first.
+
+For actual multi-agent work, use separate branches or git worktrees:
+
+- one task branch per agent;
+- disjoint artifact surfaces whenever possible;
+- no shared edits to generated files such as `tasks/ACTIVE.md` and `CONTEXT.md`
+  until the PR is ready;
+- no guessed canonical task ids during parallel work.
+
+`python3 scripts/apl_mission.py --json` exposes several live task candidates so
+maintainers can assign independent work in parallel without treating
+`missions/current.yaml` as a hand-maintained live queue.
 
 ## Task Rules
 

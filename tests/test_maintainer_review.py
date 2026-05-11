@@ -16,6 +16,7 @@ from physics_lab.registry.maintainer_review import (
     changed_task_proposal_files,
     line_is_rule_catalog_line,
     missing_pr_metadata_fields,
+    overclaim_advisory_hits,
     overclaim_hits,
     parse_added_lines,
     render_review_report,
@@ -200,6 +201,35 @@ def test_overclaim_hits_ignore_guardrail_language() -> None:
     assert overclaim_hits(added_lines) == ()
 
 
+def test_overclaim_hits_treat_wrapped_guardrail_language_as_advisory() -> None:
+    added_lines = (
+        "Do not promote claims, rewrite canonical results, or use",
+        "discovery/proved/solved wording.",
+    )
+
+    assert overclaim_hits(added_lines) == ()
+    assert "proved" in overclaim_advisory_hits(added_lines)
+    assert "solved" in overclaim_advisory_hits(added_lines)
+
+
+def test_overclaim_hits_still_block_positive_claims() -> None:
+    added_lines = (
+        "The benchmark proved the model and solved the anomaly.",
+    )
+
+    assert "proved" in overclaim_hits(added_lines)
+    assert "solved" in overclaim_hits(added_lines)
+
+
+def test_overclaim_hits_block_positive_claims_with_later_limitations() -> None:
+    added_lines = (
+        "The benchmark solved the anomaly without fitting.",
+    )
+
+    assert overclaim_hits(added_lines) == ("solved",)
+    assert overclaim_advisory_hits(added_lines) == ()
+
+
 def test_sensitive_surface_hits_flags_repository_safety_surfaces() -> None:
     changed_files = (
         "scripts/apl_review_pr.py",
@@ -231,6 +261,7 @@ def test_render_review_report_includes_security_section() -> None:
 
     assert "Security risks:" in rendered
     assert "Repository scripts changed." in rendered
+    assert "Advisory warnings:" in rendered
 
 
 def test_run_task_validation_skips_self_referential_review_command(tmp_path) -> None:

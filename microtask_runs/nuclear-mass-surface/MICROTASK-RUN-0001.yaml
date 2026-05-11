@@ -1,0 +1,35 @@
+id: MICROTASK-RUN-0001
+queue_id: nuclear-mass-surface
+microtask_id: NMS-008
+status: COMPLETED
+claimant:
+  contributor_id: roman
+  agent_id: codex
+branch: agent/roman/codex/microtask-batch-nuclear-mass-surface--pinned-dataset-checklist
+pull_request: null
+result_note: docs/notes/nms-008-pinned-dataset-import-checklist.md
+verdict: REVIEW_NEEDED
+review_state: REVIEW_READY
+metadata:
+  inputs:
+    - tasks/microtasks/nuclear-mass-surface.yaml
+    - docs/campaigns/nuclear-mass-surface.md
+    - docs/notes/nuclear-mass-campaign-plan.md
+    - data/nuclear_masses/README.md
+  method: "Reviewed the existing nuclear dataset and holdout policy notes, then distilled a bounded checklist for future pinned dataset imports."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+    - data/nuclear_masses/README.md
+  metrics:
+    - "checklist_items=7"
+    - "qualitative_review_only"
+  failure_mode: "Reject if the checklist omits source pinning, checksum scope, field semantics, or redistribution posture."
+  limitations:
+    - "This run adds a provenance checklist note only; it does not import a new dataset."
+    - "No canonical results, claims, or holdout metrics were changed."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/
+      - docs/notes/
+      - data/nuclear_masses/
+    summary: "No prior nuclear microtask run or dedicated checklist note for NMS-008 was found."

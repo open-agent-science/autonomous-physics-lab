@@ -1,3 +1,5 @@
+import re
+import re
 from pathlib import Path
 
 from physics_lab.registry.snapshot import (
@@ -33,7 +35,7 @@ def test_render_current_state_summary_uses_structured_repository_state() -> None
     assert "### Current Experiment State" in rendered
     assert "### Recent Result Surface" in rendered
     assert "### REVIEW_READY now" in rendered
-    assert "- REVIEW_READY:" in rendered
+    assert re.search(r"^- REVIEW_READY: \d+$", rendered, re.MULTILINE)
     assert "`TASK-0137`" in rendered
     assert "`TASK-0171`" in rendered
     assert "`EXP-0008`" in rendered

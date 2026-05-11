@@ -1,0 +1,51 @@
+id: TASK-0177
+title: "Create private agent challenge pack for invited contributors"
+type: contributor_experience
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Give new private contributors a controlled task ladder before public opening."
+  - "Make agent-assisted onboarding measurable across simple replay, audit, docs, and sandbox tasks."
+  - "Reduce maintainer side-channel support by packaging clear challenge levels."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "docs/use-your-agent.md"
+    - "docs/agent-work-menu.md"
+    - "docs/private-contributor-pilot.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    New invited contributors need a small challenge pack that routes them into
+    safe Level 1, Level 2, and Level 3 work. The goal is not to maximize output
+    immediately; it is to test whether contributors and their agents can
+    understand APL, follow protocol, produce artifacts, and survive review.
+
+requirements:
+  - "Define Level 1 tasks such as replay one result, audit one proposal, or check one doc path."
+  - "Define Level 2 tasks such as run one sandbox proposal batch, create a visualization, or validate one campaign profile."
+  - "Define Level 3 tasks as approved-campaign scientific pilots only."
+  - "Link each level to existing repo protocol and validation commands."
+  - "Include a scorecard or handoff section that maintainers can use after each challenge PR."
+
+accepted_outputs:
+  - "docs/private-agent-challenge-pack.md"
+  - "updated docs/use-your-agent.md"
+  - "updated docs/agent-work-menu.md"
+  - "updated docs/private-contributor-pilot.md if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
