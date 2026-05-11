@@ -1,0 +1,28 @@
+id: MICROTASK-RUN-0009
+queue_id: dimensional-analysis-validator
+microtask_id: DAV-006
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-dimensional-analysis-validator--dav-006-007-009-011
+pull_request: null
+result_note: docs/notes/dav-006-manual-classification-worked-example.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/dimensional-analysis-validator.yaml
+  method: "Manual SI base-dimension trace for Stokes drag law F=6pi*eta*r*v. Verdict: VALID."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - "Manual classification: VALID. LHS=[M L T^-2] = RHS=[M L T^-2]."
+  failure_mode: "Manual trace error in dimension bookkeeping. No automated check run."
+  limitations:
+    - "Manual example only. No code validation run."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/dimensional-analysis-validator/
+      - docs/notes/
+    summary: "No prior DAV-006 run found. Stokes drag not covered by existing notes."
