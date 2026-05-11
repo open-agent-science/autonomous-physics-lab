@@ -1,0 +1,8 @@
+flowchart LR
+    A["8 hypotheses generated"] --> B["5 rejected pre-execution"]
+    A --> C["2 sandbox candidates executed"]
+    A --> D["1 overfit negative control"]
+    C --> E["HYP-PROPOSAL-0021 improved active pilot holdouts"]
+    E --> F["Split replay: 28 improved / 13 regressed / 7 tied"]
+    F --> G["0 claims promoted"]
+    D --> G
