@@ -34,9 +34,9 @@ requirements:
   - "Keep wording conservative and range-limited."
 
 accepted_outputs:
-  - "agent_runs/<run-id>/agent_run.yaml"
-  - "agent_runs/<run-id>/metrics.json"
-  - "agent_runs/<run-id>/report.md"
+  - "agent_runs/AGENT-RUN-0006/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0006/metrics.json"
+  - "agent_runs/AGENT-RUN-0006/report.md"
   - "docs/reviews/nuclear-split-sensitivity-replay.md"
 
 validation:
