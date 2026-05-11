@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 20:38 UTC
+Generated: 2026-05-11 21:06 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1771,6 +1771,7 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -1780,6 +1781,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0193` — Write repository snapshots to the canonical local repo root (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0194` — Unblock post-AME2020 time-split nuclear benchmark (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
@@ -1953,7 +1955,6 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

@@ -122,7 +122,8 @@ Recommended nuclear validation queue:
 - `TASK-0174` nuclear pilot evidence card and visual funnel
 - `TASK-0187` post-AME2020 nuclear mass holdout dataset
 - `TASK-0190` nuclear candidate robustness gate
-- `TASK-0188` post-AME2020 time-split nuclear benchmark, blocked on `TASK-0187`
+- `TASK-0188` post-AME2020 time-split nuclear benchmark, now unblocked by the
+  reviewed `TASK-0187` source manifest
 - `TASK-0189` nuclear prediction registry policy
 - `TASK-0178` second nuclear sandbox batch, blocked until audit and robustness
   gates allow it
