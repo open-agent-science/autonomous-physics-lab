@@ -34,6 +34,7 @@ requirements:
   - "Run only sandbox experiments; do not update canonical results, claims, accepted knowledge, or datasets."
   - "Preserve at least one negative or overfit result if present."
   - "Compare every candidate against the frozen baseline, documented holdout protocol, and robustness gate."
+  - "Include a robustness-gate section for every executed candidate with outcome, split-sensitivity summary, leakage review, complexity note, negative control, post-AME2020 status, and limitations."
   - "If a post-AME2020 time-split holdout exists by then, report it as a primary external-style validation slice."
 
 accepted_outputs:
@@ -43,6 +44,7 @@ accepted_outputs:
   - "agent_runs/AGENT-RUN-00XX/metrics.json"
   - "agent_runs/AGENT-RUN-00XX/report.md"
   - "docs/reviews/autonomous-nuclear-mass-pilot-02.md"
+  - "robustness-gate section in each run report using docs/nuclear-mass-robustness-gate.md"
 
 validation:
   commands:
