@@ -1,0 +1,44 @@
+id: TASK-0179
+title: "Remove agent session id from pull request template metadata"
+type: contributor_workflow
+status: REVIEW_READY
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "Keep PR metadata useful without asking contributors for low-signal fields."
+  - "Reduce template friction for humans using external agents."
+  - "Preserve contributor, tool, task, branch, and reviewer traceability."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - ".github/pull_request_template.md"
+  planning_context: >
+    The pull request template currently asks for an Agent session ID. In
+    practice this field is often unavailable, tool-specific, or blank. The
+    useful audit trail is already covered by contributor id, GitHub username,
+    agent tool, model/version when known, task/queue, branch, and human
+    reviewer.
+
+requirements:
+  - "Remove the Agent session ID field from the PR template."
+  - "Keep the remaining Agent / Contributor Metadata fields intact."
+  - "Do not weaken task, branch, contributor, or reviewer traceability."
+
+accepted_outputs:
+  - "updated .github/pull_request_template.md without Agent session ID"
+  - "task moved to REVIEW_READY"
+  - "active board synced"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
