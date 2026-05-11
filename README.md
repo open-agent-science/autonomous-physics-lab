@@ -38,8 +38,9 @@ You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
 then run `python3 scripts/apl_mission.py --json`. Choose the recommended
-research mission unless the maintainer gave a stricter task. Create a canonical
-task branch before editing files. Execute the full loop autonomously: inspect
+research mission unless the maintainer gave a stricter task. Use the
+recommended `task_id` to create a canonical task branch before editing files.
+Execute the full loop autonomously: inspect
 evidence, test or audit the hypothesis, preserve negative results, update
 sandbox/review artifacts, run validation, generate a review bundle, and prepare
 a PR. Keep outputs sandbox-only unless a canonical task explicitly allows

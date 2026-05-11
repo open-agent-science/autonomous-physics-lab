@@ -103,6 +103,7 @@ def mission_json(payload: dict[str, Any], mode: str | None = None) -> str:
             "mission_title": selection.mission.get("title") if selection.mission else None,
             "action": selection.action.get("id") if selection.action else None,
             "label": selection.action.get("label") if selection.action else None,
+            "task_id": selection.action.get("task_id") if selection.action else None,
             "priority": selection.action.get("priority") if selection.action else None,
             "difficulty": selection.action.get("difficulty") if selection.action else None,
             "expected_outputs": selection.action.get("expected_outputs", [])
@@ -137,10 +138,15 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None) -> st
     ]
 
     if selection.mission is not None:
+        task_suffix = (
+            f" ({selection.action['task_id']})"
+            if selection.action and selection.action.get("task_id")
+            else ""
+        )
         lines.extend(
             [
                 "Recommended now:",
-                f"{selection.mission.get('title')} — {selection.action.get('label') if selection.action else 'no action'}",
+                f"{selection.mission.get('title')} — {selection.action.get('label') if selection.action else 'no action'}{task_suffix}",
                 "",
                 "Why this mission:",
             ]
@@ -184,6 +190,12 @@ def render_agent_prompt(payload: dict[str, Any]) -> str:
     selection = select_mission(payload, None)
     mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
     action_label = selection.action.get("label") if selection.action else "the recommended action"
+    task_id = selection.action.get("task_id") if selection.action else None
+    task_instruction = (
+        f"Use canonical task {task_id} and create its task branch before editing files."
+        if task_id
+        else "If the action has no task_id, create a task proposal before editing implementation files."
+    )
     return f"""You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode.
@@ -193,7 +205,7 @@ Start in Agent First Research Mode.
 3. Choose the recommended research mission unless the maintainer gave a stricter task.
 4. Recommended mission now: {mission_title}.
 5. Recommended action now: {action_label}.
-6. Create a canonical task branch before editing files.
+6. {task_instruction}
 7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve negative results, update sandbox/review artifacts, run validation, generate a review bundle, and prepare a PR.
 8. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 9. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.

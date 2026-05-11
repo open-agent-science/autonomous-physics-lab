@@ -59,6 +59,7 @@ missions:
       - id: nuclear-split-sensitivity-replay
         label: "Run split-sensitivity replay for HYP-PROPOSAL-0021"
         mode: research
+        task_id: TASK-0183
         priority: high
         difficulty: high
         recommended: true

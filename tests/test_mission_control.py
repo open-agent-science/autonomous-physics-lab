@@ -51,6 +51,7 @@ def _write_missions(root: Path) -> None:
                   - id: split
                     label: "Run split replay"
                     mode: research
+                    task_id: TASK-0002
                     priority: high
                     difficulty: medium
                     recommended: true
@@ -83,6 +84,7 @@ def test_select_mission_defaults_to_research(tmp_path: Path) -> None:
     assert selection.mission["id"] == "nuclear"
     assert selection.action is not None
     assert selection.action["id"] == "split"
+    assert selection.action["task_id"] == "TASK-0002"
 
 
 def test_mission_json_includes_guardrails(tmp_path: Path) -> None:
@@ -93,6 +95,7 @@ def test_mission_json_includes_guardrails(tmp_path: Path) -> None:
 
     assert rendered["default_mode"] == "research"
     assert rendered["recommended"]["mission"] == "nuclear"
+    assert rendered["recommended"]["task_id"] == "TASK-0002"
     assert rendered["recommended"]["forbidden"] == ["no discovery wording"]
     assert rendered["global_forbidden"] == ["no claim promotion"]
 
@@ -115,6 +118,7 @@ def test_render_agent_prompt_mentions_full_pr_loop(tmp_path: Path) -> None:
     rendered = render_agent_prompt(payload)
 
     assert "Agent First Research Mode" in rendered
+    assert "Use canonical task TASK-0002" in rendered
     assert "prepare a PR" in rendered
     assert "Do not promote claims" in rendered
 
@@ -143,3 +147,4 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     rendered = json.loads(result.stdout)
     assert rendered["selected_mode"] == "research"
     assert rendered["recommended"]["action"] == "nuclear-split-sensitivity-replay"
+    assert rendered["recommended"]["task_id"] == "TASK-0183"

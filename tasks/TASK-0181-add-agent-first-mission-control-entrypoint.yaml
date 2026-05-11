@@ -33,6 +33,7 @@ requirements:
   - "Default to research mode, not microtasks or support tasks."
   - "Expose support and maintainer modes explicitly so review and closeout workflows remain intact."
   - "Provide JSON output and a copy-paste agent prompt."
+  - "Ensure the default research mission points to a canonical task id or explicit proposal path."
   - "Document Agent First policy in top-level and agent-facing docs."
   - "Keep wording verification-first and do not promote claims."
 
@@ -50,6 +51,7 @@ accepted_outputs:
   - "updated docs/mission-control.md"
   - "updated scripts/generate_context_bundle.py"
   - "updated tests/test_mission_control.py"
+  - "tasks/TASK-0183-run-nuclear-split-sensitivity-replay.yaml"
   - "task moved to REVIEW_READY"
   - "active board synced"
 
