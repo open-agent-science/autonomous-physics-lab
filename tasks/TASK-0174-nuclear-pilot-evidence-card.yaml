@@ -1,7 +1,7 @@
 id: TASK-0174
 title: "Create nuclear pilot evidence card and visual funnel"
 type: documentation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -35,7 +35,8 @@ requirements:
 accepted_outputs:
   - "docs/results/nuclear-mass-pilot-summary.md"
   - "docs/agent-research-log.md updated or created"
-  - "docs/figures/nuclear-mass-pilot-funnel.*"
+  - "docs/figures/nuclear-mass-pilot-funnel.png"
+  - "docs/figures/nuclear-mass-pilot-funnel.mmd"
   - "docs/reviews/nuclear-mass-pilot-evidence-card-review.md"
 
 validation:
