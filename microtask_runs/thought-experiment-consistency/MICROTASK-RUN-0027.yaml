@@ -1,0 +1,28 @@
+id: MICROTASK-RUN-0027
+queue_id: thought-experiment-consistency
+microtask_id: TEC-004
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-thought-experiment-consistency--tec-001-002-003-004-005
+pull_request: null
+result_note: docs/notes/tec-004-acceleration-heavy-review-needed.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/thought-experiment-consistency.yaml
+  method: "REVIEW_NEEDED flag note for acceleration-heavy thought experiments."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - NOT_RUN
+  failure_mode: "If the clock hypothesis or rotating-frame scope is resolved by maintainer decision, this flag note must be updated to reflect the new policy."
+  limitations:
+    - "Planning note only. No executable benchmark exists."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/thought-experiment-consistency/
+      - docs/notes/
+    summary: "No prior run found for this microtask id."
