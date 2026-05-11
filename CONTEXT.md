@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 17:53 UTC
+Generated: 2026-05-11 18:31 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -550,7 +550,8 @@ That base now exists well enough to support a new emphasis:
    benchmark ideas at once.
 2. Elevate a nuclear mass surface campaign as the next flagship science track,
    using baseline residual maps, shell-closure diagnostics, holdout discipline,
-   and conservative correction-term framing instead of broad discovery claims.
+   post-AME2020 time-split validation, and conservative correction-term framing
+   instead of broad discovery claims.
 3. Validate the private contributor and agent workflow with measurable gates:
    task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
    clean review-helper behavior, closeout, and zero automatic claim promotion.
@@ -567,7 +568,10 @@ That base now exists well enough to support a new emphasis:
 8. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-9. Prepare public launch only after the explicit gates in
+9. Distinguish retrospective time-split benchmarks from prospective prediction:
+   post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
+   true future predictions require a pre-registered prediction artifact.
+10. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 ## Current Goal
@@ -592,7 +596,10 @@ Current visible evidence includes:
 - the dimensional-analysis validator MVP result from `EXP-0006/RUN-0006`;
 - the neutrino and quark Koide falsification results from `EXP-0007/RUN-0001`
   and `EXP-0008/RUN-0001`;
-- the negative-results registry as a maintained output surface.
+- the negative-results registry as a maintained output surface;
+- the nuclear-mass baseline and sandbox autonomy surface, including split
+  sensitivity replay, as a flagship validation track that still requires
+  stronger time-split evidence before any broader scientific claim.
 
 These results are useful because they are reviewable and reproducible, not
 because they justify expansive scientific claims.
@@ -682,8 +689,9 @@ Recommended direction:
 
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
-2. Prefer nuclear validation, evidence packaging, or guarded follow-up tasks
-   before opening a second nuclear sandbox batch.
+2. Prefer nuclear validation, evidence packaging, post-AME2020 time-split
+   preparation, or guarded follow-up tasks before opening a second nuclear
+   sandbox batch.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
 
 Why:
@@ -693,7 +701,8 @@ Why:
 - the first autonomous nuclear pilot exists;
 - the strongest candidate is still sandbox-only evidence;
 - split-sensitivity replay now exists as review-ready sandbox evidence;
-- the next scientific value comes from validation, not from broadening claims.
+- the next scientific value comes from validation, time-split evidence, and
+  prediction discipline, not from broadening claims.
 
 Guardrails:
 
@@ -701,6 +710,9 @@ Guardrails:
 - do not describe the residual candidate as breakthrough physics;
 - do not run unbounded nuclear formula search;
 - do not rewrite canonical result artifacts casually.
+- do not call post-AME2020 evaluation strict blind prediction; it is
+  retrospective time-split evidence unless predictions were registered before
+  measurement.
 
 ## Alternatives
 
@@ -834,10 +846,12 @@ missions:
       - "frozen baseline and holdout protocol exist"
       - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
       - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
+      - "post-AME2020 time-split validation is the next harder evidence layer before broader follow-up"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
+      - "do not call retrospective post-AME2020 evaluation strict blind prediction"
     actions:
       - id: nuclear-validation-queue
         label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
@@ -867,6 +881,7 @@ missions:
         gated_by:
           - maintainer-reviewed-split-sensitivity-replay
           - audit-agent-run-0005
+          - nuclear-robustness-gate
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -1749,6 +1764,9 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0190` — Define nuclear candidate robustness gate before follow-up batches (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -1763,6 +1781,7 @@ None.
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
 - `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0191` — Curate nuclear time-split validation queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -1924,6 +1943,7 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 
 ## REJECTED
 
