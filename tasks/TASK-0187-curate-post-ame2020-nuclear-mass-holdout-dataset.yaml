@@ -1,0 +1,56 @@
+id: TASK-0187
+title: "Curate post-AME2020 nuclear mass holdout dataset"
+type: scientific_validation
+status: REVIEW_READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move the Nuclear Mass Surface from configured internal holdouts toward a stronger retrospective time-split validation surface."
+  - "Keep nuclear-mass work evidence-driven by separating AME2020 training surfaces from later measured masses."
+  - "Require pinned provenance before any agent treats newer measurements as a benchmark."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "tasks/TASK-0167-add-ame-nuclear-mass-dataset-loader-and-schema.yaml"
+    - "tasks/TASK-0168-implement-nuclear-mass-baselines-and-residual-reports.yaml"
+  planning_context: >
+    Strategic review identified retrospective time-split evaluation as the next
+    strongest nuclear-mass validation step. The repository should not call this
+    AME-2022. It should curate a post-AME2020 measured-mass holdout from
+    reviewed sources, preserve source-level provenance, and explicitly exclude
+    entries already used in the AME2020 training or baseline surface.
+
+requirements:
+  - "Create a curated post-AME2020 measured-mass holdout dataset or a reviewed source manifest if the full dataset cannot be committed safely in this task."
+  - "Record source references, access date, checksum or stable source identifier, and measured-versus-extrapolated semantics for every included row or source table."
+  - "Preserve uncertainty values and units where available."
+  - "Document exclusion rules for nuclides already used in the AME2020 training or frozen baseline surface."
+  - "Do not live-fetch data during validation; all benchmark inputs must be pinned or intentionally omitted with a clear reason."
+  - "Do not claim strict prospective prediction. Describe this as retrospective post-AME2020 time-split evaluation unless a future prediction was registered before measurement."
+
+accepted_outputs:
+  - "data/nuclear_masses/post_ame2020_sources.yaml"
+  - "data/nuclear_masses/post_ame2020_sources.md"
+  - "docs/notes/post-ame2020-holdout-protocol.md"
+  - "physics_lab/schemas/post_ame2020_sources.schema.json"
+  - "tests/test_post_ame2020_sources_manifest.py"
+  - "updated docs/nuclear-mass-holdout-protocol.md if the curated dataset activates the time-split holdout family"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

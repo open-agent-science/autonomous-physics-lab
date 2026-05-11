@@ -48,9 +48,12 @@ Recommended direction:
 
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
-2. Prefer nuclear validation, evidence packaging, or guarded follow-up tasks
-   before opening a second nuclear sandbox batch.
+2. Prefer nuclear validation, evidence packaging, post-AME2020 time-split
+   preparation, or guarded follow-up tasks before opening a second nuclear
+   sandbox batch.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
+4. Use the nuclear robustness gate before any second sandbox batch expands a
+   candidate family.
 
 Why:
 
@@ -59,7 +62,10 @@ Why:
 - the first autonomous nuclear pilot exists;
 - the strongest candidate is still sandbox-only evidence;
 - split-sensitivity replay now exists as review-ready sandbox evidence;
-- the next scientific value comes from validation, not from broadening claims.
+- a review-ready robustness gate now defines what counts as allowed follow-up,
+  negative-control-only evidence, or promotion-blocking instability;
+- the next scientific value comes from validation, time-split evidence, and
+  prediction discipline, not from broadening claims.
 
 Guardrails:
 
@@ -67,6 +73,11 @@ Guardrails:
 - do not describe the residual candidate as breakthrough physics;
 - do not run unbounded nuclear formula search;
 - do not rewrite canonical result artifacts casually.
+- do not call post-AME2020 evaluation strict blind prediction; it is
+  retrospective time-split evidence unless predictions were registered before
+  measurement.
+- do not use internal split wins as claim promotion unless the robustness gate
+  and external-style validation both allow it.
 
 ## Alternatives
 

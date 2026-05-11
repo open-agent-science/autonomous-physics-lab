@@ -50,6 +50,7 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -60,19 +61,22 @@ None.
 - `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
 - `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
 - `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
-- `TASK-0185` — Make context bundle generation idempotent (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0186` — Make mission control registry-driven and parallel-aware (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0190` — Define nuclear candidate robustness gate before follow-up batches (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0191` — Curate nuclear time-split validation queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0192` — Add closeout checks for public state documentation drift (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0186` — Make mission control registry-driven and parallel-aware (merged)
+- `TASK-0185` — Make context bundle generation idempotent (merged)
 - `TASK-0184` — Align Mission Control read order with Agent First entrypoint (merged)
+- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (merged)
 - `TASK-0182` — Make maintainer overclaim review severity context-aware (merged)
 - `TASK-0181` — Add Agent First mission control entrypoint (merged)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
@@ -106,6 +110,7 @@ None.
 - `TASK-0142` — Curate public-alpha hardening and credibility follow-up queue (merged)
 - `TASK-0141` — Add context-bundle regeneration check to closeout helper (merged)
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
+- `TASK-0138` — Add canonical replay and golden-result hardening layer (merged)
 - `TASK-0135` — Audit and freeze pendulum gauntlet reproducibility (merged)
 - `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (merged)
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (merged)
@@ -226,6 +231,7 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

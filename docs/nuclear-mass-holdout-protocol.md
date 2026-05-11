@@ -138,6 +138,8 @@ Purpose:
 
 - provide the strongest future external-style check when a later curated
   post-baseline measurement batch exists.
+- distinguish retrospective post-baseline validation from true prospective
+  prediction.
 
 Rule:
 
@@ -145,10 +147,37 @@ Rule:
   documented clearly;
 - do not silently merge later measurements into the training surface;
 - report the older training source and newer revealed source separately.
+- call AME2020-trained and post-AME2020-evaluated work a retrospective
+  time-split benchmark, not strict blind prediction.
 
 Current status:
 
-- not yet active.
+- `TASK-0187` provides a reviewed source manifest at
+  `data/nuclear_masses/post_ame2020_sources.yaml`;
+- not yet active for benchmark scoring until a reviewed row-level holdout
+  dataset is committed or a maintainer explicitly requests a source-audit-only
+  dry run;
+- `TASK-0188` remains the benchmark implementation task after that boundary is
+  satisfied.
+
+### 6. Prospective Prediction Registry
+
+Purpose:
+
+- support true before-measurement predictions only when they are registered
+  before later measurements are known.
+
+Rule:
+
+- keep prospective predictions in a dedicated prediction registry;
+- freeze target nuclides, model state, prediction values, uncertainty semantics,
+  and reveal conditions before measurement comparison;
+- do not treat registry entries as claims or accepted knowledge before later
+  review.
+
+Current status:
+
+- planned through `TASK-0189`.
 
 ## Metrics
 
@@ -204,6 +233,29 @@ Interpretive rule:
   slice but regresses badly on chain, shell, or neutron-rich holdouts;
 - a candidate should be labeled `INCONCLUSIVE` when the dataset is too thin or
   uncertainty semantics are not trustworthy enough for the claimed distinction.
+- a candidate should not trigger another autonomous batch until it is reviewed
+  through the nuclear robustness gate in
+  [Nuclear Mass Candidate Robustness Gate](./nuclear-mass-robustness-gate.md).
+
+### Robustness Gate Boundary
+
+The robustness gate is advisory for bounded sandbox follow-up and strict for
+claim or canonical result promotion.
+
+Before a second nuclear sandbox batch expands a candidate family, the batch
+must report:
+
+- primary holdout behavior;
+- split-sensitivity behavior;
+- leakage and cherry-pick review;
+- complexity penalty;
+- negative-control comparison;
+- post-AME2020 status or limitation;
+- conservative limitation wording.
+
+Until a reviewed row-level post-AME2020 dataset exists, post-AME2020 behavior
+must be listed as pending external-style validation rather than silently
+omitted.
 
 ## Negative Controls
 

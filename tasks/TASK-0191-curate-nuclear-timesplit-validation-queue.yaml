@@ -1,0 +1,70 @@
+id: TASK-0191
+title: "Curate nuclear time-split validation queue"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert strategic nuclear-mass validation guidance into executable repository tasks."
+  - "Keep Agent First onboarding pointed at scientific validation rather than broad formula expansion."
+  - "Prepare the repository for private agent hypothesis testing and guarded public-readiness work without adding external-publication tasks."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/next-steps.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "missions/current.yaml"
+    - "tasks/TASK-0174-nuclear-pilot-evidence-card.yaml"
+    - "tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+  planning_context: >
+    A strategic review recommended moving the Nuclear Mass Surface from
+    internal configured holdouts toward post-AME2020 time-split validation and
+    future prediction discipline. This task curates that guidance into
+    canonical follow-up tasks, updates mission/next-step docs, and keeps the
+    second nuclear sandbox batch blocked until audit and robustness gates are
+    satisfied.
+
+requirements:
+  - "Add canonical tasks for post-AME2020 holdout curation, time-split benchmarking, prediction registry policy, and nuclear robustness gating."
+  - "Update nuclear holdout and mission docs to distinguish retrospective time-split evidence from prospective prediction."
+  - "Keep the second nuclear sandbox batch blocked until independent audit and robustness gate requirements are satisfied."
+  - "Remove repository task outputs that point at external-publication planning."
+  - "Do not add scientific claims, canonical result rewrites, live data fetching, or new benchmark implementation."
+
+accepted_outputs:
+  - "tasks/TASK-0187-curate-post-ame2020-nuclear-mass-holdout-dataset.yaml"
+  - "tasks/TASK-0188-implement-post-ame2020-time-split-nuclear-benchmark.yaml"
+  - "tasks/TASK-0189-add-nuclear-mass-prediction-registry-policy.yaml"
+  - "tasks/TASK-0190-define-nuclear-candidate-robustness-gate.yaml"
+  - "updated tasks/TASK-0174-nuclear-pilot-evidence-card.yaml"
+  - "updated tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+  - "updated docs/strategy.md"
+  - "updated docs/next-steps.md"
+  - "updated docs/current-missions.md"
+  - "updated docs/nuclear-mass-holdout-protocol.md"
+  - "updated missions/current.yaml"
+  - "active board synced"
+  - "CONTEXT.md regenerated"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 scripts/generate_context_bundle.py"
+    - "./scripts/apl_review_bundle.sh"
+    - "./scripts/apl_snapshot.sh"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

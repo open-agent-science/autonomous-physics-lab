@@ -1,0 +1,54 @@
+id: TASK-0190
+title: "Define nuclear candidate robustness gate before follow-up batches"
+type: scientific_validation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent the nuclear-mass campaign from scaling split-sensitive or overfit residual patterns."
+  - "Give agents a concrete pass/fail gate before they run more autonomous nuclear sandbox batches."
+  - "Keep Nuclear Mass Surface as a disciplined validation track rather than a broad formula search."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+    - "docs/reviews/nuclear-split-sensitivity-replay.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "agent_runs/AGENT-RUN-0005/"
+    - "agent_runs/AGENT-RUN-0006/"
+  planning_context: >
+    The first nuclear pilot produced a promising sandbox candidate, but replay
+    evidence shows split sensitivity. Before another batch multiplies similar
+    patterns, agents need a robustness gate that decides what counts as
+    allowed follow-up, what must remain negative evidence, and what requires a
+    harder time-split benchmark.
+
+requirements:
+  - "Define minimum robustness checks for any nuclear residual candidate before second-batch follow-up."
+  - "Include primary holdout, split-sensitivity, leakage review, complexity penalty, negative-control comparison, and limitation wording."
+  - "If TASK-0187 or TASK-0188 is complete, include post-AME2020 time-split behavior as a required or strongly preferred check."
+  - "Update TASK-0178 so it remains blocked until the robustness gate is available and maintainer review allows follow-up."
+  - "Keep the gate advisory for sandbox work and strict for any claim or canonical result promotion."
+
+accepted_outputs:
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "updated docs/nuclear-mass-holdout-protocol.md"
+  - "updated tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+  - "updated docs/current-missions.md or missions/current.yaml if the recommended nuclear queue changes"
+  - "tests/test_nuclear_mass_robustness_gate.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
