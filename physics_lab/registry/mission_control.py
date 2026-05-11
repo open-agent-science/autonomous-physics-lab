@@ -138,7 +138,7 @@ def task_candidates(
         if entry.status != "READY":
             continue
         entry_mode = _task_mode(entry)
-        if mode == "audit" and entry_mode != "research":
+        if mode in {"research", "audit"} and entry_mode != "research":
             continue
         if mode == "support" and entry_mode != "support":
             continue
@@ -154,6 +154,52 @@ def task_candidates(
                 parallel_hint=_parallel_hint(entry),
             )
         )
+
+    if mode == "research" and candidates:
+        # Keep support READY tasks visible as lower-ranked alternatives when
+        # research READY tasks exist, but never let them decide whether the
+        # research fallback should fire.
+        for entry in entries:
+            if entry.status != "READY":
+                continue
+            entry_mode = _task_mode(entry)
+            if entry_mode != "support":
+                continue
+            candidates.append(
+                MissionTaskCandidate(
+                    task_id=entry.task_id,
+                    title=entry.title,
+                    type=entry.type,
+                    priority=entry.priority,
+                    difficulty=entry.difficulty,
+                    status=entry.status,
+                    mode=entry_mode,
+                    parallel_hint=_parallel_hint(entry),
+                )
+            )
+
+    if mode in {"research", "audit"} and not candidates:
+        # Preserve the research-first default even when no implementation-ready
+        # science tasks are open: review-ready scientific work is still a
+        # better agent-first candidate than falling through to support chores.
+        for entry in entries:
+            if entry.status != "REVIEW_READY":
+                continue
+            entry_mode = _task_mode(entry)
+            if entry_mode != "research":
+                continue
+            candidates.append(
+                MissionTaskCandidate(
+                    task_id=entry.task_id,
+                    title=entry.title,
+                    type=entry.type,
+                    priority=entry.priority,
+                    difficulty=entry.difficulty,
+                    status=entry.status,
+                    mode=entry_mode,
+                    parallel_hint=_parallel_hint(entry),
+                )
+            )
 
     if mode in {"research", "audit"} and not candidates:
         # If there is no science-lane READY task, show the highest-priority
