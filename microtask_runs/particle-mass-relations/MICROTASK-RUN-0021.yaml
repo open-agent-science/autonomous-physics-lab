@@ -1,0 +1,33 @@
+id: MICROTASK-RUN-0021
+queue_id: particle-mass-relations
+microtask_id: PMR-007
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-particle-mass-relations--pmr-001-002-003-007-008-011
+pull_request: null
+result_note: docs/notes/pmr-007-complexity-penalty-over-tuned-relation.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/particle-mass-relations.yaml
+    - data/particle_masses/charged_leptons.yaml
+  method: "Complexity penalty analysis for over-tuned mass relations with zero predictive degrees of freedom."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - "criterion: effective_degrees_of_freedom = n_observables - k_parameters"
+    - "threshold: d <= 0 means OBSERVATION_ONLY, not physical law evidence"
+    - "qualitative_analysis_only"
+  failure_mode: "Reject if note claims penalty proves a formula is wrong, or if it disqualifies all tuned relations regardless of first-principles derivation."
+  limitations:
+    - "Penalty does not prove any specific formula incorrect."
+    - "A formula with d <= 0 may acquire evidential value if independently derived from first principles."
+    - "Koide original formula (Q = 2/3) has d = 2; it is not over-tuned but still lacks a first-principles derivation."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/particle-mass-relations/
+      - docs/notes/
+    summary: "No prior run found for PMR-007."
