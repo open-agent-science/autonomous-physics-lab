@@ -151,6 +151,15 @@ def test_overclaim_hits_still_block_positive_claims() -> None:
     assert "solved" in overclaim_hits(added_lines)
 
 
+def test_overclaim_hits_block_positive_claims_with_later_limitations() -> None:
+    added_lines = (
+        "The benchmark solved the anomaly without fitting.",
+    )
+
+    assert overclaim_hits(added_lines) == ("solved",)
+    assert overclaim_advisory_hits(added_lines) == ()
+
+
 def test_sensitive_surface_hits_flags_repository_safety_surfaces() -> None:
     changed_files = (
         "scripts/apl_review_pr.py",

@@ -90,10 +90,17 @@ def line_is_rule_catalog_line(line: str) -> bool:
     return QUOTED_LINE_PATTERN.match(stripped) is not None
 
 
-def line_is_guardrail_context(line: str, previous_lines: tuple[str, ...] = ()) -> bool:
-    """Return whether a line is describing a rule against overclaiming."""
-    context = " ".join((*previous_lines[-2:], line)).lower()
-    return any(marker in context for marker in GUARDRAIL_CONTEXT_MARKERS)
+def match_is_guardrail_context(
+    line: str,
+    match_start: int,
+    previous_lines: tuple[str, ...] = (),
+) -> bool:
+    """Return whether a matched term is in nearby rule-against-claim context."""
+    previous_context = " ".join(previous_lines[-2:]).lower()
+    if any(marker in previous_context for marker in GUARDRAIL_CONTEXT_MARKERS):
+        return True
+    prefix = line[:match_start].lower()
+    return any(marker in prefix for marker in GUARDRAIL_CONTEXT_MARKERS)
 
 
 def _overclaim_hits_by_severity(
@@ -109,8 +116,8 @@ def _overclaim_hits_by_severity(
             previous_lines.append(line)
             continue
         for term, pattern in zip(OVERCLAIM_TERMS, OVERCLAIM_PATTERNS):
-            if pattern.search(lowered):
-                if line_is_guardrail_context(line, tuple(previous_lines)):
+            for match in pattern.finditer(lowered):
+                if match_is_guardrail_context(line, match.start(), tuple(previous_lines)):
                     advisory.append(term)
                 else:
                     blockers.append(term)
