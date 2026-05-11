@@ -1,0 +1,37 @@
+id: MICROTASK-RUN-0023
+queue_id: particle-mass-relations
+microtask_id: PMR-011
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-particle-mass-relations--pmr-001-002-003-007-008-011
+pull_request: null
+result_note: docs/notes/pmr-011-up-type-quark-koide-attempt.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/particle-mass-relations.yaml
+    - data/particle_masses/charged_leptons.yaml
+  method: "Python computation of up-type quark Koide Q in MS-bar and pole schemes."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - "Q_msbar=0.845087"
+    - "Q_pole_approx=0.831535"
+    - "2/3=0.666667"
+    - "|Q_msbar - 2/3|=0.1784"
+    - "|Q_pole - 2/3|=0.1649"
+    - "lepton_Q=0.6666644634 for comparison"
+    - "up_type_deviation_vs_lepton: ~5 orders of magnitude larger"
+  failure_mode: "Reject if computation mixes schemes without flagging or omits confinement caveat for up quark pole mass."
+  limitations:
+    - "Up quark pole mass is not perturbatively defined due to QCD confinement."
+    - "MS-bar scales differ between quarks (2 GeV for u, m_c for c, m_t for t); fully consistent comparison requires running to a common scale."
+    - "Quark masses are scheme/scale-dependent; no unambiguous quark mass exists in the same sense as charged-lepton masses."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/particle-mass-relations/
+      - docs/notes/
+    summary: "No prior run found for PMR-011."

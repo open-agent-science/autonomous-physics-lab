@@ -1,0 +1,36 @@
+id: MICROTASK-RUN-0019
+queue_id: particle-mass-relations
+microtask_id: PMR-002
+status: COMPLETED
+claimant:
+  contributor_id: oleg
+  agent_id: claude
+branch: agent/oleg/claude/microtask-batch-particle-mass-relations--pmr-001-002-003-007-008-011
+pull_request: null
+result_note: docs/notes/pmr-002-koide-q-charged-leptons.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/particle-mass-relations.yaml
+    - data/particle_masses/charged_leptons.yaml
+  method: "Python computation of Koide Q for charged lepton triplet (pole masses, PDG 2025)."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+  metrics:
+    - "Q=0.6666644634"
+    - "target=0.6666666667 (2/3)"
+    - "|Q - 2/3|=2.20e-06"
+    - "Q_range_from_tau_uncertainty=[0.6666593823, 0.6666695442]"
+    - "Q_range_width=1.02e-05"
+    - "sigma_Q_approx=5.1e-06"
+  failure_mode: "Reject if computation uses non-pole masses or mixed PDG editions."
+  limitations:
+    - "Numeric closeness to 2/3 is not explanatory evidence; no theoretical derivation exists in this repository."
+    - "MS-bar quark masses yield different Q values for other triplets."
+    - "Uncertainty propagation uses first-order finite difference; second-order corrections are negligible."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/particle-mass-relations/
+      - docs/notes/
+    summary: "No prior run found for PMR-002."
