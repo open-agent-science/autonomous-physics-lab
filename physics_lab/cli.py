@@ -233,13 +233,14 @@ def mission(
         raise typer.BadParameter(
             "mode must be one of: " + ", ".join(SUPPORTED_MODES)
         )
-    payload = load_current_missions(Path(root).resolve())
+    root_path = Path(root).resolve()
+    payload = load_current_missions(root_path)
     if agent_prompt:
-        typer.echo(render_agent_prompt(payload))
+        typer.echo(render_agent_prompt(payload, root=root_path))
     elif json_output:
-        typer.echo(mission_json(payload, mode))
+        typer.echo(mission_json(payload, mode, root=root_path))
     else:
-        typer.echo(render_human_mission(payload, mode))
+        typer.echo(render_human_mission(payload, mode, root=root_path))
 
 
 @app.command("status")

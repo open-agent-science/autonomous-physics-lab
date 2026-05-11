@@ -54,11 +54,11 @@ def main() -> int:
     root = Path(args.root).resolve()
     payload = load_current_missions(root)
     if args.agent_prompt:
-        print(render_agent_prompt(payload))
+        print(render_agent_prompt(payload, root=root))
     elif args.json:
-        print(mission_json(payload, args.mode))
+        print(mission_json(payload, args.mode, root=root))
     else:
-        print(render_human_mission(payload, args.mode))
+        print(render_human_mission(payload, args.mode, root=root))
     return 0
 
 

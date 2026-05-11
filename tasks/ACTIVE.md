@@ -68,6 +68,7 @@ None.
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
 - `TASK-0185` — Make context bundle generation idempotent (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0186` — Make mission control registry-driven and parallel-aware (`agent_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
