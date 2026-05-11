@@ -58,7 +58,6 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0193` — Write repository snapshots to the canonical local repo root (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0194` — Unblock post-AME2020 time-split nuclear benchmark (`maintainer_workflow`, priority `high`, difficulty `low`)
 
@@ -76,6 +75,7 @@ None.
 - `TASK-0181` — Add Agent First mission control entrypoint (merged)
 - `TASK-0180` — Curate microtask queue availability and summary counts (merged)
 - `TASK-0179` — Remove agent session id from pull request template metadata (merged)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (merged)
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (merged)
 - `TASK-0172` — Define private contributor and agent validation plan (merged)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)

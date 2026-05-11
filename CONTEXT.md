@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 21:06 UTC
+Generated: 2026-05-11 21:39 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1767,7 +1767,6 @@ one PR.
 
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
@@ -1797,6 +1796,7 @@ None.
 - `TASK-0181` — Add Agent First mission control entrypoint (merged)
 - `TASK-0180` — Curate microtask queue availability and summary counts (merged)
 - `TASK-0179` — Remove agent session id from pull request template metadata (merged)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (merged)
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (merged)
 - `TASK-0172` — Define private contributor and agent validation plan (merged)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
