@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Post-AME2020 Nuclear Mass Source Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_id",
+    "title",
+    "status",
+    "task_id",
+    "created_on",
+    "accessed_on",
+    "claim_ceiling",
+    "activation_status",
+    "source_policy",
+    "baseline_boundary",
+    "sources",
+    "candidate_row_import_plan",
+    "limitations"
+  ],
+  "properties": {
+    "manifest_id": { "type": "string", "pattern": "^POST-AME2020-SOURCES-[0-9]{4}$" },
+    "title": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["reviewed_source_manifest", "draft_source_manifest"]
+    },
+    "task_id": { "type": "string", "pattern": "^TASK-[0-9]{4}$" },
+    "created_on": { "type": "string", "format": "date" },
+    "accessed_on": { "type": "string", "format": "date" },
+    "claim_ceiling": { "type": "string", "minLength": 1 },
+    "activation_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "row_level_holdout_dataset_committed",
+        "time_split_holdout_active",
+        "reason"
+      ],
+      "properties": {
+        "row_level_holdout_dataset_committed": { "type": "boolean" },
+        "time_split_holdout_active": { "type": "boolean" },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "source_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_fetch_allowed_in_validation",
+        "row_values_committed",
+        "redistribution_boundary",
+        "future_checksum_requirement",
+        "measured_extrapolated_policy"
+      ],
+      "properties": {
+        "live_fetch_allowed_in_validation": { "type": "boolean" },
+        "row_values_committed": { "type": "boolean" },
+        "redistribution_boundary": { "type": "string", "minLength": 1 },
+        "future_checksum_requirement": { "type": "string", "minLength": 1 },
+        "measured_extrapolated_policy": { "type": "string", "minLength": 1 }
+      }
+    },
+    "baseline_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "training_reference",
+        "frozen_baseline_surface",
+        "excluded_frozen_baseline_nuclides",
+        "exclusion_rules"
+      ],
+      "properties": {
+        "training_reference": { "type": "string", "minLength": 1 },
+        "frozen_baseline_surface": { "type": "string", "minLength": 1 },
+        "excluded_frozen_baseline_nuclides": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "exclusion_rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "role",
+          "authority",
+          "citation",
+          "url",
+          "stable_source_identifier",
+          "source_tables",
+          "scope_summary",
+          "checksum_policy",
+          "measured_extrapolated_semantics",
+          "current_task_use"
+        ],
+        "properties": {
+          "source_id": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "authority": { "type": "string", "minLength": 1 },
+          "citation": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "minLength": 1 },
+          "stable_source_identifier": { "type": "string", "minLength": 1 },
+          "source_tables": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "scope_summary": { "type": "string", "minLength": 1 },
+          "checksum_policy": { "type": "string", "minLength": 1 },
+          "measured_extrapolated_semantics": { "type": "string", "minLength": 1 },
+          "current_task_use": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "candidate_row_import_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_file",
+        "required_columns",
+        "required_row_filters",
+        "blocked_until"
+      ],
+      "properties": {
+        "target_file": { "type": "string", "minLength": 1 },
+        "required_columns": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "required_row_filters": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "blocked_until": { "type": "string", "minLength": 1 }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
