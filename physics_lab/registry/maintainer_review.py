@@ -23,6 +23,7 @@ from physics_lab.registry.review_git import (
 from physics_lab.registry.active_board import sync_active_board
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
+    overclaim_advisory_hits,
     overclaim_hits,
     security_pattern_hits,
     sensitive_surface_hits,
@@ -137,6 +138,7 @@ class ReviewReport:
     blockers: tuple[str, ...]
     required_fixes: tuple[str, ...]
     recommended_action: str
+    advisory_warnings: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -412,6 +414,7 @@ def build_review_report(
     blockers: list[str] = []
     required_fixes: list[str] = []
     security_risks: list[str] = []
+    advisory_warnings: list[str] = []
 
     if target_branch == "main":
         blockers.append("Branch is main. PR review must target a task branch, not main.")
@@ -658,6 +661,13 @@ def build_review_report(
     overclaims = overclaim_hits(overclaim_lines)
     if overclaims:
         blockers.append("Overclaim language detected: " + ", ".join(overclaims) + ".")
+    overclaim_advisories = overclaim_advisory_hits(overclaim_lines)
+    if overclaim_advisories:
+        advisory_warnings.append(
+            "Overclaim terms appear only in guardrail or policy context: "
+            + ", ".join(overclaim_advisories)
+            + "."
+        )
     security_lines = tuple(
         parse_added_lines(
             run_command(
@@ -744,6 +754,7 @@ def build_review_report(
         blockers=tuple(blockers),
         required_fixes=tuple(required_fixes),
         recommended_action=recommended_action,
+        advisory_warnings=tuple(advisory_warnings),
     )
 
 
@@ -764,6 +775,11 @@ def render_review_report(report: ReviewReport) -> str:
     lines.append("Security risks:")
     if report.security_risks:
         lines.extend(f"- {item}" for item in report.security_risks)
+    else:
+        lines.append("- none")
+    lines.append("Advisory warnings:")
+    if report.advisory_warnings:
+        lines.extend(f"- {item}" for item in report.advisory_warnings)
     else:
         lines.append("- none")
     lines.append("Blockers:")

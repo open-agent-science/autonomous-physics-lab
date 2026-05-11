@@ -67,6 +67,7 @@ None.
 - `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
 - `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0181` — Add Agent First mission control entrypoint (`agent_workflow`, priority `high`, difficulty `high`)
+- `TASK-0182` — Make maintainer overclaim review severity context-aware (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
