@@ -1,0 +1,57 @@
+id: TASK-0182
+title: "Make maintainer overclaim review severity context-aware"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep overclaim protection strong without blocking policy or guardrail wording."
+  - "Let deterministic review helpers surface context-sensitive signals for AI and human review."
+  - "Reduce false-positive blockers while preserving hard stops for positive scientific overclaims."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/maintainer-pr-review-checklist.md"
+  planning_context: >
+    The maintainer review helper currently blocks any added overclaim term that
+    is not filtered by a same-line negation marker. This can false-positive on
+    wrapped guardrail text such as "Do not use" followed by the risky terms on
+    the next line. The helper should still block positive scientific
+    overclaims, but guardrail and policy contexts should become advisory
+    warnings for the maintainer or review AI agent.
+
+requirements:
+  - "Keep positive overclaim phrasing as a merge blocker."
+  - "Treat guardrail, policy, and prohibition contexts as advisory warnings."
+  - "Use nearby added-line context so wrapped markdown guardrails do not become blockers."
+  - "Render advisory warnings in maintainer review output."
+  - "Document that review AI agents should inspect advisory warning context."
+
+accepted_outputs:
+  - "updated physics_lab/registry/review_checks.py"
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated tests/test_maintainer_review.py"
+  - "updated docs/maintainer-review-agent.md"
+  - "updated docs/review-checklists/maintainer-pr-review-checklist.md"
+  - "task moved to REVIEW_READY"
+  - "active board synced"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
