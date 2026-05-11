@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 20:20 UTC
+Generated: 2026-05-11 20:38 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1779,7 +1779,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0193` — Write repository snapshots to the canonical local repo root (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
