@@ -57,14 +57,14 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (`scientific_audit`, priority `high`, difficulty `medium`)
-- `TASK-0207` — Curate private-agent nuclear validation cycle task queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
+- `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
+- `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (merged)
+- `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (merged)
 - `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (merged)
 - `TASK-0198` — Close TASK-0195 and tighten public-doc sync follow-up (merged)
 - `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (merged)
@@ -121,6 +121,7 @@ None.
 - `TASK-0141` — Add context-bundle regeneration check to closeout helper (merged)
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (merged)
+- `TASK-0137` — Split maintainer review helper into clearer policy layers (merged)
 - `TASK-0135` — Audit and freeze pendulum gauntlet reproducibility (merged)
 - `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (merged)
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (merged)
