@@ -1,5 +1,5 @@
 id: TASK-0211
-title: "Add Campaign Navigator agent mode for scientific campaign steering"
+title: "Add Science Curator agent mode for scientific campaign steering"
 type: agent_workflow
 status: REVIEW_READY
 difficulty: medium
@@ -29,7 +29,7 @@ input:
     claims automatically.
 
 requirements:
-  - "Add a maintainer-facing Campaign Navigator / scientific campaign curator mode."
+  - "Add a maintainer-facing Science Curator / Campaign Navigator mode."
   - "Default to the top recommended campaign from missions/current.yaml when no campaign is supplied."
   - "Collect campaign context from mission, campaign profile, task board, proposals, agent runs, reviews, and results."
   - "Produce a concise campaign brief with verdict, evidence, lessons, promising directions, do-not-repeat directions, recommended tasks, agent assignments, mission-update recommendations, and overclaim notes."

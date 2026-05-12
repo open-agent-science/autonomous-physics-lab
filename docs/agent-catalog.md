@@ -89,7 +89,7 @@ task closeout recommendation.
 
 Status: active and heavily used.
 
-### 6. Campaign Navigator / Scientific Campaign Curator
+### 6. Science Curator / Campaign Navigator
 
 Use this path when the maintainer wants a campaign-level research brief after a
 wave of hypothesis proposals, sandbox runs, reviews, or result artifacts.
@@ -190,5 +190,5 @@ If you are not sure which path applies:
 
 - contributors start from `READY` tasks or microtasks
 - maintainers start from the review agent for PRs, closeout for merged tasks,
-  and Campaign Navigator for research-cycle steering
+  and Science Curator for research-cycle steering
 - proposals are for ideas, not for active implementation

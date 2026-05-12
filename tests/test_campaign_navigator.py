@@ -45,7 +45,8 @@ def test_campaign_navigator_prompt_preserves_authority_boundary() -> None:
     brief = build_campaign_brief(ROOT, campaign_id="nuclear-mass-surface")
     prompt = render_campaign_agent_prompt(brief)
 
-    assert "You are the APL Campaign Navigator." in prompt
+    assert "You are the APL Science Curator." in prompt
+    assert "Campaign Navigator is an accepted alias" in prompt
     assert "not\na task runner" in prompt
     assert "Do not:" in prompt
     assert "run experiments" in prompt
@@ -57,7 +58,7 @@ def test_campaign_navigator_markdown_contains_expected_sections() -> None:
     brief = build_campaign_brief(ROOT, campaign_id="nuclear-mass-surface")
     rendered = render_campaign_brief(brief)
 
-    assert "# Campaign Navigator Brief" in rendered
+    assert "# Science Curator Brief" in rendered
     assert "## Current Campaign Verdict" in rendered
     assert "## Recommended Next Tasks" in rendered
     assert "## Overclaim / Public Wording Notes" in rendered

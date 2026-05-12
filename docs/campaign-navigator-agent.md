@@ -1,6 +1,14 @@
-# Campaign Navigator Agent
+# Science Curator Agent
 
-The Campaign Navigator is a maintainer-run scientific campaign curator for APL.
+The Science Curator is a maintainer-run scientific campaign curator for APL.
+**Campaign Navigator** is an accepted alias and the implementation script is
+named `apl_campaign_navigator.py`.
+
+Maintainer prompts may use either name:
+
+- "Run Science Curator for nuclear mass."
+- "Run Campaign Navigator for nuclear mass."
+- "Перейди в режим наукового куратора для nuclear mass."
 
 It is not a contributor onboarding mode, not a task runner, and not a PR review
 agent. Its job is to help the maintainer decide where a research campaign should
@@ -23,15 +31,15 @@ batch of private-agent science PRs.
 
 ## Relationship To Other Agents
 
-The Campaign Navigator is separate from existing roles:
+The Science Curator is separate from existing roles:
 
 - Review agent: checks whether a specific PR is mergeable.
 - Closeout agent: updates task state after reviewed merges.
 - Task execution agent: implements one scoped task on a task branch.
 - Mission script: recommends the current agent-first entrypoint.
-- Campaign Navigator: summarizes the campaign and recommends the next cycle.
+- Science Curator: summarizes the campaign and recommends the next cycle.
 
-The navigator can recommend that other agents run tasks, audits, or support
+The curator can recommend that other agents run tasks, audits, or support
 work. It does not do that work itself unless the maintainer explicitly switches
 the same assistant into a normal task-runner role.
 
@@ -52,7 +60,7 @@ If no campaign is supplied, the script uses the top-ranked campaign from
 
 ## Output
 
-The navigator produces a campaign brief with:
+The curator produces a campaign brief with:
 
 - campaign verdict;
 - recent evidence;
@@ -67,7 +75,7 @@ The navigator produces a campaign brief with:
 
 ## Authority Boundary
 
-The Campaign Navigator is advisory.
+The Science Curator is advisory.
 
 It must not:
 

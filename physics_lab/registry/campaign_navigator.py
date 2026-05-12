@@ -1,6 +1,6 @@
-"""Maintainer-facing campaign navigator helpers.
+"""Maintainer-facing Science Curator helpers.
 
-The Campaign Navigator is intentionally advisory: it summarizes campaign state
+The Science Curator is intentionally advisory: it summarizes campaign state
 for a maintainer or a maintainer-run AI agent, but it does not execute
 experiments, create tasks, promote claims, or rewrite canonical artifacts.
 """
@@ -103,7 +103,7 @@ def build_campaign_brief(
     """Build an advisory campaign-level steering brief."""
     if mode not in SUPPORTED_CAMPAIGN_NAVIGATOR_MODES:
         supported = ", ".join(SUPPORTED_CAMPAIGN_NAVIGATOR_MODES)
-        raise ValueError(f"Unsupported Campaign Navigator mode: {mode}. Use: {supported}")
+        raise ValueError(f"Unsupported Science Curator mode: {mode}. Use: {supported}")
 
     root = root.resolve()
     mission_payload = load_current_missions(root)
@@ -142,11 +142,11 @@ def build_campaign_brief(
 def render_campaign_brief(brief: CampaignNavigatorBrief) -> str:
     """Render a maintainer-readable campaign steering memo."""
     lines = [
-        "# Campaign Navigator Brief",
+        "# Science Curator Brief",
         "",
         f"Campaign: {brief.campaign_title} (`{brief.campaign_id}`)",
         f"Mode: `{brief.mode}`",
-        "Role: maintainer-run scientific campaign curator",
+        "Role: maintainer-run Science Curator for scientific campaign steering",
         "",
         "## Current Campaign Verdict",
     ]
@@ -196,13 +196,14 @@ def campaign_brief_json(brief: CampaignNavigatorBrief) -> str:
 
 
 def render_campaign_agent_prompt(brief: CampaignNavigatorBrief) -> str:
-    """Render a copy-paste prompt for a campaign navigator AI agent."""
+    """Render a copy-paste prompt for a Science Curator AI agent."""
     task_lines = "\n".join(
         f"- {item.task_id or 'proposal'}: {item.title} ({item.reason})"
         for item in brief.recommended_next_tasks
     )
     guardrail_lines = "\n".join(f"- {item}" for item in brief.guardrails)
-    return f"""You are the APL Campaign Navigator.
+    return f"""You are the APL Science Curator.
+Campaign Navigator is an accepted alias for this maintainer-run mode.
 
 Campaign:
 {brief.campaign_id}
@@ -531,7 +532,7 @@ def _mission_update_recommendations(
 def _overclaim_notes(campaign_id: str) -> tuple[str, ...]:
     notes = (
         "Risky words are review signals, not automatic blockers in guardrail contexts.",
-        "Block positive claims such as discovered, proved, solved, or globally valid.",
+        "Block positive breakthrough-style, proof-style, solution-style, or universal-scope claims.",
         "Allow negative/policy contexts such as 'do not claim' or 'not a discovery'.",
     )
     if campaign_id == "nuclear-mass-surface":
@@ -544,7 +545,7 @@ def _overclaim_notes(campaign_id: str) -> tuple[str, ...]:
 
 def _guardrails(campaign_id: str, campaign: dict[str, Any]) -> tuple[str, ...]:
     return (
-        "Campaign Navigator is advisory and maintainer-facing.",
+        "Science Curator is advisory and maintainer-facing.",
         "Do not execute experiments from this mode.",
         "Do not modify canonical results, claims, or accepted knowledge.",
         "Do not auto-create canonical task files without maintainer approval.",

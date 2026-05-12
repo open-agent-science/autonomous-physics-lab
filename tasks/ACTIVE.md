@@ -57,7 +57,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0211` — Add Campaign Navigator agent mode for scientific campaign steering (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0211` — Add Science Curator agent mode for scientific campaign steering (`agent_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

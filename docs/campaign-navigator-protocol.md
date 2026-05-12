@@ -1,7 +1,8 @@
-# Campaign Navigator Protocol
+# Science Curator Protocol
 
-This protocol defines how a maintainer-run Campaign Navigator agent should steer
+This protocol defines how a maintainer-run Science Curator agent should steer
 APL scientific campaigns without becoming an autonomous governance layer.
+Campaign Navigator is an accepted alias for the same mode.
 
 ## Purpose
 
@@ -15,7 +16,7 @@ memo that answers:
 - which tasks should be assigned next;
 - which blockers should remain in place.
 
-The navigator is a context builder plus decision memo. It is deliberately not a
+The curator is a context builder plus decision memo. It is deliberately not a
 database, dashboard, scheduler, or experiment runner.
 
 ## Input Sources
@@ -75,7 +76,7 @@ open-ended backlog.
 
 ## Parallel Work Guidance
 
-The navigator may recommend parallel agent lanes when they are disjoint.
+The curator may recommend parallel agent lanes when they are disjoint.
 
 Safe parallel lanes usually differ by:
 
@@ -90,7 +91,7 @@ separate branches or worktrees for parallel agents.
 
 ## Guardrails
 
-The Campaign Navigator must not:
+The Science Curator must not:
 
 - run experiments;
 - modify canonical results;
@@ -110,21 +111,21 @@ Overclaim wording is context-sensitive.
 
 Block positive scientific promotion such as:
 
-- "AI discovered ..."
-- "APL proved ..."
-- "solved particle masses"
-- "globally valid formula"
-- "theory of everything"
+- breakthrough-style claims;
+- proof-style claims;
+- solution-style claims;
+- universal-scope formula claims;
+- broad final-theory wording.
 
 Treat guardrail phrases as safe advisory context when they are clearly negative
 or restrictive, for example:
 
 - "do not claim discovery"
 - "not a discovery"
-- "no global validity claim"
+- "no universal-scope claim"
 - "sandbox-only"
 - "inconclusive"
 - "overclaim risk"
 
-The navigator should surface ambiguous wording for maintainer review instead of
+The curator should surface ambiguous wording for maintainer review instead of
 blindly blocking policy text.
