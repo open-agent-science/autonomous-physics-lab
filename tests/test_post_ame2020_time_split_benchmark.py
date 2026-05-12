@@ -42,16 +42,30 @@ def test_candidate_freeze_rejects_post_hoc_formula_mutation() -> None:
         assert_candidate_spec_unchanged(mutated)
 
 
-def test_post_ame2020_activation_guard_stays_inactive_without_row_level_dataset() -> None:
+def test_post_ame2020_activation_guard_sees_row_level_dataset_but_blocks_metrics() -> None:
     repo_root = _repo_root()
     activation = assess_post_ame2020_activation(
         repo_root / "data" / "nuclear_masses" / "post_ame2020_sources.yaml"
     )
 
-    assert activation["status"] == "NOT_ACTIVATED_SOURCE_MANIFEST_ONLY"
+    assert activation["status"] == "ROW_LEVEL_HOLDOUT_READY_METRICS_BLOCKED"
+    assert activation["active"] is False
+    assert activation["row_level_holdout_dataset_committed"] is True
+    assert activation["time_split_holdout_active"] is False
+    assert activation["row_level_dataset_exists"] is True
+    assert "new_measurement_value" in activation["required_columns"]
+
+
+def test_post_ame2020_activation_guard_rejects_missing_row_level_dataset(tmp_path: Path) -> None:
+    repo_root = _repo_root()
+    activation = assess_post_ame2020_activation(
+        repo_root / "data" / "nuclear_masses" / "post_ame2020_sources.yaml",
+        row_level_dataset_path=tmp_path / "missing.yaml",
+    )
+
+    assert activation["status"] == "ROW_LEVEL_MANIFEST_WITH_MISSING_DATASET"
     assert activation["active"] is False
     assert activation["row_level_dataset_exists"] is False
-    assert "new_measurement_value" in activation["required_columns"]
 
 
 def test_agent_run_0007_documents_inconclusive_time_split_dry_run() -> None:

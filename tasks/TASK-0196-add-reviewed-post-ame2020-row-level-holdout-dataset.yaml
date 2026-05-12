@@ -1,7 +1,7 @@
 id: TASK-0196
 title: "Add reviewed row-level post-AME2020 nuclear mass holdout dataset"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -38,6 +38,7 @@ requirements:
 
 accepted_outputs:
   - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "data/nuclear_masses/post_ame2020_checksums.md"
   - "physics_lab/schemas/post_ame2020_holdout.schema.json"
   - "tests/test_post_ame2020_holdout_dataset.py"
   - "docs/notes/post-ame2020-holdout-dataset-review.md"

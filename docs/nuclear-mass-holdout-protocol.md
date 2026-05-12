@@ -154,12 +154,13 @@ Current status:
 
 - `TASK-0187` provides a reviewed source manifest at
   `data/nuclear_masses/post_ame2020_sources.yaml`;
-- not yet active for benchmark scoring until a reviewed row-level holdout
-  dataset is committed or a maintainer explicitly requests a source-audit-only
-  dry run;
+- `TASK-0196` provides the reviewed row-level holdout dataset at
+  `data/nuclear_masses/post_ame2020_holdout.yaml` and its checksum record at
+  `data/nuclear_masses/post_ame2020_checksums.md`;
+- not yet active for benchmark scoring until a later benchmark task consumes
+  the reviewed row-level dataset;
 - `TASK-0188` records the source-audit-only guard and remains `INCONCLUSIVE`
   for active metrics;
-- `TASK-0196` is the next row-level dataset task;
 - `TASK-0197` is the real post-AME2020 row-level time-split benchmark task
   after that boundary is satisfied.
 
@@ -256,9 +257,9 @@ must report:
 - post-AME2020 status or limitation;
 - conservative limitation wording.
 
-Until a reviewed row-level post-AME2020 dataset exists, post-AME2020 behavior
-must be listed as pending external-style validation rather than silently
-omitted.
+Until a reviewed row-level post-AME2020 benchmark result exists,
+post-AME2020 behavior must be listed as pending external-style validation
+rather than silently omitted.
 
 ## Negative Controls
 
