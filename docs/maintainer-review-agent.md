@@ -261,12 +261,14 @@ Use this mode only after the maintainer has already merged the PR.
    cleanup pass.
 7. If the merged work changes experiments, results, campaign profiles,
    scientific validation surfaces, mission priorities, or public-release gates,
-   compare [./status.md](./status.md) and
-   [./mission-control.md](./mission-control.md) against authoritative
-   `tasks/TASK-*.yaml`, `experiments/*.yaml`, and `results/*/*/result.yaml`.
-   Update stale experiment counts, active flagship campaigns, result surfaces,
-   or public-readiness wording before final closeout, or record a follow-up task
-   if the sync is intentionally deferred.
+   compare [../README.md](../README.md), [./status.md](./status.md),
+   [./mission-control.md](./mission-control.md), and
+   [./next-steps.md](./next-steps.md) against authoritative
+   `tasks/TASK-*.yaml`, `experiments/*.yaml`, `results/*/*/result.yaml`, and
+   `agent_runs/` state. Public docs sync is a closeout signal by default, not
+   an automatic rewrite: update stale public docs only when the current task
+   explicitly asks for public-doc sync, otherwise update an existing docs-sync
+   task or record a follow-up task.
 8. During larger workflow-admin or closeout batches, check whether open
    `READY`, `REVIEW_READY`, or `BLOCKED` tasks still represent real claimable
    work rather than stale or already-merged drift.
@@ -283,6 +285,10 @@ Use this mode only after the maintainer has already merged the PR.
 - update [./status.md](./status.md) and
   [./mission-control.md](./mission-control.md) when authoritative experiment,
   result, campaign, or mission state changed
+- update [../README.md](../README.md), [./status.md](./status.md),
+  [./mission-control.md](./mission-control.md), or
+  [./next-steps.md](./next-steps.md) only when the current task explicitly
+  includes public-doc sync; otherwise add or update a follow-up task
 - add a short closeout note when helpful
 - add an entry to [./multi-agent-dry-run.md](./multi-agent-dry-run.md) when the
   merged PR is part of a dry run or contributor pilot
@@ -329,8 +335,12 @@ Default behavior:
   files, the helper should suggest rerunning
   `python3 scripts/generate_context_bundle.py` in a later maintainer branch
 - if the merged PR touched scientific state or its task payload references
-  experiment/result/campaign/mission changes, the helper should suggest
-  reviewing `docs/status.md` and `docs/mission-control.md` for drift
+  experiment/result/campaign/mission changes, the helper should emit a public
+  docs drift checklist for `README.md`, `docs/status.md`,
+  `docs/mission-control.md`, and `docs/next-steps.md`
+- closeout helpers may automatically update task status, `tasks/ACTIVE.md`, and
+  `CONTEXT.md`; they should treat public narrative docs as check-and-follow-up
+  surfaces unless an explicit docs-sync task authorizes editing them
 
 ### Closeout sweep helper
 
