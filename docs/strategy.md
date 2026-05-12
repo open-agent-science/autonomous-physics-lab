@@ -59,6 +59,13 @@ That base now exists well enough to support a new emphasis:
 10. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
+Future research direction is curated through
+[future-research-portfolio.md](./future-research-portfolio.md). The current
+portfolio keeps Nuclear Mass Surface in `NOW`, scoped quantum-size,
+thought-experiment, and electromagnetic-invariance work in `NEXT`, and keeps
+Hubble tension, muon g-2 follow-up, broad constants derivation, and broad
+mass-relation searches in `WATCHLIST`.
+
 ## Current Goal
 
 Demonstrate that APL can run honest scientific campaigns and a disciplined
@@ -111,6 +118,9 @@ maintainer decides the v0.2 narrative matches the evidence.
 - Do not claim universal validity from configured-range validation.
 - Do not add dashboard, public API, literature ingestion, or public task
   network before current campaign and workflow gates are met.
+- Do not turn `WATCHLIST` topics from
+  [future-research-portfolio.md](./future-research-portfolio.md) into
+  implementation work without a new maintainer task and stronger guardrails.
 - Do not use LLM prose as a substitute for deterministic validation.
 
 ## Decision Rule
