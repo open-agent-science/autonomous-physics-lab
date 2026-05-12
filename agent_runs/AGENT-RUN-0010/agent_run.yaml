@@ -1,0 +1,50 @@
+id: AGENT-RUN-0010
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0202
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0033-quartic-asymmetry.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0007-nuclear-neutron-rich-batch.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0010/metrics.json
+  report: agent_runs/AGENT-RUN-0010/report.md
+  limitations: agent_runs/AGENT-RUN-0010/limitations.md
+  preflight: agent_runs/AGENT-RUN-0010/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0010/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: campaign_scope
+      status: PASS
+      notes: "nuclear-mass-surface remains WHITELISTED_LIMITED for frozen-baseline sandbox work."
+    - name: proposal_schema
+      status: PASS
+      notes: "Five neutron-rich proposals (HYP-PROPOSAL-0033..0037) pass research-proposal preflight."
+    - name: triage_boundary
+      status: PASS
+      notes: "Two executed candidates (HYP-PROPOSAL-0033 quartic asymmetry, HYP-PROPOSAL-0034 asymmetric neutron-excess), three rejections before execution."
+    - name: leakage_review
+      status: PASS
+      notes: "HYP-PROPOSAL-0035 and HYP-PROPOSAL-0037 rejected explicitly under the docs/nuclear-mass-robustness-gate.md leakage rules; HYP-PROPOSAL-0036 rejected on complexity. Executed candidates use only symmetric polynomials in I or an asymmetric (N-Z)^2/A feature, neither of which targets a specific shell closure or chain."
+    - name: subset_failure_criterion
+      status: PASS
+      notes: "Per-subset MAE is reported on neutron_rich_delta_ge_20, neutron_rich_delta_ge_30, near_magic, magic_any, proton_rich_n_lt_z, heavy_a_ge_100, and odd_a; rejections and verdicts do not rely on aggregate MAE alone."
+    - name: promotion_boundary
+      status: PASS
+      notes: "No canonical results, claims, hypotheses, experiments, accepted knowledge, or canonical datasets are changed."
+limitations:
+  - "Sandbox-only second nuclear batch in the neutron-rich lane; no canonical artifact is updated."
+  - "Both executed candidates land OVERFITTED on the NMD-0002 structured-holdout protocol (worst regression >= 1.0 MeV on each)."
+  - "HYP-PROPOSAL-0033 (quartic) regresses the post-AME2020 primary MAE by +0.563 MeV. The quartic term fits to -1778 MeV which overshoots on extreme neutron-rich rows."
+  - "HYP-PROPOSAL-0034 (asymmetric neutron-excess) fits a near-zero coefficient on full NMD-0002 (~3.5e-13) and produces an effectively null correction on the post-AME2020 primary surface. The (N-Z)^2/A scaling is poorly correlated with the residual on the 11-row training slice."
+  - "Activation counts are 292/295 for HYP-PROPOSAL-0033 and 264/295 for HYP-PROPOSAL-0034 (zero on 28 proton-rich and 3 N=Z rows by construction); no dormant-feature failure mode in this lane."
+  - "Any future promotion requires a maintainer-reviewed task with a broader pinned dataset and the same holdout discipline."
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer review under docs/nuclear-mass-robustness-gate.md before any RESULT-* or claim update."
