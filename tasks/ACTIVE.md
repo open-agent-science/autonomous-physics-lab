@@ -58,6 +58,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0211` — Add Science Curator agent mode for scientific campaign steering (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0212` — Clarify Science Curator maintainer-authorized task creation policy (`agent_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

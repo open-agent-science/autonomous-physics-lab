@@ -103,7 +103,9 @@ wave of hypothesis proposals, sandbox runs, reviews, or result artifacts.
   - `python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface`
 
 Status: active maintainer-facing advisory mode. It must not run experiments,
-promote claims, create canonical tasks, or replace PR review.
+promote claims, create canonical tasks without explicit maintainer approval, or
+replace PR review. If the maintainer explicitly asks it to create or formalize
+tasks, it may act as a bounded task-admin helper for that turn.
 
 ### 7. Maintainer Routine / Manual / Action Modes
 

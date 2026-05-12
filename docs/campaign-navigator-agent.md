@@ -75,7 +75,7 @@ The curator produces a campaign brief with:
 
 ## Authority Boundary
 
-The Science Curator is advisory.
+The Science Curator is advisory by default.
 
 It must not:
 
@@ -85,10 +85,32 @@ It must not:
 - mark tasks `DONE`;
 - modify canonical results;
 - modify accepted knowledge;
-- auto-create canonical task files without maintainer approval;
+- auto-create canonical task files without explicit maintainer approval in the
+  current turn;
 - recommend broad formula search without holdout, time-split, and robustness
   gates.
 
 Maintainer approval is required before creating new canonical tasks, launching a
 new research batch, changing mission priorities, or promoting any sandbox
 evidence.
+
+## Maintainer-Authorized Task Creation
+
+If the maintainer explicitly asks the Science Curator to "create tasks",
+"оформи задачі", or otherwise turn its recommendations into repository tasks in
+the current turn, the curator may act as a bounded task-admin helper.
+
+In that case, it may create canonical `tasks/TASK-XXXX-*.yaml` files only when:
+
+- the maintainer clearly requested task creation in the current turn;
+- task numbers are maintainer-assigned or safely selected from the current task
+  registry by a maintainer-run agent;
+- each task is scoped, reviewable, and has clear dependencies;
+- accepted outputs and validation commands are explicit;
+- the task does not grant claim-promotion authority;
+- the task keeps sandbox evidence sandbox-only unless a separate reviewed
+  promotion task is created later;
+- `tasks/ACTIVE.md` is synchronized after task-file edits.
+
+If maintainer intent is unclear, the curator should recommend task proposals or
+ask for confirmation instead of creating canonical task files.
