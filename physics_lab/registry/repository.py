@@ -12,6 +12,7 @@ import yaml
 from physics_lab.registry.agents import load_agent
 from physics_lab.registry.agent_runs import load_agent_run
 from physics_lab.registry.claims import load_claim
+from physics_lab.registry.docs_links import find_docs_link_issues
 from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.golden_results import (
@@ -87,6 +88,8 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "review_workflow",
     "benchmark_planning",
     "contributor_experience",
+    "contributor_validation",
+    "contributor_workflow",
     "contributor_pilot",
     "maintainer_workflow",
     "numerical_audit",
@@ -101,6 +104,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_campaign",
     "scientific_visualization",
     "scientific_safety_review",
+    "scientific_validation",
     "schema_extension",
     "scoring_design",
     "thought_experiment_planning",
@@ -868,6 +872,16 @@ def _collect_strict_issues(
                     root=root_path,
                 )
             )
+
+    for link_issue in find_docs_link_issues(root_path):
+        issues.append(
+            _issue(
+                "ERROR",
+                "broken_docs_link",
+                link_issue.message,
+                path=link_issue.source_path,
+            )
+        )
 
     return issues
 

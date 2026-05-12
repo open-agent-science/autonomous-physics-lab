@@ -11,6 +11,29 @@ from physics_lab.registry.tasks import load_task
 
 SECTION_HEADER_PATTERN = re.compile(r"^##\s+(?P<name>.+?)\s*$")
 TASK_LINE_PATTERN = re.compile(r"TASK-[0-9]{4}")
+PUBLIC_STATE_TASK_MARKERS = (
+    "agent-run",
+    "autonomous",
+    "benchmark",
+    "campaign",
+    "completed experiment",
+    "experiment",
+    "flagship",
+    "holdout",
+    "mission",
+    "nuclear",
+    "public-facing",
+    "release",
+    "result",
+    "scientific",
+    "status",
+)
+PUBLIC_STATE_CLOSEOUT_DOCS = (
+    "README.md",
+    "docs/status.md",
+    "docs/mission-control.md",
+    "docs/next-steps.md",
+)
 
 
 @dataclass(frozen=True)
@@ -123,6 +146,14 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
         "Add a docs/multi-agent-dry-run.md entry only when the merged PR "
         "belongs to a dry run or contributor pilot."
     )
+    suggested_actions.append(
+        "Closeout publish reminder: closeout edits should not remain only in a "
+        "local worktree. After verification, prepare a closeout commit and PR "
+        "or ask the maintainer to publish them; do not push or merge without "
+        "explicit maintainer authorization."
+    )
+    if should_review_public_state_docs(payload):
+        suggested_actions.extend(render_public_state_doc_checklist())
 
     return TaskCloseoutReport(
         task_id=task_id,
@@ -140,6 +171,59 @@ def _expected_board_sections(status: str) -> set[str]:
     if status == "DONE":
         return {"DONE", "DONE RECENTLY"}
     return {status}
+
+
+def should_review_public_state_docs(payload: dict) -> bool:
+    """Return whether closeout should suggest checking public state docs."""
+    parts: list[str] = [
+        str(payload.get("id", "")),
+        str(payload.get("title", "")),
+        str(payload.get("type", "")),
+    ]
+    task_input = payload.get("input", {})
+    if isinstance(task_input, dict):
+        parts.append(str(task_input.get("related_domain", "")))
+        parts.append(str(task_input.get("planning_context", "")))
+        related_objects = task_input.get("related_objects", [])
+        if isinstance(related_objects, list):
+            parts.extend(str(item) for item in related_objects)
+    for key in ("strategy_alignment", "requirements", "accepted_outputs"):
+        items = payload.get(key, [])
+        if isinstance(items, list):
+            parts.extend(str(item) for item in items)
+
+    haystack = " ".join(parts).lower()
+    return any(marker in haystack for marker in PUBLIC_STATE_TASK_MARKERS)
+
+
+def render_public_state_doc_checklist(
+    missing_docs: tuple[str, ...] = PUBLIC_STATE_CLOSEOUT_DOCS,
+) -> tuple[str, ...]:
+    """Return a structured public-doc drift checklist for closeout agents."""
+    docs = ", ".join(PUBLIC_STATE_CLOSEOUT_DOCS)
+    if missing_docs:
+        missing = ", ".join(missing_docs)
+        checklist = (
+            "Public docs drift checklist: compare "
+            f"{docs} against authoritative task, experiment, result, agent-run, "
+            f"and mission state. Missing from this closeout diff: {missing}."
+        )
+    else:
+        checklist = (
+            "Public docs drift checklist: public-facing state docs were touched "
+            f"({docs}); confirm experiment counts, active flagship campaigns, "
+            "result surfaces, near-term priorities, and release-gate wording "
+            "still match authoritative structured state."
+        )
+
+    policy = (
+        "Closeout docs-sync policy: routine closeout may update task status, "
+        "tasks/ACTIVE.md, and CONTEXT.md automatically; edit README/status/"
+        "mission-control/next-steps only when the current task explicitly asks "
+        "for public-doc sync. Otherwise update an existing docs-sync task or "
+        "create a follow-up task."
+    )
+    return (checklist, policy)
 
 
 def render_closeout_report(

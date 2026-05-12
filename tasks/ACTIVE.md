@@ -44,12 +44,12 @@ one PR.
 
 ## READY
 
-- `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -57,24 +57,37 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
-- `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
-- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
-- `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
-- `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
-- `TASK-0185` — Make context bundle generation idempotent (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0186` — Make mission control registry-driven and parallel-aware (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (`scientific_audit`, priority `high`, difficulty `medium`)
+- `TASK-0207` — Curate private-agent nuclear validation cycle task queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (merged)
+- `TASK-0198` — Close TASK-0195 and tighten public-doc sync follow-up (merged)
+- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (merged)
+- `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (merged)
+- `TASK-0195` — Curate post-AME2020 row-level follow-up queue after time-split guard (merged)
+- `TASK-0194` — Unblock post-AME2020 time-split nuclear benchmark (merged)
+- `TASK-0193` — Write repository snapshots to the canonical local repo root (merged)
+- `TASK-0192` — Add closeout checks for public state documentation drift (merged)
+- `TASK-0191` — Curate nuclear time-split validation queue (merged)
+- `TASK-0190` — Define nuclear candidate robustness gate before follow-up batches (merged)
+- `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark guard (merged)
+- `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (merged)
+- `TASK-0186` — Make mission control registry-driven and parallel-aware (merged)
+- `TASK-0185` — Make context bundle generation idempotent (merged)
 - `TASK-0184` — Align Mission Control read order with Agent First entrypoint (merged)
+- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (merged)
 - `TASK-0182` — Make maintainer overclaim review severity context-aware (merged)
 - `TASK-0181` — Add Agent First mission control entrypoint (merged)
+- `TASK-0180` — Curate microtask queue availability and summary counts (merged)
+- `TASK-0179` — Remove agent session id from pull request template metadata (merged)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (merged)
+- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (merged)
+- `TASK-0172` — Define private contributor and agent validation plan (merged)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
 - `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (merged)
 - `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (merged)
@@ -96,6 +109,7 @@ None.
 - `TASK-0153` — Run first pendulum autonomous research pilot with sandbox-only outputs (merged)
 - `TASK-0152` — Implement research proposal preflight gate and sandbox agent-run layout (merged)
 - `TASK-0151` — Define autonomous research loop contract and campaign autonomy profiles (merged)
+- `TASK-0150` — Create external reviewer replication guide (merged)
 - `TASK-0149` — Define blind holdout benchmark protocol (merged)
 - `TASK-0148` — Add scientific result quality rubric (merged)
 - `TASK-0147` — Harden muon g-2 benchmark wording and guardrails (merged)
@@ -106,6 +120,7 @@ None.
 - `TASK-0142` — Curate public-alpha hardening and credibility follow-up queue (merged)
 - `TASK-0141` — Add context-bundle regeneration check to closeout helper (merged)
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
+- `TASK-0138` — Add canonical replay and golden-result hardening layer (merged)
 - `TASK-0135` — Audit and freeze pendulum gauntlet reproducibility (merged)
 - `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (merged)
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (merged)
@@ -120,6 +135,9 @@ None.
 - `TASK-0120` — Add use-your-agent quickstart diagram pack (merged)
 - `TASK-0119` — Add thought-experiment campaign orientation note (merged)
 - `TASK-0118` — Add particle-mass campaign map diagram (merged)
+- `TASK-0117` — Add maintainer review and closeout Mermaid flow (merged)
+- `TASK-0116` — Add microtask queue summary table generator (merged)
+- `TASK-0115` — Add docs-link integrity check for campaign and result pages (merged)
 - `TASK-0114` — Add microtask queue consistency validator (merged)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (merged)
 - `TASK-0112` — Implement microtask run registry and expanded repeatable queues (merged)
@@ -226,6 +244,9 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (`scientific_audit`, priority `high`, difficulty `medium`)
+- `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 

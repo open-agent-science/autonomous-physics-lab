@@ -1,0 +1,50 @@
+id: TASK-0189
+title: "Add nuclear mass prediction registry policy"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Distinguish retrospective time-split evaluation from true prospective prediction."
+  - "Create a safe place for future before-measurement predictions without allowing automatic claim promotion."
+  - "Make future nuclear-mass predictions reviewable, timestamped, and limitation-aware."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+  planning_context: >
+    Retrospective post-AME2020 evaluation is valuable, but it is not the same
+    as a strict before-measurement prediction. A prediction registry gives the
+    project a disciplined path for future nuclear-mass forecasts that can be
+    checked only after later measurements appear.
+
+requirements:
+  - "Define a repository-native prediction registry layout for future nuclear-mass predictions."
+  - "Require timestamp, source state, frozen model, target nuclide list, prediction values, uncertainty or confidence semantics, and reveal conditions."
+  - "Require explicit no-claim-promotion wording until measured data is later reviewed."
+  - "Clarify that retrospective time-split benchmarks and prospective predictions are different evidence classes."
+  - "Do not add live external data fetching."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/README.md"
+  - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
+  - "docs/prediction-registry-policy.md"
+  - "tests or validation updates if a schema is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,47 @@
+id: AGENT-RUN-0008
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0197
+status: REVIEW_READY
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0005-nuclear-mass-sandbox-batch.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0008/metrics.json
+  report: agent_runs/AGENT-RUN-0008/report.md
+  limitations: agent_runs/AGENT-RUN-0008/limitations.md
+  preflight: agent_runs/AGENT-RUN-0008/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0008/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: row_level_holdout_dataset
+    status: PASS
+    notes: TASK-0196 row-level holdout is committed and schema-valid.
+  - name: frozen_baseline
+    status: PASS
+    notes: RESULT-0015 coefficients are consumed without rewriting canonical result
+      artifacts.
+  - name: candidate_freeze
+    status: PASS
+    notes: HYP-0020/0021/0022 formula families remain frozen before evaluation.
+  - name: claim_boundary
+    status: PASS
+    notes: No claim, RESULT, knowledge, or hypothesis promotion is performed.
+limitations:
+- This is retrospective post-AME2020 validation, not strict blind prediction.
+- Candidate formulas were selected before this row-level holdout task but after internal
+  sandbox evidence existed.
+- Candidate coefficients are fitted only on the small frozen NMD-0002 training surface.
+- The AME2020 comparison column is a sanity reference, not an APL model or candidate.
+- No canonical RESULT, claim, knowledge, or hypothesis artifact is promoted by this
+  run.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any second nuclear sandbox batch or
+    candidate promotion.

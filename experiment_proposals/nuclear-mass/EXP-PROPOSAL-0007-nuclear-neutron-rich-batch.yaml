@@ -1,0 +1,113 @@
+id: EXP-PROPOSAL-0007
+title: "Sandbox nuclear-mass neutron-rich residual batch"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0202
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/nuclear-mass-holdout-protocol.md"
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "agent_runs/AGENT-RUN-0006/"
+  - "agent_runs/AGENT-RUN-0008/"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0033-quartic-asymmetry.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0034-asymmetric-neutron-excess.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0035-in-sb-chain-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0036-free-power-asymmetry-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0037-per-shell-stack-rejected.yaml"
+
+question: "Does extending the prior quadratic-asymmetry negative control to quartic structure generalize, break, or stay neutral; and does an asymmetric neutron-excess feature avoid the proton-rich subset regression that prior candidates exhibit?"
+
+method:
+  summary: "Generate five neutron-rich residual proposals, execute the two linear families (quartic asymmetry and asymmetric neutron-excess), and reject three (In/Sb chain leakage, free-power nonlinear knob, per-shell indicator stack leakage). Evaluate the two executed candidates on the NMD-0002 four-holdout protocol and on the 295-row post-AME2020 primary holdout, with per-subset MAE (including neutron-rich delta >= 30 in addition to >= 20) and against HYP-PROPOSAL-0022 negative-control reference metrics."
+  code_references:
+    - "scripts/run_nuclear_neutron_rich_batch.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+    - "tests/test_nuclear_neutron_rich_batch.py"
+  commands:
+    - "python3 scripts/run_nuclear_neutron_rich_batch.py"
+    - "python3 -m pytest tests/test_nuclear_neutron_rich_batch.py"
+  parameters:
+    generated_proposals: 5
+    executed_candidates: 2
+    rejected_before_execution: 3
+    structured_holdout_count: 4
+    post_ame2020_primary_holdout_row_count: 295
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml as the frozen measured-only training slice"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml as the reviewed row-level post-AME2020 holdout"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015 (model_fitted_semi_empirical)"
+  prior_results:
+    - "RESULT-0015"
+    - "AGENT-RUN-0005"
+    - "AGENT-RUN-0006"
+    - "AGENT-RUN-0008"
+    - "AGENT-RUN-0009"
+  assumptions:
+    - "Sandbox execution does not modify EXP-0012, RESULT-0015, or any claim, knowledge, or canonical dataset."
+    - "Coefficients are fitted on the complement of each NMD-0002 holdout for the structured protocol, and once on the full NMD-0002 surface for the post-AME2020 evaluation."
+    - "Subset-specific failure criteria, not aggregate-MAE-only, decide the gate outcome."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0010/"
+  metrics:
+    - "generated_proposal_count"
+    - "executed_candidate_count"
+    - "rejected_before_execution_count"
+    - "structured_holdout_delta_mae_mev"
+    - "post_ame2020_primary_delta_mae_mev"
+    - "feature_activation_counts"
+    - "per_subset_delta_mae_mev including neutron_rich_delta_ge_20 and neutron_rich_delta_ge_30"
+    - "uncertainty_normalized_error_per_subset"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0010/report.md"
+    - "agent_runs/AGENT-RUN-0010/limitations.md"
+    - "docs/reviews/autonomous-nuclear-neutron-rich-batch-01.md"
+
+validation:
+  pass_condition: "Sandbox pass if both executed candidates produce deterministic metrics that satisfy the gate's evidence-package requirement and rejections are documented; the proposal does not pre-commit to a positive scientific verdict."
+  fail_condition: "Sandbox fail if more than two candidates are executed, if any rejection is silently relaxed, if canonical results / claims / knowledge / datasets are modified, or if a retrospective subset win is framed as prospective prediction."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on NMD-0002 and HYP-PROPOSAL-0022 metrics in AGENT-RUN-0008 as the negative-control reference."
+  expected_failure_modes:
+    - "The quartic-asymmetry extension may regress the post-AME2020 primary surface because the quartic term overshoots on extreme neutron-rich rows."
+    - "The asymmetric neutron-excess feature may fit a near-zero coefficient on NMD-0002 because the (N-Z)^2/A scaling is poorly correlated with the residual on the tiny training slice."
+    - "Structured-holdout fits on 8-9 rows may yield unstable coefficients and OVERFITTED verdicts regardless of post-AME2020 behavior."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe polynomial residual fits as new asymmetry physics."
+    - "Do not present a small or null post-AME2020 delta as discovery."
+    - "Do not frame retrospective subset improvements as prospective predictions."
+  mitigations:
+    - "Keep outputs only under proposals, agent_runs, scripts, tests, and review notes."
+    - "Compare every executed candidate to RESULT-0015 and to HYP-PROPOSAL-0022 retrospective metrics."
+    - "Report neutron_rich_delta_ge_30 in addition to neutron_rich_delta_ge_20."
+
+limitations:
+  - "Sandbox-only batch over two executed candidates and three rejected proposals."
+  - "NMD-0002 has 11 nuclides; structured holdouts each have 8-9 training rows."
+  - "Post-AME2020 evaluation is retrospective time-split, not blind prediction."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether the executed candidates remain useful negative controls or close out the neutron-rich lane until a broader-dataset task exists."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical comparison or dataset-expansion task before any RESULT-* change."

@@ -1,0 +1,54 @@
+id: TASK-0203
+title: "Analyze post-AME2020 time-split findings and nuclear residual failure modes"
+type: scientific_audit
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Understand why current nuclear residual candidates are inconclusive before scaling new batches."
+  - "Turn AGENT-RUN-0008 into actionable failure-mode knowledge without promoting claims."
+  - "Explain metric sensitivity, negative-control behavior, and subset failures for future agent runs."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "agent_runs/AGENT-RUN-0006/"
+    - "agent_runs/AGENT-RUN-0008/"
+    - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0022-quadratic-asymmetry-refinement.yaml"
+    - "docs/nuclear-mass-robustness-gate.md"
+  planning_context: >
+    TASK-0197 produced useful but inconclusive retrospective time-split
+    evidence. Before or alongside new sandbox batches, APL needs a compact
+    analysis of why HYP-PROPOSAL-0021 did not become robust, why the negative
+    control can look strong overall, and which subsets drive regressions.
+
+requirements:
+  - "Analyze AGENT-RUN-0008 metrics and compare them with AGENT-RUN-0006 split-sensitivity context."
+  - "Explain why HYP-PROPOSAL-0021 remains sandbox-only and inconclusive."
+  - "Analyze why HYP-PROPOSAL-0022 or any negative control can outperform overall metrics without becoming a valid claim."
+  - "Identify subset-specific failure modes, including neutron-rich, magic-region, and worst-regression cases where available."
+  - "Recommend evaluation criteria that TASK-0200 through TASK-0202 should treat as mandatory."
+  - "Do not run a new hypothesis batch unless needed for deterministic reproduction of the analysis."
+  - "Do not promote claims, canonical results, or accepted knowledge."
+
+accepted_outputs:
+  - "docs/reviews/post-ame2020-timesplit-failure-analysis.md"
+  - "docs/notes/nuclear-residual-metric-sensitivity.md"
+  - "recommended mandatory checks for TASK-0200 through TASK-0202"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

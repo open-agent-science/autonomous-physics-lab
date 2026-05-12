@@ -1,14 +1,14 @@
 id: TASK-0174
 title: "Create nuclear pilot evidence card and visual funnel"
 type: documentation
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 
 strategy_alignment:
   - "Make the first nuclear-mass autonomous pilot legible to private contributors and reviewers."
   - "Show the agent workflow as a reviewable evidence funnel, not as automatic scientific discovery."
-  - "Preserve rejection counts, negative controls, and no-claim-promotion boundaries in public-facing summaries."
+  - "Preserve rejection counts, negative controls, and no-claim-promotion boundaries in repository-facing summaries."
 
 input:
   mode: workflow
@@ -30,13 +30,14 @@ requirements:
   - "Include proposal funnel counts, rejected proposal reasons, executed candidate verdicts, and per-holdout delta highlights."
   - "Include a visual or diagram source for the funnel; PNG output is optional if the repository can generate it deterministically."
   - "State explicitly that no claim, canonical result, or accepted knowledge was promoted automatically."
-  - "Keep any article-facing text in drafts only and avoid external publication planning tasks."
+  - "Keep the artifact repository-facing only."
 
 accepted_outputs:
   - "docs/results/nuclear-mass-pilot-summary.md"
   - "docs/agent-research-log.md updated or created"
-  - "docs/figures/nuclear-mass-pilot-funnel.*"
-  - "docs/drafts/dou-nuclear-section.md"
+  - "docs/figures/nuclear-mass-pilot-funnel.png"
+  - "docs/figures/nuclear-mass-pilot-funnel.mmd"
+  - "docs/reviews/nuclear-mass-pilot-evidence-card-review.md"
 
 validation:
   commands:
