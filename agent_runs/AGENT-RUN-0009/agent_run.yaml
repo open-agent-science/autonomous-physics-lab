@@ -1,0 +1,46 @@
+id: AGENT-RUN-0009
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0200
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0028-shell-gaussian-proximity-zn.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0006-nuclear-shell-batch.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0009/metrics.json
+  report: agent_runs/AGENT-RUN-0009/report.md
+  limitations: agent_runs/AGENT-RUN-0009/limitations.md
+  preflight: agent_runs/AGENT-RUN-0009/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0009/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: campaign_scope
+      status: PASS
+      notes: "nuclear-mass-surface remains WHITELISTED_LIMITED for frozen-baseline sandbox work."
+    - name: proposal_schema
+      status: PASS
+      notes: "Five shell-aware proposals (HYP-PROPOSAL-0028..0032) pass research-proposal preflight."
+    - name: triage_boundary
+      status: PASS
+      notes: "Two executed candidates, three rejections before execution."
+    - name: leakage_review
+      status: PASS
+      notes: "HYP-PROPOSAL-0031 rejected explicitly under the docs/nuclear-mass-robustness-gate.md leakage rules; executed candidates do not use post-AME2020-specific features."
+    - name: promotion_boundary
+      status: PASS
+      notes: "No canonical results, claims, hypotheses, experiments, accepted knowledge, or canonical datasets are changed."
+limitations:
+  - "Sandbox-only second nuclear batch in the shell-aware lane; no canonical artifact is updated."
+  - "Both executed candidates land in OVERFITTED on the NMD-0002 structured-holdout protocol (worst regression >= 1.0 MeV)."
+  - "Post-AME2020 primary delta MAE is +0.047 MeV for HYP-PROPOSAL-0028 (regression) and -0.062 MeV for HYP-PROPOSAL-0029 (marginal improvement with proton-rich regression of +0.22 MeV)."
+  - "Activation counts are 295/295 for every executed feature; the dormant-feature failure mode from AGENT-RUN-0008 is no longer the operative limitation in this lane."
+  - "Any future promotion requires a maintainer-reviewed task with a broader pinned dataset and the same holdout discipline."
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer review under docs/nuclear-mass-robustness-gate.md before any RESULT-* or claim update."
