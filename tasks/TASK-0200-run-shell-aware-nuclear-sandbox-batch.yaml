@@ -41,12 +41,18 @@ requirements:
   - "Do not describe any candidate as discovered, proved, globally valid, or physically explanatory."
 
 accepted_outputs:
-  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-00XX-shell-*.yaml"
-  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-00XX-shell-*.yaml"
-  - "agent_runs/AGENT-RUN-00XX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-00XX/metrics.json"
-  - "agent_runs/AGENT-RUN-00XX/report.md"
-  - "agent_runs/AGENT-RUN-00XX/limitations.md"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0028-shell-gaussian-proximity-zn.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0029-shell-gaussian-proximity-neutron-only.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0030-near-magic-binary-both-axes-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0031-n82-targeted-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0032-multiplicative-shell-free-sigma-rejected.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-0006-nuclear-shell-batch.yaml"
+  - "agent_runs/AGENT-RUN-0009/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0009/metrics.json"
+  - "agent_runs/AGENT-RUN-0009/report.md"
+  - "agent_runs/AGENT-RUN-0009/limitations.md"
+  - "agent_runs/AGENT-RUN-0009/preflight.md"
+  - "agent_runs/AGENT-RUN-0009/review_summary.md"
   - "docs/reviews/autonomous-nuclear-shell-batch-01.md"
 
 validation:
