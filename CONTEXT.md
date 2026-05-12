@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 22:42 UTC
+Generated: 2026-05-12 05:09 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1796,10 +1796,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0195` — Curate post-AME2020 row-level follow-up queue after time-split guard (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0198` — Close TASK-0195 and tighten public-doc sync follow-up (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0195` — Curate post-AME2020 row-level follow-up queue after time-split guard (merged)
 - `TASK-0194` — Unblock post-AME2020 time-split nuclear benchmark (merged)
 - `TASK-0193` — Write repository snapshots to the canonical local repo root (merged)
 - `TASK-0192` — Add closeout checks for public state documentation drift (merged)

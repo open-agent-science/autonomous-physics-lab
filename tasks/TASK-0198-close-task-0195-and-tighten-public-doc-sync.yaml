@@ -1,0 +1,49 @@
+id: TASK-0198
+title: "Close TASK-0195 and tighten public-doc sync follow-up"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Close the merged post-AME2020 follow-up curation task without leaving REVIEW_READY drift."
+  - "Turn the closeout agent public-doc drift warning into explicit TASK-0175 acceptance criteria."
+  - "Keep the next public-facing docs sync focused on actual authoritative-state gaps."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "tasks/TASK-0195-curate-post-ame2020-row-level-followups.yaml"
+    - "tasks/TASK-0175-sync-public-docs-after-nuclear-wave.yaml"
+    - "tasks/ACTIVE.md"
+    - "CONTEXT.md"
+  planning_context: >
+    PR #254 merged TASK-0195. The closeout helper moved TASK-0195 to DONE and
+    noted that docs/status.md and docs/mission-control.md should be explicitly
+    checked for drift around EXP-0011, EXP-0012, Nuclear Mass Surface,
+    AGENT-RUN-0007, and post-AME2020 wording. TASK-0175 is the right larger
+    documentation task for that follow-up.
+
+requirements:
+  - "Move TASK-0195 from REVIEW_READY to DONE after merge verification."
+  - "Sync tasks/ACTIVE.md from canonical task files."
+  - "Regenerate CONTEXT.md after the task-state transition."
+  - "Update TASK-0175 so docs/status.md and docs/mission-control.md must be checked for EXP-0011, EXP-0012, Nuclear Mass Surface, AGENT-RUN-0007, and post-AME2020 wording."
+  - "Do not perform the full TASK-0175 public-doc rewrite in this closeout PR."
+
+accepted_outputs:
+  - "updated tasks/TASK-0195-curate-post-ame2020-row-level-followups.yaml"
+  - "updated tasks/TASK-0175-sync-public-docs-after-nuclear-wave.yaml"
+  - "updated tasks/ACTIVE.md"
+  - "updated CONTEXT.md"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
