@@ -122,9 +122,10 @@ Recommended nuclear validation queue:
 - `TASK-0174` nuclear pilot evidence card and visual funnel, now merged
 - `TASK-0188` post-AME2020 time-split guard, complete in conservative
   source-manifest-only mode with no active benchmark metrics
-- `TASK-0196` reviewed row-level post-AME2020 nuclear mass holdout dataset
-- `TASK-0197` real post-AME2020 nuclear time-split benchmark, blocked until
-  `TASK-0196` commits validated row-level holdout rows
+- `TASK-0196` reviewed row-level post-AME2020 nuclear mass holdout dataset,
+  now merged
+- `TASK-0197` real post-AME2020 nuclear time-split benchmark, now
+  review-ready as `AGENT-RUN-0008`
 - `TASK-0189` nuclear prediction registry policy
 - `TASK-0178` second nuclear sandbox batch, blocked until the robustness gate,
   row-level holdout dataset, and real time-split benchmark all pass review
@@ -142,10 +143,13 @@ Current nuclear-mass baseline state:
 - `TASK-0170` is complete, so any nuclear-mass continuation should be a new
   maintainer-reviewed comparison, dataset-expansion, or curation task rather
   than automatic result promotion.
-- post-AME2020 measured masses should be treated as a retrospective time-split
-  holdout only after reviewed row-level data is committed;
+- post-AME2020 measured masses are now treated as retrospective time-split
+  evidence through `AGENT-RUN-0008`, not as strict blind prediction;
 - `AGENT-RUN-0007` is useful guard evidence, but it is not an active
   post-AME2020 benchmark result;
+- `AGENT-RUN-0008` is useful active retrospective time-split evidence, but it
+  is inconclusive and does not promote `HYP-PROPOSAL-0021` or any negative
+  control;
 - prospective prediction requires a registry entry created before later
   measurements are compared.
 

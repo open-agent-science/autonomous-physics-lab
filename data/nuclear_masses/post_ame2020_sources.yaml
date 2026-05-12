@@ -5,17 +5,17 @@ task_id: TASK-0187
 created_on: "2026-05-11"
 accessed_on: "2026-05-11"
 claim_ceiling: >
-  Source manifest plus TASK-0196 row-level holdout activation state. The
-  committed row-level dataset does not activate benchmark metrics and does not
-  support prediction or discovery claims.
+  Source manifest plus TASK-0196 row-level holdout activation state and
+  TASK-0197 retrospective benchmark activation. The benchmark does not support
+  prediction or discovery claims.
 
 activation_status:
   row_level_holdout_dataset_committed: true
-  time_split_holdout_active: false
+  time_split_holdout_active: true
   reason: >
     TASK-0196 commits the reviewed row-level holdout dataset and extraction
-    checksums. Active retrospective time-split metrics remain blocked until a
-    later benchmark task explicitly consumes that dataset.
+    checksums. TASK-0197 explicitly consumes that dataset for retrospective
+    time-split metrics without claim promotion.
 
 source_policy:
   live_fetch_allowed_in_validation: false
@@ -80,7 +80,7 @@ sources:
       targets. Preserve the source's AME2020 comparison marker separately so
       later benchmarks can distinguish new measurements from AME2020
       extrapolated comparisons.
-    current_task_use: "Reviewed source manifest with TASK-0196 row-level dataset committed; no benchmark metrics active."
+    current_task_use: "Reviewed source manifest with TASK-0196 row-level dataset committed; TASK-0197 active retrospective metrics now available."
 
   - source_id: ame2020_amdc_reference
     role: "training and comparison baseline reference"
@@ -150,11 +150,11 @@ candidate_row_import_plan:
     - "Keep AME2020 extrapolated-comparison rows flagged, not discarded silently."
     - "Resolve source unit semantics before mapping values into the existing nuclear_mass_dataset loader."
   blocked_until: >
-    TASK-0196 commits row-level values with source-artifact checksum,
-    extraction method, and reviewable unit mapping. Active metrics remain
-    blocked until a later benchmark task consumes the dataset.
+    Satisfied by TASK-0196 and TASK-0197: row-level values are committed with
+    source-artifact checksum, extraction method, and reviewable unit mapping,
+    and active retrospective metrics are now produced by the benchmark task.
 
 limitations:
   - "Row-level values are committed in data/nuclear_masses/post_ame2020_holdout.yaml."
-  - "The source manifest and dataset do not by themselves create a benchmark result."
+  - "The source manifest and dataset do not by themselves promote any benchmark result."
   - "The post-AME2020 evaluation remains retrospective time-split evidence, not prospective prediction."

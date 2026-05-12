@@ -58,6 +58,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
@@ -238,7 +239,6 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (`scientific_benchmark`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

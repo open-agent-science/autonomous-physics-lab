@@ -1,8 +1,9 @@
 # Post-AME2020 Nuclear-Mass Source Manifest
 
-`TASK-0187` pins reviewed source surfaces for a future retrospective
-post-AME2020 time-split benchmark. `TASK-0196` adds the reviewed row-level
-holdout dataset and extraction checksums.
+`TASK-0187` pins reviewed source surfaces for a retrospective post-AME2020
+time-split benchmark. `TASK-0196` adds the reviewed row-level holdout dataset
+and extraction checksums. `TASK-0197` consumes those committed rows for active
+retrospective metrics.
 
 The source manifest remains separate from the row-level dataset. The committed
 dataset lives at `data/nuclear_masses/post_ame2020_holdout.yaml`; checksums are
@@ -43,8 +44,8 @@ This manifest:
 - records exclusion rules for `NMD-0002` overlap;
 - blocks live fetching during validation;
 - records that reviewed row-level values are now committed;
-- does not activate benchmark metrics by itself.
+- records that TASK-0197 activates benchmark metrics from committed rows only.
 
-The next benchmark task may consume `post_ame2020_holdout.yaml` only after
-review. `TASK-0196` intentionally does not compute model metrics, evaluate
-candidate formulas, or promote claims.
+`TASK-0197` consumes `post_ame2020_holdout.yaml` as a retrospective benchmark.
+It still does not promote claims, canonical results, or strict blind-prediction
+language.

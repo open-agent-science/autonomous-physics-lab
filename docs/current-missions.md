@@ -49,8 +49,8 @@ Recommended direction:
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
 2. Prefer nuclear validation, evidence packaging, post-AME2020 time-split
-   preparation, or guarded follow-up tasks before opening a second nuclear
-   sandbox batch.
+   review, or guarded follow-up tasks before opening a second nuclear sandbox
+   batch.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
 4. Use the nuclear robustness gate before any second sandbox batch expands a
    candidate family.
@@ -64,6 +64,8 @@ Why:
 - split-sensitivity replay now exists as review-ready sandbox evidence;
 - a review-ready robustness gate now defines what counts as allowed follow-up,
   negative-control-only evidence, or promotion-blocking instability;
+- active retrospective post-AME2020 time-split evidence now exists as
+  `AGENT-RUN-0008` and is intentionally inconclusive;
 - the next scientific value comes from validation, time-split evidence, and
   prediction discipline, not from broadening claims.
 
