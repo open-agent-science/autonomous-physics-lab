@@ -16,8 +16,8 @@ memo that answers:
 - which tasks should be assigned next;
 - which blockers should remain in place.
 
-The curator is a context builder plus decision memo. It is deliberately not a
-database, dashboard, scheduler, or experiment runner.
+The curator is a context builder plus decision memo by default. It is
+deliberately not a database, dashboard, scheduler, or experiment runner.
 
 ## Input Sources
 
@@ -98,12 +98,41 @@ The Science Curator must not:
 - modify claims;
 - modify accepted knowledge;
 - promote hypotheses;
-- create canonical tasks without maintainer approval;
+- create canonical tasks without explicit maintainer approval in the current
+  turn;
 - mark its own recommendations as accepted science;
 - treat sandbox evidence as a public claim.
 
-It may recommend task proposals, but canonical task IDs require maintainer
-approval.
+It may recommend task proposals at any time, but canonical task IDs require
+maintainer approval.
+
+## Maintainer-Authorized Task Creation
+
+When the maintainer explicitly asks the Science Curator to create or formalize
+tasks, the curator may switch from advisory planning into a bounded task-admin
+helper for that turn.
+
+Allowed actions in that case:
+
+- create canonical `tasks/TASK-XXXX-*.yaml` files;
+- update task dependencies and statuses for the newly created tasks;
+- synchronize `tasks/ACTIVE.md`;
+- explain why each task belongs in the next campaign cycle.
+
+Required constraints:
+
+- use only maintainer-assigned task numbers or safely select unused task numbers
+  from the current local registry;
+- keep each task narrow enough for one PR or one clearly bounded agent run;
+- include accepted outputs, validation commands, and dependency notes;
+- keep claim promotion out of the task unless the maintainer explicitly
+  authorizes a separate promotion/review task;
+- preserve sandbox-only boundaries for unreviewed evidence;
+- avoid assigning broad open-ended formula search as a single task.
+
+If the maintainer only asks for a strategy brief, the curator should not create
+task files. If the maintainer says "create tasks", "оформи задачі", or similar,
+task creation is allowed for that turn.
 
 ## Overclaim Handling
 
