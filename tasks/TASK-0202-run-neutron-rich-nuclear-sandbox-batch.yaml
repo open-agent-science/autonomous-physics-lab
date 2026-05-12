@@ -1,0 +1,62 @@
+id: TASK-0202
+title: "Run bounded nuclear sandbox batch for neutron-rich residual corrections"
+type: autonomous_research_pilot
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Stress-test nuclear residual candidates on a scientifically meaningful high-risk subset."
+  - "Separate neutron-rich behavior from broad overall-score optimization."
+  - "Preserve failures as useful evidence rather than hiding subset regressions."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+    - "tasks/TASK-0190-define-nuclear-candidate-robustness-gate.yaml"
+    - "tasks/TASK-0196-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
+    - "tasks/TASK-0197-run-post-ame2020-row-level-time-split-benchmark.yaml"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+    - "docs/nuclear-mass-robustness-gate.md"
+    - "agent_runs/AGENT-RUN-0008/"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    The neutron-rich lane should test whether bounded residual corrections
+    survive difficult subset behavior instead of only improving aggregate
+    scores. It is a sandbox-only lane for failure-mode discovery and guarded
+    candidate comparison. It can run in parallel with the shell-aware and
+    pairing lanes because its hypothesis family and subset-focus are disjoint.
+
+requirements:
+  - "Generate 3 to 6 neutron-rich or extrapolation-sensitive residual hypothesis proposals."
+  - "Reject proposals that optimize only overall MAE without a subset-specific failure criterion."
+  - "Execute at most 1 or 2 sandbox candidates."
+  - "Report neutron-rich subset error, worst-case regressions, uncertainty-normalized error where available, and post-AME2020 behavior."
+  - "Compare against RESULT-0015 and include negative controls."
+  - "Classify candidates with the robustness gate."
+  - "Do not update canonical results, claims, accepted knowledge, or datasets."
+  - "Do not frame retrospective subset wins as prospective prediction."
+
+accepted_outputs:
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-00XX-neutron-rich-*.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-00XX-neutron-rich-*.yaml"
+  - "agent_runs/AGENT-RUN-00XX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-00XX/metrics.json"
+  - "agent_runs/AGENT-RUN-00XX/report.md"
+  - "agent_runs/AGENT-RUN-00XX/limitations.md"
+  - "docs/reviews/autonomous-nuclear-neutron-rich-batch-01.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

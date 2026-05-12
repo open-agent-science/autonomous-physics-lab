@@ -1,0 +1,50 @@
+id: TASK-0204
+title: "Adversarially review second nuclear sandbox batch outputs"
+type: scientific_audit
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep parallel private-agent science runs reviewable and adversarial."
+  - "Prevent the second nuclear wave from turning sandbox candidates into claims."
+  - "Compare independent batch outputs before deciding whether any follow-up deserves canonical task promotion."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0200-run-shell-aware-nuclear-sandbox-batch.yaml"
+    - "tasks/TASK-0201-run-pairing-odd-even-nuclear-sandbox-batch.yaml"
+    - "tasks/TASK-0202-run-neutron-rich-nuclear-sandbox-batch.yaml"
+    - "tasks/TASK-0203-analyze-post-ame2020-timesplit-failure-modes.yaml"
+    - "docs/nuclear-mass-robustness-gate.md"
+  planning_context: >
+    This task should start only after at least one second-batch sandbox lane
+    has produced reviewable outputs. It is an adversarial review lane, not a
+    new formula-search lane.
+
+requirements:
+  - "Do not start until at least one of TASK-0200, TASK-0201, or TASK-0202 has reviewable sandbox outputs."
+  - "Compare all available second-batch outputs against the robustness gate."
+  - "Check for leakage, cherry-picking, split sensitivity, time-split regressions, duplicate hypotheses, and overclaim wording."
+  - "Identify negative results that should be preserved."
+  - "Recommend one of: reject, keep as sandbox negative/partial evidence, request follow-up, or propose a canonical promotion task."
+  - "Do not promote claims, canonical results, or accepted knowledge."
+
+accepted_outputs:
+  - "docs/reviews/second-nuclear-sandbox-batch-adversarial-review.md"
+  - "recommended maintainer actions for each reviewed agent run"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
