@@ -40,12 +40,18 @@ requirements:
   - "Do not frame retrospective subset wins as prospective prediction."
 
 accepted_outputs:
-  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-00XX-neutron-rich-*.yaml"
-  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-00XX-neutron-rich-*.yaml"
-  - "agent_runs/AGENT-RUN-00XX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-00XX/metrics.json"
-  - "agent_runs/AGENT-RUN-00XX/report.md"
-  - "agent_runs/AGENT-RUN-00XX/limitations.md"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0033-quartic-asymmetry.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0034-asymmetric-neutron-excess.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0035-in-sb-chain-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0036-free-power-asymmetry-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0037-per-shell-stack-rejected.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-0007-nuclear-neutron-rich-batch.yaml"
+  - "agent_runs/AGENT-RUN-0010/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0010/metrics.json"
+  - "agent_runs/AGENT-RUN-0010/report.md"
+  - "agent_runs/AGENT-RUN-0010/limitations.md"
+  - "agent_runs/AGENT-RUN-0010/preflight.md"
+  - "agent_runs/AGENT-RUN-0010/review_summary.md"
   - "docs/reviews/autonomous-nuclear-neutron-rich-batch-01.md"
 
 validation:
