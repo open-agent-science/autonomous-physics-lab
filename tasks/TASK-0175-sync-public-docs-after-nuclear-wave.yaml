@@ -19,18 +19,27 @@ input:
     - "docs/mission-control.md"
     - "docs/roadmap.md"
     - "docs/releases/v0.2-public-alpha.md"
+    - "docs/results/visual-summary.md"
+    - "agent_runs/AGENT-RUN-0007/"
+    - "experiments/EXP-0011-anharmonic-oscillator-period.yaml"
+    - "experiments/EXP-0012-nuclear-mass-baseline-residual-benchmark.yaml"
     - "tasks/ACTIVE.md"
   planning_context: >
     The authoritative snapshot now shows eleven completed experiments and the
-    completed nuclear wave through TASK-0170. Some public-facing docs still
+    completed nuclear wave through TASK-0170 plus the post-AME2020 guard and
+    row-level follow-up queue through TASK-0197. Some public-facing docs still
     describe the older nine-experiment surface and do not yet reflect the
-    private contributor validation pivot. This task should synchronize the
-    wording without promoting claims.
+    private contributor validation pivot or Nuclear Mass Surface as the current
+    flagship validation campaign. This task should synchronize the wording
+    without promoting claims.
 
 requirements:
   - "Compare top-level docs against canonical task, experiment, result, and agent-run state."
   - "Update stale experiment counts, benchmark surfaces, and nuclear-mass wording."
   - "Describe EXP-0012 and AGENT-RUN-0005 as benchmark and sandbox evidence, not discovery."
+  - "Ensure docs/status.md and docs/mission-control.md explicitly reflect EXP-0011, EXP-0012, Nuclear Mass Surface, AGENT-RUN-0007, and post-AME2020 guard/follow-up status."
+  - "State that AGENT-RUN-0007 is INCONCLUSIVE source-manifest-only guard evidence, not an active time-split benchmark result."
+  - "Point the next Nuclear Mass Surface unlock to TASK-0196 row-level post-AME2020 holdout data before TASK-0197 real time-split scoring."
   - "Keep EXP-0010 framed as a guarded formula-search stress test only."
   - "Ensure the current phase reads as private contributor and agent workflow validation, not public launch readiness."
 
