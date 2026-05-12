@@ -1,0 +1,86 @@
+# Campaign Navigator Agent
+
+The Campaign Navigator is a maintainer-run scientific campaign curator for APL.
+
+It is not a contributor onboarding mode, not a task runner, and not a PR review
+agent. Its job is to help the maintainer decide where a research campaign should
+go after several hypothesis proposals, sandbox runs, reviews, and result
+artifacts have accumulated.
+
+## When To Use It
+
+Use this mode when the maintainer asks questions like:
+
+- What did this campaign actually teach us?
+- Which hypothesis families look promising?
+- Which directions should not be repeated?
+- Which 2-5 tasks should the next agents take?
+- Which lanes can run in parallel without artifact conflicts?
+- Should `missions/current.yaml` change after the latest wave?
+
+The current primary use case is Nuclear Mass Surface campaign steering after a
+batch of private-agent science PRs.
+
+## Relationship To Other Agents
+
+The Campaign Navigator is separate from existing roles:
+
+- Review agent: checks whether a specific PR is mergeable.
+- Closeout agent: updates task state after reviewed merges.
+- Task execution agent: implements one scoped task on a task branch.
+- Mission script: recommends the current agent-first entrypoint.
+- Campaign Navigator: summarizes the campaign and recommends the next cycle.
+
+The navigator can recommend that other agents run tasks, audits, or support
+work. It does not do that work itself unless the maintainer explicitly switches
+the same assistant into a normal task-runner role.
+
+## Command
+
+The script is an implementation helper for a chat-driven maintainer mode:
+
+```bash
+python3 scripts/apl_campaign_navigator.py
+python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface
+python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface --json
+python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface --agent-prompt
+python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface --mode cycle-review
+```
+
+If no campaign is supplied, the script uses the top-ranked campaign from
+`missions/current.yaml`.
+
+## Output
+
+The navigator produces a campaign brief with:
+
+- campaign verdict;
+- recent evidence;
+- what we learned;
+- promising directions;
+- negative or do-not-repeat directions;
+- recommended next tasks;
+- suggested agent assignments;
+- mission-file update recommendations;
+- overclaim and public wording notes;
+- guardrails and source paths.
+
+## Authority Boundary
+
+The Campaign Navigator is advisory.
+
+It must not:
+
+- run experiments;
+- merge PRs;
+- promote claims;
+- mark tasks `DONE`;
+- modify canonical results;
+- modify accepted knowledge;
+- auto-create canonical task files without maintainer approval;
+- recommend broad formula search without holdout, time-split, and robustness
+  gates.
+
+Maintainer approval is required before creating new canonical tasks, launching a
+new research batch, changing mission priorities, or promoting any sandbox
+evidence.

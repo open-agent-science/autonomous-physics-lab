@@ -17,7 +17,8 @@ APL currently has two broad families:
 - maintainer-facing review and automation agents
 
 The contributor side helps humans and coding agents complete scoped work.
-The maintainer side helps with review, queue triage, and post-merge closeout.
+The maintainer side helps with review, queue triage, post-merge closeout, and
+campaign-level research steering.
 
 ## Contributor-Facing Agent Paths
 
@@ -88,7 +89,23 @@ task closeout recommendation.
 
 Status: active and heavily used.
 
-### 6. Maintainer Routine / Manual / Action Modes
+### 6. Campaign Navigator / Scientific Campaign Curator
+
+Use this path when the maintainer wants a campaign-level research brief after a
+wave of hypothesis proposals, sandbox runs, reviews, or result artifacts.
+
+- Typical work: summarize campaign evidence, identify promising and failed
+  directions, recommend the next 2-5 tasks, suggest parallel agent lanes
+- Primary docs:
+  - [campaign-navigator-agent.md](./campaign-navigator-agent.md)
+  - [campaign-navigator-protocol.md](./campaign-navigator-protocol.md)
+- Helper script:
+  - `python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface`
+
+Status: active maintainer-facing advisory mode. It must not run experiments,
+promote claims, create canonical tasks, or replace PR review.
+
+### 7. Maintainer Routine / Manual / Action Modes
 
 These are execution modes for maintainer automation rather than separate
 scientific agents.
@@ -104,7 +121,7 @@ Primary docs:
 
 Status: active as file-backed operating modes.
 
-### 7. Proposal Triage / PR Queue / Closeout Sweep Roles
+### 8. Proposal Triage / PR Queue / Closeout Sweep Roles
 
 These are documented maintainer automation roles used to organize routine work:
 
@@ -159,10 +176,19 @@ Read:
 2. [maintainer-automation-architecture.md](./maintainer-automation-architecture.md)
 3. the appropriate file in [automation/](./automation)
 
+### If you are a maintainer steering a research campaign
+
+Read:
+
+1. [campaign-navigator-agent.md](./campaign-navigator-agent.md)
+2. [campaign-navigator-protocol.md](./campaign-navigator-protocol.md)
+3. run `python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface`
+
 ## One-Sentence Rule
 
 If you are not sure which path applies:
 
 - contributors start from `READY` tasks or microtasks
-- maintainers start from the review agent and automation docs
+- maintainers start from the review agent for PRs, closeout for merged tasks,
+  and Campaign Navigator for research-cycle steering
 - proposals are for ideas, not for active implementation
