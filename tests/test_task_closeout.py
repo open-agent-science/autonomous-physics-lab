@@ -73,6 +73,7 @@ def test_build_closeout_report_for_review_ready_task(tmp_path: Path) -> None:
     assert report.accepted_outputs == ("docs/example.md", "tasks/ACTIVE.md")
     assert report.warnings == ()
     assert any("sync-active-board" in item for item in report.suggested_actions)
+    assert any("Closeout publish reminder" in item for item in report.suggested_actions)
 
 
 def test_build_closeout_report_warns_when_not_review_ready(tmp_path: Path) -> None:
@@ -174,6 +175,7 @@ def test_apply_closeout_report_defers_board_sync_by_default(tmp_path: Path) -> N
     assert report.outcome == "APPLIED"
     assert any("Deferred tasks/ACTIVE.md synchronization" in item for item in report.applied_changes)
     assert not any("Synchronized tasks/ACTIVE.md" in item for item in report.applied_changes)
+    assert any("Closeout publish reminder" in item for item in report.suggested_actions)
 
 
 def test_apply_closeout_report_suggests_regenerating_context_bundle_for_source_changes(

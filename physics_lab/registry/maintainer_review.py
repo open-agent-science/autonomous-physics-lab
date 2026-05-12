@@ -1044,6 +1044,13 @@ def build_closeout_report(
         if should_append_dry_run_entry(task_payload):
             if append_dry_run_entry(root, task_id, pull_request):
                 applied_changes.append("Appended a closeout note to docs/multi-agent-dry-run.md.")
+        suggested_actions.append(
+            "Closeout publish reminder: do not leave applied closeout changes "
+            "only in the local worktree. Review git status/diff, run the required "
+            "validation/context refresh, then prepare a closeout commit and PR "
+            "or ask the maintainer to do so. Do not push or merge unless the "
+            "maintainer explicitly authorizes it."
+        )
 
     return CloseoutReport(
         outcome=outcome,
