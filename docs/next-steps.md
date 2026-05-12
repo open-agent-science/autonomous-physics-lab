@@ -100,28 +100,93 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Validate Private Contributors And Agents
+### 1. Strengthen Nuclear Validation Before More Batches
 
 The nuclear-mass surface campaign has now landed its first complete wave:
 campaign scaffold, dataset layer, baseline residual benchmark, structured
 holdout protocol, and one sandbox-only autonomous residual pilot.
 
-The next goal is to validate the private contributor and agent workflow before
-opening the repository more broadly. This phase should test whether contributors
-can understand APL from repository instructions, follow task and branch
-protocol, produce reviewable artifacts, pass CI, survive maintainer review, and
-complete closeout without automatic claim promotion.
+The next scientific goal is not to multiply residual formulas. It is to harden
+the evidence boundary around the current nuclear surface:
+
+- package the current pilot evidence without claim promotion;
+- finish independent audit and split-sensitivity interpretation;
+- turn the post-AME2020 source manifest into reviewed row-level holdout data;
+- evaluate the frozen baseline and sandbox candidates on that row-level
+  time-split surface;
+- define a robustness gate before allowing another autonomous nuclear batch;
+- add a prediction registry only for future before-measurement predictions.
+
+Recommended nuclear validation queue for parallel agents:
+
+- `TASK-0174` nuclear pilot evidence card and visual funnel, now merged
+- `TASK-0188` post-AME2020 time-split guard, complete in conservative
+  source-manifest-only mode with no active benchmark metrics
+- `TASK-0196` reviewed row-level post-AME2020 nuclear mass holdout dataset,
+  now merged
+- `TASK-0197` real post-AME2020 nuclear time-split benchmark, now merged as
+  inconclusive `AGENT-RUN-0008` evidence
+- `TASK-0189` nuclear prediction registry policy
+- `TASK-0200` bounded shell-aware nuclear sandbox batch
+- `TASK-0201` bounded pairing / odd-even nuclear sandbox batch
+- `TASK-0202` bounded neutron-rich nuclear sandbox batch
+- `TASK-0203` post-AME2020 time-split failure-mode analysis
+- `TASK-0178` broad second nuclear sandbox batch remains blocked as an
+  umbrella; use the narrower TASK-0200 through TASK-0204 lanes first
+
+Current nuclear-mass baseline state:
+
+- `EXP-0012` / `RESULT-0015` now exist as the first reviewable baseline
+  residual surface;
+- the best current model is the slice-fitted semi-empirical baseline with
+  `2.825 MeV` overall MAE and `2.449 MeV` magic-subset MAE on `NMD-0002`;
+- `TASK-0169` now defines the required structured holdout contract for random,
+  isotope-chain, magic-region, and neutron-rich evaluation;
+- the campaign now has one sandbox-only autonomy package under
+  `AGENT-RUN-0005`;
+- `TASK-0170` is complete, so any nuclear-mass continuation should be a new
+  maintainer-reviewed comparison, dataset-expansion, or curation task rather
+  than automatic result promotion.
+- post-AME2020 measured masses are now treated as retrospective time-split
+  evidence through `AGENT-RUN-0008`, not as strict blind prediction;
+- `AGENT-RUN-0007` is useful guard evidence, but it is not an active
+  post-AME2020 benchmark result;
+- `AGENT-RUN-0008` is useful active retrospective time-split evidence, but it
+  is inconclusive and does not promote `HYP-PROPOSAL-0021` or any negative
+  control;
+- prospective prediction requires a registry entry created before later
+  measurements are compared.
+
+The nuclear queue should stay conservative:
+
+- no universal mass-formula claims;
+- no discovery framing;
+- explicit baseline comparison, holdout discipline, and negative-result preservation.
+- parallel science lanes are encouraged across different campaigns and within
+  the same campaign, but each lane must use a separate branch/worktree,
+  disjoint hypothesis family or artifact surface, and sandbox-only outputs;
+- no broad second nuclear sandbox batch from `TASK-0178`; run only narrow
+  sandbox lanes with primary holdout, split-sensitivity, post-AME2020
+  time-split, negative controls, and no claim promotion.
+
+### 2. Validate Private Contributors And Agents
+
+The workflow-validation goal remains important, but it should now run alongside
+the harder nuclear evidence queue rather than replacing it.
+
+This phase should test whether contributors can understand APL from repository
+instructions, follow task and branch protocol, produce reviewable artifacts,
+pass CI, survive maintainer review, and complete closeout without automatic
+claim promotion.
 
 Recommended private-validation queue:
 
 - `TASK-0172` private contributor and agent validation plan
 - `TASK-0173` independent replay and audit of `HYP-PROPOSAL-0021`
-- `TASK-0174` nuclear pilot evidence card and visual funnel
 - `TASK-0175` public-facing docs sync after the nuclear wave
 - `TASK-0177` private agent challenge pack
 
-The target evidence before public opening is workflow stability, not another
-large speculative science result:
+Target evidence before broader opening:
 
 - 3 to 5 contributors using agents;
 - 10 or more task-based PRs;
@@ -142,28 +207,7 @@ board synchronized:
 - `TASK-0117` maintainer review and closeout flow diagram
 - `TASK-0136` validation and scientific-memory integrity split
 
-Current nuclear-mass baseline state:
-
-- `EXP-0012` / `RESULT-0015` now exist as the first reviewable baseline
-  residual surface;
-- the best current model is the slice-fitted semi-empirical baseline with
-  `2.825 MeV` overall MAE and `2.449 MeV` magic-subset MAE on `NMD-0002`;
-- `TASK-0169` now defines the required structured holdout contract for random,
-  isotope-chain, magic-region, and neutron-rich evaluation;
-- the campaign now has one sandbox-only autonomy package under
-  `AGENT-RUN-0005`;
-- `TASK-0170` is complete, so any nuclear-mass continuation should be a new
-  maintainer-reviewed comparison, dataset-expansion, or curation task rather
-  than automatic result promotion.
-
-The nuclear queue should stay conservative:
-
-- no universal mass-formula claims;
-- no discovery framing;
-- explicit baseline comparison, holdout discipline, and negative-result preservation.
-- no second nuclear sandbox batch until `TASK-0173` is done.
-
-### 2. Keep Anharmonic and Pendulum Work as Methodological Proof
+### 3. Keep Anharmonic and Pendulum Work as Methodological Proof
 
 Pendulum and anharmonic work remain useful as proof that the autonomy loop,
 benchmark framing, and maintainer review workflow can function end to end.
@@ -178,7 +222,7 @@ same protocol visible across every follow-up campaign:
 - negative controls
 - reviewable PRs
 
-### 3. Preserve Replay and Validation Quality
+### 4. Preserve Replay and Validation Quality
 
 The scientific credibility layer now includes the merged holdout protocol and
 result-quality rubric. The next hardening work should keep repository
@@ -188,7 +232,7 @@ validation and replay surfaces easy to trust:
 - `TASK-0137` split maintainer review helper into clearer policy layers
 - `TASK-0138` add canonical replay and golden-result hardening layer
 
-### 4. Keep Docs and Gates Aligned
+### 5. Keep Docs and Gates Aligned
 
 Always keep these files aligned when priorities change:
 
@@ -198,7 +242,7 @@ Always keep these files aligned when priorities change:
 - [public-release-gates.md](./public-release-gates.md)
 - [private-contributor-pilot.md](./private-contributor-pilot.md)
 
-### 5. Public Release Remains Gated
+### 6. Public Release Remains Gated
 
 Do not prepare the repository as public-ready until all gates are satisfied.
 

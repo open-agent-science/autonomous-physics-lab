@@ -1,0 +1,55 @@
+id: TASK-0194
+title: "Unblock post-AME2020 time-split nuclear benchmark"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Move the Nuclear Mass Surface to the next harder validation layer now that source provenance exists."
+  - "Keep second-batch nuclear sandbox work blocked until the time-split benchmark itself is complete."
+  - "Make Mission Control recommend the time-split benchmark before broader follow-up science batches."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0187-curate-post-ame2020-nuclear-mass-holdout-dataset.yaml"
+    - "tasks/TASK-0188-implement-post-ame2020-time-split-nuclear-benchmark.yaml"
+    - "tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+    - "tasks/ACTIVE.md"
+    - "docs/next-steps.md"
+  planning_context: >
+    TASK-0187 is DONE and provides a reviewed post-AME2020 source manifest,
+    which satisfies the blocker for starting TASK-0188. TASK-0178 must remain
+    blocked until the time-split benchmark is complete and mission/prompt
+    requirements include primary holdout, split-sensitivity, time-split
+    behavior, and no claim promotion.
+
+requirements:
+  - "Move TASK-0188 from BLOCKED to READY."
+  - "Do not move TASK-0178 out of BLOCKED."
+  - "Update stale docs wording that still says TASK-0188 is blocked on TASK-0187."
+  - "Sync the active board and context bundle."
+  - "Confirm Mission Control live task candidates now include TASK-0188 before TASK-0178 follow-up work."
+
+accepted_outputs:
+  - "updated tasks/TASK-0188-implement-post-ame2020-time-split-nuclear-benchmark.yaml"
+  - "updated docs/next-steps.md"
+  - "updated tasks/ACTIVE.md"
+  - "updated CONTEXT.md"
+  - "task moved to REVIEW_READY"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py tests/test_active_board.py tests/test_context_bundle.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 scripts/apl_mission.py --agent-prompt"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

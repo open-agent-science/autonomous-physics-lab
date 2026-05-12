@@ -1,0 +1,60 @@
+id: TASK-0192
+title: "Add closeout checks for public state documentation drift"
+type: maintainer_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce stale public-facing repository docs after science, campaign, or task-queue merges."
+  - "Make closeout agents explicitly compare docs/status.md and docs/mission-control.md against authoritative structured state."
+  - "Keep the check advisory so closeout remains lightweight while still surfacing drift early."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "scripts/apl_closeout_task.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/task_closeout.py"
+    - "docs/maintainer-review-agent.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+  planning_context: >
+    Recent strategic review found that authoritative snapshot state had 11
+    completed experiments and the nuclear mass baseline surface, while
+    docs/status.md and docs/mission-control.md still lagged. Closeout agents
+    should be reminded to review those public state docs whenever merged work
+    changes experiments, results, campaigns, scientific validation surfaces, or
+    near-term mission priorities.
+
+requirements:
+  - "Add deterministic closeout suggestions for docs/status.md and docs/mission-control.md drift review when merged work touches scientific state or task payloads indicate science/campaign/result changes."
+  - "Document the closeout expectation in docs/maintainer-review-agent.md."
+  - "Keep the check advisory rather than a hard blocker."
+  - "Do not change scientific claims, result artifacts, or experiment status."
+
+accepted_outputs:
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated physics_lab/registry/task_closeout.py"
+  - "updated docs/maintainer-review-agent.md"
+  - "tests covering public-state docs drift suggestions"
+  - "task moved to REVIEW_READY"
+  - "active board synced"
+  - "CONTEXT.md regenerated if context sources changed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_closeout.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 scripts/generate_context_bundle.py"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,7 +1,7 @@
 id: TASK-0137
 title: "Split maintainer review helper into clearer policy layers"
 type: code_quality_refactor
-status: READY
+status: DONE
 difficulty: medium
 priority: medium
 

@@ -1,0 +1,63 @@
+id: TASK-0197
+title: "Run post-AME2020 nuclear time-split benchmark with row-level holdout"
+type: scientific_validation
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Convert the guarded TASK-0188 benchmark helper into a real retrospective time-split result once row-level data exists."
+  - "Evaluate frozen baseline and sandbox candidates without post-hoc mutation."
+  - "Produce honest positive, negative, or inconclusive evidence before any second nuclear batch."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0196-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
+    - "physics_lab/registry/post_ame2020_holdout.py"
+    - "agent_runs/AGENT-RUN-0006/"
+    - "agent_runs/AGENT-RUN-0007/"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0020-shell-dual-heavy-anchor.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0022-quadratic-asymmetry-refinement.yaml"
+    - "docs/nuclear-mass-robustness-gate.md"
+  planning_context: >
+    TASK-0188 produced a conservative activation guard, not active time-split
+    metrics. After TASK-0196 commits row-level data, this task evaluates the
+    frozen baseline, HYP-PROPOSAL-0021, negative controls, and approved
+    comparators on the same retrospective post-AME2020 holdout.
+
+requirements:
+  - "Do not start until TASK-0196 is DONE and the row-level holdout dataset passes validation."
+  - "Evaluate frozen RESULT-0015 baseline on the row-level post-AME2020 holdout."
+  - "Evaluate frozen HYP-PROPOSAL-0021 without changing formula or fitted family after seeing holdout rows."
+  - "Evaluate the overfit negative control and HYP-PROPOSAL-0020 comparator if their frozen definitions are available."
+  - "Report MAE, RMSE, uncertainty-normalized error, per-region subsets, neutron-rich subsets, and worst-case regressions."
+  - "Compare against split-sensitivity context from AGENT-RUN-0006 and guard context from AGENT-RUN-0007."
+  - "Preserve negative or inconclusive outcomes."
+  - "Do not promote claims, canonical results, or knowledge unless a separate reviewed task explicitly allows it."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0008/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0008/metrics.json"
+  - "agent_runs/AGENT-RUN-0008/report.md"
+  - "agent_runs/AGENT-RUN-0008/limitations.md"
+  - "agent_runs/AGENT-RUN-0008/preflight.md"
+  - "agent_runs/AGENT-RUN-0008/review_summary.md"
+  - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
+  - "tests/test_post_ame2020_time_split_metrics.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

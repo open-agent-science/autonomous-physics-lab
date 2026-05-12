@@ -32,6 +32,16 @@ instruction, may perform closeout after merge.
 - If the merged PR or the applied board-sync step touched files that feed
   `CONTEXT.md`, rerun `python3 scripts/generate_context_bundle.py` and stage
   `CONTEXT.md` in a later maintainer branch if it changed.
+- If the merged work changes experiments, results, campaign profiles, agent
+  runs, mission priorities, or release gates, compare
+  [../../README.md](../../README.md), [../status.md](../status.md),
+  [../mission-control.md](../mission-control.md), and
+  [../next-steps.md](../next-steps.md) against authoritative structured state.
+- Treat public docs sync as check-and-follow-up by default. Routine closeout may
+  update task status, [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md), and
+  `CONTEXT.md`; it should update public narrative docs only when the current
+  task explicitly includes public-doc sync. Otherwise update an existing
+  docs-sync task or create a follow-up task.
 - If the merged work changes what a contributor should do next, review
   [../next-steps.md](../next-steps.md) and update it when its short-handoff
   queue has gone stale.

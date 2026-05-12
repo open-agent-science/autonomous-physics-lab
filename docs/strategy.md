@@ -35,7 +35,8 @@ That base now exists well enough to support a new emphasis:
    benchmark ideas at once.
 2. Elevate a nuclear mass surface campaign as the next flagship science track,
    using baseline residual maps, shell-closure diagnostics, holdout discipline,
-   and conservative correction-term framing instead of broad discovery claims.
+   post-AME2020 time-split validation, and conservative correction-term framing
+   instead of broad discovery claims.
 3. Validate the private contributor and agent workflow with measurable gates:
    task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
    clean review-helper behavior, closeout, and zero automatic claim promotion.
@@ -52,7 +53,10 @@ That base now exists well enough to support a new emphasis:
 8. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-9. Prepare public launch only after the explicit gates in
+9. Distinguish retrospective time-split benchmarks from prospective prediction:
+   post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
+   true future predictions require a pre-registered prediction artifact.
+10. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 ## Current Goal
@@ -77,7 +81,10 @@ Current visible evidence includes:
 - the dimensional-analysis validator MVP result from `EXP-0006/RUN-0006`;
 - the neutrino and quark Koide falsification results from `EXP-0007/RUN-0001`
   and `EXP-0008/RUN-0001`;
-- the negative-results registry as a maintained output surface.
+- the negative-results registry as a maintained output surface;
+- the nuclear-mass baseline and sandbox autonomy surface, including split
+  sensitivity replay, as a flagship validation track that still requires
+  stronger time-split evidence before any broader scientific claim.
 
 These results are useful because they are reviewable and reproducible, not
 because they justify expansive scientific claims.

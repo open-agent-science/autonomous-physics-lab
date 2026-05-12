@@ -1,0 +1,70 @@
+id: TASK-0195
+title: "Curate post-AME2020 row-level follow-up queue after time-split guard"
+type: maintainer_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Close the merged post-AME2020 guard wave without treating it as active benchmark evidence."
+  - "Create the next row-level dataset and real time-split benchmark tasks with canonical ids."
+  - "Keep Agent First mission output focused on the next scientific unlock instead of premature second-batch nuclear work."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "tasks/TASK-0188-implement-post-ame2020-time-split-nuclear-benchmark.yaml"
+    - "tasks/TASK-0193-write-snapshots-to-canonical-repo-root.yaml"
+    - "tasks/TASK-0194-unblock-post-ame2020-timesplit-benchmark.yaml"
+    - "tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+    - "missions/current.yaml"
+    - "docs/next-steps.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "docs/nuclear-mass-robustness-gate.md"
+  planning_context: >
+    PR #253 completed TASK-0188 in conservative guard mode: AGENT-RUN-0007 is
+    useful source-manifest evidence, but it has no row-level post-AME2020
+    holdout rows and no active benchmark metrics. The next safe sequence is a
+    reviewed row-level dataset, then a real time-split benchmark, then any
+    second nuclear sandbox batch.
+
+requirements:
+  - "Mark merged guard/snapshot unblock tasks as DONE after verified merges."
+  - "Create a READY row-level post-AME2020 holdout dataset task."
+  - "Create a BLOCKED real post-AME2020 time-split benchmark task gated on the row-level dataset."
+  - "Keep TASK-0178 blocked until audit, robustness, row-level data, and real time-split evidence are done."
+  - "Update Mission Control so default research mode recommends the row-level dataset task."
+  - "Update next-steps and nuclear holdout/robustness docs so TASK-0188 is described as guard evidence only."
+  - "Sync active board and context bundle."
+  - "Update mission tests for the new default recommendation."
+
+accepted_outputs:
+  - "tasks/TASK-0196-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
+  - "tasks/TASK-0197-run-post-ame2020-row-level-time-split-benchmark.yaml"
+  - "updated tasks/TASK-0188-implement-post-ame2020-time-split-nuclear-benchmark.yaml"
+  - "updated tasks/TASK-0193-write-snapshots-to-canonical-repo-root.yaml"
+  - "updated tasks/TASK-0194-unblock-post-ame2020-timesplit-benchmark.yaml"
+  - "updated tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+  - "updated missions/current.yaml"
+  - "updated docs/next-steps.md"
+  - "updated docs/nuclear-mass-holdout-protocol.md"
+  - "updated docs/nuclear-mass-robustness-gate.md"
+  - "updated tests/test_mission_control.py"
+  - "updated tasks/ACTIVE.md"
+  - "updated CONTEXT.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 scripts/apl_mission.py --agent-prompt"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

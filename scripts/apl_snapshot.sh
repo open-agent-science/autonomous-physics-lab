@@ -3,11 +3,18 @@
 set -u
 shopt -s nullglob
 
-mkdir -p _snapshots
-
 TS="$(date -u +%Y%m%d_%H%M%S)"
-OUT="_snapshots/apl_snapshot_${TS}.md"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
+CANONICAL_REPO_ROOT="$("${PYTHON_BIN}" - <<'PY'
+from pathlib import Path
+from physics_lab.registry.snapshot import build_snapshot_context
+
+print(build_snapshot_context(Path(".")).canonical_root)
+PY
+)"
+SNAPSHOT_DIR="${APL_SNAPSHOT_DIR:-${CANONICAL_REPO_ROOT}/_snapshots}"
+mkdir -p "$SNAPSHOT_DIR"
+OUT="${SNAPSHOT_DIR}/apl_snapshot_${TS}.md"
 
 section() {
   echo ""

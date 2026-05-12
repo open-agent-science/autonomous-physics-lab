@@ -1,0 +1,38 @@
+{
+  "task_id": "TASK-0188",
+  "benchmark_status": "NOT_ACTIVATED_SOURCE_MANIFEST_ONLY",
+  "time_split_metrics_active": false,
+  "source_manifest_id": "POST-AME2020-SOURCES-0001",
+  "row_level_dataset_path": "data/nuclear_masses/post_ame2020_holdout.yaml",
+  "row_level_dataset_exists": false,
+  "candidate_evaluations_performed": false,
+  "canonical_results_changed": false,
+  "canonical_claims_changed": false,
+  "frozen_candidate": {
+    "candidate_id": "HYP-PROPOSAL-0021",
+    "family": "shell_dual_heavy_anchor_odd_a",
+    "formula": "r_corr = c1*m2 + c2*mh + c3*oa",
+    "parameter_count": 3,
+    "source_agent_run_id": "AGENT-RUN-0005"
+  },
+  "metric_fields_when_active": [
+    "count",
+    "mae_mev",
+    "rmse_mev",
+    "max_abs_error_mev",
+    "mean_abs_uncertainty_normalized_error",
+    "max_abs_uncertainty_normalized_error"
+  ],
+  "split_replay_context": {
+    "source_agent_run_id": "AGENT-RUN-0006",
+    "classification": "split_sensitive_partial_signal",
+    "improved_count": 28,
+    "regressed_count": 13,
+    "tied_count": 7,
+    "worst_delta_mae_mev": 0.9480738911860487
+  },
+  "activation_guard": {
+    "result": "TASK-0187 provides source provenance only; no reviewed row-level post-AME2020 holdout dataset is committed.",
+    "required_next_step": "Commit a reviewed row-level post-AME2020 holdout dataset with source-artifact checksum, unit mapping, measured/extrapolated flags, and exclusion reasons before active benchmark metrics can run."
+  }
+}

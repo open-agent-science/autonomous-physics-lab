@@ -85,3 +85,16 @@ This file exists to support the first baseline residual benchmark under
 - no claim that this slice substitutes for a full AME2020 import.
 
 A broader pinned AME-style table is still a later task.
+
+The repository also includes a reviewed source manifest for the future
+post-AME2020 time-split lane:
+
+- `post_ame2020_sources.yaml`
+- `post_ame2020_sources.md`
+- `post_ame2020_holdout.yaml`
+- `post_ame2020_checksums.md`
+
+The holdout dataset commits the reviewed row-level post-AME2020 values and
+provenance needed for time-split evaluation. `TASK-0197` activates
+retrospective benchmark metrics from committed rows only; it still does not
+promote candidate claims or strict blind-prediction language.

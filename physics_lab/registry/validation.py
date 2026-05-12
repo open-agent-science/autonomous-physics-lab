@@ -30,6 +30,8 @@ SCHEMA_FILE_BY_KIND = {
     "agent_run": "agent_run.schema.json",
     "microtask_run": "microtask_run.schema.json",
     "nuclear_mass_dataset": "nuclear_mass_dataset.schema.json",
+    "post_ame2020_holdout": "post_ame2020_holdout.schema.json",
+    "post_ame2020_sources": "post_ame2020_sources.schema.json",
 }
 KIND_BY_DIRECTORY = {
     "claims": "claim",
@@ -91,6 +93,8 @@ FILENAME_KIND_MAP: dict[str, str] = {
     "review_metadata.yaml": "review_metadata",
     "agent_run.yaml": "agent_run",
     "MICROTASK-RUN-TEMPLATE.yaml": "microtask_run",
+    "post_ame2020_holdout.yaml": "post_ame2020_holdout",
+    "post_ame2020_sources.yaml": "post_ame2020_sources",
 }
 
 

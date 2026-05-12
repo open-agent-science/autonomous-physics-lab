@@ -133,6 +133,42 @@ def test_mission_json_includes_guardrails(tmp_path: Path) -> None:
     assert rendered["global_forbidden"] == ["no claim promotion"]
 
 
+def test_mission_json_omits_inactive_configured_actions(tmp_path: Path) -> None:
+    _write_missions(tmp_path)
+    mission_path = tmp_path / "missions" / "current.yaml"
+    text = mission_path.read_text(encoding="utf-8")
+    mission_path.write_text(
+        text.replace(
+            "                  - id: audit-run\n"
+            "                    label: \"Audit run\"\n"
+            "                    mode: audit\n"
+            "                    priority: high\n",
+            "                  - id: done-replay\n"
+            "                    label: \"Done replay\"\n"
+            "                    mode: research\n"
+            "                    status: done\n"
+            "                    priority: high\n"
+            "                  - id: blocked-replay\n"
+            "                    label: \"Blocked replay\"\n"
+            "                    mode: research\n"
+            "                    status: blocked\n"
+            "                    priority: high\n"
+            "                  - id: audit-run\n"
+            "                    label: \"Audit run\"\n"
+            "                    mode: audit\n"
+            "                    priority: high\n",
+        ),
+        encoding="utf-8",
+    )
+    payload = load_current_missions(tmp_path)
+
+    rendered = json.loads(mission_json(payload))
+
+    actions = [action["action"] for action in rendered["alternatives"]]
+    assert "done-replay" not in actions
+    assert "blocked-replay" not in actions
+
+
 def test_mission_json_includes_live_task_candidates(tmp_path: Path) -> None:
     _write_missions(tmp_path)
     _write_task(
@@ -256,5 +292,15 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert rendered["recommended"]["action"] == "nuclear-validation-queue"
     assert rendered["recommended"]["task_id"] is None
     assert "parallel_work_policy" in rendered
-    assert len(rendered["live_task_candidates"]) >= 3
+    assert rendered["live_task_candidates"]
+    nuclear_validation_queue_ids = {
+        "TASK-0200",
+        "TASK-0201",
+        "TASK-0202",
+        "TASK-0203",
+    }
+    assert (
+        rendered["live_task_candidates"][0]["task_id"]
+        in nuclear_validation_queue_ids
+    )
     assert rendered["live_task_candidates"][0]["mode"] == "research"
