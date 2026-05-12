@@ -91,6 +91,9 @@ post-AME2020 time-split lane:
 
 - `post_ame2020_sources.yaml`
 - `post_ame2020_sources.md`
+- `post_ame2020_holdout.yaml`
+- `post_ame2020_checksums.md`
 
-That manifest pins source references and import rules only. It does not commit
-row-level later measurements or activate a benchmark by itself.
+The holdout dataset commits the reviewed row-level post-AME2020 values and
+provenance needed for a later time-split benchmark. It still does not activate
+benchmark metrics or promote candidate claims by itself.

@@ -10,6 +10,8 @@ from typing import Any, Iterable, Mapping
 
 import yaml
 
+from physics_lab.registry.validation import validate_document
+
 
 POST_AME2020_HOLDOUT_TARGET = "data/nuclear_masses/post_ame2020_holdout.yaml"
 
@@ -111,26 +113,57 @@ def load_post_ame2020_source_manifest(path: str | Path) -> dict[str, Any]:
     return payload
 
 
+def load_post_ame2020_holdout_dataset(path: str | Path) -> dict[str, Any]:
+    """Load and schema-validate the reviewed row-level post-AME2020 holdout."""
+    dataset_path = Path(path)
+    with dataset_path.open("r", encoding="utf-8") as handle:
+        payload = yaml.safe_load(handle)
+    if not isinstance(payload, dict):
+        raise ValueError(f"Expected mapping in post-AME2020 holdout dataset: {dataset_path}")
+    validate_document(payload, kind="post_ame2020_holdout", source=dataset_path)
+    return payload
+
+
+def _default_dataset_path_for_manifest(manifest_path: Path) -> Path:
+    if manifest_path.is_absolute():
+        return manifest_path.parent.parent.parent / POST_AME2020_HOLDOUT_TARGET
+    return Path(POST_AME2020_HOLDOUT_TARGET)
+
+
 def assess_post_ame2020_activation(
     manifest_path: str | Path,
     *,
     row_level_dataset_path: str | Path | None = None,
 ) -> dict[str, object]:
     """Return whether the post-AME2020 benchmark may run active metrics."""
-    manifest = load_post_ame2020_source_manifest(manifest_path)
+    resolved_manifest_path = Path(manifest_path)
+    manifest = load_post_ame2020_source_manifest(resolved_manifest_path)
     activation = manifest.get("activation_status", {})
     if not isinstance(activation, dict):
         raise ValueError("post-AME2020 manifest must include activation_status mapping")
 
     row_values_committed = bool(activation.get("row_level_holdout_dataset_committed"))
     manifest_active = bool(activation.get("time_split_holdout_active"))
-    dataset_path = Path(row_level_dataset_path or POST_AME2020_HOLDOUT_TARGET)
+    dataset_path = (
+        Path(row_level_dataset_path)
+        if row_level_dataset_path is not None
+        else _default_dataset_path_for_manifest(resolved_manifest_path)
+    )
     dataset_exists = dataset_path.exists()
     active = row_values_committed and manifest_active and dataset_exists
 
     if active:
         status = "ACTIVE"
         reason = "Reviewed row-level post-AME2020 holdout data are present."
+    elif row_values_committed and dataset_exists:
+        status = "ROW_LEVEL_HOLDOUT_READY_METRICS_BLOCKED"
+        reason = (
+            "Reviewed row-level post-AME2020 holdout data are committed, but "
+            "active time-split metrics remain blocked until a benchmark task runs."
+        )
+    elif row_values_committed:
+        status = "ROW_LEVEL_MANIFEST_WITH_MISSING_DATASET"
+        reason = "The source manifest expects a row-level holdout dataset, but the file is missing."
     elif dataset_exists:
         status = "DATASET_PRESENT_BUT_MANIFEST_INACTIVE"
         reason = "A row-level file exists, but the source manifest has not activated it."

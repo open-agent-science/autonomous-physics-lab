@@ -67,9 +67,10 @@ missions:
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
         task_id: TASK-0196
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
           - "data/nuclear_masses/post_ame2020_holdout.yaml"
           - "tests/test_post_ame2020_holdout_dataset.py"

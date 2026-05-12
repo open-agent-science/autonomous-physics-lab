@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Post-AME2020 Nuclear Mass Holdout Dataset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dataset_id",
+    "title",
+    "task_id",
+    "status",
+    "created_on",
+    "accessed_on",
+    "claim_ceiling",
+    "source_policy",
+    "source_dataset",
+    "source_artifacts",
+    "row_scope",
+    "row_filters",
+    "measurement_method_assignments",
+    "source_references",
+    "entries"
+  ],
+  "properties": {
+    "dataset_id": { "type": "string", "pattern": "^POST-AME2020-HOLDOUT-[0-9]{4}$" },
+    "title": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "pattern": "^TASK-[0-9]{4}$" },
+    "status": { "type": "string", "enum": ["reviewed_row_level_holdout_dataset"] },
+    "created_on": { "type": "string", "format": "date" },
+    "accessed_on": { "type": "string", "format": "date" },
+    "claim_ceiling": { "type": "string", "minLength": 1 },
+    "source_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_fetch_allowed_in_validation",
+        "row_values_committed",
+        "benchmark_metrics_committed",
+        "value_kind",
+        "unit_policy",
+        "redistribution_note"
+      ],
+      "properties": {
+        "live_fetch_allowed_in_validation": { "type": "boolean" },
+        "row_values_committed": { "type": "boolean" },
+        "benchmark_metrics_committed": { "type": "boolean" },
+        "value_kind": { "type": "string", "minLength": 1 },
+        "unit_policy": { "type": "string", "minLength": 1 },
+        "redistribution_note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "source_dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority",
+        "version",
+        "citation",
+        "canonical_url",
+        "retrieval_url",
+        "stable_source_identifier",
+        "source_manifest",
+        "source_tables"
+      ],
+      "properties": {
+        "authority": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "citation": { "type": "string", "minLength": 1 },
+        "canonical_url": { "type": "string", "minLength": 1 },
+        "retrieval_url": { "type": "string", "minLength": 1 },
+        "stable_source_identifier": { "type": "string", "minLength": 1 },
+        "source_manifest": { "type": "string", "minLength": 1 },
+        "source_tables": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "source_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "role", "url", "sha256", "byte_size"],
+        "properties": {
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "byte_size": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "row_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "published_row_count",
+        "committed_row_count",
+        "new_measurement_publication_years",
+        "ame2020_extrapolated_comparison_count",
+        "primary_holdout_row_count",
+        "excluded_row_count",
+        "frozen_baseline_overlap_exclusions"
+      ],
+      "properties": {
+        "published_row_count": { "type": "integer", "minimum": 1 },
+        "committed_row_count": { "type": "integer", "minimum": 1 },
+        "new_measurement_publication_years": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 2021 }
+        },
+        "ame2020_extrapolated_comparison_count": { "type": "integer", "minimum": 0 },
+        "primary_holdout_row_count": { "type": "integer", "minimum": 0 },
+        "excluded_row_count": { "type": "integer", "minimum": 0 },
+        "frozen_baseline_overlap_exclusions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "row_filters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["include_rules", "exclusion_rules"],
+      "properties": {
+        "include_rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "exclusion_rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "measurement_method_assignments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["method_id", "method", "facility_or_source", "source_reference_ids"],
+        "properties": {
+          "method_id": { "type": "string", "minLength": 1 },
+          "method": { "type": "string", "minLength": 1 },
+          "facility_or_source": { "type": "string", "minLength": 1 },
+          "source_reference_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^R[0-9]+$" },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "source_references": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^R[0-9]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reference_number",
+            "publication_year",
+            "title",
+            "journal",
+            "doi_or_url",
+            "measurement_method_ids"
+          ],
+          "properties": {
+            "reference_number": { "type": "integer", "minimum": 1 },
+            "publication_year": { "type": "integer", "minimum": 2021 },
+            "title": { "type": "string", "minLength": 1 },
+            "journal": { "type": "string", "minLength": 1 },
+            "doi_or_url": { "type": "string", "minLength": 1 },
+            "measurement_method_ids": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "row_id",
+          "nuclide_id",
+          "element",
+          "symbol",
+          "Z",
+          "N",
+          "A",
+          "measurement_status",
+          "new_measurement",
+          "ame2020_comparison",
+          "new_minus_ame2020_binding_energy_mev",
+          "source_reference_id",
+          "source_reference_number",
+          "publication_year",
+          "measurement_method_ids",
+          "included_in_time_split_holdout",
+          "exclusion_reason",
+          "review_flags"
+        ],
+        "properties": {
+          "row_id": { "type": "string", "pattern": "^POST-AME2020-[0-9]{4}$" },
+          "nuclide_id": { "type": "string", "pattern": "^[A-Z][a-z]?-[0-9]+$" },
+          "element": { "type": "string", "minLength": 1 },
+          "symbol": { "type": "string", "minLength": 1 },
+          "Z": { "type": "integer", "minimum": 1 },
+          "N": { "type": "integer", "minimum": 0 },
+          "A": { "type": "integer", "minimum": 1 },
+          "measurement_status": { "type": "string", "enum": ["measured", "estimated", "extrapolated"] },
+          "new_measurement": { "$ref": "#/$defs/measurementValue" },
+          "ame2020_comparison": { "$ref": "#/$defs/ame2020Comparison" },
+          "new_minus_ame2020_binding_energy_mev": { "type": "number" },
+          "source_reference_id": { "type": "string", "pattern": "^R[0-9]+$" },
+          "source_reference_number": { "type": "integer", "minimum": 1 },
+          "publication_year": { "type": "integer", "minimum": 2021 },
+          "measurement_method_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "included_in_time_split_holdout": { "type": "boolean" },
+          "exclusion_reason": { "type": "string" },
+          "review_flags": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "measurementValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["quantity", "value_mev", "uncertainty_mev", "source_column", "source_unit_as_published"],
+      "properties": {
+        "quantity": { "type": "string", "minLength": 1 },
+        "value_mev": { "type": "number" },
+        "uncertainty_mev": { "type": "number", "minimum": 0 },
+        "source_column": { "type": "string", "minLength": 1 },
+        "source_unit_as_published": { "type": "string", "minLength": 1 }
+      }
+    },
+    "ame2020Comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quantity",
+        "value_mev",
+        "uncertainty_mev",
+        "was_extrapolated",
+        "source_column",
+        "source_unit_as_published"
+      ],
+      "properties": {
+        "quantity": { "type": "string", "minLength": 1 },
+        "value_mev": { "type": "number" },
+        "uncertainty_mev": { "type": "number", "minimum": 0 },
+        "was_extrapolated": { "type": "boolean" },
+        "source_column": { "type": "string", "minLength": 1 },
+        "source_unit_as_published": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

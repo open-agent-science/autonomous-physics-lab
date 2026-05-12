@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-12 05:20 UTC
+Generated: 2026-05-12 05:42 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -868,9 +868,10 @@ missions:
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
         task_id: TASK-0196
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
           - "data/nuclear_masses/post_ame2020_holdout.yaml"
           - "tests/test_post_ame2020_holdout_dataset.py"
@@ -1788,7 +1789,6 @@ one PR.
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -1796,6 +1796,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
