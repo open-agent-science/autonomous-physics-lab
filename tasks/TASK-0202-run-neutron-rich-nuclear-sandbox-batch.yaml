@@ -1,7 +1,7 @@
 id: TASK-0202
 title: "Run bounded nuclear sandbox batch for neutron-rich residual corrections"
 type: autonomous_research_pilot
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
