@@ -129,10 +129,12 @@ def test_build_closeout_report_suggests_public_state_docs_for_science_task(
 
     report = build_closeout_report(tmp_path, "TASK-9012")
 
-    assert any(
-        "docs/status.md and docs/mission-control.md" in item
-        for item in report.suggested_actions
-    )
+    assert any("Public docs drift checklist" in item for item in report.suggested_actions)
+    assert any("docs/status.md" in item for item in report.suggested_actions)
+    assert any("docs/mission-control.md" in item for item in report.suggested_actions)
+    assert any("README.md" in item for item in report.suggested_actions)
+    assert any("docs/next-steps.md" in item for item in report.suggested_actions)
+    assert any("Closeout docs-sync policy" in item for item in report.suggested_actions)
 
 
 def test_apply_closeout_report_defers_board_sync_by_default(tmp_path: Path) -> None:
@@ -249,3 +251,6 @@ def test_apply_closeout_report_suggests_public_state_doc_review_for_result_chang
 
     assert any("docs/status.md" in item for item in report.suggested_actions)
     assert any("docs/mission-control.md" in item for item in report.suggested_actions)
+    assert any("README.md" in item for item in report.suggested_actions)
+    assert any("docs/next-steps.md" in item for item in report.suggested_actions)
+    assert any("Closeout docs-sync policy" in item for item in report.suggested_actions)

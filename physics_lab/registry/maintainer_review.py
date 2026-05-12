@@ -33,6 +33,10 @@ from physics_lab.registry.review_checks import (
 )
 from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task
+from physics_lab.registry.task_closeout import (
+    PUBLIC_STATE_CLOSEOUT_DOCS,
+    render_public_state_doc_checklist,
+)
 
 
 BRANCH_PATTERN = re.compile(
@@ -98,10 +102,7 @@ CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
         "scripts/generate_context_bundle.py",
     }
 )
-PUBLIC_STATE_DOCS = (
-    "docs/status.md",
-    "docs/mission-control.md",
-)
+PUBLIC_STATE_DOCS = PUBLIC_STATE_CLOSEOUT_DOCS
 PUBLIC_STATE_DOC_TRIGGER_PREFIXES = (
     "experiments/",
     "results/",
@@ -421,19 +422,7 @@ def public_state_doc_followups(
 
     changed = set(changed_files)
     missing_reviews = tuple(path for path in PUBLIC_STATE_DOCS if path not in changed)
-    if not missing_reviews:
-        return (
-            "Confirm docs/status.md and docs/mission-control.md still match "
-            "authoritative task, experiment, result, and mission state before final closeout.",
-        )
-
-    rendered = ", ".join(missing_reviews)
-    return (
-        "Review public-facing state docs for drift before final closeout: "
-        f"{rendered}. Compare them with authoritative task/experiment/result "
-        "state and update stale experiment counts, flagship campaigns, result "
-        "surfaces, or release-gate wording if needed.",
-    )
+    return render_public_state_doc_checklist(missing_reviews)
 
 
 def _public_state_docs_need_review(

@@ -28,6 +28,12 @@ PUBLIC_STATE_TASK_MARKERS = (
     "scientific",
     "status",
 )
+PUBLIC_STATE_CLOSEOUT_DOCS = (
+    "README.md",
+    "docs/status.md",
+    "docs/mission-control.md",
+    "docs/next-steps.md",
+)
 
 
 @dataclass(frozen=True)
@@ -141,12 +147,7 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
         "belongs to a dry run or contributor pilot."
     )
     if should_review_public_state_docs(payload):
-        suggested_actions.append(
-            "Review docs/status.md and docs/mission-control.md against "
-            "authoritative task, experiment, result, and mission state; update "
-            "stale experiment counts, flagship campaigns, result surfaces, or "
-            "release-gate wording before final closeout if needed."
-        )
+        suggested_actions.extend(render_public_state_doc_checklist())
 
     return TaskCloseoutReport(
         task_id=task_id,
@@ -187,6 +188,36 @@ def should_review_public_state_docs(payload: dict) -> bool:
 
     haystack = " ".join(parts).lower()
     return any(marker in haystack for marker in PUBLIC_STATE_TASK_MARKERS)
+
+
+def render_public_state_doc_checklist(
+    missing_docs: tuple[str, ...] = PUBLIC_STATE_CLOSEOUT_DOCS,
+) -> tuple[str, ...]:
+    """Return a structured public-doc drift checklist for closeout agents."""
+    docs = ", ".join(PUBLIC_STATE_CLOSEOUT_DOCS)
+    if missing_docs:
+        missing = ", ".join(missing_docs)
+        checklist = (
+            "Public docs drift checklist: compare "
+            f"{docs} against authoritative task, experiment, result, agent-run, "
+            f"and mission state. Missing from this closeout diff: {missing}."
+        )
+    else:
+        checklist = (
+            "Public docs drift checklist: public-facing state docs were touched "
+            f"({docs}); confirm experiment counts, active flagship campaigns, "
+            "result surfaces, near-term priorities, and release-gate wording "
+            "still match authoritative structured state."
+        )
+
+    policy = (
+        "Closeout docs-sync policy: routine closeout may update task status, "
+        "tasks/ACTIVE.md, and CONTEXT.md automatically; edit README/status/"
+        "mission-control/next-steps only when the current task explicitly asks "
+        "for public-doc sync. Otherwise update an existing docs-sync task or "
+        "create a follow-up task."
+    )
+    return (checklist, policy)
 
 
 def render_closeout_report(

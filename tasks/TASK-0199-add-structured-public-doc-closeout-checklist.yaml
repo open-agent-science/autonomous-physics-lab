@@ -1,0 +1,57 @@
+id: TASK-0199
+title: "Add structured public-doc sync checklist to closeout helpers"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce repeated public-doc drift after science, mission, result, and closeout waves."
+  - "Keep closeout helpers advisory for narrative docs so they do not rewrite public claims automatically."
+  - "Make the safe closeout policy explicit for both deterministic helpers and human/agent instructions."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "physics_lab/registry/task_closeout.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+    - "tasks/TASK-0198-close-task-0195-and-tighten-public-doc-sync.yaml"
+  planning_context: >
+    Closeout helper warnings already caught docs/status.md and
+    docs/mission-control.md drift, but the warning should be more structured
+    and should cover README.md and docs/next-steps.md as public-facing state
+    surfaces. The helper should signal or route public-doc drift, not
+    automatically rewrite public narrative unless an explicit docs-sync task
+    authorizes it.
+
+requirements:
+  - "Add a structured public-doc drift checklist to closeout helper output."
+  - "Include README.md, docs/status.md, docs/mission-control.md, and docs/next-steps.md in the checklist."
+  - "Document the policy that routine closeout may auto-update task status, tasks/ACTIVE.md, and CONTEXT.md, but public narrative docs require an explicit docs-sync task or a follow-up task."
+  - "Keep the public-doc sync signal advisory rather than a closeout blocker."
+  - "Close TASK-0198 after its merged PR."
+
+accepted_outputs:
+  - "updated physics_lab/registry/task_closeout.py"
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated tests/test_task_closeout.py"
+  - "updated docs/maintainer-review-agent.md"
+  - "updated docs/review-checklists/task-closeout-checklist.md"
+  - "updated tasks/TASK-0198-close-task-0195-and-tighten-public-doc-sync.yaml"
+  - "updated tasks/ACTIVE.md"
+  - "updated CONTEXT.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_closeout.py tests/test_maintainer_review.py tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
