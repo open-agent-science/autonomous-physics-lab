@@ -44,7 +44,7 @@ normal contributor path research-first.
 
 ## Active Campaigns
 
-APL currently organizes work around four contributor-facing campaign surfaces:
+APL currently organizes work around five contributor-facing campaign surfaces:
 
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
@@ -52,6 +52,7 @@ APL currently organizes work around four contributor-facing campaign surfaces:
 | [Particle Mass Relations](./campaigns/particle-mass-relations.md) | Active with scoped reproductions and falsifications | Test whether impressive mass relations survive disciplined, falsification-first handling | [koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md) |
 | [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Active with canonical MVP result | Build a quality floor for future formula and benchmark work | [RUN-0006 report](../results/EXP-0006/RUN-0006/report.md) |
 | [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) | Planning active, no canonical run yet | Extend APL into consistency checks that do not depend on curve fitting alone | [thought-experiment-consistency-suite.md](./notes/thought-experiment-consistency-suite.md) |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates | Test nuclear residual candidates with frozen baselines, robustness gates, and post-AME2020 time-split discipline | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
 
 ## Current Results
 
@@ -94,6 +95,10 @@ The near-term documentation goal is a cautious `v0.2` packaging pass:
 - negative results should stay as visible as successful reproductions;
 - `EXP-0010` should remain a guarded stress-test surface rather than a flagship
   public result;
+- Nuclear Mass Surface should be described as benchmark and sandbox
+  validation evidence: `AGENT-RUN-0007` is not an active benchmark result,
+  and post-AME2020 scoring is retrospective rather than strict blind
+  prediction;
 - public-opening decisions should remain gated behind wording discipline and
   release checks.
 

@@ -34,6 +34,19 @@ work, and a private contributor workflow before any public-opening decision.
   a first falsifier workflow applies uncertainty propagation, deterministic
   random-baseline calibration, and a fixed complexity-penalty ledger to the
   standard Koide target across encoded charged-fermion family triplets.
+- `EXP-0011` - Anharmonic Oscillator Period Benchmark:
+  a deterministic nonlinear period benchmark with perturbative and empirical
+  baselines for bounded methodology testing.
+- `EXP-0012/RUN-0001` (`RESULT-0015`) - [Nuclear Mass Baseline Residual Benchmark](./results/nuclear-mass-baseline-summary.md):
+  a pinned measured-slice nuclear-mass residual benchmark used as a frozen
+  baseline for sandbox-only follow-up.
+- `AGENT-RUN-0005` - [Nuclear Mass Pilot Summary](./results/nuclear-mass-pilot-summary.md):
+  sandbox-only nuclear residual candidate evidence with no claim, knowledge, or
+  canonical result promotion.
+- `AGENT-RUN-0007` and `AGENT-RUN-0008` - post-AME2020 guard and retrospective
+  time-split evidence: `AGENT-RUN-0007` is `INCONCLUSIVE` source-manifest-only
+  guard evidence, while `AGENT-RUN-0008` is sandbox-only row-level time-split
+  evidence that remains `INCONCLUSIVE`.
 - [Negative Results Registry](./negative-results-registry.md):
   repository-level index of clean falsifications that should remain visible
   alongside successful reproductions.
@@ -58,8 +71,10 @@ or symbolic exactness.
 - `EXP-0009` — Particle-Mass Relation Falsifier MVP
 - `EXP-0010` — Muon g-2 Formula-Search Stress Test (`INCONCLUSIVE`, kept out
   of the current public-facing success surface)
+- `EXP-0011` - Anharmonic Oscillator Period Benchmark
+- `EXP-0012` - Nuclear Mass Baseline Residual Benchmark
 
-Together these now support three active benchmark surfaces:
+Together these now support four active benchmark surfaces:
 
 - classical-mechanics verification through the pendulum and damped-oscillator
   slices;
@@ -67,7 +82,11 @@ Together these now support three active benchmark surfaces:
   reproductions plus explicit neutrino, quark, and falsifier-MVP negative
   results;
 - a dimensional-analysis validation track with one canonical MVP benchmark run
-  and a growing challenge-set surface.
+  and a growing challenge-set surface;
+- a Nuclear Mass Surface validation track with `EXP-0012`, sandbox-only pilot
+  evidence, an `INCONCLUSIVE` `AGENT-RUN-0007` source-manifest guard, and
+  retrospective post-AME2020 row-level time-split evidence after `TASK-0196`
+  unlocked `TASK-0197`.
 
 ## Active Scientific Campaigns
 
@@ -83,6 +102,9 @@ Together these now support three active benchmark surfaces:
   follow-on challenge-set curation work.
 - [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md)
   — planning-first analytical consistency campaign with no canonical run yet.
+- [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) - current
+  flagship validation campaign with a frozen baseline residual benchmark,
+  sandbox-only autonomous pilot evidence, and post-AME2020 follow-up guardrails.
 
 ## Current Contributor Workflow
 
@@ -143,6 +165,10 @@ Current named blockers before any public opening:
   alternate-target guardrails.
 - The dimensional-analysis validator has a canonical MVP result, but its unit
   system and known-limit handling remain intentionally narrow.
+- Nuclear Mass Surface is the current flagship validation track, but its
+  candidate evidence remains sandbox-only. `AGENT-RUN-0007` is only an
+  `INCONCLUSIVE` source-manifest guard, and post-AME2020 evaluation is
+  retrospective time-split evidence rather than strict blind prediction.
 - The contributor workflow is more mature, but the private pilot still needs
   continued use before public rollout.
 - Status, roadmap, and mission-control docs can drift unless task files and
@@ -185,3 +211,6 @@ Current named blockers before any public opening:
 - [result-quality-rubric.md](./result-quality-rubric.md) for the current
   maintainer-facing assessment of which result surfaces are packaging-ready and
   which need stronger caveats.
+- [results/nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md)
+  and [nuclear-mass-robustness-gate.md](./nuclear-mass-robustness-gate.md) for
+  the current Nuclear Mass Surface evidence and follow-up limits.
