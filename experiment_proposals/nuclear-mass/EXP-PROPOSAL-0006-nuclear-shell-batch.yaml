@@ -1,0 +1,112 @@
+id: EXP-PROPOSAL-0006
+title: "Sandbox nuclear-mass shell-aware residual batch"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0200
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/nuclear-mass-holdout-protocol.md"
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "agent_runs/AGENT-RUN-0006/"
+  - "agent_runs/AGENT-RUN-0008/"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0028-shell-gaussian-proximity-zn.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0029-shell-gaussian-proximity-neutron-only.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0030-near-magic-binary-both-axes-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0031-n82-targeted-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0032-multiplicative-shell-free-sigma-rejected.yaml"
+
+question: "Can a continuous Gaussian shell-proximity residual candidate keep feature activation non-zero on every post-AME2020 row while satisfying the structured-holdout protocol and the robustness gate?"
+
+method:
+  summary: "Generate five shell-aware proposals, execute the two continuous Gaussian candidates (Z+N and N-only), and reject three (binary near-magic, retrospective N=82 leakage, multiplicative-with-free-sigma) before execution. Evaluate the two executed candidates on the NMD-0002 four-holdout protocol and on the 295-row post-AME2020 primary surface, with feature-activation counts and per-subset MAE on the time-split surface."
+  code_references:
+    - "scripts/run_nuclear_shell_batch.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+    - "tests/test_nuclear_shell_batch.py"
+  commands:
+    - "python3 scripts/run_nuclear_shell_batch.py"
+    - "python3 -m pytest tests/test_nuclear_shell_batch.py"
+  parameters:
+    generated_proposals: 5
+    executed_candidates: 2
+    rejected_before_execution: 3
+    structured_holdout_count: 4
+    post_ame2020_primary_holdout_row_count: 295
+    shell_sigma: 2.0
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml as the frozen measured-only training slice"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml as the reviewed row-level post-AME2020 holdout"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015 (model_fitted_semi_empirical)"
+    - "SHELL_SIGMA = 2 frozen at design time"
+  prior_results:
+    - "RESULT-0015"
+    - "AGENT-RUN-0005"
+    - "AGENT-RUN-0006"
+    - "AGENT-RUN-0008"
+  assumptions:
+    - "Sandbox execution does not modify EXP-0012, RESULT-0015, or any claim, knowledge, or canonical dataset."
+    - "Shell-proximity sigma is fixed at design time and not refit."
+    - "Coefficients are fitted on the complement of each NMD-0002 holdout for the structured protocol, and once on the full NMD-0002 surface for the post-AME2020 evaluation."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0009/"
+  metrics:
+    - "generated_proposal_count"
+    - "executed_candidate_count"
+    - "rejected_before_execution_count"
+    - "structured_holdout_delta_mae_mev"
+    - "post_ame2020_primary_delta_mae_mev"
+    - "feature_activation_counts"
+    - "per_subset_delta_mae_mev"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0009/report.md"
+    - "agent_runs/AGENT-RUN-0009/limitations.md"
+    - "docs/reviews/autonomous-nuclear-shell-batch-01.md"
+
+validation:
+  pass_condition: "Sandbox pass if both executed candidates produce deterministic metrics that satisfy the gate's evidence-package requirement and the rejections are documented; this proposal does not pre-commit to a positive scientific verdict."
+  fail_condition: "Sandbox fail if more than two candidates are executed, if any rejection is silently relaxed, or if canonical results / claims / knowledge / datasets are modified."
+  baseline_or_reference: "Frozen RESULT-0015 fitted semi-empirical baseline on NMD-0002 and AGENT-RUN-0008 post-AME2020 metrics."
+  expected_failure_modes:
+    - "Continuous shell-proximity features may still over-correct neutron-rich rows while regressing proton-rich rows; this is a known one-way trade pattern from HYP-PROPOSAL-0022."
+    - "Structured-holdout fits on 8 nuclides may yield unstable coefficients and OVERFITTED verdicts even when the post-AME2020 surface shows a small primary improvement."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not claim continuous shell-proximity is a new shell model."
+    - "Do not present a small post-AME2020 primary win as discovery."
+    - "Do not describe retrospective subset improvements as prospective predictions."
+  mitigations:
+    - "Keep outputs only under proposals, agent_runs, scripts, tests, and review notes."
+    - "Compare every executed candidate to the frozen RESULT-0015 baseline and to AGENT-RUN-0008 retrospective metrics."
+    - "Require a later maintainer-reviewed task before any canonical follow-up."
+
+limitations:
+  - "Sandbox-only batch over two executed candidates and three rejected proposals."
+  - "NMD-0002 has 11 nuclides; the structured-holdout coefficients are fitted on 8-9 rows."
+  - "Post-AME2020 evaluation is retrospective time-split, not blind prediction."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether the executed candidates remain useful negative controls or motivate a broader-dataset follow-up."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical comparison or dataset-expansion task before any RESULT-* change."

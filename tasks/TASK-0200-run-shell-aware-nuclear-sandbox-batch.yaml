@@ -1,0 +1,69 @@
+id: TASK-0200
+title: "Run bounded nuclear sandbox batch for shell-aware residual corrections"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Restart Nuclear Mass Surface hypothesis work only after audit, robustness, row-level holdout, and time-split gates exist."
+  - "Test a narrow shell-aware residual family without promoting claims or canonical results."
+  - "Produce reviewable sandbox evidence for private-agent cycle validation."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+    - "tasks/TASK-0173-independent-audit-hyp-proposal-0021.yaml"
+    - "tasks/TASK-0190-define-nuclear-candidate-robustness-gate.yaml"
+    - "tasks/TASK-0196-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
+    - "tasks/TASK-0197-run-post-ame2020-row-level-time-split-benchmark.yaml"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+    - "docs/nuclear-mass-robustness-gate.md"
+    - "agent_runs/AGENT-RUN-0006/"
+    - "agent_runs/AGENT-RUN-0008/"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    The second nuclear batch is now safe to restart only as narrow,
+    sandbox-only lanes. This lane is limited to shell-aware residual
+    corrections and must compare against frozen baseline, split-sensitivity,
+    and post-AME2020 time-split evidence before recommending any follow-up.
+
+requirements:
+  - "Generate 3 to 6 shell-aware residual hypothesis proposals, not a broad formula search."
+  - "Reject weak, duplicate, or leakage-prone proposals before execution."
+  - "Execute at most 1 or 2 sandbox candidates."
+  - "Compare against RESULT-0015 frozen baseline, primary holdout, split-sensitivity context, and post-AME2020 time-split rows."
+  - "Include a robustness-gate section using docs/nuclear-mass-robustness-gate.md."
+  - "Preserve negative and overfit outcomes if present."
+  - "Do not modify canonical results, claims, accepted knowledge, or datasets."
+  - "Do not describe any candidate as discovered, proved, globally valid, or physically explanatory."
+
+accepted_outputs:
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0028-shell-gaussian-proximity-zn.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0029-shell-gaussian-proximity-neutron-only.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0030-near-magic-binary-both-axes-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0031-n82-targeted-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0032-multiplicative-shell-free-sigma-rejected.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-0006-nuclear-shell-batch.yaml"
+  - "agent_runs/AGENT-RUN-0009/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0009/metrics.json"
+  - "agent_runs/AGENT-RUN-0009/report.md"
+  - "agent_runs/AGENT-RUN-0009/limitations.md"
+  - "agent_runs/AGENT-RUN-0009/preflight.md"
+  - "agent_runs/AGENT-RUN-0009/review_summary.md"
+  - "docs/reviews/autonomous-nuclear-shell-batch-01.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

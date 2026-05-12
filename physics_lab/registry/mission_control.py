@@ -87,10 +87,13 @@ def _mission_actions_for_mode(
     mission: dict[str, Any],
     mode: str,
 ) -> tuple[dict[str, Any], ...]:
+    inactive_statuses = {"blocked", "done", "review_ready"}
     return tuple(
         action
         for action in mission.get("actions", [])
-        if isinstance(action, dict) and action.get("mode") == mode
+        if isinstance(action, dict)
+        and action.get("mode") == mode
+        and str(action.get("status", "")).lower() not in inactive_statuses
     )
 
 

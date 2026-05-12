@@ -1,7 +1,7 @@
 id: TASK-0180
 title: "Curate microtask queue availability and summary counts"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 

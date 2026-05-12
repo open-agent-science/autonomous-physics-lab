@@ -35,13 +35,16 @@ def test_render_current_state_summary_uses_structured_repository_state() -> None
     assert "### Recent Result Surface" in rendered
     assert "### REVIEW_READY now" in rendered
     assert re.search(r"^- REVIEW_READY: \d+$", rendered, re.MULTILINE)
-    assert "`TASK-0171`" in rendered
+    assert "### Recently DONE" in rendered
+    assert re.search(r"^- `TASK-\d{4}`", rendered, re.MULTILINE)
     assert "`EXP-0008`" in rendered
 
 
 def test_snapshot_script_open_pr_section_uses_pr_list_result() -> None:
     script = Path("scripts/apl_snapshot.sh").read_text(encoding="utf-8")
 
+    assert 'SNAPSHOT_DIR="${APL_SNAPSHOT_DIR:-${CANONICAL_REPO_ROOT}/_snapshots}"' in script
+    assert 'OUT="${SNAPSHOT_DIR}/apl_snapshot_${TS}.md"' in script
     assert "gh auth status" not in script
     assert "git remote get-url origin" in script
     assert 'gh pr list --repo "$repo_slug" --state open --limit 30' in script

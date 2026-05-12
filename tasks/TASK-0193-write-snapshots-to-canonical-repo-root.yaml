@@ -1,0 +1,52 @@
+id: TASK-0193
+title: "Write repository snapshots to the canonical local repo root"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep generated snapshots easy for the maintainer to find even when work happens in temporary git worktrees."
+  - "Preserve local-only snapshot behavior without committing `_snapshots/` artifacts."
+  - "Reduce manual copying after review or closeout runs."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - "physics_lab/registry/snapshot.py"
+    - "tests/test_snapshot.py"
+  planning_context: >
+    The maintainer often runs repository snapshots from clean worktrees under
+    `/private/tmp`, while the ignored `_snapshots/` directory that is easiest
+    to inspect lives in the canonical local repository checkout. The snapshot
+    script should default to writing generated snapshots under the canonical
+    repository root, while still allowing an explicit output override for
+    unusual cases.
+
+requirements:
+  - "Make `scripts/apl_snapshot.sh` write snapshots to the canonical repository root `_snapshots/` directory by default."
+  - "Keep `APL_SNAPSHOT_DIR` as an explicit override for callers that need a custom output directory."
+  - "Do not commit generated snapshot files."
+  - "Do not change snapshot content semantics except for the output path."
+  - "Add a regression test or script-content assertion covering the canonical output behavior."
+
+accepted_outputs:
+  - "updated scripts/apl_snapshot.sh"
+  - "updated tests/test_snapshot.py"
+  - "task moved to REVIEW_READY"
+  - "active board synced"
+
+validation:
+  commands:
+    - "bash -n scripts/apl_snapshot.sh"
+    - "python3 -m ruff check tests/test_snapshot.py"
+    - "python3 -m pytest tests/test_snapshot.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

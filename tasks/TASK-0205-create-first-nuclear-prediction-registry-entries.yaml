@@ -1,0 +1,50 @@
+id: TASK-0205
+title: "Create first prospective nuclear-mass prediction registry entries"
+type: scientific_validation
+status: BLOCKED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Move from retrospective time-split evidence toward true before-measurement prediction discipline."
+  - "Make future nuclear predictions timestamped, reviewable, and explicitly non-claim."
+  - "Avoid confusing prediction registration with proof or discovery."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0189-add-nuclear-mass-prediction-registry-policy.yaml"
+    - "prediction_registry/nuclear_masses/"
+    - "docs/prediction-registry-policy.md"
+  planning_context: >
+    TASK-0189 should first define the prediction registry policy and template.
+    This follow-up creates the first prospective entries only after the
+    registry layout exists and the maintainer has chosen an approved frozen
+    model and target list.
+
+requirements:
+  - "Do not start until TASK-0189 is DONE."
+  - "Create one small batch of prospective nuclear-mass prediction entries using the approved registry template."
+  - "Record model source, target nuclides, prediction values, uncertainty or confidence semantics, timestamp, source data state, and reveal conditions."
+  - "State that entries are forecasts awaiting future measurement comparison, not claims."
+  - "Do not use live external data fetching."
+  - "Do not modify canonical results, claims, accepted knowledge, or datasets."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/PRED-0001.yaml"
+  - "docs/reviews/nuclear-prediction-registry-entry-review.md"
+  - "validation updates if registry schema support exists"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

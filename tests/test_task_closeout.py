@@ -73,6 +73,7 @@ def test_build_closeout_report_for_review_ready_task(tmp_path: Path) -> None:
     assert report.accepted_outputs == ("docs/example.md", "tasks/ACTIVE.md")
     assert report.warnings == ()
     assert any("sync-active-board" in item for item in report.suggested_actions)
+    assert any("Closeout publish reminder" in item for item in report.suggested_actions)
 
 
 def test_build_closeout_report_warns_when_not_review_ready(tmp_path: Path) -> None:
@@ -98,6 +99,43 @@ def test_build_closeout_report_warns_when_not_review_ready(tmp_path: Path) -> No
     assert "Task status is DONE, not REVIEW_READY." in report.warnings[0]
     assert "Suggested file updates (not applied):" in rendered
     assert "No direct file update is suggested until the task reaches REVIEW_READY" in rendered
+
+
+def test_build_closeout_report_suggests_public_state_docs_for_science_task(
+    tmp_path: Path,
+) -> None:
+    _write_task(tmp_path, task_id="TASK-9012", status="REVIEW_READY")
+    task_path = tmp_path / "tasks" / "TASK-9012-example.yaml"
+    text = task_path.read_text(encoding="utf-8")
+    task_path.write_text(
+        text.replace("type: documentation", "type: scientific_validation").replace(
+            "related_domain: maintainer_review",
+            "related_domain: nuclear_physics",
+        ),
+        encoding="utf-8",
+    )
+    (tmp_path / "tasks" / "ACTIVE.md").write_text(
+        "\n".join(
+            [
+                "# Active Task Board",
+                "",
+                "## REVIEW_READY",
+                "",
+                "- `TASK-9012` — Example science task",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    report = build_closeout_report(tmp_path, "TASK-9012")
+
+    assert any("Public docs drift checklist" in item for item in report.suggested_actions)
+    assert any("docs/status.md" in item for item in report.suggested_actions)
+    assert any("docs/mission-control.md" in item for item in report.suggested_actions)
+    assert any("README.md" in item for item in report.suggested_actions)
+    assert any("docs/next-steps.md" in item for item in report.suggested_actions)
+    assert any("Closeout docs-sync policy" in item for item in report.suggested_actions)
 
 
 def test_apply_closeout_report_defers_board_sync_by_default(tmp_path: Path) -> None:
@@ -137,6 +175,7 @@ def test_apply_closeout_report_defers_board_sync_by_default(tmp_path: Path) -> N
     assert report.outcome == "APPLIED"
     assert any("Deferred tasks/ACTIVE.md synchronization" in item for item in report.applied_changes)
     assert not any("Synchronized tasks/ACTIVE.md" in item for item in report.applied_changes)
+    assert any("Closeout publish reminder" in item for item in report.suggested_actions)
 
 
 def test_apply_closeout_report_suggests_regenerating_context_bundle_for_source_changes(
@@ -175,3 +214,45 @@ def test_apply_closeout_report_suggests_regenerating_context_bundle_for_source_c
         )
 
     assert any("Regenerate CONTEXT.md" in item for item in report.suggested_actions)
+
+
+def test_apply_closeout_report_suggests_public_state_doc_review_for_result_changes(
+    tmp_path: Path,
+) -> None:
+    _write_task(tmp_path, task_id="TASK-1234", status="REVIEW_READY")
+    (tmp_path / "tasks" / "ACTIVE.md").write_text("# Active Task Board\n", encoding="utf-8")
+    (tmp_path / "docs").mkdir(parents=True)
+    (tmp_path / "docs" / "example.md").write_text("done\n", encoding="utf-8")
+
+    pr_metadata = PullRequestMetadata(
+        number=18,
+        title="TASK-1234: Example task",
+        body="",
+        branch="agent/roman/codex/task-1234-example-task",
+        base_branch="main",
+        state="MERGED",
+        merged=True,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("results/EXP-0012/RUN-0001/result.yaml",),
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.missing_expected_outputs", return_value=()),
+        patch("physics_lab.registry.maintainer_review.should_append_dry_run_entry", return_value=False),
+    ):
+        report = build_apply_closeout_report(
+            tmp_path,
+            task_id="TASK-1234",
+            pull_request=18,
+            apply=False,
+        )
+
+    assert any("docs/status.md" in item for item in report.suggested_actions)
+    assert any("docs/mission-control.md" in item for item in report.suggested_actions)
+    assert any("README.md" in item for item in report.suggested_actions)
+    assert any("docs/next-steps.md" in item for item in report.suggested_actions)
+    assert any("Closeout docs-sync policy" in item for item in report.suggested_actions)

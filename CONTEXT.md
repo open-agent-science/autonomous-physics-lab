@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-11 14:42 UTC
+Generated: 2026-05-12 17:42 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -550,7 +550,8 @@ That base now exists well enough to support a new emphasis:
    benchmark ideas at once.
 2. Elevate a nuclear mass surface campaign as the next flagship science track,
    using baseline residual maps, shell-closure diagnostics, holdout discipline,
-   and conservative correction-term framing instead of broad discovery claims.
+   post-AME2020 time-split validation, and conservative correction-term framing
+   instead of broad discovery claims.
 3. Validate the private contributor and agent workflow with measurable gates:
    task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
    clean review-helper behavior, closeout, and zero automatic claim promotion.
@@ -567,7 +568,10 @@ That base now exists well enough to support a new emphasis:
 8. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-9. Prepare public launch only after the explicit gates in
+9. Distinguish retrospective time-split benchmarks from prospective prediction:
+   post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
+   true future predictions require a pre-registered prediction artifact.
+10. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 ## Current Goal
@@ -592,7 +596,10 @@ Current visible evidence includes:
 - the dimensional-analysis validator MVP result from `EXP-0006/RUN-0006`;
 - the neutrino and quark Koide falsification results from `EXP-0007/RUN-0001`
   and `EXP-0008/RUN-0001`;
-- the negative-results registry as a maintained output surface.
+- the negative-results registry as a maintained output surface;
+- the nuclear-mass baseline and sandbox autonomy surface, including split
+  sensitivity replay, as a flagship validation track that still requires
+  stronger time-split evidence before any broader scientific claim.
 
 These results are useful because they are reviewable and reproducible, not
 because they justify expansive scientific claims.
@@ -634,7 +641,7 @@ stronger verification.
 
 # Current Missions
 
-APL now uses an **Agent First** entrypoint.
+APL now uses an **Agent First / Research First / Parallel Work** entrypoint.
 
 The default path for a new coding agent is no longer "scan every task and pick
 something small." The default path is:
@@ -644,8 +651,12 @@ python3 scripts/apl_mission.py
 ```
 
 That command starts **Research Mode** and recommends the highest-value
-reviewable scientific mission. Support, microtask, review, and closeout work
-still exists, but it is explicit:
+reviewable scientific mission. When multiple agents are available, the default
+operating model is to run several bounded research lanes in parallel through
+separate branches or worktrees. Those lanes may be in different campaigns, or
+inside the same campaign when the hypothesis families and write surfaces are
+disjoint. Support, microtask, review, and closeout work still exists, but it is
+explicit:
 
 ```bash
 python3 scripts/apl_mission.py --mode support
@@ -682,9 +693,12 @@ Recommended direction:
 
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
-2. Prefer nuclear validation, evidence packaging, or guarded follow-up tasks
-   before opening a second nuclear sandbox batch.
+2. Prefer nuclear validation, evidence packaging, post-AME2020 time-split
+   review, or guarded follow-up tasks before opening a second nuclear sandbox
+   batch.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
+4. Use the nuclear robustness gate before any second sandbox batch expands a
+   candidate family.
 
 Why:
 
@@ -693,7 +707,12 @@ Why:
 - the first autonomous nuclear pilot exists;
 - the strongest candidate is still sandbox-only evidence;
 - split-sensitivity replay now exists as review-ready sandbox evidence;
-- the next scientific value comes from validation, not from broadening claims.
+- a review-ready robustness gate now defines what counts as allowed follow-up,
+  negative-control-only evidence, or promotion-blocking instability;
+- active retrospective post-AME2020 time-split evidence now exists as
+  `AGENT-RUN-0008` and is intentionally inconclusive;
+- the next scientific value comes from validation, time-split evidence, and
+  prediction discipline, not from broadening claims.
 
 Guardrails:
 
@@ -701,6 +720,11 @@ Guardrails:
 - do not describe the residual candidate as breakthrough physics;
 - do not run unbounded nuclear formula search;
 - do not rewrite canonical result artifacts casually.
+- do not call post-AME2020 evaluation strict blind prediction; it is
+  retrospective time-split evidence unless predictions were registered before
+  measurement.
+- do not use internal split wins as claim promotion unless the robustness gate
+  and external-style validation both allow it.
 
 ## Alternatives
 
@@ -721,13 +745,17 @@ recommendation remains the current top-ranked mission.
 small `parallel_work_policy` section. In default Research Mode, research,
 replay, audit, and validation tasks are ranked before support tasks; support
 items are secondary options when they are useful or when a maintainer assigns
-them. Use those candidates as options, not as a single global lock.
+them. Use those candidates as parallel options, not as a single global lock.
 
 Rules:
 
 - one local checkout should usually run one task at a time;
 - multiple local agents may work in parallel only through separate branches or
   git worktrees;
+- prefer bounded parallel science lanes with disjoint hypothesis families over
+  one broad catch-all task;
+- same-campaign parallel work is allowed when each agent owns a distinct lane,
+  such as shell-aware, pairing/odd-even, neutron-rich, audit, or packaging;
 - parallel tasks should avoid the same artifact surfaces, especially
   `tasks/ACTIVE.md`, `CONTEXT.md`, canonical `results/`, and the same docs page;
 - agents should not guess new canonical task ids during parallel work.
@@ -782,18 +810,23 @@ breakthrough-style wording.
 <!-- source: missions/current.yaml -->
 
 default_mode: research
-updated: "2026-05-11"
+updated: "2026-05-12"
 
 policy:
-  name: "Agent First, research-first"
+  name: "Agent First, Research First, Parallel Work"
   summary: >
     New contributors and coding agents should start from the highest-value
     reviewable research mission by default. Support, microtask, review, and
-    closeout lanes remain available as explicit modes.
+    closeout lanes remain available as explicit modes. Multiple agents are
+    encouraged to work in parallel across different campaigns, or within the
+    same campaign when they use separate branches/worktrees and disjoint
+    hypothesis families, datasets, or artifact surfaces.
   defaults:
     - "Start in research mode unless the maintainer explicitly asks for support, review, or closeout."
     - "Prefer hypothesis testing, replay, falsification, or sandbox result drafts over docs-only work."
     - "Keep all research outputs reviewable and sandbox-only until maintainer review."
+    - "Prefer several bounded parallel science lanes over one oversized catch-all task when multiple agents are available."
+    - "Parallel agents may work inside the same campaign when their hypothesis lanes and write surfaces are disjoint."
     - "Never promote claims, rewrite canonical results, or use breakthrough-style wording automatically."
   maintainer_modes_preserved:
     - review
@@ -834,11 +867,42 @@ missions:
       - "frozen baseline and holdout protocol exist"
       - "AGENT-RUN-0005 and HYP-PROPOSAL-0021 exist as sandbox-only evidence"
       - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
+      - "a review-ready robustness gate defines allowed follow-up, negative controls, and promotion blockers"
+      - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
+      - "AGENT-RUN-0008 now records active retrospective post-AME2020 time-split evidence with INCONCLUSIVE verdict"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
       - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
+      - "do not call retrospective post-AME2020 evaluation strict blind prediction"
+      - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
+      - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
+      - "do not start the second nuclear batch before the real time-split benchmark is reviewed"
     actions:
+      - id: row-level-post-ame2020-holdout
+        label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
+        task_id: TASK-0196
+        mode: research
+        status: done
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "data/nuclear_masses/post_ame2020_holdout.yaml"
+          - "tests/test_post_ame2020_holdout_dataset.py"
+          - "docs/notes/post-ame2020-holdout-dataset-review.md"
+      - id: post-ame2020-time-split-benchmark
+        label: "Review active retrospective post-AME2020 time-split evidence before any second nuclear batch"
+        task_id: TASK-0197
+        mode: research
+        status: done
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "agent_runs/AGENT-RUN-0008/metrics.json"
+          - "agent_runs/AGENT-RUN-0008/report.md"
+          - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
         label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
         mode: research
@@ -860,13 +924,18 @@ missions:
         expected_outputs:
           - "docs/reviews/adversarial-review-AGENT-RUN-0005.md"
       - id: second-bounded-nuclear-batch
-        label: "Run a second bounded nuclear sandbox batch after audit gates"
-        mode: research
+        label: "Run second bounded nuclear sandbox work only through narrow TASK-0200/TASK-0201/TASK-0202 lanes"
+        mode: future
+        status: blocked
         priority: medium
         difficulty: high
         gated_by:
           - maintainer-reviewed-split-sensitivity-replay
           - audit-agent-run-0005
+          - nuclear-robustness-gate-review
+          - reviewed-row-level-post-ame2020-holdout-dataset
+          - reviewed-post-ame2020-time-split-benchmark
+          - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -1742,13 +1811,12 @@ one PR.
 
 ## READY
 
-- `TASK-0115` — Add docs-link integrity check for campaign and result pages (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -1756,23 +1824,36 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0116` — Add microtask queue summary table generator (`agent_workflow`, priority `low`, difficulty `low`)
-- `TASK-0117` — Add maintainer review and closeout Mermaid flow (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0138` — Add canonical replay and golden-result hardening layer (`repository_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0150` — Create external reviewer replication guide (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0172` — Define private contributor and agent validation plan (`contributor_validation`, priority `high`, difficulty `medium`)
-- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (`scientific_audit`, priority `high`, difficulty `high`)
-- `TASK-0179` — Remove agent session id from pull request template metadata (`contributor_workflow`, priority `low`, difficulty `low`)
-- `TASK-0180` — Curate microtask queue availability and summary counts (`agent_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (`scientific_audit`, priority `high`, difficulty `high`)
-- `TASK-0185` — Make context bundle generation idempotent (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0186` — Make mission control registry-driven and parallel-aware (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (`scientific_audit`, priority `high`, difficulty `medium`)
+- `TASK-0207` — Curate private-agent nuclear validation cycle task queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (merged)
+- `TASK-0198` — Close TASK-0195 and tighten public-doc sync follow-up (merged)
+- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (merged)
+- `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (merged)
+- `TASK-0195` — Curate post-AME2020 row-level follow-up queue after time-split guard (merged)
+- `TASK-0194` — Unblock post-AME2020 time-split nuclear benchmark (merged)
+- `TASK-0193` — Write repository snapshots to the canonical local repo root (merged)
+- `TASK-0192` — Add closeout checks for public state documentation drift (merged)
+- `TASK-0191` — Curate nuclear time-split validation queue (merged)
+- `TASK-0190` — Define nuclear candidate robustness gate before follow-up batches (merged)
+- `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark guard (merged)
+- `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (merged)
+- `TASK-0186` — Make mission control registry-driven and parallel-aware (merged)
+- `TASK-0185` — Make context bundle generation idempotent (merged)
 - `TASK-0184` — Align Mission Control read order with Agent First entrypoint (merged)
+- `TASK-0183` — Run nuclear residual split-sensitivity replay for HYP-PROPOSAL-0021 (merged)
 - `TASK-0182` — Make maintainer overclaim review severity context-aware (merged)
 - `TASK-0181` — Add Agent First mission control entrypoint (merged)
+- `TASK-0180` — Curate microtask queue availability and summary counts (merged)
+- `TASK-0179` — Remove agent session id from pull request template metadata (merged)
+- `TASK-0174` — Create nuclear pilot evidence card and visual funnel (merged)
+- `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (merged)
+- `TASK-0172` — Define private contributor and agent validation plan (merged)
 - `TASK-0171` — Curate nuclear mass surface flagship campaign queue (merged)
 - `TASK-0170` — Run first autonomous nuclear-mass residual hypothesis pilot (merged)
 - `TASK-0169` — Define holdout protocol for nuclear mass residual discovery (merged)
@@ -1794,6 +1875,7 @@ None.
 - `TASK-0153` — Run first pendulum autonomous research pilot with sandbox-only outputs (merged)
 - `TASK-0152` — Implement research proposal preflight gate and sandbox agent-run layout (merged)
 - `TASK-0151` — Define autonomous research loop contract and campaign autonomy profiles (merged)
+- `TASK-0150` — Create external reviewer replication guide (merged)
 - `TASK-0149` — Define blind holdout benchmark protocol (merged)
 - `TASK-0148` — Add scientific result quality rubric (merged)
 - `TASK-0147` — Harden muon g-2 benchmark wording and guardrails (merged)
@@ -1804,6 +1886,8 @@ None.
 - `TASK-0142` — Curate public-alpha hardening and credibility follow-up queue (merged)
 - `TASK-0141` — Add context-bundle regeneration check to closeout helper (merged)
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
+- `TASK-0138` — Add canonical replay and golden-result hardening layer (merged)
+- `TASK-0137` — Split maintainer review helper into clearer policy layers (merged)
 - `TASK-0135` — Audit and freeze pendulum gauntlet reproducibility (merged)
 - `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (merged)
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (merged)
@@ -1818,6 +1902,9 @@ None.
 - `TASK-0120` — Add use-your-agent quickstart diagram pack (merged)
 - `TASK-0119` — Add thought-experiment campaign orientation note (merged)
 - `TASK-0118` — Add particle-mass campaign map diagram (merged)
+- `TASK-0117` — Add maintainer review and closeout Mermaid flow (merged)
+- `TASK-0116` — Add microtask queue summary table generator (merged)
+- `TASK-0115` — Add docs-link integrity check for campaign and result pages (merged)
 - `TASK-0114` — Add microtask queue consistency validator (merged)
 - `TASK-0113` — Align maintainer review helper protected-artifact checks with scientific task contracts (merged)
 - `TASK-0112` — Implement microtask run registry and expanded repeatable queues (merged)
@@ -1924,6 +2011,9 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (`scientific_audit`, priority `high`, difficulty `medium`)
+- `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 
