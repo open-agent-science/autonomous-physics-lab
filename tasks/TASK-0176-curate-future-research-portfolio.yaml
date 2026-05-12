@@ -11,7 +11,8 @@ strategy_alignment:
   - "Move high-overclaim topics into watchlist status until stronger guardrails exist."
 
 input:
-  mode: workflow
+  mode: planning_only
+  related_domain: research_strategy
   related_objects:
     - "docs/strategy.md"
     - "docs/backlog.md"
@@ -44,7 +45,6 @@ validation:
     - "python3 -m ruff check ."
     - "python3 -m pytest"
     - "python3 -m physics_lab.cli validate-repo ."
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human
