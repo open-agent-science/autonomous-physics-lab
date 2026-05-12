@@ -45,15 +45,11 @@ one PR.
 ## READY
 
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (`scientific_audit`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -61,6 +57,10 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0137` — Split maintainer review helper into clearer policy layers (`code_quality_refactor`, priority `medium`, difficulty `medium`)
+- `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (`scientific_audit`, priority `high`, difficulty `medium`)
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY

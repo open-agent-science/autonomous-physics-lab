@@ -31,6 +31,24 @@ from physics_lab.registry.review_checks import (
     unexpected_protected_changes,
     claim_status_promotions,
 )
+from physics_lab.registry.review_policy import (
+    BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    CLOSEOUT_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    CLOSEOUT_PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    MICROTASK_BATCH_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    MICROTASK_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    MICROTASK_PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    PROPOSAL_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    PROPOSAL_PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    branch_microtask_id,  # noqa: F401 — re-exported; tests import from here
+    branch_microtask_queue_id,  # noqa: F401 — re-exported; tests import from here
+    branch_proposal_slug,  # noqa: F401 — re-exported; tests import from here
+    branch_task_id,  # noqa: F401 — re-exported; tests import from here
+    classify_review_protocol,
+    missing_pr_metadata_fields,  # noqa: F401 — re-exported; tests import from here
+    validate_pr_title,
+)
 from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task
 from physics_lab.registry.task_closeout import (
@@ -39,43 +57,8 @@ from physics_lab.registry.task_closeout import (
 )
 
 
-BRANCH_PATTERN = re.compile(
-    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
-    r"task-(?P<number>[0-9]{4})-(?P<slug>[a-z0-9-]+)$"
-)
-PROPOSAL_BRANCH_PATTERN = re.compile(
-    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
-    r"propose-task-(?P<slug>[a-z0-9-]+)$"
-)
-CLOSEOUT_BRANCH_PATTERN = re.compile(
-    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
-    r"closeout-(?P<slug>[a-z0-9-]+)$"
-)
-MICROTASK_BRANCH_PATTERN = re.compile(
-    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
-    r"microtask-(?P<microtask_id>[A-Z0-9]{3,8}-[0-9]{3})-(?P<slug>[a-z0-9-]+)$"
-)
-MICROTASK_BATCH_BRANCH_PATTERN = re.compile(
-    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
-    r"microtask-batch-(?P<queue_id>[a-z0-9-]+)--(?P<slug>[a-z0-9-]+)$"
-)
-PR_TITLE_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}): .+")
-PROPOSAL_PR_TITLE_PATTERN = re.compile(r"^TASK-PROPOSAL: .+")
-CLOSEOUT_PR_TITLE_PATTERN = re.compile(r"^TASK-CLOSEOUT: .+")
-MICROTASK_PR_TITLE_PATTERN = re.compile(r"^microtask\((?P<queue_id>[a-z0-9-]+)\): .+")
 REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
 RUN_ENTRY_PATTERN = re.compile(r"^## Run #(?P<number>[0-9]+)$")
-PR_METADATA_FIELDS = (
-    "Contributor ID",
-    "GitHub username",
-    "Agent tool",
-    "Task ID",
-    "Branch",
-    "Human reviewer",
-)
-PR_METADATA_FIELD_ALIASES = {
-    "Task ID": ("Task ID", "Task ID / Proposal / Queue"),
-}
 DRY_RUN_KEYWORDS = ("dry run", "contributor", "pilot")
 CLOSEOUT_VALIDATION_COMMANDS = (
     "python3 -m pytest",
@@ -200,38 +183,6 @@ class CloseoutReport:
     required_actions: tuple[str, ...]
     suggested_actions: tuple[str, ...]
     applied_changes: tuple[str, ...]
-
-
-def branch_task_id(branch: str) -> str | None:
-    """Extract TASK-XXXX from a canonical branch name."""
-    match = BRANCH_PATTERN.match(branch)
-    if match is None:
-        return None
-    return f"TASK-{match.group('number')}"
-
-
-def branch_proposal_slug(branch: str) -> str | None:
-    """Extract the task-proposal slug from a proposal branch."""
-    match = PROPOSAL_BRANCH_PATTERN.match(branch)
-    if match is None:
-        return None
-    return str(match.group("slug"))
-
-
-def branch_microtask_id(branch: str) -> str | None:
-    """Extract the microtask id from a canonical microtask branch name."""
-    match = MICROTASK_BRANCH_PATTERN.match(branch)
-    if match is None:
-        return None
-    return str(match.group("microtask_id"))
-
-
-def branch_microtask_queue_id(branch: str) -> str | None:
-    """Extract the queue id from a canonical batch microtask branch name."""
-    match = MICROTASK_BATCH_BRANCH_PATTERN.match(branch)
-    if match is None:
-        return None
-    return str(match.group("queue_id"))
 
 
 def resolve_task_file(root: Path, task_id: str) -> Path:
@@ -464,27 +415,6 @@ def diff_base_ref(root: Path, pr_metadata: PullRequestMetadata | None) -> str:
     return base_branch
 
 
-def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
-    """Return required PR metadata fields that are still blank."""
-    missing: list[str] = []
-    lines = body.splitlines()
-    for field in PR_METADATA_FIELDS:
-        field_names = PR_METADATA_FIELD_ALIASES.get(field, (field,))
-        matching_line = None
-        for field_name in field_names:
-            prefix = f"- {field_name}:"
-            matching_line = next((line for line in lines if line.startswith(prefix)), None)
-            if matching_line is not None:
-                break
-        if matching_line is None:
-            missing.append(field)
-            continue
-        value = matching_line.split(":", 1)[1].strip()
-        if value == "":
-            missing.append(field)
-    return tuple(missing)
-
-
 def build_review_report(
     root: Path,
     *,
@@ -505,24 +435,14 @@ def build_review_report(
     if target_branch == "main":
         blockers.append("Branch is main. PR review must target a task branch, not main.")
 
-    branch_match = BRANCH_PATTERN.match(target_branch)
-    proposal_branch_match = PROPOSAL_BRANCH_PATTERN.match(target_branch)
-    closeout_branch_match = CLOSEOUT_BRANCH_PATTERN.match(target_branch)
-    microtask_branch_match = MICROTASK_BRANCH_PATTERN.match(target_branch)
-    microtask_batch_branch_match = MICROTASK_BATCH_BRANCH_PATTERN.match(target_branch)
-    is_proposal_review = proposal_branch_match is not None
-    is_closeout_review = closeout_branch_match is not None or (
-        pr_metadata is not None and CLOSEOUT_PR_TITLE_PATTERN.match(pr_metadata.title) is not None
+    protocol = classify_review_protocol(
+        target_branch,
+        pr_title=pr_metadata.title if pr_metadata is not None else None,
     )
-    is_microtask_review = microtask_branch_match is not None or microtask_batch_branch_match is not None or (
-        pr_metadata is not None and MICROTASK_PR_TITLE_PATTERN.match(pr_metadata.title) is not None
-    )
-    if (
-        branch_match is None
-        and proposal_branch_match is None
-        and not is_closeout_review
-        and not is_microtask_review
-    ):
+    is_proposal_review = protocol.kind == "proposal"
+    is_closeout_review = protocol.kind == "closeout"
+    is_microtask_review = protocol.kind == "microtask"
+    if not protocol.is_supported:
         blockers.append(
             "Branch does not follow a canonical task, task-proposal, closeout, or microtask branch format."
         )
@@ -534,9 +454,9 @@ def build_review_report(
     if not changed_files:
         blockers.append("Diff vs main is empty. There is no reviewable task change.")
 
-    branch_task = branch_task_id(target_branch)
-    branch_microtask = branch_microtask_id(target_branch)
-    branch_microtask_queue = branch_microtask_queue_id(target_branch)
+    branch_task = protocol.branch_task_id
+    branch_microtask = protocol.microtask_id
+    branch_microtask_queue = protocol.microtask_queue_id
     task_payload: dict[str, Any] | None = None
     validation_payload: dict[str, Any] = {}
     if is_proposal_review:
@@ -596,11 +516,7 @@ def build_review_report(
             }
         }
     elif is_microtask_review:
-        queue_id: str | None = None
-        if pr_metadata is not None:
-            title_match = MICROTASK_PR_TITLE_PATTERN.match(pr_metadata.title)
-            if title_match is not None:
-                queue_id = title_match.group("queue_id")
+        queue_id = protocol.title_microtask_queue_id
         resolved_task_id = (
             f"MICROTASK({queue_id})" if queue_id is not None else "MICROTASK"
         )
@@ -671,26 +587,13 @@ def build_review_report(
         )
 
     if pr_metadata is not None:
-        if is_proposal_review:
-            if PROPOSAL_PR_TITLE_PATTERN.match(pr_metadata.title) is None:
-                required_fixes.append("PR title does not follow TASK-PROPOSAL: ... format.")
-        elif is_closeout_review:
-            if CLOSEOUT_PR_TITLE_PATTERN.match(pr_metadata.title) is None:
-                required_fixes.append("PR title does not follow TASK-CLOSEOUT: ... format.")
-        elif is_microtask_review:
-            title_match = MICROTASK_PR_TITLE_PATTERN.match(pr_metadata.title)
-            if title_match is None:
-                required_fixes.append(
-                    "PR title does not follow microtask(<queue-id>): ... format."
-                )
-        else:
-            title_match = PR_TITLE_PATTERN.match(pr_metadata.title)
-            if title_match is None:
-                required_fixes.append("PR title does not follow TASK-XXXX: ... format.")
-            elif title_match.group("task_id") != resolved_task_id:
-                blockers.append(
-                    f"PR title task id {title_match.group('task_id')} does not match {resolved_task_id}."
-                )
+        title_policy = validate_pr_title(
+            review_kind=protocol.kind,
+            title=pr_metadata.title,
+            resolved_task_id=resolved_task_id,
+        )
+        blockers.extend(title_policy.blockers)
+        required_fixes.extend(title_policy.required_fixes)
         if pr_metadata.branch and pr_metadata.branch != target_branch:
             blockers.append(
                 f"PR branch {pr_metadata.branch} does not match reviewed branch {target_branch}."
