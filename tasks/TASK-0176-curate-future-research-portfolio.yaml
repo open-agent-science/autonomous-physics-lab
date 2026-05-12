@@ -11,8 +11,7 @@ strategy_alignment:
   - "Move high-overclaim topics into watchlist status until stronger guardrails exist."
 
 input:
-  mode: planning_only
-  related_domain: research_strategy
+  mode: workflow
   related_objects:
     - "docs/strategy.md"
     - "docs/backlog.md"
