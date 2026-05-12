@@ -1,7 +1,7 @@
 id: TASK-0197
 title: "Run post-AME2020 nuclear time-split benchmark with row-level holdout"
 type: scientific_benchmark
-status: BLOCKED
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -16,10 +16,12 @@ input:
   related_objects:
     - "tasks/TASK-0196-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
     - "physics_lab/registry/post_ame2020_holdout.py"
+    - "agent_runs/AGENT-RUN-0006/"
     - "agent_runs/AGENT-RUN-0007/"
     - "results/EXP-0012/RUN-0001/result.yaml"
     - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
     - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0020-shell-dual-heavy-anchor.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0022-quadratic-asymmetry-refinement.yaml"
     - "docs/nuclear-mass-robustness-gate.md"
   planning_context: >
     TASK-0188 produced a conservative activation guard, not active time-split
@@ -41,6 +43,9 @@ accepted_outputs:
   - "agent_runs/AGENT-RUN-0008/agent_run.yaml"
   - "agent_runs/AGENT-RUN-0008/metrics.json"
   - "agent_runs/AGENT-RUN-0008/report.md"
+  - "agent_runs/AGENT-RUN-0008/limitations.md"
+  - "agent_runs/AGENT-RUN-0008/preflight.md"
+  - "agent_runs/AGENT-RUN-0008/review_summary.md"
   - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
   - "tests/test_post_ame2020_time_split_metrics.py"
 

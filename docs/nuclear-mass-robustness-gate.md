@@ -57,10 +57,11 @@ These outcomes do not replace scientific verdicts such as `PARTIALLY_VALID` or
 
 ## Post-AME2020 Time-Split Rule
 
-`TASK-0187` provides a reviewed post-AME2020 source manifest, but it does not
-commit row-level holdout values and does not activate time-split scoring.
+`TASK-0187` provides a reviewed post-AME2020 source manifest. `TASK-0196`
+commits the reviewed row-level holdout values, and `TASK-0197` activates
+retrospective time-split scoring as sandbox-only evidence.
 
-Until a reviewed row-level post-AME2020 dataset or an explicit maintainer
+Before a reviewed row-level post-AME2020 dataset or an explicit maintainer
 source-audit dry run exists:
 
 - post-AME2020 behavior is a required limitation note;
@@ -71,6 +72,11 @@ source-audit dry run exists:
 `TASK-0188` now records the conservative source-manifest-only guard. It is
 useful evidence that active benchmark metrics are not yet available, but it is
 not a row-level time-split result.
+
+`AGENT-RUN-0008` now records the active retrospective time-split result. It is
+`INCONCLUSIVE`: `HYP-PROPOSAL-0021` regresses the primary post-AME2020 MAE,
+while the prior negative-control family improves the same surface and remains
+review-needed evidence rather than a promoted candidate.
 
 After `TASK-0196` and `TASK-0197`, or an equivalent reviewed row-level
 time-split benchmark, exist:

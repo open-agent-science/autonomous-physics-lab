@@ -157,12 +157,12 @@ Current status:
 - `TASK-0196` provides the reviewed row-level holdout dataset at
   `data/nuclear_masses/post_ame2020_holdout.yaml` and its checksum record at
   `data/nuclear_masses/post_ame2020_checksums.md`;
-- not yet active for benchmark scoring until a later benchmark task consumes
-  the reviewed row-level dataset;
 - `TASK-0188` records the source-audit-only guard and remains `INCONCLUSIVE`
   for active metrics;
-- `TASK-0197` is the real post-AME2020 row-level time-split benchmark task
-  after that boundary is satisfied.
+- `TASK-0197` consumes the reviewed row-level dataset for active retrospective
+  time-split metrics in `AGENT-RUN-0008`;
+- no claim, canonical result, or strict blind-prediction language is promoted
+  by the time-split benchmark.
 
 ### 6. Prospective Prediction Registry
 
