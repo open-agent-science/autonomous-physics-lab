@@ -329,7 +329,26 @@
           "abs_uncertainty_normalized_error": 1608.8070140514296,
           "ame2020_comparison_was_extrapolated": false
         }
-      ]
+      ],
+      "audit_all_rows_including_exclusions": {
+        "active_time_split_metric": false,
+        "reason": "Includes audit-only excluded rows such as U-238; use primary metrics for active holdout comparisons.",
+        "metrics": {
+          "count": 296,
+          "mae_mev": 4.5581398217587346,
+          "rmse_mev": 5.880754578600012,
+          "max_abs_error_mev": 37.63680588444481,
+          "mean_error_mev": 0.6618072570922993,
+          "mean_abs_uncertainty_normalized_error": 257.4971323051224,
+          "max_abs_uncertainty_normalized_error": 4144.8632558158915
+        },
+        "excluded_rows_included": [
+          {
+            "nuclide_id": "U-238",
+            "reason": "Excluded from primary scoring because it overlaps the frozen NMD-0002 baseline slice."
+          }
+        ]
+      }
     },
     "candidate_families": {
       "HYP-PROPOSAL-0020": {
@@ -809,6 +828,27 @@
             "improvement_mae_mev": -0.0,
             "improved_mae": false
           }
+        },
+        "audit_all_rows_including_exclusions": {
+          "active_time_split_metric": false,
+          "reason": "Includes audit-only excluded rows such as U-238; use primary metrics for active holdout comparisons.",
+          "metrics": {
+            "count": 296,
+            "mae_mev": 4.5581398217587346,
+            "rmse_mev": 5.880754578600012,
+            "max_abs_error_mev": 37.63680588444481,
+            "mean_error_mev": 0.6618072570922993,
+            "mean_abs_uncertainty_normalized_error": 257.4971323051224,
+            "max_abs_uncertainty_normalized_error": 4144.8632558158915
+          },
+          "excluded_rows_included": [
+            {
+              "nuclide_id": "U-238",
+              "reason": "Excluded from primary scoring because it overlaps the frozen NMD-0002 baseline slice."
+            }
+          ],
+          "delta_mae_vs_frozen_baseline_mev": 0.0,
+          "improved_mae_vs_frozen_baseline": false
         }
       },
       "HYP-PROPOSAL-0021": {
@@ -1290,6 +1330,27 @@
             "improvement_mae_mev": -0.15060709235904834,
             "improved_mae": false
           }
+        },
+        "audit_all_rows_including_exclusions": {
+          "active_time_split_metric": false,
+          "reason": "Includes audit-only excluded rows such as U-238; use primary metrics for active holdout comparisons.",
+          "metrics": {
+            "count": 296,
+            "mae_mev": 4.637513829893909,
+            "rmse_mev": 6.0503913907635685,
+            "max_abs_error_mev": 37.63680588444481,
+            "mean_error_mev": 1.429109406814648,
+            "mean_abs_uncertainty_normalized_error": 266.45424182770915,
+            "max_abs_uncertainty_normalized_error": 4144.8632558158915
+          },
+          "excluded_rows_included": [
+            {
+              "nuclide_id": "U-238",
+              "reason": "Excluded from primary scoring because it overlaps the frozen NMD-0002 baseline slice."
+            }
+          ],
+          "delta_mae_vs_frozen_baseline_mev": 0.07937400813517481,
+          "improved_mae_vs_frozen_baseline": false
         }
       },
       "HYP-PROPOSAL-0022": {
@@ -1769,6 +1830,27 @@
             "improvement_mae_mev": 0.4219899710576245,
             "improved_mae": true
           }
+        },
+        "audit_all_rows_including_exclusions": {
+          "active_time_split_metric": false,
+          "reason": "Includes audit-only excluded rows such as U-238; use primary metrics for active holdout comparisons.",
+          "metrics": {
+            "count": 296,
+            "mae_mev": 4.173547996339121,
+            "rmse_mev": 5.411070089273908,
+            "max_abs_error_mev": 36.024473050579445,
+            "mean_error_mev": 0.21715393396974153,
+            "mean_abs_uncertainty_normalized_error": 239.76396354783262,
+            "max_abs_uncertainty_normalized_error": 3644.560060274273
+          },
+          "excluded_rows_included": [
+            {
+              "nuclide_id": "U-238",
+              "reason": "Excluded from primary scoring because it overlaps the frozen NMD-0002 baseline slice."
+            }
+          ],
+          "delta_mae_vs_frozen_baseline_mev": -0.3845918254196139,
+          "improved_mae_vs_frozen_baseline": true
         }
       }
     },
@@ -2235,6 +2317,27 @@
           "improvement_mae_mev": 4.524647150282923,
           "improved_mae": true
         }
+      },
+      "audit_all_rows_including_exclusions": {
+        "active_time_split_metric": false,
+        "reason": "Includes audit-only excluded rows such as U-238; use primary metrics for active holdout comparisons.",
+        "metrics": {
+          "count": 296,
+          "mae_mev": 0.19578249999999747,
+          "rmse_mev": 1.6120484758066913,
+          "max_abs_error_mev": 26.108659999999986,
+          "mean_error_mev": 0.07351425675675523,
+          "mean_abs_uncertainty_normalized_error": 6.6156819936122115,
+          "max_abs_uncertainty_normalized_error": 791.1715151515147
+        },
+        "excluded_rows_included": [
+          {
+            "nuclide_id": "U-238",
+            "reason": "Excluded from primary scoring because it overlaps the frozen NMD-0002 baseline slice."
+          }
+        ],
+        "delta_mae_vs_frozen_baseline_mev": -4.362357321758737,
+        "improved_mae_vs_frozen_baseline": true
       }
     }
   },

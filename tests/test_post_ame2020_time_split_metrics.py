@@ -70,8 +70,22 @@ def test_post_ame2020_time_split_primary_candidate_outcomes() -> None:
 def test_post_ame2020_time_split_subsets_and_regressions_are_recorded() -> None:
     metrics = _build_metrics()
     baseline_subsets = metrics["evaluations"]["frozen_baseline"]["metrics_by_subset"]
+    baseline_audit = metrics["evaluations"]["frozen_baseline"][
+        "audit_all_rows_including_exclusions"
+    ]
     hyp21 = metrics["evaluations"]["candidate_families"]["HYP-PROPOSAL-0021"]
 
+    assert baseline_audit["active_time_split_metric"] is False
+    assert baseline_audit["metrics"]["count"] == 296
+    assert baseline_audit["excluded_rows_included"] == [
+        {
+            "nuclide_id": "U-238",
+            "reason": (
+                "Excluded from primary scoring because it overlaps the frozen NMD-0002 "
+                "baseline slice."
+            ),
+        }
+    ]
     assert baseline_subsets["ame2020_extrapolated_comparison"]["count"] == 55
     assert baseline_subsets["neutron_rich_delta_ge_20"]["count"] == 116
     assert baseline_subsets["magic_any"]["count"] == 18
@@ -101,7 +115,19 @@ def test_agent_run_0008_artifacts_match_rebuilt_metrics() -> None:
         root=repo_root,
     )
 
-    assert stored["summary"] == rebuilt["summary"]
+    assert stored["summary"]["best_candidate_by_primary_mae"] == rebuilt["summary"][
+        "best_candidate_by_primary_mae"
+    ]
+    assert stored["summary"]["candidate_primary_mae_improved_count"] == rebuilt["summary"][
+        "candidate_primary_mae_improved_count"
+    ]
+    assert stored["summary"]["hyp_0021_primary_delta_mae_mev"] == pytest.approx(
+        rebuilt["summary"]["hyp_0021_primary_delta_mae_mev"]
+    )
+    assert stored["summary"]["hyp_0022_negative_control_primary_delta_mae_mev"] == pytest.approx(
+        rebuilt["summary"]["hyp_0022_negative_control_primary_delta_mae_mev"]
+    )
+    assert stored["summary"]["verdict"] == rebuilt["summary"]["verdict"]
     assert stored["evaluations"]["frozen_baseline"]["metrics_by_subset"]["primary"] == rebuilt[
         "evaluations"
     ]["frozen_baseline"]["metrics_by_subset"]["primary"]

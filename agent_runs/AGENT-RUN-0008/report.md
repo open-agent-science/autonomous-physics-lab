@@ -15,6 +15,7 @@ knowledge artifact.
 - Holdout target: `data/nuclear_masses/post_ame2020_holdout.yaml`
 - Primary evaluation rows: `295`
 - Excluded overlap rows: `1` (`U-238` audit-only)
+- Audit-inclusive rows: `296` recorded as non-active metrics only
 - Training surface for candidate coefficients: frozen `NMD-0002`
 - Baseline: `RESULT-0015::model_fitted_semi_empirical`
 - Post-AME2020 rows used for fitting: `0`
@@ -45,6 +46,9 @@ Negative `delta_mae_mev` means improvement over the frozen baseline.
   by `0.388555` MeV.
 - This mixed outcome is useful negative/diagnostic evidence, not a candidate
   promotion.
+- The 296-row audit-inclusive metrics are present in `metrics.json` with
+  `active_time_split_metric: false`; active comparisons use the 295-row primary
+  holdout so `U-238` remains audit-only.
 
 ## Feature Activation
 

@@ -298,9 +298,10 @@ def build_post_ame2020_time_split_benchmark(
         )
 
     holdout_payload = load_post_ame2020_holdout_dataset(holdout_dataset_path)
+    all_rows = list(holdout_payload["entries"])
     primary_rows = [
         row
-        for row in holdout_payload["entries"]
+        for row in all_rows
         if bool(row["included_in_time_split_holdout"])
     ]
     if not primary_rows:
@@ -317,8 +318,13 @@ def build_post_ame2020_time_split_benchmark(
     baseline_predictions = [
         _baseline_prediction_for_holdout_row(row, coefficients) for row in primary_rows
     ]
+    all_baseline_predictions = [
+        _baseline_prediction_for_holdout_row(row, coefficients) for row in all_rows
+    ]
     observed = [float(row["new_measurement"]["value_mev"]) for row in primary_rows]
     uncertainties = [float(row["new_measurement"]["uncertainty_mev"]) for row in primary_rows]
+    all_observed = [float(row["new_measurement"]["value_mev"]) for row in all_rows]
+    all_uncertainties = [float(row["new_measurement"]["uncertainty_mev"]) for row in all_rows]
 
     baseline_evaluation = _build_model_evaluation(
         model_id="RESULT-0015::model_fitted_semi_empirical",
@@ -333,6 +339,14 @@ def build_post_ame2020_time_split_benchmark(
         formula="Fitted semi-empirical mass formula from RESULT-0015",
     )
     baseline_abs_errors = _absolute_errors(observed, baseline_predictions)
+    all_baseline_abs_errors = _absolute_errors(all_observed, all_baseline_predictions)
+    baseline_evaluation["audit_all_rows_including_exclusions"] = _audit_inclusive_metrics(
+        holdout_rows=all_rows,
+        observed_mev=all_observed,
+        predicted_mev=all_baseline_predictions,
+        uncertainties_mev=all_uncertainties,
+        baseline_abs_errors=None,
+    )
 
     candidate_evaluations: dict[str, Any] = {}
     for spec in POST_AME2020_CANDIDATE_SPECS:
@@ -345,6 +359,10 @@ def build_post_ame2020_time_split_benchmark(
         predicted = [
             baseline_prediction + _candidate_correction(spec, row, correction_coefficients)
             for row, baseline_prediction in zip(primary_rows, baseline_predictions)
+        ]
+        all_predicted = [
+            baseline_prediction + _candidate_correction(spec, row, correction_coefficients)
+            for row, baseline_prediction in zip(all_rows, all_baseline_predictions)
         ]
         evaluation = _build_model_evaluation(
             model_id=spec.candidate_id,
@@ -364,10 +382,20 @@ def build_post_ame2020_time_split_benchmark(
             evaluation["metrics_by_subset"],
             baseline_evaluation["metrics_by_subset"],
         )
+        evaluation["audit_all_rows_including_exclusions"] = _audit_inclusive_metrics(
+            holdout_rows=all_rows,
+            observed_mev=all_observed,
+            predicted_mev=all_predicted,
+            uncertainties_mev=all_uncertainties,
+            baseline_abs_errors=all_baseline_abs_errors,
+        )
         candidate_evaluations[spec.candidate_id] = evaluation
 
     ame2020_predictions = [
         float(row["ame2020_comparison"]["value_mev"]) for row in primary_rows
+    ]
+    all_ame2020_predictions = [
+        float(row["ame2020_comparison"]["value_mev"]) for row in all_rows
     ]
     ame2020_sanity = _build_model_evaluation(
         model_id="AME2020-comparison-table",
@@ -384,6 +412,13 @@ def build_post_ame2020_time_split_benchmark(
     ame2020_sanity["delta_vs_frozen_baseline"] = _subset_deltas(
         ame2020_sanity["metrics_by_subset"],
         baseline_evaluation["metrics_by_subset"],
+    )
+    ame2020_sanity["audit_all_rows_including_exclusions"] = _audit_inclusive_metrics(
+        holdout_rows=all_rows,
+        observed_mev=all_observed,
+        predicted_mev=all_ame2020_predictions,
+        uncertainties_mev=all_uncertainties,
+        baseline_abs_errors=all_baseline_abs_errors,
     )
 
     with Path(split_replay_metrics_path).open("r", encoding="utf-8") as handle:
@@ -439,7 +474,7 @@ def build_post_ame2020_time_split_benchmark(
                     "nuclide_id": row["nuclide_id"],
                     "reason": row["exclusion_reason"],
                 }
-                for row in holdout_payload["entries"]
+                for row in all_rows
                 if not row["included_in_time_split_holdout"]
             ],
         },
@@ -611,6 +646,46 @@ def _feature_activation_counts(
             if value != 0.0:
                 counts[name] += 1
     return counts
+
+
+def _audit_inclusive_metrics(
+    *,
+    holdout_rows: list[Mapping[str, Any]],
+    observed_mev: list[float],
+    predicted_mev: list[float],
+    uncertainties_mev: list[float],
+    baseline_abs_errors: list[float] | None,
+) -> dict[str, Any]:
+    metrics = calculate_time_split_metrics(
+        observed_mev=observed_mev,
+        predicted_mev=predicted_mev,
+        uncertainties_mev=uncertainties_mev,
+    )
+    payload: dict[str, Any] = {
+        "active_time_split_metric": False,
+        "reason": (
+            "Includes audit-only excluded rows such as U-238; use primary metrics "
+            "for active holdout comparisons."
+        ),
+        "metrics": metrics,
+        "excluded_rows_included": [
+            {
+                "nuclide_id": row["nuclide_id"],
+                "reason": row["exclusion_reason"],
+            }
+            for row in holdout_rows
+            if not row["included_in_time_split_holdout"]
+        ],
+    }
+    if baseline_abs_errors is not None:
+        abs_errors = _absolute_errors(observed_mev, predicted_mev)
+        delta_mae = (
+            sum(abs_errors) / len(abs_errors)
+            - sum(baseline_abs_errors) / len(baseline_abs_errors)
+        )
+        payload["delta_mae_vs_frozen_baseline_mev"] = delta_mae
+        payload["improved_mae_vs_frozen_baseline"] = delta_mae < 0.0
+    return payload
 
 
 def _build_model_evaluation(
