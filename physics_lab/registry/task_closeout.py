@@ -146,6 +146,12 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
         "Add a docs/multi-agent-dry-run.md entry only when the merged PR "
         "belongs to a dry run or contributor pilot."
     )
+    suggested_actions.append(
+        "Closeout publish reminder: closeout edits should not remain only in a "
+        "local worktree. After verification, prepare a closeout commit and PR "
+        "or ask the maintainer to publish them; do not push or merge without "
+        "explicit maintainer authorization."
+    )
     if should_review_public_state_docs(payload):
         suggested_actions.extend(render_public_state_doc_checklist())
 

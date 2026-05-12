@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-12 05:57 UTC
+Generated: 2026-05-12 07:23 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -802,7 +802,7 @@ breakthrough-style wording.
 <!-- source: missions/current.yaml -->
 
 default_mode: research
-updated: "2026-05-11"
+updated: "2026-05-12"
 
 policy:
   name: "Agent First, research-first"
@@ -882,7 +882,7 @@ missions:
         label: "Review active retrospective post-AME2020 time-split evidence before any second nuclear batch"
         task_id: TASK-0197
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
         recommended: false
@@ -1810,13 +1810,14 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (`scientific_benchmark`, priority `high`, difficulty `high`)
-- `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (`maintainer_workflow`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (merged)
 - `TASK-0198` — Close TASK-0195 and tighten public-doc sync follow-up (merged)
+- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (merged)
+- `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (merged)
 - `TASK-0195` — Curate post-AME2020 row-level follow-up queue after time-split guard (merged)
 - `TASK-0194` — Unblock post-AME2020 time-split nuclear benchmark (merged)
 - `TASK-0193` — Write repository snapshots to the canonical local repo root (merged)

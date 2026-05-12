@@ -124,8 +124,8 @@ Recommended nuclear validation queue:
   source-manifest-only mode with no active benchmark metrics
 - `TASK-0196` reviewed row-level post-AME2020 nuclear mass holdout dataset,
   now merged
-- `TASK-0197` real post-AME2020 nuclear time-split benchmark, now
-  review-ready as `AGENT-RUN-0008`
+- `TASK-0197` real post-AME2020 nuclear time-split benchmark, now merged as
+  inconclusive `AGENT-RUN-0008` evidence
 - `TASK-0189` nuclear prediction registry policy
 - `TASK-0178` second nuclear sandbox batch, blocked until the robustness gate,
   row-level holdout dataset, and real time-split benchmark all pass review

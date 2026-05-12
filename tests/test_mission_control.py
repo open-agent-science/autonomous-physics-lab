@@ -133,6 +133,42 @@ def test_mission_json_includes_guardrails(tmp_path: Path) -> None:
     assert rendered["global_forbidden"] == ["no claim promotion"]
 
 
+def test_mission_json_omits_inactive_configured_actions(tmp_path: Path) -> None:
+    _write_missions(tmp_path)
+    mission_path = tmp_path / "missions" / "current.yaml"
+    text = mission_path.read_text(encoding="utf-8")
+    mission_path.write_text(
+        text.replace(
+            "                  - id: audit-run\n"
+            "                    label: \"Audit run\"\n"
+            "                    mode: audit\n"
+            "                    priority: high\n",
+            "                  - id: done-replay\n"
+            "                    label: \"Done replay\"\n"
+            "                    mode: research\n"
+            "                    status: done\n"
+            "                    priority: high\n"
+            "                  - id: blocked-replay\n"
+            "                    label: \"Blocked replay\"\n"
+            "                    mode: research\n"
+            "                    status: blocked\n"
+            "                    priority: high\n"
+            "                  - id: audit-run\n"
+            "                    label: \"Audit run\"\n"
+            "                    mode: audit\n"
+            "                    priority: high\n",
+        ),
+        encoding="utf-8",
+    )
+    payload = load_current_missions(tmp_path)
+
+    rendered = json.loads(mission_json(payload))
+
+    actions = [action["action"] for action in rendered["alternatives"]]
+    assert "done-replay" not in actions
+    assert "blocked-replay" not in actions
+
+
 def test_mission_json_includes_live_task_candidates(tmp_path: Path) -> None:
     _write_missions(tmp_path)
     _write_task(

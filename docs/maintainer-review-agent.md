@@ -272,6 +272,12 @@ Use this mode only after the maintainer has already merged the PR.
 8. During larger workflow-admin or closeout batches, check whether open
    `READY`, `REVIEW_READY`, or `BLOCKED` tasks still represent real claimable
    work rather than stale or already-merged drift.
+9. After applying any closeout edits, do not leave the task status, active
+   board, or generated context changes only in the local worktree. Review
+   `git status`/`git diff`, run the required validation and context refresh,
+   then prepare a closeout commit and PR or explicitly ask the maintainer to
+   publish those changes. Do not push or merge without maintainer
+   authorization.
 
 ### Allowed actions
 
@@ -341,6 +347,9 @@ Default behavior:
 - closeout helpers may automatically update task status, `tasks/ACTIVE.md`, and
   `CONTEXT.md`; they should treat public narrative docs as check-and-follow-up
   surfaces unless an explicit docs-sync task authorizes editing them
+- after applying closeout edits, the helper should remind the operator to
+  publish the local closeout diff through a closeout commit and PR, or ask the
+  maintainer to do it, so task-state changes do not remain only local
 
 ### Closeout sweep helper
 
