@@ -1,5 +1,5 @@
 default_mode: research
-updated: "2026-05-11"
+updated: "2026-05-12"
 
 policy:
   name: "Agent First, research-first"
@@ -79,7 +79,7 @@ missions:
         label: "Review active retrospective post-AME2020 time-split evidence before any second nuclear batch"
         task_id: TASK-0197
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
         recommended: false

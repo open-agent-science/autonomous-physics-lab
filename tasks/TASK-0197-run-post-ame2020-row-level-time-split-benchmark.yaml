@@ -1,7 +1,7 @@
 id: TASK-0197
 title: "Run post-AME2020 nuclear time-split benchmark with row-level holdout"
-type: scientific_benchmark
-status: REVIEW_READY
+type: scientific_validation
+status: DONE
 difficulty: high
 priority: high
 
