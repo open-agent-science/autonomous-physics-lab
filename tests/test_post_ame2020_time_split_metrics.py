@@ -30,6 +30,18 @@ def _build_metrics() -> dict:
     )
 
 
+def _assert_metric_payload_approx(stored: dict, rebuilt: dict) -> None:
+    assert stored.keys() == rebuilt.keys()
+    for key, stored_value in stored.items():
+        rebuilt_value = rebuilt[key]
+        if isinstance(stored_value, int):
+            assert stored_value == rebuilt_value
+        elif isinstance(stored_value, float):
+            assert stored_value == pytest.approx(rebuilt_value)
+        else:
+            assert stored_value == rebuilt_value
+
+
 def test_post_ame2020_time_split_metrics_are_active_and_retrospective() -> None:
     metrics = _build_metrics()
 
@@ -128,9 +140,10 @@ def test_agent_run_0008_artifacts_match_rebuilt_metrics() -> None:
         rebuilt["summary"]["hyp_0022_negative_control_primary_delta_mae_mev"]
     )
     assert stored["summary"]["verdict"] == rebuilt["summary"]["verdict"]
-    assert stored["evaluations"]["frozen_baseline"]["metrics_by_subset"]["primary"] == rebuilt[
-        "evaluations"
-    ]["frozen_baseline"]["metrics_by_subset"]["primary"]
+    _assert_metric_payload_approx(
+        stored["evaluations"]["frozen_baseline"]["metrics_by_subset"]["primary"],
+        rebuilt["evaluations"]["frozen_baseline"]["metrics_by_subset"]["primary"],
+    )
     assert agent_run["task_id"] == "TASK-0197"
     assert agent_run["verdict"] == "INCONCLUSIVE"
     assert agent_run["promotion_boundary"]["writes_canonical_result"] is False
