@@ -53,7 +53,7 @@ missions:
       - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
       - "a review-ready robustness gate defines allowed follow-up, negative controls, and promotion blockers"
       - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
-      - "the next unlock is reviewed row-level post-AME2020 holdout data before active time-split metrics"
+      - "AGENT-RUN-0008 now records active retrospective post-AME2020 time-split evidence with INCONCLUSIVE verdict"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -67,7 +67,7 @@ missions:
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
         task_id: TASK-0196
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
         recommended: false
@@ -75,6 +75,18 @@ missions:
           - "data/nuclear_masses/post_ame2020_holdout.yaml"
           - "tests/test_post_ame2020_holdout_dataset.py"
           - "docs/notes/post-ame2020-holdout-dataset-review.md"
+      - id: post-ame2020-time-split-benchmark
+        label: "Review active retrospective post-AME2020 time-split evidence before any second nuclear batch"
+        task_id: TASK-0197
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "agent_runs/AGENT-RUN-0008/metrics.json"
+          - "agent_runs/AGENT-RUN-0008/report.md"
+          - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
         label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
         mode: research

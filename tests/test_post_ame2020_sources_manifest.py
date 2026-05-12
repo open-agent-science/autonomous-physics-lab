@@ -33,7 +33,8 @@ def test_post_ame2020_manifest_pins_stable_source_identifiers() -> None:
     manifest = _load_manifest()
     assert manifest["task_id"] == "TASK-0187"
     assert manifest["activation_status"]["row_level_holdout_dataset_committed"] is True
-    assert manifest["activation_status"]["time_split_holdout_active"] is False
+    assert manifest["activation_status"]["time_split_holdout_active"] is True
+    assert "TASK-0197" in manifest["activation_status"]["reason"]
     assert manifest["source_policy"]["live_fetch_allowed_in_validation"] is False
     assert manifest["source_policy"]["row_values_committed"] is True
 

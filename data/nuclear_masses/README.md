@@ -95,5 +95,6 @@ post-AME2020 time-split lane:
 - `post_ame2020_checksums.md`
 
 The holdout dataset commits the reviewed row-level post-AME2020 values and
-provenance needed for a later time-split benchmark. It still does not activate
-benchmark metrics or promote candidate claims by itself.
+provenance needed for time-split evaluation. `TASK-0197` activates
+retrospective benchmark metrics from committed rows only; it still does not
+promote candidate claims or strict blind-prediction language.

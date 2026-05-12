@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-12 05:42 UTC
+Generated: 2026-05-12 05:57 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -690,8 +690,8 @@ Recommended direction:
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
 2. Prefer nuclear validation, evidence packaging, post-AME2020 time-split
-   preparation, or guarded follow-up tasks before opening a second nuclear
-   sandbox batch.
+   review, or guarded follow-up tasks before opening a second nuclear sandbox
+   batch.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
 4. Use the nuclear robustness gate before any second sandbox batch expands a
    candidate family.
@@ -705,6 +705,8 @@ Why:
 - split-sensitivity replay now exists as review-ready sandbox evidence;
 - a review-ready robustness gate now defines what counts as allowed follow-up,
   negative-control-only evidence, or promotion-blocking instability;
+- active retrospective post-AME2020 time-split evidence now exists as
+  `AGENT-RUN-0008` and is intentionally inconclusive;
 - the next scientific value comes from validation, time-split evidence, and
   prediction discipline, not from broadening claims.
 
@@ -854,7 +856,7 @@ missions:
       - "independent audit exists and AGENT-RUN-0006 now captures split-sensitivity replay evidence"
       - "a review-ready robustness gate defines allowed follow-up, negative controls, and promotion blockers"
       - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
-      - "the next unlock is reviewed row-level post-AME2020 holdout data before active time-split metrics"
+      - "AGENT-RUN-0008 now records active retrospective post-AME2020 time-split evidence with INCONCLUSIVE verdict"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -868,7 +870,7 @@ missions:
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
         task_id: TASK-0196
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
         recommended: false
@@ -876,6 +878,18 @@ missions:
           - "data/nuclear_masses/post_ame2020_holdout.yaml"
           - "tests/test_post_ame2020_holdout_dataset.py"
           - "docs/notes/post-ame2020-holdout-dataset-review.md"
+      - id: post-ame2020-time-split-benchmark
+        label: "Review active retrospective post-AME2020 time-split evidence before any second nuclear batch"
+        task_id: TASK-0197
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "agent_runs/AGENT-RUN-0008/metrics.json"
+          - "agent_runs/AGENT-RUN-0008/report.md"
+          - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
         label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
         mode: research
@@ -1797,6 +1811,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0196` — Add reviewed row-level post-AME2020 nuclear mass holdout dataset (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
@@ -1977,7 +1992,6 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0197` — Run post-AME2020 nuclear time-split benchmark with row-level holdout (`scientific_benchmark`, priority `high`, difficulty `high`)
 
 ## REJECTED
 
