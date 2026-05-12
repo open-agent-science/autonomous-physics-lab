@@ -1,6 +1,6 @@
 # Current Missions
 
-APL now uses an **Agent First** entrypoint.
+APL now uses an **Agent First / Research First / Parallel Work** entrypoint.
 
 The default path for a new coding agent is no longer "scan every task and pick
 something small." The default path is:
@@ -10,8 +10,12 @@ python3 scripts/apl_mission.py
 ```
 
 That command starts **Research Mode** and recommends the highest-value
-reviewable scientific mission. Support, microtask, review, and closeout work
-still exists, but it is explicit:
+reviewable scientific mission. When multiple agents are available, the default
+operating model is to run several bounded research lanes in parallel through
+separate branches or worktrees. Those lanes may be in different campaigns, or
+inside the same campaign when the hypothesis families and write surfaces are
+disjoint. Support, microtask, review, and closeout work still exists, but it is
+explicit:
 
 ```bash
 python3 scripts/apl_mission.py --mode support
@@ -100,13 +104,17 @@ recommendation remains the current top-ranked mission.
 small `parallel_work_policy` section. In default Research Mode, research,
 replay, audit, and validation tasks are ranked before support tasks; support
 items are secondary options when they are useful or when a maintainer assigns
-them. Use those candidates as options, not as a single global lock.
+them. Use those candidates as parallel options, not as a single global lock.
 
 Rules:
 
 - one local checkout should usually run one task at a time;
 - multiple local agents may work in parallel only through separate branches or
   git worktrees;
+- prefer bounded parallel science lanes with disjoint hypothesis families over
+  one broad catch-all task;
+- same-campaign parallel work is allowed when each agent owns a distinct lane,
+  such as shell-aware, pairing/odd-even, neutron-rich, audit, or packaging;
 - parallel tasks should avoid the same artifact surfaces, especially
   `tasks/ACTIVE.md`, `CONTEXT.md`, canonical `results/`, and the same docs page;
 - agents should not guess new canonical task ids during parallel work.

@@ -1,0 +1,64 @@
+id: TASK-0207
+title: "Curate private-agent nuclear validation cycle task queue"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the strategic private-agent cycle plan into bounded canonical tasks without starting broad uncontrolled science work."
+  - "Keep Agent First research mode focused on useful nuclear validation lanes while preserving review and closeout discipline."
+  - "Support the repository policy of Agent First, Research First, Parallel Work through disjoint science lanes."
+  - "Make same-campaign parallel work explicit: multiple agents may work inside Nuclear Mass Surface when they own separate hypothesis families or audit lanes."
+  - "Avoid treating task curation itself as evidence or claim promotion."
+
+input:
+  mode: workflow
+  related_domain: task_curation
+  related_objects:
+    - "tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+    - "tasks/TASK-0189-add-nuclear-mass-prediction-registry-policy.yaml"
+    - "missions/current.yaml"
+    - "docs/next-steps.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    A strategic review recommended launching a small private-agent cycle after
+    the post-AME2020 row-level holdout and time-split work landed. This task
+    creates the bounded executable tasks and follow-up gates for that cycle; it
+    does not itself run scientific experiments or create sandbox evidence.
+
+requirements:
+  - "Create a compact set of canonical tasks for the next private-agent nuclear validation cycle."
+  - "Keep the broad TASK-0178 second-batch umbrella blocked in favor of narrower lanes."
+  - "Make multiple bounded science lanes READY so several agents can work in parallel, including inside the same campaign."
+  - "Keep downstream review, prediction-entry, and release-signoff tasks blocked until their prerequisites exist."
+  - "Update mission and next-step guidance so agents choose from live task candidates rather than stale broad-batch work."
+  - "Do not add hypotheses, experiment proposals, agent runs, canonical results, claims, or accepted knowledge."
+
+accepted_outputs:
+  - "tasks/TASK-0200-run-shell-aware-nuclear-sandbox-batch.yaml"
+  - "tasks/TASK-0201-run-pairing-odd-even-nuclear-sandbox-batch.yaml"
+  - "tasks/TASK-0202-run-neutron-rich-nuclear-sandbox-batch.yaml"
+  - "tasks/TASK-0203-analyze-post-ame2020-timesplit-failure-modes.yaml"
+  - "tasks/TASK-0204-adversarial-review-second-nuclear-sandbox-batches.yaml"
+  - "tasks/TASK-0205-create-first-nuclear-prediction-registry-entries.yaml"
+  - "tasks/TASK-0206-add-release-validation-and-public-wording-signoff.yaml"
+  - "updated tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+  - "updated docs/next-steps.md"
+  - "updated missions/current.yaml"
+  - "updated tasks/ACTIVE.md"
+  - "updated CONTEXT.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/apl_mission.py --json"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
