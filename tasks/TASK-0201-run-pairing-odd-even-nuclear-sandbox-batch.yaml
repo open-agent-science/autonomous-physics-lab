@@ -1,0 +1,61 @@
+id: TASK-0201
+title: "Run bounded nuclear sandbox batch for pairing and odd-even residual corrections"
+type: autonomous_research_pilot
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Explore a physically interpretable residual family without broad numerology."
+  - "Keep the second nuclear wave parallelizable by assigning a disjoint hypothesis family."
+  - "Require negative controls and time-split checks before any follow-up recommendation."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+    - "tasks/TASK-0190-define-nuclear-candidate-robustness-gate.yaml"
+    - "tasks/TASK-0196-add-reviewed-post-ame2020-row-level-holdout-dataset.yaml"
+    - "tasks/TASK-0197-run-post-ame2020-row-level-time-split-benchmark.yaml"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+    - "docs/nuclear-mass-robustness-gate.md"
+    - "agent_runs/AGENT-RUN-0006/"
+    - "agent_runs/AGENT-RUN-0008/"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    Pairing, odd-even, and odd-A residual structure is a bounded follow-up
+    family that can run in parallel with shell-aware work while preserving
+    reviewable sandbox boundaries.
+
+requirements:
+  - "Generate 3 to 6 pairing, odd-even, or odd-A residual hypothesis proposals."
+  - "Reject proposals that duplicate HYP-PROPOSAL-0021, HYP-PROPOSAL-0022, or existing negative controls."
+  - "Execute at most 1 or 2 sandbox candidates."
+  - "Include at least one negative or overfit control if a candidate survives preflight."
+  - "Report primary holdout, split-sensitivity, post-AME2020 time-split, complexity, and subset behavior."
+  - "Use the robustness gate to classify every executed candidate."
+  - "Do not update canonical results, claims, accepted knowledge, or datasets."
+  - "Do not use discovery, proof, or global-validity wording."
+
+accepted_outputs:
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-00XX-pairing-*.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-00XX-pairing-*.yaml"
+  - "agent_runs/AGENT-RUN-00XX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-00XX/metrics.json"
+  - "agent_runs/AGENT-RUN-00XX/report.md"
+  - "agent_runs/AGENT-RUN-00XX/limitations.md"
+  - "docs/reviews/autonomous-nuclear-pairing-batch-01.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

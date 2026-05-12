@@ -1,0 +1,55 @@
+id: TASK-0206
+title: "Add release-time validation and public wording signoff artifact"
+type: release_review
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep public opening gated by evidence, validation, and wording safety rather than momentum."
+  - "Turn final public-readiness checks into a reviewable artifact."
+  - "Catch local path leaks, stale docs, CI gaps, and overclaim wording before opening the repository."
+
+input:
+  mode: workflow
+  related_domain: release_readiness
+  related_objects:
+    - "tasks/TASK-0175-sync-public-docs-after-nuclear-wave.yaml"
+    - "docs/public-release-gates.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "README.md"
+    - "scripts/apl_snapshot.sh"
+  planning_context: >
+    The repo is close to public/private contributor validation readiness, but
+    public opening should wait for a signoff artifact that verifies docs,
+    validation, local path leaks, public wording, and CI from the release-time
+    base branch.
+
+requirements:
+  - "Do not start until TASK-0175 is DONE or explicitly waived by the maintainer."
+  - "Run release-time validation from the intended base branch."
+  - "Record GitHub CI status, local strict validation, docs-link checks, snapshot status, and local path leak check."
+  - "Audit README.md, docs/status.md, docs/mission-control.md, docs/next-steps.md, and release docs for overclaim or stale public readiness wording."
+  - "Confirm external reviewer replication guide status and update blocker wording if already satisfied."
+  - "Do not make the repository public in this task."
+
+accepted_outputs:
+  - "docs/reviews/public-release-validation-signoff.md"
+  - "updated docs/public-release-gates.md if blocker wording is stale"
+  - "updated docs/status.md or docs/mission-control.md only if the signoff finds stale release-gate wording"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 scripts/apl_mission.py --json"
+    - "./scripts/apl_snapshot.sh"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

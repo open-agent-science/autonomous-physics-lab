@@ -117,7 +117,7 @@ the evidence boundary around the current nuclear surface:
 - define a robustness gate before allowing another autonomous nuclear batch;
 - add a prediction registry only for future before-measurement predictions.
 
-Recommended nuclear validation queue:
+Recommended nuclear validation queue for parallel agents:
 
 - `TASK-0174` nuclear pilot evidence card and visual funnel, now merged
 - `TASK-0188` post-AME2020 time-split guard, complete in conservative
@@ -127,8 +127,12 @@ Recommended nuclear validation queue:
 - `TASK-0197` real post-AME2020 nuclear time-split benchmark, now merged as
   inconclusive `AGENT-RUN-0008` evidence
 - `TASK-0189` nuclear prediction registry policy
-- `TASK-0178` second nuclear sandbox batch, blocked until the robustness gate,
-  row-level holdout dataset, and real time-split benchmark all pass review
+- `TASK-0200` bounded shell-aware nuclear sandbox batch
+- `TASK-0201` bounded pairing / odd-even nuclear sandbox batch
+- `TASK-0202` bounded neutron-rich nuclear sandbox batch
+- `TASK-0203` post-AME2020 time-split failure-mode analysis
+- `TASK-0178` broad second nuclear sandbox batch remains blocked as an
+  umbrella; use the narrower TASK-0200 through TASK-0204 lanes first
 
 Current nuclear-mass baseline state:
 
@@ -158,8 +162,12 @@ The nuclear queue should stay conservative:
 - no universal mass-formula claims;
 - no discovery framing;
 - explicit baseline comparison, holdout discipline, and negative-result preservation.
-- no second nuclear sandbox batch until `TASK-0173`, `TASK-0190`, `TASK-0196`,
-  and `TASK-0197` are done and maintainer review allows follow-up.
+- parallel science lanes are encouraged across different campaigns and within
+  the same campaign, but each lane must use a separate branch/worktree,
+  disjoint hypothesis family or artifact surface, and sandbox-only outputs;
+- no broad second nuclear sandbox batch from `TASK-0178`; run only narrow
+  sandbox lanes with primary holdout, split-sensitivity, post-AME2020
+  time-split, negative controls, and no claim promotion.
 
 ### 2. Validate Private Contributors And Agents
 

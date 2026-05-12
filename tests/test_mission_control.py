@@ -293,5 +293,5 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert rendered["recommended"]["task_id"] is None
     assert "parallel_work_policy" in rendered
     assert rendered["live_task_candidates"]
-    assert rendered["live_task_candidates"][0]["task_id"] == "TASK-0189"
+    assert rendered["live_task_candidates"][0]["task_id"] == "TASK-0203"
     assert rendered["live_task_candidates"][0]["mode"] == "research"
