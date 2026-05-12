@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-12 07:23 UTC
+Generated: 2026-05-12 09:07 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -641,7 +641,7 @@ stronger verification.
 
 # Current Missions
 
-APL now uses an **Agent First** entrypoint.
+APL now uses an **Agent First / Research First / Parallel Work** entrypoint.
 
 The default path for a new coding agent is no longer "scan every task and pick
 something small." The default path is:
@@ -651,8 +651,12 @@ python3 scripts/apl_mission.py
 ```
 
 That command starts **Research Mode** and recommends the highest-value
-reviewable scientific mission. Support, microtask, review, and closeout work
-still exists, but it is explicit:
+reviewable scientific mission. When multiple agents are available, the default
+operating model is to run several bounded research lanes in parallel through
+separate branches or worktrees. Those lanes may be in different campaigns, or
+inside the same campaign when the hypothesis families and write surfaces are
+disjoint. Support, microtask, review, and closeout work still exists, but it is
+explicit:
 
 ```bash
 python3 scripts/apl_mission.py --mode support
@@ -741,13 +745,17 @@ recommendation remains the current top-ranked mission.
 small `parallel_work_policy` section. In default Research Mode, research,
 replay, audit, and validation tasks are ranked before support tasks; support
 items are secondary options when they are useful or when a maintainer assigns
-them. Use those candidates as options, not as a single global lock.
+them. Use those candidates as parallel options, not as a single global lock.
 
 Rules:
 
 - one local checkout should usually run one task at a time;
 - multiple local agents may work in parallel only through separate branches or
   git worktrees;
+- prefer bounded parallel science lanes with disjoint hypothesis families over
+  one broad catch-all task;
+- same-campaign parallel work is allowed when each agent owns a distinct lane,
+  such as shell-aware, pairing/odd-even, neutron-rich, audit, or packaging;
 - parallel tasks should avoid the same artifact surfaces, especially
   `tasks/ACTIVE.md`, `CONTEXT.md`, canonical `results/`, and the same docs page;
 - agents should not guess new canonical task ids during parallel work.
@@ -805,15 +813,20 @@ default_mode: research
 updated: "2026-05-12"
 
 policy:
-  name: "Agent First, research-first"
+  name: "Agent First, Research First, Parallel Work"
   summary: >
     New contributors and coding agents should start from the highest-value
     reviewable research mission by default. Support, microtask, review, and
-    closeout lanes remain available as explicit modes.
+    closeout lanes remain available as explicit modes. Multiple agents are
+    encouraged to work in parallel across different campaigns, or within the
+    same campaign when they use separate branches/worktrees and disjoint
+    hypothesis families, datasets, or artifact surfaces.
   defaults:
     - "Start in research mode unless the maintainer explicitly asks for support, review, or closeout."
     - "Prefer hypothesis testing, replay, falsification, or sandbox result drafts over docs-only work."
     - "Keep all research outputs reviewable and sandbox-only until maintainer review."
+    - "Prefer several bounded parallel science lanes over one oversized catch-all task when multiple agents are available."
+    - "Parallel agents may work inside the same campaign when their hypothesis lanes and write surfaces are disjoint."
     - "Never promote claims, rewrite canonical results, or use breakthrough-style wording automatically."
   maintainer_modes_preserved:
     - review
@@ -911,7 +924,7 @@ missions:
         expected_outputs:
           - "docs/reviews/adversarial-review-AGENT-RUN-0005.md"
       - id: second-bounded-nuclear-batch
-        label: "Run a second bounded nuclear sandbox batch after row-level time-split gates"
+        label: "Run second bounded nuclear sandbox work only through narrow TASK-0200/TASK-0201/TASK-0202 lanes"
         mode: future
         status: blocked
         priority: medium
@@ -922,6 +935,7 @@ missions:
           - nuclear-robustness-gate-review
           - reviewed-row-level-post-ame2020-holdout-dataset
           - reviewed-post-ame2020-time-split-benchmark
+          - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -1803,6 +1817,10 @@ one PR.
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (`scientific_audit`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -1810,7 +1828,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0207` — Curate private-agent nuclear validation cycle task queue (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -1993,6 +2011,9 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (`scientific_audit`, priority `high`, difficulty `medium`)
+- `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 

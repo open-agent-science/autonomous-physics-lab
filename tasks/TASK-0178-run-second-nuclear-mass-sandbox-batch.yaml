@@ -30,10 +30,14 @@ input:
     validation moves beyond the source-manifest-only guard. Until then, this
     task should remain blocked so agents do not scale a potentially
     cherry-picked, split-sensitive, leakage-sensitive, or untested time-split
-    pattern.
+    pattern. After TASK-0190, TASK-0196, and TASK-0197 landed, the broad
+    umbrella remains blocked in favor of narrower controlled lanes:
+    TASK-0200, TASK-0201, TASK-0202, and TASK-0204. Use those tasks for the
+    next private-agent cycle rather than starting this broad batch directly.
 
 requirements:
   - "Do not start until TASK-0173 is DONE, TASK-0190 is DONE, TASK-0196 is DONE, TASK-0197 is DONE, and maintainer review explicitly allows follow-up work."
+  - "Prefer the narrower TASK-0200, TASK-0201, TASK-0202, and TASK-0204 lanes for the next cycle; keep this umbrella blocked unless the maintainer explicitly reopens it."
   - "Generate a second bounded batch of nuclear-mass residual hypotheses under the existing campaign profile."
   - "Reject weak or duplicate candidates before execution."
   - "Run only sandbox experiments; do not update canonical results, claims, accepted knowledge, or datasets."
