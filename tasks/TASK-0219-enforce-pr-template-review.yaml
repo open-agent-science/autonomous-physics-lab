@@ -1,0 +1,56 @@
+id: TASK-0219
+title: "Enforce repository PR template sections in maintainer review"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Restore reviewable, information-rich PR bodies after short ad hoc PR descriptions slipped through."
+  - "Make executor agents prepare complete PR bodies on the first attempt."
+  - "Keep review-agent approval aligned with the repository PR template and Agent First workflow."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - ".github/pull_request_template.md"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_policy.py"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Recent PRs started using short ad hoc bodies instead of the full repository
+    PR template. The template itself still exists, but the maintainer review
+    helper only checked selected metadata fields and did not block missing
+    template sections. Tighten both executor guidance and review-agent checks
+    so PRs are informative from the first creation attempt.
+
+requirements:
+  - "Review agent must flag PR bodies that are missing required repository-template sections."
+  - "Branch-only review must warn that it cannot validate the GitHub PR body/template."
+  - "Closeout PRs must also use the repository template; do not exempt them from metadata checks."
+  - "Executor-agent docs must instruct agents to prepare a filled body file from the template instead of using a short --body."
+  - "Microtask PR scaffolding must align with the current repository template and must not reintroduce Agent session ID."
+
+accepted_outputs:
+  - "updated .github/pull_request_template.md"
+  - "updated physics_lab/registry/review_policy.py"
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated physics_lab/registry/microtask_pr_helper.py"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/maintainer-review-agent.md"
+  - "updated tests for PR-template enforcement"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_microtask_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

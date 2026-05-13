@@ -47,8 +47,11 @@ def test_microtask_pr_body_mentions_review_bundle_and_queue() -> None:
     )
 
     assert "tasks/microtasks/dimensional-analysis-validator.yaml" in body
+    assert "## PR Kind" in body
+    assert "## Primary Reference" in body
     assert "./scripts/apl_review_bundle.sh" in body
     assert "DAV-003, DAV-004, DAV-008" in body
+    assert "Agent session ID" not in body
 
 
 def test_preflight_microtask_pr_flags_placeholders_and_mismatch(tmp_path: Path) -> None:

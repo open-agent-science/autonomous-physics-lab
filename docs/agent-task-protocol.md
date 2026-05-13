@@ -290,9 +290,25 @@ After implementation and validation:
 1. push the task branch only when a human or workflow expects a PR;
 2. open one PR for one task branch;
 3. use the required PR title format;
-4. complete the repository PR template;
+4. complete the repository PR template before creating the PR;
 5. include limitations, validation results, and artifact-impact notes;
 6. move the task to `REVIEW_READY`.
+
+Do not open task PRs with a short ad hoc `--body` such as only `Summary` and
+`Validation`. Prepare a body file from `.github/pull_request_template.md`, fill
+the required sections, and use that body file when creating the PR:
+
+```bash
+cp .github/pull_request_template.md /tmp/apl-pr-body.md
+# edit /tmp/apl-pr-body.md and delete unused examples/placeholders
+gh pr create --title "TASK-XXXX: <short title>" --body-file /tmp/apl-pr-body.md
+```
+
+After the PR exists, run the PR-number review, not only branch preflight:
+
+```bash
+python3 scripts/apl_review_pr.py --pr <number>
+```
 
 ## Pull Request Requirements
 
@@ -305,7 +321,6 @@ Every PR should include:
 - GitHub username
 - agent tool
 - model/version if known
-- agent session id
 - human reviewer
 - summary
 - changed files

@@ -182,7 +182,13 @@ This mode supports:
    `TASK-PROPOSAL: ...`
    or
    `microtask(<queue-id>): ...`
-3. PR metadata is filled in using the repository template.
+3. PR metadata is filled in using the repository template, and the PR body
+   includes the required top-level sections from
+   `.github/pull_request_template.md`:
+   `PR Kind`, `Primary Reference`, `Branch Name`, `Summary`, `Changed Files`,
+   `Linked Repository Memory`, `Validation Commands`,
+   `Scientific Claim Impact`, `Result Artifact Impact`,
+   `Agent / Contributor Metadata`, and `Maintainer Review Notes`.
 4. Canonical and proposal PRs: the referenced task or proposal file exists.
    Microtask PRs: no canonical task file required; queue id must match a file
    in `tasks/microtasks/`.
@@ -213,6 +219,11 @@ This mode supports:
 18. Task-queue PRs should sync `tasks/ACTIVE.md` and must not change canonical
     scientific artifacts such as claims, hypotheses, experiments, results, or
     knowledge.
+
+Branch-only review is a preflight, not a final PR-body check. If the review was
+run with `--branch`, run it again with `--pr <number>` after opening the PR so
+the agent can inspect the actual GitHub title, branch, metadata, and template
+sections before merge.
 
 For microtask PRs, the metadata should name the queue file and queue id
 explicitly, and batch PRs should keep the branch queue id aligned with the PR
