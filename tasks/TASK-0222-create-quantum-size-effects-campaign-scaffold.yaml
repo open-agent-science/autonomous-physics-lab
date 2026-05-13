@@ -1,0 +1,54 @@
+id: TASK-0222
+title: "Create Quantum Size Effects campaign scaffold"
+type: scientific_campaign
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Prepare a second data-backed scientific campaign without diluting Nuclear Mass Surface as the current flagship."
+  - "Make quantum-dot work computational, dataset-backed, and guardrail-first before any formula-search pilot."
+  - "Provide a reviewable campaign surface with clear exclusions for synthesis, lab protocols, device claims, and biomedical claims."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/proposals/20260507-roman-quantum-dots-size-effects-campaign.yaml"
+    - "docs/future-research-portfolio.md"
+    - "docs/strategy.md"
+  planning_context: >
+    Quantum dots and quantum size effects are a strong candidate for APL's next
+    prepared campaign because they combine real datasets, compact baseline
+    theory, holdout-friendly structure, and visual residual maps. The first
+    task should create the campaign scaffold only, not a benchmark result or
+    autonomous formula search.
+
+requirements:
+  - "Create a conservative Quantum Size Effects campaign page."
+  - "Create a campaign profile with allowed hypothesis and experiment families."
+  - "Create a campaign plan note that sequences scaffold, dataset/schema, holdout, baseline, and later autonomous pilot work."
+  - "Create a microtask queue or explicitly document why it should wait until the dataset task lands."
+  - "State that the campaign is theory, computation, dataset comparison, and visualization only."
+  - "Forbid synthesis recipes, lab protocols, chemical handling guidance, device fabrication instructions, biomedical claims, and discovery-style material-design claims."
+  - "Do not create canonical results, claims, hypotheses, experiments, or datasets."
+
+accepted_outputs:
+  - "docs/campaigns/quantum-size-effects.md"
+  - "campaign_profiles/quantum-size-effects.yaml"
+  - "docs/notes/quantum-size-effects-campaign-plan.md"
+  - "tasks/microtasks/quantum-size-effects.yaml or a documented deferral"
+  - "updated docs/campaigns/README.md if a campaign index entry is appropriate"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
