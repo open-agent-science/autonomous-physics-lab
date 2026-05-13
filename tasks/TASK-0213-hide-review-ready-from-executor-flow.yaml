@@ -1,0 +1,53 @@
+id: TASK-0213
+title: "Hide REVIEW_READY tasks from executor agent recommendations"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep executor agents focused on READY work instead of review or closeout states."
+  - "Preserve the separation between task execution, maintainer review, and post-merge closeout."
+  - "Reduce confusion when agents summarize available work from tasks/ACTIVE.md."
+
+input:
+  mode: workflow
+  related_domain: agent_first_workflow
+  related_objects:
+    - "physics_lab/registry/mission_control.py"
+    - "docs/agent-task-protocol.md"
+    - "docs/use-your-agent.md"
+    - "AGENTS.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    Executor agents were reporting REVIEW_READY tasks as part of available work
+    after reading tasks/ACTIVE.md. REVIEW_READY tasks are not executable tasks;
+    they belong to maintainer review, merge decisions, or closeout. The mission
+    prompt and task candidate logic should make READY-only visibility explicit.
+
+requirements:
+  - "Ensure executor task recommendations include only READY tasks."
+  - "Do not fall back to REVIEW_READY tasks when no READY research task exists."
+  - "Expose a clear task visibility policy in mission JSON."
+  - "Update the agent prompt and docs to tell executors not to offer REVIEW_READY tasks."
+  - "Keep REVIEW_READY visible for maintainer review and closeout workflows."
+
+accepted_outputs:
+  - "updated physics_lab/registry/mission_control.py"
+  - "updated tests/test_mission_control.py"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/use-your-agent.md"
+  - "updated AGENTS.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py tests/test_active_board.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -186,6 +186,10 @@ Open [tasks/ACTIVE.md](../tasks/ACTIVE.md) and choose one task with:
 - atomic scope
 - no obvious overlap with another open PR
 
+Do not offer `REVIEW_READY` tasks to executor agents as "available" work.
+Those tasks are waiting for maintainer review, merge, or closeout. Use
+maintainer mode when the goal is review or closeout.
+
 Then follow the branch-first workflow from
 [docs/agent-task-protocol.md](./agent-task-protocol.md).
 
@@ -234,6 +238,8 @@ Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.
 then run `python3 scripts/apl_mission.py --json`. Choose the recommended
 research mission unless the maintainer gave a stricter task. Use the
 recommended `task_id` to create a canonical task branch before editing files.
+When listing available work, include only READY tasks; do not offer REVIEW_READY
+tasks as executor options.
 Execute the full loop autonomously: inspect
 evidence, test or audit the hypothesis, preserve negative results, update
 sandbox/review artifacts, run validation, generate a review bundle, and prepare

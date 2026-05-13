@@ -31,6 +31,12 @@ context, not as competing protocol definitions.
 4. If no existing task fits, ask for or propose a new task before doing
    substantial work.
 
+When an executor agent reports "available tasks", it should list only
+`READY` tasks. `REVIEW_READY` tasks are not available executor work; they belong
+to maintainer review, merge decisions, or post-merge closeout. Mention
+`REVIEW_READY` items only when the maintainer explicitly asks for review,
+closeout, or queue triage.
+
 ## Task Proposals
 
 If no existing `READY` task fits, do not guess the next canonical task number
