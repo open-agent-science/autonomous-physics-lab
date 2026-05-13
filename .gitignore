@@ -2,6 +2,7 @@
 .claude/
 __pycache__/
 .pytest_cache/
+.pytest-basetemp/
 .ruff_cache/
 _snapshots/
 .worktrees/

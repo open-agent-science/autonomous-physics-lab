@@ -207,6 +207,9 @@ compact summary to `/tmp/apl-core-reproduction/CORE_REPRODUCTION_SUMMARY.md`. Se
 [docs/reproducibility-capsules.md](docs/reproducibility-capsules.md) for scope,
 expected metrics, and skipped stress-test notes.
 
+Testing and report-only coverage commands are documented in
+[docs/testing.md](docs/testing.md).
+
 If you are reviewing APL from the outside rather than contributing code, start
 with [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md).
 
