@@ -58,13 +58,13 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0219` — Enforce repository PR template sections in maintainer review (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0221` — Clarify campaign-curator trigger wording (`documentation`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0221` — Clarify campaign-curator trigger wording (merged)
+- `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
+- `TASK-0219` — Enforce repository PR template sections in maintainer review (merged)
 - `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (merged)
 - `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
@@ -75,6 +75,7 @@ None.
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
 - `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
 - `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (merged)
+- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (merged)
 - `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (merged)
 - `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (merged)
 - `TASK-0198` — Close TASK-0195 and tighten public-doc sync follow-up (merged)
