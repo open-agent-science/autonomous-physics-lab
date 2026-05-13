@@ -19,6 +19,10 @@ for the live task board and actual claimable work.
 Use [backlog.md](./backlog.md)
 for lower-priority or later work.
 
+Use [future-research-portfolio.md](./future-research-portfolio.md)
+to decide whether a scientific direction belongs in `NOW`, `NEXT`, or
+`WATCHLIST` before starting a new task branch.
+
 ## Current State
 
 Completed:
@@ -169,6 +173,10 @@ The nuclear queue should stay conservative:
   sandbox lanes with primary holdout, split-sensitivity, post-AME2020
   time-split, negative controls, and no claim promotion.
 
+Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
+Use the portfolio document before moving any other scientific direction into
+active work.
+
 ### 2. Validate Private Contributors And Agents
 
 The workflow-validation goal remains important, but it should now run alongside
@@ -263,6 +271,8 @@ Public release is explicitly downstream of:
 - public article or launch work before the autonomy and credibility gates are satisfied;
 - new speculative particle-physics formula-search tracks;
 - Hubble-tension or broad constants-derivation work;
+- muon g-2 follow-up outside guarded review or stress-test framing;
+- broad all-mass relation searches;
 - heavy storage backends;
 - speculative theory-graph features before verification quality improves.
 
