@@ -57,7 +57,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
