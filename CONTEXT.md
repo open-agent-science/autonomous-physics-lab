@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-13 12:53 UTC
+Generated: 2026-05-13 14:58 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -898,7 +898,7 @@ missions:
       - "do not call retrospective post-AME2020 evaluation strict blind prediction"
       - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
       - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
-      - "do not promote any second-batch sandbox candidate before TASK-0204 adversarial review"
+      - "do not promote any second-batch sandbox candidate after TASK-0204 without a maintainer-approved follow-up task"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -958,6 +958,20 @@ missions:
           - reviewed-post-ame2020-time-split-benchmark
           - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
           - adversarial-review-task-0204
+      - id: prospective-nuclear-prediction-registry-entries
+        label: "Create the first prospective nuclear-mass prediction registry entries"
+        task_id: TASK-0205
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        gated_by:
+          - prediction-registry-policy-task-0189
+        expected_outputs:
+          - "prediction_registry/nuclear_masses/PRED-0001.yaml"
+          - "docs/reviews/nuclear-prediction-registry-entry-review.md"
+          - "no claim promotion or retrospective metric framing"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -1884,8 +1898,7 @@ one PR.
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (`scientific_audit`, priority `high`, difficulty `medium`)
+- `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
@@ -1911,6 +1924,7 @@ None.
 - `TASK-0212` — Clarify Scientific Campaign Curator maintainer-authorized task creation policy (merged)
 - `TASK-0211` — Add Scientific Campaign Curator agent mode for scientific campaign steering (merged)
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
+- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (merged)
 - `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
 - `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (merged)
 - `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (merged)
@@ -1925,6 +1939,7 @@ None.
 - `TASK-0192` — Add closeout checks for public state documentation drift (merged)
 - `TASK-0191` — Curate nuclear time-split validation queue (merged)
 - `TASK-0190` — Define nuclear candidate robustness gate before follow-up batches (merged)
+- `TASK-0189` — Add nuclear mass prediction registry policy (merged)
 - `TASK-0188` — Implement post-AME2020 time-split nuclear mass benchmark guard (merged)
 - `TASK-0187` — Curate post-AME2020 nuclear mass holdout dataset (merged)
 - `TASK-0186` — Make mission control registry-driven and parallel-aware (merged)
@@ -2096,7 +2111,6 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
