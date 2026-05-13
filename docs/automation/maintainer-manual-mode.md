@@ -78,9 +78,11 @@ Required checks:
 
 If valid, prepare or apply closeout changes according to maintainer approval.
 After opening a closeout PR, run the maintainer review agent. If the review
-verdict is `MERGE_OK` and CI is green, the agent should ask the maintainer an
-explicit yes/no question: `Merge closeout PR #<number>?` Do not silently stop
-with only a status report.
+verdict is `MERGE_OK`, CI is green, and the maintainer already authorized
+closeout/merge in the current request chain, the agent may merge a pure
+closeout PR without asking again. If that authorization is absent or the PR is
+not pure closeout bookkeeping, ask the maintainer an explicit yes/no question:
+`Merge closeout PR #<number>?` Do not silently stop with only a status report.
 
 ### 4. Queue Triage
 
