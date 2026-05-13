@@ -1,7 +1,7 @@
 id: TASK-0214
 title: "Curate coverage audit task and task-creation PR flow guidance"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 

@@ -1,7 +1,7 @@
 id: TASK-0216
 title: "Add TASK-QUEUE PR lane for maintainer-directed task creation"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

@@ -1,0 +1,58 @@
+id: TASK-0217
+title: "Add microtask availability preflight for repeat-safe agent work"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Agent First parallel work safe without turning microtasks into a scheduler."
+  - "Reduce duplicate microtask execution by deriving availability from append-only run records."
+  - "Preserve repeatable scientific attempts while blocking accidental reruns of completed one-off items."
+
+input:
+  mode: workflow
+  related_domain: microtask_workflow
+  related_objects:
+    - "tasks/microtasks/README.md"
+    - "microtask_runs/"
+    - "scripts/apl_microtask_pr_helper.py"
+    - "physics_lab/registry/microtask_queue_summary.py"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    Agents can read queue YAML files that still list completed items because
+    completion state is append-only under microtask_runs/. Add a lightweight
+    status/preflight helper and documentation so agents select from effective
+    availability instead of repeating completed non-repeatable work.
+
+requirements:
+  - "Expose a deterministic microtask availability command for agents and reviewers."
+  - "Derive completed/claimed availability from microtask_runs/ records."
+  - "Keep repeatable microtasks available when explicitly marked repeatable or typed as repeatable-*."
+  - "Document that agents must use the effective availability view before selecting microtask work."
+  - "Do not add a scheduler, database, lock server, dashboard, or public queue runtime."
+
+accepted_outputs:
+  - "updated scripts/apl_microtask_pr_helper.py"
+  - "updated physics_lab/registry/microtask_queue_summary.py"
+  - "updated tests/test_microtask_queue_summary.py"
+  - "updated tests/test_microtask_pr_helper.py"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/scientific-micro-task-protocol.md"
+  - "updated docs/maintainer-review-agent.md"
+  - "updated tasks/microtasks/README.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_microtask_queue_summary.py tests/test_microtask_pr_helper.py"
+    - "python3 scripts/apl_microtask_pr_helper.py status --queue-id pendulum-formula-falsification"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
