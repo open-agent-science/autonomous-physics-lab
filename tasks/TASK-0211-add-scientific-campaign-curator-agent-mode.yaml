@@ -1,0 +1,61 @@
+id: TASK-0211
+title: "Add Scientific Campaign Curator agent mode for scientific campaign steering"
+type: agent_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Support Agent First, Research First, Parallel Work without losing campaign-level memory."
+  - "Give maintainers a reusable scientific campaign curator analogous to the PR review agent."
+  - "Reduce duplicated hypothesis families, formula spam, and premature claim promotion across agent waves."
+
+input:
+  mode: workflow
+  related_domain: campaign_steering
+  related_objects:
+    - "missions/current.yaml"
+    - "docs/agent-catalog.md"
+    - "docs/maintainer-review-agent.md"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+    - "agent_runs/"
+    - "docs/reviews/"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    APL now supports multiple private AI agents running scientific tasks in
+    parallel. The maintainer needs a compact campaign-level curator that can
+    synthesize agent_runs, hypothesis proposals, reviews, results, and mission
+    files into a next-cycle plan without running experiments or promoting
+    claims automatically.
+
+requirements:
+  - "Add a maintainer-facing Scientific Campaign Curator / Campaign Curator mode."
+  - "Default to the top recommended campaign from missions/current.yaml when no campaign is supplied."
+  - "Collect campaign context from mission, campaign profile, task board, proposals, agent runs, reviews, and results."
+  - "Produce a concise campaign brief with verdict, evidence, lessons, promising directions, do-not-repeat directions, recommended tasks, agent assignments, mission-update recommendations, and overclaim notes."
+  - "Support machine-readable JSON output for agents."
+  - "Support copy-paste agent prompt output for Codex, Claude, Gemini, or other coding agents."
+  - "Keep the mode advisory and maintainer-run, not a human onboarding flow."
+  - "Do not execute experiments, promote claims, modify canonical results, or auto-create task files."
+  - "Keep the implementation lightweight; do not add a database, dashboard, scheduler, or orchestration runtime."
+
+accepted_outputs:
+  - "docs/scientific-campaign-curator.md"
+  - "docs/campaign-curator-protocol.md"
+  - "scripts/apl_campaign_curator.py"
+  - "physics_lab/registry/campaign_curator.py"
+  - "tests/test_campaign_curator.py"
+  - "updated docs/agent-catalog.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

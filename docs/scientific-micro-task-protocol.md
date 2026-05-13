@@ -61,6 +61,20 @@ Before selecting a micro-task, check the queue file, recent open PRs, existing
 that is already claimed, in review, completed, or clearly duplicated by a
 recent note.
 
+Use the helper status view before starting a micro-task so agents do not repeat
+work that is already represented by append-only run records:
+
+```bash
+python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id>
+python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id> --json
+```
+
+Treat only `status: available` rows as selectable. Completed non-repeatable
+items are unavailable even if the queue YAML does not carry an inline
+`status: completed`; the helper derives that state from `microtask_runs/`.
+Repeatable items should use `repeatable: true` or a `type` beginning with
+`repeatable-`, and still need a novelty check before each new run.
+
 Each run record should name the queue id, microtask id, status, claimant,
 branch, PR when available, result note, verdict, review state, and metadata for
 repeatable attempts. Keep records append-only; add a new run file instead of

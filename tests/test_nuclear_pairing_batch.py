@@ -37,7 +37,7 @@ def test_pairing_batch_metrics_recompute() -> None:
     assert recomputed["task_id"] == "TASK-0201"
     assert recomputed["sandbox_only"] is True
     assert recomputed["verdict"] == "SANDBOX_PASS"
-    assert recomputed["lane"] == "pairing_odd_even"
+    assert recomputed["lane"] == "pairing"
 
     assert recomputed["summary"]["generated_proposal_count"] == 5
     assert recomputed["summary"]["executed_candidate_count"] == 2
@@ -45,6 +45,7 @@ def test_pairing_batch_metrics_recompute() -> None:
     assert recomputed["summary"]["canonical_results_changed"] is False
     assert recomputed["summary"]["canonical_claims_changed"] is False
     assert recomputed["summary"]["claim_promotion_allowed"] is False
+    assert recomputed["summary"]["in_batch_negative_control_overfitted_count"] == 1
 
     assert recomputed["summary"] == committed["summary"]
     assert recomputed["frozen_baseline"] == committed["frozen_baseline"]
@@ -56,49 +57,74 @@ def test_pairing_batch_metrics_recompute() -> None:
     )
 
     executed_ids = [item["proposal_id"] for item in recomputed["executed_items"]]
-    assert executed_ids == ["HYP-PROPOSAL-0038", "HYP-PROPOSAL-0039"]
+    assert executed_ids == ["HYP-PROPOSAL-0038", "HYP-PROPOSAL-0041"]
 
     rejected_ids = [item["proposal_id"] for item in recomputed["rejected_before_execution"]]
-    assert rejected_ids == ["HYP-PROPOSAL-0040", "HYP-PROPOSAL-0041", "HYP-PROPOSAL-0042"]
+    assert rejected_ids == ["HYP-PROPOSAL-0039", "HYP-PROPOSAL-0040", "HYP-PROPOSAL-0042"]
 
 
-def test_odd_a_candidate_activation_is_visible() -> None:
+def test_pairing_a_inverse_post_ame2020_primary_is_near_null() -> None:
     module = _load_batch_module()
     metrics = module.build_metrics()
-    odd_a = metrics["executed_items"][0]
-    assert odd_a["proposal_id"] == "HYP-PROPOSAL-0038"
-    assert odd_a["post_ame2020_eval"]["feature_activation_counts"] == {
-        "odd_a_indicator": 156,
-    }
-    assert odd_a["observed_verdict"] == "PARTIALLY_VALID"
-    assert odd_a["post_ame2020_eval"]["primary_delta_mae_mev"] > 0.0
+    a_inverse = metrics["executed_items"][0]
+    assert a_inverse["proposal_id"] == "HYP-PROPOSAL-0038"
+    activation = a_inverse["post_ame2020_eval"]["feature_activation_counts"]
+    assert activation == {"pairing_a_inverse": 139}
+    primary_delta = abs(
+        float(a_inverse["post_ame2020_eval"]["primary_delta_mae_mev"])
+    )
+    assert primary_delta < 0.05, (
+        "pairing A-inverse refinement is sign-colinear with the baseline "
+        "pairing term and should produce a near-null post-AME2020 primary "
+        f"effect; primary delta MAE = {primary_delta}"
+    )
+    assert a_inverse["observed_verdict"] == "OVERFITTED"
 
 
-def test_pairing_class_offsets_have_expected_activation_counts() -> None:
+def test_in_batch_negative_control_overfitted() -> None:
     module = _load_batch_module()
     metrics = module.build_metrics()
-    pairing = metrics["executed_items"][1]
-    assert pairing["proposal_id"] == "HYP-PROPOSAL-0039"
-    activation = pairing["post_ame2020_eval"]["feature_activation_counts"]
-    assert activation == {"even_even_indicator": 68, "odd_odd_indicator": 71}
+    negative_control = metrics["executed_items"][1]
+    assert negative_control["proposal_id"] == "HYP-PROPOSAL-0041"
+    activation = negative_control["post_ame2020_eval"]["feature_activation_counts"]
+    assert activation == {"ee_indicator": 68, "oo_indicator": 71, "odd_a_indicator": 156}
+    assert sum(activation.values()) == 295, (
+        "per-parity-class indicators must partition the 295-row primary holdout"
+    )
+    assert negative_control["observed_verdict"] == "OVERFITTED"
+    primary_delta = float(
+        negative_control["post_ame2020_eval"]["primary_delta_mae_mev"]
+    )
+    assert primary_delta > 0.1, (
+        "in-batch negative control should regress primary MAE on post-AME2020; "
+        f"got primary delta MAE = {primary_delta}"
+    )
 
 
-def test_executed_candidate_structured_verdicts_are_bounded() -> None:
+def test_executed_candidate_structured_verdicts_overfitted() -> None:
     module = _load_batch_module()
     metrics = module.build_metrics()
     for item in metrics["executed_items"]:
-        assert item["observed_verdict"] in {"PARTIALLY_VALID", "OVERFITTED", "INCONCLUSIVE"}
-        assert item["expected_verdict"] == item["observed_verdict"]
+        assert item["observed_verdict"] == "OVERFITTED"
+        assert item["expected_verdict"] == "OVERFITTED"
         assert item["agrees"] is True
 
 
 def test_negative_control_reference_present() -> None:
     committed = json.loads(METRICS_PATH.read_text(encoding="utf-8"))
     ref = committed["negative_control_reference"]
-    assert ref["candidate_id"] == "HYP-PROPOSAL-0034"
-    assert ref["family"] == "asymmetric_neutron_excess"
-    assert ref["source_metrics_path"] == "agent_runs/AGENT-RUN-0010/metrics.json"
-    assert ref["post_ame2020_primary_delta_mae_mev"] == 0.0
+    assert ref["candidate_id"] == "HYP-PROPOSAL-0022"
+    assert ref["family"] == "quadratic_asymmetry_refinement"
+    assert ref["source_metrics_path"] == "agent_runs/AGENT-RUN-0008/metrics.json"
+    assert ref["post_ame2020_primary_delta_mae_mev"] < 0.0
+
+
+def test_in_batch_negative_control_record_present() -> None:
+    committed = json.loads(METRICS_PATH.read_text(encoding="utf-8"))
+    record = committed["in_batch_negative_control"]
+    assert record["candidate_id"] == "HYP-PROPOSAL-0041"
+    assert record["family"] == "parity_class_offsets"
+    assert record["rationale"].strip()
 
 
 def test_promotion_boundary_preserved() -> None:

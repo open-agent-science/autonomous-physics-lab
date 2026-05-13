@@ -47,7 +47,12 @@ The recommended first bounded action is:
 
 - open a closeout PR for verified merged tasks;
 - run this review agent on that closeout PR;
-- stop and wait for maintainer merge.
+- if the verdict is `MERGE_OK`, CI is green, the PR is pure closeout
+  bookkeeping, and the maintainer already authorized closeout/merge in the
+  current request chain, merge the closeout PR;
+- otherwise explicitly ask: `Merge closeout PR #<number>?`;
+- stop unless the maintainer authorizes merge or already authorized it in this
+  request chain.
 
 ## Review To Closeout Flow
 
@@ -146,6 +151,7 @@ Use this mode for an open pull request before merge.
 This mode supports:
 
 - canonical task PRs
+- task-queue PRs
 - task proposal PRs
 
 ### Inputs
@@ -161,6 +167,8 @@ This mode supports:
 1. Branch name follows one of:
    `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
    or
+   `agent/<contributor-id>/<agent-id>/task-queue-<short-slug>`
+   or
    `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
    or
    `agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
@@ -169,14 +177,24 @@ This mode supports:
 2. PR title follows one of:
    `TASK-XXXX: ...`
    or
+   `TASK-QUEUE: ...`
+   or
    `TASK-PROPOSAL: ...`
    or
    `microtask(<queue-id>): ...`
-3. PR metadata is filled in using the repository template.
+3. PR metadata is filled in using the repository template, and the PR body
+   includes the required top-level sections from
+   `.github/pull_request_template.md`:
+   `PR Kind`, `Primary Reference`, `Branch Name`, `Summary`, `Changed Files`,
+   `Linked Repository Memory`, `Validation Commands`,
+   `Scientific Claim Impact`, `Result Artifact Impact`,
+   `Agent / Contributor Metadata`, and `Maintainer Review Notes`.
 4. Canonical and proposal PRs: the referenced task or proposal file exists.
    Microtask PRs: no canonical task file required; queue id must match a file
    in `tasks/microtasks/`.
-5. Canonical task PRs keep task status at `REVIEW_READY`; task proposal PRs keep proposal status at `PROPOSED`.
+5. Canonical task PRs keep task status at `REVIEW_READY`; task-queue PRs
+   create or update future canonical tasks that remain `PROPOSED`, `READY`, or
+   `BLOCKED`; task proposal PRs keep proposal status at `PROPOSED`.
    Microtask PRs have no task-status requirement.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
@@ -187,6 +205,8 @@ This mode supports:
     "canonical run artifacts" counts when it clearly authorizes that scope.
 11. No overclaim language is introduced.
 12. Task proposal PRs do not guess canonical `TASK-XXXX` ids or edit canonical task files.
+    Maintainer-directed task-queue PRs may create or update canonical task files,
+    but must not treat those newly queued tasks as completed.
 13. The review bundle was generated from the PR branch, not from `main`.
 14. No obvious repository-safety or security risk is introduced without
     explicit maintainer awareness.
@@ -196,12 +216,31 @@ This mode supports:
 17. Salvaged ideas from stale PRs should appear in a clean replacement
     `propose-task-...` PR rather than being patched onto a generic or
     mixed-context branch.
+18. Task-queue PRs should sync `tasks/ACTIVE.md` and must not change canonical
+    scientific artifacts such as claims, hypotheses, experiments, results, or
+    knowledge.
+
+Branch-only review is a preflight, not a final PR-body check. If the review was
+run with `--branch`, run it again with `--pr <number>` after opening the PR so
+the agent can inspect the actual GitHub title, branch, metadata, and template
+sections before merge.
 
 For microtask PRs, the metadata should name the queue file and queue id
 explicitly, and batch PRs should keep the branch queue id aligned with the PR
 title queue id. Reviewers should also check `microtask_runs/` for duplicate
 claims, duplicate completed records, stale abandoned work, and oversized batches
 that should be split before merge.
+
+Before approving a microtask PR, reviewers should run or request the effective
+availability helper:
+
+```bash
+python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id>
+```
+
+If the PR repeats a completed non-repeatable item, return `NEEDS_CHANGES`.
+Repeatable items are allowed only when the PR explains novelty, metrics, and why
+the new attempt is not duplicating a previous run.
 
 ### Verdicts
 
@@ -278,6 +317,11 @@ Use this mode only after the maintainer has already merged the PR.
    then prepare a closeout commit and PR or explicitly ask the maintainer to
    publish those changes. Do not push or merge without maintainer
    authorization.
+10. After the closeout PR is open and the review agent reports `MERGE_OK` with
+    green CI, do not end with a passive status update. If the maintainer already
+    authorized closeout/merge in the current request chain and the PR is pure
+    closeout bookkeeping, merge it. Otherwise ask the maintainer a clear yes/no
+    question: `Merge closeout PR #<number>?`
 
 ### Allowed actions
 
@@ -300,6 +344,21 @@ Use this mode only after the maintainer has already merged the PR.
   merged PR is part of a dry run or contributor pilot
 - flag stale open tasks for follow-up closeout, reopening, or curation when a
   cleanup pass reveals that the board no longer matches reality
+- unblock directly dependent tasks by moving them from `BLOCKED` to `READY`
+  when the merged task wave has satisfied their explicit prerequisites; the
+  closeout PR title or body must say this is an unblock, and the unblocked task
+  must remain reviewable work rather than a claim, result, or promotion
+- close stale, superseded, or no-longer-relevant tasks by moving them to
+  `REJECTED` when the maintainer has approved that cleanup; this is optional
+  queue hygiene, not a required closeout step
+
+Pure closeout bookkeeping means task status transitions, `tasks/ACTIVE.md`,
+generated context/snapshot files, closeout notes, dependent-task unblocks,
+optional stale-task closures, and closeout-agent instructions. Do not
+auto-merge closeout PRs that touch claims, results, experiments, hypotheses,
+scientific verdicts, public-release state, or other protected scientific
+artifacts unless the maintainer explicitly authorizes that exact merge after
+review.
 
 ### Not allowed
 

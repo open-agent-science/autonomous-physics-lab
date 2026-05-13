@@ -31,6 +31,12 @@ context, not as competing protocol definitions.
 4. If no existing task fits, ask for or propose a new task before doing
    substantial work.
 
+When an executor agent reports "available tasks", it should list only
+`READY` tasks. `REVIEW_READY` tasks are not available executor work; they belong
+to maintainer review, merge decisions, or post-merge closeout. Mention
+`REVIEW_READY` items only when the maintainer explicitly asks for review,
+closeout, or queue triage.
+
 ## Task Proposals
 
 If no existing `READY` task fits, do not guess the next canonical task number
@@ -67,6 +73,30 @@ Use [./task-proposal-protocol.md](./task-proposal-protocol.md) and
 Only the maintainer may assign canonical ids directly unless a maintainer-run
 task-admin or review agent is explicitly told to do so.
 
+When the maintainer explicitly asks an agent to create canonical `TASK-XXXX`
+files for future work, use the `TASK-QUEUE` lane instead of creating a separate
+"task to create tasks." The newly queued executable tasks should usually remain
+`READY`, `BLOCKED`, or `PROPOSED`; they are not treated as completed by the
+queue PR.
+
+Task-queue branch format:
+
+`agent/<contributor-id>/<agent-id>/task-queue-<short-slug>`
+
+Task-queue PR title format:
+
+`TASK-QUEUE: <short summary>`
+
+Task-queue PR scope:
+
+- new or updated canonical `tasks/TASK-XXXX-*.yaml` files;
+- synced `tasks/ACTIVE.md`;
+- optional protocol or planning docs needed to explain the queue.
+
+Do not use `TASK-QUEUE` for normal contributor ideas without maintainer
+approval; those still go through `TASK-PROPOSAL`. Do not use `TASK-QUEUE` to
+implement the newly queued task's accepted outputs in the same PR.
+
 If rescuing useful ideas from a stale or superseded PR:
 
 - create fresh proposal file(s) under `tasks/proposals/`;
@@ -92,6 +122,9 @@ In those cases, agents may work from `tasks/microtasks/*.yaml` and the rules in
 
 Microtask rules:
 
+- before selecting queue work, run
+  `python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id>` and
+  pick from the effective `available` list, not from queue YAML alone;
 - prefer one campaign queue at a time;
 - one PR may complete a small batch of related microtasks from the same
   campaign;
@@ -257,9 +290,25 @@ After implementation and validation:
 1. push the task branch only when a human or workflow expects a PR;
 2. open one PR for one task branch;
 3. use the required PR title format;
-4. complete the repository PR template;
+4. complete the repository PR template before creating the PR;
 5. include limitations, validation results, and artifact-impact notes;
 6. move the task to `REVIEW_READY`.
+
+Do not open task PRs with a short ad hoc `--body` such as only `Summary` and
+`Validation`. Prepare a body file from `.github/pull_request_template.md`, fill
+the required sections, and use that body file when creating the PR:
+
+```bash
+cp .github/pull_request_template.md /tmp/apl-pr-body.md
+# edit /tmp/apl-pr-body.md and delete unused examples/placeholders
+gh pr create --title "TASK-XXXX: <short title>" --body-file /tmp/apl-pr-body.md
+```
+
+After the PR exists, run the PR-number review, not only branch preflight:
+
+```bash
+python3 scripts/apl_review_pr.py --pr <number>
+```
 
 ## Pull Request Requirements
 
@@ -272,7 +321,6 @@ Every PR should include:
 - GitHub username
 - agent tool
 - model/version if known
-- agent session id
 - human reviewer
 - summary
 - changed files

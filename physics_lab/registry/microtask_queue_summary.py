@@ -28,6 +28,23 @@ class MicrotaskQueueSummary:
     guidance: str
 
 
+@dataclass(frozen=True)
+class MicrotaskAvailabilityItem:
+    """Effective availability for one queue item after run-record checks."""
+
+    filename: str
+    queue_id: str
+    microtask_id: str
+    title: str
+    type: str
+    status: str
+    queue_status: str
+    repeatable: bool
+    completed_runs: int
+    active_runs: int
+    risk_level: str
+
+
 def load_microtask_queue_summaries(root: str | Path) -> tuple[MicrotaskQueueSummary, ...]:
     """Load compact metadata for all queue files under tasks/microtasks/."""
     root_path = Path(root)
@@ -74,6 +91,62 @@ def load_microtask_queue_summaries(root: str | Path) -> tuple[MicrotaskQueueSumm
             )
         )
     return tuple(summaries)
+
+
+def load_microtask_availability(
+    root: str | Path,
+    *,
+    queue_id: str | None = None,
+) -> tuple[MicrotaskAvailabilityItem, ...]:
+    """Load effective microtask availability from queues plus run records."""
+    root_path = Path(root)
+    queue_root = root_path / "tasks" / "microtasks"
+    run_counts = _microtask_run_status_counts_by_item(root_path)
+    items: list[MicrotaskAvailabilityItem] = []
+    for path in sorted(queue_root.glob("*.yaml")):
+        with path.open("r", encoding="utf-8") as handle:
+            payload = yaml.safe_load(handle)
+        if not isinstance(payload, dict):
+            raise ValueError(f"{path} must contain a YAML mapping")
+        declared_queue_id = str(payload.get("queue_id", path.stem))
+        if queue_id is not None and declared_queue_id != queue_id:
+            continue
+        microtasks = payload.get("microtasks", [])
+        if not isinstance(microtasks, list):
+            raise ValueError(f"{path} microtasks must be a list")
+        for item in microtasks:
+            if not isinstance(item, dict):
+                continue
+            microtask_id = str(item.get("id") or "").strip()
+            if not microtask_id:
+                continue
+            counts = run_counts.get((declared_queue_id, microtask_id), {})
+            repeatable = _is_repeatable_microtask(item)
+            queue_status = str(item.get("status") or "available").strip().lower()
+            completed_runs = counts.get("completed", 0)
+            active_runs = counts.get("active", 0)
+            status = _effective_microtask_status(
+                queue_status=queue_status,
+                repeatable=repeatable,
+                completed_runs=completed_runs,
+                active_runs=active_runs,
+            )
+            items.append(
+                MicrotaskAvailabilityItem(
+                    filename=path.name,
+                    queue_id=declared_queue_id,
+                    microtask_id=microtask_id,
+                    title=str(item.get("title") or ""),
+                    type=str(item.get("type") or ""),
+                    status=status,
+                    queue_status=queue_status,
+                    repeatable=repeatable,
+                    completed_runs=completed_runs,
+                    active_runs=active_runs,
+                    risk_level=str(item.get("risk_level") or "unspecified"),
+                )
+            )
+    return tuple(items)
 
 
 def render_microtask_queue_summary_table(summaries: tuple[MicrotaskQueueSummary, ...]) -> str:
@@ -146,11 +219,63 @@ def _completed_microtask_ids_by_queue(root: Path) -> dict[str, set[str]]:
     return completed
 
 
+def _microtask_run_status_counts_by_item(root: Path) -> dict[tuple[str, str], dict[str, int]]:
+    runs_root = root / "microtask_runs"
+    counts: dict[tuple[str, str], dict[str, int]] = {}
+    if not runs_root.exists():
+        return counts
+    active_statuses = {"CLAIMED", "IN_PROGRESS", "PR_OPEN", "REVIEW_READY"}
+    for path in sorted(runs_root.glob("*/*.yaml")):
+        if path.name == "MICROTASK-RUN-TEMPLATE.yaml":
+            continue
+        with path.open("r", encoding="utf-8") as handle:
+            payload = yaml.safe_load(handle)
+        if not isinstance(payload, dict):
+            continue
+        queue_id = str(payload.get("queue_id") or "").strip()
+        microtask_id = str(payload.get("microtask_id") or "").strip()
+        status = str(payload.get("status") or "").strip()
+        if not queue_id or not microtask_id:
+            continue
+        key = (queue_id, microtask_id)
+        bucket = counts.setdefault(key, {"active": 0, "completed": 0})
+        if status in active_statuses:
+            bucket["active"] += 1
+        elif status == "COMPLETED":
+            bucket["completed"] += 1
+    return counts
+
+
+def _is_repeatable_microtask(item: dict[str, object]) -> bool:
+    if bool(item.get("repeatable")):
+        return True
+    item_type = str(item.get("type") or "").strip()
+    return item_type.startswith("repeatable-")
+
+
+def _effective_microtask_status(
+    *,
+    queue_status: str,
+    repeatable: bool,
+    completed_runs: int,
+    active_runs: int,
+) -> str:
+    if queue_status == "retired":
+        return "retired"
+    if active_runs:
+        return "claimed"
+    if queue_status == "completed":
+        return "completed"
+    if completed_runs and not repeatable:
+        return "completed"
+    return "available"
+
+
 def _microtask_status(item: object, completed_run_ids: set[str]) -> str:
     if not isinstance(item, dict):
         return "retired"
     microtask_id = str(item.get("id") or "").strip()
-    if microtask_id in completed_run_ids:
+    if microtask_id in completed_run_ids and not _is_repeatable_microtask(item):
         return "completed"
     status = str(item.get("status") or "available").strip().lower()
     if status in {"completed", "retired"}:

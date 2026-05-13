@@ -1,6 +1,6 @@
 """TASK-0201 pairing and odd-even nuclear sandbox batch.
 
-Sandbox-only batch runner. Evaluates two pairing / odd-even residual candidates
+Sandbox-only batch runner. Evaluates two pairing-lane residual candidates
 against the frozen RESULT-0015 fitted semi-empirical baseline using:
 
 - the NMD-0002 structured 4-holdout protocol;
@@ -10,14 +10,16 @@ Three further proposals are recorded as rejected before execution.
 
 Executed families:
 
-- HYP-PROPOSAL-0038 (odd-A residual offset):
-  r_corr = a * 1[A is odd].
-- HYP-PROPOSAL-0039 (pairing-class offsets):
-  r_corr = a * 1[even-even] + b * 1[odd-odd].
+- HYP-PROPOSAL-0038 (pairing A-inverse refinement):
+  r_corr = c * pairing_sign(Z, N) / A.
+- HYP-PROPOSAL-0041 (per-parity-class free offsets, in-batch negative
+  control): r_corr = c_ee * I[ee] + c_oo * I[oo] + c_oA * I[odd-A].
 
-The lane deliberately avoids shell closures, individual chains, and the
-previous asymmetry families so TASK-0201 stays disjoint from TASK-0200 and
-TASK-0202 while preserving the same robustness-gate evidence package.
+HYP-PROPOSAL-0041 is included specifically as the in-batch negative
+control. Three free per-class offsets fitted on 8-9 NMD-0002 rows (only
+one odd-odd row, N-14) are expected to land in OVERFITTED on the
+structured holdouts. Its diagnostic purpose is to confirm overfit
+detection still fires on a trivially-flexible feature stack in this lane.
 
 This script writes deterministic JSON metrics that the accompanying test
 recomputes from the same inputs. It does not modify canonical results,
@@ -37,6 +39,7 @@ from physics_lab.engines.nuclear_mass_baselines import (
     MAGIC_NUMBERS,
     SemiEmpiricalCoefficients,
     evaluate_baseline,
+    pairing_sign,
     semi_empirical_binding_energy,
 )
 from physics_lab.engines.nuclear_masses import load_nuclear_mass_dataset
@@ -61,63 +64,75 @@ HOLDOUTS: dict[str, tuple[str, ...]] = {
 
 
 CANDIDATE_FAMILIES = {
-    "odd_a_offset": {
+    "pairing_a_inverse": {
         "proposal_id": "HYP-PROPOSAL-0038",
-        "title": "Odd-A residual offset",
-        "formula": "r_corr = a * 1[A is odd]",
-        "feature_names": ("odd_a_indicator",),
+        "title": "Pairing A-inverse residual refinement",
+        "formula": "r_corr = c * pairing_sign(Z, N) / A",
+        "feature_names": ("pairing_a_inverse",),
         "parameter_count": 1,
     },
-    "pairing_class_offsets": {
-        "proposal_id": "HYP-PROPOSAL-0039",
-        "title": "Even-even and odd-odd pairing-class offsets",
-        "formula": "r_corr = a * 1[even-even] + b * 1[odd-odd]",
-        "feature_names": ("even_even_indicator", "odd_odd_indicator"),
-        "parameter_count": 2,
+    "parity_class_offsets": {
+        "proposal_id": "HYP-PROPOSAL-0041",
+        "title": "Per-parity-class free offsets (in-batch negative control)",
+        "formula": "r_corr = c_ee * I[ee] + c_oo * I[oo] + c_oA * I[odd-A]",
+        "feature_names": ("ee_indicator", "oo_indicator", "odd_a_indicator"),
+        "parameter_count": 3,
     },
 }
 
 
 REJECTED_PROPOSALS = (
     {
-        "proposal_id": "HYP-PROPOSAL-0040",
-        "title": "Free odd-even exponent on A (rejected)",
+        "proposal_id": "HYP-PROPOSAL-0039",
+        "title": "Pairing free-power refinement",
         "rejection_reason": (
-            "Letting an odd-even amplitude scale as A^p with p fitted adds "
-            "a nonlinear shape knob on an 11-row training slice. The family "
-            "is rejected before execution on complexity and overfit risk."
+            "Letting the A exponent in r_corr = c * pairing_sign(Z, N) / A^p "
+            "be a free fit parameter introduces a nonlinear knob and exits "
+            "the linear-additive correction protocol followed by RESULT-0015 "
+            "and prior nuclear sandbox runs. On an 11-row NMD-0002 training "
+            "surface this is unbounded overfit risk and is rejected on "
+            "complexity grounds; HYP-PROPOSAL-0038 is the bounded "
+            "fixed-exponent (p=1) version of the same direction."
         ),
     },
     {
-        "proposal_id": "HYP-PROPOSAL-0041",
-        "title": "Per-chain odd-even correction stack (rejected)",
+        "proposal_id": "HYP-PROPOSAL-0040",
+        "title": "N=82 pairing override (post-hoc leakage)",
         "rejection_reason": (
-            "Chain-specific odd-even indicators would target visible "
-            "post-AME2020 failure clusters rather than a bounded pairing "
-            "family. Rejected as leakage-sensitive and too close to row or "
-            "chain memorization."
+            "A pairing-class correction gated by |N - 82| <= 2 would "
+            "memorize the In/Sb cluster identified retrospectively as the "
+            "worst-case region on the post-AME2020 primary holdout "
+            "(AGENT-RUN-0008). Building a feature around an identified "
+            "failure cluster is post-hoc leakage under "
+            "docs/nuclear-mass-robustness-gate.md and duplicates the "
+            "rejection rationale of HYP-PROPOSAL-0031 and HYP-PROPOSAL-0035."
         ),
     },
     {
         "proposal_id": "HYP-PROPOSAL-0042",
-        "title": "Pairing-class plus shell-closure interaction (rejected)",
+        "title": "Per-nuclide pairing override (row memorization)",
         "rejection_reason": (
-            "Multiplying pairing indicators by individual shell-closure "
-            "flags duplicates the shell-aware lane and creates sparse "
-            "region switches. Rejected to keep TASK-0201 disjoint from "
-            "HYP-PROPOSAL-0028 through HYP-PROPOSAL-0032."
+            "A stack of per-nuclide one-hot indicators multiplied by "
+            "pairing_sign(Z, N) directly memorizes residuals on rows "
+            "identified retrospectively as worst cases on the post-AME2020 "
+            "primary holdout. This is the most extreme form of the leakage "
+            "family already represented by HYP-PROPOSAL-0031, "
+            "HYP-PROPOSAL-0035, and HYP-PROPOSAL-0037; rejected under the "
+            "gate's row-memorization clause."
         ),
     },
 )
 
 
 def feature_values(family: str, *, z: int, n: int, a: int) -> tuple[float, ...]:
-    if family == "odd_a_offset":
-        return (1.0 if a % 2 == 1 else 0.0,)
-    if family == "pairing_class_offsets":
-        even_even = 1.0 if z % 2 == 0 and n % 2 == 0 else 0.0
-        odd_odd = 1.0 if z % 2 == 1 and n % 2 == 1 else 0.0
-        return (even_even, odd_odd)
+    if family == "pairing_a_inverse":
+        return (float(pairing_sign(z, n)) / float(a),)
+    if family == "parity_class_offsets":
+        sign = pairing_sign(z, n)
+        ee = 1.0 if sign > 0 else 0.0
+        oo = 1.0 if sign < 0 else 0.0
+        odd_a = 1.0 if sign == 0 else 0.0
+        return (ee, oo, odd_a)
     raise ValueError(f"unknown family: {family}")
 
 
@@ -165,14 +180,17 @@ def subset_ids_for_row(z: int, n: int, a: int, was_extrapolated: bool) -> list[s
         ids.append("near_magic")
     if n - z >= 20:
         ids.append("neutron_rich_delta_ge_20")
-    if n - z >= 30:
-        ids.append("neutron_rich_delta_ge_30")
     if n < z:
         ids.append("proton_rich_n_lt_z")
     if a >= 100:
         ids.append("heavy_a_ge_100")
     if a % 2 == 1:
         ids.append("odd_a")
+    sign = pairing_sign(z, n)
+    if sign > 0:
+        ids.append("even_even")
+    elif sign < 0:
+        ids.append("odd_odd")
     return ids
 
 
@@ -184,10 +202,11 @@ SUBSET_IDS = (
     "double_magic",
     "near_magic",
     "neutron_rich_delta_ge_20",
-    "neutron_rich_delta_ge_30",
     "proton_rich_n_lt_z",
     "heavy_a_ge_100",
     "odd_a",
+    "even_even",
+    "odd_odd",
 )
 
 
@@ -546,18 +565,10 @@ def build_metrics() -> dict[str, object]:
             1 for item in executed_items
             if item["post_ame2020_eval"]["primary_delta_mae_mev"] < 0.0
         ),
-        "improved_odd_a_subset_count": sum(
+        "in_batch_negative_control_overfitted_count": sum(
             1 for item in executed_items
-            if (
-                item["post_ame2020_eval"]["metrics_by_subset"]["odd_a"]["mae_mev"]
-                is not None
-                and float(
-                    item["post_ame2020_eval"]["metrics_by_subset"]["odd_a"]["mae_mev"]
-                )
-                < float(
-                    baseline_post_ame2020["metrics_by_subset"]["odd_a"]["mae_mev"]
-                )
-            )
+            if item["proposal_id"] == "HYP-PROPOSAL-0041"
+            and item["observed_verdict"] == "OVERFITTED"
         ),
         "canonical_results_changed": False,
         "canonical_claims_changed": False,
@@ -568,10 +579,13 @@ def build_metrics() -> dict[str, object]:
         "agent_run_id": AGENT_RUN_ID,
         "task_id": TASK_ID,
         "campaign_profile_id": "nuclear-mass-surface",
-        "lane": "pairing_odd_even",
+        "lane": "pairing",
         "sandbox_only": True,
         "evidence_class": "bounded_sandbox_residual_batch",
-        "formula": "batch: pairing and odd-even residual candidates (odd-A offset, pairing-class offsets)",
+        "formula": (
+            "batch: pairing residual candidates (A-inverse refinement, "
+            "per-parity-class free offsets as in-batch negative control)"
+        ),
         "verdict": "SANDBOX_PASS",
         "summary": summary,
         "frozen_baseline": {
@@ -580,9 +594,10 @@ def build_metrics() -> dict[str, object]:
             "coefficients": coefficients.to_dict(),
         },
         "feature_definitions": {
-            "odd_a_indicator": "1 when A is odd, else 0",
-            "even_even_indicator": "1 when Z and N are both even, else 0",
-            "odd_odd_indicator": "1 when Z and N are both odd, else 0",
+            "pairing_a_inverse": "pairing_sign(Z, N) / A (zero on odd-A rows)",
+            "ee_indicator": "1 if pairing_sign(Z, N) == +1 else 0 (even-even)",
+            "oo_indicator": "1 if pairing_sign(Z, N) == -1 else 0 (odd-odd)",
+            "odd_a_indicator": "1 if pairing_sign(Z, N) == 0 else 0 (odd-A)",
         },
         "rejected_before_execution": list(REJECTED_PROPOSALS),
         "structured_holdouts": {
@@ -614,15 +629,31 @@ def build_metrics() -> dict[str, object]:
             ],
         },
         "negative_control_reference": {
-            "candidate_id": "HYP-PROPOSAL-0034",
-            "family": "asymmetric_neutron_excess",
-            "source_metrics_path": "agent_runs/AGENT-RUN-0010/metrics.json",
-            "post_ame2020_primary_delta_mae_mev": 0.0,
+            "candidate_id": "HYP-PROPOSAL-0022",
+            "family": "quadratic_asymmetry_refinement",
+            "source_metrics_path": "agent_runs/AGENT-RUN-0008/metrics.json",
+            "post_ame2020_primary_delta_mae_mev": time_split["summary"][
+                "hyp_0022_negative_control_primary_delta_mae_mev"
+            ],
             "rationale": (
-                "HYP-PROPOSAL-0034 is the prior effectively-null "
-                "time-split candidate. The pairing lane compares against "
-                "that negative-control behavior while preserving its own "
-                "executed overfit/null controls."
+                "HYP-PROPOSAL-0022 is the prior external overfit/negative-"
+                "control quadratic-asymmetry family. The pairing lane is "
+                "compared against its retrospective post-AME2020 metrics for "
+                "consistency with the shell-aware and neutron-rich lanes. The "
+                "pairing lane also contains an in-batch negative control "
+                "(HYP-PROPOSAL-0041) to make overfit-detection visible inside "
+                "this batch."
+            ),
+        },
+        "in_batch_negative_control": {
+            "candidate_id": "HYP-PROPOSAL-0041",
+            "family": "parity_class_offsets",
+            "rationale": (
+                "Three per-class indicators fitted as free offsets is a "
+                "trivially-flexible feature stack on the 11-row NMD-0002 "
+                "training surface. The expected OVERFITTED verdict confirms "
+                "the structured-holdout protocol's overfit detection is still "
+                "active in this lane."
             ),
         },
         "reference_comparison": {
@@ -638,9 +669,10 @@ def build_metrics() -> dict[str, object]:
         },
         "limitations": [
             "Sandbox-only batch; no canonical result, claim, knowledge, or dataset is updated.",
-            "NMD-0002 has 11 nuclides; the structured-holdout coefficients are fitted on 8-9 rows.",
+            "NMD-0002 has 11 nuclides; only one is odd-odd (N-14).",
             "Post-AME2020 evaluation refits coefficients on the full NMD-0002 residuals once, then applies them; this is not blind prediction.",
-            "Pairing-class features are low-dimensional diagnostics; they do not imply a new pairing formula.",
+            "HYP-PROPOSAL-0038 is sign-colinear with the existing baseline pairing term; this lane cannot distinguish a true pairing-physics refinement from a noise fit on the tiny training surface.",
+            "HYP-PROPOSAL-0041 is an in-batch negative control; its OVERFITTED verdict is the diagnostic value of the candidate, not a scientific result.",
         ],
     }
 

@@ -1,0 +1,35 @@
+id: MICROTASK-RUN-0034
+queue_id: nuclear-mass-surface
+microtask_id: NMS-005
+status: REVIEW_READY
+claimant:
+  contributor_id: roman
+  agent_id: codex
+branch: agent/roman/codex/microtask-nms-wigner-salvage
+pull_request: null
+result_note: docs/notes/nms-005-wigner-n-eq-z-pr282-salvage.md
+verdict: REVIEW_NEEDED
+review_state: UNREVIEWED
+metadata:
+  inputs:
+    - tasks/microtasks/nuclear-mass-surface.yaml
+    - https://github.com/gladunrv/autonomous-physics-lab/pull/282
+  method: "Salvage note preserving a distinct Wigner N=Z correction idea from a superseded TASK-0201 PR without importing conflicting artifact ids."
+  code_references:
+    - docs/scientific-micro-task-protocol.md
+    - docs/nuclear-mass-robustness-gate.md
+  metrics:
+    - "PR-local structured verdict: INCONCLUSIVE"
+    - "PR-local post-AME2020 primary delta MAE: +0.0011 MeV"
+    - "PR-local post-AME2020 activation: 3 / 295 rows"
+  failure_mode: "Reject as a current third-batch direction because the feature is near-dormant on the present neutron-rich post-AME2020 holdout."
+  limitations:
+    - "Metrics are preserved from a superseded PR and are not canonical result artifacts."
+    - "The PR reused artifact ids already present on main, so its outputs cannot be merged directly."
+    - "A future rerun would need fresh proposal ids and an explicit N=Z or near-N=Z diagnostic surface."
+  novelty_check:
+    checked_paths:
+      - microtask_runs/nuclear-mass-surface/
+      - docs/notes/
+      - agent_runs/AGENT-RUN-0011/
+    summary: "The accepted AGENT-RUN-0011 pairing batch does not preserve the PR-282 Wigner N=Z candidate; this note records it as noncanonical salvage only."

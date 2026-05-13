@@ -1,0 +1,102 @@
+prediction_id: PRED-0005
+title: 'Prospective nuclear mass slate: fitted semi-empirical baseline on odd-even pairing stress
+  targets'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0205
+evidence_class: prospective_prediction_registry
+claim_ceiling: Registered prospective prediction variant only; no claim, canonical result, or accepted
+  knowledge promotion before later maintainer-reviewed comparison.
+registered_by:
+  contributor_id: roman
+  agent_id: codex
+registered_at_utc: '2026-05-13T15:02:35Z'
+source_state:
+  git_commit: b40ec558378ca2b8666111cad6bd471526a921e6
+  model_reference:
+    model_id: RESULT-0015::model_fitted_semi_empirical
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+    frozen_parameters_note: 'Frozen coefficient set from RESULT-0015 score model_fitted_semi_empirical:
+      volume=15.51423612106804, surface=17.2931812095177, coulomb=0.6878156091568888, asymmetry=23.846557883948485,
+      pairing=15.990845113398912; no sandbox corrections.'
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+  - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+  - docs/blind-holdout-benchmark-protocol.md
+  - docs/nuclear-mass-holdout-protocol.md
+  - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: 'Registered from repository state b40ec558378ca2b8666111cad6bd471526a921e6
+    without live external fetching. Target nuclides are repo-prospective: absent from committed NMD-0002
+    and post-AME2020 holdout datasets at registration time; true-world prospectiveness requires later
+    maintainer source-state review.'
+target_set:
+  label: odd-even-stress-row
+  quantity: mass_excess_mev
+  unit: MeV
+  target_nuclides:
+  - nuclide_id: K-55
+    Z: 19
+    N: 36
+    A: 55
+    predicted_value_mev: 13.034813
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical for the odd-even-stress-row
+      target batch; no statistical interval is claimed.
+  - nuclide_id: Ca-56
+    Z: 20
+    N: 36
+    A: 56
+    predicted_value_mev: -4.133621
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical for the odd-even-stress-row
+      target batch; no statistical interval is claimed.
+  - nuclide_id: Sc-62
+    Z: 21
+    N: 41
+    A: 62
+    predicted_value_mev: 21.874461
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical for the odd-even-stress-row
+      target batch; no statistical interval is claimed.
+  - nuclide_id: Ti-64
+    Z: 22
+    N: 42
+    A: 64
+    predicted_value_mev: 9.617352
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical for the odd-even-stress-row
+      target batch; no statistical interval is claimed.
+uncertainty_semantics:
+  type: point_estimate_only
+  note: Each value is a deterministic mass_excess_mev point estimate obtained by converting the frozen
+    semi-empirical binding-energy prediction to atomic mass and then to mass excess. uncertainty_mev
+    is intentionally null; these entries are for variant comparison after future reveal, not confidence
+    ranking.
+reveal_conditions:
+  reveal_trigger: A future maintainer-reviewed nuclear mass dataset or source manifest added after
+    registration contains measured or reviewably convertible values for one or more target nuclides.
+  comparison_data_reference: future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed
+    source manifest committed after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: After registration, do not alter the frozen model id, coefficient note, target nuclides,
+    predicted values, or reveal rule. Later comparison must be a separate reviewed task and may reveal
+    a subset of targets only.
+limitations:
+- Prospective registry variant only; not a claim or result package.
+- Targets are selected against committed repository datasets only; no live external source was fetched
+  during registration.
+- The fitted baseline is trained on a small pinned measured slice and is not a validated universal
+  nuclear-mass model.
+- Reference, no-pairing, and ablation controls are included for parallel comparison, not because they
+  are promoted hypotheses.
+- Any agent-proposed follow-up variant must freeze its model, target set, and source state in a separate
+  registry entry before reveal.
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false
