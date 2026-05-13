@@ -1,12 +1,12 @@
 id: TASK-0212
-title: "Clarify Science Curator maintainer-authorized task creation policy"
+title: "Clarify Scientific Campaign Curator maintainer-authorized task creation policy"
 type: agent_workflow
 status: DONE
 difficulty: low
 priority: medium
 
 strategy_alignment:
-  - "Keep Science Curator advisory by default while allowing maintainer-directed task creation."
+  - "Keep Scientific Campaign Curator advisory by default while allowing maintainer-directed task creation."
   - "Avoid blocking the maintainer workflow when campaign strategy needs to become concrete tasks."
   - "Preserve claim-promotion, sandbox, and review boundaries when the curator creates tasks."
 
@@ -14,34 +14,34 @@ input:
   mode: workflow
   related_domain: campaign_steering
   related_objects:
-    - "docs/campaign-navigator-agent.md"
-    - "docs/campaign-navigator-protocol.md"
+    - "docs/scientific-campaign-curator.md"
+    - "docs/campaign-curator-protocol.md"
     - "docs/agent-catalog.md"
     - "tasks/ACTIVE.md"
   planning_context: >
-    After adding the maintainer-facing Science Curator / Campaign Navigator
+    After adding the maintainer-facing Scientific Campaign Curator / Campaign Curator
     mode, the maintainer clarified that the curator should be allowed to create
     canonical task files when explicitly asked to do so. The default should
     remain advisory, but maintainer-authorized task creation should be a clear
     bounded exception.
 
 requirements:
-  - "Clarify that Science Curator is advisory by default."
+  - "Clarify that Scientific Campaign Curator is advisory by default."
   - "Allow canonical task creation only when the maintainer explicitly asks in the current turn."
   - "Require scoped, reviewable tasks with accepted outputs, validation, dependencies, and no claim-promotion authority."
   - "Require ACTIVE.md synchronization after task-file edits."
-  - "Keep review, closeout, and claim-promotion authority separate from Science Curator."
+  - "Keep review, closeout, and claim-promotion authority separate from Scientific Campaign Curator."
 
 accepted_outputs:
-  - "updated docs/campaign-navigator-agent.md"
-  - "updated docs/campaign-navigator-protocol.md"
+  - "updated docs/scientific-campaign-curator.md"
+  - "updated docs/campaign-curator-protocol.md"
   - "updated docs/agent-catalog.md"
   - "updated tasks/ACTIVE.md"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_campaign_navigator.py tests/test_active_board.py"
+    - "python3 -m pytest tests/test_campaign_curator.py tests/test_active_board.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

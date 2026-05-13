@@ -1,8 +1,8 @@
-# Science Curator Protocol
+# Scientific Campaign Curator Protocol
 
-This protocol defines how a maintainer-run Science Curator agent should steer
+This protocol defines how a maintainer-run Scientific Campaign Curator agent should steer
 APL scientific campaigns without becoming an autonomous governance layer.
-Campaign Navigator is an accepted alias for the same mode.
+Campaign Curator is an accepted alias for the same mode.
 
 ## Purpose
 
@@ -91,7 +91,7 @@ separate branches or worktrees for parallel agents.
 
 ## Guardrails
 
-The Science Curator must not:
+The Scientific Campaign Curator must not:
 
 - run experiments;
 - modify canonical results;
@@ -108,7 +108,7 @@ maintainer approval.
 
 ## Maintainer-Authorized Task Creation
 
-When the maintainer explicitly asks the Science Curator to create or formalize
+When the maintainer explicitly asks the Scientific Campaign Curator to create or formalize
 tasks, the curator may switch from advisory planning into a bounded task-admin
 helper for that turn.
 
