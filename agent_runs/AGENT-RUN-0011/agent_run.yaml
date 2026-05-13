@@ -41,7 +41,7 @@ preflight:
       notes: "No canonical results, claims, hypotheses, experiments, accepted knowledge, or canonical datasets are changed."
 limitations:
   - "Sandbox-only second nuclear batch in the pairing lane; no canonical artifact is updated."
-  - "Both executed candidates land OVERFITTED on the NMD-0002 structured-holdout protocol (HYP-PROPOSAL-0038 worst regression +2.995 MeV on random_stratified; HYP-PROPOSAL-0041 worst regression +0.648 MeV on random_stratified)."
+  - "Both executed candidates land OVERFITTED on the NMD-0002 structured-holdout protocol, but through different paths: HYP-PROPOSAL-0038 has worst regression +2.995 MeV on random_stratified, while HYP-PROPOSAL-0041 regresses three of four holdouts even though its worst single regression is +0.648 MeV."
   - "HYP-PROPOSAL-0038 post-AME2020 primary delta MAE is +0.0067 MeV (essentially zero). The A-inverse feature is sign-colinear with the existing baseline pairing term; the lane cannot distinguish a true pairing-physics refinement from a noise fit on the 11-row training surface."
   - "HYP-PROPOSAL-0041 post-AME2020 primary delta MAE is +0.167 MeV (regression). The three per-class coefficients fit on full NMD-0002 are c_ee=+0.190, c_oo=+4.172, c_oA=-1.456. The +4.172 MeV odd-odd coefficient memorizes N-14 (the only odd-odd row in NMD-0002) and applies it uniformly to 71 odd-odd rows in the post-AME2020 primary holdout, producing systematic regression on that subset."
   - "Activation counts on the 295-row primary holdout are 139/295 for HYP-PROPOSAL-0038 (sum of ee and oo rows) and {ee: 68, oo: 71, odd-A: 156, sum=295} for HYP-PROPOSAL-0041 by construction."
