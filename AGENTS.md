@@ -49,6 +49,10 @@ closeout flow. It only changes the default onboarding posture: research,
 replay, audit, hypothesis testing, and sandbox result drafts come before
 microtasks or docs-only support unless the maintainer says otherwise.
 
+Executor agents should treat only `READY` tasks as available work. Do not offer
+`REVIEW_READY` tasks as task choices unless the maintainer explicitly asks for
+review, closeout, or queue triage.
+
 ## Agent Work Paths
 
 Choose your path based on mission mode and available token or time budget:

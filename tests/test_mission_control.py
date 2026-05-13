@@ -222,6 +222,40 @@ def test_task_candidates_support_parallel_safe_options(tmp_path: Path) -> None:
     assert "separate branch/worktree" in candidates[0].parallel_hint
 
 
+def test_task_candidates_do_not_offer_review_ready_without_ready_tasks(tmp_path: Path) -> None:
+    _write_task(
+        tmp_path,
+        task_id="TASK-0006",
+        title="Already in review",
+        status="REVIEW_READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+
+    candidates = task_candidates(tmp_path, mode="research")
+
+    assert candidates == ()
+
+
+def test_mission_json_marks_review_ready_as_non_executor_work(tmp_path: Path) -> None:
+    _write_missions(tmp_path)
+    _write_task(
+        tmp_path,
+        task_id="TASK-0006",
+        title="Already in review",
+        status="REVIEW_READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    payload = load_current_missions(tmp_path)
+
+    rendered = json.loads(mission_json(payload, root=tmp_path))
+
+    assert rendered["live_task_candidates"] == []
+    assert "Only READY tasks" in rendered["task_visibility_policy"]["executor_modes"]
+    assert "REVIEW_READY tasks are hidden" in rendered["task_visibility_policy"]["review_ready"]
+
+
 def test_render_human_support_mode_uses_support_actions(tmp_path: Path) -> None:
     _write_missions(tmp_path)
     payload = load_current_missions(tmp_path)
@@ -263,6 +297,8 @@ def test_render_agent_prompt_mentions_full_pr_loop(tmp_path: Path) -> None:
     assert "prepare a PR" in rendered
     assert "Do not promote claims" in rendered
     assert "separate branches or worktrees" in rendered
+    assert "list only executable READY tasks" in rendered
+    assert "Do not offer REVIEW_READY tasks" in rendered
 
 
 def test_apl_mission_script_json_runs_from_repo_root() -> None:

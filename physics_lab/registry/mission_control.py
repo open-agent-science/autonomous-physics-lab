@@ -182,29 +182,6 @@ def task_candidates(
             )
 
     if mode in {"research", "audit"} and not candidates:
-        # Preserve the research-first default even when no implementation-ready
-        # science tasks are open: review-ready scientific work is still a
-        # better agent-first candidate than falling through to support chores.
-        for entry in entries:
-            if entry.status != "REVIEW_READY":
-                continue
-            entry_mode = _task_mode(entry)
-            if entry_mode != "research":
-                continue
-            candidates.append(
-                MissionTaskCandidate(
-                    task_id=entry.task_id,
-                    title=entry.title,
-                    type=entry.type,
-                    priority=entry.priority,
-                    difficulty=entry.difficulty,
-                    status=entry.status,
-                    mode=entry_mode,
-                    parallel_hint=_parallel_hint(entry),
-                )
-            )
-
-    if mode in {"research", "audit"} and not candidates:
         # If there is no science-lane READY task, show the highest-priority
         # READY support tasks as alternatives without pretending they are the
         # research default.
@@ -305,6 +282,11 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
             for action in selection.alternatives
         ],
         "live_task_candidates": [candidate.to_json() for candidate in live_candidates],
+        "task_visibility_policy": {
+            "executor_modes": "Only READY tasks are executable candidates.",
+            "review_ready": "REVIEW_READY tasks are hidden from executor recommendations; use maintainer review or closeout mode instead.",
+            "blocked": "BLOCKED, DONE, and REJECTED tasks are never offered as executor candidates.",
+        },
         "parallel_work_policy": {
             "single_checkout": "Use one active task at a time in a single checkout.",
             "parallel_agents": "Use separate branches or git worktrees and choose disjoint artifact surfaces.",
@@ -379,6 +361,15 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
                 "- avoid overlapping artifact surfaces in parallel PRs",
             ]
         )
+    lines.extend(
+        [
+            "",
+            "Task visibility:",
+            "- executor agents should list and choose only READY tasks",
+            "- REVIEW_READY tasks belong to maintainer review/closeout, not new executor work",
+            "- BLOCKED, DONE, and REJECTED tasks are not available to start",
+        ]
+    )
 
     lines.extend(
         [
@@ -406,7 +397,10 @@ def render_agent_prompt(payload: dict[str, Any], *, root: Path | None = None) ->
             f"- {candidate.task_id}: {candidate.title} ({candidate.priority}/{candidate.difficulty})"
             for candidate in live_candidates
         )
-        candidate_block = f"\n\nCurrent live task candidates from the task registry:\n{rendered_candidates}"
+        candidate_block = (
+            "\n\nCurrent executable READY task candidates from the task registry:\n"
+            f"{rendered_candidates}"
+        )
     task_instruction = (
         f"Use canonical task {task_id} and create its task branch before editing files."
         if task_id
@@ -427,6 +421,7 @@ Start in Agent First Research Mode.
 9. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 10. If the work is support/review/closeout rather than research, run the explicit mode: `python3 scripts/apl_mission.py --mode support` or `--mode maintainer`.
 11. If multiple agents are working locally, use separate branches or worktrees and choose disjoint artifact surfaces.
+12. When reporting available tasks, list only executable READY tasks. Do not offer REVIEW_READY tasks as options for executor work; those belong to maintainer review or closeout.
 {candidate_block}
 
 Return the selected mission, changed files, validation results, limitations, and PR-ready summary."""
