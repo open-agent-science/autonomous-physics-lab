@@ -67,7 +67,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (`scientific_validation`, priority `medium`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -82,6 +82,7 @@ None.
 - `TASK-0212` — Clarify Scientific Campaign Curator maintainer-authorized task creation policy (merged)
 - `TASK-0211` — Add Scientific Campaign Curator agent mode for scientific campaign steering (merged)
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
+- `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (merged)
 - `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (merged)
 - `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
 - `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (merged)
