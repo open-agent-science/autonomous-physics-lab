@@ -327,9 +327,12 @@ Use this mode only after the maintainer has already merged the PR.
 
 - set task status to `DONE`
 - optionally run `python3 -m physics_lab.cli sync-active-board .` in a later
-  dedicated board-sync step so [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
-  reflects current task statuses without becoming a conflict surface in every
-  per-task closeout PR
+  dedicated board-sync step so generated task navigation
+  ([../tasks/ACTIVE.md](../tasks/ACTIVE.md),
+  [./task-views/research.md](./task-views/research.md),
+  [./task-views/support.md](./task-views/support.md), and
+  [./task-views/release.md](./task-views/release.md)) reflects current task
+  statuses without becoming a conflict surface in every per-task closeout PR
 - update [./next-steps.md](./next-steps.md) when the recorded immediate queue
   is stale after the merged work
 - update [./status.md](./status.md) and
@@ -352,9 +355,10 @@ Use this mode only after the maintainer has already merged the PR.
   `REJECTED` when the maintainer has approved that cleanup; this is optional
   queue hygiene, not a required closeout step
 
-Pure closeout bookkeeping means task status transitions, `tasks/ACTIVE.md`,
-generated context/snapshot files, closeout notes, dependent-task unblocks,
-optional stale-task closures, and closeout-agent instructions. Do not
+Pure closeout bookkeeping means task status transitions, generated task
+navigation (`tasks/ACTIVE.md` plus `docs/task-views/*.md`), generated
+context/snapshot files, closeout notes, dependent-task unblocks, optional
+stale-task closures, and closeout-agent instructions. Do not
 auto-merge closeout PRs that touch claims, results, experiments, hypotheses,
 scientific verdicts, public-release state, or other protected scientific
 artifacts unless the maintainer explicitly authorizes that exact merge after
@@ -416,9 +420,10 @@ Default behavior:
   experiment/result/campaign/mission changes, the helper should emit a public
   docs drift checklist for `README.md`, `docs/status.md`,
   `docs/mission-control.md`, and `docs/next-steps.md`
-- closeout helpers may automatically update task status, `tasks/ACTIVE.md`, and
-  `CONTEXT.md`; they should treat public narrative docs as check-and-follow-up
-  surfaces unless an explicit docs-sync task authorizes editing them
+- closeout helpers may automatically update task status, generated task
+  navigation (`tasks/ACTIVE.md` and `docs/task-views/*.md`), and `CONTEXT.md`;
+  they should treat public narrative docs as check-and-follow-up surfaces
+  unless an explicit docs-sync task authorizes editing them
 - after applying closeout edits, the helper should remind the operator to
   publish the local closeout diff through a closeout commit and PR, or ask the
   maintainer to do it, so task-state changes do not remain only local

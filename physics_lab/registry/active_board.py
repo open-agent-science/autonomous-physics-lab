@@ -68,6 +68,8 @@ def render_active_board_snapshot(root: Path) -> str:
         AUTO_START,
         "",
         "> This task-status snapshot is generated from canonical task YAML files.",
+        "> Use `docs/task-views/*.md` for lighter READY/blocked/watchlist navigation;",
+        "> `tasks/ACTIVE.md` remains the full generated status board, including DONE history.",
         "> Edit `tasks/TASK-*.yaml` for routine status transitions, then run",
         "> `python3 -m physics_lab.cli sync-active-board .` on the maintainer branch.",
         "",
@@ -88,6 +90,21 @@ def render_active_board_snapshot(root: Path) -> str:
 def sync_active_board(root: Path) -> Path:
     """Replace the generated block inside tasks/ACTIVE.md with a fresh snapshot."""
     active_path = root / "tasks" / "ACTIVE.md"
+    updated_lines = _updated_active_board_lines(active_path, root)
+    active_path.write_text("\n".join(updated_lines) + "\n", encoding="utf-8")
+    return active_path
+
+
+def active_board_is_synced(root: Path) -> bool:
+    """Return whether the generated ACTIVE.md block matches canonical task YAML files."""
+    active_path = root / "tasks" / "ACTIVE.md"
+    original_lines = active_path.read_text(encoding="utf-8").splitlines()
+    expected_lines = _updated_active_board_lines(active_path, root)
+    return original_lines == expected_lines
+
+
+def _updated_active_board_lines(active_path: Path, root: Path) -> list[str]:
+    """Return ACTIVE.md lines with a freshly rendered generated block."""
     original_lines = active_path.read_text(encoding="utf-8").splitlines()
     try:
         start_index = original_lines.index(AUTO_START)
@@ -102,8 +119,7 @@ def sync_active_board(root: Path) -> Path:
         + generated_lines
         + original_lines[end_index + 1 :]
     )
-    active_path.write_text("\n".join(updated_lines) + "\n", encoding="utf-8")
-    return active_path
+    return updated_lines
 
 
 def _entries_for_status(

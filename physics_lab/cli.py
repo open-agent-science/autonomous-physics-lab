@@ -24,7 +24,7 @@ from physics_lab.registry import (
     load_task,
     load_task_proposal,
 )
-from physics_lab.registry.active_board import sync_active_board
+from physics_lab.registry.generated_state import sync_generated_task_state
 from physics_lab.registry.mission_control import (
     SUPPORTED_MODES,
     load_current_missions,
@@ -213,9 +213,11 @@ def validate_repo(
 
 @app.command("sync-active-board")
 def sync_active_board_command(root: str = typer.Argument(".")) -> None:
-    """Refresh tasks/ACTIVE.md from canonical task YAML files."""
-    active_path = sync_active_board(Path(root).resolve())
-    typer.echo(f"Synchronized active board: {active_path}")
+    """Refresh generated task navigation from canonical task YAML files."""
+    written_paths = sync_generated_task_state(Path(root).resolve())
+    typer.echo("Synchronized generated task state:")
+    for path in written_paths:
+        typer.echo(f"- {path}")
 
 
 @app.command("mission")
