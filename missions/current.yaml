@@ -126,20 +126,21 @@ missions:
           - reviewed-post-ame2020-time-split-benchmark
           - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
           - adversarial-review-task-0204
-      - id: prospective-nuclear-prediction-registry-entries
-        label: "Create the first prospective nuclear-mass prediction registry entries"
-        task_id: TASK-0205
+      - id: nuclear-prediction-variant-expansion
+        label: "Register bounded PRED-0021+ nuclear prediction variants for parallel pre-reveal testing"
+        task_id: null
         mode: research
         status: ready
-        priority: medium
+        priority: high
         difficulty: medium
         recommended: true
         gated_by:
           - prediction-registry-policy-task-0189
+          - first-prediction-slate-task-0205
         expected_outputs:
-          - "prediction_registry/nuclear_masses/PRED-0001.yaml"
-          - "docs/reviews/nuclear-prediction-registry-entry-review.md"
-          - "no claim promotion or retrospective metric framing"
+          - "use READY TASK-0228 through TASK-0237 as parallel lanes"
+          - "each lane adds two frozen PRED-0021+ entries plus pre-reveal validation"
+          - "no live external fetch, reveal comparison, claim promotion, or retrospective metric framing"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"

@@ -1,0 +1,53 @@
+id: TASK-0237
+title: "Register nuclear prediction variants for adversarial and null stress controls"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Scale Nuclear Mass Surface prediction work through bounded, reviewable registry variants."
+  - "Include adversarial and null controls so future reveal can distinguish signal from registry noise."
+  - "Make failure modes useful and reviewable rather than embarrassing afterthoughts."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
+    - "docs/prediction-registry-policy.md"
+    - "docs/reviews/nuclear-prediction-registry-entry-review.md"
+    - "docs/notes/nuclear-prediction-variant-expansion-wave.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    A serious prediction registry needs controls that should fail or behave
+    weakly. This lane registers two adversarial or null stress variants with
+    clear limitations so later reveal comparisons have calibration baselines.
+
+requirements:
+  - "Create exactly two prospective registry entries unless the maintainer approves a larger batch."
+  - "Use the suggested ids PRED-0039 and PRED-0040 unless a parallel branch collision requires renumbering before review."
+  - "Compute quantity mass_excess_mev deterministically; do not leave calculation as LLM text."
+  - "Freeze the adversarial or null-control formula, coefficients, target set, source state, uncertainty semantics, and reveal conditions."
+  - "Explain why each variant is a stress control and what failure mode it is meant to expose."
+  - "Add or update tests for schema validity, target consistency, repo-prospective target checks, and deterministic value reproduction when code is added."
+  - "Do not use live external data fetching, reveal comparisons, or claim/result/knowledge promotion."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/PRED-0039.yaml"
+  - "prediction_registry/nuclear_masses/PRED-0040.yaml"
+  - "docs/reviews/nuclear-prediction-variants-adversarial-null-controls.md"
+  - "updated tests covering the new prediction entries"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
