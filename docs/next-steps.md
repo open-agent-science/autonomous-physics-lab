@@ -130,11 +130,14 @@ Recommended nuclear validation queue for parallel agents:
   now merged
 - `TASK-0197` real post-AME2020 nuclear time-split benchmark, now merged as
   inconclusive `AGENT-RUN-0008` evidence
-- `TASK-0189` nuclear prediction registry policy
+- `TASK-0189` nuclear prediction registry policy, now merged
 - `TASK-0200` bounded shell-aware nuclear sandbox batch
 - `TASK-0201` bounded pairing / odd-even nuclear sandbox batch, now merged
 - `TASK-0202` bounded neutron-rich nuclear sandbox batch
-- `TASK-0204` adversarial review of the completed second-batch sandbox outputs
+- `TASK-0204` adversarial review of the completed second-batch sandbox outputs,
+  now merged
+- `TASK-0205` first prospective nuclear-mass prediction registry entries, now
+  unblocked after `TASK-0189`
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
   umbrella; review the narrower TASK-0200 through TASK-0202 outputs through
