@@ -57,10 +57,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (`agent_workflow`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
 - `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)
 - `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (merged)
