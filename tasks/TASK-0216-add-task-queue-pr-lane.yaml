@@ -1,0 +1,65 @@
+id: TASK-0216
+title: "Add TASK-QUEUE PR lane for maintainer-directed task creation"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Avoid doubling the task board with one curation task for every newly created task."
+  - "Keep maintainer-directed task creation reviewable without pretending future tasks are already implemented."
+  - "Preserve proposal-first behavior for normal contributors while giving maintainers a clean task-queue lane."
+
+input:
+  mode: workflow
+  related_domain: task_admin
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/task-proposal-protocol.md"
+    - "docs/agent-operating-model.md"
+    - "docs/maintainer-review-agent.md"
+    - "physics_lab/registry/review_policy.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    The previous workaround for maintainer-requested task creation required a
+    curation task whose accepted output was another future task. That works
+    technically, but it would inflate the task board. Add a dedicated
+    TASK-QUEUE PR lane, similar to TASK-CLOSEOUT, so maintainers can review
+    batches of newly created or updated canonical tasks without requiring an
+    extra task for each queued task.
+
+requirements:
+  - "Add a TASK-QUEUE PR title and task-queue branch lane."
+  - "Allow TASK-QUEUE PRs to create or update canonical tasks that remain READY, BLOCKED, or PROPOSED."
+  - "Do not require newly queued future tasks to be REVIEW_READY."
+  - "Do not treat newly queued future tasks as completed by the TASK-QUEUE PR."
+  - "Keep normal contributor task ideas on the existing TASK-PROPOSAL path unless the maintainer explicitly asks for canonical task creation."
+  - "Block TASK-QUEUE PRs from changing canonical scientific artifacts such as claims, results, hypotheses, experiments, or knowledge."
+  - "Update protocol docs and maintainer review docs with the new flow."
+  - "Add tests for TASK-QUEUE classification and review behavior."
+
+accepted_outputs:
+  - "updated AGENTS.md"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/task-proposal-protocol.md"
+  - "updated docs/agent-operating-model.md"
+  - "updated docs/maintainer-review-agent.md"
+  - "updated physics_lab/registry/review_policy.py"
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated scripts/apl_review_pr.py"
+  - "updated tests/test_maintainer_review.py"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
