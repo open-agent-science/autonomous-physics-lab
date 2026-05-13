@@ -1,0 +1,48 @@
+id: TASK-0221
+title: "Clarify campaign-curator trigger wording"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep maintainer-facing agent mode names precise and easy to invoke from chat."
+  - "Avoid treating Ukrainian wording as a brittle literal alias."
+  - "Preserve campaign-curator as the canonical short command/name."
+
+input:
+  mode: workflow
+  related_domain: campaign_steering
+  related_objects:
+    - "docs/scientific-campaign-curator.md"
+    - "physics_lab/registry/campaign_curator.py"
+    - "tests/test_campaign_curator.py"
+  planning_context: >
+    After renaming the mode to Scientific Campaign Curator, the generated prompt
+    treated "науковий куратор" as a literal alias. Clarify that Ukrainian or
+    English natural-language requests for a scientific campaign curator should
+    map conceptually to the canonical campaign-curator mode instead.
+
+requirements:
+  - "Keep campaign-curator as the canonical short command/name."
+  - "Describe Ukrainian/English maintainer phrasing as natural-language intent, not a required literal alias."
+  - "Keep the Scientific Campaign Curator authority boundary unchanged."
+  - "Update tests that assert the generated agent prompt wording."
+
+accepted_outputs:
+  - "updated docs/scientific-campaign-curator.md"
+  - "updated physics_lab/registry/campaign_curator.py"
+  - "updated tests/test_campaign_curator.py"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_campaign_curator.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

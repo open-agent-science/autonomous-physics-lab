@@ -206,7 +206,8 @@ def render_campaign_agent_prompt(brief: CampaignCuratorBrief) -> str:
     )
     guardrail_lines = "\n".join(f"- {item}" for item in brief.guardrails)
     return f"""You are the APL Scientific Campaign Curator.
-Accepted chat aliases: Campaign Curator, Scientific Campaign Curator, and "науковий куратор".
+Canonical short command/name: campaign-curator.
+Natural-language requests for a scientific campaign curator in Ukrainian or English should map to this mode.
 
 Campaign:
 {brief.campaign_id}
