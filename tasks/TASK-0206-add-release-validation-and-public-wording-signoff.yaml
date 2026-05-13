@@ -1,7 +1,7 @@
 id: TASK-0206
 title: "Add release-time validation and public wording signoff artifact"
 type: release_review
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -27,7 +27,7 @@ input:
     base branch.
 
 requirements:
-  - "Do not start until TASK-0175 is DONE or explicitly waived by the maintainer."
+  - "TASK-0175 is DONE; this release signoff task is now unblocked."
   - "Run release-time validation from the intended base branch."
   - "Record GitHub CI status, local strict validation, docs-link checks, snapshot status, and local path leak check."
   - "Audit README.md, docs/status.md, docs/mission-control.md, docs/next-steps.md, and release docs for overclaim or stale public readiness wording."
