@@ -50,6 +50,7 @@ one PR.
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0214` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 

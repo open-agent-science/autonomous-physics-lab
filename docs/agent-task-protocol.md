@@ -73,6 +73,12 @@ Use [./task-proposal-protocol.md](./task-proposal-protocol.md) and
 Only the maintainer may assign canonical ids directly unless a maintainer-run
 task-admin or review agent is explicitly told to do so.
 
+When the maintainer explicitly asks an agent to create a canonical
+`TASK-XXXX` file, the agent should not leave the task only in the local
+worktree. After creating the task and syncing `tasks/ACTIVE.md`, immediately
+prepare the branch for a PR or explicitly offer to open the PR as the next
+step so the task enters the normal review flow.
+
 If rescuing useful ideas from a stale or superseded PR:
 
 - create fresh proposal file(s) under `tasks/proposals/`;
