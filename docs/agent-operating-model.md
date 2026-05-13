@@ -191,6 +191,12 @@ A new task proposal should:
 Create a canonical `tasks/TASK-XXXX-*.yaml` file only when the maintainer
 explicitly assigns or approves the canonical id.
 
+If the maintainer asks you to create one or more canonical tasks for future
+work, use a `TASK-QUEUE` branch and PR instead of creating another task whose
+only purpose is to create those tasks. The queued tasks should remain `READY`,
+`BLOCKED`, or `PROPOSED`; do not mark them `REVIEW_READY` unless the same PR
+actually implements their accepted outputs.
+
 ## Forbidden Without Human Review
 
 - claim promotion;

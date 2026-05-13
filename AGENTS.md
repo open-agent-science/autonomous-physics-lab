@@ -195,6 +195,13 @@ Normal agents should not assign canonical task ids during parallel work.
 Maintainers may create canonical ids directly. Maintainer-directed review or
 task-admin agents may do so only on explicit maintainer instruction.
 
+When the maintainer explicitly asks an agent to create canonical tasks for
+future work, use the `TASK-QUEUE` flow instead of creating an extra task whose
+only purpose is to create those tasks. `TASK-QUEUE` PRs may add or update
+canonical task files that remain `READY`, `BLOCKED`, or `PROPOSED`; they must
+not mark those future tasks as completed or implement their accepted outputs in
+the same PR.
+
 ## Original MVP
 
 The first MVP was `Pendulum Formula Discovery`.

@@ -73,18 +73,29 @@ Use [./task-proposal-protocol.md](./task-proposal-protocol.md) and
 Only the maintainer may assign canonical ids directly unless a maintainer-run
 task-admin or review agent is explicitly told to do so.
 
-When the maintainer explicitly asks an agent to create a canonical
-`TASK-XXXX` file, the agent should not leave the task only in the local
-worktree. After creating the task and syncing `tasks/ACTIVE.md`, immediately
-prepare the branch for a PR or explicitly offer to open the PR as the next
-step so the task enters the normal review flow.
+When the maintainer explicitly asks an agent to create canonical `TASK-XXXX`
+files for future work, use the `TASK-QUEUE` lane instead of creating a separate
+"task to create tasks." The newly queued executable tasks should usually remain
+`READY`, `BLOCKED`, or `PROPOSED`; they are not treated as completed by the
+queue PR.
 
-Distinguish task-curation PRs from implementation PRs. If a PR only creates
-future work for the queue, it should usually be backed by a separate
-task-admin/curation task that moves to `REVIEW_READY` in that PR. The newly
-created executable task should usually remain `READY` and must not be treated
-as completed by the same PR. Do not use the newly created future task itself as
-the PR review task unless the PR also implements that task's accepted outputs.
+Task-queue branch format:
+
+`agent/<contributor-id>/<agent-id>/task-queue-<short-slug>`
+
+Task-queue PR title format:
+
+`TASK-QUEUE: <short summary>`
+
+Task-queue PR scope:
+
+- new or updated canonical `tasks/TASK-XXXX-*.yaml` files;
+- synced `tasks/ACTIVE.md`;
+- optional protocol or planning docs needed to explain the queue.
+
+Do not use `TASK-QUEUE` for normal contributor ideas without maintainer
+approval; those still go through `TASK-PROPOSAL`. Do not use `TASK-QUEUE` to
+implement the newly queued task's accepted outputs in the same PR.
 
 If rescuing useful ideas from a stale or superseded PR:
 
