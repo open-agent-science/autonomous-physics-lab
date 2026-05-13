@@ -148,8 +148,9 @@ Latest review verdict:
 
 Current named blockers before any public opening:
 
-- remove local path leaks from public-facing docs;
-- add an external-reviewer replication guide for the flagship evidence surface;
+- keep the local path leak check clean through release signoff;
+- verify the existing external-reviewer replication guide against the current
+  flagship evidence surface during release signoff;
 - record a release-time default-branch validation and CI signoff artifact.
 
 ## Current Risks
