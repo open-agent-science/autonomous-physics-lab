@@ -79,6 +79,13 @@ worktree. After creating the task and syncing `tasks/ACTIVE.md`, immediately
 prepare the branch for a PR or explicitly offer to open the PR as the next
 step so the task enters the normal review flow.
 
+Distinguish task-curation PRs from implementation PRs. If a PR only creates
+future work for the queue, it should usually be backed by a separate
+task-admin/curation task that moves to `REVIEW_READY` in that PR. The newly
+created executable task should usually remain `READY` and must not be treated
+as completed by the same PR. Do not use the newly created future task itself as
+the PR review task unless the PR also implements that task's accepted outputs.
+
 If rescuing useful ideas from a stale or superseded PR:
 
 - create fresh proposal file(s) under `tasks/proposals/`;
