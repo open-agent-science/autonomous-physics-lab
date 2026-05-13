@@ -47,7 +47,9 @@ The recommended first bounded action is:
 
 - open a closeout PR for verified merged tasks;
 - run this review agent on that closeout PR;
-- stop and wait for maintainer merge.
+- if the verdict is `MERGE_OK` and CI is green, explicitly ask:
+  `Merge closeout PR #<number>?`;
+- stop unless the maintainer authorizes merge.
 
 ## Review To Closeout Flow
 
@@ -301,6 +303,9 @@ Use this mode only after the maintainer has already merged the PR.
    then prepare a closeout commit and PR or explicitly ask the maintainer to
    publish those changes. Do not push or merge without maintainer
    authorization.
+10. After the closeout PR is open and the review agent reports `MERGE_OK` with
+    green CI, do not end with a passive status update. Ask the maintainer a
+    clear yes/no question: `Merge closeout PR #<number>?`
 
 ### Allowed actions
 
