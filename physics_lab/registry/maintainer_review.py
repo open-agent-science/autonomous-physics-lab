@@ -50,6 +50,7 @@ from physics_lab.registry.review_policy import (
     branch_task_id,  # noqa: F401 — re-exported; tests import from here
     classify_review_protocol,
     missing_pr_metadata_fields,  # noqa: F401 — re-exported; tests import from here
+    missing_pr_template_sections,  # noqa: F401 — re-exported; tests import from here
     validate_pr_title,
 )
 from physics_lab.registry.task_proposals import load_task_proposal
@@ -660,8 +661,15 @@ def build_review_report(
             blockers.append(
                 f"PR branch {pr_metadata.branch} does not match reviewed branch {target_branch}."
             )
+        missing_sections = missing_pr_template_sections(pr_metadata.body)
+        if missing_sections:
+            required_fixes.append(
+                "PR body is missing required repository-template sections: "
+                + ", ".join(missing_sections)
+                + ". Use .github/pull_request_template.md or a filled --body-file before requesting review."
+            )
         missing_fields = missing_pr_metadata_fields(pr_metadata.body)
-        if missing_fields and not is_closeout_review:
+        if missing_fields:
             required_fixes.append(
                 "PR metadata is incomplete: " + ", ".join(missing_fields) + "."
             )
@@ -669,8 +677,11 @@ def build_review_report(
             blockers.append("GitHub status checks are failing.")
         elif pr_metadata.status_checks_pending:
             required_fixes.append("GitHub status checks are still pending.")
-    elif pull_request is not None:
-        pass
+    elif pull_request is None:
+        advisory_warnings.append(
+            "Branch-only review cannot validate the GitHub PR body/template. "
+            "After opening the PR, run python3 scripts/apl_review_pr.py --pr <number> before merge."
+        )
 
     if task_payload is not None and not is_closeout_review:
         missing_outputs = missing_expected_outputs(

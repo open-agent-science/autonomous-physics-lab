@@ -46,6 +46,20 @@ PR_METADATA_FIELDS = (
 PR_METADATA_FIELD_ALIASES = {
     "Task ID": ("Task ID", "Task ID / Proposal / Queue"),
 }
+PR_TEMPLATE_REQUIRED_SECTIONS = (
+    "PR Kind",
+    "Primary Reference",
+    "Branch Name",
+    "Summary",
+    "Changed Files",
+    "Linked Repository Memory",
+    "Validation Commands",
+    "Scientific Claim Impact",
+    "Result Artifact Impact",
+    "Agent / Contributor Metadata",
+    "Maintainer Review Notes",
+)
+PR_TEMPLATE_SECTION_PATTERN = re.compile(r"^##\s+(?P<section>.+?)\s*$")
 
 
 @dataclass(frozen=True)
@@ -182,6 +196,24 @@ def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
         if value == "":
             missing.append(field)
     return tuple(missing)
+
+
+def pr_body_sections(body: str) -> tuple[str, ...]:
+    """Return top-level PR-template section headings from a PR body."""
+    sections: list[str] = []
+    for line in body.splitlines():
+        match = PR_TEMPLATE_SECTION_PATTERN.match(line.strip())
+        if match is not None:
+            sections.append(match.group("section"))
+    return tuple(sections)
+
+
+def missing_pr_template_sections(body: str) -> tuple[str, ...]:
+    """Return required PR template sections missing from a PR body."""
+    present = set(pr_body_sections(body))
+    return tuple(
+        section for section in PR_TEMPLATE_REQUIRED_SECTIONS if section not in present
+    )
 
 
 def validate_pr_title(
