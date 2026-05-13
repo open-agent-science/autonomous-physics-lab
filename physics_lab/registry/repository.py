@@ -23,6 +23,7 @@ from physics_lab.registry.golden_results import (
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
 from physics_lab.registry.microtask_runs import load_microtask_run
+from physics_lab.registry.nuclear_mass_predictions import load_nuclear_mass_prediction
 from physics_lab.registry.research_proposals import (
     load_experiment_proposal,
     load_hypothesis_proposal,
@@ -46,6 +47,7 @@ LOADERS: dict[str, Loader] = {
     "hypotheses": load_hypothesis,
     "knowledge": load_knowledge,
     "microtask_runs": load_microtask_run,
+    "prediction_registry": load_nuclear_mass_prediction,
     "results": load_result,
     "tasks": load_task,
     "task_proposals": load_task_proposal,
@@ -71,6 +73,7 @@ PATTERNS: dict[str, str] = {
     "hypotheses": "*.yaml",
     "knowledge": "*.md",
     "microtask_runs": "**/*.yaml",
+    "prediction_registry": "nuclear_masses/*.yaml",
     "results": "result.yaml",
     "tasks": "*.yaml",
     "task_proposals": "*.yaml",
@@ -215,6 +218,8 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
         if directory == "experiment_proposals" and path.name == "EXP-PROPOSAL-TEMPLATE.yaml":
             continue
         if directory == "microtask_runs" and path.name == "MICROTASK-RUN-TEMPLATE.yaml":
+            continue
+        if directory == "prediction_registry" and path.name == "PRED-TEMPLATE.yaml":
             continue
         if directory in {"hypothesis_proposals", "experiment_proposals", "agent_runs", "microtask_runs"}:
             items.append((path, loader(path, root=root)))

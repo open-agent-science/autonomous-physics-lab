@@ -1,0 +1,66 @@
+prediction_id: PRED-XXXX
+title: "Prospective nuclear-mass prediction title"
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-XXXX
+evidence_class: prospective_prediction_registry
+
+claim_ceiling: "Registered prospective prediction only; no claim, canonical result, or accepted knowledge promotion before later maintainer-reviewed comparison."
+
+registered_by:
+  contributor_id: "roman"
+  agent_id: "codex"
+
+registered_at_utc: "2026-05-13T00:00:00Z"
+
+source_state:
+  git_commit: "REPLACE_WITH_COMMIT_SHA"
+  model_reference:
+    model_id: "model-or-candidate-id"
+    source_path: "results/EXP-0012/RUN-0001/result.yaml"
+    frozen_parameters_note: "State the frozen model family, coefficients, and any relevant subset or calibration note."
+  baseline_reference:
+    result_id: "RESULT-0015"
+    source_path: "results/EXP-0012/RUN-0001/result.yaml"
+  training_data_references:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  holdout_protocol_references:
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "docs/prediction-registry-policy.md"
+  live_external_fetch_allowed: false
+  source_data_state_note: "State what was known when the prediction was registered and what later measurement source is expected to resolve it."
+
+target_set:
+  label: "short-target-batch-name"
+  quantity: "mass_excess_mev"
+  unit: "MeV"
+  target_nuclides:
+    - nuclide_id: "Nuclide-000"
+      Z: 0
+      N: 0
+      A: 0
+      predicted_value_mev: 0.0
+      uncertainty_mev: null
+      confidence_note: "State uncertainty semantics or why only a point estimate is available."
+
+uncertainty_semantics:
+  type: point_estimate_only
+  note: "State whether uncertainty_mev is statistical, heuristic, interval-like, absent, or intentionally omitted."
+
+reveal_conditions:
+  reveal_trigger: "Later measured value appears in a reviewed source and a maintainer-approved comparison task is opened."
+  comparison_data_reference: "future reviewed dataset or source manifest path"
+  reveal_owner: "maintainer"
+  no_peek_rule: "Do not alter target nuclides, frozen model state, or prediction values after later measurements become visible."
+
+limitations:
+  - "Prospective registry entry only; not a claim."
+  - "Prediction values are frozen before later measurement comparison."
+  - "Any later comparison still requires maintainer-reviewed evaluation."
+
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false
