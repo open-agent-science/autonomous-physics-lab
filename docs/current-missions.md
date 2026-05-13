@@ -52,12 +52,12 @@ Recommended direction:
 
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
-2. Prefer nuclear validation, evidence packaging, post-AME2020 time-split
-   review, or guarded follow-up tasks before opening a second nuclear sandbox
-   batch.
+2. Prefer nuclear validation, adversarial review, evidence packaging,
+   post-AME2020 time-split review, or guarded follow-up tasks before opening
+   any additional second-batch expansion.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
-4. Use the nuclear robustness gate before any second sandbox batch expands a
-   candidate family.
+4. Use the nuclear robustness gate and `TASK-0204` adversarial review before
+   any second sandbox batch expands a candidate family further.
 
 Why:
 
