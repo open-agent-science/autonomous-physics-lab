@@ -331,19 +331,29 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert rendered["live_task_candidates"]
     # Accept any current research-mode top candidate from the live queue.
     # Depending on which nuclear tasks are already claimed, the mission helper
-    # may surface the nuclear follow-up (`TASK-0189`) or rotate to the other
-    # READY research lanes (`TASK-0222`, `TASK-0227`).
+    # may surface nuclear follow-ups (`TASK-0189`, `TASK-0228`-`TASK-0237`)
+    # or rotate to the other READY research lanes (`TASK-0222`, `TASK-0227`).
     nuclear_validation_queue_ids = {
         "TASK-0189",
         "TASK-0200",
         "TASK-0201",
-            "TASK-0202",
-            "TASK-0203",
-            "TASK-0204",
-            "TASK-0205",
-            "TASK-0222",
-            "TASK-0227",
-        }
+        "TASK-0202",
+        "TASK-0203",
+        "TASK-0204",
+        "TASK-0205",
+        "TASK-0222",
+        "TASK-0227",
+        "TASK-0228",
+        "TASK-0229",
+        "TASK-0230",
+        "TASK-0231",
+        "TASK-0232",
+        "TASK-0233",
+        "TASK-0234",
+        "TASK-0235",
+        "TASK-0236",
+        "TASK-0237",
+    }
     assert (
         rendered["live_task_candidates"][0]["task_id"]
         in nuclear_validation_queue_ids
