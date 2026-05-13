@@ -132,13 +132,11 @@ Recommended nuclear validation queue for parallel agents:
   inconclusive `AGENT-RUN-0008` evidence
 - `TASK-0189` nuclear prediction registry policy
 - `TASK-0200` bounded shell-aware nuclear sandbox batch
-- `TASK-0201` bounded pairing / odd-even nuclear sandbox batch, now merged
+- `TASK-0201` bounded pairing / odd-even nuclear sandbox batch
 - `TASK-0202` bounded neutron-rich nuclear sandbox batch
-- `TASK-0204` adversarial review of the completed second-batch sandbox outputs
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
-  umbrella; review the narrower TASK-0200 through TASK-0202 outputs through
-  TASK-0204 before any further expansion
+  umbrella; use the narrower TASK-0200 through TASK-0204 lanes first
 
 Current nuclear-mass baseline state:
 
@@ -171,10 +169,9 @@ The nuclear queue should stay conservative:
 - parallel science lanes are encouraged across different campaigns and within
   the same campaign, but each lane must use a separate branch/worktree,
   disjoint hypothesis family or artifact surface, and sandbox-only outputs;
-- no broad second nuclear sandbox batch from `TASK-0178`; review the completed
-  narrow sandbox lanes with primary holdout, split-sensitivity, post-AME2020
-  time-split, negative controls, and no claim promotion before allowing more
-  expansion.
+- no broad second nuclear sandbox batch from `TASK-0178`; run only narrow
+  sandbox lanes with primary holdout, split-sensitivity, post-AME2020
+  time-split, negative controls, and no claim promotion.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into

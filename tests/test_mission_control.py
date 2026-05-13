@@ -330,17 +330,15 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert "parallel_work_policy" in rendered
     assert rendered["live_task_candidates"]
     # Accept any current nuclear-mass-surface READY task as the top candidate.
-    # TASK-0200/0201/0202/0203 are merged or rotating through closeout; TASK-0204
-    # is the adversarial review lane that should surface after second-batch
-    # sandbox outputs are available. TASK-0189 remains a registry-policy
-    # follow-up in the same campaign.
+    # TASK-0200/0202/0203 are merged; TASK-0189 is the registry-policy follow-up
+    # in the same campaign. The set must tolerate TASK-0201 transitioning out of
+    # READY while another agent is executing it.
     nuclear_validation_queue_ids = {
         "TASK-0189",
         "TASK-0200",
         "TASK-0201",
         "TASK-0202",
         "TASK-0203",
-        "TASK-0204",
     }
     assert (
         rendered["live_task_candidates"][0]["task_id"]

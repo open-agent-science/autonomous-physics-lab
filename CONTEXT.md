@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-13 12:40 UTC
+Generated: 2026-05-13 12:46 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -714,12 +714,12 @@ Recommended direction:
 
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
-2. Prefer nuclear validation, adversarial review, evidence packaging,
-   post-AME2020 time-split review, or guarded follow-up tasks before opening
-   any additional second-batch expansion.
+2. Prefer nuclear validation, evidence packaging, post-AME2020 time-split
+   review, or guarded follow-up tasks before opening a second nuclear sandbox
+   batch.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
-4. Use the nuclear robustness gate and `TASK-0204` adversarial review before
-   any second sandbox batch expands a candidate family further.
+4. Use the nuclear robustness gate before any second sandbox batch expands a
+   candidate family.
 
 Why:
 
@@ -894,11 +894,11 @@ missions:
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
-      - "do not run additional second-batch expansions before adversarially reviewing the completed narrow lanes"
+      - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
       - "do not call retrospective post-AME2020 evaluation strict blind prediction"
       - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
       - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
-      - "do not promote any second-batch sandbox candidate before TASK-0204 adversarial review"
+      - "do not start the second nuclear batch before the real time-split benchmark is reviewed"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -925,7 +925,7 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Choose the next live task candidate for nuclear validation, adversarial review, evidence packaging, or guarded follow-up"
+        label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
         mode: research
         priority: high
         difficulty: medium
@@ -945,9 +945,9 @@ missions:
         expected_outputs:
           - "docs/reviews/adversarial-review-AGENT-RUN-0005.md"
       - id: second-bounded-nuclear-batch
-        label: "Second bounded nuclear sandbox lanes completed; adversarially review them before more expansion"
+        label: "Run second bounded nuclear sandbox work only through narrow TASK-0200/TASK-0201/TASK-0202 lanes"
         mode: future
-        status: review_required
+        status: blocked
         priority: medium
         difficulty: high
         gated_by:
@@ -957,7 +957,6 @@ missions:
           - reviewed-row-level-post-ame2020-holdout-dataset
           - reviewed-post-ame2020-time-split-benchmark
           - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
-          - adversarial-review-task-0204
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -1885,6 +1884,7 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (`scientific_audit`, priority `high`, difficulty `medium`)
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
@@ -1895,13 +1895,13 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0219` — Enforce repository PR template sections in maintainer review (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0221` — Clarify campaign-curator trigger wording (`documentation`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0221` — Clarify campaign-curator trigger wording (merged)
+- `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
+- `TASK-0219` — Enforce repository PR template sections in maintainer review (merged)
 - `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (merged)
 - `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
@@ -1912,6 +1912,7 @@ None.
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
 - `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
 - `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (merged)
+- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (merged)
 - `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (merged)
 - `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (merged)
 - `TASK-0198` — Close TASK-0195 and tighten public-doc sync follow-up (merged)
@@ -2094,7 +2095,6 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (`scientific_audit`, priority `high`, difficulty `medium`)
 - `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)

@@ -1,7 +1,7 @@
 id: TASK-0204
 title: "Adversarially review second nuclear sandbox batch outputs"
 type: scientific_audit
-status: READY
+status: BLOCKED
 difficulty: medium
 priority: high
 
@@ -20,12 +20,12 @@ input:
     - "tasks/TASK-0203-analyze-post-ame2020-timesplit-failure-modes.yaml"
     - "docs/nuclear-mass-robustness-gate.md"
   planning_context: >
-    TASK-0200, TASK-0201, and TASK-0202 have now produced reviewable sandbox
-    outputs, so this task is unblocked as the next scientific audit lane. It is
-    an adversarial review lane, not a new formula-search lane.
+    This task should start only after at least one second-batch sandbox lane
+    has produced reviewable outputs. It is an adversarial review lane, not a
+    new formula-search lane.
 
 requirements:
-  - "Review the available TASK-0200, TASK-0201, and TASK-0202 sandbox outputs before any additional second-batch expansion."
+  - "Do not start until at least one of TASK-0200, TASK-0201, or TASK-0202 has reviewable sandbox outputs."
   - "Compare all available second-batch outputs against the robustness gate."
   - "Check for leakage, cherry-picking, split sensitivity, time-split regressions, duplicate hypotheses, and overclaim wording."
   - "Identify negative results that should be preserved."
