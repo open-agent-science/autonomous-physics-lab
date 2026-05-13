@@ -1,7 +1,7 @@
 id: TASK-0205
 title: "Create first prospective nuclear-mass prediction registry entries"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -20,18 +20,20 @@ input:
   planning_context: >
     TASK-0189 now defines the prediction registry policy and template. This
     follow-up creates the first prospective entries after the maintainer chooses
-    an approved frozen model and target list.
+    approved frozen model variants and target batches for parallel testing.
 
 requirements:
   - "Do not start until TASK-0189 is DONE."
-  - "Create one small batch of prospective nuclear-mass prediction entries using the approved registry template."
+  - "Create a bounded slate of prospective nuclear-mass prediction entries using the approved registry template."
   - "Record model source, target nuclides, prediction values, uncertainty or confidence semantics, timestamp, source data state, and reveal conditions."
   - "State that entries are forecasts awaiting future measurement comparison, not claims."
   - "Do not use live external data fetching."
   - "Do not modify canonical results, claims, accepted knowledge, or datasets."
+  - "First slate may use bounded frozen model/control variants and repo-prospective target batches for parallel testing."
+  - "Agent-proposed follow-up variants should use PRED-0021+ in separate PRs and freeze their own model state before reveal."
 
 accepted_outputs:
-  - "prediction_registry/nuclear_masses/PRED-0001.yaml"
+  - "prediction_registry/nuclear_masses/PRED-0001.yaml through prediction_registry/nuclear_masses/PRED-0020.yaml"
   - "docs/reviews/nuclear-prediction-registry-entry-review.md"
   - "validation updates if registry schema support exists"
 
