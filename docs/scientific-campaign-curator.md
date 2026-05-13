@@ -1,13 +1,15 @@
 # Scientific Campaign Curator Agent
 
 The Scientific Campaign Curator is a maintainer-run scientific campaign curator
-for APL. **Campaign Curator** is the short command/docs name, and the
+for APL. **campaign-curator** is the canonical short command/name, and the
 implementation script is named `apl_campaign_curator.py`.
 
-Maintainer chat prompts may use any of these names:
+Maintainer chat prompts do not need to use a literal alias. Treat natural
+language requests for a scientific campaign curator, in Ukrainian or English,
+as this mode. Examples:
 
 - "Run Scientific Campaign Curator for nuclear mass."
-- "Run Campaign Curator for nuclear mass."
+- "Run campaign-curator for nuclear mass."
 - "Запусти наукового куратора для nuclear mass."
 - "Перейди в режим наукового куратора для nuclear mass."
 
