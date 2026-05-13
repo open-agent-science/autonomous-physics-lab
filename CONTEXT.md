@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-13 18:39 UTC
+Generated: 2026-05-13 19:17 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1107,7 +1107,7 @@ normal contributor path research-first.
 
 ## Active Campaigns
 
-APL currently organizes work around four contributor-facing campaign surfaces:
+APL currently organizes work around five contributor-facing campaign surfaces:
 
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
@@ -1115,6 +1115,7 @@ APL currently organizes work around four contributor-facing campaign surfaces:
 | [Particle Mass Relations](./campaigns/particle-mass-relations.md) | Active with scoped reproductions and falsifications | Test whether impressive mass relations survive disciplined, falsification-first handling | [koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md) |
 | [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Active with canonical MVP result | Build a quality floor for future formula and benchmark work | [RUN-0006 report](../results/EXP-0006/RUN-0006/report.md) |
 | [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) | Planning active, no canonical run yet | Extend APL into consistency checks that do not depend on curve fitting alone | [thought-experiment-consistency-suite.md](./notes/thought-experiment-consistency-suite.md) |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates | Test nuclear residual candidates with frozen baselines, robustness gates, and post-AME2020 time-split discipline | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
 
 ## Current Results
 
@@ -1142,6 +1143,20 @@ The clearest current repository-level results are:
 7. [`RESULT-0011` particle-mass relation falsifier MVP](../results/EXP-0009/RUN-0001/report.md)
    — fixed-target Koide family-survival falsification with uncertainty,
    baseline, and complexity-penalty reporting.
+8. [Anharmonic Oscillator Period Benchmark](./results/anharmonic-oscillator-summary.md)
+   — `EXP-0011` nonlinear mechanics benchmark with perturbative and empirical
+   baselines, kept range-limited.
+9. [Nuclear Mass Baseline](./results/nuclear-mass-baseline-summary.md) and
+   [Nuclear Mass Pilot Summary](./results/nuclear-mass-pilot-summary.md) —
+   `EXP-0012` baseline evidence plus sandbox-only autonomous pilot and
+   retrospective post-AME2020 checks. `AGENT-RUN-0007` is only an
+   `INCONCLUSIVE` source-manifest guard, while `AGENT-RUN-0008` remains
+   sandbox-only retrospective time-split evidence.
+
+The nuclear prediction registry is a prospective forecast surface, not a
+result surface: `PRED-0001` through `PRED-0020` are frozen entries awaiting
+future maintainer-reviewed reveal data, and `TASK-0228` through `TASK-0237`
+split follow-up variants into bounded parallel lanes.
 
 These results matter because they are reproducible and reviewable. They do not
 authorize exact symbolic proof, universal scope, or deeper physical
@@ -1157,6 +1172,12 @@ The near-term documentation goal is a cautious `v0.2` packaging pass:
 - negative results should stay as visible as successful reproductions;
 - `EXP-0010` should remain a guarded stress-test surface rather than a flagship
   public result;
+- Nuclear Mass Surface should be described as benchmark and sandbox
+  validation evidence: `AGENT-RUN-0007` is not an active benchmark result,
+  and post-AME2020 scoring is retrospective rather than strict blind
+  prediction;
+- prediction-registry entries should read as frozen prospective forecasts
+  awaiting future comparison, not as evidence of predictive success;
 - public-opening decisions should remain gated behind wording discipline and
   release checks.
 
@@ -1897,7 +1918,6 @@ one PR.
 ## READY
 
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
@@ -1919,7 +1939,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
