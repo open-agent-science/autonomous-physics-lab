@@ -103,6 +103,8 @@ sandbox-only pilot evidence. `AGENT-RUN-0007` is an `INCONCLUSIVE`
 source-manifest-only guard, not an active time-split benchmark result. The
 row-level post-AME2020 sequence is `TASK-0196` holdout data before `TASK-0197`
 retrospective time-split scoring, and it does not promote claims automatically.
+The `PRED-0001` through `PRED-0020` registry entries are prospective forecasts
+for future reveal comparison, not current result figures or success metrics.
 
 ---
 

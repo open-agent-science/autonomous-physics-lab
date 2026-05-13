@@ -1,0 +1,53 @@
+id: TASK-0236
+title: "Register nuclear prediction variants for agent-designed minimal-complexity hypotheses"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Scale Nuclear Mass Surface prediction work through bounded, reviewable registry variants."
+  - "Let agents contribute their own low-complexity ideas without turning the registry into unbounded formula search."
+  - "Require execution, deterministic calculation, and pre-reveal validation in the same PR."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
+    - "docs/prediction-registry-policy.md"
+    - "docs/reviews/nuclear-prediction-registry-entry-review.md"
+    - "docs/notes/nuclear-prediction-variant-expansion-wave.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    This lane is intentionally agent-open: the contributor may design two
+    minimal-complexity bounded variants, but must freeze them and validate them
+    as prospective registry entries. It is not a broad symbolic formula search.
+
+requirements:
+  - "Create exactly two prospective registry entries unless the maintainer approves a larger batch."
+  - "Use the suggested ids PRED-0037 and PRED-0038 unless a parallel branch collision requires renumbering before review."
+  - "Compute quantity mass_excess_mev deterministically; do not leave calculation as LLM text."
+  - "Freeze the agent-designed formula, coefficients, target set, source state, uncertainty semantics, and reveal conditions."
+  - "Keep each variant low-complexity and explain why it is bounded enough for registry testing."
+  - "Add or update tests for schema validity, target consistency, repo-prospective target checks, and deterministic value reproduction when code is added."
+  - "Do not use live external data fetching, reveal comparisons, or claim/result/knowledge promotion."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/PRED-0037.yaml"
+  - "prediction_registry/nuclear_masses/PRED-0038.yaml"
+  - "docs/reviews/nuclear-prediction-variants-minimal-complexity.md"
+  - "updated tests covering the new prediction entries"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

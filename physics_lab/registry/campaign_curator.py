@@ -372,16 +372,12 @@ def _recommended_tasks(
     campaign: dict[str, Any],
 ) -> tuple[CampaignTaskRecommendation, ...]:
     recommendations: list[CampaignTaskRecommendation] = []
-    live_statuses = {"READY", "REVIEW_READY"}
     for entry in entries:
-        if entry.status not in live_statuses:
+        if entry.status != "READY":
             continue
         combined = f"{entry.task_id} {entry.title} {entry.type}"
         if not _matches_campaign(combined, campaign_id):
             continue
-        reason = "live READY task aligned with this campaign"
-        if entry.status == "REVIEW_READY":
-            reason = "review-ready task aligned with this campaign"
         recommendations.append(
             CampaignTaskRecommendation(
                 task_id=entry.task_id,
@@ -389,7 +385,7 @@ def _recommended_tasks(
                 priority=entry.priority,
                 difficulty=entry.difficulty,
                 status=entry.status,
-                reason=reason,
+                reason="live READY task aligned with this campaign",
             )
         )
 

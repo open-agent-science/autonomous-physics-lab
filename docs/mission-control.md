@@ -80,6 +80,20 @@ The clearest current repository-level results are:
 7. [`RESULT-0011` particle-mass relation falsifier MVP](../results/EXP-0009/RUN-0001/report.md)
    — fixed-target Koide family-survival falsification with uncertainty,
    baseline, and complexity-penalty reporting.
+8. [Anharmonic Oscillator Period Benchmark](./results/anharmonic-oscillator-summary.md)
+   — `EXP-0011` nonlinear mechanics benchmark with perturbative and empirical
+   baselines, kept range-limited.
+9. [Nuclear Mass Baseline](./results/nuclear-mass-baseline-summary.md) and
+   [Nuclear Mass Pilot Summary](./results/nuclear-mass-pilot-summary.md) —
+   `EXP-0012` baseline evidence plus sandbox-only autonomous pilot and
+   retrospective post-AME2020 checks. `AGENT-RUN-0007` is only an
+   `INCONCLUSIVE` source-manifest guard, while `AGENT-RUN-0008` remains
+   sandbox-only retrospective time-split evidence.
+
+The nuclear prediction registry is a prospective forecast surface, not a
+result surface: `PRED-0001` through `PRED-0020` are frozen entries awaiting
+future maintainer-reviewed reveal data, and `TASK-0228` through `TASK-0237`
+split follow-up variants into bounded parallel lanes.
 
 These results matter because they are reproducible and reviewable. They do not
 authorize exact symbolic proof, universal scope, or deeper physical
@@ -99,6 +113,8 @@ The near-term documentation goal is a cautious `v0.2` packaging pass:
   validation evidence: `AGENT-RUN-0007` is not an active benchmark result,
   and post-AME2020 scoring is retrospective rather than strict blind
   prediction;
+- prediction-registry entries should read as frozen prospective forecasts
+  awaiting future comparison, not as evidence of predictive success;
 - public-opening decisions should remain gated behind wording discipline and
   release checks.
 

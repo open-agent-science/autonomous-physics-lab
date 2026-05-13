@@ -1,0 +1,55 @@
+id: TASK-0230
+title: "Register nuclear prediction variants for shell and magic-number controls"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Scale Nuclear Mass Surface prediction work through bounded, reviewable registry variants."
+  - "Make shell and magic-number hypotheses reviewable as future forecasts instead of post hoc residual stories."
+  - "Keep shell-aware variants bounded and pre-reveal."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
+    - "docs/prediction-registry-policy.md"
+    - "docs/reviews/nuclear-prediction-registry-entry-review.md"
+    - "docs/reviews/autonomous-nuclear-shell-batch-01.md"
+    - "docs/notes/nuclear-prediction-variant-expansion-wave.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    Shell-aware residual ideas are scientifically motivated but overclaim-prone.
+    This lane asks one agent to register two bounded shell or magic-number
+    control variants for later reveal, with no promotion of prior sandbox
+    candidates.
+
+requirements:
+  - "Create exactly two prospective registry entries unless the maintainer approves a larger batch."
+  - "Use the suggested ids PRED-0025 and PRED-0026 unless a parallel branch collision requires renumbering before review."
+  - "Compute quantity mass_excess_mev deterministically; do not leave calculation as LLM text."
+  - "Freeze the shell or magic-number variant formula, coefficients, target set, source state, uncertainty semantics, and reveal conditions."
+  - "State explicitly that shell-aware variants are controls for later reveal, not canonical shell-model claims."
+  - "Add or update tests for schema validity, target consistency, repo-prospective target checks, and deterministic value reproduction when code is added."
+  - "Do not use live external data fetching, reveal comparisons, or claim/result/knowledge promotion."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/PRED-0025.yaml"
+  - "prediction_registry/nuclear_masses/PRED-0026.yaml"
+  - "docs/reviews/nuclear-prediction-variants-shell-controls.md"
+  - "updated tests covering the new prediction entries"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

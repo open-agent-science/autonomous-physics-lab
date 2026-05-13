@@ -137,7 +137,10 @@ Recommended nuclear validation queue for parallel agents:
 - `TASK-0204` adversarial review of the completed second-batch sandbox outputs,
   now merged
 - `TASK-0205` first prospective nuclear-mass prediction registry entries, now
-  unblocked after `TASK-0189`
+  merged as `PRED-0001` through `PRED-0020`
+- `TASK-0228` through `TASK-0237` nuclear prediction variant expansion wave:
+  ten parallel lanes where agents add and pre-reveal validate their own bounded
+  `PRED-0021+` variants without live external fetch or claim promotion
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
   umbrella; review the narrower TASK-0200 through TASK-0202 outputs through
