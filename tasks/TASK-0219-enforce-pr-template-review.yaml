@@ -1,7 +1,7 @@
 id: TASK-0219
 title: "Enforce repository PR template sections in maintainer review"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

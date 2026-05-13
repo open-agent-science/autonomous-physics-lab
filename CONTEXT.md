@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-13 08:45 UTC
+Generated: 2026-05-13 12:46 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1508,9 +1508,25 @@ After implementation and validation:
 1. push the task branch only when a human or workflow expects a PR;
 2. open one PR for one task branch;
 3. use the required PR title format;
-4. complete the repository PR template;
+4. complete the repository PR template before creating the PR;
 5. include limitations, validation results, and artifact-impact notes;
 6. move the task to `REVIEW_READY`.
+
+Do not open task PRs with a short ad hoc `--body` such as only `Summary` and
+`Validation`. Prepare a body file from `.github/pull_request_template.md`, fill
+the required sections, and use that body file when creating the PR:
+
+```bash
+cp .github/pull_request_template.md /tmp/apl-pr-body.md
+# edit /tmp/apl-pr-body.md and delete unused examples/placeholders
+gh pr create --title "TASK-XXXX: <short title>" --body-file /tmp/apl-pr-body.md
+```
+
+After the PR exists, run the PR-number review, not only branch preflight:
+
+```bash
+python3 scripts/apl_review_pr.py --pr <number>
+```
 
 ## Pull Request Requirements
 
@@ -1523,7 +1539,6 @@ Every PR should include:
 - GitHub username
 - agent tool
 - model/version if known
-- agent session id
 - human reviewer
 - summary
 - changed files
@@ -1869,8 +1884,10 @@ one PR.
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (`scientific_audit`, priority `high`, difficulty `medium`)
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
+- `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
+- `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -1882,16 +1899,20 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0221` — Clarify campaign-curator trigger wording (merged)
+- `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
+- `TASK-0219` — Enforce repository PR template sections in maintainer review (merged)
 - `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (merged)
 - `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
 - `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)
 - `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (merged)
-- `TASK-0212` — Clarify Science Curator maintainer-authorized task creation policy (merged)
-- `TASK-0211` — Add Science Curator agent mode for scientific campaign steering (merged)
+- `TASK-0212` — Clarify Scientific Campaign Curator maintainer-authorized task creation policy (merged)
+- `TASK-0211` — Add Scientific Campaign Curator agent mode for scientific campaign steering (merged)
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
 - `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
 - `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (merged)
+- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (merged)
 - `TASK-0200` — Run bounded nuclear sandbox batch for shell-aware residual corrections (merged)
 - `TASK-0199` — Add structured public-doc sync checklist to closeout helpers (merged)
 - `TASK-0198` — Close TASK-0195 and tighten public-doc sync follow-up (merged)
@@ -2074,9 +2095,12 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (`scientific_audit`, priority `high`, difficulty `medium`)
 - `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
+- `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
+- `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
+- `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
