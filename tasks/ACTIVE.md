@@ -47,7 +47,6 @@ one PR.
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
 - `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -60,6 +59,10 @@ one PR.
 - `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0236` — Register nuclear prediction variants for agent-designed minimal-complexity hypotheses (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (`test_infrastructure`, priority `high`, difficulty `high`)
+- `TASK-0240` — Add targeted tests for review_git critical edge cases (`test_infrastructure`, priority `medium`, difficulty `medium`)
+- `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -67,6 +70,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0238` — Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
