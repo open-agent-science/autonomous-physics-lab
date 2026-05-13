@@ -58,6 +58,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0219` — Enforce repository PR template sections in maintainer review (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
@@ -66,8 +67,8 @@ None.
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
 - `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)
 - `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (merged)
-- `TASK-0212` — Clarify Science Curator maintainer-authorized task creation policy (merged)
-- `TASK-0211` — Add Science Curator agent mode for scientific campaign steering (merged)
+- `TASK-0212` — Clarify Scientific Campaign Curator maintainer-authorized task creation policy (merged)
+- `TASK-0211` — Add Scientific Campaign Curator agent mode for scientific campaign steering (merged)
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
 - `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
 - `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (merged)

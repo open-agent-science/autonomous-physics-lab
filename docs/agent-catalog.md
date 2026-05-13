@@ -89,7 +89,7 @@ task closeout recommendation.
 
 Status: active and heavily used.
 
-### 6. Science Curator / Campaign Navigator
+### 6. Scientific Campaign Curator / Campaign Curator
 
 Use this path when the maintainer wants a campaign-level research brief after a
 wave of hypothesis proposals, sandbox runs, reviews, or result artifacts.
@@ -97,10 +97,10 @@ wave of hypothesis proposals, sandbox runs, reviews, or result artifacts.
 - Typical work: summarize campaign evidence, identify promising and failed
   directions, recommend the next 2-5 tasks, suggest parallel agent lanes
 - Primary docs:
-  - [campaign-navigator-agent.md](./campaign-navigator-agent.md)
-  - [campaign-navigator-protocol.md](./campaign-navigator-protocol.md)
+  - [scientific-campaign-curator.md](./scientific-campaign-curator.md)
+  - [campaign-curator-protocol.md](./campaign-curator-protocol.md)
 - Helper script:
-  - `python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface`
+  - `python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface`
 
 Status: active maintainer-facing advisory mode. It must not run experiments,
 promote claims, create canonical tasks without explicit maintainer approval, or
@@ -182,9 +182,9 @@ Read:
 
 Read:
 
-1. [campaign-navigator-agent.md](./campaign-navigator-agent.md)
-2. [campaign-navigator-protocol.md](./campaign-navigator-protocol.md)
-3. run `python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface`
+1. [scientific-campaign-curator.md](./scientific-campaign-curator.md)
+2. [campaign-curator-protocol.md](./campaign-curator-protocol.md)
+3. run `python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface`
 
 ## One-Sentence Rule
 
@@ -192,5 +192,5 @@ If you are not sure which path applies:
 
 - contributors start from `READY` tasks or microtasks
 - maintainers start from the review agent for PRs, closeout for merged tasks,
-  and Science Curator for research-cycle steering
+  and Scientific Campaign Curator for research-cycle steering
 - proposals are for ideas, not for active implementation
