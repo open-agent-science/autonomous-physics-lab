@@ -21,14 +21,16 @@ input:
     - "tests/test_campaign_curator.py"
   planning_context: >
     The campaign steering agent should be named Scientific Campaign Curator,
-    with Campaign Curator as the short docs/CLI name and "науковий куратор" as
-    an explicit chat alias. The old navigator naming should be removed instead
-    of kept as legacy, because refreshed agent context will use the new name.
+    with campaign-curator as the short docs/CLI name. Ukrainian maintainer
+    requests for a scientific campaign curator should be understood
+    conceptually rather than treated as one exact alias string. The old
+    navigator naming should be removed instead of kept as legacy, because
+    refreshed agent context will use the new name.
 
 requirements:
   - "Use Scientific Campaign Curator as the official role name."
-  - "Use Campaign Curator as the short command/docs name."
-  - "Document the Ukrainian chat alias: науковий куратор."
+  - "Use campaign-curator as the short command/docs name."
+  - "Document that Ukrainian natural-language requests for a scientific campaign curator map to this mode conceptually."
   - "Rename script, registry module, tests, docs, and CLI command to curator naming."
   - "Do not keep a legacy script or CLI alias for the previous campaign-steering name."
   - "Preserve behavior and authority boundaries: advisory, maintainer-facing, no experiments, no claim promotion."
