@@ -1,0 +1,53 @@
+id: TASK-0223
+title: "Add quantum-dot size-effect dataset schema and source manifest"
+type: scientific_dataset
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Make Quantum Size Effects dataset-backed before any model comparison or autonomous hypothesis search."
+  - "Preserve source provenance, inclusion decisions, and measurement semantics as first-class scientific memory."
+  - "Avoid live fetching and ad hoc data mixing by defining a pinned source-manifest workflow."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-0222-create-quantum-size-effects-campaign-scaffold.yaml"
+    - "tasks/proposals/20260507-roman-quantum-dots-size-effects-campaign.yaml"
+  planning_context: >
+    This task should start after the campaign scaffold exists. It defines the
+    repository-native dataset shape and source manifest needed to compare
+    quantum-dot size-dependent optical or electronic properties without
+    importing unreviewed external data or mixing incompatible measurement
+    semantics.
+
+requirements:
+  - "Do not start until TASK-0222 is DONE or explicitly accepted by the maintainer as complete enough for dataset work."
+  - "Create a quantum-dot dataset directory with source-manifest guidance."
+  - "Define required fields for material, composition, diameter_nm or radius_nm, property kind, energy value in eV, uncertainty if known, temperature if known, source, measurement type, and inclusion or exclusion status."
+  - "Represent absorption peak, emission peak, and bandgap values with explicit semantics rather than treating them as interchangeable."
+  - "Require source versioning, citation details, and checksum or pinned-copy policy before benchmark use."
+  - "Do not fetch live data, add synthesis guidance, or include lab-protocol instructions."
+  - "Add schema validation or tests if the repository has a suitable validation layer for the new dataset kind."
+
+accepted_outputs:
+  - "data/quantum_dots/README.md"
+  - "data/quantum_dots/source_manifest.yaml"
+  - "physics_lab/schemas/quantum_dot_size_effect.schema.json or an equivalent repository-native schema location"
+  - "tests/test_quantum_dot_dataset_schema.py if schema validation is added"
+  - "updated repository validation docs if a new dataset kind is registered"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
