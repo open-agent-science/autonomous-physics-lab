@@ -57,7 +57,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0219` — Enforce repository PR template sections in maintainer review (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
