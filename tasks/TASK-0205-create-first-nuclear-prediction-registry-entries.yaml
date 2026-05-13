@@ -1,7 +1,7 @@
 id: TASK-0205
 title: "Create first prospective nuclear-mass prediction registry entries"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: medium
 
@@ -18,10 +18,9 @@ input:
     - "prediction_registry/nuclear_masses/"
     - "docs/prediction-registry-policy.md"
   planning_context: >
-    TASK-0189 should first define the prediction registry policy and template.
-    This follow-up creates the first prospective entries only after the
-    registry layout exists and the maintainer has chosen an approved frozen
-    model and target list.
+    TASK-0189 now defines the prediction registry policy and template. This
+    follow-up creates the first prospective entries after the maintainer chooses
+    an approved frozen model and target list.
 
 requirements:
   - "Do not start until TASK-0189 is DONE."

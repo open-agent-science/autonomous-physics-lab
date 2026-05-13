@@ -66,7 +66,7 @@ missions:
       - "do not call retrospective post-AME2020 evaluation strict blind prediction"
       - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
       - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
-      - "do not promote any second-batch sandbox candidate before TASK-0204 adversarial review"
+      - "do not promote any second-batch sandbox candidate after TASK-0204 without a maintainer-approved follow-up task"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -126,6 +126,20 @@ missions:
           - reviewed-post-ame2020-time-split-benchmark
           - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
           - adversarial-review-task-0204
+      - id: prospective-nuclear-prediction-registry-entries
+        label: "Create the first prospective nuclear-mass prediction registry entries"
+        task_id: TASK-0205
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        gated_by:
+          - prediction-registry-policy-task-0189
+        expected_outputs:
+          - "prediction_registry/nuclear_masses/PRED-0001.yaml"
+          - "docs/reviews/nuclear-prediction-registry-entry-review.md"
+          - "no claim promotion or retrospective metric framing"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
