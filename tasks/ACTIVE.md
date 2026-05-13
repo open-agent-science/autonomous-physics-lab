@@ -54,10 +54,11 @@ one PR.
 
 ## IN_PROGRESS
 
-- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+None.
 
 ## REVIEW_READY
 
+- `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0219` — Enforce repository PR template sections in maintainer review (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0221` — Clarify campaign-curator trigger wording (`documentation`, priority `medium`, difficulty `low`)
