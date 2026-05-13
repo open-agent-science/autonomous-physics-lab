@@ -1,0 +1,112 @@
+id: EXP-PROPOSAL-0008
+title: "Sandbox nuclear-mass pairing and odd-even residual batch"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0201
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/nuclear-mass-holdout-protocol.md"
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "agent_runs/AGENT-RUN-0006/"
+  - "agent_runs/AGENT-RUN-0008/"
+  - "agent_runs/AGENT-RUN-0011/"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0038-odd-a-offset.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0039-pairing-class-offsets.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0040-free-odd-even-exponent-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0041-per-chain-odd-even-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0042-pairing-shell-interaction-rejected.yaml"
+
+question: "Do compact pairing or odd-even residual offsets survive the same structured holdout and post-AME2020 checks used by the prior nuclear sandbox batches?"
+
+method:
+  summary: "Generate five pairing or odd-even residual proposals, execute two compact global-feature candidates, and reject three higher-risk proposals before execution. Evaluate the two executed candidates on the NMD-0002 four-holdout protocol and the 295-row post-AME2020 primary holdout, including odd-A, neutron-rich, proton-rich, and heavy subset behavior."
+  code_references:
+    - "scripts/run_nuclear_pairing_batch.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+    - "tests/test_nuclear_pairing_batch.py"
+  commands:
+    - "python3 scripts/run_nuclear_pairing_batch.py"
+    - "python3 -m pytest tests/test_nuclear_pairing_batch.py"
+  parameters:
+    generated_proposals: 5
+    executed_candidates: 2
+    rejected_before_execution: 3
+    structured_holdout_count: 4
+    post_ame2020_primary_holdout_row_count: 295
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml as the frozen measured-only training slice"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml as the reviewed row-level post-AME2020 holdout"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015 (model_fitted_semi_empirical)"
+  prior_results:
+    - "RESULT-0015"
+    - "AGENT-RUN-0006"
+    - "AGENT-RUN-0008"
+    - "AGENT-RUN-0009"
+    - "AGENT-RUN-0010"
+  assumptions:
+    - "Sandbox execution does not modify EXP-0012, RESULT-0015, or any claim, knowledge, or canonical dataset."
+    - "Coefficients are fitted on the complement of each NMD-0002 holdout for the structured protocol, and once on the full NMD-0002 surface for post-AME2020 evaluation."
+    - "Subset-specific failure criteria decide the gate outcome; aggregate MAE alone is insufficient."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0011/"
+  metrics:
+    - "generated_proposal_count"
+    - "executed_candidate_count"
+    - "rejected_before_execution_count"
+    - "structured_holdout_delta_mae_mev"
+    - "post_ame2020_primary_delta_mae_mev"
+    - "feature_activation_counts"
+    - "per_subset_delta_mae_mev including odd_a, neutron_rich_delta_ge_20, proton_rich_n_lt_z, and heavy_a_ge_100"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0011/report.md"
+    - "agent_runs/AGENT-RUN-0011/limitations.md"
+    - "docs/reviews/autonomous-nuclear-pairing-batch-01.md"
+
+validation:
+  pass_condition: "Sandbox pass if deterministic metrics satisfy the gate evidence package, at most two candidates are executed, rejections are documented, and no canonical artifacts are modified."
+  fail_condition: "Sandbox fail if candidate selection hides failed slices, if rejected leakage-sensitive proposals are executed, or if retrospective time-split behavior is framed as prediction."
+  baseline_or_reference: "Frozen RESULT-0015 baseline and prior sandbox negative-control context from AGENT-RUN-0008 through AGENT-RUN-0010."
+  expected_failure_modes:
+    - "Odd-A offset can look partially stable internally but regress post-AME2020 primary and odd-A subsets."
+    - "Pairing-class offsets can improve neutron-rich rows while regressing primary, proton-rich, and heavy subsets."
+    - "Rejected nonlinear, chain-specific, and shell-interaction proposals can overfit or duplicate earlier lanes."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe a pairing offset as a new mass formula."
+    - "Do not present internal holdout improvement as promotion-grade evidence."
+    - "Do not frame retrospective subset improvements as prospective predictions."
+  mitigations:
+    - "Keep outputs only under proposals, agent_runs, scripts, tests, and review notes."
+    - "Report post-AME2020 primary and subset regressions by default."
+
+limitations:
+  - "Sandbox-only batch over two executed candidates and three rejected proposals."
+  - "NMD-0002 has 11 nuclides; structured holdouts each have 8-9 training rows."
+  - "Post-AME2020 evaluation is retrospective time-split, not blind prediction."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Review whether the pairing lane should be closed until a broader pinned training surface exists."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical comparison or dataset-expansion task before any RESULT-* change."
