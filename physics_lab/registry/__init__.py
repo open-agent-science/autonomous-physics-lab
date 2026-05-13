@@ -10,6 +10,7 @@ from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
 from physics_lab.registry.microtask_runs import load_microtask_run
+from physics_lab.registry.nuclear_mass_predictions import load_nuclear_mass_prediction
 from physics_lab.registry.research_proposals import (
     load_experiment_proposal,
     load_hypothesis_proposal,
@@ -34,6 +35,7 @@ __all__ = [
     "load_hypothesis",
     "load_knowledge",
     "load_microtask_run",
+    "load_nuclear_mass_prediction",
     "load_result",
     "load_review_metadata",
     "load_schema",

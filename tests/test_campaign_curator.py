@@ -23,11 +23,12 @@ def test_campaign_curator_defaults_to_top_campaign() -> None:
     assert brief.maintainer_facing is True
     assert brief.advisory_only is True
     assert "Do not execute experiments from this mode." in brief.guardrails
-    # Either TASK-0201 (pairing batch) when READY or TASK-0189 (registry policy)
-    # when TASK-0201 is actively being executed by another agent. Both are
-    # nuclear-mass-surface READY tasks; the brief must surface at least one.
+    # The curator should surface at least one current follow-up task relevant to
+    # the live nuclear campaign, which may be a direct nuclear validation task
+    # (`TASK-0189`) or a campaign-adjacent support/doc task (`TASK-0175`) when
+    # the stricter nuclear validation lanes are already claimed.
     assert any(
-        item.task_id in {"TASK-0189", "TASK-0201"}
+        item.task_id in {"TASK-0175", "TASK-0189", "TASK-0201"}
         for item in brief.recommended_next_tasks
     )
 
