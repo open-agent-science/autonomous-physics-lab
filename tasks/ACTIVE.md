@@ -59,6 +59,7 @@ None.
 
 - `TASK-0219` — Enforce repository PR template sections in maintainer review (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0221` — Clarify campaign-curator trigger wording (`documentation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
