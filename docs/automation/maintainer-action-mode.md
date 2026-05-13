@@ -124,11 +124,13 @@ ask a clear yes/no merge question, for example `Closeout PR #274 is MERGE_OK
 and CI green. Merge it now?`
 
 A closeout PR is pure closeout bookkeeping only when it changes task status,
-`tasks/ACTIVE.md`, generated context/snapshot files, closeout notes, or
-closeout-agent instructions. Do not auto-merge when the PR changes claims,
-results, experiments, hypotheses, scientific verdicts, public-release state, or
-other protected artifacts unless the maintainer explicitly authorizes that exact
-merge after review.
+`tasks/ACTIVE.md`, generated context/snapshot files, closeout notes,
+closeout-agent instructions, or directly dependent task unblocks from `BLOCKED`
+to `READY` after explicit prerequisites are satisfied. The PR title or body
+must say it is unblocking the dependent task. Do not auto-merge when the PR
+changes claims, results, experiments, hypotheses, scientific verdicts,
+public-release state, or other protected artifacts unless the maintainer
+explicitly authorizes that exact merge after review.
 
 If GitHub PR metadata cannot be loaded or the PR title / head branch does not
 bind back to the same canonical `TASK-XXXX`, action mode must stop and return
