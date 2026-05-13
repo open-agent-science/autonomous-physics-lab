@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-13 07:56 UTC
+Generated: 2026-05-13 08:08 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1878,10 +1878,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (`agent_workflow`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
 - `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)
 - `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (merged)
