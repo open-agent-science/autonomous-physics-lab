@@ -35,12 +35,12 @@ requirements:
   - "Do not update canonical claims, accepted knowledge, or public-facing discovery wording."
 
 accepted_outputs:
-  - "hypothesis_proposals/quantum-size-effects/HYP-PROPOSAL-00XX-*.yaml"
-  - "experiment_proposals/quantum-size-effects/EXP-PROPOSAL-00XX-*.yaml"
-  - "agent_runs/AGENT-RUN-00XX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-00XX/metrics.json"
-  - "agent_runs/AGENT-RUN-00XX/report.md"
-  - "agent_runs/AGENT-RUN-00XX/limitations.md"
+  - "hypothesis_proposals/quantum-size-effects/<assigned-hypothesis-proposal-id>-*.yaml"
+  - "experiment_proposals/quantum-size-effects/<assigned-experiment-proposal-id>-*.yaml"
+  - "agent_runs/<assigned-agent-run-id>/agent_run.yaml"
+  - "agent_runs/<assigned-agent-run-id>/metrics.json"
+  - "agent_runs/<assigned-agent-run-id>/report.md"
+  - "agent_runs/<assigned-agent-run-id>/limitations.md"
   - "docs/reviews/autonomous-quantum-size-effect-pilot-01.md"
 
 validation:

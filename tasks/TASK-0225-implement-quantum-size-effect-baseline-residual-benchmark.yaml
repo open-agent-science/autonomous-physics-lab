@@ -35,7 +35,7 @@ accepted_outputs:
   - "physics_lab/engines/quantum_size_effects.py or an equivalent local engine module"
   - "physics_lab/workflows/quantum_size_effects.py if workflow support is needed"
   - "examples/quantum_size_effects.yaml"
-  - "results/EXP-00XX/RUN-0001/ or a sandbox result location chosen by the accepted campaign protocol"
+  - "a maintainer-assigned canonical result path or a sandbox result location chosen by the accepted campaign protocol"
   - "docs/results/quantum-size-effects-baseline-summary.md"
   - "tests/test_quantum_size_effects.py"
 
