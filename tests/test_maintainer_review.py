@@ -11,6 +11,7 @@ from physics_lab.registry.maintainer_review import (
     branch_microtask_id,
     branch_microtask_queue_id,
     branch_proposal_slug,
+    branch_task_queue_slug,
     branch_task_id,
     build_review_report,
     changed_task_proposal_files,
@@ -51,6 +52,14 @@ def test_branch_proposal_slug_extracts_task_proposal_slug() -> None:
     assert branch_proposal_slug("agent/roman/codex/task-0043-task-proposal-protocol") is None
 
 
+def test_branch_task_queue_slug_extracts_task_queue_slug() -> None:
+    assert (
+        branch_task_queue_slug("agent/roman/codex/task-queue-coverage-audit")
+        == "coverage-audit"
+    )
+    assert branch_task_queue_slug("agent/roman/codex/task-0043-task-proposal-protocol") is None
+
+
 def test_branch_microtask_id_extracts_microtask_id() -> None:
     assert (
         branch_microtask_id("agent/roman/codex/microtask-PMR-001-audit-electron-mass")
@@ -83,6 +92,10 @@ def test_review_protocol_classifies_supported_review_lanes() -> None:
         == "proposal"
     )
     assert (
+        classify_review_protocol("agent/roman/codex/task-queue-coverage-audit").kind
+        == "task_queue"
+    )
+    assert (
         classify_review_protocol("agent/roman/codex/closeout-merged-workflow-tasks").kind
         == "closeout"
     )
@@ -104,10 +117,15 @@ def test_review_protocol_uses_pr_title_for_closeout_and_microtask_lanes() -> Non
         "agent/roman/codex/task-9999-admin",
         pr_title="microtask(particle-mass-relations): add one audit note",
     )
+    task_queue = classify_review_protocol(
+        "agent/roman/codex/task-9999-admin",
+        pr_title="TASK-QUEUE: Add coverage audit task",
+    )
 
     assert closeout.kind == "closeout"
     assert microtask.kind == "microtask"
     assert microtask.title_microtask_queue_id == "particle-mass-relations"
+    assert task_queue.kind == "task_queue"
 
 
 def test_review_protocol_pr_title_policy_is_testable_without_github() -> None:
@@ -134,6 +152,14 @@ def test_review_protocol_pr_title_policy_is_testable_without_github() -> None:
     assert microtask.required_fixes == (
         "PR title does not follow microtask(<queue-id>): ... format.",
     )
+
+    task_queue = validate_pr_title(
+        review_kind="task_queue",
+        title="TASK-QUEUE: Add coverage audit task",
+        resolved_task_id="TASK-QUEUE",
+    )
+    assert task_queue.blockers == ()
+    assert task_queue.required_fixes == ()
 
 
 def test_changed_task_proposal_files_filters_template_and_other_paths() -> None:
@@ -653,6 +679,178 @@ def test_build_review_report_closeout_batch_pr_does_not_require_active_board_syn
     assert report.task_id == "TASK-CLOSEOUT"
     assert report.verdict == "MERGE_OK"
     assert not any("ACTIVE.md" in item for item in report.required_fixes)
+
+
+def test_build_review_report_accepts_task_queue_pr_with_ready_future_task(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    (tasks_dir / "TASK-0999-future-coverage-audit.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0999",
+                'title: "Future coverage audit"',
+                "type: test_infrastructure",
+                "status: READY",
+                "difficulty: medium",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Task queue regression fixture"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Future task fixture"',
+                "requirements:",
+                '  - "Keep future task READY in task-queue PR"',
+                "accepted_outputs:",
+                '  - "future implementation"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/task-queue-coverage-audit"
+    changed = (
+        "docs/agent-task-protocol.md",
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0999-future-coverage-audit.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=172,
+        title="TASK-QUEUE: Add coverage audit task",
+        body="\n".join(
+            [
+                "- Contributor ID: roman",
+                "- GitHub username: gladunrv",
+                "- Agent tool: codex",
+                "- Task ID: TASK-QUEUE",
+                "- Branch: agent/roman/codex/task-queue-coverage-audit",
+                "- Human reviewer: roman",
+            ]
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=172)
+
+    assert report.task_id == "TASK-QUEUE"
+    assert report.verdict == "MERGE_OK"
+    assert report.blockers == ()
+    assert not any("REVIEW_READY" in item for item in report.required_fixes)
+    assert not any("Accepted outputs" in item for item in report.required_fixes)
+
+
+def test_build_review_report_blocks_task_queue_pr_that_changes_results(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    (tasks_dir / "TASK-0999-future-coverage-audit.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0999",
+                'title: "Future coverage audit"',
+                "type: test_infrastructure",
+                "status: READY",
+                "difficulty: medium",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Task queue regression fixture"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Future task fixture"',
+                "requirements:",
+                '  - "Keep future task READY in task-queue PR"',
+                "accepted_outputs:",
+                '  - "future implementation"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/task-queue-coverage-audit"
+    changed = (
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0999-future-coverage-audit.yaml",
+        "results/EXP-0001/RUN-0001/result.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=173,
+        title="TASK-QUEUE: Add coverage audit task",
+        body="\n".join(
+            [
+                "- Contributor ID: roman",
+                "- GitHub username: gladunrv",
+                "- Agent tool: codex",
+                "- Task ID: TASK-QUEUE",
+                "- Branch: agent/roman/codex/task-queue-coverage-audit",
+                "- Human reviewer: roman",
+            ]
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=173)
+
+    assert report.verdict == "BLOCKED"
+    assert any(
+        "TASK-QUEUE PR must not change canonical scientific artifacts" in item
+        for item in report.blockers
+    )
 
 
 def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: Path) -> None:

@@ -146,6 +146,7 @@ Use this mode for an open pull request before merge.
 This mode supports:
 
 - canonical task PRs
+- task-queue PRs
 - task proposal PRs
 
 ### Inputs
@@ -161,6 +162,8 @@ This mode supports:
 1. Branch name follows one of:
    `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
    or
+   `agent/<contributor-id>/<agent-id>/task-queue-<short-slug>`
+   or
    `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
    or
    `agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
@@ -169,6 +172,8 @@ This mode supports:
 2. PR title follows one of:
    `TASK-XXXX: ...`
    or
+   `TASK-QUEUE: ...`
+   or
    `TASK-PROPOSAL: ...`
    or
    `microtask(<queue-id>): ...`
@@ -176,7 +181,9 @@ This mode supports:
 4. Canonical and proposal PRs: the referenced task or proposal file exists.
    Microtask PRs: no canonical task file required; queue id must match a file
    in `tasks/microtasks/`.
-5. Canonical task PRs keep task status at `REVIEW_READY`; task proposal PRs keep proposal status at `PROPOSED`.
+5. Canonical task PRs keep task status at `REVIEW_READY`; task-queue PRs
+   create or update future canonical tasks that remain `PROPOSED`, `READY`, or
+   `BLOCKED`; task proposal PRs keep proposal status at `PROPOSED`.
    Microtask PRs have no task-status requirement.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
@@ -187,6 +194,8 @@ This mode supports:
     "canonical run artifacts" counts when it clearly authorizes that scope.
 11. No overclaim language is introduced.
 12. Task proposal PRs do not guess canonical `TASK-XXXX` ids or edit canonical task files.
+    Maintainer-directed task-queue PRs may create or update canonical task files,
+    but must not treat those newly queued tasks as completed.
 13. The review bundle was generated from the PR branch, not from `main`.
 14. No obvious repository-safety or security risk is introduced without
     explicit maintainer awareness.
@@ -196,6 +205,9 @@ This mode supports:
 17. Salvaged ideas from stale PRs should appear in a clean replacement
     `propose-task-...` PR rather than being patched onto a generic or
     mixed-context branch.
+18. Task-queue PRs should sync `tasks/ACTIVE.md` and must not change canonical
+    scientific artifacts such as claims, hypotheses, experiments, results, or
+    knowledge.
 
 For microtask PRs, the metadata should name the queue file and queue id
 explicitly, and batch PRs should keep the branch queue id aligned with the PR
