@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-13 12:46 UTC
+Generated: 2026-05-13 12:53 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -714,12 +714,12 @@ Recommended direction:
 
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
-2. Prefer nuclear validation, evidence packaging, post-AME2020 time-split
-   review, or guarded follow-up tasks before opening a second nuclear sandbox
-   batch.
+2. Prefer nuclear validation, adversarial review, evidence packaging,
+   post-AME2020 time-split review, or guarded follow-up tasks before opening
+   any additional second-batch expansion.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
-4. Use the nuclear robustness gate before any second sandbox batch expands a
-   candidate family.
+4. Use the nuclear robustness gate and `TASK-0204` adversarial review before
+   any second sandbox batch expands a candidate family further.
 
 Why:
 
@@ -894,11 +894,11 @@ missions:
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
-      - "do not run a second batch before checking leakage, split sensitivity, and overfit risk"
+      - "do not run additional second-batch expansions before adversarially reviewing the completed narrow lanes"
       - "do not call retrospective post-AME2020 evaluation strict blind prediction"
       - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
       - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
-      - "do not start the second nuclear batch before the real time-split benchmark is reviewed"
+      - "do not promote any second-batch sandbox candidate before TASK-0204 adversarial review"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -925,7 +925,7 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Choose the next live task candidate for nuclear validation, evidence packaging, or guarded follow-up"
+        label: "Choose the next live task candidate for nuclear validation, adversarial review, evidence packaging, or guarded follow-up"
         mode: research
         priority: high
         difficulty: medium
@@ -945,9 +945,9 @@ missions:
         expected_outputs:
           - "docs/reviews/adversarial-review-AGENT-RUN-0005.md"
       - id: second-bounded-nuclear-batch
-        label: "Run second bounded nuclear sandbox work only through narrow TASK-0200/TASK-0201/TASK-0202 lanes"
+        label: "Second bounded nuclear sandbox lanes completed; adversarially review them before more expansion"
         mode: future
-        status: blocked
+        status: review_required
         priority: medium
         difficulty: high
         gated_by:
@@ -957,6 +957,7 @@ missions:
           - reviewed-row-level-post-ame2020-holdout-dataset
           - reviewed-post-ame2020-time-split-benchmark
           - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
+          - adversarial-review-task-0204
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"

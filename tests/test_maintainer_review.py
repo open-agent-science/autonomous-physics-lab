@@ -636,6 +636,171 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
     assert report.blockers == ()
 
 
+def test_build_review_report_closeout_pr_may_unblock_dependent_task(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+
+    (tasks_dir / "TASK-0027-units.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0027",
+                'title: "Test closeout task"',
+                "type: documentation",
+                "status: DONE",
+                "difficulty: low",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Closeout regression fixture"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Closeout review fixture"',
+                "requirements:",
+                '  - "Keep task status at DONE in closeout branch"',
+                "accepted_outputs:",
+                '  - "updated task status"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (tasks_dir / "TASK-0204-adversarial-review.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0204",
+                'title: "Unblocked dependent task"',
+                "type: scientific_audit",
+                "status: READY",
+                "difficulty: medium",
+                "priority: high",
+                "strategy_alignment:",
+                '  - "Closeout may unblock dependent review work"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Unblock fixture"',
+                "requirements:",
+                '  - "Review after closeout"',
+                "accepted_outputs:",
+                '  - "updated task status"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (tasks_dir / "TASK-0099-stale.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0099",
+                'title: "Stale task"',
+                "type: documentation",
+                "status: REJECTED",
+                "difficulty: low",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Close stale task when maintainer approves cleanup"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Stale closeout fixture"',
+                "requirements:",
+                '  - "No longer relevant"',
+                "accepted_outputs:",
+                '  - "updated task status"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/closeout-confirmed-merged-tasks"
+    changed = (
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0099-stale.yaml",
+        "tasks/TASK-0027-units.yaml",
+        "tasks/TASK-0204-adversarial-review.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Mark confirmed merged tasks done and unblock TASK-0204",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference=(
+                "- Closed Task Files: `tasks/TASK-0027-units.yaml`\n"
+                "- Unblocked Task Files: `tasks/TASK-0204-adversarial-review.yaml`"
+                "\n- Stale Task Files: `tasks/TASK-0099-stale.yaml`"
+            ),
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
+        if (
+            isinstance(command, list)
+            and len(command) >= 3
+            and command[:2] == ["git", "show"]
+            and "TASK-0204-adversarial-review.yaml" in command[2]
+        ):
+            return CommandResult(
+                returncode=0,
+                stdout="\n".join(
+                    [
+                        "id: TASK-0204",
+                        'title: "Unblocked dependent task"',
+                        "type: scientific_audit",
+                        "status: BLOCKED",
+                    ]
+                ),
+                stderr="",
+            )
+        return _EMPTY_DIFF
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "MERGE_OK"
+    assert report.required_fixes == ()
+
+
 def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout(tmp_path: Path) -> None:
     tasks_dir = tmp_path / "tasks"
     tasks_dir.mkdir(parents=True)
