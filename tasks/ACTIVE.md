@@ -66,7 +66,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (`documentation`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -109,6 +109,7 @@ None.
 - `TASK-0180` — Curate microtask queue availability and summary counts (merged)
 - `TASK-0179` — Remove agent session id from pull request template metadata (merged)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (merged)
+- `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (merged)
 - `TASK-0174` — Create nuclear pilot evidence card and visual funnel (merged)
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (merged)
 - `TASK-0172` — Define private contributor and agent validation plan (merged)
