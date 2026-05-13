@@ -123,3 +123,24 @@ def test_cli_scaffold_runs_from_repo_root() -> None:
 
     assert result.returncode == 0
     assert "microtask-batch-dimensional-analysis-validator--challenge-entries" in result.stdout
+
+
+def test_cli_status_lists_available_microtasks_from_repo_root() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_microtask_pr_helper.py",
+            "status",
+            "--queue-id",
+            "pendulum-formula-falsification",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "Microtask availability for pendulum-formula-falsification" in result.stdout
+    assert "`pendulum-formula-falsification`" in result.stdout

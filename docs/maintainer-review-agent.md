@@ -215,6 +215,17 @@ title queue id. Reviewers should also check `microtask_runs/` for duplicate
 claims, duplicate completed records, stale abandoned work, and oversized batches
 that should be split before merge.
 
+Before approving a microtask PR, reviewers should run or request the effective
+availability helper:
+
+```bash
+python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id>
+```
+
+If the PR repeats a completed non-repeatable item, return `NEEDS_CHANGES`.
+Repeatable items are allowed only when the PR explains novelty, metrics, and why
+the new attempt is not duplicating a previous run.
+
 ### Verdicts
 
 - `MERGE_OK`: scope, validation, review metadata, and safety checks are

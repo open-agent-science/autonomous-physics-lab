@@ -1,7 +1,7 @@
 id: TASK-0211
 title: "Add Science Curator agent mode for scientific campaign steering"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
