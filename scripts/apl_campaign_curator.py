@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a maintainer-facing scientific campaign navigator brief."""
+"""Build a maintainer-facing Scientific Campaign Curator brief."""
 
 from __future__ import annotations
 
@@ -11,8 +11,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from physics_lab.registry.campaign_navigator import (  # noqa: E402
-    SUPPORTED_CAMPAIGN_NAVIGATOR_MODES,
+from physics_lab.registry.campaign_curator import (  # noqa: E402
+    SUPPORTED_CAMPAIGN_CURATOR_MODES,
     build_campaign_brief,
     campaign_brief_json,
     render_campaign_agent_prompt,
@@ -21,11 +21,11 @@ from physics_lab.registry.campaign_navigator import (  # noqa: E402
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Create the Campaign Navigator parser."""
+    """Create the Campaign Curator parser."""
     parser = argparse.ArgumentParser(
         description=(
             "Print an advisory campaign-level brief for a maintainer-run "
-            "scientific campaign curator agent."
+            "Scientific Campaign Curator agent."
         )
     )
     parser.add_argument(
@@ -34,19 +34,19 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--mode",
-        choices=SUPPORTED_CAMPAIGN_NAVIGATOR_MODES,
+        choices=SUPPORTED_CAMPAIGN_CURATOR_MODES,
         default="cycle-review",
-        help="Navigator mode. Defaults to cycle-review.",
+        help="Curator mode. Defaults to cycle-review.",
     )
     parser.add_argument(
         "--json",
         action="store_true",
-        help="Emit machine-readable campaign navigator JSON.",
+        help="Emit machine-readable campaign curator JSON.",
     )
     parser.add_argument(
         "--agent-prompt",
         action="store_true",
-        help="Emit a copy-paste prompt for a maintainer-run campaign navigator agent.",
+        help="Emit a copy-paste prompt for a maintainer-run campaign curator agent.",
     )
     parser.add_argument(
         "--root",
@@ -57,7 +57,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    """Run the Campaign Navigator entrypoint."""
+    """Run the Campaign Curator entrypoint."""
     args = build_parser().parse_args()
     root = Path(args.root).resolve()
     brief = build_campaign_brief(
