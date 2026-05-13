@@ -215,39 +215,6 @@ def resolve_task_file(root: Path, task_id: str) -> Path:
     return matches[0]
 
 
-def load_task_status_from_ref(root: Path, ref: str, repo_path: str) -> str | None:
-    """Load a task status from a git ref if the file exists there."""
-    result = run_command(["git", "show", f"{ref}:{repo_path}"], cwd=root)
-    if result.returncode != 0:
-        return None
-    payload = yaml.safe_load(result.stdout)
-    if not isinstance(payload, dict):
-        return None
-    status = payload.get("status")
-    if status is None:
-        return None
-    return str(status)
-
-
-def closeout_pr_allows_task_unblock(
-    *,
-    root: Path,
-    task_path: str,
-    pr_metadata: PullRequestMetadata | None,
-) -> bool:
-    """Return whether a closeout PR may move a dependent task from BLOCKED to READY."""
-    if pr_metadata is None:
-        return False
-    task_payload = load_task(root / task_path)
-    if str(task_payload["status"]) != "READY":
-        return False
-    before_status = load_task_status_from_ref(root, "main", task_path)
-    if before_status != "BLOCKED":
-        return False
-    pr_text = f"{pr_metadata.title}\n{pr_metadata.body}".lower()
-    return "unblock" in pr_text or "розблок" in pr_text
-
-
 def resolve_microtask_queue_file(root: Path, queue_id: str) -> Path:
     """Resolve a microtask queue id to a queue file under tasks/microtasks."""
     path = root / "tasks" / "microtasks" / f"{queue_id}.yaml"
@@ -559,22 +526,11 @@ def build_review_report(
         elif target_branch == current:
             for task_path in closeout_task_files:
                 payload = load_task(root / task_path)
-                if str(payload["status"]) == "DONE":
+                if str(payload["status"]) in {"DONE", "READY", "REJECTED"}:
                     continue
-                if closeout_pr_allows_task_unblock(
-                    root=root,
-                    task_path=task_path,
-                    pr_metadata=pr_metadata,
-                ):
-                    continue
-                if str(payload["status"]) == "READY":
-                    required_fixes.append(
-                        f"Closeout PR may unblock {task_path} only when it moves from BLOCKED to READY and the PR title/body says unblock."
-                    )
-                else:
-                    required_fixes.append(
-                        f"Closeout PR should mark {task_path} as DONE."
-                    )
+                required_fixes.append(
+                    f"Closeout PR should mark {task_path} as DONE, READY, or REJECTED."
+                )
         validation_payload = {
             "validation": {
                 "commands": list(CLOSEOUT_VALIDATION_COMMANDS),

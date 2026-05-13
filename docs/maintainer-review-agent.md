@@ -348,13 +348,17 @@ Use this mode only after the maintainer has already merged the PR.
   when the merged task wave has satisfied their explicit prerequisites; the
   closeout PR title or body must say this is an unblock, and the unblocked task
   must remain reviewable work rather than a claim, result, or promotion
+- close stale, superseded, or no-longer-relevant tasks by moving them to
+  `REJECTED` when the maintainer has approved that cleanup; this is optional
+  queue hygiene, not a required closeout step
 
 Pure closeout bookkeeping means task status transitions, `tasks/ACTIVE.md`,
-generated context/snapshot files, closeout notes, dependent-task unblocks, and closeout-agent
-instructions. Do not auto-merge closeout PRs that touch claims, results,
-experiments, hypotheses, scientific verdicts, public-release state, or other
-protected scientific artifacts unless the maintainer explicitly authorizes that
-exact merge after review.
+generated context/snapshot files, closeout notes, dependent-task unblocks,
+optional stale-task closures, and closeout-agent instructions. Do not
+auto-merge closeout PRs that touch claims, results, experiments, hypotheses,
+scientific verdicts, public-release state, or other protected scientific
+artifacts unless the maintainer explicitly authorizes that exact merge after
+review.
 
 ### Not allowed
 

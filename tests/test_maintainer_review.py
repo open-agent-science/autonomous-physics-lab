@@ -701,10 +701,40 @@ def test_build_review_report_closeout_pr_may_unblock_dependent_task(
         + "\n",
         encoding="utf-8",
     )
+    (tasks_dir / "TASK-0099-stale.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0099",
+                'title: "Stale task"',
+                "type: documentation",
+                "status: REJECTED",
+                "difficulty: low",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Close stale task when maintainer approves cleanup"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Stale closeout fixture"',
+                "requirements:",
+                '  - "No longer relevant"',
+                "accepted_outputs:",
+                '  - "updated task status"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
     branch = "agent/roman/codex/closeout-confirmed-merged-tasks"
     changed = (
         "tasks/ACTIVE.md",
+        "tasks/TASK-0099-stale.yaml",
         "tasks/TASK-0027-units.yaml",
         "tasks/TASK-0204-adversarial-review.yaml",
     )
@@ -718,6 +748,7 @@ def test_build_review_report_closeout_pr_may_unblock_dependent_task(
             primary_reference=(
                 "- Closed Task Files: `tasks/TASK-0027-units.yaml`\n"
                 "- Unblocked Task Files: `tasks/TASK-0204-adversarial-review.yaml`"
+                "\n- Stale Task Files: `tasks/TASK-0099-stale.yaml`"
             ),
         ),
         branch=branch,
