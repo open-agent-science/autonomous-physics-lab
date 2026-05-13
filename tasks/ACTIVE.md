@@ -50,7 +50,7 @@ one PR.
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0189` — Add nuclear mass prediction registry policy (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0201` — Run bounded nuclear sandbox batch for pairing and odd-even residual corrections (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0214` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
+- `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -61,6 +61,7 @@ None.
 - `TASK-0211` — Add Science Curator agent mode for scientific campaign steering (`agent_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0212` — Clarify Science Curator maintainer-authorized task creation policy (`agent_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (`agent_workflow`, priority `high`, difficulty `low`)
+- `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
