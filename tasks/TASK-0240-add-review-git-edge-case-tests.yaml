@@ -1,0 +1,49 @@
+id: TASK-0240
+title: "Add targeted tests for review_git critical edge cases"
+type: test_infrastructure
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Improve coverage where review workflow correctness depends on git-state parsing and edge-case handling."
+  - "Prefer targeted risk-reduction tests over broad percentage chasing."
+  - "Protect maintainer review flow from subtle branch and diff interpretation regressions."
+
+input:
+  mode: workflow
+  related_domain: test_quality
+  related_objects:
+    - "physics_lab/registry/review_git.py"
+    - "tests/"
+    - "docs/maintainer-review-agent.md"
+    - "docs/notes/critical-path-coverage-audit.md"
+  planning_context: >
+    The coverage audit from TASK-0215 identified physics_lab/registry/review_git.py
+    as one of the weaker critical-path modules. The next step should target
+    branch parsing, diff inspection, and unusual git-state handling with narrow
+    tests rather than refactoring the review pipeline broadly.
+
+requirements:
+  - "Add focused tests for high-risk review_git paths rather than a broad snapshot of all behavior."
+  - "Prioritize edge cases around branch naming, merge-base assumptions, missing refs, and changed-file extraction."
+  - "Keep tests deterministic and local; do not require network or live GitHub access."
+  - "Do not change repository protocol semantics unless a bug is demonstrated by the new tests."
+
+accepted_outputs:
+  - "expanded tests covering critical review_git edge cases"
+  - "minimal code fixes only if the new tests reveal real bugs"
+  - "optional doc note if the tests expose an important maintainer caveat"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

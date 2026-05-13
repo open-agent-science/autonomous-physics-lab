@@ -1,0 +1,54 @@
+id: TASK-0239
+title: "Stabilize Windows coverage baseline for critical CLI smoke tests"
+type: test_infrastructure
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the first report-only coverage audit into a reproducible baseline across contributor environments."
+  - "Resolve the known Windows-specific coverage failures before any future coverage threshold discussion."
+  - "Keep critical CLI and workflow smoke paths trustworthy on both Unix and Windows."
+
+input:
+  mode: workflow
+  related_domain: test_quality
+  related_objects:
+    - "docs/notes/critical-path-coverage-audit.md"
+    - "docs/testing.md"
+    - "pyproject.toml"
+    - "tests/"
+    - "scripts/"
+  planning_context: >
+    TASK-0215 established the first report-only coverage baseline, but the full
+    coverage command still exits non-zero on Windows because a known set of CLI
+    and workflow smoke tests fail under that environment. Those failures should
+    be converted from audit-note residue into a stable, documented, reproducible
+    baseline so future coverage work is not blocked by platform-specific noise.
+
+requirements:
+  - "Reproduce the documented Windows coverage failure set or a representative equivalent environment."
+  - "Classify each listed failure as path-handling, temp-dir, subprocess, shell-wrapper, or artifact-location related."
+  - "Fix the critical CLI smoke paths where the change is low-risk and deterministic."
+  - "Update docs/notes/critical-path-coverage-audit.md with the remaining known limitations, if any."
+  - "Keep coverage report-only; do not add a fail-under threshold in this task."
+  - "Do not weaken existing Unix contributor flows in order to special-case Windows."
+
+accepted_outputs:
+  - "updated tests and/or helpers for Windows-safe coverage execution"
+  - "updated docs/notes/critical-path-coverage-audit.md with resolved and remaining items"
+  - "updated docs/testing.md if the command or environment guidance changes"
+  - "optional helper adjustments under scripts/ only if they stay deterministic"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
