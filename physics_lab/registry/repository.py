@@ -11,6 +11,7 @@ import yaml
 
 from physics_lab.registry.agents import load_agent
 from physics_lab.registry.agent_runs import load_agent_run
+from physics_lab.registry.active_board import active_board_is_synced
 from physics_lab.registry.claims import load_claim
 from physics_lab.registry.docs_links import find_docs_link_issues
 from physics_lab.registry.examples import load_example_config
@@ -23,12 +24,14 @@ from physics_lab.registry.golden_results import (
 from physics_lab.registry.hypotheses import load_hypothesis
 from physics_lab.registry.knowledge import load_knowledge
 from physics_lab.registry.microtask_runs import load_microtask_run
+from physics_lab.registry.mission_freshness import validate_mission_freshness
 from physics_lab.registry.nuclear_mass_predictions import load_nuclear_mass_prediction
 from physics_lab.registry.research_proposals import (
     load_experiment_proposal,
     load_hypothesis_proposal,
 )
 from physics_lab.registry.results import load_result
+from physics_lab.registry.task_views import TASK_VIEW_PATHS, render_task_views
 from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task, task_input_mode
 from physics_lab.registry.validation import validate_document
@@ -167,6 +170,65 @@ class RepositoryValidationSummary:
     @property
     def info_count(self) -> int:
         return sum(1 for issue in self.issues if issue.severity == "INFO")
+
+
+def _strict_generated_task_navigation_issues(root_path: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    active_board_path = root_path / "tasks" / "ACTIVE.md"
+    any_task_views_exist = any((root_path / relpath).exists() for relpath in TASK_VIEW_PATHS.values())
+    if not active_board_path.exists() and not any_task_views_exist:
+        return issues
+
+    if active_board_path.exists():
+        if not active_board_is_synced(root_path):
+            issues.append(
+                _issue(
+                    "ERROR",
+                    "stale_active_board",
+                    "tasks/ACTIVE.md is stale; run sync-active-board.",
+                    path=active_board_path,
+                    root=root_path,
+                )
+            )
+    else:
+        issues.append(
+            _issue(
+                "ERROR",
+                "missing_active_board",
+                "tasks/ACTIVE.md is missing.",
+                path=active_board_path,
+                root=root_path,
+            )
+        )
+
+    if any_task_views_exist:
+        rendered_views = render_task_views(root_path)
+        for lane, relpath in TASK_VIEW_PATHS.items():
+            path = root_path / relpath
+            if not path.exists():
+                issues.append(
+                    _issue(
+                        "ERROR",
+                        "missing_generated_task_view",
+                        f"Generated task view for {lane} is missing; run sync-active-board.",
+                        path=path,
+                        root=root_path,
+                    )
+                )
+                continue
+            expected_text = rendered_views[lane]
+            actual_text = path.read_text(encoding="utf-8")
+            if actual_text != expected_text:
+                issues.append(
+                    _issue(
+                        "ERROR",
+                        "stale_generated_task_view",
+                        f"Generated task view for {lane} is stale; run sync-active-board.",
+                        path=path,
+                        root=root_path,
+                    )
+                )
+    return issues
 
 
 def _relative_path(path: Path, root: Path) -> str:
@@ -885,6 +947,19 @@ def _collect_strict_issues(
                 "broken_docs_link",
                 link_issue.message,
                 path=link_issue.source_path,
+            )
+        )
+
+    issues.extend(_strict_generated_task_navigation_issues(root_path))
+
+    for freshness_issue in validate_mission_freshness(root_path):
+        issues.append(
+            _issue(
+                freshness_issue.severity,
+                freshness_issue.code,
+                freshness_issue.message,
+                path=freshness_issue.path,
+                root=root_path,
             )
         )
 

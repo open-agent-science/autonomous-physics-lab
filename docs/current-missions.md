@@ -26,7 +26,13 @@ Mission policy and campaign guardrails live in
 [`../missions/current.yaml`](../missions/current.yaml). Live task candidates
 come from canonical `tasks/TASK-*.yaml` files through the mission script, so the
 mission YAML does not need to be edited just to rotate the next task after every
-merge.
+merge. For lighter navigation than the full generated board, use the generated
+task views:
+[`research.md`](./task-views/research.md),
+[`support.md`](./task-views/support.md),
+[`release.md`](./task-views/release.md),
+[`watchlist.md`](./task-views/watchlist.md), and
+[`blocked.md`](./task-views/blocked.md).
 
 ## Default Mode
 
@@ -53,11 +59,12 @@ Recommended direction:
 1. Use `python3 scripts/apl_mission.py --json` to choose among live task
    candidates from the task registry.
 2. Prefer nuclear validation, adversarial review, evidence packaging,
-   post-AME2020 time-split review, or guarded follow-up tasks before opening
-   any additional second-batch expansion.
+   post-AME2020 time-split review, prediction-registry expansion, or guarded
+   follow-up tasks before opening any additional broad second-batch expansion.
 3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
-4. Use the nuclear robustness gate and `TASK-0204` adversarial review before
-   any second sandbox batch expands a candidate family further.
+4. Use the nuclear robustness gate, row-level time-split evidence, and
+   maintainer-approved adversarial review outcomes before any sandbox lane
+   expands a candidate family further.
 
 Why:
 

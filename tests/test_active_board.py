@@ -5,7 +5,11 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from physics_lab.cli import app
-from physics_lab.registry.active_board import render_active_board_snapshot, sync_active_board
+from physics_lab.registry.active_board import (
+    active_board_is_synced,
+    render_active_board_snapshot,
+    sync_active_board,
+)
 
 
 def _write_task(
@@ -112,9 +116,38 @@ def test_sync_active_board_cli_command(tmp_path: Path) -> None:
         + "\n",
         encoding="utf-8",
     )
+    (tmp_path / "missions").mkdir(exist_ok=True)
+    (tmp_path / "missions" / "current.yaml").write_text(
+        "\n".join(
+            [
+                "default_mode: research",
+                "curator_cycle:",
+                "  decision: updated",
+                '  updated: "2026-05-14"',
+                '  source: "TASK-0001"',
+                '  note: "test sync"',
+                "missions:",
+                "  - id: demo",
+                '    title: "Demo Mission"',
+                "    rank: 1",
+                "    actions: []",
+                "support_actions: []",
+                "maintainer_actions: []",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "docs").mkdir(exist_ok=True)
+    (tmp_path / "docs" / "current-missions.md").write_text(
+        "# Current Missions\n\n## Recommended Mission Now\n\n**Demo Mission** is active.\n",
+        encoding="utf-8",
+    )
 
     runner = CliRunner()
     result = runner.invoke(app, ["sync-active-board", str(tmp_path)])
 
     assert result.exit_code == 0
-    assert "Synchronized active board:" in result.stdout
+    assert "Synchronized generated task state:" in result.stdout
+    assert "docs/task-views/research.md" in result.stdout
+    assert active_board_is_synced(tmp_path) is True

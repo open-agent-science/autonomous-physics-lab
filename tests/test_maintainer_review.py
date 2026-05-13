@@ -996,6 +996,11 @@ def test_build_review_report_accepts_task_queue_pr_with_ready_future_task(
     branch = "agent/roman/codex/task-queue-coverage-audit"
     changed = (
         "docs/agent-task-protocol.md",
+        "docs/task-views/research.md",
+        "docs/task-views/support.md",
+        "docs/task-views/release.md",
+        "docs/task-views/watchlist.md",
+        "docs/task-views/blocked.md",
         "tasks/ACTIVE.md",
         "tasks/TASK-0999-future-coverage-audit.yaml",
     )
