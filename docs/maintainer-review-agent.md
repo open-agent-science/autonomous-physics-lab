@@ -47,9 +47,12 @@ The recommended first bounded action is:
 
 - open a closeout PR for verified merged tasks;
 - run this review agent on that closeout PR;
-- if the verdict is `MERGE_OK` and CI is green, explicitly ask:
-  `Merge closeout PR #<number>?`;
-- stop unless the maintainer authorizes merge.
+- if the verdict is `MERGE_OK`, CI is green, the PR is pure closeout
+  bookkeeping, and the maintainer already authorized closeout/merge in the
+  current request chain, merge the closeout PR;
+- otherwise explicitly ask: `Merge closeout PR #<number>?`;
+- stop unless the maintainer authorizes merge or already authorized it in this
+  request chain.
 
 ## Review To Closeout Flow
 
@@ -304,8 +307,10 @@ Use this mode only after the maintainer has already merged the PR.
    publish those changes. Do not push or merge without maintainer
    authorization.
 10. After the closeout PR is open and the review agent reports `MERGE_OK` with
-    green CI, do not end with a passive status update. Ask the maintainer a
-    clear yes/no question: `Merge closeout PR #<number>?`
+    green CI, do not end with a passive status update. If the maintainer already
+    authorized closeout/merge in the current request chain and the PR is pure
+    closeout bookkeeping, merge it. Otherwise ask the maintainer a clear yes/no
+    question: `Merge closeout PR #<number>?`
 
 ### Allowed actions
 
@@ -328,6 +333,13 @@ Use this mode only after the maintainer has already merged the PR.
   merged PR is part of a dry run or contributor pilot
 - flag stale open tasks for follow-up closeout, reopening, or curation when a
   cleanup pass reveals that the board no longer matches reality
+
+Pure closeout bookkeeping means task status transitions, `tasks/ACTIVE.md`,
+generated context/snapshot files, closeout notes, and closeout-agent
+instructions. Do not auto-merge closeout PRs that touch claims, results,
+experiments, hypotheses, scientific verdicts, public-release state, or other
+protected scientific artifacts unless the maintainer explicitly authorizes that
+exact merge after review.
 
 ### Not allowed
 

@@ -31,9 +31,12 @@ The first enabled action for APL should be:
 1. identify merged tasks that are verified and still not `DONE`
 2. prepare and open a closeout PR
 3. run the maintainer review agent on that closeout PR
-4. if review is `MERGE_OK` and CI is green, ask the maintainer the explicit
-   next-step question: `Merge closeout PR #<number>?`
-5. stop unless the maintainer explicitly authorizes merge
+4. if review is `MERGE_OK`, CI is green, the PR is pure closeout bookkeeping,
+   and the maintainer already authorized closeout/merge in the current request
+   chain, merge the closeout PR
+5. otherwise ask the explicit next-step question:
+   `Merge closeout PR #<number>?`
+6. stop unless the maintainer explicitly authorizes merge
 
 This gives the maintainer a real routine reduction benefit without handing
 merge authority to automation.
@@ -113,10 +116,19 @@ review agent on that PR. It should not silently mark a task `DONE` on `main`
 outside the normal PR flow.
 
 After a closeout PR receives `MERGE_OK` and GitHub CI is green, action mode
-should be proactive rather than passive: report the ready state and ask a clear
-yes/no merge question, for example `Closeout PR #274 is MERGE_OK and CI green.
-Merge it now?` The agent must still wait for explicit maintainer authorization
-before merging.
+should be proactive rather than passive. If the maintainer already said to
+close out, merge, or finish the closeout flow in the current request chain, and
+the PR is pure closeout bookkeeping, merge it without asking again. If that
+authorization is absent, ambiguous, or the PR includes non-closeout changes,
+ask a clear yes/no merge question, for example `Closeout PR #274 is MERGE_OK
+and CI green. Merge it now?`
+
+A closeout PR is pure closeout bookkeeping only when it changes task status,
+`tasks/ACTIVE.md`, generated context/snapshot files, closeout notes, or
+closeout-agent instructions. Do not auto-merge when the PR changes claims,
+results, experiments, hypotheses, scientific verdicts, public-release state, or
+other protected artifacts unless the maintainer explicitly authorizes that exact
+merge after review.
 
 If GitHub PR metadata cannot be loaded or the PR title / head branch does not
 bind back to the same canonical `TASK-XXXX`, action mode must stop and return
@@ -140,8 +152,9 @@ Action mode should always record:
 - `Why allowed`: the policy condition that authorized the action
 - `Checks used`: review helper, closeout helper, validation, CI state
 - `Review result`: the maintainer review verdict if a review run followed the action
-- `Merge question`: the explicit yes/no question when the closeout PR is ready
-  to merge
+- `Merge action`: whether the PR was merged under existing maintainer
+  authorization or the explicit yes/no question asked when extra authorization
+  was still needed
 - `Follow-up`: what still needs a human or later routine
 
 ## Recommended Prompt Shape
