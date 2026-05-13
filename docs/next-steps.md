@@ -177,6 +177,16 @@ Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into
 active work.
 
+The next prepared campaign is Quantum Size Effects, but it should start from
+campaign and data foundations rather than formula search:
+
+- `TASK-0222` creates the Quantum Size Effects campaign scaffold and is the
+  first claimable task in that lane;
+- `TASK-0223` through `TASK-0226` are staged follow-ups for dataset/schema,
+  holdout protocol, baseline residual benchmark, and a later autonomous pilot;
+- `TASK-0227` is a small lepton g-2 cross-observable falsifier and remains a
+  guardrail lane, not a flagship campaign.
+
 ### 2. Validate Private Contributors And Agents
 
 The workflow-validation goal remains important, but it should now run alongside

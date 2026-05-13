@@ -51,10 +51,18 @@ deterministic, and limitation-first.
 Quantum-size-effect work can become a future dataset-and-computation campaign
 if it starts from conservative models and reproducible comparison data.
 
+The strategic goal is to prepare a second real-data campaign that is easier to
+visualize than nuclear residuals while still being disciplined about
+provenance, holdouts, and overclaim risk. The campaign should mature in this
+order: source policy and dataset semantics first, then baseline residual maps,
+then bounded autonomous hypothesis pilots only after a fixed benchmark surface
+exists.
+
 Allowed next shape:
 
-- planning note;
+- campaign scaffold;
 - dataset/source audit;
+- holdout protocol;
 - simple baseline calculation;
 - bounded benchmark definition.
 
@@ -104,6 +112,10 @@ discipline needed to make this a safe near-term benchmark.
 Muon g-2 work remains a guarded stress test, not a priority implementation
 lane. Existing outputs must stay fenced from discovery-level or explanatory
 language.
+
+Allowed follow-up should be small and falsification-first, such as checking
+whether existing muon g-2 formula families fail cross-observable tests against
+electron g-2. This remains a guardrail lane, not a flagship campaign.
 
 ### Broad Physical-Constants Derivation
 

@@ -1,0 +1,53 @@
+id: TASK-0225
+title: "Implement quantum-dot size-effect baseline and residual benchmark"
+type: scientific_benchmark
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Create a reproducible baseline evidence surface before any autonomous correction-term search."
+  - "Compare conservative published size-effect model families against curated data with residual and breakdown maps."
+  - "Make visually legible, data-backed outputs while keeping claims scoped to benchmark behavior."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-0223-add-quantum-dot-size-effect-dataset-schema-and-source-manifest.yaml"
+    - "tasks/TASK-0224-define-quantum-size-effect-holdout-protocol.yaml"
+  planning_context: >
+    After the dataset schema/source manifest and holdout protocol exist, APL
+    can implement the first Quantum Size Effects benchmark. The target is a
+    baseline residual and breakdown map for size-dependent bandgap or optical
+    property models, not a new material law.
+
+requirements:
+  - "Do not start until TASK-0223 and TASK-0224 are DONE or explicitly unblocked by the maintainer."
+  - "Implement conservative baseline model families such as Brus-style, HBM/Yu-style, or generalized sizing functions only when their required inputs are available and source-scoped."
+  - "Report MAE and RMSE in eV, per-material residuals, size-range residuals, and an outlier table."
+  - "Report holdout behavior using the protocol from TASK-0224."
+  - "Separate absorption, emission, and bandgap targets unless the dataset task defines a reviewed conversion."
+  - "Generate a reviewable report and metrics artifact without promoting claims."
+  - "Do not include synthesis, fabrication, biomedical, or device-performance instructions."
+
+accepted_outputs:
+  - "physics_lab/engines/quantum_size_effects.py or an equivalent local engine module"
+  - "physics_lab/workflows/quantum_size_effects.py if workflow support is needed"
+  - "examples/quantum_size_effects.yaml"
+  - "results/EXP-00XX/RUN-0001/ or a sandbox result location chosen by the accepted campaign protocol"
+  - "docs/results/quantum-size-effects-baseline-summary.md"
+  - "tests/test_quantum_size_effects.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
