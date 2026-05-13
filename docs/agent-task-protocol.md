@@ -122,6 +122,9 @@ In those cases, agents may work from `tasks/microtasks/*.yaml` and the rules in
 
 Microtask rules:
 
+- before selecting queue work, run
+  `python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id>` and
+  pick from the effective `available` list, not from queue YAML alone;
 - prefer one campaign queue at a time;
 - one PR may complete a small batch of related microtasks from the same
   campaign;

@@ -57,15 +57,15 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (`maintainer_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0211` — Add Science Curator agent mode for scientific campaign steering (`agent_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0212` — Clarify Science Curator maintainer-authorized task creation policy (`agent_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (`agent_workflow`, priority `high`, difficulty `low`)
-- `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (`agent_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
+- `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)
+- `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (merged)
+- `TASK-0212` — Clarify Science Curator maintainer-authorized task creation policy (merged)
+- `TASK-0211` — Add Science Curator agent mode for scientific campaign steering (merged)
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
 - `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
 - `TASK-0202` — Run bounded nuclear sandbox batch for neutron-rich residual corrections (merged)
@@ -90,6 +90,7 @@ None.
 - `TASK-0181` — Add Agent First mission control entrypoint (merged)
 - `TASK-0180` — Curate microtask queue availability and summary counts (merged)
 - `TASK-0179` — Remove agent session id from pull request template metadata (merged)
+- `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (merged)
 - `TASK-0174` — Create nuclear pilot evidence card and visual funnel (merged)
 - `TASK-0173` — Independently replay and audit HYP-PROPOSAL-0021 nuclear residual candidate (merged)
 - `TASK-0172` — Define private contributor and agent validation plan (merged)

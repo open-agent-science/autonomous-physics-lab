@@ -1,7 +1,7 @@
 id: TASK-0213
 title: "Hide REVIEW_READY tasks from executor agent recommendations"
 type: agent_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
