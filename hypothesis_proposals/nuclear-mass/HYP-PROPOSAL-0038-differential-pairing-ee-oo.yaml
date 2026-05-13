@@ -1,0 +1,111 @@
+id: HYP-PROPOSAL-0038
+title: "Differential even-even / odd-odd pairing correction"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox candidate only; no canonical result or claim promotion."
+
+proposed_by:
+  contributor_id: oleg
+  agent_id: claude
+  task_id: TASK-0201
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/nuclear-mass-holdout-protocol.md"
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "agent_runs/AGENT-RUN-0006/"
+  - "agent_runs/AGENT-RUN-0008/"
+
+hypothesis:
+  statement: >
+    Allowing independent constant offsets for the even-even and odd-odd nuclear
+    classes beyond the symmetric assumption of the standard pairing term may
+    reduce residuals on a slice that mixes different mass regions. The standard
+    baseline uses a single amplitude (ap/sqrt(A)) for both classes; this
+    proposal uses class-specific constant corrections r_corr = c_ee * eta_ee +
+    c_oo * eta_oo.
+  variables:
+    - "r_base: frozen baseline residual in MeV"
+    - "eta_ee = int(N%2==0 and Z%2==0)"
+    - "eta_oo = int(N%2==1 and Z%2==1)"
+    - "c_ee, c_oo: train-fitted coefficients in MeV"
+  assumptions:
+    - "The frozen RESULT-0015 baseline remains unchanged."
+    - "Constant class offsets (no A-scaling) are a valid residual-correction form."
+    - "The odd-odd class has at least one training representative in most folds."
+  expected_scope: "The four active NMD-0002 holdout families and the 295-row post-AME2020 primary surface."
+  expected_failure_modes:
+    - "NMD-0002 has only 1 odd-odd nucleus (N-14); c_oo is fitted on a single data point in most folds."
+    - "The odd-odd coefficient is expected to be unstable across holdout complements."
+    - "Likely outcome: OVERFITTED, driven by c_oo instability."
+
+novelty_check:
+  checked_files:
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0022-quadratic-asymmetry-refinement.yaml"
+  possible_overlap: >
+    No overlap. eta_ee and eta_oo are parity-class binary indicators with no
+    shell-closure, chain-specific, or asymmetry-polynomial content.
+  notes: >
+    Designed as an explicit overfit demonstration for the pairing lane. The
+    1-row odd-odd class is the deliberate stress test.
+
+falsification_plan:
+  deterministic_check: >
+    Fit r_corr = c_ee * eta_ee + c_oo * eta_oo on each NMD-0002 holdout
+    complement and on the full NMD-0002 surface; evaluate on each holdout and
+    on the 295-row post-AME2020 primary surface.
+  baseline_or_reference: >
+    Frozen RESULT-0015 fitted semi-empirical baseline; HYP-PROPOSAL-0022
+    metrics in AGENT-RUN-0008 as the established negative-control reference.
+  pass_condition: >
+    Improve at least three of four structured holdouts with no holdout
+    regression above 0.25 MeV AND improve the post-AME2020 primary MAE.
+  fail_condition: >
+    Two or more structured holdouts regress, or worst-regression >= 1.0 MeV,
+    or the post-AME2020 primary regresses.
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe this as a discovery of differential pairing physics."
+    - "Do not claim the constant offsets are physically meaningful without validation."
+  mitigations:
+    - "Keep results sandbox-only."
+    - "Report the odd-odd coefficient instability explicitly as the expected failure mode."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_pairing_batch.py"
+    - "python3 -m pytest tests/test_nuclear_pairing_batch.py"
+  code_references:
+    - "scripts/run_nuclear_pairing_batch.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+  metrics:
+    - "structured_holdout_delta_mae_mev"
+    - "post_ame2020_primary_delta_mae_mev"
+    - "feature_activation_counts"
+    - "per_subset_delta_mae_mev"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0011/metrics.json"
+
+limitations:
+  - "NMD-0002 has 11 nuclides and only 1 odd-odd row (N-14); c_oo is effectively a single-point fit."
+  - "No A-scaling: the constant offset does not decay with mass number, unlike the standard pairing term."
+  - "Post-AME2020 evaluation is retrospective time-split, not blind prediction."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: >
+  Confirm that this candidate's OVERFITTED outcome is accepted as a negative
+  result for the pairing lane and that no follow-up is warranted from this family
+  at the current NMD-0002 data scale.
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: >
+    BLOCK_PROMOTION per docs/nuclear-mass-robustness-gate.md. Broader dataset
+    required before any revisit of differential pairing.

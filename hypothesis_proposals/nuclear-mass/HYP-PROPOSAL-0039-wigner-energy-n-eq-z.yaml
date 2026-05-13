@@ -1,0 +1,111 @@
+id: HYP-PROPOSAL-0039
+title: "Wigner energy term for N=Z nuclei"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox candidate only; no canonical result or claim promotion."
+
+proposed_by:
+  contributor_id: oleg
+  agent_id: claude
+  task_id: TASK-0201
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/nuclear-mass-holdout-protocol.md"
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "agent_runs/AGENT-RUN-0006/"
+  - "agent_runs/AGENT-RUN-0008/"
+
+hypothesis:
+  statement: >
+    Self-conjugate nuclei (N=Z) exhibit an extra binding energy (Wigner energy)
+    connected to isospin SU(4) symmetry that the standard Bethe-Weizsäcker
+    formula does not include. Adding a correction r_corr = w * delta(N=Z) / A
+    may reduce residuals on the N=Z subset while leaving neutron-rich rows
+    unchanged.
+  variables:
+    - "r_base: frozen baseline residual in MeV"
+    - "delta_NZ = int(N == Z)"
+    - "w: train-fitted coefficient in MeV"
+  assumptions:
+    - "The frozen RESULT-0015 baseline remains unchanged."
+    - "The Wigner energy is well-approximated by a 1/A scaling for self-conjugate nuclei."
+    - "The post-AME2020 holdout surface includes some N=Z rows, though fewer than the training slice."
+  expected_scope: "The four active NMD-0002 holdout families and the 295-row post-AME2020 primary surface."
+  expected_failure_modes:
+    - "The post-AME2020 primary holdout is dominated by neutron-rich nuclides; the Wigner feature will have near-zero activation and near-zero impact on primary MAE."
+    - "The structured holdout may show a moderate regression if a fold that loses N=Z training rows creates a poorly extrapolated Wigner coefficient."
+
+novelty_check:
+  checked_files:
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0022-quadratic-asymmetry-refinement.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0028-shell-gaussian-proximity-zn.yaml"
+  possible_overlap: >
+    No overlap. The N=Z indicator is orthogonal to shell-proximity Gaussian
+    features, asymmetry polynomials, and pairing class indicators.
+  notes: >
+    Physically motivated but expected to be near-dormant on the current
+    neutron-rich evaluation surface. Functions as a bounded null-result
+    reference for the pairing lane.
+
+falsification_plan:
+  deterministic_check: >
+    Fit r_corr = w * delta(N=Z) / A on each NMD-0002 holdout complement and
+    on the full NMD-0002 surface; evaluate on each holdout and on the 295-row
+    post-AME2020 primary surface. Report activation counts on the holdout.
+  baseline_or_reference: >
+    Frozen RESULT-0015 fitted semi-empirical baseline; HYP-PROPOSAL-0022
+    metrics in AGENT-RUN-0008 as the established negative-control reference.
+  pass_condition: >
+    Improve at least three of four structured holdouts with no holdout
+    regression above 0.25 MeV AND show non-trivial activation on the
+    post-AME2020 holdout (> 5% of rows).
+  fail_condition: >
+    Near-zero activation on post-AME2020 holdout (< 5% of rows) combined
+    with any structured holdout regression above 0.5 MeV.
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe near-zero post-AME2020 impact as confirming or denying the Wigner effect."
+    - "Do not claim the fitted coefficient w is a measured Wigner energy."
+  mitigations:
+    - "Keep results sandbox-only."
+    - "Explicitly report activation counts as the primary limitation."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_pairing_batch.py"
+    - "python3 -m pytest tests/test_nuclear_pairing_batch.py"
+  code_references:
+    - "scripts/run_nuclear_pairing_batch.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+  metrics:
+    - "structured_holdout_delta_mae_mev"
+    - "post_ame2020_primary_delta_mae_mev"
+    - "feature_activation_counts"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0011/metrics.json"
+
+limitations:
+  - "Only 3 of 295 post-AME2020 primary holdout rows have N=Z; the correction is near-dormant."
+  - "The fitted Wigner coefficient is estimated from 4 NMD-0002 N=Z rows spanning A=4 to A=40."
+  - "Post-AME2020 evaluation is retrospective time-split, not blind prediction."
+  - "A broader dataset with heavier N=Z nuclides would be needed for a meaningful Wigner test."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: >
+  Confirm that this candidate's INCONCLUSIVE outcome is accepted as a
+  null-activation negative result for the pairing lane and that a broader
+  N=Z dataset would be needed before revisiting the Wigner term.
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: >
+    ALLOW_ONLY_AS_NEGATIVE_CONTROL per docs/nuclear-mass-robustness-gate.md.
+    No follow-up warranted at current NMD-0002 scale.

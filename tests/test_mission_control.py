@@ -330,6 +330,7 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert "parallel_work_policy" in rendered
     assert rendered["live_task_candidates"]
     nuclear_validation_queue_ids = {
+        "TASK-0189",
         "TASK-0200",
         "TASK-0201",
         "TASK-0202",

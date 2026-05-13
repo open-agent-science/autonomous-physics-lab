@@ -23,7 +23,7 @@ def test_campaign_curator_defaults_to_top_campaign() -> None:
     assert brief.maintainer_facing is True
     assert brief.advisory_only is True
     assert "Do not execute experiments from this mode." in brief.guardrails
-    assert any(item.task_id == "TASK-0201" for item in brief.recommended_next_tasks)
+    assert any(item.task_id == "TASK-0189" for item in brief.recommended_next_tasks)
 
 
 def test_campaign_curator_json_is_agent_readable() -> None:

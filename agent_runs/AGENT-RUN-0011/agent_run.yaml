@@ -1,0 +1,64 @@
+id: AGENT-RUN-0011
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0201
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: oleg
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0038-differential-pairing-ee-oo.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0008-nuclear-pairing-batch.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0011/metrics.json
+  report: agent_runs/AGENT-RUN-0011/report.md
+  limitations: agent_runs/AGENT-RUN-0011/limitations.md
+  preflight: agent_runs/AGENT-RUN-0011/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0011/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: campaign_scope
+      status: PASS
+      notes: "nuclear-mass-surface remains WHITELISTED_LIMITED for frozen-baseline sandbox work."
+    - name: proposal_schema
+      status: PASS
+      notes: >
+        Five pairing/odd-even proposals (HYP-PROPOSAL-0038..0042) pass
+        research-proposal preflight. Three rejected before execution; two
+        executed.
+    - name: triage_boundary
+      status: PASS
+      notes: >
+        Two executed candidates (HYP-PROPOSAL-0038 differential pairing,
+        HYP-PROPOSAL-0039 Wigner N=Z energy), three rejections before
+        execution for data sparsity, collinearity, and feature redundancy.
+    - name: leakage_review
+      status: PASS
+      notes: >
+        HYP-PROPOSAL-0040 rejected for data-sparsity overfit. HYP-PROPOSAL-0041
+        rejected for near-collinearity with baseline pairing. HYP-PROPOSAL-0042
+        rejected for feature redundancy with 0038. Neither executed candidate
+        targets a specific shell closure, isotopic chain, or feature identified
+        post-hoc from AGENT-RUN-0008 worst-residual analysis.
+    - name: promotion_boundary
+      status: PASS
+      notes: >
+        No canonical results, claims, hypotheses, experiments, accepted knowledge,
+        or canonical datasets are changed.
+limitations:
+  - "Sandbox-only pairing/odd-even batch; no canonical artifact is updated."
+  - "HYP-PROPOSAL-0038 is OVERFITTED: 3 holdout regressions, worst +1.07 MeV,
+     driven by a single odd-odd training row (N-14)."
+  - "HYP-PROPOSAL-0039 is INCONCLUSIVE: Wigner N=Z correction has near-zero
+     activation on the post-AME2020 primary holdout (3/295 rows have N=Z)."
+  - "Neither executed candidate improves the post-AME2020 primary MAE."
+  - "Any future promotion requires a maintainer-reviewed task with a broader
+     pinned dataset and the same holdout discipline."
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: >
+    Maintainer review under docs/nuclear-mass-robustness-gate.md before any
+    RESULT-* or claim update.
