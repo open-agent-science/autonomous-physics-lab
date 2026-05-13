@@ -22,6 +22,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0",
+    "pytest-cov>=5.0",
     "pytest-timeout>=2.0",
     "ruff>=0.6",
 ]
@@ -40,3 +41,18 @@ target-version = "py311"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 timeout = 60
+
+[tool.coverage.run]
+branch = true
+patch = ["subprocess"]
+relative_files = true
+source = ["physics_lab", "scripts"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise SystemExit\\(main\\(\\)\\)",
+]
