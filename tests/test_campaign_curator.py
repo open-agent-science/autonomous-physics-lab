@@ -23,13 +23,26 @@ def test_campaign_curator_defaults_to_top_campaign() -> None:
     assert brief.maintainer_facing is True
     assert brief.advisory_only is True
     assert "Do not execute experiments from this mode." in brief.guardrails
-    # The curator should surface at least one current follow-up task relevant to
-    # the live nuclear campaign, which may be a direct nuclear validation task
-    # (`TASK-0189`) or a campaign-adjacent support/doc task (`TASK-0175`) when
-    # the stricter nuclear validation lanes are already claimed.
+    # The curator should surface current READY follow-up tasks relevant to the
+    # live nuclear campaign. REVIEW_READY tasks stay in maintainer review and
+    # closeout flows rather than executor-facing recommendations.
     assert any(
-        item.task_id in {"TASK-0175", "TASK-0189", "TASK-0201"}
+        item.task_id in {
+            "TASK-0228",
+            "TASK-0229",
+            "TASK-0230",
+            "TASK-0231",
+            "TASK-0232",
+            "TASK-0233",
+            "TASK-0234",
+            "TASK-0235",
+            "TASK-0236",
+            "TASK-0237",
+        }
         for item in brief.recommended_next_tasks
+    )
+    assert all(
+        item.status == "READY" for item in brief.recommended_next_tasks
     )
 
 

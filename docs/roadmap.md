@@ -30,6 +30,9 @@ Near-term campaign work:
   layer rather than as a side note;
 - connect benchmark results, campaign pages, status docs, and release-facing
   summaries through a clearer Mission Control layer;
+- keep Nuclear Mass Surface as the current flagship validation campaign while
+  preserving `AGENT-RUN-0007` as an inconclusive guard and post-AME2020
+  scoring as retrospective evidence, not strict blind prediction;
 - improve visual result summaries so current evidence is easier to review.
 
 ## Contributor Pilot — Active
@@ -68,6 +71,9 @@ Immediate v0.2 packaging work:
   disconnected notes;
 - keep `EXP-0010` framed as a guarded stress-test surface rather than as a
   public success result;
+- reflect `EXP-0011`, `EXP-0012`, Nuclear Mass Surface, and the
+  `TASK-0196` before `TASK-0197` post-AME2020 validation sequence without
+  promoting sandbox candidates;
 - run one final public overclaim audit before any public-opening decision.
 
 ## Public Task Network — Future
