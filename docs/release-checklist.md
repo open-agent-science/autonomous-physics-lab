@@ -43,7 +43,7 @@ git diff --exit-code
 Run:
 
 ```bash
-git grep -n -E '(/Users/[^[:space:]]+|/private/t[m]p|/var/f[o]lders|MacBook|Autonomous%20Physics%20Lab)' README.md AGENTS.md CODEX_TASK.md docs claims knowledge results physics_lab || true
+python3 scripts/check_public_path_leaks.py
 git ls-files .pytest_cache .ruff_cache
 ```
 
