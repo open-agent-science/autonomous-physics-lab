@@ -46,8 +46,8 @@ def test_campaign_curator_prompt_preserves_authority_boundary() -> None:
     prompt = render_campaign_agent_prompt(brief)
 
     assert "You are the APL Scientific Campaign Curator." in prompt
-    assert "Accepted chat aliases" in prompt
-    assert '"науковий куратор"' in prompt
+    assert "Canonical short command/name: campaign-curator." in prompt
+    assert "Natural-language requests" in prompt
     assert "not\na task runner" in prompt
     assert "Do not:" in prompt
     assert "run experiments" in prompt
