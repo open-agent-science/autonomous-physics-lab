@@ -1,0 +1,49 @@
+id: TASK-0218
+title: "Clarify closeout PR auto-merge policy after maintainer authorization"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce repeated maintainer prompts for low-risk closeout bookkeeping."
+  - "Keep closeout automation bounded by explicit maintainer authorization."
+  - "Preserve review-agent and CI gates before any closeout PR merge."
+
+input:
+  mode: workflow
+  related_domain: maintainer_closeout
+  related_objects:
+    - "docs/automation/maintainer-action-mode.md"
+    - "docs/automation/maintainer-manual-mode.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    The previous closeout guidance made agents ask an explicit merge question
+    even when the maintainer had already authorized closeout/merge in the
+    current workflow. Clarify that clean TASK-CLOSEOUT PRs may be merged
+    immediately after MERGE_OK and green CI when that authorization is already
+    present, while preserving the explicit question fallback otherwise.
+
+requirements:
+  - "Define when clean TASK-CLOSEOUT PRs may be merged without an extra question."
+  - "Keep review agent MERGE_OK and green CI mandatory."
+  - "Require prior explicit maintainer authorization in the current request chain."
+  - "Require an explicit merge question when authorization is absent or scope is not pure closeout."
+  - "Do not allow automatic merge for scientific artifact, claim, result, or ambiguous docs changes."
+
+accepted_outputs:
+  - "updated docs/automation/maintainer-action-mode.md"
+  - "updated docs/automation/maintainer-manual-mode.md"
+  - "updated docs/maintainer-review-agent.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

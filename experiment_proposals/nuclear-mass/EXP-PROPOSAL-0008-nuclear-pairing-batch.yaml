@@ -1,0 +1,117 @@
+id: EXP-PROPOSAL-0008
+title: "Sandbox nuclear-mass pairing residual batch"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0201
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/nuclear-mass-holdout-protocol.md"
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "agent_runs/AGENT-RUN-0006/"
+  - "agent_runs/AGENT-RUN-0008/"
+  - "agent_runs/AGENT-RUN-0009/"
+  - "agent_runs/AGENT-RUN-0010/"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0038-pairing-a-inverse.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0039-pairing-free-power-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0040-pairing-n82-override-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0041-parity-class-offsets.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0042-per-nuclide-pairing-override-rejected.yaml"
+
+question: "Does parity-dependent residual structure remain after the frozen RESULT-0015 baseline pairing term, and does an in-batch per-parity-class negative control still trigger OVERFITTED detection under the same structured-holdout protocol used in the shell-aware and neutron-rich lanes?"
+
+method:
+  summary: "Generate five pairing/odd-even residual proposals, execute two (HYP-PROPOSAL-0038 pairing A-inverse refinement, HYP-PROPOSAL-0041 in-batch per-parity-class negative control), reject three (HYP-PROPOSAL-0039 free-power nonlinear knob, HYP-PROPOSAL-0040 N=82 pairing override leakage, HYP-PROPOSAL-0042 per-nuclide row memorization). Evaluate the two executed candidates on the NMD-0002 four-holdout protocol and on the 295-row post-AME2020 primary holdout with per-subset MAE, feature activation counts, and the HYP-PROPOSAL-0022 negative-control reference from AGENT-RUN-0008."
+  code_references:
+    - "scripts/run_nuclear_pairing_batch.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+    - "tests/test_nuclear_pairing_batch.py"
+  commands:
+    - "python3 scripts/run_nuclear_pairing_batch.py"
+    - "python3 -m pytest tests/test_nuclear_pairing_batch.py"
+  parameters:
+    generated_proposals: 5
+    executed_candidates: 2
+    rejected_before_execution: 3
+    structured_holdout_count: 4
+    post_ame2020_primary_holdout_row_count: 295
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml as the frozen measured-only training slice"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml as the reviewed row-level post-AME2020 holdout"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015 (model_fitted_semi_empirical)"
+  prior_results:
+    - "RESULT-0015"
+    - "AGENT-RUN-0005"
+    - "AGENT-RUN-0006"
+    - "AGENT-RUN-0008"
+    - "AGENT-RUN-0009"
+    - "AGENT-RUN-0010"
+  assumptions:
+    - "Sandbox execution does not modify EXP-0012, RESULT-0015, or any claim, knowledge, or canonical dataset."
+    - "Coefficients are fitted on the complement of each NMD-0002 holdout for the structured protocol, and once on the full NMD-0002 surface for the post-AME2020 evaluation."
+    - "Per-class indicator activation counts on the post-AME2020 primary holdout (HYP-PROPOSAL-0041) sum to 295 by construction."
+    - "Subset-specific failure criteria, not aggregate-MAE-only, decide the gate outcome."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0011/"
+  metrics:
+    - "generated_proposal_count"
+    - "executed_candidate_count"
+    - "rejected_before_execution_count"
+    - "structured_holdout_delta_mae_mev"
+    - "post_ame2020_primary_delta_mae_mev"
+    - "feature_activation_counts (per class for HYP-PROPOSAL-0041; whole-row for HYP-PROPOSAL-0038)"
+    - "per_subset_delta_mae_mev"
+    - "uncertainty_normalized_error_per_subset"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0011/report.md"
+    - "agent_runs/AGENT-RUN-0011/limitations.md"
+    - "docs/reviews/autonomous-nuclear-pairing-batch-01.md"
+
+validation:
+  pass_condition: "Sandbox pass if both executed candidates produce deterministic metrics that satisfy the gate's evidence-package requirement, the in-batch negative control HYP-PROPOSAL-0041 is flagged OVERFITTED, and rejections are documented; the proposal does not pre-commit to a positive scientific verdict on HYP-PROPOSAL-0038."
+  fail_condition: "Sandbox fail if more than two candidates are executed, if any rejection is silently relaxed, if the in-batch negative control HYP-PROPOSAL-0041 is not flagged OVERFITTED on the structured protocol, if canonical results / claims / knowledge / datasets are modified, or if a retrospective subset win is framed as prospective prediction."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on NMD-0002 and HYP-PROPOSAL-0022 metrics in AGENT-RUN-0008 as the external negative-control reference."
+  expected_failure_modes:
+    - "HYP-PROPOSAL-0038 may fit a small coefficient because the feature is sign-colinear with the existing baseline pairing term; the post-AME2020 effect may be near zero."
+    - "HYP-PROPOSAL-0041's three-parameter fit on 8-9 rows is expected to OVERFIT on the structured protocol by construction."
+    - "Per-complement coefficients for HYP-PROPOSAL-0041 may swing widely because the odd-odd class has only one NMD-0002 row (N-14)."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe pairing A-dependence refits as new pairing physics."
+    - "Do not present a small or null post-AME2020 delta as discovery."
+    - "Do not promote the in-batch negative control if it happens to record a small post-AME2020 primary improvement."
+  mitigations:
+    - "Keep outputs only under proposals, agent_runs, scripts, tests, and review notes."
+    - "Compare every executed candidate to RESULT-0015 and to HYP-PROPOSAL-0022 retrospective metrics."
+    - "Always describe HYP-PROPOSAL-0041 as an in-batch negative control."
+
+limitations:
+  - "Sandbox-only batch over two executed candidates and three rejected proposals."
+  - "NMD-0002 has 11 nuclides; only one is odd-odd (N-14)."
+  - "Post-AME2020 evaluation is retrospective time-split, not blind prediction."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether the pairing lane closes here as a clean negative-control batch or remains open until a broader pinned training surface exists."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical comparison or dataset-expansion task before any RESULT-* change."

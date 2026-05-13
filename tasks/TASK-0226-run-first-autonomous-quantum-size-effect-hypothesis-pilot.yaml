@@ -1,0 +1,57 @@
+id: TASK-0226
+title: "Run first autonomous quantum-size-effect hypothesis pilot"
+type: autonomous_research_pilot
+status: BLOCKED
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Test whether agent-generated correction hypotheses add value after a fixed baseline and holdout protocol exist."
+  - "Preserve negative and overfit outcomes as scientific memory instead of optimizing for success stories."
+  - "Keep the Quantum Size Effects campaign reviewable, bounded, and non-claim-promoting."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-0222-create-quantum-size-effects-campaign-scaffold.yaml"
+    - "tasks/TASK-0223-add-quantum-dot-size-effect-dataset-schema-and-source-manifest.yaml"
+    - "tasks/TASK-0224-define-quantum-size-effect-holdout-protocol.yaml"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+  planning_context: >
+    This is intentionally blocked until the campaign scaffold, dataset/schema,
+    holdout protocol, and first baseline residual benchmark exist. The pilot
+    should generate and filter compact correction hypotheses, execute only the
+    most reviewable candidates, and preserve failures.
+
+requirements:
+  - "Do not start until TASK-0225 is DONE and the maintainer explicitly accepts the baseline as sufficient for sandbox follow-up."
+  - "Generate 6 to 10 bounded quantum-size-effect hypothesis proposals."
+  - "Reject weak, duplicate, leakage-prone, or overly flexible proposals before execution."
+  - "Execute at most 1 to 3 sandbox candidates."
+  - "Include at least one negative or overfit control if a candidate survives preflight."
+  - "Compare against the frozen baseline with train, holdout, per-material, and size-range metrics."
+  - "Preserve null, overfit, and partial outcomes as sandbox-only evidence."
+  - "Do not update canonical claims, accepted knowledge, or public-facing discovery wording."
+
+accepted_outputs:
+  - "hypothesis_proposals/quantum-size-effects/<assigned-hypothesis-proposal-id>-*.yaml"
+  - "experiment_proposals/quantum-size-effects/<assigned-experiment-proposal-id>-*.yaml"
+  - "agent_runs/<assigned-agent-run-id>/agent_run.yaml"
+  - "agent_runs/<assigned-agent-run-id>/metrics.json"
+  - "agent_runs/<assigned-agent-run-id>/report.md"
+  - "agent_runs/<assigned-agent-run-id>/limitations.md"
+  - "docs/reviews/autonomous-quantum-size-effect-pilot-01.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

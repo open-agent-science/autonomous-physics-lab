@@ -11,11 +11,13 @@ from physics_lab.registry.maintainer_review import (
     branch_microtask_id,
     branch_microtask_queue_id,
     branch_proposal_slug,
+    branch_task_queue_slug,
     branch_task_id,
     build_review_report,
     changed_task_proposal_files,
     line_is_rule_catalog_line,
     missing_pr_metadata_fields,
+    missing_pr_template_sections,
     overclaim_advisory_hits,
     overclaim_hits,
     parse_added_lines,
@@ -35,6 +37,74 @@ from physics_lab.registry.review_policy import (
 )
 
 
+def _full_pr_body(
+    *,
+    task_ref: str,
+    branch: str,
+    kind: str = "Canonical task PR",
+    primary_reference: str | None = None,
+) -> str:
+    """Return a filled PR-template body for maintainer-review fixtures."""
+    primary = primary_reference or f"- Task ID: `{task_ref}`"
+    return "\n".join(
+        [
+            "## PR Kind",
+            "",
+            f"- [x] {kind}",
+            "",
+            "## Primary Reference",
+            "",
+            primary,
+            "",
+            "## Branch Name",
+            "",
+            f"- `{branch}`",
+            "",
+            "## Summary",
+            "",
+            "- Regression fixture body.",
+            "",
+            "## Changed Files",
+            "",
+            "- Fixture paths listed in test metadata.",
+            "",
+            "## Linked Repository Memory",
+            "",
+            "- Hypothesis:",
+            "- Experiment:",
+            f"- Task / Proposal / Queue: `{task_ref}`",
+            "- Result:",
+            "- Claim / Knowledge:",
+            "",
+            "## Validation Commands",
+            "",
+            "- [x] `python3 -m physics_lab.cli validate-repo .`",
+            "",
+            "## Scientific Claim Impact",
+            "",
+            "- None.",
+            "",
+            "## Result Artifact Impact",
+            "",
+            "- No canonical result artifacts changed.",
+            "",
+            "## Agent / Contributor Metadata",
+            "",
+            "- Contributor ID: roman",
+            "- GitHub username: gladunrv",
+            "- Agent tool: codex",
+            "- Model/version if known: test",
+            f"- Task ID / Proposal / Queue: `{task_ref}`",
+            f"- Branch: `{branch}`",
+            "- Human reviewer: roman",
+            "",
+            "## Maintainer Review Notes",
+            "",
+            "- Fixture review note.",
+        ]
+    )
+
+
 def test_branch_task_id_extracts_task_number() -> None:
     assert (
         branch_task_id("agent/roman/codex/task-0034-maintainer-review-agent")
@@ -49,6 +119,14 @@ def test_branch_proposal_slug_extracts_task_proposal_slug() -> None:
         == "koide-track"
     )
     assert branch_proposal_slug("agent/roman/codex/task-0043-task-proposal-protocol") is None
+
+
+def test_branch_task_queue_slug_extracts_task_queue_slug() -> None:
+    assert (
+        branch_task_queue_slug("agent/roman/codex/task-queue-coverage-audit")
+        == "coverage-audit"
+    )
+    assert branch_task_queue_slug("agent/roman/codex/task-0043-task-proposal-protocol") is None
 
 
 def test_branch_microtask_id_extracts_microtask_id() -> None:
@@ -83,6 +161,10 @@ def test_review_protocol_classifies_supported_review_lanes() -> None:
         == "proposal"
     )
     assert (
+        classify_review_protocol("agent/roman/codex/task-queue-coverage-audit").kind
+        == "task_queue"
+    )
+    assert (
         classify_review_protocol("agent/roman/codex/closeout-merged-workflow-tasks").kind
         == "closeout"
     )
@@ -104,10 +186,15 @@ def test_review_protocol_uses_pr_title_for_closeout_and_microtask_lanes() -> Non
         "agent/roman/codex/task-9999-admin",
         pr_title="microtask(particle-mass-relations): add one audit note",
     )
+    task_queue = classify_review_protocol(
+        "agent/roman/codex/task-9999-admin",
+        pr_title="TASK-QUEUE: Add coverage audit task",
+    )
 
     assert closeout.kind == "closeout"
     assert microtask.kind == "microtask"
     assert microtask.title_microtask_queue_id == "particle-mass-relations"
+    assert task_queue.kind == "task_queue"
 
 
 def test_review_protocol_pr_title_policy_is_testable_without_github() -> None:
@@ -134,6 +221,14 @@ def test_review_protocol_pr_title_policy_is_testable_without_github() -> None:
     assert microtask.required_fixes == (
         "PR title does not follow microtask(<queue-id>): ... format.",
     )
+
+    task_queue = validate_pr_title(
+        review_kind="task_queue",
+        title="TASK-QUEUE: Add coverage audit task",
+        resolved_task_id="TASK-QUEUE",
+    )
+    assert task_queue.blockers == ()
+    assert task_queue.required_fixes == ()
 
 
 def test_changed_task_proposal_files_filters_template_and_other_paths() -> None:
@@ -176,6 +271,33 @@ def test_missing_pr_metadata_fields_accepts_task_id_alias() -> None:
     )
 
     assert missing_pr_metadata_fields(body) == ()
+
+
+def test_missing_pr_template_sections_detects_short_pr_body() -> None:
+    body = "\n".join(
+        [
+            "## Summary",
+            "",
+            "- Short body that bypasses the repository template.",
+            "",
+            "## Validation",
+            "",
+            "- python3 -m pytest",
+        ]
+    )
+
+    assert missing_pr_template_sections(body) == (
+        "PR Kind",
+        "Primary Reference",
+        "Branch Name",
+        "Changed Files",
+        "Linked Repository Memory",
+        "Validation Commands",
+        "Scientific Claim Impact",
+        "Result Artifact Impact",
+        "Agent / Contributor Metadata",
+        "Maintainer Review Notes",
+    )
 
 
 def test_overclaim_and_security_hits_detect_obvious_risks() -> None:
@@ -479,7 +601,12 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
     pr_metadata = PullRequestMetadata(
         number=67,
         title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
-        body="closeout batch",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference="- Closed Task Files: `tasks/TASK-0027-units.yaml`, `tasks/TASK-0062-roadmap.yaml`",
+        ),
         branch=branch,
         base_branch="main",
         state="OPEN",
@@ -507,6 +634,171 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
     assert report.task_id == "TASK-CLOSEOUT"
     assert report.verdict == "MERGE_OK"
     assert report.blockers == ()
+
+
+def test_build_review_report_closeout_pr_may_unblock_dependent_task(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+
+    (tasks_dir / "TASK-0027-units.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0027",
+                'title: "Test closeout task"',
+                "type: documentation",
+                "status: DONE",
+                "difficulty: low",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Closeout regression fixture"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Closeout review fixture"',
+                "requirements:",
+                '  - "Keep task status at DONE in closeout branch"',
+                "accepted_outputs:",
+                '  - "updated task status"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (tasks_dir / "TASK-0204-adversarial-review.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0204",
+                'title: "Unblocked dependent task"',
+                "type: scientific_audit",
+                "status: READY",
+                "difficulty: medium",
+                "priority: high",
+                "strategy_alignment:",
+                '  - "Closeout may unblock dependent review work"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Unblock fixture"',
+                "requirements:",
+                '  - "Review after closeout"',
+                "accepted_outputs:",
+                '  - "updated task status"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (tasks_dir / "TASK-0099-stale.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0099",
+                'title: "Stale task"',
+                "type: documentation",
+                "status: REJECTED",
+                "difficulty: low",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Close stale task when maintainer approves cleanup"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Stale closeout fixture"',
+                "requirements:",
+                '  - "No longer relevant"',
+                "accepted_outputs:",
+                '  - "updated task status"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/closeout-confirmed-merged-tasks"
+    changed = (
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0099-stale.yaml",
+        "tasks/TASK-0027-units.yaml",
+        "tasks/TASK-0204-adversarial-review.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Mark confirmed merged tasks done and unblock TASK-0204",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference=(
+                "- Closed Task Files: `tasks/TASK-0027-units.yaml`\n"
+                "- Unblocked Task Files: `tasks/TASK-0204-adversarial-review.yaml`"
+                "\n- Stale Task Files: `tasks/TASK-0099-stale.yaml`"
+            ),
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    def fake_run_command(command: list[str] | str, **_: object) -> CommandResult:
+        if (
+            isinstance(command, list)
+            and len(command) >= 3
+            and command[:2] == ["git", "show"]
+            and "TASK-0204-adversarial-review.yaml" in command[2]
+        ):
+            return CommandResult(
+                returncode=0,
+                stdout="\n".join(
+                    [
+                        "id: TASK-0204",
+                        'title: "Unblocked dependent task"',
+                        "type: scientific_audit",
+                        "status: BLOCKED",
+                    ]
+                ),
+                stderr="",
+            )
+        return _EMPTY_DIFF
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", side_effect=fake_run_command),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.task_id == "TASK-CLOSEOUT"
+    assert report.verdict == "MERGE_OK"
+    assert report.required_fixes == ()
 
 
 def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout(tmp_path: Path) -> None:
@@ -554,7 +846,12 @@ def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout
     pr_metadata = PullRequestMetadata(
         number=67,
         title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
-        body="closeout batch",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference="- Closed Task Files: `tasks/TASK-0027-units.yaml`, `tasks/TASK-0062-roadmap.yaml`",
+        ),
         branch=branch,
         base_branch="main",
         state="OPEN",
@@ -625,7 +922,12 @@ def test_build_review_report_closeout_batch_pr_does_not_require_active_board_syn
     pr_metadata = PullRequestMetadata(
         number=67,
         title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
-        body="closeout batch",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference="- Closed Task Files: `tasks/TASK-0027-units.yaml`, `tasks/TASK-0062-roadmap.yaml`",
+        ),
         branch=branch,
         base_branch="main",
         state="OPEN",
@@ -653,6 +955,174 @@ def test_build_review_report_closeout_batch_pr_does_not_require_active_board_syn
     assert report.task_id == "TASK-CLOSEOUT"
     assert report.verdict == "MERGE_OK"
     assert not any("ACTIVE.md" in item for item in report.required_fixes)
+
+
+def test_build_review_report_accepts_task_queue_pr_with_ready_future_task(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    (tasks_dir / "TASK-0999-future-coverage-audit.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0999",
+                'title: "Future coverage audit"',
+                "type: test_infrastructure",
+                "status: READY",
+                "difficulty: medium",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Task queue regression fixture"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Future task fixture"',
+                "requirements:",
+                '  - "Keep future task READY in task-queue PR"',
+                "accepted_outputs:",
+                '  - "future implementation"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/task-queue-coverage-audit"
+    changed = (
+        "docs/agent-task-protocol.md",
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0999-future-coverage-audit.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=172,
+        title="TASK-QUEUE: Add coverage audit task",
+        body=_full_pr_body(
+            task_ref="TASK-QUEUE",
+            branch=branch,
+            kind="Canonical task PR",
+            primary_reference="- Task ID: `TASK-QUEUE`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=172)
+
+    assert report.task_id == "TASK-QUEUE"
+    assert report.verdict == "MERGE_OK"
+    assert report.blockers == ()
+    assert not any("REVIEW_READY" in item for item in report.required_fixes)
+    assert not any("Accepted outputs" in item for item in report.required_fixes)
+
+
+def test_build_review_report_blocks_task_queue_pr_that_changes_results(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    (tasks_dir / "TASK-0999-future-coverage-audit.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0999",
+                'title: "Future coverage audit"',
+                "type: test_infrastructure",
+                "status: READY",
+                "difficulty: medium",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Task queue regression fixture"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Future task fixture"',
+                "requirements:",
+                '  - "Keep future task READY in task-queue PR"',
+                "accepted_outputs:",
+                '  - "future implementation"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/task-queue-coverage-audit"
+    changed = (
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0999-future-coverage-audit.yaml",
+        "results/EXP-0001/RUN-0001/result.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=173,
+        title="TASK-QUEUE: Add coverage audit task",
+        body="\n".join(
+            [
+                "- Contributor ID: roman",
+                "- GitHub username: gladunrv",
+                "- Agent tool: codex",
+                "- Task ID: TASK-QUEUE",
+                "- Branch: agent/roman/codex/task-queue-coverage-audit",
+                "- Human reviewer: roman",
+            ]
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=173)
+
+    assert report.verdict == "BLOCKED"
+    assert any(
+        "TASK-QUEUE PR must not change canonical scientific artifacts" in item
+        for item in report.blockers
+    )
 
 
 def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: Path) -> None:
@@ -691,15 +1161,10 @@ def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: 
     pr_metadata = PullRequestMetadata(
         number=103,
         title="TASK-0094: Track maintainer review helper stale diff false positives",
-        body="\n".join(
-            [
-                "- Contributor ID: roman",
-                "- GitHub username: gladunrv",
-                "- Agent tool: codex",
-                "- Task ID: TASK-0094",
-                "- Branch: agent/roman/codex/task-0094-fix-helper-stale-diff",
-                "- Human reviewer: roman",
-            ]
+        body=_full_pr_body(
+            task_ref="TASK-0094",
+            branch="agent/roman/codex/task-0094-fix-helper-stale-diff",
+            primary_reference="- Task ID: `TASK-0094`\n- Task File: `tasks/TASK-0094-helper.yaml`",
         ),
         branch="agent/roman/codex/task-0094-fix-helper-stale-diff",
         base_branch="main",
@@ -734,6 +1199,71 @@ def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: 
     assert changed_mock.call_args.kwargs["base_ref"] == "origin/main"
 
 
+def test_build_review_report_requires_repository_pr_template_sections(tmp_path: Path) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "TASK-0094-helper.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0094",
+                'title: "Helper bug task"',
+                "type: maintainer_workflow",
+                "status: REVIEW_READY",
+                "difficulty: medium",
+                "priority: high",
+                "strategy_alignment:",
+                '  - "Test fixture"',
+                "input:",
+                '  mode: workflow',
+                '  related_domain: "maintainer_review"',
+                "  related_objects: []",
+                '  planning_context: "Fixture"',
+                "requirements:",
+                '  - "Keep review helper deterministic"',
+                "accepted_outputs:",
+                '  - "tasks/TASK-0094-helper.yaml"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    branch = "agent/roman/codex/task-0094-fix-helper-stale-diff"
+    pr_metadata = PullRequestMetadata(
+        number=104,
+        title="TASK-0094: Track maintainer review helper stale diff false positives",
+        body="## Summary\n\n- Short body.\n\n## Validation\n\n- pytest",
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0094-helper.yaml",),
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0094-helper.yaml",)),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=104)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("PR body is missing required repository-template sections" in item for item in report.required_fixes)
+
+
 def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> None:
     microtasks_dir = tmp_path / "tasks" / "microtasks"
     microtasks_dir.mkdir(parents=True)
@@ -758,15 +1288,11 @@ def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> N
     pr_metadata = PullRequestMetadata(
         number=129,
         title="microtask(particle-mass-relations): add one Koide methodology note",
-        body="\n".join(
-            [
-                "- Contributor ID: roman",
-                "- GitHub username: gladunrv",
-                "- Agent tool: codex",
-                "- Task ID: microtask(PMR-001)",
-                "- Branch: agent/roman/codex/microtask-PMR-001-koide-methodology-note",
-                "- Human reviewer: roman",
-            ]
+        body=_full_pr_body(
+            task_ref="microtask(PMR-001)",
+            branch="agent/roman/codex/microtask-PMR-001-koide-methodology-note",
+            kind="Microtask PR",
+            primary_reference="- Queue ID: `particle-mass-relations`\n- Queue File: `tasks/microtasks/particle-mass-relations.yaml`\n- Microtask IDs: `PMR-001`",
         ),
         branch="agent/roman/codex/microtask-PMR-001-koide-methodology-note",
         base_branch="main",
@@ -830,15 +1356,11 @@ def test_build_review_report_accepts_canonical_microtask_batch_pr(tmp_path: Path
     pr_metadata = PullRequestMetadata(
         number=148,
         title="microtask(dimensional-analysis-validator): add DAV-003 DAV-004 DAV-008 challenge entries",
-        body="\n".join(
-            [
-                "- Contributor ID: roman",
-                "- GitHub username: gladunrv",
-                "- Agent tool: codex",
-                "- Task ID: microtask(dimensional-analysis-validator)",
-                "- Branch: agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
-                "- Human reviewer: roman",
-            ]
+        body=_full_pr_body(
+            task_ref="microtask(dimensional-analysis-validator)",
+            branch="agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
+            kind="Microtask PR",
+            primary_reference="- Queue ID: `dimensional-analysis-validator`\n- Queue File: `tasks/microtasks/dimensional-analysis-validator.yaml`\n- Microtask IDs: `DAV-003, DAV-004, DAV-008`",
         ),
         branch="agent/roman/codex/microtask-batch-dimensional-analysis-validator--challenge-entries",
         base_branch="main",

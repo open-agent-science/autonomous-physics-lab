@@ -47,8 +47,11 @@ def test_microtask_pr_body_mentions_review_bundle_and_queue() -> None:
     )
 
     assert "tasks/microtasks/dimensional-analysis-validator.yaml" in body
+    assert "## PR Kind" in body
+    assert "## Primary Reference" in body
     assert "./scripts/apl_review_bundle.sh" in body
     assert "DAV-003, DAV-004, DAV-008" in body
+    assert "Agent session ID" not in body
 
 
 def test_preflight_microtask_pr_flags_placeholders_and_mismatch(tmp_path: Path) -> None:
@@ -123,3 +126,24 @@ def test_cli_scaffold_runs_from_repo_root() -> None:
 
     assert result.returncode == 0
     assert "microtask-batch-dimensional-analysis-validator--challenge-entries" in result.stdout
+
+
+def test_cli_status_lists_available_microtasks_from_repo_root() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_microtask_pr_helper.py",
+            "status",
+            "--queue-id",
+            "pendulum-formula-falsification",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "Microtask availability for pendulum-formula-falsification" in result.stdout
+    assert "`pendulum-formula-falsification`" in result.stdout

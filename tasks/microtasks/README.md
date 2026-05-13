@@ -32,22 +32,28 @@ agents should pick from the available count in the generated table.
 
 | Queue | Campaign | Campaign Status | Available | Completed | Retired | Risk Levels | Selection Guidance |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| [`diffusion-scaling`](diffusion-scaling.yaml) | diffusion-scaling | `planning_only_future_campaign` | 5 / 5 | 0 | 0 | `low` | Prefer planning, falsification, units, and limitation notes. |
-| [`dimensional-analysis-validator`](dimensional-analysis-validator.yaml) | dimensional-analysis-validator | `active_with_validator_and_pilot` | 4 / 11 | 7 | 0 | `low`, `medium` | Prefer new boundary cases, repeatable classification runs, and assumption-explicit examples not already covered by existing notes. |
-| [`nuclear-mass-surface`](nuclear-mass-surface.yaml) | nuclear-mass-surface | `active_baseline_and_sandbox_guarded` | 5 / 8 | 1 | 2 | `low`, `medium` | Prefer replay, audit, evidence-card, provenance, and guardrail tasks before any second sandbox batch. |
-| [`particle-mass-relations`](particle-mass-relations.yaml) | particle-mass-relations | `active_with_narrow_results` | 6 / 11 | 5 | 0 | `low`, `medium` | Prefer falsification-first, source-aware, and uncertainty-aware items. |
-| [`pendulum-formula-falsification`](pendulum-formula-falsification.yaml) | pendulum-formula-falsification | `active` | 7 / 11 | 4 | 0 | `low`, `medium` | Prefer narrow approximation, diagnostics, and wording tasks. |
-| [`thought-experiment-consistency`](thought-experiment-consistency.yaml) | thought-experiment-consistency | `planning_active` | 5 / 5 | 0 | 0 | `low`, `medium` | Prefer assumption formalization and invariant mapping. |
+| [`diffusion-scaling`](diffusion-scaling.yaml) | diffusion-scaling | `planning_only_future_campaign` | 0 / 5 | 5 | 0 | `unspecified` | Prefer planning, falsification, units, and limitation notes. |
+| [`dimensional-analysis-validator`](dimensional-analysis-validator.yaml) | dimensional-analysis-validator | `active_with_validator_and_pilot` | 1 / 11 | 10 | 0 | `medium` | Prefer new boundary cases, repeatable classification runs, and assumption-explicit examples not already covered by existing notes. |
+| [`nuclear-mass-surface`](nuclear-mass-surface.yaml) | nuclear-mass-surface | `active_baseline_and_sandbox_guarded` | 0 / 8 | 6 | 2 | `unspecified` | Prefer replay, audit, evidence-card, provenance, and guardrail tasks before any second sandbox batch. |
+| [`particle-mass-relations`](particle-mass-relations.yaml) | particle-mass-relations | `active_with_narrow_results` | 1 / 11 | 10 | 0 | `medium` | Prefer falsification-first, source-aware, and uncertainty-aware items. |
+| [`pendulum-formula-falsification`](pendulum-formula-falsification.yaml) | pendulum-formula-falsification | `active` | 1 / 11 | 10 | 0 | `medium` | Prefer narrow approximation, diagnostics, and wording tasks. |
+| [`thought-experiment-consistency`](thought-experiment-consistency.yaml) | thought-experiment-consistency | `planning_active` | 0 / 5 | 5 | 0 | `unspecified` | Prefer assumption formalization and invariant mapping. |
 
 <!-- END AUTO MICROTASK QUEUE SUMMARY -->
 
 ## How To Use These Queues
 
 1. Pick one campaign queue.
-2. Select one small item or a tightly related batch.
-3. Keep the PR within one campaign.
-4. Report limitations and claim ceiling explicitly.
-5. Mark uncertain results as `REVIEW_NEEDED`.
+2. Run the effective availability helper:
+
+   ```bash
+   python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id>
+   ```
+
+3. Select one `available` item or a tightly related available batch.
+4. Keep the PR within one campaign.
+5. Report limitations and claim ceiling explicitly.
+6. Mark uncertain results as `REVIEW_NEEDED`.
 
 ## What These Queues Are Not
 

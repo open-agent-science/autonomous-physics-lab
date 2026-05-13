@@ -18,6 +18,10 @@ CLOSEOUT_BRANCH_PATTERN = re.compile(
     r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
     r"closeout-(?P<slug>[a-z0-9-]+)$"
 )
+TASK_QUEUE_BRANCH_PATTERN = re.compile(
+    r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
+    r"task-queue-(?P<slug>[a-z0-9-]+)$"
+)
 MICROTASK_BRANCH_PATTERN = re.compile(
     r"^agent/(?P<contributor>[a-z0-9-]+)/(?P<agent>[a-z0-9-]+)/"
     r"microtask-(?P<microtask_id>[A-Z0-9]{3,8}-[0-9]{3})-(?P<slug>[a-z0-9-]+)$"
@@ -29,6 +33,7 @@ MICROTASK_BATCH_BRANCH_PATTERN = re.compile(
 PR_TITLE_PATTERN = re.compile(r"^(?P<task_id>TASK-[0-9]{4}): .+")
 PROPOSAL_PR_TITLE_PATTERN = re.compile(r"^TASK-PROPOSAL: .+")
 CLOSEOUT_PR_TITLE_PATTERN = re.compile(r"^TASK-CLOSEOUT: .+")
+TASK_QUEUE_PR_TITLE_PATTERN = re.compile(r"^TASK-QUEUE: .+")
 MICROTASK_PR_TITLE_PATTERN = re.compile(r"^microtask\((?P<queue_id>[a-z0-9-]+)\): .+")
 PR_METADATA_FIELDS = (
     "Contributor ID",
@@ -41,6 +46,20 @@ PR_METADATA_FIELDS = (
 PR_METADATA_FIELD_ALIASES = {
     "Task ID": ("Task ID", "Task ID / Proposal / Queue"),
 }
+PR_TEMPLATE_REQUIRED_SECTIONS = (
+    "PR Kind",
+    "Primary Reference",
+    "Branch Name",
+    "Summary",
+    "Changed Files",
+    "Linked Repository Memory",
+    "Validation Commands",
+    "Scientific Claim Impact",
+    "Result Artifact Impact",
+    "Agent / Contributor Metadata",
+    "Maintainer Review Notes",
+)
+PR_TEMPLATE_SECTION_PATTERN = re.compile(r"^##\s+(?P<section>.+?)\s*$")
 
 
 @dataclass(frozen=True)
@@ -50,6 +69,7 @@ class ReviewProtocol:
     kind: str
     branch_task_id: str | None
     proposal_slug: str | None
+    task_queue_slug: str | None
     microtask_id: str | None
     microtask_queue_id: str | None
     title_microtask_queue_id: str | None
@@ -83,6 +103,14 @@ def branch_proposal_slug(branch: str) -> str | None:
     return str(match.group("slug"))
 
 
+def branch_task_queue_slug(branch: str) -> str | None:
+    """Extract the task-queue slug from a task-queue branch."""
+    match = TASK_QUEUE_BRANCH_PATTERN.match(branch)
+    if match is None:
+        return None
+    return str(match.group("slug"))
+
+
 def branch_microtask_id(branch: str) -> str | None:
     """Extract the microtask id from a canonical microtask branch name."""
     match = MICROTASK_BRANCH_PATTERN.match(branch)
@@ -110,17 +138,23 @@ def microtask_queue_id_from_title(title: str) -> str | None:
 def classify_review_protocol(branch: str, *, pr_title: str | None = None) -> ReviewProtocol:
     """Classify a review target as task, proposal, closeout, microtask, or unknown."""
     proposal_slug = branch_proposal_slug(branch)
+    task_queue_slug = branch_task_queue_slug(branch)
     branch_microtask = branch_microtask_id(branch)
     branch_microtask_queue = branch_microtask_queue_id(branch)
     title_microtask_queue = microtask_queue_id_from_title(pr_title or "")
     title_is_closeout = (
         pr_title is not None and CLOSEOUT_PR_TITLE_PATTERN.match(pr_title) is not None
     )
+    title_is_task_queue = (
+        pr_title is not None and TASK_QUEUE_PR_TITLE_PATTERN.match(pr_title) is not None
+    )
 
     if proposal_slug is not None:
         kind = "proposal"
     elif CLOSEOUT_BRANCH_PATTERN.match(branch) is not None or title_is_closeout:
         kind = "closeout"
+    elif task_queue_slug is not None or title_is_task_queue:
+        kind = "task_queue"
     elif (
         branch_microtask is not None
         or branch_microtask_queue is not None
@@ -136,6 +170,7 @@ def classify_review_protocol(branch: str, *, pr_title: str | None = None) -> Rev
         kind=kind,
         branch_task_id=branch_task_id(branch),
         proposal_slug=proposal_slug,
+        task_queue_slug=task_queue_slug,
         microtask_id=branch_microtask,
         microtask_queue_id=branch_microtask_queue,
         title_microtask_queue_id=title_microtask_queue,
@@ -163,6 +198,24 @@ def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
     return tuple(missing)
 
 
+def pr_body_sections(body: str) -> tuple[str, ...]:
+    """Return top-level PR-template section headings from a PR body."""
+    sections: list[str] = []
+    for line in body.splitlines():
+        match = PR_TEMPLATE_SECTION_PATTERN.match(line.strip())
+        if match is not None:
+            sections.append(match.group("section"))
+    return tuple(sections)
+
+
+def missing_pr_template_sections(body: str) -> tuple[str, ...]:
+    """Return required PR template sections missing from a PR body."""
+    present = set(pr_body_sections(body))
+    return tuple(
+        section for section in PR_TEMPLATE_REQUIRED_SECTIONS if section not in present
+    )
+
+
 def validate_pr_title(
     *,
     review_kind: str,
@@ -180,6 +233,12 @@ def validate_pr_title(
         if CLOSEOUT_PR_TITLE_PATTERN.match(title) is None:
             return PolicyMessages(
                 required_fixes=("PR title does not follow TASK-CLOSEOUT: ... format.",)
+            )
+        return PolicyMessages()
+    if review_kind == "task_queue":
+        if TASK_QUEUE_PR_TITLE_PATTERN.match(title) is None:
+            return PolicyMessages(
+                required_fixes=("PR title does not follow TASK-QUEUE: ... format.",)
             )
         return PolicyMessages()
     if review_kind == "microtask":

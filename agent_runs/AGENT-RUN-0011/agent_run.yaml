@@ -1,0 +1,53 @@
+id: AGENT-RUN-0011
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0201
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0038-pairing-a-inverse.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0008-nuclear-pairing-batch.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0011/metrics.json
+  report: agent_runs/AGENT-RUN-0011/report.md
+  limitations: agent_runs/AGENT-RUN-0011/limitations.md
+  preflight: agent_runs/AGENT-RUN-0011/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0011/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: campaign_scope
+      status: PASS
+      notes: "nuclear-mass-surface remains WHITELISTED_LIMITED for frozen-baseline sandbox work."
+    - name: proposal_schema
+      status: PASS
+      notes: "Five pairing-lane proposals (HYP-PROPOSAL-0038..0042) pass research-proposal preflight."
+    - name: triage_boundary
+      status: PASS
+      notes: "Two executed candidates (HYP-PROPOSAL-0038 pairing A-inverse refinement, HYP-PROPOSAL-0041 per-parity-class free offsets as in-batch negative control), three rejections before execution."
+    - name: leakage_review
+      status: PASS
+      notes: "HYP-PROPOSAL-0040 (N=82 pairing override) and HYP-PROPOSAL-0042 (per-nuclide override) rejected explicitly under docs/nuclear-mass-robustness-gate.md leakage rules; HYP-PROPOSAL-0039 rejected on complexity. Executed candidates use a single linear A-inverse feature or three orthogonal one-hot parity-class indicators; neither targets a specific shell, chain, or row."
+    - name: subset_failure_criterion
+      status: PASS
+      notes: "Per-subset MAE is reported on magic_any, near_magic, neutron_rich_delta_ge_20, proton_rich_n_lt_z, heavy_a_ge_100, odd_a, even_even, and odd_odd; rejections and verdicts do not rely on aggregate MAE alone."
+    - name: in_batch_negative_control
+      status: PASS
+      notes: "HYP-PROPOSAL-0041 is recorded as the in-batch negative control. Its observed structured verdict is OVERFITTED, confirming the protocol's overfit-detection still fires on a trivially-flexible feature stack."
+    - name: promotion_boundary
+      status: PASS
+      notes: "No canonical results, claims, hypotheses, experiments, accepted knowledge, or canonical datasets are changed."
+limitations:
+  - "Sandbox-only second nuclear batch in the pairing lane; no canonical artifact is updated."
+  - "Both executed candidates land OVERFITTED on the NMD-0002 structured-holdout protocol, but through different paths: HYP-PROPOSAL-0038 has worst regression +2.995 MeV on random_stratified, while HYP-PROPOSAL-0041 regresses three of four holdouts even though its worst single regression is +0.648 MeV."
+  - "HYP-PROPOSAL-0038 post-AME2020 primary delta MAE is +0.0067 MeV (essentially zero). The A-inverse feature is sign-colinear with the existing baseline pairing term; the lane cannot distinguish a true pairing-physics refinement from a noise fit on the 11-row training surface."
+  - "HYP-PROPOSAL-0041 post-AME2020 primary delta MAE is +0.167 MeV (regression). The three per-class coefficients fit on full NMD-0002 are c_ee=+0.190, c_oo=+4.172, c_oA=-1.456. The +4.172 MeV odd-odd coefficient memorizes N-14 (the only odd-odd row in NMD-0002) and applies it uniformly to 71 odd-odd rows in the post-AME2020 primary holdout, producing systematic regression on that subset."
+  - "Activation counts on the 295-row primary holdout are 139/295 for HYP-PROPOSAL-0038 (sum of ee and oo rows) and {ee: 68, oo: 71, odd-A: 156, sum=295} for HYP-PROPOSAL-0041 by construction."
+  - "Any future promotion requires a maintainer-reviewed task with a broader pinned dataset and the same holdout discipline."
+verdict: SANDBOX_PASS
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer review under docs/nuclear-mass-robustness-gate.md before any RESULT-* or claim update."

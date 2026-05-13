@@ -1,0 +1,57 @@
+id: TASK-0215
+title: "Add coverage reporting and critical-path test coverage audit"
+type: test_infrastructure
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make test coverage visible before adding hard coverage gates."
+  - "Protect critical research, validation, review, and agent-workflow code paths from silent regressions."
+  - "Avoid counterproductive 100% coverage targets for thin CLI wrappers, generated reports, or low-risk glue code."
+
+input:
+  mode: workflow
+  related_domain: test_quality
+  related_objects:
+    - "pyproject.toml"
+    - "tests/"
+    - "physics_lab/"
+    - "scripts/"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    The repository has a strong pytest suite, but it does not currently include
+    coverage tooling. A quick audit found that pytest-cov is not installed and
+    several production modules or script entrypoints do not have direct test
+    references. The first step should make coverage measurable and identify
+    critical gaps without immediately enforcing an unrealistic 100% threshold.
+
+requirements:
+  - "Add pytest-cov or equivalent coverage tooling to the development dependency set."
+  - "Add a documented coverage command that reports line and missing-branch information for physics_lab and selected scripts."
+  - "Start with report-only coverage; do not fail CI on coverage percentage in the first implementation unless a conservative baseline is explicitly justified."
+  - "Produce a coverage audit note that distinguishes critical untested paths from acceptable low-risk wrappers."
+  - "Prioritize critical paths: repository validation, scientific-memory integrity, maintainer review helper, closeout/snapshot helpers, mission control, Scientific Campaign Curator, nuclear workflows, and proposal/agent-run registries."
+  - "Do not pursue 100% coverage as a goal; recommend staged thresholds only after measuring the current baseline."
+  - "If adding a fail-under threshold, keep it conservative and document why it will not block useful agent work."
+
+accepted_outputs:
+  - "updated pyproject.toml with coverage tooling"
+  - "documented coverage command in README.md or docs/testing.md"
+  - "coverage audit note under docs/notes/ or docs/reviews/"
+  - "tests or smoke checks for any newly identified critical untested path that is easy to cover"
+  - "updated CI or helper script only if the coverage mode remains safe for current contributors"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

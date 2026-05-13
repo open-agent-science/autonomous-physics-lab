@@ -77,6 +77,21 @@ Required checks:
 - no unresolved blocker remains
 
 If valid, prepare or apply closeout changes according to maintainer approval.
+After opening a closeout PR, run the maintainer review agent. If the review
+verdict is `MERGE_OK`, CI is green, and the maintainer already authorized
+closeout/merge in the current request chain, the agent may merge a pure
+closeout PR without asking again. If that authorization is absent or the PR is
+not pure closeout bookkeeping, ask the maintainer an explicit yes/no question:
+`Merge closeout PR #<number>?` Do not silently stop with only a status report.
+
+Pure closeout bookkeeping may include directly dependent task unblocks from
+`BLOCKED` to `READY` when the merged task wave satisfied explicit prerequisites.
+The closeout PR title or body must say it is unblocking the dependent task; this
+does not authorize claim promotion, result edits, or new experiment execution.
+It may also include maintainer-approved stale/superseded task closures to
+`REJECTED`; this is optional queue hygiene, and the closeout agent should use
+context instead of forcing stale-task cleanup through extra script-level
+blockers.
 
 ### 4. Queue Triage
 

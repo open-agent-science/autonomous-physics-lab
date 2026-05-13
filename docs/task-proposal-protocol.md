@@ -167,6 +167,16 @@ Promotion flow:
 6. Optionally update the original proposal file status to `ACCEPTED` and record
    the canonical id, or remove the proposal after the canonical task lands.
 
+When a maintainer or maintainer-directed task-admin agent promotes one or more
+accepted ideas into canonical tasks, prefer a `TASK-QUEUE` PR:
+
+- branch: `agent/<contributor-id>/<agent-id>/task-queue-<short-slug>`
+- title: `TASK-QUEUE: <short summary>`
+- queued canonical tasks remain `READY`, `BLOCKED`, or `PROPOSED`
+
+This keeps task creation reviewable without requiring a separate canonical
+curation task for every newly queued task.
+
 Promotion target:
 
 `tasks/TASK-0043-short-slug.yaml`
