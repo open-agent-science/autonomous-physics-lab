@@ -23,7 +23,13 @@ def test_campaign_curator_defaults_to_top_campaign() -> None:
     assert brief.maintainer_facing is True
     assert brief.advisory_only is True
     assert "Do not execute experiments from this mode." in brief.guardrails
-    assert any(item.task_id == "TASK-0201" for item in brief.recommended_next_tasks)
+    # Either TASK-0201 (pairing batch) when READY or TASK-0189 (registry policy)
+    # when TASK-0201 is actively being executed by another agent. Both are
+    # nuclear-mass-surface READY tasks; the brief must surface at least one.
+    assert any(
+        item.task_id in {"TASK-0189", "TASK-0201"}
+        for item in brief.recommended_next_tasks
+    )
 
 
 def test_campaign_curator_json_is_agent_readable() -> None:
