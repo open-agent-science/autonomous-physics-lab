@@ -57,10 +57,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (`maintainer_workflow`, priority `high`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (merged)
 - `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
 - `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)

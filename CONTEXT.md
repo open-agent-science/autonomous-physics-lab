@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-13 08:08 UTC
+Generated: 2026-05-13 08:45 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1882,6 +1882,7 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (merged)
 - `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
 - `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)
