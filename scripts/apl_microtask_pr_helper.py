@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
+import json
 from pathlib import Path
 import sys
 
@@ -46,6 +48,12 @@ def build_parser() -> argparse.ArgumentParser:
     preflight.add_argument("--title", required=True)
     preflight.add_argument("--body-file", required=True)
     preflight.add_argument("--root", default=".")
+
+    status = subparsers.add_parser("status", help="Show effective microtask availability.")
+    status.add_argument("--queue-id")
+    status.add_argument("--include-unavailable", action="store_true")
+    status.add_argument("--json", action="store_true")
+    status.add_argument("--root", default=".")
 
     return parser
 
@@ -97,6 +105,44 @@ def command_preflight(args: argparse.Namespace) -> int:
     return 0 if report.ok else 1
 
 
+def command_status(args: argparse.Namespace) -> int:
+    from physics_lab.registry.microtask_queue_summary import load_microtask_availability
+
+    items = load_microtask_availability(Path(args.root), queue_id=args.queue_id)
+    if not args.include_unavailable:
+        items = tuple(item for item in items if item.status == "available")
+
+    if args.json:
+        sys.stdout.write(json.dumps([asdict(item) for item in items], indent=2, sort_keys=True))
+        sys.stdout.write("\n")
+        return 0
+
+    if args.queue_id:
+        sys.stdout.write(f"Microtask availability for {args.queue_id}\n")
+    else:
+        sys.stdout.write("Microtask availability\n")
+    sys.stdout.write(
+        "| Queue | Microtask | Status | Repeatable | Completed Runs | Active Runs | Risk | Title |\n"
+    )
+    sys.stdout.write("| --- | --- | --- | --- | ---: | ---: | --- | --- |\n")
+    for item in items:
+        escaped_title = item.title.replace("|", "\\|")
+        sys.stdout.write(
+            "| "
+            f"`{item.queue_id}` | "
+            f"`{item.microtask_id}` | "
+            f"`{item.status}` | "
+            f"`{str(item.repeatable).lower()}` | "
+            f"{item.completed_runs} | "
+            f"{item.active_runs} | "
+            f"`{item.risk_level}` | "
+            f"{escaped_title} |\n"
+        )
+    if not items:
+        sys.stdout.write("\nNo matching microtasks.\n")
+    return 0
+
+
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
@@ -104,6 +150,8 @@ def main() -> int:
         return command_scaffold(args)
     if args.command == "preflight":
         return command_preflight(args)
+    if args.command == "status":
+        return command_status(args)
     raise AssertionError(f"Unsupported command: {args.command}")
 
 
