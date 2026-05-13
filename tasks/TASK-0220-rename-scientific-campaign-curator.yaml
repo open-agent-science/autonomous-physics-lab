@@ -1,0 +1,57 @@
+id: TASK-0220
+title: "Rename campaign steering mode to Scientific Campaign Curator"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make the maintainer-facing campaign steering role easier to invoke from chat."
+  - "Use clearer naming for the agent that synthesizes scientific campaign results and next lanes."
+  - "Remove stale previous campaign-steering naming now that the repository context will be refreshed."
+
+input:
+  mode: workflow
+  related_domain: campaign_steering
+  related_objects:
+    - "docs/scientific-campaign-curator.md"
+    - "docs/campaign-curator-protocol.md"
+    - "scripts/apl_campaign_curator.py"
+    - "physics_lab/registry/campaign_curator.py"
+    - "tests/test_campaign_curator.py"
+  planning_context: >
+    The campaign steering agent should be named Scientific Campaign Curator,
+    with Campaign Curator as the short docs/CLI name and "науковий куратор" as
+    an explicit chat alias. The old navigator naming should be removed instead
+    of kept as legacy, because refreshed agent context will use the new name.
+
+requirements:
+  - "Use Scientific Campaign Curator as the official role name."
+  - "Use Campaign Curator as the short command/docs name."
+  - "Document the Ukrainian chat alias: науковий куратор."
+  - "Rename script, registry module, tests, docs, and CLI command to curator naming."
+  - "Do not keep a legacy script or CLI alias for the previous campaign-steering name."
+  - "Preserve behavior and authority boundaries: advisory, maintainer-facing, no experiments, no claim promotion."
+
+accepted_outputs:
+  - "scripts/apl_campaign_curator.py"
+  - "physics_lab/registry/campaign_curator.py"
+  - "tests/test_campaign_curator.py"
+  - "docs/scientific-campaign-curator.md"
+  - "docs/campaign-curator-protocol.md"
+  - "updated docs/agent-catalog.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_campaign_curator.py"
+    - "python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface --json"
+    - "python3 -m physics_lab.cli campaign-curator --campaign nuclear-mass-surface --json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

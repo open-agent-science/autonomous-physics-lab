@@ -31,6 +31,13 @@ from physics_lab.registry.mission_control import (
     render_agent_prompt,
     render_human_mission,
 )
+from physics_lab.registry.campaign_curator import (
+    SUPPORTED_CAMPAIGN_CURATOR_MODES,
+    build_campaign_brief,
+    campaign_brief_json,
+    render_campaign_agent_prompt,
+    render_campaign_brief,
+)
 from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.runner import run_experiment_with_output
 
@@ -241,6 +248,63 @@ def mission(
         typer.echo(mission_json(payload, mode, root=root_path))
     else:
         typer.echo(render_human_mission(payload, mode, root=root_path))
+
+
+def _emit_campaign_curator(
+    *,
+    root: str,
+    campaign: Optional[str],
+    mode: str,
+    json_output: bool,
+    agent_prompt: bool,
+) -> None:
+    """Print a Scientific Campaign Curator brief in the requested format."""
+    root_path = Path(root).resolve()
+    brief = build_campaign_brief(root_path, campaign_id=campaign, mode=mode)
+    if agent_prompt:
+        typer.echo(render_campaign_agent_prompt(brief))
+    elif json_output:
+        typer.echo(campaign_brief_json(brief))
+    else:
+        typer.echo(render_campaign_brief(brief))
+
+
+@app.command("campaign-curator")
+def campaign_curator(
+    root: str = typer.Argument("."),
+    campaign: Optional[str] = typer.Option(
+        None,
+        "--campaign",
+        help="Campaign id. Defaults to the top-ranked campaign in missions/current.yaml.",
+    ),
+    mode: str = typer.Option(
+        "cycle-review",
+        "--mode",
+        help="Curator mode: cycle-review or planning.",
+    ),
+    json_output: bool = typer.Option(
+        False,
+        "--json",
+        help="Emit machine-readable campaign curator JSON.",
+    ),
+    agent_prompt: bool = typer.Option(
+        False,
+        "--agent-prompt",
+        help="Emit a copy-paste prompt for a maintainer-run campaign curator agent.",
+    ),
+) -> None:
+    """Print the Scientific Campaign Curator campaign brief."""
+    if mode not in SUPPORTED_CAMPAIGN_CURATOR_MODES:
+        raise typer.BadParameter(
+            "mode must be one of: " + ", ".join(SUPPORTED_CAMPAIGN_CURATOR_MODES)
+        )
+    _emit_campaign_curator(
+        root=root,
+        campaign=campaign,
+        mode=mode,
+        json_output=json_output,
+        agent_prompt=agent_prompt,
+    )
 
 
 @app.command("status")

@@ -1,13 +1,14 @@
-# Science Curator Agent
+# Scientific Campaign Curator Agent
 
-The Science Curator is a maintainer-run scientific campaign curator for APL.
-**Campaign Navigator** is an accepted alias and the implementation script is
-named `apl_campaign_navigator.py`.
+The Scientific Campaign Curator is a maintainer-run scientific campaign curator
+for APL. **Campaign Curator** is the short command/docs name, and the
+implementation script is named `apl_campaign_curator.py`.
 
-Maintainer prompts may use either name:
+Maintainer chat prompts may use any of these names:
 
-- "Run Science Curator for nuclear mass."
-- "Run Campaign Navigator for nuclear mass."
+- "Run Scientific Campaign Curator for nuclear mass."
+- "Run Campaign Curator for nuclear mass."
+- "Запусти наукового куратора для nuclear mass."
 - "Перейди в режим наукового куратора для nuclear mass."
 
 It is not a contributor onboarding mode, not a task runner, and not a PR review
@@ -31,13 +32,13 @@ batch of private-agent science PRs.
 
 ## Relationship To Other Agents
 
-The Science Curator is separate from existing roles:
+The Scientific Campaign Curator is separate from existing roles:
 
 - Review agent: checks whether a specific PR is mergeable.
 - Closeout agent: updates task state after reviewed merges.
 - Task execution agent: implements one scoped task on a task branch.
 - Mission script: recommends the current agent-first entrypoint.
-- Science Curator: summarizes the campaign and recommends the next cycle.
+- Scientific Campaign Curator: summarizes the campaign and recommends the next cycle.
 
 The curator can recommend that other agents run tasks, audits, or support
 work. It does not do that work itself unless the maintainer explicitly switches
@@ -48,11 +49,11 @@ the same assistant into a normal task-runner role.
 The script is an implementation helper for a chat-driven maintainer mode:
 
 ```bash
-python3 scripts/apl_campaign_navigator.py
-python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface
-python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface --json
-python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface --agent-prompt
-python3 scripts/apl_campaign_navigator.py --campaign nuclear-mass-surface --mode cycle-review
+python3 scripts/apl_campaign_curator.py
+python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface
+python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface --json
+python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface --agent-prompt
+python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface --mode cycle-review
 ```
 
 If no campaign is supplied, the script uses the top-ranked campaign from
@@ -75,7 +76,7 @@ The curator produces a campaign brief with:
 
 ## Authority Boundary
 
-The Science Curator is advisory by default.
+The Scientific Campaign Curator is advisory by default.
 
 It must not:
 
@@ -96,7 +97,7 @@ evidence.
 
 ## Maintainer-Authorized Task Creation
 
-If the maintainer explicitly asks the Science Curator to "create tasks",
+If the maintainer explicitly asks the Scientific Campaign Curator to "create tasks",
 "оформи задачі", or otherwise turn its recommendations into repository tasks in
 the current turn, the curator may act as a bounded task-admin helper.
 
