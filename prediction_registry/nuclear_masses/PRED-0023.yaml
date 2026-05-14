@@ -1,0 +1,126 @@
+prediction_id: PRED-0023
+title: 'Prospective nuclear mass slate: pairing-enhanced control (+10% pairing coefficient) on odd-even sensitivity probe'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0229
+evidence_class: prospective_prediction_registry
+claim_ceiling: Registered prospective prediction variant only; no claim, canonical result, or accepted
+  knowledge promotion before later maintainer-reviewed comparison. No TASK-0201 pairing sandbox
+  candidate is being promoted.
+registered_by:
+  contributor_id: gladunrv
+  agent_id: claude_code
+registered_at_utc: '2026-05-14T14:00:00Z'
+source_state:
+  git_commit: f5192aab65cfade1dd883e55b154f3718628fada
+  model_reference:
+    model_id: RESULT-0015::model_fitted_semi_empirical::pairing_plus_ten_percent
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+    frozen_parameters_note: >
+      Frozen pairing-enhanced perturbation derived from RESULT-0015 model_fitted_semi_empirical.
+      Base coefficients: volume=15.51423612106804, surface=17.2931812095177,
+      coulomb=0.6878156091568888, asymmetry=23.846557883948485, pairing=15.990845113398912.
+      Only the pairing coefficient is multiplied by 1.10, giving the perturbed set
+      volume=15.51423612106804, surface=17.2931812095177, coulomb=0.6878156091568888,
+      asymmetry=23.846557883948485, pairing=17.589929624738804.
+      The pairing delta is +aP/sqrt(A) for even-even, -aP/sqrt(A) for odd-odd, and 0 for odd-A nuclei.
+      No shell, magic-number, or neutron-rich correction is introduced.
+      Bounded pairing-sensitivity control variant only; not a promoted sandbox candidate.
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Registered from repository state f5192aab65cfade1dd883e55b154f3718628fada without live external
+    fetching. Target nuclides are repo-prospective: absent from committed NMD-0002 and post-AME2020
+    holdout datasets at registration time; true-world prospectiveness requires later maintainer
+    source-state review.
+target_set:
+  label: odd-even-pairing-sensitivity-probe
+  quantity: mass_excess_mev
+  unit: MeV
+  target_nuclides:
+    - nuclide_id: Co-59
+      Z: 27
+      N: 32
+      A: 59
+      predicted_value_mev: -64.036113
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::pairing_plus_ten_percent.
+        Odd-A nucleus (Z odd, N even): pairing delta = 0 regardless of pairing coefficient;
+        value is identical to base model for odd-A targets.
+    - nuclide_id: Ni-60
+      Z: 28
+      N: 32
+      A: 60
+      predicted_value_mev: -66.529991
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::pairing_plus_ten_percent.
+        Even-even nucleus: pairing delta = +17.589929624738804/sqrt(60) = +2.270865 MeV;
+        enhanced pairing raises binding energy relative to base model.
+    - nuclide_id: Ni-61
+      Z: 28
+      N: 33
+      A: 61
+      predicted_value_mev: -66.081026
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::pairing_plus_ten_percent.
+        Odd-A nucleus (Z even, N odd): pairing delta = 0 regardless of pairing coefficient;
+        value is identical to base model for odd-A targets.
+    - nuclide_id: Cu-64
+      Z: 29
+      N: 35
+      A: 64
+      predicted_value_mev: -67.104960
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::pairing_plus_ten_percent.
+        Odd-odd nucleus (Z odd, N odd): pairing delta = -17.589929624738804/sqrt(64) = -2.198741 MeV;
+        enhanced pairing increases the odd-odd penalty, raising mass excess (less binding) relative
+        to base model.
+uncertainty_semantics:
+  type: point_estimate_only
+  note: >
+    Each value is a deterministic mass_excess_mev point estimate obtained by converting the frozen
+    pairing-enhanced semi-empirical binding-energy prediction to atomic mass and then to mass excess.
+    uncertainty_mev is intentionally null; this entry is a bounded pairing-sensitivity control for
+    comparison after future reveal, not a confidence-ranked forecast. The target batch intentionally
+    spans odd-A (pairing-insensitive) and even-even / odd-odd (pairing-sensitive) nuclei to make the
+    sensitivity structure visible without claim promotion.
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest added after registration
+    contains measured or reviewably convertible values for one or more target nuclides.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed source manifest committed
+    after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, coefficient note, target nuclides,
+    predicted values, or reveal rule. Later comparison must be a separate reviewed task and may
+    reveal a subset of targets only.
+limitations:
+  - Prospective registry variant only; not a claim or result package.
+  - No TASK-0201 pairing sandbox candidate is being promoted; this is a bounded sensitivity control.
+  - Targets are selected against committed repository datasets only; no live external source was
+    fetched during registration.
+  - A +10% pairing-coefficient perturbation is a deliberate sensitivity probe; it is not a
+    fitted model and shifts predictions only for non-odd-A nuclei.
+  - Odd-A targets in this batch (Co-59, Ni-61) are pairing-insensitive by construction and serve
+    as negative controls within the same target set.
+  - Any agent-proposed follow-up variant must freeze its model, target set, and source state in a
+    separate registry entry before reveal.
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false

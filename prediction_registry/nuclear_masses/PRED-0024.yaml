@@ -1,0 +1,129 @@
+prediction_id: PRED-0024
+title: 'Prospective nuclear mass slate: null-pairing control (pairing coefficient = 0) on odd-even sensitivity probe'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0229
+evidence_class: prospective_prediction_registry
+claim_ceiling: Registered prospective prediction variant only; no claim, canonical result, or accepted
+  knowledge promotion before later maintainer-reviewed comparison. No TASK-0201 pairing sandbox
+  candidate is being promoted.
+registered_by:
+  contributor_id: gladunrv
+  agent_id: claude_code
+registered_at_utc: '2026-05-14T14:00:00Z'
+source_state:
+  git_commit: f5192aab65cfade1dd883e55b154f3718628fada
+  model_reference:
+    model_id: RESULT-0015::model_fitted_semi_empirical::null_pairing_control
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+    frozen_parameters_note: >
+      Frozen null-pairing control derived from RESULT-0015 model_fitted_semi_empirical.
+      Base coefficients: volume=15.51423612106804, surface=17.2931812095177,
+      coulomb=0.6878156091568888, asymmetry=23.846557883948485, pairing=15.990845113398912.
+      The pairing coefficient is set to 0.0 (null-pairing control), giving the modified set
+      volume=15.51423612106804, surface=17.2931812095177, coulomb=0.6878156091568888,
+      asymmetry=23.846557883948485, pairing=0.0.
+      The pairing delta term is thus zero for all nuclides regardless of even-even or odd-odd parity.
+      No shell, magic-number, or neutron-rich correction is introduced.
+      Null-pairing control variant only; not a promoted sandbox candidate.
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Registered from repository state f5192aab65cfade1dd883e55b154f3718628fada without live external
+    fetching. Target nuclides are repo-prospective: absent from committed NMD-0002 and post-AME2020
+    holdout datasets at registration time; true-world prospectiveness requires later maintainer
+    source-state review.
+target_set:
+  label: null-pairing-control-probe
+  quantity: mass_excess_mev
+  unit: MeV
+  target_nuclides:
+    - nuclide_id: Co-59
+      Z: 27
+      N: 32
+      A: 59
+      predicted_value_mev: -64.036113
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::null_pairing_control.
+        Odd-A nucleus (Z odd, N even): pairing delta = 0 in both base and null-pairing models;
+        value is identical to base model and to PRED-0023 for odd-A targets.
+    - nuclide_id: Ni-60
+      Z: 28
+      N: 32
+      A: 60
+      predicted_value_mev: -64.259140
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::null_pairing_control.
+        Even-even nucleus: pairing delta = 0 (null control); base model pairing contribution of
+        +15.990845113398912/sqrt(60) = +2.064822 MeV is removed, raising mass excess by ~2.07 MeV
+        relative to base model (less binding without pairing).
+    - nuclide_id: Ni-61
+      Z: 28
+      N: 33
+      A: 61
+      predicted_value_mev: -66.081026
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::null_pairing_control.
+        Odd-A nucleus (Z even, N odd): pairing delta = 0 in both base and null-pairing models;
+        value is identical to base model and to PRED-0023 for odd-A targets.
+    - nuclide_id: Cu-64
+      Z: 29
+      N: 35
+      A: 64
+      predicted_value_mev: -69.303702
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::null_pairing_control.
+        Odd-odd nucleus (Z odd, N odd): pairing delta = 0 (null control); base model pairing
+        penalty of -15.990845113398912/sqrt(64) = -1.998856 MeV is removed, lowering mass excess
+        by ~2.00 MeV relative to base model (more binding without odd-odd penalty).
+uncertainty_semantics:
+  type: point_estimate_only
+  note: >
+    Each value is a deterministic mass_excess_mev point estimate obtained by converting the frozen
+    null-pairing semi-empirical binding-energy prediction to atomic mass and then to mass excess.
+    uncertainty_mev is intentionally null; this entry is a null-pairing control that removes the
+    odd-even staggering term entirely, providing a lower bound on what the pairing term contributes.
+    The target batch is identical to PRED-0023 to allow direct pairing-sensitivity comparison when
+    later measurements are reviewed.
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest added after registration
+    contains measured or reviewably convertible values for one or more target nuclides.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed source manifest committed
+    after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, coefficient note, target nuclides,
+    predicted values, or reveal rule. Later comparison must be a separate reviewed task and may
+    reveal a subset of targets only.
+limitations:
+  - Prospective registry variant only; not a claim or result package.
+  - No TASK-0201 pairing sandbox candidate is being promoted; this is a null-pairing control.
+  - Targets are selected against committed repository datasets only; no live external source was
+    fetched during registration.
+  - Removing the pairing term entirely is a deliberate ablation control; a null-pairing model is
+    known to be empirically inferior for even-even and odd-odd nuclei.
+  - Odd-A targets in this batch (Co-59, Ni-61) show no difference from PRED-0023 or the base model
+    and serve as negative controls confirming the pairing-insensitivity of odd-A predictions.
+  - The comparison between PRED-0023 and PRED-0024 across the same target batch quantifies the
+    even-even / odd-odd pairing sensitivity without requiring a held-out measurement.
+  - Any agent-proposed follow-up variant must freeze its model, target set, and source state in a
+    separate registry entry before reveal.
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false
