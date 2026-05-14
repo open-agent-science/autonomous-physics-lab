@@ -443,13 +443,18 @@ missing GitHub auth, or restricted agent network access must not stop the
 agent before implementation. Do not pause before editing files just because
 the agent cannot publish a PR itself. Instead, create the task branch first,
 complete the local task work, run validation, and commit only after the files
-are ready for maintainer review. If the agent cannot publish the PR itself at
-the end, it must provide exact maintainer-run commands for `git push`,
-`gh pr create`, review-agent execution after a PR number exists, and
-`gh pr ready` when CI and review pass. Do not treat a pushed branch, local
+are ready for maintainer review. At the end, the agent should choose the best
+available publication path: repository PR helpers, an available GitHub/MCP
+tool, or GitHub CLI. If a needed `git`/`gh`/review command is blocked by the
+sandbox or missing approval, the agent should request the required permission
+or escalation for that specific command instead of silently falling back. Only
+if the agent still cannot publish after trying the available tool path or
+permission request should it provide exact maintainer-run commands for
+`git push`, `gh pr create`, review-agent execution after a PR number exists,
+and `gh pr ready` when CI and review pass. Do not treat a pushed branch, local
 commit, staged diff, title, or PR body as a completed pull request lifecycle;
-if the agent cannot create the PR directly, the final response must say so and
-include the manual publication commands.
+if the agent cannot create the PR directly, the final response must say what
+was attempted and include the manual publication commands.
 
 Codex sessions may omit Homebrew paths from `PATH`. Use repository helpers such
 as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
