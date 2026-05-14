@@ -119,8 +119,16 @@ def command_preflight(args: argparse.Namespace) -> int:
 
 
 def command_create(args: argparse.Namespace) -> int:
+    from physics_lab.registry.pr_capability import find_gh_path
+
+    gh_path = find_gh_path()
+    if gh_path is None:
+        sys.stderr.write(
+            "Cannot create PR: GitHub CLI `gh` is not installed or not discoverable.\n"
+        )
+        return 127
     command = [
-        "gh",
+        gh_path,
         "pr",
         "create",
         "--base",
@@ -134,16 +142,12 @@ def command_create(args: argparse.Namespace) -> int:
     ]
     if not args.ready:
         command.insert(3, "--draft")
-    try:
-        completed = subprocess.run(
-            command,
-            check=False,
-            text=True,
-            capture_output=True,
-        )
-    except FileNotFoundError:
-        sys.stderr.write("Cannot create PR: GitHub CLI `gh` is not installed.\n")
-        return 127
+    completed = subprocess.run(
+        command,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
     sys.stdout.write(completed.stdout)
     sys.stderr.write(completed.stderr)
     return completed.returncode

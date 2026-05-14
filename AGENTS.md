@@ -443,6 +443,11 @@ If the check fails, pause before editing files and report the PR creation
 blocker. Do not treat a pushed branch, local commit, staged diff, title, or PR
 body as a completed pull request lifecycle.
 
+Codex sessions may omit Homebrew paths from `PATH`. Use repository helpers such
+as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
+instead of calling bare `gh`; they check common GitHub CLI locations such as
+`/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
+
 If `git add` or `git commit` fails inside Codex with
 `.git/index.lock: Operation not permitted`, treat it as a sandbox permission
 issue and retry the same git command with escalation. Do not tell the

@@ -12,6 +12,10 @@ from physics_lab.registry.review_git import run_command
 
 
 TOKEN_ENV_NAMES = ("GH_TOKEN", "GITHUB_TOKEN")
+DEFAULT_GH_CANDIDATE_PATHS = (
+    "/opt/homebrew/bin/gh",
+    "/usr/local/bin/gh",
+)
 
 
 @dataclass(frozen=True)
@@ -33,13 +37,16 @@ def check_pr_capability(
     *,
     env: Mapping[str, str] | None = None,
     gh_path: str | None = None,
+    candidate_paths: tuple[str, ...] = DEFAULT_GH_CANDIDATE_PATHS,
     discover_gh: bool = True,
     require_gh_auth: bool = True,
 ) -> PrCapabilityReport:
     """Check whether a PR can be opened through GitHub CLI or token fallback."""
     env_map = os.environ if env is None else env
     tokens = tuple(name for name in TOKEN_ENV_NAMES if env_map.get(name))
-    resolved_gh_path = gh_path if gh_path is not None else (shutil.which("gh") if discover_gh else None)
+    resolved_gh_path = gh_path if gh_path is not None else (
+        find_gh_path(candidate_paths=candidate_paths) if discover_gh else None
+    )
     errors: list[str] = []
     warnings: list[str] = []
 
@@ -79,3 +86,18 @@ def check_pr_capability(
         gh_path=resolved_gh_path,
         token_env_names=tokens,
     )
+
+
+def find_gh_path(
+    *,
+    candidate_paths: tuple[str, ...] = DEFAULT_GH_CANDIDATE_PATHS,
+) -> str | None:
+    """Find GitHub CLI even when Codex PATH omits Homebrew directories."""
+    discovered = shutil.which("gh")
+    if discovered is not None:
+        return discovered
+    for candidate in candidate_paths:
+        path = Path(candidate)
+        if path.exists() and os.access(path, os.X_OK):
+            return str(path)
+    return None
