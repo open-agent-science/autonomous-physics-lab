@@ -424,6 +424,42 @@ Agents must not:
 
 `git push` requires explicit maintainer approval.
 
+When the maintainer asks an agent to "prepare a PR", "run the task through
+PR", "execute the selected task autonomously", or otherwise requests the full
+task lifecycle in the current turn, that request is explicit approval to commit
+on the current task branch, push that task branch, and open a draft pull
+request for that task. This approval applies only to the selected task branch.
+It does not allow pushing `main`, force-pushing, merging, tagging, or pushing
+unrelated branches.
+
+Before starting implementation for a full PR lifecycle request, agents should
+run:
+
+```bash
+python3 scripts/apl_pr_capability_check.py
+```
+
+If the check fails, pause before editing files and report the PR creation
+blocker. Do not treat a pushed branch, local commit, staged diff, title, or PR
+body as a completed pull request lifecycle.
+
+Codex sessions may omit Homebrew paths from `PATH`. Use repository helpers such
+as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
+instead of calling bare `gh`; they check common GitHub CLI locations such as
+`/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
+
+Agents should open task PRs as drafts while validation and review are still in
+progress. After GitHub CI is green and the PR-number review agent returns
+`MERGE_OK`, agents should mark the PR ready for review with
+`gh pr ready <number>`. If CI fails, the review agent blocks, or the agent is
+still applying fixes, keep the PR in draft and report the blocker.
+
+If `git add` or `git commit` fails inside Codex with
+`.git/index.lock: Operation not permitted`, treat it as a sandbox permission
+issue and retry the same git command with escalation. Do not tell the
+maintainer to edit or delete `.git/index.lock` unless a separate check confirms
+that a stale lock file exists and no git process is running.
+
 AI assistance should be recorded in PR metadata, not in git co-author trailers.
 
 Maintainer review and task closeout may be assisted by a maintainer-run review

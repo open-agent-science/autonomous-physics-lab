@@ -22,3 +22,4 @@ None.
 - `TASK-0215` - Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`, domain `test_quality`)
 - `TASK-0245` - Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_onboarding`)
 - `TASK-0246` - Add closeout PR helper for template-based PR bodies (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_automation`)
+- `TASK-0247` - Add PR lifecycle guardrails for autonomous agents (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_automation`)

@@ -368,7 +368,7 @@ def test_render_agent_prompt_mentions_full_pr_loop(tmp_path: Path) -> None:
     assert "Agent First Research Mode" in rendered
     assert "Use canonical task TASK-0002" in rendered
     assert "Execute the full loop autonomously" in rendered
-    assert "prepare a PR" in rendered
+    assert "open a draft PR" in rendered
     assert "Do not promote claims" in rendered
     assert "separate branches or worktrees" in rendered
     assert "list only executable READY tasks" in rendered
@@ -395,6 +395,7 @@ def test_render_onboarding_prompt_waits_for_user_choice(tmp_path: Path) -> None:
     assert "TASK-0007" in rendered
     assert "~5-10 min" in rendered
     assert "After the user chooses" in rendered
+    assert "draft PR creation" in rendered
 
 
 def test_render_human_modes_keep_support_and_maintainer_explicit(tmp_path: Path) -> None:
