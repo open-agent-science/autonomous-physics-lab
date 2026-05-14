@@ -8,7 +8,6 @@
 
 - `TASK-0222` - Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0227` - Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`, domain `particle_physics`)
-- `TASK-0229` - Register nuclear prediction variants for pairing and odd-even controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0230` - Register nuclear prediction variants for shell and magic-number controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0231` - Register nuclear prediction variants for neutron-excess and asymmetry controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0232` - Register nuclear prediction variants for isotope-chain extrapolation controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
@@ -25,3 +24,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0228` - Register nuclear prediction variants for smooth semi-empirical controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0229` - Register nuclear prediction variants for pairing and odd-even controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
