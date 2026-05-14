@@ -60,6 +60,9 @@ def build_parser() -> argparse.ArgumentParser:
     create.add_argument("--base", default="main")
     create.add_argument("--ready", action="store_true", help="Create a ready PR instead of a draft.")
 
+    ready = subparsers.add_parser("ready", help="Mark an existing draft task PR ready for review.")
+    ready.add_argument("--pr", required=True)
+
     return parser
 
 
@@ -153,6 +156,26 @@ def command_create(args: argparse.Namespace) -> int:
     return completed.returncode
 
 
+def command_ready(args: argparse.Namespace) -> int:
+    from physics_lab.registry.pr_capability import find_gh_path
+
+    gh_path = find_gh_path()
+    if gh_path is None:
+        sys.stderr.write(
+            "Cannot mark PR ready: GitHub CLI `gh` is not installed or not discoverable.\n"
+        )
+        return 127
+    completed = subprocess.run(
+        [gh_path, "pr", "ready", args.pr],
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    sys.stdout.write(completed.stdout)
+    sys.stderr.write(completed.stderr)
+    return completed.returncode
+
+
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
@@ -162,6 +185,8 @@ def main() -> int:
         return command_preflight(args)
     if args.command == "create":
         return command_create(args)
+    if args.command == "ready":
+        return command_ready(args)
     raise AssertionError(f"Unsupported command: {args.command}")
 
 
