@@ -166,9 +166,19 @@ Use these files as the shared coordination layer:
 - `docs/agent-task-protocol.md`
 - `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
+- `docs/task-views/research.md`
+- `docs/task-views/support.md`
+- `docs/task-views/release.md`
+- `docs/task-views/watchlist.md`
+- `docs/task-views/blocked.md`
 - `tasks/ACTIVE.md`
 - `tasks/TASK-TEMPLATE.yaml`
 - `tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml`
+
+`tasks/ACTIVE.md` remains the generated full-status board, including DONE
+history. The generated files under `docs/task-views/` are the lighter
+navigation surface for current work; they are synchronized from canonical
+`tasks/TASK-*.yaml` files through `python3 -m physics_lab.cli sync-active-board .`.
 
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
@@ -248,7 +258,9 @@ To continue work consistently, use these project documents:
 - `docs/strategy.md` for the strategic compass;
 - `docs/agent-task-protocol.md` for the canonical execution protocol;
 - `docs/agent-operating-model.md` for the shared agent workflow;
-- `tasks/ACTIVE.md` for the live task board;
+- `docs/task-views/research.md`, `docs/task-views/support.md`, and
+  `docs/task-views/release.md` for lane-specific current work;
+- `tasks/ACTIVE.md` for the full generated task-status board;
 - `docs/implementation-plan.md` for the broader phased strategy;
 - `docs/next-steps.md` for the current short-term execution queue;
 - `docs/backlog.md` for deferred or medium-term work.

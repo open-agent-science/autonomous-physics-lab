@@ -20,7 +20,7 @@ from physics_lab.registry.review_git import (
     changed_files_vs_main,
     parse_added_lines,  # noqa: F401 — re-exported; tests import from here
 )
-from physics_lab.registry.active_board import sync_active_board
+from physics_lab.registry.generated_state import sync_generated_task_state
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
     overclaim_advisory_hits,
@@ -514,6 +514,13 @@ def build_review_report(
             required_fixes.append(
                 "Task proposal PR should not update tasks/ACTIVE.md before maintainer acceptance."
             )
+        task_view_changes = tuple(
+            path for path in changed_files if path.startswith("docs/task-views/")
+        )
+        if task_view_changes:
+            required_fixes.append(
+                "Task proposal PR should not update generated task views before maintainer acceptance."
+            )
     elif is_closeout_review:
         resolved_task_id = "TASK-CLOSEOUT"
         closeout_task_files = tuple(
@@ -562,6 +569,8 @@ def build_review_report(
                 )
         if "tasks/ACTIVE.md" not in changed_files:
             required_fixes.append("TASK-QUEUE PR should sync tasks/ACTIVE.md.")
+        if not any(path.startswith("docs/task-views/") for path in changed_files):
+            required_fixes.append("TASK-QUEUE PR should sync docs/task-views/*.md.")
         forbidden_paths = tuple(
             path
             for path in changed_files
@@ -876,9 +885,9 @@ def update_task_status(task_file: Path, new_status: str) -> None:
 
 
 def update_active_board_for_done(root: Path, task_id: str, task_title: str) -> None:
-    """Refresh the active board after a task transitions to DONE."""
+    """Refresh generated task navigation after a task transitions to DONE."""
     del task_id, task_title
-    sync_active_board(root)
+    sync_generated_task_state(root)
 
 
 def should_append_dry_run_entry(task_payload: dict[str, Any]) -> bool:
@@ -1013,10 +1022,13 @@ def build_closeout_report(
         applied_changes.append(f"Updated {task_file.as_posix()} status to DONE.")
         if sync_board:
             update_active_board_for_done(root, task_id, str(task_payload["title"]))
-            applied_changes.append("Synchronized tasks/ACTIVE.md from canonical task files.")
+            applied_changes.append(
+                "Synchronized generated task navigation: tasks/ACTIVE.md and docs/task-views/*.md."
+            )
         else:
             applied_changes.append(
-                "Deferred tasks/ACTIVE.md synchronization; run python3 -m physics_lab.cli sync-active-board . later in a dedicated board-sync step."
+                "Deferred generated task navigation sync; run python3 -m physics_lab.cli "
+                "sync-active-board . later in a dedicated board-sync step."
             )
         if should_append_dry_run_entry(task_payload):
             if append_dry_run_entry(root, task_id, pull_request):
