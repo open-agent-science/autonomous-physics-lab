@@ -22,3 +22,4 @@ None.
 - `TASK-0215` - Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`, domain `test_quality`)
 - `TASK-0244` - Fix snapshot canonical experiment list truncation (`documentation`, priority `high`, difficulty `low`, domain `repository_validation`)
 - `TASK-0245` - Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_onboarding`)
+- `TASK-0246` - Add closeout PR helper for template-based PR bodies (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_automation`)

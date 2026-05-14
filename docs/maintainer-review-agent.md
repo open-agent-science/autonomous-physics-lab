@@ -317,6 +317,47 @@ Use this mode only after the maintainer has already merged the PR.
    then prepare a closeout commit and PR or explicitly ask the maintainer to
    publish those changes. Do not push or merge without maintainer
    authorization.
+   Prefer the closeout scaffold/preflight helper instead of a short ad hoc
+   `gh pr create --body ...` flow:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py scaffold \
+     --task-id TASK-XXXX \
+     --contributor-id <contributor-id> \
+     --github-username <github-username> \
+     --agent-id <agent-id> \
+     --human-reviewer <human-reviewer> \
+     --slug <closeout-slug> \
+     --description "mark task done" \
+     --include-active-board \
+     --include-context
+   ```
+
+   To generate a body file directly for `gh pr create --body-file`, add
+   `--body-only`:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py scaffold \
+     --task-id TASK-XXXX \
+     --contributor-id <contributor-id> \
+     --github-username <github-username> \
+     --agent-id <agent-id> \
+     --human-reviewer <human-reviewer> \
+     --slug <closeout-slug> \
+     --description "mark task done" \
+     --include-active-board \
+     --include-context \
+     --body-only > /tmp/apl-closeout-pr-body.md
+   ```
+
+   Then run preflight before opening the PR:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py preflight \
+     --branch agent/<contributor-id>/<agent-id>/closeout-<closeout-slug> \
+     --title "TASK-CLOSEOUT: <short title>" \
+     --body-file /tmp/apl-closeout-pr-body.md
+   ```
 10. After the closeout PR is open and the review agent reports `MERGE_OK` with
     green CI, do not end with a passive status update. If the maintainer already
     authorized closeout/merge in the current request chain and the PR is pure
@@ -396,16 +437,16 @@ rule and adding regression coverage there before changing report orchestration.
 
 ```bash
 python3 scripts/apl_review_pr.py --pr 18
-python3 scripts/apl_review_pr.py --pr 18 --task TASK-0034
-python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034
+python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX
+python3 scripts/apl_review_pr.py --branch agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug> --task TASK-XXXX
 ```
 
 ### Post-merge closeout helper
 
 ```bash
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply --sync-board
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number>
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply --sync-board
 ```
 
 Default behavior:
@@ -464,7 +505,7 @@ Expected behavior:
 For a quick local closeout snapshot, run:
 
 ```bash
-python3 scripts/apl_task_closeout_check.py --task TASK-0033
+python3 scripts/apl_task_closeout_check.py --task TASK-XXXX
 ```
 
 This helper is intentionally lightweight. It reports the task file path, task
@@ -500,8 +541,8 @@ Run this after:
 ### Pre-merge review
 
 ```text
-Review PR #18 according to docs/maintainer-review-agent.md.
-Task: TASK-0034.
+Review PR #<number> according to docs/maintainer-review-agent.md.
+Task: TASK-XXXX.
 Use the review bundle and PR metadata.
 Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
 Include risk, security risks, blockers, and required fixes for the developer.
@@ -511,7 +552,7 @@ Do not edit files.
 ### Pre-merge review for a task proposal
 
 ```text
-Review PR #18 according to docs/maintainer-review-agent.md.
+Review PR #<number> according to docs/maintainer-review-agent.md.
 Task: TASK-PROPOSAL.
 Check branch, proposal file, PR title, proposal scope, review bundle, and overclaim risk.
 Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
@@ -522,7 +563,7 @@ Do not edit files.
 ### Post-merge closeout
 
 ```text
-Run task closeout for TASK-0034 according to docs/maintainer-review-agent.md.
+Run task closeout for TASK-XXXX according to docs/maintainer-review-agent.md.
 Check that the PR is merged and accepted outputs exist in main.
 If valid, update task status to DONE.
 Only run `python3 -m physics_lab.cli sync-active-board .` when we are doing a dedicated board-sync step.
