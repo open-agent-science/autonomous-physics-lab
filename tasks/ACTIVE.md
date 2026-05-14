@@ -74,10 +74,10 @@ None.
 
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0238` — Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`)
-- `TASK-0243` — Add generated task views and mission freshness sync (`repository_validation`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
+- `TASK-0243` — Add generated task views and mission freshness sync (merged)
 - `TASK-0221` — Clarify campaign-curator trigger wording (merged)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
 - `TASK-0219` — Enforce repository PR template sections in maintainer review (merged)

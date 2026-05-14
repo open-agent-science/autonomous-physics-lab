@@ -20,4 +20,3 @@ None.
 ## REVIEW_READY
 
 - `TASK-0215` - Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`, domain `test_quality`)
-- `TASK-0243` - Add generated task views and mission freshness sync (`repository_validation`, priority `high`, difficulty `high`, domain `maintainer_review`)
