@@ -29,6 +29,14 @@ def test_render_authority_notes_mentions_canonical_layers() -> None:
 
 def test_render_current_state_summary_uses_structured_repository_state() -> None:
     rendered = render_current_state_summary(Path("."))
+    canonical_experiment_count = len(list(Path("experiments").glob("EXP-*.yaml")))
+    canonical_section = rendered.split("### Canonical Experiments", maxsplit=1)[1].split(
+        "### Recent Result Surface",
+        maxsplit=1,
+    )[0]
+    experiment_lines = [
+        line for line in canonical_section.splitlines() if line.startswith("- `EXP-")
+    ]
 
     assert "### Current Task State" in rendered
     assert "### Current Experiment State" in rendered
@@ -37,7 +45,8 @@ def test_render_current_state_summary_uses_structured_repository_state() -> None
     assert re.search(r"^- REVIEW_READY: \d+$", rendered, re.MULTILINE)
     assert "### Recently DONE" in rendered
     assert re.search(r"^- `TASK-\d{4}`", rendered, re.MULTILINE)
-    assert "`EXP-0008`" in rendered
+    assert len(experiment_lines) == canonical_experiment_count
+    assert "`EXP-0012`" in rendered
 
 
 def test_snapshot_script_open_pr_section_uses_pr_list_result() -> None:

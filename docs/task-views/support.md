@@ -20,3 +20,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0215` - Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`, domain `test_quality`)
+- `TASK-0244` - Fix snapshot canonical experiment list truncation (`documentation`, priority `high`, difficulty `low`, domain `repository_validation`)
