@@ -1,0 +1,46 @@
+id: TASK-0245
+title: "Add explicit onboarding mode for agent-first mission start"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Agent First research mode approachable for new users."
+  - "Preserve full autonomous execution as an explicit mode without weakening support or maintainer workflows."
+
+input:
+  mode: workflow
+  related_domain: agent_onboarding
+  related_objects:
+    - "README.md"
+    - "docs/use-your-agent.md"
+    - "scripts/apl_mission.py"
+    - "physics_lab/registry/mission_control.py"
+  planning_context: "New agents started executing immediately after the README prompt, before explaining mission value or offering a task choice."
+
+requirements:
+  - "Add an explicit onboarding mission prompt mode."
+  - "Keep full autonomous agent prompt behavior available through the existing agent prompt mode."
+  - "Show estimated time for executable READY task options."
+  - "Do not change support or maintainer mode semantics."
+  - "Keep README prompt wording short and easy to copy."
+
+accepted_outputs:
+  - "README.md"
+  - "docs/use-your-agent.md"
+  - "scripts/apl_mission.py"
+  - "physics_lab/registry/mission_control.py"
+  - "tests/test_mission_control.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
