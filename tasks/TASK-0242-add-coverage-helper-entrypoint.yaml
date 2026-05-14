@@ -1,0 +1,51 @@
+id: TASK-0242
+title: "Add coverage helper entrypoint for contributors and agents"
+type: contributor_experience
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Reduce friction for contributors and agents running the report-only coverage workflow."
+  - "Make coverage execution more reproducible than a long hand-typed command."
+  - "Keep the helper lightweight and aligned with the no-fail-under posture from TASK-0215."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "docs/testing.md"
+    - "docs/notes/critical-path-coverage-audit.md"
+    - "pyproject.toml"
+    - "scripts/"
+  planning_context: >
+    Coverage reporting is now documented, but the current entrypoint is still a
+    long command that agents and contributors can mistype or run without the
+    right environment assumptions. A small helper script or wrapper would make
+    the report-only workflow easier to use and easier to mention in docs and
+    future audits.
+
+requirements:
+  - "Add one stable helper entrypoint for the report-only coverage run."
+  - "The helper should make the current coverage scope and output locations explicit."
+  - "Do not add a coverage threshold or CI failure gate in this task."
+  - "Keep the helper cross-platform where practical, or document any platform caveats clearly."
+  - "Update docs/testing.md and any related release/testing notes to use the helper if it becomes the preferred path."
+
+accepted_outputs:
+  - "a coverage helper under scripts/ or an equivalently stable documented entrypoint"
+  - "updated docs/testing.md"
+  - "optional test or smoke check for the helper if it contains logic beyond a thin wrapper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

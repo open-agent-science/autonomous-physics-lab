@@ -1,0 +1,52 @@
+id: TASK-0243
+title: "Add generated task views and mission freshness sync"
+type: repository_validation
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Reduce task-navigation drift without moving canonical task files."
+  - "Keep Agent First mission recommendations aligned with canonical task state."
+  - "Fold generated navigation sync into existing maintainer closeout flow."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/ACTIVE.md"
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/task-views/"
+  planning_context: "Replace stale manual task navigation with generated views and mission freshness validation."
+
+requirements:
+  - "Keep canonical task storage in tasks/TASK-*.yaml."
+  - "Generate task navigation views deterministically from canonical task YAML files."
+  - "Do not recommend DONE, REVIEW_READY, or BLOCKED tasks through the mission layer."
+  - "Integrate generated navigation sync into closeout and validate-repo flows."
+
+accepted_outputs:
+  - "physics_lab/registry/task_views.py"
+  - "physics_lab/registry/mission_freshness.py"
+  - "docs/task-views/research.md"
+  - "docs/task-views/support.md"
+  - "docs/task-views/release.md"
+  - "docs/task-views/watchlist.md"
+  - "docs/task-views/blocked.md"
+  - "tests/test_task_views.py"
+  - "tests/test_mission_freshness.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m physics_lab.cli sync-active-board ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

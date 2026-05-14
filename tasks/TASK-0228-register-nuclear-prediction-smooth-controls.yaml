@@ -1,0 +1,55 @@
+id: TASK-0228
+title: "Register nuclear prediction variants for smooth semi-empirical controls"
+type: scientific_validation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Scale Nuclear Mass Surface prediction work through bounded, reviewable registry variants."
+  - "Let agents execute and validate prospective forecasts before later reveal data exists."
+  - "Keep smooth baseline controls separate from speculative correction searches."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0001.yaml"
+    - "docs/prediction-registry-policy.md"
+    - "docs/reviews/nuclear-prediction-registry-entry-review.md"
+    - "docs/notes/nuclear-prediction-variant-expansion-wave.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    PRED-0001 through PRED-0020 established the first frozen prediction slate.
+    This lane adds two smooth semi-empirical control variants, such as bounded
+    coefficient perturbations, reference/fitted blends, or other low-complexity
+    controls that do not introduce shell, pairing, or neutron-rich corrections.
+
+requirements:
+  - "Create exactly two prospective registry entries unless the maintainer approves a larger batch."
+  - "Use the suggested ids PRED-0021 and PRED-0022 unless a parallel branch collision requires renumbering before review."
+  - "Compute quantity mass_excess_mev deterministically; do not leave calculation as LLM text."
+  - "Freeze the model formula, coefficients, target set, source state, uncertainty semantics, and reveal conditions."
+  - "Add a short review note explaining the smooth-control rationale and why it is not a promoted model."
+  - "Add or update tests for schema validity, target consistency, repo-prospective target checks, and deterministic value reproduction when code is added."
+  - "Do not use live external data fetching, reveal comparisons, or claim/result/knowledge promotion."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/PRED-0021.yaml"
+  - "prediction_registry/nuclear_masses/PRED-0022.yaml"
+  - "docs/reviews/nuclear-prediction-variants-smooth-controls.md"
+  - "updated tests covering the new prediction entries"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

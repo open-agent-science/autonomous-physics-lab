@@ -1,0 +1,47 @@
+id: TASK-0214
+title: "Curate coverage audit task and task-creation PR flow guidance"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep maintainer-created canonical tasks from remaining local-only."
+  - "Create a safe future task for coverage reporting without forcing premature 100% coverage gates."
+  - "Clarify task-admin workflow after maintainer-requested canonical task creation."
+
+input:
+  mode: workflow
+  related_domain: task_admin
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "tasks/ACTIVE.md"
+    - "tasks/TASK-0215-add-coverage-reporting-and-critical-path-audit.yaml"
+  planning_context: >
+    The maintainer asked to create a future task for pytest coverage reporting
+    and critical-path test coverage audit. The task should enter the normal PR
+    review flow instead of staying local-only. The task protocol should also
+    remind future task-admin agents to immediately prepare or offer a PR after
+    creating canonical task files.
+
+requirements:
+  - "Create a canonical READY coverage-audit task."
+  - "Sync tasks/ACTIVE.md after adding the canonical task."
+  - "Document that maintainer-requested canonical task creation should immediately move toward a PR or explicit PR offer."
+  - "Do not implement pytest-cov or coverage gates in this curation task."
+
+accepted_outputs:
+  - "tasks/TASK-0215-add-coverage-reporting-and-critical-path-audit.yaml"
+  - "updated docs/agent-task-protocol.md"
+  - "updated tasks/ACTIVE.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

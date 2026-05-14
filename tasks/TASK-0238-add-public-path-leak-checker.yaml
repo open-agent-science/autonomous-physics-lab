@@ -1,0 +1,50 @@
+id: TASK-0238
+title: "Add public path leak checker for release hygiene"
+type: release_review
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep public release gates easy to run without exposing maintainer-local path examples in public-facing docs."
+  - "Make local path leak checks deterministic, reviewable, and test-covered."
+  - "Support TASK-0206 release-time validation with a stable helper command."
+
+input:
+  mode: workflow
+  related_domain: release_readiness
+  related_objects:
+    - "docs/release-checklist.md"
+    - "tasks/TASK-0206-add-release-validation-and-public-wording-signoff.yaml"
+  planning_context: >
+    The release checklist previously embedded the full grep expression used to
+    detect maintainer-local path leaks. That was not a real leak, but it looked
+    like one in public-facing docs and could confuse humans or agents during
+    release review. Move the check behind a small script and cover it with
+    tests.
+
+requirements:
+  - "Replace the inline local-path grep command in docs/release-checklist.md with a neutral script command."
+  - "Add a script that scans public-facing docs and artifacts for maintainer-local path leaks."
+  - "Do not flag the release-check command itself as a leak."
+  - "Add focused tests for positive and clean cases."
+  - "Do not change scientific claims, results, or release gate decisions."
+
+accepted_outputs:
+  - "scripts/check_public_path_leaks.py"
+  - "tests/test_public_path_leaks.py"
+  - "updated docs/release-checklist.md"
+
+validation:
+  commands:
+    - "python3 scripts/check_public_path_leaks.py"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

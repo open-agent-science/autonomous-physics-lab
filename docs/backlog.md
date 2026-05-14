@@ -31,6 +31,24 @@ when they become active priorities.
   - diffusion scaling
   - driven or nonlinear oscillator
 
+## Future Research Portfolio
+
+Use [future-research-portfolio.md](./future-research-portfolio.md) before
+promoting backlog ideas into active tasks.
+
+- Keep Nuclear Mass Surface as the current `NOW` research track, with
+  audit-first follow-up and no broad mass-formula claims.
+- Treat Quantum Size Effects as the staged `NEXT` campaign preparation queue
+  from `TASK-0222` through `TASK-0226`; keep thought-experiment consistency
+  and electromagnetic invariance as `NEXT` candidates only when they are scoped
+  into conservative planning, dataset, or validator tasks.
+- Keep Hubble tension, muon g-2 follow-up, broad physical-constants
+  derivation, and broad mass-relation searches in `WATCHLIST` until stronger
+  guardrails exist.
+- Keep `TASK-0227` lepton g-2 cross-observable work as a small guardrail lane,
+  not a flagship campaign.
+- Do not create public article tasks from portfolio curation.
+
 ## Workflow and Reporting
 
 - Add plots as optional artifacts.

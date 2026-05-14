@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nuclear mass prediction registry entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prediction_id",
+    "title",
+    "registry_status",
+    "campaign_profile_id",
+    "task_id",
+    "evidence_class",
+    "claim_ceiling",
+    "registered_by",
+    "registered_at_utc",
+    "source_state",
+    "target_set",
+    "uncertainty_semantics",
+    "reveal_conditions",
+    "limitations",
+    "review_boundary"
+  ],
+  "properties": {
+    "prediction_id": {
+      "type": "string",
+      "pattern": "^PRED-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registry_status": {
+      "type": "string",
+      "enum": ["REGISTERED", "REVEALED", "REVIEW_READY", "SUPERSEDED"]
+    },
+    "campaign_profile_id": {
+      "type": "string",
+      "const": "nuclear-mass-surface"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^TASK-[0-9]{4}$"
+    },
+    "evidence_class": {
+      "type": "string",
+      "const": "prospective_prediction_registry"
+    },
+    "claim_ceiling": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registered_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contributor_id", "agent_id"],
+      "properties": {
+        "contributor_id": {"type": "string", "minLength": 1},
+        "agent_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "registered_at_utc": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "source_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "git_commit",
+        "model_reference",
+        "baseline_reference",
+        "training_data_references",
+        "holdout_protocol_references",
+        "live_external_fetch_allowed",
+        "source_data_state_note"
+      ],
+      "properties": {
+        "git_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{7,40}$|^REPLACE_WITH_COMMIT_SHA$"
+        },
+        "model_reference": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["model_id", "source_path", "frozen_parameters_note"],
+          "properties": {
+            "model_id": {"type": "string", "minLength": 1},
+            "source_path": {"type": "string", "minLength": 1},
+            "frozen_parameters_note": {"type": "string", "minLength": 1}
+          }
+        },
+        "baseline_reference": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["result_id", "source_path"],
+          "properties": {
+            "result_id": {"type": "string", "pattern": "^RESULT-[0-9]{4}$"},
+            "source_path": {"type": "string", "minLength": 1}
+          }
+        },
+        "training_data_references": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "holdout_protocol_references": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "live_external_fetch_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "source_data_state_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "target_set": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "quantity", "unit", "target_nuclides"],
+      "properties": {
+        "label": {"type": "string", "minLength": 1},
+        "quantity": {
+          "type": "string",
+          "enum": ["mass_excess_mev", "binding_energy_mev", "atomic_mass_micro_u", "other"]
+        },
+        "unit": {"type": "string", "minLength": 1},
+        "target_nuclides": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "nuclide_id",
+              "Z",
+              "N",
+              "A",
+              "predicted_value_mev",
+              "uncertainty_mev",
+              "confidence_note"
+            ],
+            "properties": {
+              "nuclide_id": {
+                "type": "string",
+                "pattern": "^[A-Z][a-z]?-?[0-9]+$|^Nuclide-000$"
+              },
+              "Z": {"type": "integer", "minimum": 0},
+              "N": {"type": "integer", "minimum": 0},
+              "A": {"type": "integer", "minimum": 0},
+              "predicted_value_mev": {"type": "number"},
+              "uncertainty_mev": {
+                "type": ["number", "null"],
+                "minimum": 0
+              },
+              "confidence_note": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "uncertainty_semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "note"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "point_estimate_only",
+            "numeric_uncertainty",
+            "interval_like_bound",
+            "heuristic_confidence"
+          ]
+        },
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "reveal_conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reveal_trigger",
+        "comparison_data_reference",
+        "reveal_owner",
+        "no_peek_rule"
+      ],
+      "properties": {
+        "reveal_trigger": {"type": "string", "minLength": 1},
+        "comparison_data_reference": {"type": "string", "minLength": 1},
+        "reveal_owner": {"type": "string", "minLength": 1},
+        "no_peek_rule": {"type": "string", "minLength": 1}
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "review_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "retrospective_equivalence_forbidden",
+        "pre_reveal_claim_promotion_allowed",
+        "post_reveal_claim_promotion_requires_review",
+        "canonical_result_allowed_pre_reveal"
+      ],
+      "properties": {
+        "retrospective_equivalence_forbidden": {"type": "boolean", "const": true},
+        "pre_reveal_claim_promotion_allowed": {"type": "boolean", "const": false},
+        "post_reveal_claim_promotion_requires_review": {"type": "boolean", "const": true},
+        "canonical_result_allowed_pre_reveal": {"type": "boolean", "const": false}
+      }
+    }
+  }
+}

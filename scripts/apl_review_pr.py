@@ -15,7 +15,7 @@ if str(REPO_ROOT) not in sys.path:
 def build_parser() -> argparse.ArgumentParser:
     """Create the CLI parser for PR review."""
     parser = argparse.ArgumentParser(
-        description="Review a task PR and print a maintainer verdict."
+        description="Review a task, task-queue, proposal, closeout, or microtask PR."
     )
     parser.add_argument("--pr", type=int, help="GitHub pull request number.")
     parser.add_argument("--branch", help="Local branch to review.")

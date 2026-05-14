@@ -1,8 +1,8 @@
 # Private Multi-Agent Dry Run
 
-This note records the private contributor pilot behind [TASK-0012](/private/tmp/task-0030-finish/tasks/TASK-0012-private-multi-agent-dry-run.yaml:1)
+This note records the private contributor pilot behind [TASK-0012](../tasks/TASK-0012-private-multi-agent-dry-run.yaml)
 and the first friend-contributor evidence required by
-[TASK-0030](/private/tmp/task-0030-finish/tasks/TASK-0030-record-friend-contributor-dry-run.yaml:1).
+[TASK-0030](../tasks/TASK-0030-record-friend-contributor-dry-run.yaml).
 
 It is repository memory for what actually happened during the pilot:
 which tasks were used, which contributors and agent tools were involved,
@@ -365,6 +365,40 @@ the task itself is moved through normal maintainer closeout.
 - Date: `2026-05-12`
 - Task: `TASK-0174`
 - Pull request: `#252`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-13`
+- Task: `TASK-0217`
+- Pull request: `#273`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-13`
+- Task: `TASK-0175`
+- Pull request: `#266`
 - Scope: maintainer closeout entry for a merged contributor or workflow task
 
 ### Outcome

@@ -47,7 +47,12 @@ The recommended first bounded action is:
 
 - open a closeout PR for verified merged tasks;
 - run this review agent on that closeout PR;
-- stop and wait for maintainer merge.
+- if the verdict is `MERGE_OK`, CI is green, the PR is pure closeout
+  bookkeeping, and the maintainer already authorized closeout/merge in the
+  current request chain, merge the closeout PR;
+- otherwise explicitly ask: `Merge closeout PR #<number>?`;
+- stop unless the maintainer authorizes merge or already authorized it in this
+  request chain.
 
 ## Review To Closeout Flow
 
@@ -146,6 +151,7 @@ Use this mode for an open pull request before merge.
 This mode supports:
 
 - canonical task PRs
+- task-queue PRs
 - task proposal PRs
 
 ### Inputs
@@ -161,6 +167,8 @@ This mode supports:
 1. Branch name follows one of:
    `agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>`
    or
+   `agent/<contributor-id>/<agent-id>/task-queue-<short-slug>`
+   or
    `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>`
    or
    `agent/<contributor-id>/<agent-id>/microtask-<microtask-id>-<short-slug>`
@@ -169,14 +177,24 @@ This mode supports:
 2. PR title follows one of:
    `TASK-XXXX: ...`
    or
+   `TASK-QUEUE: ...`
+   or
    `TASK-PROPOSAL: ...`
    or
    `microtask(<queue-id>): ...`
-3. PR metadata is filled in using the repository template.
+3. PR metadata is filled in using the repository template, and the PR body
+   includes the required top-level sections from
+   `.github/pull_request_template.md`:
+   `PR Kind`, `Primary Reference`, `Branch Name`, `Summary`, `Changed Files`,
+   `Linked Repository Memory`, `Validation Commands`,
+   `Scientific Claim Impact`, `Result Artifact Impact`,
+   `Agent / Contributor Metadata`, and `Maintainer Review Notes`.
 4. Canonical and proposal PRs: the referenced task or proposal file exists.
    Microtask PRs: no canonical task file required; queue id must match a file
    in `tasks/microtasks/`.
-5. Canonical task PRs keep task status at `REVIEW_READY`; task proposal PRs keep proposal status at `PROPOSED`.
+5. Canonical task PRs keep task status at `REVIEW_READY`; task-queue PRs
+   create or update future canonical tasks that remain `PROPOSED`, `READY`, or
+   `BLOCKED`; task proposal PRs keep proposal status at `PROPOSED`.
    Microtask PRs have no task-status requirement.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
@@ -187,6 +205,8 @@ This mode supports:
     "canonical run artifacts" counts when it clearly authorizes that scope.
 11. No overclaim language is introduced.
 12. Task proposal PRs do not guess canonical `TASK-XXXX` ids or edit canonical task files.
+    Maintainer-directed task-queue PRs may create or update canonical task files,
+    but must not treat those newly queued tasks as completed.
 13. The review bundle was generated from the PR branch, not from `main`.
 14. No obvious repository-safety or security risk is introduced without
     explicit maintainer awareness.
@@ -196,12 +216,31 @@ This mode supports:
 17. Salvaged ideas from stale PRs should appear in a clean replacement
     `propose-task-...` PR rather than being patched onto a generic or
     mixed-context branch.
+18. Task-queue PRs should sync `tasks/ACTIVE.md` and must not change canonical
+    scientific artifacts such as claims, hypotheses, experiments, results, or
+    knowledge.
+
+Branch-only review is a preflight, not a final PR-body check. If the review was
+run with `--branch`, run it again with `--pr <number>` after opening the PR so
+the agent can inspect the actual GitHub title, branch, metadata, and template
+sections before merge.
 
 For microtask PRs, the metadata should name the queue file and queue id
 explicitly, and batch PRs should keep the branch queue id aligned with the PR
 title queue id. Reviewers should also check `microtask_runs/` for duplicate
 claims, duplicate completed records, stale abandoned work, and oversized batches
 that should be split before merge.
+
+Before approving a microtask PR, reviewers should run or request the effective
+availability helper:
+
+```bash
+python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id>
+```
+
+If the PR repeats a completed non-repeatable item, return `NEEDS_CHANGES`.
+Repeatable items are allowed only when the PR explains novelty, metrics, and why
+the new attempt is not duplicating a previous run.
 
 ### Verdicts
 
@@ -278,14 +317,63 @@ Use this mode only after the maintainer has already merged the PR.
    then prepare a closeout commit and PR or explicitly ask the maintainer to
    publish those changes. Do not push or merge without maintainer
    authorization.
+   Prefer the closeout scaffold/preflight helper instead of a short ad hoc
+   `gh pr create --body ...` flow:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py scaffold \
+     --task-id TASK-XXXX \
+     --contributor-id <contributor-id> \
+     --github-username <github-username> \
+     --agent-id <agent-id> \
+     --human-reviewer <human-reviewer> \
+     --slug <closeout-slug> \
+     --description "mark task done" \
+     --include-active-board \
+     --include-context
+   ```
+
+   To generate a body file directly for `gh pr create --body-file`, add
+   `--body-only`:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py scaffold \
+     --task-id TASK-XXXX \
+     --contributor-id <contributor-id> \
+     --github-username <github-username> \
+     --agent-id <agent-id> \
+     --human-reviewer <human-reviewer> \
+     --slug <closeout-slug> \
+     --description "mark task done" \
+     --include-active-board \
+     --include-context \
+     --body-only > /tmp/apl-closeout-pr-body.md
+   ```
+
+   Then run preflight before opening the PR:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py preflight \
+     --branch agent/<contributor-id>/<agent-id>/closeout-<closeout-slug> \
+     --title "TASK-CLOSEOUT: <short title>" \
+     --body-file /tmp/apl-closeout-pr-body.md
+   ```
+10. After the closeout PR is open and the review agent reports `MERGE_OK` with
+    green CI, do not end with a passive status update. If the maintainer already
+    authorized closeout/merge in the current request chain and the PR is pure
+    closeout bookkeeping, merge it. Otherwise ask the maintainer a clear yes/no
+    question: `Merge closeout PR #<number>?`
 
 ### Allowed actions
 
 - set task status to `DONE`
 - optionally run `python3 -m physics_lab.cli sync-active-board .` in a later
-  dedicated board-sync step so [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
-  reflects current task statuses without becoming a conflict surface in every
-  per-task closeout PR
+  dedicated board-sync step so generated task navigation
+  ([../tasks/ACTIVE.md](../tasks/ACTIVE.md),
+  [./task-views/research.md](./task-views/research.md),
+  [./task-views/support.md](./task-views/support.md), and
+  [./task-views/release.md](./task-views/release.md)) reflects current task
+  statuses without becoming a conflict surface in every per-task closeout PR
 - update [./next-steps.md](./next-steps.md) when the recorded immediate queue
   is stale after the merged work
 - update [./status.md](./status.md) and
@@ -300,6 +388,22 @@ Use this mode only after the maintainer has already merged the PR.
   merged PR is part of a dry run or contributor pilot
 - flag stale open tasks for follow-up closeout, reopening, or curation when a
   cleanup pass reveals that the board no longer matches reality
+- unblock directly dependent tasks by moving them from `BLOCKED` to `READY`
+  when the merged task wave has satisfied their explicit prerequisites; the
+  closeout PR title or body must say this is an unblock, and the unblocked task
+  must remain reviewable work rather than a claim, result, or promotion
+- close stale, superseded, or no-longer-relevant tasks by moving them to
+  `REJECTED` when the maintainer has approved that cleanup; this is optional
+  queue hygiene, not a required closeout step
+
+Pure closeout bookkeeping means task status transitions, generated task
+navigation (`tasks/ACTIVE.md` plus `docs/task-views/*.md`), generated
+context/snapshot files, closeout notes, dependent-task unblocks, optional
+stale-task closures, and closeout-agent instructions. Do not
+auto-merge closeout PRs that touch claims, results, experiments, hypotheses,
+scientific verdicts, public-release state, or other protected scientific
+artifacts unless the maintainer explicitly authorizes that exact merge after
+review.
 
 ### Not allowed
 
@@ -333,16 +437,16 @@ rule and adding regression coverage there before changing report orchestration.
 
 ```bash
 python3 scripts/apl_review_pr.py --pr 18
-python3 scripts/apl_review_pr.py --pr 18 --task TASK-0034
-python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034
+python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX
+python3 scripts/apl_review_pr.py --branch agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug> --task TASK-XXXX
 ```
 
 ### Post-merge closeout helper
 
 ```bash
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply --sync-board
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number>
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply --sync-board
 ```
 
 Default behavior:
@@ -357,9 +461,10 @@ Default behavior:
   experiment/result/campaign/mission changes, the helper should emit a public
   docs drift checklist for `README.md`, `docs/status.md`,
   `docs/mission-control.md`, and `docs/next-steps.md`
-- closeout helpers may automatically update task status, `tasks/ACTIVE.md`, and
-  `CONTEXT.md`; they should treat public narrative docs as check-and-follow-up
-  surfaces unless an explicit docs-sync task authorizes editing them
+- closeout helpers may automatically update task status, generated task
+  navigation (`tasks/ACTIVE.md` and `docs/task-views/*.md`), and `CONTEXT.md`;
+  they should treat public narrative docs as check-and-follow-up surfaces
+  unless an explicit docs-sync task authorizes editing them
 - after applying closeout edits, the helper should remind the operator to
   publish the local closeout diff through a closeout commit and PR, or ask the
   maintainer to do it, so task-state changes do not remain only local
@@ -400,7 +505,7 @@ Expected behavior:
 For a quick local closeout snapshot, run:
 
 ```bash
-python3 scripts/apl_task_closeout_check.py --task TASK-0033
+python3 scripts/apl_task_closeout_check.py --task TASK-XXXX
 ```
 
 This helper is intentionally lightweight. It reports the task file path, task
@@ -436,8 +541,8 @@ Run this after:
 ### Pre-merge review
 
 ```text
-Review PR #18 according to docs/maintainer-review-agent.md.
-Task: TASK-0034.
+Review PR #<number> according to docs/maintainer-review-agent.md.
+Task: TASK-XXXX.
 Use the review bundle and PR metadata.
 Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
 Include risk, security risks, blockers, and required fixes for the developer.
@@ -447,7 +552,7 @@ Do not edit files.
 ### Pre-merge review for a task proposal
 
 ```text
-Review PR #18 according to docs/maintainer-review-agent.md.
+Review PR #<number> according to docs/maintainer-review-agent.md.
 Task: TASK-PROPOSAL.
 Check branch, proposal file, PR title, proposal scope, review bundle, and overclaim risk.
 Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
@@ -458,7 +563,7 @@ Do not edit files.
 ### Post-merge closeout
 
 ```text
-Run task closeout for TASK-0034 according to docs/maintainer-review-agent.md.
+Run task closeout for TASK-XXXX according to docs/maintainer-review-agent.md.
 Check that the PR is merged and accepted outputs exist in main.
 If valid, update task status to DONE.
 Only run `python3 -m physics_lab.cli sync-active-board .` when we are doing a dedicated board-sync step.

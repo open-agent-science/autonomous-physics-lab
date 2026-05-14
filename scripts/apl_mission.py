@@ -17,6 +17,7 @@ from physics_lab.registry.mission_control import (  # noqa: E402
     mission_json,
     render_agent_prompt,
     render_human_mission,
+    render_onboarding_prompt,
 )
 
 
@@ -41,6 +42,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Emit a copy-paste prompt for Codex, Claude Code, or another coding agent.",
     )
     parser.add_argument(
+        "--onboarding",
+        action="store_true",
+        help="Emit a guided first-run prompt that explains options before editing files.",
+    )
+    parser.add_argument(
         "--root",
         default=str(REPO_ROOT),
         help="Repository root. Defaults to the checkout containing this script.",
@@ -53,7 +59,9 @@ def main() -> int:
     args = build_parser().parse_args()
     root = Path(args.root).resolve()
     payload = load_current_missions(root)
-    if args.agent_prompt:
+    if args.onboarding:
+        print(render_onboarding_prompt(payload, root=root))
+    elif args.agent_prompt:
         print(render_agent_prompt(payload, root=root))
     elif args.json:
         print(mission_json(payload, args.mode, root=root))

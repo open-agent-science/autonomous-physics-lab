@@ -1,0 +1,51 @@
+id: TASK-0241
+title: "Expand maintainer review policy branch coverage"
+type: test_infrastructure
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Increase confidence in maintainer review policy decisions without changing the protocol itself."
+  - "Cover the policy branches most likely to produce false blocks or false approvals."
+  - "Keep review discipline strong as the number of agent-generated PRs grows."
+
+input:
+  mode: workflow
+  related_domain: review_quality
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+    - ".github/pull_request_template.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/notes/critical-path-coverage-audit.md"
+  planning_context: >
+    TASK-0215 showed that maintainer review policy logic is broadly covered, but
+    several branch-heavy paths remain lower-confidence than the rest of the
+    critical workflow. The highest-value follow-up is to add targeted tests for
+    branch-kind mismatches, metadata edge cases, and severity classification
+    rather than refactoring the review engine.
+
+requirements:
+  - "Add tests for task-queue, microtask, canonical task, and closeout policy branches that are still under-covered."
+  - "Cover at least one mismatch case for branch format, PR title, and template metadata."
+  - "Exercise severity behavior where the review engine distinguishes blocker, warning, and informational policy outcomes."
+  - "Do not simplify the repository protocol just to make testing easier."
+
+accepted_outputs:
+  - "expanded tests/test_maintainer_review.py or related focused review-policy tests"
+  - "minimal policy fixes only where new tests reveal real mismatches"
+  - "optional maintainer doc clarification if an ambiguous policy branch becomes explicit"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

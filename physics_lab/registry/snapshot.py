@@ -126,7 +126,7 @@ def render_current_state_summary(root: Path, *, recent_done_limit: int = 5, rece
         experiment_status_counts[experiment["status"]] = experiment_status_counts.get(experiment["status"], 0) + 1
     for status in sorted(experiment_status_counts):
         lines.append(f"- {status}: {experiment_status_counts[status]}")
-    lines.extend(_render_experiment_list(experiments, limit=8))
+    lines.extend(_render_experiment_list(experiments))
 
     lines.extend(
         [
@@ -165,13 +165,13 @@ def _render_entry_list(title: str, entries: list, *, limit: int, merged: bool = 
     return lines
 
 
-def _render_experiment_list(experiments: list[dict[str, str]], *, limit: int) -> list[str]:
+def _render_experiment_list(experiments: list[dict[str, str]]) -> list[str]:
     lines = ["", "### Canonical Experiments", ""]
     if not experiments:
         lines.append("- none")
         return lines
 
-    for experiment in experiments[:limit]:
+    for experiment in experiments:
         lines.append(
             f"- `{experiment['id']}` - {experiment['title']} "
             f"(`{experiment['status']}`, domain `{experiment['domain']}`)"

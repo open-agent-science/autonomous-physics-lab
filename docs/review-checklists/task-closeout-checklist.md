@@ -48,6 +48,11 @@ instruction, may perform closeout after merge.
 - In larger cleanup batches, sanity-check open `READY`, `REVIEW_READY`, and
   `BLOCKED` tasks so the board does not keep advertising already-merged or no
   longer relevant work.
+- When opening a closeout PR, prefer
+  `python3 scripts/apl_closeout_pr_helper.py scaffold ...` plus
+  `python3 scripts/apl_closeout_pr_helper.py preflight ...` so the PR body
+  follows [../../.github/pull_request_template.md](../../.github/pull_request_template.md)
+  instead of a short ad hoc `--body`.
 - Add a short closeout note if the maintainer wants a persistent explanation.
 - Add an entry to [../multi-agent-dry-run.md](../multi-agent-dry-run.md) when
   the merged PR belongs to a dry run or contributor pilot.
