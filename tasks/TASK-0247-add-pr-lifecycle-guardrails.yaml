@@ -1,0 +1,54 @@
+id: TASK-0247
+title: "Add PR lifecycle guardrails for autonomous agents"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the agent task lifecycle unambiguous from branch creation through draft PR creation."
+  - "Detect missing GitHub PR tooling before agents invest in implementation work."
+  - "Reduce template drift and half-finished PR handoffs in maintainer workflow tasks."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - ".github/pull_request_template.md"
+    - "scripts/apl_mission.py"
+  planning_context: >
+    A Codex task run interpreted PR preparation as local branch and commit
+    preparation, then discovered after push that GitHub PR creation tooling was
+    unavailable. Add repository-native guardrails so future full-lifecycle
+    prompts mean commit, push, and draft PR creation, and so missing tooling is
+    detected before implementation begins.
+
+requirements:
+  - "Clarify that full PR lifecycle prompts include commit, push, and draft PR creation for the selected task branch."
+  - "Add a PR capability preflight that checks for GitHub CLI authentication or token-based fallback before implementation."
+  - "Add a canonical task PR helper that scaffolds, preflights, and can create template-based task PRs."
+  - "Update mission onboarding text to say draft PR creation instead of ambiguous PR preparation."
+  - "Keep the helper deterministic and covered by tests."
+  - "Do not relax the ban on pushing main, force-pushing, merging, or marking tasks DONE."
+
+accepted_outputs:
+  - "scripts/apl_pr_capability_check.py"
+  - "scripts/apl_task_pr_helper.py"
+  - "physics_lab/registry/pr_capability.py"
+  - "physics_lab/registry/task_pr_helper.py"
+  - "tests covering capability checks and canonical task PR helper behavior"
+  - "protocol and onboarding docs updated for full PR lifecycle wording"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

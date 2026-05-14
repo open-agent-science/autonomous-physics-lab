@@ -1,0 +1,81 @@
+"""Preflight checks for opening GitHub pull requests from agents."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+import os
+import shutil
+from typing import Mapping
+
+from physics_lab.registry.review_git import run_command
+
+
+TOKEN_ENV_NAMES = ("GH_TOKEN", "GITHUB_TOKEN")
+
+
+@dataclass(frozen=True)
+class PrCapabilityReport:
+    """Result of checking whether this environment can open a PR."""
+
+    errors: tuple[str, ...]
+    warnings: tuple[str, ...]
+    gh_path: str | None
+    token_env_names: tuple[str, ...]
+
+    @property
+    def ok(self) -> bool:
+        return not self.errors
+
+
+def check_pr_capability(
+    root: Path,
+    *,
+    env: Mapping[str, str] | None = None,
+    gh_path: str | None = None,
+    discover_gh: bool = True,
+    require_gh_auth: bool = True,
+) -> PrCapabilityReport:
+    """Check whether a PR can be opened through GitHub CLI or token fallback."""
+    env_map = os.environ if env is None else env
+    tokens = tuple(name for name in TOKEN_ENV_NAMES if env_map.get(name))
+    resolved_gh_path = gh_path if gh_path is not None else (shutil.which("gh") if discover_gh else None)
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    if resolved_gh_path is None:
+        if tokens:
+            warnings.append(
+                "GitHub CLI `gh` was not found; token-based API fallback appears available."
+            )
+        else:
+            errors.append(
+                "Cannot create a pull request from this environment: neither `gh` nor "
+                "`GH_TOKEN`/`GITHUB_TOKEN` is available."
+            )
+        return PrCapabilityReport(
+            errors=tuple(errors),
+            warnings=tuple(warnings),
+            gh_path=None,
+            token_env_names=tokens,
+        )
+
+    if require_gh_auth:
+        result = run_command([resolved_gh_path, "auth", "status"], cwd=root, timeout=20)
+        if result.returncode != 0:
+            if tokens:
+                warnings.append(
+                    "`gh auth status` failed, but token-based API fallback appears available."
+                )
+            else:
+                errors.append(
+                    "`gh` is installed but not authenticated, and no "
+                    "`GH_TOKEN`/`GITHUB_TOKEN` fallback is available."
+                )
+
+    return PrCapabilityReport(
+        errors=tuple(errors),
+        warnings=tuple(warnings),
+        gh_path=resolved_gh_path,
+        token_env_names=tokens,
+    )

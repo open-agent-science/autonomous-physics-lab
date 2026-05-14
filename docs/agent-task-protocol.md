@@ -272,6 +272,12 @@ Keep commits narrow. Do not mix unrelated tasks in one commit.
 
 Agents may commit only when explicitly instructed.
 
+For this repository, maintainer wording such as "prepare a PR", "run the task
+through PR", "execute the selected task autonomously", or "full task lifecycle"
+counts as explicit current-turn approval to commit on the selected task branch,
+push that branch, and open a draft PR. This approval does not allow pushing
+`main`, force-pushing, merging, tagging, or touching unrelated branches.
+
 A commit means the agent believes the task is ready for maintainer review.
 
 After committing, the task status should be `REVIEW_READY`, not `DONE`.
@@ -292,6 +298,22 @@ For task proposals, use:
 
 ## Open a Pull Request
 
+"Open a PR" means creating the GitHub pull request and returning its URL. It
+does not mean only preparing a branch, commit, title, body, or pushed branch.
+When a full PR lifecycle was requested, the final response must include either
+a PR URL or an explicit tooling blocker that was discovered before
+implementation began.
+
+Before starting implementation for a full PR lifecycle request, check whether
+the environment can open a PR:
+
+```bash
+python3 scripts/apl_pr_capability_check.py
+```
+
+If the check fails, pause before editing files and ask whether to continue as
+branch-only work or to install/connect GitHub tooling.
+
 After implementation and validation:
 
 1. push the task branch only when a human or workflow expects a PR;
@@ -306,9 +328,24 @@ Do not open task PRs with a short ad hoc `--body` such as only `Summary` and
 the required sections, and use that body file when creating the PR:
 
 ```bash
-cp .github/pull_request_template.md /tmp/apl-pr-body.md
-# edit /tmp/apl-pr-body.md and delete unused examples/placeholders
-gh pr create --title "TASK-XXXX: <short title>" --body-file /tmp/apl-pr-body.md
+python3 scripts/apl_task_pr_helper.py scaffold \
+  --task-id TASK-XXXX \
+  --contributor-id <contributor-id> \
+  --github-username <github-username> \
+  --agent-id <agent-id> \
+  --human-reviewer <reviewer> \
+  --slug <short-slug> \
+  --description "<short title>" \
+  --summary "<verification-first summary>" \
+  --body-file /tmp/apl-pr-body.md
+python3 scripts/apl_task_pr_helper.py preflight \
+  --branch "agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>" \
+  --title "TASK-XXXX: <short title>" \
+  --body-file /tmp/apl-pr-body.md
+python3 scripts/apl_task_pr_helper.py create \
+  --branch "agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>" \
+  --title "TASK-XXXX: <short title>" \
+  --body-file /tmp/apl-pr-body.md
 ```
 
 After the PR exists, run the PR-number review, not only branch preflight:
@@ -367,6 +404,9 @@ vs `main`, commit list, and changed-file summary.
 For microtask PRs, contributors and their agents may also use
 `python3 scripts/apl_microtask_pr_helper.py` to scaffold canonical branch/title
 metadata and run a local preflight check before maintainer review.
+
+For canonical task PRs, use `python3 scripts/apl_task_pr_helper.py` to scaffold
+and preflight the template-based PR body before creating the draft PR.
 
 For task proposal PRs, the lighter validation path from
 [./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
