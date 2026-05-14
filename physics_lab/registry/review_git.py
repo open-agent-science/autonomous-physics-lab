@@ -73,8 +73,9 @@ def working_tree_changed_files(root: Path) -> tuple[str, ...]:
     for line in result.stdout.splitlines():
         if not line.strip():
             continue
+        status = line[:2]
         entry = line[3:] if len(line) > 3 else line
-        if " -> " in entry:
+        if " -> " in entry and any(code in status for code in ("R", "C")):
             entry = entry.split(" -> ", 1)[1]
         paths.append(entry.strip())
     return tuple(paths)
