@@ -50,6 +50,7 @@ PR_TEMPLATE_REQUIRED_SECTIONS = (
     "PR Kind",
     "Primary Reference",
     "Branch Name",
+    "PR Lifecycle",
     "Summary",
     "Changed Files",
     "Linked Repository Memory",
