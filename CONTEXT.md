@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-14 05:04 UTC
+Generated: 2026-05-14 12:30 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2004,6 +2004,8 @@ None.
 
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0238` — Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`)
+- `TASK-0244` — Fix snapshot canonical experiment list truncation (`documentation`, priority `high`, difficulty `low`)
+- `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
