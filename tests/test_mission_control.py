@@ -6,6 +6,7 @@ from pathlib import Path
 import subprocess
 import sys
 
+from physics_lab.registry import mission_control
 from physics_lab.registry.mission_control import (
     load_current_missions,
     mission_json,
@@ -222,6 +223,75 @@ def test_task_candidates_support_parallel_safe_options(tmp_path: Path) -> None:
 
     assert [candidate.task_id for candidate in candidates] == ["TASK-0005"]
     assert "separate branch/worktree" in candidates[0].parallel_hint
+
+
+def test_task_candidates_shuffle_equal_rank_research_groups(tmp_path: Path, monkeypatch) -> None:
+    class FakeRandomizer:
+        def shuffle(self, items: list) -> None:
+            items.reverse()
+
+    monkeypatch.setattr(mission_control, "RANDOMIZER", FakeRandomizer())
+    for task_id in ("TASK-0010", "TASK-0011", "TASK-0012"):
+        _write_task(
+            tmp_path,
+            task_id=task_id,
+            title=f"Research candidate {task_id}",
+            status="READY",
+            task_type="scientific_audit",
+            priority="high",
+        )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0013",
+        title="Lower priority research candidate",
+        status="READY",
+        task_type="scientific_audit",
+        priority="medium",
+    )
+
+    stable = task_candidates(tmp_path, mode="research", shuffle_equal_rank=False)
+    shuffled = task_candidates(tmp_path, mode="research", shuffle_equal_rank=True)
+
+    assert [candidate.task_id for candidate in stable] == [
+        "TASK-0010",
+        "TASK-0011",
+        "TASK-0012",
+        "TASK-0013",
+    ]
+    assert [candidate.task_id for candidate in shuffled] == [
+        "TASK-0012",
+        "TASK-0011",
+        "TASK-0010",
+        "TASK-0013",
+    ]
+
+
+def test_task_candidates_do_not_shuffle_support_mode_by_default(tmp_path: Path, monkeypatch) -> None:
+    class FakeRandomizer:
+        def shuffle(self, items: list) -> None:
+            items.reverse()
+
+    monkeypatch.setattr(mission_control, "RANDOMIZER", FakeRandomizer())
+    _write_task(
+        tmp_path,
+        task_id="TASK-0014",
+        title="Support docs A",
+        status="READY",
+        task_type="documentation",
+        priority="high",
+    )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0015",
+        title="Support docs B",
+        status="READY",
+        task_type="documentation",
+        priority="high",
+    )
+
+    candidates = task_candidates(tmp_path, mode="support")
+
+    assert [candidate.task_id for candidate in candidates] == ["TASK-0014", "TASK-0015"]
 
 
 def test_task_candidates_do_not_offer_review_ready_without_ready_tasks(tmp_path: Path) -> None:
