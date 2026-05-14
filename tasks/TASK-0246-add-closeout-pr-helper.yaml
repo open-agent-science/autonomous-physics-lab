@@ -1,0 +1,42 @@
+id: TASK-0246
+title: "Add closeout PR helper for template-based PR bodies"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer closeout flow protocol-first and template-safe."
+  - "Reduce avoidable PR metadata drift in low-risk closeout work."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+    - ".github/pull_request_template.md"
+  planning_context: "Add a helper that scaffolds and preflights closeout PRs against repository template requirements."
+
+requirements:
+  - "Use template-based PR body generation for closeout PRs."
+  - "Detect short ad hoc bodies and missing metadata before PR creation."
+  - "Keep the helper lightweight and deterministic."
+
+accepted_outputs:
+  - "scripts/apl_closeout_pr_helper.py"
+  - "physics_lab/registry/closeout_pr_helper.py"
+  - "tests/test_closeout_pr_helper.py"
+  - "docs update for closeout PR helper usage"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
