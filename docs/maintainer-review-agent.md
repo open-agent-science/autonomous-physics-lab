@@ -322,13 +322,13 @@ Use this mode only after the maintainer has already merged the PR.
 
    ```bash
    python3 scripts/apl_closeout_pr_helper.py scaffold \
-     --task-id TASK-0244 \
-     --contributor-id roman \
-     --github-username gladunrv \
-     --agent-id codex \
-     --human-reviewer gladunrv \
-     --slug task-0244-snapshot-fix \
-     --description "mark task-0244 done" \
+     --task-id TASK-XXXX \
+     --contributor-id <contributor-id> \
+     --github-username <github-username> \
+     --agent-id <agent-id> \
+     --human-reviewer <human-reviewer> \
+     --slug <closeout-slug> \
+     --description "mark task done" \
      --include-active-board \
      --include-context
    ```
@@ -338,13 +338,13 @@ Use this mode only after the maintainer has already merged the PR.
 
    ```bash
    python3 scripts/apl_closeout_pr_helper.py scaffold \
-     --task-id TASK-0244 \
-     --contributor-id roman \
-     --github-username gladunrv \
-     --agent-id codex \
-     --human-reviewer gladunrv \
-     --slug task-0244-snapshot-fix \
-     --description "mark task-0244 done" \
+     --task-id TASK-XXXX \
+     --contributor-id <contributor-id> \
+     --github-username <github-username> \
+     --agent-id <agent-id> \
+     --human-reviewer <human-reviewer> \
+     --slug <closeout-slug> \
+     --description "mark task done" \
      --include-active-board \
      --include-context \
      --body-only > /tmp/apl-closeout-pr-body.md
@@ -354,8 +354,8 @@ Use this mode only after the maintainer has already merged the PR.
 
    ```bash
    python3 scripts/apl_closeout_pr_helper.py preflight \
-     --branch agent/roman/codex/closeout-task-0244-snapshot-fix \
-     --title "TASK-CLOSEOUT: mark task-0244 done" \
+     --branch agent/<contributor-id>/<agent-id>/closeout-<closeout-slug> \
+     --title "TASK-CLOSEOUT: <short title>" \
      --body-file /tmp/apl-closeout-pr-body.md
    ```
 10. After the closeout PR is open and the review agent reports `MERGE_OK` with
@@ -438,7 +438,7 @@ rule and adding regression coverage there before changing report orchestration.
 ```bash
 python3 scripts/apl_review_pr.py --pr 18
 python3 scripts/apl_review_pr.py --pr 18 --task TASK-0034
-python3 scripts/apl_review_pr.py --branch agent/roman/codex/task-0034-maintainer-review-agent --task TASK-0034
+python3 scripts/apl_review_pr.py --branch agent/<contributor-id>/<agent-id>/task-0034-<short-slug> --task TASK-0034
 ```
 
 ### Post-merge closeout helper
