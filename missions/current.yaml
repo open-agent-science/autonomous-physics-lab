@@ -216,10 +216,6 @@ support_actions:
     label: "Split repository validation and scientific-memory integrity checks"
     task_id: TASK-0136
     priority: medium
-  - id: windows-coverage-baseline
-    label: "Stabilize Windows coverage baseline for critical CLI smoke tests"
-    task_id: TASK-0239
-    priority: medium
   - id: maintainer-review-coverage
     label: "Expand maintainer review policy branch coverage"
     task_id: TASK-0241
