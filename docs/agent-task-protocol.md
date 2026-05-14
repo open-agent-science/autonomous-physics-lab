@@ -298,21 +298,35 @@ For task proposals, use:
 
 ## Open a Pull Request
 
-"Open a PR" means creating the GitHub pull request and returning its URL. It
-does not mean only preparing a branch, commit, title, body, or pushed branch.
-When a full PR lifecycle was requested, the final response must include either
-a PR URL or an explicit tooling blocker that was discovered before
-implementation began.
+"Open a PR" means creating the GitHub pull request and returning its URL when
+the agent has GitHub access. It does not mean only preparing a branch, commit,
+title, body, or pushed branch. When a full PR lifecycle was requested, the
+final response must include either a PR URL or exact maintainer-run commands to
+publish the prepared branch and PR from a local console.
 
-Before starting implementation for a full PR lifecycle request, check whether
-the environment can open a PR:
+Before starting implementation for a full PR lifecycle request, optionally
+check whether the environment can open a PR:
 
 ```bash
 python3 scripts/apl_pr_capability_check.py
 ```
 
-If the check fails, pause before editing files and ask whether to continue as
-branch-only work or to install/connect GitHub tooling.
+This check is advisory. Missing `gh`, missing GitHub auth, restricted network
+access, or a sandbox that cannot push should not block local task execution.
+If the agent cannot publish directly, continue with local branch work after
+recording the limitation, then provide exact commands for the maintainer to
+run:
+
+```bash
+git push origin agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>
+gh pr create --draft --base main --head agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> --title "TASK-XXXX: <short title>" --body-file /path/to/apl-pr-body.md
+python3 scripts/apl_review_pr.py --pr <number>
+gh pr ready <number>
+```
+
+The agent should also offer to help the maintainer set up access, for example
+by suggesting `gh auth login` or a `GH_TOKEN`/`GITHUB_TOKEN`, but setup is not
+required for completing local validation work.
 
 Use the repository PR helpers instead of calling bare `gh` in Codex sessions.
 Codex may omit Homebrew paths from `PATH`; the helpers search common GitHub CLI
@@ -321,8 +335,9 @@ locations such as `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
 Task PRs should start as drafts while validation, CI, and PR-number review are
 still in progress. After GitHub CI is green and
 `python3 scripts/apl_review_pr.py --pr <number>` returns `MERGE_OK`, mark the
-PR ready for review. Keep the PR as draft if any validation, CI, or review
-blocker remains.
+PR ready for review. If the agent cannot update GitHub directly, provide the
+maintainer with `gh pr ready <number>`. Keep the PR as draft if any validation,
+CI, or review blocker remains.
 
 After implementation and validation:
 

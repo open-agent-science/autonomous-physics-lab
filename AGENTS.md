@@ -432,16 +432,21 @@ request for that task. This approval applies only to the selected task branch.
 It does not allow pushing `main`, force-pushing, merging, tagging, or pushing
 unrelated branches.
 
-Before starting implementation for a full PR lifecycle request, agents should
-run:
+Before starting implementation for a full PR lifecycle request, agents may run:
 
 ```bash
 python3 scripts/apl_pr_capability_check.py
 ```
 
-If the check fails, pause before editing files and report the PR creation
-blocker. Do not treat a pushed branch, local commit, staged diff, title, or PR
-body as a completed pull request lifecycle.
+This check is advisory, not a task blocker. Missing `gh`, missing GitHub auth,
+or restricted agent network access should not stop local task work. If the
+agent cannot publish the PR itself, it must still finish the local task branch
+package and provide exact maintainer-run commands for `git push`,
+`gh pr create`, review-agent execution after a PR number exists, and
+`gh pr ready` when CI and review pass. Do not treat a pushed branch, local
+commit, staged diff, title, or PR body as a completed pull request lifecycle;
+if the agent cannot create the PR directly, the final response must say so and
+include the manual publication commands.
 
 Codex sessions may omit Homebrew paths from `PATH`. Use repository helpers such
 as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
@@ -451,8 +456,10 @@ instead of calling bare `gh`; they check common GitHub CLI locations such as
 Agents should open task PRs as drafts while validation and review are still in
 progress. After GitHub CI is green and the PR-number review agent returns
 `MERGE_OK`, agents should mark the PR ready for review with
-`gh pr ready <number>`. If CI fails, the review agent blocks, or the agent is
-still applying fixes, keep the PR in draft and report the blocker.
+`gh pr ready <number>` or give the maintainer that exact command if the agent
+lacks GitHub access. If CI fails, the review agent blocks, or the agent is
+still applying fixes, keep the PR in draft and report the next command or
+blocker.
 
 If `git add` or `git commit` fails inside Codex with
 `.git/index.lock: Operation not permitted`, treat it as a sandbox permission

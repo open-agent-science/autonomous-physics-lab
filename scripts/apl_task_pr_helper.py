@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import shlex
 import subprocess
 import sys
 
@@ -121,14 +122,42 @@ def command_preflight(args: argparse.Namespace) -> int:
     return 0 if report.ok else 1
 
 
+def _quote_command(parts: list[str]) -> str:
+    return " ".join(shlex.quote(part) for part in parts)
+
+
+def _print_manual_create_commands(args: argparse.Namespace) -> None:
+    command = [
+        "gh",
+        "pr",
+        "create",
+        "--base",
+        args.base,
+        "--head",
+        args.branch,
+        "--title",
+        args.title,
+        "--body-file",
+        args.body_file,
+    ]
+    if not args.ready:
+        command.insert(3, "--draft")
+    sys.stderr.write("Manual publication commands for a maintainer console:\n")
+    sys.stderr.write(f"- {_quote_command(['git', 'push', 'origin', args.branch])}\n")
+    sys.stderr.write(f"- {_quote_command(command)}\n")
+    sys.stderr.write("- python3 scripts/apl_review_pr.py --pr <number>\n")
+    sys.stderr.write("- gh pr ready <number>\n")
+
+
 def command_create(args: argparse.Namespace) -> int:
     from physics_lab.registry.pr_capability import find_gh_path
 
     gh_path = find_gh_path()
     if gh_path is None:
         sys.stderr.write(
-            "Cannot create PR: GitHub CLI `gh` is not installed or not discoverable.\n"
+            "Cannot create PR directly: GitHub CLI `gh` is not installed or not discoverable.\n"
         )
+        _print_manual_create_commands(args)
         return 127
     command = [
         gh_path,
@@ -153,7 +182,14 @@ def command_create(args: argparse.Namespace) -> int:
     )
     sys.stdout.write(completed.stdout)
     sys.stderr.write(completed.stderr)
+    if completed.returncode != 0:
+        _print_manual_create_commands(args)
     return completed.returncode
+
+
+def _print_manual_ready_command(args: argparse.Namespace) -> None:
+    sys.stderr.write("Manual ready-for-review command for a maintainer console:\n")
+    sys.stderr.write(f"- {_quote_command(['gh', 'pr', 'ready', args.pr])}\n")
 
 
 def command_ready(args: argparse.Namespace) -> int:
@@ -162,8 +198,9 @@ def command_ready(args: argparse.Namespace) -> int:
     gh_path = find_gh_path()
     if gh_path is None:
         sys.stderr.write(
-            "Cannot mark PR ready: GitHub CLI `gh` is not installed or not discoverable.\n"
+            "Cannot mark PR ready directly: GitHub CLI `gh` is not installed or not discoverable.\n"
         )
+        _print_manual_ready_command(args)
         return 127
     completed = subprocess.run(
         [gh_path, "pr", "ready", args.pr],
@@ -173,6 +210,8 @@ def command_ready(args: argparse.Namespace) -> int:
     )
     sys.stdout.write(completed.stdout)
     sys.stderr.write(completed.stderr)
+    if completed.returncode != 0:
+        _print_manual_ready_command(args)
     return completed.returncode
 
 
