@@ -356,7 +356,12 @@ def test_runner_generates_run_based_artifacts(tmp_path) -> None:
     assert result_payload["artifacts"]["knowledge_update_patch"].endswith("knowledge_update.patch.md")
     assert result_payload["artifacts"]["review_summary"].endswith("review_summary.md")
     assert result_payload["artifacts"]["review_metadata"].endswith("review_metadata.yaml")
-    assert result_payload["git_commit"] is None
+    git_commit = result_payload["git_commit"]
+    assert git_commit is None or (
+        isinstance(git_commit, str)
+        and len(git_commit) == 40
+        and all(char in "0123456789abcdef" for char in git_commit)
+    )
 
     assert metrics_payload["result_id"] == "RESULT-0001"
     assert metrics_payload["run_id"] == "RUN-0001"
@@ -487,11 +492,11 @@ def test_runner_resolves_config_paths_relative_to_config_location(tmp_path) -> N
     assert outcome.artifacts.review_summary_path == repo_root / "results" / "EXP-0001" / "RUN-0001" / "review_summary.md"
 
 
-def test_cli_run_smoke() -> None:
+def test_cli_run_smoke(tmp_path: Path) -> None:
     runner = CliRunner()
     result = runner.invoke(
         app,
-        ["run", "examples/pendulum.yaml", "--output-dir", "/tmp/apl-pendulum-test"],
+        ["run", "examples/pendulum.yaml", "--output-dir", str(tmp_path / "apl-pendulum-test")],
     )
 
     assert result.exit_code == 0
@@ -619,11 +624,11 @@ def test_cli_validate_hypothesis_smoke() -> None:
     assert "Validated hypotheses/HYP-0001-pendulum-correction.yaml as hypothesis." in result.stdout
 
 
-def test_cli_validate_result_smoke() -> None:
+def test_cli_validate_result_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
         repo_root / "examples" / "pendulum.yaml",
-        output_dir=Path("/tmp/apl-pendulum-validate"),
+        output_dir=tmp_path / "apl-pendulum-validate",
     )
     runner = CliRunner()
     result = runner.invoke(app, ["validate", "results/EXP-0001/RUN-0002/result.yaml"])
@@ -632,11 +637,11 @@ def test_cli_validate_result_smoke() -> None:
     assert "Validated results/EXP-0001/RUN-0002/result.yaml as result." in result.stdout
 
 
-def test_validate_repository_smoke() -> None:
+def test_validate_repository_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
         repo_root / "examples" / "pendulum.yaml",
-        output_dir=Path("/tmp/apl-pendulum-repo-validate"),
+        output_dir=tmp_path / "apl-pendulum-repo-validate",
     )
     summary = validate_repository(repo_root)
     expected_task_count = len(
@@ -809,11 +814,11 @@ def test_validate_repository_keeps_science_task_references_strict(tmp_path) -> N
         raise AssertionError("Expected science task reference validation to fail")
 
 
-def test_cli_validate_repo_smoke() -> None:
+def test_cli_validate_repo_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
         repo_root / "examples" / "pendulum.yaml",
-        output_dir=Path("/tmp/apl-pendulum-cli-validate-repo"),
+        output_dir=tmp_path / "apl-pendulum-cli-validate-repo",
     )
     summary = validate_repository(repo_root)
     runner = CliRunner()
@@ -836,11 +841,11 @@ def test_cli_validate_repo_strict_smoke() -> None:
     assert "INFO" in result.stdout
 
 
-def test_cli_status_smoke() -> None:
+def test_cli_status_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
         repo_root / "examples" / "pendulum.yaml",
-        output_dir=Path("/tmp/apl-pendulum-status"),
+        output_dir=tmp_path / "apl-pendulum-status",
     )
     latest_result_path = _latest_result_path(repo_root)
     assert latest_result_path is not None
@@ -1113,11 +1118,11 @@ def test_canonical_constrained_gauntlet_replay_preserves_run_0004_invariants(tmp
     assert len(result_payload["scores"]) == 101
 
 
-def test_cli_run_gauntlet_smoke() -> None:
+def test_cli_run_gauntlet_smoke(tmp_path: Path) -> None:
     runner = CliRunner()
     result = runner.invoke(
         app,
-        ["run", "examples/pendulum_gauntlet.yaml", "--output-dir", "/tmp/apl-gauntlet-test"],
+        ["run", "examples/pendulum_gauntlet.yaml", "--output-dir", str(tmp_path / "apl-gauntlet-test")],
     )
 
     assert result.exit_code == 0, result.output

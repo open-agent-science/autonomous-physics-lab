@@ -7,6 +7,7 @@ from datetime import date
 import json
 from pathlib import Path
 import re
+import sys
 from typing import Any
 import yaml
 
@@ -284,6 +285,13 @@ def review_bundle_branch(path: Path) -> str | None:
     return None
 
 
+def _portable_validation_command(command_text: str) -> str:
+    """Run validation through the active interpreter when python3 is absent."""
+    if not command_text.startswith("python3 "):
+        return command_text
+    return f'"{sys.executable}" {command_text.removeprefix("python3 ")}'
+
+
 def run_task_validation(
     root: Path,
     task_payload: dict[str, Any],
@@ -299,7 +307,12 @@ def run_task_validation(
         command_text = str(command)
         if any(token in command_text for token in skip_commands_containing):
             continue
-        result = run_command(command_text, cwd=root, shell=True, timeout=300)
+        result = run_command(
+            _portable_validation_command(command_text),
+            cwd=root,
+            shell=True,
+            timeout=300,
+        )
         if result.returncode != 0:
             failed_commands.append(command_text)
     if failed_commands:

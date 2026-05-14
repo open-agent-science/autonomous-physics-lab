@@ -414,6 +414,20 @@ def test_run_task_validation_skips_self_referential_review_command(tmp_path) -> 
     assert summary.status == "pass"
 
 
+def test_run_task_validation_uses_active_python_for_python3_commands(tmp_path) -> None:
+    payload = {
+        "validation": {
+            "commands": [
+                "python3 -c \"print(456)\"",
+            ]
+        }
+    }
+
+    summary = run_task_validation(tmp_path, payload, enabled=True)
+
+    assert summary.status == "pass"
+
+
 def test_parse_added_lines_can_exclude_tests_or_limit_prefixes() -> None:
     diff_text = "\n".join(
         [
