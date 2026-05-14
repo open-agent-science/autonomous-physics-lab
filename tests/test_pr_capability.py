@@ -30,10 +30,14 @@ def test_pr_capability_accepts_token_fallback_without_gh(tmp_path: Path) -> None
     assert any("token-based API fallback" in item for item in report.warnings)
 
 
-def test_pr_capability_discovers_homebrew_style_gh_path(tmp_path: Path) -> None:
+def test_pr_capability_discovers_homebrew_style_gh_path(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
     fake_gh = tmp_path / "gh"
     fake_gh.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
     fake_gh.chmod(0o755)
+    monkeypatch.setattr("physics_lab.registry.pr_capability.shutil.which", lambda _name: None)
 
     report = check_pr_capability(
         tmp_path,
