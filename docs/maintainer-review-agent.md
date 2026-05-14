@@ -437,16 +437,16 @@ rule and adding regression coverage there before changing report orchestration.
 
 ```bash
 python3 scripts/apl_review_pr.py --pr 18
-python3 scripts/apl_review_pr.py --pr 18 --task TASK-0034
-python3 scripts/apl_review_pr.py --branch agent/<contributor-id>/<agent-id>/task-0034-<short-slug> --task TASK-0034
+python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX
+python3 scripts/apl_review_pr.py --branch agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug> --task TASK-XXXX
 ```
 
 ### Post-merge closeout helper
 
 ```bash
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply
-python3 scripts/apl_closeout_task.py --task TASK-0034 --pr 18 --apply --sync-board
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number>
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply
+python3 scripts/apl_closeout_task.py --task TASK-XXXX --pr <number> --apply --sync-board
 ```
 
 Default behavior:
@@ -505,7 +505,7 @@ Expected behavior:
 For a quick local closeout snapshot, run:
 
 ```bash
-python3 scripts/apl_task_closeout_check.py --task TASK-0033
+python3 scripts/apl_task_closeout_check.py --task TASK-XXXX
 ```
 
 This helper is intentionally lightweight. It reports the task file path, task
@@ -541,8 +541,8 @@ Run this after:
 ### Pre-merge review
 
 ```text
-Review PR #18 according to docs/maintainer-review-agent.md.
-Task: TASK-0034.
+Review PR #<number> according to docs/maintainer-review-agent.md.
+Task: TASK-XXXX.
 Use the review bundle and PR metadata.
 Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
 Include risk, security risks, blockers, and required fixes for the developer.
@@ -552,7 +552,7 @@ Do not edit files.
 ### Pre-merge review for a task proposal
 
 ```text
-Review PR #18 according to docs/maintainer-review-agent.md.
+Review PR #<number> according to docs/maintainer-review-agent.md.
 Task: TASK-PROPOSAL.
 Check branch, proposal file, PR title, proposal scope, review bundle, and overclaim risk.
 Return MERGE_OK / NEEDS_CHANGES / BLOCKED.
@@ -563,7 +563,7 @@ Do not edit files.
 ### Post-merge closeout
 
 ```text
-Run task closeout for TASK-0034 according to docs/maintainer-review-agent.md.
+Run task closeout for TASK-XXXX according to docs/maintainer-review-agent.md.
 Check that the PR is merged and accepted outputs exist in main.
 If valid, update task status to DONE.
 Only run `python3 -m physics_lab.cli sync-active-board .` when we are doing a dedicated board-sync step.
