@@ -39,6 +39,8 @@ one PR.
 <!-- BEGIN AUTO TASK STATUS BOARD -->
 
 > This task-status snapshot is generated from canonical task YAML files.
+> Use `docs/task-views/*.md` for lighter READY/blocked/watchlist navigation;
+> `tasks/ACTIVE.md` remains the full generated status board, including DONE history.
 > Edit `tasks/TASK-*.yaml` for routine status transitions, then run
 > `python3 -m physics_lab.cli sync-active-board .` on the maintainer branch.
 
@@ -72,6 +74,7 @@ None.
 
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0238` — Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`)
+- `TASK-0243` — Add generated task views and mission freshness sync (`repository_validation`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 

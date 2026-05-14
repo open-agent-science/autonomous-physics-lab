@@ -13,9 +13,16 @@ Before starting a task, read:
 1. [../AGENTS.md](../AGENTS.md)
 2. [./agent-task-protocol.md](./agent-task-protocol.md)
 3. [./task-proposal-protocol.md](./task-proposal-protocol.md) when proposing a new task idea
-4. [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
-5. the matching `tasks/TASK-XXXX-*.yaml` file when working on a canonical task
-6. [./strategy.md](./strategy.md)
+4. the relevant generated lane view under
+   [./task-views/research.md](./task-views/research.md),
+   [./task-views/support.md](./task-views/support.md), or
+   [./task-views/release.md](./task-views/release.md)
+5. [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for the full generated status board
+6. the matching `tasks/TASK-XXXX-*.yaml` file when working on a canonical task
+7. [./strategy.md](./strategy.md)
+
+`tasks/ACTIVE.md` is the complete generated board, including DONE history.
+`docs/task-views/*.md` are the lighter navigation surfaces for current work.
 
 Use [./agent-operating-model.md](./agent-operating-model.md) and
 [./contributing-workflow.md](./contributing-workflow.md) for supporting
@@ -90,7 +97,7 @@ Task-queue PR title format:
 Task-queue PR scope:
 
 - new or updated canonical `tasks/TASK-XXXX-*.yaml` files;
-- synced `tasks/ACTIVE.md`;
+- synced generated task navigation (`tasks/ACTIVE.md` and `docs/task-views/*.md`);
 - optional protocol or planning docs needed to explain the queue.
 
 Do not use `TASK-QUEUE` for normal contributor ideas without maintainer
@@ -378,8 +385,12 @@ The maintainer review agent may:
   integrity;
 - surface repository-safety and security-sensitive changes for maintainer review;
 - return `MERGE_OK`, `NEEDS_CHANGES`, or `BLOCKED`;
-- help close a merged task by updating the task file and
-  synchronizing [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
+- help close a merged task by updating the task file and synchronizing
+  generated task navigation
+  ([../tasks/ACTIVE.md](../tasks/ACTIVE.md),
+  [./task-views/research.md](./task-views/research.md),
+  [./task-views/support.md](./task-views/support.md), and
+  [./task-views/release.md](./task-views/release.md)).
 
 The maintainer review agent must not:
 
@@ -399,20 +410,26 @@ The maintainer review agent must not:
 5. Do not edit [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for routine task
    status transitions. Task YAML is the canonical source of truth; the board is
    a maintainer-synchronized snapshot.
-6. If the task itself changes active-board behavior or presentation, update the
+6. Do not hand-edit `docs/task-views/*.md`; they are generated from canonical
+   task YAML files alongside `tasks/ACTIVE.md`.
+7. If the task itself changes active-board behavior or presentation, update the
    board and run `python3 -m physics_lab.cli sync-active-board .` as part of
    that scoped task.
-7. Make the smallest reproducible change that satisfies the task.
-8. Run the required validation commands.
-9. Set the task to `REVIEW_READY` when implementation and validation are done.
-10. Leave clear maintainer review notes and limitations.
+8. Make the smallest reproducible change that satisfies the task.
+9. Run the required validation commands.
+10. Set the task to `REVIEW_READY` when implementation and validation are done.
+11. Leave clear maintainer review notes and limitations.
 
 After merge, maintainer closeout may also:
 
-11. set the task to `DONE`;
-12. run `python3 -m physics_lab.cli sync-active-board .` so
-    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) reflects the new task state;
-13. add a dry-run note when the merged PR belongs to a contributor pilot.
+12. set the task to `DONE`;
+13. run `python3 -m physics_lab.cli sync-active-board .` so
+    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) and generated task views
+    ([./task-views/research.md](./task-views/research.md),
+    [./task-views/support.md](./task-views/support.md), and
+    [./task-views/release.md](./task-views/release.md)) reflect the new task
+    state;
+14. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution
 

@@ -126,7 +126,8 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
         suggested_actions.append(
             "Prefer YAML-only per-task closeout first; run python3 -m physics_lab.cli "
             "sync-active-board . later in a dedicated board-sync step so tasks/ACTIVE.md "
-            "does not become a conflict surface in every closeout PR."
+            "and docs/task-views/*.md stay generated without becoming a conflict surface "
+            "in every closeout PR."
         )
     elif status == "DONE":
         suggested_actions.append(
@@ -218,10 +219,11 @@ def render_public_state_doc_checklist(
 
     policy = (
         "Closeout docs-sync policy: routine closeout may update task status, "
-        "tasks/ACTIVE.md, and CONTEXT.md automatically; edit README/status/"
-        "mission-control/next-steps only when the current task explicitly asks "
-        "for public-doc sync. Otherwise update an existing docs-sync task or "
-        "create a follow-up task."
+        "generated task navigation (tasks/ACTIVE.md and docs/task-views/*.md), "
+        "and CONTEXT.md automatically; edit README/status/mission-control/"
+        "next-steps only when the current task explicitly asks for public-doc "
+        "sync. Otherwise update an existing docs-sync task or create a "
+        "follow-up task."
     )
     return (checklist, policy)
 
@@ -273,7 +275,7 @@ def render_closeout_report(
         if report.status == "REVIEW_READY":
             lines.append("- Change task status from REVIEW_READY to DONE after merge verification.")
             lines.append(
-                "- Run python3 -m physics_lab.cli sync-active-board . later in a dedicated board-sync step if tasks/ACTIVE.md needs refresh."
+                "- Run python3 -m physics_lab.cli sync-active-board . later in a dedicated board-sync step if generated task navigation needs refresh."
             )
         else:
             lines.append(
