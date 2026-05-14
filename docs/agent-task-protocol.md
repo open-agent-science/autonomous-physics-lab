@@ -314,6 +314,10 @@ python3 scripts/apl_pr_capability_check.py
 If the check fails, pause before editing files and ask whether to continue as
 branch-only work or to install/connect GitHub tooling.
 
+Use the repository PR helpers instead of calling bare `gh` in Codex sessions.
+Codex may omit Homebrew paths from `PATH`; the helpers search common GitHub CLI
+locations such as `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
+
 After implementation and validation:
 
 1. push the task branch only when a human or workflow expects a PR;
