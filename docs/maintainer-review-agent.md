@@ -317,6 +317,47 @@ Use this mode only after the maintainer has already merged the PR.
    then prepare a closeout commit and PR or explicitly ask the maintainer to
    publish those changes. Do not push or merge without maintainer
    authorization.
+   Prefer the closeout scaffold/preflight helper instead of a short ad hoc
+   `gh pr create --body ...` flow:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py scaffold \
+     --task-id TASK-0244 \
+     --contributor-id roman \
+     --github-username gladunrv \
+     --agent-id codex \
+     --human-reviewer gladunrv \
+     --slug task-0244-snapshot-fix \
+     --description "mark task-0244 done" \
+     --include-active-board \
+     --include-context
+   ```
+
+   To generate a body file directly for `gh pr create --body-file`, add
+   `--body-only`:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py scaffold \
+     --task-id TASK-0244 \
+     --contributor-id roman \
+     --github-username gladunrv \
+     --agent-id codex \
+     --human-reviewer gladunrv \
+     --slug task-0244-snapshot-fix \
+     --description "mark task-0244 done" \
+     --include-active-board \
+     --include-context \
+     --body-only > /tmp/apl-closeout-pr-body.md
+   ```
+
+   Then run preflight before opening the PR:
+
+   ```bash
+   python3 scripts/apl_closeout_pr_helper.py preflight \
+     --branch agent/roman/codex/closeout-task-0244-snapshot-fix \
+     --title "TASK-CLOSEOUT: mark task-0244 done" \
+     --body-file /tmp/apl-closeout-pr-body.md
+   ```
 10. After the closeout PR is open and the review agent reports `MERGE_OK` with
     green CI, do not end with a passive status update. If the maintainer already
     authorized closeout/merge in the current request chain and the PR is pure
