@@ -7,15 +7,16 @@ import sys
 from physics_lab.registry.pr_capability import check_pr_capability
 
 
-def test_pr_capability_fails_without_gh_or_token(tmp_path: Path) -> None:
+def test_pr_capability_is_advisory_without_gh_or_token(tmp_path: Path) -> None:
     report = check_pr_capability(
         tmp_path,
         env={},
         discover_gh=False,
     )
 
-    assert not report.ok
-    assert any("Cannot create a pull request" in item for item in report.errors)
+    assert report.ok
+    assert report.errors == ()
+    assert any("Direct PR creation is not available" in item for item in report.warnings)
 
 
 def test_pr_capability_accepts_token_fallback_without_gh(tmp_path: Path) -> None:
@@ -50,7 +51,7 @@ def test_pr_capability_discovers_homebrew_style_gh_path(
     assert report.gh_path == str(fake_gh)
 
 
-def test_pr_capability_cli_reports_missing_tooling_from_repo_root() -> None:
+def test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     result = subprocess.run(
         [
@@ -66,9 +67,7 @@ def test_pr_capability_cli_reports_missing_tooling_from_repo_root() -> None:
         env={},
     )
 
-    assert result.returncode == 1
+    assert result.returncode == 0
     assert "PR capability check" in result.stdout
-    assert (
-        "Cannot create a pull request" in result.stdout
-        or "not authenticated" in result.stdout
-    )
+    assert "Warnings:" in result.stdout
+    assert "Direct PR creation" in result.stdout or "not authenticated" in result.stdout

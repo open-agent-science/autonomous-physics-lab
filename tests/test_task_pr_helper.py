@@ -45,7 +45,8 @@ def test_task_pr_body_mentions_template_sections_and_metadata() -> None:
 
     assert "## PR Kind" in body
     assert "- [x] Canonical task PR" in body
-    assert "Marked ready for review after CI passes" in body
+    assert "manual PR creation commands provided" in body
+    assert "manual ready command provided" in body
     assert "tasks/TASK-0247-add-pr-lifecycle-guardrails.yaml" in body
     assert "- Contributor ID: `roman`" in body
     assert "Agent session ID" not in body
