@@ -5,7 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from typing import Any
+import random
+from typing import Any, Optional
 
 import yaml
 
@@ -15,6 +16,12 @@ from physics_lab.registry.active_board import TaskBoardEntry, load_board_entries
 SUPPORTED_MODES = ("research", "audit", "support", "maintainer")
 PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2}
 DIFFICULTY_RANK = {"low": 0, "medium": 1, "high": 2}
+DIFFICULTY_TIME_ESTIMATES = {
+    "low": "~5 min",
+    "medium": "~5-10 min",
+    "high": "~15-20 min",
+}
+RANDOMIZER = random.SystemRandom()
 RESEARCH_TASK_MARKERS = (
     "scientific",
     "research",
@@ -70,6 +77,7 @@ class MissionTaskCandidate:
             "status": self.status,
             "mode": self.mode,
             "parallel_hint": self.parallel_hint,
+            "estimated_time": _estimated_time(self.difficulty),
         }
 
 
@@ -113,14 +121,48 @@ def _parallel_hint(entry: TaskBoardEntry) -> str:
     )
 
 
-def _candidate_sort_key(candidate: MissionTaskCandidate) -> tuple[int, int, int, int]:
+def _estimated_time(difficulty: str) -> str:
+    return DIFFICULTY_TIME_ESTIMATES.get(difficulty, "~5-20 min")
+
+
+def _candidate_sort_key(candidate: MissionTaskCandidate) -> tuple[int, int, int, str, int]:
+    return (
+        *_candidate_rank_key(candidate),
+        int(candidate.task_id.removeprefix("TASK-")),
+    )
+
+
+def _candidate_rank_key(candidate: MissionTaskCandidate) -> tuple[int, int, int, str]:
     mode_rank = 0 if candidate.mode == "research" else 1
     return (
         mode_rank,
         PRIORITY_RANK.get(candidate.priority, 9),
         DIFFICULTY_RANK.get(candidate.difficulty, 9),
-        int(candidate.task_id.removeprefix("TASK-")),
+        candidate.type,
     )
+
+
+def _ranked_candidates(
+    candidates: list[MissionTaskCandidate],
+    *,
+    shuffle_equal_rank: bool,
+) -> tuple[MissionTaskCandidate, ...]:
+    ordered = sorted(candidates, key=_candidate_sort_key)
+    if not shuffle_equal_rank:
+        return tuple(ordered)
+
+    ranked: list[MissionTaskCandidate] = []
+    index = 0
+    while index < len(ordered):
+        rank = _candidate_rank_key(ordered[index])
+        group: list[MissionTaskCandidate] = []
+        while index < len(ordered) and _candidate_rank_key(ordered[index]) == rank:
+            group.append(ordered[index])
+            index += 1
+        if len(group) > 1:
+            RANDOMIZER.shuffle(group)
+        ranked.extend(group)
+    return tuple(ranked)
 
 
 def task_candidates(
@@ -128,6 +170,7 @@ def task_candidates(
     *,
     mode: str = "research",
     limit: int = 5,
+    shuffle_equal_rank: Optional[bool] = None,
 ) -> tuple[MissionTaskCandidate, ...]:
     """Return live task candidates from canonical task YAML files.
 
@@ -201,7 +244,8 @@ def task_candidates(
                 )
             )
 
-    return tuple(sorted(candidates, key=_candidate_sort_key)[:limit])
+    should_shuffle = mode in {"research", "audit"} if shuffle_equal_rank is None else shuffle_equal_rank
+    return _ranked_candidates(candidates, shuffle_equal_rank=should_shuffle)[:limit]
 
 
 def select_mission(payload: dict[str, Any], mode: str | None = None) -> MissionSelection:
@@ -291,6 +335,7 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
             "single_checkout": "Use one active task at a time in a single checkout.",
             "parallel_agents": "Use separate branches or git worktrees and choose disjoint artifact surfaces.",
             "coordination": "Do not guess new task ids during parallel work; use proposals or maintainer-assigned tasks.",
+            "candidate_order": "Equal-rank research/audit candidates may rotate so parallel agents do not all pick the same first task.",
         },
         "global_forbidden": payload.get("global_forbidden", []),
     }
@@ -350,7 +395,8 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
         for index, candidate in enumerate(live_candidates, start=1):
             lines.append(
                 f"{index}. {candidate.task_id} — {candidate.title} "
-                f"[{candidate.priority}/{candidate.difficulty}, {candidate.mode}]"
+                f"[{candidate.priority}/{candidate.difficulty}, "
+                f"{_estimated_time(candidate.difficulty)}, {candidate.mode}]"
             )
         lines.extend(
             [
@@ -359,6 +405,7 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
                 "- one local checkout should usually run one task at a time",
                 "- multiple agents can work in parallel via separate branches or worktrees",
                 "- avoid overlapping artifact surfaces in parallel PRs",
+                "- equal-rank research/audit task options may rotate between runs",
             ]
         )
     lines.extend(
@@ -394,7 +441,8 @@ def render_agent_prompt(payload: dict[str, Any], *, root: Path | None = None) ->
     candidate_block = ""
     if live_candidates:
         rendered_candidates = "\n".join(
-            f"- {candidate.task_id}: {candidate.title} ({candidate.priority}/{candidate.difficulty})"
+            f"- {candidate.task_id}: {candidate.title} "
+            f"({candidate.priority}/{candidate.difficulty}, {_estimated_time(candidate.difficulty)})"
             for candidate in live_candidates
         )
         candidate_block = (
@@ -425,3 +473,40 @@ Start in Agent First Research Mode.
 {candidate_block}
 
 Return the selected mission, changed files, validation results, limitations, and PR-ready summary."""
+
+
+def render_onboarding_prompt(payload: dict[str, Any], *, root: Path | None = None) -> str:
+    """Render a copy-paste prompt for a guided first agent response."""
+    selection = select_mission(payload, None)
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
+    mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
+    action_label = selection.action.get("label") if selection.action else "the recommended action"
+    candidate_block = ""
+    if live_candidates:
+        rendered_candidates = "\n".join(
+            f"- {candidate.task_id}: {candidate.title} "
+            f"({candidate.priority}/{candidate.difficulty}, {_estimated_time(candidate.difficulty)})"
+            for candidate in live_candidates
+        )
+        candidate_block = (
+            "\n\nCurrent executable READY task candidates from the task registry:\n"
+            f"{rendered_candidates}"
+        )
+    return f"""You are working in Autonomous Physics Lab.
+
+Start in Agent First Research Mode with onboarding.
+
+1. Read AGENTS.md and docs/agent-task-protocol.md.
+2. Run `python3 scripts/apl_mission.py --json`.
+3. Do not edit files yet.
+4. Briefly explain why the recommended mission is scientifically useful.
+5. Recommended mission now: {mission_title}.
+6. Recommended action now: {action_label}.
+7. Show 3-5 executable READY options with estimated time and difficulty.
+8. Recommend one option, ask whether to start it, and wait for the user's choice.
+9. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and PR preparation.
+10. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
+11. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
+{candidate_block}
+
+When the work is complete, summarize what changed, the scientific or workflow value of the result, validation results, limitations, and the best next task to continue."""

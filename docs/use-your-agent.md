@@ -24,6 +24,7 @@ For a coding agent, use:
 
 ```bash
 python3 scripts/apl_mission.py --json
+python3 scripts/apl_mission.py --onboarding
 python3 scripts/apl_mission.py --agent-prompt
 ```
 
@@ -234,19 +235,20 @@ If you are using a coding agent, a good starting prompt is:
 ```text
 You are working in Autonomous Physics Lab.
 
-Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
-then run `python3 scripts/apl_mission.py --json`. Choose the recommended
-research mission unless the maintainer gave a stricter task. Use the
-recommended `task_id` to create a canonical task branch before editing files.
+Start in Agent First Research Mode with onboarding. Read AGENTS.md and
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+Explain the current research mission briefly, show a few READY options with
+estimated time, recommend one, and wait for my choice before editing files.
 When listing available work, include only READY tasks; do not offer REVIEW_READY
-tasks as executor options.
-Execute the full loop autonomously: inspect
-evidence, test or audit the hypothesis, preserve negative results, update
-sandbox/review artifacts, run validation, generate a review bundle, and prepare
-a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
-promotion. Do not promote claims, rewrite canonical results, or use
-breakthrough-style wording.
+tasks as executor options. After I choose, execute the selected task
+autonomously: create the task branch, inspect evidence, test or audit the
+hypothesis, preserve negative results, run validation, generate a review
+bundle, and prepare a PR. Keep outputs sandbox-only unless a canonical task
+explicitly allows promotion. Do not promote claims, rewrite canonical results,
+or use breakthrough-style wording.
 ```
+
+For full autonomous execution, replace `--onboarding` with `--agent-prompt`.
 
 If you are using support mode, run `python3 scripts/apl_mission.py --mode support`
 and give the agent the selected task or queue item.

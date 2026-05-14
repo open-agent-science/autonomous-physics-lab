@@ -28,6 +28,7 @@ scientific action. For machine-readable agent context:
 
 ```bash
 python3 scripts/apl_mission.py --json
+python3 scripts/apl_mission.py --onboarding
 python3 scripts/apl_mission.py --agent-prompt
 ```
 
@@ -36,17 +37,18 @@ Copy-paste prompt for a new agent:
 ```text
 You are working in Autonomous Physics Lab.
 
-Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
-then run `python3 scripts/apl_mission.py --json`. Choose the recommended
-research mission unless the maintainer gave a stricter task. Use the
-recommended `task_id` to create a canonical task branch before editing files.
-Execute the full loop autonomously: inspect
-evidence, test or audit the hypothesis, preserve negative results, update
-sandbox/review artifacts, run validation, generate a review bundle, and prepare
-a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
-promotion. Do not promote claims, rewrite canonical results, or use
-breakthrough-style wording.
+Start in Agent First Research Mode with onboarding. Read AGENTS.md and
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+Explain the current research mission briefly, show a few READY options with
+estimated time, recommend one, and wait for my choice before editing files.
+After I choose, execute the selected task autonomously: create the task branch,
+inspect evidence, test or audit the hypothesis, preserve negative results, run
+validation, generate a review bundle, and prepare a PR. Keep outputs
+sandbox-only unless a canonical task explicitly allows promotion. Do not
+promote claims, rewrite canonical results, or use breakthrough-style wording.
 ```
+
+For full autonomous execution, replace `--onboarding` with `--agent-prompt`.
 
 Support and maintainer work remain explicit modes:
 
