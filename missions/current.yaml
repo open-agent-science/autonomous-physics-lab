@@ -220,10 +220,6 @@ support_actions:
     label: "Stabilize Windows coverage baseline for critical CLI smoke tests"
     task_id: TASK-0239
     priority: medium
-  - id: review-git-edge-tests
-    label: "Add review_git edge-case tests for critical review paths"
-    task_id: TASK-0240
-    priority: medium
   - id: maintainer-review-coverage
     label: "Expand maintainer review policy branch coverage"
     task_id: TASK-0241
