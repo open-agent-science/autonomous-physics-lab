@@ -144,7 +144,7 @@ def test_cli_run_report_contains_experiment_id(tmp_path: Path) -> None:
         app,
         ["run", "examples/g2_formula_search.yaml", "--output-dir", str(tmp_path)],
     )
-    report = (tmp_path / "EXP-0010" / "RUN-0001" / "report.md").read_text()
+    report = (tmp_path / "EXP-0010" / "RUN-0001" / "report.md").read_text(encoding="utf-8")
     assert "EXP-0010" in report
     assert "HYP-0010" in report
     assert "TASK-0127" in report
@@ -162,9 +162,9 @@ def test_cli_run_artifacts_use_consistent_primary_formula(tmp_path: Path) -> Non
     assert result.exit_code == 0, result.output
 
     run_dir = tmp_path / "EXP-0010" / "RUN-0001"
-    report = (run_dir / "report.md").read_text()
-    metrics = json.loads((run_dir / "metrics.json").read_text())
-    result_payload = yaml.safe_load((run_dir / "result.yaml").read_text())
+    report = (run_dir / "report.md").read_text(encoding="utf-8")
+    metrics = json.loads((run_dir / "metrics.json").read_text(encoding="utf-8"))
+    result_payload = yaml.safe_load((run_dir / "result.yaml").read_text(encoding="utf-8"))
 
     assert metrics["best_formula_basis"] == "guardrail_screened_hit"
     assert metrics["best_formula"] == "α^3 × (mμ/me)^-2 × (mμ/mτ)^-2"

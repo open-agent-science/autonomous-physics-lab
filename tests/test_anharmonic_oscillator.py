@@ -112,11 +112,16 @@ def test_anharmonic_dispatch_writes_temp_artifacts(tmp_path: Path) -> None:
     assert outcome.artifacts.result_path == tmp_path / "apl-results" / "EXP-0011" / "RUN-0001" / "result.yaml"
 
 
-def test_cli_run_anharmonic_smoke() -> None:
+def test_cli_run_anharmonic_smoke(tmp_path: Path) -> None:
     runner = CliRunner()
     result = runner.invoke(
         app,
-        ["run", "examples/anharmonic_oscillator.yaml", "--output-dir", "/tmp/apl-anharmonic-test"],
+        [
+            "run",
+            "examples/anharmonic_oscillator.yaml",
+            "--output-dir",
+            str(tmp_path / "apl-anharmonic-test"),
+        ],
     )
 
     assert result.exit_code == 0

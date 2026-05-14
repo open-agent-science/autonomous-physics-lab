@@ -99,11 +99,16 @@ def test_nuclear_mass_dispatch_writes_temp_artifacts(tmp_path: Path) -> None:
     assert outcome.artifacts.result_path == tmp_path / "apl-results" / "EXP-0012" / "RUN-0001" / "result.yaml"
 
 
-def test_cli_run_nuclear_mass_baseline_smoke() -> None:
+def test_cli_run_nuclear_mass_baseline_smoke(tmp_path: Path) -> None:
     runner = CliRunner()
     result = runner.invoke(
         app,
-        ["run", "examples/nuclear_mass_baseline.yaml", "--output-dir", "/tmp/apl-nuclear-mass-test"],
+        [
+            "run",
+            "examples/nuclear_mass_baseline.yaml",
+            "--output-dir",
+            str(tmp_path / "apl-nuclear-mass-test"),
+        ],
     )
 
     assert result.exit_code == 0
