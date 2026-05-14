@@ -20,7 +20,7 @@ DEFAULT_GH_CANDIDATE_PATHS = (
 
 @dataclass(frozen=True)
 class PrCapabilityReport:
-    """Result of checking whether this environment can open a PR."""
+    """Result of checking whether this environment can open a PR directly."""
 
     errors: tuple[str, ...]
     warnings: tuple[str, ...]
@@ -41,7 +41,7 @@ def check_pr_capability(
     discover_gh: bool = True,
     require_gh_auth: bool = True,
 ) -> PrCapabilityReport:
-    """Check whether a PR can be opened through GitHub CLI or token fallback."""
+    """Check whether a PR can be opened directly, without blocking local work."""
     env_map = os.environ if env is None else env
     tokens = tuple(name for name in TOKEN_ENV_NAMES if env_map.get(name))
     resolved_gh_path = gh_path if gh_path is not None else (
@@ -56,9 +56,10 @@ def check_pr_capability(
                 "GitHub CLI `gh` was not found; token-based API fallback appears available."
             )
         else:
-            errors.append(
-                "Cannot create a pull request from this environment: neither `gh` nor "
-                "`GH_TOKEN`/`GITHUB_TOKEN` is available."
+            warnings.append(
+                "Direct PR creation is not available in this environment: neither `gh` "
+                "nor `GH_TOKEN`/`GITHUB_TOKEN` is available. Continue local task work "
+                "and provide maintainer-run `git push` and `gh pr create` commands."
             )
         return PrCapabilityReport(
             errors=tuple(errors),
@@ -75,9 +76,10 @@ def check_pr_capability(
                     "`gh auth status` failed, but token-based API fallback appears available."
                 )
             else:
-                errors.append(
+                warnings.append(
                     "`gh` is installed but not authenticated, and no "
-                    "`GH_TOKEN`/`GITHUB_TOKEN` fallback is available."
+                    "`GH_TOKEN`/`GITHUB_TOKEN` fallback is available. Continue local "
+                    "task work and provide maintainer-run publication commands."
                 )
 
     return PrCapabilityReport(
