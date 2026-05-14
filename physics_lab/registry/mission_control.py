@@ -464,7 +464,7 @@ Start in Agent First Research Mode.
 4. Recommended mission now: {mission_title}.
 5. Recommended action now: {action_label}.
 6. {task_instruction}
-7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve negative results, update sandbox/review artifacts, run validation, generate a review bundle, and prepare a PR.
+7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve negative results, update sandbox/review artifacts, run validation, generate a review bundle, commit, push the task branch, and open a draft PR.
 8. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 9. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 10. If the work is support/review/closeout rather than research, run the explicit mode: `python3 scripts/apl_mission.py --mode support` or `--mode maintainer`.
@@ -504,7 +504,7 @@ Start in Agent First Research Mode with onboarding.
 6. Recommended action now: {action_label}.
 7. Show 3-5 executable READY options with estimated time and difficulty.
 8. Recommend one option, ask whether to start it, and wait for the user's choice.
-9. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and PR preparation.
+9. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, commit, push, and draft PR creation. If PR creation capability is unavailable, stop before editing files and report the blocker.
 10. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 11. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 {candidate_block}
