@@ -1,0 +1,68 @@
+id: HYP-PROPOSAL-0040
+title: "Rejected free odd-even exponent on A"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REJECTED
+
+claim_ceiling: "Rejected sandbox proposal; no experiment execution."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0201
+
+input_references:
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "agent_runs/AGENT-RUN-0011/metrics.json"
+
+hypothesis:
+  statement: "An odd-even correction with a fitted A exponent might improve residuals."
+  variables:
+    - "odd_even_sign: pairing sign or odd-even class indicator"
+    - "A: mass number"
+    - "c, p: fitted amplitude and exponent"
+  assumptions:
+    - "The exponent p would be fitted from NMD-0002."
+  expected_scope: "Rejected before execution."
+  expected_failure_modes:
+    - "The nonlinear exponent can overfit an 11-row training slice."
+
+novelty_check:
+  checked_files:
+    - "docs/nuclear-mass-robustness-gate.md"
+  possible_overlap: "Same pairing domain as TASK-0201 executed candidates, but with an extra nonlinear shape parameter."
+  notes: "Rejected before execution on complexity grounds."
+
+falsification_plan:
+  deterministic_check: "Pre-execution triage only; no sandbox execution selected."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  pass_condition: "Would require a maintainer-approved nonlinear residual lane and broader pinned training surface."
+  fail_condition: "Rejected because p is a free nonlinear knob on an 11-row slice."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not treat a free exponent as a bounded pairing correction."
+  mitigations:
+    - "Reject before sandbox execution."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_pairing_batch.py"
+  code_references:
+    - "scripts/run_nuclear_pairing_batch.py"
+  metrics:
+    - "pre_execution_rejection_reason"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0011/metrics.json"
+
+limitations:
+  - "Rejected during triage rather than executed."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Confirm rejection before execution under the robustness gate's complexity rules."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "No promotion path; this proposal would need a maintainer-approved nonlinear lane before any execution."
