@@ -438,10 +438,13 @@ Before starting implementation for a full PR lifecycle request, agents may run:
 python3 scripts/apl_pr_capability_check.py
 ```
 
-This check is advisory, not a task blocker. Missing `gh`, missing GitHub auth,
-or restricted agent network access should not stop local task work. If the
-agent cannot publish the PR itself, it must still finish the local task branch
-package and provide exact maintainer-run commands for `git push`,
+This check is advisory, not a pre-work gate or task blocker. Missing `gh`,
+missing GitHub auth, or restricted agent network access must not stop the
+agent before implementation. Do not pause before editing files just because
+the agent cannot publish a PR itself. Instead, create the task branch first,
+complete the local task work, run validation, and commit only after the files
+are ready for maintainer review. If the agent cannot publish the PR itself at
+the end, it must provide exact maintainer-run commands for `git push`,
 `gh pr create`, review-agent execution after a PR number exists, and
 `gh pr ready` when CI and review pass. Do not treat a pushed branch, local
 commit, staged diff, title, or PR body as a completed pull request lifecycle;

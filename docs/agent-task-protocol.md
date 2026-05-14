@@ -311,11 +311,13 @@ check whether the environment can open a PR:
 python3 scripts/apl_pr_capability_check.py
 ```
 
-This check is advisory. Missing `gh`, missing GitHub auth, restricted network
-access, or a sandbox that cannot push should not block local task execution.
-If the agent cannot publish directly, continue with local branch work after
-recording the limitation, then provide exact commands for the maintainer to
-run:
+This check is advisory. It must never be used as a pre-edit gate. Missing
+`gh`, missing GitHub auth, restricted network access, or a sandbox that cannot
+push should not block local task execution or cause the agent to ask the user
+whether to continue before implementation. Create the task branch first, do
+the local work, run validation, and commit only after the intended files are
+ready for maintainer review. If the agent cannot publish directly at the end,
+provide exact commands for the maintainer to run:
 
 ```bash
 git push origin agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>
