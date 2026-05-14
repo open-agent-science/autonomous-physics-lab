@@ -143,7 +143,7 @@ def validate(path: str, kind: Optional[str] = None) -> None:
         loaders[resolved_kind](artifact_path)
     except KeyError as exc:
         raise typer.BadParameter(f"Unsupported validation kind: {resolved_kind}") from exc
-    typer.echo(f"Validated {artifact_path} as {resolved_kind}.")
+    typer.echo(f"Validated {artifact_path.as_posix()} as {resolved_kind}.")
 
 
 @app.command("preflight-research-proposal")
@@ -214,10 +214,15 @@ def validate_repo(
 @app.command("sync-active-board")
 def sync_active_board_command(root: str = typer.Argument(".")) -> None:
     """Refresh generated task navigation from canonical task YAML files."""
-    written_paths = sync_generated_task_state(Path(root).resolve())
+    root_path = Path(root).resolve()
+    written_paths = sync_generated_task_state(root_path)
     typer.echo("Synchronized generated task state:")
     for path in written_paths:
-        typer.echo(f"- {path}")
+        try:
+            display_path = path.resolve().relative_to(root_path).as_posix()
+        except ValueError:
+            display_path = path.as_posix()
+        typer.echo(f"- {display_path}")
 
 
 @app.command("mission")

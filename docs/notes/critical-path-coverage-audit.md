@@ -62,6 +62,45 @@ the Windows suite:
 
 No coverage gate was added.
 
+## Windows Stabilization Follow-Up
+
+`TASK-0239` re-ran the documented Windows failure set on `2026-05-14` and
+converted the known failures into deterministic test behavior. With a
+workspace-local pytest temp base, the full branch-aware coverage command now
+exits cleanly on Windows:
+
+```powershell
+python -m pytest --basetemp=.pytest-basetemp --cov=physics_lab --cov=scripts --cov-branch --cov-report=term-missing:skip-covered --cov-report=html:_coverage/html
+```
+
+Observed result:
+
+- `357 passed`
+- `78%` total coverage across `physics_lab` and Python `scripts/`
+- `9,253` statements
+- `1,666` missing statements
+- `2,696` branches
+- `580` partial branches
+- HTML report written to `_coverage/html`
+
+Resolved Windows failure classes:
+
+| Failure class | Tests affected | Resolution |
+| --- | --- | --- |
+| Temp-dir / artifact-location | CLI smoke tests that wrote to hard-coded `/tmp/...` paths | Tests now use pytest `tmp_path`, so output stays under a writable per-test directory on Windows and Unix. |
+| Path-handling | `test_cli_validate_hypothesis_smoke`, `test_sync_active_board_cli_command` | CLI output for validated paths and generated task-state paths is normalized to POSIX-style relative paths. |
+| Artifact encoding | `test_cli_run_artifacts_use_consistent_primary_formula` | Test reads generated Markdown, JSON, and YAML artifacts with explicit UTF-8 decoding. |
+| Workspace-local git metadata | `test_runner_generates_run_based_artifacts` | The assertion now accepts either absent git metadata or a 40-character commit hash when pytest temp paths live inside the repository worktree. |
+| Generated task-state freshness | Strict repository validation smoke tests | The task-state board, generated task views, and mission support actions were synchronized after moving `TASK-0239` to `REVIEW_READY`. |
+
+Remaining Windows environment note:
+
+- Pytest is configured to use `.pytest-basetemp/` by default so normal
+  `python -m pytest` and coverage runs do not depend on the user-level temp
+  root. If a tool bypasses repository pytest configuration, pass
+  `--basetemp=.pytest-basetemp` explicitly. `.pytest-basetemp/` is local-only
+  and ignored.
+
 Critical rows from the baseline:
 
 | Module | Coverage | Reading |

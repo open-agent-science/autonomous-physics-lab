@@ -41,6 +41,7 @@ target-version = "py311"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 timeout = 60
+addopts = "--basetemp=.pytest-basetemp"
 
 [tool.coverage.run]
 branch = true
