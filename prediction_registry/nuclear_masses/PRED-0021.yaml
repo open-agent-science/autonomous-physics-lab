@@ -1,0 +1,105 @@
+prediction_id: PRED-0021
+title: 'Prospective nuclear mass slate: fitted/reference 50-50 coefficient blend on frontier next-row controls'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0228
+evidence_class: prospective_prediction_registry
+claim_ceiling: Registered prospective prediction variant only; no claim, canonical result, or accepted
+  knowledge promotion before later maintainer-reviewed comparison.
+registered_by:
+  contributor_id: roman
+  agent_id: claude_code
+registered_at_utc: '2026-05-14T12:00:00Z'
+source_state:
+  git_commit: 55e0bb71c7875f43dddcb21b02c7ef7c3c353092
+  model_reference:
+    model_id: RESULT-0015::model_fitted_reference_blend_50_50
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+    frozen_parameters_note: 'Frozen coefficient-wise 50/50 blend of the RESULT-0015 fitted semi-empirical
+      coefficients (volume=15.51423612106804, surface=17.2931812095177, coulomb=0.6878156091568888,
+      asymmetry=23.846557883948485, pairing=15.990845113398912) and the REFERENCE_SEMI_EMPIRICAL_COEFFICIENTS
+      literature defaults (volume=15.8, surface=18.3, coulomb=0.714, asymmetry=23.2, pairing=12.0).
+      Blended coefficients: volume=15.657118060534021, surface=17.79659060475885, coulomb=0.7009078045784444,
+      asymmetry=23.52327894197424, pairing=13.995422556699456. The full pairing term is retained;
+      no shell, magic-number, neutron-rich, or odd-even correction is introduced. Smooth control
+      variant only, not a promoted model.'
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+  - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+  - docs/blind-holdout-benchmark-protocol.md
+  - docs/nuclear-mass-holdout-protocol.md
+  - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: 'Registered from repository state 55e0bb71c7875f43dddcb21b02c7ef7c3c353092
+    without live external fetching. Target nuclides are repo-prospective: absent from committed NMD-0002
+    and post-AME2020 holdout datasets at registration time; true-world prospectiveness requires later
+    maintainer source-state review.'
+target_set:
+  label: frontier-next-row
+  quantity: mass_excess_mev
+  unit: MeV
+  target_nuclides:
+  - nuclide_id: Ca-55
+    Z: 20
+    N: 35
+    A: 55
+    predicted_value_mev: -9.215716
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_reference_blend_50_50 for the frontier-next-row
+      target batch; no statistical interval is claimed.
+  - nuclide_id: Ni-76
+    Z: 28
+    N: 48
+    A: 76
+    predicted_value_mev: -31.818741
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_reference_blend_50_50 for the frontier-next-row
+      target batch; no statistical interval is claimed.
+  - nuclide_id: Zn-80
+    Z: 30
+    N: 50
+    A: 80
+    predicted_value_mev: -42.345241
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_reference_blend_50_50 for the frontier-next-row
+      target batch; no statistical interval is claimed.
+  - nuclide_id: Ga-85
+    Z: 31
+    N: 54
+    A: 85
+    predicted_value_mev: -30.349015
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_reference_blend_50_50 for the frontier-next-row
+      target batch; no statistical interval is claimed.
+uncertainty_semantics:
+  type: point_estimate_only
+  note: Each value is a deterministic mass_excess_mev point estimate obtained by converting the frozen
+    blended semi-empirical binding-energy prediction to atomic mass and then to mass excess. uncertainty_mev
+    is intentionally null; this entry is a smooth coefficient-blend control for variant comparison after
+    future reveal, not a confidence-ranked forecast.
+reveal_conditions:
+  reveal_trigger: A future maintainer-reviewed nuclear mass dataset or source manifest added after
+    registration contains measured or reviewably convertible values for one or more target nuclides.
+  comparison_data_reference: future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed
+    source manifest committed after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: After registration, do not alter the frozen model id, coefficient note, target nuclides,
+    predicted values, or reveal rule. Later comparison must be a separate reviewed task and may reveal
+    a subset of targets only.
+limitations:
+- Prospective registry variant only; not a claim or result package.
+- Targets are selected against committed repository datasets only; no live external source was fetched
+  during registration.
+- The blended coefficient set is a midpoint between a small-slice fit and a literature default; it
+  is not a validated universal nuclear-mass model.
+- Smooth control variant only; no shell, pairing, magic-number, or neutron-rich correction is added.
+- Any agent-proposed follow-up variant must freeze its model, target set, and source state in a separate
+  registry entry before reveal.
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false

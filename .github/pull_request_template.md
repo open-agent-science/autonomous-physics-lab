@@ -2,6 +2,10 @@ Delete unused sections before requesting review. Do not leave placeholder
 examples such as `TASK-XXXX`, fake file paths, or generic branch strings in the
 final PR body.
 
+Maintainer review checks for the required section headings below. If creating
+the PR from an agent or CLI, prepare a filled body file from this template and
+use `gh pr create --body-file <path>` rather than a short ad hoc `--body`.
+
 ## PR Kind
 
 Choose one:
@@ -48,6 +52,13 @@ Task closeout PR:
 - Task proposal: `TASK-PROPOSAL: <short title>`
 - Microtask: `microtask(<queue-id>): <short description>`
 - Closeout: `TASK-CLOSEOUT: <short title>`
+
+## PR Lifecycle
+
+- [ ] Branch pushed
+- [ ] Draft PR opened by agent or manual PR creation commands provided
+- [ ] Post-PR review command run or manual review command provided if no PR number is available
+- [ ] Marked ready for review after CI passes and review agent returns `MERGE_OK`, or manual ready command provided
 
 ## Summary
 

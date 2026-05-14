@@ -6,11 +6,13 @@ from pathlib import Path
 import subprocess
 import sys
 
+from physics_lab.registry import mission_control
 from physics_lab.registry.mission_control import (
     load_current_missions,
     mission_json,
     render_agent_prompt,
     render_human_mission,
+    render_onboarding_prompt,
     select_mission,
     task_candidates,
 )
@@ -195,6 +197,7 @@ def test_mission_json_includes_live_task_candidates(tmp_path: Path) -> None:
     assert candidate_ids == ["TASK-0003", "TASK-0004"]
     assert rendered["live_task_candidates"][0]["mode"] == "research"
     assert rendered["live_task_candidates"][1]["mode"] == "support"
+    assert rendered["live_task_candidates"][0]["estimated_time"] == "~5-10 min"
     assert "parallel_agents" in rendered["parallel_work_policy"]
 
 
@@ -220,6 +223,109 @@ def test_task_candidates_support_parallel_safe_options(tmp_path: Path) -> None:
 
     assert [candidate.task_id for candidate in candidates] == ["TASK-0005"]
     assert "separate branch/worktree" in candidates[0].parallel_hint
+
+
+def test_task_candidates_shuffle_equal_rank_research_groups(tmp_path: Path, monkeypatch) -> None:
+    class FakeRandomizer:
+        def shuffle(self, items: list) -> None:
+            items.reverse()
+
+    monkeypatch.setattr(mission_control, "RANDOMIZER", FakeRandomizer())
+    for task_id in ("TASK-0010", "TASK-0011", "TASK-0012"):
+        _write_task(
+            tmp_path,
+            task_id=task_id,
+            title=f"Research candidate {task_id}",
+            status="READY",
+            task_type="scientific_audit",
+            priority="high",
+        )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0013",
+        title="Lower priority research candidate",
+        status="READY",
+        task_type="scientific_audit",
+        priority="medium",
+    )
+
+    stable = task_candidates(tmp_path, mode="research", shuffle_equal_rank=False)
+    shuffled = task_candidates(tmp_path, mode="research", shuffle_equal_rank=True)
+
+    assert [candidate.task_id for candidate in stable] == [
+        "TASK-0010",
+        "TASK-0011",
+        "TASK-0012",
+        "TASK-0013",
+    ]
+    assert [candidate.task_id for candidate in shuffled] == [
+        "TASK-0012",
+        "TASK-0011",
+        "TASK-0010",
+        "TASK-0013",
+    ]
+
+
+def test_task_candidates_do_not_shuffle_support_mode_by_default(tmp_path: Path, monkeypatch) -> None:
+    class FakeRandomizer:
+        def shuffle(self, items: list) -> None:
+            items.reverse()
+
+    monkeypatch.setattr(mission_control, "RANDOMIZER", FakeRandomizer())
+    _write_task(
+        tmp_path,
+        task_id="TASK-0014",
+        title="Support docs A",
+        status="READY",
+        task_type="documentation",
+        priority="high",
+    )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0015",
+        title="Support docs B",
+        status="READY",
+        task_type="documentation",
+        priority="high",
+    )
+
+    candidates = task_candidates(tmp_path, mode="support")
+
+    assert [candidate.task_id for candidate in candidates] == ["TASK-0014", "TASK-0015"]
+
+
+def test_task_candidates_do_not_offer_review_ready_without_ready_tasks(tmp_path: Path) -> None:
+    _write_task(
+        tmp_path,
+        task_id="TASK-0006",
+        title="Already in review",
+        status="REVIEW_READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+
+    candidates = task_candidates(tmp_path, mode="research")
+
+    assert candidates == ()
+
+
+def test_mission_json_marks_review_ready_as_non_executor_work(tmp_path: Path) -> None:
+    _write_missions(tmp_path)
+    _write_task(
+        tmp_path,
+        task_id="TASK-0006",
+        title="Already in review",
+        status="REVIEW_READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    payload = load_current_missions(tmp_path)
+
+    rendered = json.loads(mission_json(payload, root=tmp_path))
+
+    assert rendered["live_task_candidates"] == []
+    assert "Only READY tasks" in rendered["task_visibility_policy"]["executor_modes"]
+    assert "REVIEW_READY tasks are hidden" in rendered["task_visibility_policy"]["review_ready"]
 
 
 def test_render_human_support_mode_uses_support_actions(tmp_path: Path) -> None:
@@ -249,6 +355,7 @@ def test_render_human_mission_shows_live_candidates(tmp_path: Path) -> None:
 
     assert "Live task candidates from task registry" in rendered
     assert "TASK-0007" in rendered
+    assert "~5-10 min" in rendered
     assert "separate branches or worktrees" in rendered
 
 
@@ -260,9 +367,50 @@ def test_render_agent_prompt_mentions_full_pr_loop(tmp_path: Path) -> None:
 
     assert "Agent First Research Mode" in rendered
     assert "Use canonical task TASK-0002" in rendered
-    assert "prepare a PR" in rendered
+    assert "Execute the full loop autonomously" in rendered
+    assert "open a draft PR" in rendered
     assert "Do not promote claims" in rendered
     assert "separate branches or worktrees" in rendered
+    assert "list only executable READY tasks" in rendered
+    assert "Do not offer REVIEW_READY tasks" in rendered
+
+
+def test_render_onboarding_prompt_waits_for_user_choice(tmp_path: Path) -> None:
+    _write_missions(tmp_path)
+    _write_task(
+        tmp_path,
+        task_id="TASK-0007",
+        title="Scientific replay",
+        status="READY",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    payload = load_current_missions(tmp_path)
+
+    rendered = render_onboarding_prompt(payload, root=tmp_path)
+
+    assert "with onboarding" in rendered
+    assert "Do not edit files yet" in rendered
+    assert "wait for my choice" in rendered or "wait for the user's choice" in rendered
+    assert "TASK-0007" in rendered
+    assert "~5-10 min" in rendered
+    assert "After the user chooses" in rendered
+    assert "draft PR creation" in rendered
+
+
+def test_render_human_modes_keep_support_and_maintainer_explicit(tmp_path: Path) -> None:
+    _write_missions(tmp_path)
+    payload = load_current_missions(tmp_path)
+
+    support = render_human_mission(payload, "support")
+    maintainer = render_human_mission(payload, "maintainer")
+
+    assert "Support Mode" in support
+    assert "Clean docs" in support
+    assert "Maintainer Mode" in maintainer
+    assert "Review PR" in maintainer
+    assert "python3 scripts/apl_mission.py --mode support" in support
+    assert "python3 scripts/apl_mission.py --mode maintainer" in maintainer
 
 
 def test_apl_mission_script_json_runs_from_repo_root() -> None:
@@ -279,6 +427,19 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
     assert "live_task_candidates" in rendered
 
 
+def test_apl_mission_script_onboarding_runs_from_repo_root() -> None:
+    result = subprocess.run(
+        [sys.executable, "scripts/apl_mission.py", "--onboarding"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "with onboarding" in result.stdout
+    assert "Do not edit files yet" in result.stdout
+    assert "estimated time" in result.stdout
+
+
 def test_cli_mission_json_runs_from_repo_root() -> None:
     result = subprocess.run(
         [sys.executable, "-m", "physics_lab.cli", "mission", "--json"],
@@ -293,11 +454,30 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert rendered["recommended"]["task_id"] is None
     assert "parallel_work_policy" in rendered
     assert rendered["live_task_candidates"]
+    # Accept any current research-mode top candidate from the live queue.
+    # Depending on which nuclear tasks are already claimed, the mission helper
+    # may surface nuclear follow-ups (`TASK-0189`, `TASK-0228`-`TASK-0237`)
+    # or rotate to the other READY research lanes (`TASK-0222`, `TASK-0227`).
     nuclear_validation_queue_ids = {
+        "TASK-0189",
         "TASK-0200",
         "TASK-0201",
         "TASK-0202",
         "TASK-0203",
+        "TASK-0204",
+        "TASK-0205",
+        "TASK-0222",
+        "TASK-0227",
+        "TASK-0228",
+        "TASK-0229",
+        "TASK-0230",
+        "TASK-0231",
+        "TASK-0232",
+        "TASK-0233",
+        "TASK-0234",
+        "TASK-0235",
+        "TASK-0236",
+        "TASK-0237",
     }
     assert (
         rendered["live_task_candidates"][0]["task_id"]

@@ -27,7 +27,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--sync-board",
         action="store_true",
-        help="Also regenerate tasks/ACTIVE.md during apply mode. Leave unset for lower-conflict YAML-only closeout.",
+        help=(
+            "Also regenerate generated task navigation during apply mode "
+            "(tasks/ACTIVE.md and docs/task-views/*.md). Leave unset for "
+            "lower-conflict YAML-only closeout."
+        ),
     )
     return parser
 

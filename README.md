@@ -28,6 +28,7 @@ scientific action. For machine-readable agent context:
 
 ```bash
 python3 scripts/apl_mission.py --json
+python3 scripts/apl_mission.py --onboarding
 python3 scripts/apl_mission.py --agent-prompt
 ```
 
@@ -36,17 +37,18 @@ Copy-paste prompt for a new agent:
 ```text
 You are working in Autonomous Physics Lab.
 
-Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
-then run `python3 scripts/apl_mission.py --json`. Choose the recommended
-research mission unless the maintainer gave a stricter task. Use the
-recommended `task_id` to create a canonical task branch before editing files.
-Execute the full loop autonomously: inspect
-evidence, test or audit the hypothesis, preserve negative results, update
-sandbox/review artifacts, run validation, generate a review bundle, and prepare
-a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
-promotion. Do not promote claims, rewrite canonical results, or use
-breakthrough-style wording.
+Start in Agent First Research Mode with onboarding. Read AGENTS.md and
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+Explain the current research mission briefly, show a few READY options with
+estimated time, recommend one, and wait for my choice before editing files.
+After I choose, execute the selected task autonomously: create the task branch,
+inspect evidence, test or audit the hypothesis, preserve negative results, run
+validation, generate a review bundle, and prepare a PR. Keep outputs
+sandbox-only unless a canonical task explicitly allows promotion. Do not
+promote claims, rewrite canonical results, or use breakthrough-style wording.
 ```
+
+For full autonomous execution, replace `--onboarding` with `--agent-prompt`.
 
 Support and maintainer work remain explicit modes:
 
@@ -137,7 +139,9 @@ All results are stored as versioned run artifacts under `results/<experiment>/<r
 | Neutrino Koide (EXP-0007) | INVALID | NH: 70.7σ below 2/3 |
 | Quark Koide (EXP-0008) | INVALID | Down: 8.8σ, Up: 159σ above 2/3 |
 | Particle-mass falsifier (EXP-0009) | INVALID | 2 of 3 charged-fermion families fail the standard Koide target |
+| Anharmonic oscillator (EXP-0011) | VALIDATION | deterministic nonlinear period benchmark with perturbative and empirical baselines |
 | Nuclear mass baseline (EXP-0012) | PARTIAL | NMD-0002 residual surface established for sandbox-only follow-up |
+| Nuclear post-AME2020 validation | INCONCLUSIVE | AGENT-RUN-0007 guard stayed source-manifest-only; AGENT-RUN-0008 row-level time-split result is sandbox-only |
 
 → **[Full visual result summary](docs/results/visual-summary.md)**
 → **[Koide campaign summary](docs/results/koide-campaign-summary.md)**
@@ -158,6 +162,12 @@ All results are stored as versioned run artifacts under `results/<experiment>/<r
 These are scoped benchmark results with explicit limits, not discovery-level
 physical conclusions, complete particle-mass explanations, or exact symbolic
 proof. See `docs/results/visual-summary.md` for all figures with full captions.
+For Nuclear Mass Surface, `EXP-0012` and `AGENT-RUN-0005` are benchmark and
+sandbox evidence only. `AGENT-RUN-0007` is an `INCONCLUSIVE`
+source-manifest-only activation guard, not an active time-split benchmark
+result. The row-level unlock path is `TASK-0196` post-AME2020 holdout data
+before `TASK-0197` retrospective time-split scoring; neither step promotes a
+claim automatically.
 
 ## Start Here
 
@@ -199,6 +209,9 @@ compact summary to `/tmp/apl-core-reproduction/CORE_REPRODUCTION_SUMMARY.md`. Se
 [docs/reproducibility-capsules.md](docs/reproducibility-capsules.md) for scope,
 expected metrics, and skipped stress-test notes.
 
+Testing and report-only coverage commands are documented in
+[docs/testing.md](docs/testing.md).
+
 If you are reviewing APL from the outside rather than contributing code, start
 with [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md).
 
@@ -209,12 +222,14 @@ flowchart LR
     classDef pend fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
     classDef part fill:#f3e8ff,stroke:#a855f7,color:#581c87,font-weight:bold
     classDef da   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
+    classDef nuc  fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
 
     P["🔭 Pendulum Track\nEXP-0001  Formula Discovery ✅\nEXP-0002  Damped Oscillator ✅\nRUN-0004  c=1/π fixed ✅"]:::pend
     K["⚛️ Particle Physics\nEXP-0004  Koide Q=2/3 ✅\nEXP-0005  Tau Holdout ✅\nEXP-0007  Neutrino ❌  70σ gap\nEXP-0008  Quark ❌  8.8σ / 159σ\nEXP-0009  Falsifier MVP ❌"]:::part
     D["📐 Dimensional Analysis\nMVP implemented ✅\n50-item frozen benchmark\n70-item curation surface"]:::da
+    N["Nuclear Mass Surface\nEXP-0012 baseline\nAGENT-RUN-0005 sandbox-only\npost-AME2020 guard inconclusive"]:::nuc
 
-    P ~~~ K ~~~ D
+    P ~~~ K ~~~ D ~~~ N
 ```
 
 Full campaign details:
@@ -223,6 +238,7 @@ Full campaign details:
 2. [Particle Mass Relations](docs/campaigns/particle-mass-relations.md)
 3. [Dimensional Analysis Validator](docs/campaigns/dimensional-analysis-validator.md)
 4. [Thought-Experiment Consistency](docs/campaigns/thought-experiment-consistency.md)
+5. [Nuclear Mass Surface](docs/campaigns/nuclear-mass-surface.md)
 
 The pendulum and particle-mass tracks already have scoped canonical results.
 The dimensional-analysis track now has a canonical MVP benchmark result. The
@@ -230,6 +246,10 @@ thought-experiment track remains planning-first and should not be described as
 a finished benchmark implementation.
 `EXP-0010` exists as a guarded empirical formula-search stress test and should
 not be presented as part of the public-facing success surface.
+Nuclear Mass Surface is the current flagship validation campaign. Its public
+wording should stay conservative: `EXP-0012` is a baseline residual benchmark,
+`AGENT-RUN-0005` is sandbox-only pilot evidence, and post-AME2020 evaluation is
+retrospective validation rather than strict blind prediction.
 
 ## Contribute With An AI Coding Agent
 

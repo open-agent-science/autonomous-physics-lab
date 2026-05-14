@@ -173,8 +173,8 @@ def test_apply_closeout_report_defers_board_sync_by_default(tmp_path: Path) -> N
         )
 
     assert report.outcome == "APPLIED"
-    assert any("Deferred tasks/ACTIVE.md synchronization" in item for item in report.applied_changes)
-    assert not any("Synchronized tasks/ACTIVE.md" in item for item in report.applied_changes)
+    assert any("Deferred generated task navigation sync" in item for item in report.applied_changes)
+    assert not any("Synchronized generated task navigation" in item for item in report.applied_changes)
     assert any("Closeout publish reminder" in item for item in report.suggested_actions)
 
 

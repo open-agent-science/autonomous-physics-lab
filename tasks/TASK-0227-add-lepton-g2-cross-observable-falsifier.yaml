@@ -1,0 +1,54 @@
+id: TASK-0227
+title: "Add lepton g-2 cross-observable falsifier"
+type: scientific_falsification
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep g-2 work as a guarded falsification lane rather than a flagship formula-search campaign."
+  - "Use electron g-2 as a cross-observable stress test for existing muon g-2 formula families."
+  - "Reduce numerology risk by requiring cross-observable consistency and explicit null-result handling."
+
+input:
+  mode: workflow
+  related_domain: particle_physics
+  related_objects:
+    - "tasks/TASK-0127-implement-muon-g2-formula-search-benchmark.yaml"
+    - "tasks/TASK-0147-harden-muon-g2-benchmark-wording-and-guardrails.yaml"
+    - "docs/notes/g2-anomaly-formula-search-design.md"
+    - "docs/future-research-portfolio.md"
+  planning_context: >
+    The existing muon g-2 benchmark is intentionally framed as a guarded stress
+    test. This task adds a small cross-observable falsifier: candidate families
+    that look interesting for muon g-2 should be checked against electron g-2
+    values and reported as null, inconsistent, or review-needed rather than
+    promoted as explanatory formulas.
+
+requirements:
+  - "Reproduce selected electron g/2 reference values with explicit source, year, and uncertainty metadata."
+  - "Compute electron a_e from g/2 where needed."
+  - "Compare existing muon g-2 candidate families against electron g-2 as a cross-observable falsification check."
+  - "Report whether candidates are null, inconsistent, overfit, or review-needed."
+  - "Keep the task small: this is not a new flagship campaign and not a broad lepton-anomaly search."
+  - "Do not use discovery, BSM-signal, anomaly-solved, or electron-g2-formula wording."
+  - "Do not change canonical claims unless a separate maintainer-approved claim-update task exists."
+
+accepted_outputs:
+  - "data/particle_physics/electron_g2.yaml or another reviewed source-data location"
+  - "tests/test_lepton_g2_cross_check.py if code is added"
+  - "docs/notes/lepton-g2-cross-observable-falsifier.md"
+  - "updated g-2 guardrail wording if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

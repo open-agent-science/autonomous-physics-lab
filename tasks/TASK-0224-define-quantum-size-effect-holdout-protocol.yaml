@@ -1,0 +1,51 @@
+id: TASK-0224
+title: "Define quantum-dot size-effect holdout protocol"
+type: benchmark_protocol
+status: BLOCKED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep the Quantum Size Effects campaign falsification-first before baseline or candidate models are scored."
+  - "Prevent material-specific or size-range-specific overfit from being mistaken for generalization."
+  - "Make future benchmark and autonomous pilot work use fixed, reviewable split definitions."
+
+input:
+  mode: planning_only
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-0222-create-quantum-size-effects-campaign-scaffold.yaml"
+    - "tasks/TASK-0223-add-quantum-dot-size-effect-dataset-schema-and-source-manifest.yaml"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    Quantum-dot size-effect benchmarks need holdouts that test whether a model
+    transfers across materials, size regimes, sources, and composition families.
+    This task defines protocol-level split requirements before the first
+    baseline result is generated.
+
+requirements:
+  - "Do not start until TASK-0222 is DONE."
+  - "Define material holdout, size-range holdout, source or publication holdout, and composition-family holdout options."
+  - "Define when a split is required versus optional for the first baseline."
+  - "State how absorption, emission, and bandgap measurements should be split or separated."
+  - "Define leakage risks specific to fitting published size-bandgap curves."
+  - "Require explicit negative controls and complexity notes for future correction hypotheses."
+  - "Do not create benchmark results or autonomous candidate runs."
+
+accepted_outputs:
+  - "docs/quantum-size-effect-holdout-protocol.md"
+  - "updated docs/notes/quantum-size-effects-campaign-plan.md if it exists"
+  - "updated campaign profile references if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

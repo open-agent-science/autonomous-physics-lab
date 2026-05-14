@@ -20,7 +20,7 @@ from physics_lab.registry.review_git import (
     changed_files_vs_main,
     parse_added_lines,  # noqa: F401 — re-exported; tests import from here
 )
-from physics_lab.registry.active_board import sync_active_board
+from physics_lab.registry.generated_state import sync_generated_task_state
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
     overclaim_advisory_hits,
@@ -41,12 +41,16 @@ from physics_lab.registry.review_policy import (
     PROPOSAL_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
     PROPOSAL_PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
     PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    TASK_QUEUE_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
+    TASK_QUEUE_PR_TITLE_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
     branch_microtask_id,  # noqa: F401 — re-exported; tests import from here
     branch_microtask_queue_id,  # noqa: F401 — re-exported; tests import from here
     branch_proposal_slug,  # noqa: F401 — re-exported; tests import from here
+    branch_task_queue_slug,  # noqa: F401 — re-exported; tests import from here
     branch_task_id,  # noqa: F401 — re-exported; tests import from here
     classify_review_protocol,
     missing_pr_metadata_fields,  # noqa: F401 — re-exported; tests import from here
+    missing_pr_template_sections,  # noqa: F401 — re-exported; tests import from here
     validate_pr_title,
 )
 from physics_lab.registry.task_proposals import load_task_proposal
@@ -67,6 +71,21 @@ CLOSEOUT_VALIDATION_COMMANDS = (
 MICROTASK_VALIDATION_COMMANDS = (
     "python3 -m physics_lab.cli validate-repo .",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+)
+TASK_QUEUE_VALIDATION_COMMANDS = (
+    "python3 -m physics_lab.cli validate-repo .",
+    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+)
+TASK_QUEUE_ALLOWED_STATUSES = frozenset({"PROPOSED", "READY", "BLOCKED"})
+TASK_QUEUE_FORBIDDEN_PREFIXES = (
+    "agent_runs/",
+    "claims/",
+    "experiments/",
+    "experiment_proposals/",
+    "hypotheses/",
+    "hypothesis_proposals/",
+    "knowledge/",
+    "results/",
 )
 CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
     {
@@ -441,10 +460,11 @@ def build_review_report(
     )
     is_proposal_review = protocol.kind == "proposal"
     is_closeout_review = protocol.kind == "closeout"
+    is_task_queue_review = protocol.kind == "task_queue"
     is_microtask_review = protocol.kind == "microtask"
     if not protocol.is_supported:
         blockers.append(
-            "Branch does not follow a canonical task, task-proposal, closeout, or microtask branch format."
+            "Branch does not follow a canonical task, task-proposal, task-queue, closeout, or microtask branch format."
         )
     elif not local_branch_exists(root, target_branch):
         blockers.append(
@@ -494,6 +514,13 @@ def build_review_report(
             required_fixes.append(
                 "Task proposal PR should not update tasks/ACTIVE.md before maintainer acceptance."
             )
+        task_view_changes = tuple(
+            path for path in changed_files if path.startswith("docs/task-views/")
+        )
+        if task_view_changes:
+            required_fixes.append(
+                "Task proposal PR should not update generated task views before maintainer acceptance."
+            )
     elif is_closeout_review:
         resolved_task_id = "TASK-CLOSEOUT"
         closeout_task_files = tuple(
@@ -506,13 +533,58 @@ def build_review_report(
         elif target_branch == current:
             for task_path in closeout_task_files:
                 payload = load_task(root / task_path)
-                if str(payload["status"]) != "DONE":
-                    required_fixes.append(
-                        f"Closeout PR should mark {task_path} as DONE."
-                    )
+                if str(payload["status"]) in {"DONE", "READY", "REJECTED"}:
+                    continue
+                required_fixes.append(
+                    f"Closeout PR should mark {task_path} as DONE, READY, or REJECTED."
+                )
         validation_payload = {
             "validation": {
                 "commands": list(CLOSEOUT_VALIDATION_COMMANDS),
+            }
+        }
+    elif is_task_queue_review:
+        resolved_task_id = "TASK-QUEUE"
+        if protocol.task_queue_slug is None:
+            required_fixes.append(
+                "TASK-QUEUE PR branch should follow agent/<contributor-id>/<agent-id>/task-queue-<short-slug>."
+            )
+        queue_task_files = tuple(
+            path
+            for path in changed_files
+            if path.startswith("tasks/TASK-") and path.endswith(".yaml")
+        )
+        if not queue_task_files:
+            blockers.append("TASK-QUEUE PR requires at least one changed canonical task file.")
+        for task_path in queue_task_files:
+            try:
+                payload = load_task(root / task_path)
+            except (FileNotFoundError, ValueError) as exc:
+                blockers.append(str(exc))
+                continue
+            status = str(payload["status"])
+            if status not in TASK_QUEUE_ALLOWED_STATUSES:
+                required_fixes.append(
+                    f"TASK-QUEUE PR should leave {task_path} in PROPOSED, READY, or BLOCKED; found {status}."
+                )
+        if "tasks/ACTIVE.md" not in changed_files:
+            required_fixes.append("TASK-QUEUE PR should sync tasks/ACTIVE.md.")
+        if not any(path.startswith("docs/task-views/") for path in changed_files):
+            required_fixes.append("TASK-QUEUE PR should sync docs/task-views/*.md.")
+        forbidden_paths = tuple(
+            path
+            for path in changed_files
+            if path.startswith(TASK_QUEUE_FORBIDDEN_PREFIXES)
+        )
+        if forbidden_paths:
+            blockers.append(
+                "TASK-QUEUE PR must not change canonical scientific artifacts: "
+                + ", ".join(forbidden_paths)
+                + "."
+            )
+        validation_payload = {
+            "validation": {
+                "commands": list(TASK_QUEUE_VALIDATION_COMMANDS),
             }
         }
     elif is_microtask_review:
@@ -559,6 +631,7 @@ def build_review_report(
     if (
         not is_proposal_review
         and not is_closeout_review
+        and not is_task_queue_review
         and not is_microtask_review
         and resolved_task_id != "TASK-UNKNOWN"
     ):
@@ -598,8 +671,15 @@ def build_review_report(
             blockers.append(
                 f"PR branch {pr_metadata.branch} does not match reviewed branch {target_branch}."
             )
+        missing_sections = missing_pr_template_sections(pr_metadata.body)
+        if missing_sections:
+            required_fixes.append(
+                "PR body is missing required repository-template sections: "
+                + ", ".join(missing_sections)
+                + ". Use .github/pull_request_template.md or a filled --body-file before requesting review."
+            )
         missing_fields = missing_pr_metadata_fields(pr_metadata.body)
-        if missing_fields and not is_closeout_review:
+        if missing_fields:
             required_fixes.append(
                 "PR metadata is incomplete: " + ", ".join(missing_fields) + "."
             )
@@ -607,8 +687,11 @@ def build_review_report(
             blockers.append("GitHub status checks are failing.")
         elif pr_metadata.status_checks_pending:
             required_fixes.append("GitHub status checks are still pending.")
-    elif pull_request is not None:
-        pass
+    elif pull_request is None:
+        advisory_warnings.append(
+            "Branch-only review cannot validate the GitHub PR body/template. "
+            "After opening the PR, run python3 scripts/apl_review_pr.py --pr <number> before merge."
+        )
 
     if task_payload is not None and not is_closeout_review:
         missing_outputs = missing_expected_outputs(
@@ -802,9 +885,9 @@ def update_task_status(task_file: Path, new_status: str) -> None:
 
 
 def update_active_board_for_done(root: Path, task_id: str, task_title: str) -> None:
-    """Refresh the active board after a task transitions to DONE."""
+    """Refresh generated task navigation after a task transitions to DONE."""
     del task_id, task_title
-    sync_active_board(root)
+    sync_generated_task_state(root)
 
 
 def should_append_dry_run_entry(task_payload: dict[str, Any]) -> bool:
@@ -939,10 +1022,13 @@ def build_closeout_report(
         applied_changes.append(f"Updated {task_file.as_posix()} status to DONE.")
         if sync_board:
             update_active_board_for_done(root, task_id, str(task_payload["title"]))
-            applied_changes.append("Synchronized tasks/ACTIVE.md from canonical task files.")
+            applied_changes.append(
+                "Synchronized generated task navigation: tasks/ACTIVE.md and docs/task-views/*.md."
+            )
         else:
             applied_changes.append(
-                "Deferred tasks/ACTIVE.md synchronization; run python3 -m physics_lab.cli sync-active-board . later in a dedicated board-sync step."
+                "Deferred generated task navigation sync; run python3 -m physics_lab.cli "
+                "sync-active-board . later in a dedicated board-sync step."
             )
         if should_append_dry_run_entry(task_payload):
             if append_dry_run_entry(root, task_id, pull_request):

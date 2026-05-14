@@ -1,7 +1,7 @@
 id: TASK-0201
 title: "Run bounded nuclear sandbox batch for pairing and odd-even residual corrections"
 type: autonomous_research_pilot
-status: READY
+status: DONE
 difficulty: high
 priority: high
 
@@ -39,12 +39,16 @@ requirements:
   - "Do not use discovery, proof, or global-validity wording."
 
 accepted_outputs:
-  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-00XX-pairing-*.yaml"
-  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-00XX-pairing-*.yaml"
-  - "agent_runs/AGENT-RUN-00XX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-00XX/metrics.json"
-  - "agent_runs/AGENT-RUN-00XX/report.md"
-  - "agent_runs/AGENT-RUN-00XX/limitations.md"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0038-pairing-a-inverse.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0039-pairing-free-power-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0040-pairing-n82-override-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0041-parity-class-offsets.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0042-per-nuclide-pairing-override-rejected.yaml"
+  - "experiment_proposals/nuclear-mass/EXP-PROPOSAL-0008-nuclear-pairing-batch.yaml"
+  - "agent_runs/AGENT-RUN-0011/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0011/metrics.json"
+  - "agent_runs/AGENT-RUN-0011/report.md"
+  - "agent_runs/AGENT-RUN-0011/limitations.md"
   - "docs/reviews/autonomous-nuclear-pairing-batch-01.md"
 
 validation:

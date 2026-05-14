@@ -30,6 +30,7 @@ SCHEMA_FILE_BY_KIND = {
     "agent_run": "agent_run.schema.json",
     "microtask_run": "microtask_run.schema.json",
     "nuclear_mass_dataset": "nuclear_mass_dataset.schema.json",
+    "nuclear_mass_prediction": "nuclear_mass_prediction.schema.json",
     "post_ame2020_holdout": "post_ame2020_holdout.schema.json",
     "post_ame2020_sources": "post_ame2020_sources.schema.json",
 }
@@ -51,6 +52,7 @@ KIND_BY_DIRECTORY = {
     "agent_runs": "agent_run",
     "microtask_runs": "microtask_run",
     "nuclear_masses": "nuclear_mass_dataset",
+    "prediction_registry": "nuclear_mass_prediction",
 }
 
 
@@ -93,6 +95,7 @@ FILENAME_KIND_MAP: dict[str, str] = {
     "review_metadata.yaml": "review_metadata",
     "agent_run.yaml": "agent_run",
     "MICROTASK-RUN-TEMPLATE.yaml": "microtask_run",
+    "PRED-TEMPLATE.yaml": "nuclear_mass_prediction",
     "post_ame2020_holdout.yaml": "post_ame2020_holdout",
     "post_ame2020_sources.yaml": "post_ame2020_sources",
 }
@@ -108,6 +111,8 @@ def infer_kind_from_path(path: str | Path) -> str:
     resolved = Path(path)
     if resolved.name in FILENAME_KIND_MAP:
         return FILENAME_KIND_MAP[resolved.name]
+    if "prediction_registry" in resolved.parts:
+        return "nuclear_mass_prediction"
     for part in reversed(resolved.parts):
         if part in KIND_BY_DIRECTORY:
             return KIND_BY_DIRECTORY[part]

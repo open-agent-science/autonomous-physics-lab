@@ -19,6 +19,10 @@ for the live task board and actual claimable work.
 Use [backlog.md](./backlog.md)
 for lower-priority or later work.
 
+Use [future-research-portfolio.md](./future-research-portfolio.md)
+to decide whether a scientific direction belongs in `NOW`, `NEXT`, or
+`WATCHLIST` before starting a new task branch.
+
 ## Current State
 
 Completed:
@@ -126,13 +130,21 @@ Recommended nuclear validation queue for parallel agents:
   now merged
 - `TASK-0197` real post-AME2020 nuclear time-split benchmark, now merged as
   inconclusive `AGENT-RUN-0008` evidence
-- `TASK-0189` nuclear prediction registry policy
+- `TASK-0189` nuclear prediction registry policy, now merged
 - `TASK-0200` bounded shell-aware nuclear sandbox batch
-- `TASK-0201` bounded pairing / odd-even nuclear sandbox batch
+- `TASK-0201` bounded pairing / odd-even nuclear sandbox batch, now merged
 - `TASK-0202` bounded neutron-rich nuclear sandbox batch
+- `TASK-0204` adversarial review of the completed second-batch sandbox outputs,
+  now merged
+- `TASK-0205` first prospective nuclear-mass prediction registry entries, now
+  merged as `PRED-0001` through `PRED-0020`
+- `TASK-0228` through `TASK-0237` nuclear prediction variant expansion wave:
+  ten parallel lanes where agents add and pre-reveal validate their own bounded
+  `PRED-0021+` variants without live external fetch or claim promotion
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
-  umbrella; use the narrower TASK-0200 through TASK-0204 lanes first
+  umbrella; review the narrower TASK-0200 through TASK-0202 outputs through
+  TASK-0204 before any further expansion
 
 Current nuclear-mass baseline state:
 
@@ -165,9 +177,24 @@ The nuclear queue should stay conservative:
 - parallel science lanes are encouraged across different campaigns and within
   the same campaign, but each lane must use a separate branch/worktree,
   disjoint hypothesis family or artifact surface, and sandbox-only outputs;
-- no broad second nuclear sandbox batch from `TASK-0178`; run only narrow
-  sandbox lanes with primary holdout, split-sensitivity, post-AME2020
-  time-split, negative controls, and no claim promotion.
+- no broad second nuclear sandbox batch from `TASK-0178`; review the completed
+  narrow sandbox lanes with primary holdout, split-sensitivity, post-AME2020
+  time-split, negative controls, and no claim promotion before allowing more
+  expansion.
+
+Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
+Use the portfolio document before moving any other scientific direction into
+active work.
+
+The next prepared campaign is Quantum Size Effects, but it should start from
+campaign and data foundations rather than formula search:
+
+- `TASK-0222` creates the Quantum Size Effects campaign scaffold and is the
+  first claimable task in that lane;
+- `TASK-0223` through `TASK-0226` are staged follow-ups for dataset/schema,
+  holdout protocol, baseline residual benchmark, and a later autonomous pilot;
+- `TASK-0227` is a small lepton g-2 cross-observable falsifier and remains a
+  guardrail lane, not a flagship campaign.
 
 ### 2. Validate Private Contributors And Agents
 
@@ -263,6 +290,8 @@ Public release is explicitly downstream of:
 - public article or launch work before the autonomy and credibility gates are satisfied;
 - new speculative particle-physics formula-search tracks;
 - Hubble-tension or broad constants-derivation work;
+- muon g-2 follow-up outside guarded review or stress-test framing;
+- broad all-mass relation searches;
 - heavy storage backends;
 - speculative theory-graph features before verification quality improves.
 

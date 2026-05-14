@@ -181,7 +181,9 @@ Rule:
 
 Current status:
 
-- planned through `TASK-0189`.
+- policy documented in `docs/prediction-registry-policy.md`;
+- entry layout lives under `prediction_registry/nuclear_masses/`;
+- first concrete entries remain blocked on `TASK-0205`.
 
 ## Metrics
 
