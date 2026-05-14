@@ -21,5 +21,3 @@ None.
 - `TASK-0239` - Stabilize Windows coverage baseline for critical CLI smoke tests (`test_infrastructure`, priority `high`, difficulty `high`, domain `test_quality`)
 - `TASK-0240` - Add targeted tests for review_git critical edge cases (`test_infrastructure`, priority `medium`, difficulty `medium`, domain `test_quality`)
 - `TASK-0245` - Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_onboarding`)
-- `TASK-0246` - Add closeout PR helper for template-based PR bodies (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_automation`)
-- `TASK-0247` - Add PR lifecycle guardrails for autonomous agents (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_automation`)
