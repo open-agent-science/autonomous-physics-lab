@@ -65,6 +65,7 @@ def _full_pr_body(
             "- [x] Branch pushed",
             "- [x] Draft PR opened by agent or explicit blocker recorded",
             "- [x] Post-PR review command run or blocked by missing PR number",
+            "- [x] Marked ready for review after CI passes and review agent returns `MERGE_OK`, or explicit blocker recorded",
             "",
             "## Summary",
             "",

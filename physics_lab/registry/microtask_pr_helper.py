@@ -100,6 +100,7 @@ def microtask_pr_body(
             "- [x] Branch pushed",
             "- [x] Draft PR opened by agent or explicit blocker recorded",
             "- [ ] Post-PR review command run or blocked by missing PR number",
+            "- [ ] Marked ready for review after CI passes and review agent returns `MERGE_OK`, or explicit blocker recorded",
             "",
             "## Summary",
             "",

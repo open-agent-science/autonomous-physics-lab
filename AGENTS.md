@@ -448,6 +448,12 @@ as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
 instead of calling bare `gh`; they check common GitHub CLI locations such as
 `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
 
+Agents should open task PRs as drafts while validation and review are still in
+progress. After GitHub CI is green and the PR-number review agent returns
+`MERGE_OK`, agents should mark the PR ready for review with
+`gh pr ready <number>`. If CI fails, the review agent blocks, or the agent is
+still applying fixes, keep the PR in draft and report the blocker.
+
 If `git add` or `git commit` fails inside Codex with
 `.git/index.lock: Operation not permitted`, treat it as a sandbox permission
 issue and retry the same git command with escalation. Do not tell the

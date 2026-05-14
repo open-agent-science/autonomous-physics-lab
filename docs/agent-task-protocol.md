@@ -318,6 +318,12 @@ Use the repository PR helpers instead of calling bare `gh` in Codex sessions.
 Codex may omit Homebrew paths from `PATH`; the helpers search common GitHub CLI
 locations such as `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
 
+Task PRs should start as drafts while validation, CI, and PR-number review are
+still in progress. After GitHub CI is green and
+`python3 scripts/apl_review_pr.py --pr <number>` returns `MERGE_OK`, mark the
+PR ready for review. Keep the PR as draft if any validation, CI, or review
+blocker remains.
+
 After implementation and validation:
 
 1. push the task branch only when a human or workflow expects a PR;
@@ -356,6 +362,13 @@ After the PR exists, run the PR-number review, not only branch preflight:
 
 ```bash
 python3 scripts/apl_review_pr.py --pr <number>
+```
+
+After CI is green and the PR-number review returns `MERGE_OK`, mark the draft
+ready:
+
+```bash
+python3 scripts/apl_task_pr_helper.py ready --pr <number>
 ```
 
 ## Pull Request Requirements
