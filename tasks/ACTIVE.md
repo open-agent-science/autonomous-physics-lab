@@ -69,20 +69,20 @@ None.
 ## REVIEW_READY
 
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
-- `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0229` — Register nuclear prediction variants for pairing and odd-even controls (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0238` — Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`)
 - `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (`test_infrastructure`, priority `high`, difficulty `high`)
 - `TASK-0240` — Add targeted tests for review_git critical edge cases (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
-- `TASK-0246` — Add closeout PR helper for template-based PR bodies (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0247` — Add PR lifecycle guardrails for autonomous agents (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0248` — Salvage pairing and odd-even nuclear hypothesis proposals (`scientific_validation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0248` — Salvage pairing and odd-even nuclear hypothesis proposals (merged)
+- `TASK-0247` — Add PR lifecycle guardrails for autonomous agents (merged)
+- `TASK-0246` — Add closeout PR helper for template-based PR bodies (merged)
 - `TASK-0244` — Fix snapshot canonical experiment list truncation (merged)
 - `TASK-0243` — Add generated task views and mission freshness sync (merged)
+- `TASK-0229` — Register nuclear prediction variants for pairing and odd-even controls (merged)
+- `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (merged)
 - `TASK-0221` — Clarify campaign-curator trigger wording (merged)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
 - `TASK-0219` — Enforce repository PR template sections in maintainer review (merged)

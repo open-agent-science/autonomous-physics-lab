@@ -1,7 +1,7 @@
 id: TASK-0247
 title: "Add PR lifecycle guardrails for autonomous agents"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

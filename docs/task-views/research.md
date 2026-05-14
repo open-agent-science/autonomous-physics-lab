@@ -23,6 +23,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0228` - Register nuclear prediction variants for smooth semi-empirical controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0229` - Register nuclear prediction variants for pairing and odd-even controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0248` - Salvage pairing and odd-even nuclear hypothesis proposals (`scientific_validation`, priority `medium`, difficulty `low`, domain `nuclear_mass_surface`)
+None.
