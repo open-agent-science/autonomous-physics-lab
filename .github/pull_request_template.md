@@ -56,9 +56,9 @@ Task closeout PR:
 ## PR Lifecycle
 
 - [ ] Branch pushed
-- [ ] Draft PR opened by agent or explicit blocker recorded
-- [ ] Post-PR review command run or blocked by missing PR number
-- [ ] Marked ready for review after CI passes and review agent returns `MERGE_OK`, or explicit blocker recorded
+- [ ] Draft PR opened by agent or manual PR creation commands provided
+- [ ] Post-PR review command run or manual review command provided if no PR number is available
+- [ ] Marked ready for review after CI passes and review agent returns `MERGE_OK`, or manual ready command provided
 
 ## Summary
 
