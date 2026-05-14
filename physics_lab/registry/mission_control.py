@@ -465,7 +465,7 @@ Start in Agent First Research Mode.
 5. Recommended action now: {action_label}.
 6. {task_instruction}
 7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve negative results, update sandbox/review artifacts, run validation, generate a review bundle, then commit only after the files are ready, push the task branch, and open a draft PR when GitHub access is available.
-7a. Missing `gh`, missing GitHub auth, or restricted network access is not a reason to stop before editing files. If the agent cannot publish directly at the end, provide exact maintainer-run commands for `git push`, `gh pr create`, PR-number review, and `gh pr ready`.
+7a. Missing `gh`, missing GitHub auth, or restricted network access is not a reason to stop before editing files. At the end, try repository helpers, available GitHub/MCP tools, or GitHub CLI; if a needed command is blocked by permissions, request permission/escalation for that command before falling back to exact maintainer-run commands for `git push`, `gh pr create`, PR-number review, and `gh pr ready`.
 8. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 9. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 10. If the work is support/review/closeout rather than research, run the explicit mode: `python3 scripts/apl_mission.py --mode support` or `--mode maintainer`.
@@ -505,7 +505,7 @@ Start in Agent First Research Mode with onboarding.
 6. Recommended action now: {action_label}.
 7. Show 3-5 executable READY options with estimated time and difficulty.
 8. Recommend one option, ask whether to start it, and wait for the user's choice.
-9. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR when GitHub access is available; if PR creation capability is unavailable, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
+9. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR using repository helpers, available GitHub/MCP tools, or GitHub CLI when access is available; if a needed command is blocked by permissions, request permission/escalation for that command. If PR creation still cannot complete, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
 10. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 11. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 {candidate_block}

@@ -316,8 +316,23 @@ This check is advisory. It must never be used as a pre-edit gate. Missing
 push should not block local task execution or cause the agent to ask the user
 whether to continue before implementation. Create the task branch first, do
 the local work, run validation, and commit only after the intended files are
-ready for maintainer review. If the agent cannot publish directly at the end,
-provide exact commands for the maintainer to run:
+ready for maintainer review.
+
+At the end, the agent should try to publish through the best available
+agent-driven path before falling back to manual commands:
+
+1. Use repository helpers such as `scripts/apl_task_pr_helper.py` where
+   possible.
+2. Use an available GitHub/MCP connector or GitHub CLI when configured.
+3. If `git commit`, `git push`, `gh pr create`, `gh pr edit`, `gh pr view`,
+   `gh pr ready`, or `python3 scripts/apl_review_pr.py` is blocked by sandbox
+   permissions or missing command approval, request the needed permission or
+   escalation for that specific command.
+4. Provide manual maintainer-run commands only after the available tool path
+   and any appropriate permission request cannot complete the publication.
+
+Fallback commands to give the maintainer when direct publication is not
+available:
 
 ```bash
 git push origin agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>
