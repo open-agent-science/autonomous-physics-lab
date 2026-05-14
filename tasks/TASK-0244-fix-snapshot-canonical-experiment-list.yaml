@@ -1,0 +1,39 @@
+id: TASK-0244
+title: "Fix snapshot canonical experiment list truncation"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep repository snapshots aligned with canonical structured state."
+  - "Prevent snapshot summary drift that hides completed benchmark surfaces."
+
+input:
+  mode: workflow
+  related_domain: repository_validation
+  related_objects:
+    - "physics_lab/registry/snapshot.py"
+    - "_snapshots/"
+  planning_context: "Snapshot current-state summary reports eleven canonical experiments but only lists the first eight."
+
+requirements:
+  - "Render the full canonical experiment list in snapshot current-state summary."
+  - "Add a regression test that fails if the experiment list is truncated again."
+  - "Do not change canonical experiment artifacts or public scientific wording beyond the snapshot bug fix."
+
+accepted_outputs:
+  - "physics_lab/registry/snapshot.py"
+  - "tests/test_snapshot.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
