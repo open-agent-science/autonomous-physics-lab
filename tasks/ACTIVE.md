@@ -77,6 +77,7 @@ None.
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
 - `TASK-0246` — Add closeout PR helper for template-based PR bodies (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0247` — Add PR lifecycle guardrails for autonomous agents (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0248` — Salvage pairing and odd-even nuclear hypothesis proposals (`scientific_validation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
