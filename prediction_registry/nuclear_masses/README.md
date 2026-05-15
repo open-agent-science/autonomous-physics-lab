@@ -71,3 +71,18 @@ python3 -m physics_lab.cli validate prediction_registry/nuclear_masses/PRED-0001
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
+
+## Variant Factory Drafts
+
+For larger pre-reveal variant waves, use the deterministic factory before
+committing new registry entries:
+
+```bash
+python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_variant_factory.yaml
+python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_variant_factory.yaml --write-drafts --output-dir /tmp/apl-nuclear-variant-drafts
+```
+
+The factory generates candidate slates and optional draft PRED-style YAML files
+in an explicit scratch directory. It refuses to write into this committed
+registry directory by default. Copy only reviewed, selected candidates into
+`prediction_registry/nuclear_masses/` in a dedicated PR.
