@@ -1,0 +1,56 @@
+id: TASK-0255
+title: "Make onboarding research-task ranking configurable"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Agent First onboarding research-first rather than tooling-first."
+  - "Make task ranking explicit and maintainable through mission configuration."
+  - "Preserve parallel science lanes while avoiding accidental default selection of enabling tooling."
+
+input:
+  mode: workflow
+  related_domain: agent_onboarding
+  related_objects:
+    - "missions/current.yaml"
+    - "physics_lab/registry/mission_control.py"
+    - "scripts/apl_mission.py"
+    - "tests/test_mission_control.py"
+  planning_context: >
+    Onboarding currently ranks READY research candidates mostly by priority and
+    difficulty. Because scientific_tooling tasks can be high-priority and
+    medium-difficulty, the first recommendation may become tooling-first even
+    when scientific validation, hypothesis testing, slate runs, replay, or
+    audit tasks are available. The ordering should remain configurable and
+    visible to maintainers.
+
+requirements:
+  - "Add explicit mission configuration for research/onboarding task type priority."
+  - "Prefer autonomous pilots, scientific validation, experiments, falsification, formula discovery, audit, benchmark, protocol, dataset, campaign, and only then scientific tooling in default research onboarding."
+  - "Include hypothesis-testing style keyword boosts so hypothesis/slate/candidate validation tasks do not get hidden behind tooling."
+  - "Keep support and maintainer modes unchanged."
+  - "Keep equal-rank randomization for parallel research agents."
+  - "Add tests that demonstrate scientific_validation and hypothesis work outrank scientific_tooling in onboarding/research candidates."
+
+accepted_outputs:
+  - "missions/current.yaml"
+  - "physics_lab/registry/mission_control.py"
+  - "tests/test_mission_control.py"
+  - "updated generated task board/views"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py"
+    - "python3 scripts/apl_mission.py --onboarding"
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
