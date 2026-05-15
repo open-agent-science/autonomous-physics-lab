@@ -58,7 +58,6 @@ one PR.
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0249` — Implement nuclear prediction variant factory (`scientific_tooling`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -74,6 +73,7 @@ None.
 - `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (`test_infrastructure`, priority `high`, difficulty `high`)
 - `TASK-0240` — Add targeted tests for review_git critical edge cases (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
+- `TASK-0249` — Implement nuclear prediction variant factory (`scientific_tooling`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
