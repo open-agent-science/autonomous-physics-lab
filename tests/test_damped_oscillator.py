@@ -111,11 +111,16 @@ def test_damped_oscillator_dispatch_writes_temp_artifacts(tmp_path) -> None:
     assert outcome.artifacts.result_path == tmp_path / "apl-results" / "EXP-0002" / "RUN-0001" / "result.yaml"
 
 
-def test_cli_run_damped_oscillator_smoke() -> None:
+def test_cli_run_damped_oscillator_smoke(tmp_path: Path) -> None:
     runner = CliRunner()
     result = runner.invoke(
         app,
-        ["run", "examples/damped_oscillator.yaml", "--output-dir", "/tmp/apl-damped-test"],
+        [
+            "run",
+            "examples/damped_oscillator.yaml",
+            "--output-dir",
+            str(tmp_path / "apl-damped-test"),
+        ],
     )
 
     assert result.exit_code == 0

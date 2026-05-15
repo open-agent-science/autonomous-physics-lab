@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-14 12:30 UTC
+Generated: 2026-05-14 23:06 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -441,6 +441,57 @@ Agents must not:
 - use `Co-Authored-By` for AI agents
 
 `git push` requires explicit maintainer approval.
+
+When the maintainer asks an agent to "prepare a PR", "run the task through
+PR", "execute the selected task autonomously", or otherwise requests the full
+task lifecycle in the current turn, that request is explicit approval to commit
+on the current task branch, push that task branch, and open a draft pull
+request for that task. This approval applies only to the selected task branch.
+It does not allow pushing `main`, force-pushing, merging, tagging, or pushing
+unrelated branches.
+
+Before starting implementation for a full PR lifecycle request, agents may run:
+
+```bash
+python3 scripts/apl_pr_capability_check.py
+```
+
+This check is advisory, not a pre-work gate or task blocker. Missing `gh`,
+missing GitHub auth, or restricted agent network access must not stop the
+agent before implementation. Do not pause before editing files just because
+the agent cannot publish a PR itself. Instead, create the task branch first,
+complete the local task work, run validation, and commit only after the files
+are ready for maintainer review. At the end, the agent should choose the best
+available publication path: repository PR helpers, an available GitHub/MCP
+tool, or GitHub CLI. If a needed `git`/`gh`/review command is blocked by the
+sandbox or missing approval, the agent should request the required permission
+or escalation for that specific command instead of silently falling back. Only
+if the agent still cannot publish after trying the available tool path or
+permission request should it provide exact maintainer-run commands for
+`git push`, `gh pr create`, review-agent execution after a PR number exists,
+and `gh pr ready` when CI and review pass. Do not treat a pushed branch, local
+commit, staged diff, title, or PR body as a completed pull request lifecycle;
+if the agent cannot create the PR directly, the final response must say what
+was attempted and include the manual publication commands.
+
+Codex sessions may omit Homebrew paths from `PATH`. Use repository helpers such
+as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
+instead of calling bare `gh`; they check common GitHub CLI locations such as
+`/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
+
+Agents should open task PRs as drafts while validation and review are still in
+progress. After GitHub CI is green and the PR-number review agent returns
+`MERGE_OK`, agents should mark the PR ready for review with
+`gh pr ready <number>` or give the maintainer that exact command if the agent
+lacks GitHub access. If CI fails, the review agent blocks, or the agent is
+still applying fixes, keep the PR in draft and report the next command or
+blocker.
+
+If `git add` or `git commit` fails inside Codex with
+`.git/index.lock: Operation not permitted`, treat it as a sandbox permission
+issue and retry the same git command with escalation. Do not tell the
+maintainer to edit or delete `.git/index.lock` unless a separate check confirms
+that a stale lock file exists and no git process is running.
 
 AI assistance should be recorded in PR metadata, not in git co-author trailers.
 
@@ -1067,14 +1118,6 @@ support_actions:
     label: "Split repository validation and scientific-memory integrity checks"
     task_id: TASK-0136
     priority: medium
-  - id: windows-coverage-baseline
-    label: "Stabilize Windows coverage baseline for critical CLI smoke tests"
-    task_id: TASK-0239
-    priority: medium
-  - id: review-git-edge-tests
-    label: "Add review_git edge-case tests for critical review paths"
-    task_id: TASK-0240
-    priority: medium
   - id: maintainer-review-coverage
     label: "Expand maintainer review policy branch coverage"
     task_id: TASK-0241
@@ -1567,6 +1610,12 @@ Keep commits narrow. Do not mix unrelated tasks in one commit.
 
 Agents may commit only when explicitly instructed.
 
+For this repository, maintainer wording such as "prepare a PR", "run the task
+through PR", "execute the selected task autonomously", or "full task lifecycle"
+counts as explicit current-turn approval to commit on the selected task branch,
+push that branch, and open a draft PR. This approval does not allow pushing
+`main`, force-pushing, merging, tagging, or touching unrelated branches.
+
 A commit means the agent believes the task is ready for maintainer review.
 
 After committing, the task status should be `REVIEW_READY`, not `DONE`.
@@ -1587,6 +1636,64 @@ For task proposals, use:
 
 ## Open a Pull Request
 
+"Open a PR" means creating the GitHub pull request and returning its URL when
+the agent has GitHub access. It does not mean only preparing a branch, commit,
+title, body, or pushed branch. When a full PR lifecycle was requested, the
+final response must include either a PR URL or exact maintainer-run commands to
+publish the prepared branch and PR from a local console.
+
+Before starting implementation for a full PR lifecycle request, optionally
+check whether the environment can open a PR:
+
+```bash
+python3 scripts/apl_pr_capability_check.py
+```
+
+This check is advisory. It must never be used as a pre-edit gate. Missing
+`gh`, missing GitHub auth, restricted network access, or a sandbox that cannot
+push should not block local task execution or cause the agent to ask the user
+whether to continue before implementation. Create the task branch first, do
+the local work, run validation, and commit only after the intended files are
+ready for maintainer review.
+
+At the end, the agent should try to publish through the best available
+agent-driven path before falling back to manual commands:
+
+1. Use repository helpers such as `scripts/apl_task_pr_helper.py` where
+   possible.
+2. Use an available GitHub/MCP connector or GitHub CLI when configured.
+3. If `git commit`, `git push`, `gh pr create`, `gh pr edit`, `gh pr view`,
+   `gh pr ready`, or `python3 scripts/apl_review_pr.py` is blocked by sandbox
+   permissions or missing command approval, request the needed permission or
+   escalation for that specific command.
+4. Provide manual maintainer-run commands only after the available tool path
+   and any appropriate permission request cannot complete the publication.
+
+Fallback commands to give the maintainer when direct publication is not
+available:
+
+```bash
+git push origin agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>
+gh pr create --draft --base main --head agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> --title "TASK-XXXX: <short title>" --body-file /path/to/apl-pr-body.md
+python3 scripts/apl_review_pr.py --pr <number>
+gh pr ready <number>
+```
+
+The agent should also offer to help the maintainer set up access, for example
+by suggesting `gh auth login` or a `GH_TOKEN`/`GITHUB_TOKEN`, but setup is not
+required for completing local validation work.
+
+Use the repository PR helpers instead of calling bare `gh` in Codex sessions.
+Codex may omit Homebrew paths from `PATH`; the helpers search common GitHub CLI
+locations such as `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
+
+Task PRs should start as drafts while validation, CI, and PR-number review are
+still in progress. After GitHub CI is green and
+`python3 scripts/apl_review_pr.py --pr <number>` returns `MERGE_OK`, mark the
+PR ready for review. If the agent cannot update GitHub directly, provide the
+maintainer with `gh pr ready <number>`. Keep the PR as draft if any validation,
+CI, or review blocker remains.
+
 After implementation and validation:
 
 1. push the task branch only when a human or workflow expects a PR;
@@ -1601,15 +1708,37 @@ Do not open task PRs with a short ad hoc `--body` such as only `Summary` and
 the required sections, and use that body file when creating the PR:
 
 ```bash
-cp .github/pull_request_template.md /tmp/apl-pr-body.md
-# edit /tmp/apl-pr-body.md and delete unused examples/placeholders
-gh pr create --title "TASK-XXXX: <short title>" --body-file /tmp/apl-pr-body.md
+python3 scripts/apl_task_pr_helper.py scaffold \
+  --task-id TASK-XXXX \
+  --contributor-id <contributor-id> \
+  --github-username <github-username> \
+  --agent-id <agent-id> \
+  --human-reviewer <reviewer> \
+  --slug <short-slug> \
+  --description "<short title>" \
+  --summary "<verification-first summary>" \
+  --body-file /tmp/apl-pr-body.md
+python3 scripts/apl_task_pr_helper.py preflight \
+  --branch "agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>" \
+  --title "TASK-XXXX: <short title>" \
+  --body-file /tmp/apl-pr-body.md
+python3 scripts/apl_task_pr_helper.py create \
+  --branch "agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>" \
+  --title "TASK-XXXX: <short title>" \
+  --body-file /tmp/apl-pr-body.md
 ```
 
 After the PR exists, run the PR-number review, not only branch preflight:
 
 ```bash
 python3 scripts/apl_review_pr.py --pr <number>
+```
+
+After CI is green and the PR-number review returns `MERGE_OK`, mark the draft
+ready:
+
+```bash
+python3 scripts/apl_task_pr_helper.py ready --pr <number>
 ```
 
 ## Pull Request Requirements
@@ -1662,6 +1791,9 @@ vs `main`, commit list, and changed-file summary.
 For microtask PRs, contributors and their agents may also use
 `python3 scripts/apl_microtask_pr_helper.py` to scaffold canonical branch/title
 metadata and run a local preflight check before maintainer review.
+
+For canonical task PRs, use `python3 scripts/apl_task_pr_helper.py` to scaffold
+and preflight the template-based PR body before creating the draft PR.
 
 For task proposal PRs, the lighter validation path from
 [./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
@@ -1981,8 +2113,6 @@ one PR.
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
-- `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0229` — Register nuclear prediction variants for pairing and odd-even controls (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0230` — Register nuclear prediction variants for shell and magic-number controls (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0231` — Register nuclear prediction variants for neutron-excess and asymmetry controls (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0232` — Register nuclear prediction variants for isotope-chain extrapolation controls (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -1991,8 +2121,6 @@ one PR.
 - `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0236` — Register nuclear prediction variants for agent-designed minimal-complexity hypotheses (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (`test_infrastructure`, priority `high`, difficulty `high`)
-- `TASK-0240` — Add targeted tests for review_git critical edge cases (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 
@@ -2004,12 +2132,19 @@ None.
 
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0238` — Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`)
-- `TASK-0244` — Fix snapshot canonical experiment list truncation (`documentation`, priority `high`, difficulty `low`)
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0248` — Salvage pairing and odd-even nuclear hypothesis proposals (merged)
+- `TASK-0247` — Add PR lifecycle guardrails for autonomous agents (merged)
+- `TASK-0246` — Add closeout PR helper for template-based PR bodies (merged)
+- `TASK-0244` — Fix snapshot canonical experiment list truncation (merged)
 - `TASK-0243` — Add generated task views and mission freshness sync (merged)
+- `TASK-0240` — Add targeted tests for review_git critical edge cases (merged)
+- `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (merged)
+- `TASK-0229` — Register nuclear prediction variants for pairing and odd-even controls (merged)
+- `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (merged)
 - `TASK-0221` — Clarify campaign-curator trigger wording (merged)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
 - `TASK-0219` — Enforce repository PR template sections in maintainer review (merged)

@@ -1,0 +1,46 @@
+id: TASK-0248
+title: "Salvage pairing and odd-even nuclear hypothesis proposals"
+type: scientific_validation
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Preserve negative and sandbox-only scientific memory from superseded PR work."
+  - "Keep TASK-0201 closed while retaining useful hypothesis proposals for future review."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "TASK-0201"
+    - "HYP-PROPOSAL-0038"
+    - "HYP-PROPOSAL-0039"
+    - "HYP-PROPOSAL-0040"
+    - "HYP-PROPOSAL-0041"
+    - "HYP-PROPOSAL-0042"
+  planning_context: "Salvage the remaining pairing/odd-even hypothesis proposal files from superseded PR #292 without reopening the already-DONE TASK-0201."
+
+requirements:
+  - "Do not reopen TASK-0201."
+  - "Keep all salvaged proposals sandbox-only or rejected as written."
+  - "Do not promote claims or canonical results."
+  - "Preserve negative, failed, and inconclusive outcomes."
+
+accepted_outputs:
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0038-odd-a-offset.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0039-pairing-class-offsets.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0040-free-odd-even-exponent-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0041-per-chain-odd-even-rejected.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0042-pairing-shell-interaction-rejected.yaml"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
