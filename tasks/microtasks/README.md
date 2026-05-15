@@ -14,6 +14,7 @@ canonical task for every narrow subproblem.
 - `dimensional-analysis-validator.yaml`
 - `thought-experiment-consistency.yaml`
 - `diffusion-scaling.yaml`
+- `quantum-size-effects.yaml`
 
 ## Queue Summary
 
@@ -37,6 +38,7 @@ agents should pick from the available count in the generated table.
 | [`nuclear-mass-surface`](nuclear-mass-surface.yaml) | nuclear-mass-surface | `active_baseline_and_sandbox_guarded` | 0 / 8 | 6 | 2 | `unspecified` | Prefer replay, audit, evidence-card, provenance, and guardrail tasks before any second sandbox batch. |
 | [`particle-mass-relations`](particle-mass-relations.yaml) | particle-mass-relations | `active_with_narrow_results` | 1 / 11 | 10 | 0 | `medium` | Prefer falsification-first, source-aware, and uncertainty-aware items. |
 | [`pendulum-formula-falsification`](pendulum-formula-falsification.yaml) | pendulum-formula-falsification | `active` | 1 / 11 | 10 | 0 | `medium` | Prefer narrow approximation, diagnostics, and wording tasks. |
+| [`quantum-size-effects`](quantum-size-effects.yaml) | quantum-size-effects | `scaffold_only_planning` | 5 / 5 | 0 | 0 | `low`, `medium` | Prefer planning, scope-boundary, holdout-rationale, dataset-policy, and limitation notes. |
 | [`thought-experiment-consistency`](thought-experiment-consistency.yaml) | thought-experiment-consistency | `planning_active` | 0 / 5 | 5 | 0 | `unspecified` | Prefer assumption formalization and invariant mapping. |
 
 <!-- END AUTO MICROTASK QUEUE SUMMARY -->
