@@ -59,7 +59,6 @@ one PR.
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0250` — Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0252` — Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`)
-- `TASK-0253` — Add nuclear factory slate ranking helper (`scientific_tooling`, priority `high`, difficulty `medium`)
 - `TASK-0254` — Add reusable nuclear factory target-batch library (`dataset_workflow`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -78,6 +77,7 @@ None.
 - `TASK-0240` — Add targeted tests for review_git critical edge cases (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
 - `TASK-0249` — Implement nuclear prediction variant factory (`scientific_tooling`, priority `high`, difficulty `high`)
+- `TASK-0253` — Add nuclear factory slate ranking helper (`scientific_tooling`, priority `high`, difficulty `medium`)
 - `TASK-0255` — Add worktree settings sync script and first-action CLAUDE.md instruction (`contributor_experience`, priority `high`, difficulty `low`)
 - `TASK-0256` — Simplify onboarding prompt task-choice guidance (`agent_workflow`, priority `high`, difficulty `low`)
 
