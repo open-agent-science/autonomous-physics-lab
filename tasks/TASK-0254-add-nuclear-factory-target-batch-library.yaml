@@ -3,7 +3,7 @@ title: "Add reusable nuclear factory target-batch library"
 type: dataset_workflow
 status: READY
 difficulty: medium
-priority: medium
+priority: high
 
 strategy_alignment:
   - "Reduce duplicated target-list work across parallel Nuclear Mass Surface agents."

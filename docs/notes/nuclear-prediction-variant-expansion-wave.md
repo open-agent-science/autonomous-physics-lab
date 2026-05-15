@@ -52,8 +52,12 @@ large raw registry batches directly:
 | `TASK-0250` | Generate and review the first 30-80 candidate factory slate |
 | `TASK-0251` | Register only the selected slate subset as `PRED-0041+` after review |
 | `TASK-0252` | Extend the factory to shell, magic-number, and neutron-excess feature terms |
-| `TASK-0253` | Add deterministic slate ranking / redundancy review |
+| `TASK-0253` | Add deterministic slate ranking / redundancy review, now merged |
 | `TASK-0254` | Add reusable target-batch library for future factory configs |
+
+The manual `TASK-0233`, `TASK-0234`, `TASK-0235`, and `TASK-0237` lanes are
+kept as blocked fallback tasks. Prefer the factory slate path unless the
+maintainer explicitly requests a hand-frozen control pair.
 
 ## Pre-Reveal Validation
 
