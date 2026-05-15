@@ -1,0 +1,57 @@
+id: TASK-0252
+title: "Add feature-term variants to the nuclear prediction factory"
+type: scientific_tooling
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move shell, magic-number, and neutron-excess control arithmetic into deterministic factory code."
+  - "Let agents define bounded feature terms without hand-coding one-off PRED calculators."
+  - "Increase model-family diversity while preserving pre-reveal guardrails."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "physics_lab/engines/nuclear_prediction_variants.py"
+    - "tests/test_prediction_registry_shell_controls.py"
+    - "tests/test_prediction_registry_neutron_excess_controls.py"
+    - "docs/reviews/nuclear-prediction-variants-shell-controls.md"
+    - "docs/reviews/nuclear-prediction-variants-neutron-excess-controls.md"
+    - "docs/notes/nuclear-prediction-variant-factory.md"
+  planning_context: >
+    The first factory implementation supports semi-empirical coefficient
+    transforms. Several active or reviewed nuclear lanes also use deterministic
+    shell, magic-number, and neutron-excess feature terms. Those should be
+    represented as reusable bounded factory transforms before the next large
+    candidate wave depends on manual one-off arithmetic.
+
+requirements:
+  - "Extend the factory config language with deterministic additive feature terms for mass_excess_mev candidates."
+  - "Support at least shell/magic proximity and neutron-excess/asymmetry-style terms equivalent to the existing reviewed control lanes."
+  - "Keep all feature definitions explicit, bounded, and serializable in YAML."
+  - "Emit feature activation or sensitivity metadata in candidate slate summaries."
+  - "Preserve the existing coefficient-transform behavior and safety checks."
+  - "Add tests for deterministic feature-term values, invalid feature config rejection, and schema-compatible draft PRED output."
+  - "Do not add live external fetching, reveal comparison, or claim-promotion behavior."
+
+accepted_outputs:
+  - "updated physics_lab/engines/nuclear_prediction_variants.py"
+  - "updated examples/nuclear_prediction_variant_factory.yaml or a new focused feature-term example"
+  - "updated docs/notes/nuclear-prediction-variant-factory.md"
+  - "updated tests/test_nuclear_prediction_variant_factory.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_prediction_variant_factory.py"
+    - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_variant_factory.yaml"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
