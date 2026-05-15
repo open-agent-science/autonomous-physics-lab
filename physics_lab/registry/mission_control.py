@@ -41,31 +41,6 @@ SUPPORT_TASK_MARKERS = (
     "repository",
     "agent",
 )
-DEFAULT_RESEARCH_TYPE_ORDER = (
-    "autonomous_research_pilot",
-    "scientific_validation",
-    "scientific_experiment",
-    "scientific_falsification",
-    "formula_discovery",
-    "scientific_audit",
-    "scientific_benchmark",
-    "benchmark_protocol",
-    "dataset_workflow",
-    "scientific_campaign",
-    "scientific_tooling",
-)
-DEFAULT_HYPOTHESIS_KEYWORDS = (
-    "hypothesis",
-    "hypothesis testing",
-    "sandbox",
-    "pilot",
-    "slate",
-    "candidate",
-    "validation",
-    "falsification",
-    "replay",
-    "audit",
-)
 
 
 @dataclass(frozen=True)
@@ -150,58 +125,17 @@ def _estimated_time(difficulty: str) -> str:
     return DIFFICULTY_TIME_ESTIMATES.get(difficulty, "~5-20 min")
 
 
-def _ranking_config(payload: dict[str, Any] | None) -> dict[str, Any]:
-    if not isinstance(payload, dict):
-        return {}
-    config = payload.get("task_candidate_ranking", {})
-    return config if isinstance(config, dict) else {}
-
-
-def _configured_string_tuple(
-    config: dict[str, Any],
-    key: str,
-    default: tuple[str, ...],
-) -> tuple[str, ...]:
-    value = config.get(key)
-    if not isinstance(value, list):
-        return default
-    configured = tuple(str(item).strip() for item in value if str(item).strip())
-    return configured or default
-
-
-def _research_type_rank(candidate: MissionTaskCandidate, config: dict[str, Any]) -> int:
-    type_order = _configured_string_tuple(config, "research_type_order", DEFAULT_RESEARCH_TYPE_ORDER)
-    try:
-        return type_order.index(candidate.type)
-    except ValueError:
-        return len(type_order)
-
-
-def _keyword_rank(candidate: MissionTaskCandidate, config: dict[str, Any]) -> int:
-    keywords = _configured_string_tuple(config, "hypothesis_keywords", DEFAULT_HYPOTHESIS_KEYWORDS)
-    haystack = f"{candidate.task_id} {candidate.title} {candidate.type}".lower()
-    return 0 if any(keyword.lower() in haystack for keyword in keywords) else 1
-
-
-def _candidate_sort_key(
-    candidate: MissionTaskCandidate,
-    ranking_config: dict[str, Any],
-) -> tuple[int, int, int, int, int, str, int]:
+def _candidate_sort_key(candidate: MissionTaskCandidate) -> tuple[int, int, int, str, int]:
     return (
-        *_candidate_rank_key(candidate, ranking_config),
+        *_candidate_rank_key(candidate),
         int(candidate.task_id.removeprefix("TASK-")),
     )
 
 
-def _candidate_rank_key(
-    candidate: MissionTaskCandidate,
-    ranking_config: dict[str, Any],
-) -> tuple[int, int, int, int, int, str]:
+def _candidate_rank_key(candidate: MissionTaskCandidate) -> tuple[int, int, int, str]:
     mode_rank = 0 if candidate.mode == "research" else 1
     return (
         mode_rank,
-        _research_type_rank(candidate, ranking_config) if candidate.mode == "research" else 999,
-        _keyword_rank(candidate, ranking_config) if candidate.mode == "research" else 1,
         PRIORITY_RANK.get(candidate.priority, 9),
         DIFFICULTY_RANK.get(candidate.difficulty, 9),
         candidate.type,
@@ -212,19 +146,17 @@ def _ranked_candidates(
     candidates: list[MissionTaskCandidate],
     *,
     shuffle_equal_rank: bool,
-    ranking_config: dict[str, Any] | None = None,
 ) -> tuple[MissionTaskCandidate, ...]:
-    config = ranking_config or {}
-    ordered = sorted(candidates, key=lambda candidate: _candidate_sort_key(candidate, config))
+    ordered = sorted(candidates, key=_candidate_sort_key)
     if not shuffle_equal_rank:
         return tuple(ordered)
 
     ranked: list[MissionTaskCandidate] = []
     index = 0
     while index < len(ordered):
-        rank = _candidate_rank_key(ordered[index], config)
+        rank = _candidate_rank_key(ordered[index])
         group: list[MissionTaskCandidate] = []
-        while index < len(ordered) and _candidate_rank_key(ordered[index], config) == rank:
+        while index < len(ordered) and _candidate_rank_key(ordered[index]) == rank:
             group.append(ordered[index])
             index += 1
         if len(group) > 1:
@@ -239,7 +171,6 @@ def task_candidates(
     mode: str = "research",
     limit: int = 5,
     shuffle_equal_rank: Optional[bool] = None,
-    ranking_config: dict[str, Any] | None = None,
 ) -> tuple[MissionTaskCandidate, ...]:
     """Return live task candidates from canonical task YAML files.
 
@@ -314,11 +245,7 @@ def task_candidates(
             )
 
     should_shuffle = mode in {"research", "audit"} if shuffle_equal_rank is None else shuffle_equal_rank
-    return _ranked_candidates(
-        candidates,
-        shuffle_equal_rank=should_shuffle,
-        ranking_config=ranking_config,
-    )[:limit]
+    return _ranked_candidates(candidates, shuffle_equal_rank=should_shuffle)[:limit]
 
 
 def select_mission(payload: dict[str, Any], mode: str | None = None) -> MissionSelection:
@@ -371,11 +298,7 @@ def select_mission(payload: dict[str, Any], mode: str | None = None) -> MissionS
 def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path | None = None) -> str:
     """Render a compact JSON response for coding agents."""
     selection = select_mission(payload, mode)
-    live_candidates = (
-        task_candidates(root, mode=selection.mode, ranking_config=_ranking_config(payload))
-        if root is not None
-        else ()
-    )
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     data = {
         "default_mode": payload.get("default_mode"),
         "selected_mode": selection.mode,
@@ -414,7 +337,6 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
             "coordination": "Do not guess new task ids during parallel work; use proposals or maintainer-assigned tasks.",
             "candidate_order": "Equal-rank research/audit candidates may rotate so parallel agents do not all pick the same first task.",
         },
-        "task_candidate_ranking": _ranking_config(payload),
         "global_forbidden": payload.get("global_forbidden", []),
     }
     return json.dumps(data, indent=2, sort_keys=False)
@@ -423,11 +345,7 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
 def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, root: Path | None = None) -> str:
     """Render a concise human-readable mission menu."""
     selection = select_mission(payload, mode)
-    live_candidates = (
-        task_candidates(root, mode=selection.mode, ranking_config=_ranking_config(payload))
-        if root is not None
-        else ()
-    )
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     mode_info = payload.get("modes", {}).get(selection.mode, {})
     lines = [
         "APL Mission Control",
@@ -516,11 +434,7 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
 def render_agent_prompt(payload: dict[str, Any], *, root: Path | None = None) -> str:
     """Render a copy-paste prompt that asks an agent to run the full PR loop."""
     selection = select_mission(payload, None)
-    live_candidates = (
-        task_candidates(root, mode=selection.mode, ranking_config=_ranking_config(payload))
-        if root is not None
-        else ()
-    )
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
     action_label = selection.action.get("label") if selection.action else "the recommended action"
     task_id = selection.action.get("task_id") if selection.action else None
@@ -565,11 +479,7 @@ Return the selected mission, changed files, validation results, limitations, and
 def render_onboarding_prompt(payload: dict[str, Any], *, root: Path | None = None) -> str:
     """Render a copy-paste prompt for a guided first agent response."""
     selection = select_mission(payload, None)
-    live_candidates = (
-        task_candidates(root, mode=selection.mode, ranking_config=_ranking_config(payload))
-        if root is not None
-        else ()
-    )
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
     action_label = selection.action.get("label") if selection.action else "the recommended action"
     candidate_block = ""
@@ -594,10 +504,14 @@ Start in Agent First Research Mode with onboarding.
 5. Recommended mission now: {mission_title}.
 6. Recommended action now: {action_label}.
 7. Show 3-5 executable READY options with estimated time and difficulty.
-8. Recommend one option, ask whether to start it, and wait for the user's choice.
-9. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR using repository helpers, available GitHub/MCP tools, or GitHub CLI when access is available; if a needed command is blocked by permissions, request permission/escalation for that command. If PR creation still cannot complete, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
-10. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
-11. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
+8. For onboarding, prefer recommending a simpler science-execution option first
+   when one is available: hypothesis testing, validation, sandbox runs, replay,
+   or audit. Treat this as guidance, not a hard rule; the user may choose any
+   listed option, including tooling.
+9. Recommend one option, ask whether to start it, and wait for the user's choice.
+10. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR using repository helpers, available GitHub/MCP tools, or GitHub CLI when access is available; if a needed command is blocked by permissions, request permission/escalation for that command. If PR creation still cannot complete, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
+11. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
+12. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 {candidate_block}
 
 When the work is complete, summarize what changed, the scientific or workflow value of the result, validation results, limitations, and the best next task to continue."""
