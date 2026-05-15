@@ -58,6 +58,7 @@ one PR.
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0249` — Implement nuclear prediction variant factory (`scientific_tooling`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 

@@ -28,6 +28,22 @@ Each lane agent should:
 7. Run repository validation and leave the entries as prospective forecasts,
    not claims.
 
+## Factory Follow-Up
+
+`TASK-0249` should automate the repetitive inner loop behind future waves. The
+desired workflow is:
+
+1. An agent or maintainer defines bounded model families and target batches in
+   a YAML config.
+2. A deterministic script expands those families into many candidate forecasts.
+3. The script computes `mass_excess_mev`, sensitivity metadata, and draft
+   review summaries without live external fetching.
+4. An AI agent reviews leakage, complexity, redundancy, and scientific value.
+5. Only a small selected subset is committed as reviewed `PRED-XXXX` entries.
+
+This keeps AI agents in the scientific-curation loop while moving arithmetic,
+coefficient grids, and draft generation into reproducible code.
+
 ## Pre-Reveal Validation
 
 Agents can test entries before reveal by checking:
