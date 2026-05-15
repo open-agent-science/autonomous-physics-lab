@@ -1,0 +1,153 @@
+prediction_id: PRED-0030
+title: 'Prospective nuclear mass slate: asymmetry-enhanced (+15%) fitted model on Zinc isotope chain mid-mass neutron-rich extrapolation'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0232
+evidence_class: prospective_prediction_registry
+claim_ceiling: >
+  Registered prospective prediction variant only; no claim, canonical result, or accepted
+  knowledge promotion before later maintainer-reviewed comparison. No sandbox candidate is
+  being promoted. This is an asymmetry-sensitivity isotope-chain control: the entire Zn
+  chain is extrapolated (not anchored in NMD-0002) with a +15% asymmetry perturbation.
+
+registered_by:
+  contributor_id: gladunrv
+  agent_id: claude_code
+
+registered_at_utc: '2026-05-15T00:00:00Z'
+
+source_state:
+  git_commit: 763575eb923a4e9ebcf1565509268b8e17f84c4b
+  model_reference:
+    model_id: RESULT-0015::model_fitted_semi_empirical::asymmetry_plus_fifteen_percent
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+    frozen_parameters_note: >
+      Frozen asymmetry-enhanced perturbation derived from RESULT-0015 model_fitted_semi_empirical.
+      Base coefficients: volume=15.51423612106804, surface=17.2931812095177,
+      coulomb=0.6878156091568888, asymmetry=23.846557883948485, pairing=15.990845113398912.
+      Only the asymmetry coefficient is multiplied by 1.15, giving the perturbed set
+      volume=15.51423612106804, surface=17.2931812095177, coulomb=0.6878156091568888,
+      asymmetry=27.423541566540756, pairing=15.990845113398912.
+      The asymmetry term is aA*(N-Z)^2/A; the perturbation increases the penalty for
+      neutron-proton imbalance. No shell, magic-number, or pairing modification is introduced.
+      Asymmetry-sensitivity isotope-chain extrapolation control variant only; not a promoted
+      sandbox candidate.
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Registered from repository state 763575eb923a4e9ebcf1565509268b8e17f84c4b without
+    live external fetching. Target nuclides are repo-prospective: absent from committed
+    NMD-0002 and post-AME2020 holdout datasets at registration time. Zinc (Z=30) is not
+    represented in NMD-0002 at all; the entire Zn chain is extrapolated without a training
+    anchor, making this a stronger generalization stress test than the Sn chain in PRED-0029.
+    True-world prospectiveness requires later maintainer source-state review.
+
+target_set:
+  label: zn-chain-asymmetry-sensitivity-probe
+  quantity: mass_excess_mev
+  unit: MeV
+  target_nuclides:
+    - nuclide_id: Zn-68
+      Z: 30
+      N: 38
+      A: 68
+      predicted_value_mev: -71.007705
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::asymmetry_plus_fifteen_percent.
+        Even-even nucleus (Z=30, N=38): asymmetry term = 27.423541566540756*(38-30)^2/68 = 25.882 MeV;
+        base model asymmetry term = 23.846557883948485*(38-30)^2/68 = 22.515 MeV;
+        asymmetry perturbation raises mass excess by +3.367 MeV relative to base model.
+    - nuclide_id: Zn-70
+      Z: 30
+      N: 40
+      A: 70
+      predicted_value_mev: -68.287573
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::asymmetry_plus_fifteen_percent.
+        Even-even nucleus (Z=30, N=40): asymmetry term = 27.423541566540756*(40-30)^2/70 = 39.176 MeV;
+        base model asymmetry term = 23.846557883948485*(40-30)^2/70 = 34.067 MeV;
+        asymmetry perturbation raises mass excess by +5.110 MeV relative to base model.
+    - nuclide_id: Zn-72
+      Z: 30
+      N: 42
+      A: 72
+      predicted_value_mev: -63.264701
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::asymmetry_plus_fifteen_percent.
+        Even-even nucleus (Z=30, N=42): asymmetry term = 27.423541566540756*(42-30)^2/72 = 54.847 MeV;
+        base model asymmetry term = 23.846557883948485*(42-30)^2/72 = 47.693 MeV;
+        asymmetry perturbation raises mass excess by +7.154 MeV relative to base model.
+    - nuclide_id: Zn-74
+      Z: 30
+      N: 44
+      A: 74
+      predicted_value_mev: -56.127249
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::asymmetry_plus_fifteen_percent.
+        Even-even nucleus (Z=30, N=44): asymmetry term = 27.423541566540756*(44-30)^2/74 = 72.375 MeV;
+        base model asymmetry term = 23.846557883948485*(44-30)^2/74 = 62.901 MeV;
+        asymmetry perturbation raises mass excess by +9.474 MeV relative to base model.
+        Largest divergence in the batch: (N-Z) = 14, making this target maximally asymmetry-sensitive.
+
+uncertainty_semantics:
+  type: point_estimate_only
+  note: >
+    Each value is a deterministic mass_excess_mev point estimate computed by applying the
+    frozen asymmetry-enhanced semi-empirical formula to obtain binding energy, converting to
+    atomic mass via physics_lab.engines.nuclear_mass_baselines.semi_empirical_atomic_mass_u,
+    and then converting to mass excess via physics_lab.engines.nuclear_masses.mass_excess_keV_from_atomic_mass_u.
+    uncertainty_mev is intentionally null; this entry is an asymmetry-sensitivity isotope-chain
+    control for future reveal comparison. The divergence between PRED-0029 (base model) and
+    this entry on the Zn chain quantifies how much a 15% asymmetry perturbation shifts predictions
+    for a mid-mass neutron-rich chain with no training anchor.
+
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest added after
+    registration contains measured or reviewably convertible values for one or more
+    target nuclides in this entry.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed source manifest
+    committed after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, coefficient note, target nuclides,
+    predicted values, or reveal rule. Later comparison must be a separate reviewed task and
+    may reveal a subset of targets only. The asymmetry coefficient perturbation (1.15x) must
+    not be adjusted after later measurements become visible.
+
+limitations:
+  - Prospective registry variant only; not a claim or result package.
+  - No sandbox candidate is being promoted; this is an asymmetry-sensitivity chain control.
+  - Targets are selected against committed repository datasets only; no live external source
+    was fetched during registration.
+  - Zinc (Z=30) is entirely absent from NMD-0002; the model has no Zn-specific training anchor,
+    making all four predictions pure extrapolations. Any agreement with future measurements
+    would reflect the smooth SEMF's global fit, not Zn-specific calibration.
+  - The +15% asymmetry perturbation is a deliberate sensitivity probe; it is not a fitted
+    improvement and is expected to increase prediction error for well-measured nuclei.
+  - The mass excess delta between this entry and the base model grows with (N-Z)^2/A, from
+    +3.4 MeV at Zn-68 to +9.5 MeV at Zn-74, making the Zn-74 target maximally sensitive
+    to the asymmetry perturbation in this batch.
+  - All targets are even-even nuclei; the pairing contribution is uniformly positive and
+    identical to the base model (only the asymmetry term is perturbed).
+  - Any agent-proposed follow-up variant must freeze its model, target set, and source state
+    in a separate registry entry before reveal.
+
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false
