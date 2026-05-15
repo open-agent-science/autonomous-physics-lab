@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0215` - Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`, domain `test_quality`)
+None.
