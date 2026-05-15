@@ -1,0 +1,27 @@
+proposal_id: 20260515-roman-worktree-settings-sync
+title: "Add worktree settings sync script and CLAUDE.md first-action instruction"
+proposed_by: roman
+proposed_at: "2026-05-15"
+status: PROPOSED
+
+motivation: >
+  .claude/settings.local.json is gitignored, so new worktrees do not inherit
+  the project permission allowlist automatically. Agents working in fresh
+  worktrees are prompted for approval on every Bash command, slowing down the
+  task workflow significantly.
+
+proposed_solution: >
+  Add scripts/apl_setup_worktree.sh that copies settings.local.json from the
+  main repository root into the current worktree's .claude/ directory using
+  git --git-common-dir to locate the source path reliably. Add a
+  "First Action in Any New Worktree" section to CLAUDE.md instructing agents
+  to run this script before doing any other work. Add a global allow rule in
+  ~/.claude/settings.json so the setup script itself requires no approval.
+
+accepted_outputs:
+  - "scripts/apl_setup_worktree.sh (executable, committed)"
+  - "CLAUDE.md updated with first-action instruction"
+
+impact: support_tooling
+domain: contributor_experience
+estimated_effort: small
