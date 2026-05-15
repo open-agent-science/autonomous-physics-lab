@@ -1,0 +1,65 @@
+id: TASK-0249
+title: "Implement nuclear prediction variant factory"
+type: scientific_tooling
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move repetitive Nuclear Mass Surface variant generation from manual agent work into deterministic code."
+  - "Let AI agents curate bounded hypothesis families while scripts handle the inner calculation loop."
+  - "Reduce registry noise by generating candidate slates first and registering only reviewed selections."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/"
+    - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
+    - "docs/prediction-registry-policy.md"
+    - "docs/notes/nuclear-prediction-variant-expansion-wave.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+  planning_context: >
+    PRED-0001 through PRED-0024 show that agents can register bounded
+    prospective nuclear-mass variants, but much of the arithmetic is repetitive:
+    model-family grids, coefficient perturbations, target-batch crossing, and
+    deterministic mass_excess_mev conversion. This task should implement a
+    deterministic variant factory so agents can focus on hypothesis design,
+    leakage review, target choice, and selection rather than hand-generating
+    every candidate YAML file.
+
+requirements:
+  - "Add a deterministic variant-factory implementation for Nuclear Mass Surface prediction candidates."
+  - "Accept a YAML config describing frozen baseline source, model/control family, coefficient grid or bounded transform, target batches, and output settings."
+  - "Support at least semi-empirical coefficient perturbation families and model/control labels that can reproduce simple smooth, pairing, and ablation-style variants."
+  - "Compute quantity mass_excess_mev through repository code, not LLM text or ad hoc manual arithmetic."
+  - "Emit a candidate slate summary with model id, target batch, predicted values, sensitivity metadata, and review notes needed for later PRED selection."
+  - "Optionally emit draft PRED-style YAML files into an explicit output directory, but do not overwrite committed prediction_registry files by default."
+  - "Detect duplicate requested PRED ids or output filenames before writing draft files."
+  - "Require live_external_fetch_allowed=false and do not fetch live external measurements."
+  - "Keep generated candidates below claim/result/knowledge promotion; this is pre-reveal tooling only."
+  - "Document the intended workflow: script generates many candidates, agent selects a small reviewed subset, and only selected variants become committed PRED entries."
+  - "Add tests that verify deterministic value generation, duplicate-id protection, schema-compatible draft output, and no mutation of existing PRED entries."
+
+accepted_outputs:
+  - "physics_lab/engines/nuclear_prediction_variants.py or an equivalently scoped implementation module"
+  - "scripts/generate_nuclear_prediction_variants.py or an equivalent CLI/helper entrypoint"
+  - "examples/nuclear_prediction_variant_factory.yaml"
+  - "docs/notes/nuclear-prediction-variant-factory.md"
+  - "tests/test_nuclear_prediction_variant_factory.py"
+  - "updated prediction_registry/nuclear_masses/README.md if workflow guidance belongs there"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
