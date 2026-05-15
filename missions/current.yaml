@@ -52,34 +52,6 @@ modes:
     label: "Maintainer Mode"
     description: "Review, merge recommendation, closeout, board sync, and context-refresh assistance. Advisory only."
 
-task_candidate_ranking:
-  research_type_order:
-    - autonomous_research_pilot
-    - scientific_validation
-    - scientific_experiment
-    - scientific_falsification
-    - formula_discovery
-    - scientific_audit
-    - scientific_benchmark
-    - benchmark_protocol
-    - dataset_workflow
-    - scientific_campaign
-    - scientific_tooling
-  hypothesis_keywords:
-    - hypothesis
-    - hypothesis testing
-    - sandbox
-    - pilot
-    - slate
-    - candidate
-    - validation
-    - falsification
-    - replay
-    - audit
-  notes:
-    - "Default onboarding should recommend science execution before enabling tooling when both are READY."
-    - "Tooling remains visible as a parallel research option, but should not outrank validation, hypothesis testing, replay, audit, or sandbox runs unless no stronger science-execution task is available."
-
 missions:
   - id: nuclear-mass-surface
     title: "Nuclear Mass Surface"

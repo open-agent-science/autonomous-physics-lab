@@ -76,16 +76,7 @@ def _write_missions(root: Path) -> None:
     )
 
 
-def _write_task(
-    root: Path,
-    *,
-    task_id: str,
-    title: str,
-    status: str,
-    task_type: str,
-    priority: str,
-    difficulty: str = "medium",
-) -> None:
+def _write_task(root: Path, *, task_id: str, title: str, status: str, task_type: str, priority: str) -> None:
     tasks_dir = root / "tasks"
     tasks_dir.mkdir(exist_ok=True)
     (tasks_dir / f"{task_id}-example.yaml").write_text(
@@ -95,7 +86,7 @@ def _write_task(
             title: "{title}"
             type: {task_type}
             status: {status}
-            difficulty: {difficulty}
+            difficulty: medium
             priority: {priority}
             input:
               mode: workflow
@@ -273,90 +264,6 @@ def test_task_candidates_shuffle_equal_rank_research_groups(tmp_path: Path, monk
         "TASK-0010",
         "TASK-0013",
     ]
-
-
-def test_task_candidates_use_configurable_research_type_order(tmp_path: Path) -> None:
-    _write_task(
-        tmp_path,
-        task_id="TASK-0020",
-        title="Add slate ranking helper",
-        status="READY",
-        task_type="scientific_tooling",
-        priority="high",
-        difficulty="medium",
-    )
-    _write_task(
-        tmp_path,
-        task_id="TASK-0021",
-        title="Run first hypothesis validation slate",
-        status="READY",
-        task_type="scientific_validation",
-        priority="high",
-        difficulty="high",
-    )
-    ranking_config = {
-        "research_type_order": [
-            "autonomous_research_pilot",
-            "scientific_validation",
-            "scientific_tooling",
-        ],
-        "hypothesis_keywords": ["hypothesis", "slate", "validation"],
-    }
-
-    candidates = task_candidates(
-        tmp_path,
-        mode="research",
-        shuffle_equal_rank=False,
-        ranking_config=ranking_config,
-    )
-
-    assert [candidate.task_id for candidate in candidates] == ["TASK-0021", "TASK-0020"]
-
-
-def test_mission_json_exposes_task_candidate_ranking_config(tmp_path: Path) -> None:
-    _write_missions(tmp_path)
-    mission_path = tmp_path / "missions" / "current.yaml"
-    mission_path.write_text(
-        mission_path.read_text(encoding="utf-8")
-        + textwrap.dedent(
-            """\
-
-            task_candidate_ranking:
-              research_type_order:
-                - scientific_validation
-                - scientific_tooling
-              hypothesis_keywords:
-                - hypothesis
-            """
-        ),
-        encoding="utf-8",
-    )
-    _write_task(
-        tmp_path,
-        task_id="TASK-0022",
-        title="Add tooling",
-        status="READY",
-        task_type="scientific_tooling",
-        priority="high",
-    )
-    _write_task(
-        tmp_path,
-        task_id="TASK-0023",
-        title="Run hypothesis validation",
-        status="READY",
-        task_type="scientific_validation",
-        priority="high",
-        difficulty="high",
-    )
-    payload = load_current_missions(tmp_path)
-
-    rendered = json.loads(mission_json(payload, root=tmp_path))
-
-    assert rendered["task_candidate_ranking"]["research_type_order"] == [
-        "scientific_validation",
-        "scientific_tooling",
-    ]
-    assert rendered["live_task_candidates"][0]["task_id"] == "TASK-0023"
 
 
 def test_task_candidates_do_not_shuffle_support_mode_by_default(tmp_path: Path, monkeypatch) -> None:
