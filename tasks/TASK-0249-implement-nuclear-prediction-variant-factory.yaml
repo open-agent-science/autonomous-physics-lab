@@ -1,7 +1,7 @@
 id: TASK-0249
 title: "Implement nuclear prediction variant factory"
 type: scientific_tooling
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
