@@ -22,10 +22,13 @@ input:
   planning_context: >
     This task is intentionally blocked until TASK-0250 produces and reviews the
     first large factory slate. It should register only a small selected subset,
-    not every generated draft candidate.
+    not every generated draft candidate. If TASK-0252 expands the factory
+    search space before registration starts, prefer rerunning or updating the
+    slate review before freezing PRED-0041+ entries.
 
 requirements:
   - "Start only after TASK-0250 is merged or the maintainer explicitly approves its candidate selection."
+  - "If TASK-0252 lands before this task starts, confirm that the selected slate still reflects the expanded feature-term search space or document why registration intentionally uses the earlier coefficient-transform slate."
   - "Register 8 to 12 selected factory candidates as prospective PRED entries, using PRED-0041 through PRED-0050 unless a collision-free equivalent range is needed."
   - "Copy or regenerate selected draft entries from the factory config, then replace placeholder source_state.git_commit values with the real commit being frozen."
   - "Preserve frozen model ids, target batches, mass_excess_mev values, reveal conditions, uncertainty semantics, and no-peek rules."
