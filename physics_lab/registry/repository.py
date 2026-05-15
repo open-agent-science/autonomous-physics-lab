@@ -491,6 +491,8 @@ def _validate_references(
                 raise ValueError(f"{path} references missing task id: {task_id}")
 
     for path, payload in example_configs:
+        if payload.get("config_kind") == "nuclear_prediction_variant_factory":
+            continue
         experiment_path = (path.parent / payload["experiment_path"]).resolve()
         hypothesis_path = (path.parent / payload["hypothesis_path"]).resolve()
         result_root = (path.parent / payload["result_root"]).resolve()
@@ -926,6 +928,8 @@ def _collect_strict_issues(
             )
 
     for example_path, example_payload in example_configs:
+        if example_payload.get("config_kind") == "nuclear_prediction_variant_factory":
+            continue
         result_root = (example_path.parent / example_payload["result_root"]).resolve()
         expected_run_dir = result_root / str(example_payload["run_id"])
         canonical_result = expected_run_dir / "result.yaml"
