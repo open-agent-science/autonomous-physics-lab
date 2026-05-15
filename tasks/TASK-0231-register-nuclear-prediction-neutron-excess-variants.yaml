@@ -1,7 +1,7 @@
 id: TASK-0231
 title: "Register nuclear prediction variants for neutron-excess and asymmetry controls"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
