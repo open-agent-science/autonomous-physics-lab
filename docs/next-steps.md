@@ -141,6 +141,9 @@ Recommended nuclear validation queue for parallel agents:
 - `TASK-0228` through `TASK-0237` nuclear prediction variant expansion wave:
   ten parallel lanes where agents add and pre-reveal validate their own bounded
   `PRED-0021+` variants without live external fetch or claim promotion
+- `TASK-0249` nuclear prediction variant factory: automate the repetitive
+  coefficient-grid / target-batch inner loop so agents curate and review a
+  smaller selected slate instead of hand-generating every candidate
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
   umbrella; review the narrower TASK-0200 through TASK-0202 outputs through
