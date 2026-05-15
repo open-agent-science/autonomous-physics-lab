@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -9,15 +10,29 @@ from typing import Any
 import yaml
 
 from physics_lab.engines.nuclear_mass_baselines import (
+    MAGIC_NUMBERS,
     REFERENCE_SEMI_EMPIRICAL_COEFFICIENTS,
     SemiEmpiricalCoefficients,
     pairing_class,
-    semi_empirical_atomic_mass_u,
+    semi_empirical_binding_energy,
 )
-from physics_lab.engines.nuclear_masses import mass_excess_keV_from_atomic_mass_u
+from physics_lab.engines.nuclear_masses import (
+    ATOMIC_MASS_UNIT_MEV,
+    HYDROGEN_ATOM_MASS_U,
+    NEUTRON_MASS_U,
+    mass_excess_keV_from_atomic_mass_u,
+)
 
 
 COEFFICIENT_NAMES = ("volume", "surface", "coulomb", "asymmetry", "pairing")
+FEATURE_TERM_TYPES = (
+    "shell_proximity_gaussian",
+    "asymmetry_polynomial",
+    "asymmetric_neutron_excess",
+)
+DEFAULT_SHELL_PROXIMITY_SIGMA = 2.0
+DEFAULT_ASYMMETRIC_NEUTRON_EXCESS_POWER = 2
+MAX_ASYMMETRY_POLYNOMIAL_POWER = 6
 DEFAULT_CLAIM_CEILING = (
     "Draft prospective prediction variant only; no claim, canonical result, or accepted "
     "knowledge promotion before later maintainer-reviewed comparison."
@@ -67,6 +82,7 @@ class NuclearPredictionCandidate:
     coefficients: SemiEmpiricalCoefficients
     coefficient_delta: dict[str, float]
     transform: dict[str, Any]
+    feature_terms: tuple[dict[str, Any], ...]
     target_rows: tuple[dict[str, Any], ...]
     model_control_label: str
     review_notes: tuple[str, ...]
@@ -84,6 +100,8 @@ class NuclearPredictionCandidate:
             "coefficients": self.coefficients.to_dict(),
             "coefficient_delta_from_base": self.coefficient_delta,
             "transform": self.transform,
+            "feature_terms": [dict(term) for term in self.feature_terms],
+            "feature_term_summary": _feature_term_summary(self.target_rows),
             "target_nuclides": list(self.target_rows),
             "review_notes": list(self.review_notes),
             "limitations": list(self.limitations),
@@ -200,6 +218,10 @@ def _build_candidate(
         name: coefficients.to_dict()[name] - base_coefficients.to_dict()[name]
         for name in COEFFICIENT_NAMES
     }
+    feature_terms = _normalize_feature_terms(
+        transform.get("feature_terms", []),
+        variant_id=variant_id,
+    )
     model_id = str(
         variant_config.get("model_id")
         or f"{_baseline_model_config(config)['registry_model_id']}::{variant_id}"
@@ -209,6 +231,7 @@ def _build_candidate(
             target=target,
             coefficients=coefficients,
             base_coefficients=base_coefficients,
+            feature_terms=feature_terms,
             confidence_note=str(
                 variant_config.get(
                     "confidence_note",
@@ -237,6 +260,7 @@ def _build_candidate(
         coefficients=coefficients,
         coefficient_delta=coefficient_delta,
         transform=transform,
+        feature_terms=feature_terms,
         target_rows=target_rows,
         model_control_label=str(variant_config.get("model_control_label", "semi-empirical control")),
         review_notes=tuple(str(note) for note in variant_config.get("review_notes", [])),
@@ -288,22 +312,174 @@ def apply_coefficient_transform(
     )
 
 
+def feature_term_correction_mev(
+    *,
+    z: int,
+    n: int,
+    feature_terms: tuple[dict[str, Any], ...] | list[dict[str, Any]],
+) -> float:
+    """Sum the bounded feature-term corrections for one nuclide in MeV.
+
+    Returns 0.0 when ``feature_terms`` is empty. Each entry must be a normalized
+    mapping produced by :func:`_normalize_feature_terms`.
+    """
+    total = 0.0
+    for term in feature_terms:
+        total += _evaluate_feature_term(term, z=z, n=n)
+    return total
+
+
+def _evaluate_feature_term(term: dict[str, Any], *, z: int, n: int) -> float:
+    term_type = term["type"]
+    if term_type == "shell_proximity_gaussian":
+        axis = term["axis"]
+        coefficient = float(term["coefficient"])
+        sigma = float(term["sigma"])
+        magic_numbers = tuple(int(x) for x in term["magic_numbers"])
+        axis_value = z if axis == "z" else n
+        distance = min(abs(axis_value - magic) for magic in magic_numbers)
+        return coefficient * math.exp(-(distance ** 2) / (2.0 * sigma ** 2))
+    if term_type == "asymmetry_polynomial":
+        a = float(z + n)
+        isospin = (n - z) / a
+        contribution = 0.0
+        for sub in term["terms"]:
+            contribution += float(sub["coefficient"]) * (isospin ** int(sub["power"]))
+        return contribution
+    if term_type == "asymmetric_neutron_excess":
+        a = float(z + n)
+        excess = max(n - z, 0)
+        power = int(term["power"])
+        return float(term["coefficient"]) * (excess ** power) / a
+    raise ValueError(f"Unsupported feature term type: {term_type}")
+
+
+def _normalize_feature_terms(
+    feature_terms: Any,
+    *,
+    variant_id: str,
+) -> tuple[dict[str, Any], ...]:
+    if feature_terms is None:
+        return tuple()
+    if not isinstance(feature_terms, list):
+        raise ValueError(f"{variant_id}.transform.feature_terms must be a list")
+    normalized: list[dict[str, Any]] = []
+    for index, raw in enumerate(feature_terms):
+        location = f"{variant_id}.transform.feature_terms[{index}]"
+        term_payload = _mapping(raw, location)
+        term_type = str(term_payload.get("type", ""))
+        if term_type not in FEATURE_TERM_TYPES:
+            raise ValueError(
+                f"{location}: unknown feature term type {term_type!r}; "
+                f"allowed types: {', '.join(FEATURE_TERM_TYPES)}"
+            )
+        if term_type == "shell_proximity_gaussian":
+            normalized.append(_normalize_shell_proximity_gaussian(term_payload, location))
+        elif term_type == "asymmetry_polynomial":
+            normalized.append(_normalize_asymmetry_polynomial(term_payload, location))
+        elif term_type == "asymmetric_neutron_excess":
+            normalized.append(_normalize_asymmetric_neutron_excess(term_payload, location))
+    return tuple(normalized)
+
+
+def _normalize_shell_proximity_gaussian(payload: dict[str, Any], location: str) -> dict[str, Any]:
+    axis = str(payload.get("axis", "")).lower()
+    if axis not in ("z", "n"):
+        raise ValueError(f"{location}: shell_proximity_gaussian axis must be 'z' or 'n'")
+    if "coefficient" not in payload:
+        raise ValueError(f"{location}: shell_proximity_gaussian requires coefficient")
+    sigma = float(payload.get("sigma", DEFAULT_SHELL_PROXIMITY_SIGMA))
+    if sigma <= 0:
+        raise ValueError(f"{location}: shell_proximity_gaussian sigma must be > 0")
+    magic_numbers = payload.get("magic_numbers", MAGIC_NUMBERS)
+    if not isinstance(magic_numbers, (list, tuple)) or not magic_numbers:
+        raise ValueError(f"{location}: shell_proximity_gaussian magic_numbers must be a non-empty list")
+    magic_ints = tuple(int(x) for x in magic_numbers)
+    if any(value < 0 for value in magic_ints):
+        raise ValueError(f"{location}: magic_numbers entries must be non-negative")
+    return {
+        "type": "shell_proximity_gaussian",
+        "axis": axis,
+        "coefficient": float(payload["coefficient"]),
+        "sigma": sigma,
+        "magic_numbers": list(magic_ints),
+    }
+
+
+def _normalize_asymmetry_polynomial(payload: dict[str, Any], location: str) -> dict[str, Any]:
+    raw_terms = payload.get("terms")
+    if not isinstance(raw_terms, list) or not raw_terms:
+        raise ValueError(f"{location}: asymmetry_polynomial requires non-empty terms list")
+    normalized_terms: list[dict[str, Any]] = []
+    seen_powers: set[int] = set()
+    for sub_index, sub in enumerate(raw_terms):
+        sub_location = f"{location}.terms[{sub_index}]"
+        sub_map = _mapping(sub, sub_location)
+        if "power" not in sub_map or "coefficient" not in sub_map:
+            raise ValueError(f"{sub_location}: must include power and coefficient")
+        power = int(sub_map["power"])
+        if power < 1 or power > MAX_ASYMMETRY_POLYNOMIAL_POWER:
+            raise ValueError(
+                f"{sub_location}: power must be between 1 and "
+                f"{MAX_ASYMMETRY_POLYNOMIAL_POWER}"
+            )
+        if power in seen_powers:
+            raise ValueError(f"{sub_location}: duplicate power {power}")
+        seen_powers.add(power)
+        normalized_terms.append({"power": power, "coefficient": float(sub_map["coefficient"])})
+    normalized_terms.sort(key=lambda t: t["power"])
+    return {
+        "type": "asymmetry_polynomial",
+        "terms": normalized_terms,
+    }
+
+
+def _normalize_asymmetric_neutron_excess(payload: dict[str, Any], location: str) -> dict[str, Any]:
+    if "coefficient" not in payload:
+        raise ValueError(f"{location}: asymmetric_neutron_excess requires coefficient")
+    power = int(payload.get("power", DEFAULT_ASYMMETRIC_NEUTRON_EXCESS_POWER))
+    if power < 1:
+        raise ValueError(f"{location}: asymmetric_neutron_excess power must be >= 1")
+    return {
+        "type": "asymmetric_neutron_excess",
+        "coefficient": float(payload["coefficient"]),
+        "power": power,
+    }
+
+
+def _feature_term_summary(target_rows: tuple[dict[str, Any], ...]) -> dict[str, Any]:
+    corrections = [
+        float(row.get("feature_term_correction_mev", 0.0))
+        for row in target_rows
+    ]
+    if not corrections:
+        return {"max_abs_correction_mev": 0.0, "mean_abs_correction_mev": 0.0}
+    abs_values = [abs(value) for value in corrections]
+    return {
+        "max_abs_correction_mev": round(max(abs_values), 6),
+        "mean_abs_correction_mev": round(sum(abs_values) / len(abs_values), 6),
+    }
+
+
 def _predict_target_row(
     *,
     target: NuclearVariantTarget,
     coefficients: SemiEmpiricalCoefficients,
     base_coefficients: SemiEmpiricalCoefficients,
+    feature_terms: tuple[dict[str, Any], ...],
     confidence_note: str,
 ) -> dict[str, Any]:
-    mass_excess_mev = _mass_excess_mev(
+    mass_excess_mev, feature_correction = _mass_excess_mev_with_features(
         target=target,
         coefficients=coefficients,
+        feature_terms=feature_terms,
     )
-    baseline_mass_excess_mev = _mass_excess_mev(
+    baseline_mass_excess_mev, _ = _mass_excess_mev_with_features(
         target=target,
         coefficients=base_coefficients,
+        feature_terms=tuple(),
     )
-    return {
+    row: dict[str, Any] = {
         "nuclide_id": target.nuclide_id,
         "Z": target.Z,
         "N": target.N,
@@ -315,19 +491,38 @@ def _predict_target_row(
         "uncertainty_mev": None,
         "confidence_note": confidence_note,
     }
+    if feature_terms:
+        row["feature_term_correction_mev"] = round(feature_correction, 6)
+    return row
 
 
-def _mass_excess_mev(
+def _mass_excess_mev_with_features(
     *,
     target: NuclearVariantTarget,
     coefficients: SemiEmpiricalCoefficients,
-) -> float:
-    atomic_mass_u = semi_empirical_atomic_mass_u(
+    feature_terms: tuple[dict[str, Any], ...],
+) -> tuple[float, float]:
+    binding_energy = semi_empirical_binding_energy(
         z=target.Z,
         n=target.N,
         coefficients=coefficients,
     )
-    return mass_excess_keV_from_atomic_mass_u(a=target.A, atomic_mass_u=atomic_mass_u) / 1000.0
+    feature_correction = feature_term_correction_mev(
+        z=target.Z,
+        n=target.N,
+        feature_terms=feature_terms,
+    )
+    mass_defect_u = (binding_energy + feature_correction) / ATOMIC_MASS_UNIT_MEV
+    atomic_mass_u = (
+        target.Z * HYDROGEN_ATOM_MASS_U
+        + target.N * NEUTRON_MASS_U
+        - mass_defect_u
+    )
+    mass_excess_mev = mass_excess_keV_from_atomic_mass_u(
+        a=target.A,
+        atomic_mass_u=atomic_mass_u,
+    ) / 1000.0
+    return mass_excess_mev, feature_correction
 
 
 def _write_draft_predictions(
