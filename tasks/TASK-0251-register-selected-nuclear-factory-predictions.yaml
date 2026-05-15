@@ -1,0 +1,52 @@
+id: TASK-0251
+title: "Register selected predictions from the first nuclear factory slate"
+type: scientific_validation
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Convert only reviewed factory candidates into frozen prospective prediction entries."
+  - "Prevent the registry from becoming a raw dump of every generated candidate."
+  - "Preserve a clear audit trail from factory slate to selected PRED entries."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-prediction-factory-slate-001.md"
+    - "examples/nuclear_prediction_factory_slate_001.yaml"
+    - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
+    - "docs/prediction-registry-policy.md"
+    - "docs/notes/nuclear-prediction-variant-factory.md"
+  planning_context: >
+    This task is intentionally blocked until TASK-0250 produces and reviews the
+    first large factory slate. It should register only a small selected subset,
+    not every generated draft candidate.
+
+requirements:
+  - "Start only after TASK-0250 is merged or the maintainer explicitly approves its candidate selection."
+  - "Register 8 to 12 selected factory candidates as prospective PRED entries, using PRED-0041 through PRED-0050 unless a collision-free equivalent range is needed."
+  - "Copy or regenerate selected draft entries from the factory config, then replace placeholder source_state.git_commit values with the real commit being frozen."
+  - "Preserve frozen model ids, target batches, mass_excess_mev values, reveal conditions, uncertainty semantics, and no-peek rules."
+  - "Add a review note linking each selected PRED entry back to the slate row and explaining why it was selected."
+  - "Add or update tests for schema validity, deterministic recomputation, target consistency, and no committed live external fetch."
+  - "Do not reveal, score against future data, promote claims, or mark any prediction as successful."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/PRED-0041.yaml through prediction_registry/nuclear_masses/PRED-0050.yaml, or an approved collision-free equivalent selected range"
+  - "docs/reviews/nuclear-prediction-factory-selected-registry-001.md"
+  - "updated tests covering the selected prediction entries"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
