@@ -19,7 +19,7 @@ registered_by:
 registered_at_utc: '2026-05-15T00:00:00Z'
 
 source_state:
-  git_commit: REPLACE_WITH_COMMIT_SHA
+  git_commit: ba9de02b2df45fb474e515d5094432d05f88ad34
   model_reference:
     model_id: RESULT-0015::model_fitted_semi_empirical::coulomb_z_squared_form
     source_path: results/EXP-0012/RUN-0001/result.yaml
@@ -46,7 +46,7 @@ source_state:
     - docs/prediction-registry-policy.md
   live_external_fetch_allowed: false
   source_data_state_note: >
-    Registered from repository state REPLACE_WITH_COMMIT_SHA without live
+    Registered from repository state ba9de02b2df45fb474e515d5094432d05f88ad34 without live
     external fetching. Target nuclides are repo-prospective: absent from
     committed NMD-0002 and post-AME2020 holdout datasets at registration
     time; true-world prospectiveness requires later maintainer source-state
