@@ -97,8 +97,86 @@ The initial implementation supports semi-empirical coefficient transforms:
   repository reference semi-empirical coefficients.
 
 This covers smooth controls, pairing sensitivity, and ablation-style variants.
-More complex shell, neutron-excess, or ensemble controls should be added only
-when they can still be made deterministic and reviewable.
+
+## Supported Feature-Term Families
+
+`TASK-0252` extends the factory beyond pure coefficient transforms with bounded
+additive feature terms. Each feature term contributes an additive correction
+`r_corr` (in MeV) to the semi-empirical binding energy before mass-excess
+conversion. Multiple terms in one variant are summed; coefficient transforms
+and feature terms compose freely in the same `transform` block.
+
+A worked example lives at
+`examples/nuclear_prediction_variant_factory_feature_terms.yaml`.
+
+### `shell_proximity_gaussian`
+
+```text
+r_corr = coefficient * exp(-d(axis_value, magic_numbers)^2 / (2 * sigma^2))
+```
+
+Required:
+
+- `axis`: `z` or `n`
+- `coefficient` (MeV)
+
+Optional:
+
+- `sigma` (default `2.0`; must be `> 0`)
+- `magic_numbers` (default `(2, 8, 20, 28, 50, 82, 126)`)
+
+Use a separate term per axis when both axes need their own coefficient (this
+mirrors the `PRED-0025` Z+N control pattern).
+
+### `asymmetry_polynomial`
+
+```text
+r_corr = sum_k coefficient_k * ((N - Z) / A) ** power_k
+```
+
+Required:
+
+- `terms`: a non-empty list of `{power, coefficient}` entries
+
+Each `power` must be an integer in `[1, 6]`. Duplicate powers in the same term
+list are rejected.
+
+### `asymmetric_neutron_excess`
+
+```text
+r_corr = coefficient * max(N - Z, 0) ** power / A
+```
+
+Required:
+
+- `coefficient` (MeV)
+
+Optional:
+
+- `power` (default `2`; integer `>= 1`)
+
+Returns exactly `0.0` for neutron-poor (`N <= Z`) targets, which is the design
+intent of the control family from `PRED-0028`.
+
+### Combining Coefficient and Feature-Term Transforms
+
+```yaml
+transform:
+  scale:
+    asymmetry: 1.01
+  feature_terms:
+    - type: shell_proximity_gaussian
+      axis: n
+      coefficient: 1.6049071729432316
+```
+
+Coefficient transforms reshape the SEMF baseline; feature terms add a separate
+deterministic correction to the resulting binding energy. Both contributions
+appear in the candidate slate summary, and per-target rows expose
+`feature_term_correction_mev` whenever a variant uses feature terms.
+
+More complex ensemble controls or trainable feature families should be added
+only when they can still be made deterministic and reviewable.
 
 ## Guardrails
 
