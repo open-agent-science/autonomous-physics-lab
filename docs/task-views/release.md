@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0238` - Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`, domain `release_readiness`)
+None.
