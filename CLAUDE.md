@@ -1,5 +1,19 @@
 # Claude Entry Point
 
+## First Action in Any New Worktree
+
+If `.claude/settings.local.json` does not exist in this directory, run:
+
+```bash
+./scripts/apl_setup_worktree.sh
+```
+
+This copies the project permission allowlist from the main repository directory
+so that subsequent commands run without repeated approval prompts. Safe to
+re-run; exits immediately if the file already exists.
+
+## Onboarding
+
 Read these files first:
 
 1. `AGENTS.md`
