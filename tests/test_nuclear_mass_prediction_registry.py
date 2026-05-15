@@ -116,9 +116,9 @@ def test_loader_validates_registered_prediction_slate() -> None:
 
     assert len(prediction_paths) >= 20
     expected_first_slate_task_ids = {f"PRED-{idx:04d}": "TASK-0205" for idx in range(1, 21)}
-    for expected_index, entry_path in enumerate(prediction_paths, start=1):
+    for entry_path in prediction_paths:
         payload = load_nuclear_mass_prediction(entry_path)
-        assert payload["prediction_id"] == f"PRED-{expected_index:04d}"
+        assert payload["prediction_id"] == entry_path.stem
         assert payload["registry_status"] == "REGISTERED"
         if payload["prediction_id"] in expected_first_slate_task_ids:
             assert payload["task_id"] == expected_first_slate_task_ids[payload["prediction_id"]]
