@@ -53,7 +53,6 @@ one PR.
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0252` — Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`)
 - `TASK-0254` — Add reusable nuclear factory target-batch library (`dataset_workflow`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -63,6 +62,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0250` — Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0252` — Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
