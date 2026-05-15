@@ -14,7 +14,6 @@
 - `TASK-0237` - Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0250` - Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0252` - Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0253` - Add nuclear factory slate ranking helper (`scientific_tooling`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
 
@@ -27,3 +26,4 @@ None.
 - `TASK-0232` - Register nuclear prediction variants for isotope-chain extrapolation controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0236` - Register nuclear prediction variants for agent-designed minimal-complexity hypotheses (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0249` - Implement nuclear prediction variant factory (`scientific_tooling`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0253` - Add nuclear factory slate ranking helper (`scientific_tooling`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
