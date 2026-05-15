@@ -1,7 +1,7 @@
 id: TASK-0250
 title: "Run first nuclear prediction factory candidate slate"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
