@@ -8,7 +8,6 @@
 
 - `TASK-0222` - Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0227` - Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`, domain `particle_physics`)
-- `TASK-0250` - Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0252` - Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
@@ -17,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0250` - Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
