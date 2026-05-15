@@ -58,6 +58,10 @@ one PR.
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0250` — Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0252` — Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`)
+- `TASK-0253` — Add nuclear factory slate ranking helper (`scientific_tooling`, priority `high`, difficulty `medium`)
+- `TASK-0254` — Add reusable nuclear factory target-batch library (`dataset_workflow`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -288,6 +292,7 @@ None.
 - `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0251` — Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

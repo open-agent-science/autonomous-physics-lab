@@ -144,6 +144,12 @@ Recommended nuclear validation queue for parallel agents:
 - `TASK-0249` nuclear prediction variant factory: automate the repetitive
   coefficient-grid / target-batch inner loop so agents curate and review a
   smaller selected slate instead of hand-generating every candidate
+- `TASK-0250` first factory-generated slate: create and review 30-80 draft
+  candidates without committing raw draft PRED YAML
+- `TASK-0252` and `TASK-0253` factory tooling expansion: add feature-term
+  variants and a deterministic ranking helper before scaling registry commits
+- `TASK-0251` selected factory registry wave: blocked until `TASK-0250`
+  produces a reviewed subset for `PRED-0041+`
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
   umbrella; review the narrower TASK-0200 through TASK-0202 outputs through

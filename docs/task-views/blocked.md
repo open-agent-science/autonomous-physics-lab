@@ -14,6 +14,7 @@ None.
 - `TASK-0224` - Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0226` - Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `condensed_matter`)
+- `TASK-0251` - Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 
 ## Support Blockers
 

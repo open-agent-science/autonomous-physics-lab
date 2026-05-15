@@ -44,6 +44,17 @@ desired workflow is:
 This keeps AI agents in the scientific-curation loop while moving arithmetic,
 coefficient grids, and draft generation into reproducible code.
 
+After the initial factory lands, use the factory-wave tasks instead of adding
+large raw registry batches directly:
+
+| Task | Purpose |
+| --- | --- |
+| `TASK-0250` | Generate and review the first 30-80 candidate factory slate |
+| `TASK-0251` | Register only the selected slate subset as `PRED-0041+` after review |
+| `TASK-0252` | Extend the factory to shell, magic-number, and neutron-excess feature terms |
+| `TASK-0253` | Add deterministic slate ranking / redundancy review |
+| `TASK-0254` | Add reusable target-batch library for future factory configs |
+
 ## Pre-Reveal Validation
 
 Agents can test entries before reveal by checking:
