@@ -69,12 +69,10 @@ aid only. Implementation lives in
 
 After `TASK-0249`, the recommended next work is:
 
-- `TASK-0250`: generate and review the first larger factory slate, without
-  committing draft PRED YAML files;
 - `TASK-0252`: extend the factory beyond coefficient transforms into bounded
   shell, magic-number, and neutron-excess feature terms;
-- `TASK-0253`: add a deterministic slate-ranking helper for redundancy,
-  coverage, and sensitivity review;
+- `TASK-0250`: generate and review the first larger factory slate, without
+  committing draft PRED YAML files, and run the ranking helper on the summary;
 - `TASK-0254`: create a reusable target-batch library for future factory runs;
 - `TASK-0251`: register only the selected slate entries as `PRED-0041+` after
   `TASK-0250` is reviewed.
@@ -82,6 +80,11 @@ After `TASK-0249`, the recommended next work is:
 The important split is generation before registration. Large slates may be
 useful for search and review, but the registry should contain only a curated
 subset with stable reveal conditions.
+
+The older manual registry lanes `TASK-0233`, `TASK-0234`, `TASK-0235`, and
+`TASK-0237` are paused as fallback lanes. Their scientific ideas remain useful,
+but they should normally be represented inside the factory slate rather than
+committed as isolated hand-written PRED pairs.
 
 ## Supported First-Pass Variant Families
 
