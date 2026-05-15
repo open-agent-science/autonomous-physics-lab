@@ -35,6 +35,36 @@ calculation.
 5. Copy only selected draft entries into `prediction_registry/nuclear_masses/`
    in a dedicated reviewed PR.
 
+## Slate Ranking Helper
+
+Once a factory config is generated, use the slate ranking helper to surface
+diversity and risk signals before committing any candidates to the registry:
+
+```bash
+python3 scripts/generate_nuclear_prediction_variants.py \
+  examples/nuclear_prediction_variant_factory.yaml \
+  --summary-out /tmp/apl-nuclear-factory-summary.yaml
+
+python3 scripts/rank_nuclear_prediction_variant_slate.py \
+  /tmp/apl-nuclear-factory-summary.yaml \
+  --out /tmp/apl-nuclear-factory-ranking.md
+```
+
+The ranking report covers:
+
+- candidate count and target-batch coverage;
+- model-family prefix coverage;
+- duplicate prediction ids and near-duplicate value vectors;
+- delta sensitivity table sorted by largest absolute delta from baseline;
+- heuristic flags: `EXTREME_SENSITIVITY`, `ALL_ZERO_DELTA`,
+  `REDUNDANT_TARGET_BATCH`, `MISSING_REVIEW_NOTES`, `DUPLICATE_PREDICTION_ID`,
+  `NEAR_DUPLICATE_VECTOR`.
+
+The report assigns no scientific success scores and makes no comparison against
+future or holdout measurements. It is a deterministic pre-selection triage
+aid only. Implementation lives in
+`physics_lab/engines/nuclear_prediction_variant_review.py`.
+
 ## Next Factory Wave
 
 After `TASK-0249`, the recommended next work is:
