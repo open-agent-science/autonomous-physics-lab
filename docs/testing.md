@@ -10,6 +10,10 @@ python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
 
+Pytest uses the workspace-local `.pytest-basetemp/` directory by default. This
+keeps `tmp_path` based tests stable on Windows systems where the user-level
+temporary directory is locked down.
+
 ## Coverage Reporting
 
 Coverage is report-only. Do not treat the first measured percentage as a merge
@@ -39,8 +43,9 @@ On Windows PowerShell, use the same command on one line:
 python -m pytest --cov=physics_lab --cov=scripts --cov-branch --cov-report=term-missing:skip-covered --cov-report=html:_coverage/html
 ```
 
-If the system temporary directory is not writable, add a workspace-local
-temporary base:
+The repository pytest configuration already sets `.pytest-basetemp/` as the
+temporary base. If you run coverage through a tool that bypasses the repository
+pytest configuration, pass it explicitly:
 
 ```powershell
 python -m pytest --basetemp=.pytest-basetemp --cov=physics_lab --cov=scripts --cov-branch --cov-report=term-missing:skip-covered --cov-report=html:_coverage/html
@@ -49,4 +54,4 @@ python -m pytest --basetemp=.pytest-basetemp --cov=physics_lab --cov=scripts --c
 The command reports line and branch coverage for `physics_lab` plus the Python
 `scripts/` directory. The critical-path audit interprets the script rows by
 priority instead of requiring every wrapper or generator to be covered. The
-HTML output is local-only and should not be committed.
+HTML output and `.pytest-basetemp/` are local-only and should not be committed.

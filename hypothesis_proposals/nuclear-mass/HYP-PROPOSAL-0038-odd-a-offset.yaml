@@ -1,0 +1,89 @@
+id: HYP-PROPOSAL-0038
+title: "Odd-A residual offset"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox candidate only; no canonical result or claim promotion."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0201
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/nuclear-mass-holdout-protocol.md"
+  - "docs/nuclear-mass-robustness-gate.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "agent_runs/AGENT-RUN-0006/"
+  - "agent_runs/AGENT-RUN-0008/"
+  - "agent_runs/AGENT-RUN-0011/metrics.json"
+
+hypothesis:
+  statement: "A single odd-A offset may capture a residual bias left after the frozen semi-empirical baseline's pairing term is fitted."
+  variables:
+    - "r_base: frozen baseline residual in MeV"
+    - "odd_a_indicator = 1 when A is odd, else 0"
+    - "a: train-fitted coefficient in MeV"
+  assumptions:
+    - "The frozen RESULT-0015 baseline remains unchanged."
+    - "The feature is a diagnostic pairing-family residual term, not a replacement mass formula."
+    - "Any internal holdout improvement must still be checked against post-AME2020 behavior."
+  expected_scope: "The four active NMD-0002 holdout families and the 295-row post-AME2020 primary surface."
+  expected_failure_modes:
+    - "The odd-A offset can improve tiny NMD-0002 structured holdouts while regressing the post-AME2020 primary surface."
+    - "A low-dimensional feature may hide subset tradeoffs across odd-A, neutron-rich, and proton-rich rows."
+
+novelty_check:
+  checked_files:
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0021-shell-dual-heavy-anchor-odd-a.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0022-quadratic-asymmetry-refinement.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0033-quartic-asymmetry.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0034-asymmetric-neutron-excess.yaml"
+  possible_overlap: "Uses the odd-A diagnostic axis but not the shell-dual-heavy-anchor feature in HYP-PROPOSAL-0021."
+  notes: "Selected as the compactest disjoint pairing-family candidate for TASK-0201."
+
+falsification_plan:
+  deterministic_check: "Fit r_corr = a * odd_a_indicator on each NMD-0002 holdout complement and once on the full NMD-0002 surface; evaluate on each holdout and on the 295-row post-AME2020 primary surface."
+  baseline_or_reference: "Frozen RESULT-0015 fitted semi-empirical baseline."
+  pass_condition: "Improve at least two structured holdouts with no regression and avoid post-AME2020 primary or odd-A subset regression."
+  fail_condition: "Regress the post-AME2020 primary surface or materially regress the odd-A subset despite internal holdout improvement."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe the offset as a new pairing law."
+    - "Do not treat internal holdout improvement as promotion-grade evidence."
+  mitigations:
+    - "Keep results sandbox-only."
+    - "Report the post-AME2020 regression beside the structured-holdout improvement."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_pairing_batch.py"
+    - "python3 -m pytest tests/test_nuclear_pairing_batch.py"
+  code_references:
+    - "scripts/run_nuclear_pairing_batch.py"
+    - "tests/test_nuclear_pairing_batch.py"
+  metrics:
+    - "structured_holdout_delta_mae_mev"
+    - "post_ame2020_primary_delta_mae_mev"
+    - "post_ame2020_subset_delta_mae_mev"
+    - "feature_activation_counts"
+    - "fitted_coefficient_magnitude"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0011/metrics.json"
+
+limitations:
+  - "NMD-0002 has 11 nuclides; structured holdouts fit on 8-9 rows."
+  - "The post-AME2020 evaluation is retrospective time-split, not blind prediction."
+  - "Internal structured-holdout PARTIALLY_VALID behavior is not sufficient because the primary and odd-A post-AME2020 subsets regress."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Treat this as split-sensitive diagnostic evidence, not as a follow-up candidate, unless a broader pinned training surface is introduced by a later task."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Maintainer review under docs/nuclear-mass-robustness-gate.md before any RESULT-* or claim update."
