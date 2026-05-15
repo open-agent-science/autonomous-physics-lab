@@ -313,7 +313,7 @@ def test_task_candidates_use_configurable_research_type_order(tmp_path: Path) ->
     assert [candidate.task_id for candidate in candidates] == ["TASK-0021", "TASK-0020"]
 
 
-def test_mission_json_exposes_task_candidate_ranking_config(tmp_path: Path) -> None:
+def test_mission_json_exposes_but_does_not_apply_task_candidate_ranking_config(tmp_path: Path) -> None:
     _write_missions(tmp_path)
     mission_path = tmp_path / "missions" / "current.yaml"
     mission_path.write_text(
@@ -322,11 +322,14 @@ def test_mission_json_exposes_task_candidate_ranking_config(tmp_path: Path) -> N
             """\
 
             task_candidate_ranking:
-              research_type_order:
-                - scientific_validation
-                - scientific_tooling
-              hypothesis_keywords:
-                - hypothesis
+              onboarding:
+                research_type_order:
+                  - scientific_validation
+                  - scientific_tooling
+                hypothesis_keywords:
+                  - hypothesis
+              research:
+                enabled: false
             """
         ),
         encoding="utf-8",
@@ -352,11 +355,57 @@ def test_mission_json_exposes_task_candidate_ranking_config(tmp_path: Path) -> N
 
     rendered = json.loads(mission_json(payload, root=tmp_path))
 
-    assert rendered["task_candidate_ranking"]["research_type_order"] == [
+    assert rendered["task_candidate_ranking"]["onboarding"]["research_type_order"] == [
         "scientific_validation",
         "scientific_tooling",
     ]
-    assert rendered["live_task_candidates"][0]["task_id"] == "TASK-0023"
+    assert rendered["task_candidate_ranking"]["research"]["enabled"] is False
+    assert rendered["live_task_candidates"][0]["task_id"] == "TASK-0022"
+
+
+def test_render_onboarding_prompt_applies_onboarding_ranking_config(tmp_path: Path) -> None:
+    _write_missions(tmp_path)
+    mission_path = tmp_path / "missions" / "current.yaml"
+    mission_path.write_text(
+        mission_path.read_text(encoding="utf-8")
+        + textwrap.dedent(
+            """\
+
+            task_candidate_ranking:
+              onboarding:
+                research_type_order:
+                  - scientific_validation
+                  - scientific_tooling
+                hypothesis_keywords:
+                  - hypothesis
+              research:
+                enabled: false
+            """
+        ),
+        encoding="utf-8",
+    )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0024",
+        title="Add tooling",
+        status="READY",
+        task_type="scientific_tooling",
+        priority="high",
+    )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0025",
+        title="Run hypothesis validation",
+        status="READY",
+        task_type="scientific_validation",
+        priority="high",
+        difficulty="high",
+    )
+    payload = load_current_missions(tmp_path)
+
+    rendered = render_onboarding_prompt(payload, root=tmp_path)
+
+    assert rendered.index("TASK-0025") < rendered.index("TASK-0024")
 
 
 def test_task_candidates_do_not_shuffle_support_mode_by_default(tmp_path: Path, monkeypatch) -> None:

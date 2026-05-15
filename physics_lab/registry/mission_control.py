@@ -150,11 +150,21 @@ def _estimated_time(difficulty: str) -> str:
     return DIFFICULTY_TIME_ESTIMATES.get(difficulty, "~5-20 min")
 
 
-def _ranking_config(payload: dict[str, Any] | None) -> dict[str, Any]:
+def _task_candidate_ranking_profiles(payload: dict[str, Any] | None) -> dict[str, Any]:
     if not isinstance(payload, dict):
         return {}
     config = payload.get("task_candidate_ranking", {})
     return config if isinstance(config, dict) else {}
+
+
+def _task_candidate_ranking_config(payload: dict[str, Any] | None, profile: str) -> dict[str, Any]:
+    profiles = _task_candidate_ranking_profiles(payload)
+    config = profiles.get(profile, {})
+    if not isinstance(config, dict):
+        return {}
+    if config.get("enabled") is False:
+        return {}
+    return config
 
 
 def _configured_string_tuple(
@@ -198,6 +208,15 @@ def _candidate_rank_key(
     ranking_config: dict[str, Any],
 ) -> tuple[int, int, int, int, int, str]:
     mode_rank = 0 if candidate.mode == "research" else 1
+    if not ranking_config:
+        return (
+            mode_rank,
+            PRIORITY_RANK.get(candidate.priority, 9),
+            DIFFICULTY_RANK.get(candidate.difficulty, 9),
+            999,
+            999,
+            candidate.type,
+        )
     return (
         mode_rank,
         _research_type_rank(candidate, ranking_config) if candidate.mode == "research" else 999,
@@ -371,11 +390,7 @@ def select_mission(payload: dict[str, Any], mode: str | None = None) -> MissionS
 def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path | None = None) -> str:
     """Render a compact JSON response for coding agents."""
     selection = select_mission(payload, mode)
-    live_candidates = (
-        task_candidates(root, mode=selection.mode, ranking_config=_ranking_config(payload))
-        if root is not None
-        else ()
-    )
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     data = {
         "default_mode": payload.get("default_mode"),
         "selected_mode": selection.mode,
@@ -414,7 +429,7 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
             "coordination": "Do not guess new task ids during parallel work; use proposals or maintainer-assigned tasks.",
             "candidate_order": "Equal-rank research/audit candidates may rotate so parallel agents do not all pick the same first task.",
         },
-        "task_candidate_ranking": _ranking_config(payload),
+        "task_candidate_ranking": _task_candidate_ranking_profiles(payload),
         "global_forbidden": payload.get("global_forbidden", []),
     }
     return json.dumps(data, indent=2, sort_keys=False)
@@ -423,11 +438,7 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
 def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, root: Path | None = None) -> str:
     """Render a concise human-readable mission menu."""
     selection = select_mission(payload, mode)
-    live_candidates = (
-        task_candidates(root, mode=selection.mode, ranking_config=_ranking_config(payload))
-        if root is not None
-        else ()
-    )
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     mode_info = payload.get("modes", {}).get(selection.mode, {})
     lines = [
         "APL Mission Control",
@@ -516,11 +527,7 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
 def render_agent_prompt(payload: dict[str, Any], *, root: Path | None = None) -> str:
     """Render a copy-paste prompt that asks an agent to run the full PR loop."""
     selection = select_mission(payload, None)
-    live_candidates = (
-        task_candidates(root, mode=selection.mode, ranking_config=_ranking_config(payload))
-        if root is not None
-        else ()
-    )
+    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
     action_label = selection.action.get("label") if selection.action else "the recommended action"
     task_id = selection.action.get("task_id") if selection.action else None
@@ -566,7 +573,11 @@ def render_onboarding_prompt(payload: dict[str, Any], *, root: Path | None = Non
     """Render a copy-paste prompt for a guided first agent response."""
     selection = select_mission(payload, None)
     live_candidates = (
-        task_candidates(root, mode=selection.mode, ranking_config=_ranking_config(payload))
+        task_candidates(
+            root,
+            mode=selection.mode,
+            ranking_config=_task_candidate_ranking_config(payload, "onboarding"),
+        )
         if root is not None
         else ()
     )

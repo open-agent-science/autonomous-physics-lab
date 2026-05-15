@@ -79,6 +79,7 @@ None.
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
 - `TASK-0249` — Implement nuclear prediction variant factory (`scientific_tooling`, priority `high`, difficulty `high`)
 - `TASK-0255` — Make onboarding research-task ranking configurable (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0256` — Limit science-execution task ranking to onboarding mode (`agent_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

@@ -1,0 +1,54 @@
+id: TASK-0256
+title: "Limit science-execution task ranking to onboarding mode"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep guided onboarding science-execution-first without changing every research mode."
+  - "Preserve default mission JSON and autonomous agent prompt behavior for normal research agents."
+  - "Make the onboarding-specific ranking configuration explicit and maintainable."
+
+input:
+  mode: workflow
+  related_domain: agent_onboarding
+  related_objects:
+    - "missions/current.yaml"
+    - "physics_lab/registry/mission_control.py"
+    - "tests/test_mission_control.py"
+  planning_context: >
+    TASK-0255 made research task candidate ranking configurable, but applied the
+    ranking to all research render paths. The maintainer wants the
+    science-execution-first ordering to affect only guided onboarding, while
+    normal research JSON, human mission output, and full autonomous agent
+    prompts keep the regular live task ordering.
+
+requirements:
+  - "Represent research and onboarding ranking as separate configuration profiles."
+  - "Apply science-execution-first ordering only in render_onboarding_prompt."
+  - "Do not apply the onboarding ranking to mission_json, render_human_mission, or render_agent_prompt."
+  - "Keep the research ranking profile disabled for now so normal research mode stays unchanged."
+  - "Keep support and maintainer modes unchanged."
+  - "Add tests covering both onboarding-ranked and normal-research ordering."
+
+accepted_outputs:
+  - "missions/current.yaml"
+  - "physics_lab/registry/mission_control.py"
+  - "tests/test_mission_control.py"
+  - "updated generated task board/views"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py"
+    - "python3 scripts/apl_mission.py --onboarding"
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
