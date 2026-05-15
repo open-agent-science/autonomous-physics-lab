@@ -78,7 +78,7 @@ None.
 - `TASK-0240` — Add targeted tests for review_git critical edge cases (`test_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
 - `TASK-0249` — Implement nuclear prediction variant factory (`scientific_tooling`, priority `high`, difficulty `high`)
-- `TASK-0255` — Make onboarding research-task ranking configurable (`agent_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0256` — Simplify onboarding prompt task-choice guidance (`agent_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
