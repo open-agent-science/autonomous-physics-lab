@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-15 13:12 UTC
+Generated: 2026-05-15 13:23 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2143,7 +2143,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -2172,6 +2172,7 @@ None.
 - `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (merged)
 - `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
+- `TASK-0215` — Add coverage reporting and critical-path test coverage audit (merged)
 - `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)
 - `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (merged)
 - `TASK-0212` — Clarify Scientific Campaign Curator maintainer-authorized task creation policy (merged)
