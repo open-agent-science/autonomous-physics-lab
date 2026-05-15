@@ -51,7 +51,6 @@ one PR.
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
-- `TASK-0230` — Register nuclear prediction variants for shell and magic-number controls (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0232` — Register nuclear prediction variants for isotope-chain extrapolation controls (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `medium`, difficulty `medium`)
@@ -68,6 +67,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
+- `TASK-0230` — Register nuclear prediction variants for shell and magic-number controls (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0231` — Register nuclear prediction variants for neutron-excess and asymmetry controls (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0238` — Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`)
 - `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (`test_infrastructure`, priority `high`, difficulty `high`)
