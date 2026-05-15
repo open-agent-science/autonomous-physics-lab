@@ -35,6 +35,24 @@ calculation.
 5. Copy only selected draft entries into `prediction_registry/nuclear_masses/`
    in a dedicated reviewed PR.
 
+## Next Factory Wave
+
+After `TASK-0249`, the recommended next work is:
+
+- `TASK-0250`: generate and review the first larger factory slate, without
+  committing draft PRED YAML files;
+- `TASK-0252`: extend the factory beyond coefficient transforms into bounded
+  shell, magic-number, and neutron-excess feature terms;
+- `TASK-0253`: add a deterministic slate-ranking helper for redundancy,
+  coverage, and sensitivity review;
+- `TASK-0254`: create a reusable target-batch library for future factory runs;
+- `TASK-0251`: register only the selected slate entries as `PRED-0041+` after
+  `TASK-0250` is reviewed.
+
+The important split is generation before registration. Large slates may be
+useful for search and review, but the registry should contain only a curated
+subset with stable reveal conditions.
+
 ## Supported First-Pass Variant Families
 
 The initial implementation supports semi-empirical coefficient transforms:
