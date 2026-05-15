@@ -20,17 +20,22 @@ input:
     - "docs/notes/nuclear-prediction-variant-factory.md"
     - "docs/notes/nuclear-prediction-variant-expansion-wave.md"
     - "results/EXP-0012/RUN-0001/result.yaml"
+    - "scripts/rank_nuclear_prediction_variant_slate.py"
   planning_context: >
     TASK-0249 added a deterministic variant factory. The next useful step is
     not immediate registry expansion, but a larger candidate slate that makes
     agents compare model diversity, target coverage, coefficient sensitivity,
-    and leakage risk before any selected PRED entries are committed.
+    leakage risk, and ranking-helper diagnostics before any selected PRED
+    entries are committed. If TASK-0252 has not landed yet, this first slate is
+    a coefficient-transform slate and any selected-registry follow-up should be
+    treated as provisional until feature-term coverage is reviewed.
 
 requirements:
   - "Create a larger factory config with at least 30 and at most 80 draft candidates."
   - "Use only committed repository sources; keep source_state.live_external_fetch_allowed=false."
   - "Include multiple target batches and bounded coefficient transforms covering smooth, pairing, ablation, and conservative sensitivity controls."
   - "Run the factory script to produce a candidate slate summary and draft PRED YAML into an explicit /tmp output directory."
+  - "Run the deterministic slate ranking helper on the generated summary and include its findings in the review."
   - "Commit the config and a review summary, but do not commit generated draft PRED YAML files."
   - "Summarize candidate diversity, target coverage, largest coefficient sensitivities, duplicate or redundant candidates, and recommended candidates for later registry selection."
   - "Keep all wording pre-reveal and below claim/result/knowledge promotion."
@@ -38,12 +43,15 @@ requirements:
 accepted_outputs:
   - "examples/nuclear_prediction_factory_slate_001.yaml"
   - "docs/reviews/nuclear-prediction-factory-slate-001.md"
+  - "docs/reviews/nuclear-prediction-factory-slate-001-ranking.md or equivalent ranking section in the slate review"
   - "updated docs/notes/nuclear-prediction-variant-factory.md if workflow guidance changes"
 
 validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_factory_slate_001.yaml --write-drafts --output-dir /tmp/apl-nuclear-factory-slate-001"
+    - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_factory_slate_001.yaml --summary-out /tmp/apl-nuclear-factory-slate-001.yaml"
+    - "python3 scripts/rank_nuclear_prediction_variant_slate.py /tmp/apl-nuclear-factory-slate-001.yaml --out /tmp/apl-nuclear-factory-slate-001-ranking.md"
     - "python3 -m physics_lab.cli validate examples/nuclear_prediction_factory_slate_001.yaml"
     - "python3 -m physics_lab.cli validate-repo ."
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"

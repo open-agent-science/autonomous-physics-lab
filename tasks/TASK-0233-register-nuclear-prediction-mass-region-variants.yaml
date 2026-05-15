@@ -1,9 +1,9 @@
 id: TASK-0233
 title: "Register nuclear prediction variants for mass-region stratified controls"
 type: scientific_validation
-status: READY
+status: BLOCKED
 difficulty: medium
-priority: medium
+priority: low
 
 strategy_alignment:
   - "Scale Nuclear Mass Surface prediction work through bounded, reviewable registry variants."
@@ -23,9 +23,13 @@ input:
     Future reveal comparisons should be able to distinguish where a variant
     works or fails. This lane registers two mass-region stratified control
     variants, such as region-specific coefficient controls or target batches
-    designed to separate low-A, mid-A, and high-A behavior.
+    designed to separate low-A, mid-A, and high-A behavior. After the
+    TASK-0249 factory and TASK-0253 ranking helper landed, this manual lane is
+    paused behind the factory-first path: prefer TASK-0250 and a reviewed
+    selected slate before filling manual PRED-0031/PRED-0032 gaps.
 
 requirements:
+  - "Do not start unless the maintainer explicitly reactivates this manual lane, or unless TASK-0250 shows that a hand-curated mass-region control pair is still needed."
   - "Create exactly two prospective registry entries unless the maintainer approves a larger batch."
   - "Use the suggested ids PRED-0031 and PRED-0032 unless a parallel branch collision requires renumbering before review."
   - "Compute quantity mass_excess_mev deterministically; do not leave calculation as LLM text."
