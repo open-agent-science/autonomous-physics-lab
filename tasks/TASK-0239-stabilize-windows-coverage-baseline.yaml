@@ -1,7 +1,7 @@
 id: TASK-0239
 title: "Stabilize Windows coverage baseline for critical CLI smoke tests"
 type: test_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
