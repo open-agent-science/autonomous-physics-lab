@@ -1,0 +1,63 @@
+id: TASK-0263
+title: "Add worktree-per-agent helpers and branch precondition check"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make parallel-agent work safer by giving each agent a real isolated git worktree instead of sharing the main checkout."
+  - "Provide a cheap precondition script the agent can run before any commit/push to detect 'wrong branch / surprise files' situations early."
+  - "Keep the new tooling additive and opt-in; do not force every contributor to switch tooling overnight."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "scripts/apl_setup_worktree.sh"
+    - "AGENTS.md"
+    - "CLAUDE.md"
+    - "tasks/TASK-0227-add-lepton-g2-cross-observable-falsifier.yaml"
+    - "tasks/TASK-0251-register-selected-nuclear-factory-predictions.yaml"
+  planning_context: >
+    During TASK-0227 a parallel codex session sharing the same checkout
+    committed TASK-0251 work onto the active claude branch (both branches
+    ended up at the same SHA, recovery required git reset --mixed and a
+    selective revert). The root cause is that two agent sessions shared
+    one working tree without per-branch isolation and without a branch
+    precondition check before staging/committing. This task adds:
+    (a) a small helper that creates a real git worktree at a sibling
+    path for a task branch; (b) a precondition script that exits
+    non-zero when HEAD is not the expected task branch or when
+    untracked files exist outside an opt-in allowlist; and (c) a doc
+    note describing when and how to use both.
+
+requirements:
+  - "Add scripts/apl_new_worktree.sh that wraps git worktree add for a task branch and runs apl_setup_worktree.sh in the new tree."
+  - "Add scripts/apl_branch_precondition.py that checks current HEAD against an expected branch and surfaces unexpected modified or untracked files."
+  - "The precondition script must reuse HARNESS_IGNORE_PATHS (from TASK-0261, now on main) so harness-only files do not cause false positives."
+  - "Add docs/notes/agent-worktree-discipline.md explaining when to use a worktree, how to use the new helpers, and how the precondition check fits the existing canonical task protocol."
+  - "Add a small AGENTS.md cross-link to the new note in the parallel-work section."
+  - "Add pytest coverage for the precondition script: branch-match clean tree returns OK, branch-mismatch returns non-zero, modified-tree returns non-zero, harness lockfile alone is OK."
+  - "Do not change the canonical task protocol, branch naming, or commit format. The new tooling is opt-in until a follow-up task evaluates whether to make it mandatory."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - "scripts/apl_new_worktree.sh"
+  - "scripts/apl_branch_precondition.py"
+  - "tests/test_apl_branch_precondition.py"
+  - "docs/notes/agent-worktree-discipline.md"
+  - "AGENTS.md (small cross-link only)"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
