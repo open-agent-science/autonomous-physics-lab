@@ -1,0 +1,56 @@
+id: TASK-0257
+title: "Fix agent-tool metadata inference in PR helpers"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer closeout and PR helper metadata accurate across Codex, Claude Code, and other agent tools."
+  - "Prevent review-agent blind spots where branch agent ids and PR metadata disagree."
+  - "Reduce repeated maintainer cleanup after closeout and sync PRs."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - "scripts/apl_closeout_pr_helper.py"
+    - "scripts/apl_task_pr_helper.py"
+    - "physics_lab/registry/review_policy.py"
+    - "physics_lab/registry/closeout_pr_helper.py"
+    - "physics_lab/registry/task_pr_helper.py"
+  planning_context: >
+    PR #338 was created from a Claude branch but the closeout helper rendered
+    `Agent tool: Codex` because `--agent-tool` defaulted to Codex and the docs
+    example omitted the argument. The helper and review path should infer known
+    tool names from `--agent-id` and flag branch/body mismatches.
+
+requirements:
+  - "Do not default helper-generated PR metadata to Codex when another agent id is used."
+  - "Infer known agent tool labels from `--agent-id`, including `codex` and `claude`."
+  - "Keep explicit `--agent-tool` support for custom tools."
+  - "Make task and closeout preflight flag obvious branch/body agent-tool mismatches."
+  - "Make the maintainer review agent surface the same mismatch as a required fix."
+  - "Update closeout instructions so agents know to pass `--agent-tool` explicitly when appropriate."
+
+accepted_outputs:
+  - "updated scripts/apl_closeout_pr_helper.py"
+  - "updated scripts/apl_task_pr_helper.py"
+  - "updated physics_lab/registry/review_policy.py"
+  - "updated physics_lab/registry/closeout_pr_helper.py"
+  - "updated physics_lab/registry/task_pr_helper.py"
+  - "updated physics_lab/registry/maintainer_review.py"
+  - "updated docs/maintainer-review-agent.md"
+  - "tests covering Claude inference and mismatch detection"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_closeout_pr_helper.py tests/test_task_pr_helper.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

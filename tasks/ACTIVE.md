@@ -60,7 +60,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
