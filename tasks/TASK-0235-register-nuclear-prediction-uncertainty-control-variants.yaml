@@ -1,9 +1,9 @@
 id: TASK-0235
 title: "Register nuclear prediction variants for uncertainty and ensemble-style controls"
 type: scientific_validation
-status: READY
+status: BLOCKED
 difficulty: medium
-priority: medium
+priority: low
 
 strategy_alignment:
   - "Scale Nuclear Mass Surface prediction work through bounded, reviewable registry variants."
@@ -23,9 +23,13 @@ input:
     PRED-0001 through PRED-0020 use point estimates only. This lane lets an
     agent register two conservative uncertainty or ensemble-style control
     variants, provided uncertainty semantics are explicit and not presented as
-    calibrated predictive confidence unless justified.
+    calibrated predictive confidence unless justified. The lane is now paused
+    behind factory-slate review because uncertainty or ensemble semantics should
+    first be compared against generated candidate diversity and not registered
+    as isolated manual entries.
 
 requirements:
+  - "Do not start unless the maintainer explicitly reactivates this manual lane, or unless TASK-0250 recommends a specific uncertainty/ensemble control pair for manual freezing."
   - "Create exactly two prospective registry entries unless the maintainer approves a larger batch."
   - "Use the suggested ids PRED-0035 and PRED-0036 unless a parallel branch collision requires renumbering before review."
   - "Compute quantity mass_excess_mev deterministically; do not leave calculation as LLM text."

@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-14 23:06 UTC
+Generated: 2026-05-16 08:30 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -543,6 +543,20 @@ standard execution flow, use `docs/agent-task-protocol.md`.
 <!-- source: CLAUDE.md -->
 
 # Claude Entry Point
+
+## First Action in Any New Worktree
+
+If `.claude/settings.local.json` does not exist in this directory, run:
+
+```bash
+./scripts/apl_setup_worktree.sh
+```
+
+This copies the project permission allowlist from the main repository directory
+so that subsequent commands run without repeated approval prompts. Safe to
+re-run; exits immediately if the file already exists.
+
+## Onboarding
 
 Read these files first:
 
@@ -1114,10 +1128,6 @@ support_actions:
     label: "Create private agent challenge pack"
     task_id: TASK-0177
     priority: medium
-  - id: validation-memory-split
-    label: "Split repository validation and scientific-memory integrity checks"
-    task_id: TASK-0136
-    priority: medium
   - id: maintainer-review-coverage
     label: "Expand maintainer review policy branch coverage"
     task_id: TASK-0241
@@ -1524,6 +1534,11 @@ Rules:
 
 - An agent may move `READY -> IN_PROGRESS`.
 - An agent may move `IN_PROGRESS -> REVIEW_READY`.
+- A task PR may update its own `tasks/TASK-XXXX-*.yaml` lifecycle status and
+  synchronize generated task navigation when that status changes.
+- Do not change unrelated task statuses or generated task navigation except
+  when the maintainer explicitly requested queue triage, closeout, unblock, or
+  stale-task cleanup.
 - Only a maintainer should move `REVIEW_READY -> DONE`.
 - A maintainer may use a maintainer-run review agent to assist review and
   closeout, but the agent output is advisory rather than autonomous.
@@ -1839,9 +1854,12 @@ The maintainer review agent must not:
    a maintainer-synchronized snapshot.
 6. Do not hand-edit `docs/task-views/*.md`; they are generated from canonical
    task YAML files alongside `tasks/ACTIVE.md`.
-7. If the task itself changes active-board behavior or presentation, update the
-   board and run `python3 -m physics_lab.cli sync-active-board .` as part of
-   that scoped task.
+7. If the task file changes status, run
+   `python3 -m physics_lab.cli sync-active-board .` so generated task
+   navigation reflects the current canonical task YAML. This generated sync is
+   allowed for the current task's lifecycle transition; do not include
+   unrelated task-status changes unless the maintainer explicitly requested
+   queue triage, unblock, closeout, or stale-task cleanup.
 8. Make the smallest reproducible change that satisfies the task.
 9. Run the required validation commands.
 10. Set the task to `REVIEW_READY` when implementation and validation are done.
@@ -2108,19 +2126,9 @@ one PR.
 
 ## READY
 
-- `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
-- `TASK-0230` — Register nuclear prediction variants for shell and magic-number controls (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0231` — Register nuclear prediction variants for neutron-excess and asymmetry controls (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0232` — Register nuclear prediction variants for isotope-chain extrapolation controls (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0236` — Register nuclear prediction variants for agent-designed minimal-complexity hypotheses (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 
@@ -2130,27 +2138,43 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0215` — Add coverage reporting and critical-path test coverage audit (`test_infrastructure`, priority `medium`, difficulty `medium`)
-- `TASK-0238` — Add public path leak checker for release hygiene (`release_review`, priority `high`, difficulty `low`)
-- `TASK-0245` — Add explicit onboarding mode for agent-first mission start (`contributor_experience`, priority `high`, difficulty `medium`)
+- `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
+- `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0258` — Track .claude/settings.json as shared agent permission baseline (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0259` — Clarify task-state and generated-navigation wording in task contracts (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0256` — Simplify onboarding prompt task-choice guidance (merged)
+- `TASK-0255` — Add worktree settings sync script and first-action CLAUDE.md instruction (merged)
+- `TASK-0254` — Add reusable nuclear factory target-batch library (merged)
+- `TASK-0253` — Add nuclear factory slate ranking helper (merged)
+- `TASK-0252` — Add feature-term variants to the nuclear prediction factory (merged)
+- `TASK-0250` — Run first nuclear prediction factory candidate slate (merged)
+- `TASK-0249` — Implement nuclear prediction variant factory (merged)
 - `TASK-0248` — Salvage pairing and odd-even nuclear hypothesis proposals (merged)
 - `TASK-0247` — Add PR lifecycle guardrails for autonomous agents (merged)
 - `TASK-0246` — Add closeout PR helper for template-based PR bodies (merged)
+- `TASK-0245` — Add explicit onboarding mode for agent-first mission start (merged)
 - `TASK-0244` — Fix snapshot canonical experiment list truncation (merged)
 - `TASK-0243` — Add generated task views and mission freshness sync (merged)
 - `TASK-0240` — Add targeted tests for review_git critical edge cases (merged)
 - `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (merged)
+- `TASK-0238` — Add public path leak checker for release hygiene (merged)
+- `TASK-0236` — Register nuclear prediction variants for agent-designed minimal-complexity hypotheses (merged)
+- `TASK-0232` — Register nuclear prediction variants for isotope-chain extrapolation controls (merged)
+- `TASK-0231` — Register nuclear prediction variants for neutron-excess and asymmetry controls (merged)
+- `TASK-0230` — Register nuclear prediction variants for shell and magic-number controls (merged)
 - `TASK-0229` — Register nuclear prediction variants for pairing and odd-even controls (merged)
 - `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (merged)
+- `TASK-0222` — Create Quantum Size Effects campaign scaffold (merged)
 - `TASK-0221` — Clarify campaign-curator trigger wording (merged)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
 - `TASK-0219` — Enforce repository PR template sections in maintainer review (merged)
 - `TASK-0218` — Clarify closeout PR auto-merge policy after maintainer authorization (merged)
 - `TASK-0217` — Add microtask availability preflight for repeat-safe agent work (merged)
 - `TASK-0216` — Add TASK-QUEUE PR lane for maintainer-directed task creation (merged)
+- `TASK-0215` — Add coverage reporting and critical-path test coverage audit (merged)
 - `TASK-0214` — Curate coverage audit task and task-creation PR flow guidance (merged)
 - `TASK-0213` — Hide REVIEW_READY tasks from executor agent recommendations (merged)
 - `TASK-0212` — Clarify Scientific Campaign Curator maintainer-authorized task creation policy (merged)
@@ -2349,6 +2373,11 @@ None.
 - `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0251` — Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

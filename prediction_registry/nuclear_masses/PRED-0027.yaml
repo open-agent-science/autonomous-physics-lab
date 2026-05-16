@@ -1,0 +1,130 @@
+prediction_id: PRED-0027
+title: "Prospective nuclear mass slate: quartic asymmetry negative control on neutron-excess probe"
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0231
+evidence_class: prospective_prediction_registry
+
+claim_ceiling: "Registered prospective prediction variant only; no claim, canonical result, or accepted knowledge promotion before later maintainer-reviewed comparison. No TASK-0202 neutron-rich sandbox candidate is being promoted beyond a bounded control role."
+
+registered_by:
+  contributor_id: roman
+  agent_id: codex
+
+registered_at_utc: "2026-05-15T05:54:24Z"
+
+source_state:
+  git_commit: "763575eb923a4e9ebcf1565509268b8e17f84c4b"
+  model_reference:
+    model_id: "RESULT-0015::model_fitted_semi_empirical::quartic_asymmetry_negative_control"
+    source_path: "agent_runs/AGENT-RUN-0010/metrics.json"
+    frozen_parameters_note: >
+      Frozen neutron-excess / asymmetry negative control derived from the TASK-0202 neutron-rich
+      sandbox lane. Baseline coefficients come from RESULT-0015 model_fitted_semi_empirical:
+      volume=15.51423612106804, surface=17.2931812095177, coulomb=0.6878156091568888,
+      asymmetry=23.846557883948485, pairing=15.990845113398912.
+      The registered correction is an additive residual-style control with
+      r_corr = c_i2 * I^2 + c_i4 * I^4, where I = (N - Z) / A.
+      Frozen coefficients are copied from AGENT-RUN-0010 full-NMD-0002 fit for HYP-PROPOSAL-0033:
+      c_i2 = 82.66196399343987 MeV, c_i4 = -1777.7853009092412 MeV.
+      TASK-0202 classified the family ALLOW_ONLY_AS_NEGATIVE_CONTROL after structured-holdout
+      failure and primary-regression overshoot, so this entry is a prospective control only and not
+      a promoted asymmetry-physics claim.
+  baseline_reference:
+    result_id: "RESULT-0015"
+    source_path: "results/EXP-0012/RUN-0001/result.yaml"
+  training_data_references:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  holdout_protocol_references:
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "docs/prediction-registry-policy.md"
+    - "docs/reviews/autonomous-nuclear-neutron-rich-batch-01.md"
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Registered from repository state 763575eb923a4e9ebcf1565509268b8e17f84c4b without live
+    external fetching. Target nuclides are repo-prospective: absent from committed NMD-0002 and
+    post-AME2020 holdout datasets at registration time. The frozen coefficient source is
+    retrospective sandbox evidence only; this entry does not convert that evidence into a claim.
+
+target_set:
+  label: "neutron-excess-control-probe"
+  quantity: "mass_excess_mev"
+  unit: "MeV"
+  target_nuclides:
+    - nuclide_id: "Na-39"
+      Z: 11
+      N: 28
+      A: 39
+      predicted_value_mev: 147.493226
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::quartic_asymmetry_negative_control.
+        Light, strongly neutron-rich target with I = 17/39, included to make quartic overshoot
+        sensitivity visible on a small-A surface.
+    - nuclide_id: "Mg-40"
+      Z: 12
+      N: 28
+      A: 40
+      predicted_value_mev: 104.080021
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::quartic_asymmetry_negative_control.
+        Keeps the same shell neighborhood as Na-39 while reducing I slightly, so the quartic-control
+        curvature remains visible.
+    - nuclide_id: "Co-81"
+      Z: 27
+      N: 54
+      A: 81
+      predicted_value_mev: 38.719704
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::quartic_asymmetry_negative_control.
+        Heavier neutron-rich target with moderate I, used to compare the quartic-control response
+        across mass regions.
+    - nuclide_id: "Ni-82"
+      Z: 28
+      N: 54
+      A: 82
+      predicted_value_mev: 18.346025
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::quartic_asymmetry_negative_control.
+        Near-magic proton count with the same neutron-rich neighborhood as Co-81, useful for later
+        comparison against asymmetry-only and shell-aware controls.
+
+uncertainty_semantics:
+  type: point_estimate_only
+  note: >
+    Each value is a deterministic mass_excess_mev point estimate obtained by adding the frozen
+    quartic-asymmetry control term to the RESULT-0015 fitted semi-empirical binding energy, then
+    converting the resulting atomic mass to mass excess. uncertainty_mev is intentionally null.
+    This entry is an asymmetry-lane negative control for future reveal comparison, not a
+    confidence-ranked forecast.
+
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest added after registration
+    contains measured or reviewably convertible values for one or more target nuclides.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed source manifest committed
+    after this registry timestamp
+  reveal_owner: "maintainer or maintainer-authorized review agent"
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, asymmetry-control formula note, target
+    nuclides, predicted values, or reveal rule. Later comparison must be a separate reviewed task
+    and may reveal a subset of targets only.
+
+limitations:
+  - "Prospective registry variant only; not a claim or result package."
+  - "No TASK-0202 neutron-rich sandbox candidate is being promoted; this is a bounded negative control."
+  - "Targets are selected against committed repository datasets only; no live external source was fetched during registration."
+  - "The frozen quartic-asymmetry coefficients come from retrospective sandbox fitting on the 11-row NMD-0002 slice and remain stability-limited."
+  - "Structured holdouts for the underlying HYP-PROPOSAL-0033 family were OVERFITTED, and the post-AME2020 primary MAE regressed."
+  - "Large shifts on extreme neutron-rich targets are a preserved warning sign of quartic overshoot, not evidence of a useful correction."
+
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false

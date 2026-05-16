@@ -1,13 +1,12 @@
 .venv/
-.claude/
+.claude/settings.local.json
+.claude/worktrees/
 __pycache__/
 .pytest_cache/
 .pytest-basetemp/
 .ruff_cache/
 _snapshots/
 .worktrees/
-.claude/
-.claude/settings.local.json
 .DS_Store
 *.pyc
 *.pyo

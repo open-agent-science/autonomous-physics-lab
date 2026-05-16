@@ -1,0 +1,484 @@
+factory_id: nuclear-prediction-factory-slate-001
+task_id: TASK-0250
+campaign_profile_id: nuclear-mass-surface
+quantity: mass_excess_mev
+registered_by:
+  contributor_id: roman
+  agent_id: claude_code
+registered_at_utc: "2026-05-15T00:00:00Z"
+
+baseline_model:
+  result_id: RESULT-0015
+  source_path: results/EXP-0012/RUN-0001/result.yaml
+  score_model_id: model_fitted_semi_empirical
+  registry_model_id: RESULT-0015::model_fitted_semi_empirical
+  frozen_parameters_note: >
+    Frozen coefficient source is RESULT-0015 score model_fitted_semi_empirical.
+    The slate applies only bounded coefficient transforms listed in this config.
+    Per TASK-0250 scope, all variants here are coefficient transforms; feature
+    term variants are deferred until TASK-0252 lands.
+
+source_state:
+  git_commit: 9025ae2266b97b8173b4b8c904f9f7f4e4e810bb
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Slate-001 runs only against committed repository state. No live external
+    measurement source is fetched. The slate is a sandbox review surface and
+    does not commit draft PRED YAML to the prediction registry. PRED ids in the
+    9000 range are reserved for factory sandbox slates and are not registry ids.
+
+reveal_conditions:
+  reveal_trigger: >
+    Slate-001 is a sandbox review and has no reveal trigger of its own. Only a
+    maintainer-reviewed subset that is later copied into the prediction registry
+    via TASK-0251 (or a successor) inherits live reveal conditions.
+  comparison_data_reference: >
+    none for slate-001; future reveals are tied to whichever PRED entries are
+    selected and committed under a separate reviewed task.
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    Slate candidates must not be retroactively edited to match later
+    measurements. Sandbox-only outputs may be discarded; they must not be
+    promoted, rewritten as canonical predictions, or compared retrospectively to
+    AME-style data without a maintainer-approved reveal task.
+
+output:
+  write_draft_predictions: false
+  draft_prediction_dir: /tmp/apl-nuclear-factory-slate-001
+
+target_batches:
+  frontier-next-row:
+    - nuclide_id: Ca-55
+      Z: 20
+      N: 35
+    - nuclide_id: Ni-76
+      Z: 28
+      N: 48
+    - nuclide_id: Zn-80
+      Z: 30
+      N: 50
+    - nuclide_id: Ga-85
+      Z: 31
+      N: 54
+  odd-even-probe:
+    - nuclide_id: Co-59
+      Z: 27
+      N: 32
+    - nuclide_id: Ni-60
+      Z: 28
+      N: 32
+    - nuclide_id: Cu-64
+      Z: 29
+      N: 35
+  light-region-controls:
+    - nuclide_id: C-12
+      Z: 6
+      N: 6
+    - nuclide_id: Mg-24
+      Z: 12
+      N: 12
+    - nuclide_id: Si-28
+      Z: 14
+      N: 14
+    - nuclide_id: S-32
+      Z: 16
+      N: 16
+  neutron-rich-N50:
+    - nuclide_id: Ni-78
+      Z: 28
+      N: 50
+    - nuclide_id: Cu-79
+      Z: 29
+      N: 50
+    - nuclide_id: Kr-94
+      Z: 36
+      N: 58
+    - nuclide_id: Sr-92
+      Z: 38
+      N: 54
+  mid-mass-stable:
+    - nuclide_id: Cu-63
+      Z: 29
+      N: 34
+    - nuclide_id: Zn-66
+      Z: 30
+      N: 36
+    - nuclide_id: Ge-72
+      Z: 32
+      N: 40
+    - nuclide_id: Se-78
+      Z: 34
+      N: 44
+
+variants:
+  # Smooth controls: blend with repository reference semi-empirical coefficients.
+  - prediction_id: PRED-9101
+    variant_id: blend-with-reference-10-frontier
+    target_batch: frontier-next-row
+    model_control_label: smooth semi-empirical interpolation control
+    transform:
+      blend_with_reference: 0.10
+    review_notes:
+      - 10 percent interpolation toward repository reference semi-empirical coefficients.
+      - Smooth-control candidate for reviewing baseline-sensitivity floor.
+
+  - prediction_id: PRED-9102
+    variant_id: blend-with-reference-25-frontier
+    target_batch: frontier-next-row
+    model_control_label: smooth semi-empirical interpolation control
+    transform:
+      blend_with_reference: 0.25
+    review_notes:
+      - 25 percent interpolation toward repository reference coefficients.
+
+  - prediction_id: PRED-9103
+    variant_id: blend-with-reference-50-frontier
+    target_batch: frontier-next-row
+    model_control_label: smooth semi-empirical interpolation control
+    transform:
+      blend_with_reference: 0.50
+    review_notes:
+      - 50/50 blend of fitted and reference coefficients on the frontier batch.
+
+  - prediction_id: PRED-9104
+    variant_id: blend-with-reference-75-frontier
+    target_batch: frontier-next-row
+    model_control_label: smooth semi-empirical interpolation control
+    transform:
+      blend_with_reference: 0.75
+    review_notes:
+      - 75 percent interpolation toward repository reference coefficients.
+
+  # Volume coefficient sensitivity controls on frontier batch.
+  - prediction_id: PRED-9105
+    variant_id: volume-scale-plus-0p5pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        volume: 1.005
+    review_notes:
+      - Small volume-term perturbation; tests smooth scaling behavior on neutron-rich frontier targets.
+
+  - prediction_id: PRED-9106
+    variant_id: volume-scale-minus-0p5pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        volume: 0.995
+    review_notes:
+      - Mirror counterpart of PRED-9105; tests sign symmetry of volume perturbation.
+
+  - prediction_id: PRED-9107
+    variant_id: volume-scale-plus-1pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        volume: 1.01
+    review_notes:
+      - 1 percent volume perturbation; expected to produce larger absolute delta on heavy frontier targets.
+
+  - prediction_id: PRED-9108
+    variant_id: volume-scale-minus-1pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        volume: 0.99
+    review_notes:
+      - Mirror counterpart of PRED-9107.
+
+  # Surface coefficient sensitivity controls on frontier batch.
+  - prediction_id: PRED-9109
+    variant_id: surface-scale-plus-1pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        surface: 1.01
+    review_notes:
+      - 1 percent surface-term perturbation on heavy targets where surface effect is small.
+
+  - prediction_id: PRED-9110
+    variant_id: surface-scale-minus-1pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        surface: 0.99
+    review_notes:
+      - Mirror counterpart of PRED-9109.
+
+  - prediction_id: PRED-9111
+    variant_id: surface-scale-plus-3pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        surface: 1.03
+    review_notes:
+      - Larger 3 percent surface perturbation to probe non-linear effects on heavy targets.
+
+  - prediction_id: PRED-9112
+    variant_id: surface-scale-minus-3pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        surface: 0.97
+    review_notes:
+      - Mirror counterpart of PRED-9111.
+
+  # Coulomb coefficient sensitivity controls on frontier batch.
+  - prediction_id: PRED-9113
+    variant_id: coulomb-scale-plus-1pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        coulomb: 1.01
+    review_notes:
+      - 1 percent Coulomb perturbation; effect grows with Z and should differ between Ca-55 and Ga-85.
+
+  - prediction_id: PRED-9114
+    variant_id: coulomb-scale-minus-1pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        coulomb: 0.99
+    review_notes:
+      - Mirror counterpart of PRED-9113.
+
+  # Asymmetry coefficient sensitivity controls on frontier batch.
+  - prediction_id: PRED-9115
+    variant_id: asymmetry-scale-plus-1pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        asymmetry: 1.01
+    review_notes:
+      - 1 percent asymmetry perturbation; expected to be large on neutron-rich frontier targets.
+
+  - prediction_id: PRED-9116
+    variant_id: asymmetry-scale-minus-1pct-frontier
+    target_batch: frontier-next-row
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        asymmetry: 0.99
+    review_notes:
+      - Mirror counterpart of PRED-9115.
+
+  # Pairing controls on odd-even probe batch.
+  - prediction_id: PRED-9117
+    variant_id: pairing-scale-plus-5pct-odd-even
+    target_batch: odd-even-probe
+    model_control_label: pairing sensitivity control
+    transform:
+      scale:
+        pairing: 1.05
+    review_notes:
+      - Bounded pairing perturbation; affects only even-even and odd-odd targets in the batch.
+
+  - prediction_id: PRED-9118
+    variant_id: pairing-scale-minus-5pct-odd-even
+    target_batch: odd-even-probe
+    model_control_label: pairing sensitivity control
+    transform:
+      scale:
+        pairing: 0.95
+    review_notes:
+      - Mirror counterpart of PRED-9117.
+
+  - prediction_id: PRED-9119
+    variant_id: pairing-scale-plus-10pct-odd-even
+    target_batch: odd-even-probe
+    model_control_label: pairing sensitivity control
+    transform:
+      scale:
+        pairing: 1.10
+    review_notes:
+      - Larger 10 percent pairing perturbation on odd-even-probe targets.
+
+  - prediction_id: PRED-9120
+    variant_id: pairing-scale-minus-10pct-odd-even
+    target_batch: odd-even-probe
+    model_control_label: pairing sensitivity control
+    transform:
+      scale:
+        pairing: 0.90
+    review_notes:
+      - Mirror counterpart of PRED-9119.
+
+  # Pairing ablations and assignments.
+  - prediction_id: PRED-9121
+    variant_id: pairing-zero-ablation-odd-even
+    target_batch: odd-even-probe
+    model_control_label: pairing ablation control
+    transform:
+      set:
+        pairing: 0.0
+    review_notes:
+      - Full pairing ablation; tests how much the fitted baseline relies on pairing on this batch.
+
+  - prediction_id: PRED-9122
+    variant_id: pairing-set-to-reference-odd-even
+    target_batch: odd-even-probe
+    model_control_label: reference coefficient swap control
+    transform:
+      set:
+        pairing: 12.0
+    review_notes:
+      - Replaces fitted pairing (~15.99 MeV) with repository reference value 12.0 MeV.
+
+  # Cross-batch pairing sanity: pairing transform on a batch where most targets are odd-A.
+  - prediction_id: PRED-9123
+    variant_id: pairing-zero-ablation-frontier
+    target_batch: frontier-next-row
+    model_control_label: pairing ablation cross-batch sanity control
+    transform:
+      set:
+        pairing: 0.0
+    review_notes:
+      - Cross-batch sanity check; frontier batch contains a mix of odd-A and even-even targets.
+      - Used to confirm pairing transform behavior across pairing classes.
+
+  # Light-region (low Z, low N) controls. All targets are even-even doubly aligned.
+  - prediction_id: PRED-9124
+    variant_id: blend-with-reference-50-light
+    target_batch: light-region-controls
+    model_control_label: smooth semi-empirical interpolation control
+    transform:
+      blend_with_reference: 0.50
+    review_notes:
+      - 50/50 blend on light even-even doubly aligned nuclides.
+      - Useful for reviewing pairing-term behavior on low-A targets.
+
+  - prediction_id: PRED-9125
+    variant_id: surface-scale-plus-2pct-light
+    target_batch: light-region-controls
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        surface: 1.02
+    review_notes:
+      - Surface perturbation is most visible on low-A targets where A^(2/3) dominates.
+
+  - prediction_id: PRED-9126
+    variant_id: surface-scale-minus-2pct-light
+    target_batch: light-region-controls
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        surface: 0.98
+    review_notes:
+      - Mirror counterpart of PRED-9125.
+
+  - prediction_id: PRED-9127
+    variant_id: pairing-scale-plus-5pct-light
+    target_batch: light-region-controls
+    model_control_label: pairing sensitivity control
+    transform:
+      scale:
+        pairing: 1.05
+    review_notes:
+      - All targets are even-even, so this perturbation has uniform sign across the batch.
+
+  - prediction_id: PRED-9128
+    variant_id: pairing-zero-ablation-light
+    target_batch: light-region-controls
+    model_control_label: pairing ablation control
+    transform:
+      set:
+        pairing: 0.0
+    review_notes:
+      - Pairing ablation on light even-even batch; binding-energy impact is large per nucleon.
+
+  # Neutron-rich N=50 controls (asymmetry/Coulomb stress).
+  - prediction_id: PRED-9129
+    variant_id: blend-with-reference-50-neutron-rich-N50
+    target_batch: neutron-rich-N50
+    model_control_label: smooth semi-empirical interpolation control
+    transform:
+      blend_with_reference: 0.50
+    review_notes:
+      - Smooth blend on neutron-rich N=50 batch including Ni-78 (doubly magic).
+
+  - prediction_id: PRED-9130
+    variant_id: coulomb-scale-plus-2pct-neutron-rich-N50
+    target_batch: neutron-rich-N50
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        coulomb: 1.02
+    review_notes:
+      - Coulomb perturbation grows with Z; gradient across Ni-78 to Sr-92 is informative.
+
+  - prediction_id: PRED-9131
+    variant_id: coulomb-scale-minus-2pct-neutron-rich-N50
+    target_batch: neutron-rich-N50
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      scale:
+        coulomb: 0.98
+    review_notes:
+      - Mirror counterpart of PRED-9130.
+
+  - prediction_id: PRED-9132
+    variant_id: asymmetry-delta-plus-0p5-neutron-rich-N50
+    target_batch: neutron-rich-N50
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      delta:
+        asymmetry: 0.5
+    review_notes:
+      - Additive +0.5 MeV asymmetry coefficient perturbation; large isospin effect expected.
+
+  - prediction_id: PRED-9133
+    variant_id: asymmetry-delta-minus-0p5-neutron-rich-N50
+    target_batch: neutron-rich-N50
+    model_control_label: bounded coefficient sensitivity control
+    transform:
+      delta:
+        asymmetry: -0.5
+    review_notes:
+      - Mirror counterpart of PRED-9132.
+
+  # Mid-mass stable batch controls and full-reference swaps.
+  - prediction_id: PRED-9134
+    variant_id: blend-with-reference-50-mid-mass-stable
+    target_batch: mid-mass-stable
+    model_control_label: smooth semi-empirical interpolation control
+    transform:
+      blend_with_reference: 0.50
+    review_notes:
+      - 50/50 blend on mid-mass stable targets; smooth-control anchor in the well-constrained region.
+
+  - prediction_id: PRED-9135
+    variant_id: full-reference-coefficients-mid-mass
+    target_batch: mid-mass-stable
+    model_control_label: reference coefficient swap control
+    transform:
+      blend_with_reference: 1.0
+    review_notes:
+      - Full coefficient swap to repository reference values; equivalent to evaluating reference SEMF on the batch.
+
+  - prediction_id: PRED-9136
+    variant_id: full-reference-coefficients-frontier
+    target_batch: frontier-next-row
+    model_control_label: reference coefficient swap control
+    transform:
+      blend_with_reference: 1.0
+    review_notes:
+      - Full reference-coefficient swap on the frontier batch.
+      - Pairs with PRED-9135 for cross-batch reference-baseline comparison.

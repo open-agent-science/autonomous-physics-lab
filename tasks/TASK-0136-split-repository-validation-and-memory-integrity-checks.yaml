@@ -1,7 +1,7 @@
 id: TASK-0136
 title: "Split repository validation and scientific-memory integrity checks"
 type: code_quality_refactor
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 

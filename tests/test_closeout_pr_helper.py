@@ -93,6 +93,29 @@ def test_preflight_closeout_pr_accepts_clean_shape(tmp_path: Path) -> None:
     assert report.warnings == ()
 
 
+def test_preflight_closeout_pr_flags_agent_tool_mismatch() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    branch = "agent/roman/claude/closeout-merged-task-batch"
+    title = "TASK-CLOSEOUT: mark task done"
+    body = closeout_pr_body(
+        task_ids=("TASK-0244",),
+        branch=branch,
+        title=title,
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_tool="Codex",
+        human_reviewer="gladunrv",
+        include_active_board=True,
+        include_context=True,
+        root=repo_root,
+    )
+
+    report = preflight_closeout_pr(repo_root, branch=branch, title=title, body_text=body)
+
+    assert not report.ok
+    assert any("does not match branch agent id `claude`" in item for item in report.errors)
+
+
 def test_cli_scaffold_runs_from_repo_root() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     result = subprocess.run(
@@ -126,6 +149,41 @@ def test_cli_scaffold_runs_from_repo_root() -> None:
     assert result.returncode == 0
     assert "agent/roman/codex/closeout-task-0244-snapshot-fix" in result.stdout
     assert "TASK-CLOSEOUT: mark task-0244 done" in result.stdout
+
+
+def test_cli_scaffold_infers_claude_agent_tool_from_agent_id() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_closeout_pr_helper.py",
+            "scaffold",
+            "--task-id",
+            "TASK-0244",
+            "--contributor-id",
+            "roman",
+            "--github-username",
+            "gladunrv",
+            "--agent-id",
+            "claude",
+            "--human-reviewer",
+            "gladunrv",
+            "--slug",
+            "task-0244-snapshot-fix",
+            "--description",
+            "mark task-0244 done",
+            "--include-active-board",
+            "--include-context",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "agent/roman/claude/closeout-task-0244-snapshot-fix" in result.stdout
+    assert "- Agent tool: `Claude Code`" in result.stdout
 
 
 def test_cli_scaffold_body_only_omits_branch_heading() -> None:

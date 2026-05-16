@@ -1,0 +1,47 @@
+id: TASK-0256
+title: "Simplify onboarding prompt task-choice guidance"
+type: agent_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep onboarding helpful without adding task-ranking architecture."
+  - "Make first-run recommendations softer and easier for new users to understand."
+  - "Preserve normal research mode behavior."
+
+input:
+  mode: workflow
+  related_domain: agent_onboarding
+  related_objects:
+    - "physics_lab/registry/mission_control.py"
+  planning_context: >
+    The maintainer wants guided onboarding to recommend simple science,
+    hypothesis, validation, or sandbox tasks first, but only as guidance. This
+    should be prompt-level behavior, not a hard sorting rule or configurable
+    ranking engine.
+
+requirements:
+  - "Revert the over-engineered TASK-0255 ranking/config change."
+  - "Add prompt-level onboarding guidance that recommends simpler science-execution tasks first."
+  - "Make the guidance explicitly advisory, not mandatory."
+  - "Keep normal research mode unchanged."
+
+accepted_outputs:
+  - "physics_lab/registry/mission_control.py"
+  - "tests/test_mission_control.py if prompt assertions need updating"
+  - "updated generated task board/views"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py"
+    - "python3 scripts/apl_mission.py --onboarding"
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

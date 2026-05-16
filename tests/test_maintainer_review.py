@@ -32,6 +32,7 @@ from physics_lab.registry.review_checks import (
 )
 from physics_lab.registry.review_git import CommandResult
 from physics_lab.registry.review_policy import (
+    agent_tool_metadata_mismatch,
     classify_review_protocol,
     validate_pr_title,
 )
@@ -338,6 +339,27 @@ def test_missing_pr_metadata_fields_accepts_task_id_alias() -> None:
     )
 
     assert missing_pr_metadata_fields(body) == ()
+
+
+def test_agent_tool_metadata_mismatch_detects_claude_branch_with_codex_body() -> None:
+    body = "\n".join(
+        [
+            "- Contributor ID: roman",
+            "- GitHub username: gladunrv",
+            "- Agent tool: Codex",
+            "- Task ID / Proposal / Queue: TASK-CLOSEOUT",
+            "- Branch: agent/roman/claude/closeout-merged-task-batch",
+            "- Human reviewer: roman",
+        ]
+    )
+
+    mismatch = agent_tool_metadata_mismatch(
+        "agent/roman/claude/closeout-merged-task-batch",
+        body,
+    )
+
+    assert mismatch is not None
+    assert "expected `Claude Code`" in mismatch
 
 
 def test_missing_pr_template_sections_detects_short_pr_body() -> None:
@@ -716,6 +738,81 @@ def test_build_review_report_closeout_batch_pr_is_merge_ok(tmp_path: Path) -> No
     assert report.task_id == "TASK-CLOSEOUT"
     assert report.verdict == "MERGE_OK"
     assert report.blockers == ()
+
+
+def test_build_review_report_requires_agent_tool_to_match_branch_agent(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    (tasks_dir / "TASK-0027-units.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0027",
+                'title: "Test closeout task"',
+                "type: documentation",
+                "status: DONE",
+                "difficulty: low",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Closeout regression fixture"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Closeout review fixture"',
+                "requirements:",
+                '  - "Keep task status at DONE in closeout branch"',
+                "accepted_outputs:",
+                '  - "updated task status"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/claude/closeout-confirmed-merged-tasks"
+    changed = ("tasks/TASK-0027-units.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=67,
+        title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
+        body=_full_pr_body(
+            task_ref="TASK-CLOSEOUT",
+            branch=branch,
+            kind="Task closeout PR",
+            primary_reference="- Closed Task Files: `tasks/TASK-0027-units.yaml`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=67)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("expected `Claude Code`" in item for item in report.required_fixes)
 
 
 def test_build_review_report_closeout_pr_may_unblock_dependent_task(
