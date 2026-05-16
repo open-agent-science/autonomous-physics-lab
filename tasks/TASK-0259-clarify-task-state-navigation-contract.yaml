@@ -1,0 +1,53 @@
+id: TASK-0259
+title: "Clarify task-state and generated-navigation wording in task contracts"
+type: maintainer_workflow
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Prevent agents from treating normal task lifecycle updates as protocol violations."
+  - "Keep task PRs allowed to move their own task to REVIEW_READY and sync generated navigation."
+  - "Continue blocking unrelated task-state drift and stale generated board changes."
+
+input:
+  mode: workflow
+  related_domain: task_protocol
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+    - "docs/maintainer-review-agent.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    A recent task contract used wording like "Do not change task-state
+    transitions or generated task navigation." That is too broad: normal task
+    PRs should update their own task from READY to REVIEW_READY and regenerate
+    task navigation through the canonical sync flow. The intended restriction
+    is narrower: do not change unrelated task statuses or generated navigation
+    outside the current task's lifecycle/sync needs.
+
+requirements:
+  - "Clarify protocol wording so a task PR may update its own task to REVIEW_READY."
+  - "Clarify that generated task navigation sync is expected when task files change."
+  - "Keep unrelated task-state transitions prohibited unless explicitly requested by the maintainer."
+  - "Update the task template or relevant agent protocol docs so future tasks avoid over-broad wording."
+  - "Do not change scientific artifacts, claims, results, experiments, or hypotheses."
+
+accepted_outputs:
+  - "updated docs/agent-task-protocol.md or equivalent protocol documentation"
+  - "updated tasks/TASK-TEMPLATE.yaml or equivalent task-authoring guidance"
+  - "optional maintainer-review wording update if review guidance repeats the broad prohibition"
+  - "generated task navigation synced after the task status change"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_views.py tests/test_active_board.py"
+    - "python3 -m physics_lab.cli sync-active-board ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
