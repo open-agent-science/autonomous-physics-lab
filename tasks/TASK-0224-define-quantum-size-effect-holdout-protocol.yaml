@@ -1,7 +1,7 @@
 id: TASK-0224
 title: "Define quantum-dot size-effect holdout protocol"
 type: benchmark_protocol
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: medium
 
@@ -18,13 +18,15 @@ input:
     - "tasks/TASK-0223-add-quantum-dot-size-effect-dataset-schema-and-source-manifest.yaml"
     - "docs/blind-holdout-benchmark-protocol.md"
   planning_context: >
+    TASK-0222 has landed the Quantum Size Effects campaign scaffold.
     Quantum-dot size-effect benchmarks need holdouts that test whether a model
-    transfers across materials, size regimes, sources, and composition families.
-    This task defines protocol-level split requirements before the first
-    baseline result is generated.
+    transfers across materials, size regimes, sources, and composition
+    families. This task defines protocol-level split requirements before the
+    first baseline result is generated, and may run in parallel with TASK-0223
+    as long as both PRs keep their artifact surfaces separate.
 
 requirements:
-  - "Do not start until TASK-0222 is DONE."
+  - "Use the completed TASK-0222 campaign scaffold and docs/blind-holdout-benchmark-protocol.md as the scope boundary."
   - "Define material holdout, size-range holdout, source or publication holdout, and composition-family holdout options."
   - "Define when a split is required versus optional for the first baseline."
   - "State how absorption, emission, and bandgap measurements should be split or separated."

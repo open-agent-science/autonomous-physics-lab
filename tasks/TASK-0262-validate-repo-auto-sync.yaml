@@ -1,0 +1,56 @@
+id: TASK-0262
+title: "Add --auto-sync flag to validate-repo CLI"
+type: contributor_experience
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Reduce friction in the canonical agent validation loop without weakening the existing stale-board check."
+  - "Keep the change additive: the default validate-repo behaviour stays strict and unchanged."
+  - "Let agents opt in to sync-then-validate via a single explicit flag rather than having to remember a separate sync-active-board step in every workflow."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "physics_lab/cli.py"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/task_navigation.py"
+    - "tasks/TASK-0260-expand-claude-code-permissions-allowlist.yaml"
+    - "tasks/TASK-0261-review-ignore-harness-artifacts.yaml"
+  planning_context: >
+    The canonical agent validation list ends with
+    "validate-repo . --strict --fail-on-warnings". This check correctly
+    flags stale tasks/ACTIVE.md and stale docs/task-views/*.md when the
+    canonical task YAML moved (for example after IN_PROGRESS → REVIEW_READY
+    on the current task). The agent then has to remember to run
+    sync-active-board and re-run validation. Adding an opt-in --auto-sync
+    flag lets agents collapse that two-step into one without changing the
+    default behaviour for any external caller or contributor.
+
+requirements:
+  - "Add --auto-sync flag to validate-repo CLI. When the flag is set, the command first calls sync_generated_task_state for the root and then runs validate_repository."
+  - "Preserve the existing default behaviour exactly when --auto-sync is omitted."
+  - "Allow --auto-sync to combine freely with --strict and --fail-on-warnings without forcing one to imply another."
+  - "Print a short confirmation line listing the synced paths so the agent can see what changed; do not silently rewrite files."
+  - "Do not auto-sync any other generated artifact (results/, claims/, knowledge/). Scope is task navigation only."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - "physics_lab/cli.py with --auto-sync option on validate-repo"
+  - "tests/test_validate_repo_auto_sync.py covering stale-with-flag, stale-without-flag (unchanged), and clean-with-flag scenarios"
+  - "docs/notes/claude-code-permissions-allowlist.md or a new short note describing the opt-in flag"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

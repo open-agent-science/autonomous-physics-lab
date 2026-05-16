@@ -48,7 +48,11 @@ one PR.
 
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
+- `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0264` — Run nuclear feature-term factory slate-002 (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0266` — Define nuclear prediction reveal protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -56,11 +60,13 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0260` — Expand Claude Code permissions allowlist for routine read-only operations (`contributor_experience`, priority `medium`, difficulty `low`)
-- `TASK-0261` — Stop maintainer-review-agent from blocking on harness-only artifacts (`contributor_experience`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0262` — Add --auto-sync flag to validate-repo CLI (merged)
+- `TASK-0261` — Stop maintainer-review-agent from blocking on harness-only artifacts (merged)
+- `TASK-0260` — Expand Claude Code permissions allowlist for routine read-only operations (merged)
 - `TASK-0259` — Clarify task-state and generated-navigation wording in task contracts (merged)
 - `TASK-0258` — Track .claude/settings.json as shared agent permission baseline (merged)
 - `TASK-0257` — Fix agent-tool metadata inference in PR helpers (merged)
@@ -292,14 +298,13 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## REJECTED
 
