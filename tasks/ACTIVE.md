@@ -56,21 +56,19 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
-- `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
-- `TASK-0251` — Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0258` — Track .claude/settings.json as shared agent permission baseline (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0259` — Clarify task-state and generated-navigation wording in task contracts (`maintainer_workflow`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0259` — Clarify task-state and generated-navigation wording in task contracts (merged)
+- `TASK-0258` — Track .claude/settings.json as shared agent permission baseline (merged)
+- `TASK-0257` — Fix agent-tool metadata inference in PR helpers (merged)
 - `TASK-0256` — Simplify onboarding prompt task-choice guidance (merged)
 - `TASK-0255` — Add worktree settings sync script and first-action CLAUDE.md instruction (merged)
 - `TASK-0254` — Add reusable nuclear factory target-batch library (merged)
 - `TASK-0253` — Add nuclear factory slate ranking helper (merged)
 - `TASK-0252` — Add feature-term variants to the nuclear prediction factory (merged)
+- `TASK-0251` — Register selected predictions from the first nuclear factory slate (merged)
 - `TASK-0250` — Run first nuclear prediction factory candidate slate (merged)
 - `TASK-0249` — Implement nuclear prediction variant factory (merged)
 - `TASK-0248` — Salvage pairing and odd-even nuclear hypothesis proposals (merged)
@@ -79,6 +77,7 @@ None.
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (merged)
 - `TASK-0244` — Fix snapshot canonical experiment list truncation (merged)
 - `TASK-0243` — Add generated task views and mission freshness sync (merged)
+- `TASK-0241` — Expand maintainer review policy branch coverage (merged)
 - `TASK-0240` — Add targeted tests for review_git critical edge cases (merged)
 - `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (merged)
 - `TASK-0238` — Add public path leak checker for release hygiene (merged)
@@ -88,6 +87,7 @@ None.
 - `TASK-0230` — Register nuclear prediction variants for shell and magic-number controls (merged)
 - `TASK-0229` — Register nuclear prediction variants for pairing and odd-even controls (merged)
 - `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (merged)
+- `TASK-0227` — Add lepton g-2 cross-observable falsifier (merged)
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (merged)
 - `TASK-0221` — Clarify campaign-curator trigger wording (merged)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
@@ -167,6 +167,7 @@ None.
 - `TASK-0139` — Curate scientific audit and architectural hardening follow-up queue (merged)
 - `TASK-0138` — Add canonical replay and golden-result hardening layer (merged)
 - `TASK-0137` — Split maintainer review helper into clearer policy layers (merged)
+- `TASK-0136` — Split repository validation and scientific-memory integrity checks (merged)
 - `TASK-0135` — Audit and freeze pendulum gauntlet reproducibility (merged)
 - `TASK-0134` — Salvage dimensional-validator replay and freeze benchmark scope (merged)
 - `TASK-0133` — Repair duplicate result-id collision and prevent duplicate canonical results (merged)
