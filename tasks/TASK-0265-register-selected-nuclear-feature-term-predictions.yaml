@@ -1,7 +1,7 @@
 id: TASK-0265
 title: "Register selected nuclear feature-term factory predictions"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -20,15 +20,14 @@ input:
     - "docs/prediction-registry-policy.md"
     - "data/nuclear_masses/factory_target_batches.yaml"
   planning_context: >
-    This task is intentionally blocked until TASK-0264 produces and reviews a
-    feature-term factory slate. It should register only a small curator-
-    approved subset of slate-002 candidates, leaving raw drafts in scratch
-    output only. If slate-002 exposes leakage, duplicate vectors, or
-    extreme-sensitivity behavior, keep this task blocked until those issues are
-    resolved or explicitly accepted as stress controls.
+    TASK-0264 has produced and reviewed feature-term factory slate-002, and
+    TASK-0266 has defined the no-peek reveal protocol. This task may now
+    register only a small maintainer-approved subset of slate-002 candidates,
+    leaving raw drafts in scratch output only. Extreme-sensitivity candidates
+    remain deferred unless explicitly accepted as stress controls.
 
 requirements:
-  - "Start only after TASK-0264 is merged and the maintainer approves a selected feature-term subset."
+  - "Start only after TASK-0264 and TASK-0266 are merged and the maintainer approves a selected feature-term subset."
   - "Register 8 to 12 selected feature-term candidates as prospective PRED entries, using PRED-0051 through PRED-0062 unless a collision-free equivalent range is needed."
   - "Copy or regenerate selected draft entries from the reviewed slate config, then replace placeholder source_state.git_commit values with the real commit being frozen."
   - "Preserve frozen model ids, target batches, mass_excess_mev values, reveal conditions, uncertainty semantics, feature-term coefficients, and no-peek rules."
