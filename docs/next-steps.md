@@ -104,22 +104,25 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
 ## Recommended Next Work
 
-### 1. Strengthen Nuclear Validation Before More Batches
+### 1. Advance Nuclear Through Feature-Term Slates And Reveal Discipline
 
-The nuclear-mass surface campaign has now landed its first complete wave:
-campaign scaffold, dataset layer, baseline residual benchmark, structured
-holdout protocol, and one sandbox-only autonomous residual pilot.
+The nuclear-mass surface campaign has now landed its first complete benchmark
+and prediction-registration wave: campaign scaffold, dataset layer, baseline
+residual benchmark, structured holdout protocol, sandbox pilots, a deterministic
+prediction factory, reusable target batches, and selected prospective registry
+entries through `PRED-0050`.
 
-The next scientific goal is not to multiply residual formulas. It is to harden
-the evidence boundary around the current nuclear surface:
+The next scientific goal is not to multiply registry entries casually. It is to
+use the new factory surface to review richer feature-term candidates and to
+prepare a reveal protocol before any future measurement comparison:
 
-- package the current pilot evidence without claim promotion;
-- finish independent audit and split-sensitivity interpretation;
-- turn the post-AME2020 source manifest into reviewed row-level holdout data;
-- evaluate the frozen baseline and sandbox candidates on that row-level
-  time-split surface;
-- define a robustness gate before allowing another autonomous nuclear batch;
-- add a prediction registry only for future before-measurement predictions.
+- run a feature-term slate with shell, magic-number, neutron-excess, and
+  coefficient-composed variants;
+- review target-batch coverage and feature-term sensitivity before registry
+  selection;
+- freeze only a small selected feature-term subset after maintainer review;
+- define how future reveal tasks must pin sources, audit no-peek state, handle
+  partial reveals, preserve null results, and avoid claim promotion.
 
 Recommended nuclear validation queue for parallel agents:
 
@@ -150,16 +153,21 @@ Recommended nuclear validation queue for parallel agents:
 - `TASK-0252` factory tooling expansion: add feature-term variants before
   scaling registry commits; `TASK-0253` ranking helper is already merged and
   should be used by `TASK-0250`
-- `TASK-0254` target-batch library: raise target selection discipline for the
-  factory slate and future selected registry wave
-- `TASK-0251` selected factory registry wave: unblocked after `TASK-0250`,
-  `TASK-0252`, and `TASK-0254`; before freezing `PRED-0041+`, document whether
-  selection uses reviewed coefficient-transform slate-001 or a refreshed
-  feature-term slate
+- `TASK-0254` target-batch library: now merged; future slates should reuse the
+  reviewed target batches instead of copying ad hoc target lists
+- `TASK-0251` selected factory registry wave: now merged as `PRED-0041`
+  through `PRED-0050`, using reviewed coefficient-transform slate-001
+- `TASK-0264` feature-term factory slate-002: the next primary Nuclear task,
+  using shell, magic-number, neutron-excess, near-null, sign-symmetric, and
+  combined coefficient-plus-feature variants
+- `TASK-0265` selected feature-term registry wave: blocked until `TASK-0264`
+  is reviewed and a maintainer approves a small selected subset
+- `TASK-0266` reveal protocol: ready now, and should land before any
+  future measurement comparison or reveal-scoring task
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
-  umbrella; review the narrower TASK-0200 through TASK-0202 outputs through
-  TASK-0204 before any further expansion
+  umbrella; keep broad sandbox expansion behind factory-slate and
+  reveal protocol review
 
 Current nuclear-mass baseline state:
 
@@ -182,7 +190,10 @@ Current nuclear-mass baseline state:
   is inconclusive and does not promote `HYP-PROPOSAL-0021` or any negative
   control;
 - prospective prediction requires a registry entry created before later
-  measurements are compared.
+  measurements are compared;
+- the current prospective registry includes `PRED-0001` through `PRED-0030`,
+  `PRED-0037`, `PRED-0038`, and selected factory entries `PRED-0041` through
+  `PRED-0050`.
 
 The nuclear queue should stay conservative:
 
@@ -192,10 +203,9 @@ The nuclear queue should stay conservative:
 - parallel science lanes are encouraged across different campaigns and within
   the same campaign, but each lane must use a separate branch/worktree,
   disjoint hypothesis family or artifact surface, and sandbox-only outputs;
-- no broad second nuclear sandbox batch from `TASK-0178`; review the completed
-  narrow sandbox lanes with primary holdout, split-sensitivity, post-AME2020
-  time-split, negative controls, and no claim promotion before allowing more
-  expansion.
+- no broad second nuclear sandbox batch from `TASK-0178`; use the factory
+  path for bounded expansion and keep future reveal comparison in a separate
+  reviewed task.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into
@@ -204,12 +214,13 @@ active work.
 The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:
 
-- `TASK-0222` creates the Quantum Size Effects campaign scaffold and is the
-  first claimable task in that lane;
-- `TASK-0223` through `TASK-0226` are staged follow-ups for dataset/schema,
-  holdout protocol, baseline residual benchmark, and a later autonomous pilot;
-- `TASK-0227` is a small lepton g-2 cross-observable falsifier and remains a
-  guardrail lane, not a flagship campaign.
+- `TASK-0222` has created the Quantum Size Effects campaign scaffold;
+- `TASK-0223` and `TASK-0224` are now ready and may run in parallel as the
+  dataset/source-manifest and holdout-protocol foundation;
+- `TASK-0225` and `TASK-0226` remain blocked until the dataset and holdout
+  surfaces exist;
+- `TASK-0227` has landed as a small lepton g-2 cross-observable falsifier and
+  remains a guardrail result, not a flagship campaign.
 
 ### 2. Validate Private Contributors And Agents
 
