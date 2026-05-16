@@ -61,6 +61,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0263` — Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0269` — Polish README landing entrypoint for agents, scientists, and reviewers (`documentation`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
