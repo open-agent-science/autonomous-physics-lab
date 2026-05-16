@@ -51,6 +51,7 @@ one PR.
 - `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -59,13 +60,13 @@ None.
 ## REVIEW_READY
 
 - `TASK-0263` — Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`)
-- `TASK-0264` — Run nuclear feature-term factory slate-002 (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0266` — Define nuclear prediction reveal protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0267` — Add git merge to Claude Code permissions allowlist (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (`contributor_experience`, priority `low`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0266` — Define nuclear prediction reveal protocol (merged)
+- `TASK-0264` — Run nuclear feature-term factory slate-002 (merged)
 - `TASK-0262` — Add --auto-sync flag to validate-repo CLI (merged)
 - `TASK-0261` — Stop maintainer-review-agent from blocking on harness-only artifacts (merged)
 - `TASK-0260` — Expand Claude Code permissions allowlist for routine read-only operations (merged)
@@ -306,7 +307,6 @@ None.
 - `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## REJECTED
 
