@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-16 01:16 UTC
+Generated: 2026-05-16 06:57 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2136,7 +2136,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 

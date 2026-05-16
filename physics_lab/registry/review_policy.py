@@ -61,6 +61,21 @@ PR_TEMPLATE_REQUIRED_SECTIONS = (
     "Maintainer Review Notes",
 )
 PR_TEMPLATE_SECTION_PATTERN = re.compile(r"^##\s+(?P<section>.+?)\s*$")
+AGENT_TOOL_BY_AGENT_ID = {
+    "codex": "Codex",
+    "claude": "Claude Code",
+    "claude-code": "Claude Code",
+    "cursor": "Cursor",
+    "gemini": "Gemini",
+}
+BRANCH_PATTERNS_WITH_AGENT = (
+    BRANCH_PATTERN,
+    PROPOSAL_BRANCH_PATTERN,
+    CLOSEOUT_BRANCH_PATTERN,
+    TASK_QUEUE_BRANCH_PATTERN,
+    MICROTASK_BRANCH_PATTERN,
+    MICROTASK_BATCH_BRANCH_PATTERN,
+)
 
 
 @dataclass(frozen=True)
@@ -94,6 +109,36 @@ def branch_task_id(branch: str) -> str | None:
     if match is None:
         return None
     return f"TASK-{match.group('number')}"
+
+
+def branch_agent_id(branch: str) -> str | None:
+    """Extract the agent id segment from any canonical agent branch."""
+    for pattern in BRANCH_PATTERNS_WITH_AGENT:
+        match = pattern.match(branch)
+        if match is not None:
+            return str(match.group("agent"))
+    return None
+
+
+def expected_agent_tool_from_agent_id(agent_id: str) -> str | None:
+    """Return the expected human-readable tool label for a branch agent id."""
+    normalized = agent_id.strip().lower().replace("_", "-")
+    if normalized in AGENT_TOOL_BY_AGENT_ID:
+        return AGENT_TOOL_BY_AGENT_ID[normalized]
+    if "claude" in normalized:
+        return "Claude Code"
+    if "codex" in normalized:
+        return "Codex"
+    if "cursor" in normalized:
+        return "Cursor"
+    if "gemini" in normalized:
+        return "Gemini"
+    return None
+
+
+def infer_agent_tool(agent_id: str) -> str:
+    """Infer a safe Agent tool label from agent id without defaulting to Codex."""
+    return expected_agent_tool_from_agent_id(agent_id) or agent_id
 
 
 def branch_proposal_slug(branch: str) -> str | None:
@@ -197,6 +242,53 @@ def missing_pr_metadata_fields(body: str) -> tuple[str, ...]:
         if value == "":
             missing.append(field)
     return tuple(missing)
+
+
+def pr_metadata_field_value(body: str, field: str) -> str | None:
+    """Extract a repository PR metadata field value from a filled PR body."""
+    field_names = PR_METADATA_FIELD_ALIASES.get(field, (field,))
+    for line in body.splitlines():
+        for field_name in field_names:
+            prefix = f"- {field_name}:"
+            if not line.startswith(prefix):
+                continue
+            value = line.split(":", 1)[1].strip()
+            if value.startswith("`") and value.endswith("`"):
+                value = value[1:-1].strip()
+            return value or None
+    return None
+
+
+def _canonical_agent_tool_label(value: str) -> str:
+    normalized = value.strip().lower().replace("_", "-")
+    if "claude" in normalized:
+        return "Claude Code"
+    if "codex" in normalized:
+        return "Codex"
+    if "cursor" in normalized:
+        return "Cursor"
+    if "gemini" in normalized:
+        return "Gemini"
+    return value.strip()
+
+
+def agent_tool_metadata_mismatch(branch: str, body: str) -> str | None:
+    """Return a mismatch message when branch agent id and PR metadata disagree."""
+    agent_id = branch_agent_id(branch)
+    if agent_id is None:
+        return None
+    expected = expected_agent_tool_from_agent_id(agent_id)
+    if expected is None:
+        return None
+    actual = pr_metadata_field_value(body, "Agent tool")
+    if actual is None:
+        return None
+    if _canonical_agent_tool_label(actual) == expected:
+        return None
+    return (
+        f"PR Agent tool metadata `{actual}` does not match branch agent id "
+        f"`{agent_id}`; expected `{expected}` or pass --agent-tool explicitly."
+    )
 
 
 def pr_body_sections(body: str) -> tuple[str, ...]:

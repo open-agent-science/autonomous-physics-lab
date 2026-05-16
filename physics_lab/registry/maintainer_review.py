@@ -49,6 +49,7 @@ from physics_lab.registry.review_policy import (
     branch_proposal_slug,  # noqa: F401 — re-exported; tests import from here
     branch_task_queue_slug,  # noqa: F401 — re-exported; tests import from here
     branch_task_id,  # noqa: F401 — re-exported; tests import from here
+    agent_tool_metadata_mismatch,
     classify_review_protocol,
     missing_pr_metadata_fields,  # noqa: F401 — re-exported; tests import from here
     missing_pr_template_sections,  # noqa: F401 — re-exported; tests import from here
@@ -696,6 +697,9 @@ def build_review_report(
             required_fixes.append(
                 "PR metadata is incomplete: " + ", ".join(missing_fields) + "."
             )
+        agent_tool_mismatch = agent_tool_metadata_mismatch(target_branch, pr_metadata.body)
+        if agent_tool_mismatch is not None:
+            required_fixes.append(agent_tool_mismatch)
         if pr_metadata.status_checks_passed is False:
             blockers.append("GitHub status checks are failing.")
         elif pr_metadata.status_checks_pending:

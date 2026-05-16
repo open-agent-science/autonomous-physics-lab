@@ -21,8 +21,9 @@ def _load_helper():
         task_pr_body,
         task_title,
     )
+    from physics_lab.registry.review_policy import infer_agent_tool
 
-    return preflight_task_pr, task_branch, task_pr_body, task_title
+    return preflight_task_pr, task_branch, task_pr_body, task_title, infer_agent_tool
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -34,7 +35,10 @@ def build_parser() -> argparse.ArgumentParser:
     scaffold.add_argument("--contributor-id", required=True)
     scaffold.add_argument("--github-username", required=True)
     scaffold.add_argument("--agent-id", required=True)
-    scaffold.add_argument("--agent-tool", default="Codex")
+    scaffold.add_argument(
+        "--agent-tool",
+        help="Human-readable agent tool label. Defaults from --agent-id when omitted.",
+    )
     scaffold.add_argument("--model-version")
     scaffold.add_argument("--human-reviewer", required=True)
     scaffold.add_argument("--slug", required=True)
@@ -68,7 +72,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def command_scaffold(args: argparse.Namespace) -> int:
-    _, task_branch_fn, task_pr_body_fn, task_title_fn = _load_helper()
+    _, task_branch_fn, task_pr_body_fn, task_title_fn, infer_agent_tool = _load_helper()
     branch = task_branch_fn(args.contributor_id, args.agent_id, args.task_id, args.slug)
     title = task_title_fn(args.task_id, args.description)
     body = task_pr_body_fn(
@@ -77,7 +81,7 @@ def command_scaffold(args: argparse.Namespace) -> int:
         title=title,
         contributor_id=args.contributor_id,
         github_username=args.github_username,
-        agent_tool=args.agent_tool,
+        agent_tool=args.agent_tool or infer_agent_tool(args.agent_id),
         human_reviewer=args.human_reviewer,
         summary=args.summary,
         changed_files=tuple(args.changed_file),
@@ -99,7 +103,7 @@ def command_scaffold(args: argparse.Namespace) -> int:
 
 
 def command_preflight(args: argparse.Namespace) -> int:
-    preflight_task_pr, _, _, _ = _load_helper()
+    preflight_task_pr, _, _, _, _ = _load_helper()
     body_text = Path(args.body_file).read_text(encoding="utf-8")
     report = preflight_task_pr(
         Path(args.root),
