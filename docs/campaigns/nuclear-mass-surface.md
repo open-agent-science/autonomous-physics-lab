@@ -102,6 +102,7 @@ Start here:
 - [Nuclear Mass Campaign Plan](../notes/nuclear-mass-campaign-plan.md)
 - [Nuclear Prediction Variant Factory](../notes/nuclear-prediction-variant-factory.md)
 - [Selected Factory Registry Wave 001](../reviews/nuclear-prediction-factory-selected-registry-001.md)
+- [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [TASK-0264](../../tasks/TASK-0264-run-nuclear-feature-term-factory-slate.yaml)
 - [TASK-0266](../../tasks/TASK-0266-define-nuclear-prediction-reveal-readiness-protocol.yaml)
 
@@ -123,7 +124,8 @@ Start here:
 - `TASK-0265` — keep blocked until slate-002 is reviewed, then register only a
   selected feature-term subset as prospective predictions.
 - `TASK-0266` — define reveal protocol before any future
-  measurement comparison.
+  measurement comparison; after this lands, future reveal tasks should use
+  the protocol checklist instead of ad hoc source comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 

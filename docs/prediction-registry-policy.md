@@ -100,6 +100,10 @@ Required wording boundary:
 
 A later measurement comparison is a **separate reviewed step**.
 
+For nuclear-mass prediction entries, the operational checklist for that step is
+defined in
+[Nuclear Prediction Reveal Protocol](./nuclear-prediction-reveal-protocol.md).
+
 That later step must:
 
 - reference the original `PRED-XXXX` entry unchanged;
