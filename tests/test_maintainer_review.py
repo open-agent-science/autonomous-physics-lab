@@ -113,6 +113,46 @@ def _full_pr_body(
     )
 
 
+def _write_review_task(
+    root: Path,
+    task_id: str,
+    *,
+    status: str = "REVIEW_READY",
+    slug: str = "helper",
+) -> None:
+    tasks_dir = root / "tasks"
+    tasks_dir.mkdir(parents=True, exist_ok=True)
+    (tasks_dir / f"{task_id}-{slug}.yaml").write_text(
+        "\n".join(
+            [
+                f"id: {task_id}",
+                'title: "Maintainer review fixture"',
+                "type: maintainer_workflow",
+                f"status: {status}",
+                "difficulty: medium",
+                "priority: high",
+                "strategy_alignment:",
+                '  - "Test fixture"',
+                "input:",
+                '  mode: workflow',
+                '  related_domain: "maintainer_review"',
+                "  related_objects: []",
+                '  planning_context: "Fixture"',
+                "requirements:",
+                '  - "Keep review helper deterministic"',
+                "accepted_outputs:",
+                f'  - "tasks/{task_id}-{slug}.yaml"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
 def test_branch_task_id_extracts_task_number() -> None:
     assert (
         branch_task_id("agent/roman/codex/task-0034-maintainer-review-agent")
@@ -237,6 +277,26 @@ def test_review_protocol_pr_title_policy_is_testable_without_github() -> None:
     )
     assert task_queue.blockers == ()
     assert task_queue.required_fixes == ()
+
+
+def test_pr_title_policy_flags_task_queue_and_closeout_lane_mismatches() -> None:
+    task_queue = validate_pr_title(
+        review_kind="task_queue",
+        title="TASK-0241: Wrong title lane",
+        resolved_task_id="TASK-QUEUE",
+    )
+    closeout = validate_pr_title(
+        review_kind="closeout",
+        title="TASK-0241: Wrong title lane",
+        resolved_task_id="TASK-CLOSEOUT",
+    )
+
+    assert task_queue.required_fixes == (
+        "PR title does not follow TASK-QUEUE: ... format.",
+    )
+    assert closeout.required_fixes == (
+        "PR title does not follow TASK-CLOSEOUT: ... format.",
+    )
 
 
 def test_changed_task_proposal_files_filters_template_and_other_paths() -> None:
@@ -996,6 +1056,42 @@ def test_build_review_report_closeout_batch_pr_can_pass_from_non_branch_checkout
     assert not any("Switch to the PR branch" in item for item in report.required_fixes)
 
 
+def test_build_review_report_closeout_short_body_needs_changes_even_with_green_ci(
+    tmp_path: Path,
+) -> None:
+    _write_review_task(tmp_path, "TASK-0027", status="DONE", slug="units")
+    tasks_dir = tmp_path / "tasks"
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    branch = "agent/roman/codex/closeout-confirmed-merged-tasks"
+    changed = ("tasks/ACTIVE.md", "tasks/TASK-0027-units.yaml")
+    pr_metadata = PullRequestMetadata(
+        number=68,
+        title="TASK-CLOSEOUT: Mark confirmed merged tasks as done",
+        body="## Summary\n\nShort closeout body.\n",
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "missing")),
+    ):
+        report = build_review_report(tmp_path, pull_request=68)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("repository-template sections" in item for item in report.required_fixes)
+
+
 def test_build_review_report_closeout_batch_pr_does_not_require_active_board_sync(
     tmp_path: Path,
 ) -> None:
@@ -1249,6 +1345,56 @@ def test_build_review_report_blocks_task_queue_pr_that_changes_results(
     )
 
 
+def test_build_review_report_task_queue_wrong_title_needs_changes(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    _write_review_task(tmp_path, "TASK-0999", status="READY", slug="future-coverage-audit")
+    branch = "agent/roman/codex/task-queue-coverage-audit"
+    changed = (
+        "tasks/ACTIVE.md",
+        "tasks/TASK-0999-future-coverage-audit.yaml",
+    )
+    pr_metadata = PullRequestMetadata(
+        number=174,
+        title="TASK-0999: Add coverage audit task",
+        body=_full_pr_body(
+            task_ref="TASK-QUEUE",
+            branch=branch,
+            kind="Canonical task PR",
+            primary_reference="- Task ID: `TASK-QUEUE`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=174)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("TASK-QUEUE" in item for item in report.required_fixes)
+    assert report.blockers == ()
+
+
 def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: Path) -> None:
     tasks_dir = tmp_path / "tasks"
     tasks_dir.mkdir(parents=True)
@@ -1386,6 +1532,72 @@ def test_build_review_report_requires_repository_pr_template_sections(tmp_path: 
 
     assert report.verdict == "NEEDS_CHANGES"
     assert any("PR body is missing required repository-template sections" in item for item in report.required_fixes)
+
+
+def test_build_review_report_blocks_explicit_task_id_branch_mismatch(tmp_path: Path) -> None:
+    _write_review_task(tmp_path, "TASK-0095")
+    branch = "agent/roman/codex/task-0094-fix-helper-stale-diff"
+    pr_metadata = PullRequestMetadata(
+        number=105,
+        title="TASK-0095: Track maintainer review helper stale diff false positives",
+        body=_full_pr_body(
+            task_ref="TASK-0095",
+            branch=branch,
+            primary_reference="- Task ID: `TASK-0095`\n- Task File: `tasks/TASK-0095-helper.yaml`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0095-helper.yaml",),
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0095-helper.yaml",)),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=105, task_id="TASK-0095")
+
+    assert report.verdict == "BLOCKED"
+    assert any("does not match branch task id" in item for item in report.blockers)
+
+
+def test_build_review_report_branch_only_keeps_missing_pr_body_advisory(
+    tmp_path: Path,
+) -> None:
+    _write_review_task(tmp_path, "TASK-0094")
+    branch = "agent/roman/codex/task-0094-fix-helper-stale-diff"
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0094-helper.yaml",)),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=None),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, branch=branch)
+
+    assert report.verdict == "MERGE_OK"
+    assert report.risk == "low"
+    assert report.required_fixes == ()
+    assert any("Branch-only review cannot validate" in item for item in report.advisory_warnings)
 
 
 def test_build_review_report_accepts_canonical_microtask_pr(tmp_path: Path) -> None:
