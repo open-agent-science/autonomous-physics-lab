@@ -25,9 +25,9 @@ input:
     non-destructive git rules already in settings.json.
 
 requirements:
-  - "Add Bash(git merge *) to .claude/settings.json under the git-mutations section."
+  - "Add narrowly scoped git merge rules for routine task-branch updates from origin/main, such as Bash(git merge origin/main), Bash(git merge --no-edit origin/main), and Bash(git merge --ff-only origin/main)."
   - "Add Bash(git merge --abort) and Bash(git merge --quit) for safely backing out of an in-progress merge."
-  - "Do not add Bash(git merge --strategy=ours *) or any other rule that silently overwrites the other side of a merge."
+  - "Do not add Bash(git merge *) or any other broad rule that would include --strategy=ours, --strategy-option=theirs, or silently overwrite the other side of a merge."
   - "Update docs/notes/claude-code-permissions-allowlist.md section 3.5 to document the new rules and their safety profile."
   - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
 
