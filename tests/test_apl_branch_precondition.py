@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib.util
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
@@ -78,21 +79,21 @@ class _Args:
         self.allow_modified = allow_modified or []
 
 
-def _patch_paths(precondition_module, branch: str, dirty: tuple[str, ...]):
-    """Patch current_branch and working_tree_changed_files in the module under test."""
+def _patch_paths(precondition_module, branch: str, status_stdout: str):
+    """Patch current_branch and git status output in the module under test."""
     return (
         patch.object(precondition_module, "current_branch", return_value=branch),
         patch.object(
             precondition_module,
-            "working_tree_changed_files",
-            return_value=dirty,
+            "run_command",
+            return_value=SimpleNamespace(stdout=status_stdout),
         ),
     )
 
 
 def test_run_returns_zero_on_clean_match(precondition_module, capsys) -> None:
     branch_patch, dirty_patch = _patch_paths(
-        precondition_module, "agent/roman/claude/task-0263-foo", ()
+        precondition_module, "agent/roman/claude/task-0263-foo", ""
     )
     with branch_patch, dirty_patch:
         exit_code = precondition_module.run(
@@ -106,7 +107,7 @@ def test_run_returns_zero_on_clean_match(precondition_module, capsys) -> None:
 
 def test_run_fails_on_branch_mismatch(precondition_module, capsys) -> None:
     branch_patch, dirty_patch = _patch_paths(
-        precondition_module, "main", ()
+        precondition_module, "main", ""
     )
     with branch_patch, dirty_patch:
         exit_code = precondition_module.run(
@@ -120,7 +121,7 @@ def test_run_fails_on_unexpected_untracked(precondition_module, capsys) -> None:
     branch_patch, dirty_patch = _patch_paths(
         precondition_module,
         "agent/roman/claude/task-0263-foo",
-        ("docs/surprise.md",),
+        "?? docs/surprise.md\n",
     )
     with branch_patch, dirty_patch:
         exit_code = precondition_module.run(
@@ -136,7 +137,7 @@ def test_run_allows_untracked_glob_match(precondition_module, capsys) -> None:
     branch_patch, dirty_patch = _patch_paths(
         precondition_module,
         "agent/roman/claude/task-0263-foo",
-        ("docs/notes/draft-1.md", "docs/notes/draft-2.md"),
+        "?? docs/notes/draft-1.md\n?? docs/notes/draft-2.md\n",
     )
     with branch_patch, dirty_patch:
         exit_code = precondition_module.run(
@@ -154,7 +155,7 @@ def test_run_allow_modified_combines_with_allow_untracked(
     branch_patch, dirty_patch = _patch_paths(
         precondition_module,
         "agent/roman/claude/task-0263-foo",
-        ("a.md", "b.md"),
+        "?? a.md\n M b.md\n",
     )
     with branch_patch, dirty_patch:
         exit_code = precondition_module.run(
@@ -167,12 +168,32 @@ def test_run_allow_modified_combines_with_allow_untracked(
     assert exit_code == 0
 
 
+def test_run_does_not_allow_modified_path_with_untracked_allowlist(
+    precondition_module,
+    capsys,
+) -> None:
+    branch_patch, dirty_patch = _patch_paths(
+        precondition_module,
+        "agent/roman/claude/task-0263-foo",
+        " M docs/notes/draft-1.md\n",
+    )
+    with branch_patch, dirty_patch:
+        exit_code = precondition_module.run(
+            _Args(
+                expected_branch="agent/roman/claude/task-0263-foo",
+                allow_untracked=["docs/notes/draft-*.md"],
+            )
+        )
+    assert exit_code == 1
+    assert "docs/notes/draft-1.md" in capsys.readouterr().err
+
+
 def test_run_reports_both_failures(precondition_module, capsys) -> None:
     """Branch mismatch and dirty tree should both appear in the failure block."""
     branch_patch, dirty_patch = _patch_paths(
         precondition_module,
         "main",
-        ("scripts/extra.py",),
+        "?? scripts/extra.py\n",
     )
     with branch_patch, dirty_patch:
         exit_code = precondition_module.run(

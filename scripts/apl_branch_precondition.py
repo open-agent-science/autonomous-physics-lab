@@ -43,7 +43,7 @@ if str(REPO_ROOT) not in sys.path:
 from physics_lab.registry.review_git import (  # noqa: E402
     HARNESS_IGNORE_PATHS,
     current_branch,
-    working_tree_changed_files,
+    run_command,
 )
 
 
@@ -95,6 +95,24 @@ def _filter_paths(paths: tuple[str, ...], patterns: list[str]) -> tuple[str, ...
     )
 
 
+def _working_tree_entries(root: Path) -> tuple[tuple[str, str], ...]:
+    """Return ``(status, path)`` entries from ``git status --short``."""
+    result = run_command(["git", "status", "--short"], cwd=root)
+    entries: list[tuple[str, str]] = []
+    for line in result.stdout.splitlines():
+        if not line:
+            continue
+        status = line[:2]
+        entry = line[3:] if len(line) > 3 else line
+        if " -> " in entry and any(code in status for code in ("R", "C")):
+            entry = entry.split(" -> ", 1)[1]
+        path = entry.strip()
+        if any(fnmatch.fnmatch(path, pattern) for pattern in HARNESS_IGNORE_PATHS):
+            continue
+        entries.append((status, path))
+    return tuple(entries)
+
+
 def run(args: argparse.Namespace) -> int:
     root = Path(args.root).resolve()
     actual_branch = current_branch(root)
@@ -105,11 +123,16 @@ def run(args: argparse.Namespace) -> int:
             f"Branch mismatch: expected {args.expected_branch!r}, on {actual_branch!r}."
         )
 
-    # working_tree_changed_files already filters HARNESS_IGNORE_PATHS by default.
-    dirty_paths = working_tree_changed_files(root, ignore_paths=HARNESS_IGNORE_PATHS)
-    # Apply additional caller-supplied allowlists.
-    allow_patterns = list(args.allow_untracked) + list(args.allow_modified)
-    surprise_paths = _filter_paths(dirty_paths, allow_patterns)
+    dirty_entries = _working_tree_entries(root)
+    untracked_paths = tuple(
+        path for status, path in dirty_entries if status == "??"
+    )
+    modified_paths = tuple(
+        path for status, path in dirty_entries if status != "??"
+    )
+    surprise_paths = _filter_paths(
+        untracked_paths, list(args.allow_untracked)
+    ) + _filter_paths(modified_paths, list(args.allow_modified))
     if surprise_paths:
         joined = ", ".join(surprise_paths)
         failures.append(
