@@ -1,6 +1,7 @@
 .venv/
 .claude/settings.local.json
 .claude/worktrees/
+.claude/scheduled_tasks.lock
 __pycache__/
 .pytest_cache/
 .pytest-basetemp/
