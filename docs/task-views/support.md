@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0263` - Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)

@@ -194,6 +194,14 @@ Before starting implementation, agents must create a working task branch using
 the canonical branch format. Agents must not begin editing repository files,
 staging changes, or otherwise performing task work on `main`.
 
+When two or more agent sessions are (or might soon be) active in the same
+repository checkout, prefer a dedicated `git worktree` per task so that
+`HEAD` and untracked files do not leak between sessions. Use
+[`docs/notes/agent-worktree-discipline.md`](docs/notes/agent-worktree-discipline.md)
+for the helpers (`scripts/apl_new_worktree.sh`) and the optional
+[`scripts/apl_branch_precondition.py`](scripts/apl_branch_precondition.py)
+check that catches "wrong branch / surprise files" before any commit.
+
 ## Task Proposal Rule
 
 If no existing `READY` task fits and the maintainer did not explicitly assign a
