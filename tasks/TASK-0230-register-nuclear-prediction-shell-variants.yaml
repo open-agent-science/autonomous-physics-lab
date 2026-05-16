@@ -1,7 +1,7 @@
 id: TASK-0230
 title: "Register nuclear prediction variants for shell and magic-number controls"
 type: scientific_validation
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

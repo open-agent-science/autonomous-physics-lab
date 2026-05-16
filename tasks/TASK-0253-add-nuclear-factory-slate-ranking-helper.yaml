@@ -1,0 +1,53 @@
+id: TASK-0253
+title: "Add nuclear factory slate ranking helper"
+type: scientific_tooling
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Give agents deterministic triage support for large factory-generated candidate slates."
+  - "Separate candidate generation from candidate selection and registry commitment."
+  - "Make redundancy, target coverage, and sensitivity outliers visible before PRED registration."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "physics_lab/engines/nuclear_prediction_variants.py"
+    - "scripts/generate_nuclear_prediction_variants.py"
+    - "docs/notes/nuclear-prediction-variant-factory.md"
+  planning_context: >
+    Once the factory can generate dozens of candidates, agents need a
+    deterministic review aid that ranks or clusters a slate without declaring
+    predictive success. The helper should surface diversity and risk signals
+    for human/agent selection.
+
+requirements:
+  - "Add a script or helper that reads a factory slate summary YAML and emits a markdown selection report."
+  - "Report candidate count, target-batch coverage, model-family coverage, duplicate prediction ids, duplicate or near-duplicate value vectors, and largest delta_from_baseline_mev rows."
+  - "Include conservative heuristic flags for extreme sensitivity, all-zero deltas, redundant target batches, and missing review notes."
+  - "Do not assign scientific success scores or compare against future measurements."
+  - "Make output deterministic and suitable for committing as docs/reviews/*.md."
+  - "Add tests covering duplicate detection, ranking stability, and no-claim wording."
+
+accepted_outputs:
+  - "scripts/rank_nuclear_prediction_variant_slate.py or an equivalently scoped CLI/helper"
+  - "physics_lab/engines/nuclear_prediction_variant_review.py or an equivalent implementation module if needed"
+  - "docs/notes/nuclear-prediction-variant-factory.md update documenting the ranking helper"
+  - "tests covering the ranking helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_variant_factory.yaml --summary-out /tmp/apl-nuclear-factory-summary.yaml"
+    - "python3 scripts/rank_nuclear_prediction_variant_slate.py /tmp/apl-nuclear-factory-summary.yaml --out /tmp/apl-nuclear-factory-ranking.md"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

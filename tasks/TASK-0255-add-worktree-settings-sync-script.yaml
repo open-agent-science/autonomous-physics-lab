@@ -1,0 +1,46 @@
+id: TASK-0255
+title: "Add worktree settings sync script and first-action CLAUDE.md instruction"
+type: contributor_experience
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce friction for agents and contributors starting work in new worktrees."
+  - "Ensure permission allowlist is available immediately without manual setup steps."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "CLAUDE.md"
+    - ".claude/settings.local.json"
+  planning_context: >
+    .claude/settings.local.json is gitignored, so new git worktrees do not
+    inherit the project Bash permission allowlist. Every command prompts for
+    approval until the file is copied manually, slowing down the agent workflow.
+
+requirements:
+  - "Add scripts/apl_setup_worktree.sh that copies settings.local.json from the
+    main repository root into the current worktree .claude/ directory."
+  - "Use git --git-common-dir to locate the source path reliably across any
+    worktree layout."
+  - "Make the script idempotent: exit 0 without overwriting if the file exists."
+  - "Add a 'First Action in Any New Worktree' section to CLAUDE.md instructing
+    agents to run the script before any other work."
+
+accepted_outputs:
+  - "scripts/apl_setup_worktree.sh (executable, committed)"
+  - "CLAUDE.md updated with first-action section"
+
+validation:
+  commands:
+    - "bash scripts/apl_setup_worktree.sh"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
+  - llm_agent

@@ -28,6 +28,37 @@ Each lane agent should:
 7. Run repository validation and leave the entries as prospective forecasts,
    not claims.
 
+## Factory Follow-Up
+
+`TASK-0249` should automate the repetitive inner loop behind future waves. The
+desired workflow is:
+
+1. An agent or maintainer defines bounded model families and target batches in
+   a YAML config.
+2. A deterministic script expands those families into many candidate forecasts.
+3. The script computes `mass_excess_mev`, sensitivity metadata, and draft
+   review summaries without live external fetching.
+4. An AI agent reviews leakage, complexity, redundancy, and scientific value.
+5. Only a small selected subset is committed as reviewed `PRED-XXXX` entries.
+
+This keeps AI agents in the scientific-curation loop while moving arithmetic,
+coefficient grids, and draft generation into reproducible code.
+
+After the initial factory lands, use the factory-wave tasks instead of adding
+large raw registry batches directly:
+
+| Task | Purpose |
+| --- | --- |
+| `TASK-0250` | Generate and review the first 30-80 candidate factory slate |
+| `TASK-0251` | Register only the selected slate subset as `PRED-0041+` after review |
+| `TASK-0252` | Extend the factory to shell, magic-number, and neutron-excess feature terms |
+| `TASK-0253` | Add deterministic slate ranking / redundancy review, now merged |
+| `TASK-0254` | Add reusable target-batch library for future factory configs |
+
+The manual `TASK-0233`, `TASK-0234`, `TASK-0235`, and `TASK-0237` lanes are
+kept as blocked fallback tasks. Prefer the factory slate path unless the
+maintainer explicitly requests a hand-frozen control pair.
+
 ## Pre-Reveal Validation
 
 Agents can test entries before reveal by checking:

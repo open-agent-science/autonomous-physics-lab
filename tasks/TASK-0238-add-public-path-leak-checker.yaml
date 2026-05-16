@@ -1,7 +1,7 @@
 id: TASK-0238
 title: "Add public path leak checker for release hygiene"
 type: release_review
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

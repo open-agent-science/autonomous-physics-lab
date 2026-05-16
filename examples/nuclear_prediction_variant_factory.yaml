@@ -1,0 +1,105 @@
+factory_id: nuclear-prediction-variant-factory-example
+task_id: TASK-0249
+campaign_profile_id: nuclear-mass-surface
+quantity: mass_excess_mev
+registered_by:
+  contributor_id: roman
+  agent_id: codex
+registered_at_utc: "2026-05-15T00:00:00Z"
+
+baseline_model:
+  result_id: RESULT-0015
+  source_path: results/EXP-0012/RUN-0001/result.yaml
+  score_model_id: model_fitted_semi_empirical
+  registry_model_id: RESULT-0015::model_fitted_semi_empirical
+  frozen_parameters_note: >
+    Frozen coefficient source is RESULT-0015 score model_fitted_semi_empirical.
+    The variant factory applies only the bounded coefficient transforms listed in
+    this config.
+
+source_state:
+  git_commit: REPLACE_WITH_COMMIT_SHA
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Example factory run uses only committed repository state and does not fetch
+    live external measurements. Replace the git_commit placeholder before
+    committing selected draft PRED entries.
+
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest added
+    after registration contains measured or reviewably convertible values for
+    one or more target nuclides.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed source
+    manifest committed after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, coefficient note,
+    target nuclides, predicted values, or reveal rule. Later comparison must be
+    a separate reviewed task and may reveal a subset of targets only.
+
+output:
+  write_draft_predictions: false
+  draft_prediction_dir: /tmp/apl-nuclear-variant-drafts
+
+target_batch_library:
+  path: data/nuclear_masses/factory_target_batches.yaml
+  include_batches:
+    - frontier-next-row
+    - odd-even-pairing-probe
+
+variants:
+  - prediction_id: PRED-9001
+    variant_id: fitted-reference-blend-50-50
+    model_id: RESULT-0015::model_fitted_reference_blend_50_50
+    title: "Draft nuclear mass variant: fitted/reference blend on frontier controls"
+    target_batch: frontier-next-row
+    model_control_label: smooth semi-empirical interpolation control
+    transform:
+      blend_with_reference: 0.5
+    review_notes:
+      - Compare against fitted baseline and reference baseline before selecting for registry.
+      - Use as a smooth-control candidate, not a discovery claim.
+
+  - prediction_id: PRED-9002
+    variant_id: volume-plus-one-percent
+    model_id: RESULT-0015::model_fitted_semi_empirical::volume_plus_one_percent
+    title: "Draft nuclear mass variant: volume +1 percent on frontier controls"
+    target_batch: frontier-next-row
+    model_control_label: smooth coefficient sensitivity control
+    transform:
+      scale:
+        volume: 1.01
+    review_notes:
+      - Tests sensitivity to a bounded volume-term perturbation.
+
+  - prediction_id: PRED-9003
+    variant_id: pairing-plus-ten-percent
+    model_id: RESULT-0015::model_fitted_semi_empirical::pairing_plus_ten_percent
+    title: "Draft nuclear mass variant: pairing +10 percent on odd-even probe"
+    target_batch: odd-even-pairing-probe
+    model_control_label: pairing sensitivity control
+    transform:
+      scale:
+        pairing: 1.10
+    review_notes:
+      - Pairing perturbation should affect even-even and odd-odd targets but not odd-A targets.
+
+  - prediction_id: PRED-9004
+    variant_id: pairing-zero-ablation
+    model_id: RESULT-0015::model_fitted_semi_empirical::pairing_zero_ablation
+    title: "Draft nuclear mass variant: pairing ablation on odd-even probe"
+    target_batch: odd-even-pairing-probe
+    model_control_label: pairing ablation control
+    transform:
+      set:
+        pairing: 0.0
+    review_notes:
+      - Ablation candidate for measuring how much registered forecasts depend on odd-even pairing.

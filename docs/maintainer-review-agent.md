@@ -196,6 +196,10 @@ This mode supports:
    create or update future canonical tasks that remain `PROPOSED`, `READY`, or
    `BLOCKED`; task proposal PRs keep proposal status at `PROPOSED`.
    Microtask PRs have no task-status requirement.
+   A canonical task PR may include its own task-file lifecycle transition and
+   generated navigation sync. Treat unrelated task-status changes as scope drift
+   unless the maintainer explicitly requested queue triage, unblock, closeout,
+   or stale-task cleanup.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
 8. Accepted outputs are present or clearly explained when partial.
@@ -326,6 +330,7 @@ Use this mode only after the maintainer has already merged the PR.
      --contributor-id <contributor-id> \
      --github-username <github-username> \
      --agent-id <agent-id> \
+     --agent-tool <agent-tool> \
      --human-reviewer <human-reviewer> \
      --slug <closeout-slug> \
      --description "mark task done" \
@@ -342,6 +347,7 @@ Use this mode only after the maintainer has already merged the PR.
      --contributor-id <contributor-id> \
      --github-username <github-username> \
      --agent-id <agent-id> \
+     --agent-tool <agent-tool> \
      --human-reviewer <human-reviewer> \
      --slug <closeout-slug> \
      --description "mark task done" \
@@ -349,6 +355,11 @@ Use this mode only after the maintainer has already merged the PR.
      --include-context \
      --body-only > /tmp/apl-closeout-pr-body.md
    ```
+
+   If `--agent-tool` is omitted, the helper infers it from `--agent-id`
+   for known tools such as `codex` and `claude`. Review/preflight should flag
+   obvious mismatches, for example branch `agent/.../claude/...` with
+   `Agent tool: Codex`.
 
    Then run preflight before opening the PR:
 

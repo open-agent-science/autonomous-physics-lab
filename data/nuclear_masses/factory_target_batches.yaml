@@ -1,0 +1,196 @@
+schema_version: "1"
+library_id: nuclear-factory-target-batches-v1
+title: "Reviewed reusable target batches for Nuclear Mass Surface factory runs"
+task_id: TASK-0254
+status: reviewed_target_batch_library
+claim_ceiling: >
+  Target-batch selection support only. This file does not register
+  predictions, reveal measurements, promote claims, or create canonical
+  results.
+source_guardrails:
+  live_external_fetch_allowed: false
+  committed_measurement_guard_paths:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+    - data/nuclear_masses/post_ame2020_holdout.yaml
+  guardrail_note: >
+    Validation checks committed measured and holdout nuclide ids from the
+    listed repository files. Prospective batches must not include those ids
+    unless a batch is explicitly marked retrospective_control: true.
+batches:
+  frontier-next-row:
+    category: frontier_controls
+    review_status: reviewed_prospective_batch
+    retrospective_control: false
+    rationale: >
+      Compact neutron-rich frontier set reused by early factory examples. It
+      keeps targets near the Ca-Ni-Zn-Ga region where smooth SEMF extrapolation,
+      shell proximity, and neutron excess controls can diverge without using
+      committed measured or holdout rows.
+    limitations:
+      - "Not a claim of unmeasured status; prospectiveness requires later source-state review."
+      - "Small batch, so it is useful for smoke tests and sensitivity review, not aggregate scoring."
+    targets:
+      - nuclide_id: Ca-55
+        Z: 20
+        N: 35
+        A: 55
+      - nuclide_id: Ni-76
+        Z: 28
+        N: 48
+        A: 76
+      - nuclide_id: Zn-80
+        Z: 30
+        N: 50
+        A: 80
+      - nuclide_id: Ga-85
+        Z: 31
+        N: 54
+        A: 85
+
+  odd-even-pairing-probe:
+    category: odd_even_pairing_probe
+    review_status: reviewed_prospective_batch
+    retrospective_control: false
+    rationale: >
+      Neighboring odd-even structure probe for pairing ablations and pairing
+      coefficient sensitivity controls. The batch intentionally mixes odd-Z,
+      even-Z, and odd-A style targets so pairing perturbations have visible
+      sign and magnitude differences.
+    limitations:
+      - "Designed for model-behavior contrast, not for independent isotope-chain scoring."
+      - "Targets are screened only against committed repository measured/holdout files."
+    targets:
+      - nuclide_id: Co-59
+        Z: 27
+        N: 32
+        A: 59
+      - nuclide_id: Ni-60
+        Z: 28
+        N: 32
+        A: 60
+      - nuclide_id: Cu-64
+        Z: 29
+        N: 35
+        A: 64
+      - nuclide_id: Zn-65
+        Z: 30
+        N: 35
+        A: 65
+
+  shell-magic-probe:
+    category: shell_magic_probe
+    review_status: reviewed_prospective_batch
+    retrospective_control: false
+    rationale: >
+      Targets near N=50 and N=82 structure for shell-proximity feature terms
+      and magic-number controls. This batch is intended to make shell feature
+      corrections visible without relying on committed holdout rows.
+    limitations:
+      - "Shell proximity is a stress-test axis, not a validated physical explanation."
+      - "Heavy targets may dominate absolute SEMF deltas; inspect per-target rows."
+    targets:
+      - nuclide_id: Cu-79
+        Z: 29
+        N: 50
+        A: 79
+      - nuclide_id: Kr-86
+        Z: 36
+        N: 50
+        A: 86
+      - nuclide_id: Te-134
+        Z: 52
+        N: 82
+        A: 134
+      - nuclide_id: Xe-138
+        Z: 54
+        N: 84
+        A: 138
+
+  neutron-rich-stress:
+    category: neutron_rich_stress
+    review_status: reviewed_prospective_batch
+    retrospective_control: false
+    rationale: >
+      High neutron-excess stress set for asymmetric neutron-excess and
+      asymmetry-polynomial feature terms. It spans light and mid-mass targets
+      so agents can distinguish broad isospin behavior from region-specific
+      artifacts.
+    limitations:
+      - "Strong extrapolation stress; do not rank as predictive success before reveal."
+      - "Useful for sandbox slate diversity and adversarial overfit review."
+    targets:
+      - nuclide_id: Na-39
+        Z: 11
+        N: 28
+        A: 39
+      - nuclide_id: Mg-40
+        Z: 12
+        N: 28
+        A: 40
+      - nuclide_id: Co-81
+        Z: 27
+        N: 54
+        A: 81
+      - nuclide_id: Ni-82
+        Z: 28
+        N: 54
+        A: 82
+
+  nickel-isotope-chain:
+    category: isotope_chain_probe
+    review_status: reviewed_prospective_batch
+    retrospective_control: false
+    rationale: >
+      Single-Z nickel chain for checking whether variants preserve smooth
+      isotope-chain behavior across N=48, N=50, N=52, and N=54. It is useful
+      for comparing coefficient-only slates with shell and neutron-excess
+      feature-term slates.
+    limitations:
+      - "Single element chain; does not test cross-element mass-region transfer."
+      - "Contains repeated targets from other batches by design; uniqueness is enforced within each batch."
+    targets:
+      - nuclide_id: Ni-76
+        Z: 28
+        N: 48
+        A: 76
+      - nuclide_id: Ni-78
+        Z: 28
+        N: 50
+        A: 78
+      - nuclide_id: Ni-80
+        Z: 28
+        N: 52
+        A: 80
+      - nuclide_id: Ni-82
+        Z: 28
+        N: 54
+        A: 82
+
+  mid-mass-region-probe:
+    category: mass_region_probe
+    review_status: reviewed_prospective_batch
+    retrospective_control: false
+    rationale: >
+      Mid-mass transfer probe for reviewing whether a factory slate changes
+      behavior smoothly away from the light and shell-focused batches. This is
+      a broad region check, not a reveal or scoring set.
+    limitations:
+      - "Region-level review only; batch is too small for aggregate metric claims."
+      - "Later source-state review is still required before treating entries as prospective predictions."
+    targets:
+      - nuclide_id: Sr-98
+        Z: 38
+        N: 60
+        A: 98
+      - nuclide_id: Zr-104
+        Z: 40
+        N: 64
+        A: 104
+      - nuclide_id: Mo-108
+        Z: 42
+        N: 66
+        A: 108
+      - nuclide_id: Sn-140
+        Z: 50
+        N: 90
+        A: 140
