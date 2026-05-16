@@ -152,8 +152,10 @@ Recommended nuclear validation queue for parallel agents:
   should be used by `TASK-0250`
 - `TASK-0254` target-batch library: raise target selection discipline for the
   factory slate and future selected registry wave
-- `TASK-0251` selected factory registry wave: blocked until `TASK-0250`
-  produces a reviewed subset for `PRED-0041+`
+- `TASK-0251` selected factory registry wave: unblocked after `TASK-0250`,
+  `TASK-0252`, and `TASK-0254`; before freezing `PRED-0041+`, document whether
+  selection uses reviewed coefficient-transform slate-001 or a refreshed
+  feature-term slate
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
   umbrella; review the narrower TASK-0200 through TASK-0202 outputs through
