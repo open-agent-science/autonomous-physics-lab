@@ -11,6 +11,8 @@ For the current pre-public validation gates, see
 [private-contributor-validation-plan.md](./private-contributor-validation-plan.md),
 [private-agent-test-metrics.md](./private-agent-test-metrics.md), and
 [private-contributor-scorecard.md](./private-contributor-scorecard.md).
+For a practical Level 1/2/3 onboarding ladder, use
+[private-agent-challenge-pack.md](./private-agent-challenge-pack.md).
 
 ## Clone the Private Repository
 
@@ -33,6 +35,10 @@ pip install -e ".[dev]"
 ## Pick a Task
 
 Choose one `READY` task from [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
+If the maintainer asks you to start from an onboarding challenge, choose a
+Level 1, Level 2, or Level 3 item from
+[private-agent-challenge-pack.md](./private-agent-challenge-pack.md) and still
+tie the PR to one canonical task, proposal, or approved queue item.
 
 If no existing `READY` task fits, create a task proposal instead of guessing a
 new canonical task id. Use
