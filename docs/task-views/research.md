@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0227` - Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`, domain `particle_physics`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0227` - Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`, domain `particle_physics`)
 - `TASK-0251` - Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)

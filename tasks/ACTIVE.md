@@ -48,7 +48,6 @@ one PR.
 
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -58,6 +57,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
+- `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0251` — Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
