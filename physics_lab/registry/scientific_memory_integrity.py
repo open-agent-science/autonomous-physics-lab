@@ -43,6 +43,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "physics_reference",
     "scientific_governance",
     "scientific_audit",
+    "scientific_falsification",
     "benchmark_protocol",
     "dataset_workflow",
     "physics_dataset_extension",

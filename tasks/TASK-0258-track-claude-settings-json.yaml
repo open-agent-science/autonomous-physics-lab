@@ -1,7 +1,7 @@
 id: TASK-0258
 title: "Track .claude/settings.json as shared agent permission baseline"
 type: contributor_experience
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
