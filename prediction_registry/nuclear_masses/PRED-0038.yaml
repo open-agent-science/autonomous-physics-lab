@@ -1,0 +1,171 @@
+prediction_id: PRED-0038
+title: 'Prospective nuclear mass slate: fitted SEMF with pairing 1/A scaling simplification on frontier next-row controls'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0236
+evidence_class: prospective_prediction_registry
+claim_ceiling: >
+  Registered prospective prediction variant only; no claim, canonical result, or accepted
+  knowledge promotion before later maintainer-reviewed comparison. No sandbox candidate is
+  being promoted. This is a minimal-complexity pairing-scaling simplification control: the
+  pairing term scales as aP/A instead of aP/sqrt(A). No new free parameters are introduced
+  and the other RESULT-0015 fitted coefficients remain frozen.
+
+registered_by:
+  contributor_id: roman
+  agent_id: claude_code
+
+registered_at_utc: '2026-05-15T00:00:00Z'
+
+source_state:
+  git_commit: ba9de02b2df45fb474e515d5094432d05f88ad34
+  model_reference:
+    model_id: RESULT-0015::model_fitted_semi_empirical::pairing_inverse_a_scaling
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+    frozen_parameters_note: >
+      Frozen minimal-complexity pairing-scaling variant derived from
+      RESULT-0015 model_fitted_semi_empirical. Base coefficients are
+      unchanged: volume=15.51423612106804, surface=17.2931812095177,
+      coulomb=0.6878156091568888, asymmetry=23.846557883948485,
+      pairing=15.990845113398912. The only change is the pairing-term
+      scaling: the standard SEMF factor aP/sqrt(A) is replaced by aP/A.
+      Pairing sign is unchanged: +1 for even-even, -1 for odd-odd, 0 for
+      odd-A. No new free parameters are introduced, no shell/magic-number
+      structure is added, and volume/surface/coulomb/asymmetry terms are
+      identical to the base fitted model. Minimal-complexity
+      pairing-scaling control variant only, not a promoted sandbox
+      candidate.
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Registered from repository state ba9de02b2df45fb474e515d5094432d05f88ad34 without live
+    external fetching. Target nuclides are repo-prospective: absent from
+    committed NMD-0002 and post-AME2020 holdout datasets at registration
+    time; true-world prospectiveness requires later maintainer source-state
+    review.
+
+target_set:
+  label: frontier-next-row
+  quantity: mass_excess_mev
+  unit: MeV
+  target_nuclides:
+    - nuclide_id: Ca-55
+      Z: 20
+      N: 35
+      A: 55
+      predicted_value_mev: -8.623439
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from
+        RESULT-0015::model_fitted_semi_empirical::pairing_inverse_a_scaling.
+        Odd-A nuclide (Z=20, N=35): pairing_sign = 0, so the pairing term
+        contributes zero in both base and variant models. Predicted mass
+        excess is identical to PRED-0001 Ca-55 = -8.623439 by construction;
+        this odd-A target is a deterministic invariance check on the
+        pairing-scaling variant.
+    - nuclide_id: Ni-76
+      Z: 28
+      N: 48
+      A: 76
+      predicted_value_mev: -29.232204
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from
+        RESULT-0015::model_fitted_semi_empirical::pairing_inverse_a_scaling.
+        Even-even nuclide (Z=28, N=48): pairing term is positive in both
+        models. The scaling change shifts the pairing contribution from
+        +aP/sqrt(76) = +1.834 MeV to +aP/76 = +0.210 MeV, a net reduction
+        of -1.624 MeV in binding energy and an upward shift in mass excess
+        of approximately +1.624 MeV vs PRED-0001 Ni-76 = -30.856074.
+    - nuclide_id: Zn-80
+      Z: 30
+      N: 50
+      A: 80
+      predicted_value_mev: -39.923352
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from
+        RESULT-0015::model_fitted_semi_empirical::pairing_inverse_a_scaling.
+        Even-even nuclide (Z=30, N=50): the scaling change reduces the
+        pairing contribution from +aP/sqrt(80) = +1.788 MeV to +aP/80 =
+        +0.200 MeV, an upward shift in mass excess of approximately
+        +1.588 MeV vs PRED-0001 Zn-80 = -41.511297.
+    - nuclide_id: Ga-85
+      Z: 31
+      N: 54
+      A: 85
+      predicted_value_mev: -28.693290
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from
+        RESULT-0015::model_fitted_semi_empirical::pairing_inverse_a_scaling.
+        Odd-A nuclide (Z=31, N=54): pairing_sign = 0, so the pairing term
+        contributes zero in both models. Predicted mass excess is identical
+        to PRED-0001 Ga-85 = -28.69329 by construction; this odd-A target
+        is a deterministic invariance check on the pairing-scaling variant.
+
+uncertainty_semantics:
+  type: point_estimate_only
+  note: >
+    Each value is a deterministic mass_excess_mev point estimate computed by
+    applying the frozen SEMF formula with the pairing term rewritten as
+    pairing_sign(Z, N) * aP / A (1/A scaling) to obtain binding energy,
+    converting to atomic mass via the Z*HYDROGEN_ATOM_MASS_U +
+    N*NEUTRON_MASS_U - B/u relation used in
+    physics_lab.engines.nuclear_mass_baselines, and then converting to mass
+    excess via (atomic_mass_u - A) * ATOMIC_MASS_UNIT_MEV.
+    uncertainty_mev is intentionally null; this entry is a minimal-complexity
+    pairing-scaling control for future reveal comparison. The divergence
+    between PRED-0001 (1/sqrt(A) scaling) and this entry on the same target
+    batch quantifies how much the alternate inverse-A pairing form shifts
+    predictions for even-even targets; odd-A targets remain identical by
+    construction.
+
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest
+    added after registration contains measured or reviewably convertible
+    values for one or more target nuclides in this entry.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed
+    source manifest committed after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, coefficient note,
+    pairing scaling form, target nuclides, predicted values, or reveal
+    rule. Later comparison must be a separate reviewed task and may reveal
+    a subset of targets only.
+
+limitations:
+  - Prospective registry variant only; not a claim or result package.
+  - No sandbox candidate is being promoted; this is a pairing-scaling
+    minimal-complexity control.
+  - Targets are selected against committed repository datasets only; no
+    live external source was fetched during registration.
+  - The 1/A pairing scaling falls off much faster with mass number than
+    the canonical 1/sqrt(A) form, so this variant is expected to
+    underweight pairing for medium and heavy nuclei and is not a fitted
+    improvement.
+  - The pairing-scaling rewrite is a deliberate minimal-complexity probe;
+    odd-A targets are unchanged by construction, while even-even targets
+    are shifted toward less binding (higher mass excess) and odd-odd
+    targets would be shifted toward more binding.
+  - No shell, magic-number, neutron-rich, or asymmetry correction is
+    introduced; the only difference vs PRED-0001 is the pairing-term
+    scaling.
+  - Any agent-proposed follow-up variant must freeze its model, target
+    set, and source state in a separate registry entry before reveal.
+
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false

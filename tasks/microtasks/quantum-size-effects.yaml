@@ -1,0 +1,114 @@
+queue_id: quantum-size-effects
+campaign: quantum-size-effects
+campaign_status: scaffold_only_planning
+selection_guidance:
+  - "Prefer planning, scope-boundary, holdout-rationale, dataset-policy, and limitation notes."
+  - "Do not add datasets, schemas, benchmark engines, or canonical result artifacts in routine microtask work."
+  - "Defer dataset and benchmark work to canonical TASK-0223, TASK-0224, and TASK-0225 once they unblock."
+  - "Never include synthesis, fabrication, chemical handling, device-performance, or biomedical content in microtask output."
+microtasks:
+  - id: QSE-001
+    campaign: quantum-size-effects
+    title: Draft one absorption-versus-emission semantics note
+    type: semantics-note
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One short note explaining why absorption peak, emission peak, and bandgap values should never be silently merged under one residual metric in future benchmark work."
+    validation:
+      - "Name the three property kinds explicitly."
+      - "State one concrete failure mode of merging them."
+    risk_level: low
+    forbidden_claims:
+      - "the three property kinds are equivalent"
+      - "merging is harmless for small datasets"
+      - "the campaign already has a benchmark"
+  - id: QSE-002
+    campaign: quantum-size-effects
+    title: Propose one material-holdout rationale note
+    type: holdout-rationale
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One rationale note for why a material-level holdout differs from a random nuclide-style holdout and what generalization risk it tests."
+    validation:
+      - "Name the holdout rule explicitly."
+      - "State at least one generalization risk it exposes."
+    risk_level: low
+    forbidden_claims:
+      - "random splits are sufficient for material generalization"
+      - "one holdout proves robustness"
+      - "future holdout results are implied"
+  - id: QSE-003
+    campaign: quantum-size-effects
+    title: Define one size-range subset note for future residual breakdowns
+    type: subset-definition
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One note defining a size-range subset rule (for example, small dot radius < 2 nm) and why it should count as a diagnostic stress slice."
+    validation:
+      - "State the size cutoff rule explicitly."
+      - "State the intended diagnostic behavior."
+    risk_level: low
+    forbidden_claims:
+      - "subset difficulty is already proven"
+      - "size scaling is fully understood"
+      - "all small-dot behavior is uniform"
+  - id: QSE-004
+    campaign: quantum-size-effects
+    title: Write one source-policy note for pinned quantum-dot data
+    type: provenance-policy
+    estimated_effort: 15-25 minutes
+    recommended_for:
+      - codex
+      - human
+      - claude
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One policy note on how published quantum-dot size-property values should be pinned, attributed, and version-tracked before any benchmark use."
+    validation:
+      - "Name at least three required provenance fields."
+      - "State that silent ingestion of unpinned data is disallowed."
+    risk_level: medium
+    forbidden_claims:
+      - "live fetching is acceptable"
+      - "source pinning is optional"
+      - "provenance can be inferred later"
+  - id: QSE-005
+    campaign: quantum-size-effects
+    title: Draft one out-of-scope exclusion note
+    type: scope-boundary-note
+    estimated_effort: 10-20 minutes
+    recommended_for:
+      - codex
+      - claude
+      - human
+    autonomy_level:
+      - agent_can_complete
+      - human_review_required
+    expected_output: "One scope-boundary note stating that synthesis recipes, lab protocols, chemical handling guidance, device fabrication steps, and biomedical claims remain out of scope, with a brief rationale."
+    validation:
+      - "List at least four excluded categories explicitly."
+      - "State one reason exclusion protects campaign clarity."
+    risk_level: low
+    forbidden_claims:
+      - "exclusion means the underlying physics is invalid"
+      - "the campaign is a fabrication or biomedical guide"
+      - "out-of-scope categories may be added without maintainer review"

@@ -62,3 +62,51 @@ def test_scientific_memory_integrity_reports_draft_claim_with_passing_evidence(
     )
 
     assert any(issue.code == "draft_with_passing_evidence" for issue in issues)
+
+
+def test_scientific_memory_integrity_skips_factory_example_configs(
+    tmp_path: Path,
+) -> None:
+    example_path = tmp_path / "examples" / "factory.yaml"
+    example_payload = {
+        "config_kind": "nuclear_prediction_variant_factory",
+    }
+
+    issues = collect_scientific_memory_integrity_issues(
+        hypotheses=[],
+        tasks=[],
+        claims=[],
+        knowledge_files=[],
+        example_configs=[(example_path, example_payload)],
+        results=[],
+        root_path=tmp_path,
+    )
+
+    assert not any(issue.code == "missing_canonical_result" for issue in issues)
+
+
+def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
+    tmp_path: Path,
+) -> None:
+    tasks = [
+        (
+            tmp_path / "tasks" / "TASK-TOOL.yaml",
+            {"id": "TASK-TOOL", "status": "DONE", "type": "scientific_tooling"},
+        ),
+        (
+            tmp_path / "tasks" / "TASK-TEST.yaml",
+            {"id": "TASK-TEST", "status": "DONE", "type": "test_infrastructure"},
+        ),
+    ]
+
+    issues = collect_scientific_memory_integrity_issues(
+        hypotheses=[],
+        tasks=tasks,
+        claims=[],
+        knowledge_files=[],
+        example_configs=[],
+        results=[],
+        root_path=tmp_path,
+    )
+
+    assert not any(issue.code == "done_task_without_result" for issue in issues)

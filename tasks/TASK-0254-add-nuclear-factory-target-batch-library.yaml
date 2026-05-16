@@ -1,0 +1,52 @@
+id: TASK-0254
+title: "Add reusable nuclear factory target-batch library"
+type: dataset_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce duplicated target-list work across parallel Nuclear Mass Surface agents."
+  - "Make target-batch choices reviewable before agents generate many prediction candidates."
+  - "Keep prospective prediction targets separated from measured-data reveal workflows."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "examples/nuclear_prediction_variant_factory.yaml"
+    - "prediction_registry/nuclear_masses/"
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "docs/notes/nuclear-prediction-variant-factory.md"
+  planning_context: >
+    Parallel agents currently repeat target-batch selection in task-specific
+    PRED entries and factory configs. A reusable target-batch library would let
+    future factory runs reference reviewed target sets for frontier, odd-even,
+    shell, neutron-rich, isotope-chain, and mass-region stress tests.
+
+requirements:
+  - "Add a reusable YAML or documentation-backed target-batch library for factory configs."
+  - "Include at least five reviewed target batches spanning frontier controls, odd-even probes, shell/magic probes, neutron-rich stress, and isotope-chain or mass-region probes."
+  - "Document selection rationale and known limitations for each target batch."
+  - "Add a validation helper or tests that ensure A=Z+N, unique nuclide ids within each batch, and no accidental inclusion of committed measured/holdout targets unless explicitly labeled as retrospective controls."
+  - "Update the factory documentation to show how agents should reuse these target batches."
+  - "Do not fetch live external measurements or claim true-world prospectiveness without later source-state review."
+
+accepted_outputs:
+  - "data/nuclear_masses/factory_target_batches.yaml or an equivalently scoped reviewed target-batch file"
+  - "docs/notes/nuclear-prediction-variant-factory.md update documenting target-batch reuse"
+  - "tests covering target-batch consistency and measured-target guardrails"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

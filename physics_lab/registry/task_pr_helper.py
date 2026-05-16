@@ -8,6 +8,7 @@ from pathlib import Path
 from physics_lab.registry.review_policy import (
     BRANCH_PATTERN,
     PR_TITLE_PATTERN,
+    agent_tool_metadata_mismatch,
     branch_task_id,
     missing_pr_metadata_fields,
     missing_pr_template_sections,
@@ -200,6 +201,10 @@ def preflight_task_pr(
             + ", ".join(missing_fields)
             + "."
         )
+
+    agent_tool_mismatch = agent_tool_metadata_mismatch(branch, body_text)
+    if agent_tool_mismatch is not None:
+        errors.append(agent_tool_mismatch)
 
     placeholders = _placeholder_hits(body_text)
     if placeholders:

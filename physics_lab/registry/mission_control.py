@@ -504,10 +504,14 @@ Start in Agent First Research Mode with onboarding.
 5. Recommended mission now: {mission_title}.
 6. Recommended action now: {action_label}.
 7. Show 3-5 executable READY options with estimated time and difficulty.
-8. Recommend one option, ask whether to start it, and wait for the user's choice.
-9. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR using repository helpers, available GitHub/MCP tools, or GitHub CLI when access is available; if a needed command is blocked by permissions, request permission/escalation for that command. If PR creation still cannot complete, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
-10. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
-11. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
+8. For onboarding, prefer recommending a simpler science-execution option first
+   when one is available: hypothesis testing, validation, sandbox runs, replay,
+   or audit. Treat this as guidance, not a hard rule; the user may choose any
+   listed option, including tooling.
+9. Recommend one option, ask whether to start it, and wait for the user's choice.
+10. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR using repository helpers, available GitHub/MCP tools, or GitHub CLI when access is available; if a needed command is blocked by permissions, request permission/escalation for that command. If PR creation still cannot complete, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
+11. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
+12. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
 {candidate_block}
 
 When the work is complete, summarize what changed, the scientific or workflow value of the result, validation results, limitations, and the best next task to continue."""

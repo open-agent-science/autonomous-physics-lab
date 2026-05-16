@@ -50,9 +50,11 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_campaign",
     "scientific_visualization",
     "scientific_safety_review",
+    "scientific_tooling",
     "scientific_validation",
     "schema_extension",
     "scoring_design",
+    "test_infrastructure",
     "thought_experiment_planning",
     "scientific_microtask_execution",
     "workflow_pilot",
@@ -163,6 +165,8 @@ def collect_scientific_memory_integrity_issues(
             )
 
     for example_path, example_payload in example_configs:
+        if example_payload.get("config_kind") == "nuclear_prediction_variant_factory":
+            continue
         result_root = (example_path.parent / example_payload["result_root"]).resolve()
         expected_run_dir = result_root / str(example_payload["run_id"])
         canonical_result = expected_run_dir / "result.yaml"
