@@ -95,6 +95,35 @@ def test_preflight_task_pr_accepts_clean_shape() -> None:
     assert report.warnings == ()
 
 
+def test_preflight_task_pr_flags_agent_tool_mismatch() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    branch = "agent/roman/claude/task-0247-pr-lifecycle-guardrails"
+    title = "TASK-0247: add PR lifecycle guardrails"
+    body = task_pr_body(
+        task_id="TASK-0247",
+        branch=branch,
+        title=title,
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_tool="Codex",
+        human_reviewer="gladunrv",
+        summary="Add PR lifecycle checks for agents.",
+        changed_files=("scripts/apl_task_pr_helper.py",),
+        validation_commands=(
+            "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+            "./scripts/apl_review_bundle.sh",
+        ),
+        scientific_claim_impact="No claim promotion.",
+        result_artifact_impact="No committed result artifacts changed.",
+        root=repo_root,
+    )
+
+    report = preflight_task_pr(repo_root, branch=branch, title=title, body_text=body)
+
+    assert not report.ok
+    assert any("does not match branch agent id `claude`" in item for item in report.errors)
+
+
 def test_cli_scaffold_runs_from_repo_root() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     result = subprocess.run(
@@ -130,3 +159,40 @@ def test_cli_scaffold_runs_from_repo_root() -> None:
     assert result.returncode == 0
     assert "agent/roman/codex/task-0247-pr-lifecycle-guardrails" in result.stdout
     assert "TASK-0247: add PR lifecycle guardrails" in result.stdout
+
+
+def test_cli_scaffold_infers_claude_agent_tool_from_agent_id() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_task_pr_helper.py",
+            "scaffold",
+            "--task-id",
+            "TASK-0247",
+            "--contributor-id",
+            "roman",
+            "--github-username",
+            "gladunrv",
+            "--agent-id",
+            "claude",
+            "--human-reviewer",
+            "gladunrv",
+            "--slug",
+            "pr-lifecycle-guardrails",
+            "--description",
+            "add PR lifecycle guardrails",
+            "--summary",
+            "Add PR lifecycle checks for agents.",
+            "--validation-command",
+            "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "agent/roman/claude/task-0247-pr-lifecycle-guardrails" in result.stdout
+    assert "- Agent tool: `Claude Code`" in result.stdout

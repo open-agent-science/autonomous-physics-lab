@@ -1,0 +1,158 @@
+factory_id: nuclear-prediction-variant-factory-feature-terms-example
+task_id: TASK-0252
+campaign_profile_id: nuclear-mass-surface
+quantity: mass_excess_mev
+registered_by:
+  contributor_id: roman
+  agent_id: claude_code
+registered_at_utc: "2026-05-15T00:00:00Z"
+
+baseline_model:
+  result_id: RESULT-0015
+  source_path: results/EXP-0012/RUN-0001/result.yaml
+  score_model_id: model_fitted_semi_empirical
+  registry_model_id: RESULT-0015::model_fitted_semi_empirical
+  frozen_parameters_note: >
+    Frozen coefficient source is RESULT-0015 score model_fitted_semi_empirical.
+    This example exercises bounded feature-term variants in addition to the
+    existing coefficient transforms supported by the factory. Feature-term
+    coefficients are illustrative; selected registry candidates must use
+    review-traced coefficients (see docs/reviews/nuclear-prediction-variants-shell-controls.md
+    and docs/reviews/nuclear-prediction-variants-neutron-excess-controls.md).
+
+source_state:
+  git_commit: REPLACE_WITH_COMMIT_SHA
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Example feature-term factory run uses only committed repository state and
+    does not fetch live external measurements. Replace the git_commit
+    placeholder before committing selected draft PRED entries.
+
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest added
+    after registration contains measured or reviewably convertible values for
+    one or more target nuclides.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed source
+    manifest committed after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, coefficient note,
+    feature-term coefficients, target nuclides, predicted values, or reveal
+    rule. Later comparison must be a separate reviewed task.
+
+output:
+  write_draft_predictions: false
+  draft_prediction_dir: /tmp/apl-nuclear-feature-term-drafts
+
+target_batches:
+  shell-magic-control-probe:
+    - nuclide_id: Cu-79
+      Z: 29
+      N: 50
+    - nuclide_id: Kr-86
+      Z: 36
+      N: 50
+    - nuclide_id: Te-134
+      Z: 52
+      N: 82
+    - nuclide_id: Xe-138
+      Z: 54
+      N: 84
+  neutron-excess-control-probe:
+    - nuclide_id: Na-39
+      Z: 11
+      N: 28
+    - nuclide_id: Mg-40
+      Z: 12
+      N: 28
+    - nuclide_id: Co-81
+      Z: 27
+      N: 54
+    - nuclide_id: Ni-82
+      Z: 28
+      N: 54
+
+variants:
+  - prediction_id: PRED-9301
+    variant_id: shell-proximity-zn-negative-control
+    target_batch: shell-magic-control-probe
+    model_control_label: shell/magic-number negative control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: -1.5599853542897564
+          sigma: 2.0
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 3.2082046765215466
+          sigma: 2.0
+    review_notes:
+      - Mirrors the PRED-0025 Z+N Gaussian shell-proximity negative control coefficient set.
+      - Feature-term factory variant; not a promotion of the underlying sandbox families.
+
+  - prediction_id: PRED-9302
+    variant_id: shell-proximity-n-only-negative-control
+    target_batch: shell-magic-control-probe
+    model_control_label: shell/magic-number N-axis-only negative control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Mirrors the PRED-0026 N-only Gaussian shell-proximity negative control coefficient.
+
+  - prediction_id: PRED-9303
+    variant_id: asymmetry-quartic-negative-control
+    target_batch: neutron-excess-control-probe
+    model_control_label: quartic asymmetry negative control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: 82.66196399343987
+            - power: 4
+              coefficient: -1777.7853009092412
+    review_notes:
+      - Mirrors the PRED-0027 quartic-asymmetry negative control coefficient set.
+      - Demonstrates polynomial feature-term parameterization.
+
+  - prediction_id: PRED-9304
+    variant_id: asymmetric-neutron-excess-near-null-control
+    target_batch: neutron-excess-control-probe
+    model_control_label: asymmetric neutron-excess near-null control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: 3.4709894797642375e-13
+          power: 2
+    review_notes:
+      - Mirrors the PRED-0028 asymmetric neutron-excess near-null coefficient.
+      - Coefficient is intentionally near zero; serves as a near-null sanity baseline.
+
+  - prediction_id: PRED-9305
+    variant_id: shell-proximity-plus-coefficient-scale
+    target_batch: shell-magic-control-probe
+    model_control_label: combined coefficient and feature-term control
+    transform:
+      scale:
+        asymmetry: 1.01
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Combines a small asymmetry-coefficient scale with a single N-axis shell-proximity term.
+      - Exercises composability of coefficient transforms and feature terms.

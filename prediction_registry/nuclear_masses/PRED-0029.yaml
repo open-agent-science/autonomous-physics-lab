@@ -1,0 +1,149 @@
+prediction_id: PRED-0029
+title: 'Prospective nuclear mass slate: base fitted semi-empirical extrapolation along Tin isotope chain beyond Sn-120'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0232
+evidence_class: prospective_prediction_registry
+claim_ceiling: >
+  Registered prospective prediction variant only; no claim, canonical result, or accepted
+  knowledge promotion before later maintainer-reviewed comparison. No sandbox candidate is
+  being promoted. This is a chain-wise isotope extrapolation control using the frozen
+  RESULT-0015 base model.
+
+registered_by:
+  contributor_id: gladunrv
+  agent_id: claude_code
+
+registered_at_utc: '2026-05-15T00:00:00Z'
+
+source_state:
+  git_commit: 763575eb923a4e9ebcf1565509268b8e17f84c4b
+  model_reference:
+    model_id: RESULT-0015::model_fitted_semi_empirical
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+    frozen_parameters_note: >
+      Frozen base fitted semi-empirical model from RESULT-0015.
+      Coefficients: volume=15.51423612106804, surface=17.2931812095177,
+      coulomb=0.6878156091568888, asymmetry=23.846557883948485, pairing=15.990845113398912.
+      Pairing delta: +aP/sqrt(A) for even-even, -aP/sqrt(A) for odd-odd, 0 for odd-A.
+      No shell, magic-number, or neutron-rich correction is introduced.
+      Isotope-chain extrapolation variant only; the model is identical to the base RESULT-0015
+      fitted model. The chain selection (Sn-122 through Sn-128) probes chain-wise extrapolation
+      beyond the last Sn anchor in NMD-0002 (Sn-120).
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Registered from repository state 763575eb923a4e9ebcf1565509268b8e17f84c4b without
+    live external fetching. Target nuclides are repo-prospective: absent from committed
+    NMD-0002 and post-AME2020 holdout datasets at registration time. Sn-120 (Z=50, N=70)
+    is the last Sn isotope in NMD-0002; targets Sn-122 through Sn-128 extend the Sn chain
+    by +2, +4, +6, +8 neutrons. True-world prospectiveness requires later maintainer
+    source-state review.
+
+target_set:
+  label: sn-chain-isotope-extrapolation
+  quantity: mass_excess_mev
+  unit: MeV
+  target_nuclides:
+    - nuclide_id: Sn-122
+      Z: 50
+      N: 72
+      A: 122
+      predicted_value_mev: -88.842564
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical.
+        Even-even nucleus (Z=50 magic, N=72 even): pairing delta =
+        +15.990845113398912/sqrt(122) = +1.447743 MeV. First step along
+        the chain beyond Sn-120; Z=50 remains magic throughout this chain.
+    - nuclide_id: Sn-124
+      Z: 50
+      N: 74
+      A: 124
+      predicted_value_mev: -84.750178
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical.
+        Even-even nucleus (Z=50 magic, N=74 even): pairing delta =
+        +15.990845113398912/sqrt(124) = +1.436020 MeV. Second step along
+        the chain; increasing neutron excess drives the asymmetry penalty.
+    - nuclide_id: Sn-126
+      Z: 50
+      N: 76
+      A: 126
+      predicted_value_mev: -79.643018
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical.
+        Even-even nucleus (Z=50 magic, N=76 even): pairing delta =
+        +15.990845113398912/sqrt(126) = +1.424578 MeV. Third step; N=82
+        magic neutron closure is approaching but not reached.
+    - nuclide_id: Sn-128
+      Z: 50
+      N: 78
+      A: 128
+      predicted_value_mev: -73.568894
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical.
+        Even-even nucleus (Z=50 magic, N=78 even): pairing delta =
+        +15.990845113398912/sqrt(128) = +1.413404 MeV. Fourth step;
+        N=78 is four neutrons below the N=82 shell closure. The growing
+        mass excess (less binding) reflects increasing asymmetry term
+        as N-Z widens from 22 to 28 along the chain.
+
+uncertainty_semantics:
+  type: point_estimate_only
+  note: >
+    Each value is a deterministic mass_excess_mev point estimate computed by applying the
+    frozen fitted semi-empirical formula to obtain binding energy, converting to atomic mass
+    via physics_lab.engines.nuclear_mass_baselines.semi_empirical_atomic_mass_u, and then
+    converting to mass excess via physics_lab.engines.nuclear_masses.mass_excess_keV_from_atomic_mass_u.
+    uncertainty_mev is intentionally null; this entry is a chain-wise extrapolation control
+    for future reveal comparison, not a confidence-ranked forecast. All four targets are
+    even-even nuclei with Z=50 (magic proton number), so the pairing contribution is
+    uniformly positive and decreases slowly as A increases.
+
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest added after
+    registration contains measured or reviewably convertible values for one or more
+    target nuclides in this entry.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed source manifest
+    committed after this registry timestamp
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, coefficient note, target nuclides,
+    predicted values, or reveal rule. Later comparison must be a separate reviewed task and
+    may reveal a subset of targets only. The Sn-120 anchor in NMD-0002 must not be used
+    to retroactively adjust these predictions.
+
+limitations:
+  - Prospective registry variant only; not a claim or result package.
+  - No sandbox candidate is being promoted; this is a chain-wise extrapolation control.
+  - Targets are selected against committed repository datasets only; no live external source
+    was fetched during registration.
+  - The base fitted model has no shell-closure correction; the approaching N=82 magic neutron
+    number at Sn-128 is not captured by the smooth SEMF, making this a deliberate stress test
+    for chain-wise generalization.
+  - All targets are even-even isotopes; the pairing contribution is uniformly included and
+    provides no discriminatory signal across the chain.
+  - The model was fitted on NMD-0002 (11 nuclei); Sn-120 is the only Sn anchor in that slice.
+    Extrapolation along the Sn chain is a generalization test with a single training anchor.
+  - Any agent-proposed follow-up variant must freeze its model, target set, and source state
+    in a separate registry entry before reveal.
+
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false

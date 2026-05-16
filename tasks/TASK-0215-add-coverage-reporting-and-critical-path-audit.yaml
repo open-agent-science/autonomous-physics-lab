@@ -1,7 +1,7 @@
 id: TASK-0215
 title: "Add coverage reporting and critical-path test coverage audit"
 type: test_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
@@ -38,7 +38,7 @@ requirements:
 
 accepted_outputs:
   - "updated pyproject.toml with coverage tooling"
-  - "documented coverage command in README.md or docs/testing.md"
+  - "docs/testing.md"
   - "coverage audit note under docs/notes/ or docs/reviews/"
   - "tests or smoke checks for any newly identified critical untested path that is easy to cover"
   - "updated CI or helper script only if the coverage mode remains safe for current contributors"

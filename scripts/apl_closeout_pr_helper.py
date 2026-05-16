@@ -19,8 +19,9 @@ def _load_helper():
         closeout_title,
         preflight_closeout_pr,
     )
+    from physics_lab.registry.review_policy import infer_agent_tool
 
-    return closeout_branch, closeout_pr_body, closeout_title, preflight_closeout_pr
+    return closeout_branch, closeout_pr_body, closeout_title, preflight_closeout_pr, infer_agent_tool
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -32,7 +33,10 @@ def build_parser() -> argparse.ArgumentParser:
     scaffold.add_argument("--contributor-id", required=True)
     scaffold.add_argument("--github-username", required=True)
     scaffold.add_argument("--agent-id", required=True)
-    scaffold.add_argument("--agent-tool", default="Codex")
+    scaffold.add_argument(
+        "--agent-tool",
+        help="Human-readable agent tool label. Defaults from --agent-id when omitted.",
+    )
     scaffold.add_argument("--model-version")
     scaffold.add_argument("--human-reviewer", required=True)
     scaffold.add_argument("--slug", required=True)
@@ -53,7 +57,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def command_scaffold(args: argparse.Namespace) -> int:
-    closeout_branch_fn, closeout_pr_body, closeout_title_fn, _ = _load_helper()
+    closeout_branch_fn, closeout_pr_body, closeout_title_fn, _, infer_agent_tool = _load_helper()
     branch = closeout_branch_fn(args.contributor_id, args.agent_id, args.slug)
     title = closeout_title_fn(args.description)
     body = closeout_pr_body(
@@ -62,7 +66,7 @@ def command_scaffold(args: argparse.Namespace) -> int:
         title=title,
         contributor_id=args.contributor_id,
         github_username=args.github_username,
-        agent_tool=args.agent_tool,
+        agent_tool=args.agent_tool or infer_agent_tool(args.agent_id),
         human_reviewer=args.human_reviewer,
         changed_files=tuple(args.changed_file),
         include_active_board=args.include_active_board,
@@ -80,7 +84,7 @@ def command_scaffold(args: argparse.Namespace) -> int:
 
 
 def command_preflight(args: argparse.Namespace) -> int:
-    _, _, _, preflight_closeout_pr = _load_helper()
+    _, _, _, preflight_closeout_pr, _ = _load_helper()
     body_path = Path(args.body_file)
     body_text = body_path.read_text(encoding="utf-8")
     report = preflight_closeout_pr(

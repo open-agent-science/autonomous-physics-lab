@@ -1,0 +1,132 @@
+prediction_id: PRED-0026
+title: "Prospective nuclear mass slate: shell Gaussian proximity (N only) negative control on shell-magic probe"
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0230
+evidence_class: prospective_prediction_registry
+
+claim_ceiling: "Registered prospective prediction variant only; no claim, canonical result, or accepted knowledge promotion before later maintainer-reviewed comparison. No TASK-0200 shell-aware sandbox candidate is being promoted beyond a bounded control role."
+
+registered_by:
+  contributor_id: roman
+  agent_id: codex
+
+registered_at_utc: "2026-05-15T05:20:55Z"
+
+source_state:
+  git_commit: "763575eb923a4e9ebcf1565509268b8e17f84c4b"
+  model_reference:
+    model_id: "RESULT-0015::model_fitted_semi_empirical::shell_gaussian_proximity_neutron_only_negative_control"
+    source_path: "agent_runs/AGENT-RUN-0009/metrics.json"
+    frozen_parameters_note: >
+      Frozen shell/magic-number negative control derived from the TASK-0200 shell-aware sandbox lane.
+      Baseline coefficients come from RESULT-0015 model_fitted_semi_empirical:
+      volume=15.51423612106804, surface=17.2931812095177, coulomb=0.6878156091568888,
+      asymmetry=23.846557883948485, pairing=15.990845113398912.
+      The registered correction is an additive residual-style control with
+      r_corr = c_sn * s_n,
+      s_n = exp(-d(N, MAGIC)^2 / (2 * sigma^2)),
+      MAGIC = (2, 8, 20, 28, 50, 82, 126), sigma = 2.
+      Frozen coefficient is copied from AGENT-RUN-0009 full-NMD-0002 fit for HYP-PROPOSAL-0029:
+      c_sn = 1.6049071729432316 MeV.
+      TASK-0200 classified the family ALLOW_ONLY_AS_NEGATIVE_CONTROL after structured-holdout failure
+      and proton-rich subset regression, so this entry is a prospective control only and not a
+      promoted shell-model claim.
+  baseline_reference:
+    result_id: "RESULT-0015"
+    source_path: "results/EXP-0012/RUN-0001/result.yaml"
+  training_data_references:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  holdout_protocol_references:
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "docs/prediction-registry-policy.md"
+    - "docs/reviews/autonomous-nuclear-shell-batch-01.md"
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Registered from repository state 763575eb923a4e9ebcf1565509268b8e17f84c4b without live external
+    fetching. Target nuclides are repo-prospective: absent from committed NMD-0002 and post-AME2020
+    holdout datasets at registration time. The frozen coefficient source is retrospective sandbox
+    evidence only; this entry does not convert that evidence into a claim.
+
+target_set:
+  label: "shell-magic-control-probe"
+  quantity: "mass_excess_mev"
+  unit: "MeV"
+  target_nuclides:
+    - nuclide_id: "Cu-79"
+      Z: 29
+      N: 50
+      A: 79
+      predicted_value_mev: -30.612832
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::shell_gaussian_proximity_neutron_only_negative_control.
+        This target lies one proton away from magic Z=28 but exactly on magic N=50; only the neutron
+        shell-proximity term is active in this control.
+    - nuclide_id: "Kr-86"
+      Z: 36
+      N: 50
+      A: 86
+      predicted_value_mev: -83.965689
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::shell_gaussian_proximity_neutron_only_negative_control.
+        This target keeps N exactly at 50 while moving Z away from a magic number, isolating the
+        neutron-axis-only response.
+    - nuclide_id: "Te-134"
+      Z: 52
+      N: 82
+      A: 134
+      predicted_value_mev: -71.556192
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::shell_gaussian_proximity_neutron_only_negative_control.
+        This target probes the N=82 shell with a near-magic proton count while keeping the control
+        formula one-dimensional in N.
+    - nuclide_id: "Xe-138"
+      Z: 54
+      N: 84
+      A: 138
+      predicted_value_mev: -73.442657
+      uncertainty_mev: null
+      confidence_note: >
+        Point estimate from RESULT-0015::model_fitted_semi_empirical::shell_gaussian_proximity_neutron_only_negative_control.
+        This target remains near the N=82 neighborhood but weakens the shell signal through distance
+        from exact magic N.
+
+uncertainty_semantics:
+  type: point_estimate_only
+  note: >
+    Each value is a deterministic mass_excess_mev point estimate obtained by adding the frozen
+    TASK-0200 neutron-only shell Gaussian control term to the RESULT-0015 fitted semi-empirical
+    binding energy, then converting the resulting atomic mass to mass excess. uncertainty_mev is
+    intentionally null. This entry is a shell-aware negative control for future reveal comparison,
+    not a confidence-ranked forecast.
+
+reveal_conditions:
+  reveal_trigger: >
+    A future maintainer-reviewed nuclear mass dataset or source manifest added after registration
+    contains measured or reviewably convertible values for one or more target nuclides.
+  comparison_data_reference: >
+    future data/nuclear_masses/<reviewed-future-source>.yaml or reviewed source manifest committed
+    after this registry timestamp
+  reveal_owner: "maintainer or maintainer-authorized review agent"
+  no_peek_rule: >
+    After registration, do not alter the frozen model id, shell-control formula note, target
+    nuclides, predicted values, or reveal rule. Later comparison must be a separate reviewed task
+    and may reveal a subset of targets only.
+
+limitations:
+  - "Prospective registry variant only; not a claim or result package."
+  - "No TASK-0200 shell-aware sandbox candidate is being promoted; this is a bounded negative control."
+  - "Targets are selected against committed repository datasets only; no live external source was fetched during registration."
+  - "The frozen shell-control coefficient comes from retrospective sandbox fitting on the 11-row NMD-0002 slice and remains stability-limited."
+  - "Structured holdouts for the underlying HYP-PROPOSAL-0029 family were OVERFITTED despite a small primary post-AME2020 improvement."
+  - "Proton-rich subset regression remained visible in the source sandbox review, so later comparison must stay limitation-aware."
+
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false
