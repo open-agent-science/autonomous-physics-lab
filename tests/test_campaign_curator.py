@@ -36,7 +36,7 @@ def test_campaign_curator_defaults_to_top_campaign() -> None:
         for item in brief.recommended_next_tasks
     )
     assert any(
-        item.task_id in {"TASK-0262", "TASK-0264"}
+        item.task_id in {"TASK-0264", "TASK-0266"}
         for item in brief.recommended_next_tasks
     )
 
