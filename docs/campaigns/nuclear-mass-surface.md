@@ -119,13 +119,11 @@ Start here:
 
 ## Recommended Tasks
 
-- `TASK-0264` — run a feature-term factory slate using shell, magic-number,
-  neutron-excess, and combined coefficient-plus-feature variants.
-- `TASK-0265` — keep blocked until slate-002 is reviewed, then register only a
-  selected feature-term subset as prospective predictions.
-- `TASK-0266` — define reveal protocol before any future
-  measurement comparison; after this lands, future reveal tasks should use
-  the protocol checklist instead of ad hoc source comparison.
+- `TASK-0265` — register only a selected feature-term subset from reviewed
+  slate-002 as prospective predictions; keep extreme-sensitivity candidates
+  deferred unless explicitly accepted as stress controls.
+- Future reveal tasks should use the `TASK-0266` protocol checklist instead of
+  ad hoc source comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 
