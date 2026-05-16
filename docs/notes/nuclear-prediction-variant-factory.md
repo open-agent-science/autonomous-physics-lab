@@ -14,7 +14,8 @@ calculation.
 ## Workflow
 
 1. Define a YAML config with the frozen baseline source, source-state metadata,
-   bounded coefficient transforms, and target batches.
+   bounded coefficient transforms, and target batches. Prefer the reusable
+   target-batch library for common Nuclear Mass Surface review sets.
 2. Generate a candidate slate:
 
    ```bash
@@ -34,6 +35,40 @@ calculation.
    coefficient sensitivity, and no-claim wording.
 5. Copy only selected draft entries into `prediction_registry/nuclear_masses/`
    in a dedicated reviewed PR.
+
+## Reusable Target-Batch Library
+
+`TASK-0254` adds a reviewed target-batch library at
+`data/nuclear_masses/factory_target_batches.yaml`. Factory configs can reuse
+those batches instead of repeating target lists:
+
+```yaml
+target_batch_library:
+  path: data/nuclear_masses/factory_target_batches.yaml
+  include_batches:
+    - frontier-next-row
+    - odd-even-pairing-probe
+```
+
+The library currently includes reviewed batches for:
+
+- frontier controls;
+- odd-even and pairing probes;
+- shell and magic-number probes;
+- neutron-rich stress tests;
+- isotope-chain probes;
+- mid-mass region probes.
+
+Each batch records rationale and limitations. The factory validation layer
+checks that target rows satisfy `A = Z + N`, that nuclide ids are unique within
+each batch, and that committed measured or holdout rows are not accidentally
+included unless a batch is explicitly labeled `retrospective_control: true`.
+This guardrail uses committed repository files only and does not fetch live
+external measurements.
+
+Configs may still define small inline `target_batches` for one-off scratch
+experiments. If a config uses both a library and inline batches, labels must
+not collide; this keeps reviewed batch reuse explicit.
 
 ## Slate Ranking Helper
 

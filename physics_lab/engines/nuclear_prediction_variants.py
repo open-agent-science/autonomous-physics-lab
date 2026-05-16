@@ -42,6 +42,11 @@ DEFAULT_UNCERTAINTY_NOTE = (
     "nuclear prediction variant factory. uncertainty_mev is intentionally null; these "
     "entries are for pre-reveal variant review, not confidence ranking."
 )
+DEFAULT_TARGET_BATCH_LIBRARY_PATH = Path("data/nuclear_masses/factory_target_batches.yaml")
+DEFAULT_TARGET_BATCH_GUARD_PATHS = (
+    Path("data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"),
+    Path("data/nuclear_masses/post_ame2020_holdout.yaml"),
+)
 
 
 @dataclass(frozen=True)
@@ -68,6 +73,17 @@ class NuclearVariantTarget:
             N=n,
             A=a,
         )
+
+
+@dataclass(frozen=True)
+class NuclearTargetBatchLibraryIssue:
+    """Review issue raised by reusable nuclear factory target-batch validation."""
+
+    severity: str
+    code: str
+    message: str
+    batch_id: str | None = None
+    nuclide_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -123,6 +139,119 @@ def load_variant_factory_config(path: str | Path) -> dict[str, Any]:
     return payload
 
 
+def load_target_batch_library(
+    path: str | Path = DEFAULT_TARGET_BATCH_LIBRARY_PATH,
+    *,
+    repo_root: str | Path | None = None,
+) -> dict[str, Any]:
+    """Load and validate a reusable nuclear factory target-batch library."""
+    root = Path(repo_root) if repo_root is not None else repository_root()
+    library_path = Path(path)
+    if not library_path.is_absolute():
+        library_path = root / library_path
+    with library_path.open("r", encoding="utf-8") as handle:
+        payload = yaml.safe_load(handle)
+    if not isinstance(payload, dict):
+        raise ValueError(f"Expected mapping in target-batch library: {library_path}")
+    issues = collect_target_batch_library_issues(payload, repo_root=root)
+    blocking = [issue for issue in issues if issue.severity == "ERROR"]
+    if blocking:
+        details = "; ".join(issue.message for issue in blocking)
+        raise ValueError(f"Invalid target-batch library {library_path}: {details}")
+    return payload
+
+
+def collect_target_batch_library_issues(
+    library: dict[str, Any],
+    *,
+    repo_root: str | Path | None = None,
+) -> tuple[NuclearTargetBatchLibraryIssue, ...]:
+    """Collect reusable target-batch consistency and leakage-guard issues."""
+    root = Path(repo_root) if repo_root is not None else repository_root()
+    issues: list[NuclearTargetBatchLibraryIssue] = []
+    source_guardrails = _mapping(library.get("source_guardrails", {}), "source_guardrails")
+    if source_guardrails.get("live_external_fetch_allowed") is not False:
+        issues.append(
+            NuclearTargetBatchLibraryIssue(
+                severity="ERROR",
+                code="live_external_fetch_allowed",
+                message="Target-batch library must keep live_external_fetch_allowed false.",
+            )
+        )
+
+    committed_ids = _committed_guard_nuclide_ids(source_guardrails, root)
+    raw_batches = _mapping(library.get("batches"), "batches")
+    if not raw_batches:
+        issues.append(
+            NuclearTargetBatchLibraryIssue(
+                severity="ERROR",
+                code="missing_batches",
+                message="Target-batch library must define at least one batch.",
+            )
+        )
+        return tuple(issues)
+
+    for batch_id, raw_batch in raw_batches.items():
+        batch = _mapping(raw_batch, f"batches.{batch_id}")
+        targets = _sequence(batch.get("targets"), f"batches.{batch_id}.targets")
+        if not targets:
+            issues.append(
+                NuclearTargetBatchLibraryIssue(
+                    severity="ERROR",
+                    code="empty_target_batch",
+                    message=f"Target batch {batch_id} must contain at least one target.",
+                    batch_id=str(batch_id),
+                )
+            )
+            continue
+
+        seen_ids: set[str] = set()
+        retrospective_control = bool(batch.get("retrospective_control", False))
+        for raw_target in targets:
+            try:
+                target = NuclearVariantTarget.from_mapping(
+                    _mapping(raw_target, f"batches.{batch_id}.targets")
+                )
+            except (KeyError, TypeError, ValueError) as exc:
+                issues.append(
+                    NuclearTargetBatchLibraryIssue(
+                        severity="ERROR",
+                        code="invalid_target",
+                        message=f"Target batch {batch_id} has invalid target: {exc}",
+                        batch_id=str(batch_id),
+                    )
+                )
+                continue
+
+            if target.nuclide_id in seen_ids:
+                issues.append(
+                    NuclearTargetBatchLibraryIssue(
+                        severity="ERROR",
+                        code="duplicate_nuclide_id",
+                        message=f"Target batch {batch_id} repeats {target.nuclide_id}.",
+                        batch_id=str(batch_id),
+                        nuclide_id=target.nuclide_id,
+                    )
+                )
+            seen_ids.add(target.nuclide_id)
+
+            if target.nuclide_id in committed_ids and not retrospective_control:
+                issues.append(
+                    NuclearTargetBatchLibraryIssue(
+                        severity="ERROR",
+                        code="committed_measurement_target",
+                        message=(
+                            f"Target batch {batch_id} includes committed measured/holdout "
+                            f"nuclide {target.nuclide_id} without retrospective_control: true."
+                        ),
+                        batch_id=str(batch_id),
+                        nuclide_id=target.nuclide_id,
+                    )
+                )
+
+    return tuple(issues)
+
+
 def generate_variant_slate(
     config: dict[str, Any],
     *,
@@ -148,7 +277,7 @@ def generate_variant_slate(
     _validate_unique_prediction_ids(config)
 
     base_coefficients = _load_base_coefficients(config, repo_root=root)
-    targets_by_batch = _parse_target_batches(config)
+    targets_by_batch = _parse_target_batches(config, repo_root=root)
     candidates = tuple(
         _build_candidate(
             variant_config=variant_config,
@@ -688,8 +817,26 @@ def _coefficients_from_mapping(payload: dict[str, Any]) -> SemiEmpiricalCoeffici
     )
 
 
-def _parse_target_batches(config: dict[str, Any]) -> dict[str, tuple[NuclearVariantTarget, ...]]:
-    raw_batches = _mapping(config.get("target_batches"), "target_batches")
+def _parse_target_batches(
+    config: dict[str, Any],
+    *,
+    repo_root: Path,
+) -> dict[str, tuple[NuclearVariantTarget, ...]]:
+    raw_batches: dict[str, Any] = {}
+    if "target_batch_library" in config:
+        raw_batches.update(_target_batches_from_library(config, repo_root=repo_root))
+    if "target_batches" in config:
+        inline_batches = _mapping(config.get("target_batches"), "target_batches")
+        duplicate_labels = sorted(set(raw_batches).intersection(str(label) for label in inline_batches))
+        if duplicate_labels:
+            raise ValueError(
+                "target_batches duplicates target_batch_library labels: "
+                + ", ".join(duplicate_labels)
+            )
+        raw_batches.update({str(label): targets for label, targets in inline_batches.items()})
+    if not raw_batches:
+        raise ValueError("Factory config must define target_batches or target_batch_library")
+
     batches: dict[str, tuple[NuclearVariantTarget, ...]] = {}
     for label, targets in raw_batches.items():
         target_rows = tuple(
@@ -700,6 +847,63 @@ def _parse_target_batches(config: dict[str, Any]) -> dict[str, tuple[NuclearVari
             raise ValueError(f"Target batch {label} must contain at least one target")
         batches[str(label)] = target_rows
     return batches
+
+
+def _target_batches_from_library(
+    config: dict[str, Any],
+    *,
+    repo_root: Path,
+) -> dict[str, Any]:
+    library_config = _mapping(config.get("target_batch_library"), "target_batch_library")
+    library_path = Path(str(library_config.get("path", DEFAULT_TARGET_BATCH_LIBRARY_PATH)))
+    library = load_target_batch_library(library_path, repo_root=repo_root)
+    library_batches = _mapping(library.get("batches"), "batches")
+    include_batches = library_config.get("include_batches")
+    if include_batches is None:
+        selected_labels = [str(label) for label in library_batches]
+    else:
+        selected_labels = [str(label) for label in _sequence(include_batches, "target_batch_library.include_batches")]
+    selected: dict[str, Any] = {}
+    for label in selected_labels:
+        if label not in library_batches:
+            raise ValueError(f"target_batch_library references unknown batch: {label}")
+        selected[label] = _sequence(
+            _mapping(library_batches[label], f"batches.{label}").get("targets"),
+            f"batches.{label}.targets",
+        )
+    return selected
+
+
+def _committed_guard_nuclide_ids(
+    source_guardrails: dict[str, Any],
+    repo_root: Path,
+) -> set[str]:
+    raw_paths = source_guardrails.get("committed_measurement_guard_paths")
+    guard_paths = (
+        [Path(str(path)) for path in _sequence(raw_paths, "source_guardrails.committed_measurement_guard_paths")]
+        if raw_paths is not None
+        else list(DEFAULT_TARGET_BATCH_GUARD_PATHS)
+    )
+    nuclide_ids: set[str] = set()
+    for raw_path in guard_paths:
+        path = raw_path if raw_path.is_absolute() else repo_root / raw_path
+        if not path.exists():
+            raise ValueError(f"Target-batch guard path does not exist: {path}")
+        with path.open("r", encoding="utf-8") as handle:
+            payload = yaml.safe_load(handle)
+        _collect_nuclide_ids(payload, nuclide_ids)
+    return nuclide_ids
+
+
+def _collect_nuclide_ids(payload: Any, output: set[str]) -> None:
+    if isinstance(payload, dict):
+        if "nuclide_id" in payload:
+            output.add(str(payload["nuclide_id"]))
+        for value in payload.values():
+            _collect_nuclide_ids(value, output)
+    elif isinstance(payload, list):
+        for value in payload:
+            _collect_nuclide_ids(value, output)
 
 
 def _validate_source_state(config: dict[str, Any]) -> None:
