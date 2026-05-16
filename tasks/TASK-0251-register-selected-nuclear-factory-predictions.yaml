@@ -1,7 +1,7 @@
 id: TASK-0251
 title: "Register selected predictions from the first nuclear factory slate"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 

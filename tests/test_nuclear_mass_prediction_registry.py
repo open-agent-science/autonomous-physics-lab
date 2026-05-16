@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from functools import lru_cache
 import json
 from pathlib import Path
 
@@ -11,6 +12,7 @@ from physics_lab.engines.nuclear_mass_baselines import (
     SemiEmpiricalCoefficients,
     semi_empirical_atomic_mass_u,
 )
+from physics_lab.engines.nuclear_prediction_variants import generate_variant_slate_from_config
 from physics_lab.engines.nuclear_masses import mass_excess_keV_from_atomic_mass_u
 from physics_lab.registry.nuclear_mass_predictions import load_nuclear_mass_prediction
 from physics_lab.registry.validation import infer_kind_from_path
@@ -23,6 +25,20 @@ FITTED_SEMI_EMPIRICAL_COEFFICIENTS = SemiEmpiricalCoefficients(
     asymmetry=23.846557883948485,
     pairing=15.990845113398912,
 )
+
+FACTORY_SELECTED_SOURCE_COMMIT = "7c315dfcebe5c062f9fc9f1a1817390c0bcfaa7c"
+FACTORY_SELECTED_REGISTRY_MAP = {
+    "PRED-0041": "blend-with-reference-10-frontier",
+    "PRED-0042": "blend-with-reference-50-frontier",
+    "PRED-0043": "blend-with-reference-50-mid-mass-stable",
+    "PRED-0044": "pairing-scale-plus-5pct-odd-even",
+    "PRED-0045": "pairing-scale-minus-5pct-odd-even",
+    "PRED-0046": "pairing-zero-ablation-odd-even",
+    "PRED-0047": "coulomb-scale-plus-1pct-frontier",
+    "PRED-0048": "coulomb-scale-minus-1pct-frontier",
+    "PRED-0049": "asymmetry-scale-plus-1pct-frontier",
+    "PRED-0050": "asymmetry-scale-minus-1pct-frontier",
+}
 
 
 def _repo_root() -> Path:
@@ -47,6 +63,18 @@ def _template_payload() -> dict[str, object]:
 
 def _prediction_paths() -> list[Path]:
     return sorted((_repo_root() / "prediction_registry" / "nuclear_masses").glob("PRED-[0-9][0-9][0-9][0-9].yaml"))
+
+
+@lru_cache(maxsize=1)
+def _slate_001_candidates_by_variant_id() -> dict[str, dict[str, object]]:
+    summary = generate_variant_slate_from_config(
+        _repo_root() / "examples" / "nuclear_prediction_factory_slate_001.yaml",
+        repo_root=_repo_root(),
+        write_drafts=False,
+    )
+    candidates = summary["candidates"]
+    assert isinstance(candidates, list)
+    return {str(candidate["variant_id"]): candidate for candidate in candidates}
 
 
 def _committed_measured_nuclide_ids() -> set[str]:
@@ -212,3 +240,56 @@ def test_registered_prediction_targets_are_repo_prospective() -> None:
             assert target["A"] == target["Z"] + target["N"]
             assert target["nuclide_id"] not in measured_nuclide_ids
             assert target["uncertainty_mev"] is None
+
+
+def test_factory_selected_registry_wave_preserves_source_boundary() -> None:
+    for prediction_id, variant_id in FACTORY_SELECTED_REGISTRY_MAP.items():
+        payload = load_nuclear_mass_prediction(
+            _repo_root() / "prediction_registry" / "nuclear_masses" / f"{prediction_id}.yaml"
+        )
+
+        assert payload["task_id"] == "TASK-0251"
+        assert payload["registered_by"] == {"contributor_id": "roman", "agent_id": "codex"}
+        assert payload["registered_at_utc"] == "2026-05-16T00:00:00Z"
+        assert payload["source_state"]["git_commit"] == FACTORY_SELECTED_SOURCE_COMMIT
+        assert payload["source_state"]["live_external_fetch_allowed"] is False
+        assert variant_id in payload["source_state"]["model_reference"]["model_id"]
+
+        boundary_text = " ".join(
+            [
+                payload["claim_ceiling"],
+                payload["source_state"]["source_data_state_note"],
+                *payload["limitations"],
+            ]
+        ).lower()
+        assert "no claim" in boundary_text
+        assert "coefficient-transform slate-001" in boundary_text
+        assert "unreviewed refreshed feature-term slate" in boundary_text
+        assert "live external" in boundary_text
+        assert "breakthrough" not in boundary_text
+
+
+def test_factory_selected_registry_wave_matches_deterministic_slate_001_recompute() -> None:
+    candidates_by_variant_id = _slate_001_candidates_by_variant_id()
+
+    for prediction_id, variant_id in FACTORY_SELECTED_REGISTRY_MAP.items():
+        payload = load_nuclear_mass_prediction(
+            _repo_root() / "prediction_registry" / "nuclear_masses" / f"{prediction_id}.yaml"
+        )
+        candidate = candidates_by_variant_id[variant_id]
+
+        assert payload["source_state"]["model_reference"]["model_id"] == candidate["model_id"]
+        assert payload["target_set"]["label"] == candidate["target_batch"]
+        assert payload["target_set"]["quantity"] == "mass_excess_mev"
+        assert payload["target_set"]["unit"] == "MeV"
+
+        expected_targets = candidate["target_nuclides"]
+        actual_targets = payload["target_set"]["target_nuclides"]
+        assert len(actual_targets) == len(expected_targets)
+        for actual, expected in zip(actual_targets, expected_targets):
+            assert actual["nuclide_id"] == expected["nuclide_id"]
+            assert actual["Z"] == expected["Z"]
+            assert actual["N"] == expected["N"]
+            assert actual["A"] == expected["A"]
+            assert actual["uncertainty_mev"] is None
+            assert actual["predicted_value_mev"] == expected["predicted_value_mev"]
