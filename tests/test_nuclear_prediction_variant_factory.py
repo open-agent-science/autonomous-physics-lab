@@ -19,8 +19,10 @@ from physics_lab.engines.nuclear_masses import (
 )
 from physics_lab.engines.nuclear_prediction_variants import (
     apply_coefficient_transform,
+    collect_target_batch_library_issues,
     feature_term_correction_mev,
     generate_variant_slate,
+    load_target_batch_library,
 )
 from physics_lab.registry.examples import load_example_config
 from physics_lab.registry.nuclear_mass_predictions import load_nuclear_mass_prediction
@@ -204,6 +206,106 @@ def test_factory_example_is_validated_as_factory_config() -> None:
 
     assert payload["config_kind"] == "nuclear_prediction_variant_factory"
     assert payload["factory_id"] == "nuclear-prediction-variant-factory-example"
+
+
+def test_target_batch_library_is_valid_and_spans_required_batch_types() -> None:
+    library = load_target_batch_library(repo_root=_repo_root())
+    batches = library["batches"]
+
+    assert not collect_target_batch_library_issues(library, repo_root=_repo_root())
+    assert {
+        "frontier_controls",
+        "odd_even_pairing_probe",
+        "shell_magic_probe",
+        "neutron_rich_stress",
+        "isotope_chain_probe",
+    }.issubset({batch["category"] for batch in batches.values()})
+    assert len(batches) >= 5
+
+
+def test_variant_factory_resolves_targets_from_reusable_library() -> None:
+    config = deepcopy(_base_config())
+    config.pop("target_batches")
+    config["target_batch_library"] = {
+        "path": "data/nuclear_masses/factory_target_batches.yaml",
+        "include_batches": ["odd-even-pairing-probe"],
+    }
+    config["variants"][0]["target_batch"] = "odd-even-pairing-probe"
+
+    summary = generate_variant_slate(config, repo_root=_repo_root())
+    candidate = summary["candidates"][0]
+
+    assert candidate["target_batch"] == "odd-even-pairing-probe"
+    assert [row["nuclide_id"] for row in candidate["target_nuclides"]] == [
+        "Co-59",
+        "Ni-60",
+        "Cu-64",
+        "Zn-65",
+    ]
+
+
+def test_target_batch_library_detects_inconsistent_mass_number() -> None:
+    library = {
+        "source_guardrails": {"live_external_fetch_allowed": False},
+        "batches": {
+            "bad-batch": {
+                "retrospective_control": False,
+                "targets": [{"nuclide_id": "Bad-5", "Z": 2, "N": 2, "A": 5}],
+            }
+        },
+    }
+
+    issues = collect_target_batch_library_issues(library, repo_root=_repo_root())
+
+    assert any(issue.code == "invalid_target" for issue in issues)
+
+
+def test_target_batch_library_detects_duplicate_nuclides_within_batch() -> None:
+    library = {
+        "source_guardrails": {"live_external_fetch_allowed": False},
+        "batches": {
+            "duplicate-batch": {
+                "retrospective_control": False,
+                "targets": [
+                    {"nuclide_id": "Ni-76", "Z": 28, "N": 48, "A": 76},
+                    {"nuclide_id": "Ni-76", "Z": 28, "N": 48, "A": 76},
+                ],
+            }
+        },
+    }
+
+    issues = collect_target_batch_library_issues(library, repo_root=_repo_root())
+
+    assert any(issue.code == "duplicate_nuclide_id" for issue in issues)
+
+
+def test_target_batch_library_blocks_committed_measurements_unless_retrospective() -> None:
+    library = {
+        "source_guardrails": {"live_external_fetch_allowed": False},
+        "batches": {
+            "prospective-batch": {
+                "retrospective_control": False,
+                "targets": [{"nuclide_id": "He-4", "Z": 2, "N": 2, "A": 4}],
+            },
+            "retrospective-batch": {
+                "retrospective_control": True,
+                "targets": [{"nuclide_id": "Ca-40", "Z": 20, "N": 20, "A": 40}],
+            },
+        },
+    }
+
+    issues = collect_target_batch_library_issues(library, repo_root=_repo_root())
+
+    assert any(
+        issue.code == "committed_measurement_target"
+        and issue.batch_id == "prospective-batch"
+        for issue in issues
+    )
+    assert not any(
+        issue.code == "committed_measurement_target"
+        and issue.batch_id == "retrospective-batch"
+        for issue in issues
+    )
 
 
 def _mass_excess_with_correction(
