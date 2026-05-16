@@ -185,11 +185,31 @@ def validate_repo(
         "--fail-on-warnings",
         help="Exit non-zero when strict validation reports warnings.",
     ),
+    auto_sync: bool = typer.Option(
+        False,
+        "--auto-sync",
+        help=(
+            "Refresh generated task navigation (tasks/ACTIVE.md and "
+            "docs/task-views/*.md) from canonical task YAML before validating. "
+            "Opt-in: the default behaviour treats stale navigation as an error."
+        ),
+    ),
 ) -> None:
     """Validate all structured repository artifacts and cross-references."""
     if fail_on_warnings and not strict:
         raise typer.BadParameter("--fail-on-warnings requires --strict")
-    summary = validate_repository(Path(root), strict=strict)
+    root_path = Path(root)
+    if auto_sync:
+        synced_paths = sync_generated_task_state(root_path.resolve())
+        if synced_paths:
+            typer.echo("Auto-synced generated task navigation:")
+            for path in synced_paths:
+                try:
+                    display_path = path.resolve().relative_to(root_path.resolve()).as_posix()
+                except ValueError:
+                    display_path = path.as_posix()
+                typer.echo(f"- {display_path}")
+    summary = validate_repository(root_path, strict=strict)
     typer.echo(f"Validated repository: {summary.root}")
     for kind, count in summary.counts.items():
         typer.echo(f"- {kind}: {count}")
