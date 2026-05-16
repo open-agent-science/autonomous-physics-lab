@@ -1,0 +1,58 @@
+id: TASK-0258
+title: "Track .claude/settings.json as shared agent permission baseline"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Reduce agent friction so research, replay, and audit work can run without per-command permission prompts."
+  - "Keep a curated, maintainer-reviewed shared allowlist instead of letting each contributor accumulate reactive local rules."
+  - "Preserve personal overrides through settings.local.json so the shared baseline stays scoped to the maintainer-approved operations."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - ".gitignore"
+    - ".claude/settings.json"
+    - ".claude/settings.local.json"
+    - "scripts/apl_setup_worktree.sh"
+    - "CLAUDE.md"
+  planning_context: >
+    Today .claude/ is fully gitignored, so neither settings.json nor
+    settings.local.json travels with the repository. Every fresh checkout and
+    every new worktree starts with no allowlist, which triggers a long
+    sequence of permission prompts before the agent can run even routine
+    tooling. The existing workaround (scripts/apl_setup_worktree.sh copying
+    a reactive local file with overlapping rules) does not scale beyond the
+    maintainer's own checkout. This task switches to the standard Claude
+    Code layered settings model: ship a curated, version-controlled
+    settings.json baseline through the repository, and keep
+    settings.local.json as the user-specific override file.
+
+requirements:
+  - "Replace the blanket .claude/ ignore in .gitignore with specific ignores for .claude/settings.local.json and .claude/worktrees/."
+  - "Add a curated .claude/settings.json to git containing the maintainer-approved baseline: read-only Python tooling, APL helper scripts, common git read and write operations, and gh read/write operations."
+  - "Do not include patterns that grant fully arbitrary code execution; specifically exclude bare `Bash(python3 *)` and equivalent wildcards in the committed settings.json."
+  - "Keep .claude/settings.local.json out of git so per-user overrides remain personal."
+  - "Do not change canonical scientific artifacts (claims, results, experiments, hypotheses, knowledge) as part of this task."
+  - "Do not change task-state transitions or generated task navigation as part of this task."
+
+accepted_outputs:
+  - ".gitignore update: blanket .claude/ rule replaced with .claude/settings.local.json and .claude/worktrees/."
+  - "Curated .claude/settings.json committed to git."
+  - "Task validation passes (ruff, pytest, validate-repo, strict validate-repo)."
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

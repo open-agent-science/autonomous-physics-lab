@@ -19,3 +19,4 @@ None.
 
 - `TASK-0136` - Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`, domain `repository_validation`)
 - `TASK-0257` - Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_automation`)
+- `TASK-0258` - Track .claude/settings.json as shared agent permission baseline (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
