@@ -1,7 +1,7 @@
 id: TASK-0251
 title: "Register selected predictions from the first nuclear factory slate"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -16,15 +16,19 @@ input:
   related_objects:
     - "docs/reviews/nuclear-prediction-factory-slate-001.md"
     - "examples/nuclear_prediction_factory_slate_001.yaml"
+    - "data/nuclear_masses/factory_target_batches.yaml"
     - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
     - "docs/prediction-registry-policy.md"
     - "docs/notes/nuclear-prediction-variant-factory.md"
   planning_context: >
-    This task is intentionally blocked until TASK-0250 produces and reviews the
-    first large factory slate. It should register only a small selected subset,
-    not every generated draft candidate. If TASK-0252 expands the factory
-    search space before registration starts, prefer rerunning or updating the
-    slate review before freezing PRED-0041+ entries.
+    TASK-0250 has produced and reviewed the first large factory slate, TASK-0252
+    has landed feature-term factory support, and TASK-0254 has landed the
+    reusable target-batch library. The maintainer approved unblocking this
+    selected-registry wave on 2026-05-16. It should register only a small
+    selected subset, not every generated draft candidate. Before freezing
+    PRED-0041+ entries, document whether the selected subset intentionally uses
+    the reviewed coefficient-transform slate-001 or whether a refreshed
+    feature-term slate is used as the immediate selection source.
 
 requirements:
   - "Start only after TASK-0250 is merged or the maintainer explicitly approves its candidate selection."
