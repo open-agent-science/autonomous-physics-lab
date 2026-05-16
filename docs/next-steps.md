@@ -157,12 +157,12 @@ Recommended nuclear validation queue for parallel agents:
   reviewed target batches instead of copying ad hoc target lists
 - `TASK-0251` selected factory registry wave: now merged as `PRED-0041`
   through `PRED-0050`, using reviewed coefficient-transform slate-001
-- `TASK-0262` feature-term factory slate-002: the next primary Nuclear task,
+- `TASK-0264` feature-term factory slate-002: the next primary Nuclear task,
   using shell, magic-number, neutron-excess, near-null, sign-symmetric, and
   combined coefficient-plus-feature variants
-- `TASK-0263` selected feature-term registry wave: blocked until `TASK-0262`
+- `TASK-0265` selected feature-term registry wave: blocked until `TASK-0264`
   is reviewed and a maintainer approves a small selected subset
-- `TASK-0264` reveal protocol: ready now, and should land before any
+- `TASK-0266` reveal protocol: ready now, and should land before any
   future measurement comparison or reveal-scoring task
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an

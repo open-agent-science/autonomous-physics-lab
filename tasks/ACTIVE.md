@@ -51,8 +51,8 @@ one PR.
 - `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0262` — Run nuclear feature-term factory slate-002 (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0264` — Define nuclear prediction reveal protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
+- `TASK-0264` — Run nuclear feature-term factory slate-002 (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0266` — Define nuclear prediction reveal protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -303,7 +303,7 @@ None.
 - `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0263` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

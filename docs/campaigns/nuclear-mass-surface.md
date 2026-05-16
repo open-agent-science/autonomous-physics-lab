@@ -102,8 +102,8 @@ Start here:
 - [Nuclear Mass Campaign Plan](../notes/nuclear-mass-campaign-plan.md)
 - [Nuclear Prediction Variant Factory](../notes/nuclear-prediction-variant-factory.md)
 - [Selected Factory Registry Wave 001](../reviews/nuclear-prediction-factory-selected-registry-001.md)
-- [TASK-0262](../../tasks/TASK-0262-run-nuclear-feature-term-factory-slate.yaml)
-- [TASK-0264](../../tasks/TASK-0264-define-nuclear-prediction-reveal-readiness-protocol.yaml)
+- [TASK-0264](../../tasks/TASK-0264-run-nuclear-feature-term-factory-slate.yaml)
+- [TASK-0266](../../tasks/TASK-0266-define-nuclear-prediction-reveal-readiness-protocol.yaml)
 
 ## Open Questions
 
@@ -118,11 +118,11 @@ Start here:
 
 ## Recommended Tasks
 
-- `TASK-0262` — run a feature-term factory slate using shell, magic-number,
+- `TASK-0264` — run a feature-term factory slate using shell, magic-number,
   neutron-excess, and combined coefficient-plus-feature variants.
-- `TASK-0263` — keep blocked until slate-002 is reviewed, then register only a
+- `TASK-0265` — keep blocked until slate-002 is reviewed, then register only a
   selected feature-term subset as prospective predictions.
-- `TASK-0264` — define reveal protocol before any future
+- `TASK-0266` — define reveal protocol before any future
   measurement comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
