@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-16 10:53 UTC
+Generated: 2026-05-16 20:58 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -211,6 +211,14 @@ paths, maintainer automation roles, and entrypoints already exist.
 Before starting implementation, agents must create a working task branch using
 the canonical branch format. Agents must not begin editing repository files,
 staging changes, or otherwise performing task work on `main`.
+
+When two or more agent sessions are (or might soon be) active in the same
+repository checkout, prefer a dedicated `git worktree` per task so that
+`HEAD` and untracked files do not leak between sessions. Use
+[`docs/notes/agent-worktree-discipline.md`](docs/notes/agent-worktree-discipline.md)
+for the helpers (`scripts/apl_new_worktree.sh`) and the optional
+[`scripts/apl_branch_precondition.py`](scripts/apl_branch_precondition.py)
+check that catches "wrong branch / surprise files" before any commit.
 
 ## Task Proposal Rule
 
@@ -526,7 +534,6 @@ python3 -m ruff check .
 python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
-python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```
@@ -1782,7 +1789,6 @@ python3 -m ruff check .
 python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
-python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```
@@ -2136,7 +2142,9 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0263` — Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0267` — Add git merge to Claude Code permissions allowlist (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (`contributor_experience`, priority `low`, difficulty `low`)
 
 ## DONE RECENTLY
 
