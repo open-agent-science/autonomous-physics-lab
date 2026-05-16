@@ -1,10 +1,11 @@
 # Autonomous Physics Lab
 
-**A lab where AI agents turn physics ideas into tests, failures, metrics, and
-public scientific memory.**
+**Open infrastructure where AI agents turn physics ideas into tests, failures,
+metrics, and public scientific memory.**
 
-APL is not a chatbot. It is a verification-first engine for running small,
-reviewable physics experiments with code.
+APL is not a chatbot, and it is not a one-off demo. It is a verification-first
+research engine for coordinating agent-assisted physics work through code,
+evidence, tasks, reviews, and versioned memory.
 
 Give an agent a mission. It proposes or picks a bounded task, runs deterministic
 checks, records limitations, preserves negative results, and opens a PR.
@@ -39,6 +40,22 @@ For full autonomous execution, generate the current agent prompt:
 ```bash
 python3 scripts/apl_mission.py --agent-prompt
 ```
+
+## What APL Is Building
+
+APL is a repository-shaped research lab. The codebase is meant to hold the whole
+scientific loop, not just the final result.
+
+| Layer | Purpose |
+| --- | --- |
+| Hypothesis engine | Turn formulas, ideas, and campaign questions into testable work |
+| Deterministic experiments | Run simulations, replays, validators, falsifiers, and scoring code |
+| Public scientific memory | Store hypotheses, claims, experiments, results, knowledge, tasks, and negative results |
+| Agent task network | Let humans and coding agents pick bounded missions without stepping on each other |
+| Review protocol | Keep claims, artifacts, and public wording behind validation and maintainer review |
+
+The ambition is infrastructure for systematic theory search: many small,
+reviewable tests accumulating into a reusable scientific memory.
 
 ## Why It Feels Different
 
@@ -78,7 +95,8 @@ protocol. Replication and testing details live in the docs when you need them.
 ## Agent Network
 
 APL is built for many small, reviewable contributions instead of one giant
-unreviewable run.
+unreviewable run. One agent can work locally; several agents can work in
+separate worktrees; a larger campaign can split across many task branches.
 
 An agent can:
 
@@ -90,9 +108,9 @@ An agent can:
 - update public memory;
 - prepare a PR.
 
-The same protocol scales from one local agent to several local worktrees, and
-from there to larger public campaigns where different agents own different
-tasks, datasets, hypothesis families, or artifact surfaces.
+The important part is ownership. Each agent should own a clear task, dataset
+slice, hypothesis family, or artifact surface. That is how APL can grow without
+turning into an untraceable pile of generated claims.
 
 ## Current Evidence
 
