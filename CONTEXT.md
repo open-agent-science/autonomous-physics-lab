@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-16 08:35 UTC
+Generated: 2026-05-16 08:48 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1128,10 +1128,6 @@ support_actions:
     label: "Create private agent challenge pack"
     task_id: TASK-0177
     priority: medium
-  - id: maintainer-review-coverage
-    label: "Expand maintainer review policy branch coverage"
-    task_id: TASK-0241
-    priority: medium
   - id: coverage-helper
     label: "Add a coverage helper entrypoint for contributors and agents"
     task_id: TASK-0242
@@ -2129,9 +2125,7 @@ one PR.
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
-- `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0251` — Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -2140,6 +2134,8 @@ None.
 ## REVIEW_READY
 
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
+- `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0251` — Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0258` — Track .claude/settings.json as shared agent permission baseline (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0259` — Clarify task-state and generated-navigation wording in task contracts (`maintainer_workflow`, priority `medium`, difficulty `low`)
