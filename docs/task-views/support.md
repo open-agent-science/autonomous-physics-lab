@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0177` - Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
-- `TASK-0242` - Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
 
 ## IN_PROGRESS
 
@@ -15,4 +14,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0242` - Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
 - `TASK-0263` - Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)

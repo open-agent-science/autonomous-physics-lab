@@ -15,8 +15,14 @@ nuclear workflows, and proposal / agent-run registries.
 
 ## Coverage Command
 
-Use the documented command in [../testing.md](../testing.md). It measures
-`physics_lab` and the Python `scripts/` directory with branch coverage enabled.
+Use the documented helper in [../testing.md](../testing.md):
+
+```bash
+python3 scripts/apl_coverage_report.py
+```
+
+It measures `physics_lab` and the Python `scripts/` directory with branch
+coverage enabled.
 
 The priority script rows to inspect first are:
 
@@ -70,7 +76,7 @@ workspace-local pytest temp base, the full branch-aware coverage command now
 exits cleanly on Windows:
 
 ```powershell
-python -m pytest --basetemp=.pytest-basetemp --cov=physics_lab --cov=scripts --cov-branch --cov-report=term-missing:skip-covered --cov-report=html:_coverage/html
+python scripts\apl_coverage_report.py
 ```
 
 Observed result:

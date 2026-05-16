@@ -3,12 +3,12 @@ updated: "2026-05-12"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-14"
-  source: "TASK-0243"
+  updated: "2026-05-16"
+  source: "TASK-0242"
   note: >
-    Mission metadata and generated task navigation were refreshed after adding
-    docs/task-views and freshness validation. The flagship mission did not
-    change; support recommendations now reference only actionable READY tasks.
+    Mission metadata was refreshed after adding the coverage report helper.
+    The flagship mission did not change; support recommendations now reference
+    only actionable READY tasks or command/documentation actions.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -213,8 +213,8 @@ support_actions:
     task_id: TASK-0177
     priority: medium
   - id: coverage-helper
-    label: "Add a coverage helper entrypoint for contributors and agents"
-    task_id: TASK-0242
+    label: "Run the report-only coverage helper"
+    command: "python3 scripts/apl_coverage_report.py"
     priority: medium
 
 maintainer_actions:
