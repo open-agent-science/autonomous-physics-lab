@@ -33,7 +33,12 @@ scoped**. Specifically:
   agent-generated working files; they cannot reach user data or other
   repositories.
 
-Destructive operations stay **off** the shared allowlist on purpose:
+New rules should not add destructive shortcuts. Some legacy Git/GitHub rules
+are still broad enough that repository policy and maintainer review remain the
+final safety layer; do not interpret a shared permission match as approval to
+perform destructive or final-review actions.
+
+Do not add dedicated shared allowlist rules for:
 
 - `rm`, `rm -rf` — file deletion
 - `git reset --hard`, `git checkout -- <path>` (without explicit path) —
@@ -42,11 +47,14 @@ Destructive operations stay **off** the shared allowlist on purpose:
   history
 - `git branch -D`, `git tag -d` — destructive branch/tag deletion
 - `git clean -f` — deletes untracked work
-- `gh pr merge` — final merge decision belongs to a human maintainer
+- `gh pr merge` — final merge decision belongs to a human maintainer or an
+  explicitly authorized maintainer-mode run
 
 A contributor who genuinely needs one of these in a single session can use
 `.claude/settings.local.json` for their own check-out without affecting the
-shared rules.
+shared rules. Even when a broad legacy rule would technically match, agents
+must still follow `AGENTS.md` and maintainer instructions before pushing,
+merging, deleting, or discarding local state.
 
 ## 3. Rule groups
 
@@ -71,17 +79,19 @@ canonical artifacts beyond their documented scope.
 `git status *`, `git log *`, `git diff *`, `git show *`, `git branch *`,
 `git ls-files *`, `git rev-parse *`, `git rev-list *`, `git merge-base *`,
 `git blame *`, `git diff-tree *`, `git config --get *`,
-`git worktree list`, `git remote *`, `git reflog *`. None of these can
-change repository state.
+`git worktree list`, `git remote *`, `git reflog *`. These are intended for
+inspection. Avoid destructive subcommands such as branch deletion even if a
+legacy broad pattern could technically match them.
 
 ### 3.4 Git stash
 
 `git stash list`, `git stash show *`, `git stash push *`,
-`git stash pop *`, `git stash apply *`, `git stash drop *`, plus the
-generic `git stash *` umbrella. Stash is non-destructive: pushes save
-state, pops restore it, drops only remove a specific stash by id. This
-group exists because cleaning untracked artifacts before maintainer review
-(`apl_review_pr.py`) regularly needs `git stash push --include-untracked`.
+`git stash pop *`, `git stash apply *`, `git stash drop *`. The generic
+`git stash *` umbrella is deliberately not allowed because it would also cover
+`git stash clear`. Stash pushes save state; pops/apply restore it; drops should
+only remove a specific reviewed stash id. This group exists because cleaning
+untracked artifacts before maintainer review (`apl_review_pr.py`) regularly
+needs `git stash push --include-untracked`.
 
 ### 3.5 Git mutations on the working branch
 
@@ -95,8 +105,8 @@ is prevented by repository policy, not by Claude Code permissions.
 
 ### 3.6 Text inspection
 
-`sed -n *`, `awk *`, `head *`, `tail *`, `wc *`, `cat *`, `find . *`,
-`ls *`, `grep *`, `rg *`, `echo *`.
+`sed -n *`, `head *`, `tail *`, `wc *`, `cat *`, `ls *`, `grep *`, `rg *`,
+`echo *`.
 
 The `sed -n *` form intentionally restricts `sed` to the `-n` "no
 auto-print" mode, which is the print-range form (`sed -n '10,20p'`).
@@ -105,8 +115,10 @@ this rule and still prompts. Agents that need write-side text edits should
 use the `Edit` tool with explicit before/after strings rather than scripted
 substitution.
 
-`find . *` is scoped to the current directory tree so an agent cannot
-recurse from `/` and exhaust system resources.
+`awk *` and `find . *` are intentionally not shared rules. `awk` can execute
+shell commands, and `find` has destructive forms such as `-delete`; agents can
+use `rg --files`, `git ls-files`, `ls`, `head`, `tail`, or request approval for
+a specific `find`/`awk` command when needed.
 
 ### 3.7 GitHub CLI
 
@@ -114,7 +126,8 @@ recurse from `/` and exhaust system resources.
 Homebrew-path variants for sessions where `PATH` is missing
 `/opt/homebrew/bin`. The `gh api repos/*` pattern restricts API calls to
 the repository scope; `gh api user`, `gh api orgs/*`, etc. still prompt.
-PR-merge is *not* on this list — see safety boundary above.
+PR merge remains governed by repository protocol and explicit maintainer
+authorization; a permission match is not approval to merge.
 
 ### 3.8 Agent-owned temporary paths
 

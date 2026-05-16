@@ -29,7 +29,7 @@ input:
 
 requirements:
   - "Only add rules that are read-only, idempotent, or safely scoped (no rm, no force push, no destructive resets, no global gh write outside repo scope)."
-  - "Add read-only text-processing commands missing from settings.json: sed -n print form, awk, head, tail, wc, cat, find, ls, grep, rg, echo."
+  - "Add safe read-only text-processing commands missing from settings.json: sed -n print form, head, tail, wc, cat, ls, grep, rg, echo; document why broad awk/find rules remain approval-gated."
   - "Add non-destructive git operations: git reflog, git stash push/pop/drop/show, git reset --mixed, git reset --soft."
   - "Add Read-tool access for agent-owned temporary directories used by APL helpers: /tmp/apl-* and /tmp/claude-*."
   - "Add Write-tool access for the same /tmp/apl-* paths so the task PR helper can scaffold body files without prompting."
