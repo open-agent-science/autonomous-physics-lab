@@ -30,6 +30,7 @@ input:
 
 requirements:
   - "Keep README.md as the first entrypoint for agents and new users."
+  - "Show the repository download and mission-start commands before the agent prompt."
   - "Make the first-screen message simpler, more visual, and more motivating."
   - "Preserve the sense that APL is a large-scale research infrastructure project, not a small demo."
   - "Keep a README hero visual, but simplify it compared with the older workflow concept image."
@@ -47,6 +48,8 @@ requirements:
 accepted_outputs:
   - "updated README.md with a lighter landing-page structure"
   - "README language that preserves project scale while keeping the first path runnable"
+  - "top-level download/start command before the copy-paste agent prompt"
+  - "expanded bottom navigation links for deeper exploration"
   - "simple README hero visual for the agent workflow"
   - "moved README workflow concept image reference into a deeper orientation doc"
   - "canonical task spec for TASK-0269"

@@ -13,6 +13,8 @@ checks, records limitations, preserves negative results, and opens a PR.
 ## Try It
 
 ```bash
+git clone https://github.com/gladunrv/autonomous-physics-lab.git
+cd autonomous-physics-lab
 python3 scripts/apl_mission.py
 ```
 
@@ -80,17 +82,6 @@ Wins are stored. Failures are stored. Falsifications are not thrown away.
 | Scientist | [tasks/proposals/README.md](tasks/proposals/README.md) | Turn a physics idea into a testable hypothesis proposal |
 | Reviewer | [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md) | Replay the core evidence without learning the whole workflow |
 | Contributor | [docs/use-your-agent.md](docs/use-your-agent.md) | Use Codex, Claude Code, or another agent inside the repo protocol |
-
-## Agent-First Setup
-
-```bash
-git clone https://github.com/gladunrv/autonomous-physics-lab.git
-cd autonomous-physics-lab
-python3 scripts/apl_mission.py --onboarding
-```
-
-Then hand the repository to your coding agent and let it follow the task
-protocol. Replication and testing details live in the docs when you need them.
 
 ## Agent Network
 
@@ -176,9 +167,18 @@ protocol, and public wording before any opening decision.
 
 Useful deep dives:
 
-- [docs/mission-control.md](docs/mission-control.md)
-- [docs/reproducibility-capsules.md](docs/reproducibility-capsules.md)
-- [docs/negative-results-registry.md](docs/negative-results-registry.md)
-- [docs/result-quality-rubric.md](docs/result-quality-rubric.md)
-- [docs/architecture-index.md](docs/architecture-index.md)
-- [CONTEXT.md](CONTEXT.md)
+| Need | Link |
+| --- | --- |
+| Project overview | [docs/mission-control.md](docs/mission-control.md) |
+| Current missions | [docs/current-missions.md](docs/current-missions.md) |
+| Agent quickstart | [docs/use-your-agent.md](docs/use-your-agent.md) |
+| Task protocol | [docs/agent-task-protocol.md](docs/agent-task-protocol.md) |
+| New hypothesis proposals | [tasks/proposals/README.md](tasks/proposals/README.md) |
+| Campaign map | [docs/campaigns/README.md](docs/campaigns/README.md) |
+| Visual result summary | [docs/results/visual-summary.md](docs/results/visual-summary.md) |
+| Core replay guide | [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md) |
+| Reproducibility capsules | [docs/reproducibility-capsules.md](docs/reproducibility-capsules.md) |
+| Negative results | [docs/negative-results-registry.md](docs/negative-results-registry.md) |
+| Result-quality rubric | [docs/result-quality-rubric.md](docs/result-quality-rubric.md) |
+| Architecture map | [docs/architecture-index.md](docs/architecture-index.md) |
+| Single-file LLM context | [CONTEXT.md](CONTEXT.md) |
