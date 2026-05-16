@@ -1,7 +1,7 @@
 id: TASK-0254
 title: "Add reusable nuclear factory target-batch library"
 type: dataset_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
