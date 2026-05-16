@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-16 08:08 UTC
+Generated: 2026-05-16 08:13 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1534,6 +1534,11 @@ Rules:
 
 - An agent may move `READY -> IN_PROGRESS`.
 - An agent may move `IN_PROGRESS -> REVIEW_READY`.
+- A task PR may update its own `tasks/TASK-XXXX-*.yaml` lifecycle status and
+  synchronize generated task navigation when that status changes.
+- Do not change unrelated task statuses or generated task navigation except
+  when the maintainer explicitly requested queue triage, closeout, unblock, or
+  stale-task cleanup.
 - Only a maintainer should move `REVIEW_READY -> DONE`.
 - A maintainer may use a maintainer-run review agent to assist review and
   closeout, but the agent output is advisory rather than autonomous.
@@ -1849,9 +1854,12 @@ The maintainer review agent must not:
    a maintainer-synchronized snapshot.
 6. Do not hand-edit `docs/task-views/*.md`; they are generated from canonical
    task YAML files alongside `tasks/ACTIVE.md`.
-7. If the task itself changes active-board behavior or presentation, update the
-   board and run `python3 -m physics_lab.cli sync-active-board .` as part of
-   that scoped task.
+7. If the task file changes status, run
+   `python3 -m physics_lab.cli sync-active-board .` so generated task
+   navigation reflects the current canonical task YAML. This generated sync is
+   allowed for the current task's lifecycle transition; do not include
+   unrelated task-status changes unless the maintainer explicitly requested
+   queue triage, unblock, closeout, or stale-task cleanup.
 8. Make the smallest reproducible change that satisfies the task.
 9. Run the required validation commands.
 10. Set the task to `REVIEW_READY` when implementation and validation are done.
@@ -2124,6 +2132,7 @@ one PR.
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0254` — Add reusable nuclear factory target-batch library (`dataset_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0259` — Clarify task-state and generated-navigation wording in task contracts (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## IN_PROGRESS
 

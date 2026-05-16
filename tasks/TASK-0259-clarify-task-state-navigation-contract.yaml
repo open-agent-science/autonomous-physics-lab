@@ -1,7 +1,7 @@
 id: TASK-0259
 title: "Clarify task-state and generated-navigation wording in task contracts"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: medium
 
