@@ -1,0 +1,63 @@
+id: TASK-0268
+title: "Consolidate canonical validation list: drop redundant non-strict validate-repo"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: low
+
+strategy_alignment:
+  - "Shrink the canonical agent validation list to the minimum that still catches every error class the strict run catches."
+  - "Keep the change documentation-only: the validate-repo CLI itself is unchanged, both invocations still work."
+  - "Reduce per-PR wall-clock time and reviewer noise by removing one redundant subprocess from the standard agent workflow."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+    - "CONTRIBUTING.md"
+  planning_context: >
+    The canonical "Required Validation" / "Completion Expectations" block
+    in AGENTS.md, docs/agent-task-protocol.md, TASK-TEMPLATE.yaml, and
+    CONTRIBUTING.md lists both
+    `python3 -m physics_lab.cli validate-repo .`
+    and
+    `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`
+    as required steps. The strict invocation runs every check the
+    non-strict invocation runs (basic schema loads + file counts) plus
+    the strict-only checks (stale_active_board, stale_generated_task_view,
+    draft_with_passing_evidence, etc.) and reports a verdict. The
+    non-strict step is therefore redundant in this list; running it
+    adds ~3-5 seconds per PR without catching anything strict misses.
+    Existing per-task YAML files keep their committed validation
+    history — this task only edits the live canonical sources.
+
+requirements:
+  - "Remove the standalone `python3 -m physics_lab.cli validate-repo .` line from AGENTS.md Completion Expectations."
+  - "Remove the standalone non-strict line from docs/agent-task-protocol.md Required Validation."
+  - "Remove the standalone non-strict line from tasks/TASK-TEMPLATE.yaml so newly created tasks inherit the consolidated list."
+  - "Remove the standalone non-strict line from CONTRIBUTING.md."
+  - "Do not edit existing tasks/TASK-XXXX-*.yaml files — they are historical records."
+  - "Do not edit campaign_profiles/*.yaml files — campaign-level validation contracts are out of scope."
+  - "Do not edit auto-generated CONTEXT.md or any results/ artifact."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - "AGENTS.md Completion Expectations with one validate-repo line instead of two"
+  - "docs/agent-task-protocol.md Required Validation with one validate-repo line instead of two"
+  - "tasks/TASK-TEMPLATE.yaml with one validate-repo entry instead of two"
+  - "CONTRIBUTING.md with one validate-repo line instead of two"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
