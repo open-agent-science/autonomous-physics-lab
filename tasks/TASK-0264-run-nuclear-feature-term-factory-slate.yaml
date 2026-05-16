@@ -1,7 +1,7 @@
 id: TASK-0264
 title: "Run nuclear feature-term factory slate-002"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -49,7 +49,7 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_factory_slate_002_feature_terms.yaml --write-drafts --output-dir /tmp/apl-nuclear-factory-slate-002-feature-terms"
+    - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_factory_slate_002_feature_terms.yaml --write-drafts --output-dir \"$(mktemp -d /tmp/apl-nuclear-factory-slate-002-feature-terms.XXXXXX)\""
     - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_factory_slate_002_feature_terms.yaml --summary-out /tmp/apl-nuclear-factory-slate-002-feature-terms.yaml"
     - "python3 scripts/rank_nuclear_prediction_variant_slate.py /tmp/apl-nuclear-factory-slate-002-feature-terms.yaml --out /tmp/apl-nuclear-factory-slate-002-feature-terms-ranking.md"
     - "python3 -m physics_lab.cli validate examples/nuclear_prediction_factory_slate_002_feature_terms.yaml"
