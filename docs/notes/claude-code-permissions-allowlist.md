@@ -97,11 +97,20 @@ needs `git stash push --include-untracked`.
 
 `git fetch *`, `git pull *`, `git switch *`, `git checkout *`, `git add *`,
 `git commit *`, `git push *`, `git restore --staged *`, `git reset HEAD *`,
-`git reset --mixed *`, `git reset --soft *`. These mutate local branches
+`git reset --mixed *`, `git reset --soft *`, `git merge *`,
+`git merge --abort`, `git merge --quit`. These mutate local branches
 and may push them, but `--mixed` and `--soft` resets keep the working tree
 intact, and `--hard`/`--keep` are *not* on the list. The shared rules do
 not block agents from pushing the task branch they own — pushing to `main`
 is prevented by repository policy, not by Claude Code permissions.
+
+`git merge *` covers `git merge origin/main`, `git merge --no-edit`, and
+`git merge --no-ff` — all non-destructive: they either fast-forward, create
+a new merge commit, or stop on conflict. `--abort` and `--quit` are
+explicitly listed because they restore the pre-merge state. Strategies
+that silently overwrite the other side of a merge (`--strategy=ours`,
+`--strategy-option=theirs`) are *not* on the list; an agent that needs
+those still has to ask.
 
 ### 3.6 Text inspection
 
