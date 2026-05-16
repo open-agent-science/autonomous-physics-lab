@@ -59,7 +59,6 @@ None.
 ## REVIEW_READY
 
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
-- `TASK-0254` — Add reusable nuclear factory target-batch library (`dataset_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0258` — Track .claude/settings.json as shared agent permission baseline (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0259` — Clarify task-state and generated-navigation wording in task contracts (`maintainer_workflow`, priority `medium`, difficulty `low`)
@@ -68,6 +67,7 @@ None.
 
 - `TASK-0256` — Simplify onboarding prompt task-choice guidance (merged)
 - `TASK-0255` — Add worktree settings sync script and first-action CLAUDE.md instruction (merged)
+- `TASK-0254` — Add reusable nuclear factory target-batch library (merged)
 - `TASK-0253` — Add nuclear factory slate ranking helper (merged)
 - `TASK-0252` — Add feature-term variants to the nuclear prediction factory (merged)
 - `TASK-0250` — Run first nuclear prediction factory candidate slate (merged)
