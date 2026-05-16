@@ -1,0 +1,60 @@
+id: TASK-0269
+title: "Polish README landing entrypoint for agents, scientists, and reviewers"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce onboarding friction for agents, new users, scientists, journalists, and public readers."
+  - "Make the repository's first screen simpler, more viral, and still verification-first."
+  - "Keep scientific claims conservative while making existing evidence easier to route into deeper docs."
+
+input:
+  mode: workflow
+  related_domain: public_readme
+  related_objects:
+    - "README.md"
+    - "docs/mission-control.md"
+    - "docs/results/visual-summary.md"
+    - "docs/status.md"
+    - "docs/use-your-agent.md"
+  planning_context: >
+    The top-level README had grown into a combined pitch, result dashboard,
+    agent manual, benchmark catalog, quickstart, and docs index. It was useful
+    but visually and cognitively heavy for first-time users. The maintainer
+    requested a simpler landing page that preserves graphical/result materials
+    in appropriate deeper sections while making the repository easier to enter
+    for agents, new users, scientists, and journalists.
+
+requirements:
+  - "Keep README.md as the first entrypoint for agents and new users."
+  - "Make the first-screen message simpler and more memorable."
+  - "Surface the autonomous and parallel-agent workflow as a public-facing project strength."
+  - "Give scientists a clear path for proposing new ideas and hypotheses."
+  - "Give journalists and writers a safe, viral framing without overclaiming discovery."
+  - "Move heavy inline visual/result material out of the main README flow and link to the appropriate visual summary or status docs."
+  - "Simplify the workflow diagram so it communicates the scientific loop without overwhelming first-time readers."
+  - "Do not delete figure assets or canonical result artifacts."
+  - "Do not promote sandbox evidence, nuclear-mass candidates, or benchmark results into scientific claims."
+  - "Keep EXP-0010 and other high-risk formula-search material out of flagship success framing."
+  - "Do not change unrelated task-state transitions. Own-task REVIEW_READY transition and generated navigation sync are allowed."
+
+accepted_outputs:
+  - "updated README.md with a lighter landing-page structure"
+  - "moved README workflow concept image reference into a deeper orientation doc"
+  - "canonical task spec for TASK-0269"
+  - "synced generated task navigation if required by validation"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "./scripts/apl_review_bundle.sh"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

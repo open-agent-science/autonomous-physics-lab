@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0269` - Polish README landing entrypoint for agents, scientists, and reviewers (`documentation`, priority `high`, difficulty `low`, domain `public_readme`)

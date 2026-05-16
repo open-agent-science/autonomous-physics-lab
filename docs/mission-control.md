@@ -13,6 +13,15 @@ APL is currently in:
 The repository stays private while current campaigns, contributor workflow, and
 public-release gates are still being validated.
 
+## Visual Orientation
+
+The top-level README keeps the first screen intentionally short. For a fuller
+visual map of the verification-first workflow, use this concept figure:
+
+<p align="center">
+  <img src="figures/autonomous-physics-lab-workflow-concept.png" alt="Autonomous Physics Lab verification-first workflow for AI agents" width="100%">
+</p>
+
 ## Agent First Entry Point
 
 New contributors and coding agents should start from the mission script:
