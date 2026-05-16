@@ -26,14 +26,15 @@ This is intentionally narrower than:
 
 ## Planned Queue
 
-1. `TASK-0222` — campaign scaffold and guardrails (this task).
-2. `TASK-0223` — pinned dataset schema and source manifest.
-3. `TASK-0224` — holdout protocol.
+1. `TASK-0222` — campaign scaffold and guardrails (DONE).
+2. `TASK-0223` — pinned dataset schema and source manifest (READY).
+3. `TASK-0224` — holdout protocol (READY).
 4. `TASK-0225` — baseline residual benchmark.
 5. `TASK-0226` — first sandbox-only autonomous hypothesis pilot.
 
-This order is required because later tasks depend on the earlier surfaces
-being reviewable first.
+`TASK-0223` and `TASK-0224` may now run in parallel because both depend on the
+completed scaffold and touch different artifact surfaces. `TASK-0225` remains
+blocked until both foundation tasks are reviewed.
 
 ## First Benchmark Shape
 
@@ -90,7 +91,7 @@ requirement.
 The campaign treats dataset handling as a scientific surface rather than
 plumbing.
 
-Required discipline once `TASK-0223` reopens:
+Required discipline under `TASK-0223`:
 
 - pin source, year, and citation;
 - store a pinned copy or checksum policy for any redistributable source;

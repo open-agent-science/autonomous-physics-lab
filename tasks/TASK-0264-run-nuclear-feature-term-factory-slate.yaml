@@ -1,0 +1,63 @@
+id: TASK-0264
+title: "Run nuclear feature-term factory slate-002"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Use the post-TASK-0252 feature-term factory before registering more nuclear predictions."
+  - "Compare shell, magic-number, neutron-excess, and coefficient-composed variants in one reviewed slate."
+  - "Keep Nuclear Mass Surface expansion generation-before-registration, with no reveal comparison or claim promotion."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "examples/nuclear_prediction_variant_factory_feature_terms.yaml"
+    - "data/nuclear_masses/factory_target_batches.yaml"
+    - "docs/notes/nuclear-prediction-variant-factory.md"
+    - "docs/reviews/nuclear-prediction-factory-selected-registry-001.md"
+    - "scripts/generate_nuclear_prediction_variants.py"
+    - "scripts/rank_nuclear_prediction_variant_slate.py"
+  planning_context: >
+    TASK-0250 reviewed a coefficient-transform-only slate and TASK-0251
+    registered selected PRED-0041 through PRED-0050 entries from that slate.
+    TASK-0252 then added feature-term support, and TASK-0254 added a reusable
+    target-batch library. The next scientific step is a second reviewed slate
+    that exercises feature terms and target-batch reuse before any feature-term
+    prediction entries are frozen.
+
+requirements:
+  - "Create a feature-term slate config with at least 40 and at most 80 draft candidates."
+  - "Use only committed repository sources; keep source_state.live_external_fetch_allowed=false."
+  - "Reuse data/nuclear_masses/factory_target_batches.yaml rather than copying ad hoc target lists when the factory interface supports it, or explicitly document any temporary expansion needed."
+  - "Include shell_proximity_gaussian, asymmetry_polynomial, asymmetric_neutron_excess, near-null, sign-symmetric, and combined coefficient-plus-feature variants."
+  - "Cover at least shell-magic-probe, neutron-rich-stress, nickel-isotope-chain, and mid-mass-region-probe style target behavior."
+  - "Run the deterministic slate generator and ranking helper into explicit /tmp output paths."
+  - "Commit the slate config and review summary, but do not commit generated draft PRED YAML files."
+  - "Summarize candidate diversity, target-batch coverage, feature-term sensitivity, duplicate or near-duplicate candidates, leakage review, and recommended candidates for later registry selection."
+  - "Do not reveal, compare against future measurements, update claims, promote results, or present any candidate as a successful prediction."
+
+accepted_outputs:
+  - "examples/nuclear_prediction_factory_slate_002_feature_terms.yaml"
+  - "docs/reviews/nuclear-prediction-factory-slate-002-feature-terms.md"
+  - "docs/reviews/nuclear-prediction-factory-slate-002-feature-terms-ranking.md or an equivalent ranking section in the slate review"
+  - "updated docs/notes/nuclear-prediction-variant-factory.md if target-batch reuse or feature-term guidance changes"
+  - "updated tests if factory config validation or target-batch reuse behavior changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_factory_slate_002_feature_terms.yaml --write-drafts --output-dir /tmp/apl-nuclear-factory-slate-002-feature-terms"
+    - "python3 scripts/generate_nuclear_prediction_variants.py examples/nuclear_prediction_factory_slate_002_feature_terms.yaml --summary-out /tmp/apl-nuclear-factory-slate-002-feature-terms.yaml"
+    - "python3 scripts/rank_nuclear_prediction_variant_slate.py /tmp/apl-nuclear-factory-slate-002-feature-terms.yaml --out /tmp/apl-nuclear-factory-slate-002-feature-terms-ranking.md"
+    - "python3 -m physics_lab.cli validate examples/nuclear_prediction_factory_slate_002_feature_terms.yaml"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

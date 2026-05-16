@@ -33,8 +33,11 @@ Immediate work should stay audit-first:
 - preserve the baseline residual surface as the comparison anchor;
 - review post-AME2020 retrospective time-split evidence as inconclusive unless
   a later task establishes stronger support;
-- run only bounded sandbox lanes with explicit negative controls;
-- use the prediction registry only for before-measurement comparisons;
+- run only bounded sandbox or factory lanes with explicit negative controls;
+- use the prediction registry only for before-measurement comparisons, with
+  selected entries frozen before reveal;
+- prefer feature-term factory slates and reveal protocol work before
+  another broad sandbox batch;
 - keep all outputs framed as validation, replay, audit, or sandbox evidence.
 
 This track is appropriate for active tasks because it now has datasets,
@@ -53,10 +56,10 @@ if it starts from conservative models and reproducible comparison data.
 
 The strategic goal is to prepare a second real-data campaign that is easier to
 visualize than nuclear residuals while still being disciplined about
-provenance, holdouts, and overclaim risk. The campaign should mature in this
-order: source policy and dataset semantics first, then baseline residual maps,
-then bounded autonomous hypothesis pilots only after a fixed benchmark surface
-exists.
+provenance, holdouts, and overclaim risk. The scaffold now exists, so the
+campaign should mature in this order: source policy and dataset semantics plus
+holdout protocol first, then baseline residual maps, then bounded autonomous
+hypothesis pilots only after a fixed benchmark surface exists.
 
 Allowed next shape:
 
