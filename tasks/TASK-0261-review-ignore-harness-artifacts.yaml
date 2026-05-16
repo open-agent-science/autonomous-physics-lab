@@ -1,0 +1,60 @@
+id: TASK-0261
+title: "Stop maintainer-review-agent from blocking on harness-only artifacts"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the maintainer-review-agent strict about real review-blocking conditions while removing false positives that force agents to do a stash-dance before every review."
+  - "Catch one class of friction at the source by adding ephemeral harness state to .gitignore, and provide a small in-process ignore list as a defense-in-depth fallback."
+  - "Preserve the existing safety posture: untracked files that are not on the documented harness-artifacts list still block MERGE_OK."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "physics_lab/registry/review_git.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - ".gitignore"
+    - "tasks/TASK-0260-expand-claude-code-permissions-allowlist.yaml"
+  planning_context: >
+    apl_review_pr.py currently returns NEEDS_CHANGES whenever git status is
+    not strictly empty on the review branch, including for untracked files
+    that are pure harness state (the per-machine Claude Code scheduled-task
+    lock file). The agent that just finished TASK-0227 had to run two
+    git stash --include-untracked dances to get a clean MERGE_OK. This task
+    closes that gap by gitignoring the harness lockfile and giving
+    git_status_clean a small default ignore list as a defense-in-depth
+    fallback. Cross-session parallelism (two agents on the same checkout
+    leaking each other's untracked files) is a separate concern and
+    requires a dedicated worktree-per-agent task.
+
+requirements:
+  - "Add .claude/scheduled_tasks.lock to .gitignore so the harness lockfile never appears as untracked."
+  - "Refactor git_status_clean and working_tree_changed_files in physics_lab/registry/review_git.py to accept an optional ignore_paths argument with a small default tuple of well-known harness paths."
+  - "Update maintainer_review.py call sites to use the new signature without changing the default policy for normal user-owned files."
+  - "Add unit tests covering: (a) git_status_clean returns True when only ignore_paths entries are present, (b) it still returns False for normal untracked files, and (c) maintainer_review verdict is not blocked by a present-but-ignored harness lockfile."
+  - "Do not loosen the check for normal untracked or modified files."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - ".gitignore entry for .claude/scheduled_tasks.lock"
+  - "physics_lab/registry/review_git.py with ignore_paths parameter"
+  - "physics_lab/registry/maintainer_review.py updated to pass the harness-artifacts default"
+  - "tests/test_review_git.py covering the new branches"
+  - "docs/notes/claude-code-permissions-allowlist.md cross-link or short note pointer if useful"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
