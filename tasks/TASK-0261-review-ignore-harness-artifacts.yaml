@@ -1,7 +1,7 @@
 id: TASK-0261
 title: "Stop maintainer-review-agent from blocking on harness-only artifacts"
 type: contributor_experience
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
