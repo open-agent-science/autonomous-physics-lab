@@ -1,0 +1,119 @@
+dataset_id: DATASET-PP-0001
+title: Electron g-2 measurement and Standard Model prediction inputs
+status: DRAFT
+description: >
+  Source-explicit electron anomalous magnetic moment inputs used by the
+  lepton g-2 cross-observable falsifier (TASK-0227). Records the most
+  recent direct measurement and two SM predictions that differ only in
+  which fine-structure-constant measurement is used as input. Records
+  input data only and does not imply any cross-lepton mechanism, BSM
+  signal, or electron g-2 anomaly claim.
+
+source_policy:
+  primary_authority: Particle Data Group + cited journal papers
+  edition: "2024"
+  policy_note: >
+    Electron g-2 residuals are α-dependent. Two SM predictions are recorded
+    side by side because Δa_e changes sign and magnitude depending on
+    whether α is sourced from cesium recoil (Parker 2018) or rubidium
+    recoil (Morel 2020). Do not aggregate Δa_e across α sources without
+    explicit handling of the discrepancy. All a_e values are dimensionless.
+
+constants:
+  - id: alpha_inv_cs
+    label: "1/α from Cs atom interferometry"
+    value: 137.035999046
+    uncertainty:
+      type: symmetric
+      value: 0.000000027
+    source: "R. H. Parker et al., Science 360, 191 (2018)"
+    year: 2018
+  - id: alpha_inv_rb
+    label: "1/α from Rb atom interferometry"
+    value: 137.035999206
+    uncertainty:
+      type: symmetric
+      value: 0.000000011
+    source: "L. Morel et al., Nature 588, 61 (2020)"
+    year: 2020
+
+measurements:
+  - id: a_e_exp_fan_2023
+    label: "Electron anomalous magnetic moment, Fan et al. 2023"
+    value: 1.15965218059e-3
+    uncertainty:
+      type: symmetric
+      value: 0.13e-12
+    source: "X. Fan, T. G. Myers, B. A. D. Sukra, G. Gabrielse, Phys. Rev. Lett. 130, 071801 (2023)"
+    year: 2023
+    notes: >
+      g_e/2 = 1.00115965218059(13). Most precise direct electron g-2
+      measurement to date.
+
+sm_predictions:
+  - id: a_e_sm_cs
+    label: "Electron a_e SM prediction using α(Cs)"
+    value: 1.15965218161e-3
+    uncertainty:
+      type: symmetric
+      value: 0.23e-12
+    alpha_input: alpha_inv_cs
+    source: "Aoyama, Hayakawa, Kinoshita, Nio QED10 + EW + hadronic, evaluated with α(Cs) Parker 2018"
+    year: 2018
+    notes: >
+      Theory value assembled from QED tenth-order, electroweak, and
+      hadronic contributions; the α(Cs) input is the leading-uncertainty
+      contribution at this precision.
+  - id: a_e_sm_rb
+    label: "Electron a_e SM prediction using α(Rb)"
+    value: 1.159652180252e-3
+    uncertainty:
+      type: symmetric
+      value: 0.095e-12
+    alpha_input: alpha_inv_rb
+    source: "Aoyama, Hayakawa, Kinoshita, Nio QED10 + EW + hadronic, evaluated with α(Rb) Morel 2020"
+    year: 2020
+    notes: >
+      Same theoretical content as a_e_sm_cs but with α(Rb) Morel 2020 as
+      the α input. The difference between a_e_sm_cs and a_e_sm_rb reflects
+      the Cs/Rb tension on α, not an additional theory disagreement.
+
+derived_residuals:
+  - id: delta_a_e_cs
+    label: "Δa_e using α(Cs) SM"
+    measurement: a_e_exp_fan_2023
+    sm_prediction: a_e_sm_cs
+    value: -1.02e-12
+    uncertainty:
+      type: symmetric
+      value: 0.27e-12
+    notes: >
+      Negative residual at the ~3.8σ level when using α(Cs) Parker 2018
+      as the SM input. Not promoted as a discovery; reported for the
+      cross-observable falsifier to use as one of the two
+      α-source-dependent comparison points.
+  - id: delta_a_e_rb
+    label: "Δa_e using α(Rb) SM"
+    measurement: a_e_exp_fan_2023
+    sm_prediction: a_e_sm_rb
+    value: 0.34e-12
+    uncertainty:
+      type: symmetric
+      value: 0.16e-12
+    notes: >
+      Positive residual at the ~2σ level when using α(Rb) Morel 2020 as
+      the SM input. The sign flip versus delta_a_e_cs is the key reason
+      candidates that look interesting for muon g-2 must be cross-checked
+      against both rows rather than against a single Δa_e value.
+
+cross_check_policy:
+  scope: "Cross-observable falsifier input only."
+  forbidden_uses:
+    - "Do not present Δa_e as a confirmed BSM signal."
+    - "Do not aggregate Cs and Rb residuals as if they share the same SM input."
+    - "Do not introduce electron-g2 formula-search families without a new maintainer-approved task."
+  reference_scale_note: >
+    The naive same-mechanism cross-lepton scaling expects
+    Δa_e / Δa_μ ≈ (m_e/m_μ)² ≈ 2.34 × 10⁻⁵, which translates the muon
+    Δa_μ ≈ 2.49 × 10⁻⁹ to a target Δa_e ≈ 5.8 × 10⁻¹⁴. This naive
+    scaling is provided as a comparison anchor, not as a model prediction.
