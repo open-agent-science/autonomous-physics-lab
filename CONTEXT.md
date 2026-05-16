@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-16 09:39 UTC
+Generated: 2026-05-16 09:52 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2132,7 +2132,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0260` — Expand Claude Code permissions allowlist for routine read-only operations (`contributor_experience`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

@@ -1,0 +1,54 @@
+id: TASK-0260
+title: "Expand Claude Code permissions allowlist for routine read-only operations"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Reduce per-session permission-prompt friction for agent contributors so that read-only inspection commands do not break the workflow."
+  - "Keep the shared .claude/settings.json conservative: only widen rules that are read-only or safely scoped."
+  - "Avoid moving the project to a more permissive posture than the existing allowlist; this task only fills gaps that recurrently triggered prompts in recent agent sessions."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - ".claude/settings.json"
+    - ".claude/settings.local.json"
+  planning_context: >
+    Recent agent sessions repeatedly hit Claude Code permission prompts for
+    routine read-only inspection commands (sed -n 'NNp', awk, head, tail, wc,
+    cat for short files), reading agent-generated PR body drafts under
+    /tmp/apl-*, and a handful of non-destructive git operations (git reset
+    --mixed/--soft for branch hygiene, git stash push --include-untracked for
+    cleaning up untracked artifacts before maintainer review). Filling these
+    gaps in the shared settings.json improves the workflow for every
+    contributor without lowering the safety posture for destructive
+    operations.
+
+requirements:
+  - "Only add rules that are read-only, idempotent, or safely scoped (no rm, no force push, no destructive resets, no global gh write outside repo scope)."
+  - "Add safe read-only text-processing commands missing from settings.json: sed -n print form, head, tail, wc, cat, ls, grep, rg, echo; document why broad awk/find rules remain approval-gated."
+  - "Add non-destructive git operations: git reflog, git stash push/pop/drop/show, git reset --mixed, git reset --soft."
+  - "Add Read-tool access for agent-owned temporary directories used by APL helpers: /tmp/apl-* and /tmp/claude-*."
+  - "Add Write-tool access for the same /tmp/apl-* paths so the task PR helper can scaffold body files without prompting."
+  - "Do not loosen rules for destructive operations: keep rm, git reset --hard, git push --force, git branch -D, git clean -f outside the allowlist."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - ".claude/settings.json with expanded allowlist"
+  - "docs/notes/claude-code-permissions-allowlist.md explaining each added rule and the rationale for safety scoping"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
