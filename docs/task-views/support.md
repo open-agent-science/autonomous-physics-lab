@@ -17,3 +17,4 @@ None.
 
 - `TASK-0263` - Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
 - `TASK-0267` - Add git merge to Claude Code permissions allowlist (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
+- `TASK-0268` - Consolidate canonical validation list: drop redundant non-strict validate-repo (`contributor_experience`, priority `low`, difficulty `low`, domain `contributor_experience`)
