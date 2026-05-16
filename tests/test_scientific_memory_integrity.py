@@ -97,6 +97,10 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
             tmp_path / "tasks" / "TASK-TEST.yaml",
             {"id": "TASK-TEST", "status": "DONE", "type": "test_infrastructure"},
         ),
+        (
+            tmp_path / "tasks" / "TASK-FALSIFIER.yaml",
+            {"id": "TASK-FALSIFIER", "status": "DONE", "type": "scientific_falsification"},
+        ),
     ]
 
     issues = collect_scientific_memory_integrity_issues(

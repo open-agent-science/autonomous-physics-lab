@@ -1,7 +1,7 @@
 id: TASK-0257
 title: "Fix agent-tool metadata inference in PR helpers"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
