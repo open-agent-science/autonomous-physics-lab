@@ -1,233 +1,166 @@
 # Autonomous Physics Lab
 
-Generate physics hypotheses. Test them with code. Preserve both wins and
-falsifications.
+**A lab where AI agents turn physics ideas into tests, failures, metrics, and
+public scientific memory.**
 
-Autonomous Physics Lab (APL) is open-source, verification-first infrastructure
-for turning AI-assisted physics ideas into reproducible experiments, metrics,
-limitations, and reviewable scientific memory.
+APL is not a chatbot. It is a verification-first engine for running small,
+reviewable physics experiments with code.
 
-APL is not a chatbot. It is a hypothesis-testing machine.
+Give an agent a mission. It proposes or picks a bounded task, runs deterministic
+checks, records limitations, preserves negative results, and opens a PR.
 
-The story is simple: AI can be creative, but science needs receipts. APL is the
-place where speculative physics ideas become code, tests, failures, and
-versioned evidence instead of confident text.
-
-## Start Fast
-
-### With a coding agent
+## Try It
 
 ```bash
 python3 scripts/apl_mission.py
 ```
 
-This starts Agent First Research Mode and recommends the highest-value
-reviewable scientific mission. For machine-readable context or a prompt for
-Codex, Claude Code, or another coding agent:
+Copy this into Codex, Claude Code, or another coding agent:
+
+```text
+You are working in Autonomous Physics Lab.
+
+Run `python3 scripts/apl_mission.py --onboarding`.
+Explain the current mission, show the best READY options, recommend one, and
+wait for my choice before editing files.
+
+After I choose, execute the selected task through the repository protocol:
+create the task branch, inspect evidence, run deterministic validation, preserve
+negative results, update reviewable artifacts, and prepare a PR. Do not promote
+claims or use unsupported discovery framing.
+```
+
+<p align="center">
+  <img src="docs/figures/apl-agent-lab-loop.svg" alt="Autonomous Physics Lab agent workflow: mission to hypothesis to deterministic test to public memory" width="100%">
+</p>
+
+For full autonomous execution, generate the current agent prompt:
 
 ```bash
-python3 scripts/apl_mission.py --json
-python3 scripts/apl_mission.py --onboarding
 python3 scripts/apl_mission.py --agent-prompt
 ```
 
-Full guide: [docs/use-your-agent.md](docs/use-your-agent.md)
+## Why It Feels Different
 
-### On your machine
+Most AI-for-science demos stop at a clever idea. APL asks the next question:
+
+**Does it survive a test that another person or agent can replay?**
+
+That means the useful output is not just a formula. It is a trail:
+
+```text
+hypothesis -> deterministic test -> metrics -> limitations -> verdict -> memory
+```
+
+Wins are stored. Failures are stored. Falsifications are not thrown away.
+
+## Start Paths
+
+| You are... | Start here | Why |
+| --- | --- | --- |
+| Coding agent | `python3 scripts/apl_mission.py` | Pick a reviewable mission and work through a branch/PR loop |
+| New user | [docs/mission-control.md](docs/mission-control.md) | Understand what APL is, what it is not, and where to start |
+| Scientist | [tasks/proposals/README.md](tasks/proposals/README.md) | Turn a physics idea into a testable hypothesis proposal |
+| Reviewer | [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md) | Replay the core evidence without learning the whole workflow |
+| Contributor | [docs/use-your-agent.md](docs/use-your-agent.md) | Use Codex, Claude Code, or another agent inside the repo protocol |
+
+## Agent-First Setup
 
 ```bash
 git clone https://github.com/gladunrv/autonomous-physics-lab.git
 cd autonomous-physics-lab
-
-python3 -m venv .venv
-source .venv/bin/activate
-
-python -m pip install --upgrade pip
-pip install -e ".[dev]"
-
-python3 scripts/reproduce_core_results.py
-python -m physics_lab.cli validate-repo .
-python -m physics_lab.cli status .
+python3 scripts/apl_mission.py --onboarding
 ```
 
-For a full local validation pass:
+Then hand the repository to your coding agent and let it follow the task
+protocol. Replication and testing details live in the docs when you need them.
 
-```bash
-python -m ruff check .
-python -m pytest
-python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
-```
+## Agent Network
 
-## Choose Your Path
+APL is built for many small, reviewable contributions instead of one giant
+unreviewable run.
 
-| If you are... | Start here | What you get |
-| --- | --- | --- |
-| A coding agent | `python3 scripts/apl_mission.py` | A current research mission, guardrails, and PR-ready task direction |
-| A new user | [docs/mission-control.md](docs/mission-control.md) | A plain-language map of what APL is, what it is not, and where to begin |
-| A scientist with an idea | [tasks/proposals/README.md](tasks/proposals/README.md) | A proposal path for new hypotheses, benchmarks, or tests |
-| A journalist or writer | [docs/status.md](docs/status.md) | The current stage, strongest evidence, risks, and what not to overclaim |
-| An outside reviewer | [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md) | A short path to replay and inspect the strongest evidence |
-| A contributor | [docs/use-your-agent.md](docs/use-your-agent.md) | Branch, task, validation, and review workflow for agent-assisted work |
-| A maintainer | [docs/mission-control.md](docs/mission-control.md) | Current campaigns, risks, release gates, and contribution lanes |
-
-## The Scientific Loop
-
-```mermaid
-flowchart LR
-    H["Hypothesis"] --> T["Deterministic test"]
-    T --> M["Metrics and diagnostics"]
-    M --> V["Verdict"]
-    V -->|"supported in scope"| C["Claim candidate"]
-    V -->|"fails"| F["Falsification"]
-    C --> R["Versioned memory"]
-    F --> R
-    R --> H
-```
-
-The rule is simple: LLMs may suggest ideas, but numerical and symbolic claims
-must be checked by deterministic code. Negative results are kept as first-class
-scientific output.
-
-## Current Evidence Snapshot
-
-APL currently stores eleven canonical experiment files, including classical
-mechanics benchmarks, dimensional-analysis validation, particle-mass relation
-reproductions and falsifications, and the nuclear-mass baseline surface.
-
-| Surface | Current role | Status |
-| --- | --- | --- |
-| Pendulum Formula Discovery | Approximation and falsification benchmark | `EXP-0001`, scoped valid candidates and failure modes |
-| Damped and anharmonic oscillators | Nonlinear mechanics validation | `EXP-0002`, `EXP-0011` |
-| Dimensional Analysis Validator | Formula sanity-check benchmark | `EXP-0006`, 49/50 MVP agreement |
-| Particle-mass relations | Falsification-first relation testing | Charged-lepton reproduction plus neutrino, quark, and family-target falsifications |
-| Nuclear Mass Surface | Current flagship validation campaign | `EXP-0012` baseline, sandbox-only follow-up evidence, no claim promotion |
-
-These are benchmark and review artifacts, not discovery-level physics claims.
-For figures and captions, see [docs/results/visual-summary.md](docs/results/visual-summary.md).
-For a cautious replay path, see
-[docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md).
-
-## Why This Is Interesting
-
-Most AI-for-science demos stop at generated ideas. APL focuses on the less
-glamorous but more useful next step: making those ideas fail or survive in
-public, reproducible artifacts.
-
-That makes the project useful for several audiences:
-
-- agents get a clear mission entrypoint and task protocol;
-- new users get a runnable lab instead of a pile of claims;
-- scientists get a way to submit hypotheses with validation expectations;
-- journalists get a story about disciplined AI-assisted science, not an
-  unsupported breakthrough narrative.
-
-Safe headline framing: "an open-source lab for testing AI-generated physics
-ideas." Unsafe framing: unsupported breakthrough claims.
-
-## Autonomous Agent Network
-
-APL is designed for agents that do real repository work, not just chat about
-science. A capable agent can:
+An agent can:
 
 - read the current mission;
-- pick or propose a bounded task;
-- generate or refine a hypothesis;
-- run deterministic tests and simulations;
-- preserve negative results;
-- update public scientific memory;
-- prepare a reviewable PR.
+- propose or select a task;
+- test a hypothesis;
+- write down metrics and limitations;
+- preserve failures;
+- update public memory;
+- prepare a PR.
 
-The protocol is built for parallel work. Several agents can run locally in
-separate branches or worktrees, and larger public campaigns can split across
-many agents when each one owns a clear task, dataset slice, hypothesis family,
-or artifact surface.
+The same protocol scales from one local agent to several local worktrees, and
+from there to larger public campaigns where different agents own different
+tasks, datasets, hypothesis families, or artifact surfaces.
 
-That is the long-term bet: a public scientific memory where humans and agents
-can run many small, reviewable hypothesis tests without turning the repository
-into an untraceable pile of generated claims.
+## Current Evidence
+
+APL currently stores eleven canonical experiment files. The public-facing
+surface stays conservative: these are benchmark and review artifacts, not
+automatic scientific claims.
+
+| Surface | What it shows |
+| --- | --- |
+| Pendulum Formula Discovery | Formula candidates tested against an exact reference, with failure modes |
+| Oscillator benchmarks | Damped and anharmonic systems as deterministic mechanics checks |
+| Dimensional Analysis Validator | A formula sanity-check benchmark with a frozen MVP result |
+| Particle-mass relations | Scoped reproductions plus visible neutrino, quark, and family-target falsifications |
+| Nuclear Mass Surface | Baseline residual benchmark and sandbox-only follow-up evidence |
+
+Figures live here: [docs/results/visual-summary.md](docs/results/visual-summary.md)
 
 ## Propose A Hypothesis
 
-New scientific ideas should enter as reviewable proposals, not as anonymous
-claims. A good proposal should state:
+Have a physics idea? Do not bury it in chat. Make it testable.
 
-- the hypothesis or formula to test;
-- the dataset, assumptions, or validation range;
-- the deterministic method;
-- expected metrics and failure cases;
-- the interpretation ceiling if the test passes.
+A useful proposal states:
+
+- what should be tested;
+- which data, assumptions, or range apply;
+- how the deterministic check should run;
+- what metrics matter;
+- what would count as failure.
 
 Start with [tasks/proposals/README.md](tasks/proposals/README.md) and
 [docs/task-proposal-protocol.md](docs/task-proposal-protocol.md).
 
-## Contribute With An Agent
+## Ground Rules
 
-APL is Agent First by default, but not agent-unbounded. Every contribution goes
-through a task, branch, validation, PR, and maintainer review.
+- Deterministic code beats confident text.
+- Negative results are scientific memory.
+- Agents do not work on `main`.
+- Every task goes through branch, validation, PR, and maintainer review.
+- Sandbox evidence does not become a claim automatically.
 
-```text
-mission -> task/proposal -> branch -> experiment or docs work -> validation -> PR -> review
-```
+Canonical workflow: [docs/agent-task-protocol.md](docs/agent-task-protocol.md)
 
-Rules that matter most:
+## Campaigns
 
-- work from one task or one proposal at a time;
-- do not work directly on `main`;
-- do not promote hypotheses to claims without maintainer review;
-- keep outputs reproducible and linked to repository artifacts;
-- preserve falsifications and limitations.
-
-Canonical protocol: [docs/agent-task-protocol.md](docs/agent-task-protocol.md)
-
-## Active Campaigns
-
-| Campaign | Maturity | Best entrypoint |
-| --- | --- | --- |
-| Pendulum Formula Falsification | Active benchmark with canonical results | [campaign page](docs/campaigns/pendulum-formula-falsification.md) |
-| Particle Mass Relations | Active falsification-first track | [campaign page](docs/campaigns/particle-mass-relations.md) |
-| Dimensional Analysis Validator | Active MVP benchmark and challenge set | [campaign page](docs/campaigns/dimensional-analysis-validator.md) |
-| Thought-Experiment Consistency | Planning active, no canonical run yet | [campaign page](docs/campaigns/thought-experiment-consistency.md) |
-| Nuclear Mass Surface | Flagship validation campaign, sandbox-only candidates | [campaign page](docs/campaigns/nuclear-mass-surface.md) |
+| Campaign | Status |
+| --- | --- |
+| [Pendulum Formula Falsification](docs/campaigns/pendulum-formula-falsification.md) | Active benchmark with canonical results |
+| [Particle Mass Relations](docs/campaigns/particle-mass-relations.md) | Falsification-first relation testing |
+| [Dimensional Analysis Validator](docs/campaigns/dimensional-analysis-validator.md) | Active MVP benchmark and challenge set |
+| [Thought-Experiment Consistency](docs/campaigns/thought-experiment-consistency.md) | Planning active, no canonical run yet |
+| [Nuclear Mass Surface](docs/campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates |
 
 Mission board: [docs/current-missions.md](docs/current-missions.md)
 
-## Repository Shape
-
-```text
-autonomous-physics-lab/
-  physics_lab/      # engines, registry, schemas, workflows, CLI
-  experiments/      # canonical experiment definitions
-  results/          # versioned run artifacts
-  hypotheses/       # proposed and tracked hypotheses
-  claims/           # reviewed claim records
-  knowledge/        # reusable scientific memory
-  tasks/            # canonical tasks and proposals
-  docs/             # protocols, campaign maps, status, review guides
-  tests/            # fast validation suite
-```
-
-## Project Status
+## Status
 
 Current stage:
 
 `v0.1-private-alpha - scientific campaign and contributor workflow validation`
 
-APL is not public-launch ready yet. The current goal is to validate the
-scientific workflow, contributor protocol, benchmark replay surface, and public
-wording before any opening decision.
+APL is still validating its workflow, benchmark replay surface, contributor
+protocol, and public wording before any opening decision.
 
-Status and planning:
+Useful deep dives:
 
-- [docs/status.md](docs/status.md)
 - [docs/mission-control.md](docs/mission-control.md)
-- [docs/roadmap.md](docs/roadmap.md)
-- [docs/public-release-gates.md](docs/public-release-gates.md)
-
-## Deep Dives
-
-- [docs/results/visual-summary.md](docs/results/visual-summary.md) - static result figures and conservative captions
-- [docs/reproducibility-capsules.md](docs/reproducibility-capsules.md) - replay commands, expected metrics, and caveats
-- [docs/negative-results-registry.md](docs/negative-results-registry.md) - falsifications kept visible
-- [docs/result-quality-rubric.md](docs/result-quality-rubric.md) - result-quality and overclaim-risk lens
-- [docs/architecture-index.md](docs/architecture-index.md) - fastest map of code and artifact structure
-- [CONTEXT.md](CONTEXT.md) - single-file context bundle for chat-based LLMs
+- [docs/reproducibility-capsules.md](docs/reproducibility-capsules.md)
+- [docs/negative-results-registry.md](docs/negative-results-registry.md)
+- [docs/result-quality-rubric.md](docs/result-quality-rubric.md)
+- [docs/architecture-index.md](docs/architecture-index.md)
+- [CONTEXT.md](CONTEXT.md)

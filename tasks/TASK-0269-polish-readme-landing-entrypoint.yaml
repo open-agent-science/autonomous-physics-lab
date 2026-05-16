@@ -6,7 +6,7 @@ difficulty: low
 priority: high
 
 strategy_alignment:
-  - "Reduce onboarding friction for agents, new users, scientists, journalists, and public readers."
+  - "Reduce onboarding friction for agents, new users, scientists, and public readers."
   - "Make the repository's first screen simpler, more viral, and still verification-first."
   - "Keep scientific claims conservative while making existing evidence easier to route into deeper docs."
 
@@ -15,6 +15,7 @@ input:
   related_domain: public_readme
   related_objects:
     - "README.md"
+    - "docs/figures/apl-agent-lab-loop.svg"
     - "docs/mission-control.md"
     - "docs/results/visual-summary.md"
     - "docs/status.md"
@@ -25,14 +26,16 @@ input:
     but visually and cognitively heavy for first-time users. The maintainer
     requested a simpler landing page that preserves graphical/result materials
     in appropriate deeper sections while making the repository easier to enter
-    for agents, new users, scientists, and journalists.
+    for agents, new users, scientists, and public readers.
 
 requirements:
   - "Keep README.md as the first entrypoint for agents and new users."
-  - "Make the first-screen message simpler and more memorable."
+  - "Make the first-screen message simpler, more visual, and more motivating."
+  - "Keep a README hero visual, but simplify it compared with the older workflow concept image."
+  - "Keep a concise copy-paste agent prompt near the top of the README."
   - "Surface the autonomous and parallel-agent workflow as a public-facing project strength."
   - "Give scientists a clear path for proposing new ideas and hypotheses."
-  - "Give journalists and writers a safe, viral framing without overclaiming discovery."
+  - "Use a more motivating public-facing narrative without overclaiming discovery."
   - "Move heavy inline visual/result material out of the main README flow and link to the appropriate visual summary or status docs."
   - "Simplify the workflow diagram so it communicates the scientific loop without overwhelming first-time readers."
   - "Do not delete figure assets or canonical result artifacts."
@@ -42,6 +45,7 @@ requirements:
 
 accepted_outputs:
   - "updated README.md with a lighter landing-page structure"
+  - "simple README hero visual for the agent workflow"
   - "moved README workflow concept image reference into a deeper orientation doc"
   - "canonical task spec for TASK-0269"
   - "synced generated task navigation if required by validation"
