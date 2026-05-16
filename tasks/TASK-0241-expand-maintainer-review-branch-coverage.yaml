@@ -1,7 +1,7 @@
 id: TASK-0241
 title: "Expand maintainer review policy branch coverage"
 type: test_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
