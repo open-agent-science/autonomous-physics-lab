@@ -212,10 +212,6 @@ support_actions:
     label: "Create private agent challenge pack"
     task_id: TASK-0177
     priority: medium
-  - id: validation-memory-split
-    label: "Split repository validation and scientific-memory integrity checks"
-    task_id: TASK-0136
-    priority: medium
   - id: maintainer-review-coverage
     label: "Expand maintainer review policy branch coverage"
     task_id: TASK-0241

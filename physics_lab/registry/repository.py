@@ -31,10 +31,13 @@ from physics_lab.registry.research_proposals import (
     load_hypothesis_proposal,
 )
 from physics_lab.registry.results import load_result
+from physics_lab.registry.scientific_memory_integrity import (
+    RANGE_LANGUAGE_MARKERS,
+    collect_scientific_memory_integrity_issues,
+)
 from physics_lab.registry.task_views import TASK_VIEW_PATHS, render_task_views
 from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task, task_input_mode
-from physics_lab.registry.validation import validate_document
 from physics_lab.workflows.artifacts import hash_file
 
 
@@ -55,16 +58,6 @@ LOADERS: dict[str, Loader] = {
     "tasks": load_task,
     "task_proposals": load_task_proposal,
 }
-RANGE_LANGUAGE_MARKERS = (
-    "valid only",
-    "tested range",
-    "configured range",
-    "range-limited",
-    "within the tested",
-    "within the sampled",
-    "in scope",
-    "linear, unforced",
-)
 PATTERNS: dict[str, str] = {
     "agents": "*.yaml",
     "agent_runs": "*/agent_run.yaml",
@@ -80,46 +73,6 @@ PATTERNS: dict[str, str] = {
     "results": "result.yaml",
     "tasks": "*.yaml",
     "task_proposals": "*.yaml",
-}
-STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
-    "agent_workflow",
-    "code_quality_refactor",
-    "evidence_policy",
-    "knowledge_update",
-    "repository_validation",
-    "reproducibility",
-    "release_preparation",
-    "release_prep",
-    "release_review",
-    "review_workflow",
-    "benchmark_planning",
-    "contributor_experience",
-    "contributor_validation",
-    "contributor_workflow",
-    "contributor_pilot",
-    "maintainer_workflow",
-    "numerical_audit",
-    "documentation",
-    "physics_reference",
-    "scientific_governance",
-    "scientific_audit",
-    "benchmark_protocol",
-    "dataset_workflow",
-    "physics_dataset_extension",
-    "scientific_dataset",
-    "scientific_campaign",
-    "scientific_visualization",
-    "scientific_safety_review",
-    "scientific_tooling",
-    "scientific_validation",
-    "schema_extension",
-    "scoring_design",
-    "test_infrastructure",
-    "thought_experiment_planning",
-    "scientific_microtask_execution",
-    "workflow_pilot",
-    "validation",
-    "autonomous_research_pilot",
 }
 STRICT_TEXT_SCAN_ROOTS = (
     "README.md",
@@ -636,166 +589,6 @@ def _line_has_local_path_leak(line: str) -> bool:
     return any(marker in stripped for marker in LOCAL_PATH_MARKERS)
 
 
-def _strict_required_run_artifacts(
-    result_path: Path,
-    payload: dict[str, Any],
-    *,
-    root_path: Path,
-) -> list[ValidationIssue]:
-    issues: list[ValidationIssue] = []
-    run_dir = result_path.parent
-    required_paths = {
-        "result.yaml": run_dir / "result.yaml",
-        "metrics.json": run_dir / "metrics.json",
-        "report.md": run_dir / "report.md",
-        "claim_update.md": run_dir / "claim_update.md",
-        "claim_update.patch.md": run_dir / "claim_update.patch.md",
-        "knowledge_update.md": run_dir / "knowledge_update.md",
-        "knowledge_update.patch.md": run_dir / "knowledge_update.patch.md",
-        "review_summary.md": run_dir / "review_summary.md",
-        "review_metadata.yaml": run_dir / "review_metadata.yaml",
-        "inputs/config.yaml": run_dir / "inputs" / "config.yaml",
-        "inputs/experiment.yaml": run_dir / "inputs" / "experiment.yaml",
-        "inputs/hypothesis.yaml": run_dir / "inputs" / "hypothesis.yaml",
-        "inputs/task.yaml": run_dir / "inputs" / "task.yaml",
-    }
-    for label, required_path in required_paths.items():
-        if not required_path.exists():
-            issues.append(
-                _issue(
-                    "ERROR",
-                    "missing_run_artifact",
-                    f"Missing required run artifact: {label}",
-                    path=result_path,
-                    root=root_path,
-                )
-            )
-
-    review_metadata_path = run_dir / "review_metadata.yaml"
-    if review_metadata_path.exists():
-        try:
-            review_metadata_data = yaml.safe_load(
-                review_metadata_path.read_text(encoding="utf-8")
-            )
-            validate_document(review_metadata_data, "review_metadata", review_metadata_path)
-        except Exception as exc:
-            issues.append(
-                _issue(
-                    "ERROR",
-                    "invalid_review_metadata",
-                    f"review_metadata.yaml failed schema validation: {exc}",
-                    path=result_path,
-                    root=root_path,
-                )
-            )
-
-    expected_artifact_paths = {
-        "report": _relative_path(run_dir / "report.md", root_path),
-        "metrics": _relative_path(run_dir / "metrics.json", root_path),
-        "claim_update": _relative_path(run_dir / "claim_update.md", root_path),
-        "claim_update_patch": _relative_path(run_dir / "claim_update.patch.md", root_path),
-        "knowledge_update": _relative_path(run_dir / "knowledge_update.md", root_path),
-        "knowledge_update_patch": _relative_path(run_dir / "knowledge_update.patch.md", root_path),
-        "review_summary": _relative_path(run_dir / "review_summary.md", root_path),
-        "review_metadata": _relative_path(run_dir / "review_metadata.yaml", root_path),
-    }
-    for artifact_name, expected_path in expected_artifact_paths.items():
-        actual_path = str(payload["artifacts"].get(artifact_name, ""))
-        if actual_path != expected_path:
-            issues.append(
-                _issue(
-                    "ERROR",
-                    "noncanonical_artifact_path",
-                    f"{artifact_name} should point to {expected_path}, not {actual_path or 'missing value'}",
-                    path=result_path,
-                    root=root_path,
-                )
-            )
-
-    expected_input_paths = {
-        "config": _relative_path(run_dir / "inputs" / "config.yaml", root_path),
-        "experiment": _relative_path(run_dir / "inputs" / "experiment.yaml", root_path),
-        "hypothesis": _relative_path(run_dir / "inputs" / "hypothesis.yaml", root_path),
-        "task": _relative_path(run_dir / "inputs" / "task.yaml", root_path),
-    }
-    for artifact_name, expected_path in expected_input_paths.items():
-        actual_path = str(payload["input_file_hashes"].get(artifact_name, {}).get("path", ""))
-        if actual_path != expected_path:
-            issues.append(
-                _issue(
-                    "ERROR",
-                    "noncanonical_input_snapshot",
-                    f"{artifact_name} hash should point to immutable run snapshot {expected_path}, not {actual_path or 'missing value'}",
-                    path=result_path,
-                    root=root_path,
-                )
-            )
-    return issues
-
-
-def _strict_claim_status_issues(
-    claim_path: Path,
-    claim_payload: dict[str, Any],
-    *,
-    referenced_results: list[dict[str, Any]],
-    root_path: Path,
-) -> list[ValidationIssue]:
-    issues: list[ValidationIssue] = []
-    claim_status = str(claim_payload["status"])
-    verification_all_pass = all(bool(result["verification"]["passed"]) for result in referenced_results)
-    has_range_limited_result = any(
-        str(result["best_verdict"]) == "VALID_IN_RANGE" for result in referenced_results
-    )
-    scope_text = str(claim_payload["scope"])
-    body_text = str(claim_payload["body"])
-    combined_text = f"{scope_text}\n{body_text}".lower()
-
-    if claim_status == "PARTIALLY_SUPPORTED":
-        if not referenced_results:
-            issues.append(
-                _issue(
-                    "ERROR",
-                    "claim_without_results",
-                    "PARTIALLY_SUPPORTED claim must reference at least one result.",
-                    path=claim_path,
-                    root=root_path,
-                )
-            )
-        if not verification_all_pass:
-            issues.append(
-                _issue(
-                    "ERROR",
-                    "claim_failed_verification",
-                    "PARTIALLY_SUPPORTED claim references result evidence with failing verification checks.",
-                    path=claim_path,
-                    root=root_path,
-                )
-            )
-        if has_range_limited_result and not any(marker in combined_text for marker in RANGE_LANGUAGE_MARKERS):
-            issues.append(
-                _issue(
-                    "ERROR",
-                    "claim_missing_range_language",
-                    "PARTIALLY_SUPPORTED claim with range-limited evidence must describe scope explicitly.",
-                    path=claim_path,
-                    root=root_path,
-                )
-            )
-
-    if claim_status == "DRAFT" and referenced_results and verification_all_pass:
-        issues.append(
-            _issue(
-                "INFO",
-                "draft_with_passing_evidence",
-                "Claim remains DRAFT despite passing referenced evidence; human review may still be appropriate.",
-                path=claim_path,
-                root=root_path,
-            )
-        )
-
-    return issues
-
-
 def _collect_strict_issues(
     *,
     hypotheses: list[tuple[Path, dict[str, Any]]],
@@ -809,17 +602,6 @@ def _collect_strict_issues(
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     tracked_files = _tracked_git_files(root_path)
-    results_by_id = {payload["result_id"]: payload for _, payload in results}
-    referenced_result_ids = {
-        result_id
-        for _, payload in hypotheses
-        for result_id in payload["evidence"].get("results", [])
-    } | {
-        result_id
-        for _, payload in claims
-        for result_id in payload["evidence"]["results"]
-    }
-    result_task_ids = {str(payload["task_id"]) for _, payload in results}
 
     if not (root_path / "README.md").exists():
         issues.append(_issue("ERROR", "missing_readme", "Repository is missing README.md"))
@@ -864,87 +646,24 @@ def _collect_strict_issues(
                 )
                 break
 
-    for result_path, result_payload in results:
-        issues.extend(
-            _strict_required_run_artifacts(
-                result_path,
-                result_payload,
-                root_path=root_path,
-            )
+    issues.extend(
+        ValidationIssue(
+            severity=issue.severity,
+            code=issue.code,
+            message=issue.message,
+            path=issue.path,
         )
-        result_id = str(result_payload["result_id"])
-        if result_id not in referenced_result_ids:
-            issues.append(
-                _issue(
-                    "WARNING",
-                    "orphan_result",
-                    "Result artifact is not referenced by any hypothesis or claim evidence.",
-                    path=result_path,
-                    root=root_path,
-                )
-            )
-
+        for issue in collect_scientific_memory_integrity_issues(
+            hypotheses=hypotheses,
+            tasks=tasks,
+            claims=claims,
+            knowledge_files=knowledge_files,
+            example_configs=example_configs,
+            results=results,
+            root_path=root_path,
+        )
+    )
     issues.extend(_strict_golden_result_issues(root_path))
-
-    for claim_path, claim_payload in claims:
-        referenced_results = [
-            results_by_id[result_id]
-            for result_id in claim_payload["evidence"]["results"]
-            if result_id in results_by_id
-        ]
-        issues.extend(
-            _strict_claim_status_issues(
-                claim_path,
-                claim_payload,
-                referenced_results=referenced_results,
-                root_path=root_path,
-            )
-        )
-
-    for task_path, task_payload in tasks:
-        task_id = str(task_payload["id"])
-        task_status = str(task_payload["status"])
-        task_type = str(task_payload["type"])
-        if task_status == "DONE" and task_id not in result_task_ids and task_type not in STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS:
-            issues.append(
-                _issue(
-                    "WARNING",
-                    "done_task_without_result",
-                    "DONE task does not have a linked result artifact and is not on the documented exception list.",
-                    path=task_path,
-                    root=root_path,
-                )
-            )
-
-    for knowledge_path, knowledge_payload in knowledge_files:
-        linked = knowledge_payload["linked_objects"]
-        if not any(linked.values()):
-            issues.append(
-                _issue(
-                    "WARNING",
-                    "knowledge_without_links",
-                    "Knowledge note has no linked objects.",
-                    path=knowledge_path,
-                    root=root_path,
-                )
-            )
-
-    for example_path, example_payload in example_configs:
-        if example_payload.get("config_kind") == "nuclear_prediction_variant_factory":
-            continue
-        result_root = (example_path.parent / example_payload["result_root"]).resolve()
-        expected_run_dir = result_root / str(example_payload["run_id"])
-        canonical_result = expected_run_dir / "result.yaml"
-        if not canonical_result.exists():
-            issues.append(
-                _issue(
-                    "ERROR",
-                    "missing_canonical_result",
-                    "Example config points to a run directory without canonical result.yaml.",
-                    path=example_path,
-                    root=root_path,
-                )
-            )
 
     for link_issue in find_docs_link_issues(root_path):
         issues.append(

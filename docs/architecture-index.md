@@ -87,6 +87,9 @@ For a new contributor or a new LLM session, read in this order:
   - strict validation mode
   - referential integrity checks
   - canonical artifact integrity checks
+- `physics_lab/registry/scientific_memory_integrity.py`
+  - strict result, claim, task, knowledge, and example integrity checks
+  - canonical run-artifact completeness checks
 
 ### Schemas
 
