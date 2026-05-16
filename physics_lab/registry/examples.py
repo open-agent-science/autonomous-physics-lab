@@ -30,6 +30,6 @@ def _is_nuclear_prediction_variant_factory_config(data: dict[str, Any]) -> bool:
     return (
         "factory_id" in data
         and "baseline_model" in data
-        and "target_batches" in data
+        and ("target_batches" in data or "target_batch_library" in data)
         and "variants" in data
     )
