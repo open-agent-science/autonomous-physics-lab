@@ -186,6 +186,11 @@ Rules:
 
 - An agent may move `READY -> IN_PROGRESS`.
 - An agent may move `IN_PROGRESS -> REVIEW_READY`.
+- A task PR may update its own `tasks/TASK-XXXX-*.yaml` lifecycle status and
+  synchronize generated task navigation when that status changes.
+- Do not change unrelated task statuses or generated task navigation except
+  when the maintainer explicitly requested queue triage, closeout, unblock, or
+  stale-task cleanup.
 - Only a maintainer should move `REVIEW_READY -> DONE`.
 - A maintainer may use a maintainer-run review agent to assist review and
   closeout, but the agent output is advisory rather than autonomous.
@@ -501,9 +506,12 @@ The maintainer review agent must not:
    a maintainer-synchronized snapshot.
 6. Do not hand-edit `docs/task-views/*.md`; they are generated from canonical
    task YAML files alongside `tasks/ACTIVE.md`.
-7. If the task itself changes active-board behavior or presentation, update the
-   board and run `python3 -m physics_lab.cli sync-active-board .` as part of
-   that scoped task.
+7. If the task file changes status, run
+   `python3 -m physics_lab.cli sync-active-board .` so generated task
+   navigation reflects the current canonical task YAML. This generated sync is
+   allowed for the current task's lifecycle transition; do not include
+   unrelated task-status changes unless the maintainer explicitly requested
+   queue triage, unblock, closeout, or stale-task cleanup.
 8. Make the smallest reproducible change that satisfies the task.
 9. Run the required validation commands.
 10. Set the task to `REVIEW_READY` when implementation and validation are done.
