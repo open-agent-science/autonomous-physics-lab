@@ -61,6 +61,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0263` — Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (`contributor_experience`, priority `low`, difficulty `low`)
 
 ## DONE RECENTLY
 
