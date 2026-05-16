@@ -1,7 +1,7 @@
 id: TASK-0262
 title: "Add --auto-sync flag to validate-repo CLI"
 type: contributor_experience
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
