@@ -20,3 +20,4 @@ None.
 - `TASK-0257` - Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_automation`)
 - `TASK-0258` - Track .claude/settings.json as shared agent permission baseline (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
 - `TASK-0259` - Clarify task-state and generated-navigation wording in task contracts (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `task_protocol`)
+- `TASK-0260` - Expand Claude Code permissions allowlist for routine read-only operations (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
