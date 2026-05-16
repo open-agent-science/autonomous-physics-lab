@@ -148,7 +148,7 @@ Defer by default:
 python3 scripts/generate_nuclear_prediction_variants.py \
   examples/nuclear_prediction_factory_slate_002_feature_terms.yaml \
   --write-drafts \
-  --output-dir /tmp/apl-nuclear-factory-slate-002-feature-terms
+  --output-dir "$(mktemp -d /tmp/apl-nuclear-factory-slate-002-feature-terms.XXXXXX)"
 
 python3 scripts/generate_nuclear_prediction_variants.py \
   examples/nuclear_prediction_factory_slate_002_feature_terms.yaml \
