@@ -1,0 +1,55 @@
+id: TASK-0263
+title: "Register selected nuclear feature-term factory predictions"
+type: scientific_validation
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Freeze only reviewed feature-term candidates after slate-002, not every generated draft."
+  - "Preserve a clean audit trail from feature-term slate review to prospective registry entries."
+  - "Keep prediction registration separate from reveal, scoring, result promotion, and public claims."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0262-run-nuclear-feature-term-factory-slate.yaml"
+    - "docs/reviews/nuclear-prediction-factory-slate-002-feature-terms.md"
+    - "prediction_registry/nuclear_masses/PRED-TEMPLATE.yaml"
+    - "docs/prediction-registry-policy.md"
+    - "data/nuclear_masses/factory_target_batches.yaml"
+  planning_context: >
+    This task is intentionally blocked until TASK-0262 produces and reviews a
+    feature-term factory slate. It should register only a small curator-
+    approved subset of slate-002 candidates, leaving raw drafts in scratch
+    output only. If slate-002 exposes leakage, duplicate vectors, or
+    extreme-sensitivity behavior, keep this task blocked until those issues are
+    resolved or explicitly accepted as stress controls.
+
+requirements:
+  - "Start only after TASK-0262 is merged and the maintainer approves a selected feature-term subset."
+  - "Register 8 to 12 selected feature-term candidates as prospective PRED entries, using PRED-0051 through PRED-0062 unless a collision-free equivalent range is needed."
+  - "Copy or regenerate selected draft entries from the reviewed slate config, then replace placeholder source_state.git_commit values with the real commit being frozen."
+  - "Preserve frozen model ids, target batches, mass_excess_mev values, reveal conditions, uncertainty semantics, feature-term coefficients, and no-peek rules."
+  - "Add a review note linking each selected PRED entry back to the slate row and explaining why it was selected or why nearby candidates were rejected."
+  - "Add or update tests for schema validity, deterministic recomputation, target consistency, feature-term metadata, and no committed live external fetch."
+  - "Do not reveal, score against future data, update claims, promote results, or describe any entry as successful."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/PRED-0051.yaml through prediction_registry/nuclear_masses/PRED-0062.yaml, or an approved collision-free equivalent selected range"
+  - "docs/reviews/nuclear-prediction-factory-feature-term-selected-registry-001.md"
+  - "updated tests covering the selected prediction entries"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
