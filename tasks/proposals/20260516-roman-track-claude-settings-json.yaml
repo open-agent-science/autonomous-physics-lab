@@ -1,0 +1,133 @@
+proposal_id: 20260516-roman-track-claude-settings-json
+title: "Track .claude/settings.json in git as shared agent permission baseline"
+status: PROPOSED
+type: contributor_experience
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Reduce agent friction so research, replay, and audit work can run without per-command permission prompts."
+  - "Keep a curated, maintainer-reviewed shared allowlist instead of letting each contributor accumulate reactive local rules."
+  - "Preserve personal overrides through settings.local.json so the shared baseline stays scoped to safe read-only operations."
+
+summary: >
+  Today .claude/ is fully gitignored, so neither settings.json nor
+  settings.local.json travels with the repository. Every fresh checkout and
+  every new worktree starts with no allowlist, which triggers a long sequence
+  of permission prompts before the agent can run even routine read-only tools
+  (ruff, pytest, validate-repo, apl_mission.py, apl_review_pr.py, etc.). The
+  workaround is scripts/apl_setup_worktree.sh, which copies the maintainer's
+  local file, but that file has grown reactively to 70+ overlapping rules and
+  is not reviewable. This proposal moves to the standard Claude Code split:
+  ship a curated, version-controlled settings.json baseline through the
+  repository, and keep settings.local.json as the user-specific override file.
+
+rationale: >
+  Three concrete symptoms:
+
+  1. .gitignore currently has both `.claude/` (line 2) and `.claude/` again
+     (line 9) plus a misleading `.claude/settings.local.json` entry without
+     the `!` negation prefix, so it does not actually act as an exception.
+     Net effect: every file under .claude/ is ignored, including any shared
+     settings.json a maintainer might commit.
+  2. settings.local.json has accumulated very broad patterns such as
+     `Bash(python3 *)` and one-off exact strings for specific TASK ids, which
+     defeats the point of curation and grants near-arbitrary code execution
+     to anyone who runs the setup script.
+  3. New contributors and remote agents (Codex, Claude in fresh worktrees,
+     CI shells) cannot inherit any allowlist until they run a setup script
+     they may not know about, so they re-trigger the prompt cycle and often
+     click "always allow" on more rules than necessary.
+
+  The hybrid fix:
+
+  - .claude/settings.json (tracked): curated, conservative, read-only-leaning
+    baseline reviewed in PRs like any other governance file.
+  - .claude/settings.local.json (ignored): personal overrides, user-specific
+    paths, experimental allowances; stays out of git.
+  - .claude/worktrees/ (ignored): unchanged.
+
+  This matches how Claude Code documents its layered settings model and
+  aligns with how the repository already treats other governance surfaces
+  (PR templates, review checklists, etc.).
+
+input:
+  mode: planning_only
+  related_domain: contributor_workflow
+  related_objects:
+    - ".gitignore"
+    - ".claude/settings.json"
+    - ".claude/settings.local.json"
+    - "scripts/apl_setup_worktree.sh"
+    - "AGENTS.md"
+    - "CLAUDE.md"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    The future canonical task should bundle four narrowly-scoped edits:
+
+    1. Replace the blanket `.claude/` ignore with two specific ignores:
+       `.claude/settings.local.json` and `.claude/worktrees/`. Remove the
+       duplicate `.claude/` line and the redundant
+       `.claude/settings.local.json` entry.
+
+    2. Add a curated `.claude/settings.json` to git containing only safe
+       read-only shared patterns. Suggested initial set:
+         - `Bash(python3 -m ruff check *)`
+         - `Bash(python3 -m pytest *)`
+         - `Bash(python3 -m physics_lab.cli validate-repo *)`
+         - `Bash(python3 scripts/apl_mission.py *)`
+         - `Bash(python3 scripts/apl_review_pr.py *)`
+         - `Bash(python3 scripts/apl_closeout_sweep.py *)`
+         - `Bash(python3 scripts/apl_task_pr_helper.py preflight *)`
+         - `Bash(python3 scripts/apl_closeout_pr_helper.py preflight *)`
+         - `Bash(python3 scripts/apl_task_closeout_check.py *)`
+         - `Bash(./scripts/apl_setup_worktree.sh)`
+         - `Bash(./scripts/apl_review_bundle.sh)`
+       Explicitly exclude broad patterns like `Bash(python3 *)`,
+       `Bash(python3 scripts/*)`, `Bash(git add *)`, `Bash(git commit *)`,
+       `Bash(git push *)`, anything that writes canonical scientific
+       artifacts, and anything that grants arbitrary code execution.
+
+    3. Update scripts/apl_setup_worktree.sh so it no longer needs to copy
+       settings.json (git carries it now). It may continue to copy or seed
+       an optional settings.local.json if one exists in the main checkout,
+       or it can be reduced to a no-op + advisory message.
+
+    4. Add a short section to AGENTS.md (or docs/agent-operating-model.md)
+       describing the promotion process: reactive prompt acceptances land in
+       settings.local.json by default; periodically the maintainer reviews
+       which patterns are safe and uniformly useful, and promotes them to
+       settings.json through a normal PR. This prevents settings.local.json
+       from being the de-facto shared file again.
+
+requirements:
+  - "Keep the proposal atomic: a single contributor-experience PR that updates ignore rules, ships a curated settings.json, simplifies the setup script, and documents the promotion process."
+  - "Do not promote claims automatically."
+  - "Do not include broad wildcards that grant arbitrary code execution in the shared settings.json (no `Bash(python3 *)`, no `Bash(python3 scripts/*)`, no mutating git wildcards)."
+  - "Do not change canonical scientific artifacts (claims, results, experiments, hypotheses, knowledge) as part of this work."
+  - "Do not change task-state transitions, ACTIVE.md, or generated task views as part of this proposal."
+
+accepted_outputs:
+  - "canonical task spec (assigned by maintainer)"
+  - ".gitignore update plan (replace blanket .claude/ ignore with specific subpath ignores)"
+  - "draft curated .claude/settings.json contents"
+  - "scripts/apl_setup_worktree.sh simplification plan"
+  - "AGENTS.md or docs/agent-operating-model.md note on the local-to-shared promotion process"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Maintainer to decide whether to accept as a single canonical contributor-
+    experience task or split into two (gitignore + settings.json baseline as
+    one, setup-script + docs as a follow-up). Either shape preserves the
+    proposal-only PR rule for this submission.
