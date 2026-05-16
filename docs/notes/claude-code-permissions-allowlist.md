@@ -69,10 +69,13 @@ generated navigation and PR body drafts.
 
 ### 3.2 Repository helper scripts
 
-`./scripts/apl_setup_worktree.sh`, `./scripts/apl_review_bundle.sh`,
-`./scripts/apl_snapshot.sh`, `./scripts/validate_quick.sh`. Bounded
-internal helpers that do not call out to the network and do not modify
-canonical artifacts beyond their documented scope.
+`./scripts/apl_setup_worktree.sh`, `./scripts/apl_new_worktree.sh *`,
+`./scripts/apl_review_bundle.sh`, `./scripts/apl_snapshot.sh`,
+`./scripts/validate_quick.sh`. Bounded internal helpers that do not call
+out to the network and do not modify canonical artifacts beyond their
+documented scope. `apl_new_worktree.sh` accepts a branch name and an
+optional path argument; it refuses to overwrite an existing branch and
+bases the new worktree on `origin/main`.
 
 ### 3.3 Git read-only inspection
 
