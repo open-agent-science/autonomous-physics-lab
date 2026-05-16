@@ -100,20 +100,22 @@ needs `git stash push --include-untracked`.
 
 `git fetch *`, `git pull *`, `git switch *`, `git checkout *`, `git add *`,
 `git commit *`, `git push *`, `git restore --staged *`, `git reset HEAD *`,
-`git reset --mixed *`, `git reset --soft *`, `git merge *`,
+`git reset --mixed *`, `git reset --soft *`, `git merge origin/main`,
+`git merge --no-edit origin/main`, `git merge origin/main --no-edit`,
+`git merge --ff-only origin/main`, `git merge origin/main --ff-only`,
 `git merge --abort`, `git merge --quit`. These mutate local branches
 and may push them, but `--mixed` and `--soft` resets keep the working tree
 intact, and `--hard`/`--keep` are *not* on the list. The shared rules do
 not block agents from pushing the task branch they own — pushing to `main`
 is prevented by repository policy, not by Claude Code permissions.
 
-`git merge *` covers `git merge origin/main`, `git merge --no-edit`, and
-`git merge --no-ff` — all non-destructive: they either fast-forward, create
-a new merge commit, or stop on conflict. `--abort` and `--quit` are
-explicitly listed because they restore the pre-merge state. Strategies
-that silently overwrite the other side of a merge (`--strategy=ours`,
-`--strategy-option=theirs`) are *not* on the list; an agent that needs
-those still has to ask.
+The merge rules are intentionally scoped to the routine operation agents need:
+bringing `origin/main` into the current task branch, optionally with
+`--no-edit` or `--ff-only`. `--abort` and `--quit` are explicitly listed
+because they safely exit an in-progress merge. Broad `git merge *` and
+strategies that silently overwrite one side of a merge (`--strategy=ours`,
+`--strategy-option=theirs`) are *not* on the list; an agent that needs those
+still has to ask.
 
 ### 3.6 Text inspection
 
