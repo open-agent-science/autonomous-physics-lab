@@ -15,10 +15,10 @@ Use it when you need to answer four questions quickly:
 | --- | --- | --- | --- |
 | [Pendulum Formula Falsification](./pendulum-formula-falsification.md) | Active benchmark with multiple canonical runs | `EXP-0001/RUN-0001`, `RUN-0002`, `RUN-0003` and the gauntlet result package | stronger falsification probes, clearer diagnostics, safer wording |
 | [Particle Mass Relations](./particle-mass-relations.md) | Active benchmark track with narrow charged-lepton results | `EXP-0004/RUN-0004` and `EXP-0005/RUN-0005` | guardrail-preserving follow-up tasks before broader search |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark plus first sandbox pilot | `EXP-0012/RUN-0001` plus `AGENT-RUN-0005` sandbox evidence | broader pinned dataset and maintainer-reviewed follow-up candidates |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilot, prediction factory, and frozen prospective registry | `EXP-0012/RUN-0001`, `AGENT-RUN-0005`, factory reviews, and `PRED-0001` through `PRED-0050` | feature-term slate-002 and reveal protocol before any future comparison |
 | [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Active benchmark plus follow-on curation | `EXP-0006/RUN-0006` plus live challenge-set work | challenge-set curation, benchmark hygiene, and future intentional rebaseline planning |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical run yet | suite design plus light-clock micro-planning task | scoped scenario planning, then deterministic validator design |
-| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold only, no dataset or canonical run yet | campaign page, profile, plan note, and microtask queue | maintainer review of scaffold; planning-only microtasks until TASK-0223 unblocks |
+| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold complete, dataset and holdout foundation ready | campaign page, profile, plan note, and microtask queue | `TASK-0223` dataset/source manifest and `TASK-0224` holdout protocol |
 
 ## How To Use This Map
 

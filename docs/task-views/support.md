@@ -15,5 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0260` - Expand Claude Code permissions allowlist for routine read-only operations (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
-- `TASK-0261` - Stop maintainer-review-agent from blocking on harness-only artifacts (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
+None.

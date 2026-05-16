@@ -1,7 +1,7 @@
 id: TASK-0223
 title: "Add quantum-dot size-effect dataset schema and source manifest"
 type: scientific_dataset
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -17,14 +17,14 @@ input:
     - "tasks/TASK-0222-create-quantum-size-effects-campaign-scaffold.yaml"
     - "tasks/proposals/20260507-roman-quantum-dots-size-effects-campaign.yaml"
   planning_context: >
-    This task should start after the campaign scaffold exists. It defines the
-    repository-native dataset shape and source manifest needed to compare
-    quantum-dot size-dependent optical or electronic properties without
-    importing unreviewed external data or mixing incompatible measurement
-    semantics.
+    TASK-0222 has landed the Quantum Size Effects campaign scaffold. This task
+    is now the first executable foundation step: define the repository-native
+    dataset shape and source manifest needed to compare quantum-dot
+    size-dependent optical or electronic properties without importing
+    unreviewed external data or mixing incompatible measurement semantics.
 
 requirements:
-  - "Do not start until TASK-0222 is DONE or explicitly accepted by the maintainer as complete enough for dataset work."
+  - "Use the completed TASK-0222 campaign scaffold and campaign profile as the scope boundary for this dataset work."
   - "Create a quantum-dot dataset directory with source-manifest guidance."
   - "Define required fields for material, composition, diameter_nm or radius_nm, property kind, energy value in eV, uncertainty if known, temperature if known, source, measurement type, and inclusion or exclusion status."
   - "Represent absorption peak, emission peak, and bandgap values with explicit semantics rather than treating them as interchangeable."
