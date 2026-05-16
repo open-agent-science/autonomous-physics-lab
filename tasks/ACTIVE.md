@@ -60,15 +60,15 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
-- `TASK-0250` — Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0252` — Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`)
+None.
 
 ## DONE RECENTLY
 
 - `TASK-0256` — Simplify onboarding prompt task-choice guidance (merged)
 - `TASK-0255` — Add worktree settings sync script and first-action CLAUDE.md instruction (merged)
 - `TASK-0253` — Add nuclear factory slate ranking helper (merged)
+- `TASK-0252` — Add feature-term variants to the nuclear prediction factory (merged)
+- `TASK-0250` — Run first nuclear prediction factory candidate slate (merged)
 - `TASK-0249` — Implement nuclear prediction variant factory (merged)
 - `TASK-0248` — Salvage pairing and odd-even nuclear hypothesis proposals (merged)
 - `TASK-0247` — Add PR lifecycle guardrails for autonomous agents (merged)
@@ -85,6 +85,7 @@ None.
 - `TASK-0230` — Register nuclear prediction variants for shell and magic-number controls (merged)
 - `TASK-0229` — Register nuclear prediction variants for pairing and odd-even controls (merged)
 - `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (merged)
+- `TASK-0222` — Create Quantum Size Effects campaign scaffold (merged)
 - `TASK-0221` — Clarify campaign-curator trigger wording (merged)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
 - `TASK-0219` — Enforce repository PR template sections in maintainer review (merged)
