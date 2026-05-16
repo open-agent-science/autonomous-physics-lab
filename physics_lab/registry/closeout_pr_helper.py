@@ -11,6 +11,7 @@ from physics_lab.registry.maintainer_review import (
     missing_pr_metadata_fields,
     missing_pr_template_sections,
 )
+from physics_lab.registry.review_policy import agent_tool_metadata_mismatch
 from physics_lab.registry.task_closeout import find_task_file
 
 
@@ -203,6 +204,10 @@ def preflight_closeout_pr(
             + rendered_fields
             + "."
         )
+
+    agent_tool_mismatch = agent_tool_metadata_mismatch(branch, body_text)
+    if agent_tool_mismatch is not None:
+        errors.append(agent_tool_mismatch)
 
     placeholders = _placeholder_hits(body_text)
     if placeholders:
