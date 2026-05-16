@@ -10,6 +10,7 @@
 - `TASK-0241` - Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`, domain `review_quality`)
 - `TASK-0242` - Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
 - `TASK-0254` - Add reusable nuclear factory target-batch library (`dataset_workflow`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0259` - Clarify task-state and generated-navigation wording in task contracts (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `task_protocol`)
 
 ## IN_PROGRESS
 

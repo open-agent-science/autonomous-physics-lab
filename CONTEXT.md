@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-16 06:57 UTC
+Generated: 2026-05-16 08:08 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1128,10 +1128,6 @@ support_actions:
     label: "Create private agent challenge pack"
     task_id: TASK-0177
     priority: medium
-  - id: validation-memory-split
-    label: "Split repository validation and scientific-memory integrity checks"
-    task_id: TASK-0136
-    priority: medium
   - id: maintainer-review-coverage
     label: "Expand maintainer review policy branch coverage"
     task_id: TASK-0241
@@ -2122,7 +2118,6 @@ one PR.
 
 ## READY
 
-- `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
@@ -2136,7 +2131,9 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0258` — Track .claude/settings.json as shared agent permission baseline (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## DONE RECENTLY
 
