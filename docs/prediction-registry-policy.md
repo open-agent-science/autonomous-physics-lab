@@ -100,6 +100,13 @@ Required wording boundary:
 
 A later measurement comparison is a **separate reviewed step**.
 
+For nuclear-mass registry entries, that step must follow
+[Nuclear Prediction Reveal Protocol](./nuclear-prediction-reveal-protocol.md).
+The reveal protocol defines source pinning, checksum expectations,
+eligibility screening, no-peek audit, partial reveal handling, comparison
+artifacts, and wording boundaries. It is the campaign-specific execution
+layer for the general rule below, not a competing policy.
+
 That later step must:
 
 - reference the original `PRED-XXXX` entry unchanged;

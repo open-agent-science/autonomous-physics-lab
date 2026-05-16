@@ -72,6 +72,15 @@ python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
 
+## Reveal
+
+Later comparison against measured values must happen in a separate reviewed
+task following
+[`docs/nuclear-prediction-reveal-protocol.md`](../../docs/nuclear-prediction-reveal-protocol.md).
+That protocol covers source pinning, checksums, eligibility screening, no-peek
+audit, partial reveals, comparison artifacts, and conservative wording. Do not
+edit registered prediction values during reveal work.
+
 ## Variant Factory Drafts
 
 For larger pre-reveal variant waves, use the deterministic factory before
