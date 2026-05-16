@@ -4,7 +4,23 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import fnmatch
 import subprocess
+
+
+# Paths that may appear as untracked in `git status --short` but are pure
+# harness/local-session state and must not block maintainer review.
+# Keep this list short. Add to `.gitignore` first whenever possible; this
+# tuple is the defense-in-depth fallback for environments where the
+# repository's `.gitignore` is out of sync.
+HARNESS_IGNORE_PATHS: tuple[str, ...] = (
+    ".claude/scheduled_tasks.lock",
+)
+
+
+def _path_matches_ignore(path: str, patterns: tuple[str, ...]) -> bool:
+    """Return True if path matches any of the fnmatch-style ignore patterns."""
+    return any(fnmatch.fnmatch(path, pattern) for pattern in patterns)
 
 
 @dataclass(frozen=True)
@@ -55,10 +71,21 @@ def current_branch(root: Path) -> str:
     return result.stdout.strip()
 
 
-def git_status_clean(root: Path) -> bool:
-    """Return whether the worktree is clean."""
-    result = run_command(["git", "status", "--short"], cwd=root)
-    return result.returncode == 0 and result.stdout.strip() == ""
+def git_status_clean(
+    root: Path,
+    *,
+    ignore_paths: tuple[str, ...] = HARNESS_IGNORE_PATHS,
+) -> bool:
+    """Return whether the worktree is clean.
+
+    Paths matching ``ignore_paths`` are excluded from the cleanliness check.
+    The default ignore list covers harness/local-session artifacts that
+    should never block maintainer review (see ``HARNESS_IGNORE_PATHS``).
+    Pass ``ignore_paths=()`` to disable filtering and require a strictly
+    empty ``git status --short``.
+    """
+    paths = working_tree_changed_files(root, ignore_paths=ignore_paths)
+    return len(paths) == 0
 
 
 def local_branch_exists(root: Path, branch: str) -> bool:
@@ -66,8 +93,16 @@ def local_branch_exists(root: Path, branch: str) -> bool:
     return branch_exists(root, branch)
 
 
-def working_tree_changed_files(root: Path) -> tuple[str, ...]:
-    """Return changed files from git status for the current worktree."""
+def working_tree_changed_files(
+    root: Path,
+    *,
+    ignore_paths: tuple[str, ...] = HARNESS_IGNORE_PATHS,
+) -> tuple[str, ...]:
+    """Return changed files from git status for the current worktree.
+
+    Paths matching ``ignore_paths`` are omitted from the result. Pass
+    ``ignore_paths=()`` to get the unfiltered list.
+    """
     result = run_command(["git", "status", "--short"], cwd=root)
     paths: list[str] = []
     for line in result.stdout.splitlines():
@@ -77,7 +112,10 @@ def working_tree_changed_files(root: Path) -> tuple[str, ...]:
         entry = line[3:] if len(line) > 3 else line
         if " -> " in entry and any(code in status for code in ("R", "C")):
             entry = entry.split(" -> ", 1)[1]
-        paths.append(entry.strip())
+        path = entry.strip()
+        if _path_matches_ignore(path, ignore_paths):
+            continue
+        paths.append(path)
     return tuple(paths)
 
 
