@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-15 13:23 UTC
+Generated: 2026-05-16 06:47 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2125,17 +2125,10 @@ one PR.
 - `TASK-0136` — Split repository validation and scientific-memory integrity checks (`code_quality_refactor`, priority `medium`, difficulty `medium`)
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (`scientific_falsification`, priority `medium`, difficulty `medium`)
-- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0241` — Expand maintainer review policy branch coverage (`test_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0250` — Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0252` — Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`)
-- `TASK-0254` — Add reusable nuclear factory target-batch library (`dataset_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0254` — Add reusable nuclear factory target-batch library (`dataset_workflow`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2143,7 +2136,9 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
+- `TASK-0250` — Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0252` — Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
@@ -2371,6 +2366,10 @@ None.
 - `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0251` — Register selected predictions from the first nuclear factory slate (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## REJECTED

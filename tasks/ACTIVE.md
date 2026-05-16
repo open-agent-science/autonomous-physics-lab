@@ -63,6 +63,7 @@ None.
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (`scientific_campaign`, priority `medium`, difficulty `medium`)
 - `TASK-0250` — Run first nuclear prediction factory candidate slate (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0252` — Add feature-term variants to the nuclear prediction factory (`scientific_tooling`, priority `high`, difficulty `high`)
+- `TASK-0257` — Fix agent-tool metadata inference in PR helpers (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
