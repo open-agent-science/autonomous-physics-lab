@@ -12,16 +12,19 @@ tested against real dataset structure, subset behavior, and negative controls.
 
 ## Orientation Note for New Contributors
 
-This campaign started scaffold-first and now has a first benchmark stack plus
-one sandbox-only autonomous pilot.
+This campaign started scaffold-first and now has a benchmark stack,
+retrospective time-split evidence, a deterministic prediction factory, reusable
+target batches, and frozen prospective prediction registry entries.
 
 Safe contributions right now are still conservative, but they can now include
-bounded sandbox follow-up work:
+factory-slate and reveal protocol work:
 
 - campaign map and guardrail wording;
 - pinned-dataset and provenance expansion work;
 - subset and holdout curation;
-- bounded sandbox follow-up proposals under the frozen `RESULT-0015` baseline;
+- bounded feature-term factory slates under the frozen `RESULT-0015` baseline;
+- prospective prediction registry selection after reviewed slates only;
+- reveal protocol work that preserves the no-peek boundary;
 - limitation notes that keep the campaign conservative.
 
 ### What not to implement yet
@@ -30,8 +33,8 @@ bounded sandbox follow-up work:
   checksum handling;
 - do not mix measured and extrapolated entries without an explicit flag and
   reviewable semantics;
-- do not compare against advanced nuclear models before the simple baseline
-  path is encoded and understood;
+- do not compare registered predictions against live or future measurements
+  outside a maintainer-reviewed reveal task;
 - do not write result artifacts or claims that imply a broad nuclear mass
   law.
 
@@ -54,7 +57,7 @@ and reviewable failure modes.
 
 ## Current Results
 
-This campaign now has an executable first-wave benchmark stack:
+This campaign now has an executable benchmark, sandbox, and prediction stack:
 
 - `TASK-0166` created the campaign scaffold, guardrails, autonomy posture, and
   microtask queue.
@@ -69,6 +72,18 @@ This campaign now has an executable first-wave benchmark stack:
   - `experiment_proposals/nuclear-mass/EXP-PROPOSAL-0005-nuclear-mass-sandbox-batch.yaml`
   - `agent_runs/AGENT-RUN-0005/`
   - `docs/reviews/autonomous-nuclear-mass-pilot-01.md`
+- `TASK-0197` added a retrospective post-AME2020 row-level time-split
+  benchmark, currently treated as useful but inconclusive evidence.
+- `TASK-0205` registered the first prospective prediction entries,
+  `PRED-0001` through `PRED-0020`.
+- `TASK-0228` through `TASK-0232` and `TASK-0236` added bounded manual
+  prediction-control families through `PRED-0030`, `PRED-0037`, and
+  `PRED-0038`.
+- `TASK-0249`, `TASK-0252`, `TASK-0253`, and `TASK-0254` added the nuclear
+  prediction factory, feature-term support, deterministic slate ranking, and
+  reusable target-batch library.
+- `TASK-0251` registered the selected coefficient-transform factory wave as
+  `PRED-0041` through `PRED-0050`.
 
 Historical context:
 
@@ -79,36 +94,38 @@ Historical context:
 
 Current campaign state in one sentence:
 the scientific direction is now explicit, baseline-backed, holdout-defined,
-and proven once through a tightly bounded sandbox autonomy pass.
+factory-supported, and prospectively frozen through selected registry entries,
+but it has not yet reached a future-measurement reveal.
 
 Start here:
 
 - [Nuclear Mass Campaign Plan](../notes/nuclear-mass-campaign-plan.md)
-- [TASK-0166](../../tasks/TASK-0166-create-nuclear-mass-surface-campaign-scaffold.yaml)
-- [TASK-0167](../../tasks/TASK-0167-add-ame-nuclear-mass-dataset-loader-and-schema.yaml)
+- [Nuclear Prediction Variant Factory](../notes/nuclear-prediction-variant-factory.md)
+- [Selected Factory Registry Wave 001](../reviews/nuclear-prediction-factory-selected-registry-001.md)
+- [TASK-0262](../../tasks/TASK-0262-run-nuclear-feature-term-factory-slate.yaml)
+- [TASK-0264](../../tasks/TASK-0264-define-nuclear-prediction-reveal-readiness-protocol.yaml)
 
 ## Open Questions
 
-- Which nuclear mass quantity should become the canonical first target:
-  atomic-mass residuals, binding-energy residuals, or a tightly defined
-  converted baseline residual?
-- Which measured-versus-extrapolated semantics should be required before any
-  subset metric is trusted?
-- How should shell-closure diagnostics be encoded so they remain interpretable
-  instead of turning into decorative fit terms?
-- Which subset definitions should be mandatory in the first holdout protocol:
-  isotope chains, magic-number neighborhoods, neutron-rich edge sets, or all
-  of them?
-- When a later curated post-baseline measurement batch exists, how should a
-  time-split holdout be added without weakening source discipline?
+- Which feature-term slate-002 candidates add review value beyond the
+  coefficient-transform `PRED-0041` through `PRED-0050` wave?
+- Which target batches best expose shell, neutron-rich, isotope-chain, and
+  mass-region behavior without creating leakage or false precision?
+- How should a future reveal task handle partial measurement availability
+  while preserving the no-peek boundary?
+- Which existing manual blocked lanes should remain fallback references versus
+  being represented only through factory slates?
 
 ## Recommended Tasks
 
-- follow-up dataset expansion with pinned AME-style measured rows only;
-- maintainer-reviewed decision on whether any `TASK-0170` candidate deserves a
-  canonical comparison task;
-- narrow queue items from `tasks/microtasks/nuclear-mass-surface.yaml` for
-  subset-definition notes, provenance audits, and negative-control planning.
+- `TASK-0262` — run a feature-term factory slate using shell, magic-number,
+  neutron-excess, and combined coefficient-plus-feature variants.
+- `TASK-0263` — keep blocked until slate-002 is reviewed, then register only a
+  selected feature-term subset as prospective predictions.
+- `TASK-0264` — define reveal protocol before any future
+  measurement comparison.
+- Keep broad `TASK-0178` blocked until the narrower factory and reveal
+  protocol work is reviewed.
 
 ## Recommended Contributor Types
 

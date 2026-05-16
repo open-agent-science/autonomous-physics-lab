@@ -1,0 +1,54 @@
+id: TASK-0264
+title: "Define nuclear prediction reveal protocol"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Protect the no-peek boundary now that Nuclear Mass Surface has many frozen prospective entries."
+  - "Separate future measurement discovery, source review, reveal eligibility, and scoring into auditable steps."
+  - "Prevent prediction-registry entries from being casually compared against live data outside a reviewed reveal task."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/prediction-registry-policy.md"
+    - "prediction_registry/nuclear_masses/"
+    - "docs/reviews/nuclear-prediction-factory-selected-registry-001.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+  planning_context: >
+    TASK-0205, TASK-0228 through TASK-0232, TASK-0236, and TASK-0251 have
+    produced a substantial frozen nuclear prediction registry. APL now needs a
+    narrow reveal protocol before any future measurement source is
+    compared to those entries. This task is protocol-only: it prepares the
+    checklist and artifact flow but does not fetch live measurements, reveal
+    values, score predictions, or promote claims.
+
+requirements:
+  - "Define a stepwise reveal protocol for future nuclear mass prediction comparisons."
+  - "Separate source discovery, source pinning/checksum policy, eligibility screening, no-peek audit, comparison execution, and result wording."
+  - "Define how to handle partial reveals when only some target nuclides receive future reviewed measurements."
+  - "Define required artifacts for a later reveal task, including source manifest, registry snapshot, comparison table, metrics, limitations, and negative-result handling."
+  - "State that live external fetch, reveal scoring, and claim promotion are forbidden in this task."
+  - "Reference the existing prediction registry policy and blind-holdout protocol instead of creating a competing policy."
+
+accepted_outputs:
+  - "docs/nuclear-prediction-reveal-protocol.md"
+  - "updated docs/prediction-registry-policy.md only if cross-references are needed"
+  - "updated campaign documentation if the protocol changes contributor guidance"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

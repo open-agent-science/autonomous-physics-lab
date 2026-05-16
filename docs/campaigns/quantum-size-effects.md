@@ -14,13 +14,14 @@ holdouts.
 
 ## Orientation Note for New Contributors
 
-This campaign is currently **scaffold-only**.
+This campaign is currently **scaffold-complete and foundation-ready**.
 
 No dataset, schema, baseline result, holdout protocol, or autonomous pilot
-exists yet. Future maturation is queued as:
+exists yet. The first scaffold landed under `TASK-0222`, so the next safe
+foundation tasks are now ready:
 
-- `TASK-0223` — dataset schema and source manifest (BLOCKED on this scaffold);
-- `TASK-0224` — holdout protocol (BLOCKED);
+- `TASK-0223` — dataset schema and source manifest (READY);
+- `TASK-0224` — holdout protocol (READY);
 - `TASK-0225` — baseline residual benchmark (BLOCKED);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
@@ -28,8 +29,8 @@ Until those land in order, safe contributions are:
 
 - planning, scope, and limitation notes;
 - queued tasks already on the canonical track above;
-- maintainer-reviewed dataset and source-manifest proposals when `TASK-0223`
-  reopens;
+- dataset/source-manifest work under `TASK-0223`;
+- holdout protocol work under `TASK-0224`;
 - visualization sketches that do not require canonical data.
 
 ### What not to implement yet
@@ -66,7 +67,8 @@ memory, even before any compact correction term survives a holdout.
 
 None.
 
-The only current evidence is the campaign scaffold defined by `TASK-0222`:
+The only current evidence is the campaign scaffold defined by merged
+`TASK-0222`:
 
 - this campaign page;
 - `campaign_profiles/quantum-size-effects.yaml` — the campaign profile and
@@ -98,10 +100,9 @@ Historical context:
 
 ## Recommended Tasks
 
-- finish this scaffold under `TASK-0222`;
-- when this task is `DONE`, reopen `TASK-0223` for the pinned dataset and
-  source manifest;
-- after `TASK-0223` is `DONE`, run `TASK-0224` for the holdout protocol;
+- run `TASK-0223` for the pinned dataset schema and source manifest;
+- run `TASK-0224` for the holdout protocol, in parallel with `TASK-0223` if
+  the PRs keep artifact surfaces separate;
 - only after both are `DONE`, run `TASK-0225` for the first baseline residual
   benchmark;
 - run `TASK-0226` only after a maintainer-approved baseline exists.

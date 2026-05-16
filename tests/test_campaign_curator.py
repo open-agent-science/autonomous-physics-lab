@@ -24,16 +24,19 @@ def test_campaign_curator_defaults_to_top_campaign() -> None:
     assert brief.advisory_only is True
     assert "Do not execute experiments from this mode." in brief.guardrails
     # The curator should avoid REVIEW_READY closeout/review items in
-    # executor-facing recommendations. Once TASK-0251 is review-ready, the
-    # campaign falls back to configured advisory actions rather than offering
-    # the task as executable work.
+    # executor-facing recommendations and prefer live READY campaign tasks when
+    # a fresh queue exists.
     assert brief.recommended_next_tasks
     assert all(
         item.status != "REVIEW_READY" for item in brief.recommended_next_tasks
     )
     assert all(item.task_id != "TASK-0251" for item in brief.recommended_next_tasks)
     assert any(
-        item.reason == "configured mission action; confirm against live task board"
+        item.reason == "live READY task aligned with this campaign"
+        for item in brief.recommended_next_tasks
+    )
+    assert any(
+        item.task_id in {"TASK-0262", "TASK-0264"}
         for item in brief.recommended_next_tasks
     )
 
