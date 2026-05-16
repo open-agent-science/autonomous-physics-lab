@@ -16,3 +16,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0263` - Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
+- `TASK-0270` - Persist agent-discipline learnings to the repository (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)

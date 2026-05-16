@@ -1,0 +1,62 @@
+id: TASK-0270
+title: "Persist agent-discipline learnings to the repository"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Move useful agent-discipline learnings out of per-session private memory and into reviewable in-repo documentation so future Claude, Codex, and human contributors all see the same rules."
+  - "Surface the worktree workflow (already implemented in TASK-0263) in the mission-control onboarding text so agents see the recommendation at the moment they would benefit from it."
+  - "Keep each rule short, paired with the concrete incident it came from, and link to existing single-topic notes (worktree, permissions) so the collected note stays a navigation surface, not a duplicate."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "docs/notes/agent-worktree-discipline.md"
+    - "docs/notes/claude-code-permissions-allowlist.md"
+    - "physics_lab/registry/mission_control.py"
+    - "AGENTS.md"
+    - "tasks/TASK-0263-worktree-per-agent-discipline.yaml"
+    - "tasks/TASK-0267-git-merge-permission.yaml"
+    - "tasks/TASK-0268-consolidate-canonical-validation.yaml"
+  planning_context: >
+    Over the TASK-0260..TASK-0268 wave the agent accumulated several
+    practical disciplines (mock-first testing, worktree-per-task,
+    serial-vs-parallel dependent PRs, harness-artifact handling,
+    PR-helper ergonomics) that currently live only in the agent's
+    private memory directory. The TASK-0227 / TASK-0251 incident and
+    the live codex/claude collision during this very task wave
+    demonstrated that without a shared, reviewable note these rules
+    do not transfer between agent sessions or to human contributors.
+    This task moves the collected learnings into a single in-repo
+    note and adds a one-line worktree mention to the mission-control
+    onboarding prompt so the recommendation lands where a new agent
+    first reads it.
+
+requirements:
+  - "Add docs/notes/agent-discipline-collected.md as a single navigation note linking out to the existing single-topic notes."
+  - "Each discipline section should pair the rule with the concrete incident or token-cost observation it came from; do not duplicate content from the linked notes."
+  - "Cross-link the new note from AGENTS.md (one short sentence in the parallel-work section)."
+  - "Update the mission-control onboarding prompt (physics_lab/registry/mission_control.py render_onboarding_prompt) to mention the worktree helper as a recommended setup step when parallel agent work is plausible."
+  - "Do not rewrite the single-topic notes (worktree, permissions); they remain the canonical source for their respective surfaces."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - "docs/notes/agent-discipline-collected.md"
+  - "AGENTS.md cross-link"
+  - "physics_lab/registry/mission_control.py with worktree mention in render_onboarding_prompt"
+  - "tests covering the mission_control onboarding change if behaviour is mocked"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -512,6 +512,7 @@ Start in Agent First Research Mode with onboarding.
 10. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR using repository helpers, available GitHub/MCP tools, or GitHub CLI when access is available; if a needed command is blocked by permissions, request permission/escalation for that command. If PR creation still cannot complete, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
 11. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 12. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
+13. If another agent session (Codex, a parallel Claude run, or a human contributor) might also be active in this checkout, open a dedicated `git worktree` for the task with `./scripts/apl_new_worktree.sh <branch>` and run `python3 scripts/apl_branch_precondition.py --expected-branch <branch>` before any `git add` / `commit` / `push`. See `docs/notes/agent-worktree-discipline.md` and the collected `docs/notes/agent-discipline-collected.md` index for the full discipline.
 {candidate_block}
 
 When the work is complete, summarize what changed, the scientific or workflow value of the result, validation results, limitations, and the best next task to continue."""
