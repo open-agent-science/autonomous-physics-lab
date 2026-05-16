@@ -1,0 +1,55 @@
+id: TASK-0271
+title: "Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Eliminate the permission-prompt class that fires whenever an agent works in a worktree that lives outside the project directory."
+  - "Keep the helper backwards-compatible: an explicit second-argument path still works exactly the same."
+  - "Match the existing .gitignore entry for .worktrees/ so the new default is already invisible to git."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "scripts/apl_new_worktree.sh"
+    - "docs/notes/agent-worktree-discipline.md"
+    - ".gitignore"
+    - "tasks/TASK-0263-worktree-per-agent-discipline.yaml"
+  planning_context: >
+    apl_new_worktree.sh currently defaults to "../<branch-with-slashes-as-underscores>/",
+    which puts the worktree outside the project directory
+    (e.g. /Users/roman/Documents/agent_roman_claude_task-XXXX-foo/).
+    Claude Code flags every Read/Write/Edit on those paths as outside
+    the current working directory, and the cd-before-git pattern in
+    those worktrees triggers a separate "cd executes target-dir hooks"
+    permission prompt. The fix is a one-line default change to
+    ".worktrees/<slug>/", which lives inside the project. .worktrees/
+    is already in .gitignore so the new default is gitignored by
+    default. Explicit second-argument paths remain untouched.
+
+requirements:
+  - "Change DEFAULT_PATH in scripts/apl_new_worktree.sh to .worktrees/<branch-slashes-as-underscores>/."
+  - "Update the script header comment block to describe the new default."
+  - "Update docs/notes/agent-worktree-discipline.md to reflect the new default path and to mention that explicit second-argument paths still override the default."
+  - "Confirm .gitignore already covers .worktrees/ — do not duplicate the rule."
+  - "Do not break the explicit two-argument call form."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - "scripts/apl_new_worktree.sh with the new DEFAULT_PATH"
+  - "docs/notes/agent-worktree-discipline.md updated"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

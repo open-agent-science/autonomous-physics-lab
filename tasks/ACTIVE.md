@@ -61,6 +61,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0263` — Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0271` — Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts (`contributor_experience`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
