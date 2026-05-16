@@ -1,7 +1,7 @@
 id: TASK-0263
 title: "Add worktree-per-agent helpers and branch precondition check"
 type: contributor_experience
-status: IN_PROGRESS
+status: REVIEW_READY
 difficulty: low
 priority: medium
 
