@@ -1,7 +1,7 @@
 id: TASK-0227
 title: "Add lepton g-2 cross-observable falsifier"
 type: scientific_falsification
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 

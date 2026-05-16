@@ -139,7 +139,8 @@ Before any stronger interpretation of a screened hit, EXP-0010 needs:
 - alternate-target comparison against lattice-HVP and updated-world-average
   baselines;
 - cross-observable checks against electron g-2 and other lepton precision
-  observables;
+  observables — initial sandbox falsifier implemented under `TASK-0227`, see
+  [`lepton-g2-cross-observable-falsifier.md`](./lepton-g2-cross-observable-falsifier.md);
 - pre-registered physical-motivation review for any proposed mechanism.
 
 ---
