@@ -122,7 +122,7 @@ That makes the project useful for several audiences:
   unsupported breakthrough narrative.
 
 Safe headline framing: "an open-source lab for testing AI-generated physics
-ideas." Unsafe framing: "AI has discovered new physics."
+ideas." Unsafe framing: unsupported breakthrough claims.
 
 ## Autonomous Agent Network
 
