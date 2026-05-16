@@ -196,6 +196,10 @@ This mode supports:
    create or update future canonical tasks that remain `PROPOSED`, `READY`, or
    `BLOCKED`; task proposal PRs keep proposal status at `PROPOSED`.
    Microtask PRs have no task-status requirement.
+   A canonical task PR may include its own task-file lifecycle transition and
+   generated navigation sync. Treat unrelated task-status changes as scope drift
+   unless the maintainer explicitly requested queue triage, unblock, closeout,
+   or stale-task cleanup.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
 8. Accepted outputs are present or clearly explained when partial.
