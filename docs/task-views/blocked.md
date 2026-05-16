@@ -16,7 +16,6 @@ None.
 - `TASK-0233` - Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0234` - Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0235` - Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0265` - Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 
 ## Support Blockers
 
