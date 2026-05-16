@@ -49,30 +49,11 @@ output:
   write_draft_predictions: false
   draft_prediction_dir: /tmp/apl-nuclear-variant-drafts
 
-target_batches:
-  frontier-next-row:
-    - nuclide_id: Ca-55
-      Z: 20
-      N: 35
-    - nuclide_id: Ni-76
-      Z: 28
-      N: 48
-    - nuclide_id: Zn-80
-      Z: 30
-      N: 50
-    - nuclide_id: Ga-85
-      Z: 31
-      N: 54
-  odd-even-probe:
-    - nuclide_id: Co-59
-      Z: 27
-      N: 32
-    - nuclide_id: Ni-60
-      Z: 28
-      N: 32
-    - nuclide_id: Cu-64
-      Z: 29
-      N: 35
+target_batch_library:
+  path: data/nuclear_masses/factory_target_batches.yaml
+  include_batches:
+    - frontier-next-row
+    - odd-even-pairing-probe
 
 variants:
   - prediction_id: PRED-9001
@@ -103,7 +84,7 @@ variants:
     variant_id: pairing-plus-ten-percent
     model_id: RESULT-0015::model_fitted_semi_empirical::pairing_plus_ten_percent
     title: "Draft nuclear mass variant: pairing +10 percent on odd-even probe"
-    target_batch: odd-even-probe
+    target_batch: odd-even-pairing-probe
     model_control_label: pairing sensitivity control
     transform:
       scale:
@@ -115,7 +96,7 @@ variants:
     variant_id: pairing-zero-ablation
     model_id: RESULT-0015::model_fitted_semi_empirical::pairing_zero_ablation
     title: "Draft nuclear mass variant: pairing ablation on odd-even probe"
-    target_batch: odd-even-probe
+    target_batch: odd-even-pairing-probe
     model_control_label: pairing ablation control
     transform:
       set:

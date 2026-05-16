@@ -23,20 +23,16 @@ def test_campaign_curator_defaults_to_top_campaign() -> None:
     assert brief.maintainer_facing is True
     assert brief.advisory_only is True
     assert "Do not execute experiments from this mode." in brief.guardrails
-    # The curator should surface current READY follow-up tasks relevant to the
-    # live nuclear campaign. After the factory-first retune, older manual
-    # registry lanes are fallback work and the next active recommendations are
-    # factory feature/target-batch work. REVIEW_READY tasks stay in maintainer
-    # review and closeout flows rather than executor-facing recommendations.
-    assert any(
-        item.task_id in {
-            "TASK-0252",
-            "TASK-0254",
-        }
-        for item in brief.recommended_next_tasks
-    )
+    # The curator should not surface tasks that have already moved into
+    # maintainer review. When no live READY nuclear task is available, it falls
+    # back to configured advisory campaign actions instead.
+    assert brief.recommended_next_tasks
     assert all(
-        item.status == "READY" for item in brief.recommended_next_tasks
+        item.status != "REVIEW_READY" for item in brief.recommended_next_tasks
+    )
+    assert any(
+        item.reason == "configured mission action; confirm against live task board"
+        for item in brief.recommended_next_tasks
     )
 
 
