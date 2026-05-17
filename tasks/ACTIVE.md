@@ -65,6 +65,7 @@ None.
 - `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0267` — Add git merge to Claude Code permissions allowlist (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (`contributor_experience`, priority `low`, difficulty `low`)
+- `TASK-0269` — Add safe and autonomous Claude permission mode profiles with setup script support (`contributor_experience`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

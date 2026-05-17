@@ -1,0 +1,63 @@
+id: TASK-0269
+title: "Add safe and autonomous Claude permission mode profiles with setup script support"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make the safe-vs-autonomous Claude Code permission choice explicit instead of leaving it to ad-hoc edits of gitignored settings."
+  - "Reduce onboarding friction without weakening the default safety posture."
+  - "Enable supervised autonomous task loops to run without per-command approval prompts."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "CLAUDE.md"
+    - "scripts/apl_setup_worktree.sh"
+    - ".claude/settings.json"
+    - "tasks/TASK-0255-add-worktree-settings-sync-script.yaml"
+    - "tasks/TASK-0258-track-claude-settings-baseline.yaml"
+  planning_context: >
+    TASK-0255 added the worktree setup script that copies a personal
+    settings.local.json into new worktrees. TASK-0258 made .claude/settings.json
+    a tracked shared baseline. Contributors and agents still have to hand-edit
+    the gitignored local override to opt into a fully autonomous mode, which
+    is friction-prone and creates inconsistent setups across worktrees.
+    This task adds committed safe and autonomous profile files and extends the
+    setup script with a --mode flag so each contributor can pick a posture
+    explicitly. The default no-flag behavior is preserved.
+
+requirements:
+  - "Add .claude/profiles/safe.json with an empty allow list, relying entirely on the committed .claude/settings.json baseline."
+  - "Add .claude/profiles/autonomous.json with Bash(*) plus the standard /tmp/apl-* Read/Write/Edit entries used elsewhere in the baseline."
+  - "Add .claude/profiles/README.md explaining what each profile allows, when to use it, and when not to use it."
+  - "Extend scripts/apl_setup_worktree.sh with a --mode safe|autonomous flag that writes the corresponding committed profile to .claude/settings.local.json."
+  - "Preserve the existing no-flag behavior (copy personal settings.local.json from the main repo root)."
+  - "Keep the script idempotent: if .claude/settings.local.json already exists, exit 0 without overwriting in every mode."
+  - "Update CLAUDE.md First Action section to present safe mode (default), autonomous mode, and the personal allowlist behavior as three explicit options."
+  - "Do not change the committed .claude/settings.json baseline as part of this task."
+  - "Do not modify global Claude settings under ~/.claude/ as part of this task."
+
+accepted_outputs:
+  - ".claude/profiles/safe.json"
+  - ".claude/profiles/autonomous.json"
+  - ".claude/profiles/README.md"
+  - "scripts/apl_setup_worktree.sh (extended with --mode flag, executable)"
+  - "CLAUDE.md updated First Action section"
+
+validation:
+  commands:
+    - "bash -n scripts/apl_setup_worktree.sh"
+    - "scripts/apl_setup_worktree.sh --help"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - codex
+  - llm_agent

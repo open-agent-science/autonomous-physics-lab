@@ -1,0 +1,19 @@
+{
+  "_profile": "autonomous",
+  "_description": "Allows all bash commands without confirmation prompts, along with broad Read/Write/Edit access to sandbox paths under /tmp/apl-* and /private/tmp/apl-*. Use only when you trust the agent and the task scope is clear. Not appropriate for shared workstations or onboarding.",
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Read(/tmp/apl-*)",
+      "Read(/tmp/apl-*/**)",
+      "Read(/tmp/claude-*/**)",
+      "Read(/private/tmp/apl-*)",
+      "Read(/private/tmp/apl-*/**)",
+      "Read(/private/tmp/claude-*/**)",
+      "Write(/tmp/apl-*)",
+      "Write(/tmp/apl-*/**)",
+      "Edit(/tmp/apl-*)",
+      "Edit(/tmp/apl-*/**)"
+    ]
+  }
+}
