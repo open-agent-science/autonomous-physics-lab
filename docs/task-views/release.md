@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0206` - Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`, domain `release_readiness`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0206` - Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`, domain `release_readiness`)
