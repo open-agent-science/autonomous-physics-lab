@@ -1,0 +1,60 @@
+# Quantum Dot Size-Effect Source Manifest
+#
+# Each entry registers one publication or dataset source that may be used
+# in quantum_dots dataset files. A source must appear here before any dataset
+# entry may reference its source_id.
+#
+# Required fields per entry:
+#   source_id       — short unique identifier used in dataset files
+#   title           — paper or dataset title
+#   authors         — author list as a single string
+#   year            — publication year (integer)
+#   doi             — DOI or equivalent persistent identifier
+#   table_reference — specific table or figure in the source
+#   properties      — list of property_kind values extracted from this source
+#   materials       — list of material identifiers covered
+#   measurement_type — one of: optical_absorption, photoluminescence,
+#                      electrical_transport, theoretical_calculation
+#   size_axis       — diameter_nm | radius_nm
+#   inclusion_decision — accepted | excluded
+#   inclusion_rationale — brief reason for decision
+#   license_note    — redistribution or reuse terms
+#   checksum_policy — how pinning is handled: "doi_pinned", "sha256_file", "url_archived"
+#   notes           — any additional provenance notes
+#
+# No live external fetching is permitted. Sources must be pinned at commit time.
+# Add entries below as new sources are reviewed and accepted.
+
+manifest_version: "1"
+campaign_id: quantum-size-effects
+created_at: "2026-05-15"
+live_external_fetch_allowed: false
+
+sources: []
+# Example entry (commented out — replace with real reviewed source):
+#
+# - source_id: brus-1984-jcp
+#   title: "Electron-electron and electron-hole interactions in small semiconductor crystallites"
+#   authors: "Brus, L. E."
+#   year: 1984
+#   doi: "10.1063/1.447218"
+#   journal: "Journal of Chemical Physics"
+#   volume: "80"
+#   pages: "4403-4409"
+#   table_reference: "theoretical model only; no tabulated measurement data"
+#   properties:
+#     - bandgap_eV
+#   materials:
+#     - CdS
+#     - CdSe
+#   measurement_type: theoretical_calculation
+#   size_axis: radius_nm
+#   inclusion_decision: excluded
+#   inclusion_rationale: >
+#     Theoretical reference model; no primary measurement data suitable for
+#     dataset entries. Use as baseline model reference, not as a data source.
+#   license_note: "AIP publishing; no redistribution of tables without permission."
+#   checksum_policy: doi_pinned
+#   notes: >
+#     Canonical Brus effective-mass approximation reference. Record here so
+#     future dataset curators know why it was excluded as a data source.

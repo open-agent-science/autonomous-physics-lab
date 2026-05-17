@@ -17,6 +17,10 @@ It is a review surface, not a claim surface:
 - registry entries require later maintainer-reviewed comparison against measured
   data before any stronger interpretation.
 
+For nuclear-mass reveal work, use
+[Nuclear Prediction Reveal Protocol](../../docs/nuclear-prediction-reveal-protocol.md)
+before any source comparison or scoring task.
+
 ## Layout
 
 Use one YAML file per registered prediction:

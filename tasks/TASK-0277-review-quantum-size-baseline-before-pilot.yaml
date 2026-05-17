@@ -1,0 +1,48 @@
+id: TASK-0277
+title: "Review quantum-size baseline before autonomous pilot"
+type: scientific_validation
+status: BLOCKED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Gate the first autonomous Quantum Size Effects pilot behind a reviewed baseline."
+  - "Prevent agents from optimizing against leakage, ambiguous property semantics, or weak holdout definitions."
+  - "Preserve negative and inconclusive baseline behavior as scientific memory."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+    - "tasks/TASK-0226-run-first-autonomous-quantum-size-effect-hypothesis-pilot.yaml"
+    - "docs/campaigns/quantum-size-effects.md"
+  planning_context: >
+    TASK-0226 should not start merely because a baseline exists. This review
+    task is blocked until TASK-0225 lands, then checks whether the dataset,
+    holdout, and baseline residual surface are strong enough for autonomous
+    correction-hypothesis search.
+
+requirements:
+  - "Start only after TASK-0225 is DONE and the maintainer wants to evaluate readiness for TASK-0226."
+  - "Review dataset provenance, property-kind separation, holdout leakage risks, baseline metrics, outliers, and negative controls."
+  - "Recommend whether TASK-0226 should be unblocked, stay blocked, or be narrowed."
+  - "If unblocking is recommended, define the exact hypothesis families and forbidden search behavior for the pilot."
+  - "Do not run autonomous hypotheses or create new benchmark results in this task."
+
+accepted_outputs:
+  - "docs/reviews/quantum-size-baseline-readiness-for-autonomous-pilot.md"
+  - "updated TASK-0226 guidance only if the maintainer asks this task to unblock or narrow it"
+  - "updated campaign docs if the review changes the recommended next step"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
