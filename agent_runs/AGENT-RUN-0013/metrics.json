@@ -1,0 +1,1401 @@
+{
+  "agent_run_id": "AGENT-RUN-0013",
+  "task_id": "TASK-0279",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "lane": "neutron_rich_variant_scout",
+  "sandbox_only": true,
+  "evidence_class": "bounded_sandbox_residual_scout",
+  "live_external_fetch_allowed": false,
+  "summary": {
+    "generated_candidate_count": 9,
+    "executed_candidate_count": 6,
+    "rejected_before_execution_count": 3,
+    "near_null_control_preserved": true,
+    "verdict_counts": {
+      "INCONCLUSIVE": 3,
+      "OVERFITTED": 1,
+      "PARTIALLY_VALID": 2
+    },
+    "canonical_results_changed": false,
+    "canonical_claims_changed": false,
+    "prediction_registry_changed": false,
+    "claim_promotion_allowed": false
+  },
+  "frozen_baseline": {
+    "result_id": "RESULT-0015",
+    "model_id": "model_fitted_semi_empirical",
+    "coefficients": {
+      "volume": 15.51423612106804,
+      "surface": 17.2931812095177,
+      "coulomb": 0.6878156091568888,
+      "asymmetry": 23.846557883948485,
+      "pairing": 15.990845113398912
+    }
+  },
+  "datasets": {
+    "training_residual_source": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "holdout_source": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "holdout_row_count": 295
+  },
+  "baseline_metrics_by_subset": {
+    "ame2020_extrapolated_comparison": {
+      "count": 55,
+      "mae_mev": 4.951024503664232,
+      "rmse_mev": 5.854176430909467,
+      "mean_error_mev": 1.105512127407804,
+      "max_abs_error_mev": 17.164452794842646
+    },
+    "ame2020_measured_comparison": {
+      "count": 240,
+      "mae_mev": 4.461255764407384,
+      "rmse_mev": 5.885456190078588,
+      "mean_error_mev": 0.5887226548882164,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "asymmetry_ge_0_20": {
+      "count": 139,
+      "mae_mev": 5.843204447109415,
+      "rmse_mev": 7.422727891190251,
+      "mean_error_mev": 4.247563375034955,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "asymmetry_ge_0_25": {
+      "count": 31,
+      "mae_mev": 9.451697597515784,
+      "rmse_mev": 11.501040212832246,
+      "mean_error_mev": 9.451697597515784,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "heavy_a_ge_100": {
+      "count": 153,
+      "mae_mev": 5.306285073793341,
+      "rmse_mev": 6.340606526956628,
+      "mean_error_mev": -0.02457967942372874,
+      "max_abs_error_mev": 17.87489968793443
+    },
+    "neutron_rich_delta_ge_20": {
+      "count": 116,
+      "mae_mev": 5.864210818792645,
+      "rmse_mev": 7.654335175338428,
+      "mean_error_mev": 3.5875846194772554,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "neutron_rich_delta_ge_30": {
+      "count": 51,
+      "mae_mev": 6.8951049819315235,
+      "rmse_mev": 8.2462745632253,
+      "mean_error_mev": 2.552625468991606,
+      "max_abs_error_mev": 17.87489968793443
+    },
+    "neutron_rich_delta_ge_40": {
+      "count": 18,
+      "mae_mev": 6.056136185816803,
+      "rmse_mev": 6.071659187839677,
+      "mean_error_mev": -6.056136185816803,
+      "max_abs_error_mev": 6.872258455430028
+    },
+    "primary": {
+      "count": 295,
+      "mae_mev": 4.552568580201034,
+      "rmse_mev": 5.8796369910752775,
+      "mean_error_mev": 0.6850732345105124,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "proton_rich_n_lt_z": {
+      "count": 28,
+      "mae_mev": 1.9412093254942755,
+      "rmse_mev": 2.4286469261579486,
+      "mean_error_mev": -1.0439515775268902,
+      "max_abs_error_mev": 4.560636066512529
+    }
+  },
+  "feature_definitions": {
+    "neutron_excess_sq_over_a": "max(N - Z, 0)^2 / A",
+    "neutron_excess_cu_over_a_sq": "max(N - Z, 0)^3 / A^2",
+    "positive_asymmetry_fraction": "max((N - Z) / A, 0)",
+    "frontier_excess_after_20_over_a": "max(N - Z - 20, 0) / A"
+  },
+  "generated_candidates": [
+    {
+      "candidate_id": "NR-SCOUT-001",
+      "name": "Quadratic asymmetric neutron-excess ramp",
+      "formula": "r_corr = beta_q * max(N-Z, 0)^2 / A",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "NR-SCOUT-002",
+      "name": "Cubic asymmetric neutron-excess ramp",
+      "formula": "r_corr = beta_c * max(N-Z, 0)^3 / A^2",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "NR-SCOUT-003",
+      "name": "Positive asymmetry fraction",
+      "formula": "r_corr = beta_i * max((N-Z)/A, 0)",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "NR-SCOUT-004",
+      "name": "Frontier excess beyond N-Z equals 20",
+      "formula": "r_corr = beta_f * max(N-Z-20, 0) / A",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "NR-SCOUT-005",
+      "name": "Matched quadratic plus cubic neutron-excess pair",
+      "formula": "r_corr = beta_q * max(N-Z, 0)^2 / A + beta_c * max(N-Z, 0)^3 / A^2",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "NR-SCOUT-006",
+      "name": "Near-null neutron-rich sanity control",
+      "formula": "r_corr = 0.0",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "NR-SCOUT-007",
+      "name": "Free-power neutron-excess exponent",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before execution because fitting a free exponent on the 11-row NMD-0002 residual surface would introduce a nonlinear overfit knob outside the bounded linear scout contract."
+    },
+    {
+      "candidate_id": "NR-SCOUT-008",
+      "name": "In/Sb frontier-cluster indicator",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before sandbox evaluation because an element-cluster indicator would target known post-AME2020 residual clusters retrospectively rather than test a general neutron-rich feature."
+    },
+    {
+      "candidate_id": "NR-SCOUT-009",
+      "name": "Per-threshold neutron-rich sweep",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before execution because sweeping many N-Z thresholds duplicates the bounded frontier ramp while adding arbitrary selection degrees of freedom."
+    }
+  ],
+  "executed_items": [
+    {
+      "candidate_id": "NR-SCOUT-001",
+      "name": "Quadratic asymmetric neutron-excess ramp",
+      "formula": "r_corr = beta_q * max(N-Z, 0)^2 / A",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "neutron_excess_sq_over_a": 3.4709894797642375e-13
+      },
+      "feature_activation_counts": {
+        "neutron_excess_sq_over_a": 264
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.951024503663594,
+          "rmse_mev": 5.854176430908631,
+          "mean_error_mev": 1.1055121274066608,
+          "max_abs_error_mev": 17.164452794839235
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.46125576440705,
+          "rmse_mev": 5.88545619007812,
+          "mean_error_mev": 0.5887226548868933,
+          "max_abs_error_mev": 37.636805884442765
+        },
+        "asymmetry_ge_0_20": {
+          "count": 139,
+          "mae_mev": 5.843204447108338,
+          "rmse_mev": 7.422727891189214,
+          "mean_error_mev": 4.247563375032681,
+          "max_abs_error_mev": 37.636805884442765
+        },
+        "asymmetry_ge_0_25": {
+          "count": 31,
+          "mae_mev": 9.451697597513444,
+          "rmse_mev": 11.501040212830246,
+          "mean_error_mev": 9.451697597513444,
+          "max_abs_error_mev": 37.636805884442765
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.306285073793117,
+          "rmse_mev": 6.340606526956195,
+          "mean_error_mev": -0.02457967942554773,
+          "max_abs_error_mev": 17.874899687931475
+        },
+        "neutron_rich_delta_ge_20": {
+          "count": 116,
+          "mae_mev": 5.8642108187918485,
+          "rmse_mev": 7.6543351753374935,
+          "mean_error_mev": 3.587584619474734,
+          "max_abs_error_mev": 37.636805884442765
+        },
+        "neutron_rich_delta_ge_30": {
+          "count": 51,
+          "mae_mev": 6.895104981931443,
+          "rmse_mev": 8.246274563224748,
+          "mean_error_mev": 2.55262546898828,
+          "max_abs_error_mev": 17.874899687931475
+        },
+        "neutron_rich_delta_ge_40": {
+          "count": 18,
+          "mae_mev": 6.056136185821035,
+          "rmse_mev": 6.071659187843881,
+          "mean_error_mev": -6.056136185821035,
+          "max_abs_error_mev": 6.872258455433894
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.552568580200642,
+          "rmse_mev": 5.879636991074743,
+          "mean_error_mev": 0.685073234509223,
+          "max_abs_error_mev": 37.636805884442765
+        },
+        "proton_rich_n_lt_z": {
+          "count": 28,
+          "mae_mev": 1.9412093254942755,
+          "rmse_mev": 2.4286469261579486,
+          "mean_error_mev": -1.0439515775268902,
+          "max_abs_error_mev": 4.560636066512529
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": -6.3860028376439e-13,
+        "ame2020_measured_comparison": -3.339550858072471e-13,
+        "asymmetry_ge_0_20": -1.077360423096252e-12,
+        "asymmetry_ge_0_25": -2.33946195749013e-12,
+        "heavy_a_ge_100": -2.2382096176443156e-13,
+        "neutron_rich_delta_ge_20": -7.966960424710123e-13,
+        "neutron_rich_delta_ge_30": -8.08242361927114e-14,
+        "neutron_rich_delta_ge_40": 4.232170169871097e-12,
+        "primary": -3.9168668308775523e-13,
+        "proton_rich_n_lt_z": 0.0
+      },
+      "worst_subset_regression_mae_mev": 4.232170169871097e-12,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 1.999951081197489e-12,
+          "candidate_residual_mev": 37.636805884442765,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 5.761904761904762
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 3.039745332278378e-12,
+          "candidate_residual_mev": 17.874899687931475,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 8.757575757575758
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 2.8854256056971415e-12,
+          "candidate_residual_mev": 17.51914054963754,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 8.312977099236642
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 3.3570166908764566e-12,
+          "candidate_residual_mev": 17.164452794839235,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 9.671641791044776
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 3.1969639945196926e-12,
+          "candidate_residual_mev": 16.587560854686444,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 9.210526315789474
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0198",
+          "nuclide_id": "Sb-133",
+          "Z": 51,
+          "N": 82,
+          "A": 133,
+          "correction_mev": 2.5079856316191223e-12,
+          "candidate_residual_mev": 15.760391879045756,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 7.225563909774436
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0190",
+          "nuclide_id": "In-129",
+          "Z": 49,
+          "N": 80,
+          "A": 129,
+          "correction_mev": 2.585752627948397e-12,
+          "candidate_residual_mev": 13.697800580170224,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 7.449612403100775
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0199",
+          "nuclide_id": "Sb-137",
+          "Z": 51,
+          "N": 86,
+          "A": 137,
+          "correction_mev": 3.103621980081161e-12,
+          "candidate_residual_mev": 13.46421231140016,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 8.941605839416058
+          }
+        }
+      ],
+      "verdict": "INCONCLUSIVE",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "NR-SCOUT-002",
+      "name": "Cubic asymmetric neutron-excess ramp",
+      "formula": "r_corr = beta_c * max(N-Z, 0)^3 / A^2",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "neutron_excess_cu_over_a_sq": -0.07916598308502813
+      },
+      "feature_activation_counts": {
+        "neutron_excess_cu_over_a_sq": 264
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.992318984659563,
+          "rmse_mev": 5.908239893447928,
+          "mean_error_mev": 1.168339243933,
+          "max_abs_error_mev": 17.37015384779511
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.4829231704788794,
+          "rmse_mev": 5.915351407393173,
+          "mean_error_mev": 0.6545537766694276,
+          "max_abs_error_mev": 37.75627291787589
+        },
+        "asymmetry_ge_0_20": {
+          "count": 139,
+          "mae_mev": 5.904203182499166,
+          "rmse_mev": 7.483814586138348,
+          "mean_error_mev": 4.3697782575632775,
+          "max_abs_error_mev": 37.75627291787589
+        },
+        "asymmetry_ge_0_25": {
+          "count": 31,
+          "mae_mev": 9.589949103085175,
+          "rmse_mev": 11.61945984836719,
+          "mean_error_mev": 9.589949103085175,
+          "max_abs_error_mev": 37.75627291787589
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.326307893919611,
+          "rmse_mev": 6.372623432376577,
+          "mean_error_mev": 0.06736614170155213,
+          "max_abs_error_mev": 18.053477500100144
+        },
+        "neutron_rich_delta_ge_20": {
+          "count": 116,
+          "mae_mev": 5.912506429266154,
+          "rmse_mev": 7.711224281636357,
+          "mean_error_mev": 3.7215909797715327,
+          "max_abs_error_mev": 37.75627291787589
+        },
+        "neutron_rich_delta_ge_30": {
+          "count": 51,
+          "mae_mev": 6.905881922846341,
+          "rmse_mev": 8.284083130229295,
+          "mean_error_mev": 2.7295281157231712,
+          "max_abs_error_mev": 18.053477500100144
+        },
+        "neutron_rich_delta_ge_40": {
+          "count": 18,
+          "mae_mev": 5.837274780943314,
+          "rmse_mev": 5.854618888086152,
+          "mean_error_mev": -5.837274780943314,
+          "max_abs_error_mev": 6.679005494499052
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.5778952714278205,
+          "rmse_mev": 5.914026180457902,
+          "mean_error_mev": 0.7503442875151785,
+          "max_abs_error_mev": 37.75627291787589
+        },
+        "proton_rich_n_lt_z": {
+          "count": 28,
+          "mae_mev": 1.9412093254942755,
+          "rmse_mev": 2.4286469261579486,
+          "mean_error_mev": -1.0439515775268902,
+          "max_abs_error_mev": 4.560636066512529
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.041294480995330396,
+        "ame2020_measured_comparison": 0.02166740607149542,
+        "asymmetry_ge_0_20": 0.060998735389750536,
+        "asymmetry_ge_0_25": 0.13825150556939114,
+        "heavy_a_ge_100": 0.02002282012626999,
+        "neutron_rich_delta_ge_20": 0.04829561047350861,
+        "neutron_rich_delta_ge_30": 0.010776940914817068,
+        "neutron_rich_delta_ge_40": -0.21886140487348893,
+        "primary": 0.025326691226786657,
+        "proton_rich_n_lt_z": 0.0
+      },
+      "worst_subset_regression_mae_mev": 0.13825150556939114,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": -0.11946703343103451,
+          "candidate_residual_mev": 37.75627291787589,
+          "feature_values": {
+            "neutron_excess_cu_over_a_sq": 1.5090702947845804
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": -0.1785778121656305,
+          "candidate_residual_mev": 18.053477500100144,
+          "feature_values": {
+            "neutron_excess_cu_over_a_sq": 2.255739210284665
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": -0.16578217668706113,
+          "candidate_residual_mev": 17.684922726327613,
+          "feature_values": {
+            "neutron_excess_cu_over_a_sq": 2.0941087349222074
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": -0.20570105295249905,
+          "candidate_residual_mev": 17.37015384779511,
+          "feature_values": {
+            "neutron_excess_cu_over_a_sq": 2.598351525952328
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": -0.1918843080315779,
+          "candidate_residual_mev": 16.77944516272123,
+          "feature_values": {
+            "neutron_excess_cu_over_a_sq": 2.4238227146814406
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0198",
+          "nuclide_id": "Sb-133",
+          "Z": 51,
+          "N": 82,
+          "A": 133,
+          "correction_mev": -0.1333277066021863,
+          "candidate_residual_mev": 15.893719585650388,
+          "feature_values": {
+            "neutron_excess_cu_over_a_sq": 1.6841539940075754
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0190",
+          "nuclide_id": "In-129",
+          "Z": 49,
+          "N": 80,
+          "A": 129,
+          "correction_mev": -0.14172428352178792,
+          "candidate_residual_mev": 13.839524863694578,
+          "feature_values": {
+            "neutron_excess_cu_over_a_sq": 1.7902169340784808
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0199",
+          "nuclide_id": "Sb-137",
+          "Z": 51,
+          "N": 86,
+          "A": 137,
+          "correction_mev": -0.18084296045450374,
+          "candidate_residual_mev": 13.645055271857927,
+          "feature_values": {
+            "neutron_excess_cu_over_a_sq": 2.284351856785124
+          }
+        }
+      ],
+      "verdict": "INCONCLUSIVE",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "NR-SCOUT-003",
+      "name": "Positive asymmetry fraction",
+      "formula": "r_corr = beta_i * max((N-Z)/A, 0)",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "positive_asymmetry_fraction": 0.48694312380471105
+      },
+      "feature_activation_counts": {
+        "positive_asymmetry_fraction": 264
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.91698778949845,
+          "rmse_mev": 5.811834121441094,
+          "mean_error_mev": 1.0432816708326274,
+          "max_abs_error_mev": 17.033632254119084
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.439162584951876,
+          "rmse_mev": 5.856446911745514,
+          "mean_error_mev": 0.5103336849441479,
+          "max_abs_error_mev": 37.50927316154355
+        },
+        "asymmetry_ge_0_20": {
+          "count": 139,
+          "mae_mev": 5.765212636448872,
+          "rmse_mev": 7.354817966270453,
+          "mean_error_mev": 4.134040823167182,
+          "max_abs_error_mev": 37.50927316154355
+        },
+        "asymmetry_ge_0_25": {
+          "count": 31,
+          "mae_mev": 9.325681991071521,
+          "rmse_mev": 11.397472045932123,
+          "mean_error_mev": 9.325681991071521,
+          "max_abs_error_mev": 37.50927316154355
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.296106576602618,
+          "rmse_mev": 6.320000837255105,
+          "mean_error_mev": -0.10860338210904377,
+          "max_abs_error_mev": 17.749474943924042
+        },
+        "neutron_rich_delta_ge_20": {
+          "count": 116,
+          "mae_mev": 5.811934982849509,
+          "rmse_mev": 7.597072132659437,
+          "mean_error_mev": 3.4758759211648997,
+          "max_abs_error_mev": 37.50927316154355
+        },
+        "neutron_rich_delta_ge_30": {
+          "count": 51,
+          "mae_mev": 6.870901944821702,
+          "rmse_mev": 8.207474819512875,
+          "mean_error_mev": 2.439210309810695,
+          "max_abs_error_mev": 17.749474943924042
+        },
+        "neutron_rich_delta_ge_40": {
+          "count": 18,
+          "mae_mev": 6.166145729303758,
+          "rmse_mev": 6.181203294735413,
+          "mean_error_mev": -6.166145729303758,
+          "max_abs_error_mev": 6.977762798921049
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.52824864003683,
+          "rmse_mev": 5.848155083632971,
+          "mean_error_mev": 0.6096968687538643,
+          "max_abs_error_mev": 37.50927316154355
+        },
+        "proton_rich_n_lt_z": {
+          "count": 28,
+          "mae_mev": 1.9412093254942755,
+          "rmse_mev": 2.4286469261579486,
+          "mean_error_mev": -1.0439515775268902,
+          "max_abs_error_mev": 4.560636066512529
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": -0.03403671416578202,
+        "ame2020_measured_comparison": -0.02209317945550815,
+        "asymmetry_ge_0_20": -0.07799181066054306,
+        "asymmetry_ge_0_25": -0.12601560644426257,
+        "heavy_a_ge_100": -0.010178497190723057,
+        "neutron_rich_delta_ge_20": -0.052275835943135895,
+        "neutron_rich_delta_ge_30": -0.024203037109821857,
+        "neutron_rich_delta_ge_40": 0.1100095434869548,
+        "primary": -0.02431994016420358,
+        "proton_rich_n_lt_z": 0.0
+      },
+      "worst_subset_regression_mae_mev": 0.1100095434869548,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.12753272290123385,
+          "candidate_residual_mev": 37.50927316154355,
+          "feature_values": {
+            "positive_asymmetry_fraction": 0.2619047619047619
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 0.12542474401030435,
+          "candidate_residual_mev": 17.749474943924042,
+          "feature_values": {
+            "positive_asymmetry_fraction": 0.25757575757575757
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 0.12266506172179743,
+          "candidate_residual_mev": 17.39647548791868,
+          "feature_values": {
+            "positive_asymmetry_fraction": 0.25190839694656486
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 0.1308205407236537,
+          "candidate_residual_mev": 17.033632254119084,
+          "feature_values": {
+            "positive_asymmetry_fraction": 0.26865671641791045
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 0.12814292731702923,
+          "candidate_residual_mev": 16.45941792737267,
+          "feature_values": {
+            "positive_asymmetry_fraction": 0.2631578947368421
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0198",
+          "nuclide_id": "Sb-133",
+          "Z": 51,
+          "N": 82,
+          "A": 133,
+          "correction_mev": 0.11349802133794017,
+          "candidate_residual_mev": 15.64689385771021,
+          "feature_values": {
+            "positive_asymmetry_fraction": 0.23308270676691728
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0190",
+          "nuclide_id": "In-129",
+          "Z": 49,
+          "N": 80,
+          "A": 129,
+          "correction_mev": 0.1170173398290391,
+          "candidate_residual_mev": 13.580783240343635,
+          "feature_values": {
+            "positive_asymmetry_fraction": 0.24031007751937986
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0199",
+          "nuclide_id": "Sb-137",
+          "Z": 51,
+          "N": 86,
+          "A": 137,
+          "correction_mev": 0.12440152797930576,
+          "candidate_residual_mev": 13.339810783424127,
+          "feature_values": {
+            "positive_asymmetry_fraction": 0.25547445255474455
+          }
+        }
+      ],
+      "verdict": "PARTIALLY_VALID",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "NR-SCOUT-004",
+      "name": "Frontier excess beyond N-Z equals 20",
+      "formula": "r_corr = beta_f * max(N-Z-20, 0) / A",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "frontier_excess_after_20_over_a": 2.5493395357957884
+      },
+      "feature_activation_counts": {
+        "frontier_excess_after_20_over_a": 107
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.909619132576146,
+          "rmse_mev": 5.799051991119032,
+          "mean_error_mev": 1.0353175966560761,
+          "max_abs_error_mev": 16.860054044299886
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.448447587829525,
+          "rmse_mev": 5.863475157267796,
+          "mean_error_mev": 0.5183721636916924,
+          "max_abs_error_mev": 37.576107324068744
+        },
+        "asymmetry_ge_0_20": {
+          "count": 139,
+          "mae_mev": 5.800838680151123,
+          "rmse_mev": 7.3741523173978685,
+          "mean_error_mev": 4.104633133187787,
+          "max_abs_error_mev": 37.576107324068744
+        },
+        "asymmetry_ge_0_25": {
+          "count": 31,
+          "mae_mev": 9.308604017175787,
+          "rmse_mev": 11.375187337771395,
+          "mean_error_mev": 9.308604017175787,
+          "max_abs_error_mev": 37.576107324068744
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.276620974303517,
+          "rmse_mev": 6.297301168348605,
+          "mean_error_mev": -0.15485527754087264,
+          "max_abs_error_mev": 17.604515191713745
+        },
+        "neutron_rich_delta_ge_20": {
+          "count": 116,
+          "mae_mev": 5.818079286132897,
+          "rmse_mev": 7.59933901475225,
+          "mean_error_mev": 3.4087499894900937,
+          "max_abs_error_mev": 37.576107324068744
+        },
+        "neutron_rich_delta_ge_30": {
+          "count": 51,
+          "mae_mev": 6.882416366672933,
+          "rmse_mev": 8.200484215246762,
+          "mean_error_mev": 2.2623596173033875,
+          "max_abs_error_mev": 17.604515191713745
+        },
+        "neutron_rich_delta_ge_40": {
+          "count": 18,
+          "mae_mev": 6.418724903329247,
+          "rmse_mev": 6.432437321818177,
+          "mean_error_mev": -6.418724903329247,
+          "max_abs_error_mev": 7.212170393536098
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.53442872329076,
+          "rmse_mev": 5.851517850469971,
+          "mean_error_mev": 0.6147518206850522,
+          "max_abs_error_mev": 37.576107324068744
+        },
+        "proton_rich_n_lt_z": {
+          "count": 28,
+          "mae_mev": 1.9412093254942755,
+          "rmse_mev": 2.4286469261579486,
+          "mean_error_mev": -1.0439515775268902,
+          "max_abs_error_mev": 4.560636066512529
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": -0.04140537108808662,
+        "ame2020_measured_comparison": -0.01280817657785871,
+        "asymmetry_ge_0_20": -0.04236576695829264,
+        "asymmetry_ge_0_25": -0.14309358033999686,
+        "heavy_a_ge_100": -0.029664099489823847,
+        "neutron_rich_delta_ge_20": -0.04613153265974823,
+        "neutron_rich_delta_ge_30": -0.012688615258590552,
+        "neutron_rich_delta_ge_40": 0.3625887175124438,
+        "primary": -0.018139856910273977,
+        "proton_rich_n_lt_z": 0.0
+      },
+      "worst_subset_regression_mae_mev": 0.3625887175124438,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.0606985603760902,
+          "candidate_residual_mev": 37.576107324068744,
+          "feature_values": {
+            "frontier_excess_after_20_over_a": 0.023809523809523808
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 0.27038449622076544,
+          "candidate_residual_mev": 17.604515191713745,
+          "feature_values": {
+            "frontier_excess_after_20_over_a": 0.10606060606060606
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 0.25298789286523093,
+          "candidate_residual_mev": 17.266152656775375,
+          "feature_values": {
+            "frontier_excess_after_20_over_a": 0.09923664122137404
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 0.3043987505427807,
+          "candidate_residual_mev": 16.860054044299886,
+          "feature_values": {
+            "frontier_excess_after_20_over_a": 0.11940298507462686
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 0.287519496518322,
+          "candidate_residual_mev": 16.300041358171256,
+          "feature_values": {
+            "frontier_excess_after_20_over_a": 0.11278195488721804
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0198",
+          "nuclide_id": "Sb-133",
+          "Z": 51,
+          "N": 82,
+          "A": 133,
+          "correction_mev": 0.2108476307801028,
+          "candidate_residual_mev": 15.549544248268148,
+          "feature_values": {
+            "frontier_excess_after_20_over_a": 0.08270676691729323
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0190",
+          "nuclide_id": "In-129",
+          "Z": 49,
+          "N": 80,
+          "A": 129,
+          "correction_mev": 0.21738554181204398,
+          "candidate_residual_mev": 13.480415038360661,
+          "feature_values": {
+            "frontier_excess_after_20_over_a": 0.08527131782945736
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0199",
+          "nuclide_id": "Sb-137",
+          "Z": 51,
+          "N": 86,
+          "A": 137,
+          "correction_mev": 0.27912476669296954,
+          "candidate_residual_mev": 13.185087544710314,
+          "feature_values": {
+            "frontier_excess_after_20_over_a": 0.10948905109489052
+          }
+        }
+      ],
+      "verdict": "PARTIALLY_VALID",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "NR-SCOUT-005",
+      "name": "Matched quadratic plus cubic neutron-excess pair",
+      "formula": "r_corr = beta_q * max(N-Z, 0)^2 / A + beta_c * max(N-Z, 0)^3 / A^2",
+      "complexity": 2,
+      "fitted_coefficients": {
+        "neutron_excess_sq_over_a": 3.7918636754534303,
+        "neutron_excess_cu_over_a_sq": -17.369755591519322
+      },
+      "feature_activation_counts": {
+        "neutron_excess_sq_over_a": 264,
+        "neutron_excess_cu_over_a_sq": 264
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 7.023385247431222,
+          "rmse_mev": 8.721001037205761,
+          "mean_error_mev": 2.3591562106645982,
+          "max_abs_error_mev": 25.6236365520258
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 5.668836357297761,
+          "rmse_mev": 7.406292647433391,
+          "mean_error_mev": 0.5037282025279126,
+          "max_abs_error_mev": 42.00063070718613
+        },
+        "asymmetry_ge_0_20": {
+          "count": 139,
+          "mae_mev": 7.440720350106883,
+          "rmse_mev": 9.534890317082443,
+          "mean_error_mev": 6.16783764142479,
+          "max_abs_error_mev": 42.00063070718613
+        },
+        "asymmetry_ge_0_25": {
+          "count": 31,
+          "mae_mev": 14.263864529984732,
+          "rmse_mev": 15.937437141545102,
+          "mean_error_mev": 14.263864529984732,
+          "max_abs_error_mev": 42.00063070718613
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 7.344213097599261,
+          "rmse_mev": 8.72412017269414,
+          "mean_error_mev": 0.18161223565262322,
+          "max_abs_error_mev": 25.6236365520258
+        },
+        "neutron_rich_delta_ge_20": {
+          "count": 116,
+          "mae_mev": 7.83519952178907,
+          "rmse_mev": 9.981582324197166,
+          "mean_error_mev": 5.379574631062504,
+          "max_abs_error_mev": 42.00063070718613
+        },
+        "neutron_rich_delta_ge_30": {
+          "count": 51,
+          "mae_mev": 8.3775410126152,
+          "rmse_mev": 10.50821701742211,
+          "mean_error_mev": 5.007298914026146,
+          "max_abs_error_mev": 25.6236365520258
+        },
+        "neutron_rich_delta_ge_40": {
+          "count": 18,
+          "mae_mev": 4.3440316174426625,
+          "rmse_mev": 4.767870818510093,
+          "mean_error_mev": -4.3440316174426625,
+          "max_abs_error_mev": 7.502627098622497
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 5.921379370712472,
+          "rmse_mev": 7.668521002313891,
+          "mean_error_mev": 0.84965545828221,
+          "max_abs_error_mev": 42.00063070718613
+        },
+        "proton_rich_n_lt_z": {
+          "count": 28,
+          "mae_mev": 1.9412093254942755,
+          "rmse_mev": 2.4286469261579486,
+          "mean_error_mev": -1.0439515775268902,
+          "max_abs_error_mev": 4.560636066512529
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 2.07236074376699,
+        "ame2020_measured_comparison": 1.207580592890377,
+        "asymmetry_ge_0_20": 1.5975159029974675,
+        "asymmetry_ge_0_25": 4.812166932468948,
+        "heavy_a_ge_100": 2.03792802380592,
+        "neutron_rich_delta_ge_20": 1.9709887029964248,
+        "neutron_rich_delta_ge_30": 1.4824360306836768,
+        "neutron_rich_delta_ge_40": -1.7121045683741407,
+        "primary": 1.3688107905114384,
+        "proton_rich_n_lt_z": 0.0
+      },
+      "worst_subset_regression_mae_mev": 4.812166932468948,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": -4.363824822741364,
+          "candidate_residual_mev": 42.00063070718613,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 5.761904761904762,
+            "neutron_excess_cu_over_a_sq": 1.5090702947845804
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": -8.459183757183176,
+          "candidate_residual_mev": 25.6236365520258,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 9.671641791044776,
+            "neutron_excess_cu_over_a_sq": 2.598351525952328
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": -5.974105360668368,
+          "candidate_residual_mev": 23.84900504860275,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 8.757575757575758,
+            "neutron_excess_cu_over_a_sq": 2.255739210284665
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": -7.176147982539476,
+          "candidate_residual_mev": 23.76370883722916,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 9.210526315789474,
+            "neutron_excess_cu_over_a_sq": 2.4238227146814406
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": -4.852481010192815,
+          "candidate_residual_mev": 22.37162155983333,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 8.312977099236642,
+            "neutron_excess_cu_over_a_sq": 2.0941087349222074
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0199",
+          "nuclide_id": "Sb-137",
+          "Z": 51,
+          "N": 86,
+          "A": 137,
+          "correction_mev": -5.773283054686928,
+          "candidate_residual_mev": 19.237495366090343,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 8.941605839416058,
+            "neutron_excess_cu_over_a_sq": 2.284351856785124
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0198",
+          "nuclide_id": "Sb-133",
+          "Z": 51,
+          "N": 82,
+          "A": 133,
+          "correction_mev": -1.8549899302517296,
+          "candidate_residual_mev": 17.61538180930006,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 7.225563909774436,
+            "neutron_excess_cu_over_a_sq": 1.6841539940075754
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0129",
+          "nuclide_id": "Rb-103",
+          "Z": 37,
+          "N": 66,
+          "A": 103,
+          "correction_mev": -8.970530866506014,
+          "candidate_residual_mev": 16.594841171616963,
+          "feature_values": {
+            "neutron_excess_sq_over_a": 8.16504854368932,
+            "neutron_excess_cu_over_a_sq": 2.2988971627863135
+          }
+        }
+      ],
+      "verdict": "OVERFITTED",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "NR-SCOUT-006",
+      "name": "Near-null neutron-rich sanity control",
+      "formula": "r_corr = 0.0",
+      "complexity": 0,
+      "fitted_coefficients": {},
+      "feature_activation_counts": {},
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.951024503664232,
+          "rmse_mev": 5.854176430909467,
+          "mean_error_mev": 1.105512127407804,
+          "max_abs_error_mev": 17.164452794842646
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.461255764407384,
+          "rmse_mev": 5.885456190078588,
+          "mean_error_mev": 0.5887226548882164,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "asymmetry_ge_0_20": {
+          "count": 139,
+          "mae_mev": 5.843204447109415,
+          "rmse_mev": 7.422727891190251,
+          "mean_error_mev": 4.247563375034955,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "asymmetry_ge_0_25": {
+          "count": 31,
+          "mae_mev": 9.451697597515784,
+          "rmse_mev": 11.501040212832246,
+          "mean_error_mev": 9.451697597515784,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.306285073793341,
+          "rmse_mev": 6.340606526956628,
+          "mean_error_mev": -0.02457967942372874,
+          "max_abs_error_mev": 17.87489968793443
+        },
+        "neutron_rich_delta_ge_20": {
+          "count": 116,
+          "mae_mev": 5.864210818792645,
+          "rmse_mev": 7.654335175338428,
+          "mean_error_mev": 3.5875846194772554,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "neutron_rich_delta_ge_30": {
+          "count": 51,
+          "mae_mev": 6.8951049819315235,
+          "rmse_mev": 8.2462745632253,
+          "mean_error_mev": 2.552625468991606,
+          "max_abs_error_mev": 17.87489968793443
+        },
+        "neutron_rich_delta_ge_40": {
+          "count": 18,
+          "mae_mev": 6.056136185816803,
+          "rmse_mev": 6.071659187839677,
+          "mean_error_mev": -6.056136185816803,
+          "max_abs_error_mev": 6.872258455430028
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.552568580201034,
+          "rmse_mev": 5.8796369910752775,
+          "mean_error_mev": 0.6850732345105124,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "proton_rich_n_lt_z": {
+          "count": 28,
+          "mae_mev": 1.9412093254942755,
+          "rmse_mev": 2.4286469261579486,
+          "mean_error_mev": -1.0439515775268902,
+          "max_abs_error_mev": 4.560636066512529
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.0,
+        "ame2020_measured_comparison": 0.0,
+        "asymmetry_ge_0_20": 0.0,
+        "asymmetry_ge_0_25": 0.0,
+        "heavy_a_ge_100": 0.0,
+        "neutron_rich_delta_ge_20": 0.0,
+        "neutron_rich_delta_ge_30": 0.0,
+        "neutron_rich_delta_ge_40": 0.0,
+        "primary": 0.0,
+        "proton_rich_n_lt_z": 0.0
+      },
+      "worst_subset_regression_mae_mev": 0.0,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 37.63680588444481,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.87489968793443,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.519140549640497,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.164452794842646,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 16.587560854689627,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0198",
+          "nuclide_id": "Sb-133",
+          "Z": 51,
+          "N": 82,
+          "A": 133,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 15.760391879048257,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0190",
+          "nuclide_id": "In-129",
+          "Z": 49,
+          "N": 80,
+          "A": 129,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 13.697800580172725,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0199",
+          "nuclide_id": "Sb-137",
+          "Z": 51,
+          "N": 86,
+          "A": 137,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 13.464212311403344,
+          "feature_values": {}
+        }
+      ],
+      "verdict": "INCONCLUSIVE",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    }
+  ],
+  "rejected_before_execution": [
+    {
+      "candidate_id": "NR-SCOUT-007",
+      "name": "Free-power neutron-excess exponent",
+      "rejection_reason": "Rejected before execution because fitting a free exponent on the 11-row NMD-0002 residual surface would introduce a nonlinear overfit knob outside the bounded linear scout contract."
+    },
+    {
+      "candidate_id": "NR-SCOUT-008",
+      "name": "In/Sb frontier-cluster indicator",
+      "rejection_reason": "Rejected before sandbox evaluation because an element-cluster indicator would target known post-AME2020 residual clusters retrospectively rather than test a general neutron-rich feature."
+    },
+    {
+      "candidate_id": "NR-SCOUT-009",
+      "name": "Per-threshold neutron-rich sweep",
+      "rejection_reason": "Rejected before execution because sweeping many N-Z thresholds duplicates the bounded frontier ramp while adding arbitrary selection degrees of freedom."
+    }
+  ],
+  "promotion_boundary": {
+    "writes_prediction_registry": false,
+    "writes_canonical_result": false,
+    "claim_promotion_allowed": false,
+    "required_next_step": "Maintainer review before any registry, RESULT, claim, or knowledge update."
+  },
+  "limitations": [
+    "Sandbox-only scout; no canonical result, claim, knowledge, or prediction registry file is updated.",
+    "Feature coefficients are fit on the small 11-row NMD-0002 residual slice.",
+    "Post-AME2020 evaluation uses already committed retrospective rows and is not live-measurement reveal work.",
+    "Rejected candidates are preserved to document overfit and leakage boundaries."
+  ]
+}
