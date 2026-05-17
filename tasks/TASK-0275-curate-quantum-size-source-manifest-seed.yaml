@@ -1,7 +1,7 @@
 id: TASK-0275
 title: "Curate quantum-size source manifest seed after schema"
 type: scientific_dataset
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
