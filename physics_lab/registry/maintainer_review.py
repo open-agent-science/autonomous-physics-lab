@@ -287,10 +287,34 @@ def review_bundle_branch(path: Path) -> str | None:
 
 
 def _portable_validation_command(command_text: str) -> str:
-    """Run validation through the active interpreter when python3 is absent."""
-    if not command_text.startswith("python3 "):
-        return command_text
-    return f'"{sys.executable}" {command_text.removeprefix("python3 ")}'
+    """Run validation through local portable executables where needed."""
+    if command_text.startswith("python3 "):
+        return f'"{sys.executable}" {command_text.removeprefix("python3 ")}'
+    if _looks_like_repo_shell_script(command_text):
+        bash = _git_bash_path()
+        if bash is not None:
+            return f'"{bash}" -lc "{command_text}"'
+        return f"bash {command_text}"
+    return command_text
+
+
+def _looks_like_repo_shell_script(command_text: str) -> bool:
+    parts = command_text.strip().split()
+    if len(parts) != 1:
+        return False
+    command = parts[0]
+    return command.startswith("./") and command.endswith(".sh")
+
+
+def _git_bash_path() -> str | None:
+    candidates = (
+        Path("C:/Program Files/Git/bin/bash.exe"),
+        Path("C:/Program Files/Git/usr/bin/bash.exe"),
+    )
+    for candidate in candidates:
+        if candidate.exists():
+            return str(candidate)
+    return None
 
 
 def run_task_validation(
