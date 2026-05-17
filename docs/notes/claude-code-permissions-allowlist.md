@@ -69,10 +69,13 @@ generated navigation and PR body drafts.
 
 ### 3.2 Repository helper scripts
 
-`./scripts/apl_setup_worktree.sh`, `./scripts/apl_review_bundle.sh`,
-`./scripts/apl_snapshot.sh`, `./scripts/validate_quick.sh`. Bounded
-internal helpers that do not call out to the network and do not modify
-canonical artifacts beyond their documented scope.
+`./scripts/apl_setup_worktree.sh`, `./scripts/apl_new_worktree.sh *`,
+`./scripts/apl_review_bundle.sh`, `./scripts/apl_snapshot.sh`,
+`./scripts/validate_quick.sh`. Bounded internal helpers that do not call
+out to the network and do not modify canonical artifacts beyond their
+documented scope. `apl_new_worktree.sh` accepts a branch name and an
+optional path argument; it refuses to overwrite an existing branch and
+bases the new worktree on `origin/main`.
 
 ### 3.3 Git read-only inspection
 
@@ -97,11 +100,22 @@ needs `git stash push --include-untracked`.
 
 `git fetch *`, `git pull *`, `git switch *`, `git checkout *`, `git add *`,
 `git commit *`, `git push *`, `git restore --staged *`, `git reset HEAD *`,
-`git reset --mixed *`, `git reset --soft *`. These mutate local branches
+`git reset --mixed *`, `git reset --soft *`, `git merge origin/main`,
+`git merge --no-edit origin/main`, `git merge origin/main --no-edit`,
+`git merge --ff-only origin/main`, `git merge origin/main --ff-only`,
+`git merge --abort`, `git merge --quit`. These mutate local branches
 and may push them, but `--mixed` and `--soft` resets keep the working tree
 intact, and `--hard`/`--keep` are *not* on the list. The shared rules do
 not block agents from pushing the task branch they own — pushing to `main`
 is prevented by repository policy, not by Claude Code permissions.
+
+The merge rules are intentionally scoped to the routine operation agents need:
+bringing `origin/main` into the current task branch, optionally with
+`--no-edit` or `--ff-only`. `--abort` and `--quit` are explicitly listed
+because they safely exit an in-progress merge. Broad `git merge *` and
+strategies that silently overwrite one side of a merge (`--strategy=ours`,
+`--strategy-option=theirs`) are *not* on the list; an agent that needs those
+still has to ask.
 
 ### 3.6 Text inspection
 

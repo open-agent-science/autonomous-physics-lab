@@ -47,11 +47,12 @@ one PR.
 ## READY
 
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
+- `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0264` — Run nuclear feature-term factory slate-002 (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0266` — Define nuclear prediction reveal protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
+- `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`)
+- `TASK-0275` — Curate quantum-size source manifest seed after schema (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0278` — Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0280` — Run nuclear pairing and odd-even variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -60,10 +61,18 @@ None.
 ## REVIEW_READY
 
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0263` — Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0279` — Run nuclear neutron-rich variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
+- `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (merged)
+- `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (merged)
+- `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (merged)
+- `TASK-0267` — Add git merge to Claude Code permissions allowlist (merged)
+- `TASK-0266` — Define nuclear prediction reveal protocol (merged)
+- `TASK-0265` — Register selected nuclear feature-term factory predictions (merged)
+- `TASK-0264` — Run nuclear feature-term factory slate-002 (merged)
+- `TASK-0263` — Add worktree-per-agent helpers and branch precondition check (merged)
 - `TASK-0262` — Add --auto-sync flag to validate-repo CLI (merged)
 - `TASK-0261` — Stop maintainer-review-agent from blocking on harness-only artifacts (merged)
 - `TASK-0260` — Expand Claude Code permissions allowlist for routine read-only operations (merged)
@@ -95,6 +104,8 @@ None.
 - `TASK-0229` — Register nuclear prediction variants for pairing and odd-even controls (merged)
 - `TASK-0228` — Register nuclear prediction variants for smooth semi-empirical controls (merged)
 - `TASK-0227` — Add lepton g-2 cross-observable falsifier (merged)
+- `TASK-0224` — Define quantum-dot size-effect holdout protocol (merged)
+- `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (merged)
 - `TASK-0222` — Create Quantum Size Effects campaign scaffold (merged)
 - `TASK-0221` — Clarify campaign-curator trigger wording (merged)
 - `TASK-0220` — Rename campaign steering mode to Scientific Campaign Curator (merged)
@@ -298,13 +309,13 @@ None.
 ## BLOCKED
 
 - `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
+- `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 
 ## REJECTED
 

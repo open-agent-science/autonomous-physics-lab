@@ -16,15 +16,17 @@ This campaign started scaffold-first and now has a benchmark stack,
 retrospective time-split evidence, a deterministic prediction factory, reusable
 target batches, and frozen prospective prediction registry entries.
 
-Safe contributions right now are still conservative, but they can now include
-factory-slate and reveal protocol work:
+Safe contributions right now are still conservative, and should now emphasize
+registry audit, reveal dry-runs, evidence packaging, and bounded scout lanes:
 
 - campaign map and guardrail wording;
 - pinned-dataset and provenance expansion work;
 - subset and holdout curation;
-- bounded feature-term factory slates under the frozen `RESULT-0015` baseline;
-- prospective prediction registry selection after reviewed slates only;
-- reveal protocol work that preserves the no-peek boundary;
+- registry coverage audits across frozen `PRED-*` entries;
+- synthetic reveal dry-runs that use fake data only;
+- sandbox-only variant scout lanes with disjoint hypothesis families;
+- conservative status summaries that separate baseline evidence, sandbox
+  evidence, and unvalidated prospective predictions;
 - limitation notes that keep the campaign conservative.
 
 ### What not to implement yet
@@ -84,6 +86,13 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   reusable target-batch library.
 - `TASK-0251` registered the selected coefficient-transform factory wave as
   `PRED-0041` through `PRED-0050`.
+- `TASK-0264` reviewed feature-term factory slate-002 with 48 sandbox
+  candidates, preserving extreme-sensitivity and near-null outcomes as
+  review evidence.
+- `TASK-0265` registered the selected feature-term factory wave as
+  `PRED-0051` through `PRED-0062`.
+- `TASK-0266` defined the reveal protocol for future reviewed measurement
+  comparisons.
 
 Historical context:
 
@@ -102,28 +111,39 @@ Start here:
 - [Nuclear Mass Campaign Plan](../notes/nuclear-mass-campaign-plan.md)
 - [Nuclear Prediction Variant Factory](../notes/nuclear-prediction-variant-factory.md)
 - [Selected Factory Registry Wave 001](../reviews/nuclear-prediction-factory-selected-registry-001.md)
-- [TASK-0264](../../tasks/TASK-0264-run-nuclear-feature-term-factory-slate.yaml)
-- [TASK-0266](../../tasks/TASK-0266-define-nuclear-prediction-reveal-readiness-protocol.yaml)
+- [Feature-Term Factory Slate 002](../reviews/nuclear-prediction-factory-slate-002-feature-terms.md)
+- [Feature-Term Selected Registry Wave 001](../reviews/nuclear-prediction-factory-feature-term-selected-registry-001.md)
+- [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
+- [TASK-0272](../../tasks/TASK-0272-audit-nuclear-prediction-registry-coverage.yaml)
+- [TASK-0273](../../tasks/TASK-0273-add-nuclear-synthetic-reveal-dry-run-harness.yaml)
+- [TASK-0278](../../tasks/TASK-0278-run-nuclear-shell-neighborhood-variant-scout.yaml)
+- [TASK-0279](../../tasks/TASK-0279-run-nuclear-neutron-rich-variant-scout.yaml)
+- [TASK-0280](../../tasks/TASK-0280-run-nuclear-pairing-odd-even-variant-scout.yaml)
 
 ## Open Questions
 
-- Which feature-term slate-002 candidates add review value beyond the
-  coefficient-transform `PRED-0041` through `PRED-0050` wave?
-- Which target batches best expose shell, neutron-rich, isotope-chain, and
-  mass-region behavior without creating leakage or false precision?
+- Which registry families are overrepresented or underrepresented after
+  `PRED-0062`?
+- Which targets or batches are repeated often enough that future reveal
+  coverage could be misleading?
 - How should a future reveal task handle partial measurement availability
   while preserving the no-peek boundary?
 - Which existing manual blocked lanes should remain fallback references versus
   being represented only through factory slates?
+- Which scout-lane candidates, if any, deserve later maintainer-selected
+  registry entries after audit and review?
 
 ## Recommended Tasks
 
-- `TASK-0264` — run a feature-term factory slate using shell, magic-number,
-  neutron-excess, and combined coefficient-plus-feature variants.
-- `TASK-0265` — keep blocked until slate-002 is reviewed, then register only a
-  selected feature-term subset as prospective predictions.
-- `TASK-0266` — define reveal protocol before any future
-  measurement comparison.
+- `TASK-0272` — audit registry coverage after the feature-term wave.
+- `TASK-0273` — build a synthetic reveal dry-run harness without real
+  measurement data.
+- `TASK-0274` — summarize the registry/evidence state after `PRED-0062`.
+- `TASK-0278` — run a shell-neighborhood variant scout lane.
+- `TASK-0279` — run a neutron-rich/asymmetry variant scout lane.
+- `TASK-0280` — run a pairing and odd-even variant scout lane.
+- Future reveal tasks should use the `TASK-0266` protocol checklist instead of
+  ad hoc source comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 
@@ -142,8 +162,8 @@ Start here:
 - Do not blur measured values, extrapolated values, and derived targets.
 - Do not describe baseline residual maps as evidence of a broader conclusion by
   themselves.
-- Do not open public-facing scientific claims before the first baseline and
-  residual benchmark exists.
+- Do not open public-facing scientific claims from prospective registry entries
+  before a reviewed future-measurement reveal exists.
 
 ## Visualization Ideas
 
