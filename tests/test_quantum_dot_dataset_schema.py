@@ -48,6 +48,7 @@ def _minimal_payload() -> dict[str, object]:
         "status": "draft",
         "description": "Minimal test dataset for schema validation.",
         "source_policy": "Pinned fixture for tests only. No redistribution.",
+        "property_kind_covered": "absorption_peak_eV",
         "entries": [_minimal_entry()],
     }
 
@@ -74,6 +75,7 @@ def test_schema_accepts_radius_nm_instead_of_diameter() -> None:
 def test_schema_accepts_all_property_kind_values() -> None:
     for kind in ("absorption_peak_eV", "emission_peak_eV", "bandgap_eV"):
         payload = _minimal_payload()
+        payload["property_kind_covered"] = kind
         payload["entries"][0]["property_kind"] = kind  # type: ignore[index]
         validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
 
@@ -106,12 +108,13 @@ def test_schema_accepts_optional_fields() -> None:
     validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
 
 
-def test_schema_accepts_entry_without_size_field() -> None:
-    """Size fields (diameter_nm / radius_nm) are optional at the schema level."""
+def test_schema_rejects_entry_without_size_field() -> None:
+    """A size-effect dataset row must include exactly one size axis."""
     payload = _minimal_payload()
     entry = payload["entries"][0]  # type: ignore[index]
     del entry["diameter_nm"]
-    validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+    with pytest.raises(ValueError, match="schema validation"):
+        validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
 
 
 # ---------------------------------------------------------------------------
@@ -185,9 +188,23 @@ def test_schema_rejects_invalid_measurement_type() -> None:
         validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
 
 
+def test_schema_rejects_missing_property_kind_covered() -> None:
+    payload = _minimal_payload()
+    del payload["property_kind_covered"]
+    with pytest.raises(ValueError, match="schema validation"):
+        validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+
+
 def test_schema_rejects_invalid_property_kind_covered() -> None:
     payload = _minimal_payload()
     payload["property_kind_covered"] = "energy_eV"
+    with pytest.raises(ValueError, match="schema validation"):
+        validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
+
+
+def test_schema_rejects_property_kind_mismatch_with_file_coverage() -> None:
+    payload = _minimal_payload()
+    payload["property_kind_covered"] = "bandgap_eV"
     with pytest.raises(ValueError, match="schema validation"):
         validate_document(payload, "quantum_dot_size_effect", "data/quantum_dots/qd-test.yaml")
 
