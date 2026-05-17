@@ -52,7 +52,6 @@ one PR.
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0275` — Curate quantum-size source manifest seed after schema (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0278` — Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0280` — Run nuclear pairing and odd-even variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
@@ -61,6 +60,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0278` — Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0279` — Run nuclear neutron-rich variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY

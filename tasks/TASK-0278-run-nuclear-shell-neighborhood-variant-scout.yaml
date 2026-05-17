@@ -1,7 +1,7 @@
 id: TASK-0278
 title: "Run nuclear shell-neighborhood variant scout"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
