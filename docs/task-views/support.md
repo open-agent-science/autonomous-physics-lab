@@ -8,7 +8,6 @@
 
 - `TASK-0177` - Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
 - `TASK-0242` - Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
-- `TASK-0274` - Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
 
@@ -16,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0274` - Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
