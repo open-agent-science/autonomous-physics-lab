@@ -244,3 +244,57 @@ def test_source_manifest_loads_and_has_expected_keys() -> None:
     assert manifest["live_external_fetch_allowed"] is False
     assert "sources" in manifest
     assert isinstance(manifest["sources"], list)
+
+
+def test_source_manifest_entries_have_required_review_fields() -> None:
+    manifest_path = (
+        Path(__file__).resolve().parent.parent / "data" / "quantum_dots" / "source_manifest.yaml"
+    )
+    with manifest_path.open("r", encoding="utf-8") as fh:
+        manifest = yaml.safe_load(fh)
+
+    required_fields = {
+        "source_id",
+        "title",
+        "authors",
+        "year",
+        "doi",
+        "table_reference",
+        "properties",
+        "materials",
+        "measurement_type",
+        "size_axis",
+        "inclusion_decision",
+        "inclusion_rationale",
+        "license_note",
+        "checksum_policy",
+        "notes",
+    }
+    allowed_properties = {"absorption_peak_eV", "emission_peak_eV", "bandgap_eV"}
+    allowed_measurement_types = {
+        "optical_absorption",
+        "photoluminescence",
+        "electrical_transport",
+        "theoretical_calculation",
+    }
+    allowed_size_axes = {"diameter_nm", "radius_nm"}
+    allowed_inclusion_decisions = {"accepted", "excluded"}
+    allowed_checksum_policies = {"doi_pinned", "sha256_file", "url_archived"}
+
+    sources = manifest["sources"]
+    assert sources, "source_manifest.yaml should contain at least one reviewed source seed"
+
+    source_ids: set[str] = set()
+    for source in sources:
+        assert required_fields <= source.keys()
+        assert source["source_id"] not in source_ids
+        source_ids.add(source["source_id"])
+        assert isinstance(source["year"], int)
+        assert str(source["doi"]).strip()
+        assert set(source["properties"]) <= allowed_properties
+        assert source["properties"], "each source must declare at least one property kind"
+        assert source["materials"], "each source must declare at least one material"
+        assert source["measurement_type"] in allowed_measurement_types
+        assert source["size_axis"] in allowed_size_axes
+        assert source["inclusion_decision"] in allowed_inclusion_decisions
+        assert source["checksum_policy"] in allowed_checksum_policies
