@@ -1,0 +1,58 @@
+config_kind: nuclear_prediction_synthetic_reveal
+description: >
+  Synthetic toy dry-run for exercising nuclear prediction reveal plumbing.
+  These rows are fake values only and are not nuclear measurements.
+
+registry_snapshot:
+  prediction_ids:
+    - PRED-0041
+
+synthetic_source:
+  source_id: SYNTH-NUCLEAR-REVEAL-DRY-RUN-001
+  source_kind: synthetic_toy_measurement
+  source_label: "Fake toy nuclear mass reveal source for TASK-0273"
+  synthetic_source: true
+  real_measurement_source: false
+  fake_source_warning: >
+    All rows in this file are fabricated toy values for protocol testing.
+    They must not be cited as measured, evaluated, or extrapolated nuclear data.
+  source_available_utc: "2026-05-18T00:00:00Z"
+  rows:
+    - nuclide_id: Ni-76
+      Z: 28
+      N: 48
+      A: 76
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: -31.250000
+      value_semantics: measured_synthetic
+      no_peek_audit_passed: true
+    - nuclide_id: Zn-80
+      Z: 30
+      N: 50
+      A: 80
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: -41.100000
+      value_semantics: extrapolated_synthetic
+      no_peek_audit_passed: true
+    - nuclide_id: Ga-85
+      Z: 31
+      N: 54
+      A: 85
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: -29.500000
+      value_semantics: measured_synthetic
+      source_available_utc: "2026-05-15T00:00:00Z"
+      no_peek_audit_passed: true
+
+expected_dry_run_shape:
+  eligible_rows: 1
+  unrevealed_rows: 1
+  ineligible_rows: 2
+  required_statuses:
+    - ELIGIBLE_SYNTHETIC
+    - TARGET_NOT_REVEALED
+    - NON_MEASURED_VALUE_ONLY
+    - SOURCE_PREDATES_REGISTRATION
