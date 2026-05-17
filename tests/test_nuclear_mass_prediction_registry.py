@@ -39,6 +39,21 @@ FACTORY_SELECTED_REGISTRY_MAP = {
     "PRED-0049": "asymmetry-scale-plus-1pct-frontier",
     "PRED-0050": "asymmetry-scale-minus-1pct-frontier",
 }
+FEATURE_TERM_SELECTED_SOURCE_COMMIT = "3f64aa258da42d62b383395ec8c5dc10d05a3082"
+FEATURE_TERM_SELECTED_REGISTRY_MAP = {
+    "PRED-0051": "shell-zn-reviewed-coefficients-shell-magic",
+    "PRED-0052": "shell-zn-sign-inverted-shell-magic",
+    "PRED-0053": "shell-n-reviewed-coefficient-shell-magic",
+    "PRED-0054": "shell-n-sign-inverted-shell-magic",
+    "PRED-0055": "asymmetric-neutron-excess-plus-neutron-rich",
+    "PRED-0056": "asymmetric-neutron-excess-minus-neutron-rich",
+    "PRED-0057": "asymmetric-neutron-excess-cubic-plus-neutron-rich",
+    "PRED-0058": "asymmetric-neutron-excess-cubic-minus-neutron-rich",
+    "PRED-0059": "shell-n-reviewed-nickel-chain",
+    "PRED-0060": "shell-n-sign-inverted-nickel-chain",
+    "PRED-0061": "asymmetric-neutron-excess-plus-nickel-chain",
+    "PRED-0062": "asymmetric-neutron-excess-minus-nickel-chain",
+}
 
 
 def _repo_root() -> Path:
@@ -69,6 +84,18 @@ def _prediction_paths() -> list[Path]:
 def _slate_001_candidates_by_variant_id() -> dict[str, dict[str, object]]:
     summary = generate_variant_slate_from_config(
         _repo_root() / "examples" / "nuclear_prediction_factory_slate_001.yaml",
+        repo_root=_repo_root(),
+        write_drafts=False,
+    )
+    candidates = summary["candidates"]
+    assert isinstance(candidates, list)
+    return {str(candidate["variant_id"]): candidate for candidate in candidates}
+
+
+@lru_cache(maxsize=1)
+def _slate_002_candidates_by_variant_id() -> dict[str, dict[str, object]]:
+    summary = generate_variant_slate_from_config(
+        _repo_root() / "examples" / "nuclear_prediction_factory_slate_002_feature_terms.yaml",
         repo_root=_repo_root(),
         write_drafts=False,
     )
@@ -282,6 +309,67 @@ def test_factory_selected_registry_wave_matches_deterministic_slate_001_recomput
         assert payload["target_set"]["label"] == candidate["target_batch"]
         assert payload["target_set"]["quantity"] == "mass_excess_mev"
         assert payload["target_set"]["unit"] == "MeV"
+
+        expected_targets = candidate["target_nuclides"]
+        actual_targets = payload["target_set"]["target_nuclides"]
+        assert len(actual_targets) == len(expected_targets)
+        for actual, expected in zip(actual_targets, expected_targets):
+            assert actual["nuclide_id"] == expected["nuclide_id"]
+            assert actual["Z"] == expected["Z"]
+            assert actual["N"] == expected["N"]
+            assert actual["A"] == expected["A"]
+            assert actual["uncertainty_mev"] is None
+            assert actual["predicted_value_mev"] == expected["predicted_value_mev"]
+
+
+def test_feature_term_selected_registry_wave_preserves_source_boundary() -> None:
+    for prediction_id, variant_id in FEATURE_TERM_SELECTED_REGISTRY_MAP.items():
+        payload = load_nuclear_mass_prediction(
+            _repo_root() / "prediction_registry" / "nuclear_masses" / f"{prediction_id}.yaml"
+        )
+
+        assert payload["task_id"] == "TASK-0265"
+        assert payload["registered_by"] == {"contributor_id": "roman", "agent_id": "codex"}
+        assert payload["registered_at_utc"] == "2026-05-17T00:00:00Z"
+        assert payload["source_state"]["git_commit"] == FEATURE_TERM_SELECTED_SOURCE_COMMIT
+        assert payload["source_state"]["live_external_fetch_allowed"] is False
+        assert variant_id in payload["source_state"]["model_reference"]["model_id"]
+        assert "docs/nuclear-prediction-reveal-protocol.md" in payload["source_state"][
+            "holdout_protocol_references"
+        ]
+
+        boundary_text = " ".join(
+            [
+                payload["claim_ceiling"],
+                payload["source_state"]["source_data_state_note"],
+                payload["reveal_conditions"]["comparison_data_reference"],
+                payload["reveal_conditions"]["no_peek_rule"],
+                *payload["limitations"],
+            ]
+        ).lower()
+        assert "no claim" in boundary_text
+        assert "no live external measurement source" in boundary_text
+        assert "separate reviewed reveal task" in boundary_text
+        assert "breakthrough" not in boundary_text
+
+
+def test_feature_term_selected_registry_wave_matches_deterministic_slate_002_recompute() -> None:
+    candidates_by_variant_id = _slate_002_candidates_by_variant_id()
+
+    for prediction_id, variant_id in FEATURE_TERM_SELECTED_REGISTRY_MAP.items():
+        payload = load_nuclear_mass_prediction(
+            _repo_root() / "prediction_registry" / "nuclear_masses" / f"{prediction_id}.yaml"
+        )
+        candidate = candidates_by_variant_id[variant_id]
+
+        assert payload["source_state"]["model_reference"]["model_id"] == candidate["model_id"]
+        assert payload["target_set"]["label"] == candidate["target_batch"]
+        assert payload["target_set"]["quantity"] == "mass_excess_mev"
+        assert payload["target_set"]["unit"] == "MeV"
+        assert candidate["feature_terms"]
+        assert "Feature terms frozen from slate-002" in payload["source_state"][
+            "model_reference"
+        ]["frozen_parameters_note"]
 
         expected_targets = candidate["target_nuclides"]
         actual_targets = payload["target_set"]["target_nuclides"]
