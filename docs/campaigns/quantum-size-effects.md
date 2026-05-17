@@ -16,29 +16,28 @@ holdouts.
 
 This campaign is currently **scaffold-complete and foundation-ready**.
 
-No dataset, schema, baseline result, holdout protocol, or autonomous pilot
-exists yet. The first scaffold landed under `TASK-0222`, so the next safe
-foundation tasks are now ready:
+The first scaffold, dataset/schema surface, and holdout protocol have landed
+under `TASK-0222`, `TASK-0223`, and `TASK-0224`. The next safe work is source
+curation and the first baseline residual benchmark:
 
-- `TASK-0223` — dataset schema and source manifest (READY);
-- `TASK-0224` — holdout protocol (READY);
-- `TASK-0225` — baseline residual benchmark (BLOCKED);
+- `TASK-0275` — source-manifest seed after schema closeout (READY);
+- `TASK-0225` — baseline residual benchmark (READY);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
 Until those land in order, safe contributions are:
 
 - planning, scope, and limitation notes;
 - queued tasks already on the canonical track above;
-- dataset/source-manifest work under `TASK-0223`;
-- holdout protocol work under `TASK-0224`;
-- visualization sketches that do not require canonical data.
+- source-manifest curation under `TASK-0275`;
+- baseline implementation under `TASK-0225`;
+- visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
 
 - do not fetch live datasets, scrape publication tables, or store raw vendor
-  spec sheets in the repository without `TASK-0223` source-manifest review;
-- do not write a benchmark engine or example workflow until the dataset and
-  holdout protocol surfaces exist;
+  spec sheets in the repository without source-manifest review;
+- do not run visualization or autonomous-pilot work before the baseline
+  residual artifact exists;
 - do not run autonomous formula search across quantum-dot size data before
   `TASK-0225` lands a frozen baseline;
 - do not start a public-facing campaign result, claim, or article task before
@@ -101,11 +100,10 @@ Historical context:
 ## Recommended Tasks
 
 - `TASK-0223` and `TASK-0224` have delivered the dataset/schema and holdout
-  foundation; close them out before unblocking downstream benchmark work;
-- after `TASK-0223` closeout, run `TASK-0275` if a small source-manifest seed
-  is needed before the baseline benchmark;
-- only after the dataset and holdout foundation is closed out, run
-  `TASK-0225` for the first baseline residual benchmark;
+  foundation;
+- run `TASK-0275` if a small source-manifest seed is needed before the
+  baseline benchmark;
+- run `TASK-0225` for the first baseline residual benchmark;
 - after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
   `TASK-0277` to review readiness before the autonomous pilot;
 - run `TASK-0226` only after a maintainer-approved baseline exists.
