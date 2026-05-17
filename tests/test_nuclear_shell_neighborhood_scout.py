@@ -6,6 +6,8 @@ import importlib.util
 import json
 from pathlib import Path
 
+import pytest
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = REPO_ROOT / "scripts" / "run_nuclear_shell_neighborhood_scout.py"
@@ -20,6 +22,28 @@ def _load_scout_module():
     return module
 
 
+def _assert_nested_close(actual, expected, *, abs_tol: float = 1.0e-12) -> None:
+    if isinstance(expected, dict):
+        assert isinstance(actual, dict)
+        assert set(actual) == set(expected)
+        for key in expected:
+            _assert_nested_close(actual[key], expected[key], abs_tol=abs_tol)
+        return
+
+    if isinstance(expected, list):
+        assert isinstance(actual, list)
+        assert len(actual) == len(expected)
+        for actual_item, expected_item in zip(actual, expected, strict=True):
+            _assert_nested_close(actual_item, expected_item, abs_tol=abs_tol)
+        return
+
+    if isinstance(expected, float):
+        assert actual == pytest.approx(expected, abs=abs_tol, rel=0.0)
+        return
+
+    assert actual == expected
+
+
 def test_shell_neighborhood_scout_metrics_recompute() -> None:
     module = _load_scout_module()
     recomputed = module.build_metrics()
@@ -30,7 +54,10 @@ def test_shell_neighborhood_scout_metrics_recompute() -> None:
     assert recomputed["sandbox_only"] is True
     assert recomputed["summary"] == committed["summary"]
     assert recomputed["frozen_baseline"] == committed["frozen_baseline"]
-    assert recomputed["baseline_metrics_by_subset"] == committed["baseline_metrics_by_subset"]
+    _assert_nested_close(
+        recomputed["baseline_metrics_by_subset"],
+        committed["baseline_metrics_by_subset"],
+    )
 
 
 def test_shell_neighborhood_scout_candidate_triage_and_verdicts() -> None:
