@@ -49,7 +49,6 @@ one PR.
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (`scientific_tooling`, priority `high`, difficulty `high`)
 - `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0278` — Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
@@ -68,6 +67,7 @@ None.
 - `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0267` — Add git merge to Claude Code permissions allowlist (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (`contributor_experience`, priority `low`, difficulty `low`)
+- `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0272` - Audit nuclear prediction registry breadth after feature-term wave (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0273` - Add nuclear prediction synthetic reveal dry-run harness (`scientific_tooling`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0278` - Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0279` - Run nuclear neutron-rich variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_physics`)
@@ -21,3 +20,4 @@ None.
 - `TASK-0223` - Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0224` - Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0265` - Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0272` - Audit nuclear prediction registry breadth after feature-term wave (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
