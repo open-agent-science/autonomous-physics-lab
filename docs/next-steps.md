@@ -110,19 +110,19 @@ The nuclear-mass surface campaign has now landed its first complete benchmark
 and prediction-registration wave: campaign scaffold, dataset layer, baseline
 residual benchmark, structured holdout protocol, sandbox pilots, a deterministic
 prediction factory, reusable target batches, and selected prospective registry
-entries through `PRED-0050`.
+entries through `PRED-0062`.
 
 The next scientific goal is not to multiply registry entries casually. It is to
-use the new factory surface to review richer feature-term candidates and to
-prepare a reveal protocol before any future measurement comparison:
+audit the registry, dry-run the reveal machinery on synthetic sources, and let
+Quantum Size Effects become the next near-term benchmark-result surface:
 
-- run a feature-term slate with shell, magic-number, neutron-excess, and
-  coefficient-composed variants;
-- review target-batch coverage and feature-term sensitivity before registry
-  selection;
-- freeze only a small selected feature-term subset after maintainer review;
-- define how future reveal tasks must pin sources, audit no-peek state, handle
-  partial reveals, preserve null results, and avoid claim promotion.
+- audit coverage across coefficient-only, manual, and feature-term prediction
+  families;
+- test reveal protocol mechanics on synthetic/fake data only;
+- preserve the no-peek boundary while waiting for future reviewed
+  measurements;
+- avoid adding more prediction variants until coverage and reveal-readiness
+  issues are understood.
 
 Recommended nuclear validation queue for parallel agents:
 
@@ -157,10 +157,15 @@ Recommended nuclear validation queue for parallel agents:
   reviewed target batches instead of copying ad hoc target lists
 - `TASK-0251` selected factory registry wave: now merged as `PRED-0041`
   through `PRED-0050`, using reviewed coefficient-transform slate-001
-- `TASK-0265` selected feature-term registry wave: ready after reviewed
-  slate-002 and the reveal protocol; register only a small selected subset,
-  leaving extreme-sensitivity candidates deferred unless explicitly approved
-  as stress controls
+- `TASK-0265` selected feature-term registry wave: merged in PR #367 as
+  `PRED-0051` through `PRED-0062`; still needs routine task closeout if the
+  generated board shows `REVIEW_READY`
+- `TASK-0272` registry coverage audit: next primary Nuclear audit task before
+  adding more variants
+- `TASK-0273` synthetic reveal dry-run harness: test reveal protocol mechanics
+  without real measurement data
+- `TASK-0274` registry status/evidence summary: make the post-`PRED-0062`
+  campaign state legible without validation claims
 - Future reveal or reveal-scoring tasks must follow the `TASK-0266` protocol
   checklist instead of ad hoc source comparison
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
@@ -191,8 +196,9 @@ Current nuclear-mass baseline state:
 - prospective prediction requires a registry entry created before later
   measurements are compared;
 - the current prospective registry includes `PRED-0001` through `PRED-0030`,
-  `PRED-0037`, `PRED-0038`, and selected factory entries `PRED-0041` through
-  `PRED-0050`.
+  `PRED-0037`, `PRED-0038`, selected coefficient-transform factory entries
+  `PRED-0041` through `PRED-0050`, and selected feature-term entries
+  `PRED-0051` through `PRED-0062`.
 
 The nuclear queue should stay conservative:
 
@@ -214,10 +220,15 @@ The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:
 
 - `TASK-0222` has created the Quantum Size Effects campaign scaffold;
-- `TASK-0223` and `TASK-0224` are now ready and may run in parallel as the
-  dataset/source-manifest and holdout-protocol foundation;
-- `TASK-0225` and `TASK-0226` remain blocked until the dataset and holdout
-  surfaces exist;
+- `TASK-0223` and `TASK-0224` have delivered the dataset/source-manifest and
+  holdout-protocol foundation; closeout should mark them `DONE` before
+  downstream unblocks;
+- `TASK-0275` is queued as a source-manifest seed after `TASK-0223` closeout;
+- `TASK-0225` remains blocked until the dataset and holdout surfaces are
+  formally closed out;
+- `TASK-0276` and `TASK-0277` are queued after `TASK-0225` for visualization
+  and readiness review before the autonomous pilot;
+- `TASK-0226` remains blocked until the baseline is reviewed;
 - `TASK-0227` has landed as a small lepton g-2 cross-observable falsifier and
   remains a guardrail result, not a flagship campaign.
 
