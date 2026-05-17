@@ -1,0 +1,953 @@
+task_id: TASK-0272
+audit_scope:
+  registry_path: prediction_registry/nuclear_masses/
+  entry_count: 54
+  target_row_count: 213
+  lowest_prediction_id: PRED-0001
+  highest_prediction_id: PRED-0062
+  id_gaps:
+  - PRED-0031
+  - PRED-0032
+  - PRED-0033
+  - PRED-0034
+  - PRED-0035
+  - PRED-0036
+  - PRED-0039
+  - PRED-0040
+  live_external_fetch_allowed_values:
+  - false
+source_task_counts:
+- label: TASK-0205
+  count: 20
+- label: TASK-0265
+  count: 12
+- label: TASK-0251
+  count: 10
+- label: TASK-0228
+  count: 2
+- label: TASK-0229
+  count: 2
+- label: TASK-0230
+  count: 2
+- label: TASK-0231
+  count: 2
+- label: TASK-0232
+  count: 2
+- label: TASK-0236
+  count: 2
+quantity_counts:
+- label: mass_excess_mev
+  count: 54
+transform_class_counts:
+- label: manual_pairing_or_odd_even_control
+  count: 13
+- label: feature_term_selected_registry
+  count: 12
+- label: factory_coefficient_transform_selected_registry
+  count: 10
+- label: baseline_or_unspecified_control
+  count: 8
+- label: smooth_or_reference_control
+  count: 7
+- label: manual_neutron_excess_or_asymmetry_control
+  count: 2
+- label: manual_shell_or_magic_control
+  count: 2
+target_batch_counts:
+- label: frontier-next-row
+  count: 14
+- label: heavy-extension-row
+  count: 4
+- label: n50-forward-row
+  count: 4
+- label: n82-neighborhood-row
+  count: 4
+- label: neutron-rich-stress
+  count: 4
+- label: nickel-isotope-chain
+  count: 4
+- label: odd-even-stress-row
+  count: 4
+- label: shell-magic-probe
+  count: 4
+- label: odd-even-probe
+  count: 3
+- label: neutron-excess-control-probe
+  count: 2
+- label: shell-magic-control-probe
+  count: 2
+- label: mid-mass-stable
+  count: 1
+- label: null-pairing-control-probe
+  count: 1
+- label: odd-even-pairing-sensitivity-probe
+  count: 1
+- label: sn-chain-isotope-extrapolation
+  count: 1
+- label: zn-chain-asymmetry-sensitivity-probe
+  count: 1
+domain_coverage:
+- domain: frontier
+  entry_count: 18
+  prediction_ids:
+  - PRED-0001
+  - PRED-0004
+  - PRED-0006
+  - PRED-0009
+  - PRED-0011
+  - PRED-0014
+  - PRED-0016
+  - PRED-0019
+  - PRED-0021
+  - PRED-0022
+  - PRED-0037
+  - PRED-0038
+  - PRED-0041
+  - PRED-0042
+  - PRED-0047
+  - PRED-0048
+  - PRED-0049
+  - PRED-0050
+- domain: shell_magic
+  entry_count: 16
+  prediction_ids:
+  - PRED-0002
+  - PRED-0003
+  - PRED-0007
+  - PRED-0008
+  - PRED-0012
+  - PRED-0013
+  - PRED-0017
+  - PRED-0018
+  - PRED-0025
+  - PRED-0026
+  - PRED-0051
+  - PRED-0052
+  - PRED-0053
+  - PRED-0054
+  - PRED-0059
+  - PRED-0060
+- domain: neutron_rich
+  entry_count: 23
+  prediction_ids:
+  - PRED-0001
+  - PRED-0006
+  - PRED-0011
+  - PRED-0016
+  - PRED-0021
+  - PRED-0022
+  - PRED-0027
+  - PRED-0028
+  - PRED-0030
+  - PRED-0037
+  - PRED-0038
+  - PRED-0041
+  - PRED-0042
+  - PRED-0047
+  - PRED-0048
+  - PRED-0049
+  - PRED-0050
+  - PRED-0055
+  - PRED-0056
+  - PRED-0057
+  - PRED-0058
+  - PRED-0061
+  - PRED-0062
+- domain: isotope_chain
+  entry_count: 6
+  prediction_ids:
+  - PRED-0029
+  - PRED-0030
+  - PRED-0059
+  - PRED-0060
+  - PRED-0061
+  - PRED-0062
+- domain: odd_even
+  entry_count: 18
+  prediction_ids:
+  - PRED-0005
+  - PRED-0010
+  - PRED-0011
+  - PRED-0012
+  - PRED-0013
+  - PRED-0014
+  - PRED-0015
+  - PRED-0016
+  - PRED-0017
+  - PRED-0018
+  - PRED-0019
+  - PRED-0020
+  - PRED-0023
+  - PRED-0024
+  - PRED-0038
+  - PRED-0044
+  - PRED-0045
+  - PRED-0046
+- domain: mid_mass
+  entry_count: 1
+  prediction_ids:
+  - PRED-0043
+repeated_target_nuclides:
+- nuclide_id: Ni-76
+  entry_count: 18
+  prediction_ids:
+  - PRED-0001
+  - PRED-0006
+  - PRED-0011
+  - PRED-0016
+  - PRED-0021
+  - PRED-0022
+  - PRED-0037
+  - PRED-0038
+  - PRED-0041
+  - PRED-0042
+  - PRED-0047
+  - PRED-0048
+  - PRED-0049
+  - PRED-0050
+  - PRED-0059
+  - PRED-0060
+  - PRED-0061
+  - PRED-0062
+  target_batches:
+  - frontier-next-row
+  - nickel-isotope-chain
+- nuclide_id: Ca-55
+  entry_count: 14
+  prediction_ids:
+  - PRED-0001
+  - PRED-0006
+  - PRED-0011
+  - PRED-0016
+  - PRED-0021
+  - PRED-0022
+  - PRED-0037
+  - PRED-0038
+  - PRED-0041
+  - PRED-0042
+  - PRED-0047
+  - PRED-0048
+  - PRED-0049
+  - PRED-0050
+  target_batches:
+  - frontier-next-row
+- nuclide_id: Ga-85
+  entry_count: 14
+  prediction_ids:
+  - PRED-0001
+  - PRED-0006
+  - PRED-0011
+  - PRED-0016
+  - PRED-0021
+  - PRED-0022
+  - PRED-0037
+  - PRED-0038
+  - PRED-0041
+  - PRED-0042
+  - PRED-0047
+  - PRED-0048
+  - PRED-0049
+  - PRED-0050
+  target_batches:
+  - frontier-next-row
+- nuclide_id: Zn-80
+  entry_count: 14
+  prediction_ids:
+  - PRED-0001
+  - PRED-0006
+  - PRED-0011
+  - PRED-0016
+  - PRED-0021
+  - PRED-0022
+  - PRED-0037
+  - PRED-0038
+  - PRED-0041
+  - PRED-0042
+  - PRED-0047
+  - PRED-0048
+  - PRED-0049
+  - PRED-0050
+  target_batches:
+  - frontier-next-row
+- nuclide_id: Ni-82
+  entry_count: 10
+  prediction_ids:
+  - PRED-0027
+  - PRED-0028
+  - PRED-0055
+  - PRED-0056
+  - PRED-0057
+  - PRED-0058
+  - PRED-0059
+  - PRED-0060
+  - PRED-0061
+  - PRED-0062
+  target_batches:
+  - neutron-excess-control-probe
+  - neutron-rich-stress
+  - nickel-isotope-chain
+- nuclide_id: Co-81
+  entry_count: 6
+  prediction_ids:
+  - PRED-0027
+  - PRED-0028
+  - PRED-0055
+  - PRED-0056
+  - PRED-0057
+  - PRED-0058
+  target_batches:
+  - neutron-excess-control-probe
+  - neutron-rich-stress
+- nuclide_id: Cu-79
+  entry_count: 6
+  prediction_ids:
+  - PRED-0025
+  - PRED-0026
+  - PRED-0051
+  - PRED-0052
+  - PRED-0053
+  - PRED-0054
+  target_batches:
+  - shell-magic-control-probe
+  - shell-magic-probe
+- nuclide_id: Kr-86
+  entry_count: 6
+  prediction_ids:
+  - PRED-0025
+  - PRED-0026
+  - PRED-0051
+  - PRED-0052
+  - PRED-0053
+  - PRED-0054
+  target_batches:
+  - shell-magic-control-probe
+  - shell-magic-probe
+- nuclide_id: Mg-40
+  entry_count: 6
+  prediction_ids:
+  - PRED-0027
+  - PRED-0028
+  - PRED-0055
+  - PRED-0056
+  - PRED-0057
+  - PRED-0058
+  target_batches:
+  - neutron-excess-control-probe
+  - neutron-rich-stress
+- nuclide_id: Na-39
+  entry_count: 6
+  prediction_ids:
+  - PRED-0027
+  - PRED-0028
+  - PRED-0055
+  - PRED-0056
+  - PRED-0057
+  - PRED-0058
+  target_batches:
+  - neutron-excess-control-probe
+  - neutron-rich-stress
+- nuclide_id: Te-134
+  entry_count: 6
+  prediction_ids:
+  - PRED-0025
+  - PRED-0026
+  - PRED-0051
+  - PRED-0052
+  - PRED-0053
+  - PRED-0054
+  target_batches:
+  - shell-magic-control-probe
+  - shell-magic-probe
+- nuclide_id: Xe-138
+  entry_count: 6
+  prediction_ids:
+  - PRED-0025
+  - PRED-0026
+  - PRED-0051
+  - PRED-0052
+  - PRED-0053
+  - PRED-0054
+  target_batches:
+  - shell-magic-control-probe
+  - shell-magic-probe
+- nuclide_id: Co-59
+  entry_count: 5
+  prediction_ids:
+  - PRED-0023
+  - PRED-0024
+  - PRED-0044
+  - PRED-0045
+  - PRED-0046
+  target_batches:
+  - null-pairing-control-probe
+  - odd-even-pairing-sensitivity-probe
+  - odd-even-probe
+- nuclide_id: Cu-64
+  entry_count: 5
+  prediction_ids:
+  - PRED-0023
+  - PRED-0024
+  - PRED-0044
+  - PRED-0045
+  - PRED-0046
+  target_batches:
+  - null-pairing-control-probe
+  - odd-even-pairing-sensitivity-probe
+  - odd-even-probe
+- nuclide_id: Ni-60
+  entry_count: 5
+  prediction_ids:
+  - PRED-0023
+  - PRED-0024
+  - PRED-0044
+  - PRED-0045
+  - PRED-0046
+  target_batches:
+  - null-pairing-control-probe
+  - odd-even-pairing-sensitivity-probe
+  - odd-even-probe
+- nuclide_id: As-90
+  entry_count: 4
+  prediction_ids:
+  - PRED-0002
+  - PRED-0007
+  - PRED-0012
+  - PRED-0017
+  target_batches:
+  - n50-forward-row
+- nuclide_id: Br-94
+  entry_count: 4
+  prediction_ids:
+  - PRED-0002
+  - PRED-0007
+  - PRED-0012
+  - PRED-0017
+  target_batches:
+  - n50-forward-row
+- nuclide_id: Ca-56
+  entry_count: 4
+  prediction_ids:
+  - PRED-0005
+  - PRED-0010
+  - PRED-0015
+  - PRED-0020
+  target_batches:
+  - odd-even-stress-row
+- nuclide_id: Cd-126
+  entry_count: 4
+  prediction_ids:
+  - PRED-0003
+  - PRED-0008
+  - PRED-0013
+  - PRED-0018
+  target_batches:
+  - n82-neighborhood-row
+- nuclide_id: Cs-148
+  entry_count: 4
+  prediction_ids:
+  - PRED-0004
+  - PRED-0009
+  - PRED-0014
+  - PRED-0019
+  target_batches:
+  - heavy-extension-row
+- nuclide_id: Ge-88
+  entry_count: 4
+  prediction_ids:
+  - PRED-0002
+  - PRED-0007
+  - PRED-0012
+  - PRED-0017
+  target_batches:
+  - n50-forward-row
+- nuclide_id: I-144
+  entry_count: 4
+  prediction_ids:
+  - PRED-0004
+  - PRED-0009
+  - PRED-0014
+  - PRED-0019
+  target_batches:
+  - heavy-extension-row
+- nuclide_id: In-135
+  entry_count: 4
+  prediction_ids:
+  - PRED-0003
+  - PRED-0008
+  - PRED-0013
+  - PRED-0018
+  target_batches:
+  - n82-neighborhood-row
+- nuclide_id: K-55
+  entry_count: 4
+  prediction_ids:
+  - PRED-0005
+  - PRED-0010
+  - PRED-0015
+  - PRED-0020
+  target_batches:
+  - odd-even-stress-row
+- nuclide_id: Ni-78
+  entry_count: 4
+  prediction_ids:
+  - PRED-0059
+  - PRED-0060
+  - PRED-0061
+  - PRED-0062
+  target_batches:
+  - nickel-isotope-chain
+- nuclide_id: Ni-80
+  entry_count: 4
+  prediction_ids:
+  - PRED-0059
+  - PRED-0060
+  - PRED-0061
+  - PRED-0062
+  target_batches:
+  - nickel-isotope-chain
+- nuclide_id: Sb-138
+  entry_count: 4
+  prediction_ids:
+  - PRED-0003
+  - PRED-0008
+  - PRED-0013
+  - PRED-0018
+  target_batches:
+  - n82-neighborhood-row
+- nuclide_id: Sc-62
+  entry_count: 4
+  prediction_ids:
+  - PRED-0005
+  - PRED-0010
+  - PRED-0015
+  - PRED-0020
+  target_batches:
+  - odd-even-stress-row
+- nuclide_id: Se-92
+  entry_count: 4
+  prediction_ids:
+  - PRED-0002
+  - PRED-0007
+  - PRED-0012
+  - PRED-0017
+  target_batches:
+  - n50-forward-row
+- nuclide_id: Sn-136
+  entry_count: 4
+  prediction_ids:
+  - PRED-0003
+  - PRED-0008
+  - PRED-0013
+  - PRED-0018
+  target_batches:
+  - n82-neighborhood-row
+- nuclide_id: Te-142
+  entry_count: 4
+  prediction_ids:
+  - PRED-0004
+  - PRED-0009
+  - PRED-0014
+  - PRED-0019
+  target_batches:
+  - heavy-extension-row
+- nuclide_id: Ti-64
+  entry_count: 4
+  prediction_ids:
+  - PRED-0005
+  - PRED-0010
+  - PRED-0015
+  - PRED-0020
+  target_batches:
+  - odd-even-stress-row
+- nuclide_id: Xe-146
+  entry_count: 4
+  prediction_ids:
+  - PRED-0004
+  - PRED-0009
+  - PRED-0014
+  - PRED-0019
+  target_batches:
+  - heavy-extension-row
+- nuclide_id: Ni-61
+  entry_count: 2
+  prediction_ids:
+  - PRED-0023
+  - PRED-0024
+  target_batches:
+  - null-pairing-control-probe
+  - odd-even-pairing-sensitivity-probe
+reveal_readiness_flags:
+- prediction_id: PRED-0001
+  task_id: TASK-0205
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0002
+  task_id: TASK-0205
+  target_batch: n50-forward-row
+  model_id: RESULT-0015::model_fitted_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0003
+  task_id: TASK-0205
+  target_batch: n82-neighborhood-row
+  model_id: RESULT-0015::model_fitted_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0004
+  task_id: TASK-0205
+  target_batch: heavy-extension-row
+  model_id: RESULT-0015::model_fitted_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0005
+  task_id: TASK-0205
+  target_batch: odd-even-stress-row
+  model_id: RESULT-0015::model_fitted_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0006
+  task_id: TASK-0205
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_reference_semi_empirical
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0007
+  task_id: TASK-0205
+  target_batch: n50-forward-row
+  model_id: RESULT-0015::model_reference_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0008
+  task_id: TASK-0205
+  target_batch: n82-neighborhood-row
+  model_id: RESULT-0015::model_reference_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0009
+  task_id: TASK-0205
+  target_batch: heavy-extension-row
+  model_id: RESULT-0015::model_reference_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0010
+  task_id: TASK-0205
+  target_batch: odd-even-stress-row
+  model_id: RESULT-0015::model_reference_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0011
+  task_id: TASK-0205
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_reference_liquid_drop_no_pairing
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0012
+  task_id: TASK-0205
+  target_batch: n50-forward-row
+  model_id: RESULT-0015::model_reference_liquid_drop_no_pairing
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0013
+  task_id: TASK-0205
+  target_batch: n82-neighborhood-row
+  model_id: RESULT-0015::model_reference_liquid_drop_no_pairing
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0014
+  task_id: TASK-0205
+  target_batch: heavy-extension-row
+  model_id: RESULT-0015::model_reference_liquid_drop_no_pairing
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0015
+  task_id: TASK-0205
+  target_batch: odd-even-stress-row
+  model_id: RESULT-0015::model_reference_liquid_drop_no_pairing
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0016
+  task_id: TASK-0205
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::pairing_ablation_zero
+  flags:
+  - manual_lane_source_review
+  - near_null_or_ablation_control
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0017
+  task_id: TASK-0205
+  target_batch: n50-forward-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::pairing_ablation_zero
+  flags:
+  - manual_lane_source_review
+  - near_null_or_ablation_control
+- prediction_id: PRED-0018
+  task_id: TASK-0205
+  target_batch: n82-neighborhood-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::pairing_ablation_zero
+  flags:
+  - manual_lane_source_review
+  - near_null_or_ablation_control
+- prediction_id: PRED-0019
+  task_id: TASK-0205
+  target_batch: heavy-extension-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::pairing_ablation_zero
+  flags:
+  - manual_lane_source_review
+  - near_null_or_ablation_control
+- prediction_id: PRED-0020
+  task_id: TASK-0205
+  target_batch: odd-even-stress-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::pairing_ablation_zero
+  flags:
+  - manual_lane_source_review
+  - near_null_or_ablation_control
+- prediction_id: PRED-0021
+  task_id: TASK-0228
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_reference_blend_50_50
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0022
+  task_id: TASK-0228
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::volume_perturbation_plus_one_percent
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0023
+  task_id: TASK-0229
+  target_batch: odd-even-pairing-sensitivity-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::pairing_plus_ten_percent
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0024
+  task_id: TASK-0229
+  target_batch: null-pairing-control-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::null_pairing_control
+  flags:
+  - manual_lane_source_review
+  - near_null_or_ablation_control
+- prediction_id: PRED-0025
+  task_id: TASK-0230
+  target_batch: shell-magic-control-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell_gaussian_proximity_zn_negative_control
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0026
+  task_id: TASK-0230
+  target_batch: shell-magic-control-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell_gaussian_proximity_neutron_only_negative_control
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0027
+  task_id: TASK-0231
+  target_batch: neutron-excess-control-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::quartic_asymmetry_negative_control
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0028
+  task_id: TASK-0231
+  target_batch: neutron-excess-control-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetric_neutron_excess_near_null_control
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0029
+  task_id: TASK-0232
+  target_batch: sn-chain-isotope-extrapolation
+  model_id: RESULT-0015::model_fitted_semi_empirical
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0030
+  task_id: TASK-0232
+  target_batch: zn-chain-asymmetry-sensitivity-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetry_plus_fifteen_percent
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0037
+  task_id: TASK-0236
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::coulomb_z_squared_form
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0038
+  task_id: TASK-0236
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::pairing_inverse_a_scaling
+  flags:
+  - manual_lane_source_review
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0041
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::blend-with-reference-10-frontier
+  flags:
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0042
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::blend-with-reference-50-frontier
+  flags:
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0046
+  task_id: TASK-0251
+  target_batch: odd-even-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::pairing-zero-ablation-odd-even
+  flags:
+  - near_null_or_ablation_control
+- prediction_id: PRED-0047
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::coulomb-scale-plus-1pct-frontier
+  flags:
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0048
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::coulomb-scale-minus-1pct-frontier
+  flags:
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0049
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetry-scale-plus-1pct-frontier
+  flags:
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0050
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetry-scale-minus-1pct-frontier
+  flags:
+  - high_reuse_target_batch
+  - high_reuse_target_nuclide
+- prediction_id: PRED-0051
+  task_id: TASK-0265
+  target_batch: shell-magic-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-zn-reviewed-coefficients-shell-magic
+  flags:
+  - feature_term_selected_wave
+- prediction_id: PRED-0052
+  task_id: TASK-0265
+  target_batch: shell-magic-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-zn-sign-inverted-shell-magic
+  flags:
+  - feature_term_selected_wave
+- prediction_id: PRED-0053
+  task_id: TASK-0265
+  target_batch: shell-magic-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-n-reviewed-coefficient-shell-magic
+  flags:
+  - feature_term_selected_wave
+- prediction_id: PRED-0054
+  task_id: TASK-0265
+  target_batch: shell-magic-probe
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-n-sign-inverted-shell-magic
+  flags:
+  - feature_term_selected_wave
+- prediction_id: PRED-0055
+  task_id: TASK-0265
+  target_batch: neutron-rich-stress
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetric-neutron-excess-plus-neutron-rich
+  flags:
+  - high_reuse_target_nuclide
+  - feature_term_selected_wave
+- prediction_id: PRED-0056
+  task_id: TASK-0265
+  target_batch: neutron-rich-stress
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetric-neutron-excess-minus-neutron-rich
+  flags:
+  - high_reuse_target_nuclide
+  - feature_term_selected_wave
+- prediction_id: PRED-0057
+  task_id: TASK-0265
+  target_batch: neutron-rich-stress
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetric-neutron-excess-cubic-plus-neutron-rich
+  flags:
+  - high_reuse_target_nuclide
+  - feature_term_selected_wave
+- prediction_id: PRED-0058
+  task_id: TASK-0265
+  target_batch: neutron-rich-stress
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetric-neutron-excess-cubic-minus-neutron-rich
+  flags:
+  - high_reuse_target_nuclide
+  - feature_term_selected_wave
+- prediction_id: PRED-0059
+  task_id: TASK-0265
+  target_batch: nickel-isotope-chain
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-n-reviewed-nickel-chain
+  flags:
+  - high_reuse_target_nuclide
+  - feature_term_selected_wave
+- prediction_id: PRED-0060
+  task_id: TASK-0265
+  target_batch: nickel-isotope-chain
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-n-sign-inverted-nickel-chain
+  flags:
+  - high_reuse_target_nuclide
+  - feature_term_selected_wave
+- prediction_id: PRED-0061
+  task_id: TASK-0265
+  target_batch: nickel-isotope-chain
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetric-neutron-excess-plus-nickel-chain
+  flags:
+  - high_reuse_target_nuclide
+  - feature_term_selected_wave
+- prediction_id: PRED-0062
+  task_id: TASK-0265
+  target_batch: nickel-isotope-chain
+  model_id: RESULT-0015::model_fitted_semi_empirical::asymmetric-neutron-excess-minus-nickel-chain
+  flags:
+  - high_reuse_target_nuclide
+  - feature_term_selected_wave
+coverage_gaps:
+- domain: frontier
+  status: covered
+  entry_count: 18
+- domain: shell_magic
+  status: covered
+  entry_count: 16
+- domain: neutron_rich
+  status: covered
+  entry_count: 23
+- domain: isotope_chain
+  status: covered
+  entry_count: 6
+- domain: odd_even
+  status: covered
+  entry_count: 18
+- domain: mid_mass
+  status: thin
+  entry_count: 1
+- domain: frontier
+  status: overrepresented_target_batch
+  entry_count: 14
+- domain: mid_mass
+  status: missing_factory_feature_term_registry_batch
+  entry_count: 0
+limitations:
+- Coverage is inferred from committed registry metadata and target labels only.
+- Repeated target nuclides are review signals, not automatic leakage or quality errors.
+- No live external measurements are fetched or compared by this audit.
+- Reveal eligibility still requires a future source manifest and no-peek audit.

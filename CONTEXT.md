@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-16 21:41 UTC
+Generated: 2026-05-17 06:04 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2130,10 +2130,13 @@ one PR.
 
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (`scientific_tooling`, priority `high`, difficulty `high`)
+- `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`)
+- `TASK-0278` — Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0279` — Run nuclear neutron-rich variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0280` — Run nuclear pairing and odd-even variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -2141,7 +2144,10 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0223` — Add quantum-dot size-effect dataset schema and source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0224` — Define quantum-dot size-effect holdout protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0263` — Add worktree-per-agent helpers and branch precondition check (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0267` — Add git merge to Claude Code permissions allowlist (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (`contributor_experience`, priority `low`, difficulty `low`)
 
@@ -2389,6 +2395,9 @@ None.
 - `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0275` — Curate quantum-size source manifest seed after schema (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
+- `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 
 ## REJECTED
 
