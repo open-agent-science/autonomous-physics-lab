@@ -220,10 +220,12 @@ The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:
 
 - `TASK-0222` has created the Quantum Size Effects campaign scaffold;
-- `TASK-0223` and `TASK-0224` are now ready and may run in parallel as the
-  dataset/source-manifest and holdout-protocol foundation;
-- `TASK-0275` is queued as a source-manifest seed after `TASK-0223`;
-- `TASK-0225` remains blocked until the dataset and holdout surfaces exist;
+- `TASK-0223` and `TASK-0224` have delivered the dataset/source-manifest and
+  holdout-protocol foundation; closeout should mark them `DONE` before
+  downstream unblocks;
+- `TASK-0275` is queued as a source-manifest seed after `TASK-0223` closeout;
+- `TASK-0225` remains blocked until the dataset and holdout surfaces are
+  formally closed out;
 - `TASK-0276` and `TASK-0277` are queued after `TASK-0225` for visualization
   and readiness review before the autonomous pilot;
 - `TASK-0226` remains blocked until the baseline is reviewed;
