@@ -33,6 +33,7 @@ SCHEMA_FILE_BY_KIND = {
     "nuclear_mass_prediction": "nuclear_mass_prediction.schema.json",
     "post_ame2020_holdout": "post_ame2020_holdout.schema.json",
     "post_ame2020_sources": "post_ame2020_sources.schema.json",
+    "quantum_dot_size_effect": "quantum_dot_size_effect.schema.json",
 }
 KIND_BY_DIRECTORY = {
     "claims": "claim",
@@ -53,6 +54,7 @@ KIND_BY_DIRECTORY = {
     "microtask_runs": "microtask_run",
     "nuclear_masses": "nuclear_mass_dataset",
     "prediction_registry": "nuclear_mass_prediction",
+    "quantum_dots": "quantum_dot_size_effect",
 }
 
 
