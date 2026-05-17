@@ -36,8 +36,9 @@ Immediate work should stay audit-first:
 - run only bounded sandbox or factory lanes with explicit negative controls;
 - use the prediction registry only for before-measurement comparisons, with
   selected entries frozen before reveal;
-- prefer feature-term factory slates and reveal protocol work before
-  another broad sandbox batch;
+- prefer registry coverage audit, synthetic reveal dry-runs, and conservative
+  evidence summaries before adding more model variants or running any future
+  comparison;
 - keep all outputs framed as validation, replay, audit, or sandbox evidence.
 
 This track is appropriate for active tasks because it now has datasets,

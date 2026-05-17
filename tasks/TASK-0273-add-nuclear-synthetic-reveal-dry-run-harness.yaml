@@ -1,0 +1,53 @@
+id: TASK-0273
+title: "Add nuclear prediction synthetic reveal dry-run harness"
+type: scientific_tooling
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Exercise the reveal protocol without touching live or future measurement data."
+  - "Catch no-peek, eligibility, partial-reveal, and reporting bugs before any real reveal comparison exists."
+  - "Keep prospective predictions frozen while making the future reveal workflow reproducible."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "prediction_registry/nuclear_masses/"
+    - "docs/prediction-registry-policy.md"
+    - "physics_lab/schemas/nuclear_mass_prediction.schema.json"
+  planning_context: >
+    The nuclear registry now includes selected coefficient and feature-term
+    predictions through PRED-0062. Real reveal comparisons must wait for a
+    later reviewed measurement source. This task creates a synthetic dry-run
+    harness using fake or toy source rows so the protocol can be tested without
+    leaking, fetching, or scoring real measurements.
+
+requirements:
+  - "Use synthetic or toy measurement rows only; they must be clearly marked as fake and must not be confused with real nuclear data."
+  - "Implement or document a dry-run pipeline for registry snapshot, eligibility screening, partial reveal handling, comparison table generation, and conservative verdict wording."
+  - "Include at least one eligible synthetic row, one unrevealed target, and one ineligible row with an explicit exclusion reason."
+  - "Never compare committed PRED entries against real live measurements in this task."
+  - "Do not edit frozen prediction registry entries."
+  - "Add tests for eligibility labels, partial reveal coverage, no mutation of registry inputs, and synthetic-source labeling."
+
+accepted_outputs:
+  - "physics_lab/engines/nuclear_prediction_reveal.py or an equivalently scoped helper module"
+  - "examples/nuclear_prediction_synthetic_reveal.yaml or a documented synthetic fixture"
+  - "docs/reviews/nuclear-prediction-synthetic-reveal-dry-run.md"
+  - "tests/test_nuclear_prediction_reveal.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_prediction_reveal.py"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
