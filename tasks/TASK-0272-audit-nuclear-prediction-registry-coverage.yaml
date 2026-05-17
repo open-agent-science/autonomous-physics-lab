@@ -1,0 +1,53 @@
+id: TASK-0272
+title: "Audit nuclear prediction registry breadth after feature-term wave"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the expanded PRED-0001..PRED-0062 registry into an auditable map before adding more prediction variants."
+  - "Identify coverage gaps, duplicate target pressure, model-family imbalance, and reveal-readiness risks."
+  - "Keep Nuclear Mass Surface in audit mode rather than prediction-spam mode."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/"
+    - "docs/reviews/nuclear-prediction-factory-feature-term-selected-registry-001.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/prediction-registry-policy.md"
+  planning_context: >
+    TASK-0265 has registered selected feature-term predictions through
+    PRED-0062. Before creating any new prediction variants or reveal tasks, the
+    campaign needs a registry-wide coverage audit: which model families and
+    target batches are represented, which nuclides repeat, where target
+    coverage is thin, and which entries need careful no-peek or reveal
+    eligibility review.
+
+requirements:
+  - "Audit all committed nuclear prediction registry entries from PRED-0001 through the current highest id."
+  - "Group entries by model family, source slate/manual lane, target batch, quantity, and feature-term/coefficient-transform class when metadata allows."
+  - "List repeated nuclides and target batches across entries, but do not treat repetition as an error without context."
+  - "Identify coverage gaps for shell/magic, neutron-rich, isotope-chain, odd-even, mid-mass, and frontier behavior."
+  - "Flag entries that need extra reveal eligibility care, such as near-null controls, extreme-sensitivity controls, or manually registered lanes."
+  - "Do not fetch live measurements, reveal predictions, score entries, or promote claims."
+  - "If adding a helper script, keep it deterministic and covered by tests; otherwise document manual audit method and limitations."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  - "optional data/nuclear_masses/nuclear_prediction_registry_coverage.yaml or equivalent machine-readable summary"
+  - "updated tests if code or machine-readable validation is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
