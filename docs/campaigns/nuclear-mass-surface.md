@@ -17,13 +17,14 @@ retrospective time-split evidence, a deterministic prediction factory, reusable
 target batches, and frozen prospective prediction registry entries.
 
 Safe contributions right now are still conservative, and should now emphasize
-registry audit, reveal dry-runs, and evidence packaging:
+registry audit, reveal dry-runs, evidence packaging, and bounded scout lanes:
 
 - campaign map and guardrail wording;
 - pinned-dataset and provenance expansion work;
 - subset and holdout curation;
 - registry coverage audits across frozen `PRED-*` entries;
 - synthetic reveal dry-runs that use fake data only;
+- sandbox-only variant scout lanes with disjoint hypothesis families;
 - conservative status summaries that separate baseline evidence, sandbox
   evidence, and unvalidated prospective predictions;
 - limitation notes that keep the campaign conservative.
@@ -115,6 +116,9 @@ Start here:
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [TASK-0272](../../tasks/TASK-0272-audit-nuclear-prediction-registry-coverage.yaml)
 - [TASK-0273](../../tasks/TASK-0273-add-nuclear-synthetic-reveal-dry-run-harness.yaml)
+- [TASK-0278](../../tasks/TASK-0278-run-nuclear-shell-neighborhood-variant-scout.yaml)
+- [TASK-0279](../../tasks/TASK-0279-run-nuclear-neutron-rich-variant-scout.yaml)
+- [TASK-0280](../../tasks/TASK-0280-run-nuclear-pairing-odd-even-variant-scout.yaml)
 
 ## Open Questions
 
@@ -126,6 +130,8 @@ Start here:
   while preserving the no-peek boundary?
 - Which existing manual blocked lanes should remain fallback references versus
   being represented only through factory slates?
+- Which scout-lane candidates, if any, deserve later maintainer-selected
+  registry entries after audit and review?
 
 ## Recommended Tasks
 
@@ -133,6 +139,9 @@ Start here:
 - `TASK-0273` — build a synthetic reveal dry-run harness without real
   measurement data.
 - `TASK-0274` — summarize the registry/evidence state after `PRED-0062`.
+- `TASK-0278` — run a shell-neighborhood variant scout lane.
+- `TASK-0279` — run a neutron-rich/asymmetry variant scout lane.
+- `TASK-0280` — run a pairing and odd-even variant scout lane.
 - Future reveal tasks should use the `TASK-0266` protocol checklist instead of
   ad hoc source comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
