@@ -37,8 +37,8 @@ Immediate work should stay audit-first:
 - use the prediction registry only for before-measurement comparisons, with
   selected entries frozen before reveal;
 - prefer registry coverage audit, synthetic reveal dry-runs, and conservative
-  evidence summaries before adding more model variants or running any future
-  comparison;
+  evidence summaries while running only disjoint sandbox scout lanes before
+  adding more frozen registry entries or running any future comparison;
 - keep all outputs framed as validation, replay, audit, or sandbox evidence.
 
 This track is appropriate for active tasks because it now has datasets,
