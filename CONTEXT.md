@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-17 06:37 UTC
+Generated: 2026-05-17 07:08 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2131,7 +2131,6 @@ one PR.
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (`scientific_tooling`, priority `high`, difficulty `high`)
 - `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0278` — Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0279` — Run nuclear neutron-rich variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
@@ -2152,6 +2151,7 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (merged)
 - `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (merged)
 - `TASK-0266` — Define nuclear prediction reveal protocol (merged)
 - `TASK-0264` — Run nuclear feature-term factory slate-002 (merged)
