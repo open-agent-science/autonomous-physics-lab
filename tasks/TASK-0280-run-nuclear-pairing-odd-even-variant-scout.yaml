@@ -1,7 +1,7 @@
 id: TASK-0280
 title: "Run nuclear pairing and odd-even variant scout"
 type: autonomous_research_pilot
-status: READY
+status: DONE
 difficulty: high
 priority: high
 
