@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0275` - Curate quantum-size source manifest seed after schema (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
+None.
