@@ -1,7 +1,7 @@
 id: TASK-0273
 title: "Add nuclear prediction synthetic reveal dry-run harness"
 type: scientific_tooling
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
