@@ -10,6 +10,7 @@
     "status",
     "description",
     "source_policy",
+    "property_kind_covered",
     "entries"
   ],
   "properties": {
@@ -132,6 +133,10 @@
             "description": "Any additional provenance, conversion, or interpretation notes. Optional."
           }
         },
+        "anyOf": [
+          { "required": ["diameter_nm"] },
+          { "required": ["radius_nm"] }
+        ],
         "if": {
           "properties": { "inclusion_status": { "const": "excluded" } }
         },
@@ -143,5 +148,49 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "property_kind_covered": { "const": "absorption_peak_eV" } } },
+      "then": {
+        "properties": {
+          "entries": {
+            "items": {
+              "properties": {
+                "property_kind": { "const": "absorption_peak_eV" }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "property_kind_covered": { "const": "emission_peak_eV" } } },
+      "then": {
+        "properties": {
+          "entries": {
+            "items": {
+              "properties": {
+                "property_kind": { "const": "emission_peak_eV" }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "property_kind_covered": { "const": "bandgap_eV" } } },
+      "then": {
+        "properties": {
+          "entries": {
+            "items": {
+              "properties": {
+                "property_kind": { "const": "bandgap_eV" }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
