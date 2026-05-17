@@ -1,7 +1,7 @@
 id: TASK-0223
 title: "Add quantum-dot size-effect dataset schema and source manifest"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
