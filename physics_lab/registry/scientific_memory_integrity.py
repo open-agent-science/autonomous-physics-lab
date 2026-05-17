@@ -166,7 +166,10 @@ def collect_scientific_memory_integrity_issues(
             )
 
     for example_path, example_payload in example_configs:
-        if example_payload.get("config_kind") == "nuclear_prediction_variant_factory":
+        if example_payload.get("config_kind") in {
+            "nuclear_prediction_variant_factory",
+            "nuclear_prediction_synthetic_reveal",
+        }:
             continue
         result_root = (example_path.parent / example_payload["result_root"]).resolve()
         expected_run_dir = result_root / str(example_payload["run_id"])
