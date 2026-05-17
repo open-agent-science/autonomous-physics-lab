@@ -27,14 +27,14 @@ This is intentionally narrower than:
 ## Planned Queue
 
 1. `TASK-0222` — campaign scaffold and guardrails (DONE).
-2. `TASK-0223` — pinned dataset schema and source manifest (READY).
-3. `TASK-0224` — holdout protocol (READY).
+2. `TASK-0223` — pinned dataset schema and source manifest.
+3. `TASK-0224` — holdout protocol.
 4. `TASK-0225` — baseline residual benchmark.
 5. `TASK-0226` — first sandbox-only autonomous hypothesis pilot.
 
-`TASK-0223` and `TASK-0224` may now run in parallel because both depend on the
-completed scaffold and touch different artifact surfaces. `TASK-0225` remains
-blocked until both foundation tasks are reviewed.
+`TASK-0223` and `TASK-0224` are foundation tasks that can be reviewed
+independently because they touch different artifact surfaces. `TASK-0225`
+remains blocked until both foundation tasks are reviewed and closed out.
 
 ## First Benchmark Shape
 
@@ -73,13 +73,21 @@ A clean failure map is still useful scientific memory.
 
 ## Holdout Outlook
 
-The default holdout plan stays planning-only until it is formalized by
-`TASK-0224`, but current likely slices include:
+The holdout protocol is formalised in `docs/quantum-size-effect-holdout-protocol.md`
+(delivered by `TASK-0224`). Key split families:
 
-- material holdout (drop one material family at training time);
-- size-range holdout (drop the largest or smallest size bin);
-- publication-source holdout (drop one source dataset);
-- composition-family holdout (drop a specific alloy or doping family).
+- material holdout (drop one material family at training time) — required for
+  the first baseline;
+- size-range holdout (drop the largest or smallest size bin) — required for
+  the first baseline;
+- publication-source holdout (drop one source dataset) — optional until at
+  least two independent sources are registered;
+- composition-family holdout (drop alloyed or doped entries) — optional until
+  sufficient composite entries exist.
+
+Every benchmark task must include at least one explicit negative control.
+Absorption, emission, and bandgap values must use separate residual axes;
+they may not be merged into a single metric.
 
 If a later curated post-baseline measurement batch becomes available, a
 time-split or source-pinned external holdout may become a stronger
