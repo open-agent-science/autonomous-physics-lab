@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quantum Dot Size-Effect Dataset",
+  "description": "Schema for pinned quantum-dot size-dependent property datasets in the Quantum Size Effects campaign. Absorption peak, emission peak, and bandgap values must use distinct property_kind values and must not be mixed under a single residual axis.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dataset_id",
+    "title",
+    "status",
+    "description",
+    "source_policy",
+    "entries"
+  ],
+  "properties": {
+    "dataset_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique dataset identifier, e.g. qd-0001-cdse-absorption."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "curated", "frozen"],
+      "description": "draft: under construction; curated: reviewed and usable for benchmarks; frozen: locked for holdout use."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_policy": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable summary of provenance, pinning, and redistribution policy for this dataset file."
+    },
+    "property_kind_covered": {
+      "type": "string",
+      "enum": ["absorption_peak_eV", "emission_peak_eV", "bandgap_eV"],
+      "description": "The single property kind targeted by this dataset file. A file must cover only one property kind to prevent residual mixing."
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entry_id",
+          "material",
+          "property_kind",
+          "value_eV",
+          "source_id",
+          "inclusion_status"
+        ],
+        "properties": {
+          "entry_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Unique entry identifier within this dataset file."
+          },
+          "material": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Canonical chemical symbol or formula, e.g. CdSe, InP, PbS, CdS, ZnSe."
+          },
+          "composition_note": {
+            "type": "string",
+            "description": "Alloy fraction, doping, or shell details when relevant. Optional."
+          },
+          "diameter_nm": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Particle diameter in nanometres. Use this or radius_nm, not both."
+          },
+          "radius_nm": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Particle radius in nanometres. Use this or diameter_nm, not both."
+          },
+          "property_kind": {
+            "type": "string",
+            "enum": ["absorption_peak_eV", "emission_peak_eV", "bandgap_eV"],
+            "description": "Explicit property semantic. Must not be mixed across entries used in the same residual computation."
+          },
+          "value_eV": {
+            "type": "number",
+            "description": "Measured or source-reported energy value in electron-volts."
+          },
+          "uncertainty_eV": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Measurement uncertainty in eV as reported by the source. Optional."
+          },
+          "temperature_K": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Measurement temperature in Kelvin if reported. Optional."
+          },
+          "measurement_type": {
+            "type": "string",
+            "enum": [
+              "optical_absorption",
+              "photoluminescence",
+              "electrical_transport",
+              "theoretical_calculation"
+            ],
+            "description": "Measurement or derivation method. Optional but encouraged."
+          },
+          "source_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Must match a source_id registered in data/quantum_dots/source_manifest.yaml."
+          },
+          "source_table_ref": {
+            "type": "string",
+            "description": "Specific table, figure, or row reference within the source. Optional but encouraged."
+          },
+          "inclusion_status": {
+            "type": "string",
+            "enum": ["included", "excluded"],
+            "description": "Whether this entry participates in benchmark computations."
+          },
+          "exclusion_reason": {
+            "type": "string",
+            "description": "Required when inclusion_status is excluded. Explains why the entry is excluded."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Any additional provenance, conversion, or interpretation notes. Optional."
+          }
+        },
+        "if": {
+          "properties": { "inclusion_status": { "const": "excluded" } }
+        },
+        "then": {
+          "required": ["exclusion_reason"]
+        },
+        "not": {
+          "required": ["diameter_nm", "radius_nm"]
+        }
+      }
+    }
+  }
+}
