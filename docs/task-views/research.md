@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0280` - Run nuclear pairing and odd-even variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+None.
