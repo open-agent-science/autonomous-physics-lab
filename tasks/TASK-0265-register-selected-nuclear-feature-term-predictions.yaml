@@ -1,7 +1,7 @@
 id: TASK-0265
 title: "Register selected nuclear feature-term factory predictions"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
