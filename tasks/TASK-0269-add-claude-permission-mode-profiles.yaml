@@ -1,13 +1,13 @@
 id: TASK-0269
-title: "Add safe and autonomous Claude permission mode profiles with setup script support"
+title: "Add autonomous Claude permission profile and setup-script opt-in"
 type: contributor_experience
 status: REVIEW_READY
 difficulty: low
 priority: medium
 
 strategy_alignment:
-  - "Make the safe-vs-autonomous Claude Code permission choice explicit instead of leaving it to ad-hoc edits of gitignored settings."
-  - "Reduce onboarding friction without weakening the default safety posture."
+  - "Preserve the existing safe onboarding default while adding an explicit, committed opt-in for fully autonomous Claude Code sessions."
+  - "Avoid ad-hoc edits of the gitignored settings.local.json for autonomous setups."
   - "Enable supervised autonomous task loops to run without per-command approval prompts."
 
 input:
@@ -25,27 +25,25 @@ input:
     a tracked shared baseline. Contributors and agents still have to hand-edit
     the gitignored local override to opt into a fully autonomous mode, which
     is friction-prone and creates inconsistent setups across worktrees.
-    This task adds committed safe and autonomous profile files and extends the
-    setup script with a --mode flag so each contributor can pick a posture
-    explicitly. The default no-flag behavior is preserved.
+    This task adds a committed autonomous profile and a --mode flag on the
+    setup script so that autonomous setups are explicit and consistent. The
+    existing default no-flag onboarding behavior is preserved unchanged.
 
 requirements:
-  - "Add .claude/profiles/safe.json with an empty allow list, relying entirely on the committed .claude/settings.json baseline."
   - "Add .claude/profiles/autonomous.json with Bash(*) plus the standard /tmp/apl-* Read/Write/Edit entries used elsewhere in the baseline."
-  - "Add .claude/profiles/README.md explaining what each profile allows, when to use it, and when not to use it."
-  - "Extend scripts/apl_setup_worktree.sh with a --mode safe|autonomous flag that writes the corresponding committed profile to .claude/settings.local.json."
-  - "Preserve the existing no-flag behavior (copy personal settings.local.json from the main repo root)."
+  - "Add .claude/profiles/README.md explaining what the autonomous profile allows, when to use it, and when not to use it."
+  - "Extend scripts/apl_setup_worktree.sh with a --mode autonomous flag that writes the committed autonomous profile to .claude/settings.local.json."
+  - "Preserve the existing no-flag behavior (copy personal settings.local.json from the main repo root) without changes."
   - "Keep the script idempotent: if .claude/settings.local.json already exists, exit 0 without overwriting in every mode."
-  - "Update CLAUDE.md First Action section to present safe mode (default), autonomous mode, and the personal allowlist behavior as three explicit options."
+  - "Update CLAUDE.md First Action section by appending the autonomous opt-in command; do not change the default safe onboarding path that runs the script without flags."
   - "Do not change the committed .claude/settings.json baseline as part of this task."
   - "Do not modify global Claude settings under ~/.claude/ as part of this task."
 
 accepted_outputs:
-  - ".claude/profiles/safe.json"
   - ".claude/profiles/autonomous.json"
   - ".claude/profiles/README.md"
-  - "scripts/apl_setup_worktree.sh (extended with --mode flag, executable)"
-  - "CLAUDE.md updated First Action section"
+  - "scripts/apl_setup_worktree.sh (extended with --mode autonomous flag, executable)"
+  - "CLAUDE.md First Action section appended with autonomous opt-in"
 
 validation:
   commands:

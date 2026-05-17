@@ -4,19 +4,15 @@
 # Default (no flag):
 #   Copy settings.local.json from the main repo root. Preserves any
 #   per-contributor allowlist accumulated outside the committed baseline.
-#
-# --mode safe:
-#   Write the safe profile (empty allow list). Relies entirely on the committed
-#   baseline in .claude/settings.json. Anything outside the baseline triggers a
-#   manual approval prompt. Recommended for onboarding and unfamiliar work.
+#   This is the safe onboarding path.
 #
 # --mode autonomous:
 #   Write the autonomous profile (Bash(*) plus broad /tmp/apl-* access).
 #   No command confirmations during a session. Use only when you trust the
-#   agent and the task scope is clear.
+#   agent and the task scope is clear, e.g. supervised agent loops.
 #
-# All modes are idempotent: if .claude/settings.local.json already exists, the
-# script exits without overwriting.
+# Both invocations are idempotent: if .claude/settings.local.json already
+# exists, the script exits without overwriting.
 #
 # See .claude/profiles/README.md for the full mode reference.
 
@@ -26,11 +22,13 @@ MODE=""
 
 usage() {
     cat <<'EOF'
-Usage: apl_setup_worktree.sh [--mode safe|autonomous] [--help]
+Usage: apl_setup_worktree.sh [--mode autonomous] [--help]
 
-Without --mode, copies settings.local.json from the main repo root.
-With --mode safe, writes the committed safe profile.
-With --mode autonomous, writes the committed autonomous profile.
+Without --mode, copies settings.local.json from the main repo root
+(safe onboarding default).
+
+With --mode autonomous, writes the committed autonomous profile that allows
+all bash commands without confirmation prompts.
 
 The script never overwrites an existing settings.local.json.
 EOF
@@ -41,7 +39,7 @@ while [ $# -gt 0 ]; do
         --mode)
             shift
             if [ $# -eq 0 ]; then
-                echo "Error: --mode requires a value (safe|autonomous)" >&2
+                echo "Error: --mode requires a value (autonomous)" >&2
                 usage >&2
                 exit 2
             fi
@@ -64,9 +62,9 @@ while [ $# -gt 0 ]; do
 done
 
 case "$MODE" in
-    ""|safe|autonomous) ;;
+    ""|autonomous) ;;
     *)
-        echo "Error: --mode must be 'safe' or 'autonomous' (got: $MODE)" >&2
+        echo "Error: --mode must be 'autonomous' (got: $MODE)" >&2
         exit 2
         ;;
 esac
@@ -76,14 +74,14 @@ DEST="$WORKTREE_ROOT/.claude/settings.local.json"
 
 if [ -f "$DEST" ]; then
     echo "Already present: $DEST"
-    echo "Remove or rename it first if you want to switch modes."
+    echo "Remove it first if you want to switch modes."
     exit 0
 fi
 
 mkdir -p "$WORKTREE_ROOT/.claude"
 
-if [ -n "$MODE" ]; then
-    SRC="$WORKTREE_ROOT/.claude/profiles/$MODE.json"
+if [ "$MODE" = "autonomous" ]; then
+    SRC="$WORKTREE_ROOT/.claude/profiles/autonomous.json"
 
     if [ ! -f "$SRC" ]; then
         echo "Error: profile not found: $SRC" >&2
@@ -92,7 +90,7 @@ if [ -n "$MODE" ]; then
     fi
 
     cp "$SRC" "$DEST"
-    echo "Wrote ${MODE} profile to: $DEST"
+    echo "Wrote autonomous profile to: $DEST"
     echo "See .claude/profiles/README.md for what this mode allows."
     exit 0
 fi
@@ -107,13 +105,11 @@ MAIN_REPO_ROOT="$(dirname "$GIT_COMMON")"
 SRC="$MAIN_REPO_ROOT/.claude/settings.local.json"
 
 if [ ! -f "$SRC" ]; then
-    echo "No personal settings.local.json found at: $SRC"
+    echo "Source not found: $SRC"
+    echo "Run this script from a worktree of the Autonomous Physics Lab repository."
     echo ""
-    echo "Pick one of these modes instead:"
-    echo "  ./scripts/apl_setup_worktree.sh --mode safe         # default for onboarding"
-    echo "  ./scripts/apl_setup_worktree.sh --mode autonomous   # no command prompts"
-    echo ""
-    echo "See .claude/profiles/README.md for details."
+    echo "If you want a fully autonomous setup instead, run:"
+    echo "  ./scripts/apl_setup_worktree.sh --mode autonomous"
     exit 1
 fi
 

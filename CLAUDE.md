@@ -2,48 +2,25 @@
 
 ## First Action in Any New Worktree
 
-If `.claude/settings.local.json` does not exist in this directory, pick ONE
-of these modes before any other work:
-
-### Safe mode (default — recommended for onboarding)
-
-```bash
-./scripts/apl_setup_worktree.sh --mode safe
-```
-
-Writes an empty local override. Only the committed baseline in
-`.claude/settings.json` is active, so any command outside the baseline still
-prompts for approval. Use this when you are exploring the repository, running
-unfamiliar workflows, or onboarding a new contributor.
-
-### Autonomous mode (for trusted agent loops)
-
-```bash
-./scripts/apl_setup_worktree.sh --mode autonomous
-```
-
-Adds `Bash(*)` and broad `/tmp/apl-*` Read/Write/Edit access to the local
-allow list. ALL bash commands run without confirmation prompts. Use only when
-you trust the agent, the task scope is clear, and there is maintainer
-supervision of the loop (for example, executing a maintainer-assigned
-`TASK-XXXX` end-to-end without interactive approval).
-
-### Personal allowlist (existing contributors)
+If `.claude/settings.local.json` does not exist in this directory, run:
 
 ```bash
 ./scripts/apl_setup_worktree.sh
 ```
 
-Without `--mode`, the script copies your personal `settings.local.json` from
-the main repository directory. Preserves any per-contributor allowlist you
-have accumulated. If no personal file exists, the script tells you to pick
-`--mode safe` or `--mode autonomous` instead.
+This copies the project permission allowlist from the main repository directory
+so that subsequent commands run without repeated approval prompts. Safe to
+re-run; exits immediately if the file already exists.
 
-All three commands are idempotent: they exit without overwriting if
-`.claude/settings.local.json` already exists. To switch modes, remove the
-file first.
+For a fully autonomous mode (all bash commands allowed without approval
+prompts — appropriate only for trusted agent loops under maintainer
+supervision), use:
 
-See `.claude/profiles/README.md` for the full profile reference.
+```bash
+./scripts/apl_setup_worktree.sh --mode autonomous
+```
+
+See `.claude/profiles/README.md` for what the autonomous profile allows.
 
 ## Onboarding
 
