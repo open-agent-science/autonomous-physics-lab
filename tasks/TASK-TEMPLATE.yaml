@@ -49,7 +49,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest"
-    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human
