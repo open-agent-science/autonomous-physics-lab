@@ -1,0 +1,1066 @@
+{
+  "agent_run_id": "AGENT-RUN-0012",
+  "task_id": "TASK-0278",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "lane": "shell_neighborhood_variant_scout",
+  "sandbox_only": true,
+  "evidence_class": "bounded_sandbox_residual_scout",
+  "live_external_fetch_allowed": false,
+  "summary": {
+    "generated_candidate_count": 9,
+    "executed_candidate_count": 6,
+    "rejected_before_execution_count": 3,
+    "near_null_control_preserved": true,
+    "verdict_counts": {
+      "INCONCLUSIVE": 1,
+      "OVERFITTED": 2,
+      "PARTIALLY_VALID": 3
+    },
+    "canonical_results_changed": false,
+    "canonical_claims_changed": false,
+    "prediction_registry_changed": false,
+    "claim_promotion_allowed": false
+  },
+  "frozen_baseline": {
+    "result_id": "RESULT-0015",
+    "model_id": "model_fitted_semi_empirical",
+    "coefficients": {
+      "volume": 15.51423612106804,
+      "surface": 17.2931812095177,
+      "coulomb": 0.6878156091568888,
+      "asymmetry": 23.846557883948485,
+      "pairing": 15.990845113398912
+    }
+  },
+  "datasets": {
+    "training_residual_source": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "holdout_source": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "holdout_row_count": 295
+  },
+  "baseline_metrics_by_subset": {
+    "ame2020_extrapolated_comparison": {
+      "count": 55,
+      "mae_mev": 4.951024503664232,
+      "rmse_mev": 5.854176430909467,
+      "mean_error_mev": 1.105512127407804,
+      "max_abs_error_mev": 17.164452794842646
+    },
+    "ame2020_measured_comparison": {
+      "count": 240,
+      "mae_mev": 4.461255764407384,
+      "rmse_mev": 5.885456190078588,
+      "mean_error_mev": 0.5887226548882164,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "heavy_a_ge_100": {
+      "count": 153,
+      "mae_mev": 5.306285073793341,
+      "rmse_mev": 6.340606526956628,
+      "mean_error_mev": -0.02457967942372874,
+      "max_abs_error_mev": 17.87489968793443
+    },
+    "magic_any": {
+      "count": 18,
+      "mae_mev": 5.511514381200915,
+      "rmse_mev": 7.201869283883405,
+      "mean_error_mev": 4.153377753052082,
+      "max_abs_error_mev": 17.519140549640497
+    },
+    "magic_n": {
+      "count": 12,
+      "mae_mev": 5.812890527968496,
+      "rmse_mev": 7.723622780710155,
+      "mean_error_mev": 4.073638087918236,
+      "max_abs_error_mev": 17.519140549640497
+    },
+    "magic_z": {
+      "count": 6,
+      "mae_mev": 4.908762087665754,
+      "rmse_mev": 6.024289653479494,
+      "mean_error_mev": 4.312857083319774,
+      "max_abs_error_mev": 9.567076595971571
+    },
+    "near_magic": {
+      "count": 116,
+      "mae_mev": 4.724649550049946,
+      "rmse_mev": 6.265814742377132,
+      "mean_error_mev": 2.631213309332256,
+      "max_abs_error_mev": 17.87489968793443
+    },
+    "primary": {
+      "count": 295,
+      "mae_mev": 4.552568580201034,
+      "rmse_mev": 5.8796369910752775,
+      "mean_error_mev": 0.6850732345105124,
+      "max_abs_error_mev": 37.63680588444481
+    }
+  },
+  "generated_candidates": [
+    {
+      "candidate_id": "SHELL-SCOUT-001",
+      "name": "Z+N Gaussian shell proximity, sigma 2",
+      "formula": "r_corr = beta_z*s_z2 + beta_n*s_n2",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-002",
+      "name": "Neutron-axis Gaussian shell proximity, sigma 2",
+      "formula": "r_corr = beta_n*s_n2",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-003",
+      "name": "Proton-axis Gaussian shell proximity, sigma 2",
+      "formula": "r_corr = beta_z*s_z2",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-004",
+      "name": "Shell-axis contrast, neutron minus proton proximity",
+      "formula": "r_corr = beta_c*(s_n2 - s_z2)",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-005",
+      "name": "Double-neighborhood product shell proximity",
+      "formula": "r_corr = beta_p*(s_z2*s_n2)",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-006",
+      "name": "Near-null shell sanity control",
+      "formula": "r_corr = 0.0",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-007",
+      "name": "N=82-only switch",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before sandbox evaluation because an N=82-only switch is too close to known post-AME2020 shell residual clusters and would be a post-hoc targeted feature rather than a bounded general shell-neighborhood scout."
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-008",
+      "name": "Free sigma shell Gaussian grid",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before execution because fitting or selecting sigma on the 11-row NMD-0002 slice adds a nonlinear tuning knob with high overfit risk."
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-009",
+      "name": "Binary near-magic threshold sweep",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before execution because threshold sweeps duplicate the continuous Gaussian proximity candidates while adding arbitrary cutoffs."
+    }
+  ],
+  "executed_items": [
+    {
+      "candidate_id": "SHELL-SCOUT-001",
+      "name": "Z+N Gaussian shell proximity, sigma 2",
+      "formula": "r_corr = beta_z*s_z2 + beta_n*s_n2",
+      "complexity": 2,
+      "fitted_coefficients": {
+        "s_z2": -1.5599853542897564,
+        "s_n2": 3.2082046765215466
+      },
+      "feature_activation_counts": {
+        "s_z2": 295,
+        "s_n2": 295
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 5.157117947324289,
+          "rmse_mev": 6.059370151469218,
+          "mean_error_mev": 0.8138279773610538,
+          "max_abs_error_mev": 17.49958347405737
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.471380255172735,
+          "rmse_mev": 5.8405560612878515,
+          "mean_error_mev": 0.2587364867950399,
+          "max_abs_error_mev": 37.101707414734555
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.498371508131973,
+          "rmse_mev": 6.437550257872147,
+          "mean_error_mev": -0.20421777541693403,
+          "max_abs_error_mev": 17.49958347405737
+        },
+        "magic_any": {
+          "count": 18,
+          "mae_mev": 5.2524714266708825,
+          "rmse_mev": 7.000334345249211,
+          "mean_error_mev": 2.5990820031738275,
+          "max_abs_error_mev": 15.687618116356994
+        },
+        "magic_n": {
+          "count": 12,
+          "mae_mev": 5.178734250770847,
+          "rmse_mev": 7.1198501749407885,
+          "mean_error_mev": 1.3732837975219738,
+          "max_abs_error_mev": 15.687618116356994
+        },
+        "magic_z": {
+          "count": 6,
+          "mae_mev": 5.399945778470955,
+          "rmse_mev": 6.754961865815258,
+          "mean_error_mev": 5.050678414477533,
+          "max_abs_error_mev": 10.085510386238012
+        },
+        "near_magic": {
+          "count": 116,
+          "mae_mev": 4.8379735770312,
+          "rmse_mev": 6.28724200601759,
+          "mean_error_mev": 1.9269598301919477,
+          "max_abs_error_mev": 17.49958347405737
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.599229655404379,
+          "rmse_mev": 5.881969285703928,
+          "mean_error_mev": 0.3622281206293821,
+          "max_abs_error_mev": 37.101707414734555
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.20609344366005633,
+        "ame2020_measured_comparison": 0.010124490765351268,
+        "heavy_a_ge_100": 0.19208643433863148,
+        "magic_any": -0.2590429545300328,
+        "magic_n": -0.6341562771976488,
+        "magic_z": 0.49118369080520097,
+        "near_magic": 0.11332402698125321,
+        "primary": 0.04666107520334517
+      },
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.5350984697102577,
+          "candidate_residual_mev": 37.101707414734555,
+          "candidate_abs_error_mev": 37.101707414734555,
+          "feature_values": {
+            "s_z2": 0.32465246735834974,
+            "s_n2": 0.32465246735834974
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": -0.3351306792147264,
+          "candidate_residual_mev": 17.49958347405737,
+          "candidate_abs_error_mev": 17.49958347405737,
+          "feature_values": {
+            "s_z2": 0.8824969025845955,
+            "s_n2": 0.32465246735834974
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 1.4545484466496363,
+          "candidate_residual_mev": 16.420351241284795,
+          "candidate_abs_error_mev": 16.420351241284795,
+          "feature_values": {
+            "s_z2": 0.8824969025845955,
+            "s_n2": 0.8824969025845955
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 0.5691922557057265,
+          "candidate_residual_mev": 16.0183685989839,
+          "candidate_abs_error_mev": 16.0183685989839,
+          "feature_values": {
+            "s_z2": 0.8824969025845955,
+            "s_n2": 0.6065306597126334
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 1.8315224332835038,
+          "candidate_residual_mev": 15.687618116356994,
+          "candidate_abs_error_mev": 15.687618116356994,
+          "feature_values": {
+            "s_z2": 0.8824969025845955,
+            "s_n2": 1.0
+          }
+        }
+      ],
+      "verdict": "OVERFITTED"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-002",
+      "name": "Neutron-axis Gaussian shell proximity, sigma 2",
+      "formula": "r_corr = beta_n*s_n2",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "s_n2": 1.6049071729432316
+      },
+      "feature_activation_counts": {
+        "s_n2": 295
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.915707256874988,
+          "rmse_mev": 5.792111645625965,
+          "mean_error_mev": 0.7823526254970482,
+          "max_abs_error_mev": 16.643415721265512
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.393179399450758,
+          "rmse_mev": 5.728108260208053,
+          "mean_error_mev": 0.23100175821736832,
+          "max_abs_error_mev": 37.11576881086768
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.32605567300344,
+          "rmse_mev": 6.2481388596382486,
+          "mean_error_mev": -0.27150077467602374,
+          "max_abs_error_mev": 16.643415721265512
+        },
+        "magic_any": {
+          "count": 18,
+          "mae_mev": 5.112209882104041,
+          "rmse_mev": 6.641851034918288,
+          "mean_error_mev": 2.9463435491230956,
+          "max_abs_error_mev": 15.914233376697265
+        },
+        "magic_n": {
+          "count": 12,
+          "mae_mev": 5.221140250073176,
+          "rmse_mev": 7.011023742501522,
+          "mean_error_mev": 2.4687309149750045,
+          "max_abs_error_mev": 15.914233376697265
+        },
+        "magic_z": {
+          "count": 6,
+          "mae_mev": 4.894349146165771,
+          "rmse_mev": 5.833836445624378,
+          "mean_error_mev": 3.901568817419278,
+          "max_abs_error_mev": 9.046039522394437
+        },
+        "near_magic": {
+          "count": 116,
+          "mae_mev": 4.555309591752918,
+          "rmse_mev": 5.955929264622474,
+          "mean_error_mev": 1.8722304279340511,
+          "max_abs_error_mev": 16.643415721265512
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.490599847445112,
+          "rmse_mev": 5.740095218635631,
+          "mean_error_mev": 0.3337959877101902,
+          "max_abs_error_mev": 37.11576881086768
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": -0.035317246789244194,
+        "ame2020_measured_comparison": -0.06807636495662628,
+        "heavy_a_ge_100": 0.019770599210098716,
+        "magic_any": -0.39930449909687393,
+        "magic_n": -0.5917502778953203,
+        "magic_z": -0.014412941499982956,
+        "near_magic": -0.1693399582970283,
+        "primary": -0.06196873275592196
+      },
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.5210370735771338,
+          "candidate_residual_mev": 37.11576881086768,
+          "candidate_abs_error_mev": 37.11576881086768,
+          "feature_values": {
+            "s_n2": 0.32465246735834974
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 0.5210370735771338,
+          "candidate_residual_mev": 16.643415721265512,
+          "candidate_abs_error_mev": 16.643415721265512,
+          "feature_values": {
+            "s_n2": 0.32465246735834974
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 1.4163256090582015,
+          "candidate_residual_mev": 16.45857407887623,
+          "candidate_abs_error_mev": 16.45857407887623,
+          "feature_values": {
+            "s_n2": 0.8824969025845955
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 1.6049071729432316,
+          "candidate_residual_mev": 15.914233376697265,
+          "candidate_abs_error_mev": 15.914233376697265,
+          "feature_values": {
+            "s_n2": 1.0
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 0.9734254063827957,
+          "candidate_residual_mev": 15.61413544830683,
+          "candidate_abs_error_mev": 15.61413544830683,
+          "feature_values": {
+            "s_n2": 0.6065306597126334
+          }
+        }
+      ],
+      "verdict": "PARTIALLY_VALID"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-003",
+      "name": "Proton-axis Gaussian shell proximity, sigma 2",
+      "formula": "r_corr = beta_z*s_z2",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "s_z2": 1.162735825365395
+      },
+      "feature_activation_counts": {
+        "s_z2": 295
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.780206456748556,
+          "rmse_mev": 5.647210966895094,
+          "mean_error_mev": 0.8414264523755436,
+          "max_abs_error_mev": 16.13834203043354
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.387928142685359,
+          "rmse_mev": 5.736057585434109,
+          "mean_error_mev": 0.30169053997712486,
+          "max_abs_error_mev": 37.25932082985399
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.218483753946752,
+          "rmse_mev": 6.168053084295726,
+          "mean_error_mev": -0.258587261765852,
+          "max_abs_error_mev": 16.848788923525326
+        },
+        "magic_any": {
+          "count": 18,
+          "mae_mev": 5.18796017386638,
+          "rmse_mev": 6.666019097865749,
+          "mean_error_mev": 3.5134481267921016,
+          "max_abs_error_mev": 16.493029785231393
+        },
+        "magic_n": {
+          "count": 12,
+          "mae_mev": 5.521348521194258,
+          "rmse_mev": 7.2695542604632255,
+          "mean_error_mev": 3.6951115612109624,
+          "max_abs_error_mev": 16.493029785231393
+        },
+        "magic_z": {
+          "count": 6,
+          "mae_mev": 4.521183479210623,
+          "rmse_mev": 5.254958948240662,
+          "mean_error_mev": 3.1501212579543796,
+          "max_abs_error_mev": 8.404340770606176
+        },
+        "near_magic": {
+          "count": 116,
+          "mae_mev": 4.475453650128397,
+          "rmse_mev": 5.899290009405781,
+          "mean_error_mev": 2.0252798587678935,
+          "max_abs_error_mev": 16.848788923525326
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.461064777510698,
+          "rmse_mev": 5.71959763115245,
+          "mean_error_mev": 0.40231926940733825,
+          "max_abs_error_mev": 37.25932082985399
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": -0.17081804691567637,
+        "ame2020_measured_comparison": -0.0733276217220249,
+        "heavy_a_ge_100": -0.08780131984658901,
+        "magic_any": -0.323554207334535,
+        "magic_n": -0.2915420067742378,
+        "magic_z": -0.38757860845513115,
+        "near_magic": -0.2491958999215491,
+        "primary": -0.09150380269033587
+      },
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.37748505459082277,
+          "candidate_residual_mev": 37.25932082985399,
+          "candidate_abs_error_mev": 37.25932082985399,
+          "feature_values": {
+            "s_z2": 0.32465246735834974
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 1.026110764409104,
+          "candidate_residual_mev": 16.848788923525326,
+          "candidate_abs_error_mev": 16.848788923525326,
+          "feature_values": {
+            "s_z2": 0.8824969025845955
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 1.026110764409104,
+          "candidate_residual_mev": 16.493029785231393,
+          "candidate_abs_error_mev": 16.493029785231393,
+          "feature_values": {
+            "s_z2": 0.8824969025845955
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 1.026110764409104,
+          "candidate_residual_mev": 16.13834203043354,
+          "candidate_abs_error_mev": 16.13834203043354,
+          "feature_values": {
+            "s_z2": 0.8824969025845955
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 1.026110764409104,
+          "candidate_residual_mev": 15.561450090280523,
+          "candidate_abs_error_mev": 15.561450090280523,
+          "feature_values": {
+            "s_z2": 0.8824969025845955
+          }
+        }
+      ],
+      "verdict": "PARTIALLY_VALID"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-004",
+      "name": "Shell-axis contrast, neutron minus proton proximity",
+      "formula": "r_corr = beta_c*(s_n2 - s_z2)",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "s_n2_minus_s_z2": 1.2656858314292025
+      },
+      "feature_activation_counts": {
+        "s_n2_minus_s_z2": 273
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 5.120476987034812,
+          "rmse_mev": 6.043893185341434,
+          "mean_error_mev": 1.138125394427501,
+          "max_abs_error_mev": 17.87050859265013
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.511079314328084,
+          "rmse_mev": 5.941447334886515,
+          "mean_error_mev": 0.6190577441220896,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.440491674114549,
+          "rmse_mev": 6.471133142868244,
+          "mean_error_mev": 0.03541661431358998,
+          "max_abs_error_mev": 17.87489968793443
+        },
+        "magic_any": {
+          "count": 18,
+          "mae_mev": 5.520122997659133,
+          "rmse_mev": 7.3541060985529985,
+          "mean_error_mev": 3.8980581893205084,
+          "max_abs_error_mev": 17.370418544092775
+        },
+        "magic_n": {
+          "count": 12,
+          "mae_mev": 5.589760814980573,
+          "rmse_mev": 7.618508111038291,
+          "mean_error_mev": 3.219993969853242,
+          "max_abs_error_mev": 17.370418544092775
+        },
+        "magic_z": {
+          "count": 6,
+          "mae_mev": 5.380847363016252,
+          "rmse_mev": 6.794504974640224,
+          "mean_error_mev": 5.254186628255044,
+          "max_abs_error_mev": 10.42185439932678
+        },
+        "near_magic": {
+          "count": 116,
+          "mae_mev": 4.913532224478372,
+          "rmse_mev": 6.453270734440835,
+          "mean_error_mev": 2.6922364247983754,
+          "max_abs_error_mev": 17.87489968793443
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.624695829578493,
+          "rmse_mev": 5.960680944476724,
+          "mean_error_mev": 0.7158330687553027,
+          "max_abs_error_mev": 37.63680588444481
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.16945248337057972,
+        "ame2020_measured_comparison": 0.04982354992070004,
+        "heavy_a_ge_100": 0.13420660032120768,
+        "magic_any": 0.008608616458217533,
+        "magic_n": -0.22312971298792306,
+        "magic_z": 0.4720852753504978,
+        "near_magic": 0.18888267442842555,
+        "primary": 0.07212724937745918
+      },
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 37.63680588444481,
+          "candidate_abs_error_mev": 37.63680588444481,
+          "feature_values": {
+            "s_n2_minus_s_z2": 0.0
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.87489968793443,
+          "candidate_abs_error_mev": 17.87489968793443,
+          "feature_values": {
+            "s_n2_minus_s_z2": 0.0
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": -0.7060557978074847,
+          "candidate_residual_mev": 17.87050859265013,
+          "candidate_abs_error_mev": 17.87050859265013,
+          "feature_values": {
+            "s_n2_minus_s_z2": -0.5578444352262457
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 0.14872200554772289,
+          "candidate_residual_mev": 17.370418544092775,
+          "candidate_abs_error_mev": 17.370418544092775,
+          "feature_values": {
+            "s_n2_minus_s_z2": 0.11750309741540454
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": -0.3492865635557925,
+          "candidate_residual_mev": 16.93684741824542,
+          "candidate_abs_error_mev": 16.93684741824542,
+          "feature_values": {
+            "s_n2_minus_s_z2": -0.27596624287196203
+          }
+        }
+      ],
+      "verdict": "OVERFITTED"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-005",
+      "name": "Double-neighborhood product shell proximity",
+      "formula": "r_corr = beta_p*(s_z2*s_n2)",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "s_z2_times_s_n2": 1.754815105523876
+      },
+      "feature_activation_counts": {
+        "s_z2_times_s_n2": 295
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.847242035957604,
+          "rmse_mev": 5.71744556857829,
+          "mean_error_mev": 0.9937117342711327,
+          "max_abs_error_mev": 16.661689849507333
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.396980552754361,
+          "rmse_mev": 5.756773505005765,
+          "mean_error_mev": 0.4609007650002307,
+          "max_abs_error_mev": 37.451849733073146
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.216606567230907,
+          "rmse_mev": 6.176983233435389,
+          "mean_error_mev": -0.11490834209911865,
+          "max_abs_error_mev": 16.661689849507333
+        },
+        "magic_any": {
+          "count": 18,
+          "mae_mev": 5.2322046051232185,
+          "rmse_mev": 6.66089070622336,
+          "mean_error_mev": 3.6226248319867684,
+          "max_abs_error_mev": 15.970521654407015
+        },
+        "magic_n": {
+          "count": 12,
+          "mae_mev": 5.401805462088408,
+          "rmse_mev": 7.044597731842734,
+          "mean_error_mev": 3.502361231716898,
+          "max_abs_error_mev": 15.970521654407015
+        },
+        "magic_z": {
+          "count": 6,
+          "mae_mev": 4.89300289119284,
+          "rmse_mev": 5.818047833577051,
+          "mean_error_mev": 3.8631520325265094,
+          "max_abs_error_mev": 8.997371542205542
+        },
+        "near_magic": {
+          "count": 116,
+          "mae_mev": 4.543414600769872,
+          "rmse_mev": 5.965395511979822,
+          "mean_error_mev": 2.329404817833491,
+          "max_abs_error_mev": 16.661689849507333
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.480927608944794,
+          "rmse_mev": 5.749461580019584,
+          "mean_error_mev": 0.5602384033388748,
+          "max_abs_error_mev": 37.451849733073146
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": -0.1037824677066288,
+        "ame2020_measured_comparison": -0.06427521165302341,
+        "heavy_a_ge_100": -0.08967850656243392,
+        "magic_any": -0.2793097760776968,
+        "magic_n": -0.411085065880088,
+        "magic_z": -0.01575919647291446,
+        "near_magic": -0.181234949280074,
+        "primary": -0.07164097125624025
+      },
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.18495615137166269,
+          "candidate_residual_mev": 37.451849733073146,
+          "candidate_abs_error_mev": 37.451849733073146,
+          "feature_values": {
+            "s_z2_times_s_n2": 0.10539922456186435
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 0.5027629453353113,
+          "candidate_residual_mev": 16.661689849507333,
+          "candidate_abs_error_mev": 16.661689849507333,
+          "feature_values": {
+            "s_z2_times_s_n2": 0.28650479686019015
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 1.366651378327525,
+          "candidate_residual_mev": 16.508248309606905,
+          "candidate_abs_error_mev": 16.508248309606905,
+          "feature_values": {
+            "s_z2_times_s_n2": 0.778800783071405
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 1.5486188952334807,
+          "candidate_residual_mev": 15.970521654407015,
+          "candidate_abs_error_mev": 15.970521654407015,
+          "feature_values": {
+            "s_z2_times_s_n2": 0.8824969025845955
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 0.9392848401694126,
+          "candidate_residual_mev": 15.648276014520215,
+          "candidate_abs_error_mev": 15.648276014520215,
+          "feature_values": {
+            "s_z2_times_s_n2": 0.5352614285189903
+          }
+        }
+      ],
+      "verdict": "PARTIALLY_VALID"
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-006",
+      "name": "Near-null shell sanity control",
+      "formula": "r_corr = 0.0",
+      "complexity": 0,
+      "fitted_coefficients": {},
+      "feature_activation_counts": {},
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.951024503664232,
+          "rmse_mev": 5.854176430909467,
+          "mean_error_mev": 1.105512127407804,
+          "max_abs_error_mev": 17.164452794842646
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.461255764407384,
+          "rmse_mev": 5.885456190078588,
+          "mean_error_mev": 0.5887226548882164,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "heavy_a_ge_100": {
+          "count": 153,
+          "mae_mev": 5.306285073793341,
+          "rmse_mev": 6.340606526956628,
+          "mean_error_mev": -0.02457967942372874,
+          "max_abs_error_mev": 17.87489968793443
+        },
+        "magic_any": {
+          "count": 18,
+          "mae_mev": 5.511514381200915,
+          "rmse_mev": 7.201869283883405,
+          "mean_error_mev": 4.153377753052082,
+          "max_abs_error_mev": 17.519140549640497
+        },
+        "magic_n": {
+          "count": 12,
+          "mae_mev": 5.812890527968496,
+          "rmse_mev": 7.723622780710155,
+          "mean_error_mev": 4.073638087918236,
+          "max_abs_error_mev": 17.519140549640497
+        },
+        "magic_z": {
+          "count": 6,
+          "mae_mev": 4.908762087665754,
+          "rmse_mev": 6.024289653479494,
+          "mean_error_mev": 4.312857083319774,
+          "max_abs_error_mev": 9.567076595971571
+        },
+        "near_magic": {
+          "count": 116,
+          "mae_mev": 4.724649550049946,
+          "rmse_mev": 6.265814742377132,
+          "mean_error_mev": 2.631213309332256,
+          "max_abs_error_mev": 17.87489968793443
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.552568580201034,
+          "rmse_mev": 5.8796369910752775,
+          "mean_error_mev": 0.6850732345105124,
+          "max_abs_error_mev": 37.63680588444481
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.0,
+        "ame2020_measured_comparison": 0.0,
+        "heavy_a_ge_100": 0.0,
+        "magic_any": 0.0,
+        "magic_n": 0.0,
+        "magic_z": 0.0,
+        "near_magic": 0.0,
+        "primary": 0.0
+      },
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 37.63680588444481,
+          "candidate_abs_error_mev": 37.63680588444481,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.87489968793443,
+          "candidate_abs_error_mev": 17.87489968793443,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.519140549640497,
+          "candidate_abs_error_mev": 17.519140549640497,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.164452794842646,
+          "candidate_abs_error_mev": 17.164452794842646,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 16.587560854689627,
+          "candidate_abs_error_mev": 16.587560854689627,
+          "feature_values": {}
+        }
+      ],
+      "verdict": "INCONCLUSIVE"
+    }
+  ],
+  "rejected_before_execution": [
+    {
+      "candidate_id": "SHELL-SCOUT-007",
+      "name": "N=82-only switch",
+      "rejection_reason": "Rejected before sandbox evaluation because an N=82-only switch is too close to known post-AME2020 shell residual clusters and would be a post-hoc targeted feature rather than a bounded general shell-neighborhood scout."
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-008",
+      "name": "Free sigma shell Gaussian grid",
+      "rejection_reason": "Rejected before execution because fitting or selecting sigma on the 11-row NMD-0002 slice adds a nonlinear tuning knob with high overfit risk."
+    },
+    {
+      "candidate_id": "SHELL-SCOUT-009",
+      "name": "Binary near-magic threshold sweep",
+      "rejection_reason": "Rejected before execution because threshold sweeps duplicate the continuous Gaussian proximity candidates while adding arbitrary cutoffs."
+    }
+  ],
+  "promotion_boundary": {
+    "writes_canonical_result": false,
+    "writes_prediction_registry": false,
+    "claim_promotion_allowed": false,
+    "required_next_step": "Maintainer review before any registry selection, RESULT-* artifact, or claim update."
+  },
+  "limitations": [
+    "Sandbox-only scout; no prediction registry, canonical result, claim, or knowledge artifact is updated.",
+    "Candidates are fitted on the 11-row NMD-0002 residual slice, so overfit risk is high.",
+    "Post-AME2020 evaluation uses a repository-pinned dataset and is retrospective diagnostic evidence, not a reveal.",
+    "Shell-neighborhood features are empirical residual probes, not a physical shell model."
+  ]
+}
