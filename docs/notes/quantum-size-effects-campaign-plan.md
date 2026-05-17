@@ -27,14 +27,14 @@ This is intentionally narrower than:
 ## Planned Queue
 
 1. `TASK-0222` — campaign scaffold and guardrails (DONE).
-2. `TASK-0223` — pinned dataset schema and source manifest (READY).
-3. `TASK-0224` — holdout protocol (READY).
+2. `TASK-0223` — pinned dataset schema and source manifest.
+3. `TASK-0224` — holdout protocol.
 4. `TASK-0225` — baseline residual benchmark.
 5. `TASK-0226` — first sandbox-only autonomous hypothesis pilot.
 
-`TASK-0223` and `TASK-0224` may now run in parallel because both depend on the
-completed scaffold and touch different artifact surfaces. `TASK-0225` remains
-blocked until both foundation tasks are reviewed.
+`TASK-0223` and `TASK-0224` are foundation tasks that can be reviewed
+independently because they touch different artifact surfaces. `TASK-0225`
+remains blocked until both foundation tasks are reviewed and closed out.
 
 ## First Benchmark Shape
 
