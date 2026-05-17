@@ -16,5 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0278` - Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0279` - Run nuclear neutron-rich variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+None.
