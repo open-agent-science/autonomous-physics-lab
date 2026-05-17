@@ -103,8 +103,12 @@ Historical context:
 - run `TASK-0223` for the pinned dataset schema and source manifest;
 - run `TASK-0224` for the holdout protocol, in parallel with `TASK-0223` if
   the PRs keep artifact surfaces separate;
+- after `TASK-0223`, run `TASK-0275` if a small source-manifest seed is needed
+  before the baseline benchmark;
 - only after both are `DONE`, run `TASK-0225` for the first baseline residual
   benchmark;
+- after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
+  `TASK-0277` to review readiness before the autonomous pilot;
 - run `TASK-0226` only after a maintainer-approved baseline exists.
 
 Planning-only microtasks may be picked from

@@ -6,7 +6,8 @@
 
 ## READY
 
-None.
+- `TASK-0272` - Audit nuclear prediction registry breadth after feature-term wave (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0273` - Add nuclear prediction synthetic reveal dry-run harness (`scientific_tooling`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 
 ## IN_PROGRESS
 
