@@ -52,6 +52,9 @@ one PR.
 - `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (`scientific_tooling`, priority `high`, difficulty `high`)
 - `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`)
+- `TASK-0278` — Run nuclear shell-neighborhood variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0279` — Run nuclear neutron-rich variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0280` — Run nuclear pairing and odd-even variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 

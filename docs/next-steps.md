@@ -112,17 +112,20 @@ residual benchmark, structured holdout protocol, sandbox pilots, a deterministic
 prediction factory, reusable target batches, and selected prospective registry
 entries through `PRED-0062`.
 
-The next scientific goal is not to multiply registry entries casually. It is to
-audit the registry, dry-run the reveal machinery on synthetic sources, and let
+The next scientific goal is not to multiply frozen registry entries casually.
+It is to audit the registry, dry-run the reveal machinery on synthetic sources,
+keep three disjoint Nuclear scout lanes available for parallel agents, and let
 Quantum Size Effects become the next near-term benchmark-result surface:
 
 - audit coverage across coefficient-only, manual, and feature-term prediction
   families;
 - test reveal protocol mechanics on synthetic/fake data only;
+- run bounded shell-neighborhood, neutron-rich, and pairing/odd-even scout
+  lanes as sandbox work without editing the frozen registry;
 - preserve the no-peek boundary while waiting for future reviewed
   measurements;
-- avoid adding more prediction variants until coverage and reveal-readiness
-  issues are understood.
+- avoid adding more frozen prediction-registry entries until coverage and
+  reveal-readiness issues are understood.
 
 Recommended nuclear validation queue for parallel agents:
 
@@ -166,6 +169,12 @@ Recommended nuclear validation queue for parallel agents:
   without real measurement data
 - `TASK-0274` registry status/evidence summary: make the post-`PRED-0062`
   campaign state legible without validation claims
+- `TASK-0278` shell-neighborhood variant scout: let an agent generate and test
+  bounded shell/magic-number candidates in sandbox without adding PRED entries
+- `TASK-0279` neutron-rich variant scout: let an agent test bounded
+  neutron-excess/asymmetry candidates in sandbox without adding PRED entries
+- `TASK-0280` pairing and odd-even variant scout: let an agent test bounded
+  pairing/parity/staggering candidates in sandbox without adding PRED entries
 - Future reveal or reveal-scoring tasks must follow the `TASK-0266` protocol
   checklist instead of ad hoc source comparison
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
