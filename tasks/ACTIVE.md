@@ -67,10 +67,10 @@ None.
 - `TASK-0265` — Register selected nuclear feature-term factory predictions (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0267` — Add git merge to Claude Code permissions allowlist (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (`contributor_experience`, priority `low`, difficulty `low`)
-- `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (merged)
 - `TASK-0266` — Define nuclear prediction reveal protocol (merged)
 - `TASK-0264` — Run nuclear feature-term factory slate-002 (merged)
 - `TASK-0262` — Add --auto-sync flag to validate-repo CLI (merged)
