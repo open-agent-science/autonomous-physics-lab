@@ -59,10 +59,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0280` — Run nuclear pairing and odd-even variant scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0280` — Run nuclear pairing and odd-even variant scout (merged)
 - `TASK-0279` — Run nuclear neutron-rich variant scout (merged)
 - `TASK-0278` — Run nuclear shell-neighborhood variant scout (merged)
 - `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (merged)
