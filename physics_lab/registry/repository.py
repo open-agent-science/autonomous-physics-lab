@@ -446,7 +446,10 @@ def _validate_references(
                 raise ValueError(f"{path} references missing task id: {task_id}")
 
     for path, payload in example_configs:
-        if payload.get("config_kind") == "nuclear_prediction_variant_factory":
+        if payload.get("config_kind") in {
+            "nuclear_prediction_variant_factory",
+            "nuclear_prediction_synthetic_reveal",
+        }:
             continue
         experiment_path = (path.parent / payload["experiment_path"]).resolve()
         hypothesis_path = (path.parent / payload["hypothesis_path"]).resolve()
