@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-18 12:59 UTC
+Generated: 2026-05-18 13:05 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2130,7 +2130,6 @@ one PR.
 
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0282` — Curate Moreels 2009 PbS row-level absorption extension (`scientific_dataset`, priority `medium`, difficulty `high`)
 - `TASK-0285` — Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
@@ -2144,6 +2143,7 @@ None.
 - `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0281` — Curate Yu 2003 quantum-dot row-level absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0282` — Curate Moreels 2009 PbS row-level absorption extension (`scientific_dataset`, priority `medium`, difficulty `high`)
 - `TASK-0284` — Allow any Bash command in Claude Code shared permissions (unsafe mode) (`contributor_experience`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
