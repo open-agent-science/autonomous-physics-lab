@@ -338,3 +338,23 @@ def test_yu_2003_absorption_seed_is_multi_material_and_calibration_scoped() -> N
     assert {entry["property_kind"] for entry in entries} == {"absorption_peak_eV"}
     assert {entry["inclusion_status"] for entry in entries} == {"included"}
     assert all("Calibration-derived row" in entry["notes"] for entry in entries)
+
+
+def test_moreels_2009_pbs_absorption_seed_is_pbs_only_and_sizing_curve_scoped() -> None:
+    dataset_path = (
+        Path(__file__).resolve().parent.parent
+        / "data"
+        / "quantum_dots"
+        / "qd-0002-moreels-2009-pbs-absorption.yaml"
+    )
+    with dataset_path.open("r", encoding="utf-8") as fh:
+        payload = yaml.safe_load(fh)
+
+    assert payload["property_kind_covered"] == "absorption_peak_eV"
+    entries = payload["entries"]
+    assert len(entries) == 9
+    assert {entry["material"] for entry in entries} == {"PbS"}
+    assert {entry["source_id"] for entry in entries} == {"moreels-2009-acs-nano-pbs-absorption"}
+    assert {entry["property_kind"] for entry in entries} == {"absorption_peak_eV"}
+    assert {entry["inclusion_status"] for entry in entries} == {"included"}
+    assert all("Sizing-curve calibration row" in entry["notes"] for entry in entries)

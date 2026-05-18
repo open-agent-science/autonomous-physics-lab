@@ -1,0 +1,137 @@
+dataset_id: qd-0002-moreels-2009-pbs-absorption
+title: "Moreels 2009 PbS first-exciton absorption sizing-curve seed"
+status: curated
+description: >
+  Small absorption_peak_eV row-level seed derived from the DOI-pinned Moreels 2009 ACS Nano
+  PbS empirical sizing curve (Eq. 4). Rows are calibration-derived points: diameters are
+  computed by inverting the published Moreels sizing-curve formula at ten selected first-exciton
+  absorption peak wavelengths spanning 850–2000 nm. They are not direct table rows or
+  digitized figure points from the source publication.
+source_policy: >
+  Source metadata is pinned in data/quantum_dots/source_manifest.yaml as
+  moreels-2009-acs-nano-pbs-absorption. Values are derived from the published Moreels 2009
+  Eq. 4 sizing curve (E = 0.41 + 1/(0.0252*d^2 + 0.283*d), d in nm, E in eV) using
+  hc = 1239.841984 eV nm. No source tables, spectra, or figure coordinates are
+  redistributed. This dataset covers PbS absorption_peak_eV only; do not mix with
+  emission, bandgap, or other material datasets in a single residual axis.
+property_kind_covered: absorption_peak_eV
+entries:
+  - entry_id: moreels-2009-pbs-850nm
+    material: PbS
+    diameter_nm: 2.713853
+    property_kind: absorption_peak_eV
+    value_eV: 1.458638
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 850 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row. Smallest batch entry; strong quantum confinement regime for PbS
+      (Bohr exciton radius ~18 nm).
+  - entry_id: moreels-2009-pbs-950nm
+    material: PbS
+    diameter_nm: 3.094820
+    property_kind: absorption_peak_eV
+    value_eV: 1.305097
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 950 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row.
+  - entry_id: moreels-2009-pbs-1050nm
+    material: PbS
+    diameter_nm: 3.495973
+    property_kind: absorption_peak_eV
+    value_eV: 1.180802
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 1050 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row.
+  - entry_id: moreels-2009-pbs-1150nm
+    material: PbS
+    diameter_nm: 3.920283
+    property_kind: absorption_peak_eV
+    value_eV: 1.078123
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 1150 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row.
+  - entry_id: moreels-2009-pbs-1300nm
+    material: PbS
+    diameter_nm: 4.608027
+    property_kind: absorption_peak_eV
+    value_eV: 0.953725
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 1300 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row.
+  - entry_id: moreels-2009-pbs-1450nm
+    material: PbS
+    diameter_nm: 5.370850
+    property_kind: absorption_peak_eV
+    value_eV: 0.855063
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 1450 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row.
+  - entry_id: moreels-2009-pbs-1600nm
+    material: PbS
+    diameter_nm: 6.228815
+    property_kind: absorption_peak_eV
+    value_eV: 0.774901
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 1600 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row.
+  - entry_id: moreels-2009-pbs-1800nm
+    material: PbS
+    diameter_nm: 7.570591
+    property_kind: absorption_peak_eV
+    value_eV: 0.688801
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 1800 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row.
+  - entry_id: moreels-2009-pbs-2000nm
+    material: PbS
+    diameter_nm: 9.236342
+    property_kind: absorption_peak_eV
+    value_eV: 0.619921
+    measurement_type: optical_absorption
+    source_id: moreels-2009-acs-nano-pbs-absorption
+    source_table_ref: "Eq. 4 sizing curve; PbS first exciton absorption peak; selected wavelength 2000 nm."
+    inclusion_status: included
+    notes: >
+      Sizing-curve calibration row: diameter computed by inverting Moreels 2009 Eq. 4
+      (E = 0.41 + 1/(0.0252*d^2 + 0.283*d)); value_eV = hc/lambda using hc = 1239.841984 eV nm.
+      Not a direct table row. Largest batch entry; still within quantum confinement regime
+      for PbS (Bohr exciton radius ~18 nm).
