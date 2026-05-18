@@ -1,7 +1,7 @@
 id: TASK-0286
 title: "Run nuclear mid-mass and isotope-chain gap scout"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
