@@ -15,6 +15,9 @@ All options here are safe, reviewable, and scoped to one session.
 None require new engine code or large-scope implementation.
 
 Follow `docs/agent-task-protocol.md` for branch, commit, PR, and validation rules.
+Invited private-alpha contributors should also use
+[private-agent-challenge-pack.md](./private-agent-challenge-pack.md) to choose
+the right Level 1, Level 2, or Level 3 challenge.
 
 ---
 
@@ -120,4 +123,5 @@ Queue: `tasks/microtasks/particle-mass-relations.yaml` → PMR-003 / PMR-004
 - [docs/agent-scientific-work-mode.md](./agent-scientific-work-mode.md) — spare-budget mode details
 - [docs/scientific-micro-task-protocol.md](./scientific-micro-task-protocol.md) — queue and batching rules
 - [docs/agent-task-protocol.md](./agent-task-protocol.md) — branch, commit, PR protocol
+- [docs/private-agent-challenge-pack.md](./private-agent-challenge-pack.md) — private contributor challenge levels and scorecard
 - [docs/mission-control.md](./mission-control.md) — project overview and campaign map

@@ -17,14 +17,15 @@ retrospective time-split evidence, a deterministic prediction factory, reusable
 target batches, and frozen prospective prediction registry entries.
 
 Safe contributions right now are still conservative, and should now emphasize
-registry audit, reveal dry-runs, evidence packaging, and bounded scout lanes:
+post-registry stress review, reveal readiness, and evidence packaging:
 
 - campaign map and guardrail wording;
 - pinned-dataset and provenance expansion work;
 - subset and holdout curation;
 - registry coverage audits across frozen `PRED-*` entries;
 - synthetic reveal dry-runs that use fake data only;
-- sandbox-only variant scout lanes with disjoint hypothesis families;
+- sandbox-only adversarial stress lanes for the strongest scout families;
+- direct reveal-readiness checklists that do not touch live measurements;
 - conservative status summaries that separate baseline evidence, sandbox
   evidence, and unvalidated prospective predictions;
 - limitation notes that keep the campaign conservative.
@@ -93,6 +94,19 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   `PRED-0051` through `PRED-0062`.
 - `TASK-0266` defined the reveal protocol for future reviewed measurement
   comparisons.
+- `TASK-0272` audited registry coverage across 54 committed entries and 213
+  target rows, surfacing repeated-target pressure and thin mid-mass coverage.
+- `TASK-0273` added a synthetic reveal dry-run harness that exercises partial
+  reveal behavior with fabricated toy values only.
+- `TASK-0274` summarizes the post-`PRED-0062` evidence state and keeps the
+  registry framed as prospective rather than validated.
+- `TASK-0285` synthesizes the completed scout lanes and ranks the strongest
+  follow-up surface as the shell-axis pair `SHELL-SCOUT-003` plus
+  `SHELL-SCOUT-005`, with smaller asymmetry-frontier behavior preserved as a
+  secondary review surface.
+- `TASK-0286` records a useful negative result for naive mid-mass and
+  isotope-chain gap features: all executed candidates regress the primary
+  holdout or remain null, so that lane should not be promoted.
 
 Historical context:
 
@@ -113,12 +127,18 @@ Start here:
 - [Selected Factory Registry Wave 001](../reviews/nuclear-prediction-factory-selected-registry-001.md)
 - [Feature-Term Factory Slate 002](../reviews/nuclear-prediction-factory-slate-002-feature-terms.md)
 - [Feature-Term Selected Registry Wave 001](../reviews/nuclear-prediction-factory-feature-term-selected-registry-001.md)
+- [Registry Status After PRED-0062](../reviews/nuclear-prediction-registry-status-after-pred-0062.md)
+- [Registry Coverage Audit](../reviews/nuclear-prediction-registry-coverage-audit.md)
+- [Synthetic Reveal Dry-Run](../reviews/nuclear-prediction-synthetic-reveal-dry-run.md)
+- [Scout Lane Synthesis After PRED-0062](../reviews/nuclear-scout-lane-synthesis-after-pred-0062.md)
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [TASK-0272](../../tasks/TASK-0272-audit-nuclear-prediction-registry-coverage.yaml)
 - [TASK-0273](../../tasks/TASK-0273-add-nuclear-synthetic-reveal-dry-run-harness.yaml)
+- [TASK-0274](../../tasks/TASK-0274-summarize-nuclear-prediction-registry-evidence.yaml)
 - [TASK-0278](../../tasks/TASK-0278-run-nuclear-shell-neighborhood-variant-scout.yaml)
 - [TASK-0279](../../tasks/TASK-0279-run-nuclear-neutron-rich-variant-scout.yaml)
 - [TASK-0280](../../tasks/TASK-0280-run-nuclear-pairing-odd-even-variant-scout.yaml)
+- [TASK-0285](../../tasks/TASK-0285-synthesize-nuclear-scout-lanes-after-registry-status.yaml)
 
 ## Open Questions
 
@@ -130,18 +150,23 @@ Start here:
   while preserving the no-peek boundary?
 - Which existing manual blocked lanes should remain fallback references versus
   being represented only through factory slates?
-- Which scout-lane candidates, if any, deserve later maintainer-selected
-  registry entries after audit and review?
+- Does the shell-axis pair survive adversarial sign, null, repeated-target,
+  and subset-pressure checks?
+- Should the smaller asymmetry-frontier signal remain a future review surface
+  after explicit stress testing, or be demoted to negative/supporting evidence?
+- What exact source-manifest, checksum, and no-peek evidence must exist before
+  a real reveal comparison is allowed?
 
 ## Recommended Tasks
 
-- `TASK-0272` — audit registry coverage after the feature-term wave.
-- `TASK-0273` — build a synthetic reveal dry-run harness without real
-  measurement data.
-- `TASK-0274` — summarize the registry/evidence state after `PRED-0062`.
-- `TASK-0278` — run a shell-neighborhood variant scout lane.
-- `TASK-0279` — run a neutron-rich/asymmetry variant scout lane.
-- `TASK-0280` — run a pairing and odd-even variant scout lane.
+- `TASK-0287` — define the real reveal source-readiness checklist before any
+  live measurement comparison task.
+- `TASK-0288` — run a shell-axis adversarial stress scout for
+  `SHELL-SCOUT-003` / `SHELL-SCOUT-005`, including sign and null controls.
+- `TASK-0289` — run an asymmetry-frontier stress scout with `NR-SCOUT-005` as
+  the required overfit negative control.
+- `TASK-0290` — package the latest Nuclear scout evidence card for maintainers
+  and future communication without discovery framing.
 - Future reveal tasks should use the `TASK-0266` protocol checklist instead of
   ad hoc source comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
