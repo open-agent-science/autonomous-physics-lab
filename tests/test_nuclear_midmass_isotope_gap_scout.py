@@ -7,11 +7,13 @@ import json
 from pathlib import Path
 
 import pytest
+import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT_PATH = REPO_ROOT / "scripts" / "run_nuclear_midmass_isotope_gap_scout.py"
 METRICS_PATH = REPO_ROOT / "agent_runs" / "AGENT-RUN-0015" / "metrics.json"
+AGENT_RUN_PATH = REPO_ROOT / "agent_runs" / "AGENT-RUN-0015" / "agent_run.yaml"
 
 
 def _load_scout_module():
@@ -168,6 +170,30 @@ def test_midmass_isotope_scout_metrics_schema() -> None:
     assert metrics["sandbox_only"] is True
     assert metrics["live_external_fetch_allowed"] is False
     assert metrics["lane"] == "midmass_isotope_gap_scout"
+
+
+def test_midmass_isotope_scout_agent_run_manifest() -> None:
+    manifest = yaml.safe_load(AGENT_RUN_PATH.read_text(encoding="utf-8"))
+
+    assert manifest["id"] == "AGENT-RUN-0015"
+    assert manifest["task_id"] == "TASK-0286"
+    assert manifest["campaign_profile_id"] == "nuclear-mass-surface"
+    assert manifest["sandbox_only"] is True
+    assert manifest["proposal_paths"]["hypothesis"] == str(
+        Path("hypothesis_proposals")
+        / "nuclear-mass"
+        / "HYP-PROPOSAL-0043-midmass-isotope-gap-scout-batch.yaml"
+    )
+    assert manifest["proposal_paths"]["experiment"] == str(
+        Path("experiment_proposals")
+        / "nuclear-mass"
+        / "EXP-PROPOSAL-0009-nuclear-midmass-isotope-gap-scout.yaml"
+    )
+    assert manifest["artifacts"]["metrics"] == str(
+        Path("agent_runs") / "AGENT-RUN-0015" / "metrics.json"
+    )
+    assert manifest["promotion_boundary"]["writes_canonical_result"] is False
+    assert manifest["promotion_boundary"]["claim_promotion_allowed"] is False
 
 
 def test_midmass_isotope_scout_promotion_boundary() -> None:
