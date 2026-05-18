@@ -35,7 +35,7 @@ requirements:
 
 accepted_outputs:
   - "docs/nuclear-reveal-source-readiness-checklist.md"
-  - "optional data/nuclear_masses/reveal_source_manifest_template.yaml"
+  - "data/nuclear_masses/reveal_source_manifest_template.yaml"
   - "updated docs/campaigns/nuclear-mass-surface.md if the recommended reveal path changes"
   - "updated docs/next-steps.md if the campaign execution order changes"
 
