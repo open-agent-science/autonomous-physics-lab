@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0282` - Curate Moreels 2009 PbS row-level absorption extension (`scientific_dataset`, priority `medium`, difficulty `high`, domain `condensed_matter`)
+None.
 
 ## IN_PROGRESS
 
@@ -15,3 +15,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0281` - Curate Yu 2003 quantum-dot row-level absorption seed (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
+- `TASK-0282` - Curate Moreels 2009 PbS row-level absorption extension (`scientific_dataset`, priority `medium`, difficulty `high`, domain `condensed_matter`)
