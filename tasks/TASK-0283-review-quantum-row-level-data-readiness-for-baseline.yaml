@@ -1,0 +1,51 @@
+id: TASK-0283
+title: "Review quantum row-level data gate for baseline"
+type: scientific_validation
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Add a small gate between row-level dataset curation and the first Quantum Size Effects benchmark."
+  - "Make sure TASK-0225 starts from reviewed measurement rows, not source metadata."
+  - "Choose the first benchmark property axis and minimum holdout surface before any baseline model is fit."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-0281-curate-yu-2003-quantum-dot-row-level-absorption-seed.yaml"
+    - "tasks/TASK-0282-curate-moreels-2009-pbs-row-level-absorption-extension.yaml"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+    - "docs/quantum-size-effect-holdout-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    TASK-0225 needs a reviewed row-level dataset and a frozen first benchmark
+    boundary. This task stays blocked until at least TASK-0281 is DONE, and it
+    may optionally include TASK-0282 if broader PbS material span is desired
+    before the first baseline.
+
+requirements:
+  - "Start only after TASK-0281 is DONE, or after an equivalent maintainer-approved row-level quantum-dot dataset seed exists."
+  - "Confirm that committed data/quantum_dots/qd-*.yaml files validate against the schema and reference registered source_manifest source_id values."
+  - "Confirm that included rows are traceable to table, figure, calibration, or documented curve-read provenance, with uncertain rows excluded rather than silently used."
+  - "Recommend the first TASK-0225 primary property_kind, expected dataset files, material-holdout option, size-range holdout option, and negative-control requirement."
+  - "Update TASK-0225 from BLOCKED to READY only if row-level data and holdout readiness are sufficient; otherwise keep it BLOCKED with a concrete blocker note."
+  - "Do not run baseline model fitting, reveal scoring, autonomous hypothesis search, or claim promotion."
+
+accepted_outputs:
+  - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+  - "updated tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml if readiness changes"
+  - "updated docs/campaigns/quantum-size-effects.md if campaign orientation changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
