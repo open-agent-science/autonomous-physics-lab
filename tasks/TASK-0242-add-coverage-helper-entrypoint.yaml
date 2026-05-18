@@ -1,7 +1,7 @@
 id: TASK-0242
 title: "Add coverage helper entrypoint for contributors and agents"
 type: contributor_experience
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
