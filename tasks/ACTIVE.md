@@ -50,7 +50,6 @@ one PR.
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0283` — Review quantum row-level data gate for baseline (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0285` — Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -59,7 +58,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
