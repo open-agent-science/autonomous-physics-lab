@@ -51,6 +51,10 @@ work, and a private contributor workflow before any public-opening decision.
   entries awaiting future maintainer-reviewed reveal data. The registry now has
   coverage-audit and synthetic reveal dry-run support, but these are frozen
   forecasts, not results or claims.
+- Nuclear scout synthesis after `PRED-0062` - sandbox-only review evidence now
+  points to a small shell-axis follow-up surface and preserves mid-mass /
+  isotope-chain scout failures as negative evidence. No reveal or discovery
+  claim is promoted.
 - [Negative Results Registry](./negative-results-registry.md):
   repository-level index of clean falsifications that should remain visible
   alongside successful reproductions.
@@ -110,7 +114,7 @@ Together these now support four active benchmark surfaces:
 - [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) - current
   flagship validation campaign with a frozen baseline residual benchmark,
   sandbox-only autonomous pilot evidence, prospective registry entries through
-  `PRED-0062`, and post-AME2020 follow-up guardrails.
+  `PRED-0062`, post-registry scout synthesis, and reveal-readiness guardrails.
 
 ## Current Contributor Workflow
 

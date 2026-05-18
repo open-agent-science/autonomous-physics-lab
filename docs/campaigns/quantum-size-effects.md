@@ -29,12 +29,16 @@ Current task posture:
 
 - `TASK-0281` — Yu 2003 multi-material absorption row-level seed (DONE);
 - `TASK-0282` — Moreels 2009 PbS absorption row-level extension (DONE);
-- `TASK-0283` — row-level readiness gate before baseline (gate run; see
+- `TASK-0283` — row-level readiness gate before baseline (DONE; see
   `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`);
 - `TASK-0225` — baseline residual benchmark (BLOCKED; needs either a
   direct-measurement row-level seed or a maintainer waiver to score a
   calibration-curve consistency benchmark instead of a measurement-versus-
   model benchmark);
+- `TASK-0291` — direct-measurement absorption seed (READY);
+- `TASK-0292` — direct-measurement band-edge seed (READY);
+- `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
+  `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
 Safe next contributions are:
@@ -93,6 +97,10 @@ Current evidence is infrastructure and source curation only:
 - `TASK-0224` defined the holdout protocol;
 - `TASK-0275` added a reviewed source-manifest seed, but no row-level
   measurement dataset.
+- `TASK-0281` and `TASK-0282` added calibration-derived absorption row-level
+  seeds for Yu 2003 cadmium chalcogenides and Moreels 2009 PbS.
+- `TASK-0283` reviewed those seeds and kept the benchmark blocked because they
+  are calibration-derived rather than direct measurement rows.
 
 Historical context:
 
@@ -124,6 +132,9 @@ Historical context:
   absorption seeds;
 - `TASK-0283` keeps `TASK-0225` blocked because the committed rows are not
   direct measurement rows;
+- `TASK-0291` and `TASK-0292` are the next parallel data-curation lanes for
+  direct-measurement absorption and band-edge seeds;
+- `TASK-0293` should re-run the readiness gate after either direct seed lands;
 - next, add at least one direct-measurement row-level `qd-*.yaml` seed and
   re-run the readiness gate, or request a maintainer waiver for a
   calibration-curve consistency benchmark;
