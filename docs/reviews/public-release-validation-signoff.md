@@ -28,6 +28,12 @@ Latest default-branch CI observed for `main`:
 
 All commands below were run from the task branch unless noted.
 
+Platform note: the evidence commands below were executed on Windows using the
+local venv interpreter (`.venv\\Scripts\\python.exe`) and temp paths under
+`C:\\tmp`. When replicating on macOS/Linux, use your active interpreter
+(`python3` or `python`) and temp paths such as `/tmp/...`. Portable equivalents
+are provided after the table.
+
 | Check | Command | Result |
 | --- | --- | --- |
 | Ruff | `.venv\Scripts\python.exe -m ruff check .` | PASS |
@@ -41,6 +47,22 @@ All commands below were run from the task branch unless noted.
 | Pendulum smoke | `.venv\Scripts\python.exe -m physics_lab.cli run examples\pendulum.yaml --output-dir C:\tmp\apl-pendulum-task-0206` | PASS, sandbox-only output |
 | Damped oscillator smoke | `.venv\Scripts\python.exe -m physics_lab.cli run examples\damped_oscillator.yaml --output-dir C:\tmp\apl-damped-task-0206` | PASS, sandbox-only output |
 | Snapshot | `PYTHON_BIN=.venv/Scripts/python.exe PYTEST_ADDOPTS="--basetemp=C:/tmp/apl-snapshot-task-0206-pytest" ./scripts/apl_snapshot.sh` | PASS; snapshot written to `_snapshots/apl_snapshot_20260517_130047.md` |
+
+Portable equivalents (macOS/Linux examples):
+
+```bash
+python3 -m ruff check .
+python3 -m pytest
+python3 -m physics_lab.cli validate-repo .
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+python3 scripts/apl_mission.py --json
+python3 scripts/check_public_path_leaks.py
+python3 -m pytest tests/test_docs_links.py tests/test_public_path_leaks.py
+python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum-task-0206
+python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped-task-0206
+PYTHON_BIN=python3 PYTEST_ADDOPTS="--basetemp=/tmp/apl-snapshot-task-0206-pytest" ./scripts/apl_snapshot.sh
+python3 scripts/reproduce_core_results.py --output-dir /tmp/apl-core-reproduction-task-0206 --python python3
+```
 
 Snapshot note: the Windows checkout contains an untracked, locked
 `.pytest-basetemp` directory from earlier local runs. The snapshot command
