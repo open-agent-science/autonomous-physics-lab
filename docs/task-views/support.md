@@ -15,5 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0274` - Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0284` - Allow any Bash command in Claude Code shared permissions (unsafe mode) (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
+None.
