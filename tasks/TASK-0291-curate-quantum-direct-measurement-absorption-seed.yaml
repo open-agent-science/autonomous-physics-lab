@@ -1,0 +1,54 @@
+id: TASK-0291
+title: "Curate quantum direct-measurement absorption seed"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Unblock Quantum Size Effects by adding measurement-grade row-level data rather than calibration-curve evaluations."
+  - "Keep the first benchmark honest by distinguishing direct observations from published sizing formulas."
+  - "Give condensed-matter agents a concrete data-curation task that can be reviewed independently."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+    - "data/quantum_dots/qd-0001-yu-2003-absorption.yaml"
+    - "data/quantum_dots/qd-0002-moreels-2009-pbs-absorption.yaml"
+  planning_context: >
+    TASK-0283 kept TASK-0225 blocked because qd-0001 and qd-0002 are
+    calibration-derived. This task adds a small absorption_peak_eV seed with
+    direct measurement provenance so the readiness gate can be rerun.
+
+requirements:
+  - "Add one reviewed row-level absorption_peak_eV dataset seed with at least 6 included rows."
+  - "Rows must be direct table values, digitised figure points, or independently reviewed TEM + spectroscopy observations, not values generated from a published sizing polynomial or calibration curve."
+  - "Register any new source in source_manifest.yaml before referencing its source_id."
+  - "Each row must validate against the quantum-dot schema, include manifest-linked source_id, material, diameter_nm or radius_nm, property_kind, property_value_eV, measurement_type, source_table_ref, inclusion_status, and provenance notes."
+  - "Exclude uncertain rows explicitly rather than silently using them."
+  - "Keep absorption_peak_eV separate from emission_peak_eV and bandgap_eV."
+  - "Do not add synthesis recipes, concentrations, temperatures as protocols, biomedical claims, device claims, or live external fetch behavior."
+  - "Do not unblock TASK-0225 in this task; leave that to the readiness gate."
+
+accepted_outputs:
+  - "data/quantum_dots/qd-0003-direct-absorption.yaml or equivalent next-numbered direct-measurement absorption seed"
+  - "updated data/quantum_dots/source_manifest.yaml if a new source is used"
+  - "docs/reviews/quantum-size-direct-absorption-seed-review.md"
+  - "updated tests covering schema validation and source_manifest references if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

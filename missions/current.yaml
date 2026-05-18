@@ -3,12 +3,12 @@ updated: "2026-05-12"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-16"
-  source: "TASK-0242"
+  updated: "2026-05-14"
+  source: "TASK-0243"
   note: >
-    Mission metadata was refreshed after adding the coverage report helper.
-    The flagship mission did not change; support recommendations now reference
-    only actionable READY tasks or command/documentation actions.
+    Mission metadata and generated task navigation were refreshed after adding
+    docs/task-views and freshness validation. The flagship mission did not
+    change; support recommendations now reference only actionable READY tasks.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -205,12 +205,12 @@ missions:
 
 support_actions:
   - id: release-signoff
-    label: "Run release validation and public wording signoff"
-    task_id: TASK-0206
+    label: "Review the release validation and public wording signoff artifact"
+    task_id: null
     priority: high
   - id: private-agent-challenge-pack
-    label: "Create private agent challenge pack"
-    task_id: TASK-0177
+    label: "Use the private agent challenge pack for invited-contributor onboarding"
+    command: "Read docs/private-agent-challenge-pack.md"
     priority: medium
   - id: coverage-helper
     label: "Run the report-only coverage helper"

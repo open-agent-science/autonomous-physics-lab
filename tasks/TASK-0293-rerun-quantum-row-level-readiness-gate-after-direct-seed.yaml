@@ -1,0 +1,53 @@
+id: TASK-0293
+title: "Rerun quantum row-level readiness gate after direct seed"
+type: scientific_validation
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert new direct-measurement quantum-dot rows into a clear go/no-go decision for TASK-0225."
+  - "Prevent accidental unblocking of the first benchmark from calibration-derived rows alone."
+  - "Keep Quantum Size Effects on a measurement-versus-model path unless the maintainer explicitly approves a narrower waiver."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "tasks/TASK-0291-curate-quantum-direct-measurement-absorption-seed.yaml"
+    - "tasks/TASK-0292-curate-quantum-direct-measurement-band-edge-seed.yaml"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "data/quantum_dots/"
+  planning_context: >
+    This task is blocked until at least one direct-measurement row-level
+    quantum-dot seed lands, or until the maintainer explicitly waives the
+    measurement-versus-model requirement and authorizes a calibration-curve
+    consistency benchmark. It reruns the TASK-0283 gate with the new data.
+
+requirements:
+  - "Start only after TASK-0291 or TASK-0292 is DONE, or after explicit maintainer waiver."
+  - "Validate all committed data/quantum_dots/qd-*.yaml files against the schema and source_manifest references."
+  - "Classify each included row as direct measurement, digitised figure point, calibration-derived, or excluded."
+  - "Recommend the first TASK-0225 property axis, dataset files, material holdout, size-range holdout, and negative controls."
+  - "Update TASK-0225 from BLOCKED to READY only if the direct-measurement gate passes or the maintainer waiver is explicitly recorded."
+  - "If TASK-0225 remains blocked, write the concrete missing data condition."
+  - "Do not run baseline model fitting, autonomous hypothesis search, reveal scoring, or claim promotion."
+
+accepted_outputs:
+  - "docs/reviews/quantum-size-row-level-data-readiness-after-direct-seed.md"
+  - "updated tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml if readiness changes"
+  - "updated docs/campaigns/quantum-size-effects.md if campaign orientation changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

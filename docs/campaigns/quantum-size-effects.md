@@ -14,28 +14,47 @@ holdouts.
 
 ## Orientation Note for New Contributors
 
-This campaign is currently **scaffold-complete and foundation-ready**.
+This campaign is currently **scaffold-complete with source-manifest evidence,
+but not yet row-level benchmark-ready**.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
-under `TASK-0222`, `TASK-0223`, and `TASK-0224`. The next safe work is source
-curation and the first baseline residual benchmark:
+under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
+reviewed source-manifest seed. `TASK-0281` and `TASK-0282` added two
+calibration-derived row-level seeds (Yu 2003 cadmium chalcogenides;
+Moreels 2009 PbS). `TASK-0283` then ran the row-level readiness gate and
+kept `TASK-0225` BLOCKED because every committed row is calibration-derived
+rather than directly measured.
 
-- `TASK-0275` — source-manifest seed after schema closeout (READY);
-- `TASK-0225` — baseline residual benchmark (READY);
+Current task posture:
+
+- `TASK-0281` — Yu 2003 multi-material absorption row-level seed (DONE);
+- `TASK-0282` — Moreels 2009 PbS absorption row-level extension (DONE);
+- `TASK-0283` — row-level readiness gate before baseline (DONE; see
+  `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`);
+- `TASK-0225` — baseline residual benchmark (BLOCKED; needs either a
+  direct-measurement row-level seed or a maintainer waiver to score a
+  calibration-curve consistency benchmark instead of a measurement-versus-
+  model benchmark);
+- `TASK-0291` — direct-measurement absorption seed (READY);
+- `TASK-0292` — direct-measurement band-edge seed (READY);
+- `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
+  `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
-Until those land in order, safe contributions are:
+Safe next contributions are:
 
 - planning, scope, and limitation notes;
-- queued tasks already on the canonical track above;
-- source-manifest curation under `TASK-0275`;
-- baseline implementation under `TASK-0225`;
+- direct-measurement row-level dataset curation that can re-run the
+  `TASK-0283` readiness gate;
+- a maintainer-approved waiver package if the first benchmark is intentionally
+  scoped as calibration-curve consistency rather than measurement-versus-model;
 - visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
 
 - do not fetch live datasets, scrape publication tables, or store raw vendor
   spec sheets in the repository without source-manifest review;
+- do not treat `data/quantum_dots/source_manifest.yaml` as benchmark data;
 - do not run visualization or autonomous-pilot work before the baseline
   residual artifact exists;
 - do not run autonomous formula search across quantum-dot size data before
@@ -64,17 +83,24 @@ memory, even before any compact correction term survives a holdout.
 
 ## Current Results
 
-None.
+No benchmark result yet.
 
-The only current evidence is the campaign scaffold defined by merged
-`TASK-0222`:
+Current evidence is infrastructure and source curation only:
 
-- this campaign page;
+- `TASK-0222` created this campaign page;
 - `campaign_profiles/quantum-size-effects.yaml` — the campaign profile and
   guardrails;
 - `docs/notes/quantum-size-effects-campaign-plan.md` — the sequenced plan;
 - `tasks/microtasks/quantum-size-effects.yaml` — a small scoped microtask
-  queue for planning-only contributions.
+  queue for planning-only contributions;
+- `TASK-0223` defined the dataset/source-manifest schema surface;
+- `TASK-0224` defined the holdout protocol;
+- `TASK-0275` added a reviewed source-manifest seed, but no row-level
+  measurement dataset.
+- `TASK-0281` and `TASK-0282` added calibration-derived absorption row-level
+  seeds for Yu 2003 cadmium chalcogenides and Moreels 2009 PbS.
+- `TASK-0283` reviewed those seeds and kept the benchmark blocked because they
+  are calibration-derived rather than direct measurement rows.
 
 Historical context:
 
@@ -101,9 +127,17 @@ Historical context:
 
 - `TASK-0223` and `TASK-0224` have delivered the dataset/schema and holdout
   foundation;
-- run `TASK-0275` if a small source-manifest seed is needed before the
-  baseline benchmark;
-- run `TASK-0225` for the first baseline residual benchmark;
+- `TASK-0275` has delivered the first source-manifest seed;
+- `TASK-0281` and `TASK-0282` delivered calibration-derived row-level
+  absorption seeds;
+- `TASK-0283` keeps `TASK-0225` blocked because the committed rows are not
+  direct measurement rows;
+- `TASK-0291` and `TASK-0292` are the next parallel data-curation lanes for
+  direct-measurement absorption and band-edge seeds;
+- `TASK-0293` should re-run the readiness gate after either direct seed lands;
+- next, add at least one direct-measurement row-level `qd-*.yaml` seed and
+  re-run the readiness gate, or request a maintainer waiver for a
+  calibration-curve consistency benchmark;
 - after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
   `TASK-0277` to review readiness before the autonomous pilot;
 - run `TASK-0226` only after a maintainer-approved baseline exists.
