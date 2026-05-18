@@ -6,12 +6,11 @@
 
 ## Release Blockers
 
-None.
+- `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 
 ## Research Blockers
 
 - `TASK-0178` - Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0226` - Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0233` - Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0234` - Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
