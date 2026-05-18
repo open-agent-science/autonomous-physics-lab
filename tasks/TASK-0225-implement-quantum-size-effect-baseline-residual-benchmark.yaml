@@ -1,7 +1,7 @@
 id: TASK-0225
 title: "Implement quantum-dot size-effect baseline and residual benchmark"
 type: scientific_benchmark
-status: READY
+status: BLOCKED
 difficulty: high
 priority: high
 
@@ -20,10 +20,15 @@ input:
     After the dataset schema/source manifest and holdout protocol exist, APL
     can implement the first Quantum Size Effects benchmark. The target is a
     baseline residual and breakdown map for size-dependent bandgap or optical
-    property models, not a new material law.
+    property models, not a new material law. TASK-0275 created a reviewed
+    source manifest, but a source manifest is not row-level benchmark data.
+    This task stays blocked until reviewed `data/quantum_dots/qd-*.yaml`
+    measurement rows exist and pass the dataset schema.
 
 requirements:
   - "Do not start until TASK-0223 and TASK-0224 are DONE or explicitly unblocked by the maintainer."
+  - "Do not start from source_manifest.yaml alone; require at least one reviewed row-level data/quantum_dots/qd-*.yaml dataset file with measurement rows, manifest-linked source_id values, and schema validation."
+  - "Prefer starting after TASK-0281 and the TASK-0283 readiness gate, or after an equivalent maintainer-approved row-level dataset gate."
   - "Implement conservative baseline model families such as Brus-style, HBM/Yu-style, or generalized sizing functions only when their required inputs are available and source-scoped."
   - "Report MAE and RMSE in eV, per-material residuals, size-range residuals, and an outlier table."
   - "Report holdout behavior using the protocol from TASK-0224."
