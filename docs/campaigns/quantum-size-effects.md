@@ -14,28 +14,33 @@ holdouts.
 
 ## Orientation Note for New Contributors
 
-This campaign is currently **scaffold-complete and foundation-ready**.
+This campaign is currently **scaffold-complete with source-manifest evidence,
+but not yet row-level benchmark-ready**.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
-under `TASK-0222`, `TASK-0223`, and `TASK-0224`. The next safe work is source
-curation and the first baseline residual benchmark:
+under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
+reviewed source-manifest seed. The next safe work is row-level measurement
+curation before any baseline residual benchmark:
 
-- `TASK-0275` — source-manifest seed after schema closeout (READY);
-- `TASK-0225` — baseline residual benchmark (READY);
+- `TASK-0281` — Yu 2003 multi-material absorption row-level seed (READY);
+- `TASK-0282` — Moreels 2009 PbS absorption row-level extension (READY);
+- `TASK-0283` — row-level readiness gate before baseline (BLOCKED);
+- `TASK-0225` — baseline residual benchmark (BLOCKED until row-level data);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
 Until those land in order, safe contributions are:
 
 - planning, scope, and limitation notes;
 - queued tasks already on the canonical track above;
-- source-manifest curation under `TASK-0275`;
-- baseline implementation under `TASK-0225`;
+- row-level dataset curation under `TASK-0281` or `TASK-0282`;
+- readiness review under `TASK-0283` after a row-level seed lands;
 - visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
 
 - do not fetch live datasets, scrape publication tables, or store raw vendor
   spec sheets in the repository without source-manifest review;
+- do not treat `data/quantum_dots/source_manifest.yaml` as benchmark data;
 - do not run visualization or autonomous-pilot work before the baseline
   residual artifact exists;
 - do not run autonomous formula search across quantum-dot size data before
@@ -64,17 +69,20 @@ memory, even before any compact correction term survives a holdout.
 
 ## Current Results
 
-None.
+No benchmark result yet.
 
-The only current evidence is the campaign scaffold defined by merged
-`TASK-0222`:
+Current evidence is infrastructure and source curation only:
 
-- this campaign page;
+- `TASK-0222` created this campaign page;
 - `campaign_profiles/quantum-size-effects.yaml` — the campaign profile and
   guardrails;
 - `docs/notes/quantum-size-effects-campaign-plan.md` — the sequenced plan;
 - `tasks/microtasks/quantum-size-effects.yaml` — a small scoped microtask
-  queue for planning-only contributions.
+  queue for planning-only contributions;
+- `TASK-0223` defined the dataset/source-manifest schema surface;
+- `TASK-0224` defined the holdout protocol;
+- `TASK-0275` added a reviewed source-manifest seed, but no row-level
+  measurement dataset.
 
 Historical context:
 
@@ -101,9 +109,11 @@ Historical context:
 
 - `TASK-0223` and `TASK-0224` have delivered the dataset/schema and holdout
   foundation;
-- run `TASK-0275` if a small source-manifest seed is needed before the
-  baseline benchmark;
-- run `TASK-0225` for the first baseline residual benchmark;
+- `TASK-0275` has delivered the first source-manifest seed;
+- run `TASK-0281` and `TASK-0282` as parallel row-level data curation tasks;
+- run `TASK-0283` to decide whether the row-level data is sufficient to
+  unblock the first baseline;
+- keep `TASK-0225` blocked until reviewed row-level `qd-*.yaml` data exists;
 - after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
   `TASK-0277` to review readiness before the autonomous pilot;
 - run `TASK-0226` only after a maintainer-approved baseline exists.
