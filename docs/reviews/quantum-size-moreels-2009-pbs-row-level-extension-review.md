@@ -59,7 +59,7 @@ stored diameter must agree with the stored `value_eV` to within 1e-10 eV.
 
 ## Batch Coverage
 
-Ten calibration-derived rows spanning 850–2000 nm (1.46–0.62 eV, 2.7–9.2 nm):
+Nine calibration-derived rows spanning 850–2000 nm (1.46–0.62 eV, 2.7–9.2 nm):
 
 | entry_id | diameter_nm | value_eV | lambda (nm) |
 |----------|-------------|----------|-------------|
