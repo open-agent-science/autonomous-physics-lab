@@ -123,6 +123,7 @@ Start here:
 - [Registry Status After PRED-0062](../reviews/nuclear-prediction-registry-status-after-pred-0062.md)
 - [Registry Coverage Audit](../reviews/nuclear-prediction-registry-coverage-audit.md)
 - [Synthetic Reveal Dry-Run](../reviews/nuclear-prediction-synthetic-reveal-dry-run.md)
+- [Scout Lane Synthesis After PRED-0062](../reviews/nuclear-scout-lane-synthesis-after-pred-0062.md)
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [TASK-0272](../../tasks/TASK-0272-audit-nuclear-prediction-registry-coverage.yaml)
 - [TASK-0273](../../tasks/TASK-0273-add-nuclear-synthetic-reveal-dry-run-harness.yaml)
@@ -130,6 +131,7 @@ Start here:
 - [TASK-0278](../../tasks/TASK-0278-run-nuclear-shell-neighborhood-variant-scout.yaml)
 - [TASK-0279](../../tasks/TASK-0279-run-nuclear-neutron-rich-variant-scout.yaml)
 - [TASK-0280](../../tasks/TASK-0280-run-nuclear-pairing-odd-even-variant-scout.yaml)
+- [TASK-0285](../../tasks/TASK-0285-synthesize-nuclear-scout-lanes-after-registry-status.yaml)
 
 ## Open Questions
 
