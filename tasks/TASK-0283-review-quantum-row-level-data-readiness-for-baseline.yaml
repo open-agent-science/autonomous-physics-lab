@@ -1,7 +1,7 @@
 id: TASK-0283
 title: "Review quantum row-level data gate for baseline"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -21,12 +21,12 @@ input:
     - "data/quantum_dots/source_manifest.yaml"
   planning_context: >
     TASK-0225 needs a reviewed row-level dataset and a frozen first benchmark
-    boundary. This task stays blocked until at least TASK-0281 is DONE, and it
-    may optionally include TASK-0282 if broader PbS material span is desired
-    before the first baseline.
+    boundary. TASK-0281 and TASK-0282 are now DONE, so this readiness gate can
+    review the cadmium-chalcogenide and PbS absorption seeds before the first
+    baseline.
 
 requirements:
-  - "Start only after TASK-0281 is DONE, or after an equivalent maintainer-approved row-level quantum-dot dataset seed exists."
+  - "Start after TASK-0281 and TASK-0282 are DONE, or after an equivalent maintainer-approved row-level quantum-dot dataset seed exists."
   - "Confirm that committed data/quantum_dots/qd-*.yaml files validate against the schema and reference registered source_manifest source_id values."
   - "Confirm that included rows are traceable to table, figure, calibration, or documented curve-read provenance, with uncertain rows excluded rather than silently used."
   - "Recommend the first TASK-0225 primary property_kind, expected dataset files, material-holdout option, size-range holdout option, and negative-control requirement."

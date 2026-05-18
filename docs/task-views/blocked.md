@@ -17,7 +17,6 @@ None.
 - `TASK-0234` - Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0235` - Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0277` - Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
-- `TASK-0283` - Review quantum row-level data gate for baseline (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 
 ## Support Blockers
 
