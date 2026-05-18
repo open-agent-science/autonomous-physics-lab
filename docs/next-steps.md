@@ -220,6 +220,12 @@ The nuclear queue should stay conservative:
 - no broad second nuclear sandbox batch from `TASK-0178`; use the factory
   path for bounded expansion and keep future reveal comparison in a separate
   reviewed task.
+- after the post-`PRED-0062` registry status summary, use `TASK-0285`,
+  `TASK-0286`, and `TASK-0287` as the next Nuclear Mass Surface wave:
+  synthesize scout evidence, probe mid-mass/isotope-chain gaps, and define
+  source-readiness before any real reveal.
+- do not register scout-derived `PRED-*` entries until the scout synthesis and
+  reveal source-readiness work are reviewed.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into
