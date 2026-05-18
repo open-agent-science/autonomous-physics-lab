@@ -21,6 +21,7 @@ from physics_lab.registry.maintainer_review import (
     overclaim_advisory_hits,
     overclaim_hits,
     parse_added_lines,
+    _portable_validation_command,
     render_review_report,
     run_task_validation,
     security_pattern_hits,
@@ -508,6 +509,24 @@ def test_run_task_validation_uses_active_python_for_python3_commands(tmp_path) -
     summary = run_task_validation(tmp_path, payload, enabled=True)
 
     assert summary.status == "pass"
+
+
+def test_portable_validation_command_uses_git_bash_for_repo_shell_script() -> None:
+    with patch(
+        "physics_lab.registry.maintainer_review._git_bash_path",
+        return_value="C:/Program Files/Git/bin/bash.exe",
+    ):
+        command = _portable_validation_command("./scripts/apl_snapshot.sh")
+
+    assert command == (
+        '"C:/Program Files/Git/bin/bash.exe" -lc "./scripts/apl_snapshot.sh"'
+    )
+
+
+def test_portable_validation_command_leaves_complex_shell_commands_unchanged() -> None:
+    command = _portable_validation_command("./scripts/apl_snapshot.sh --flag")
+
+    assert command == "./scripts/apl_snapshot.sh --flag"
 
 
 def test_parse_added_lines_can_exclude_tests_or_limit_prefixes() -> None:

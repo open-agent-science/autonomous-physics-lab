@@ -27,6 +27,7 @@ Suggested evidence:
 
 - latest CI run link
 - maintainer validation log
+- release-time validation signoff artifact
 - repository snapshot without local-only files
 
 ## Gate 2 — Multi-Agent Contributor Pilot
@@ -78,12 +79,15 @@ All of the following must be true:
 
 - `README.md` has a result summary
 - an announcement draft exists
+- external reviewer replication guidance has been checked against the current
+  public evidence surface
 - no final-answer, universal-theory, or discovery-level overclaim
 - claims remain review-gated
 - guarded stress-test outputs are not presented as flagship public successes
 
 ## Release Decision
 
-The repository may become public only when all four gates are satisfied and a
-maintainer explicitly decides that the current docs, task board, and scientific
-claims are aligned with the evidence.
+The repository may become public only when all four gates are satisfied, the
+release-time validation signoff has been reviewed, and a maintainer explicitly
+decides that the current docs, task board, and scientific claims are aligned
+with the evidence.
