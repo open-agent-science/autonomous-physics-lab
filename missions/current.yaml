@@ -209,8 +209,8 @@ support_actions:
     task_id: null
     priority: high
   - id: private-agent-challenge-pack
-    label: "Create private agent challenge pack"
-    task_id: TASK-0177
+    label: "Use the private agent challenge pack for invited-contributor onboarding"
+    command: "Read docs/private-agent-challenge-pack.md"
     priority: medium
   - id: coverage-helper
     label: "Add a coverage helper entrypoint for contributors and agents"
