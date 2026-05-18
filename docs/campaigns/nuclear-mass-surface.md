@@ -93,6 +93,12 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   `PRED-0051` through `PRED-0062`.
 - `TASK-0266` defined the reveal protocol for future reviewed measurement
   comparisons.
+- `TASK-0272` audited registry coverage across 54 committed entries and 213
+  target rows, surfacing repeated-target pressure and thin mid-mass coverage.
+- `TASK-0273` added a synthetic reveal dry-run harness that exercises partial
+  reveal behavior with fabricated toy values only.
+- `TASK-0274` summarizes the post-`PRED-0062` evidence state and keeps the
+  registry framed as prospective rather than validated.
 
 Historical context:
 
@@ -113,9 +119,13 @@ Start here:
 - [Selected Factory Registry Wave 001](../reviews/nuclear-prediction-factory-selected-registry-001.md)
 - [Feature-Term Factory Slate 002](../reviews/nuclear-prediction-factory-slate-002-feature-terms.md)
 - [Feature-Term Selected Registry Wave 001](../reviews/nuclear-prediction-factory-feature-term-selected-registry-001.md)
+- [Registry Status After PRED-0062](../reviews/nuclear-prediction-registry-status-after-pred-0062.md)
+- [Registry Coverage Audit](../reviews/nuclear-prediction-registry-coverage-audit.md)
+- [Synthetic Reveal Dry-Run](../reviews/nuclear-prediction-synthetic-reveal-dry-run.md)
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [TASK-0272](../../tasks/TASK-0272-audit-nuclear-prediction-registry-coverage.yaml)
 - [TASK-0273](../../tasks/TASK-0273-add-nuclear-synthetic-reveal-dry-run-harness.yaml)
+- [TASK-0274](../../tasks/TASK-0274-summarize-nuclear-prediction-registry-evidence.yaml)
 - [TASK-0278](../../tasks/TASK-0278-run-nuclear-shell-neighborhood-variant-scout.yaml)
 - [TASK-0279](../../tasks/TASK-0279-run-nuclear-neutron-rich-variant-scout.yaml)
 - [TASK-0280](../../tasks/TASK-0280-run-nuclear-pairing-odd-even-variant-scout.yaml)
@@ -135,10 +145,13 @@ Start here:
 
 ## Recommended Tasks
 
-- `TASK-0272` — audit registry coverage after the feature-term wave.
-- `TASK-0273` — build a synthetic reveal dry-run harness without real
-  measurement data.
-- `TASK-0274` — summarize the registry/evidence state after `PRED-0062`.
+- Review the `TASK-0272` registry coverage audit before adding more frozen
+  predictions.
+- Use the `TASK-0273` synthetic reveal dry-run harness for workflow checks
+  only; it uses fabricated values and is not nuclear evidence.
+- Use the `TASK-0274` registry status summary as the contributor-facing map of
+  baseline evidence, sandbox evidence, prospective registry entries, and reveal
+  boundaries after `PRED-0062`.
 - `TASK-0278` — run a shell-neighborhood variant scout lane.
 - `TASK-0279` — run a neutron-rich/asymmetry variant scout lane.
 - `TASK-0280` — run a pairing and odd-even variant scout lane.
