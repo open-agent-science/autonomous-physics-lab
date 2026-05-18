@@ -213,8 +213,8 @@ support_actions:
     command: "Read docs/private-agent-challenge-pack.md"
     priority: medium
   - id: coverage-helper
-    label: "Add a coverage helper entrypoint for contributors and agents"
-    task_id: TASK-0242
+    label: "Run the report-only coverage helper"
+    command: "python3 scripts/apl_coverage_report.py"
     priority: medium
 
 maintainer_actions:
