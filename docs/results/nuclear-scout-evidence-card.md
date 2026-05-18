@@ -94,13 +94,10 @@ Allowed internal wording:
 - "prospective registry entries awaiting future source-pinned reveal"
 - "no future-measurement reveal yet"
 
-Forbidden wording:
-
-- "found a nuclear mass formula"
-- "proved shell-aware corrections"
-- "validated future predictions"
-- "confirmed a nuclear mass law"
-- "reveal success"
+Avoid wording that implies discovery, proof-style certainty, future-prediction
+acceptance, law-like behavior, or successful reveal outcome. Those
+interpretations require a separate maintainer-reviewed task and, for future
+measurements, a source-pinned reveal.
 
 ## Current Verdict
 
