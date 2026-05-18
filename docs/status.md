@@ -47,9 +47,14 @@ work, and a private contributor workflow before any public-opening decision.
   time-split evidence: `AGENT-RUN-0007` is `INCONCLUSIVE` source-manifest-only
   guard evidence, while `AGENT-RUN-0008` is sandbox-only row-level time-split
   evidence that remains `INCONCLUSIVE`.
-- `PRED-0001` through `PRED-0020` - prospective nuclear prediction registry
-  entries awaiting future maintainer-reviewed reveal data. These are frozen
+- `PRED-0001` through `PRED-0062` - prospective nuclear prediction registry
+  entries awaiting future maintainer-reviewed reveal data. The registry now has
+  coverage-audit and synthetic reveal dry-run support, but these are frozen
   forecasts, not results or claims.
+- Nuclear scout synthesis after `PRED-0062` - sandbox-only review evidence now
+  points to a small shell-axis follow-up surface and preserves mid-mass /
+  isotope-chain scout failures as negative evidence. No reveal or discovery
+  claim is promoted.
 - [Negative Results Registry](./negative-results-registry.md):
   repository-level index of clean falsifications that should remain visible
   alongside successful reproductions.
@@ -108,7 +113,8 @@ Together these now support four active benchmark surfaces:
   — planning-first analytical consistency campaign with no canonical run yet.
 - [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) - current
   flagship validation campaign with a frozen baseline residual benchmark,
-  sandbox-only autonomous pilot evidence, and post-AME2020 follow-up guardrails.
+  sandbox-only autonomous pilot evidence, prospective registry entries through
+  `PRED-0062`, post-registry scout synthesis, and reveal-readiness guardrails.
 
 ## Current Contributor Workflow
 
@@ -148,10 +154,16 @@ Latest review verdict:
 
 Current named blockers before any public opening:
 
-- keep the local path leak check clean through release signoff;
+- keep the local path leak check clean through release signoff; the
+  `TASK-0206` signoff pass found and fixed one public-path wording issue and
+  reran the checker cleanly;
 - verify the existing external-reviewer replication guide against the current
-  flagship evidence surface during release signoff;
-- record a release-time default-branch validation and CI signoff artifact.
+  flagship evidence surface during release signoff; the `TASK-0206` signoff
+  confirms the bounded replay scope and reruns the core reproduction path into
+  sandbox output;
+- record a release-time default-branch validation and CI signoff artifact; this
+  is now captured for maintainer review in
+  [public-release-validation-signoff.md](./reviews/public-release-validation-signoff.md).
 
 ## Current Risks
 

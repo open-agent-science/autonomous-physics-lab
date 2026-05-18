@@ -1,0 +1,113 @@
+id: EXP-PROPOSAL-0010
+title: "Sandbox nuclear shell-axis adversarial stress scout"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude-code
+  task_id: TASK-0288
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+  - "docs/reviews/nuclear-shell-neighborhood-variant-scout-001.md"
+  - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+  - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0044-shell-axis-stress-scout-batch.yaml"
+
+question: "Do the strongest post-PRED-0062 shell-axis sandbox signals (SHELL-SCOUT-003 proton-only, SHELL-SCOUT-005 product, SHELL-SCOUT-002 neutron-only) survive adversarial stress controls (sign-inversion, cyclic-shift-5 shuffle, near-null sanity, repeated-target pressure) without writing prediction registry entries or promoting claims?"
+
+method:
+  summary: "Generate nine bounded shell-axis adversarial candidate ideas, reject three free-knob or duplicate-search candidates before execution, execute six candidates including three re-evaluations and three adversarial controls (sign-inverted, shuffled, and near-null), and report subset deltas plus repeated-target-pressure diagnostics against the frozen RESULT-0015 baseline."
+  code_references:
+    - "scripts/run_nuclear_shell_axis_stress_scout.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+    - "tests/test_nuclear_shell_axis_stress_scout.py"
+  commands:
+    - "python3 scripts/run_nuclear_shell_axis_stress_scout.py"
+    - "python3 -m pytest tests/test_nuclear_shell_axis_stress_scout.py"
+  parameters:
+    generated_candidates: 9
+    executed_candidates: 6
+    rejected_before_execution: 3
+    near_null_controls: 1
+    sign_inverted_controls: 1
+    shuffled_controls: 1
+    shuffle_scheme: "cyclic-shift-5"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  assumptions:
+    - "The scout does not update prediction registry entries."
+    - "The scout does not update EXP-0012, RESULT-0015, claims, knowledge, or canonical datasets."
+    - "Sign-inverted, shuffled, and near-null controls are preserved as adversarial diagnostics."
+    - "Repeated-target-pressure diagnostics confirm overrepresented registry targets are absent from the holdout."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0016/"
+  metrics:
+    - "generated_candidate_count"
+    - "executed_candidate_count"
+    - "rejected_before_execution_count"
+    - "delta_mae_by_subset_mev"
+    - "frontier_contrast_mev"
+    - "repeated_target_pressure"
+    - "verdict_counts"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0016/report.md"
+    - "agent_runs/AGENT-RUN-0016/limitations.md"
+    - "docs/reviews/nuclear-shell-axis-stress-scout-001.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, the sign-inverted control regresses primary, the shuffled control collapses to near-noise-floor deltas, the near-null control returns exactly zero deltas, the four overrepresented registry targets are confirmed absent from the holdout, and no registry, result, claim, knowledge, or canonical dataset files are modified."
+  fail_condition: "Sandbox fail if the lane writes prediction entries, hides subset regressions, relaxes adversarial controls, frames retrospective deltas as prospective prediction, or fails to record repeated-target-pressure diagnostics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  expected_failure_modes:
+    - "Shell-axis features can be artifacts of the small training slice."
+    - "Sign-inverted forms must regress; if they improve, the signal direction is unreliable."
+    - "Shuffled features should collapse to near-noise-floor deltas if the underlying signal is row-feature linked."
+    - "Near-null controls must return exactly zero deltas."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a prediction reveal."
+    - "Do not call PARTIALLY_VALID candidates discoveries."
+    - "Do not imply registry readiness."
+    - "Do not treat the shuffled control's PARTIALLY_VALID label as physical signal."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Preserve PARTIALLY_VALID, OVERFITTED, and INCONCLUSIVE verdicts."
+    - "Require a future maintainer-reviewed task for registry or reveal work."
+
+limitations:
+  - "The candidate fit surface is small and retrospective."
+  - "Chain-neighbor diagnostics rely on only six holdout rows."
+  - "Adversarial control verdicts are sandbox-triage labels only."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Confirm that the shell-axis stress lane is preserved as bounded sandbox evidence rather than promoted into registry expansion."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed registry or reveal task before any PRED-* or RESULT-* update."

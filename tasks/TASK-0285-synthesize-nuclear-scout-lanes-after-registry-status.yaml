@@ -1,0 +1,52 @@
+id: TASK-0285
+title: "Synthesize nuclear scout lanes after registry status"
+type: scientific_validation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the completed shell, neutron-rich, and pairing scout lanes into a ranked follow-up map."
+  - "Separate robust sandbox signals from weak, overfit, and negative-control outcomes before creating more frozen predictions."
+  - "Keep the Nuclear Mass Surface in adversarial review mode after the post-PRED-0062 evidence snapshot."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-shell-neighborhood-variant-scout-001.md"
+    - "docs/reviews/nuclear-neutron-rich-variant-scout-001.md"
+    - "docs/reviews/nuclear-pairing-odd-even-variant-scout-001.md"
+    - "docs/reviews/nuclear-prediction-registry-status-after-pred-0062.md"
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  planning_context: >
+    TASK-0278, TASK-0279, and TASK-0280 produced three sandbox-only scout
+    lanes. TASK-0274 now summarizes the post-PRED-0062 evidence state. Before
+    APL registers any scout-derived predictions or launches a broader sandbox,
+    the campaign needs an adversarial synthesis of which signals are strongest,
+    which are negative results, and which follow-ups are worth assigning.
+
+requirements:
+  - "Compare shell-neighborhood, neutron-rich/asymmetry, and pairing/odd-even scout outcomes using the committed review notes and metrics only."
+  - "Rank candidate families by effect size, subset consistency, overfit risk, and usefulness as negative controls."
+  - "Explicitly identify the strongest shell-neighborhood follow-up candidates, especially whether SHELL-SCOUT-002, SHELL-SCOUT-003, or SHELL-SCOUT-005 deserve later review."
+  - "Record why weak or regressive candidates should not be promoted."
+  - "Recommend at most 1 to 3 follow-up families for future maintainer approval; do not create registry entries in this task."
+  - "Do not fetch live measurements, score real reveals, update claims, or promote sandbox improvements as discoveries."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the recommended queue changes"
+  - "updated docs/next-steps.md if the campaign execution order changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

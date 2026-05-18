@@ -1,0 +1,99 @@
+id: HYP-PROPOSAL-0044
+title: "Shell-axis adversarial stress scout batch"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox hypothesis batch only; no prediction registry, canonical result, or claim promotion."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude-code
+  task_id: TASK-0288
+
+input_references:
+  - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+  - "docs/reviews/nuclear-shell-neighborhood-variant-scout-001.md"
+  - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+  - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+
+hypothesis:
+  statement: "The strongest post-PRED-0062 shell-axis sandbox signals (SHELL-SCOUT-003 proton-only Gaussian and SHELL-SCOUT-005 proton x neutron product, with SHELL-SCOUT-002 neutron-only Gaussian as an overlap diagnostic) should retain their sub-MeV improvements under adversarial stress (sign-inversion, shuffle, near-null control, repeated-target pressure) before any registry follow-up is considered."
+  variables:
+    - "Z, N: proton and neutron numbers"
+    - "s_z2, s_n2: Gaussian proximity (sigma 2) to nearest magic number on the proton and neutron axes"
+    - "fitted residual coefficients relative to RESULT-0015::model_fitted_semi_empirical"
+    - "shuffle scheme: cyclic-shift-5 on training and holdout shell features"
+    - "sign-inverted application of the proton-only beta"
+  assumptions:
+    - "The task is a scout lane, not a registry expansion."
+    - "All candidates are fitted only on committed repository data."
+    - "Subset-specific regressions and adversarial-control behavior are decisive even when an aggregate metric looks small."
+  expected_scope: "Retrospective sandbox adversarial stress check on the shell axis."
+  expected_failure_modes:
+    - "Shell-axis features can improve only on tiny subsets while regressing the primary surface."
+    - "Sign-inverted forms can spuriously improve the surface, indicating unreliable signal direction."
+    - "Shuffled features can extract residual fit-machinery signal from noise, indicating overfit on the 11-row training slice."
+    - "Improvements may concentrate on chain-neighbor rows of overrepresented registry targets."
+
+novelty_check:
+  checked_files:
+    - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+    - "docs/reviews/nuclear-shell-neighborhood-variant-scout-001.md"
+    - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+    - "agent_runs/AGENT-RUN-0012/"
+    - "agent_runs/AGENT-RUN-0015/"
+  possible_overlap: "Re-evaluates the SHELL-SCOUT-002 / 003 / 005 family from AGENT-RUN-0012 as an adversarial stress check, not as a new candidate family."
+  notes: "The lane is intentionally bounded and preserves sign-inverted, shuffled, and near-null adversarial controls."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_shell_axis_stress_scout.py and compare committed metrics to recomputed metrics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on committed NMD-0002 and post-AME2020 holdout data."
+  pass_condition: "A candidate remains only sandbox evidence if metrics are deterministic, sign-inverted and shuffled controls behave as expected, rejected candidates are documented, and no registry or claim files are written."
+  fail_condition: "Fail if a candidate writes PRED entries, promotes a claim, hides subset regressions, frames retrospective deltas as prospective prediction, or relaxes adversarial controls."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe the scout as discovering a nuclear shell correction."
+    - "Do not treat retrospective subset deltas as registry-ready predictions."
+    - "Do not treat a PARTIALLY_VALID sandbox-triage label as a claim of physical signal."
+    - "Do not present overfitted or shuffled candidates as physical evidence."
+  mitigations:
+    - "Keep outputs under agent_runs, review notes, scripts, tests, and the task file."
+    - "Report PARTIALLY_VALID, INCONCLUSIVE, and OVERFITTED verdicts explicitly."
+    - "Require a separate maintainer-reviewed task for any registry or reveal-scoring work."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_shell_axis_stress_scout.py"
+    - "python3 -m pytest tests/test_nuclear_shell_axis_stress_scout.py"
+  code_references:
+    - "scripts/run_nuclear_shell_axis_stress_scout.py"
+    - "tests/test_nuclear_shell_axis_stress_scout.py"
+  metrics:
+    - "primary_delta_mae_mev"
+    - "magic_z_delta_mae_mev"
+    - "magic_n_delta_mae_mev"
+    - "heavy_a_ge_100_delta_mae_mev"
+    - "registry_repeat_chain_neighbor_delta_mae_mev"
+    - "frontier_contrast_mev"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0016/"
+    - "docs/reviews/nuclear-shell-axis-stress-scout-001.md"
+
+limitations:
+  - "The residual training surface has only 11 rows."
+  - "The lane is retrospective and sandbox-only."
+  - "The four overrepresented registry targets are absent from the holdout; chain-neighbor diagnostics rely on six rows only."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Treat the shell-axis stress lane as bounded sandbox evidence; defer registry expansion to a separate maintainer-reviewed task."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed registry, reveal, or dataset-expansion task before any promotion."

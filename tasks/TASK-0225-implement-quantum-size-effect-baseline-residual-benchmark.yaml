@@ -1,7 +1,7 @@
 id: TASK-0225
 title: "Implement quantum-dot size-effect baseline and residual benchmark"
 type: scientific_benchmark
-status: READY
+status: BLOCKED
 difficulty: high
 priority: high
 
@@ -20,10 +20,29 @@ input:
     After the dataset schema/source manifest and holdout protocol exist, APL
     can implement the first Quantum Size Effects benchmark. The target is a
     baseline residual and breakdown map for size-dependent bandgap or optical
-    property models, not a new material law.
+    property models, not a new material law. TASK-0275 created a reviewed
+    source manifest, but a source manifest is not row-level benchmark data.
+    TASK-0281 and TASK-0282 added two row-level absorption seeds (qd-0001,
+    qd-0002), but the TASK-0283 readiness review found that every committed
+    row is calibration-derived from a published empirical sizing curve
+    rather than a directly measured value. This task therefore stays BLOCKED.
+    Concrete blocker: scoring a baseline against calibration-derived rows
+    would compare a chosen baseline (e.g. Brus) to another published formula,
+    not to measurements; the residuals would not represent
+    measurement-versus-model error. Unblock paths: (a) add at least one
+    direct-measurement row-level dataset seed (table values, digitised
+    figure points, or independently reviewed TEM+spectroscopy measurements),
+    then re-run the TASK-0283 readiness gate; or (b) maintainer waiver to
+    interpret the first baseline as a calibration-curve consistency
+    benchmark, with that framing recorded in the pre-reveal package, the
+    result note, and the campaign page. See
+    `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`
+    for the full gate decision.
 
 requirements:
   - "Do not start until TASK-0223 and TASK-0224 are DONE or explicitly unblocked by the maintainer."
+  - "Do not start from source_manifest.yaml alone; require at least one reviewed row-level data/quantum_dots/qd-*.yaml dataset file with measurement rows, manifest-linked source_id values, and schema validation."
+  - "Prefer starting after TASK-0281 and the TASK-0283 readiness gate, or after an equivalent maintainer-approved row-level dataset gate."
   - "Implement conservative baseline model families such as Brus-style, HBM/Yu-style, or generalized sizing functions only when their required inputs are available and source-scoped."
   - "Report MAE and RMSE in eV, per-material residuals, size-range residuals, and an outlier table."
   - "Report holdout behavior using the protocol from TASK-0224."

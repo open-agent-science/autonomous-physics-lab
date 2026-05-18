@@ -205,8 +205,8 @@ missions:
 
 support_actions:
   - id: release-signoff
-    label: "Run release validation and public wording signoff"
-    task_id: TASK-0206
+    label: "Review the release validation and public wording signoff artifact"
+    task_id: null
     priority: high
   - id: private-agent-challenge-pack
     label: "Use the private agent challenge pack for invited-contributor onboarding"
