@@ -150,10 +150,16 @@ Latest review verdict:
 
 Current named blockers before any public opening:
 
-- keep the local path leak check clean through release signoff;
+- keep the local path leak check clean through release signoff; the
+  `TASK-0206` signoff pass found and fixed one public-path wording issue and
+  reran the checker cleanly;
 - verify the existing external-reviewer replication guide against the current
-  flagship evidence surface during release signoff;
-- record a release-time default-branch validation and CI signoff artifact.
+  flagship evidence surface during release signoff; the `TASK-0206` signoff
+  confirms the bounded replay scope and reruns the core reproduction path into
+  sandbox output;
+- record a release-time default-branch validation and CI signoff artifact; this
+  is now captured for maintainer review in
+  [public-release-validation-signoff.md](./reviews/public-release-validation-signoff.md).
 
 ## Current Risks
 
