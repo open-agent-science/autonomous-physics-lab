@@ -49,6 +49,11 @@ one PR.
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0288` — Run nuclear shell-axis adversarial stress scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0289` — Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -56,13 +61,14 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0283` — Review quantum row-level data gate for baseline (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0285` — Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (merged)
+- `TASK-0285` — Synthesize nuclear scout lanes after registry status (merged)
 - `TASK-0284` — Allow any Bash command in Claude Code shared permissions (unsafe mode) (merged)
+- `TASK-0283` — Review quantum row-level data gate for baseline (merged)
 - `TASK-0282` — Curate Moreels 2009 PbS row-level absorption extension (merged)
 - `TASK-0281` — Curate Yu 2003 quantum-dot row-level absorption seed (merged)
 - `TASK-0280` — Run nuclear pairing and odd-even variant scout (merged)
@@ -323,6 +329,7 @@ None.
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 

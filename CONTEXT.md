@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-18 13:05 UTC
+Generated: 2026-05-18 16:49 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2130,9 +2130,12 @@ one PR.
 
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0285` — Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0288` — Run nuclear shell-axis adversarial stress scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0289` — Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -2140,18 +2143,21 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0206` — Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (`documentation`, priority `medium`, difficulty `medium`)
-- `TASK-0281` — Curate Yu 2003 quantum-dot row-level absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0282` — Curate Moreels 2009 PbS row-level absorption extension (`scientific_dataset`, priority `medium`, difficulty `high`)
-- `TASK-0284` — Allow any Bash command in Claude Code shared permissions (unsafe mode) (`contributor_experience`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (merged)
+- `TASK-0285` — Synthesize nuclear scout lanes after registry status (merged)
+- `TASK-0284` — Allow any Bash command in Claude Code shared permissions (unsafe mode) (merged)
+- `TASK-0283` — Review quantum row-level data gate for baseline (merged)
+- `TASK-0282` — Curate Moreels 2009 PbS row-level absorption extension (merged)
+- `TASK-0281` — Curate Yu 2003 quantum-dot row-level absorption seed (merged)
 - `TASK-0280` — Run nuclear pairing and odd-even variant scout (merged)
 - `TASK-0279` — Run nuclear neutron-rich variant scout (merged)
 - `TASK-0278` — Run nuclear shell-neighborhood variant scout (merged)
 - `TASK-0275` — Curate quantum-size source manifest seed after schema (merged)
+- `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (merged)
 - `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (merged)
 - `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (merged)
 - `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (merged)
@@ -2206,6 +2212,7 @@ None.
 - `TASK-0212` — Clarify Scientific Campaign Curator maintainer-authorized task creation policy (merged)
 - `TASK-0211` — Add Scientific Campaign Curator agent mode for scientific campaign steering (merged)
 - `TASK-0207` — Curate private-agent nuclear validation cycle task queue (merged)
+- `TASK-0206` — Add release-time validation and public wording signoff artifact (merged)
 - `TASK-0205` — Create first prospective nuclear-mass prediction registry entries (merged)
 - `TASK-0204` — Adversarially review second nuclear sandbox batch outputs (merged)
 - `TASK-0203` — Analyze post-AME2020 time-split findings and nuclear residual failure modes (merged)
@@ -2404,7 +2411,7 @@ None.
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0283` — Review quantum row-level data gate for baseline (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 

@@ -113,15 +113,17 @@ prediction factory, reusable target batches, and selected prospective registry
 entries through `PRED-0062`.
 
 The next scientific goal is not to multiply frozen registry entries casually.
-It is to audit the registry, dry-run the reveal machinery on synthetic sources,
-keep three disjoint Nuclear scout lanes available for parallel agents, and let
-Quantum Size Effects become the next near-term benchmark-result surface:
+It is to finish reveal-readiness, adversarially stress the strongest scout
+families, preserve negative evidence, and let Quantum Size Effects advance only
+through measurement-grade row-level data:
 
-- audit coverage across coefficient-only, manual, and feature-term prediction
-  families;
-- test reveal protocol mechanics on synthetic/fake data only;
-- run bounded shell-neighborhood, neutron-rich, and pairing/odd-even scout
-  lanes as sandbox work without editing the frozen registry;
+- use the completed registry coverage audit, synthetic reveal dry-run, and
+  scout synthesis as the map for the next wave;
+- define concrete real-source, checksum, no-peek, and partial-reveal criteria;
+- run bounded adversarial stress lanes for shell-axis and asymmetry-frontier
+  candidates without editing the frozen registry;
+- package the latest scout evidence so positive and negative outcomes are easy
+  to review;
 - preserve the no-peek boundary while waiting for future reviewed
   measurements;
 - avoid adding more frozen prediction-registry entries until coverage and
@@ -129,52 +131,15 @@ Quantum Size Effects become the next near-term benchmark-result surface:
 
 Recommended nuclear validation queue for parallel agents:
 
-- `TASK-0174` nuclear pilot evidence card and visual funnel, now merged
-- `TASK-0188` post-AME2020 time-split guard, complete in conservative
-  source-manifest-only mode with no active benchmark metrics
-- `TASK-0196` reviewed row-level post-AME2020 nuclear mass holdout dataset,
-  now merged
-- `TASK-0197` real post-AME2020 nuclear time-split benchmark, now merged as
-  inconclusive `AGENT-RUN-0008` evidence
-- `TASK-0189` nuclear prediction registry policy, now merged
-- `TASK-0200` bounded shell-aware nuclear sandbox batch
-- `TASK-0201` bounded pairing / odd-even nuclear sandbox batch, now merged
-- `TASK-0202` bounded neutron-rich nuclear sandbox batch
-- `TASK-0204` adversarial review of the completed second-batch sandbox outputs,
-  now merged
-- `TASK-0205` first prospective nuclear-mass prediction registry entries, now
-  merged as `PRED-0001` through `PRED-0020`
-- `TASK-0228` through `TASK-0237` nuclear prediction variant expansion wave:
-  ten parallel lanes where agents add and pre-reveal validate their own bounded
-  `PRED-0021+` variants without live external fetch or claim promotion; the
-  unfinished manual lanes are now fallback work behind the factory-first path
-- `TASK-0249` nuclear prediction variant factory: automate the repetitive
-  coefficient-grid / target-batch inner loop so agents curate and review a
-  smaller selected slate instead of hand-generating every candidate
-- `TASK-0250` first factory-generated slate: create and review 30-80 draft
-  candidates without committing raw draft PRED YAML
-- `TASK-0252` factory tooling expansion: add feature-term variants before
-  scaling registry commits; `TASK-0253` ranking helper is already merged and
-  should be used by `TASK-0250`
-- `TASK-0254` target-batch library: now merged; future slates should reuse the
-  reviewed target batches instead of copying ad hoc target lists
-- `TASK-0251` selected factory registry wave: now merged as `PRED-0041`
-  through `PRED-0050`, using reviewed coefficient-transform slate-001
-- `TASK-0265` selected feature-term registry wave: merged in PR #367 as
-  `PRED-0051` through `PRED-0062`; still needs routine task closeout if the
-  generated board shows `REVIEW_READY`
-- `TASK-0272` registry coverage audit: next primary Nuclear audit task before
-  adding more variants
-- `TASK-0273` synthetic reveal dry-run harness: test reveal protocol mechanics
-  without real measurement data
-- `TASK-0274` registry status/evidence summary: make the post-`PRED-0062`
-  campaign state legible without validation claims
-- `TASK-0278` shell-neighborhood variant scout: let an agent generate and test
-  bounded shell/magic-number candidates in sandbox without adding PRED entries
-- `TASK-0279` neutron-rich variant scout: let an agent test bounded
-  neutron-excess/asymmetry candidates in sandbox without adding PRED entries
-- `TASK-0280` pairing and odd-even variant scout: let an agent test bounded
-  pairing/parity/staggering candidates in sandbox without adding PRED entries
+- `TASK-0287` reveal source-readiness checklist: highest-priority protocol
+  task before any future real measurement comparison.
+- `TASK-0288` shell-axis adversarial stress scout: strongest sandbox signal
+  follow-up, focused on `SHELL-SCOUT-003` / `SHELL-SCOUT-005` with sign and
+  null controls.
+- `TASK-0289` asymmetry-frontier stress scout: secondary Nuclear lane using
+  `NR-SCOUT-005` as the required overfit negative control.
+- `TASK-0290` nuclear scout evidence card: compact maintainer-facing package
+  for the shell-axis signal and mid-mass/isotope-chain negative result.
 - Future reveal or reveal-scoring tasks must follow the `TASK-0266` protocol
   checklist instead of ad hoc source comparison
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
@@ -220,12 +185,11 @@ The nuclear queue should stay conservative:
 - no broad second nuclear sandbox batch from `TASK-0178`; use the factory
   path for bounded expansion and keep future reveal comparison in a separate
   reviewed task.
-- after the post-`PRED-0062` registry status summary, use `TASK-0285`,
-  `TASK-0286`, and `TASK-0287` as the next Nuclear Mass Surface wave:
-  synthesize scout evidence, probe mid-mass/isotope-chain gaps, and define
-  source-readiness before any real reveal.
-- do not register scout-derived `PRED-*` entries until the scout synthesis and
-  reveal source-readiness work are reviewed.
+- after the post-`PRED-0062` registry status summary and scout synthesis, use
+  `TASK-0287`, `TASK-0288`, `TASK-0289`, and `TASK-0290` as the next Nuclear
+  Mass Surface wave.
+- do not register scout-derived `PRED-*` entries until shell/asymmetry stress
+  reviews and reveal source-readiness work are reviewed.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into
@@ -238,13 +202,17 @@ campaign and data foundations rather than formula search:
 - `TASK-0223` and `TASK-0224` have delivered the dataset/source-manifest and
   holdout-protocol foundation;
 - `TASK-0275` has delivered the first source-manifest seed;
-- `TASK-0281` and `TASK-0282` should run next as parallel row-level
-  absorption-data curation tasks;
-- `TASK-0283` should review the row-level data surface and only then unblock
-  the first baseline;
+- `TASK-0281` and `TASK-0282` delivered calibration-derived row-level
+  absorption seeds;
+- `TASK-0283` reviewed the row-level data surface and kept the first baseline
+  blocked because current rows are not direct measurements;
+- `TASK-0291` and `TASK-0292` are the next parallel data-curation tasks for
+  direct-measurement absorption and band-edge rows;
+- `TASK-0293` should re-run the readiness gate after a direct-measurement seed
+  lands, or after an explicit maintainer waiver;
 - `TASK-0225` is intentionally blocked until reviewed row-level
-  `data/quantum_dots/qd-*.yaml` measurement rows exist; the source manifest
-  alone is not benchmark data;
+  `data/quantum_dots/qd-*.yaml` measurement rows exist, or a maintainer waiver
+  scopes the first benchmark as calibration-curve consistency;
 - `TASK-0276` and `TASK-0277` are queued after `TASK-0225` for visualization
   and readiness review before the autonomous pilot;
 - `TASK-0226` remains blocked until the baseline is reviewed;

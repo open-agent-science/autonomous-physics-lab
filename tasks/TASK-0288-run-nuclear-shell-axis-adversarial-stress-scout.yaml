@@ -1,0 +1,58 @@
+id: TASK-0288
+title: "Run nuclear shell-axis adversarial stress scout"
+type: autonomous_research_pilot
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Stress-test the strongest post-PRED-0062 sandbox signal before any registry expansion."
+  - "Check whether the SHELL-SCOUT-003 / SHELL-SCOUT-005 family survives target-overlap, sign-control, and subset-pressure review."
+  - "Keep Nuclear Mass Surface work in sandbox-only adversarial mode until reveal readiness is complete."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+    - "docs/reviews/nuclear-shell-neighborhood-variant-scout-001.md"
+    - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    TASK-0285 ranked SHELL-SCOUT-003 as the strongest single-parameter
+    sandbox signal and SHELL-SCOUT-005 as its cross-check companion, while
+    TASK-0286 showed that naive mid-mass and isotope-chain features regress.
+    This task runs a bounded adversarial stress scout for the shell axis
+    without creating frozen prediction entries.
+
+requirements:
+  - "Re-evaluate SHELL-SCOUT-003 and SHELL-SCOUT-005, and optionally SHELL-SCOUT-002 as an overlap diagnostic, using only repository-pinned data."
+  - "Add at least two adversarial controls: a sign-inverted shell feature and a near-null or shuffled shell-distance control."
+  - "Report primary MAE delta, magic_Z, magic_N, heavy, mid-mass, neutron-rich, and repeated-target-pressure diagnostics."
+  - "Explicitly test whether improvements are concentrated in overrepresented registry targets such as Ni-76, Ca-55, Ga-85, and Zn-80."
+  - "Reject any candidate that only improves one tiny subset while regressing the primary surface."
+  - "Preserve negative and inconclusive outcomes in the review artifact."
+  - "Do not write prediction_registry/nuclear_masses/PRED-*.yaml files."
+  - "Do not fetch live measurements, run real reveal scoring, update claims, or promote sandbox outcomes."
+
+accepted_outputs:
+  - "scripts/run_nuclear_shell_axis_stress_scout.py or an equivalent deterministic runner"
+  - "agent_runs/AGENT-RUN-0016/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0016/metrics.json"
+  - "agent_runs/AGENT-RUN-0016/report.md"
+  - "docs/reviews/nuclear-shell-axis-stress-scout-001.md"
+  - "tests/test_nuclear_shell_axis_stress_scout.py if a runner is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
