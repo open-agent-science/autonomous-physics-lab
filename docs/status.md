@@ -47,8 +47,9 @@ work, and a private contributor workflow before any public-opening decision.
   time-split evidence: `AGENT-RUN-0007` is `INCONCLUSIVE` source-manifest-only
   guard evidence, while `AGENT-RUN-0008` is sandbox-only row-level time-split
   evidence that remains `INCONCLUSIVE`.
-- `PRED-0001` through `PRED-0020` - prospective nuclear prediction registry
-  entries awaiting future maintainer-reviewed reveal data. These are frozen
+- `PRED-0001` through `PRED-0062` - prospective nuclear prediction registry
+  entries awaiting future maintainer-reviewed reveal data. The registry now has
+  coverage-audit and synthetic reveal dry-run support, but these are frozen
   forecasts, not results or claims.
 - [Negative Results Registry](./negative-results-registry.md):
   repository-level index of clean falsifications that should remain visible
@@ -108,7 +109,8 @@ Together these now support four active benchmark surfaces:
   — planning-first analytical consistency campaign with no canonical run yet.
 - [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) - current
   flagship validation campaign with a frozen baseline residual benchmark,
-  sandbox-only autonomous pilot evidence, and post-AME2020 follow-up guardrails.
+  sandbox-only autonomous pilot evidence, prospective registry entries through
+  `PRED-0062`, and post-AME2020 follow-up guardrails.
 
 ## Current Contributor Workflow
 
