@@ -298,3 +298,43 @@ def test_source_manifest_entries_have_required_review_fields() -> None:
         assert source["size_axis"] in allowed_size_axes
         assert source["inclusion_decision"] in allowed_inclusion_decisions
         assert source["checksum_policy"] in allowed_checksum_policies
+
+
+def test_committed_quantum_dot_datasets_validate_and_reference_manifest_sources() -> None:
+    root = Path(__file__).resolve().parent.parent
+    data_dir = root / "data" / "quantum_dots"
+    with (data_dir / "source_manifest.yaml").open("r", encoding="utf-8") as fh:
+        manifest = yaml.safe_load(fh)
+    source_ids = {source["source_id"] for source in manifest["sources"]}
+
+    dataset_paths = sorted(data_dir.glob("qd-*.yaml"))
+    assert dataset_paths, "at least one quantum-dot dataset seed should be committed"
+
+    for dataset_path in dataset_paths:
+        with dataset_path.open("r", encoding="utf-8") as fh:
+            payload = yaml.safe_load(fh)
+        validate_document(payload, "quantum_dot_size_effect", dataset_path)
+        for entry in payload["entries"]:
+            assert entry["source_id"] in source_ids
+            assert entry.get("source_table_ref"), "dataset rows must preserve table/figure provenance"
+            assert entry.get("notes"), "dataset rows must preserve curation notes"
+
+
+def test_yu_2003_absorption_seed_is_multi_material_and_calibration_scoped() -> None:
+    dataset_path = (
+        Path(__file__).resolve().parent.parent
+        / "data"
+        / "quantum_dots"
+        / "qd-0001-yu-2003-absorption.yaml"
+    )
+    with dataset_path.open("r", encoding="utf-8") as fh:
+        payload = yaml.safe_load(fh)
+
+    assert payload["property_kind_covered"] == "absorption_peak_eV"
+    entries = payload["entries"]
+    assert len(entries) == 12
+    assert {entry["material"] for entry in entries} == {"CdTe", "CdSe", "CdS"}
+    assert {entry["source_id"] for entry in entries} == {"yu-2003-cm-absorption"}
+    assert {entry["property_kind"] for entry in entries} == {"absorption_peak_eV"}
+    assert {entry["inclusion_status"] for entry in entries} == {"included"}
+    assert all("Calibration-derived row" in entry["notes"] for entry in entries)

@@ -1,0 +1,135 @@
+dataset_id: qd-0001-yu-2003-absorption
+title: "Yu 2003 CdTe/CdSe/CdS absorption sizing-curve seed"
+status: curated
+description: >
+  Small absorption_peak_eV row-level seed derived from the DOI-pinned Yu 2003
+  CdTe, CdSe, and CdS empirical sizing curves. Rows are calibration-derived
+  points selected from the source's first excitonic absorption peak wavelength
+  axis; they are not copied source table rows or digitized figure points.
+source_policy: >
+  Source metadata is pinned in data/quantum_dots/source_manifest.yaml as
+  yu-2003-cm-absorption. Values below are derived from published empirical
+  sizing-curve formulas and selected wavelengths for reviewable benchmark
+  seeding. No source tables, spectra, or figure coordinates are redistributed.
+property_kind_covered: absorption_peak_eV
+entries:
+  - entry_id: yu-2003-cdte-500nm
+    material: CdTe
+    diameter_nm: 2.3437
+    property_kind: absorption_peak_eV
+    value_eV: 2.479684
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdTe polynomial; selected first excitonic absorption peak wavelength 500 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdTe D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cdte-550nm
+    material: CdTe
+    diameter_nm: 3.2420
+    property_kind: absorption_peak_eV
+    value_eV: 2.254258
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdTe polynomial; selected first excitonic absorption peak wavelength 550 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdTe D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cdte-600nm
+    material: CdTe
+    diameter_nm: 3.6623
+    property_kind: absorption_peak_eV
+    value_eV: 2.066403
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdTe polynomial; selected first excitonic absorption peak wavelength 600 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdTe D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cdte-650nm
+    material: CdTe
+    diameter_nm: 4.3405
+    property_kind: absorption_peak_eV
+    value_eV: 1.907449
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdTe polynomial; selected first excitonic absorption peak wavelength 650 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdTe D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cdse-480nm
+    material: CdSe
+    diameter_nm: 2.1737
+    property_kind: absorption_peak_eV
+    value_eV: 2.583004
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdSe polynomial; selected first excitonic absorption peak wavelength 480 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdSe D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cdse-530nm
+    material: CdSe
+    diameter_nm: 2.6965
+    property_kind: absorption_peak_eV
+    value_eV: 2.339324
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdSe polynomial; selected first excitonic absorption peak wavelength 530 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdSe D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cdse-580nm
+    material: CdSe
+    diameter_nm: 3.8193
+    property_kind: absorption_peak_eV
+    value_eV: 2.137659
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdSe polynomial; selected first excitonic absorption peak wavelength 580 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdSe D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cdse-630nm
+    material: CdSe
+    diameter_nm: 6.2333
+    property_kind: absorption_peak_eV
+    value_eV: 1.968003
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdSe polynomial; selected first excitonic absorption peak wavelength 630 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdSe D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cds-350nm
+    material: CdS
+    diameter_nm: 2.0720
+    property_kind: absorption_peak_eV
+    value_eV: 3.542406
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdS polynomial; selected first excitonic absorption peak wavelength 350 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdS D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cds-380nm
+    material: CdS
+    diameter_nm: 2.7864
+    property_kind: absorption_peak_eV
+    value_eV: 3.262742
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdS polynomial; selected first excitonic absorption peak wavelength 380 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdS D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cds-410nm
+    material: CdS
+    diameter_nm: 3.7163
+    property_kind: absorption_peak_eV
+    value_eV: 3.024005
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdS polynomial; selected first excitonic absorption peak wavelength 410 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdS D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
+  - entry_id: yu-2003-cds-440nm
+    material: CdS
+    diameter_nm: 4.8509
+    property_kind: absorption_peak_eV
+    value_eV: 2.817823
+    measurement_type: optical_absorption
+    source_id: yu-2003-cm-absorption
+    source_table_ref: "Figure 2 sizing curve; CdS polynomial; selected first excitonic absorption peak wavelength 440 nm."
+    inclusion_status: included
+    notes: "Calibration-derived row: diameter computed from the published CdS D(lambda) polynomial; value_eV computed from hc/lambda using 1239.841984 eV nm. Not a direct table row."
