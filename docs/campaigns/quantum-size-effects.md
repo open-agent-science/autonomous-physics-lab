@@ -19,13 +19,22 @@ but not yet row-level benchmark-ready**.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
-reviewed source-manifest seed. The next safe work is row-level measurement
-curation before any baseline residual benchmark:
+reviewed source-manifest seed. `TASK-0281` and `TASK-0282` added two
+calibration-derived row-level seeds (Yu 2003 cadmium chalcogenides;
+Moreels 2009 PbS). `TASK-0283` then ran the row-level readiness gate and
+kept `TASK-0225` BLOCKED because every committed row is calibration-derived
+rather than directly measured.
 
-- `TASK-0281` — Yu 2003 multi-material absorption row-level seed (READY);
-- `TASK-0282` — Moreels 2009 PbS absorption row-level extension (READY);
-- `TASK-0283` — row-level readiness gate before baseline (BLOCKED);
-- `TASK-0225` — baseline residual benchmark (BLOCKED until row-level data);
+Current task posture:
+
+- `TASK-0281` — Yu 2003 multi-material absorption row-level seed (DONE);
+- `TASK-0282` — Moreels 2009 PbS absorption row-level extension (DONE);
+- `TASK-0283` — row-level readiness gate before baseline (gate run; see
+  `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`);
+- `TASK-0225` — baseline residual benchmark (BLOCKED; needs either a
+  direct-measurement row-level seed or a maintainer waiver to score a
+  calibration-curve consistency benchmark instead of a measurement-versus-
+  model benchmark);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
 Until those land in order, safe contributions are:
