@@ -56,6 +56,18 @@ shared rules. Even when a broad legacy rule would technically match, agents
 must still follow `AGENTS.md` and maintainer instructions before pushing,
 merging, deleting, or discarding local state.
 
+### Unsafe mode: `Bash(*)`
+
+This repository may intentionally enable an **unbounded** rule `Bash(*)` in
+`.claude/settings.json` to remove all Claude Code approval prompts for shell
+commands.
+
+This is **maintainer-only** and should not be enabled when running untrusted
+agents or external contributors. It permits arbitrary shell execution (including
+destructive commands) without interactive confirmation. Repository protocol
+still applies, but protocol violations are no longer prevented by Claude Code
+permissions.
+
 ## 3. Rule groups
 
 ### 3.1 Python entrypoints
