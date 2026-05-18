@@ -1,7 +1,7 @@
 id: TASK-0286
 title: "Run nuclear mid-mass and isotope-chain gap scout"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -37,9 +37,9 @@ requirements:
 
 accepted_outputs:
   - "scripts/run_nuclear_midmass_isotope_gap_scout.py or an equivalent deterministic runner"
-  - "agent_runs/<assigned-agent-run-id>/agent_run.yaml"
-  - "agent_runs/<assigned-agent-run-id>/metrics.json"
-  - "agent_runs/<assigned-agent-run-id>/report.md"
+  - "agent_runs/AGENT-RUN-0015/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0015/metrics.json"
+  - "agent_runs/AGENT-RUN-0015/report.md"
   - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
   - "tests/test_nuclear_midmass_isotope_gap_scout.py if a runner is added"
 

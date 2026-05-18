@@ -1,0 +1,92 @@
+id: HYP-PROPOSAL-0043
+title: "Mid-mass and isotope-chain residual gap scout batch"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox hypothesis batch only; no prediction registry, canonical result, or claim promotion."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude-code
+  task_id: TASK-0286
+
+input_references:
+  - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+
+hypothesis:
+  statement: "Bounded mid-mass and isotope-chain residual features may expose coverage gaps in the frozen RESULT-0015 baseline, but must be rejected or marked overfitted when they regress primary, frontier, or chain-specific holdouts."
+  variables:
+    - "A, Z, N: nuclide mass number, proton number, and neutron number"
+    - "mid-mass Gaussian or indicator features"
+    - "isotope-chain centered neutron-axis features"
+    - "fitted residual coefficient relative to RESULT-0015"
+  assumptions:
+    - "The task is a scout lane, not a registry expansion."
+    - "All candidates are fitted only on committed repository data."
+    - "Subset-specific regressions are decisive even when an aggregate metric looks small."
+  expected_scope: "Retrospective sandbox triage for mid-mass and isotope-chain gaps."
+  expected_failure_modes:
+    - "Mid-mass features can overfit the 11-row residual training slice."
+    - "Per-chain centering can blow up on Z values absent from training."
+    - "Small sub-MeV retrospective deltas are not prospective prediction evidence."
+
+novelty_check:
+  checked_files:
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+    - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+    - "agent_runs/AGENT-RUN-0012/"
+    - "agent_runs/AGENT-RUN-0013/"
+    - "agent_runs/AGENT-RUN-0014/"
+  possible_overlap: "Related to prior shell, neutron-rich, and pairing scout lanes, but focused on mid-mass and isotope-chain coverage gaps."
+  notes: "The lane is intentionally bounded and preserves negative evidence."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_midmass_isotope_gap_scout.py and compare committed metrics to recomputed metrics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on committed NMD-0002 and post-AME2020 holdout data."
+  pass_condition: "A candidate remains only sandbox evidence if metrics are deterministic, rejected candidates are documented, and no registry or claim files are written."
+  fail_condition: "Fail if a candidate writes PRED entries, promotes a claim, hides subset regressions, or frames retrospective deltas as prospective prediction."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe the scout as discovering a nuclear mass correction."
+    - "Do not treat retrospective subset deltas as registry-ready predictions."
+    - "Do not present overfitted candidates as physical evidence."
+  mitigations:
+    - "Keep outputs under agent_runs, review notes, scripts, tests, and the task file."
+    - "Report overfitted and inconclusive verdicts explicitly."
+    - "Require a separate maintainer-reviewed task for any registry or reveal-scoring work."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_midmass_isotope_gap_scout.py"
+    - "python3 -m pytest tests/test_nuclear_midmass_isotope_gap_scout.py"
+  code_references:
+    - "scripts/run_nuclear_midmass_isotope_gap_scout.py"
+    - "tests/test_nuclear_midmass_isotope_gap_scout.py"
+  metrics:
+    - "primary_delta_mae_mev"
+    - "mid_mass_delta_mae_mev"
+    - "light_delta_mae_mev"
+    - "heavy_delta_mae_mev"
+    - "isotope_chain_delta_mae_mev"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0015/"
+    - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+
+limitations:
+  - "The residual training surface has only 11 rows."
+  - "The lane is retrospective and sandbox-only."
+  - "No executed candidate reached PARTIALLY_VALID."
+
+verdict: OVERFITTED
+maintainer_decision_requested: "Treat the lane as negative scout evidence unless a future task designs a stronger pinned training surface."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed registry, reveal, or dataset-expansion task before any promotion."

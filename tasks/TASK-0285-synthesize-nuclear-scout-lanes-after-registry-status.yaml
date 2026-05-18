@@ -1,7 +1,7 @@
 id: TASK-0285
 title: "Synthesize nuclear scout lanes after registry status"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
