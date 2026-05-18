@@ -17,14 +17,15 @@ retrospective time-split evidence, a deterministic prediction factory, reusable
 target batches, and frozen prospective prediction registry entries.
 
 Safe contributions right now are still conservative, and should now emphasize
-registry audit, reveal dry-runs, evidence packaging, and bounded scout lanes:
+post-registry synthesis, reveal readiness, and bounded gap scouts:
 
 - campaign map and guardrail wording;
 - pinned-dataset and provenance expansion work;
 - subset and holdout curation;
 - registry coverage audits across frozen `PRED-*` entries;
 - synthetic reveal dry-runs that use fake data only;
-- sandbox-only variant scout lanes with disjoint hypothesis families;
+- sandbox-only variant scout lanes with disjoint hypothesis families or
+  under-covered target domains;
 - conservative status summaries that separate baseline evidence, sandbox
   evidence, and unvalidated prospective predictions;
 - limitation notes that keep the campaign conservative.
@@ -142,6 +143,10 @@ Start here:
   being represented only through factory slates?
 - Which scout-lane candidates, if any, deserve later maintainer-selected
   registry entries after audit and review?
+- Which under-covered mid-mass or isotope-chain subsets should be stress
+  tested before any additional frozen predictions are registered?
+- What exact source-manifest, checksum, and no-peek evidence must exist before
+  a real reveal comparison is allowed?
 
 ## Recommended Tasks
 
@@ -155,6 +160,12 @@ Start here:
 - `TASK-0278` — run a shell-neighborhood variant scout lane.
 - `TASK-0279` — run a neutron-rich/asymmetry variant scout lane.
 - `TASK-0280` — run a pairing and odd-even variant scout lane.
+- `TASK-0285` — synthesize the completed scout lanes and rank follow-up
+  families without creating new `PRED-*` entries.
+- `TASK-0286` — run a mid-mass and isotope-chain coverage-gap scout as a
+  sandbox-only lane.
+- `TASK-0287` — define the real reveal source-readiness checklist before any
+  live measurement comparison task.
 - Future reveal tasks should use the `TASK-0266` protocol checklist instead of
   ad hoc source comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal

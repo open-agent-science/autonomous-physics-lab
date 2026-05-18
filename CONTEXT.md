@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-18 13:09 UTC
+Generated: 2026-05-18 13:05 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2130,6 +2130,9 @@ one PR.
 
 - `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0285` — Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
