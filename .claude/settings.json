@@ -79,6 +79,7 @@
       "Bash(/opt/homebrew/bin/gh run *)",
       "Bash(command -v gh)",
       "Bash(mkdir -p *)",
+      "Bash(*)",
       "Read(/tmp/apl-*)",
       "Read(/tmp/apl-*/**)",
       "Read(/tmp/claude-*/**)",
