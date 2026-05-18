@@ -4,7 +4,7 @@ status: curated
 description: >
   Small absorption_peak_eV row-level seed derived from the DOI-pinned Moreels 2009 ACS Nano
   PbS empirical sizing curve (Eq. 4). Rows are calibration-derived points: diameters are
-  computed by inverting the published Moreels sizing-curve formula at ten selected first-exciton
+  computed by inverting the published Moreels sizing-curve formula at nine selected first-exciton
   absorption peak wavelengths spanning 850–2000 nm. They are not direct table rows or
   digitized figure points from the source publication.
 source_policy: >
