@@ -1,12 +1,18 @@
 # Private Agent Challenge Pack
 
 This challenge pack gives invited contributors and their agents a controlled
-three-level path through APL before public opening.
+set of challenge options before public opening.
 
 The goal is workflow validation, not output volume. Each challenge should show
 that a contributor-agent pair can find the right protocol, stay inside one
 task, produce reviewable artifacts, report validation, and avoid claim
 promotion.
+
+The levels below describe challenge size and review intensity, not permission
+to do science. A maintainer may assign any contributor-agent pair to a
+research-first task, including hypothesis testing, replay, audit, or sandbox
+pilot work. Use the levels only to choose a good first scope for a private
+validation run.
 
 Use this pack with:
 
@@ -24,12 +30,14 @@ Every contributor-agent pair should begin with the same baseline:
 2. Read [Agent Task Protocol](./agent-task-protocol.md).
 3. Run `python3 scripts/apl_mission.py --onboarding`.
 4. Pick exactly one `READY` task, one approved microtask item, or one
-   maintainer-assigned challenge.
+   maintainer-assigned challenge. Prefer research, replay, audit, or
+   hypothesis-testing tasks when the maintainer has not asked for support work.
 5. Create the canonical branch before editing files.
 6. Keep claims, canonical results, and knowledge unchanged unless the task
    explicitly authorizes that scope.
 
-If the contributor is not sure which level to attempt, start at Level 1.
+If the contributor is not sure which level to attempt, start with a small
+Level 1 scope or ask the maintainer to assign a research-first challenge.
 
 ## Level 1: Orientation And Replay
 
@@ -56,7 +64,8 @@ Level 1 success criteria:
 - no claim or result status changes are made.
 
 Level 1 is a good fit for first-time agent use. It should not introduce new
-scientific candidates unless the maintainer assigns that scope.
+scientific candidates unless the selected `READY` task or maintainer challenge
+assigns that scope.
 
 ## Level 2: Bounded Workflow Exercise
 
@@ -115,8 +124,9 @@ Level 3 success criteria:
 - a maintainer can review the artifact trail without reconstructing hidden
   agent reasoning.
 
-Level 3 should not be used as a first contribution unless the maintainer is
-deliberately testing a capable contributor-agent pair.
+Level 3 can be used as a first contribution when the maintainer deliberately
+assigns a capable contributor-agent pair to a research-first pilot. Otherwise,
+use a smaller challenge first to validate protocol discipline.
 
 ## Validation By Level
 

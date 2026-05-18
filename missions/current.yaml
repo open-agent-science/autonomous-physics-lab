@@ -3,12 +3,12 @@ updated: "2026-05-12"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-16"
-  source: "TASK-0177"
+  updated: "2026-05-14"
+  source: "TASK-0243"
   note: >
-    Mission metadata was refreshed after adding the private agent challenge
-    pack. The flagship mission did not change; support recommendations now
-    reference only actionable READY tasks or command/documentation actions.
+    Mission metadata and generated task navigation were refreshed after adding
+    docs/task-views and freshness validation. The flagship mission did not
+    change; support recommendations now reference only actionable READY tasks.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
