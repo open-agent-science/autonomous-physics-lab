@@ -131,6 +131,7 @@ Start here:
 - [Registry Coverage Audit](../reviews/nuclear-prediction-registry-coverage-audit.md)
 - [Synthetic Reveal Dry-Run](../reviews/nuclear-prediction-synthetic-reveal-dry-run.md)
 - [Scout Lane Synthesis After PRED-0062](../reviews/nuclear-scout-lane-synthesis-after-pred-0062.md)
+- [Nuclear Scout Evidence Card](../results/nuclear-scout-evidence-card.md)
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [TASK-0272](../../tasks/TASK-0272-audit-nuclear-prediction-registry-coverage.yaml)
 - [TASK-0273](../../tasks/TASK-0273-add-nuclear-synthetic-reveal-dry-run-harness.yaml)
@@ -165,8 +166,6 @@ Start here:
   `SHELL-SCOUT-003` / `SHELL-SCOUT-005`, including sign and null controls.
 - `TASK-0289` — run an asymmetry-frontier stress scout with `NR-SCOUT-005` as
   the required overfit negative control.
-- `TASK-0290` — package the latest Nuclear scout evidence card for maintainers
-  and future communication without discovery framing.
 - Future reveal tasks should use the `TASK-0266` protocol checklist instead of
   ad hoc source comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal

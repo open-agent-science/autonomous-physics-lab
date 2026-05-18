@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0290` - Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+None.
 
 ## IN_PROGRESS
 
@@ -16,3 +16,4 @@ None.
 
 - `TASK-0177` - Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
 - `TASK-0242` - Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
+- `TASK-0290` - Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
