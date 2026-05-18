@@ -59,7 +59,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0284` — Allow any Bash command in Claude Code shared permissions (unsafe mode) (`contributor_experience`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
