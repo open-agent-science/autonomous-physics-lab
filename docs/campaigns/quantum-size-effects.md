@@ -19,21 +19,31 @@ but not yet row-level benchmark-ready**.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
-reviewed source-manifest seed. The next safe work is row-level measurement
-curation before any baseline residual benchmark:
+reviewed source-manifest seed. `TASK-0281` and `TASK-0282` added two
+calibration-derived row-level seeds (Yu 2003 cadmium chalcogenides;
+Moreels 2009 PbS). `TASK-0283` then ran the row-level readiness gate and
+kept `TASK-0225` BLOCKED because every committed row is calibration-derived
+rather than directly measured.
 
-- `TASK-0281` — Yu 2003 multi-material absorption row-level seed (READY);
-- `TASK-0282` — Moreels 2009 PbS absorption row-level extension (READY);
-- `TASK-0283` — row-level readiness gate before baseline (BLOCKED);
-- `TASK-0225` — baseline residual benchmark (BLOCKED until row-level data);
+Current task posture:
+
+- `TASK-0281` — Yu 2003 multi-material absorption row-level seed (DONE);
+- `TASK-0282` — Moreels 2009 PbS absorption row-level extension (DONE);
+- `TASK-0283` — row-level readiness gate before baseline (gate run; see
+  `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`);
+- `TASK-0225` — baseline residual benchmark (BLOCKED; needs either a
+  direct-measurement row-level seed or a maintainer waiver to score a
+  calibration-curve consistency benchmark instead of a measurement-versus-
+  model benchmark);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
-Until those land in order, safe contributions are:
+Safe next contributions are:
 
 - planning, scope, and limitation notes;
-- queued tasks already on the canonical track above;
-- row-level dataset curation under `TASK-0281` or `TASK-0282`;
-- readiness review under `TASK-0283` after a row-level seed lands;
+- direct-measurement row-level dataset curation that can re-run the
+  `TASK-0283` readiness gate;
+- a maintainer-approved waiver package if the first benchmark is intentionally
+  scoped as calibration-curve consistency rather than measurement-versus-model;
 - visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
@@ -110,10 +120,13 @@ Historical context:
 - `TASK-0223` and `TASK-0224` have delivered the dataset/schema and holdout
   foundation;
 - `TASK-0275` has delivered the first source-manifest seed;
-- run `TASK-0281` and `TASK-0282` as parallel row-level data curation tasks;
-- run `TASK-0283` to decide whether the row-level data is sufficient to
-  unblock the first baseline;
-- keep `TASK-0225` blocked until reviewed row-level `qd-*.yaml` data exists;
+- `TASK-0281` and `TASK-0282` delivered calibration-derived row-level
+  absorption seeds;
+- `TASK-0283` keeps `TASK-0225` blocked because the committed rows are not
+  direct measurement rows;
+- next, add at least one direct-measurement row-level `qd-*.yaml` seed and
+  re-run the readiness gate, or request a maintainer waiver for a
+  calibration-curve consistency benchmark;
 - after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
   `TASK-0277` to review readiness before the autonomous pilot;
 - run `TASK-0226` only after a maintainer-approved baseline exists.
