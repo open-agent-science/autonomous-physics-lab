@@ -1,0 +1,1025 @@
+{
+  "agent_run_id": "AGENT-RUN-0015",
+  "task_id": "TASK-0286",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "lane": "midmass_isotope_gap_scout",
+  "sandbox_only": true,
+  "evidence_class": "bounded_sandbox_residual_scout",
+  "live_external_fetch_allowed": false,
+  "summary": {
+    "generated_candidate_count": 8,
+    "executed_candidate_count": 5,
+    "rejected_before_execution_count": 3,
+    "near_null_control_preserved": true,
+    "verdict_counts": {
+      "INCONCLUSIVE": 1,
+      "OVERFITTED": 4
+    },
+    "canonical_results_changed": false,
+    "canonical_claims_changed": false,
+    "prediction_registry_changed": false,
+    "claim_promotion_allowed": false
+  },
+  "frozen_baseline": {
+    "result_id": "RESULT-0015",
+    "model_id": "model_fitted_semi_empirical",
+    "coefficients": {
+      "volume": 15.51423612106804,
+      "surface": 17.2931812095177,
+      "coulomb": 0.6878156091568888,
+      "asymmetry": 23.846557883948485,
+      "pairing": 15.990845113398912
+    }
+  },
+  "datasets": {
+    "training_residual_source": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "holdout_source": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "holdout_row_count": 295
+  },
+  "subset_definitions": {
+    "primary": "all post-AME2020 holdout rows with included_in_time_split_holdout = true",
+    "mid_mass": "50 <= A <= 150",
+    "light": "A < 50",
+    "heavy": "A > 150",
+    "isotope_chain_z20": "Z = 20 (calcium chain)",
+    "isotope_chain_z28": "Z = 28 (nickel chain)",
+    "isotope_chain_z50": "Z = 50 (tin chain)",
+    "frontier_contrast": "mid_mass delta MAE minus 0.5 * (light delta MAE + heavy delta MAE)"
+  },
+  "feature_definitions": {
+    "midmass_gaussian": "exp(-((A - 100)^2) / (2 * 20^2))",
+    "midmass_times_asymmetry": "I[50<=A<=150] * (N - Z) / A",
+    "isotope_chain_offset": "N - median_N_for_Z across training slice (0.0 if Z absent)",
+    "midmass_shell_falloff": "I[50<=A<=150] * exp(-(min_magic_distance)^2 / 8) where min_magic_distance = min_m in {2,8,20,28,50,82,126} (|N-m| + |Z-m|)"
+  },
+  "isotope_chain_reference": {
+    "training_median_N_by_Z": {
+      "2": 2.0,
+      "7": 7.0,
+      "8": 8.5,
+      "20": 24.0,
+      "26": 30.5,
+      "50": 70.0,
+      "82": 126.0,
+      "92": 146.0
+    },
+    "isotope_chain_subset_Z_values": [
+      20,
+      28,
+      50
+    ]
+  },
+  "baseline_metrics_by_subset": {
+    "ame2020_extrapolated_comparison": {
+      "count": 55,
+      "mae_mev": 4.951024503664232,
+      "rmse_mev": 5.854176430909467,
+      "mean_error_mev": 1.105512127407804,
+      "max_abs_error_mev": 17.164452794842646
+    },
+    "ame2020_measured_comparison": {
+      "count": 240,
+      "mae_mev": 4.461255764407384,
+      "rmse_mev": 5.885456190078588,
+      "mean_error_mev": 0.5887226548882164,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "heavy": {
+      "count": 82,
+      "mae_mev": 5.118211098326289,
+      "rmse_mev": 5.409026837072816,
+      "mean_error_mev": -3.9336506245702743,
+      "max_abs_error_mev": 8.259260568326226
+    },
+    "isotope_chain_z20": {
+      "count": 2,
+      "mae_mev": 4.809331986495721,
+      "rmse_mev": 5.852487079843294,
+      "mean_error_mev": 3.334955901267932,
+      "max_abs_error_mev": 8.144287887763653
+    },
+    "isotope_chain_z28": {
+      "count": 3,
+      "mae_mev": 5.622629313897657,
+      "rmse_mev": 6.84231702149544,
+      "mean_error_mev": 5.4137366953575565,
+      "max_abs_error_mev": 9.567076595971571
+    },
+    "isotope_chain_z50": {
+      "count": 1,
+      "mae_mev": 2.966020611310114,
+      "rmse_mev": 2.966020611310114,
+      "mean_error_mev": 2.966020611310114,
+      "max_abs_error_mev": 2.966020611310114
+    },
+    "light": {
+      "count": 18,
+      "mae_mev": 1.8246339629908985,
+      "rmse_mev": 2.2484849685097887,
+      "mean_error_mev": -0.646758973011774,
+      "max_abs_error_mev": 4.442511069222633
+    },
+    "mid_mass": {
+      "count": 195,
+      "mae_mev": 4.566517998783144,
+      "rmse_mev": 6.2871727435717695,
+      "mean_error_mev": 2.7502441892798744,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "primary": {
+      "count": 295,
+      "mae_mev": 4.552568580201034,
+      "rmse_mev": 5.8796369910752775,
+      "mean_error_mev": 0.6850732345105124,
+      "max_abs_error_mev": 37.63680588444481
+    }
+  },
+  "generated_candidates": [
+    {
+      "candidate_id": "MIDMASS-SCOUT-001",
+      "name": "Mid-mass Gaussian peak (sigma 20, center A=100)",
+      "formula": "r_corr = beta * exp(-((A-100)^2) / (2*20^2))",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-002",
+      "name": "Mid-mass indicator times asymmetry",
+      "formula": "r_corr = beta * I[50<=A<=150] * ((N-Z)/A)",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-003",
+      "name": "Isotope-chain slope, N minus per-Z median N",
+      "formula": "r_corr = beta * (N - N_ref_for_Z)",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-004",
+      "name": "Mid-mass shell-distance Gaussian fall-off",
+      "formula": "r_corr = beta * I[50<=A<=150] * exp(-(min_magic_distance)^2 / 8)",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-005",
+      "name": "Near-null mid-mass sanity control",
+      "formula": "r_corr = 0.0",
+      "decision": "executed"
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-006",
+      "name": "Per-Z fitted intercepts",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before execution because per-Z intercepts on an 11-row NMD-0002 training slice memorize individual rows rather than test a bounded mid-mass or isotope-chain residual feature."
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-007",
+      "name": "A-binned 8-bin step function",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before execution because an 8-bin A-step function inflates degrees of freedom relative to the 11-row residual training slice and would be a row-memorizing overfit risk."
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-008",
+      "name": "Free sigma in mid-mass Gaussian",
+      "decision": "rejected_before_execution",
+      "rejection_reason": "Rejected before execution because tuning sigma adds a nonlinear free knob on an 11-row residual slice and duplicates the fixed-sigma continuous probe MIDMASS-SCOUT-001."
+    }
+  ],
+  "executed_items": [
+    {
+      "candidate_id": "MIDMASS-SCOUT-001",
+      "name": "Mid-mass Gaussian peak (sigma 20, center A=100)",
+      "formula": "r_corr = beta * exp(-((A-100)^2) / (2*20^2))",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "midmass_gaussian": -2.030349846686898
+      },
+      "feature_activation_counts": {
+        "midmass_gaussian": 295
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 5.463035703454741,
+          "rmse_mev": 6.44591014472287,
+          "mean_error_mev": 1.884886914410526,
+          "max_abs_error_mev": 17.643099805234897
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.801769123253818,
+          "rmse_mev": 6.288000482598306,
+          "mean_error_mev": 1.307796783859078,
+          "max_abs_error_mev": 39.11114247053922
+        },
+        "heavy": {
+          "count": 82,
+          "mae_mev": 5.10679520672491,
+          "rmse_mev": 5.398104527622732,
+          "mean_error_mev": -3.9040362720533843,
+          "max_abs_error_mev": 8.25746609171938
+        },
+        "isotope_chain_z20": {
+          "count": 2,
+          "mae_mev": 4.875348132450995,
+          "rmse_mev": 5.9513282822959095,
+          "mean_error_mev": 3.41310546439189,
+          "max_abs_error_mev": 8.288453596842885
+        },
+        "isotope_chain_z28": {
+          "count": 3,
+          "mae_mev": 6.175145281627105,
+          "rmse_mev": 7.571475654036771,
+          "mean_error_mev": 6.062363135806493,
+          "max_abs_error_mev": 10.496638491852764
+        },
+        "isotope_chain_z50": {
+          "count": 1,
+          "mae_mev": 4.973657024838531,
+          "rmse_mev": 4.973657024838531,
+          "mean_error_mev": 4.973657024838531,
+          "max_abs_error_mev": 4.973657024838531
+        },
+        "light": {
+          "count": 18,
+          "mae_mev": 1.8128970173075392,
+          "rmse_mev": 2.235148038787003,
+          "mean_error_mev": -0.6333300906277104,
+          "max_abs_error_mev": 4.40753327548623
+        },
+        "mid_mass": {
+          "count": 195,
+          "mae_mev": 5.135908717989481,
+          "rmse_mev": 6.904185671505025,
+          "mean_error_mev": 3.841389355684277,
+          "max_abs_error_mev": 39.11114247053922
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.925056112782803,
+          "rmse_mev": 6.317740607789944,
+          "mean_error_mev": 1.4153898590466363,
+          "max_abs_error_mev": 39.11114247053922
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.5120111997905088,
+        "ame2020_measured_comparison": 0.34051335884643397,
+        "heavy": -0.011415891601378902,
+        "isotope_chain_z20": 0.06601614595527394,
+        "isotope_chain_z28": 0.5525159677294482,
+        "isotope_chain_z50": 2.0076364135284166,
+        "light": -0.011736945683359368,
+        "mid_mass": 0.5693907192063365,
+        "primary": 0.37248753258176936
+      },
+      "frontier_contrast_mev": 0.5809671378487057,
+      "worst_subset_regression_mae_mev": 2.0076364135284166,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": -1.474336586094407,
+          "candidate_residual_mev": 39.11114247053922,
+          "candidate_abs_error_mev": 39.11114247053922,
+          "feature_values": {
+            "midmass_gaussian": 0.7261490370736909
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": -0.5645129903483818,
+          "candidate_residual_mev": 18.439412678282906,
+          "candidate_abs_error_mev": 18.439412678282906,
+          "feature_values": {
+            "midmass_gaussian": 0.27803730045319414
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": -0.6107656875099607,
+          "candidate_residual_mev": 18.129906237150408,
+          "candidate_abs_error_mev": 18.129906237150408,
+          "feature_values": {
+            "midmass_gaussian": 0.30081795435727554
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": -0.47864701039223523,
+          "candidate_residual_mev": 17.643099805234897,
+          "candidate_abs_error_mev": 17.643099805234897,
+          "feature_values": {
+            "midmass_gaussian": 0.23574607655586352
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": -0.520460187125291,
+          "candidate_residual_mev": 17.108021041814936,
+          "candidate_abs_error_mev": 17.108021041814936,
+          "feature_values": {
+            "midmass_gaussian": 0.2563401514150736
+          }
+        }
+      ],
+      "verdict": "OVERFITTED",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Isotope-chain subsets are small (Z=20 has 2 rows, Z=28 has 3 rows, Z=50 has 1 row in the primary holdout).",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-002",
+      "name": "Mid-mass indicator times asymmetry",
+      "formula": "r_corr = beta * I[50<=A<=150] * ((N-Z)/A)",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "midmass_times_asymmetry": -10.039068765686572
+      },
+      "feature_activation_counts": {
+        "midmass_times_asymmetry": 193
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 5.801735500661012,
+          "rmse_mev": 6.990447917915672,
+          "mean_error_mev": 1.9625041850844638,
+          "max_abs_error_mev": 19.861516045325516
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 5.245330098022703,
+          "rmse_mev": 6.850014491943178,
+          "mean_error_mev": 1.7365098555760392,
+          "max_abs_error_mev": 40.266085799267444
+        },
+        "heavy": {
+          "count": 82,
+          "mae_mev": 5.118211098326289,
+          "rmse_mev": 5.409026837072816,
+          "mean_error_mev": -3.9336506245702743,
+          "max_abs_error_mev": 8.259260568326226
+        },
+        "isotope_chain_z20": {
+          "count": 2,
+          "mae_mev": 6.1106927524180605,
+          "rmse_mev": 7.670462707876293,
+          "mean_error_mev": 4.636316667190272,
+          "max_abs_error_mev": 10.747009419608332
+        },
+        "isotope_chain_z28": {
+          "count": 3,
+          "mae_mev": 7.408290567688842,
+          "rmse_mev": 8.870225846080578,
+          "mean_error_mev": 6.951519708020688,
+          "max_abs_error_mev": 12.110307349945515
+        },
+        "isotope_chain_z50": {
+          "count": 1,
+          "mae_mev": 3.2584206724466185,
+          "rmse_mev": 3.2584206724466185,
+          "mean_error_mev": 3.2584206724466185,
+          "max_abs_error_mev": 3.2584206724466185
+        },
+        "light": {
+          "count": 18,
+          "mae_mev": 1.8246339629908985,
+          "rmse_mev": 2.2484849685097887,
+          "mean_error_mev": -0.646758973011774,
+          "max_abs_error_mev": 4.442511069222633
+        },
+        "mid_mass": {
+          "count": 195,
+          "mae_mev": 5.771476690590834,
+          "rmse_mev": 7.665766187585534,
+          "mean_error_mev": 4.404621067932664,
+          "max_abs_error_mev": 40.266085799267444
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 5.349066698514592,
+          "rmse_mev": 6.876414508334947,
+          "mean_error_mev": 1.7786443915860846,
+          "max_abs_error_mev": 40.266085799267444
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.8507109969967797,
+        "ame2020_measured_comparison": 0.7840743336153189,
+        "heavy": 0.0,
+        "isotope_chain_z20": 1.3013607659223396,
+        "isotope_chain_z28": 1.7856612537911847,
+        "isotope_chain_z50": 0.2924000611365045,
+        "light": 0.0,
+        "mid_mass": 1.2049586918076898,
+        "primary": 0.7964981183135578
+      },
+      "frontier_contrast_mev": 1.2049586918076898,
+      "worst_subset_regression_mae_mev": 1.7856612537911847,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": -2.629279914822674,
+          "candidate_residual_mev": 40.266085799267444,
+          "candidate_abs_error_mev": 40.266085799267444,
+          "feature_values": {
+            "midmass_times_asymmetry": 0.2619047619047619
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": -2.5858207426768445,
+          "candidate_residual_mev": 20.460720430611218,
+          "candidate_abs_error_mev": 20.460720430611218,
+          "feature_values": {
+            "midmass_times_asymmetry": 0.25757575757575757
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": -2.528925719600434,
+          "candidate_residual_mev": 20.048066269240962,
+          "candidate_abs_error_mev": 20.048066269240962,
+          "feature_values": {
+            "midmass_times_asymmetry": 0.25190839694656486
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": -2.6970632504829597,
+          "candidate_residual_mev": 19.861516045325516,
+          "candidate_abs_error_mev": 19.861516045325516,
+          "feature_values": {
+            "midmass_times_asymmetry": 0.26865671641791045
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": -2.641860201496466,
+          "candidate_residual_mev": 19.229421056186084,
+          "candidate_abs_error_mev": 19.229421056186084,
+          "feature_values": {
+            "midmass_times_asymmetry": 0.2631578947368421
+          }
+        }
+      ],
+      "verdict": "OVERFITTED",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Isotope-chain subsets are small (Z=20 has 2 rows, Z=28 has 3 rows, Z=50 has 1 row in the primary holdout).",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-003",
+      "name": "Isotope-chain slope, N minus per-Z median N",
+      "formula": "r_corr = beta * (N - N_ref_for_Z)",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "isotope_chain_offset": 0.3995059710091257
+      },
+      "feature_activation_counts": {
+        "isotope_chain_offset": 295
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 21.760575955719272,
+          "rmse_mev": 25.47707707176323,
+          "mean_error_mev": -21.335827825913913,
+          "max_abs_error_mev": 44.40590869918151
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 23.52044288396515,
+          "rmse_mev": 27.434924561366163,
+          "mean_error_mev": -23.32087740590169,
+          "max_abs_error_mev": 65.72943596306277
+        },
+        "heavy": {
+          "count": 82,
+          "mae_mev": 39.73815527025399,
+          "rmse_mev": 42.03928385938979,
+          "mean_error_mev": -39.73815527025399,
+          "max_abs_error_mev": 65.72943596306277
+        },
+        "isotope_chain_z20": {
+          "count": 2,
+          "mae_mev": 2.9354499302588124,
+          "rmse_mev": 3.1764955417804166,
+          "mean_error_mev": 2.9354499302588124,
+          "max_abs_error_mev": 4.1492281776723985
+        },
+        "isotope_chain_z28": {
+          "count": 3,
+          "mae_mev": 10.43333348800445,
+          "rmse_mev": 10.472930493422709,
+          "mean_error_mev": -10.43333348800445,
+          "max_abs_error_mev": 11.389802248508545
+        },
+        "isotope_chain_z50": {
+          "count": 1,
+          "mae_mev": 9.757622118465292,
+          "rmse_mev": 9.757622118465292,
+          "mean_error_mev": 9.757622118465292,
+          "max_abs_error_mev": 9.757622118465292
+        },
+        "light": {
+          "count": 18,
+          "mae_mev": 6.556259464826733,
+          "rmse_mev": 7.50791684111301,
+          "mean_error_mev": -6.306426895641051,
+          "max_abs_error_mev": 12.83213646041429
+        },
+        "mid_mass": {
+          "count": 195,
+          "mae_mev": 17.77023880609481,
+          "rmse_mev": 19.001774304305144,
+          "mean_error_mev": -17.427880469534895,
+          "max_abs_error_mev": 36.71541008435315
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 23.192332100732873,
+          "rmse_mev": 27.08063919405075,
+          "mean_error_mev": -22.950783416412445,
+          "max_abs_error_mev": 65.72943596306277
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 16.80955145205504,
+        "ame2020_measured_comparison": 19.059187119557766,
+        "heavy": 34.6199441719277,
+        "isotope_chain_z20": -1.8738820562369085,
+        "isotope_chain_z28": 4.810704174106793,
+        "isotope_chain_z50": 6.791601507155178,
+        "light": 4.731625501835834,
+        "mid_mass": 13.203720807311665,
+        "primary": 18.63976352053184
+      },
+      "frontier_contrast_mev": -6.472064029570102,
+      "worst_subset_regression_mae_mev": 34.6199441719277,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0296",
+          "nuclide_id": "Pu-242",
+          "Z": 94,
+          "N": 148,
+          "A": 242,
+          "correction_mev": 59.12688370935061,
+          "candidate_residual_mev": -65.72943596306277,
+          "candidate_abs_error_mev": 65.72943596306277,
+          "feature_values": {
+            "isotope_chain_offset": 148.0
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0291",
+          "nuclide_id": "Np-241",
+          "Z": 93,
+          "N": 148,
+          "A": 241,
+          "correction_mev": 59.12688370935061,
+          "candidate_residual_mev": -65.28315833860324,
+          "candidate_abs_error_mev": 65.28315833860324,
+          "feature_values": {
+            "isotope_chain_offset": 148.0
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0294",
+          "nuclide_id": "Pu-240",
+          "Z": 94,
+          "N": 146,
+          "A": 240,
+          "correction_mev": 58.327871767332354,
+          "candidate_residual_mev": -65.20013022276248,
+          "candidate_abs_error_mev": 65.20013022276248,
+          "feature_values": {
+            "isotope_chain_offset": 146.0
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0295",
+          "nuclide_id": "Pu-241",
+          "Z": 94,
+          "N": 147,
+          "A": 241,
+          "correction_mev": 58.72737773834148,
+          "candidate_residual_mev": -65.13684529160878,
+          "candidate_abs_error_mev": 65.13684529160878,
+          "feature_values": {
+            "isotope_chain_offset": 147.0
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0292",
+          "nuclide_id": "Np-242",
+          "Z": 93,
+          "N": 149,
+          "A": 242,
+          "correction_mev": 59.526389680359735,
+          "candidate_residual_mev": -65.0066918769428,
+          "candidate_abs_error_mev": 65.0066918769428,
+          "feature_values": {
+            "isotope_chain_offset": 149.0
+          }
+        }
+      ],
+      "verdict": "OVERFITTED",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Isotope-chain subsets are small (Z=20 has 2 rows, Z=28 has 3 rows, Z=50 has 1 row in the primary holdout).",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-004",
+      "name": "Mid-mass shell-distance Gaussian fall-off",
+      "formula": "r_corr = beta * I[50<=A<=150] * exp(-(min_magic_distance)^2 / 8)",
+      "complexity": 1,
+      "fitted_coefficients": {
+        "midmass_shell_falloff": -16.144937295383773
+      },
+      "feature_activation_counts": {
+        "midmass_shell_falloff": 195
+      },
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 5.3938232948367055,
+          "rmse_mev": 6.547530956273463,
+          "mean_error_mev": 1.5563164369153701,
+          "max_abs_error_mev": 20.520455434468886
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.674939955252309,
+          "rmse_mev": 6.1174744133142385,
+          "mean_error_mev": 0.8157931011400389,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "heavy": {
+          "count": 82,
+          "mae_mev": 5.118211098326289,
+          "rmse_mev": 5.409026837072816,
+          "mean_error_mev": -3.9336506245702743,
+          "max_abs_error_mev": 8.259260568326226
+        },
+        "isotope_chain_z20": {
+          "count": 2,
+          "mae_mev": 4.809331986680547,
+          "rmse_mev": 5.852487080100497,
+          "mean_error_mev": 3.3349559014527586,
+          "max_abs_error_mev": 8.144287888133306
+        },
+        "isotope_chain_z28": {
+          "count": 3,
+          "mae_mev": 8.6778698516203,
+          "rmse_mev": 8.75987659965948,
+          "mean_error_mev": 8.6778698516203,
+          "max_abs_error_mev": 9.567076595971571
+        },
+        "isotope_chain_z50": {
+          "count": 1,
+          "mae_mev": 8.207514339602312,
+          "rmse_mev": 8.207514339602312,
+          "mean_error_mev": 8.207514339602312,
+          "max_abs_error_mev": 8.207514339602312
+        },
+        "light": {
+          "count": 18,
+          "mae_mev": 1.8246339629908985,
+          "rmse_mev": 2.2484849685097887,
+          "mean_error_mev": -0.646758973011774,
+          "max_abs_error_mev": 4.442511069222633
+        },
+        "mid_mass": {
+          "count": 195,
+          "mae_mev": 4.954405892717852,
+          "rmse_mev": 6.7365722411900055,
+          "mean_error_mev": 3.1568654411945083,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.8089690524629605,
+          "rmse_mev": 6.199917237473256,
+          "mean_error_mev": 0.9538567739117109,
+          "max_abs_error_mev": 37.63680588444481
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.4427987911724731,
+        "ame2020_measured_comparison": 0.2136841908449254,
+        "heavy": 0.0,
+        "isotope_chain_z20": 1.8482637642591726e-10,
+        "isotope_chain_z28": 3.0552405377226437,
+        "isotope_chain_z50": 5.241493728292198,
+        "light": 0.0,
+        "mid_mass": 0.3878878939347077,
+        "primary": 0.25640047226192664
+      },
+      "frontier_contrast_mev": 0.3878878939347077,
+      "worst_subset_regression_mae_mev": 5.241493728292198,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": -8.574725134106773e-26,
+          "candidate_residual_mev": 37.63680588444481,
+          "candidate_abs_error_mev": 37.63680588444481,
+          "feature_values": {
+            "midmass_shell_falloff": 5.311092249679095e-27
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0177",
+          "nuclide_id": "In-99",
+          "Z": 49,
+          "N": 50,
+          "A": 99,
+          "correction_mev": -14.247857155598696,
+          "candidate_residual_mev": 20.520455434468886,
+          "candidate_abs_error_mev": 20.520455434468886,
+          "feature_values": {
+            "midmass_shell_falloff": 0.8824969025845955
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": -2.8345474250117786e-62,
+          "candidate_residual_mev": 17.87489968793443,
+          "candidate_abs_error_mev": 17.87489968793443,
+          "feature_values": {
+            "midmass_shell_falloff": 1.7556880978548265e-63
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": -1.229419263036002e-58,
+          "candidate_residual_mev": 17.519140549640497,
+          "candidate_abs_error_mev": 17.519140549640497,
+          "feature_values": {
+            "midmass_shell_falloff": 7.61489029373637e-60
+          }
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": -7.117546191120853e-70,
+          "candidate_residual_mev": 17.164452794842646,
+          "candidate_abs_error_mev": 17.164452794842646,
+          "feature_values": {
+            "midmass_shell_falloff": 4.408531331463226e-71
+          }
+        }
+      ],
+      "verdict": "OVERFITTED",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Isotope-chain subsets are small (Z=20 has 2 rows, Z=28 has 3 rows, Z=50 has 1 row in the primary holdout).",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-005",
+      "name": "Near-null mid-mass sanity control",
+      "formula": "r_corr = 0.0",
+      "complexity": 0,
+      "fitted_coefficients": {},
+      "feature_activation_counts": {},
+      "metrics_by_subset": {
+        "ame2020_extrapolated_comparison": {
+          "count": 55,
+          "mae_mev": 4.951024503664232,
+          "rmse_mev": 5.854176430909467,
+          "mean_error_mev": 1.105512127407804,
+          "max_abs_error_mev": 17.164452794842646
+        },
+        "ame2020_measured_comparison": {
+          "count": 240,
+          "mae_mev": 4.461255764407384,
+          "rmse_mev": 5.885456190078588,
+          "mean_error_mev": 0.5887226548882164,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "heavy": {
+          "count": 82,
+          "mae_mev": 5.118211098326289,
+          "rmse_mev": 5.409026837072816,
+          "mean_error_mev": -3.9336506245702743,
+          "max_abs_error_mev": 8.259260568326226
+        },
+        "isotope_chain_z20": {
+          "count": 2,
+          "mae_mev": 4.809331986495721,
+          "rmse_mev": 5.852487079843294,
+          "mean_error_mev": 3.334955901267932,
+          "max_abs_error_mev": 8.144287887763653
+        },
+        "isotope_chain_z28": {
+          "count": 3,
+          "mae_mev": 5.622629313897657,
+          "rmse_mev": 6.84231702149544,
+          "mean_error_mev": 5.4137366953575565,
+          "max_abs_error_mev": 9.567076595971571
+        },
+        "isotope_chain_z50": {
+          "count": 1,
+          "mae_mev": 2.966020611310114,
+          "rmse_mev": 2.966020611310114,
+          "mean_error_mev": 2.966020611310114,
+          "max_abs_error_mev": 2.966020611310114
+        },
+        "light": {
+          "count": 18,
+          "mae_mev": 1.8246339629908985,
+          "rmse_mev": 2.2484849685097887,
+          "mean_error_mev": -0.646758973011774,
+          "max_abs_error_mev": 4.442511069222633
+        },
+        "mid_mass": {
+          "count": 195,
+          "mae_mev": 4.566517998783144,
+          "rmse_mev": 6.2871727435717695,
+          "mean_error_mev": 2.7502441892798744,
+          "max_abs_error_mev": 37.63680588444481
+        },
+        "primary": {
+          "count": 295,
+          "mae_mev": 4.552568580201034,
+          "rmse_mev": 5.8796369910752775,
+          "mean_error_mev": 0.6850732345105124,
+          "max_abs_error_mev": 37.63680588444481
+        }
+      },
+      "delta_mae_by_subset_mev": {
+        "ame2020_extrapolated_comparison": 0.0,
+        "ame2020_measured_comparison": 0.0,
+        "heavy": 0.0,
+        "isotope_chain_z20": 0.0,
+        "isotope_chain_z28": 0.0,
+        "isotope_chain_z50": 0.0,
+        "light": 0.0,
+        "mid_mass": 0.0,
+        "primary": 0.0
+      },
+      "frontier_contrast_mev": 0.0,
+      "worst_subset_regression_mae_mev": 0.0,
+      "worst_abs_error_cases": [
+        {
+          "row_id": "POST-AME2020-0074",
+          "nuclide_id": "Ga-84",
+          "Z": 31,
+          "N": 53,
+          "A": 84,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 37.63680588444481,
+          "candidate_abs_error_mev": 37.63680588444481,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0192",
+          "nuclide_id": "In-132",
+          "Z": 49,
+          "N": 83,
+          "A": 132,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.87489968793443,
+          "candidate_abs_error_mev": 17.87489968793443,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0191",
+          "nuclide_id": "In-131",
+          "Z": 49,
+          "N": 82,
+          "A": 131,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.519140549640497,
+          "candidate_abs_error_mev": 17.519140549640497,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0194",
+          "nuclide_id": "In-134",
+          "Z": 49,
+          "N": 85,
+          "A": 134,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 17.164452794842646,
+          "candidate_abs_error_mev": 17.164452794842646,
+          "feature_values": {}
+        },
+        {
+          "row_id": "POST-AME2020-0193",
+          "nuclide_id": "In-133",
+          "Z": 49,
+          "N": 84,
+          "A": 133,
+          "correction_mev": 0.0,
+          "candidate_residual_mev": 16.587560854689627,
+          "candidate_abs_error_mev": 16.587560854689627,
+          "feature_values": {}
+        }
+      ],
+      "verdict": "INCONCLUSIVE",
+      "limitations": [
+        "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+        "Post-AME2020 evaluation uses committed retrospective rows only; it is not a reveal of new live measurements.",
+        "Isotope-chain subsets are small (Z=20 has 2 rows, Z=28 has 3 rows, Z=50 has 1 row in the primary holdout).",
+        "Verdict is a sandbox triage label, not a promoted claim."
+      ]
+    }
+  ],
+  "rejected_before_execution": [
+    {
+      "candidate_id": "MIDMASS-SCOUT-006",
+      "name": "Per-Z fitted intercepts",
+      "rejection_reason": "Rejected before execution because per-Z intercepts on an 11-row NMD-0002 training slice memorize individual rows rather than test a bounded mid-mass or isotope-chain residual feature."
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-007",
+      "name": "A-binned 8-bin step function",
+      "rejection_reason": "Rejected before execution because an 8-bin A-step function inflates degrees of freedom relative to the 11-row residual training slice and would be a row-memorizing overfit risk."
+    },
+    {
+      "candidate_id": "MIDMASS-SCOUT-008",
+      "name": "Free sigma in mid-mass Gaussian",
+      "rejection_reason": "Rejected before execution because tuning sigma adds a nonlinear free knob on an 11-row residual slice and duplicates the fixed-sigma continuous probe MIDMASS-SCOUT-001."
+    }
+  ],
+  "promotion_boundary": {
+    "writes_prediction_registry": false,
+    "writes_canonical_result": false,
+    "claim_promotion_allowed": false,
+    "required_next_step": "Maintainer review before any registry selection, RESULT-* artifact, claim, or knowledge update."
+  },
+  "limitations": [
+    "Sandbox-only scout; no prediction registry, canonical result, claim, or knowledge artifact is updated.",
+    "Feature coefficients are fit on the 11-row NMD-0002 residual slice.",
+    "Post-AME2020 evaluation uses committed retrospective rows only and is not a live reveal.",
+    "Isotope-chain subsets are small (Z=20 has 2 rows, Z=28 has 3 rows, Z=50 has 1 row in the primary holdout); per-chain deltas are highly fragile.",
+    "Rejected candidates are preserved to document overfit and row-memorization boundaries."
+  ]
+}
