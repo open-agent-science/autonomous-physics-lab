@@ -18,7 +18,7 @@ Use it when you need to answer four questions quickly:
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilot, prediction factory, and frozen prospective registry | `EXP-0012/RUN-0001`, `AGENT-RUN-0005`, factory reviews, and `PRED-0001` through `PRED-0062` | registry coverage audit, synthetic reveal dry-run, and bounded variant scout lanes |
 | [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Active benchmark plus follow-on curation | `EXP-0006/RUN-0006` plus live challenge-set work | challenge-set curation, benchmark hygiene, and future intentional rebaseline planning |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical run yet | suite design plus light-clock micro-planning task | scoped scenario planning, then deterministic validator design |
-| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold complete, dataset and holdout foundation ready | campaign page, profile, plan note, and microtask queue | `TASK-0223` dataset/source manifest, `TASK-0224` holdout protocol, then source-manifest seed and baseline work |
+| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold complete, source manifest seeded; row-level data still needed | campaign page, profile, plan note, source manifest seed, and microtask queue | `TASK-0281`/`TASK-0282` row-level absorption seeds, then `TASK-0283` readiness gate before `TASK-0225` baseline work |
 
 ## How To Use This Map
 
