@@ -17,15 +17,15 @@ retrospective time-split evidence, a deterministic prediction factory, reusable
 target batches, and frozen prospective prediction registry entries.
 
 Safe contributions right now are still conservative, and should now emphasize
-post-registry synthesis, reveal readiness, and bounded gap scouts:
+post-registry stress review, reveal readiness, and evidence packaging:
 
 - campaign map and guardrail wording;
 - pinned-dataset and provenance expansion work;
 - subset and holdout curation;
 - registry coverage audits across frozen `PRED-*` entries;
 - synthetic reveal dry-runs that use fake data only;
-- sandbox-only variant scout lanes with disjoint hypothesis families or
-  under-covered target domains;
+- sandbox-only adversarial stress lanes for the strongest scout families;
+- direct reveal-readiness checklists that do not touch live measurements;
 - conservative status summaries that separate baseline evidence, sandbox
   evidence, and unvalidated prospective predictions;
 - limitation notes that keep the campaign conservative.
@@ -100,6 +100,13 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   reveal behavior with fabricated toy values only.
 - `TASK-0274` summarizes the post-`PRED-0062` evidence state and keeps the
   registry framed as prospective rather than validated.
+- `TASK-0285` synthesizes the completed scout lanes and ranks the strongest
+  follow-up surface as the shell-axis pair `SHELL-SCOUT-003` plus
+  `SHELL-SCOUT-005`, with smaller asymmetry-frontier behavior preserved as a
+  secondary review surface.
+- `TASK-0286` records a useful negative result for naive mid-mass and
+  isotope-chain gap features: all executed candidates regress the primary
+  holdout or remain null, so that lane should not be promoted.
 
 Historical context:
 
@@ -143,31 +150,23 @@ Start here:
   while preserving the no-peek boundary?
 - Which existing manual blocked lanes should remain fallback references versus
   being represented only through factory slates?
-- Which scout-lane candidates, if any, deserve later maintainer-selected
-  registry entries after audit and review?
-- Which under-covered mid-mass or isotope-chain subsets should be stress
-  tested before any additional frozen predictions are registered?
+- Does the shell-axis pair survive adversarial sign, null, repeated-target,
+  and subset-pressure checks?
+- Should the smaller asymmetry-frontier signal remain a future review surface
+  after explicit stress testing, or be demoted to negative/supporting evidence?
 - What exact source-manifest, checksum, and no-peek evidence must exist before
   a real reveal comparison is allowed?
 
 ## Recommended Tasks
 
-- Review the `TASK-0272` registry coverage audit before adding more frozen
-  predictions.
-- Use the `TASK-0273` synthetic reveal dry-run harness for workflow checks
-  only; it uses fabricated values and is not nuclear evidence.
-- Use the `TASK-0274` registry status summary as the contributor-facing map of
-  baseline evidence, sandbox evidence, prospective registry entries, and reveal
-  boundaries after `PRED-0062`.
-- `TASK-0278` — run a shell-neighborhood variant scout lane.
-- `TASK-0279` — run a neutron-rich/asymmetry variant scout lane.
-- `TASK-0280` — run a pairing and odd-even variant scout lane.
-- `TASK-0285` — synthesize the completed scout lanes and rank follow-up
-  families without creating new `PRED-*` entries.
-- `TASK-0286` — run a mid-mass and isotope-chain coverage-gap scout as a
-  sandbox-only lane.
 - `TASK-0287` — define the real reveal source-readiness checklist before any
   live measurement comparison task.
+- `TASK-0288` — run a shell-axis adversarial stress scout for
+  `SHELL-SCOUT-003` / `SHELL-SCOUT-005`, including sign and null controls.
+- `TASK-0289` — run an asymmetry-frontier stress scout with `NR-SCOUT-005` as
+  the required overfit negative control.
+- `TASK-0290` — package the latest Nuclear scout evidence card for maintainers
+  and future communication without discovery framing.
 - Future reveal tasks should use the `TASK-0266` protocol checklist instead of
   ad hoc source comparison.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal

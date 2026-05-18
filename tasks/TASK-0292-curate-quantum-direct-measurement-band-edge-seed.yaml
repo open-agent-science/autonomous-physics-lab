@@ -1,0 +1,53 @@
+id: TASK-0292
+title: "Curate quantum direct-measurement band-edge seed"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Prepare an alternate direct-measurement property axis for Quantum Size Effects if absorption data remains insufficient."
+  - "Preserve property-kind separation by treating band-edge or bandgap rows as their own dataset surface."
+  - "Increase the chance that TASK-0225 can start from measurement-grade rows without weakening the gate."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+  planning_context: >
+    The first recommended benchmark axis is absorption_peak_eV, but the
+    repository also has an accepted band-edge source candidate in the
+    source manifest. This task lets a separate agent curate a direct
+    bandgap_eV or band-edge-derived seed without contaminating the
+    absorption benchmark surface.
+
+requirements:
+  - "Add one reviewed row-level bandgap_eV or band-edge-derived dataset seed with at least 6 included rows if the source supports direct measurement provenance."
+  - "Rows must preserve how bandgap_eV is derived from valence/conduction band-edge measurements; do not relabel optical absorption or emission peaks as bandgap."
+  - "Use a source already present in source_manifest.yaml when possible; otherwise register a new accepted source before referencing it."
+  - "Each row must validate against the quantum-dot schema and carry source_table_ref, inclusion_status, measurement_type, and provenance notes."
+  - "Keep this dataset separate from absorption_peak_eV rows and do not average residuals across property kinds."
+  - "If no measurement-grade rows can be curated, produce a review note explaining why and do not fabricate a dataset file."
+  - "Do not unblock TASK-0225 in this task; leave that to the readiness gate."
+
+accepted_outputs:
+  - "data/quantum_dots/qd-0004-direct-band-edge.yaml or equivalent next-numbered direct-measurement bandgap seed, if evidence is sufficient"
+  - "updated data/quantum_dots/source_manifest.yaml if a new source is used"
+  - "docs/reviews/quantum-size-direct-band-edge-seed-review.md"
+  - "updated tests covering schema validation and source_manifest references if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
