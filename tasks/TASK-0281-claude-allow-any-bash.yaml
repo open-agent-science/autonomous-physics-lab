@@ -1,0 +1,42 @@
+id: TASK-0281
+title: "Allow any Bash command in Claude Code shared permissions (unsafe mode)"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Reduce Claude Code friction for maintainers who want fully autonomous shell execution."
+  - "Make the risk explicit: this is an unsafe/unbounded permission mode."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - ".claude/settings.json"
+    - "docs/notes/claude-code-permissions-allowlist.md"
+  planning_context: >
+    Maintainer requested that Claude Code agents can execute arbitrary Bash
+    commands without interactive prompts. This significantly expands the
+    permissions boundary. The repository must document the risk and treat this
+    mode as maintainer-only.
+
+requirements:
+  - "Add a shared allowlist rule that permits any Bash command for Claude Code sessions in this repository."
+  - "Document the security implications and clarify this is maintainer-only and should not be used for untrusted contributors."
+  - "Do not change repository protocol (task/branch/PR/closeout rules still apply)."
+
+accepted_outputs:
+  - ".claude/settings.json updated to allow any Bash command"
+  - "docs/notes/claude-code-permissions-allowlist.md updated with risk note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - claude_code
+  - llm_agent
