@@ -1,4 +1,4 @@
-id: TASK-0281
+id: TASK-0284
 title: "Allow any Bash command in Claude Code shared permissions (unsafe mode)"
 type: contributor_experience
 status: REVIEW_READY
