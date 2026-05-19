@@ -52,9 +52,10 @@ work, and a private contributor workflow before any public-opening decision.
   coverage-audit and synthetic reveal dry-run support, but these are frozen
   forecasts, not results or claims.
 - Nuclear scout synthesis after `PRED-0062` - sandbox-only review evidence now
-  points to a small shell-axis follow-up surface and preserves mid-mass /
-  isotope-chain scout failures as negative evidence. No reveal or discovery
-  claim is promoted.
+  points to a small shell-axis follow-up surface, which later stress testing
+  preserved through sign, shuffle, and null controls. The asymmetry-frontier
+  lane remains a smaller review surface, while mid-mass / isotope-chain scouts
+  are preserved as negative evidence. No reveal or discovery claim is promoted.
 - [Negative Results Registry](./negative-results-registry.md):
   repository-level index of clean falsifications that should remain visible
   alongside successful reproductions.
