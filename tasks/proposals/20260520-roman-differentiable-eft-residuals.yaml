@@ -1,0 +1,100 @@
+proposal_id: 20260520-roman-differentiable-eft-residuals
+title: "Scaffold a differentiable effective-field-theory residual track"
+status: PROPOSED
+type: methodology_track
+priority: low
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Generalizes the nuclear mass surface residual methodology (NOW track) into a structured QFT-level residual framework, preserving the same audit-first posture."
+  - "Stays falsification-first: structured residuals are evaluated as evidence of missing operators with explicit uncertainty, not as derivation of new physics."
+  - "Does not promote any WATCHLIST topic."
+  - "Preserves deterministic-validation discipline; differentiable forward models here are evaluated as reproducible numerical residuals, not as generative theory builders."
+
+summary: >
+  Define a scaffold for a differentiable effective-field-theory residual
+  track. The track applies the nuclear-mass-surface residual pattern at
+  the level of an EFT forward model: a chosen EFT (e.g., chiral
+  perturbation theory at low energy, or a comparably scoped effective
+  Lagrangian) is implemented as a differentiable forward model with its
+  standard operator coefficients as fittable parameters. Structured
+  residuals against scoped real data are then evaluated for evidence of
+  missing operators or scale-dependent coupling structure. The proposal
+  defines the choice of EFT, dataset scope, forward-model interface, and
+  residual-evaluation discipline. The proposal does not implement the
+  forward model or run any fits.
+
+rationale: >
+  The nuclear mass surface campaign demonstrated that residual-driven
+  methodology under strict audit discipline can produce reviewable
+  evidence about model adequacy without overclaiming new physics. That
+  same pattern generalizes to a QFT-level setting: instead of residuals
+  against a baseline mass formula, residuals against a differentiable
+  EFT forward model. Modern computational tools make this tractable for
+  scoped EFTs (chiral perturbation theory at low energy is a canonical
+  example). The output is structurally the same as the nuclear track —
+  baseline coefficients, residual maps, holdout discipline, robustness
+  gates — but on a different physics surface. Crucially, the
+  methodology remains audit-first: a structured residual is evidence
+  for a missing operator, not a derivation of new physics. The
+  proposal defines the scope and discipline before any forward model
+  is implemented, so that future implementation tasks land on a
+  reviewable scaffold rather than ad hoc EFT code.
+
+  This proposal is one of four sibling proposals describing
+  non-saturated research surfaces; see
+  [tasks/proposals/20260520-roman-anomaly-registry-scaffold.yaml],
+  [tasks/proposals/20260520-roman-fresh-data-axes-scaffold.yaml],
+  and [tasks/proposals/20260520-roman-symmetry-discovery-validator.yaml].
+
+input:
+  mode: planning_only
+  related_domain: methodology
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/future-research-portfolio.md"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "docs/nuclear-mass-robustness-gate.md"
+    - "docs/numerical-accuracy-policy.md"
+    - "docs/research-quality-gate.md"
+  planning_context: >
+    Define EFT scope choice, dataset scope, forward-model interface
+    contract, and residual-evaluation discipline. Do not implement the
+    forward model. Do not run any fits. Output is documentation plus a
+    canonical task spec for the scaffold build.
+
+requirements:
+  - "Choose and justify one scoped EFT as the first target (e.g., chiral perturbation theory at low energy, or a comparably narrow effective Lagrangian) — broad multi-EFT scope is not in this proposal."
+  - "Define the dataset scope for the chosen EFT: which observables, what holdout discipline, what canonical source list, what license/provenance requirements."
+  - "Define the forward-model interface contract: pure-function differentiable evaluator with explicit operator coefficients as inputs, deterministic numerical output, fixed numerical-accuracy budget per nuclear-accuracy-policy."
+  - "Define the residual-evaluation contract: baseline coefficient fit, residual map definition, robustness gate (analogous to the nuclear robustness gate), and explicit limitation language for any structured residual that emerges."
+  - "Do not authorize implementation of the forward model in this proposal — implementation is a separate maintainer-approved task."
+  - "Do not run any fits."
+  - "Do not frame structured residuals as evidence for specific new physics until at least one separate task with reveal discipline evaluates them under guardrails."
+  - "Do not let LLM-generated theory prose substitute for deterministic forward evaluation."
+  - "Produce a canonical task spec for the scaffold build."
+
+accepted_outputs:
+  - "docs note describing the differentiable EFT residual methodology, scope, and limitation discipline"
+  - "forward-model interface contract specification"
+  - "canonical task spec (TASK-XXXX) for the scaffold build"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Higher implementation cost than the anomaly registry and
+    fresh-data-axes scaffolds. The proposal is intentionally narrowed
+    to a single EFT scope to keep the eventual implementation
+    reviewable. Review should consider whether the EFT choice belongs
+    inside this proposal or should be selected in a separate scoping
+    task before the canonical scaffold task is opened.
