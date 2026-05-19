@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0287` - Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0289` - Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0291` - Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0292` - Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`, domain `condensed_matter`)
 
@@ -21,3 +20,4 @@ None.
 - `TASK-0285` - Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0286` - Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0288` - Run nuclear shell-axis adversarial stress scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0289` - Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
