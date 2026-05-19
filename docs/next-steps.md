@@ -119,7 +119,8 @@ through measurement-grade row-level data:
 
 - use the completed registry coverage audit, synthetic reveal dry-run, and
   scout synthesis as the map for the next wave;
-- define concrete real-source, checksum, no-peek, and partial-reveal criteria;
+- use concrete real-source, checksum, no-peek, and partial-reveal criteria
+  before any future reveal comparison;
 - run bounded adversarial stress lanes for shell-axis and asymmetry-frontier
   candidates without editing the frozen registry;
 - package the latest scout evidence so positive and negative outcomes are easy
@@ -131,8 +132,6 @@ through measurement-grade row-level data:
 
 Recommended nuclear validation queue for parallel agents:
 
-- `TASK-0287` reveal source-readiness checklist: highest-priority protocol
-  task before any future real measurement comparison.
 - `TASK-0288` shell-axis adversarial stress scout: strongest sandbox signal
   follow-up, focused on `SHELL-SCOUT-003` / `SHELL-SCOUT-005` with sign and
   null controls.
@@ -141,7 +140,7 @@ Recommended nuclear validation queue for parallel agents:
 - `TASK-0290` nuclear scout evidence card: compact maintainer-facing package
   for the shell-axis signal and mid-mass/isotope-chain negative result.
 - Future reveal or reveal-scoring tasks must follow the `TASK-0266` protocol
-  checklist instead of ad hoc source comparison
+  and the source-readiness checklist instead of ad hoc source comparison
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
   umbrella; keep broad sandbox expansion behind factory-slate and
@@ -185,9 +184,9 @@ The nuclear queue should stay conservative:
 - no broad second nuclear sandbox batch from `TASK-0178`; use the factory
   path for bounded expansion and keep future reveal comparison in a separate
   reviewed task.
-- after the post-`PRED-0062` registry status summary and scout synthesis, use
-  `TASK-0287`, `TASK-0288`, `TASK-0289`, and `TASK-0290` as the next Nuclear
-  Mass Surface wave.
+- after the post-`PRED-0062` registry status summary, scout synthesis, and
+  source-readiness checklist, use `TASK-0288`, `TASK-0289`, and `TASK-0290` as
+  the next Nuclear Mass Surface wave.
 - do not register scout-derived `PRED-*` entries until shell/asymmetry stress
   reviews and reveal source-readiness work are reviewed.
 
