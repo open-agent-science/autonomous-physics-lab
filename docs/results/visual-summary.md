@@ -107,6 +107,10 @@ The `PRED-0001` through `PRED-0062` registry entries are prospective forecasts
 for future reveal comparison, not current result figures or success metrics.
 The post-`PRED-0062` registry state is summarized in
 [`nuclear-prediction-registry-status-after-pred-0062.md`](../reviews/nuclear-prediction-registry-status-after-pred-0062.md).
+The compact internal scout evidence card is
+[`nuclear-scout-evidence-card.md`](./nuclear-scout-evidence-card.md); it
+separates baseline, sandbox scout, negative, and prospective registry layers
+without discovery framing.
 
 ---
 

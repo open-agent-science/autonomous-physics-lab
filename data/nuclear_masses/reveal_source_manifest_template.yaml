@@ -1,0 +1,101 @@
+manifest_id: REVEAL-SOURCE-TEMPLATE
+manifest_status: template_only
+task_id: TASK-XXXX
+purpose: >
+  Template for a future maintainer-reviewed real nuclear prediction reveal
+  source manifest. This file contains no real measurement rows and must not be
+  used as comparison evidence.
+
+source:
+  source_class: official_evaluation
+  source_title: "<source title>"
+  issuing_body: "<organization, collaboration, journal, or archive>"
+  publication_or_release_date: "YYYY-MM-DD"
+  source_state_timestamp_utc: "YYYY-MM-DDTHH:MM:SSZ"
+  accessed_at_utc: "YYYY-MM-DDTHH:MM:SSZ"
+  source_locator:
+    doi: null
+    url: null
+    archive_uri: null
+    committed_copy_path: null
+  license_or_reuse_notes: "<license or reuse constraints>"
+
+archive_policy:
+  policy: external_archive_with_checksum
+  raw_artifact:
+    path_or_locator: "<raw source path or immutable locator>"
+    hash_algorithm: sha256
+    checksum: "<checksum>"
+    file_size_bytes: null
+    not_committed_reason: null
+  normalized_artifact:
+    path: "<normalized row-level table path, if any>"
+    hash_algorithm: sha256
+    checksum: "<checksum>"
+    file_size_bytes: null
+  retrieval_instructions: >
+    Record exact retrieval steps before any comparison is allowed.
+
+parser_or_normalizer:
+  required: true
+  command: "<parser command>"
+  code_reference: "<script path and version or commit>"
+  input_paths: []
+  output_paths: []
+
+value_semantics:
+  quantity: mass_excess_mev
+  source_units: "<source units>"
+  normalized_units: MeV
+  measurement_flag_field: "<field identifying measured/evaluated/extrapolated rows>"
+  allowed_for_scoring:
+    - measured
+  excluded_value_classes:
+    - evaluated
+    - extrapolated
+    - derived
+    - ambiguous
+  uncertainty_fields:
+    value: "<uncertainty field name>"
+    units: MeV
+    semantics: "<one sigma, evaluation uncertainty, or other reviewed meaning>"
+
+target_matching:
+  target_id_fields:
+    - symbol
+    - Z
+    - N
+    - A
+  optional_fields:
+    - isomer_state
+  matching_rules:
+    - "Match by Z, N, A, and isomer_state when present."
+    - "Treat duplicate rows as ambiguous unless the reveal task defines precedence."
+    - "Do not infer missing targets from unpinned sources."
+
+no_peek_audit:
+  registry_snapshot_git_commit: "<commit before reveal comparison>"
+  included_prediction_ids: []
+  audit_required_before_scoring: true
+  checks:
+    prediction_registered_before_source_release: null
+    source_absent_from_committed_training_at_registration: null
+    no_post_registration_prediction_value_edits: null
+    no_target_batch_changes_after_source_discovery: null
+    no_source_exposure_in_task_or_pr_history: null
+  reviewer_notes: "<required before scoring>"
+
+partial_reveal_policy:
+  unrevealed_target_status: TARGET_NOT_REVEALED
+  non_measured_only_status: NON_MEASURED_VALUE_ONLY
+  duplicate_target_status: TARGET_MATCH_AMBIGUOUS
+  report_target_row_coverage: true
+  report_unique_nuclide_coverage: true
+  report_high_reuse_target_batches: true
+
+forbidden_in_source_gate:
+  - "No live measurement fetch inside this template."
+  - "No real source rows in this template."
+  - "No prediction scoring from this template."
+  - "No edits to frozen prediction_registry/nuclear_masses/PRED-*.yaml values."
+  - "No claim or result promotion."
