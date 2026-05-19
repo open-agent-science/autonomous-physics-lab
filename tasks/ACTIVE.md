@@ -54,7 +54,7 @@ one PR.
 
 ## IN_PROGRESS
 
-None.
+- `TASK-0294` — Add autonomous task runner utility with Claude Code budget gate (`contributor_experience`, priority `medium`, difficulty `low`)
 
 ## REVIEW_READY
 
