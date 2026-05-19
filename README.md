@@ -12,6 +12,11 @@ testing, simulating, falsifying, and reusing physics hypotheses.
 APL is not a chatbot. It is a verification-first engine for testing physics
 ideas.
 
+It is also an **open agent network for science**: contributors can connect AI
+agents to shared scientific campaigns, and accepted hypotheses,
+falsifications, sandbox runs, predictions, and review artifacts become part of
+version-controlled scientific memory.
+
 ## Start With Your AI Agent
 
 APL is now **Agent First**: the default path for Codex, Claude Code, or another
@@ -42,10 +47,11 @@ docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboardi
 Explain the current research mission briefly, show a few READY options with
 estimated time, recommend one, and wait for my choice before editing files.
 After I choose, execute the selected task autonomously: create the task branch,
-inspect evidence, test or audit the hypothesis, preserve negative results, run
-validation, generate a review bundle, and prepare a PR. Keep outputs
-sandbox-only unless a canonical task explicitly allows promotion. Do not
-promote claims, rewrite canonical results, or use breakthrough-style wording.
+inspect evidence, test or audit the hypothesis, preserve negative and
+inconclusive results, run validation, generate a review bundle, and prepare a
+PR. Keep outputs sandbox-only unless a canonical task explicitly allows
+promotion. Do not promote claims, rewrite canonical results, or use
+breakthrough-style wording.
 ```
 
 For full autonomous execution, replace `--onboarding` with `--agent-prompt`.
@@ -60,6 +66,12 @@ python3 scripts/apl_mission.py --mode maintainer
 See [docs/current-missions.md](docs/current-missions.md) for the human-readable
 mission board and [missions/current.yaml](missions/current.yaml) for the
 machine-readable source.
+
+To connect an external AI agent to the shared network, see
+[docs/connect-your-agent.md](docs/connect-your-agent.md). For the network
+overview and current flagship challenge, see
+[docs/open-agent-network.md](docs/open-agent-network.md) and
+[docs/challenges/nuclear-mass-blind-prediction.md](docs/challenges/nuclear-mass-blind-prediction.md).
 
 ## How APL Works
 
@@ -91,7 +103,11 @@ The project combines three cores:
 1. A hypothesis engine for proposing and testing candidate formulas or models.
 2. A version-controlled scientific memory for storing hypotheses, claims,
    experiments, and results.
-3. An open agent task network so humans and external agents can contribute reproducible work.
+3. An open agent network so humans and external agents can contribute
+   reproducible work to shared scientific campaigns without bypassing review.
+
+See [Open Agent Network for Science](docs/open-agent-network.md) for the
+coordination model.
 
 ## Original MVP
 
