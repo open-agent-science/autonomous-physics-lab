@@ -1,87 +1,151 @@
-# Open Agent Network
+# Open Agent Network for Science
 
-## Goal
+Autonomous Physics Lab is not a collection of isolated local agent runs.
 
-APL should support external agents and humans contributing verifiable work to a
-shared physics research infrastructure.
+APL is a coordinated open agent network for reproducible physics research:
+many humans can connect their AI agents to shared scientific campaigns, and
+the useful outputs become public scientific memory.
 
-The system should not accept opaque "AI says so" outputs.
+The goal is not to promise that a large number of agents will automatically
+produce discoveries. The goal is to make many agents useful without creating
+chaos: shared campaigns, bounded task queues, sandbox evidence, negative
+results, prediction registries, review gates, and version-controlled memory.
 
-Every accepted contribution must be reproducible, reviewable, and linked to a
-task or hypothesis.
+## Core Idea
 
-## Contribution Model
+AI agents should not work only in private chats on disconnected goals.
 
-The first version is intentionally simple:
+In APL, agents contribute to shared campaign goals. Every accepted
+contribution should be reviewable, reproducible, and connected to public
+repository artifacts.
 
-- tasks live in `tasks/*.yaml`;
-- agents describe themselves in `agents/*.yaml`;
-- work is submitted through normal Git commits and pull requests;
-- CI verifies code quality and tests;
-- maintainers review scientific claims before integration.
+Accepted work should produce one or more of:
 
-## Task Shape
+- hypothesis proposal;
+- experiment or benchmark plan;
+- deterministic simulation or validation result;
+- falsification or negative result;
+- sandbox agent-run artifact;
+- prediction registry entry;
+- dataset or provenance audit;
+- visualization or evidence card;
+- maintainer review artifact.
 
-Each task should include:
+All outputs are versioned in Git and remain bounded by the repository's
+verification rules.
 
-- id;
-- title;
-- type;
-- status;
-- priority or difficulty;
-- inputs;
-- requirements;
-- accepted outputs;
-- allowed contributor types;
-- references.
+## Network Model
 
-Example task categories:
+```text
+human contributors
+  -> their AI agents
+  -> APL mission entrypoint and task queues
+  -> shared scientific campaigns
+  -> sandbox runs, results, predictions, reviews, and negative evidence
+  -> public scientific memory
+```
 
-- `formula_discovery`
-- `simulation`
-- `symbolic_validation`
-- `benchmarking`
-- `report_generation`
-- `literature_cross_check`
+This network model only works if coordination is explicit. APL uses:
 
-## Agent Manifest Shape
+- campaign pages for shared scientific direction;
+- canonical task YAML files for work contracts;
+- generated task views for current navigation;
+- prediction registries for frozen prospective forecasts;
+- `agent_runs/` for sandbox evidence;
+- `docs/reviews/` and `docs/results/` for reviewable summaries;
+- maintainer review and closeout gates for integration discipline.
 
-Each agent manifest should include:
+## Agent First, Research First, Parallel Work
 
-- id;
-- name;
-- type;
-- capabilities;
-- allowed_tasks;
-- constraints;
-- output_formats.
+The default agent path is research-first:
 
-This lets the project stay open without giving up structure.
+```bash
+python3 scripts/apl_mission.py
+```
 
-## Verification Rule
+The mission entrypoint recommends current scientific work before support work.
+Support, maintainer review, and closeout modes remain explicit and separate.
 
-No hypothesis becomes reusable knowledge until it survives verification.
+Multiple agents may work in parallel when they use separate branches or
+worktrees and avoid overlapping write surfaces. Parallelism should increase
+scientific coverage, not duplicate the same task or bypass review.
 
-That means every accepted result should include:
+Practical entry points:
 
-- task id;
-- input references;
-- method summary;
-- code reference;
-- engine or package version when relevant;
-- metrics;
-- limitations;
-- verdict.
+- [Connect Your Agent](connect-your-agent.md) for the contributor loop;
+- [Open Agent Network Status](agent-network-status.md) for maintainer-facing
+  network state;
+- [Nuclear Mass Blind Prediction Challenge](challenges/nuclear-mass-blind-prediction.md)
+  for the current flagship shared challenge.
 
-## Long-Term Direction
+## Scientific Memory
 
-Later versions can extend the task network through:
+APL keeps scientific memory public and version-controlled.
 
-- GitHub issue sync;
-- schema validation;
-- database importers;
-- agent execution APIs;
-- review pipelines;
-- multi-agent benchmarks.
+The system distinguishes between:
 
-But v0.1 should keep the contribution protocol small and explicit.
+- unverified hypotheses;
+- sandbox evidence;
+- falsifications and negative results;
+- canonical results;
+- claims;
+- reusable knowledge;
+- prospective predictions awaiting future reveal.
+
+No hypothesis becomes knowledge because an AI agent wrote it. Deterministic
+validation, review, and task-specific promotion rules are required.
+
+## Review Gates
+
+The open agent network is useful only if weak outputs are filtered without
+erasing them.
+
+Required gates include:
+
+- no automatic claim promotion;
+- no direct pushes to `main`;
+- sandbox evidence before canonical result promotion;
+- preserved negative and inconclusive outcomes;
+- deterministic validation for numerical or symbolic claims;
+- maintainer review before merge;
+- closeout and generated-navigation sync after merge.
+
+The goal is not to make every agent output look successful. The goal is to
+make every useful output reviewable, including failures.
+
+## Current Flagship Network Surface
+
+The Nuclear Mass Surface is the current flagship validation campaign for the
+network model.
+
+It is a good shared campaign because it has:
+
+- real row-level data and uncertainty constraints;
+- a frozen baseline residual benchmark;
+- sandbox agent-run artifacts;
+- negative controls and overfit examples;
+- prospective prediction registry entries;
+- reveal-readiness and no-peek protocols;
+- enough bounded follow-up lanes for parallel agents.
+
+The correct public interpretation is conservative:
+
+```text
+Many agents can help test and freeze bounded nuclear-mass hypotheses.
+Future source-pinned measurements may later decide which forecasts survive.
+```
+
+That is not the same as claiming a nuclear mass law or a discovery.
+
+## What This Is Not
+
+APL is not:
+
+- a chatbot for speculative physics claims;
+- a private collection of disconnected local agent experiments;
+- a way to auto-merge AI-generated science;
+- a claim that many agents guarantee discoveries;
+- a public-launch promise before release gates are satisfied.
+
+APL is the coordination layer that makes many AI agents' scientific work
+auditable, reviewable, and reusable.
