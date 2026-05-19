@@ -1,0 +1,101 @@
+proposal_id: 20260520-roman-symmetry-discovery-validator
+title: "Scaffold a symmetry-discovery validator track using equivariance and Noether-inverse checks"
+status: PROPOSED
+type: methodology_track
+priority: low
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Stays falsification-first: the validator's first deliverable is to recover known symmetries from synthetic data, not to claim new ones."
+  - "Does not promote any WATCHLIST topic — broad mass-relation searches and broad constants derivation remain deferred."
+  - "Extends the dimensional-analysis and electromagnetic-invariance validator pattern into a symmetry/conservation-law layer."
+  - "Preserves no-overclaim and deterministic-validation discipline; equivariant models used here are evaluated as deterministic forward checks, not generative discovery tools."
+
+summary: >
+  Define a validator track for discovering or verifying continuous and
+  discrete symmetries in physics data. The validator's first phase is
+  rediscovery — given synthetic data generated under a known symmetry
+  (e.g., SO(3) rotational invariance, SU(2) isospin, U(1) charge
+  conservation), can a deterministic equivariant-model-plus-residual
+  pipeline recover the symmetry and quantify its breaking? Only after
+  rediscovery passes on a fixed benchmark set does the validator become
+  eligible for use on real data, and even then only on scoped datasets
+  with explicit holdout discipline. The proposal defines the
+  methodology, benchmark set, success criteria, and the boundary
+  beyond which any output must be framed as evidence-for-symmetry,
+  not a claim of discovery.
+
+rationale: >
+  The existing engine searches for algebraic relations between scalar
+  observables (Koide-style). It cannot find symmetry-level structure
+  (continuous groups, conservation laws, equivariance properties) in
+  event-level or field-level data, because that structure does not
+  reduce to a single closed-form ratio. Noether's theorem connects
+  symmetries to conservation laws; inverting it — finding conserved
+  quantities first and inferring the symmetry — is an active research
+  area (equivariant neural networks, Lie algebra discovery). It is
+  attractive because the hypothesis space is structurally richer than
+  formula search, and it is the only realistic path to "a new
+  conservation law" rather than "a new constant". But it is also a
+  heavy lift and exposes the project to overclaim risk (broad
+  symmetry-finding can easily slide into numerology if not
+  rediscovery-gated). The validator track addresses both: any work in
+  this direction must pass rediscovery benchmarks first, with explicit
+  failure modes documented, before any real-data application is
+  authorized. This proposal defines that gate.
+
+  This proposal is one of four sibling proposals describing
+  non-saturated research surfaces; see
+  [tasks/proposals/20260520-roman-anomaly-registry-scaffold.yaml],
+  [tasks/proposals/20260520-roman-fresh-data-axes-scaffold.yaml],
+  and [tasks/proposals/20260520-roman-differentiable-eft-residuals.yaml].
+
+input:
+  mode: planning_only
+  related_domain: methodology
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/future-research-portfolio.md"
+    - "tasks/TASK-0016-electromagnetic-invariance-mini-benchmark-planning.yaml"
+    - "tasks/TASK-0017-dimensional-analysis-challenge-set.yaml"
+    - "docs/research-quality-gate.md"
+  planning_context: >
+    Define the methodology, benchmark set, and rediscovery-gating
+    discipline. Do not implement any equivariant model in this
+    proposal. Do not apply to real data. Output is documentation plus
+    a canonical task spec for the scaffold build.
+
+requirements:
+  - "Define the validator's input contract: synthetic dataset generators for at least 3 known symmetries (continuous and discrete), with explicit parameterization of symmetry-breaking magnitude."
+  - "Define rediscovery success criteria: per-symmetry quantitative thresholds for invariance detection, false-positive rate on a null symmetry, and reproducibility constraints."
+  - "Define methodology boundary: the validator may use deterministic equivariant model inference plus residual checks; it must not use LLM-generated symmetry hypotheses as a substitute for deterministic detection."
+  - "Define escalation discipline: the validator is real-data-eligible only after passing the full rediscovery benchmark set on a fixed synthetic suite; any real-data application requires a separate maintainer-approved task with scoped dataset and explicit holdout."
+  - "Define output framing: any symmetry signal found in real data must be framed as evidence-of-invariance with quantitative breaking bounds, not as a discovery claim."
+  - "Do not authorize any real-data application in this proposal."
+  - "Do not move broad mass-relation searches or broad constants derivation out of WATCHLIST."
+  - "Produce a canonical task spec for the scaffold build."
+
+accepted_outputs:
+  - "docs note describing the symmetry-discovery validator methodology, gating, and output framing"
+  - "synthetic benchmark set specification"
+  - "canonical task spec (TASK-XXXX) for the scaffold build"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Highest overclaim risk of the four sibling proposals — symmetry
+    discovery on real data can easily slide into numerology. The
+    rediscovery-gating requirement is the primary guardrail. Review
+    should consider whether the proposal's priority should remain low
+    until the anomaly registry and fresh-data-axes scaffolds are in
+    place, since those provide more conservative near-term value.
