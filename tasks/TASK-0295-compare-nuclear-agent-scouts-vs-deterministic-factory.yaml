@@ -1,7 +1,7 @@
 id: TASK-0295
 title: "Compare nuclear agent scouts against deterministic factory baseline"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -45,7 +45,7 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "python3 -m pytest tests/test_nuclear_agent_vs_factory_comparison.py tests/test_nuclear_asymmetry_frontier_stress_scout.py tests/test_active_board.py tests/test_task_views.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
