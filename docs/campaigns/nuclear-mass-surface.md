@@ -132,6 +132,7 @@ but it has not yet reached a future-measurement reveal.
 
 Start here:
 
+- [Nuclear Mass Blind Prediction Challenge](../challenges/nuclear-mass-blind-prediction.md)
 - [Nuclear Mass Campaign Plan](../notes/nuclear-mass-campaign-plan.md)
 - [Nuclear Prediction Variant Factory](../notes/nuclear-prediction-variant-factory.md)
 - [Selected Factory Registry Wave 001](../reviews/nuclear-prediction-factory-selected-registry-001.md)
