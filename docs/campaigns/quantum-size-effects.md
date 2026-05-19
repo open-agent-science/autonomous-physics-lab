@@ -39,6 +39,8 @@ Current task posture:
 - `TASK-0292` — direct-measurement band-edge seed (READY);
 - `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
   `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
+- `TASK-0298` — direct-measurement source triage (READY; helps dataset agents
+  choose tractable sources before row extraction);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
 Safe next contributions are:
@@ -135,6 +137,9 @@ Historical context:
 - `TASK-0291` and `TASK-0292` are the next parallel data-curation lanes for
   direct-measurement absorption and band-edge seeds;
 - `TASK-0293` should re-run the readiness gate after either direct seed lands;
+- `TASK-0298` should triage direct-measurement source candidates so row-level
+  agents do not spend a whole task discovering that a source is only
+  calibration-derived;
 - next, add at least one direct-measurement row-level `qd-*.yaml` seed and
   re-run the readiness gate, or request a maintainer waiver for a
   calibration-curve consistency benchmark;

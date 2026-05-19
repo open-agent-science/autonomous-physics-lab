@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-18 16:51 UTC
+Generated: 2026-05-19 07:21 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1132,12 +1132,12 @@ support_actions:
     task_id: null
     priority: high
   - id: private-agent-challenge-pack
-    label: "Create private agent challenge pack"
-    task_id: TASK-0177
+    label: "Use the private agent challenge pack for invited-contributor onboarding"
+    command: "Read docs/private-agent-challenge-pack.md"
     priority: medium
   - id: coverage-helper
-    label: "Add a coverage helper entrypoint for contributors and agents"
-    task_id: TASK-0242
+    label: "Run the report-only coverage helper"
+    command: "python3 scripts/apl_coverage_report.py"
     priority: medium
 
 maintainer_actions:
@@ -2128,14 +2128,11 @@ one PR.
 
 ## READY
 
-- `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
-- `TASK-0288` — Run nuclear shell-axis adversarial stress scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0289` — Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
+- `TASK-0294` — Synthesize nuclear adversarial stress results (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2143,9 +2140,15 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0283` — Review quantum row-level data gate for baseline (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0285` — Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0288` — Run nuclear shell-axis adversarial stress scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0289` — Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -2411,6 +2414,8 @@ None.
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0296` — Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0297` — Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
