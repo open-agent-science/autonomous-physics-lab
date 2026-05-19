@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-19 06:36 UTC
+Generated: 2026-05-19 07:21 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2128,8 +2128,6 @@ one PR.
 
 ## READY
 
-- `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
-- `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
 - `TASK-0294` — Synthesize nuclear adversarial stress results (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -2147,8 +2145,10 @@ None.
 - `TASK-0283` — Review quantum row-level data gate for baseline (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0285` — Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0288` — Run nuclear shell-axis adversarial stress scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0289` — Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

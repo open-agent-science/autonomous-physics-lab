@@ -198,19 +198,19 @@ def test_shell_axis_stress_agent_run_manifest() -> None:
     assert manifest["task_id"] == "TASK-0288"
     assert manifest["campaign_profile_id"] == "nuclear-mass-surface"
     assert manifest["sandbox_only"] is True
-    assert manifest["proposal_paths"]["hypothesis"] == str(
+    assert manifest["proposal_paths"]["hypothesis"] == (
         Path("hypothesis_proposals")
         / "nuclear-mass"
         / "HYP-PROPOSAL-0044-shell-axis-stress-scout-batch.yaml"
-    )
-    assert manifest["proposal_paths"]["experiment"] == str(
+    ).as_posix()
+    assert manifest["proposal_paths"]["experiment"] == (
         Path("experiment_proposals")
         / "nuclear-mass"
         / "EXP-PROPOSAL-0010-nuclear-shell-axis-stress-scout.yaml"
-    )
-    assert manifest["artifacts"]["metrics"] == str(
+    ).as_posix()
+    assert manifest["artifacts"]["metrics"] == (
         Path("agent_runs") / "AGENT-RUN-0016" / "metrics.json"
-    )
+    ).as_posix()
     assert manifest["promotion_boundary"]["writes_canonical_result"] is False
     assert manifest["promotion_boundary"]["claim_promotion_allowed"] is False
 
