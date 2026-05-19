@@ -113,6 +113,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
 - `TASK-0289` stress-tests the asymmetry-frontier lane and keeps it as a
   smaller review surface, with the catastrophic quadratic/cubic neighbor
   preserved as overfit negative evidence.
+- `TASK-0294` synthesizes the post-stress evidence into a maintainer decision
+  surface: shell-axis advances to target-batch design, asymmetry-frontier stays
+  as a review surface, and mid-mass/isotope-chain remains preserved negative
+  evidence.
 
 Historical context:
 
@@ -137,6 +141,7 @@ Start here:
 - [Registry Coverage Audit](../reviews/nuclear-prediction-registry-coverage-audit.md)
 - [Synthetic Reveal Dry-Run](../reviews/nuclear-prediction-synthetic-reveal-dry-run.md)
 - [Scout Lane Synthesis After PRED-0062](../reviews/nuclear-scout-lane-synthesis-after-pred-0062.md)
+- [Adversarial Stress Synthesis After TASK-0289](../reviews/nuclear-adversarial-stress-synthesis-after-0289.md)
 - [Nuclear Scout Evidence Card](../results/nuclear-scout-evidence-card.md)
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [Nuclear Reveal Source Readiness Checklist](../nuclear-reveal-source-readiness-checklist.md)
@@ -179,8 +184,8 @@ Start here:
 - Use the Nuclear scout evidence card as the compact maintainer orientation
   surface for the current shell-axis, asymmetry-frontier, and negative
   mid-mass/isotope-chain evidence.
-- `TASK-0294` — synthesize the shell-axis, asymmetry-frontier, and mid-mass
-  stress results into a single maintainer decision surface.
+- Use the adversarial stress synthesis as the maintainer decision surface for
+  post-0288/0289 Nuclear scout evidence.
 - `TASK-0295` — compare agent-designed scout lanes against deterministic
   factory/grid candidates under matched evidence and complexity budgets.
 - `TASK-0296` — design a shell-axis prospective target batch only after

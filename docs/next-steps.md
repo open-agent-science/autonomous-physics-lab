@@ -139,9 +139,6 @@ Recommended nuclear validation queue for parallel agents:
   `NR-SCOUT-005` as the required overfit negative control.
 - `TASK-0290` nuclear scout evidence card: compact maintainer-facing package
   for the shell-axis signal and mid-mass/isotope-chain negative result.
-- `TASK-0294` adversarial stress synthesis: rank the post-0288/0289 evidence
-  and decide which lanes advance, stay under review, or become negative
-  memory.
 - `TASK-0295` agent-vs-factory comparison: answer whether agent-designed
   Nuclear scouts add value beyond deterministic factory/grid generation.
 - `TASK-0296` shell-axis target-batch design: blocked until reveal-readiness
@@ -194,8 +191,9 @@ The nuclear queue should stay conservative:
   path for bounded expansion and keep future reveal comparison in a separate
   reviewed task.
 - after the post-`PRED-0062` registry status summary, scout synthesis, source
-  readiness checklist, shell/asymmetry stress scouts, and evidence card, use
-  `TASK-0294` and `TASK-0295` as the next Nuclear Mass Surface decision wave.
+  readiness checklist, shell/asymmetry stress scouts, evidence card, and
+  adversarial stress synthesis, use `TASK-0295` as the next Nuclear Mass
+  Surface decision step before unblocking shell-axis target-batch design.
 - do not register scout-derived `PRED-*` entries until shell/asymmetry stress
   synthesis, reveal source-readiness, and target-batch design are reviewed.
 
