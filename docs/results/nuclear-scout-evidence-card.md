@@ -16,10 +16,10 @@ future maintainer-reviewed reveal task says otherwise.
 | Layer | Main artifacts | Current interpretation |
 | --- | --- | --- |
 | Baseline evidence | `EXP-0012`, `RESULT-0015`, `docs/results/nuclear-mass-baseline-summary.md` | Frozen measured-slice residual benchmark. It defines the baseline surface for later sandbox and registry work. |
-| Sandbox scout evidence | `docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md`, `docs/reviews/nuclear-shell-axis-stress-scout-001.md`, `docs/reviews/nuclear-neutron-rich-variant-scout-001.md` | Retrospective stress evidence only. Small sub-MeV improvements are review signals, not accepted physics. |
+| Sandbox scout evidence | `docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md`, `docs/reviews/nuclear-shell-axis-stress-scout-001.md`, `docs/reviews/nuclear-asymmetry-frontier-stress-scout-001.md`, `docs/reviews/nuclear-neutron-rich-variant-scout-001.md` | Retrospective stress evidence only. Small sub-MeV improvements are review signals, not accepted physics. |
 | Negative scout evidence | `docs/reviews/nuclear-midmass-isotope-gap-scout-001.md` and overfit controls in the scout reviews | Useful failure evidence. It narrows which feature families should not be promoted. |
 | Prospective registry entries | `prediction_registry/nuclear_masses/PRED-0001.yaml` through `PRED-0062.yaml` and `docs/reviews/nuclear-prediction-registry-status-after-pred-0062.md` | Frozen prospective records awaiting a future source-pinned reveal. They are not current measured successes. |
-| Reveal plumbing | `docs/nuclear-prediction-reveal-protocol.md`, `docs/reviews/nuclear-prediction-synthetic-reveal-dry-run.md` | Workflow guardrails only. The synthetic reveal values are fabricated toy rows and provide no scientific score. |
+| Reveal plumbing | `docs/nuclear-prediction-reveal-protocol.md`, `docs/nuclear-reveal-source-readiness-checklist.md`, `docs/reviews/nuclear-prediction-synthetic-reveal-dry-run.md` | Workflow guardrails only. The synthetic reveal values are fabricated toy rows and provide no scientific score. |
 
 ## Compact Leaderboard
 
@@ -32,7 +32,9 @@ sandbox diagnostics, not prospective reveal scores.
 | --- | --- | ---: | --- | --- | --- |
 | `SHELL-SCOUT-003` | shell-axis | -0.0915 | magic_z -0.388, magic_n -0.292, heavy -0.088 | `PARTIALLY_VALID` | Strongest small shell-axis signal; still fitted on an 11-row residual slice and needs future reviewed target design before any registry use. |
 | `SHELL-SCOUT-005` | shell-axis cross-check | -0.0716 | magic_n -0.411, heavy -0.090 | `PARTIALLY_VALID` | Useful non-additive cross-check; should be reviewed with `SHELL-SCOUT-003`, not promoted alone. |
-| `NR-SCOUT-003` | asymmetry frontier | -0.0243 | asymmetry >= 0.25: -0.126 | `PARTIALLY_VALID` | Smaller, subset-scoped signal; required negative neighbor is `NR-SCOUT-005`. |
+| `ASYM-STRESS-001` | asymmetry frontier | -0.0243 | asymmetry >= 0.25: -0.126 | `PARTIALLY_VALID` | Re-evaluates `NR-SCOUT-003`; smaller subset-scoped signal that remains sandbox-only. |
+| `ASYM-STRESS-002` | asymmetry frontier | -0.0181 | asymmetry >= 0.25: -0.143 | `PARTIALLY_VALID` | Re-evaluates `NR-SCOUT-004`; concentrated frontier signal, not registry-ready evidence. |
+| `ASYM-STRESS-003` | asymmetry overfit control | +1.3688 | asymmetry >= 0.25: +4.812 | `OVERFITTED` | Required negative-control neighbor reproducing the `NR-SCOUT-005` blow-up. |
 | `MIDMASS-SCOUT-001` | mid-mass gap | +0.3725 | mid-mass +0.569 | `OVERFITTED` | Regresses the target gap; useful as a warning against naive mid-mass Gaussian corrections. |
 | `MIDMASS-SCOUT-002` | mid-mass plus asymmetry | +0.7965 | mid-mass +1.205 | `OVERFITTED` | Regression is concentrated in the intended mid-mass band. |
 | `MIDMASS-SCOUT-003` | isotope-chain slope | +18.6398 | heavy +34.620, Z=28 +4.811, Z=50 +6.792 | `OVERFITTED` | Strong negative result; per-Z centering does not generalize from the tiny training slice. |
@@ -66,16 +68,20 @@ its job:
    first combined scout ranking.
 4. `docs/reviews/nuclear-shell-axis-stress-scout-001.md` for adversarial
    shell-axis stress behavior.
-5. `docs/reviews/nuclear-midmass-isotope-gap-scout-001.md` for the negative
+5. `docs/reviews/nuclear-asymmetry-frontier-stress-scout-001.md` for the
+   smaller asymmetry-frontier stress lane and its overfit neighbor.
+6. `docs/reviews/nuclear-midmass-isotope-gap-scout-001.md` for the negative
    mid-mass and isotope-chain lane.
+7. `docs/nuclear-reveal-source-readiness-checklist.md` before any real-source
+   comparison task.
 
 ## Contributor Route
 
 Near-term contributor work should stay inside conservative review surfaces:
 
 - adversarial review of the shell-axis pair before any registry expansion;
-- asymmetry-frontier stress review with `NR-SCOUT-005` retained as a required
-  negative control;
+- source-gated follow-up design for the smaller asymmetry-frontier lane, with
+  `ASYM-STRESS-003` retained as the required overfit neighbor;
 - source-readiness and no-peek review before any real reveal comparison;
 - evidence packaging that keeps baseline, sandbox, negative, and prospective
   registry layers separate.
@@ -105,7 +111,8 @@ The compact evidence state is conservative:
 
 - baseline evidence is reviewable and frozen;
 - shell-axis sandbox evidence is the strongest current follow-up surface;
-- asymmetry-frontier evidence is smaller and must keep its overfit control;
+- asymmetry-frontier evidence is smaller, subset-scoped, and must keep its
+  overfit control;
 - naive mid-mass and isotope-chain features are negative evidence;
 - registry entries remain prospective until a future maintainer-reviewed
   source-pinned reveal.

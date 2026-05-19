@@ -133,6 +133,7 @@ Start here:
 - [Scout Lane Synthesis After PRED-0062](../reviews/nuclear-scout-lane-synthesis-after-pred-0062.md)
 - [Nuclear Scout Evidence Card](../results/nuclear-scout-evidence-card.md)
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
+- [Nuclear Reveal Source Readiness Checklist](../nuclear-reveal-source-readiness-checklist.md)
 - [TASK-0272](../../tasks/TASK-0272-audit-nuclear-prediction-registry-coverage.yaml)
 - [TASK-0273](../../tasks/TASK-0273-add-nuclear-synthetic-reveal-dry-run-harness.yaml)
 - [TASK-0274](../../tasks/TASK-0274-summarize-nuclear-prediction-registry-evidence.yaml)
@@ -155,19 +156,16 @@ Start here:
   and subset-pressure checks?
 - Should the smaller asymmetry-frontier signal remain a future review surface
   after explicit stress testing, or be demoted to negative/supporting evidence?
-- What exact source-manifest, checksum, and no-peek evidence must exist before
-  a real reveal comparison is allowed?
+- Which future measurement source can satisfy the source-readiness checklist
+  without weakening the no-peek boundary?
 
 ## Recommended Tasks
 
-- `TASK-0287` — define the real reveal source-readiness checklist before any
-  live measurement comparison task.
-- `TASK-0288` — run a shell-axis adversarial stress scout for
-  `SHELL-SCOUT-003` / `SHELL-SCOUT-005`, including sign and null controls.
-- `TASK-0289` — run an asymmetry-frontier stress scout with `NR-SCOUT-005` as
-  the required overfit negative control.
-- Future reveal tasks should use the `TASK-0266` protocol checklist instead of
-  ad hoc source comparison.
+- Future reveal tasks should use the `TASK-0266` protocol and the source
+  readiness checklist instead of ad hoc source comparison.
+- Use the Nuclear scout evidence card as the compact maintainer orientation
+  surface for the current shell-axis, asymmetry-frontier, and negative
+  mid-mass/isotope-chain evidence.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 
