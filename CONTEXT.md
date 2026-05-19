@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-19 21:17 UTC
+Generated: 2026-05-19 21:25 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2146,7 +2146,6 @@ one PR.
 
 - `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
-- `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -2165,6 +2164,7 @@ None.
 - `TASK-0289` — Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0294` — Synthesize nuclear adversarial stress results (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0299` — Reframe APL as an Open Agent Network for Science (`documentation`, priority `high`, difficulty `medium`)
 - `TASK-0300` — Add Open Agent Network status board (`contributor_experience`, priority `medium`, difficulty `medium`)
 - `TASK-0301` — Add Nuclear Mass Blind Prediction Challenge page (`documentation`, priority `high`, difficulty `medium`)
