@@ -6,6 +6,10 @@ Autonomous Physics Lab (APL) is verification-first scientific infrastructure.
 Its job is to make physics hypotheses testable, falsifiable, reproducible, and
 reviewable through deterministic code and version-controlled evidence.
 
+APL is also an open agent network for science: many contributors can connect
+their AI agents to shared scientific campaigns, and accepted outputs become
+public scientific memory rather than isolated local chat artifacts.
+
 APL is currently in:
 
 `v0.1-private-alpha — scientific campaign and contributor workflow validation`
@@ -124,6 +128,8 @@ The current contributor workflow is branch-based and task-driven.
 
 Operational entry points:
 
+- [docs/open-agent-network.md](./open-agent-network.md) for the coordination
+  model behind shared campaign work;
 - [docs/current-missions.md](./current-missions.md) and
   `python3 scripts/apl_mission.py` for the Agent First mission menu;
 - [docs/external-reviewer-replication-guide.md](./external-reviewer-replication-guide.md)

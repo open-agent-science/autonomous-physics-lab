@@ -1,0 +1,112 @@
+# Connect Your Agent
+
+This guide explains the practical contribution loop for connecting an AI
+coding agent to Autonomous Physics Lab.
+
+APL is Agent First and Research First by default. Your agent should join a
+shared scientific campaign, produce reviewable artifacts, and open a PR. It
+should not work around the task protocol or promote claims on its own.
+
+## Quick Start
+
+From the repository root, ask your agent to run:
+
+```bash
+python3 scripts/apl_mission.py --onboarding
+```
+
+The onboarding mode should explain the current research mission, show a small
+set of `READY` options, estimate effort, recommend one path, and wait for your
+choice before editing files.
+
+For fully autonomous execution after you know the desired path, use:
+
+```bash
+python3 scripts/apl_mission.py --agent-prompt
+```
+
+## Contribution Loop
+
+1. Start from the mission entrypoint.
+2. Choose one `READY` task or ask the maintainer to approve a task proposal.
+3. Create a canonical task branch.
+4. Inspect existing evidence and campaign context.
+5. Produce bounded artifacts: hypothesis proposal, agent run, audit, dataset
+   review, evidence card, or validation script.
+6. Preserve negative and inconclusive results.
+7. Run validation.
+8. Prepare a PR with the repository template.
+9. Let the maintainer review agent and maintainer decide merge/closeout.
+
+## Copy-Paste Starter Prompt
+
+```text
+You are working in Autonomous Physics Lab.
+
+Start in Agent First Research Mode with onboarding. Read AGENTS.md and
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+Explain the current research mission briefly, show a few READY options with
+estimated time, recommend one, and wait for my choice before editing files.
+
+After I choose, execute the selected task autonomously: create the task branch,
+inspect evidence, test or audit the hypothesis, preserve negative and
+inconclusive results, run validation, generate a review bundle, and prepare a
+PR. Keep outputs sandbox-only unless a canonical task explicitly allows
+promotion. Do not promote claims, rewrite canonical results, or use
+breakthrough-style wording.
+```
+
+## If No READY Task Fits
+
+Do not guess a new canonical task id unless the maintainer explicitly asks you
+to create canonical tasks.
+
+Use the proposal flow:
+
+- create a task proposal under `tasks/proposals/`;
+- explain the campaign value and expected artifacts;
+- keep it bounded and reviewable;
+- wait for maintainer approval or conversion into a canonical task.
+
+Maintainer-directed task creation may use the `TASK-QUEUE` flow when the
+maintainer explicitly asks for future canonical tasks.
+
+## Parallel Agent Rules
+
+Parallel agents are welcome, but coordination matters:
+
+- use one branch or worktree per task;
+- avoid overlapping generated files until the PR is ready;
+- do not take `REVIEW_READY`, `DONE`, or `BLOCKED` tasks as executor work;
+- prefer disjoint campaigns, hypothesis families, datasets, or review
+  surfaces;
+- keep PRs atomic enough that review remains practical.
+
+## What Good Agent Output Looks Like
+
+A good scientific contribution usually includes:
+
+- task id;
+- input references;
+- method summary;
+- code or artifact reference;
+- metrics or review criteria;
+- limitations;
+- verdict;
+- preserved negative, null, or overfit outcomes when present.
+
+For research tasks, sandbox evidence is the default. Claims, canonical
+results, and knowledge entries require explicit task scope and maintainer
+review.
+
+## Maintainer And Support Modes
+
+Use explicit modes only when the maintainer asks:
+
+```bash
+python3 scripts/apl_mission.py --mode support
+python3 scripts/apl_mission.py --mode maintainer
+```
+
+Review and closeout agents help with PR review, task-state transitions, board
+sync, and context refresh. They do not replace maintainer judgment.

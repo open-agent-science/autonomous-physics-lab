@@ -7,9 +7,10 @@ Every human or coding agent should read these files in order before starting:
 1. [README.md](../README.md)
 2. [AGENTS.md](../AGENTS.md)
 3. [docs/agent-task-protocol.md](./agent-task-protocol.md)
-4. [docs/status.md](./status.md)
-5. [docs/strategy.md](./strategy.md)
-6. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+4. [docs/open-agent-network.md](./open-agent-network.md)
+5. [docs/status.md](./status.md)
+6. [docs/strategy.md](./strategy.md)
+7. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
 
 Then use [docs/architecture-index.md](./architecture-index.md) and
 [docs/contributing-workflow.md](./contributing-workflow.md) as needed.
