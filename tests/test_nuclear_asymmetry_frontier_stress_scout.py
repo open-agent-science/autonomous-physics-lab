@@ -218,19 +218,19 @@ def test_asymmetry_frontier_stress_agent_run_manifest() -> None:
     assert manifest["task_id"] == "TASK-0289"
     assert manifest["campaign_profile_id"] == "nuclear-mass-surface"
     assert manifest["sandbox_only"] is True
-    assert Path(manifest["proposal_paths"]["hypothesis"]) == (
+    assert manifest["proposal_paths"]["hypothesis"] == (
         Path("hypothesis_proposals")
         / "nuclear-mass"
         / "HYP-PROPOSAL-0045-asymmetry-frontier-stress-scout-batch.yaml"
-    )
-    assert Path(manifest["proposal_paths"]["experiment"]) == (
+    ).as_posix()
+    assert manifest["proposal_paths"]["experiment"] == (
         Path("experiment_proposals")
         / "nuclear-mass"
         / "EXP-PROPOSAL-0011-nuclear-asymmetry-frontier-stress-scout.yaml"
-    )
-    assert Path(manifest["artifacts"]["metrics"]) == (
+    ).as_posix()
+    assert manifest["artifacts"]["metrics"] == (
         Path("agent_runs") / "AGENT-RUN-0017" / "metrics.json"
-    )
+    ).as_posix()
     assert manifest["promotion_boundary"]["writes_canonical_result"] is False
     assert manifest["promotion_boundary"]["claim_promotion_allowed"] is False
 

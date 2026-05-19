@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-19 07:21 UTC
+Generated: 2026-05-19 21:25 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -628,6 +628,11 @@ APL is not trying to generate dramatic claims on demand. It is trying to make
 scientific work reproducible, reviewable, and reusable through deterministic
 code and version-controlled evidence.
 
+APL is also being shaped as an open agent network for science: many humans can
+connect their AI agents to shared campaigns, while the repository coordinates
+tasks, sandbox evidence, negative results, prediction registries, review gates,
+and public scientific memory.
+
 ## Strategic Shift
 
 The repository is no longer focused mainly on bootstrap infrastructure work.
@@ -653,20 +658,23 @@ That base now exists well enough to support a new emphasis:
 4. Prepare and maintain a clear Mission Control and campaign-map layer so new
    contributors can see what APL is trying to do and where evidence already
    exists.
-5. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+5. Treat open-agent-network coordination as a first-class design goal: many
+   agents may work in parallel, but only through task contracts, disjoint
+   branches or worktrees, sandbox-first evidence, and maintainer review.
+6. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-6. Improve visual result summaries, campaign summaries, and contributor-facing
+7. Improve visual result summaries, campaign summaries, and contributor-facing
    navigation around the strongest current evidence, including negative-result
    surfaces.
-7. Package the current result layer into a coherent v0.2 story without
+8. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-8. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+9. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-9. Distinguish retrospective time-split benchmarks from prospective prediction:
+10. Distinguish retrospective time-split benchmarks from prospective prediction:
    post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
    true future predictions require a pre-registered prediction artifact.
-10. Prepare public launch only after the explicit gates in
+11. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 Future research direction is curated through
@@ -712,6 +720,8 @@ The repository uses a shared task pool with branch-based execution.
 
 - a task defines the contract;
 - an agent or human picks one atomic task;
+- multiple agents can work in parallel when branches, worktrees, and artifact
+  surfaces stay disjoint;
 - validation runs before handoff;
 - task files and board state remain the coordination layer;
 - maintainer review stays the decision point for merge and closeout.
@@ -1165,6 +1175,10 @@ Autonomous Physics Lab (APL) is verification-first scientific infrastructure.
 Its job is to make physics hypotheses testable, falsifiable, reproducible, and
 reviewable through deterministic code and version-controlled evidence.
 
+APL is also an open agent network for science: many contributors can connect
+their AI agents to shared scientific campaigns, and accepted outputs become
+public scientific memory rather than isolated local chat artifacts.
+
 APL is currently in:
 
 `v0.1-private-alpha — scientific campaign and contributor workflow validation`
@@ -1283,6 +1297,8 @@ The current contributor workflow is branch-based and task-driven.
 
 Operational entry points:
 
+- [docs/open-agent-network.md](./open-agent-network.md) for the coordination
+  model behind shared campaign work;
 - [docs/current-missions.md](./current-missions.md) and
   `python3 scripts/apl_mission.py` for the Agent First mission menu;
 - [docs/external-reviewer-replication-guide.md](./external-reviewer-replication-guide.md)
@@ -2130,8 +2146,6 @@ one PR.
 
 - `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
-- `TASK-0294` — Synthesize nuclear adversarial stress results (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -2149,6 +2163,12 @@ None.
 - `TASK-0288` — Run nuclear shell-axis adversarial stress scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0289` — Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0294` — Synthesize nuclear adversarial stress results (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0299` — Reframe APL as an Open Agent Network for Science (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0300` — Add Open Agent Network status board (`contributor_experience`, priority `medium`, difficulty `medium`)
+- `TASK-0301` — Add Nuclear Mass Blind Prediction Challenge page (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0302` — Document public agent contribution loop (`contributor_experience`, priority `medium`, difficulty `medium`)
 
 ## DONE RECENTLY
 

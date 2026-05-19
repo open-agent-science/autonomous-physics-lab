@@ -111,12 +111,12 @@ def _read_text(path: Path) -> str:
 
 def _primary_delta(item: dict[str, object]) -> float | None:
     value = item.get("primary_delta_mae_mev")
-    if isinstance(value, int | float):
+    if isinstance(value, (int, float)):
         return float(value)
     deltas = item.get("delta_mae_by_subset_mev")
     if isinstance(deltas, dict):
         primary = deltas.get("primary")
-        if isinstance(primary, int | float):
+        if isinstance(primary, (int, float)):
             return float(primary)
     return None
 
