@@ -107,6 +107,12 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
 - `TASK-0286` records a useful negative result for naive mid-mass and
   isotope-chain gap features: all executed candidates regress the primary
   holdout or remain null, so that lane should not be promoted.
+- `TASK-0288` stress-tests the strongest shell-axis lane and preserves it as
+  the current best sandbox signal: the shell-axis candidates survive
+  sign-inversion, shuffled-feature, and near-null controls.
+- `TASK-0289` stress-tests the asymmetry-frontier lane and keeps it as a
+  smaller review surface, with the catastrophic quadratic/cubic neighbor
+  preserved as overfit negative evidence.
 
 Historical context:
 
@@ -156,6 +162,13 @@ Start here:
   and subset-pressure checks?
 - Should the smaller asymmetry-frontier signal remain a future review surface
   after explicit stress testing, or be demoted to negative/supporting evidence?
+- Does the agent-designed scout process add value beyond the deterministic
+  factory/grid path, or should more of this campaign become automated search
+  plus human review?
+- Which shell-axis target batch would be fair for a small prospective mini-wave
+  without increasing repeated-target pressure?
+- What exact source-manifest, checksum, and no-peek evidence must exist before
+  a real reveal comparison is allowed?
 - Which future measurement source can satisfy the source-readiness checklist
   without weakening the no-peek boundary?
 
@@ -166,6 +179,14 @@ Start here:
 - Use the Nuclear scout evidence card as the compact maintainer orientation
   surface for the current shell-axis, asymmetry-frontier, and negative
   mid-mass/isotope-chain evidence.
+- `TASK-0294` — synthesize the shell-axis, asymmetry-frontier, and mid-mass
+  stress results into a single maintainer decision surface.
+- `TASK-0295` — compare agent-designed scout lanes against deterministic
+  factory/grid candidates under matched evidence and complexity budgets.
+- `TASK-0296` — design a shell-axis prospective target batch only after
+  reveal-readiness and post-stress synthesis are reviewed.
+- `TASK-0297` — register a small shell-axis prospective mini-wave only after
+  the target-batch design receives explicit maintainer approval.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 

@@ -1,0 +1,49 @@
+id: TASK-0297
+title: "Register nuclear shell-axis prospective mini-wave"
+type: scientific_validation
+status: BLOCKED
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Create a small frozen prospective prediction wave only after shell-axis target-batch design is reviewed."
+  - "Keep registry expansion bounded, paired with controls, and reveal-ready."
+  - "Preserve the distinction between sandbox scout evidence and prospective predictions."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0296-design-nuclear-shell-axis-registry-target-batch.yaml"
+    - "docs/reviews/nuclear-shell-axis-registry-target-batch-design.md"
+    - "prediction_registry/nuclear_masses/"
+  planning_context: >
+    This is the future implementation task for a reviewed shell-axis target
+    batch. It is intentionally blocked so agents do not jump from sandbox
+    stress evidence directly into frozen PRED entries.
+
+requirements:
+  - "Start only after TASK-0296 is DONE and the maintainer explicitly approves the target batch."
+  - "Register a small prospective shell-axis mini-wave, preferably 6 to 12 PRED entries including matched controls."
+  - "Freeze quantity, units, model family, target nuclides, predicted values, source boundaries, and reveal conditions."
+  - "Avoid overrepresented registry targets unless the approved target-batch design explicitly requires a paired control."
+  - "Run repository validation and prediction-registry tests after adding entries."
+  - "Do not fetch live measurements, score a reveal, update claims, or describe the entries as validated."
+
+accepted_outputs:
+  - "prediction_registry/nuclear_masses/PRED-0063.yaml through an approved bounded range, or the next available registry ids"
+  - "docs/reviews/nuclear-shell-axis-prospective-mini-wave-review.md"
+  - "updated registry index or coverage summary if the repository requires it"
+  - "tests updated if registry validation changes are needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

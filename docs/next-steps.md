@@ -139,6 +139,15 @@ Recommended nuclear validation queue for parallel agents:
   `NR-SCOUT-005` as the required overfit negative control.
 - `TASK-0290` nuclear scout evidence card: compact maintainer-facing package
   for the shell-axis signal and mid-mass/isotope-chain negative result.
+- `TASK-0294` adversarial stress synthesis: rank the post-0288/0289 evidence
+  and decide which lanes advance, stay under review, or become negative
+  memory.
+- `TASK-0295` agent-vs-factory comparison: answer whether agent-designed
+  Nuclear scouts add value beyond deterministic factory/grid generation.
+- `TASK-0296` shell-axis target-batch design: blocked until reveal-readiness
+  and stress synthesis are reviewed.
+- `TASK-0297` shell-axis prospective mini-wave: blocked until target-batch
+  design receives explicit maintainer approval.
 - Future reveal or reveal-scoring tasks must follow the `TASK-0266` protocol
   and the source-readiness checklist instead of ad hoc source comparison
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
@@ -184,11 +193,11 @@ The nuclear queue should stay conservative:
 - no broad second nuclear sandbox batch from `TASK-0178`; use the factory
   path for bounded expansion and keep future reveal comparison in a separate
   reviewed task.
-- after the post-`PRED-0062` registry status summary, scout synthesis, and
-  source-readiness checklist, use `TASK-0288`, `TASK-0289`, and `TASK-0290` as
-  the next Nuclear Mass Surface wave.
+- after the post-`PRED-0062` registry status summary, scout synthesis, source
+  readiness checklist, shell/asymmetry stress scouts, and evidence card, use
+  `TASK-0294` and `TASK-0295` as the next Nuclear Mass Surface decision wave.
 - do not register scout-derived `PRED-*` entries until shell/asymmetry stress
-  reviews and reveal source-readiness work are reviewed.
+  synthesis, reveal source-readiness, and target-batch design are reviewed.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into
@@ -209,6 +218,8 @@ campaign and data foundations rather than formula search:
   direct-measurement absorption and band-edge rows;
 - `TASK-0293` should re-run the readiness gate after a direct-measurement seed
   lands, or after an explicit maintainer waiver;
+- `TASK-0298` should triage direct-measurement source candidates so the row
+  curation tasks start from a tractable source shortlist;
 - `TASK-0225` is intentionally blocked until reviewed row-level
   `data/quantum_dots/qd-*.yaml` measurement rows exist, or a maintainer waiver
   scopes the first benchmark as calibration-curve consistency;
