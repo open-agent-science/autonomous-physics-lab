@@ -1,21 +1,30 @@
 from __future__ import annotations
 
+import importlib.util
 from pathlib import Path
-
-from scripts.compare_nuclear_agent_vs_factory_scouts import (
-    render_markdown,
-    summarize_agent_runs,
-    summarize_factory_slates,
-)
+import sys
 
 
 def _repo_root() -> Path:
     return Path(__file__).resolve().parents[1]
 
 
+def _load_comparison_module():
+    module_path = _repo_root() / "scripts" / "compare_nuclear_agent_vs_factory_scouts.py"
+    spec = importlib.util.spec_from_file_location(
+        "compare_nuclear_agent_vs_factory_scouts", module_path
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 def test_agent_vs_factory_comparison_summarizes_committed_artifacts() -> None:
-    agent = summarize_agent_runs(_repo_root())
-    factory = summarize_factory_slates(_repo_root())
+    module = _load_comparison_module()
+    agent = module.summarize_agent_runs(_repo_root())
+    factory = module.summarize_factory_slates(_repo_root())
 
     assert factory.candidates == 84
     assert factory.advisory_flags == 24
@@ -37,9 +46,10 @@ def test_agent_vs_factory_comparison_summarizes_committed_artifacts() -> None:
 
 
 def test_agent_vs_factory_markdown_preserves_review_boundaries() -> None:
-    markdown = render_markdown(
-        summarize_agent_runs(_repo_root()),
-        summarize_factory_slates(_repo_root()),
+    module = _load_comparison_module()
+    markdown = module.render_markdown(
+        module.summarize_agent_runs(_repo_root()),
+        module.summarize_factory_slates(_repo_root()),
     )
 
     assert "MIXED" in markdown
