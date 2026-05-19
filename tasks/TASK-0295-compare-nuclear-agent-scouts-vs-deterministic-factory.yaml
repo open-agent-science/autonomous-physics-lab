@@ -1,7 +1,7 @@
 id: TASK-0295
 title: "Compare nuclear agent scouts against deterministic factory baseline"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 

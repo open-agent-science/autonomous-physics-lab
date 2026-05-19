@@ -113,6 +113,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
 - `TASK-0289` stress-tests the asymmetry-frontier lane and keeps it as a
   smaller review surface, with the catastrophic quadratic/cubic neighbor
   preserved as overfit negative evidence.
+- `TASK-0295` compares agent-designed scout lanes against deterministic
+  factory slates and records a mixed operating-model verdict: factory runs are
+  better for broad reproducible coverage, while agent scouts add value as a
+  review, rejection, adversarial-stress, and negative-result synthesis layer.
 
 Historical context:
 
@@ -181,8 +185,10 @@ Start here:
   mid-mass/isotope-chain evidence.
 - `TASK-0294` — synthesize the shell-axis, asymmetry-frontier, and mid-mass
   stress results into a single maintainer decision surface.
-- `TASK-0295` — compare agent-designed scout lanes against deterministic
-  factory/grid candidates under matched evidence and complexity budgets.
+- Use the TASK-0295 comparison before expanding the factory or scout surface:
+  keep broad candidate generation in deterministic factory runs, then use
+  agent-led triage for bounded adversarial review and negative-result
+  packaging.
 - `TASK-0296` — design a shell-axis prospective target batch only after
   reveal-readiness and post-stress synthesis are reviewed.
 - `TASK-0297` — register a small shell-axis prospective mini-wave only after
