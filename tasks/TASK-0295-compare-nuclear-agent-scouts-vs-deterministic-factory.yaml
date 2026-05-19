@@ -1,0 +1,55 @@
+id: TASK-0295
+title: "Compare nuclear agent scouts against deterministic factory baseline"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Answer whether APL's agent loop adds value beyond brute-force or deterministic grid generation."
+  - "Evaluate agent-designed Nuclear scout hypotheses against factory/slate baselines under matched evidence and complexity budgets."
+  - "Make the project defensible as more than a polished reproduction scaffold."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-prediction-factory-slate-001.md"
+    - "docs/reviews/nuclear-prediction-factory-slate-002-feature-terms.md"
+    - "docs/reviews/nuclear-prediction-factory-slate-002-feature-terms-ranking.md"
+    - "docs/reviews/nuclear-shell-axis-stress-scout-001.md"
+    - "docs/reviews/nuclear-asymmetry-frontier-stress-scout-001.md"
+    - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+    - "agent_runs/"
+  planning_context: >
+    APL now has both deterministic factory-generated Nuclear slates and
+    several agent-designed scout lanes. A credible next result is not
+    another formula search; it is a controlled comparison of whether agents
+    propose, reject, and stress useful hypotheses differently from a simple
+    deterministic cycle.
+
+requirements:
+  - "Define a matched comparison protocol between agent scout lanes and deterministic factory/grid candidates using committed artifacts only."
+  - "Compare candidate count, rejected-candidate reasons, complexity, primary/subset delta distributions, negative-control quality, and review usefulness."
+  - "Do not claim agent superiority unless the committed metrics support it; allow the verdict to be null or mixed."
+  - "Identify which work should stay automated factory search and which work benefits from agent-driven hypothesis triage."
+  - "Preserve a clear limitation that retrospective post-AME2020 data are a stress surface, not a future-measurement reveal."
+  - "Do not fetch live measurements, add registry predictions, promote claims, or alter canonical results."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-agent-vs-factory-scout-comparison.md"
+  - "optional scripts/compare_nuclear_agent_vs_factory_scouts.py if deterministic tabulation is useful"
+  - "optional tests/test_nuclear_agent_vs_factory_comparison.py if a script is added"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the agent/factory operating model changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

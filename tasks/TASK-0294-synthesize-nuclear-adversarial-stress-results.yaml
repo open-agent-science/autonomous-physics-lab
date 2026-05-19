@@ -1,0 +1,51 @@
+id: TASK-0294
+title: "Synthesize nuclear adversarial stress results"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the latest shell-axis and asymmetry-frontier stress scouts into a single maintainer decision surface."
+  - "Separate the strongest sandbox signal from smaller review surfaces and preserved negative evidence."
+  - "Prevent immediate registry expansion before the post-stress evidence is ranked conservatively."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-shell-axis-stress-scout-001.md"
+    - "docs/reviews/nuclear-asymmetry-frontier-stress-scout-001.md"
+    - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+    - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  planning_context: >
+    TASK-0288 found that the shell-axis signal survives sign-inversion,
+    shuffle, and near-null controls. TASK-0289 found a weaker but consistent
+    asymmetry-frontier review surface. TASK-0286 preserved the mid-mass /
+    isotope-chain lane as negative evidence. This task synthesizes those
+    outcomes into the next maintainer decision without adding predictions.
+
+requirements:
+  - "Compare shell-axis, asymmetry-frontier, and mid-mass/isotope-chain outcomes using committed review artifacts only."
+  - "Rank lanes by primary delta, subset consistency, adversarial-control behavior, overfit risk, and usefulness as negative controls."
+  - "Explicitly distinguish the shell-axis lane from the weaker asymmetry-frontier lane and from the failed mid-mass lane."
+  - "Recommend whether each lane should advance to target-batch design, remain as a review surface, or be demoted to preserved negative evidence."
+  - "Do not fetch live measurements, score a reveal, write new prediction registry entries, update claims, or promote a result."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-adversarial-stress-synthesis-after-0289.md"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the recommended queue changes"
+  - "updated docs/next-steps.md if the execution order changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
