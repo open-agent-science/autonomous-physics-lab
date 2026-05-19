@@ -1,0 +1,51 @@
+id: TASK-0300
+title: "Add Open Agent Network status board"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Give maintainers and invited contributors a compact view of the open-agent-network state."
+  - "Make parallel agent work legible without adding a dashboard or database."
+  - "Keep status reporting conservative and evidence-linked."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "docs/open-agent-network.md"
+    - "docs/current-missions.md"
+    - "docs/task-views/"
+    - "agent_runs/"
+    - "prediction_registry/"
+    - "docs/reviews/"
+  planning_context: >
+    APL now has multiple agent-run lanes, generated task views, prediction
+    registries, and review artifacts. A lightweight Markdown status board can
+    show campaign coverage, recent agent PRs, frozen predictions, negative
+    results, and next useful contribution lanes without introducing a web
+    dashboard.
+
+requirements:
+  - "Create docs/agent-network-status.md as a manually maintained Markdown status board."
+  - "Summarize active campaigns, recent agent-run artifacts, frozen prediction surfaces, negative results, and top needed contributions."
+  - "Link to generated task views instead of duplicating full task boards."
+  - "Keep wording internal/conservative; no public launch claims."
+  - "Do not add a dashboard, database, or web API."
+
+accepted_outputs:
+  - "docs/agent-network-status.md"
+  - "updated docs/open-agent-network.md or README.md links if useful"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
