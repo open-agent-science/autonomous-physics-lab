@@ -1,7 +1,7 @@
 id: TASK-0283
 title: "Review quantum row-level data gate for baseline"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

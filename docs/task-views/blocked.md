@@ -17,7 +17,6 @@
 - `TASK-0234` - Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0235` - Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0277` - Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
-- `TASK-0296` - Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0297` - Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
 
 ## Support Blockers

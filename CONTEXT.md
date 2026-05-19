@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-19 21:25 UTC
+Generated: 2026-05-19 22:00 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2146,6 +2146,7 @@ one PR.
 
 - `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
+- `TASK-0296` — Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -2154,25 +2155,24 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0177` — Create private agent challenge pack for invited contributors (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0242` — Add coverage helper entrypoint for contributors and agents (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0283` — Review quantum row-level data gate for baseline (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0285` — Synthesize nuclear scout lanes after registry status (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0287` — Define nuclear reveal source gate checklist (`benchmark_protocol`, priority `high`, difficulty `medium`)
-- `TASK-0288` — Run nuclear shell-axis adversarial stress scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0289` — Run nuclear asymmetry-frontier stress scout (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0290` — Package nuclear scout evidence card (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0294` — Synthesize nuclear adversarial stress results (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0299` — Reframe APL as an Open Agent Network for Science (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0300` — Add Open Agent Network status board (`contributor_experience`, priority `medium`, difficulty `medium`)
-- `TASK-0301` — Add Nuclear Mass Blind Prediction Challenge page (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0302` — Document public agent contribution loop (`contributor_experience`, priority `medium`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0302` — Document public agent contribution loop (merged)
+- `TASK-0301` — Add Nuclear Mass Blind Prediction Challenge page (merged)
+- `TASK-0300` — Add Open Agent Network status board (merged)
+- `TASK-0299` — Reframe APL as an Open Agent Network for Science (merged)
+- `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (merged)
+- `TASK-0294` — Synthesize nuclear adversarial stress results (merged)
+- `TASK-0290` — Package nuclear scout evidence card (merged)
+- `TASK-0289` — Run nuclear asymmetry-frontier stress scout (merged)
+- `TASK-0288` — Run nuclear shell-axis adversarial stress scout (merged)
+- `TASK-0287` — Define nuclear reveal source gate checklist (merged)
+- `TASK-0286` — Run nuclear mid-mass and isotope-chain gap scout (merged)
+- `TASK-0285` — Synthesize nuclear scout lanes after registry status (merged)
 - `TASK-0284` — Allow any Bash command in Claude Code shared permissions (unsafe mode) (merged)
+- `TASK-0283` — Review quantum row-level data gate for baseline (merged)
 - `TASK-0282` — Curate Moreels 2009 PbS row-level absorption extension (merged)
 - `TASK-0281` — Curate Yu 2003 quantum-dot row-level absorption seed (merged)
 - `TASK-0280` — Run nuclear pairing and odd-even variant scout (merged)
@@ -2208,6 +2208,7 @@ None.
 - `TASK-0245` — Add explicit onboarding mode for agent-first mission start (merged)
 - `TASK-0244` — Fix snapshot canonical experiment list truncation (merged)
 - `TASK-0243` — Add generated task views and mission freshness sync (merged)
+- `TASK-0242` — Add coverage helper entrypoint for contributors and agents (merged)
 - `TASK-0241` — Expand maintainer review policy branch coverage (merged)
 - `TASK-0240` — Add targeted tests for review_git critical edge cases (merged)
 - `TASK-0239` — Stabilize Windows coverage baseline for critical CLI smoke tests (merged)
@@ -2262,6 +2263,7 @@ None.
 - `TASK-0181` — Add Agent First mission control entrypoint (merged)
 - `TASK-0180` — Curate microtask queue availability and summary counts (merged)
 - `TASK-0179` — Remove agent session id from pull request template metadata (merged)
+- `TASK-0177` — Create private agent challenge pack for invited contributors (merged)
 - `TASK-0176` — Curate future research portfolio and de-prioritize hype tracks (merged)
 - `TASK-0175` — Sync public-facing docs after nuclear wave and private-validation pivot (merged)
 - `TASK-0174` — Create nuclear pilot evidence card and visual funnel (merged)
@@ -2434,7 +2436,6 @@ None.
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0296` — Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0297` — Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`)
 
 ## REJECTED

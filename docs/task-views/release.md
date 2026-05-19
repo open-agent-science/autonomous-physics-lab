@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0302` - Document public agent contribution loop (`contributor_experience`, priority `medium`, difficulty `medium`, domain `contributor_workflow`)
+None.

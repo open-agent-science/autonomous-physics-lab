@@ -478,3 +478,20 @@ the task itself is moved through normal maintainer closeout.
 
 - this note is a short maintainer closeout summary only;
 - detailed review discussion remains in the PR thread.
+
+## Run #1
+
+- Date: `2026-05-20`
+- Task: `TASK-0299`
+- Pull request: `#410`
+- Scope: maintainer closeout entry for a merged contributor or workflow task
+
+### Outcome
+
+- the merged PR was reviewed and closed out on `main`;
+- the task moved from `REVIEW_READY` to `DONE`.
+
+### Limitations
+
+- this note is a short maintainer closeout summary only;
+- detailed review discussion remains in the PR thread.
