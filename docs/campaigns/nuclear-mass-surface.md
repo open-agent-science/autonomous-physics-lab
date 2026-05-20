@@ -126,6 +126,14 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
 - `TASK-0297` registers the bounded shell-axis mini-wave as `PRED-0063`
   through `PRED-0068`, with paired candidate, sign-inverted, near-null, and
   baseline-reference controls.
+- `TASK-0303` prepared a no-peek source-manifest preflight template for the
+  shell-axis mini-wave without recording target mass values.
+- `TASK-0304` added a synthetic reveal dry-run using fabricated values only,
+  so reveal reporting plumbing can be reviewed without weakening the no-peek
+  boundary.
+- `TASK-0307` reviewed the first concrete source-manifest attempt and found no
+  acceptable pinned post-registration source; this is a useful negative
+  readiness result and keeps `TASK-0305` blocked.
 
 Historical context:
 
@@ -137,7 +145,9 @@ Historical context:
 Current campaign state in one sentence:
 the scientific direction is now explicit, baseline-backed, holdout-defined,
 factory-supported, and prospectively frozen through selected registry entries,
-but it has not yet reached a future-measurement reveal.
+but it has not yet reached a future-measurement reveal; until a source
+manifest is accepted, the safest Nuclear follow-up is retrospective
+full-known-data stress review rather than reveal scoring.
 
 Start here:
 
@@ -223,6 +233,9 @@ Start here:
   no acceptable source candidate was prepared, so `TASK-0305` remains blocked
   behind a future pinned post-registration source or a separately scoped weaker
   diagnostic task.
+- `TASK-0310` should audit the shell-axis signal against the full known
+  committed measured-data surface as retrospective sandbox evidence, with
+  baseline comparison, subset behavior, and explicit null controls.
 - `TASK-0305` should stay blocked until source preflight, dry-run review, a
   reviewed `TASK-0307` source manifest, and explicit maintainer approval make
   a real reveal comparison legitimate.

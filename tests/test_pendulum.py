@@ -855,7 +855,7 @@ def test_cli_status_smoke(tmp_path: Path) -> None:
 
     assert result.exit_code == 0
     assert (
-        "Stage: v0.1-private-alpha — scientific campaign and contributor workflow validation"
+        "Stage: v0.2-public-alpha candidate — final release go/no-go review pending"
         in result.stdout
     )
     assert f"Run id: {latest_result['run_id']}" in result.stdout

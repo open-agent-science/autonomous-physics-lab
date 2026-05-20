@@ -1,0 +1,57 @@
+id: TASK-0311
+title: "Scaffold atomic-clock residuals source surface"
+type: research_infrastructure
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Open one concrete Fresh Physics Data Axes lane without distracting from the Nuclear Mass Surface NOW flagship."
+  - "Prepare a high-precision source surface for future freeze/reveal work before any constants-drift or new-constant claim is allowed."
+  - "Coordinate with TASK-0309 by making this an atomic-clock-specific scaffold, not a general fresh-data policy."
+
+input:
+  mode: planning_only
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/TASK-0309-define-fresh-data-source-policy.yaml"
+    - "docs/future-research-portfolio.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/prediction-registry-policy.md"
+    - "docs/claim-promotion-policy.md"
+  planning_context: >
+    Atomic-clock comparison data may become a strong non-saturated evidence
+    surface because it offers precise frequency ratios, drift constraints,
+    source-date discipline, and possible future freeze/reveal opportunities.
+    This task creates only the campaign/source scaffold so later agents can
+    assess source admissibility before any ingestion or analysis task.
+
+requirements:
+  - "Create an atomic-clock residuals campaign/source-surface scaffold that explains candidate observables, likely source classes, and provenance expectations."
+  - "Define a minimal schema sketch for future atomic-clock rows or constraints: observable id, transition or ratio, value or residual form, uncertainty, unit semantics, source, release date, and limitation notes."
+  - "List source candidates and stop conditions in a reviewable notes file."
+  - "Separate direct measurement rows, derived constraints, and review-summary values; do not allow them to be mixed without explicit flags."
+  - "Explain how future tasks should coordinate with TASK-0309 source policy before adding real rows."
+  - "Do not ingest any atomic-clock dataset or add benchmark metrics in this task."
+  - "Do not claim constants drift, new constants, new physics, or cross-domain anomaly explanation."
+  - "Do not add prediction registry entries yet."
+  - "Keep the output useful for future agents: campaign scope, source candidates, schema sketch, and no-go rules."
+
+accepted_outputs:
+  - "docs/campaigns/atomic-clock-residuals.md"
+  - "data/atomic_clocks/README.md"
+  - "data/atomic_clocks/schema.md"
+  - "docs/notes/atomic-clock-source-candidates.md"
+  - "updated docs/future-research-portfolio.md if the NEXT/WATCHLIST boundary changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py tests/test_task_proposals.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
