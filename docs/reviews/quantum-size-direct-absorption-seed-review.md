@@ -9,6 +9,8 @@
 - `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`
 - `docs/reviews/quantum-direct-measurement-source-triage.md`
 - `docs/reviews/quantum-size-yu-2003-row-level-seed-review.md`
+- `docs/quantum-direct-measurement-digitization-protocol.md`
+- `data/quantum_dots/digitization/README.md`
 - `physics_lab/schemas/quantum_dot_size_effect.schema.json`
 - `tasks/TASK-0291-curate-quantum-direct-measurement-absorption-seed.yaml`
 - Yu, W. W.; Qu, L.; Guo, W.; Peng, X. *Chem. Mater.* **2003**, *15*, 2854–2860,
@@ -44,6 +46,11 @@ absorption peak) rows usable for a measurement-grade dataset seed.
    that rows be "direct table values, digitised figure points, or
    independently reviewed TEM + spectroscopy observations, not values
    generated from a published sizing polynomial or calibration curve."
+5. Re-checked the merged TASK-0306 digitisation protocol and the committed
+   `data/quantum_dots/digitization/` surface. The protocol defines the
+   artifact shape, but the repository still contains no per-source
+   axis-calibration or extracted-point artifact that would support direct
+   Yu 2003 Figure 2 rows.
 
 ## Findings
 
@@ -128,6 +135,21 @@ curate, but each requires its own source-manifest review pass and its own
 PDF access. None of those sources is currently in
 `data/quantum_dots/source_manifest.yaml`.
 
+### F6. TASK-0306 defines the path but does not supply the evidence
+
+`docs/quantum-direct-measurement-digitization-protocol.md` now defines the
+WebPlotDigitizer-class workflow required for figure-derived rows, including
+axis calibration, per-point extracted coordinates, uncertainty, source
+attribution, and a lightweight artifact layout under
+`data/quantum_dots/digitization/<source_id>/`.
+
+The current repository has only the digitisation README. It has no
+`yu-2003-cm-absorption` artifact directory, no `axis_calibration.csv`, no
+`extracted_points.csv`, and no reviewed primary-source table values. That
+means TASK-0306 satisfies the protocol-definition prerequisite, but it does
+not satisfy TASK-0291's evidence prerequisite for committing a `qd-0003`
+direct-absorption seed.
+
 ## What This Investigation Did Not Do
 
 - It did not edit `data/quantum_dots/qd-0001-yu-2003-absorption.yaml`.
@@ -141,7 +163,10 @@ PDF access. None of those sources is currently in
 ## Decision
 
 This PR sets TASK-0291 to `REVIEW_READY` so the maintainer can review the
-investigation. The intended post-merge closeout status is `BLOCKED`
+investigation. No `qd-0003` dataset is produced in this pass because doing so
+would require either a committed digitisation artifact, primary-source table
+values, maintainer-provided rows, or an explicit waiver. The intended
+post-merge closeout status is `BLOCKED`
 (not `DONE`), held until at least one of the unblock paths recorded in the
 task file is satisfied:
 
@@ -164,6 +189,8 @@ without one of the four unblock conditions in place.
 
 ## Limitations
 
+- This pass did not run WebPlotDigitizer or an equivalent figure-digitisation
+  tool and did not add any digitisation artifact.
 - The investigation relied on the publicly mirrored PDF at the URL above;
   if that mirror diverges from the official ACS-published version, the
   finding about absent tables should be re-verified against the canonical
