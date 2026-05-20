@@ -1,10 +1,10 @@
 task_id: TASK-0272
 audit_scope:
   registry_path: prediction_registry/nuclear_masses/
-  entry_count: 54
-  target_row_count: 213
+  entry_count: 60
+  target_row_count: 261
   lowest_prediction_id: PRED-0001
-  highest_prediction_id: PRED-0062
+  highest_prediction_id: PRED-0068
   id_gaps:
   - PRED-0031
   - PRED-0032
@@ -23,6 +23,8 @@ source_task_counts:
   count: 12
 - label: TASK-0251
   count: 10
+- label: TASK-0297
+  count: 6
 - label: TASK-0228
   count: 2
 - label: TASK-0229
@@ -37,7 +39,7 @@ source_task_counts:
   count: 2
 quantity_counts:
 - label: mass_excess_mev
-  count: 54
+  count: 60
 transform_class_counts:
 - label: manual_pairing_or_odd_even_control
   count: 13
@@ -47,15 +49,17 @@ transform_class_counts:
   count: 10
 - label: baseline_or_unspecified_control
   count: 8
+- label: manual_shell_or_magic_control
+  count: 8
 - label: smooth_or_reference_control
   count: 7
 - label: manual_neutron_excess_or_asymmetry_control
   count: 2
-- label: manual_shell_or_magic_control
-  count: 2
 target_batch_counts:
 - label: frontier-next-row
   count: 14
+- label: shell-axis-balanced-001
+  count: 6
 - label: heavy-extension-row
   count: 4
 - label: n50-forward-row
@@ -109,7 +113,7 @@ domain_coverage:
   - PRED-0049
   - PRED-0050
 - domain: shell_magic
-  entry_count: 16
+  entry_count: 22
   prediction_ids:
   - PRED-0002
   - PRED-0003
@@ -127,6 +131,12 @@ domain_coverage:
   - PRED-0054
   - PRED-0059
   - PRED-0060
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
 - domain: neutron_rich
   entry_count: 23
   prediction_ids:
@@ -286,6 +296,39 @@ repeated_target_nuclides:
   - neutron-excess-control-probe
   - neutron-rich-stress
   - nickel-isotope-chain
+- nuclide_id: Ag-129
+  entry_count: 6
+  prediction_ids:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+  target_batches:
+  - shell-axis-balanced-001
+- nuclide_id: Cd-130
+  entry_count: 6
+  prediction_ids:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+  target_batches:
+  - shell-axis-balanced-001
+- nuclide_id: Co-77
+  entry_count: 6
+  prediction_ids:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+  target_batches:
+  - shell-axis-balanced-001
 - nuclide_id: Co-81
   entry_count: 6
   prediction_ids:
@@ -298,6 +341,17 @@ repeated_target_nuclides:
   target_batches:
   - neutron-excess-control-probe
   - neutron-rich-stress
+- nuclide_id: Cs-139
+  entry_count: 6
+  prediction_ids:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+  target_batches:
+  - shell-axis-balanced-001
 - nuclide_id: Cu-79
   entry_count: 6
   prediction_ids:
@@ -310,6 +364,17 @@ repeated_target_nuclides:
   target_batches:
   - shell-magic-control-probe
   - shell-magic-probe
+- nuclide_id: Cu-81
+  entry_count: 6
+  prediction_ids:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+  target_batches:
+  - shell-axis-balanced-001
 - nuclide_id: Kr-86
   entry_count: 6
   prediction_ids:
@@ -334,6 +399,17 @@ repeated_target_nuclides:
   target_batches:
   - neutron-excess-control-probe
   - neutron-rich-stress
+- nuclide_id: Mn-75
+  entry_count: 6
+  prediction_ids:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+  target_batches:
+  - shell-axis-balanced-001
 - nuclide_id: Na-39
   entry_count: 6
   prediction_ids:
@@ -346,6 +422,17 @@ repeated_target_nuclides:
   target_batches:
   - neutron-excess-control-probe
   - neutron-rich-stress
+- nuclide_id: Sb-135
+  entry_count: 6
+  prediction_ids:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+  target_batches:
+  - shell-axis-balanced-001
 - nuclide_id: Te-134
   entry_count: 6
   prediction_ids:
@@ -358,6 +445,17 @@ repeated_target_nuclides:
   target_batches:
   - shell-magic-control-probe
   - shell-magic-probe
+- nuclide_id: V-70
+  entry_count: 6
+  prediction_ids:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+  target_batches:
+  - shell-axis-balanced-001
 - nuclide_id: Xe-138
   entry_count: 6
   prediction_ids:
@@ -921,13 +1019,50 @@ reveal_readiness_flags:
   flags:
   - high_reuse_target_nuclide
   - feature_term_selected_wave
+- prediction_id: PRED-0063
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-gaussian-balanced
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0064
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0065
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-axis-neutron-gaussian-balanced
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0066
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-gaussian-sign-inverted-balanced
+  flags:
+  - manual_lane_source_review
+- prediction_id: PRED-0067
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-axis-near-null-balanced
+  flags:
+  - manual_lane_source_review
+  - near_null_or_ablation_control
+- prediction_id: PRED-0068
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_id: RESULT-0015::model_fitted_semi_empirical::shell-axis-frozen-baseline-reference-balanced
+  flags:
+  - manual_lane_source_review
 coverage_gaps:
 - domain: frontier
   status: covered
   entry_count: 18
 - domain: shell_magic
   status: covered
-  entry_count: 16
+  entry_count: 22
 - domain: neutron_rich
   status: covered
   entry_count: 23

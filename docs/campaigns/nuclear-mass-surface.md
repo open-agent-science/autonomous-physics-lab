@@ -121,6 +121,11 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   factory slates and records a mixed operating-model verdict: factory runs are
   better for broad reproducible coverage, while agent scouts add value as a
   review, rejection, adversarial-stress, and negative-result synthesis layer.
+- `TASK-0296` designed the conservative `shell-axis-balanced-001` target
+  batch.
+- `TASK-0297` registers the bounded shell-axis mini-wave as `PRED-0063`
+  through `PRED-0068`, with paired candidate, sign-inverted, near-null, and
+  baseline-reference controls.
 
 Historical context:
 
@@ -147,6 +152,8 @@ Start here:
 - [Synthetic Reveal Dry-Run](../reviews/nuclear-prediction-synthetic-reveal-dry-run.md)
 - [Scout Lane Synthesis After PRED-0062](../reviews/nuclear-scout-lane-synthesis-after-pred-0062.md)
 - [Adversarial Stress Synthesis After TASK-0289](../reviews/nuclear-adversarial-stress-synthesis-after-0289.md)
+- [Shell-Axis Target Batch Design](../reviews/nuclear-shell-axis-registry-target-batch-design.md)
+- [Shell-Axis Prospective Mini-Wave Review](../reviews/nuclear-shell-axis-prospective-mini-wave-review.md)
 - [Nuclear Scout Evidence Card](../results/nuclear-scout-evidence-card.md)
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [Nuclear Reveal Source Readiness Checklist](../nuclear-reveal-source-readiness-checklist.md)
@@ -175,8 +182,8 @@ Start here:
 - Does the agent-designed scout process add value beyond the deterministic
   factory/grid path, or should more of this campaign become automated search
   plus human review?
-- Which shell-axis target batch would be fair for a small prospective mini-wave
-  without increasing repeated-target pressure?
+- How should the newly frozen shell-axis mini-wave be handled if a future
+  source manifest reveals only a subset of `shell-axis-balanced-001` targets?
 - What exact source-manifest, checksum, and no-peek evidence must exist before
   a real reveal comparison is allowed?
 - Which future measurement source can satisfy the source-readiness checklist
@@ -195,10 +202,8 @@ Start here:
   keep broad candidate generation in deterministic factory runs, then use
   agent-led triage for bounded adversarial review and negative-result
   packaging.
-- `TASK-0296` — design a shell-axis prospective target batch only after
-  reveal-readiness and post-stress synthesis are reviewed.
-- `TASK-0297` — register a small shell-axis prospective mini-wave only after
-  the target-batch design receives explicit maintainer approval.
+- Do not score the shell-axis mini-wave until a future source-manifest/no-peek
+  reveal task is explicitly approved.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 

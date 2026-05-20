@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 import json
+import math
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
@@ -13,7 +14,10 @@ from physics_lab.engines.nuclear_mass_baselines import (
     semi_empirical_atomic_mass_u,
 )
 from physics_lab.engines.nuclear_prediction_variants import generate_variant_slate_from_config
-from physics_lab.engines.nuclear_masses import mass_excess_keV_from_atomic_mass_u
+from physics_lab.engines.nuclear_masses import (
+    ATOMIC_MASS_UNIT_MEV,
+    mass_excess_keV_from_atomic_mass_u,
+)
 from physics_lab.registry.nuclear_mass_predictions import load_nuclear_mass_prediction
 from physics_lab.registry.validation import infer_kind_from_path
 
@@ -54,6 +58,30 @@ FEATURE_TERM_SELECTED_REGISTRY_MAP = {
     "PRED-0061": "asymmetric-neutron-excess-plus-nickel-chain",
     "PRED-0062": "asymmetric-neutron-excess-minus-nickel-chain",
 }
+SHELL_AXIS_MINI_WAVE_SOURCE_COMMIT = "9e8d7d339a4f0f432e41689862a649eb029b8575"
+SHELL_AXIS_TARGET_IDS = (
+    "V-70",
+    "Mn-75",
+    "Co-77",
+    "Cu-81",
+    "Ag-129",
+    "Cd-130",
+    "Sb-135",
+    "Cs-139",
+)
+SHELL_AXIS_MINI_WAVE_REGISTRY_MAP = {
+    "PRED-0063": "shell-axis-proton-gaussian-balanced",
+    "PRED-0064": "shell-axis-proton-neutron-product-balanced",
+    "PRED-0065": "shell-axis-neutron-gaussian-balanced",
+    "PRED-0066": "shell-axis-proton-gaussian-sign-inverted-balanced",
+    "PRED-0067": "shell-axis-near-null-balanced",
+    "PRED-0068": "shell-axis-frozen-baseline-reference-balanced",
+}
+SHELL_AXIS_MAGIC_NUMBERS = (2, 8, 20, 28, 50, 82, 126)
+SHELL_AXIS_SIGMA = 2.0
+SHELL_AXIS_BETA_Z = 1.1627358253653952
+SHELL_AXIS_BETA_ZN = 1.754815105523876
+SHELL_AXIS_BETA_N = 1.604907172943232
 
 
 def _repo_root() -> Path:
@@ -231,6 +259,50 @@ def _smooth_control_coefficients(model_id: str) -> SemiEmpiricalCoefficients:
     raise AssertionError(f"Unknown smooth control model_id: {model_id}")
 
 
+def _shell_axis_activation(axis_value: int) -> float:
+    distance = min(abs(axis_value - magic) for magic in SHELL_AXIS_MAGIC_NUMBERS)
+    return math.exp(-(distance**2) / (2.0 * SHELL_AXIS_SIGMA**2))
+
+
+def _shell_axis_binding_correction_mev(model_id: str, *, z: int, n: int) -> float:
+    s_z2 = _shell_axis_activation(z)
+    s_n2 = _shell_axis_activation(n)
+    if model_id.endswith("shell-axis-proton-gaussian-balanced"):
+        return SHELL_AXIS_BETA_Z * s_z2
+    if model_id.endswith("shell-axis-proton-neutron-product-balanced"):
+        return SHELL_AXIS_BETA_ZN * s_z2 * s_n2
+    if model_id.endswith("shell-axis-neutron-gaussian-balanced"):
+        return SHELL_AXIS_BETA_N * s_n2
+    if model_id.endswith("shell-axis-proton-gaussian-sign-inverted-balanced"):
+        return -SHELL_AXIS_BETA_Z * s_z2
+    if model_id.endswith("shell-axis-near-null-balanced"):
+        return 0.0
+    if model_id.endswith("shell-axis-frozen-baseline-reference-balanced"):
+        return 0.0
+    raise AssertionError(f"Unknown shell-axis mini-wave model_id: {model_id}")
+
+
+def _corrected_mass_excess_mev(
+    *,
+    z: int,
+    n: int,
+    a: int,
+    binding_correction_mev: float,
+) -> float:
+    baseline_atomic_mass_u = semi_empirical_atomic_mass_u(
+        z=z,
+        n=n,
+        coefficients=FITTED_SEMI_EMPIRICAL_COEFFICIENTS,
+    )
+    corrected_atomic_mass_u = baseline_atomic_mass_u - (
+        binding_correction_mev / ATOMIC_MASS_UNIT_MEV
+    )
+    return mass_excess_keV_from_atomic_mass_u(
+        a=a,
+        atomic_mass_u=corrected_atomic_mass_u,
+    ) / 1000.0
+
+
 def test_smooth_control_predictions_match_deterministic_recompute() -> None:
     smooth_control_ids = ("PRED-0021", "PRED-0022")
     for prediction_id in smooth_control_ids:
@@ -381,3 +453,97 @@ def test_feature_term_selected_registry_wave_matches_deterministic_slate_002_rec
             assert actual["A"] == expected["A"]
             assert actual["uncertainty_mev"] is None
             assert actual["predicted_value_mev"] == expected["predicted_value_mev"]
+
+
+def test_shell_axis_mini_wave_preserves_source_boundary() -> None:
+    for prediction_id, variant_id in SHELL_AXIS_MINI_WAVE_REGISTRY_MAP.items():
+        payload = load_nuclear_mass_prediction(
+            _repo_root() / "prediction_registry" / "nuclear_masses" / f"{prediction_id}.yaml"
+        )
+
+        assert payload["task_id"] == "TASK-0297"
+        assert payload["registered_by"] == {"contributor_id": "roman", "agent_id": "codex"}
+        assert payload["registered_at_utc"] == "2026-05-20T00:00:00Z"
+        assert payload["source_state"]["git_commit"] == SHELL_AXIS_MINI_WAVE_SOURCE_COMMIT
+        assert payload["source_state"]["live_external_fetch_allowed"] is False
+        assert variant_id in payload["source_state"]["model_reference"]["model_id"]
+        assert payload["target_set"]["label"] == "shell-axis-balanced-001"
+        assert "docs/nuclear-reveal-source-readiness-checklist.md" in payload["source_state"][
+            "holdout_protocol_references"
+        ]
+
+        boundary_text = " ".join(
+            [
+                payload["claim_ceiling"],
+                payload["source_state"]["source_data_state_note"],
+                payload["reveal_conditions"]["comparison_data_reference"],
+                payload["reveal_conditions"]["no_peek_rule"],
+                *payload["limitations"],
+            ]
+        ).lower()
+        assert "no claim" in boundary_text
+        assert "no live external measurement source" in boundary_text
+        assert "separate reviewed reveal task" in boundary_text
+        assert "breakthrough" not in boundary_text
+
+
+def test_shell_axis_mini_wave_matches_deterministic_recompute() -> None:
+    for prediction_id in SHELL_AXIS_MINI_WAVE_REGISTRY_MAP:
+        payload = load_nuclear_mass_prediction(
+            _repo_root() / "prediction_registry" / "nuclear_masses" / f"{prediction_id}.yaml"
+        )
+        model_id = str(payload["source_state"]["model_reference"]["model_id"])
+
+        actual_targets = payload["target_set"]["target_nuclides"]
+        assert tuple(target["nuclide_id"] for target in actual_targets) == SHELL_AXIS_TARGET_IDS
+        for target in actual_targets:
+            correction = _shell_axis_binding_correction_mev(
+                model_id,
+                z=int(target["Z"]),
+                n=int(target["N"]),
+            )
+            expected = _corrected_mass_excess_mev(
+                z=int(target["Z"]),
+                n=int(target["N"]),
+                a=int(target["A"]),
+                binding_correction_mev=correction,
+            )
+            assert target["uncertainty_mev"] is None
+            assert round(expected, 6) == float(target["predicted_value_mev"])
+
+
+def test_shell_axis_mini_wave_keeps_controls_visible() -> None:
+    near_null = load_nuclear_mass_prediction(
+        _repo_root() / "prediction_registry" / "nuclear_masses" / "PRED-0067.yaml"
+    )
+    baseline = load_nuclear_mass_prediction(
+        _repo_root() / "prediction_registry" / "nuclear_masses" / "PRED-0068.yaml"
+    )
+    sign_inverted = load_nuclear_mass_prediction(
+        _repo_root() / "prediction_registry" / "nuclear_masses" / "PRED-0066.yaml"
+    )
+
+    near_null_values = [
+        (
+            target["nuclide_id"],
+            target["Z"],
+            target["N"],
+            target["A"],
+            target["predicted_value_mev"],
+        )
+        for target in near_null["target_set"]["target_nuclides"]
+    ]
+    baseline_values = [
+        (
+            target["nuclide_id"],
+            target["Z"],
+            target["N"],
+            target["A"],
+            target["predicted_value_mev"],
+        )
+        for target in baseline["target_set"]["target_nuclides"]
+    ]
+
+    assert near_null_values == baseline_values
+    assert "near-null" in near_null["source_state"]["model_reference"]["model_id"]
+    assert "sign-inverted" in sign_inverted["source_state"]["model_reference"]["model_id"]
