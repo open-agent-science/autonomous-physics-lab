@@ -204,8 +204,11 @@ Start here:
   packaging.
 - Do not score the shell-axis mini-wave until a future source-manifest/no-peek
   reveal task is explicitly approved.
-- `TASK-0303` should prepare source-manifest and no-peek preflight for
-  `PRED-0063` through `PRED-0068` without recording measured values.
+- `TASK-0303` prepared the source-manifest and no-peek preflight for
+  `PRED-0063` through `PRED-0068` without recording measured values (see
+  `docs/reviews/nuclear-shell-axis-mini-wave-source-preflight.md` and the
+  manifest template at
+  `data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml`).
 - `TASK-0304` should exercise shell-axis mini-wave reveal scoring on
   fabricated values only, so a later real reveal has pre-reviewed mechanics.
 - `TASK-0305` should stay blocked until source preflight, dry-run review, and
