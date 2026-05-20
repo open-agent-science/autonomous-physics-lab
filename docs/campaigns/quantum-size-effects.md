@@ -35,14 +35,22 @@ Current task posture:
   direct-measurement row-level seed or a maintainer waiver to score a
   calibration-curve consistency benchmark instead of a measurement-versus-
   model benchmark);
-- `TASK-0291` — direct-measurement absorption seed (READY);
+- `TASK-0291` — direct-measurement absorption seed (BLOCKED; first-attempt
+  investigation against Yu 2003 found no tabulated values and figure-only
+  scatter points; see
+  `docs/reviews/quantum-direct-absorption-seed-investigation.md`. Unblock
+  paths: WebPlotDigitizer-class figure digitisation, access to primary
+  source tables in Vossmeyer 1994 / Soloviev 2000 / Murray 1993 / Peng 1998,
+  maintainer-provided table values, or an explicit maintainer waiver to
+  accept relaxed-precision figure reads);
 - `TASK-0292` — direct-measurement band-edge seed (READY);
 - `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
   `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
-- `TASK-0298` — direct-measurement source triage (REVIEW_READY; see
-  `docs/reviews/quantum-direct-measurement-source-triage.md`. Yu 2003 is the
-  first-attempt source for `TASK-0291`; Jasieniak 2011 is the first-attempt
-  source for `TASK-0292`; Moreels 2009 is a secondary `TASK-0291` candidate);
+- `TASK-0298` — direct-measurement source triage (DONE; see
+  `docs/reviews/quantum-direct-measurement-source-triage.md`. Yu 2003 was
+  the triaged first-attempt source for `TASK-0291`; Jasieniak 2011 is the
+  first-attempt source for `TASK-0292`; Moreels 2009 is a secondary
+  `TASK-0291` candidate);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
 Safe next contributions are:
