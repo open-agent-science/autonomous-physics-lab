@@ -218,7 +218,10 @@ campaign and data foundations rather than formula search:
 - `TASK-0291` is blocked until direct absorption rows have a reviewed
   table-value or digitisation path; do not use LLM-estimated figure
   coordinates or published sizing-polynomial values;
-- `TASK-0292` remains the next direct-measurement band-edge curation task;
+- `TASK-0292` has a review-only band-edge blocker record: Jasieniak 2011
+  appears to contain a suitable Supporting Information table, but a curator
+  still needs access to the table values or a deterministic digitisation
+  artifact before committing a `qd-*.yaml` band-edge seed;
 - `TASK-0306` has defined the digitisation protocol and artifact requirements
   needed before figure-derived absorption rows can unblock `TASK-0291`; the
   remaining gate is a committed artifact, primary table values,
