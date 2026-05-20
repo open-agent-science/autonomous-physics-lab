@@ -1,0 +1,55 @@
+id: TASK-0316
+title: "Run nuclear shell-axis coefficient stability audit"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Stress the biggest limitation of TASK-0310: shell-axis coefficients are fit on only 11 NMD-0002 rows."
+  - "Use deterministic resampling and leave-one-out checks before treating the signal as robust sandbox evidence."
+  - "Preserve coefficient instability as a useful negative result if the shell-axis lane weakens."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "agent_runs/AGENT-RUN-0018/metrics.json"
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "docs/reviews/nuclear-shell-axis-full-known-retrospective-audit.md"
+  planning_context: >
+    TASK-0310 found small retrospective improvements for three shell-axis
+    candidates, but all primary coefficients are learned from an 11-row
+    training slice. This task checks whether those coefficients and holdout
+    deltas survive deterministic leave-one-out, jackknife, and small-resample
+    stress tests.
+
+requirements:
+  - "Reuse the committed TASK-0310 data surfaces and baseline; do not fetch live external data."
+  - "Run deterministic leave-one-out or jackknife fits over the NMD-0002 training slice for the primary shell-axis candidates."
+  - "Report coefficient sign stability, coefficient magnitude spread, holdout delta spread, full-known delta spread, and worst-case subset regression across resamples."
+  - "Include the near-null, sign-inverted, and shuffled-feature controls where practical, or explain why a control is not meaningful under the resampling design."
+  - "Use fixed seeds or deterministic enumeration for any resampling."
+  - "Preserve negative findings if the apparent improvement collapses under resampling."
+  - "Do not update prediction registry entries, canonical results, claims, or knowledge."
+
+accepted_outputs:
+  - "scripts/run_nuclear_shell_axis_stability_audit.py or equivalent deterministic entrypoint"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json using the next available run id"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-shell-axis-coefficient-stability-audit.md"
+  - "tests covering the stability entrypoint or metrics shape"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

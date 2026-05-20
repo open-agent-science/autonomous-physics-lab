@@ -107,7 +107,7 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Use live task candidates after the non-reveal TASK-0310 full-known audit"
+        label: "Prefer the post-0310 Nuclear validation wave before registry expansion"
         task_id: null
         mode: research
         priority: high
@@ -115,6 +115,7 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
+          - "Prefer TASK-0315, TASK-0316, or TASK-0317 for post-0310 Nuclear follow-up"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"

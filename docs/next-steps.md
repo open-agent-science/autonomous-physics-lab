@@ -199,10 +199,10 @@ The nuclear queue should stay conservative:
   acceptable post-registration source was pinned, so `TASK-0305` remains
   blocked behind a future reviewed source manifest and explicit maintainer
   approval.
-- current next Nuclear work should be retrospective and conservative:
-  `TASK-0310` audits the shell-axis signal on the full known committed
-  measured-data surface without revealing or scoring prospective registry
-  entries.
+- `TASK-0310` completed the first full-known shell-axis retrospective audit as
+  sandbox evidence. The next Nuclear wave should not add more `PRED-*`
+  entries; it should test the validity domain, coefficient stability, and
+  specificity of that signal.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into
@@ -212,7 +212,9 @@ The next parallel research wave should avoid duplicating the just-completed
 `TASK-0292`, `TASK-0308`, and `TASK-0309` work. Those tasks move through
 review/closeout, not new executor assignment. Open fresh lanes instead:
 
-- `TASK-0310` for the Nuclear shell-axis full-known-data retrospective audit;
+- `TASK-0315` for the Nuclear shell-axis validity-domain map;
+- `TASK-0316` for Nuclear shell-axis coefficient stability;
+- `TASK-0317` for Nuclear shell-axis specificity controls;
 - `TASK-0311` for an atomic-clock residuals source-surface scaffold;
 - `TASK-0312` for a final v0.2 public-alpha go/no-go review.
 
