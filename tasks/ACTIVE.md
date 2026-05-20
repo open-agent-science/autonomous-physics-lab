@@ -56,6 +56,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (`test_infrastructure`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
