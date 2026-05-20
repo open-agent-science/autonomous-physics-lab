@@ -467,7 +467,7 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     # may surface nuclear follow-ups (`TASK-0189`, `TASK-0228`-`TASK-0237`,
     # `TASK-0250`-`TASK-0290`), rotate to the other READY research lanes
     # (`TASK-0222`-`TASK-0227`, `TASK-0291`-`TASK-0292`, `TASK-0307`,
-    # `TASK-0310`-`TASK-0312`),
+    # `TASK-0310`-`TASK-0317`),
     # include non-saturated NEXT planning surfaces (`TASK-0308`-`TASK-0309`),
     # or fall through
     # to support candidates when the research queue is already review-ready.
@@ -535,6 +535,9 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
         "TASK-0310",
         "TASK-0311",
         "TASK-0312",
+        "TASK-0315",
+        "TASK-0316",
+        "TASK-0317",
     }
     if rendered["live_task_candidates"]:
         assert (
