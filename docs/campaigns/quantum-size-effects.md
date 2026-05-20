@@ -41,7 +41,8 @@ Current task posture:
 - `TASK-0292` — direct-measurement band-edge seed (READY);
 - `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
   `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
-- `TASK-0298` — direct-measurement source triage (DONE; see
+- `TASK-0298` — direct-measurement source triage (merged artifact available;
+  closeout pending; see
   `docs/reviews/quantum-direct-measurement-source-triage.md`. Yu 2003 is the
   first-attempt source for `TASK-0291`, but later review found that its
   accessible article surface appears to require figure digitisation or
