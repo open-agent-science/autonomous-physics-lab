@@ -56,7 +56,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (`test_infrastructure`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
