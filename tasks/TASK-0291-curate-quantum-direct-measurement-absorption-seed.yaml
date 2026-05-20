@@ -1,7 +1,7 @@
 id: TASK-0291
 title: "Curate quantum direct-measurement absorption seed"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -17,7 +17,9 @@ input:
     - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
     - "docs/reviews/quantum-direct-measurement-source-triage.md"
     - "docs/reviews/quantum-size-direct-absorption-seed-review.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
     - "data/quantum_dots/source_manifest.yaml"
+    - "data/quantum_dots/digitization/README.md"
     - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
     - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
     - "data/quantum_dots/qd-0001-yu-2003-absorption.yaml"
@@ -70,15 +72,18 @@ input:
           waiver must be referenced in the seed file's `notes` and in the
           campaign page.
 
-    TASK-0306 is now the preferred protocol task for defining the
-    WebPlotDigitizer-class artifact shape before any future figure-derived
-    absorption rows are curated.
+    TASK-0306 has now defined the WebPlotDigitizer-class artifact shape for
+    future figure-derived absorption rows. The protocol itself does not
+    provide a digitisation artifact or primary table values, so this first
+    TASK-0291 pass remains a reviewable blocker record rather than a dataset
+    seed.
 
 requirements:
   - "Start only after TASK-0306 or an equivalent maintainer-approved digitisation/table-value path defines how direct absorption rows will be extracted without eyeballing or LLM-estimated coordinates."
   - "If using Yu 2003 Figure 2, require a WebPlotDigitizer-class artifact or equivalent deterministic digitisation note with axis calibration, extracted point coordinates, per-point uncertainty, and provenance notes."
   - "If using Vossmeyer 1994, Soloviev 2000, Murray 1993, Peng 1998, Moreels 2009, or another primary source, require table values or digitised figure points with source_table_ref/source_figure_ref and no polynomial-generated values."
   - "Add one reviewed row-level absorption_peak_eV dataset seed with at least 6 included rows."
+  - "If the reviewed evidence path is still absent, do not fabricate a qd-*.yaml seed; record the blocker and leave maintainer closeout to decide whether the task should become BLOCKED."
   - "Rows must be direct table values, digitised figure points, or independently reviewed TEM + spectroscopy observations, not values generated from a published sizing polynomial or calibration curve."
   - "Register any new source in source_manifest.yaml before referencing its source_id."
   - "Each row must validate against the quantum-dot schema, include manifest-linked source_id, material, diameter_nm or radius_nm, property_kind, property_value_eV, measurement_type, source_table_ref, inclusion_status, and provenance notes."
@@ -89,6 +94,7 @@ requirements:
 
 accepted_outputs:
   - "data/quantum_dots/qd-0003-direct-absorption.yaml or equivalent next-numbered direct-measurement absorption seed"
+  - "or, when no compliant digitisation/table path exists, a review-only blocker record explaining why no qd-0003 seed was produced"
   - "updated data/quantum_dots/source_manifest.yaml if a new source is used"
   - "docs/reviews/quantum-size-direct-absorption-seed-review.md"
   - "updated tests covering schema validation and source_manifest references if needed"
