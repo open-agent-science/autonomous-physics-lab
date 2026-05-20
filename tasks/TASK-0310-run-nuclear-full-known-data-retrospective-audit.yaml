@@ -1,7 +1,7 @@
 id: TASK-0310
 title: "Run nuclear shell-axis full-known-data retrospective audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 

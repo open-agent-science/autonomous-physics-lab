@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 21:08 UTC
+Generated: 2026-05-20 21:27 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -992,7 +992,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: keep the shell-axis mini-wave frozen, leave reveal scoring blocked, and run a broad retrospective audit on allowed known data."
+    recommendation: "Main direction now: keep the shell-axis mini-wave frozen, leave reveal scoring blocked, and use the completed full-known audit as sandbox review evidence while choosing the next READY task from live candidates."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1003,7 +1003,7 @@ missions:
       - "AGENT-RUN-0008 now records active retrospective post-AME2020 time-split evidence with INCONCLUSIVE verdict"
       - "PRED-0063 through PRED-0068 now freeze the shell-axis-balanced-001 prospective mini-wave"
       - "source preflight and synthetic reveal mechanics are done, but TASK-0307 found no acceptable post-registration source manifest"
-      - "the next safe scientific step is a full-known-data retrospective audit that does not count as prospective reveal scoring"
+      - "AGENT-RUN-0018 now records the full-known-data retrospective audit without prospective reveal scoring"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1040,13 +1040,14 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Prefer TASK-0310 for a non-reveal full-known-data shell-axis retrospective audit"
-        task_id: TASK-0310
+        label: "Use live task candidates after the non-reveal TASK-0310 full-known audit"
+        task_id: null
         mode: research
         priority: high
         difficulty: medium
         recommended: true
         expected_outputs:
+          - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
@@ -2151,7 +2152,6 @@ one PR.
 
 ## READY
 
-- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
 
@@ -2161,7 +2161,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
