@@ -219,6 +219,10 @@ Start here:
 - `TASK-0307` should prepare one concrete source-manifest candidate for the
   shell-axis mini-wave without recording target mass values or scoring the
   registry entries.
+- `TASK-0307` currently records a metadata-only source-manifest review outcome:
+  no acceptable source candidate was prepared, so `TASK-0305` remains blocked
+  behind a future pinned post-registration source or a separately scoped weaker
+  diagnostic task.
 - `TASK-0305` should stay blocked until source preflight, dry-run review, a
   reviewed `TASK-0307` source manifest, and explicit maintainer approval make
   a real reveal comparison legitimate.
