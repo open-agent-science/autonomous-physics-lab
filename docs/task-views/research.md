@@ -16,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0296` - Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+None.
