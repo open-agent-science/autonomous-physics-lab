@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 21:27 UTC
+Generated: 2026-05-20 21:36 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2161,12 +2161,13 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`)
+None.
 
 ## DONE RECENTLY
 
 - `TASK-0314` — Sync mission recommendation after nuclear source blocker (merged)
 - `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (merged)
+- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (merged)
 - `TASK-0309` — Define fresh-data source policy for non-saturated physics datasets (merged)
 - `TASK-0308` — Define anomaly registry schema and admissibility rules (merged)
 - `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (merged)
