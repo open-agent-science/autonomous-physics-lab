@@ -1,6 +1,6 @@
 proposal_id: 20260520-roman-fresh-data-axes-scaffold
 title: "Scaffold a non-PDG/AME data-axis policy for cross-domain physics datasets"
-status: PROPOSED
+status: ACCEPTED
 type: research_infrastructure
 priority: medium
 
@@ -86,12 +86,10 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0309
+  decision: accepted
   notes: >
-    Review should consider whether this is best implemented as a single
-    scaffold or split per axis. The scaffold is the cheaper review unit.
-    Per-axis ingestion would still require separate canonical tasks with
-    explicit guardrails. Atomic clock drift work in particular touches
-    "broad constants derivation" (WATCHLIST) and must remain
-    measurement-policy-only, not derivation-claim, at this stage.
+    Accepted as a guarded NEXT planning task in TASK-0309, narrowed to atomic
+    clocks and lattice QCD for the first pass. Per-axis ingestion still requires
+    separate canonical tasks with explicit guardrails. Atomic-clock work remains
+    measurement-policy-only, not broad constants derivation.
