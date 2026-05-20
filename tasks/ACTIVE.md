@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
 - `TASK-0308` — Define anomaly registry schema and admissibility rules (`research_infrastructure`, priority `high`, difficulty `high`)
 - `TASK-0309` — Define fresh-data source policy for non-saturated physics datasets (`research_infrastructure`, priority `high`, difficulty `medium`)
 
@@ -56,7 +55,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
 
 ## DONE RECENTLY
 

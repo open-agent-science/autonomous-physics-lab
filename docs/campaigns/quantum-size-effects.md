@@ -43,7 +43,11 @@ Current task posture:
   source tables in Vossmeyer 1994 / Soloviev 2000 / Murray 1993 / Peng 1998,
   maintainer-provided table values, or an explicit maintainer waiver to
   accept relaxed-precision figure reads);
-- `TASK-0292` — direct-measurement band-edge seed (READY);
+- `TASK-0292` — direct-measurement band-edge seed (REVIEW_READY; first
+  investigation against Jasieniak 2011 found a promising ACS Supporting
+  Information table path, but this agent could not retrieve the SI table for
+  row-level review and no digitisation artifact exists; see
+  `docs/reviews/quantum-size-direct-band-edge-seed-review.md`);
 - `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
   `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
 - `TASK-0298` — direct-measurement source triage (DONE; see
@@ -151,7 +155,9 @@ Historical context:
 - `TASK-0291` has a deterministic digitisation/table-value protocol, but
   remains blocked until a compliant artifact, primary-source table values,
   maintainer-provided rows, or waiver exists for absorption rows;
-- `TASK-0292` remains the next direct-measurement band-edge curation lane;
+- `TASK-0292` has a promising Jasieniak 2011 table path, but remains a
+  review-only blocker record until the ACS Supporting Information table or a
+  deterministic digitisation artifact is available to the curator;
 - `TASK-0306` defined the digitisation protocol and artifact shape that can
   unblock future figure-derived absorption rows once a compliant artifact or
   equivalent table evidence is committed;
