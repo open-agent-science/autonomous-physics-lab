@@ -10,7 +10,7 @@ proposed_by:
 
 strategy_alignment:
   - "Generalizes the nuclear mass surface residual methodology (NOW track) into a structured QFT-level residual framework, preserving the same audit-first posture."
-  - "Stays falsification-first: structured residuals are evaluated as evidence of missing operators with explicit uncertainty, not as derivation of new physics."
+  - "Stays falsification-first: structured residuals are evaluated as evidence of missing operators with explicit uncertainty, not as derivation of beyond-baseline theory."
   - "Does not promote any WATCHLIST topic."
   - "Preserves deterministic-validation discipline; differentiable forward models here are evaluated as reproducible numerical residuals, not as generative theory builders."
 
@@ -30,7 +30,7 @@ summary: >
 rationale: >
   The nuclear mass surface campaign demonstrated that residual-driven
   methodology under strict audit discipline can produce reviewable
-  evidence about model adequacy without overclaiming new physics. That
+  evidence about model adequacy without overclaiming beyond-baseline theory. That
   same pattern generalizes to a QFT-level setting: instead of residuals
   against a baseline mass formula, residuals against a differentiable
   EFT forward model. Modern computational tools make this tractable for
@@ -39,7 +39,7 @@ rationale: >
   baseline coefficients, residual maps, holdout discipline, robustness
   gates — but on a different physics surface. Crucially, the
   methodology remains audit-first: a structured residual is evidence
-  for a missing operator, not a derivation of new physics. The
+  for a missing operator, not a derivation of beyond-baseline theory. The
   proposal defines the scope and discipline before any forward model
   is implemented, so that future implementation tasks land on a
   reviewable scaffold rather than ad hoc EFT code.
@@ -73,7 +73,7 @@ requirements:
   - "Define the residual-evaluation contract: baseline coefficient fit, residual map definition, robustness gate (analogous to the nuclear robustness gate), and explicit limitation language for any structured residual that emerges."
   - "Do not authorize implementation of the forward model in this proposal — implementation is a separate maintainer-approved task."
   - "Do not run any fits."
-  - "Do not frame structured residuals as evidence for specific new physics until at least one separate task with reveal discipline evaluates them under guardrails."
+  - "Do not frame structured residuals as evidence for specific beyond-baseline theory until at least one separate task with reveal discipline evaluates them under guardrails."
   - "Do not let LLM-generated theory prose substitute for deterministic forward evaluation."
   - "Produce a canonical task spec for the scaffold build."
 
