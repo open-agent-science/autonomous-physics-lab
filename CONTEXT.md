@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 08:36 UTC
+Generated: 2026-05-20 12:01 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -992,7 +992,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: validate the existing sandbox candidate before expanding the campaign."
+    recommendation: "Main direction now: protect the frozen shell-axis mini-wave and prepare source/no-peek reveal readiness before any scoring."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1001,6 +1001,8 @@ missions:
       - "a review-ready robustness gate defines allowed follow-up, negative controls, and promotion blockers"
       - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
       - "AGENT-RUN-0008 now records active retrospective post-AME2020 time-split evidence with INCONCLUSIVE verdict"
+      - "PRED-0063 through PRED-0068 now freeze the shell-axis-balanced-001 prospective mini-wave"
+      - "the next scientific step is source preflight and synthetic reveal mechanics, not more registry expansion"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1009,6 +1011,8 @@ missions:
       - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
       - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
       - "do not promote any second-batch sandbox candidate after TASK-0204 without a maintainer-approved follow-up task"
+      - "do not score PRED-0063 through PRED-0068 before source preflight, no-peek review, and explicit maintainer approval"
+      - "do not add more shell-axis PRED entries before the mini-wave reveal-readiness implications are reviewed"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -1069,13 +1073,13 @@ missions:
           - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
           - adversarial-review-task-0204
       - id: nuclear-prediction-variant-expansion
-        label: "Register bounded PRED-0021+ nuclear prediction variants for parallel pre-reveal testing"
+        label: "Completed historical PRED-0021+ variant expansion; do not expand registry again before reveal-readiness review"
         task_id: null
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         gated_by:
           - prediction-registry-policy-task-0189
           - first-prediction-slate-task-0205
@@ -2144,8 +2148,10 @@ one PR.
 
 ## READY
 
-- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
+- `TASK-0303` — Prepare nuclear shell-axis mini-wave source preflight (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0304` — Add nuclear shell-axis mini-wave reveal dry-run (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0306` — Define quantum direct-measurement digitization protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2153,8 +2159,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0297` — Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`)
-- `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -2162,6 +2167,8 @@ None.
 - `TASK-0301` — Add Nuclear Mass Blind Prediction Challenge page (merged)
 - `TASK-0300` — Add Open Agent Network status board (merged)
 - `TASK-0299` — Reframe APL as an Open Agent Network for Science (merged)
+- `TASK-0298` — Triage quantum direct-measurement source candidates (merged)
+- `TASK-0297` — Register nuclear shell-axis prospective mini-wave (merged)
 - `TASK-0296` — Design nuclear shell-axis registry target batch (merged)
 - `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (merged)
 - `TASK-0294` — Synthesize nuclear adversarial stress results (merged)
@@ -2435,7 +2442,9 @@ None.
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## REJECTED
 

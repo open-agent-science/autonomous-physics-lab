@@ -35,14 +35,23 @@ Current task posture:
   direct-measurement row-level seed or a maintainer waiver to score a
   calibration-curve consistency benchmark instead of a measurement-versus-
   model benchmark);
-- `TASK-0291` — direct-measurement absorption seed (READY);
+- `TASK-0291` — direct-measurement absorption seed (BLOCKED until a reviewed
+  table-value or digitisation path exists; do not estimate Figure 2 points by
+  eye or from LLM memory);
 - `TASK-0292` — direct-measurement band-edge seed (READY);
 - `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
   `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
-- `TASK-0298` — direct-measurement source triage (REVIEW_READY; see
+- `TASK-0298` — direct-measurement source triage (merged artifact available;
+  closeout pending; see
   `docs/reviews/quantum-direct-measurement-source-triage.md`. Yu 2003 is the
-  first-attempt source for `TASK-0291`; Jasieniak 2011 is the first-attempt
-  source for `TASK-0292`; Moreels 2009 is a secondary `TASK-0291` candidate);
+  first-attempt source for `TASK-0291`, but later review found that its
+  accessible article surface appears to require figure digitisation or
+  primary-source tables before rows can be curated; Jasieniak 2011 is the
+  first-attempt source for `TASK-0292`; Moreels 2009 is a secondary
+  `TASK-0291` candidate);
+- `TASK-0306` — direct-measurement digitisation protocol (READY; define the
+  WebPlotDigitizer-class artifact requirements before using figure-derived
+  absorption rows);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
 Safe next contributions are:
@@ -136,8 +145,11 @@ Historical context:
   absorption seeds;
 - `TASK-0283` keeps `TASK-0225` blocked because the committed rows are not
   direct measurement rows;
-- `TASK-0291` and `TASK-0292` are the next parallel data-curation lanes for
-  direct-measurement absorption and band-edge seeds;
+- `TASK-0291` is blocked until a deterministic digitisation/table-value path
+  exists for absorption rows;
+- `TASK-0292` remains the next direct-measurement band-edge curation lane;
+- `TASK-0306` should define the digitisation protocol and artifact shape that
+  can unblock future figure-derived absorption rows;
 - `TASK-0293` should re-run the readiness gate after either direct seed lands;
 - `TASK-0298` triaged the direct-measurement source candidates (see
   `docs/reviews/quantum-direct-measurement-source-triage.md`) so row-level
