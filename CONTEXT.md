@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 18:11 UTC
+Generated: 2026-05-20 18:35 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2158,10 +2158,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (merged)
 - `TASK-0306` — Define quantum direct-measurement digitization protocol (merged)
 - `TASK-0304` — Add nuclear shell-axis mini-wave reveal dry-run (merged)
 - `TASK-0303` — Prepare nuclear shell-axis mini-wave source preflight (merged)
