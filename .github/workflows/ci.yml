@@ -124,7 +124,7 @@ jobs:
           python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 
   main-matrix:
-    name: Python tests (${{ matrix.python-version }})
+    name: Python tests (main matrix)
     runs-on: ubuntu-latest
     needs: classify
     if: github.event_name == 'push'
