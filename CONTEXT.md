@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 20:16 UTC
+Generated: 2026-05-20 20:31 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2148,7 +2148,9 @@ one PR.
 
 ## READY
 
-None.
+- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
+- `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2156,12 +2158,12 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
-- `TASK-0308` — Define anomaly registry schema and admissibility rules (`research_infrastructure`, priority `high`, difficulty `high`)
-- `TASK-0309` — Define fresh-data source policy for non-saturated physics datasets (`research_infrastructure`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0309` — Define fresh-data source policy for non-saturated physics datasets (merged)
+- `TASK-0308` — Define anomaly registry schema and admissibility rules (merged)
 - `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (merged)
 - `TASK-0306` — Define quantum direct-measurement digitization protocol (merged)
 - `TASK-0304` — Add nuclear shell-axis mini-wave reveal dry-run (merged)
@@ -2175,6 +2177,7 @@ None.
 - `TASK-0296` — Design nuclear shell-axis registry target batch (merged)
 - `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (merged)
 - `TASK-0294` — Synthesize nuclear adversarial stress results (merged)
+- `TASK-0292` — Curate quantum direct-measurement band-edge seed (merged)
 - `TASK-0291` — Curate quantum direct-measurement absorption seed (merged)
 - `TASK-0290` — Package nuclear scout evidence card (merged)
 - `TASK-0289` — Run nuclear asymmetry-frontier stress scout (merged)
