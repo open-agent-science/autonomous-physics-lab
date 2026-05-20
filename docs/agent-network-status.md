@@ -33,7 +33,7 @@ of truth for task state.
 | Surface | Artifact | Interpretation |
 | --- | --- | --- |
 | Nuclear baseline | `EXP-0012` / `RESULT-0015` | Frozen residual baseline for sandbox follow-up. |
-| Nuclear prediction registry | `PRED-0001` through `PRED-0062` | Prospective records awaiting future source-pinned reveal; not current measured successes. |
+| Nuclear prediction registry | `PRED-0001` through `PRED-0068` | Prospective records awaiting future source-pinned reveal; not current measured successes. |
 | Nuclear scout synthesis | `docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md` | Ranks shell-axis, asymmetry, and failed mid-mass/isotope-chain lanes conservatively. |
 | Shell-axis stress | `docs/reviews/nuclear-shell-axis-stress-scout-001.md` | Strongest current sandbox follow-up surface; still not a claim. |
 | Asymmetry-frontier stress | `docs/reviews/nuclear-asymmetry-frontier-stress-scout-001.md` | Smaller subset-scoped review surface with explicit overfit neighbor. |

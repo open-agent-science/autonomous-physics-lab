@@ -16,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0297` - Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
