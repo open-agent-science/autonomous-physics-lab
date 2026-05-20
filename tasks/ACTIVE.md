@@ -48,7 +48,6 @@ one PR.
 
 - `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
-- `TASK-0296` — Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -56,6 +55,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0296` — Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
