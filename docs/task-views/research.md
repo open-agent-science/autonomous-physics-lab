@@ -17,4 +17,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0310` - Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+None.

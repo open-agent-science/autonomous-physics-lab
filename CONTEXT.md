@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 21:42 UTC
+Generated: 2026-05-20 21:47 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2155,6 +2155,9 @@ one PR.
 
 - `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
+- `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0317` — Run nuclear shell-axis specificity controls (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -2162,12 +2165,13 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`)
+None.
 
 ## DONE RECENTLY
 
 - `TASK-0314` — Sync mission recommendation after nuclear source blocker (merged)
 - `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (merged)
+- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (merged)
 - `TASK-0309` — Define fresh-data source policy for non-saturated physics datasets (merged)
 - `TASK-0308` — Define anomaly registry schema and admissibility rules (merged)
 - `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (merged)
