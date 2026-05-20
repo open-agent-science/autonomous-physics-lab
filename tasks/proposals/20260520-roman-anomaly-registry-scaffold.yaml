@@ -1,6 +1,6 @@
 proposal_id: 20260520-roman-anomaly-registry-scaffold
 title: "Scaffold an anomaly registry and joint-likelihood evaluation protocol"
-status: PROPOSED
+status: ACCEPTED
 type: research_infrastructure
 priority: medium
 
@@ -99,16 +99,10 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0308
+  decision: accepted
   notes: >
-    Strategy.md keeps Hubble tension, muon g-2 follow-up, and broad
-    constants derivation in WATCHLIST. This proposal does not change that.
-    The scaffold is registry + protocol infrastructure that would let those
-    topics be revisited later under stronger guardrails, with reproducible
-    holdouts and joint-likelihood discipline, instead of via direct
-    single-observable formula search. Review should consider whether the
-    registry layer fits inside the existing prediction-registry-policy
-    rather than as a parallel structure. If accepted, the canonical task
-    should remain scaffold-only — actual anomaly fits require separate
-    maintainer-approved tasks with explicit per-entry guardrails.
+    Accepted as a guarded NEXT planning task in TASK-0308. Strategy still keeps
+    Hubble tension, muon g-2 follow-up, and broad constants derivation in
+    WATCHLIST. The canonical task is scaffold-only: actual anomaly fits require
+    separate maintainer-approved tasks with explicit per-entry guardrails.

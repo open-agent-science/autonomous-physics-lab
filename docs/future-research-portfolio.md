@@ -100,6 +100,36 @@ Allowed next shape:
 - explicit equations and invariance targets;
 - deterministic checks with failure cases.
 
+### Anomaly Registry Scaffold
+
+The anomaly-registry direction is a NEXT planning surface, not an anomaly-fit
+campaign. Its near-term value is to define source admissibility, frozen
+holdouts, correlation handling, null-model comparison, and negative-result
+reporting before any future agent tries to reduce multiple tensions at once.
+
+Allowed next shape:
+
+- registry schema;
+- source admissibility rules;
+- joint-likelihood evaluation contract;
+- explicit statement that Hubble tension, muon g-2 follow-up, W-mass tension,
+  broad constants, and broad mass-relation topics remain WATCHLIST until a
+  separate maintainer task authorizes a scoped evaluation.
+
+### Fresh Physics Data Axes
+
+Fresh-data work is a NEXT source-policy direction, initially limited to
+atomic-clock comparison campaigns and lattice-QCD aggregated outputs. The goal
+is to prepare less-saturated evidence surfaces without ingesting data or
+starting broad cross-domain fits prematurely.
+
+Allowed next shape:
+
+- source policy;
+- license, citation, checksum, and provenance requirements;
+- per-axis holdout discipline;
+- stop conditions for unacceptable source shortcuts.
+
 ## WATCHLIST
 
 These topics should not be active research targets without new guardrails and a
@@ -132,6 +162,20 @@ near-term research claims.
 Particle-mass relation work should remain falsification-first and narrow.
 Broad all-mass formula searches are deferred because they are highly exposed to
 post-hoc fitting, scheme ambiguity, and overclaim risk.
+
+### Symmetry Discovery Validator
+
+Symmetry-discovery work remains a high-value long-term methodology idea, but it
+should not become an implementation lane until a separate feasibility review
+defines rediscovery benchmarks, synthetic null cases, false-positive controls,
+and real-data eligibility gates.
+
+### Differentiable EFT Residuals
+
+Differentiable EFT residuals remain a high-value long-term direction. They are
+not a near-term implementation lane until the project has stronger reveal
+discipline, source policy, and a single scoped EFT benchmark with deterministic
+forward-model requirements.
 
 ## Decision Rule
 
