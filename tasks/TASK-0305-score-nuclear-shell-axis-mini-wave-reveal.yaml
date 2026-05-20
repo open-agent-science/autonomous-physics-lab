@@ -16,6 +16,7 @@ input:
   related_objects:
     - "tasks/TASK-0303-prepare-nuclear-shell-axis-mini-wave-source-preflight.yaml"
     - "tasks/TASK-0304-add-nuclear-shell-axis-mini-wave-reveal-dry-run.yaml"
+    - "tasks/TASK-0307-prepare-nuclear-shell-axis-reveal-source-manifest.yaml"
     - "prediction_registry/nuclear_masses/PRED-0063.yaml"
     - "prediction_registry/nuclear_masses/PRED-0064.yaml"
     - "prediction_registry/nuclear_masses/PRED-0065.yaml"
@@ -28,10 +29,11 @@ input:
     PRED-0063 through PRED-0068 are frozen prospective entries, but no
     eligible real source manifest has been approved. This task is the future
     reveal-scoring task and must stay blocked until source preflight,
+    synthetic reveal plumbing, a reviewed TASK-0307 source manifest candidate,
     no-peek review, and maintainer approval are explicit.
 
 requirements:
-  - "Start only after TASK-0303 is DONE, TASK-0304 or equivalent reveal-scoring dry-run is reviewed, and the maintainer explicitly approves a specific source manifest for reveal scoring."
+  - "Start only after TASK-0303 is DONE, TASK-0304 or equivalent reveal-scoring dry-run is reviewed, TASK-0307 or an equivalent source-manifest task has prepared a concrete source candidate, and the maintainer explicitly approves that source manifest for reveal scoring."
   - "Score only target rows that the approved source manifest classifies as measured and eligible."
   - "Separate measured, unmeasured, ambiguous, extrapolated, and source-absent rows before computing metrics."
   - "Report MAE/RMSE for primary shell-axis candidates, sign-inverted negative control, near-null control, and frozen baseline reference."
