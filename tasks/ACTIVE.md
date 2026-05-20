@@ -54,7 +54,6 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
@@ -71,6 +70,7 @@ None.
 - `TASK-0296` — Design nuclear shell-axis registry target batch (merged)
 - `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (merged)
 - `TASK-0294` — Synthesize nuclear adversarial stress results (merged)
+- `TASK-0291` — Curate quantum direct-measurement absorption seed (merged)
 - `TASK-0290` — Package nuclear scout evidence card (merged)
 - `TASK-0289` — Run nuclear asymmetry-frontier stress scout (merged)
 - `TASK-0288` — Run nuclear shell-axis adversarial stress scout (merged)
