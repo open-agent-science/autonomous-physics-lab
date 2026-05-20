@@ -19,6 +19,7 @@ Use it when you need to answer four questions quickly:
 | [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Active benchmark plus follow-on curation | `EXP-0006/RUN-0006` plus live challenge-set work | challenge-set curation, benchmark hygiene, and future intentional rebaseline planning |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical run yet | suite design plus light-clock micro-planning task | scoped scenario planning, then deterministic validator design |
 | [Quantum Size Effects](./quantum-size-effects.md) | Scaffold complete with calibration-derived row-level seeds; direct measurement rows still needed | campaign page, profile, plan note, source manifest seed, calibration-derived absorption seeds, and readiness-gate review | direct-measurement source triage, absorption or band-edge seed, then re-run the readiness gate before `TASK-0225` baseline work |
+| [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning scaffold only; no ingestion or metrics | source policy and ingestion prerequisites from `TASK-0309` | manifest-only source review for atomic clocks or lattice QCD, with PTA/GW/collider axes still WATCHLIST |
 
 ## How To Use This Map
 
@@ -32,6 +33,8 @@ Use it when you need to answer four questions quickly:
   thought experiments.
 - If you want to help shape a future real-data campaign before its dataset
   exists, start with quantum size effects.
+- If you want to prepare less-saturated data surfaces without ingesting data,
+  start with fresh physics data axes.
 
 ## Repository-Wide Orientation
 
