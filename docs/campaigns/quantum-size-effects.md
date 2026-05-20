@@ -51,9 +51,10 @@ Current task posture:
   the triaged first-attempt source for `TASK-0291`; Jasieniak 2011 is the
   first-attempt source for `TASK-0292`; Moreels 2009 is a secondary
   `TASK-0291` candidate);
-- `TASK-0306` — direct-measurement digitisation protocol (READY; define the
-  WebPlotDigitizer-class artifact requirements before using figure-derived
-  absorption rows);
+- `TASK-0306` — direct-measurement digitisation protocol (REVIEW_READY; see
+  `docs/quantum-direct-measurement-digitization-protocol.md` for the
+  WebPlotDigitizer-class workflow, per-point provenance fields, and the
+  list of provenance modes that are never acceptable);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 
 Safe next contributions are:
