@@ -1,7 +1,7 @@
 id: TASK-0308
 title: "Define anomaly registry schema and admissibility rules"
 type: research_infrastructure
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -39,7 +39,8 @@ requirements:
 
 accepted_outputs:
   - "docs/campaigns/anomaly-registry.md"
-  - "data/anomalies/schema.md or data/anomalies/anomaly.schema.json"
+  - "data/anomalies/schema.md"
+  - "data/anomalies/anomaly.schema.json"
   - "docs/notes/anomaly-registry-admissibility.md"
   - "updated docs/future-research-portfolio.md if the NEXT/WATCHLIST boundaries change"
 

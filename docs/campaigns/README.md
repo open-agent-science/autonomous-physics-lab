@@ -19,6 +19,7 @@ Use it when you need to answer four questions quickly:
 | [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Active benchmark plus follow-on curation | `EXP-0006/RUN-0006` plus live challenge-set work | challenge-set curation, benchmark hygiene, and future intentional rebaseline planning |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical run yet | suite design plus light-clock micro-planning task | scoped scenario planning, then deterministic validator design |
 | [Quantum Size Effects](./quantum-size-effects.md) | Scaffold complete with calibration-derived row-level seeds; direct measurement rows still needed | campaign page, profile, plan note, source manifest seed, calibration-derived absorption seeds, and readiness-gate review | direct-measurement source triage, absorption or band-edge seed, then re-run the readiness gate before `TASK-0225` baseline work |
+| [Anomaly Registry](./anomaly-registry.md) | Planning scaffold only; no anomaly rows or fits | schema and admissibility contract from `TASK-0308` | schema validation or synthetic-only likelihood dry-run, with Hubble/g-2/W-mass/broad constants still WATCHLIST |
 
 ## How To Use This Map
 
