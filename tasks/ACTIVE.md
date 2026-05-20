@@ -48,7 +48,6 @@ one PR.
 
 - `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
-- `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -56,7 +55,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
