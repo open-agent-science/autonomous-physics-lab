@@ -1,7 +1,7 @@
 id: TASK-0309
 title: "Define fresh-data source policy for non-saturated physics datasets"
 type: research_infrastructure
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
