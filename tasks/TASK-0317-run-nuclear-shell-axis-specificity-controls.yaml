@@ -1,0 +1,53 @@
+id: TASK-0317
+title: "Run nuclear shell-axis specificity controls"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test whether the TASK-0310 shell-axis improvement is specific to shell-proximity structure or just a generic low-degree correction."
+  - "Compare the strongest shell-axis candidates against simple non-shell control families before expanding the lane."
+  - "Keep any improvement bounded as sandbox evidence with explicit negative controls."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "agent_runs/AGENT-RUN-0018/metrics.json"
+    - "docs/reviews/nuclear-shell-axis-full-known-retrospective-audit.md"
+    - "docs/reviews/nuclear-agent-scouts-vs-deterministic-factory.md"
+    - "docs/reviews/nuclear-adversarial-stress-synthesis-after-0289.md"
+  planning_context: >
+    TASK-0310 showed small retrospective improvements and conservative null
+    controls. The next question is specificity: do shell-axis features add
+    information beyond generic mass-region, smooth-A, asymmetry, or
+    low-complexity residual controls?
+
+requirements:
+  - "Use the same committed training, holdout, and full-known surfaces as TASK-0310."
+  - "Compare the primary shell-axis candidates against at least four bounded non-shell controls, such as smooth A trend, simple neutron-excess/asymmetry proxy, mass-region indicator, random matched-degree feature, or baseline-only reference."
+  - "Keep control families low-complexity and predeclared; reject any control that introduces many free knobs or memorizes the 11-row training slice."
+  - "Report full-known, primary-holdout, training, magic-Z, magic-N, light, and worst-regression deltas for each control."
+  - "State whether shell-axis behavior is specific, tied, or weaker than generic controls."
+  - "Do not tune controls after seeing metrics, add new PRED entries, score future measurements, or promote claims."
+
+accepted_outputs:
+  - "scripts/run_nuclear_shell_axis_specificity_controls.py or equivalent deterministic entrypoint"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json using the next available run id"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-shell-axis-specificity-controls.md"
+  - "tests covering the specificity-control entrypoint or metrics shape"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
