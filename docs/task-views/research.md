@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0291` - Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0292` - Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`, domain `condensed_matter`)
 
 ## IN_PROGRESS
@@ -15,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0291` - Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
