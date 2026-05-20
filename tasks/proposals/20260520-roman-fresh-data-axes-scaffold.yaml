@@ -1,0 +1,97 @@
+proposal_id: 20260520-roman-fresh-data-axes-scaffold
+title: "Scaffold a non-PDG/AME data-axis policy for cross-domain physics datasets"
+status: PROPOSED
+type: research_infrastructure
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Extends NEXT-track campaign discipline (quantum-size scaffold pattern) into a general source-policy layer for non-saturated datasets."
+  - "Keeps verification-first posture: the proposal defines source policy and ingestion contract, not new claims."
+  - "Does not move any WATCHLIST topic into NOW; does not authorize specific cross-domain fits."
+  - "Preserves claim-promotion-policy and no-overclaim posture."
+
+summary: >
+  Define a source-policy and ingestion contract for non-saturated physics
+  data axes beyond PDG and AME — specifically lattice QCD ensembles (FLAG,
+  ETM, RBC/UKQCD aggregated outputs), pulsar timing arrays (NANOGrav-style
+  public releases), atomic clock comparison campaigns (Yb/Sr drift bounds
+  on alpha and mu_p/m_e), and gravitational-wave open-data catalogs
+  (GWTC-3 / LIGO-Virgo O4 public releases). The proposal defines
+  provenance requirements, dataset-license review, ingestion checksum
+  discipline, and per-axis holdout protocols. The proposal does not
+  execute any analysis; it defines the contract under which future
+  campaigns can ingest these axes reproducibly.
+
+rationale: >
+  Existing APL data inputs (PDG, AME, scoped quantum-dot rows) are
+  well-mined surfaces with limited residual structure. Modern physics
+  results that introduced new precision constants or constraints came
+  from fresh, less-mined data axes: lattice QCD averaged matrix elements,
+  pulsar-timing residuals at nanohertz, optical clock comparisons over
+  multi-year baselines, gravitational-wave inspiral catalogs. Each of
+  these has open data and a stable canonical-source layer (FLAG reviews,
+  NANOGrav releases, etc.) that can be ingested under APL's existing
+  reproducibility discipline. The first step is not to ingest them — it
+  is to define the source policy, license review, checksum protocol, and
+  per-axis holdout discipline so that any future ingestion task lands on
+  a reviewable scaffold. Without this scaffold, ad hoc dataset additions
+  would either be premature or risk relaxed provenance discipline.
+
+  This proposal is one of four sibling proposals describing
+  non-saturated research surfaces; see
+  [tasks/proposals/20260520-roman-anomaly-registry-scaffold.yaml],
+  [tasks/proposals/20260520-roman-symmetry-discovery-validator.yaml],
+  and [tasks/proposals/20260520-roman-differentiable-eft-residuals.yaml].
+  Open-agent-network adversarial verification is already in motion via
+  TASK-0299 and is not duplicated here.
+
+input:
+  mode: planning_only
+  related_domain: research_infrastructure
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/future-research-portfolio.md"
+    - "docs/campaigns/"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/numerical-accuracy-policy.md"
+  planning_context: >
+    Define per-axis source policy and ingestion contract. Do not ingest
+    any dataset. Do not run any analysis. Do not move any topic out of
+    WATCHLIST. Output is documentation plus a canonical task spec for
+    the actual scaffold build.
+
+requirements:
+  - "Enumerate the candidate data axes in scope: lattice QCD aggregated outputs (FLAG-style), pulsar timing array public releases, atomic clock alpha/mu drift campaigns, gravitational-wave open-data catalogs."
+  - "For each axis, define: canonical-source list, license and citation requirements, expected data format, checksum/provenance protocol, holdout discipline (freeze date, frozen subset)."
+  - "Define an ingestion contract: data must be ingested via a deterministic loader module with fixed inputs and reproducible outputs; no LLM-generated dataset summaries as a substitute."
+  - "Define cross-axis joining rules: how an entry from one axis (e.g., a lattice QCD matrix element) may be combined with an entry from another (e.g., a PDG measurement) for analysis, with explicit correlation handling."
+  - "Do not authorize ingestion of any dataset in this proposal — execution requires a separate maintainer-approved task per axis."
+  - "Do not move Hubble tension or any WATCHLIST topic out of WATCHLIST."
+  - "Do not introduce a public dataset portal, public dashboard, or external-feedback surface as part of this scaffold."
+  - "Produce a canonical task spec for the scaffold build."
+
+accepted_outputs:
+  - "docs note describing the non-PDG/AME data-axis policy and ingestion contract"
+  - "per-axis source policy entries"
+  - "canonical task spec (TASK-XXXX) for the scaffold build"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Review should consider whether this is best implemented as a single
+    scaffold or split per axis. The scaffold is the cheaper review unit.
+    Per-axis ingestion would still require separate canonical tasks with
+    explicit guardrails. Atomic clock drift work in particular touches
+    "broad constants derivation" (WATCHLIST) and must remain
+    measurement-policy-only, not derivation-claim, at this stage.
