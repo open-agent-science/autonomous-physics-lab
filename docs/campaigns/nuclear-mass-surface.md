@@ -216,8 +216,12 @@ Start here:
   `docs/reviews/nuclear-shell-axis-mini-wave-source-preflight.md` and the
   manifest template at
   `data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml`).
-- `TASK-0305` should stay blocked until source preflight, dry-run review, and
-  explicit maintainer approval make a real reveal comparison legitimate.
+- `TASK-0307` should prepare one concrete source-manifest candidate for the
+  shell-axis mini-wave without recording target mass values or scoring the
+  registry entries.
+- `TASK-0305` should stay blocked until source preflight, dry-run review, a
+  reviewed `TASK-0307` source manifest, and explicit maintainer approval make
+  a real reveal comparison legitimate.
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 
