@@ -14,5 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0291` - Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0307` - Prepare nuclear shell-axis reveal source manifest (`scientific_dataset`, priority `high`, difficulty `high`, domain `nuclear_physics`)
