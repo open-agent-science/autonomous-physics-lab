@@ -107,8 +107,7 @@ no numerical rows.
 
 ## What Not To Claim
 
-- Do not say these axes are more likely to reveal new physics.
+- Do not say these axes are more likely to reveal scientific novelty.
 - Do not imply less-saturated data is automatically better evidence.
 - Do not treat source-policy readiness as benchmark readiness.
 - Do not move WATCHLIST axes into active work by citing this page.
-

@@ -184,7 +184,7 @@ Do not:
 - mix incompatible units, schemes, or epochs;
 - discard covariance to simplify a loader;
 - fit values that were not frozen before candidate selection;
-- describe a source-policy task as evidence for new physics.
+- describe a source-policy task as evidence for scientific novelty.
 
 ## Future Task Checklist
 
@@ -201,4 +201,3 @@ A future ingestion task should include:
 - limitations and negative-result preservation plan.
 
 If any item is missing, the task should remain planning-only.
-
