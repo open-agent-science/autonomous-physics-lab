@@ -15,5 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0296` - Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0298` - Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`, domain `condensed_matter`)
