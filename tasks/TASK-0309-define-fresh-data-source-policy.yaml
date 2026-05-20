@@ -1,0 +1,53 @@
+id: TASK-0309
+title: "Define fresh-data source policy for non-saturated physics datasets"
+type: research_infrastructure
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Promote the accepted fresh-data-axes proposal into a guarded NEXT planning task."
+  - "Create a path toward less-saturated evidence surfaces without distracting from the current Nuclear Mass Surface NOW flagship."
+  - "Scope the first pass to atomic-clock and lattice-QCD source policy; keep PTA, gravitational-wave, and event-level collider data in WATCHLIST until separately reviewed."
+
+input:
+  mode: planning_only
+  related_domain: cross_domain_data_policy
+  related_objects:
+    - "tasks/proposals/20260520-roman-fresh-data-axes-scaffold.yaml"
+    - "docs/future-research-portfolio.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/numerical-accuracy-policy.md"
+    - "docs/research-quality-gate.md"
+  planning_context: >
+    PR #412 accepted the fresh-data-axes scaffold as a useful NEXT direction,
+    but not as a dataset-ingestion task. This task defines source policy and
+    ingestion contracts for future non-saturated physics datasets, initially
+    narrowed to atomic-clock comparison campaigns and lattice-QCD aggregated
+    outputs.
+
+requirements:
+  - "Define source policy for atomic-clock comparison campaigns and lattice-QCD aggregated outputs, including canonical source classes, license/citation expectations, and provenance/checksum requirements."
+  - "Define what must be true before any future ingestion task can add rows or arrays: fixed source list, frozen retrieval date, checksum policy, unit semantics, uncertainty fields, and holdout split discipline."
+  - "Define per-axis risk notes for atomic clocks and lattice QCD, including correlation handling, derived quantity boundaries, and when broad constants framing is not allowed."
+  - "Explicitly keep PTA, gravitational-wave open-data catalogs, and event-level collider data as WATCHLIST source axes until separate feasibility reviews exist."
+  - "Do not ingest any dataset, run any analysis, add benchmark metrics, or promote claims in this task."
+  - "Do not move broad constants derivation or broad anomaly fitting out of WATCHLIST."
+  - "Keep the output useful for future agents: clear checklist, accepted source classes, stop conditions, and examples of unacceptable source shortcuts."
+
+accepted_outputs:
+  - "docs/notes/fresh-data-source-policy.md"
+  - "docs/campaigns/fresh-physics-data-axes.md"
+  - "updated docs/future-research-portfolio.md if the NEXT/WATCHLIST boundaries change"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py tests/test_task_proposals.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
