@@ -17,4 +17,5 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0297` - Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0298` - Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`, domain `condensed_matter`)
