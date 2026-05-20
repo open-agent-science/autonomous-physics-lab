@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0310` - Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0311` - Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
 
 ## IN_PROGRESS
@@ -15,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0310` - Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)

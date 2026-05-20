@@ -134,6 +134,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
 - `TASK-0307` reviewed the first concrete source-manifest attempt and found no
   acceptable pinned post-registration source; this is a useful negative
   readiness result and keeps `TASK-0305` blocked.
+- `TASK-0310` adds a sandbox-only full-known retrospective audit for the
+  shell-axis family: the three primary shell-axis candidates keep small
+  full-known and primary-holdout MAE improvements, while the sign-inverted,
+  shuffled-feature, and near-null controls remain conservative.
 
 Historical context:
 
@@ -147,7 +151,9 @@ the scientific direction is now explicit, baseline-backed, holdout-defined,
 factory-supported, and prospectively frozen through selected registry entries,
 but it has not yet reached a future-measurement reveal; until a source
 manifest is accepted, the safest Nuclear follow-up is retrospective
-full-known-data stress review rather than reveal scoring.
+full-known-data stress review rather than reveal scoring. The first such audit
+is now recorded as sandbox evidence in `AGENT-RUN-0018`; reveal scoring remains
+blocked.
 
 Start here:
 
@@ -198,6 +204,8 @@ Start here:
   a real reveal comparison is allowed?
 - Which future measurement source can satisfy the source-readiness checklist
   without weakening the no-peek boundary?
+- Which shell-axis subset regressions should block, limit, or merely annotate
+  any future source-gated follow-up after the full-known retrospective audit?
 
 ## Recommended Tasks
 
@@ -214,6 +222,10 @@ Start here:
   packaging.
 - Do not score the shell-axis mini-wave until a future source-manifest/no-peek
   reveal task is explicitly approved.
+- Use the full-known retrospective audit
+  (`docs/reviews/nuclear-shell-axis-full-known-retrospective-audit.md`) as a
+  sandbox stress reference before any future shell-axis registry expansion or
+  reveal task.
 - `TASK-0304` exercised shell-axis mini-wave reveal scoring on
   fabricated values only (see
   `docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md`,

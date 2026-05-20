@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
 
@@ -56,7 +55,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
