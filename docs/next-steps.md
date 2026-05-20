@@ -219,8 +219,10 @@ campaign and data foundations rather than formula search:
   table-value or digitisation path; do not use LLM-estimated figure
   coordinates or published sizing-polynomial values;
 - `TASK-0292` remains the next direct-measurement band-edge curation task;
-- `TASK-0306` should define the digitisation protocol and artifact requirements
-  needed before figure-derived absorption rows can unblock `TASK-0291`;
+- `TASK-0306` has defined the digitisation protocol and artifact requirements
+  needed before figure-derived absorption rows can unblock `TASK-0291`; the
+  remaining gate is a committed artifact, primary table values,
+  maintainer-provided rows, or an explicit waiver;
 - `TASK-0293` should re-run the readiness gate after a direct-measurement seed
   lands, or after an explicit maintainer waiver;
 - `TASK-0298` triaged direct-measurement source candidates, but later
