@@ -1,0 +1,52 @@
+id: TASK-0313
+title: "Optimize GitHub Actions CI fast path for task and docs PRs"
+type: test_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce CI time and GitHub Actions budget pressure while preserving release safety."
+  - "Keep full cross-version coverage on main, but avoid redundant full-matrix runs for docs/task-only PRs."
+  - "Support higher private-agent throughput by making small planning, closeout, and docs PRs cheaper to review."
+
+input:
+  mode: workflow
+  related_domain: ci_infrastructure
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "pyproject.toml"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    The repository now receives many agent-generated docs, task, closeout, and
+    planning PRs. The previous CI ran the full test suite on Python 3.11 and
+    3.12 for every PR, even when the change touched only task YAML or docs.
+    This task adds a conservative PR fast path while keeping full matrix
+    coverage on main.
+
+requirements:
+  - "Add GitHub Actions concurrency so superseded pushes to the same PR cancel older CI runs."
+  - "Enable pip dependency caching through actions/setup-python."
+  - "For pull requests, run the primary full/fast check on Python 3.12 only."
+  - "For docs/task-only pull requests, run ruff, targeted task/docs/mission tests, and strict validate-repo instead of the full pytest suite."
+  - "For non-docs/task pull requests, run full pytest, example workflows, dirty-check, and repository validation on Python 3.12."
+  - "For pushes to main/master, keep the full Python 3.11 and 3.12 matrix."
+  - "Do not reduce strict repository validation coverage."
+  - "Do not add third-party path-filter actions; keep the classifier transparent in shell."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml"
+  - "tasks/TASK-0313-optimize-github-actions-ci-fast-path.yaml"
+  - "validation notes in the PR body"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py tests/test_docs_links.py tests/test_mission_control.py tests/test_validate_repo_auto_sync.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
