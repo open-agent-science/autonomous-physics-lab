@@ -56,6 +56,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0297` — Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`)
 - `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0306` — Define quantum direct-measurement digitization protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
@@ -339,7 +340,6 @@ None.
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 
