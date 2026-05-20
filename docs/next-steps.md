@@ -195,6 +195,9 @@ The nuclear queue should stay conservative:
   `PRED-0068` until a separate source-manifest/no-peek reveal task is approved.
 - do not register more scout-derived `PRED-*` entries until the shell-axis
   mini-wave coverage and future reveal-readiness implications are reviewed.
+- current next Nuclear tasks are `TASK-0303` for shell-axis source preflight
+  and `TASK-0304` for fabricated-value reveal dry-run mechanics; keep
+  `TASK-0305` blocked until maintainer approval of a specific reveal source.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into
@@ -211,12 +214,17 @@ campaign and data foundations rather than formula search:
   absorption seeds;
 - `TASK-0283` reviewed the row-level data surface and kept the first baseline
   blocked because current rows are not direct measurements;
-- `TASK-0291` and `TASK-0292` are the next parallel data-curation tasks for
-  direct-measurement absorption and band-edge rows;
+- `TASK-0291` is blocked until direct absorption rows have a reviewed
+  table-value or digitisation path; do not use LLM-estimated figure
+  coordinates or published sizing-polynomial values;
+- `TASK-0292` remains the next direct-measurement band-edge curation task;
+- `TASK-0306` should define the digitisation protocol and artifact requirements
+  needed before figure-derived absorption rows can unblock `TASK-0291`;
 - `TASK-0293` should re-run the readiness gate after a direct-measurement seed
   lands, or after an explicit maintainer waiver;
-- `TASK-0298` should triage direct-measurement source candidates so the row
-  curation tasks start from a tractable source shortlist;
+- `TASK-0298` triaged direct-measurement source candidates, but later
+  absorption work should treat Yu 2003 as requiring digitisation or primary
+  tables rather than immediate table-row curation;
 - `TASK-0225` is intentionally blocked until reviewed row-level
   `data/quantum_dots/qd-*.yaml` measurement rows exist, or a maintainer waiver
   scopes the first benchmark as calibration-curve consistency;

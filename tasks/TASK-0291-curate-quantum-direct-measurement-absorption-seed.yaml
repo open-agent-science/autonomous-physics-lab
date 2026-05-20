@@ -70,7 +70,14 @@ input:
           waiver must be referenced in the seed file's `notes` and in the
           campaign page.
 
+    TASK-0306 is now the preferred protocol task for defining the
+    WebPlotDigitizer-class artifact shape before any future figure-derived
+    absorption rows are curated.
+
 requirements:
+  - "Start only after TASK-0306 or an equivalent maintainer-approved digitisation/table-value path defines how direct absorption rows will be extracted without eyeballing or LLM-estimated coordinates."
+  - "If using Yu 2003 Figure 2, require a WebPlotDigitizer-class artifact or equivalent deterministic digitisation note with axis calibration, extracted point coordinates, per-point uncertainty, and provenance notes."
+  - "If using Vossmeyer 1994, Soloviev 2000, Murray 1993, Peng 1998, Moreels 2009, or another primary source, require table values or digitised figure points with source_table_ref/source_figure_ref and no polynomial-generated values."
   - "Add one reviewed row-level absorption_peak_eV dataset seed with at least 6 included rows."
   - "Rows must be direct table values, digitised figure points, or independently reviewed TEM + spectroscopy observations, not values generated from a published sizing polynomial or calibration curve."
   - "Register any new source in source_manifest.yaml before referencing its source_id."
