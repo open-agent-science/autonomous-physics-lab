@@ -195,9 +195,10 @@ The nuclear queue should stay conservative:
   `PRED-0068` until a separate source-manifest/no-peek reveal task is approved.
 - do not register more scout-derived `PRED-*` entries until the shell-axis
   mini-wave coverage and future reveal-readiness implications are reviewed.
-- current next Nuclear tasks are `TASK-0303` for shell-axis source preflight
-  and `TASK-0304` for fabricated-value reveal dry-run mechanics; keep
-  `TASK-0305` blocked until maintainer approval of a specific reveal source.
+- current next Nuclear task is `TASK-0307`: prepare one concrete shell-axis
+  reveal source-manifest candidate without recording target mass values; keep
+  `TASK-0305` blocked until the manifest is reviewed and the maintainer
+  explicitly approves that source for reveal scoring.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into

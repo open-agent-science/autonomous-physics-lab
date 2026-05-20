@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 15:43 UTC
+Generated: 2026-05-20 17:33 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -992,7 +992,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: protect the frozen shell-axis mini-wave and prepare source/no-peek reveal readiness before any scoring."
+    recommendation: "Main direction now: protect the frozen shell-axis mini-wave and prepare a concrete source manifest before any scoring."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1002,7 +1002,7 @@ missions:
       - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
       - "AGENT-RUN-0008 now records active retrospective post-AME2020 time-split evidence with INCONCLUSIVE verdict"
       - "PRED-0063 through PRED-0068 now freeze the shell-axis-balanced-001 prospective mini-wave"
-      - "the next scientific step is source preflight and synthetic reveal mechanics, not more registry expansion"
+      - "source preflight and synthetic reveal mechanics are done; the next scientific step is a source-manifest candidate before real scoring"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1039,7 +1039,7 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Choose the next live task candidate for nuclear validation, adversarial review, evidence packaging, or guarded follow-up"
+        label: "Prefer TASK-0307 for nuclear reveal source-manifest preparation before any scoring"
         mode: research
         priority: high
         difficulty: medium
@@ -2148,8 +2148,8 @@ one PR.
 
 ## READY
 
-- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
+- `TASK-0307` — Prepare nuclear shell-axis reveal source manifest (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -2157,7 +2157,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
