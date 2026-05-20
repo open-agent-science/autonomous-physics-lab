@@ -1,7 +1,7 @@
 id: TASK-0296
 title: "Design nuclear shell-axis registry target batch"
 type: benchmark_protocol
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

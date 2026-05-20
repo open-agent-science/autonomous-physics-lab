@@ -56,7 +56,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0296` — Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -64,6 +64,7 @@ None.
 - `TASK-0301` — Add Nuclear Mass Blind Prediction Challenge page (merged)
 - `TASK-0300` — Add Open Agent Network status board (merged)
 - `TASK-0299` — Reframe APL as an Open Agent Network for Science (merged)
+- `TASK-0296` — Design nuclear shell-axis registry target batch (merged)
 - `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (merged)
 - `TASK-0294` — Synthesize nuclear adversarial stress results (merged)
 - `TASK-0290` — Package nuclear scout evidence card (merged)
