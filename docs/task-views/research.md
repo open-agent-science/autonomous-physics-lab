@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0291` - Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
+None.
