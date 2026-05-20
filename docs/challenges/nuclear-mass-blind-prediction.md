@@ -27,7 +27,7 @@ The only acceptable answer is evidence-based:
 | --- | --- | --- |
 | Baseline | `EXP-0012` / `RESULT-0015` | Frozen semi-empirical residual surface. |
 | Row-level holdout | `data/nuclear_masses/post_ame2020_holdout.yaml` | Retrospective stress surface, not a future reveal. |
-| Prediction registry | `prediction_registry/nuclear_masses/PRED-0001.yaml` through `PRED-0062.yaml` | Frozen prospective forecast records. |
+| Prediction registry | `prediction_registry/nuclear_masses/PRED-0001.yaml` through `PRED-0068.yaml` | Frozen prospective forecast records. |
 | Registry status | `docs/reviews/nuclear-prediction-registry-status-after-pred-0062.md` | Summarizes coverage, target reuse, and limitations. |
 | Scout evidence | `docs/results/nuclear-scout-evidence-card.md` | Compact orientation for sandbox, negative, and prospective evidence. |
 | Reveal protocol | `docs/nuclear-prediction-reveal-protocol.md` | Defines future reveal discipline. |
