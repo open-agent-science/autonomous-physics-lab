@@ -51,7 +51,7 @@ Current task posture:
   the triaged first-attempt source for `TASK-0291`; Jasieniak 2011 is the
   first-attempt source for `TASK-0292`; Moreels 2009 is a secondary
   `TASK-0291` candidate);
-- `TASK-0306` — direct-measurement digitisation protocol (REVIEW_READY; see
+- `TASK-0306` — direct-measurement digitisation protocol (DONE; see
   `docs/quantum-direct-measurement-digitization-protocol.md` for the
   WebPlotDigitizer-class workflow, per-point provenance fields, and the
   list of provenance modes that are never acceptable);
@@ -148,11 +148,13 @@ Historical context:
   absorption seeds;
 - `TASK-0283` keeps `TASK-0225` blocked because the committed rows are not
   direct measurement rows;
-- `TASK-0291` is blocked until a deterministic digitisation/table-value path
-  exists for absorption rows;
+- `TASK-0291` has a deterministic digitisation/table-value protocol, but
+  remains blocked until a compliant artifact, primary-source table values,
+  maintainer-provided rows, or waiver exists for absorption rows;
 - `TASK-0292` remains the next direct-measurement band-edge curation lane;
-- `TASK-0306` should define the digitisation protocol and artifact shape that
-  can unblock future figure-derived absorption rows;
+- `TASK-0306` defined the digitisation protocol and artifact shape that can
+  unblock future figure-derived absorption rows once a compliant artifact or
+  equivalent table evidence is committed;
 - `TASK-0293` should re-run the readiness gate after either direct seed lands;
 - `TASK-0298` triaged the direct-measurement source candidates (see
   `docs/reviews/quantum-direct-measurement-source-triage.md`) so row-level
