@@ -2,13 +2,14 @@
 
 ## Current Stage
 
-`v0.1-private-alpha — scientific campaign and contributor workflow validation`
+`v0.2-public-alpha candidate — final release go/no-go review pending`
 
 ## Current Goal
 
 Validate APL as verification-first scientific infrastructure through active
-campaigns, reproducible benchmark and falsification results, v0.2 packaging
-work, and a private contributor workflow before any public-opening decision.
+campaigns, reproducible benchmark and falsification results, Open Agent
+Network workflow evidence, and final v0.2 release review before any public
+opening decision.
 
 ## Current Major Results
 
@@ -144,9 +145,9 @@ Current gate categories:
 - at least one clear falsification surface preserved as first-class evidence;
 - a public narrative that stays verification-first and avoids overclaim.
 
-Current evidence is stronger than before, and the repository now has clearer
-v0.2 packaging inputs. It is still in gate validation rather than
-public-release mode.
+Current evidence is stronger than before, and the repository is now a
+`v0.2-public-alpha` candidate. It remains in final gate validation rather than
+public-release mode until a current go/no-go review is accepted.
 
 Latest review verdict:
 

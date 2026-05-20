@@ -195,14 +195,26 @@ The nuclear queue should stay conservative:
   `PRED-0068` until a separate source-manifest/no-peek reveal task is approved.
 - do not register more scout-derived `PRED-*` entries until the shell-axis
   mini-wave coverage and future reveal-readiness implications are reviewed.
-- current next Nuclear task is `TASK-0307`: prepare one concrete shell-axis
-  reveal source-manifest candidate without recording target mass values; keep
-  `TASK-0305` blocked until the manifest is reviewed and the maintainer
-  explicitly approves that source for reveal scoring.
+- `TASK-0307` completed as a negative-but-useful source-manifest review: no
+  acceptable post-registration source was pinned, so `TASK-0305` remains
+  blocked behind a future reviewed source manifest and explicit maintainer
+  approval.
+- current next Nuclear work should be retrospective and conservative:
+  `TASK-0310` audits the shell-axis signal on the full known committed
+  measured-data surface without revealing or scoring prospective registry
+  entries.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into
 active work.
+
+The next parallel research wave should avoid duplicating the just-completed
+`TASK-0292`, `TASK-0308`, and `TASK-0309` work. Those tasks move through
+review/closeout, not new executor assignment. Open fresh lanes instead:
+
+- `TASK-0310` for the Nuclear shell-axis full-known-data retrospective audit;
+- `TASK-0311` for an atomic-clock residuals source-surface scaffold;
+- `TASK-0312` for a final v0.2 public-alpha go/no-go review.
 
 The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:
