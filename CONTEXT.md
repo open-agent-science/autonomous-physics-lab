@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 08:10 UTC
+Generated: 2026-05-20 08:23 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2153,7 +2153,6 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0296` — Design nuclear shell-axis registry target batch (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
@@ -2162,6 +2161,7 @@ None.
 - `TASK-0301` — Add Nuclear Mass Blind Prediction Challenge page (merged)
 - `TASK-0300` — Add Open Agent Network status board (merged)
 - `TASK-0299` — Reframe APL as an Open Agent Network for Science (merged)
+- `TASK-0296` — Design nuclear shell-axis registry target batch (merged)
 - `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (merged)
 - `TASK-0294` — Synthesize nuclear adversarial stress results (merged)
 - `TASK-0290` — Package nuclear scout evidence card (merged)
