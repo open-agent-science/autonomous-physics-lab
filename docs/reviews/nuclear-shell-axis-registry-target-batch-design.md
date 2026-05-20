@@ -15,6 +15,7 @@ measurements, score a reveal, update claims, or promote sandbox evidence.
 - `docs/reviews/nuclear-prediction-registry-coverage-audit.md`
 - `docs/nuclear-reveal-source-readiness-checklist.md`
 - `data/nuclear_masses/factory_target_batches.yaml`
+- `data/nuclear_masses/shell_axis_target_batch_proposal.yaml`
 - `prediction_registry/nuclear_masses/PRED-0051.yaml`
 
 ## Design Guardrails
@@ -41,6 +42,8 @@ unmeasured, newly measured, or reveal-eligible.
 ## Proposed Target Batch
 
 Recommended batch id for future registration: `shell-axis-balanced-001`.
+The machine-readable proposal is recorded in
+`data/nuclear_masses/shell_axis_target_batch_proposal.yaml`.
 
 Quantity and units for any future registry entries:
 
