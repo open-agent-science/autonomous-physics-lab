@@ -1,7 +1,7 @@
 id: TASK-0291
 title: "Curate quantum direct-measurement absorption seed"
 type: scientific_dataset
-status: READY
+status: BLOCKED
 difficulty: high
 priority: high
 
@@ -23,9 +23,19 @@ input:
   planning_context: >
     TASK-0283 kept TASK-0225 blocked because qd-0001 and qd-0002 are
     calibration-derived. This task adds a small absorption_peak_eV seed with
-    direct measurement provenance so the readiness gate can be rerun.
+    direct measurement provenance so the readiness gate can be rerun. After
+    TASK-0298, a maintainer-provided agent investigation found that Yu 2003
+    does not expose a simple table of direct diameter/absorption rows in the
+    accessible article surface; the usable direct evidence appears to be
+    scatter points in Figure 2 plus underlying cited primary measurements.
+    This task is therefore blocked until a reviewed digitisation artifact,
+    primary-source table values, or maintainer-provided rows make the numeric
+    extraction deterministic and provenance-safe.
 
 requirements:
+  - "Start only after TASK-0306 or an equivalent maintainer-approved digitisation/table-value path defines how direct absorption rows will be extracted without eyeballing or LLM-estimated coordinates."
+  - "If using Yu 2003 Figure 2, require a WebPlotDigitizer-class artifact or equivalent deterministic digitisation note with axis calibration, extracted point coordinates, per-point uncertainty, and provenance notes."
+  - "If using Vossmeyer 1994, Soloviev 2000, Murray 1993, Peng 1998, Moreels 2009, or another primary source, require table values or digitised figure points with source_table_ref/source_figure_ref and no polynomial-generated values."
   - "Add one reviewed row-level absorption_peak_eV dataset seed with at least 6 included rows."
   - "Rows must be direct table values, digitised figure points, or independently reviewed TEM + spectroscopy observations, not values generated from a published sizing polynomial or calibration curve."
   - "Register any new source in source_manifest.yaml before referencing its source_id."

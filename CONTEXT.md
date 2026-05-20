@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 08:36 UTC
+Generated: 2026-05-20 10:40 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -992,7 +992,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: validate the existing sandbox candidate before expanding the campaign."
+    recommendation: "Main direction now: protect the frozen shell-axis mini-wave and prepare source/no-peek reveal readiness before any scoring."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1001,6 +1001,8 @@ missions:
       - "a review-ready robustness gate defines allowed follow-up, negative controls, and promotion blockers"
       - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
       - "AGENT-RUN-0008 now records active retrospective post-AME2020 time-split evidence with INCONCLUSIVE verdict"
+      - "PRED-0063 through PRED-0068 now freeze the shell-axis-balanced-001 prospective mini-wave"
+      - "the next scientific step is source preflight and synthetic reveal mechanics, not more registry expansion"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1009,6 +1011,8 @@ missions:
       - "do not promote internal split wins unless the robustness gate and external-style validation both allow it"
       - "do not run active post-AME2020 metrics without a committed row-level holdout dataset"
       - "do not promote any second-batch sandbox candidate after TASK-0204 without a maintainer-approved follow-up task"
+      - "do not score PRED-0063 through PRED-0068 before source preflight, no-peek review, and explicit maintainer approval"
+      - "do not add more shell-axis PRED entries before the mini-wave reveal-readiness implications are reviewed"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -1069,13 +1073,13 @@ missions:
           - use-narrow-task-0200-0201-0202-lanes-before-unblocking-umbrella
           - adversarial-review-task-0204
       - id: nuclear-prediction-variant-expansion
-        label: "Register bounded PRED-0021+ nuclear prediction variants for parallel pre-reveal testing"
+        label: "Completed historical PRED-0021+ variant expansion; do not expand registry again before reveal-readiness review"
         task_id: null
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         gated_by:
           - prediction-registry-policy-task-0189
           - first-prediction-slate-task-0205
