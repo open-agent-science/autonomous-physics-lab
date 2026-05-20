@@ -1,7 +1,7 @@
 id: TASK-0308
 title: "Define anomaly registry schema and admissibility rules"
 type: research_infrastructure
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 

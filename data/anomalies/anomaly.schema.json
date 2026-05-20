@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "APL Anomaly Registry Entry",
+  "description": "Schema for planning-stage anomaly registry entries. This schema defines admissibility and freeze metadata only; it does not authorize adding anomaly rows or running joint fits.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "anomaly_id",
+    "observable_id",
+    "title",
+    "domain",
+    "registry_status",
+    "admissibility_status",
+    "central_value",
+    "uncertainty",
+    "source_references",
+    "correlation_references",
+    "tension_estimate",
+    "holdout_freeze",
+    "evaluation_boundary",
+    "limitations"
+  ],
+  "properties": {
+    "anomaly_id": {
+      "type": "string",
+      "pattern": "^ANOM-[0-9]{4}$"
+    },
+    "observable_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable observable key, e.g. h0_local_distance_ladder or muon_g_minus_2_delta. Do not use this schema to add rows until a separate task allows it."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "cosmology",
+        "particle_physics",
+        "nuclear_physics",
+        "atomic_physics",
+        "astrophysics",
+        "cross_observable"
+      ]
+    },
+    "registry_status": {
+      "type": "string",
+      "enum": [
+        "PROPOSED",
+        "FROZEN",
+        "LIVE",
+        "RESOLVED",
+        "DOWNGRADED",
+        "DISPUTED",
+        "REJECTED"
+      ]
+    },
+    "admissibility_status": {
+      "type": "string",
+      "enum": [
+        "ADMISSIBLE",
+        "ADMISSIBLE_WITH_LIMITATIONS",
+        "BLOCKED_SOURCE_POLICY",
+        "BLOCKED_CORRELATION_POLICY",
+        "BLOCKED_HOLDOUT_POLICY",
+        "WATCHLIST_ONLY"
+      ]
+    },
+    "central_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "observable_definition"],
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "type": "string", "minLength": 1 },
+        "observable_definition": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Defines exactly what was measured or evaluated. Avoid broad labels such as 'the Hubble tension' without a source-specific observable definition."
+        },
+        "scheme_or_scale": {
+          "type": "string",
+          "description": "Renormalization scheme, energy scale, fiducial cosmology, or equivalent context when relevant."
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "components", "combination_rule"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["symmetric_1sigma", "asymmetric_1sigma", "covariance_matrix", "interval", "other"]
+        },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string", "minLength": 1 },
+              "value": { "type": "number" },
+              "minus": { "type": "number" },
+              "plus": { "type": "number" },
+              "unit": { "type": "string" },
+              "semantics": { "type": "string" }
+            }
+          }
+        },
+        "combination_rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_references": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "source_class", "citation", "locator", "release_or_publication_date"],
+        "properties": {
+          "source_id": { "type": "string", "minLength": 1 },
+          "source_class": {
+            "type": "string",
+            "enum": [
+              "primary_collaboration_release",
+              "peer_reviewed_measurement",
+              "canonical_evaluation",
+              "archived_primary_dataset"
+            ]
+          },
+          "citation": { "type": "string", "minLength": 1 },
+          "locator": {
+            "type": "string",
+            "minLength": 1,
+            "description": "DOI, collaboration release URL, archive locator, or committed manifest path."
+          },
+          "release_or_publication_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "license_or_reuse_notes": { "type": "string" },
+          "checksum_or_archive_policy": { "type": "string" }
+        }
+      }
+    },
+    "correlation_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["correlation_id", "status", "description"],
+        "properties": {
+          "correlation_id": { "type": "string", "minLength": 1 },
+          "status": {
+            "type": "string",
+            "enum": ["KNOWN", "ASSUMED_INDEPENDENT", "UNKNOWN_BLOCKING", "UNKNOWN_LIMITATION"]
+          },
+          "description": { "type": "string", "minLength": 1 },
+          "matrix_reference": { "type": "string" },
+          "affected_observable_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "tension_estimate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sigma", "baseline_model_reference", "method"],
+      "properties": {
+        "sigma": { "type": "number" },
+        "baseline_model_reference": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "notes": { "type": "string" }
+      }
+    },
+    "holdout_freeze": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frozen_at_utc",
+        "frozen_value_reference",
+        "excluded_later_measurements",
+        "candidate_fit_allowed"
+      ],
+      "properties": {
+        "frozen_at_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "frozen_value_reference": { "type": "string", "minLength": 1 },
+        "excluded_later_measurements": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "candidate_fit_allowed": {
+          "type": "boolean",
+          "description": "False until a separate task authorizes a fit using this frozen entry."
+        },
+        "holdout_notes": { "type": "string" }
+      }
+    },
+    "evaluation_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "free_parameter_declaration_required",
+        "null_model_required",
+        "known_correlation_treatment_required",
+        "negative_result_reporting_required",
+        "claim_promotion_allowed"
+      ],
+      "properties": {
+        "free_parameter_declaration_required": { "type": "boolean", "const": true },
+        "null_model_required": { "type": "boolean", "const": true },
+        "known_correlation_treatment_required": { "type": "boolean", "const": true },
+        "negative_result_reporting_required": { "type": "boolean", "const": true },
+        "claim_promotion_allowed": { "type": "boolean", "const": false },
+        "notes": { "type": "string" }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
