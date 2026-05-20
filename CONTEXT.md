@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 20:31 UTC
+Generated: 2026-05-20 20:49 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -992,7 +992,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: protect the frozen shell-axis mini-wave and prepare a concrete source manifest before any scoring."
+    recommendation: "Main direction now: keep the shell-axis mini-wave frozen, leave reveal scoring blocked, and run a broad retrospective audit on allowed known data."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1002,7 +1002,8 @@ missions:
       - "AGENT-RUN-0007 now records a conservative source-manifest-only guard with INCONCLUSIVE verdict"
       - "AGENT-RUN-0008 now records active retrospective post-AME2020 time-split evidence with INCONCLUSIVE verdict"
       - "PRED-0063 through PRED-0068 now freeze the shell-axis-balanced-001 prospective mini-wave"
-      - "source preflight and synthetic reveal mechanics are done; the next scientific step is a source-manifest candidate before real scoring"
+      - "source preflight and synthetic reveal mechanics are done, but TASK-0307 found no acceptable post-registration source manifest"
+      - "the next safe scientific step is a full-known-data retrospective audit that does not count as prospective reveal scoring"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1039,7 +1040,8 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Prefer TASK-0307 for nuclear reveal source-manifest preparation before any scoring"
+        label: "Prefer TASK-0310 for a non-reveal full-known-data shell-axis retrospective audit"
+        task_id: TASK-0310
         mode: research
         priority: high
         difficulty: medium
@@ -1047,6 +1049,7 @@ missions:
         expected_outputs:
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
+          - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
         validation:
           - "python3 -m ruff check ."
           - "python3 -m pytest"
@@ -2158,7 +2161,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0313` — Sync mission recommendation after nuclear source blocker (`documentation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 

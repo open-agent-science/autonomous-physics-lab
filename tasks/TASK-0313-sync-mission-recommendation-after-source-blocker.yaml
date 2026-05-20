@@ -1,0 +1,55 @@
+id: TASK-0313
+title: "Sync mission recommendation after nuclear source blocker"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep mission-control guidance aligned with the current Nuclear Mass Surface queue."
+  - "Prevent executor agents from following stale TASK-0307 source-manifest wording after closeout."
+  - "Point research-mode onboarding at TASK-0310 while keeping TASK-0305 blocked."
+
+input:
+  mode: workflow
+  related_domain: mission_control
+  related_objects:
+    - "missions/current.yaml"
+    - "tasks/TASK-0307-prepare-nuclear-shell-axis-reveal-source-manifest.yaml"
+    - "tasks/TASK-0310-run-nuclear-full-known-data-retrospective-audit.yaml"
+    - "tasks/TASK-0305-score-nuclear-shell-axis-mini-wave-reveal.yaml"
+    - "tests/test_mission_control.py"
+  planning_context: >
+    TASK-0307 is DONE and records that no acceptable post-registration source
+    manifest was prepared for the shell-axis mini-wave. The generated research
+    task view correctly offers TASK-0310 next, but mission-control metadata
+    still described TASK-0307 as the preferred Nuclear action. This task
+    synchronizes the mission recommendation with the current task board.
+
+requirements:
+  - "Update missions/current.yaml so the recommended Nuclear validation queue points to TASK-0310, not TASK-0307."
+  - "Keep TASK-0305 reveal scoring blocked behind a future accepted source manifest and explicit maintainer approval."
+  - "Update the mission-control smoke test so stale task_id-less recommendations are caught."
+  - "Regenerate CONTEXT.md after mission metadata changes."
+  - "Do not run the TASK-0310 retrospective audit in this task."
+  - "Do not change prediction registry entries, claims, results, or task states unrelated to this mission-sync fix."
+
+accepted_outputs:
+  - "missions/current.yaml"
+  - "tests/test_mission_control.py"
+  - "CONTEXT.md"
+  - "generated task board/view updates if required by the added task file"
+
+validation:
+  commands:
+    - "python3 scripts/apl_mission.py --json"
+    - "python3 -m ruff check tests/test_mission_control.py"
+    - "python3 -m pytest tests/test_mission_control.py tests/test_active_board.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
