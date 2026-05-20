@@ -56,7 +56,8 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0313` — Sync mission recommendation after nuclear source blocker (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (`test_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0314` — Sync mission recommendation after nuclear source blocker (`documentation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
