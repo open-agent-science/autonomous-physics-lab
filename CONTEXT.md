@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 12:01 UTC
+Generated: 2026-05-20 12:47 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2159,7 +2159,9 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0297` — Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`)
+- `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -2167,8 +2169,6 @@ None.
 - `TASK-0301` — Add Nuclear Mass Blind Prediction Challenge page (merged)
 - `TASK-0300` — Add Open Agent Network status board (merged)
 - `TASK-0299` — Reframe APL as an Open Agent Network for Science (merged)
-- `TASK-0298` — Triage quantum direct-measurement source candidates (merged)
-- `TASK-0297` — Register nuclear shell-axis prospective mini-wave (merged)
 - `TASK-0296` — Design nuclear shell-axis registry target batch (merged)
 - `TASK-0295` — Compare nuclear agent scouts against deterministic factory baseline (merged)
 - `TASK-0294` — Synthesize nuclear adversarial stress results (merged)
@@ -2442,7 +2442,6 @@ None.
 - `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0291` — Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 
