@@ -14,5 +14,6 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0291` - Curate quantum direct-measurement absorption seed (`scientific_dataset`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0297` - Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0298` - Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`, domain `condensed_matter`)

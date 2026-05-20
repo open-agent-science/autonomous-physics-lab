@@ -35,10 +35,10 @@ Current task posture:
   direct-measurement row-level seed or a maintainer waiver to score a
   calibration-curve consistency benchmark instead of a measurement-versus-
   model benchmark);
-- `TASK-0291` — direct-measurement absorption seed (BLOCKED; first-attempt
-  investigation against Yu 2003 found no tabulated values and figure-only
-  scatter points; see
-  `docs/reviews/quantum-direct-absorption-seed-investigation.md`. Unblock
+- `TASK-0291` — direct-measurement absorption seed (REVIEW_READY pending
+  maintainer-led `BLOCKED` closeout; first-attempt investigation against
+  Yu 2003 found no tabulated values and figure-only scatter points; see
+  `docs/reviews/quantum-size-direct-absorption-seed-review.md`. Unblock
   paths: WebPlotDigitizer-class figure digitisation, access to primary
   source tables in Vossmeyer 1994 / Soloviev 2000 / Murray 1993 / Peng 1998,
   maintainer-provided table values, or an explicit maintainer waiver to

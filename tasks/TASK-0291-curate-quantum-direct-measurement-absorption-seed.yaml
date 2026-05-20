@@ -1,7 +1,7 @@
 id: TASK-0291
 title: "Curate quantum direct-measurement absorption seed"
 type: scientific_dataset
-status: BLOCKED
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -16,7 +16,7 @@ input:
   related_objects:
     - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
     - "docs/reviews/quantum-direct-measurement-source-triage.md"
-    - "docs/reviews/quantum-direct-absorption-seed-investigation.md"
+    - "docs/reviews/quantum-size-direct-absorption-seed-review.md"
     - "data/quantum_dots/source_manifest.yaml"
     - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
     - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
@@ -27,9 +27,11 @@ input:
     calibration-derived. This task should add a small absorption_peak_eV seed
     with direct-measurement provenance so the readiness gate can be re-run.
     A first-attempt investigation against Yu 2003 (the source triaged as the
-    top candidate in TASK-0298) reached the following finding and the task is
-    moved to BLOCKED until one of the listed unblock paths is satisfied. See
-    `docs/reviews/quantum-direct-absorption-seed-investigation.md` for the
+    top candidate in TASK-0298) reached the following finding. This PR sets
+    the task status to REVIEW_READY so the maintainer can review the
+    investigation; the intended post-merge closeout status is `BLOCKED`
+    (not `DONE`) until one of the listed unblock paths is satisfied. See
+    `docs/reviews/quantum-size-direct-absorption-seed-review.md` for the
     full record.
 
     Investigation finding: Yu 2003 (Chem. Mater. 15, 2854) does not contain
