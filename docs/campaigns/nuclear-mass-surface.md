@@ -206,6 +206,10 @@ Start here:
   without weakening the no-peek boundary?
 - Which shell-axis subset regressions should block, limit, or merely annotate
   any future source-gated follow-up after the full-known retrospective audit?
+- Do the TASK-0310 shell-axis coefficients remain stable under leave-one-out
+  or jackknife stress, or is the signal dominated by one or two training rows?
+- Is the shell-axis improvement specific to shell-proximity structure, or can
+  simple non-shell residual controls match it?
 
 ## Recommended Tasks
 
@@ -248,6 +252,9 @@ Start here:
 - `TASK-0310` should audit the shell-axis signal against the full known
   committed measured-data surface as retrospective sandbox evidence, with
   baseline comparison, subset behavior, and explicit null controls.
+- `TASK-0315`, `TASK-0316`, and `TASK-0317` are the post-0310 follow-up wave:
+  map the validity domain, test coefficient stability, and run specificity
+  controls before any future shell-axis expansion or public evidence package.
 - `TASK-0305` should stay blocked until source preflight, dry-run review, a
   reviewed `TASK-0307` source manifest, and explicit maintainer approval make
   a real reveal comparison legitimate.

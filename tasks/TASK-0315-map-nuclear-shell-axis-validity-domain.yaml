@@ -1,0 +1,52 @@
+id: TASK-0315
+title: "Map nuclear shell-axis validity domain after full-known audit"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the TASK-0310 sandbox pass into a clearer domain-of-validity map before any further Nuclear expansion."
+  - "Make subset regressions as visible as aggregate improvements."
+  - "Keep the shell-axis signal bounded, reviewable, and separate from prospective reveal claims."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/results/nuclear-shell-axis-full-known-audit.md"
+    - "docs/reviews/nuclear-shell-axis-full-known-retrospective-audit.md"
+    - "agent_runs/AGENT-RUN-0018/metrics.json"
+    - "agent_runs/AGENT-RUN-0018/report.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    TASK-0310 recorded a SANDBOX_PASS: three shell-axis candidates improve
+    full-known and primary-holdout MAE by roughly 0.060 to 0.086 MeV, while
+    preserving null controls and showing light-nuclei subset regressions.
+    Before any new candidate expansion, agents should map where the signal
+    appears useful, weak, harmful, or too sparse to interpret.
+
+requirements:
+  - "Read AGENT-RUN-0018 metrics without rerunning or editing prediction registry entries."
+  - "Produce a domain map across available subsets: magic-Z, magic-N, near-magic, double-magic, light, mid-mass, heavy, neutron-rich, measured/extrapolated comparison, and registry-repeat chain-neighbor where present."
+  - "Separate candidate support zones, regression zones, sparse/fragile zones, and control-behavior zones."
+  - "Explicitly record the light A<50 regressions and any other worst-regression surface."
+  - "Recommend whether the next Nuclear step should be stability audit, specificity controls, source wait, or no further shell-axis expansion."
+  - "Do not generate new shell-axis candidates, tune coefficients, score PRED-0063..PRED-0068, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the recommended next step changes"
+  - "updated docs/results/nuclear-shell-axis-full-known-audit.md only if a concise limitation or cross-link is needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
