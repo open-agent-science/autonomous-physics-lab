@@ -460,13 +460,14 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     rendered = json.loads(result.stdout)
     assert rendered["selected_mode"] == "research"
     assert rendered["recommended"]["action"] == "nuclear-validation-queue"
-    assert rendered["recommended"]["task_id"] is None
+    assert rendered["recommended"]["task_id"] == "TASK-0310"
     assert "parallel_work_policy" in rendered
     # Accept any current research-mode top candidate from the live queue.
     # Depending on which nuclear tasks are already claimed, the mission helper
     # may surface nuclear follow-ups (`TASK-0189`, `TASK-0228`-`TASK-0237`,
     # `TASK-0250`-`TASK-0290`), rotate to the other READY research lanes
-    # (`TASK-0222`-`TASK-0227`, `TASK-0291`-`TASK-0292`, `TASK-0307`),
+    # (`TASK-0222`-`TASK-0227`, `TASK-0291`-`TASK-0292`, `TASK-0307`,
+    # `TASK-0310`),
     # include non-saturated NEXT planning surfaces (`TASK-0308`-`TASK-0309`),
     # or fall through
     # to support candidates when the research queue is already review-ready.

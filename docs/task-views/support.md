@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0313` - Sync mission recommendation after nuclear source blocker (`documentation`, priority `medium`, difficulty `low`, domain `mission_control`)
