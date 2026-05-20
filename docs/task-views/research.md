@@ -7,6 +7,9 @@
 ## READY
 
 - `TASK-0292` - Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`, domain `condensed_matter`)
+- `TASK-0303` - Prepare nuclear shell-axis mini-wave source preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0304` - Add nuclear shell-axis mini-wave reveal dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0306` - Define quantum direct-measurement digitization protocol (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 
 ## IN_PROGRESS
 

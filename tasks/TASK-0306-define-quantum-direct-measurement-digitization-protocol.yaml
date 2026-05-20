@@ -1,0 +1,53 @@
+id: TASK-0306
+title: "Define quantum direct-measurement digitization protocol"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Unblock Quantum Size Effects without allowing LLM-estimated graph coordinates or polynomial-derived rows."
+  - "Give TASK-0291 a deterministic path for figure-derived absorption rows."
+  - "Preserve APL's data discipline before the first quantum-size baseline exists."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-0291-curate-quantum-direct-measurement-absorption-seed.yaml"
+    - "docs/reviews/quantum-direct-measurement-source-triage.md"
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    TASK-0291 requires direct absorption rows, but the best first-attempt
+    Yu 2003 path appears to expose direct measurements as figure points rather
+    than simple table rows in the accessible article surface. This protocol
+    defines what evidence a future curator must provide before figure-derived
+    rows can enter data/quantum_dots/ without becoming LLM-estimated numbers.
+
+requirements:
+  - "Define a WebPlotDigitizer-class workflow for extracting quantum-dot size/energy points from published figures, including axis calibration, point selection, uncertainty, and provenance fields."
+  - "Specify minimum metadata for each digitised row: source_id, source_figure_ref, axis calibration, extraction tool or script, coordinate uncertainty, material, property_kind, measurement_type, and inclusion_status."
+  - "Define when figure-derived rows are acceptable versus when primary table values or maintainer-provided rows are required."
+  - "State explicitly that LLM visual estimates, memory-derived values, and polynomial-generated values are not acceptable direct-measurement rows."
+  - "Recommend whether TASK-0291 should remain BLOCKED, become READY, or split into a separate digitisation-artifact task."
+  - "Do not add qd-*.yaml measurement rows, scrape copyrighted figures, include synthesis protocols, or unblock TASK-0225."
+
+accepted_outputs:
+  - "docs/quantum-direct-measurement-digitization-protocol.md"
+  - "optional data/quantum_dots/digitization/README.md if a lightweight artifact layout is useful"
+  - "updated tasks/TASK-0291-curate-quantum-direct-measurement-absorption-seed.yaml if its unblock path changes"
+  - "updated docs/campaigns/quantum-size-effects.md if the campaign data path changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
