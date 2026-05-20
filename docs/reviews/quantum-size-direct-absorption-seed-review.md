@@ -1,7 +1,7 @@
 # Quantum Direct-Measurement Absorption Seed Investigation
 
 **Task:** TASK-0291
-**Status:** investigation (no qd-*.yaml seed produced; task moved to BLOCKED)
+**Status:** review (no qd-*.yaml seed produced; task is REVIEW_READY pending maintainer-led `BLOCKED` closeout)
 **Inputs reviewed:**
 
 - `data/quantum_dots/source_manifest.yaml`
@@ -140,8 +140,10 @@ PDF access. None of those sources is currently in
 
 ## Decision
 
-Move TASK-0291 from `READY` to `BLOCKED` until at least one of the unblock
-paths recorded in the task file is satisfied:
+This PR sets TASK-0291 to `REVIEW_READY` so the maintainer can review the
+investigation. The intended post-merge closeout status is `BLOCKED`
+(not `DONE`), held until at least one of the unblock paths recorded in the
+task file is satisfied:
 
 - (a) WebPlotDigitizer-class workflow over Yu 2003 Figure 2 with per-point
   uncertainty, source attribution (Yu 2003 original vs cited prior
