@@ -35,7 +35,7 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/nuclear-shell-axis-registry-target-batch-design.md"
-  - "optional data/nuclear_masses/shell_axis_target_batch_proposal.yaml"
+  - "data/nuclear_masses/shell_axis_target_batch_proposal.yaml"
   - "updated docs/campaigns/nuclear-mass-surface.md if the recommended registry path changes"
 
 validation:
