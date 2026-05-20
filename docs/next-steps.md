@@ -110,7 +110,7 @@ The nuclear-mass surface campaign has now landed its first complete benchmark
 and prediction-registration wave: campaign scaffold, dataset layer, baseline
 residual benchmark, structured holdout protocol, sandbox pilots, a deterministic
 prediction factory, reusable target batches, and selected prospective registry
-entries through `PRED-0062`.
+entries through `PRED-0068`.
 
 The next scientific goal is not to multiply frozen registry entries casually.
 It is to finish reveal-readiness, adversarially stress the strongest scout
@@ -128,9 +128,9 @@ through measurement-grade row-level data:
 - preserve the no-peek boundary while waiting for future reviewed
   measurements;
 - avoid adding more frozen prediction-registry entries until coverage and
-  reveal-readiness issues are understood.
+  reveal-readiness are reviewed again after the shell-axis mini-wave.
 
-Recommended nuclear validation queue for parallel agents:
+Recent nuclear validation sequence:
 
 - `TASK-0288` shell-axis adversarial stress scout: strongest sandbox signal
   follow-up, focused on `SHELL-SCOUT-003` / `SHELL-SCOUT-005` with sign and
@@ -141,10 +141,10 @@ Recommended nuclear validation queue for parallel agents:
   for the shell-axis signal and mid-mass/isotope-chain negative result.
 - `TASK-0295` agent-vs-factory comparison: answer whether agent-designed
   Nuclear scouts add value beyond deterministic factory/grid generation.
-- `TASK-0296` shell-axis target-batch design: blocked until reveal-readiness
-  and stress synthesis are reviewed.
-- `TASK-0297` shell-axis prospective mini-wave: blocked until target-batch
-  design receives explicit maintainer approval.
+- `TASK-0296` shell-axis target-batch design: completed conservative target
+  design for `shell-axis-balanced-001`.
+- `TASK-0297` shell-axis prospective mini-wave: registers `PRED-0063` through
+  `PRED-0068` as frozen prospective records only.
 - Future reveal or reveal-scoring tasks must follow the `TASK-0266` protocol
   and the source-readiness checklist instead of ad hoc source comparison
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
@@ -177,7 +177,8 @@ Current nuclear-mass baseline state:
 - the current prospective registry includes `PRED-0001` through `PRED-0030`,
   `PRED-0037`, `PRED-0038`, selected coefficient-transform factory entries
   `PRED-0041` through `PRED-0050`, and selected feature-term entries
-  `PRED-0051` through `PRED-0062`.
+  `PRED-0051` through `PRED-0062`, plus the shell-axis mini-wave
+  `PRED-0063` through `PRED-0068`.
 
 The nuclear queue should stay conservative:
 
@@ -190,12 +191,10 @@ The nuclear queue should stay conservative:
 - no broad second nuclear sandbox batch from `TASK-0178`; use the factory
   path for bounded expansion and keep future reveal comparison in a separate
   reviewed task.
-- after the post-`PRED-0062` registry status summary, scout synthesis, source
-  readiness checklist, shell/asymmetry stress scouts, evidence card, and
-  adversarial stress synthesis, use `TASK-0295` as the next Nuclear Mass
-  Surface decision step before unblocking shell-axis target-batch design.
-- do not register scout-derived `PRED-*` entries until shell/asymmetry stress
-  synthesis, reveal source-readiness, and target-batch design are reviewed.
+- after the shell-axis mini-wave, do not score or reveal `PRED-0063` through
+  `PRED-0068` until a separate source-manifest/no-peek reveal task is approved.
+- do not register more scout-derived `PRED-*` entries until the shell-axis
+  mini-wave coverage and future reveal-readiness implications are reviewed.
 
 Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
 Use the portfolio document before moving any other scientific direction into

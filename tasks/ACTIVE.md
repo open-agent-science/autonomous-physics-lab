@@ -56,7 +56,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0297` — Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`)
 
 ## DONE RECENTLY
 
@@ -338,7 +338,6 @@ None.
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0297` — Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
