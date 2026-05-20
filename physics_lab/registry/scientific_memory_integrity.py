@@ -27,6 +27,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "evidence_policy",
     "knowledge_update",
     "repository_validation",
+    "research_infrastructure",
     "reproducibility",
     "release_preparation",
     "release_prep",
