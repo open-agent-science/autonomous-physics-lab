@@ -49,7 +49,6 @@ one PR.
 - `TASK-0292` — Curate quantum direct-measurement band-edge seed (`scientific_dataset`, priority `medium`, difficulty `high`)
 - `TASK-0303` — Prepare nuclear shell-axis mini-wave source preflight (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0304` — Add nuclear shell-axis mini-wave reveal dry-run (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0306` — Define quantum direct-measurement digitization protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -59,6 +58,7 @@ None.
 
 - `TASK-0297` — Register nuclear shell-axis prospective mini-wave (`scientific_validation`, priority `medium`, difficulty `high`)
 - `TASK-0298` — Triage quantum direct-measurement source candidates (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0306` — Define quantum direct-measurement digitization protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
