@@ -138,6 +138,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   shell-axis family: the three primary shell-axis candidates keep small
   full-known and primary-holdout MAE improvements, while the sign-inverted,
   shuffled-feature, and near-null controls remain conservative.
+- `TASK-0315` maps the post-0310 shell-axis validity domain: support is
+  concentrated around near-magic, magic-N, mid-mass, neutron-rich, and
+  measured/extrapolated comparison subsets, while light `A<50` is an explicit
+  regression zone.
 
 Historical context:
 
@@ -255,6 +259,11 @@ Start here:
 - `TASK-0315`, `TASK-0316`, and `TASK-0317` are the post-0310 follow-up wave:
   map the validity domain, test coefficient stability, and run specificity
   controls before any future shell-axis expansion or public evidence package.
+- Use the TASK-0315 validity-domain map
+  (`docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md`) as the
+  conservative scope note for shell-axis evidence: treat light `A<50` as a
+  regression zone, keep sparse double-magic and registry-repeat-chain-neighbor
+  behavior diagnostic-only, and run `TASK-0316` coefficient stability next.
 - `TASK-0305` should stay blocked until source preflight, dry-run review, a
   reviewed `TASK-0307` source manifest, and explicit maintainer approval make
   a real reveal comparison legitimate.
