@@ -1,7 +1,7 @@
 id: TASK-0315
 title: "Map nuclear shell-axis validity domain after full-known audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 

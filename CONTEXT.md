@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 21:47 UTC
+Generated: 2026-05-21 05:54 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2155,7 +2155,6 @@ one PR.
 
 - `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0317` — Run nuclear shell-axis specificity controls (`scientific_validation`, priority `high`, difficulty `high`)
 
@@ -2165,7 +2164,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
