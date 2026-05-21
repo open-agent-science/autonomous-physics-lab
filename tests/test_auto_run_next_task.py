@@ -364,9 +364,11 @@ def test_auto_runner_reports_non_max_turns_failure_distinctly(tmp_path: Path) ->
     assert "TASK-0041" in result.stderr
 
 
-def test_auto_runner_default_max_turns_is_at_least_120(tmp_path: Path) -> None:
-    """Default --max-turns should be at least 120 to give review/audit
-    tasks room to finish commit/push/PR after a substantial write."""
+def test_auto_runner_default_max_turns_is_200(tmp_path: Path) -> None:
+    """Default --max-turns is 200 so review/audit tasks have headroom to
+    finish commit/push/PR after a substantial write. A live TASK-0312 run
+    showed 60 was far too low; 80 (the original default) was still too
+    low; 200 gives comfortable margin without enabling runaway behavior."""
 
     fake_repo = _write_fake_repo(
         tmp_path,
@@ -396,4 +398,4 @@ def test_auto_runner_default_max_turns_is_at_least_120(tmp_path: Path) -> None:
 
     assert result.returncode == 0, result.stderr
     # The dry-run summary line names the chosen --max-turns value.
-    assert "claude --max-turns 120" in result.stderr, result.stderr
+    assert "claude --max-turns 200" in result.stderr, result.stderr
