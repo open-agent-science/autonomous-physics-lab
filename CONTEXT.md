@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-21 16:55 UTC
+Generated: 2026-05-21 17:05 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1119,13 +1119,14 @@ missions:
         expected_outputs:
           - "auditable digitization package, direct row seed, or explicit blocker review"
       - id: quantum-calibration-waiver-decision
-        label: "Decide whether a calibration-curve consistency benchmark is worth a scoped waiver"
-        task_id: TASK-0326
+        label: "Review TASK-0326 waiver decision before creating any calibration-consistency benchmark"
+        task_id: null
         mode: research
-        priority: high
+        priority: medium
         difficulty: medium
         expected_outputs:
-          - "maintainer-facing waiver decision artifact"
+          - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
+          - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
       - id: quantum-jasieniak-source-artifact
         label: "Package Jasieniak 2011 deterministic source artifact"
         task_id: TASK-0334
@@ -2266,7 +2267,6 @@ one PR.
 
 - `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0325` — Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0326` — Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -2285,6 +2285,7 @@ None.
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
+- `TASK-0326` — Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

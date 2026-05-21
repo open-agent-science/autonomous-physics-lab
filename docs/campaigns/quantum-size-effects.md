@@ -61,7 +61,10 @@ Current task posture:
   list of provenance modes that are never acceptable);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 - `TASK-0325` — direct-measurement digitisation/table-value package (READY);
-- `TASK-0326` — calibration-curve consistency waiver decision (READY).
+- `TASK-0326` — calibration-curve consistency waiver decision (REVIEW_READY;
+  recommends a separate weaker calibration-curve consistency benchmark only
+  after maintainer approval, while keeping `TASK-0225` blocked for the
+  original measurement-versus-model benchmark).
 - `TASK-0334` — deterministic Jasieniak 2011 source-artifact package
   (READY; source evidence only, no row fabrication);
 - `TASK-0335` — calibration-curve consistency benchmark scope package
@@ -181,6 +184,10 @@ Historical context:
 - use `TASK-0325` and `TASK-0326` as parallel lanes: one tries to produce
   measurement-grade evidence or a blocker, while the other decides whether a
   weaker calibration-consistency benchmark is worth explicitly authorizing;
+- `TASK-0326` recommends that any calibration-consistency benchmark be a
+  separate follow-up task with labels such as `calibration_curve_consistency`
+  and `calibration_derived`; it should not unblock `TASK-0225` or replace
+  direct-row readiness review by itself;
 - use `TASK-0334` as the source-artifact task after the direct-measurement
   blocker: package Jasieniak 2011 or preserve the exact access blocker;
 - use `TASK-0335` to define a weak `calibration_curve_consistency` scope, but

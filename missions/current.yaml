@@ -186,13 +186,14 @@ missions:
         expected_outputs:
           - "auditable digitization package, direct row seed, or explicit blocker review"
       - id: quantum-calibration-waiver-decision
-        label: "Decide whether a calibration-curve consistency benchmark is worth a scoped waiver"
-        task_id: TASK-0326
+        label: "Review TASK-0326 waiver decision before creating any calibration-consistency benchmark"
+        task_id: null
         mode: research
-        priority: high
+        priority: medium
         difficulty: medium
         expected_outputs:
-          - "maintainer-facing waiver decision artifact"
+          - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
+          - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
       - id: quantum-jasieniak-source-artifact
         label: "Package Jasieniak 2011 deterministic source artifact"
         task_id: TASK-0334
