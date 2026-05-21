@@ -204,21 +204,21 @@ The nuclear queue should stay conservative:
   entries; it should test the validity domain, coefficient stability, and
   specificity of that signal.
 
-Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
-Use the portfolio document before moving any other scientific direction into
-active work.
+Portfolio status: APL now keeps three active scientific campaigns with
+different maturity levels: Nuclear Mass Surface as the flagship validation
+track, Quantum Size Effects as the measurement-readiness track, and Atomic
+Clock Residuals as the fresh-data source-surface track.
 
-The next parallel research wave should avoid duplicating the just-completed
-`TASK-0292`, `TASK-0308`, and `TASK-0309` work. Those tasks move through
-review/closeout, not new executor assignment. Open fresh lanes instead:
+The next parallel research wave should maintain at least five independent
+scientific `READY` tasks across those campaigns. Open fresh lanes instead:
 
-- `TASK-0315` for the Nuclear shell-axis validity-domain map;
-- `TASK-0316` for Nuclear shell-axis coefficient stability;
-- `TASK-0317` for Nuclear shell-axis specificity controls;
 - `TASK-0320` for the Nuclear light `A<50` regression audit;
-- `TASK-0321` for the Nuclear magic-N versus magic-Z asymmetry audit;
-- `TASK-0311` for an atomic-clock residuals source-surface scaffold;
-- `TASK-0312` for a final v0.2 public-alpha go/no-go review.
+- `TASK-0323` for Nuclear isotope-chain transfer behavior;
+- `TASK-0324` for Nuclear neutron-rich tail behavior;
+- `TASK-0325` for Quantum direct-measurement digitisation/table-value package;
+- `TASK-0326` for a Quantum calibration-consistency waiver decision;
+- `TASK-0327` for an Atomic Clock source-manifest template;
+- `TASK-0328` for an Atomic Clock synthetic loader dry-run.
 
 The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:
