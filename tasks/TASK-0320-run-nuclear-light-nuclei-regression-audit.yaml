@@ -1,7 +1,7 @@
 id: TASK-0320
 title: "Run nuclear shell-axis light-nuclei regression audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -39,8 +39,8 @@ requirements:
 
 accepted_outputs:
   - "scripts/run_nuclear_shell_axis_light_regression_audit.py or equivalent deterministic entrypoint"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json using the next available run id"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0022/metrics.json"
+  - "agent_runs/AGENT-RUN-0022/report.md"
   - "docs/reviews/nuclear-shell-axis-light-regression-audit.md"
   - "tests covering the audit entrypoint or metrics shape"
 
