@@ -62,6 +62,12 @@ Current task posture:
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 - `TASK-0325` — direct-measurement digitisation/table-value package (READY);
 - `TASK-0326` — calibration-curve consistency waiver decision (READY).
+- `TASK-0334` — deterministic Jasieniak 2011 source-artifact package
+  (READY; source evidence only, no row fabrication);
+- `TASK-0335` — calibration-curve consistency benchmark scope package
+  (READY; protocol only, no metrics);
+- `TASK-0336` — direct band-edge row curation from an approved source artifact
+  (BLOCKED until `TASK-0334` or an equivalent maintainer-provided artifact).
 
 Safe next contributions are:
 
@@ -70,6 +76,8 @@ Safe next contributions are:
   `TASK-0283` readiness gate;
 - a maintainer-approved waiver package if the first benchmark is intentionally
   scoped as calibration-curve consistency rather than measurement-versus-model;
+- deterministic source-artifact packaging for Jasieniak 2011 or an equivalent
+  open direct-table source before any direct band-edge row seed is added;
 - visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
@@ -173,6 +181,12 @@ Historical context:
 - use `TASK-0325` and `TASK-0326` as parallel lanes: one tries to produce
   measurement-grade evidence or a blocker, while the other decides whether a
   weaker calibration-consistency benchmark is worth explicitly authorizing;
+- use `TASK-0334` as the source-artifact task after the direct-measurement
+  blocker: package Jasieniak 2011 or preserve the exact access blocker;
+- use `TASK-0335` to define a weak `calibration_curve_consistency` scope, but
+  do not run metrics or pretend to unblock the measurement benchmark;
+- keep `TASK-0336` blocked until `TASK-0334` lands a deterministic artifact or
+  the maintainer supplies equivalent table/digitisation evidence;
 - after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
   `TASK-0277` to review readiness before the autonomous pilot;
 - run `TASK-0226` only after a maintainer-approved baseline exists.
