@@ -146,6 +146,11 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   deterministic leave-one-out and exhaustive 8-of-11 resampling. The result is
   `FRAGILE`: leave-one-out fits preserve the signal, but smaller resamples
   produce coefficient sign flips and some full-known or holdout regressions.
+- `TASK-0317` runs specificity controls against the shell-axis lane. The best
+  shell-axis candidate remains stronger than smooth-A, asymmetry,
+  mass-region, baseline, and deterministic random matched-degree controls on
+  full-known and primary-holdout MAE, but smooth-A and asymmetry controls are
+  not inert; the verdict is `SHELL_SPECIFIC_BUT_BOUNDED`.
 - `TASK-0320` and `TASK-0321` are prepared as independent post-0315 follow-up
   audits: one isolates the light `A<50` regression zone, and the other checks
   whether support is magic-N dominant, magic-Z dominant, symmetric, or too
@@ -220,8 +225,6 @@ Start here:
   any future source-gated follow-up after the full-known retrospective audit?
 - Do the TASK-0310 shell-axis coefficients remain stable under leave-one-out
   or jackknife stress, or is the signal dominated by one or two training rows?
-- Is the shell-axis improvement specific to shell-proximity structure, or can
-  simple non-shell residual controls match it?
 - Is the light `A<50` regression a true exclusion zone, a baseline-quality
   artifact, or a sparse subset diagnostic?
 - Is the strongest shell-axis support driven by neutron magic structure,
@@ -246,10 +249,15 @@ Start here:
   (`docs/reviews/nuclear-shell-axis-full-known-retrospective-audit.md`) as a
   sandbox stress reference before any future shell-axis registry expansion or
   reveal task.
+- Use the specificity-control audit
+  (`docs/reviews/nuclear-shell-axis-specificity-controls.md`) as bounded
+  context: simple non-shell controls do not match the strongest shell-axis
+  candidate on the key aggregate surfaces, but they are not fully inert and
+  should remain visible in future evidence packages.
 - Keep the current Nuclear executor buffer at several independent READY
-  scientific tasks where possible: coefficient stability, specificity
-  controls, light-regression audit, and magic-axis asymmetry can run in
-  separate branches/worktrees without sharing write surfaces.
+  scientific tasks where possible: light-regression audit and magic-axis
+  asymmetry can run in separate branches/worktrees without sharing write
+  surfaces.
 - `TASK-0304` exercised shell-axis mini-wave reveal scoring on
   fabricated values only (see
   `docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md`,
