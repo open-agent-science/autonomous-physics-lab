@@ -71,6 +71,10 @@ registry expansion, claim promotion, or public-facing discovery-style wording.
 - Full-known evaluation combines committed reviewable data, not future
   measurements.
 - Some subset deltas are fragile where row counts are small.
+- `TASK-0315` maps the domain of validity more explicitly in
+  `docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md`: light
+  `A<50` is a regression zone, while double-magic and registry-repeat
+  chain-neighbor behavior remain sparse diagnostics.
 - `PRED-0063` through `PRED-0068` remain unscored.
 
 ## Verdict
@@ -81,4 +85,3 @@ The shell-axis signal survives this full-known committed-data stress check as
 small sandbox evidence with preserved negative controls and explicit
 limitations. It should not be promoted beyond that boundary without a separate
 maintainer-reviewed task.
-
