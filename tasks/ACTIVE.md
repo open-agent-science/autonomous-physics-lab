@@ -66,6 +66,7 @@ None.
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
 - `TASK-0327` — Add atomic-clock source manifest template (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (`documentation`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 

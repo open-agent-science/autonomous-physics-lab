@@ -15,3 +15,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0312` - Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`, domain `public_alpha_readiness`)
+- `TASK-0329` - Align public-alpha candidate wording before release signoff refresh (`documentation`, priority `high`, difficulty `low`, domain `public_release_readiness`)
