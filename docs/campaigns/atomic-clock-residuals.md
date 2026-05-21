@@ -29,6 +29,14 @@ No atomic-clock dataset has been ingested. No benchmark, residual map,
 prediction registry entry, canonical result, claim, or knowledge artifact is
 created by this scaffold.
 
+Current next tasks:
+
+- `TASK-0327` adds a metadata-only atomic-clock source manifest template;
+- `TASK-0328` adds a synthetic-only loader dry-run with fabricated rows.
+
+Those tasks can run in parallel because one owns source-manifest structure and
+the other owns loader mechanics. Neither should ingest real clock values.
+
 ## Why This Could Matter Later
 
 Atomic-clock comparisons may become a useful fresh-data axis because they can
