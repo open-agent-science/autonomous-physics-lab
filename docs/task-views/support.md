@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0318` - Add autonomous task runner utility with Claude Code budget gate (`contributor_experience`, priority `medium`, difficulty `low`, domain `tooling`)
+None.
