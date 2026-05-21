@@ -1,0 +1,150 @@
+dataset_id: ACLOCK-SYNTHETIC-0001
+task_id: TASK-0328
+status: synthetic_dry_run_only
+description: >
+  Fabricated atomic-clock rows for loader and schema dry-run tests. Values are
+  intentionally synthetic and must never be used as physics evidence.
+synthetic: true
+benchmark_allowed: false
+claim_promotion_allowed: false
+source:
+  citation: "fabricated synthetic dry run"
+  retrieval_date: null
+  checksum_sha256: null
+  license_note: "not applicable; fabricated test fixture"
+rows:
+  - row_id: ACLOCK-SYN-ROW-0001
+    row_class: synthetic_dry_run
+    observable_id: synthetic_frequency_ratio_sr_yb_0001
+    clock_system:
+      species: Sr
+      isotope: "87"
+      transition_label: synthetic_optical_transition_a
+    reference_system:
+      species: Yb
+      isotope: "171"
+      transition_label: synthetic_optical_transition_b
+    observable:
+      value_kind: frequency_ratio
+      value: 1.000000000000001
+      residual_form: null
+      units: dimensionless_ratio
+      epoch_start: "2099-01-01"
+      epoch_end: "2099-01-02"
+    uncertainty:
+      total: 1.0e-18
+      statistical: 6.0e-19
+      systematic: 8.0e-19
+      covariance_group: synthetic_group_a
+      correlation_notes: "fabricated shared systematic for loader dry run"
+    source_metadata:
+      source_class: synthetic_rows
+      locator: synthetic_fixture
+      retrieval_date: null
+      checksum_sha256: null
+      archive_plan: not_applicable_synthetic
+      license_note: not_applicable_synthetic
+    classification:
+      direct_measurement: false
+      derived_constraint: false
+      review_summary: false
+      synthetic: true
+    holdout:
+      split: synthetic_only
+      freeze_manifest: null
+    limitations:
+      - "Fabricated value for loader dry run only."
+  - row_id: ACLOCK-SYN-ROW-0002
+    row_class: synthetic_dry_run
+    observable_id: synthetic_repeated_comparison_al_hg_0002
+    clock_system:
+      species: Al+
+      isotope: "27"
+      transition_label: synthetic_ion_transition_a
+    reference_system:
+      species: Hg+
+      isotope: "199"
+      transition_label: synthetic_ion_transition_b
+    observable:
+      value_kind: repeated_frequency_ratio
+      value: 0.999999999999998
+      residual_form: null
+      units: dimensionless_ratio
+      epoch_start: "2099-02-01"
+      epoch_end: "2099-02-14"
+    uncertainty:
+      total: 2.5e-18
+      statistical: 1.5e-18
+      systematic: 2.0e-18
+      covariance_group: synthetic_group_a
+      correlation_notes: "fabricated repeat-campaign covariance semantics"
+    source_metadata:
+      source_class: synthetic_rows
+      locator: synthetic_fixture
+      retrieval_date: null
+      checksum_sha256: null
+      archive_plan: not_applicable_synthetic
+      license_note: not_applicable_synthetic
+    classification:
+      direct_measurement: false
+      derived_constraint: false
+      review_summary: false
+      synthetic: true
+    holdout:
+      split: synthetic_only
+      freeze_manifest: null
+    limitations:
+      - "Fabricated repeated-comparison value for loader dry run only."
+  - row_id: ACLOCK-SYN-ROW-0003
+    row_class: synthetic_dry_run
+    observable_id: synthetic_alpha_drift_constraint_0003
+    clock_system:
+      species: synthetic_constraint
+      isotope: null
+      transition_label: synthetic_derived_constraint
+    reference_system:
+      species: synthetic_reference
+      isotope: null
+      transition_label: synthetic_model_reference
+    observable:
+      value_kind: derived_constraint
+      value: 0.0
+      residual_form: synthetic_alpha_drift_bound
+      units: synthetic_fractional_rate
+      epoch_start: "2099-01-01"
+      epoch_end: "2099-12-31"
+    uncertainty:
+      total: 1.0e-19
+      statistical: null
+      systematic: null
+      covariance_group: synthetic_constraint_group
+      correlation_notes: "fabricated derived-constraint dependency"
+    source_metadata:
+      source_class: synthetic_rows
+      locator: synthetic_fixture
+      retrieval_date: null
+      checksum_sha256: null
+      archive_plan: not_applicable_synthetic
+      license_note: not_applicable_synthetic
+    classification:
+      direct_measurement: false
+      derived_constraint: true
+      review_summary: false
+      synthetic: true
+    derived_constraint:
+      quantity: synthetic_alpha_drift_bound
+      sensitivity_coefficients:
+        source: synthetic_fixture
+        values: []
+        assumptions:
+          - "fabricated dependency for loader dry run"
+      input_measurement_rows:
+        - ACLOCK-SYN-ROW-0001
+        - ACLOCK-SYN-ROW-0002
+      model_dependency_notes:
+        - "Not physically meaningful; tests class separation only."
+    holdout:
+      split: synthetic_only
+      freeze_manifest: null
+    limitations:
+      - "Fabricated derived constraint for loader dry run only."

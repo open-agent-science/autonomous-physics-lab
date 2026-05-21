@@ -10,6 +10,9 @@ reviewed before any rows are added.
 
 - [`schema.md`](./schema.md): minimal row and constraint schema sketch for
   future source-manifest or ingestion tasks.
+- [`source_manifest_template.yaml`](./source_manifest_template.yaml):
+  metadata-only source manifest template for future atomic-clock source
+  review.
 
 ## Allowed Future Contents
 
@@ -44,3 +47,11 @@ Future tasks must read:
 If a future task cannot identify source provenance, retrieval date, checksum
 or archive policy, unit semantics, uncertainty fields, direct-vs-derived
 classification, and stop conditions, it should remain planning-only.
+
+## Synthetic Loader Dry Run
+
+`TASK-0328` adds a synthetic-only loader fixture at
+[`synthetic_loader_dry_run.yaml`](./synthetic_loader_dry_run.yaml)
+and loader checks in
+[`physics_lab/engines/atomic_clock_residuals.py`](../../physics_lab/engines/atomic_clock_residuals.py).
+The fixture is fabricated and is not benchmark input.
