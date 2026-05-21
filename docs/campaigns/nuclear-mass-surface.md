@@ -142,6 +142,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   concentrated around near-magic, magic-N, mid-mass, neutron-rich, and
   measured/extrapolated comparison subsets, while light `A<50` is an explicit
   regression zone.
+- `TASK-0320` and `TASK-0321` are prepared as independent post-0315 follow-up
+  audits: one isolates the light `A<50` regression zone, and the other checks
+  whether support is magic-N dominant, magic-Z dominant, symmetric, or too
+  sparse to interpret.
 
 Historical context:
 
@@ -214,6 +218,10 @@ Start here:
   or jackknife stress, or is the signal dominated by one or two training rows?
 - Is the shell-axis improvement specific to shell-proximity structure, or can
   simple non-shell residual controls match it?
+- Is the light `A<50` regression a true exclusion zone, a baseline-quality
+  artifact, or a sparse subset diagnostic?
+- Is the strongest shell-axis support driven by neutron magic structure,
+  proton magic structure, both, or neither after matched controls?
 
 ## Recommended Tasks
 
@@ -234,6 +242,10 @@ Start here:
   (`docs/reviews/nuclear-shell-axis-full-known-retrospective-audit.md`) as a
   sandbox stress reference before any future shell-axis registry expansion or
   reveal task.
+- Keep the current Nuclear executor buffer at several independent READY
+  scientific tasks where possible: coefficient stability, specificity
+  controls, light-regression audit, and magic-axis asymmetry can run in
+  separate branches/worktrees without sharing write surfaces.
 - `TASK-0304` exercised shell-axis mini-wave reveal scoring on
   fabricated values only (see
   `docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md`,
@@ -256,9 +268,11 @@ Start here:
 - `TASK-0310` should audit the shell-axis signal against the full known
   committed measured-data surface as retrospective sandbox evidence, with
   baseline comparison, subset behavior, and explicit null controls.
-- `TASK-0315`, `TASK-0316`, and `TASK-0317` are the post-0310 follow-up wave:
-  map the validity domain, test coefficient stability, and run specificity
-  controls before any future shell-axis expansion or public evidence package.
+- `TASK-0315`, `TASK-0316`, `TASK-0317`, `TASK-0320`, and `TASK-0321` are the
+  post-0310 follow-up wave: map the validity domain, test coefficient
+  stability, run specificity controls, audit the light-nuclei regression, and
+  separate magic-N versus magic-Z behavior before any future shell-axis
+  expansion or public evidence package.
 - Use the TASK-0315 validity-domain map
   (`docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md`) as the
   conservative scope note for shell-axis evidence: treat light `A<50` as a

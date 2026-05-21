@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-21 06:10 UTC
+Generated: 2026-05-21 06:49 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1048,8 +1048,9 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
-          - "Prefer TASK-0315, TASK-0316, or TASK-0317 for post-0310 Nuclear follow-up"
+          - "Prefer TASK-0316, TASK-0317, TASK-0320, or TASK-0321 for post-0310 Nuclear follow-up"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
+          - "Keep at least three independent READY scientific tasks available for parallel agents when possible"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
         validation:
@@ -2155,9 +2156,10 @@ one PR.
 
 - `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0317` — Run nuclear shell-axis specificity controls (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2165,7 +2167,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
