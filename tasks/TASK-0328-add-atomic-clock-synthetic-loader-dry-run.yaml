@@ -1,7 +1,7 @@
 id: TASK-0328
 title: "Add atomic-clock synthetic loader dry-run"
 type: scientific_tooling
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -33,7 +33,7 @@ requirements:
   - "Keep the dry-run independent of TASK-0327 so agents can run it in parallel."
 
 accepted_outputs:
-  - "examples/atomic_clock_synthetic.yaml or equivalent synthetic-only example"
+  - "data/atomic_clocks/synthetic_loader_dry_run.yaml"
   - "physics_lab/engines/atomic_clock_residuals.py or a narrower loader module if consistent with repo patterns"
   - "docs/reviews/atomic-clock-synthetic-loader-dry-run.md"
   - "tests covering synthetic loader validation"
