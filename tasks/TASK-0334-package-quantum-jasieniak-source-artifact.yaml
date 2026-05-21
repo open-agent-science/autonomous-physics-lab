@@ -1,0 +1,52 @@
+id: TASK-0334
+title: "Package quantum Jasieniak 2011 deterministic source artifact"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Unblock Quantum Size Effects with source-pinned direct-measurement evidence instead of calibration-polynomial rows."
+  - "Preserve the TASK-0325 blocker as useful scientific memory and turn it into a concrete artifact-acquisition path."
+  - "Keep the campaign measurement-grade before any baseline residual benchmark runs."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-direct-measurement-source-triage.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+  planning_context: >
+    Recent Quantum source work identified Jasieniak 2011 ACS Nano band-edge
+    data as a promising direct-measurement candidate, but no deterministic
+    committed source artifact exists yet for at least six clean direct rows.
+    This task packages the source evidence or records a blocker without
+    inventing values.
+
+requirements:
+  - "Attempt to package a deterministic source artifact for `jasieniak-2011-acs-nano-band-edge` using only accessible primary/supporting-information material, maintainer-provided files, or a reproducible digitisation artifact."
+  - "Record source locator, retrieval date, archive/checksum plan, license/citation notes, figure/table identifiers, and whether the rows are direct table values or digitised points."
+  - "If a table or figure artifact is available, include enough non-copyrighted metadata for a future row-curation task to reproduce extraction; avoid committing publisher PDFs unless license and repository policy allow it."
+  - "If no deterministic artifact is available, write a blocker review that states exactly what access or file is missing."
+  - "Do not add `qd-*.yaml` measurement rows unless this task is explicitly expanded by maintainer approval."
+  - "Do not use LLM-estimated values, published sizing polynomials, or calibration-generated values as direct rows."
+
+accepted_outputs:
+  - "docs/reviews/quantum-jasieniak-2011-source-artifact-package.md"
+  - "optional metadata-only update to data/quantum_dots/source_manifest.yaml"
+  - "optional non-copyrighted source-artifact README under data/quantum_dots/source_artifacts/jasieniak-2011/README.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

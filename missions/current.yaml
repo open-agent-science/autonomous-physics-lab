@@ -195,6 +195,22 @@ missions:
         expected_outputs:
           - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
           - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
+      - id: quantum-jasieniak-source-artifact
+        label: "Package Jasieniak 2011 deterministic source artifact"
+        task_id: TASK-0334
+        mode: research
+        priority: high
+        difficulty: high
+        expected_outputs:
+          - "source artifact package or explicit deterministic blocker"
+      - id: quantum-calibration-consistency-scope
+        label: "Define calibration-curve consistency benchmark scope"
+        task_id: TASK-0335
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "calibration-only benchmark scope without metrics"
 
   - id: atomic-clock-residuals
     title: "Atomic Clock Residuals"

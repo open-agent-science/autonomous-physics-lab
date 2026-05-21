@@ -1,0 +1,50 @@
+id: TASK-0336
+title: "Curate quantum direct band-edge rows from approved source artifact"
+type: scientific_dataset
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn a deterministic source artifact into measurement-grade Quantum rows only after provenance is verified."
+  - "Keep TASK-0225 blocked until direct rows exist with reproducible extraction."
+  - "Create the next concrete row-curation task without inviting agents to fabricate values."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/TASK-0334-package-quantum-jasieniak-source-artifact.yaml"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "data/quantum_dots/README.md"
+  planning_context: >
+    This task is intentionally blocked until TASK-0334 lands a deterministic
+    source artifact, or an equivalent table/digitisation artifact is provided
+    for review. It should curate direct band-edge rows only from that reviewed
+    source evidence.
+
+requirements:
+  - "Wait until TASK-0334 is DONE with an approved source artifact, or record an explicit maintainer-provided equivalent artifact."
+  - "Curate at least six clean direct band-edge rows if the artifact supports them; otherwise preserve a blocker review and keep TASK-0225 blocked."
+  - "Populate required schema fields, including material/composition, diameter or radius, property kind, units, uncertainty semantics, source, and inclusion status."
+  - "Reference the deterministic artifact and extraction method for every row."
+  - "Do not use calibration polynomials, sizing equations, LLM-estimated coordinates, or rows without direct provenance."
+  - "Do not run the baseline benchmark, autonomous pilot, or public claim promotion in this task."
+
+accepted_outputs:
+  - "data/quantum_dots/qd-jasieniak-2011-band-edge.yaml or a blocker review explaining why rows remain unavailable"
+  - "optional update to data/quantum_dots/source_manifest.yaml"
+  - "tests updated if row schema coverage changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -18,6 +18,7 @@
 - `TASK-0235` - Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0277` - Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0333` - Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 
 ## Support Blockers
 

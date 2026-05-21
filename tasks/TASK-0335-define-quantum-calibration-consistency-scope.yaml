@@ -1,0 +1,51 @@
+id: TASK-0335
+title: "Define quantum calibration-curve consistency benchmark scope"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the calibration-waiver decision into a safe benchmark contract without pretending calibration rows are direct measurements."
+  - "Give agents a useful parallel Quantum task while the direct-row source artifact is still blocked."
+  - "Keep the public narrative honest: calibration consistency is weaker than measurement-versus-model validation."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "data/quantum_dots/README.md"
+    - "tasks/TASK-0326-decide-quantum-calibration-consistency-waiver.yaml"
+  planning_context: >
+    Calibration-derived Yu 2003 and Moreels 2009 rows exist, but TASK-0225
+    remains blocked for a true measurement-versus-model baseline. If the
+    maintainer wants a weaker interim result, it must be explicitly scoped as
+    `calibration_curve_consistency` with separate metrics, labels, and claims.
+
+requirements:
+  - "Define a benchmark scope package for `calibration_curve_consistency` only; do not run the benchmark or produce residual metrics."
+  - "Specify dataset inclusion rules for calibration-derived rows, required provenance labels, forbidden direct-measurement language, and output directory naming."
+  - "Define allowed metrics such as self-consistency error, source-by-source residuals, and curve-family sanity checks, while forbidding measurement-versus-model claims."
+  - "State the maintainer approval text required before a future implementation task may run this benchmark."
+  - "Define how this weaker benchmark differs from TASK-0225 and why it does not unblock TASK-0225."
+  - "Do not add new data rows, examples, result artifacts, claims, or autonomous hypothesis pilots."
+
+accepted_outputs:
+  - "docs/reviews/quantum-calibration-curve-consistency-benchmark-scope.md"
+  - "optional concise update to docs/campaigns/quantum-size-effects.md"
+  - "optional follow-up task recommendation for an implementation task, still requiring explicit maintainer approval"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
