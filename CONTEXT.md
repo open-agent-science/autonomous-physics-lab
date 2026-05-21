@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-21 05:59 UTC
+Generated: 2026-05-21 06:10 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2165,10 +2165,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0318` — Add autonomous task runner utility with Claude Code budget gate (`contributor_experience`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0318` — Add autonomous task runner utility with Claude Code budget gate (merged)
 - `TASK-0314` — Sync mission recommendation after nuclear source blocker (merged)
 - `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (merged)
 - `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (merged)
