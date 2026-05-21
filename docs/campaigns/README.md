@@ -21,6 +21,7 @@ Use it when you need to answer four questions quickly:
 | [Quantum Size Effects](./quantum-size-effects.md) | Scaffold complete with calibration-derived row-level seeds; direct measurement rows still needed | campaign page, profile, plan note, source manifest seed, calibration-derived absorption seeds, and readiness-gate review | direct-measurement source triage, absorption or band-edge seed, then re-run the readiness gate before `TASK-0225` baseline work |
 | [Anomaly Registry](./anomaly-registry.md) | Planning scaffold only; no anomaly rows or fits | schema and admissibility contract from `TASK-0308` | schema validation or synthetic-only likelihood dry-run, with Hubble/g-2/W-mass/broad constants still WATCHLIST |
 | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning scaffold only; no ingestion or metrics | source policy and ingestion prerequisites from `TASK-0309` | manifest-only source review for atomic clocks or lattice QCD, with PTA/GW/collider axes still WATCHLIST |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Planning scaffold only; no rows, metrics, or constants claims | source-surface scaffold, schema sketch, and source-candidate stop conditions from `TASK-0311` | value-free source manifest review, then synthetic-only loader dry-run if approved |
 
 ## How To Use This Map
 
@@ -36,6 +37,9 @@ Use it when you need to answer four questions quickly:
   exists, start with quantum size effects.
 - If you want to prepare less-saturated data surfaces without ingesting data,
   start with fresh physics data axes.
+- If you want a first concrete fresh-data source surface, start with
+  atomic-clock residuals, but keep the work source-policy-only until a future
+  ingestion task is approved.
 
 ## Repository-Wide Orientation
 
