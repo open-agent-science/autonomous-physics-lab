@@ -1,0 +1,176 @@
+manifest_id: ACLOCK-SOURCE-MANIFEST-TEMPLATE-0001
+schema_version: 0.1.0
+task_id: TASK-0327
+status: template_only
+campaign_profile_id: atomic-clock-residuals
+created_by:
+  contributor_id: roman
+  agent_id: codex
+
+scope:
+  purpose: >
+    Metadata-only source manifest template for future atomic-clock comparison
+    review. This file records admissibility fields and source classes before
+    any clock values, drift constraints, or constants claims are ingested.
+  value_policy: no_measurement_values_recorded
+  live_fetch_allowed: false
+  benchmark_allowed: false
+  claim_promotion_allowed: false
+  prediction_registry_allowed: false
+
+row_classes:
+  direct_frequency_ratio_measurement:
+    description: >
+      Primary frequency-ratio or clock-comparison measurement with explicit
+      transition labels, epoch or campaign window, units, and uncertainty
+      semantics.
+    admissible_as: direct_measurement
+    requires:
+      - source_locator
+      - release_date_or_publication_date
+      - retrieval_date
+      - checksum_or_archive_plan
+      - transition_and_ratio_partner_labels
+      - unit_semantics
+      - uncertainty_budget_or_total_uncertainty
+      - covariance_or_correlation_notes
+      - holdout_or_reveal_boundary
+  repeated_comparison_campaign:
+    description: >
+      Repeated frequency-ratio comparisons where epoch windows, campaign
+      grouping, and shared-systematic correlations can be reviewed.
+    admissible_as: direct_measurement
+    requires:
+      - source_locator
+      - campaign_interval
+      - retrieval_date
+      - checksum_or_archive_plan
+      - repeat_group_identifier
+      - shared_systematic_notes
+      - uncertainty_semantics
+      - holdout_or_reveal_boundary
+  drift_bound_or_constants_constraint:
+    description: >
+      Derived drift or constants-variation constraint that depends on
+      sensitivity coefficients, interval assumptions, or model choices.
+    admissible_as: derived_constraint
+    requires:
+      - source_locator
+      - retrieval_date
+      - checksum_or_archive_plan
+      - sensitivity_coefficient_source
+      - input_measurement_source_list
+      - interval_semantics
+      - model_dependency_notes
+      - direct_vs_derived_label
+  evaluation_or_review_summary:
+    description: >
+      Secondary or evaluation value that may combine multiple primary sources.
+      This is not ingestible as a direct row unless combination rules and
+      source provenance are recoverable.
+    admissible_as: review_summary_only
+    requires:
+      - source_locator
+      - source_list_or_combination_rules
+      - covariance_or_correlation_notes
+      - review_summary_label
+      - stop_or_split_decision
+
+candidate_source_families:
+  - source_family_id: ACLOCK-SRC-CLASS-001
+    row_class: direct_frequency_ratio_measurement
+    title: Primary optical frequency-ratio measurement papers
+    source_locator: null
+    doi: null
+    archive_url: null
+    release_date: null
+    retrieval_date: null
+    checksum_sha256: null
+    checksum_scope: null
+    archive_plan: required_before_ingestion
+    license_note: not_reviewed
+    value_status: metadata_only_no_values
+    uncertainty_semantics: not_reviewed
+    covariance_or_correlation_notes: not_reviewed
+    holdout_or_reveal_boundary: source_manifest_only
+    stop_conditions:
+      - missing_primary_table_or_supplement
+      - transition_labels_not_recoverable
+      - uncertainty_budget_not_reviewable
+  - source_family_id: ACLOCK-SRC-CLASS-002
+    row_class: repeated_comparison_campaign
+    title: Repeated clock-comparison campaign releases
+    source_locator: null
+    doi: null
+    archive_url: null
+    release_date: null
+    retrieval_date: null
+    checksum_sha256: null
+    checksum_scope: null
+    archive_plan: required_before_ingestion
+    license_note: not_reviewed
+    value_status: metadata_only_no_values
+    uncertainty_semantics: not_reviewed
+    covariance_or_correlation_notes: required_before_ingestion
+    holdout_or_reveal_boundary: source_manifest_only
+    stop_conditions:
+      - campaign_epoch_window_ambiguous
+      - repeated_rows_not_separable
+      - shared_systematics_hidden
+  - source_family_id: ACLOCK-SRC-CLASS-003
+    row_class: drift_bound_or_constants_constraint
+    title: Drift-bound papers and derived constants-variation constraints
+    source_locator: null
+    doi: null
+    archive_url: null
+    release_date: null
+    retrieval_date: null
+    checksum_sha256: null
+    checksum_scope: null
+    archive_plan: required_before_ingestion
+    license_note: not_reviewed
+    value_status: metadata_only_no_values
+    uncertainty_semantics: not_reviewed
+    covariance_or_correlation_notes: not_reviewed
+    holdout_or_reveal_boundary: source_manifest_only
+    stop_conditions:
+      - sensitivity_coefficients_not_traceable
+      - input_measurement_rows_hidden
+      - direct_and_derived_values_mixed
+  - source_family_id: ACLOCK-SRC-CLASS-004
+    row_class: evaluation_or_review_summary
+    title: Evaluation or review tables
+    source_locator: null
+    doi: null
+    archive_url: null
+    release_date: null
+    retrieval_date: null
+    checksum_sha256: null
+    checksum_scope: null
+    archive_plan: required_before_ingestion
+    license_note: not_reviewed
+    value_status: metadata_only_no_values
+    uncertainty_semantics: not_reviewed
+    covariance_or_correlation_notes: required_before_ingestion
+    holdout_or_reveal_boundary: source_manifest_only
+    stop_conditions:
+      - primary_source_list_missing
+      - combination_rules_not_recoverable
+      - covariance_notes_not_recoverable
+
+global_stop_conditions:
+  - source_hides_primary_rows
+  - source_mixes_direct_measurements_and_derived_constraints_without_flags
+  - source_omits_uncertainty_semantics
+  - source_mentions_covariance_or_shared_systematics_without_recoverable_notes
+  - source_lacks_retrieval_date_or_archive_plan
+  - source_license_or_reuse_terms_unclear
+  - task_requests_constants_drift_fit_before_source_review
+
+promotion_boundary:
+  writes_real_clock_values: false
+  writes_derived_constraint_values: false
+  writes_benchmark_metrics: false
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
