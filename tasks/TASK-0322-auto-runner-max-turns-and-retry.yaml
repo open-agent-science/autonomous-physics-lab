@@ -1,0 +1,62 @@
+id: TASK-0322
+title: "Raise auto-task-runner max-turns default and detect max-turns exit"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Make the autonomous task runner finish real task lifecycles unattended without hitting max-turns mid-PR."
+  - "Surface max-turns exit clearly so unfinished work in the worktree is not silently lost."
+  - "Keep TASK-0319 weekly-budget and open-PR guard improvements compatible with the higher turn budget."
+
+input:
+  mode: workflow
+  related_domain: tooling
+  related_objects:
+    - "scripts/auto_run_next_task.sh"
+    - "tests/test_auto_run_next_task.py"
+    - "tasks/TASK-0318-add-autonomous-task-runner.yaml"
+    - "tasks/TASK-0319-fix-budget-window-and-open-pr-guard.yaml"
+  planning_context: >
+    A live end-to-end run of scripts/auto_run_next_task.sh against
+    TASK-0312 with --max-turns 60 hit the max-turns ceiling before the
+    child Claude session could commit, push, or open a PR. The script
+    used 'exec claude ...' which replaces the bash process, so the
+    runner had no chance to detect the max-turns exit or report it.
+    The default --max-turns is also low (80) for review or audit tasks
+    that read 10+ docs, write 200+ line reviews, and run the full
+    validation chain.
+
+    Concrete observation: the auto-runner under TASK-0319 selected
+    TASK-0312, child Claude generated a complete 238-line review
+    document and updated task status, but did not reach the
+    commit/push/PR phase before hitting 'Reached max turns (60)'. The
+    files were preserved in the demo worktree and finalised by hand
+    under PR #452.
+
+requirements:
+  - "Raise the default --max-turns value in scripts/auto_run_next_task.sh from 80 to 120."
+  - "Replace 'exec claude ...' with a normal subprocess invocation so the script can observe the child's exit code."
+  - "Detect Claude's 'Reached max turns' exit (non-zero exit code combined with the canonical error message on stdout) and print a clear post-run summary that names the branch, the working-tree state, and the recommended next step (rerun with higher --max-turns or finish by hand)."
+  - "Preserve the existing budget gate, open-PR guard, dry-run, and APL_OPEN_PR_LIST_CMD test-hook behavior unchanged."
+  - "Add a tests/test_auto_run_next_task.py case covering the max-turns detection branch via a stub claude binary on PATH."
+  - "Do not promote claims, edit results/, claims/, knowledge/, or prediction_registry/."
+  - "Do not auto-resume Claude on max-turns; resuming a -p session requires explicit maintainer review of the previous output."
+
+accepted_outputs:
+  - "scripts/auto_run_next_task.sh with raised default max-turns and max-turns exit handling"
+  - "tests/test_auto_run_next_task.py extended to cover the max-turns detection path"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_check_claude_budget.py tests/test_auto_run_next_task.py"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
