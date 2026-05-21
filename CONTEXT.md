@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-20 21:47 UTC
+Generated: 2026-05-21 05:59 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2165,7 +2165,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0318` — Add autonomous task runner utility with Claude Code budget gate (`contributor_experience`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
