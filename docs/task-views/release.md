@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0312` - Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`, domain `public_alpha_readiness`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0312` - Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`, domain `public_alpha_readiness`)
