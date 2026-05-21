@@ -230,6 +230,30 @@ missions:
         recommended: false
         expected_outputs:
           - "fabricated-row loader validation with no real-data claims"
+      - id: atomic-primary-source-review
+        label: "Review atomic-clock direct frequency-ratio source class"
+        task_id: TASK-0330
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "value-free source-class admissibility review"
+      - id: atomic-derived-source-review
+        label: "Review atomic-clock derived drift/constraint source class"
+        task_id: TASK-0331
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "value-free derived-constraint source-class review"
+      - id: atomic-real-row-readiness
+        label: "Run atomic-clock real-row source gate"
+        task_id: TASK-0332
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "go/no-go gate before first real atomic-clock row seed"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"

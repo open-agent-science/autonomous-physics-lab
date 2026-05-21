@@ -31,18 +31,22 @@ created by this scaffold or the manifest template.
 
 Current next tasks:
 
-- `TASK-0327` adds a metadata-only atomic-clock source manifest template:
+- `TASK-0327` added a metadata-only atomic-clock source manifest template:
   [`data/atomic_clocks/source_manifest_template.yaml`](../../data/atomic_clocks/source_manifest_template.yaml)
   and
   [`docs/reviews/atomic-clock-source-manifest-template-review.md`](../reviews/atomic-clock-source-manifest-template-review.md);
-- `TASK-0328` adds a synthetic-only loader dry-run with fabricated rows:
+- `TASK-0328` added a synthetic-only loader dry-run with fabricated rows:
   [`data/atomic_clocks/synthetic_loader_dry_run.yaml`](../../data/atomic_clocks/synthetic_loader_dry_run.yaml),
   [`physics_lab/engines/atomic_clock_residuals.py`](../../physics_lab/engines/atomic_clock_residuals.py),
   and
   [`docs/reviews/atomic-clock-synthetic-loader-dry-run.md`](../reviews/atomic-clock-synthetic-loader-dry-run.md).
+- `TASK-0330` and `TASK-0331` review the two most important source classes:
+  direct frequency-ratio measurements and derived drift/constraint sources.
+- `TASK-0332` runs the real-row readiness gate before any real clock value can
+  be added.
 
-Those tasks can run in parallel because one owns source-manifest structure and
-the other owns loader mechanics. Neither should ingest real clock values.
+These tasks can run in parallel because source-class review and readiness-gate
+review own separate artifacts. None should ingest real clock values.
 
 ## Why This Could Matter Later
 
@@ -137,6 +141,7 @@ Safe future tasks:
 - create an atomic-clock source manifest template without values;
 - review one source class for admissibility and preserve blockers;
 - run a synthetic-only loader dry-run with fabricated rows;
+- run a real-row readiness gate before any future row seed;
 - define a no-peek freeze package for a future source update;
 - audit whether derived constraints can be separated from direct measurements.
 
