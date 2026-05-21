@@ -1,0 +1,797 @@
+{
+  "agent_run_id": "AGENT-RUN-0019",
+  "task_id": "TASK-0316",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "lane": "shell_axis_coefficient_stability_audit",
+  "sandbox_only": true,
+  "evidence_class": "retrospective_committed_data_coefficient_stability_audit",
+  "live_external_fetch_allowed": false,
+  "summary": {
+    "primary_candidate_count": 3,
+    "leave_one_out_fit_count_per_candidate": 11,
+    "small_resample_fit_count_per_candidate": 165,
+    "overall_verdict": "FRAGILE",
+    "verdict_counts": {
+      "FRAGILE": 3
+    },
+    "sign_inverted_control_included": true,
+    "near_null_control_preserved_as_exact_zero_reference": true,
+    "shuffled_feature_control_not_rerun_reason": "The TASK-0310 shuffled-feature control is a row-feature correspondence null. Under changing leave-one-out or size-8 resample membership, the cyclic row permutation no longer has a stable feature correspondence interpretation, so TASK-0316 keeps it as a TASK-0310 reference instead of treating it as a coefficient-stability fit.",
+    "canonical_results_changed": false,
+    "canonical_claims_changed": false,
+    "prediction_registry_changed": false,
+    "claim_promotion_allowed": false
+  },
+  "frozen_baseline": {
+    "result_id": "RESULT-0015",
+    "model_id": "model_fitted_semi_empirical",
+    "coefficients": {
+      "volume": 15.51423612106804,
+      "surface": 17.2931812095177,
+      "coulomb": 0.6878156091568888,
+      "asymmetry": 23.846557883948485,
+      "pairing": 15.990845113398912
+    }
+  },
+  "datasets": {
+    "training_residual_source": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "holdout_source": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "training_row_count": 11,
+    "post_ame2020_primary_holdout_row_count": 295,
+    "full_known_unique_row_count": 306,
+    "duplicate_post_rows_excluded_from_full_known": []
+  },
+  "resampling_design": {
+    "leave_one_out": "11 deterministic jackknife fits, each omitting one NMD-0002 training row.",
+    "small_resample_size_8_of_11": "All 165 deterministic 8-of-11 combinations from the NMD-0002 training slice.",
+    "random_seed": null
+  },
+  "baseline_metrics_by_subset": {
+    "double_magic": {
+      "count": 5,
+      "mae_mev": 3.0219088633367606,
+      "rmse_mev": 4.141161722106162,
+      "mean_error_mev": 2.0785755148502387,
+      "max_abs_error_mev": 8.45368795685954
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.490449244248866,
+      "rmse_mev": 5.8153909257202985,
+      "mean_error_mev": 0.6695175543829911,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "heavy_a_ge_100": {
+      "count": 156,
+      "mae_mev": 5.303282554527595,
+      "rmse_mev": 6.335658013760021,
+      "mean_error_mev": -0.014767802910480937,
+      "max_abs_error_mev": 17.87489968793443
+    },
+    "light_a_lt_50": {
+      "count": 24,
+      "mae_mev": 1.8722524000307066,
+      "rmse_mev": 2.275605608021535,
+      "mean_error_mev": -0.2830907772245667,
+      "max_abs_error_mev": 4.442511069222633
+    },
+    "magic_any": {
+      "count": 25,
+      "mae_mev": 4.654024990956559,
+      "rmse_mev": 6.3923086997562555,
+      "mean_error_mev": 3.3247942213429997,
+      "max_abs_error_mev": 17.519140549640497
+    },
+    "magic_n": {
+      "count": 17,
+      "mae_mev": 4.992013567782692,
+      "rmse_mev": 6.866792591234858,
+      "mean_error_mev": 3.486854978192355,
+      "max_abs_error_mev": 17.519140549640497
+    },
+    "magic_z": {
+      "count": 13,
+      "mae_mev": 3.5843029567916935,
+      "rmse_mev": 4.849171828737114,
+      "mean_error_mev": 2.633553729119704,
+      "max_abs_error_mev": 9.567076595971571
+    },
+    "mid_mass": {
+      "count": 198,
+      "mae_mev": 4.519041475376401,
+      "rmse_mev": 6.242131089536101,
+      "mean_error_mev": 2.6868606795341474,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "near_magic": {
+      "count": 126,
+      "mae_mev": 4.546848288820384,
+      "rmse_mev": 6.085241212240382,
+      "mean_error_mev": 2.493831050304835,
+      "max_abs_error_mev": 17.87489968793443
+    },
+    "neutron_rich_high": {
+      "count": 31,
+      "mae_mev": 9.451697597515784,
+      "rmse_mev": 11.501040212832246,
+      "mean_error_mev": 9.451697597515784,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "post_ame2020_extrapolated_comparison": {
+      "count": 55,
+      "mae_mev": 4.951024503664232,
+      "rmse_mev": 5.854176430909467,
+      "mean_error_mev": 1.105512127407804,
+      "max_abs_error_mev": 17.164452794842646
+    },
+    "post_ame2020_measured_comparison": {
+      "count": 240,
+      "mae_mev": 4.461255764407384,
+      "rmse_mev": 5.885456190078588,
+      "mean_error_mev": 0.5887226548882164,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.552568580201034,
+      "rmse_mev": 5.8796369910752775,
+      "mean_error_mev": 0.6850732345105124,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "registry_repeat_chain_neighbor": {
+      "count": 6,
+      "mae_mev": 13.477141411050221,
+      "rmse_mev": 17.297812202626396,
+      "mean_error_mev": 13.477141411050221,
+      "max_abs_error_mev": 37.63680588444481
+    },
+    "training_slice": {
+      "count": 11,
+      "mae_mev": 2.8245215982589085,
+      "rmse_mev": 3.6971171457892873,
+      "mean_error_mev": 0.2523424964176548,
+      "max_abs_error_mev": 8.45368795685954
+    }
+  },
+  "candidate_summaries": [
+    {
+      "candidate_id": "STABILITY-SHELL-001",
+      "source_candidate_id": "FULLKNOWN-SHELL-001",
+      "name": "Proton-axis Gaussian shell proximity",
+      "formula": "r_corr = beta_z * s_z2",
+      "feature_names": [
+        "s_z2"
+      ],
+      "full_training_fit": {
+        "coefficient": 1.162735825365395,
+        "delta_mae_by_subset_mev": {
+          "double_magic": -0.41207184514824613,
+          "full_known": -0.08609198021403319,
+          "heavy_a_ge_100": -0.08611280515008968,
+          "light_a_lt_50": 0.10406403016862198,
+          "magic_any": -0.2223545322812841,
+          "magic_n": -0.32699195923718083,
+          "magic_z": -0.1584891712108658,
+          "mid_mass": -0.1628515749201993,
+          "near_magic": -0.22426391171315974,
+          "neutron_rich_high": -0.35701735744711804,
+          "post_ame2020_extrapolated_comparison": -0.17081804691567992,
+          "post_ame2020_measured_comparison": -0.0733276217220249,
+          "primary_holdout": -0.09150380269033231,
+          "registry_repeat_chain_neighbor": -0.8247354187513825,
+          "training_slice": 0.05904325892312112
+        },
+        "full_known_delta_mae_mev": -0.08609198021403319,
+        "holdout_delta_mae_mev": -0.09150380269033231,
+        "training_delta_mae_mev": 0.05904325892312112,
+        "worst_subset_regression": {
+          "subset_id": "light_a_lt_50",
+          "delta_mae_mev": 0.10406403016862198
+        }
+      },
+      "resampling": {
+        "leave_one_out": {
+          "fit_count": 11,
+          "coefficient": {
+            "count": 11,
+            "min": 0.19249239712604937,
+            "max": 1.6313020958257771,
+            "mean": 1.1608839748615851,
+            "std": 0.37864370034012756
+          },
+          "coefficient_abs": {
+            "count": 11,
+            "min": 0.19249239712604937,
+            "max": 1.6313020958257771,
+            "mean": 1.1608839748615851,
+            "std": 0.37864370034012756
+          },
+          "coefficient_sign_counts": {
+            "negative": 0,
+            "zero": 0,
+            "positive": 11
+          },
+          "coefficient_sign_stable": true,
+          "full_known_delta_mae_mev": {
+            "count": 11,
+            "min": -0.10170952933849442,
+            "max": -0.016688196493443996,
+            "mean": -0.0820335922890869,
+            "std": 0.022980751340858162
+          },
+          "holdout_delta_mae_mev": {
+            "count": 11,
+            "min": -0.11299384311608396,
+            "max": -0.01687365282787212,
+            "mean": -0.08833133166410546,
+            "std": 0.025739329339012112
+          },
+          "training_delta_mae_mev": {
+            "count": 11,
+            "min": -0.01171459479739978,
+            "max": 0.20091524924233006,
+            "mean": 0.08686032731369381,
+            "std": 0.062271467987115935
+          },
+          "worst_subset_regression_delta_mae_mev": {
+            "count": 11,
+            "min": 0.007378678730051824,
+            "max": 0.23692337156592225,
+            "mean": 0.12494928566201197,
+            "std": 0.0618882576485596
+          },
+          "worst_subset_regression_frequency": {
+            "light_a_lt_50": 11
+          },
+          "full_known_improvement_count": 11,
+          "holdout_improvement_count": 11,
+          "full_known_improvement_rate": 1.0,
+          "holdout_improvement_rate": 1.0,
+          "max_full_known_regression_mev": 0.0,
+          "max_holdout_regression_mev": 0.0
+        },
+        "small_resample_size_8_of_11": {
+          "fit_count": 165,
+          "coefficient": {
+            "count": 165,
+            "min": -0.8579252510091352,
+            "max": 2.5917461037978997,
+            "mean": 1.15557904520491,
+            "std": 0.7344368871738884
+          },
+          "coefficient_abs": {
+            "count": 165,
+            "min": 0.004310130555352916,
+            "max": 2.5917461037978997,
+            "mean": 1.2057920184182922,
+            "std": 0.6487110907615984
+          },
+          "coefficient_sign_counts": {
+            "negative": 15,
+            "zero": 0,
+            "positive": 150
+          },
+          "coefficient_sign_stable": false,
+          "full_known_delta_mae_mev": {
+            "count": 165,
+            "min": -0.11547021906995614,
+            "max": 0.08813942700973243,
+            "mean": -0.0733577602745935,
+            "std": 0.04226607537605855
+          },
+          "holdout_delta_mae_mev": {
+            "count": 165,
+            "min": -0.13795253509452632,
+            "max": 0.08888690914242314,
+            "mean": -0.08082647846581802,
+            "std": 0.04742440878126836
+          },
+          "training_delta_mae_mev": {
+            "count": 165,
+            "min": -0.029343730939443535,
+            "max": 0.4917174507478981,
+            "mean": 0.12693968212644158,
+            "std": 0.13042700584324007
+          },
+          "worst_subset_regression_delta_mae_mev": {
+            "count": 165,
+            "min": 0.00016521727157581267,
+            "max": 0.6085314701007576,
+            "mean": 0.18247935608942606,
+            "std": 0.14111358286083117
+          },
+          "worst_subset_regression_frequency": {
+            "light_a_lt_50": 150,
+            "registry_repeat_chain_neighbor": 15
+          },
+          "full_known_improvement_count": 150,
+          "holdout_improvement_count": 150,
+          "full_known_improvement_rate": 0.9090909090909091,
+          "holdout_improvement_rate": 0.9090909090909091,
+          "max_full_known_regression_mev": 0.08813942700973243,
+          "max_holdout_regression_mev": 0.08888690914242314
+        }
+      },
+      "verdict": "FRAGILE"
+    },
+    {
+      "candidate_id": "STABILITY-SHELL-002",
+      "source_candidate_id": "FULLKNOWN-SHELL-002",
+      "name": "Proton x neutron product shell proximity",
+      "formula": "r_corr = beta_p * (s_z2 * s_n2)",
+      "feature_names": [
+        "s_z2_times_s_n2"
+      ],
+      "full_training_fit": {
+        "coefficient": 1.754815105523876,
+        "delta_mae_by_subset_mev": {
+          "double_magic": -0.29365598911654756,
+          "full_known": -0.07003037562111114,
+          "heavy_a_ge_100": -0.09920273450545292,
+          "light_a_lt_50": 0.14884021522006896,
+          "magic_any": -0.19788947972087723,
+          "magic_n": -0.3765471021261044,
+          "magic_z": -0.0010935540354526374,
+          "mid_mass": -0.11741883578079637,
+          "near_magic": -0.1691941471107814,
+          "neutron_rich_high": -0.22945785641839755,
+          "post_ame2020_extrapolated_comparison": -0.10378246770664301,
+          "post_ame2020_measured_comparison": -0.06427521165302164,
+          "primary_holdout": -0.07164097125623936,
+          "registry_repeat_chain_neighbor": -0.38274537694599076,
+          "training_slice": -0.026837129042661445
+        },
+        "full_known_delta_mae_mev": -0.07003037562111114,
+        "holdout_delta_mae_mev": -0.07164097125623936,
+        "training_delta_mae_mev": -0.026837129042661445,
+        "worst_subset_regression": {
+          "subset_id": "light_a_lt_50",
+          "delta_mae_mev": 0.14884021522006896
+        }
+      },
+      "resampling": {
+        "leave_one_out": {
+          "fit_count": 11,
+          "coefficient": {
+            "count": 11,
+            "min": 0.5498606989494491,
+            "max": 2.4946644043435695,
+            "mean": 1.7526319282901177,
+            "std": 0.47056367986124814
+          },
+          "coefficient_abs": {
+            "count": 11,
+            "min": 0.5498606989494491,
+            "max": 2.4946644043435695,
+            "mean": 1.7526319282901177,
+            "std": 0.47056367986124814
+          },
+          "coefficient_sign_counts": {
+            "negative": 0,
+            "zero": 0,
+            "positive": 11
+          },
+          "coefficient_sign_stable": true,
+          "full_known_delta_mae_mev": {
+            "count": 11,
+            "min": -0.09139651299568818,
+            "max": -0.027109454480940265,
+            "mean": -0.06920392522897285,
+            "std": 0.015623068122101793
+          },
+          "holdout_delta_mae_mev": {
+            "count": 11,
+            "min": -0.09798831755946047,
+            "max": -0.02421810066437402,
+            "mean": -0.07112713626477776,
+            "std": 0.017917800557995727
+          },
+          "training_delta_mae_mev": {
+            "count": 11,
+            "min": -0.10465030683426946,
+            "max": 0.08538370030548803,
+            "mean": -0.01762690199601267,
+            "std": 0.05023370963629174
+          },
+          "worst_subset_regression_delta_mae_mev": {
+            "count": 11,
+            "min": 0.002527697707758403,
+            "max": 0.2682133923562786,
+            "mean": 0.15286109322493277,
+            "std": 0.06525665510297472
+          },
+          "worst_subset_regression_frequency": {
+            "light_a_lt_50": 11
+          },
+          "full_known_improvement_count": 11,
+          "holdout_improvement_count": 11,
+          "full_known_improvement_rate": 1.0,
+          "holdout_improvement_rate": 1.0,
+          "max_full_known_regression_mev": 0.0,
+          "max_holdout_regression_mev": 0.0
+        },
+        "small_resample_size_8_of_11": {
+          "fit_count": 165,
+          "coefficient": {
+            "count": 165,
+            "min": -0.7280350504406834,
+            "max": 3.835149021279524,
+            "mean": 1.7462017417680555,
+            "std": 0.9164672001212425
+          },
+          "coefficient_abs": {
+            "count": 165,
+            "min": 0.02701185259777911,
+            "max": 3.835149021279524,
+            "mean": 1.7650455375090108,
+            "std": 0.8796288435308314
+          },
+          "coefficient_sign_counts": {
+            "negative": 7,
+            "zero": 0,
+            "positive": 158
+          },
+          "coefficient_sign_stable": false,
+          "full_known_delta_mae_mev": {
+            "count": 165,
+            "min": -0.11073329480008098,
+            "max": 0.03729821971072589,
+            "mean": -0.06596742585360611,
+            "std": 0.0302256801792352
+          },
+          "holdout_delta_mae_mev": {
+            "count": 165,
+            "min": -0.1334187712620789,
+            "max": 0.032935024507619204,
+            "mean": -0.06918027606449724,
+            "std": 0.034151902433160276
+          },
+          "training_delta_mae_mev": {
+            "count": 165,
+            "min": -0.12200674345679374,
+            "max": 0.4976499375898924,
+            "mean": 0.020195375256669434,
+            "std": 0.11551361784805232
+          },
+          "worst_subset_regression_delta_mae_mev": {
+            "count": 165,
+            "min": 0.0,
+            "max": 0.5820802173245405,
+            "mean": 0.17531108492939834,
+            "std": 0.12697824520092232
+          },
+          "worst_subset_regression_frequency": {
+            "double_magic": 8,
+            "light_a_lt_50": 145,
+            "none": 12
+          },
+          "full_known_improvement_count": 158,
+          "holdout_improvement_count": 158,
+          "full_known_improvement_rate": 0.9575757575757575,
+          "holdout_improvement_rate": 0.9575757575757575,
+          "max_full_known_regression_mev": 0.03729821971072589,
+          "max_holdout_regression_mev": 0.032935024507619204
+        }
+      },
+      "verdict": "FRAGILE"
+    },
+    {
+      "candidate_id": "STABILITY-SHELL-003",
+      "source_candidate_id": "FULLKNOWN-SHELL-003",
+      "name": "Neutron-axis Gaussian shell proximity",
+      "formula": "r_corr = beta_n * s_n2",
+      "feature_names": [
+        "s_n2"
+      ],
+      "full_training_fit": {
+        "coefficient": 1.6049071729432316,
+        "delta_mae_by_subset_mev": {
+          "double_magic": -0.3236375756326946,
+          "full_known": -0.06014542985868854,
+          "heavy_a_ge_100": 0.009102529042600338,
+          "light_a_lt_50": 0.25997620574737,
+          "magic_any": -0.29557372913627233,
+          "magic_n": -0.5128936007592744,
+          "magic_z": -0.02217999182020236,
+          "mid_mass": -0.20693759494621133,
+          "near_magic": -0.15688222647790973,
+          "neutron_rich_high": -0.2768882398740651,
+          "post_ame2020_extrapolated_comparison": -0.03531724678923531,
+          "post_ame2020_measured_comparison": -0.0680763649566245,
+          "primary_holdout": -0.06196873275592463,
+          "registry_repeat_chain_neighbor": -0.6111424396070877,
+          "training_slice": -0.011247761250992028
+        },
+        "full_known_delta_mae_mev": -0.06014542985868854,
+        "holdout_delta_mae_mev": -0.06196873275592463,
+        "training_delta_mae_mev": -0.011247761250992028,
+        "worst_subset_regression": {
+          "subset_id": "light_a_lt_50",
+          "delta_mae_mev": 0.25997620574737
+        }
+      },
+      "resampling": {
+        "leave_one_out": {
+          "fit_count": 11,
+          "coefficient": {
+            "count": 11,
+            "min": 0.4692884041079312,
+            "max": 2.262065065618979,
+            "mean": 1.6010961858983306,
+            "std": 0.44378265182834997
+          },
+          "coefficient_abs": {
+            "count": 11,
+            "min": 0.4692884041079312,
+            "max": 2.262065065618979,
+            "mean": 1.6010961858983306,
+            "std": 0.44378265182834997
+          },
+          "coefficient_sign_counts": {
+            "negative": 0,
+            "zero": 0,
+            "positive": 11
+          },
+          "coefficient_sign_stable": true,
+          "full_known_delta_mae_mev": {
+            "count": 11,
+            "min": -0.06959222940693177,
+            "max": -0.02320500883573562,
+            "mean": -0.05795879993581215,
+            "std": 0.011911166997987242
+          },
+          "holdout_delta_mae_mev": {
+            "count": 11,
+            "min": -0.07606979345398557,
+            "max": -0.020779189634555273,
+            "mean": -0.06009039323696307,
+            "std": 0.014010525876345803
+          },
+          "training_delta_mae_mev": {
+            "count": 11,
+            "min": -0.0882610692310073,
+            "max": 0.10412426094587346,
+            "mean": -0.0007933432231175465,
+            "std": 0.053730610494949246
+          },
+          "worst_subset_regression_delta_mae_mev": {
+            "count": 11,
+            "min": 0.03707367789442362,
+            "max": 0.4214178462377467,
+            "mean": 0.2641382371345167,
+            "std": 0.09649204086662602
+          },
+          "worst_subset_regression_frequency": {
+            "light_a_lt_50": 11
+          },
+          "full_known_improvement_count": 11,
+          "holdout_improvement_count": 11,
+          "full_known_improvement_rate": 1.0,
+          "holdout_improvement_rate": 1.0,
+          "max_full_known_regression_mev": 0.0,
+          "max_holdout_regression_mev": 0.0
+        },
+        "small_resample_size_8_of_11": {
+          "fit_count": 165,
+          "coefficient": {
+            "count": 165,
+            "min": -0.8318578863407413,
+            "max": 3.3566217723934595,
+            "mean": 1.590076231036048,
+            "std": 0.8630973016313918
+          },
+          "coefficient_abs": {
+            "count": 165,
+            "min": 0.02867225807019068,
+            "max": 3.3566217723934595,
+            "mean": 1.61825734137339,
+            "std": 0.809025679246537
+          },
+          "coefficient_sign_counts": {
+            "negative": 8,
+            "zero": 0,
+            "positive": 157
+          },
+          "coefficient_sign_stable": false,
+          "full_known_delta_mae_mev": {
+            "count": 165,
+            "min": -0.06983193082678874,
+            "max": 0.04914908410588659,
+            "mean": -0.051700477091448725,
+            "std": 0.023237845032926963
+          },
+          "holdout_delta_mae_mev": {
+            "count": 165,
+            "min": -0.07874627880243956,
+            "max": 0.04514799362010091,
+            "mean": -0.054931264046847915,
+            "std": 0.02597365610566601
+          },
+          "training_delta_mae_mev": {
+            "count": 165,
+            "min": -0.09470580267627726,
+            "max": 0.4182226317725113,
+            "mean": 0.034943354894269085,
+            "std": 0.10650231419717018
+          },
+          "worst_subset_regression_delta_mae_mev": {
+            "count": 165,
+            "min": 0.0022651019093968827,
+            "max": 0.7462008890115868,
+            "mean": 0.2882645390870366,
+            "std": 0.17337530672028734
+          },
+          "worst_subset_regression_frequency": {
+            "double_magic": 8,
+            "light_a_lt_50": 157
+          },
+          "full_known_improvement_count": 157,
+          "holdout_improvement_count": 157,
+          "full_known_improvement_rate": 0.9515151515151515,
+          "holdout_improvement_rate": 0.9515151515151515,
+          "max_full_known_regression_mev": 0.04914908410588659,
+          "max_holdout_regression_mev": 0.04514799362010091
+        }
+      },
+      "verdict": "FRAGILE"
+    }
+  ],
+  "controls": {
+    "sign_inverted_proton_axis": {
+      "candidate_id": "STABILITY-SHELL-004",
+      "source_candidate_id": "FULLKNOWN-SHELL-004",
+      "name": "Sign-inverted proton-axis Gaussian control",
+      "resampling": {
+        "leave_one_out": {
+          "fit_count": 11,
+          "coefficient": {
+            "count": 11,
+            "min": -1.6313020958257771,
+            "max": -0.19249239712604937,
+            "mean": -1.1608839748615851,
+            "std": 0.37864370034012756
+          },
+          "coefficient_abs": {
+            "count": 11,
+            "min": 0.19249239712604937,
+            "max": 1.6313020958257771,
+            "mean": 1.1608839748615851,
+            "std": 0.37864370034012756
+          },
+          "coefficient_sign_counts": {
+            "negative": 11,
+            "zero": 0,
+            "positive": 0
+          },
+          "coefficient_sign_stable": true,
+          "full_known_delta_mae_mev": {
+            "count": 11,
+            "min": 0.016688196493443108,
+            "max": 0.19478660398038095,
+            "mean": 0.1298272722830954,
+            "std": 0.0468816395245848
+          },
+          "holdout_delta_mae_mev": {
+            "count": 11,
+            "min": 0.01687365282787301,
+            "max": 0.19001725435725447,
+            "mean": 0.12846824763725936,
+            "std": 0.04552761074572316
+          },
+          "training_delta_mae_mev": {
+            "count": 11,
+            "min": 0.011714594797399336,
+            "max": 0.3226918893278663,
+            "mean": 0.1662738423305317,
+            "std": 0.08696984677198538
+          },
+          "worst_subset_regression_delta_mae_mev": {
+            "count": 11,
+            "min": 0.1365359992243782,
+            "max": 1.157092254113735,
+            "mean": 0.8234218902030885,
+            "std": 0.26857422291898286
+          },
+          "worst_subset_regression_frequency": {
+            "registry_repeat_chain_neighbor": 11
+          },
+          "full_known_improvement_count": 0,
+          "holdout_improvement_count": 0,
+          "full_known_improvement_rate": 0.0,
+          "holdout_improvement_rate": 0.0,
+          "max_full_known_regression_mev": 0.19478660398038095,
+          "max_holdout_regression_mev": 0.19001725435725447
+        },
+        "small_resample_size_8_of_11": {
+          "fit_count": 165,
+          "coefficient": {
+            "count": 165,
+            "min": -2.5917461037978997,
+            "max": 0.8579252510091352,
+            "mean": -1.15557904520491,
+            "std": 0.7344368871738884
+          },
+          "coefficient_abs": {
+            "count": 165,
+            "min": 0.004310130555352916,
+            "max": 2.5917461037978997,
+            "mean": 1.2057920184182922,
+            "std": 0.6487110907615984
+          },
+          "coefficient_sign_counts": {
+            "negative": 150,
+            "zero": 0,
+            "positive": 15
+          },
+          "coefficient_sign_stable": false,
+          "full_known_delta_mae_mev": {
+            "count": 165,
+            "min": -0.06869744681825196,
+            "max": 0.34615354341669224,
+            "mean": 0.13636465998745614,
+            "std": 0.09274981895434621
+          },
+          "holdout_delta_mae_mev": {
+            "count": 165,
+            "min": -0.07184433624240771,
+            "max": 0.33024345827295765,
+            "mean": 0.13340441424152247,
+            "std": 0.08944883223919935
+          },
+          "training_delta_mae_mev": {
+            "count": 165,
+            "min": -0.028852379341739898,
+            "max": 0.7728330995441275,
+            "mean": 0.21575306862841753,
+            "std": 0.1882387032697875
+          },
+          "worst_subset_regression_delta_mae_mev": {
+            "count": 165,
+            "min": 0.0006184084772820064,
+            "max": 1.8383408867111086,
+            "mean": 0.8386696434545479,
+            "std": 0.4838254485294782
+          },
+          "worst_subset_regression_frequency": {
+            "light_a_lt_50": 15,
+            "registry_repeat_chain_neighbor": 150
+          },
+          "full_known_improvement_count": 15,
+          "holdout_improvement_count": 15,
+          "full_known_improvement_rate": 0.09090909090909091,
+          "holdout_improvement_rate": 0.09090909090909091,
+          "max_full_known_regression_mev": 0.34615354341669224,
+          "max_holdout_regression_mev": 0.33024345827295765
+        }
+      },
+      "expected_behavior": "Regression or non-improvement under sign inversion."
+    },
+    "near_null_reference": {
+      "candidate_id": "STABILITY-SHELL-006",
+      "source_candidate_id": "FULLKNOWN-SHELL-006",
+      "name": "Near-null / baseline-reference control",
+      "coefficient": 0.0,
+      "all_delta_mae_mev": 0.0,
+      "expected_behavior": "Exact baseline reference; no coefficient to resample."
+    },
+    "shuffled_feature_control": {
+      "source_candidate_id": "FULLKNOWN-SHELL-005",
+      "status": "not_rerun_under_resampling",
+      "reason": "Cyclic row-feature shuffling is a row-correspondence null, not a coefficient-stability fit under changing resample membership."
+    }
+  },
+  "promotion_boundary": {
+    "writes_prediction_registry": false,
+    "writes_canonical_result": false,
+    "claim_promotion_allowed": false,
+    "writes_knowledge": false,
+    "required_next_step": "Maintainer review before any registry expansion, reveal scoring, RESULT-* artifact, claim, or knowledge update."
+  },
+  "limitations": [
+    "Sandbox-only retrospective audit; no prediction registry, canonical result, claim, or knowledge artifact is updated.",
+    "All coefficient stability tests still resample only the 11-row NMD-0002 training slice.",
+    "Full-known and post-AME2020 rows are committed reviewable repository data, not future-measurement reveal data.",
+    "The deterministic 8-of-11 design is exhaustive for that size but does not replace a larger independent training surface.",
+    "Subset deltas remain fragile where row counts are small; light-nuclei regressions remain a domain limitation."
+  ]
+}
