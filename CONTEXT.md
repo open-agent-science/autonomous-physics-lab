@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-21 10:15 UTC
+Generated: 2026-05-21 10:57 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1257,7 +1257,7 @@ public scientific memory rather than isolated local chat artifacts.
 
 APL is currently in:
 
-`v0.1-private-alpha — scientific campaign and contributor workflow validation`
+`v0.2-public-alpha candidate — final release go/no-go review pending`
 
 The repository stays private while current campaigns, contributor workflow, and
 public-release gates are still being validated.
@@ -2221,6 +2221,12 @@ one PR.
 ## READY
 
 - `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0325` — Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0326` — Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0327` — Add atomic-clock source manifest template (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0328` — Add atomic-clock synthetic loader dry-run (`scientific_tooling`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
