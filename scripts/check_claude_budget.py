@@ -1,25 +1,35 @@
 #!/usr/bin/env python3
 """
-Check local Claude Code monthly token budget.
+Check local Claude Code weekly token budget.
 
 Reads ~/.claude/projects/ JSONL session logs, sums token usage for the
-current billing month, and compares against a configurable limit.
+trailing 7 days, and compares against a configurable weekly limit.
+
+The Claude Code plan exposes a weekly rolling quota (the in-app usage
+panel shows "Weekly · all models" with a per-account reset date plus a
+5-hour limit). This script approximates the weekly view by counting
+tokens over the last 7 days; that matches the plan's reset semantics
+much better than a calendar-monthly window.
 
 Exit codes:
   0 – usage is below the threshold (safe to run more tasks)
   1 – usage is at or above the threshold
 
 Environment variables:
-  CLAUDE_PROJECTS_DIR       override ~/.claude/projects (useful for tests)
-  CLAUDE_MONTHLY_TOKEN_LIMIT  total output+input tokens allowed per month
-                              default: 6_000_000  (~Claude Max 5x estimate)
+  CLAUDE_PROJECTS_DIR        override ~/.claude/projects (useful for tests)
+  CLAUDE_WEEKLY_TOKEN_LIMIT  total input + output + cache_creation tokens
+                             allowed per trailing 7-day window
+                             default: 6_000_000 (~Claude Max 5x estimate)
+  CLAUDE_MONTHLY_TOKEN_LIMIT deprecated alias for CLAUDE_WEEKLY_TOKEN_LIMIT;
+                             emits a stderr warning when used
   CLAUDE_BUDGET_THRESHOLD_PCT percentage of limit above which we block
                               default: 50
 
-The gate is intentionally approximate: it counts input, output, and cache
-creation tokens from local Claude Code logs. Cache-read tokens are reported
-separately for visibility but are not included in the threshold total because
-they are usually discounted and can otherwise dominate repeated-agent runs.
+The gate is intentionally approximate: it counts input, output, and
+cache-creation tokens from local Claude Code logs. Cache-read tokens are
+reported separately for visibility but are not included in the threshold
+total because they are usually discounted and can otherwise dominate
+repeated-agent runs.
 """
 
 from __future__ import annotations
@@ -32,8 +42,9 @@ import pathlib
 import sys
 
 
-DEFAULT_MONTHLY_LIMIT = 6_000_000
+DEFAULT_WEEKLY_LIMIT = 6_000_000
 DEFAULT_THRESHOLD_PCT = 50
+ROLLING_WINDOW_DAYS = 7
 
 
 def _projects_dir() -> pathlib.Path:
@@ -43,18 +54,19 @@ def _projects_dir() -> pathlib.Path:
     return pathlib.Path.home() / ".claude" / "projects"
 
 
-def _month_start(now: datetime.datetime) -> datetime.datetime:
-    return now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+def _week_start_rolling(now: datetime.datetime) -> datetime.datetime:
+    """Return the cutoff datetime for a trailing 7-day window."""
+    return now - datetime.timedelta(days=ROLLING_WINDOW_DAYS)
 
 
 def compute_usage(
     projects_dir: pathlib.Path,
     now: datetime.datetime | None = None,
 ) -> dict:
-    """Return token usage totals for the current billing month."""
+    """Return token usage totals for the trailing 7-day window."""
     if now is None:
         now = datetime.datetime.now(datetime.timezone.utc)
-    cutoff = _month_start(now)
+    cutoff = _week_start_rolling(now)
 
     total_input = 0
     total_output = 0
@@ -73,6 +85,7 @@ def compute_usage(
             "sessions_scanned": 0,
             "files_read": 0,
             "period_start": cutoff.isoformat(),
+            "window_days": ROLLING_WINDOW_DAYS,
         }
 
     for jsonl_file in projects_dir.rglob("*.jsonl"):
@@ -122,24 +135,42 @@ def compute_usage(
         "sessions_scanned": sessions_scanned,
         "files_read": files_read,
         "period_start": cutoff.isoformat(),
+        "window_days": ROLLING_WINDOW_DAYS,
     }
 
 
 def evaluate(
     usage: dict,
-    monthly_limit: int,
-    threshold_pct: float,
+    weekly_limit: int | None = None,
+    threshold_pct: float = DEFAULT_THRESHOLD_PCT,
+    *,
+    monthly_limit: int | None = None,
 ) -> dict:
-    """Evaluate whether usage is under the budget threshold."""
+    """Evaluate whether usage is under the budget threshold.
+
+    Accepts either ``weekly_limit`` (preferred) or the legacy
+    ``monthly_limit`` keyword argument. When both are provided,
+    ``weekly_limit`` wins. The returned report includes both
+    ``weekly_limit`` and a deprecated ``monthly_limit`` alias mirroring
+    the same value for one release of backward compatibility.
+    """
+    if weekly_limit is None and monthly_limit is not None:
+        weekly_limit = monthly_limit
+    if weekly_limit is None:
+        weekly_limit = DEFAULT_WEEKLY_LIMIT
+
     total = usage["total_tokens"]
-    used_pct = (total / monthly_limit * 100) if monthly_limit > 0 else 0.0
+    used_pct = (total / weekly_limit * 100) if weekly_limit > 0 else 0.0
     under_threshold = used_pct < threshold_pct
 
     return {
         **usage,
         "used_tokens": total,
-        "limit_tokens": monthly_limit,
-        "monthly_limit": monthly_limit,
+        "limit_tokens": weekly_limit,
+        "weekly_limit": weekly_limit,
+        # Deprecated alias kept for one release; consumers should switch
+        # to ``weekly_limit``.
+        "monthly_limit": weekly_limit,
         "threshold_pct": threshold_pct,
         "used_pct": round(used_pct, 2),
         "remaining_pct": round(100.0 - used_pct, 2),
@@ -147,9 +178,26 @@ def evaluate(
     }
 
 
+def _resolve_limit_from_env() -> int:
+    """Resolve the budget limit honoring the deprecated monthly env var."""
+    weekly_env = os.environ.get("CLAUDE_WEEKLY_TOKEN_LIMIT")
+    monthly_env = os.environ.get("CLAUDE_MONTHLY_TOKEN_LIMIT")
+    if weekly_env is not None:
+        return int(weekly_env)
+    if monthly_env is not None:
+        print(
+            "warning: CLAUDE_MONTHLY_TOKEN_LIMIT is deprecated; "
+            "set CLAUDE_WEEKLY_TOKEN_LIMIT instead. "
+            "Using the legacy value for this run.",
+            file=sys.stderr,
+        )
+        return int(monthly_env)
+    return DEFAULT_WEEKLY_LIMIT
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Report Claude Code monthly token budget usage.",
+        description="Report Claude Code weekly token budget usage.",
     )
     parser.add_argument(
         "--dry-run",
@@ -159,8 +207,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--limit",
         type=int,
-        default=int(os.environ.get("CLAUDE_MONTHLY_TOKEN_LIMIT", DEFAULT_MONTHLY_LIMIT)),
-        help=f"Monthly token limit (default: {DEFAULT_MONTHLY_LIMIT})",
+        default=None,
+        help=(
+            f"Weekly token limit "
+            f"(default: ${{CLAUDE_WEEKLY_TOKEN_LIMIT:-{DEFAULT_WEEKLY_LIMIT}}}; "
+            f"legacy CLAUDE_MONTHLY_TOKEN_LIMIT also honored with a warning)"
+        ),
     )
     parser.add_argument(
         "--threshold",
@@ -178,9 +230,11 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    limit = args.limit if args.limit is not None else _resolve_limit_from_env()
+
     projects_dir = args.projects_dir or _projects_dir()
     usage = compute_usage(projects_dir)
-    report = evaluate(usage, args.limit, args.threshold)
+    report = evaluate(usage, weekly_limit=limit, threshold_pct=args.threshold)
 
     print(json.dumps(report, indent=2))
 
