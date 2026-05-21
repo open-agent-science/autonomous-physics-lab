@@ -1,7 +1,7 @@
 id: TASK-0316
 title: "Run nuclear shell-axis coefficient stability audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
