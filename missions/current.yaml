@@ -115,9 +115,9 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
-          - "Prefer TASK-0316, TASK-0317, TASK-0320, or TASK-0321 for post-0310 Nuclear follow-up"
+          - "Prefer TASK-0320, TASK-0323, or TASK-0324 for the next Nuclear follow-up"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
-          - "Keep at least three independent READY scientific tasks available for parallel agents when possible"
+          - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
         validation:
@@ -161,9 +161,75 @@ missions:
           - "each lane adds two frozen PRED-0021+ entries plus pre-reveal validation"
           - "no live external fetch, reveal comparison, claim promotion, or retrospective metric framing"
 
+  - id: quantum-size-effects
+    title: "Quantum Size Effects"
+    rank: 2
+    status: active_data_readiness
+    scientific_value: medium
+    risk: medium
+    recommendation: "Active second campaign: prioritize direct-measurement data readiness or an explicit calibration-consistency waiver before any baseline benchmark."
+    why_now:
+      - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
+      - "calibration-derived row-level seeds exist, but measurement-grade rows are still missing"
+      - "the campaign is visually explainable and can become a real-data benchmark once provenance is fixed"
+    forbidden:
+      - "do not run autonomous formula search before a frozen baseline exists"
+      - "do not treat calibration-derived rows as direct measurement evidence"
+      - "do not include synthesis recipes, chemical handling guidance, biomedical claims, or device claims"
+    actions:
+      - id: quantum-direct-digitization-package
+        label: "Prepare a quantum direct-measurement digitization or table-value package"
+        task_id: TASK-0325
+        mode: research
+        priority: high
+        difficulty: high
+        expected_outputs:
+          - "auditable digitization package, direct row seed, or explicit blocker review"
+      - id: quantum-calibration-waiver-decision
+        label: "Decide whether a calibration-curve consistency benchmark is worth a scoped waiver"
+        task_id: TASK-0326
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "maintainer-facing waiver decision artifact"
+
+  - id: atomic-clock-residuals
+    title: "Atomic Clock Residuals"
+    rank: 3
+    status: active_source_surface
+    scientific_value: medium
+    risk: medium
+    recommendation: "Active third campaign: build source-manifest and synthetic-loader discipline before any real clock values or constants-drift analysis."
+    why_now:
+      - "fresh-data source policy exists"
+      - "atomic-clock campaign scaffold and schema sketch exist"
+      - "high-precision repeated measurements can support future freeze/reveal work if provenance is handled first"
+    forbidden:
+      - "do not ingest real clock values before source-manifest review"
+      - "do not claim constants drift, new constants, or new physics"
+      - "do not mix direct frequency ratios with derived constraints without explicit flags"
+    actions:
+      - id: atomic-source-manifest-template
+        label: "Add atomic-clock source manifest template with no numerical values"
+        task_id: TASK-0327
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "metadata-only source manifest template and review note"
+      - id: atomic-synthetic-loader
+        label: "Add synthetic-only atomic-clock loader dry-run"
+        task_id: TASK-0328
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "fabricated-row loader validation with no real-data claims"
+
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
-    rank: 2
+    rank: 4
     status: methodology_validation
     scientific_value: high
     risk: low
@@ -191,7 +257,7 @@ missions:
 
   - id: dimensional-validator
     title: "Dimensional Analysis Validator"
-    rank: 3
+    rank: 5
     status: quality_floor
     scientific_value: medium
     risk: low

@@ -24,6 +24,10 @@ near-term task selection.
 
 ## NOW
 
+APL currently keeps three active scientific campaigns. "Active" does not mean
+claim-ready; it means there are concrete, reviewable tasks that can move the
+evidence surface forward without discovery framing.
+
 ### Nuclear Mass Surface
 
 The nuclear mass surface campaign is the current flagship research track.
@@ -45,15 +49,47 @@ This track is appropriate for active tasks because it now has datasets,
 baseline metrics, holdout discipline, replay surfaces, and enough failure-mode
 evidence to support reviewable follow-up.
 
+### Quantum Size Effects
+
+Quantum Size Effects is the active second campaign, but it is still in
+data-readiness mode rather than benchmark-result mode.
+
+Immediate work should focus on:
+
+- direct-measurement row-level curation or compliant figure digitisation;
+- an explicit maintainer-facing decision on whether a weaker
+  calibration-curve consistency benchmark is worth running;
+- preserving the distinction between direct measurements, calibration-derived
+  rows, and source-manifest metadata.
+
+This track is active because it has a scaffold, schema, holdout protocol,
+source manifest, and row-level blockers. It is not yet ready for autonomous
+formula search or public benchmark claims.
+
+### Atomic Clock Residuals
+
+Atomic Clock Residuals is the active third campaign, currently limited to
+source-surface and synthetic-loader work.
+
+Immediate work should focus on:
+
+- metadata-only source manifests;
+- direct-versus-derived row-class separation;
+- synthetic loader dry-runs with fabricated values only;
+- provenance, uncertainty, epoch, and correlation semantics before any real
+  frequency-ratio or drift rows are ingested.
+
+This track is active because it can become a fresh-data benchmark surface, but
+it must not become a broad constants-drift or new-physics campaign.
+
 ## NEXT
 
 These directions are plausible future campaigns only if they remain scoped,
 deterministic, and limitation-first.
 
-### Quantum Dots or Quantum Size Effects
+### Quantum Size Effects Later-Stage Work
 
-Quantum-size-effect work can become a future dataset-and-computation campaign
-if it starts from conservative models and reproducible comparison data.
+Quantum-size-effect later-stage work remains gated behind data readiness.
 
 The strategic goal is to prepare a second real-data campaign that is easier to
 visualize than nuclear residuals while still being disciplined about
@@ -130,10 +166,10 @@ Allowed next shape:
 - per-axis holdout discipline;
 - stop conditions for unacceptable source shortcuts.
 
-`TASK-0311` makes atomic-clock residuals the first concrete source-surface
-scaffold inside this NEXT direction. This does not move broad constants
-derivation out of WATCHLIST and does not authorize ingestion, metrics, or
-prediction registry entries.
+Atomic-clock residuals are now the first active source-surface campaign inside
+this direction. This does not move broad constants derivation out of WATCHLIST
+and does not authorize real-data ingestion, metrics, or prediction registry
+entries.
 
 ## WATCHLIST
 

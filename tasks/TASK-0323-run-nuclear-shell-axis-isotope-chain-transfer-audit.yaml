@@ -1,0 +1,57 @@
+id: TASK-0323
+title: "Run nuclear shell-axis isotope-chain transfer audit"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stress whether the shell-axis signal transfers across isotope chains instead of only improving pooled aggregate metrics."
+  - "Use committed retrospective data to expose chain-local failures before any future shell-axis evidence package."
+  - "Keep the result sandbox-only and preserve negative chain-level outcomes."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "agent_runs/AGENT-RUN-0018/metrics.json"
+    - "agent_runs/AGENT-RUN-0019/metrics.json"
+    - "agent_runs/AGENT-RUN-0020/metrics.json"
+    - "agent_runs/AGENT-RUN-0021/metrics.json"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "docs/reviews/nuclear-shell-axis-specificity-controls.md"
+    - "docs/reviews/nuclear-shell-axis-magic-asymmetry-audit.md"
+  planning_context: >
+    The shell-axis lane now has a mixed evidence state: aggregate retrospective
+    improvements, coefficient fragility, specificity better than simple
+    controls, and neutron-dominant but sparse magic-axis behavior. This task
+    asks whether the apparent improvement transfers across isotope chains or
+    hides chain-local regressions.
+
+requirements:
+  - "Use only committed repository data and existing shell-axis candidate definitions; do not fetch live external data."
+  - "Group committed nuclear rows by isotope chain or another deterministic chain key documented in the report."
+  - "Report per-chain row counts, baseline MAE, shell-axis candidate deltas, best non-shell control delta where available, and worst chain regressions."
+  - "Flag chains with too few rows as diagnostics rather than support surfaces."
+  - "State whether the shell-axis signal is chain-transferable, chain-local, mixed, or too sparse to interpret."
+  - "Do not fit new formula families, add prediction registry entries, score `PRED-0063` through `PRED-0068`, or promote claims."
+  - "Preserve negative results if chain-level behavior weakens the aggregate signal."
+
+accepted_outputs:
+  - "scripts/run_nuclear_shell_axis_chain_transfer_audit.py or equivalent deterministic entrypoint"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json using the next available run id"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-shell-axis-isotope-chain-transfer-audit.md"
+  - "tests covering the audit entrypoint or metrics shape"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

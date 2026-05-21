@@ -1,0 +1,55 @@
+id: TASK-0324
+title: "Run nuclear shell-axis neutron-rich tail audit"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stress the high-error neutron-rich support zone from the post-0310 domain map."
+  - "Check whether aggregate neutron-rich improvement is broad or dominated by a few outlier rows."
+  - "Keep the Nuclear campaign moving toward evidence quality rather than more registry expansion."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "agent_runs/AGENT-RUN-0018/metrics.json"
+    - "agent_runs/AGENT-RUN-0019/metrics.json"
+    - "agent_runs/AGENT-RUN-0020/metrics.json"
+    - "docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md"
+    - "docs/reviews/nuclear-shell-axis-coefficient-stability-audit.md"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    TASK-0315 showed neutron-rich rows as an apparent support zone, but the
+    baseline error is high and the coefficient-stability audit remains
+    fragile. This task isolates the neutron-rich/high-error tail to see
+    whether the improvement is distributed, subset-limited, or outlier-driven.
+
+requirements:
+  - "Use committed nuclear rows and existing shell-axis candidate definitions; do not fetch live external data."
+  - "Define the neutron-rich and high-error subsets deterministically and document the rule."
+  - "Report per-row residual deltas, aggregate MAE/RMSE deltas, outlier contributions, and whether removing the largest one or two baseline errors changes the verdict."
+  - "Compare against at least one non-neutron-rich matched subset using a deterministic matching rule."
+  - "State whether neutron-rich behavior is a support zone, warning zone, outlier diagnostic, or too sparse to interpret."
+  - "Do not create new correction terms, add prediction registry entries, score future measurements, or promote claims."
+  - "Preserve the light-nuclei and coefficient-fragility limitations in the report."
+
+accepted_outputs:
+  - "scripts/run_nuclear_shell_axis_neutron_rich_tail_audit.py or equivalent deterministic entrypoint"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json using the next available run id"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md"
+  - "tests covering the audit entrypoint or metrics shape"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
