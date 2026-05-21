@@ -9,6 +9,9 @@
 - `TASK-0324` - Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0325` - Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0326` - Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+- `TASK-0330` - Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+- `TASK-0331` - Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+- `TASK-0332` - Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 
 ## IN_PROGRESS
 

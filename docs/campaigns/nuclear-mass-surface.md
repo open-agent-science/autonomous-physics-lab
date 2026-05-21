@@ -270,6 +270,9 @@ Start here:
   scientific tasks where possible: light-regression, isotope-chain transfer,
   neutron-rich tail behavior, and later source-gated review work can run in
   separate branches/worktrees without sharing write surfaces.
+- After `TASK-0324`, run `TASK-0333` as the decision synthesis before adding
+  more shell-axis audits. The goal is to decide whether the lane is paused,
+  diagnostic-only, narrowed, or ready for source-gated reveal review.
 - `TASK-0304` exercised shell-axis mini-wave reveal scoring on
   fabricated values only (see
   `docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md`,

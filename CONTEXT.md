@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-21 15:13 UTC
+Generated: 2026-05-21 15:55 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1163,6 +1163,30 @@ missions:
         recommended: false
         expected_outputs:
           - "fabricated-row loader validation with no real-data claims"
+      - id: atomic-primary-source-review
+        label: "Review atomic-clock direct frequency-ratio source class"
+        task_id: TASK-0330
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "value-free source-class admissibility review"
+      - id: atomic-derived-source-review
+        label: "Review atomic-clock derived drift/constraint source class"
+        task_id: TASK-0331
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "value-free derived-constraint source-class review"
+      - id: atomic-real-row-readiness
+        label: "Run atomic-clock real-row source gate"
+        task_id: TASK-0332
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "go/no-go gate before first real atomic-clock row seed"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -2227,6 +2251,9 @@ one PR.
 - `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0325` — Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0326` — Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2240,13 +2267,13 @@ None.
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
-- `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
 - `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (merged)
 - `TASK-0328` — Add atomic-clock synthetic loader dry-run (merged)
 - `TASK-0327` — Add atomic-clock source manifest template (merged)
+- `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (merged)
 - `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (merged)
 - `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (merged)
 - `TASK-0318` — Add autonomous task runner utility with Claude Code budget gate (merged)
@@ -2543,6 +2570,7 @@ None.
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 
