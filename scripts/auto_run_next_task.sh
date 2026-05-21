@@ -24,10 +24,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${REPO_ROOT:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 
 DRY_RUN=false
-# Default raised to 120 in TASK-0322 after a TASK-0312 live run hit the
+# Default raised to 200 in TASK-0322 after a TASK-0312 live run hit the
 # previous 80 default before commit/push/PR could finish. Review and audit
-# tasks routinely use 100+ tool calls.
-MAX_TURNS="${CLAUDE_MAX_TURNS:-120}"
+# tasks routinely use 100+ tool calls, and a comfortable headroom of 200
+# keeps the runner safe for complex review tasks (gate-by-gate analyses,
+# multi-doc curation, paired-control reviews) without enabling runaway
+# behavior. Override via the --max-turns CLI flag or CLAUDE_MAX_TURNS env
+# var when a different ceiling is needed.
+MAX_TURNS="${CLAUDE_MAX_TURNS:-200}"
 
 # Parse CLI flags
 while [[ $# -gt 0 ]]; do

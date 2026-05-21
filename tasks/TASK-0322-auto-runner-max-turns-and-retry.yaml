@@ -36,7 +36,7 @@ input:
     under PR #452.
 
 requirements:
-  - "Raise the default --max-turns value in scripts/auto_run_next_task.sh from 80 to 120."
+  - "Raise the default --max-turns value in scripts/auto_run_next_task.sh from 80 to 200 (comfortable headroom for review and audit tasks while still bounded against runaway behavior)."
   - "Replace 'exec claude ...' with a normal subprocess invocation so the script can observe the child's exit code."
   - "Detect Claude's 'Reached max turns' exit (non-zero exit code combined with the canonical error message on stdout) and print a clear post-run summary that names the branch, the working-tree state, and the recommended next step (rerun with higher --max-turns or finish by hand)."
   - "Preserve the existing budget gate, open-PR guard, dry-run, and APL_OPEN_PR_LIST_CMD test-hook behavior unchanged."
