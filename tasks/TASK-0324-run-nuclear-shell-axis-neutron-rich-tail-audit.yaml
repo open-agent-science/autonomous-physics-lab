@@ -37,15 +37,15 @@ requirements:
 
 accepted_outputs:
   - "scripts/run_nuclear_shell_axis_neutron_rich_tail_audit.py or equivalent deterministic entrypoint"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json using the next available run id"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0024/metrics.json"
+  - "agent_runs/AGENT-RUN-0024/report.md"
   - "docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md"
   - "tests covering the audit entrypoint or metrics shape"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "python3 -m pytest tests/test_nuclear_shell_axis_neutron_rich_tail_audit.py tests/test_agent_runs.py tests/test_docs_links.py tests/test_task_views.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
