@@ -139,6 +139,10 @@ Current evidence is infrastructure and source curation only:
   seeds for Yu 2003 cadmium chalcogenides and Moreels 2009 PbS.
 - `TASK-0283` reviewed those seeds and kept the benchmark blocked because they
   are calibration-derived rather than direct measurement rows.
+- `TASK-0335` defines the separate
+  `quantum_calibration_curve_consistency` scope package for a possible weaker
+  calibration-derived benchmark, but records no metrics and does not unblock
+  the direct measurement-versus-model benchmark.
 
 Historical context:
 
