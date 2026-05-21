@@ -1,7 +1,7 @@
 id: TASK-0324
 title: "Run nuclear shell-axis neutron-rich tail audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
