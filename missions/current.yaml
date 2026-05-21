@@ -224,9 +224,10 @@ missions:
         label: "Add synthetic-only atomic-clock loader dry-run"
         task_id: TASK-0328
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "fabricated-row loader validation with no real-data claims"
 
