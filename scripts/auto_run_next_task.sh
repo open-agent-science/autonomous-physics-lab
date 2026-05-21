@@ -24,7 +24,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${REPO_ROOT:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 
 DRY_RUN=false
-MAX_TURNS="${CLAUDE_MAX_TURNS:-80}"
+# Default raised to 120 in TASK-0322 after a TASK-0312 live run hit the
+# previous 80 default before commit/push/PR could finish. Review and audit
+# tasks routinely use 100+ tool calls.
+MAX_TURNS="${CLAUDE_MAX_TURNS:-120}"
 
 # Parse CLI flags
 while [[ $# -gt 0 ]]; do
@@ -206,4 +209,34 @@ echo "=== Invoking claude CLI ===" >&2
 echo "" >&2
 
 cd "$REPO_ROOT"
-exec claude --max-turns "$MAX_TURNS" -p "$PROMPT"
+# Run the child Claude session as a subprocess (not exec) so the runner can
+# observe the exit code, detect a 'Reached max turns' termination, and print a
+# clear post-run summary. The child's stdout is still streamed to our stdout
+# so the user sees the same output as before; we also capture it via tee so
+# the post-run summary can grep for the canonical max-turns message.
+CHILD_STDOUT_LOG="${APL_AUTO_RUNNER_CHILD_LOG:-/tmp/apl-auto-runner-child-stdout.log}"
+mkdir -p "$(dirname "$CHILD_STDOUT_LOG")"
+set +e
+claude --max-turns "$MAX_TURNS" -p "$PROMPT" | tee "$CHILD_STDOUT_LOG"
+CHILD_EXIT=${PIPESTATUS[0]}
+set -e
+
+echo "" >&2
+if [[ "$CHILD_EXIT" -ne 0 ]] && grep -q "Reached max turns" "$CHILD_STDOUT_LOG" 2>/dev/null; then
+  echo "=== Auto-runner: max-turns reached ===" >&2
+  echo "Task: $SELECTED_TASK_ID — $SELECTED_TITLE" >&2
+  echo "Child Claude exit: $CHILD_EXIT (Reached max turns $MAX_TURNS)." >&2
+  echo "Work-in-progress files may remain uncommitted in the worktree." >&2
+  echo "Next step: inspect 'git status' inside the worktree and either rerun" >&2
+  echo "  scripts/auto_run_next_task.sh with a higher --max-turns, or finish" >&2
+  echo "  the task lifecycle (validate, commit, push, PR) by hand." >&2
+  exit "$CHILD_EXIT"
+elif [[ "$CHILD_EXIT" -ne 0 ]]; then
+  echo "=== Auto-runner: child Claude exited non-zero ===" >&2
+  echo "Task: $SELECTED_TASK_ID — $SELECTED_TITLE" >&2
+  echo "Child Claude exit: $CHILD_EXIT (no 'Reached max turns' marker found)." >&2
+  echo "Inspect the child output above and the worktree state before retrying." >&2
+  exit "$CHILD_EXIT"
+fi
+
+exit 0
