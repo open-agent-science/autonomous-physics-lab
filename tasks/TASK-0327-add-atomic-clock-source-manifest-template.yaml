@@ -1,0 +1,53 @@
+id: TASK-0327
+title: "Add atomic-clock source manifest template"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn Atomic Clock Residuals from a scaffold into an auditable source-manifest campaign."
+  - "Prepare fresh-data provenance before any clock values, drift constraints, or constants claims are ingested."
+  - "Make Atomic Clock Residuals the third active APL campaign without starting premature analysis."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/campaigns/fresh-physics-data-axes.md"
+    - "docs/notes/atomic-clock-source-candidates.md"
+    - "data/atomic_clocks/README.md"
+    - "data/atomic_clocks/schema.md"
+    - "docs/notes/fresh-data-source-policy.md"
+  planning_context: >
+    TASK-0311 created the atomic-clock residuals scaffold but intentionally
+    ingested no data. This task creates a manifest-only source surface so
+    future agents can review candidate sources before adding any frequency
+    ratios or derived constraints.
+
+requirements:
+  - "Create a source manifest template or seed file for atomic-clock comparison sources without recording numerical measurement values."
+  - "Separate direct frequency-ratio measurements, repeated comparisons, drift bounds, and derived constraints as distinct source classes."
+  - "Include fields for source locator, release date, retrieval date, checksum/archive plan, license notes, row class, uncertainty semantics, correlation/covariance notes, and holdout/reveal boundary."
+  - "List at least three candidate source classes or source families from the existing source-candidates note, but keep them metadata-only."
+  - "State stop conditions for sources that hide primary rows, merge direct and derived values, or omit uncertainty semantics."
+  - "Do not ingest real clock values, run benchmarks, add prediction registry entries, or claim constants drift."
+
+accepted_outputs:
+  - "data/atomic_clocks/source_manifest_template.yaml or data/atomic_clocks/source_manifest.yaml with metadata-only entries"
+  - "docs/reviews/atomic-clock-source-manifest-template-review.md"
+  - "tests covering manifest structure if a YAML manifest is committed"
+  - "updated docs/campaigns/atomic-clock-residuals.md if the status changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

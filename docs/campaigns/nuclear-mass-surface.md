@@ -159,6 +159,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   `NEUTRON_DOMINANT_BUT_SPARSE`: all three primary shell-axis candidates
   improve magic-N more than magic-Z, while double-magic and matched
   double-magic remain sparse diagnostic panels.
+- `TASK-0323` and `TASK-0324` are prepared as the next independent Nuclear
+  audits: isotope-chain transfer and neutron-rich tail behavior. They keep the
+  campaign in falsification/domain-mapping mode rather than adding more
+  prediction-registry entries.
 
 Historical context:
 
@@ -263,9 +267,9 @@ Start here:
   context: current retrospective support is magic-N dominant, but sparse
   subset warnings and coefficient fragility remain active limitations.
 - Keep the current Nuclear executor buffer at several independent READY
-  scientific tasks where possible: light-regression audit and later
-  source-gated review work can run in separate branches/worktrees without
-  sharing write surfaces.
+  scientific tasks where possible: light-regression, isotope-chain transfer,
+  neutron-rich tail behavior, and later source-gated review work can run in
+  separate branches/worktrees without sharing write surfaces.
 - `TASK-0304` exercised shell-axis mini-wave reveal scoring on
   fabricated values only (see
   `docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md`,

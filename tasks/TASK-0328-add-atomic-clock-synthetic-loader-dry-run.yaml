@@ -1,0 +1,51 @@
+id: TASK-0328
+title: "Add atomic-clock synthetic loader dry-run"
+type: scientific_tooling
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Exercise the atomic-clock schema with fabricated rows before any real values are ingested."
+  - "Create deterministic tooling for fresh-data review while preserving no-claim and no-real-data boundaries."
+  - "Give Atomic Clock Residuals a concrete parallel task independent of source-manifest review."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "data/atomic_clocks/README.md"
+    - "data/atomic_clocks/schema.md"
+    - "docs/notes/fresh-data-source-policy.md"
+  planning_context: >
+    Atomic-clock work needs deterministic loader and validation mechanics
+    before any real frequency ratios or drift constraints are accepted. This
+    task creates a synthetic-only dry run using fabricated rows to test schema
+    semantics, class separation, uncertainty fields, and no-peek labels.
+
+requirements:
+  - "Use fabricated atomic-clock rows only; every example value must be clearly marked synthetic."
+  - "Keep direct measurement rows and derived constraints separate in the example data and loader output."
+  - "Validate required fields such as observable id, row class, transition labels, units, uncertainty semantics, source metadata, and holdout/reveal boundary."
+  - "Report loader output in a review artifact without presenting any synthetic value as physically meaningful."
+  - "Do not ingest real data, run constants-drift fits, add prediction registry entries, or promote claims."
+  - "Keep the dry-run independent of TASK-0327 so agents can run it in parallel."
+
+accepted_outputs:
+  - "examples/atomic_clock_synthetic.yaml or equivalent synthetic-only example"
+  - "physics_lab/engines/atomic_clock_residuals.py or a narrower loader module if consistent with repo patterns"
+  - "docs/reviews/atomic-clock-synthetic-loader-dry-run.md"
+  - "tests covering synthetic loader validation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
