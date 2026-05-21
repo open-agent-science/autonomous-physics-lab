@@ -53,7 +53,7 @@ one PR.
 
 ## IN_PROGRESS
 
-None.
+- `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 
 ## REVIEW_READY
 
