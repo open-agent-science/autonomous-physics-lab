@@ -32,7 +32,11 @@ created by this scaffold.
 Current next tasks:
 
 - `TASK-0327` adds a metadata-only atomic-clock source manifest template;
-- `TASK-0328` adds a synthetic-only loader dry-run with fabricated rows.
+- `TASK-0328` adds a synthetic-only loader dry-run with fabricated rows:
+  [`data/atomic_clocks/synthetic_loader_dry_run.yaml`](../../data/atomic_clocks/synthetic_loader_dry_run.yaml),
+  [`physics_lab/engines/atomic_clock_residuals.py`](../../physics_lab/engines/atomic_clock_residuals.py),
+  and
+  [`docs/reviews/atomic-clock-synthetic-loader-dry-run.md`](../reviews/atomic-clock-synthetic-loader-dry-run.md).
 
 Those tasks can run in parallel because one owns source-manifest structure and
 the other owns loader mechanics. Neither should ingest real clock values.
