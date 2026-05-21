@@ -183,7 +183,9 @@ sandbox evidence only. `AGENT-RUN-0007` is an `INCONCLUSIVE`
 source-manifest-only activation guard, not an active time-split benchmark
 result. The row-level unlock path is `TASK-0196` post-AME2020 holdout data
 before `TASK-0197` retrospective time-split scoring; neither step promotes a
-claim automatically.
+claim automatically. Current shell-axis registry and follow-up audit evidence
+is summarized in [docs/campaigns/nuclear-mass-surface.md](docs/campaigns/nuclear-mass-surface.md)
+rather than promoted in this overview.
 
 ## Start Here
 
@@ -352,7 +354,7 @@ autonomous-physics-lab/
 
 The repository is currently in:
 
-`v0.1-private-alpha — scientific campaign and contributor workflow validation`
+`v0.2-public-alpha candidate — final release go/no-go review pending`
 
 See [docs/status.md](docs/status.md),
 [docs/roadmap.md](docs/roadmap.md), and
