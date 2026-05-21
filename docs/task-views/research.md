@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0320` - Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0321` - Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## IN_PROGRESS
 
@@ -20,3 +19,4 @@ None.
 - `TASK-0316` - Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0317` - Run nuclear shell-axis specificity controls (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0319` - Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`, domain `tooling`)
+- `TASK-0321` - Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
