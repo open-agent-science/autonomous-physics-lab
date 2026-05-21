@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0325` — Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`)
@@ -65,6 +64,7 @@ None.
 - `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
+- `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
