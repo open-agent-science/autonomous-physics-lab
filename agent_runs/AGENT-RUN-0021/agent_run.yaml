@@ -1,0 +1,49 @@
+id: AGENT-RUN-0021
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0321
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0044-shell-axis-stress-scout-batch.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0010-nuclear-shell-axis-stress-scout.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0021/metrics.json
+  report: agent_runs/AGENT-RUN-0021/report.md
+  limitations: agent_runs/AGENT-RUN-0021/limitations.md
+  preflight: agent_runs/AGENT-RUN-0021/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0021/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: task_scope
+    status: PASS
+    notes: TASK-0321 requests magic-axis asymmetry diagnostics, not reveal scoring.
+  - name: data_boundary
+    status: PASS
+    notes: Only committed repository datasets are used; no live external fetch is
+      performed.
+  - name: control_boundary
+    status: PASS
+    notes: Sign-inverted, shuffled-feature, baseline, and non-magic matched controls
+      are preserved.
+  - name: promotion_boundary
+    status: PASS
+    notes: No prediction registry, canonical result, claim, or knowledge file is written.
+limitations:
+- Sandbox-only retrospective audit; no prediction registry, canonical result, claim,
+  or knowledge artifact is updated.
+- Magic-N, magic-Z, and double-magic subsets are sparse and cannot carry standalone
+  conclusions.
+- Matched controls are deterministic A-nearest non-magic diagnostics, not causal controls.
+- All coefficients are fit on the 11-row NMD-0002 residual slice.
+- The full-known surface is committed repository data; this is not a future-measurement
+  reveal.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any registry expansion, reveal scoring,
+    RESULT-* artifact, claim, or knowledge update.

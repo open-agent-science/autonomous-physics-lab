@@ -155,6 +155,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   audits: one isolates the light `A<50` regression zone, and the other checks
   whether support is magic-N dominant, magic-Z dominant, symmetric, or too
   sparse to interpret.
+- `TASK-0321` records the magic-axis asymmetry audit as
+  `NEUTRON_DOMINANT_BUT_SPARSE`: all three primary shell-axis candidates
+  improve magic-N more than magic-Z, while double-magic and matched
+  double-magic remain sparse diagnostic panels.
 
 Historical context:
 
@@ -254,10 +258,14 @@ Start here:
   context: simple non-shell controls do not match the strongest shell-axis
   candidate on the key aggregate surfaces, but they are not fully inert and
   should remain visible in future evidence packages.
+- Use the magic-axis asymmetry audit
+  (`docs/reviews/nuclear-shell-axis-magic-asymmetry-audit.md`) as bounded
+  context: current retrospective support is magic-N dominant, but sparse
+  subset warnings and coefficient fragility remain active limitations.
 - Keep the current Nuclear executor buffer at several independent READY
-  scientific tasks where possible: light-regression audit and magic-axis
-  asymmetry can run in separate branches/worktrees without sharing write
-  surfaces.
+  scientific tasks where possible: light-regression audit and later
+  source-gated review work can run in separate branches/worktrees without
+  sharing write surfaces.
 - `TASK-0304` exercised shell-axis mini-wave reveal scoring on
   fabricated values only (see
   `docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md`,
@@ -295,9 +303,11 @@ Start here:
   any future shell-axis expansion: the lane remains bounded sandbox evidence,
   but coefficient sign flips under exhaustive 8-of-11 resampling block broad
   robustness wording.
-- Run `TASK-0317` specificity controls next if the shell-axis lane remains a
-  useful review surface; otherwise preserve the stability result as a negative
-  limitation.
+- Use the TASK-0321 magic-axis asymmetry audit
+  (`docs/reviews/nuclear-shell-axis-magic-asymmetry-audit.md`) as a bounded
+  directionality note: the committed retrospective signal is magic-N dominant
+  across the three primary shell-axis candidates, but the relevant magic
+  subsets remain sparse.
 - `TASK-0305` should stay blocked until source preflight, dry-run review, a
   reviewed `TASK-0307` source manifest, and explicit maintainer approval make
   a real reveal comparison legitimate.
