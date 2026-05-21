@@ -1,7 +1,7 @@
 id: TASK-0321
 title: "Run nuclear shell-axis magic-N versus magic-Z asymmetry audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -37,8 +37,8 @@ requirements:
 
 accepted_outputs:
   - "scripts/run_nuclear_shell_axis_magic_asymmetry_audit.py or equivalent deterministic entrypoint"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json using the next available run id"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0021/metrics.json"
+  - "agent_runs/AGENT-RUN-0021/report.md"
   - "docs/reviews/nuclear-shell-axis-magic-asymmetry-audit.md"
   - "tests covering the audit entrypoint or metrics shape"
 
