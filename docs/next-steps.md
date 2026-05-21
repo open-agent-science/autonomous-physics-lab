@@ -212,13 +212,14 @@ Clock Residuals as the fresh-data source-surface track.
 The next parallel research wave should maintain at least five independent
 scientific `READY` tasks across those campaigns. Open fresh lanes instead:
 
-- `TASK-0320` for the Nuclear light `A<50` regression audit;
-- `TASK-0323` for Nuclear isotope-chain transfer behavior;
 - `TASK-0324` for Nuclear neutron-rich tail behavior;
 - `TASK-0325` for Quantum direct-measurement digitisation/table-value package;
 - `TASK-0326` for a Quantum calibration-consistency waiver decision;
-- `TASK-0327` for an Atomic Clock source-manifest template;
-- `TASK-0328` for an Atomic Clock synthetic loader dry-run.
+- `TASK-0330` for Atomic Clock direct frequency-ratio source review;
+- `TASK-0331` for Atomic Clock derived-constraint source review;
+- `TASK-0332` for the Atomic Clock real-row readiness gate;
+- `TASK-0333` after `TASK-0324` to synthesize the Nuclear shell-axis
+  decision and stop the audit loop if the evidence is too mixed.
 
 The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:

@@ -49,6 +49,9 @@ one PR.
 - `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0325` — Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0326` — Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -365,6 +368,7 @@ None.
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 

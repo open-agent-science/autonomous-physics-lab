@@ -1,0 +1,52 @@
+id: TASK-0332
+title: "Run atomic-clock real-row source gate"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Define the go/no-go gate before Atomic Clock Residuals ingests any real values."
+  - "Convert the source scaffold and synthetic loader into a clear readiness decision surface."
+  - "Keep the third campaign moving toward real data while preserving no-claim boundaries."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-clock-source-manifest-template-review.md"
+    - "docs/reviews/atomic-clock-synthetic-loader-dry-run.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "data/atomic_clocks/synthetic_loader_dry_run.yaml"
+    - "physics_lab/engines/atomic_clock_residuals.py"
+    - "docs/notes/fresh-data-source-policy.md"
+  planning_context: >
+    The campaign now has a metadata-only manifest template and synthetic loader
+    mechanics. This task decides what must be true before a future task can
+    add the first real direct measurement row or derived constraint.
+
+requirements:
+  - "Run a readiness review over the existing atomic-clock scaffold, source-manifest template, schema, and synthetic loader."
+  - "Produce an explicit gate verdict such as `NOT_READY_FOR_REAL_ROWS`, `READY_FOR_SOURCE_SPECIFIC_REVIEW`, or `READY_FOR_FIRST_ROW_SEED`."
+  - "List required blockers separately for direct measurement rows and derived constraints."
+  - "Define the minimum accepted artifact set for a future real-row seed: source manifest, source review, checksum/archive plan, row-class label, uncertainty semantics, covariance notes, and holdout/reveal boundary."
+  - "Do not ingest real data, add examples with real values, run physics metrics, or promote claims."
+  - "If the gate recommends a future row-seed task, keep it as a recommendation only unless the maintainer explicitly asks this task to create that follow-up."
+
+accepted_outputs:
+  - "docs/reviews/atomic-clock-real-row-readiness-gate.md"
+  - "optional update to docs/campaigns/atomic-clock-residuals.md with a concise readiness note"
+  - "optional follow-up task proposal only if the gate finds the next task shape is clear"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_atomic_clock_synthetic_loader.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
