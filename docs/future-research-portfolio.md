@@ -130,6 +130,11 @@ Allowed next shape:
 - per-axis holdout discipline;
 - stop conditions for unacceptable source shortcuts.
 
+`TASK-0311` makes atomic-clock residuals the first concrete source-surface
+scaffold inside this NEXT direction. This does not move broad constants
+derivation out of WATCHLIST and does not authorize ingestion, metrics, or
+prediction registry entries.
+
 ## WATCHLIST
 
 These topics should not be active research targets without new guardrails and a

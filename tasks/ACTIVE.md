@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0317` — Run nuclear shell-axis specificity controls (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -57,6 +56,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
 - `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
