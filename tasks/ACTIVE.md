@@ -50,6 +50,8 @@ one PR.
 - `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0317` — Run nuclear shell-axis specificity controls (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 

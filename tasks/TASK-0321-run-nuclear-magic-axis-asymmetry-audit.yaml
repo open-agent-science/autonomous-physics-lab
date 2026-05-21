@@ -1,0 +1,55 @@
+id: TASK-0321
+title: "Run nuclear shell-axis magic-N versus magic-Z asymmetry audit"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stress the most interpretable support zone from TASK-0315: magic-N and near-magic shell structure."
+  - "Separate proton-axis, neutron-axis, and product behavior before treating the shell-axis family as one signal."
+  - "Use subset-specific asymmetry as a falsification surface, not as discovery framing."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "agent_runs/AGENT-RUN-0018/metrics.json"
+    - "docs/results/nuclear-shell-axis-full-known-audit.md"
+    - "docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md"
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    TASK-0315 found that the shell-axis candidates improve magic-N and
+    near-magic subsets more consistently than some other regions, while magic-Z
+    behavior is weaker for product and neutron-axis forms. This task checks
+    whether the signal is meaningfully directional, symmetric, or simply a
+    sparse subset artifact.
+
+requirements:
+  - "Use the committed TASK-0310 data surfaces and candidate definitions; do not fetch live external data."
+  - "Compare magic-N, magic-Z, near-magic, double-magic, non-magic matched controls, and the primary holdout where row counts allow."
+  - "Report candidate deltas for proton-axis, neutron-axis, product, sign-inverted control, shuffled-feature control, and baseline reference."
+  - "Include row counts and explicit sparse-subset warnings for double-magic or any matched control with fewer than 10 rows."
+  - "State whether the support is neutron-dominant, proton-dominant, symmetric, tied, or too sparse to interpret."
+  - "Do not create new formula candidates, add PRED entries, score future measurements, or promote claims."
+  - "Keep the output compatible with TASK-0316 and TASK-0317 by writing a separate review artifact and deterministic metrics."
+
+accepted_outputs:
+  - "scripts/run_nuclear_shell_axis_magic_asymmetry_audit.py or equivalent deterministic entrypoint"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json using the next available run id"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-shell-axis-magic-asymmetry-audit.md"
+  - "tests covering the audit entrypoint or metrics shape"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

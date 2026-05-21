@@ -9,6 +9,8 @@
 - `TASK-0311` - Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0316` - Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0317` - Run nuclear shell-axis specificity controls (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0320` - Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0321` - Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## IN_PROGRESS
 
