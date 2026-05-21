@@ -60,7 +60,10 @@ Current task posture:
   WebPlotDigitizer-class workflow, per-point provenance fields, and the
   list of provenance modes that are never acceptable);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
-- `TASK-0325` — direct-measurement digitisation/table-value package (READY);
+- `TASK-0325` — direct-measurement digitisation/table-value package
+  (REVIEW_READY; Jasieniak 2011 band-edge path selected, but no committed
+  SI/table extraction or deterministic digitisation artifact exists, so this
+  pass produced a blocker package rather than a `qd-*.yaml` seed);
 - `TASK-0326` — calibration-curve consistency waiver decision (REVIEW_READY;
   recommends a separate weaker calibration-curve consistency benchmark only
   after maintainer approval, while keeping `TASK-0225` blocked for the
@@ -173,9 +176,9 @@ Historical context:
 - next, add at least one direct-measurement row-level `qd-*.yaml` seed and
   re-run the readiness gate, or request a maintainer waiver for a
   calibration-curve consistency benchmark;
-- use `TASK-0325` and `TASK-0326` as parallel lanes: one tries to produce
-  measurement-grade evidence or a blocker, while the other decides whether a
-  weaker calibration-consistency benchmark is worth explicitly authorizing;
+- use `TASK-0326` to decide whether a weaker calibration-consistency benchmark
+  is worth explicitly authorizing; TASK-0325 has preserved a Jasieniak 2011
+  evidence blocker rather than producing measurement-grade rows;
 - `TASK-0326` recommends that any calibration-consistency benchmark be a
   separate follow-up task with labels such as `calibration_curve_consistency`
   and `calibration_derived`; it should not unblock `TASK-0225` or replace

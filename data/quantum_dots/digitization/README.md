@@ -49,8 +49,13 @@ against the publicly available source, not stand in for that source.
 
 ## Status
 
-This directory is currently empty. The first artifact will land with a
-follow-up task that satisfies `TASK-0291` unblock path (a) by running
-the digitisation workflow against Yu 2003 Figure 2 (or against another
-manifest-registered source). Until then, no `qd-*.yaml` row may claim
-figure-derived provenance pointing into this directory.
+This directory currently contains one blocker package and no row-producing
+digitisation artifact:
+
+- `jasieniak-2011-acs-nano-band-edge/README.md` records the TASK-0325
+  access/evidence blocker for the Jasieniak 2011 band-edge source path.
+
+The first row-producing artifact must still add source-specific
+`axis_calibration.csv`, `extracted_points.csv`, and extraction notes before
+any `qd-*.yaml` row may claim figure-derived provenance pointing into this
+directory.
