@@ -58,14 +58,14 @@ None.
 - `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0317` — Run nuclear shell-axis specificity controls (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
-- `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (merged)
 - `TASK-0318` — Add autonomous task runner utility with Claude Code budget gate (merged)
+- `TASK-0317` — Run nuclear shell-axis specificity controls (merged)
 - `TASK-0314` — Sync mission recommendation after nuclear source blocker (merged)
 - `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (merged)
 - `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (merged)
