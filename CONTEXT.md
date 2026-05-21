@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-21 17:08 UTC
+Generated: 2026-05-21 17:14 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2285,14 +2285,14 @@ None.
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
-- `TASK-0325` — Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0326` — Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
 - `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (merged)
 - `TASK-0328` — Add atomic-clock synthetic loader dry-run (merged)
 - `TASK-0327` — Add atomic-clock source manifest template (merged)
+- `TASK-0326` — Decide quantum calibration-curve consistency waiver (merged)
+- `TASK-0325` — Prepare quantum direct-measurement digitization package (merged)
 - `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (merged)
 - `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (merged)
 - `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (merged)
