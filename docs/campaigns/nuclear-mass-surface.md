@@ -142,6 +142,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   concentrated around near-magic, magic-N, mid-mass, neutron-rich, and
   measured/extrapolated comparison subsets, while light `A<50` is an explicit
   regression zone.
+- `TASK-0316` stress-tests the post-0310 shell-axis coefficients under
+  deterministic leave-one-out and exhaustive 8-of-11 resampling. The result is
+  `FRAGILE`: leave-one-out fits preserve the signal, but smaller resamples
+  produce coefficient sign flips and some full-known or holdout regressions.
 - `TASK-0320` and `TASK-0321` are prepared as independent post-0315 follow-up
   audits: one isolates the light `A<50` regression zone, and the other checks
   whether support is magic-N dominant, magic-Z dominant, symmetric, or too
@@ -278,6 +282,14 @@ Start here:
   conservative scope note for shell-axis evidence: treat light `A<50` as a
   regression zone, keep sparse double-magic and registry-repeat-chain-neighbor
   behavior diagnostic-only, and run `TASK-0316` coefficient stability next.
+- Use the TASK-0316 coefficient-stability audit
+  (`docs/reviews/nuclear-shell-axis-coefficient-stability-audit.md`) before
+  any future shell-axis expansion: the lane remains bounded sandbox evidence,
+  but coefficient sign flips under exhaustive 8-of-11 resampling block broad
+  robustness wording.
+- Run `TASK-0317` specificity controls next if the shell-axis lane remains a
+  useful review surface; otherwise preserve the stability result as a negative
+  limitation.
 - `TASK-0305` should stay blocked until source preflight, dry-run review, a
   reviewed `TASK-0307` source manifest, and explicit maintainer approval make
   a real reveal comparison legitimate.
