@@ -12,8 +12,9 @@
 
 ## IN_PROGRESS
 
-- `TASK-0319` - Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`, domain `tooling`)
+None.
 
 ## REVIEW_READY
 
 - `TASK-0315` - Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0319` - Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`, domain `tooling`)
