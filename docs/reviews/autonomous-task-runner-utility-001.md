@@ -1,6 +1,6 @@
 # Autonomous Task Runner Utility 001
 
-**Task:** TASK-0294  
+**Task:** TASK-0318  
 **Scripts:** `scripts/check_claude_budget.py`, `scripts/auto_run_next_task.sh`  
 **Tests:** `tests/test_check_claude_budget.py`
 
@@ -14,9 +14,11 @@ headroom remains.
 
 ### Budget gate (`check_claude_budget.py`)
 
-Reads `~/.claude/projects/` JSONL session files, sums `input_tokens` and
-`output_tokens` for the current calendar month, and compares the total against a
-configurable limit.
+Reads `~/.claude/projects/` JSONL session files, sums `input_tokens`,
+`output_tokens`, and `cache_creation_input_tokens` for the current calendar
+month, and compares the total against a configurable limit. Cache-read tokens
+are reported separately because they are useful telemetry but should not block
+repeated local-agent runs by default.
 
 ```
 CLAUDE_MONTHLY_TOKEN_LIMIT   default 6 000 000   (~Claude Max 5x monthly estimate)
@@ -32,8 +34,11 @@ Output example:
 {
   "input_tokens": 18754,
   "output_tokens": 1085079,
+  "cache_creation_tokens": 0,
   "cache_read_tokens": 0,
   "total_tokens": 1103833,
+  "used_tokens": 1103833,
+  "limit_tokens": 6000000,
   "sessions_scanned": 2270,
   "files_read": 10,
   "period_start": "2026-05-01T00:00:00+00:00",
@@ -94,9 +99,12 @@ Adjust to match your observed billing cycle.
   agent is not already working on the same task. Use separate worktrees for
   parallel agents.
 - `auto_run_next_task.sh` requires the `claude` CLI to be on `PATH`.
+- `auto_run_next_task.sh` has a dry-run smoke test that verifies READY-task
+  selection without invoking Claude.
 
 ## Tests
 
-18 unit tests covering: missing dir, month filtering, multi-message summation,
-cache token counting, malformed line skipping, threshold boundary conditions,
-CLI exit codes, env-var configuration, and JSON output validity.
+21 unit tests covering: missing dir, month filtering, multi-message summation,
+cache token accounting, malformed line skipping, threshold boundary conditions,
+CLI exit codes, env-var configuration, JSON output validity, and
+`auto_run_next_task.sh --dry-run` READY-task selection.

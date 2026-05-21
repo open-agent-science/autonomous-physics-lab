@@ -59,10 +59,16 @@ echo "=== Selecting next task ===" >&2
 
 MISSION_JSON=$(cd "$REPO_ROOT" && python3 scripts/apl_mission.py --json 2>/dev/null)
 
-NEXT_TASK=$(echo "$MISSION_JSON" | python3 - <<'PYEOF'
-import sys, json
+NEXT_TASK=$(MISSION_JSON="$MISSION_JSON" python3 - <<'PYEOF'
+import json
+import os
+import sys
 
-data = json.load(sys.stdin)
+try:
+    data = json.loads(os.environ["MISSION_JSON"])
+except (KeyError, json.JSONDecodeError) as exc:
+    print(f"ERROR: could not parse apl_mission.py --json output: {exc}", file=sys.stderr)
+    sys.exit(1)
 candidates = data.get("live_task_candidates", [])
 
 # Filter to READY only, sort by priority weight then difficulty
