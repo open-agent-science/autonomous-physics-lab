@@ -27,11 +27,14 @@ Planning scaffold only.
 
 No atomic-clock dataset has been ingested. No benchmark, residual map,
 prediction registry entry, canonical result, claim, or knowledge artifact is
-created by this scaffold.
+created by this scaffold or the manifest template.
 
 Current next tasks:
 
-- `TASK-0327` adds a metadata-only atomic-clock source manifest template;
+- `TASK-0327` adds a metadata-only atomic-clock source manifest template:
+  [`data/atomic_clocks/source_manifest_template.yaml`](../../data/atomic_clocks/source_manifest_template.yaml)
+  and
+  [`docs/reviews/atomic-clock-source-manifest-template-review.md`](../reviews/atomic-clock-source-manifest-template-review.md);
 - `TASK-0328` adds a synthetic-only loader dry-run with fabricated rows:
   [`data/atomic_clocks/synthetic_loader_dry_run.yaml`](../../data/atomic_clocks/synthetic_loader_dry_run.yaml),
   [`physics_lab/engines/atomic_clock_residuals.py`](../../physics_lab/engines/atomic_clock_residuals.py),

@@ -214,8 +214,10 @@ missions:
         label: "Add atomic-clock source manifest template with no numerical values"
         task_id: TASK-0327
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "metadata-only source manifest template and review note"
       - id: atomic-synthetic-loader

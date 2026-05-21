@@ -10,6 +10,9 @@ reviewed before any rows are added.
 
 - [`schema.md`](./schema.md): minimal row and constraint schema sketch for
   future source-manifest or ingestion tasks.
+- [`source_manifest_template.yaml`](./source_manifest_template.yaml):
+  metadata-only source manifest template for future atomic-clock source
+  review.
 
 ## Allowed Future Contents
 
