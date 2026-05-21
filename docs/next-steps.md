@@ -215,6 +215,8 @@ review/closeout, not new executor assignment. Open fresh lanes instead:
 - `TASK-0315` for the Nuclear shell-axis validity-domain map;
 - `TASK-0316` for Nuclear shell-axis coefficient stability;
 - `TASK-0317` for Nuclear shell-axis specificity controls;
+- `TASK-0320` for the Nuclear light `A<50` regression audit;
+- `TASK-0321` for the Nuclear magic-N versus magic-Z asymmetry audit;
 - `TASK-0311` for an atomic-clock residuals source-surface scaffold;
 - `TASK-0312` for a final v0.2 public-alpha go/no-go review.
 
