@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-21 10:15 UTC
+Generated: 2026-05-21 13:35 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1147,8 +1147,10 @@ missions:
         label: "Add atomic-clock source manifest template with no numerical values"
         task_id: TASK-0327
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "metadata-only source manifest template and review note"
       - id: atomic-synthetic-loader
@@ -1157,6 +1159,7 @@ missions:
         mode: research
         priority: high
         difficulty: medium
+        recommended: true
         expected_outputs:
           - "fabricated-row loader validation with no real-data claims"
 
@@ -1257,7 +1260,7 @@ public scientific memory rather than isolated local chat artifacts.
 
 APL is currently in:
 
-`v0.1-private-alpha — scientific campaign and contributor workflow validation`
+`v0.2-public-alpha candidate — final release go/no-go review pending`
 
 The repository stays private while current campaigns, contributor workflow, and
 public-release gates are still being validated.
@@ -2220,7 +2223,11 @@ one PR.
 
 ## READY
 
-- `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0325` — Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0326` — Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0328` — Add atomic-clock synthetic loader dry-run (`scientific_tooling`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2233,7 +2240,10 @@ None.
 - `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
+- `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
+- `TASK-0327` — Add atomic-clock source manifest template (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (`documentation`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
