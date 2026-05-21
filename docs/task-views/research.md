@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0320` - Run nuclear shell-axis light-nuclei regression audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0323` - Run nuclear shell-axis isotope-chain transfer audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0324` - Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0325` - Prepare quantum direct-measurement digitization package (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0326` - Decide quantum calibration-curve consistency waiver (`scientific_validation`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
@@ -24,3 +23,4 @@ None.
 - `TASK-0315` - Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0316` - Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0319` - Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`, domain `tooling`)
+- `TASK-0323` - Run nuclear shell-axis isotope-chain transfer audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
