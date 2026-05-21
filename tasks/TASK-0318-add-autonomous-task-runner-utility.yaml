@@ -1,7 +1,7 @@
-id: TASK-0294
+id: TASK-0318
 title: "Add autonomous task runner utility with Claude Code budget gate"
 type: contributor_experience
-status: IN_PROGRESS
+status: REVIEW_READY
 difficulty: low
 priority: medium
 

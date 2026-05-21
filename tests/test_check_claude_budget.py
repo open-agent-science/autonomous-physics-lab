@@ -43,7 +43,13 @@ def _write_session(tmp_path: pathlib.Path, messages: list[dict]) -> pathlib.Path
     return f
 
 
-def _msg(ts: str, input_tok: int, output_tok: int, cache_tok: int = 0) -> dict:
+def _msg(
+    ts: str,
+    input_tok: int,
+    output_tok: int,
+    cache_tok: int = 0,
+    cache_creation_tok: int = 0,
+) -> dict:
     return {
         "timestamp": ts,
         "message": {
@@ -51,6 +57,7 @@ def _msg(ts: str, input_tok: int, output_tok: int, cache_tok: int = 0) -> dict:
                 "input_tokens": input_tok,
                 "output_tokens": output_tok,
                 "cache_read_input_tokens": cache_tok,
+                "cache_creation_input_tokens": cache_creation_tok,
             }
         },
     }
@@ -98,6 +105,15 @@ class TestComputeUsage:
         ])
         result = compute_usage(tmp_path, now=NOW)
         assert result["cache_read_tokens"] == 2000
+        assert result["total_tokens"] == 1500
+
+    def test_cache_creation_tokens_counted_in_total(self, tmp_path):
+        _write_session(tmp_path, [
+            _msg(THIS_MONTH, 500, 1000, cache_creation_tok=2000),
+        ])
+        result = compute_usage(tmp_path, now=NOW)
+        assert result["cache_creation_tokens"] == 2000
+        assert result["total_tokens"] == 3500
 
     def test_malformed_lines_skipped(self, tmp_path):
         proj = tmp_path / "proj"
@@ -130,6 +146,7 @@ class TestEvaluate:
         return {
             "input_tokens": total // 2,
             "output_tokens": total // 2,
+            "cache_creation_tokens": 0,
             "cache_read_tokens": 0,
             "total_tokens": total,
             "sessions_scanned": 10,
@@ -140,6 +157,8 @@ class TestEvaluate:
     def test_under_threshold_true(self):
         report = evaluate(self._usage(1_000_000), monthly_limit=6_000_000, threshold_pct=50)
         assert report["under_threshold"] is True
+        assert report["used_tokens"] == 1_000_000
+        assert report["limit_tokens"] == 6_000_000
         assert report["used_pct"] == pytest.approx(16.67, abs=0.01)
 
     def test_over_threshold_false(self):
@@ -190,7 +209,7 @@ class TestMain:
         main(["--dry-run", "--limit", "6000000"])
         out = capsys.readouterr().out
         parsed = json.loads(out)
-        for key in ("total_tokens", "used_pct", "under_threshold", "monthly_limit"):
+        for key in ("total_tokens", "used_tokens", "limit_tokens", "used_pct", "under_threshold", "monthly_limit"):
             assert key in parsed
 
     def test_projects_dir_flag(self, tmp_path, capsys):

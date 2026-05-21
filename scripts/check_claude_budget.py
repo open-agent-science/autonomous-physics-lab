@@ -15,6 +15,11 @@ Environment variables:
                               default: 6_000_000  (~Claude Max 5x estimate)
   CLAUDE_BUDGET_THRESHOLD_PCT percentage of limit above which we block
                               default: 50
+
+The gate is intentionally approximate: it counts input, output, and cache
+creation tokens from local Claude Code logs. Cache-read tokens are reported
+separately for visibility but are not included in the threshold total because
+they are usually discounted and can otherwise dominate repeated-agent runs.
 """
 
 from __future__ import annotations
@@ -53,6 +58,7 @@ def compute_usage(
 
     total_input = 0
     total_output = 0
+    total_cache_creation = 0
     total_cache_read = 0
     sessions_scanned = 0
     files_read = 0
@@ -61,6 +67,7 @@ def compute_usage(
         return {
             "input_tokens": 0,
             "output_tokens": 0,
+            "cache_creation_tokens": 0,
             "cache_read_tokens": 0,
             "total_tokens": 0,
             "sessions_scanned": 0,
@@ -100,6 +107,7 @@ def compute_usage(
                     if usage:
                         total_input += usage.get("input_tokens", 0)
                         total_output += usage.get("output_tokens", 0)
+                        total_cache_creation += usage.get("cache_creation_input_tokens", 0)
                         total_cache_read += usage.get("cache_read_input_tokens", 0)
                         sessions_scanned += 1
         except OSError:
@@ -108,8 +116,9 @@ def compute_usage(
     return {
         "input_tokens": total_input,
         "output_tokens": total_output,
+        "cache_creation_tokens": total_cache_creation,
         "cache_read_tokens": total_cache_read,
-        "total_tokens": total_input + total_output,
+        "total_tokens": total_input + total_output + total_cache_creation,
         "sessions_scanned": sessions_scanned,
         "files_read": files_read,
         "period_start": cutoff.isoformat(),
@@ -128,6 +137,8 @@ def evaluate(
 
     return {
         **usage,
+        "used_tokens": total,
+        "limit_tokens": monthly_limit,
         "monthly_limit": monthly_limit,
         "threshold_pct": threshold_pct,
         "used_pct": round(used_pct, 2),
