@@ -115,8 +115,9 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
-          - "Prefer TASK-0315, TASK-0316, or TASK-0317 for post-0310 Nuclear follow-up"
+          - "Prefer TASK-0316, TASK-0317, TASK-0320, or TASK-0321 for post-0310 Nuclear follow-up"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
+          - "Keep at least three independent READY scientific tasks available for parallel agents when possible"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
         validation:
