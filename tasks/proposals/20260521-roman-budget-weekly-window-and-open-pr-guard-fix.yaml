@@ -1,0 +1,117 @@
+proposal_id: 20260521-roman-budget-weekly-window-and-open-pr-guard-fix
+title: "Fix auto-task-runner: weekly budget window and open-PR guard"
+status: PROPOSED
+type: tooling_fix
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Make the autonomous task runner usable in real conditions without false budget blocks."
+  - "Prevent the autonomous task runner from picking READY tasks that already have an open PR from another agent."
+  - "Preserve APL's existing budget-gate discipline (block before high-spend runs) while aligning the metric with the actual Claude plan."
+
+summary: >
+  TASK-0318 (PR #445) added scripts/auto_run_next_task.sh and
+  scripts/check_claude_budget.py. Live testing exposed two issues:
+
+  (1) The budget gate is calendar-monthly, but the actual Claude Code plan
+      uses a weekly rolling limit. The current script reports usage as a
+      fraction of CLAUDE_MONTHLY_TOKEN_LIMIT computed from the 1st of the
+      current month, which both inflates the headline number and does not
+      match the plan's reset semantics.
+
+  (2) The task selector picks the highest-priority READY task without
+      checking whether that task already has an OPEN pull request from
+      another agent. A live run picked TASK-0315 even though PR #444 on
+      agent/roman/codex/task-0315-... was already open, which would have
+      resulted in duplicate work, branch-name collisions, and reviewer
+      load.
+
+rationale: >
+  The user's actual plan shows "Weekly · all models: 18% (resets 4d)" and a
+  5-hour limit, but check_claude_budget.py models a monthly cap. With a
+  realistic CLAUDE_MONTHLY_TOKEN_LIMIT of 6.5M, the script reports >400%
+  usage by mid-month because cache-creation tokens dominate. Even raising
+  the limit to 50M still leaves the gate blocking at 54% under a 50%
+  threshold. The metric does not match the plan, so it is not actionable.
+
+  The open-PR collision risk is concrete: agent/roman/codex/task-0315 is
+  already open as PR #444. A second autonomous run picked the same task
+  because the selector reads only mission JSON, which surfaces task status
+  but not open-PR state.
+
+  Both issues block the auto-runner from being trusted in unattended use,
+  which is the explicit purpose of TASK-0318.
+
+input:
+  mode: planning_only
+  related_domain: tooling
+  related_objects:
+    - "scripts/check_claude_budget.py"
+    - "scripts/auto_run_next_task.sh"
+    - "tests/test_check_claude_budget.py"
+    - "tasks/TASK-0318-add-autonomous-task-runner.yaml"
+  planning_context: >
+    Proposal-only PR. No script changes are made here. The implementation
+    PR (after maintainer approval and TASK-XXXX assignment) should:
+
+    Part A — Weekly budget window
+      - Replace _month_start with a rolling 7-day cutoff (now - 7 days).
+      - Rename CLAUDE_MONTHLY_TOKEN_LIMIT to CLAUDE_WEEKLY_TOKEN_LIMIT,
+        keeping the old env var as a deprecated alias that emits a stderr
+        warning so existing automation does not break silently.
+      - Update report fields: add weekly_limit, keep monthly_limit as a
+        deprecated alias mirroring weekly_limit for one release.
+      - Update tests/test_check_claude_budget.py to cover both the
+        rolling-window cutoff and the alias-warning path.
+      - Update scripts/auto_run_next_task.sh to read
+        CLAUDE_WEEKLY_TOKEN_LIMIT first.
+
+    Part B — Open-PR guard
+      - In scripts/auto_run_next_task.sh, after the READY-task selector
+        produces a candidate, query `gh pr list --state open --search
+        "TASK-XXXX in:title"` (or equivalent helper) to detect an
+        existing open PR.
+      - If an open PR matches the candidate's TASK id, skip to the next
+        READY candidate and record the skip reason in the log.
+      - If no candidate remains, exit cleanly with a clear message.
+      - Add a dry-run unit test that verifies the skip behavior when an
+        open PR is reported by a mocked gh CLI.
+
+    Both fixes should preserve the existing budget-gate semantics for any
+    consumer that relies on `under_threshold` and the JSON report shape.
+    Backward compatibility windows: one release for renamed env vars and
+    field names, with a stderr deprecation warning in both cases.
+
+requirements:
+  - "Keep this PR proposal-only — no code changes outside tasks/proposals/."
+  - "Maintainer assigns a canonical TASK-XXXX id before implementation work begins."
+  - "Implementation PR must preserve CLAUDE_MONTHLY_TOKEN_LIMIT and monthly_limit as deprecated aliases for one release."
+  - "Implementation PR must add tests for the rolling 7-day cutoff and for the open-PR guard skip path."
+  - "Do not change scripts/check_claude_budget.py exit codes or the under_threshold semantics."
+  - "Do not promote claims automatically."
+  - "Do not touch results/, claims/, knowledge/, or prediction_registry/ in the implementation PR."
+
+accepted_outputs:
+  - "canonical TASK-XXXX yaml under tasks/ with the two-part scope above"
+  - "implementation PR updating scripts/check_claude_budget.py, scripts/auto_run_next_task.sh, and tests/test_check_claude_budget.py"
+  - "updated docs/notes/ entry or AGENTS.md section if env-var naming conventions need a campaign-wide note"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Live test on 2026-05-21: monthly budget gate blocked at 415% with
+    LIMIT=6.5M / THRESHOLD=50%; with LIMIT=50M / THRESHOLD=50% it still
+    blocked at 54%; the auto-runner only proceeded with THRESHOLD=80%.
+    Separately, the selector picked TASK-0315 while PR #444 was already
+    open on the same task from agent/roman/codex/.
