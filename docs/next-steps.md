@@ -215,6 +215,10 @@ scientific `READY` tasks across those campaigns. Open fresh lanes instead:
 - `TASK-0324` for Nuclear neutron-rich tail behavior;
 - `TASK-0325` for Quantum direct-measurement digitisation/table-value package;
 - `TASK-0326` for a Quantum calibration-consistency waiver decision;
+- `TASK-0334` for a Quantum Jasieniak 2011 deterministic source-artifact
+  package after the direct-row blocker;
+- `TASK-0335` for a Quantum calibration-curve consistency scope package that
+  does not run metrics or unblock `TASK-0225`;
 - `TASK-0330` for Atomic Clock direct frequency-ratio source review;
 - `TASK-0331` for Atomic Clock derived-constraint source review;
 - `TASK-0332` for the Atomic Clock real-row readiness gate;
@@ -248,6 +252,12 @@ campaign and data foundations rather than formula search:
 - `TASK-0298` triaged direct-measurement source candidates, but later
   absorption work should treat Yu 2003 as requiring digitisation or primary
   tables rather than immediate table-row curation;
+- `TASK-0334` should now package Jasieniak 2011 source evidence or preserve
+  the exact deterministic-artifact blocker;
+- `TASK-0335` should define, not run, the weaker
+  `calibration_curve_consistency` benchmark scope;
+- `TASK-0336` should stay blocked until `TASK-0334` or an equivalent
+  maintainer-provided artifact makes direct band-edge rows reproducible;
 - `TASK-0225` is intentionally blocked until reviewed row-level
   `data/quantum_dots/qd-*.yaml` measurement rows exist, or a maintainer waiver
   scopes the first benchmark as calibration-curve consistency;
