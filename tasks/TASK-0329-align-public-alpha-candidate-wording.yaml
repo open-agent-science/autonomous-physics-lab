@@ -1,0 +1,52 @@
+id: TASK-0329
+title: "Align public-alpha candidate wording before release signoff refresh"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Clear the small docs-alignment blockers identified by the v0.2 public-alpha go/no-go review."
+  - "Keep the repository framed as a public-alpha candidate without implying that public opening has happened."
+  - "Preserve conservative Nuclear Mass Surface wording while pointing readers to the campaign page for current follow-up evidence."
+
+input:
+  mode: workflow
+  related_domain: public_release_readiness
+  related_objects:
+    - "docs/reviews/v0.2-public-alpha-go-no-go-2026-05.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "README.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    The go/no-go review found that docs/status.md already uses the
+    v0.2-public-alpha candidate framing, while README.md and
+    docs/mission-control.md still contained v0.1-private-alpha wording. It
+    also recommended either expanding the README Nuclear box or adding a
+    conservative pointer to the Nuclear campaign page for current shell-axis
+    registry and follow-up audit evidence.
+
+requirements:
+  - "Align README.md and docs/mission-control.md stage wording with docs/status.md."
+  - "Do not state that the repository is public or that public opening is approved."
+  - "Keep Nuclear Mass Surface wording conservative and avoid discovery, proof, or validated-prediction wording."
+  - "Do not modify claims, results, prediction entries, datasets, or task-state transitions beyond this task file."
+  - "Leave final release signoff refresh for the actual public cut commit."
+
+accepted_outputs:
+  - "README.md"
+  - "docs/mission-control.md"
+
+validation:
+  commands:
+    - "python3 scripts/check_public_path_leaks.py"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_public_path_leaks.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
