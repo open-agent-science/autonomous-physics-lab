@@ -181,6 +181,7 @@ missions:
         label: "Prepare a quantum direct-measurement digitization or table-value package"
         task_id: TASK-0325
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
         expected_outputs:

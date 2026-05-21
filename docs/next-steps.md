@@ -213,7 +213,6 @@ The next parallel research wave should maintain at least five independent
 scientific `READY` tasks across those campaigns. Open fresh lanes instead:
 
 - `TASK-0324` for Nuclear neutron-rich tail behavior;
-- `TASK-0325` for Quantum direct-measurement digitisation/table-value package;
 - `TASK-0326` for a Quantum calibration-consistency waiver decision;
 - `TASK-0330` for Atomic Clock direct frequency-ratio source review;
 - `TASK-0331` for Atomic Clock derived-constraint source review;
@@ -239,6 +238,9 @@ campaign and data foundations rather than formula search:
   appears to contain a suitable Supporting Information table, but a curator
   still needs access to the table values or a deterministic digitisation
   artifact before committing a `qd-*.yaml` band-edge seed;
+- `TASK-0325` has preserved the Jasieniak 2011 path as a blocker package,
+  because the repository still has no committed SI/table extraction or
+  deterministic digitisation artifact for `>=6` direct rows;
 - `TASK-0306` has defined the digitisation protocol and artifact requirements
   needed before figure-derived absorption rows can unblock `TASK-0291`; the
   remaining gate is a committed artifact, primary table values,
