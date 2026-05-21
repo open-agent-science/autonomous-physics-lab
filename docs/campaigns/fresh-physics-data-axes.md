@@ -55,6 +55,14 @@ This axis must not become broad constants derivation. Derived constraints on
 alpha or mass ratios require explicit sensitivity coefficients, assumptions,
 and a separate maintainer-reviewed task.
 
+`TASK-0311` adds the first atomic-clock-specific scaffold:
+
+- [Atomic-Clock Residuals](./atomic-clock-residuals.md);
+- [Atomic-Clock Source Candidates](../notes/atomic-clock-source-candidates.md);
+- [`data/atomic_clocks/schema.md`](../../data/atomic_clocks/schema.md).
+
+It remains source-surface work only; no rows or metrics are ingested.
+
 ### Lattice QCD
 
 Lattice-QCD aggregated outputs are eligible only for source-policy review.
