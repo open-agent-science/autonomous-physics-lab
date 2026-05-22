@@ -115,7 +115,7 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
-          - "Prefer TASK-0320, TASK-0323, or TASK-0324 for the next Nuclear follow-up"
+          - "Prefer TASK-0333 for the next Nuclear shell-axis synthesis before more audits or registry expansion"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
@@ -181,7 +181,7 @@ missions:
         label: "Prepare a quantum direct-measurement digitization or table-value package"
         task_id: TASK-0325
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
         expected_outputs:
@@ -207,7 +207,7 @@ missions:
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         expected_outputs:
