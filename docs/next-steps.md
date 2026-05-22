@@ -207,7 +207,9 @@ The nuclear queue should stay conservative:
 Portfolio status: APL now keeps three active scientific campaigns with
 different maturity levels: Nuclear Mass Surface as the flagship validation
 track, Quantum Size Effects as the measurement-readiness track, and Atomic
-Clock Residuals as the fresh-data source-surface track.
+Clock Residuals as the fresh-data source-surface track. Exoplanet Mass-Radius
+is the planned fourth campaign; it should stay source/schema-only until a
+pinned catalog snapshot, holdout protocol, and baseline task exist.
 
 The next parallel research wave should maintain at least five independent
 scientific `READY` tasks across those campaigns. Open fresh lanes instead:
@@ -223,6 +225,8 @@ scientific `READY` tasks across those campaigns. Open fresh lanes instead:
 - `TASK-0332` for the Atomic Clock real-row readiness gate;
 - `TASK-0333` after `TASK-0324` to synthesize the Nuclear shell-axis
   decision and stop the audit loop if the evidence is too mixed.
+- `TASK-0337` for the planned Exoplanet Mass-Radius source/schema scaffold,
+  when the active campaigns need another independent preparation lane.
 
 The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:
@@ -268,6 +272,16 @@ campaign and data foundations rather than formula search:
 - `TASK-0226` remains blocked until the baseline is reviewed;
 - `TASK-0227` has landed as a small lepton g-2 cross-observable falsifier and
   remains a guardrail result, not a flagship campaign.
+
+The planned fourth campaign is Exoplanet Mass-Radius:
+
+- use `TASK-0337` to create the value-free source manifest template, row
+  schema, holdout protocol, and source-surface review;
+- do not fetch a live NASA Exoplanet Archive snapshot or run metrics until the
+  source policy is pinned;
+- expected later results are baseline reproduction, uncertainty-aware
+  residual maps, failure maps by planet class and detection method, and
+  negative controls for simple mass-radius formulas.
 
 ### 2. Validate Private Contributors And Agents
 
