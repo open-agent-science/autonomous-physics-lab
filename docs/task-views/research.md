@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0330` - Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0331` - Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0332` - Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 
 ## IN_PROGRESS
@@ -20,6 +19,7 @@ None.
 - `TASK-0315` - Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0316` - Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0319` - Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`, domain `tooling`)
+- `TASK-0331` - Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0333` - Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0334` - Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0337` - Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
