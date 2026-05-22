@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-21 17:14 UTC
+Generated: 2026-05-22 18:33 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1140,6 +1140,7 @@ missions:
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
@@ -2266,12 +2267,10 @@ one PR.
 
 ## READY
 
-- `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2285,6 +2284,8 @@ None.
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
+- `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

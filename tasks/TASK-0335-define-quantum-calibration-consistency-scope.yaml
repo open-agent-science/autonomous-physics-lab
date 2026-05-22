@@ -1,7 +1,7 @@
 id: TASK-0335
 title: "Define quantum calibration-curve consistency benchmark scope"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -35,7 +35,7 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/quantum-calibration-curve-consistency-benchmark-scope.md"
-  - "optional concise update to docs/campaigns/quantum-size-effects.md"
+  - "docs/campaigns/quantum-size-effects.md"
   - "optional follow-up task recommendation for an implementation task, still requiring explicit maintainer approval"
 
 validation:

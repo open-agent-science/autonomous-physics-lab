@@ -207,6 +207,7 @@ missions:
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
