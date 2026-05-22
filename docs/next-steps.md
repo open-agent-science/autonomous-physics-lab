@@ -203,6 +203,9 @@ The nuclear queue should stay conservative:
   sandbox evidence. The next Nuclear wave should not add more `PRED-*`
   entries; it should test the validity domain, coefficient stability, and
   specificity of that signal.
+- `TASK-0333` fixed the shell-axis lane as `DIAGNOSTIC_ONLY`: useful sandbox
+  evidence, but not a discovery candidate, not a reveal-scoring
+  justification, and not a reason to keep slicing the same lane.
 
 Portfolio status: APL now keeps three active scientific campaigns with
 different maturity levels: Nuclear Mass Surface as the flagship validation
@@ -212,23 +215,28 @@ is the planned fourth campaign; it should stay source/schema-only until a
 pinned catalog snapshot, holdout protocol, and baseline task exist.
 
 The next parallel research wave should maintain at least five independent
-scientific `READY` tasks across those campaigns. Open fresh lanes instead:
+scientific `READY` tasks across those campaigns. The current task-queue wave
+opens fresh lanes instead of extending the shell-axis audit loop:
 
-- `TASK-0324` for Nuclear neutron-rich tail behavior;
-- `TASK-0326` for a Quantum calibration-consistency waiver decision;
-- `TASK-0334` is now review-ready as a Quantum Jasieniak 2011 metadata-only
-  source-artifact package; do not treat it as row evidence until a
-  checksum-pinned SI/table extraction or deterministic digitisation artifact
-  lands;
-- `TASK-0335` for a Quantum calibration-curve consistency scope package that
-  does not run metrics or unblock `TASK-0225`;
-- `TASK-0330` for Atomic Clock direct frequency-ratio source review;
-- `TASK-0331` for Atomic Clock derived-constraint source review;
-- `TASK-0332` for the Atomic Clock real-row readiness gate;
-- `TASK-0333` after `TASK-0324` to synthesize the Nuclear shell-axis
-  decision and stop the audit loop if the evidence is too mixed.
-- `TASK-0337` for the planned Exoplanet Mass-Radius source/schema scaffold,
-  when the active campaigns need another independent preparation lane.
+- `TASK-0338` for Nuclear deformation-proxy hypothesis testing;
+- `TASK-0339` for Nuclear local residual curvature and kink testing;
+- `TASK-0340` for Nuclear odd-even by shell-proximity interactions;
+- `TASK-0341` for Nuclear measured/extrapolated boundary diagnostics;
+- `TASK-0342` for Nuclear uncertainty-weighted residual stability;
+- `TASK-0343` for Nuclear high-error cluster hypotheses;
+- `TASK-0344` for Atomic Clock covariance and uncertainty semantics;
+- `TASK-0345` for Exoplanet PSCompPars snapshot ingestion planning;
+- `TASK-0346` for Exoplanet baseline and holdout protocol;
+- `TASK-0347` for Quantum alternative direct table source triage;
+- `TASK-0330` remains the current Atomic Clock direct frequency-ratio source
+  review;
+- `TASK-0332` remains the current Atomic Clock real-row readiness gate.
+
+For Nuclear, agents should now run many bounded hypothesis lanes in parallel.
+Each lane should complete a mini-loop: hypothesis, deterministic feature or
+runner, baseline comparison, matched controls, holdout/subset report,
+negative-result preservation, and conservative verdict. Do not add `PRED-*`
+entries or claim promotion from this wave.
 
 The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:
@@ -263,6 +271,9 @@ campaign and data foundations rather than formula search:
 - `TASK-0334` has packaged the Jasieniak 2011 source locator and deterministic
   acquisition plan as metadata-only evidence; preserve the blocker until the
   actual SI/table extraction or digitisation artifact is reviewed;
+- `TASK-0347` should look for open alternative direct-table or deterministic
+  digitisation sources in parallel with any maintainer-provided Jasieniak SI
+  path;
 - `TASK-0335` should define, not run, the weaker
   `calibration_curve_consistency` benchmark scope;
 - `TASK-0336` should stay blocked until `TASK-0334` or an equivalent
@@ -285,6 +296,10 @@ The planned fourth campaign is Exoplanet Mass-Radius:
 - expected later results are baseline reproduction, uncertainty-aware
   residual maps, failure maps by planet class and detection method, and
   negative controls for simple mass-radius formulas.
+- use `TASK-0345` to prepare the first PSCompPars pinned-snapshot ingestion
+  plan without fetching rows;
+- use `TASK-0346` to define the baseline protocol before any agent sees or
+  scores row-level catalog values.
 
 ### 2. Validate Private Contributors And Agents
 
