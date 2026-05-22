@@ -51,6 +51,7 @@ one PR.
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
