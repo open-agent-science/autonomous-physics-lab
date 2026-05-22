@@ -71,7 +71,9 @@ Current task posture:
 - `TASK-0334` — deterministic Jasieniak 2011 source-artifact package
   (READY; source evidence only, no row fabrication);
 - `TASK-0335` — calibration-curve consistency benchmark scope package
-  (READY; protocol only, no metrics);
+  (REVIEW_READY; see
+  `docs/reviews/quantum-calibration-curve-consistency-benchmark-scope.md`;
+  protocol only, no metrics);
 - `TASK-0336` — direct band-edge row curation from an approved source artifact
   (BLOCKED until `TASK-0334` or an equivalent maintainer-provided artifact).
 
@@ -137,6 +139,10 @@ Current evidence is infrastructure and source curation only:
   seeds for Yu 2003 cadmium chalcogenides and Moreels 2009 PbS.
 - `TASK-0283` reviewed those seeds and kept the benchmark blocked because they
   are calibration-derived rather than direct measurement rows.
+- `TASK-0335` defines the separate
+  `quantum_calibration_curve_consistency` scope package for a possible weaker
+  calibration-derived benchmark, but records no metrics and does not unblock
+  the direct measurement-versus-model benchmark.
 
 Historical context:
 
@@ -193,7 +199,7 @@ Historical context:
   direct-row readiness review by itself;
 - use `TASK-0334` as the source-artifact task after the direct-measurement
   blocker: package Jasieniak 2011 or preserve the exact access blocker;
-- use `TASK-0335` to define a weak `calibration_curve_consistency` scope, but
+- use `TASK-0335` as the weak `calibration_curve_consistency` scope contract;
   do not run metrics or pretend to unblock the measurement benchmark;
 - keep `TASK-0336` blocked until `TASK-0334` lands a deterministic artifact or
   the maintainer supplies equivalent table/digitisation evidence;
