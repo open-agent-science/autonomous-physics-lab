@@ -36,17 +36,20 @@ evidence surface forward without discovery framing.
 
 The nuclear mass surface campaign is the current flagship research track.
 
-Immediate work should stay audit-first:
+Immediate work should stay hypothesis-test-first:
 
 - preserve the baseline residual surface as the comparison anchor;
 - review post-AME2020 retrospective time-split evidence as inconclusive unless
   a later task establishes stronger support;
-- run only bounded sandbox or factory lanes with explicit negative controls;
+- treat the completed shell-axis audit wave as `DIAGNOSTIC_ONLY`, not as a
+  reason to stop Nuclear or as a claim-ready result;
+- run multiple bounded sandbox or factory lanes in parallel, each with a
+  distinct hypothesis family, explicit controls, and negative-result
+  preservation;
 - use the prediction registry only for before-measurement comparisons, with
   selected entries frozen before reveal;
-- prefer registry coverage audit, synthetic reveal dry-runs, and conservative
-  evidence summaries while running only disjoint sandbox scout lanes before
-  adding more frozen registry entries or running any future comparison;
+- prefer disjoint sandbox scout lanes and conservative evidence summaries
+  before adding more frozen registry entries or running any future comparison;
 - keep all outputs framed as validation, replay, audit, or sandbox evidence.
 
 This track is appropriate for active tasks because it now has datasets,

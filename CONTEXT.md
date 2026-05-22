@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-22 20:09 UTC
+Generated: 2026-05-22 21:10 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -992,7 +992,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: keep the shell-axis mini-wave frozen, leave reveal scoring blocked, and use the completed full-known audit as sandbox review evidence while choosing the next READY task from live candidates."
+    recommendation: "Main direction now: keep shell-axis diagnostic-only, leave reveal scoring blocked, and run multiple fresh bounded Nuclear hypothesis lanes in parallel."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1004,6 +1004,7 @@ missions:
       - "PRED-0063 through PRED-0068 now freeze the shell-axis-balanced-001 prospective mini-wave"
       - "source preflight and synthetic reveal mechanics are done, but TASK-0307 found no acceptable post-registration source manifest"
       - "AGENT-RUN-0018 now records the full-known-data retrospective audit without prospective reveal scoring"
+      - "TASK-0333 fixed shell-axis as diagnostic-only, so fresh hypothesis lanes should replace additional shell-axis slicing"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1014,6 +1015,7 @@ missions:
       - "do not promote any second-batch sandbox candidate after TASK-0204 without a maintainer-approved follow-up task"
       - "do not score PRED-0063 through PRED-0068 before source preflight, no-peek review, and explicit maintainer approval"
       - "do not add more shell-axis PRED entries before the mini-wave reveal-readiness implications are reviewed"
+      - "do not treat shell-axis diagnostic evidence as a reason to stop Nuclear hypothesis testing"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -1040,7 +1042,7 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Prefer the post-0310 Nuclear validation wave before registry expansion"
+        label: "Prefer fresh bounded Nuclear hypothesis lanes before registry expansion"
         task_id: null
         mode: research
         priority: high
@@ -1048,7 +1050,8 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
-          - "Prefer TASK-0333 for the next Nuclear shell-axis synthesis before more audits or registry expansion"
+          - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
+          - "Use TASK-0338 through TASK-0343 as independent parallel Nuclear hypothesis lanes"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
@@ -1093,6 +1096,54 @@ missions:
           - "use READY TASK-0228 through TASK-0237 as parallel lanes"
           - "each lane adds two frozen PRED-0021+ entries plus pre-reveal validation"
           - "no live external fetch, reveal comparison, claim promotion, or retrospective metric framing"
+      - id: nuclear-deformation-proxy-lane
+        label: "Run Nuclear deformation-proxy hypothesis lane"
+        task_id: TASK-0338
+        mode: research
+        priority: high
+        difficulty: high
+        expected_outputs:
+          - "sandbox mini-loop with controls and verdict"
+      - id: nuclear-local-curvature-lane
+        label: "Run Nuclear local residual curvature hypothesis lane"
+        task_id: TASK-0339
+        mode: research
+        priority: high
+        difficulty: high
+        expected_outputs:
+          - "sandbox mini-loop with chain-transfer diagnostics"
+      - id: nuclear-odd-even-shell-lane
+        label: "Run Nuclear odd-even shell-interaction hypothesis lane"
+        task_id: TASK-0340
+        mode: research
+        priority: high
+        difficulty: high
+        expected_outputs:
+          - "interaction candidates compared to pairing-only and shell-only controls"
+      - id: nuclear-boundary-lane
+        label: "Run Nuclear measured/extrapolated boundary hypothesis lane"
+        task_id: TASK-0341
+        mode: research
+        priority: medium
+        difficulty: high
+        expected_outputs:
+          - "source-status diagnostics or blocker review"
+      - id: nuclear-uncertainty-weighted-lane
+        label: "Run Nuclear uncertainty-weighted residual lane"
+        task_id: TASK-0342
+        mode: research
+        priority: medium
+        difficulty: medium
+        expected_outputs:
+          - "uncertainty preflight and weighted residual diagnostics"
+      - id: nuclear-high-error-cluster-lane
+        label: "Run Nuclear high-error cluster hypothesis lane"
+        task_id: TASK-0343
+        mode: research
+        priority: high
+        difficulty: high
+        expected_outputs:
+          - "cluster hypotheses with matched negative controls"
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
@@ -1129,13 +1180,15 @@ missions:
           - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
           - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
       - id: quantum-jasieniak-source-artifact
-        label: "Package Jasieniak 2011 deterministic source artifact"
-        task_id: TASK-0334
+        label: "Review TASK-0334 Jasieniak 2011 source-artifact package before unblocking row curation"
+        task_id: null
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
         expected_outputs:
-          - "source artifact package or explicit deterministic blocker"
+          - "use docs/reviews/quantum-jasieniak-2011-source-artifact-package.md after merge"
+          - "keep TASK-0336, TASK-0293, and TASK-0225 blocked until a checksum-pinned SI/table extraction or deterministic digitisation artifact is reviewed"
       - id: quantum-calibration-consistency-scope
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
@@ -1145,6 +1198,14 @@ missions:
         difficulty: medium
         expected_outputs:
           - "calibration-only benchmark scope without metrics"
+      - id: quantum-open-direct-source-triage
+        label: "Triage open quantum-dot direct table sources"
+        task_id: TASK-0347
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "ranked alternative direct-source candidates without row values"
 
   - id: atomic-clock-residuals
     title: "Atomic Clock Residuals"
@@ -1194,6 +1255,7 @@ missions:
         label: "Review atomic-clock derived drift/constraint source class"
         task_id: TASK-0331
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
@@ -1206,6 +1268,14 @@ missions:
         difficulty: medium
         expected_outputs:
           - "go/no-go gate before first real atomic-clock row seed"
+      - id: atomic-covariance-semantics
+        label: "Review atomic-clock covariance and uncertainty semantics"
+        task_id: TASK-0344
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "value-free uncertainty and covariance source semantics"
 
   - id: exoplanet-mass-radius
     title: "Exoplanet Mass-Radius Benchmark"
@@ -1238,6 +1308,22 @@ missions:
           - "mass-radius row schema or schema sketch"
           - "holdout protocol and source-surface review"
           - "no live rows, metrics, prediction registry entries, or claims"
+      - id: exoplanet-pscomppars-ingestion-plan
+        label: "Prepare Exoplanet PSCompPars snapshot ingestion plan"
+        task_id: TASK-0345
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "value-free retrieval and inclusion plan before any row fetch"
+      - id: exoplanet-baseline-protocol
+        label: "Define Exoplanet mass-radius baseline protocol"
+        task_id: TASK-0346
+        mode: research
+        priority: medium
+        difficulty: medium
+        expected_outputs:
+          - "baseline, metrics, holdout, and negative-control protocol without rows"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -2300,9 +2386,7 @@ one PR.
 ## READY
 
 - `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -2316,7 +2400,9 @@ None.
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
+- `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY

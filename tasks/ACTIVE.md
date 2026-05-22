@@ -48,6 +48,16 @@ one PR.
 
 - `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0338` — Run nuclear deformation-proxy hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0339` — Run nuclear local residual curvature hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0341` — Run nuclear extrapolated-measured boundary hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`)
+- `TASK-0343` — Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0344` — Review atomic-clock covariance and uncertainty semantics (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0346` — Define exoplanet mass-radius baseline protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
+- `TASK-0347` — Triage open quantum-dot direct table sources (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
