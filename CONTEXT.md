@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-22 18:33 UTC
+Generated: 2026-05-22 18:48 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1048,7 +1048,7 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
-          - "Prefer TASK-0320, TASK-0323, or TASK-0324 for the next Nuclear follow-up"
+          - "Prefer TASK-0333 for the next Nuclear shell-axis synthesis before more audits or registry expansion"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
@@ -1114,7 +1114,7 @@ missions:
         label: "Prepare a quantum direct-measurement digitization or table-value package"
         task_id: TASK-0325
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
         expected_outputs:
@@ -1140,7 +1140,7 @@ missions:
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         expected_outputs:
@@ -2270,6 +2270,7 @@ one PR.
 - `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
@@ -2284,16 +2285,16 @@ None.
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
-- `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (merged)
 - `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (merged)
 - `TASK-0328` — Add atomic-clock synthetic loader dry-run (merged)
 - `TASK-0327` — Add atomic-clock source manifest template (merged)
 - `TASK-0326` — Decide quantum calibration-curve consistency waiver (merged)
 - `TASK-0325` — Prepare quantum direct-measurement digitization package (merged)
+- `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (merged)
 - `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (merged)
 - `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (merged)
 - `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (merged)
@@ -2591,7 +2592,6 @@ None.
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## REJECTED
