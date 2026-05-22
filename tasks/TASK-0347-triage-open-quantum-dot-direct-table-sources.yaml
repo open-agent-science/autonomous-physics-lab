@@ -1,0 +1,52 @@
+id: TASK-0347
+title: "Triage open quantum-dot direct table sources"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Quantum Size Effects moving while the Jasieniak 2011 ACS source artifact remains access-blocked."
+  - "Find an alternative direct-measurement path without accepting calibration-polynomial rows."
+  - "Preserve source blockers as useful evidence instead of fabricating row values."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-jasieniak-2011-source-artifact-package.md"
+    - "docs/reviews/quantum-direct-measurement-source-triage.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+  planning_context: >
+    Jasieniak 2011 remains the best direct band-edge candidate, but row
+    curation is blocked until an SI table or deterministic digitization
+    artifact exists. This task searches for alternative open sources that may
+    contain direct table values or reproducible figure data, without adding
+    measurements in the same PR.
+
+requirements:
+  - "Identify 3-6 candidate quantum-dot direct measurement sources that may contain table values or digitizable direct points for size versus band-edge, absorption peak, emission peak, or bandgap."
+  - "Prefer open-access, institutional repository, PMC, arXiv supplement, publisher SI with clear access, or maintainer-provided-file paths."
+  - "For each candidate, record source locator, property kind, material family, expected row type, license/reuse notes, and whether it is table-derived, digitization-required, or blocked."
+  - "Rank candidates for the next row-curation task and explain why each is or is not better than the Jasieniak blocker path."
+  - "Do not add `qd-*.yaml` rows, use calibration polynomials as direct rows, estimate figure coordinates by eye, run benchmarks, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-open-direct-table-source-triage.md"
+  - "optional metadata-only update to data/quantum_dots/source_manifest.yaml"
+  - "optional source-artifact README stubs only if they contain no measurement values"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

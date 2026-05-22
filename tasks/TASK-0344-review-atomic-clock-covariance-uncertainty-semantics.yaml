@@ -1,0 +1,52 @@
+id: TASK-0344
+title: "Review atomic-clock covariance and uncertainty semantics"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare Atomic Clock Residuals for real rows without ingesting values prematurely."
+  - "Make uncertainty and covariance handling explicit before the real-row gate."
+  - "Keep direct measurements and derived constraints statistically separated."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-clock-derived-constraint-source-review.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "data/atomic_clocks/schema.md"
+    - "docs/notes/fresh-data-source-policy.md"
+    - "tasks/TASK-0332-run-atomic-clock-real-row-readiness-gate.yaml"
+  planning_context: >
+    Atomic Clock Residuals now has source-class work for derived constraints,
+    and TASK-0330 is still available for direct rows. This task reviews the
+    uncertainty/covariance semantics that both direct and derived rows must
+    preserve before TASK-0332 can safely authorize real rows.
+
+requirements:
+  - "Review required uncertainty fields for direct frequency-ratio rows and derived drift/constraint rows without copying numerical values."
+  - "Define how total, statistical, systematic, asymmetric, confidence-level, and bound-style uncertainties should be represented or blocked."
+  - "Define covariance and shared-systematic stop conditions for repeated campaigns, shared sensitivity coefficients, and direct/derived duplicate evidence."
+  - "Recommend schema or manifest wording changes only if needed; keep them metadata-only."
+  - "State how TASK-0332 should treat missing covariance notes: blocker, limitation, or review-summary-only."
+  - "Do not ingest real clock values, fit constants drift, add prediction entries, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+  - "optional metadata-only update to data/atomic_clocks/schema.md or data/atomic_clocks/source_manifest_template.yaml"
+  - "tests updated only if manifest/schema structure changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

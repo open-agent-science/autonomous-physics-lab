@@ -1,0 +1,53 @@
+id: TASK-0345
+title: "Prepare exoplanet PSCompPars snapshot ingestion plan"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Exoplanet Mass-Radius from planned campaign scaffold toward a pinned snapshot workflow."
+  - "Keep the work preparation-only before live catalog rows are committed."
+  - "Make the first public-data ingestion task deterministic and reviewable."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/reviews/exoplanet-mass-radius-source-surface-review.md"
+    - "data/exoplanets/README.md"
+    - "data/exoplanets/source_manifest_template.yaml"
+    - "physics_lab/schemas/exoplanet_mass_radius.schema.json"
+    - "docs/exoplanet-mass-radius-holdout-protocol.md"
+  planning_context: >
+    TASK-0337 identified NASA Exoplanet Archive PSCompPars as the recommended
+    first source class, but did not fetch or commit a snapshot. This task
+    prepares the ingestion plan and query contract so a later task can pin a
+    retrieval-date snapshot without changing scope mid-run.
+
+requirements:
+  - "Define the exact PSCompPars field list needed for the first mass-radius snapshot, including mass, radius, uncertainties, mass provenance, detection method, host-star context, and reference fields."
+  - "Draft a retrieval/query plan with retrieval date, checksum/archive policy, citation notes, and no-live-fetch guardrails."
+  - "Define row inclusion/exclusion filters before any real catalog values are copied."
+  - "Define how `M sin i`, true mass, model-inferred mass, missing uncertainty, and duplicate planet-name rows should be handled."
+  - "Do not fetch live NASA Exoplanet Archive data, commit CSV/YAML rows, run metrics, or add claims."
+  - "Recommend the follow-up ingestion task shape only after the plan is deterministic."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md"
+  - "optional update to data/exoplanets/source_manifest_template.yaml with value-free PSCompPars fields"
+  - "optional query text or README under data/exoplanets/snapshot_plans/ with no row values"
+  - "tests updated only if manifest/schema structure changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
