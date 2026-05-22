@@ -95,7 +95,7 @@ sources:
     journal: "ACS Nano"
     volume: "5"
     pages: "5888-5902"
-    table_reference: "band-edge energy surfaces as a function of nanocrystal size"
+    table_reference: "ACS Supporting Information file nn201681s_si_001.pdf; verify tabulated energy points and size-dependent energy-level diagrams before row curation"
     properties:
       - bandgap_eV
     materials:
@@ -116,7 +116,10 @@ sources:
     notes: >
       Use only for a bandgap_eV residual surface or a separately reviewed
       band-edge extension. Do not combine with absorption_peak_eV or
-      emission_peak_eV entries.
+      emission_peak_eV entries. TASK-0334 records a metadata-only source
+      artifact package under data/quantum_dots/source_artifacts/jasieniak-2011/;
+      row curation still requires a checksum-pinned SI/table extraction or a
+      deterministic digitization artifact.
 
   - source_id: dabbousi-1997-jpcb-emission
     title: "(CdSe)ZnS Core-Shell Quantum Dots: Synthesis and Characterization of a Size Series of Highly Luminescent Nanocrystallites"

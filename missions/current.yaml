@@ -196,13 +196,15 @@ missions:
           - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
           - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
       - id: quantum-jasieniak-source-artifact
-        label: "Package Jasieniak 2011 deterministic source artifact"
-        task_id: TASK-0334
+        label: "Review TASK-0334 Jasieniak 2011 source-artifact package before unblocking row curation"
+        task_id: null
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
         expected_outputs:
-          - "source artifact package or explicit deterministic blocker"
+          - "use docs/reviews/quantum-jasieniak-2011-source-artifact-package.md after merge"
+          - "keep TASK-0336, TASK-0293, and TASK-0225 blocked until a checksum-pinned SI/table extraction or deterministic digitisation artifact is reviewed"
       - id: quantum-calibration-consistency-scope
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
