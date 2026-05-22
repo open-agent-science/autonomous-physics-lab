@@ -298,8 +298,10 @@ missions:
         label: "Scaffold exoplanet mass-radius source surface"
         task_id: TASK-0337
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "value-free exoplanet data README and source-manifest template"
           - "mass-radius row schema or schema sketch"
