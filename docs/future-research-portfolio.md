@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This document separates future research directions into `NOW`, `NEXT`, and
-`WATCHLIST` so agents do not treat every interesting physics topic as an
-immediate implementation target.
+This document separates research directions into `NOW`, `PLANNED FOURTH
+CAMPAIGN`, `NEXT`, and `WATCHLIST` so agents do not treat every interesting
+physics topic as an immediate implementation target.
 
 The portfolio is a prioritization layer, not a claim surface. Moving a topic
 into `NOW` or `NEXT` does not promote any hypothesis or result. Moving a topic
@@ -17,6 +17,10 @@ near-term task selection.
   path, and clear limitation language.
 - `NEXT` work may be scoped into planning or microtask-sized validators, but it
   must stay conservative until a maintainer creates a canonical task.
+- `PLANNED FOURTH CAMPAIGN` work may create source, schema, and holdout
+  preparation tasks, but it is not an active benchmark surface until the
+  repository has a pinned data snapshot and a maintainer-approved baseline
+  task.
 - `WATCHLIST` work is explicitly deferred. Agents may read it for context, but
   should not open implementation branches from it without a new maintainer task.
 - No category authorizes public article work, discovery framing, or automatic
@@ -81,6 +85,43 @@ Immediate work should focus on:
 
 This track is active because it can become a fresh-data benchmark surface, but
 it must not become a broad constants-drift or new-physics campaign.
+
+## PLANNED FOURTH CAMPAIGN
+
+### Exoplanet Mass-Radius Benchmark
+
+Exoplanet Mass-Radius is the planned fourth campaign, not a current benchmark
+result surface.
+
+The strategic goal is to prepare a high-visibility, data-backed campaign around
+planet mass, radius, uncertainty, and residual structure. The expected first
+scientific artifact is a conservative benchmark showing where standard
+mass-radius forecasts work or fail across planet classes, discovery methods,
+host-star context, and measurement-quality filters.
+
+Immediate work should focus on:
+
+- source-manifest and catalog snapshot policy;
+- row schema for mass, radius, uncertainties, true-mass versus minimum-mass
+  flags, and provenance;
+- holdout protocol across planet class, detection method, source date,
+  host-star context, and mass/radius regimes;
+- baseline reproduction plan for a Chen-Kipping-style forecast after a frozen
+  snapshot exists;
+- limitation language for selection effects, heterogeneous measurements, and
+  model-derived catalog values.
+
+This track is planned because it has public data, strong visual explainability,
+recognized baselines, natural holdouts, and real residual structure. It should
+remain preparation-only until `TASK-0337` or a follow-up task creates the
+source/schema surface needed for a later benchmark.
+
+Not allowed yet:
+
+- live archive ingestion without a pinned snapshot policy;
+- benchmark metrics or residual maps before schema and holdout protocol exist;
+- habitability, life, biosignature, or planet-prioritization claims;
+- public "APL discovered a planet law" framing.
 
 ## NEXT
 
