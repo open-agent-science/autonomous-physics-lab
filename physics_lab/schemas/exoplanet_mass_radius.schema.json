@@ -1,0 +1,294 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exoplanet Mass-Radius Dataset",
+  "description": "Schema for pinned exoplanet mass-radius dataset snapshots in the Exoplanet Mass-Radius campaign. True-mass measurements, M sin i minimum masses, radius-only rows, and model-inferred values must use distinct mass_class and inclusion_status values and must not be mixed under a single residual axis. Mass and radius rows are intentionally allowed to coexist within one dataset file as long as per-row method labels remain explicit.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dataset_id",
+    "title",
+    "status",
+    "description",
+    "source_policy",
+    "snapshot_provenance",
+    "row_class_coverage",
+    "entries"
+  ],
+  "properties": {
+    "dataset_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique dataset identifier, e.g. exo-0001-pscomppars-snapshot."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "curated", "frozen"],
+      "description": "draft: under construction; curated: reviewed and usable for benchmarks; frozen: locked for holdout use."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_policy": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable summary of provenance, pinning, snapshot semantics, and redistribution policy for this dataset file."
+    },
+    "snapshot_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_family_id",
+        "source_locator",
+        "retrieval_date_utc",
+        "snapshot_kind",
+        "live_external_fetch_allowed"
+      ],
+      "properties": {
+        "source_family_id": {
+          "type": "string",
+          "pattern": "^EXO-SRC-CLASS-[0-9]{3,}$",
+          "description": "Source-family identifier from data/exoplanets/source_manifest_template.yaml."
+        },
+        "source_locator": {
+          "type": "string",
+          "minLength": 1,
+          "description": "URL, DOI, or pinned-file path identifying the exact source snapshot."
+        },
+        "retrieval_date_utc": {
+          "type": "string",
+          "minLength": 1,
+          "description": "UTC timestamp at which the snapshot was retrieved or pinned."
+        },
+        "release_date_or_publication_date": {
+          "type": ["string", "null"],
+          "description": "Publisher-reported release or publication date when known."
+        },
+        "snapshot_kind": {
+          "type": "string",
+          "enum": [
+            "composite_catalog_snapshot",
+            "peer_reviewed_primary_publication",
+            "mission_pipeline_catalog_release",
+            "archive_copy",
+            "synthetic_dry_run"
+          ]
+        },
+        "live_external_fetch_allowed": {
+          "type": "boolean",
+          "description": "Must be false for any committed dataset; true is reserved for explicit synthetic-only dry-run fixtures."
+        },
+        "raw_checksum_sha256": {
+          "type": ["string", "null"],
+          "description": "SHA-256 of the raw retrieved file when committed or archived; null when archive_plan documents the absence."
+        },
+        "normalized_checksum_sha256": {
+          "type": ["string", "null"],
+          "description": "SHA-256 of the parsed/normalized row table when a parser is used."
+        },
+        "parser_or_normalizer": {
+          "type": ["string", "null"],
+          "description": "Script path or command that produced the normalized table from the raw source."
+        },
+        "license_or_reuse_notes": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Reuse terms, redistribution constraints, or an explicit unknown-terms note."
+        }
+      }
+    },
+    "row_class_coverage": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "direct_mass_radius_measurement",
+          "transit_radius_with_rv_minimum_mass",
+          "transit_radius_only",
+          "rv_minimum_mass_only",
+          "microlensing_or_astrometry_mass",
+          "model_inferred",
+          "synthetic_dry_run"
+        ]
+      },
+      "description": "The row classes this dataset file declares it contains. Each entry must carry a matching row_class field."
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "row_id",
+          "row_class",
+          "planet_name",
+          "host_star",
+          "detection_method",
+          "mass",
+          "radius",
+          "source_id",
+          "source_table_ref",
+          "inclusion_status"
+        ],
+        "properties": {
+          "row_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Unique row identifier within this dataset file."
+          },
+          "row_class": {
+            "type": "string",
+            "enum": [
+              "direct_mass_radius_measurement",
+              "transit_radius_with_rv_minimum_mass",
+              "transit_radius_only",
+              "rv_minimum_mass_only",
+              "microlensing_or_astrometry_mass",
+              "model_inferred",
+              "synthetic_dry_run"
+            ]
+          },
+          "planet_name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Canonical planet name (e.g. Kepler-22 b, HD 209458 b)."
+          },
+          "planet_alt_names": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "host_star": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "spectral_type": {"type": ["string", "null"]},
+              "effective_temperature_K": {"type": ["number", "null"]},
+              "stellar_mass_msun": {"type": ["number", "null"]},
+              "stellar_radius_rsun": {"type": ["number", "null"]},
+              "metallicity_fe_h": {"type": ["number", "null"]},
+              "stellar_age_gyr": {"type": ["number", "null"]},
+              "notes": {"type": ["string", "null"]}
+            }
+          },
+          "detection_method": {
+            "type": "string",
+            "enum": [
+              "transit",
+              "radial_velocity",
+              "transit_timing_variation",
+              "transit_and_radial_velocity",
+              "microlensing",
+              "astrometry",
+              "direct_imaging",
+              "pulsar_timing",
+              "other"
+            ]
+          },
+          "mass": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "unit", "mass_class"],
+            "properties": {
+              "value": {"type": ["number", "null"]},
+              "unit": {
+                "type": "string",
+                "enum": ["mearth", "mjup", "msun", "kg", "msini_mearth", "msini_mjup", "unitless"]
+              },
+              "uncertainty_upper": {"type": ["number", "null"]},
+              "uncertainty_lower": {"type": ["number", "null"]},
+              "uncertainty_semantics": {
+                "type": ["string", "null"],
+                "description": "1-sigma, 68%, 95%, or other documented semantics."
+              },
+              "mass_class": {
+                "type": "string",
+                "enum": [
+                  "true_mass",
+                  "minimum_mass_msini",
+                  "transit_timing_dynamical_mass",
+                  "microlensing_mass",
+                  "astrometric_mass",
+                  "model_inferred",
+                  "not_measured"
+                ]
+              },
+              "mass_method_label": {
+                "type": ["string", "null"],
+                "description": "Free-text method label preserving paper-specific context (e.g. 'RV plus inclination from transit', 'TTV joint fit')."
+              }
+            }
+          },
+          "radius": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "unit", "radius_class"],
+            "properties": {
+              "value": {"type": ["number", "null"]},
+              "unit": {
+                "type": "string",
+                "enum": ["rearth", "rjup", "rsun", "km", "unitless"]
+              },
+              "uncertainty_upper": {"type": ["number", "null"]},
+              "uncertainty_lower": {"type": ["number", "null"]},
+              "uncertainty_semantics": {"type": ["string", "null"]},
+              "radius_class": {
+                "type": "string",
+                "enum": [
+                  "transit_radius",
+                  "direct_imaging_radius",
+                  "model_inferred",
+                  "not_measured"
+                ]
+              },
+              "radius_method_label": {"type": ["string", "null"]}
+            }
+          },
+          "equilibrium_temperature_K": {"type": ["number", "null"]},
+          "irradiation_flux_earth_units": {"type": ["number", "null"]},
+          "orbital_period_days": {"type": ["number", "null"]},
+          "orbital_semimajor_axis_au": {"type": ["number", "null"]},
+          "discovery_year": {"type": ["integer", "null"]},
+          "source_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Source-family or per-source manifest id this row attributes to."
+          },
+          "source_table_ref": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Specific table, figure, or row reference inside the source."
+          },
+          "inclusion_status": {
+            "type": "string",
+            "enum": ["included", "excluded"],
+            "description": "Whether this row contributes to a benchmark residual axis. Default-include is forbidden; every row must carry an explicit inclusion decision."
+          },
+          "inclusion_reason": {
+            "type": ["string", "null"],
+            "description": "Short rationale for inclusion or exclusion (e.g. 'minimum mass only; excluded from true-mass axis')."
+          },
+          "provenance_notes": {
+            "type": ["string", "null"],
+            "description": "Free-text provenance, parser notes, or limitation flags."
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": ["array", "null"],
+      "items": {"type": "string"}
+    },
+    "fake_source_warning": {
+      "type": ["string", "null"],
+      "description": "Required for any snapshot_kind: synthetic_dry_run dataset file."
+    }
+  }
+}
