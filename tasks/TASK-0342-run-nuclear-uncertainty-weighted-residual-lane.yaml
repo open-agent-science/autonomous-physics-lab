@@ -1,0 +1,52 @@
+id: TASK-0342
+title: "Run nuclear uncertainty-weighted residual hypothesis lane"
+type: autonomous_research_pilot
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Check whether Nuclear residual conclusions are stable under uncertainty-aware weighting."
+  - "Distinguish robust physical-looking residual patterns from high-uncertainty artifacts."
+  - "Create a useful quality gate for future Nuclear hypothesis lanes."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    The current Nuclear campaign reports residual behavior primarily through
+    unweighted error summaries. This task asks whether candidate conclusions
+    change when rows with available uncertainty semantics are weighted or
+    filtered conservatively.
+
+requirements:
+  - "Audit available uncertainty fields in the repository-pinned nuclear datasets and record whether they are fit-grade or review-only."
+  - "Define 3-5 conservative weighting or filtering variants, including an unweighted baseline reference."
+  - "Run a deterministic comparison on the EXP-0012 baseline residual surface if uncertainty fields are usable; otherwise preserve a blocker review."
+  - "Report primary MAE/RMSE and uncertainty-weighted diagnostics plus high-uncertainty and low-uncertainty subset behavior."
+  - "Identify whether prior strong-looking lanes would be sensitive to uncertainty handling, without re-promoting those lanes."
+  - "Do not fetch external uncertainty tables, add prediction registry entries, run reveal scoring, or promote claims."
+
+accepted_outputs:
+  - "scripts/run_nuclear_uncertainty_weighted_residual_lane.py or an equivalent deterministic runner if fields pass preflight"
+  - "agent_runs/AGENT-RUN-0029/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0029/metrics.json or a preflight blocker metrics note"
+  - "agent_runs/AGENT-RUN-0029/report.md"
+  - "docs/reviews/nuclear-uncertainty-weighted-residual-lane.md"
+  - "tests/test_nuclear_uncertainty_weighted_residual_lane.py if a runner is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
