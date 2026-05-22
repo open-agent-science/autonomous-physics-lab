@@ -22,6 +22,7 @@ Use it when you need to answer four questions quickly:
 | [Anomaly Registry](./anomaly-registry.md) | Planning scaffold only; no anomaly rows or fits | schema and admissibility contract from `TASK-0308` | schema validation or synthetic-only likelihood dry-run, with Hubble/g-2/W-mass/broad constants still WATCHLIST |
 | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning scaffold only; no ingestion or metrics | source policy and ingestion prerequisites from `TASK-0309` | manifest-only source review for atomic clocks or lattice QCD, with PTA/GW/collider axes still WATCHLIST |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Planning scaffold only; no rows, metrics, or constants claims | source-surface scaffold, schema sketch, and source-candidate stop conditions from `TASK-0311` | value-free source manifest review, then synthetic-only loader dry-run if approved |
+| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Planned fourth campaign; no rows or metrics yet | strategic campaign page and `TASK-0337` preparation task | source/schema scaffold, holdout protocol, and catalog snapshot policy before any benchmark |
 
 ## How To Use This Map
 
@@ -40,6 +41,8 @@ Use it when you need to answer four questions quickly:
 - If you want a first concrete fresh-data source surface, start with
   atomic-clock residuals, but keep the work source-policy-only until a future
   ingestion task is approved.
+- If you want to prepare the planned fourth campaign, start with exoplanet
+  mass-radius source/schema work, not live archive metrics.
 
 ## Repository-Wide Orientation
 

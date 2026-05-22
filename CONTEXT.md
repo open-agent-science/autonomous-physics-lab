@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-22 18:48 UTC
+Generated: 2026-05-22 19:10 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1207,9 +1207,39 @@ missions:
         expected_outputs:
           - "go/no-go gate before first real atomic-clock row seed"
 
+  - id: exoplanet-mass-radius
+    title: "Exoplanet Mass-Radius Benchmark"
+    rank: 4
+    status: planned_fourth_campaign
+    scientific_value: medium
+    risk: medium
+    recommendation: "Planned fourth campaign: create the value-free source, schema, and holdout surface before any catalog snapshot or mass-radius benchmark."
+    why_now:
+      - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
+      - "standard mass-radius baselines create a clear comparison anchor"
+      - "planet class, discovery method, host-star context, and measurement quality provide natural holdouts"
+      - "the campaign can produce useful failure maps without claiming a new planet law"
+    forbidden:
+      - "do not fetch live archive data before a pinned snapshot policy exists"
+      - "do not run mass-radius metrics before schema and holdout protocol exist"
+      - "do not claim habitability, biosignatures, planet prioritization, or discovery of a universal planet law"
+      - "do not mix true mass, minimum mass, and model-derived values without explicit row-class flags"
+    actions:
+      - id: exoplanet-source-schema-scaffold
+        label: "Scaffold exoplanet mass-radius source surface"
+        task_id: TASK-0337
+        mode: research
+        priority: high
+        difficulty: medium
+        expected_outputs:
+          - "value-free exoplanet data README and source-manifest template"
+          - "mass-radius row schema or schema sketch"
+          - "holdout protocol and source-surface review"
+          - "no live rows, metrics, prediction registry entries, or claims"
+
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
-    rank: 4
+    rank: 5
     status: methodology_validation
     scientific_value: high
     risk: low
@@ -1237,7 +1267,7 @@ missions:
 
   - id: dimensional-validator
     title: "Dimensional Analysis Validator"
-    rank: 5
+    rank: 6
     status: quality_floor
     scientific_value: medium
     risk: low
@@ -2272,6 +2302,7 @@ one PR.
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
