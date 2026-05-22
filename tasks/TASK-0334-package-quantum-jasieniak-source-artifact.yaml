@@ -1,7 +1,7 @@
 id: TASK-0334
 title: "Package quantum Jasieniak 2011 deterministic source artifact"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -36,8 +36,8 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/quantum-jasieniak-2011-source-artifact-package.md"
-  - "optional metadata-only update to data/quantum_dots/source_manifest.yaml"
-  - "optional non-copyrighted source-artifact README under data/quantum_dots/source_artifacts/jasieniak-2011/README.md"
+  - "data/quantum_dots/source_manifest.yaml"
+  - "data/quantum_dots/source_artifacts/jasieniak-2011/README.md"
 
 validation:
   commands:

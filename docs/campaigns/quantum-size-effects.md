@@ -69,7 +69,10 @@ Current task posture:
   after maintainer approval, while keeping `TASK-0225` blocked for the
   original measurement-versus-model benchmark).
 - `TASK-0334` — deterministic Jasieniak 2011 source-artifact package
-  (READY; source evidence only, no row fabrication);
+  (REVIEW_READY; metadata-only source-artifact package records the ACS
+  Supporting Information locator and checksum/extraction plan, but no source
+  table or deterministic digitisation artifact is committed, so row curation
+  remains blocked);
 - `TASK-0335` — calibration-curve consistency benchmark scope package
   (REVIEW_READY; see
   `docs/reviews/quantum-calibration-curve-consistency-benchmark-scope.md`;
@@ -197,8 +200,10 @@ Historical context:
   separate follow-up task with labels such as `calibration_curve_consistency`
   and `calibration_derived`; it should not unblock `TASK-0225` or replace
   direct-row readiness review by itself;
-- use `TASK-0334` as the source-artifact task after the direct-measurement
-  blocker: package Jasieniak 2011 or preserve the exact access blocker;
+- use the TASK-0334 source-artifact package as the next handoff for
+  Jasieniak 2011: it records the official ACS Supporting Information locator
+  and checksum/extraction plan, but row curation remains blocked until the
+  SI/table extraction or deterministic digitisation artifact is reviewed;
 - use `TASK-0335` as the weak `calibration_curve_consistency` scope contract;
   do not run metrics or pretend to unblock the measurement benchmark;
 - keep `TASK-0336` blocked until `TASK-0334` lands a deterministic artifact or
