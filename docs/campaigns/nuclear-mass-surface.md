@@ -163,6 +163,11 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   audits: isotope-chain transfer and neutron-rich tail behavior. They keep the
   campaign in falsification/domain-mapping mode rather than adding more
   prediction-registry entries.
+- `TASK-0333` synthesizes the completed shell-axis post-audit wave and
+  recommends `DIAGNOSTIC_ONLY`: preserve shell-axis as sandbox diagnostic
+  evidence, but stop additional retrospective shell-axis audits, registry
+  expansion, reveal scoring, and claim promotion unless a later
+  maintainer-approved source-gated task changes the scope.
 
 Historical context:
 
@@ -270,9 +275,11 @@ Start here:
   scientific tasks where possible: light-regression, isotope-chain transfer,
   neutron-rich tail behavior, and later source-gated review work can run in
   separate branches/worktrees without sharing write surfaces.
-- After `TASK-0324`, run `TASK-0333` as the decision synthesis before adding
-  more shell-axis audits. The goal is to decide whether the lane is paused,
-  diagnostic-only, narrowed, or ready for source-gated reveal review.
+- Use the `TASK-0333` decision synthesis
+  (`docs/reviews/nuclear-shell-axis-post-audit-decision.md`) as the current
+  shell-axis lane status: `DIAGNOSTIC_ONLY`. Do not add more retrospective
+  shell-axis audits unless a maintainer-approved source-gated task changes the
+  scope.
 - `TASK-0304` exercised shell-axis mini-wave reveal scoring on
   fabricated values only (see
   `docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md`,
