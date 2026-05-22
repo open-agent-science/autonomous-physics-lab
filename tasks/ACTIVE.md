@@ -49,6 +49,7 @@ one PR.
 - `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
@@ -63,16 +64,16 @@ None.
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
-- `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (`benchmark_protocol`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (merged)
 - `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (merged)
 - `TASK-0328` — Add atomic-clock synthetic loader dry-run (merged)
 - `TASK-0327` — Add atomic-clock source manifest template (merged)
 - `TASK-0326` — Decide quantum calibration-curve consistency waiver (merged)
 - `TASK-0325` — Prepare quantum direct-measurement digitization package (merged)
+- `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (merged)
 - `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (merged)
 - `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (merged)
 - `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (merged)
@@ -370,7 +371,6 @@ None.
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## REJECTED
