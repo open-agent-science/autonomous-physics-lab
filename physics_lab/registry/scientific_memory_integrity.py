@@ -46,6 +46,8 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_audit",
     "scientific_falsification",
     "benchmark_protocol",
+    "ci_infrastructure",
+    "ci_optimization",
     "dataset_workflow",
     "physics_dataset_extension",
     "scientific_dataset",

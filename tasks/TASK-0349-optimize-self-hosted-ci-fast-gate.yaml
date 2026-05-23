@@ -1,7 +1,7 @@
 id: TASK-0349
 title: "Optimize self-hosted CI with a fast pull-request test gate"
 type: ci_optimization
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
