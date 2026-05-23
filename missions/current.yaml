@@ -197,8 +197,10 @@ missions:
         label: "Run Nuclear measured/extrapolated boundary hypothesis lane"
         task_id: TASK-0341
         mode: research
+        status: review_ready
         priority: medium
         difficulty: high
+        recommended: false
         expected_outputs:
           - "source-status diagnostics or blocker review"
       - id: nuclear-uncertainty-weighted-lane
@@ -351,8 +353,10 @@ missions:
         label: "Review atomic-clock covariance and uncertainty semantics"
         task_id: TASK-0344
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "value-free uncertainty and covariance source semantics"
 
