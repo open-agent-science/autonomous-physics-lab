@@ -8,6 +8,7 @@
 
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
+- `TASK-0362` - Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## Research Blockers
 
@@ -24,3 +25,4 @@
 - `TASK-0237` - Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0365` - Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
