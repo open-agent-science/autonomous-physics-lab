@@ -45,6 +45,12 @@ Current next tasks:
 - `TASK-0332` runs the real-row readiness gate before any real clock value can
   be added.
 
+`TASK-0332` records `READY_FOR_SOURCE_SPECIFIC_REVIEW` and
+`NOT_READY_FOR_REAL_ROWS`: the campaign has enough scaffold to review concrete
+sources, but real rows stay blocked until a source artifact, source review,
+checksum or archive plan, row-class label, uncertainty semantics, covariance
+notes, holdout or reveal boundary, and real-row validation path exist.
+
 These tasks can run in parallel because source-class review and readiness-gate
 review own separate artifacts. None should ingest real clock values.
 
