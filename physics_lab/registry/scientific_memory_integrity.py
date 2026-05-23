@@ -59,6 +59,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "schema_extension",
     "scoring_design",
     "test_infrastructure",
+    "tooling_fix",
     "thought_experiment_planning",
     "scientific_microtask_execution",
     "workflow_pilot",

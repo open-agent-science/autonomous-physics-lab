@@ -1,7 +1,7 @@
 id: TASK-0322
 title: "Raise auto-task-runner max-turns default and detect max-turns exit"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

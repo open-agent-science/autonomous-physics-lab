@@ -1,7 +1,7 @@
 id: TASK-0312
 title: "Run final v0.2 public-alpha go/no-go review"
 type: release_review
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
