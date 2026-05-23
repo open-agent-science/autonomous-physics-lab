@@ -14,11 +14,13 @@ effects kept visible.
 
 ## Current Status
 
-Planned fourth campaign.
+Planned fourth campaign with a first pinned source snapshot in review.
 
-This page records the strategic plan only. No exoplanet dataset, source
-snapshot, schema, benchmark, residual map, prediction registry entry, result,
-claim, or public article artifact exists yet.
+This page records the strategic plan and source-ingestion posture. TASK-0353
+has produced a review-ready pinned NASA Exoplanet Archive PSCompPars snapshot
+with raw CSV, normalized YAML, checksums, row-class labels, and
+inclusion/exclusion reasons. No benchmark, residual map, prediction registry
+entry, result, claim, or public article artifact exists yet.
 
 `TASK-0337` is the first preparation task. It should create the source and
 schema surface before any agent runs metrics:
@@ -93,11 +95,13 @@ Not allowed yet:
 The campaign should mature in this order:
 
 1. `TASK-0337` source and schema scaffold.
-2. Pinned catalog snapshot task with checksum, citation, and retrieval date.
-3. Loader validation with row-class flags and uncertainty semantics.
+2. `TASK-0353` pinned catalog snapshot with checksum, citation, and retrieval
+   date (review-ready; no metrics).
+3. Loader validation with row-class flags and uncertainty semantics
+   (`TASK-0354`, review-ready).
 4. Conservative Chen-Kipping-style baseline reproduction.
 5. Residual and failure-map report.
 6. Bounded autonomous hypothesis pilot only after the benchmark is frozen.
 
-Until step 4 lands, this campaign is a preparation lane, not an active result
-surface.
+Until step 4 lands, this campaign is a source/dataset preparation lane, not
+an active result surface.
