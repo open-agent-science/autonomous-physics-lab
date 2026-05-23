@@ -391,8 +391,10 @@ missions:
         label: "Define Exoplanet mass-radius baseline protocol"
         task_id: TASK-0346
         mode: research
+        status: review_ready
         priority: medium
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "baseline, metrics, holdout, and negative-control protocol without rows"
 
