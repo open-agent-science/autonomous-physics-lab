@@ -72,15 +72,15 @@ None.
 - `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0339` — Run nuclear local residual curvature hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0346` — Define exoplanet mass-radius baseline protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`)
-- `TASK-0349` — Optimize self-hosted CI with a fast pull-request test gate (`ci_optimization`, priority `high`, difficulty `medium`)
-- `TASK-0350` — Add CI-aware maintainer review validation (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0350` — Add CI-aware maintainer review validation (merged)
+- `TASK-0349` — Optimize self-hosted CI with a fast pull-request test gate (merged)
+- `TASK-0346` — Define exoplanet mass-radius baseline protocol (merged)
+- `TASK-0339` — Run nuclear local residual curvature hypothesis lane (merged)
 - `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (merged)
 - `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (merged)
 - `TASK-0328` — Add atomic-clock synthetic loader dry-run (merged)
