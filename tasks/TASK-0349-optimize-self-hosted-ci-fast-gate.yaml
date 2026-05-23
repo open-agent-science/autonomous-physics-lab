@@ -35,8 +35,8 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest -m 'not full_repo'"
-    - "python3 -m pytest"
+    - "python3 -m pytest -m 'not full_repo' --basetemp=/tmp/apl-task-0349-fast"
+    - "python3 -m pytest --basetemp=/tmp/apl-task-0349-full"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
