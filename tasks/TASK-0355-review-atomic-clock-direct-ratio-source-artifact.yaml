@@ -1,7 +1,7 @@
 id: TASK-0355
 title: "Review atomic-clock direct ratio source artifact"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -36,8 +36,6 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/atomic-clock-direct-ratio-source-artifact-review.md"
-  - "optional metadata-only update to data/atomic_clocks/source_manifest_template.yaml or a source-artifact README stub"
-  - "tests updated only if manifest/schema structure changes"
 
 validation:
   commands:
