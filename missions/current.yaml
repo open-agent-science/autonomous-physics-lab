@@ -187,8 +187,10 @@ missions:
         label: "Run Nuclear odd-even shell-interaction hypothesis lane"
         task_id: TASK-0340
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
+        recommended: false
         expected_outputs:
           - "interaction candidates compared to pairing-only and shell-only controls"
       - id: nuclear-boundary-lane

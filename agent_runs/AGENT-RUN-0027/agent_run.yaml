@@ -1,0 +1,52 @@
+id: AGENT-RUN-0027
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0340
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: master
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0047-odd-even-shell-interaction-scout-batch.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0013-nuclear-odd-even-shell-interaction-scout.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0027/metrics.json
+  report: agent_runs/AGENT-RUN-0027/report.md
+  limitations: agent_runs/AGENT-RUN-0027/limitations.md
+  preflight: agent_runs/AGENT-RUN-0027/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0027/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: task_scope
+    status: PASS
+    notes: TASK-0340 requests a sandbox odd-even shell-interaction lane, not reveal
+      scoring.
+  - name: data_boundary
+    status: PASS
+    notes: Only committed repository datasets and derived Z/N/A proxies are used.
+  - name: control_boundary
+    status: PASS
+    notes: Pairing-only, shell-only, smooth-A, and shuffled-interaction controls are
+      executed and reported.
+  - name: promotion_boundary
+    status: PASS
+    notes: No prediction registry, canonical result, claim, or knowledge file is written.
+limitations:
+- These features are odd-even by shell-proximity interaction proxies, not measured
+  nuclear-structure parameters.
+- The fit surface remains the 11-row NMD-0002 training slice, so coefficient stability
+  is not established.
+- Odd-odd subset behavior is sparse and must not be overinterpreted.
+- The full-known surface is retrospective committed repository data, not a future-measurement
+  reveal.
+- Lower-complexity and shuffled controls are included because aggregate improvements
+  can reflect pairing-only, shell-only, or small-sample residual structure.
+- No source fetch, canonical result rewrite, PRED entry, claim update, or public-facing
+  physics claim is authorized.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any odd-even shell-interaction follow-up,
+    reveal scoring, RESULT-* artifact, claim, or knowledge update.
