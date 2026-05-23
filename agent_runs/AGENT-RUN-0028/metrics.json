@@ -372,7 +372,7 @@
     {
       "candidate_id": "BOUNDARY-002",
       "coefficients": [
-        0.1982376844678227
+        0.19823768446782253
       ],
       "complexity": 1,
       "edge_of_known_surface_delta_mae_mev": 0.0014076120174770779,
@@ -387,14 +387,14 @@
       "holdout_delta_mae_mev": -0.003057564752992903,
       "largest_improvements": [
         {
-          "delta_abs_error_mev": -0.3551942483030648,
+          "delta_abs_error_mev": -0.35519424830306434,
           "nuclide_id": "Si-23",
           "row_id": "POST-AME2020-0004",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         },
         {
-          "delta_abs_error_mev": -0.35519424830306456,
+          "delta_abs_error_mev": -0.35519424830306434,
           "nuclide_id": "P-26",
           "row_id": "POST-AME2020-0006",
           "source_surface": "post_ame2020_primary_holdout",
@@ -408,14 +408,14 @@
           "was_extrapolated": true
         },
         {
-          "delta_abs_error_mev": -0.3190512450556624,
+          "delta_abs_error_mev": -0.3190512450556622,
           "nuclide_id": "S-27",
           "row_id": "POST-AME2020-0008",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         },
         {
-          "delta_abs_error_mev": -0.3190512450556624,
+          "delta_abs_error_mev": -0.3190512450556622,
           "nuclide_id": "Ag-95",
           "row_id": "POST-AME2020-0169",
           "source_surface": "post_ame2020_primary_holdout",
@@ -431,14 +431,14 @@
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 0.33349853896940296,
+          "delta_abs_error_mev": 0.3334985389694012,
           "nuclide_id": "Ge-86",
           "row_id": "POST-AME2020-0081",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 0.3326378151432614,
+          "delta_abs_error_mev": 0.3326378151432605,
           "nuclide_id": "La-151",
           "row_id": "POST-AME2020-0212",
           "source_surface": "post_ame2020_primary_holdout",
@@ -452,7 +452,7 @@
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 0.3309088088197596,
+          "delta_abs_error_mev": 0.3309088088197587,
           "nuclide_id": "Nb-109",
           "row_id": "POST-AME2020-0147",
           "source_surface": "post_ame2020_primary_holdout",
@@ -482,7 +482,7 @@
         "extrapolated_comparison": {
           "count": 55,
           "mae_mev": 4.9394006687091965,
-          "mean_signed_error_mev": 0.9078081974294205,
+          "mean_signed_error_mev": 0.9078081974294211,
           "rmse_mev": 5.837964368245326
         },
         "full_known": {
@@ -506,7 +506,7 @@
         "light_a_lt_50": {
           "count": 24,
           "mae_mev": 1.808954244793533,
-          "mean_signed_error_mev": -0.3167207315851783,
+          "mean_signed_error_mev": -0.31672073158517816,
           "rmse_mev": 2.218062321825915
         },
         "magic_any": {
@@ -542,7 +542,7 @@
         "measured_extrapolated_boundary_panel": {
           "count": 295,
           "mae_mev": 4.549511015448041,
-          "mean_signed_error_mev": 0.6870826619090112,
+          "mean_signed_error_mev": 0.6870826619090111,
           "rmse_mev": 5.878366360241169
         },
         "mid_mass": {
@@ -572,7 +572,7 @@
         "post_ame2020_extrapolated_comparison": {
           "count": 55,
           "mae_mev": 4.9394006687091965,
-          "mean_signed_error_mev": 0.9078081974294205,
+          "mean_signed_error_mev": 0.9078081974294211,
           "rmse_mev": 5.837964368245326
         },
         "post_ame2020_measured_comparison": {
@@ -584,7 +584,7 @@
         "primary_holdout": {
           "count": 295,
           "mae_mev": 4.549511015448041,
-          "mean_signed_error_mev": 0.6870826619090112,
+          "mean_signed_error_mev": 0.6870826619090111,
           "rmse_mev": 5.878366360241169
         },
         "registry_repeat_chain_neighbor": {
@@ -604,7 +604,7 @@
     {
       "candidate_id": "BOUNDARY-003",
       "coefficients": [
-        -0.7993869208130524
+        -0.7993869208130526
       ],
       "complexity": 1,
       "edge_of_known_surface_delta_mae_mev": 0.07089832226704562,
@@ -619,7 +619,7 @@
       "holdout_delta_mae_mev": -0.012535636298699693,
       "largest_improvements": [
         {
-          "delta_abs_error_mev": -0.7812190362491194,
+          "delta_abs_error_mev": -0.7812190362491196,
           "nuclide_id": "Eu-163",
           "row_id": "POST-AME2020-0230",
           "source_surface": "post_ame2020_primary_holdout",
@@ -647,7 +647,7 @@
           "was_extrapolated": true
         },
         {
-          "delta_abs_error_mev": -0.7630511516851861,
+          "delta_abs_error_mev": -0.763051151685187,
           "nuclide_id": "Re-162",
           "row_id": "POST-AME2020-0261",
           "source_surface": "post_ame2020_primary_holdout",
@@ -677,7 +677,7 @@
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 0.7448832671212529,
+          "delta_abs_error_mev": 0.7448832671212537,
           "nuclide_id": "Re-161",
           "row_id": "POST-AME2020-0260",
           "source_surface": "post_ame2020_primary_holdout",
@@ -720,7 +720,7 @@
         "full_known": {
           "count": 306,
           "mae_mev": 4.478364235398812,
-          "mean_signed_error_mev": 0.483682656719232,
+          "mean_signed_error_mev": 0.4836826567192318,
           "rmse_mev": 5.8017077496828025
         },
         "heavy_a_ge_100": {
@@ -756,7 +756,7 @@
         "magic_region": {
           "count": 126,
           "mae_mev": 4.508989845303625,
-          "mean_signed_error_mev": 2.3440180974324027,
+          "mean_signed_error_mev": 2.3440180974324023,
           "rmse_mev": 6.031255393102634
         },
         "magic_z": {
@@ -768,25 +768,25 @@
         "measured_comparison": {
           "count": 240,
           "mae_mev": 4.454704221848482,
-          "mean_signed_error_mev": 0.26329042263676616,
+          "mean_signed_error_mev": 0.2632904226367661,
           "rmse_mev": 5.867953977803031
         },
         "measured_extrapolated_boundary_panel": {
           "count": 295,
           "mae_mev": 4.540032943902334,
-          "mean_signed_error_mev": 0.4923088999847143,
+          "mean_signed_error_mev": 0.4923088999847142,
           "rmse_mev": 5.865598440319636
         },
         "mid_mass": {
           "count": 198,
-          "mae_mev": 4.442421509147407,
+          "mae_mev": 4.442421509147406,
           "mean_signed_error_mev": 2.511237795416128,
           "rmse_mev": 6.157656268890909
         },
         "near_magic": {
           "count": 126,
           "mae_mev": 4.508989845303625,
-          "mean_signed_error_mev": 2.3440180974324027,
+          "mean_signed_error_mev": 2.3440180974324023,
           "rmse_mev": 6.031255393102634
         },
         "neutron_rich": {
@@ -810,13 +810,13 @@
         "post_ame2020_measured_comparison": {
           "count": 240,
           "mae_mev": 4.454704221848482,
-          "mean_signed_error_mev": 0.26329042263676616,
+          "mean_signed_error_mev": 0.2632904226367661,
           "rmse_mev": 5.867953977803031
         },
         "primary_holdout": {
           "count": 295,
           "mae_mev": 4.540032943902334,
-          "mean_signed_error_mev": 0.4923088999847143,
+          "mean_signed_error_mev": 0.4923088999847142,
           "rmse_mev": 5.865598440319636
         },
         "registry_repeat_chain_neighbor": {
@@ -836,7 +836,7 @@
     {
       "candidate_id": "BOUNDARY-CONTROL-001",
       "coefficients": [
-        0.5887226548882161
+        0.5887226548882166
       ],
       "complexity": 1,
       "edge_of_known_surface_delta_mae_mev": 0.13278295659127082,
@@ -851,74 +851,74 @@
       "holdout_delta_mae_mev": 0.027429673952963363,
       "largest_improvements": [
         {
-          "delta_abs_error_mev": -0.5887226548882163,
-          "nuclide_id": "Ca-54",
-          "row_id": "POST-AME2020-0016",
+          "delta_abs_error_mev": -0.5887226548882172,
+          "nuclide_id": "Cu-77",
+          "row_id": "POST-AME2020-0065",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.5887226548882163,
-          "nuclide_id": "Sc-52",
-          "row_id": "POST-AME2020-0019",
+          "delta_abs_error_mev": -0.5887226548882172,
+          "nuclide_id": "Cu-78",
+          "row_id": "POST-AME2020-0066",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.5887226548882163,
-          "nuclide_id": "Sc-53",
-          "row_id": "POST-AME2020-0020",
+          "delta_abs_error_mev": -0.5887226548882172,
+          "nuclide_id": "Zn-79",
+          "row_id": "POST-AME2020-0068",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.5887226548882163,
-          "nuclide_id": "Sc-54",
-          "row_id": "POST-AME2020-0021",
+          "delta_abs_error_mev": -0.5887226548882172,
+          "nuclide_id": "Ga-83",
+          "row_id": "POST-AME2020-0073",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.5887226548882163,
-          "nuclide_id": "Sc-55",
-          "row_id": "POST-AME2020-0022",
+          "delta_abs_error_mev": -0.5887226548882172,
+          "nuclide_id": "Ge-85",
+          "row_id": "POST-AME2020-0080",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         }
       ],
       "largest_regressions": [
         {
-          "delta_abs_error_mev": 0.5887226548882163,
+          "delta_abs_error_mev": 0.5887226548882172,
+          "nuclide_id": "Tm-157",
+          "row_id": "POST-AME2020-0238",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.5887226548882172,
+          "nuclide_id": "Os-167",
+          "row_id": "POST-AME2020-0265",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.5887226548882172,
+          "nuclide_id": "Pt-171",
+          "row_id": "POST-AME2020-0271",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.5887226548882172,
+          "nuclide_id": "Hg-175",
+          "row_id": "POST-AME2020-0276",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.5887226548882167,
           "nuclide_id": "Ne-24",
           "row_id": "POST-AME2020-0001",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.5887226548882163,
-          "nuclide_id": "S-36",
-          "row_id": "POST-AME2020-0010",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.5887226548882163,
-          "nuclide_id": "Ar-36",
-          "row_id": "POST-AME2020-0013",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.5887226548882163,
-          "nuclide_id": "Ca-36",
-          "row_id": "POST-AME2020-0015",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.5887226548882163,
-          "nuclide_id": "Ti-43",
-          "row_id": "POST-AME2020-0023",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         }
@@ -952,25 +952,25 @@
         "full_known": {
           "count": 306,
           "mae_mev": 4.51689288417084,
-          "mean_signed_error_mev": 0.20777429564713573,
+          "mean_signed_error_mev": 0.20777429564713526,
           "rmse_mev": 5.7919714175564
         },
         "heavy_a_ge_100": {
           "count": 156,
           "mae_mev": 5.377035008081202,
-          "mean_signed_error_mev": -0.46008365724900285,
+          "mean_signed_error_mev": -0.4600836572490032,
           "rmse_mev": 6.359650100301265
         },
         "high_error_reference": {
           "count": 31,
           "mae_mev": 11.41666788191066,
           "mean_signed_error_mev": 10.845830254606502,
-          "rmse_mev": 12.69963219255313
+          "rmse_mev": 12.699632192553128
         },
         "light_a_lt_50": {
           "count": 24,
           "mae_mev": 2.1175535062341297,
-          "mean_signed_error_mev": -0.6265123259093596,
+          "mean_signed_error_mev": -0.6265123259093598,
           "rmse_mev": 2.5269997090850516
         },
         "magic_any": {
@@ -988,37 +988,37 @@
         "magic_region": {
           "count": 126,
           "mae_mev": 4.455547128514912,
-          "mean_signed_error_mev": 2.0499528581272117,
+          "mean_signed_error_mev": 2.0499528581272113,
           "rmse_mev": 5.916196215024589
         },
         "magic_z": {
           "count": 13,
           "mae_mev": 3.629589314860018,
-          "mean_signed_error_mev": 2.4976946549147314,
+          "mean_signed_error_mev": 2.497694654914731,
           "rmse_mev": 4.797782682540946
         },
         "measured_comparison": {
           "count": 240,
           "mae_mev": 4.4949714053079015,
-          "mean_signed_error_mev": 2.3684757858670006e-16,
+          "mean_signed_error_mev": -1.1842378929335003e-16,
           "rmse_mev": 5.855937175291052
         },
         "measured_extrapolated_boundary_panel": {
           "count": 295,
           "mae_mev": 4.579998254153997,
-          "mean_signed_error_mev": 0.20611243053365882,
+          "mean_signed_error_mev": 0.20611243053365833,
           "rmse_mev": 5.855608941068051
         },
         "mid_mass": {
           "count": 198,
           "mae_mev": 4.40717731321679,
-          "mean_signed_error_mev": 2.20517850735288,
+          "mean_signed_error_mev": 2.205178507352879,
           "rmse_mev": 6.066024777218608
         },
         "near_magic": {
           "count": 126,
           "mae_mev": 4.455547128514912,
-          "mean_signed_error_mev": 2.0499528581272117,
+          "mean_signed_error_mev": 2.0499528581272113,
           "rmse_mev": 5.916196215024589
         },
         "neutron_rich": {
@@ -1042,13 +1042,13 @@
         "post_ame2020_measured_comparison": {
           "count": 240,
           "mae_mev": 4.4949714053079015,
-          "mean_signed_error_mev": 2.3684757858670006e-16,
+          "mean_signed_error_mev": -1.1842378929335003e-16,
           "rmse_mev": 5.855937175291052
         },
         "primary_holdout": {
           "count": 295,
           "mae_mev": 4.579998254153997,
-          "mean_signed_error_mev": 0.20611243053365882,
+          "mean_signed_error_mev": 0.20611243053365833,
           "rmse_mev": 5.855608941068051
         },
         "registry_repeat_chain_neighbor": {
@@ -1068,7 +1068,7 @@
     {
       "candidate_id": "BOUNDARY-CONTROL-002",
       "coefficients": [
-        1.1055121274078044
+        1.105512127407804
       ],
       "complexity": 1,
       "edge_of_known_surface_delta_mae_mev": 0.12921570320350995,
@@ -1083,56 +1083,42 @@
       "holdout_delta_mae_mev": -0.018626704766971258,
       "largest_improvements": [
         {
-          "delta_abs_error_mev": -1.1055121274078061,
-          "nuclide_id": "In-134",
-          "row_id": "POST-AME2020-0194",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": -1.1055121274078044,
-          "nuclide_id": "Si-23",
-          "row_id": "POST-AME2020-0004",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": -1.1055121274078044,
-          "nuclide_id": "P-26",
-          "row_id": "POST-AME2020-0006",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": -1.1055121274078044,
-          "nuclide_id": "S-27",
-          "row_id": "POST-AME2020-0008",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
           "delta_abs_error_mev": -1.1055121274078044,
           "nuclide_id": "Cr-65",
           "row_id": "POST-AME2020-0043",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": -1.1055121274078044,
+          "nuclide_id": "Fe-69",
+          "row_id": "POST-AME2020-0056",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": -1.1055121274078044,
+          "nuclide_id": "Fe-70",
+          "row_id": "POST-AME2020-0057",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": -1.1055121274078044,
+          "nuclide_id": "Ni-74",
+          "row_id": "POST-AME2020-0061",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": -1.1055121274078044,
+          "nuclide_id": "Ni-75",
+          "row_id": "POST-AME2020-0062",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
         }
       ],
       "largest_regressions": [
-        {
-          "delta_abs_error_mev": 1.1055121274078044,
-          "nuclide_id": "Ge-62",
-          "row_id": "POST-AME2020-0075",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": 1.1055121274078044,
-          "nuclide_id": "As-64",
-          "row_id": "POST-AME2020-0082",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
         {
           "delta_abs_error_mev": 1.1055121274078044,
           "nuclide_id": "Se-66",
@@ -1151,6 +1137,20 @@
           "delta_abs_error_mev": 1.1055121274078044,
           "nuclide_id": "Zr-80",
           "row_id": "POST-AME2020-0141",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": 1.1055121274078044,
+          "nuclide_id": "Yb-150",
+          "row_id": "POST-AME2020-0239",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": 1.1055121274078044,
+          "nuclide_id": "Yb-153",
+          "row_id": "POST-AME2020-0242",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         }
@@ -1178,13 +1178,13 @@
         "extrapolated_comparison": {
           "count": 55,
           "mae_mev": 4.851117632641385,
-          "mean_signed_error_mev": -8.074349270001138e-16,
+          "mean_signed_error_mev": -5.490557503600774e-16,
           "rmse_mev": 5.748845503261519
         },
         "full_known": {
           "count": 306,
           "mae_mev": 4.472492126908159,
-          "mean_signed_error_mev": 0.47081439422799354,
+          "mean_signed_error_mev": 0.47081439422799365,
           "rmse_mev": 5.796473312769102
         },
         "heavy_a_ge_100": {
@@ -1226,7 +1226,7 @@
         "magic_z": {
           "count": 13,
           "mae_mev": 3.329184773543738,
-          "mean_signed_error_mev": 2.3784355458717488,
+          "mean_signed_error_mev": 2.378435545871749,
           "rmse_mev": 4.525093240029155
         },
         "measured_comparison": {
@@ -1268,7 +1268,7 @@
         "post_ame2020_extrapolated_comparison": {
           "count": 55,
           "mae_mev": 4.851117632641385,
-          "mean_signed_error_mev": -8.074349270001138e-16,
+          "mean_signed_error_mev": -5.490557503600774e-16,
           "rmse_mev": 5.748845503261519
         },
         "post_ame2020_measured_comparison": {
@@ -1300,11 +1300,11 @@
     {
       "candidate_id": "BOUNDARY-CONTROL-003",
       "coefficients": [
-        -0.8018980688019871
+        -0.8018980688019872
       ],
       "complexity": 1,
       "edge_of_known_surface_delta_mae_mev": 0.04723078199415465,
-      "extrapolated_comparison_delta_mae_mev": -0.2680768175512176,
+      "extrapolated_comparison_delta_mae_mev": -0.2680768175512185,
       "family": "source_status_shuffled_control",
       "feature_names": [
         "shuffled_boundary_contrast"
@@ -1323,34 +1323,55 @@
         },
         {
           "delta_abs_error_mev": -0.8018980688019877,
-          "nuclide_id": "Ni-75",
-          "row_id": "POST-AME2020-0062",
+          "nuclide_id": "Ca-54",
+          "row_id": "POST-AME2020-0016",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": -0.8018980688019877,
+          "nuclide_id": "Sc-54",
+          "row_id": "POST-AME2020-0021",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": -0.8018980688019877,
+          "nuclide_id": "Cr-65",
+          "row_id": "POST-AME2020-0043",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         },
         {
           "delta_abs_error_mev": -0.8018980688019877,
-          "nuclide_id": "Cu-77",
-          "row_id": "POST-AME2020-0065",
+          "nuclide_id": "Fe-69",
+          "row_id": "POST-AME2020-0056",
           "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": -0.8018980688019877,
-          "nuclide_id": "Cu-78",
-          "row_id": "POST-AME2020-0066",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": -0.8018980688019877,
-          "nuclide_id": "Ga-83",
-          "row_id": "POST-AME2020-0073",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
+          "was_extrapolated": true
         }
       ],
       "largest_regressions": [
+        {
+          "delta_abs_error_mev": 0.8018980688019877,
+          "nuclide_id": "S-36",
+          "row_id": "POST-AME2020-0010",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.8018980688019877,
+          "nuclide_id": "Ti-43",
+          "row_id": "POST-AME2020-0023",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.8018980688019877,
+          "nuclide_id": "Cr-46",
+          "row_id": "POST-AME2020-0034",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
         {
           "delta_abs_error_mev": 0.8018980688019877,
           "nuclide_id": "Cu-76",
@@ -1360,29 +1381,8 @@
         },
         {
           "delta_abs_error_mev": 0.8018980688019877,
-          "nuclide_id": "Rb-103",
-          "row_id": "POST-AME2020-0129",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": 0.8018980688019877,
-          "nuclide_id": "In-128",
-          "row_id": "POST-AME2020-0189",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.8018980688019877,
-          "nuclide_id": "Sb-137",
-          "row_id": "POST-AME2020-0199",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.8018980688019877,
-          "nuclide_id": "I-133",
-          "row_id": "POST-AME2020-0203",
+          "nuclide_id": "As-75",
+          "row_id": "POST-AME2020-0085",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         }
@@ -1399,32 +1399,32 @@
       "subset_metrics": {
         "double_magic": {
           "count": 5,
-          "mae_mev": 2.98851496842385,
-          "mean_signed_error_mev": 1.5974366735690466,
-          "rmse_mev": 3.8963718781694165
+          "mae_mev": 2.9885149684238494,
+          "mean_signed_error_mev": 1.5974366735690464,
+          "rmse_mev": 3.896371878169416
         },
         "edge_of_known_surface": {
           "count": 77,
           "mae_mev": 4.920740101253069,
-          "mean_signed_error_mev": -2.608909712737699,
+          "mean_signed_error_mev": -2.6089097127376992,
           "rmse_mev": 5.333773372337922
         },
         "extrapolated_comparison": {
           "count": 55,
-          "mae_mev": 4.682947686113015,
-          "mean_signed_error_mev": 0.6243732861266115,
+          "mae_mev": 4.682947686113014,
+          "mean_signed_error_mev": 0.6243732861266111,
           "rmse_mev": 5.626058594879877
         },
         "full_known": {
           "count": 306,
           "mae_mev": 4.463609910727089,
-          "mean_signed_error_mev": 0.18470989840793364,
+          "mean_signed_error_mev": 0.18470989840793345,
           "rmse_mev": 5.761844057385383
         },
         "heavy_a_ge_100": {
           "count": 156,
           "mae_mev": 5.388932440399946,
-          "mean_signed_error_mev": -0.41057646507556417,
+          "mean_signed_error_mev": -0.41057646507556456,
           "rmse_mev": 6.376508744909243
         },
         "high_error_reference": {
@@ -1435,8 +1435,8 @@
         },
         "light_a_lt_50": {
           "count": 24,
-          "mae_mev": 1.9042553811200484,
-          "mean_signed_error_mev": -0.8176894897592245,
+          "mae_mev": 1.9042553811200487,
+          "mean_signed_error_mev": -0.8176894897592248,
           "rmse_mev": 2.3980056339650093
         },
         "magic_any": {
@@ -1448,8 +1448,8 @@
         "magic_n": {
           "count": 17,
           "mae_mev": 4.753429074091902,
-          "mean_signed_error_mev": 2.9679797572028335,
-          "rmse_mev": 6.710292309149498
+          "mean_signed_error_mev": 2.9679797572028326,
+          "rmse_mev": 6.710292309149497
         },
         "magic_region": {
           "count": 126,
@@ -1460,19 +1460,19 @@
         "magic_z": {
           "count": 13,
           "mae_mev": 3.4480902173941144,
-          "mean_signed_error_mev": 2.078393527641406,
-          "rmse_mev": 4.46096795359462
+          "mean_signed_error_mev": 2.0783935276414054,
+          "rmse_mev": 4.460967953594619
         },
         "measured_comparison": {
           "count": 240,
           "mae_mev": 4.489165590999958,
-          "mean_signed_error_mev": 0.09756008774699924,
+          "mean_signed_error_mev": 0.09756008774699894,
           "rmse_mev": 5.870372362820618
         },
         "measured_extrapolated_boundary_panel": {
           "count": 295,
           "mae_mev": 4.525294456190529,
-          "mean_signed_error_mev": 0.19577949761438462,
+          "mean_signed_error_mev": 0.19577949761438385,
           "rmse_mev": 5.8255994512172045
         },
         "mid_mass": {
@@ -1501,40 +1501,40 @@
         },
         "post_ame2020_extrapolated_comparison": {
           "count": 55,
-          "mae_mev": 4.682947686113015,
-          "mean_signed_error_mev": 0.6243732861266115,
+          "mae_mev": 4.682947686113014,
+          "mean_signed_error_mev": 0.6243732861266111,
           "rmse_mev": 5.626058594879877
         },
         "post_ame2020_measured_comparison": {
           "count": 240,
           "mae_mev": 4.489165590999958,
-          "mean_signed_error_mev": 0.09756008774699924,
+          "mean_signed_error_mev": 0.09756008774699894,
           "rmse_mev": 5.870372362820618
         },
         "primary_holdout": {
           "count": 295,
           "mae_mev": 4.525294456190529,
-          "mean_signed_error_mev": 0.19577949761438462,
+          "mean_signed_error_mev": 0.19577949761438385,
           "rmse_mev": 5.8255994512172045
         },
         "registry_repeat_chain_neighbor": {
           "count": 6,
-          "mae_mev": 12.675243342248235,
-          "mean_signed_error_mev": 12.675243342248235,
+          "mae_mev": 12.675243342248232,
+          "mean_signed_error_mev": 12.675243342248232,
           "rmse_mev": 16.680610305654106
         },
         "training_slice": {
           "count": 11,
-          "mae_mev": 2.8093425551166757,
-          "mean_signed_error_mev": -0.11215662576506662,
-          "rmse_mev": 3.658769280924362
+          "mae_mev": 2.809342555116676,
+          "mean_signed_error_mev": -0.1121566257650667,
+          "rmse_mev": 3.6587692809243615
         }
       }
     },
     {
       "candidate_id": "BOUNDARY-CONTROL-004",
       "coefficients": [
-        -2.970524648314838
+        -2.9705246483148384
       ],
       "complexity": 1,
       "edge_of_known_surface_delta_mae_mev": -0.49318139721409615,
@@ -1549,35 +1549,35 @@
       "holdout_delta_mae_mev": -0.43018640362614047,
       "largest_improvements": [
         {
-          "delta_abs_error_mev": -5.989765900862039,
+          "delta_abs_error_mev": -5.98976590086204,
           "nuclide_id": "Pu-242",
           "row_id": "POST-AME2020-0296",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -5.905700053314729,
+          "delta_abs_error_mev": -5.90570005331473,
           "nuclide_id": "Np-241",
           "row_id": "POST-AME2020-0291",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -5.905700053314729,
+          "delta_abs_error_mev": -5.90570005331473,
           "nuclide_id": "Pu-241",
           "row_id": "POST-AME2020-0295",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -5.822228310697081,
+          "delta_abs_error_mev": -5.822228310697082,
           "nuclide_id": "U-240",
           "row_id": "POST-AME2020-0286",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -5.822228310697081,
+          "delta_abs_error_mev": -5.822228310697082,
           "nuclide_id": "Pu-240",
           "row_id": "POST-AME2020-0294",
           "source_surface": "post_ame2020_primary_holdout",
@@ -1593,21 +1593,21 @@
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 2.7376355158869545,
+          "delta_abs_error_mev": 2.7376355158869554,
           "nuclide_id": "He-4",
           "row_id": "nmd-0002::He-4",
           "source_surface": "nmd_0002_training_slice",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 2.197000029893654,
+          "delta_abs_error_mev": 2.1970000298936547,
           "nuclide_id": "N-14",
           "row_id": "nmd-0002::N-14",
           "source_surface": "nmd_0002_training_slice",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 2.0960021918509493,
+          "delta_abs_error_mev": 2.0960021918509497,
           "nuclide_id": "O-16",
           "row_id": "nmd-0002::O-16",
           "source_surface": "nmd_0002_training_slice",
@@ -1631,14 +1631,14 @@
       "subset_metrics": {
         "double_magic": {
           "count": 5,
-          "mae_mev": 4.628368593145425,
+          "mae_mev": 4.628368593145426,
           "mean_signed_error_mev": 4.11279079401624,
           "rmse_mev": 6.058261152158774
         },
         "edge_of_known_surface": {
           "count": 77,
           "mae_mev": 4.380327922044819,
-          "mean_signed_error_mev": -1.278788959747637,
+          "mean_signed_error_mev": -1.2787889597476365,
           "rmse_mev": 4.643726907781355
         },
         "extrapolated_comparison": {
@@ -1656,7 +1656,7 @@
         "heavy_a_ge_100": {
           "count": 156,
           "mae_mev": 4.440875064047184,
-          "mean_signed_error_mev": 1.2002053409872906,
+          "mean_signed_error_mev": 1.2002053409872908,
           "rmse_mev": 5.858180590233632
         },
         "high_error_reference": {
@@ -1667,15 +1667,15 @@
         },
         "light_a_lt_50": {
           "count": 24,
-          "mae_mev": 2.252830218946375,
-          "mean_signed_error_mev": 1.2129520759690282,
+          "mae_mev": 2.2528302189463747,
+          "mean_signed_error_mev": 1.2129520759690284,
           "rmse_mev": 2.8378027432791666
         },
         "magic_any": {
           "count": 25,
           "mae_mev": 4.887735483984178,
-          "mean_signed_error_mev": 4.105376806328579,
-          "rmse_mev": 6.75291057177163
+          "mean_signed_error_mev": 4.10537680632858,
+          "rmse_mev": 6.752910571771631
         },
         "magic_n": {
           "count": 17,
@@ -1698,7 +1698,7 @@
         "measured_comparison": {
           "count": 240,
           "mae_mev": 3.998093084822098,
-          "mean_signed_error_mev": 1.4103165507121516,
+          "mean_signed_error_mev": 1.4103165507121518,
           "rmse_mev": 5.61494662975227
         },
         "measured_extrapolated_boundary_panel": {
@@ -1740,7 +1740,7 @@
         "post_ame2020_measured_comparison": {
           "count": 240,
           "mae_mev": 3.998093084822098,
-          "mean_signed_error_mev": 1.4103165507121516,
+          "mean_signed_error_mev": 1.4103165507121518,
           "rmse_mev": 5.61494662975227
         },
         "primary_holdout": {
@@ -1757,8 +1757,8 @@
         },
         "training_slice": {
           "count": 11,
-          "mae_mev": 3.083518392799334,
-          "mean_signed_error_mev": 2.1900427292829536,
+          "mae_mev": 3.0835183927993355,
+          "mean_signed_error_mev": 2.190042729282954,
           "rmse_mev": 4.556158837211893
         }
       }

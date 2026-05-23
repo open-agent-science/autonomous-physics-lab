@@ -445,8 +445,10 @@ def _fit_variant(
 
 
 def _metrics_by_subset(rows: list[dict[str, Any]], residuals: list[float]) -> dict[str, Any]:
+    if len(rows) != len(residuals):
+        raise ValueError("rows and residuals must have the same length")
     buckets: dict[str, list[float]] = {}
-    for row, residual in zip(rows, residuals, strict=True):
+    for row, residual in zip(rows, residuals):
         for subset_id in _subset_ids(row):
             buckets.setdefault(subset_id, []).append(float(residual))
     return {key: _summarize_errors(value) for key, value in sorted(buckets.items())}
@@ -476,8 +478,10 @@ def _row_examples(
     reverse: bool,
     limit: int = 5,
 ) -> list[dict[str, Any]]:
+    if len(rows) != len(baseline_residuals) or len(rows) != len(corrected_residuals):
+        raise ValueError("rows, baseline_residuals, and corrected_residuals must have the same length")
     scored = []
-    for row, baseline, corrected in zip(rows, baseline_residuals, corrected_residuals, strict=True):
+    for row, baseline, corrected in zip(rows, baseline_residuals, corrected_residuals):
         delta_abs = abs(float(corrected)) - abs(float(baseline))
         scored.append(
             {
@@ -488,7 +492,15 @@ def _row_examples(
                 "delta_abs_error_mev": float(delta_abs),
             }
         )
-    return sorted(scored, key=lambda item: item["delta_abs_error_mev"], reverse=reverse)[:limit]
+    if reverse:
+        return sorted(
+            scored,
+            key=lambda item: (-float(item["delta_abs_error_mev"]), str(item["row_id"])),
+        )[:limit]
+    return sorted(
+        scored,
+        key=lambda item: (float(item["delta_abs_error_mev"]), str(item["row_id"])),
+    )[:limit]
 
 
 def _candidate_item(
