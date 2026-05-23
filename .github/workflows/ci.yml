@@ -63,7 +63,7 @@ jobs:
 
   pull-request:
     name: Python tests (3.12)
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     needs: classify
     if: github.event_name == 'pull_request'
 
@@ -125,7 +125,7 @@ jobs:
 
   main-matrix:
     name: Python tests (main matrix)
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     needs: classify
     if: github.event_name == 'push'
 
