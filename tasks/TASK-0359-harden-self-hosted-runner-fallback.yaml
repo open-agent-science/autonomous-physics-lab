@@ -1,0 +1,53 @@
+id: TASK-0359
+title: "Harden self-hosted CI runner fallback and queue visibility"
+type: ci_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the self-hosted CI runner useful without letting offline VPS state silently block PR review."
+  - "Make fallback to GitHub-hosted runners and queue diagnostics explicit for maintainers."
+  - "Preserve the existing CI workflow shape; this is operational hardening, not a new orchestration layer."
+
+input:
+  mode: workflow
+  related_domain: ci
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "docs/automation/self-hosted-ci-runner.md"
+    - "tasks/TASK-0348-route-python-ci-to-self-hosted-runner.yaml"
+    - "tasks/TASK-0350-add-ci-aware-maintainer-review-validation.yaml"
+  planning_context: >
+    The self-hosted VPS runner reduced GitHub-hosted Actions usage, but a
+    runner outage, SSH/VPN issue, wrong runner package, or stopped systemd
+    service can leave PR jobs stuck waiting for a runner. APL needs a compact
+    maintainer runbook and helper that makes fallback and queue visibility
+    obvious without adding a scheduler or Hetzner/GitHub automation runtime.
+
+requirements:
+  - "Document how to switch PR and main Python jobs between self-hosted and GitHub-hosted runner labels."
+  - "Document the maintainer decision rule for queued jobs: when a PR waits too long, switch fallback labels and rerun the job."
+  - "Document VPS-side health checks for ssh, systemd runner service, runner logs, and common install mistakes."
+  - "Document GitHub-side queue visibility commands for pending workflow runs and individual run/job inspection."
+  - "Add a small repository helper that prints the current runner variable contract, fallback values, and safe diagnostic commands."
+  - "Do not add secrets, Hetzner API integration, Docker orchestration, or automatic runner provisioning."
+  - "Do not weaken CI validation, review-agent validation, or branch/PR protocol."
+
+accepted_outputs:
+  - "tasks/TASK-0359-harden-self-hosted-runner-fallback.yaml"
+  - "docs/automation/self-hosted-ci-runner.md"
+  - "scripts/apl_ci_runner_status.py"
+  - "tests/test_ci_runner_status.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check scripts/apl_ci_runner_status.py tests/test_ci_runner_status.py"
+    - "python3 -m pytest tests/test_ci_runner_status.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

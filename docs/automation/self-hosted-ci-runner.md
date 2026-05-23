@@ -95,3 +95,84 @@ APL_PR_RUNNER_LABELS=["ubuntu-latest"]
 
 Use `APL_MAIN_RUNNER_LABELS=["ubuntu-latest"]` only if the main-branch matrix
 also needs to leave the self-hosted runner temporarily.
+
+## Fast Fallback Rule
+
+Use the self-hosted runner by default, but do not let a pull request sit in the
+GitHub Actions queue silently. If `Python fast tests (3.12)` waits for a
+self-hosted runner for more than about five minutes and the VPS service cannot
+be confirmed healthy, switch PR CI to GitHub-hosted runners:
+
+```text
+APL_PR_RUNNER_LABELS=["ubuntu-latest"]
+```
+
+Then rerun the queued or failed workflow from GitHub. Restore the self-hosted
+labels after the runner is healthy again:
+
+```text
+APL_PR_RUNNER_LABELS=["self-hosted","linux","x64"]
+```
+
+For main-branch failures, use the same pattern with `APL_MAIN_RUNNER_LABELS`,
+but prefer fixing the self-hosted runner first because `main` is the full
+safety net.
+
+## Queue Visibility
+
+Use these commands from a machine with GitHub CLI access:
+
+```bash
+gh run list --workflow CI --limit 10
+gh run view <run-id> --jobs
+gh run view <run-id> --log-failed
+gh pr checks <pr-number>
+```
+
+Signals that point to runner availability rather than test failure:
+
+- the job says `Waiting for a runner to pick up this job`;
+- `Requested labels` are `self-hosted, linux, x64`;
+- no Python test logs appear after the classifier job succeeds;
+- rerunning the job leaves it queued with the same labels.
+
+The repository helper prints the same queue and fallback checklist without
+requiring a live GitHub call:
+
+```bash
+python3 scripts/apl_ci_runner_status.py
+python3 scripts/apl_ci_runner_status.py --json
+```
+
+## VPS Health Checks
+
+On the VPS, check the runner service and SSH path before changing repository
+variables permanently:
+
+```bash
+cd /opt/actions-runner
+./svc.sh status
+systemctl status 'actions.runner.*'
+journalctl -u 'actions.runner.*' -n 120 --no-pager
+systemctl status ssh
+ss -tlnp | grep ':22'
+```
+
+Common causes and fixes:
+
+- SSH refused from one network but works from another: check VPN, IP reputation,
+  provider firewall, and local network path before rebuilding the runner.
+- `Waiting for a runner`: start the service with `./svc.sh start` or restore the
+  repository variables to `["ubuntu-latest"]` while debugging.
+- `Exec format error`: the wrong runner package was installed. Linux VPS hosts
+  need the `actions-runner-linux-x64-*.tar.gz` package, not the macOS package.
+- Duplicate runner name during `config.sh`: remove or replace the stale runner
+  from GitHub settings, or register a clearly named replacement and update
+  labels if needed.
+- Stopped service after reboot: confirm `./svc.sh install github-runner` and
+  `./svc.sh start` were run from `/opt/actions-runner` as root, with the service
+  configured to run as the dedicated `github-runner` user.
+
+Keep these diagnostics manual for now. Do not add Hetzner API automation,
+auto-provisioning, Docker orchestration, or repository secrets unless a later
+security-reviewed task explicitly designs that layer.
