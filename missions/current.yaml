@@ -380,8 +380,10 @@ missions:
         label: "Prepare Exoplanet PSCompPars snapshot ingestion plan"
         task_id: TASK-0345
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "value-free retrieval and inclusion plan before any row fetch"
       - id: exoplanet-baseline-protocol
