@@ -39,7 +39,10 @@ def test_pr_capability_discovers_homebrew_style_gh_path(
     fake_gh = tmp_path / "gh"
     fake_gh.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
     fake_gh.chmod(0o755)
-    monkeypatch.setattr("physics_lab.registry.pr_capability.shutil.which", lambda _name: None)
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.shutil.which",
+        lambda _name, path=None: None,
+    )
 
     report = check_pr_capability(
         tmp_path,
@@ -58,6 +61,12 @@ def test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root() -
     env.pop("GH_TOKEN", None)
     env.pop("GITHUB_TOKEN", None)
     env["PATH"] = ""
+    # Disable the hardcoded gh discovery fallback so the test simulates
+    # the "gh not installed" state deterministically. Without this
+    # override, developer machines with Homebrew gh would resolve
+    # /opt/homebrew/bin/gh from the fallback list and silently flip the
+    # warning path off.
+    env["APL_PR_CAPABILITY_GH_CANDIDATE_PATHS"] = ""
     result = subprocess.run(
         [
             sys.executable,
@@ -76,3 +85,49 @@ def test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root() -
     assert "PR capability check" in result.stdout
     assert "Warnings:" in result.stdout
     assert "Direct PR creation" in result.stdout or "not authenticated" in result.stdout
+
+
+def test_pr_capability_cli_reports_clean_state_when_gh_authenticated(
+    tmp_path: Path,
+) -> None:
+    """Positive-path counterpart to the warning-path CLI test.
+
+    A stub gh binary on a sandboxed PATH returns success for
+    `gh auth status`. The script should report no warnings. The env-var
+    override pins discovery to the stub so the registry's hardcoded
+    fallback path does not silently shadow it.
+    """
+    repo_root = Path(__file__).resolve().parents[1]
+
+    stub_bin = tmp_path / "stub-bin"
+    stub_bin.mkdir()
+    stub_gh = stub_bin / "gh"
+    # Use /bin/sh shebang because the sandboxed PATH does not include bash.
+    stub_gh.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    stub_gh.chmod(0o755)
+
+    env = os.environ.copy()
+    env.pop("GH_TOKEN", None)
+    env.pop("GITHUB_TOKEN", None)
+    env["PATH"] = str(stub_bin)
+    env["APL_PR_CAPABILITY_GH_CANDIDATE_PATHS"] = str(stub_gh)
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_pr_capability_check.py",
+            "--root",
+            ".",
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+
+    assert result.returncode == 0, (result.stdout, result.stderr)
+    assert "PR capability check" in result.stdout
+    assert str(stub_gh) in result.stdout
+    assert "Warnings: none" in result.stdout
+    assert "Errors: none" in result.stdout
