@@ -75,6 +75,7 @@ None.
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0359` — Harden self-hosted CI runner fallback and queue visibility (`ci_infrastructure`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
