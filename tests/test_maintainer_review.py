@@ -15,6 +15,7 @@ from physics_lab.registry.maintainer_review import (
     branch_task_id,
     build_review_report,
     changed_task_proposal_files,
+    ci_aware_validation_command,
     line_is_rule_catalog_line,
     missing_pr_metadata_fields,
     missing_pr_template_sections,
@@ -509,6 +510,60 @@ def test_run_task_validation_uses_active_python_for_python3_commands(tmp_path) -
     summary = run_task_validation(tmp_path, payload, enabled=True)
 
     assert summary.status == "pass"
+
+
+def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:
+    assert ci_aware_validation_command("python3 -m ruff check .") is None
+    assert ci_aware_validation_command("python3 -m physics_lab.cli validate-repo .") is None
+    assert (
+        ci_aware_validation_command(
+            "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+        )
+        is None
+    )
+    assert (
+        ci_aware_validation_command("python3 -m pytest")
+        == "python3 -m pytest -m full_repo"
+    )
+    assert (
+        ci_aware_validation_command(
+            "python3 scripts/run_nuclear_local_curvature_lane.py --help"
+        )
+        == "python3 scripts/run_nuclear_local_curvature_lane.py --help"
+    )
+
+
+def test_run_task_validation_ci_aware_skips_ci_duplicates_but_runs_remainder(
+    tmp_path,
+) -> None:
+    payload = {
+        "validation": {
+            "commands": [
+                "python3 -m ruff check .",
+                "python3 -m pytest",
+                "python3 scripts/example_task_check.py",
+                "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+            ]
+        }
+    }
+    seen_commands: list[str] = []
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del kwargs
+        seen_commands.append(command)
+        return CommandResult(returncode=0, stdout="", stderr="")
+
+    with patch("physics_lab.registry.maintainer_review.run_command", fake_run_command):
+        summary = run_task_validation(tmp_path, payload, enabled=True, ci_aware=True)
+
+    assert summary.status == "pass"
+    assert len(seen_commands) == 2
+    assert any("-m full_repo" in command for command in seen_commands)
+    assert any("scripts/example_task_check.py" in command for command in seen_commands)
+    assert summary.skipped_commands == (
+        "python3 -m ruff check .",
+        "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+    )
 
 
 def test_portable_validation_command_uses_git_bash_for_repo_shell_script() -> None:
