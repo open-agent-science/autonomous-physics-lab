@@ -232,7 +232,9 @@ opens fresh lanes instead of extending the shell-axis audit loop:
   first strong-but-inconclusive signal;
 - `TASK-0352` for a no-leakage local-curvature freeze protocol before any
   predictive use of neighbor-residual features;
-- `TASK-0353` for the first pinned Exoplanet PSCompPars mass-radius snapshot;
+- `TASK-0353` is review-ready with the first pinned Exoplanet PSCompPars
+  mass-radius snapshot; do not run metrics until it is reviewed and a
+  separate baseline task is opened;
 - `TASK-0354` for an Exoplanet loader dry run that can proceed in parallel
   with snapshot ingestion;
 - `TASK-0355` for one concrete Atomic Clock direct-ratio source-artifact

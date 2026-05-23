@@ -36,6 +36,20 @@ mapping:
       true-mass residual axis. The minimum-mass axis interpretation
       must include the inclination-bias note in the review.
 
+  "Msin(i)/sin(i)":
+    mass_class: minimum_mass_msini
+    row_class_when_radius_present: transit_radius_with_rv_minimum_mass
+    row_class_when_radius_absent: rv_minimum_mass_only
+    default_inclusion_status: excluded
+    inclusion_axis: source_specific_review_required
+    notes: >
+      PSCompPars contains a small number of rows labeled `Msin(i)/sin(i)`.
+      The TASK-0345 plan mentions this class but did not freeze a row-level
+      inclusion rule. TASK-0353 therefore preserves these rows as
+      minimum-mass-like provenance and excludes them from benchmark axes until
+      a source-specific review verifies whether inclination information is
+      measurement-grade for each row.
+
   "M-R relationship":
     mass_class: model_inferred
     row_class_when_radius_present: model_inferred
