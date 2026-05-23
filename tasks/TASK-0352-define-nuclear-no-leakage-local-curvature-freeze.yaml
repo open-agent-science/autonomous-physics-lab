@@ -1,7 +1,7 @@
 id: TASK-0352
 title: "Define nuclear no-leakage local-curvature freeze protocol"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
