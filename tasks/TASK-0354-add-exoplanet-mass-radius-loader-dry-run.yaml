@@ -1,0 +1,52 @@
+id: TASK-0354
+title: "Add exoplanet mass-radius loader dry run"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare Exoplanet Mass-Radius for fast benchmark execution once the pinned snapshot lands."
+  - "Let one agent build deterministic loading and filter logic while another handles catalog ingestion."
+  - "Keep loader development value-only or synthetic-only until real rows are committed."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+    - "physics_lab/schemas/exoplanet_mass_radius.schema.json"
+    - "data/exoplanets/source_manifest_template.yaml"
+  planning_context: >
+    The ingestion and benchmark protocols are ready, but benchmark work should
+    not wait on a single catalog-fetch PR. This task builds a deterministic
+    loader and filter dry run using synthetic fixtures only, so the first real
+    snapshot can be validated quickly after TASK-0353.
+
+requirements:
+  - "Implement or document a deterministic exoplanet dataset loader that accepts the planned normalized YAML shape."
+  - "Use only synthetic fixture rows or schema examples; do not commit real planet values in this task."
+  - "Exercise inclusion/exclusion filters for true mass, minimum mass, model-inferred mass, uncertainty thresholds, duplicate/default rows, and detection method labels."
+  - "Return row-count summaries and exclusion-reason counts without computing baseline residuals."
+  - "Keep the loader compatible with the fields locked by TASK-0345 and the benchmark exclusions locked by TASK-0346."
+  - "Do not fetch NASA data, run Chen-Kipping metrics, create plots, or promote claims."
+
+accepted_outputs:
+  - "physics_lab/datasets/exoplanets.py or an equivalent loader module"
+  - "tests/fixtures/exoplanets/synthetic_pscomppars_snapshot.yaml or equivalent synthetic fixture"
+  - "tests/test_exoplanet_mass_radius_loader.py"
+  - "optional docs/reviews/exoplanet-loader-dry-run.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_loader.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
