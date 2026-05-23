@@ -16,3 +16,4 @@ None.
 
 - `TASK-0322` - Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`, domain `tooling`)
 - `TASK-0348` - Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`, domain `ci`)
+- `TASK-0349` - Optimize self-hosted CI with a fast pull-request test gate (`ci_optimization`, priority `high`, difficulty `medium`)

@@ -3,6 +3,7 @@ import shutil
 import textwrap
 from typing import Optional
 
+import pytest
 from typer.testing import CliRunner
 
 from physics_lab.cli import app
@@ -537,6 +538,7 @@ def test_hash_file_preserves_binary_line_ending_bytes(tmp_path) -> None:
     assert first_hash != second_hash
 
 
+@pytest.mark.full_repo
 def test_validate_repository_strict_smoke() -> None:
     repo_root = Path(__file__).resolve().parent.parent
 
