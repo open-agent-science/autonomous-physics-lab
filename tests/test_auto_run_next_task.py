@@ -3,12 +3,48 @@
 from __future__ import annotations
 
 import os
+import json
 from pathlib import Path
+import shlex
+import shutil
 import subprocess
+import sys
+from textwrap import dedent
 
+import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = REPO_ROOT / "scripts" / "auto_run_next_task.sh"
+
+
+def _bash_or_skip() -> str:
+    if os.name == "nt":
+        pytest.skip(
+            "scripts/auto_run_next_task.sh is a POSIX shell runner; "
+            "Windows hosts validate it through Linux CI or WSL/Git Bash."
+        )
+    bash = shutil.which("bash")
+    if bash is None:
+        pytest.skip("scripts/auto_run_next_task.sh requires bash; skip on hosts without bash")
+    if shutil.which("python3") is None:
+        pytest.skip("scripts/auto_run_next_task.sh requires python3 on PATH")
+    return bash
+
+
+def _run_runner(
+    args: list[str],
+    *,
+    env: dict[str, str],
+) -> subprocess.CompletedProcess[str]:
+    """Run the shell auto-runner through bash so tests are explicit and portable."""
+    return subprocess.run(
+        [_bash_or_skip(), str(RUNNER), *args],
+        cwd=REPO_ROOT,
+        env=env,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
 
 
 def _write_fake_repo(tmp_path: Path, *, candidates: list[dict[str, object]]) -> Path:
@@ -67,10 +103,7 @@ def _runner_env(
     # against the live remote. The hook prints a JSON array of objects
     # shaped like `gh pr list --json number,title` output.
     titles = [{"number": 999, "title": f"{tid}: stub"} for tid in (open_pr_task_ids or [])]
-    open_pr_cmd = (
-        "python3 -c "
-        f"\"import json,sys;sys.stdout.write(json.dumps({titles!r}))\""
-    )
+    open_pr_cmd = "printf '%s' " + shlex.quote(json.dumps(titles))
     base_env["APL_OPEN_PR_LIST_CMD"] = open_pr_cmd
 
     env.update(base_env)
@@ -98,13 +131,9 @@ def test_auto_runner_dry_run_selects_ready_task(tmp_path: Path) -> None:
         ],
     )
 
-    result = subprocess.run(
-        [str(RUNNER), "--dry-run", "--max-turns", "12"],
-        cwd=REPO_ROOT,
+    result = _run_runner(
+        ["--dry-run", "--max-turns", "12"],
         env=_runner_env(tmp_path, fake_repo),
-        text=True,
-        capture_output=True,
-        check=False,
     )
 
     assert result.returncode == 0, result.stderr
@@ -129,14 +158,7 @@ def test_auto_runner_dry_run_exits_cleanly_without_ready_tasks(tmp_path: Path) -
         ],
     )
 
-    result = subprocess.run(
-        [str(RUNNER), "--dry-run"],
-        cwd=REPO_ROOT,
-        env=_runner_env(tmp_path, fake_repo),
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    result = _run_runner(["--dry-run"], env=_runner_env(tmp_path, fake_repo))
 
     assert result.returncode == 0, result.stderr
     assert "No READY tasks found. Nothing to do." in result.stderr
@@ -166,13 +188,9 @@ def test_auto_runner_skips_candidate_with_open_pr_and_picks_next(tmp_path: Path)
         ],
     )
 
-    result = subprocess.run(
-        [str(RUNNER), "--dry-run"],
-        cwd=REPO_ROOT,
+    result = _run_runner(
+        ["--dry-run"],
         env=_runner_env(tmp_path, fake_repo, open_pr_task_ids=["TASK-0010"]),
-        text=True,
-        capture_output=True,
-        check=False,
     )
 
     assert result.returncode == 0, result.stderr
@@ -202,17 +220,13 @@ def test_auto_runner_exits_cleanly_when_every_candidate_has_open_pr(tmp_path: Pa
         ],
     )
 
-    result = subprocess.run(
-        [str(RUNNER), "--dry-run"],
-        cwd=REPO_ROOT,
+    result = _run_runner(
+        ["--dry-run"],
         env=_runner_env(
             tmp_path,
             fake_repo,
             open_pr_task_ids=["TASK-0020", "TASK-0021"],
         ),
-        text=True,
-        capture_output=True,
-        check=False,
     )
 
     assert result.returncode == 0, result.stderr
@@ -238,13 +252,9 @@ def test_auto_runner_legacy_monthly_env_var_still_runs(tmp_path: Path) -> None:
         ],
     )
 
-    result = subprocess.run(
-        [str(RUNNER), "--dry-run"],
-        cwd=REPO_ROOT,
+    result = _run_runner(
+        ["--dry-run"],
         env=_runner_env(tmp_path, fake_repo, use_legacy_monthly_env=True),
-        text=True,
-        capture_output=True,
-        check=False,
     )
 
     assert result.returncode == 0, result.stderr
@@ -262,16 +272,51 @@ def _make_stub_claude_bin(
     exits with the given exit code. Returns a PATH value with this bin
     directory at the front."""
     bin_dir.mkdir(parents=True, exist_ok=True)
-    stub = bin_dir / "claude"
-    # Use a heredoc-free body so single-quote contents stay portable.
-    stub.write_text(
-        "#!/usr/bin/env bash\n"
-        f"cat <<'CLAUDE_STUB_EOF'\n{stdout_text}\nCLAUDE_STUB_EOF\n"
-        f"exit {exit_code}\n",
-        encoding="utf-8",
-    )
-    stub.chmod(0o755)
-    return f"{bin_dir}:{os.environ.get('PATH', '')}"
+    if os.name == "nt":
+        stub = bin_dir / "claude.cmd"
+        stub.write_text(
+            "\r\n".join(
+                [
+                    "@echo off",
+                    f'"{sys.executable}" "%~dp0claude_stub.py"',
+                    f"exit /b {exit_code}",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+    else:
+        stub = bin_dir / "claude"
+        stub.write_text(
+            dedent(
+                f"""\
+                #!{sys.executable}
+                import sys
+
+                sys.stdout.write({stdout_text!r})
+                if not {stdout_text!r}.endswith("\\n"):
+                    sys.stdout.write("\\n")
+                sys.exit({exit_code})
+                """
+            ),
+            encoding="utf-8",
+        )
+        stub.chmod(0o755)
+
+    if os.name == "nt":
+        (bin_dir / "claude_stub.py").write_text(
+            dedent(
+                f"""\
+                import sys
+
+                sys.stdout.write({stdout_text!r})
+                if not {stdout_text!r}.endswith("\\n"):
+                    sys.stdout.write("\\n")
+                """
+            ),
+            encoding="utf-8",
+        )
+    return os.pathsep.join([str(bin_dir), os.environ.get("PATH", "")])
 
 
 def test_auto_runner_detects_max_turns_exit_and_reports_clearly(tmp_path: Path) -> None:
@@ -303,14 +348,7 @@ def test_auto_runner_detects_max_turns_exit_and_reports_clearly(tmp_path: Path) 
     env["PATH"] = path_value
     env["APL_AUTO_RUNNER_CHILD_LOG"] = str(tmp_path / "child-stdout.log")
 
-    result = subprocess.run(
-        [str(RUNNER), "--max-turns", "60"],
-        cwd=REPO_ROOT,
-        env=env,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    result = _run_runner(["--max-turns", "60"], env=env)
 
     assert result.returncode == 1, (result.stdout, result.stderr)
     # Child's stdout still surfaces (we tee'd it).
@@ -350,14 +388,7 @@ def test_auto_runner_reports_non_max_turns_failure_distinctly(tmp_path: Path) ->
     env["PATH"] = path_value
     env["APL_AUTO_RUNNER_CHILD_LOG"] = str(tmp_path / "child-stdout.log")
 
-    result = subprocess.run(
-        [str(RUNNER), "--max-turns", "60"],
-        cwd=REPO_ROOT,
-        env=env,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    result = _run_runner(["--max-turns", "60"], env=env)
 
     assert result.returncode == 2, (result.stdout, result.stderr)
     assert "no 'reached max turns' marker" in result.stderr.lower()
@@ -387,14 +418,7 @@ def test_auto_runner_default_max_turns_is_200(tmp_path: Path) -> None:
     env = _runner_env(tmp_path, fake_repo)
     env.pop("CLAUDE_MAX_TURNS", None)
 
-    result = subprocess.run(
-        [str(RUNNER), "--dry-run"],
-        cwd=REPO_ROOT,
-        env=env,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    result = _run_runner(["--dry-run"], env=env)
 
     assert result.returncode == 0, result.stderr
     # The dry-run summary line names the chosen --max-turns value.

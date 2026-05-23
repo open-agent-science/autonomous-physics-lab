@@ -4,8 +4,32 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from textwrap import dedent
 
 from physics_lab.registry.pr_capability import check_pr_capability
+
+
+def _write_gh_stub(bin_dir: Path, *, exit_code: int = 0) -> Path:
+    """Create a tiny cross-platform gh stub and return its executable path."""
+    bin_dir.mkdir(parents=True, exist_ok=True)
+    if os.name == "nt":
+        stub = bin_dir / "gh.cmd"
+        stub.write_text(f"@echo off\r\nexit /b {exit_code}\r\n", encoding="utf-8")
+        return stub
+
+    stub = bin_dir / "gh"
+    stub.write_text(
+        dedent(
+            f"""\
+            #!{sys.executable}
+            import sys
+            sys.exit({exit_code})
+            """
+        ),
+        encoding="utf-8",
+    )
+    stub.chmod(0o755)
+    return stub
 
 
 def test_pr_capability_is_advisory_without_gh_or_token(tmp_path: Path) -> None:
@@ -36,9 +60,7 @@ def test_pr_capability_discovers_homebrew_style_gh_path(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
-    fake_gh = tmp_path / "gh"
-    fake_gh.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
-    fake_gh.chmod(0o755)
+    fake_gh = _write_gh_stub(tmp_path)
     monkeypatch.setattr(
         "physics_lab.registry.pr_capability.shutil.which",
         lambda _name, path=None: None,
@@ -100,11 +122,7 @@ def test_pr_capability_cli_reports_clean_state_when_gh_authenticated(
     repo_root = Path(__file__).resolve().parents[1]
 
     stub_bin = tmp_path / "stub-bin"
-    stub_bin.mkdir()
-    stub_gh = stub_bin / "gh"
-    # Use /bin/sh shebang because the sandboxed PATH does not include bash.
-    stub_gh.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
-    stub_gh.chmod(0o755)
+    stub_gh = _write_gh_stub(stub_bin)
 
     env = os.environ.copy()
     env.pop("GH_TOKEN", None)
