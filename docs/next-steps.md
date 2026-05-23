@@ -228,6 +228,17 @@ opens fresh lanes instead of extending the shell-axis audit loop:
 - `TASK-0345` for Exoplanet PSCompPars snapshot ingestion planning;
 - `TASK-0346` for Exoplanet baseline and holdout protocol;
 - `TASK-0347` for Quantum alternative direct table source triage;
+- `TASK-0351` for Nuclear local-curvature adversarial controls after the
+  first strong-but-inconclusive signal;
+- `TASK-0352` for a no-leakage local-curvature freeze protocol before any
+  predictive use of neighbor-residual features;
+- `TASK-0353` for the first pinned Exoplanet PSCompPars mass-radius snapshot;
+- `TASK-0354` for an Exoplanet loader dry run that can proceed in parallel
+  with snapshot ingestion;
+- `TASK-0355` for one concrete Atomic Clock direct-ratio source-artifact
+  review;
+- `TASK-0356` for a Quantum direct source-artifact intake path so
+  maintainer-provided SI/table files can unblock row curation quickly;
 - `TASK-0330` remains the current Atomic Clock direct frequency-ratio source
   review;
 - `TASK-0332` remains the current Atomic Clock real-row readiness gate.
