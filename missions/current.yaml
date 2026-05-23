@@ -275,8 +275,10 @@ missions:
         label: "Triage open quantum-dot direct table sources"
         task_id: TASK-0347
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "ranked alternative direct-source candidates without row values"
 
