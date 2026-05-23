@@ -1,7 +1,7 @@
 # Autonomous Task Runner Utility 001
 
 **Task:** TASK-0318  
-**Scripts:** `scripts/check_claude_budget.py`, `scripts/auto_run_next_task.sh`  
+**Scripts:** `scripts/check_claude_budget.py`, `scripts/auto_run_next_task.py`
 **Tests:** `tests/test_check_claude_budget.py`
 
 ## Purpose
@@ -50,7 +50,7 @@ Output example:
 }
 ```
 
-### Autonomous runner (`auto_run_next_task.sh`)
+### Autonomous runner (`auto_run_next_task.py`)
 
 1. Calls `check_claude_budget.py`; exits cleanly if budget gate blocks.
 2. Reads `scripts/apl_mission.py --json` to find READY tasks sorted by
@@ -70,13 +70,13 @@ python3 scripts/check_claude_budget.py
 CLAUDE_MONTHLY_TOKEN_LIMIT=1300000 python3 scripts/check_claude_budget.py
 
 # Autonomous runner, dry-run to preview
-./scripts/auto_run_next_task.sh --dry-run
+python3 scripts/auto_run_next_task.py --dry-run
 
 # Autonomous runner, real execution with 60-turn cap
-./scripts/auto_run_next_task.sh --max-turns 60
+python3 scripts/auto_run_next_task.py --max-turns 60
 
 # Recurring: run every 30 minutes if budget allows
-watch -n 1800 ./scripts/auto_run_next_task.sh --dry-run
+watch -n 1800 python3 scripts/auto_run_next_task.py --dry-run
 ```
 
 ## Calibrating the monthly limit
@@ -98,8 +98,9 @@ Adjust to match your observed billing cycle.
 - The runner picks the next READY task but does not validate that a previous
   agent is not already working on the same task. Use separate worktrees for
   parallel agents.
-- `auto_run_next_task.sh` requires the `claude` CLI to be on `PATH`.
-- `auto_run_next_task.sh` has a dry-run smoke test that verifies READY-task
+- `auto_run_next_task.py` requires the `claude` CLI to be on `PATH` for real
+  execution.
+- `auto_run_next_task.py` has a dry-run smoke test that verifies READY-task
   selection without invoking Claude.
 
 ## Tests
@@ -107,4 +108,8 @@ Adjust to match your observed billing cycle.
 21 unit tests covering: missing dir, month filtering, multi-message summation,
 cache token accounting, malformed line skipping, threshold boundary conditions,
 CLI exit codes, env-var configuration, JSON output validity, and
-`auto_run_next_task.sh --dry-run` READY-task selection.
+`auto_run_next_task.py --dry-run` READY-task selection.
+
+> TASK-0360 update: the old POSIX shell entrypoint was replaced by the
+> cross-platform Python runner so Windows, macOS, Linux, and CI use one
+> canonical path.
