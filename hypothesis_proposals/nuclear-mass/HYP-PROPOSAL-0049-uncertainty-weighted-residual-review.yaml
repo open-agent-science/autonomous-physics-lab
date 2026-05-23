@@ -1,0 +1,92 @@
+id: HYP-PROPOSAL-0049
+title: "Nuclear uncertainty-weighted residual review"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: audit
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox uncertainty diagnostic only; no prediction registry, canonical result, or claim promotion."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0342
+
+input_references:
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+
+hypothesis:
+  statement: "Nuclear baseline residual diagnostics may be sensitive to row-level uncertainty weighting or filtering, so prior unweighted retrospective lanes need an explicit uncertainty review gate before any follow-up interpretation."
+  variables:
+    - "Baseline residuals from the frozen RESULT-0015 fitted semi-empirical coefficients."
+    - "NMD-0002 curated atomic-mass uncertainty floor, treated as review-only."
+    - "Post-AME2020 New and AME2020 comparison uncertainty fields."
+    - "Conservative inverse-variance and median-split uncertainty variants."
+  assumptions:
+    - "No external uncertainty table is fetched."
+    - "The committed uncertainty fields are sufficient for review-only diagnostics but not fit-grade likelihood scoring."
+    - "No prior candidate lane is re-promoted by this review."
+  expected_scope: "Retrospective sandbox comparison of unweighted, weighted, and uncertainty-filtered baseline residual diagnostics."
+  expected_failure_modes:
+    - "Small uncertainty rows can dominate weighted metrics even with a cap."
+    - "Low- and high-uncertainty subsets can show materially different baseline errors."
+    - "The available uncertainty semantics can remain review-only rather than fit-grade."
+
+novelty_check:
+  checked_files:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nuclear-deformation-proxy-hypothesis-lane.md"
+    - "docs/reviews/nuclear-local-curvature-hypothesis-lane.md"
+    - "docs/reviews/nuclear-odd-even-shell-interaction-lane.md"
+  possible_overlap: "Builds on prior unweighted Nuclear residual lanes but audits row-level uncertainty handling directly."
+  notes: "The proposal does not add candidate formulas or prediction registry entries."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_uncertainty_weighted_residual_lane.py and compare committed metrics to recomputed metrics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on committed NMD-0002 and post-AME2020 holdout data."
+  pass_condition: "Sandbox pass if uncertainty fields are audited, 3-5 conservative variants are reported, metrics are deterministic, and no registry, result, claim, or knowledge files are written."
+  fail_condition: "Fail if the lane fetches live data, hides uncertainty concentration, rewrites canonical results, or frames weighting diagnostics as validated physics."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call uncertainty-weighted diagnostics a prediction reveal."
+    - "Do not promote prior retrospective candidate lanes."
+    - "Do not treat review-only uncertainty fields as a fit-grade likelihood surface."
+  mitigations:
+    - "Keep outputs under agent_runs, review notes, scripts, tests, and the task file."
+    - "Report review-only uncertainty limitations explicitly."
+    - "Require maintainer review before any follow-up promotion."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_uncertainty_weighted_residual_lane.py"
+    - "python3 -m pytest tests/test_nuclear_uncertainty_weighted_residual_lane.py"
+  code_references:
+    - "scripts/run_nuclear_uncertainty_weighted_residual_lane.py"
+    - "tests/test_nuclear_uncertainty_weighted_residual_lane.py"
+  metrics:
+    - "mae_mev"
+    - "rmse_mev"
+    - "weighted_mae_mev"
+    - "weighted_rmse_mev"
+    - "mean_abs_uncertainty_normalized_error"
+    - "prior_lane_uncertainty_sensitivity"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0029/"
+    - "docs/reviews/nuclear-uncertainty-weighted-residual-lane.md"
+
+limitations:
+  - "NMD-0002 uncertainty values are a coarse curated floor."
+  - "Baseline model uncertainty is not represented."
+  - "This is retrospective sandbox evidence, not live reveal scoring."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Review whether uncertainty handling should become a standard gate for future Nuclear residual lanes."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed follow-up before any RESULT, PRED, claim, knowledge, or reveal-scoring work."

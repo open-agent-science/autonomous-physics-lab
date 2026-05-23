@@ -146,6 +146,6 @@ def test_pr_capability_cli_reports_clean_state_when_gh_authenticated(
 
     assert result.returncode == 0, (result.stdout, result.stderr)
     assert "PR capability check" in result.stdout
-    assert str(stub_gh) in result.stdout
+    assert os.path.normcase(str(stub_gh)) in os.path.normcase(result.stdout)
     assert "Warnings: none" in result.stdout
     assert "Errors: none" in result.stdout

@@ -205,8 +205,10 @@ missions:
         label: "Run Nuclear uncertainty-weighted residual lane"
         task_id: TASK-0342
         mode: research
+        status: review_ready
         priority: medium
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "uncertainty preflight and weighted residual diagnostics"
       - id: nuclear-high-error-cluster-lane

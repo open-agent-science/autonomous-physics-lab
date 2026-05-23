@@ -47,7 +47,6 @@ one PR.
 ## READY
 
 - `TASK-0341` — Run nuclear extrapolated-measured boundary hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`)
 - `TASK-0343` — Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0344` — Review atomic-clock covariance and uncertainty semantics (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0351` — Run nuclear local-curvature adversarial control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
@@ -70,6 +69,7 @@ None.
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`)
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0347` — Triage open quantum-dot direct table sources (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0352` — Define nuclear no-leakage local-curvature freeze protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
