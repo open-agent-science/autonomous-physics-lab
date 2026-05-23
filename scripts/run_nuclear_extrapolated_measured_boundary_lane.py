@@ -495,11 +495,11 @@ def _row_examples(
     if reverse:
         return sorted(
             scored,
-            key=lambda item: (-float(item["delta_abs_error_mev"]), str(item["row_id"])),
+            key=lambda item: (-round(float(item["delta_abs_error_mev"]), 12), str(item["row_id"])),
         )[:limit]
     return sorted(
         scored,
-        key=lambda item: (float(item["delta_abs_error_mev"]), str(item["row_id"])),
+        key=lambda item: (round(float(item["delta_abs_error_mev"]), 12), str(item["row_id"])),
     )[:limit]
 
 

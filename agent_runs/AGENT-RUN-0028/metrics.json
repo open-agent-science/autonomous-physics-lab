@@ -155,74 +155,74 @@
       "holdout_delta_mae_mev": 0.014057651266410787,
       "largest_improvements": [
         {
-          "delta_abs_error_mev": -0.2728483734431961,
-          "nuclide_id": "Cu-76",
-          "row_id": "POST-AME2020-0064",
+          "delta_abs_error_mev": -0.27284837344319546,
+          "nuclide_id": "Ne-25",
+          "row_id": "POST-AME2020-0002",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.2728483734431961,
-          "nuclide_id": "Cu-77",
-          "row_id": "POST-AME2020-0065",
+          "delta_abs_error_mev": -0.27284837344319546,
+          "nuclide_id": "Ne-26",
+          "row_id": "POST-AME2020-0003",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.2728483734431961,
-          "nuclide_id": "Cu-78",
-          "row_id": "POST-AME2020-0066",
+          "delta_abs_error_mev": -0.27284837344319524,
+          "nuclide_id": "Ca-54",
+          "row_id": "POST-AME2020-0016",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.2728483734431961,
-          "nuclide_id": "Zn-79",
-          "row_id": "POST-AME2020-0068",
+          "delta_abs_error_mev": -0.27284837344319546,
+          "nuclide_id": "Sc-50",
+          "row_id": "POST-AME2020-0017",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.2728483734431961,
-          "nuclide_id": "Ga-83",
-          "row_id": "POST-AME2020-0073",
+          "delta_abs_error_mev": -0.27284837344319546,
+          "nuclide_id": "Sc-51",
+          "row_id": "POST-AME2020-0018",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         }
       ],
       "largest_regressions": [
         {
-          "delta_abs_error_mev": 0.2728483734431961,
-          "nuclide_id": "Ni-75",
-          "row_id": "POST-AME2020-0062",
+          "delta_abs_error_mev": 0.27284837344319524,
+          "nuclide_id": "Ne-24",
+          "row_id": "POST-AME2020-0001",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.27284837344319524,
+          "nuclide_id": "Si-23",
+          "row_id": "POST-AME2020-0004",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         },
         {
-          "delta_abs_error_mev": 0.2728483734431961,
-          "nuclide_id": "As-88",
-          "row_id": "POST-AME2020-0093",
+          "delta_abs_error_mev": 0.27284837344319546,
+          "nuclide_id": "Si-24",
+          "row_id": "POST-AME2020-0005",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.27284837344319524,
+          "nuclide_id": "P-26",
+          "row_id": "POST-AME2020-0006",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         },
         {
-          "delta_abs_error_mev": 0.2728483734431961,
-          "nuclide_id": "In-133",
-          "row_id": "POST-AME2020-0193",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": 0.2728483734431961,
-          "nuclide_id": "In-134",
-          "row_id": "POST-AME2020-0194",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": 0.2728483734431961,
-          "nuclide_id": "Pt-171",
-          "row_id": "POST-AME2020-0271",
+          "delta_abs_error_mev": 0.27284837344319546,
+          "nuclide_id": "P-27",
+          "row_id": "POST-AME2020-0007",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         }
@@ -851,74 +851,74 @@
       "holdout_delta_mae_mev": 0.027429673952963363,
       "largest_improvements": [
         {
-          "delta_abs_error_mev": -0.5887226548882172,
-          "nuclide_id": "Cu-77",
-          "row_id": "POST-AME2020-0065",
+          "delta_abs_error_mev": -0.5887226548882166,
+          "nuclide_id": "Ne-25",
+          "row_id": "POST-AME2020-0002",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.5887226548882172,
-          "nuclide_id": "Cu-78",
-          "row_id": "POST-AME2020-0066",
+          "delta_abs_error_mev": -0.5887226548882166,
+          "nuclide_id": "Ne-26",
+          "row_id": "POST-AME2020-0003",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.5887226548882172,
-          "nuclide_id": "Zn-79",
-          "row_id": "POST-AME2020-0068",
+          "delta_abs_error_mev": -0.5887226548882163,
+          "nuclide_id": "Ca-54",
+          "row_id": "POST-AME2020-0016",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.5887226548882172,
-          "nuclide_id": "Ga-83",
-          "row_id": "POST-AME2020-0073",
+          "delta_abs_error_mev": -0.5887226548882167,
+          "nuclide_id": "Sc-50",
+          "row_id": "POST-AME2020-0017",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.5887226548882172,
-          "nuclide_id": "Ge-85",
-          "row_id": "POST-AME2020-0080",
+          "delta_abs_error_mev": -0.5887226548882166,
+          "nuclide_id": "Sc-51",
+          "row_id": "POST-AME2020-0018",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         }
       ],
       "largest_regressions": [
         {
-          "delta_abs_error_mev": 0.5887226548882172,
-          "nuclide_id": "Tm-157",
-          "row_id": "POST-AME2020-0238",
+          "delta_abs_error_mev": 0.5887226548882167,
+          "nuclide_id": "Ne-24",
+          "row_id": "POST-AME2020-0001",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 0.5887226548882172,
-          "nuclide_id": "Os-167",
-          "row_id": "POST-AME2020-0265",
+          "delta_abs_error_mev": 0.5887226548882166,
+          "nuclide_id": "Si-24",
+          "row_id": "POST-AME2020-0005",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 0.5887226548882172,
-          "nuclide_id": "Pt-171",
-          "row_id": "POST-AME2020-0271",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.5887226548882172,
-          "nuclide_id": "Hg-175",
-          "row_id": "POST-AME2020-0276",
+          "delta_abs_error_mev": 0.5887226548882166,
+          "nuclide_id": "P-27",
+          "row_id": "POST-AME2020-0007",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
           "delta_abs_error_mev": 0.5887226548882167,
-          "nuclide_id": "Ne-24",
-          "row_id": "POST-AME2020-0001",
+          "nuclide_id": "S-28",
+          "row_id": "POST-AME2020-0009",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.5887226548882167,
+          "nuclide_id": "S-36",
+          "row_id": "POST-AME2020-0010",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         }
@@ -1083,6 +1083,27 @@
       "holdout_delta_mae_mev": -0.018626704766971258,
       "largest_improvements": [
         {
+          "delta_abs_error_mev": -1.105512127407804,
+          "nuclide_id": "Si-23",
+          "row_id": "POST-AME2020-0004",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": -1.105512127407804,
+          "nuclide_id": "P-26",
+          "row_id": "POST-AME2020-0006",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": -1.105512127407804,
+          "nuclide_id": "S-27",
+          "row_id": "POST-AME2020-0008",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
           "delta_abs_error_mev": -1.1055121274078044,
           "nuclide_id": "Cr-65",
           "row_id": "POST-AME2020-0043",
@@ -1090,35 +1111,28 @@
           "was_extrapolated": true
         },
         {
-          "delta_abs_error_mev": -1.1055121274078044,
-          "nuclide_id": "Fe-69",
-          "row_id": "POST-AME2020-0056",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": -1.1055121274078044,
-          "nuclide_id": "Fe-70",
-          "row_id": "POST-AME2020-0057",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": -1.1055121274078044,
-          "nuclide_id": "Ni-74",
-          "row_id": "POST-AME2020-0061",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": -1.1055121274078044,
-          "nuclide_id": "Ni-75",
-          "row_id": "POST-AME2020-0062",
+          "delta_abs_error_mev": -1.105512127407804,
+          "nuclide_id": "Fe-68",
+          "row_id": "POST-AME2020-0055",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         }
       ],
       "largest_regressions": [
+        {
+          "delta_abs_error_mev": 1.105512127407804,
+          "nuclide_id": "Ge-62",
+          "row_id": "POST-AME2020-0075",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": 1.105512127407804,
+          "nuclide_id": "As-64",
+          "row_id": "POST-AME2020-0082",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
         {
           "delta_abs_error_mev": 1.1055121274078044,
           "nuclide_id": "Se-66",
@@ -1137,20 +1151,6 @@
           "delta_abs_error_mev": 1.1055121274078044,
           "nuclide_id": "Zr-80",
           "row_id": "POST-AME2020-0141",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": 1.1055121274078044,
-          "nuclide_id": "Yb-150",
-          "row_id": "POST-AME2020-0239",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": true
-        },
-        {
-          "delta_abs_error_mev": 1.1055121274078044,
-          "nuclide_id": "Yb-153",
-          "row_id": "POST-AME2020-0242",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         }
@@ -1315,42 +1315,63 @@
       "holdout_delta_mae_mev": -0.02727412401050522,
       "largest_improvements": [
         {
-          "delta_abs_error_mev": -0.8018980688019894,
-          "nuclide_id": "Ga-84",
-          "row_id": "POST-AME2020-0074",
+          "delta_abs_error_mev": -0.8018980688019872,
+          "nuclide_id": "Ne-24",
+          "row_id": "POST-AME2020-0001",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.8018980688019877,
-          "nuclide_id": "Ca-54",
-          "row_id": "POST-AME2020-0016",
+          "delta_abs_error_mev": -0.8018980688019872,
+          "nuclide_id": "Ne-25",
+          "row_id": "POST-AME2020-0002",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": -0.8018980688019877,
-          "nuclide_id": "Sc-54",
-          "row_id": "POST-AME2020-0021",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": -0.8018980688019877,
-          "nuclide_id": "Cr-65",
-          "row_id": "POST-AME2020-0043",
+          "delta_abs_error_mev": -0.8018980688019872,
+          "nuclide_id": "Si-23",
+          "row_id": "POST-AME2020-0004",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         },
         {
-          "delta_abs_error_mev": -0.8018980688019877,
-          "nuclide_id": "Fe-69",
-          "row_id": "POST-AME2020-0056",
+          "delta_abs_error_mev": -0.8018980688019872,
+          "nuclide_id": "P-26",
+          "row_id": "POST-AME2020-0006",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": true
+        },
+        {
+          "delta_abs_error_mev": -0.8018980688019872,
+          "nuclide_id": "S-27",
+          "row_id": "POST-AME2020-0008",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": true
         }
       ],
       "largest_regressions": [
+        {
+          "delta_abs_error_mev": 0.8018980688019872,
+          "nuclide_id": "Si-24",
+          "row_id": "POST-AME2020-0005",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.8018980688019872,
+          "nuclide_id": "P-27",
+          "row_id": "POST-AME2020-0007",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
+        {
+          "delta_abs_error_mev": 0.8018980688019872,
+          "nuclide_id": "S-28",
+          "row_id": "POST-AME2020-0009",
+          "source_surface": "post_ame2020_primary_holdout",
+          "was_extrapolated": false
+        },
         {
           "delta_abs_error_mev": 0.8018980688019877,
           "nuclide_id": "S-36",
@@ -1359,30 +1380,9 @@
           "was_extrapolated": false
         },
         {
-          "delta_abs_error_mev": 0.8018980688019877,
-          "nuclide_id": "Ti-43",
-          "row_id": "POST-AME2020-0023",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.8018980688019877,
-          "nuclide_id": "Cr-46",
-          "row_id": "POST-AME2020-0034",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.8018980688019877,
-          "nuclide_id": "Cu-76",
-          "row_id": "POST-AME2020-0064",
-          "source_surface": "post_ame2020_primary_holdout",
-          "was_extrapolated": false
-        },
-        {
-          "delta_abs_error_mev": 0.8018980688019877,
-          "nuclide_id": "As-75",
-          "row_id": "POST-AME2020-0085",
+          "delta_abs_error_mev": 0.8018980688019872,
+          "nuclide_id": "Cl-36",
+          "row_id": "POST-AME2020-0011",
           "source_surface": "post_ame2020_primary_holdout",
           "was_extrapolated": false
         }
