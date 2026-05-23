@@ -62,7 +62,7 @@ jobs:
           echo "docs_task_only=$docs_task_only" >> "$GITHUB_OUTPUT"
 
   pull-request:
-    name: Python tests (3.12)
+    name: Python fast tests (3.12)
     runs-on: [self-hosted, linux, x64]
     needs: classify
     if: github.event_name == 'pull_request'
@@ -102,18 +102,7 @@ jobs:
       - name: Run full tests
         if: needs.classify.outputs.docs_task_only != 'true'
         run: |
-          pytest
-
-      - name: Run example workflows
-        if: needs.classify.outputs.docs_task_only != 'true'
-        run: |
-          python -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
-          python -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
-
-      - name: Assert example runs are non-dirty
-        if: needs.classify.outputs.docs_task_only != 'true'
-        run: |
-          git diff --exit-code
+          pytest -n auto --dist loadfile -m "not full_repo"
 
       - name: Validate repository artifacts
         run: |
@@ -158,7 +147,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest
+          pytest -n auto --dist loadfile
 
       - name: Run example workflows
         run: |
