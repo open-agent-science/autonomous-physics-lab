@@ -1,7 +1,7 @@
 id: TASK-0347
 title: "Triage open quantum-dot direct table sources"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -36,8 +36,7 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/quantum-open-direct-table-source-triage.md"
-  - "optional metadata-only update to data/quantum_dots/source_manifest.yaml"
-  - "optional source-artifact README stubs only if they contain no measurement values"
+  - "data/quantum_dots/source_manifest.yaml"
 
 validation:
   commands:
