@@ -50,6 +50,9 @@ one PR.
 - `TASK-0343` — Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0351` — Run nuclear local-curvature adversarial control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0356` — Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`)
+- `TASK-0361` — Run exoplanet mass-radius baseline benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
+- `TASK-0363` — Pin atomic Beloy 2021 source artifact and covariance preflight (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0364` — Attempt quantum PMC/arXiv direct-table source curation (`scientific_dataset`, priority `high`, difficulty `high`)
 
 ## IN_PROGRESS
 
@@ -396,6 +399,8 @@ None.
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0362` — Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0365` — Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 
