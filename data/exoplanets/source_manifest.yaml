@@ -1,0 +1,35 @@
+manifest_id: EXO-MR-SOURCE-MANIFEST-0001
+schema_version: 0.1.0
+task_id: TASK-0353
+status: pinned_snapshot_ingested
+campaign_profile_id: exoplanet-mass-radius
+live_fetch_allowed: false
+benchmark_allowed: false
+claim_promotion_allowed: false
+sources:
+- source_id: EXO-SRC-CLASS-001
+  source_family: NASA Exoplanet Archive Planetary Systems table
+  title: NASA Exoplanet Archive Planetary Systems Composite Parameters snapshot
+  homepage: https://exoplanetarchive.ipac.caltech.edu/
+  documentation: https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html
+  access_surface: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+  query_contract: data/exoplanets/snapshot_plans/pscomppars_query.adql
+  method_map: data/exoplanets/snapshot_plans/pscomppars_method_map.yaml
+  mass_provenance_map: data/exoplanets/snapshot_plans/pscomppars_mass_provenance_map.yaml
+  retrieval_date_utc: '2026-05-23T17:15:49Z'
+  raw_snapshot_path: data/exoplanets/raw/exo-pscomppars-20260523T171549Z.csv
+  raw_checksum_sha256: a86aefd7d0fd7c2e93aaad87f97adb4c96f1246d8fc00abae7d7c43082ba4e54
+  normalized_snapshot_path: data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+  normalized_checksum_sha256: d86dc539c5175cafae44fadcb55194c00ac91d21b8f0ace1754fae3412dc1a6c
+  row_count: 6291
+  included_post_filter_count: 4301
+  excluded_count: 1990
+  license_note: NASA Exoplanet Archive public data; preserve per-row pl_refname, st_refname,
+    and disc_refname attribution.
+  archive_policy: committed_raw_csv_plus_normalized_yaml
+  value_status: real_catalog_values_pinned_no_metrics
+  forbidden_uses:
+  - baseline_metrics_in_this_task
+  - habitability_or_biosignature_inference
+  - target_prioritization
+  - claim_promotion

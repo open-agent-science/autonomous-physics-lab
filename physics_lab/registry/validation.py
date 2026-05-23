@@ -34,6 +34,7 @@ SCHEMA_FILE_BY_KIND = {
     "post_ame2020_holdout": "post_ame2020_holdout.schema.json",
     "post_ame2020_sources": "post_ame2020_sources.schema.json",
     "quantum_dot_size_effect": "quantum_dot_size_effect.schema.json",
+    "exoplanet_mass_radius": "exoplanet_mass_radius.schema.json",
 }
 KIND_BY_DIRECTORY = {
     "claims": "claim",

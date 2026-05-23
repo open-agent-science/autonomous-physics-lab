@@ -1,7 +1,7 @@
 id: TASK-0353
 title: "Ingest pinned exoplanet PSCompPars mass-radius snapshot"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -37,11 +37,11 @@ requirements:
   - "Do not run baseline metrics, residual plots, habitability/biosignature analysis, target prioritization, prediction entries, or claim promotion."
 
 accepted_outputs:
-  - "data/exoplanets/raw/exo-pscomppars-<retrieval-date>.csv or a source-unavailable blocker review"
-  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml if retrieval succeeds"
+  - "data/exoplanets/raw/exo-pscomppars-20260523T171549Z.csv"
+  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
   - "data/exoplanets/source_manifest.yaml"
   - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion.md"
-  - "tests/test_exoplanet_mass_radius_dataset_schema.py or equivalent dataset validation coverage"
+  - "tests/test_exoplanet_mass_radius_dataset_schema.py"
 
 validation:
   commands:
