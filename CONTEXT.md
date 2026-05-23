@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-23 13:29 UTC
+Generated: 2026-05-23 16:05 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -113,8 +113,11 @@ Documentation, scripts, config, and fixes all follow the same flow.
 Pushing directly to `main` violates the repository protocol.
 
 The only operations allowed directly on `main` are:
-- post-merge task closeout (`status: DONE` + `sync-active-board`)
+- post-merge task closeout (`status: DONE`)
 - `CONTEXT.md` regeneration after a batch merge
+- regeneration of `tasks/ACTIVE.md` and `docs/task-views/*.md` by the
+  `Sync Active Board` post-merge GitHub Action (the action commits with a
+  `[skip-board-sync]` marker and never edits canonical task YAML)
 
 ## Core Principle
 
@@ -195,8 +198,13 @@ Use these files as the shared coordination layer:
 
 `tasks/ACTIVE.md` remains the generated full-status board, including DONE
 history. The generated files under `docs/task-views/` are the lighter
-navigation surface for current work; they are synchronized from canonical
-`tasks/TASK-*.yaml` files through `python3 -m physics_lab.cli sync-active-board .`.
+navigation surface for current work; both are derived from canonical
+`tasks/TASK-*.yaml` files and regenerated automatically on `main` by the
+`Sync Active Board` GitHub Action after any push that touches `tasks/**` or
+`missions/current.yaml`. Agents do not commit regenerated versions of these
+files from a task PR; the action handles that on `main`. Maintainers may
+still run `python3 -m physics_lab.cli sync-active-board .` by hand in a
+dedicated board-sync PR when the action is disabled or for explicit audits.
 
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
@@ -1051,7 +1059,7 @@ missions:
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
           - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
-          - "Use TASK-0338 through TASK-0343 as independent parallel Nuclear hypothesis lanes"
+          - "Use remaining READY Nuclear hypothesis lanes such as TASK-0340 through TASK-0343, TASK-0351, and TASK-0352"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
@@ -1100,8 +1108,10 @@ missions:
         label: "Run Nuclear deformation-proxy hypothesis lane"
         task_id: TASK-0338
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
+        recommended: false
         expected_outputs:
           - "sandbox mini-loop with controls and verdict"
       - id: nuclear-local-curvature-lane
@@ -1569,8 +1579,11 @@ Operational entry points:
   proposal-first workflow when no canonical task fits;
 - [docs/private-contributor-pilot.md](./private-contributor-pilot.md) for the
   invited private contributor flow;
-- `python3 -m physics_lab.cli sync-active-board .` for keeping the active board
-  aligned with task YAML files;
+- the `Sync Active Board` post-merge GitHub Action keeps the active board
+  and `docs/task-views/*.md` aligned with task YAML files on `main` (no
+  agent action required;
+  `python3 -m physics_lab.cli sync-active-board .` remains available for
+  maintainer dry-runs and explicit board-sync PRs);
 - maintainer review and closeout tooling for review bundles and handoff.
 
 Low-risk contribution patterns right now:
@@ -2117,30 +2130,40 @@ The maintainer review agent must not:
    repository edits.
 4. Set the task status to `IN_PROGRESS` in the task file.
 5. Do not edit [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for routine task
-   status transitions. Task YAML is the canonical source of truth; the board is
-   a maintainer-synchronized snapshot.
-6. Do not hand-edit `docs/task-views/*.md`; they are generated from canonical
-   task YAML files alongside `tasks/ACTIVE.md`.
-7. If the task file changes status, run
-   `python3 -m physics_lab.cli sync-active-board .` so generated task
-   navigation reflects the current canonical task YAML. This generated sync is
-   allowed for the current task's lifecycle transition; do not include
-   unrelated task-status changes unless the maintainer explicitly requested
-   queue triage, unblock, closeout, or stale-task cleanup.
+   status transitions. Task YAML is the canonical source of truth; the board
+   is a maintainer-synchronized snapshot regenerated automatically by the
+   post-merge `Sync Active Board` GitHub Action after each merge to `main`.
+6. Do not hand-edit `docs/task-views/*.md` and do not commit regenerated
+   versions of those files or `tasks/ACTIVE.md` from a task PR. They are
+   generated from canonical task YAML files and the post-merge action keeps
+   them in sync on `main`.
+7. Agents may run `python3 -m physics_lab.cli sync-active-board .` locally
+   for visual confirmation of how their task YAML change will render, but
+   should **not** stage or commit the resulting regeneration on a task PR
+   branch. `validate-repo --strict --fail-on-warnings` reports a stale
+   `tasks/ACTIVE.md` or `docs/task-views/*.md` as `INFO` (not `ERROR`) by
+   default, so a non-regenerated branch passes strict validation. Set
+   `APL_ENFORCE_BOARD_STALENESS=1` only when explicitly auditing the
+   action's output.
 8. Make the smallest reproducible change that satisfies the task.
 9. Run the required validation commands.
-10. Set the task to `REVIEW_READY` when implementation and validation are done.
+10. Set the task to `REVIEW_READY` when implementation and validation are
+    done.
 11. Leave clear maintainer review notes and limitations.
 
 After merge, maintainer closeout may also:
 
 12. set the task to `DONE`;
-13. run `python3 -m physics_lab.cli sync-active-board .` so
-    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) and generated task views
+13. let the post-merge `Sync Active Board` GitHub Action regenerate
+    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) and the generated task views
     ([./task-views/research.md](./task-views/research.md),
     [./task-views/support.md](./task-views/support.md), and
-    [./task-views/release.md](./task-views/release.md)) reflect the new task
-    state;
+    [./task-views/release.md](./task-views/release.md)). The action runs on
+    every push to `main` that touches `tasks/**` or `missions/current.yaml`
+    and pushes a `chore(board-sync): … [skip-board-sync]` commit only when a
+    regeneration diff exists. Maintainers may still run
+    `python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
+    board-sync PR when the action is disabled or needs a manual audit;
 14. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution
@@ -2393,13 +2416,17 @@ one PR.
 
 ## READY
 
-- `TASK-0338` — Run nuclear deformation-proxy hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0341` — Run nuclear extrapolated-measured boundary hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`)
 - `TASK-0343` — Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0344` — Review atomic-clock covariance and uncertainty semantics (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0347` — Triage open quantum-dot direct table sources (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0351` — Run nuclear local-curvature adversarial control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0352` — Define nuclear no-leakage local-curvature freeze protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0353` — Ingest pinned exoplanet PSCompPars mass-radius snapshot (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0355` — Review atomic-clock direct ratio source artifact (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0356` — Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2408,11 +2435,8 @@ None.
 ## REVIEW_READY
 
 - `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
-- `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
 - `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
-- `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
 - `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -2420,14 +2444,18 @@ None.
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`)
+- `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0358` — Move sync-active-board into post-merge GitHub Action and stop agents from committing generated navigation (merged)
+- `TASK-0357` — Isolate PR-capability test from local gh installation (merged)
 - `TASK-0350` — Add CI-aware maintainer review validation (merged)
 - `TASK-0349` — Optimize self-hosted CI with a fast pull-request test gate (merged)
+- `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (merged)
 - `TASK-0346` — Define exoplanet mass-radius baseline protocol (merged)
 - `TASK-0339` — Run nuclear local residual curvature hypothesis lane (merged)
+- `TASK-0338` — Run nuclear deformation-proxy hypothesis lane (merged)
 - `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (merged)
 - `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (merged)
 - `TASK-0328` — Add atomic-clock synthetic loader dry-run (merged)
@@ -2436,12 +2464,15 @@ None.
 - `TASK-0325` — Prepare quantum direct-measurement digitization package (merged)
 - `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (merged)
 - `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (merged)
+- `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (merged)
 - `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (merged)
 - `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (merged)
+- `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (merged)
 - `TASK-0318` — Add autonomous task runner utility with Claude Code budget gate (merged)
 - `TASK-0317` — Run nuclear shell-axis specificity controls (merged)
 - `TASK-0314` — Sync mission recommendation after nuclear source blocker (merged)
 - `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (merged)
+- `TASK-0312` — Run final v0.2 public-alpha go/no-go review (merged)
 - `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (merged)
 - `TASK-0309` — Define fresh-data source policy for non-saturated physics datasets (merged)
 - `TASK-0308` — Define anomaly registry schema and admissibility rules (merged)
