@@ -175,8 +175,10 @@ missions:
         label: "Run Nuclear local residual curvature hypothesis lane"
         task_id: TASK-0339
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
+        recommended: false
         expected_outputs:
           - "sandbox mini-loop with chain-transfer diagnostics"
       - id: nuclear-odd-even-shell-lane
