@@ -1,34 +1,16 @@
-"""Smoke tests for scripts/auto_run_next_task.sh."""
+"""Smoke tests for the cross-platform autonomous task runner."""
 
 from __future__ import annotations
 
-import os
 import json
+import os
 from pathlib import Path
-import shlex
-import shutil
 import subprocess
 import sys
 from textwrap import dedent
 
-import pytest
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
-RUNNER = REPO_ROOT / "scripts" / "auto_run_next_task.sh"
-
-
-def _bash_or_skip() -> str:
-    if os.name == "nt":
-        pytest.skip(
-            "scripts/auto_run_next_task.sh is a POSIX shell runner; "
-            "Windows hosts validate it through Linux CI or WSL/Git Bash."
-        )
-    bash = shutil.which("bash")
-    if bash is None:
-        pytest.skip("scripts/auto_run_next_task.sh requires bash; skip on hosts without bash")
-    if shutil.which("python3") is None:
-        pytest.skip("scripts/auto_run_next_task.sh requires python3 on PATH")
-    return bash
+PY_RUNNER = REPO_ROOT / "scripts" / "auto_run_next_task.py"
 
 
 def _run_runner(
@@ -36,9 +18,9 @@ def _run_runner(
     *,
     env: dict[str, str],
 ) -> subprocess.CompletedProcess[str]:
-    """Run the shell auto-runner through bash so tests are explicit and portable."""
+    """Run the cross-platform Python auto-runner entrypoint."""
     return subprocess.run(
-        [_bash_or_skip(), str(RUNNER), *args],
+        [sys.executable, str(PY_RUNNER), *args],
         cwd=REPO_ROOT,
         env=env,
         text=True,
@@ -100,11 +82,10 @@ def _runner_env(
         env.pop("CLAUDE_MONTHLY_TOKEN_LIMIT", None)
 
     # Honor the script's APL_OPEN_PR_LIST_CMD hook so tests do not call gh
-    # against the live remote. The hook prints a JSON array of objects
-    # shaped like `gh pr list --json number,title` output.
+    # against the live remote. The JSON hook is preferred because it avoids
+    # shell quoting differences across Windows, macOS, and Linux.
     titles = [{"number": 999, "title": f"{tid}: stub"} for tid in (open_pr_task_ids or [])]
-    open_pr_cmd = "printf '%s' " + shlex.quote(json.dumps(titles))
-    base_env["APL_OPEN_PR_LIST_CMD"] = open_pr_cmd
+    base_env["APL_OPEN_PR_LIST_JSON"] = json.dumps(titles)
 
     env.update(base_env)
     return env

@@ -28,14 +28,17 @@ requirements:
   - "Do not change scientific task logic, claims, results, or generated task navigation."
 
 accepted_outputs:
+  - "docs/automation/autonomous-task-runner.md"
+  - "Cross-platform auto-runner Python entrypoint"
   - "Cross-platform PR capability tests"
   - "Platform-aware auto-runner harness tests"
   - "Targeted regression validation"
 
 validation:
   commands:
-    - "python3 -m ruff check tests/test_auto_run_next_task.py tests/test_pr_capability.py"
+    - "python3 -m ruff check scripts/auto_run_next_task.py tests/test_auto_run_next_task.py tests/test_pr_capability.py"
     - "python3 -m pytest tests/test_auto_run_next_task.py tests/test_pr_capability.py"
+    - "python3 scripts/auto_run_next_task.py --dry-run --max-turns 12"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
