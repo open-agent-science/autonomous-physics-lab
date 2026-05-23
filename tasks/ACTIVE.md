@@ -49,7 +49,6 @@ one PR.
 - `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`)
 - `TASK-0343` — Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0351` — Run nuclear local-curvature adversarial control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0355` — Review atomic-clock direct ratio source artifact (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0356` — Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -75,6 +74,7 @@ None.
 - `TASK-0352` — Define nuclear no-leakage local-curvature freeze protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0353` — Ingest pinned exoplanet PSCompPars mass-radius snapshot (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0355` — Review atomic-clock direct ratio source artifact (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0359` — Harden self-hosted CI runner fallback and queue visibility (`ci_infrastructure`, priority `high`, difficulty `low`)
 - `TASK-0360` — Make automation harness tests cross-platform (`ci_infrastructure`, priority `high`, difficulty `low`)
 
