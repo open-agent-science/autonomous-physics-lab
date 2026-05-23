@@ -216,6 +216,9 @@ This mode supports:
    generated navigation sync. Treat unrelated task-status changes as scope drift
    unless the maintainer explicitly requested queue triage, unblock, closeout,
    or stale-task cleanup.
+   Task-queue PRs do not need to commit generated navigation; the post-merge
+   `Sync Active Board` GitHub Action regenerates `tasks/ACTIVE.md` and
+   `docs/task-views/*.md` on `main`.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
 8. Accepted outputs are present or clearly explained when partial.
