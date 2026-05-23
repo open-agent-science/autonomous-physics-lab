@@ -1129,8 +1129,11 @@ def build_closeout_report(
             )
         else:
             applied_changes.append(
-                "Deferred generated task navigation sync; run python3 -m physics_lab.cli "
-                "sync-active-board . later in a dedicated board-sync step."
+                "Deferred generated task navigation sync; the Sync Active Board "
+                "GitHub Action regenerates tasks/ACTIVE.md and docs/task-views/*.md "
+                "on main after the closeout merges. Run python3 -m physics_lab.cli "
+                "sync-active-board . by hand only for explicit audits or when the "
+                "action is temporarily disabled."
             )
         if should_append_dry_run_entry(task_payload):
             if append_dry_run_entry(root, task_id, pull_request):

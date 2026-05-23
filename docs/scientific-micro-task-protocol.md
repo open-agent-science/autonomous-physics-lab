@@ -208,10 +208,15 @@ For queue-definition and documentation work, run:
 ./scripts/validate_quick.sh
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
-python3 -m physics_lab.cli sync-active-board .
 ./scripts/apl_review_bundle.sh
 git diff --exit-code
 ```
+
+Active-board synchronization (`tasks/ACTIVE.md` and `docs/task-views/*.md`)
+runs automatically via the post-merge `Sync Active Board` GitHub Action;
+agents do not need to commit regenerated versions of those files from a
+micro-task PR. `python3 -m physics_lab.cli sync-active-board .` remains
+available for explicit maintainer audits.
 
 For future micro-task execution PRs, use the validation appropriate to the
 changed artifacts, but keep the same safety posture: deterministic checks, no

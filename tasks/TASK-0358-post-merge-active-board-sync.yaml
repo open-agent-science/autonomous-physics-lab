@@ -1,0 +1,71 @@
+id: TASK-0358
+title: "Move sync-active-board into post-merge GitHub Action and stop agents from committing generated navigation"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Eliminate the chronic rebase-and-regen merge conflict on tasks/ACTIVE.md and docs/task-views/*.md that surfaces in every parallel PR."
+  - "Reduce per-PR friction so agents focus on scientific or tooling content, not on regenerating derived artifacts."
+  - "Preserve the staleness-detection guarantee on main without forcing every PR branch to carry the regenerated navigation."
+
+input:
+  mode: workflow
+  related_domain: tooling
+  related_objects:
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/cli.py"
+    - "tasks/TASK-0319-fix-budget-window-and-open-pr-guard.yaml"
+    - "tasks/TASK-0047-reduce-closeout-board-sync-conflicts.yaml"
+    - ".github/workflows/ci.yml"
+    - "docs/agent-task-protocol.md"
+    - "AGENTS.md"
+  planning_context: >
+    tasks/ACTIVE.md and docs/task-views/*.md are derived artifacts
+    regenerated from canonical tasks/TASK-*.yaml files. Every parallel
+    PR that touches a task YAML status field also regenerates these
+    files, which collide on every merge and force a rebase-and-regen
+    dance. TASK-0047 (DONE) reduced closeout-PR conflicts but did not
+    eliminate them for normal task PRs. The chronic problem was
+    surfaced again in the audit of PRs #495 and #496.
+
+    This task moves the regeneration into a post-merge GitHub Action
+    so agents never commit the derived files. validate-repo's
+    staleness checks for those generated files are demoted from
+    ERROR to INFO so a PR branch that does not regenerate the
+    navigation does not fail strict validation. An env-var opt-in
+    (APL_ENFORCE_BOARD_STALENESS=1) keeps the strict behavior
+    available for maintainer-driven audits.
+
+requirements:
+  - "Demote stale_active_board and stale_generated_task_view from ERROR to INFO in physics_lab/registry/repository.py."
+  - "Keep missing_active_board and missing_generated_task_view as ERROR (real missing files are still a bug)."
+  - "Add APL_ENFORCE_BOARD_STALENESS=1 env-var that restores ERROR severity for opt-in strict audits."
+  - "Add tests covering both default (INFO) and enforced (ERROR) severity paths."
+  - "Add .github/workflows/sync-active-board.yml that runs on push to main with paths filter on tasks/** and missions/current.yaml, regenerates the navigation, and commits/pushes any diff with a [skip-board-sync] marker to prevent recursion."
+  - "Concurrency-group the action so two pushes do not race; cancel-in-progress: false so an in-flight regen completes."
+  - "Update docs and PR templates to stop telling agents to run sync-active-board on their task PR; keep the canonical command documented for the maintainer and the action."
+  - "Update closeout_pr_helper, microtask_pr_helper, task_closeout, and maintainer_review helpers to remove the agent-facing sync-active-board step from generated checklists; the maintainer closeout step that still runs sync may remain documented as an explicit dedicated step but should note the action covers it automatically."
+  - "Do not change the canonical sync-active-board CLI behavior or the rendering logic; only severity, docs, and helper-emitted checklists change."
+  - "Do not promote claims, edit results/, claims/, knowledge/, or prediction_registry/."
+
+accepted_outputs:
+  - "physics_lab/registry/repository.py: severity demotion + APL_ENFORCE_BOARD_STALENESS opt-in"
+  - ".github/workflows/sync-active-board.yml: new post-merge regeneration workflow"
+  - "Updated docs: AGENTS.md, docs/agent-task-protocol.md, docs/contributing-workflow.md, docs/mission-control.md, docs/status.md, docs/scientific-micro-task-protocol.md, docs/maintainer-review-agent.md, docs/review-checklists/task-closeout-checklist.md"
+  - "Updated PR template: .github/pull_request_template.md"
+  - "Updated PR-helpers: physics_lab/registry/closeout_pr_helper.py, microtask_pr_helper.py, task_closeout.py, maintainer_review.py"
+  - "tests/test_validate_repo_auto_sync.py or equivalent extended to cover the new severity behavior"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

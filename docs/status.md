@@ -126,7 +126,9 @@ experimentation.
 - canonical task files plus `tasks/ACTIVE.md` as the shared execution surface;
 - proposal-first task creation workflow for new ideas that do not yet have a
   maintainer-assigned canonical id;
-- active-board sync via `python3 -m physics_lab.cli sync-active-board .`;
+- active-board sync via the `Sync Active Board` post-merge GitHub Action
+  (canonical `python3 -m physics_lab.cli sync-active-board .` remains
+  available for explicit maintainer audits);
 - maintainer review and closeout tooling for review bundles, PR hygiene, and
   post-merge task handling;
 - private contributor pilot workflow for invited humans and coding agents using
@@ -209,7 +211,12 @@ Current named blockers before any public opening:
 - `python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped`
 - `python3 -m physics_lab.cli validate-repo .`
 - `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`
-- `python3 -m physics_lab.cli sync-active-board .`
+
+Active-board synchronization (`tasks/ACTIVE.md` and `docs/task-views/*.md`)
+runs automatically via the `Sync Active Board` post-merge GitHub Action.
+Maintainers may still run
+`python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
+board-sync PR when the action is disabled or an audit is needed.
 - [mission-control.md](./mission-control.md) for project-level orientation;
 - [campaigns/README.md](./campaigns/README.md) for the campaign map;
 - [results/pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md)

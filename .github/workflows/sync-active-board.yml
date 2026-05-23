@@ -1,0 +1,108 @@
+# Post-merge regeneration of tasks/ACTIVE.md and docs/task-views/*.md
+#
+# These files are derived from canonical tasks/TASK-*.yaml entries plus
+# tasks/microtasks/*.yaml and tasks/proposals/*.yaml. Agents do not
+# commit the regenerated files on their PR branches; this workflow
+# regenerates them automatically after any merge that touches the
+# task surface or mission metadata.
+#
+# Why this exists:
+#
+# - Every parallel PR that updated a task status used to regenerate
+#   tasks/ACTIVE.md and docs/task-views/*.md, producing a chronic
+#   merge conflict whenever two such PRs landed in sequence. The
+#   conflict resolution dance was identical every time and burned
+#   meaningful agent time.
+# - The post-merge action centralizes regeneration on main so agents
+#   stop committing derived files. Branch protection on main should
+#   include the github-actions[bot] account in the bypass list (or
+#   disable required PR review for that account) so this workflow can
+#   push regenerated commits directly. See the maintainer setup note
+#   in the TASK-0358 PR body.
+#
+# Recursion guard:
+#
+# - This workflow ignores its own pushes by checking for the
+#   "[skip-board-sync]" marker in the head commit message before
+#   running. The commit message it emits always contains that marker.
+#
+# Concurrency:
+#
+# - The "sync-active-board" group ensures only one regen runs at a
+#   time. cancel-in-progress is false so a long-running install does
+#   not abandon a queued regen.
+
+name: Sync Active Board
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tasks/**'
+      - 'missions/current.yaml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-active-board
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Regenerate task navigation
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '[skip-board-sync]') }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run sync-active-board
+        run: |
+          python -m physics_lab.cli sync-active-board .
+
+      - name: Detect regeneration diff
+        id: detect
+        shell: bash
+        run: |
+          if git diff --quiet -- tasks/ACTIVE.md docs/task-views/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No regeneration diff; task navigation is already in sync."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Detected regeneration diff in tasks/ACTIVE.md or docs/task-views/."
+            git --no-pager diff --stat -- tasks/ACTIVE.md docs/task-views/
+          fi
+
+      - name: Commit and push regenerated navigation
+        if: steps.detect.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tasks/ACTIVE.md docs/task-views/
+          git commit -m "chore(board-sync): regenerate task navigation after $(git rev-parse --short HEAD~1) [skip-board-sync]"
+          # If the push races with a concurrent merge, retry once after a fresh fetch+rebase.
+          if ! git push origin HEAD:main; then
+            echo "Direct push failed; retrying after a rebase on origin/main."
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi
