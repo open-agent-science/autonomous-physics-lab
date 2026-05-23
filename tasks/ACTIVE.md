@@ -48,7 +48,6 @@ one PR.
 
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0338` — Run nuclear deformation-proxy hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0339` — Run nuclear local residual curvature hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0341` — Run nuclear extrapolated-measured boundary hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`)
@@ -75,6 +74,7 @@ None.
 - `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0339` — Run nuclear local residual curvature hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
