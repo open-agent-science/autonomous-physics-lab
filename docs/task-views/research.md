@@ -36,6 +36,4 @@ None.
 - `TASK-0333` - Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0334` - Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0337` - Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0339` - Run nuclear local residual curvature hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0345` - Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0346` - Define exoplanet mass-radius baseline protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
