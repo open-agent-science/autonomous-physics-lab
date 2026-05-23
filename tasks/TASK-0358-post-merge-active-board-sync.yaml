@@ -51,12 +51,22 @@ requirements:
   - "Do not promote claims, edit results/, claims/, knowledge/, or prediction_registry/."
 
 accepted_outputs:
-  - "physics_lab/registry/repository.py: severity demotion + APL_ENFORCE_BOARD_STALENESS opt-in"
-  - ".github/workflows/sync-active-board.yml: new post-merge regeneration workflow"
-  - "Updated docs: AGENTS.md, docs/agent-task-protocol.md, docs/contributing-workflow.md, docs/mission-control.md, docs/status.md, docs/scientific-micro-task-protocol.md, docs/maintainer-review-agent.md, docs/review-checklists/task-closeout-checklist.md"
-  - "Updated PR template: .github/pull_request_template.md"
-  - "Updated PR-helpers: physics_lab/registry/closeout_pr_helper.py, microtask_pr_helper.py, task_closeout.py, maintainer_review.py"
-  - "tests/test_validate_repo_auto_sync.py or equivalent extended to cover the new severity behavior"
+  - "physics_lab/registry/repository.py"
+  - ".github/workflows/sync-active-board.yml"
+  - "AGENTS.md"
+  - "docs/agent-task-protocol.md"
+  - "docs/contributing-workflow.md"
+  - "docs/mission-control.md"
+  - "docs/status.md"
+  - "docs/scientific-micro-task-protocol.md"
+  - "docs/maintainer-review-agent.md"
+  - "docs/review-checklists/task-closeout-checklist.md"
+  - ".github/pull_request_template.md"
+  - "physics_lab/registry/closeout_pr_helper.py"
+  - "physics_lab/registry/microtask_pr_helper.py"
+  - "physics_lab/registry/task_closeout.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_validate_repo_board_staleness_severity.py"
 
 validation:
   commands:
