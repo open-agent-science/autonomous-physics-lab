@@ -36,8 +36,6 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
-  - "optional metadata-only update to data/atomic_clocks/schema.md or data/atomic_clocks/source_manifest_template.yaml"
-  - "tests updated only if manifest/schema structure changes"
 
 validation:
   commands:
