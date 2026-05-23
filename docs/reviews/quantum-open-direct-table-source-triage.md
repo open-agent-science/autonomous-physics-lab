@@ -244,9 +244,10 @@ remain valid.
 - It did not estimate figure coordinates.
 - It did not fetch any candidate source body.
 - It did not edit `data/quantum_dots/source_manifest.yaml` to add
-  any of the five candidates as accepted source families. (The
-  manifest will be extended by the future row-curation task when a
-  specific candidate is selected and verified.)
+  any of the five candidates as accepted source families. The manifest
+  records only a metadata-only, `excluded` Hens-Moreels 2012 candidate
+  seed so future curators can see the triage result without treating it
+  as an accepted measurement source.
 - It did not promote any claim, knowledge entry, or canonical
   result.
 - It did not change the BLOCKED status of `TASK-0291`, `TASK-0292`,
