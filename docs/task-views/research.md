@@ -13,7 +13,6 @@
 - `TASK-0342` - Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0343` - Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0344` - Review atomic-clock covariance and uncertainty semantics (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0346` - Define exoplanet mass-radius baseline protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0347` - Triage open quantum-dot direct table sources (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 
 ## IN_PROGRESS
@@ -33,3 +32,4 @@ None.
 - `TASK-0334` - Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0337` - Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0345` - Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0346` - Define exoplanet mass-radius baseline protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
