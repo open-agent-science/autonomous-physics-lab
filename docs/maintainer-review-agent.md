@@ -394,12 +394,18 @@ Use this mode only after the maintainer has already merged the PR.
 ### Allowed actions
 
 - set task status to `DONE`
-- optionally run `python3 -m physics_lab.cli sync-active-board .` in a later
-  dedicated board-sync step so generated task navigation
+- in normal operation, **do not** run
+  `python3 -m physics_lab.cli sync-active-board .` from the closeout PR;
+  the post-merge `Sync Active Board` GitHub Action regenerates
   ([../tasks/ACTIVE.md](../tasks/ACTIVE.md),
   [./task-views/research.md](./task-views/research.md),
   [./task-views/support.md](./task-views/support.md), and
-  [./task-views/release.md](./task-views/release.md)) reflects current task
+  [./task-views/release.md](./task-views/release.md)) automatically on
+  `main` after the closeout merges. Run the command by hand only for
+  explicit audits (set `APL_ENFORCE_BOARD_STALENESS=1` to surface staleness
+  as `ERROR` during the audit) or when the action is temporarily disabled.
+  When you do run it, treat it as a dedicated board-sync step so generated
+  task navigation reflects current task
   statuses without becoming a conflict surface in every per-task closeout PR
 - update [./next-steps.md](./next-steps.md) when the recorded immediate queue
   is stale after the merged work
@@ -594,5 +600,8 @@ Do not edit files.
 Run task closeout for TASK-XXXX according to docs/maintainer-review-agent.md.
 Check that the PR is merged and accepted outputs exist in main.
 If valid, update task status to DONE.
-Only run `python3 -m physics_lab.cli sync-active-board .` when we are doing a dedicated board-sync step.
+Do not run `python3 -m physics_lab.cli sync-active-board .` in the closeout
+PR; the post-merge `Sync Active Board` GitHub Action handles regeneration
+on main automatically. Run that command by hand only for explicit audits or
+when the action is temporarily disabled.
 ```

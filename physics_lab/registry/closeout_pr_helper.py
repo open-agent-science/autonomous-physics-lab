@@ -131,7 +131,7 @@ def closeout_pr_body(
             "",
             "## Validation Commands",
             "",
-            f"- {_render_checkbox(include_active_board)} `python3 -m physics_lab.cli sync-active-board .`",
+            f"- {_render_checkbox(include_active_board)} `python3 -m physics_lab.cli sync-active-board .` (normally not needed; the `Sync Active Board` post-merge GitHub Action regenerates `tasks/ACTIVE.md` and `docs/task-views/*.md` on `main` after the closeout merges)",
             f"- {_render_checkbox(include_context)} `python3 scripts/generate_context_bundle.py`",
             "- [x] `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`",
             "",
