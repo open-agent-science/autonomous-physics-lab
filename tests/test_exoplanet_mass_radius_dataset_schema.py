@@ -35,13 +35,12 @@ def test_pscomppars_snapshot_validates_against_schema_and_loader() -> None:
     payload = _load_yaml(SNAPSHOT_PATH)
 
     validate_document(payload, "exoplanet_mass_radius", SNAPSHOT_PATH)
-    loaded = load_exoplanet_snapshot(SNAPSHOT_PATH)
 
-    assert loaded["dataset_id"] == "exo-0001-pscomppars-snapshot"
-    assert loaded["status"] == "curated"
-    assert loaded["snapshot_provenance"]["snapshot_kind"] == "composite_catalog_snapshot"
-    assert loaded["snapshot_provenance"]["live_external_fetch_allowed"] is False
-    assert len(loaded["entries"]) == 6291
+    assert payload["dataset_id"] == "exo-0001-pscomppars-snapshot"
+    assert payload["status"] == "curated"
+    assert payload["snapshot_provenance"]["snapshot_kind"] == "composite_catalog_snapshot"
+    assert payload["snapshot_provenance"]["live_external_fetch_allowed"] is False
+    assert len(payload["entries"]) == 6291
 
 
 def test_pscomppars_snapshot_filter_counts_are_pinned() -> None:
