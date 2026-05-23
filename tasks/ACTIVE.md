@@ -56,7 +56,6 @@ one PR.
 - `TASK-0351` — Run nuclear local-curvature adversarial control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0352` — Define nuclear no-leakage local-curvature freeze protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0353` — Ingest pinned exoplanet PSCompPars mass-radius snapshot (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0355` — Review atomic-clock direct ratio source artifact (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0356` — Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`)
 
@@ -80,6 +79,7 @@ None.
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`)
+- `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
