@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0338` — Run nuclear deformation-proxy hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0339` — Run nuclear local residual curvature hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
@@ -71,10 +70,12 @@ None.
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
 - `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
