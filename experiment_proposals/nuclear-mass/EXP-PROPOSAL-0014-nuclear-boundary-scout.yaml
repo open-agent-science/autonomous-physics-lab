@@ -1,0 +1,108 @@
+id: EXP-PROPOSAL-0014
+title: "Sandbox nuclear measured/extrapolated boundary scout"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0341
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0048-extrapolated-measured-boundary-scout-batch.yaml"
+
+question: "Do committed source-status boundary terms separate residual behavior around AME2020 measured-versus-extrapolated comparison rows more convincingly than measured-only, extrapolated-only, source-shuffled, and smooth-A controls?"
+
+method:
+  summary: "Audit source-status flags, generate six bounded boundary variants, execute three source-status candidates and four controls, fit retrospective diagnostic residual coefficients on the committed full-known surface, and report full-known, holdout, measured-comparison, extrapolated-comparison, edge-of-known-surface, neutron-rich, magic-region, and high-error diagnostics against the frozen RESULT-0015 baseline."
+  code_references:
+    - "scripts/run_nuclear_extrapolated_measured_boundary_lane.py"
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "tests/test_nuclear_extrapolated_measured_boundary_lane.py"
+  commands:
+    - "python3 scripts/run_nuclear_extrapolated_measured_boundary_lane.py"
+    - "python3 -m pytest tests/test_nuclear_extrapolated_measured_boundary_lane.py"
+  parameters:
+    generated_boundary_candidates: 6
+    executed_boundary_candidates: 3
+    executed_controls: 4
+    required_controls:
+      - "measured-only"
+      - "extrapolated-only"
+      - "source-shuffled"
+      - "smooth-A"
+    shuffle_scheme: "cyclic-shift-11"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  assumptions:
+    - "No live source fetch is performed."
+    - "No prediction registry entries are created."
+    - "No EXP-0012, RESULT-0015, claims, knowledge, or canonical datasets are updated."
+    - "Source-status deltas are provenance diagnostics, not physical-law evidence."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0028/"
+  metrics:
+    - "generated_boundary_candidate_count"
+    - "executed_boundary_candidate_count"
+    - "executed_control_count"
+    - "delta_mae_by_subset_mev"
+    - "control_gate"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0028/report.md"
+    - "agent_runs/AGENT-RUN-0028/limitations.md"
+    - "docs/reviews/nuclear-extrapolated-measured-boundary-lane.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, source flags and controls are reported, negative or inconclusive outcomes are preserved, and no registry, result, claim, knowledge, or canonical dataset files are modified."
+  fail_condition: "Sandbox fail if the lane writes prediction entries, fetches live data, hides source-status controls, or frames retrospective deltas as validated physics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  expected_failure_modes:
+    - "A measured-only or extrapolated-only offset can explain candidate behavior."
+    - "A shuffled source-status control can match the candidate."
+    - "The measured/extrapolated flag can be insufficient for prospective claims because NMD-0002 is measured-only."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call source-status terms physical corrections."
+    - "Do not call retrospective deltas discoveries."
+    - "Do not imply prediction or registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Preserve controls and subset regressions."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "The candidate fit is retrospective and diagnostic."
+  - "The new post-AME2020 rows are measured; the extrapolated flag belongs to the AME2020 comparison column."
+  - "Controls are decisive for interpretation."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Confirm whether the lane should remain bounded sandbox evidence and whether any narrower source-status follow-up is warranted."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work."
