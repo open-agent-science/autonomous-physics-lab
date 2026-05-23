@@ -169,6 +169,8 @@ class ValidationSummary:
 
     status: str
     failed_commands: tuple[str, ...]
+    executed_commands: tuple[str, ...] = ()
+    skipped_commands: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -317,23 +319,56 @@ def _git_bash_path() -> str | None:
     return None
 
 
+def ci_aware_validation_command(command_text: str) -> str | None:
+    """Return the local validation command still needed after green PR CI.
+
+    PR CI already runs ruff, fast pytest, and repository validation. The
+    maintainer review helper should not duplicate those checks when GitHub has
+    already reported them green, but it should still run the local-only
+    full-repo pytest slice for task files that request a bare pytest run.
+    """
+    normalized = " ".join(command_text.strip().split())
+    if normalized == "python3 -m ruff check .":
+        return None
+    if normalized.startswith("python3 -m physics_lab.cli validate-repo ."):
+        return None
+    if normalized == "python3 -m pytest":
+        return "python3 -m pytest -m full_repo"
+    if normalized.startswith("python3 -m pytest --basetemp="):
+        return command_text.replace("python3 -m pytest", "python3 -m pytest -m full_repo", 1)
+    if normalized.startswith("python3 -m pytest -m 'not full_repo'"):
+        return None
+    if normalized.startswith('python3 -m pytest -m "not full_repo"'):
+        return None
+    return command_text
+
+
 def run_task_validation(
     root: Path,
     task_payload: dict[str, Any],
     *,
     enabled: bool,
     skip_commands_containing: tuple[str, ...] = (),
+    ci_aware: bool = False,
 ) -> ValidationSummary:
     """Run validation commands from the task file when feasible."""
     if not enabled:
         return ValidationSummary(status="not_run", failed_commands=())
     failed_commands: list[str] = []
+    executed_commands: list[str] = []
+    skipped_commands: list[str] = []
     for command in task_payload.get("validation", {}).get("commands", []):
         command_text = str(command)
         if any(token in command_text for token in skip_commands_containing):
+            skipped_commands.append(command_text)
             continue
+        local_command = ci_aware_validation_command(command_text) if ci_aware else command_text
+        if local_command is None:
+            skipped_commands.append(command_text)
+            continue
+        executed_commands.append(local_command)
         result = run_command(
-            _portable_validation_command(command_text),
+            _portable_validation_command(local_command),
             cwd=root,
             shell=True,
             timeout=300,
@@ -341,8 +376,18 @@ def run_task_validation(
         if result.returncode != 0:
             failed_commands.append(command_text)
     if failed_commands:
-        return ValidationSummary(status="fail", failed_commands=tuple(failed_commands))
-    return ValidationSummary(status="pass", failed_commands=())
+        return ValidationSummary(
+            status="fail",
+            failed_commands=tuple(failed_commands),
+            executed_commands=tuple(executed_commands),
+            skipped_commands=tuple(skipped_commands),
+        )
+    return ValidationSummary(
+        status="pass",
+        failed_commands=(),
+        executed_commands=tuple(executed_commands),
+        skipped_commands=tuple(skipped_commands),
+    )
 
 
 def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
@@ -478,8 +523,11 @@ def build_review_report(
     pull_request: int | None = None,
     branch: str | None = None,
     task_id: str | None = None,
+    validation_mode: str = "strict",
 ) -> ReviewReport:
     """Build a maintainer review verdict for the current or provided branch."""
+    if validation_mode not in {"strict", "ci-aware"}:
+        raise ValueError(f"Unsupported validation mode: {validation_mode}")
     current = current_branch(root)
     pr_metadata = load_pr_metadata(root, pull_request) if pull_request is not None else None
     target_branch = branch or (pr_metadata.branch if pr_metadata is not None else current)
@@ -823,7 +871,20 @@ def build_review_report(
         and target_branch == current
         and git_status_clean(root),
         skip_commands_containing=("scripts/apl_review_pr.py",),
+        ci_aware=bool(
+            validation_mode == "ci-aware"
+            and pr_metadata is not None
+            and pr_metadata.status_checks_passed is True
+        ),
     )
+    if validation_mode == "ci-aware" and validation.skipped_commands:
+        executed = ", ".join(validation.executed_commands) or "no local-only commands"
+        advisory_warnings.append(
+            "CI-aware validation reused already-green GitHub checks for duplicated "
+            "commands and ran local remainder: "
+            + executed
+            + "."
+        )
     if validation.status == "fail":
         blockers.append(
             "Validation commands failed: " + ", ".join(validation.failed_commands) + "."

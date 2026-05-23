@@ -83,6 +83,7 @@ None.
 - `TASK-0346` — Define exoplanet mass-radius baseline protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`)
 - `TASK-0349` — Optimize self-hosted CI with a fast pull-request test gate (`ci_optimization`, priority `high`, difficulty `medium`)
+- `TASK-0350` — Add CI-aware maintainer review validation (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
