@@ -1,7 +1,7 @@
 id: TASK-0357
 title: "Isolate PR-capability test from local gh installation"
 type: tooling_fix
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
