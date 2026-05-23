@@ -81,6 +81,7 @@ None.
 - `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`)
 - `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0357` — Isolate PR-capability test from local gh installation (`tooling_fix`, priority `medium`, difficulty `low`)
+- `TASK-0358` — Move sync-active-board into post-merge GitHub Action and stop agents from committing generated navigation (`tooling_fix`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
