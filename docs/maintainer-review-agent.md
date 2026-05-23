@@ -128,6 +128,22 @@ Use this lane whenever any of the following is true:
 Deep review should include the full deterministic helper cycle and content
 verification appropriate to the changed surface.
 
+### Validation Mode
+
+The pre-merge helper defaults to `ci-aware` validation for PR-number reviews.
+When GitHub PR checks are already green, this avoids re-running duplicated CI
+steps locally (`ruff`, fast pytest, and repository validation). It still runs
+local-only review validation such as the `full_repo` pytest slice for tasks
+that request a bare `python3 -m pytest`, and it does not skip task-specific
+commands.
+
+Use strict validation for extra-sensitive reviews, branch-only reviews, or any
+case where the maintainer wants every task validation command re-run locally:
+
+```bash
+python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX --validation-mode strict
+```
+
 ### Overclaim Severity
 
 The deterministic review helper treats overclaim language as context-sensitive:
@@ -449,6 +465,7 @@ rule and adding regression coverage there before changing report orchestration.
 ```bash
 python3 scripts/apl_review_pr.py --pr 18
 python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX
+python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX --validation-mode strict
 python3 scripts/apl_review_pr.py --branch agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug> --task TASK-XXXX
 ```
 

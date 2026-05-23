@@ -12,23 +12,30 @@ infrastructure:
 
 - `Classify change set` runs on `ubuntu-latest`.
 
-The heavier jobs run on the self-hosted Linux x64 runner:
+The heavier jobs default to the self-hosted Linux x64 runner:
 
 - `Python fast tests (3.12)` for pull requests;
 - `Python tests (main matrix)` for pushes to `main` or `master`.
 
-The workflow currently targets the built-in runner labels:
+The workflow reads runner labels from repository variables and falls back to
+the built-in self-hosted labels:
 
 ```yaml
-runs-on: [self-hosted, linux, x64]
+runs-on: ${{ fromJSON(vars.APL_PR_RUNNER_LABELS || '["self-hosted","linux","x64"]') }}
 ```
 
 If multiple self-hosted runners are later attached to the repository, add a
-dedicated label such as `apl-ci` to the runner and update the workflow to:
+dedicated label such as `apl-ci` to the runner and set:
 
-```yaml
-runs-on: [self-hosted, linux, x64, apl-ci]
+```text
+APL_PR_RUNNER_LABELS=["self-hosted","linux","x64","apl-ci"]
+APL_MAIN_RUNNER_LABELS=["self-hosted","linux","x64","apl-ci"]
 ```
+
+For a temporary GitHub-hosted fallback while the VPS runner is offline, set one
+or both variables to `["ubuntu-latest"]`. This is an explicit operational
+switch; GitHub Actions does not automatically move an already-queued
+self-hosted job to a hosted runner.
 
 ## Runner Posture
 
@@ -80,11 +87,11 @@ external credentials, it should not run in the default PR CI path.
 
 ## Rollback
 
-If the runner is offline or jobs stay queued, rollback is intentionally small:
+If the runner is offline or jobs stay queued, set the repository variable:
 
-```yaml
-runs-on: ubuntu-latest
+```text
+APL_PR_RUNNER_LABELS=["ubuntu-latest"]
 ```
 
-Apply that only to the affected Python job while keeping the classifier job
-unchanged.
+Use `APL_MAIN_RUNNER_LABELS=["ubuntu-latest"]` only if the main-branch matrix
+also needs to leave the self-hosted runner temporarily.
