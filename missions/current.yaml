@@ -197,8 +197,10 @@ missions:
         label: "Run Nuclear measured/extrapolated boundary hypothesis lane"
         task_id: TASK-0341
         mode: research
+        status: review_ready
         priority: medium
         difficulty: high
+        recommended: false
         expected_outputs:
           - "source-status diagnostics or blocker review"
       - id: nuclear-uncertainty-weighted-lane
