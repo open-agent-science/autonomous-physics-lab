@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0341` — Run nuclear extrapolated-measured boundary hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`)
 - `TASK-0343` — Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
@@ -73,6 +72,7 @@ None.
 - `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0359` — Harden self-hosted CI runner fallback and queue visibility (`ci_infrastructure`, priority `high`, difficulty `low`)
