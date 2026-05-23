@@ -1,0 +1,96 @@
+id: HYP-PROPOSAL-0046
+title: "Nuclear deformation-proxy residual scout batch"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox hypothesis batch only; no prediction registry, canonical result, or claim promotion."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0338
+
+input_references:
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+
+hypothesis:
+  statement: "Simple deformation-like proxies derived only from committed Z, N, and A fields can expose bounded residual structure relative to the frozen EXP-0012 semi-empirical baseline, but any apparent improvement must survive smooth-A and shuffled controls before it is treated as more than sandbox evidence."
+  variables:
+    - "Z, N, A: committed proton, neutron, and mass numbers"
+    - "mid-shell occupancy proxies derived from distance between adjacent magic numbers"
+    - "valence balance and parity proxies derived from Z, N, and A"
+    - "fitted residual coefficients relative to RESULT-0015::model_fitted_semi_empirical"
+  assumptions:
+    - "No external deformation tables, beta2 fields, or live source fetches are used."
+    - "The fit surface remains the committed 11-row NMD-0002 training slice."
+    - "Subset regressions and control behavior are decisive review evidence."
+  expected_scope: "Retrospective sandbox comparison of bounded deformation-like proxies on committed nuclear mass rows."
+  expected_failure_modes:
+    - "A proxy can improve only a tiny or repeated-target subset while regressing the primary surface."
+    - "Smooth-A controls can match or exceed the candidate, weakening deformation-specific interpretation."
+    - "Shuffled controls can retain similar aggregate deltas, indicating row-order or small-sample overfit."
+    - "Light-A rows can regress even when aggregate metrics improve."
+
+novelty_check:
+  checked_files:
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "docs/reviews/nuclear-local-curvature-hypothesis-lane.md"
+    - "agent_runs/AGENT-RUN-0026/metrics.json"
+  possible_overlap: "Independent from the shell-axis and local-curvature lanes: features use only derived Z/N/A deformation-like proxies, not neighbor residuals or shell-axis coefficients."
+  notes: "The lane preserves negative and control outcomes as review evidence and does not create claim-supporting artifacts."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_deformation_proxy_lane.py and compare committed metrics to recomputed metrics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on committed NMD-0002 and post-AME2020 holdout data."
+  pass_condition: "Sandbox pass if metrics are deterministic, at least three bounded candidate proxies and two controls are reported, subset diagnostics are preserved, and no registry, result, claim, or knowledge files are written."
+  fail_condition: "Fail if the lane fetches external deformation data, hides subset regressions, writes PRED entries, promotes a claim, or frames retrospective deltas as predictive evidence."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a deformation measurement."
+    - "Do not describe a sandbox delta as a nuclear mass discovery."
+    - "Do not treat REVIEW_READY sandbox evidence as claim support."
+  mitigations:
+    - "Keep outputs under agent_runs, review notes, scripts, tests, and the task file."
+    - "Report smooth-A and shuffled controls next to candidates."
+    - "Require maintainer review before any follow-up, reveal scoring, RESULT artifact, claim, or knowledge update."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_deformation_proxy_lane.py"
+    - "python3 -m pytest tests/test_nuclear_deformation_proxy_lane.py"
+  code_references:
+    - "scripts/run_nuclear_deformation_proxy_lane.py"
+    - "tests/test_nuclear_deformation_proxy_lane.py"
+  metrics:
+    - "primary_delta_mae_mev"
+    - "primary_delta_rmse_mev"
+    - "magic_z_delta_mae_mev"
+    - "magic_n_delta_mae_mev"
+    - "mid_mass_delta_mae_mev"
+    - "heavy_a_ge_100_delta_mae_mev"
+    - "neutron_rich_delta_mae_mev"
+    - "light_a_warning_delta_mae_mev"
+    - "isotope_chain_diagnostics"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0025/"
+    - "docs/reviews/nuclear-deformation-proxy-hypothesis-lane.md"
+
+limitations:
+  - "These are derived proxy terms, not measured deformation parameters."
+  - "The residual training surface has only 11 rows."
+  - "The run is retrospective and sandbox-only."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Review whether the deformation-proxy lane should remain preserved as bounded sandbox evidence, including negative and control outcomes."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed follow-up before any RESULT, PRED, claim, knowledge, or reveal-scoring work."

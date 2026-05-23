@@ -1,7 +1,7 @@
 id: TASK-0338
 title: "Run nuclear deformation-proxy hypothesis lane"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
