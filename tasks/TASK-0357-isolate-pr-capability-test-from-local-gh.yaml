@@ -1,0 +1,58 @@
+id: TASK-0357
+title: "Isolate PR-capability test from local gh installation"
+type: tooling_fix
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make tests/test_pr_capability.py deterministic across developer machines regardless of whether gh is installed and authenticated locally."
+  - "Preserve the existing PR-capability semantics in scripts/apl_pr_capability_check.py for real use."
+  - "Keep the warning-path coverage intact while adding a positive-path test for the authenticated-gh case."
+
+input:
+  mode: workflow
+  related_domain: tooling
+  related_objects:
+    - "scripts/apl_pr_capability_check.py"
+    - "physics_lab/registry/pr_capability.py"
+    - "tests/test_pr_capability.py"
+  planning_context: >
+    The CLI test test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root
+    sets env['PATH'] = '' to simulate a missing gh installation. That step
+    is insufficient because find_gh_path() in
+    physics_lab/registry/pr_capability.py has a hardcoded fallback to
+    DEFAULT_GH_CANDIDATE_PATHS = ('/opt/homebrew/bin/gh', '/usr/local/bin/gh').
+    On a developer machine where gh is installed via Homebrew, the
+    fallback resolves to /opt/homebrew/bin/gh and the test fails because
+    no warning fires. CI runners without gh see the warning and pass.
+    This task makes the warning path testable everywhere by adding an
+    env-var override for the candidate-paths list (empty value disables
+    the fallback) and uses that override in the test. The script's
+    real-use behavior is unchanged.
+
+requirements:
+  - "Add an APL_PR_CAPABILITY_GH_CANDIDATE_PATHS env var that overrides DEFAULT_GH_CANDIDATE_PATHS when set (colon-separated list; empty value disables the fallback entirely)."
+  - "Wire the env var through scripts/apl_pr_capability_check.py so the CLI test can sandbox discovery."
+  - "Update test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root to set APL_PR_CAPABILITY_GH_CANDIDATE_PATHS='' so the test passes regardless of local gh installation."
+  - "Add a parallel positive-path CLI test (test_pr_capability_cli_reports_clean_state_when_gh_authenticated) that uses a stub gh binary on a sandboxed PATH to assert the no-warnings branch."
+  - "Preserve the unit-level tests for check_pr_capability and find_gh_path; do not change their behavior."
+  - "Do not promote claims, edit results/, claims/, knowledge/, or prediction_registry/."
+
+accepted_outputs:
+  - "physics_lab/registry/pr_capability.py: APL_PR_CAPABILITY_GH_CANDIDATE_PATHS env var support"
+  - "scripts/apl_pr_capability_check.py: pass-through of the env var if needed"
+  - "tests/test_pr_capability.py: sandboxed warning-path test + new positive-path test"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_pr_capability.py"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -80,6 +80,7 @@ None.
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`)
 - `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0357` — Isolate PR-capability test from local gh installation (`tooling_fix`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
