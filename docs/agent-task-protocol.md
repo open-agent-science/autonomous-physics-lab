@@ -501,30 +501,40 @@ The maintainer review agent must not:
    repository edits.
 4. Set the task status to `IN_PROGRESS` in the task file.
 5. Do not edit [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for routine task
-   status transitions. Task YAML is the canonical source of truth; the board is
-   a maintainer-synchronized snapshot.
-6. Do not hand-edit `docs/task-views/*.md`; they are generated from canonical
-   task YAML files alongside `tasks/ACTIVE.md`.
-7. If the task file changes status, run
-   `python3 -m physics_lab.cli sync-active-board .` so generated task
-   navigation reflects the current canonical task YAML. This generated sync is
-   allowed for the current task's lifecycle transition; do not include
-   unrelated task-status changes unless the maintainer explicitly requested
-   queue triage, unblock, closeout, or stale-task cleanup.
+   status transitions. Task YAML is the canonical source of truth; the board
+   is a maintainer-synchronized snapshot regenerated automatically by the
+   post-merge `Sync Active Board` GitHub Action after each merge to `main`.
+6. Do not hand-edit `docs/task-views/*.md` and do not commit regenerated
+   versions of those files or `tasks/ACTIVE.md` from a task PR. They are
+   generated from canonical task YAML files and the post-merge action keeps
+   them in sync on `main`.
+7. Agents may run `python3 -m physics_lab.cli sync-active-board .` locally
+   for visual confirmation of how their task YAML change will render, but
+   should **not** stage or commit the resulting regeneration on a task PR
+   branch. `validate-repo --strict --fail-on-warnings` reports a stale
+   `tasks/ACTIVE.md` or `docs/task-views/*.md` as `INFO` (not `ERROR`) by
+   default, so a non-regenerated branch passes strict validation. Set
+   `APL_ENFORCE_BOARD_STALENESS=1` only when explicitly auditing the
+   action's output.
 8. Make the smallest reproducible change that satisfies the task.
 9. Run the required validation commands.
-10. Set the task to `REVIEW_READY` when implementation and validation are done.
+10. Set the task to `REVIEW_READY` when implementation and validation are
+    done.
 11. Leave clear maintainer review notes and limitations.
 
 After merge, maintainer closeout may also:
 
 12. set the task to `DONE`;
-13. run `python3 -m physics_lab.cli sync-active-board .` so
-    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) and generated task views
+13. let the post-merge `Sync Active Board` GitHub Action regenerate
+    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) and the generated task views
     ([./task-views/research.md](./task-views/research.md),
     [./task-views/support.md](./task-views/support.md), and
-    [./task-views/release.md](./task-views/release.md)) reflect the new task
-    state;
+    [./task-views/release.md](./task-views/release.md)). The action runs on
+    every push to `main` that touches `tasks/**` or `missions/current.yaml`
+    and pushes a `chore(board-sync): … [skip-board-sync]` commit only when a
+    regeneration diff exists. Maintainers may still run
+    `python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
+    board-sync PR when the action is disabled or needs a manual audit;
 14. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution

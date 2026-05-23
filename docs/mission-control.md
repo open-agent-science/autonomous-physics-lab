@@ -151,8 +151,11 @@ Operational entry points:
   proposal-first workflow when no canonical task fits;
 - [docs/private-contributor-pilot.md](./private-contributor-pilot.md) for the
   invited private contributor flow;
-- `python3 -m physics_lab.cli sync-active-board .` for keeping the active board
-  aligned with task YAML files;
+- the `Sync Active Board` post-merge GitHub Action keeps the active board
+  and `docs/task-views/*.md` aligned with task YAML files on `main` (no
+  agent action required;
+  `python3 -m physics_lab.cli sync-active-board .` remains available for
+  maintainer dry-runs and explicit board-sync PRs);
 - maintainer review and closeout tooling for review bundles and handoff.
 
 Low-risk contribution patterns right now:

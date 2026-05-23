@@ -124,10 +124,12 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
             "Verify accepted outputs exist in main before updating the task file."
         )
         suggested_actions.append(
-            "Prefer YAML-only per-task closeout first; run python3 -m physics_lab.cli "
-            "sync-active-board . later in a dedicated board-sync step so tasks/ACTIVE.md "
-            "and docs/task-views/*.md stay generated without becoming a conflict surface "
-            "in every closeout PR."
+            "Keep the closeout YAML-only. tasks/ACTIVE.md and docs/task-views/*.md "
+            "are regenerated automatically on main by the Sync Active Board GitHub "
+            "Action after the closeout merges. Run python3 -m physics_lab.cli "
+            "sync-active-board . by hand only for explicit audits "
+            "(APL_ENFORCE_BOARD_STALENESS=1) or when the action is temporarily "
+            "disabled."
         )
     elif status == "DONE":
         suggested_actions.append(
@@ -275,7 +277,7 @@ def render_closeout_report(
         if report.status == "REVIEW_READY":
             lines.append("- Change task status from REVIEW_READY to DONE after merge verification.")
             lines.append(
-                "- Run python3 -m physics_lab.cli sync-active-board . later in a dedicated board-sync step if generated task navigation needs refresh."
+                "- Do not run python3 -m physics_lab.cli sync-active-board . in the closeout PR. The Sync Active Board GitHub Action regenerates generated task navigation on main after the closeout merges."
             )
         else:
             lines.append(
