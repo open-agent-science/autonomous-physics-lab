@@ -314,6 +314,7 @@ missions:
         label: "Review atomic-clock direct frequency-ratio source class"
         task_id: TASK-0330
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
