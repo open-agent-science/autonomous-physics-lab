@@ -334,6 +334,7 @@ missions:
         label: "Run atomic-clock real-row source gate"
         task_id: TASK-0332
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
