@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-22 21:10 UTC
+Generated: 2026-05-23 06:28 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1247,6 +1247,7 @@ missions:
         label: "Review atomic-clock direct frequency-ratio source class"
         task_id: TASK-0330
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
@@ -2385,8 +2386,17 @@ one PR.
 
 ## READY
 
-- `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0338` — Run nuclear deformation-proxy hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0339` — Run nuclear local residual curvature hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0341` — Run nuclear extrapolated-measured boundary hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`)
+- `TASK-0343` — Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0344` — Review atomic-clock covariance and uncertainty semantics (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0346` — Define exoplanet mass-radius baseline protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
+- `TASK-0347` — Triage open quantum-dot direct table sources (`scientific_dataset`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2400,10 +2410,12 @@ None.
 - `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
 - `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
+- `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (`ci_infrastructure`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
