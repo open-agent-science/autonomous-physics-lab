@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -63,16 +63,16 @@ jobs:
 
   pull-request:
     name: Python tests (3.12)
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     needs: classify
     if: github.event_name == 'pull_request'
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -125,7 +125,7 @@ jobs:
 
   main-matrix:
     name: Python tests (main matrix)
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     needs: classify
     if: github.event_name == 'push'
 
@@ -138,10 +138,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip

@@ -1,0 +1,47 @@
+id: TASK-0348
+title: "Route Python CI jobs to the self-hosted APL runner"
+type: ci_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce GitHub-hosted Actions minutes and billing risk by running Python test jobs on the maintainer-controlled CI VPS."
+  - "Keep GitHub Actions as the PR status/check orchestration layer so the existing review and merge flow remains unchanged."
+  - "Preserve a small GitHub-hosted classify job while moving heavier lint, pytest, examples, and validate-repo work to self-hosted Linux."
+
+input:
+  mode: workflow
+  related_domain: ci
+  related_objects:
+    - ".github/workflows/ci.yml"
+    - "docs/automation/self-hosted-ci-runner.md"
+  planning_context: >
+    The maintainer registered a self-hosted GitHub Actions runner on a
+    dedicated VPS for APL test execution. The workflow should route heavy
+    Python jobs there while leaving the lightweight change classifier on
+    GitHub-hosted infrastructure.
+
+requirements:
+  - "Keep the `Classify change set` job on `ubuntu-latest`."
+  - "Run pull-request Python tests on a self-hosted Linux x64 runner."
+  - "Run push/main matrix Python tests on a self-hosted Linux x64 runner."
+  - "Document the expected runner labels, isolation posture, and rollback path."
+  - "Do not add secrets to the workflow."
+  - "Do not require Docker or sudo on the runner."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml"
+  - "docs/automation/self-hosted-ci-runner.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

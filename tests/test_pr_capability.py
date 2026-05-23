@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -53,6 +54,10 @@ def test_pr_capability_discovers_homebrew_style_gh_path(
 
 def test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root() -> None:
     repo_root = Path(__file__).resolve().parents[1]
+    env = os.environ.copy()
+    env.pop("GH_TOKEN", None)
+    env.pop("GITHUB_TOKEN", None)
+    env["PATH"] = ""
     result = subprocess.run(
         [
             sys.executable,
@@ -64,7 +69,7 @@ def test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root() -
         check=False,
         capture_output=True,
         text=True,
-        env={},
+        env=env,
     )
 
     assert result.returncode == 0
