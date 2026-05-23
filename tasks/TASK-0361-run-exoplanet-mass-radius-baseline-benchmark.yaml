@@ -1,0 +1,60 @@
+id: TASK-0361
+title: "Run exoplanet mass-radius baseline benchmark"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Convert the pinned Exoplanet Mass-Radius snapshot into the first large public-data benchmark result."
+  - "Create a visual, holdout-friendly science surface without habitability or target-priority claims."
+  - "Use the committed snapshot and loader only; no live catalog fetches or moving data targets."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+    - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion.md"
+    - "docs/reviews/exoplanet-loader-dry-run.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "physics_lab/datasets/exoplanets.py"
+    - "physics_lab/schemas/exoplanet_mass_radius.schema.json"
+  planning_context: >
+    TASK-0353 pinned the first NASA Exoplanet Archive PSCompPars snapshot and
+    TASK-0354 added a deterministic loader dry run. This task runs the first
+    mass-radius benchmark on that frozen snapshot only, comparing a
+    Chen-Kipping-style published-baseline family against a simple null
+    baseline and preserving residual/failure diagnostics without claim
+    promotion.
+
+requirements:
+  - "Use only the committed `exo-0001-pscomppars-snapshot.yaml`; do not perform a live NASA Exoplanet Archive fetch."
+  - "Apply the committed loader/filter path and report pre-filter and post-filter counts before any metric is computed."
+  - "Implement or encode a Chen-Kipping-style published mass-radius baseline without fitting new free parameters to the full snapshot."
+  - "Include at least one simpler null baseline, such as class-median or global log-radius median, so improvements are not interpreted against a weak strawman."
+  - "Report log-space MAE/RMSE, uncertainty-aware residual summaries where possible, per-class metrics, detection-method splits, mass-provenance splits, and exclusion counts."
+  - "Preserve negative, null, or inconclusive baseline outcomes; do not tune the baseline after seeing residual maps."
+  - "Do not add habitability, biosignature, target-prioritization, prediction-registry, or discovery claims."
+
+accepted_outputs:
+  - "physics_lab/engines/exoplanet_mass_radius.py or an equivalent deterministic benchmark module"
+  - "examples/exoplanet_mass_radius_baseline.yaml or an equivalent runner config if the CLI path is used"
+  - "agent_runs/AGENT-RUN-0032/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0032/metrics.json"
+  - "agent_runs/AGENT-RUN-0032/report.md"
+  - "docs/reviews/exoplanet-mass-radius-baseline-benchmark.md"
+  - "tests/test_exoplanet_mass_radius_baseline.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_loader.py tests/test_exoplanet_mass_radius_baseline.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
