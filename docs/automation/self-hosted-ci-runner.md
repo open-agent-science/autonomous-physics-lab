@@ -14,7 +14,7 @@ infrastructure:
 
 The heavier jobs run on the self-hosted Linux x64 runner:
 
-- `Python tests (3.12)` for pull requests;
+- `Python fast tests (3.12)` for pull requests;
 - `Python tests (main matrix)` for pushes to `main` or `master`.
 
 The workflow currently targets the built-in runner labels:
@@ -48,8 +48,26 @@ Recommended baseline:
 
 ## Server Dependencies
 
-The CI workflow uses `actions/setup-python`, `pip install -e ".[dev]"`, `ruff`,
-`pytest`, example workflows, and `physics_lab.cli validate-repo`.
+The CI workflow uses Node 24-compatible GitHub actions, `actions/setup-python`,
+`pip install -e ".[dev]"`, `ruff`, `pytest`, example workflows, and
+`physics_lab.cli validate-repo`.
+
+Pull requests use a faster gate on the self-hosted runner:
+
+- docs/task-only PRs run the targeted docs/task test list;
+- code PRs run `pytest -n auto --dist loadfile -m "not full_repo"`;
+- `validate-repo . --strict --fail-on-warnings` still runs on every PR.
+
+Pushes to `main` or `master` remain the full safety net and run:
+
+```bash
+pytest -n auto --dist loadfile
+```
+
+Tests marked `full_repo` are slow full-repository smoke checks. Keep them
+covered by the main-matrix/full-validation path, but avoid making every PR pay
+for duplicate live `validate-repo` smoke tests when the workflow already runs
+strict repository validation as a separate CI step.
 
 The host should have at least:
 

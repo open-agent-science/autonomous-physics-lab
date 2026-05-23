@@ -1,0 +1,49 @@
+-- PSCompPars Snapshot Query Contract
+--
+-- task_id: TASK-0345
+-- plan_reference: docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md
+-- source_family_id: EXO-SRC-CLASS-001
+-- target service: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+-- format: ADQL (Astronomical Data Query Language)
+--
+-- This is the EXACT query a future maintainer-approved ingestion task
+-- must run against the NASA Exoplanet Archive TAP service. Modifying
+-- the query at ingestion time without an amendment PR to the plan
+-- document breaks the campaign's no-peek discipline.
+--
+-- The query selects only the canonical default solution per planet
+-- from the Planetary Systems (ps) table. Habitability flags,
+-- biosignature scores, transit-spectroscopy summaries, and target-
+-- prioritization fields are intentionally NOT requested.
+
+SELECT
+    pl_name,
+    hostname,
+    default_flag,
+    soltype,
+    disc_year,
+    discoverymethod,
+    pl_orbper,
+    pl_orbsmax,
+    pl_orbeccen,
+    pl_eqt,
+    pl_insol,
+    pl_rade, pl_radeerr1, pl_radeerr2,
+    pl_radj,
+    pl_bmasse, pl_bmasseerr1, pl_bmasseerr2,
+    pl_bmassj,
+    pl_bmassprov,
+    pl_dens,
+    st_spectype,
+    st_teff, st_tefferr1, st_tefferr2,
+    st_rad,
+    st_mass,
+    st_met, st_meterr1, st_meterr2,
+    st_age,
+    st_logg,
+    sy_dist,
+    pl_refname,
+    st_refname,
+    disc_refname
+FROM ps
+WHERE default_flag = 1

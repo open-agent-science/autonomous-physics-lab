@@ -1,0 +1,37 @@
+map_id: PSCOMPPARS-METHOD-MAP-0001
+schema_version: 0.1.0
+task_id: TASK-0345
+status: contract
+source_family_id: EXO-SRC-CLASS-001
+plan_reference: docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md
+
+# Mapping from NASA Exoplanet Archive `discoverymethod` strings to the
+# schema's `detection_method` enum. An unknown string must trigger a
+# stop condition; it must never silently fall into `transit` or any
+# other measurement-grade class.
+
+mapping:
+  "Transit": transit
+  "Radial Velocity": radial_velocity
+  "Transit Timing Variations": transit_timing_variation
+  "Microlensing": microlensing
+  "Astrometry": astrometry
+  "Imaging": direct_imaging
+  "Pulsar Timing": pulsar_timing
+  "Pulsation Timing Variations": pulsar_timing
+  "Eclipse Timing Variations": other
+  "Orbital Brightness Modulation": other
+  "Disk Kinematics": other
+
+stop_conditions:
+  - unknown_discoverymethod_string_not_in_mapping
+  - mapping_silently_treats_non_transit_radius_as_transit_radius
+
+amendment_policy:
+  description: >
+    Changes to this map require an amendment PR to the source plan
+    document `docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md`
+    before they are committed here. The loader must refuse to run if
+    its in-memory map diverges from this file.
+  enforcement:
+    loader_must_assert_byte_equality_with_committed_file: true

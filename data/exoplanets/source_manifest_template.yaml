@@ -120,6 +120,8 @@ candidate_source_families:
     title: NASA Exoplanet Archive Planetary Systems Composite Parameters (PSCompPars)
     source_locator: null
     homepage: "https://exoplanetarchive.ipac.caltech.edu/"
+    documentation: "https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html"
+    access_surface: "TAP service at https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
     doi: null
     archive_url: null
     release_date: null
@@ -133,11 +135,64 @@ candidate_source_families:
     uncertainty_semantics: not_reviewed
     composite_aggregation_notes: not_reviewed
     holdout_or_reveal_boundary: source_manifest_only
+    # PSCompPars-specific query contract committed for TASK-0345.
+    # The plan locks the exact ADQL query, the discoverymethod -> detection_method
+    # map, and the pl_bmassprov -> mass_class map. Future ingestion tasks must
+    # cite these files and must not silently alter the column list.
+    query_contract:
+      plan_document: "docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md"
+      query_file: "data/exoplanets/snapshot_plans/pscomppars_query.adql"
+      detection_method_map_file: "data/exoplanets/snapshot_plans/pscomppars_method_map.yaml"
+      mass_provenance_map_file: "data/exoplanets/snapshot_plans/pscomppars_mass_provenance_map.yaml"
+      requested_columns:
+        - pl_name
+        - hostname
+        - default_flag
+        - soltype
+        - disc_year
+        - discoverymethod
+        - pl_orbper
+        - pl_orbsmax
+        - pl_orbeccen
+        - pl_eqt
+        - pl_insol
+        - pl_rade
+        - pl_radeerr1
+        - pl_radeerr2
+        - pl_radj
+        - pl_bmasse
+        - pl_bmasseerr1
+        - pl_bmasseerr2
+        - pl_bmassj
+        - pl_bmassprov
+        - pl_dens
+        - st_spectype
+        - st_teff
+        - st_tefferr1
+        - st_tefferr2
+        - st_rad
+        - st_mass
+        - st_met
+        - st_meterr1
+        - st_meterr2
+        - st_age
+        - st_logg
+        - sy_dist
+        - pl_refname
+        - st_refname
+        - disc_refname
+      where_clause: "default_flag = 1"
+      explicitly_excluded_field_classes:
+        - habitability_flags_or_scores
+        - biosignature_summaries
+        - transit_spectroscopy_summaries
+        - target_prioritization_fields
     stop_conditions:
       - missing_per_row_method_label
       - true_mass_versus_minimum_mass_not_separable
       - composite_aggregation_rules_not_recoverable
       - retrieval_snapshot_not_pinned
+      - query_contract_modified_without_plan_amendment
 
   - source_family_id: EXO-SRC-CLASS-002
     row_class: peer_reviewed_primary_publication
