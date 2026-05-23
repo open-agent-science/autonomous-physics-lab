@@ -241,6 +241,15 @@ opens fresh lanes instead of extending the shell-axis audit loop:
   review;
 - `TASK-0356` for a Quantum direct source-artifact intake path so
   maintainer-provided SI/table files can unblock row curation quickly;
+- `TASK-0361` for the first Exoplanet Mass-Radius baseline benchmark on the
+  pinned PSCompPars snapshot;
+- `TASK-0362` as a blocked follow-up to package the Exoplanet residual
+  failure map after baseline metrics exist;
+- `TASK-0363` for the Atomic Clock Beloy 2021 source-artifact and covariance
+  preflight before direct ratio rows;
+- `TASK-0364` for a concrete Quantum PMC/arXiv direct-table source attempt;
+- `TASK-0365` as a blocked Nuclear synthesis after uncertainty/high-error/
+  local-curvature adversarial lanes finish;
 - `TASK-0330` remains the current Atomic Clock direct frequency-ratio source
   review;
 - `TASK-0332` remains the current Atomic Clock real-row readiness gate.
@@ -287,6 +296,11 @@ campaign and data foundations rather than formula search:
 - `TASK-0347` should look for open alternative direct-table or deterministic
   digitisation sources in parallel with any maintainer-provided Jasieniak SI
   path;
+- `TASK-0356` defines the local intake path for maintainer-provided or open
+  direct source artifacts;
+- `TASK-0364` should attempt a single PMC/arXiv direct-table source from the
+  TASK-0347 ranking and either curate a small direct seed or preserve a
+  blocker without relaxing provenance rules;
 - `TASK-0335` should define, not run, the weaker
   `calibration_curve_consistency` benchmark scope;
 - `TASK-0336` should stay blocked until `TASK-0334` or an equivalent
@@ -300,12 +314,14 @@ campaign and data foundations rather than formula search:
 - `TASK-0227` has landed as a small lepton g-2 cross-observable falsifier and
   remains a guardrail result, not a flagship campaign.
 
-The planned fourth campaign is Exoplanet Mass-Radius:
+The fourth campaign is now Exoplanet Mass-Radius:
 
 - use `TASK-0337` to create the value-free source manifest template, row
   schema, holdout protocol, and source-surface review;
-- do not fetch a live NASA Exoplanet Archive snapshot or run metrics until the
-  source policy is pinned;
+- `TASK-0353` pinned the first NASA Exoplanet Archive PSCompPars snapshot and
+  committed both raw and normalized artifacts;
+- do not fetch live NASA Exoplanet Archive data again for downstream
+  benchmarks; use the committed snapshot;
 - expected later results are baseline reproduction, uncertainty-aware
   residual maps, failure maps by planet class and detection method, and
   negative controls for simple mass-radius formulas.
@@ -313,6 +329,8 @@ The planned fourth campaign is Exoplanet Mass-Radius:
   plan without fetching rows;
 - use `TASK-0346` to define the baseline protocol before any agent sees or
   scores row-level catalog values.
+- use `TASK-0361` next for the first baseline benchmark, then `TASK-0362` for
+  residual/failure-map packaging if the baseline artifact lands cleanly.
 
 ### 2. Validate Private Contributors And Agents
 
