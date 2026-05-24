@@ -653,10 +653,17 @@ def build_review_report(
                 required_fixes.append(
                     f"TASK-QUEUE PR should leave {task_path} in PROPOSED, READY, or BLOCKED; found {status}."
                 )
-        if "tasks/ACTIVE.md" not in changed_files:
-            required_fixes.append("TASK-QUEUE PR should sync tasks/ACTIVE.md.")
-        if not any(path.startswith("docs/task-views/") for path in changed_files):
-            required_fixes.append("TASK-QUEUE PR should sync docs/task-views/*.md.")
+        generated_navigation_changes = tuple(
+            path
+            for path in changed_files
+            if path == "tasks/ACTIVE.md" or path.startswith("docs/task-views/")
+        )
+        if generated_navigation_changes:
+            advisory_warnings.append(
+                "TASK-QUEUE PR includes generated task navigation; this is allowed, "
+                "but the post-merge Sync Active Board action normally regenerates "
+                "tasks/ACTIVE.md and docs/task-views/*.md on main."
+            )
         forbidden_paths = tuple(
             path
             for path in changed_files
