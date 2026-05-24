@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResultCandidateReview",
+  "description": "Human-reviewed gate for deciding whether a sandbox or benchmark result may move toward follow-up, public summary, or claim-candidate status.",
+  "$defs": {
+    "score": {
+      "type": "string",
+      "enum": [
+        "PASS",
+        "PARTIAL",
+        "FAIL",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "eligibility": {
+      "type": "string",
+      "enum": [
+        "ALLOW",
+        "BLOCK",
+        "MAINTAINER_REVIEW_REQUIRED"
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "review_id",
+    "campaign_id",
+    "task_id",
+    "result_refs",
+    "candidate_scope",
+    "scores",
+    "eligibility",
+    "final_verdict",
+    "human_review_required",
+    "claim_promotion_allowed",
+    "limitations",
+    "reviewer"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1"
+    },
+    "artifact_type": {
+      "type": "string",
+      "const": "result_candidate_review"
+    },
+    "review_id": {
+      "type": "string",
+      "pattern": "^RESULT-CANDIDATE-REVIEW-[0-9]{4}$"
+    },
+    "campaign_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^TASK-[0-9]{4}$"
+    },
+    "result_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "candidate_scope": {
+      "type": "string",
+      "enum": [
+        "sandbox_followup",
+        "benchmark_summary",
+        "claim_candidate",
+        "negative_memory"
+      ]
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseline_strength",
+        "source_provenance",
+        "artifact_checksums",
+        "holdout_or_reveal_quality",
+        "uncertainty_handling",
+        "negative_controls",
+        "leakage_risk",
+        "reproducibility",
+        "external_comparability",
+        "public_wording_risk"
+      ],
+      "properties": {
+        "baseline_strength": {
+          "$ref": "#/$defs/score"
+        },
+        "source_provenance": {
+          "$ref": "#/$defs/score"
+        },
+        "artifact_checksums": {
+          "$ref": "#/$defs/score"
+        },
+        "holdout_or_reveal_quality": {
+          "$ref": "#/$defs/score"
+        },
+        "uncertainty_handling": {
+          "$ref": "#/$defs/score"
+        },
+        "negative_controls": {
+          "$ref": "#/$defs/score"
+        },
+        "leakage_risk": {
+          "$ref": "#/$defs/score"
+        },
+        "reproducibility": {
+          "$ref": "#/$defs/score"
+        },
+        "external_comparability": {
+          "$ref": "#/$defs/score"
+        },
+        "public_wording_risk": {
+          "$ref": "#/$defs/score"
+        }
+      }
+    },
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sandbox_followup",
+        "public_summary",
+        "claim_candidate"
+      ],
+      "properties": {
+        "sandbox_followup": {
+          "$ref": "#/$defs/eligibility"
+        },
+        "public_summary": {
+          "$ref": "#/$defs/eligibility"
+        },
+        "claim_candidate": {
+          "$ref": "#/$defs/eligibility"
+        }
+      }
+    },
+    "final_verdict": {
+      "type": "string",
+      "enum": [
+        "SANDBOX_FOLLOWUP_ONLY",
+        "BENCHMARK_SUMMARY_ONLY",
+        "CLAIM_CANDIDATE_WITH_MAINTAINER_REVIEW",
+        "BLOCKED",
+        "NEGATIVE_MEMORY"
+      ]
+    },
+    "human_review_required": {
+      "type": "boolean",
+      "const": true
+    },
+    "claim_promotion_allowed": {
+      "type": "boolean"
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "claim_promotion_allowed": {
+            "const": true
+          }
+        },
+        "required": [
+          "claim_promotion_allowed"
+        ]
+      },
+      "then": {
+        "properties": {
+          "final_verdict": {
+            "const": "CLAIM_CANDIDATE_WITH_MAINTAINER_REVIEW"
+          }
+        }
+      }
+    }
+  ]
+}
