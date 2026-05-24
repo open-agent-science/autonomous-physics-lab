@@ -1,7 +1,7 @@
 id: TASK-0376
 title: "Add fresh-data extraction ledger template"
 type: research_infrastructure
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -32,9 +32,10 @@ requirements:
   - "Do not curate new rows or run benchmarks."
 
 accepted_outputs:
-  - "templates/extraction_ledger.yaml or docs/extraction-ledger-template.md"
+  - "templates/extraction_ledger.yaml"
+  - "docs/extraction-ledger-template.md"
   - "docs/reviews/fresh-data-extraction-ledger-template-review.md"
-  - "optional link from docs/fresh-data-intake-protocol.md if that protocol already exists"
+  - "short link from docs/fresh-data-intake-protocol.md now that the protocol is on main"
 
 validation:
   commands:

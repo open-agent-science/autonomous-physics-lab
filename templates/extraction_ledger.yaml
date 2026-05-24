@@ -1,0 +1,174 @@
+schema_version: 0.1.0
+template_kind: fresh_data_extraction_ledger
+template_status: template_only
+description: >
+  Reviewable ledger for table extraction and figure digitisation before any
+  value-bearing row enters a benchmark dataset. This template intentionally
+  contains placeholder examples only; it does not curate real data.
+
+ledger:
+  ledger_id: "EXTRACTION-LEDGER-TEMPLATE"
+  campaign_profile_id: "CAMPAIGN-PROFILE-ID"
+  source_artifact_id: "SOURCE-ARTIFACT-ID"
+  source_id: "SOURCE-ID"
+  source_location:
+    locator_kind: "doi|arxiv|zenodo|hepdata|official_release|repository|other"
+    locator: "stable source locator"
+    artifact_path: "path/to/pinned/source/artifact/or/checksum"
+    figure_or_table_ref: "Table N or Figure N panel X"
+    page_or_section_ref: "page, section, supplement, or archive member"
+    retrieval_date: "YYYY-MM-DD"
+    checksum_or_archive_policy: "sha256 sidecar, archive hash, or documented no-checksum policy"
+  extraction_batch:
+    task_id: "TASK-XXXX"
+    extracted_by: "contributor-id/agent-id or human reviewer"
+    extracted_at: "YYYY-MM-DD"
+    reviewed_by: "human reviewer or second-pass agent; REQUIRED before benchmark use"
+    reviewed_at: null
+    status: "draft|reviewed|rejected|superseded"
+    contains_real_values: false
+    benchmark_use_authorized: false
+
+allowed_provenance_modes:
+  direct_table_value:
+    description: "Central value and uncertainty transcribed from a primary table."
+    admissible_for_benchmark_by_default: true
+  digitised_figure_point:
+    description: "Point extracted with a deterministic digitisation tool and recorded calibration metadata."
+    admissible_for_benchmark_by_default: false
+  independently_reviewed_observation:
+    description: "Value independently checked against source evidence by a second reviewer."
+    admissible_for_benchmark_by_default: true
+  calibration_derived_value:
+    description: "Value computed from a calibration curve, empirical relation, or sizing formula."
+    admissible_for_benchmark_by_default: false
+  rejected_value:
+    description: "Candidate value preserved as a negative extraction result."
+    admissible_for_benchmark_by_default: false
+
+required_entry_fields:
+  - source_artifact_id
+  - source_location
+  - extraction_method
+  - extracted_by
+  - reviewed_by
+  - value_fields
+  - uncertainty_fields
+  - unit
+  - row_class
+  - provenance_mode
+  - accepted_for_benchmark
+  - reviewer_notes
+  - blocker_fields
+
+entries:
+  - entry_id: "ENTRY-TEMPLATE-TABLE-001"
+    row_id: null
+    source_artifact_id: "SOURCE-ARTIFACT-ID"
+    source_location:
+      figure_or_table_ref: "Table 1"
+      page_or_section_ref: "main text p. N"
+      source_cell_or_row_ref: "row label or table coordinates"
+    extraction_method:
+      method_kind: "manual_table_transcription"
+      tool_name: null
+      tool_version: null
+      extraction_notes: "Placeholder example; replace with exact transcription notes."
+      calibration_artifact_ref: null
+      raw_export_ref: null
+    extracted_by: "contributor-id/agent-id"
+    extracted_at: "YYYY-MM-DD"
+    reviewed_by: null
+    reviewed_at: null
+    value_fields:
+      quantity_name: "quantity_name"
+      central_value: null
+      unit: "unit"
+      raw_source_value: "verbatim-or-normalized-source-value"
+      normalized_value: null
+      normalization_notes: "unit conversion, sign convention, scale, epoch, or scheme"
+    uncertainty_fields:
+      total_uncertainty: null
+      statistical_uncertainty: null
+      systematic_uncertainty: null
+      asymmetric_upper: null
+      asymmetric_lower: null
+      confidence_level_label: null
+      covariance_reference: null
+      uncertainty_notes: "record whether uncertainty is printed, derived, absent, or blocking"
+    unit: "unit"
+    row_class: "direct_measurement"
+    provenance_mode: "direct_table_value"
+    accepted_for_benchmark: false
+    admissibility_rationale: "Set true only after reviewer confirms source, units, uncertainty, and row class."
+    reviewer_notes:
+      required_checks:
+        - "source artifact and checksum verified"
+        - "table location and row identity verified"
+        - "unit conversion or normalization independently checked"
+        - "uncertainty semantics reviewed"
+      notes: []
+    blocker_fields:
+      has_blocker: true
+      blocker_codes:
+        - "REVIEW_NOT_COMPLETE"
+      blocker_notes: "Template example remains blocked until filled and reviewed."
+
+  - entry_id: "ENTRY-TEMPLATE-FIGURE-001"
+    row_id: null
+    source_artifact_id: "SOURCE-ARTIFACT-ID"
+    source_location:
+      figure_or_table_ref: "Figure 2 panel a"
+      page_or_section_ref: "main text p. N"
+      source_cell_or_row_ref: "digitised point id or marker label"
+    extraction_method:
+      method_kind: "deterministic_figure_digitisation"
+      tool_name: "WebPlotDigitizer or equivalent"
+      tool_version: "tool version"
+      extraction_notes: "Placeholder example; record axis calibration and point-picking decisions."
+      calibration_artifact_ref: "path/to/axis_calibration.csv"
+      raw_export_ref: "path/to/extracted_points.csv"
+    extracted_by: "contributor-id/agent-id"
+    extracted_at: "YYYY-MM-DD"
+    reviewed_by: null
+    reviewed_at: null
+    value_fields:
+      quantity_name: "quantity_name"
+      central_value: null
+      unit: "unit"
+      raw_source_value: null
+      normalized_value: null
+      normalization_notes: "include axis scale, panel, and material or series identity"
+    uncertainty_fields:
+      digitisation_uncertainty: null
+      source_reported_uncertainty: null
+      total_uncertainty: null
+      asymmetric_upper: null
+      asymmetric_lower: null
+      confidence_level_label: null
+      covariance_reference: null
+      uncertainty_notes: "combine digitisation read error with source-reported uncertainty when admissible"
+    unit: "unit"
+    row_class: "candidate_direct_measurement"
+    provenance_mode: "digitised_figure_point"
+    accepted_for_benchmark: false
+    admissibility_rationale: "Figure points need deterministic calibration, raw exports, and reviewer approval."
+    reviewer_notes:
+      required_checks:
+        - "axis calibration anchors reviewed"
+        - "raw extracted coordinates reviewed"
+        - "point identity and series membership checked"
+        - "uncertainty floor documented"
+      notes: []
+    blocker_fields:
+      has_blocker: true
+      blocker_codes:
+        - "REVIEW_NOT_COMPLETE"
+      blocker_notes: "Template example remains blocked until digitisation artifacts are attached and reviewed."
+
+guardrails:
+  - "Do not use LLM-recalled values as source data."
+  - "Do not mark accepted_for_benchmark true without reviewer_notes showing source, unit, uncertainty, and provenance checks."
+  - "Do not treat calibration_derived_value as a direct measurement row."
+  - "Do not commit raw copyrighted source images or PDFs unless an approved source-artifact policy allows it."
+  - "Do not run benchmarks or promote claims from this template alone."
