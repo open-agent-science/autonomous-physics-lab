@@ -1,0 +1,56 @@
+id: TASK-0353
+title: "Ingest pinned exoplanet PSCompPars mass-radius snapshot"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Exoplanet Mass-Radius from protocol-only planning into the first real public-data snapshot."
+  - "Create a large, visual, holdout-friendly campaign surface without running premature metrics."
+  - "Keep catalog ingestion deterministic, checksummed, and separated from claims."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+    - "data/exoplanets/source_manifest_template.yaml"
+    - "data/exoplanets/snapshot_plans/pscomppars_query.adql"
+    - "data/exoplanets/snapshot_plans/pscomppars_method_map.yaml"
+    - "data/exoplanets/snapshot_plans/pscomppars_mass_provenance_map.yaml"
+    - "physics_lab/schemas/exoplanet_mass_radius.schema.json"
+  planning_context: >
+    TASK-0345 locked the NASA Exoplanet Archive PSCompPars query contract and
+    TASK-0346 defined the baseline protocol. This task performs the first
+    pinned snapshot ingestion only; it must not run Chen-Kipping metrics or
+    produce residual claims in the same PR.
+
+requirements:
+  - "Retrieve the PSCompPars snapshot once using the committed query contract, recording retrieval timestamp, source URL, query text, and checksum."
+  - "Commit or archive the raw snapshot according to the repository policy; if live retrieval is unavailable, produce a blocker review and do not fabricate rows."
+  - "Normalize rows into the exoplanet schema with inclusion/exclusion status, mass provenance, radius availability, uncertainty semantics, detection method, host-star context, and reference fields."
+  - "Exclude or flag model-inferred masses, minimum-mass-only rows, missing-uncertainty rows, and duplicate/default conflicts according to the committed plan."
+  - "Produce counts by inclusion status, mass provenance, detection method, planet class candidate, and exclusion reason."
+  - "Do not run baseline metrics, residual plots, habitability/biosignature analysis, target prioritization, prediction entries, or claim promotion."
+
+accepted_outputs:
+  - "data/exoplanets/raw/exo-pscomppars-20260523T171549Z.csv"
+  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  - "data/exoplanets/source_manifest.yaml"
+  - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion.md"
+  - "tests/test_exoplanet_mass_radius_dataset_schema.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

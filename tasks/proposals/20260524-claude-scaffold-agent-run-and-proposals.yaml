@@ -1,0 +1,96 @@
+proposal_id: 20260524-claude-scaffold-agent-run-and-proposals
+title: "Add apl_scaffold helpers for agent-run and proposal bundles"
+status: PROPOSED
+type: tooling
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Cut the per-task cost of building a new AGENT-RUN-NNNN bundle plus matched hypothesis/experiment proposals from a multi-file pattern-match exercise to a single command."
+  - "Reduce shape drift between agent runs by emitting schema-validated skeletons that already pass validate-repo --strict."
+  - "Lower the barrier for new contributors and external agents to produce review-ready sandbox artifacts."
+
+summary: >
+  Add two small CLI scaffolders:
+
+  1. scripts/apl_scaffold_agent_run.py AGENT-RUN-NNNN TASK-NNNN
+     campaign-profile-id [--contributor-id roman --agent-id claude]
+     creates agent_runs/AGENT-RUN-NNNN/{agent_run.yaml, report.md,
+     limitations.md, preflight.md, review_summary.md} from a schema
+     skeleton that already passes validate-repo with placeholder
+     content marked TODO; verifies that campaign_profiles/<id>.yaml
+     exists; optionally writes paired hypothesis/experiment proposal
+     stubs if --with-proposals is given.
+
+  2. scripts/apl_scaffold_campaign_profile.py <profile-id> --title
+     emits a minimal campaign_profiles/<id>.yaml whose shape mirrors
+     the existing nuclear-mass-surface profile and validates clean.
+
+  Both scaffolders are write-once: they refuse to overwrite an
+  existing file.
+
+rationale: >
+  TASK-0361 spent roughly 10% of post-compaction context reading
+  AGENT-RUN-0026, AGENT-RUN-0028, EXP-PROPOSAL-0014, and
+  HYP-PROPOSAL-0048 as templates because the existing
+  HYP-PROPOSAL-TEMPLATE.yaml and EXP-PROPOSAL-TEMPLATE.yaml lack
+  realistic worked examples that pass strict validation (they use
+  placeholder strings and template ids). Building the bundle by
+  hand from the schema also required reading
+  agent_run.schema.json plus its cross-validation rules in
+  physics_lab/registry/agent_runs.py. A scaffolder that emits
+  schema-valid skeletons removes both reads.
+
+input:
+  mode: planning_only
+  related_domain: tooling
+  related_objects:
+    - "physics_lab/schemas/agent_run.schema.json"
+    - "physics_lab/schemas/hypothesis_proposal.schema.json"
+    - "physics_lab/schemas/experiment_proposal.schema.json"
+    - "physics_lab/registry/agent_runs.py"
+    - "physics_lab/registry/research_proposals.py"
+    - "hypothesis_proposals/HYP-PROPOSAL-TEMPLATE.yaml"
+    - "experiment_proposals/EXP-PROPOSAL-TEMPLATE.yaml"
+    - "agent_runs/README.md"
+  planning_context: >
+    The scaffolders must emit skeletons that pass
+    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    immediately, with TODO markers in human-facing prose fields
+    (report.md body, limitations bullets) but with all required
+    schema fields filled with safe defaults (sandbox_only: true,
+    promotion_boundary flags false, verdict REVIEW_NEEDED). The
+    scaffolders must refuse to overwrite existing files, must
+    refuse to create an AGENT-RUN-NNNN whose number duplicates
+    an existing directory, and must validate the
+    campaign_profile_id argument against an existing
+    campaign_profiles/<id>.yaml before writing anything.
+
+requirements:
+  - "Add scripts/apl_scaffold_agent_run.py with the CLI surface described in the summary."
+  - "Add scripts/apl_scaffold_campaign_profile.py with the CLI surface described in the summary."
+  - "Emit skeletons that pass validate-repo --strict --fail-on-warnings immediately, with prose TODO markers but no schema-required field missing."
+  - "Refuse to overwrite existing files or duplicate AGENT-RUN-NNNN numbers."
+  - "Add tests covering: skeleton validity against schema, refusal-to-overwrite, refusal-on-missing-campaign-profile, optional --with-proposals path."
+  - "Do not change existing schemas, validators, or any committed agent_run / proposal file."
+  - "Do not auto-populate hypothesis or experiment proposal scientific content; the scaffolders are structural only."
+
+accepted_outputs:
+  - "scripts/apl_scaffold_agent_run.py"
+  - "scripts/apl_scaffold_campaign_profile.py"
+  - "tests/test_apl_scaffold_agent_run.py and tests/test_apl_scaffold_campaign_profile.py"
+  - "short usage note appended to docs/agent-task-protocol.md (or a new docs/agent-scaffolders.md)"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_apl_scaffold_agent_run.py tests/test_apl_scaffold_campaign_profile.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Pairs well with the quick-reference doc proposal; together they cover the schema-discovery and shape-building costs identified by the TASK-0361 + TASK-0363 audit."

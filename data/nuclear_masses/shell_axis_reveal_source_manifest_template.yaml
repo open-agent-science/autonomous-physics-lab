@@ -1,0 +1,166 @@
+# Shell-Axis Mini-Wave Reveal Source-Manifest Template
+#
+# This file is a TEMPLATE only. It documents the fields and value semantics
+# that a future shell-axis-balanced-001 reveal task must populate before any
+# scoring task may run. It does not contain real measurement values, real
+# checksums, or pinned external source paths.
+#
+# Companion documents:
+#   - docs/reviews/nuclear-shell-axis-mini-wave-source-preflight.md (TASK-0303)
+#   - docs/nuclear-reveal-source-readiness-checklist.md
+#   - docs/nuclear-prediction-reveal-protocol.md
+#
+# Forbidden by this template:
+#   - Do not paste measured mass_excess values for the eight target nuclides.
+#   - Do not commit live external data fetches via this template.
+#   - Do not relax field requirements that the readiness checklist declares
+#     gate-required.
+#   - Do not use this template to score a reveal; that requires a separate
+#     maintainer-approved reveal task (TASK-0305 or successor).
+
+manifest_id: TEMPLATE-shell-axis-balanced-001-reveal-source
+template_version: "1"
+template_status: not_pinned
+
+task_id: TASK-0305
+template_origin_task_id: TASK-0303
+target_batch_label: shell-axis-balanced-001
+registry_entries:
+  - PRED-0063
+  - PRED-0064
+  - PRED-0065
+  - PRED-0066
+  - PRED-0067
+  - PRED-0068
+
+# --- Source classification (must be set before pinning) ----------------------
+#
+# Set source_class to one of the values from the readiness checklist:
+#   official_evaluation, peer_reviewed_table, collaboration_release,
+#   archive_copy. Do not mix classes in a single manifest.
+source_class: TBD_official_evaluation_or_peer_reviewed_table
+source_title: TBD_future_pinned_source_title
+issuing_body: TBD_future_pinned_issuing_body
+publication_or_release_date: TBD_future_pinned_release_date
+
+# --- Source pinning ----------------------------------------------------------
+source_state_timestamp_utc: TBD_when_source_is_pinned
+accessed_at_utc: TBD_when_externally_retrieved_or_inspected
+source_locator: TBD_doi_or_release_uri_or_archive_path
+license_or_reuse_notes: TBD_reuse_terms_or_unknown
+archive_policy: TBD_committed_copy_or_external_archive_with_checksum_or_manifest_only
+
+# --- Reproducibility checksums (no real values in this template) -------------
+raw_artifact_checksum:
+  algorithm: TBD_sha256_or_blake2b
+  digest: TBD_only_after_source_pinning
+  file_bytes: TBD_only_after_source_pinning
+  not_committed_reason: TBD_if_external_archive_or_manifest_only
+normalized_artifact_checksum:
+  algorithm: TBD_sha256_or_blake2b
+  digest: TBD_only_after_normalization
+  not_committed_reason: TBD_if_no_normalized_table_is_produced
+parser_or_normalizer:
+  script_path: TBD_path_to_reviewed_parser_if_any
+  command: TBD_exact_command_or_none
+  version: TBD_tool_version_or_n_a
+  input_path: TBD_pinned_raw_path
+  output_path: TBD_normalized_table_path
+
+# --- Quantity and units ------------------------------------------------------
+quantity: mass_excess_mev
+units:
+  source_unit: TBD_keV_or_MeV_per_source
+  normalized_unit: MeV
+  conversion_factor: TBD_only_after_unit_review
+uncertainty_fields:
+  field_name: TBD_source_uncertainty_field
+  units: TBD_source_uncertainty_units
+  semantics: TBD_one_sigma_or_other
+  treatment_in_scoring: TBD_uncertainty_propagation_policy_or_unweighted
+
+# --- Value semantics ---------------------------------------------------------
+value_semantics: TBD_measured_or_evaluated_or_extrapolated_or_mixed
+measurement_flag_field: TBD_row_level_flag_name_separating_measured_from_others
+
+# --- Target matching ---------------------------------------------------------
+target_id_fields:
+  - symbol
+  - Z
+  - N
+  - A
+  - optional_isomer_state
+target_matching_rules:
+  isotope_naming: TBD_e_g_canonical_NIST_or_NUBASE_style
+  duplicate_handling: TBD_first_match_or_explicit_duplicate_label
+  isomer_handling: TBD_ground_state_only_or_label_isomers
+  ambiguous_row_policy: TBD_label_TARGET_MATCH_AMBIGUOUS
+
+# --- Eligibility labelling vocabulary ----------------------------------------
+#
+# Reveal task must label every target row with exactly one of these labels.
+# Labels are reproduced from docs/nuclear-reveal-source-readiness-checklist.md
+# so the manifest, dry-run, and reveal task share the same vocabulary.
+eligibility_labels:
+  - ELIGIBLE_MEASURED
+  - TARGET_NOT_REVEALED
+  - NON_MEASURED_VALUE_ONLY
+  - SOURCE_PREDATES_REGISTRATION
+  - REGISTRY_MUTATED_AFTER_SOURCE
+  - UNIT_SEMANTICS_AMBIGUOUS
+  - TARGET_MATCH_AMBIGUOUS
+  - NO_PEEK_AUDIT_FAILED
+  - SOURCE_MANIFEST_INCOMPLETE
+
+# --- Exclusion policy --------------------------------------------------------
+exclusion_policy:
+  unit_ambiguous_rows: label_UNIT_SEMANTICS_AMBIGUOUS_do_not_score
+  non_measured_rows: label_NON_MEASURED_VALUE_ONLY_do_not_score_in_measured_only_reveal
+  repeated_rows: keep_visible_do_not_average_as_independent_breadth
+  missing_targets: label_TARGET_NOT_REVEALED_keep_unscored_and_eligible_for_later_reveal
+  source_absent_targets: label_TARGET_NOT_REVEALED_with_source_absent_note
+
+# --- No-peek pre-audit -------------------------------------------------------
+#
+# The reveal executor must verify each PRED entry against this checklist
+# BEFORE row-level source values are inspected. A failure here blocks the
+# reveal; it does not silently downgrade the comparison.
+no_peek_pre_audit_per_pred:
+  - check: entry_registered_at_utc_predates_source_release_date
+    failure_label: SOURCE_PREDATES_REGISTRATION
+  - check: entry_source_state_git_commit_predates_source_pinning_timestamp
+    failure_label: SOURCE_PREDATES_REGISTRATION
+  - check: no_post_registration_edit_to_predicted_values_target_nuclides_or_reveal_conditions
+    failure_label: REGISTRY_MUTATED_AFTER_SOURCE
+  - check: target_absent_from_training_baseline_holdout_at_registration
+    failure_label: NO_PEEK_AUDIT_FAILED
+  - check: no_task_or_review_record_of_inspecting_row_level_revealed_values_before_registration
+    failure_label: NO_PEEK_AUDIT_FAILED
+  - check: target_batch_unchanged_after_source_discovery
+    failure_label: NO_PEEK_AUDIT_FAILED
+  - check: candidate_selection_independent_of_source_or_derivative
+    failure_label: NO_PEEK_AUDIT_FAILED
+  - check: public_wording_describes_entries_as_prospective_unvalidated_before_scoring
+    failure_label: NO_PEEK_AUDIT_FAILED
+  - check: paired_controls_PRED-0066_and_PRED-0067_present_alongside_PRED-0063
+    failure_label: NO_PEEK_AUDIT_FAILED
+
+# --- Partial-reveal handling -------------------------------------------------
+partial_reveal_handling:
+  score_only_eligible_measured_rows: true
+  preserve_unrevealed_targets_unchanged: true
+  report_target_row_coverage: true
+  report_unique_nuclide_coverage: true
+  preserve_paired_controls: true
+  forbid_averaging_repeated_rows_as_independent_breadth: true
+  forbid_filling_missing_rows_from_unpinned_sources: true
+  forbid_ranking_registry_families_by_partial_coverage_alone: true
+
+# --- Reviewer attribution ----------------------------------------------------
+reviewer_notes:
+  - "Template only; not a pinned source manifest."
+  - "TASK-0305 must pin a real source class, real source title, real release date,"
+  - "real source locator, real archive policy, and real checksums before any scoring."
+  - "Paired controls PRED-0066 (sign-inverted) and PRED-0067 (near-null) plus the"
+  - "PRED-0068 reference baseline must be present in the reveal artifact regardless"
+  - "of how many candidate rows are eligible."

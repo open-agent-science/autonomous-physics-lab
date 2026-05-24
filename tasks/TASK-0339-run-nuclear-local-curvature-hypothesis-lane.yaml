@@ -1,0 +1,54 @@
+id: TASK-0339
+title: "Run nuclear local residual curvature hypothesis lane"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test local residual structure instead of extending the completed shell-axis audit loop."
+  - "Probe isotope/isotone curvature and kink features as an independent Nuclear hypothesis family."
+  - "Keep the work sandbox-only with deterministic controls and explicit transfer diagnostics."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    Some baseline errors may be local rather than global: residual slopes,
+    finite-difference curvature, or kinks along isotope and isotone chains.
+    This lane lets an agent test that idea without using live data or creating
+    new frozen predictions.
+
+requirements:
+  - "Define a bounded local-curvature hypothesis family using finite-difference or neighbor-derived residual proxies from repository-pinned rows."
+  - "Generate 4-8 candidate variants and run 1-3 through a deterministic sandbox."
+  - "Include at least one chain-shuffled control and one smooth local-window control."
+  - "Report primary error deltas plus isotope-chain transfer, isotone-chain transfer, magic-region, neutron-rich, and high-error subset diagnostics."
+  - "Separate genuine chain-local transfer from overfit to sparse neighbor patterns."
+  - "Preserve negative, null, and overfit outcomes."
+  - "Do not add PRED files, fetch live measurements, run reveal scoring, update claims, or promote outcomes."
+
+accepted_outputs:
+  - "scripts/run_nuclear_local_curvature_lane.py or an equivalent deterministic runner"
+  - "agent_runs/AGENT-RUN-0026/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0026/metrics.json"
+  - "agent_runs/AGENT-RUN-0026/report.md"
+  - "docs/reviews/nuclear-local-curvature-hypothesis-lane.md"
+  - "tests/test_nuclear_local_curvature_lane.py if a runner is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

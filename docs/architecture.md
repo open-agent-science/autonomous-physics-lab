@@ -80,6 +80,16 @@ APL is organized around three core subsystems.
 All workflows must follow the canonical agent-task protocol defined in
 `docs/agent-task-protocol.md`.
 
+For current contributor and agent orientation, APL is also described by the
+lighter four-layer model in [docs/architecture-layers.md](./architecture-layers.md):
+
+1. Research Agent Core;
+2. Scientific Memory;
+3. Domain Campaigns;
+4. Data / Reveal / Claim Gates.
+
+That layer model is an operational map, not a package-refactor plan.
+
 ### 1. Hypothesis Engine
 
 Responsible for:

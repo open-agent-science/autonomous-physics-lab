@@ -1,0 +1,79 @@
+id: TASK-0319
+title: "Fix autonomous task runner: weekly budget window and open-PR guard"
+type: tooling_fix
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the autonomous task runner usable in real conditions without false budget blocks."
+  - "Prevent the autonomous task runner from picking READY tasks that already have an open PR from another agent."
+  - "Preserve APL's existing budget-gate discipline (block before high-spend runs) while aligning the metric with the actual Claude plan."
+
+input:
+  mode: workflow
+  related_domain: tooling
+  related_objects:
+    - "scripts/check_claude_budget.py"
+    - "scripts/auto_run_next_task.sh"
+    - "tests/test_check_claude_budget.py"
+    - "tests/test_auto_run_next_task.py"
+    - "tasks/proposals/20260521-roman-budget-weekly-window-and-open-pr-guard-fix.yaml"
+    - "tasks/TASK-0318-add-autonomous-task-runner.yaml"
+  planning_context: >
+    TASK-0318 (merged via PR #445) landed scripts/auto_run_next_task.sh
+    and scripts/check_claude_budget.py. Live testing on 2026-05-21
+    surfaced two paired issues:
+
+    Bug A — calendar-monthly budget window vs weekly plan limit.
+    check_claude_budget.py sums tokens from the 1st of the current
+    calendar month and exposes the cap as CLAUDE_MONTHLY_TOKEN_LIMIT.
+    The actual Claude Code plan uses a weekly rolling limit (the plan
+    view shows "Weekly · all models: 18%, resets in 4d" plus a 5-hour
+    limit). With a realistic 6.5M weekly cap the monthly model
+    reported usage of >400% mid-month; with a 50M cap and 50%
+    threshold it still blocked at 54%. The metric does not match the
+    plan, so it is not actionable.
+
+    Bug B — selector does not check for an open PR on the candidate
+    task. auto_run_next_task.sh reads live_task_candidates from
+    apl_mission.py --json, filters to READY, sorts by priority and
+    difficulty, and invokes Claude on the top candidate without
+    verifying that another agent does not already have an open PR on
+    that same task id. A live run picked TASK-0315 while
+    agent/roman/codex/task-0315-... was already open as PR #444 from
+    a parallel codex agent.
+
+    The proposal companion is tasks/proposals/20260521-roman-budget-weekly-window-and-open-pr-guard-fix.yaml.
+
+requirements:
+  - "Replace the calendar-monthly cutoff in compute_usage with a rolling 7-day window (now - 7 days)."
+  - "Rename the env var to CLAUDE_WEEKLY_TOKEN_LIMIT; keep CLAUDE_MONTHLY_TOKEN_LIMIT as a deprecated alias with a stderr warning for one release."
+  - "Rename the JSON field to weekly_limit; keep monthly_limit as a deprecated alias mirroring weekly_limit for one release."
+  - "Add a window_days field to the report so consumers can self-describe the window length."
+  - "In auto_run_next_task.sh, after selecting a READY candidate, query gh pr list with --state open and --search 'TASK-XXXX in:title' --json number,title; skip the candidate when a match exists and iterate to the next."
+  - "Exit cleanly with a clear message when no READY candidate without an open PR remains."
+  - "Add a test hook env var (APL_OPEN_PR_LIST_CMD) so tests can mock gh without touching the live remote."
+  - "Cover the rolling cutoff, env var precedence, deprecation warning, and JSON field shape in tests/test_check_claude_budget.py."
+  - "Cover the open-PR skip path, the all-skipped exit, and the legacy monthly env-var compatibility path in tests/test_auto_run_next_task.py."
+  - "Do not change exit codes or the under_threshold semantics of check_claude_budget.py."
+  - "Do not promote claims, edit results/, claims/, knowledge/, or prediction_registry/."
+
+accepted_outputs:
+  - "scripts/check_claude_budget.py updated to rolling 7-day window with backward-compat aliases"
+  - "scripts/auto_run_next_task.sh updated with open-PR guard and weekly env-var preference"
+  - "tests/test_check_claude_budget.py extended to cover the rolling window and the env-var aliases"
+  - "tests/test_auto_run_next_task.py extended to cover the open-PR guard and the deprecated env-var path"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_check_claude_budget.py tests/test_auto_run_next_task.py"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

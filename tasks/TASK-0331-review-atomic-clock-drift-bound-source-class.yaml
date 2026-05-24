@@ -1,0 +1,52 @@
+id: TASK-0331
+title: "Review atomic-clock drift-bound derived-constraint source class"
+type: scientific_dataset
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent Atomic Clock Residuals from mixing direct measurements with derived constants-drift constraints."
+  - "Make the third campaign scientifically useful without opening broad constants-derivation claims."
+  - "Give agents a parallel source-review task independent from primary frequency-ratio rows."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-clock-source-manifest-template-review.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "data/atomic_clocks/schema.md"
+    - "docs/notes/atomic-clock-source-candidates.md"
+    - "docs/notes/fresh-data-source-policy.md"
+  planning_context: >
+    Atomic-clock literature often reports derived drift bounds or constants-
+    variation constraints. Those values can be useful later, but only if they
+    are explicitly separated from direct frequency-ratio measurement rows and
+    their sensitivity coefficients and assumptions are recoverable.
+
+requirements:
+  - "Review the `drift_bound_or_constants_constraint` source class without recording numerical constraint values."
+  - "Document the minimum provenance needed for a derived constraint: input measurement source list, sensitivity-coefficient source, interval semantics, covariance/correlation notes, model assumptions, units, and license/citation status."
+  - "State when a derived constraint must stay review-summary-only rather than becoming a row in an APL dataset."
+  - "Define stop conditions for hidden inputs, unrecoverable sensitivity coefficients, mixed direct/derived tables, or missing covariance notes."
+  - "Do not ingest real drift bounds, fit constants drift, add prediction registry entries, or claim new physics."
+  - "Keep the review independent of TASK-0330 so both tasks can run in parallel."
+
+accepted_outputs:
+  - "docs/reviews/atomic-clock-derived-constraint-source-review.md"
+  - "optional metadata-only update to data/atomic_clocks/source_manifest_template.yaml or a new source-manifest note"
+  - "tests updated only if a YAML manifest structure changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

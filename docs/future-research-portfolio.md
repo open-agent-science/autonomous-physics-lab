@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This document separates future research directions into `NOW`, `NEXT`, and
-`WATCHLIST` so agents do not treat every interesting physics topic as an
-immediate implementation target.
+This document separates research directions into `NOW`, `PLANNED FOURTH
+CAMPAIGN`, `NEXT`, and `WATCHLIST` so agents do not treat every interesting
+physics topic as an immediate implementation target.
 
 The portfolio is a prioritization layer, not a claim surface. Moving a topic
 into `NOW` or `NEXT` does not promote any hypothesis or result. Moving a topic
@@ -17,6 +17,10 @@ near-term task selection.
   path, and clear limitation language.
 - `NEXT` work may be scoped into planning or microtask-sized validators, but it
   must stay conservative until a maintainer creates a canonical task.
+- `PLANNED FOURTH CAMPAIGN` work may create source, schema, and holdout
+  preparation tasks, but it is not an active benchmark surface until the
+  repository has a pinned data snapshot and a maintainer-approved baseline
+  task.
 - `WATCHLIST` work is explicitly deferred. Agents may read it for context, but
   should not open implementation branches from it without a new maintainer task.
 - No category authorizes public article work, discovery framing, or automatic
@@ -24,35 +28,112 @@ near-term task selection.
 
 ## NOW
 
+APL currently keeps three active scientific campaigns. "Active" does not mean
+claim-ready; it means there are concrete, reviewable tasks that can move the
+evidence surface forward without discovery framing.
+
 ### Nuclear Mass Surface
 
 The nuclear mass surface campaign is the current flagship research track.
 
-Immediate work should stay audit-first:
+Immediate work should stay hypothesis-test-first:
 
 - preserve the baseline residual surface as the comparison anchor;
 - review post-AME2020 retrospective time-split evidence as inconclusive unless
   a later task establishes stronger support;
-- run only bounded sandbox or factory lanes with explicit negative controls;
+- treat the completed shell-axis audit wave as `DIAGNOSTIC_ONLY`, not as a
+  reason to stop Nuclear or as a claim-ready result;
+- run multiple bounded sandbox or factory lanes in parallel, each with a
+  distinct hypothesis family, explicit controls, and negative-result
+  preservation;
 - use the prediction registry only for before-measurement comparisons, with
   selected entries frozen before reveal;
-- prefer feature-term factory slates and reveal protocol work before
-  another broad sandbox batch;
+- prefer disjoint sandbox scout lanes and conservative evidence summaries
+  before adding more frozen registry entries or running any future comparison;
 - keep all outputs framed as validation, replay, audit, or sandbox evidence.
 
 This track is appropriate for active tasks because it now has datasets,
 baseline metrics, holdout discipline, replay surfaces, and enough failure-mode
 evidence to support reviewable follow-up.
 
+### Quantum Size Effects
+
+Quantum Size Effects is the active second campaign, but it is still in
+data-readiness mode rather than benchmark-result mode.
+
+Immediate work should focus on:
+
+- direct-measurement row-level curation or compliant figure digitisation;
+- an explicit maintainer-facing decision on whether a weaker
+  calibration-curve consistency benchmark is worth running;
+- preserving the distinction between direct measurements, calibration-derived
+  rows, and source-manifest metadata.
+
+This track is active because it has a scaffold, schema, holdout protocol,
+source manifest, and row-level blockers. It is not yet ready for autonomous
+formula search or public benchmark claims.
+
+### Atomic Clock Residuals
+
+Atomic Clock Residuals is the active third campaign, currently limited to
+source-surface and synthetic-loader work.
+
+Immediate work should focus on:
+
+- metadata-only source manifests;
+- direct-versus-derived row-class separation;
+- synthetic loader dry-runs with fabricated values only;
+- provenance, uncertainty, epoch, and correlation semantics before any real
+  frequency-ratio or drift rows are ingested.
+
+This track is active because it can become a fresh-data benchmark surface, but
+it must not become a broad constants-drift or new-physics campaign.
+
+## PLANNED FOURTH CAMPAIGN
+
+### Exoplanet Mass-Radius Benchmark
+
+Exoplanet Mass-Radius is the planned fourth campaign, not a current benchmark
+result surface.
+
+The strategic goal is to prepare a high-visibility, data-backed campaign around
+planet mass, radius, uncertainty, and residual structure. The expected first
+scientific artifact is a conservative benchmark showing where standard
+mass-radius forecasts work or fail across planet classes, discovery methods,
+host-star context, and measurement-quality filters.
+
+Immediate work should focus on:
+
+- source-manifest and catalog snapshot policy;
+- row schema for mass, radius, uncertainties, true-mass versus minimum-mass
+  flags, and provenance;
+- holdout protocol across planet class, detection method, source date,
+  host-star context, and mass/radius regimes;
+- baseline reproduction plan for a Chen-Kipping-style forecast after a frozen
+  snapshot exists;
+- limitation language for selection effects, heterogeneous measurements, and
+  model-derived catalog values.
+
+This track is planned because it has public data, strong visual explainability,
+recognized baselines, natural holdouts, and real residual structure. It should
+remain preparation-only until `TASK-0337` or a follow-up task creates the
+source/schema surface needed for a later benchmark.
+
+Not allowed yet:
+
+- live archive ingestion without a pinned snapshot policy;
+- benchmark metrics or residual maps before schema and holdout protocol exist;
+- habitability, life, biosignature, or planet-prioritization claims;
+- public "APL discovered a planet law" framing.
+
 ## NEXT
 
 These directions are plausible future campaigns only if they remain scoped,
 deterministic, and limitation-first.
 
-### Quantum Dots or Quantum Size Effects
+### Quantum Size Effects Later-Stage Work
 
-Quantum-size-effect work can become a future dataset-and-computation campaign
-if it starts from conservative models and reproducible comparison data.
+Quantum-size-effect later-stage work remains gated behind data readiness.
 
 The strategic goal is to prepare a second real-data campaign that is easier to
 visualize than nuclear residuals while still being disciplined about
@@ -99,6 +180,41 @@ Allowed next shape:
 - explicit equations and invariance targets;
 - deterministic checks with failure cases.
 
+### Anomaly Registry Scaffold
+
+The anomaly-registry direction is a NEXT planning surface, not an anomaly-fit
+campaign. Its near-term value is to define source admissibility, frozen
+holdouts, correlation handling, null-model comparison, and negative-result
+reporting before any future agent tries to reduce multiple tensions at once.
+
+Allowed next shape:
+
+- registry schema;
+- source admissibility rules;
+- joint-likelihood evaluation contract;
+- explicit statement that Hubble tension, muon g-2 follow-up, W-mass tension,
+  broad constants, and broad mass-relation topics remain WATCHLIST until a
+  separate maintainer task authorizes a scoped evaluation.
+
+### Fresh Physics Data Axes
+
+Fresh-data work is a NEXT source-policy direction, initially limited to
+atomic-clock comparison campaigns and lattice-QCD aggregated outputs. The goal
+is to prepare less-saturated evidence surfaces without ingesting data or
+starting broad cross-domain fits prematurely.
+
+Allowed next shape:
+
+- source policy;
+- license, citation, checksum, and provenance requirements;
+- per-axis holdout discipline;
+- stop conditions for unacceptable source shortcuts.
+
+Atomic-clock residuals are now the first active source-surface campaign inside
+this direction. This does not move broad constants derivation out of WATCHLIST
+and does not authorize real-data ingestion, metrics, or prediction registry
+entries.
+
 ## WATCHLIST
 
 These topics should not be active research targets without new guardrails and a
@@ -131,6 +247,20 @@ near-term research claims.
 Particle-mass relation work should remain falsification-first and narrow.
 Broad all-mass formula searches are deferred because they are highly exposed to
 post-hoc fitting, scheme ambiguity, and overclaim risk.
+
+### Symmetry Discovery Validator
+
+Symmetry-discovery work remains a high-value long-term methodology idea, but it
+should not become an implementation lane until a separate feasibility review
+defines rediscovery benchmarks, synthetic null cases, false-positive controls,
+and real-data eligibility gates.
+
+### Differentiable EFT Residuals
+
+Differentiable EFT residuals remain a high-value long-term direction. They are
+not a near-term implementation lane until the project has stronger reveal
+discipline, source policy, and a single scoped EFT benchmark with deterministic
+forward-model requirements.
 
 ## Decision Rule
 

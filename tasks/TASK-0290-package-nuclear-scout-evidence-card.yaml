@@ -1,0 +1,50 @@
+id: TASK-0290
+title: "Package nuclear scout evidence card"
+type: documentation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the latest Nuclear scout results legible for maintainers and future contributors."
+  - "Turn positive, negative, and blocked evidence into a compact review surface without discovery framing."
+  - "Support future viral/public storytelling with conservative internal artifacts first."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+    - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+    - "docs/reviews/nuclear-prediction-registry-status-after-pred-0062.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    TASK-0285 and TASK-0286 now provide a useful scientific story: a small
+    shell-axis signal survived scout synthesis, while naive mid-mass and
+    isotope-chain hypotheses failed. This should be summarized as an
+    evidence card for review and later communication, not as a claim.
+
+requirements:
+  - "Create a compact evidence card that separates baseline evidence, sandbox scout evidence, negative results, and prospective registry entries."
+  - "Include a small leaderboard or table with SHELL-SCOUT-003, SHELL-SCOUT-005, NR-SCOUT-003, MIDMASS-SCOUT-001..005, and required caveats."
+  - "Explain why mid-mass/isotope-chain failure is useful evidence rather than a project failure."
+  - "Include explicit wording that no future-measurement reveal has happened and no nuclear mass law is claimed."
+  - "Do not add new model fitting, prediction entries, live source data, or public launch copy."
+  - "Update campaign docs only if the recommended contributor route changes."
+
+accepted_outputs:
+  - "docs/results/nuclear-scout-evidence-card.md"
+  - "updated docs/campaigns/nuclear-mass-surface.md if needed"
+  - "updated docs/results/visual-summary.md if the concise evidence index needs a link"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

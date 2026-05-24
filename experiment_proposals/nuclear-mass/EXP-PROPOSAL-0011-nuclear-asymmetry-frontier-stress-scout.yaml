@@ -1,0 +1,110 @@
+id: EXP-PROPOSAL-0011
+title: "Sandbox nuclear asymmetry-frontier adversarial stress scout"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude-code
+  task_id: TASK-0289
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/reviews/nuclear-neutron-rich-variant-scout-001.md"
+  - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+  - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+  - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0045-asymmetry-frontier-stress-scout-batch.yaml"
+
+question: "Does any bounded asymmetry-frontier residual feature survive adversarial primary, frontier-contrast, sign-inversion, and worst-subset thresholds against the frozen RESULT-0015 baseline, after the NR-SCOUT-005 overfit neighbor is preserved as an explicit negative control?"
+
+method:
+  summary: "Generate nine bounded candidate ideas, reject three free-exponent, per-Z-slope, and threshold-sweep candidates before execution, execute six candidates including the NR-SCOUT-005 overfit-neighbor, a sign-inverted adversarial control, a clipped-above-0.25 variant, and a near-null control, and report subset deltas, a frontier-contrast metric, and a deterministic lane-recommendation block against the frozen RESULT-0015 baseline."
+  code_references:
+    - "scripts/run_nuclear_asymmetry_frontier_stress_scout.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+    - "tests/test_nuclear_asymmetry_frontier_stress_scout.py"
+  commands:
+    - "python3 scripts/run_nuclear_asymmetry_frontier_stress_scout.py"
+    - "python3 -m pytest tests/test_nuclear_asymmetry_frontier_stress_scout.py"
+  parameters:
+    generated_candidates: 9
+    executed_candidates: 6
+    rejected_before_execution: 3
+    near_null_controls: 1
+    overfit_neighbors: 1
+    sign_inverted_controls: 1
+    clipped_variants: 1
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-neutron-rich-variant-scout-001.md"
+    - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+  assumptions:
+    - "The scout does not update prediction registry entries."
+    - "The scout does not update EXP-0012, RESULT-0015, claims, knowledge, or canonical datasets."
+    - "The OVERFITTED overfit-neighbor and the negated sign-inverted coefficient are preserved as negative evidence."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0017/"
+  metrics:
+    - "generated_candidate_count"
+    - "executed_candidate_count"
+    - "rejected_before_execution_count"
+    - "delta_mae_by_subset_mev"
+    - "frontier_contrast_mev"
+    - "lane_recommendation"
+    - "verdict_counts"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0017/report.md"
+    - "agent_runs/AGENT-RUN-0017/limitations.md"
+    - "docs/reviews/nuclear-asymmetry-frontier-stress-scout-001.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, ASYM-STRESS-003 is OVERFITTED, ASYM-STRESS-004's applied coefficient is the negation of ASYM-STRESS-001's, the near-null control remains null, rejected candidates are documented, and no registry, result, claim, knowledge, or canonical dataset files are modified."
+  fail_condition: "Sandbox fail if the lane writes prediction entries, hides subset regressions, relaxes the OVERFITTED neighbor or the sign-inverted control, or frames retrospective deltas as prospective prediction."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  expected_failure_modes:
+    - "Matched quadratic+cubic neutron-excess pair will reproduce the NR-SCOUT-005 catastrophic blow-up."
+    - "Sign-inverted control will regress on every subset by construction."
+    - "Clipped-above-0.25 variant may fit a dormant column because no training row crosses 0.25."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a prediction reveal."
+    - "Do not call OVERFITTED candidates discoveries."
+    - "Do not imply registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Preserve OVERFITTED and INCONCLUSIVE verdicts."
+    - "Require a future maintainer-reviewed task for registry or reveal work."
+
+limitations:
+  - "The candidate fit surface is small and retrospective."
+  - "No training row has (N-Z)/A above 0.25, so the clipped variant fits a dormant column."
+  - "The lane is preserved as adversarial sandbox evidence, not as a discovery candidate."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether the asymmetry-frontier lane should remain a future review surface, be demoted to watchlist, or be preserved only as negative evidence, using the deterministic lane_recommendation block as a starting point."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed registry or reveal task before any PRED-* or RESULT-* update."

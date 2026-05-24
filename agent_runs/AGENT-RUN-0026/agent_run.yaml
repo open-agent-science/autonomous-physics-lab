@@ -1,0 +1,48 @@
+id: AGENT-RUN-0026
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0339
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: master
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0043-midmass-isotope-gap-scout-batch.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0009-nuclear-midmass-isotope-gap-scout.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0026/metrics.json
+  report: agent_runs/AGENT-RUN-0026/report.md
+  limitations: agent_runs/AGENT-RUN-0026/limitations.md
+  preflight: agent_runs/AGENT-RUN-0026/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0026/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: task_scope
+    status: PASS
+    notes: TASK-0339 requests a sandbox local-curvature lane, not reveal scoring.
+  - name: data_boundary
+    status: PASS
+    notes: Only committed repository datasets are used; no live external fetch is
+      performed.
+  - name: control_boundary
+    status: PASS
+    notes: Chain-shuffled and smooth-window controls are executed and reported.
+  - name: promotion_boundary
+    status: PASS
+    notes: No prediction registry, canonical result, claim, or knowledge file is written.
+limitations:
+- Neighbor-derived features use committed full-known residual context and therefore
+  are diagnostic rather than predictive.
+- The fit surface remains the 11-row NMD-0002 training slice, so coefficient stability
+  is not established.
+- Chain and isotone transfer are evaluated retrospectively and include sparse groups
+  that must not be overinterpreted.
+- No source fetch, canonical result rewrite, PRED entry, claim update, or public-facing
+  physics claim is authorized.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any local-curvature follow-up, reveal
+    scoring, RESULT-* artifact, claim, or knowledge update.

@@ -1,0 +1,50 @@
+id: TASK-0301
+title: "Add Nuclear Mass Blind Prediction Challenge page"
+type: documentation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make Nuclear Mass Surface legible as the flagship shared challenge for coordinated agents."
+  - "Separate prospective frozen predictions from retrospective sandbox evidence."
+  - "Give contributors a clear challenge page without opening a real reveal task prematurely."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/open-agent-network.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "prediction_registry/nuclear_masses/"
+  planning_context: >
+    The Nuclear Mass Surface is the strongest current shared scientific
+    campaign for parallel agents. It already has a frozen baseline, sandbox
+    scout evidence, prospective registry entries, reveal protocol, and source
+    readiness gates. A challenge page should explain the shared goal while
+    keeping all future-measurement claims gated.
+
+requirements:
+  - "Create docs/challenges/nuclear-mass-blind-prediction.md."
+  - "Explain the challenge as coordinated, source-gated prospective validation, not a completed reveal."
+  - "Link the frozen prediction registry, reveal protocol, source-readiness checklist, scout evidence card, and Nuclear Mass Surface campaign page."
+  - "State that future measurements decide forecasts only after a maintainer-reviewed reveal task."
+  - "Do not add public-post/DOU copy, live data fetches, registry entries, or scoring results."
+
+accepted_outputs:
+  - "docs/challenges/nuclear-mass-blind-prediction.md"
+  - "updated docs/campaigns/nuclear-mass-surface.md or README.md links if useful"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

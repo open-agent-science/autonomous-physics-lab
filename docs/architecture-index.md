@@ -11,6 +11,11 @@ Use it when you need to understand:
 - how public scientific memory is structured;
 - which files matter when changing workflows, validation, or artifacts.
 
+For the short conceptual map, start with
+[Architecture Layers](./architecture-layers.md). The layer model explains how
+agent coordination, scientific memory, domain campaigns, and data/reveal/claim
+gates fit together without requiring a repository layout refactor.
+
 ## Start Here
 
 For a new contributor or a new LLM session, read in this order:
@@ -22,6 +27,24 @@ For a new contributor or a new LLM session, read in this order:
 5. [CONTRIBUTING.md](../CONTRIBUTING.md)
 6. [docs/contributing-workflow.md](./contributing-workflow.md)
 7. [docs/claim-promotion-policy.md](./claim-promotion-policy.md)
+8. [docs/architecture-layers.md](./architecture-layers.md)
+
+## Four-Layer Model
+
+APL is easiest to reason about as four layers:
+
+1. Research Agent Core - mission control, tasks, PR review, closeout, and
+   curator helpers.
+2. Scientific Memory - hypotheses, experiments, results, claims, knowledge,
+   agent runs, reviews, and prediction registries.
+3. Domain Campaigns - Nuclear, Exoplanets, Quantum, Atomic, Pendulum, and
+   other bounded research surfaces.
+4. Data / Reveal / Claim Gates - source manifests, checksums, no-peek
+   protocols, reveal readiness, and result-promotion scorecards.
+
+See [docs/architecture-layers.md](./architecture-layers.md). Keep this model
+as an orientation layer; do not move files or add abstractions unless a task
+identifies a concrete pain point.
 
 ## Core Code
 

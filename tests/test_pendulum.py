@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
+import pytest
 from typer.testing import CliRunner
 
 from physics_lab.cli import _latest_result_path, app
@@ -637,6 +638,7 @@ def test_cli_validate_result_smoke(tmp_path: Path) -> None:
     assert "Validated results/EXP-0001/RUN-0002/result.yaml as result." in result.stdout
 
 
+@pytest.mark.full_repo
 def test_validate_repository_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
@@ -814,6 +816,7 @@ def test_validate_repository_keeps_science_task_references_strict(tmp_path) -> N
         raise AssertionError("Expected science task reference validation to fail")
 
 
+@pytest.mark.full_repo
 def test_cli_validate_repo_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
@@ -831,6 +834,7 @@ def test_cli_validate_repo_smoke(tmp_path: Path) -> None:
     assert f"- knowledge: {summary.counts['knowledge']}" in result.stdout
 
 
+@pytest.mark.full_repo
 def test_cli_validate_repo_strict_smoke() -> None:
     runner = CliRunner()
     result = runner.invoke(app, ["validate-repo", ".", "--strict"])
@@ -841,6 +845,7 @@ def test_cli_validate_repo_strict_smoke() -> None:
     assert "INFO" in result.stdout
 
 
+@pytest.mark.full_repo
 def test_cli_status_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
@@ -855,7 +860,7 @@ def test_cli_status_smoke(tmp_path: Path) -> None:
 
     assert result.exit_code == 0
     assert (
-        "Stage: v0.1-private-alpha — scientific campaign and contributor workflow validation"
+        "Stage: v0.2-public-alpha candidate — final release go/no-go review pending"
         in result.stdout
     )
     assert f"Run id: {latest_result['run_id']}" in result.stdout

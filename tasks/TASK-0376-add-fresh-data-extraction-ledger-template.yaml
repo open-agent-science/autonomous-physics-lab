@@ -1,0 +1,50 @@
+id: TASK-0376
+title: "Add fresh-data extraction ledger template"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make table extraction and figure digitisation reviewable before rows enter benchmark datasets."
+  - "Prevent approximate eyeballing or LLM-recalled numbers from becoming committed data."
+  - "Give agents a standard way to report source location, extraction method, uncertainty, and review status."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_data_policy
+  related_objects:
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "docs/notes/fresh-data-source-policy.md"
+    - "docs/reviews/quantum-size-direct-absorption-seed-review.md"
+    - "docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md"
+  planning_context: >
+    Quantum direct-row curation showed that figure-derived points need a
+    deterministic extraction record. Atomic and Nuclear source-gated work need
+    the same discipline for table values, covariance references, and reveal
+    sources. This task adds a reusable extraction ledger template.
+
+requirements:
+  - "Define an extraction ledger entry format with source artifact id, source location, extraction method, extracted_by, reviewed_by, value fields, uncertainty fields, unit, row class, provenance mode, and accepted_for_benchmark."
+  - "Include explicit provenance modes for direct table value, digitised figure point, independently reviewed observation, calibration-derived value, and rejected value."
+  - "Include examples for table extraction and figure digitisation without adding real new data."
+  - "Define required reviewer notes and blocker fields."
+  - "Do not curate new rows or run benchmarks."
+
+accepted_outputs:
+  - "templates/extraction_ledger.yaml"
+  - "docs/extraction-ledger-template.md"
+  - "docs/reviews/fresh-data-extraction-ledger-template-review.md"
+  - "short link from docs/fresh-data-intake-protocol.md now that the protocol is on main"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

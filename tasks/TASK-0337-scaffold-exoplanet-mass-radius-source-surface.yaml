@@ -1,0 +1,55 @@
+id: TASK-0337
+title: "Scaffold exoplanet mass-radius source surface"
+type: scientific_dataset
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare Exoplanet Mass-Radius as the planned fourth scientific campaign without starting a benchmark prematurely."
+  - "Create the source, schema, and holdout surface before any agent fetches live catalog data or computes metrics."
+  - "Give parallel agents a safe preparation task that can later support a high-visibility, data-backed benchmark."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/future-research-portfolio.md"
+    - "docs/notes/fresh-data-source-policy.md"
+  planning_context: >
+    APL currently keeps Nuclear Mass Surface, Quantum Size Effects, and Atomic
+    Clock Residuals as the three active campaigns. Exoplanet Mass-Radius is
+    planned as the fourth campaign because it has public catalog data,
+    recognizable visual structure, known baseline models, natural holdouts,
+    and high public explainability. This task should create the preparation
+    surface only; it must not ingest live rows or run a baseline.
+
+requirements:
+  - "Create a value-free `data/exoplanets/README.md` that defines admissible source classes and row classes."
+  - "Create a value-free `data/exoplanets/source_manifest_template.yaml` or equivalent manifest scaffold with retrieval-date, checksum/archive, license, citation, and no-live-fetch requirements."
+  - "Add a schema sketch or JSON schema for exoplanet mass-radius rows, including planet id/name, mass, radius, uncertainty, true-mass versus minimum-mass flags, method/source provenance, host-star context fields, and inclusion/exclusion status."
+  - "Write a holdout protocol covering planet class, detection method, host-star context, equilibrium-temperature or irradiation bins when available, mass/radius ranges, source-date splits, and measurement-quality filters."
+  - "Record a source-surface review that recommends the first catalog source and states what cannot be ingested yet."
+  - "Do not fetch live archive data, commit catalog rows, run metrics, add prediction registry entries, or promote claims."
+  - "Keep the campaign planned-fourth and preparation-only unless a later maintainer task promotes it to active benchmark work."
+
+accepted_outputs:
+  - "data/exoplanets/README.md"
+  - "data/exoplanets/source_manifest_template.yaml or a documented equivalent"
+  - "physics_lab/schemas/exoplanet_mass_radius.schema.json or docs/schema sketch if JSON schema is intentionally deferred"
+  - "docs/exoplanet-mass-radius-holdout-protocol.md"
+  - "docs/reviews/exoplanet-mass-radius-source-surface-review.md"
+  - "optional concise update to docs/campaigns/exoplanet-mass-radius.md if scaffold decisions change"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

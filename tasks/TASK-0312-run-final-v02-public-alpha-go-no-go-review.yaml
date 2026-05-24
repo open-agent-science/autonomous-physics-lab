@@ -1,0 +1,58 @@
+id: TASK-0312
+title: "Run final v0.2 public-alpha go/no-go review"
+type: release_review
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the current v0.2-public-alpha candidate state into an explicit release decision artifact."
+  - "Update the older v0.2 public-readiness review against the current Open Agent Network, Nuclear Mass Surface, and release-signoff evidence."
+  - "Keep public-opening decisions separate from DOU or article planning."
+
+input:
+  mode: planning_only
+  related_domain: public_alpha_readiness
+  related_objects:
+    - "docs/reviews/v0.2-public-readiness.md"
+    - "docs/reviews/public-release-validation-signoff.md"
+    - "docs/public-release-gates.md"
+    - "docs/open-agent-network.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    Earlier v0.2 readiness work produced PUBLIC AFTER NAMED BLOCKERS. Since
+    then, APL has added Open Agent Network positioning, stronger Nuclear Mass
+    Surface evidence, prediction registry and reveal discipline, release-time
+    validation signoff, and additional multi-agent workflow guardrails. This
+    task creates a current go/no-go artifact rather than assuming readiness.
+
+requirements:
+  - "Review current release gates, status docs, mission docs, open-agent-network positioning, and Nuclear Mass Surface wording."
+  - "Check that local path leak guidance, external reviewer replication guidance, default-branch validation signoff, CI expectations, and overclaim wording remain aligned."
+  - "Check that public-facing docs describe prospective nuclear predictions as frozen forecasts, not validated results."
+  - "Check that reveal-scoring tasks remain blocked until a reviewed source manifest and maintainer approval exist."
+  - "Return exactly one release verdict: PUBLIC_ALPHA_READY, PUBLIC_AFTER_FIXES, or NOT_READY."
+  - "List any remaining blockers as concrete repository tasks or docs fixes."
+  - "Do not write or prepare public article/DOU draft content."
+  - "Do not promote any scientific claim or mark public opening as complete without maintainer approval."
+
+accepted_outputs:
+  - "docs/reviews/v0.2-public-alpha-go-no-go-2026-05.md"
+  - "updated docs/status.md if the stage or named blockers are stale"
+  - "updated docs/public-release-gates.md only if the gate checklist is stale"
+  - "updated tasks if the review identifies missing release blockers"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_active_board.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -6,9 +6,13 @@ Autonomous Physics Lab (APL) is verification-first scientific infrastructure.
 Its job is to make physics hypotheses testable, falsifiable, reproducible, and
 reviewable through deterministic code and version-controlled evidence.
 
+APL is also an open agent network for science: many contributors can connect
+their AI agents to shared scientific campaigns, and accepted outputs become
+public scientific memory rather than isolated local chat artifacts.
+
 APL is currently in:
 
-`v0.1-private-alpha — scientific campaign and contributor workflow validation`
+`v0.2-public-alpha candidate — final release go/no-go review pending`
 
 The repository stays private while current campaigns, contributor workflow, and
 public-release gates are still being validated.
@@ -53,15 +57,22 @@ normal contributor path research-first.
 
 ## Active Campaigns
 
-APL currently organizes work around five contributor-facing campaign surfaces:
+APL currently organizes work around one flagship validation campaign, several
+fresh-data source surfaces, and older benchmark/falsification surfaces that
+still define the project's quality floor:
 
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates and prospective predictions | Test nuclear residual candidates with frozen baselines, robustness gates, prediction registry discipline, and future reveal-readiness | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign | Build a direct-measurement row-level data surface before any baseline benchmark is allowed | [quantum-size-effects-campaign-plan.md](./notes/quantum-size-effects-campaign-plan.md) |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface | Establish manifest, covariance, and source-admissibility discipline for high-precision clock data | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Emerging catalog-snapshot benchmark surface | Test whether mass-radius residual structure survives source, provenance, and holdout discipline | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
+| [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
+| [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
 | [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation discovery against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
 | [Particle Mass Relations](./campaigns/particle-mass-relations.md) | Active with scoped reproductions and falsifications | Test whether impressive mass relations survive disciplined, falsification-first handling | [koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md) |
 | [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Active with canonical MVP result | Build a quality floor for future formula and benchmark work | [RUN-0006 report](../results/EXP-0006/RUN-0006/report.md) |
 | [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) | Planning active, no canonical run yet | Extend APL into consistency checks that do not depend on curve fitting alone | [thought-experiment-consistency-suite.md](./notes/thought-experiment-consistency-suite.md) |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates | Test nuclear residual candidates with frozen baselines, robustness gates, and post-AME2020 time-split discipline | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
 
 ## Current Results
 
@@ -133,6 +144,8 @@ The current contributor workflow is branch-based and task-driven.
 
 Operational entry points:
 
+- [docs/open-agent-network.md](./open-agent-network.md) for the coordination
+  model behind shared campaign work;
 - [docs/current-missions.md](./current-missions.md) and
   `python3 scripts/apl_mission.py` for the Agent First mission menu;
 - [docs/external-reviewer-replication-guide.md](./external-reviewer-replication-guide.md)
@@ -154,8 +167,11 @@ Operational entry points:
   proposal-first workflow when no canonical task fits;
 - [docs/private-contributor-pilot.md](./private-contributor-pilot.md) for the
   invited private contributor flow;
-- `python3 -m physics_lab.cli sync-active-board .` for keeping the active board
-  aligned with task YAML files;
+- the `Sync Active Board` post-merge GitHub Action keeps the active board
+  and `docs/task-views/*.md` aligned with task YAML files on `main` (no
+  agent action required);
+  `python3 -m physics_lab.cli sync-active-board .` remains available for
+  maintainer dry-runs and explicit board-sync PRs);
 - maintainer review and closeout tooling for review bundles and handoff.
 
 Low-risk contribution patterns right now:

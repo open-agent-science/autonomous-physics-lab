@@ -1,0 +1,56 @@
+id: TASK-0299
+title: "Reframe APL as an Open Agent Network for Science"
+type: documentation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the multi-agent coordination model central without promising automatic discoveries."
+  - "Clarify that APL coordinates many AI agents through shared campaigns, review gates, and public scientific memory."
+  - "Keep Agent First, Research First, and Parallel Work aligned with conservative scientific wording."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "README.md"
+    - "docs/open-agent-network.md"
+    - "docs/strategy.md"
+    - "docs/mission-control.md"
+    - "docs/agent-operating-model.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/campaigns/"
+  planning_context: >
+    The project already has Agent First mission control and parallel
+    contributor workflows, but the public positioning still reads partly like
+    a local AI-science repository. Reframe the existing Open Agent Network doc
+    and README language around coordinated scientific campaigns, public
+    scientific memory, review gates, and conservative outputs.
+
+requirements:
+  - "Update docs/open-agent-network.md as the central open-agent-network manifest."
+  - "Update README.md positioning to describe APL as an open agent network for science."
+  - "Emphasize coordinated campaigns, sandbox evidence, negative results, prediction registries, and review gates."
+  - "Do not add public-post, DOU, or launch-copy tasks."
+  - "Do not imply that many AI agents guarantee discoveries."
+  - "Do not weaken claim-promotion, maintainer-review, or no-direct-main rules."
+
+accepted_outputs:
+  - "docs/open-agent-network.md"
+  - "README.md"
+  - "docs/strategy.md"
+  - "docs/mission-control.md"
+  - "docs/agent-operating-model.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

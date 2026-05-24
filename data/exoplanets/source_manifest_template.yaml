@@ -1,0 +1,281 @@
+manifest_id: EXO-MR-SOURCE-MANIFEST-TEMPLATE-0001
+schema_version: 0.1.0
+task_id: TASK-0337
+status: template_only
+campaign_profile_id: exoplanet-mass-radius
+created_by:
+  contributor_id: roman
+  agent_id: claude
+
+scope:
+  purpose: >
+    Metadata-only source manifest template for future exoplanet mass-radius
+    ingestion review. This file records admissibility fields and source
+    classes before any planet mass, radius, uncertainty, or detection-method
+    rows are ingested.
+  value_policy: no_measurement_values_recorded
+  live_fetch_allowed: false
+  benchmark_allowed: false
+  claim_promotion_allowed: false
+  prediction_registry_allowed: false
+  habitability_or_biosignature_claims_allowed: false
+
+row_classes:
+  direct_mass_radius_measurement:
+    description: >
+      Planet entries where both mass and radius are direct measurements with
+      explicit method labels (transit radius plus RV true mass for a
+      transiting hot Jupiter; transit radius plus transit-timing-variation
+      true mass; transit radius plus dynamical mass from a circumbinary or
+      multi-planet stability fit).
+    admissible_as: direct_measurement
+    requires:
+      - source_locator
+      - release_date_or_publication_date
+      - retrieval_date
+      - checksum_or_archive_plan
+      - planet_id_and_canonical_name
+      - mass_method_label_per_row
+      - radius_method_label_per_row
+      - mass_uncertainty_semantics
+      - radius_uncertainty_semantics
+      - true_mass_versus_minimum_mass_flag
+      - host_star_context_fields
+      - inclusion_status_and_reason
+  transit_radius_with_rv_minimum_mass:
+    description: >
+      Radius is direct from transit; mass is M sin i from radial velocity
+      only (no transit-induced inclination break for inclination).
+    admissible_as: minimum_mass_row
+    requires:
+      - source_locator
+      - retrieval_date
+      - checksum_or_archive_plan
+      - explicit_minimum_mass_flag_set_true
+      - radius_method_label_per_row
+      - rv_campaign_or_dataset_reference
+      - uncertainty_semantics
+      - inclusion_status_and_reason
+  transit_radius_only:
+    description: >
+      Radius is direct from transit; mass is absent or model-inferred.
+      Mass field must be null or carry a model_inferred flag.
+    admissible_as: radius_only_row
+    requires:
+      - source_locator
+      - retrieval_date
+      - checksum_or_archive_plan
+      - radius_method_label_per_row
+      - mass_field_null_or_model_inferred_flag
+      - inclusion_status_and_reason
+  rv_minimum_mass_only:
+    description: >
+      Mass is M sin i from RV; radius is absent or model-inferred.
+    admissible_as: minimum_mass_only_row
+    requires:
+      - source_locator
+      - retrieval_date
+      - checksum_or_archive_plan
+      - explicit_minimum_mass_flag_set_true
+      - radius_field_null_or_model_inferred_flag
+      - inclusion_status_and_reason
+  microlensing_or_astrometry_mass:
+    description: >
+      Mass from microlensing, astrometry, or transit-timing dynamics.
+      Radius may be absent, model-inferred, or in rare cases direct.
+    admissible_as: alternate_method_row
+    requires:
+      - source_locator
+      - retrieval_date
+      - checksum_or_archive_plan
+      - detection_method_class_label
+      - mass_uncertainty_semantics
+      - inclusion_status_and_reason
+  model_inferred:
+    description: >
+      Mass or radius back-computed from a published mass-radius relation,
+      forward forecaster, or composition model. Not ingestible as benchmark
+      evidence; allowed only as an explicit comparison surface for residual
+      diagnostics.
+    admissible_as: comparison_surface_only
+    requires:
+      - source_locator
+      - retrieval_date
+      - explicit_inferred_flag_set_true
+      - underlying_relation_or_model_reference
+      - inclusion_status_set_excluded_from_residual_axis
+  synthetic_dry_run:
+    description: >
+      Fabricated row for testing schema or loaders. Must carry
+      synthetic: true and real_measurement_source: false.
+    admissible_as: synthetic_only
+    requires:
+      - synthetic_flag_true
+      - real_measurement_source_flag_false
+      - fake_source_warning_text
+
+candidate_source_families:
+  - source_family_id: EXO-SRC-CLASS-001
+    row_class: composite_catalog_snapshot
+    title: NASA Exoplanet Archive Planetary Systems Composite Parameters (PSCompPars)
+    source_locator: null
+    homepage: "https://exoplanetarchive.ipac.caltech.edu/"
+    documentation: "https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html"
+    access_surface: "TAP service at https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
+    doi: null
+    archive_url: null
+    release_date: null
+    retrieval_date: null
+    checksum_sha256: null
+    checksum_scope: null
+    archive_plan: required_before_ingestion
+    license_note: not_reviewed
+    value_status: metadata_only_no_values
+    detection_method_coverage: not_reviewed
+    uncertainty_semantics: not_reviewed
+    composite_aggregation_notes: not_reviewed
+    holdout_or_reveal_boundary: source_manifest_only
+    # PSCompPars-specific query contract committed for TASK-0345.
+    # The plan locks the exact ADQL query, the discoverymethod -> detection_method
+    # map, and the pl_bmassprov -> mass_class map. Future ingestion tasks must
+    # cite these files and must not silently alter the column list.
+    query_contract:
+      plan_document: "docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md"
+      query_file: "data/exoplanets/snapshot_plans/pscomppars_query.adql"
+      detection_method_map_file: "data/exoplanets/snapshot_plans/pscomppars_method_map.yaml"
+      mass_provenance_map_file: "data/exoplanets/snapshot_plans/pscomppars_mass_provenance_map.yaml"
+      requested_columns:
+        - pl_name
+        - hostname
+        - default_flag
+        - soltype
+        - disc_year
+        - discoverymethod
+        - pl_orbper
+        - pl_orbsmax
+        - pl_orbeccen
+        - pl_eqt
+        - pl_insol
+        - pl_rade
+        - pl_radeerr1
+        - pl_radeerr2
+        - pl_radj
+        - pl_bmasse
+        - pl_bmasseerr1
+        - pl_bmasseerr2
+        - pl_bmassj
+        - pl_bmassprov
+        - pl_dens
+        - st_spectype
+        - st_teff
+        - st_tefferr1
+        - st_tefferr2
+        - st_rad
+        - st_mass
+        - st_met
+        - st_meterr1
+        - st_meterr2
+        - st_age
+        - st_logg
+        - sy_dist
+        - pl_refname
+        - st_refname
+        - disc_refname
+      where_clause: "default_flag = 1"
+      explicitly_excluded_field_classes:
+        - habitability_flags_or_scores
+        - biosignature_summaries
+        - transit_spectroscopy_summaries
+        - target_prioritization_fields
+    stop_conditions:
+      - missing_per_row_method_label
+      - true_mass_versus_minimum_mass_not_separable
+      - composite_aggregation_rules_not_recoverable
+      - retrieval_snapshot_not_pinned
+      - query_contract_modified_without_plan_amendment
+
+  - source_family_id: EXO-SRC-CLASS-002
+    row_class: peer_reviewed_primary_publication
+    title: Per-planet primary discovery and characterization papers
+    source_locator: null
+    homepage: null
+    doi: null
+    archive_url: null
+    release_date: null
+    retrieval_date: null
+    checksum_sha256: null
+    checksum_scope: null
+    archive_plan: required_before_ingestion
+    license_note: not_reviewed
+    value_status: metadata_only_no_values
+    detection_method_coverage: per_publication_specific
+    uncertainty_semantics: not_reviewed
+    composite_aggregation_notes: per_paper_only_no_cross_paper_averaging
+    holdout_or_reveal_boundary: source_manifest_only
+    stop_conditions:
+      - mass_method_label_not_recoverable_from_paper
+      - radius_method_label_not_recoverable_from_paper
+      - reuse_terms_or_redistribution_unclear
+      - multiple_solutions_in_paper_not_separable
+
+  - source_family_id: EXO-SRC-CLASS-003
+    row_class: mission_pipeline_catalog_release
+    title: Kepler / K2 / TESS mission-pipeline catalogs
+    source_locator: null
+    homepage: null
+    doi: null
+    archive_url: null
+    release_date: null
+    retrieval_date: null
+    checksum_sha256: null
+    checksum_scope: null
+    archive_plan: required_before_ingestion
+    license_note: not_reviewed
+    value_status: metadata_only_no_values
+    detection_method_coverage: transit_predominantly
+    uncertainty_semantics: not_reviewed
+    selection_function_notes: required_before_ingestion
+    holdout_or_reveal_boundary: source_manifest_only
+    stop_conditions:
+      - selection_function_not_documented
+      - confirmed_versus_candidate_status_not_separable
+      - mass_values_imputed_from_radius_without_flag
+
+  - source_family_id: EXO-SRC-CLASS-004
+    row_class: archive_copy
+    title: Institutional or archive mirrors of EXO-SRC-CLASS-001..003
+    source_locator: null
+    homepage: null
+    doi: null
+    archive_url: null
+    release_date: null
+    retrieval_date: null
+    checksum_sha256: null
+    checksum_scope: null
+    archive_plan: archive_copy_must_match_primary_checksum
+    license_note: not_reviewed
+    value_status: metadata_only_no_values
+    holdout_or_reveal_boundary: source_manifest_only
+    stop_conditions:
+      - archive_copy_checksum_differs_from_primary
+      - mirror_not_persistently_identified
+
+global_stop_conditions:
+  - source_hides_per_row_mass_or_radius_method_label
+  - source_mixes_true_mass_and_minimum_mass_without_flag
+  - source_mixes_direct_measurements_and_model_inferred_values_without_flag
+  - source_omits_uncertainty_semantics
+  - source_lacks_retrieval_date_or_archive_plan
+  - source_license_or_reuse_terms_unclear
+  - task_requests_habitability_or_biosignature_inference
+  - task_requests_planet_target_prioritization
+  - task_requests_broad_planet_formation_law_fit_before_source_review
+
+promotion_boundary:
+  writes_real_planet_values: false
+  writes_derived_composition_classes: false
+  writes_benchmark_metrics: false
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  habitability_or_biosignature_claims_allowed: false

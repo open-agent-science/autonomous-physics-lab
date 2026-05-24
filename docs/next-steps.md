@@ -110,60 +110,43 @@ The nuclear-mass surface campaign has now landed its first complete benchmark
 and prediction-registration wave: campaign scaffold, dataset layer, baseline
 residual benchmark, structured holdout protocol, sandbox pilots, a deterministic
 prediction factory, reusable target batches, and selected prospective registry
-entries through `PRED-0050`.
+entries through `PRED-0068`.
 
-The next scientific goal is not to multiply registry entries casually. It is to
-use the new factory surface to review richer feature-term candidates and to
-prepare a reveal protocol before any future measurement comparison:
+The next scientific goal is not to multiply frozen registry entries casually.
+It is to finish reveal-readiness, adversarially stress the strongest scout
+families, preserve negative evidence, and let Quantum Size Effects advance only
+through measurement-grade row-level data:
 
-- run a feature-term slate with shell, magic-number, neutron-excess, and
-  coefficient-composed variants;
-- review target-batch coverage and feature-term sensitivity before registry
-  selection;
-- freeze only a small selected feature-term subset after maintainer review;
-- define how future reveal tasks must pin sources, audit no-peek state, handle
-  partial reveals, preserve null results, and avoid claim promotion.
+- use the completed registry coverage audit, synthetic reveal dry-run, and
+  scout synthesis as the map for the next wave;
+- use concrete real-source, checksum, no-peek, and partial-reveal criteria
+  before any future reveal comparison;
+- run bounded adversarial stress lanes for shell-axis and asymmetry-frontier
+  candidates without editing the frozen registry;
+- package the latest scout evidence so positive and negative outcomes are easy
+  to review;
+- preserve the no-peek boundary while waiting for future reviewed
+  measurements;
+- avoid adding more frozen prediction-registry entries until coverage and
+  reveal-readiness are reviewed again after the shell-axis mini-wave.
 
-Recommended nuclear validation queue for parallel agents:
+Recent nuclear validation sequence:
 
-- `TASK-0174` nuclear pilot evidence card and visual funnel, now merged
-- `TASK-0188` post-AME2020 time-split guard, complete in conservative
-  source-manifest-only mode with no active benchmark metrics
-- `TASK-0196` reviewed row-level post-AME2020 nuclear mass holdout dataset,
-  now merged
-- `TASK-0197` real post-AME2020 nuclear time-split benchmark, now merged as
-  inconclusive `AGENT-RUN-0008` evidence
-- `TASK-0189` nuclear prediction registry policy, now merged
-- `TASK-0200` bounded shell-aware nuclear sandbox batch
-- `TASK-0201` bounded pairing / odd-even nuclear sandbox batch, now merged
-- `TASK-0202` bounded neutron-rich nuclear sandbox batch
-- `TASK-0204` adversarial review of the completed second-batch sandbox outputs,
-  now merged
-- `TASK-0205` first prospective nuclear-mass prediction registry entries, now
-  merged as `PRED-0001` through `PRED-0020`
-- `TASK-0228` through `TASK-0237` nuclear prediction variant expansion wave:
-  ten parallel lanes where agents add and pre-reveal validate their own bounded
-  `PRED-0021+` variants without live external fetch or claim promotion; the
-  unfinished manual lanes are now fallback work behind the factory-first path
-- `TASK-0249` nuclear prediction variant factory: automate the repetitive
-  coefficient-grid / target-batch inner loop so agents curate and review a
-  smaller selected slate instead of hand-generating every candidate
-- `TASK-0250` first factory-generated slate: create and review 30-80 draft
-  candidates without committing raw draft PRED YAML
-- `TASK-0252` factory tooling expansion: add feature-term variants before
-  scaling registry commits; `TASK-0253` ranking helper is already merged and
-  should be used by `TASK-0250`
-- `TASK-0254` target-batch library: now merged; future slates should reuse the
-  reviewed target batches instead of copying ad hoc target lists
-- `TASK-0251` selected factory registry wave: now merged as `PRED-0041`
-  through `PRED-0050`, using reviewed coefficient-transform slate-001
-- `TASK-0264` feature-term factory slate-002: the next primary Nuclear task,
-  using shell, magic-number, neutron-excess, near-null, sign-symmetric, and
-  combined coefficient-plus-feature variants
-- `TASK-0265` selected feature-term registry wave: blocked until `TASK-0264`
-  is reviewed and a maintainer approves a small selected subset
-- `TASK-0266` reveal protocol: ready now, and should land before any
-  future measurement comparison or reveal-scoring task
+- `TASK-0288` shell-axis adversarial stress scout: strongest sandbox signal
+  follow-up, focused on `SHELL-SCOUT-003` / `SHELL-SCOUT-005` with sign and
+  null controls.
+- `TASK-0289` asymmetry-frontier stress scout: secondary Nuclear lane using
+  `NR-SCOUT-005` as the required overfit negative control.
+- `TASK-0290` nuclear scout evidence card: compact maintainer-facing package
+  for the shell-axis signal and mid-mass/isotope-chain negative result.
+- `TASK-0295` agent-vs-factory comparison: answer whether agent-designed
+  Nuclear scouts add value beyond deterministic factory/grid generation.
+- `TASK-0296` shell-axis target-batch design: completed conservative target
+  design for `shell-axis-balanced-001`.
+- `TASK-0297` shell-axis prospective mini-wave: registers `PRED-0063` through
+  `PRED-0068` as frozen prospective records only.
+- Future reveal or reveal-scoring tasks must follow the `TASK-0266` protocol
+  and the source-readiness checklist instead of ad hoc source comparison
 - `TASK-0203` post-AME2020 time-split failure-mode analysis
 - `TASK-0178` broad second nuclear sandbox batch remains blocked as an
   umbrella; keep broad sandbox expansion behind factory-slate and
@@ -192,8 +175,10 @@ Current nuclear-mass baseline state:
 - prospective prediction requires a registry entry created before later
   measurements are compared;
 - the current prospective registry includes `PRED-0001` through `PRED-0030`,
-  `PRED-0037`, `PRED-0038`, and selected factory entries `PRED-0041` through
-  `PRED-0050`.
+  `PRED-0037`, `PRED-0038`, selected coefficient-transform factory entries
+  `PRED-0041` through `PRED-0050`, and selected feature-term entries
+  `PRED-0051` through `PRED-0062`, plus the shell-axis mini-wave
+  `PRED-0063` through `PRED-0068`.
 
 The nuclear queue should stay conservative:
 
@@ -206,21 +191,146 @@ The nuclear queue should stay conservative:
 - no broad second nuclear sandbox batch from `TASK-0178`; use the factory
   path for bounded expansion and keep future reveal comparison in a separate
   reviewed task.
+- after the shell-axis mini-wave, do not score or reveal `PRED-0063` through
+  `PRED-0068` until a separate source-manifest/no-peek reveal task is approved.
+- do not register more scout-derived `PRED-*` entries until the shell-axis
+  mini-wave coverage and future reveal-readiness implications are reviewed.
+- `TASK-0307` completed as a negative-but-useful source-manifest review: no
+  acceptable post-registration source was pinned, so `TASK-0305` remains
+  blocked behind a future reviewed source manifest and explicit maintainer
+  approval.
+- `TASK-0310` completed the first full-known shell-axis retrospective audit as
+  sandbox evidence. The next Nuclear wave should not add more `PRED-*`
+  entries; it should test the validity domain, coefficient stability, and
+  specificity of that signal.
+- `TASK-0333` fixed the shell-axis lane as `DIAGNOSTIC_ONLY`: useful sandbox
+  evidence, but not a discovery candidate, not a reveal-scoring
+  justification, and not a reason to keep slicing the same lane.
 
-Portfolio status: Nuclear Mass Surface is the only `NOW` scientific flagship.
-Use the portfolio document before moving any other scientific direction into
-active work.
+Portfolio status: APL now keeps three active scientific campaigns with
+different maturity levels: Nuclear Mass Surface as the flagship validation
+track, Quantum Size Effects as the measurement-readiness track, and Atomic
+Clock Residuals as the fresh-data source-surface track. Exoplanet Mass-Radius
+is the planned fourth campaign; it should stay source/schema-only until a
+pinned catalog snapshot, holdout protocol, and baseline task exist.
+
+The next parallel research wave should maintain at least five independent
+scientific `READY` tasks across those campaigns. The current task-queue wave
+opens fresh lanes instead of extending the shell-axis audit loop:
+
+- `TASK-0338` for Nuclear deformation-proxy hypothesis testing;
+- `TASK-0339` for Nuclear local residual curvature and kink testing;
+- `TASK-0340` for Nuclear odd-even by shell-proximity interactions;
+- `TASK-0341` for Nuclear measured/extrapolated boundary diagnostics;
+- `TASK-0342` for Nuclear uncertainty-weighted residual stability;
+- `TASK-0343` for Nuclear high-error cluster hypotheses;
+- `TASK-0344` for Atomic Clock covariance and uncertainty semantics;
+- `TASK-0345` for Exoplanet PSCompPars snapshot ingestion planning;
+- `TASK-0346` for Exoplanet baseline and holdout protocol;
+- `TASK-0347` for Quantum alternative direct table source triage;
+- `TASK-0351` for Nuclear local-curvature adversarial controls after the
+  first strong-but-inconclusive signal;
+- `TASK-0352` for a no-leakage local-curvature freeze protocol before any
+  predictive use of neighbor-residual features;
+- `TASK-0353` is review-ready with the first pinned Exoplanet PSCompPars
+  mass-radius snapshot; do not run metrics until it is reviewed and a
+  separate baseline task is opened;
+- `TASK-0354` for an Exoplanet loader dry run that can proceed in parallel
+  with snapshot ingestion;
+- `TASK-0355` for one concrete Atomic Clock direct-ratio source-artifact
+  review;
+- `TASK-0356` for a Quantum direct source-artifact intake path so
+  maintainer-provided SI/table files can unblock row curation quickly;
+- `TASK-0361` for the first Exoplanet Mass-Radius baseline benchmark on the
+  pinned PSCompPars snapshot;
+- `TASK-0362` as a blocked follow-up to package the Exoplanet residual
+  failure map after baseline metrics exist;
+- `TASK-0363` for the Atomic Clock Beloy 2021 source-artifact and covariance
+  preflight before direct ratio rows;
+- `TASK-0364` for a concrete Quantum PMC/arXiv direct-table source attempt;
+- `TASK-0365` as a blocked Nuclear synthesis after uncertainty/high-error/
+  local-curvature adversarial lanes finish;
+- `TASK-0330` remains the current Atomic Clock direct frequency-ratio source
+  review;
+- `TASK-0332` remains the current Atomic Clock real-row readiness gate.
+
+For Nuclear, agents should now run many bounded hypothesis lanes in parallel.
+Each lane should complete a mini-loop: hypothesis, deterministic feature or
+runner, baseline comparison, matched controls, holdout/subset report,
+negative-result preservation, and conservative verdict. Do not add `PRED-*`
+entries or claim promotion from this wave.
 
 The next prepared campaign is Quantum Size Effects, but it should start from
 campaign and data foundations rather than formula search:
 
 - `TASK-0222` has created the Quantum Size Effects campaign scaffold;
-- `TASK-0223` and `TASK-0224` are now ready and may run in parallel as the
-  dataset/source-manifest and holdout-protocol foundation;
-- `TASK-0225` and `TASK-0226` remain blocked until the dataset and holdout
-  surfaces exist;
+- `TASK-0223` and `TASK-0224` have delivered the dataset/source-manifest and
+  holdout-protocol foundation;
+- `TASK-0275` has delivered the first source-manifest seed;
+- `TASK-0281` and `TASK-0282` delivered calibration-derived row-level
+  absorption seeds;
+- `TASK-0283` reviewed the row-level data surface and kept the first baseline
+  blocked because current rows are not direct measurements;
+- `TASK-0291` is blocked until direct absorption rows have a reviewed
+  table-value or digitisation path; do not use LLM-estimated figure
+  coordinates or published sizing-polynomial values;
+- `TASK-0292` has a review-only band-edge blocker record: Jasieniak 2011
+  appears to contain a suitable Supporting Information table, but a curator
+  still needs access to the table values or a deterministic digitisation
+  artifact before committing a `qd-*.yaml` band-edge seed;
+- `TASK-0325` has preserved the Jasieniak 2011 path as a blocker package,
+  because the repository still has no committed SI/table extraction or
+  deterministic digitisation artifact for `>=6` direct rows;
+- `TASK-0306` has defined the digitisation protocol and artifact requirements
+  needed before figure-derived absorption rows can unblock `TASK-0291`; the
+  remaining gate is a committed artifact, primary table values,
+  maintainer-provided rows, or an explicit waiver;
+- `TASK-0293` should re-run the readiness gate after a direct-measurement seed
+  lands, or after an explicit maintainer waiver;
+- `TASK-0298` triaged direct-measurement source candidates, but later
+  absorption work should treat Yu 2003 as requiring digitisation or primary
+  tables rather than immediate table-row curation;
+- `TASK-0334` has packaged the Jasieniak 2011 source locator and deterministic
+  acquisition plan as metadata-only evidence; preserve the blocker until the
+  actual SI/table extraction or digitisation artifact is reviewed;
+- `TASK-0347` should look for open alternative direct-table or deterministic
+  digitisation sources in parallel with any maintainer-provided Jasieniak SI
+  path;
+- `TASK-0356` defines the local intake path for maintainer-provided or open
+  direct source artifacts;
+- `TASK-0364` should attempt a single PMC/arXiv direct-table source from the
+  TASK-0347 ranking and either curate a small direct seed or preserve a
+  blocker without relaxing provenance rules;
+- `TASK-0335` should define, not run, the weaker
+  `calibration_curve_consistency` benchmark scope;
+- `TASK-0336` should stay blocked until `TASK-0334` or an equivalent
+  maintainer-provided artifact makes direct band-edge rows reproducible;
+- `TASK-0225` is intentionally blocked until reviewed row-level
+  `data/quantum_dots/qd-*.yaml` measurement rows exist, or a maintainer waiver
+  scopes the first benchmark as calibration-curve consistency;
+- `TASK-0276` and `TASK-0277` are queued after `TASK-0225` for visualization
+  and readiness review before the autonomous pilot;
+- `TASK-0226` remains blocked until the baseline is reviewed;
 - `TASK-0227` has landed as a small lepton g-2 cross-observable falsifier and
   remains a guardrail result, not a flagship campaign.
+
+The fourth campaign is now Exoplanet Mass-Radius:
+
+- use `TASK-0337` to create the value-free source manifest template, row
+  schema, holdout protocol, and source-surface review;
+- `TASK-0353` pinned the first NASA Exoplanet Archive PSCompPars snapshot and
+  committed both raw and normalized artifacts;
+- do not fetch live NASA Exoplanet Archive data again for downstream
+  benchmarks; use the committed snapshot;
+- expected later results are baseline reproduction, uncertainty-aware
+  residual maps, failure maps by planet class and detection method, and
+  negative controls for simple mass-radius formulas.
+- use `TASK-0345` to prepare the first PSCompPars pinned-snapshot ingestion
+  plan without fetching rows;
+- use `TASK-0346` to define the baseline protocol before any agent sees or
+  scores row-level catalog values.
+- use `TASK-0361` next for the first baseline benchmark, then `TASK-0362` for
+  residual/failure-map packaging if the baseline artifact lands cleanly.
 
 ### 2. Validate Private Contributors And Agents
 

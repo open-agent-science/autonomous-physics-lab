@@ -20,6 +20,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--pr", type=int, help="GitHub pull request number.")
     parser.add_argument("--branch", help="Local branch to review.")
     parser.add_argument("--task", help="Task id, for example TASK-0034.")
+    parser.add_argument(
+        "--validation-mode",
+        choices=("ci-aware", "strict"),
+        default="ci-aware",
+        help=(
+            "Use ci-aware to avoid duplicating already-green GitHub PR checks "
+            "while still running local-only validation; use strict to run every "
+            "task validation command locally."
+        ),
+    )
     return parser
 
 
@@ -39,6 +49,7 @@ def main() -> int:
         pull_request=args.pr,
         branch=args.branch,
         task_id=args.task,
+        validation_mode=args.validation_mode,
     )
     print(render_review_report(report))
     return 0
