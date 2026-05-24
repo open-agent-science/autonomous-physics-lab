@@ -105,6 +105,10 @@ Atomic-clock evidence must be split before ingestion into three classes:
 Future tasks must coordinate with the
 [Fresh-Data Source Policy](../notes/fresh-data-source-policy.md) before adding
 any real rows.
+They should also follow the
+[Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md) so direct
+frequency-ratio rows, derived constraints, covariance blockers, and reveal
+boundaries are reviewed before row curation.
 
 ## Minimal Future Schema
 

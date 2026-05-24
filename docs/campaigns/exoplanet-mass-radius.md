@@ -90,6 +90,11 @@ Not allowed yet:
 - mixing true mass, minimum mass, and model-derived mass without explicit
   row-class flags.
 
+Future catalog, source-artifact, row-curation, and residual-map tasks should
+follow the [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md) so
+catalog snapshots, extraction gates, row classes, baseline readiness, and
+benchmark readiness stay separate.
+
 ## Recommended Next Shape
 
 The campaign should mature in this order:
