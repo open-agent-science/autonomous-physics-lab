@@ -15,13 +15,18 @@ from __future__ import annotations
 
 import json
 import math
+import sys
 from pathlib import Path
 
 import pytest
 import yaml
 
-import scripts.run_exoplanet_mass_radius_baseline as runner
-from physics_lab.engines.exoplanet_mass_radius import (
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+import scripts.run_exoplanet_mass_radius_baseline as runner  # noqa: E402
+from physics_lab.engines.exoplanet_mass_radius import (  # noqa: E402
     CHEN_KIPPING_SEGMENTS,
     ResidualSummary,
     benchmark_result_to_dict,
@@ -36,7 +41,6 @@ from physics_lab.engines.exoplanet_mass_radius import (
     summarize_log_residuals,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
 SYNTHETIC_FIXTURE = (
     ROOT / "tests" / "fixtures" / "exoplanets" / "synthetic_pscomppars_snapshot.yaml"
 )
