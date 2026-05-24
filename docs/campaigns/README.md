@@ -1,45 +1,71 @@
 # Campaign Map
 
-This directory is the campaign-level map for APL.
+This directory is the campaign-level map for APL. Use it when you want to
+understand where the repository is doing science, where it is only preparing a
+data surface, and where agents can help without overclaiming.
 
-Use it when you need to answer four questions quickly:
+The short version:
 
-1. What scientific direction is this repository pursuing?
-2. Which directions already have reproducible evidence?
-3. Which directions are still planning-only?
-4. Where can a human or agent contribute next without overclaiming?
+- **Current flagship:** Nuclear Mass Surface.
+- **Fresh-data buildout:** Quantum Size Effects, Atomic-Clock Residuals, and
+  Exoplanet Mass-Radius.
+- **Quality floor:** Pendulum, Dimensional Analysis, and Particle Mass
+  Relations.
+- **Planning/watchlist:** Fresh Physics Data Axes, Anomaly Registry, and
+  Thought-Experiment Consistency.
 
-## Current Campaigns
+## Start By Intent
 
-| Campaign | Maturity | Current evidence | Best next contribution |
-| --- | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilot, prediction factory, frozen prospective registry, and post-registry scout synthesis | `EXP-0012/RUN-0001`, `AGENT-RUN-0005`, factory reviews, `PRED-0001` through `PRED-0068`, shell-axis stress survival, asymmetry-frontier review evidence, and mid-mass negative scout evidence | source-manifest/no-peek reveal readiness for the newly frozen shell-axis mini-wave |
-| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold complete with calibration-derived row-level seeds; direct measurement rows still needed | campaign page, profile, plan note, source manifest seed, calibration-derived absorption seeds, and readiness-gate review | direct-measurement source triage, absorption or band-edge seed, then re-run the readiness gate before `TASK-0225` baseline work |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Planning scaffold only; no rows, metrics, or constants claims | source-surface scaffold, schema sketch, and source-candidate stop conditions from `TASK-0311` | value-free source manifest review, then synthetic-only loader dry-run if approved |
-| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Planned fourth campaign; no rows or metrics yet | strategic campaign page and `TASK-0337` preparation task | source/schema scaffold, holdout protocol, and catalog snapshot policy before any benchmark |
-| [Pendulum Formula Falsification](./pendulum-formula-falsification.md) | Mature benchmark with multiple canonical runs | `EXP-0001/RUN-0001`, `RUN-0002`, `RUN-0003` and the gauntlet result package | stronger falsification probes, clearer diagnostics, safer wording |
-| [Particle Mass Relations](./particle-mass-relations.md) | Mature falsification track with narrow charged-lepton results | `EXP-0004/RUN-0004` and `EXP-0005/RUN-0005` plus negative-result surfaces | guardrail-preserving follow-up tasks before broader search |
-| [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Mature quality-floor benchmark plus follow-on curation | `EXP-0006/RUN-0006` plus live challenge-set work | challenge-set curation, benchmark hygiene, and future intentional rebaseline planning |
-| [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical run yet | suite design plus light-clock micro-planning task | scoped scenario planning, then deterministic validator design |
-| [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning scaffold only; no ingestion or metrics | source policy and ingestion prerequisites from `TASK-0309` | manifest-only source review for atomic clocks or lattice QCD, with PTA/GW/collider axes still WATCHLIST |
-| [Anomaly Registry](./anomaly-registry.md) | Planning scaffold only; no anomaly rows or fits | schema and admissibility contract from `TASK-0308` | schema validation or synthetic-only likelihood dry-run, with Hubble/g-2/W-mass/broad constants still WATCHLIST |
+| If you want to... | Start here | Why |
+| --- | --- | --- |
+| review the strongest current research surface | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, and explicit negative controls. |
+| help build the next direct-measurement dataset | [Quantum Size Effects](./quantum-size-effects.md) | It is blocked on source-grade direct rows before benchmark work can honestly begin. |
+| work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It needs source, covariance, and direct-vs-derived semantics before modeling. |
+| work on an accessible catalog benchmark | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | It is building a pinned snapshot and baseline protocol before residual claims. |
+| replay mature evidence | [Pendulum Formula Falsification](./pendulum-formula-falsification.md) or [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | These are safer quality-floor tracks with deterministic replay value. |
+| propose a longer-horizon direction | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) or [Anomaly Registry](./anomaly-registry.md) | These are planning surfaces; keep them schema- and guardrail-first. |
 
-## How To Use This Map
+## Current Public-Facing Surfaces
 
-- If you want the current flagship campaign, start with Nuclear Mass Surface.
-- If you want fresh data surfaces, start with Quantum Size Effects,
-  Atomic-Clock Residuals, or Exoplanet Mass-Radius.
-- If you want mature replayable evidence, start with Pendulum, Dimensional
-  Analysis, or Particle Mass Relations.
-- If you want longer-horizon planning, start with Fresh Physics Data Axes,
-  Anomaly Registry, or Thought-Experiment Consistency.
+| Campaign | Current maturity | Best next contribution |
+| --- | --- | --- |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, retrospective stress audits, and source-readiness blockers. | Source-manifest/no-peek reveal readiness, evidence synthesis, domain-limit packaging, or negative-control review. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold and calibration-derived seeds exist; measurement-grade baseline remains blocked. | Direct-measurement source artifact, deterministic digitization/table path, or readiness-gate update. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Source surface, schema sketch, manifest template, synthetic loader, and source-class reviews. | Value-free source review, covariance semantics, real-row readiness, or source-artifact package. |
+| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot and loader path are emerging; benchmark interpretation is still gated by protocol and row-class validation. | Baseline protocol hardening, row-class audit, residual failure-map preparation, or snapshot provenance review. |
+
+These four are the main public-facing surfaces today. They should be presented
+as disciplined research infrastructure, not as finished discoveries.
+
+## Mature Quality-Floor Tracks
+
+| Campaign | What it teaches APL |
+| --- | --- |
+| [Pendulum Formula Falsification](./pendulum-formula-falsification.md) | Exact-reference replay, approximation failure modes, leaderboard discipline, and honest range limits. |
+| [Particle Mass Relations](./particle-mass-relations.md) | Falsification-first handling of tempting numerical relations and uncertainty-sensitive wording. |
+| [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | Fast formula sanity checks and benchmark hygiene for future generated hypotheses. |
+
+These tracks are not the loudest public hook anymore, but they are the reason
+the newer campaigns can be stricter.
+
+## Planning And Watchlist Surfaces
+
+| Campaign | Status | Safe contribution shape |
+| --- | --- | --- |
+| [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning and source-policy layer. | Source-policy review or manifest-only triage for less-saturated data axes. |
+| [Anomaly Registry](./anomaly-registry.md) | Schema/admissibility scaffold, not a joint-fit campaign. | Schema validation, admissibility examples, or synthetic-only likelihood contracts. |
+| [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical benchmark run yet. | Scoped scenario planning and deterministic validator design. |
+
+Do not turn planning surfaces into broad formula searches. A planning campaign
+is useful when it prevents chaotic future work.
 
 ## Repository-Wide Orientation
 
 Pair these campaign pages with:
 
 - [Mission Control](../mission-control.md)
-- [Architecture Layers](../architecture-layers.md)
+- [Current Missions](../current-missions.md)
 - [Project Status](../status.md)
-- [Architecture](../architecture.md)
+- [Open Agent Network](../open-agent-network.md)
+- [Architecture Layers](../architecture-layers.md)
 - [Active Task Board](../../tasks/ACTIVE.md)

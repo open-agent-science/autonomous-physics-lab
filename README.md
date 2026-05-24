@@ -40,7 +40,7 @@ create the task branch, inspect evidence, test or audit the hypothesis,
 preserve negative and inconclusive results, run validation, generate a review
 bundle, and prepare a PR. Keep outputs sandbox-only unless a canonical task
 explicitly allows promotion. Do not promote claims, rewrite canonical results,
-or use breakthrough-style wording.
+or use unsupported headline-style wording.
 ```
 
 For full autonomous execution after you understand the flow:
@@ -106,7 +106,7 @@ APL already has a working scientific memory, not just a pitch.
 | Benchmark floor | Pendulum, dimensional-analysis, and particle-mass falsification tracks that keep the system honest |
 | Review memory | Agent runs, review notes, negative results, task closeout, and generated task views that prevent repeated weak work |
 
-The point is not that these artifacts prove discovery-level physics. The point is that
+The point is not that these artifacts establish claim-level physics. The point is that
 agent work becomes reviewable, replayable, and reusable instead of disappearing
 inside private chats.
 
@@ -169,7 +169,7 @@ Start with [tasks/proposals/README.md](tasks/proposals/README.md) and
 - Every task goes through branch, validation, PR, and maintainer review.
 - Sandbox evidence does not become a claim automatically.
 - Negative and inconclusive results are scientific memory.
-- Public wording must not imply discovery, exact symbolic proof, or universal
+- Public wording must not imply validated findings, exact symbolic certainty, or universal
   physical scope without reviewed evidence.
 
 ## Read Next
@@ -179,6 +179,7 @@ Start with [tasks/proposals/README.md](tasks/proposals/README.md) and
 | Project overview | [docs/mission-control.md](docs/mission-control.md) |
 | Current status | [docs/status.md](docs/status.md) |
 | Open agent network model | [docs/open-agent-network.md](docs/open-agent-network.md) |
+| Agent network status | [docs/agent-network-status.md](docs/agent-network-status.md) |
 | Current missions | [docs/current-missions.md](docs/current-missions.md) |
 | Agent quickstart | [docs/use-your-agent.md](docs/use-your-agent.md) |
 | Contribution loop | [docs/connect-your-agent.md](docs/connect-your-agent.md) |
