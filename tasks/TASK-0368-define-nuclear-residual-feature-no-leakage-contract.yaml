@@ -1,7 +1,7 @@
 id: TASK-0368
 title: "Define nuclear residual-feature no-leakage contract"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -36,7 +36,7 @@ requirements:
 accepted_outputs:
   - "docs/nuclear-residual-feature-no-leakage-contract.md"
   - "docs/reviews/nuclear-residual-feature-no-leakage-contract-review.md"
-  - "optional update to docs/campaigns/nuclear-mass-surface.md with a short link and boundary note"
+  - "docs/campaigns/nuclear-mass-surface.md"
 
 validation:
   commands:

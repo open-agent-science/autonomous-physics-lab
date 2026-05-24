@@ -173,6 +173,11 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   evidence, but stop additional retrospective shell-axis audits, registry
   expansion, reveal scoring, and claim promotion unless a later
   maintainer-approved source-gated task changes the scope.
+- `TASK-0368` defines the residual-feature no-leakage contract for future
+  Nuclear prediction work: local-curvature, high-error-cluster, shell-axis,
+  source-status, and uncertainty-weighted residual features are now classified
+  as predictive-eligible only under explicit no-peek artifacts, diagnostic-only,
+  or blocked.
 
 Historical context:
 
@@ -215,6 +220,7 @@ Start here:
 - [TASK-0279](../../tasks/TASK-0279-run-nuclear-neutron-rich-variant-scout.yaml)
 - [TASK-0280](../../tasks/TASK-0280-run-nuclear-pairing-odd-even-variant-scout.yaml)
 - [TASK-0285](../../tasks/TASK-0285-synthesize-nuclear-scout-lanes-after-registry-status.yaml)
+- [Nuclear Residual-Feature No-Leakage Contract](../nuclear-residual-feature-no-leakage-contract.md)
 
 ## Open Questions
 
@@ -327,6 +333,11 @@ Start here:
   directionality note: the committed retrospective signal is magic-N dominant
   across the three primary shell-axis candidates, but the relevant magic
   subsets remain sparse.
+- Use the residual-feature no-leakage contract
+  (`docs/nuclear-residual-feature-no-leakage-contract.md`) before proposing any
+  future Nuclear prediction task that depends on residual-adjacent
+  local-curvature, high-error-cluster, source-status, or uncertainty-weighted
+  features.
 - `TASK-0305` should stay blocked until source preflight, dry-run review, a
   reviewed `TASK-0307` source manifest, and explicit maintainer approval make
   a real reveal comparison legitimate.
