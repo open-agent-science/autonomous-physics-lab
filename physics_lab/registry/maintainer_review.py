@@ -78,6 +78,10 @@ TASK_QUEUE_VALIDATION_COMMANDS = (
     "python3 -m physics_lab.cli validate-repo .",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
 )
+TASK_PROPOSAL_VALIDATION_COMMANDS = (
+    "python3 -m physics_lab.cli validate-repo .",
+    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+)
 TASK_QUEUE_ALLOWED_STATUSES = frozenset({"PROPOSED", "READY", "BLOCKED"})
 TASK_QUEUE_FORBIDDEN_PREFIXES = (
     "agent_runs/",
@@ -585,6 +589,10 @@ def build_review_report(
                     required_fixes.append(
                         f"Proposal {pf} status is {payload['status']}. Keep it PROPOSED while requesting acceptance."
                     )
+        if proposal_files:
+            validation_payload = {
+                "validation": {"commands": list(TASK_PROPOSAL_VALIDATION_COMMANDS)}
+            }
         canonical_task_files = tuple(
             path
             for path in changed_files

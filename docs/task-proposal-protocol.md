@@ -105,6 +105,11 @@ Every proposal file in a batched PR must still:
 - avoid guessing canonical `TASK-XXXX` ids;
 - avoid touching `tasks/ACTIVE.md` or canonical task files.
 
+Maintainer review agents should validate every changed proposal file in the
+batch and run proposal-level repository validation once for the PR. A
+multi-proposal PR is a supported first-class proposal shape, not a reason to
+skip validation or require a separate PR per file.
+
 Bundling unrelated proposals is discouraged even when technically allowed.
 
 ## Salvaging Useful Ideas From Stale PRs
@@ -127,6 +132,11 @@ them into separate proposal PRs.
 ## Proposal Validation
 
 Task proposal PRs should stay lightweight.
+
+The same validation rule applies to one proposal file or many proposal files in
+the same PR. Review tooling should validate all changed
+`tasks/proposals/*.yaml` files and run proposal-level repository checks once
+for the batch.
 
 Recommended validation:
 
