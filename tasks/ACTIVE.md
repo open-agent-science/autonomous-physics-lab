@@ -62,7 +62,6 @@ one PR.
 - `TASK-0376` — Add fresh-data extraction ledger template (`research_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0377` — Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`)
 - `TASK-0378` — Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0380` — Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0382` — Add science-output conveyor health report (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
@@ -72,6 +71,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0380` — Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0383` — Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
