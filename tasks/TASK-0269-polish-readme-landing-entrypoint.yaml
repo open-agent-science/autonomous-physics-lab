@@ -42,6 +42,8 @@ requirements:
   - "Keep the stronger existing hero image near the top of the README while moving heavy result material into visual summary or status docs."
   - "Do not replace the existing hero image until a better public-facing visual is available."
   - "Show only the top current campaign surfaces on the README landing page; route mature and planning tracks into the campaign map."
+  - "Replace weak README evidence listing with a stronger scientific-memory summary."
+  - "Simplify contributor-facing diagrams in linked onboarding docs when plain steps are easier to scan."
   - "Do not delete figure assets or canonical result artifacts."
   - "Do not promote sandbox evidence, nuclear-mass candidates, or benchmark results into scientific claims."
   - "Keep EXP-0010 and other high-risk formula-search material out of flagship success framing."
@@ -56,6 +58,7 @@ accepted_outputs:
   - "README hero visual that reuses the existing concept image until a stronger replacement is available"
   - "README campaign section focused on the four current public-facing surfaces"
   - "polished status and mission-control docs linked from the README"
+  - "simplified use-your-agent onboarding flow with fewer heavy diagrams"
   - "canonical task spec for TASK-0269"
 
 validation:
