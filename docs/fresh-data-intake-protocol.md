@@ -130,7 +130,9 @@ Exit criteria:
 
 Mandatory artifacts:
 
-- Extraction ledger, deterministic script output, or transcription review.
+- Extraction ledger, deterministic script output, or transcription review. Use
+  [`templates/extraction_ledger.yaml`](../templates/extraction_ledger.yaml) as
+  the shared starter template when a task needs a ledger-shaped review surface.
 - Source location for every extracted value group.
 - Extracted-by and reviewed-by fields or equivalent review notes.
 - Unit and uncertainty semantics.

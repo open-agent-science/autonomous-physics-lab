@@ -10,6 +10,9 @@ The ledger is a review surface, not a dataset. It records where a value came
 from, how it was extracted, what uncertainty semantics were available, who
 reviewed it, and whether it is admissible for benchmark use.
 
+This template implements the `TABLE_OR_FIGURE_EXTRACTED` review surface in
+the [fresh-data intake protocol](fresh-data-intake-protocol.md).
+
 ## Required Entry Fields
 
 Each ledger entry must include:

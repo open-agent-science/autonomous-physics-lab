@@ -35,7 +35,7 @@ accepted_outputs:
   - "templates/extraction_ledger.yaml"
   - "docs/extraction-ledger-template.md"
   - "docs/reviews/fresh-data-extraction-ledger-template-review.md"
-  - "optional link from docs/fresh-data-intake-protocol.md omitted because that protocol is not yet on main"
+  - "short link from docs/fresh-data-intake-protocol.md now that the protocol is on main"
 
 validation:
   commands:
