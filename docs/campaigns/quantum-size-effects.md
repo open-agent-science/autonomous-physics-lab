@@ -79,6 +79,15 @@ Current task posture:
   protocol only, no metrics);
 - `TASK-0336` — direct band-edge row curation from an approved source artifact
   (BLOCKED until `TASK-0334` or an equivalent maintainer-provided artifact).
+- `TASK-0347` — open direct-table source triage (DONE; ranks
+  Norris-Bawendi 1996 CdSe and Kang-Wise 1997 PbS as the best first attempts
+  because they may expose table-derived direct rows through APS-access paths).
+- `TASK-0356` — direct source-artifact intake path (DONE; defines the artifact
+  directory layout, required metadata, checksum policy, and row-type evidence
+  checklist before any `qd-*.yaml` seed can be curated).
+- `TASK-0364` — PMC/arXiv/direct-table source curation attempt (READY; should
+  start with the ranked candidates from `TASK-0347`, not with another
+  calibration-polynomial path).
 
 Safe next contributions are:
 
@@ -87,8 +96,9 @@ Safe next contributions are:
   `TASK-0283` readiness gate;
 - a maintainer-approved waiver package if the first benchmark is intentionally
   scoped as calibration-curve consistency rather than measurement-versus-model;
-- deterministic source-artifact packaging for Jasieniak 2011 or an equivalent
-  open direct-table source before any direct band-edge row seed is added;
+- deterministic source-artifact packaging for Norris-Bawendi 1996,
+  Kang-Wise 1997, Jasieniak 2011, or an equivalent open direct-table source
+  before any direct band-edge row seed is added;
 - visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
@@ -151,6 +161,11 @@ Current evidence is infrastructure and source curation only:
   `quantum_calibration_curve_consistency` scope package for a possible weaker
   calibration-derived benchmark, but records no metrics and does not unblock
   the direct measurement-versus-model benchmark.
+- `TASK-0347` gives the campaign a ranked open-source path away from the
+  Jasieniak ACS blocker: first try Norris-Bawendi 1996 CdSe, then Kang-Wise
+  1997 PbS, then Andreev-Lipovskii 1999 PbS if the first two fail.
+- `TASK-0356` gives curators a concrete intake path for maintainer-provided or
+  open source files, including required metadata and checksum handling.
 
 Historical context:
 
@@ -213,6 +228,8 @@ Historical context:
   do not run metrics or pretend to unblock the measurement benchmark;
 - keep `TASK-0336` blocked until `TASK-0334` lands a deterministic artifact or
   the maintainer supplies equivalent table/digitisation evidence;
+- run `TASK-0364` against the ranked `TASK-0347` candidates before returning
+  to calibration-polynomial sources;
 - after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
   `TASK-0277` to review readiness before the autonomous pilot;
 - run `TASK-0226` only after a maintainer-approved baseline exists.

@@ -1,0 +1,61 @@
+id: TASK-0388
+title: "Refresh campaign status after latest agent results"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep campaign pages aligned with canonical task and review artifacts so agents choose the right next science lanes."
+  - "Preserve conservative scientific wording while making recent Exoplanet, Nuclear, Quantum, and Atomic progress visible."
+  - "Avoid stale campaign guidance that sends agents back to completed or blocked work."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_status
+  related_objects:
+    - "docs/campaigns/README.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/exoplanet-mass-radius-baseline-benchmark.md"
+    - "docs/reviews/exoplanet-regime-residual-scout.md"
+    - "docs/reviews/nuclear-new-lanes-decision-after-uncertainty.md"
+    - "docs/reviews/nuclear-residual-feature-no-leakage-contract-review.md"
+    - "docs/reviews/quantum-open-direct-table-source-triage.md"
+    - "docs/quantum-direct-source-artifact-intake.md"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "docs/reviews/atomic-clock-source-artifact-version-drift-stop-condition.md"
+  planning_context: >
+    Several agent results landed after the earlier campaign pages were written:
+    Exoplanet baseline and regime scout, Nuclear no-leakage contract and
+    new-lanes synthesis, Quantum direct-source triage and source-artifact intake,
+    and Atomic covariance / version-drift source policies. Campaign pages should
+    reflect those results without promoting claims.
+
+requirements:
+  - "Update campaign status text to reflect landed agent results and current blockers."
+  - "Keep all scientific outputs framed as benchmark, sandbox, source-gate, or blocker evidence unless a canonical result/claim exists."
+  - "Do not add prediction entries, result artifacts, claims, knowledge files, or row-level scientific data."
+  - "Do not create new future work tasks unless the READY science pool is below the preferred threshold."
+
+accepted_outputs:
+  - "updated campaign map summary"
+  - "updated Exoplanet Mass-Radius campaign status and recommended next work"
+  - "updated Nuclear Mass Surface campaign status after no-leakage/new-lanes decisions"
+  - "updated Quantum Size Effects campaign status after source-triage/intake work"
+  - "updated Atomic-Clock Residuals campaign status after covariance/version-drift stop conditions"
+  - "canonical task spec for TASK-0388"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_mission_control.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -13,8 +13,8 @@ schema scaffold needed before any future ingestion task can add rows.
 
 ## Current Status
 
-Source-surface scaffold with synthetic loader and source-class reviews. No
-real-row benchmark yet.
+Source-surface scaffold with synthetic loader, source-class reviews, covariance
+semantics, and version-drift stop conditions. No real-row benchmark yet.
 
 `TASK-0311` adds:
 
@@ -45,8 +45,16 @@ Current next tasks:
   direct frequency-ratio measurements and derived drift/constraint sources;
 - `TASK-0332` ran the real-row readiness gate before any real clock value can
   be added;
-- `TASK-0344`, `TASK-0355`, and `TASK-0363` continue the source-artifact and
-  covariance hardening path.
+- `TASK-0344` locked the uncertainty and covariance semantics required before
+  direct rows or derived constraints can enter a residual axis;
+- `TASK-0355` and `TASK-0363` continue the Beloy 2021 source-artifact and
+  covariance hardening path;
+- `TASK-0372` added the `SOURCE_ARTIFACT_VERSION_DRIFT` stop condition so
+  arXiv, version-of-record, or supplement disagreements halt row curation
+  before any value-bearing row is committed;
+- `TASK-0371` is the next row-curation task, but it should add Beloy 2021
+  direct-ratio rows only if the source artifact, uncertainty semantics,
+  covariance notes, and version-drift checks all pass.
 
 `TASK-0332` records `READY_FOR_SOURCE_SPECIFIC_REVIEW` and
 `NOT_READY_FOR_REAL_ROWS`: the campaign has enough scaffold to review concrete
@@ -155,6 +163,8 @@ Safe future tasks:
 - review one source class for admissibility and preserve blockers;
 - run a synthetic-only loader dry-run with fabricated rows;
 - run a real-row readiness gate before any future row seed;
+- curate a single source-specific row seed only when covariance, confidence
+  level, direct-vs-derived, and version-drift stop conditions are satisfied;
 - define a no-peek freeze package for a future source update;
 - audit whether derived constraints can be separated from direct measurements.
 

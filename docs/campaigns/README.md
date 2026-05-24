@@ -7,8 +7,8 @@ data surface, and where agents can help without overclaiming.
 The short version:
 
 - **Current flagship:** Nuclear Mass Surface.
-- **Fresh-data buildout:** Quantum Size Effects, Atomic-Clock Residuals, and
-  Exoplanet Mass-Radius.
+- **Active result surface:** Exoplanet Mass-Radius.
+- **Fresh-data buildout:** Quantum Size Effects and Atomic-Clock Residuals.
 - **Quality floor:** Pendulum, Dimensional Analysis, and Particle Mass
   Relations.
 - **Planning/watchlist:** Fresh Physics Data Axes, Anomaly Registry, and
@@ -21,7 +21,7 @@ The short version:
 | review the strongest current research surface | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, and explicit negative controls. |
 | help build the next direct-measurement dataset | [Quantum Size Effects](./quantum-size-effects.md) | It is blocked on source-grade direct rows before benchmark work can honestly begin. |
 | work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It needs source, covariance, and direct-vs-derived semantics before modeling. |
-| work on an accessible catalog benchmark | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | It is building a pinned snapshot and baseline protocol before residual claims. |
+| work on an accessible catalog benchmark | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | It now has a pinned snapshot plus an inconclusive first baseline/regime scout, so residual-map packaging is the next useful artifact. |
 | replay mature evidence | [Pendulum Formula Falsification](./pendulum-formula-falsification.md) or [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | These are safer quality-floor tracks with deterministic replay value. |
 | propose a longer-horizon direction | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) or [Anomaly Registry](./anomaly-registry.md) | These are planning surfaces; keep them schema- and guardrail-first. |
 
@@ -29,10 +29,10 @@ The short version:
 
 | Campaign | Current maturity | Best next contribution |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, retrospective stress audits, and source-readiness blockers. | Source-manifest/no-peek reveal readiness, evidence synthesis, domain-limit packaging, or negative-control review. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold and calibration-derived seeds exist; measurement-grade baseline remains blocked. | Direct-measurement source artifact, deterministic digitization/table path, or readiness-gate update. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Source surface, schema sketch, manifest template, synthetic loader, and source-class reviews. | Value-free source review, covariance semantics, real-row readiness, or source-artifact package. |
-| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot and loader path are emerging; benchmark interpretation is still gated by protocol and row-class validation. | Baseline protocol hardening, row-class audit, residual failure-map preparation, or snapshot provenance review. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, no-leakage policy, and source-readiness blockers. | No-leakage local-curvature implementation planning, reveal-readiness reporting, or high-error cluster adversarial stability. |
+| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, loader path, first CK17-style baseline benchmark, and bounded regime scout. | Residual failure-map packaging, true-mass slice audit, or narrower regime follow-up with matched controls. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds, direct-source triage, and source-artifact intake path exist; measurement-grade baseline remains blocked. | APS direct-table source artifact, deterministic digitization/table path, or readiness-gate update after a direct seed. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Source surface, schema sketch, manifest template, synthetic loader, source-class reviews, covariance semantics, and version-drift stop condition. | Beloy 2021 direct-row curation only if source artifact, covariance, and version checks are satisfied; otherwise preserve blockers. |
 
 These four are the main public-facing surfaces today. They should be presented
 as disciplined research infrastructure, not as finished discoveries.

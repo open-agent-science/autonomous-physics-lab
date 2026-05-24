@@ -12,8 +12,9 @@ tested against real dataset structure, subset behavior, and negative controls.
 
 New-reader summary: Nuclear is APL's flagship validation surface, but it is
 currently in diagnostic and source-gated mode. The useful work is stress
-review, no-peek reveal readiness, domain-limit mapping, and negative-result
-preservation, not new broad prediction waves.
+review, no-leakage predictive discipline, no-peek reveal readiness,
+domain-limit mapping, and negative-result preservation, not new broad
+prediction waves.
 
 ## Orientation Note for New Contributors
 
@@ -177,6 +178,15 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   evidence, but stop additional retrospective shell-axis audits, registry
   expansion, reveal scoring, and claim promotion unless a later
   maintainer-approved source-gated task changes the scope.
+- `TASK-0368` locks the residual-feature no-leakage contract. Only explicitly
+  classified families may enter a future predictive implementation task, and
+  source-status features are permanently blocked from predictive use.
+- `TASK-0365` synthesizes the post-uncertainty Nuclear lanes. The strongest
+  remaining signal is `LOCAL-CURVATURE-001`, which receives a guarded **GO**
+  only for a future no-leakage implementation task. High-error cluster work is
+  held diagnostic until labels are rebuilt from residual-free Z/N/A features.
+  Odd-even shell interaction, deformation proxy, and measured/extrapolated
+  boundary lanes are stopped as negative or control-dominated evidence.
 
 Historical context:
 
@@ -188,11 +198,21 @@ Historical context:
 Current campaign state in one sentence:
 the scientific direction is now explicit, baseline-backed, holdout-defined,
 factory-supported, and prospectively frozen through selected registry entries,
-but it has not yet reached a future-measurement reveal; until a source
-manifest is accepted, the safest Nuclear follow-up is retrospective
-full-known-data stress review rather than reveal scoring. The first such audit
-is now recorded as sandbox evidence in `AGENT-RUN-0018`; reveal scoring remains
-blocked.
+but it has not yet reached a future-measurement reveal. The safest Nuclear
+follow-up is no-leakage local-curvature implementation planning and reveal
+readiness reporting, not more broad audits or new prediction entries. The first
+full-known shell-axis audit is preserved as sandbox evidence in
+`AGENT-RUN-0018`; reveal scoring remains blocked.
+
+Current next Nuclear posture:
+
+- `TASK-0381` should make registry counts and reveal-readiness state
+  machine-readable before anyone discusses reveal scoring again.
+- `TASK-0367` should stress the high-error cluster lane only as an adversarial
+  diagnostic, not as a predictive implementation.
+- A future maintainer-approved task may implement `LOCAL-CURVATURE-001` under
+  the `TASK-0352` freeze protocol and `TASK-0368` no-leakage contract. That
+  task must not create a `PRED-*` entry; prediction registration is downstream.
 
 Start here:
 
