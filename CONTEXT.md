@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-24 07:45 UTC
+Generated: 2026-05-24 12:44 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -227,6 +227,10 @@ repository checkout, prefer a dedicated `git worktree` per task so that
 for the helpers (`scripts/apl_new_worktree.sh`) and the optional
 [`scripts/apl_branch_precondition.py`](scripts/apl_branch_precondition.py)
 check that catches "wrong branch / surprise files" before any commit.
+
+See [`docs/notes/agent-discipline-collected.md`](docs/notes/agent-discipline-collected.md)
+for the collected agent-discipline learnings index (worktree usage,
+mock-first testing, dependent-PR serialisation, harness-artifact handling).
 
 ## Task Proposal Rule
 
@@ -2427,10 +2431,19 @@ one PR.
 
 ## READY
 
-- `TASK-0356` — Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0362` — Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0364` — Attempt quantum PMC/arXiv direct-table source curation (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0365` — Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0367` — Run nuclear high-error cluster adversarial stability audit (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0368` — Define nuclear residual-feature no-leakage contract (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0369` — Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0370` — Run exoplanet regime residual scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0371` — Curate atomic Beloy 2021 direct-ratio rows (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0372` — Add atomic source-artifact version-drift stop condition (`scientific_dataset`, priority `high`, difficulty `low`)
+- `TASK-0377` — Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`)
+- `TASK-0378` — Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0382` — Add science-output conveyor health report (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2438,10 +2451,20 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0270` — Persist agent-discipline learnings to the repository (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0271` — Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0356` — Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`)
+- `TASK-0373` — Define cross-campaign fresh-data intake protocol (`research_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0374` — Add cross-campaign source artifact package template (`research_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0375` — Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`)
+- `TASK-0376` — Add fresh-data extraction ledger template (`research_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0380` — Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`)
+- `TASK-0383` — Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`)
+- `TASK-0384` — Document lightweight APL architecture layer model (`documentation`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0385` — Support multi-proposal maintainer-review validation (merged)
 - `TASK-0366` — Align task-queue review with post-merge board sync policy (merged)
 - `TASK-0363` — Pin atomic Beloy 2021 source artifact and covariance preflight (merged)
 - `TASK-0361` — Run exoplanet mass-radius baseline benchmark (merged)
@@ -2784,6 +2807,7 @@ None.
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0379` — Add source artifact package validator helper (`repository_validation`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
