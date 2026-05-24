@@ -83,6 +83,10 @@ closeout/merge in the current request chain, the agent may merge a pure
 closeout PR without asking again. If that authorization is absent or the PR is
 not pure closeout bookkeeping, ask the maintainer an explicit yes/no question:
 `Merge closeout PR #<number>?` Do not silently stop with only a status report.
+Once closeout edits are applied locally, the agent should continue through PR
+creation, review, and merge when authorized; if it cannot, it must name the
+specific blocker and provide exact next commands instead of leaving an
+uncommitted closeout diff in the repo.
 
 Pure closeout bookkeeping may include directly dependent task unblocks from
 `BLOCKED` to `READY` when the merged task wave satisfied explicit prerequisites.

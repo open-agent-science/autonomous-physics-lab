@@ -97,7 +97,10 @@ Good examples:
 The one recommended exception for an enabled action policy is:
 
 - opening a closeout PR for verified merged tasks and then running the review
-  agent on that PR
+  agent on that PR; once closeout edits are applied, the action should continue
+  through PR creation, review, and authorized merge, or report a concrete
+  blocker with exact next commands instead of leaving local closeout changes
+  uncommitted
 
 ## Optional Follow-Up Actions
 
