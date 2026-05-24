@@ -80,6 +80,7 @@ None.
 - `TASK-0355` — Review atomic-clock direct ratio source artifact (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0359` — Harden self-hosted CI runner fallback and queue visibility (`ci_infrastructure`, priority `high`, difficulty `low`)
 - `TASK-0360` — Make automation harness tests cross-platform (`ci_infrastructure`, priority `high`, difficulty `low`)
+- `TASK-0366` — Align task-queue review with post-merge board sync policy (`tooling_fix`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
