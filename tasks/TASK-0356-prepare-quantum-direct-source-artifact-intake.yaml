@@ -1,7 +1,7 @@
 id: TASK-0356
 title: "Prepare quantum direct source artifact intake path"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -37,7 +37,7 @@ requirements:
 accepted_outputs:
   - "docs/quantum-direct-source-artifact-intake.md"
   - "optional source-artifact README stub under data/quantum_dots/source_artifacts/ with no measurement values"
-  - "optional metadata-only update to data/quantum_dots/source_manifest.yaml"
+  - "data/quantum_dots/source_manifest.yaml"
 
 validation:
   commands:
