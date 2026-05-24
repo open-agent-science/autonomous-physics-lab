@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0387` - Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
