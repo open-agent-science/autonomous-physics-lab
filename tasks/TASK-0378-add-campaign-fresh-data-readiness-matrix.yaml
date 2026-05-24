@@ -9,6 +9,7 @@ strategy_alignment:
   - "Make fresh-data blockers visible across Nuclear, Quantum, Atomic, and Exoplanets."
   - "Help the campaign curator decide when a campaign is source-ready, baseline-ready, or blocked."
   - "Avoid starting formula search before source and row readiness are actually satisfied."
+  - "Give each campaign a compact maturity state so agents know whether to run source intake, baseline work, hypothesis pilots, prediction freezes, reveal checks, or claim-gate reviews."
 
 input:
   mode: workflow
@@ -28,11 +29,14 @@ input:
 requirements:
   - "Create a matrix for Nuclear, Quantum Size Effects, Atomic Clock Residuals, and Exoplanet Mass-Radius."
   - "Track at least: source candidates, source artifact pinned, checksum policy, direct rows, row schema, extraction ledger, covariance/correlation policy, holdout/reveal boundary, baseline readiness, benchmark readiness."
+  - "Define campaign maturity states including: SOURCE_SURFACE, PINNED_DATASET, BASELINE_READY, FAILURE_MAP_READY, HYPOTHESIS_PILOT_READY, PREDICTION_FREEZE_READY, REVEAL_READY, CLAIM_CANDIDATE, and NEGATIVE_MEMORY."
+  - "Assign each campaign a current maturity state and a next allowed maturity state."
   - "Assign each cell a status such as READY, PARTIAL, BLOCKED, NOT_STARTED, or NOT_APPLICABLE."
   - "List the next unblock task for every BLOCKED or PARTIAL cell."
   - "Do not change task statuses, ingest data, or promote claims."
 
 accepted_outputs:
+  - "docs/campaign-maturity-states.md"
   - "docs/fresh-data-readiness-matrix.md"
   - "docs/reviews/fresh-data-readiness-matrix-review.md"
   - "optional short pointer from docs/future-research-portfolio.md or docs/status.md if needed"
