@@ -1,0 +1,333 @@
+{
+  "agent_run_id": "AGENT-RUN-0032",
+  "axes": {
+    "minimum_mass_with_transit_radius": {
+      "axis_name": "minimum_mass_with_transit_radius",
+      "eligible_row_count": 2,
+      "overall_chen_kipping": {
+        "count": 2,
+        "fraction_within_factor_2": 1.0,
+        "interval_68_coverage": 0.5,
+        "interval_95_coverage": 1.0,
+        "log10_bias": -0.15221436873853847,
+        "log10_mae": 0.15221436873853847,
+        "log10_rmse": 0.20772770601626744,
+        "median_log10_residual": -0.15221436873853847
+      },
+      "overall_null": {
+        "count": 2,
+        "fraction_within_factor_2": 1.0,
+        "interval_68_coverage": 1.0,
+        "interval_95_coverage": 1.0,
+        "log10_bias": 0.0,
+        "log10_mae": 0.031916777103235094,
+        "log10_rmse": 0.031916777103235094,
+        "median_log10_residual": 0.0
+      },
+      "per_class_chen_kipping": {
+        "neptunian": {
+          "count": 2,
+          "fraction_within_factor_2": 1.0,
+          "interval_68_coverage": 0.5,
+          "interval_95_coverage": 1.0,
+          "log10_bias": -0.15221436873853847,
+          "log10_mae": 0.15221436873853847,
+          "log10_rmse": 0.20772770601626744,
+          "median_log10_residual": -0.15221436873853847
+        }
+      },
+      "per_class_null": {
+        "neptunian": {
+          "count": 2,
+          "fraction_within_factor_2": 1.0,
+          "interval_68_coverage": 1.0,
+          "interval_95_coverage": 1.0,
+          "log10_bias": 0.0,
+          "log10_mae": 0.031916777103235094,
+          "log10_rmse": 0.031916777103235094,
+          "median_log10_residual": 0.0
+        }
+      },
+      "per_detection_method_chen_kipping": {
+        "transit": {
+          "count": 2,
+          "fraction_within_factor_2": 1.0,
+          "interval_68_coverage": 0.5,
+          "interval_95_coverage": 1.0,
+          "log10_bias": -0.15221436873853847,
+          "log10_mae": 0.15221436873853847,
+          "log10_rmse": 0.20772770601626744,
+          "median_log10_residual": -0.15221436873853847
+        }
+      },
+      "per_detection_method_null": {
+        "transit": {
+          "count": 2,
+          "fraction_within_factor_2": 1.0,
+          "interval_68_coverage": 1.0,
+          "interval_95_coverage": 1.0,
+          "log10_bias": 0.0,
+          "log10_mae": 0.031916777103235094,
+          "log10_rmse": 0.031916777103235094,
+          "median_log10_residual": 0.0
+        }
+      }
+    },
+    "true_mass_with_transit_radius": {
+      "axis_name": "true_mass_with_transit_radius",
+      "eligible_row_count": 1207,
+      "overall_chen_kipping": {
+        "count": 1207,
+        "fraction_within_factor_2": 0.9444904722452361,
+        "interval_68_coverage": 0.8434134217067109,
+        "interval_95_coverage": 0.9444904722452361,
+        "log10_bias": -0.04084365240259168,
+        "log10_mae": 0.10442982096618053,
+        "log10_rmse": 0.15817019267448623,
+        "median_log10_residual": -0.02540307663185465
+      },
+      "overall_null": {
+        "count": 1207,
+        "fraction_within_factor_2": 0.8218724109362054,
+        "interval_68_coverage": 0.7125103562551781,
+        "interval_95_coverage": 0.8218724109362054,
+        "log10_bias": 0.03450307095265575,
+        "log10_mae": 0.16263720731641948,
+        "log10_rmse": 0.2427127332813732,
+        "median_log10_residual": 0.0
+      },
+      "per_class_chen_kipping": {
+        "jovian": {
+          "count": 580,
+          "fraction_within_factor_2": 0.9758620689655172,
+          "interval_68_coverage": 0.9379310344827586,
+          "interval_95_coverage": 0.9758620689655172,
+          "log10_bias": -0.018133641633864852,
+          "log10_mae": 0.08022443895368986,
+          "log10_rmse": 0.13093303741651874,
+          "median_log10_residual": -0.00958761212169612
+        },
+        "neptunian": {
+          "count": 588,
+          "fraction_within_factor_2": 0.9149659863945578,
+          "interval_68_coverage": 0.7465986394557823,
+          "interval_95_coverage": 0.9149659863945578,
+          "log10_bias": -0.06472254272880446,
+          "log10_mae": 0.13071152514286674,
+          "log10_rmse": 0.18279037426371253,
+          "median_log10_residual": -0.05518168228072785
+        },
+        "terran": {
+          "count": 39,
+          "fraction_within_factor_2": 0.9230769230769231,
+          "interval_68_coverage": 0.8974358974358975,
+          "interval_95_coverage": 0.9230769230769231,
+          "log10_bias": -0.018562081480757102,
+          "log10_mae": 0.0681600648470287,
+          "log10_rmse": 0.12474022445122143,
+          "median_log10_residual": 0.007781633939265037
+        }
+      },
+      "per_class_null": {
+        "jovian": {
+          "count": 580,
+          "fraction_within_factor_2": 0.9758620689655172,
+          "interval_68_coverage": 0.9396551724137931,
+          "interval_95_coverage": 0.9758620689655172,
+          "log10_bias": -0.010610595369473038,
+          "log10_mae": 0.08109310240593372,
+          "log10_rmse": 0.13065002690369387,
+          "median_log10_residual": 0.0
+        },
+        "neptunian": {
+          "count": 588,
+          "fraction_within_factor_2": 0.6615646258503401,
+          "interval_68_coverage": 0.47959183673469385,
+          "interval_95_coverage": 0.6615646258503401,
+          "log10_bias": 0.0840296117076997,
+          "log10_mae": 0.2473726883025361,
+          "log10_rmse": 0.32024604463059037,
+          "median_log10_residual": 2.7755575615628914e-17
+        },
+        "terran": {
+          "count": 39,
+          "fraction_within_factor_2": 0.9487179487179487,
+          "interval_68_coverage": 0.8461538461538461,
+          "interval_95_coverage": 0.9487179487179487,
+          "log10_bias": -0.041283582819937166,
+          "log10_mae": 0.09779407983552232,
+          "log10_rmse": 0.15188010905275304,
+          "median_log10_residual": 0.0
+        }
+      },
+      "per_detection_method_chen_kipping": {
+        "transit": {
+          "count": 1205,
+          "fraction_within_factor_2": 0.9443983402489626,
+          "interval_68_coverage": 0.8431535269709544,
+          "interval_95_coverage": 0.9443983402489626,
+          "log10_bias": -0.04078771184345351,
+          "log10_mae": 0.10447941761627653,
+          "log10_rmse": 0.15827211186110274,
+          "median_log10_residual": -0.024982337436426638
+        },
+        "transit_timing_variation": {
+          "count": 2,
+          "fraction_within_factor_2": 1.0,
+          "interval_68_coverage": 1.0,
+          "interval_95_coverage": 1.0,
+          "log10_bias": -0.07454783928333905,
+          "log10_mae": 0.07454783928333905,
+          "log10_rmse": 0.07474125782569375,
+          "median_log10_residual": -0.07454783928333905
+        }
+      },
+      "per_detection_method_null": {
+        "transit": {
+          "count": 1205,
+          "fraction_within_factor_2": 0.8215767634854771,
+          "interval_68_coverage": 0.7120331950207469,
+          "interval_95_coverage": 0.8215767634854771,
+          "log10_bias": 0.034738493087252104,
+          "log10_mae": 0.1627289889631826,
+          "log10_rmse": 0.24287470579004145,
+          "median_log10_residual": 0.00036563429087066446
+        },
+        "transit_timing_variation": {
+          "count": 2,
+          "fraction_within_factor_2": 1.0,
+          "interval_68_coverage": 1.0,
+          "interval_95_coverage": 1.0,
+          "log10_bias": -0.10733876514164639,
+          "log10_mae": 0.10733876514164639,
+          "log10_rmse": 0.10733942401184673,
+          "median_log10_residual": -0.10733876514164639
+        }
+      }
+    }
+  },
+  "baseline": {
+    "name": "Chen-Kipping 2017 piecewise median power-law (frozen)",
+    "no_new_parameters_fit": true,
+    "reference": "Chen, J. & Kipping, D. M. (2017), ApJ 834, 17, DOI 10.3847/1538-4357/834/1/17",
+    "segments": [
+      {
+        "anchor_mass_mearth": 1.0,
+        "mass_lower_mearth": 0.0,
+        "mass_upper_mearth": 2.04,
+        "name": "terran",
+        "prefactor_r_earth_per_mass_unit_pow_slope": 1.008,
+        "slope_log_r_per_log_m": 0.279
+      },
+      {
+        "anchor_mass_mearth": 2.04,
+        "mass_lower_mearth": 2.04,
+        "mass_upper_mearth": 131.58079199999997,
+        "name": "neptunian",
+        "prefactor_r_earth_per_mass_unit_pow_slope": 0.8081187440617414,
+        "slope_log_r_per_log_m": 0.589
+      },
+      {
+        "anchor_mass_mearth": 131.58079199999997,
+        "mass_lower_mearth": 131.58079199999997,
+        "mass_upper_mearth": 26635.68,
+        "name": "jovian",
+        "prefactor_r_earth_per_mass_unit_pow_slope": 17.73879154771769,
+        "slope_log_r_per_log_m": -0.044
+      },
+      {
+        "anchor_mass_mearth": 26635.68,
+        "mass_lower_mearth": 26635.68,
+        "mass_upper_mearth": null,
+        "name": "stellar",
+        "prefactor_r_earth_per_mass_unit_pow_slope": 0.001430111917514086,
+        "slope_log_r_per_log_m": 0.881
+      }
+    ]
+  },
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "loader_summary": {
+    "dataset_id": "exo-0001-pscomppars-snapshot",
+    "detection_method_counts": {
+      "astrometry": 6,
+      "direct_imaging": 97,
+      "microlensing": 278,
+      "other": 27,
+      "pulsar_timing": 10,
+      "radial_velocity": 1181,
+      "transit": 4651,
+      "transit_timing_variation": 41
+    },
+    "exclusion_reason_counts": {
+      "mass_and_radius_absent": 16,
+      "mass_provenance_requires_source_specific_review": 10,
+      "mass_relative_uncertainty_above_threshold": 578,
+      "radius_inferred_from_non_transit_method": 34,
+      "radius_relative_uncertainty_above_threshold": 1278,
+      "solution_type_not_confirmed": 74
+    },
+    "mass_class_counts": {
+      "minimum_mass_msini": 986,
+      "not_measured": 3202,
+      "true_mass": 2103
+    },
+    "post_filter_included_count": 4301,
+    "pre_filter_included_count": 6157,
+    "radius_class_counts": {
+      "direct_imaging_radius": 29,
+      "model_inferred": 34,
+      "not_measured": 1590,
+      "transit_radius": 4638
+    },
+    "retrieval_date_utc": "2026-05-23T17:15:49Z",
+    "row_class_counts": {
+      "direct_mass_radius_measurement": 1508,
+      "model_inferred": 16,
+      "rv_minimum_mass_only": 1574,
+      "transit_radius_only": 3186,
+      "transit_radius_with_rv_minimum_mass": 7
+    },
+    "snapshot_kind": "composite_catalog_snapshot",
+    "source_family_id": "EXO-SRC-CLASS-001",
+    "thresholds": {
+      "mass_sigma_threshold": 0.3,
+      "radius_sigma_threshold": 0.15
+    },
+    "total_rows": 6291
+  },
+  "null_baseline": {
+    "name": "per-CK17-class median log10(radius) null baseline",
+    "trained_on": "post-filter included rows for the given axis"
+  },
+  "planet_class_distribution": {
+    "minimum_mass_with_transit_radius": {
+      "neptunian": 2
+    },
+    "true_mass_with_transit_radius": {
+      "jovian": 580,
+      "neptunian": 588,
+      "terran": 39
+    }
+  },
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "task_id": "TASK-0361",
+  "verdict": "INCONCLUSIVE",
+  "verdict_inputs": {
+    "minimum_mass_with_transit_radius": {
+      "chen_kipping_log10_rmse": 0.20772770601626744,
+      "ck_beats_null": false,
+      "log10_rmse_delta_null_minus_ck": -0.17581092891303235,
+      "null_baseline_log10_rmse": 0.031916777103235094,
+      "row_count_chen_kipping": 2,
+      "row_count_null": 2
+    },
+    "true_mass_with_transit_radius": {
+      "chen_kipping_log10_rmse": 0.15817019267448623,
+      "ck_beats_null": true,
+      "log10_rmse_delta_null_minus_ck": 0.08454254060688696,
+      "null_baseline_log10_rmse": 0.2427127332813732,
+      "row_count_chen_kipping": 1207,
+      "row_count_null": 1207
+    }
+  }
+}

@@ -1,7 +1,7 @@
 id: TASK-0361
 title: "Run exoplanet mass-radius baseline benchmark"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
