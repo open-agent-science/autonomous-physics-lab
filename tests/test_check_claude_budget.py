@@ -64,6 +64,11 @@ def _msg(
 
 
 NOW = datetime.datetime(2026, 5, 19, 12, 0, 0, tzinfo=datetime.timezone.utc)
+# The CLI path intentionally uses real ``now``. Keep its fixtures relative so
+# these tests do not expire as wall-clock time moves past the fixed window below.
+RECENT_ROLLING = (
+    datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=1)
+).replace(microsecond=0).isoformat()
 # Two days before NOW — inside the rolling 7-day window.
 THIS_MONTH = "2026-05-17T10:00:00+00:00"
 # Two days before the real test run — inside main()'s rolling 7-day window.

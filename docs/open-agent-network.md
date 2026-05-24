@@ -55,6 +55,11 @@ This network model only works if coordination is explicit. APL uses:
 - `docs/reviews/` and `docs/results/` for reviewable summaries;
 - maintainer review and closeout gates for integration discipline.
 
+In the broader architecture, this network is the Research Agent Core layer. It
+feeds domain campaign work into public scientific memory, and it is bounded by
+data, reveal, and claim gates. See
+[Architecture Layers](architecture-layers.md) for the compact map.
+
 ## Agent First, Research First, Parallel Work
 
 The default agent path is research-first:
