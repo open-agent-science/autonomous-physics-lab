@@ -1,7 +1,7 @@
 id: TASK-0379
 title: "Add source artifact package validator helper"
 type: repository_validation
-status: BLOCKED
+status: READY
 difficulty: high
 priority: medium
 

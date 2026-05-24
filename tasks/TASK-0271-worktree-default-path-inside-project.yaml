@@ -1,7 +1,7 @@
 id: TASK-0271
 title: "Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts"
 type: contributor_experience
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
