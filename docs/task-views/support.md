@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0382` - Add science-output conveyor health report (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_workflow`)
-- `TASK-0383` - Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `agent_network`)
 
 ## IN_PROGRESS
 
@@ -15,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0383` - Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `agent_network`)
