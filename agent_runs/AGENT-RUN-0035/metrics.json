@@ -1,0 +1,220 @@
+{
+  "agent_run_id": "AGENT-RUN-0035",
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "eligible_stats": {
+    "count": 1207,
+    "log10_bias": -0.04084365240259168,
+    "log10_mae": 0.10442982096618053,
+    "log10_median": -0.02540307663185465,
+    "log10_rmse": 0.15817019267448623
+  },
+  "executed_hypothesis_count": 3,
+  "generated_hypothesis_count": 6,
+  "loader_summary": {
+    "eligible_true_mass_with_transit_radius": 1207,
+    "post_filter_included_count": 4301,
+    "pre_filter_included_count": 6157,
+    "total_rows": 6291
+  },
+  "per_class_medians_log10_residual": {
+    "jovian": -0.00958761212169612,
+    "neptunian": -0.05518168228072785,
+    "terran": 0.007781633939265037
+  },
+  "regimes": {
+    "REGIME-001": {
+      "candidate_stats": {
+        "count": 225,
+        "log10_bias": -0.04624714206964889,
+        "log10_mae": 0.11671197939951762,
+        "log10_median": -0.05344959119268858,
+        "log10_rmse": 0.15607849239524166
+      },
+      "classification": {
+        "delta_log10_rmse_eligible_minus_candidate": 0.002091700279244574,
+        "delta_log10_rmse_strongest_control_minus_candidate": -0.02400391150095571,
+        "explanation": "candidate log10 RMSE = 0.15607849239524166; eligible log10 RMSE = 0.15817019267448623; strongest control = shuffled_regime (log10 RMSE = 0.13207458089428595); survival margin = 0.022.",
+        "outcome": "inconclusive",
+        "strongest_control": "shuffled_regime"
+      },
+      "control_stats": {
+        "matched_size_neighbor": {
+          "count": 225,
+          "log10_bias": -0.04364660746122977,
+          "log10_mae": 0.11557838553838283,
+          "log10_median": -0.045476038661096646,
+          "log10_rmse": 0.15850009774694956
+        },
+        "per_class_median": {
+          "count": 225,
+          "log10_bias": 0.007535355406190252,
+          "log10_mae": 0.10631453712015171,
+          "log10_median": -0.0008429994435531218,
+          "log10_rmse": 0.14932863314132944
+        },
+        "shuffled_regime": {
+          "count": 225,
+          "log10_bias": -0.03276674697608091,
+          "log10_mae": 0.09162343264301685,
+          "log10_median": -0.023861941297302902,
+          "log10_rmse": 0.13207458089428595
+        }
+      },
+      "description": "FGK-host transit slice (4000 K \u2264 Teff \u2264 7200 K), planet mass 1.5 \u2264 M/M_earth \u2264 12. Tests CK17 residual structure across the super-Earth / sub-Neptune transition.",
+      "label": "super_earth_to_sub_neptune_transition",
+      "role": "executed_regime"
+    },
+    "REGIME-002": {
+      "candidate_stats": {
+        "count": 515,
+        "log10_bias": -0.023834421704992077,
+        "log10_mae": 0.08160710222131082,
+        "log10_median": -0.012600201297635394,
+        "log10_rmse": 0.12821737098891156
+      },
+      "classification": {
+        "delta_log10_rmse_eligible_minus_candidate": 0.02995282168557467,
+        "delta_log10_rmse_strongest_control_minus_candidate": -0.007709411263668128,
+        "explanation": "candidate log10 RMSE = 0.12821737098891156; eligible log10 RMSE = 0.15817019267448623; strongest control = matched_size_neighbor (log10 RMSE = 0.12050795972524343); survival margin = 0.022.",
+        "outcome": "regime_residual_lower_than_eligible_only",
+        "strongest_control": "matched_size_neighbor"
+      },
+      "control_stats": {
+        "matched_size_neighbor": {
+          "count": 515,
+          "log10_bias": -0.023645700925062046,
+          "log10_mae": 0.0792373777955547,
+          "log10_median": -0.01644055339997119,
+          "log10_rmse": 0.12050795972524343
+        },
+        "per_class_median": {
+          "count": 515,
+          "log10_bias": -0.010794054755718803,
+          "log10_mae": 0.07978891865614551,
+          "log10_median": 0.001151303993488284,
+          "log10_rmse": 0.12429860331631375
+        },
+        "shuffled_regime": {
+          "count": 515,
+          "log10_bias": -0.044849015362934626,
+          "log10_mae": 0.10954890113616222,
+          "log10_median": -0.029836453009081998,
+          "log10_rmse": 0.16706163372657556
+        }
+      },
+      "description": "Mass slice 100 \u2264 M/M_earth \u2264 1000 (sub-Jovian to Jovian). Tests the CK17 jovian-segment near-flat-slope residual.",
+      "label": "jovian_radius_plateau",
+      "role": "executed_regime"
+    },
+    "REGIME-003": {
+      "candidate_stats": {
+        "count": 212,
+        "log10_bias": 0.049183760744767775,
+        "log10_mae": 0.07613878064444561,
+        "log10_median": 0.04885319678265576,
+        "log10_rmse": 0.09790644232520128
+      },
+      "classification": {
+        "delta_log10_rmse_eligible_minus_candidate": 0.06026375034928495,
+        "delta_log10_rmse_strongest_control_minus_candidate": 0.004891205289506956,
+        "explanation": "candidate log10 RMSE = 0.09790644232520128; eligible log10 RMSE = 0.15817019267448623; strongest control = per_class_median (log10 RMSE = 0.10279764761470823); survival margin = 0.022.",
+        "outcome": "regime_residual_lower_than_eligible_only",
+        "strongest_control": "per_class_median"
+      },
+      "control_stats": {
+        "matched_size_neighbor": {
+          "count": 212,
+          "log10_bias": -0.022859207339634337,
+          "log10_mae": 0.07920113306779639,
+          "log10_median": -0.017345138007774263,
+          "log10_rmse": 0.12472981374985982
+        },
+        "per_class_median": {
+          "count": 212,
+          "log10_bias": 0.06178230202790935,
+          "log10_mae": 0.08162056128590311,
+          "log10_median": 0.060366446813059915,
+          "log10_rmse": 0.10279764761470823
+        },
+        "shuffled_regime": {
+          "count": 212,
+          "log10_bias": -0.052697762044693994,
+          "log10_mae": 0.11174000991585853,
+          "log10_median": -0.028336677744899674,
+          "log10_rmse": 0.18423780279874113
+        }
+      },
+      "description": "Hot Jupiter slice: M > 30 M_earth AND equilibrium temperature > 1500 K. Tests CK17 residual structure in the hot-Jupiter inflated regime.",
+      "label": "hot_jupiter_high_irradiation",
+      "role": "executed_regime"
+    },
+    "REGIME-004": {
+      "candidate_stats": {
+        "count": 49,
+        "log10_bias": -0.09766324023022795,
+        "log10_mae": 0.12845161663438623,
+        "log10_median": -0.04128295800589987,
+        "log10_rmse": 0.23998320190388953
+      },
+      "classification": {
+        "delta_log10_rmse_eligible_minus_candidate": null,
+        "delta_log10_rmse_strongest_control_minus_candidate": null,
+        "explanation": "Hypothesis generated and recorded but not executed; kept for review as part of the bounded scout's candidate slate.",
+        "outcome": "generated_not_executed",
+        "strongest_control": null
+      },
+      "control_stats": {},
+      "description": "Ultra-short-period slice: orbital_period_days < 1. Tests CK17 residual structure for tidally-stressed planets.",
+      "label": "ultra_short_period_irradiation",
+      "role": "generated_only"
+    },
+    "REGIME-005": {
+      "candidate_stats": {
+        "count": 156,
+        "log10_bias": -0.08584371826955402,
+        "log10_mae": 0.11587502420246294,
+        "log10_median": -0.04489812485932737,
+        "log10_rmse": 0.20833462578356496
+      },
+      "classification": {
+        "delta_log10_rmse_eligible_minus_candidate": null,
+        "delta_log10_rmse_strongest_control_minus_candidate": null,
+        "explanation": "Hypothesis generated and recorded but not executed; kept for review as part of the bounded scout's candidate slate.",
+        "outcome": "generated_not_executed",
+        "strongest_control": null
+      },
+      "control_stats": {},
+      "description": "Cool-host slice: Teff < 4000 K (M dwarfs). Tests CK17 residual structure on the M-dwarf transit sub-population.",
+      "label": "cold_host_transit_subset",
+      "role": "generated_only"
+    },
+    "REGIME-006": {
+      "candidate_stats": {
+        "count": 39,
+        "log10_bias": -0.057893743535837906,
+        "log10_mae": 0.1680546655864685,
+        "log10_median": -0.06691326809239428,
+        "log10_rmse": 0.2259404158634758
+      },
+      "classification": {
+        "delta_log10_rmse_eligible_minus_candidate": null,
+        "delta_log10_rmse_strongest_control_minus_candidate": null,
+        "explanation": "Hypothesis generated and recorded but not executed; kept for review as part of the bounded scout's candidate slate.",
+        "outcome": "generated_not_executed",
+        "strongest_control": null
+      },
+      "control_stats": {},
+      "description": "Long-period FGK-host slice: orbital_period_days > 100, Teff between 5000 and 6500 K. Bounded counter-regime for the hot-Jupiter slice.",
+      "label": "warm_host_long_period_subset",
+      "role": "generated_only"
+    }
+  },
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "task_id": "TASK-0370",
+  "thresholds": {
+    "min_regime_row_count": 30,
+    "shuffle_seed": 20260524,
+    "survival_log10_rmse_margin": 0.022
+  },
+  "verdict": "INCONCLUSIVE"
+}
