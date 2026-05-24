@@ -21,7 +21,6 @@
 - `TASK-0375` - Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`, domain `cross_campaign_data_policy`)
 - `TASK-0376` - Add fresh-data extraction ledger template (`research_infrastructure`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
 - `TASK-0377` - Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`, domain `cross_campaign_data_policy`)
-- `TASK-0380` - Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 
 ## IN_PROGRESS
 
@@ -29,4 +28,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0380` - Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
