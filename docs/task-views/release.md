@@ -16,3 +16,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0269` - Polish README landing entrypoint for agents, scientists, and reviewers (`documentation`, priority `high`, difficulty `low`, domain `public_readme`)
+- `TASK-0386` - Polish public documentation paths linked from landing pages (`documentation`, priority `high`, difficulty `medium`, domain `public_documentation`)
