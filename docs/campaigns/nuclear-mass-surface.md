@@ -333,6 +333,21 @@ Start here:
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 
+## Residual-Feature No-Leakage Contract (TASK-0368)
+
+`docs/nuclear-residual-feature-no-leakage-contract.md` is the
+cross-family eligibility gate for any future no-leakage predictive
+implementation. It classifies the five surfaced residual feature
+families (local curvature, high-error cluster, shell axis, source
+status, uncertainty-weighted) into predictive-eligible,
+diagnostic-only, and blocked, and defines the minimum artifact
+checklist any later predictive task must deliver before a
+`PRED-XXXX.yaml` entry or reveal-scoring task is opened. The
+companion review at
+`docs/reviews/nuclear-residual-feature-no-leakage-contract-review.md`
+records the rationale and explicit non-goals. Read both before
+proposing any Nuclear predictive lane.
+
 ## Recommended Contributor Types
 
 - nuclear-data curators;
