@@ -23,10 +23,10 @@ APL is concentrating on four public-facing research surfaces:
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, residual audits, and agent-vs-baseline verification | Waiting for future source-grade reveal data; retrospective audits remain useful, but no reveal claim is allowed |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; next useful work is no-leakage implementation planning and reveal-readiness reporting |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Direct measurement rows and source artifacts are still the gate |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and drift semantics matter | Source artifact and covariance review before any modeling |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Provenance, method labels, and baseline protocol maturity |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Source artifact, covariance, and version checks before any real-row modeling |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Residual/failure-map packaging after an inconclusive first baseline and regime scout |
 
 Older and mature tracks still define the quality floor:
 [Pendulum](./campaigns/pendulum-formula-falsification.md),
@@ -60,6 +60,9 @@ Highlights:
 - `PRED-0001` through `PRED-0068` are frozen prospective nuclear predictions
   awaiting future maintainer-reviewed reveal data. They are forecasts, not
   current scientific wins.
+- Exoplanet Mass-Radius now has an inconclusive first baseline benchmark and
+  an inconclusive regime residual scout on the pinned PSCompPars snapshot.
+  These are useful failure-map inputs, not claims about planet composition.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete
@@ -91,8 +94,9 @@ Important operating rules:
 - Quantum Size Effects remains blocked for baseline benchmarking until direct
   measurement rows or a maintainer-approved weaker calibration-consistency
   scope exists.
-- Atomic-clock and exoplanet campaigns are promising source surfaces, but they
-  are still in intake, schema, and baseline-protocol hardening.
+- Atomic-clock work is still in source/covariance/version-gate hardening.
+- Exoplanet work is ready for residual/failure-map packaging, but not for
+  habitability, target-priority, or composition-law claims.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 

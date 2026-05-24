@@ -47,8 +47,9 @@ negative-result preservation.
 
 If the Nuclear queue is saturated or a maintainer wants parallel breadth, the
 next best surfaces are Quantum Size Effects, Atomic-Clock Residuals, and
-Exoplanet Mass-Radius. Those surfaces should stay source- and protocol-first
-until their baseline gates are ready.
+Exoplanet Mass-Radius. Exoplanets has crossed into benchmark/failure-map work;
+Quantum and Atomic should stay source- and protocol-first until direct rows are
+ready.
 
 ## Current Mission Shape
 
@@ -59,10 +60,10 @@ source discipline needed for future campaigns.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, and reveal-readiness blockers | stress synthesis, source-readiness review, no-peek protocol checks, evidence packaging, negative-result preservation |
-| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | direct-source triage, source-artifact packaging, digitization protocol review, readiness gates |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface still in manifest/covariance hardening | source-class review, covariance semantics, synthetic loader checks, real-row readiness gates |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Emerging catalog-snapshot benchmark surface | snapshot provenance, row-class validation, baseline protocol review, residual-map preparation |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers | no-leakage implementation planning, registry/reveal-readiness reporting, high-error cluster adversarial stability, negative-result preservation |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, first baseline comparison, and inconclusive regime scout | residual failure-map packaging, true-mass slice audit, narrow matched-control regime follow-up |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface still in source/covariance/version-drift hardening | Beloy 2021 row curation only after source artifact, covariance, and version checks; otherwise preserve blockers |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -113,8 +114,8 @@ Use these rules:
   an explicit weaker calibration-consistency scope is approved.
 - Do not fit atomic-clock or anomaly-style campaigns before source and
   covariance semantics are reviewable.
-- Do not present exoplanet catalog snapshots as results before the baseline
-  protocol and row-class validation are complete.
+- Do not present exoplanet regime scouts as corrections or planet-composition
+  discoveries; the next public-safe artifact is a residual/failure map.
 
 ## Copy-Paste Agent Prompt
 
