@@ -1,7 +1,7 @@
 id: TASK-0344
 title: "Review atomic-clock covariance and uncertainty semantics"
 type: scientific_dataset
-status: DONE
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
