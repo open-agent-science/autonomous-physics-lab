@@ -13,7 +13,7 @@ import argparse
 import json
 from pathlib import Path
 import sys
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 import numpy as np
 import yaml
@@ -50,7 +50,7 @@ DEFAULT_REVIEW_PATH = (
 )
 
 Selector = Callable[[dict[str, Any], dict[str, float]], bool]
-WeightFn = Callable[[dict[str, Any], dict[str, float]], float | None]
+WeightFn = Callable[[dict[str, Any], dict[str, float]], Optional[float]]
 
 
 def _mean(values: list[float]) -> float | None:
