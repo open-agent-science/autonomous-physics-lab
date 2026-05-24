@@ -1,7 +1,7 @@
 id: TASK-0345
 title: "Prepare exoplanet PSCompPars snapshot ingestion plan"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

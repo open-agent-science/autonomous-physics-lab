@@ -1,7 +1,7 @@
 id: TASK-0354
 title: "Add exoplanet mass-radius loader dry run"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

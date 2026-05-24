@@ -1,7 +1,7 @@
 id: TASK-0340
 title: "Run nuclear odd-even shell-interaction hypothesis lane"
 type: autonomous_research_pilot
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
