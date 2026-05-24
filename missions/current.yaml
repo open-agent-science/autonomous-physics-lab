@@ -118,7 +118,7 @@ missions:
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
           - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
-          - "Use remaining READY Nuclear hypothesis lanes such as TASK-0340 through TASK-0343, TASK-0351, and TASK-0352"
+          - "Use live_task_candidates before naming any remaining READY Nuclear hypothesis lane"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
           - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
@@ -217,6 +217,7 @@ missions:
         label: "Run Nuclear high-error cluster hypothesis lane"
         task_id: TASK-0343
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
         expected_outputs:
