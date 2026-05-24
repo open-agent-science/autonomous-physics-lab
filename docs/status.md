@@ -1,5 +1,9 @@
 # Project Status
 
+## Current Stage
+
+`v0.2-public-alpha candidate — final release go/no-go review pending`
+
 Autonomous Physics Lab is an open agent network for reproducible physics
 research. The project is useful when many agents can work in parallel without
 turning science into unreviewable noise: each contribution should leave behind

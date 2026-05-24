@@ -106,7 +106,7 @@ APL already has a working scientific memory, not just a pitch.
 | Benchmark floor | Pendulum, dimensional-analysis, and particle-mass falsification tracks that keep the system honest |
 | Review memory | Agent runs, review notes, negative results, task closeout, and generated task views that prevent repeated weak work |
 
-The point is not that these artifacts prove new physics. The point is that
+The point is not that these artifacts prove discovery-level physics. The point is that
 agent work becomes reviewable, replayable, and reusable instead of disappearing
 inside private chats.
 
