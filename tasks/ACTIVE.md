@@ -47,7 +47,6 @@ one PR.
 ## READY
 
 - `TASK-0343` — Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0351` — Run nuclear local-curvature adversarial control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0356` — Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0361` — Run exoplanet mass-radius baseline benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0363` — Pin atomic Beloy 2021 source artifact and covariance preflight (`scientific_dataset`, priority `high`, difficulty `high`)
@@ -74,6 +73,7 @@ None.
 - `TASK-0344` — Review atomic-clock covariance and uncertainty semantics (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0347` — Triage open quantum-dot direct table sources (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0351` — Run nuclear local-curvature adversarial control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0352` — Define nuclear no-leakage local-curvature freeze protocol (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0353` — Ingest pinned exoplanet PSCompPars mass-radius snapshot (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0354` — Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`)
