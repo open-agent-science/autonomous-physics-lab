@@ -18,3 +18,4 @@ None.
 - `TASK-0271` - Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
 - `TASK-0383` - Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `agent_network`)
 - `TASK-0384` - Document lightweight APL architecture layer model (`documentation`, priority `medium`, difficulty `low`, domain `architecture`)
+- `TASK-0385` - Support multi-proposal maintainer-review validation (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_review`)
