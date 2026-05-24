@@ -210,6 +210,10 @@ for the helpers (`scripts/apl_new_worktree.sh`) and the optional
 [`scripts/apl_branch_precondition.py`](scripts/apl_branch_precondition.py)
 check that catches "wrong branch / surprise files" before any commit.
 
+See [`docs/notes/agent-discipline-collected.md`](docs/notes/agent-discipline-collected.md)
+for the collected agent-discipline learnings index (worktree usage,
+mock-first testing, dependent-PR serialisation, harness-artifact handling).
+
 ## Task Proposal Rule
 
 If no existing `READY` task fits and the maintainer did not explicitly assign a
