@@ -1,0 +1,54 @@
+id: TASK-0367
+title: "Run nuclear high-error cluster adversarial stability audit"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Stress-test the new high-error cluster signal before any follow-up interpretation."
+  - "Separate real residual structure from post-hoc high-error labeling and cluster leakage."
+  - "Preserve negative and overfit outcomes as useful scientific memory."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+    - "agent_runs/AGENT-RUN-0030/metrics.json"
+    - "docs/reviews/nuclear-local-curvature-adversarial-controls.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    TASK-0343 found a useful high-error cluster diagnostic signal, but the
+    cluster labels come from committed residuals. This task should test whether
+    the signal survives stronger adversarial controls and coefficient-stability
+    checks before any later curator synthesis treats it as a candidate family.
+
+requirements:
+  - "Re-evaluate HIGHCLUSTER-001 through HIGHCLUSTER-003 against at least three stronger adversarial controls."
+  - "Include cluster-label permutation, high-error threshold perturbation, smooth-A/local-density controls, and a null or near-null control."
+  - "Run deterministic leave-one-out or small-resample coefficient stability checks on the fitted training slice."
+  - "Report full-known, holdout, high-error, non-high-error, neutron-rich, magic-region, light-A, and chain-transfer deltas."
+  - "Flag any candidate that only improves high-error rows while materially regressing the rest of the surface."
+  - "Do not fetch live data, add prediction-registry entries, score reveal data, update claims, or promote discovery wording."
+
+accepted_outputs:
+  - "scripts/run_nuclear_high_error_cluster_adversarial_audit.py or an equivalent deterministic runner"
+  - "agent_runs/AGENT-RUN-0033/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0033/metrics.json"
+  - "agent_runs/AGENT-RUN-0033/report.md"
+  - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
+  - "tests/test_nuclear_high_error_cluster_adversarial_audit.py if a reusable runner is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
