@@ -1,7 +1,7 @@
 id: TASK-0375
 title: "Add shared source manifest minimum schema"
 type: schema_extension
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -33,10 +33,11 @@ requirements:
   - "Do not rewrite existing campaign manifests unless the task keeps the change metadata-only and non-breaking."
 
 accepted_outputs:
-  - "physics_lab/schemas/source_manifest_minimum.schema.json or docs/source-manifest-minimum-schema.md"
-  - "examples/source_manifest_minimum.yaml or templates/source_manifest_minimum.yaml"
+  - "physics_lab/schemas/source_manifest_minimum.schema.json"
+  - "docs/source-manifest-minimum-schema.md"
+  - "templates/source_manifest_minimum.yaml"
   - "docs/reviews/source-manifest-minimum-schema-review.md"
-  - "tests updated if a JSON schema is added"
+  - "tests/test_source_manifest_minimum_schema.py"
 
 validation:
   commands:
