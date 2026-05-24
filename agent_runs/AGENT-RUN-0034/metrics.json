@@ -1,0 +1,239 @@
+{
+  "agent_run_id": "AGENT-RUN-0034",
+  "baseline_agent_run_id": "AGENT-RUN-0032",
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "task_id": "TASK-0369",
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "axis_under_audit": "true_mass_with_transit_radius",
+  "verdict": "INCONCLUSIVE",
+  "data_boundary": {
+    "live_external_fetch_performed": false,
+    "baseline_refit_performed": false,
+    "minimum_mass_rows_in_headline_metrics": false,
+    "true_mass_axis_row_count": 1207,
+    "minimum_mass_axis_row_count": 2
+  },
+  "overall_true_mass_axis": {
+    "count": 1207,
+    "ck_log10_mae": 0.10442982096618053,
+    "ck_log10_rmse": 0.15817019267448623,
+    "ck_log10_bias": -0.04084365240259168,
+    "null_log10_rmse": 0.2427127332813732,
+    "delta_null_minus_ck_rmse": 0.08454254060688696,
+    "ck_beats_null": true
+  },
+  "slices": {
+    "planet_class": [
+      {
+        "label": "terran",
+        "count": 39,
+        "ck_log10_mae": 0.0681600648470287,
+        "ck_log10_rmse": 0.12474022445122143,
+        "ck_log10_bias": -0.018562081480757102,
+        "classification": "weak_count_limited"
+      },
+      {
+        "label": "neptunian",
+        "count": 588,
+        "ck_log10_mae": 0.13071152514286674,
+        "ck_log10_rmse": 0.18279037426371253,
+        "ck_log10_bias": -0.06472254272880446,
+        "classification": "robust_failure_region"
+      },
+      {
+        "label": "jovian",
+        "count": 580,
+        "ck_log10_mae": 0.08022443895368986,
+        "ck_log10_rmse": 0.13093303741651874,
+        "ck_log10_bias": -0.018133641633864852,
+        "classification": "comparatively_stable"
+      }
+    ],
+    "mass_regime": [
+      {
+        "label": "terran_mass_lt2p04Me",
+        "count": 39,
+        "ck_log10_mae": 0.0681600648470287,
+        "ck_log10_rmse": 0.12474022445122142,
+        "ck_log10_bias": -0.018562081480757102,
+        "classification": "weak_count_limited"
+      },
+      {
+        "label": "neptunian_mass_2p04_131p58Me",
+        "count": 588,
+        "ck_log10_mae": 0.13071152514286674,
+        "ck_log10_rmse": 0.18279037426371253,
+        "ck_log10_bias": -0.06472254272880448,
+        "classification": "robust_failure_region"
+      },
+      {
+        "label": "jovian_mass_131p58_26635Me",
+        "count": 580,
+        "ck_log10_mae": 0.08022443895368994,
+        "ck_log10_rmse": 0.1309330374165187,
+        "ck_log10_bias": -0.01813364163386485,
+        "classification": "comparatively_stable"
+      }
+    ],
+    "radius_regime": [
+      {
+        "label": "compact_lt1p5Re",
+        "count": 92,
+        "ck_log10_mae": 0.16246699197558523,
+        "ck_log10_rmse": 0.26335002767665594,
+        "ck_log10_bias": -0.1468365058346739,
+        "classification": "robust_failure_region"
+      },
+      {
+        "label": "sub_neptune_1p5_4Re",
+        "count": 340,
+        "ck_log10_mae": 0.14083517338654125,
+        "ck_log10_rmse": 0.20417461029825093,
+        "ck_log10_bias": -0.10008025453376826,
+        "classification": "robust_failure_region"
+      },
+      {
+        "label": "intermediate_4_8Re",
+        "count": 97,
+        "ck_log10_mae": 0.15922289349962826,
+        "ck_log10_rmse": 0.2023599399449671,
+        "ck_log10_bias": -0.028621549028006742,
+        "classification": "weak_supported"
+      },
+      {
+        "label": "giant_ge8Re",
+        "count": 678,
+        "ck_log10_mae": 0.07045907230610342,
+        "ck_log10_rmse": 0.09145029823738063,
+        "ck_log10_bias": 0.001495939357020191,
+        "classification": "comparatively_stable"
+      }
+    ],
+    "detection_method": [
+      {
+        "label": "transit",
+        "count": 1205,
+        "ck_log10_mae": 0.10447941761627653,
+        "ck_log10_rmse": 0.15827211186110274,
+        "ck_log10_bias": -0.04078771184345351,
+        "classification": "dominant_supported_surface"
+      },
+      {
+        "label": "transit_timing_variation",
+        "count": 2,
+        "ck_log10_mae": 0.07454783928333905,
+        "ck_log10_rmse": 0.07474125782569375,
+        "ck_log10_bias": -0.07454783928333905,
+        "classification": "sample_size_blocked"
+      }
+    ],
+    "uncertainty_band": [
+      {
+        "label": "tight_le5pct",
+        "count": 194,
+        "ck_log10_mae": 0.12388579254549353,
+        "ck_log10_rmse": 0.18734909401047298,
+        "ck_log10_bias": -0.0787596711187839,
+        "classification": "supported_failure_region"
+      },
+      {
+        "label": "moderate_5_15pct",
+        "count": 627,
+        "ck_log10_mae": 0.09948838793460324,
+        "ck_log10_rmse": 0.15661041355138827,
+        "ck_log10_bias": -0.03939511171394022,
+        "classification": "supported_comparison_band"
+      },
+      {
+        "label": "loose_gt15pct",
+        "count": 378,
+        "ck_log10_mae": 0.09383994042020574,
+        "ck_log10_rmse": 0.12215848759940966,
+        "ck_log10_bias": -0.01364006288286615,
+        "classification": "catalog_selection_diagnostic"
+      },
+      {
+        "label": "uncertainty_missing",
+        "count": 8,
+        "ck_log10_mae": 0.5202791798150215,
+        "ck_log10_rmse": 0.54406590776148,
+        "ck_log10_bias": -0.5202791798150215,
+        "classification": "metadata_blocked"
+      }
+    ],
+    "host_star_teff": [
+      {
+        "label": "M_lt3900K",
+        "count": 140,
+        "ck_log10_mae": 0.1067188301188212,
+        "ck_log10_rmse": 0.19317575644165122,
+        "ck_log10_bias": -0.07630625656344495,
+        "classification": "supported_but_selection_sensitive"
+      },
+      {
+        "label": "K_3900_5200K",
+        "count": 235,
+        "ck_log10_mae": 0.13380442333072953,
+        "ck_log10_rmse": 0.19733461107323128,
+        "ck_log10_bias": -0.09384049238059268,
+        "classification": "supported_failure_region"
+      },
+      {
+        "label": "G_5200_6000K",
+        "count": 492,
+        "ck_log10_mae": 0.0997214957001364,
+        "ck_log10_rmse": 0.14659992926188645,
+        "ck_log10_bias": -0.047955899950067576,
+        "classification": "supported_comparison_region"
+      },
+      {
+        "label": "F_6000_7500K",
+        "count": 285,
+        "ck_log10_mae": 0.08226679347444851,
+        "ck_log10_rmse": 0.11390408241836322,
+        "ck_log10_bias": 0.020702063348214228,
+        "classification": "comparatively_stable"
+      },
+      {
+        "label": "hot_ge7500K",
+        "count": 14,
+        "ck_log10_mae": 0.13285342134337988,
+        "ck_log10_rmse": 0.1451285928697851,
+        "ck_log10_bias": 0.12784386975860765,
+        "classification": "sample_size_blocked"
+      },
+      {
+        "label": "host_teff_missing",
+        "count": 41,
+        "ck_log10_mae": 0.12910142154466495,
+        "ck_log10_rmse": 0.1749335625947654,
+        "ck_log10_bias": -0.016060884805729765,
+        "classification": "metadata_limited"
+      }
+    ]
+  },
+  "minimum_mass_sparse_diagnostic": {
+    "count": 2,
+    "ck_log10_rmse": 0.20772770601626744,
+    "null_log10_rmse": 0.031916777103235094,
+    "classification": "sample_size_and_msini_blocked"
+  },
+  "interpretation": {
+    "robust_patterns": [
+      "true-mass/transit-radius clears the null floor overall",
+      "compact and sub-Neptune radius regimes are visible failure regions",
+      "neptunian mass-class rows have the largest supported class-level RMSE",
+      "giant-radius rows are comparatively stable under the frozen baseline"
+    ],
+    "weak_patterns": [
+      "terran and intermediate-radius slices are useful but count-limited",
+      "host-star slices are selection-sensitive",
+      "uncertainty-band behavior is diagnostic rather than monotonic"
+    ],
+    "blocked_patterns": [
+      "minimum-mass rows stay out of headline metrics",
+      "transit-timing, hot-host, and uncertainty-missing slices are sample-size or metadata blocked",
+      "radius-only and model-inferred rows are not scored as mass-radius residual successes"
+    ]
+  }
+}
