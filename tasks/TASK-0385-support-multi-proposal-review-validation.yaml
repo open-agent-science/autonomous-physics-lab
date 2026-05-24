@@ -1,0 +1,43 @@
+id: TASK-0385
+title: "Support multi-proposal maintainer-review validation"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep task proposal intake lightweight for parallel agents."
+  - "Prevent review-agent false blockers on valid batched proposal PRs."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "docs/task-proposal-protocol.md"
+  planning_context: "Batched TASK-PROPOSAL PRs are supported, but maintainer-review validation skipped multi-proposal batches and then blocked them as validation-not-run."
+
+requirements:
+  - "Allow proposal PRs with multiple tasks/proposals/*.yaml files to receive standard proposal-level validation."
+  - "Keep every proposal file status checked as PROPOSED."
+  - "Do not allow proposal PRs to edit canonical task YAML, generated task views, or tasks/ACTIVE.md."
+  - "Update protocol docs so multi-proposal PRs are explicitly first-class."
+  - "Add or strengthen tests that fail if multi-proposal PR validation is skipped."
+
+accepted_outputs:
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_maintainer_review.py"
+  - "docs/task-proposal-protocol.md"
+  - "tasks/TASK-0385-support-multi-proposal-review-validation.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

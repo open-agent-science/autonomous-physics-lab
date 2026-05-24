@@ -666,7 +666,7 @@ _EMPTY_DIFF = CommandResult(returncode=0, stdout="", stderr="")
 
 
 def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) -> None:
-    """A PR with multiple tasks/proposals/*.yaml files must not produce a BLOCKED verdict."""
+    """A PR with multiple proposal files must run proposal-level validation."""
     proposals_dir = tmp_path / "tasks" / "proposals"
     proposals_dir.mkdir(parents=True)
     proposal_slugs = ("alpha", "beta", "gamma")
@@ -679,19 +679,42 @@ def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) ->
     branch = "agent/roman/claude/propose-task-multi-test"
     changed = tuple(proposal_paths) + ("docs/notes/some-planning-note.md",)
 
+    validation_payloads: list[dict[str, object]] = []
+
+    def fake_validation(
+        _root: Path,
+        payload: dict[str, object],
+        *,
+        enabled: bool,
+        **_kwargs: object,
+    ) -> ValidationSummary:
+        validation_payloads.append(payload)
+        assert enabled
+        commands = tuple(payload.get("validation", {}).get("commands", ()))  # type: ignore[union-attr]
+        assert "python3 -m physics_lab.cli validate-repo ." in commands
+        assert (
+            "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+            in commands
+        )
+        return ValidationSummary(status="pass", failed_commands=())
+
     with (
-        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
         patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
         patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch("physics_lab.registry.maintainer_review.run_task_validation", side_effect=fake_validation),
     ):
         report = build_review_report(tmp_path, branch=branch)
 
-    assert report.verdict != "BLOCKED", f"Expected non-BLOCKED verdict, got blockers: {report.blockers}"
+    assert validation_payloads
+    assert report.verdict == "MERGE_OK"
     assert not any("multiple" in b.lower() and "proposal" in b.lower() for b in report.blockers), (
         f"Unexpected multi-proposal blocker: {report.blockers}"
     )
+    assert "Validation commands were not executed during this review run." not in report.required_fixes
 
 
 def test_load_claim_status_from_ref_handles_git_worktree_layout(tmp_path: Path) -> None:
