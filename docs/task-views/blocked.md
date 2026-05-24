@@ -24,3 +24,4 @@
 - `TASK-0237` - Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0379` - Add source artifact package validator helper (`repository_validation`, priority `medium`, difficulty `high`, domain `cross_campaign_data_policy`)
