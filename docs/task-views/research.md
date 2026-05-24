@@ -8,8 +8,6 @@
 
 - `TASK-0343` - Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0356` - Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0361` - Run exoplanet mass-radius baseline benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
-- `TASK-0363` - Pin atomic Beloy 2021 source artifact and covariance preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0364` - Attempt quantum PMC/arXiv direct-table source curation (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 
 ## IN_PROGRESS
@@ -38,3 +36,5 @@ None.
 - `TASK-0353` - Ingest pinned exoplanet PSCompPars mass-radius snapshot (`scientific_dataset`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
 - `TASK-0354` - Add exoplanet mass-radius loader dry run (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0355` - Review atomic-clock direct ratio source artifact (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+- `TASK-0361` - Run exoplanet mass-radius baseline benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
+- `TASK-0363` - Pin atomic Beloy 2021 source artifact and covariance preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
