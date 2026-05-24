@@ -35,7 +35,8 @@ requirements:
 accepted_outputs:
   - "docs/fresh-data-stop-conditions.md"
   - "docs/reviews/fresh-data-stop-condition-vocabulary-review.md"
-  - "link-only updates to docs/fresh-data-intake-protocol.md and docs/notes/fresh-data-source-policy.md"
+  - "docs/fresh-data-intake-protocol.md"
+  - "docs/notes/fresh-data-source-policy.md"
 
 validation:
   commands:
