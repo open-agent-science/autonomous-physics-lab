@@ -1,0 +1,50 @@
+id: TASK-0378
+title: "Add campaign fresh-data readiness matrix"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make fresh-data blockers visible across Nuclear, Quantum, Atomic, and Exoplanets."
+  - "Help the campaign curator decide when a campaign is source-ready, baseline-ready, or blocked."
+  - "Avoid starting formula search before source and row readiness are actually satisfied."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_data_policy
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/reviews/campaign-curator-brief-2026-05-24.md"
+  planning_context: >
+    APL now has several active campaigns at different ingestion stages.
+    Maintainers need a compact matrix that says which campaign has source
+    candidates, pinned artifacts, direct rows, schema validation, baseline
+    readiness, benchmark readiness, and reveal or holdout readiness.
+
+requirements:
+  - "Create a matrix for Nuclear, Quantum Size Effects, Atomic Clock Residuals, and Exoplanet Mass-Radius."
+  - "Track at least: source candidates, source artifact pinned, checksum policy, direct rows, row schema, extraction ledger, covariance/correlation policy, holdout/reveal boundary, baseline readiness, benchmark readiness."
+  - "Assign each cell a status such as READY, PARTIAL, BLOCKED, NOT_STARTED, or NOT_APPLICABLE."
+  - "List the next unblock task for every BLOCKED or PARTIAL cell."
+  - "Do not change task statuses, ingest data, or promote claims."
+
+accepted_outputs:
+  - "docs/fresh-data-readiness-matrix.md"
+  - "docs/reviews/fresh-data-readiness-matrix-review.md"
+  - "optional short pointer from docs/future-research-portfolio.md or docs/status.md if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
