@@ -1,14 +1,24 @@
 #!/usr/bin/env bash
-# Create a fresh git worktree at a sibling path for a task branch and
-# initialize it for agent work.
+# Create a fresh git worktree for a task branch and initialize it for
+# agent work.
 #
 # Usage:
 #   ./scripts/apl_new_worktree.sh <branch-name>
 #   ./scripts/apl_new_worktree.sh <branch-name> <worktree-path>
 #
-# The default worktree path is ../<branch-slug>/, where <branch-slug>
-# replaces "/" with "--" in the branch name so the directory name is
-# filesystem-safe. The script:
+# The default worktree path is .worktrees/<branch-slug>/ inside the
+# project, where <branch-slug> replaces "/" with "_" in the branch
+# name so the directory name is filesystem-safe. .worktrees/ is
+# already gitignored so the new directory does not appear in
+# git status. Keeping the worktree inside the project also avoids
+# the Claude Code permission prompts that fire when a worktree
+# lives outside the current working directory (see TASK-0271).
+#
+# An explicit second-argument path always overrides the default and
+# may point anywhere (including outside the project) when the agent
+# has a specific reason to do so.
+#
+# The script:
 #
 # 1. Refuses to run if the branch already exists locally — name conflicts
 #    are usually the symptom of a duplicate task being set up by another
@@ -33,13 +43,13 @@ Usage: apl_new_worktree.sh <branch-name> [<worktree-path>]
 
 Example:
   ./scripts/apl_new_worktree.sh agent/roman/claude/task-0263-foo
-  ./scripts/apl_new_worktree.sh agent/roman/claude/task-0263-foo ../task-0263-foo
+  ./scripts/apl_new_worktree.sh agent/roman/claude/task-0263-foo .worktrees/task-0263-foo
 USAGE
     exit 2
 fi
 
 BRANCH="$1"
-DEFAULT_PATH="../$(echo "$BRANCH" | tr '/' '_')"
+DEFAULT_PATH=".worktrees/$(echo "$BRANCH" | tr '/' '_')"
 WORKTREE_PATH="${2:-$DEFAULT_PATH}"
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
