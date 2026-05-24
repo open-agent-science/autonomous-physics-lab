@@ -333,6 +333,21 @@ Start here:
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 
+## New-Lanes Decision After Uncertainty And Adversarial Controls (TASK-0365)
+
+`docs/reviews/nuclear-new-lanes-decision-after-uncertainty.md` is
+the maintainer-facing go/no-go for the recent Nuclear hypothesis
+wave. Summary:
+
+- **GO** on a no-leakage local-curvature predictive implementation
+  for `LOCAL-CURVATURE-001` (only F1-admissible candidate);
+- **HOLD diagnostic** on high-error cluster (label refactor
+  required before predictive use);
+- **STOP** on odd-even shell interaction, deformation proxy, and
+  measured/extrapolated boundary (preserved sandbox memory only);
+- **HOLD diagnostic** on uncertainty-weighted residual as the
+  TASK-0368 F5 anchor.
+
 ## Recommended Contributor Types
 
 - nuclear-data curators;
