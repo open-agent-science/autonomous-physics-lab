@@ -1,0 +1,53 @@
+id: TASK-0382
+title: "Add science-output conveyor health report"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Shift APL from task accumulation toward regular reviewable science outputs."
+  - "Give maintainers a post-merge pulse that asks whether recent work produced a result, blocker review, campaign decision, or needed task queue."
+  - "Reuse campaign-curator discipline without auto-promoting claims or auto-creating tasks."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_workflow
+  related_objects:
+    - "scripts/apl_campaign_curator.py"
+    - "physics_lab/registry/campaign_curator.py"
+    - "docs/reviews/campaign-curator-brief-2026-05-24.md"
+    - "docs/reviews/strategy-curator-response-2026-05-24.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    The strategic curator recommendation is to make every 3-5 merged tasks
+    produce a clear answer: what changed, which blockers moved, whether there
+    is a result candidate, whether overclaim risk increased, and whether a
+    new task-queue PR is needed. This should be a deterministic maintainer
+    health report, not an autonomous task creator.
+
+requirements:
+  - "Add a script or CLI helper that reads canonical task/result/agent-run state and emits a science-output conveyor report."
+  - "Summarize recent task transitions, new result artifacts, new blocker reviews, campaign decisions, READY science task counts, BLOCKED lane reasons, and possible result candidates."
+  - "Include an explicit overclaim-risk section and a `task_queue_needed` boolean or equivalent field."
+  - "Support JSON output for automation and Markdown output for maintainer review."
+  - "Document that the report is advisory and must not create tasks, merge PRs, or promote claims by itself."
+  - "Keep generated board files out of task PR commits."
+
+accepted_outputs:
+  - "scripts/science_output_conveyor.py or equivalent CLI helper"
+  - "docs/automation/science-output-conveyor.md"
+  - "docs/reviews/science-output-conveyor-sample.md"
+  - "tests for READY/BLOCKED/result-candidate summary behavior"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
