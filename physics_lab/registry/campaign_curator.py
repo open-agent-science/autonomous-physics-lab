@@ -397,6 +397,8 @@ def _recommended_tasks(
             continue
         if str(action.get("status", "")).lower() in {"done", "blocked"}:
             continue
+        if action.get("task_id") is not None:
+            continue
         recommendations.append(
             CampaignTaskRecommendation(
                 task_id=action.get("task_id"),

@@ -1,0 +1,101 @@
+id: HYP-PROPOSAL-0050
+title: "Nuclear high-error cluster residual scout"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox hypothesis only; no prediction registry, canonical result, or claim promotion."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0343
+
+input_references:
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md"
+  - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+
+hypothesis:
+  statement: "Rows with the largest frozen-baseline residuals may separate into reviewable diagnostic clusters around magic proximity, neutron excess, local density, source status, or light-A regions, but any apparent reduction must remain sandbox-only unless matched controls and maintainer review support a narrower follow-up."
+  variables:
+    - "baseline_abs_residual_mev: absolute residual against the frozen RESULT-0015 semi-empirical baseline"
+    - "high_error_threshold_mev: deterministic 75th percentile of full-known absolute residuals selected before fitting"
+    - "magic_proximity: Z or N within two units of a magic number"
+    - "neutron_excess: (N-Z)/A"
+    - "local_density: committed-row neighborhood count in bounded A/Z windows"
+    - "source_status: AME2020 comparison measured/extrapolated flag"
+  assumptions:
+    - "No live source is fetched."
+    - "High-error labels are derived from committed retrospective residuals and are diagnostic, not blind prediction features."
+    - "Candidate coefficients are fit only on the NMD-0002 residual slice."
+    - "Matched random, smooth-A, and cluster-label-shuffle controls can block overinterpretation."
+  expected_scope: "Retrospective sandbox comparison of bounded high-error cluster explanations."
+  expected_failure_modes:
+    - "A candidate can improve high-error rows while regressing non-high-error rows."
+    - "A smooth-A or shuffled cluster-label control can match or explain the apparent improvement."
+    - "Cluster membership can mostly reflect post-hoc residual thresholding."
+    - "Sparse chains or light-A rows can make localized deltas unstable."
+
+novelty_check:
+  checked_files:
+    - "docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md"
+    - "docs/reviews/nuclear-deformation-proxy-hypothesis-lane.md"
+    - "docs/reviews/nuclear-odd-even-shell-interaction-lane.md"
+    - "docs/reviews/nuclear-extrapolated-measured-boundary-lane.md"
+  possible_overlap: "Builds on the full-known nuclear residual surface but starts from high-error cluster mapping instead of assuming a shell-axis, deformation, parity, or source-status explanation."
+  notes: "The lane preserves post-hoc cluster risk explicitly and keeps all outputs sandbox-only."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_high_error_cluster_lane.py and compare committed metrics to recomputed metrics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on committed NMD-0002 and post-AME2020 holdout data."
+  pass_condition: "Sandbox pass if high-error clusters are identified with prefit deterministic thresholds, 4-8 bounded explanations are recorded, 1-3 candidates and required controls are evaluated, and no registry, result, claim, or knowledge files are written."
+  fail_condition: "Fail if the lane fetches live data, hides matched controls, writes PRED entries, promotes a claim, or frames retrospective cluster deltas as validated physics."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call high-error cluster deltas a discovery."
+    - "Do not treat retrospective residual labels as predictive validation."
+    - "Do not imply reveal readiness, registry validation, or claim support."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Report non-high-error regressions and chain-transfer diagnostics."
+    - "Require maintainer review before any follow-up promotion."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_high_error_cluster_lane.py"
+    - "python3 -m pytest tests/test_nuclear_high_error_cluster_lane.py"
+  code_references:
+    - "scripts/run_nuclear_high_error_cluster_lane.py"
+    - "tests/test_nuclear_high_error_cluster_lane.py"
+  metrics:
+    - "high_error_threshold_mev"
+    - "cluster_counts"
+    - "primary_delta_mae_mev"
+    - "high_error_delta_mae_mev"
+    - "non_high_error_delta_mae_mev"
+    - "neutron_rich_delta_mae_mev"
+    - "magic_region_delta_mae_mev"
+    - "light_a_warning_delta_mae_mev"
+    - "isotope_chain_transfer"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0030/"
+    - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+
+limitations:
+  - "High-error labels are residual-derived and retrospective."
+  - "The fit surface is the 11-row NMD-0002 residual slice."
+  - "Controls are required for interpretation and no claim promotion is authorized."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Review whether the high-error cluster lane should remain diagnostic-only or motivate a narrower future control task."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed follow-up before any RESULT, PRED, claim, knowledge, or reveal-scoring work."
