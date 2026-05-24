@@ -335,11 +335,14 @@ Use this mode only after the maintainer has already merged the PR.
    `READY`, `REVIEW_READY`, or `BLOCKED` tasks still represent real claimable
    work rather than stale or already-merged drift.
 9. After applying any closeout edits, do not leave the task status, active
-   board, or generated context changes only in the local worktree. Review
-   `git status`/`git diff`, run the required validation and context refresh,
-   then prepare a closeout commit and PR or explicitly ask the maintainer to
-   publish those changes. Do not push or merge without maintainer
-   authorization.
+   board, or generated context changes only in the local worktree. Local
+   closeout edits are not a completed closeout. Review `git status`/`git diff`,
+   run the required validation and context refresh, then prepare the closeout
+   commit, push the branch, open the closeout PR, run this review agent on that
+   PR, and continue until the closeout PR is merged or a concrete blocker is
+   recorded. If tooling or permissions prevent any publication step, report the
+   blocker with exact maintainer-run commands; do not stop with only
+   uncommitted local changes.
    Prefer the closeout scaffold/preflight helper instead of a short ad hoc
    `gh pr create --body ...` flow:
 
@@ -391,8 +394,10 @@ Use this mode only after the maintainer has already merged the PR.
 10. After the closeout PR is open and the review agent reports `MERGE_OK` with
     green CI, do not end with a passive status update. If the maintainer already
     authorized closeout/merge in the current request chain and the PR is pure
-    closeout bookkeeping, merge it. Otherwise ask the maintainer a clear yes/no
-    question: `Merge closeout PR #<number>?`
+    closeout bookkeeping, merge it immediately. Otherwise ask the maintainer a
+    clear yes/no question: `Merge closeout PR #<number>?` The expected
+    closeout outcome is either a merged closeout PR or an explicit blocker,
+    not a local diff waiting for a later reminder.
 
 ### Allowed actions
 

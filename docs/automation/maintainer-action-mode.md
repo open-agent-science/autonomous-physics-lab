@@ -36,7 +36,8 @@ The first enabled action for APL should be:
    chain, merge the closeout PR
 5. otherwise ask the explicit next-step question:
    `Merge closeout PR #<number>?`
-6. stop unless the maintainer explicitly authorizes merge
+6. stop only after the closeout PR is merged, the maintainer declines merge, or
+   a concrete blocker is reported
 
 This gives the maintainer a real routine reduction benefit without handing
 merge authority to automation.
@@ -114,6 +115,14 @@ Allowed when:
 Action mode may prepare and open the closeout PR and then run the maintainer
 review agent on that PR. It should not silently mark a task `DONE` on `main`
 outside the normal PR flow.
+
+Once action mode has applied closeout edits, it must finish the publication
+loop instead of leaving the repository dirty: commit the closeout branch, push
+it, open the closeout PR, run the review agent, and merge after `MERGE_OK` plus
+green CI when current maintainer authorization covers closeout/merge and the PR
+is pure closeout bookkeeping. If any step is blocked by conflicts, failed CI,
+review findings, missing GitHub metadata, or permissions, report that blocker
+explicitly and leave exact next commands.
 
 After a closeout PR receives `MERGE_OK` and GitHub CI is green, action mode
 should be proactive rather than passive. If the maintainer already said to
