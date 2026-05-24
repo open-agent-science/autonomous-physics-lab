@@ -12,6 +12,7 @@ event-level collider topics out of WATCHLIST.
 Use this policy with:
 
 - [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md)
+- [Fresh-Data Stop Conditions](../fresh-data-stop-conditions.md)
 - [Fresh Physics Data Axes Campaign](../campaigns/fresh-physics-data-axes.md)
 - [Blind Holdout Benchmark Protocol](../blind-holdout-benchmark-protocol.md)
 - [Numerical Accuracy Policy](../numerical-accuracy-policy.md)
@@ -174,6 +175,15 @@ The following axes are not in scope for ingestion under `TASK-0309`:
 
 Future tasks may cite this policy, but they must not treat WATCHLIST axes as
 active datasets without a maintainer-approved feasibility task.
+
+## Shared Stop-Condition Vocabulary
+
+Use [Fresh-Data Stop Conditions](../fresh-data-stop-conditions.md) when a
+source-policy or ingestion task needs to preserve a blocker. The shared
+vocabulary covers paywalled tables, non-redistributable artifacts, required
+figure digitisation, covariance ambiguity, missing direct rows, calibration-only
+surfaces, source-version drift, uncertainty ambiguity, row-class ambiguity, and
+license-review gaps.
 
 ## Unacceptable Source Shortcuts
 

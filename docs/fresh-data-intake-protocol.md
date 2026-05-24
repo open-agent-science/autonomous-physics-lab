@@ -14,6 +14,7 @@ promotion.
 Use it with:
 
 - [Fresh-Data Source Policy](notes/fresh-data-source-policy.md)
+- [Fresh-Data Stop Conditions](fresh-data-stop-conditions.md)
 - [Source Manifest Minimum Schema](source-manifest-minimum-schema.md)
 - [Research Quality Gate](research-quality-gate.md)
 - [Claim Promotion Policy](claim-promotion-policy.md)
@@ -51,7 +52,8 @@ Exit criteria:
 
 - The source has an admissibility decision: continue, halt, or split by source
   class.
-- Known blockers are named using the project stop-condition vocabulary when
+- Known blockers are named using the
+  [Fresh-Data Stop Conditions](fresh-data-stop-conditions.md) vocabulary when
   available.
 - The next step is one of source review, artifact pinning, extraction planning,
   or blocker preservation.

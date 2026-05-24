@@ -1,7 +1,7 @@
 id: TASK-0377
 title: "Add fresh-data stop-condition vocabulary"
 type: evidence_policy
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: high
 
@@ -35,7 +35,7 @@ requirements:
 accepted_outputs:
   - "docs/fresh-data-stop-conditions.md"
   - "docs/reviews/fresh-data-stop-condition-vocabulary-review.md"
-  - "optional updates to campaign source docs that only link to the vocabulary"
+  - "link-only updates to docs/fresh-data-intake-protocol.md and docs/notes/fresh-data-source-policy.md"
 
 validation:
   commands:
