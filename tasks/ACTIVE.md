@@ -65,6 +65,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0269` — Polish README landing entrypoint for agents, scientists, and reviewers (`documentation`, priority `high`, difficulty `low`)
 - `TASK-0270` — Persist agent-discipline learnings to the repository (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0271` — Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0373` — Define cross-campaign fresh-data intake protocol (`research_infrastructure`, priority `high`, difficulty `medium`)
