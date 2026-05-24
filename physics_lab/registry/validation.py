@@ -22,6 +22,7 @@ SCHEMA_FILE_BY_KIND = {
     "agent": "agent.schema.json",
     "result": "result.schema.json",
     "review_metadata": "review_metadata.schema.json",
+    "result_candidate_review": "result_candidate_review.schema.json",
     "constant_verification": "constant_verification.schema.json",
     "hypothesis_register_entry": "hypothesis_register_entry.schema.json",
     "approximation_probe": "approximation_probe.schema.json",
@@ -96,6 +97,7 @@ def validate_document(data: dict[str, Any], kind: str, source: str | Path) -> di
 
 FILENAME_KIND_MAP: dict[str, str] = {
     "review_metadata.yaml": "review_metadata",
+    "result_candidate_review.yaml": "result_candidate_review",
     "agent_run.yaml": "agent_run",
     "MICROTASK-RUN-TEMPLATE.yaml": "microtask_run",
     "PRED-TEMPLATE.yaml": "nuclear_mass_prediction",
