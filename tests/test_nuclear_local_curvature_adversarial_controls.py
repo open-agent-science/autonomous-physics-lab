@@ -9,17 +9,30 @@ data.
 
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 
 import pytest
 
-from scripts import run_nuclear_local_curvature_adversarial_controls as adv
-from scripts import run_nuclear_local_curvature_lane as lane
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+SCRIPT_PATH = REPO_ROOT / "scripts" / "run_nuclear_local_curvature_adversarial_controls.py"
 AGENT_RUN_DIR = REPO_ROOT / "agent_runs" / "AGENT-RUN-0031"
+
+
+def _load_module():
+    spec = importlib.util.spec_from_file_location(
+        "run_nuclear_local_curvature_adversarial_controls", SCRIPT_PATH
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+adv = _load_module()
+lane = adv.lane
 
 
 # ---------------------------------------------------------------------------
