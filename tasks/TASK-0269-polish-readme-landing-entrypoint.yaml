@@ -15,7 +15,7 @@ input:
   related_domain: public_readme
   related_objects:
     - "README.md"
-    - "docs/figures/apl-agent-lab-loop.svg"
+    - "docs/figures/autonomous-physics-lab-workflow-concept.png"
     - "docs/mission-control.md"
     - "docs/results/visual-summary.md"
     - "docs/status.md"
@@ -33,27 +33,27 @@ requirements:
   - "Show the repository download and mission-start commands before the agent prompt."
   - "Make the first-screen message simpler, more visual, and more motivating."
   - "Preserve the sense that APL is a large-scale research infrastructure project, not a small demo."
-  - "Keep a README hero visual, but simplify it compared with the older workflow concept image."
+  - "Keep a README hero visual, reusing the existing workflow concept image until a better regenerated public-facing visual is available."
   - "Keep a concise copy-paste agent prompt near the top of the README."
   - "Surface the autonomous and parallel-agent workflow as a public-facing project strength."
   - "Give scientists a clear path for proposing new ideas and hypotheses."
   - "Use a more motivating public-facing narrative without overclaiming discovery."
   - "Move heavy inline visual/result material out of the main README flow and link to the appropriate visual summary or status docs."
-  - "Simplify the workflow diagram so it communicates the scientific loop without overwhelming first-time readers."
+  - "Do not introduce a weaker replacement visual just to make the README lighter."
   - "Do not delete figure assets or canonical result artifacts."
   - "Do not promote sandbox evidence, nuclear-mass candidates, or benchmark results into scientific claims."
   - "Keep EXP-0010 and other high-risk formula-search material out of flagship success framing."
-  - "Do not change unrelated task-state transitions. Own-task REVIEW_READY transition and generated navigation sync are allowed."
+  - "Do not change unrelated task-state transitions."
+  - "Do not commit generated task navigation unless a maintainer explicitly asks for a dedicated board-sync update."
 
 accepted_outputs:
   - "updated README.md with a lighter landing-page structure"
   - "README language that preserves project scale while keeping the first path runnable"
   - "top-level download/start command before the copy-paste agent prompt"
   - "expanded bottom navigation links for deeper exploration"
-  - "simple README hero visual for the agent workflow"
+  - "README hero visual that reuses the existing concept image rather than adding a weaker replacement asset"
   - "moved README workflow concept image reference into a deeper orientation doc"
   - "canonical task spec for TASK-0269"
-  - "synced generated task navigation if required by validation"
 
 validation:
   commands:

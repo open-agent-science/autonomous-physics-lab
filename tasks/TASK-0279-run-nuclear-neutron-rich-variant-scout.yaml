@@ -1,0 +1,51 @@
+id: TASK-0279
+title: "Run nuclear neutron-rich variant scout"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Give agents a parallel Nuclear lane focused on neutron-rich and asymmetry behavior."
+  - "Test bounded correction hypotheses before deciding whether any deserve later registry selection."
+  - "Keep candidate generation sandbox-only and no-peek-safe."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "experiments/EXP-0012-nuclear-mass-baseline-residual-benchmark.yaml"
+    - "results/RESULT-0015-nuclear-mass-baseline-residual-benchmark.md"
+    - "docs/notes/nuclear-prediction-variant-factory.md"
+    - "docs/reviews/nuclear-prediction-factory-slate-002-feature-terms.md"
+  planning_context: >
+    The post-PRED-0062 campaign should not stop variant exploration, but it
+    should separate sandbox discovery work from frozen registry expansion.
+    This scout lane focuses on neutron-rich edges, neutron excess, asymmetry,
+    and frontier-residual behavior using only existing repository data.
+
+requirements:
+  - "Generate 6-10 bounded neutron-rich, neutron-excess, asymmetry, or frontier-residual hypotheses, then reject weak or duplicate ideas before sandbox evaluation."
+  - "Use only repository-pinned datasets, existing baseline artifacts, and deterministic local code; do not fetch live measurements."
+  - "Compare candidates against the frozen RESULT-0015 baseline and relevant neutron-rich/asymmetry subsets."
+  - "Include at least one negative or near-null control and preserve its result."
+  - "Report MAE/RMSE or the closest existing project metric, subset behavior, complexity, limitations, and verdict."
+  - "Do not edit prediction_registry/nuclear_masses/ or create new frozen PRED entries in this task."
+  - "Do not promote discovery claims or imply a new nuclear mass law."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-neutron-rich-variant-scout-001.md"
+  - "optional sandbox artifact path under agent_runs/ or results/ if required by the existing workflow"
+  - "updated tests only if code or reusable tooling is changed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,78 @@
+id: exoplanet-mass-radius
+title: "Exoplanet mass-radius benchmark"
+autonomy_status: WHITELISTED_LIMITED
+pilot_rank: 5
+
+source_docs:
+  - docs/campaigns/exoplanet-mass-radius.md
+  - docs/exoplanet-mass-radius-baseline-protocol.md
+  - docs/exoplanet-mass-radius-holdout-protocol.md
+  - docs/reviews/exoplanet-pscomppars-snapshot-ingestion.md
+  - docs/reviews/exoplanet-loader-dry-run.md
+  - docs/autonomous-research-loop.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Frozen published mass-radius baselines compared against the pinned PSCompPars snapshot."
+  - "Per-class median or other null-baseline floors that quantify a minimum non-trivial signal."
+  - "Compact agent-proposed residual corrections with explicit frozen-baseline comparison and no new free parameters fit to the full snapshot."
+  - "Negative-control candidates that intentionally collapse one diagnostic axis."
+
+allowed_experiment_families:
+  - "Deterministic residual replay against a pinned NASA Exoplanet Archive PSCompPars snapshot."
+  - "Baseline-versus-null-baseline comparisons under the committed loader/filter chain."
+  - "Sandbox-only comparisons that preserve explicit negative or inconclusive results."
+
+required_inputs:
+  - "Pinned exoplanet dataset source, version, and SHA-256 checksum policy."
+  - "Explicit mass_class and radius_class semantics from the committed schema."
+  - "Named baseline residual target and unit conventions (log10 mass, log10 radius, Earth units)."
+  - "Reviewed inclusion/exclusion filter chain (TASK-0345 / TASK-0346 / TASK-0354)."
+  - "Pre-filter and post-filter row counts reported before any metric is computed."
+  - "Recorded baseline definition (frozen published or null per-class median) with reference."
+
+required_quality_checks:
+  - "State that no universal mass-radius law, habitability claim, or target-prioritization wording is used."
+  - "Keep dataset provenance and inclusion/exclusion reasons explicit."
+  - "Report baseline-relative metrics, per-class and per-method subset behaviour, not aggregate fit alone."
+  - "Preserve negative, inconclusive, or null-beats-baseline outcomes as valid review surfaces."
+  - "Report which axes were active (true-mass-with-transit-radius, minimum-mass-with-transit-radius) and whether any class or method slice regressed."
+  - "Run the shared research quality gate before any later autonomy PR handoff."
+
+forbidden_claims:
+  - "A sandbox candidate explains all exoplanet masses or radii."
+  - "Residual improvement alone is evidence of a broader physical conclusion about planet structure."
+  - "Habitability, biosignature, target-prioritization, or planet-discovery framing is permitted."
+  - "Advanced-model comparisons are required before the frozen Chen-Kipping-style baseline exists."
+  - "Random or full-snapshot improvement alone is enough to claim generalization."
+  - "Live NASA Exoplanet Archive fetches may bypass the snapshot pinning policy."
+
+sandbox_permissions:
+  may_create:
+    - scoped_notes
+    - temporary_outputs
+    - future_hypothesis_proposals
+    - future_experiment_proposals
+  must_not_edit:
+    - claims
+    - canonical_hypotheses
+    - canonical_experiments
+    - canonical_results
+    - canonical_exoplanet_datasets
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - dataset_source_and_version
+  - baseline_definition
+  - filter_chain_reference
+  - metrics
+  - limitations
+  - verdict
+  - maintainer_decision_requested

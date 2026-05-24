@@ -1,0 +1,112 @@
+id: TASK-0291
+title: "Curate quantum direct-measurement absorption seed"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Unblock Quantum Size Effects by adding measurement-grade row-level data rather than calibration-curve evaluations."
+  - "Keep the first benchmark honest by distinguishing direct observations from published sizing formulas."
+  - "Give condensed-matter agents a concrete data-curation task that can be reviewed independently."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "docs/reviews/quantum-direct-measurement-source-triage.md"
+    - "docs/reviews/quantum-size-direct-absorption-seed-review.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "data/quantum_dots/digitization/README.md"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+    - "data/quantum_dots/qd-0001-yu-2003-absorption.yaml"
+    - "data/quantum_dots/qd-0002-moreels-2009-pbs-absorption.yaml"
+  planning_context: >
+    TASK-0283 kept TASK-0225 blocked because qd-0001 and qd-0002 are
+    calibration-derived. This task should add a small absorption_peak_eV seed
+    with direct-measurement provenance so the readiness gate can be re-run.
+    A first-attempt investigation against Yu 2003 (the source triaged as the
+    top candidate in TASK-0298) reached the following finding. This PR sets
+    the task status to REVIEW_READY so the maintainer can review the
+    investigation; the intended post-merge closeout status is `BLOCKED`
+    (not `DONE`) until one of the listed unblock paths is satisfied. See
+    `docs/reviews/quantum-size-direct-absorption-seed-review.md` for the
+    full record.
+
+    Investigation finding: Yu 2003 (Chem. Mater. 15, 2854) does not contain
+    tabulated (diameter, first-exciton absorption peak) values. The empirical
+    polynomial fits already used by qd-0001 are presented in the paper text
+    as the only closed-form output. The direct TEM/XRD measurement points
+    exist only as scatter-plot points in Figure 2 and are partially sourced
+    from prior literature (Vossmeyer 1994, Soloviev 2000, Murray 1993,
+    Peng 1998, plus original Yu/Peng group measurements). Reliable extraction
+    requires a WebPlotDigitizer-class figure digitisation pass with per-point
+    provenance and uncertainty, or direct access to the cited primary source
+    tables.
+
+    Concrete blocker: an LLM-only agent without a figure digitisation tool
+    cannot extract ≥6 direct-measurement rows from Yu 2003 without dropping
+    below the precision threshold the task explicitly forbids (eyeballed
+    scatter-plot reads with ±0.3-0.5 nm diameter and ±5-10 nm wavelength
+    uncertainty on top of the paper's own ±10-15% TEM uncertainty).
+    Producing such rows would silently degrade rather than improve dataset
+    quality versus qd-0001 calibration-derived rows.
+
+    Unblock paths (any one is sufficient):
+      (a) Maintainer or human curator runs a WebPlotDigitizer-class workflow
+          on Yu 2003 Figure 2 and commits the digitisation artifact alongside
+          the seed file, with per-point uncertainty, source attribution
+          (Yu 2003 original vs cited prior literature), and material labels.
+      (b) Maintainer-approved access to the primary source tables in
+          Vossmeyer 1994, Soloviev 2000, Murray 1993, or Peng 1998 — which
+          contributed the underlying discrete points to Yu 2003 Figure 2 —
+          and a corresponding new source_manifest entry where applicable.
+      (c) Maintainer-provided table values for at least 6 direct-measurement
+          (material, diameter, absorption peak) rows with documented
+          provenance and uncertainty.
+      (d) Maintainer waiver explicitly permitting figure-digitised rows from
+          Yu 2003 with relaxed precision constraints; in that case the
+          waiver must be referenced in the seed file's `notes` and in the
+          campaign page.
+
+    TASK-0306 has now defined the WebPlotDigitizer-class artifact shape for
+    future figure-derived absorption rows. The protocol itself does not
+    provide a digitisation artifact or primary table values, so this first
+    TASK-0291 pass remains a reviewable blocker record rather than a dataset
+    seed.
+
+requirements:
+  - "Start only after TASK-0306 or an equivalent maintainer-approved digitisation/table-value path defines how direct absorption rows will be extracted without eyeballing or LLM-estimated coordinates."
+  - "If using Yu 2003 Figure 2, require a WebPlotDigitizer-class artifact or equivalent deterministic digitisation note with axis calibration, extracted point coordinates, per-point uncertainty, and provenance notes."
+  - "If using Vossmeyer 1994, Soloviev 2000, Murray 1993, Peng 1998, Moreels 2009, or another primary source, require table values or digitised figure points with source_table_ref/source_figure_ref and no polynomial-generated values."
+  - "Add one reviewed row-level absorption_peak_eV dataset seed with at least 6 included rows."
+  - "If the reviewed evidence path is still absent, do not fabricate a qd-*.yaml seed; record the blocker and leave maintainer closeout to decide whether the task should become BLOCKED."
+  - "Rows must be direct table values, digitised figure points, or independently reviewed TEM + spectroscopy observations, not values generated from a published sizing polynomial or calibration curve."
+  - "Register any new source in source_manifest.yaml before referencing its source_id."
+  - "Each row must validate against the quantum-dot schema, include manifest-linked source_id, material, diameter_nm or radius_nm, property_kind, property_value_eV, measurement_type, source_table_ref, inclusion_status, and provenance notes."
+  - "Exclude uncertain rows explicitly rather than silently using them."
+  - "Keep absorption_peak_eV separate from emission_peak_eV and bandgap_eV."
+  - "Do not add synthesis recipes, concentrations, temperatures as protocols, biomedical claims, device claims, or live external fetch behavior."
+  - "Do not unblock TASK-0225 in this task; leave that to the readiness gate."
+
+accepted_outputs:
+  - "data/quantum_dots/qd-0003-direct-absorption.yaml or equivalent next-numbered direct-measurement absorption seed"
+  - "or, when no compliant digitisation/table path exists, a review-only blocker record explaining why no qd-0003 seed was produced"
+  - "updated data/quantum_dots/source_manifest.yaml if a new source is used"
+  - "docs/reviews/quantum-size-direct-absorption-seed-review.md"
+  - "updated tests covering schema validation and source_manifest references if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

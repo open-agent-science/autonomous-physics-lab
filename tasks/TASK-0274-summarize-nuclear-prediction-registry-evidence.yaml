@@ -1,0 +1,50 @@
+id: TASK-0274
+title: "Summarize nuclear prediction registry evidence after PRED-0062"
+type: documentation
+status: DONE
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make the current Nuclear Mass Surface state legible after the registry expansion wave."
+  - "Separate baseline evidence, sandbox evidence, prospective predictions, and future reveal work."
+  - "Prevent public or agent-facing docs from implying that frozen predictions are already validated."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/status.md"
+    - "docs/results/visual-summary.md"
+    - "prediction_registry/nuclear_masses/"
+    - "docs/reviews/nuclear-prediction-factory-feature-term-selected-registry-001.md"
+  planning_context: >
+    After TASK-0265, Nuclear Mass Surface has baseline results, sandbox
+    reviews, coefficient-transform predictions, and feature-term predictions.
+    Contributor-facing docs should explain that this is a strong prospective
+    setup but not a reveal validation result.
+
+requirements:
+  - "Summarize the current nuclear evidence layers: RESULT-0015 baseline, sandbox runs, factory slates, selected registry waves, and reveal protocol."
+  - "State clearly that PRED-0001 through PRED-0062 are frozen prospective entries, not validated predictions."
+  - "Point contributors toward registry coverage audit, synthetic reveal dry-run, and future reveal tasks instead of more variant generation."
+  - "Preserve conservative wording: no discovery, no universal mass formula, no claim promotion."
+  - "Do not fetch measurements, compute reveal scores, or edit prediction values."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-prediction-registry-status-after-pred-0062.md"
+  - "updated docs/campaigns/nuclear-mass-surface.md"
+  - "updated docs/status.md or docs/results/visual-summary.md if they are stale"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

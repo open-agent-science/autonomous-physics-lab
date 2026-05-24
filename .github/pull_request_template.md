@@ -85,8 +85,12 @@ Common narrow microtask/docs path:
 - [ ] `./scripts/validate_quick.sh`
 - [ ] `python3 -m physics_lab.cli validate-repo .`
 - [ ] `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`
-- [ ] `python3 -m physics_lab.cli sync-active-board .`
 - [ ] `./scripts/apl_review_bundle.sh`
+
+Note: agents no longer commit regenerated `tasks/ACTIVE.md` or
+`docs/task-views/*.md` from task PRs. The `Sync Active Board` post-merge
+GitHub Action regenerates them on `main` after every merge that touches
+`tasks/**` or `missions/current.yaml`.
 
 Broader code/science path when applicable:
 

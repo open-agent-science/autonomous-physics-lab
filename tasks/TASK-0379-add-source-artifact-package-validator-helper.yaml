@@ -1,0 +1,50 @@
+id: TASK-0379
+title: "Add source artifact package validator helper"
+type: repository_validation
+status: BLOCKED
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Turn fresh-data intake templates into deterministic validation."
+  - "Catch missing provenance, checksums, license review, and extraction ledgers before benchmark tasks run."
+  - "Reduce maintainer burden during source-heavy campaign work."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_data_policy
+  related_objects:
+    - "tasks/TASK-0373-define-cross-campaign-fresh-data-intake-protocol.yaml"
+    - "tasks/TASK-0374-add-source-artifact-package-template.yaml"
+    - "tasks/TASK-0375-add-shared-source-manifest-minimum-schema.yaml"
+    - "tasks/TASK-0376-add-fresh-data-extraction-ledger-template.yaml"
+  planning_context: >
+    This validator helper should run only after the protocol, package template,
+    manifest minimum schema, and extraction ledger template exist. Otherwise the
+    validator would freeze an unstable source-package shape too early.
+
+requirements:
+  - "Wait until TASK-0373, TASK-0374, TASK-0375, and TASK-0376 are DONE or explicitly waived."
+  - "Add a deterministic helper or CLI validation path for source artifact packages."
+  - "Check required metadata, provenance, checksum sidecars or archive policy, license review, extraction notes, row-class labels, and blocker fields."
+  - "Include tests for valid, missing-checksum, missing-license, missing-row-class, and blocker-only packages."
+  - "Do not fetch external sources, ingest values, run benchmarks, or promote claims."
+
+accepted_outputs:
+  - "physics_lab/registry/source_artifacts.py or equivalent validation module"
+  - "optional CLI hook under physics_lab/cli.py"
+  - "tests/test_source_artifact_package_validation.py"
+  - "docs/reviews/source-artifact-package-validator-helper.md"
+  - "updated docs/fresh-data-intake-protocol.md if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

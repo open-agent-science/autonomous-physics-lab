@@ -1,0 +1,53 @@
+id: TASK-0380
+title: "Define result promotion scorecard"
+type: research_quality_gate
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent sandbox evidence from being promoted into claims by enthusiasm or narrative pressure."
+  - "Make reviewable science outputs explicit before public-alpha or claim promotion wording."
+  - "Support the APL goal of producing disciplined, reproducible science rather than loose result summaries."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/reviews/strategy-curator-response-2026-05-24.md"
+    - "docs/open-agent-network.md"
+    - "docs/nuclear-mass-robustness-gate.md"
+    - "docs/status.md"
+  planning_context: >
+    APL has several sandbox signals and benchmark artifacts, but no automatic
+    claim promotion is allowed. Before any campaign result becomes a claim,
+    knowledge entry, or public "important result" story, maintainers need a
+    compact scorecard that checks source provenance, holdout quality,
+    uncertainty handling, negative controls, leakage risk, reproducibility, and
+    public wording risk.
+
+requirements:
+  - "Define a result-promotion scorecard that applies across Nuclear, Exoplanets, Quantum Size Effects, and Atomic Clock Residuals."
+  - "Include at least: baseline strength, source provenance, row/artifact checksums when applicable, holdout or reveal quality, uncertainty handling, negative controls, leakage risk, reproducibility, external comparability, and public wording risk."
+  - "Separate sandbox-follow-up eligibility from claim-candidate eligibility."
+  - "Require explicit maintainer review before any claim, knowledge, or public discovery wording."
+  - "Include examples for one sandbox-only result and one benchmark-only result without promoting either."
+  - "Do not rewrite existing claims, promote results, or change campaign status."
+
+accepted_outputs:
+  - "docs/result-promotion-scorecard.md"
+  - "physics_lab/schemas/result_candidate_review.schema.json"
+  - "docs/reviews/result-promotion-scorecard-review.md"
+  - "tests/test_result_promotion_scorecard_schema.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_result_promotion_scorecard_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

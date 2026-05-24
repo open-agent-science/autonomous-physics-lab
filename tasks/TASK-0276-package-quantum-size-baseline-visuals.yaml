@@ -1,0 +1,48 @@
+id: TASK-0276
+title: "Package quantum-size baseline residual visuals"
+type: documentation
+status: BLOCKED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make the first Quantum Size Effects benchmark legible without turning it into a discovery claim."
+  - "Prepare visual residual maps that can support review and later public explanation."
+  - "Keep visualization downstream of the frozen baseline, not ahead of data and holdout discipline."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/notes/quantum-size-effects-campaign-plan.md"
+  planning_context: >
+    This task is blocked until TASK-0225 creates the first baseline residual
+    benchmark. After that benchmark exists, APL should package conservative
+    visuals and interpretation notes so reviewers can see material, size-range,
+    property-kind, and holdout behavior without overclaiming.
+
+requirements:
+  - "Start only after TASK-0225 is DONE and a baseline residual artifact exists."
+  - "Create visual or tabular summaries for per-material residuals, size-range residuals, holdout-vs-train behavior, and outliers."
+  - "Separate absorption, emission, and bandgap targets according to the benchmark semantics."
+  - "Include limitations and negative-result language prominently."
+  - "Do not add new model fitting, autonomous hypotheses, synthesis guidance, device claims, or biomedical claims."
+
+accepted_outputs:
+  - "docs/results/quantum-size-effects-baseline-visual-summary.md"
+  - "optional generated static assets under a reviewed docs/results or results path"
+  - "updated docs/campaigns/quantum-size-effects.md if the result changes campaign orientation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

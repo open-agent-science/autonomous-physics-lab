@@ -95,8 +95,11 @@ Documentation, scripts, config, and fixes all follow the same flow.
 Pushing directly to `main` violates the repository protocol.
 
 The only operations allowed directly on `main` are:
-- post-merge task closeout (`status: DONE` + `sync-active-board`)
+- post-merge task closeout (`status: DONE`)
 - `CONTEXT.md` regeneration after a batch merge
+- regeneration of `tasks/ACTIVE.md` and `docs/task-views/*.md` by the
+  `Sync Active Board` post-merge GitHub Action (the action commits with a
+  `[skip-board-sync]` marker and never edits canonical task YAML)
 
 ## Core Principle
 
@@ -177,8 +180,13 @@ Use these files as the shared coordination layer:
 
 `tasks/ACTIVE.md` remains the generated full-status board, including DONE
 history. The generated files under `docs/task-views/` are the lighter
-navigation surface for current work; they are synchronized from canonical
-`tasks/TASK-*.yaml` files through `python3 -m physics_lab.cli sync-active-board .`.
+navigation surface for current work; both are derived from canonical
+`tasks/TASK-*.yaml` files and regenerated automatically on `main` by the
+`Sync Active Board` GitHub Action after any push that touches `tasks/**` or
+`missions/current.yaml`. Agents do not commit regenerated versions of these
+files from a task PR; the action handles that on `main`. Maintainers may
+still run `python3 -m physics_lab.cli sync-active-board .` by hand in a
+dedicated board-sync PR when the action is disabled or for explicit audits.
 
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
@@ -201,6 +209,10 @@ repository checkout, prefer a dedicated `git worktree` per task so that
 for the helpers (`scripts/apl_new_worktree.sh`) and the optional
 [`scripts/apl_branch_precondition.py`](scripts/apl_branch_precondition.py)
 check that catches "wrong branch / surprise files" before any commit.
+
+See [`docs/notes/agent-discipline-collected.md`](docs/notes/agent-discipline-collected.md)
+for the collected agent-discipline learnings index (worktree usage,
+mock-first testing, dependent-PR serialisation, harness-artifact handling).
 
 ## Task Proposal Rule
 
@@ -516,7 +528,6 @@ python3 -m ruff check .
 python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
-python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```

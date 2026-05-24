@@ -6,7 +6,8 @@
 
 ## READY
 
-- `TASK-0206` - Add release-time validation and public wording signoff artifact (`release_review`, priority `high`, difficulty `medium`, domain `release_readiness`)
+- `TASK-0378` - Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
+- `TASK-0381` - Add nuclear prediction registry count and reveal-readiness report (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## IN_PROGRESS
 
@@ -14,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0269` - Polish README landing entrypoint for agents, scientists, and reviewers (`documentation`, priority `high`, difficulty `low`, domain `public_readme`)
+None.

@@ -2,13 +2,14 @@
 
 ## Current Stage
 
-`v0.1-private-alpha — scientific campaign and contributor workflow validation`
+`v0.2-public-alpha candidate — final release go/no-go review pending`
 
 ## Current Goal
 
 Validate APL as verification-first scientific infrastructure through active
-campaigns, reproducible benchmark and falsification results, v0.2 packaging
-work, and a private contributor workflow before any public-opening decision.
+campaigns, reproducible benchmark and falsification results, Open Agent
+Network workflow evidence, and final v0.2 release review before any public
+opening decision.
 
 ## Current Major Results
 
@@ -47,9 +48,15 @@ work, and a private contributor workflow before any public-opening decision.
   time-split evidence: `AGENT-RUN-0007` is `INCONCLUSIVE` source-manifest-only
   guard evidence, while `AGENT-RUN-0008` is sandbox-only row-level time-split
   evidence that remains `INCONCLUSIVE`.
-- `PRED-0001` through `PRED-0020` - prospective nuclear prediction registry
-  entries awaiting future maintainer-reviewed reveal data. These are frozen
+- `PRED-0001` through `PRED-0068` - prospective nuclear prediction registry
+  entries awaiting future maintainer-reviewed reveal data. The registry now has
+  coverage-audit and synthetic reveal dry-run support, but these are frozen
   forecasts, not results or claims.
+- Nuclear scout synthesis after `PRED-0062` - sandbox-only review evidence now
+  points to a small shell-axis follow-up surface, which later stress testing
+  preserved through sign, shuffle, and null controls. The asymmetry-frontier
+  lane remains a smaller review surface, while mid-mass / isotope-chain scouts
+  are preserved as negative evidence. No reveal or discovery claim is promoted.
 - [Negative Results Registry](./negative-results-registry.md):
   repository-level index of clean falsifications that should remain visible
   alongside successful reproductions.
@@ -108,7 +115,8 @@ Together these now support four active benchmark surfaces:
   — planning-first analytical consistency campaign with no canonical run yet.
 - [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) - current
   flagship validation campaign with a frozen baseline residual benchmark,
-  sandbox-only autonomous pilot evidence, and post-AME2020 follow-up guardrails.
+  sandbox-only autonomous pilot evidence, prospective registry entries through
+  `PRED-0068`, post-registry scout synthesis, and reveal-readiness guardrails.
 
 ## Current Contributor Workflow
 
@@ -118,7 +126,9 @@ experimentation.
 - canonical task files plus `tasks/ACTIVE.md` as the shared execution surface;
 - proposal-first task creation workflow for new ideas that do not yet have a
   maintainer-assigned canonical id;
-- active-board sync via `python3 -m physics_lab.cli sync-active-board .`;
+- active-board sync via the `Sync Active Board` post-merge GitHub Action
+  (canonical `python3 -m physics_lab.cli sync-active-board .` remains
+  available for explicit maintainer audits);
 - maintainer review and closeout tooling for review bundles, PR hygiene, and
   post-merge task handling;
 - private contributor pilot workflow for invited humans and coding agents using
@@ -137,9 +147,9 @@ Current gate categories:
 - at least one clear falsification surface preserved as first-class evidence;
 - a public narrative that stays verification-first and avoids overclaim.
 
-Current evidence is stronger than before, and the repository now has clearer
-v0.2 packaging inputs. It is still in gate validation rather than
-public-release mode.
+Current evidence is stronger than before, and the repository is now a
+`v0.2-public-alpha` candidate. It remains in final gate validation rather than
+public-release mode until a current go/no-go review is accepted.
 
 Latest review verdict:
 
@@ -148,10 +158,16 @@ Latest review verdict:
 
 Current named blockers before any public opening:
 
-- keep the local path leak check clean through release signoff;
+- keep the local path leak check clean through release signoff; the
+  `TASK-0206` signoff pass found and fixed one public-path wording issue and
+  reran the checker cleanly;
 - verify the existing external-reviewer replication guide against the current
-  flagship evidence surface during release signoff;
-- record a release-time default-branch validation and CI signoff artifact.
+  flagship evidence surface during release signoff; the `TASK-0206` signoff
+  confirms the bounded replay scope and reruns the core reproduction path into
+  sandbox output;
+- record a release-time default-branch validation and CI signoff artifact; this
+  is now captured for maintainer review in
+  [public-release-validation-signoff.md](./reviews/public-release-validation-signoff.md).
 
 ## Current Risks
 
@@ -195,7 +211,12 @@ Current named blockers before any public opening:
 - `python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped`
 - `python3 -m physics_lab.cli validate-repo .`
 - `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`
-- `python3 -m physics_lab.cli sync-active-board .`
+
+Active-board synchronization (`tasks/ACTIVE.md` and `docs/task-views/*.md`)
+runs automatically via the `Sync Active Board` post-merge GitHub Action.
+Maintainers may still run
+`python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
+board-sync PR when the action is disabled or an audit is needed.
 - [mission-control.md](./mission-control.md) for project-level orientation;
 - [campaigns/README.md](./campaigns/README.md) for the campaign map;
 - [results/pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md)

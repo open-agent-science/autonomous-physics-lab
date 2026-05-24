@@ -286,6 +286,16 @@ When the task uses a hidden or sealed holdout:
   reveal;
 - keep reveal artifacts separate from pre-reveal planning notes.
 
+When the task compares frozen nuclear prediction-registry entries against later
+measured data:
+
+- follow
+  [Nuclear Prediction Reveal Protocol](./nuclear-prediction-reveal-protocol.md);
+- pin source manifests and checksums before comparison;
+- audit eligibility and no-peek state before scoring;
+- preserve partial, negative, or inconclusive reveal outcomes without rewriting
+  registered prediction values.
+
 When the task uses a public structured holdout rather than a hidden one:
 
 - still freeze subset definitions and candidate budget before judging results;

@@ -1,0 +1,57 @@
+id: TASK-0304
+title: "Add nuclear shell-axis mini-wave reveal dry-run"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make reveal scoring deterministic before any real PRED-0063..PRED-0068 values are compared."
+  - "Exercise partial-reveal, controls, and baseline-relative scoring with fabricated values only."
+  - "Keep the future real reveal as a separate maintainer-approved task."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/PRED-0063.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0064.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0065.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0066.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0067.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0068.yaml"
+    - "physics_lab/engines/nuclear_prediction_reveal.py"
+    - "examples/nuclear_prediction_synthetic_reveal.yaml"
+    - "docs/reviews/nuclear-prediction-synthetic-reveal-dry-run.md"
+  planning_context: >
+    Generic synthetic reveal tooling already exists. This task specializes
+    the dry-run surface for the shell-axis-balanced-001 mini-wave so a later
+    real reveal task has a pre-reviewed scoring shape for candidate entries,
+    sign-inverted controls, near-null controls, baseline controls, partial
+    availability, and excluded rows.
+
+requirements:
+  - "Use only fabricated toy measured values; do not use real external nuclear mass measurements."
+  - "Load or reference PRED-0063 through PRED-0068 and verify that the dry-run reports candidates and controls side by side."
+  - "Exercise partial reveal behavior for measured, unrevealed, ambiguous, and excluded target rows."
+  - "Report candidate-vs-baseline and candidate-vs-negative-control MAE/RMSE semantics in a review note."
+  - "Do not edit prediction values, source boundaries, claims, knowledge entries, or canonical result artifacts."
+  - "Keep the real reveal comparison blocked behind TASK-0303 and explicit maintainer approval."
+
+accepted_outputs:
+  - "examples/nuclear_shell_axis_mini_wave_synthetic_reveal.yaml or equivalent fixture"
+  - "docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md"
+  - "tests/test_nuclear_shell_axis_mini_wave_reveal.py or updated reveal tests"
+  - "updated docs/campaigns/nuclear-mass-surface.md if reveal dry-run guidance changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_prediction_reveal.py tests/test_nuclear_mass_prediction_registry.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

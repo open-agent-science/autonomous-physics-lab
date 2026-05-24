@@ -29,29 +29,34 @@ python3 -m pip install -e ".[dev]"
 Then run:
 
 ```bash
-python3 -m pytest \
-  --cov=physics_lab \
-  --cov=scripts \
-  --cov-branch \
-  --cov-report=term-missing:skip-covered \
-  --cov-report=html:_coverage/html
+python3 scripts/apl_coverage_report.py
 ```
 
-On Windows PowerShell, use the same command on one line:
+The helper prints the exact pytest command before executing it. It measures
+line and branch coverage for `physics_lab` plus the Python `scripts/`
+directory, writes terminal missing-line output, and writes the HTML report to
+`_coverage/html`. It does not set `--cov-fail-under` or add any coverage gate.
+
+To inspect the command without running pytest:
+
+```bash
+python3 scripts/apl_coverage_report.py --dry-run
+```
+
+On Windows PowerShell, use the same helper with the active environment's Python:
 
 ```powershell
-python -m pytest --cov=physics_lab --cov=scripts --cov-branch --cov-report=term-missing:skip-covered --cov-report=html:_coverage/html
+python scripts\apl_coverage_report.py
 ```
 
-The repository pytest configuration already sets `.pytest-basetemp/` as the
-temporary base. If you run coverage through a tool that bypasses the repository
-pytest configuration, pass it explicitly:
+The helper uses `.pytest-basetemp/` as the temporary base by default so coverage
+runs stay stable on Windows systems where the user-level temporary directory is
+locked down. To pass additional pytest selectors, append them after `--`:
 
-```powershell
-python -m pytest --basetemp=.pytest-basetemp --cov=physics_lab --cov=scripts --cov-branch --cov-report=term-missing:skip-covered --cov-report=html:_coverage/html
+```bash
+python3 scripts/apl_coverage_report.py -- tests/test_maintainer_review.py
 ```
 
-The command reports line and branch coverage for `physics_lab` plus the Python
-`scripts/` directory. The critical-path audit interprets the script rows by
-priority instead of requiring every wrapper or generator to be covered. The
-HTML output and `.pytest-basetemp/` are local-only and should not be committed.
+The critical-path audit interprets the script rows by priority instead of
+requiring every wrapper or generator to be covered. The HTML output,
+`.coverage`, and `.pytest-basetemp/` are local-only and should not be committed.

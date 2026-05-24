@@ -1,0 +1,56 @@
+id: TASK-0289
+title: "Run nuclear asymmetry-frontier stress scout"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Probe the smaller neutron-rich/asymmetry signal without mixing it with the shell-axis follow-up."
+  - "Use NR-SCOUT-005's catastrophic overfit as an explicit negative-control neighbor."
+  - "Keep a second Nuclear lane available for parallel agents while preserving the no-reveal boundary."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/reviews/nuclear-scout-lane-synthesis-after-pred-0062.md"
+    - "docs/reviews/nuclear-neutron-rich-variant-scout-001.md"
+    - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+  planning_context: >
+    TASK-0285 found a small asymmetry-frontier signal in NR-SCOUT-003 and
+    NR-SCOUT-004, but also a severe overfit neighbor in NR-SCOUT-005.
+    This task isolates that lane from the shell follow-up and asks whether
+    any high-asymmetry behavior survives simple adversarial checks.
+
+requirements:
+  - "Re-evaluate NR-SCOUT-003 and NR-SCOUT-004, and include NR-SCOUT-005 as the required overfit negative control."
+  - "Add at least one near-null control and one bounded sign or clipping variant."
+  - "Report primary, asymmetry>=0.25, neutron-rich edge, heavy, mid-mass, and frontier-contrast metrics."
+  - "Separate concentrated subset improvements from primary-surface regressions."
+  - "Record whether the asymmetry lane should remain a future review surface, be demoted to watchlist, or be preserved only as negative evidence."
+  - "Do not write prediction_registry/nuclear_masses/PRED-*.yaml files."
+  - "Do not fetch live measurements, run real reveal scoring, update claims, or promote sandbox outcomes."
+
+accepted_outputs:
+  - "scripts/run_nuclear_asymmetry_frontier_stress_scout.py or an equivalent deterministic runner"
+  - "agent_runs/AGENT-RUN-0017/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0017/metrics.json"
+  - "agent_runs/AGENT-RUN-0017/report.md"
+  - "docs/reviews/nuclear-asymmetry-frontier-stress-scout-001.md"
+  - "tests/test_nuclear_asymmetry_frontier_stress_scout.py if a runner is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

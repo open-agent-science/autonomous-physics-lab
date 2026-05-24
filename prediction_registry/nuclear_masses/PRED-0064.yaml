@@ -1,0 +1,132 @@
+prediction_id: PRED-0064
+title: 'Nuclear shell-axis prospective mini-wave: proton-neutron product on shell-axis-balanced-001'
+registry_status: REGISTERED
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0297
+evidence_class: prospective_prediction_registry
+claim_ceiling: Prospective shell-axis mini-wave registry entry only; no claim, canonical result, accepted
+  knowledge, reveal score, or success verdict before later maintainer-reviewed source comparison.
+registered_by:
+  contributor_id: roman
+  agent_id: codex
+registered_at_utc: '2026-05-20T00:00:00Z'
+source_state:
+  git_commit: 9e8d7d339a4f0f432e41689862a649eb029b8575
+  model_reference:
+    model_id: RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+    frozen_parameters_note: 'Frozen coefficient source is RESULT-0015 score model_fitted_semi_empirical.
+      TASK-0297 registers the maintainer-approved TASK-0296 shell-axis-balanced-001 target batch as a
+      bounded prospective mini-wave. Family shell-axis-proton-neutron-product-balanced freezes origin
+      STRESS-SHELL-002 with formula: binding_energy_mev = baseline_binding_energy_mev + 1.754815105523876
+      * s_z2 * s_n2. The shell distance uses magic numbers [2, 8, 20, 28, 50, 82, 126] and sigma=2.0 where
+      applicable. No coefficient, target, source, or reveal rule may be tuned after registration.'
+  baseline_reference:
+    result_id: RESULT-0015
+    source_path: results/EXP-0012/RUN-0001/result.yaml
+  training_data_references:
+  - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+  - docs/blind-holdout-benchmark-protocol.md
+  - docs/nuclear-mass-holdout-protocol.md
+  - docs/prediction-registry-policy.md
+  - docs/nuclear-prediction-reveal-protocol.md
+  - docs/nuclear-reveal-source-readiness-checklist.md
+  live_external_fetch_allowed: false
+  source_data_state_note: Registered from committed repository state after TASK-0296 closeout and maintainer
+    approval of shell-axis-balanced-001. No live external measurement source was fetched, revealed, scored,
+    or compared during registration.
+target_set:
+  label: shell-axis-balanced-001
+  quantity: mass_excess_mev
+  unit: MeV
+  target_nuclides:
+  - nuclide_id: V-70
+    Z: 23
+    N: 47
+    A: 70
+    predicted_value_mev: 37.123834
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+      for shell-axis-balanced-001; no statistical interval or pre-reveal confidence ranking is claimed.
+  - nuclide_id: Mn-75
+    Z: 25
+    N: 50
+    A: 75
+    predicted_value_mev: 25.783563
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+      for shell-axis-balanced-001; no statistical interval or pre-reveal confidence ranking is claimed.
+  - nuclide_id: Co-77
+    Z: 27
+    N: 50
+    A: 77
+    predicted_value_mev: -5.45861
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+      for shell-axis-balanced-001; no statistical interval or pre-reveal confidence ranking is claimed.
+  - nuclide_id: Cu-81
+    Z: 29
+    N: 52
+    A: 81
+    predicted_value_mev: -17.941462
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+      for shell-axis-balanced-001; no statistical interval or pre-reveal confidence ranking is claimed.
+  - nuclide_id: Ag-129
+    Z: 47
+    N: 82
+    A: 129
+    predicted_value_mev: -35.217379
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+      for shell-axis-balanced-001; no statistical interval or pre-reveal confidence ranking is claimed.
+  - nuclide_id: Cd-130
+    Z: 48
+    N: 82
+    A: 130
+    predicted_value_mev: -45.453574
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+      for shell-axis-balanced-001; no statistical interval or pre-reveal confidence ranking is claimed.
+  - nuclide_id: Sb-135
+    Z: 51
+    N: 84
+    A: 135
+    predicted_value_mev: -56.279092
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+      for shell-axis-balanced-001; no statistical interval or pre-reveal confidence ranking is claimed.
+  - nuclide_id: Cs-139
+    Z: 55
+    N: 84
+    A: 139
+    predicted_value_mev: -74.967856
+    uncertainty_mev: null
+    confidence_note: Point estimate from RESULT-0015::model_fitted_semi_empirical::shell-axis-proton-neutron-product-balanced
+      for shell-axis-balanced-001; no statistical interval or pre-reveal confidence ranking is claimed.
+uncertainty_semantics:
+  type: point_estimate_only
+  note: Each value is a deterministic mass_excess_mev point estimate. uncertainty_mev is intentionally
+    null; these entries are for pre-reveal registry review, not confidence ranking.
+reveal_conditions:
+  reveal_trigger: A future maintainer-reviewed nuclear mass dataset or source manifest added after this
+    registration contains measured values for one or more shell-axis-balanced-001 target nuclides.
+  comparison_data_reference: Future reviewed dataset or source manifest path; reveal work must follow
+    docs/nuclear-prediction-reveal-protocol.md and docs/nuclear-reveal-source-readiness-checklist.md.
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: Do not alter model family, coefficients, target nuclides, prediction values, source commit,
+    or reveal rule after later measurements become visible. Later comparison must be a separate reviewed
+    reveal task and may reveal only eligible measured subsets.
+limitations:
+- Prospective registry entry only; not a claim, result package, success verdict, or accepted knowledge.
+- Prediction values are deterministic point estimates frozen before later measurement comparison.
+- The shell-axis evidence basis remains sandbox-grade until a future reviewed reveal workflow evaluates
+  eligible rows.
+- No live external measurement source was fetched, revealed, scored, or compared during registration.
+- Any later comparison must follow the nuclear prediction reveal protocol and remain limitation-aware.
+review_boundary:
+  retrospective_equivalence_forbidden: true
+  pre_reveal_claim_promotion_allowed: false
+  post_reveal_claim_promotion_requires_review: true
+  canonical_result_allowed_pre_reveal: false

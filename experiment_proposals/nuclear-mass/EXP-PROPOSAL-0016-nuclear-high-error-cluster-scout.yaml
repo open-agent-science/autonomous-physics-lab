@@ -1,0 +1,113 @@
+id: EXP-PROPOSAL-0016
+title: "Sandbox nuclear high-error cluster scout"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0343
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0050-high-error-cluster-scout.yaml"
+
+question: "Do deterministic high-error residual clusters identify bounded diagnostic structure that improves the frozen semi-empirical baseline more convincingly than matched random, smooth-A, and cluster-label-shuffle controls?"
+
+method:
+  summary: "Build the committed full-known nuclear residual surface, select the 75th-percentile high-error threshold before candidate fitting, map overlapping high-error clusters, execute three one-degree candidate explanations and three required controls, and report full-known, holdout, high-error, non-high-error, neutron-rich, magic-region, light-A, sparse-density, and isotope-chain transfer diagnostics."
+  code_references:
+    - "scripts/run_nuclear_high_error_cluster_lane.py"
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "tests/test_nuclear_high_error_cluster_lane.py"
+  commands:
+    - "python3 scripts/run_nuclear_high_error_cluster_lane.py"
+    - "python3 -m pytest tests/test_nuclear_high_error_cluster_lane.py"
+  parameters:
+    high_error_percentile: 75.0
+    local_density_percentile: 25.0
+    generated_candidate_explanations: 6
+    executed_candidate_explanations: 3
+    executed_controls: 3
+    required_controls:
+      - "matched_random_high_error"
+      - "smooth_a"
+      - "cluster_label_shuffle"
+    random_control_seed: 343
+    shuffle_scheme: "cyclic-shift-11"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  assumptions:
+    - "No live source fetch is performed."
+    - "No prediction registry entries are created."
+    - "No EXP-0012, RESULT-0015, claims, knowledge, or canonical datasets are updated."
+    - "High-error cluster labels are retrospective diagnostics, not prediction features."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0030/"
+  metrics:
+    - "generated_candidate_count"
+    - "executed_candidate_count"
+    - "executed_control_count"
+    - "cluster_summary"
+    - "delta_mae_by_subset_mev"
+    - "matched_control_gate"
+    - "isotope_chain_transfer"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0030/report.md"
+    - "agent_runs/AGENT-RUN-0030/limitations.md"
+    - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, high-error clusters and required controls are reported, negative or inconclusive outcomes are preserved, and no registry, result, claim, knowledge, or canonical dataset files are modified."
+  fail_condition: "Sandbox fail if the lane writes prediction entries, fetches live data, hides non-high-error regressions, hides matched controls, or frames retrospective deltas as validated physics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  expected_failure_modes:
+    - "A candidate improves high-error rows but regresses non-high-error rows."
+    - "A matched random, smooth-A, or cluster-label-shuffle control matches the candidate."
+    - "The high-error threshold mostly captures post-hoc residual labels rather than reusable structure."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call cluster deltas discoveries."
+    - "Do not call residual-derived labels validated corrections."
+    - "Do not imply prediction or registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Preserve controls and subset regressions."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "The candidate fit is retrospective and diagnostic."
+  - "High-error cluster labels are derived from the same frozen residual surface being audited."
+  - "Controls are decisive for interpretation."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Confirm whether the lane should remain bounded diagnostic evidence and whether any narrower high-error follow-up is warranted."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work."

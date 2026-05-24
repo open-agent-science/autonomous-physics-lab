@@ -1,0 +1,55 @@
+id: TASK-0281
+title: "Curate Yu 2003 quantum-dot row-level absorption seed"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the reviewed Quantum Size Effects source manifest into benchmark-usable row-level measurement data."
+  - "Keep the first dataset seed narrow enough for review while covering multiple materials for a future material holdout."
+  - "Prevent TASK-0225 from treating source metadata as benchmark observations."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "docs/quantum-size-effect-holdout-protocol.md"
+    - "tasks/TASK-0275-curate-quantum-size-source-manifest-seed.yaml"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+  planning_context: >
+    TASK-0275 registered candidate sources, including Yu 2003 for CdTe, CdSe,
+    and CdS absorption. TASK-0225 is now blocked because the repository has a
+    source manifest but no row-level `data/quantum_dots/qd-*.yaml` measurement
+    rows. This task creates the first small, reviewable absorption-only dataset
+    seed from the accepted Yu source before any model benchmark is run.
+
+requirements:
+  - "Create a row-level dataset file for absorption_peak_eV entries from the accepted source_id `yu-2003-cm-absorption`."
+  - "Use the existing quantum_dot_size_effect schema without broadening the schema unless a required provenance field is genuinely missing."
+  - "Prefer a small multi-material seed covering CdTe, CdSe, and CdS when traceable rows are available; otherwise document why a narrower accepted subset was chosen."
+  - "Every row must record material, exactly one size axis, value_eV, property_kind, source_id, inclusion_status, and a source_table_ref or equivalent figure/table provenance note."
+  - "Distinguish direct table values, source calibration outputs, and curve-read values in notes; do not mix untraceable extracted values into included rows."
+  - "Reference only sources already present in data/quantum_dots/source_manifest.yaml unless the source manifest is updated in the same PR with review rationale."
+  - "Do not fetch live data during tests or benchmark execution."
+  - "Do not include synthesis recipes, chemical handling instructions, fabrication instructions, biomedical claims, device-performance claims, or model-comparison results."
+  - "Do not run TASK-0225 or promote any dataset row as a scientific result."
+
+accepted_outputs:
+  - "data/quantum_dots/qd-0001-yu-2003-absorption.yaml"
+  - "docs/reviews/quantum-size-yu-2003-row-level-seed-review.md"
+  - "updated tests validating that committed quantum-dot dataset files conform to schema and reference registered source_id values"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
