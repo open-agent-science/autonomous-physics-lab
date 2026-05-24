@@ -33,10 +33,11 @@ requirements:
   - "Do not change scientific task state, results, claims, experiments, or generated navigation beyond this task's own canonical task file."
 
 accepted_outputs:
-  - "updated closeout follow-through guidance in docs/maintainer-review-agent.md"
-  - "updated maintainer action-mode guidance for closeout PR completion"
-  - "updated manual/routine maintainer automation notes to avoid uncommitted closeout diffs"
-  - "canonical task spec for TASK-0387"
+  - "docs/maintainer-review-agent.md"
+  - "docs/automation/maintainer-action-mode.md"
+  - "docs/automation/maintainer-manual-mode.md"
+  - "docs/automation/maintainer-routine-mode.md"
+  - "tasks/TASK-0387-closeout-pr-followthrough-instructions.yaml"
 
 validation:
   commands:
