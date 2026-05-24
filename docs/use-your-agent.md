@@ -42,96 +42,49 @@ Use maintainer mode for review and closeout assistance:
 python3 scripts/apl_mission.py --mode maintainer
 ```
 
-The default contribution path is now mission-first:
+The default contribution path is mission-first:
 
-```mermaid
-flowchart TD
-    classDef quick  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
-    classDef task   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
-    classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
-    classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
+| Path | Use when | Expected output |
+| --- | --- | --- |
+| Research mission | You want the agent to help with science work | bounded hypothesis test, replay, audit, source review, or sandbox artifact |
+| Assigned `READY` task | A maintainer already chose the task | one branch, one PR, validation evidence |
+| Support mode | You intentionally want docs, tests, packaging, or queue hygiene | narrow non-research improvement |
+| Proposal | No existing task fits the idea | task proposal, not an invented task id |
 
-    Start(["▶ Start here"]) --> Mission["🚀 Run apl_mission.py --onboarding"]
-    Mission --> Mode{"Which mode?"}
-
-    Mode -->|"default"| Research["🔬 Research mission\nhypothesis · replay · audit"]:::task
-    Mode -->|"support"| MT["⚡ Microtask / support task\ntasks/microtasks/README.md"]:::quick
-    Mode -->|"assigned TASK"| RT["🎯 READY task\ntasks/ACTIVE.md"]:::task
-    Mode -->|"new idea"| Prop["💡 Proposal\ntasks/proposals/"]:::prop
-
-    Research --> PR["📬 branch → commit → PR\n→ maintainer review"]:::finish
-    MT  --> PR
-    RT  --> PR
-    Prop --> PropPR["📋 Proposal PR\nwait for TASK-XXXX id"]:::prop
-```
-
-**Rule of thumb:**
-- Research mission — default path for capable coding agents; test, replay, or
-  audit hypotheses and produce PR-ready artifacts.
-- Microtask — support path for one queue item, under 30 minutes, narrow scope.
-- READY task — assigned task from `tasks/ACTIVE.md`, 1-2 hours, broader scope.
-- Proposal — new idea without a canonical `TASK-XXXX` id yet; use `tasks/proposals/`.
+For a first run, prefer onboarding. It gives the user a pause point before the
+agent starts editing files.
 
 ## One-Task One-Branch Discipline
 
 Every contribution must follow this flow — no exceptions:
 
-```mermaid
-flowchart LR
-    classDef must fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
-    classDef ok   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
-
-    T["📋 Pick ONE task\nor ONE microtask batch"]:::ok
-    B["🌿 Create ONE branch\nagent/you/tool/task-XXXX-slug"]:::ok
-    W["💻 Do the work\non that branch only"]:::ok
-    V["✅ Validate\nruff · pytest · validate-repo"]:::ok
-    PR["📬 Open ONE PR\ndo not merge yourself"]:::ok
-    M["🔍 Maintainer review\n→ merge"]:::ok
-
-    T --> B --> W --> V --> PR --> M
-
-    NEVER["🚫 Never work on main\nNever invent a task id\nNever merge your own PR"]:::must
-```
+1. Pick one `READY` task, one approved microtask batch, or one proposal.
+2. Create one branch or worktree for that task.
+3. Change only files that belong to the task scope.
+4. Run validation and record what passed or failed.
+5. Open one PR with the repository template.
+6. Wait for maintainer review; do not merge your own PR.
 
 **Branch format:** `agent/<contributor-id>/<agent-id>/task-<number>-<short-slug>`
 
 Example: `agent/akutenyov/claude/task-0120-use-your-agent-quickstart-diagrams`
 
+Never work directly on `main`, invent a canonical task id, or mix unrelated
+tasks into one branch.
+
 ## What the Review Cycle Looks Like
 
 After you push your branch and open a PR, here is what happens:
 
-```mermaid
-sequenceDiagram
-    participant You as You + Agent
-    participant CI as GitHub CI
-    participant M as Maintainer
+1. GitHub CI checks the PR.
+2. The maintainer or review agent reads the diff, artifacts, limits, and task
+   fit.
+3. If CI or review fails, fix the same branch and push again.
+4. If review passes, the maintainer merges.
+5. Closeout marks the task `DONE`, syncs navigation, and preserves the result
+   or negative result in public memory.
 
-    You->>CI: git push → open PR
-    CI->>CI: pytest · ruff · validate-repo
-    CI-->>You: ✅ green or ❌ red
-
-    alt CI fails
-        You->>You: fix and push again
-    end
-
-    M->>M: review PR (fast or full lane)
-    M-->>You: APPROVE / NEEDS_CHANGES / BLOCKED
-
-    alt NEEDS_CHANGES
-        You->>You: fix issues
-        You->>CI: push fix
-    end
-
-    M->>M: merge into main
-    M->>M: task closeout (DONE)
-```
-
-**Key points:**
-- CI runs automatically on every push — check Actions tab on GitHub.
-- Maintainer review happens after CI is green.
-- You never merge your own PR.
-- Task moves to `DONE` only after maintainer closeout.
+The important rule: the agent prepares evidence; the maintainer decides merge.
 
 ## Before You Start
 
@@ -161,9 +114,9 @@ Good starting work:
 - documentation and onboarding improvements when support mode is selected;
 - validation, wording, and contributor-workflow tasks.
 
-Invited private-alpha contributors can use the
-[Private Agent Challenge Pack](./private-agent-challenge-pack.md) to choose a
-Level 1, Level 2, or Level 3 onboarding challenge before taking broader work.
+New contributors can use the
+[Private Agent Challenge Pack](./private-agent-challenge-pack.md) as a bounded
+practice path before taking broader work.
 
 Avoid starting with:
 
@@ -179,7 +132,7 @@ Avoid starting with:
 Run:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --onboarding
 ```
 
 Follow the recommended mission unless the maintainer assigned something more
@@ -273,7 +226,7 @@ A good contribution should leave behind:
 
 Best first destinations:
 
-- `python3 scripts/apl_mission.py`
+- `python3 scripts/apl_mission.py --onboarding`
 - [docs/current-missions.md](./current-missions.md)
 - [docs/mission-control.md](./mission-control.md)
 - [docs/results/visual-summary.md](./results/visual-summary.md)

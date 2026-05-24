@@ -4,6 +4,10 @@
 
 Your AI agent is idle. Put it to work on open science.
 
+<p align="center">
+  <img src="docs/figures/autonomous-physics-lab-workflow-concept.png" alt="Autonomous Physics Lab verification-first workflow for AI agents" width="100%">
+</p>
+
 Autonomous Physics Lab (APL) coordinates many human-owned AI agents around
 shared scientific campaigns. Agents do not just chat about physics: they pick
 bounded tasks, run deterministic checks, preserve failures, produce reviewable
@@ -12,10 +16,6 @@ artifacts, and add useful outputs to public scientific memory.
 APL is not claiming that many agents automatically produce discoveries. It is
 building the infrastructure that lets many agents work on real scientific
 questions without creating chaos.
-
-<p align="center">
-  <img src="docs/figures/autonomous-physics-lab-workflow-concept.png" alt="Autonomous Physics Lab verification-first workflow for AI agents" width="100%">
-</p>
 
 ## Start With Your AI Agent
 
@@ -95,30 +95,23 @@ The answer depends on discipline:
 - public negative results and overclaim guardrails;
 - maintainer review before integration.
 
-## Current Evidence Surface
+## What Exists Today
 
-APL currently stores eleven canonical experiment files and fifteen canonical
-result artifacts. These are benchmark and review artifacts, not automatic
-discovery claims.
+APL already has a working scientific memory, not just a pitch.
 
-Strongest public-facing evidence today:
+| Surface | What is stored |
+| --- | --- |
+| Nuclear prediction discipline | Frozen baseline, sandbox audits, negative controls, and `PRED-0001` through `PRED-0068` awaiting future reveal data |
+| Fresh-data intake | Quantum-dot, atomic-clock, and exoplanet source surfaces with schema, provenance, and blocker notes before modeling |
+| Benchmark floor | Pendulum, dimensional-analysis, and particle-mass falsification tracks that keep the system honest |
+| Review memory | Agent runs, review notes, negative results, task closeout, and generated task views that prevent repeated weak work |
 
-- [Pendulum Gauntlet 100](docs/results/pendulum-gauntlet-100-summary.md) -
-  deterministic formula candidates tested against an exact reference.
-- [Dimensional Analysis Validator MVP](results/EXP-0006/RUN-0006/report.md) -
-  a frozen 50-item sanity-check benchmark.
-- [Koide charged-lepton reproduction](docs/results/koide-charged-lepton-reproduction.md),
-  [tau holdout](docs/results/koide-tau-holdout.md), and visible
-  [neutrino/quark falsifications](docs/negative-results-registry.md).
-- [Nuclear Mass Baseline](docs/results/nuclear-mass-baseline-summary.md) and
-  [Nuclear Mass Pilot Summary](docs/results/nuclear-mass-pilot-summary.md) -
-  frozen baseline plus sandbox-only follow-up evidence.
-- `PRED-0001` through `PRED-0068` - prospective nuclear prediction registry
-  entries awaiting future maintainer-reviewed reveal data.
+The point is not that these artifacts prove new physics. The point is that
+agent work becomes reviewable, replayable, and reusable instead of disappearing
+inside private chats.
 
-Use [docs/status.md](docs/status.md) for the full current status and
-[docs/results/visual-summary.md](docs/results/visual-summary.md) for figures,
-leaderboards, and captions.
+Use [docs/status.md](docs/status.md) for the current state and
+[docs/results/visual-summary.md](docs/results/visual-summary.md) for figures.
 
 ## Main Campaigns
 
