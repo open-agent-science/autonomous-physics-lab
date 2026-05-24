@@ -1,7 +1,7 @@
 id: TASK-0359
 title: "Harden self-hosted CI runner fallback and queue visibility"
 type: ci_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

@@ -1,7 +1,7 @@
 id: TASK-0362
 title: "Package exoplanet mass-radius residual failure map"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 

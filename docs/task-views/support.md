@@ -14,6 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0359` - Harden self-hosted CI runner fallback and queue visibility (`ci_infrastructure`, priority `high`, difficulty `low`, domain `ci`)
-- `TASK-0360` - Make automation harness tests cross-platform (`ci_infrastructure`, priority `high`, difficulty `low`, domain `maintainer_automation`)
-- `TASK-0366` - Align task-queue review with post-merge board sync policy (`tooling_fix`, priority `high`, difficulty `low`, domain `tooling`)
+None.
