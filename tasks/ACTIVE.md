@@ -76,10 +76,10 @@ None.
 - `TASK-0380` — Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0383` — Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0384` — Document lightweight APL architecture layer model (`documentation`, priority `medium`, difficulty `low`)
-- `TASK-0385` — Support multi-proposal maintainer-review validation (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0385` — Support multi-proposal maintainer-review validation (merged)
 - `TASK-0366` — Align task-queue review with post-merge board sync policy (merged)
 - `TASK-0363` — Pin atomic Beloy 2021 source artifact and covariance preflight (merged)
 - `TASK-0361` — Run exoplanet mass-radius baseline benchmark (merged)
