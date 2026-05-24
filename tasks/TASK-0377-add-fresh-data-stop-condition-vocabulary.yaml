@@ -1,0 +1,50 @@
+id: TASK-0377
+title: "Add fresh-data stop-condition vocabulary"
+type: evidence_policy
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Give agents common blocker names instead of ad hoc source-failure prose."
+  - "Make failed ingestion attempts useful scientific memory."
+  - "Reduce ambiguous decisions around paywalls, redistribution, covariance, calibration-derived rows, and missing uncertainty semantics."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_data_policy
+  related_objects:
+    - "docs/notes/fresh-data-source-policy.md"
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md"
+    - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion.md"
+  planning_context: >
+    Agents have already encountered repeated blockers: paywalled tables, figure
+    digitisation requirements, calibration-derived rows, covariance ambiguity,
+    version drift, uncertainty semantics, and redistribution limits. This task
+    records a shared stop-condition vocabulary so future blockers are searchable
+    and comparable.
+
+requirements:
+  - "Define named stop conditions for source and row curation failures."
+  - "Include at least: SOURCE_PAYWALLED_NO_TABLE, SOURCE_ARTIFACT_NOT_REDISTRIBUTABLE, FIGURE_DIGITIZATION_REQUIRED, COVARIANCE_NOT_SEPARABLE, DIRECT_ROWS_NOT_PRESENT, CALIBRATION_DERIVED_ONLY, SOURCE_ARTIFACT_VERSION_DRIFT, UNCERTAINTY_SEMANTICS_MISSING, ROW_CLASS_AMBIGUOUS, LICENSE_REVIEW_REQUIRED."
+  - "For each stop condition, define meaning, when to halt, allowed follow-up, and whether rows may be committed."
+  - "Map existing campaign blockers to the shared vocabulary where possible."
+  - "Do not add real rows, values, metrics, or claims."
+
+accepted_outputs:
+  - "docs/fresh-data-stop-conditions.md"
+  - "docs/reviews/fresh-data-stop-condition-vocabulary-review.md"
+  - "optional updates to campaign source docs that only link to the vocabulary"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

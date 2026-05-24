@@ -1,0 +1,49 @@
+id: TASK-0372
+title: "Add atomic source-artifact version-drift stop condition"
+type: scientific_dataset
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Harden Atomic-Clock source intake before value-bearing rows accumulate."
+  - "Preserve source-version disagreements as blockers instead of silently choosing a value."
+  - "Keep real-row ingestion conservative and reviewable."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-clock-real-row-readiness-gate.md"
+  planning_context: >
+    TASK-0363 recommended a new SOURCE_ARTIFACT_VERSION_DRIFT stop condition
+    for cases where the arXiv preprint and version-of-record table disagree on
+    a ratio value, uncertainty, or campaign window. This small task records the
+    stop condition before the first real row-curation attempt can normalize
+    source-version choices ad hoc.
+
+requirements:
+  - "Add SOURCE_ARTIFACT_VERSION_DRIFT to the atomic-clock manifest or source-intake stop-condition surface."
+  - "Define the stop condition as a blocker for row curation until a separate review resolves the discrepancy."
+  - "Mention the condition in the Atomic-Clock campaign page or source-artifact guidance if needed."
+  - "Do not add real rows, values, fits, prediction entries, claims, or canonical results."
+
+accepted_outputs:
+  - "updated data/atomic_clocks/source_manifest_template.yaml"
+  - "optional update to docs/campaigns/atomic-clock-residuals.md or data/atomic_clocks/source_artifacts/2021-beloy-bacon/README.md"
+  - "docs/reviews/atomic-clock-source-artifact-version-drift-stop-condition.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
