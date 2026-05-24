@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-24 12:44 UTC
+Generated: 2026-05-24 12:46 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2440,7 +2440,6 @@ one PR.
 - `TASK-0370` — Run exoplanet regime residual scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0371` — Curate atomic Beloy 2021 direct-ratio rows (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0372` — Add atomic source-artifact version-drift stop condition (`scientific_dataset`, priority `high`, difficulty `low`)
-- `TASK-0377` — Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`)
 - `TASK-0378` — Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0382` — Add science-output conveyor health report (`maintainer_workflow`, priority `high`, difficulty `medium`)
@@ -2453,11 +2452,11 @@ None.
 
 - `TASK-0270` — Persist agent-discipline learnings to the repository (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0271` — Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts (`contributor_experience`, priority `medium`, difficulty `low`)
-- `TASK-0356` — Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0373` — Define cross-campaign fresh-data intake protocol (`research_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0374` — Add cross-campaign source artifact package template (`research_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0375` — Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`)
 - `TASK-0376` — Add fresh-data extraction ledger template (`research_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0377` — Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`)
 - `TASK-0380` — Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0383` — Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0384` — Document lightweight APL architecture layer model (`documentation`, priority `medium`, difficulty `low`)
@@ -2465,6 +2464,7 @@ None.
 ## DONE RECENTLY
 
 - `TASK-0385` — Support multi-proposal maintainer-review validation (merged)
+- `TASK-0377` — Add fresh-data stop-condition vocabulary (merged)
 - `TASK-0366` — Align task-queue review with post-merge board sync policy (merged)
 - `TASK-0363` — Pin atomic Beloy 2021 source artifact and covariance preflight (merged)
 - `TASK-0361` — Run exoplanet mass-radius baseline benchmark (merged)
@@ -2472,6 +2472,7 @@ None.
 - `TASK-0359` — Harden self-hosted CI runner fallback and queue visibility (merged)
 - `TASK-0358` — Move sync-active-board into post-merge GitHub Action and stop agents from committing generated navigation (merged)
 - `TASK-0357` — Isolate PR-capability test from local gh installation (merged)
+- `TASK-0356` — Prepare quantum direct source artifact intake path (merged)
 - `TASK-0355` — Review atomic-clock direct ratio source artifact (merged)
 - `TASK-0354` — Add exoplanet mass-radius loader dry run (merged)
 - `TASK-0353` — Ingest pinned exoplanet PSCompPars mass-radius snapshot (merged)
