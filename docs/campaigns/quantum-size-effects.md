@@ -6,7 +6,7 @@ Prepare a future APL campaign around size-dependent optical and electronic
 properties of semiconductor quantum dots, using theory, computation, dataset
 comparison, and visualization only.
 
-The target is not a new quantum-dot design law and not a material-discovery
+The target is not a new quantum-dot design law and not a material-design
 framing. The target is a disciplined benchmark surface where compact,
 physically constrained size-scaling models can be compared against curated,
 source-pinned measurement data with explicit residuals, breakdown maps, and
@@ -35,18 +35,18 @@ Current task posture:
   direct-measurement row-level seed or a maintainer waiver to score a
   calibration-curve consistency benchmark instead of a measurement-versus-
   model benchmark);
-- `TASK-0291` — direct-measurement absorption seed (REVIEW_READY pending
-  maintainer-led `BLOCKED` closeout; first-attempt investigation against
-  Yu 2003 found no tabulated values and figure-only scatter points; see
-  `docs/reviews/quantum-size-direct-absorption-seed-review.md`. Unblock
-  paths: WebPlotDigitizer-class figure digitisation, access to primary
-  source tables in Vossmeyer 1994 / Soloviev 2000 / Murray 1993 / Peng 1998,
-  maintainer-provided table values, or an explicit maintainer waiver to
-  accept relaxed-precision figure reads);
-- `TASK-0292` — direct-measurement band-edge seed (REVIEW_READY; first
-  investigation against Jasieniak 2011 found a promising ACS Supporting
-  Information table path, but this agent could not retrieve the SI table for
-  row-level review and no digitisation artifact exists; see
+- `TASK-0291` — direct-measurement absorption seed (DONE; first-attempt
+  investigation against Yu 2003 found no tabulated values and figure-only
+  scatter points; see
+  `docs/reviews/quantum-size-direct-absorption-seed-review.md`. Unblock paths:
+  WebPlotDigitizer-class figure digitisation, access to primary source tables
+  in Vossmeyer 1994 / Soloviev 2000 / Murray 1993 / Peng 1998,
+  maintainer-provided table values, or an explicit maintainer waiver to accept
+  relaxed-precision figure reads);
+- `TASK-0292` — direct-measurement band-edge seed (DONE; first investigation
+  against Jasieniak 2011 found a promising ACS Supporting Information table
+  path, but the SI table was not retrieved for row-level review and no
+  digitisation artifact exists; see
   `docs/reviews/quantum-size-direct-band-edge-seed-review.md`);
 - `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
   `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
@@ -61,20 +61,20 @@ Current task posture:
   list of provenance modes that are never acceptable);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
 - `TASK-0325` — direct-measurement digitisation/table-value package
-  (REVIEW_READY; Jasieniak 2011 band-edge path selected, but no committed
-  SI/table extraction or deterministic digitisation artifact exists, so this
-  pass produced a blocker package rather than a `qd-*.yaml` seed);
-- `TASK-0326` — calibration-curve consistency waiver decision (REVIEW_READY;
+  (DONE; Jasieniak 2011 band-edge path selected, but no committed SI/table
+  extraction or deterministic digitisation artifact exists, so this pass
+  produced a blocker package rather than a `qd-*.yaml` seed);
+- `TASK-0326` — calibration-curve consistency waiver decision (DONE;
   recommends a separate weaker calibration-curve consistency benchmark only
   after maintainer approval, while keeping `TASK-0225` blocked for the
   original measurement-versus-model benchmark).
 - `TASK-0334` — deterministic Jasieniak 2011 source-artifact package
-  (REVIEW_READY; metadata-only source-artifact package records the ACS
-  Supporting Information locator and checksum/extraction plan, but no source
-  table or deterministic digitisation artifact is committed, so row curation
-  remains blocked);
+  (DONE; metadata-only source-artifact package records the ACS Supporting
+  Information locator and checksum/extraction plan, but no source table or
+  deterministic digitisation artifact is committed, so row curation remains
+  blocked);
 - `TASK-0335` — calibration-curve consistency benchmark scope package
-  (REVIEW_READY; see
+  (DONE; see
   `docs/reviews/quantum-calibration-curve-consistency-benchmark-scope.md`;
   protocol only, no metrics);
 - `TASK-0336` — direct band-edge row curation from an approved source artifact

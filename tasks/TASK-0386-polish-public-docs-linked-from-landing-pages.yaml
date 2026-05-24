@@ -1,0 +1,64 @@
+id: TASK-0386
+title: "Polish public documentation paths linked from landing pages"
+type: documentation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the README-linked documentation path clearer and more motivating for new contributors, researchers, and agent operators."
+  - "Keep the Open Agent Network positioning consistent across public-facing docs without overclaiming scientific results."
+  - "Reduce stale or overly dense orientation text in high-traffic docs while preserving conservative scientific guardrails."
+
+input:
+  mode: workflow
+  related_domain: public_documentation
+  related_objects:
+    - "README.md"
+    - "docs/status.md"
+    - "docs/mission-control.md"
+    - "docs/current-missions.md"
+    - "docs/connect-your-agent.md"
+    - "docs/use-your-agent.md"
+    - "docs/open-agent-network.md"
+    - "docs/agent-network-status.md"
+    - "docs/campaigns/README.md"
+    - "docs/results/visual-summary.md"
+  planning_context: >
+    After the README landing page was simplified, the maintainer requested a
+    pass over the documents reachable from the README and other public-facing
+    orientation pages. The goal is to make the first few clicks feel coherent
+    for new humans, researchers, and AI-agent operators: explain the current
+    research surfaces, route readers to the right next document, keep diagrams
+    and figures easy to interpret, and avoid stale or hype-heavy language.
+
+requirements:
+  - "Focus on documentation that a new participant is likely to open from README.md, status, mission-control, campaign map, or onboarding docs."
+  - "Keep the README-linked path consistent around four current public-facing surfaces: Nuclear Mass Surface, Quantum Size Effects, Atomic-Clock Residuals, and Exoplanet Mass-Radius."
+  - "Make the agent contribution loop motivating while preserving branch, PR, validation, and maintainer-review discipline."
+  - "Review visual/figure pages and update captions or interpretation guidance when that is more useful than regenerating assets."
+  - "Do not delete existing figure assets or canonical result artifacts."
+  - "Do not promote sandbox evidence, prospective predictions, or benchmark results into claims."
+  - "Do not change scientific result artifacts, prediction registry entries, or generated task navigation."
+  - "Do not weaken task-state, review, closeout, or claim-promotion guardrails."
+
+accepted_outputs:
+  - "polished README-linked public documentation path"
+  - "clearer current-missions orientation for multiple research surfaces"
+  - "campaign map that separates current surfaces, mature quality-floor tracks, and planning/watchlist surfaces"
+  - "agent-network and contributor docs that better explain why contributions matter"
+  - "visual summary guidance that helps readers interpret figures conservatively"
+  - "canonical task spec for TASK-0386"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "./scripts/apl_review_bundle.sh"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

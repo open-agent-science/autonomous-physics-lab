@@ -36,10 +36,20 @@ python3 scripts/apl_mission.py --mode maintainer
 This keeps maintainer review and closeout automation intact while making the
 normal contributor path research-first.
 
+For humans, the practical path is:
+
+1. read the short project pitch in [README.md](../README.md);
+2. run `python3 scripts/apl_mission.py --onboarding`;
+3. choose one `READY` task or ask the agent to explain the options;
+4. review the PR evidence and limitations before merge.
+
+Use [Connect Your Agent](./connect-your-agent.md) for the contribution loop and
+[Use Your Agent](./use-your-agent.md) for agent prompt guidance.
+
 ## What APL Is Not Trying To Do
 
 - It is not a chatbot for speculative physics claims.
-- It is not treating numerically interesting fits as discovery-level evidence.
+- It is not treating numerically interesting fits as claim-level evidence.
 - It is not presenting benchmark fits as complete explanations of particle masses.
 - It is not presenting range-limited benchmarks as globally valid theories.
 
@@ -49,6 +59,10 @@ APL currently organizes work around one flagship validation campaign, several
 fresh-data source surfaces, and older benchmark/falsification surfaces that
 still define the project's quality floor:
 
+If you are new, start with the first four rows. They are the current
+public-facing research surfaces. The later rows are still important, but they
+are either quality-floor benchmarks or planning/watchlist surfaces.
+
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates and prospective predictions | Test nuclear residual candidates with frozen baselines, robustness gates, prediction registry discipline, and future reveal-readiness | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
@@ -57,7 +71,7 @@ still define the project's quality floor:
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Emerging catalog-snapshot benchmark surface | Test whether mass-radius residual structure survives source, provenance, and holdout discipline | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
 | [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
 | [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
-| [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation discovery against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
+| [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation search against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
 | [Particle Mass Relations](./campaigns/particle-mass-relations.md) | Active with scoped reproductions and falsifications | Test whether impressive mass relations survive disciplined, falsification-first handling | [koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md) |
 | [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Active with canonical MVP result | Build a quality floor for future formula and benchmark work | [RUN-0006 report](../results/EXP-0006/RUN-0006/report.md) |
 | [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) | Planning active, no canonical run yet | Extend APL into consistency checks that do not depend on curve fitting alone | [thought-experiment-consistency-suite.md](./notes/thought-experiment-consistency-suite.md) |
@@ -103,7 +117,7 @@ result surface: `PRED-0001` through `PRED-0068` are frozen entries awaiting
 future maintainer-reviewed reveal data.
 
 These results matter because they are reproducible and reviewable. They do not
-authorize exact symbolic proof, universal scope, or deeper physical
+authorize exact symbolic certainty, universal scope, or deeper physical
 explanation by themselves.
 
 ## How Contributors Can Plug In
@@ -151,8 +165,8 @@ Low-risk contribution patterns right now:
 
 ## What Not To Claim
 
-- Do not describe APL as having resolved physics.
-- Do not describe the repository as having made a discovery-level physical breakthrough.
+- Do not describe APL as having finalized physics.
+- Do not describe the repository as having produced a validated physical result.
 - Do not call pendulum approximations exact or globally valid.
 - Do not treat charged-lepton or tau-holdout benchmarks as explanations of
   particle masses.
@@ -160,7 +174,7 @@ Low-risk contribution patterns right now:
   possible Koide variants.
 - Do not turn the particle-mass falsifier MVP into a blanket claim about all
   possible mass-relation formulas.
-- Do not present `EXP-0010` muon g-2 output as a discovery-level, explanatory,
+- Do not present `EXP-0010` muon g-2 output as a validated, explanatory,
   or flagship public result.
 - Do not describe planning-only campaigns as implemented benchmark systems.
 

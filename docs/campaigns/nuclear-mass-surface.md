@@ -10,6 +10,11 @@ The target is not a universal mass formula. The target is a disciplined
 benchmark surface where compact, physically constrained correction terms can be
 tested against real dataset structure, subset behavior, and negative controls.
 
+New-reader summary: Nuclear is APL's flagship validation surface, but it is
+currently in diagnostic and source-gated mode. The useful work is stress
+review, no-peek reveal readiness, domain-limit mapping, and negative-result
+preservation, not new broad prediction waves.
+
 ## Orientation Note for New Contributors
 
 This campaign started scaffold-first and now has a benchmark stack,
@@ -156,18 +161,17 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   mass-region, baseline, and deterministic random matched-degree controls on
   full-known and primary-holdout MAE, but smooth-A and asymmetry controls are
   not inert; the verdict is `SHELL_SPECIFIC_BUT_BOUNDED`.
-- `TASK-0320` and `TASK-0321` are prepared as independent post-0315 follow-up
-  audits: one isolates the light `A<50` regression zone, and the other checks
-  whether support is magic-N dominant, magic-Z dominant, symmetric, or too
-  sparse to interpret.
+- `TASK-0320` isolates the light `A<50` regression zone and keeps that region
+  as a warning zone rather than a positive support surface.
+- `TASK-0321` checks whether support is magic-N dominant, magic-Z dominant,
+  symmetric, or too sparse to interpret.
 - `TASK-0321` records the magic-axis asymmetry audit as
   `NEUTRON_DOMINANT_BUT_SPARSE`: all three primary shell-axis candidates
   improve magic-N more than magic-Z, while double-magic and matched
   double-magic remain sparse diagnostic panels.
-- `TASK-0323` and `TASK-0324` are prepared as the next independent Nuclear
-  audits: isotope-chain transfer and neutron-rich tail behavior. They keep the
-  campaign in falsification/domain-mapping mode rather than adding more
-  prediction-registry entries.
+- `TASK-0323` and `TASK-0324` add isotope-chain transfer and neutron-rich tail
+  audits. They keep the campaign in falsification/domain-mapping mode rather
+  than adding more prediction-registry entries.
 - `TASK-0333` synthesizes the completed shell-axis post-audit wave and
   recommends `DIAGNOSTIC_ONLY`: preserve shell-axis as sandbox diagnostic
   evidence, but stop additional retrospective shell-axis audits, registry
