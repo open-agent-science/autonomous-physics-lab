@@ -15,7 +15,6 @@
 - `TASK-0370` - Run exoplanet regime residual scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
 - `TASK-0371` - Curate atomic Beloy 2021 direct-ratio rows (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0372` - Add atomic source-artifact version-drift stop condition (`scientific_dataset`, priority `high`, difficulty `low`, domain `atomic_clock_residuals`)
-- `TASK-0377` - Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`, domain `cross_campaign_data_policy`)
 
 ## IN_PROGRESS
 
@@ -28,4 +27,5 @@ None.
 - `TASK-0374` - Add cross-campaign source artifact package template (`research_infrastructure`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
 - `TASK-0375` - Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`, domain `cross_campaign_data_policy`)
 - `TASK-0376` - Add fresh-data extraction ledger template (`research_infrastructure`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
+- `TASK-0377` - Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`, domain `cross_campaign_data_policy`)
 - `TASK-0380` - Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
