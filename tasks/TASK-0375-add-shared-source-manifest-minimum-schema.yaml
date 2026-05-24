@@ -1,7 +1,7 @@
 id: TASK-0375
 title: "Add shared source manifest minimum schema"
 type: schema_extension
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

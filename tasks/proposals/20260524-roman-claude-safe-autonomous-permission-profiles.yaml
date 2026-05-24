@@ -1,0 +1,79 @@
+proposal_id: 20260524-roman-claude-safe-autonomous-permission-profiles
+title: "Define safe and autonomous Claude permission profiles"
+status: PROPOSED
+type: contributor_experience
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+
+strategy_alignment:
+  - "Keep parallel agent work smooth without making unsafe permission defaults invisible."
+  - "Separate onboarding-safe Claude Code settings from maintainer-supervised autonomous loops."
+  - "Avoid stale task-id reuse and generated-board churn when evolving contributor tooling."
+
+summary: >
+  Define a clean safe/autonomous permission-profile model for Claude Code
+  sessions. The proposal replaces the stale PR #371 approach, which reused
+  TASK-0269 and no longer matches the current repository permission baseline.
+
+rationale: >
+  The current shared .claude/settings.json already includes Bash(*), while
+  older work tried to add a separate autonomous profile. That makes the
+  current permission model hard to reason about: new contributors, external
+  agents, and maintainer-supervised loops all appear to share the same
+  effective shell power. A fresh task should decide whether Bash(*) belongs in
+  the shared baseline or only in a local autonomous profile, then document the
+  intended setup path without duplicating canonical task ids.
+
+input:
+  mode: planning_only
+  related_domain: contributor_experience
+  related_objects:
+    - ".claude/settings.json"
+    - "CLAUDE.md"
+    - "scripts/apl_setup_worktree.sh"
+    - "docs/notes/claude-code-permissions-allowlist.md"
+    - "docs/agent-task-protocol.md"
+    - "tasks/TASK-0255-add-worktree-settings-sync-script.yaml"
+    - "tasks/TASK-0258-track-claude-settings-baseline.yaml"
+  planning_context: >
+    PR #371 proposed an autonomous Claude permission profile and setup-script
+    opt-in, but it is stale: it reuses TASK-0269, touches generated task views,
+    and overlaps with a current shared settings baseline that already contains
+    Bash(*). This proposal keeps the useful idea while asking for a new,
+    reviewable task with a clean id and current context.
+
+requirements:
+  - "Do not reuse TASK-0269; create a new canonical task only after maintainer approval."
+  - "Decide whether Bash(*) should remain in .claude/settings.json or move to a gitignored local autonomous profile."
+  - "Define a safe/default profile suitable for onboarding and external agents."
+  - "Define an autonomous profile suitable only for maintainer-supervised task loops."
+  - "Update CLAUDE.md and docs/notes/claude-code-permissions-allowlist.md so the two modes are easy to understand."
+  - "If scripts/apl_setup_worktree.sh gains mode flags, keep the no-flag behavior backward-compatible and idempotent."
+  - "Do not edit generated task views or tasks/ACTIVE.md from the task PR."
+  - "Do not modify global Claude settings under ~/.claude/."
+
+accepted_outputs:
+  - "canonical task spec if promoted"
+  - "optional .claude/profiles/README.md"
+  - "optional .claude/profiles/autonomous.json or local-profile guidance"
+  - "scripts/apl_setup_worktree.sh updates if a mode flag is accepted"
+  - "CLAUDE.md update"
+  - "docs/notes/claude-code-permissions-allowlist.md update"
+
+validation:
+  commands:
+    - "bash -n scripts/apl_setup_worktree.sh"
+    - "./scripts/validate_quick.sh"
+    - "python3 -m pytest tests/test_docs_links.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    PR #371 was closed as stale/superseded. Promote this proposal only if the
+    maintainer wants a fresh canonical task for Claude permission-profile
+    cleanup.
