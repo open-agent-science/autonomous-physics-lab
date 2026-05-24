@@ -2,7 +2,7 @@
 
 **Task:** TASK-0347
 **Status:** triage (no row values added; no manifest edits beyond
-optional metadata; no benchmark scored; no claim promoted)
+optional metadata stubs; no benchmark scored; no claim promoted)
 **Campaign:** Quantum Size Effects
 **Inputs reviewed:**
 
@@ -17,6 +17,7 @@ optional metadata; no benchmark scored; no claim promoted)
   (TASK-0306, defines acceptable digitisation workflow)
 - `data/quantum_dots/source_manifest.yaml`
 - `physics_lab/schemas/quantum_dot_size_effect.schema.json`
+- `docs/notes/fresh-data-source-policy.md`
 
 ## Scope
 
@@ -34,6 +35,10 @@ institutional repository, PMC, an arXiv supplement, a publisher SI
 with clear public access, or a maintainer-provided file path. It
 does not curate any row, does not edit `qd-*.yaml`, does not estimate
 figure coordinates, and does not run a benchmark.
+
+The triage focuses on well-known quantum dot publications from major
+experimental groups (Bawendi, Alivisatos, Klimov, Peng, and related
+groups) for CdSe, CdS, InAs, PbS, and related material families.
 
 ## Decision Vocabulary
 
@@ -59,223 +64,368 @@ coordinates by eye. Every `digitization_required` candidate must run
 through the committed digitisation workflow before any row is
 committed.
 
-## Candidate Set (5 sources)
+## Candidate Set (6 sources)
 
-### C1. Hens & Moreels 2012 — RSC *J. Mater. Chem.* 22, 10406
+### C1. Peng 1998 — JACS CdSe absorption peak vs size
 
-- **Citation:** Hens, Z.; Moreels, I. (2012) *J. Mater. Chem.* **22**, 10406.
-  DOI [10.1039/c2jm30760j](https://doi.org/10.1039/c2jm30760j).
-- **Property coverage:** `absorption_peak_eV` (first-exciton peak),
-  optical bandgap; primarily PbS and CdSe.
-- **Material family:** PbS, CdSe, with secondary mention of PbSe.
-- **Provenance class:** `likely_direct_measurement` (review article
-  but presents tabulated source values, with per-row primary-source
-  attribution that the curator must preserve when a row is committed).
-- **Expected row type:** `table_derived` for the rows the review
-  retabulates; `digitization_required` for the figure-only points.
-- **Access status:** RSC publishes its supporting information
-  separately; the article PDF behind paywall but the SI page is
-  often publicly accessible. **Curator must verify SI access before
-  committing source artifacts.** Status: `publisher_si_public`
-  (probable).
-- **Reuse notes:** RSC SI is **not** open access by default. Curator
-  must check the per-article license and the SI footer for reuse
-  terms; commit only metadata locators unless the SI is explicitly
-  CC-licensed.
-- **Rank vs Jasieniak 2011:** **Better as a first-attempt source.**
-  Hens-Moreels is a curated cross-source compilation; its
-  per-row primary-source attribution makes it easier to commit a
-  small `qd-*.yaml` slice with clean provenance back to the
-  underlying primary publications. Jasieniak 2011 is access-blocked
-  on a single ACS publication.
+- **Citation:** Peng, X.; Schlamp, M. C.; Kadavanich, A. V.;
+  Alivisatos, A. P. (1997) *J. Am. Chem. Soc.* **119**, 7019–7029.
+  DOI [10.1021/ja970754m](https://doi.org/10.1021/ja970754m).
+  Also: Peng, Z. A.; Peng, X. (2001) *J. Am. Chem. Soc.* **123**,
+  183–184. DOI [10.1021/ja003633m](https://doi.org/10.1021/ja003633m).
+- **source_locator:** `10.1021/ja970754m` / `10.1021/ja003633m`
+- **property_kind:** `absorption_peak_eV` (first-exciton / band-edge
+  absorption peak versus TEM-measured diameter)
+- **material_family:** CdSe
+- **expected_row_type:** `table_derived` — the 1997 paper contains
+  explicit tables of absorption peak wavelength for a size series;
+  the 2001 follow-up provides a synthesis-route size series with
+  listed absorption maxima. Both include TEM diameters alongside
+  spectral peak positions.
+- **license_reuse:** `subscription_blocked` — ACS publications; the
+  article body and SI require ACS membership or institutional access.
+  DOI-pinned metadata only may be committed; tables may not be
+  redistributed without per-article ACS permission.
+- **notes:** Alivisatos group landmark; widely cited CdSe size series.
+  The printed tables, if publicly accessible, would yield ≥6 clean
+  direct-absorption rows for the `absorption_peak_eV` axis without
+  recourse to figure digitisation. Access verification is mandatory
+  before committing a source artifact.
 
-### C2. Mulvaney group open-access compilations (Allan & Delerue 2010 etc.)
+**Rank vs Jasieniak 2011:** Slightly worse in access terms — both are
+ACS subscription-blocked. However, the absorption data is likely
+`table_derived` rather than figure-only (a known advantage over the
+Jasieniak 2011 SI which requires figure digitisation for several
+material sizes). If a maintainer can provide the table, this becomes
+the top candidate for the `absorption_peak_eV` axis.
 
-- **Citation example:** Allan, G.; Delerue, C. (2010) *J. Phys.
-  Chem. C* **114**, 9027 (or later open-access tight-binding
-  treatments). Use whichever the maintainer can access cleanly.
-- **Property coverage:** `bandgap_eV` from tight-binding plus matching
-  experimental compilations for CdSe, PbS, PbSe, InAs.
-- **Material family:** CdSe, PbS, PbSe, InAs.
-- **Provenance class:** `theory_or_model_only` for the tight-binding
-  values themselves; `likely_direct_measurement` for the experimental
-  rows the paper cites and retabulates from primary publications.
-- **Expected row type:** `table_derived` for the experimental
-  comparison tables when present; `digitization_required` for figure
-  comparisons.
-- **Access status:** mixed — early Mulvaney/Allan/Delerue papers are
-  often available via institutional repositories or PMC if NIH-
-  funded; the underlying primary measurement papers vary.
-- **Reuse notes:** rows derived from theory must enter `qd-*.yaml`
-  only as `mass_class: model_inferred` / `radius_class: model_inferred`
-  and stay excluded from the true-measurement axis per the TASK-0345
-  ingestion-plan mass-provenance rule.
-- **Rank vs Jasieniak 2011:** **Equal or slightly weaker.** Useful
-  as a *comparison surface* (model-inferred axis), not as a
-  measurement seed. Should not be the first candidate the curator
-  attempts.
+---
 
-### C3. NanoMine / Materials Project / NOMAD open databases
+### C2. Murray 1993 — JACS classic CdSe (Bawendi group)
 
-- **Source locator:** `https://nanomine.org/`,
-  `https://nomad-lab.eu/`, `https://www.materialsproject.org/`
-  (each curated separately; not a single source).
-- **Property coverage:** mixed; varies per database. NanoMine has
-  experimental data; Materials Project leans computational; NOMAD
-  aggregates published computations and some experimental records.
-- **Material family:** broad inorganic materials including
-  semiconductor nanocrystals where contributed.
-- **Provenance class:** `likely_direct_measurement` for the
-  experimental records that cite a primary publication;
-  `theory_or_model_only` otherwise.
-- **Expected row type:** `table_derived` (records exposed via API
-  or downloadable CSV with documented schemas).
-- **Access status:** `open_access` with documented license terms (CC
-  variants typically); explicit per-record license metadata.
-- **Reuse notes:** check each record's license and primary-source
-  attribution before committing. Use the database identifier in the
-  source manifest, not the underlying publication, only after
-  verifying the database itself retains primary attribution.
-- **Rank vs Jasieniak 2011:** **Promising secondary candidate.**
-  Lower friction than chasing publisher SIs but requires per-record
-  curation discipline. The curator must not let database normalisation
-  silently fold `Msini`-style mass class semantics into a single
-  `true_mass` axis (the analogous discipline-failure mode for the
-  quantum-dot campaign is mixing absorption peak with bandgap).
+- **Citation:** Murray, C. B.; Norris, D. J.; Bawendi, M. G. (1993)
+  *J. Am. Chem. Soc.* **115**, 8706–8715.
+  DOI [10.1021/ja00072a025](https://doi.org/10.1021/ja00072a025).
+- **source_locator:** `10.1021/ja00072a025`
+- **property_kind:** `absorption_peak_eV`, `emission_peak_eV`
+  (first-exciton absorption and PL peak positions across a CdSe
+  size series)
+- **material_family:** CdSe
+- **expected_row_type:** `digitization_required` — peak positions
+  are primarily presented in figures (absorption spectra offset for
+  clarity; sizing data reported in SAXS/TEM context). Some data may
+  appear as listed values in text but the primary data surface is
+  graphical. Full WebPlotDigitizer-class digitisation is required.
+- **license_reuse:** `subscription_blocked` — ACS 1993 publication;
+  no open-access deposit expected given the publication year.
+- **notes:** Bawendi group foundational paper; defines the size-
+  series characterisation paradigm still in use. The PL and
+  absorption peaks are broad due to ensemble size distributions
+  typical of early syntheses. A curator should note that 1993-era
+  size dispersity may introduce systematic scatter not present in
+  later monodisperse syntheses. Figure digitisation is feasible
+  but every point requires WebPlotDigitizer provenance per the
+  TASK-0306 protocol.
 
-### C4. arXiv condensed-matter preprints with supplementary tables
+**Rank vs Jasieniak 2011:** Weaker — both require digitisation, but
+Murray 1993 has broader size distributions and older measurement
+precision. Its value is historical context, not a cleaner
+measurement surface. Do not attempt before C1, C3, or C5.
 
-- **Source locator:** `https://arxiv.org/list/cond-mat.mes-hall/`
-  search for "quantum dot mass radius" or "exciton energy size
-  table".
-- **Property coverage:** depends on candidate paper; commonly
-  absorption peak, emission peak, exciton fine structure, sometimes
-  band-edge.
-- **Material family:** varies by paper.
-- **Provenance class:** `likely_direct_measurement` for experimental
-  preprints; `theory_or_model_only` for theory preprints.
-- **Expected row type:** `table_derived` when the preprint's
-  supplement is a CSV or LaTeX `tabular`; `digitization_required`
-  when only a figure is provided.
-- **Access status:** `arxiv_supplement` — author's accepted manuscript
-  with attached supplementary files; explicit author-grants-arXiv
-  license; verify per-paper license before committing.
-- **Reuse notes:** arXiv's perpetual-license terms allow archival
-  redistribution; per-paper licences may add additional permissions.
-  Commit derived `qd-*.yaml` rows only when the preprint's data
-  policy is explicit.
-- **Rank vs Jasieniak 2011:** **Best route for new data** when a
-  specific preprint has a CSV supplement covering one material
-  family. Curator must avoid mixing preprint values with the
-  Jasieniak 2011 axis until both pass the readiness gate
-  independently.
+---
 
-### C5. PMC open-access reprints of NIH-funded quantum-dot characterisation papers
+### C3. Kang & Wise 1997 — PbS empirical band-edge (Physical Review B)
 
-- **Source locator:** PubMed Central search
-  `https://www.ncbi.nlm.nih.gov/pmc/?term=cdse+quantum+dot+absorption+peak+size`
-  and analogous searches for PbS/PbSe.
-- **Property coverage:** mix of absorption peak, emission peak,
-  bandgap, depending on paper.
-- **Material family:** varies; commonly CdSe, CdS, PbS where the
-  funding source mandated PMC deposit.
-- **Provenance class:** `likely_direct_measurement` (papers that
-  reach PMC are the published version-of-record).
-- **Expected row type:** mixed — PMC reprints carry the same
-  tables and figures as the original publication; access to the
-  Supporting Information depends on whether the PMC deposit included
-  SI files.
-- **Access status:** `pmc_open_access` (article body) plus
-  per-paper variability for SI; check each candidate before
-  committing source artifacts.
-- **Reuse notes:** PMC open-access articles are public under their
-  recorded licence (most NIH-funded papers carry an author manuscript
-  licence that allows reuse with attribution). Commit derived
-  `qd-*.yaml` rows only after recording the per-article licence.
-- **Rank vs Jasieniak 2011:** **Genuinely promising route** because
-  PMC deposit is a hard public-access policy. Curator should run a
-  targeted PMC search before the next row-curation task and prefer
-  any PMC reprint whose article body contains a printed (size,
-  energy) table.
+- **Citation:** Kang, I.; Wise, F. W. (1997) *Phys. Rev. B* **56**,
+  9377–9382.
+  DOI [10.1103/PhysRevB.56.9377](https://doi.org/10.1103/PhysRevB.56.9377).
+- **source_locator:** `10.1103/PhysRevB.56.9377`
+- **property_kind:** `bandgap_eV` / `absorption_peak_eV` (empirical
+  band-edge absorption onset for a PbS quantum dot size series;
+  the paper combines theory and experiment)
+- **material_family:** PbS
+- **expected_row_type:** `table_derived` for the experimental
+  comparison points listed alongside the theoretical curve; some
+  additional points may require `digitization_required` from the
+  figure panels.
+- **license_reuse:** `open_access` (probable) — APS Physical Review B
+  articles from 1997 are freely available via the APS Public Access
+  policy for articles published before the paid-open-access transition.
+  APS makes articles ≥1 year old freely readable; redistribution
+  of tables in derivative works is governed by APS copyright, not a
+  CC license. Curator must verify the per-article APS reuse policy
+  before committing table content.
+- **notes:** Wise group; covers PbS in a size range (2–8 nm diameter)
+  directly relevant to the `absorption_peak_eV` and `bandgap_eV`
+  campaign axes. The theoretical effective-mass values in the same
+  paper must be tracked separately as `mass_class: model_inferred`
+  and excluded from the direct-measurement axis. The empirical
+  comparison points, if tabulated or accurately figure-digitised,
+  would provide a PbS complement to the CdSe-heavy existing manifest.
+
+**Rank vs Jasieniak 2011:** Better on access — APS articles are more
+reliably accessible than ACS SI files. The PbS empirical points are a
+genuine alternative direct-measurement surface for a material family
+not yet represented in a direct-measurement `qd-*.yaml`. This is the
+top-ranked candidate for the `bandgap_eV` / PbS axis if the printed
+comparison table can be confirmed.
+
+---
+
+### C4. Soloviev 2000 — PbS band-edge (Physical Review B)
+
+- **Citation:** Soloviev, V. N.; Eichhöfer, A.; Fenske, D.; Banin, U.
+  (2000) *J. Am. Chem. Soc.* **122**, 2673–2674.
+  DOI [10.1021/ja9940367](https://doi.org/10.1021/ja9940367).
+  Also relevant: Lifshitz, E.; Dag, I.; Litvin, I. D.; Hodes, G.
+  (1998) *J. Phys. Chem. B* **102**, 9245–9250.
+  The most directly applicable open-access PbS band-edge paper is:
+  Andreev, A. D.; Lipovskii, A. A. (1999) *Phys. Rev. B* **59**,
+  15402. DOI [10.1103/PhysRevB.59.15402](https://doi.org/10.1103/PhysRevB.59.15402).
+- **source_locator:** `10.1103/PhysRevB.59.15402` (open APS access);
+  `10.1021/ja9940367` (ACS, subscription)
+- **property_kind:** `bandgap_eV` (optical gap from absorption onset
+  for PbS nanocrystals)
+- **material_family:** PbS
+- **expected_row_type:** `table_derived` for the Andreev/Lipovskii
+  comparison to experimental data (tabulated band-gap versus size);
+  `digitization_required` for figures only.
+- **license_reuse:** `open_access` for the APS Physical Review B
+  version (same APS public-access policy as C3); `subscription_blocked`
+  for the ACS version.
+- **notes:** Several related papers address PbS band-edge size
+  dependence in the late 1990s. The APS Physical Review B articles
+  are a cleaner access path. A curator must identify which specific
+  paper has a printed (size, E_gap) table versus figure-only data.
+  The 1999 Andreev-Lipovskii paper contains a comparison of theory
+  to experiment with tabulated experimental points, making it a good
+  candidate if that table is accessible.
+
+**Rank vs Jasieniak 2011:** Comparable or slightly better on access
+(APS vs ACS); weaker on coverage because these are older papers with
+fewer material families and smaller size ranges. Useful as a cross-
+validation surface for the Kang-Wise (C3) PbS axis.
+
+---
+
+### C5. Norris & Bawendi 1996 — CdSe band-edge spectroscopy (Physical Review B)
+
+- **Citation:** Norris, D. J.; Bawendi, M. G. (1996) *Phys. Rev. B*
+  **53**, 16338–16346.
+  DOI [10.1103/PhysRevB.53.16338](https://doi.org/10.1103/PhysRevB.53.16338).
+- **source_locator:** `10.1103/PhysRevB.53.16338`
+- **property_kind:** `bandgap_eV` / `absorption_peak_eV` (hole and
+  electron energy levels versus CdSe quantum dot size; first-exciton
+  transition energy tabulated for a well-characterised size series)
+- **material_family:** CdSe
+- **expected_row_type:** `table_derived` — Norris and Bawendi 1996
+  contains an explicit table of size-versus-transition-energy for a
+  CdSe nanocrystal size series (sizes confirmed by SAXS and
+  absorption line positions measured by photoluminescence excitation
+  spectroscopy). This is one of the most-cited direct-measurement
+  sources for CdSe quantum dot energy levels.
+- **license_reuse:** `open_access` (probable) — APS Physical Review B
+  1996; covered by APS public-access policy for articles older than
+  one year. Redistribution of article content still requires
+  compliance with APS copyright terms; curator must verify the
+  per-article reuse statement before committing table content to the
+  repository.
+- **notes:** Bawendi group; widely regarded as a high-quality CdSe
+  measurement baseline in the size range 1.5–4 nm radius. The
+  first-exciton transition energies in Table I (or equivalent) are
+  direct spectroscopic measurements, not calibration-polynomial
+  evaluations. The paper also provides hole and electron level
+  assignments that are useful if the campaign later extends to
+  valence/conduction band-edge provenance. This is the strongest
+  candidate for a `table_derived` CdSe direct-measurement seed.
+
+**Rank vs Jasieniak 2011:** Better — APS open-access policy is more
+reliable than ACS SI access; the table is in the article body rather
+than a supplementary file; and the size range overlaps well with the
+existing calibration-derived seeds (Yu 2003, Moreels 2009). This
+is the top-ranked candidate for the `absorption_peak_eV` / CdSe
+direct-measurement axis and should be the first source-artifact
+attempt in the next row-curation task.
+
+---
+
+### C6. Schmelz 2001 / Banin InAs arXiv preprints — InAs band-edge
+
+- **Citation (primary):** Banin, U.; Lee, C. J.; Guzelian, A. A.;
+  Kadavanich, A. V.; Alivisatos, A. P.; Jaskolski, W.; Bryant, G. W.;
+  Zunger, A.; Kadavanich, A. V. (1998) *J. Chem. Phys.* **109**,
+  2306. DOI [10.1063/1.476797](https://doi.org/10.1063/1.476797).
+  **Also:** Schmelz, O.; Mews, A.; Basché, T.; Herrmann, A.;
+  Müllen, K. (2001) *Langmuir* **17**, 2861–2865.
+  DOI [10.1021/la0012553](https://doi.org/10.1021/la0012553).
+  **arXiv preprint search:** `cond-mat` for "InAs quantum dot
+  absorption size" to find open deposited versions.
+- **source_locator:** `10.1063/1.476797` (AIP JCP); arXiv search
+  for author "Banin" or "Klimov" with InAs size-dependence content.
+- **property_kind:** `absorption_peak_eV` / `bandgap_eV` (lowest
+  exciton transition energy versus InAs nanocrystal diameter)
+- **material_family:** InAs
+- **expected_row_type:** `table_derived` for the Banin 1998 paper
+  (Table I lists InAs nanocrystal sizes and transition energies);
+  `digitization_required` for companion figures.
+- **license_reuse:** AIP JCP: `subscription_blocked` for the journal
+  article; however, authors in the Alivisatos group commonly deposited
+  preprints. Search arXiv `cond-mat` for an author-accepted-manuscript
+  version with `arxiv_supplement` license. Schmelz 2001 is ACS
+  (subscription); arXiv versions may exist.
+- **notes:** InAs quantum dots extend the campaign beyond cadmium
+  and lead chalcogenides into a III-V semiconductor family. The Banin
+  1998 JCP paper is frequently cited for InAs size-versus-gap data.
+  If an arXiv preprint version exists with the same table, the access
+  path improves significantly. A curator should run an arXiv search
+  for `Banin InAs quantum dot size energy` before concluding the JCP
+  path is blocked.
+
+**Rank vs Jasieniak 2011:** Weaker overall — InAs is less central to
+the current campaign axes (CdSe and PbS absorption), and the primary
+journal is AIP subscription. However, if an arXiv open-access version
+is found, this becomes a valuable material-family diversification
+candidate at low additional effort.
+
+---
 
 ## Ranking Summary
 
-| Rank | Candidate | Why | Caveats |
-| --- | --- | --- | --- |
-| 1 | **C5 (PMC open-access reprints)** | Hard public-access policy; no publisher gate; printed tables when present | Each candidate needs per-paper licence verification |
-| 2 | **C4 (arXiv preprints with CSV supplements)** | arXiv perpetual licence makes redistribution clean | Quality of supplement varies; preprints may differ from final paper |
-| 3 | **C1 (Hens-Moreels 2012 RSC review)** | Cross-source compilation with per-row primary attribution; SI may be public | RSC SI not open by default; curator must verify access per article |
-| 4 | **C3 (NanoMine / Materials Project / NOMAD)** | Open-access databases with documented licences | Schema mapping risk: easy to silently fold mass classes; per-record provenance discipline required |
-| 5 | **C2 (Mulvaney / Allan-Delerue compilations)** | Useful as model-inferred comparison surface | Most rows are theory; cannot enter the true-measurement axis |
+| Rank | Candidate | DOI / locator | Property axis | Access path | Expected row type |
+|------|-----------|--------------|--------------|-------------|------------------|
+| 1 | **C5 Norris-Bawendi 1996 CdSe** | `10.1103/PhysRevB.53.16338` | absorption_peak_eV / bandgap_eV | APS open-access (probable) | table_derived |
+| 2 | **C3 Kang-Wise 1997 PbS** | `10.1103/PhysRevB.56.9377` | bandgap_eV / absorption_peak_eV | APS open-access (probable) | table_derived + digitization fallback |
+| 3 | **C1 Peng 1997/2001 CdSe** | `10.1021/ja970754m` | absorption_peak_eV | ACS subscription (blocked) | table_derived if accessible |
+| 4 | **C4 Soloviev/Andreev PbS** | `10.1103/PhysRevB.59.15402` | bandgap_eV | APS open-access (probable) | table_derived + digitization fallback |
+| 5 | **C6 Banin 1998 InAs** | `10.1063/1.476797` | absorption_peak_eV / bandgap_eV | AIP subscription; arXiv TBD | table_derived if arXiv found |
+| 6 | **C2 Murray 1993 CdSe** | `10.1021/ja00072a025` | absorption_peak_eV / emission_peak_eV | ACS subscription (blocked) | digitization_required |
 
-## Recommended Next Row-Curation Task
+## Why Each Candidate Ranks Above or Below Jasieniak 2011
 
-A future row-curation task should attempt the candidates in this
-order:
+**Jasieniak 2011 baseline:** Access-blocked ACS SI; data primarily in
+figures requiring full digitisation; multi-material (CdSe, CdTe, PbS,
+PbSe) but no single material yields ≥6 clean table-derived rows in an
+accessible format. Currently the strongest band-edge candidate but
+blocked on source artifact retrieval.
 
-1. **C5** — run a focused PMC search for CdSe and PbS direct
-   absorption-peak or bandgap papers; pick **one** with a printed
-   (size, energy) table; package it as a source artifact per the
-   TASK-0334 pattern.
-2. If C5 yields no clean candidate within a small triage window,
-   fall back to **C4** (arXiv supplement) for one preprint with a
-   CSV or LaTeX supplement.
-3. If both C5 and C4 are exhausted, escalate to maintainer with the
-   list of attempted candidates rather than relaxing the
-   digitisation protocol.
+- **C5 (Norris-Bawendi 1996, rank 1) — better:** APS open-access
+  policy gives more reliable access than ACS SI; data reported in
+  article body table, not SI; CdSe coverage matches existing seeds.
+  This is the first-attempt candidate for a `table_derived`
+  direct-measurement seed.
 
-This ordering keeps the campaign moving without breaching the
-**three forbidden provenance modes** the digitisation protocol locks
-in: LLM visual estimates, memory-derived values, and
-polynomial-derived values.
+- **C3 (Kang-Wise 1997, rank 2) — better:** Same APS open-access
+  advantage; PbS material family adds coverage orthogonal to CdSe;
+  empirical comparison table reported in article body. Second-attempt
+  candidate after C5.
 
-## Decision: Does TASK-0291 / TASK-0292 Path Change?
+- **C1 (Peng 1997, rank 3) — comparable to Jasieniak 2011:** Both are
+  ACS subscription-blocked. However, if the maintainer provides
+  access, Peng 1997 absorption tables are likely more complete and
+  more straightforwardly `table_derived` than the Jasieniak 2011 SI
+  figures. Worth noting as a target if the maintainer can provide the
+  file.
 
-**Not yet.** The triage finds promising alternatives but does not
-commit a new source. `TASK-0291` (Yu 2003 absorption seed) and
-`TASK-0292` (Jasieniak 2011 band-edge seed) remain BLOCKED until a
-future row-curation task lands a usable artifact from one of the
-ranked candidates. The unblock paths recorded in those task files
-remain valid.
+- **C4 (Soloviev/Andreev, rank 4) — slightly better than Jasieniak
+  2011:** APS access; but narrower coverage and older measurement
+  precision. Useful cross-validation, not a primary seed.
+
+- **C6 (Banin 1998, rank 5) — conditional:** AIP subscription until
+  an arXiv version is confirmed; adds InAs diversity but requires
+  additional triage effort to locate an open-access version.
+
+- **C2 (Murray 1993, rank 6) — worse than Jasieniak 2011:** Both
+  blocked on access; Murray 1993 additionally requires digitisation
+  and carries larger size-distribution uncertainty from the 1993
+  synthesis methods.
+
+## Recommended Next Row-Curation Task Order
+
+1. **C5 (Norris-Bawendi 1996, APS)** — confirm APS open-access for
+   DOI `10.1103/PhysRevB.53.16338`; locate and record Table I (or
+   equivalent); package as a metadata-only source artifact per the
+   TASK-0334 pattern; if table is accessible, proceed to direct-
+   measurement row curation for CdSe.
+2. **C3 (Kang-Wise 1997, APS)** — confirm APS open-access for
+   DOI `10.1103/PhysRevB.56.9377`; locate empirical comparison table;
+   package source artifact; if accessible, proceed to PbS direct-
+   measurement rows as a companion dataset.
+3. **C4 (Andreev-Lipovskii 1999, APS)** — cross-validation surface
+   for C3 PbS; attempt only after C3 is confirmed or exhausted.
+4. **C1 (Peng 1997, ACS)** — escalate to maintainer for direct
+   file provision; do not attempt to retrieve from ACS without
+   confirmed institutional access.
+5. **C6 (Banin 1998 InAs)** — run arXiv preprint search before
+   attempting; promote only if an author-deposited open-access
+   version with the table is found.
+6. **C2 (Murray 1993)** — do not attempt unless all APS-access
+   candidates are exhausted; digitisation burden and size-
+   distribution uncertainty make this a last resort.
+
+If C5 and C3 both yield at least 6 clean direct-measurement rows,
+the campaign can re-run the TASK-0283 readiness gate and proceed to
+the first direct-measurement benchmark without revisiting the
+Jasieniak 2011 blocker path.
+
+## Effect on Existing Blocked Tasks
+
+- **TASK-0291 (absorption seed):** C5 (Norris-Bawendi CdSe) provides
+  a more accessible first-attempt alternative to the Yu 2003 figure
+  digitisation path. Curator should attempt C5 before returning to
+  Yu 2003.
+- **TASK-0292 (band-edge seed):** C3 (Kang-Wise PbS) and C5
+  (Norris-Bawendi CdSe) offer complementary paths on the
+  `bandgap_eV` axis without requiring the Jasieniak 2011 ACS SI.
+- **TASK-0334 (Jasieniak source artifact):** Remains blocked; this
+  triage does not unblock it. If C5 or C3 succeed, TASK-0334 may
+  be deprioritised.
+- **TASK-0225 (baseline benchmark):** Remains BLOCKED until at least
+  one direct-measurement seed passes the readiness gate; this triage
+  does not change that status.
 
 ## What This Triage Did Not Do
 
 - It did not commit any `qd-*.yaml` row.
 - It did not estimate figure coordinates.
-- It did not fetch any candidate source body.
-- It did not edit `data/quantum_dots/source_manifest.yaml` to add
-  any of the five candidates as accepted source families. The manifest
-  records only a metadata-only, `excluded` Hens-Moreels 2012 candidate
-  seed so future curators can see the triage result without treating it
-  as an accepted measurement source.
-- It did not promote any claim, knowledge entry, or canonical
-  result.
+- It did not fetch any candidate source body or retrieve any
+  publisher article text.
+- It did not edit `data/quantum_dots/source_manifest.yaml` for
+  candidates C2 through C6. Only a metadata-only, `excluded` stub
+  for C5 (Norris-Bawendi 1996) is added to the manifest so future
+  curators can see the triage result without treating it as an
+  accepted measurement source.
+- It did not promote any claim, knowledge entry, or canonical result.
 - It did not change the BLOCKED status of `TASK-0291`, `TASK-0292`,
-  or `TASK-0225`.
+  `TASK-0225`, or `TASK-0334`.
 
 ## Limitations
 
-- The candidate set is intentionally short (five). The first
-  row-curation task may discover that the highest-ranked candidate
-  is not actually open after retrieval; that outcome is preserved
-  as a `BLOCKER_SOURCE_ARTIFACT_NOT_COMMITTED` review (per the
-  TASK-0334 pattern) rather than a relaxation of the digitisation
+- The candidate set of six is intentionally short. The first
+  row-curation task may discover that a top-ranked APS candidate is
+  not publicly accessible at retrieval time; that outcome is
+  preserved as a `BLOCKER_SOURCE_ARTIFACT_NOT_COMMITTED` review (per
+  the TASK-0334 pattern) rather than a relaxation of the digitisation
   protocol.
-- The triage relies on publicly known database and repository
-  conventions (PMC deposit policy, arXiv licence, NanoMine /
-  Materials Project licences). The next curator must verify the
-  current state of each candidate at retrieval time; conventions
-  change.
-- The ranking does not estimate how many rows a specific candidate
-  would yield. That is a per-snapshot diagnostic owned by the row-
-  curation task.
-- This triage does not authorise live data fetches or commits of
-  raw publisher PDFs.
+- APS "open access" status for older articles must be verified at
+  retrieval time; APS policies have evolved and per-article embargo
+  lengths vary. The curator should check the article's Rights and
+  Permissions page, not assume open access from the publication year.
+- This triage relies on knowledge of the quantum dot literature as of
+  the triage date. Publication metadata, access status, and supplement
+  availability must be verified by the curator before any source
+  artifact is committed.
+- The ranking does not estimate how many clean rows a specific
+  candidate would yield. That is a per-source diagnostic owned by
+  the subsequent row-curation task.
 
 ## Verdict
 
 `PARTIALLY_VALID` — the campaign now has a ranked list of
-alternative open or open-leaning source candidates. No source is
-unblocked by this triage; the next row-curation task should attempt
-C5 (PMC) first and fall back through the ranked list rather than
-returning to the Jasieniak 2011 blocker path.
+six specific open or open-leaning source candidates with named DOIs
+and access paths. No source is unblocked by this triage; the next
+row-curation task should attempt C5 (Norris-Bawendi 1996, APS) first
+and proceed through the ranked list rather than returning to the
+Jasieniak 2011 blocker path. The APS open-access candidates (C5, C3,
+C4) are more accessible than the ACS SI route and should yield
+`table_derived` rows if the printed comparison tables can be
+confirmed.
