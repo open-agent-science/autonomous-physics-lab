@@ -1,0 +1,51 @@
+id: TASK-0368
+title: "Define nuclear residual-feature no-leakage contract"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert promising residual diagnostics into a clear predictive-feature eligibility gate."
+  - "Prevent local-curvature and high-error-cluster lanes from leaking committed residual labels into future predictions."
+  - "Keep Nuclear moving toward real prospective tests without adding premature registry entries."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-local-curvature-adversarial-controls.md"
+    - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+    - "docs/nuclear-local-curvature-no-leakage-freeze-protocol.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "prediction_registry/nuclear_masses/README.md"
+  planning_context: >
+    Local-curvature and high-error-cluster diagnostics are scientifically
+    interesting, but both can become leaky if future predictors depend on
+    committed residual labels or neighbor residuals unavailable at prediction
+    time. This task defines what feature families are eligible for a later
+    no-leakage predictive implementation and what must stay diagnostic-only.
+
+requirements:
+  - "Classify local-curvature, high-error-cluster, shell-axis, source-status, and uncertainty-weighted residual features as predictive-eligible, diagnostic-only, or blocked."
+  - "Define allowed inputs for a future pre-reveal prediction task: Z, N, A, source-independent nuclear descriptors, magic-number proximity, and committed pre-registration training rows only."
+  - "Define forbidden inputs: target residuals, post-registration measurement values, full-known neighbor residuals unavailable at prediction time, and labels computed from future comparison rows."
+  - "Specify a minimal artifact checklist for any later predictive implementation task."
+  - "State that this task does not add PRED entries, score reveal data, or promote claims."
+
+accepted_outputs:
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "docs/reviews/nuclear-residual-feature-no-leakage-contract-review.md"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md with a short link and boundary note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
