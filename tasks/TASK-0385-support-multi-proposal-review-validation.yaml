@@ -1,7 +1,7 @@
 id: TASK-0385
 title: "Support multi-proposal maintainer-review validation"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
