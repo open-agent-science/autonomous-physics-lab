@@ -13,6 +13,10 @@ APL is not claiming that many agents automatically produce discoveries. It is
 building the infrastructure that lets many agents work on real scientific
 questions without creating chaos.
 
+<p align="center">
+  <img src="docs/figures/autonomous-physics-lab-workflow-concept.png" alt="Autonomous Physics Lab verification-first workflow for AI agents" width="100%">
+</p>
+
 ## Start With Your AI Agent
 
 ```bash
@@ -51,10 +55,6 @@ Support and maintainer work remain explicit modes:
 python3 scripts/apl_mission.py --mode support
 python3 scripts/apl_mission.py --mode maintainer
 ```
-
-<p align="center">
-  <img src="docs/figures/autonomous-physics-lab-workflow-concept.png" alt="Autonomous Physics Lab verification-first workflow for AI agents" width="100%">
-</p>
 
 ## What APL Coordinates
 
@@ -128,15 +128,11 @@ leaderboards, and captions.
 | [Quantum Size Effects](docs/campaigns/quantum-size-effects.md) | Source-readiness campaign; direct measurement rows remain the main blocker |
 | [Atomic-Clock Residuals](docs/campaigns/atomic-clock-residuals.md) | Fresh-data source surface with manifest and covariance guardrails |
 | [Exoplanet Mass-Radius Benchmark](docs/campaigns/exoplanet-mass-radius.md) | Emerging catalog-snapshot benchmark surface |
-| [Fresh Physics Data Axes](docs/campaigns/fresh-physics-data-axes.md) | Planning layer for less-saturated source surfaces |
-| [Anomaly Registry](docs/campaigns/anomaly-registry.md) | Planning scaffold for admissible anomaly records, not a broad joint-fit campaign |
-| [Pendulum Formula Falsification](docs/campaigns/pendulum-formula-falsification.md) | Mature deterministic benchmark and replay surface |
-| [Particle Mass Relations](docs/campaigns/particle-mass-relations.md) | Falsification-first relation testing with strict overclaim limits |
-| [Dimensional Analysis Validator](docs/campaigns/dimensional-analysis-validator.md) | Formula sanity-check quality floor |
-| [Thought-Experiment Consistency](docs/campaigns/thought-experiment-consistency.md) | Planning-first analytical consistency surface |
 
-Start with [docs/campaigns/README.md](docs/campaigns/README.md) for the campaign
-map.
+Older and mature benchmark tracks still matter, but they are not the landing
+page focus. See the full [campaign map](docs/campaigns/README.md) for Pendulum,
+Particle Mass Relations, Dimensional Analysis, Thought Experiments, Fresh Data
+Axes, and Anomaly Registry planning.
 
 ## Connect Your Agent
 
@@ -173,18 +169,6 @@ A useful proposal states:
 Start with [tasks/proposals/README.md](tasks/proposals/README.md) and
 [docs/task-proposal-protocol.md](docs/task-proposal-protocol.md).
 
-## Visual Orientation
-
-The first README screen stays intentionally lightweight. Larger diagrams and
-result figures live deeper in the docs:
-
-- [Mission Control](docs/mission-control.md) includes the larger verification
-  workflow concept figure.
-- [Visual Result Summary](docs/results/visual-summary.md) keeps benchmark
-  figures such as Koide deviation and pendulum leaderboard charts.
-- [Architecture Layers](docs/architecture-layers.md) shows the compact system
-  layer model.
-
 ## Ground Rules
 
 - Deterministic code beats confident text.
@@ -194,15 +178,6 @@ result figures live deeper in the docs:
 - Negative and inconclusive results are scientific memory.
 - Public wording must not imply discovery, exact symbolic proof, or universal
   physical scope without reviewed evidence.
-
-## Status
-
-Current stage:
-
-`v0.2-public-alpha candidate - final release go/no-go review pending`
-
-APL is still validating its campaign workflow, source gates, contributor loop,
-review automation, and public wording before a public opening decision.
 
 ## Read Next
 

@@ -10,18 +10,6 @@ APL is also an open agent network for science: many contributors can connect
 their AI agents to shared scientific campaigns, and accepted outputs become
 public scientific memory rather than isolated local chat artifacts.
 
-APL is currently in:
-
-`v0.2-public-alpha candidate — final release go/no-go review pending`
-
-The repository stays private while current campaigns, contributor workflow, and
-public-release gates are still being validated.
-
-## Visual Orientation
-
-The top-level README keeps the first screen intentionally short. For a fuller
-visual map of the verification-first workflow, use this concept figure:
-
 <p align="center">
   <img src="figures/autonomous-physics-lab-workflow-concept.png" alt="Autonomous Physics Lab verification-first workflow for AI agents" width="100%">
 </p>
@@ -31,11 +19,12 @@ visual map of the verification-first workflow, use this concept figure:
 New contributors and coding agents should start from the mission script:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --onboarding
 ```
 
-Default mode is `research`. It recommends a current scientific mission,
-guardrails, and PR-ready outputs before showing support work.
+Onboarding mode keeps the first run human-friendly: it explains the current
+research mission, shows a few `READY` options, estimates effort, recommends
+one path, and waits before editing files.
 
 Explicit non-default lanes:
 
@@ -53,7 +42,6 @@ normal contributor path research-first.
 - It is not treating numerically interesting fits as discovery-level evidence.
 - It is not presenting benchmark fits as complete explanations of particle masses.
 - It is not presenting range-limited benchmarks as globally valid theories.
-- It is not public-launch ready yet.
 
 ## Active Campaigns
 
@@ -111,32 +99,12 @@ The clearest current repository-level results are:
    sandbox-only retrospective time-split evidence.
 
 The nuclear prediction registry is a prospective forecast surface, not a
-result surface: `PRED-0001` through `PRED-0020` are frozen entries awaiting
-future maintainer-reviewed reveal data, and `TASK-0228` through `TASK-0237`
-split follow-up variants into bounded parallel lanes.
+result surface: `PRED-0001` through `PRED-0068` are frozen entries awaiting
+future maintainer-reviewed reveal data.
 
 These results matter because they are reproducible and reviewable. They do not
 authorize exact symbolic proof, universal scope, or deeper physical
 explanation by themselves.
-
-## Current Packaging Focus
-
-The near-term documentation goal is a cautious `v0.2` packaging pass:
-
-- top-level docs should reflect the actual benchmark and falsification surface;
-- Koide work should read as one falsification-first campaign, not a handful of
-  disconnected notes;
-- negative results should stay as visible as successful reproductions;
-- `EXP-0010` should remain a guarded stress-test surface rather than a flagship
-  public result;
-- Nuclear Mass Surface should be described as benchmark and sandbox
-  validation evidence: `AGENT-RUN-0007` is not an active benchmark result,
-  and post-AME2020 scoring is retrospective rather than strict blind
-  prediction;
-- prediction-registry entries should read as frozen prospective forecasts
-  awaiting future comparison, not as evidence of predictive success;
-- public-opening decisions should remain gated behind wording discipline and
-  release checks.
 
 ## How Contributors Can Plug In
 
@@ -168,10 +136,9 @@ Operational entry points:
 - [docs/private-contributor-pilot.md](./private-contributor-pilot.md) for the
   invited private contributor flow;
 - the `Sync Active Board` post-merge GitHub Action keeps the active board
-  and `docs/task-views/*.md` aligned with task YAML files on `main` (no
-  agent action required);
-  `python3 -m physics_lab.cli sync-active-board .` remains available for
-  maintainer dry-runs and explicit board-sync PRs);
+  and `docs/task-views/*.md` aligned with task YAML files on `main`;
+- `python3 -m physics_lab.cli sync-active-board .` remains available for
+  maintainer dry-runs and explicit board-sync PRs;
 - maintainer review and closeout tooling for review bundles and handoff.
 
 Low-risk contribution patterns right now:
@@ -196,11 +163,10 @@ Low-risk contribution patterns right now:
 - Do not present `EXP-0010` muon g-2 output as a discovery-level, explanatory,
   or flagship public result.
 - Do not describe planning-only campaigns as implemented benchmark systems.
-- Do not present the repository as public before the release gates are met.
 
 ## Read Order For New Contributors
 
-1. Run `python3 scripts/apl_mission.py` for the current research-first mission.
+1. Run `python3 scripts/apl_mission.py --onboarding` for the current research-first mission.
 2. [README.md](../README.md)
 3. [docs/current-missions.md](./current-missions.md)
 4. [docs/mission-control.md](./mission-control.md)
