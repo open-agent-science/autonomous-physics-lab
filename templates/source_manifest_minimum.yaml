@@ -1,0 +1,61 @@
+schema_version: 0.1.0
+manifest_id: SOURCE-MANIFEST-MINIMUM-TEMPLATE-0001
+manifest_kind: source_manifest_minimum
+task_id: TASK-0375
+status: template_only
+campaign_profile_id: cross-campaign-data-policy
+claim_promotion_allowed: false
+benchmark_allowed: false
+live_fetch_allowed_in_validation: false
+sources:
+  - source_id: SRC-TEMPLATE-001
+    source_title: Metadata-only source candidate placeholder
+    source_family: metadata_only_placeholder
+    locators:
+      doi: null
+      arxiv_id: null
+      archive_url: null
+      source_url: null
+      citation: Metadata-only template row; replace with a real citation during source review.
+    artifact:
+      artifact_type: metadata_only
+      artifact_path_or_locator: null
+      checksum_sha256: null
+      checksum_scope: not_applicable_metadata_only
+      value_bearing_artifact: false
+    retrieval:
+      retrieval_date_utc: null
+      retrieved_by: not_retrieved_template_only
+      live_fetch_allowed_after_pinning: false
+    redistribution:
+      redistribution_status: not_reviewed
+      license_note: Template only; no external artifact or value-bearing table is committed.
+      citation_note: Replace with source-specific citation notes before row curation.
+    row_admissibility:
+      row_class: source_candidate_only
+      inclusion_status: metadata_only
+      blocker_reason:
+        - CHECKSUM_NOT_PINNED
+        - EXTRACTION_NOT_REVIEWED
+      row_schema_kind: null
+    extraction:
+      extraction_method: metadata_only
+      uncertainty_semantics: not_applicable_metadata_only
+      review_status: not_started
+    review:
+      review_notes: Template entry demonstrates the minimum cross-campaign shape without adding data values.
+      allowed_next_step: source_review
+campaign_extension:
+  extension_allowed: true
+  campaign_schema_refs:
+    - physics_lab/schemas/exoplanet_mass_radius.schema.json
+    - physics_lab/schemas/quantum_dot_size_effect.schema.json
+    - physics_lab/schemas/nuclear_mass_prediction.schema.json
+  local_required_fields:
+    - campaign-specific row identifiers
+    - campaign-specific units and axis labels
+    - campaign-specific holdout or reveal boundary
+  notes: >
+    Campaign manifests may add stricter local fields, but should preserve this
+    minimum provenance surface so source admissibility can be compared before
+    row curation or benchmark tasks.

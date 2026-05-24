@@ -1,0 +1,409 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Shared Source Manifest Minimum",
+  "description": "Minimum cross-campaign provenance contract for source artifacts before row curation or benchmark use.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "manifest_kind",
+    "task_id",
+    "status",
+    "campaign_profile_id",
+    "claim_promotion_allowed",
+    "benchmark_allowed",
+    "live_fetch_allowed_in_validation",
+    "sources",
+    "campaign_extension"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "manifest_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "manifest_kind": {
+      "type": "string",
+      "const": "source_manifest_minimum"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^TASK-[0-9]{4}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "template_only",
+        "draft_source_manifest",
+        "review_ready_source_manifest",
+        "pinned_source_manifest"
+      ]
+    },
+    "campaign_profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim_promotion_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "benchmark_allowed": {
+      "type": "boolean"
+    },
+    "live_fetch_allowed_in_validation": {
+      "type": "boolean"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "campaign_extension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extension_allowed",
+        "campaign_schema_refs",
+        "local_required_fields",
+        "notes"
+      ],
+      "properties": {
+        "extension_allowed": {
+          "type": "boolean",
+          "const": true
+        },
+        "campaign_schema_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "local_required_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nullable_string": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "checksum_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_title",
+        "source_family",
+        "locators",
+        "artifact",
+        "retrieval",
+        "redistribution",
+        "row_admissibility",
+        "extraction",
+        "review"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "source_title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "source_family": {
+          "type": "string",
+          "enum": [
+            "publication",
+            "supplementary_material",
+            "api_snapshot",
+            "catalog_snapshot",
+            "repository_release",
+            "figure_or_plot",
+            "review_or_compilation",
+            "metadata_only_placeholder"
+          ]
+        },
+        "locators": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "doi",
+            "arxiv_id",
+            "archive_url",
+            "source_url",
+            "citation"
+          ],
+          "properties": {
+            "doi": {
+              "$ref": "#/$defs/nullable_string"
+            },
+            "arxiv_id": {
+              "$ref": "#/$defs/nullable_string"
+            },
+            "archive_url": {
+              "$ref": "#/$defs/nullable_string"
+            },
+            "source_url": {
+              "$ref": "#/$defs/nullable_string"
+            },
+            "citation": {
+              "$ref": "#/$defs/non_empty_string"
+            }
+          }
+        },
+        "artifact": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "artifact_type",
+            "artifact_path_or_locator",
+            "checksum_sha256",
+            "checksum_scope",
+            "value_bearing_artifact"
+          ],
+          "properties": {
+            "artifact_type": {
+              "type": "string",
+              "enum": [
+                "pdf",
+                "supplementary_table",
+                "csv_snapshot",
+                "yaml_snapshot",
+                "api_response",
+                "figure_image",
+                "metadata_only"
+              ]
+            },
+            "artifact_path_or_locator": {
+              "$ref": "#/$defs/nullable_string"
+            },
+            "checksum_sha256": {
+              "$ref": "#/$defs/checksum_sha256"
+            },
+            "checksum_scope": {
+              "type": "string",
+              "enum": [
+                "not_applicable_metadata_only",
+                "raw_artifact",
+                "normalized_artifact",
+                "doi_or_archive_locator_only",
+                "pending_before_row_curation"
+              ]
+            },
+            "value_bearing_artifact": {
+              "type": "boolean"
+            }
+          }
+        },
+        "retrieval": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "retrieval_date_utc",
+            "retrieved_by",
+            "live_fetch_allowed_after_pinning"
+          ],
+          "properties": {
+            "retrieval_date_utc": {
+              "$ref": "#/$defs/nullable_string"
+            },
+            "retrieved_by": {
+              "$ref": "#/$defs/non_empty_string"
+            },
+            "live_fetch_allowed_after_pinning": {
+              "type": "boolean"
+            }
+          }
+        },
+        "redistribution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "redistribution_status",
+            "license_note",
+            "citation_note"
+          ],
+          "properties": {
+            "redistribution_status": {
+              "type": "string",
+              "enum": [
+                "not_reviewed",
+                "metadata_only_allowed",
+                "redistributable_with_attribution",
+                "not_redistributable",
+                "internal_reference_only"
+              ]
+            },
+            "license_note": {
+              "$ref": "#/$defs/non_empty_string"
+            },
+            "citation_note": {
+              "$ref": "#/$defs/non_empty_string"
+            }
+          }
+        },
+        "row_admissibility": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "row_class",
+            "inclusion_status",
+            "blocker_reason",
+            "row_schema_kind"
+          ],
+          "properties": {
+            "row_class": {
+              "type": "string",
+              "enum": [
+                "direct_measurement",
+                "derived_constraint",
+                "calibration_curve",
+                "model_derived",
+                "digitized_figure_point",
+                "review_summary_only",
+                "source_candidate_only"
+              ]
+            },
+            "inclusion_status": {
+              "type": "string",
+              "enum": [
+                "accepted",
+                "excluded",
+                "blocked",
+                "metadata_only",
+                "requires_review"
+              ]
+            },
+            "blocker_reason": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "SOURCE_PAYWALLED_NO_TABLE",
+                  "SOURCE_ARTIFACT_NOT_REDISTRIBUTABLE",
+                  "FIGURE_DIGITIZATION_REQUIRED",
+                  "COVARIANCE_NOT_SEPARABLE",
+                  "DIRECT_ROWS_NOT_PRESENT",
+                  "CALIBRATION_DERIVED_ONLY",
+                  "SOURCE_ARTIFACT_VERSION_DRIFT",
+                  "UNCERTAINTY_SEMANTICS_MISSING",
+                  "ROW_CLASS_AMBIGUOUS",
+                  "LICENSE_REVIEW_REQUIRED",
+                  "CHECKSUM_NOT_PINNED",
+                  "EXTRACTION_NOT_REVIEWED"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "row_schema_kind": {
+              "$ref": "#/$defs/nullable_string"
+            }
+          }
+        },
+        "extraction": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "extraction_method",
+            "uncertainty_semantics",
+            "review_status"
+          ],
+          "properties": {
+            "extraction_method": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "direct_table",
+                "api_snapshot",
+                "manual_transcription",
+                "figure_digitization",
+                "calibration_curve_reconstruction",
+                "metadata_only"
+              ]
+            },
+            "uncertainty_semantics": {
+              "type": "string",
+              "enum": [
+                "not_reviewed",
+                "not_applicable_metadata_only",
+                "reported_total_uncertainty",
+                "statistical_and_systematic_split",
+                "asymmetric_uncertainty",
+                "covariance_required",
+                "missing_or_ambiguous"
+              ]
+            },
+            "review_status": {
+              "type": "string",
+              "enum": [
+                "not_started",
+                "needs_source_review",
+                "needs_independent_review",
+                "review_ready",
+                "accepted_for_manifest_only",
+                "accepted_for_row_curation"
+              ]
+            }
+          }
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "review_notes",
+            "allowed_next_step"
+          ],
+          "properties": {
+            "review_notes": {
+              "$ref": "#/$defs/non_empty_string"
+            },
+            "allowed_next_step": {
+              "type": "string",
+              "enum": [
+                "source_review",
+                "artifact_pinning",
+                "extraction_ledger",
+                "row_curation",
+                "baseline_task",
+                "blocked_no_rows",
+                "metadata_only_reference"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
