@@ -71,6 +71,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0270` — Persist agent-discipline learnings to the repository (`contributor_experience`, priority `medium`, difficulty `low`)
+- `TASK-0271` — Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0375` — Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`)
 - `TASK-0380` — Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0383` — Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`)
