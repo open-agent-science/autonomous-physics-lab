@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0343` - Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0356` - Prepare quantum direct source artifact intake path (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0364` - Attempt quantum PMC/arXiv direct-table source curation (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 
@@ -28,6 +27,7 @@ None.
 - `TASK-0340` - Run nuclear odd-even shell-interaction hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0341` - Run nuclear extrapolated-measured boundary hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0342` - Run nuclear uncertainty-weighted residual hypothesis lane (`autonomous_research_pilot`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0343` - Run nuclear high-error cluster hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0344` - Review atomic-clock covariance and uncertainty semantics (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0345` - Prepare exoplanet PSCompPars snapshot ingestion plan (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0347` - Triage open quantum-dot direct table sources (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
