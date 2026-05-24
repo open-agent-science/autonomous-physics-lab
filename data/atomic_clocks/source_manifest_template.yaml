@@ -166,6 +166,25 @@ global_stop_conditions:
   - source_lacks_retrieval_date_or_archive_plan
   - source_license_or_reuse_terms_unclear
   - task_requests_constants_drift_fit_before_source_review
+  - SOURCE_ARTIFACT_VERSION_DRIFT
+
+stop_condition_definitions:
+  SOURCE_ARTIFACT_VERSION_DRIFT:
+    description: >
+      A source artifact available through two reviewed versions, such as an
+      arXiv preprint and a version-of-record publication table, disagrees on a
+      ratio value, uncertainty, campaign window, source table shape, or row
+      inclusion boundary.
+    row_curation_decision: blocked_until_separate_version_drift_review
+    required_resolution: >
+      Halt row curation and preserve the discrepancy in a source-specific
+      review. A separate maintainer-reviewed task must decide which version is
+      admissible, whether both should be represented as distinct source
+      artifacts, or whether the source family should be rejected for the first
+      real-row seed.
+    forbidden_resolution: >
+      Do not silently choose one version, average across versions, copy values
+      from memory, or normalize the discrepancy inside a row-curation task.
 
 promotion_boundary:
   writes_real_clock_values: false

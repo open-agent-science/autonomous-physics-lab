@@ -56,6 +56,11 @@ row-curation task is approved. None of these files exist yet.
   `license_or_reuse_notes: arXiv perpetual licence; verbatim redistribution of the Nature PDF is forbidden.`
 - The retrieval task must verify that the arXiv preprint matches the
   Nature-published ratio table values **before** extracting any row.
+- If the arXiv preprint and Nature version-of-record disagree on a ratio
+  value, uncertainty, campaign window, table shape, or row inclusion boundary,
+  the row-curation task must halt with
+  `SOURCE_ARTIFACT_VERSION_DRIFT`. The discrepancy must be preserved in a
+  separate review before any row is committed.
 
 ## Covariance handling policy (TASK-0363)
 
