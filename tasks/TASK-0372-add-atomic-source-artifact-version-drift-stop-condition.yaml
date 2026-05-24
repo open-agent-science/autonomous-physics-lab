@@ -1,7 +1,7 @@
 id: TASK-0372
 title: "Add atomic source-artifact version-drift stop condition"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: high
 
@@ -32,8 +32,8 @@ requirements:
   - "Do not add real rows, values, fits, prediction entries, claims, or canonical results."
 
 accepted_outputs:
-  - "updated data/atomic_clocks/source_manifest_template.yaml"
-  - "optional update to docs/campaigns/atomic-clock-residuals.md or data/atomic_clocks/source_artifacts/2021-beloy-bacon/README.md"
+  - "data/atomic_clocks/source_manifest_template.yaml"
+  - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/README.md"
   - "docs/reviews/atomic-clock-source-artifact-version-drift-stop-condition.md"
 
 validation:
