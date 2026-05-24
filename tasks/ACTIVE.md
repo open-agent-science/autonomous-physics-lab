@@ -50,6 +50,18 @@ one PR.
 - `TASK-0362` — Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0364` — Attempt quantum PMC/arXiv direct-table source curation (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0365` — Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0367` — Run nuclear high-error cluster adversarial stability audit (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0368` — Define nuclear residual-feature no-leakage contract (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0369` — Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0370` — Run exoplanet regime residual scout (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0371` — Curate atomic Beloy 2021 direct-ratio rows (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0372` — Add atomic source-artifact version-drift stop condition (`scientific_dataset`, priority `high`, difficulty `low`)
+- `TASK-0373` — Define cross-campaign fresh-data intake protocol (`research_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0374` — Add cross-campaign source artifact package template (`research_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0375` — Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`)
+- `TASK-0376` — Add fresh-data extraction ledger template (`research_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0377` — Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`)
+- `TASK-0378` — Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -403,6 +415,7 @@ None.
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0379` — Add source artifact package validator helper (`repository_validation`, priority `medium`, difficulty `high`)
 
 ## REJECTED
 
