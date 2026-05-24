@@ -1,0 +1,57 @@
+id: TASK-0320
+title: "Run nuclear shell-axis light-nuclei regression audit"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the clearest TASK-0315 limitation into a first-class falsification surface."
+  - "Explain why all three primary shell-axis candidates regress light A<50 nuclei before any future shell-axis expansion."
+  - "Keep the shell-axis lane bounded by explicit exclusion zones rather than smoothing over negative evidence."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "agent_runs/AGENT-RUN-0018/metrics.json"
+    - "docs/results/nuclear-shell-axis-full-known-audit.md"
+    - "docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md"
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    TASK-0310 found small retrospective shell-axis improvements on the
+    full-known and primary-holdout surfaces, while TASK-0315 identified light
+    A<50 as the strongest consistent regression zone for the three primary
+    shell-axis candidates. This task isolates that failure mode and asks
+    whether it is explained by baseline quality, shell-axis feature shape,
+    training-slice mismatch, subset composition, or simple overextension of
+    the intended domain.
+
+requirements:
+  - "Use only committed nuclear-mass data and committed TASK-0310/TASK-0315 artifacts; do not fetch live external data."
+  - "Audit light A<50 rows separately from mid-mass and heavy rows for the primary shell-axis candidates."
+  - "Report per-row residual deltas, aggregate MAE deltas, worst regressions, and whether the regression is concentrated near particular Z, N, A, parity, or magic-distance patterns."
+  - "Compare the light subset to at least one matched non-light subset of similar row count, using deterministic selection or a clearly documented fixed rule."
+  - "State whether light A<50 should be an exclusion zone, warning zone, or unresolved diagnostic for future shell-axis work."
+  - "Do not tune a new corrective term, add prediction registry entries, score PRED-0063 through PRED-0068, or promote claims."
+  - "Preserve negative results even if the audit weakens the shell-axis lane."
+
+accepted_outputs:
+  - "scripts/run_nuclear_shell_axis_light_regression_audit.py or equivalent deterministic entrypoint"
+  - "agent_runs/AGENT-RUN-0022/metrics.json"
+  - "agent_runs/AGENT-RUN-0022/report.md"
+  - "docs/reviews/nuclear-shell-axis-light-regression-audit.md"
+  - "tests covering the audit entrypoint or metrics shape"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

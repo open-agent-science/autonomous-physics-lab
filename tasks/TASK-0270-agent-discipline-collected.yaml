@@ -41,7 +41,7 @@ requirements:
   - "Cross-link the new note from AGENTS.md (one short sentence in the parallel-work section)."
   - "Update the mission-control onboarding prompt (physics_lab/registry/mission_control.py render_onboarding_prompt) to mention the worktree helper as a recommended setup step when parallel agent work is plausible."
   - "Do not rewrite the single-topic notes (worktree, permissions); they remain the canonical source for their respective surfaces."
-  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition is allowed; generated task navigation is synchronized by the post-merge Sync Active Board action or by a dedicated board-sync closeout/audit PR when explicitly requested."
 
 accepted_outputs:
   - "docs/notes/agent-discipline-collected.md"

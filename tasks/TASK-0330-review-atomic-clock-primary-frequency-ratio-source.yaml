@@ -1,0 +1,52 @@
+id: TASK-0330
+title: "Review atomic-clock primary frequency-ratio source class"
+type: scientific_dataset
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Atomic Clock Residuals from generic source scaffolding toward a concrete source-review path."
+  - "Keep the third campaign source-first and value-free before any real clock rows are ingested."
+  - "Create a reusable admissibility decision for direct frequency-ratio measurements."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-clock-source-manifest-template-review.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "data/atomic_clocks/schema.md"
+    - "docs/notes/atomic-clock-source-candidates.md"
+    - "docs/notes/fresh-data-source-policy.md"
+  planning_context: >
+    Atomic Clock Residuals now has a metadata-only source manifest template and
+    a synthetic loader. This task reviews the direct frequency-ratio source
+    class as the first concrete source family before any real values are
+    copied into the repository.
+
+requirements:
+  - "Review the `direct_frequency_ratio_measurement` source class without recording numerical clock values."
+  - "Identify one or more candidate primary-source shapes from the existing source-candidates note or source manifest class."
+  - "Record source-admissibility requirements: source locator, publication/release date, retrieval date, archive/checksum plan, transition labels, units, uncertainty semantics, covariance notes, license notes, and holdout/reveal boundary."
+  - "If a concrete source is inspected, record only metadata and blockers; do not copy frequency ratios, drift values, or derived constants constraints."
+  - "State whether this source class is `ADMISSIBLE_WITH_SOURCE_REVIEW`, `BLOCKED_ON_SOURCE_ACCESS`, or `NOT_ADMISSIBLE_AS_DIRECT_ROWS`."
+  - "Do not ingest real data, run a benchmark, add prediction registry entries, or claim constants drift."
+
+accepted_outputs:
+  - "docs/reviews/atomic-clock-primary-frequency-ratio-source-review.md"
+  - "optional metadata-only update to data/atomic_clocks/source_manifest_template.yaml or a new source-manifest note"
+  - "tests updated only if a YAML manifest structure changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

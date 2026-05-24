@@ -1,0 +1,52 @@
+id: TASK-0287
+title: "Define nuclear reveal source gate checklist"
+type: benchmark_protocol
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare the Nuclear Mass Surface for a future real reveal without touching live measurements now."
+  - "Convert the TASK-0266 reveal protocol into concrete source-manifest, checksum, and no-peek readiness criteria."
+  - "Reduce the risk of partial-reveal confusion when future mass measurements become available."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/reviews/nuclear-prediction-registry-status-after-pred-0062.md"
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+    - "docs/reviews/nuclear-prediction-synthetic-reveal-dry-run.md"
+    - "prediction_registry/nuclear_masses/"
+  planning_context: >
+    APL now has frozen registry entries, a coverage audit, a synthetic reveal
+    dry-run harness, and a registry status summary. The missing pre-reveal
+    layer is a maintainer-facing source-readiness checklist that defines what
+    a real measurement-source task must pin before any comparison is allowed.
+
+requirements:
+  - "Define the required source manifest fields for a future real nuclear reveal, including source class, publication/release date, source-state timestamp, checksum or archived-copy policy, measurement/extrapolation flags, units, uncertainty fields, and target matching rules."
+  - "Define a no-peek audit checklist for verifying that frozen PRED entries predate the measurement source used in a reveal."
+  - "Define partial-reveal handling for unrevealed targets, non-measured-only rows, repeated target nuclides, and high-reuse target batches."
+  - "Reference the synthetic reveal dry-run as workflow plumbing only; do not treat its toy values as evidence."
+  - "Do not fetch live measurement data, add real source rows, score predictions, or edit frozen prediction values."
+  - "Do not unblock any real reveal task automatically; this is a readiness protocol task only."
+
+accepted_outputs:
+  - "docs/nuclear-reveal-source-readiness-checklist.md"
+  - "data/nuclear_masses/reveal_source_manifest_template.yaml"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the recommended reveal path changes"
+  - "updated docs/next-steps.md if the campaign execution order changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

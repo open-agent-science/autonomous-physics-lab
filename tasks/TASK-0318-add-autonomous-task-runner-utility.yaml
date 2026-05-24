@@ -1,0 +1,51 @@
+id: TASK-0318
+title: "Add autonomous task runner utility with Claude Code budget gate"
+type: contributor_experience
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Enable a local autonomous loop that reads Claude Code session logs, checks monthly token budget, and invokes the next READY scientific task when headroom remains."
+  - "Keep the gate configurable via environment variables so contributors can set their own thresholds."
+
+input:
+  mode: workflow
+  related_domain: tooling
+  related_objects:
+    - "scripts/apl_mission.py"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    Contributors want to run a local script that checks remaining Claude Code
+    token budget (by reading ~/.claude/projects/ JSONL logs) and, when usage
+    is below a configurable threshold (default 50 % of monthly limit),
+    automatically picks the next highest-priority READY task and invokes the
+    claude CLI. This avoids wasting headroom and lets a local machine operate
+    autonomously during off-hours.
+
+requirements:
+  - "scripts/check_claude_budget.py: reads ~/.claude/projects/ JSONL logs, computes this-month token totals, returns JSON with used_tokens, limit_tokens, used_pct, under_threshold."
+  - "scripts/auto_run_next_task.sh: calls check_claude_budget.py; if under_threshold, reads next task from apl_mission.py --json and invokes claude CLI with --task and --max-turns flags."
+  - "Both scripts are configurable via CLAUDE_MONTHLY_TOKEN_LIMIT and CLAUDE_BUDGET_THRESHOLD_PCT env vars."
+  - "scripts/check_claude_budget.py --dry-run prints the JSON report and exits 0 without invoking anything."
+  - "auto_run_next_task.sh --dry-run prints what it would do without calling claude."
+  - "Do not promote claims, write PRED-*.yaml, or skip the branch/PR protocol in the runner."
+  - "Do not fetch live measurements or update canonical results."
+
+accepted_outputs:
+  - "scripts/check_claude_budget.py"
+  - "scripts/auto_run_next_task.sh"
+  - "tests/test_check_claude_budget.py"
+  - "docs/reviews/autonomous-task-runner-utility-001.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

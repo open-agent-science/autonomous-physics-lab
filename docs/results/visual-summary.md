@@ -103,8 +103,17 @@ sandbox-only pilot evidence. `AGENT-RUN-0007` is an `INCONCLUSIVE`
 source-manifest-only guard, not an active time-split benchmark result. The
 row-level post-AME2020 sequence is `TASK-0196` holdout data before `TASK-0197`
 retrospective time-split scoring, and it does not promote claims automatically.
-The `PRED-0001` through `PRED-0020` registry entries are prospective forecasts
+The `PRED-0001` through `PRED-0068` registry entries are prospective forecasts
 for future reveal comparison, not current result figures or success metrics.
+The post-`PRED-0062` registry state and later shell-axis mini-wave are
+summarized in
+[`nuclear-prediction-registry-status-after-pred-0062.md`](../reviews/nuclear-prediction-registry-status-after-pred-0062.md)
+and
+[`nuclear-shell-axis-prospective-mini-wave-review.md`](../reviews/nuclear-shell-axis-prospective-mini-wave-review.md).
+The compact internal scout evidence card is
+[`nuclear-scout-evidence-card.md`](./nuclear-scout-evidence-card.md); it
+separates baseline, sandbox scout, negative, and prospective registry layers
+without discovery framing.
 
 ---
 

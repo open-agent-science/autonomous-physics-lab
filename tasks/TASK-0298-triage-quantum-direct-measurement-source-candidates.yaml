@@ -1,0 +1,51 @@
+id: TASK-0298
+title: "Triage quantum direct-measurement source candidates"
+type: scientific_dataset
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Help Quantum Size Effects reach measurement-grade row-level data without weakening the TASK-0283 gate."
+  - "Give dataset agents a short source shortlist before they attempt row extraction."
+  - "Keep calibration-derived rows, direct measurements, and excluded sources clearly separated."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "tasks/TASK-0291-curate-quantum-direct-measurement-absorption-seed.yaml"
+    - "tasks/TASK-0292-curate-quantum-direct-measurement-band-edge-seed.yaml"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+  planning_context: >
+    TASK-0291 and TASK-0292 are the correct unblock paths for the first
+    Quantum Size Effects benchmark, but direct-measurement rows are harder
+    than calibration-derived rows. This task triages candidate sources so
+    row-level agents can choose tractable measurement-grade inputs.
+
+requirements:
+  - "Review existing source_manifest entries and propose a short list of direct-measurement absorption or band-edge candidates."
+  - "Classify each source as likely direct-measurement, calibration-derived, theory/model-only, core-shell/confounded, or unsuitable."
+  - "Record whether each source appears to contain table values, digitizable figure points, or only derived calibration formulas."
+  - "Recommend which source should be attempted first by TASK-0291 or TASK-0292."
+  - "Update source_manifest.yaml only for source metadata or accepted/excluded source candidates; do not add row-level qd-*.yaml data in this task."
+  - "Do not fetch live data into the repository, redistribute copyrighted tables/figures, add synthesis protocols, or make device/biomedical claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-direct-measurement-source-triage.md"
+  - "updated data/quantum_dots/source_manifest.yaml if candidate source metadata is reviewed"
+  - "updated docs/campaigns/quantum-size-effects.md if the recommended data path changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

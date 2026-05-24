@@ -1,0 +1,47 @@
+id: TASK-0360
+title: "Make automation harness tests cross-platform"
+type: ci_infrastructure
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer automation reliable across Windows, macOS, and Linux contributors."
+  - "Prevent local platform-specific test failures from blocking unrelated scientific PR review."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - tests/test_auto_run_next_task.py
+    - tests/test_pr_capability.py
+  planning_context: >
+    Windows local validation surfaced failures in existing harness tests that
+    directly execute Unix shell scripts or shell-script stubs. Keep Linux shell
+    coverage, but make the tests explicit about shell availability and replace
+    avoidable shell stubs with portable test helpers.
+
+requirements:
+  - "Do not weaken the review-agent or PR-capability validation semantics."
+  - "Use platform/availability checks for tests that genuinely require bash."
+  - "Prefer cross-platform Python or .cmd stubs where a shell script is not the behavior under test."
+  - "Do not change scientific task logic, claims, results, or generated task navigation."
+
+accepted_outputs:
+  - "docs/automation/autonomous-task-runner.md"
+  - "Cross-platform auto-runner Python entrypoint"
+  - "Cross-platform PR capability tests"
+  - "Platform-aware auto-runner harness tests"
+  - "Targeted regression validation"
+
+validation:
+  commands:
+    - "python3 -m ruff check scripts/auto_run_next_task.py tests/test_auto_run_next_task.py tests/test_pr_capability.py"
+    - "python3 -m pytest tests/test_auto_run_next_task.py tests/test_pr_capability.py"
+    - "python3 scripts/auto_run_next_task.py --dry-run --max-turns 12"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - codex
+  - claude_code
+  - llm_agent

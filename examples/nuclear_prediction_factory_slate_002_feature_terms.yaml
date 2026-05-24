@@ -1,0 +1,720 @@
+factory_id: nuclear-prediction-factory-slate-002-feature-terms
+task_id: TASK-0264
+campaign_profile_id: nuclear-mass-surface
+quantity: mass_excess_mev
+registered_by:
+  contributor_id: roman
+  agent_id: codex
+registered_at_utc: "2026-05-16T00:00:00Z"
+
+baseline_model:
+  result_id: RESULT-0015
+  source_path: results/EXP-0012/RUN-0001/result.yaml
+  score_model_id: model_fitted_semi_empirical
+  registry_model_id: RESULT-0015::model_fitted_semi_empirical
+  frozen_parameters_note: >
+    Frozen coefficient source is RESULT-0015 score model_fitted_semi_empirical.
+    Slate-002 exercises bounded feature terms and coefficient-plus-feature
+    composition after TASK-0252 and target-batch reuse after TASK-0254. These
+    are sandbox review candidates only, not registered predictions.
+
+source_state:
+  git_commit: 6bf1ed737c4b51aac87582164ded5a668b233861
+  training_data_references:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  holdout_protocol_references:
+    - docs/blind-holdout-benchmark-protocol.md
+    - docs/nuclear-mass-holdout-protocol.md
+    - docs/prediction-registry-policy.md
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Slate-002 uses only committed repository state. It reuses the reviewed
+    target-batch library, writes draft PRED-style files only to explicit /tmp
+    paths during validation, and performs no reveal or live external
+    measurement fetch.
+
+reveal_conditions:
+  reveal_trigger: >
+    Slate-002 is a sandbox review surface and has no reveal trigger of its own.
+    Only a maintainer-reviewed subset that is later copied into the prediction
+    registry via TASK-0265 or a successor inherits live reveal conditions.
+  comparison_data_reference: >
+    none for slate-002; future reveals are tied to whichever PRED entries are
+    selected and committed under a separate reviewed task.
+  reveal_owner: maintainer or maintainer-authorized review agent
+  no_peek_rule: >
+    Slate candidates must not be retroactively edited to match later
+    measurements. Sandbox-only outputs may be discarded; they must not be
+    promoted, rewritten as canonical predictions, or compared retrospectively
+    to AME-style data without a maintainer-approved reveal task.
+
+output:
+  write_draft_predictions: false
+  draft_prediction_dir: /tmp/apl-nuclear-factory-slate-002-feature-terms
+
+target_batch_library:
+  path: data/nuclear_masses/factory_target_batches.yaml
+  include_batches:
+    - shell-magic-probe
+    - neutron-rich-stress
+    - nickel-isotope-chain
+    - mid-mass-region-probe
+
+variants:
+  - prediction_id: PRED-9401
+    variant_id: shell-zn-reviewed-coefficients-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: shell/magic-number reviewed coefficient control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: -1.5599853542897564
+          sigma: 2.0
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 3.2082046765215466
+          sigma: 2.0
+    review_notes:
+      - Mirrors the reviewed PRED-0025 Z+N shell-proximity coefficient set on the reusable shell-magic batch.
+
+  - prediction_id: PRED-9402
+    variant_id: shell-zn-sign-inverted-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: shell/magic-number sign-inverted control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: 1.5599853542897564
+          sigma: 2.0
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: -3.2082046765215466
+          sigma: 2.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9401; useful for directionality review only.
+
+  - prediction_id: PRED-9403
+    variant_id: shell-n-reviewed-coefficient-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: neutron-axis shell/magic-number control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Mirrors the reviewed PRED-0026 neutron-axis shell-proximity coefficient.
+
+  - prediction_id: PRED-9404
+    variant_id: shell-n-sign-inverted-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: neutron-axis shell/magic-number sign control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: -1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9403.
+
+  - prediction_id: PRED-9405
+    variant_id: shell-z-reviewed-coefficient-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: proton-axis shell/magic-number control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: -1.5599853542897564
+          sigma: 2.0
+    review_notes:
+      - Isolates the proton-axis part of the reviewed Z+N shell-proximity control.
+
+  - prediction_id: PRED-9406
+    variant_id: shell-z-sign-inverted-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: proton-axis shell/magic-number sign control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: 1.5599853542897564
+          sigma: 2.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9405.
+
+  - prediction_id: PRED-9407
+    variant_id: shell-n-narrow-sigma-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: narrow shell-proximity width control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 1.0
+    review_notes:
+      - Tests whether a narrower neutron-axis shell width creates localized candidate behavior.
+
+  - prediction_id: PRED-9408
+    variant_id: shell-n-broad-sigma-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: broad shell-proximity width control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 4.0
+    review_notes:
+      - Tests whether a broader neutron-axis shell width creates diffuse candidate behavior.
+
+  - prediction_id: PRED-9409
+    variant_id: shell-zn-near-null-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: shell/magic-number near-null control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: 1.0e-12
+          sigma: 2.0
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: -1.0e-12
+          sigma: 2.0
+    review_notes:
+      - Near-null shell feature term sanity check.
+
+  - prediction_id: PRED-9410
+    variant_id: shell-zn-small-balanced-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: small balanced shell/magic-number control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: -0.25
+          sigma: 2.0
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 0.25
+          sigma: 2.0
+    review_notes:
+      - Small-magnitude Z+N shell proximity control below the reviewed coefficient scale.
+
+  - prediction_id: PRED-9411
+    variant_id: shell-n-plus-asymmetry-scale-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: combined coefficient-plus-shell feature control
+    transform:
+      scale:
+        asymmetry: 1.005
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Combines a small asymmetry-coefficient scale with the reviewed neutron-axis shell term.
+
+  - prediction_id: PRED-9412
+    variant_id: shell-n-minus-asymmetry-scale-shell-magic
+    target_batch: shell-magic-probe
+    model_control_label: combined coefficient-plus-shell sign control
+    transform:
+      scale:
+        asymmetry: 0.995
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: -1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Sign-direction counterpart to PRED-9411 for composition review.
+
+  - prediction_id: PRED-9413
+    variant_id: asymmetry-quartic-reviewed-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: reviewed quartic asymmetry control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: 82.66196399343987
+            - power: 4
+              coefficient: -1777.7853009092412
+    review_notes:
+      - Mirrors the reviewed PRED-0027 quartic-asymmetry coefficient set on neutron-rich stress targets.
+
+  - prediction_id: PRED-9414
+    variant_id: asymmetry-quartic-sign-inverted-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: quartic asymmetry sign-inverted control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: -82.66196399343987
+            - power: 4
+              coefficient: 1777.7853009092412
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9413.
+
+  - prediction_id: PRED-9415
+    variant_id: asymmetry-quadratic-plus-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: quadratic asymmetry control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: 82.66196399343987
+    review_notes:
+      - Isolates the quadratic component of the reviewed quartic-asymmetry control.
+
+  - prediction_id: PRED-9416
+    variant_id: asymmetry-quadratic-minus-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: quadratic asymmetry sign control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: -82.66196399343987
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9415.
+
+  - prediction_id: PRED-9417
+    variant_id: asymmetry-quartic-only-minus-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: quartic-only asymmetry control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 4
+              coefficient: -1777.7853009092412
+    review_notes:
+      - Isolates the quartic component of the reviewed asymmetry control.
+
+  - prediction_id: PRED-9418
+    variant_id: asymmetry-quartic-only-plus-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: quartic-only asymmetry sign control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 4
+              coefficient: 1777.7853009092412
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9417.
+
+  - prediction_id: PRED-9419
+    variant_id: asymmetric-neutron-excess-near-null-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: asymmetric neutron-excess near-null control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: 3.4709894797642375e-13
+          power: 2
+    review_notes:
+      - Mirrors the reviewed near-null PRED-0028 asymmetric neutron-excess coefficient.
+
+  - prediction_id: PRED-9420
+    variant_id: asymmetric-neutron-excess-plus-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: asymmetric neutron-excess bounded control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: 0.1
+          power: 2
+    review_notes:
+      - Bounded positive asymmetric neutron-excess term on neutron-rich stress targets.
+
+  - prediction_id: PRED-9421
+    variant_id: asymmetric-neutron-excess-minus-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: asymmetric neutron-excess sign control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: -0.1
+          power: 2
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9420.
+
+  - prediction_id: PRED-9422
+    variant_id: asymmetric-neutron-excess-cubic-plus-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: cubic neutron-excess bounded control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: 0.02
+          power: 3
+    review_notes:
+      - Cubic neutron-excess stress control; bounded but intentionally more nonlinear than PRED-9420.
+
+  - prediction_id: PRED-9423
+    variant_id: asymmetric-neutron-excess-cubic-minus-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: cubic neutron-excess sign control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: -0.02
+          power: 3
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9422.
+
+  - prediction_id: PRED-9424
+    variant_id: asymmetry-quartic-plus-coefficient-scale-neutron-rich
+    target_batch: neutron-rich-stress
+    model_control_label: combined coefficient-plus-asymmetry control
+    transform:
+      scale:
+        asymmetry: 1.005
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: 82.66196399343987
+            - power: 4
+              coefficient: -1777.7853009092412
+    review_notes:
+      - Combines a small asymmetry-coefficient scale with the reviewed quartic asymmetry feature.
+
+  - prediction_id: PRED-9425
+    variant_id: shell-n-reviewed-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: neutron-axis shell control on isotope chain
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Applies the reviewed neutron-axis shell term along the nickel chain.
+
+  - prediction_id: PRED-9426
+    variant_id: shell-n-sign-inverted-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: neutron-axis shell sign control on isotope chain
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: -1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9425.
+
+  - prediction_id: PRED-9427
+    variant_id: shell-z-magic-reviewed-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: proton-magic shell control on isotope chain
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: -1.5599853542897564
+          sigma: 2.0
+    review_notes:
+      - Isolates the proton-axis shell term on Z=28 nickel targets.
+
+  - prediction_id: PRED-9428
+    variant_id: shell-z-magic-sign-inverted-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: proton-magic shell sign control on isotope chain
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: 1.5599853542897564
+          sigma: 2.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9427.
+
+  - prediction_id: PRED-9429
+    variant_id: asymmetric-neutron-excess-plus-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: neutron-excess isotope-chain control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: 0.1
+          power: 2
+    review_notes:
+      - Reviews whether a simple neutron-excess term changes smoothly across the nickel chain.
+
+  - prediction_id: PRED-9430
+    variant_id: asymmetric-neutron-excess-minus-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: neutron-excess isotope-chain sign control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: -0.1
+          power: 2
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9429.
+
+  - prediction_id: PRED-9431
+    variant_id: asymmetry-quadratic-plus-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: quadratic asymmetry isotope-chain control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: 20.0
+    review_notes:
+      - Mild quadratic asymmetry term for isotope-chain smoothness review.
+
+  - prediction_id: PRED-9432
+    variant_id: asymmetry-quadratic-minus-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: quadratic asymmetry isotope-chain sign control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: -20.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9431.
+
+  - prediction_id: PRED-9433
+    variant_id: shell-plus-neutron-excess-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: combined shell and neutron-excess isotope-chain control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 2.0
+        - type: asymmetric_neutron_excess
+          coefficient: 0.05
+          power: 2
+    review_notes:
+      - Combines neutron-axis shell proximity and bounded neutron-excess behavior on one isotope chain.
+
+  - prediction_id: PRED-9434
+    variant_id: shell-minus-neutron-excess-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: combined shell and neutron-excess sign control
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: -1.6049071729432316
+          sigma: 2.0
+        - type: asymmetric_neutron_excess
+          coefficient: -0.05
+          power: 2
+    review_notes:
+      - Sign-direction counterpart to PRED-9433.
+
+  - prediction_id: PRED-9435
+    variant_id: asymmetric-neutron-excess-near-null-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: isotope-chain near-null neutron-excess control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: 3.4709894797642375e-13
+          power: 2
+    review_notes:
+      - Near-null neutron-excess sanity check along the nickel chain.
+
+  - prediction_id: PRED-9436
+    variant_id: shell-n-plus-asymmetry-scale-nickel-chain
+    target_batch: nickel-isotope-chain
+    model_control_label: combined coefficient-plus-shell isotope-chain control
+    transform:
+      scale:
+        asymmetry: 1.005
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Combines small asymmetry coefficient scaling with the neutron-axis shell term on the nickel chain.
+
+  - prediction_id: PRED-9437
+    variant_id: shell-n-reviewed-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: neutron-axis shell control on mid-mass region
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: 1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Reviews transfer of the neutron-axis shell term away from the explicit shell-magic batch.
+
+  - prediction_id: PRED-9438
+    variant_id: shell-n-sign-inverted-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: neutron-axis shell sign control on mid-mass region
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: -1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9437.
+
+  - prediction_id: PRED-9439
+    variant_id: shell-z-reviewed-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: proton-axis shell control on mid-mass region
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: -1.5599853542897564
+          sigma: 2.0
+    review_notes:
+      - Reviews proton-axis shell proximity across the mid-mass transfer batch.
+
+  - prediction_id: PRED-9440
+    variant_id: shell-z-sign-inverted-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: proton-axis shell sign control on mid-mass region
+    transform:
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: 1.5599853542897564
+          sigma: 2.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9439.
+
+  - prediction_id: PRED-9441
+    variant_id: asymmetric-neutron-excess-plus-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: neutron-excess mid-mass control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: 0.05
+          power: 2
+    review_notes:
+      - Bounded positive neutron-excess term on a mid-mass region transfer batch.
+
+  - prediction_id: PRED-9442
+    variant_id: asymmetric-neutron-excess-minus-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: neutron-excess mid-mass sign control
+    transform:
+      feature_terms:
+        - type: asymmetric_neutron_excess
+          coefficient: -0.05
+          power: 2
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9441.
+
+  - prediction_id: PRED-9443
+    variant_id: asymmetry-quadratic-plus-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: quadratic asymmetry mid-mass control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: 20.0
+    review_notes:
+      - Mild quadratic asymmetry term for mid-mass region transfer review.
+
+  - prediction_id: PRED-9444
+    variant_id: asymmetry-quadratic-minus-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: quadratic asymmetry mid-mass sign control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: -20.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9443.
+
+  - prediction_id: PRED-9445
+    variant_id: asymmetry-damped-quartic-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: damped quartic asymmetry mid-mass control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: 50.0
+            - power: 4
+              coefficient: -500.0
+    review_notes:
+      - Damped lower-magnitude quartic asymmetry control for mid-mass transfer review.
+
+  - prediction_id: PRED-9446
+    variant_id: asymmetry-damped-quartic-sign-inverted-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: damped quartic asymmetry sign control
+    transform:
+      feature_terms:
+        - type: asymmetry_polynomial
+          terms:
+            - power: 2
+              coefficient: -50.0
+            - power: 4
+              coefficient: 500.0
+    review_notes:
+      - Sign-symmetric counterpart to PRED-9445.
+
+  - prediction_id: PRED-9447
+    variant_id: shell-z-plus-coulomb-scale-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: combined Coulomb-scale and shell control
+    transform:
+      scale:
+        coulomb: 1.005
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: z
+          coefficient: -1.5599853542897564
+          sigma: 2.0
+    review_notes:
+      - Combines small Coulomb scaling with a proton-axis shell feature on mid-mass targets.
+
+  - prediction_id: PRED-9448
+    variant_id: shell-n-plus-surface-scale-mid-mass
+    target_batch: mid-mass-region-probe
+    model_control_label: combined surface-scale and shell sign control
+    transform:
+      scale:
+        surface: 0.995
+      feature_terms:
+        - type: shell_proximity_gaussian
+          axis: n
+          coefficient: -1.6049071729432316
+          sigma: 2.0
+    review_notes:
+      - Combines small surface scaling with a sign-inverted neutron-axis shell feature on mid-mass targets.

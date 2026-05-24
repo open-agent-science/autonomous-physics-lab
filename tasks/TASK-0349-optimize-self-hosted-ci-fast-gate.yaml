@@ -1,0 +1,46 @@
+id: TASK-0349
+title: "Optimize self-hosted CI with a fast pull-request test gate"
+type: ci_optimization
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep the self-hosted VPS runner useful by reducing ordinary PR feedback time without removing the full main-branch safety net."
+  - "Separate fast PR validation from full repository smoke coverage so agents can iterate without spending unnecessary CI minutes."
+
+input:
+  mode: workflow
+  related_objects:
+    - TASK-0348
+    - .github/workflows/ci.yml
+    - pyproject.toml
+  planning_context: "The first self-hosted CI run passed but took roughly five to six minutes for every code PR. Add a faster PR gate while preserving full validation on main."
+
+requirements:
+  - "Add parallel pytest support for CI."
+  - "Mark slow live full-repository smoke tests so they can be skipped by ordinary PR gates."
+  - "Keep strict validate-repo in the pull-request path."
+  - "Keep full pytest coverage on main or full-validation runs."
+  - "Do not delete scientific regression tests or weaken claim/repository validation."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - ".github/workflows/ci.yml updated with a fast PR pytest path and full main pytest path"
+  - "pyproject.toml updated with pytest-xdist and full_repo marker"
+  - "slow full-repo smoke tests marked full_repo"
+  - "self-hosted CI runner documentation updated"
+  - "generated task navigation synced"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest -m 'not full_repo' --basetemp=/tmp/apl-task-0349-fast"
+    - "python3 -m pytest --basetemp=/tmp/apl-task-0349-full"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

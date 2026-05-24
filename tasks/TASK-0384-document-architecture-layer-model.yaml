@@ -1,0 +1,51 @@
+id: TASK-0384
+title: "Document lightweight APL architecture layer model"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make the proposed four-layer architecture useful as an orientation map without triggering a repository refactor."
+  - "Help agents distinguish coordination, scientific memory, campaign work, and data/reveal/claim gates."
+  - "Preserve APL's simple file-based architecture and fast task execution."
+
+input:
+  mode: workflow
+  related_domain: architecture
+  related_objects:
+    - "docs/architecture.md"
+    - "docs/architecture-index.md"
+    - "docs/open-agent-network.md"
+    - "docs/campaigns/README.md"
+  planning_context: >
+    The maintainer accepted the strategic curator's four-layer architecture
+    framing as useful for explanation, but explicitly wanted to avoid a large
+    filesystem or code refactor. This task adds the model as lightweight
+    documentation and cross-links it from existing architecture/campaign
+    entrypoints.
+
+requirements:
+  - "Document the four layers: Research Agent Core, Scientific Memory, Domain Campaigns, and Data / Reveal / Claim Gates."
+  - "State clearly that the layer model is an orientation map, not a package-refactor plan."
+  - "Cross-link the model from architecture and campaign entrypoints."
+  - "Do not move files, rename packages, add framework abstractions, or change code behavior."
+
+accepted_outputs:
+  - "docs/architecture-layers.md"
+  - "updated docs/architecture-index.md"
+  - "updated docs/architecture.md"
+  - "updated docs/campaigns/README.md"
+  - "updated docs/open-agent-network.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

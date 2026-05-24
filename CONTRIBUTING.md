@@ -33,7 +33,6 @@ python3 -m ruff check .
 python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
-python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```
@@ -43,7 +42,6 @@ Task proposal PRs may use the lighter validation path from
 
 ```bash
 ./scripts/validate_quick.sh
-python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ./scripts/apl_review_bundle.sh
 ```

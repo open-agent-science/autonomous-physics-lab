@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import os
 from pathlib import Path
 import subprocess
 from typing import Any, Callable, Union
@@ -127,6 +128,25 @@ class RepositoryValidationSummary:
         return sum(1 for issue in self.issues if issue.severity == "INFO")
 
 
+# Env var that restores the historical ERROR severity for the staleness
+# checks on tasks/ACTIVE.md and the generated task views. The default
+# severity is INFO because the post-merge sync-active-board GitHub
+# Action regenerates those files on main automatically, so PR branches
+# do not need to carry the regeneration. Set
+# APL_ENFORCE_BOARD_STALENESS=1 in environments that explicitly want a
+# strict audit (for example, a maintainer dry-run before disabling the
+# action). Missing files remain ERROR regardless.
+BOARD_STALENESS_ENV_VAR: str = "APL_ENFORCE_BOARD_STALENESS"
+
+
+def _board_staleness_severity() -> str:
+    """Severity used for tasks/ACTIVE.md and task-view staleness issues."""
+
+    if os.environ.get(BOARD_STALENESS_ENV_VAR) == "1":
+        return "ERROR"
+    return "INFO"
+
+
 def _strict_generated_task_navigation_issues(root_path: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     active_board_path = root_path / "tasks" / "ACTIVE.md"
@@ -134,18 +154,25 @@ def _strict_generated_task_navigation_issues(root_path: Path) -> list[Validation
     if not active_board_path.exists() and not any_task_views_exist:
         return issues
 
+    staleness_severity = _board_staleness_severity()
+    staleness_message_suffix = (
+        " The post-merge sync-active-board GitHub Action regenerates this "
+        "file automatically; agents do not need to commit it."
+    )
+
     if active_board_path.exists():
         if not active_board_is_synced(root_path):
             issues.append(
                 _issue(
-                    "ERROR",
+                    staleness_severity,
                     "stale_active_board",
-                    "tasks/ACTIVE.md is stale; run sync-active-board.",
+                    "tasks/ACTIVE.md is stale." + staleness_message_suffix,
                     path=active_board_path,
                     root=root_path,
                 )
             )
     else:
+        # Missing file is a real bug regardless of the staleness env var.
         issues.append(
             _issue(
                 "ERROR",
@@ -161,6 +188,7 @@ def _strict_generated_task_navigation_issues(root_path: Path) -> list[Validation
         for lane, relpath in TASK_VIEW_PATHS.items():
             path = root_path / relpath
             if not path.exists():
+                # Missing file stays ERROR regardless of env var.
                 issues.append(
                     _issue(
                         "ERROR",
@@ -176,9 +204,9 @@ def _strict_generated_task_navigation_issues(root_path: Path) -> list[Validation
             if actual_text != expected_text:
                 issues.append(
                     _issue(
-                        "ERROR",
+                        staleness_severity,
                         "stale_generated_task_view",
-                        f"Generated task view for {lane} is stale; run sync-active-board.",
+                        f"Generated task view for {lane} is stale." + staleness_message_suffix,
                         path=path,
                         root=root_path,
                     )
@@ -446,7 +474,10 @@ def _validate_references(
                 raise ValueError(f"{path} references missing task id: {task_id}")
 
     for path, payload in example_configs:
-        if payload.get("config_kind") == "nuclear_prediction_variant_factory":
+        if payload.get("config_kind") in {
+            "nuclear_prediction_variant_factory",
+            "nuclear_prediction_synthetic_reveal",
+        }:
             continue
         experiment_path = (path.parent / payload["experiment_path"]).resolve()
         hypothesis_path = (path.parent / payload["hypothesis_path"]).resolve()

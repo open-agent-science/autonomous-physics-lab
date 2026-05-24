@@ -1,0 +1,108 @@
+proposal_id: 20260520-roman-anomaly-registry-scaffold
+title: "Scaffold an anomaly registry and joint-likelihood evaluation protocol"
+status: ACCEPTED
+type: research_infrastructure
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Extends prediction-registry and negative-results-registry patterns into a scaffold for cross-observable tension tracking, without promoting any WATCHLIST topic."
+  - "Keeps Hubble tension, muon g-2, and broad-constants work fenced behind a registry + protocol layer instead of opening direct fit branches."
+  - "Falsification-first and infrastructure-first: the proposal defines a data structure, holdout discipline, and joint-likelihood evaluation contract — no specific anomaly fits in this scope."
+  - "Preserves claim-promotion-policy, no automatic discovery framing, and no relaxation of review gates."
+
+summary: >
+  Define a scaffold for an anomaly registry — a machine-readable layer that
+  tracks live experimental tensions (e.g. H0, S8, W mass, muon g-2, neutron
+  lifetime, primordial Li) as structured records with central values,
+  uncertainties, correlations where known, primary sources, status (LIVE,
+  RESOLVED, DOWNGRADED, DISPUTED), and explicit holdout boundaries. Pair the
+  registry with a joint-likelihood evaluation protocol that specifies how a
+  proposed theoretical modification should be scored against multiple tensions
+  simultaneously, with a fixed pre-registered penalty for new free parameters.
+  This proposal does not execute any fits; it defines the scaffold, schema,
+  source-policy, and evaluation contract so that future scoped tasks can run
+  joint evaluations under registry discipline.
+
+rationale: >
+  Existing APL engines — formula search over PDG/AME, Koide-style variations,
+  nuclear residual maps — operate on data that has been heavily mined. They
+  cannot produce discovery-level outputs (new constant, new precise mass
+  ratio, new conservation law) because the search space and the data are
+  both saturated. The realistic path to a non-trivial result in modern
+  physics is not a prettier algebraic relation on the same numbers; it is a
+  joint Bayesian evaluation across multiple 3-4 sigma tensions, where a
+  single compact modification (new light state, new mass scale, running G,
+  etc.) is scored on whether it reduces multiple tensions at once. Honest
+  outputs from such a pipeline include negative results ("no compact
+  modification improves >=2 tensions without paying more parameters than it
+  buys"), which the current engine cannot generate. The scaffold proposal is
+  the safe first step: it defines the registry and the evaluation contract
+  without promoting any WATCHLIST topic and without authorizing specific
+  fits. Specific anomaly fits would require separate scoped tasks with their
+  own guardrails.
+
+  This proposal is the primary first move from a broader 5-direction framing
+  for non-saturated research surfaces: (1) new data axes (lattice QCD,
+  pulsar timing, atomic clock drift, LIGO O4), (2) joint anomaly fits (this
+  proposal), (3) symmetry discovery via equivariant models, (4)
+  differentiable EFT residuals as a QFT-level generalization of the nuclear
+  mass surface campaign, (5) open agent network as adversarial verification
+  (already in motion via TASK-0299). Directions (1), (3), (4) may seed
+  separate proposals later; they are mentioned here only as context for why
+  the anomaly registry is the most natural extension of existing APL
+  infrastructure.
+
+input:
+  mode: planning_only
+  related_domain: research_infrastructure
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/future-research-portfolio.md"
+    - "docs/prediction-registry-policy.md"
+    - "docs/negative-results-registry.md"
+    - "docs/claim-promotion-policy.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/open-agent-network.md"
+  planning_context: >
+    Define the registry schema, entry vocabulary, source-policy, holdout
+    discipline, and joint-likelihood evaluation contract. Do not execute any
+    fits. Do not move any WATCHLIST topic into NEXT or NOW. The proposal
+    output is documentation plus a canonical task spec for the actual
+    scaffold build.
+
+requirements:
+  - "Define a machine-readable anomaly registry schema (YAML) with fields: id, observable_name, domain, central_value, uncertainty, correlation_refs, primary_sources, status (LIVE | RESOLVED | DOWNGRADED | DISPUTED), tension_sigma, holdout_freeze_date, holdout_value_if_frozen, notes."
+  - "Define a joint-likelihood evaluation contract: how a candidate modification declares its free parameters, how the parameter penalty is computed, how cross-tension correlations are treated when known, and how 'no improvement' is reported as a legitimate output."
+  - "Define a source policy: only peer-reviewed primary measurements or canonical experimental collaboration releases; explicit per-entry citation; no derived/secondary-aggregate-only entries."
+  - "Define holdout discipline: each entry must have an explicit holdout_freeze_date and frozen value at that date, so that retrospective evaluation against later measurements is reproducible."
+  - "Specify integration with existing prediction-registry-policy and negative-results-registry — the anomaly registry is a complement, not a replacement."
+  - "Do not move Hubble tension, muon g-2 follow-up, or broad-constants work out of WATCHLIST in this proposal."
+  - "Do not run any joint-likelihood fits in this proposal — execution belongs in a separate canonical task after maintainer review."
+  - "Do not introduce LLM-generated prose as a substitute for deterministic evaluation; the evaluator must be a deterministic Python module with fixed inputs and reproducible outputs."
+  - "Do not frame the scaffold as a discovery pipeline; output language must be evaluation, registry, and holdout terminology."
+  - "Produce a canonical task spec for the scaffold build."
+
+accepted_outputs:
+  - "docs note describing the anomaly registry purpose, schema, and relation to existing registries"
+  - "anomaly registry schema file (YAML)"
+  - "joint-likelihood evaluation contract document (no executable code in the proposal itself)"
+  - "canonical task spec (TASK-XXXX) for the actual scaffold build"
+
+validation:
+  commands:
+    - "./scripts/validate_quick.sh"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: TASK-0308
+  decision: accepted
+  notes: >
+    Accepted as a guarded NEXT planning task in TASK-0308. Strategy still keeps
+    Hubble tension, muon g-2 follow-up, and broad constants derivation in
+    WATCHLIST. The canonical task is scaffold-only: actual anomaly fits require
+    separate maintainer-approved tasks with explicit per-entry guardrails.

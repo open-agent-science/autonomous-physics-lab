@@ -1,0 +1,53 @@
+id: TASK-0333
+title: "Synthesize nuclear shell-axis post-audit decision"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stop the Nuclear shell-axis lane from turning into endless audits."
+  - "Make a maintainer-facing decision after the current post-0310 audit wave."
+  - "Decide whether the shell-axis lane should stay diagnostic, be narrowed, be paused, or move toward source-gated reveal readiness."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md"
+    - "docs/reviews/nuclear-shell-axis-coefficient-stability-audit.md"
+    - "docs/reviews/nuclear-shell-axis-specificity-controls.md"
+    - "docs/reviews/nuclear-shell-axis-magic-asymmetry-audit.md"
+    - "docs/reviews/nuclear-shell-axis-light-regression-audit.md"
+    - "docs/reviews/nuclear-shell-axis-isotope-chain-transfer-audit.md"
+    - "tasks/TASK-0324-run-nuclear-shell-axis-neutron-rich-tail-audit.yaml"
+  planning_context: >
+    Nuclear shell-axis now has aggregate support, specificity support, but also
+    coefficient fragility, light-nuclei warnings, and mixed chain transfer.
+    After the neutron-rich tail audit lands, the project should synthesize the
+    evidence and decide whether additional audits are still justified.
+
+requirements:
+  - "Wait until TASK-0324 is DONE, or record an explicit maintainer waiver for excluding it."
+  - "Summarize each shell-axis evidence surface with verdict, support, regression, and blocker status."
+  - "Choose one recommended lane status: `PAUSE_SHELL_AXIS`, `DIAGNOSTIC_ONLY`, `NARROW_DOMAIN_ONLY`, or `SOURCE_GATED_REVEAL_REVIEW`."
+  - "State whether more audits are useful; if yes, list at most two and justify why they unlock a decision."
+  - "Do not add new prediction registry entries, score `PRED-0063` through `PRED-0068`, or promote claims."
+  - "Update Nuclear campaign docs only with a concise decision note if needed."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md with a concise decision note"
+  - "optional task status recommendation for future shell-axis tasks, without changing unrelated tasks"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

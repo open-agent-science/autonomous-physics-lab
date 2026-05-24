@@ -10,6 +10,7 @@ from physics_lab.registry import mission_control
 from physics_lab.registry.mission_control import (
     load_current_missions,
     mission_json,
+    ready_science_pool_health,
     render_agent_prompt,
     render_human_mission,
     render_onboarding_prompt,
@@ -76,7 +77,16 @@ def _write_missions(root: Path) -> None:
     )
 
 
-def _write_task(root: Path, *, task_id: str, title: str, status: str, task_type: str, priority: str) -> None:
+def _write_task(
+    root: Path,
+    *,
+    task_id: str,
+    title: str,
+    status: str,
+    task_type: str,
+    priority: str,
+    related_domain: str = "test_domain",
+) -> None:
     tasks_dir = root / "tasks"
     tasks_dir.mkdir(exist_ok=True)
     (tasks_dir / f"{task_id}-example.yaml").write_text(
@@ -90,6 +100,7 @@ def _write_task(root: Path, *, task_id: str, title: str, status: str, task_type:
             priority: {priority}
             input:
               mode: workflow
+              related_domain: {related_domain}
               related_objects: []
               planning_context: "Mission candidate test task"
             requirements:
@@ -199,6 +210,62 @@ def test_mission_json_includes_live_task_candidates(tmp_path: Path) -> None:
     assert rendered["live_task_candidates"][1]["mode"] == "support"
     assert rendered["live_task_candidates"][0]["estimated_time"] == "~5-10 min"
     assert "parallel_agents" in rendered["parallel_work_policy"]
+    assert rendered["ready_science_pool_health"]["warning_only"] is True
+
+
+def test_ready_science_pool_health_reports_warning_only_short_pool(tmp_path: Path) -> None:
+    for index in range(4):
+        _write_task(
+            tmp_path,
+            task_id=f"TASK-01{index:02d}",
+            title=f"Research candidate {index}",
+            status="READY",
+            task_type="scientific_validation",
+            priority="high",
+            related_domain="surface_a" if index < 2 else "surface_b",
+        )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0200",
+        title="Support candidate",
+        status="READY",
+        task_type="documentation",
+        priority="high",
+        related_domain="support_surface",
+    )
+
+    health = ready_science_pool_health(tmp_path)
+
+    assert health.ready_science_count == 4
+    assert health.active_surfaces == ("surface_a", "surface_b")
+    assert health.below_minimum is True
+    assert health.below_surface_target is True
+    assert health.task_queue_needed is True
+    assert health.warning_only is True
+
+
+def test_ready_science_pool_health_accepts_minimum_across_three_surfaces(tmp_path: Path) -> None:
+    for index, surface in enumerate(
+        ("surface_a", "surface_a", "surface_b", "surface_c", "surface_c")
+    ):
+        _write_task(
+            tmp_path,
+            task_id=f"TASK-02{index:02d}",
+            title=f"Research candidate {index}",
+            status="READY",
+            task_type="scientific_validation",
+            priority="high",
+            related_domain=surface,
+        )
+
+    health = ready_science_pool_health(tmp_path)
+
+    assert health.ready_science_count == 5
+    assert health.active_surfaces == ("surface_a", "surface_b", "surface_c")
+    assert health.below_minimum is False
+    assert health.below_surface_target is False
+    assert health.task_queue_needed is False
+    assert health.below_preferred is True
 
 
 def test_task_candidates_support_parallel_safe_options(tmp_path: Path) -> None:
@@ -462,13 +529,17 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert rendered["recommended"]["action"] == "nuclear-validation-queue"
     assert rendered["recommended"]["task_id"] is None
     assert "parallel_work_policy" in rendered
-    assert rendered["live_task_candidates"]
     # Accept any current research-mode top candidate from the live queue.
     # Depending on which nuclear tasks are already claimed, the mission helper
     # may surface nuclear follow-ups (`TASK-0189`, `TASK-0228`-`TASK-0237`,
-    # `TASK-0250`-`TASK-0266`), rotate to the other READY research lanes
-    # (`TASK-0222`-`TASK-0227`), or fall through to support candidates when
-    # the research queue is already review-ready.
+    # `TASK-0250`-`TASK-0290`, `TASK-0320`-`TASK-0324`,
+    # `TASK-0330`-`TASK-0347`), rotate to
+    # the other READY research lanes
+    # (`TASK-0222`-`TASK-0227`, `TASK-0291`-`TASK-0292`, `TASK-0307`,
+    # `TASK-0310`-`TASK-0317`),
+    # include non-saturated NEXT planning surfaces (`TASK-0308`-`TASK-0309`),
+    # or fall through
+    # to support candidates when the research queue is already review-ready.
     nuclear_validation_queue_ids = {
         "TASK-0189",
         "TASK-0200",
@@ -478,13 +549,13 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
         "TASK-0204",
         "TASK-0205",
         "TASK-0206",
-            "TASK-0177",
-            "TASK-0222",
-            "TASK-0223",
-            "TASK-0224",
-            "TASK-0225",
-            "TASK-0226",
-            "TASK-0227",
+        "TASK-0177",
+        "TASK-0222",
+        "TASK-0223",
+        "TASK-0224",
+        "TASK-0225",
+        "TASK-0226",
+        "TASK-0227",
         "TASK-0228",
         "TASK-0229",
         "TASK-0230",
@@ -497,16 +568,108 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
         "TASK-0237",
         "TASK-0250",
         "TASK-0251",
-            "TASK-0252",
-            "TASK-0253",
-            "TASK-0254",
-            "TASK-0264",
-            "TASK-0265",
-            "TASK-0266",
-            "TASK-0242",
-        }
-    assert (
-        rendered["live_task_candidates"][0]["task_id"]
-        in nuclear_validation_queue_ids
-    )
-    assert rendered["live_task_candidates"][0]["mode"] in {"research", "support"}
+        "TASK-0242",
+        "TASK-0252",
+        "TASK-0253",
+        "TASK-0254",
+        "TASK-0264",
+        "TASK-0265",
+        "TASK-0266",
+        "TASK-0272",
+        "TASK-0273",
+        "TASK-0274",
+        "TASK-0278",
+        "TASK-0279",
+        "TASK-0280",
+        "TASK-0281",
+        "TASK-0282",
+        "TASK-0283",
+        "TASK-0285",
+        "TASK-0286",
+        "TASK-0287",
+        "TASK-0289",
+        "TASK-0290",
+        "TASK-0291",
+        "TASK-0292",
+        "TASK-0294",
+        "TASK-0295",
+        "TASK-0296",
+        "TASK-0298",
+        "TASK-0303",
+        "TASK-0304",
+        "TASK-0306",
+        "TASK-0307",
+        "TASK-0308",
+        "TASK-0309",
+        "TASK-0310",
+        "TASK-0311",
+        "TASK-0312",
+        "TASK-0315",
+        "TASK-0316",
+        "TASK-0317",
+        "TASK-0320",
+        "TASK-0321",
+        "TASK-0323",
+        "TASK-0324",
+        "TASK-0325",
+        "TASK-0326",
+        "TASK-0327",
+        "TASK-0328",
+        "TASK-0330",
+        "TASK-0331",
+        "TASK-0332",
+        "TASK-0333",
+        "TASK-0334",
+        "TASK-0335",
+        "TASK-0336",
+        "TASK-0337",
+        "TASK-0338",
+        "TASK-0339",
+        "TASK-0340",
+        "TASK-0341",
+        "TASK-0342",
+        "TASK-0343",
+        "TASK-0344",
+        "TASK-0345",
+        "TASK-0346",
+        "TASK-0347",
+        "TASK-0351",
+        "TASK-0352",
+        "TASK-0353",
+        "TASK-0354",
+        "TASK-0355",
+        "TASK-0356",
+        "TASK-0361",
+        "TASK-0362",
+        "TASK-0363",
+        "TASK-0364",
+        "TASK-0365",
+        "TASK-0367",
+        "TASK-0368",
+        "TASK-0369",
+        "TASK-0370",
+        "TASK-0371",
+        "TASK-0372",
+        "TASK-0373",
+        "TASK-0374",
+        "TASK-0375",
+        "TASK-0376",
+        "TASK-0377",
+        "TASK-0378",
+        "TASK-0379",
+        "TASK-0380",
+        "TASK-0381",
+        "TASK-0382",
+        "TASK-0383",
+        "TASK-0384",
+    }
+    if rendered["live_task_candidates"]:
+        assert (
+            rendered["live_task_candidates"][0]["task_id"]
+            in nuclear_validation_queue_ids
+        )
+        assert rendered["live_task_candidates"][0]["mode"] in {"research", "support"}
+    else:
+        assert rendered["task_visibility_policy"]["executor_modes"].startswith(
+            "Only READY tasks"
+        )

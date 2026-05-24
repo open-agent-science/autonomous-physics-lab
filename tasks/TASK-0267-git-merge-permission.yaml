@@ -1,0 +1,49 @@
+id: TASK-0267
+title: "Add git merge to Claude Code permissions allowlist"
+type: contributor_experience
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Close a recurring permission-prompt gap: agents who need to merge origin/main into a task branch (e.g. when a dependency PR merges mid-flight) currently hit an interactive approval prompt."
+  - "Keep the allowlist conservative — only the non-destructive git merge forms; --abort and --quit also covered because they restore state, never destroy it."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - ".claude/settings.json"
+    - "docs/notes/claude-code-permissions-allowlist.md"
+    - "tasks/TASK-0260-expand-claude-code-permissions-allowlist.yaml"
+  planning_context: >
+    During TASK-0263 a follow-up branch had to merge origin/main to pick
+    up a freshly merged dependency. The `git merge origin/main` call
+    triggered an interactive permission prompt because `git merge*` is
+    not on the shared allowlist. `git merge` does not rewrite published
+    history and stops on conflict, so it belongs alongside the other
+    non-destructive git rules already in settings.json.
+
+requirements:
+  - "Add narrowly scoped git merge rules for routine task-branch updates from origin/main, such as Bash(git merge origin/main), Bash(git merge --no-edit origin/main), and Bash(git merge --ff-only origin/main)."
+  - "Add Bash(git merge --abort) and Bash(git merge --quit) for safely backing out of an in-progress merge."
+  - "Do not add Bash(git merge *) or any other broad rule that would include --strategy=ours, --strategy-option=theirs, or silently overwrite the other side of a merge."
+  - "Update docs/notes/claude-code-permissions-allowlist.md section 3.5 to document the new rules and their safety profile."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+
+accepted_outputs:
+  - ".claude/settings.json with git merge rules"
+  - "docs/notes/claude-code-permissions-allowlist.md section 3.5 updated"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

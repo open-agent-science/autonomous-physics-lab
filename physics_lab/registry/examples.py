@@ -23,6 +23,10 @@ def load_example_config(path: str | Path) -> dict[str, Any]:
         repo_root = config_path.resolve().parents[1]
         generate_variant_slate(data, repo_root=repo_root, write_drafts=False)
         return {"config_kind": "nuclear_prediction_variant_factory", **data}
+    if data.get("config_kind") == "nuclear_prediction_synthetic_reveal":
+        from physics_lab.engines.nuclear_prediction_reveal import load_synthetic_reveal_config
+
+        return load_synthetic_reveal_config(config_path)
     return validate_document(data, kind="example_config", source=path)
 
 

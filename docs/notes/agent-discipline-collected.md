@@ -73,8 +73,9 @@ re-trigger the maintainer review — adding one full cycle of friction.
 
 **How.** Check `gh pr view <PR>` before starting follow-up work. If the
 predecessor is still `OPEN`, ask whether to branch off it instead of
-`main`. Do not "merge main into branch" mid-task unless absolutely
-forced.
+`main`. If an already-open PR becomes stale or conflicted after another
+PR lands, sync once deliberately, resolve conflicts narrowly, rerun
+validation/review, and mention the sync in the PR.
 
 ## 4. Watch for harness artifacts in `git status`
 
@@ -96,6 +97,12 @@ section 3.8 documents agent-owned `/tmp/apl-*` paths. The
 `HARNESS_IGNORE_PATHS` tuple in `physics_lab/registry/review_git.py`
 holds the in-process defense-in-depth list. Add new entries there with
 a PR, not by stashing.
+
+Generated task navigation is similar: `tasks/ACTIVE.md` and
+`docs/task-views/*.md` are derived files. Normal task PRs should not
+commit regenerated board/view updates unless the maintainer explicitly
+asks for a dedicated board-sync or closeout/audit PR. The post-merge
+`Sync Active Board` action handles routine regeneration on `main`.
 
 ## 5. PR-helper boilerplate is duplication, not a permanent cost
 

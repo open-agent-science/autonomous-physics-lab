@@ -14,31 +14,90 @@ holdouts.
 
 ## Orientation Note for New Contributors
 
-This campaign is currently **scaffold-complete and foundation-ready**.
+This campaign is currently **scaffold-complete with source-manifest evidence,
+but not yet row-level benchmark-ready**.
 
-No dataset, schema, baseline result, holdout protocol, or autonomous pilot
-exists yet. The first scaffold landed under `TASK-0222`, so the next safe
-foundation tasks are now ready:
+The first scaffold, dataset/schema surface, and holdout protocol have landed
+under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
+reviewed source-manifest seed. `TASK-0281` and `TASK-0282` added two
+calibration-derived row-level seeds (Yu 2003 cadmium chalcogenides;
+Moreels 2009 PbS). `TASK-0283` then ran the row-level readiness gate and
+kept `TASK-0225` BLOCKED because every committed row is calibration-derived
+rather than directly measured.
 
-- `TASK-0223` — dataset schema and source manifest (READY);
-- `TASK-0224` — holdout protocol (READY);
-- `TASK-0225` — baseline residual benchmark (BLOCKED);
+Current task posture:
+
+- `TASK-0281` — Yu 2003 multi-material absorption row-level seed (DONE);
+- `TASK-0282` — Moreels 2009 PbS absorption row-level extension (DONE);
+- `TASK-0283` — row-level readiness gate before baseline (DONE; see
+  `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`);
+- `TASK-0225` — baseline residual benchmark (BLOCKED; needs either a
+  direct-measurement row-level seed or a maintainer waiver to score a
+  calibration-curve consistency benchmark instead of a measurement-versus-
+  model benchmark);
+- `TASK-0291` — direct-measurement absorption seed (REVIEW_READY pending
+  maintainer-led `BLOCKED` closeout; first-attempt investigation against
+  Yu 2003 found no tabulated values and figure-only scatter points; see
+  `docs/reviews/quantum-size-direct-absorption-seed-review.md`. Unblock
+  paths: WebPlotDigitizer-class figure digitisation, access to primary
+  source tables in Vossmeyer 1994 / Soloviev 2000 / Murray 1993 / Peng 1998,
+  maintainer-provided table values, or an explicit maintainer waiver to
+  accept relaxed-precision figure reads);
+- `TASK-0292` — direct-measurement band-edge seed (REVIEW_READY; first
+  investigation against Jasieniak 2011 found a promising ACS Supporting
+  Information table path, but this agent could not retrieve the SI table for
+  row-level review and no digitisation artifact exists; see
+  `docs/reviews/quantum-size-direct-band-edge-seed-review.md`);
+- `TASK-0293` — re-run readiness gate after a direct seed (BLOCKED until
+  `TASK-0291` or `TASK-0292` lands, or maintainer waiver is explicit);
+- `TASK-0298` — direct-measurement source triage (DONE; see
+  `docs/reviews/quantum-direct-measurement-source-triage.md`. Yu 2003 was
+  the triaged first-attempt source for `TASK-0291`; Jasieniak 2011 is the
+  first-attempt source for `TASK-0292`; Moreels 2009 is a secondary
+  `TASK-0291` candidate);
+- `TASK-0306` — direct-measurement digitisation protocol (DONE; see
+  `docs/quantum-direct-measurement-digitization-protocol.md` for the
+  WebPlotDigitizer-class workflow, per-point provenance fields, and the
+  list of provenance modes that are never acceptable);
 - `TASK-0226` — first autonomous sandbox-only hypothesis pilot (BLOCKED).
+- `TASK-0325` — direct-measurement digitisation/table-value package
+  (REVIEW_READY; Jasieniak 2011 band-edge path selected, but no committed
+  SI/table extraction or deterministic digitisation artifact exists, so this
+  pass produced a blocker package rather than a `qd-*.yaml` seed);
+- `TASK-0326` — calibration-curve consistency waiver decision (REVIEW_READY;
+  recommends a separate weaker calibration-curve consistency benchmark only
+  after maintainer approval, while keeping `TASK-0225` blocked for the
+  original measurement-versus-model benchmark).
+- `TASK-0334` — deterministic Jasieniak 2011 source-artifact package
+  (REVIEW_READY; metadata-only source-artifact package records the ACS
+  Supporting Information locator and checksum/extraction plan, but no source
+  table or deterministic digitisation artifact is committed, so row curation
+  remains blocked);
+- `TASK-0335` — calibration-curve consistency benchmark scope package
+  (REVIEW_READY; see
+  `docs/reviews/quantum-calibration-curve-consistency-benchmark-scope.md`;
+  protocol only, no metrics);
+- `TASK-0336` — direct band-edge row curation from an approved source artifact
+  (BLOCKED until `TASK-0334` or an equivalent maintainer-provided artifact).
 
-Until those land in order, safe contributions are:
+Safe next contributions are:
 
 - planning, scope, and limitation notes;
-- queued tasks already on the canonical track above;
-- dataset/source-manifest work under `TASK-0223`;
-- holdout protocol work under `TASK-0224`;
-- visualization sketches that do not require canonical data.
+- direct-measurement row-level dataset curation that can re-run the
+  `TASK-0283` readiness gate;
+- a maintainer-approved waiver package if the first benchmark is intentionally
+  scoped as calibration-curve consistency rather than measurement-versus-model;
+- deterministic source-artifact packaging for Jasieniak 2011 or an equivalent
+  open direct-table source before any direct band-edge row seed is added;
+- visualization sketches that do not require baseline residual artifacts.
 
 ### What not to implement yet
 
 - do not fetch live datasets, scrape publication tables, or store raw vendor
-  spec sheets in the repository without `TASK-0223` source-manifest review;
-- do not write a benchmark engine or example workflow until the dataset and
-  holdout protocol surfaces exist;
+  spec sheets in the repository without source-manifest review;
+- do not treat `data/quantum_dots/source_manifest.yaml` as benchmark data;
+- do not run visualization or autonomous-pilot work before the baseline
+  residual artifact exists;
 - do not run autonomous formula search across quantum-dot size data before
   `TASK-0225` lands a frozen baseline;
 - do not start a public-facing campaign result, claim, or article task before
@@ -65,17 +124,28 @@ memory, even before any compact correction term survives a holdout.
 
 ## Current Results
 
-None.
+No benchmark result yet.
 
-The only current evidence is the campaign scaffold defined by merged
-`TASK-0222`:
+Current evidence is infrastructure and source curation only:
 
-- this campaign page;
+- `TASK-0222` created this campaign page;
 - `campaign_profiles/quantum-size-effects.yaml` — the campaign profile and
   guardrails;
 - `docs/notes/quantum-size-effects-campaign-plan.md` — the sequenced plan;
 - `tasks/microtasks/quantum-size-effects.yaml` — a small scoped microtask
-  queue for planning-only contributions.
+  queue for planning-only contributions;
+- `TASK-0223` defined the dataset/source-manifest schema surface;
+- `TASK-0224` defined the holdout protocol;
+- `TASK-0275` added a reviewed source-manifest seed, but no row-level
+  measurement dataset.
+- `TASK-0281` and `TASK-0282` added calibration-derived absorption row-level
+  seeds for Yu 2003 cadmium chalcogenides and Moreels 2009 PbS.
+- `TASK-0283` reviewed those seeds and kept the benchmark blocked because they
+  are calibration-derived rather than direct measurement rows.
+- `TASK-0335` defines the separate
+  `quantum_calibration_curve_consistency` scope package for a possible weaker
+  calibration-derived benchmark, but records no metrics and does not unblock
+  the direct measurement-versus-model benchmark.
 
 Historical context:
 
@@ -100,11 +170,46 @@ Historical context:
 
 ## Recommended Tasks
 
-- run `TASK-0223` for the pinned dataset schema and source manifest;
-- run `TASK-0224` for the holdout protocol, in parallel with `TASK-0223` if
-  the PRs keep artifact surfaces separate;
-- only after both are `DONE`, run `TASK-0225` for the first baseline residual
-  benchmark;
+- `TASK-0223` and `TASK-0224` have delivered the dataset/schema and holdout
+  foundation;
+- `TASK-0275` has delivered the first source-manifest seed;
+- `TASK-0281` and `TASK-0282` delivered calibration-derived row-level
+  absorption seeds;
+- `TASK-0283` keeps `TASK-0225` blocked because the committed rows are not
+  direct measurement rows;
+- `TASK-0291` has a deterministic digitisation/table-value protocol, but
+  remains blocked until a compliant artifact, primary-source table values,
+  maintainer-provided rows, or waiver exists for absorption rows;
+- `TASK-0292` has a promising Jasieniak 2011 table path, but remains a
+  review-only blocker record until the ACS Supporting Information table or a
+  deterministic digitisation artifact is available to the curator;
+- `TASK-0306` defined the digitisation protocol and artifact shape that can
+  unblock future figure-derived absorption rows once a compliant artifact or
+  equivalent table evidence is committed;
+- `TASK-0293` should re-run the readiness gate after either direct seed lands;
+- `TASK-0298` triaged the direct-measurement source candidates (see
+  `docs/reviews/quantum-direct-measurement-source-triage.md`) so row-level
+  agents have an explicit first-attempt recommendation per direct-seed task;
+- next, add at least one direct-measurement row-level `qd-*.yaml` seed and
+  re-run the readiness gate, or request a maintainer waiver for a
+  calibration-curve consistency benchmark;
+- use `TASK-0326` to decide whether a weaker calibration-consistency benchmark
+  is worth explicitly authorizing; TASK-0325 has preserved a Jasieniak 2011
+  evidence blocker rather than producing measurement-grade rows;
+- `TASK-0326` recommends that any calibration-consistency benchmark be a
+  separate follow-up task with labels such as `calibration_curve_consistency`
+  and `calibration_derived`; it should not unblock `TASK-0225` or replace
+  direct-row readiness review by itself;
+- use the TASK-0334 source-artifact package as the next handoff for
+  Jasieniak 2011: it records the official ACS Supporting Information locator
+  and checksum/extraction plan, but row curation remains blocked until the
+  SI/table extraction or deterministic digitisation artifact is reviewed;
+- use `TASK-0335` as the weak `calibration_curve_consistency` scope contract;
+  do not run metrics or pretend to unblock the measurement benchmark;
+- keep `TASK-0336` blocked until `TASK-0334` lands a deterministic artifact or
+  the maintainer supplies equivalent table/digitisation evidence;
+- after `TASK-0225`, use `TASK-0276` for conservative residual visuals and
+  `TASK-0277` to review readiness before the autonomous pilot;
 - run `TASK-0226` only after a maintainer-approved baseline exists.
 
 Planning-only microtasks may be picked from

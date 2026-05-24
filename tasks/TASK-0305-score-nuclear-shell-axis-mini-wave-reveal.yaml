@@ -1,0 +1,59 @@
+id: TASK-0305
+title: "Score nuclear shell-axis mini-wave reveal"
+type: scientific_validation
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the frozen shell-axis mini-wave into a real scientific result only after source readiness and maintainer approval."
+  - "Compare PRED-0063..PRED-0068 against eligible measured values with controls and limitations visible."
+  - "Prevent accidental retrospective or ad hoc reveal scoring."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0303-prepare-nuclear-shell-axis-mini-wave-source-preflight.yaml"
+    - "tasks/TASK-0304-add-nuclear-shell-axis-mini-wave-reveal-dry-run.yaml"
+    - "tasks/TASK-0307-prepare-nuclear-shell-axis-reveal-source-manifest.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0063.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0064.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0065.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0066.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0067.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0068.yaml"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+  planning_context: >
+    PRED-0063 through PRED-0068 are frozen prospective entries, but no
+    eligible real source manifest has been approved. This task is the future
+    reveal-scoring task and must stay blocked until source preflight,
+    synthetic reveal plumbing, a reviewed TASK-0307 source manifest candidate,
+    no-peek review, and maintainer approval are explicit.
+
+requirements:
+  - "Start only after TASK-0303 is DONE, TASK-0304 or equivalent reveal-scoring dry-run is reviewed, TASK-0307 or an equivalent source-manifest task has prepared a concrete source candidate, and the maintainer explicitly approves that source manifest for reveal scoring."
+  - "Score only target rows that the approved source manifest classifies as measured and eligible."
+  - "Separate measured, unmeasured, ambiguous, extrapolated, and source-absent rows before computing metrics."
+  - "Report MAE/RMSE for primary shell-axis candidates, sign-inverted negative control, near-null control, and frozen baseline reference."
+  - "Report partial-reveal coverage and do not rewrite PRED entries or target sets after values are visible."
+  - "Use conservative verdict vocabulary; do not claim a nuclear mass law or discovery unless a later maintainer-reviewed claim-promotion task separately authorizes it."
+
+accepted_outputs:
+  - "data/nuclear_masses/<approved-source>_sources.yaml or source-manifest artifact approved by TASK-0303"
+  - "docs/reviews/nuclear-shell-axis-mini-wave-reveal-comparison.md"
+  - "machine-readable reveal metrics artifact if the reveal protocol requires it"
+  - "updated docs/status.md and docs/results/visual-summary.md only with conservative wording"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

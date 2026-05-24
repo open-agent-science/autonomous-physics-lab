@@ -1,0 +1,53 @@
+id: TASK-0352
+title: "Define nuclear no-leakage local-curvature freeze protocol"
+type: benchmark_protocol
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert an interesting Nuclear sandbox diagnostic into a pre-registered, no-peek protocol before any predictive use."
+  - "Prevent neighbor-residual features from leaking full-known target information."
+  - "Keep future Nuclear hypothesis lanes reviewable, bounded, and comparable."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nuclear-local-curvature-hypothesis-lane.md"
+    - "agent_runs/AGENT-RUN-0026/report.md"
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "prediction_registry/nuclear_masses/README.md"
+  planning_context: >
+    TASK-0339 used committed full-known residual context and therefore cannot
+    be read as predictive. This task defines exactly how a future
+    local-curvature candidate could be frozen without using target residuals,
+    including allowed neighbor windows, missing-neighbor behavior, and reveal
+    boundaries.
+
+requirements:
+  - "Define allowed and forbidden local-curvature feature inputs for future no-leakage tests."
+  - "Specify how training, validation, holdout, and future reveal rows must be separated when neighbor-derived residual terms are computed."
+  - "Define missing-neighbor, sparse-chain, extrapolated-row, and source-status handling before any future model fit."
+  - "Define the minimum controls required before a local-curvature candidate may be considered for a frozen prediction entry."
+  - "Recommend whether TASK-0351 must pass before any future predictive local-curvature implementation task is created."
+  - "Do not fit models, add prediction entries, score reveals, fetch external data, or promote claims."
+
+accepted_outputs:
+  - "docs/nuclear-local-curvature-no-leakage-freeze-protocol.md"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md with a short no-leakage boundary"
+  - "optional follow-up task recommendation for a later implementation task"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

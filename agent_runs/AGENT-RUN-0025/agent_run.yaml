@@ -1,0 +1,49 @@
+id: AGENT-RUN-0025
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0338
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: master
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0046-deformation-proxy-scout-batch.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0012-nuclear-deformation-proxy-scout.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0025/metrics.json
+  report: agent_runs/AGENT-RUN-0025/report.md
+  limitations: agent_runs/AGENT-RUN-0025/limitations.md
+  preflight: agent_runs/AGENT-RUN-0025/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0025/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: task_scope
+    status: PASS
+    notes: TASK-0338 requests a sandbox deformation-proxy lane, not reveal scoring.
+  - name: data_boundary
+    status: PASS
+    notes: Only committed repository datasets and derived Z/N/A proxies are used.
+  - name: control_boundary
+    status: PASS
+    notes: Smooth-A and shuffled proxy controls are executed and reported.
+  - name: promotion_boundary
+    status: PASS
+    notes: No prediction registry, canonical result, claim, or knowledge file is written.
+limitations:
+- These features are deformation-like proxies derived from Z, N, and A, not measured
+  deformation parameters.
+- The fit surface remains the 11-row NMD-0002 training slice, so coefficient stability
+  is not established.
+- The full-known surface is retrospective committed repository data, not a future-measurement
+  reveal.
+- Smooth-A and shuffled controls are included because aggregate improvements can reflect
+  small-sample residual structure.
+- No source fetch, canonical result rewrite, PRED entry, claim update, or public-facing
+  physics claim is authorized.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any deformation-proxy follow-up, reveal
+    scoring, RESULT-* artifact, claim, or knowledge update.

@@ -1,0 +1,114 @@
+config_kind: nuclear_prediction_synthetic_reveal
+description: >
+  Synthetic toy dry-run for the shell-axis-balanced-001 mini-wave
+  (PRED-0063..PRED-0068). Every row in synthetic_source.rows is a
+  fabricated toy value used only to exercise reveal plumbing for
+  candidate, paired-control, and baseline-reference families. These
+  numbers are not nuclear measurements and must not be cited as such.
+
+registry_snapshot:
+  prediction_ids:
+    - PRED-0063
+    - PRED-0064
+    - PRED-0065
+    - PRED-0066
+    - PRED-0067
+    - PRED-0068
+
+synthetic_source:
+  source_id: SYNTH-NUCLEAR-SHELL-AXIS-MINI-WAVE-DRY-RUN-001
+  source_kind: synthetic_toy_measurement
+  source_label: "Fake toy shell-axis mini-wave reveal source for TASK-0304"
+  synthetic_source: true
+  real_measurement_source: false
+  fake_source_warning: >
+    All rows in this file are fabricated toy values for protocol testing.
+    They must not be cited as measured, evaluated, or extrapolated nuclear
+    mass data, and they must not be promoted to any claim, knowledge entry,
+    or canonical result.
+  source_available_utc: "2026-06-15T00:00:00Z"
+  rows:
+    # ---------- Eligible measured-synthetic rows (close to PRED-0063) -------
+    - nuclide_id: V-70
+      Z: 23
+      N: 47
+      A: 70
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: 37.431305
+      value_semantics: measured_synthetic
+      no_peek_audit_passed: true
+    - nuclide_id: Mn-75
+      Z: 25
+      N: 50
+      A: 75
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: 26.275783
+      value_semantics: measured_synthetic
+      no_peek_audit_passed: true
+    - nuclide_id: Ag-129
+      Z: 47
+      N: 82
+      A: 129
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: -34.625159
+      value_semantics: measured_synthetic
+      no_peek_audit_passed: true
+    - nuclide_id: Sb-135
+      Z: 51
+      N: 84
+      A: 135
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: -55.765918
+      value_semantics: measured_synthetic
+      no_peek_audit_passed: true
+    # ---------- Non-measured (extrapolated) row → NON_MEASURED_VALUE_ONLY ---
+    - nuclide_id: Co-77
+      Z: 27
+      N: 50
+      A: 77
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: -4.536102
+      value_semantics: extrapolated_synthetic
+      no_peek_audit_passed: true
+    # ---------- Source predates registration row → SOURCE_PREDATES_REGISTRATION
+    - nuclide_id: Cd-130
+      Z: 48
+      N: 82
+      A: 130
+      quantity: mass_excess_mev
+      unit: MeV
+      synthetic_value_mev: -44.594460
+      value_semantics: measured_synthetic
+      source_available_utc: "2026-05-19T00:00:00Z"
+      no_peek_audit_passed: true
+
+    # Cu-81 and Cs-139 are intentionally omitted from the synthetic source so
+    # they exercise the TARGET_NOT_REVEALED path uniformly across all six
+    # PRED entries.
+
+expected_dry_run_shape:
+  entry_count: 6
+  target_rows: 48
+  # 4 eligible measured-synthetic rows × 6 PRED entries = 24
+  eligible_rows: 24
+  # 2 omitted nuclides × 6 PRED entries = 12 unrevealed rows
+  unrevealed_rows: 12
+  # 1 non-measured + 1 predates per PRED entry × 6 entries = 12 ineligible rows
+  ineligible_rows: 12
+  required_statuses:
+    - ELIGIBLE_SYNTHETIC
+    - TARGET_NOT_REVEALED
+    - NON_MEASURED_VALUE_ONLY
+    - SOURCE_PREDATES_REGISTRATION
+  paired_control_prediction_ids:
+    candidate_primary: PRED-0063
+    candidate_companion: PRED-0064
+    candidate_diagnostic: PRED-0065
+    sign_inverted_control: PRED-0066
+    near_null_control: PRED-0067
+    baseline_reference: PRED-0068

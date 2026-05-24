@@ -42,3 +42,12 @@ def test_closeout_sweep_script_help_smoke() -> None:
     assert result.returncode == 0
     assert "Scan REVIEW_READY tasks" in result.stdout
     assert "--merged-limit" in result.stdout
+
+
+def test_coverage_report_script_help_smoke() -> None:
+    result = _run_help("scripts/apl_coverage_report.py")
+
+    assert result.returncode == 0
+    assert "report-only branch coverage" in result.stdout
+    assert "--dry-run" in result.stdout
+    assert "--html-dir" in result.stdout

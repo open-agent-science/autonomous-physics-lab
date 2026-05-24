@@ -1,0 +1,57 @@
+id: TASK-0303
+title: "Prepare nuclear shell-axis mini-wave source preflight"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move the frozen PRED-0063..PRED-0068 shell-axis mini-wave toward a real reveal without weakening the no-peek boundary."
+  - "Separate source availability, archive/checksum readiness, and value scoring into different reviewed steps."
+  - "Protect APL's best current prospective prediction from accidental ad hoc comparison."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "prediction_registry/nuclear_masses/PRED-0063.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0064.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0065.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0066.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0067.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0068.yaml"
+    - "docs/reviews/nuclear-shell-axis-prospective-mini-wave-review.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+  planning_context: >
+    TASK-0297 froze the shell-axis-balanced-001 mini-wave as prospective
+    registry entries, but no reveal source has been reviewed. This task
+    prepares source readiness only: it identifies candidate source classes,
+    source-manifest fields, archive/checksum expectations, no-peek evidence,
+    and stop conditions without recording measured mass values or scoring a
+    reveal.
+
+requirements:
+  - "Use only PRED-0063 through PRED-0068 as the candidate wave under review."
+  - "Identify plausible future/reviewed nuclear mass source classes and source-manifest requirements without copying target mass values into the repository."
+  - "Produce a no-peek audit checklist specific to shell-axis-balanced-001, including source access timing, archive state, and who inspected what."
+  - "Define measured, unmeasured, ambiguous, extrapolated, and source-absent classifications for the eight target nuclides without scoring values."
+  - "If source inspection cannot avoid exposing target values, stop and report that TASK-0305 must remain blocked until the maintainer explicitly approves a reveal-scoring task."
+  - "Do not edit PRED entries, fetch live measurement values into canonical memory, score MAE/RMSE, update claims, or promote results."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-shell-axis-mini-wave-source-preflight.md"
+  - "data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the reveal path changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

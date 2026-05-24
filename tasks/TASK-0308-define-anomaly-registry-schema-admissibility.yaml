@@ -1,0 +1,57 @@
+id: TASK-0308
+title: "Define anomaly registry schema and admissibility rules"
+type: research_infrastructure
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Promote the accepted anomaly-registry proposal into a guarded NEXT planning task."
+  - "Create a serious cross-observable evidence surface without opening direct Hubble, g-2, W-mass, or broad-constants formula-search branches."
+  - "Preserve APL's falsification-first posture: registry and admissibility rules before any joint anomaly fit."
+
+input:
+  mode: planning_only
+  related_domain: cross_observable_physics
+  related_objects:
+    - "tasks/proposals/20260520-roman-anomaly-registry-scaffold.yaml"
+    - "docs/future-research-portfolio.md"
+    - "docs/prediction-registry-policy.md"
+    - "docs/negative-results-registry.md"
+    - "docs/claim-promotion-policy.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+  planning_context: >
+    PR #412 accepted the anomaly-registry scaffold as a useful NEXT direction,
+    but not as an implementation or fitting task. This task defines the
+    registry schema, source admissibility rules, holdout freeze discipline, and
+    joint-likelihood evaluation contract required before any future anomaly
+    fit can be proposed.
+
+requirements:
+  - "Define a machine-readable anomaly registry schema with fields for observable id, domain, central value, uncertainty, covariance/correlation references, source references, status, tension estimate, freeze date, and limitation notes."
+  - "Define admissibility rules for anomaly entries: primary collaboration releases, peer-reviewed measurements, or canonical evaluation sources only; no secondary-summary-only entries."
+  - "Define holdout discipline: each entry must state what value was frozen, when it was frozen, and what later measurements are excluded from candidate fitting."
+  - "Define a joint-likelihood evaluation contract without implementing or running a fit: free-parameter declarations, penalty rules, known-correlation treatment, null-model comparison, and negative-result reporting."
+  - "Explain how anomaly-registry outputs relate to prediction registry and negative-results registry without replacing either."
+  - "Do not move Hubble tension, muon g-2 follow-up, W-mass tension, broad constants, or broad mass-relation topics out of WATCHLIST."
+  - "Do not run any joint-likelihood fit, add anomaly rows, promote claims, or publish discovery-style language in this task."
+  - "Keep language review-first: registry, admissibility, holdout, evaluation, falsification, and limitation."
+
+accepted_outputs:
+  - "docs/campaigns/anomaly-registry.md"
+  - "data/anomalies/schema.md"
+  - "data/anomalies/anomaly.schema.json"
+  - "docs/notes/anomaly-registry-admissibility.md"
+  - "updated docs/future-research-portfolio.md if the NEXT/WATCHLIST boundaries change"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py tests/test_task_proposals.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,61 @@
+id: TASK-0310
+title: "Run nuclear shell-axis full-known-data retrospective audit"
+type: scientific_validation
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Keep Nuclear Mass Surface as the current NOW flagship while strict blind reveal remains blocked."
+  - "Use all committed, reviewable measured rows as retrospective evidence instead of pretending a future-measurement reveal is available."
+  - "Stress the strongest shell-axis scout signal before any further registry expansion or reveal-scoring task."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nuclear-adversarial-stress-synthesis-after-0289.md"
+    - "docs/reviews/nuclear-agent-scouts-vs-deterministic-factory.md"
+    - "docs/reviews/nuclear-shell-axis-prospective-mini-wave-review.md"
+    - "docs/reviews/nuclear-shell-axis-reveal-source-manifest.md"
+    - "prediction_registry/nuclear_masses/"
+    - "data/nuclear_masses/"
+  planning_context: >
+    TASK-0307 did not produce an acceptable post-registration reveal source,
+    so TASK-0305 remains blocked. The next useful Nuclear action is a
+    retrospective robustness audit: determine whether the shell-axis signal
+    survives the full known committed measured-data surface and explicit null
+    controls, while keeping the result sandbox-only and separate from any
+    prospective reveal claim.
+
+requirements:
+  - "Audit the strongest shell-axis scout or mini-wave candidate family against the full committed, reviewable measured-data surface available in this repository."
+  - "Report baseline comparison, primary holdout behavior, subset behavior, and any train/holdout split used by the audit."
+  - "Include explicit null controls: at minimum shuffled-feature, sign-inverted, and near-null or baseline-reference controls when applicable."
+  - "Include a permutation, shuffle, sign, or equivalent stress check that can falsify a local artifact."
+  - "Write per-subset and worst-regression summaries; do not report only aggregate improvement."
+  - "Preserve negative evidence even if the shell-axis signal fails or weakens."
+  - "Do not reveal-score PRED-0063 through PRED-0068 against future or live measurements."
+  - "Do not add, edit, or delete prediction registry entries."
+  - "Do not modify canonical results, claims, or frozen datasets."
+  - "Use conservative wording: retrospective audit, sandbox evidence, limitation, and failure mode."
+
+accepted_outputs:
+  - "docs/results/nuclear-shell-axis-full-known-audit.md"
+  - "docs/reviews/nuclear-shell-axis-full-known-retrospective-audit.md"
+  - "agent_runs/AGENT-RUN-XXXX/ with metrics.json and report.md, using the next available run id"
+  - "updated docs/campaigns/nuclear-mass-surface.md only if the audit changes the campaign status summary"
+  - "tests if new audit code or CLI behavior is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

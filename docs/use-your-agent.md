@@ -148,6 +148,7 @@ If you want a shorter session with safe work, also open:
 
 - [docs/agent-work-menu.md](./agent-work-menu.md)
 - [tasks/microtasks/README.md](../tasks/microtasks/README.md)
+- [docs/private-agent-challenge-pack.md](./private-agent-challenge-pack.md)
 
 ## What Your Agent Can Help With
 
@@ -158,6 +159,10 @@ Good starting work:
 - negative result preservation and PR-ready result drafts;
 - documentation and onboarding improvements when support mode is selected;
 - validation, wording, and contributor-workflow tasks.
+
+Invited private-alpha contributors can use the
+[Private Agent Challenge Pack](./private-agent-challenge-pack.md) to choose a
+Level 1, Level 2, or Level 3 onboarding challenge before taking broader work.
 
 Avoid starting with:
 
