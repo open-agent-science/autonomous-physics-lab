@@ -49,6 +49,7 @@ Use it when you need to answer four questions quickly:
 Pair these campaign pages with:
 
 - [Mission Control](../mission-control.md)
+- [Architecture Layers](../architecture-layers.md)
 - [Project Status](../status.md)
 - [Architecture](../architecture.md)
 - [Active Task Board](../../tasks/ACTIVE.md)
