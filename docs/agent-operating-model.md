@@ -57,6 +57,11 @@ For actual multi-agent work, use separate branches or git worktrees:
 maintainers can assign independent work in parallel without treating
 `missions/current.yaml` as a hand-maintained live queue.
 
+The same JSON includes a warning-only READY science task pool health summary.
+Use [docs/task-queue-health-policy.md](./task-queue-health-policy.md) for the
+target pool size, independence rules, and maintainer response when
+`task_queue_needed` is true.
+
 ## Task Rules
 
 Work on one atomic task at a time.
