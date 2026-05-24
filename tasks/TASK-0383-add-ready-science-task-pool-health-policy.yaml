@@ -1,7 +1,7 @@
 id: TASK-0383
 title: "Add READY science task pool health policy"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: medium
 

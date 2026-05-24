@@ -10,6 +10,7 @@ from physics_lab.registry import mission_control
 from physics_lab.registry.mission_control import (
     load_current_missions,
     mission_json,
+    ready_science_pool_health,
     render_agent_prompt,
     render_human_mission,
     render_onboarding_prompt,
@@ -76,7 +77,16 @@ def _write_missions(root: Path) -> None:
     )
 
 
-def _write_task(root: Path, *, task_id: str, title: str, status: str, task_type: str, priority: str) -> None:
+def _write_task(
+    root: Path,
+    *,
+    task_id: str,
+    title: str,
+    status: str,
+    task_type: str,
+    priority: str,
+    related_domain: str = "test_domain",
+) -> None:
     tasks_dir = root / "tasks"
     tasks_dir.mkdir(exist_ok=True)
     (tasks_dir / f"{task_id}-example.yaml").write_text(
@@ -90,6 +100,7 @@ def _write_task(root: Path, *, task_id: str, title: str, status: str, task_type:
             priority: {priority}
             input:
               mode: workflow
+              related_domain: {related_domain}
               related_objects: []
               planning_context: "Mission candidate test task"
             requirements:
@@ -199,6 +210,62 @@ def test_mission_json_includes_live_task_candidates(tmp_path: Path) -> None:
     assert rendered["live_task_candidates"][1]["mode"] == "support"
     assert rendered["live_task_candidates"][0]["estimated_time"] == "~5-10 min"
     assert "parallel_agents" in rendered["parallel_work_policy"]
+    assert rendered["ready_science_pool_health"]["warning_only"] is True
+
+
+def test_ready_science_pool_health_reports_warning_only_short_pool(tmp_path: Path) -> None:
+    for index in range(4):
+        _write_task(
+            tmp_path,
+            task_id=f"TASK-01{index:02d}",
+            title=f"Research candidate {index}",
+            status="READY",
+            task_type="scientific_validation",
+            priority="high",
+            related_domain="surface_a" if index < 2 else "surface_b",
+        )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0200",
+        title="Support candidate",
+        status="READY",
+        task_type="documentation",
+        priority="high",
+        related_domain="support_surface",
+    )
+
+    health = ready_science_pool_health(tmp_path)
+
+    assert health.ready_science_count == 4
+    assert health.active_surfaces == ("surface_a", "surface_b")
+    assert health.below_minimum is True
+    assert health.below_surface_target is True
+    assert health.task_queue_needed is True
+    assert health.warning_only is True
+
+
+def test_ready_science_pool_health_accepts_minimum_across_three_surfaces(tmp_path: Path) -> None:
+    for index, surface in enumerate(
+        ("surface_a", "surface_a", "surface_b", "surface_c", "surface_c")
+    ):
+        _write_task(
+            tmp_path,
+            task_id=f"TASK-02{index:02d}",
+            title=f"Research candidate {index}",
+            status="READY",
+            task_type="scientific_validation",
+            priority="high",
+            related_domain=surface,
+        )
+
+    health = ready_science_pool_health(tmp_path)
+
+    assert health.ready_science_count == 5
+    assert health.active_surfaces == ("surface_a", "surface_b", "surface_c")
+    assert health.below_minimum is False
+    assert health.below_surface_target is False
+    assert health.task_queue_needed is False
+    assert health.below_preferred is True
 
 
 def test_task_candidates_support_parallel_safe_options(tmp_path: Path) -> None:
