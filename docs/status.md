@@ -12,6 +12,11 @@ evidence, limits, and a replayable artifact.
 This page is the human-readable status surface. For the live task queue, run
 `python3 scripts/apl_mission.py` or use the generated task views.
 
+If you are deciding where to help, use this page for orientation and then let
+`python3 scripts/apl_mission.py --onboarding` choose from live `READY` tasks.
+This page should motivate the work; the task registry decides what is actually
+available.
+
 ## Current Focus
 
 APL is concentrating on four public-facing research surfaces:
@@ -57,7 +62,7 @@ Highlights:
   current scientific wins.
 
 These artifacts are valuable because they are replayable and limited. They do
-not establish discovery-level physics, universal symbolic laws, or complete
+not establish claim-level physics, universal symbolic laws, or complete
 explanations.
 
 ## How Work Moves
@@ -105,6 +110,8 @@ Important operating rules:
 
 - [Mission Control](./mission-control.md) for project-level orientation.
 - [Open Agent Network](./open-agent-network.md) for the coordination model.
+- [Connect Your Agent](./connect-your-agent.md) for the practical contribution
+  loop.
 - [Use Your Agent](./use-your-agent.md) for the contributor-agent path.
 - [Current Missions](./current-missions.md) for the current campaign board.
 - [Research Task View](./task-views/research.md) for current science work.

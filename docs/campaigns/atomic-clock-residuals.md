@@ -13,7 +13,8 @@ schema scaffold needed before any future ingestion task can add rows.
 
 ## Current Status
 
-Planning scaffold only.
+Source-surface scaffold with synthetic loader and source-class reviews. No
+real-row benchmark yet.
 
 `TASK-0311` adds:
 
@@ -40,10 +41,12 @@ Current next tasks:
   [`physics_lab/engines/atomic_clock_residuals.py`](../../physics_lab/engines/atomic_clock_residuals.py),
   and
   [`docs/reviews/atomic-clock-synthetic-loader-dry-run.md`](../reviews/atomic-clock-synthetic-loader-dry-run.md).
-- `TASK-0330` and `TASK-0331` review the two most important source classes:
-  direct frequency-ratio measurements and derived drift/constraint sources.
-- `TASK-0332` runs the real-row readiness gate before any real clock value can
-  be added.
+- `TASK-0330` and `TASK-0331` reviewed the two most important source classes:
+  direct frequency-ratio measurements and derived drift/constraint sources;
+- `TASK-0332` ran the real-row readiness gate before any real clock value can
+  be added;
+- `TASK-0344`, `TASK-0355`, and `TASK-0363` continue the source-artifact and
+  covariance hardening path.
 
 `TASK-0332` records `READY_FOR_SOURCE_SPECIFIC_REVIEW` and
 `NOT_READY_FOR_REAL_ROWS`: the campaign has enough scaffold to review concrete
@@ -166,7 +169,7 @@ Unsafe next tasks:
 ## What Not To Claim
 
 - Do not claim evidence for constants drift.
-- Do not claim evidence for new constants or new physics.
+- Do not claim evidence for new constants or broad anomaly explanations.
 - Do not frame clock comparisons as a broad anomaly explanation surface.
 - Do not treat source-surface readiness as benchmark readiness.
 - Do not promote any atomic-clock result without a later maintainer-reviewed
