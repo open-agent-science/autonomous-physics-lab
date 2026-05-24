@@ -29,6 +29,7 @@ manifest_version: "1"
 campaign_id: quantum-size-effects
 created_at: "2026-05-15"
 live_external_fetch_allowed: false
+source_artifact_intake_protocol: "docs/quantum-direct-source-artifact-intake.md"
 
 sources:
   - source_id: yu-2003-cm-absorption
