@@ -58,7 +58,6 @@ one PR.
 - `TASK-0372` — Add atomic source-artifact version-drift stop condition (`scientific_dataset`, priority `high`, difficulty `low`)
 - `TASK-0373` — Define cross-campaign fresh-data intake protocol (`research_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0374` — Add cross-campaign source artifact package template (`research_infrastructure`, priority `high`, difficulty `medium`)
-- `TASK-0375` — Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`)
 - `TASK-0376` — Add fresh-data extraction ledger template (`research_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0377` — Add fresh-data stop-condition vocabulary (`evidence_policy`, priority `high`, difficulty `low`)
 - `TASK-0378` — Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -71,6 +70,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0375` — Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`)
 - `TASK-0380` — Define result promotion scorecard (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0383` — Add READY science task pool health policy (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
