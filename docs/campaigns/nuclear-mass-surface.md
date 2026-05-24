@@ -41,6 +41,11 @@ post-registry stress review, reveal readiness, and evidence packaging:
 - do not write result artifacts or claims that imply a broad nuclear mass
   law.
 
+Fresh source or reveal-adjacent data work should also follow the
+[Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md), so source
+candidate, pinned artifact, extraction, row curation, baseline readiness, and
+benchmark readiness remain separate gates.
+
 ## Why It Matters
 
 This campaign is a stronger scientific target than another approximation-only

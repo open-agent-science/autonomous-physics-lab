@@ -11,6 +11,7 @@ event-level collider topics out of WATCHLIST.
 
 Use this policy with:
 
+- [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md)
 - [Fresh Physics Data Axes Campaign](../campaigns/fresh-physics-data-axes.md)
 - [Blind Holdout Benchmark Protocol](../blind-holdout-benchmark-protocol.md)
 - [Numerical Accuracy Policy](../numerical-accuracy-policy.md)
