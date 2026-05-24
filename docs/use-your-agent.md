@@ -11,14 +11,15 @@ protocol.
 
 ## Quickstart: Start In Research Mode
 
-Run the mission entrypoint first:
+Run the onboarding entrypoint first:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --onboarding
 ```
 
-This starts **Research Mode** by default. It recommends the highest-value
-scientific mission and gives guardrails for reviewable sandbox work.
+This starts **Research Mode** with a gentler first step: the agent should
+explain the current scientific mission, show a few `READY` options, estimate
+effort, recommend one, and wait for your choice before editing files.
 
 For a coding agent, use:
 
@@ -50,7 +51,7 @@ flowchart TD
     classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
     classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
 
-    Start(["▶ Start here"]) --> Mission["🚀 Run apl_mission.py"]
+    Start(["▶ Start here"]) --> Mission["🚀 Run apl_mission.py --onboarding"]
     Mission --> Mode{"Which mode?"}
 
     Mode -->|"default"| Research["🔬 Research mission\nhypothesis · replay · audit"]:::task
@@ -137,7 +138,7 @@ sequenceDiagram
 Read these first:
 
 1. [README.md](../README.md)
-2. Run `python3 scripts/apl_mission.py --json`
+2. Run `python3 scripts/apl_mission.py --onboarding`
 3. [docs/current-missions.md](./current-missions.md)
 4. [docs/mission-control.md](./mission-control.md)
 5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
