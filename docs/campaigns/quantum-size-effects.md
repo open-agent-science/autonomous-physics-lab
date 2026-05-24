@@ -103,6 +103,11 @@ Safe next contributions are:
 - do not start a public-facing campaign result, claim, or article task before
   the first canonical baseline exists.
 
+Future source-artifact, digitisation, and row-curation work should use the
+[Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md) so
+calibration-derived rows, direct measurements, and figure-derived points stay
+separate before any baseline task runs.
+
 ## Why It Matters
 
 This campaign is a candidate next real-data surface for APL because it
