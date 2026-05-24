@@ -11,6 +11,7 @@ from typing import Any, Optional
 import yaml
 
 from physics_lab.registry.active_board import TaskBoardEntry, load_board_entries
+from physics_lab.registry.tasks import load_task
 
 
 SUPPORTED_MODES = ("research", "audit", "support", "maintainer")
@@ -41,6 +42,9 @@ SUPPORT_TASK_MARKERS = (
     "repository",
     "agent",
 )
+MIN_READY_SCIENCE_TASKS = 5
+PREFERRED_READY_SCIENCE_TASKS = 6
+TARGET_READY_SCIENCE_SURFACES = 3
 
 
 @dataclass(frozen=True)
@@ -81,6 +85,41 @@ class MissionTaskCandidate:
         }
 
 
+@dataclass(frozen=True)
+class ReadySciencePoolHealth:
+    """Warning-only health summary for executable science task supply."""
+
+    minimum_ready_science_tasks: int
+    preferred_ready_science_tasks: int
+    target_active_surfaces: int
+    ready_science_count: int
+    ready_science_task_ids: tuple[str, ...]
+    active_surfaces: tuple[str, ...]
+    below_minimum: bool
+    below_preferred: bool
+    below_surface_target: bool
+    task_queue_needed: bool
+    warning_only: bool
+    notes: tuple[str, ...]
+
+    def to_json(self) -> dict[str, Any]:
+        """Return a compact JSON-safe representation."""
+        return {
+            "minimum_ready_science_tasks": self.minimum_ready_science_tasks,
+            "preferred_ready_science_tasks": self.preferred_ready_science_tasks,
+            "target_active_surfaces": self.target_active_surfaces,
+            "ready_science_count": self.ready_science_count,
+            "ready_science_task_ids": list(self.ready_science_task_ids),
+            "active_surfaces": list(self.active_surfaces),
+            "below_minimum": self.below_minimum,
+            "below_preferred": self.below_preferred,
+            "below_surface_target": self.below_surface_target,
+            "task_queue_needed": self.task_queue_needed,
+            "warning_only": self.warning_only,
+            "notes": list(self.notes),
+        }
+
+
 def load_current_missions(root: Path) -> dict[str, Any]:
     """Load the machine-readable mission board."""
     path = root / "missions" / "current.yaml"
@@ -107,6 +146,15 @@ def _mission_actions_for_mode(
 
 def _task_mode(entry: TaskBoardEntry) -> str:
     task_type = entry.type.lower()
+    if any(marker in task_type for marker in RESEARCH_TASK_MARKERS):
+        return "research"
+    if any(marker in task_type for marker in SUPPORT_TASK_MARKERS):
+        return "support"
+    return "support"
+
+
+def _task_mode_from_type(task_type: str) -> str:
+    task_type = task_type.lower()
     if any(marker in task_type for marker in RESEARCH_TASK_MARKERS):
         return "research"
     if any(marker in task_type for marker in SUPPORT_TASK_MARKERS):
@@ -163,6 +211,107 @@ def _ranked_candidates(
             RANDOMIZER.shuffle(group)
         ranked.extend(group)
     return tuple(ranked)
+
+
+def ready_science_pool_health(
+    root: Path,
+    *,
+    minimum_ready_science_tasks: int = MIN_READY_SCIENCE_TASKS,
+    preferred_ready_science_tasks: int = PREFERRED_READY_SCIENCE_TASKS,
+    target_active_surfaces: int = TARGET_READY_SCIENCE_SURFACES,
+) -> ReadySciencePoolHealth:
+    """Return a warning-only summary of READY science task supply.
+
+    This helper deliberately reports queue health without failing validation or
+    creating tasks. Maintainers decide whether a low pool warrants a task-queue
+    PR.
+    """
+    ready_science_task_ids: list[str] = []
+    surfaces: set[str] = set()
+    for path in sorted((root / "tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+        payload = load_task(path)
+        if str(payload.get("status")) != "READY":
+            continue
+        task_type = str(payload.get("type", ""))
+        if _task_mode_from_type(task_type) != "research":
+            continue
+        task_id = str(payload["id"])
+        ready_science_task_ids.append(task_id)
+        surface = _task_surface(payload)
+        surfaces.add(surface)
+
+    ready_count = len(ready_science_task_ids)
+    active_surfaces = tuple(sorted(surfaces))
+    below_minimum = ready_count < minimum_ready_science_tasks
+    below_preferred = ready_count < preferred_ready_science_tasks
+    below_surface_target = len(active_surfaces) < target_active_surfaces
+    task_queue_needed = below_minimum or below_surface_target
+    notes = _ready_science_pool_notes(
+        ready_count=ready_count,
+        surface_count=len(active_surfaces),
+        below_minimum=below_minimum,
+        below_preferred=below_preferred,
+        below_surface_target=below_surface_target,
+    )
+    return ReadySciencePoolHealth(
+        minimum_ready_science_tasks=minimum_ready_science_tasks,
+        preferred_ready_science_tasks=preferred_ready_science_tasks,
+        target_active_surfaces=target_active_surfaces,
+        ready_science_count=ready_count,
+        ready_science_task_ids=tuple(ready_science_task_ids),
+        active_surfaces=active_surfaces,
+        below_minimum=below_minimum,
+        below_preferred=below_preferred,
+        below_surface_target=below_surface_target,
+        task_queue_needed=task_queue_needed,
+        warning_only=True,
+        notes=notes,
+    )
+
+
+def _task_surface(payload: dict[str, Any]) -> str:
+    input_payload = payload.get("input", {})
+    if isinstance(input_payload, dict):
+        related_domain = str(input_payload.get("related_domain", "")).strip()
+        if related_domain:
+            return related_domain
+    return "unknown"
+
+
+def _ready_science_pool_notes(
+    *,
+    ready_count: int,
+    surface_count: int,
+    below_minimum: bool,
+    below_preferred: bool,
+    below_surface_target: bool,
+) -> tuple[str, ...]:
+    notes: list[str] = []
+    if below_minimum:
+        notes.append(
+            "READY science task pool is below the minimum target; consider a bounded task-queue PR."
+        )
+    elif below_preferred:
+        notes.append(
+            "READY science task pool meets the minimum but is below the preferred public/onboarding range."
+        )
+    else:
+        notes.append("READY science task pool meets the preferred count target.")
+
+    if below_surface_target:
+        notes.append(
+            "READY science task pool spans fewer than three active surfaces; parallel agents may collide more easily."
+        )
+    else:
+        notes.append("READY science task pool spans at least three active surfaces.")
+
+    notes.append(
+        f"Current READY science pool: {ready_count} tasks across {surface_count} surfaces."
+    )
+    notes.append(
+        "This health check is advisory only and must not create tasks or fail normal PR validation."
+    )
+    return tuple(notes)
 
 
 def task_candidates(
@@ -299,6 +448,9 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
     """Render a compact JSON response for coding agents."""
     selection = select_mission(payload, mode)
     live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
+    ready_pool_health = (
+        ready_science_pool_health(root).to_json() if root is not None else {}
+    )
     data = {
         "default_mode": payload.get("default_mode"),
         "selected_mode": selection.mode,
@@ -326,6 +478,7 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
             for action in selection.alternatives
         ],
         "live_task_candidates": [candidate.to_json() for candidate in live_candidates],
+        "ready_science_pool_health": ready_pool_health,
         "task_visibility_policy": {
             "executor_modes": "Only READY tasks are executable candidates.",
             "review_ready": "REVIEW_READY tasks are hidden from executor recommendations; use maintainer review or closeout mode instead.",
@@ -346,6 +499,7 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
     """Render a concise human-readable mission menu."""
     selection = select_mission(payload, mode)
     live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
+    ready_pool_health = ready_science_pool_health(root) if root is not None else None
     mode_info = payload.get("modes", {}).get(selection.mode, {})
     lines = [
         "APL Mission Control",
@@ -406,6 +560,15 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
                 "- multiple agents can work in parallel via separate branches or worktrees",
                 "- avoid overlapping artifact surfaces in parallel PRs",
                 "- equal-rank research/audit task options may rotate between runs",
+            ]
+        )
+    if ready_pool_health is not None:
+        lines.extend(
+            [
+                "",
+                "READY science task pool health:",
+                f"- {ready_pool_health.ready_science_count} READY science tasks across {len(ready_pool_health.active_surfaces)} surfaces",
+                f"- task_queue_needed: {str(ready_pool_health.task_queue_needed).lower()} (warning-only)",
             ]
         )
     lines.extend(
@@ -512,6 +675,7 @@ Start in Agent First Research Mode with onboarding.
 10. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR using repository helpers, available GitHub/MCP tools, or GitHub CLI when access is available; if a needed command is blocked by permissions, request permission/escalation for that command. If PR creation still cannot complete, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
 11. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 12. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
+13. If another agent session (Codex, a parallel Claude run, or a human contributor) might also be active in this checkout, open a dedicated `git worktree` for the task with `./scripts/apl_new_worktree.sh <branch>` and run `python3 scripts/apl_branch_precondition.py --expected-branch <branch>` before any `git add` / `commit` / `push`. See `docs/notes/agent-worktree-discipline.md` and the collected `docs/notes/agent-discipline-collected.md` index for the full discipline.
 {candidate_block}
 
 When the work is complete, summarize what changed, the scientific or workflow value of the result, validation results, limitations, and the best next task to continue."""

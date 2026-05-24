@@ -1,0 +1,108 @@
+id: EXP-PROPOSAL-0012
+title: "Sandbox nuclear deformation-proxy residual scout"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0338
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0046-deformation-proxy-scout-batch.yaml"
+
+question: "Do bounded deformation-like proxies derived only from committed Z, N, and A fields reduce EXP-0012 baseline residuals more convincingly than smooth-A and shuffled controls?"
+
+method:
+  summary: "Generate six bounded deformation-proxy variants, execute three candidate proxies and two controls, fit residual coefficients on the NMD-0002 training slice, and evaluate full-known, holdout, magic, mid-mass, heavy, neutron-rich, light-A, and isotope-chain diagnostics against the frozen RESULT-0015 baseline."
+  code_references:
+    - "scripts/run_nuclear_deformation_proxy_lane.py"
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+    - "tests/test_nuclear_deformation_proxy_lane.py"
+  commands:
+    - "python3 scripts/run_nuclear_deformation_proxy_lane.py"
+    - "python3 -m pytest tests/test_nuclear_deformation_proxy_lane.py"
+  parameters:
+    generated_candidates: 6
+    executed_candidates: 3
+    executed_controls: 2
+    smooth_a_controls: 1
+    shuffled_controls: 1
+    shuffle_scheme: "cyclic-shift-7"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  assumptions:
+    - "No beta2 or external deformation table is fetched."
+    - "No prediction registry entries are created."
+    - "No EXP-0012, RESULT-0015, claims, knowledge, or canonical datasets are updated."
+    - "Controls are preserved as first-class evidence."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0025/"
+  metrics:
+    - "generated_variant_count"
+    - "executed_candidate_count"
+    - "executed_control_count"
+    - "delta_mae_by_subset_mev"
+    - "delta_rmse_by_subset_mev"
+    - "isotope_chain_diagnostics"
+    - "verdict_counts"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0025/report.md"
+    - "agent_runs/AGENT-RUN-0025/limitations.md"
+    - "docs/reviews/nuclear-deformation-proxy-hypothesis-lane.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, candidates and controls are reported with subset diagnostics, negative or inconclusive outcomes are preserved, and no registry, result, claim, knowledge, or canonical dataset files are modified."
+  fail_condition: "Sandbox fail if the lane writes prediction entries, fetches external deformation data, hides regressions, or frames retrospective deltas as validated physics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  expected_failure_modes:
+    - "Candidate deltas can be matched by smooth-A controls."
+    - "Shuffled proxies can preserve fit quality on the small training slice."
+    - "Light-A or sparse isotope-chain subsets can regress."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call proxy features measured deformation."
+    - "Do not call a sandbox delta a discovery."
+    - "Do not imply prediction or registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Preserve controls and subset regressions."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "The proxy family is derived from Z, N, and A only."
+  - "The candidate fit surface is small and retrospective."
+  - "Isotope-chain diagnostics are sparse for some Z groups."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Confirm whether the lane should remain bounded sandbox evidence and whether any narrower follow-up is warranted."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work."

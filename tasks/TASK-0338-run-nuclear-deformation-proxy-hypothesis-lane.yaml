@@ -1,0 +1,55 @@
+id: TASK-0338
+title: "Run nuclear deformation-proxy hypothesis lane"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Keep Nuclear Mass Surface moving through new bounded hypothesis lanes after shell-axis was fixed as diagnostic-only."
+  - "Test a physically motivated deformation-like proxy without adding external deformation datasets."
+  - "Require a full hypothesis mini-loop with controls, holdouts, and negative-result preservation."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    The shell-axis lane is useful but diagnostic-only after TASK-0333. This
+    task starts a new independent Nuclear lane around deformation-like
+    structure using only repository-pinned fields and deterministic proxies,
+    such as distance from shell closure, mid-shell occupancy, parity, or local
+    region terms. It must not fetch beta2/deformation tables or make claims.
+
+requirements:
+  - "Generate 4-8 bounded deformation-proxy candidate features using only repository-pinned nuclear data and derived N/Z/A proxies."
+  - "Run at least 1-3 candidates through a deterministic sandbox comparison against the EXP-0012 baseline."
+  - "Include at least two controls: a smooth-A matched-complexity control and a shuffled or sign-inverted proxy control."
+  - "Report primary MAE/RMSE delta, magic-Z, magic-N, mid-mass, heavy, neutron-rich, light-A warning, and isotope-chain diagnostics where available."
+  - "Reject candidates that improve only a tiny or repeated-target subset while regressing the primary surface."
+  - "Preserve negative, null, or inconclusive outcomes as review evidence."
+  - "Do not add prediction registry entries, fetch live data, run reveal scoring, update claims, or promote sandbox outcomes."
+
+accepted_outputs:
+  - "scripts/run_nuclear_deformation_proxy_lane.py or an equivalent deterministic runner"
+  - "agent_runs/AGENT-RUN-0025/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0025/metrics.json"
+  - "agent_runs/AGENT-RUN-0025/report.md"
+  - "docs/reviews/nuclear-deformation-proxy-hypothesis-lane.md"
+  - "tests/test_nuclear_deformation_proxy_lane.py if a runner is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

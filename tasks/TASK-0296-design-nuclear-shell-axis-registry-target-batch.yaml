@@ -1,0 +1,51 @@
+id: TASK-0296
+title: "Design nuclear shell-axis registry target batch"
+type: benchmark_protocol
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare a conservative prospective shell-axis prediction batch only after stress synthesis and reveal-readiness gates exist."
+  - "Avoid amplifying overrepresented registry targets while preserving paired controls."
+  - "Keep the next registry wave design separate from actually writing frozen PRED entries."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "tasks/TASK-0287-define-nuclear-reveal-source-readiness-checklist.yaml"
+    - "tasks/TASK-0294-synthesize-nuclear-adversarial-stress-results.yaml"
+    - "docs/reviews/nuclear-shell-axis-stress-scout-001.md"
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+    - "prediction_registry/nuclear_masses/"
+  planning_context: >
+    The shell-axis lane is now the strongest sandbox signal, but target-batch
+    design must happen before any new PRED entries are registered. This task
+    stays blocked until the reveal source gate and adversarial stress
+    synthesis are reviewed.
+
+requirements:
+  - "Start only after TASK-0287 and TASK-0294 are DONE, or after explicit maintainer approval."
+  - "Design a small shell-axis prospective target batch that avoids increasing pressure on Ni-76, Ca-55, Ga-85, and Zn-80."
+  - "Include paired negative controls such as sign-inverted or near-null shell-axis controls."
+  - "Define target selection rationale, quantity, units, frozen source boundaries, and reveal conditions."
+  - "Do not write prediction_registry/nuclear_masses/PRED-*.yaml entries in this task."
+  - "Do not fetch live measurements, score a reveal, update claims, or promote sandbox evidence."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-shell-axis-registry-target-batch-design.md"
+  - "data/nuclear_masses/shell_axis_target_batch_proposal.yaml"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the recommended registry path changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

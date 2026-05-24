@@ -7,9 +7,10 @@ Every human or coding agent should read these files in order before starting:
 1. [README.md](../README.md)
 2. [AGENTS.md](../AGENTS.md)
 3. [docs/agent-task-protocol.md](./agent-task-protocol.md)
-4. [docs/status.md](./status.md)
-5. [docs/strategy.md](./strategy.md)
-6. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+4. [docs/open-agent-network.md](./open-agent-network.md)
+5. [docs/status.md](./status.md)
+6. [docs/strategy.md](./strategy.md)
+7. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
 
 Then use [docs/architecture-index.md](./architecture-index.md) and
 [docs/contributing-workflow.md](./contributing-workflow.md) as needed.
@@ -55,6 +56,11 @@ For actual multi-agent work, use separate branches or git worktrees:
 `python3 scripts/apl_mission.py --json` exposes several live task candidates so
 maintainers can assign independent work in parallel without treating
 `missions/current.yaml` as a hand-maintained live queue.
+
+The same JSON includes a warning-only READY science task pool health summary.
+Use [docs/task-queue-health-policy.md](./task-queue-health-policy.md) for the
+target pool size, independence rules, and maintainer response when
+`task_queue_needed` is true.
 
 ## Task Rules
 

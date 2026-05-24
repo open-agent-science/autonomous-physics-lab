@@ -36,11 +36,13 @@ requirements:
   - "Update docs/notes/agent-worktree-discipline.md to reflect the new default path and to mention that explicit second-argument paths still override the default."
   - "Confirm .gitignore already covers .worktrees/ — do not duplicate the rule."
   - "Do not break the explicit two-argument call form."
-  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition is allowed; generated task navigation is synchronized by the post-merge Sync Active Board action or by a dedicated board-sync closeout/audit PR when explicitly requested."
 
 accepted_outputs:
   - "scripts/apl_new_worktree.sh with the new DEFAULT_PATH"
   - "docs/notes/agent-worktree-discipline.md updated"
+  - "docs/notes/claude-code-permissions-allowlist.md updated if it still documents the old sibling-path default"
+  - "tests covering the default .worktrees path and explicit path override"
 
 validation:
   commands:

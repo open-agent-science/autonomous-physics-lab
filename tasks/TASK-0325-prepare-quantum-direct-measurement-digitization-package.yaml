@@ -1,0 +1,55 @@
+id: TASK-0325
+title: "Prepare quantum direct-measurement digitization package"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Quantum Size Effects from source scaffolding toward measurement-grade row-level data."
+  - "Use the existing direct-measurement digitization protocol instead of LLM-estimated figure reads."
+  - "Unblock the first quantum benchmark only through auditable table values, digitized points, or a documented blocker."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-direct-measurement-source-triage.md"
+    - "docs/reviews/quantum-size-direct-absorption-seed-review.md"
+    - "docs/reviews/quantum-size-direct-band-edge-seed-review.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/digitization/README.md"
+  planning_context: >
+    Quantum Size Effects is blocked because the committed row-level data are
+    calibration-derived rather than direct measurement rows. This task gives
+    one agent a bounded path to prepare a compliant digitization or table-value
+    package, while preserving a blocker if source access or digitization
+    quality is insufficient.
+
+requirements:
+  - "Choose exactly one source path from the existing triage/review notes unless the maintainer provides a better primary source."
+  - "Use direct table values, a deterministic digitization artifact, or a blocker note; do not use LLM-estimated figure coordinates."
+  - "If digitizing figure points, follow the committed digitization protocol and record calibration points, uncertainty, per-point provenance, and quality limitations."
+  - "If table values are available, record source locator, table identity, units, direct-vs-derived status, and licensing/citation notes."
+  - "If neither route is acceptable, write a review artifact explaining the blocker and the next required source access."
+  - "Do not run the quantum baseline benchmark, autonomous hypothesis pilot, or any public-facing claim."
+  - "Do not include synthesis recipes, chemical handling guidance, device claims, or biomedical claims."
+
+accepted_outputs:
+  - "data/quantum_dots/digitization/qd-direct-measurement-XXXX/README.md or a blocker review artifact"
+  - "optional data/quantum_dots/qd-0003-*.yaml only if rows satisfy the direct-measurement protocol"
+  - "docs/reviews/quantum-direct-measurement-digitization-package.md"
+  - "tests updated only if a new row-level YAML file is committed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

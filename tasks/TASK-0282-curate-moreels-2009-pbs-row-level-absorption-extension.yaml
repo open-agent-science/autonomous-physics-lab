@@ -1,0 +1,54 @@
+id: TASK-0282
+title: "Curate Moreels 2009 PbS row-level absorption extension"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Broaden the Quantum Size Effects row-level data surface beyond cadmium chalcogenides before baseline fitting."
+  - "Give parallel agents a disjoint source/material curation task that does not collide with the Yu 2003 seed."
+  - "Improve future material-holdout options while keeping the first property axis absorption-only."
+
+input:
+  mode: workflow
+  related_domain: condensed_matter
+  related_objects:
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "docs/quantum-size-effect-holdout-protocol.md"
+    - "tasks/TASK-0275-curate-quantum-size-source-manifest-seed.yaml"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+  planning_context: >
+    The source manifest now includes Moreels 2009 as an accepted PbS optical
+    absorption source. This task is a parallel row-level curation extension:
+    it should produce a separate PbS absorption dataset file, not modify or
+    depend on the Yu 2003 seed task except for shared schema and manifest
+    discipline.
+
+requirements:
+  - "Create a row-level dataset file for absorption_peak_eV entries from the accepted source_id `moreels-2009-acs-nano-pbs-absorption`."
+  - "Keep this task source-scoped to PbS and absorption_peak_eV; do not mix band-edge, emission, or device-performance observations."
+  - "Every row must record material, exactly one size axis, value_eV, property_kind, source_id, inclusion_status, and a source_table_ref or equivalent figure/table provenance note."
+  - "Distinguish direct table values, source calibration outputs, and curve-read values in notes; exclude rows whose values are not traceable enough for review."
+  - "Reference only sources already present in data/quantum_dots/source_manifest.yaml unless the source manifest is updated in the same PR with review rationale."
+  - "Do not fetch live data during tests or benchmark execution."
+  - "Do not include synthesis recipes, chemical handling instructions, fabrication instructions, biomedical claims, device-performance claims, or model-comparison results."
+  - "Do not run TASK-0225 or promote any dataset row as a scientific result."
+
+accepted_outputs:
+  - "data/quantum_dots/qd-0002-moreels-2009-pbs-absorption.yaml"
+  - "docs/reviews/quantum-size-moreels-2009-pbs-row-level-extension-review.md"
+  - "updated tests validating that committed quantum-dot dataset files conform to schema and reference registered source_id values"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

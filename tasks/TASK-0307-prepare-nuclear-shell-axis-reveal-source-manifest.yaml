@@ -1,0 +1,66 @@
+id: TASK-0307
+title: "Prepare nuclear shell-axis reveal source manifest"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Bridge the gap between shell-axis source preflight and real reveal scoring."
+  - "Prepare one concrete source manifest for PRED-0063..PRED-0068 without exposing target mass values."
+  - "Keep TASK-0305 blocked until a source manifest is reviewed and explicitly approved."
+
+input:
+  mode: workflow
+  related_domain: nuclear_physics
+  related_objects:
+    - "data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml"
+    - "docs/reviews/nuclear-shell-axis-mini-wave-source-preflight.md"
+    - "docs/reviews/nuclear-shell-axis-mini-wave-synthetic-reveal-dry-run.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "prediction_registry/nuclear_masses/PRED-0063.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0064.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0065.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0066.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0067.yaml"
+    - "prediction_registry/nuclear_masses/PRED-0068.yaml"
+    - "tasks/TASK-0305-score-nuclear-shell-axis-mini-wave-reveal.yaml"
+  planning_context: >
+    TASK-0303 defined the source-class, checksum, no-peek, and stop-condition
+    requirements for a future shell-axis mini-wave reveal, and TASK-0304
+    validated the synthetic scoring shape. The remaining blocker before
+    TASK-0305 is a concrete source manifest candidate. This task must prepare
+    that candidate without recording measured mass_excess values, without
+    classifying target rows by revealed values, and without scoring the frozen
+    registry entries.
+
+requirements:
+  - "Start from data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml and fill only source-level metadata, archive/checksum policy, quantity/unit semantics, row-level measured/extrapolated flag semantics, and no-peek audit evidence."
+  - "Choose exactly one source candidate or explicitly report that no acceptable source could be prepared."
+  - "The source candidate must fit one of the TASK-0303 source classes: official_evaluation, peer_reviewed_table, collaboration_release, or archive_copy."
+  - "Do not record measured mass_excess values for V-70, Mn-75, Co-77, Cu-81, Ag-129, Cd-130, Sb-135, or Cs-139."
+  - "Do not print, paste, normalize, or commit row-level target values or per-target measured/extrapolated labels."
+  - "If checking metadata or checksums cannot be done without exposing target rows, stop and write a review note that TASK-0305 remains blocked."
+  - "Verify source release timing against registered_at_utc: 2026-05-20T00:00:00Z without inspecting target values; sources predating registration cannot unlock TASK-0305."
+  - "Run a metadata-only no-peek audit over PRED-0063 through PRED-0068 and record whether registry values, target sets, source_state, and reveal_conditions remain unchanged."
+  - "Keep PRED entries, claims, results, and reveal metrics untouched."
+  - "Do not unblock TASK-0305 in this task; only provide a manifest candidate and a maintainer approval recommendation."
+
+accepted_outputs:
+  - "data/nuclear_masses/shell_axis_reveal_source_manifest_<source-id>.yaml if a source can be prepared without target-value exposure"
+  - "docs/reviews/nuclear-shell-axis-reveal-source-manifest-review.md"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the reveal path or blocker status changes"
+  - "updated tasks/TASK-0305-score-nuclear-shell-axis-mini-wave-reveal.yaml only if its dependency wording needs to reference this manifest task"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py tests/test_nuclear_shell_axis_mini_wave_reveal.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

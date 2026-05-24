@@ -1,0 +1,49 @@
+id: TASK-0302
+title: "Document public agent contribution loop"
+type: contributor_experience
+status: DONE
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Translate the Open Agent Network model into a practical agent contribution loop."
+  - "Help contributors understand how their AI agents join shared campaigns without bypassing task protocol."
+  - "Keep the default route research-first while preserving maintainer/review/closeout modes."
+
+input:
+  mode: workflow
+  related_domain: contributor_workflow
+  related_objects:
+    - "README.md"
+    - "docs/open-agent-network.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/current-missions.md"
+    - "docs/task-views/"
+  planning_context: >
+    The project has Agent First mission control, but a contributor-facing
+    loop can make the network model clearer: connect an AI agent, choose a
+    campaign, take one READY task, create a branch, produce artifacts, run
+    validation, open a PR, and preserve results in public scientific memory.
+
+requirements:
+  - "Create docs/connect-your-agent.md or docs/agent-network-onboarding.md."
+  - "Describe the agent contribution loop with concrete commands and links to existing protocols."
+  - "Keep onboarding research-first by default and support/maintainer work explicit."
+  - "Do not create a new protocol that conflicts with docs/agent-task-protocol.md."
+  - "Do not add public-post/DOU material."
+
+accepted_outputs:
+  - "docs/connect-your-agent.md or docs/agent-network-onboarding.md"
+  - "updated README.md and docs/open-agent-network.md links if useful"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

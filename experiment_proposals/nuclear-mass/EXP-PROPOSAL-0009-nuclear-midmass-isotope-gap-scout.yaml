@@ -1,0 +1,102 @@
+id: EXP-PROPOSAL-0009
+title: "Sandbox nuclear mid-mass and isotope-chain gap scout"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude-code
+  task_id: TASK-0286
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0043-midmass-isotope-gap-scout-batch.yaml"
+
+question: "Do bounded mid-mass or isotope-chain residual features improve the frozen RESULT-0015 baseline without hiding frontier, light/heavy, or chain-specific regressions?"
+
+method:
+  summary: "Generate eight bounded candidate ideas, reject three leakage-prone or duplicate-search candidates before execution, execute five candidates including a near-null control, and report subset deltas against the frozen RESULT-0015 baseline."
+  code_references:
+    - "scripts/run_nuclear_midmass_isotope_gap_scout.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "physics_lab/engines/nuclear_masses.py"
+    - "tests/test_nuclear_midmass_isotope_gap_scout.py"
+  commands:
+    - "python3 scripts/run_nuclear_midmass_isotope_gap_scout.py"
+    - "python3 -m pytest tests/test_nuclear_midmass_isotope_gap_scout.py"
+  parameters:
+    generated_candidates: 8
+    executed_candidates: 5
+    rejected_before_execution: 3
+    near_null_controls: 1
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-prediction-registry-coverage-audit.md"
+  assumptions:
+    - "The scout does not update prediction registry entries."
+    - "The scout does not update EXP-0012, RESULT-0015, claims, knowledge, or canonical datasets."
+    - "Subset-specific regressions are preserved as negative evidence."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0015/"
+  metrics:
+    - "generated_candidate_count"
+    - "executed_candidate_count"
+    - "rejected_before_execution_count"
+    - "delta_mae_by_subset_mev"
+    - "frontier_contrast_mev"
+    - "verdict_counts"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0015/report.md"
+    - "agent_runs/AGENT-RUN-0015/limitations.md"
+    - "docs/reviews/nuclear-midmass-isotope-gap-scout-001.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, rejected candidates are documented, the near-null control remains null, and no registry, result, claim, knowledge, or canonical dataset files are modified."
+  fail_condition: "Sandbox fail if the lane writes prediction entries, hides subset regressions, relaxes rejected candidates, or frames retrospective deltas as prospective prediction."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  expected_failure_modes:
+    - "Mid-mass features can overfit the 11-row residual training slice."
+    - "Per-chain slope features can regress heavily on chains absent from training."
+    - "A near-null control should remain inconclusive."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a prediction reveal."
+    - "Do not call overfitted candidates discoveries."
+    - "Do not imply registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Preserve OVERFITTED and INCONCLUSIVE verdicts."
+    - "Require a future maintainer-reviewed task for registry or reveal work."
+
+limitations:
+  - "The candidate fit surface is small and retrospective."
+  - "No executed candidate reached PARTIALLY_VALID."
+  - "The experiment is useful primarily as negative scout evidence."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Confirm that this lane should be preserved as negative evidence rather than promoted into registry expansion."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed registry or reveal task before any PRED-* or RESULT-* update."

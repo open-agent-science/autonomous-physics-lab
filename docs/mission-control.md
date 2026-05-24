@@ -6,9 +6,13 @@ Autonomous Physics Lab (APL) is verification-first scientific infrastructure.
 Its job is to make physics hypotheses testable, falsifiable, reproducible, and
 reviewable through deterministic code and version-controlled evidence.
 
+APL is also an open agent network for science: many contributors can connect
+their AI agents to shared scientific campaigns, and accepted outputs become
+public scientific memory rather than isolated local chat artifacts.
+
 APL is currently in:
 
-`v0.1-private-alpha — scientific campaign and contributor workflow validation`
+`v0.2-public-alpha candidate — final release go/no-go review pending`
 
 The repository stays private while current campaigns, contributor workflow, and
 public-release gates are still being validated.
@@ -124,6 +128,8 @@ The current contributor workflow is branch-based and task-driven.
 
 Operational entry points:
 
+- [docs/open-agent-network.md](./open-agent-network.md) for the coordination
+  model behind shared campaign work;
 - [docs/current-missions.md](./current-missions.md) and
   `python3 scripts/apl_mission.py` for the Agent First mission menu;
 - [docs/external-reviewer-replication-guide.md](./external-reviewer-replication-guide.md)
@@ -145,8 +151,11 @@ Operational entry points:
   proposal-first workflow when no canonical task fits;
 - [docs/private-contributor-pilot.md](./private-contributor-pilot.md) for the
   invited private contributor flow;
-- `python3 -m physics_lab.cli sync-active-board .` for keeping the active board
-  aligned with task YAML files;
+- the `Sync Active Board` post-merge GitHub Action keeps the active board
+  and `docs/task-views/*.md` aligned with task YAML files on `main` (no
+  agent action required;
+  `python3 -m physics_lab.cli sync-active-board .` remains available for
+  maintainer dry-runs and explicit board-sync PRs);
 - maintainer review and closeout tooling for review bundles and handoff.
 
 Low-risk contribution patterns right now:

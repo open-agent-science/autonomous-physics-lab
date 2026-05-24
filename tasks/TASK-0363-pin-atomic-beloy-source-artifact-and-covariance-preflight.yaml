@@ -1,0 +1,54 @@
+id: TASK-0363
+title: "Pin atomic Beloy 2021 source artifact and covariance preflight"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Atomic Clock Residuals from admissible source review toward real direct-ratio rows."
+  - "Clear the highest-risk covariance blocker before any frequency value is ingested."
+  - "Keep high-precision evidence source-pinned, checksummed, and separated from derived constraints."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-clock-direct-ratio-source-artifact-review.md"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "data/atomic_clocks/schema.md"
+  planning_context: >
+    TASK-0355 selected Beloy et al. 2021 / BACON as the recommended first
+    direct frequency-ratio source with verdict ADMISSIBLE_WITH_BLOCKERS. This
+    task pins the redistributable arXiv source artifact when allowed and
+    performs the covariance/SI preflight required before any real direct-ratio
+    rows may be curated.
+
+requirements:
+  - "Use the arXiv preprint or another clearly redistributable source artifact; do not commit the Nature PDF."
+  - "Record source locator, retrieval date, archive path, checksum, license/reuse note, and exact artifact scope."
+  - "Verify whether the source or supplement provides a covariance matrix, explicit diagonal-only treatment, or enough shared-systematic notes to keep rows out of the residual axis until resolved."
+  - "Lock whether a later row-curation task should extract per-ratio totals only or per-systematic components."
+  - "If the artifact cannot be pinned or covariance semantics cannot be verified, produce a blocker review instead of copying values."
+  - "Do not ingest any frequency-ratio values, uncertainties, drift fits, derived constraints, prediction entries, or claims."
+
+accepted_outputs:
+  - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/README.md"
+  - "optional committed arXiv source artifact if license/reuse policy allows it"
+  - "optional metadata-only source_manifest update"
+  - "docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md"
+  - "tests updated only if source-manifest structure changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

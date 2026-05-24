@@ -1,0 +1,51 @@
+id: AGENT-RUN-0019
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0316
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0044-shell-axis-stress-scout-batch.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0010-nuclear-shell-axis-stress-scout.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0019/metrics.json
+  report: agent_runs/AGENT-RUN-0019/report.md
+  limitations: agent_runs/AGENT-RUN-0019/limitations.md
+  preflight: agent_runs/AGENT-RUN-0019/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0019/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: task_scope
+    status: PASS
+    notes: TASK-0316 requests coefficient-stability stress testing, not reveal scoring.
+  - name: data_boundary
+    status: PASS
+    notes: Only committed repository datasets are used; no live external fetch is
+      performed.
+  - name: control_boundary
+    status: PASS
+    notes: Sign-inverted and near-null controls are preserved; shuffled control is
+      documented as not meaningful under changing resamples.
+  - name: promotion_boundary
+    status: PASS
+    notes: No prediction registry, canonical result, claim, or knowledge file is written.
+limitations:
+- Sandbox-only retrospective audit; no prediction registry, canonical result, claim,
+  or knowledge artifact is updated.
+- All coefficient stability tests still resample only the 11-row NMD-0002 training
+  slice.
+- Full-known and post-AME2020 rows are committed reviewable repository data, not future-measurement
+  reveal data.
+- The deterministic 8-of-11 design is exhaustive for that size but does not replace
+  a larger independent training surface.
+- Subset deltas remain fragile where row counts are small; light-nuclei regressions
+  remain a domain limitation.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any registry expansion, reveal scoring,
+    RESULT-* artifact, claim, or knowledge update.

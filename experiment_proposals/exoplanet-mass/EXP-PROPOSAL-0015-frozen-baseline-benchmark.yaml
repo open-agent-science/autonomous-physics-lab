@@ -1,0 +1,122 @@
+id: EXP-PROPOSAL-0015
+title: "Sandbox exoplanet mass-radius frozen-baseline benchmark"
+campaign_profile_id: exoplanet-mass-radius
+proposal_kind: falsification
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact, prediction registry entry, habitability label, or target-prioritization output."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0361
+
+input_references:
+  - "campaign_profiles/exoplanet-mass-radius.yaml"
+  - "docs/campaigns/exoplanet-mass-radius.md"
+  - "docs/exoplanet-mass-radius-baseline-protocol.md"
+  - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion.md"
+  - "docs/reviews/exoplanet-loader-dry-run.md"
+  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  - "hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0049-frozen-baseline-benchmark.yaml"
+
+question: "On the post-filter pinned PSCompPars snapshot, does a frozen Chen-Kipping 2017 piecewise median mass-radius baseline beat a per-CK17-class median log10(radius) null baseline on overall log10 RMSE for both the true-mass-with-transit-radius and minimum-mass-with-transit-radius axes, and where do per-class and per-detection-method subset metrics regress?"
+
+method:
+  summary: "Load the committed exo-0001-pscomppars-snapshot.yaml via physics_lab.datasets.exoplanets.load_and_filter, apply the published quality thresholds (sigma_M/M <= 0.30, sigma_R/R <= 0.15), then evaluate two frozen baselines on each of the two eligible residual axes. Report overall log10 MAE, RMSE, bias, median residual, factor-1.5 and factor-2 coverage proxies, per-CK17-class and per-detection-method summaries, and pre/post filter row counts. No segment slope, prefactor, or changepoint is re-fit. The runner produces deterministic metrics.json, report.md, agent_run.yaml, limitations.md, preflight.md, review_summary.md, and a docs/reviews note."
+  code_references:
+    - "physics_lab/engines/exoplanet_mass_radius.py"
+    - "physics_lab/datasets/exoplanets.py"
+    - "scripts/run_exoplanet_mass_radius_baseline.py"
+    - "tests/test_exoplanet_mass_radius_baseline.py"
+  commands:
+    - "python3 scripts/run_exoplanet_mass_radius_baseline.py"
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_baseline.py"
+  parameters:
+    mass_sigma_threshold: 0.30
+    radius_sigma_threshold: 0.15
+    eligible_axes:
+      - "true_mass_with_transit_radius"
+      - "minimum_mass_with_transit_radius"
+    frozen_baseline: "Chen-Kipping 2017 piecewise median (ApJ 834, 17)"
+    null_baseline: "per-CK17-class median log10(radius)"
+    factor_1p5_log_threshold: 0.176
+    factor_2_log_threshold: 0.301
+
+inputs:
+  datasets:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  constants:
+    - "Frozen CK17 segment slopes (0.279, 0.589, -0.044, 0.881)."
+    - "Frozen CK17 changepoints (2.04 M_earth, 0.414 M_jup, 0.0800 M_sun)."
+    - "Frozen CK17 terran anchor (R = 1.008 R_earth at M = 1 M_earth)."
+  prior_results:
+    - "docs/reviews/exoplanet-pscomppars-snapshot-ingestion.md"
+    - "docs/reviews/exoplanet-loader-dry-run.md"
+  assumptions:
+    - "No live NASA Exoplanet Archive fetch is performed."
+    - "No segment of the CK17 relation is refit on the snapshot."
+    - "No prediction registry entry, claim update, knowledge file edit, or canonical result artifact is produced."
+    - "The per-class median null baseline shares training rows with its scoring rows; this is intentional as a floor, not predictive evidence."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0032/"
+    - "docs/reviews/exoplanet-mass-radius-baseline-benchmark.md"
+  metrics:
+    - "log10_mae_chen_kipping_per_axis"
+    - "log10_rmse_chen_kipping_per_axis"
+    - "log10_bias_chen_kipping_per_axis"
+    - "log10_mae_null_baseline_per_axis"
+    - "log10_rmse_null_baseline_per_axis"
+    - "per_class_log10_rmse_chen_kipping"
+    - "per_class_log10_rmse_null_baseline"
+    - "per_detection_method_log10_rmse_chen_kipping"
+    - "fraction_within_factor_2"
+    - "pre_filter_included_count"
+    - "post_filter_included_count"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0032/report.md"
+    - "agent_runs/AGENT-RUN-0032/limitations.md"
+    - "agent_runs/AGENT-RUN-0032/review_summary.md"
+    - "docs/reviews/exoplanet-mass-radius-baseline-benchmark.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, both baselines are reported on both eligible residual axes, pre-filter and post-filter row counts are recorded, per-class and per-detection-method splits are recorded, and no canonical result, prediction registry entry, claim update, or habitability/biosignature/target-prioritization output is produced."
+  fail_condition: "Fail if the runner fetches live data, refits any CK17 segment on the snapshot, hides the null baseline, omits per-class or per-method splits, or frames residual improvements as a habitability, target-priority, or planet-discovery claim."
+  baseline_or_reference: "Frozen Chen-Kipping 2017 piecewise median mass-radius baseline (ApJ 834, 17, DOI 10.3847/1538-4357/834/1/17), compared against a per-CK17-class median log10(radius) null baseline computed on the same eligible rows."
+  expected_failure_modes:
+    - "Per-class median may beat CK17 on one or both axes when intra-class scatter is small."
+    - "The minimum-mass axis is biased upward in mass and may inflate residuals on RV-only systems."
+    - "Inflated hot Jupiters and the sub-Neptune transition can dominate per-class metrics."
+    - "Quality-filter rows with under-reported uncertainties may bias the residual distribution."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not frame residual improvement as a habitability or biosignature claim."
+    - "Do not frame the benchmark as a target-prioritization tool."
+    - "Do not call CK17 a discovery or a new physical law."
+    - "Do not call null-beats-baseline outcomes failures to suppress."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Report per-class, per-detection-method, and pre/post filter splits."
+    - "Preserve null and inconclusive outcomes."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "The CK17 relation is a published median and does not model intrinsic scatter."
+  - "The minimum-mass axis treats M sin i as a lower bound on true mass."
+  - "Quality filters use only reported sigma_M and sigma_R; covariance is not modelled."
+  - "Per-class median null baseline shares training and scoring rows."
+  - "No habitability, biosignature, target-priority, prediction registry, claim, or knowledge promotion is authorised."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether this benchmark should be preserved as the first executed exoplanet residual surface and whether any narrower follow-up lane is warranted."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical experiment task before any RESULT-*, PRED-*, claim, knowledge, or habitability/target-prioritization promotion."

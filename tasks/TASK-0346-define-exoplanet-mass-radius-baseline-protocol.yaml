@@ -1,0 +1,49 @@
+id: TASK-0346
+title: "Define exoplanet mass-radius baseline protocol"
+type: benchmark_protocol
+status: DONE
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Prepare Exoplanet Mass-Radius for a real benchmark while avoiding premature metric computation."
+  - "Define the baseline and holdout contract before agents see row-level catalog values."
+  - "Make future residual maps interpretable instead of post-hoc visual storytelling."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/reviews/exoplanet-mass-radius-source-surface-review.md"
+    - "docs/exoplanet-mass-radius-holdout-protocol.md"
+    - "physics_lab/schemas/exoplanet_mass_radius.schema.json"
+  planning_context: >
+    The campaign expects a conservative Chen-Kipping-style or Forecaster-style
+    baseline after a pinned snapshot exists. This task defines the benchmark
+    protocol before any catalog values are ingested or scored.
+
+requirements:
+  - "Define the first baseline family and at least one simpler null baseline without running metrics."
+  - "Define allowed metrics: uncertainty-aware residuals, log-space errors, per-class MAE/RMSE, and calibration/failure-map summaries."
+  - "Define mandatory splits: planet class, detection method, mass class, host-star context when available, source-date split, and measurement-quality filters."
+  - "Define negative controls that catch circular validation from model-inferred masses or reused forecast values."
+  - "State exactly which rows must be excluded from the first benchmark."
+  - "Do not fetch catalog data, run the baseline, create result artifacts, or promote claims."
+
+accepted_outputs:
+  - "docs/exoplanet-mass-radius-baseline-protocol.md"
+  - "optional update to docs/exoplanet-mass-radius-holdout-protocol.md if split wording needs tightening"
+  - "optional task recommendation for a later baseline implementation after a pinned snapshot exists"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,208 @@
+# Quantum Dot Size-Effect Source Manifest
+#
+# Each entry registers one publication or dataset source that may be used
+# in quantum_dots dataset files. A source must appear here before any dataset
+# entry may reference its source_id.
+#
+# Required fields per entry:
+#   source_id       — short unique identifier used in dataset files
+#   title           — paper or dataset title
+#   authors         — author list as a single string
+#   year            — publication year (integer)
+#   doi             — DOI or equivalent persistent identifier
+#   table_reference — specific table or figure in the source
+#   properties      — list of property_kind values extracted from this source
+#   materials       — list of material identifiers covered
+#   measurement_type — one of: optical_absorption, photoluminescence,
+#                      electrical_transport, theoretical_calculation
+#   size_axis       — diameter_nm | radius_nm
+#   inclusion_decision — accepted | excluded
+#   inclusion_rationale — brief reason for decision
+#   license_note    — redistribution or reuse terms
+#   checksum_policy — how pinning is handled: "doi_pinned", "sha256_file", "url_archived"
+#   notes           — any additional provenance notes
+#
+# No live external fetching is permitted. Sources must be pinned at commit time.
+# Add entries below as new sources are reviewed and accepted.
+
+manifest_version: "1"
+campaign_id: quantum-size-effects
+created_at: "2026-05-15"
+live_external_fetch_allowed: false
+
+sources:
+  - source_id: yu-2003-cm-absorption
+    title: "Experimental Determination of the Extinction Coefficient of CdTe, CdSe, and CdS Nanocrystals"
+    authors: "Yu, W. W.; Qu, L.; Guo, W.; Peng, X."
+    year: 2003
+    doi: "10.1021/cm034081k"
+    journal: "Chemistry of Materials"
+    volume: "15"
+    pages: "2854-2860"
+    table_reference: "size-dependent optical absorption and extinction-coefficient calibration surfaces"
+    properties:
+      - absorption_peak_eV
+    materials:
+      - CdTe
+      - CdSe
+      - CdS
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: accepted
+    inclusion_rationale: >
+      Source-scoped optical absorption calibration candidate for a first
+      size-effect benchmark. Future dataset entries must preserve whether
+      values are direct table entries, source calibration outputs, or
+      curve-read values.
+    license_note: "ACS publication; DOI-pinned metadata only. Do not redistribute tables or figures without permission."
+    checksum_policy: doi_pinned
+    notes: >
+      Candidate for absorption_peak_eV-only dataset curation. Do not mix with
+      photoluminescence or bandgap residuals in benchmark metrics.
+
+  - source_id: moreels-2009-acs-nano-pbs-absorption
+    title: "Size-dependent optical properties of colloidal PbS quantum dots"
+    authors: "Moreels, I.; Lambert, K.; Smeets, D.; De Muynck, D.; Nollet, T.; Martins, J. C.; Vanhaecke, F.; Vantomme, A.; Li, J.; Allan, G.; Hens, Z."
+    year: 2009
+    doi: "10.1021/nn900863a"
+    journal: "ACS Nano"
+    volume: "3"
+    pages: "3023-3030"
+    table_reference: "size-dependent absorbance and band-gap transition discussion"
+    properties:
+      - absorption_peak_eV
+    materials:
+      - PbS
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: accepted
+    inclusion_rationale: >
+      Source-scoped PbS optical absorption candidate that can broaden the
+      first benchmark beyond cadmium chalcogenides while keeping a separate
+      absorption residual axis.
+    license_note: "ACS publication; DOI-pinned metadata only. Do not redistribute tables or figures without permission."
+    checksum_policy: doi_pinned
+    notes: >
+      Candidate for absorption_peak_eV-only curation. Keep elemental-analysis
+      and concentration-calibration context out of residual metrics unless a
+      later dataset task explicitly records those fields.
+
+  - source_id: jasieniak-2011-acs-nano-band-edge
+    title: "Size-dependent valence and conduction band-edge energies of semiconductor nanocrystals"
+    authors: "Jasieniak, J. J.; Califano, M.; Watkins, S. E."
+    year: 2011
+    doi: "10.1021/nn201681s"
+    journal: "ACS Nano"
+    volume: "5"
+    pages: "5888-5902"
+    table_reference: "ACS Supporting Information file nn201681s_si_001.pdf; verify tabulated energy points and size-dependent energy-level diagrams before row curation"
+    properties:
+      - bandgap_eV
+    materials:
+      - CdSe
+      - CdTe
+      - PbS
+      - PbSe
+    measurement_type: electrical_transport
+    size_axis: diameter_nm
+    inclusion_decision: accepted
+    inclusion_rationale: >
+      Source-scoped band-edge candidate for future bandgap_eV curation, with
+      the caveat that dataset rows must preserve the derivation from valence
+      and conduction band-edge measurements instead of treating the source as
+      a generic optical peak dataset.
+    license_note: "ACS publication; DOI-pinned metadata only. Do not redistribute tables or figures without permission."
+    checksum_policy: doi_pinned
+    notes: >
+      Use only for a bandgap_eV residual surface or a separately reviewed
+      band-edge extension. Do not combine with absorption_peak_eV or
+      emission_peak_eV entries. TASK-0334 records a metadata-only source
+      artifact package under data/quantum_dots/source_artifacts/jasieniak-2011/;
+      row curation still requires a checksum-pinned SI/table extraction or a
+      deterministic digitization artifact.
+
+  - source_id: dabbousi-1997-jpcb-emission
+    title: "(CdSe)ZnS Core-Shell Quantum Dots: Synthesis and Characterization of a Size Series of Highly Luminescent Nanocrystallites"
+    authors: "Dabbousi, B. O.; Rodriguez-Viejo, J.; Mikulec, F. V.; Heine, J. R.; Mattoussi, H.; Ober, R.; Jensen, K. F.; Bawendi, M. G."
+    year: 1997
+    doi: "10.1021/jp971091y"
+    journal: "Journal of Physical Chemistry B"
+    volume: "101"
+    pages: "9463-9475"
+    table_reference: "photoluminescence characterization of a CdSe/ZnS size series"
+    properties:
+      - emission_peak_eV
+    materials:
+      - CdSe/ZnS
+    measurement_type: photoluminescence
+    size_axis: diameter_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      Useful emission-semantics reference, but excluded from the first pure
+      size-effect baseline seed because core-shell composition and shell
+      passivation confound a single-material residual axis.
+    license_note: "ACS publication; DOI-pinned metadata only. Do not redistribute tables or figures without permission."
+    checksum_policy: doi_pinned
+    notes: >
+      Preserve as an explicit excluded emission source so future curators do
+      not silently mix core-shell photoluminescence with pure-core absorption
+      or bandgap benchmarks.
+
+  - source_id: brus-1984-jcp-model-reference
+    title: "Electron-electron and electron-hole interactions in small semiconductor crystallites: The size dependence of the lowest excited electronic state"
+    authors: "Brus, L. E."
+    year: 1984
+    doi: "10.1063/1.447218"
+    journal: "Journal of Chemical Physics"
+    volume: "80"
+    pages: "4403-4409"
+    table_reference: "theoretical model only; no primary measurement table for dataset entries"
+    properties:
+      - bandgap_eV
+    materials:
+      - CdS
+      - CdSe
+    measurement_type: theoretical_calculation
+    size_axis: radius_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      Canonical effective-mass baseline reference, not a primary measurement
+      dataset. Use as model provenance in TASK-0225, not as curated benchmark
+      observations.
+    license_note: "AIP publication; DOI-pinned metadata only. Do not redistribute tables or figures without permission."
+    checksum_policy: doi_pinned
+    notes: >
+      Kept in the source manifest to distinguish baseline-model provenance
+      from measurement-data provenance.
+
+  - source_id: hens-moreels-2012-rsc-open-table-candidate
+    title: "Light Absorption by Colloidal Semiconductor Quantum Dots"
+    authors: "Hens, Z.; Moreels, I."
+    year: 2012
+    doi: "10.1039/c2jm30760j"
+    journal: "Journal of Materials Chemistry"
+    volume: "22"
+    pages: "10406-10415"
+    table_reference: "metadata-only TASK-0347 open-direct-table triage candidate; verify public SI/table access and primary-source attribution before row curation"
+    properties:
+      - absorption_peak_eV
+      - bandgap_eV
+    materials:
+      - PbS
+      - CdSe
+      - PbSe
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      TASK-0347 ranked this as a plausible direct-table fallback candidate,
+      but no source artifact, row table, licence verification, or deterministic
+      extraction has been committed. It remains excluded until a future
+      row-curation task verifies public access and source-specific reuse terms.
+    license_note: "RSC publication; DOI-pinned metadata only. Do not redistribute article, SI, tables, or figures unless the future source-artifact task verifies compatible public reuse terms."
+    checksum_policy: doi_pinned
+    notes: >
+      Metadata-only candidate seed from TASK-0347. Dataset rows must not
+      reference this source_id until a separate reviewed task commits a
+      checksum-pinned source artifact and confirms whether rows are direct,
+      digitized, or compilation-derived with preserved primary attribution.

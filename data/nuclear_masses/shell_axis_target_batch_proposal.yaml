@@ -1,0 +1,141 @@
+schema_version: "1"
+proposal_id: shell-axis-balanced-001
+task_id: TASK-0296
+status: review_ready_target_batch_proposal
+claim_ceiling: >
+  Target-batch design only. This file does not register predictions, reveal
+  measurements, promote claims, or create canonical results.
+quantity:
+  name: mass_excess_mev
+  units: MeV
+  prediction_form: deterministic_point_estimate
+  uncertainty_mev: null
+source_boundaries:
+  live_external_fetch_allowed: false
+  source_state_claim: not_claimed
+  committed_screen_paths:
+    - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+    - data/nuclear_masses/post_ame2020_holdout.yaml
+  reveal_gate:
+    - "Use docs/nuclear-reveal-source-readiness-checklist.md before any scoring."
+    - "Freeze registry entries before inspecting reveal-source values."
+    - "Separate measured, unmeasured, ambiguous, and source-absent rows before scoring."
+rationale: >
+  Conservative shell-axis target batch for a future maintainer-approved
+  registry mini-wave. It avoids the overrepresented exact targets Ni-76,
+  Ca-55, Ga-85, and Zn-80, avoids documented chain-neighbor rows, and keeps
+  paired light/heavy shell neighborhoods small enough for review.
+excluded_targets:
+  high_repeat_exact:
+    - Ni-76
+    - Ca-55
+    - Ga-85
+    - Zn-80
+  documented_chain_neighbors:
+    - Ca-54
+    - Ga-83
+    - Ga-84
+    - Ni-74
+    - Ni-75
+    - Zn-79
+  committed_exact_row_screens:
+    - In-132
+    - In-131
+    - Sb-133
+    - I-137
+  repeated_shell_magic_batch_rows:
+    - Cu-79
+    - Kr-86
+    - Te-134
+    - Xe-138
+  deferred_source_state_risk:
+    - Sn-132
+    - Xe-136
+    - Cs-137
+    - Ba-136
+    - La-139
+    - Ce-140
+targets:
+  - nuclide_id: V-70
+    Z: 23
+    N: 47
+    A: 70
+    shell_axis_role: lower_N50_shoulder
+    registry_exact_count_at_design_time: 0
+    committed_measured_or_holdout_screen: no_exact_row_hit_found
+  - nuclide_id: Mn-75
+    Z: 25
+    N: 50
+    A: 75
+    shell_axis_role: N50_line
+    registry_exact_count_at_design_time: 0
+    committed_measured_or_holdout_screen: no_exact_row_hit_found
+  - nuclide_id: Co-77
+    Z: 27
+    N: 50
+    A: 77
+    shell_axis_role: N50_near_Z28
+    registry_exact_count_at_design_time: 0
+    committed_measured_or_holdout_screen: no_exact_row_hit_found
+  - nuclide_id: Cu-81
+    Z: 29
+    N: 52
+    A: 81
+    shell_axis_role: upper_N50_shoulder
+    registry_exact_count_at_design_time: 0
+    committed_measured_or_holdout_screen: no_exact_row_hit_found
+  - nuclide_id: Ag-129
+    Z: 47
+    N: 82
+    A: 129
+    shell_axis_role: lower_heavy_N82_line
+    registry_exact_count_at_design_time: 0
+    committed_measured_or_holdout_screen: no_exact_row_hit_found
+  - nuclide_id: Cd-130
+    Z: 48
+    N: 82
+    A: 130
+    shell_axis_role: heavy_N82_line
+    registry_exact_count_at_design_time: 0
+    committed_measured_or_holdout_screen: no_exact_row_hit_found
+  - nuclide_id: Sb-135
+    Z: 51
+    N: 84
+    A: 135
+    shell_axis_role: upper_heavy_shell_shoulder
+    registry_exact_count_at_design_time: 0
+    committed_measured_or_holdout_screen: no_exact_row_hit_found
+  - nuclide_id: Cs-139
+    Z: 55
+    N: 84
+    A: 139
+    shell_axis_role: upper_heavy_shell_shoulder
+    registry_exact_count_at_design_time: 0
+    committed_measured_or_holdout_screen: no_exact_row_hit_found
+future_mini_wave_recommendation:
+  future_task: TASK-0297
+  write_pred_entries_in_this_task: false
+  recommended_entry_count: 6
+  entries:
+    - role: primary_candidate
+      family: proton_axis_gaussian
+      origin: STRESS-SHELL-001
+    - role: companion_candidate
+      family: proton_x_neutron_product
+      origin: STRESS-SHELL-002
+    - role: diagnostic_candidate
+      family: neutron_axis_gaussian
+      origin: STRESS-SHELL-003
+    - role: negative_control
+      family: sign_inverted_proton_axis_gaussian
+      origin: STRESS-SHELL-004
+    - role: negative_control
+      family: near_null_shell_axis_correction
+      origin: STRESS-SHELL-006
+    - role: reference_control
+      family: frozen_baseline_reference
+      origin: RESULT-0015::model_fitted_semi_empirical
+limitations:
+  - "Target identifiers are design candidates, not source-state claims."
+  - "No live measurements were fetched."
+  - "No reveal score or prediction registry entry is created by this proposal."

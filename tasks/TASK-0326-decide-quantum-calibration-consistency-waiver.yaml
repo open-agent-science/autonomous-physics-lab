@@ -1,0 +1,53 @@
+id: TASK-0326
+title: "Decide quantum calibration-curve consistency waiver"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Avoid letting Quantum Size Effects stall indefinitely behind direct-measurement access."
+  - "Make an explicit maintainer-review decision on whether a limited calibration-curve consistency benchmark is scientifically useful."
+  - "Keep measurement-versus-model claims blocked unless measurement-grade rows exist."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml"
+    - "tasks/TASK-0293-rerun-quantum-row-level-readiness-gate-after-direct-seed.yaml"
+    - "docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md"
+    - "data/quantum_dots/qd-0001-yu-2003-absorption.yaml"
+    - "data/quantum_dots/qd-0002-moreels-2009-pbs-absorption.yaml"
+    - "docs/campaigns/quantum-size-effects.md"
+  planning_context: >
+    TASK-0225 is blocked because current quantum-dot rows are calibration-
+    derived. This task asks whether a deliberately weaker benchmark should be
+    allowed as a calibration-curve consistency check, or whether the campaign
+    should remain blocked until direct measurement rows land.
+
+requirements:
+  - "Review the existing row-level quantum-dot data and readiness-gate artifact without adding new numerical rows."
+  - "Define exactly what a calibration-curve consistency benchmark would and would not mean."
+  - "Compare two options: keep TASK-0225 blocked for direct-measurement rows, or create a separate limited-scope benchmark task for calibration-derived rows."
+  - "List required labels, artifact names, metrics, and public wording if the waiver is recommended."
+  - "List scientific risks and overclaim blockers if the waiver is rejected."
+  - "Do not unblock TASK-0225 directly unless the maintainer explicitly approves after reviewing this artifact."
+  - "Do not run the benchmark, fit new models, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-calibration-consistency-waiver-decision.md"
+  - "optional new task proposal or canonical follow-up task only if the maintainer instruction for this TASK-QUEUE allows it"
+  - "updated docs/campaigns/quantum-size-effects.md with a concise status note if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_task_views.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

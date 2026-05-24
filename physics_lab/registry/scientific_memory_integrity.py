@@ -27,6 +27,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "evidence_policy",
     "knowledge_update",
     "repository_validation",
+    "research_infrastructure",
     "reproducibility",
     "release_preparation",
     "release_prep",
@@ -45,6 +46,8 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_audit",
     "scientific_falsification",
     "benchmark_protocol",
+    "ci_infrastructure",
+    "ci_optimization",
     "dataset_workflow",
     "physics_dataset_extension",
     "scientific_dataset",
@@ -56,6 +59,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "schema_extension",
     "scoring_design",
     "test_infrastructure",
+    "tooling_fix",
     "thought_experiment_planning",
     "scientific_microtask_execution",
     "workflow_pilot",
@@ -166,7 +170,10 @@ def collect_scientific_memory_integrity_issues(
             )
 
     for example_path, example_payload in example_configs:
-        if example_payload.get("config_kind") == "nuclear_prediction_variant_factory":
+        if example_payload.get("config_kind") in {
+            "nuclear_prediction_variant_factory",
+            "nuclear_prediction_synthetic_reveal",
+        }:
             continue
         result_root = (example_path.parent / example_payload["result_root"]).resolve()
         expected_run_dir = result_root / str(example_payload["run_id"])

@@ -193,6 +193,7 @@ def test_fail_on_warnings_still_requires_strict_even_with_auto_sync() -> None:
 # ── Live smoke (real repo, must remain green) ─────────────────────────────
 
 
+@pytest.mark.full_repo
 def test_cli_validate_repo_auto_sync_live_smoke() -> None:
     """Real-repo smoke: passing --auto-sync on a healthy state still passes."""
     runner = CliRunner()
