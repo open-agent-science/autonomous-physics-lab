@@ -1,0 +1,79 @@
+proposal_id: 20260524-claude-agent-task-quick-reference
+title: "Add docs/agent-task-quick-reference.md schema and validator cheat-sheet"
+status: PROPOSED
+type: documentation
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Reduce per-task token spend on schema discovery and hidden-validator surprises."
+  - "Surface validator constraints that today live only in code (FORMULA_SEARCH_MARKERS, BASELINE_MARKERS, examples/ schema lock, campaign_profile_id resolution, agent_run proposal_paths cross-validation)."
+  - "Give agents and human contributors a single place to look before reading 4-5 schema files sequentially."
+
+summary: >
+  Add docs/agent-task-quick-reference.md as a 2-4 KB cheat-sheet that
+  lists, for each of the core repository schemas, the required fields,
+  enum values, hidden validator constraints, and the most common
+  failure modes. Cross-link it from docs/agent-task-protocol.md and
+  CLAUDE.md so agents read it during onboarding.
+
+rationale: >
+  TASK-0361 spent roughly 12% of post-compaction context reading four
+  separate schemas (agent_run, hypothesis_proposal,
+  experiment_proposal, example_config) and another 5% discovering
+  hidden validator constraints only after validate-repo failed. None
+  of those validator rules are surfaced in protocol docs today; they
+  live in physics_lab/registry/research_proposals.py and
+  physics_lab/registry/examples.py. A single quick-reference doc
+  pays off on every subsequent task that produces an agent_run or a
+  research proposal.
+
+input:
+  mode: planning_only
+  related_domain: tooling
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "physics_lab/schemas/agent_run.schema.json"
+    - "physics_lab/schemas/hypothesis_proposal.schema.json"
+    - "physics_lab/schemas/experiment_proposal.schema.json"
+    - "physics_lab/schemas/example_config.schema.json"
+    - "physics_lab/registry/research_proposals.py"
+    - "physics_lab/registry/agent_runs.py"
+    - "physics_lab/registry/examples.py"
+  planning_context: >
+    The cheat-sheet should cover at minimum: agent_run.yaml required
+    shape including verdict enum (SANDBOX_PASS / SANDBOX_FAIL /
+    FALSIFIED / INCONCLUSIVE / OVERFITTED / REVIEW_NEEDED),
+    proposal_paths cross-validation, the campaign_profile_id ->
+    campaign_profiles/<id>.yaml existence requirement, the
+    FORMULA_SEARCH_MARKERS / BASELINE_MARKERS rule for
+    formula-search-like proposals, the examples/ folder
+    schema lock and the supported workflow shapes there, and the
+    fact that hypothesis and experiment proposal files must exist
+    and validate before an agent_run.yaml can pass.
+
+requirements:
+  - "Write docs/agent-task-quick-reference.md grouped by artifact kind (campaign_profile, hypothesis_proposal, experiment_proposal, agent_run, example_config) with required fields, enums, and a 'common failure mode' bullet list per kind."
+  - "Cross-link from docs/agent-task-protocol.md and from CLAUDE.md so onboarding agents see it on first pass."
+  - "Surface the FORMULA_SEARCH_MARKERS / BASELINE_MARKERS rule and the examples/ schema lock explicitly in the cheat-sheet."
+  - "Do not duplicate full schema bodies; reference them by path."
+  - "Do not introduce new schema files or change validator behavior in the same PR."
+
+accepted_outputs:
+  - "docs/agent-task-quick-reference.md"
+  - "minor cross-links from docs/agent-task-protocol.md and CLAUDE.md"
+  - "tests updated only if a docs-link integrity test exists and needs the new file added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Documentation-only PR; estimated ~3-4 hours; expected to recoup itself on the next 2-3 autonomous_research_pilot tasks."
