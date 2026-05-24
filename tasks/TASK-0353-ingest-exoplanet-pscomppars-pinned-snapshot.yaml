@@ -1,7 +1,7 @@
 id: TASK-0353
 title: "Ingest pinned exoplanet PSCompPars mass-radius snapshot"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

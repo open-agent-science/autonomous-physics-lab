@@ -1,7 +1,7 @@
 id: TASK-0341
 title: "Run nuclear extrapolated-measured boundary hypothesis lane"
 type: autonomous_research_pilot
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: medium
 
