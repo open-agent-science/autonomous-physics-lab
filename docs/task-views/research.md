@@ -13,7 +13,6 @@
 - `TASK-0369` - Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0370` - Run exoplanet regime residual scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
 - `TASK-0371` - Curate atomic Beloy 2021 direct-ratio rows (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0372` - Add atomic source-artifact version-drift stop condition (`scientific_dataset`, priority `high`, difficulty `low`, domain `atomic_clock_residuals`)
 
 ## IN_PROGRESS
 
@@ -22,6 +21,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0368` - Define nuclear residual-feature no-leakage contract (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0372` - Add atomic source-artifact version-drift stop condition (`scientific_dataset`, priority `high`, difficulty `low`, domain `atomic_clock_residuals`)
 - `TASK-0373` - Define cross-campaign fresh-data intake protocol (`research_infrastructure`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
 - `TASK-0374` - Add cross-campaign source artifact package template (`research_infrastructure`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
 - `TASK-0375` - Add shared source manifest minimum schema (`schema_extension`, priority `high`, difficulty `high`, domain `cross_campaign_data_policy`)
