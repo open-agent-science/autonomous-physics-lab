@@ -1,0 +1,73 @@
+package_id: SOURCE-ARTIFACT-PACKAGE-TEMPLATE-0001
+schema_version: 0.1.0
+task_id: TASK-0374
+package_status: METADATA_ONLY_TEMPLATE
+campaign_profile_id: replace-with-campaign-profile-id
+source_id: replace-with-source-id
+source_title: replace-with-source-title
+source_family: metadata_only_placeholder
+
+locators:
+  doi: null
+  arxiv_id: null
+  archive_url: null
+  source_url: null
+  citation: Replace with source-specific citation text before source review.
+
+artifact:
+  artifact_type: metadata_only
+  artifact_path: null
+  artifact_locator: null
+  retrieval_date_utc: null
+  retrieved_by: not_retrieved_template_only
+  checksum_sha256: null
+  checksum_scope: not_applicable_metadata_only
+  archive_policy: required_before_value_use
+  value_bearing_artifact: false
+
+redistribution:
+  redistribution_status: not_reviewed
+  license_note: Template only; no external artifact is committed.
+  citation_note: Replace before row curation or artifact pinning.
+  raw_artifact_commit_allowed: false
+  derived_artifact_commit_allowed: false
+
+row_admissibility:
+  row_class: source_candidate_only
+  inclusion_status: metadata_only
+  row_schema_kind: null
+  extraction_method: metadata_only
+  uncertainty_semantics: not_applicable_metadata_only
+  accepted_for_benchmark: false
+  blocker_reasons:
+    - CHECKSUM_NOT_PINNED
+    - LICENSE_REVIEW_REQUIRED
+    - EXTRACTION_NOT_REVIEWED
+
+example_source_classes:
+  pdf:
+    artifact_type: pdf
+    expected_checksum_scope: raw_artifact
+    value_policy: raw_pdf_contains_source_values_but_template_records_metadata_only
+  csv_snapshot:
+    artifact_type: csv_snapshot
+    expected_checksum_scope: raw_artifact
+    value_policy: raw_csv_may_be_value_bearing_only_after_task_approval
+  supplementary_table:
+    artifact_type: supplementary_table
+    expected_checksum_scope: raw_artifact
+    value_policy: table_values_require_license_review_and_extraction_notes
+  figure_digitisation:
+    artifact_type: figure_image
+    expected_checksum_scope: raw_artifact_plus_digitisation_output
+    value_policy: digitised_points_require_calibration_and_precision_notes
+  api_snapshot:
+    artifact_type: api_response
+    expected_checksum_scope: raw_artifact
+    value_policy: query_contract_and_response_checksum_required
+
+review:
+  review_status: not_started
+  reviewed_by: null
+  review_notes: Template package. Replace placeholders in a source-specific task.
+  allowed_next_step: source_review
