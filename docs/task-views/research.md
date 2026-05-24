@@ -8,7 +8,6 @@
 
 - `TASK-0362` - Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0364` - Attempt quantum PMC/arXiv direct-table source curation (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
-- `TASK-0365` - Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0367` - Run nuclear high-error cluster adversarial stability audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0369` - Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0370` - Run exoplanet regime residual scout (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
@@ -20,6 +19,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0365` - Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0368` - Define nuclear residual-feature no-leakage contract (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0372` - Add atomic source-artifact version-drift stop condition (`scientific_dataset`, priority `high`, difficulty `low`, domain `atomic_clock_residuals`)
 - `TASK-0373` - Define cross-campaign fresh-data intake protocol (`research_infrastructure`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
