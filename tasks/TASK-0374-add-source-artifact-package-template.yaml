@@ -1,7 +1,7 @@
 id: TASK-0374
 title: "Add cross-campaign source artifact package template"
 type: research_infrastructure
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -33,10 +33,12 @@ requirements:
   - "Do not fetch or ingest live source artifacts."
 
 accepted_outputs:
-  - "templates/source_artifact_package/README.md or docs/templates/source-artifact-package.md"
+  - "templates/source_artifact_package/README.md"
   - "templates/source_artifact_package/provenance.yaml"
   - "templates/source_artifact_package/license_review.md"
   - "templates/source_artifact_package/extraction_notes.md"
+  - "templates/source_artifact_package/raw_derived_policy.md"
+  - "templates/source_artifact_package/blocker_notes.md"
   - "docs/reviews/source-artifact-package-template-review.md"
 
 validation:
