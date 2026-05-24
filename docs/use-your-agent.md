@@ -9,6 +9,10 @@ The goal is not to let an agent improvise physics claims. The goal is to let
 an agent help with reproducible, reviewable work inside the repository's
 protocol.
 
+The best first session is not "agent, go do anything." It is: "agent, show me
+the current research lanes, recommend a bounded task, then execute it through
+the PR protocol after I choose."
+
 ## Quickstart: Start In Research Mode
 
 Run the onboarding entrypoint first:
@@ -21,11 +25,10 @@ This starts **Research Mode** with a gentler first step: the agent should
 explain the current scientific mission, show a few `READY` options, estimate
 effort, recommend one, and wait for your choice before editing files.
 
-For a coding agent, use:
+For machine-readable context or a full autonomous prompt after onboarding, use:
 
 ```bash
 python3 scripts/apl_mission.py --json
-python3 scripts/apl_mission.py --onboarding
 python3 scripts/apl_mission.py --agent-prompt
 ```
 
@@ -53,6 +56,20 @@ The default contribution path is mission-first:
 
 For a first run, prefer onboarding. It gives the user a pause point before the
 agent starts editing files.
+
+## Best First Tasks
+
+Good first tasks usually have a visible scientific reason and a bounded output:
+
+| Surface | Good first contribution |
+| --- | --- |
+| Nuclear Mass Surface | evidence synthesis, source-readiness review, domain-limit audit, or negative-control packaging |
+| Quantum Size Effects | direct-source triage, source-artifact package, or readiness-gate note |
+| Atomic-Clock Residuals | source-class review, covariance semantics, or synthetic loader/readiness work |
+| Exoplanet Mass-Radius | snapshot provenance, row-class checks, or baseline-protocol review |
+
+Support tasks are still useful, but use support mode when that is the goal.
+For ordinary onboarding, start with the research mission options first.
 
 ## One-Task One-Branch Discipline
 
@@ -183,8 +200,8 @@ metrics, caveats, and the intentionally skipped Muon g-2 stress-test lane.
 - do not invent a new task id
 - do not promote a claim without maintainer review
 - do not rewrite canonical `results/` artifacts casually
-- do not say "AI resolved physics"
-- do not use "proof" or discovery-framing language for benchmark results
+- do not say "AI finalized physics"
+- do not use certainty or validated-result framing for benchmark results
 - do not hide limitations
 
 ## Practical Prompt Pattern
@@ -204,7 +221,7 @@ autonomously: create the task branch, inspect evidence, test or audit the
 hypothesis, preserve negative results, run validation, generate a review
 bundle, and prepare a PR. Keep outputs sandbox-only unless a canonical task
 explicitly allows promotion. Do not promote claims, rewrite canonical results,
-or use breakthrough-style wording.
+or use unsupported headline-style wording.
 ```
 
 For full autonomous execution, replace `--onboarding` with `--agent-prompt`.

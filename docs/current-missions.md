@@ -1,21 +1,24 @@
 # Current Missions
 
-APL now uses an **Agent First / Research First / Parallel Work** entrypoint.
+APL uses an **Agent First / Research First / Parallel Work** entrypoint.
 
-The default path for a new coding agent is no longer "scan every task and pick
+The default path for a new coding agent is not "scan every file and pick
 something small." The default path is:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --onboarding
 ```
 
-That command starts **Research Mode** and recommends the highest-value
-reviewable scientific mission. When multiple agents are available, the default
-operating model is to run several bounded research lanes in parallel through
-separate branches or worktrees. Those lanes may be in different campaigns, or
-inside the same campaign when the hypothesis families and write surfaces are
-disjoint. Support, microtask, review, and closeout work still exists, but it is
-explicit:
+Onboarding mode should explain the current scientific mission, show a few
+`READY` options with estimated effort, recommend one, and wait before editing
+files. For autonomous agent context after the user already understands the
+flow, use:
+
+```bash
+python3 scripts/apl_mission.py --agent-prompt
+```
+
+Support, review, and closeout work remain explicit:
 
 ```bash
 python3 scripts/apl_mission.py --mode support
@@ -24,125 +27,94 @@ python3 scripts/apl_mission.py --mode maintainer
 
 Mission policy and campaign guardrails live in
 [`../missions/current.yaml`](../missions/current.yaml). Live task candidates
-come from canonical `tasks/TASK-*.yaml` files through the mission script, so the
-mission YAML does not need to be edited just to rotate the next task after every
-merge. For lighter navigation than the full generated board, use the generated
-task views:
+come from canonical `tasks/TASK-*.yaml` files through the mission script. For
+lighter navigation than the full generated board, use:
 [`research.md`](./task-views/research.md),
 [`support.md`](./task-views/support.md),
 [`release.md`](./task-views/release.md),
 [`watchlist.md`](./task-views/watchlist.md), and
 [`blocked.md`](./task-views/blocked.md).
 
-## Default Mode
+## Recommended Mission Now
 
-Default mode: `research`
+**Nuclear Mass Surface** remains the flagship validation surface.
+
+Recommended default: start with the live `research` recommendation from
+`python3 scripts/apl_mission.py --onboarding`. The best default work is not
+more broad formula expansion; it is source-readiness, stress synthesis,
+no-peek reveal discipline, domain-limit mapping, evidence packaging, and
+negative-result preservation.
+
+If the Nuclear queue is saturated or a maintainer wants parallel breadth, the
+next best surfaces are Quantum Size Effects, Atomic-Clock Residuals, and
+Exoplanet Mass-Radius. Those surfaces should stay source- and protocol-first
+until their baseline gates are ready.
+
+## Current Mission Shape
+
+APL currently has one flagship validation campaign and three fresh-data
+surfaces that are intentionally moving more slowly. That mix is deliberate:
+some agents can stress the strongest current evidence, while others build the
+source discipline needed for future campaigns.
+
+| Surface | Role right now | Good agent work |
+| --- | --- | --- |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, and reveal-readiness blockers | stress synthesis, source-readiness review, no-peek protocol checks, evidence packaging, negative-result preservation |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | direct-source triage, source-artifact packaging, digitization protocol review, readiness gates |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface still in manifest/covariance hardening | source-class review, covariance semantics, synthetic loader checks, real-row readiness gates |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Emerging catalog-snapshot benchmark surface | snapshot provenance, row-class validation, baseline protocol review, residual-map preparation |
+
+Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
+Particle Mass Relations keep the repository honest about exact references,
+falsification, and overclaim resistance. They are not the default landing-page
+focus unless the maintainer asks for replay, documentation, or benchmark
+hygiene work.
+
+## Default Research Mode
 
 Research Mode is for:
 
-- hypothesis testing;
+- bounded hypothesis tests;
 - replay and split-sensitivity checks;
 - adversarial audits of sandbox evidence;
-- bounded sandbox experiments;
-- negative result preservation;
-- PR-ready result drafts.
+- source and provenance review;
+- negative, null, overfit, or inconclusive result preservation;
+- PR-ready result, evidence, or blocker artifacts.
 
-It is not a claim-promotion lane. Canonical claims, knowledge, and result
-artifacts still require maintainer review.
+It is not a claim-promotion lane. Canonical claims, knowledge, public result
+promotion, and reveal scoring require explicit task scope and maintainer
+review.
 
-## Recommended Mission Now
+## Parallel Agent Policy
 
-**Nuclear Mass Surface** is the current flagship validation mission.
+Multiple agents can work in parallel when they increase coverage rather than
+duplicate effort.
 
-Recommended direction:
-
-1. Use `python3 scripts/apl_mission.py --json` to choose among live task
-   candidates from the task registry.
-2. Prefer nuclear validation, adversarial review, evidence packaging,
-   post-AME2020 time-split review, prediction-registry expansion, or guarded
-   follow-up tasks before opening any additional broad second-batch expansion.
-3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
-4. Use the nuclear robustness gate, row-level time-split evidence, and
-   maintainer-approved adversarial review outcomes before any sandbox lane
-   expands a candidate family further.
-
-Why:
-
-- it uses a real data surface;
-- the frozen baseline and holdout protocol already exist;
-- the first autonomous nuclear pilot exists;
-- the strongest candidate is still sandbox-only evidence;
-- split-sensitivity replay now exists as review-ready sandbox evidence;
-- a review-ready robustness gate now defines what counts as allowed follow-up,
-  negative-control-only evidence, or promotion-blocking instability;
-- active retrospective post-AME2020 time-split evidence now exists as
-  `AGENT-RUN-0008` and is intentionally inconclusive;
-- the next scientific value comes from validation, time-split evidence, and
-  prediction discipline, not from broadening claims.
-
-Guardrails:
-
-- do not promote `HYP-PROPOSAL-0021` to a claim automatically;
-- do not describe the residual candidate as breakthrough physics;
-- do not run unbounded nuclear formula search;
-- do not rewrite canonical result artifacts casually.
-- do not call post-AME2020 evaluation strict blind prediction; it is
-  retrospective time-split evidence unless predictions were registered before
-  measurement.
-- do not use internal split wins as claim promotion unless the robustness gate
-  and external-style validation both allow it.
-
-## Alternatives
-
-The mission script also exposes secondary research directions and several live
-task candidates from the task registry:
-
-- **Anharmonic Oscillator Period Benchmark** — a safe nonlinear methodology
-  benchmark with perturbative and numerical baselines.
-- **Dimensional Analysis Validator** — a quality-floor track for formula sanity
-  checks and adversarial edge cases.
-
-These are good alternatives when the maintainer wants breadth, but the default
-recommendation remains the current top-ranked mission.
-
-## Parallel Agent Work
-
-`python3 scripts/apl_mission.py --json` includes `live_task_candidates` and a
-small `parallel_work_policy` section. In default Research Mode, research,
-replay, audit, and validation tasks are ranked before support tasks; support
-items are secondary options when they are useful or when a maintainer assigns
-them. Use those candidates as parallel options, not as a single global lock.
-
-Rules:
+Use these rules:
 
 - one local checkout should usually run one task at a time;
-- multiple local agents may work in parallel only through separate branches or
-  git worktrees;
-- prefer bounded parallel science lanes with disjoint hypothesis families over
-  one broad catch-all task;
-- same-campaign parallel work is allowed when each agent owns a distinct lane,
-  such as shell-aware, pairing/odd-even, neutron-rich, audit, or packaging;
-- parallel tasks should avoid the same artifact surfaces, especially
-  `tasks/ACTIVE.md`, `CONTEXT.md`, canonical `results/`, and the same docs page;
-- agents should not guess new canonical task ids during parallel work.
+- parallel local agents should use separate branches or git worktrees;
+- prefer disjoint campaigns, datasets, hypothesis families, or review
+  surfaces;
+- same-campaign parallel work is allowed only when artifact surfaces are
+  clearly separated;
+- executor agents should offer only `READY` tasks as available work;
+- `REVIEW_READY`, `DONE`, and `BLOCKED` tasks are for review, closeout, or
+  maintainer triage, not new executor work;
+- do not guess new canonical task ids during parallel work unless the
+  maintainer explicitly asks for canonical task creation.
 
-## Support And Maintainer Modes
+## What To Avoid Right Now
 
-Support Mode is for docs, tests, packaging, task hygiene, and microtasks:
-
-```bash
-python3 scripts/apl_mission.py --mode support
-```
-
-Maintainer Mode is for review and closeout assistance:
-
-```bash
-python3 scripts/apl_mission.py --mode maintainer
-```
-
-This preserves the existing maintainer review agent and closeout workflow.
-Agent First means research-first onboarding for new contributors; it does not
-mean bypassing maintainer authority.
+- Do not run Nuclear reveal scoring until a source-grade post-freeze data
+  release passes the reveal source gate.
+- Do not treat retrospective Nuclear audits as future blind validation.
+- Do not start the Quantum baseline benchmark until direct measurement rows or
+  an explicit weaker calibration-consistency scope is approved.
+- Do not fit atomic-clock or anomaly-style campaigns before source and
+  covariance semantics are reviewable.
+- Do not present exoplanet catalog snapshots as results before the baseline
+  protocol and row-class validation are complete.
 
 ## Copy-Paste Agent Prompt
 
@@ -152,19 +124,20 @@ Generate the current prompt with:
 python3 scripts/apl_mission.py --agent-prompt
 ```
 
-Short version:
+Short onboarding version:
 
 ```text
 You are working in Autonomous Physics Lab.
 
-Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
-then run `python3 scripts/apl_mission.py --json`. Choose the recommended
-research mission unless the maintainer gave a stricter task. Use the
-recommended `task_id` to create a canonical task branch before editing files.
-Execute the full loop autonomously: inspect
-evidence, test or audit the hypothesis, preserve negative results, update
-sandbox/review artifacts, run validation, generate a review bundle, and prepare
-a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
-promotion. Do not promote claims, rewrite canonical results, or use
-breakthrough-style wording.
+Start in Agent First Research Mode with onboarding. Read AGENTS.md and
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+Explain the current research mission briefly, show a few READY options with
+estimated time, recommend one, and wait for my choice before editing files.
+
+After I choose, execute the selected task through the repository protocol:
+create the task branch, inspect evidence, test or audit the hypothesis,
+preserve negative and inconclusive results, run validation, generate a review
+bundle, and prepare a PR. Keep outputs sandbox-only unless a canonical task
+explicitly allows promotion. Do not promote claims, rewrite canonical results,
+or use unsupported headline-style wording.
 ```

@@ -6,7 +6,7 @@ Prepare a fourth APL scientific campaign around the empirical relation between
 exoplanet mass and radius, using curated public catalog snapshots, conservative
 baselines, residual maps, and holdout discipline.
 
-The target is not planet discovery, habitability scoring, or a new universal
+The target is not planet detection, habitability scoring, or a new universal
 planet law. The target is a disciplined benchmark surface where standard
 mass-radius forecasts and compact agent-proposed variants can be compared
 against source-pinned catalog rows with uncertainty, provenance, and selection
@@ -14,20 +14,22 @@ effects kept visible.
 
 ## Current Status
 
-Planned fourth campaign with a first pinned source snapshot in review.
+Emerging fourth campaign with a pinned source snapshot and loader dry-run, but
+no benchmark result yet.
 
-This page records the strategic plan and source-ingestion posture. TASK-0353
-has produced a review-ready pinned NASA Exoplanet Archive PSCompPars snapshot
-with raw CSV, normalized YAML, checksums, row-class labels, and
-inclusion/exclusion reasons. No benchmark, residual map, prediction registry
-entry, result, claim, or public article artifact exists yet.
+This page records the strategic plan and source-ingestion posture. `TASK-0353`
+produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,
+normalized YAML, checksums, row-class labels, and inclusion/exclusion reasons.
+`TASK-0354` added a loader dry-run for validating the ingestion path. No
+baseline benchmark, residual map, prediction registry entry, result, claim, or
+public article artifact exists yet.
 
-`TASK-0337` is the first preparation task. It should create the source and
-schema surface before any agent runs metrics:
+`TASK-0337` created the first source and schema surface before any agent runs
+metrics:
 
 - a value-free data-area README and source-manifest template;
 - a row schema for mass, radius, uncertainties, provenance, and method flags;
-- a holdout protocol for planet class, discovery method, host-star context,
+- a holdout protocol for planet class, detection method, host-star context,
   mass/radius ranges, and source-date splits;
 - a source-surface review that decides what a pinned NASA Exoplanet Archive
   snapshot may contain and what must stay excluded.
@@ -52,7 +54,7 @@ and an accessible public story.
 
 ## Expected Results
 
-The first useful result should be a benchmark, not a discovery claim:
+The first useful result should be a benchmark, not a validated claim:
 
 - reproduce a conservative mass-radius baseline on a frozen catalog snapshot;
 - report residuals and uncertainty-aware errors by planet class and method;
@@ -101,9 +103,9 @@ The campaign should mature in this order:
 
 1. `TASK-0337` source and schema scaffold.
 2. `TASK-0353` pinned catalog snapshot with checksum, citation, and retrieval
-   date (review-ready; no metrics).
+   date (DONE; no metrics).
 3. Loader validation with row-class flags and uncertainty semantics
-   (`TASK-0354`, review-ready).
+   (`TASK-0354`, DONE).
 4. Conservative Chen-Kipping-style baseline reproduction.
 5. Residual and failure-map report.
 6. Bounded autonomous hypothesis pilot only after the benchmark is frozen.

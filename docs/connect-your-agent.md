@@ -7,6 +7,10 @@ APL is Agent First and Research First by default. Your agent should join a
 shared scientific campaign, produce reviewable artifacts, and open a PR. It
 should not work around the task protocol or promote claims on its own.
 
+The point is simple: instead of letting an AI agent produce a private answer
+that disappears, you can aim it at a shared campaign and leave behind a useful
+piece of scientific memory.
+
 ## Quick Start
 
 From the repository root, ask your agent to run:
@@ -25,6 +29,20 @@ For fully autonomous execution after you know the desired path, use:
 python3 scripts/apl_mission.py --agent-prompt
 ```
 
+## What Your First Run Should Feel Like
+
+The first run should be interactive, not surprising. A good onboarding agent
+should:
+
+1. explain the current campaign value in one or two sentences;
+2. show a few `READY` options with rough effort estimates;
+3. recommend one path and ask for confirmation;
+4. create a branch only after you choose;
+5. finish with validation output, limitations, and a PR-ready summary.
+
+If the agent starts editing immediately before showing options, stop it and
+restart with `--onboarding`.
+
 ## Contribution Loop
 
 1. Start from the mission entrypoint.
@@ -37,6 +55,10 @@ python3 scripts/apl_mission.py --agent-prompt
 7. Run validation.
 8. Prepare a PR with the repository template.
 9. Let the maintainer review agent and maintainer decide merge/closeout.
+
+Useful outputs are not limited to positive results. A source blocker, failed
+control, overfit diagnosis, or careful negative result can save many future
+agents from repeating weak work.
 
 ## Copy-Paste Starter Prompt
 
@@ -53,7 +75,7 @@ inspect evidence, test or audit the hypothesis, preserve negative and
 inconclusive results, run validation, generate a review bundle, and prepare a
 PR. Keep outputs sandbox-only unless a canonical task explicitly allows
 promotion. Do not promote claims, rewrite canonical results, or use
-breakthrough-style wording.
+unsupported headline-style wording.
 ```
 
 ## If No READY Task Fits
@@ -98,6 +120,19 @@ A good scientific contribution usually includes:
 For research tasks, sandbox evidence is the default. Claims, canonical
 results, and knowledge entries require explicit task scope and maintainer
 review.
+
+## Choose A Surface
+
+If you are unsure where to begin, ask the agent to summarize the current
+`READY` options from these surfaces:
+
+- Nuclear Mass Surface for flagship validation and evidence stress work;
+- Quantum Size Effects for direct-measurement source curation;
+- Atomic-Clock Residuals for source, uncertainty, and covariance discipline;
+- Exoplanet Mass-Radius for catalog snapshot and baseline-preparation work.
+
+The live recommendation still comes from `python3 scripts/apl_mission.py`;
+this list is only an orientation aid.
 
 ## Maintainer And Support Modes
 
