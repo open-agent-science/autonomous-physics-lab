@@ -64,6 +64,11 @@ def _msg(
 
 
 NOW = datetime.datetime(2026, 5, 19, 12, 0, 0, tzinfo=datetime.timezone.utc)
+# The CLI path intentionally uses real ``now``. Keep its fixtures relative so
+# these tests do not expire as wall-clock time moves past the fixed window below.
+RECENT_ROLLING = (
+    datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=1)
+).replace(microsecond=0).isoformat()
 # Two days before NOW — inside the rolling 7-day window.
 THIS_MONTH = "2026-05-17T10:00:00+00:00"
 # 21 days before NOW — outside both the calendar month and the 7-day window.
@@ -239,13 +244,13 @@ class TestEvaluate:
 
 class TestMain:
     def test_dry_run_always_exits_zero(self, tmp_path, monkeypatch):
-        _write_session(tmp_path, [_msg(THIS_MONTH, 10_000_000, 10_000_000)])
+        _write_session(tmp_path, [_msg(RECENT_ROLLING, 10_000_000, 10_000_000)])
         monkeypatch.setenv("CLAUDE_PROJECTS_DIR", str(tmp_path))
         rc = main(["--dry-run", "--limit", "1000"])
         assert rc == 0
 
     def test_under_threshold_exits_zero(self, tmp_path, monkeypatch, capsys):
-        _write_session(tmp_path, [_msg(THIS_MONTH, 100, 100)])
+        _write_session(tmp_path, [_msg(RECENT_ROLLING, 100, 100)])
         monkeypatch.setenv("CLAUDE_PROJECTS_DIR", str(tmp_path))
         rc = main(["--limit", "6000000", "--threshold", "50"])
         assert rc == 0
@@ -253,13 +258,13 @@ class TestMain:
         assert out["under_threshold"] is True
 
     def test_over_threshold_exits_one(self, tmp_path, monkeypatch):
-        _write_session(tmp_path, [_msg(THIS_MONTH, 5_000_000, 5_000_000)])
+        _write_session(tmp_path, [_msg(RECENT_ROLLING, 5_000_000, 5_000_000)])
         monkeypatch.setenv("CLAUDE_PROJECTS_DIR", str(tmp_path))
         rc = main(["--limit", "6000000", "--threshold", "50"])
         assert rc == 1
 
     def test_output_is_valid_json(self, tmp_path, monkeypatch, capsys):
-        _write_session(tmp_path, [_msg(THIS_MONTH, 1000, 2000)])
+        _write_session(tmp_path, [_msg(RECENT_ROLLING, 1000, 2000)])
         monkeypatch.setenv("CLAUDE_PROJECTS_DIR", str(tmp_path))
         main(["--dry-run", "--limit", "6000000"])
         out = capsys.readouterr().out
@@ -278,13 +283,13 @@ class TestMain:
         assert parsed["window_days"] == 7
 
     def test_projects_dir_flag(self, tmp_path, capsys):
-        _write_session(tmp_path, [_msg(THIS_MONTH, 500, 500)])
+        _write_session(tmp_path, [_msg(RECENT_ROLLING, 500, 500)])
         main(["--dry-run", "--projects-dir", str(tmp_path), "--limit", "6000000"])
         out = json.loads(capsys.readouterr().out)
         assert out["total_tokens"] == 1000
 
     def test_env_var_weekly_limit(self, tmp_path, monkeypatch, capsys):
-        _write_session(tmp_path, [_msg(THIS_MONTH, 100, 100)])
+        _write_session(tmp_path, [_msg(RECENT_ROLLING, 100, 100)])
         monkeypatch.setenv("CLAUDE_PROJECTS_DIR", str(tmp_path))
         monkeypatch.setenv("CLAUDE_WEEKLY_TOKEN_LIMIT", "1000")
         monkeypatch.delenv("CLAUDE_MONTHLY_TOKEN_LIMIT", raising=False)
@@ -297,7 +302,7 @@ class TestMain:
     def test_deprecated_env_var_monthly_limit_still_honored(
         self, tmp_path, monkeypatch, capsys
     ):
-        _write_session(tmp_path, [_msg(THIS_MONTH, 100, 100)])
+        _write_session(tmp_path, [_msg(RECENT_ROLLING, 100, 100)])
         monkeypatch.setenv("CLAUDE_PROJECTS_DIR", str(tmp_path))
         monkeypatch.delenv("CLAUDE_WEEKLY_TOKEN_LIMIT", raising=False)
         monkeypatch.setenv("CLAUDE_MONTHLY_TOKEN_LIMIT", "2000")
@@ -310,7 +315,7 @@ class TestMain:
     def test_weekly_env_var_wins_over_monthly_alias(
         self, tmp_path, monkeypatch, capsys
     ):
-        _write_session(tmp_path, [_msg(THIS_MONTH, 100, 100)])
+        _write_session(tmp_path, [_msg(RECENT_ROLLING, 100, 100)])
         monkeypatch.setenv("CLAUDE_PROJECTS_DIR", str(tmp_path))
         monkeypatch.setenv("CLAUDE_WEEKLY_TOKEN_LIMIT", "3000")
         monkeypatch.setenv("CLAUDE_MONTHLY_TOKEN_LIMIT", "9999")
