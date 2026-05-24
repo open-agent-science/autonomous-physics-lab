@@ -14,15 +14,32 @@ effects kept visible.
 
 ## Current Status
 
-Emerging fourth campaign with a pinned source snapshot and loader dry-run, but
-no benchmark result yet.
+Active benchmark surface with a pinned source snapshot, loader dry-run, first
+baseline comparison, and one bounded regime scout. The campaign has useful
+reviewable residual evidence, but no claim, prediction registry entry, RESULT-*,
+or public article artifact yet.
 
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,
 normalized YAML, checksums, row-class labels, and inclusion/exclusion reasons.
-`TASK-0354` added a loader dry-run for validating the ingestion path. No
-baseline benchmark, residual map, prediction registry entry, result, claim, or
-public article artifact exists yet.
+`TASK-0354` added a loader dry-run for validating the ingestion path. `TASK-0361`
+ran the first frozen Chen-Kipping-style baseline comparison on the committed
+snapshot. `TASK-0370` ran a bounded regime residual scout over known transition
+regions.
+
+Current scientific reading:
+
+- `TASK-0361` is **INCONCLUSIVE**: the frozen CK17-style baseline beats a
+  per-class median null on the true-mass / transit-radius axis, but loses badly
+  on the minimum-mass / transit-radius axis. This is a useful first benchmark
+  and a warning that mass provenance must stay visible.
+- `TASK-0370` is **INCONCLUSIVE**: three executed regime slices show visible
+  residual structure, especially hot-Jupiter and Jovian-radius subsets, but the
+  strongest matched controls explain enough of the improvement that no regime
+  correction is promoted.
+- `TASK-0362` and `TASK-0369` are the next useful science tasks: package the
+  residual/failure map and audit the true-mass slice before opening a narrower
+  correction-hypothesis task.
 
 `TASK-0337` created the first source and schema surface before any agent runs
 metrics:
@@ -73,22 +90,22 @@ bounded variants survive honest holdouts.
 
 ## Guardrails
 
-Allowed early work:
+Allowed current work:
 
 - source manifest and license/provenance review;
-- schema and loader planning;
+- schema and loader planning or maintenance;
 - deterministic snapshot policy;
 - holdout protocol;
-- baseline reproduction plan;
-- residual visualization plan without metrics.
+- residual failure-map packaging from the frozen baseline;
+- true-mass residual slice audit;
+- bounded regime follow-up only when matched controls stay explicit.
 
 Not allowed yet:
 
 - live archive fetching inside agent tasks without a pinned snapshot policy;
-- benchmark metrics before the schema and holdout protocol exist;
 - claims that APL discovered a planet-composition law;
 - habitability, life, biosignature, or planet-prioritization claims;
-- public article work before a reviewed benchmark artifact exists;
+- public article work before a reviewed residual map exists;
 - mixing true mass, minimum mass, and model-derived mass without explicit
   row-class flags.
 
@@ -106,9 +123,13 @@ The campaign should mature in this order:
    date (DONE; no metrics).
 3. Loader validation with row-class flags and uncertainty semantics
    (`TASK-0354`, DONE).
-4. Conservative Chen-Kipping-style baseline reproduction.
-5. Residual and failure-map report.
-6. Bounded autonomous hypothesis pilot only after the benchmark is frozen.
+4. Conservative Chen-Kipping-style baseline reproduction (`TASK-0361`, DONE;
+   inconclusive but useful).
+5. Bounded regime residual scout (`TASK-0370`, DONE; no correction promoted).
+6. Residual and failure-map report (`TASK-0362`, READY).
+7. True-mass residual slice audit (`TASK-0369`, READY).
+8. Bounded autonomous hypothesis pilot only after the residual map and
+   true-mass audit identify a narrow, control-surviving target.
 
-Until step 4 lands, this campaign is a source/dataset preparation lane, not
-an active result surface.
+This campaign is now the fastest APL path to a visible, scientist-readable
+benchmark artifact. It is not yet a discovery surface.
