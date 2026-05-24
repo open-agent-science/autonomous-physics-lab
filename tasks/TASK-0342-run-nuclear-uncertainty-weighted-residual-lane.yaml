@@ -1,7 +1,7 @@
 id: TASK-0342
 title: "Run nuclear uncertainty-weighted residual hypothesis lane"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
