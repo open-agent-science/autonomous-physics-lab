@@ -213,15 +213,10 @@ You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode with onboarding. Read AGENTS.md and
 docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
-Explain the current research mission briefly, show a few READY options with
-estimated time, recommend one, and wait for my choice before editing files.
-When listing available work, include only READY tasks; do not offer REVIEW_READY
-tasks as executor options. After I choose, execute the selected task
-autonomously: create the task branch, inspect evidence, test or audit the
-hypothesis, preserve negative results, run validation, generate a review
-bundle, and prepare a PR. Keep outputs sandbox-only unless a canonical task
-explicitly allows promotion. Do not promote claims, rewrite canonical results,
-or use unsupported headline-style wording.
+Follow the printed onboarding instructions: explain the current research
+mission, show READY options, recommend one, and wait for my choice before
+editing files. Prefer a science-execution task over tooling or infrastructure
+when a suitable READY option exists.
 ```
 
 For full autonomous execution, replace `--onboarding` with `--agent-prompt`.
