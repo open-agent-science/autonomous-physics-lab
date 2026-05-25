@@ -59,9 +59,6 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0362` — Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0369` — Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0387` — Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0388` — Refresh campaign status after latest agent results (`documentation`, priority `high`, difficulty `low`)
 
@@ -71,6 +68,7 @@ None.
 - `TASK-0385` — Support multi-proposal maintainer-review validation (merged)
 - `TASK-0384` — Document lightweight APL architecture layer model (merged)
 - `TASK-0383` — Add READY science task pool health policy (merged)
+- `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (merged)
 - `TASK-0380` — Define result promotion scorecard (merged)
 - `TASK-0377` — Add fresh-data stop-condition vocabulary (merged)
 - `TASK-0376` — Add fresh-data extraction ledger template (merged)
@@ -79,10 +77,12 @@ None.
 - `TASK-0373` — Define cross-campaign fresh-data intake protocol (merged)
 - `TASK-0372` — Add atomic source-artifact version-drift stop condition (merged)
 - `TASK-0370` — Run exoplanet regime residual scout (merged)
+- `TASK-0369` — Run exoplanet true-mass residual slice audit (merged)
 - `TASK-0368` — Define nuclear residual-feature no-leakage contract (merged)
 - `TASK-0366` — Align task-queue review with post-merge board sync policy (merged)
 - `TASK-0365` — Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (merged)
 - `TASK-0363` — Pin atomic Beloy 2021 source artifact and covariance preflight (merged)
+- `TASK-0362` — Package exoplanet mass-radius residual failure map (merged)
 - `TASK-0361` — Run exoplanet mass-radius baseline benchmark (merged)
 - `TASK-0360` — Make automation harness tests cross-platform (merged)
 - `TASK-0359` — Harden self-hosted CI runner fallback and queue visibility (merged)

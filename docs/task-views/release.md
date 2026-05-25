@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0381` - Add nuclear prediction registry count and reveal-readiness report (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+None.
