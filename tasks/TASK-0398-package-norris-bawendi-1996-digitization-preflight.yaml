@@ -1,0 +1,51 @@
+id: TASK-0398
+title: "Package Norris-Bawendi 1996 digitization preflight"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Unblock Quantum Size Effects through direct measurement provenance rather than calibration-polynomial rows."
+  - "Turn the current source blocker into a deterministic digitization-ready package."
+  - "Keep Quantum active without weakening its row-quality rules."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md"
+    - "docs/reviews/quantum-open-direct-table-source-triage.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    TASK-0364 found no clean printed-table source among the checked PMC/arXiv
+    candidates and recommended the Norris-Bawendi 1996 C5 digitization path.
+    This task should prepare the digitization preflight package and only add
+    rows if the committed artifact satisfies the existing digitization protocol.
+
+requirements:
+  - "Identify the exact Norris-Bawendi 1996 figure/table target and provenance needed for direct measurement rows."
+  - "Create or update a source-artifact package with checksum, citation, license/access notes, and extraction ledger."
+  - "Apply the committed digitization protocol before any row is added."
+  - "If a WebPlotDigitizer-class artifact is not available, write a blocker review instead of estimating values by eye."
+  - "Do not add rows derived from published sizing polynomials or LLM memory."
+  - "Do not unblock TASK-0225 unless the row-level readiness gate is satisfied."
+
+accepted_outputs:
+  - "docs/reviews/quantum-norris-bawendi-1996-digitization-preflight.md"
+  - "optional source artifact package under data/quantum_dots/source_artifacts/"
+  - "optional extraction ledger if a deterministic digitization artifact is available"
+  - "optional qd-*.yaml rows only if direct-row provenance passes the protocol"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

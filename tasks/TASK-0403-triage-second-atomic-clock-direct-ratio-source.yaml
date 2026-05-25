@@ -1,0 +1,49 @@
+id: TASK-0403
+title: "Triage second atomic-clock direct-ratio source"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Move Atomic from a single-source seed toward a real row-level source surface."
+  - "Keep fresh-data ingestion explicit and checksum-backed."
+  - "Create an independent Atomic source lane for parallel agents."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-clock-beloy-2021-direct-ratio-row-curation.md"
+    - "data/atomic_clocks/source_manifest.yaml"
+  planning_context: >
+    Atomic has one committed direct-ratio seed. A second independent source is
+    needed before the campaign can support meaningful residual or consistency
+    benchmarks. This task is source triage only unless direct values,
+    provenance, checksum, and uncertainty semantics are reviewable.
+
+requirements:
+  - "Identify and triage one candidate source for direct optical frequency-ratio rows beyond Beloy 2021."
+  - "Prefer sources with explicit ratio values, uncertainty budgets, clock species, measurement date or campaign context, and covariance/correlation notes."
+  - "Update the source manifest or write a blocker review with exact missing conditions."
+  - "Add rows only if source artifact, checksum, license/access notes, and schema validity are satisfied."
+  - "Do not fit drift, infer constants variation, create prediction entries, or promote a claim."
+
+accepted_outputs:
+  - "docs/reviews/atomic-second-direct-ratio-source-triage.md"
+  - "data/atomic_clocks/source_manifest.yaml"
+  - "optional source artifact package under data/atomic_clocks/source_artifacts/"
+  - "optional acr-*.yaml rows only if direct-row provenance passes the gate"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,52 @@
+id: TASK-0395
+title: "Refactor nuclear high-error cluster labels to residual-free features"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Salvage or falsify the high-error cluster lane without residual-label leakage."
+  - "Turn an inconclusive Nuclear result into a clean negative or bounded follow-up."
+  - "Keep Nuclear work disciplined around leakage controls instead of more slicing."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+    - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
+    - "agent_runs/AGENT-RUN-0030/agent_run.yaml"
+  planning_context: >
+    The high-error cluster lane produced a notable retrospective delta MAE but
+    failed stability checks and is not authorized for predictive use. A useful
+    follow-up is to rebuild the cluster labels from residual-free nuclear
+    features only, then rerun the relevant controls to decide whether the lane
+    should be retired or kept as diagnostic.
+
+requirements:
+  - "Define high-error cluster labels using only residual-free features such as Z, N, A, magic-number distance, parity, and committed uncertainty metadata."
+  - "Rerun the stability checks needed to compare against the previous residual-derived label behavior."
+  - "Include leave-one-out or equivalent target-exclusion logic where applicable."
+  - "Report whether the lane remains diagnostic-only, becomes a bounded follow-up candidate, or should be retired as a negative result."
+  - "Do not use direct residual magnitude to define target labels."
+  - "Do not add prediction entries or promote a claim."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0040/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0040/metrics.json"
+  - "agent_runs/AGENT-RUN-0040/report.md"
+  - "docs/reviews/nuclear-high-error-cluster-residual-free-label-audit.md"
+  - "tests for any reusable code that is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
