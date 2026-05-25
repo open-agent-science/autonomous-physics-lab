@@ -46,10 +46,8 @@ one PR.
 
 ## READY
 
-- `TASK-0362` — Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0364` — Attempt quantum PMC/arXiv direct-table source curation (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0367` — Run nuclear high-error cluster adversarial stability audit (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0369` — Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0371` — Curate atomic Beloy 2021 direct-ratio rows (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0378` — Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0379` — Add source artifact package validator helper (`repository_validation`, priority `medium`, difficulty `high`)
@@ -62,7 +60,11 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0362` — Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0369` — Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0387` — Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0388` — Refresh campaign status after latest agent results (`documentation`, priority `high`, difficulty `low`)
+
 ## DONE RECENTLY
 
 - `TASK-0386` — Polish public documentation paths linked from landing pages (merged)
