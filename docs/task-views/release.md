@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0378` - Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0378` - Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
