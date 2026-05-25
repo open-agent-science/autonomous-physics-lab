@@ -100,9 +100,10 @@ The blocker conditions met here are:
 - It did not add any new `qd-*.yaml` row.
 - It did not estimate figure coordinates, apply a sizing equation, apply a
   calibration polynomial, or copy values from memory.
-- It did not edit `data/quantum_dots/source_manifest.yaml`. A follow-up
-  task that wants to record the figure-derived classification per
-  source_id in the manifest may do so under a separate scope.
+- It did not add accepted source entries or any row-ready source artifact to
+  `data/quantum_dots/source_manifest.yaml`. It did record the negative
+  TASK-0364 verification round there as metadata so future agents do not
+  repeat the same table-derived attempt without first satisfying TASK-0306.
 - It did not run the Quantum Size Effects baseline benchmark or any
   autonomous pilot.
 - It did not promote any claim or knowledge update.
