@@ -38,7 +38,8 @@ docs/agent-task-protocol.md, then run:
 Follow the printed onboarding instructions: explain the current research
 mission, show a few READY options with estimated time, recommend one, and wait
 for my choice before editing files. Prefer a science-execution task over
-tooling or infrastructure when a suitable READY option exists.
+tooling or infrastructure when a suitable READY option exists. Do not run
+worktree or setup helpers until after I choose a task.
 ```
 
 For full autonomous execution after you understand the flow:

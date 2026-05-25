@@ -463,6 +463,7 @@ def test_render_onboarding_prompt_waits_for_user_choice(tmp_path: Path) -> None:
 
     assert "with onboarding" in rendered
     assert "Do not edit files yet" in rendered
+    assert "do not run worktree or setup helpers yet" in rendered
     assert "wait for my choice" in rendered or "wait for the user's choice" in rendered
     assert "TASK-0007" in rendered
     assert "~5-10 min" in rendered
@@ -472,6 +473,7 @@ def test_render_onboarding_prompt_waits_for_user_choice(tmp_path: Path) -> None:
     assert "macOS/Linux/WSL/Git Bash" in rendered
     assert "plain Windows shells" in rendered
     assert "git worktree add <path> -b <branch> origin/main" in rendered
+    assert "Run setup helpers only after the user chooses a task" in rendered
     assert "finish the local work" in rendered
     assert "stop before editing files and report the blocker" not in rendered
 

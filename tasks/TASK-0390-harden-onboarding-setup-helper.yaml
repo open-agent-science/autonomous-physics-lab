@@ -1,0 +1,52 @@
+id: TASK-0390
+title: "Harden onboarding prompt against premature worktree setup"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep first-run onboarding smooth for fresh clones and external agents."
+  - "Prevent agents from running optional worktree setup helpers before a task is chosen."
+  - "Make local Claude settings propagation optional instead of a first-run blocker."
+
+input:
+  mode: workflow
+  related_domain: onboarding
+  related_objects:
+    - "README.md"
+    - "physics_lab/registry/mission_control.py"
+    - "scripts/apl_setup_worktree.sh"
+    - "docs/notes/agent-worktree-discipline.md"
+  planning_context: >
+    A fresh Claude Code run in a new repository clone attempted to run
+    `scripts/apl_setup_worktree.sh` during onboarding before the user selected
+    a task. The helper then failed because `.claude/settings.local.json` is a
+    local-only optional file and is not present in fresh clones. Onboarding
+    should not be blocked by optional local settings propagation.
+
+requirements:
+  - "Do not change support, maintainer, or full autonomous agent prompt semantics except for safer wording."
+  - "Make `scripts/apl_setup_worktree.sh` exit successfully when no source `.claude/settings.local.json` exists."
+  - "Clarify that onboarding agents must not run worktree or setup helpers before the user chooses a task."
+  - "Keep worktree setup helper useful when a source settings file does exist."
+  - "Add or update tests for the setup helper no-op behavior."
+
+accepted_outputs:
+  - "README.md"
+  - "physics_lab/registry/mission_control.py"
+  - "scripts/apl_setup_worktree.sh"
+  - "docs/notes/agent-worktree-discipline.md"
+  - "tests/test_apl_setup_worktree.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_apl_setup_worktree.py tests/test_mission_control.py -q"
+    - "python3 scripts/apl_mission.py --onboarding"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

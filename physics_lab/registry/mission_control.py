@@ -662,7 +662,7 @@ Start in Agent First Research Mode with onboarding.
 
 1. Read AGENTS.md and docs/agent-task-protocol.md.
 2. Run `python3 scripts/apl_mission.py --json`.
-3. Do not edit files yet.
+3. Do not edit files yet, and do not run worktree or setup helpers yet.
 4. Briefly explain why the recommended mission is scientifically useful.
 5. Recommended mission now: {mission_title}.
 6. Recommended action now: {action_label}.
@@ -684,6 +684,8 @@ Start in Agent First Research Mode with onboarding.
     dedicated branch or worktree. On macOS/Linux/WSL/Git Bash, prefer
     `./scripts/apl_new_worktree.sh <branch>`; on plain Windows shells, use
     `git worktree add <path> -b <branch> origin/main` or a normal task branch.
+    Run setup helpers only after the user chooses a task and the task branch or
+    worktree exists.
     Before `git add` / `commit` / `push`, run
     `python3 scripts/apl_branch_precondition.py --expected-branch <branch>`.
 {candidate_block}
