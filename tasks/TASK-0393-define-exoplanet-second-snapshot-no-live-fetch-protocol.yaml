@@ -1,0 +1,49 @@
+id: TASK-0393
+title: "Define exoplanet second-snapshot no-live-fetch protocol"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Prepare exoplanets for a future fresh-data validation step without letting agents peek at live data."
+  - "Turn the visible exoplanet benchmark into a stronger prospective/reveal surface."
+  - "Keep data acquisition and hypothesis testing separated."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+    - "data/exoplanets/snapshot_plans/pscomppars_query.adql"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+  planning_context: >
+    Exoplanets are the fastest current route to a visible, reviewable science
+    surface, but a second snapshot must be handled like a reveal protocol rather
+    than a live-fetch convenience. This task defines the no-peek plan before
+    any agent ingests newer catalog rows.
+
+requirements:
+  - "Define a second-snapshot protocol with source URL, query, expected fields, artifact checksum, no-peek boundary, and maintainer approval requirements."
+  - "Specify what is frozen before ingestion: baseline, residual hypotheses, metric set, eligible slices, and exclusion rules."
+  - "Define reveal conditions and what counts as success, null, or blocker."
+  - "Do not fetch, ingest, or inspect a new live snapshot in this task."
+  - "Do not create prediction entries or claim candidates."
+
+accepted_outputs:
+  - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+  - "docs/reviews/exoplanet-second-snapshot-protocol-review.md"
+  - "optional schema or checklist update if needed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
