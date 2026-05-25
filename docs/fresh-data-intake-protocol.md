@@ -100,6 +100,12 @@ Mandatory artifacts:
 - License and citation notes.
 - Live-fetch policy.
 
+Optional validation:
+
+- Run `python3 -m physics_lab.cli validate-source-artifact-package <package-dir>`
+  on packages that use the reusable source-artifact package shape.
+  Use `--json` when automation needs machine-readable issue output.
+
 Campaign-specific artifacts:
 
 - Query contracts for API snapshots.
