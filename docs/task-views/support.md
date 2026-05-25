@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0382` - Add science-output conveyor health report (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_workflow`)
+None.
 
 ## IN_PROGRESS
 
@@ -15,5 +15,6 @@ None.
 ## REVIEW_READY
 
 - `TASK-0379` - Add source artifact package validator helper (`repository_validation`, priority `medium`, difficulty `high`, domain `cross_campaign_data_policy`)
+- `TASK-0382` - Add science-output conveyor health report (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_workflow`)
 - `TASK-0387` - Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
 - `TASK-0388` - Refresh campaign status after latest agent results (`documentation`, priority `high`, difficulty `low`, domain `cross_campaign_status`)
