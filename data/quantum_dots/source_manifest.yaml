@@ -233,7 +233,13 @@ sources:
       public-access policy. No source artifact, row table, licence
       verification, or deterministic extraction has been committed. Remains
       excluded until a future row-curation task verifies APS open-access
-      status and article table content.
+      status and article table content. **TASK-0364 (2026-05-25) verified
+      the paper PDF via maintainer-provided sandbox copy: zero printed
+      tables and zero inline (size → energy) body-text pairs; verified class
+      = figure_derived; not admissible for table_derived row curation under
+      TASK-0364 strict policy. See
+      docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md and the
+      attempted_verifications block at the bottom of this manifest.**
     license_note: "APS publication (Physical Review B); DOI-pinned metadata only. APS public-access policy may allow free reading of articles older than one year, but redistribution of tables or figures requires compliance with APS copyright terms. Curator must verify per-article reuse terms before committing extracted table content."
     checksum_policy: doi_pinned
     notes: >
@@ -271,7 +277,11 @@ sources:
       only the empirical comparison points are eligible for direct-measurement
       dataset rows. Remains excluded until a future row-curation task verifies
       APS access and confirms which data points are empirical versus
-      model-derived.
+      model-derived. **TASK-0364 (2026-05-25) did not verify this paper in
+      that round (PDF not provided by maintainer); the four other top
+      candidates that were verified all turned out to be figure-only, so
+      the publication-pattern prior used by the TASK-0347 triage is in
+      doubt for this entry too. See attempted_verifications block below.**
     license_note: "APS publication (Physical Review B); DOI-pinned metadata only. APS public-access policy may allow free reading; redistribution of tables or figures requires APS copyright compliance. Curator must distinguish empirical rows from theory-derived rows before committing."
     checksum_policy: doi_pinned
     notes: >
