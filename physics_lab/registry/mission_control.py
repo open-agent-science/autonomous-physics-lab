@@ -627,7 +627,7 @@ Start in Agent First Research Mode.
 4. Recommended mission now: {mission_title}.
 5. Recommended action now: {action_label}.
 6. {task_instruction}
-7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve negative results, update sandbox/review artifacts, run validation, generate a review bundle, then commit only after the files are ready, push the task branch, and open a draft PR when GitHub access is available.
+7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve all meaningful outcomes including negative and inconclusive results, update sandbox/review artifacts, run validation, generate a review bundle, then commit only after the files are ready, push the task branch, and open a draft PR when GitHub access is available.
 7a. Missing `gh`, missing GitHub auth, or restricted network access is not a reason to stop before editing files. At the end, try repository helpers, available GitHub/MCP tools, or GitHub CLI; if a needed command is blocked by permissions, request permission/escalation for that command before falling back to exact maintainer-run commands for `git push`, `gh pr create`, PR-number review, and `gh pr ready`.
 8. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 9. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
@@ -669,13 +669,23 @@ Start in Agent First Research Mode with onboarding.
 7. Show 3-5 executable READY options with estimated time and difficulty.
 8. For onboarding, prefer recommending a simpler science-execution option first
    when one is available: hypothesis testing, validation, sandbox runs, replay,
-   or audit. Treat this as guidance, not a hard rule; the user may choose any
-   listed option, including tooling.
+   or audit. Prefer science-execution work over tooling, infrastructure, or
+   support tasks when a suitable READY science option exists. Treat this as
+   guidance, not a hard rule; the user may choose any listed option.
 9. Recommend one option, ask whether to start it, and wait for the user's choice.
-10. After the user chooses, run the selected task autonomously through branch, implementation, validation, review bundle, and final commit after the files are ready. Then push and open a draft PR using repository helpers, available GitHub/MCP tools, or GitHub CLI when access is available; if a needed command is blocked by permissions, request permission/escalation for that command. If PR creation still cannot complete, do not stop before editing files, and instead provide exact maintainer-run `git push`, `gh pr create`, PR-number review, and `gh pr ready` commands at the end.
+10. After the user chooses, follow `docs/agent-task-protocol.md` end-to-end:
+    create the task branch or worktree, implement, validate, generate a review
+    bundle, commit after files are ready, push, and open a draft PR when access
+    is available. If publishing is blocked, finish the local work and provide
+    exact maintainer-run `git push`, `gh pr create`, review, and ready commands.
 11. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
 12. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
-13. If another agent session (Codex, a parallel Claude run, or a human contributor) might also be active in this checkout, open a dedicated `git worktree` for the task with `./scripts/apl_new_worktree.sh <branch>` and run `python3 scripts/apl_branch_precondition.py --expected-branch <branch>` before any `git add` / `commit` / `push`. See `docs/notes/agent-worktree-discipline.md` and the collected `docs/notes/agent-discipline-collected.md` index for the full discipline.
+13. If another agent session might also be active in this checkout, use a
+    dedicated branch or worktree. On macOS/Linux/WSL/Git Bash, prefer
+    `./scripts/apl_new_worktree.sh <branch>`; on plain Windows shells, use
+    `git worktree add <path> -b <branch> origin/main` or a normal task branch.
+    Before `git add` / `commit` / `push`, run
+    `python3 scripts/apl_branch_precondition.py --expected-branch <branch>`.
 {candidate_block}
 
 When the work is complete, summarize what changed, the scientific or workflow value of the result, validation results, limitations, and the best next task to continue."""
