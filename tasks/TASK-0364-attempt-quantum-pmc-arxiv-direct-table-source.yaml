@@ -1,7 +1,7 @@
 id: TASK-0364
 title: "Attempt quantum PMC/arXiv direct-table source curation"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -39,7 +39,7 @@ accepted_outputs:
   - "docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md"
   - "optional source-artifact README under data/quantum_dots/source_artifacts/"
   - "optional data/quantum_dots/qd-*.yaml seed only if direct rows pass provenance checks"
-  - "optional metadata update to data/quantum_dots/source_manifest.yaml"
+  - "data/quantum_dots/source_manifest.yaml if the attempt records source metadata or a blocker verification round"
   - "tests updated if any `qd-*.yaml` row is added"
 
 validation:
