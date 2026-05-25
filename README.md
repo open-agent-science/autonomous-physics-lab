@@ -31,16 +31,14 @@ Copy this into Codex, Claude Code, or another coding agent:
 You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode with onboarding. Read AGENTS.md and
-docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
-Explain the current research mission briefly, show a few READY options with
-estimated time, recommend one, and wait for my choice before editing files.
+docs/agent-task-protocol.md, then run:
 
-After I choose, execute the selected task through the repository protocol:
-create the task branch, inspect evidence, test or audit the hypothesis,
-preserve negative and inconclusive results, run validation, generate a review
-bundle, and prepare a PR. Keep outputs sandbox-only unless a canonical task
-explicitly allows promotion. Do not promote claims, rewrite canonical results,
-or use unsupported headline-style wording.
+`python3 scripts/apl_mission.py --onboarding`
+
+Follow the printed onboarding instructions: explain the current research
+mission, show a few READY options with estimated time, recommend one, and wait
+for my choice before editing files. Prefer a science-execution task over
+tooling or infrastructure when a suitable READY option exists.
 ```
 
 For full autonomous execution after you understand the flow:

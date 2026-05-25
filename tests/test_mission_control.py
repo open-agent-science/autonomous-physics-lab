@@ -435,6 +435,7 @@ def test_render_agent_prompt_mentions_full_pr_loop(tmp_path: Path) -> None:
     assert "Agent First Research Mode" in rendered
     assert "Use canonical task TASK-0002" in rendered
     assert "Execute the full loop autonomously" in rendered
+    assert "preserve all meaningful outcomes" in rendered
     assert "open a draft PR" in rendered
     assert "not a reason to stop before editing files" in rendered
     assert "commit only after the files are ready" in rendered
@@ -466,11 +467,12 @@ def test_render_onboarding_prompt_waits_for_user_choice(tmp_path: Path) -> None:
     assert "TASK-0007" in rendered
     assert "~5-10 min" in rendered
     assert "After the user chooses" in rendered
-    assert "open a draft PR using repository helpers" in rendered
-    assert "do not stop before editing files" in rendered
-    assert "final commit after the files are ready" in rendered
-    assert "request permission/escalation" in rendered
-    assert "GitHub/MCP tools" in rendered
+    assert "follow `docs/agent-task-protocol.md` end-to-end" in rendered
+    assert "science-execution work over tooling" in rendered
+    assert "macOS/Linux/WSL/Git Bash" in rendered
+    assert "plain Windows shells" in rendered
+    assert "git worktree add <path> -b <branch> origin/main" in rendered
+    assert "finish the local work" in rendered
     assert "stop before editing files and report the blocker" not in rendered
 
 
