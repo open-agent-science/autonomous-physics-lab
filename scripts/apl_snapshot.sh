@@ -279,27 +279,11 @@ PY
     file_block "$f" 220
   done
 
-  section "Validation Commands"
+  section "Snapshot Scope"
 
-  cmd_block "ruff" "$PYTHON_BIN" -m ruff check .
-  cmd_block "pytest" "$PYTHON_BIN" -m pytest
-  cmd_block "validate repo" "$PYTHON_BIN" -m physics_lab.cli validate-repo .
-
-  if [ "${RUN_EXPERIMENT:-0}" = "1" ]; then
-    cmd_block "run pendulum example" "$PYTHON_BIN" -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
-    cmd_block "run damped oscillator example" "$PYTHON_BIN" -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
-    cmd_block "git dirty check after examples" git diff --exit-code
-  else
-    echo ""
-    echo "### run examples"
-    echo ""
-    echo "Skipped. To include it, run:"
-    echo ""
-    echo '```bash'
-    echo "RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh"
-    echo "PYTHON_BIN=python3.11 RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh"
-    echo '```'
-  fi
+  echo "This snapshot is an inventory artifact. It records repository state,"
+  echo "task state, docs context, result artifacts, and open PRs without running"
+  echo "validation or experiment commands."
 
   section "Recommended Human Summary"
 

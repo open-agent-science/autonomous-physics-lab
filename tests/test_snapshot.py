@@ -58,3 +58,12 @@ def test_snapshot_script_open_pr_section_uses_pr_list_result() -> None:
     assert "git remote get-url origin" in script
     assert 'gh pr list --repo "$repo_slug" --state open --limit 30' in script
     assert 'echo "No open pull requests."' in script
+
+
+def test_snapshot_script_does_not_run_validation_commands() -> None:
+    script = Path("scripts/apl_snapshot.sh").read_text(encoding="utf-8")
+
+    assert "python3 -m pytest" not in script
+    assert "ruff check" not in script
+    assert "validate-repo" not in script
+    assert "examples/pendulum.yaml" not in script
