@@ -233,7 +233,13 @@ sources:
       public-access policy. No source artifact, row table, licence
       verification, or deterministic extraction has been committed. Remains
       excluded until a future row-curation task verifies APS open-access
-      status and article table content.
+      status and article table content. **TASK-0364 (2026-05-25) verified
+      the paper PDF via maintainer-provided sandbox copy: zero printed
+      tables and zero inline (size → energy) body-text pairs; verified class
+      = figure_derived; not admissible for table_derived row curation under
+      TASK-0364 strict policy. See
+      docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md and the
+      attempted_verifications block at the bottom of this manifest.**
     license_note: "APS publication (Physical Review B); DOI-pinned metadata only. APS public-access policy may allow free reading of articles older than one year, but redistribution of tables or figures requires compliance with APS copyright terms. Curator must verify per-article reuse terms before committing extracted table content."
     checksum_policy: doi_pinned
     notes: >
@@ -271,7 +277,11 @@ sources:
       only the empirical comparison points are eligible for direct-measurement
       dataset rows. Remains excluded until a future row-curation task verifies
       APS access and confirms which data points are empirical versus
-      model-derived.
+      model-derived. **TASK-0364 (2026-05-25) did not verify this paper in
+      that round (PDF not provided by maintainer); the four other top
+      candidates that were verified all turned out to be figure-only, so
+      the publication-pattern prior used by the TASK-0347 triage is in
+      doubt for this entry too. See attempted_verifications block below.**
     license_note: "APS publication (Physical Review B); DOI-pinned metadata only. APS public-access policy may allow free reading; redistribution of tables or figures requires APS copyright compliance. Curator must distinguish empirical rows from theory-derived rows before committing."
     checksum_policy: doi_pinned
     notes: >
@@ -282,3 +292,76 @@ sources:
       source_id until a separate reviewed task commits a checksum-pinned
       source artifact and confirms empirical vs. model provenance for each
       data point.
+
+attempted_verifications:
+  - verification_round_id: TASK-0364-2026-05-25
+    task_id: TASK-0364
+    review_doc: docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md
+    method: |
+      Maintainer-provided publisher PDFs were held locally on the maintainer
+      machine (sandbox `/tmp/` paths only) and inspected via `pdftotext`. No
+      publisher PDF was committed to this repository. Verification looked
+      for printed `Table N` headers and inline body-text (size → energy)
+      value pairs that would satisfy the TASK-0364 `table_derived`
+      provenance class without invoking the TASK-0306 figure-digitization
+      protocol.
+    candidates_checked:
+      - source_id: norris-bawendi-1996-prb-cdse-band-edge
+        triage_rank: 1
+        triage_predicted_class: table_derived
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+      - source_id: kang-wise-1997-prb-pbs-band-edge
+        triage_rank: 2
+        triage_predicted_class: table_derived
+        verified_class: not_verified_in_this_round
+        printed_tables_found: null
+        inline_size_energy_pairs_found: null
+        outcome: pdf_not_provided_by_maintainer_this_round
+      - source_id_external_not_in_manifest: c1-peng-1997-cdse-cds-core-shell
+        triage_rank: 3
+        triage_doi: "10.1021/ja970754m"
+        triage_predicted_class: table_derived
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+        manifest_note: not_added_as_source_entry_because_excluded
+      - source_id_external_not_in_manifest: c2-murray-1993-cdse-synthesis
+        triage_rank: 6
+        triage_doi: "10.1021/ja00072a025"
+        triage_predicted_class: digitization_required
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+        manifest_note: not_added_as_source_entry_because_excluded
+      - source_id_external_not_in_manifest: c4-andreev-1999-pbs-pbse
+        triage_rank: 4
+        triage_doi: "10.1103/PhysRevB.59.15402"
+        triage_predicted_class: table_derived_or_digitization
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+        manifest_note: not_added_as_source_entry_because_excluded
+      - source_id_external_not_in_manifest: c6-banin-1998-inas
+        triage_rank: 5
+        triage_doi: "10.1063/1.476797"
+        triage_predicted_class: table_derived_if_arxiv_found
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+        manifest_note: not_added_as_source_entry_because_excluded
+    overall_outcome: BLOCKER_NO_PRINTED_TABLES_FOUND
+    rows_added: 0
+    qd_files_added: 0
+    publisher_pdfs_committed: 0
+    recommended_next_paths:
+      - "Run TASK-0306 figure-digitization protocol on Norris-Bawendi 1996 PLE-spectra figures (proper home for figure-coordinate extraction)."
+      - "Re-target source search to post-2015 quantum-dot papers with explicit machine-readable supplements (PMC / institutional repositories)."
+      - "Downgrade `table_derived (probable)` labels on C5 / C3 / C4 in docs/reviews/quantum-open-direct-table-source-triage.md."
+      - "Do not re-attempt the verified five candidates without first satisfying TASK-0306."
