@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
-# Copy .claude/settings.local.json from the main project root to this worktree
-# when that local-only file exists.
-#
-# This helper is optional. Fresh clones and contributors without local Claude
-# settings should get a safe no-op, not a failed onboarding run.
+# Copy .claude/settings.local.json from the main project root to this worktree.
+# Run once at the start of any new worktree session where the file is missing.
+# Safe to re-run: exits 0 without overwriting if the file already exists.
 
 set -euo pipefail
 
@@ -24,9 +22,9 @@ MAIN_REPO_ROOT="$(dirname "$GIT_COMMON")"
 SRC="$MAIN_REPO_ROOT/.claude/settings.local.json"
 
 if [ ! -f "$SRC" ]; then
-    echo "Optional source not found: $SRC"
-    echo "No local Claude settings were copied; continuing without worktree-local settings."
-    exit 0
+    echo "Source not found: $SRC"
+    echo "Run this script from a worktree of the Autonomous Physics Lab repository."
+    exit 1
 fi
 
 mkdir -p "$WORKTREE_ROOT/.claude"

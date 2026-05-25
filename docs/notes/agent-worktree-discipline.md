@@ -62,9 +62,8 @@ The script:
 3. Bases the new branch on `origin/main` when the remote ref is
    present, otherwise on local `main`.
 4. Runs [`scripts/apl_setup_worktree.sh`](../../scripts/apl_setup_worktree.sh)
-   inside the new worktree to copy `.claude/settings.local.json` when that
-   local-only file exists. Fresh clones without local Claude settings continue
-   without copying anything.
+   inside the new worktree to copy `.claude/settings.local.json` so the
+   permission allowlist transfers.
 5. Prints the next-step `cd`, status, and precondition commands.
 
 After merge, clean up with:
