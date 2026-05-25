@@ -54,16 +54,13 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0364` — Attempt quantum PMC/arXiv direct-table source curation (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0367` — Run nuclear high-error cluster adversarial stability audit (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0371` — Curate atomic Beloy 2021 direct-ratio rows (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0378` — Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0387` — Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0388` — Refresh campaign status after latest agent results (`documentation`, priority `high`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
 - `TASK-0389` — Polish onboarding prompt for cross-platform first-run flow (merged)
+- `TASK-0388` — Refresh campaign status after latest agent results (merged)
+- `TASK-0387` — Clarify closeout PR follow-through instructions (merged)
 - `TASK-0386` — Polish public documentation paths linked from landing pages (merged)
 - `TASK-0385` — Support multi-proposal maintainer-review validation (merged)
 - `TASK-0384` — Document lightweight APL architecture layer model (merged)
@@ -72,17 +69,21 @@ None.
 - `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (merged)
 - `TASK-0380` — Define result promotion scorecard (merged)
 - `TASK-0379` — Add source artifact package validator helper (merged)
+- `TASK-0378` — Add campaign fresh-data readiness matrix (merged)
 - `TASK-0377` — Add fresh-data stop-condition vocabulary (merged)
 - `TASK-0376` — Add fresh-data extraction ledger template (merged)
 - `TASK-0375` — Add shared source manifest minimum schema (merged)
 - `TASK-0374` — Add cross-campaign source artifact package template (merged)
 - `TASK-0373` — Define cross-campaign fresh-data intake protocol (merged)
 - `TASK-0372` — Add atomic source-artifact version-drift stop condition (merged)
+- `TASK-0371` — Curate atomic Beloy 2021 direct-ratio rows (merged)
 - `TASK-0370` — Run exoplanet regime residual scout (merged)
 - `TASK-0369` — Run exoplanet true-mass residual slice audit (merged)
 - `TASK-0368` — Define nuclear residual-feature no-leakage contract (merged)
+- `TASK-0367` — Run nuclear high-error cluster adversarial stability audit (merged)
 - `TASK-0366` — Align task-queue review with post-merge board sync policy (merged)
 - `TASK-0365` — Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (merged)
+- `TASK-0364` — Attempt quantum PMC/arXiv direct-table source curation (merged)
 - `TASK-0363` — Pin atomic Beloy 2021 source artifact and covariance preflight (merged)
 - `TASK-0362` — Package exoplanet mass-radius residual failure map (merged)
 - `TASK-0361` — Run exoplanet mass-radius baseline benchmark (merged)

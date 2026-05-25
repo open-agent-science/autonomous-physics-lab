@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0378` - Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_data_policy`)
+None.
