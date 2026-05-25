@@ -1,7 +1,7 @@
 id: TASK-0362
 title: "Package exoplanet mass-radius residual failure map"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -33,8 +33,7 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
-  - "docs/results/exoplanet-mass-radius-baseline-summary.md or equivalent result-summary draft"
-  - "optional generated plot/table artifacts under an agent-run or docs/results path"
+  - "docs/results/exoplanet-mass-radius-baseline-summary.md"
   - "tests updated only if reusable plotting or summary code is added"
 
 validation:

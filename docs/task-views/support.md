@@ -16,4 +16,3 @@ None.
 ## REVIEW_READY
 
 - `TASK-0387` - Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
-- `TASK-0388` - Refresh campaign status after latest agent results (`documentation`, priority `high`, difficulty `low`, domain `cross_campaign_status`)
