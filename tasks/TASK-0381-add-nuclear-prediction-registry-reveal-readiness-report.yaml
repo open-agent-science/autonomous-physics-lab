@@ -1,7 +1,7 @@
 id: TASK-0381
 title: "Add nuclear prediction registry count and reveal-readiness report"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -35,10 +35,10 @@ requirements:
   - "Do not fetch live external nuclear data, score predictions, reveal hidden targets, or promote claims."
 
 accepted_outputs:
-  - "scripts/nuclear_prediction_registry_report.py or equivalent CLI helper"
+  - "scripts/nuclear_prediction_registry_report.py"
   - "prediction_registry/nuclear_masses/registry_summary.yaml"
   - "docs/reviews/nuclear-prediction-registry-reveal-readiness-report.md"
-  - "tests covering template exclusion, count semantics, and reveal-state grouping"
+  - "tests/test_nuclear_prediction_registry_report.py"
 
 validation:
   commands:
