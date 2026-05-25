@@ -1,7 +1,7 @@
 id: TASK-0369
 title: "Run exoplanet true-mass residual slice audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -36,6 +36,9 @@ accepted_outputs:
   - "agent_runs/AGENT-RUN-0034/agent_run.yaml"
   - "agent_runs/AGENT-RUN-0034/metrics.json"
   - "agent_runs/AGENT-RUN-0034/report.md"
+  - "agent_runs/AGENT-RUN-0034/limitations.md"
+  - "agent_runs/AGENT-RUN-0034/preflight.md"
+  - "agent_runs/AGENT-RUN-0034/review_summary.md"
   - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
   - "optional script under scripts/ if reusable deterministic slicing code is added"
   - "tests updated only if reusable code is added"
