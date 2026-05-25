@@ -16,5 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0362` - Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0369` - Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.
