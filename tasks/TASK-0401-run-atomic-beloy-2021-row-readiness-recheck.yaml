@@ -1,0 +1,49 @@
+id: TASK-0401
+title: "Run atomic Beloy 2021 row readiness re-check"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the first Atomic direct rows into a gated benchmark-readiness decision."
+  - "Keep Atomic as a source/data campaign until uncertainty and covariance semantics are strong enough."
+  - "Give agents a fresh-data lane that is independent of Nuclear, Exoplanets, and Quantum."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-clock-beloy-2021-direct-ratio-row-curation.md"
+    - "docs/reviews/atomic-clock-real-row-readiness-gate.md"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "data/atomic_clocks/acr-0001-beloy-2021-frequency-ratio-seed.yaml"
+  planning_context: >
+    TASK-0371 committed the first direct frequency-ratio rows for Atomic Clock
+    Residuals, but no benchmark, drift fit, or RESULT was created. This task
+    reruns the readiness gate against the newly committed rows and decides what
+    still blocks a first benchmark.
+
+requirements:
+  - "Run the Atomic row-readiness gate on the committed Beloy 2021 rows."
+  - "Check source artifact, version-drift notes, uncertainty fields, ratio orientation, units, covariance availability, and schema validity."
+  - "Classify the campaign state after this seed as SOURCE_SURFACE, PINNED_DATASET, BASELINE_READY, or still blocked."
+  - "List exact blockers before any benchmark or drift fit is attempted."
+  - "Do not fit constants drift, infer new physics, create prediction entries, or promote a RESULT."
+
+accepted_outputs:
+  - "docs/reviews/atomic-beloy-2021-row-readiness-recheck.md"
+  - "optional machine-readable readiness summary if consistent with existing Atomic tooling"
+  - "optional tests only if schema or loader code is changed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

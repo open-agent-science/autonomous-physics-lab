@@ -1,0 +1,52 @@
+id: TASK-0404
+title: "Run result-promotion scorecard on exoplanet failure map"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decide whether the exoplanet failure map is ready for scientist-facing summary without claim promotion."
+  - "Use the new result-promotion scorecard on the most visible current campaign output."
+  - "Convert APL's current results into reviewable public/scientific communication boundaries."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/result-promotion-scorecard.md"
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+    - "docs/reviews/exoplanet-regime-residual-scout.md"
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "agent_runs/AGENT-RUN-0034/metrics.json"
+    - "agent_runs/AGENT-RUN-0035/metrics.json"
+  planning_context: >
+    The exoplanet campaign now has a baseline, failure map, true-mass slice
+    audit, and regime scout. This is the best current candidate for a
+    scientist-facing benchmark story, but it must pass the result-promotion
+    scorecard as a benchmark or follow-up surface, not as a discovery claim.
+
+requirements:
+  - "Apply the result-promotion scorecard to the exoplanet failure-map artifact set."
+  - "Classify the output as claim-candidate, benchmark-only, sandbox-follow-up, public-summary-only, or not-ready."
+  - "List source provenance, holdout quality, uncertainty handling, negative controls, leakage risk, reproducibility, and public wording risk."
+  - "Recommend which exact wording is allowed for scientists and public-alpha docs."
+  - "Do not create or modify claims, knowledge entries, canonical results, or prediction entries."
+  - "Do not use discovery, new law, habitability, target-priority, or composition wording."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+  - "optional result_candidate_review.yaml only if the schema already supports it"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

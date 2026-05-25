@@ -1,0 +1,50 @@
+id: TASK-0400
+title: "Verify Kang-Wise 1997 PbS direct-source path"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Resolve an unverified Quantum source candidate instead of cycling over already-blocked sources."
+  - "Seek PbS direct measurement rows that could diversify the Quantum dataset beyond CdSe/CdS."
+  - "Keep Quantum source work bounded and falsification-friendly."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md"
+    - "docs/reviews/quantum-open-direct-table-source-triage.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    TASK-0364 verified five of six prioritized Quantum candidates and left the
+    Kang-Wise 1997 PbS path unresolved. This task should determine whether it
+    contains clean table values, digitizable direct-measurement figure points,
+    or no usable row-level source for APL's strict dataset gate.
+
+requirements:
+  - "Verify the Kang-Wise 1997 PbS candidate against the direct-row source rules."
+  - "Record whether the source has printed table values, digitizable figure points, machine-readable supplement data, or no usable direct rows."
+  - "Update the source manifest or write a blocker review with exact missing conditions."
+  - "Add rows only if direct values and provenance are deterministic, reviewable, and schema-valid."
+  - "Do not use calibration polynomials, figure eyeballing, or LLM-reconstructed values."
+  - "Do not include synthesis recipes, toxic-material handling guidance, or biomedical/device claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-kang-wise-1997-pbs-source-path.md"
+  - "data/quantum_dots/source_manifest.yaml"
+  - "optional source artifact package under data/quantum_dots/source_artifacts/"
+  - "optional qd-*.yaml rows only if direct-row provenance passes the gate"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
