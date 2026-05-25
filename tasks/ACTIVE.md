@@ -57,8 +57,6 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0379` — Add source artifact package validator helper (`repository_validation`, priority `medium`, difficulty `high`)
-- `TASK-0382` — Add science-output conveyor health report (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0387` — Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0388` — Refresh campaign status after latest agent results (`documentation`, priority `high`, difficulty `low`)
 
@@ -68,8 +66,10 @@ None.
 - `TASK-0385` — Support multi-proposal maintainer-review validation (merged)
 - `TASK-0384` — Document lightweight APL architecture layer model (merged)
 - `TASK-0383` — Add READY science task pool health policy (merged)
+- `TASK-0382` — Add science-output conveyor health report (merged)
 - `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (merged)
 - `TASK-0380` — Define result promotion scorecard (merged)
+- `TASK-0379` — Add source artifact package validator helper (merged)
 - `TASK-0377` — Add fresh-data stop-condition vocabulary (merged)
 - `TASK-0376` — Add fresh-data extraction ledger template (merged)
 - `TASK-0375` — Add shared source manifest minimum schema (merged)
