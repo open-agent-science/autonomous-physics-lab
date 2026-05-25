@@ -1,0 +1,60 @@
+id: AGENT-RUN-0033
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0367
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0050-high-error-cluster-scout.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0016-nuclear-high-error-cluster-scout.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0033/metrics.json
+  report: agent_runs/AGENT-RUN-0033/report.md
+  limitations: agent_runs/AGENT-RUN-0033/limitations.md
+  preflight: agent_runs/AGENT-RUN-0033/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0033/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: task_scope
+    status: PASS
+    notes: TASK-0367 requests an adversarial-stability audit of the AGENT-RUN-0030
+      high-error cluster signal; this run produces only sandbox metrics.
+  - name: data_boundary
+    status: PASS
+    notes: Only committed repository datasets and the predecessor lane helpers are
+      used; no live external fetch.
+  - name: control_boundary
+    status: PASS
+    notes: Three new adversarial controls are evaluated alongside the three original
+      controls.
+  - name: stability_boundary
+    status: PASS
+    notes: High-error threshold perturbation and leave-one-out coefficient stability
+      are reported per executed candidate.
+  - name: promotion_boundary
+    status: PASS
+    notes: No prediction registry, canonical result, claim, or knowledge file is written.
+limitations:
+- High-error membership and cluster labels still come from committed retrospective
+  residuals; this lane sharpens controls but remains a diagnostic rather than a blind
+  prediction.
+- Coefficients are fit on the 11-row NMD-0002 training slice, so the leave-one-out
+  stability check is itself a small-sample diagnostic.
+- The three new adversarial controls do not exhaust the space of possible attacks
+  (e.g. stronger label shuffles weighted by chain structure, richer non-linear smoothers,
+  or feature-set ablations).
+- Threshold perturbation rebuilds the ClusterIndex at each percentile, so cluster-membership
+  composition shifts between thresholds; the diagnostic measures coefficient and delta
+  stability rather than a fixed cluster definition.
+- No live source fetch, reveal scoring, registry write, claim update, or canonical
+  result write is authorized.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any high-error-cluster follow-up. No
+    predictive lane, PRED-* entry, RESULT-* artifact, claim, or knowledge update is
+    authorized by this run.
