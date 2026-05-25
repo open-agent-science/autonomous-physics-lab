@@ -59,10 +59,10 @@ None.
 
 - `TASK-0387` — Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0388` — Refresh campaign status after latest agent results (`documentation`, priority `high`, difficulty `low`)
-- `TASK-0389` — Polish onboarding prompt for cross-platform first-run flow (`contributor_experience`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
+- `TASK-0389` — Polish onboarding prompt for cross-platform first-run flow (merged)
 - `TASK-0386` — Polish public documentation paths linked from landing pages (merged)
 - `TASK-0385` — Support multi-proposal maintainer-review validation (merged)
 - `TASK-0384` — Document lightweight APL architecture layer model (merged)
