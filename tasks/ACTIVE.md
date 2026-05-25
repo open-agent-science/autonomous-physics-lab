@@ -51,7 +51,6 @@ one PR.
 - `TASK-0371` — Curate atomic Beloy 2021 direct-ratio rows (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0378` — Add campaign fresh-data readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0379` — Add source artifact package validator helper (`repository_validation`, priority `medium`, difficulty `high`)
-- `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0382` — Add science-output conveyor health report (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -62,6 +61,7 @@ None.
 
 - `TASK-0362` — Package exoplanet mass-radius residual failure map (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0369` — Run exoplanet true-mass residual slice audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0387` — Clarify closeout PR follow-through instructions (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0388` — Refresh campaign status after latest agent results (`documentation`, priority `high`, difficulty `low`)
 
