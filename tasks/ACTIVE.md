@@ -68,7 +68,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0405` — Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
