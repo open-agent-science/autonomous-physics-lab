@@ -1,7 +1,7 @@
 id: TASK-0382
 title: "Add science-output conveyor health report"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -35,10 +35,11 @@ requirements:
   - "Keep generated board files out of task PR commits."
 
 accepted_outputs:
-  - "scripts/science_output_conveyor.py or equivalent CLI helper"
+  - "scripts/science_output_conveyor.py"
+  - "physics_lab/registry/science_output_conveyor.py"
   - "docs/automation/science-output-conveyor.md"
   - "docs/reviews/science-output-conveyor-sample.md"
-  - "tests for READY/BLOCKED/result-candidate summary behavior"
+  - "tests/test_science_output_conveyor.py"
 
 validation:
   commands:
