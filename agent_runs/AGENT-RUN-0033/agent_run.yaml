@@ -1,0 +1,48 @@
+id: AGENT-RUN-0033
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0367
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: master
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0050-high-error-cluster-scout.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0016-nuclear-high-error-cluster-scout.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0033/metrics.json
+  report: agent_runs/AGENT-RUN-0033/report.md
+  limitations: agent_runs/AGENT-RUN-0033/limitations.md
+  preflight: agent_runs/AGENT-RUN-0033/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0033/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: task_scope
+    status: PASS
+    notes: TASK-0367 requests a high-error cluster adversarial stability audit with
+      sandbox-only outputs.
+  - name: data_boundary
+    status: PASS
+    notes: Only committed repository inputs are used; no live external fetch is performed.
+  - name: adversarial_controls
+    status: PASS
+    notes: Cluster-label permutation, threshold perturbation, smooth-A/local-density,
+      and near-null controls are included.
+  - name: promotion_boundary
+    status: PASS
+    notes: No prediction registry, canonical result, claim, or knowledge file is written.
+limitations:
+- Retrospective full-known residual labels are used.
+- The p80 high-error threshold perturbation is one deterministic threshold stress
+  test.
+- Leave-one-training-row-out stability is limited by a small training residual slice.
+- Controls are stronger than the predecessor controls but not exhaustive.
+- No live fetch, reveal scoring, registry write, canonical result, claim, or knowledge
+  update is authorized.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any follow-up implementation or prediction-registry
+    task.
