@@ -1,0 +1,43 @@
+id: AGENT-RUN-0034
+campaign_profile_id: exoplanet-mass-radius
+task_id: TASK-0369
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: master
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0049-frozen-baseline-benchmark.yaml
+  experiment: experiment_proposals/exoplanet-mass/EXP-PROPOSAL-0015-frozen-baseline-benchmark.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0034/metrics.json
+  report: agent_runs/AGENT-RUN-0034/report.md
+  limitations: agent_runs/AGENT-RUN-0034/limitations.md
+  preflight: agent_runs/AGENT-RUN-0034/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0034/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: data_boundary
+      status: PASS
+      notes: Only the committed exo-0001 PSCompPars snapshot and AGENT-RUN-0032 metrics are used; no live archive fetch is performed.
+    - name: baseline_freeze
+      status: PASS
+      notes: The Chen-Kipping baseline remains frozen from TASK-0361; this task does not refit or tune it.
+    - name: axis_separation
+      status: PASS
+      notes: Headline metrics use only true_mass_with_transit_radius rows; minimum-mass rows are kept as a sparse diagnostic only.
+    - name: promotion_boundary
+      status: PASS
+      notes: No RESULT artifact, prediction registry entry, claim, knowledge edit, habitability output, biosignature output, target-priority output, or discovery wording is produced.
+limitations:
+  - The audit is retrospective over the committed snapshot and frozen baseline metrics.
+  - Slice labels are diagnostics, not evidence for a new planet mass-radius law.
+  - Host-star and uncertainty slices remain sensitive to catalog selection and follow-up history.
+  - Minimum-mass rows have only two eligible post-filter rows and remain blocked from headline interpretation.
+  - No live archive source is fetched and no baseline parameter is changed.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any true-mass residual slice is used to scope a correction hypothesis or public-facing result package.
