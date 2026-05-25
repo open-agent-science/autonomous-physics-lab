@@ -40,6 +40,10 @@ from physics_lab.registry.campaign_curator import (
     render_campaign_brief,
 )
 from physics_lab.registry.repository import validate_repository
+from physics_lab.registry.source_artifacts import (
+    source_artifact_validation_json,
+    validate_source_artifact_package,
+)
 from physics_lab.workflows.runner import run_experiment_with_output
 
 app = typer.Typer(help="Autonomous Physics Lab command line interface.")
@@ -229,6 +233,34 @@ def validate_repo(
                 typer.echo(f"- {prefix} {issue.message}")
         if summary.error_count > 0 or (fail_on_warnings and summary.warning_count > 0):
             raise typer.Exit(code=1)
+
+
+@app.command("validate-source-artifact-package")
+def validate_source_artifact_package_command(
+    package_path: str,
+    json_output: bool = typer.Option(
+        False,
+        "--json",
+        help="Emit machine-readable JSON instead of a human-readable summary.",
+    ),
+) -> None:
+    """Validate one source artifact package directory."""
+    result = validate_source_artifact_package(Path(package_path))
+    if json_output:
+        typer.echo(source_artifact_validation_json(result))
+    else:
+        status = "PASS" if result.ok else "FAIL"
+        typer.echo(f"Source artifact package validation: {status}")
+        typer.echo(f"Package: {result.package_path}")
+        typer.echo(
+            f"Issues: {result.error_count} error(s), {result.warning_count} warning(s)"
+        )
+        for issue in result.issues:
+            typer.echo(
+                f"- [{issue.severity}] [{issue.code}] {issue.path}: {issue.message}"
+            )
+    if not result.ok:
+        raise typer.Exit(code=1)
 
 
 @app.command("sync-active-board")
