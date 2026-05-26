@@ -43,7 +43,10 @@ Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --onboarding`. The best default work is not
 more broad formula expansion; it is source-readiness, stress synthesis,
 no-peek reveal discipline, domain-limit mapping, evidence packaging, and
-negative-result preservation.
+negative-result preservation. At handoff, agents should route the output
+through [`result-promotion-protocol.md`](./result-promotion-protocol.md): state
+the verdict, destination, review tier, Gate A/B status, limitations, and
+blockers.
 
 If the Nuclear queue is saturated or a maintainer wants parallel breadth, the
 next best surfaces are Quantum Size Effects, Atomic-Clock Residuals, and
@@ -82,9 +85,11 @@ Research Mode is for:
 - negative, null, overfit, or inconclusive result preservation;
 - PR-ready result, evidence, or blocker artifacts.
 
-It is not a claim-promotion lane. Canonical claims, knowledge, public result
-promotion, and reveal scoring require explicit task scope and maintainer
-review.
+Research Mode is now evidence-publication aware, but not claim-promotion
+driven. Agents publish reproducible evidence only when task scope and gates
+allow it; agents validate each other; maintainers endorse interpretation; and
+external data confirms predictions. Claim status transitions and knowledge
+endorsement remain maintainer-only in Phase 1.
 
 ## Parallel Agent Policy
 

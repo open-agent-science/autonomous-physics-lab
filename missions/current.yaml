@@ -1,14 +1,16 @@
 default_mode: research
-updated: "2026-05-12"
+updated: "2026-05-27"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-14"
-  source: "TASK-0243"
+  updated: "2026-05-27"
+  source: "TASK-0411"
   note: >
-    Mission metadata and generated task navigation were refreshed after adding
-    docs/task-views and freshness validation. The flagship mission did not
-    change; support recommendations now reference only actionable READY tasks.
+    Mission guidance now routes end-of-task research outputs through
+    docs/result-promotion-protocol.md. The flagship mission did not change;
+    agents still start from bounded research lanes, but qualifying evidence can
+    be proposed as AGENT_PUBLISHED or AGENT_VALIDATED only when the task scope
+    and gates allow it.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -18,11 +20,15 @@ policy:
     closeout lanes remain available as explicit modes. Multiple agents are
     encouraged to work in parallel across different campaigns, or within the
     same campaign when they use separate branches/worktrees and disjoint
-    hypothesis families, datasets, or artifact surfaces.
+    hypothesis families, datasets, or artifact surfaces. Agents publish
+    reproducible evidence when gates pass, agents validate each other,
+    maintainers endorse interpretation, and external data confirms predictions.
   defaults:
     - "Start in research mode unless the maintainer explicitly asks for support, review, or closeout."
     - "Prefer hypothesis testing, replay, falsification, or sandbox result drafts over docs-only work."
-    - "Keep all research outputs reviewable and sandbox-only until maintainer review."
+    - "Use docs/result-promotion-protocol.md at handoff to state verdict, destination, review tier, Gate A/B status, limitations, and blockers."
+    - "Keep outputs sandbox-only unless the task scope and result-promotion gates explicitly allow AGENT_PUBLISHED or AGENT_VALIDATED RESULT/PRED artifacts."
+    - "Keep claim status transitions and knowledge endorsement maintainer-only in Phase 1."
     - "Prefer several bounded parallel science lanes over one oversized catch-all task when multiple agents are available."
     - "Parallel agents may work inside the same campaign when their hypothesis lanes and write surfaces are disjoint."
     - "Never promote claims, rewrite canonical results, or use breakthrough-style wording automatically."
@@ -41,7 +47,7 @@ global_forbidden:
 modes:
   research:
     label: "Research Mode"
-    description: "Default lane for autonomous scientific work: audit, replay, hypothesis testing, sandbox runs, and reviewable PR artifacts."
+    description: "Default lane for autonomous scientific work: audit, replay, hypothesis testing, sandbox runs, result-routing, and reviewable PR artifacts."
   audit:
     label: "Research Audit Mode"
     description: "Adversarial validation of existing sandbox evidence before follow-up work expands the surface."
@@ -121,7 +127,8 @@ missions:
           - "Use live_task_candidates before naming any remaining READY Nuclear hypothesis lane"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
-          - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
+          - "Use docs/result-promotion-protocol.md to decide whether the final output is sandbox-only, RESULT/PRED draft, review note, source artifact, or task proposal"
+          - "Publish RESULT/PRED artifacts only when the selected task explicitly allows it and Gate A or maintainer-approved manual Gate A review passes"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
         validation:
           - "python3 -m ruff check ."

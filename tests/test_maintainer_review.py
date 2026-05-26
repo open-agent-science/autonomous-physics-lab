@@ -5,6 +5,7 @@ import sys
 from unittest.mock import patch
 
 from physics_lab.registry.maintainer_review import (
+    ArtifactReviewSignal,
     ReviewReport,
     PullRequestMetadata,
     ValidationSummary,
@@ -14,6 +15,7 @@ from physics_lab.registry.maintainer_review import (
     branch_task_queue_slug,
     branch_task_id,
     build_review_report,
+    classify_artifact_review_changes,
     changed_task_proposal_files,
     ci_aware_validation_command,
     line_is_rule_catalog_line,
@@ -23,6 +25,7 @@ from physics_lab.registry.maintainer_review import (
     overclaim_hits,
     parse_added_lines,
     _portable_validation_command,
+    output_routing_value,
     render_review_report,
     run_task_validation,
     security_pattern_hits,
@@ -341,6 +344,116 @@ def test_missing_pr_metadata_fields_accepts_task_id_alias() -> None:
     )
 
     assert missing_pr_metadata_fields(body) == ()
+
+
+def test_output_routing_value_extracts_review_fields() -> None:
+    body = "\n".join(
+        [
+            "## Output Routing",
+            "",
+            "- Review tier: `AGENT_PUBLISHED`",
+            "- Gate A status: pass",
+            "- Gate B status: not_applicable",
+        ]
+    )
+
+    assert output_routing_value(body, "Review tier") == "AGENT_PUBLISHED"
+    assert output_routing_value(body, "Gate A status") == "pass"
+
+
+def test_artifact_review_change_classification_uses_distinct_classes(tmp_path: Path) -> None:
+    changed_files = (
+        "results/EXP-9999/RUN-9999/result.yaml",
+        "prediction_registry/test/PRED-9999.yaml",
+        "claims/CLAIM-9999-test.md",
+        "knowledge/KNOW-9999-test.yaml",
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.maintainer_review.load_yaml_payload_from_ref",
+            side_effect=[
+                {"review_tier": "AGENT_PUBLISHED"},
+                {"review_tier": "AGENT_VALIDATED"},
+                {"review_tier": "MAINTAINER_REVIEWED"},
+            ],
+        ),
+        patch(
+            "physics_lab.registry.maintainer_review.load_claim_status_from_ref",
+            side_effect=[None, "DRAFT"],
+        ),
+    ):
+        signals = classify_artifact_review_changes(
+            tmp_path,
+            target_branch="agent/roman/codex/task-0410-review-helper-artifact-classes",
+            base_ref="origin/main",
+            changed_files=changed_files,
+        )
+
+    assert [signal.artifact_class for signal in signals] == [
+        "result_publication",
+        "prediction_publication",
+        "draft_claim_authoring",
+        "knowledge_phase1_maintainer_only",
+    ]
+    assert signals[0].review_tier == "AGENT_PUBLISHED"
+    assert signals[1].review_tier == "AGENT_VALIDATED"
+
+
+def test_build_review_report_requires_agent_published_output_routing(
+    tmp_path: Path,
+) -> None:
+    _write_review_task(tmp_path, "TASK-0410")
+    branch = "agent/roman/codex/task-0410-review-helper-artifact-classes"
+    pr_metadata = PullRequestMetadata(
+        number=410,
+        title="TASK-0410: Teach review helper artifact classes",
+        body=_full_pr_body(
+            task_ref="TASK-0410",
+            branch=branch,
+            primary_reference="- Task ID: `TASK-0410`\n- Task File: `tasks/TASK-0410-helper.yaml`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0410-helper.yaml",),
+    )
+
+    gate_report = type("GateReportFixture", (), {"ok": True, "issues": ()})()
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0410-helper.yaml",)),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch(
+            "physics_lab.registry.maintainer_review.classify_artifact_review_changes",
+            return_value=(
+                ArtifactReviewSignal(
+                    path="results/EXP-9999/RUN-9999/result.yaml",
+                    artifact_class="result_publication",
+                    review_tier="AGENT_PUBLISHED",
+                ),
+            ),
+        ),
+        patch("physics_lab.registry.maintainer_review.load_yaml_payload_from_ref", return_value={}),
+        patch("physics_lab.registry.maintainer_review.check_payload", return_value=gate_report),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=410)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("PR Output Routing must repeat that tier" in item for item in report.required_fixes)
+    assert any("Gate A status" in item for item in report.required_fixes)
+    assert any("Gate A checker passed" in item for item in report.advisory_warnings)
 
 
 def test_agent_tool_metadata_mismatch_detects_claude_branch_with_codex_body() -> None:
