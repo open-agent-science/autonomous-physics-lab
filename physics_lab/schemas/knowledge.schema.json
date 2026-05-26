@@ -75,6 +75,44 @@
     "body": {
       "type": "string",
       "minLength": 1
+    },
+    "review_tier": {
+      "type": "string",
+      "enum": [
+        "AGENT_PROPOSED",
+        "MAINTAINER_REVIEWED",
+        "EXTERNAL_REPLICATED"
+      ],
+      "description": "Multi-tier review level introduced by docs/result-promotion-protocol.md. Optional for backward compatibility. In Phase 1 of the protocol, KNOW-* files are maintainer-only; agent-authored knowledge entries are not permitted."
+    },
+    "agent_proposal_evaluation": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Reserved for Phase 2 of docs/result-promotion-protocol.md. In Phase 1 this block should not be populated because agents may not author KNOW-* files. Present only so the schema accepts a future Phase 2 promotion without a schema change.",
+      "properties": {
+        "review_tier_proposed": {
+          "type": "string",
+          "const": "AGENT_PROPOSED"
+        },
+        "gates_checked": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        },
+        "evidence_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "followup_for_maintainer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "review_tier_proposed",
+        "gates_checked",
+        "evidence_summary"
+      ]
     }
   }
 }

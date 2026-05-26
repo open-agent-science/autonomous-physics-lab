@@ -61,7 +61,7 @@ The registry must not be used to:
   `<domain>-prediction-reveal-protocol.md` next to it.
 - [`docs/result-promotion-protocol.md`](../docs/result-promotion-protocol.md)
   — master multi-class output protocol. Includes the
-  `review_tier: AGENT_SELF_PROMOTED` pathway for agent-driven
+  `review_tier: AGENT_PROPOSED` pathway for agent-driven
   pre-registration.
 
 ## Adding a New Domain

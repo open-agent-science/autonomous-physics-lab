@@ -208,20 +208,20 @@
     "review_tier": {
       "type": "string",
       "enum": [
-        "AGENT_SELF_PROMOTED",
+        "AGENT_PROPOSED",
         "MAINTAINER_REVIEWED",
         "EXTERNAL_REPLICATED"
       ],
-      "description": "Multi-tier review level introduced by docs/result-promotion-protocol.md. Optional for backward compatibility; new agent-written PRED-* entries should set AGENT_SELF_PROMOTED explicitly."
+      "description": "Multi-tier review level introduced by docs/result-promotion-protocol.md. Optional for backward compatibility; new agent-written PRED-* entries should set AGENT_PROPOSED explicitly."
     },
-    "agent_self_evaluation": {
+    "agent_proposal_evaluation": {
       "type": "object",
       "additionalProperties": true,
-      "description": "Required when review_tier is AGENT_SELF_PROMOTED. See docs/result-promotion-protocol.md for the required gate list and example block.",
+      "description": "Required when review_tier is AGENT_PROPOSED. See docs/result-promotion-protocol.md for the required gate list and example block.",
       "properties": {
         "review_tier_proposed": {
           "type": "string",
-          "const": "AGENT_SELF_PROMOTED"
+          "const": "AGENT_PROPOSED"
         },
         "gates_checked": {
           "type": "object",

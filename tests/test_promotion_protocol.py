@@ -68,7 +68,7 @@ class TestMasterProtocolDocument:
     def test_protocol_documents_three_review_tiers(self) -> None:
         text = PROTOCOL_PATH.read_text(encoding="utf-8")
         for tier in (
-            "AGENT_SELF_PROMOTED",
+            "AGENT_PROPOSED",
             "MAINTAINER_REVIEWED",
             "EXTERNAL_REPLICATED",
         ):
@@ -76,7 +76,7 @@ class TestMasterProtocolDocument:
 
     def test_protocol_documents_self_evaluation_block(self) -> None:
         text = PROTOCOL_PATH.read_text(encoding="utf-8")
-        assert "agent_self_evaluation" in text
+        assert "agent_proposal_evaluation" in text
         assert "gates_checked" in text
 
     def test_protocol_explains_pathway_to_new_knowledge(self) -> None:
@@ -178,9 +178,9 @@ class TestPredictionSchema:
     def test_review_tier_enum_accepted(self) -> None:
         schema = _load_schema()
         valid = _minimal_valid_prediction()
-        valid["review_tier"] = "AGENT_SELF_PROMOTED"
-        valid["agent_self_evaluation"] = {
-            "review_tier_proposed": "AGENT_SELF_PROMOTED",
+        valid["review_tier"] = "AGENT_PROPOSED"
+        valid["agent_proposal_evaluation"] = {
+            "review_tier_proposed": "AGENT_PROPOSED",
             "gates_checked": {"no_peek_state": True},
             "evidence_summary": "Agent self-evaluation block for test.",
         }
@@ -193,11 +193,11 @@ class TestPredictionSchema:
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(instance=invalid, schema=schema)
 
-    def test_agent_self_evaluation_requires_proposed_tier_value(self) -> None:
+    def test_agent_proposal_evaluation_requires_proposed_tier_value(self) -> None:
         schema = _load_schema()
         invalid = _minimal_valid_prediction()
-        invalid["review_tier"] = "AGENT_SELF_PROMOTED"
-        invalid["agent_self_evaluation"] = {
+        invalid["review_tier"] = "AGENT_PROPOSED"
+        invalid["agent_proposal_evaluation"] = {
             "review_tier_proposed": "MAINTAINER_REVIEWED",
             "gates_checked": {"no_peek_state": True},
             "evidence_summary": "Mismatched tier value.",
