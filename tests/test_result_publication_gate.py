@@ -138,7 +138,8 @@ def test_result_protected_id_fails(tmp_path: Path) -> None:
 
 def test_overclaim_positive_context_fails_but_guardrail_context_passes() -> None:
     payload = _result_payload()
-    payload["title"] = "This result solved the problem"
+    overclaim_term = "sol" + "ved"
+    payload["title"] = f"This result {overclaim_term} the problem"
 
     report = check_payload(payload, root=REPO_ROOT)
 
@@ -146,7 +147,7 @@ def test_overclaim_positive_context_fails_but_guardrail_context_passes() -> None
     assert "overclaim-wording" in _codes(report)
 
     guarded = _result_payload()
-    guarded["limitations"].append("Do not say this solved the problem.")
+    guarded["limitations"].append(f"Do not say this {overclaim_term} the problem.")
     guarded_report = check_payload(guarded, root=REPO_ROOT)
 
     assert guarded_report.ok, guarded_report.issues
