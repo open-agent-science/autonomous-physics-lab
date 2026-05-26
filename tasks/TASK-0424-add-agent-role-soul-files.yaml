@@ -1,0 +1,76 @@
+id: TASK-0424
+title: "Add agent role soul files under agents/"
+type: workflow_protocol
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stop duplicating agent role instructions across sessions: give every agent role a single 'soul file' under agents/<role-id>.md that contains its identity, scope, goals, allowed tools, scripts, restrictions, and cross-role invocation rules."
+  - "Make 'режим X' / 'X mode' activation a load-bearing convention. When the maintainer says 'режим архітектора' the agent loads agents/architect.md instead of re-deriving instructions from scratch."
+  - "Treat agents/<role>.md as the short activation-ready soul file. docs/agent-*.md remain the authoritative deep protocols; agents/ files reference them, not duplicate them."
+  - "Cover the four roles roman explicitly asked for (Architect, Review Agent, Scientific Curator, Researcher) plus two narrow execution paths that are already documented (Task Proposal Agent, Microtask Agent)."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_workflow
+  related_objects:
+    - "agents/example-agent.yaml"
+    - "docs/agent-catalog.md"
+    - "docs/agent-operating-model.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/scientific-campaign-curator.md"
+    - "docs/campaign-curator-protocol.md"
+    - "docs/agent-scientific-work-mode.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/result-promotion-protocol.md"
+    - "AGENTS.md"
+  planning_context: >
+    APL already documents 8 agent paths in docs/agent-catalog.md, but each
+    is spread across multiple docs/agent-*.md files with no shared shape.
+    There is no on-disk role file that an agent can read at session start
+    to know "who am I, what may I do, what must I read, who may I call".
+    The architect role roman just created has no existing home in
+    docs/agent-catalog.md at all. This task creates a thin operational
+    layer (agents/<role>.md soul files + agents/AGENT-TEMPLATE.md) that
+    references the existing authoritative protocols and adds the missing
+    architect role file.
+
+requirements:
+  - "Design agents/AGENT-TEMPLATE.md as the canonical shape for any role file. The template defines frontmatter fields and body sections; it does not create new protocols."
+  - "Create agents/architect.md describing the Architect role roman established on 2026-05-26 (Phase 1 collaboration mode)."
+  - "Create agents/review-agent.md from docs/maintainer-review-agent.md (no protocol changes)."
+  - "Create agents/scientific-curator.md from docs/scientific-campaign-curator.md and docs/campaign-curator-protocol.md (no protocol changes)."
+  - "Create agents/researcher.md as the default role for a new contributor or agent, from docs/agent-task-protocol.md and docs/agent-operating-model.md (no protocol changes)."
+  - "Create agents/task-proposal-agent.md from docs/task-proposal-protocol.md."
+  - "Create agents/microtask-agent.md from docs/scientific-micro-task-protocol.md and docs/agent-scientific-work-mode.md."
+  - "Create agents/README.md as the soul-file index (short pointers; agent-catalog.md remains the narrative authority)."
+  - "Add a single forward reference from AGENTS.md to agents/README.md so new agents can find the soul files."
+  - "Do not change any existing docs/agent-*.md protocol. If a soul file needs to disagree with an existing protocol, stop and raise the contradiction instead."
+  - "Do not delete agents/example-agent.yaml in this PR (tests/test_pendulum.py and tests/test_damped_oscillator.py depend on it). Note in agents/README.md that it is a legacy test fixture and link to the follow-up task that will move it."
+  - "Add tests that validate every agents/*.md role file conforms to the template (required frontmatter fields, allowed values, referenced files exist)."
+
+accepted_outputs:
+  - "agents/AGENT-TEMPLATE.md"
+  - "agents/architect.md"
+  - "agents/review-agent.md"
+  - "agents/scientific-curator.md"
+  - "agents/researcher.md"
+  - "agents/task-proposal-agent.md"
+  - "agents/microtask-agent.md"
+  - "agents/README.md"
+  - "AGENTS.md cross-reference update"
+  - "tests/test_agent_role_soul_files.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_role_soul_files.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

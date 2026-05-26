@@ -178,6 +178,7 @@ Use these files as the shared coordination layer:
 - `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
 - `docs/result-promotion-protocol.md` — master mapping rule from task verdict to canonical output class; required reading before writing any final task output (replaces the default "write only an `AGENT-RUN-*`" pattern).
+- `agents/README.md` — index of agent role soul files (`agents/<role>.md`). When the maintainer activates a role ("режим архітектора", "Architect mode", "Run Scientific Campaign Curator", "review PR <n>"), the agent reads the matching soul file as its first action and applies that role for the session.
 - `docs/task-views/research.md`
 - `docs/task-views/support.md`
 - `docs/task-views/release.md`
