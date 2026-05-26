@@ -627,13 +627,14 @@ Start in Agent First Research Mode.
 4. Recommended mission now: {mission_title}.
 5. Recommended action now: {action_label}.
 6. {task_instruction}
-7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve all meaningful outcomes including negative and inconclusive results, update sandbox/review artifacts, run validation, generate a review bundle, then commit only after the files are ready, push the task branch, and open a draft PR when GitHub access is available.
+7. Execute the full loop autonomously: inspect evidence, test or audit the hypothesis, preserve all meaningful outcomes including negative and inconclusive results, update sandbox/review artifacts, route the final output through `docs/result-promotion-protocol.md`, run validation, generate a review bundle, then commit only after the files are ready, push the task branch, and open a draft PR when GitHub access is available.
 7a. Missing `gh`, missing GitHub auth, or restricted network access is not a reason to stop before editing files. At the end, try repository helpers, available GitHub/MCP tools, or GitHub CLI; if a needed command is blocked by permissions, request permission/escalation for that command before falling back to exact maintainer-run commands for `git push`, `gh pr create`, PR-number review, and `gh pr ready`.
-8. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
-9. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
-10. If the work is support/review/closeout rather than research, run the explicit mode: `python3 scripts/apl_mission.py --mode support` or `--mode maintainer`.
-11. If multiple agents are working locally, use separate branches or worktrees and choose disjoint artifact surfaces.
-12. When reporting available tasks, list only executable READY tasks. Do not offer REVIEW_READY tasks as options for executor work; those belong to maintainer review or closeout.
+8. In the final output-routing summary, state the verdict, canonical destination, review tier if any, Gate A/B status if any, limitations, and blockers.
+9. Keep outputs sandbox-only unless a canonical task explicitly allows AGENT_PUBLISHED or AGENT_VALIDATED RESULT/PRED artifacts and the required gate passes.
+10. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
+11. If the work is support/review/closeout rather than research, run the explicit mode: `python3 scripts/apl_mission.py --mode support` or `--mode maintainer`.
+12. If multiple agents are working locally, use separate branches or worktrees and choose disjoint artifact surfaces.
+13. When reporting available tasks, list only executable READY tasks. Do not offer REVIEW_READY tasks as options for executor work; those belong to maintainer review or closeout.
 {candidate_block}
 
 Return the selected mission, changed files, validation results, limitations, and PR-ready summary."""
@@ -678,9 +679,14 @@ Start in Agent First Research Mode with onboarding.
     bundle, commit after files are ready, push, and open a draft PR when access
     is available. If publishing is blocked, finish the local work and provide
     exact maintainer-run `git push`, `gh pr create`, review, and ready commands.
-11. Keep outputs sandbox-only unless a canonical task explicitly allows promotion.
-12. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
-13. If another agent session might also be active in this checkout, use a
+11. At handoff, route the result through `docs/result-promotion-protocol.md`:
+    state the verdict, canonical destination, review tier if any, Gate A/B
+    status if any, limitations, and blockers.
+12. Keep outputs sandbox-only unless a canonical task explicitly allows
+    AGENT_PUBLISHED or AGENT_VALIDATED RESULT/PRED artifacts and the required
+    gate passes.
+13. Do not promote claims, rewrite canonical results, or use breakthrough-style wording.
+14. If another agent session might also be active in this checkout, use a
     dedicated branch or worktree. On macOS/Linux/WSL/Git Bash, prefer
     `./scripts/apl_new_worktree.sh <branch>`; on plain Windows shells, use
     `git worktree add <path> -b <branch> origin/main` or a normal task branch.

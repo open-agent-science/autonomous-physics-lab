@@ -160,6 +160,27 @@ The review AI agent should not ignore advisory warnings. It should read nearby
 context and report whether the wording is safe, ambiguous, or actually
 claim-like.
 
+### Scientific Artifact Classes
+
+The deterministic review helper classifies canonical scientific-memory changes
+before rendering the verdict:
+
+- `RESULT-*` files with `review_tier: AGENT_PUBLISHED` must pass the Gate A
+  publication checker and repeat the tier plus Gate A status in PR Output
+  Routing.
+- `PRED-*` files with `review_tier: AGENT_PUBLISHED` follow the same Gate A
+  publication path for generic prediction entries.
+- `AGENT_VALIDATED` artifacts must repeat the tier plus Gate B status in PR
+  Output Routing; until the Gate B replay helper is wired, the review remains a
+  manual maintainer inspection.
+- New `CLAIM-*` files in `DRAFT` are classified separately from claim status
+  transitions; transitions remain maintainer judgment in Phase 1.
+- `KNOW-*` changes are maintainer-only in Phase 1.
+
+These classes do not auto-merge or promote claims. They only prevent the review
+helper from treating evidence publication, prediction registration, claim
+drafting, claim endorsement, and knowledge edits as one generic artifact type.
+
 ## Mode 1: Pre-Merge Review
 
 Use this mode for an open pull request before merge.

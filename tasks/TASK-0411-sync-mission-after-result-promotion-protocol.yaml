@@ -1,7 +1,7 @@
 id: TASK-0411
 title: "Sync mission recommendations after result-promotion protocol"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: high
 

@@ -24,6 +24,7 @@ from physics_lab.registry.review_git import (
 from physics_lab.registry.generated_state import sync_generated_task_state
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
+    load_claim_status_from_ref,  # noqa: F401 — re-exported; tests import from here
     overclaim_advisory_hits,
     overclaim_hits,
     security_pattern_hits,
@@ -32,6 +33,7 @@ from physics_lab.registry.review_checks import (
     unexpected_protected_changes,
     claim_status_promotions,
 )
+from physics_lab.registry.result_publication_gate import check_payload
 from physics_lab.registry.review_policy import (
     BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
     CLOSEOUT_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
@@ -93,6 +95,7 @@ TASK_QUEUE_FORBIDDEN_PREFIXES = (
     "knowledge/",
     "results/",
 )
+AGENT_PUBLICATION_TIERS = frozenset({"AGENT_PUBLISHED", "AGENT_VALIDATED"})
 CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
     {
         "AGENTS.md",
@@ -192,6 +195,17 @@ class ReviewReport:
     required_fixes: tuple[str, ...]
     recommended_action: str
     advisory_warnings: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class ArtifactReviewSignal:
+    """Classification for scientific-memory artifacts changed by a PR."""
+
+    path: str
+    artifact_class: str
+    review_tier: str | None = None
+    before_status: str | None = None
+    after_status: str | None = None
 
 
 @dataclass(frozen=True)
@@ -512,6 +526,138 @@ def _public_state_docs_need_review(
     return any(marker in haystack for marker in PUBLIC_STATE_TASK_MARKERS)
 
 
+def load_yaml_payload_from_ref(root: Path, ref: str, repo_path: str) -> dict[str, Any] | None:
+    """Load a YAML mapping from a git ref, or from the worktree for the current branch."""
+    result = run_command(["git", "show", f"{ref}:{repo_path}"], cwd=root, timeout=30)
+    text: str | None = result.stdout if result.returncode == 0 else None
+    if text is None and ref == current_branch(root):
+        path = root / repo_path
+        if path.exists():
+            text = path.read_text(encoding="utf-8")
+    if text is None:
+        return None
+    payload = yaml.safe_load(text)
+    return payload if isinstance(payload, dict) else None
+
+
+def output_routing_value(body: str, field: str) -> str | None:
+    """Return a value from the PR Output Routing section."""
+    prefix = f"- {field}:"
+    for line in body.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith(prefix):
+            continue
+        value = stripped.split(":", 1)[1].strip()
+        return value.strip("`").strip() or None
+    return None
+
+
+def classify_artifact_review_changes(
+    root: Path,
+    *,
+    target_branch: str,
+    base_ref: str,
+    changed_files: tuple[str, ...],
+) -> tuple[ArtifactReviewSignal, ...]:
+    """Classify changed scientific-memory artifacts for maintainer review."""
+    signals: list[ArtifactReviewSignal] = []
+    for path in changed_files:
+        if path.startswith("results/") and path.endswith("/result.yaml"):
+            payload = load_yaml_payload_from_ref(root, target_branch, path)
+            review_tier = payload.get("review_tier") if isinstance(payload, dict) else None
+            signals.append(
+                ArtifactReviewSignal(
+                    path=path,
+                    artifact_class="result_publication",
+                    review_tier=str(review_tier) if review_tier else None,
+                )
+            )
+            continue
+        if (
+            path.startswith("prediction_registry/")
+            and path.endswith(".yaml")
+            and Path(path).name.startswith("PRED-")
+        ):
+            payload = load_yaml_payload_from_ref(root, target_branch, path)
+            review_tier = payload.get("review_tier") if isinstance(payload, dict) else None
+            signals.append(
+                ArtifactReviewSignal(
+                    path=path,
+                    artifact_class="prediction_publication",
+                    review_tier=str(review_tier) if review_tier else None,
+                )
+            )
+            continue
+        if path.startswith("claims/") and path.endswith(".md"):
+            before = load_claim_status_from_ref(root, base_ref, path)
+            after = load_claim_status_from_ref(root, target_branch, path)
+            if before is None and after == "DRAFT":
+                artifact_class = "draft_claim_authoring"
+            elif before != after:
+                artifact_class = "claim_status_transition"
+            else:
+                artifact_class = "claim_text_update"
+            signals.append(
+                ArtifactReviewSignal(
+                    path=path,
+                    artifact_class=artifact_class,
+                    before_status=before,
+                    after_status=after,
+                )
+            )
+            continue
+        if (
+            path.startswith("knowledge/")
+            and path.endswith((".md", ".yaml", ".yml"))
+            and Path(path).name.startswith("KNOW-")
+        ):
+            payload = load_yaml_payload_from_ref(root, target_branch, path)
+            review_tier = payload.get("review_tier") if isinstance(payload, dict) else None
+            signals.append(
+                ArtifactReviewSignal(
+                    path=path,
+                    artifact_class="knowledge_phase1_maintainer_only",
+                    review_tier=str(review_tier) if review_tier else None,
+                )
+            )
+    return tuple(signals)
+
+
+def render_artifact_review_signal(signal: ArtifactReviewSignal) -> str:
+    """Render a compact artifact-class signal for review output."""
+    details: list[str] = [signal.path, signal.artifact_class]
+    if signal.review_tier:
+        details.append(f"review_tier={signal.review_tier}")
+    if signal.before_status != signal.after_status:
+        details.append(f"status={signal.before_status or 'new'}->{signal.after_status or 'missing'}")
+    return " ".join(details)
+
+
+def _explicit_output_routing(value: str | None) -> bool:
+    if value is None:
+        return False
+    normalized = value.strip().strip("`").lower()
+    return normalized not in {"", "none", "n/a", "not_applicable", "not applicable"}
+
+
+def _agent_tier_pr_body_issues(
+    signal: ArtifactReviewSignal,
+    body: str,
+) -> tuple[str, ...]:
+    required: list[str] = []
+    review_tier_value = output_routing_value(body, "Review tier")
+    if signal.review_tier not in (review_tier_value or ""):
+        required.append(
+            f"{signal.path} sets review_tier {signal.review_tier}; PR Output Routing must repeat that tier explicitly."
+        )
+    gate_field = "Gate A status" if signal.review_tier == "AGENT_PUBLISHED" else "Gate B status"
+    if not _explicit_output_routing(output_routing_value(body, gate_field)):
+        required.append(
+            f"{signal.path} sets {signal.review_tier}; PR Output Routing must include an explicit {gate_field}."
+        )
+    return tuple(required)
+
+
 def diff_base_ref(root: Path, pr_metadata: PullRequestMetadata | None) -> str:
     """Return the best available diff base ref for PR review."""
     base_branch = pr_metadata.base_branch if pr_metadata is not None else "main"
@@ -563,6 +709,19 @@ def build_review_report(
     changed_files = changed_files_vs_main(root, target_branch, base_ref=base_ref)
     if not changed_files:
         blockers.append("Diff vs main is empty. There is no reviewable task change.")
+
+    artifact_signals = classify_artifact_review_changes(
+        root,
+        target_branch=target_branch,
+        base_ref=base_ref,
+        changed_files=changed_files,
+    )
+    if artifact_signals:
+        advisory_warnings.append(
+            "Artifact review classes: "
+            + "; ".join(render_artifact_review_signal(signal) for signal in artifact_signals)
+            + "."
+        )
 
     branch_task = protocol.branch_task_id
     branch_microtask = protocol.microtask_id
@@ -787,6 +946,11 @@ def build_review_report(
         agent_tool_mismatch = agent_tool_metadata_mismatch(target_branch, pr_metadata.body)
         if agent_tool_mismatch is not None:
             required_fixes.append(agent_tool_mismatch)
+        for signal in artifact_signals:
+            if signal.review_tier in AGENT_PUBLICATION_TIERS:
+                required_fixes.extend(
+                    _agent_tier_pr_body_issues(signal, pr_metadata.body)
+                )
         if pr_metadata.status_checks_passed is False:
             blockers.append("GitHub status checks are failing.")
         elif pr_metadata.status_checks_pending:
@@ -818,6 +982,34 @@ def build_review_report(
         promotions = claim_status_promotions(root, target_branch, changed_files)
         if promotions:
             blockers.append("Claim status promotion detected: " + ", ".join(promotions) + ".")
+
+    for signal in artifact_signals:
+        if signal.artifact_class == "knowledge_phase1_maintainer_only":
+            blockers.append(
+                f"KNOW-* changes are maintainer-only in Phase 1: {signal.path}."
+            )
+        if signal.artifact_class == "claim_status_transition":
+            advisory_warnings.append(
+                f"Claim status transition detected for {signal.path}; Phase 1 transitions require maintainer judgment."
+            )
+        if signal.review_tier == "AGENT_PUBLISHED":
+            payload = load_yaml_payload_from_ref(root, target_branch, signal.path)
+            if payload is None:
+                blockers.append(f"Could not load {signal.path} for Gate A classification.")
+                continue
+            gate_report = check_payload(payload, artifact_path=signal.path, root=root)
+            if gate_report.ok:
+                advisory_warnings.append(f"Gate A checker passed for {signal.path}.")
+            else:
+                blockers.append(
+                    f"Gate A checker failed for {signal.path}: "
+                    + ", ".join(issue.code for issue in gate_report.issues)
+                    + "."
+                )
+        elif signal.review_tier == "AGENT_VALIDATED":
+            advisory_warnings.append(
+                f"{signal.path} is AGENT_VALIDATED; Gate B replay helper is not yet wired, so inspect replay metadata manually."
+            )
 
     overclaim_lines = tuple(
         parse_added_lines(
