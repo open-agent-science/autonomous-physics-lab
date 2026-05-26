@@ -50,6 +50,9 @@ def test_task_pr_body_mentions_template_sections_and_metadata() -> None:
     assert "tasks/TASK-0247-add-pr-lifecycle-guardrails.yaml" in body
     assert "- Contributor ID: `roman`" in body
     assert "Agent session ID" not in body
+    assert "## Output Routing" in body
+    assert "AGENT_PUBLISHED" in body
+    assert "Gate A/Gate B status" in body
 
 
 def test_preflight_task_pr_flags_short_body_and_mismatched_task(tmp_path: Path) -> None:
