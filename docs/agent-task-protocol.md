@@ -464,6 +464,41 @@ and preflight the template-based PR body before creating the draft PR.
 For task proposal PRs, the lighter validation path from
 [./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
 
+## End-Of-Task Output Routing
+
+At the end of any research, validation, benchmark, source-curation, prediction,
+or claim-facing task, add a short output-routing summary before handoff. This
+summary tells the maintainer what the task produced and where it belongs in
+the scientific memory.
+
+Use [./result-promotion-protocol.md](./result-promotion-protocol.md) as the
+canonical routing rule. The summary should state:
+
+- task verdict: `VALID`, `VALID_IN_RANGE`, `PARTIALLY_VALID`, `INCONCLUSIVE`,
+  `OVERFITTED`, `FALSIFIED`, or `not_applicable`;
+- canonical destination: sandbox-only `agent_runs/`, `results/`, `prediction_registry/`,
+  `claims/`, `knowledge/`, source artifact, review note, or task proposal;
+- review tier when applicable: `AGENT_PUBLISHED`, `AGENT_VALIDATED`,
+  `MAINTAINER_REVIEWED`, `EXTERNAL_REPLICATED`, `LEGACY_UNTIERED`, or `none`;
+- Gate status when applicable: Gate A pass/fail/not attempted, Gate B
+  pass/fail/not attempted;
+- claim impact: no claim change, new `DRAFT` claim only, evidence reference
+  only, or maintainer-only status transition requested;
+- knowledge impact: no knowledge change, task proposal only, or maintainer-only
+  knowledge entry requested;
+- limitations and blockers, especially missing tooling, source provenance, or
+  validation gaps.
+
+If the task produced only sandbox evidence, say so explicitly. Do not turn a
+sandbox note into a prose claim. If Gate A or Gate B tooling is missing or
+fails, report the publication as blocked instead of bypassing the gate with
+unsupported wording.
+
+Agents may create `AGENT_PUBLISHED` or `AGENT_VALIDATED` artifacts only when
+the task scope and [./result-promotion-protocol.md](./result-promotion-protocol.md)
+allow it. Claim status transitions remain maintainer-only in Phase 1. Do not
+auto-merge PRs that publish tiered artifacts.
+
 ## Maintainer Review And Closeout
 
 Maintainers may use [./maintainer-review-agent.md](./maintainer-review-agent.md)

@@ -110,6 +110,26 @@ Broader code/science path when applicable:
 - [ ] I intentionally updated committed `results/` artifacts, or I left them untouched.
 - [ ] If canonical artifacts changed, the change is scientifically meaningful and explained in this PR.
 
+## Output Routing
+
+Use this section for research, validation, benchmark, source-curation,
+prediction, result, claim, or knowledge-facing PRs. Delete only when the PR is
+pure docs/task-admin and no scientific output class is involved.
+
+- Task verdict:
+- Canonical destination:
+- Review tier: `none`, `AGENT_PUBLISHED`, `AGENT_VALIDATED`, `MAINTAINER_REVIEWED`, `EXTERNAL_REPLICATED`, or `LEGACY_UNTIERED`
+- Gate A status:
+- Gate B status:
+- Claim impact:
+- Knowledge impact:
+- Limitations / blockers:
+
+If this PR contains `AGENT_PUBLISHED` or `AGENT_VALIDATED` artifacts, keep the
+qualifier explicit in the summary and changed-file notes. Claim status
+transitions are maintainer-only in Phase 1, and missing publication tooling
+must be reported as blocked rather than replaced by prose claims.
+
 ## Agent / Contributor Metadata
 
 Record both the human owner and the execution tool here. Do not add
