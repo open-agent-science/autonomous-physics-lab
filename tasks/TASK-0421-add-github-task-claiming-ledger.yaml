@@ -1,0 +1,54 @@
+id: TASK-0421
+title: "Add GitHub-based task claiming ledger"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare for a 50-agent pilot without building a custom scheduler."
+  - "Reduce duplicate PRs and overlapping write surfaces so agents spend time producing science artifacts."
+  - "Keep coordination online in GitHub, close to PRs, issues, labels, and review state."
+
+input:
+  mode: workflow
+  related_domain: multi_agent_coordination
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/agent-operating-model.md"
+    - "docs/task-queue-health-policy.md"
+    - "docs/result-promotion-protocol.md"
+    - "tasks/ACTIVE.md"
+  planning_context: >
+    APL now has enough READY science tasks and result-publication follow-up
+    work for parallel agents, but a 50-agent pilot can easily create duplicate
+    PRs if agents claim the same task or modify the same artifact surface. The
+    immediate need is a lightweight GitHub-native claiming ledger, not a new
+    platform.
+
+requirements:
+  - "Define a GitHub-based task claiming flow using issues, labels, PR metadata, or issue comments; avoid a custom server or database."
+  - "Specify how an agent claims exactly one task, how claims expire, and how maintainers resolve duplicate claims."
+  - "Require agents to declare write surfaces before starting work."
+  - "Require result/prediction publication attempts to declare whether the PR is sandbox-only, AGENT_PUBLISHED, AGENT_VALIDATED, or maintainer-reviewed under docs/result-promotion-protocol.md."
+  - "Include a fallback manual flow for agents without GitHub write permission."
+  - "Keep the flow lightweight enough for the current repository and 50-agent pilot."
+  - "Do not create scientific claims, result artifacts, or new research tasks in this task."
+
+accepted_outputs:
+  - "docs/agent-task-claiming.md"
+  - "optional .github/ISSUE_TEMPLATE/task-claim.yml or equivalent GitHub issue template"
+  - "optional update to docs/agent-task-protocol.md if the claiming flow changes first steps"
+  - "docs/reviews/github-task-claiming-ledger-review.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
