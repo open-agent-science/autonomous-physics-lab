@@ -1,0 +1,53 @@
+id: TASK-0413
+title: "Backfill first AGENT_PUBLISHED negative result"
+type: result_publication
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make negative and overfit results first-class canonical scientific memory."
+  - "Avoid a publication layer that only preserves positive-looking outcomes."
+  - "Demonstrate that falsification evidence can be agent-published with the same care as positive benchmark evidence."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "agent_runs/"
+    - "docs/reviews/"
+    - "results/"
+  planning_context: >
+    APL has many sandbox/audit results whose scientific value is negative:
+    overfit candidates, unstable subsets, failed transfer, or blocked reveal
+    attempts. The first negative AGENT_PUBLISHED RESULT should select one
+    mature candidate and preserve it as a canonical negative or inconclusive
+    result, not as a claim.
+
+requirements:
+  - "Remain BLOCKED until TASK-0408 and TASK-0409 are DONE, or until the maintainer explicitly authorizes a manual Gate A publication."
+  - "Choose exactly one mature negative, overfit, falsified, or inconclusive candidate."
+  - "Create exactly one new RESULT-* artifact with best_verdict set to INCONCLUSIVE, OVERFITTED, or FALSIFIED as appropriate."
+  - "Populate review_tier: AGENT_PUBLISHED and a complete `agent_proposal_evaluation` block."
+  - "Do not rewrite candidate metrics to make the result look stronger."
+  - "Do not pin the result to `results/golden-results.yaml`."
+  - "Do not promote or refute any CLAIM-* status in this task."
+
+accepted_outputs:
+  - "one new negative/inconclusive RESULT-* artifact"
+  - "docs/reviews/first-agent-published-negative-result-review.md"
+  - "source evidence notes linking to the original sandbox or review artifact"
+
+validation:
+  commands:
+    - "python3 scripts/apl_check_result_publication.py <new-result-path>"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

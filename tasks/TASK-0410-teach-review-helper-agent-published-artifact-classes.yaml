@@ -1,0 +1,53 @@
+id: TASK-0410
+title: "Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make maintainer review scalable for the new multi-class promotion protocol."
+  - "Ensure review-agent decisions distinguish evidence publication from claim endorsement."
+  - "Prevent result, prediction, claim, and knowledge PRs from using one generic verdict rule."
+
+input:
+  mode: workflow
+  related_domain: review_protocol
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_checks.py"
+  planning_context: >
+    After TASK-0406, a PR may publish a RESULT, register a PRED, author a DRAFT
+    claim, transition a claim status, or propose knowledge. The maintainer
+    review helper should classify these as different artifact classes with
+    different blockers instead of treating every scientific artifact change
+    identically.
+
+requirements:
+  - "Classify PRs that add or edit RESULT-* artifacts with review_tier metadata."
+  - "Classify PRs that add or edit PRED-* artifacts with review_tier metadata."
+  - "Classify DRAFT CLAIM-* authoring separately from CLAIM status transitions."
+  - "Classify KNOW-* changes as maintainer-only in Phase 1."
+  - "Require explicit PR-body qualifiers for AGENT_PUBLISHED or AGENT_VALIDATED artifact PRs."
+  - "Surface Gate A/Gate B checker results when the checker from TASK-0408 or TASK-0414 exists; before then, keep warnings advisory."
+  - "Do not auto-merge or promote claims from the review helper."
+
+accepted_outputs:
+  - "physics_lab/registry/maintainer_review.py"
+  - "physics_lab/registry/review_checks.py or equivalent focused helper"
+  - "tests/test_maintainer_review.py"
+  - "docs/maintainer-review-agent.md update if reviewer behavior changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
