@@ -226,6 +226,10 @@ This mode supports:
 10. No result artifacts are changed unless the task explicitly requires it.
     Human task-contract wording such as "benchmark result artifacts" or
     "canonical run artifacts" counts when it clearly authorizes that scope.
+    If a PR contains `AGENT_PUBLISHED` or `AGENT_VALIDATED` artifacts, verify
+    that the PR body includes an output-routing summary, the correct trust
+    qualifier, the intended canonical destination, and Gate A/Gate B status
+    from `docs/result-promotion-protocol.md`.
 11. No overclaim language is introduced.
 12. Task proposal PRs do not guess canonical `TASK-XXXX` ids or edit canonical task files.
     Maintainer-directed task-queue PRs may create or update canonical task files,
@@ -242,6 +246,9 @@ This mode supports:
 18. Task-queue PRs should sync `tasks/ACTIVE.md` and must not change canonical
     scientific artifacts such as claims, hypotheses, experiments, results, or
     knowledge.
+19. Missing result-publication tooling, source provenance, or replay support
+    must be treated as a blocked publication or follow-up task, not as a reason
+    to bypass the result-promotion protocol with narrative claims.
 
 Branch-only review is a preflight, not a final PR-body check. If the review was
 run with `--branch`, run it again with `--pr <number>` after opening the PR so

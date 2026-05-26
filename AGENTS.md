@@ -149,6 +149,14 @@ Every agent output must include:
 - limitations;
 - verdict.
 
+For research, validation, benchmark, source-curation, prediction, result,
+claim, or knowledge-facing tasks, the final output must also include an
+output-routing summary following `docs/result-promotion-protocol.md`: canonical
+destination, review tier when applicable, Gate A/Gate B status when applicable,
+claim impact, knowledge impact, and any publication blocker. Missing tooling or
+source provenance blocks publication; it does not authorize unsupported prose
+claims.
+
 No anonymous unverifiable scientific claim should be accepted as a result.
 
 ## Shared Task Pool
