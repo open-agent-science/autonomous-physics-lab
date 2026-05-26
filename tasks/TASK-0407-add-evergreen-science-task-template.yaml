@@ -1,0 +1,52 @@
+id: TASK-0407
+title: "Add evergreen science task template with stop conditions"
+type: scientific_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Let campaign curators generate repeatable tasks without creating open-ended agent churn."
+  - "Force every repeated science attempt to end in a reviewable result, negative result, source blocker, or next-task proposal."
+  - "Support 50-agent scaling while keeping the focus on scientific output."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/scientific-campaign-curator.md"
+    - "docs/campaign-curator-protocol.md"
+    - "docs/task-queue-health-policy.md"
+    - "docs/result-promotion-scorecard.md"
+  planning_context: >
+    Evergreen queues are useful only if each task is bounded. APL should not
+    ask agents to "search until something works"; it should ask them to run one
+    controlled attempt with data, baseline, controls, stop condition, and
+    preserved nulls. This template should become the curator pattern for future
+    Nuclear, Exoplanet, Quantum, and Atomic task waves.
+
+requirements:
+  - "Create a reusable evergreen science task template for one bounded attempt."
+  - "Require explicit campaign, pinned data/source surface, baseline, hypothesis family, controls, metrics, stop condition, and forbidden claims."
+  - "Require accepted outputs for agent_run metadata, metrics, report, limitations, and a negative/blocker note when applicable."
+  - "Define valid terminal outcomes: result candidate, negative result, inconclusive result, source blocker, or next-task proposal."
+  - "Include examples for residual mining, source curation, and adversarial-control tasks."
+  - "Do not add broad open-ended tasks or any public-discovery wording."
+
+accepted_outputs:
+  - "docs/templates/evergreen-science-task-template.yaml"
+  - "docs/evergreen-science-queues.md"
+  - "docs/reviews/evergreen-science-task-template-review.md"
+  - "optional update to docs/scientific-campaign-curator.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
