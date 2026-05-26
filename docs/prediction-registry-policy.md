@@ -1,5 +1,12 @@
 # Prediction Registry Policy
 
+> See also [`result-promotion-protocol.md`](./result-promotion-protocol.md)
+> for the master multi-class output protocol. The generic
+> `prediction.schema.json` introduced there allows the registry to extend
+> beyond nuclear masses to any domain that needs a pre-registration lane.
+> This policy remains authoritative for registry layout and the no-peek
+> freeze rules.
+
 ## Purpose
 
 This policy defines the repository-native rules for storing **prospective**
