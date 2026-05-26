@@ -65,6 +65,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_microtask_execution",
     "workflow_pilot",
     "validation",
+    "validation_infrastructure",
     "autonomous_research_pilot",
 }
 
