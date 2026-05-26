@@ -9,7 +9,7 @@ strategy_alignment:
   - "Operationalize the existing AGENTS.md vocabulary (hypothesis / claim / result / knowledge / theory) into a single master protocol an agent can consult after finishing any task."
   - "Stop the agent-runs treadmill (35 AGENT-RUN entries vs 0 promoted RESULT/CLAIM/KNOWLEDGE) by giving every verdict a canonical destination."
   - "Cover all seven scientific output classes (benchmark, validated-in-scope, negative, partially valid, prediction-awaiting-reveal, claim, knowledge) under one mapping rule instead of seven scattered policies."
-  - "Fill the only true architectural gap (no generic non-nuclear PRED-* schema) without disturbing the existing claim/result/knowledge schemas already in use."
+  - "Fill the only true architectural gap (no generic non-nuclear PRED-* schema) while keeping existing claim/result/knowledge artifacts backward-compatible."
 
 input:
   mode: workflow
@@ -42,12 +42,16 @@ requirements:
   - "Add physics_lab/schemas/prediction.schema.json as the generic non-domain-specific prediction schema; keep nuclear_mass_prediction.schema.json as the domain-specific extension."
   - "Add prediction_registry/README.md that explains how to extend the registry to non-nuclear domains."
   - "Add a small forward reference from AGENTS.md and from each cross-referenced policy doc to the new master protocol."
-  - "Do not change the existing claim/result/knowledge schemas. Do not modify existing CLAIM-*, RESULT-*, PRED-* values. Do not promote any existing DRAFT claim. Do not introduce new lifecycle states."
+  - "Existing CLAIM-*, RESULT-*, PRED-*, and KNOW-* artifact files must remain unchanged. Do not promote any existing DRAFT claim. Do not introduce new lifecycle states."
+  - "If claim/result/knowledge schemas are touched, keep the changes optional and backward-compatible; they may only expose the new review-tier metadata described by the protocol."
   - "Add unit tests that validate the new prediction.schema.json on a small fixture and confirm the master protocol document parses as Markdown without broken links."
 
 accepted_outputs:
   - "docs/result-promotion-protocol.md"
   - "physics_lab/schemas/prediction.schema.json"
+  - "physics_lab/schemas/claim.schema.json"
+  - "physics_lab/schemas/result.schema.json"
+  - "physics_lab/schemas/knowledge.schema.json"
   - "prediction_registry/README.md"
   - "AGENTS.md cross-reference update"
   - "tests/test_promotion_protocol.py"
