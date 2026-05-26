@@ -22,9 +22,12 @@ scope:
   out_of_scope:
     - "<out-of-scope item 1>"
 
-goals:                                       # global, durable goals — not current-state metrics
-  - "<goal 1>"
-  - "<goal 2>"
+goals:
+  long_term:                                 # durable goals that rarely change
+    - "<global goal 1>"
+    - "<global goal 2>"
+  current_targets:                           # optional, tunable numeric targets for the current phase
+    - "<target with concrete numbers / dates>"
 
 required_reading:                            # files to load before acting in this role
   - AGENTS.md

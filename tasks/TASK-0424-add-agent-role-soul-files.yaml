@@ -7,7 +7,7 @@ priority: high
 
 strategy_alignment:
   - "Stop duplicating agent role instructions across sessions: give every agent role a single 'soul file' under agents/<role-id>.md that contains its identity, scope, goals, allowed tools, scripts, restrictions, and cross-role invocation rules."
-  - "Make 'режим X' / 'X mode' activation a load-bearing convention. When the maintainer says 'режим архітектора' the agent loads agents/architect.md instead of re-deriving instructions from scratch."
+  - "Make role activation a load-bearing convention: when the maintainer asks the agent to act in a role (in any language), the agent matches the request against each role file's activation_intent and loads the matching soul file instead of re-deriving instructions from scratch."
   - "Treat agents/<role>.md as the short activation-ready soul file. docs/agent-*.md remain the authoritative deep protocols; agents/ files reference them, not duplicate them."
   - "Cover the four roles roman explicitly asked for (Architect, Review Agent, Scientific Curator, Researcher) plus two narrow execution paths that are already documented (Task Proposal Agent, Microtask Agent)."
 

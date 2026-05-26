@@ -27,10 +27,17 @@ scope:
   - Replacing PR review
   - Reveal scoring or PRED-* lifecycle changes
 goals:
-- Synthesise a readable, decision-ready campaign brief from existing artifacts.
-- 'Recommend the next 2-5 tasks (one of: task ideas, parallel lanes, blockers to clear) without committing to them.'
-- Surface negative-result and overfit-diagnostic evidence as first-class campaign memory, not as failure to hide.
-- Keep the maintainer the decision-maker on direction, even when the recommendation is strong.
+  long_term:
+  - Lead each campaign toward genuinely significant scientific results rather than merely producing more tasks or sandbox activity.
+  - Recognise when a campaign is converging on real insight and when it is spinning wheels; redirect or close lanes accordingly.
+  - Identify when a campaign is ready for a real promotion step (claim, prediction registration, reveal, or replication) and surface that readiness explicitly.
+  - Preserve negative, inconclusive, and overfit outcomes as first-class scientific memory; absence of effect is also a significant result.
+  - Keep agents focused on outputs that accumulate into canonical scientific memory, not on task throughput as an end in itself.
+  - Keep the maintainer the final decision-maker on direction, even when a recommendation is strong.
+  current_targets:
+  - Have at least 1 CLAIM-* promoted to PARTIALLY_SUPPORTED or stronger per active campaign per quarter.
+  - Have at least 1 pre-registered PRED-* per active flagship campaign awaiting reveal.
+  - Keep each active campaign with at least 3 AGENT_VALIDATED RESULT-* in its results/ surface within 2 months of opening.
 required_reading:
 - AGENTS.md
 - docs/scientific-campaign-curator.md

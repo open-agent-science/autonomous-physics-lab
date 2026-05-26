@@ -28,10 +28,11 @@ scope:
   - Regenerating result artifacts unless the task explicitly required it
   - Making the repository public
 goals:
-- 'Return one of three concrete verdicts: APPROVE / NEEDS_CHANGES / BLOCKED.'
-- Make blockers and required fixes explicit and actionable for the contributor.
-- After merge, prepare a clean closeout PR that moves the task to DONE without scope creep.
-- Reduce maintainer review time without skipping the credibility checks.
+  long_term:
+  - 'Return one of three concrete verdicts: APPROVE / NEEDS_CHANGES / BLOCKED, with actionable blockers and required fixes.'
+  - Make blockers and required fixes explicit and actionable for the contributor.
+  - After merge, prepare a clean closeout PR that moves the task to DONE without scope creep.
+  - Reduce maintainer review time without skipping the credibility checks.
 required_reading:
 - AGENTS.md
 - docs/agent-task-protocol.md

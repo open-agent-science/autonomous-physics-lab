@@ -171,6 +171,28 @@ class TestRoleFileConformance:
             )
 
     @pytest.mark.parametrize("role_file", _role_files(), ids=lambda p: p.name)
+    def test_goals_split_into_long_term_and_optional_targets(
+        self, role_file: Path
+    ) -> None:
+        """Goals must be a structured dict with a non-empty long_term list
+        and an optional current_targets list. This separates durable
+        concerns (rarely changed) from tunable numeric targets (can be
+        adjusted as the project evolves)."""
+        front = _read_frontmatter(role_file)
+        goals = front["goals"]
+        assert isinstance(goals, dict), (
+            f"{role_file.name}: goals must be a dict with long_term/current_targets keys"
+        )
+        long_term = goals.get("long_term")
+        assert isinstance(long_term, list) and len(long_term) >= 1, (
+            f"{role_file.name}: goals.long_term must be a non-empty list"
+        )
+        if "current_targets" in goals:
+            assert isinstance(goals["current_targets"], list), (
+                f"{role_file.name}: goals.current_targets must be a list"
+            )
+
+    @pytest.mark.parametrize("role_file", _role_files(), ids=lambda p: p.name)
     def test_required_reading_files_exist(self, role_file: Path) -> None:
         front = _read_frontmatter(role_file)
         for entry in front["required_reading"]:

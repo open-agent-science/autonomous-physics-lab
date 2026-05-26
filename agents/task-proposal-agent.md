@@ -23,9 +23,10 @@ scope:
   - Promoting CLAIM-* / RESULT-* / KNOW-* artifacts
   - Merging proposal PRs
 goals:
-- Convert a fuzzy idea into a reviewable proposal YAML with clear acceptance criteria.
-- Open exactly one TASK-PROPOSAL PR per atomic proposal (small same-salvage batches allowed).
-- Keep proposal scope tight enough that the maintainer can accept or reject in one read.
+  long_term:
+  - Convert a fuzzy idea into a reviewable proposal YAML with clear acceptance criteria.
+  - Open exactly one TASK-PROPOSAL PR per atomic proposal (small same-salvage batches allowed).
+  - Keep proposal scope tight enough that the maintainer can accept or reject in one read.
 required_reading:
 - AGENTS.md
 - docs/task-proposal-protocol.md

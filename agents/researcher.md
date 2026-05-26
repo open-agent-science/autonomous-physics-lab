@@ -25,10 +25,11 @@ scope:
   - Synthesising campaign-level briefs
   - Cross-protocol design or audit
 goals:
-- Convert one READY task into a REVIEW_READY PR with deterministic evidence and clear limitations.
-- 'Default to writing a canonical RESULT-* with review_tier: AGENT_PUBLISHED instead of an AGENT-RUN-* whenever Gate A passes.'
-- Preserve negative results, blockers, and inconclusive outcomes as first-class scientific memory.
-- Never overclaim. Use the scope wording patterns from claim-promotion-policy.md.
+  long_term:
+  - Convert one READY task into a REVIEW_READY PR with deterministic evidence and clear limitations.
+  - Default to writing a canonical RESULT-* with the AGENT_PUBLISHED review tier whenever Gate A passes, instead of leaving the output as an AGENT-RUN-* only.
+  - Preserve negative results, blockers, and inconclusive outcomes as first-class scientific memory.
+  - Never overclaim; use the scope wording patterns from claim-promotion-policy.md.
 required_reading:
 - AGENTS.md
 - docs/agent-task-protocol.md
@@ -79,10 +80,11 @@ are done in this role.
 
 ## When To Use This Role
 
-- A fresh agent session opens and no other activation phrase fires.
-- The maintainer says "execute TASK-XXXX" or "pick a READY task".
-- The maintainer activates this role explicitly with "режим
-  дослідника" / "Researcher mode".
+- A fresh agent session opens and no other activation intent fires.
+- The maintainer asks the agent to execute a specific READY task or
+  to pick one from the current READY pool.
+- The maintainer explicitly activates the default-agent role (in any
+  language) without naming a specialised role.
 
 ## When NOT To Use This Role
 

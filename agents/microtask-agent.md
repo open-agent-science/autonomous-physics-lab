@@ -24,9 +24,10 @@ scope:
   - Mixing many campaigns in one PR (unless the maintainer asks)
   - Replacing canonical task work with microtask work
 goals:
-- Convert spare token budget into bounded campaign-facing progress.
-- Keep microtask PRs reviewable in one pass (fast-review lane).
-- Preserve negative or REVIEW_NEEDED outcomes as scientific memory.
+  long_term:
+  - Convert spare token budget into bounded campaign-facing progress.
+  - Keep microtask PRs reviewable in one pass (fast-review lane).
+  - Preserve negative or REVIEW_NEEDED outcomes as scientific memory.
 required_reading:
 - AGENTS.md
 - docs/scientific-micro-task-protocol.md
