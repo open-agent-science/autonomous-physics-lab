@@ -65,19 +65,37 @@ class TestMasterProtocolDocument:
         for verdict in required_verdicts:
             assert verdict in text, verdict
 
-    def test_protocol_documents_three_review_tiers(self) -> None:
+    def test_protocol_documents_four_review_tiers(self) -> None:
         text = PROTOCOL_PATH.read_text(encoding="utf-8")
         for tier in (
-            "AGENT_PROPOSED",
+            "AGENT_PUBLISHED",
+            "AGENT_VALIDATED",
             "MAINTAINER_REVIEWED",
             "EXTERNAL_REPLICATED",
         ):
             assert tier in text, tier
 
+    def test_protocol_documents_three_gates(self) -> None:
+        text = PROTOCOL_PATH.read_text(encoding="utf-8")
+        # Result Publication Gate (A), Independent Replay Gate (B),
+        # Claim Endorsement Gate (C) — all three must be named in the doc.
+        for phrase in (
+            "Result Publication Gate",
+            "Independent Replay Gate",
+            "Claim Endorsement Gate",
+        ):
+            assert phrase in text, phrase
+
     def test_protocol_documents_self_evaluation_block(self) -> None:
         text = PROTOCOL_PATH.read_text(encoding="utf-8")
         assert "agent_proposal_evaluation" in text
         assert "gates_checked" in text
+
+    def test_protocol_states_operating_principle(self) -> None:
+        text = PROTOCOL_PATH.read_text(encoding="utf-8")
+        # The four-sentence operating principle should be visible near the top.
+        assert "Agents publish evidence" in text
+        assert "Maintainers endorse claims" in text
 
     def test_protocol_explains_pathway_to_new_knowledge(self) -> None:
         text = PROTOCOL_PATH.read_text(encoding="utf-8")
@@ -178,9 +196,9 @@ class TestPredictionSchema:
     def test_review_tier_enum_accepted(self) -> None:
         schema = _load_schema()
         valid = _minimal_valid_prediction()
-        valid["review_tier"] = "AGENT_PROPOSED"
+        valid["review_tier"] = "AGENT_PUBLISHED"
         valid["agent_proposal_evaluation"] = {
-            "review_tier_proposed": "AGENT_PROPOSED",
+            "review_tier_proposed": "AGENT_PUBLISHED",
             "gates_checked": {"no_peek_state": True},
             "evidence_summary": "Agent self-evaluation block for test.",
         }
@@ -193,10 +211,10 @@ class TestPredictionSchema:
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(instance=invalid, schema=schema)
 
-    def test_agent_proposal_evaluation_requires_proposed_tier_value(self) -> None:
+    def test_agent_proposal_evaluation_rejects_maintainer_tier_value(self) -> None:
         schema = _load_schema()
         invalid = _minimal_valid_prediction()
-        invalid["review_tier"] = "AGENT_PROPOSED"
+        invalid["review_tier"] = "AGENT_PUBLISHED"
         invalid["agent_proposal_evaluation"] = {
             "review_tier_proposed": "MAINTAINER_REVIEWED",
             "gates_checked": {"no_peek_state": True},
@@ -204,6 +222,43 @@ class TestPredictionSchema:
         }
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(instance=invalid, schema=schema)
+
+    def test_agent_validated_tier_accepted(self) -> None:
+        schema = _load_schema()
+        valid = _minimal_valid_prediction()
+        valid["review_tier"] = "AGENT_VALIDATED"
+        valid["agent_proposal_evaluation"] = {
+            "review_tier_proposed": "AGENT_VALIDATED",
+            "gates_checked": {
+                "same_inputs_used": True,
+                "same_deterministic_command_used": True,
+                "metrics_match_within_tolerance": True,
+                "verdict_unchanged": True,
+            },
+            "evidence_summary": (
+                "Independent replay by second agent reproduced metrics "
+                "within 1e-6 tolerance."
+            ),
+        }
+        jsonschema.validate(instance=valid, schema=schema)
+
+    def test_all_four_tiers_accepted_in_enum(self) -> None:
+        schema = _load_schema()
+        for tier in (
+            "AGENT_PUBLISHED",
+            "AGENT_VALIDATED",
+            "MAINTAINER_REVIEWED",
+            "EXTERNAL_REPLICATED",
+        ):
+            valid = _minimal_valid_prediction()
+            valid["review_tier"] = tier
+            if tier in {"AGENT_PUBLISHED", "AGENT_VALIDATED"}:
+                valid["agent_proposal_evaluation"] = {
+                    "review_tier_proposed": tier,
+                    "gates_checked": {"placeholder": True},
+                    "evidence_summary": f"Test fixture for {tier}.",
+                }
+            jsonschema.validate(instance=valid, schema=schema)
 
 
 # ---------------------------------------------------------------------------

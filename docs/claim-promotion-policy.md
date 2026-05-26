@@ -4,7 +4,7 @@
 > for the master multi-class output protocol. **In Phase 1 of that
 > protocol, all `CLAIM-*` status transitions remain maintainer-only.**
 > An agent may author a new `CLAIM-*.md` file at `status: DRAFT` with
-> `review_tier: AGENT_PROPOSED` (assembling evidence references in a
+> `review_tier: AGENT_PUBLISHED` (assembling evidence references in a
 > reviewable form) but may not move the claim to `PARTIALLY_SUPPORTED`,
 > `SUPPORTED`, `REFUTED`, or `SUPERSEDED` on its own. This policy
 > remains the authoritative source for the `DRAFT` /

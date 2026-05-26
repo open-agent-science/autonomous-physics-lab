@@ -79,7 +79,8 @@
     "review_tier": {
       "type": "string",
       "enum": [
-        "AGENT_PROPOSED",
+        "AGENT_PUBLISHED",
+        "AGENT_VALIDATED",
         "MAINTAINER_REVIEWED",
         "EXTERNAL_REPLICATED"
       ],
@@ -92,7 +93,10 @@
       "properties": {
         "review_tier_proposed": {
           "type": "string",
-          "const": "AGENT_PROPOSED"
+          "enum": [
+            "AGENT_PUBLISHED",
+            "AGENT_VALIDATED"
+          ]
         },
         "gates_checked": {
           "type": "object",

@@ -77,7 +77,8 @@
     "review_tier": {
       "type": "string",
       "enum": [
-        "AGENT_PROPOSED",
+        "AGENT_PUBLISHED",
+        "AGENT_VALIDATED",
         "MAINTAINER_REVIEWED",
         "EXTERNAL_REPLICATED"
       ],
@@ -86,11 +87,14 @@
     "agent_proposal_evaluation": {
       "type": "object",
       "additionalProperties": true,
-      "description": "Required when review_tier is AGENT_PROPOSED. Records which agent-promotion gates were checked. See docs/result-promotion-protocol.md for the required gate list.",
+      "description": "Required when review_tier is AGENT_PUBLISHED. Records which agent-promotion gates were checked. See docs/result-promotion-protocol.md for the required gate list.",
       "properties": {
         "review_tier_proposed": {
           "type": "string",
-          "const": "AGENT_PROPOSED"
+          "enum": [
+            "AGENT_PUBLISHED",
+            "AGENT_VALIDATED"
+          ]
         },
         "promotion_target_status": {
           "type": "string",
