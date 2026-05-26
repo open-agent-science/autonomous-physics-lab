@@ -1,0 +1,54 @@
+id: TASK-0408
+title: "Implement Gate A result-publication checker"
+type: validation_infrastructure
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make AGENT_PUBLISHED RESULT/PRED publication mechanically checkable before agents start backfilling canonical evidence."
+  - "Reduce maintainer bottleneck without weakening scientific custody."
+  - "Give review agents a deterministic Gate A signal instead of prose-only judgment."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/prediction-registry-policy.md"
+    - "physics_lab/schemas/result.schema.json"
+    - "physics_lab/schemas/prediction.schema.json"
+  planning_context: >
+    Gate A defines the mechanical requirements for an agent to publish a new
+    RESULT-* or PRED-* artifact with review_tier: AGENT_PUBLISHED. The
+    protocol is useful, but agents need a helper that checks deterministic
+    command metadata, verification blocks, input hashes, limitations, pinned
+    source state, overclaim wording, protected-artifact rewrites, and source
+    provenance before a PR is reviewed.
+
+requirements:
+  - "Add a Gate A checker for new AGENT_PUBLISHED RESULT-* artifacts."
+  - "Add a Gate A checker path for generic PRED-* artifacts, reusing prediction-registry policy constraints."
+  - "Detect missing deterministic command/code references, missing verification verdicts, missing input hashes, empty limitations, and missing git/source state."
+  - "Detect attempts to rewrite protected artifacts already pinned in `results/golden-results.yaml`."
+  - "Detect forbidden overclaim wording in positive contexts while allowing guardrail/anti-pattern mentions."
+  - "Expose a CLI that agents and review helpers can run before opening or merging a publication PR."
+  - "Do not create or promote any RESULT-* or PRED-* artifact in this task."
+
+accepted_outputs:
+  - "physics_lab/registry/result_publication_gate.py"
+  - "scripts/apl_check_result_publication.py"
+  - "tests/test_result_publication_gate.py"
+  - "docs/review-checklists/agent-published-result-checklist.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_result_publication_gate.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

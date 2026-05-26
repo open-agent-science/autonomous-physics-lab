@@ -1,0 +1,52 @@
+id: TASK-0420
+title: "Add Campaign Curator promotion backlog view"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Help the Scientific Campaign Curator recommend which sandbox evidence should become canonical scientific memory."
+  - "Prioritize high-quality backfill candidates without flooding the repo with weak RESULT-* artifacts."
+  - "Connect campaign-level planning to the new result-promotion protocol."
+
+input:
+  mode: workflow
+  related_domain: campaign_curator
+  related_objects:
+    - "docs/scientific-campaign-curator.md"
+    - "docs/campaign-curator-protocol.md"
+    - "docs/result-promotion-protocol.md"
+    - "agent_runs/"
+    - "results/"
+    - "docs/reviews/"
+  planning_context: >
+    The curator should not only propose more research lanes. After TASK-0406,
+    it should also identify high-quality AGENT-RUN or review artifacts that
+    may qualify for RESULT backfill, negative-result publication, replay, or
+    claim review. This task adds that advisory view without creating artifacts
+    automatically.
+
+requirements:
+  - "Extend curator guidance to include a promotion backlog section."
+  - "Classify candidates as result-backfill, negative-result-backfill, replay-needed, claim-review-candidate, or do-not-promote."
+  - "Require explicit reasons for why a candidate should not be promoted."
+  - "Keep the curator advisory: it must not create RESULT/PRED/CLAIM/KNOW artifacts automatically."
+  - "Do not add a database, dashboard, or autonomous orchestration runtime."
+
+accepted_outputs:
+  - "docs/campaign-curator-protocol.md"
+  - "docs/scientific-campaign-curator.md"
+  - "optional tests for campaign-curator prompt/output if script behavior changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_campaign_curator.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
