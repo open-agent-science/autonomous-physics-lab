@@ -69,6 +69,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0405` — Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0406` — Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
