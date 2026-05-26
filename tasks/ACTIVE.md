@@ -68,7 +68,6 @@ one PR.
 - `TASK-0411` — Sync mission recommendations after result-promotion protocol (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`)
 - `TASK-0418` — Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0419` — Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`)
 - `TASK-0420` — Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
@@ -82,6 +81,7 @@ None.
 
 - `TASK-0405` — Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0406` — Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0419` — Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
