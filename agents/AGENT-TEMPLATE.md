@@ -3,13 +3,16 @@ role_id: <role-id-kebab-case>
 role_name: "<Human-Readable Role Name>"
 short_description: "<one-sentence purpose>"
 status: planned                              # active | planned | deprecated | legacy_test_fixture
-appointed_by: <maintainer-username-or-empty>
-appointed_at: YYYY-MM-DD                     # optional, when the role was formally established
 phase: ""                                    # optional, e.g. "Phase 1 (topic-driven)"
 
-activation_phrases:                          # natural-language triggers that put an agent into this role
-  - "<phrase 1>"
-  - "<phrase 2>"
+activation_intent: >
+  Language-agnostic concept describing what the user is asking for when
+  invoking this role. The agent should match on this concept regardless
+  of the language or exact wording of the request.
+
+example_activation_phrases:                  # informational only; not authoritative
+  - "act as <role>"
+  - "switch to <role> mode"
 
 scope:
   description: "<2-3 sentences>"
@@ -19,7 +22,7 @@ scope:
   out_of_scope:
     - "<out-of-scope item 1>"
 
-goals:
+goals:                                       # global, durable goals — not current-state metrics
   - "<goal 1>"
   - "<goal 2>"
 
@@ -28,9 +31,9 @@ required_reading:                            # files to load before acting in th
   - docs/agent-task-protocol.md
   - <other authoritative protocol files>
 
-allowed_tools:
-  - "<tool or capability 1>"
-  - "<tool or capability 2>"
+allowed_tools:                               # generic capability descriptions, not machine paths
+  - "<capability 1>"
+  - "<capability 2>"
 
 scripts_to_use:                              # repository scripts the role typically calls
   - scripts/apl_mission.py
@@ -56,12 +59,14 @@ operating_mode_summary: >
 ## Purpose
 
 (2-4 sentences explaining when and why this role is used. Treat as the
-first thing a fresh agent reads after loading this file.)
+first thing a fresh agent reads after loading this file. Keep it
+generic and durable; specific names, dates, or current-state numbers
+do not belong here.)
 
 ## When To Use This Role
 
-- (concrete trigger 1, e.g. "when the maintainer says 'режим X'")
-- (concrete trigger 2, e.g. "when a campaign reaches N PARTIALLY_SUPPORTED claims")
+- (concrete trigger 1)
+- (concrete trigger 2)
 
 ## When NOT To Use This Role
 
@@ -112,8 +117,8 @@ specific to this role belong here, not in a generic anti-patterns doc.
 
 ## Cadence and Reporting
 
-How often the role acts, and whether it reports back to the maintainer
-on a schedule or only on request.
+How often the role acts, and whether it reports back on a schedule or
+only on request.
 
 ## Template Compliance
 

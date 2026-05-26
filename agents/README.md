@@ -10,26 +10,48 @@ duplicate them.
 
 ## Purpose
 
-When a maintainer or contributor switches an agent into a role
-("режим архітектора", "Run Scientific Campaign Curator for nuclear
-mass", "review PR 565"), the agent reads the corresponding
-`agents/<role-id>.md` soul file as its first action and applies that
-role's instructions for the rest of the session (or until the role is
-switched).
+When a maintainer or contributor asks the agent to act in a role
+(in any language, with any wording), the agent matches the request
+against the `activation_intent` of each role file, loads the matching
+`agents/<role-id>.md` soul file, and applies that role's instructions
+for the rest of the session.
 
 This means agent instructions are not duplicated across sessions:
 **one role, one file, one canonical activation source**.
 
 ## Active Roles
 
-| Role file | Role name | When to use |
-| --- | --- | --- |
-| [`architect.md`](architect.md) | **APL Architect** | Cross-protocol design, bottleneck analysis, safety review for the repository as a whole. |
-| [`review-agent.md`](review-agent.md) | **Maintainer Review Agent** | Pre-merge PR review and post-merge task closeout. |
-| [`scientific-curator.md`](scientific-curator.md) | **Scientific Campaign Curator** | Campaign-level research brief: what did this campaign teach us, what should run next. |
-| [`researcher.md`](researcher.md) | **Researcher (default agent)** | Default role: pick one READY task, execute it to REVIEW_READY. |
-| [`task-proposal-agent.md`](task-proposal-agent.md) | **Task Proposal Agent** | Convert a new idea into a proposal under `tasks/proposals/` when no existing READY task fits. |
-| [`microtask-agent.md`](microtask-agent.md) | **Scientific Microtask Agent** | Spare-budget queue work from `tasks/microtasks/`. |
+### [Architect](architect.md)
+
+Helper role that automates parts of the architecture and cross-protocol
+work. Used for protocol design, bottleneck analysis, safety review, and
+agent-role organisation.
+
+### [Maintainer Review Agent](review-agent.md)
+
+Pre-merge pull-request review and post-merge task closeout. Returns an
+explicit verdict; never merges.
+
+### [Scientific Campaign Curator](scientific-curator.md)
+
+Campaign-level research brief assistant. Summarises what a campaign has
+learned, which directions look promising, and what should run next.
+
+### [Researcher](researcher.md)
+
+Default role for any new agent session. Picks one READY task and
+executes it through the canonical lifecycle to `REVIEW_READY`.
+
+### [Task Proposal Agent](task-proposal-agent.md)
+
+Drafts proposal-only PRs under `tasks/proposals/` when no existing
+READY task fits the work that needs doing.
+
+### [Scientific Microtask Agent](microtask-agent.md)
+
+Bounded queue work from `tasks/microtasks/`. Typically used when there
+is spare token or time budget and a campaign queue has items in its
+available list.
 
 ## Template
 
@@ -39,21 +61,22 @@ in `tests/test_agent_role_soul_files.py` enforces conformance.
 
 ## Activation Convention
 
-When the maintainer (or any contributor) says a role's activation
-phrase (e.g. "режим архітектора", "Architect mode", "run campaign
-curator for X", "review PR <n>"), the agent:
+When the maintainer (or any contributor) asks the agent to act in a
+role, the agent:
 
-1. Locates the matching `agents/<role-id>.md` by walking the
-   `activation_phrases` list in each role's frontmatter.
+1. Matches the request against the `activation_intent` of each role
+   file. Activation is **concept-based**, not phrase-based: any
+   natural-language wording in any language that expresses the same
+   intent should fire the role. The `example_activation_phrases` list
+   in each role file is informational only.
 2. Loads the role's `required_reading` list.
 3. Applies the role's `scope`, `goals`, `restrictions`, and
    `operating_mode_summary` for the rest of the session.
 4. Returns to the previous role only when explicitly switched.
 
 Activation is currently a convention, not a script. A helper script
-(`scripts/apl_agent_mode.py <role>` that prints the soul file ready for
-context injection) may be added later as a separate task if the
-convention proves load-bearing at scale.
+that prints the soul file ready for context injection may be added
+later if the convention proves load-bearing at scale.
 
 ## Cross-Role Invocation
 

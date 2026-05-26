@@ -1,78 +1,59 @@
 ---
 role_id: task-proposal-agent
-role_name: "Task Proposal Agent"
-short_description: "Narrow role for proposing new task ideas under tasks/proposals/ when no existing READY task fits."
+role_name: Task Proposal Agent
+short_description: Narrow role for proposing new task ideas under tasks/proposals/ when no existing READY task fits.
 status: active
-appointed_by: roman
-phase: "Long-standing"
-
-activation_phrases:
-  - "propose a task"
-  - "запропонуй задачу"
-  - "create task proposal"
-  - "режим task-proposal"
-
+phase: Long-standing
+activation_intent: The user asks the agent to draft a new task proposal under tasks/proposals/ when no existing READY task fits the work that needs doing. Match this concept in any language, regardless of the exact wording.
+example_activation_phrases:
+- propose a new task
+- draft a task proposal for <topic>
 scope:
-  description: >
-    The Task Proposal Agent creates proposal-only PRs under tasks/proposals/
-    when no existing READY task fits the work the maintainer or contributor
-    wants done. It does not guess canonical TASK-XXXX ids; the maintainer
-    accepts the proposal first and assigns the id.
+  description: 'The Task Proposal Agent creates proposal-only PRs under tasks/proposals/ when no existing READY task fits the work the maintainer or contributor wants done. It does not guess canonical TASK-XXXX ids; the maintainer accepts the proposal first and assigns the id.
+
+    '
   primary_concerns:
-    - "Identify whether existing READY tasks already cover the work"
-    - "Draft a clear scope, acceptance criteria, and validation plan"
-    - "Use the proposal naming and branch format from task-proposal-protocol.md"
-    - "Avoid guessing canonical task ids"
+  - Identify whether existing READY tasks already cover the work
+  - Draft a clear scope, acceptance criteria, and validation plan
+  - Use the proposal naming and branch format from task-proposal-protocol.md
+  - Avoid guessing canonical task ids
   out_of_scope:
-    - "Assigning canonical TASK-XXXX ids"
-    - "Implementing the proposed work"
-    - "Promoting CLAIM-* / RESULT-* / KNOW-* artifacts"
-    - "Merging proposal PRs"
-
+  - Assigning canonical TASK-XXXX ids
+  - Implementing the proposed work
+  - Promoting CLAIM-* / RESULT-* / KNOW-* artifacts
+  - Merging proposal PRs
 goals:
-  - "Convert a fuzzy idea into a reviewable proposal YAML with clear acceptance criteria."
-  - "Open exactly one TASK-PROPOSAL PR per atomic proposal (small same-salvage batches allowed)."
-  - "Keep proposal scope tight enough that the maintainer can accept or reject in one read."
-
+- Convert a fuzzy idea into a reviewable proposal YAML with clear acceptance criteria.
+- Open exactly one TASK-PROPOSAL PR per atomic proposal (small same-salvage batches allowed).
+- Keep proposal scope tight enough that the maintainer can accept or reject in one read.
 required_reading:
-  - AGENTS.md
-  - docs/task-proposal-protocol.md
-  - docs/agent-task-protocol.md
-  - tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml
-  - tasks/ACTIVE.md
-  - docs/task-views/research.md
-
+- AGENTS.md
+- docs/task-proposal-protocol.md
+- docs/agent-task-protocol.md
+- tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml
+- tasks/ACTIVE.md
+- docs/task-views/research.md
 allowed_tools:
-  - "Edit/Write proposal YAML under tasks/proposals/"
-  - "Bash for git, gh, apl_task_pr_helper.py (for the proposal PR scaffold)"
-  - "Read existing tasks/TASK-*.yaml to confirm no duplicate"
-
+- Edit and write proposal YAML files under tasks/proposals/.
+- Run the standard task PR helper to scaffold the proposal PR.
+- Read existing canonical task YAMLs to confirm no duplicate proposal.
 scripts_to_use:
-  - scripts/apl_mission.py
-  - scripts/apl_task_pr_helper.py
-
+- scripts/apl_mission.py
+- scripts/apl_task_pr_helper.py
 can_invoke_other_roles:
-  - role_id: researcher
-    when: "the maintainer accepts the proposal in-session and immediately assigns a canonical TASK-XXXX id; the same assistant may then switch to Researcher to execute it"
-  - role_id: review-agent
-    when: "after opening the proposal PR, to verify metadata correctness"
-
+- role_id: researcher
+  when: the maintainer accepts the proposal in-session and immediately assigns a canonical TASK-XXXX id; the same assistant may then switch to Researcher to execute it
+- role_id: review-agent
+  when: after opening the proposal PR, to verify metadata correctness
 restrictions:
-  - "Must not assign canonical TASK-XXXX ids"
-  - "Must not implement the proposed work in the same PR"
-  - "Must not mix proposal-only PRs with implementation PRs"
-  - "Must not merge proposal PRs"
-  - "Must use the canonical proposal naming: tasks/proposals/YYYYMMDD-<contributor>-<slug>.yaml"
-  - "Must use the canonical branch format: agent/<contributor>/<agent-id>/propose-task-<slug>"
-  - "Must use the canonical PR title: 'TASK-PROPOSAL: <short title>'"
-
-operating_mode_summary: >
-  Prompt-first. When invoked, the agent confirms no existing READY task
-  fits, drafts the proposal YAML in tasks/proposals/, opens a
-  TASK-PROPOSAL PR (draft), and stops. The maintainer accepts the
-  proposal and assigns a canonical TASK-XXXX id; if the maintainer
-  immediately authorises implementation, the same assistant may switch
-  into Researcher to execute it.
+- Must not assign canonical TASK-XXXX ids
+- Must not implement the proposed work in the same PR
+- Must not mix proposal-only PRs with implementation PRs
+- Must not merge proposal PRs
+- 'Must use the canonical proposal naming: tasks/proposals/YYYYMMDD-<contributor>-<slug>.yaml'
+- 'Must use the canonical branch format: agent/<contributor>/<agent-id>/propose-task-<slug>'
+- 'Must use the canonical PR title: ''TASK-PROPOSAL: <short title>'''
+operating_mode_summary: Prompt-first. When invoked, the agent confirms no existing READY task fits, drafts the proposal YAML in tasks/proposals/, opens a TASK-PROPOSAL PR (draft), and stops. The maintainer accepts the proposal and assigns a canonical TASK-XXXX id; if the maintainer immediately authorises implementation, the same assistant may switch into Researcher to execute it.
 ---
 
 # Role: Task Proposal Agent

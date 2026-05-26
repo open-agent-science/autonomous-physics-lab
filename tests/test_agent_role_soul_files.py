@@ -27,7 +27,7 @@ REQUIRED_FRONTMATTER_FIELDS = (
     "role_name",
     "short_description",
     "status",
-    "activation_phrases",
+    "activation_intent",
     "scope",
     "goals",
     "required_reading",
@@ -36,6 +36,16 @@ REQUIRED_FRONTMATTER_FIELDS = (
     "can_invoke_other_roles",
     "restrictions",
     "operating_mode_summary",
+)
+
+FORBIDDEN_FRONTMATTER_FIELDS = (
+    # Removed in the rev: roles are not "appointed" by a named individual,
+    # and the soul file should not embed activation phrases as the
+    # authoritative trigger (use activation_intent instead — match the
+    # concept in any language).
+    "appointed_by",
+    "appointed_at",
+    "activation_phrases",
 )
 
 ALLOWED_STATUS_VALUES = (
@@ -122,13 +132,43 @@ class TestRoleFileConformance:
         assert front["status"] in ALLOWED_STATUS_VALUES, front["status"]
 
     @pytest.mark.parametrize("role_file", _role_files(), ids=lambda p: p.name)
-    def test_activation_phrases_is_non_empty_list(self, role_file: Path) -> None:
+    def test_activation_intent_is_non_empty_string(self, role_file: Path) -> None:
         front = _read_frontmatter(role_file)
-        phrases = front["activation_phrases"]
-        assert isinstance(phrases, list)
-        # At least one phrase, even if it is an empty string (used for the
-        # default Researcher role) — the field must still be a list.
-        assert len(phrases) >= 1, role_file.name
+        intent = front["activation_intent"]
+        assert isinstance(intent, str)
+        # Activation intent must be a real concept description, not a
+        # trivial stub.
+        assert len(intent.strip()) >= 40, (
+            f"{role_file.name}: activation_intent is too short to be a real "
+            f"concept description ({len(intent.strip())} chars)"
+        )
+
+    @pytest.mark.parametrize("role_file", _role_files(), ids=lambda p: p.name)
+    def test_no_forbidden_frontmatter_fields(self, role_file: Path) -> None:
+        front = _read_frontmatter(role_file)
+        for field in FORBIDDEN_FRONTMATTER_FIELDS:
+            assert field not in front, (
+                f"{role_file.name}: forbidden frontmatter field {field} is present"
+            )
+
+    @pytest.mark.parametrize("role_file", _role_files(), ids=lambda p: p.name)
+    def test_allowed_tools_does_not_embed_machine_paths(
+        self, role_file: Path
+    ) -> None:
+        """Soul files must not embed absolute filesystem paths in
+        allowed_tools; descriptions must be machine-agnostic."""
+        front = _read_frontmatter(role_file)
+        for entry in front["allowed_tools"]:
+            text = str(entry)
+            assert "/Users/" not in text, (
+                f"{role_file.name}: allowed_tools entry embeds a /Users/ path: {entry}"
+            )
+            assert "/home/" not in text, (
+                f"{role_file.name}: allowed_tools entry embeds a /home/ path: {entry}"
+            )
+            assert "C:\\" not in text, (
+                f"{role_file.name}: allowed_tools entry embeds a Windows path: {entry}"
+            )
 
     @pytest.mark.parametrize("role_file", _role_files(), ids=lambda p: p.name)
     def test_required_reading_files_exist(self, role_file: Path) -> None:
