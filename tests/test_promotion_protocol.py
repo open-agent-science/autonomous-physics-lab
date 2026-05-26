@@ -17,6 +17,8 @@ import jsonschema
 import pytest
 import yaml
 
+from physics_lab.registry.validation import validate_document
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL_PATH = REPO_ROOT / "docs" / "result-promotion-protocol.md"
@@ -172,6 +174,54 @@ def _minimal_valid_prediction() -> dict:
     }
 
 
+def _minimal_valid_result() -> dict:
+    payload = yaml.safe_load(RESULT_TEMPLATE.read_text(encoding="utf-8"))
+    payload["result_id"] = "RESULT-9998"
+    payload["engine_version"] = "0.2-test"
+    payload["git_commit"] = "deadbeefcafebabe"
+    payload["verification"]["checks"][0] = {
+        "name": "deterministic_replay",
+        "status": "PASS",
+        "details": "Replay command completed.",
+        "metrics": {},
+    }
+    payload.pop("review_tier", None)
+    payload.pop("agent_proposal_evaluation", None)
+    return payload
+
+
+def _minimal_valid_claim() -> dict:
+    return {
+        "id": "CLAIM-9999",
+        "title": "Test claim",
+        "domain": "test",
+        "status": "DRAFT",
+        "hypothesis_id": "HYP-9999",
+        "evidence": {
+            "experiments": ["EXP-9999"],
+            "results": ["RESULT-9999"],
+        },
+        "scope": "Test-only scoped claim.",
+        "body": "Test-only claim body.",
+    }
+
+
+def _minimal_valid_knowledge() -> dict:
+    return {
+        "id": "KNOW-9999",
+        "title": "Test knowledge",
+        "domain": "test",
+        "topic": "test",
+        "linked_objects": {
+            "hypotheses": [],
+            "experiments": [],
+            "claims": [],
+            "tasks": [],
+        },
+        "body": "Test-only knowledge body.",
+    }
+
+
 class TestPredictionSchema:
     def test_schema_file_exists(self) -> None:
         assert PRED_SCHEMA_PATH.exists(), PRED_SCHEMA_PATH
@@ -272,6 +322,78 @@ class TestPredictionSchema:
                     "evidence_summary": f"Test fixture for {tier}.",
                 }
             jsonschema.validate(instance=valid, schema=schema)
+
+
+# ---------------------------------------------------------------------------
+# Review-tier repository validation guardrails
+# ---------------------------------------------------------------------------
+
+
+class TestReviewTierValidation:
+    @pytest.mark.parametrize(
+        ("kind", "payload"),
+        (
+            ("result", _minimal_valid_result()),
+            ("prediction", _minimal_valid_prediction()),
+            ("claim", _minimal_valid_claim()),
+            ("knowledge", _minimal_valid_knowledge()),
+        ),
+    )
+    def test_legacy_artifacts_without_review_tier_remain_valid(
+        self, kind: str, payload: dict
+    ) -> None:
+        validate_document(payload, kind, f"{kind}.yaml")
+
+    @pytest.mark.parametrize(
+        ("kind", "payload"),
+        (
+            ("result", _minimal_valid_result()),
+            ("prediction", _minimal_valid_prediction()),
+            ("claim", _minimal_valid_claim()),
+            ("knowledge", _minimal_valid_knowledge()),
+        ),
+    )
+    def test_agent_published_requires_agent_evaluation(
+        self, kind: str, payload: dict
+    ) -> None:
+        payload["review_tier"] = "AGENT_PUBLISHED"
+
+        with pytest.raises(ValueError, match="agent_proposal_evaluation"):
+            validate_document(payload, kind, f"{kind}.yaml")
+
+    @pytest.mark.parametrize(
+        ("kind", "payload"),
+        (
+            ("result", _minimal_valid_result()),
+            ("prediction", _minimal_valid_prediction()),
+            ("claim", _minimal_valid_claim()),
+            ("knowledge", _minimal_valid_knowledge()),
+        ),
+    )
+    def test_agent_evaluation_tier_must_match_artifact_tier(
+        self, kind: str, payload: dict
+    ) -> None:
+        payload["review_tier"] = "AGENT_VALIDATED"
+        payload["agent_proposal_evaluation"] = {
+            "review_tier_proposed": "AGENT_PUBLISHED",
+            "gates_checked": {"placeholder": True},
+            "evidence_summary": "Mismatched tier fixture.",
+        }
+
+        with pytest.raises(ValueError, match="review_tier_proposed"):
+            validate_document(payload, kind, f"{kind}.yaml")
+
+    def test_agent_evaluation_requires_populated_gates_checked(self) -> None:
+        payload = _minimal_valid_prediction()
+        payload["review_tier"] = "AGENT_PUBLISHED"
+        payload["agent_proposal_evaluation"] = {
+            "review_tier_proposed": "AGENT_PUBLISHED",
+            "gates_checked": {},
+            "evidence_summary": "Empty gates fixture.",
+        }
+
+        with pytest.raises(ValueError, match="gates_checked"):
+            validate_document(payload, "prediction", "prediction.yaml")
 
 
 # ---------------------------------------------------------------------------
