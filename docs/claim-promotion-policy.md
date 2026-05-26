@@ -1,5 +1,14 @@
 # Claim Promotion Policy
 
+> See also [`result-promotion-protocol.md`](./result-promotion-protocol.md)
+> for the master multi-class output protocol and the
+> `review_tier: AGENT_SELF_PROMOTED` pathway that allows agents to
+> promote a claim to `PARTIALLY_SUPPORTED` without blocking on maintainer
+> review (subject to the agent-promotion gates listed there). This policy
+> remains the authoritative source for the `DRAFT` /
+> `PARTIALLY_SUPPORTED` / `SUPPORTED` / `REFUTED` / `SUPERSEDED`
+> vocabulary itself.
+
 ## Purpose
 
 This document defines when a `CLAIM-*` file may move beyond `DRAFT`.

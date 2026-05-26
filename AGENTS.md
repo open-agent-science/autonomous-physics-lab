@@ -169,6 +169,7 @@ Use these files as the shared coordination layer:
 - `docs/agent-task-protocol.md`
 - `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
+- `docs/result-promotion-protocol.md` — master mapping rule from task verdict to canonical output class; required reading before writing any final task output (replaces the default "write only an `AGENT-RUN-*`" pattern).
 - `docs/task-views/research.md`
 - `docs/task-views/support.md`
 - `docs/task-views/release.md`

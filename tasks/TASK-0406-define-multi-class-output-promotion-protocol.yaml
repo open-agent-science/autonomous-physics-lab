@@ -1,0 +1,65 @@
+id: TASK-0406
+title: "Define multi-class scientific output promotion protocol"
+type: workflow_protocol
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Operationalize the existing AGENTS.md vocabulary (hypothesis / claim / result / knowledge / theory) into a single master protocol an agent can consult after finishing any task."
+  - "Stop the agent-runs treadmill (35 AGENT-RUN entries vs 0 promoted RESULT/CLAIM/KNOWLEDGE) by giving every verdict a canonical destination."
+  - "Cover all seven scientific output classes (benchmark, validated-in-scope, negative, partially valid, prediction-awaiting-reveal, claim, knowledge) under one mapping rule instead of seven scattered policies."
+  - "Fill the only true architectural gap (no generic non-nuclear PRED-* schema) without disturbing the existing claim/result/knowledge schemas already in use."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_workflow
+  related_objects:
+    - "docs/claim-promotion-policy.md"
+    - "docs/prediction-registry-policy.md"
+    - "docs/blind-holdout-benchmark-protocol.md"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "physics_lab/schemas/result.schema.json"
+    - "physics_lab/schemas/claim.schema.json"
+    - "physics_lab/schemas/knowledge.schema.json"
+    - "physics_lab/schemas/nuclear_mass_prediction.schema.json"
+    - "prediction_registry/nuclear_masses/"
+    - "results/golden-results.yaml"
+    - "AGENTS.md"
+  planning_context: >
+    APL has 387 tasks closed, 35 sandbox AGENT-RUN entries, 11 hypotheses, 11
+    experiments, 10 DRAFT claims, and 0 promoted RESULT/CLAIM/KNOWLEDGE
+    artifacts. The architecture supports promotion (schemas + per-domain
+    policies exist) but agents do not have a single document that tells them
+    where any given sandbox finding belongs after a task verdict. This task
+    creates that document and fills the one true gap (generic prediction
+    schema) without rewriting existing policies.
+
+requirements:
+  - "Create docs/result-promotion-protocol.md as the master protocol covering all seven output classes."
+  - "The master protocol must contain a mapping rule (verdict -> canonical class -> file path) usable as an agent cheat sheet."
+  - "The master protocol must cross-reference and not contradict the existing claim-promotion-policy.md, prediction-registry-policy.md, blind-holdout-benchmark-protocol.md, and nuclear-prediction-reveal-protocol.md."
+  - "Add physics_lab/schemas/prediction.schema.json as the generic non-domain-specific prediction schema; keep nuclear_mass_prediction.schema.json as the domain-specific extension."
+  - "Add prediction_registry/README.md that explains how to extend the registry to non-nuclear domains."
+  - "Add a small forward reference from AGENTS.md and from each cross-referenced policy doc to the new master protocol."
+  - "Do not change the existing claim/result/knowledge schemas. Do not modify existing CLAIM-*, RESULT-*, PRED-* values. Do not promote any existing DRAFT claim. Do not introduce new lifecycle states."
+  - "Add unit tests that validate the new prediction.schema.json on a small fixture and confirm the master protocol document parses as Markdown without broken links."
+
+accepted_outputs:
+  - "docs/result-promotion-protocol.md"
+  - "physics_lab/schemas/prediction.schema.json"
+  - "prediction_registry/README.md"
+  - "AGENTS.md cross-reference update"
+  - "tests/test_promotion_protocol.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_promotion_protocol.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

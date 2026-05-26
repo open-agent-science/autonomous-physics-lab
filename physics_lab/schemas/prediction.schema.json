@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prediction (generic, domain-neutral)",
+  "description": "Generic base schema for prospective predictions registered before later reveal. Domain-specific schemas (such as nuclear_mass_prediction.schema.json) may extend this with stricter target-structure requirements. The generic schema is used by domains that do not yet have a dedicated extension.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "prediction_id",
+    "title",
+    "registry_status",
+    "campaign_profile_id",
+    "task_id",
+    "evidence_class",
+    "claim_ceiling",
+    "registered_by",
+    "registered_at_utc",
+    "source_state",
+    "target_set",
+    "uncertainty_semantics",
+    "reveal_conditions",
+    "limitations"
+  ],
+  "properties": {
+    "prediction_id": {
+      "type": "string",
+      "pattern": "^PRED-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "registry_status": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "REGISTERED",
+        "REVEAL_PENDING",
+        "REVEAL_COMPLETE",
+        "SUPERSEDED",
+        "WITHDRAWN"
+      ]
+    },
+    "campaign_profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^TASK-[0-9]{4}$"
+    },
+    "evidence_class": {
+      "type": "string",
+      "enum": [
+        "prospective_prediction_registry",
+        "retrospective_holdout_comparison",
+        "calibration_only"
+      ]
+    },
+    "claim_ceiling": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Single-sentence statement of the maximum claim that this prediction can support by itself. By policy this is always a non-claim ceiling such as 'Registered prospective prediction only; no claim until later maintainer-reviewed comparison.'"
+    },
+    "registered_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contributor_id",
+        "agent_id"
+      ],
+      "properties": {
+        "contributor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agent_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "registered_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_state": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "git_commit",
+        "model_reference",
+        "live_external_fetch_allowed"
+      ],
+      "properties": {
+        "git_commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_reference": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "model_id"
+          ],
+          "properties": {
+            "model_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_path": {
+              "type": "string"
+            },
+            "frozen_parameters_note": {
+              "type": "string"
+            }
+          }
+        },
+        "baseline_reference": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "training_data_references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "holdout_protocol_references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "live_external_fetch_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "source_data_state_note": {
+          "type": "string"
+        }
+      }
+    },
+    "target_set": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "label",
+        "quantity",
+        "unit"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quantity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "uncertainty_semantics": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short text describing whether predictions are point estimates only, carry a numeric 1-sigma uncertainty, an interval bound, or a heuristic confidence note."
+    },
+    "reveal_conditions": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "comparison_source_class",
+        "reveal_controlled_by",
+        "no_peek_rule"
+      ],
+      "properties": {
+        "comparison_source_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reveal_controlled_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "no_peek_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "partial_reveal_allowed": {
+          "type": "boolean"
+        },
+        "expected_reveal_window": {
+          "type": "string"
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "review_tier": {
+      "type": "string",
+      "enum": [
+        "AGENT_SELF_PROMOTED",
+        "MAINTAINER_REVIEWED",
+        "EXTERNAL_REPLICATED"
+      ],
+      "description": "Multi-tier review level introduced by docs/result-promotion-protocol.md. Optional for backward compatibility; new agent-written PRED-* entries should set AGENT_SELF_PROMOTED explicitly."
+    },
+    "agent_self_evaluation": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Required when review_tier is AGENT_SELF_PROMOTED. See docs/result-promotion-protocol.md for the required gate list and example block.",
+      "properties": {
+        "review_tier_proposed": {
+          "type": "string",
+          "const": "AGENT_SELF_PROMOTED"
+        },
+        "gates_checked": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        },
+        "evidence_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "followup_for_maintainer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "review_tier_proposed",
+        "gates_checked",
+        "evidence_summary"
+      ]
+    }
+  }
+}
