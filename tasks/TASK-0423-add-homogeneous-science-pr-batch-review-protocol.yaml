@@ -1,4 +1,4 @@
-id: TASK-0408
+id: TASK-0423
 title: "Add homogeneous science PR batch review protocol"
 type: maintainer_workflow
 status: READY
@@ -17,17 +17,19 @@ input:
     - "docs/maintainer-review-agent.md"
     - "docs/automation/maintainer-routine-mode.md"
     - "docs/review-checklists/maintainer-pr-review-checklist.md"
+    - "docs/result-promotion-protocol.md"
     - "docs/result-promotion-scorecard.md"
   planning_context: >
     A 50-agent pilot will produce many similar PRs: source triage, residual
     scout, adversarial controls, negative-result notes, and evidence cards.
     Maintainers need a way to review homogeneous batches efficiently while
-    preserving one PR's evidence, limitations, and review verdict.
+    preserving each PR's evidence, limitations, review tier, and review verdict.
 
 requirements:
   - "Define what counts as a homogeneous science PR batch, such as same campaign, same task type, same validation surface, and disjoint write paths."
   - "Require every PR in the batch to have its own review-agent verdict, validation result, and limitations section."
   - "Define when batch review is forbidden, including mixed campaign artifacts, result promotion, prediction reveal scoring, claim edits, or conflicting write surfaces."
+  - "Allow result/prediction publication PRs in a batch only when they have the same artifact class, same review tier, and separate Gate A/Gate B evidence blocks."
   - "Define a batch summary artifact that lists PR number, task id, verdict, risk, changed artifacts, and follow-up action."
   - "Do not authorize automatic claim promotion or automatic merge of scientifically ambiguous PRs."
   - "Do not build a dashboard or external review service."

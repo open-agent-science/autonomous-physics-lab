@@ -1,4 +1,4 @@
-id: TASK-0407
+id: TASK-0422
 title: "Add evergreen science task template with stop conditions"
 type: scientific_workflow
 status: READY
@@ -17,19 +17,23 @@ input:
     - "docs/scientific-campaign-curator.md"
     - "docs/campaign-curator-protocol.md"
     - "docs/task-queue-health-policy.md"
+    - "docs/result-promotion-protocol.md"
     - "docs/result-promotion-scorecard.md"
   planning_context: >
     Evergreen queues are useful only if each task is bounded. APL should not
     ask agents to "search until something works"; it should ask them to run one
     controlled attempt with data, baseline, controls, stop condition, and
     preserved nulls. This template should become the curator pattern for future
-    Nuclear, Exoplanet, Quantum, and Atomic task waves.
+    Nuclear, Exoplanet, Quantum, and Atomic task waves while routing final
+    outputs through the current result-promotion protocol.
 
 requirements:
   - "Create a reusable evergreen science task template for one bounded attempt."
   - "Require explicit campaign, pinned data/source surface, baseline, hypothesis family, controls, metrics, stop condition, and forbidden claims."
   - "Require accepted outputs for agent_run metadata, metrics, report, limitations, and a negative/blocker note when applicable."
   - "Define valid terminal outcomes: result candidate, negative result, inconclusive result, source blocker, or next-task proposal."
+  - "Require each terminal outcome to state its intended artifact class: sandbox-only, RESULT candidate, PRED candidate, claim candidate, knowledge note, or no-promotion blocker."
+  - "If a RESULT or PRED candidate is proposed, require the task template to reference Gate A expectations without allowing automatic claim promotion."
   - "Include examples for residual mining, source curation, and adversarial-control tasks."
   - "Do not add broad open-ended tasks or any public-discovery wording."
 

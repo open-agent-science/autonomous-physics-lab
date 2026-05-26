@@ -6,7 +6,13 @@
 
 ## READY
 
-None.
+- `TASK-0407` - Enforce review-tier metadata guardrails in repository validation (`validation_infrastructure`, priority `high`, difficulty `medium`, domain `result_promotion`)
+- `TASK-0409` - Add AGENT_PUBLISHED RESULT and PRED templates (`contributor_experience`, priority `high`, difficulty `low`, domain `result_promotion`)
+- `TASK-0410` - Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `review_protocol`)
+- `TASK-0411` - Sync mission recommendations after result-promotion protocol (`maintainer_workflow`, priority `high`, difficulty `low`, domain `mission_control`)
+- `TASK-0418` - Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `result_promotion`)
+- `TASK-0419` - Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_protocol`)
+- `TASK-0420` - Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_curator`)
 
 ## IN_PROGRESS
 
@@ -15,3 +21,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0405` - Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_snapshot`)
+- `TASK-0406` - Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`, domain `cross_campaign_workflow`)

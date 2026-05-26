@@ -1,0 +1,55 @@
+id: TASK-0418
+title: "Add scientific memory review-tier index"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make AGENT_PUBLISHED, AGENT_VALIDATED, MAINTAINER_REVIEWED, and EXTERNAL_REPLICATED artifacts visible as separate trust tiers."
+  - "Help maintainers and campaign curators see which evidence needs replay, review, or external reveal."
+  - "Prevent AGENT_PUBLISHED artifacts from being mistaken for maintainer-endorsed claims."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "results/"
+    - "claims/"
+    - "knowledge/"
+    - "prediction_registry/"
+    - "docs/status.md"
+  planning_context: >
+    Once agents can publish canonical evidence, maintainers need a lightweight
+    visibility layer that separates trust tiers. This should not be a dashboard
+    or database. A generated or manually maintained Markdown index is enough
+    for now, as long as it prevents AGENT_PUBLISHED evidence from being
+    confused with AGENT_VALIDATED or MAINTAINER_REVIEWED artifacts.
+
+requirements:
+  - "Add a review-tier index for canonical scientific memory artifacts."
+  - "Separate AGENT_PUBLISHED, AGENT_VALIDATED, MAINTAINER_REVIEWED, EXTERNAL_REPLICATED, and LEGACY_UNTIERED artifacts."
+  - "List RESULT, PRED, CLAIM, and KNOW artifacts separately or with clear class labels."
+  - "Include next action hints such as replay-needed, maintainer-review-needed, or reveal-needed."
+  - "Do not promote, re-tier, or edit canonical scientific artifacts in this task."
+  - "Keep the implementation lightweight: Markdown and a small helper if needed, no dashboard or database."
+
+accepted_outputs:
+  - "docs/scientific-memory-review-tiers.md"
+  - "optional physics_lab/registry/scientific_memory_index.py"
+  - "optional scripts/apl_scientific_memory_index.py"
+  - "tests covering index rendering if a helper is added"
+  - "docs/status.md link or concise pointer if useful"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,5 +1,16 @@
 # Claim Promotion Policy
 
+> See also [`result-promotion-protocol.md`](./result-promotion-protocol.md)
+> for the master multi-class output protocol. **In Phase 1 of that
+> protocol, all `CLAIM-*` status transitions remain maintainer-only.**
+> An agent may author a new `CLAIM-*.md` file at `status: DRAFT` with
+> `review_tier: AGENT_PUBLISHED` (assembling evidence references in a
+> reviewable form) but may not move the claim to `PARTIALLY_SUPPORTED`,
+> `SUPPORTED`, `REFUTED`, or `SUPERSEDED` on its own. This policy
+> remains the authoritative source for the `DRAFT` /
+> `PARTIALLY_SUPPORTED` / `SUPPORTED` / `REFUTED` / `SUPERSEDED`
+> vocabulary itself.
+
 ## Purpose
 
 This document defines when a `CLAIM-*` file may move beyond `DRAFT`.

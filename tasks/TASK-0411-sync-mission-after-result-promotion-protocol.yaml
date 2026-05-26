@@ -1,0 +1,51 @@
+id: TASK-0411
+title: "Sync mission recommendations after result-promotion protocol"
+type: maintainer_workflow
+status: READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Shift Agent First guidance from sandbox-only runs toward canonical evidence publication when gates pass."
+  - "Make the new result-promotion protocol visible in mission recommendations."
+  - "Keep onboarding from sending agents into unsupported RESULT/PRED publication before guardrails exist."
+
+input:
+  mode: workflow
+  related_domain: mission_control
+  related_objects:
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/result-promotion-protocol.md"
+    - "scripts/apl_mission.py"
+  planning_context: >
+    The mission layer still mostly tells agents to run sandbox/audit tasks.
+    After TASK-0406, agents should be told to decide the final output class
+    using docs/result-promotion-protocol.md. The mission copy should also make
+    clear that actual RESULT/PRED publication should wait for Gate A tooling
+    or maintainer-approved manual Gate A review.
+
+requirements:
+  - "Update current mission guidance to mention result-promotion-protocol.md as the end-of-task routing document."
+  - "Prefer language such as: agents publish reproducible evidence; agents validate each other; maintainers endorse interpretation; external data confirms predictions."
+  - "Keep claim/knowledge endorsement maintainer-only in Phase 1."
+  - "Do not add public-launch or article wording."
+  - "Do not mark blocked tasks as READY."
+  - "Do not regenerate generated task views in the task PR; rely on post-merge sync unless this is a dedicated board-sync PR."
+
+accepted_outputs:
+  - "missions/current.yaml"
+  - "docs/current-missions.md"
+  - "tests/test_mission_control.py if mission output changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
