@@ -27,7 +27,7 @@ Use `--json` when a review helper needs machine-readable output.
 - `limitations` and `evidence_summary` are non-empty.
 - The `result_id` is not already pinned in `results/golden-results.yaml`.
 - The artifact does not introduce positive-context breakthrough, proof, or
-  solved-physics wording.
+  solution-style wording.
 
 ## PRED-* Gate A
 
