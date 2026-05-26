@@ -78,13 +78,13 @@ None.
 
 - `TASK-0405` — Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0406` — Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`)
-- `TASK-0407` — Enforce review-tier metadata guardrails in repository validation (`validation_infrastructure`, priority `high`, difficulty `medium`)
-- `TASK-0408` — Implement Gate A result-publication checker (`validation_infrastructure`, priority `high`, difficulty `medium`)
 - `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (`contributor_experience`, priority `high`, difficulty `low`)
 - `TASK-0419` — Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
+- `TASK-0408` — Implement Gate A result-publication checker (merged)
+- `TASK-0407` — Enforce review-tier metadata guardrails in repository validation (merged)
 - `TASK-0389` — Polish onboarding prompt for cross-platform first-run flow (merged)
 - `TASK-0388` — Refresh campaign status after latest agent results (merged)
 - `TASK-0387` — Clarify closeout PR follow-through instructions (merged)

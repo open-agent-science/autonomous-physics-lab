@@ -22,6 +22,5 @@ None.
 
 - `TASK-0405` - Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_snapshot`)
 - `TASK-0406` - Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`, domain `cross_campaign_workflow`)
-- `TASK-0407` - Enforce review-tier metadata guardrails in repository validation (`validation_infrastructure`, priority `high`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0409` - Add AGENT_PUBLISHED RESULT and PRED templates (`contributor_experience`, priority `high`, difficulty `low`, domain `result_promotion`)
 - `TASK-0419` - Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_protocol`)
