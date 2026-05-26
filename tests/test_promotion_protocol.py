@@ -15,6 +15,7 @@ from pathlib import Path
 
 import jsonschema
 import pytest
+import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +24,10 @@ PRED_SCHEMA_PATH = (
     REPO_ROOT / "physics_lab" / "schemas" / "prediction.schema.json"
 )
 PRED_REGISTRY_README = REPO_ROOT / "prediction_registry" / "README.md"
+RESULT_TEMPLATE = REPO_ROOT / "results" / "RESULT-TEMPLATE.agent-published.yaml"
+PRED_TEMPLATE = REPO_ROOT / "prediction_registry" / "PRED-TEMPLATE.agent-published.yaml"
+RESULT_DOC_TEMPLATE = REPO_ROOT / "docs" / "templates" / "agent-published-result.md"
+PRED_DOC_TEMPLATE = REPO_ROOT / "docs" / "templates" / "agent-published-prediction.md"
 
 
 # ---------------------------------------------------------------------------
@@ -112,6 +117,14 @@ class TestMasterProtocolDocument:
 
 def _load_schema() -> dict:
     return json.loads(PRED_SCHEMA_PATH.read_text(encoding="utf-8"))
+
+
+def _load_result_schema() -> dict:
+    return json.loads(
+        (REPO_ROOT / "physics_lab" / "schemas" / "result.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
 
 
 def _minimal_valid_prediction() -> dict:
@@ -259,6 +272,61 @@ class TestPredictionSchema:
                     "evidence_summary": f"Test fixture for {tier}.",
                 }
             jsonschema.validate(instance=valid, schema=schema)
+
+
+# ---------------------------------------------------------------------------
+# AGENT_PUBLISHED templates
+# ---------------------------------------------------------------------------
+
+
+class TestAgentPublishedTemplates:
+    def test_result_template_exists_and_validates(self) -> None:
+        assert RESULT_TEMPLATE.exists(), RESULT_TEMPLATE
+        payload = yaml.safe_load(RESULT_TEMPLATE.read_text(encoding="utf-8"))
+
+        jsonschema.validate(instance=payload, schema=_load_result_schema())
+        assert payload["review_tier"] == "AGENT_PUBLISHED"
+        gates = payload["agent_proposal_evaluation"]["gates_checked"]
+        for key in (
+            "deterministic_run",
+            "verification_block_populated",
+            "input_hashes_recorded",
+            "limitations_listed",
+            "engine_version_and_commit_pinned",
+            "schema_validation_passes",
+            "no_protected_artifact_rewrite",
+            "no_forbidden_overclaim_wording",
+            "dataset_provenance_valid",
+        ):
+            assert key in gates
+
+    def test_prediction_template_exists_and_validates(self) -> None:
+        assert PRED_TEMPLATE.exists(), PRED_TEMPLATE
+        payload = yaml.safe_load(PRED_TEMPLATE.read_text(encoding="utf-8"))
+
+        jsonschema.validate(instance=payload, schema=_load_schema())
+        assert payload["review_tier"] == "AGENT_PUBLISHED"
+        assert payload["source_state"]["live_external_fetch_allowed"] is False
+        gates = payload["agent_proposal_evaluation"]["gates_checked"]
+        for key in (
+            "no_peek_state",
+            "frozen_model_reference",
+            "named_target_set",
+            "reveal_conditions_explicit",
+            "non_claim_ceiling",
+            "live_external_fetch_disabled",
+            "schema_validation_passes",
+            "no_forbidden_overclaim_wording",
+        ):
+            assert key in gates
+
+    def test_doc_templates_keep_trust_boundary_visible(self) -> None:
+        for path in (RESULT_DOC_TEMPLATE, PRED_DOC_TEMPLATE):
+            text = path.read_text(encoding="utf-8")
+            assert "AGENT_PUBLISHED" in text
+            assert "independently" in text
+            assert "not a claim" in text or "does not promote a claim" in text
+            assert "Gate A" in text
 
 
 # ---------------------------------------------------------------------------

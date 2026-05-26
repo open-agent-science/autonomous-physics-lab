@@ -1,0 +1,76 @@
+# Template only. Copy into prediction_registry/<domain>/PRED-XXXX.yaml and
+# replace every placeholder before opening an AGENT_PUBLISHED prediction PR.
+prediction_id: PRED-9999
+title: "Agent-published prospective prediction title"
+registry_status: REGISTERED
+campaign_profile_id: "replace-with-campaign-profile"
+task_id: TASK-9999
+evidence_class: prospective_prediction_registry
+claim_ceiling: "Registered prospective prediction only; no claim until later maintainer-reviewed comparison."
+
+registered_by:
+  contributor_id: "replace-with-contributor-id"
+  agent_id: "replace-with-agent-id"
+
+registered_at_utc: "2026-05-26T00:00:00Z"
+
+source_state:
+  git_commit: "REPLACE_WITH_GIT_COMMIT_SHA"
+  model_reference:
+    model_id: "replace-with-frozen-model-id"
+    source_path: "replace/with/model/or/result/source/path"
+    frozen_parameters_note: "State exactly what model parameters or candidate values are frozen."
+  baseline_reference:
+    source_path: "replace/with/baseline/source/path"
+  training_data_references:
+    - "replace/with/training-or-calibration-source-path"
+  holdout_protocol_references:
+    - "docs/prediction-registry-policy.md"
+    - "docs/result-promotion-protocol.md"
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    State what was known at registration time and why no reveal-relevant live
+    external measurement was read while preparing this entry.
+
+target_set:
+  label: "replace-with-target-batch-label"
+  quantity: "replace_with_quantity"
+  unit: "replace_with_unit"
+  targets:
+    - target_id: "replace-with-target-id"
+      predicted_value: 0.0
+      uncertainty: null
+      confidence_note: "State uncertainty semantics or why only a point estimate is available."
+
+uncertainty_semantics: "Point estimate only unless this field is replaced with a domain-specific uncertainty contract."
+
+reveal_conditions:
+  comparison_source_class: "replace-with-future-reviewed-source-class"
+  reveal_controlled_by: "maintainer"
+  no_peek_rule: "Do not alter target set, frozen source state, or prediction values after reveal-relevant measurements become visible."
+  partial_reveal_allowed: false
+  expected_reveal_window: "unknown"
+
+limitations:
+  - "Agent-published, not yet independently validated or maintainer-reviewed."
+  - "Prospective registry entry only; not a claim."
+  - "Later comparison requires a maintainer-reviewed reveal task."
+
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  gates_checked:
+    no_peek_state: false
+    frozen_model_reference: false
+    named_target_set: false
+    reveal_conditions_explicit: false
+    non_claim_ceiling: false
+    live_external_fetch_disabled: true
+    schema_validation_passes: false
+    no_forbidden_overclaim_wording: false
+  evidence_summary: >
+    Template only. Replace with a short summary of the frozen source state,
+    target set, and reveal condition.
+  followup_for_maintainer: >
+    Keep the trust qualifier explicit: agent-published, not independently
+    validated or maintainer-reviewed.
