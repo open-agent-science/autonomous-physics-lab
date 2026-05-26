@@ -8,7 +8,6 @@
 
 - `TASK-0396` - Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0401` - Run atomic Beloy 2021 row readiness re-check (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0408` - Implement Gate A result-publication checker (`validation_infrastructure`, priority `high`, difficulty `medium`, domain `result_promotion`)
 
 ## IN_PROGRESS
 
@@ -16,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0408` - Implement Gate A result-publication checker (`validation_infrastructure`, priority `high`, difficulty `medium`, domain `result_promotion`)
