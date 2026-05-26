@@ -243,8 +243,13 @@ class TestRequiredActiveRoles:
 
     def test_architect_role_phase_documented(self) -> None:
         front = _read_frontmatter(AGENTS_DIR / "architect.md")
-        # Phase 1 (topic-driven) is the explicit operating mode roman set.
-        assert "Phase 1" in front.get("phase", ""), front.get("phase")
+        # Architect role must explicitly carry a phase label so the
+        # current operating mode is documented (Phase 1 = topic-driven
+        # was promoted to Phase 2 = proactive on 2026-05-26).
+        phase = front.get("phase", "")
+        assert phase.startswith("Phase "), (
+            f"architect.md: phase must start with 'Phase '; got {phase!r}"
+        )
 
     def test_researcher_is_default_role(self) -> None:
         front = _read_frontmatter(AGENTS_DIR / "researcher.md")
