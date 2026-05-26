@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0408` - Implement Gate A result-publication checker (`validation_infrastructure`, priority `high`, difficulty `medium`, domain `result_promotion`)
+None.
