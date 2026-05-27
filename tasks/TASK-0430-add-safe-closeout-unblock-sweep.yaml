@@ -1,0 +1,52 @@
+id: TASK-0430
+title: "Add safe closeout-time task unblocking"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent completed blocker tasks from leaving downstream work unnecessarily stuck in BLOCKED."
+  - "Keep closeout proactive while avoiding unsafe scientific or external-source unblocks."
+  - "Make the maintainer closeout protocol better support parallel agent waves."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/task_unblock.py"
+  planning_context: >
+    Closeout currently marks merged tasks DONE, but downstream BLOCKED tasks can
+    remain stuck even after their explicit blockers are complete. Add a safe
+    deterministic unblock check so closeout can move obvious dependent tasks to
+    READY while leaving scientific, source-access, waiver, or artifact-existence
+    decisions blocked for maintainer review.
+
+requirements:
+  - "Detect BLOCKED tasks with explicit safe dependency wording such as `Remain BLOCKED until TASK-XXXX and TASK-YYYY are DONE`."
+  - "Automatically unblock only when every referenced dependency is DONE."
+  - "Do not automatically unblock tasks that mention source access, external decisions, waiver paths, artifact existence, or scientific judgment."
+  - "Include unblock candidates in closeout report output so maintainers can see what changed or why a task stayed blocked."
+  - "Update closeout protocol docs and checklist."
+
+accepted_outputs:
+  - "physics_lab/registry/task_unblock.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "docs/maintainer-review-agent.md"
+  - "docs/review-checklists/task-closeout-checklist.md"
+  - "tests/test_task_closeout.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/task_unblock.py physics_lab/registry/maintainer_review.py tests/test_task_closeout.py"
+    - "python3 -m pytest tests/test_task_closeout.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
