@@ -51,6 +51,11 @@ instruction, may perform closeout after merge.
 - In larger cleanup batches, sanity-check open `READY`, `REVIEW_READY`, and
   `BLOCKED` tasks so the board does not keep advertising already-merged or no
   longer relevant work.
+- During closeout, unblock dependent tasks from `BLOCKED` to `READY` only when
+  the blocker is deterministic and fully satisfied inside the repository, for
+  example `Remain BLOCKED until TASK-XXXX and TASK-YYYY are DONE`. Keep tasks
+  blocked when the unblock condition depends on source access, external data,
+  maintainer waiver, artifact existence, or scientific judgment.
 - When opening a closeout PR, prefer
   `python3 scripts/apl_closeout_pr_helper.py scaffold ...` plus
   `python3 scripts/apl_closeout_pr_helper.py preflight ...` so the PR body

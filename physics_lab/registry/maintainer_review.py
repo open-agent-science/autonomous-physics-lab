@@ -63,6 +63,7 @@ from physics_lab.registry.task_closeout import (
     PUBLIC_STATE_CLOSEOUT_DOCS,
     render_public_state_doc_checklist,
 )
+from physics_lab.registry.task_unblock import safe_unblock_candidates
 
 
 REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
@@ -1369,9 +1370,30 @@ def build_closeout_report(
     else:
         outcome = "READY_TO_APPLY"
 
+    unblock_candidates = safe_unblock_candidates(root)
+    safe_unblocks = tuple(item for item in unblock_candidates if item.safe_to_unblock)
+    pending_unblocks = tuple(item for item in unblock_candidates if not item.safe_to_unblock)
+    if not apply:
+        for item in safe_unblocks:
+            suggested_actions.append(
+                f"Safe unblock candidate: {item.task_id} can move from BLOCKED to READY; "
+                f"all explicit dependencies are DONE ({', '.join(item.dependencies)})."
+            )
+        for item in pending_unblocks:
+            suggested_actions.append(f"Blocked unblock candidate: {item.task_id} — {item.reason}")
+
     if apply and outcome == "APPLIED":
         update_task_status(task_file, "DONE")
         applied_changes.append(f"Updated {task_file.as_posix()} status to DONE.")
+        for item in safe_unblock_candidates(root):
+            if not item.safe_to_unblock:
+                suggested_actions.append(f"Blocked unblock candidate: {item.task_id} — {item.reason}")
+                continue
+            update_task_status(item.task_file, "READY")
+            applied_changes.append(
+                f"Safely unblocked {item.task_file.as_posix()} from BLOCKED to READY "
+                f"after explicit dependencies were DONE ({', '.join(item.dependencies)})."
+            )
         if sync_board:
             update_active_board_for_done(root, task_id, str(task_payload["title"]))
             applied_changes.append(

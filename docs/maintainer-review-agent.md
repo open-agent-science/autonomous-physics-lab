@@ -470,9 +470,13 @@ Use this mode only after the maintainer has already merged the PR.
 - flag stale open tasks for follow-up closeout, reopening, or curation when a
   cleanup pass reveals that the board no longer matches reality
 - unblock directly dependent tasks by moving them from `BLOCKED` to `READY`
-  when the merged task wave has satisfied their explicit prerequisites; the
-  closeout PR title or body must say this is an unblock, and the unblocked task
-  must remain reviewable work rather than a claim, result, or promotion
+  when the merged task wave has satisfied their explicit prerequisites. This
+  should be automatic only for safe, deterministic blockers such as
+  `Remain BLOCKED until TASK-XXXX and TASK-YYYY are DONE`; source-access,
+  external-data, waiver, artifact-existence, or scientific-judgment blockers
+  must remain blocked until a maintainer decision or a dedicated readiness task.
+  The closeout PR title or body must say this is an unblock, and the unblocked
+  task must remain reviewable work rather than a claim, result, or promotion
 - close stale, superseded, or no-longer-relevant tasks by moving them to
   `REJECTED` when the maintainer has approved that cleanup; this is optional
   queue hygiene, not a required closeout step
