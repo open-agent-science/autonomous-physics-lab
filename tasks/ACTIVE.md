@@ -76,7 +76,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -85,6 +85,7 @@ None.
 - `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
 - `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
 - `TASK-0419` — Update agent protocol for final output-class routing (merged)
+- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (merged)
 - `TASK-0411` — Sync mission recommendations after result-promotion protocol (merged)
 - `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (merged)
 - `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (merged)
@@ -454,13 +455,8 @@ None.
 
 ## BLOCKED
 
-- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -469,6 +465,14 @@ None.
 - `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
 - `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
+
+## SUPERSEDED
+
+- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 
 ## REJECTED
 

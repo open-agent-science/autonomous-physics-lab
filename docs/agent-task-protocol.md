@@ -33,8 +33,8 @@ context, not as competing protocol definitions.
 1. Start with one atomic task that is already `READY`.
 2. Do not start a second task unless a human explicitly asks for it or the work
    is clearly independent.
-3. Do not start `REVIEW_READY`, `BLOCKED`, or `REJECTED` tasks unless a human
-   explicitly redirects you.
+3. Do not start `REVIEW_READY`, `BLOCKED`, `SUPERSEDED`, or `REJECTED` tasks
+   unless a human explicitly redirects you.
 4. If no existing task fits, ask for or propose a new task before doing
    substantial work.
 
@@ -180,6 +180,10 @@ Use these execution states:
   `DONE`.
 - `BLOCKED`: work cannot continue until a dependency, decision, or external
   action is resolved. State the blocker clearly.
+- `SUPERSEDED`: the task was valid when created, but a newer task,
+  architecture, or reviewed workflow replaced it. Do not execute it; follow the
+  replacement task or create a fresh scoped task if the old idea becomes useful
+  again.
 - `REJECTED`: the task should not proceed in its current form.
 
 Rules:
@@ -195,6 +199,8 @@ Rules:
 - A maintainer may use a maintainer-run review agent to assist review and
   closeout, but the agent output is advisory rather than autonomous.
 - If blocked, set `BLOCKED` and explain why in the task file, board, or PR.
+- If old work is replaced by a better lane, set `SUPERSEDED` rather than
+  leaving it in `BLOCKED` or marking it `REJECTED`.
 - `PROPOSED` may still appear in backlog planning, but it is not an executable
   task state for active task execution.
 

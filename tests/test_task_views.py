@@ -92,6 +92,14 @@ def test_render_task_views_groups_tasks_by_lane_and_status(tmp_path: Path) -> No
         task_type="benchmark_planning",
         related_domain="particle_physics",
     )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0006",
+        title="Old manual lane",
+        status="SUPERSEDED",
+        task_type="scientific_validation",
+        related_domain="nuclear_physics",
+    )
 
     rendered = render_task_views(tmp_path)
 
@@ -103,6 +111,8 @@ def test_render_task_views_groups_tasks_by_lane_and_status(tmp_path: Path) -> No
     assert "## REVIEW_READY" in rendered["support"]
     assert "`TASK-0004` - Blocked quantum pilot" in rendered["blocked"]
     assert "`TASK-0005` - Future hype track" in rendered["watchlist"]
+    assert "## SUPERSEDED" in rendered["watchlist"]
+    assert "`TASK-0006` - Old manual lane" in rendered["watchlist"]
 
 
 def test_sync_task_views_writes_expected_files(tmp_path: Path) -> None:

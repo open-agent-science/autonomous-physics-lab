@@ -1,7 +1,7 @@
 id: TASK-0178
 title: "Run second nuclear-mass sandbox batch after independent audit"
 type: autonomous_research_pilot
-status: BLOCKED
+status: SUPERSEDED
 difficulty: high
 priority: medium
 
@@ -36,6 +36,7 @@ input:
     next private-agent cycle rather than starting this broad batch directly.
 
 requirements:
+  - "Closed during blocked-task hygiene as superseded by narrower completed second-batch lanes TASK-0200, TASK-0201, TASK-0202, and TASK-0204; create a fresh bounded task if a new nuclear batch is needed."
   - "Do not start until TASK-0173 is DONE, TASK-0190 is DONE, TASK-0196 is DONE, TASK-0197 is DONE, and maintainer review explicitly allows follow-up work."
   - "Prefer the narrower TASK-0200, TASK-0201, TASK-0202, and TASK-0204 lanes for the next cycle; keep this umbrella blocked unless the maintainer explicitly reopens it."
   - "Generate a second bounded batch of nuclear-mass residual hypotheses under the existing campaign profile."
