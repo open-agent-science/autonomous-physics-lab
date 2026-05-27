@@ -15,5 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0413` - Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`, domain `result_promotion`)
-- `TASK-0431` - Clarify result-publication PR protocol edge cases (`workflow_protocol`, priority `high`, difficulty `low`, domain `result_promotion`)
+None.
