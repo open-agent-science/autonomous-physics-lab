@@ -19,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0430` - Add safe closeout-time task unblocking (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_review`)
