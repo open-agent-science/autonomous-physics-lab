@@ -38,31 +38,45 @@ test_range:
 - 0.1
 best_model_id: model_empirical_quadratic
 best_verdict: VALID_IN_RANGE
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: VALID_IN_RANGE
   gates_checked:
-    deterministic_run: true
-    verification_block_populated: true
-    input_hashes_recorded: true
-    limitations_listed: true
-    engine_version_and_commit_pinned: true
-    schema_validation_passes: true
-    no_protected_artifact_rewrite: true
-    no_forbidden_overclaim_wording: true
-    dataset_provenance_valid: true
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
   evidence_summary: >
-    `RESULT-0016` republishes the deterministic anharmonic oscillator period
-    benchmark as the first conservative AGENT_PUBLISHED RESULT artifact. The
-    replay used a repository-pinned config, experiment, hypothesis, task file,
-    code reference, input hashes, and commit, and reproduced the mature
-    `VALID_IN_RANGE` holdout verdict without changing any claim or knowledge
-    status.
+    Independent Gate B replay (TASK-0415) reproduced the published RESULT-0016
+    anharmonic oscillator period benchmark metrics within tolerance and
+    preserved the VALID_IN_RANGE verdict. All 36 numeric metrics matched the
+    original with max_abs_delta=0.0 at tolerance 1.0e-09. The Gate A proposal
+    block written by TASK-0412 is preserved in git history; this block now
+    records the Gate B upgrade. CLAIM-0009 status is unchanged.
   followup_for_maintainer: >
-    Treat this as agent-published evidence only. It is not independently
-    validated, maintainer-reviewed, or external-replicated; use TASK-0414 and
-    TASK-0415 before upgrading the review tier.
+    AGENT_VALIDATED is agent-to-agent replay validation only. It is not
+    maintainer-reviewed and is not external-replicated. Same-tool replay
+    (Claude Code validated a Claude Code original) is disclosed in the
+    docs/reviews/first-agent-validated-replay.md review document and in the
+    TASK-0415 PR body; future Gate B replays should prefer cross-tool
+    validation (e.g. Codex replaying a Claude Code result) per the
+    agent-validated-result-checklist.
+  validation_record:
+    replayed_by:
+      contributor_id: roman
+      github_username: gladunrv
+      agent_tool: Claude Code
+      model_version: claude-opus-4-7
+    replayed_at_utc: '2026-05-27T16:59:12+00:00'
+    replay_command: physics-lab run examples/anharmonic_agent_published_result.yaml
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    metric_count: 36
+    drift_observed: none
+    task_id: TASK-0415
+    review_doc: docs/reviews/first-agent-validated-replay.md
 verification:
   passed: true
   checks:

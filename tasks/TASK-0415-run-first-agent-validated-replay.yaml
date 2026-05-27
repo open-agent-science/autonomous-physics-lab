@@ -1,7 +1,7 @@
 id: TASK-0415
 title: "Run first AGENT_VALIDATED replay of an agent-published result"
 type: scientific_validation
-status: BLOCKED
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -39,9 +39,9 @@ accepted_outputs:
 
 validation:
   commands:
-    - "python3 scripts/apl_validate_agent_published_result.py <result-path>"
+    - "python3 scripts/apl_validate_agent_published_result.py results/EXP-0011/RUN-0002/result.yaml --validator-contributor-id roman --validator-github-username gladunrv --validator-agent-tool 'Claude Code' --validator-model claude-opus-4-7"
     - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "python3 -m pytest tests/test_agent_replay_validation.py tests/test_result_publication_gate.py tests/test_golden_results.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
