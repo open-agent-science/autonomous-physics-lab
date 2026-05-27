@@ -365,3 +365,64 @@ attempted_verifications:
       - "Re-target source search to post-2015 quantum-dot papers with explicit machine-readable supplements (PMC / institutional repositories)."
       - "Downgrade `table_derived (probable)` labels on C5 / C3 / C4 in docs/reviews/quantum-open-direct-table-source-triage.md."
       - "Do not re-attempt the verified five candidates without first satisfying TASK-0306."
+
+  - verification_round_id: TASK-0399-2026-05-27
+    task_id: TASK-0399
+    review_doc: docs/reviews/quantum-post-2015-machine-readable-supplement-triage.md
+    method: |
+      Probed five independent index surfaces for post-2015 quantum-dot
+      publications carrying a machine-readable supplement (CSV / XLSX /
+      TSV / plain-text) with direct size + first-exciton-energy or
+      size + bandgap measurement points acceptable for `table_derived`
+      row curation: (1) arXiv search API + ancillary-files endpoint;
+      (2) NCBI PMC E-utilities (esearch.fcgi + esummary.fcgi);
+      (3) Europe PMC `/search` + `/supplementaryFiles` API; (4) Zenodo
+      dataset API; (5) Figshare dataset API. No publisher PDF, no
+      supplement file, no instrument-data zip was committed to the
+      repository in this round; all downloads stayed in `/tmp/`.
+    surfaces_probed:
+      - surface: arxiv_search_api
+        queries: 4
+        ancillary_endpoint_probes_returning_anc_files: 0
+        outcome: no_ancillary_data_supplements_for_experimental_candidates
+      - surface: ncbi_pmc_eutilities
+        queries: 4
+        oa_package_https_mirror_status: returned_404_for_every_probed_id
+        outcome: index_layer_returned_candidate_ids_but_oa_package_layer_unreachable_via_https_mirror
+      - surface: europepmc_search_supplementaryfiles
+        candidates_probed: 12
+        supplement_file_types_returned: ["pdf", "wmv"]
+        machine_readable_data_supplements_returned: 0
+        outcome: pdf_only_convention_across_all_probed_venues
+        probed_venues:
+          - "Nat Commun"
+          - "Sci Adv"
+          - "Adv Sci"
+          - "ACS Photonics"
+          - "Materials (Basel)"
+          - "Heliyon"
+          - "Chemistry-A European Journal"
+          - "Acc Chem Res"
+      - surface: zenodo_dataset_api
+        queries: 2
+        admissible_size_energy_table_hits: 0
+        non_admissible_hits_inspected:
+          - "Raw STM scans (10.5281/zenodo.13710482, 521 MB, .spm + .tif raw instrument data)"
+          - "Plasmonic-mode dataset for twisted bilayer graphene (not colloidal QD)"
+      - surface: figshare_dataset_api
+        queries: 1
+        admissible_size_energy_table_hits: 0
+        non_admissible_hits_inspected:
+          - "10.1021/acs.chemmater.4c00602.s002 (10 CdSe cluster .xyz coordinate files; DFT inputs, not measurements; CC BY-NC 4.0)"
+          - "10.3389/fchem.2018.00567.s001 (Data_Sheet_1 published as a single PDF)"
+    overall_outcome: BLOCKER_NO_MACHINE_READABLE_SIZE_ENERGY_SUPPLEMENT_FOUND
+    rows_added: 0
+    qd_files_added: 0
+    publisher_pdfs_committed: 0
+    supplement_files_committed: 0
+    new_source_entries_added_to_manifest: 0
+    recommended_next_paths:
+      - "Promote TASK-0306 (figure-digitization protocol) to the critical path for unblocking Quantum Size Effects; the combined TASK-0364 + TASK-0399 outcome confirms machine-readable supplements are not a viable discovery surface for this campaign."
+      - "Open a maintainer-decision task on whether OCR / human-supervised extraction from the Adv Sci / Nat Commun supplement PDFs catalogued in the TASK-0399 review is admissible as `table_derived`, `digitization_derived`, or a new provenance class. Requires explicit maintainer waiver."
+      - "Do not re-attempt the same five index surfaces (arXiv ancillary, PMC OA, Europe PMC supplementaryFiles, Zenodo, Figshare) in a new task unless the maintainer signals a new index surface has become available."
+      - "Reflect the closed-supplement-surface conclusion in docs/strategy.md so newly onboarded agents do not propose another variant of the same search."
