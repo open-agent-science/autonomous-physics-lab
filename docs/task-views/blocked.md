@@ -12,18 +12,13 @@
 
 ## Research Blockers
 
-- `TASK-0178` - Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0226` - Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `condensed_matter`)
-- `TASK-0233` - Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0234` - Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
-- `TASK-0235` - Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0277` - Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0415` - Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`, domain `result_promotion`)
 
 ## Support Blockers
 
-- `TASK-0237` - Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0416` - Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`, domain `result_promotion`)

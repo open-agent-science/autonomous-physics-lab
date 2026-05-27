@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-27 08:31 UTC
+Generated: 2026-05-27 10:14 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -1664,8 +1664,8 @@ context, not as competing protocol definitions.
 1. Start with one atomic task that is already `READY`.
 2. Do not start a second task unless a human explicitly asks for it or the work
    is clearly independent.
-3. Do not start `REVIEW_READY`, `BLOCKED`, or `REJECTED` tasks unless a human
-   explicitly redirects you.
+3. Do not start `REVIEW_READY`, `BLOCKED`, `SUPERSEDED`, or `REJECTED` tasks
+   unless a human explicitly redirects you.
 4. If no existing task fits, ask for or propose a new task before doing
    substantial work.
 
@@ -1811,6 +1811,10 @@ Use these execution states:
   `DONE`.
 - `BLOCKED`: work cannot continue until a dependency, decision, or external
   action is resolved. State the blocker clearly.
+- `SUPERSEDED`: the task was valid when created, but a newer task,
+  architecture, or reviewed workflow replaced it. Do not execute it; follow the
+  replacement task or create a fresh scoped task if the old idea becomes useful
+  again.
 - `REJECTED`: the task should not proceed in its current form.
 
 Rules:
@@ -1826,6 +1830,8 @@ Rules:
 - A maintainer may use a maintainer-run review agent to assist review and
   closeout, but the agent output is advisory rather than autonomous.
 - If blocked, set `BLOCKED` and explain why in the task file, board, or PR.
+- If old work is replaced by a better lane, set `SUPERSEDED` rather than
+  leaving it in `BLOCKED` or marking it `REJECTED`.
 - `PROPOSED` may still appear in backlog planning, but it is not an executable
   task state for active task execution.
 
@@ -2466,7 +2472,9 @@ one PR.
 - `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`)
+- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`)
 - `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`)
+- `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
 - `TASK-0418` — Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0420` — Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
@@ -2485,10 +2493,12 @@ None.
 
 ## DONE RECENTLY
 
+- `TASK-0430` — Add safe closeout-time task unblocking (merged)
 - `TASK-0429` — Add advisory quality score to maintainer review output (merged)
 - `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
 - `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
 - `TASK-0419` — Update agent protocol for final output-class routing (merged)
+- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (merged)
 - `TASK-0411` — Sync mission recommendations after result-promotion protocol (merged)
 - `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (merged)
 - `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (merged)
@@ -2858,24 +2868,24 @@ None.
 
 ## BLOCKED
 
-- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`)
-- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`)
 - `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
-- `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
 - `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
+
+## SUPERSEDED
+
+- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 
 ## REJECTED
 

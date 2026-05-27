@@ -787,10 +787,10 @@ def build_review_report(
         elif target_branch == current:
             for task_path in closeout_task_files:
                 payload = load_task(root / task_path)
-                if str(payload["status"]) in {"DONE", "READY", "REJECTED"}:
+                if str(payload["status"]) in {"DONE", "READY", "REJECTED", "SUPERSEDED"}:
                     continue
                 required_fixes.append(
-                    f"Closeout PR should mark {task_path} as DONE, READY, or REJECTED."
+                    f"Closeout PR should mark {task_path} as DONE, READY, REJECTED, or SUPERSEDED."
                 )
         validation_payload = {
             "validation": {

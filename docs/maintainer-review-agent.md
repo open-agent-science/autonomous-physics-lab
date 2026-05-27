@@ -477,8 +477,8 @@ Use this mode only after the maintainer has already merged the PR.
   must remain blocked until a maintainer decision or a dedicated readiness task.
   The closeout PR title or body must say this is an unblock, and the unblocked
   task must remain reviewable work rather than a claim, result, or promotion
-- close stale, superseded, or no-longer-relevant tasks by moving them to
-  `REJECTED` when the maintainer has approved that cleanup; this is optional
+- close stale invalid tasks as `REJECTED`, or replaced-but-still-useful task
+  history as `SUPERSEDED`, when the maintainer has approved that cleanup; this is optional
   queue hygiene, not a required closeout step
 
 Pure closeout bookkeeping means task status transitions, generated task

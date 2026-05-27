@@ -110,6 +110,7 @@ Active task execution should use the canonical states from
 - `REVIEW_READY`
 - `DONE`
 - `BLOCKED`
+- `SUPERSEDED`
 - `REJECTED`
 
 `PROPOSED` may still appear for backlog ideas that are not yet executable.

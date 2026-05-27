@@ -93,7 +93,7 @@ Pure closeout bookkeeping may include directly dependent task unblocks from
 The closeout PR title or body must say it is unblocking the dependent task; this
 does not authorize claim promotion, result edits, or new experiment execution.
 It may also include maintainer-approved stale/superseded task closures to
-`REJECTED`; this is optional queue hygiene, and the closeout agent should use
+`REJECTED` or `SUPERSEDED`; this is optional queue hygiene, and the closeout agent should use
 context instead of forcing stale-task cleanup through extra script-level
 blockers.
 

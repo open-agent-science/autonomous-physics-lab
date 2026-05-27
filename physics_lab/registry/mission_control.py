@@ -482,7 +482,7 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
         "task_visibility_policy": {
             "executor_modes": "Only READY tasks are executable candidates.",
             "review_ready": "REVIEW_READY tasks are hidden from executor recommendations; use maintainer review or closeout mode instead.",
-            "blocked": "BLOCKED, DONE, and REJECTED tasks are never offered as executor candidates.",
+            "blocked": "BLOCKED, DONE, SUPERSEDED, and REJECTED tasks are never offered as executor candidates.",
         },
         "parallel_work_policy": {
             "single_checkout": "Use one active task at a time in a single checkout.",
@@ -577,7 +577,7 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
             "Task visibility:",
             "- executor agents should list and choose only READY tasks",
             "- REVIEW_READY tasks belong to maintainer review/closeout, not new executor work",
-            "- BLOCKED, DONE, and REJECTED tasks are not available to start",
+            "- BLOCKED, DONE, SUPERSEDED, and REJECTED tasks are not available to start",
         ]
     )
 
