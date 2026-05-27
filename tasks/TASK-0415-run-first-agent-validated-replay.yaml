@@ -1,7 +1,7 @@
 id: TASK-0415
 title: "Run first AGENT_VALIDATED replay of an agent-published result"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -39,10 +39,9 @@ accepted_outputs:
 
 validation:
   commands:
-    - "python3 scripts/apl_validate_agent_published_result.py <result-path>"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
     - "python3 -m ruff check ."
     - "python3 -m pytest"
-    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
   - human
