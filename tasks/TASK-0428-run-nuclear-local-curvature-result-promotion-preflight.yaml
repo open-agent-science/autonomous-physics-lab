@@ -1,7 +1,7 @@
 id: TASK-0428
 title: "Run nuclear local-curvature result-promotion preflight"
 type: research_quality_gate
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -27,7 +27,7 @@ input:
     or still sandbox-only.
 
 requirements:
-  - "Remain BLOCKED until TASK-0394 is DONE and its no-leakage review artifact exists."
+  - "TASK-0394 is DONE and its no-leakage review artifact exists; apply the result-promotion scorecard before any publication task."
   - "Apply the result-promotion scorecard to the combined TASK-0394 and TASK-0397 artifact set."
   - "Classify the lane as AGENT_PUBLISHED result candidate, sandbox-follow-up, negative/inconclusive memory, or not-ready."
   - "List exact Gate A blockers, including source provenance, leakage risk, metric reproducibility, uncertainty handling, and public wording risk."
