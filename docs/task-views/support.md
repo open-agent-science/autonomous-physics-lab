@@ -11,7 +11,6 @@
 - `TASK-0421` - Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `multi_agent_coordination`)
 - `TASK-0422` - Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0423` - Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `maintainer_review`)
-- `TASK-0426` - Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_workflow`)
 - `TASK-0432` - Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`, domain `result_promotion`)
 
 ## IN_PROGRESS
@@ -20,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0426` - Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_workflow`)
