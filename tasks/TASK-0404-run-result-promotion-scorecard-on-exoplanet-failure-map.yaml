@@ -18,14 +18,17 @@ input:
     - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
     - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
     - "docs/reviews/exoplanet-regime-residual-scout.md"
+    - "docs/reviews/exoplanet-compact-subneptune-residual-hypothesis-pilot.md"
     - "agent_runs/AGENT-RUN-0032/metrics.json"
     - "agent_runs/AGENT-RUN-0034/metrics.json"
     - "agent_runs/AGENT-RUN-0035/metrics.json"
+    - "agent_runs/AGENT-RUN-0036/metrics.json"
   planning_context: >
     The exoplanet campaign now has a baseline, failure map, true-mass slice
-    audit, and regime scout. This is the best current candidate for a
-    scientist-facing benchmark story, but it must pass the result-promotion
-    scorecard as a benchmark or follow-up surface, not as a discovery claim.
+    audit, regime scout, and compact/sub-Neptune residual pilot. This is the
+    best current candidate for a scientist-facing benchmark story, but it must
+    pass the result-promotion scorecard as a benchmark or follow-up surface,
+    not as a discovery claim.
 
 requirements:
   - "Apply the result-promotion scorecard to the exoplanet failure-map artifact set."
