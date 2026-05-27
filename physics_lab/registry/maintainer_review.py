@@ -1141,8 +1141,10 @@ def build_review_report(
 
 def render_review_report(report: ReviewReport) -> str:
     """Render a stable PR review report."""
+    quality_score, quality_notes = review_quality_score(report)
     lines = [
         f"Verdict: {report.verdict}",
+        f"Quality: {quality_score}/10",
         f"Risk: {report.risk}",
         f"Task: {report.task_id}",
         f"Branch: {report.branch}",
@@ -1173,9 +1175,50 @@ def render_review_report(report: ReviewReport) -> str:
         lines.extend(f"- {item}" for item in report.required_fixes)
     else:
         lines.append("- none")
+    lines.append("Quality notes:")
+    if quality_notes:
+        lines.extend(f"- {item}" for item in quality_notes)
+    else:
+        lines.append("- clean low-risk review surface")
     lines.append("Recommended action:")
     lines.append(f"- {report.recommended_action}")
     return "\n".join(lines)
+
+
+def review_quality_score(report: ReviewReport) -> tuple[int, tuple[str, ...]]:
+    """Return an advisory human triage score for a review report.
+
+    The score is deliberately not part of verdict calculation. It only makes
+    review output easier to compare across many open PRs.
+    """
+    score = 10
+    notes: list[str] = []
+
+    if report.blockers:
+        score -= 4
+        notes.append("blockers remain")
+    if report.required_fixes:
+        score -= 2
+        notes.append("required fixes remain")
+    if report.risk == "high":
+        score -= 2
+        notes.append("high-risk change surface")
+    elif report.risk == "medium":
+        score -= 1
+        notes.append("medium-risk change surface")
+    if report.security_risks:
+        score -= 1
+        notes.append("security-sensitive paths need maintainer attention")
+    if report.advisory_warnings:
+        score -= 1
+        notes.append("advisory warnings need context check")
+
+    if report.verdict != "MERGE_OK" and "verdict is not MERGE_OK" not in notes:
+        score -= 1
+        notes.append("verdict is not MERGE_OK")
+
+    bounded_score = max(1, min(10, score))
+    return bounded_score, tuple(dict.fromkeys(notes))
 
 
 def update_task_status(task_file: Path, new_status: str) -> None:

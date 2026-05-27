@@ -591,6 +591,28 @@ def test_render_review_report_includes_security_section() -> None:
     assert "Advisory warnings:" in rendered
 
 
+def test_render_review_report_includes_advisory_quality_score() -> None:
+    report = ReviewReport(
+        verdict="MERGE_OK",
+        risk="medium",
+        task_id="TASK-0429",
+        branch="agent/roman/codex/task-0429-review-agent-quality-score",
+        changed_files=("physics_lab/registry/maintainer_review.py",),
+        validation="pass",
+        security_risks=("Repository scripts changed. Path: physics_lab/registry/maintainer_review.py",),
+        blockers=(),
+        required_fixes=(),
+        recommended_action="Merge after GitHub CI is green.",
+    )
+
+    rendered = render_review_report(report)
+
+    assert "Quality: 8/10" in rendered
+    assert "Quality notes:" in rendered
+    assert "- medium-risk change surface" in rendered
+    assert "- security-sensitive paths need maintainer attention" in rendered
+
+
 def test_run_task_validation_skips_self_referential_review_command(tmp_path) -> None:
     payload = {
         "validation": {

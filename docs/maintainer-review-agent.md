@@ -144,6 +144,18 @@ case where the maintainer wants every task validation command re-run locally:
 python3 scripts/apl_review_pr.py --pr <number> --task TASK-XXXX --validation-mode strict
 ```
 
+### Advisory Quality Score
+
+The deterministic review output includes a compact `Quality: X/10` line for
+maintainer triage. This score summarizes the shape of the review surface:
+risk level, blockers, required fixes, security-sensitive paths, and advisory
+warnings.
+
+The score is advisory only. It must not override `MERGE_OK`, `NEEDS_CHANGES`,
+`BLOCKED`, GitHub CI, scientific guardrails, or maintainer judgment. Use it to
+compare open PRs and decide where to spend attention first, not as an
+automatic approval rule.
+
 ### Overclaim Severity
 
 The deterministic review helper treats overclaim language as context-sensitive:
