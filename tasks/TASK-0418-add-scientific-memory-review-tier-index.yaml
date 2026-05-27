@@ -37,8 +37,8 @@ requirements:
 
 accepted_outputs:
   - "docs/scientific-memory-review-tiers.md"
-  - "optional physics_lab/registry/scientific_memory_index.py"
-  - "optional scripts/apl_scientific_memory_index.py"
+  - "physics_lab/registry/scientific_memory_index.py"
+  - "scripts/apl_scientific_memory_index.py"
   - "tests covering index rendering if a helper is added"
   - "docs/status.md link or concise pointer if useful"
 
