@@ -85,6 +85,17 @@ print(build_snapshot_context(Path(".")).default_base_ref)
 PY
 )"
 
+  section "Strategic Context For Agents"
+
+  echo '```markdown'
+  "$PYTHON_BIN" - <<'PY'
+from pathlib import Path
+from physics_lab.registry.snapshot import render_strategic_context_map
+
+print(render_strategic_context_map(Path(".")))
+PY
+  echo '```'
+
   section "Current Authoritative State"
 
   echo '```markdown'
@@ -145,6 +156,7 @@ PY
 
   for f in \
     docs/status.md \
+    docs/current-missions.md \
     docs/next-steps.md \
     docs/roadmap.md \
     docs/mission-control.md
@@ -194,6 +206,16 @@ PY
 
   for f in \
     docs/architecture.md \
+    docs/agent-operating-model.md \
+    docs/agent-task-protocol.md \
+    docs/maintainer-review-agent.md \
+    docs/review-checklists/task-closeout-checklist.md \
+    docs/result-promotion-protocol.md \
+    docs/scientific-memory-review-tiers.md \
+    docs/result-artifacts-index.md \
+    docs/negative-results-registry.md \
+    docs/fresh-data-readiness-matrix.md \
+    docs/fresh-data-intake-protocol.md \
     docs/implementation-plan.md \
     docs/roadmap.md \
     docs/backlog.md \
