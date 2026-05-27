@@ -1,0 +1,234 @@
+{
+  "agent_run_id": "AGENT-RUN-0036",
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "data_boundary": {
+    "baseline_refit_performed": false,
+    "live_external_fetch_performed": false,
+    "minimum_mass_rows_in_headline_metrics": false,
+    "true_mass_axis_primary": true
+  },
+  "eligible_true_mass_stats": {
+    "count": 1207,
+    "log10_bias": -0.0408436524025917,
+    "log10_mae": 0.10442982096618056,
+    "log10_median": -0.02540307663185465,
+    "log10_rmse": 0.1581701926744863
+  },
+  "executed_hypothesis_count": 3,
+  "generated_hypothesis_count": 6,
+  "hypotheses": {
+    "CSN-001": {
+      "candidate_stats": {
+        "count": 92,
+        "log10_bias": -0.1468365058346739,
+        "log10_mae": 0.16246699197558523,
+        "log10_median": -0.06732674148138831,
+        "log10_rmse": 0.26335002767665594
+      },
+      "classification": {
+        "adverse_control": "per_class_median",
+        "delta_log10_rmse_candidate_minus_adverse_control": 0.02567957662907766,
+        "delta_log10_rmse_candidate_minus_eligible": 0.10517983500216965,
+        "explanation": "candidate log10 RMSE = 0.26335002767665594; eligible log10 RMSE = 0.1581701926744863; adverse control = per_class_median (log10 RMSE = 0.23767045104757828); survival margin = 0.022.",
+        "outcome": "residual_stress_above_eligible_and_controls"
+      },
+      "control_stats": {
+        "matched_size_neighbor": {
+          "count": 92,
+          "log10_bias": -0.06384523081491925,
+          "log10_mae": 0.11136985878852554,
+          "log10_median": -0.022268593741055658,
+          "log10_rmse": 0.1740797031053357
+        },
+        "per_class_median": {
+          "count": 92,
+          "log10_bias": -0.11697702681633448,
+          "log10_mae": 0.1383244215237312,
+          "log10_median": -0.03625043764952718,
+          "log10_rmse": 0.23767045104757828
+        },
+        "shuffled_label": {
+          "count": 92,
+          "log10_bias": -0.016860434982787227,
+          "log10_mae": 0.08223385886674421,
+          "log10_median": -0.018980028210135558,
+          "log10_rmse": 0.10301208882560506
+        }
+      },
+      "description": "Compact true-mass/transit-radius rows with R/Re < 1.5 have larger frozen CK17 residual stress than the eligible true-mass surface and matched controls.",
+      "label": "compact_radius_lt1p5Re",
+      "role": "executed_hypothesis"
+    },
+    "CSN-002": {
+      "candidate_stats": {
+        "count": 340,
+        "log10_bias": -0.10008025453376826,
+        "log10_mae": 0.14083517338654125,
+        "log10_median": -0.0710176990707782,
+        "log10_rmse": 0.20417461029825093
+      },
+      "classification": {
+        "adverse_control": "per_class_median",
+        "delta_log10_rmse_candidate_minus_adverse_control": 0.01612839294444743,
+        "delta_log10_rmse_candidate_minus_eligible": 0.04600441762376464,
+        "explanation": "candidate log10 RMSE = 0.20417461029825093; eligible log10 RMSE = 0.1581701926744863; adverse control = per_class_median (log10 RMSE = 0.1880462173538035); survival margin = 0.022.",
+        "outcome": "residual_stress_above_eligible_only"
+      },
+      "control_stats": {
+        "matched_size_neighbor": {
+          "count": 340,
+          "log10_bias": -0.05355271499237277,
+          "log10_mae": 0.12844342151205304,
+          "log10_median": -0.047284054752456534,
+          "log10_rmse": 0.17227662046961623
+        },
+        "per_class_median": {
+          "count": 340,
+          "log10_bias": -0.046609946764894265,
+          "log10_mae": 0.12406324279900954,
+          "log10_median": -0.015836016790050367,
+          "log10_rmse": 0.1880462173538035
+        },
+        "shuffled_label": {
+          "count": 340,
+          "log10_bias": -0.05324733840273798,
+          "log10_mae": 0.10673438505189832,
+          "log10_median": -0.035871153048522064,
+          "log10_rmse": 0.1699957059327244
+        }
+      },
+      "description": "Sub-Neptune true-mass/transit-radius rows with 1.5 <= R/Re < 4 retain residual stress after class and sample-size controls.",
+      "label": "sub_neptune_radius_1p5_4Re",
+      "role": "executed_hypothesis"
+    },
+    "CSN-003": {
+      "candidate_stats": {
+        "count": 432,
+        "log10_bias": -0.11003760434785004,
+        "log10_mae": 0.14544194956754136,
+        "log10_median": -0.06993850419949664,
+        "log10_rmse": 0.21812633379546398
+      },
+      "classification": {
+        "adverse_control": "per_class_median",
+        "delta_log10_rmse_candidate_minus_adverse_control": 0.01847562296671329,
+        "delta_log10_rmse_candidate_minus_eligible": 0.05995614112097769,
+        "explanation": "candidate log10 RMSE = 0.21812633379546398; eligible log10 RMSE = 0.1581701926744863; adverse control = per_class_median (log10 RMSE = 0.1996507108287507); survival margin = 0.022.",
+        "outcome": "residual_stress_above_eligible_only"
+      },
+      "control_stats": {
+        "matched_size_neighbor": {
+          "count": 432,
+          "log10_bias": -0.05574463965828545,
+          "log10_mae": 0.12480738500611663,
+          "log10_median": -0.044336532614675954,
+          "log10_rmse": 0.17266218828387117
+        },
+        "per_class_median": {
+          "count": 432,
+          "log10_bias": -0.06159552862770098,
+          "log10_mae": 0.12710034567557063,
+          "log10_median": -0.019588911023433575,
+          "log10_rmse": 0.1996507108287507
+        },
+        "shuffled_label": {
+          "count": 432,
+          "log10_bias": -0.03801490778300716,
+          "log10_mae": 0.109539087230871,
+          "log10_median": -0.02100726300140765,
+          "log10_rmse": 0.1657631329656648
+        }
+      },
+      "description": "The combined compact/sub-Neptune radius surface with R/Re < 4 is tested as a bounded high-stress envelope.",
+      "label": "compact_or_sub_neptune_radius_lt4Re",
+      "role": "executed_hypothesis"
+    },
+    "CSN-004": {
+      "candidate_stats": {
+        "count": 328,
+        "log10_bias": -0.08309487519883002,
+        "log10_mae": 0.12309671959356117,
+        "log10_median": -0.06626943690657333,
+        "log10_rmse": 0.16515921492805458
+      },
+      "classification": {
+        "adverse_control": null,
+        "delta_log10_rmse_candidate_minus_adverse_control": null,
+        "delta_log10_rmse_candidate_minus_eligible": null,
+        "explanation": "Hypothesis generated and candidate stats recorded, but not executed under the 1-3 hypothesis execution budget.",
+        "outcome": "generated_not_executed"
+      },
+      "control_stats": {},
+      "description": "Neptunian CK17-class rows inside the sub-Neptune radius range are generated as a narrower overlap hypothesis.",
+      "label": "neptunian_sub_neptune_overlap",
+      "role": "generated_only"
+    },
+    "CSN-005": {
+      "candidate_stats": {
+        "count": 288,
+        "log10_bias": -0.07749343022544551,
+        "log10_mae": 0.12012388057592885,
+        "log10_median": -0.05594452448034376,
+        "log10_rmse": 0.17021833576887307
+      },
+      "classification": {
+        "adverse_control": null,
+        "delta_log10_rmse_candidate_minus_adverse_control": null,
+        "delta_log10_rmse_candidate_minus_eligible": null,
+        "explanation": "Hypothesis generated and candidate stats recorded, but not executed under the 1-3 hypothesis execution budget.",
+        "outcome": "generated_not_executed"
+      },
+      "control_stats": {},
+      "description": "Compact/sub-Neptune rows with reported radius relative uncertainty <= 5% are generated as a measurement-quality sensitivity hypothesis.",
+      "label": "compact_subneptune_tight_radius_uncertainty",
+      "role": "generated_only"
+    },
+    "CSN-006": {
+      "candidate_stats": {
+        "count": 219,
+        "log10_bias": -0.111231098259291,
+        "log10_mae": 0.1438065940622133,
+        "log10_median": -0.06207720814820494,
+        "log10_rmse": 0.2336866954614415
+      },
+      "classification": {
+        "adverse_control": null,
+        "delta_log10_rmse_candidate_minus_adverse_control": null,
+        "delta_log10_rmse_candidate_minus_eligible": null,
+        "explanation": "Hypothesis generated and candidate stats recorded, but not executed under the 1-3 hypothesis execution budget.",
+        "outcome": "generated_not_executed"
+      },
+      "control_stats": {},
+      "description": "Compact/sub-Neptune rows around cool hosts (Teff < 5200 K) are generated as a selection-sensitive host-context hypothesis.",
+      "label": "compact_subneptune_cool_host",
+      "role": "generated_only"
+    }
+  },
+  "loader_summary": {
+    "eligible_true_mass_with_transit_radius": 1207,
+    "minimum_mass_with_transit_radius_diagnostic": 2,
+    "post_filter_included_count": 4301,
+    "pre_filter_included_count": 6157,
+    "total_rows": 6291
+  },
+  "minimum_mass_sparse_diagnostic": {
+    "count": 2,
+    "log10_bias": -0.15221436873853847,
+    "log10_mae": 0.15221436873853847,
+    "log10_median": -0.15221436873853847,
+    "log10_rmse": 0.20772770601626744
+  },
+  "per_class_medians_log10_residual": {
+    "jovian": -0.00958761212169612,
+    "neptunian": -0.05518168228072785,
+    "terran": 0.007781633939265037
+  },
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "task_id": "TASK-0390",
+  "thresholds": {
+    "min_hypothesis_row_count": 30,
+    "shuffle_seed": 20260526,
+    "survival_log10_rmse_margin": 0.022
+  },
+  "verdict": "SANDBOX_PASS"
+}
