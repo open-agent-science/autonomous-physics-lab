@@ -1,0 +1,13 @@
+experiment_path: ../experiments/EXP-0001-pendulum-formula-discovery.yaml
+hypothesis_path: ../hypotheses/HYP-0001-pendulum-correction.yaml
+task_id: TASK-0413
+run_id: RUN-0006
+result_id: RESULT-0017
+result_root: ../results/EXP-0001
+train_fraction: 0.7
+workflow: gauntlet
+gauntlet_atom_set: legacy_10
+amplitude_range_override:
+  start: 0.01
+  end: 3.00
+include_constrained_candidate: true
