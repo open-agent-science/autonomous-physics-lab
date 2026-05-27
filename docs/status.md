@@ -37,7 +37,7 @@ Use the full [campaign map](./campaigns/README.md) for the complete list.
 
 ## What We Have So Far
 
-The repository currently stores eleven canonical experiment files and fifteen
+The repository currently stores eleven canonical experiment files and seventeen
 canonical result artifacts. The strongest evidence is not a single spectacular
 claim; it is a growing public memory of tests, failures, baselines, and review
 artifacts.
@@ -119,6 +119,9 @@ Important operating rules:
 - [Use Your Agent](./use-your-agent.md) for the contributor-agent path.
 - [Current Missions](./current-missions.md) for the current campaign board.
 - [Research Task View](./task-views/research.md) for current science work.
+- [Scientific Memory Review Tiers](./scientific-memory-review-tiers.md) for
+  `AGENT_PUBLISHED`, `AGENT_VALIDATED`, maintainer-reviewed, externally
+  replicated, and legacy evidence visibility.
 - [Visual Result Summary](./results/visual-summary.md) for figures and
   benchmark captions.
 - [External Reviewer Replication Guide](./external-reviewer-replication-guide.md)
