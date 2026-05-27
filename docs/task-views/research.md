@@ -25,4 +25,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0391` - Run exoplanet neptunian residual matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.
