@@ -614,7 +614,7 @@ def test_registry_files_validate_against_schemas() -> None:
     load_experiment(repo_root / "experiments" / "EXP-0001-pendulum-formula-discovery.yaml")
     load_knowledge(repo_root / "knowledge" / "classical_mechanics" / "pendulum.md")
     load_task(repo_root / "tasks" / "TASK-0001-fit-better-pendulum-model.yaml")
-    load_agent(repo_root / "agents" / "example-agent.yaml")
+    load_agent(repo_root / "tests" / "fixtures" / "example-agent.yaml")
 
 
 def test_cli_validate_hypothesis_smoke() -> None:
@@ -661,7 +661,7 @@ def test_validate_repository_smoke(tmp_path: Path) -> None:
     assert summary.counts["experiments"] == len(list((repo_root / "experiments").glob("EXP-*.yaml")))
     assert summary.counts["knowledge"] == expected_knowledge_count
     assert summary.counts["tasks"] == expected_task_count
-    assert summary.counts["agents"] == 1
+    assert summary.counts["agents"] == len(list((repo_root / "agents").glob("*.yaml")))
     assert summary.counts["results"] == len(list((repo_root / "results").glob("*/*/result.yaml")))
 
 

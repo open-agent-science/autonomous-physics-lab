@@ -1,14 +1,15 @@
 id: TASK-0424
-title: "Add agent role soul files under agents/"
+title: "Add agent role soul files under agents/ (pure YAML)"
 type: workflow_protocol
 status: REVIEW_READY
 difficulty: medium
 priority: high
 
 strategy_alignment:
-  - "Stop duplicating agent role instructions across sessions: give every agent role a single 'soul file' under agents/<role-id>.md that contains its identity, scope, goals, allowed tools, scripts, restrictions, and cross-role invocation rules."
-  - "Make role activation a load-bearing convention: when the maintainer asks the agent to act in a role (in any language), the agent matches the request against each role file's activation_intent and loads the matching soul file instead of re-deriving instructions from scratch."
-  - "Treat agents/<role>.md as the short activation-ready soul file. docs/agent-*.md remain the authoritative deep protocols; agents/ files reference them, not duplicate them."
+  - "Stop duplicating agent role instructions across sessions: give every agent role a single YAML soul file under agents/<role-id>.yaml that contains its identity, scope, goals, allowed tools, scripts, restrictions, and cross-role invocation rules."
+  - "Make role activation a load-bearing convention: when the maintainer asks the agent to act in a role (in any language), the agent matches the request against each role file's activation.intent and loads the matching soul file instead of re-deriving instructions from scratch."
+  - "Treat agents/<role>.yaml as the activation-ready single source of truth. docs/agent-*.md remain the authoritative deep protocols; soul files reference them via required_reading, not duplicate them."
+  - "Machine-first / Agent-first: roles live in pure YAML consistent with the rest of the repository's structured data (tasks/*.yaml, hypotheses/*.yaml, results/*.yaml, schemas/*.json). agents/ is agent-first; README.md is the only human-facing navigation file."
   - "Cover the four roles roman explicitly asked for (Architect, Review Agent, Scientific Curator, Researcher) plus two narrow execution paths that are already documented (Task Proposal Agent, Microtask Agent)."
 
 input:
@@ -27,46 +28,54 @@ input:
     - "docs/result-promotion-protocol.md"
     - "AGENTS.md"
   planning_context: >
-    APL already documents 8 agent paths in docs/agent-catalog.md, but each
-    is spread across multiple docs/agent-*.md files with no shared shape.
-    There is no on-disk role file that an agent can read at session start
-    to know "who am I, what may I do, what must I read, who may I call".
-    The architect role roman just created has no existing home in
-    docs/agent-catalog.md at all. This task creates a thin operational
-    layer (agents/<role>.md soul files + agents/AGENT-TEMPLATE.md) that
-    references the existing authoritative protocols and adds the missing
-    architect role file.
+    APL already documents 8 agent paths in docs/agent-catalog.md, but
+    each is spread across multiple docs/agent-*.md files with no shared
+    machine-parseable shape. There is no on-disk role file that an
+    agent can read at session start to know "who am I, what may I do,
+    what must I read, who may I call". The Architect role roman
+    established has no existing home in docs/agent-catalog.md at all.
+    This task creates a thin operational layer (agents/<role>.yaml
+    soul files + agents/AGENT-TEMPLATE.yaml + the canonical
+    agent.schema.json) that references the existing authoritative
+    protocols, adds the missing Architect role file, and aligns
+    agents/ with the repository's machine-first design principle
+    ("structured YAML files" per AGENTS.md).
 
 requirements:
-  - "Design agents/AGENT-TEMPLATE.md as the canonical shape for any role file. The template defines frontmatter fields and body sections; it does not create new protocols."
-  - "Create agents/architect.md describing the Architect role roman established on 2026-05-26 (Phase 1 collaboration mode)."
-  - "Create agents/review-agent.md from docs/maintainer-review-agent.md (no protocol changes)."
-  - "Create agents/scientific-curator.md from docs/scientific-campaign-curator.md and docs/campaign-curator-protocol.md (no protocol changes)."
-  - "Create agents/researcher.md as the default role for a new contributor or agent, from docs/agent-task-protocol.md and docs/agent-operating-model.md (no protocol changes)."
-  - "Create agents/task-proposal-agent.md from docs/task-proposal-protocol.md."
-  - "Create agents/microtask-agent.md from docs/scientific-micro-task-protocol.md and docs/agent-scientific-work-mode.md."
-  - "Create agents/README.md as the soul-file index (short pointers; agent-catalog.md remains the narrative authority)."
-  - "Add a single forward reference from AGENTS.md to agents/README.md so new agents can find the soul files."
-  - "Do not change any existing docs/agent-*.md protocol. If a soul file needs to disagree with an existing protocol, stop and raise the contradiction instead."
-  - "Do not delete agents/example-agent.yaml in this PR (tests/test_pendulum.py and tests/test_damped_oscillator.py depend on it). Note in agents/README.md that it is a legacy test fixture and link to the follow-up task that will move it."
-  - "Add tests that validate every agents/*.md role file conforms to the template (required frontmatter fields, allowed values, referenced files exist)."
+  - "Replace the legacy placeholder agents/example-agent.yaml shape in physics_lab/schemas/agent.schema.json with a soul-file schema (role_id, role_name, status, activation, purpose, when_to_use, goals, required_reading, allowed_tools, scripts_to_use, can_invoke_other_roles, restrictions, cadence)."
+  - "Design agents/AGENT-TEMPLATE.yaml as the canonical shape for any role file."
+  - "Create agents/architect.yaml describing the Architect role (Phase 2 proactive)."
+  - "Create agents/review-agent.yaml from docs/maintainer-review-agent.md (no deep-protocol changes)."
+  - "Create agents/scientific-curator.yaml from docs/scientific-campaign-curator.md and docs/campaign-curator-protocol.md (no deep-protocol changes)."
+  - "Create agents/researcher.yaml as the default role for a new contributor or agent."
+  - "Create agents/task-proposal-agent.yaml from docs/task-proposal-protocol.md."
+  - "Create agents/microtask-agent.yaml from docs/scientific-micro-task-protocol.md and docs/agent-scientific-work-mode.md."
+  - "Keep agents/README.md as the human-facing index (Markdown; the only non-YAML file under agents/)."
+  - "Add a single forward reference from AGENTS.md to agents/README.md so new agents find the soul files."
+  - "Move the legacy agents/example-agent.yaml test fixture to tests/fixtures/example-agent.yaml and update its content to conform to the new agent.schema.json. Update tests/test_pendulum.py and tests/test_damped_oscillator.py path references. This incidentally completes the work that TASK-0425 was queued to do; TASK-0425 should be closed as obsolete in PR #574 follow-up."
+  - "Do not change any existing docs/agent-*.md deep protocol. If a soul file needs to disagree with an existing protocol, stop and raise the contradiction instead."
+  - "Add tests/test_agent_role_soul_files.py validating every agents/*.yaml against the new agent.schema.json, that role_id matches filename, required_reading paths exist, can_invoke_other_roles targets exist, allowed_tools does not embed absolute machine paths, and the six expected active roles are present."
 
 accepted_outputs:
-  - "agents/AGENT-TEMPLATE.md"
-  - "agents/architect.md"
-  - "agents/review-agent.md"
-  - "agents/scientific-curator.md"
-  - "agents/researcher.md"
-  - "agents/task-proposal-agent.md"
-  - "agents/microtask-agent.md"
+  - "physics_lab/schemas/agent.schema.json"
+  - "agents/AGENT-TEMPLATE.yaml"
+  - "agents/architect.yaml"
+  - "agents/review-agent.yaml"
+  - "agents/scientific-curator.yaml"
+  - "agents/researcher.yaml"
+  - "agents/task-proposal-agent.yaml"
+  - "agents/microtask-agent.yaml"
   - "agents/README.md"
   - "AGENTS.md cross-reference update"
+  - "tests/fixtures/example-agent.yaml"
+  - "tests/test_pendulum.py path update"
+  - "tests/test_damped_oscillator.py fixture content update"
   - "tests/test_agent_role_soul_files.py"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_agent_role_soul_files.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_agent_role_soul_files.py tests/test_pendulum.py tests/test_damped_oscillator.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
