@@ -1,7 +1,7 @@
 id: TASK-0426
 title: "Cross-reference agent role profiles from docs/agent-catalog.md"
 type: workflow_protocol
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 

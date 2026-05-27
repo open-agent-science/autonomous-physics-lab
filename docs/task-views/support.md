@@ -19,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0426` - Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_workflow`)
+None.
