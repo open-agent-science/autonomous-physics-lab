@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0390` - Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
 - `TASK-0391` - Run exoplanet neptunian residual matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0392` - Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0393` - Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
@@ -27,4 +26,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0390` - Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)

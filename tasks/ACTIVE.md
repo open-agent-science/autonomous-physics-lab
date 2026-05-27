@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0391` — Run exoplanet neptunian residual matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0392` — Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
@@ -74,6 +73,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0405` — Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0406` — Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (`contributor_experience`, priority `high`, difficulty `low`)
