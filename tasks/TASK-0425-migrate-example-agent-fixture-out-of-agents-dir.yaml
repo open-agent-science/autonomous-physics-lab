@@ -1,7 +1,7 @@
 id: TASK-0425
 title: "Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/"
 type: workflow_protocol
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 

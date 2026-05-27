@@ -117,6 +117,10 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
                 "type": "validation_infrastructure",
             },
         ),
+        (
+            tmp_path / "tasks" / "TASK-WORKFLOW-PROTOCOL.yaml",
+            {"id": "TASK-WORKFLOW-PROTOCOL", "status": "DONE", "type": "workflow_protocol"},
+        ),
     ]
 
     issues = collect_scientific_memory_integrity_issues(
