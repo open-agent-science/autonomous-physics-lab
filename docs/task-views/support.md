@@ -11,6 +11,8 @@
 - `TASK-0421` - Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `multi_agent_coordination`)
 - `TASK-0422` - Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0423` - Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `maintainer_review`)
+- `TASK-0425` - Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (`workflow_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_workflow`)
+- `TASK-0426` - Cross-reference agent soul files from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`, domain `cross_campaign_workflow`)
 
 ## IN_PROGRESS
 
