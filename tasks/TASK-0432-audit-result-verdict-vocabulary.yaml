@@ -1,0 +1,51 @@
+id: TASK-0432
+title: "Audit result verdict vocabulary consistency"
+type: workflow_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep result-promotion protocol wording aligned with schemas and legacy result artifacts."
+  - "Prevent agents from choosing verdicts that current validators cannot accept."
+  - "Preserve negative and falsification evidence without vocabulary drift."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "physics_lab/schemas/result.schema.json"
+    - "results/"
+    - "docs/negative-results-registry.md"
+    - "docs/result-artifacts-index.md"
+  planning_context: >
+    Current documentation uses both falsification-oriented language
+    (`FALSIFIED`) and legacy/schema result vocabulary such as `INVALID`.
+    Before more negative AGENT_PUBLISHED results are created, APL should audit
+    the allowed result verdict vocabulary, document any legacy mapping, and
+    decide whether schema or protocol wording needs a conservative alignment.
+
+requirements:
+  - "Inventory result verdict values accepted by the current result schema and emitted by committed result artifacts."
+  - "Compare the schema vocabulary against docs/result-promotion-protocol.md, AGENTS.md, negative-result docs, and result templates."
+  - "Document a conservative mapping for legacy `INVALID` results versus newer falsification-oriented wording."
+  - "If a schema change is proposed, keep it separate from any claim promotion or result rewriting."
+  - "Do not edit existing RESULT-* artifacts in this task unless a follow-up implementation task explicitly authorizes it."
+
+accepted_outputs:
+  - "a verdict-vocabulary audit note or protocol update"
+  - "optional schema/docs alignment patch"
+  - "validation notes explaining whether `FALSIFIED`, `INVALID`, or both are accepted in live result artifacts"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

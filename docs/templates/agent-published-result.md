@@ -40,6 +40,23 @@ If any required gate is false, do not publish the result as a live `RESULT-*`.
 Report the publication as blocked and leave the evidence in the appropriate
 sandbox or review artifact.
 
+## Task Contract Checklist
+
+Before marking the task `REVIEW_READY`, make the task contract as concrete as
+the artifact:
+
+- replace placeholder validation commands such as
+  `python3 scripts/apl_check_result_publication.py <new-result-path>` with the
+  exact result path created by the PR;
+- list protected companion artifacts in `input.related_objects` when the result
+  needs a reviewable evidence link, for example a `hypotheses/HYP-*.yaml`
+  evidence reference;
+- list those companion updates in `accepted_outputs` so review automation can
+  distinguish intended scope from accidental protected-artifact drift;
+- do not commit regenerated `tasks/ACTIVE.md` or `docs/task-views/*.md` for
+  routine task status transitions, and remove local generated diffs before
+  producing the review bundle.
+
 ## PR Output Routing
 
 Use this shape in the PR body:
