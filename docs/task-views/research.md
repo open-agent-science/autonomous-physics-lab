@@ -24,4 +24,3 @@ None.
 ## REVIEW_READY
 
 - `TASK-0392` - Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0416` - Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`, domain `result_promotion`)
