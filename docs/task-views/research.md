@@ -23,4 +23,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0392` - Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.
