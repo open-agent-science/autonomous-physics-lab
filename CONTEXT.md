@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-27 10:14 UTC
+Generated: 2026-05-27 11:21 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2101,6 +2101,14 @@ and preflight the template-based PR body before creating the draft PR.
 For task proposal PRs, the lighter validation path from
 [./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
 
+When a task creates concrete artifact paths, replace any placeholder validation
+commands in that task's YAML before moving the task to `REVIEW_READY`.
+Examples include replacing `<new-result-path>` with the exact
+`results/EXP-XXXX/RUN-XXXX/result.yaml` path or replacing `<queue-id>` with the
+specific queue id used by the PR. Placeholders may remain only in task
+templates, future `READY` tasks, or proposal files that are not being handed off
+as completed work.
+
 ## End-Of-Task Output Routing
 
 At the end of any research, validation, benchmark, source-curation, prediction,
@@ -2187,7 +2195,12 @@ The maintainer review agent must not:
    `tasks/ACTIVE.md` or `docs/task-views/*.md` as `INFO` (not `ERROR`) by
    default, so a non-regenerated branch passes strict validation. Set
    `APL_ENFORCE_BOARD_STALENESS=1` only when explicitly auditing the
-   action's output.
+   action's output. If strict validation ever reports generated board
+   staleness as an error during a routine task PR, treat that as a validation
+   configuration issue to report or fix, not as permission to commit generated
+   navigation churn. If a local sync or validation comparison leaves generated
+   board files dirty, do not stage them; remove those generated diffs before
+   creating the review bundle.
 8. Make the smallest reproducible change that satisfies the task.
 9. Run the required validation commands.
 10. Set the task to `REVIEW_READY` when implementation and validation are
@@ -2472,7 +2485,6 @@ one PR.
 - `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`)
-- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`)
 - `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`)
 - `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
 - `TASK-0418` — Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`)
@@ -2480,8 +2492,8 @@ one PR.
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
 - `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0432` — Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2489,15 +2501,24 @@ None.
 
 ## REVIEW_READY
 
+<<<<<<< HEAD
 None.
+=======
+- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`)
+- `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
+- `TASK-0431` — Clarify result-publication PR protocol edge cases (`workflow_protocol`, priority `high`, difficulty `low`)
+>>>>>>> origin/main
 
 ## DONE RECENTLY
 
+- `TASK-0431` — Clarify result-publication PR protocol edge cases (merged)
 - `TASK-0430` — Add safe closeout-time task unblocking (merged)
 - `TASK-0429` — Add advisory quality score to maintainer review output (merged)
+- `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (merged)
 - `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
 - `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
 - `TASK-0419` — Update agent protocol for final output-class routing (merged)
+- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (merged)
 - `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (merged)
 - `TASK-0411` — Sync mission recommendations after result-promotion protocol (merged)
 - `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (merged)
