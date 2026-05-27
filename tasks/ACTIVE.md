@@ -65,8 +65,7 @@ one PR.
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (`workflow_protocol`, priority `medium`, difficulty `low`)
-- `TASK-0426` — Cross-reference agent soul files from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
+- `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
 - `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -83,6 +82,8 @@ None.
 - `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0411` — Sync mission recommendations after result-promotion protocol (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0419` — Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`)
+- `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (`workflow_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (`workflow_protocol`, priority `medium`, difficulty `low`)
 - `TASK-0429` — Add advisory quality score to maintainer review output (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
