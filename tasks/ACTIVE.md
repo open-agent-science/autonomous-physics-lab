@@ -70,7 +70,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0392` — Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -97,6 +97,7 @@ None.
 - `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (merged)
 - `TASK-0397` — Run nuclear local-curvature negative-control expansion (merged)
 - `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (merged)
+- `TASK-0392` — Audit exoplanet host and uncertainty selection effects (merged)
 - `TASK-0391` — Run exoplanet neptunian residual matched-control audit (merged)
 - `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (merged)
 - `TASK-0389` — Polish onboarding prompt for cross-platform first-run flow (merged)
