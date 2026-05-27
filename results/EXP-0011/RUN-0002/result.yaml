@@ -4,9 +4,9 @@ experiment_id: EXP-0011
 title: Anharmonic Oscillator Period Benchmark
 hypothesis_id: HYP-0011
 task_id: TASK-0412
-generated_at: '2026-05-27T08:12:57.742818+00:00'
+generated_at: '2026-05-27T09:19:56.692624+00:00'
 engine_version: 0.1.0
-git_commit: abc8671344fdee94f7e393c2e1d833a289e6db08
+git_commit: 5df0335fed51553fc4625dcd752a0ac5e18df19c
 command: physics-lab run examples/anharmonic_agent_published_result.yaml
 input_file_hashes:
   config:
@@ -17,10 +17,10 @@ input_file_hashes:
     sha256: 4154f17f349fbf3fdb4e41dfe91b801e2aa565a84ebd23acdc6c0b58350617d6
   hypothesis:
     path: results/EXP-0011/RUN-0002/inputs/hypothesis.yaml
-    sha256: 5627b1c7c542ec7ce63426c1adcd7bfc44f70b528097ce4e84221412544cb190
+    sha256: eaafcf1a2c7f351cca6a62d680ac6a19242dccb5f71f4b5bc3c4cd2ca95279e7
   task:
     path: results/EXP-0011/RUN-0002/inputs/task.yaml
-    sha256: 733283a38aaadbdc35405bfd380a7fb556891255669908f34b93feaa04e49170
+    sha256: 82e7bfc6371167273ec611b4a3b2a8e935ba7a507aa7d2f28d8e4e54801acca5
 code_reference: physics_lab/workflows/anharmonic_oscillator.py
 limitations:
 - Agent-published, not independently validated or maintainer-reviewed.

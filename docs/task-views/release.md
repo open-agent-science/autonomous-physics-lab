@@ -8,6 +8,7 @@
 
 - `TASK-0396` - Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0401` - Run atomic Beloy 2021 row readiness re-check (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+- `TASK-0412` - Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0413` - Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`, domain `result_promotion`)
 
 ## IN_PROGRESS
@@ -16,4 +17,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0412` - Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`, domain `result_promotion`)
+None.
