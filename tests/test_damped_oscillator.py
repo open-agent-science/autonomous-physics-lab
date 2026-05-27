@@ -189,20 +189,38 @@ def _write_minimal_repository_fixture(
     (repo_root / "tests").mkdir(parents=True, exist_ok=True)
     (repo_root / "tests" / "test_damped_oscillator.py").write_text("# temp\n", encoding="utf-8")
 
-    (repo_root / "agents" / "example-agent.yaml").write_text(
+    (repo_root / "agents" / "researcher.yaml").write_text(
         textwrap.dedent(
             """\
-            id: agent-example-001
-            name: Example Agent
-            type: autonomous_agent
-            capabilities:
-              - formula_discovery
-            allowed_tasks:
-              - formula_discovery
-            constraints:
-              - deterministic only
-            output_formats:
-              - yaml
+            role_id: researcher
+            role_name: Researcher
+            status: active
+            short_description: Test fixture researcher role.
+            activation:
+              intent: |
+                Pick one READY task and execute it through the canonical
+                lifecycle to REVIEW_READY. This fixture exercises the
+                agent role schema in a synthetic tmp repository for
+                validate-repo coverage.
+            purpose: |
+              Synthetic test fixture used by tests/test_damped_oscillator.py
+              to construct a minimal validatable repository tree. Not an
+              authoritative role definition.
+            when_to_use:
+              - "Default agent session with no other activation."
+            goals:
+              long_term:
+                - "Convert one READY task into a REVIEW_READY PR."
+            required_reading:
+              - AGENTS.md
+            allowed_tools:
+              - "Read and edit repository files within task scope."
+            scripts_to_use: []
+            can_invoke_other_roles: []
+            restrictions:
+              - "Test fixture only; do not use as authoritative role."
+            cadence: |
+              Per-task; test fixture executes once.
             """
         ),
         encoding="utf-8",

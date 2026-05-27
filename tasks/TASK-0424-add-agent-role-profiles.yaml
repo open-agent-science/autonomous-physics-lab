@@ -1,0 +1,85 @@
+id: TASK-0424
+title: "Add agent role profiles under agents/ (pure YAML)"
+type: workflow_protocol
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stop duplicating agent role instructions across sessions: give every agent role a single YAML profile under agents/<role-id>.yaml that contains its identity, scope, goals, allowed tools, scripts, restrictions, and cross-role invocation rules."
+  - "Make role activation a load-bearing convention: when the maintainer asks the agent to act in a role (in any language), the agent matches the request against each role file's activation.intent and loads the matching role profile instead of re-deriving instructions from scratch."
+  - "Treat agents/<role>.yaml as the activation-ready role profile. docs/agent-*.md remain the authoritative deep protocols; profiles reference them via required_reading, not duplicate them."
+  - "Machine-first / Agent-first: roles live in pure YAML consistent with the rest of the repository's structured data (tasks/*.yaml, hypotheses/*.yaml, results/*.yaml, schemas/*.json). agents/ is agent-first; README.md is the only human-facing navigation file."
+  - "Cover the four roles roman explicitly asked for (Architect, Review Agent, Scientific Curator, Researcher) plus two narrow execution paths that are already documented (Task Proposal Agent, Microtask Agent)."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_workflow
+  related_objects:
+    - "agents/example-agent.yaml"
+    - "docs/agent-catalog.md"
+    - "docs/agent-operating-model.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "docs/scientific-campaign-curator.md"
+    - "docs/campaign-curator-protocol.md"
+    - "docs/agent-scientific-work-mode.md"
+    - "docs/scientific-micro-task-protocol.md"
+    - "docs/result-promotion-protocol.md"
+    - "AGENTS.md"
+  planning_context: >
+    APL already documents 8 agent paths in docs/agent-catalog.md, but
+    each is spread across multiple docs/agent-*.md files with no shared
+    machine-parseable shape. There is no on-disk role file that an
+    agent can read at session start to know "who am I, what may I do,
+    what must I read, who may I call". The Architect role roman
+    established has no existing home in docs/agent-catalog.md at all.
+    This task creates a thin operational layer (agents/<role>.yaml
+    role profiles + agents/AGENT-TEMPLATE.yaml + the canonical
+    agent.schema.json) that references the existing authoritative
+    protocols, adds the missing Architect role file, and aligns
+    agents/ with the repository's machine-first design principle
+    ("structured YAML files" per AGENTS.md).
+
+requirements:
+  - "Replace the legacy placeholder agents/example-agent.yaml shape in physics_lab/schemas/agent.schema.json with an agent-role-profile schema (role_id, role_name, status, activation, purpose, when_to_use, goals, required_reading, allowed_tools, scripts_to_use, can_invoke_other_roles, restrictions, cadence)."
+  - "Design agents/AGENT-TEMPLATE.yaml as the canonical shape for any role file."
+  - "Create agents/architect.yaml describing the Architect role (Phase 2 proactive)."
+  - "Create agents/review-agent.yaml from docs/maintainer-review-agent.md (no deep-protocol changes)."
+  - "Create agents/scientific-curator.yaml from docs/scientific-campaign-curator.md and docs/campaign-curator-protocol.md (no deep-protocol changes)."
+  - "Create agents/researcher.yaml as the default role for a new contributor or agent."
+  - "Create agents/task-proposal-agent.yaml from docs/task-proposal-protocol.md."
+  - "Create agents/microtask-agent.yaml from docs/scientific-micro-task-protocol.md and docs/agent-scientific-work-mode.md."
+  - "Keep agents/README.md as the human-facing index (Markdown; the only non-YAML file under agents/)."
+  - "Add a single forward reference from AGENTS.md to agents/README.md so new agents find the role profiles."
+  - "Move the legacy agents/example-agent.yaml test fixture to tests/fixtures/example-agent.yaml and update its content to conform to the new agent.schema.json. Update tests/test_pendulum.py and tests/test_damped_oscillator.py path references. This incidentally completes the work that TASK-0425 was queued to do; TASK-0425 should be closed as obsolete in PR #574 follow-up."
+  - "Do not change any existing docs/agent-*.md deep protocol. If a role profile needs to disagree with an existing protocol, stop and raise the contradiction instead."
+  - "Add tests/test_agent_role_profiles.py validating every agents/*.yaml against the new agent.schema.json, that role_id matches filename, required_reading paths exist, can_invoke_other_roles targets exist, allowed_tools does not embed absolute machine paths, and the six expected active roles are present."
+
+accepted_outputs:
+  - "physics_lab/schemas/agent.schema.json"
+  - "agents/AGENT-TEMPLATE.yaml"
+  - "agents/architect.yaml"
+  - "agents/review-agent.yaml"
+  - "agents/scientific-curator.yaml"
+  - "agents/researcher.yaml"
+  - "agents/task-proposal-agent.yaml"
+  - "agents/microtask-agent.yaml"
+  - "agents/README.md"
+  - "AGENTS.md cross-reference update"
+  - "tests/fixtures/example-agent.yaml"
+  - "tests/test_pendulum.py path update"
+  - "tests/test_damped_oscillator.py fixture content update"
+  - "tests/test_agent_role_profiles.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_role_profiles.py tests/test_pendulum.py tests/test_damped_oscillator.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
