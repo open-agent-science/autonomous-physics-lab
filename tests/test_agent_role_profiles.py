@@ -215,3 +215,61 @@ class TestAgentsMdCrossReference:
     def test_agents_md_references_role_profile_index(self) -> None:
         agents_md = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
         assert "agents/README.md" in agents_md
+
+
+# ---------------------------------------------------------------------------
+# docs/agent-catalog.md cross-reference (TASK-0426)
+# ---------------------------------------------------------------------------
+
+
+class TestAgentCatalogLinksEveryActiveRoleProfile:
+    """Every agents/<role>.yaml with status: active must be linked from
+    docs/agent-catalog.md so a reader of the catalog can find the
+    compact role profile alongside the long-form narrative description.
+    """
+
+    def _catalog_text(self) -> str:
+        return (REPO_ROOT / "docs" / "agent-catalog.md").read_text(
+            encoding="utf-8"
+        )
+
+    @pytest.mark.parametrize("role_file", _role_files(), ids=lambda p: p.name)
+    def test_active_role_profile_is_linked_from_catalog(
+        self, role_file: Path
+    ) -> None:
+        payload = _load_yaml(role_file)
+        if payload.get("status") != "active":
+            pytest.skip(f"{role_file.name} is not status: active")
+        catalog = self._catalog_text()
+        # The catalog must link to the role profile via its repo-relative
+        # path so a reader navigating from the catalog reaches the YAML
+        # in one click.
+        link_token = f"agents/{role_file.name}"
+        assert link_token in catalog, (
+            f"docs/agent-catalog.md is missing a link to {link_token!r}. "
+            f"Add a 'Role profile:' line under the matching agent path "
+            f"entry per TASK-0426."
+        )
+
+    def test_catalog_introduces_role_profiles_section(self) -> None:
+        catalog = self._catalog_text()
+        # The catalog must explain agents/ as the role-profile directory
+        # so a reader understands what the per-entry links mean.
+        assert "Role Profiles Under `agents/`" in catalog, (
+            "docs/agent-catalog.md is missing the 'Role Profiles Under "
+            "`agents/`' section introduced by TASK-0426."
+        )
+
+    def test_catalog_has_architect_entry(self) -> None:
+        catalog = self._catalog_text()
+        # Architect role had no catalog entry before TASK-0426; the entry
+        # must be present in the Repository-Architecture-Facing section.
+        assert "### 9. Architect" in catalog, (
+            "docs/agent-catalog.md is missing the '### 9. Architect' "
+            "entry added by TASK-0426."
+        )
+        assert "Repository-Architecture-Facing" in catalog, (
+            "docs/agent-catalog.md is missing the "
+            "'Repository-Architecture-Facing Agent Paths' subsection "
+            "added by TASK-0426."
+        )
