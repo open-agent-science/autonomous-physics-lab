@@ -203,15 +203,6 @@ This mode supports:
 - task-queue PRs
 - task proposal PRs
 
-When the maintainer asks to "finish", "fix", "dobity", or otherwise bring an
-open PR to merge readiness, treat that as bounded review-and-fix authorization
-for the current PR branch. The agent should inspect the blocker, apply only the
-minimal in-scope fix, rerun the relevant validation and review helper, commit
-and push the PR branch when explicitly authorized in the current request chain,
-and then report the updated merge state. If the fix would change scientific
-scope, promote a claim, rewrite protected artifacts, or require maintainer
-judgment, stop and report the blocker instead of widening the PR silently.
-
 ### Inputs
 
 - PR link, PR description, or review bundle
