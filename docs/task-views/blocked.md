@@ -8,17 +8,14 @@
 
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
-- `TASK-0428` - Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## Research Blockers
 
 - `TASK-0226` - Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0277` - Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
-- `TASK-0415` - Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`, domain `result_promotion`)
 
 ## Support Blockers
 
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
-- `TASK-0416` - Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`, domain `result_promotion`)
