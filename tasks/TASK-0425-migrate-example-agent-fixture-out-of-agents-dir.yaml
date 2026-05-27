@@ -1,0 +1,56 @@
+id: TASK-0425
+title: "Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/"
+type: workflow_protocol
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep agents/ as a directory of active agent role soul files only, with no legacy test fixtures mixed in."
+  - "Follow up on TASK-0424 which intentionally left example-agent.yaml in place because tests/test_pendulum.py and tests/test_damped_oscillator.py reference it."
+  - "Avoid future confusion where a reader of agents/ thinks example-agent.yaml is a current agent role."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_workflow
+  related_objects:
+    - "agents/example-agent.yaml"
+    - "agents/README.md"
+    - "tests/test_pendulum.py"
+    - "tests/test_damped_oscillator.py"
+  planning_context: >
+    TASK-0424 created agents/<role>.md soul files for active agent roles and
+    added a template-compliance test. The legacy agents/example-agent.yaml
+    was kept in place only because two test files reference it directly.
+    This task moves the fixture to tests/fixtures/ and updates the two test
+    files to read from the new location, removing the legacy file from
+    agents/.
+
+requirements:
+  - "Create tests/fixtures/ directory if it does not already exist."
+  - "Move agents/example-agent.yaml to tests/fixtures/example-agent.yaml."
+  - "Update tests/test_pendulum.py to point at the new path."
+  - "Update tests/test_damped_oscillator.py to point at the new path (line currently around 192)."
+  - "Remove the 'Legacy File' section from agents/README.md (no longer needed)."
+  - "Update tests/test_agent_role_soul_files.py NON_ROLE_FILES tuple to drop 'example-agent.yaml' (no longer in agents/)."
+  - "Confirm full pytest still passes after the move."
+  - "Do not modify any agents/*.md role file, AGENTS.md, or any other docs/agent-*.md file."
+
+accepted_outputs:
+  - "tests/fixtures/example-agent.yaml (moved from agents/example-agent.yaml)"
+  - "tests/test_pendulum.py (path update)"
+  - "tests/test_damped_oscillator.py (path update)"
+  - "agents/README.md (legacy section removal)"
+  - "tests/test_agent_role_soul_files.py (NON_ROLE_FILES update)"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_pendulum.py tests/test_damped_oscillator.py tests/test_agent_role_soul_files.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
