@@ -10,6 +10,7 @@
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0412` - Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0413` - Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`, domain `result_promotion`)
+- `TASK-0428` - Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## Research Blockers
 
