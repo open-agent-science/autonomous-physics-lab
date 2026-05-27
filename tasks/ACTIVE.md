@@ -57,12 +57,15 @@ one PR.
 - `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`)
+- `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
 - `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
 - `TASK-0420` — Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0432` — Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -71,10 +74,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`)
-- `TASK-0418` — Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -85,6 +85,8 @@ None.
 - `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
 - `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
 - `TASK-0419` — Update agent protocol for final output-class routing (merged)
+- `TASK-0418` — Add scientific memory review-tier index (merged)
+- `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (merged)
 - `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (merged)
 - `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (merged)
 - `TASK-0411` — Sync mission recommendations after result-promotion protocol (merged)
@@ -94,7 +96,9 @@ None.
 - `TASK-0407` — Enforce review-tier metadata guardrails in repository validation (merged)
 - `TASK-0406` — Define multi-class scientific output promotion protocol (merged)
 - `TASK-0405` — Disable validation commands in snapshot script (merged)
+- `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (merged)
 - `TASK-0397` — Run nuclear local-curvature negative-control expansion (merged)
+- `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (merged)
 - `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (merged)
 - `TASK-0389` — Polish onboarding prompt for cross-platform first-run flow (merged)
 - `TASK-0388` — Refresh campaign status after latest agent results (merged)
@@ -463,9 +467,6 @@ None.
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
-- `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
 
 ## SUPERSEDED
 

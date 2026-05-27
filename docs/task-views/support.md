@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0418` - Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `result_promotion`)
+None.
