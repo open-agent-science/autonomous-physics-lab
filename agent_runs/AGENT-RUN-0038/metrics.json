@@ -1,0 +1,1770 @@
+{
+  "agent_run_id": "AGENT-RUN-0038",
+  "axis_audits": {
+    "minimum_mass_with_transit_radius": {
+      "control_erased_slice_count": 0,
+      "control_insufficient_slice_count": 0,
+      "dimensions": {
+        "any_core_host_missing": {
+          "core_host_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0,
+              "delta_log10_rmse_slice_minus_control": null,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null,
+              "median_log10_residual": null,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744,
+              "median_log10_residual": -0.15221436873853847
+            }
+          }
+        },
+        "detection_method": {
+          "transit": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0,
+              "delta_log10_rmse_slice_minus_control": null,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null,
+              "median_log10_residual": null,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744,
+              "median_log10_residual": -0.15221436873853847
+            }
+          }
+        },
+        "host_temperature": {
+          "G_5200_6000K": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0,
+              "delta_log10_rmse_slice_minus_control": null,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null,
+              "median_log10_residual": null,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744,
+              "median_log10_residual": -0.15221436873853847
+            }
+          }
+        },
+        "mass_uncertainty": {
+          "loose_15_30pct": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.19686957448114734,
+              "delta_log10_rmse_slice_minus_control": -0.2827124744068367,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 1,
+              "log10_bias": -0.29357060594195683,
+              "log10_mae": 0.29357060594195683,
+              "log10_rmse": 0.29357060594195683,
+              "median_log10_residual": -0.29357060594195683,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 1,
+              "log10_bias": -0.010858131535120108,
+              "log10_mae": 0.010858131535120108,
+              "log10_rmse": 0.010858131535120108,
+              "median_log10_residual": -0.010858131535120108
+            }
+          },
+          "missing_mass_uncertainty": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.08584289992568939,
+              "delta_log10_rmse_slice_minus_control": 0.2827124744068367,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 1,
+              "log10_bias": -0.010858131535120108,
+              "log10_mae": 0.010858131535120108,
+              "log10_rmse": 0.010858131535120108,
+              "median_log10_residual": -0.010858131535120108,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 1,
+              "log10_bias": -0.29357060594195683,
+              "log10_mae": 0.29357060594195683,
+              "log10_rmse": 0.29357060594195683,
+              "median_log10_residual": -0.29357060594195683
+            }
+          }
+        },
+        "missing_host_temperature": {
+          "host_temperature_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0,
+              "delta_log10_rmse_slice_minus_control": null,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null,
+              "median_log10_residual": null,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744,
+              "median_log10_residual": -0.15221436873853847
+            }
+          }
+        },
+        "missing_mass_uncertainty": {
+          "mass_uncertainty_missing": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.08584289992568939,
+              "delta_log10_rmse_slice_minus_control": 0.2827124744068367,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 1,
+              "log10_bias": -0.010858131535120108,
+              "log10_mae": 0.010858131535120108,
+              "log10_rmse": 0.010858131535120108,
+              "median_log10_residual": -0.010858131535120108,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 1,
+              "log10_bias": -0.29357060594195683,
+              "log10_mae": 0.29357060594195683,
+              "log10_rmse": 0.29357060594195683,
+              "median_log10_residual": -0.29357060594195683
+            }
+          },
+          "mass_uncertainty_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.19686957448114734,
+              "delta_log10_rmse_slice_minus_control": -0.2827124744068367,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 1,
+              "log10_bias": -0.29357060594195683,
+              "log10_mae": 0.29357060594195683,
+              "log10_rmse": 0.29357060594195683,
+              "median_log10_residual": -0.29357060594195683,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 1,
+              "log10_bias": -0.010858131535120108,
+              "log10_mae": 0.010858131535120108,
+              "log10_rmse": 0.010858131535120108,
+              "median_log10_residual": -0.010858131535120108
+            }
+          }
+        },
+        "missing_radius_uncertainty": {
+          "radius_uncertainty_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0,
+              "delta_log10_rmse_slice_minus_control": null,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null,
+              "median_log10_residual": null,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744,
+              "median_log10_residual": -0.15221436873853847
+            }
+          }
+        },
+        "missing_stellar_mass": {
+          "stellar_mass_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0,
+              "delta_log10_rmse_slice_minus_control": null,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null,
+              "median_log10_residual": null,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744,
+              "median_log10_residual": -0.15221436873853847
+            }
+          }
+        },
+        "missing_stellar_radius": {
+          "stellar_radius_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0,
+              "delta_log10_rmse_slice_minus_control": null,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null,
+              "median_log10_residual": null,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744,
+              "median_log10_residual": -0.15221436873853847
+            }
+          }
+        },
+        "radius_uncertainty": {
+          "tight_le5pct": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0,
+              "delta_log10_rmse_slice_minus_control": null,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 0,
+              "log10_bias": null,
+              "log10_mae": null,
+              "log10_rmse": null,
+              "median_log10_residual": null,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.15221436873853847,
+              "log10_mae": 0.15221436873853847,
+              "log10_rmse": 0.20772770601626744,
+              "median_log10_residual": -0.15221436873853847
+            }
+          }
+        },
+        "stellar_mass": {
+          "solar_high_1p0_1p3Msun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.08584289992568939,
+              "delta_log10_rmse_slice_minus_control": 0.2827124744068367,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 1,
+              "log10_bias": -0.010858131535120108,
+              "log10_mae": 0.010858131535120108,
+              "log10_rmse": 0.010858131535120108,
+              "median_log10_residual": -0.010858131535120108,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 1,
+              "log10_bias": -0.29357060594195683,
+              "log10_mae": 0.29357060594195683,
+              "log10_rmse": 0.29357060594195683,
+              "median_log10_residual": -0.29357060594195683
+            }
+          },
+          "subsolar_0p7_1p0Msun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.19686957448114734,
+              "delta_log10_rmse_slice_minus_control": -0.2827124744068367,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 1,
+              "log10_bias": -0.29357060594195683,
+              "log10_mae": 0.29357060594195683,
+              "log10_rmse": 0.29357060594195683,
+              "median_log10_residual": -0.29357060594195683,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 1,
+              "log10_bias": -0.010858131535120108,
+              "log10_mae": 0.010858131535120108,
+              "log10_rmse": 0.010858131535120108,
+              "median_log10_residual": -0.010858131535120108
+            }
+          }
+        },
+        "stellar_radius": {
+          "large_radius_ge1p5Rsun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.08584289992568939,
+              "delta_log10_rmse_slice_minus_control": 0.2827124744068367,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 1,
+              "log10_bias": -0.010858131535120108,
+              "log10_mae": 0.010858131535120108,
+              "log10_rmse": 0.010858131535120108,
+              "median_log10_residual": -0.010858131535120108,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 1,
+              "log10_bias": -0.29357060594195683,
+              "log10_mae": 0.29357060594195683,
+              "log10_rmse": 0.29357060594195683,
+              "median_log10_residual": -0.29357060594195683
+            }
+          },
+          "solar_high_radius_1p0_1p5Rsun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.19686957448114734,
+              "delta_log10_rmse_slice_minus_control": -0.2827124744068367,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 1,
+              "log10_bias": -0.29357060594195683,
+              "log10_mae": 0.29357060594195683,
+              "log10_rmse": 0.29357060594195683,
+              "median_log10_residual": -0.29357060594195683,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 1,
+              "log10_bias": -0.010858131535120108,
+              "log10_mae": 0.010858131535120108,
+              "log10_rmse": 0.010858131535120108,
+              "median_log10_residual": -0.010858131535120108
+            }
+          }
+        }
+      },
+      "overall": {
+        "count": 2,
+        "log10_bias": -0.15221436873853847,
+        "log10_mae": 0.15221436873853847,
+        "log10_rmse": 0.20772770601626744,
+        "median_log10_residual": -0.15221436873853847
+      },
+      "persistent_slice_count": 0,
+      "underpowered_slice_count": 16
+    },
+    "true_mass_with_transit_radius": {
+      "control_erased_slice_count": 0,
+      "control_insufficient_slice_count": 8,
+      "dimensions": {
+        "any_core_host_missing": {
+          "any_core_host_missing": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.016763369920279103,
+              "delta_log10_rmse_slice_minus_control": -0.029261007618947094,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 41,
+              "log10_bias": -0.06864918143145132,
+              "log10_mae": 0.1370275686956645,
+              "log10_rmse": 0.20419457021371248,
+              "median_log10_residual": -0.02052402353301941,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 41,
+              "log10_bias": -0.016060884805729765,
+              "log10_mae": 0.12910142154466495,
+              "log10_rmse": 0.1749335625947654,
+              "median_log10_residual": 0.005537526195074749
+            }
+          },
+          "core_host_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.0006219080297932555,
+              "delta_log10_rmse_slice_minus_control": -0.01738527795007236,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "control_insufficient"
+            },
+            "sample_size_matched_control": {
+              "count": 41,
+              "log10_bias": -0.016060884805729765,
+              "log10_mae": 0.12910142154466495,
+              "log10_rmse": 0.1749335625947654,
+              "median_log10_residual": 0.005537526195074749,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 1166,
+              "log10_bias": -0.04171508762683813,
+              "log10_mae": 0.10356229470227157,
+              "log10_rmse": 0.15754828464469303,
+              "median_log10_residual": -0.02589108521072994
+            }
+          }
+        },
+        "detection_method": {
+          "transit": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.00010191918661653365,
+              "delta_log10_rmse_slice_minus_control": 0.08353085403540907,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "control_insufficient"
+            },
+            "sample_size_matched_control": {
+              "count": 2,
+              "log10_bias": -0.07454783928333905,
+              "log10_mae": 0.07454783928333905,
+              "log10_rmse": 0.07474125782569375,
+              "median_log10_residual": -0.07454783928333905,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 1205,
+              "log10_bias": -0.04078771184345353,
+              "log10_mae": 0.10447941761627655,
+              "log10_rmse": 0.15827211186110282,
+              "median_log10_residual": -0.024982337436426638
+            }
+          },
+          "transit_timing_variation": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.08342893484879253,
+              "delta_log10_rmse_slice_minus_control": -0.32481442424454743,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 2,
+              "log10_bias": 0.24442895605533793,
+              "log10_mae": 0.31606839215004295,
+              "log10_rmse": 0.39955568207024117,
+              "median_log10_residual": 0.24442895605533793,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 2,
+              "log10_bias": -0.07454783928333905,
+              "log10_mae": 0.07454783928333905,
+              "log10_rmse": 0.07474125782569375,
+              "median_log10_residual": -0.07454783928333905
+            }
+          }
+        },
+        "host_temperature": {
+          "F_6000_7500K": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.044266110256123065,
+              "delta_log10_rmse_slice_minus_control": -0.03728655135893852,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 285,
+              "log10_bias": -0.05195971655768243,
+              "log10_mae": 0.09376898540425276,
+              "log10_rmse": 0.15119063377730174,
+              "median_log10_residual": -0.03506686109340573,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 285,
+              "log10_bias": 0.020702063348214228,
+              "log10_mae": 0.08226679347444851,
+              "log10_rmse": 0.11390408241836322,
+              "median_log10_residual": 0.0242530968820569
+            }
+          },
+          "G_5200_6000K": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.01157026341259984,
+              "delta_log10_rmse_slice_minus_control": -0.027480413221458222,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 492,
+              "log10_bias": -0.046748182140730114,
+              "log10_mae": 0.11339054118910272,
+              "log10_rmse": 0.17408034248334467,
+              "median_log10_residual": -0.02998883411684064,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 492,
+              "log10_bias": -0.047955899950067576,
+              "log10_mae": 0.0997214957001364,
+              "log10_rmse": 0.14659992926188645,
+              "median_log10_residual": -0.03214131464213166
+            }
+          },
+          "K_3900_5200K": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.03916441839874499,
+              "delta_log10_rmse_slice_minus_control": 0.030807026710740565,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "selection_effect_persists_vs_control"
+            },
+            "sample_size_matched_control": {
+              "count": 235,
+              "log10_bias": -0.027054994109891747,
+              "log10_mae": 0.10741630907709357,
+              "log10_rmse": 0.1665275843624907,
+              "median_log10_residual": -0.0154855890583801,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 235,
+              "log10_bias": -0.09384049238059268,
+              "log10_mae": 0.13380442333072953,
+              "log10_rmse": 0.19733461107323128,
+              "median_log10_residual": -0.07398916020680046
+            }
+          },
+          "M_lt3900K": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.03500556376716493,
+              "delta_log10_rmse_slice_minus_control": 0.03870998268123113,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "selection_effect_persists_vs_control"
+            },
+            "sample_size_matched_control": {
+              "count": 140,
+              "log10_bias": -0.03955188577034354,
+              "log10_mae": 0.11045374092482622,
+              "log10_rmse": 0.1544657737604201,
+              "median_log10_residual": -0.02548963834737006,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 140,
+              "log10_bias": -0.07630625656344495,
+              "log10_mae": 0.1067188301188212,
+              "log10_rmse": 0.19317575644165122,
+              "median_log10_residual": -0.04259424387079841
+            }
+          },
+          "hot_ge7500K": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.013041599804701182,
+              "delta_log10_rmse_slice_minus_control": -0.06536454941352432,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 14,
+              "log10_bias": -0.07026944293448764,
+              "log10_mae": 0.08891750229496632,
+              "log10_rmse": 0.21049314228330943,
+              "median_log10_residual": -0.022448861727352165,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 14,
+              "log10_bias": 0.12784386975860765,
+              "log10_mae": 0.13285342134337988,
+              "log10_rmse": 0.1451285928697851,
+              "median_log10_residual": 0.13299913526778206
+            }
+          },
+          "missing_teff": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.016763369920279103,
+              "delta_log10_rmse_slice_minus_control": -0.029261007618947094,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 41,
+              "log10_bias": -0.06864918143145132,
+              "log10_mae": 0.1370275686956645,
+              "log10_rmse": 0.20419457021371248,
+              "median_log10_residual": -0.02052402353301941,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 41,
+              "log10_bias": -0.016060884805729765,
+              "log10_mae": 0.12910142154466495,
+              "log10_rmse": 0.1749335625947654,
+              "median_log10_residual": 0.005537526195074749
+            }
+          }
+        },
+        "mass_uncertainty": {
+          "loose_15_30pct": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.03601170507507663,
+              "delta_log10_rmse_slice_minus_control": -0.06523654648186701,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 378,
+              "log10_bias": -0.06941066413375986,
+              "log10_mae": 0.1272450535476663,
+              "log10_rmse": 0.18739503408127667,
+              "median_log10_residual": -0.05014049430087042,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 378,
+              "log10_bias": -0.01364006288286615,
+              "log10_mae": 0.09383994042020574,
+              "log10_rmse": 0.12215848759940966,
+              "median_log10_residual": -0.009630253661836452
+            }
+          },
+          "missing_mass_uncertainty": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.20372816621006,
+              "delta_log10_rmse_slice_minus_control": 0.2458642361865828,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "selection_effect_persists_vs_control"
+            },
+            "sample_size_matched_control": {
+              "count": 130,
+              "log10_bias": -0.016812980341368564,
+              "log10_mae": 0.08385003830747043,
+              "log10_rmse": 0.11603412269796351,
+              "median_log10_residual": -0.02044268173102609,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 130,
+              "log10_bias": -0.23552198559305731,
+              "log10_mae": 0.2807060220775525,
+              "log10_rmse": 0.3618983588845463,
+              "median_log10_residual": -0.2015056409521223
+            }
+          },
+          "moderate_5_15pct": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.05072688761012421,
+              "delta_log10_rmse_slice_minus_control": -0.08875611474932273,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 542,
+              "log10_bias": -0.06006826193406608,
+              "log10_mae": 0.12467678527308239,
+              "log10_rmse": 0.1961994198136848,
+              "median_log10_residual": -0.026382979327103206,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 542,
+              "log10_bias": -0.017655997058463758,
+              "log10_mae": 0.08161569837811457,
+              "log10_rmse": 0.10744330506436207,
+              "median_log10_residual": -0.019789715007713538
+            }
+          },
+          "tight_le5pct": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.06813552474994021,
+              "delta_log10_rmse_slice_minus_control": -0.074292310574282,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 157,
+              "log10_bias": -0.047558691062811326,
+              "log10_mae": 0.10469172432506152,
+              "log10_rmse": 0.16432697849882807,
+              "median_log10_residual": -0.029322243589796404,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 157,
+              "log10_bias": -0.02519067609821631,
+              "log10_mae": 0.06272487284281678,
+              "log10_rmse": 0.09003466792454608,
+              "median_log10_residual": -0.022542582239826414
+            }
+          }
+        },
+        "missing_host_temperature": {
+          "host_temperature_missing": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.016763369920279103,
+              "delta_log10_rmse_slice_minus_control": -0.029261007618947094,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 41,
+              "log10_bias": -0.06864918143145132,
+              "log10_mae": 0.1370275686956645,
+              "log10_rmse": 0.20419457021371248,
+              "median_log10_residual": -0.02052402353301941,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 41,
+              "log10_bias": -0.016060884805729765,
+              "log10_mae": 0.12910142154466495,
+              "log10_rmse": 0.1749335625947654,
+              "median_log10_residual": 0.005537526195074749
+            }
+          },
+          "host_temperature_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.0006219080297932555,
+              "delta_log10_rmse_slice_minus_control": -0.01738527795007236,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "control_insufficient"
+            },
+            "sample_size_matched_control": {
+              "count": 41,
+              "log10_bias": -0.016060884805729765,
+              "log10_mae": 0.12910142154466495,
+              "log10_rmse": 0.1749335625947654,
+              "median_log10_residual": 0.005537526195074749,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 1166,
+              "log10_bias": -0.04171508762683813,
+              "log10_mae": 0.10356229470227157,
+              "log10_rmse": 0.15754828464469303,
+              "median_log10_residual": -0.02589108521072994
+            }
+          }
+        },
+        "missing_mass_uncertainty": {
+          "mass_uncertainty_missing": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.20372816621006,
+              "delta_log10_rmse_slice_minus_control": 0.2458642361865828,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "selection_effect_persists_vs_control"
+            },
+            "sample_size_matched_control": {
+              "count": 130,
+              "log10_bias": -0.016812980341368564,
+              "log10_mae": 0.08385003830747043,
+              "log10_rmse": 0.11603412269796351,
+              "median_log10_residual": -0.02044268173102609,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 130,
+              "log10_bias": -0.23552198559305731,
+              "log10_mae": 0.2807060220775525,
+              "log10_rmse": 0.3618983588845463,
+              "median_log10_residual": -0.2015056409521223
+            }
+          },
+          "mass_uncertainty_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.04758660690542106,
+              "delta_log10_rmse_slice_minus_control": -0.25131477311548106,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "control_insufficient"
+            },
+            "sample_size_matched_control": {
+              "count": 130,
+              "log10_bias": -0.23552198559305731,
+              "log10_mae": 0.2807060220775525,
+              "log10_rmse": 0.3618983588845463,
+              "median_log10_residual": -0.2015056409521223,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 1077,
+              "log10_bias": -0.01734487495156056,
+              "log10_mae": 0.08315228508458504,
+              "log10_rmse": 0.11058358576906523,
+              "median_log10_residual": -0.017847464605305063
+            }
+          }
+        },
+        "missing_radius_uncertainty": {
+          "radius_uncertainty_missing": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.2957095616360804,
+              "delta_log10_rmse_slice_minus_control": 0.16088376746942773,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 12,
+              "log10_bias": -0.17224728280323523,
+              "log10_mae": 0.20489596391369083,
+              "log10_rmse": 0.292995986841139,
+              "median_log10_residual": -0.10720603900203002,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 12,
+              "log10_bias": -0.2964200093305693,
+              "log10_mae": 0.39728556375612606,
+              "log10_rmse": 0.4538797543105667,
+              "median_log10_residual": -0.3874961906316644
+            }
+          },
+          "radius_uncertainty_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.005853591894879995,
+              "delta_log10_rmse_slice_minus_control": -0.3015631535309604,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "control_insufficient"
+            },
+            "sample_size_matched_control": {
+              "count": 12,
+              "log10_bias": -0.2964200093305693,
+              "log10_mae": 0.39728556375612606,
+              "log10_rmse": 0.4538797543105667,
+              "median_log10_residual": -0.3874961906316644,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 1195,
+              "log10_bias": -0.03827719526189234,
+              "log10_mae": 0.10148901015992169,
+              "log10_rmse": 0.1523166007796063,
+              "median_log10_residual": -0.024939186250109158
+            }
+          }
+        },
+        "missing_stellar_mass": {
+          "stellar_mass_missing": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.09894402381727073,
+              "delta_log10_rmse_slice_minus_control": -0.018811597053661727,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 4,
+              "log10_bias": -0.0006461361844833508,
+              "log10_mae": 0.06221638598039188,
+              "log10_rmse": 0.07803776591087729,
+              "median_log10_residual": -0.016652883855260203,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 4,
+              "log10_bias": 0.013802189372880524,
+              "log10_mae": 0.04496239651946282,
+              "log10_rmse": 0.05922616885721556,
+              "median_log10_residual": 0.008842390769336572
+            }
+          },
+          "stellar_mass_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.00022592875218846453,
+              "delta_log10_rmse_slice_minus_control": 0.0991699525694592,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "control_insufficient"
+            },
+            "sample_size_matched_control": {
+              "count": 4,
+              "log10_bias": 0.013802189372880524,
+              "log10_mae": 0.04496239651946282,
+              "log10_rmse": 0.05922616885721556,
+              "median_log10_residual": 0.008842390769336572,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 1203,
+              "log10_bias": -0.041025350962111136,
+              "log10_mae": 0.10462755138828103,
+              "log10_rmse": 0.15839612142667475,
+              "median_log10_residual": -0.025576200062885468
+            }
+          }
+        },
+        "missing_stellar_radius": {
+          "stellar_radius_missing": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.09894402381727073,
+              "delta_log10_rmse_slice_minus_control": -0.018811597053661727,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 4,
+              "log10_bias": -0.0006461361844833508,
+              "log10_mae": 0.06221638598039188,
+              "log10_rmse": 0.07803776591087729,
+              "median_log10_residual": -0.016652883855260203,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 4,
+              "log10_bias": 0.013802189372880524,
+              "log10_mae": 0.04496239651946282,
+              "log10_rmse": 0.05922616885721556,
+              "median_log10_residual": 0.008842390769336572
+            }
+          },
+          "stellar_radius_present": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.00022592875218846453,
+              "delta_log10_rmse_slice_minus_control": 0.0991699525694592,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "control_insufficient"
+            },
+            "sample_size_matched_control": {
+              "count": 4,
+              "log10_bias": 0.013802189372880524,
+              "log10_mae": 0.04496239651946282,
+              "log10_rmse": 0.05922616885721556,
+              "median_log10_residual": 0.008842390769336572,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 1203,
+              "log10_bias": -0.041025350962111136,
+              "log10_mae": 0.10462755138828103,
+              "log10_rmse": 0.15839612142667475,
+              "median_log10_residual": -0.025576200062885468
+            }
+          }
+        },
+        "radius_uncertainty": {
+          "loose_10_15pct": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.02179874146444985,
+              "delta_log10_rmse_slice_minus_control": 0.03610061724404806,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 81,
+              "log10_bias": -0.030659217649554676,
+              "log10_mae": 0.10281060973532839,
+              "log10_rmse": 0.14386831689488808,
+              "median_log10_residual": -0.03582600746757558,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 81,
+              "log10_bias": -0.030268367813507054,
+              "log10_mae": 0.1129619142560522,
+              "log10_rmse": 0.17996893413893614,
+              "median_log10_residual": 0.011821110650200417
+            }
+          },
+          "missing_radius_uncertainty": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.2957095616360804,
+              "delta_log10_rmse_slice_minus_control": 0.16088376746942773,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 12,
+              "log10_bias": -0.17224728280323523,
+              "log10_mae": 0.20489596391369083,
+              "log10_rmse": 0.292995986841139,
+              "median_log10_residual": -0.10720603900203002,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 12,
+              "log10_bias": -0.2964200093305693,
+              "log10_mae": 0.39728556375612606,
+              "log10_rmse": 0.4538797543105667,
+              "median_log10_residual": -0.3874961906316644
+            }
+          },
+          "moderate_5_10pct": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.02412342134509271,
+              "delta_log10_rmse_slice_minus_control": 0.031348636465557966,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "selection_effect_persists_vs_control"
+            },
+            "sample_size_matched_control": {
+              "count": 335,
+              "log10_bias": -0.037517580416894666,
+              "log10_mae": 0.10185501607560267,
+              "log10_rmse": 0.15094497755402103,
+              "median_log10_residual": -0.026476711177637835,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 335,
+              "log10_bias": -0.0531144737684533,
+              "log10_mae": 0.11472587960876703,
+              "log10_rmse": 0.182293614019579,
+              "median_log10_residual": -0.036530651238986744
+            }
+          },
+          "tight_le5pct": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.024262074893248692,
+              "delta_log10_rmse_slice_minus_control": -0.06081159659735108,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "control_insufficient"
+            },
+            "sample_size_matched_control": {
+              "count": 428,
+              "log10_bias": -0.05561244536750645,
+              "log10_mae": 0.12231427917932405,
+              "log10_rmse": 0.19471971437858868,
+              "median_log10_residual": -0.0278547137546091,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "insufficient_non_slice_rows"
+            },
+            "slice": {
+              "count": 779,
+              "log10_bias": -0.032729347667054445,
+              "log10_mae": 0.09460370015074356,
+              "log10_rmse": 0.1339081177812376,
+              "median_log10_residual": -0.023861941297302902
+            }
+          }
+        },
+        "stellar_mass": {
+          "high_mass_ge1p3Msun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.04937834180751702,
+              "delta_log10_rmse_slice_minus_control": -0.04474954208642298,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 174,
+              "log10_bias": -0.0430313320011828,
+              "log10_mae": 0.0885260512416087,
+              "log10_rmse": 0.15354139295339225,
+              "median_log10_residual": -0.031264720741851604,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 174,
+              "log10_bias": 0.04392680131884703,
+              "log10_mae": 0.08596772237201453,
+              "log10_rmse": 0.10879185086696927,
+              "median_log10_residual": 0.05396879685038469
+            }
+          },
+          "low_mass_lt0p7Msun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.06103897987829329,
+              "delta_log10_rmse_slice_minus_control": 0.06845806331575655,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "selection_effect_persists_vs_control"
+            },
+            "sample_size_matched_control": {
+              "count": 208,
+              "log10_bias": -0.02521569763779428,
+              "log10_mae": 0.10991677777025854,
+              "log10_rmse": 0.15075110923702303,
+              "median_log10_residual": -0.022150478468505264,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 208,
+              "log10_bias": -0.09550846186454988,
+              "log10_mae": 0.127650270340654,
+              "log10_rmse": 0.21920917255277958,
+              "median_log10_residual": -0.05291508242748719
+            }
+          },
+          "missing_stellar_mass": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.09894402381727073,
+              "delta_log10_rmse_slice_minus_control": -0.018811597053661727,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 4,
+              "log10_bias": -0.0006461361844833508,
+              "log10_mae": 0.06221638598039188,
+              "log10_rmse": 0.07803776591087729,
+              "median_log10_residual": -0.016652883855260203,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 4,
+              "log10_bias": 0.013802189372880524,
+              "log10_mae": 0.04496239651946282,
+              "log10_rmse": 0.05922616885721556,
+              "median_log10_residual": 0.008842390769336572
+            }
+          },
+          "solar_high_1p0_1p3Msun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.010465238329939452,
+              "delta_log10_rmse_slice_minus_control": -0.03111579636382278,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 417,
+              "log10_bias": -0.05829630202100227,
+              "log10_mae": 0.11416923531768589,
+              "log10_rmse": 0.1788207507083696,
+              "median_log10_residual": -0.039228211986498285,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 417,
+              "log10_bias": -0.024968110592294725,
+              "log10_mae": 0.09577537057987776,
+              "log10_rmse": 0.14770495434454683,
+              "median_log10_residual": -0.013001305629690485
+            }
+          },
+          "subsolar_0p7_1p0Msun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.008661759475593361,
+              "delta_log10_rmse_slice_minus_control": -0.037336568930239095,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 404,
+              "log10_bias": -0.046443432145732336,
+              "log10_mae": 0.12055294948342654,
+              "log10_rmse": 0.18684500212913202,
+              "median_log10_residual": -0.02605255562029718,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 404,
+              "log10_bias": -0.06613687735664803,
+              "log10_mae": 0.10994795758590716,
+              "log10_rmse": 0.14950843319889293,
+              "median_log10_residual": -0.05633273667520279
+            }
+          }
+        },
+        "stellar_radius": {
+          "large_radius_ge1p5Rsun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.022595759285310713,
+              "delta_log10_rmse_slice_minus_control": -0.014897010799440835,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 242,
+              "log10_bias": -0.04373361056184442,
+              "log10_mae": 0.09088445398797393,
+              "log10_rmse": 0.1504714441886164,
+              "median_log10_residual": -0.03493146063623076,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 242,
+              "log10_bias": 0.021924429019137173,
+              "log10_mae": 0.09609217824291891,
+              "log10_rmse": 0.13557443338917557,
+              "median_log10_residual": 0.03992606268385668
+            }
+          },
+          "missing_stellar_radius": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.09894402381727073,
+              "delta_log10_rmse_slice_minus_control": -0.018811597053661727,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "underpowered_slice"
+            },
+            "sample_size_matched_control": {
+              "count": 4,
+              "log10_bias": -0.0006461361844833508,
+              "log10_mae": 0.06221638598039188,
+              "log10_rmse": 0.07803776591087729,
+              "median_log10_residual": -0.016652883855260203,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 4,
+              "log10_bias": 0.013802189372880524,
+              "log10_mae": 0.04496239651946282,
+              "log10_rmse": 0.05922616885721556,
+              "median_log10_residual": 0.008842390769336572
+            }
+          },
+          "small_radius_lt0p7Rsun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": 0.0549264297950825,
+              "delta_log10_rmse_slice_minus_control": 0.060827816149268105,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "selection_effect_persists_vs_control"
+            },
+            "sample_size_matched_control": {
+              "count": 229,
+              "log10_bias": -0.028571104156649058,
+              "log10_mae": 0.11007123852402032,
+              "log10_rmse": 0.15226880632030068,
+              "median_log10_residual": -0.02540307663185465,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 229,
+              "log10_bias": -0.09945474836687664,
+              "log10_mae": 0.12629446190202362,
+              "log10_rmse": 0.21309662246956879,
+              "median_log10_residual": -0.06227309197217795
+            }
+          },
+          "solar_high_radius_1p0_1p5Rsun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.01771861856022744,
+              "delta_log10_rmse_slice_minus_control": -0.04227944779837958,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 387,
+              "log10_bias": -0.05574149219543898,
+              "log10_mae": 0.11652939709492734,
+              "log10_rmse": 0.18273102191263843,
+              "median_log10_residual": -0.039228211986498285,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 387,
+              "log10_bias": -0.023254644066545708,
+              "log10_mae": 0.09245268881586247,
+              "log10_rmse": 0.14045157411425885,
+              "median_log10_residual": -0.008690710800782764
+            }
+          },
+          "subsolar_radius_0p7_1p0Rsun": {
+            "classification": {
+              "delta_log10_rmse_slice_minus_axis": -0.008763038934312378,
+              "delta_log10_rmse_slice_minus_control": -0.03265504277034184,
+              "margin_log10_rmse": 0.022,
+              "min_slice_count": 30,
+              "outcome": "no_apparent_signal_above_axis"
+            },
+            "sample_size_matched_control": {
+              "count": 345,
+              "log10_bias": -0.046542394239273324,
+              "log10_mae": 0.1205288264139118,
+              "log10_rmse": 0.18206219651051575,
+              "median_log10_residual": -0.028562745676876666,
+              "method": "nearest_mass_without_replacement_same_axis_non_slice",
+              "status": "matched"
+            },
+            "slice": {
+              "count": 345,
+              "log10_bias": -0.06633195478342886,
+              "log10_mae": 0.1098898980811986,
+              "log10_rmse": 0.1494071537401739,
+              "median_log10_residual": -0.05924592883135471
+            }
+          }
+        }
+      },
+      "overall": {
+        "count": 1207,
+        "log10_bias": -0.0408436524025917,
+        "log10_mae": 0.10442982096618056,
+        "log10_rmse": 0.1581701926744863,
+        "median_log10_residual": -0.02540307663185465
+      },
+      "persistent_slice_count": 7,
+      "underpowered_slice_count": 8
+    }
+  },
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "data_boundary": {
+    "baseline_refit_performed": false,
+    "canonical_result_written": false,
+    "claim_or_knowledge_promotion": false,
+    "live_external_fetch_performed": false,
+    "minimum_mass_rows_in_headline_metrics": false
+  },
+  "filtered_snapshot": {
+    "dataset_id": "exo-0001-pscomppars-snapshot",
+    "exclusion_reason_counts": {
+      "mass_and_radius_absent": 16,
+      "mass_provenance_requires_source_specific_review": 10,
+      "mass_relative_uncertainty_above_threshold": 578,
+      "radius_inferred_from_non_transit_method": 34,
+      "radius_relative_uncertainty_above_threshold": 1278,
+      "solution_type_not_confirmed": 74
+    },
+    "post_filter_included_count": 4301,
+    "pre_filter_included_count": 6157,
+    "total_rows": 6291
+  },
+  "limitations": [
+    "Residual summaries are retrospective diagnostics over the committed snapshot only.",
+    "Sample-size matched controls are deterministic nearest-mass non-slice controls, not causal adjustments.",
+    "Host-star fields, uncertainty fields, detection method, and missingness are catalog-selection surfaces.",
+    "True-mass rows and minimum-mass rows are reported separately; minimum-mass rows are not headline evidence.",
+    "No live fetch, baseline refit, canonical result, prediction, claim, knowledge, composition, habitability, biosignature, or target-priority output is authorized.",
+    "The minimum-mass/transit-radius axis is underpowered for slice interpretation."
+  ],
+  "limitations_table": [
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": null,
+      "count": 2,
+      "dimension": "any_core_host_missing",
+      "limitation": "underpowered_slice",
+      "slice": "core_host_present",
+      "slice_log10_rmse": 0.20772770601626744
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": null,
+      "count": 2,
+      "dimension": "detection_method",
+      "limitation": "underpowered_slice",
+      "slice": "transit",
+      "slice_log10_rmse": 0.20772770601626744
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": null,
+      "count": 2,
+      "dimension": "host_temperature",
+      "limitation": "underpowered_slice",
+      "slice": "G_5200_6000K",
+      "slice_log10_rmse": 0.20772770601626744
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": 0.29357060594195683,
+      "count": 1,
+      "dimension": "mass_uncertainty",
+      "limitation": "underpowered_slice",
+      "slice": "loose_15_30pct",
+      "slice_log10_rmse": 0.010858131535120108
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": 0.010858131535120108,
+      "count": 1,
+      "dimension": "mass_uncertainty",
+      "limitation": "underpowered_slice",
+      "slice": "missing_mass_uncertainty",
+      "slice_log10_rmse": 0.29357060594195683
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": null,
+      "count": 2,
+      "dimension": "missing_host_temperature",
+      "limitation": "underpowered_slice",
+      "slice": "host_temperature_present",
+      "slice_log10_rmse": 0.20772770601626744
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": 0.010858131535120108,
+      "count": 1,
+      "dimension": "missing_mass_uncertainty",
+      "limitation": "underpowered_slice",
+      "slice": "mass_uncertainty_missing",
+      "slice_log10_rmse": 0.29357060594195683
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": 0.29357060594195683,
+      "count": 1,
+      "dimension": "missing_mass_uncertainty",
+      "limitation": "underpowered_slice",
+      "slice": "mass_uncertainty_present",
+      "slice_log10_rmse": 0.010858131535120108
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": null,
+      "count": 2,
+      "dimension": "missing_radius_uncertainty",
+      "limitation": "underpowered_slice",
+      "slice": "radius_uncertainty_present",
+      "slice_log10_rmse": 0.20772770601626744
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": null,
+      "count": 2,
+      "dimension": "missing_stellar_mass",
+      "limitation": "underpowered_slice",
+      "slice": "stellar_mass_present",
+      "slice_log10_rmse": 0.20772770601626744
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": null,
+      "count": 2,
+      "dimension": "missing_stellar_radius",
+      "limitation": "underpowered_slice",
+      "slice": "stellar_radius_present",
+      "slice_log10_rmse": 0.20772770601626744
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": null,
+      "count": 2,
+      "dimension": "radius_uncertainty",
+      "limitation": "underpowered_slice",
+      "slice": "tight_le5pct",
+      "slice_log10_rmse": 0.20772770601626744
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": 0.010858131535120108,
+      "count": 1,
+      "dimension": "stellar_mass",
+      "limitation": "underpowered_slice",
+      "slice": "solar_high_1p0_1p3Msun",
+      "slice_log10_rmse": 0.29357060594195683
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": 0.29357060594195683,
+      "count": 1,
+      "dimension": "stellar_mass",
+      "limitation": "underpowered_slice",
+      "slice": "subsolar_0p7_1p0Msun",
+      "slice_log10_rmse": 0.010858131535120108
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": 0.010858131535120108,
+      "count": 1,
+      "dimension": "stellar_radius",
+      "limitation": "underpowered_slice",
+      "slice": "large_radius_ge1p5Rsun",
+      "slice_log10_rmse": 0.29357060594195683
+    },
+    {
+      "axis": "minimum_mass_with_transit_radius",
+      "control_log10_rmse": 0.29357060594195683,
+      "count": 1,
+      "dimension": "stellar_radius",
+      "limitation": "underpowered_slice",
+      "slice": "solar_high_radius_1p0_1p5Rsun",
+      "slice_log10_rmse": 0.010858131535120108
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.1749335625947654,
+      "count": 1166,
+      "dimension": "any_core_host_missing",
+      "limitation": "control_insufficient",
+      "slice": "core_host_present",
+      "slice_log10_rmse": 0.15754828464469303
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.07474125782569375,
+      "count": 1205,
+      "dimension": "detection_method",
+      "limitation": "control_insufficient",
+      "slice": "transit",
+      "slice_log10_rmse": 0.15827211186110282
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.39955568207024117,
+      "count": 2,
+      "dimension": "detection_method",
+      "limitation": "underpowered_slice",
+      "slice": "transit_timing_variation",
+      "slice_log10_rmse": 0.07474125782569375
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.21049314228330943,
+      "count": 14,
+      "dimension": "host_temperature",
+      "limitation": "underpowered_slice",
+      "slice": "hot_ge7500K",
+      "slice_log10_rmse": 0.1451285928697851
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.1749335625947654,
+      "count": 1166,
+      "dimension": "missing_host_temperature",
+      "limitation": "control_insufficient",
+      "slice": "host_temperature_present",
+      "slice_log10_rmse": 0.15754828464469303
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.3618983588845463,
+      "count": 1077,
+      "dimension": "missing_mass_uncertainty",
+      "limitation": "control_insufficient",
+      "slice": "mass_uncertainty_present",
+      "slice_log10_rmse": 0.11058358576906523
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.292995986841139,
+      "count": 12,
+      "dimension": "missing_radius_uncertainty",
+      "limitation": "underpowered_slice",
+      "slice": "radius_uncertainty_missing",
+      "slice_log10_rmse": 0.4538797543105667
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.4538797543105667,
+      "count": 1195,
+      "dimension": "missing_radius_uncertainty",
+      "limitation": "control_insufficient",
+      "slice": "radius_uncertainty_present",
+      "slice_log10_rmse": 0.1523166007796063
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.07803776591087729,
+      "count": 4,
+      "dimension": "missing_stellar_mass",
+      "limitation": "underpowered_slice",
+      "slice": "stellar_mass_missing",
+      "slice_log10_rmse": 0.05922616885721556
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.05922616885721556,
+      "count": 1203,
+      "dimension": "missing_stellar_mass",
+      "limitation": "control_insufficient",
+      "slice": "stellar_mass_present",
+      "slice_log10_rmse": 0.15839612142667475
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.07803776591087729,
+      "count": 4,
+      "dimension": "missing_stellar_radius",
+      "limitation": "underpowered_slice",
+      "slice": "stellar_radius_missing",
+      "slice_log10_rmse": 0.05922616885721556
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.05922616885721556,
+      "count": 1203,
+      "dimension": "missing_stellar_radius",
+      "limitation": "control_insufficient",
+      "slice": "stellar_radius_present",
+      "slice_log10_rmse": 0.15839612142667475
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.292995986841139,
+      "count": 12,
+      "dimension": "radius_uncertainty",
+      "limitation": "underpowered_slice",
+      "slice": "missing_radius_uncertainty",
+      "slice_log10_rmse": 0.4538797543105667
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.19471971437858868,
+      "count": 779,
+      "dimension": "radius_uncertainty",
+      "limitation": "control_insufficient",
+      "slice": "tight_le5pct",
+      "slice_log10_rmse": 0.1339081177812376
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.07803776591087729,
+      "count": 4,
+      "dimension": "stellar_mass",
+      "limitation": "underpowered_slice",
+      "slice": "missing_stellar_mass",
+      "slice_log10_rmse": 0.05922616885721556
+    },
+    {
+      "axis": "true_mass_with_transit_radius",
+      "control_log10_rmse": 0.07803776591087729,
+      "count": 4,
+      "dimension": "stellar_radius",
+      "limitation": "underpowered_slice",
+      "slice": "missing_stellar_radius",
+      "slice_log10_rmse": 0.05922616885721556
+    }
+  ],
+  "output_routing": {
+    "canonical_destination": "agent_runs/ sandbox-only plus docs/reviews note",
+    "claim_impact": "no claim change",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_attempted",
+    "knowledge_impact": "no knowledge change",
+    "review_tier": "none",
+    "task_verdict": "INCONCLUSIVE"
+  },
+  "parameters": {
+    "control_method": "nearest_mass_without_replacement_same_axis_non_slice",
+    "min_slice_count": 30,
+    "signal_margin_log10_rmse": 0.022
+  },
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "task_id": "TASK-0392",
+  "verdict": "INCONCLUSIVE"
+}
