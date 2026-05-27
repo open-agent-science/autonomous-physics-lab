@@ -73,7 +73,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -85,6 +85,7 @@ None.
 - `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
 - `TASK-0419` — Update agent protocol for final output-class routing (merged)
 - `TASK-0418` — Add scientific memory review-tier index (merged)
+- `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (merged)
 - `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (merged)
 - `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (merged)
 - `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (merged)
