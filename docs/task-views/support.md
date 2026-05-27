@@ -26,3 +26,4 @@ None.
 - `TASK-0410` - Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `review_protocol`)
 - `TASK-0411` - Sync mission recommendations after result-promotion protocol (`maintainer_workflow`, priority `high`, difficulty `low`, domain `mission_control`)
 - `TASK-0419` - Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_protocol`)
+- `TASK-0429` - Add advisory quality score to maintainer review output (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `maintainer_review`)
