@@ -1,0 +1,7 @@
+experiment_path: ../experiments/EXP-0011-anharmonic-oscillator-period.yaml
+hypothesis_path: ../hypotheses/HYP-0011-anharmonic-oscillator-period.yaml
+task_id: TASK-0412
+run_id: RUN-0002
+result_id: RESULT-0016
+result_root: ../results/EXP-0011
+workflow: anharmonic_oscillator
