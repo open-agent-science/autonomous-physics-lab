@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0412` - Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`, domain `result_promotion`)

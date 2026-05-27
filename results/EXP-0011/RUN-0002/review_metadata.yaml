@@ -1,0 +1,18 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0016
+run_id: RUN-0002
+experiment_id: EXP-0011
+claim_id: CLAIM-0009
+knowledge_id: KNOW-0008
+generated_at: '2026-05-27T08:12:57.742818+00:00'
+proposed_claim_status: PARTIALLY_SUPPORTED
+required_human_review: true
+evidence_basis:
+- RESULT-0016
+claim_target_file: claims/CLAIM-0009-anharmonic-oscillator-period.md
+knowledge_target_file: knowledge/classical_mechanics/anharmonic_oscillator.md
+patch_artifacts:
+  claim_patch: results/EXP-0011/RUN-0002/claim_update.patch.md
+  knowledge_patch: results/EXP-0011/RUN-0002/knowledge_update.patch.md
+  review_summary: results/EXP-0011/RUN-0002/review_summary.md

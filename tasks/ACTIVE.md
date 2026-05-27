@@ -74,7 +74,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
@@ -463,7 +463,6 @@ None.
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`)
 - `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`)
 - `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
