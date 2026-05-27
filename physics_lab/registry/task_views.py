@@ -9,7 +9,7 @@ from physics_lab.registry.tasks import load_task
 
 
 ACTIVE_VIEW_STATUSES = ("READY", "IN_PROGRESS", "REVIEW_READY")
-WATCHLIST_STATUSES = ("PROPOSED", "REJECTED")
+WATCHLIST_STATUSES = ("PROPOSED", "SUPERSEDED", "REJECTED")
 
 RELEASE_MARKERS = (
     "release",
@@ -207,7 +207,7 @@ def _render_watchlist_view(entries: tuple[TaskViewEntry, ...]) -> str:
         "# Task Watchlist",
         "",
         "> This file is generated from canonical `tasks/TASK-*.yaml` files.",
-        "> Use it for proposals, rejected ideas, and deferred directions that should not be picked as executor work.",
+        "> Use it for proposals, superseded work, rejected ideas, and deferred directions that should not be picked as executor work.",
         "> Refresh with `python3 -m physics_lab.cli sync-active-board .`.",
         "",
     ]

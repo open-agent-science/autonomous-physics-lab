@@ -130,7 +130,8 @@
         "IN_PROGRESS",
         "BLOCKED",
         "DONE",
-        "REJECTED"
+        "REJECTED",
+        "SUPERSEDED"
       ]
     },
     "difficulty": {

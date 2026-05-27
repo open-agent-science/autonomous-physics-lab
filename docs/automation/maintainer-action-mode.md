@@ -136,7 +136,7 @@ A closeout PR is pure closeout bookkeeping only when it changes task status,
 `tasks/ACTIVE.md`, generated context/snapshot files, closeout notes,
 closeout-agent instructions, directly dependent task unblocks from `BLOCKED` to
 `READY` after explicit prerequisites are satisfied, or stale/superseded task
-closures to `REJECTED` after maintainer approval. These stale-task closures are
+closures to `REJECTED` or `SUPERSEDED` after maintainer approval. These stale-task closures are
 optional queue hygiene; the closeout agent should use context and maintainer
 direction rather than forcing every stale task through script-level blockers. Do
 not auto-merge when the PR changes claims, results, experiments, hypotheses,

@@ -73,8 +73,8 @@ they move a campaign toward reviewable outputs.
 
 ## Guardrails
 
-- Do not offer `REVIEW_READY`, `BLOCKED`, `DONE`, or `REJECTED` tasks as
-  executor choices.
+- Do not offer `REVIEW_READY`, `BLOCKED`, `DONE`, `SUPERSEDED`, or `REJECTED`
+  tasks as executor choices.
 - Do not auto-create canonical task files from the health warning.
 - Do not treat READY pool size as scientific success.
 - Do not let a low READY pool justify claim promotion or discovery wording.

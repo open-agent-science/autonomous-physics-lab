@@ -1,7 +1,7 @@
 id: TASK-0412
 title: "Backfill first AGENT_PUBLISHED result from mature existing evidence"
 type: result_publication
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

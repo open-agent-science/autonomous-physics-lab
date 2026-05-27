@@ -1,7 +1,7 @@
 id: TASK-0235
 title: "Register nuclear prediction variants for uncertainty and ensemble-style controls"
 type: scientific_validation
-status: BLOCKED
+status: SUPERSEDED
 difficulty: medium
 priority: low
 
@@ -29,6 +29,7 @@ input:
     as isolated manual entries.
 
 requirements:
+  - "Closed during blocked-task hygiene as superseded by the nuclear prediction factory, selected slate registration, and registry evidence summary; reopen only through a fresh maintainer-approved task if uncertainty or ensemble semantics need a separate hand-frozen pair."
   - "Do not start unless the maintainer explicitly reactivates this manual lane, or unless TASK-0250 recommends a specific uncertainty/ensemble control pair for manual freezing."
   - "Create exactly two prospective registry entries unless the maintainer approves a larger batch."
   - "Use the suggested ids PRED-0035 and PRED-0036 unless a parallel branch collision requires renumbering before review."
