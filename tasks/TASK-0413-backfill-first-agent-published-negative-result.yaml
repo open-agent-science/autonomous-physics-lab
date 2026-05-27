@@ -1,7 +1,7 @@
 id: TASK-0413
 title: "Backfill first AGENT_PUBLISHED negative result"
 type: result_publication
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
