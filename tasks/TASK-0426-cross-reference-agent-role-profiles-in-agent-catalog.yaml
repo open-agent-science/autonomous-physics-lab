@@ -43,8 +43,8 @@ requirements:
   - "Add a test that confirms every agents/<role>.yaml with status: active is linked from docs/agent-catalog.md (extends or sits beside tests/test_agent_role_profiles.py)."
 
 accepted_outputs:
-  - "docs/agent-catalog.md (Role profile lines added, Architect entry added, agents/ section added)"
-  - "tests/test_agent_role_profiles.py (new test: catalog links every active role) OR a new tests/test_agent_catalog_links.py"
+  - "docs/agent-catalog.md"
+  - "tests/test_agent_role_profiles.py"
 
 validation:
   commands:
