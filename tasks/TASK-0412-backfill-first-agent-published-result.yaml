@@ -18,6 +18,7 @@ input:
     - "results/"
     - "agent_runs/"
     - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+    - "hypotheses/HYP-0011-anharmonic-oscillator-period.yaml"
     - "experiments/EXP-0001-pendulum-formula-discovery.yaml"
     - "experiments/EXP-0011-anharmonic-oscillator-period-benchmark.yaml"
   planning_context: >
@@ -39,11 +40,12 @@ requirements:
 accepted_outputs:
   - "one new results/EXP-XXXX/RUN-XXXX/result.yaml or protocol-approved equivalent RESULT-* artifact"
   - "docs/reviews/first-agent-published-result-review.md"
+  - "updated HYP-0011 evidence reference if required to avoid an orphan RESULT-* artifact"
   - "updated tests or validation fixture if required by the result schema"
 
 validation:
   commands:
-    - "python3 scripts/apl_check_result_publication.py <new-result-path>"
+    - "python3 scripts/apl_check_result_publication.py results/EXP-0011/RUN-0002/result.yaml"
     - "python3 -m ruff check ."
     - "python3 -m pytest"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"

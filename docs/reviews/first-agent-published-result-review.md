@@ -61,6 +61,10 @@ This PR does not update any `CLAIM-*` or `KNOW-*` file. The generated
 `claim_update*` and `knowledge_update*` files are workflow review artifacts
 only; they are not applied to public scientific memory in this task.
 
+`HYP-0011` is updated only to reference `RESULT-0016` in its evidence list.
+This prevents the new canonical result from becoming orphaned while avoiding
+any claim-status or knowledge-status promotion.
+
 `RESULT-0016` is agent-published evidence only. It is not independently
 validated, maintainer-reviewed, or external-replicated. A later Gate B replay
 task should use a different agent/session before any tier upgrade.
