@@ -8,7 +8,6 @@
 
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
-- `TASK-0413` - Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0428` - Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## Research Blockers
@@ -21,7 +20,6 @@
 - `TASK-0277` - Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0415` - Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`, domain `result_promotion`)
-- `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
 
 ## Support Blockers
 

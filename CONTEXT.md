@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-27 07:47 UTC
+Generated: 2026-05-27 08:31 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -2472,8 +2472,7 @@ one PR.
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (`workflow_protocol`, priority `medium`, difficulty `low`)
-- `TASK-0426` — Cross-reference agent soul files from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
+- `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
 - `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
@@ -2482,20 +2481,23 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0397` — Run nuclear local-curvature negative-control expansion (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0405` — Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0406` — Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`)
-- `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (`contributor_experience`, priority `high`, difficulty `low`)
-- `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0411` — Sync mission recommendations after result-promotion protocol (`maintainer_workflow`, priority `high`, difficulty `low`)
-- `TASK-0419` — Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`)
-- `TASK-0429` — Add advisory quality score to maintainer review output (`maintainer_workflow`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0429` — Add advisory quality score to maintainer review output (merged)
+- `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
+- `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
+- `TASK-0419` — Update agent protocol for final output-class routing (merged)
+- `TASK-0411` — Sync mission recommendations after result-promotion protocol (merged)
+- `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (merged)
+- `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (merged)
 - `TASK-0408` — Implement Gate A result-publication checker (merged)
 - `TASK-0407` — Enforce review-tier metadata guardrails in repository validation (merged)
+- `TASK-0406` — Define multi-class scientific output promotion protocol (merged)
+- `TASK-0405` — Disable validation commands in snapshot script (merged)
+- `TASK-0397` — Run nuclear local-curvature negative-control expansion (merged)
+- `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (merged)
 - `TASK-0389` — Polish onboarding prompt for cross-platform first-run flow (merged)
 - `TASK-0388` — Refresh campaign status after latest agent results (merged)
 - `TASK-0387` — Clarify closeout PR follow-through instructions (merged)
