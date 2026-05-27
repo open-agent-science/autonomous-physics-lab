@@ -1,6 +1,6 @@
-"""Tests for the TASK-0424 agent role soul files.
+"""Tests for the TASK-0424 agent role profiles.
 
-Soul files are pure YAML under agents/<role-id>.yaml and validated
+Role profiles are pure YAML under agents/<role-id>.yaml and validated
 against physics_lab/schemas/agent.schema.json.
 
 These tests verify:
@@ -11,7 +11,7 @@ These tests verify:
 - can_invoke_other_roles targets exist as siblings;
 - allowed_tools entries do not embed absolute machine paths;
 - the agents/ README links every active role file;
-- AGENTS.md references the soul-file index;
+- AGENTS.md references the role-profile index;
 - the six expected active roles are present.
 """
 
@@ -143,7 +143,7 @@ class TestRoleFileConformance:
     def test_allowed_tools_does_not_embed_machine_paths(
         self, role_file: Path
     ) -> None:
-        """Soul files must not embed absolute filesystem paths in
+        """Role profiles must not embed absolute filesystem paths in
         allowed_tools; descriptions must be machine-agnostic."""
         payload = _load_yaml(role_file)
         for entry in payload["allowed_tools"]:
@@ -212,6 +212,6 @@ class TestRequiredActiveRoles:
 
 
 class TestAgentsMdCrossReference:
-    def test_agents_md_references_soul_file_index(self) -> None:
+    def test_agents_md_references_role_profile_index(self) -> None:
         agents_md = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
         assert "agents/README.md" in agents_md

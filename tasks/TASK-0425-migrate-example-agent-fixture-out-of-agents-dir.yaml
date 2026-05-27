@@ -6,7 +6,7 @@ difficulty: low
 priority: medium
 
 strategy_alignment:
-  - "Keep agents/ as a directory of active agent role soul files only, with no legacy test fixtures mixed in."
+  - "Keep agents/ as a directory of active agent role profiles only, with no legacy test fixtures mixed in."
   - "Resolve the duplicate follow-up created while TASK-0424 was still in draft: the TASK-0424 PR now performs this fixture migration directly."
   - "Avoid future confusion where a reader of agents/ thinks example-agent.yaml is a current agent role."
 
@@ -23,14 +23,14 @@ input:
     place, then was updated before merge to perform this migration directly.
     This task is therefore resolved by the TASK-0424 PR: the fixture moves to
     tests/fixtures/, the two referencing tests point at the new path, and
-    agents/ becomes a directory of active role soul files plus its template
+    agents/ becomes a directory of active role profiles plus its template
     and README.
 
 requirements:
   - "Confirm tests/fixtures/example-agent.yaml exists and agents/example-agent.yaml is removed."
   - "Confirm tests/test_pendulum.py and tests/test_damped_oscillator.py point at the new fixture path."
   - "Confirm agents/README.md no longer documents a legacy file."
-  - "Confirm tests/test_agent_role_soul_files.py no longer excludes example-agent.yaml from role-file conformance."
+  - "Confirm tests/test_agent_role_profiles.py no longer excludes example-agent.yaml from role-file conformance."
   - "Confirm validation passes after the move."
   - "Do not modify any docs/agent-*.md deep protocol file."
 
@@ -39,12 +39,12 @@ accepted_outputs:
   - "tests/test_pendulum.py (path update)"
   - "tests/test_damped_oscillator.py (path update)"
   - "agents/README.md (legacy section removal)"
-  - "tests/test_agent_role_soul_files.py (NON_ROLE_FILES update)"
+  - "tests/test_agent_role_profiles.py (NON_ROLE_FILES update)"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_pendulum.py tests/test_damped_oscillator.py tests/test_agent_role_soul_files.py"
+    - "python3 -m pytest tests/test_pendulum.py tests/test_damped_oscillator.py tests/test_agent_role_profiles.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

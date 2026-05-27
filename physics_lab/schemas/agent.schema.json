@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "AgentRole",
-  "description": "Soul file describing one agent role active in the repository. Single source of truth for the role's identity, activation, scope, goals, allowed tools, scripts, cross-role invocation rules, restrictions, and cadence. Lives under agents/<role-id>.yaml. Deep authoritative protocols for each role live under docs/; the role file references them via required_reading.",
+  "description": "Activation-ready profile describing one agent role active in the repository. The profile records the role's identity, activation intent, scope, goals, allowed tools, scripts, cross-role invocation rules, restrictions, and cadence. Lives under agents/<role-id>.yaml. Deep authoritative protocols for each role live under docs/; the role profile references them via required_reading.",
   "type": "object",
   "additionalProperties": false,
   "required": [

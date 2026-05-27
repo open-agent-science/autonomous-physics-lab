@@ -58,7 +58,7 @@ goals:
     - "Continually audit the architecture and proactively propose improvements that accelerate progress toward project goals."
     - "Keep the architecture clean — identify and remove unused, orphaned, or duplicated artifacts; recommend refactoring when the same pattern is implemented multiple ways."
   current_targets:
-    - "Document every active agent role as a soul file under agents/ (initial scope: 6 roles, completed by TASK-0424)."
+    - "Document every active agent role as a role profile under agents/ (initial scope: 6 roles, completed by TASK-0424)."
     - "Remove duplicated or stale protocol surfaces that confuse new agents before the next large parallel-agent wave."
     - "Keep result-promotion, review, closeout, and task-claiming flows coherent enough that agents can continue across sessions without chat-only memory."
     - "Run repository-wide architectural audits when requested by the maintainer or after major protocol waves; surface findings as concrete tasks or small cleanup PRs."

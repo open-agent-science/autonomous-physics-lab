@@ -1,13 +1,12 @@
-# `agents/` — Agent Role Soul Files
+# `agents/` — Agent Role Profiles
 
-This directory holds one **soul file** per agent role active in APL.
+This directory holds one **role profile** per agent role active in APL.
 
-A soul file is the activation-ready single source of truth for a role:
+An agent role profile is the activation-ready operational profile for a role:
 identity, scope, goals, allowed tools, scripts, restrictions, and
-cross-role invocation rules. Each role lives in
-`agents/<role-id>.yaml`. The deep authoritative protocol for each role
-lives in `docs/`; soul files reference those docs via
-`required_reading`, not duplicate them.
+cross-role invocation rules. Each role lives in `agents/<role-id>.yaml`.
+The deep authoritative protocol for each role lives in `docs/`; profiles
+reference those docs via `required_reading`, not duplicate them.
 
 ## Format
 
@@ -19,7 +18,7 @@ the only human-facing navigation file.
 
 Schema: `physics_lab/schemas/agent.schema.json`.
 Template: [`AGENT-TEMPLATE.yaml`](AGENT-TEMPLATE.yaml).
-Conformance test: `tests/test_agent_role_soul_files.py`.
+Conformance test: `tests/test_agent_role_profiles.py`.
 
 ## Purpose
 
@@ -30,7 +29,7 @@ against each role file's `activation.intent`, loads the matching
 rest of the session.
 
 This means agent instructions are not duplicated across sessions:
-**one role, one file, one canonical activation source**.
+**one role, one file, one canonical activation profile**.
 
 ## Active Roles
 
@@ -84,7 +83,7 @@ role, the agent:
 4. Returns to the previous role only when explicitly switched.
 
 Activation is currently a convention, not a script. A helper script
-that prints the soul file ready for context injection may be added
+that prints the role profile ready for context injection may be added
 later if the convention proves load-bearing at scale.
 
 ## Cross-Role Invocation
@@ -108,10 +107,10 @@ returns to its own restrictions afterward.
 
 - **Not a replacement for `docs/agent-catalog.md`.** That doc is the
   authoritative narrative description of every agent path APL
-  supports. The soul files here are operational activation files.
+  supports. The profiles here are operational activation files.
 - **Not a place for new protocols.** Protocol content belongs under
-  `docs/` (per-class protocol, claim-promotion-policy, etc.). Soul
-  files reference these documents via `required_reading`.
+  `docs/` (per-class protocol, claim-promotion-policy, etc.). Profiles
+  reference these documents via `required_reading`.
 - **Not a place for canonical scientific artifacts.** CLAIM-*,
   RESULT-*, PRED-*, KNOW-* live under their own directories per
   `docs/result-promotion-protocol.md`.
@@ -126,10 +125,10 @@ returns to its own restrictions afterward.
 4. Add the new role to the "Active Roles" section above.
 5. Add a cross-reference in `docs/agent-catalog.md` if the role
    represents a meaningfully new agent path.
-6. Run `python3 -m pytest tests/test_agent_role_soul_files.py` to
+6. Run `python3 -m pytest tests/test_agent_role_profiles.py` to
    confirm schema conformance.
 
 If the role's deep protocol does not yet exist as a `docs/*.md` file,
 create the protocol first (with appropriate maintainer review) and
-then point the soul file at it. Soul files should not be the only
+then point the role profile at it. Profiles should not be the only
 source of truth for a role's deep behaviour.
