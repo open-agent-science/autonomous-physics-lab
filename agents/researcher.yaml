@@ -42,7 +42,7 @@ when_not_to_use:
 goals:
   long_term:
     - "Convert one READY task into a REVIEW_READY PR with deterministic evidence and clear limitations."
-    - "Default to writing a canonical RESULT-* with the AGENT_PUBLISHED review tier whenever Gate A passes, instead of leaving the output as an AGENT-RUN-* only."
+    - "Route every meaningful output through docs/result-promotion-protocol.md; write AGENT_PUBLISHED RESULT-* or PRED-* artifacts only when the selected task explicitly allows that artifact class and the required gate passes."
     - "Preserve negative results, blockers, and inconclusive outcomes as first-class scientific memory."
     - "Never overclaim; use the scope wording patterns from claim-promotion-policy.md."
 
@@ -74,10 +74,10 @@ typical_activities:
   - title: "Route the output"
     description: |
       Use `docs/result-promotion-protocol.md` to decide where the output
-      belongs. If Gate A passes, write a `RESULT-*` with
-      `review_tier: AGENT_PUBLISHED`. If the task is pre-registration,
-      write a `PRED-*`. If it is only sandbox audit, `AGENT-RUN-*`
-      remains valid.
+      belongs. If the task explicitly allows publication and Gate A passes,
+      write the scoped `RESULT-*` or `PRED-*` with `review_tier:
+      AGENT_PUBLISHED`. If the task is only sandbox audit, `AGENT-RUN-*`
+      remains valid and must be reported as sandbox-only.
   - title: "Open the draft PR and invoke review"
     description: |
       Set the task YAML to `status: REVIEW_READY`. Run
@@ -113,6 +113,7 @@ restrictions:
   - "Must not merge the PR."
   - "Must not move a CLAIM-* status beyond DRAFT."
   - "Must not write or edit KNOW-* files in Phase 1."
+  - "Must not publish RESULT-* or PRED-* artifacts unless the task contract explicitly authorizes that artifact class and the required result-promotion gate passes."
   - "Must not relax the global_forbidden rules."
   - "Must not invent branch / commit / PR-title formats; use docs/agent-task-protocol.md."
   - "Must include an output-routing summary at end of task per docs/result-promotion-protocol.md."

@@ -1,7 +1,7 @@
 """Tests for the TASK-0424 agent role soul files.
 
 Soul files are pure YAML under agents/<role-id>.yaml and validated
-against physics_lab/schemas/agent_role.schema.json.
+against physics_lab/schemas/agent.schema.json.
 
 These tests verify:
 - the canonical template and schema exist;
@@ -36,7 +36,6 @@ SCHEMA_PATH = REPO_ROOT / "physics_lab" / "schemas" / "agent.schema.json"
 NON_ROLE_FILES = (
     "AGENT-TEMPLATE.yaml",
     "README.md",
-    "example-agent.yaml",  # legacy test fixture, see agents/README.md
 )
 
 

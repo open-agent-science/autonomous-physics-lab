@@ -1,7 +1,7 @@
 # Canonical shape for any agent role soul file.
 #
 # Copy to agents/<role-id>.yaml and fill every required field.
-# Schema: physics_lab/schemas/agent_role.schema.json
+# Schema: physics_lab/schemas/agent.schema.json
 # Conformance test: tests/test_agent_role_soul_files.py
 
 role_id: example-role

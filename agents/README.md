@@ -17,7 +17,7 @@ experiments, predictions, results, schemas). This directory is
 agent-first: machine-parseable structure is primary; this README is
 the only human-facing navigation file.
 
-Schema: `physics_lab/schemas/agent_role.schema.json`.
+Schema: `physics_lab/schemas/agent.schema.json`.
 Template: [`AGENT-TEMPLATE.yaml`](AGENT-TEMPLATE.yaml).
 Conformance test: `tests/test_agent_role_soul_files.py`.
 
@@ -116,21 +116,11 @@ returns to its own restrictions afterward.
   RESULT-*, PRED-*, KNOW-* live under their own directories per
   `docs/result-promotion-protocol.md`.
 
-## Legacy File
-
-`example-agent.yaml` is a legacy placeholder used as a test fixture by
-`tests/test_pendulum.py` and `tests/test_damped_oscillator.py`. It is
-not an active role definition. TASK-0425 (READY) will move the fixture
-into `tests/fixtures/` and remove this file; until then it stays here
-for test compatibility. The legacy file does **not** conform to
-`AGENT-TEMPLATE.yaml` and is intentionally excluded from the
-conformance test.
-
 ## Adding a New Role
 
 1. Copy `AGENT-TEMPLATE.yaml` to `agents/<new-role-id>.yaml`.
 2. Fill every required field per
-   `physics_lab/schemas/agent_role.schema.json`.
+   `physics_lab/schemas/agent.schema.json`.
 3. Decide which existing roles can invoke the new role and update their
    `can_invoke_other_roles` lists symmetrically.
 4. Add the new role to the "Active Roles" section above.

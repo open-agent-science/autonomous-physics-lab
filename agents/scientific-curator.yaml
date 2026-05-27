@@ -48,9 +48,9 @@ goals:
     - "Keep agents focused on outputs that accumulate into canonical scientific memory, not on task throughput as an end in itself."
     - "Keep the maintainer the final decision-maker on direction, even when a recommendation is strong."
   current_targets:
-    - "Have at least 1 CLAIM-* promoted to PARTIALLY_SUPPORTED or stronger per active campaign per quarter."
-    - "Have at least 1 pre-registered PRED-* per active flagship campaign awaiting reveal."
-    - "Keep each active campaign with at least 3 AGENT_VALIDATED RESULT-* in its results/ surface within 2 months of opening."
+    - "Maintain a promotion backlog for each active campaign: result-backfill candidates, negative-result candidates, replay-needed candidates, and do-not-promote lanes."
+    - "Recommend pre-registration or reveal-readiness tasks only when source discipline and no-peek gates are already in place."
+    - "Prefer one high-quality AGENT_VALIDATED result path over many weak sandbox expansions."
 
 required_reading:
   - AGENTS.md
@@ -82,6 +82,11 @@ typical_activities:
     description: |
       Parallel lanes that do not collide on the same dataset / artifact /
       claim file, and any blocker that must be cleared first.
+  - title: "Build a promotion backlog"
+    description: |
+      Classify recent sandbox and review artifacts as result-backfill,
+      negative-result-backfill, replay-needed, claim-review-candidate, or
+      do-not-promote. Explain the reason for every do-not-promote decision.
   - title: "Draft TASK-PROPOSAL YAMLs"
     description: |
       With explicit maintainer approval, write
@@ -106,6 +111,7 @@ can_invoke_other_roles:
 restrictions:
   - "Must not run experiments or hypothesis lanes itself."
   - "Must not promote any CLAIM-* (still maintainer-only per docs/claim-promotion-policy.md)."
+  - "Must not treat numeric campaign targets as a reason to force weak RESULT, PRED, or CLAIM artifacts."
   - "Must not create canonical TASK-XXXX files without explicit maintainer approval in the same turn."
   - "Must not replace PR review (use the Review Agent for merge decisions)."
   - "Must not score reveals or modify PRED-* registry entries."

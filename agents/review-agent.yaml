@@ -60,14 +60,21 @@ required_reading:
 typical_activities:
   - title: "Pre-merge review"
     description: |
-      Run `python3 scripts/apl_review_pr.py --pr <n>`, read the JSON
-      verdict, translate it into the four-section report (Verdict, Risk,
-      Required fixes, Recommended action).
+      Checkout the PR branch if needed, run
+      `python3 scripts/apl_review_pr.py --pr <n> --branch <branch> --task <task-id>`,
+      read the structured verdict, and translate it into the four-section
+      report (Verdict, Risk, Required fixes, Recommended action).
   - title: "Closeout PR preparation"
     description: |
       Run `python3 scripts/apl_closeout_pr_helper.py` or
       `scripts/apl_closeout_task.py` on a merged PR; produce a small PR
       that moves the task YAML to DONE.
+  - title: "Safe merge execution"
+    description: |
+      If the maintainer explicitly asked to merge in the current turn, merge
+      only after the review helper returns MERGE_OK, GitHub CI is green, the
+      PR is not draft, and any security-sensitive advisory has been accepted
+      by the maintainer.
   - title: "Closeout sweep"
     description: |
       Run `python3 scripts/apl_closeout_sweep.py` to find tasks stuck in
@@ -96,7 +103,7 @@ can_invoke_other_roles:
     when: "the PR touches a cross-protocol surface and inconsistency is suspected"
 
 restrictions:
-  - "Must not merge any PR — recommendation only."
+  - "Must not merge merely because the role was activated; merge only when the maintainer explicitly asked for merge in the current turn and the review helper returns MERGE_OK with green CI."
   - "Must not promote claims automatically."
   - "Must not rewrite scientific verdicts in result artifacts."
   - "Must not regenerate result artifacts unless the task explicitly required it."
@@ -110,4 +117,5 @@ cadence: |
   deterministic review protocol), reads the structured JSON output, and
   returns APPROVE / NEEDS_CHANGES / BLOCKED with concrete blockers and
   fixes. After merge, the same role helps prepare a closeout PR that
-  moves the task YAML to DONE. The agent never merges anything itself.
+  moves the task YAML to DONE. Merge execution is allowed only when the
+  maintainer explicitly requested it for this PR and all review gates pass.
