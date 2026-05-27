@@ -516,6 +516,7 @@ def test_apl_mission_script_onboarding_runs_from_repo_root() -> None:
     assert "with onboarding" in result.stdout
     assert "Do not edit files yet" in result.stdout
     assert "estimated time" in result.stdout
+    assert "docs/result-promotion-protocol.md" in result.stdout
 
 
 def test_cli_mission_json_runs_from_repo_root() -> None:
@@ -531,6 +532,10 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert rendered["recommended"]["action"] == "nuclear-validation-queue"
     assert rendered["recommended"]["task_id"] is None
     assert "parallel_work_policy" in rendered
+    assert any(
+        "result-promotion-protocol.md" in item
+        for item in rendered["policy"]["defaults"]
+    )
     # Accept any current research-mode top candidate from the live queue.
     # Depending on which nuclear tasks are already claimed, the mission helper
     # may surface nuclear follow-ups (`TASK-0189`, `TASK-0228`-`TASK-0237`,

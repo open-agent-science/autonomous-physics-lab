@@ -1,7 +1,7 @@
 id: TASK-0410
 title: "Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 

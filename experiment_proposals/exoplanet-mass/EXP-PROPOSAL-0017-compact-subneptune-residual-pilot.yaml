@@ -1,0 +1,122 @@
+id: EXP-PROPOSAL-0017
+title: "Sandbox compact/sub-Neptune residual stress pilot"
+campaign_profile_id: exoplanet-mass-radius
+proposal_kind: falsification
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact, prediction registry entry, composition inference, habitability label, biosignature wording, target-prioritization output, claim update, or knowledge edit."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0390
+
+input_references:
+  - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+  - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+  - "agent_runs/AGENT-RUN-0032/metrics.json"
+  - "agent_runs/AGENT-RUN-0034/metrics.json"
+  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  - "hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0051-compact-subneptune-residual-pilot.yaml"
+
+question: "On the post-filter committed true-mass/transit-radius PSCompPars surface, do compact or sub-Neptune radius slices show frozen CK17 residual stress above both the eligible surface and matched controls?"
+
+method:
+  summary: "Load the committed exo-0001-pscomppars-snapshot.yaml with the repository exoplanet loader, apply the committed quality filters, compute frozen CK17 log10-radius residuals, generate six compact/sub-Neptune hypotheses, execute three radius-slice hypotheses, and compare each executed hypothesis against per-class median, shuffled-label, and matched-size nearest-mass controls."
+  code_references:
+    - "physics_lab/engines/exoplanet_mass_radius.py"
+    - "physics_lab/datasets/exoplanets.py"
+    - "scripts/run_exoplanet_compact_subneptune_residual_pilot.py"
+    - "tests/test_exoplanet_compact_subneptune_residual_pilot.py"
+  commands:
+    - "python3 scripts/run_exoplanet_compact_subneptune_residual_pilot.py"
+    - "python3 -m pytest tests/test_exoplanet_compact_subneptune_residual_pilot.py"
+  parameters:
+    min_hypothesis_row_count: 30
+    survival_log10_rmse_margin: 0.022
+    shuffle_seed: 20260526
+    generated_hypothesis_count: 6
+    executed_hypothesis_count: 3
+    controls_per_executed_hypothesis:
+      - per_class_median
+      - shuffled_label
+      - matched_size_neighbor
+    frozen_baseline: "Chen-Kipping 2017 piecewise median mass-radius relation"
+
+inputs:
+  datasets:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  constants:
+    - "Frozen CK17 segment slopes (0.279, 0.589, -0.044, 0.881)."
+    - "Frozen CK17 changepoints (2.04 M_earth, 0.414 M_jup, 0.0800 M_sun)."
+    - "Compact radius cut: R/Re < 1.5."
+    - "Sub-Neptune radius cut: 1.5 <= R/Re < 4.0."
+  prior_results:
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "agent_runs/AGENT-RUN-0034/metrics.json"
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+  assumptions:
+    - "No live NASA Exoplanet Archive fetch is performed."
+    - "No CK17 segment is refit on the snapshot."
+    - "True-mass/transit-radius rows are the primary interpretable surface."
+    - "Minimum-mass rows are sparse diagnostics and stay out of headline metrics."
+    - "No prediction registry entry, claim update, knowledge file edit, or canonical result artifact is produced."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0036/"
+    - "docs/reviews/exoplanet-compact-subneptune-residual-hypothesis-pilot.md"
+  metrics:
+    - "per_hypothesis_candidate_log10_rmse"
+    - "per_hypothesis_control_log10_rmse"
+    - "delta_log10_rmse_candidate_minus_eligible"
+    - "delta_log10_rmse_candidate_minus_adverse_control"
+    - "generated_hypothesis_count"
+    - "executed_hypothesis_count"
+    - "minimum_mass_sparse_diagnostic"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0036/report.md"
+    - "agent_runs/AGENT-RUN-0036/limitations.md"
+    - "agent_runs/AGENT-RUN-0036/review_summary.md"
+    - "docs/reviews/exoplanet-compact-subneptune-residual-hypothesis-pilot.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, 4-8 hypotheses are generated, 1-3 hypotheses are executed, all executed hypotheses include per-class median, shuffled-label, and matched-size controls, at least one executed compact/sub-Neptune hypothesis exceeds both the eligible surface and adverse control by 0.022 log10 RMSE, and no canonical result, prediction, claim, or knowledge output is produced."
+  fail_condition: "Fail if the runner fetches live data, refits CK17, uses minimum-mass rows in headline metrics, omits a required control, hides weaker-control or generated-only outcomes, or frames residual stress as composition, habitability, target priority, or a universal law."
+  baseline_or_reference: "Frozen Chen-Kipping 2017 piecewise median mass-radius baseline, compared against per-class median, shuffled-label, and matched-size nearest-mass controls."
+  expected_failure_modes:
+    - "Per-class median controls may absorb most of the compact/sub-Neptune bias."
+    - "Shuffled-label controls may match the candidate when residual stress is not localized."
+    - "Matched-size controls may show local mass composition rather than radius regime is driving the effect."
+    - "Generated host and uncertainty slices are selection-sensitive and require separate follow-up before interpretation."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No habitability, biosignature, composition, or target-priority claim from residual stress."
+    - "No description of CK17 residual structure as a discovery or a new physical law."
+    - "No promotion of compact/sub-Neptune cuts as universal planet-class boundaries."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Use true-mass rows as the primary axis."
+    - "Preserve minimum-mass rows as diagnostic-only."
+    - "Report all generated and weaker-control outcomes."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "Residual hypotheses use committed catalog fields and frozen CK17 residuals only."
+  - "Controls share the same eligible true-mass surface and are diagnostic, not causal."
+  - "The shuffled-label control is one deterministic draw, not a Monte Carlo distribution."
+  - "Minimum-mass rows are sparse and diagnostic-only."
+  - "No composition, habitability, biosignature, target-priority, PRED-*, RESULT-*, claim, or knowledge promotion is authorized."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether the compact slice warrants a narrower follow-up task, or whether this pilot should remain sandbox evidence only."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up task before any RESULT-*, PRED-*, claim, knowledge, composition, habitability, biosignature, or target-priority promotion."

@@ -46,14 +46,12 @@ one PR.
 
 ## READY
 
-- `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0391` — Run exoplanet neptunian residual matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0392` — Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0395` — Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0396` — Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0397` — Run nuclear local-curvature negative-control expansion (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0398` — Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0400` — Verify Kang-Wise 1997 PbS direct-source path (`scientific_dataset`, priority `medium`, difficulty `medium`)
@@ -61,14 +59,15 @@ one PR.
 - `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`)
-- `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0411` — Sync mission recommendations after result-promotion protocol (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`)
 - `TASK-0418` — Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0420` — Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (`workflow_protocol`, priority `medium`, difficulty `low`)
+- `TASK-0426` — Cross-reference agent soul files from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
+- `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -76,9 +75,13 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0397` — Run nuclear local-curvature negative-control expansion (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0405` — Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0406` — Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (`contributor_experience`, priority `high`, difficulty `low`)
+- `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0411` — Sync mission recommendations after result-promotion protocol (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0419` — Update agent protocol for final output-class routing (`contributor_experience`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
@@ -462,6 +465,7 @@ None.
 - `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
 - `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
+- `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
 
 ## REJECTED
 
