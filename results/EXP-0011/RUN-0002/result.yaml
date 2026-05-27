@@ -38,31 +38,41 @@ test_range:
 - 0.1
 best_model_id: model_empirical_quadratic
 best_verdict: VALID_IN_RANGE
-review_tier: AGENT_PUBLISHED
+review_tier: AGENT_VALIDATED
 agent_proposal_evaluation:
-  review_tier_proposed: AGENT_PUBLISHED
+  review_tier_proposed: AGENT_VALIDATED
   best_verdict_proposed: VALID_IN_RANGE
   gates_checked:
-    deterministic_run: true
-    verification_block_populated: true
-    input_hashes_recorded: true
-    limitations_listed: true
-    engine_version_and_commit_pinned: true
-    schema_validation_passes: true
-    no_protected_artifact_rewrite: true
-    no_forbidden_overclaim_wording: true
-    dataset_provenance_valid: true
+    same_inputs: true
+    same_deterministic_command: true
+    metrics_match_within_tolerance: true
+    verdict_unchanged: true
+    independent_replay_metadata_recorded: true
   evidence_summary: >
-    `RESULT-0016` republishes the deterministic anharmonic oscillator period
-    benchmark as the first conservative AGENT_PUBLISHED RESULT artifact. The
-    replay used a repository-pinned config, experiment, hypothesis, task file,
-    code reference, input hashes, and commit, and reproduced the mature
-    `VALID_IN_RANGE` holdout verdict without changing any claim or knowledge
+    Gate B independent replay reproduced the deterministic anharmonic
+    oscillator period benchmark metrics with maximum absolute numeric drift
+    0.0 across 36 compared metrics and preserved the `VALID_IN_RANGE`
+    verdict. The replay used the recorded command and repository-pinned input
+    hashes, and it did not change any claim, knowledge, or golden-result
     status.
   followup_for_maintainer: >
-    Treat this as agent-published evidence only. It is not independently
-    validated, maintainer-reviewed, or external-replicated; use TASK-0414 and
-    TASK-0415 before upgrading the review tier.
+    Treat this as AGENT_VALIDATED evidence, not maintainer-reviewed or
+    external-replicated evidence. The original publisher metadata was not
+    stored on this RESULT, so the replay identity is recorded but the helper
+    could not mechanically compare original and validating agents.
+  validation_record:
+    replayed_by:
+      contributor_id: roman
+      github_username: gladunrv
+      agent_tool: codex
+      model_version: GPT-5 Codex
+    replayed_at_utc: '2026-05-27T19:32:08+00:00'
+    replay_command: physics-lab run examples/anharmonic_agent_published_result.yaml
+    replay_output_dir: /tmp/apl-gateb-result-0016
+    tolerance_used: 1.0e-09
+    max_abs_delta: 0.0
+    metric_count: 36
+    drift_observed: none
 verification:
   passed: true
   checks:
