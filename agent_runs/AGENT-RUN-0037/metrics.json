@@ -1,0 +1,126 @@
+{
+  "agent_run_id": "AGENT-RUN-0037",
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "classification": {
+    "adverse_control": "per_class_median",
+    "delta_log10_rmse_neptunian_minus_adverse_control": 0.011576060013192419,
+    "delta_log10_rmse_neptunian_minus_eligible": 0.024620181589226242,
+    "explanation": "neptunian log10 RMSE = 0.18279037426371253; eligible log10 RMSE = 0.1581701926744863; adverse control = per_class_median (log10 RMSE = 0.1712143142505201); margin = 0.022.",
+    "outcome": "control_sensitive_residual_stress",
+    "verdict": "INCONCLUSIVE"
+  },
+  "controls": {
+    "host_temperature_non_neptunian": {
+      "interpretation": "host_temperature_non_neptunian meets the minimum count gate.",
+      "label": "host_temperature_non_neptunian",
+      "stats": {
+        "count": 560,
+        "log10_bias": -0.02835311184411002,
+        "log10_mae": 0.07677633241545345,
+        "log10_median": -0.012963119338139983,
+        "log10_rmse": 0.1315578562813942
+      },
+      "status": "usable_control"
+    },
+    "nearest_radius_non_neptunian": {
+      "interpretation": "nearest_radius_non_neptunian meets the minimum count gate.",
+      "label": "nearest_radius_non_neptunian",
+      "stats": {
+        "count": 588,
+        "log10_bias": -0.02804155659138614,
+        "log10_mae": 0.07473029791127614,
+        "log10_median": -0.012659793009329179,
+        "log10_rmse": 0.1279013871798758
+      },
+      "status": "usable_control"
+    },
+    "per_class_median": {
+      "interpretation": "Per-class median residual shift on the target rows; this controls for neptunian class bias but is not an independent row slice.",
+      "label": "per_class_median",
+      "stats": {
+        "count": 588,
+        "log10_bias": -0.009540860448076643,
+        "log10_mae": 0.12078940839588778,
+        "log10_median": -1.3877787807814457e-17,
+        "log10_rmse": 0.1712143142505201
+      },
+      "status": "usable_control"
+    },
+    "uncertainty_band_non_neptunian": {
+      "interpretation": "uncertainty_band_non_neptunian has fewer rows than the neptunian target (474 vs 588); interpret as partial control.",
+      "label": "uncertainty_band_non_neptunian",
+      "stats": {
+        "count": 474,
+        "log10_bias": -0.018626592816212352,
+        "log10_mae": 0.07974103206702013,
+        "log10_median": -0.006510072246293519,
+        "log10_rmse": 0.12612199490740422
+      },
+      "status": "partial_control"
+    }
+  },
+  "data_boundary": {
+    "baseline_refit_performed": false,
+    "live_external_fetch_performed": false,
+    "minimum_mass_rows_in_headline_metrics": false,
+    "true_mass_axis_primary": true
+  },
+  "diagnostics": {
+    "host_temperature_candidate_count": 606,
+    "host_temperature_target_count": 560,
+    "minimum_mass_sparse_diagnostic": {
+      "count": 2,
+      "log10_bias": -0.15221436873853847,
+      "log10_mae": 0.15221436873853847,
+      "log10_median": -0.15221436873853847,
+      "log10_rmse": 0.20772770601626744
+    },
+    "neptunian_uncertainty_band_counts": {
+      "loose_gt15pct": 245,
+      "missing": 5,
+      "moderate_5_15pct": 260,
+      "tight_le5pct": 78
+    },
+    "non_neptunian_uncertainty_band_counts": {
+      "loose_gt15pct": 133,
+      "missing": 3,
+      "moderate_5_15pct": 367,
+      "tight_le5pct": 116
+    },
+    "per_class_medians_log10_residual": {
+      "jovian": -0.00958761212169612,
+      "neptunian": -0.05518168228072785,
+      "terran": 0.007781633939265037
+    }
+  },
+  "eligible_true_mass_stats": {
+    "count": 1207,
+    "log10_bias": -0.0408436524025917,
+    "log10_mae": 0.10442982096618056,
+    "log10_median": -0.02540307663185465,
+    "log10_rmse": 0.1581701926744863
+  },
+  "loader_summary": {
+    "eligible_true_mass_with_transit_radius": 1207,
+    "minimum_mass_with_transit_radius_diagnostic": 2,
+    "neptunian_true_mass_with_transit_radius": 588,
+    "non_neptunian_true_mass_with_transit_radius": 619,
+    "post_filter_included_count": 4301,
+    "pre_filter_included_count": 6157,
+    "total_rows": 6291
+  },
+  "neptunian_stats": {
+    "count": 588,
+    "log10_bias": -0.06472254272880448,
+    "log10_mae": 0.13071152514286674,
+    "log10_median": -0.05518168228072785,
+    "log10_rmse": 0.18279037426371253
+  },
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "task_id": "TASK-0391",
+  "thresholds": {
+    "control_margin_log10_rmse": 0.022,
+    "min_slice_row_count": 30
+  },
+  "verdict": "INCONCLUSIVE"
+}
