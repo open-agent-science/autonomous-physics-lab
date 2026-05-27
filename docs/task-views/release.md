@@ -16,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0431` - Clarify result-publication PR protocol edge cases (`workflow_protocol`, priority `high`, difficulty `low`, domain `result_promotion`)

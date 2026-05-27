@@ -69,6 +69,7 @@ one PR.
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
 - `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0432` — Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -76,7 +77,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0431` — Clarify result-publication PR protocol edge cases (`workflow_protocol`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
