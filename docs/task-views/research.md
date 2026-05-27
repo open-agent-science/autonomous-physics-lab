@@ -16,7 +16,6 @@
 - `TASK-0402` - Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0403` - Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0404` - Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0414` - Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`, domain `result_promotion`)
 - `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0427` - Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
@@ -27,3 +26,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0399` - Triage post-2015 quantum-dot machine-readable supplements (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+- `TASK-0414` - Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`, domain `result_promotion`)
