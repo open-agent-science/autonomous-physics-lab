@@ -464,6 +464,14 @@ and preflight the template-based PR body before creating the draft PR.
 For task proposal PRs, the lighter validation path from
 [./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
 
+When a task creates concrete artifact paths, replace any placeholder validation
+commands in that task's YAML before moving the task to `REVIEW_READY`.
+Examples include replacing `<new-result-path>` with the exact
+`results/EXP-XXXX/RUN-XXXX/result.yaml` path or replacing `<queue-id>` with the
+specific queue id used by the PR. Placeholders may remain only in task
+templates, future `READY` tasks, or proposal files that are not being handed off
+as completed work.
+
 ## End-Of-Task Output Routing
 
 At the end of any research, validation, benchmark, source-curation, prediction,
@@ -550,7 +558,12 @@ The maintainer review agent must not:
    `tasks/ACTIVE.md` or `docs/task-views/*.md` as `INFO` (not `ERROR`) by
    default, so a non-regenerated branch passes strict validation. Set
    `APL_ENFORCE_BOARD_STALENESS=1` only when explicitly auditing the
-   action's output.
+   action's output. If strict validation ever reports generated board
+   staleness as an error during a routine task PR, treat that as a validation
+   configuration issue to report or fix, not as permission to commit generated
+   navigation churn. If a local sync or validation comparison leaves generated
+   board files dirty, do not stage them; remove those generated diffs before
+   creating the review bundle.
 8. Make the smallest reproducible change that satisfies the task.
 9. Run the required validation commands.
 10. Set the task to `REVIEW_READY` when implementation and validation are
