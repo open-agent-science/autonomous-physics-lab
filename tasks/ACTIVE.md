@@ -52,7 +52,6 @@ one PR.
 - `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0395` — Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0396` — Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`)
-- `TASK-0397` — Run nuclear local-curvature negative-control expansion (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0398` — Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0400` — Verify Kang-Wise 1997 PbS direct-source path (`scientific_dataset`, priority `medium`, difficulty `medium`)
@@ -76,6 +75,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0397` — Run nuclear local-curvature negative-control expansion (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0405` — Disable validation commands in snapshot script (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0406` — Define multi-class scientific output promotion protocol (`workflow_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (`contributor_experience`, priority `high`, difficulty `low`)
