@@ -1,7 +1,7 @@
 id: TASK-0417
 title: "Register first non-nuclear AGENT_PUBLISHED prediction entry"
 type: prediction_registry
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: medium
 
