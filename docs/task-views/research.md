@@ -26,4 +26,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0415` - Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`, domain `result_promotion`)
+None.
