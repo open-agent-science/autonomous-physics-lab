@@ -22,8 +22,8 @@ scientific artifacts.
 
 | Tier | RESULT | PRED | CLAIM | KNOW | Total |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `AGENT_PUBLISHED` | 2 | 0 | 0 | 0 | 2 |
-| `AGENT_VALIDATED` | 0 | 0 | 0 | 0 | 0 |
+| `AGENT_PUBLISHED` | 1 | 0 | 0 | 0 | 1 |
+| `AGENT_VALIDATED` | 1 | 0 | 0 | 0 | 1 |
 | `MAINTAINER_REVIEWED` | 0 | 0 | 0 | 0 | 0 |
 | `EXTERNAL_REPLICATED` | 0 | 0 | 0 | 0 | 0 |
 | `LEGACY_UNTIERED` | 15 | 60 | 10 | 9 | 94 |
@@ -32,12 +32,13 @@ scientific artifacts.
 
 | Class | Artifact | Status | Next action | Path |
 | --- | --- | --- | --- | --- |
-| `RESULT` | `RESULT-0016` - Anharmonic Oscillator Period Benchmark | `VALID_IN_RANGE` | `replay-needed` | [`results/EXP-0011/RUN-0002/result.yaml`](../results/EXP-0011/RUN-0002/result.yaml) |
 | `RESULT` | `RESULT-0017` - Pendulum Formula Discovery — Gauntlet (101 Candidates) | `OVERFITTED` | `replay-needed` | [`results/EXP-0001/RUN-0006/result.yaml`](../results/EXP-0001/RUN-0006/result.yaml) |
 
 ## AGENT_VALIDATED
 
-_No artifacts in this tier._
+| Class | Artifact | Status | Next action | Path |
+| --- | --- | --- | --- | --- |
+| `RESULT` | `RESULT-0016` - Anharmonic Oscillator Period Benchmark | `VALID_IN_RANGE` | `maintainer-review-needed` | [`results/EXP-0011/RUN-0002/result.yaml`](../results/EXP-0011/RUN-0002/result.yaml) |
 
 ## MAINTAINER_REVIEWED
 
