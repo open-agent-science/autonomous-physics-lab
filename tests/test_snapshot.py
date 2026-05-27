@@ -90,7 +90,14 @@ def test_snapshot_script_includes_strategic_context_and_current_mission_docs() -
     script = Path("scripts/apl_snapshot.sh").read_text(encoding="utf-8")
 
     assert 'section "Strategic Context For Agents"' in script
+    assert 'section "Task Registry Snapshot"' in script
+    assert 'section "Current Task Contracts"' in script
+    assert 'section "Repository Structure Map"' in script
     assert "render_strategic_context_map" in script
     assert "docs/current-missions.md" in script
     assert "docs/result-promotion-protocol.md" in script
     assert "docs/scientific-memory-review-tiers.md" in script
+    assert "Historical DONE and older PROPOSED task files" in script
+    assert "tasks/*.yaml" not in script
+    assert "tasks/proposals/*.yaml" not in script
+    assert "older task files omitted" in script
