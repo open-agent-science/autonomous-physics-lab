@@ -26,5 +26,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0390` - Run exoplanet compact/sub-Neptune residual hypothesis pilot (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
-- `TASK-0397` - Run nuclear local-curvature negative-control expansion (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+None.
