@@ -59,7 +59,10 @@ one PR.
 - `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`)
+- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`)
+- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`)
 - `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`)
+- `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
 - `TASK-0418` — Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0420` — Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
@@ -74,10 +77,11 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0430` — Add safe closeout-time task unblocking (`maintainer_workflow`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0430` — Add safe closeout-time task unblocking (merged)
 - `TASK-0429` — Add advisory quality score to maintainer review output (merged)
 - `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
 - `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
@@ -463,11 +467,8 @@ None.
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (`result_publication`, priority `high`, difficulty `medium`)
-- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`)
 - `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
-- `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
 - `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
 
 ## REJECTED
