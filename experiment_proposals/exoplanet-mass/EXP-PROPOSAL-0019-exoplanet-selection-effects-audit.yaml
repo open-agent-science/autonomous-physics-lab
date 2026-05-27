@@ -1,0 +1,101 @@
+id: EXP-PROPOSAL-0019
+title: "Exoplanet host and uncertainty selection-effects audit"
+campaign_profile_id: exoplanet-mass-radius
+proposal_kind: audit
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox audit only; no canonical result, prediction registry entry, host-star causal claim, composition inference, habitability label, biosignature wording, target-prioritization output, claim update, or knowledge edit."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0392
+
+input_references:
+  - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+  - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+
+question: "Which host-star, uncertainty, detection-method, and missingness slices in the committed exoplanet residual surface remain visible after sample-size matched controls, and which are underpowered or control-erased?"
+
+method:
+  summary: "Load the committed PSCompPars snapshot, apply the repository inclusion filters, compute frozen CK17 log10 residuals, split true-mass and minimum-mass axes, summarize slice residuals, and compare each slice with a deterministic nearest-mass same-axis sample-size null control."
+  code_references:
+    - "physics_lab/datasets/exoplanets.py"
+    - "physics_lab/engines/exoplanet_mass_radius.py"
+    - "scripts/run_exoplanet_host_uncertainty_selection_effects.py"
+    - "tests/test_exoplanet_host_uncertainty_selection_effects.py"
+  commands:
+    - "python3 scripts/run_exoplanet_host_uncertainty_selection_effects.py"
+    - "python3 -m pytest tests/test_exoplanet_host_uncertainty_selection_effects.py"
+  parameters:
+    min_slice_count: 30
+    signal_margin_log10_rmse: 0.022
+    control_method: "nearest_mass_without_replacement_same_axis_non_slice"
+
+inputs:
+  datasets:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  constants:
+    - "Frozen Chen-Kipping 2017 piecewise median mass-radius baseline from physics_lab/engines/exoplanet_mass_radius.py"
+  prior_results:
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+  assumptions:
+    - "The committed snapshot is sufficient for a retrospective selection-effects audit."
+    - "True-mass and minimum-mass rows must not be pooled."
+    - "Matched controls are diagnostic and cannot establish causality."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0038/agent_run.yaml"
+    - "agent_runs/AGENT-RUN-0038/metrics.json"
+    - "agent_runs/AGENT-RUN-0038/report.md"
+    - "docs/reviews/exoplanet-host-uncertainty-selection-effects.md"
+  metrics:
+    - "per_axis_log10_rmse"
+    - "per_slice_log10_rmse"
+    - "per_slice_sample_size_matched_control_log10_rmse"
+    - "delta_log10_rmse_slice_minus_axis"
+    - "delta_log10_rmse_slice_minus_control"
+    - "control_erased_slice_count"
+    - "underpowered_slice_count"
+  plots: []
+  notes:
+    - "The output includes a limitations table future exoplanet residual tasks should cite."
+
+validation:
+  pass_condition: "Runner is deterministic, reports all requested slice families, separates true-mass/minimum-mass axes, and passes task-specific tests plus repository validation."
+  fail_condition: "Any live fetch, CK17 refit, axis mixing, missing matched controls, hidden control-erased outcome, or promotion wording fails the experiment."
+  baseline_or_reference: "Frozen CK17 residuals plus deterministic same-axis nearest-mass sample-size null controls, referenced against prior exoplanet residual failure-map and true-mass slice audit artifacts."
+  expected_failure_modes:
+    - "Minimum-mass axis underpowered."
+    - "Large dominant detection-method slices may lack enough non-slice controls."
+    - "Apparent host or uncertainty signals may be erased by matched controls."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No causal host-star physics claim."
+    - "No composition inference from residual stress."
+    - "No habitability, biosignature, or target-priority claim."
+    - "No universal planet-law wording."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Report control-erased and underpowered slices explicitly."
+    - "Leave promotion decisions to maintainer review."
+
+limitations:
+  - "Residual summaries are retrospective diagnostics over the committed snapshot only."
+  - "Sample-size matched controls are deterministic nearest-mass non-slice controls, not causal adjustments."
+  - "Host-star fields, uncertainty fields, detection method, and missingness are catalog-selection surfaces."
+  - "True-mass rows and minimum-mass rows are reported separately."
+  - "No live fetch, baseline refit, canonical result, prediction, claim, or knowledge update is authorized."
+
+verdict: INCONCLUSIVE
+maintainer_decision_requested: "Review the limitations table and decide whether future exoplanet residual tasks must cite it before proposing narrower hypotheses."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer review before any RESULT-*, PRED-*, claim, knowledge, composition, habitability, biosignature, target-priority, or causal host-star wording."
