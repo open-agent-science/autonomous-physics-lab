@@ -57,7 +57,6 @@ one PR.
 - `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`)
-- `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
 - `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
 - `TASK-0420` — Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`)
@@ -74,7 +73,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
