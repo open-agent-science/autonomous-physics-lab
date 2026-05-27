@@ -1,7 +1,7 @@
 id: TASK-0414
 title: "Add Gate B independent replay runner for AGENT_PUBLISHED results"
 type: validation_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

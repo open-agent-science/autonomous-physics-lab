@@ -1,7 +1,7 @@
 id: TASK-0415
 title: "Run first AGENT_VALIDATED replay of an agent-published result"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -24,7 +24,7 @@ input:
     AGENT_VALIDATED with a validation_record or produce a contested-result PR.
 
 requirements:
-  - "Remain BLOCKED until TASK-0412 and TASK-0414 are DONE."
+  - "TASK-0412 and TASK-0414 are DONE; this task is now ready for first Gate B replay."
   - "Use a different agent/session than the original AGENT_PUBLISHED author."
   - "Replay the published deterministic command using the recorded inputs and hashes."
   - "If metrics and verdict match within tolerance, update only review_tier and agent_proposal_evaluation/validation_record fields."

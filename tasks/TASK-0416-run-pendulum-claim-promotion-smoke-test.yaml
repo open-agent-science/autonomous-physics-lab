@@ -1,7 +1,7 @@
 id: TASK-0416
 title: "Run first scoped claim-promotion smoke test on Pendulum"
 type: claim_review
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -26,7 +26,7 @@ input:
     maintainer Gate C action in Phase 1.
 
 requirements:
-  - "Remain BLOCKED until at least one relevant Pendulum RESULT is AGENT_PUBLISHED or AGENT_VALIDATED, or the maintainer explicitly authorizes a lower-tier smoke test."
+  - "A relevant Pendulum RESULT is now AGENT_PUBLISHED; keep any claim transition maintainer-only."
   - "Review CLAIM-0001 against the claim-promotion policy and result-promotion protocol."
   - "Prepare a narrowly scoped status-transition recommendation; do not overclaim beyond benchmark evidence."
   - "If a status transition is proposed, keep it as maintainer-reviewed Gate C work."
