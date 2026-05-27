@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0391` — Run exoplanet neptunian residual matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0392` — Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0395` — Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`)
@@ -73,7 +72,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0391` — Run exoplanet neptunian residual matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
