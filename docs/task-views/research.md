@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0392` - Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0393` - Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0395` - Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0398` - Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
@@ -24,4 +23,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0392` - Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0416` - Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`, domain `result_promotion`)
