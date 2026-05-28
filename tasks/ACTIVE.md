@@ -60,7 +60,6 @@ one PR.
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0432` — Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0437` — Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`)
@@ -74,6 +73,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0433` — Add strategic campaign context to repository snapshots (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0434` — Document standard repository snapshot handoff location (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0435` — Add campaign-at-a-glance snapshot summary (`maintainer_workflow`, priority `high`, difficulty `medium`)
