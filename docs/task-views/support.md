@@ -21,3 +21,4 @@ None.
 - `TASK-0433` - Add strategic campaign context to repository snapshots (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `snapshot_context`)
 - `TASK-0434` - Document standard repository snapshot handoff location (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `maintainer_snapshot`)
 - `TASK-0435` - Add campaign-at-a-glance snapshot summary (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `snapshot_context`)
+- `TASK-0441` - Upgrade Scientific Campaign Curator into Scientific Campaign Director role (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_director`)
