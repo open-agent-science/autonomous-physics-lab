@@ -16,6 +16,8 @@
 - `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0427` - Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0428` - Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0438` - Scaffold Textbook Formula Audit campaign (`campaign_scaffold`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+- `TASK-0439` - Scaffold Materials Property Residuals campaign (`campaign_scaffold`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 
 ## IN_PROGRESS
 
