@@ -18,4 +18,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0433` - Add strategic campaign context to repository snapshots (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `snapshot_context`)
