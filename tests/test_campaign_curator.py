@@ -74,7 +74,8 @@ def test_campaign_curator_prompt_preserves_authority_boundary() -> None:
 
     assert "You are the APL Scientific Campaign Director." in prompt
     assert "campaign-curator" in prompt
-    assert "науковий куратор" in prompt
+    assert "any language" in prompt
+    assert "literal phrase matching" in prompt
     assert "Natural-language requests" in prompt
     assert "not a task runner" in prompt
     assert "Do not:" in prompt

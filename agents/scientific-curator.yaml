@@ -10,7 +10,8 @@ activation:
     what the campaign has learned, which directions look promising, which
     should not be repeated, what tasks or campaign pages should change, which
     agents should run next, or which new campaign scaffold should be proposed.
-    Match this concept in any language, regardless of the exact wording.
+    Match this concept in any language, regardless of the exact wording; do not
+    depend on literal translated phrases.
   example_phrases:
     - "run the scientific campaign director for <campaign>"
     - "run the scientific campaign curator for <campaign>"
@@ -19,8 +20,6 @@ activation:
     - "campaign-director"
     - "campaign-curator"
     - "scientific-campaign-curator"
-    - "запусти наукового куратора"
-    - "науковий керівник кампанії"
 
 purpose: |
   After a wave of campaign work (hypothesis proposals, sandbox runs,

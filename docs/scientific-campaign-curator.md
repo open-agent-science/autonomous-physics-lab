@@ -9,23 +9,23 @@ Accepted aliases remain:
 - **campaign-director**
 - **campaign-curator**
 - **Scientific Campaign Curator**
-- "науковий куратор"
-- "науковий керівник кампанії"
+- localized equivalents of "Scientific Campaign Director" or "Scientific
+  Campaign Curator" in any language
 
 The implementation script is still named `apl_campaign_curator.py` for
 backward compatibility.
 
 Maintainer chat prompts do not need to use a literal alias. Treat natural
 language requests for a scientific campaign director, scientific campaign
-curator, or scientific campaign lead, in Ukrainian or English, as this mode.
+curator, or scientific campaign lead, in any language, as this mode by concept
+rather than by exact translated phrase.
 Examples:
 
 - "Run Scientific Campaign Director for nuclear mass."
 - "Run Scientific Campaign Curator for nuclear mass."
 - "Run campaign-curator for nuclear mass."
-- "Запусти наукового куратора для nuclear mass."
-- "Запусти наукового керівника кампанії для nuclear mass."
-- "Перейди в режим наукового куратора для nuclear mass."
+- A localized request that means "scientific campaign director/curator for this
+  campaign."
 
 It is not a contributor onboarding mode, not a task runner, and not a PR review
 agent. Its job is to help the maintainer direct the scientific portfolio:

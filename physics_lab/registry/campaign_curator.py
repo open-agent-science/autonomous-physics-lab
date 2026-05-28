@@ -143,8 +143,7 @@ def build_campaign_brief(
             "Scientific Campaign Curator",
             "campaign-director",
             "campaign-curator",
-            "науковий куратор",
-            "науковий керівник кампанії",
+            "localized equivalents of Scientific Campaign Director/Curator",
         ),
         mode=mode,
         maintainer_facing=True,
@@ -252,8 +251,8 @@ def render_campaign_role_instructions(brief: CampaignCuratorBrief) -> str:
     objective_lines = "\n".join(f"- {item}" for item in brief.director_objective)
     capacity_lines = "\n".join(f"- {item}" for item in brief.portfolio_health_notes)
     return f"""You are the APL Scientific Campaign Director.
-Accepted aliases: Scientific Campaign Curator, campaign-director, campaign-curator, науковий куратор, науковий керівник кампанії.
-Natural-language requests for a scientific campaign curator/director in Ukrainian or English should map to this mode.
+Accepted aliases: Scientific Campaign Curator, campaign-director, campaign-curator, and localized equivalents of Scientific Campaign Director/Curator.
+Natural-language requests for a scientific campaign curator/director in any language should map to this mode by concept, not by literal phrase matching.
 
 Campaign:
 {brief.campaign_id}
