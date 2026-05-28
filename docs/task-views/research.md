@@ -27,5 +27,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0402` - Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0403` - Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
+None.
