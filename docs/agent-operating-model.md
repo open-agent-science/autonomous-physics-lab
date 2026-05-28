@@ -53,9 +53,14 @@ For actual multi-agent work, use separate branches or git worktrees:
   until the PR is ready;
 - no guessed canonical task ids during parallel work.
 
-`python3 scripts/apl_mission.py --json` exposes several live task candidates so
+`python3 scripts/apl_mission.py --output json` exposes several live task candidates so
 maintainers can assign independent work in parallel without treating
 `missions/current.yaml` as a hand-maintained live queue.
+
+The same JSON includes a warning-only READY science task pool health summary.
+Use [docs/task-queue-health-policy.md](./task-queue-health-policy.md) for the
+target pool size, independence rules, and maintainer response when
+`task_queue_needed` is true.
 
 ## Task Rules
 
@@ -105,6 +110,7 @@ Active task execution should use the canonical states from
 - `REVIEW_READY`
 - `DONE`
 - `BLOCKED`
+- `SUPERSEDED`
 - `REJECTED`
 
 `PROPOSED` may still appear for backlog ideas that are not yet executable.

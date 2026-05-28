@@ -1,0 +1,54 @@
+id: TASK-0441
+title: "Upgrade Scientific Campaign Curator into Scientific Campaign Director role"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the campaign-level agent proactive enough for a multi-campaign open agent research network."
+  - "Give the role responsibility for scientific direction, campaign-page hygiene, task-wave design, and promotion-backlog steering."
+  - "Preserve old campaign-curator / scientific-curator aliases while clarifying the stronger official role name."
+
+input:
+  mode: workflow
+  related_domain: campaign_director
+  related_objects:
+    - "agents/scientific-curator.yaml"
+    - "docs/scientific-campaign-curator.md"
+    - "docs/campaign-curator-protocol.md"
+    - "physics_lab/registry/campaign_curator.py"
+    - "scripts/apl_campaign_curator.py"
+    - "tests/test_campaign_curator.py"
+  planning_context: >
+    The maintainer wants the scientific campaign curator to become more
+    proactive: it should steer scientific direction, keep campaigns moving,
+    recommend new tasks and campaign pages, check results, propose new ideas,
+    and prevent both idle agents and work-for-work loops. The old
+    campaign-curator alias should remain valid.
+
+requirements:
+  - "Rename the official role concept to Scientific Campaign Director while preserving Scientific Campaign Curator and campaign-curator aliases."
+  - "Describe the global objective: increase project scientific quality and produce reviewable scientific results through bounded campaigns."
+  - "Make the role proactive: analyze, recommend, maintain campaign pages, design task waves, track promotion backlog, and suggest new campaigns."
+  - "Require the role to watch for idle agents / thin READY pools, but forbid creating work-for-work loops or repeated audits without new evidence."
+  - "Preserve authority boundaries: no experiments, no merge, no claim promotion, no canonical task creation without explicit maintainer approval."
+  - "Update script prompts and tests so agents receive the stronger role framing."
+
+accepted_outputs:
+  - "updated scientific-curator role profile"
+  - "updated campaign director / curator docs and protocol"
+  - "updated campaign curator prompt/rendering"
+  - "tests covering the stronger role framing and alias compatibility"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/campaign_curator.py tests/test_campaign_curator.py"
+    - "python3 -m pytest tests/test_campaign_curator.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

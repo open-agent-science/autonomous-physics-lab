@@ -1,0 +1,50 @@
+id: TASK-0429
+title: "Add advisory quality score to maintainer review output"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make maintainer PR triage faster without changing merge authority."
+  - "Give review-agent output a compact human-readable quality signal for cross-session continuity."
+  - "Keep deterministic blockers and MERGE_OK/NEEDS_CHANGES verdicts as the only merge gate."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_pr.py"
+    - "docs/maintainer-review-agent.md"
+    - "tests/test_maintainer_review.py"
+  planning_context: >
+    Maintainers often ask whether a PR is not only mergeable but also
+    qualitatively strong. The review helper should include a compact
+    recommendation score such as Quality: 8/10, while keeping that score
+    advisory only. The score must not override blockers, required fixes,
+    GitHub CI, scientific guardrails, or maintainer judgment.
+
+requirements:
+  - "Render an advisory Quality: X/10 line in maintainer review reports."
+  - "Include short quality notes when the score is reduced by risk, blockers, required fixes, security-sensitive paths, or advisory warnings."
+  - "Do not make quality score a merge gate."
+  - "Do not change existing verdict vocabulary or merge decision rules."
+  - "Document that the score is a triage aid, not approval."
+
+accepted_outputs:
+  - "physics_lab/registry/maintainer_review.py"
+  - "docs/maintainer-review-agent.md"
+  - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

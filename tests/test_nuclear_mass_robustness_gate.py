@@ -29,13 +29,14 @@ def test_nuclear_robustness_gate_defines_required_checks() -> None:
         assert required in gate
 
 
-def test_second_nuclear_batch_remains_robustness_gated() -> None:
+def test_second_nuclear_batch_remains_archived_behind_robustness_gate() -> None:
     task_path = _repo_root() / "tasks" / "TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
     payload = yaml.safe_load(task_path.read_text(encoding="utf-8"))
     requirements = "\n".join(payload["requirements"])
     accepted_outputs = "\n".join(payload["accepted_outputs"])
 
-    assert payload["status"] == "BLOCKED"
+    assert payload["status"] == "SUPERSEDED"
+    assert "superseded by narrower completed second-batch lanes" in requirements
     assert "TASK-0190 is DONE" in requirements
     assert "robustness-gate section" in accepted_outputs
     assert "post-AME2020 status" in requirements

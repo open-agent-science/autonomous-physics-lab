@@ -1,0 +1,54 @@
+id: TASK-0417
+title: "Register first non-nuclear AGENT_PUBLISHED prediction entry"
+type: prediction_registry
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Exercise the new generic prediction schema outside the nuclear-mass registry."
+  - "Create a real cross-domain pre-registration path without claim promotion."
+  - "Prepare APL for future reveal windows in exoplanet, atomic-clock, or quantum-size campaigns."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/prediction-registry-policy.md"
+    - "physics_lab/schemas/prediction.schema.json"
+    - "prediction_registry/README.md"
+    - "tasks/TASK-0409-add-agent-published-result-and-prediction-templates.yaml"
+  planning_context: >
+    The generic prediction schema exists, but no non-nuclear PRED entry should
+    be created until templates and Gate A checks are available. The first
+    domain should be selected for a clear future reveal path and conservative
+    no-claim wording, with exoplanet or atomic-clock preferred over broad
+    speculative domains.
+
+requirements:
+  - "Remain BLOCKED until TASK-0408 and TASK-0409 are DONE, or until the maintainer explicitly authorizes a manual Gate A registration."
+  - "Choose exactly one non-nuclear campaign with a clear reveal or later-comparison source class."
+  - "Use the generic prediction schema unless a domain-specific schema exists."
+  - "Set review_tier: AGENT_PUBLISHED and populate `agent_proposal_evaluation`."
+  - "Use no-peek and no-live-fetch wording appropriate for the selected campaign."
+  - "Do not claim discovery, confirmation, or support before reveal."
+  - "Do not modify nuclear prediction entries in this task."
+
+accepted_outputs:
+  - "one prediction_registry/<domain>/PRED-XXXX.yaml entry"
+  - "docs/reviews/first-non-nuclear-agent-published-prediction.md"
+  - "schema/validation tests if a new domain directory requires loader or registry support"
+
+validation:
+  commands:
+    - "python3 scripts/apl_check_result_publication.py <new-prediction-path>"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

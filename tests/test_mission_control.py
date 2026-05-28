@@ -10,6 +10,7 @@ from physics_lab.registry import mission_control
 from physics_lab.registry.mission_control import (
     load_current_missions,
     mission_json,
+    ready_science_pool_health,
     render_agent_prompt,
     render_human_mission,
     render_onboarding_prompt,
@@ -76,7 +77,16 @@ def _write_missions(root: Path) -> None:
     )
 
 
-def _write_task(root: Path, *, task_id: str, title: str, status: str, task_type: str, priority: str) -> None:
+def _write_task(
+    root: Path,
+    *,
+    task_id: str,
+    title: str,
+    status: str,
+    task_type: str,
+    priority: str,
+    related_domain: str = "test_domain",
+) -> None:
     tasks_dir = root / "tasks"
     tasks_dir.mkdir(exist_ok=True)
     (tasks_dir / f"{task_id}-example.yaml").write_text(
@@ -90,6 +100,7 @@ def _write_task(root: Path, *, task_id: str, title: str, status: str, task_type:
             priority: {priority}
             input:
               mode: workflow
+              related_domain: {related_domain}
               related_objects: []
               planning_context: "Mission candidate test task"
             requirements:
@@ -199,6 +210,62 @@ def test_mission_json_includes_live_task_candidates(tmp_path: Path) -> None:
     assert rendered["live_task_candidates"][1]["mode"] == "support"
     assert rendered["live_task_candidates"][0]["estimated_time"] == "~5-10 min"
     assert "parallel_agents" in rendered["parallel_work_policy"]
+    assert rendered["ready_science_pool_health"]["warning_only"] is True
+
+
+def test_ready_science_pool_health_reports_warning_only_short_pool(tmp_path: Path) -> None:
+    for index in range(4):
+        _write_task(
+            tmp_path,
+            task_id=f"TASK-01{index:02d}",
+            title=f"Research candidate {index}",
+            status="READY",
+            task_type="scientific_validation",
+            priority="high",
+            related_domain="surface_a" if index < 2 else "surface_b",
+        )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0200",
+        title="Support candidate",
+        status="READY",
+        task_type="documentation",
+        priority="high",
+        related_domain="support_surface",
+    )
+
+    health = ready_science_pool_health(tmp_path)
+
+    assert health.ready_science_count == 4
+    assert health.active_surfaces == ("surface_a", "surface_b")
+    assert health.below_minimum is True
+    assert health.below_surface_target is True
+    assert health.task_queue_needed is True
+    assert health.warning_only is True
+
+
+def test_ready_science_pool_health_accepts_minimum_across_three_surfaces(tmp_path: Path) -> None:
+    for index, surface in enumerate(
+        ("surface_a", "surface_a", "surface_b", "surface_c", "surface_c")
+    ):
+        _write_task(
+            tmp_path,
+            task_id=f"TASK-02{index:02d}",
+            title=f"Research candidate {index}",
+            status="READY",
+            task_type="scientific_validation",
+            priority="high",
+            related_domain=surface,
+        )
+
+    health = ready_science_pool_health(tmp_path)
+
+    assert health.ready_science_count == 5
+    assert health.active_surfaces == ("surface_a", "surface_b", "surface_c")
+    assert health.below_minimum is False
+    assert health.below_surface_target is False
+    assert health.task_queue_needed is False
+    assert health.below_preferred is True
 
 
 def test_task_candidates_support_parallel_safe_options(tmp_path: Path) -> None:
@@ -368,6 +435,7 @@ def test_render_agent_prompt_mentions_full_pr_loop(tmp_path: Path) -> None:
     assert "Agent First Research Mode" in rendered
     assert "Use canonical task TASK-0002" in rendered
     assert "Execute the full loop autonomously" in rendered
+    assert "preserve all meaningful outcomes" in rendered
     assert "open a draft PR" in rendered
     assert "not a reason to stop before editing files" in rendered
     assert "commit only after the files are ready" in rendered
@@ -399,11 +467,12 @@ def test_render_onboarding_prompt_waits_for_user_choice(tmp_path: Path) -> None:
     assert "TASK-0007" in rendered
     assert "~5-10 min" in rendered
     assert "After the user chooses" in rendered
-    assert "open a draft PR using repository helpers" in rendered
-    assert "do not stop before editing files" in rendered
-    assert "final commit after the files are ready" in rendered
-    assert "request permission/escalation" in rendered
-    assert "GitHub/MCP tools" in rendered
+    assert "follow `docs/agent-task-protocol.md` end-to-end" in rendered
+    assert "science-execution work over tooling" in rendered
+    assert "macOS/Linux/WSL/Git Bash" in rendered
+    assert "plain Windows shells" in rendered
+    assert "git worktree add <path> -b <branch> origin/main" in rendered
+    assert "finish the local work" in rendered
     assert "stop before editing files and report the blocker" not in rendered
 
 
@@ -438,7 +507,7 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
 
 def test_apl_mission_script_onboarding_runs_from_repo_root() -> None:
     result = subprocess.run(
-        [sys.executable, "scripts/apl_mission.py", "--onboarding"],
+        [sys.executable, "scripts/apl_mission.py", "--output", "onboarding"],
         check=True,
         capture_output=True,
         text=True,
@@ -447,6 +516,31 @@ def test_apl_mission_script_onboarding_runs_from_repo_root() -> None:
     assert "with onboarding" in result.stdout
     assert "Do not edit files yet" in result.stdout
     assert "estimated time" in result.stdout
+    assert "docs/result-promotion-protocol.md" in result.stdout
+
+
+def test_apl_mission_script_legacy_onboarding_alias_runs_from_repo_root() -> None:
+    result = subprocess.run(
+        [sys.executable, "scripts/apl_mission.py", "--onboarding"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "with onboarding" in result.stdout
+    assert "Do not edit files yet" in result.stdout
+
+
+def test_apl_mission_script_output_agent_runs_from_repo_root() -> None:
+    result = subprocess.run(
+        [sys.executable, "scripts/apl_mission.py", "--output", "agent"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "Agent First Research Mode" in result.stdout
+    assert "Execute the full loop autonomously" in result.stdout
 
 
 def test_cli_mission_json_runs_from_repo_root() -> None:
@@ -462,11 +556,15 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert rendered["recommended"]["action"] == "nuclear-validation-queue"
     assert rendered["recommended"]["task_id"] is None
     assert "parallel_work_policy" in rendered
+    assert any(
+        "result-promotion-protocol.md" in item
+        for item in rendered["policy"]["defaults"]
+    )
     # Accept any current research-mode top candidate from the live queue.
     # Depending on which nuclear tasks are already claimed, the mission helper
     # may surface nuclear follow-ups (`TASK-0189`, `TASK-0228`-`TASK-0237`,
     # `TASK-0250`-`TASK-0290`, `TASK-0320`-`TASK-0324`,
-    # `TASK-0330`-`TASK-0337`), rotate to
+    # `TASK-0330`-`TASK-0347`), rotate to
     # the other READY research lanes
     # (`TASK-0222`-`TASK-0227`, `TASK-0291`-`TASK-0292`, `TASK-0307`,
     # `TASK-0310`-`TASK-0317`),
@@ -556,6 +654,80 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
         "TASK-0335",
         "TASK-0336",
         "TASK-0337",
+        "TASK-0338",
+        "TASK-0339",
+        "TASK-0340",
+        "TASK-0341",
+        "TASK-0342",
+        "TASK-0343",
+        "TASK-0344",
+        "TASK-0345",
+        "TASK-0346",
+        "TASK-0347",
+        "TASK-0351",
+        "TASK-0352",
+        "TASK-0353",
+        "TASK-0354",
+        "TASK-0355",
+        "TASK-0356",
+        "TASK-0361",
+        "TASK-0362",
+        "TASK-0363",
+        "TASK-0364",
+        "TASK-0365",
+        "TASK-0367",
+        "TASK-0368",
+        "TASK-0369",
+        "TASK-0370",
+        "TASK-0371",
+        "TASK-0372",
+        "TASK-0373",
+        "TASK-0374",
+        "TASK-0375",
+        "TASK-0376",
+        "TASK-0377",
+        "TASK-0378",
+        "TASK-0379",
+        "TASK-0380",
+        "TASK-0381",
+        "TASK-0382",
+        "TASK-0383",
+        "TASK-0384",
+        "TASK-0390",
+        "TASK-0391",
+        "TASK-0392",
+        "TASK-0393",
+        "TASK-0394",
+        "TASK-0395",
+        "TASK-0396",
+        "TASK-0397",
+        "TASK-0398",
+        "TASK-0399",
+        "TASK-0400",
+        "TASK-0401",
+        "TASK-0402",
+        "TASK-0403",
+        "TASK-0404",
+        "TASK-0407",
+        "TASK-0408",
+        "TASK-0409",
+        "TASK-0410",
+        "TASK-0411",
+        "TASK-0412",
+        "TASK-0413",
+        "TASK-0414",
+        "TASK-0415",
+        "TASK-0416",
+        "TASK-0417",
+        "TASK-0418",
+        "TASK-0419",
+        "TASK-0420",
+        "TASK-0421",
+        "TASK-0422",
+        "TASK-0423",
+        "TASK-0427",
+        "TASK-0428",
+        "TASK-0432",
     }
     if rendered["live_task_candidates"]:
         assert (

@@ -1,0 +1,56 @@
+id: TASK-0351
+title: "Run nuclear local-curvature adversarial control lane"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Stress-test the strongest new Nuclear signal before any claim or prediction promotion."
+  - "Separate physically meaningful local residual structure from generic smoothing, leakage, or neighbor interpolation."
+  - "Keep the Nuclear Mass Surface flagship moving through falsification-first hypothesis testing."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nuclear-local-curvature-hypothesis-lane.md"
+    - "agent_runs/AGENT-RUN-0026/report.md"
+    - "agent_runs/AGENT-RUN-0026/metrics.json"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    TASK-0339 found a large sandbox-only local-curvature residual improvement,
+    but matched controls also improved strongly. This task exists to attack
+    that signal directly: preserve the positive evidence, add stronger
+    leakage and smoothing controls, and decide whether the lane deserves a
+    no-leakage predictive follow-up.
+
+requirements:
+  - "Reproduce the TASK-0339 local-curvature headline metrics from committed artifacts before adding new controls."
+  - "Add at least three adversarial controls, including a neighbor-availability leakage control, an isotope/isotone label shuffle, and a matched smooth local-regression control."
+  - "Run the best committed local-curvature candidate and all new controls on the same full-known, holdout, magic, neutron-rich, high-error, isotope-chain, and isotone-chain diagnostics."
+  - "Report whether the candidate still beats the strongest control by a meaningful margin on both primary and subset metrics."
+  - "If the candidate does not beat controls, preserve the result as an overfit or smoothing diagnostic rather than a failure to publish."
+  - "Do not add prediction registry entries, fetch live data, run reveal scoring, update claims, or promote sandbox outcomes."
+
+accepted_outputs:
+  - "scripts/run_nuclear_local_curvature_adversarial_controls.py or an equivalent deterministic runner"
+  - "agent_runs/AGENT-RUN-0031/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0031/metrics.json"
+  - "agent_runs/AGENT-RUN-0031/report.md"
+  - "docs/reviews/nuclear-local-curvature-adversarial-controls.md"
+  - "tests/test_nuclear_local_curvature_adversarial_controls.py if a runner is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,60 @@
+id: TASK-0394
+title: "Implement nuclear local-curvature no-leakage prototype"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Nuclear beyond repeated audits into the strongest remaining controlled predictive lane."
+  - "Test local-curvature residual structure only under the no-leakage freeze contract."
+  - "Keep Nuclear active without adding more shell-axis prediction entries."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/nuclear-local-curvature-no-leakage-freeze.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "docs/reviews/nuclear-new-lanes-decision.md"
+    - "docs/reviews/nuclear-local-curvature-adversarial-controls.md"
+    - "docs/reviews/nuclear-local-curvature-negative-control-expansion.md"
+    - "agent_runs/AGENT-RUN-0031/agent_run.yaml"
+    - "agent_runs/AGENT-RUN-0041/metrics.json"
+  planning_context: >
+    The nuclear curator decision narrowed the next useful Nuclear path to a
+    no-leakage local-curvature prototype, not another broad shell-axis audit.
+    This task should implement the prototype in sandbox mode and test whether
+    residual-neighborhood information survives leave-one-out and adversarial
+    controls without creating prospective PRED entries. TASK-0397 strengthened
+    the retrospective case for LOCAL-CURVATURE-001 against the tested negative
+    controls, so this task should prioritize whether that signal survives the
+    no-leakage contract rather than starting another broad Nuclear lane.
+
+requirements:
+  - "Implement or run a deterministic local-curvature prototype that respects the frozen no-leakage contract."
+  - "Use per-fold neighbor selection that excludes the target row and any direct residual leakage."
+  - "Include the controls required by the no-leakage contract, including shuffled residuals, smooth mass/region controls, and complexity-aware baselines."
+  - "Treat AGENT-RUN-0041 as retrospective sandbox evidence only; report whether the no-leakage prototype strengthens, weakens, or falsifies LOCAL-CURVATURE-001."
+  - "Report primary metrics, fold stability, failure cases, and negative controls."
+  - "Do not add, score, or modify prediction_registry entries."
+  - "Do not promote sandbox improvement to a claim or public discovery."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0039/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0039/metrics.json"
+  - "agent_runs/AGENT-RUN-0039/report.md"
+  - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
+  - "tests for any reusable code that is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

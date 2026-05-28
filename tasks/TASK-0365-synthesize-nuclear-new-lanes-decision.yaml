@@ -1,0 +1,52 @@
+id: TASK-0365
+title: "Synthesize nuclear new-lanes decision after uncertainty and adversarial controls"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the current Nuclear hypothesis wave into a clear go/no-go decision instead of endless audits."
+  - "Identify whether local-curvature deserves a no-leakage predictive implementation or should remain diagnostic-only."
+  - "Preserve null and negative results as useful scientific memory."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-local-curvature-hypothesis-lane.md"
+    - "docs/nuclear-local-curvature-no-leakage-freeze-protocol.md"
+    - "tasks/TASK-0342-run-nuclear-uncertainty-weighted-residual-lane.yaml"
+    - "tasks/TASK-0343-run-nuclear-high-error-cluster-hypothesis-lane.yaml"
+    - "tasks/TASK-0351-run-nuclear-local-curvature-adversarial-controls.yaml"
+  planning_context: >
+    Nuclear now has several fresh sandbox lanes: deformation proxy, local
+    curvature, odd-even shell interaction, measured/extrapolated boundary, and
+    the in-flight uncertainty-weighted review. This synthesis is intentionally
+    blocked until the key open lanes finish, so the maintainer gets one
+    decision artifact instead of fragmented lane-by-lane impressions.
+
+requirements:
+  - "Wait until TASK-0342, TASK-0343, and TASK-0351 are DONE or explicitly preserved as blockers."
+  - "Summarize which Nuclear lanes produced robust signal, control-sensitive signal, null evidence, or overfit evidence."
+  - "Decide whether a no-leakage local-curvature predictive implementation task should be opened, blocked, or rejected."
+  - "Decide whether high-error cluster work should continue, merge into local-curvature controls, or stop."
+  - "Recommend at most 1-3 next Nuclear tasks; avoid creating another broad audit loop."
+  - "Do not add prediction registry entries, score reveal data, update claims, or promote discovery wording."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-new-lanes-decision-after-uncertainty.md"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md with a short curator decision"
+  - "optional follow-up task recommendations only; no implementation outputs"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

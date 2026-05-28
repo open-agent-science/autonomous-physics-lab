@@ -21,7 +21,9 @@ SCHEMA_FILE_BY_KIND = {
     "task_proposal": "task_proposal.schema.json",
     "agent": "agent.schema.json",
     "result": "result.schema.json",
+    "prediction": "prediction.schema.json",
     "review_metadata": "review_metadata.schema.json",
+    "result_candidate_review": "result_candidate_review.schema.json",
     "constant_verification": "constant_verification.schema.json",
     "hypothesis_register_entry": "hypothesis_register_entry.schema.json",
     "approximation_probe": "approximation_probe.schema.json",
@@ -34,7 +36,12 @@ SCHEMA_FILE_BY_KIND = {
     "post_ame2020_holdout": "post_ame2020_holdout.schema.json",
     "post_ame2020_sources": "post_ame2020_sources.schema.json",
     "quantum_dot_size_effect": "quantum_dot_size_effect.schema.json",
+    "exoplanet_mass_radius": "exoplanet_mass_radius.schema.json",
+    "source_manifest_minimum": "source_manifest_minimum.schema.json",
 }
+REVIEW_TIERS_REQUIRING_AGENT_EVALUATION = frozenset(
+    {"AGENT_PUBLISHED", "AGENT_VALIDATED"}
+)
 KIND_BY_DIRECTORY = {
     "claims": "claim",
     "hypotheses": "hypothesis",
@@ -90,11 +97,50 @@ def validate_document(data: dict[str, Any], kind: str, source: str | Path) -> di
             for error in errors
         )
         raise ValueError(f"{source} failed {kind} schema validation: {details}")
+    validate_review_tier_metadata(data, kind, source)
     return data
+
+
+def validate_review_tier_metadata(
+    data: dict[str, Any], kind: str, source: str | Path
+) -> None:
+    """Enforce review-tier audit metadata only when a tier is explicitly set."""
+    review_tier = data.get("review_tier")
+    if review_tier not in REVIEW_TIERS_REQUIRING_AGENT_EVALUATION:
+        return
+
+    evaluation = data.get("agent_proposal_evaluation")
+    if not isinstance(evaluation, dict):
+        raise ValueError(
+            f"{source} sets review_tier: {review_tier} but is missing "
+            "agent_proposal_evaluation"
+        )
+
+    proposed_tier = evaluation.get("review_tier_proposed")
+    if proposed_tier != review_tier:
+        raise ValueError(
+            f"{source} sets review_tier: {review_tier} but "
+            f"agent_proposal_evaluation.review_tier_proposed is {proposed_tier!r}"
+        )
+
+    gates_checked = evaluation.get("gates_checked")
+    if not isinstance(gates_checked, dict) or not gates_checked:
+        raise ValueError(
+            f"{source} sets review_tier: {review_tier} but has no populated "
+            "agent_proposal_evaluation.gates_checked"
+        )
+
+    evidence_summary = evaluation.get("evidence_summary")
+    if not isinstance(evidence_summary, str) or not evidence_summary.strip():
+        raise ValueError(
+            f"{source} sets review_tier: {review_tier} but has no "
+            "agent_proposal_evaluation.evidence_summary"
+        )
 
 
 FILENAME_KIND_MAP: dict[str, str] = {
     "review_metadata.yaml": "review_metadata",
+    "result_candidate_review.yaml": "result_candidate_review",
     "agent_run.yaml": "agent_run",
     "MICROTASK-RUN-TEMPLATE.yaml": "microtask_run",
     "PRED-TEMPLATE.yaml": "nuclear_mass_prediction",

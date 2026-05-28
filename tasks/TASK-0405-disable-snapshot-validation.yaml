@@ -1,0 +1,43 @@
+id: TASK-0405
+title: "Disable validation commands in snapshot script"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer snapshots fast and predictable."
+  - "Avoid wasting local or CI time by running full validation inside an inventory-only command."
+
+input:
+  mode: workflow
+  related_domain: maintainer_snapshot
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - "tests/test_snapshot.py"
+  planning_context: >
+    Maintainer snapshots are used for quick repository-state capture. The
+    snapshot helper should not run ruff, pytest, validate-repo, or example
+    experiments as a hidden side effect.
+
+requirements:
+  - "Keep `scripts/apl_snapshot.sh` as a fast inventory snapshot command."
+  - "Remove hidden validation and experiment execution from the snapshot flow."
+  - "Preserve existing git state, PR list, docs, registry, and result artifact sections."
+  - "Add regression coverage so full validation commands are not reintroduced into the snapshot script."
+
+accepted_outputs:
+  - "scripts/apl_snapshot.sh"
+  - "tests/test_snapshot.py"
+  - "tasks/TASK-0405-disable-snapshot-validation.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_snapshot.py -q"
+    - "APL_SNAPSHOT_DIR=/tmp/apl-snapshot-smoke bash scripts/apl_snapshot.sh"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

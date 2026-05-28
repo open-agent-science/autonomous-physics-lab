@@ -46,5 +46,6 @@ evidence:
     - EXP-0011
   results:
     - RESULT-0014
+    - RESULT-0016
 
 verdict: "The benchmark is designed to test weak-regime perturbative accuracy, holdout behavior, and breakdown boundaries for the anharmonic oscillator period."

@@ -1,0 +1,43 @@
+# Test fixture used by tests/test_pendulum.py.
+# Conforms to physics_lab/schemas/agent.schema.json (post-TASK-0424).
+# Not an authoritative role definition.
+
+role_id: example-fixture
+role_name: "Example Fixture Role"
+status: deprecated
+short_description: "Test-only fixture; not an authoritative role definition."
+
+activation:
+  intent: |
+    Test fixture that exercises the agent role schema validator from
+    tests/test_pendulum.py. Not intended for activation by the maintainer.
+  example_phrases:
+    - "test fixture only"
+
+purpose: |
+  Synthetic test fixture used by the pendulum test file to confirm that
+  load_agent validates a well-formed agent YAML against the canonical
+  agent schema. Has no behavioural meaning outside of those tests.
+
+when_to_use:
+  - "Test environments only."
+
+goals:
+  long_term:
+    - "Exercise the agent schema validator from the test suite."
+
+required_reading:
+  - AGENTS.md
+
+allowed_tools:
+  - "Test-only capability description; intentionally generic."
+
+scripts_to_use: []
+
+can_invoke_other_roles: []
+
+restrictions:
+  - "Test fixture only; do not treat as an active role."
+
+cadence: |
+  Not invoked at runtime; loaded only by the test suite.

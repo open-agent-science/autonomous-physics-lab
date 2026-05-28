@@ -85,6 +85,17 @@ print(build_snapshot_context(Path(".")).default_base_ref)
 PY
 )"
 
+  section "Strategic Context For Agents"
+
+  echo '```markdown'
+  "$PYTHON_BIN" - <<'PY'
+from pathlib import Path
+from physics_lab.registry.snapshot import render_strategic_context_map
+
+print(render_strategic_context_map(Path(".")))
+PY
+  echo '```'
+
   section "Current Authoritative State"
 
   echo '```markdown'
@@ -145,6 +156,7 @@ PY
 
   for f in \
     docs/status.md \
+    docs/current-missions.md \
     docs/next-steps.md \
     docs/roadmap.md \
     docs/mission-control.md
@@ -160,20 +172,67 @@ PY
   echo "truth when they disagree with the generated current-state summary above."
   echo ""
 
-  section "Repository Tree"
+  section "Repository Structure Map"
 
   echo '```text'
-  find . \
-    -path ./.git -prune -o \
-    -path ./.worktrees -prune -o \
-    -path ./.venv -prune -o \
-    -path ./.pytest_cache -prune -o \
-    -path ./.ruff_cache -prune -o \
-    -path ./.claude -prune -o \
-    -path ./__pycache__ -prune -o \
-    -path ./_snapshots -prune -o \
-    -name .DS_Store -prune -o \
-    -print | sort
+  "$PYTHON_BIN" - <<'PY'
+from pathlib import Path
+
+KEY_DIRS = [
+    "agents",
+    "agent_runs",
+    "campaign_profiles",
+    "docs",
+    "docs/campaigns",
+    "docs/reviews",
+    "docs/task-views",
+    "experiments",
+    "hypothesis_proposals",
+    "experiment_proposals",
+    "missions",
+    "prediction_registry",
+    "results",
+    "scripts",
+    "tasks",
+    "tasks/proposals",
+    "tests",
+]
+
+print("Important repository surfaces:")
+for raw_dir in KEY_DIRS:
+    path = Path(raw_dir)
+    if not path.exists():
+        print(f"- {raw_dir}/: missing")
+        continue
+    file_count = sum(1 for child in path.rglob("*") if child.is_file())
+    immediate_dirs = sorted(child.name for child in path.iterdir() if child.is_dir())[:8]
+    suffix = f" | subdirs: {', '.join(immediate_dirs)}" if immediate_dirs else ""
+    print(f"- {raw_dir}/: {file_count} files{suffix}")
+
+print("")
+print("Recent high-numbered task files:")
+task_paths = sorted(
+    Path("tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml"),
+    key=lambda path: path.name,
+    reverse=True,
+)
+for path in task_paths[:40]:
+    print(f"- {path.as_posix()}")
+if len(task_paths) > 40:
+    print(f"- ... {len(task_paths) - 40} older task files omitted")
+
+print("")
+print("Recent agent-run artifacts:")
+agent_run_paths = sorted(
+    Path("agent_runs").glob("AGENT-RUN-*/agent_run.yaml"),
+    key=lambda path: path.parent.name,
+    reverse=True,
+)
+for path in agent_run_paths[:20]:
+    print(f"- {path.as_posix()}")
+if len(agent_run_paths) > 20:
+    print(f"- ... {len(agent_run_paths) - 20} older agent runs omitted")
+PY
   echo '```'
 
   section "Top-Level Project Files"
@@ -194,6 +253,16 @@ PY
 
   for f in \
     docs/architecture.md \
+    docs/agent-operating-model.md \
+    docs/agent-task-protocol.md \
+    docs/maintainer-review-agent.md \
+    docs/review-checklists/task-closeout-checklist.md \
+    docs/result-promotion-protocol.md \
+    docs/scientific-memory-review-tiers.md \
+    docs/result-artifacts-index.md \
+    docs/negative-results-registry.md \
+    docs/fresh-data-readiness-matrix.md \
+    docs/fresh-data-intake-protocol.md \
     docs/implementation-plan.md \
     docs/roadmap.md \
     docs/backlog.md \
@@ -245,13 +314,98 @@ if not found_proposals:
 PY
   echo '```'
 
+  section "Task Registry Snapshot"
+
+  echo '```text'
+  "$PYTHON_BIN" - <<'PY'
+from collections import Counter
+from pathlib import Path
+
+import yaml
+
+task_rows = []
+for path in sorted(Path("tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    task_id = str(payload.get("id", path.stem))
+    try:
+        task_number = int(task_id.removeprefix("TASK-"))
+    except ValueError:
+        task_number = -1
+    task_rows.append(
+        {
+            "id": task_id,
+            "number": task_number,
+            "title": str(payload.get("title", "")),
+            "status": str(payload.get("status", "unknown")),
+            "type": str(payload.get("type", "")),
+            "priority": str(payload.get("priority", "")),
+            "difficulty": str(payload.get("difficulty", "")),
+            "path": path.as_posix(),
+        }
+    )
+
+counts = Counter(row["status"] for row in task_rows)
+print("Task status counts:")
+for status, count in sorted(counts.items()):
+    print(f"- {status}: {count}")
+
+print("")
+print("Task contracts included below in full:")
+for status in ("READY", "REVIEW_READY", "BLOCKED"):
+    rows = [row for row in task_rows if row["status"] == status]
+    print(f"- {status}: {len(rows)}")
+
+print("")
+print("Recent DONE history (short list only):")
+done_rows = sorted(
+    [row for row in task_rows if row["status"] == "DONE"],
+    key=lambda row: row["number"],
+    reverse=True,
+)
+for row in done_rows[:40]:
+    print(f"- {row['id']} — {row['title']} [{row['path']}]")
+if len(done_rows) > 40:
+    print(f"- ... {len(done_rows) - 40} older DONE tasks omitted from full snapshot context")
+PY
+  echo '```'
+
+  section "Current Task Contracts"
+
+  echo ""
+  echo "Only READY, REVIEW_READY, and BLOCKED task contracts are included in full."
+  echo "Historical DONE and older PROPOSED task files are summarized above to keep"
+  echo "strategy snapshots focused and token-efficient."
+  echo ""
+
+  live_task_contract_paths="$("$PYTHON_BIN" - <<'PY'
+from pathlib import Path
+
+import yaml
+
+live_statuses = {"READY", "REVIEW_READY", "BLOCKED"}
+rows = []
+for path in sorted(Path("tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    if str(payload.get("status", "")) in live_statuses:
+        task_id = str(payload.get("id", path.stem))
+        try:
+            number = int(task_id.removeprefix("TASK-"))
+        except ValueError:
+            number = -1
+        rows.append((number, path.as_posix()))
+for _number, path in sorted(rows):
+    print(path)
+PY
+  )"
+  while IFS= read -r f; do
+    file_block "$f" 220
+  done <<< "$live_task_contract_paths"
+
   section "Registry Objects"
 
   for f in \
     hypotheses/*.yaml \
     experiments/*.yaml \
-    tasks/*.yaml \
-    tasks/proposals/*.yaml \
     agents/*.yaml \
     claims/*.md
   do
@@ -279,27 +433,11 @@ PY
     file_block "$f" 220
   done
 
-  section "Validation Commands"
+  section "Snapshot Scope"
 
-  cmd_block "ruff" "$PYTHON_BIN" -m ruff check .
-  cmd_block "pytest" "$PYTHON_BIN" -m pytest
-  cmd_block "validate repo" "$PYTHON_BIN" -m physics_lab.cli validate-repo .
-
-  if [ "${RUN_EXPERIMENT:-0}" = "1" ]; then
-    cmd_block "run pendulum example" "$PYTHON_BIN" -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
-    cmd_block "run damped oscillator example" "$PYTHON_BIN" -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
-    cmd_block "git dirty check after examples" git diff --exit-code
-  else
-    echo ""
-    echo "### run examples"
-    echo ""
-    echo "Skipped. To include it, run:"
-    echo ""
-    echo '```bash'
-    echo "RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh"
-    echo "PYTHON_BIN=python3.11 RUN_EXPERIMENT=1 ./scripts/apl_snapshot.sh"
-    echo '```'
-  fi
+  echo "This snapshot is an inventory artifact. It records repository state,"
+  echo "task state, docs context, result artifacts, and open PRs without running"
+  echo "validation or experiment commands."
 
   section "Recommended Human Summary"
 

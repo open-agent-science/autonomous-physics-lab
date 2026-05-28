@@ -1,0 +1,50 @@
+id: TASK-0355
+title: "Review atomic-clock direct ratio source artifact"
+type: scientific_dataset
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Atomic Clock Residuals from source-class readiness into one concrete source-specific review."
+  - "Prepare high-precision fresh-data rows without copying numerical values prematurely."
+  - "Keep direct frequency-ratio evidence separated from derived drift constraints."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/reviews/atomic-clock-primary-frequency-ratio-source-review.md"
+    - "docs/reviews/atomic-clock-real-row-readiness-gate.md"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+    - "data/atomic_clocks/schema.md"
+  planning_context: >
+    TASK-0330 and TASK-0332 say the campaign is ready for source-specific
+    review, but not yet ready for real rows. This task selects one concrete
+    primary source artifact for direct optical-clock frequency ratios and
+    determines whether it can safely seed real rows in a later PR.
+
+requirements:
+  - "Select exactly one concrete primary source artifact or official release candidate for direct frequency-ratio rows."
+  - "Record source locator, publication or release date, access path, checksum or archive plan, license/citation notes, and retrieval date if accessed."
+  - "Review whether transition labels, ratio partner, campaign epoch, units, total/statistical/systematic uncertainty, covariance/shared-systematic notes, and direct-vs-derived status are recoverable."
+  - "Return a verdict of ADMISSIBLE_FOR_ROW_CURATION, ADMISSIBLE_WITH_BLOCKERS, or NOT_ADMISSIBLE, with blockers explicit."
+  - "If admissible, define the next row-curation task shape without copying real frequency values in this task."
+  - "Do not ingest real values, fit drift, combine constraints, create prediction entries, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-clock-direct-ratio-source-artifact-review.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

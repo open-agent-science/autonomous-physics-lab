@@ -73,6 +73,55 @@
     "body": {
       "type": "string",
       "minLength": 1
+    },
+    "review_tier": {
+      "type": "string",
+      "enum": [
+        "AGENT_PUBLISHED",
+        "AGENT_VALIDATED",
+        "MAINTAINER_REVIEWED",
+        "EXTERNAL_REPLICATED"
+      ],
+      "description": "Multi-tier review level introduced by docs/result-promotion-protocol.md. Optional for backward compatibility. Files without this field are treated as LEGACY_UNTIERED for validation only. In Phase 1, agent-authored claims must keep status: DRAFT regardless of tier."
+    },
+    "agent_proposal_evaluation": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Required when review_tier is AGENT_PUBLISHED. Records which agent-promotion gates were checked. See docs/result-promotion-protocol.md for the required gate list.",
+      "properties": {
+        "review_tier_proposed": {
+          "type": "string",
+          "enum": [
+            "AGENT_PUBLISHED",
+            "AGENT_VALIDATED"
+          ]
+        },
+        "promotion_target_status": {
+          "type": "string",
+          "enum": [
+            "DRAFT"
+          ],
+          "description": "Phase 1: agent-authored claims must keep status DRAFT. Maintainer-only DRAFT -> PARTIALLY_SUPPORTED transition."
+        },
+        "gates_checked": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        },
+        "evidence_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "followup_for_maintainer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "review_tier_proposed",
+        "gates_checked",
+        "evidence_summary"
+      ]
     }
   }
 }

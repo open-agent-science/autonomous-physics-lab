@@ -1,0 +1,99 @@
+map_id: PSCOMPPARS-MASS-PROVENANCE-MAP-0001
+schema_version: 0.1.0
+task_id: TASK-0345
+status: contract
+source_family_id: EXO-SRC-CLASS-001
+plan_reference: docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md
+
+# Mapping from NASA Exoplanet Archive `pl_bmassprov` values to the
+# schema's `mass.mass_class` and the loader's per-row default
+# `inclusion_status`. This map is the single source of truth for
+# whether a row contributes to the true-mass residual axis.
+#
+# An unknown `pl_bmassprov` value must trigger a stop condition; it is
+# never silently treated as `true_mass`.
+
+mapping:
+  "Mass":
+    mass_class: true_mass
+    row_class_when_radius_present: direct_mass_radius_measurement
+    row_class_when_radius_absent: rv_minimum_mass_only
+    default_inclusion_status: included
+    inclusion_axis: true_mass_versus_radius
+    notes: >
+      True mass from a fit that resolved the inclination (transit + RV,
+      transit-timing dynamics, or directly imaged with known orbit).
+      Subject to quality filters.
+
+  "Msini":
+    mass_class: minimum_mass_msini
+    row_class_when_radius_present: transit_radius_with_rv_minimum_mass
+    row_class_when_radius_absent: rv_minimum_mass_only
+    default_inclusion_status: included
+    inclusion_axis: minimum_mass_versus_radius
+    notes: >
+      M sin i minimum mass from RV only. Must be excluded from the
+      true-mass residual axis. The minimum-mass axis interpretation
+      must include the inclination-bias note in the review.
+
+  "Msin(i)/sin(i)":
+    mass_class: minimum_mass_msini
+    row_class_when_radius_present: transit_radius_with_rv_minimum_mass
+    row_class_when_radius_absent: rv_minimum_mass_only
+    default_inclusion_status: excluded
+    inclusion_axis: source_specific_review_required
+    notes: >
+      PSCompPars contains a small number of rows labeled `Msin(i)/sin(i)`.
+      The TASK-0345 plan mentions this class but did not freeze a row-level
+      inclusion rule. TASK-0353 therefore preserves these rows as
+      minimum-mass-like provenance and excludes them from benchmark axes until
+      a source-specific review verifies whether inclination information is
+      measurement-grade for each row.
+
+  "M-R relationship":
+    mass_class: model_inferred
+    row_class_when_radius_present: model_inferred
+    row_class_when_radius_absent: model_inferred
+    default_inclusion_status: excluded
+    inclusion_axis: comparison_surface_only
+    notes: >
+      Mass imputed from a published mass-radius relation (commonly
+      Chen-Kipping or Forecaster). Never admissible as benchmark
+      evidence; excluded with reason
+      `mass_inferred_from_mass_radius_relationship`.
+
+  "Mass Function":
+    mass_class: astrometric_mass
+    row_class_when_radius_present: microlensing_or_astrometry_mass
+    row_class_when_radius_absent: microlensing_or_astrometry_mass
+    default_inclusion_status: included
+    inclusion_axis: alternate_method
+    notes: >
+      Astrometric or pulsar-timing mass-function determination.
+      Lives on the alternate-method axis; never silently averaged
+      with transit-plus-RV true masses.
+
+  "":
+    mass_class: not_measured
+    row_class_when_radius_present: transit_radius_only
+    row_class_when_radius_absent: model_inferred
+    default_inclusion_status: included
+    inclusion_axis: radius_only_when_radius_present
+    notes: >
+      Empty / null provenance means mass was not measured. Treat the
+      row as radius-only when a transit radius is present; otherwise
+      excluded.
+
+stop_conditions:
+  - unknown_mass_provenance_string_not_in_mapping
+  - row_with_true_mass_provenance_but_inconsistent_mass_class_set_by_loader
+  - mapping_silently_relabels_msini_rows_as_true_mass
+
+amendment_policy:
+  description: >
+    Changes to this map require an amendment PR to the source plan
+    document `docs/reviews/exoplanet-pscomppars-snapshot-ingestion-plan.md`
+    before they are committed here. The loader must refuse to run if
+    its in-memory map diverges from this file.
+  enforcement:
+    loader_must_assert_byte_equality_with_committed_file: true

@@ -1,0 +1,51 @@
+id: TASK-0399
+title: "Triage post-2015 quantum-dot machine-readable supplements"
+type: scientific_dataset
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Find a faster Quantum path to clean direct rows by looking for machine-readable supplements."
+  - "Avoid repeating the same blocked PMC/arXiv source search."
+  - "Keep Quantum moving while preserving strict provenance rules."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md"
+    - "docs/reviews/quantum-open-direct-table-source-triage.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+  planning_context: >
+    The current Quantum blocker is not model design; it is source quality. A
+    post-2015 supplement search may find CSV, XLS, or machine-readable
+    supporting information with direct size/energy rows that can satisfy the
+    campaign's row-quality gate without figure digitization.
+
+requirements:
+  - "Triage post-2015 quantum-dot papers for machine-readable supplementary tables containing direct size and optical-energy measurements."
+  - "Prefer sources with explicit TEM/XRD size measurement, spectroscopy measurement, uncertainty notes, and redistributable artifact metadata."
+  - "Record candidate ranking and rejection reasons in the source manifest or review artifact."
+  - "Do not add measurement rows unless the source artifact is committed or otherwise deterministically referenced with checksum and allowed redistribution."
+  - "Do not use sizing-polynomial, calibration-curve, or LLM-reconstructed values."
+  - "Do not use lab synthesis recipes, toxic-material handling guidance, or biomedical/device claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-post-2015-machine-readable-supplement-triage.md"
+  - "data/quantum_dots/source_manifest.yaml"
+  - "optional source artifact package under data/quantum_dots/source_artifacts/"
+  - "optional qd-*.yaml rows only if direct-row provenance passes the gate"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_source_manifest_minimum_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

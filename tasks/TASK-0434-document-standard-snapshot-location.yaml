@@ -1,0 +1,46 @@
+id: TASK-0434
+title: "Document standard repository snapshot handoff location"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep maintainer handoff artifacts discoverable in the shared repository checkout."
+  - "Prevent agents from leaving final snapshots in disposable temp directories."
+  - "Preserve /tmp snapshot runs only as smoke tests, not handoff outputs."
+
+input:
+  mode: workflow
+  related_domain: maintainer_snapshot
+  related_objects:
+    - "AGENTS.md"
+    - "docs/maintainer-review-agent.md"
+    - "scripts/apl_snapshot.sh"
+  planning_context: >
+    The snapshot script already defaults to `_snapshots/`, but agents can
+    override `APL_SNAPSHOT_DIR` during tests. The maintainer-facing instruction
+    should explicitly require final handoff snapshots to be generated in the
+    project-local `_snapshots/` directory.
+
+requirements:
+  - "Document that final maintainer snapshots should be generated with `./scripts/apl_snapshot.sh` and no output-directory override."
+  - "Clarify that `APL_SNAPSHOT_DIR=/tmp/...` is only for disposable smoke tests."
+  - "Do not change snapshot content or validation behavior."
+
+accepted_outputs:
+  - "AGENTS.md snapshot-location instruction"
+  - "maintainer review docs snapshot-location instruction"
+  - "test coverage that protects the instruction"
+
+validation:
+  commands:
+    - "python3 -m ruff check tests/test_snapshot.py"
+    - "python3 -m pytest tests/test_snapshot.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

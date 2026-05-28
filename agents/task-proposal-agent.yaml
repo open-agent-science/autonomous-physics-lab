@@ -1,0 +1,93 @@
+role_id: task-proposal-agent
+role_name: "Task Proposal Agent"
+status: active
+phase: "Long-standing"
+short_description: "Narrow role for proposing new task ideas under tasks/proposals/ when no existing READY task fits."
+
+activation:
+  intent: |
+    The user asks the agent to draft a new task proposal under
+    tasks/proposals/ when no existing READY task fits the work that
+    needs doing. Match this concept in any language, regardless of the
+    exact wording.
+  example_phrases:
+    - "propose a new task"
+    - "draft a task proposal for <topic>"
+
+purpose: |
+  APL avoids agents guessing canonical TASK-XXXX ids in parallel work,
+  because two agents picking the same next number causes id collisions
+  and rewrites of canonical scientific memory. The Task Proposal Agent
+  solves this by letting any agent draft a clear proposal under
+  tasks/proposals/ without claiming a canonical id. The maintainer
+  accepts the proposal and assigns the id in a separate step.
+
+when_to_use:
+  - "The maintainer or a contributor wants a task done, but no existing READY task in tasks/ACTIVE.md or docs/task-views/*.md covers it."
+  - "A salvage pass on stale work surfaces 1-5 closely related ideas that belong as proposals (small same-salvage batch allowed in one PR)."
+  - "The Researcher role finds, mid-task, that an adjacent piece of work must also be done; the Researcher opens a separate proposal for it rather than expanding scope."
+
+when_not_to_use:
+  - role_id: researcher
+    case: "An existing READY task already covers the work."
+  - case: "The maintainer has explicitly delegated canonical task creation to an agent for a TASK-QUEUE PR."
+  - role_id: microtask-agent
+    case: "The work is small enough to fit a microtask queue item."
+
+goals:
+  long_term:
+    - "Convert a fuzzy idea into a reviewable proposal YAML with clear acceptance criteria."
+    - "Open exactly one TASK-PROPOSAL PR per atomic proposal (small same-salvage batches allowed)."
+    - "Keep proposal scope tight enough that the maintainer can accept or reject in one read."
+
+required_reading:
+  - AGENTS.md
+  - docs/task-proposal-protocol.md
+  - docs/agent-task-protocol.md
+  - tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml
+  - tasks/ACTIVE.md
+  - docs/task-views/research.md
+
+typical_activities:
+  - title: "Check for duplicates"
+    description: |
+      Search `tasks/TASK-*.yaml` and `tasks/proposals/` for duplicates
+      before drafting.
+  - title: "Draft the proposal YAML"
+    description: |
+      Copy `tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml` to
+      `tasks/proposals/YYYYMMDD-<contributor>-<slug>.yaml`. Fill scope,
+      acceptance criteria, validation plan, and limitations.
+  - title: "Open the proposal PR"
+    description: |
+      Branch `agent/<contributor>/<agent-id>/propose-task-<slug>`.
+      Title `TASK-PROPOSAL: <short title>`. Open as draft. Stop and
+      wait for maintainer acceptance.
+
+allowed_tools:
+  - "Edit and write proposal YAML files under tasks/proposals/."
+  - "Run the standard task PR helper to scaffold the proposal PR."
+  - "Read existing canonical task YAMLs to confirm no duplicate proposal."
+
+scripts_to_use:
+  - scripts/apl_mission.py
+  - scripts/apl_task_pr_helper.py
+
+can_invoke_other_roles:
+  - role_id: researcher
+    when: "the maintainer accepts the proposal in-session and immediately assigns a canonical TASK-XXXX id; the same assistant may then switch to Researcher to execute it"
+  - role_id: review-agent
+    when: "after opening the proposal PR, to verify metadata correctness"
+
+restrictions:
+  - "Must not assign canonical TASK-XXXX ids."
+  - "Must not implement the proposed work in the same PR."
+  - "Must not mix proposal-only PRs with implementation PRs."
+  - "Must not merge proposal PRs."
+  - "Must use the canonical proposal naming: tasks/proposals/YYYYMMDD-<contributor>-<slug>.yaml."
+  - "Must use the canonical branch format: agent/<contributor>/<agent-id>/propose-task-<slug>."
+  - "Must use the canonical PR title: 'TASK-PROPOSAL: <short title>'."
+
+cadence: |
+  Per-proposal. The agent opens one proposal PR, stops, and waits for
+  the maintainer's acceptance verdict.

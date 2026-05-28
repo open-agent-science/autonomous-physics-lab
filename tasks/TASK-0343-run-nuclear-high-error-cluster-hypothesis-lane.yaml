@@ -1,0 +1,55 @@
+id: TASK-0343
+title: "Run nuclear high-error cluster hypothesis lane"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Explore where the nuclear baseline fails most without assuming the failure is neutron-rich or shell-axis specific."
+  - "Turn high-error residual clusters into bounded hypotheses with matched negative controls."
+  - "Preserve useful null results and avoid post-hoc cluster storytelling."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  planning_context: >
+    TASK-0324 showed that the neutron-rich high-error tail is better read as
+    an outlier diagnostic than a neutron-rich-specific support claim. This
+    lane generalizes that lesson: map baseline high-error clusters, test
+    bounded explanations, and compare against matched high-error controls.
+
+requirements:
+  - "Identify high-error clusters from repository-pinned baseline residuals using deterministic thresholds selected before candidate fitting."
+  - "Generate 4-8 bounded candidate explanations based on N/Z/A, magic proximity, local density, or source-status proxies."
+  - "Run 1-3 candidates through a deterministic sandbox with matched random high-error, smooth-A, and cluster-label-shuffle controls."
+  - "Report primary error deltas plus high-error, non-high-error, neutron-rich, magic-region, light-A, and chain-transfer diagnostics."
+  - "Reject candidates that only improve high-error rows while materially regressing the rest of the surface."
+  - "Preserve negative and overfit outcomes."
+  - "Do not add registry entries, fetch live data, run reveal scoring, or promote claims."
+
+accepted_outputs:
+  - "scripts/run_nuclear_high_error_cluster_lane.py or an equivalent deterministic runner"
+  - "agent_runs/AGENT-RUN-0030/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0030/metrics.json"
+  - "agent_runs/AGENT-RUN-0030/report.md"
+  - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+  - "tests/test_nuclear_high_error_cluster_lane.py if a runner is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

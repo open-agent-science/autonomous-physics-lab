@@ -1,0 +1,1769 @@
+{
+  "schema_version": "1",
+  "experiment_id": "EXP-0001",
+  "run_id": "RUN-0006",
+  "result_id": "RESULT-0017",
+  "total_candidates": 101,
+  "train_range": [
+    0.01,
+    2.0984924623115577
+  ],
+  "test_range": [
+    2.1135175879396986,
+    3.0
+  ],
+  "entries": [
+    {
+      "rank": 1,
+      "model_id": "model_t2_x4_l2",
+      "formula": "1 + a*theta^2 + b*x^4 + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "x4",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.004347340698530669,
+      "test_max_relative_error": 0.021261064822953455,
+      "train_mean_relative_error": 6.83293792114666e-05,
+      "composite_score": 0.012662606904269031,
+      "verdict": "OVERFITTED",
+      "failure_mode": "none"
+    },
+    {
+      "rank": 2,
+      "model_id": "model_phys_constrained_l1",
+      "formula": "1 + a*theta^2 + b*x^4 + (1/pi)*x*log(1/(1-x)) [c=0.318310 fixed]",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.013608337603842764,
+      "test_max_relative_error": 0.02077920416950588,
+      "train_mean_relative_error": 0.003287552547414585,
+      "composite_score": 0.020803138646219237,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 3,
+      "model_id": "model_t2_t8_x2",
+      "formula": "1 + a*theta^2 + b*theta^8 + c*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t8",
+        "x2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.013831067197698442,
+      "test_max_relative_error": 0.02717002516799659,
+      "train_mean_relative_error": 0.00021713713923476681,
+      "composite_score": 0.023623573489697586,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 4,
+      "model_id": "model_t2_t8_l1",
+      "formula": "1 + a*theta^2 + b*theta^8 + c*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "t8",
+        "l1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.008077810216203758,
+      "test_max_relative_error": 0.0637701038490332,
+      "train_mean_relative_error": 6.45059152628012e-05,
+      "composite_score": 0.027020336178462057,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 5,
+      "model_id": "model_x1_l2",
+      "formula": "1 + a*x + b*x^2*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "x1",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.01534836213875595,
+      "test_max_relative_error": 0.07710401029342809,
+      "train_mean_relative_error": 0.0012148786908818406,
+      "composite_score": 0.03662436471211297,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 6,
+      "model_id": "model_t2_t8_x1",
+      "formula": "1 + a*theta^2 + b*theta^8 + c*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t8",
+        "x1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.014010327883261986,
+      "test_max_relative_error": 0.09779667580917956,
+      "train_mean_relative_error": 5.170397381341378e-05,
+      "composite_score": 0.04145949683555688,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 7,
+      "model_id": "model_t2_t6",
+      "formula": "1 + a*theta^2 + b*theta^6",
+      "family": "theta_poly",
+      "atoms": [
+        "t2",
+        "t6"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.015321719912366734,
+      "test_max_relative_error": 0.10091700193356436,
+      "train_mean_relative_error": 0.0007576059936958579,
+      "composite_score": 0.04255097039575782,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 8,
+      "model_id": "model_t2_t4_t8",
+      "formula": "1 + a*theta^2 + b*theta^4 + c*theta^8",
+      "family": "theta_poly",
+      "atoms": [
+        "t2",
+        "t4",
+        "t8"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.018572680207706013,
+      "test_max_relative_error": 0.11254495573208062,
+      "train_mean_relative_error": 2.341877247614786e-05,
+      "composite_score": 0.04970891914072617,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 9,
+      "model_id": "model_t4_t8_x1",
+      "formula": "1 + a*theta^4 + b*theta^8 + c*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "t8",
+        "x1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.024290872042046698,
+      "test_max_relative_error": 0.12991015800196945,
+      "train_mean_relative_error": 1.2977338609197108e-05,
+      "composite_score": 0.05976841154253906,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 10,
+      "model_id": "model_t2_x2_l1",
+      "formula": "1 + a*theta^2 + b*x^2 + c*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "x2",
+        "l1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.029290424193385272,
+      "test_max_relative_error": 0.11530692454115905,
+      "train_mean_relative_error": 0.0001129524316921363,
+      "composite_score": 0.06111715532867504,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 11,
+      "model_id": "model_t2_t4_x3",
+      "formula": "1 + a*theta^2 + b*theta^4 + c*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t4",
+        "x3"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.0250889514304519,
+      "test_max_relative_error": 0.13747395079002736,
+      "train_mean_relative_error": 0.0005573403971173861,
+      "composite_score": 0.062457439127958744,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 12,
+      "model_id": "model_t2_t8_x3",
+      "formula": "1 + a*theta^2 + b*theta^8 + c*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t8",
+        "x3"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.027837213365268933,
+      "test_max_relative_error": 0.13146547055409022,
+      "train_mean_relative_error": 0.0001908370516628691,
+      "composite_score": 0.06370358100379149,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 13,
+      "model_id": "model_t2_t6_l1",
+      "formula": "1 + a*theta^2 + b*theta^6 + c*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "t6",
+        "l1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.029300326605990377,
+      "test_max_relative_error": 0.1365009459166605,
+      "train_mean_relative_error": 5.557562523817802e-05,
+      "composite_score": 0.06642556308515551,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 14,
+      "model_id": "model_t2_t6_x2",
+      "formula": "1 + a*theta^2 + b*theta^6 + c*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t6",
+        "x2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.029442273627178536,
+      "test_max_relative_error": 0.14640643783504947,
+      "train_mean_relative_error": 2.874895424393788e-05,
+      "composite_score": 0.06904388308594091,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 15,
+      "model_id": "model_t6_x1",
+      "formula": "1 + a*theta^6 + b*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t6",
+        "x1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.048888582940979454,
+      "test_max_relative_error": 0.08177205410309138,
+      "train_mean_relative_error": 0.002336318400474061,
+      "composite_score": 0.0713315964667523,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 16,
+      "model_id": "model_t2_t6_x1",
+      "formula": "1 + a*theta^2 + b*theta^6 + c*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t6",
+        "x1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.034898269236738735,
+      "test_max_relative_error": 0.16192103900034696,
+      "train_mean_relative_error": 6.890693497797523e-05,
+      "composite_score": 0.07837852898682549,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 17,
+      "model_id": "model_t2_t4_t6",
+      "formula": "1 + a*theta^2 + b*theta^4 + c*theta^6",
+      "family": "theta_poly",
+      "atoms": [
+        "t2",
+        "t4",
+        "t6"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.03529691887998463,
+      "test_max_relative_error": 0.16311297904463887,
+      "train_mean_relative_error": 7.137130587936711e-05,
+      "composite_score": 0.07907516364114435,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 18,
+      "model_id": "model_t2_x3_l1",
+      "formula": "1 + a*theta^2 + b*x^3 + c*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "x3",
+        "l1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.04217052661158933,
+      "test_max_relative_error": 0.13868568347019875,
+      "train_mean_relative_error": 0.0008978305670109339,
+      "composite_score": 0.07984194747913902,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 19,
+      "model_id": "model_t4_t6_x1",
+      "formula": "1 + a*theta^4 + b*theta^6 + c*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "t6",
+        "x1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.036033257951795475,
+      "test_max_relative_error": 0.16530364404759332,
+      "train_mean_relative_error": 7.568312846687262e-05,
+      "composite_score": 0.0803591689636938,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 20,
+      "model_id": "model_t2_l2",
+      "formula": "1 + a*theta^2 + b*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.040188961633897805,
+      "test_max_relative_error": 0.15631406765009212,
+      "train_mean_relative_error": 0.00027352891089976527,
+      "composite_score": 0.08126747854642083,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 21,
+      "model_id": "model_x1_l1",
+      "formula": "1 + a*x + b*x*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "x1",
+        "l1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.046206719945144074,
+      "test_max_relative_error": 0.1394432603531123,
+      "train_mean_relative_error": 0.000819059048751195,
+      "composite_score": 0.08306753503342215,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 22,
+      "model_id": "model_t2_t4_x1",
+      "formula": "1 + a*theta^2 + b*theta^4 + c*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t4",
+        "x1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.03769608860534138,
+      "test_max_relative_error": 0.17020642897251118,
+      "train_mean_relative_error": 8.455209001893602e-05,
+      "composite_score": 0.08324769584846917,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 23,
+      "model_id": "model_t2_l1_l2",
+      "formula": "1 + a*theta^2 + b*x*log(1/(1-x)) + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "l1",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.042716835197131535,
+      "test_max_relative_error": 0.16049938818540524,
+      "train_mean_relative_error": 0.00018941040768492425,
+      "composite_score": 0.08584168224348285,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 24,
+      "model_id": "model_t2_t6_l2",
+      "formula": "1 + a*theta^2 + b*theta^6 + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "t6",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.043863434404482954,
+      "test_max_relative_error": 0.16276059939727677,
+      "train_mean_relative_error": 0.0002604056871653972,
+      "composite_score": 0.08755358425380215,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 25,
+      "model_id": "model_t2_x2_l2",
+      "formula": "1 + a*theta^2 + b*x^2 + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "x2",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.04402577763195571,
+      "test_max_relative_error": 0.16526945975623683,
+      "train_mean_relative_error": 0.00020267075836111645,
+      "composite_score": 0.08834314257101492,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 26,
+      "model_id": "model_t2_x3_l2",
+      "formula": "1 + a*theta^2 + b*x^3 + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "x3",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.04460180450240341,
+      "test_max_relative_error": 0.16803768757901447,
+      "train_mean_relative_error": 0.0002535741754073775,
+      "composite_score": 0.08961122639715703,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 27,
+      "model_id": "model_t2_t8_l2",
+      "formula": "1 + a*theta^2 + b*theta^8 + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "t8",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.04478594151182768,
+      "test_max_relative_error": 0.16776770173464153,
+      "train_mean_relative_error": 0.0002641739445102182,
+      "composite_score": 0.08972786694548807,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 28,
+      "model_id": "model_t2_x1_l2",
+      "formula": "1 + a*theta^2 + b*x + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "x1",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.04463371903802557,
+      "test_max_relative_error": 0.16902439133596744,
+      "train_mean_relative_error": 0.0001976503394565912,
+      "composite_score": 0.08988981687201744,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 29,
+      "model_id": "model_t2_t4_l2",
+      "formula": "1 + a*theta^2 + b*theta^4 + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "t4",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.044478310904619185,
+      "test_max_relative_error": 0.16978661496939015,
+      "train_mean_relative_error": 0.00018858109880203348,
+      "composite_score": 0.08992496464696673,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 30,
+      "model_id": "model_t2_t6_x3",
+      "formula": "1 + a*theta^2 + b*theta^6 + c*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t6",
+        "x3"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.04392220727547055,
+      "test_max_relative_error": 0.18368416166311086,
+      "train_mean_relative_error": 0.00023094192603539845,
+      "composite_score": 0.09284324769124827,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 31,
+      "model_id": "model_t2_t4_x2",
+      "formula": "1 + a*theta^2 + b*theta^4 + c*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t4",
+        "x2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.04486268489423231,
+      "test_max_relative_error": 0.19007210468189661,
+      "train_mean_relative_error": 0.00013326442632843083,
+      "composite_score": 0.09538071106470647,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 32,
+      "model_id": "model_t2_x1_x2",
+      "formula": "1 + a*theta^2 + b*x + c*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x1",
+        "x2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.04919374965392511,
+      "test_max_relative_error": 0.20211281314883622,
+      "train_mean_relative_error": 0.00016385474302530308,
+      "composite_score": 0.10272195294113418,
+      "verdict": "OVERFITTED",
+      "failure_mode": "moderate_error"
+    },
+    {
+      "rank": 33,
+      "model_id": "model_t2_l1",
+      "formula": "1 + a*theta^2 + b*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "l1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.05744357187162749,
+      "test_max_relative_error": 0.18529421211041153,
+      "train_mean_relative_error": 0.0008703735983788852,
+      "composite_score": 0.10576712489923037,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 34,
+      "model_id": "model_t4_x1",
+      "formula": "1 + a*theta^4 + b*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "x1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.05510683417829678,
+      "test_max_relative_error": 0.20898614582483355,
+      "train_mean_relative_error": 0.00045934527625808536,
+      "composite_score": 0.10935337063450518,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 35,
+      "model_id": "model_t2_t4",
+      "formula": "1 + a*theta^2 + b*theta^4",
+      "family": "theta_poly",
+      "atoms": [
+        "t2",
+        "t4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.06265445391566841,
+      "test_max_relative_error": 0.22582540258663292,
+      "train_mean_relative_error": 0.0006688596973250577,
+      "composite_score": 0.12111080456232665,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 36,
+      "model_id": "model_t2_t8",
+      "formula": "1 + a*theta^2 + b*theta^8",
+      "family": "theta_poly",
+      "atoms": [
+        "t2",
+        "t8"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.07949883315199818,
+      "test_max_relative_error": 0.15888509569289533,
+      "train_mean_relative_error": 0.001745373306500573,
+      "composite_score": 0.12122010707522202,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 37,
+      "model_id": "model_x3",
+      "formula": "1 + a*x^3",
+      "family": "x_poly",
+      "atoms": [
+        "x3"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.06972047162240883,
+      "test_max_relative_error": 0.2132216180444207,
+      "train_mean_relative_error": 0.030083800607933572,
+      "composite_score": 0.124025876133514,
+      "verdict": "INVALID",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 38,
+      "model_id": "model_t2_x1",
+      "formula": "1 + a*theta^2 + b*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.07308878019384056,
+      "test_max_relative_error": 0.2488654957579693,
+      "train_mean_relative_error": 0.0009377508126610227,
+      "composite_score": 0.13730515413333289,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 39,
+      "model_id": "model_t2_x4_l1",
+      "formula": "1 + a*theta^2 + b*x^4 + c*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "x4",
+        "l1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.07216643694889578,
+      "test_max_relative_error": 0.25276750014207544,
+      "train_mean_relative_error": 0.00028346229546278526,
+      "composite_score": 0.13835831198441464,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 40,
+      "model_id": "model_t2_t6_t8",
+      "formula": "1 + a*theta^2 + b*theta^6 + c*theta^8",
+      "family": "theta_poly",
+      "atoms": [
+        "t2",
+        "t6",
+        "t8"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.06897363927855286,
+      "test_max_relative_error": 0.2670698510251309,
+      "train_mean_relative_error": 0.00030738366097810417,
+      "composite_score": 0.13874110203483558,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 41,
+      "model_id": "model_t2_t6_x4",
+      "formula": "1 + a*theta^2 + b*theta^6 + c*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t6",
+        "x4"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.07113937592107726,
+      "test_max_relative_error": 0.26210027103657857,
+      "train_mean_relative_error": 0.0005061305874283037,
+      "composite_score": 0.1396644436802219,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 42,
+      "model_id": "model_t2_t4_x4",
+      "formula": "1 + a*theta^2 + b*theta^4 + c*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t4",
+        "x4"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.07262722781214112,
+      "test_max_relative_error": 0.26089349572304094,
+      "train_mean_relative_error": 0.00026840837993198413,
+      "composite_score": 0.14085060174290137,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 43,
+      "model_id": "model_t2_x1_x3",
+      "formula": "1 + a*theta^2 + b*x + c*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x1",
+        "x3"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.07492821753785593,
+      "test_max_relative_error": 0.253285829143652,
+      "train_mean_relative_error": 0.0009282408477331623,
+      "composite_score": 0.14124967482376893,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 44,
+      "model_id": "model_t2_x1_x4",
+      "formula": "1 + a*theta^2 + b*x + c*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x1",
+        "x4"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.07696063603626978,
+      "test_max_relative_error": 0.2725572888512177,
+      "train_mean_relative_error": 0.00030229738577793123,
+      "composite_score": 0.1480999582490742,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 45,
+      "model_id": "model_t2_x4",
+      "formula": "1 + a*theta^2 + b*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.07878414539312303,
+      "test_max_relative_error": 0.28172664487804305,
+      "train_mean_relative_error": 0.0005096085638470679,
+      "composite_score": 0.15121580661263379,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 46,
+      "model_id": "model_t2_t8_x4",
+      "formula": "1 + a*theta^2 + b*theta^8 + c*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "t8",
+        "x4"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.08141431509960714,
+      "test_max_relative_error": 0.2887386370712584,
+      "train_mean_relative_error": 0.0005075212458336885,
+      "composite_score": 0.15659897436742176,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 47,
+      "model_id": "model_t2_x3_x4",
+      "formula": "1 + a*theta^2 + b*x^3 + c*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x3",
+        "x4"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.08229220863879207,
+      "test_max_relative_error": 0.2866567738904471,
+      "train_mean_relative_error": 0.00041915970485268344,
+      "composite_score": 0.15695640211140383,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 48,
+      "model_id": "model_t2_x2_x4",
+      "formula": "1 + a*theta^2 + b*x^2 + c*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x2",
+        "x4"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.08236642722312724,
+      "test_max_relative_error": 0.2869634459867826,
+      "train_mean_relative_error": 0.00035023848355187536,
+      "composite_score": 0.15710728871982288,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 49,
+      "model_id": "model_t4_x4",
+      "formula": "1 + a*theta^4 + b*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "x4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.09317293333372793,
+      "test_max_relative_error": 0.2592902825666106,
+      "train_mean_relative_error": 0.009364556091681603,
+      "composite_score": 0.1599955039753806,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 50,
+      "model_id": "model_x1_x4",
+      "formula": "1 + a*x + b*x^4",
+      "family": "x_poly",
+      "atoms": [
+        "x1",
+        "x4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.08477788006585413,
+      "test_max_relative_error": 0.3124316629669344,
+      "train_mean_relative_error": 0.001590434912832352,
+      "composite_score": 0.16488579580758772,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 51,
+      "model_id": "model_t2_x2_x3",
+      "formula": "1 + a*theta^2 + b*x^2 + c*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x2",
+        "x3"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.08893670750374497,
+      "test_max_relative_error": 0.29507062143660023,
+      "train_mean_relative_error": 0.0006354055612763849,
+      "composite_score": 0.16570436286289503,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 52,
+      "model_id": "model_t2_t4_l1",
+      "formula": "1 + a*theta^2 + b*theta^4 + c*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "t4",
+        "l1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.08051452782651054,
+      "test_max_relative_error": 0.36033510908386035,
+      "train_mean_relative_error": 0.0001754149702202842,
+      "composite_score": 0.17359830509747565,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 53,
+      "model_id": "model_t2_x3",
+      "formula": "1 + a*theta^2 + b*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x3"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.09774545885431725,
+      "test_max_relative_error": 0.30800715511603,
+      "train_mean_relative_error": 0.0008329577793543398,
+      "composite_score": 0.17674724763332475,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 54,
+      "model_id": "model_t4",
+      "formula": "1 + a*theta^4",
+      "family": "theta_poly",
+      "atoms": [
+        "t4"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.1419442249803594,
+      "test_max_relative_error": 0.19236477723309764,
+      "train_mean_relative_error": 0.025158677116447068,
+      "composite_score": 0.19103541928863382,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 55,
+      "model_id": "model_x2",
+      "formula": "1 + a*x^2",
+      "family": "x_poly",
+      "atoms": [
+        "x2"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.1044962990444967,
+      "test_max_relative_error": 0.346945649368946,
+      "train_mean_relative_error": 0.014005400702306577,
+      "composite_score": 0.1922327113867332,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 56,
+      "model_id": "model_x4",
+      "formula": "1 + a*x^4",
+      "family": "x_poly",
+      "atoms": [
+        "x4"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.14989594023502695,
+      "test_max_relative_error": 0.21299430230346253,
+      "train_mean_relative_error": 0.04058016291148725,
+      "composite_score": 0.20414451581089257,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 57,
+      "model_id": "model_t2_x2",
+      "formula": "1 + a*theta^2 + b*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t2",
+        "x2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.12123809164591176,
+      "test_max_relative_error": 0.34055851164263207,
+      "train_mean_relative_error": 0.0025580349524030595,
+      "composite_score": 0.20837771955656978,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 58,
+      "model_id": "model_x1_x3",
+      "formula": "1 + a*x + b*x^3",
+      "family": "x_poly",
+      "atoms": [
+        "x1",
+        "x3"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.11770338383248687,
+      "test_max_relative_error": 0.35590455619386396,
+      "train_mean_relative_error": 0.0008837816021803904,
+      "composite_score": 0.20867952288095287,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 59,
+      "model_id": "model_l1",
+      "formula": "1 + a*x*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "l1"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.14864438328358798,
+      "test_max_relative_error": 0.24411883477393612,
+      "train_mean_relative_error": 0.0233329693965728,
+      "composite_score": 0.21067409197707201,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 60,
+      "model_id": "model_t2_x1_l1",
+      "formula": "1 + a*theta^2 + b*x + c*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t2",
+        "x1",
+        "l1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.09941562281141057,
+      "test_max_relative_error": 0.45422604780632264,
+      "train_mean_relative_error": 0.00028609480798261726,
+      "composite_score": 0.21597213476299124,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 61,
+      "model_id": "model_t2",
+      "formula": "1 + a*theta^2",
+      "family": "theta_poly",
+      "atoms": [
+        "t2"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.13473083081496123,
+      "test_max_relative_error": 0.34014937170717974,
+      "train_mean_relative_error": 0.007212493921579759,
+      "composite_score": 0.22076817374175617,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 62,
+      "model_id": "model_x4_l1",
+      "formula": "1 + a*x^4 + b*x*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "x4",
+        "l1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.1167618703725254,
+      "test_max_relative_error": 0.4968867341686183,
+      "train_mean_relative_error": 0.009525363758525349,
+      "composite_score": 0.24298355391467996,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 63,
+      "model_id": "model_l1_l2",
+      "formula": "1 + a*x*log(1/(1-x)) + b*x^2*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "l1",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.15768991307969346,
+      "test_max_relative_error": 0.3415377440107183,
+      "train_mean_relative_error": 0.009829137455532183,
+      "composite_score": 0.24507434908237302,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 64,
+      "model_id": "model_x1_x2",
+      "formula": "1 + a*x + b*x^2",
+      "family": "x_poly",
+      "atoms": [
+        "x1",
+        "x2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.14688490056982387,
+      "test_max_relative_error": 0.39076309801484355,
+      "train_mean_relative_error": 0.003603856930366908,
+      "composite_score": 0.24657567507353476,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 65,
+      "model_id": "model_x2_x3",
+      "formula": "1 + a*x^2 + b*x^3",
+      "family": "x_poly",
+      "atoms": [
+        "x2",
+        "x3"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.17517493863208633,
+      "test_max_relative_error": 0.42719872566634176,
+      "train_mean_relative_error": 0.00933226414321487,
+      "composite_score": 0.2839746200486718,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 66,
+      "model_id": "model_x2_x4",
+      "formula": "1 + a*x^2 + b*x^4",
+      "family": "x_poly",
+      "atoms": [
+        "x2",
+        "x4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.1882619158966117,
+      "test_max_relative_error": 0.447089326899052,
+      "train_mean_relative_error": 0.01048333639121059,
+      "composite_score": 0.3020342476213747,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 67,
+      "model_id": "model_t4_t6_l2",
+      "formula": "1 + a*theta^4 + b*theta^6 + c*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t4",
+        "t6",
+        "l2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.21132987302584333,
+      "test_max_relative_error": 0.41185883973721577,
+      "train_mean_relative_error": 0.00588445804773468,
+      "composite_score": 0.3172945829601473,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 68,
+      "model_id": "model_x1",
+      "formula": "1 + a*x",
+      "family": "x_poly",
+      "atoms": [
+        "x1"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.2145614602446355,
+      "test_max_relative_error": 0.4563874264071087,
+      "train_mean_relative_error": 0.016097074164899788,
+      "composite_score": 0.32965831684641267,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 69,
+      "model_id": "model_t4_t6_x3",
+      "formula": "1 + a*theta^4 + b*theta^6 + c*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "t6",
+        "x3"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.2288768035630573,
+      "test_max_relative_error": 0.4726589818745476,
+      "train_mean_relative_error": 0.0053771258572813665,
+      "composite_score": 0.3500415490316942,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 70,
+      "model_id": "model_t8_x1",
+      "formula": "1 + a*theta^8 + b*x",
+      "family": "cross_domain",
+      "atoms": [
+        "t8",
+        "x1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.22664014261563756,
+      "test_max_relative_error": 0.5252834882363647,
+      "train_mean_relative_error": 0.004406682686092146,
+      "composite_score": 0.35996101467472874,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 71,
+      "model_id": "model_t4_x2",
+      "formula": "1 + a*theta^4 + b*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "x2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.2594499683900697,
+      "test_max_relative_error": 0.6334851988938373,
+      "train_mean_relative_error": 0.010841107351840679,
+      "composite_score": 0.419821268113529,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 72,
+      "model_id": "model_x3_x4",
+      "formula": "1 + a*x^3 + b*x^4",
+      "family": "x_poly",
+      "atoms": [
+        "x3",
+        "x4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.2822437527704424,
+      "test_max_relative_error": 0.579990964631575,
+      "train_mean_relative_error": 0.016975491909600005,
+      "composite_score": 0.4292414939283361,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 73,
+      "model_id": "model_x2_l2",
+      "formula": "1 + a*x^2 + b*x^2*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "x2",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.2613694764693911,
+      "test_max_relative_error": 0.680756740038439,
+      "train_mean_relative_error": 0.010618191629975805,
+      "composite_score": 0.4335586614790009,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 74,
+      "model_id": "model_t6_l1",
+      "formula": "1 + a*theta^6 + b*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t6",
+        "l1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.29935975922635394,
+      "test_max_relative_error": 0.5964656505124172,
+      "train_mean_relative_error": 0.011850346457574537,
+      "composite_score": 0.4504761718544582,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 75,
+      "model_id": "model_t4_l2",
+      "formula": "1 + a*theta^4 + b*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t4",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.2534858354875039,
+      "test_max_relative_error": 0.8520125531406854,
+      "train_mean_relative_error": 0.00970075637010783,
+      "composite_score": 0.4684889737726753,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 76,
+      "model_id": "model_t6_x2",
+      "formula": "1 + a*theta^6 + b*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t6",
+        "x2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.2880386930277033,
+      "test_max_relative_error": 0.7168304405953745,
+      "train_mean_relative_error": 0.011145593821278117,
+      "composite_score": 0.4692463031765469,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 77,
+      "model_id": "model_x2_l1",
+      "formula": "1 + a*x^2 + b*x*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "x2",
+        "l1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.28931026356161926,
+      "test_max_relative_error": 0.7773803540004263,
+      "train_mean_relative_error": 0.010878729809044446,
+      "composite_score": 0.48565535206172583,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 78,
+      "model_id": "model_l2",
+      "formula": "1 + a*x^2*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "l2"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.34438729293555453,
+      "test_max_relative_error": 0.6293181612748951,
+      "train_mean_relative_error": 0.037019715974636255,
+      "composite_score": 0.5027168332542783,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 79,
+      "model_id": "model_t8_x2",
+      "formula": "1 + a*theta^8 + b*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t8",
+        "x2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.3605372510706281,
+      "test_max_relative_error": 0.9440144460733267,
+      "train_mean_relative_error": 0.011837759650485188,
+      "composite_score": 0.5985408625889598,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 80,
+      "model_id": "model_t4_l1",
+      "formula": "1 + a*theta^4 + b*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t4",
+        "l1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.2353117021032359,
+      "test_max_relative_error": 1.5157913599365567,
+      "train_mean_relative_error": 0.01029715043353071,
+      "composite_score": 0.6162595420873751,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 81,
+      "model_id": "model_t4_t6",
+      "formula": "1 + a*theta^4 + b*theta^6",
+      "family": "theta_poly",
+      "atoms": [
+        "t4",
+        "t6"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.40527892569798474,
+      "test_max_relative_error": 1.0389661092867615,
+      "train_mean_relative_error": 0.012199999186789256,
+      "composite_score": 0.667020453019675,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 82,
+      "model_id": "model_t6",
+      "formula": "1 + a*theta^6",
+      "family": "theta_poly",
+      "atoms": [
+        "t6"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 0.5768961714639786,
+      "test_max_relative_error": 1.0566929932355142,
+      "train_mean_relative_error": 0.04187584542671611,
+      "composite_score": 0.8420694197728572,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 83,
+      "model_id": "model_t8_l1",
+      "formula": "1 + a*theta^8 + b*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t8",
+        "l1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.5770653428680339,
+      "test_max_relative_error": 1.448175578110328,
+      "train_mean_relative_error": 0.014040358203129778,
+      "composite_score": 0.9411092373956159,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 84,
+      "model_id": "model_x3_l1",
+      "formula": "1 + a*x^3 + b*x*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "x3",
+        "l1"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.5359761191986234,
+      "test_max_relative_error": 1.61358019365941,
+      "train_mean_relative_error": 0.005765880755420111,
+      "composite_score": 0.941371167613476,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 85,
+      "model_id": "model_t4_t6_x2",
+      "formula": "1 + a*theta^4 + b*theta^6 + c*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "t6",
+        "x2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.5998718932935743,
+      "test_max_relative_error": 1.6922249921675858,
+      "train_mean_relative_error": 0.006247762760034416,
+      "composite_score": 1.0259281413354706,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 86,
+      "model_id": "model_t4_x3",
+      "formula": "1 + a*theta^4 + b*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "x3"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.665857877492316,
+      "test_max_relative_error": 1.4687165776507314,
+      "train_mean_relative_error": 0.007309794678553487,
+      "composite_score": 1.035037021904999,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 87,
+      "model_id": "model_t4_t6_x4",
+      "formula": "1 + a*theta^4 + b*theta^6 + c*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "t6",
+        "x4"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.653177017446491,
+      "test_max_relative_error": 1.7199232668058253,
+      "train_mean_relative_error": 0.008028856563110295,
+      "composite_score": 1.0861578341479472,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 88,
+      "model_id": "model_t4_t8",
+      "formula": "1 + a*theta^4 + b*theta^8",
+      "family": "theta_poly",
+      "atoms": [
+        "t4",
+        "t8"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.7053388214551929,
+      "test_max_relative_error": 1.9360963850410766,
+      "train_mean_relative_error": 0.014702827456029481,
+      "composite_score": 1.191362917715462,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 89,
+      "model_id": "model_t4_t8_x2",
+      "formula": "1 + a*theta^4 + b*theta^8 + c*x^2",
+      "family": "cross_domain",
+      "atoms": [
+        "t4",
+        "t8",
+        "x2"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.7239495921332971,
+      "test_max_relative_error": 2.1412261205081142,
+      "train_mean_relative_error": 0.006456537709716337,
+      "composite_score": 1.2622561222603255,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 90,
+      "model_id": "model_t6_l2",
+      "formula": "1 + a*theta^6 + b*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t6",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.8500455488702972,
+      "test_max_relative_error": 1.6972045284954622,
+      "train_mean_relative_error": 0.021621896428774618,
+      "composite_score": 1.2763466809941628,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 91,
+      "model_id": "model_t6_x3",
+      "formula": "1 + a*theta^6 + b*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t6",
+        "x3"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.818933177235899,
+      "test_max_relative_error": 2.0444690564001577,
+      "train_mean_relative_error": 0.020557344890776954,
+      "composite_score": 1.3320504413359384,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 92,
+      "model_id": "model_x3_l2",
+      "formula": "1 + a*x^3 + b*x^2*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "x3",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 0.8108125298158666,
+      "test_max_relative_error": 2.268484747384116,
+      "train_mean_relative_error": 0.020116734654815838,
+      "composite_score": 1.3799337166618957,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 93,
+      "model_id": "model_t4_t6_t8",
+      "formula": "1 + a*theta^4 + b*theta^6 + c*theta^8",
+      "family": "theta_poly",
+      "atoms": [
+        "t4",
+        "t6",
+        "t8"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 0.8268857414384077,
+      "test_max_relative_error": 2.5102799057414766,
+      "train_mean_relative_error": 0.006626201856334863,
+      "composite_score": 1.4574557178737766,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 94,
+      "model_id": "model_t8_x3",
+      "formula": "1 + a*theta^8 + b*x^3",
+      "family": "cross_domain",
+      "atoms": [
+        "t8",
+        "x3"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 1.0439454260157024,
+      "test_max_relative_error": 2.7851007820807916,
+      "train_mean_relative_error": 0.021312514997854793,
+      "composite_score": 1.7422206215359004,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 95,
+      "model_id": "model_t8",
+      "formula": "1 + a*theta^8",
+      "family": "theta_poly",
+      "atoms": [
+        "t8"
+      ],
+      "complexity_score": 1,
+      "test_mean_relative_error": 1.3161278763972912,
+      "test_max_relative_error": 3.0410341133888754,
+      "train_mean_relative_error": 0.051985933129116715,
+      "composite_score": 2.07738640474451,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 96,
+      "model_id": "model_t8_l2",
+      "formula": "1 + a*theta^8 + b*x^2*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t8",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 1.30599850290893,
+      "test_max_relative_error": 3.3704852249445976,
+      "train_mean_relative_error": 0.02259196765268746,
+      "composite_score": 2.150619809145079,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 97,
+      "model_id": "model_t6_x4",
+      "formula": "1 + a*theta^6 + b*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t6",
+        "x4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 1.4855712257751053,
+      "test_max_relative_error": 4.190627210620096,
+      "train_mean_relative_error": 0.037441050495361616,
+      "composite_score": 2.535228028430129,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 98,
+      "model_id": "model_t6_t8",
+      "formula": "1 + a*theta^6 + b*theta^8",
+      "family": "theta_poly",
+      "atoms": [
+        "t6",
+        "t8"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 1.6580374349443614,
+      "test_max_relative_error": 4.767769233873328,
+      "train_mean_relative_error": 0.02333516019200748,
+      "composite_score": 2.8519797434126932,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 99,
+      "model_id": "model_x4_l2",
+      "formula": "1 + a*x^4 + b*x^2*log(1/(1-x))",
+      "family": "log_enhanced",
+      "atoms": [
+        "x4",
+        "l2"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 1.9310294678437914,
+      "test_max_relative_error": 6.213287087995596,
+      "train_mean_relative_error": 0.012030192414644683,
+      "composite_score": 3.48635123984269,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 100,
+      "model_id": "model_t8_x4",
+      "formula": "1 + a*theta^8 + b*x^4",
+      "family": "cross_domain",
+      "atoms": [
+        "t8",
+        "x4"
+      ],
+      "complexity_score": 2,
+      "test_mean_relative_error": 2.0919227766598674,
+      "test_max_relative_error": 5.821165477687651,
+      "train_mean_relative_error": 0.02860100235862295,
+      "composite_score": 3.5492141460817797,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    },
+    {
+      "rank": 101,
+      "model_id": "model_t4_t6_l1",
+      "formula": "1 + a*theta^4 + b*theta^6 + c*x*log(1/(1-x))",
+      "family": "mixed",
+      "atoms": [
+        "t4",
+        "t6",
+        "l1"
+      ],
+      "complexity_score": 3,
+      "test_mean_relative_error": 1.984310328844622,
+      "test_max_relative_error": 9.023797014884726,
+      "train_mean_relative_error": 0.007099609345838526,
+      "composite_score": 4.243259582565804,
+      "verdict": "OVERFITTED",
+      "failure_mode": "high_error"
+    }
+  ]
+}

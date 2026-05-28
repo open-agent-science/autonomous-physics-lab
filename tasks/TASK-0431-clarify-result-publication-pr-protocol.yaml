@@ -1,0 +1,48 @@
+id: TASK-0431
+title: "Clarify result-publication PR protocol edge cases"
+type: workflow_protocol
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce avoidable review friction for AGENT_PUBLISHED result-publication PRs."
+  - "Keep task PRs focused on canonical task YAML and protocol docs rather than generated navigation churn."
+  - "Make placeholder validation commands and board-sync expectations explicit before more result-publication work begins."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/templates/agent-published-result.md"
+    - "tasks/TASK-TEMPLATE.yaml"
+  planning_context: >
+    The first AGENT_PUBLISHED result PR exposed two small workflow ambiguities:
+    task validation commands that retain placeholders can confuse review
+    automation after concrete artifacts exist, and generated task navigation
+    expectations need to stay aligned with the post-merge board-sync action.
+
+requirements:
+  - "Clarify that placeholder validation commands in task YAML must be replaced with concrete commands before a PR is marked REVIEW_READY when the task produced concrete artifact paths."
+  - "Clarify that result-publication task contracts should declare any protected companion artifact updates, such as hypothesis evidence links, in related_objects and accepted_outputs."
+  - "Clarify that routine task PRs must not commit regenerated tasks/ACTIVE.md or docs/task-views/*.md; stale generated navigation should remain an INFO-level validation concern unless an explicit board-sync audit enables stricter enforcement."
+  - "Do not change result-promotion gates, review-tier semantics, or scientific verdict vocabulary in this task."
+
+accepted_outputs:
+  - "docs/agent-task-protocol.md"
+  - "docs/templates/agent-published-result.md"
+  - "tasks/TASK-TEMPLATE.yaml"
+  - "tasks/TASK-0432-audit-result-verdict-vocabulary.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_views.py tests/test_validate_repo_board_staleness_severity.py tests/test_task_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-22 19:10 UTC
+Generated: 2026-05-27 11:21 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -113,8 +113,11 @@ Documentation, scripts, config, and fixes all follow the same flow.
 Pushing directly to `main` violates the repository protocol.
 
 The only operations allowed directly on `main` are:
-- post-merge task closeout (`status: DONE` + `sync-active-board`)
+- post-merge task closeout (`status: DONE`)
 - `CONTEXT.md` regeneration after a batch merge
+- regeneration of `tasks/ACTIVE.md` and `docs/task-views/*.md` by the
+  `Sync Active Board` post-merge GitHub Action (the action commits with a
+  `[skip-board-sync]` marker and never edits canonical task YAML)
 
 ## Core Principle
 
@@ -164,6 +167,14 @@ Every agent output must include:
 - limitations;
 - verdict.
 
+For research, validation, benchmark, source-curation, prediction, result,
+claim, or knowledge-facing tasks, the final output must also include an
+output-routing summary following `docs/result-promotion-protocol.md`: canonical
+destination, review tier when applicable, Gate A/Gate B status when applicable,
+claim impact, knowledge impact, and any publication blocker. Missing tooling or
+source provenance blocks publication; it does not authorize unsupported prose
+claims.
+
 No anonymous unverifiable scientific claim should be accepted as a result.
 
 ## Shared Task Pool
@@ -184,6 +195,8 @@ Use these files as the shared coordination layer:
 - `docs/agent-task-protocol.md`
 - `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
+- `docs/result-promotion-protocol.md` — master mapping rule from task verdict to canonical output class; required reading before writing any final task output (replaces the default "write only an `AGENT-RUN-*`" pattern).
+- `agents/README.md` — index of agent role profiles (`agents/<role-id>.yaml`). When the maintainer asks the agent to act in a role (in any language), the agent matches the request against each role file's `activation.intent`, loads the matching profile as its first action, and applies that role for the session.
 - `docs/task-views/research.md`
 - `docs/task-views/support.md`
 - `docs/task-views/release.md`
@@ -195,8 +208,13 @@ Use these files as the shared coordination layer:
 
 `tasks/ACTIVE.md` remains the generated full-status board, including DONE
 history. The generated files under `docs/task-views/` are the lighter
-navigation surface for current work; they are synchronized from canonical
-`tasks/TASK-*.yaml` files through `python3 -m physics_lab.cli sync-active-board .`.
+navigation surface for current work; both are derived from canonical
+`tasks/TASK-*.yaml` files and regenerated automatically on `main` by the
+`Sync Active Board` GitHub Action after any push that touches `tasks/**` or
+`missions/current.yaml`. Agents do not commit regenerated versions of these
+files from a task PR; the action handles that on `main`. Maintainers may
+still run `python3 -m physics_lab.cli sync-active-board .` by hand in a
+dedicated board-sync PR when the action is disabled or for explicit audits.
 
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
@@ -219,6 +237,10 @@ repository checkout, prefer a dedicated `git worktree` per task so that
 for the helpers (`scripts/apl_new_worktree.sh`) and the optional
 [`scripts/apl_branch_precondition.py`](scripts/apl_branch_precondition.py)
 check that catches "wrong branch / surprise files" before any commit.
+
+See [`docs/notes/agent-discipline-collected.md`](docs/notes/agent-discipline-collected.md)
+for the collected agent-discipline learnings index (worktree usage,
+mock-first testing, dependent-PR serialisation, harness-artifact handling).
 
 ## Task Proposal Rule
 
@@ -756,22 +778,25 @@ stronger verification.
 
 # Current Missions
 
-APL now uses an **Agent First / Research First / Parallel Work** entrypoint.
+APL uses an **Agent First / Research First / Parallel Work** entrypoint.
 
-The default path for a new coding agent is no longer "scan every task and pick
+The default path for a new coding agent is not "scan every file and pick
 something small." The default path is:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --onboarding
 ```
 
-That command starts **Research Mode** and recommends the highest-value
-reviewable scientific mission. When multiple agents are available, the default
-operating model is to run several bounded research lanes in parallel through
-separate branches or worktrees. Those lanes may be in different campaigns, or
-inside the same campaign when the hypothesis families and write surfaces are
-disjoint. Support, microtask, review, and closeout work still exists, but it is
-explicit:
+Onboarding mode should explain the current scientific mission, show a few
+`READY` options with estimated effort, recommend one, and wait before editing
+files. For autonomous agent context after the user already understands the
+flow, use:
+
+```bash
+python3 scripts/apl_mission.py --agent-prompt
+```
+
+Support, review, and closeout work remain explicit:
 
 ```bash
 python3 scripts/apl_mission.py --mode support
@@ -780,125 +805,100 @@ python3 scripts/apl_mission.py --mode maintainer
 
 Mission policy and campaign guardrails live in
 [`../missions/current.yaml`](../missions/current.yaml). Live task candidates
-come from canonical `tasks/TASK-*.yaml` files through the mission script, so the
-mission YAML does not need to be edited just to rotate the next task after every
-merge. For lighter navigation than the full generated board, use the generated
-task views:
+come from canonical `tasks/TASK-*.yaml` files through the mission script. For
+lighter navigation than the full generated board, use:
 [`research.md`](./task-views/research.md),
 [`support.md`](./task-views/support.md),
 [`release.md`](./task-views/release.md),
 [`watchlist.md`](./task-views/watchlist.md), and
 [`blocked.md`](./task-views/blocked.md).
 
-## Default Mode
+## Recommended Mission Now
 
-Default mode: `research`
+**Nuclear Mass Surface** remains the flagship validation surface.
+
+Recommended default: start with the live `research` recommendation from
+`python3 scripts/apl_mission.py --onboarding`. The best default work is not
+more broad formula expansion; it is source-readiness, stress synthesis,
+no-peek reveal discipline, domain-limit mapping, evidence packaging, and
+negative-result preservation. At handoff, agents should route the output
+through [`result-promotion-protocol.md`](./result-promotion-protocol.md): state
+the verdict, destination, review tier, Gate A/B status, limitations, and
+blockers.
+
+If the Nuclear queue is saturated or a maintainer wants parallel breadth, the
+next best surfaces are Quantum Size Effects, Atomic-Clock Residuals, and
+Exoplanet Mass-Radius. Exoplanets has crossed into benchmark/failure-map work;
+Quantum and Atomic should stay source- and protocol-first until direct rows are
+ready.
+
+## Current Mission Shape
+
+APL currently has one flagship validation campaign and three fresh-data
+surfaces that are intentionally moving more slowly. That mix is deliberate:
+some agents can stress the strongest current evidence, while others build the
+source discipline needed for future campaigns.
+
+| Surface | Role right now | Good agent work |
+| --- | --- | --- |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers | no-leakage implementation planning, registry/reveal-readiness reporting, high-error cluster adversarial stability, negative-result preservation |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, first baseline comparison, and inconclusive regime scout | residual failure-map packaging, true-mass slice audit, narrow matched-control regime follow-up |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface still in source/covariance/version-drift hardening | Beloy 2021 row curation only after source artifact, covariance, and version checks; otherwise preserve blockers |
+
+Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
+Particle Mass Relations keep the repository honest about exact references,
+falsification, and overclaim resistance. They are not the default landing-page
+focus unless the maintainer asks for replay, documentation, or benchmark
+hygiene work.
+
+## Default Research Mode
 
 Research Mode is for:
 
-- hypothesis testing;
+- bounded hypothesis tests;
 - replay and split-sensitivity checks;
 - adversarial audits of sandbox evidence;
-- bounded sandbox experiments;
-- negative result preservation;
-- PR-ready result drafts.
+- source and provenance review;
+- negative, null, overfit, or inconclusive result preservation;
+- PR-ready result, evidence, or blocker artifacts.
 
-It is not a claim-promotion lane. Canonical claims, knowledge, and result
-artifacts still require maintainer review.
+Research Mode is now evidence-publication aware, but not claim-promotion
+driven. Agents publish reproducible evidence only when task scope and gates
+allow it; agents validate each other; maintainers endorse interpretation; and
+external data confirms predictions. Claim status transitions and knowledge
+endorsement remain maintainer-only in Phase 1.
 
-## Recommended Mission Now
+## Parallel Agent Policy
 
-**Nuclear Mass Surface** is the current flagship validation mission.
+Multiple agents can work in parallel when they increase coverage rather than
+duplicate effort.
 
-Recommended direction:
-
-1. Use `python3 scripts/apl_mission.py --json` to choose among live task
-   candidates from the task registry.
-2. Prefer nuclear validation, adversarial review, evidence packaging,
-   post-AME2020 time-split review, prediction-registry expansion, or guarded
-   follow-up tasks before opening any additional broad second-batch expansion.
-3. Keep `AGENT-RUN-0006` split-sensitivity evidence visible in any follow-up.
-4. Use the nuclear robustness gate, row-level time-split evidence, and
-   maintainer-approved adversarial review outcomes before any sandbox lane
-   expands a candidate family further.
-
-Why:
-
-- it uses a real data surface;
-- the frozen baseline and holdout protocol already exist;
-- the first autonomous nuclear pilot exists;
-- the strongest candidate is still sandbox-only evidence;
-- split-sensitivity replay now exists as review-ready sandbox evidence;
-- a review-ready robustness gate now defines what counts as allowed follow-up,
-  negative-control-only evidence, or promotion-blocking instability;
-- active retrospective post-AME2020 time-split evidence now exists as
-  `AGENT-RUN-0008` and is intentionally inconclusive;
-- the next scientific value comes from validation, time-split evidence, and
-  prediction discipline, not from broadening claims.
-
-Guardrails:
-
-- do not promote `HYP-PROPOSAL-0021` to a claim automatically;
-- do not describe the residual candidate as breakthrough physics;
-- do not run unbounded nuclear formula search;
-- do not rewrite canonical result artifacts casually.
-- do not call post-AME2020 evaluation strict blind prediction; it is
-  retrospective time-split evidence unless predictions were registered before
-  measurement.
-- do not use internal split wins as claim promotion unless the robustness gate
-  and external-style validation both allow it.
-
-## Alternatives
-
-The mission script also exposes secondary research directions and several live
-task candidates from the task registry:
-
-- **Anharmonic Oscillator Period Benchmark** — a safe nonlinear methodology
-  benchmark with perturbative and numerical baselines.
-- **Dimensional Analysis Validator** — a quality-floor track for formula sanity
-  checks and adversarial edge cases.
-
-These are good alternatives when the maintainer wants breadth, but the default
-recommendation remains the current top-ranked mission.
-
-## Parallel Agent Work
-
-`python3 scripts/apl_mission.py --json` includes `live_task_candidates` and a
-small `parallel_work_policy` section. In default Research Mode, research,
-replay, audit, and validation tasks are ranked before support tasks; support
-items are secondary options when they are useful or when a maintainer assigns
-them. Use those candidates as parallel options, not as a single global lock.
-
-Rules:
+Use these rules:
 
 - one local checkout should usually run one task at a time;
-- multiple local agents may work in parallel only through separate branches or
-  git worktrees;
-- prefer bounded parallel science lanes with disjoint hypothesis families over
-  one broad catch-all task;
-- same-campaign parallel work is allowed when each agent owns a distinct lane,
-  such as shell-aware, pairing/odd-even, neutron-rich, audit, or packaging;
-- parallel tasks should avoid the same artifact surfaces, especially
-  `tasks/ACTIVE.md`, `CONTEXT.md`, canonical `results/`, and the same docs page;
-- agents should not guess new canonical task ids during parallel work.
+- parallel local agents should use separate branches or git worktrees;
+- prefer disjoint campaigns, datasets, hypothesis families, or review
+  surfaces;
+- same-campaign parallel work is allowed only when artifact surfaces are
+  clearly separated;
+- executor agents should offer only `READY` tasks as available work;
+- `REVIEW_READY`, `DONE`, and `BLOCKED` tasks are for review, closeout, or
+  maintainer triage, not new executor work;
+- do not guess new canonical task ids during parallel work unless the
+  maintainer explicitly asks for canonical task creation.
 
-## Support And Maintainer Modes
+## What To Avoid Right Now
 
-Support Mode is for docs, tests, packaging, task hygiene, and microtasks:
-
-```bash
-python3 scripts/apl_mission.py --mode support
-```
-
-Maintainer Mode is for review and closeout assistance:
-
-```bash
-python3 scripts/apl_mission.py --mode maintainer
-```
-
-This preserves the existing maintainer review agent and closeout workflow.
-Agent First means research-first onboarding for new contributors; it does not
-mean bypassing maintainer authority.
+- Do not run Nuclear reveal scoring until a source-grade post-freeze data
+  release passes the reveal source gate.
+- Do not treat retrospective Nuclear audits as future blind validation.
+- Do not start the Quantum baseline benchmark until direct measurement rows or
+  an explicit weaker calibration-consistency scope is approved.
+- Do not fit atomic-clock or anomaly-style campaigns before source and
+  covariance semantics are reviewable.
+- Do not present exoplanet regime scouts as corrections or planet-composition
+  discoveries; the next public-safe artifact is a residual/failure map.
 
 ## Copy-Paste Agent Prompt
 
@@ -908,21 +908,17 @@ Generate the current prompt with:
 python3 scripts/apl_mission.py --agent-prompt
 ```
 
-Short version:
+Short onboarding version:
 
 ```text
 You are working in Autonomous Physics Lab.
 
-Start in Agent First Research Mode. Read AGENTS.md and docs/agent-task-protocol.md,
-then run `python3 scripts/apl_mission.py --json`. Choose the recommended
-research mission unless the maintainer gave a stricter task. Use the
-recommended `task_id` to create a canonical task branch before editing files.
-Execute the full loop autonomously: inspect
-evidence, test or audit the hypothesis, preserve negative results, update
-sandbox/review artifacts, run validation, generate a review bundle, and prepare
-a PR. Keep outputs sandbox-only unless a canonical task explicitly allows
-promotion. Do not promote claims, rewrite canonical results, or use
-breakthrough-style wording.
+Start in Agent First Research Mode with onboarding. Read AGENTS.md and
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+Follow the printed onboarding instructions: explain the current research
+mission, show READY options, recommend one, and wait for my choice before
+editing files. Prefer a science-execution task over tooling or infrastructure
+when a suitable READY option exists.
 ```
 
 
@@ -932,16 +928,18 @@ breakthrough-style wording.
 <!-- source: missions/current.yaml -->
 
 default_mode: research
-updated: "2026-05-12"
+updated: "2026-05-27"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-14"
-  source: "TASK-0243"
+  updated: "2026-05-27"
+  source: "TASK-0411"
   note: >
-    Mission metadata and generated task navigation were refreshed after adding
-    docs/task-views and freshness validation. The flagship mission did not
-    change; support recommendations now reference only actionable READY tasks.
+    Mission guidance now routes end-of-task research outputs through
+    docs/result-promotion-protocol.md. The flagship mission did not change;
+    agents still start from bounded research lanes, but qualifying evidence can
+    be proposed as AGENT_PUBLISHED or AGENT_VALIDATED only when the task scope
+    and gates allow it.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -951,11 +949,15 @@ policy:
     closeout lanes remain available as explicit modes. Multiple agents are
     encouraged to work in parallel across different campaigns, or within the
     same campaign when they use separate branches/worktrees and disjoint
-    hypothesis families, datasets, or artifact surfaces.
+    hypothesis families, datasets, or artifact surfaces. Agents publish
+    reproducible evidence when gates pass, agents validate each other,
+    maintainers endorse interpretation, and external data confirms predictions.
   defaults:
     - "Start in research mode unless the maintainer explicitly asks for support, review, or closeout."
     - "Prefer hypothesis testing, replay, falsification, or sandbox result drafts over docs-only work."
-    - "Keep all research outputs reviewable and sandbox-only until maintainer review."
+    - "Use docs/result-promotion-protocol.md at handoff to state verdict, destination, review tier, Gate A/B status, limitations, and blockers."
+    - "Keep outputs sandbox-only unless the task scope and result-promotion gates explicitly allow AGENT_PUBLISHED or AGENT_VALIDATED RESULT/PRED artifacts."
+    - "Keep claim status transitions and knowledge endorsement maintainer-only in Phase 1."
     - "Prefer several bounded parallel science lanes over one oversized catch-all task when multiple agents are available."
     - "Parallel agents may work inside the same campaign when their hypothesis lanes and write surfaces are disjoint."
     - "Never promote claims, rewrite canonical results, or use breakthrough-style wording automatically."
@@ -974,7 +976,7 @@ global_forbidden:
 modes:
   research:
     label: "Research Mode"
-    description: "Default lane for autonomous scientific work: audit, replay, hypothesis testing, sandbox runs, and reviewable PR artifacts."
+    description: "Default lane for autonomous scientific work: audit, replay, hypothesis testing, sandbox runs, result-routing, and reviewable PR artifacts."
   audit:
     label: "Research Audit Mode"
     description: "Adversarial validation of existing sandbox evidence before follow-up work expands the surface."
@@ -992,7 +994,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: keep the shell-axis mini-wave frozen, leave reveal scoring blocked, and use the completed full-known audit as sandbox review evidence while choosing the next READY task from live candidates."
+    recommendation: "Main direction now: keep shell-axis diagnostic-only, leave reveal scoring blocked, and run multiple fresh bounded Nuclear hypothesis lanes in parallel."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1004,6 +1006,7 @@ missions:
       - "PRED-0063 through PRED-0068 now freeze the shell-axis-balanced-001 prospective mini-wave"
       - "source preflight and synthetic reveal mechanics are done, but TASK-0307 found no acceptable post-registration source manifest"
       - "AGENT-RUN-0018 now records the full-known-data retrospective audit without prospective reveal scoring"
+      - "TASK-0333 fixed shell-axis as diagnostic-only, so fresh hypothesis lanes should replace additional shell-axis slicing"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1014,6 +1017,7 @@ missions:
       - "do not promote any second-batch sandbox candidate after TASK-0204 without a maintainer-approved follow-up task"
       - "do not score PRED-0063 through PRED-0068 before source preflight, no-peek review, and explicit maintainer approval"
       - "do not add more shell-axis PRED entries before the mini-wave reveal-readiness implications are reviewed"
+      - "do not treat shell-axis diagnostic evidence as a reason to stop Nuclear hypothesis testing"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -1040,7 +1044,7 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Prefer the post-0310 Nuclear validation wave before registry expansion"
+        label: "Prefer fresh bounded Nuclear hypothesis lanes before registry expansion"
         task_id: null
         mode: research
         priority: high
@@ -1048,10 +1052,12 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
-          - "Prefer TASK-0333 for the next Nuclear shell-axis synthesis before more audits or registry expansion"
+          - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
+          - "Use live_task_candidates before naming any remaining READY Nuclear hypothesis lane"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
-          - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
+          - "Use docs/result-promotion-protocol.md to decide whether the final output is sandbox-only, RESULT/PRED draft, review note, source artifact, or task proposal"
+          - "Publish RESULT/PRED artifacts only when the selected task explicitly allows it and Gate A or maintainer-approved manual Gate A review passes"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
         validation:
           - "python3 -m ruff check ."
@@ -1093,6 +1099,65 @@ missions:
           - "use READY TASK-0228 through TASK-0237 as parallel lanes"
           - "each lane adds two frozen PRED-0021+ entries plus pre-reveal validation"
           - "no live external fetch, reveal comparison, claim promotion, or retrospective metric framing"
+      - id: nuclear-deformation-proxy-lane
+        label: "Run Nuclear deformation-proxy hypothesis lane"
+        task_id: TASK-0338
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "sandbox mini-loop with controls and verdict"
+      - id: nuclear-local-curvature-lane
+        label: "Run Nuclear local residual curvature hypothesis lane"
+        task_id: TASK-0339
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "sandbox mini-loop with chain-transfer diagnostics"
+      - id: nuclear-odd-even-shell-lane
+        label: "Run Nuclear odd-even shell-interaction hypothesis lane"
+        task_id: TASK-0340
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "interaction candidates compared to pairing-only and shell-only controls"
+      - id: nuclear-boundary-lane
+        label: "Run Nuclear measured/extrapolated boundary hypothesis lane"
+        task_id: TASK-0341
+        mode: research
+        status: review_ready
+        priority: medium
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "source-status diagnostics or blocker review"
+      - id: nuclear-uncertainty-weighted-lane
+        label: "Run Nuclear uncertainty-weighted residual lane"
+        task_id: TASK-0342
+        mode: research
+        status: review_ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "uncertainty preflight and weighted residual diagnostics"
+      - id: nuclear-high-error-cluster-lane
+        label: "Run Nuclear high-error cluster hypothesis lane"
+        task_id: TASK-0343
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        expected_outputs:
+          - "cluster hypotheses with matched negative controls"
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
@@ -1129,13 +1194,15 @@ missions:
           - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
           - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
       - id: quantum-jasieniak-source-artifact
-        label: "Package Jasieniak 2011 deterministic source artifact"
-        task_id: TASK-0334
+        label: "Review TASK-0334 Jasieniak 2011 source-artifact package before unblocking row curation"
+        task_id: null
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
         expected_outputs:
-          - "source artifact package or explicit deterministic blocker"
+          - "use docs/reviews/quantum-jasieniak-2011-source-artifact-package.md after merge"
+          - "keep TASK-0336, TASK-0293, and TASK-0225 blocked until a checksum-pinned SI/table extraction or deterministic digitisation artifact is reviewed"
       - id: quantum-calibration-consistency-scope
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
@@ -1145,6 +1212,16 @@ missions:
         difficulty: medium
         expected_outputs:
           - "calibration-only benchmark scope without metrics"
+      - id: quantum-open-direct-source-triage
+        label: "Triage open quantum-dot direct table sources"
+        task_id: TASK-0347
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "ranked alternative direct-source candidates without row values"
 
   - id: atomic-clock-residuals
     title: "Atomic Clock Residuals"
@@ -1186,6 +1263,7 @@ missions:
         label: "Review atomic-clock direct frequency-ratio source class"
         task_id: TASK-0330
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
@@ -1194,6 +1272,7 @@ missions:
         label: "Review atomic-clock derived drift/constraint source class"
         task_id: TASK-0331
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
@@ -1202,10 +1281,21 @@ missions:
         label: "Run atomic-clock real-row source gate"
         task_id: TASK-0332
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
           - "go/no-go gate before first real atomic-clock row seed"
+      - id: atomic-covariance-semantics
+        label: "Review atomic-clock covariance and uncertainty semantics"
+        task_id: TASK-0344
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "value-free uncertainty and covariance source semantics"
 
   - id: exoplanet-mass-radius
     title: "Exoplanet Mass-Radius Benchmark"
@@ -1229,13 +1319,35 @@ missions:
         label: "Scaffold exoplanet mass-radius source surface"
         task_id: TASK-0337
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "value-free exoplanet data README and source-manifest template"
           - "mass-radius row schema or schema sketch"
           - "holdout protocol and source-surface review"
           - "no live rows, metrics, prediction registry entries, or claims"
+      - id: exoplanet-pscomppars-ingestion-plan
+        label: "Prepare Exoplanet PSCompPars snapshot ingestion plan"
+        task_id: TASK-0345
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "value-free retrieval and inclusion plan before any row fetch"
+      - id: exoplanet-baseline-protocol
+        label: "Define Exoplanet mass-radius baseline protocol"
+        task_id: TASK-0346
+        mode: research
+        status: review_ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "baseline, metrics, holdout, and negative-control protocol without rows"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
@@ -1332,23 +1444,21 @@ APL is also an open agent network for science: many contributors can connect
 their AI agents to shared scientific campaigns, and accepted outputs become
 public scientific memory rather than isolated local chat artifacts.
 
-APL is currently in:
-
-`v0.2-public-alpha candidate — final release go/no-go review pending`
-
-The repository stays private while current campaigns, contributor workflow, and
-public-release gates are still being validated.
+<p align="center">
+  <img src="figures/autonomous-physics-lab-workflow-concept.png" alt="Autonomous Physics Lab verification-first workflow for AI agents" width="100%">
+</p>
 
 ## Agent First Entry Point
 
 New contributors and coding agents should start from the mission script:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --onboarding
 ```
 
-Default mode is `research`. It recommends a current scientific mission,
-guardrails, and PR-ready outputs before showing support work.
+Onboarding mode keeps the first run human-friendly: it explains the current
+research mission, shows a few `READY` options, estimates effort, recommends
+one path, and waits before editing files.
 
 Explicit non-default lanes:
 
@@ -1360,25 +1470,45 @@ python3 scripts/apl_mission.py --mode maintainer
 This keeps maintainer review and closeout automation intact while making the
 normal contributor path research-first.
 
+For humans, the practical path is:
+
+1. read the short project pitch in [README.md](../README.md);
+2. run `python3 scripts/apl_mission.py --onboarding`;
+3. choose one `READY` task or ask the agent to explain the options;
+4. review the PR evidence and limitations before merge.
+
+Use [Connect Your Agent](./connect-your-agent.md) for the contribution loop and
+[Use Your Agent](./use-your-agent.md) for agent prompt guidance.
+
 ## What APL Is Not Trying To Do
 
 - It is not a chatbot for speculative physics claims.
-- It is not treating numerically interesting fits as discovery-level evidence.
+- It is not treating numerically interesting fits as claim-level evidence.
 - It is not presenting benchmark fits as complete explanations of particle masses.
 - It is not presenting range-limited benchmarks as globally valid theories.
-- It is not public-launch ready yet.
 
 ## Active Campaigns
 
-APL currently organizes work around five contributor-facing campaign surfaces:
+APL currently organizes work around one flagship validation campaign, several
+fresh-data source surfaces, and older benchmark/falsification surfaces that
+still define the project's quality floor:
+
+If you are new, start with the first four rows. They are the current
+public-facing research surfaces. The later rows are still important, but they
+are either quality-floor benchmarks or planning/watchlist surfaces.
 
 | Campaign | Status | Why it exists | Best starting point |
 | --- | --- | --- | --- |
-| [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation discovery against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates and prospective predictions | Test nuclear residual candidates with frozen baselines, robustness gates, prediction registry discipline, and future reveal-readiness | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
+| [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign | Build a direct-measurement row-level data surface before any baseline benchmark is allowed | [quantum-size-effects-campaign-plan.md](./notes/quantum-size-effects-campaign-plan.md) |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | Fresh-data source surface | Establish manifest, covariance, and source-admissibility discipline for high-precision clock data | [atomic-clock-source-candidates.md](./notes/atomic-clock-source-candidates.md) |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | Emerging catalog-snapshot benchmark surface | Test whether mass-radius residual structure survives source, provenance, and holdout discipline | [exoplanet-mass-radius-baseline-protocol.md](./exoplanet-mass-radius-baseline-protocol.md) |
+| [Fresh Physics Data Axes](./campaigns/fresh-physics-data-axes.md) | Planning and intake layer | Keep future campaigns focused on less-saturated source surfaces instead of formula mining old tables | [fresh-data-source-policy.md](./notes/fresh-data-source-policy.md) |
+| [Anomaly Registry](./campaigns/anomaly-registry.md) | Planning scaffold, not a joint-fit campaign | Define admissible anomaly records and guardrails before any cross-anomaly modeling | [anomaly-registry-admissibility.md](./notes/anomaly-registry-admissibility.md) |
+| [Pendulum Formula Falsification](./campaigns/pendulum-formula-falsification.md) | Active with canonical results | Stress-test approximation search against an exact reference with explicit failure modes | [pendulum-gauntlet-100-summary.md](./results/pendulum-gauntlet-100-summary.md) |
 | [Particle Mass Relations](./campaigns/particle-mass-relations.md) | Active with scoped reproductions and falsifications | Test whether impressive mass relations survive disciplined, falsification-first handling | [koide-neutrino-falsification.md](./results/koide-neutrino-falsification.md) |
 | [Dimensional Analysis Validator](./campaigns/dimensional-analysis-validator.md) | Active with canonical MVP result | Build a quality floor for future formula and benchmark work | [RUN-0006 report](../results/EXP-0006/RUN-0006/report.md) |
 | [Thought-Experiment Consistency](./campaigns/thought-experiment-consistency.md) | Planning active, no canonical run yet | Extend APL into consistency checks that do not depend on curve fitting alone | [thought-experiment-consistency-suite.md](./notes/thought-experiment-consistency-suite.md) |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation campaign, sandbox-only candidates | Test nuclear residual candidates with frozen baselines, robustness gates, and post-AME2020 time-split discipline | [nuclear-mass-pilot-summary.md](./results/nuclear-mass-pilot-summary.md) |
 
 ## Current Results
 
@@ -1417,32 +1547,12 @@ The clearest current repository-level results are:
    sandbox-only retrospective time-split evidence.
 
 The nuclear prediction registry is a prospective forecast surface, not a
-result surface: `PRED-0001` through `PRED-0020` are frozen entries awaiting
-future maintainer-reviewed reveal data, and `TASK-0228` through `TASK-0237`
-split follow-up variants into bounded parallel lanes.
+result surface: `PRED-0001` through `PRED-0068` are frozen entries awaiting
+future maintainer-reviewed reveal data.
 
 These results matter because they are reproducible and reviewable. They do not
-authorize exact symbolic proof, universal scope, or deeper physical
+authorize exact symbolic certainty, universal scope, or deeper physical
 explanation by themselves.
-
-## Current Packaging Focus
-
-The near-term documentation goal is a cautious `v0.2` packaging pass:
-
-- top-level docs should reflect the actual benchmark and falsification surface;
-- Koide work should read as one falsification-first campaign, not a handful of
-  disconnected notes;
-- negative results should stay as visible as successful reproductions;
-- `EXP-0010` should remain a guarded stress-test surface rather than a flagship
-  public result;
-- Nuclear Mass Surface should be described as benchmark and sandbox
-  validation evidence: `AGENT-RUN-0007` is not an active benchmark result,
-  and post-AME2020 scoring is retrospective rather than strict blind
-  prediction;
-- prediction-registry entries should read as frozen prospective forecasts
-  awaiting future comparison, not as evidence of predictive success;
-- public-opening decisions should remain gated behind wording discipline and
-  release checks.
 
 ## How Contributors Can Plug In
 
@@ -1473,8 +1583,10 @@ Operational entry points:
   proposal-first workflow when no canonical task fits;
 - [docs/private-contributor-pilot.md](./private-contributor-pilot.md) for the
   invited private contributor flow;
-- `python3 -m physics_lab.cli sync-active-board .` for keeping the active board
-  aligned with task YAML files;
+- the `Sync Active Board` post-merge GitHub Action keeps the active board
+  and `docs/task-views/*.md` aligned with task YAML files on `main`;
+- `python3 -m physics_lab.cli sync-active-board .` remains available for
+  maintainer dry-runs and explicit board-sync PRs;
 - maintainer review and closeout tooling for review bundles and handoff.
 
 Low-risk contribution patterns right now:
@@ -1487,8 +1599,8 @@ Low-risk contribution patterns right now:
 
 ## What Not To Claim
 
-- Do not describe APL as having resolved physics.
-- Do not describe the repository as having made a discovery-level physical breakthrough.
+- Do not describe APL as having finalized physics.
+- Do not describe the repository as having produced a validated physical result.
 - Do not call pendulum approximations exact or globally valid.
 - Do not treat charged-lepton or tau-holdout benchmarks as explanations of
   particle masses.
@@ -1496,14 +1608,13 @@ Low-risk contribution patterns right now:
   possible Koide variants.
 - Do not turn the particle-mass falsifier MVP into a blanket claim about all
   possible mass-relation formulas.
-- Do not present `EXP-0010` muon g-2 output as a discovery-level, explanatory,
+- Do not present `EXP-0010` muon g-2 output as a validated, explanatory,
   or flagship public result.
 - Do not describe planning-only campaigns as implemented benchmark systems.
-- Do not present the repository as public before the release gates are met.
 
 ## Read Order For New Contributors
 
-1. Run `python3 scripts/apl_mission.py` for the current research-first mission.
+1. Run `python3 scripts/apl_mission.py --onboarding` for the current research-first mission.
 2. [README.md](../README.md)
 3. [docs/current-missions.md](./current-missions.md)
 4. [docs/mission-control.md](./mission-control.md)
@@ -1553,8 +1664,8 @@ context, not as competing protocol definitions.
 1. Start with one atomic task that is already `READY`.
 2. Do not start a second task unless a human explicitly asks for it or the work
    is clearly independent.
-3. Do not start `REVIEW_READY`, `BLOCKED`, or `REJECTED` tasks unless a human
-   explicitly redirects you.
+3. Do not start `REVIEW_READY`, `BLOCKED`, `SUPERSEDED`, or `REJECTED` tasks
+   unless a human explicitly redirects you.
 4. If no existing task fits, ask for or propose a new task before doing
    substantial work.
 
@@ -1700,6 +1811,10 @@ Use these execution states:
   `DONE`.
 - `BLOCKED`: work cannot continue until a dependency, decision, or external
   action is resolved. State the blocker clearly.
+- `SUPERSEDED`: the task was valid when created, but a newer task,
+  architecture, or reviewed workflow replaced it. Do not execute it; follow the
+  replacement task or create a fresh scoped task if the old idea becomes useful
+  again.
 - `REJECTED`: the task should not proceed in its current form.
 
 Rules:
@@ -1715,6 +1830,8 @@ Rules:
 - A maintainer may use a maintainer-run review agent to assist review and
   closeout, but the agent output is advisory rather than autonomous.
 - If blocked, set `BLOCKED` and explain why in the task file, board, or PR.
+- If old work is replaced by a better lane, set `SUPERSEDED` rather than
+  leaving it in `BLOCKED` or marking it `REJECTED`.
 - `PROPOSED` may still appear in backlog planning, but it is not an executable
   task state for active task execution.
 
@@ -1984,6 +2101,49 @@ and preflight the template-based PR body before creating the draft PR.
 For task proposal PRs, the lighter validation path from
 [./task-proposal-protocol.md](./task-proposal-protocol.md) is acceptable.
 
+When a task creates concrete artifact paths, replace any placeholder validation
+commands in that task's YAML before moving the task to `REVIEW_READY`.
+Examples include replacing `<new-result-path>` with the exact
+`results/EXP-XXXX/RUN-XXXX/result.yaml` path or replacing `<queue-id>` with the
+specific queue id used by the PR. Placeholders may remain only in task
+templates, future `READY` tasks, or proposal files that are not being handed off
+as completed work.
+
+## End-Of-Task Output Routing
+
+At the end of any research, validation, benchmark, source-curation, prediction,
+or claim-facing task, add a short output-routing summary before handoff. This
+summary tells the maintainer what the task produced and where it belongs in
+the scientific memory.
+
+Use [./result-promotion-protocol.md](./result-promotion-protocol.md) as the
+canonical routing rule. The summary should state:
+
+- task verdict: `VALID`, `VALID_IN_RANGE`, `PARTIALLY_VALID`, `INCONCLUSIVE`,
+  `OVERFITTED`, `FALSIFIED`, or `not_applicable`;
+- canonical destination: sandbox-only `agent_runs/`, `results/`, `prediction_registry/`,
+  `claims/`, `knowledge/`, source artifact, review note, or task proposal;
+- review tier when applicable: `AGENT_PUBLISHED`, `AGENT_VALIDATED`,
+  `MAINTAINER_REVIEWED`, `EXTERNAL_REPLICATED`, `LEGACY_UNTIERED`, or `none`;
+- Gate status when applicable: Gate A pass/fail/not attempted, Gate B
+  pass/fail/not attempted;
+- claim impact: no claim change, new `DRAFT` claim only, evidence reference
+  only, or maintainer-only status transition requested;
+- knowledge impact: no knowledge change, task proposal only, or maintainer-only
+  knowledge entry requested;
+- limitations and blockers, especially missing tooling, source provenance, or
+  validation gaps.
+
+If the task produced only sandbox evidence, say so explicitly. Do not turn a
+sandbox note into a prose claim. If Gate A or Gate B tooling is missing or
+fails, report the publication as blocked instead of bypassing the gate with
+unsupported wording.
+
+Agents may create `AGENT_PUBLISHED` or `AGENT_VALIDATED` artifacts only when
+the task scope and [./result-promotion-protocol.md](./result-promotion-protocol.md)
+allow it. Claim status transitions remain maintainer-only in Phase 1. Do not
+auto-merge PRs that publish tiered artifacts.
+
 ## Maintainer Review And Closeout
 
 Maintainers may use [./maintainer-review-agent.md](./maintainer-review-agent.md)
@@ -2021,30 +2181,45 @@ The maintainer review agent must not:
    repository edits.
 4. Set the task status to `IN_PROGRESS` in the task file.
 5. Do not edit [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for routine task
-   status transitions. Task YAML is the canonical source of truth; the board is
-   a maintainer-synchronized snapshot.
-6. Do not hand-edit `docs/task-views/*.md`; they are generated from canonical
-   task YAML files alongside `tasks/ACTIVE.md`.
-7. If the task file changes status, run
-   `python3 -m physics_lab.cli sync-active-board .` so generated task
-   navigation reflects the current canonical task YAML. This generated sync is
-   allowed for the current task's lifecycle transition; do not include
-   unrelated task-status changes unless the maintainer explicitly requested
-   queue triage, unblock, closeout, or stale-task cleanup.
+   status transitions. Task YAML is the canonical source of truth; the board
+   is a maintainer-synchronized snapshot regenerated automatically by the
+   post-merge `Sync Active Board` GitHub Action after each merge to `main`.
+6. Do not hand-edit `docs/task-views/*.md` and do not commit regenerated
+   versions of those files or `tasks/ACTIVE.md` from a task PR. They are
+   generated from canonical task YAML files and the post-merge action keeps
+   them in sync on `main`.
+7. Agents may run `python3 -m physics_lab.cli sync-active-board .` locally
+   for visual confirmation of how their task YAML change will render, but
+   should **not** stage or commit the resulting regeneration on a task PR
+   branch. `validate-repo --strict --fail-on-warnings` reports a stale
+   `tasks/ACTIVE.md` or `docs/task-views/*.md` as `INFO` (not `ERROR`) by
+   default, so a non-regenerated branch passes strict validation. Set
+   `APL_ENFORCE_BOARD_STALENESS=1` only when explicitly auditing the
+   action's output. If strict validation ever reports generated board
+   staleness as an error during a routine task PR, treat that as a validation
+   configuration issue to report or fix, not as permission to commit generated
+   navigation churn. If a local sync or validation comparison leaves generated
+   board files dirty, do not stage them; remove those generated diffs before
+   creating the review bundle.
 8. Make the smallest reproducible change that satisfies the task.
 9. Run the required validation commands.
-10. Set the task to `REVIEW_READY` when implementation and validation are done.
+10. Set the task to `REVIEW_READY` when implementation and validation are
+    done.
 11. Leave clear maintainer review notes and limitations.
 
 After merge, maintainer closeout may also:
 
 12. set the task to `DONE`;
-13. run `python3 -m physics_lab.cli sync-active-board .` so
-    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) and generated task views
+13. let the post-merge `Sync Active Board` GitHub Action regenerate
+    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) and the generated task views
     ([./task-views/research.md](./task-views/research.md),
     [./task-views/support.md](./task-views/support.md), and
-    [./task-views/release.md](./task-views/release.md)) reflect the new task
-    state;
+    [./task-views/release.md](./task-views/release.md)). The action runs on
+    every push to `main` that touches `tasks/**` or `missions/current.yaml`
+    and pushes a `chore(board-sync): … [skip-board-sync]` commit only when a
+    regeneration diff exists. Maintainers may still run
+    `python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
+    board-sync PR when the action is disabled or needs a manual audit;
 14. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution
@@ -2297,12 +2472,28 @@ one PR.
 
 ## READY
 
-- `TASK-0330` — Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0332` — Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
-- `TASK-0337` — Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0391` — Run exoplanet neptunian residual matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0392` — Audit exoplanet host and uncertainty selection effects (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
+- `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0395` — Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0396` — Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`)
+- `TASK-0398` — Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0400` — Verify Kang-Wise 1997 PbS direct-source path (`scientific_dataset`, priority `medium`, difficulty `medium`)
+- `TASK-0401` — Run atomic Beloy 2021 row readiness re-check (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
+- `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`)
+- `TASK-0414` — Add Gate B independent replay runner for AGENT_PUBLISHED results (`validation_infrastructure`, priority `high`, difficulty `high`)
+- `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
+- `TASK-0418` — Add scientific memory review-tier index (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0420` — Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0432` — Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2310,16 +2501,93 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0311` — Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`)
-- `TASK-0312` — Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`)
-- `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0316` — Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`)
-- `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (`tooling_fix`, priority `high`, difficulty `low`)
+<<<<<<< HEAD
+None.
+=======
+- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (`result_publication`, priority `high`, difficulty `medium`)
+- `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (`workflow_protocol`, priority `medium`, difficulty `low`)
+- `TASK-0431` — Clarify result-publication PR protocol edge cases (`workflow_protocol`, priority `high`, difficulty `low`)
+>>>>>>> origin/main
 
 ## DONE RECENTLY
 
+- `TASK-0431` — Clarify result-publication PR protocol edge cases (merged)
+- `TASK-0430` — Add safe closeout-time task unblocking (merged)
+- `TASK-0429` — Add advisory quality score to maintainer review output (merged)
+- `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (merged)
+- `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
+- `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
+- `TASK-0419` — Update agent protocol for final output-class routing (merged)
+- `TASK-0413` — Backfill first AGENT_PUBLISHED negative result (merged)
+- `TASK-0412` — Backfill first AGENT_PUBLISHED result from mature existing evidence (merged)
+- `TASK-0411` — Sync mission recommendations after result-promotion protocol (merged)
+- `TASK-0410` — Teach review helper to classify AGENT_PUBLISHED and AGENT_VALIDATED artifacts (merged)
+- `TASK-0409` — Add AGENT_PUBLISHED RESULT and PRED templates (merged)
+- `TASK-0408` — Implement Gate A result-publication checker (merged)
+- `TASK-0407` — Enforce review-tier metadata guardrails in repository validation (merged)
+- `TASK-0406` — Define multi-class scientific output promotion protocol (merged)
+- `TASK-0405` — Disable validation commands in snapshot script (merged)
+- `TASK-0397` — Run nuclear local-curvature negative-control expansion (merged)
+- `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (merged)
+- `TASK-0389` — Polish onboarding prompt for cross-platform first-run flow (merged)
+- `TASK-0388` — Refresh campaign status after latest agent results (merged)
+- `TASK-0387` — Clarify closeout PR follow-through instructions (merged)
+- `TASK-0386` — Polish public documentation paths linked from landing pages (merged)
+- `TASK-0385` — Support multi-proposal maintainer-review validation (merged)
+- `TASK-0384` — Document lightweight APL architecture layer model (merged)
+- `TASK-0383` — Add READY science task pool health policy (merged)
+- `TASK-0382` — Add science-output conveyor health report (merged)
+- `TASK-0381` — Add nuclear prediction registry count and reveal-readiness report (merged)
+- `TASK-0380` — Define result promotion scorecard (merged)
+- `TASK-0379` — Add source artifact package validator helper (merged)
+- `TASK-0378` — Add campaign fresh-data readiness matrix (merged)
+- `TASK-0377` — Add fresh-data stop-condition vocabulary (merged)
+- `TASK-0376` — Add fresh-data extraction ledger template (merged)
+- `TASK-0375` — Add shared source manifest minimum schema (merged)
+- `TASK-0374` — Add cross-campaign source artifact package template (merged)
+- `TASK-0373` — Define cross-campaign fresh-data intake protocol (merged)
+- `TASK-0372` — Add atomic source-artifact version-drift stop condition (merged)
+- `TASK-0371` — Curate atomic Beloy 2021 direct-ratio rows (merged)
+- `TASK-0370` — Run exoplanet regime residual scout (merged)
+- `TASK-0369` — Run exoplanet true-mass residual slice audit (merged)
+- `TASK-0368` — Define nuclear residual-feature no-leakage contract (merged)
+- `TASK-0367` — Run nuclear high-error cluster adversarial stability audit (merged)
+- `TASK-0366` — Align task-queue review with post-merge board sync policy (merged)
+- `TASK-0365` — Synthesize nuclear new-lanes decision after uncertainty and adversarial controls (merged)
+- `TASK-0364` — Attempt quantum PMC/arXiv direct-table source curation (merged)
+- `TASK-0363` — Pin atomic Beloy 2021 source artifact and covariance preflight (merged)
+- `TASK-0362` — Package exoplanet mass-radius residual failure map (merged)
+- `TASK-0361` — Run exoplanet mass-radius baseline benchmark (merged)
+- `TASK-0360` — Make automation harness tests cross-platform (merged)
+- `TASK-0359` — Harden self-hosted CI runner fallback and queue visibility (merged)
+- `TASK-0358` — Move sync-active-board into post-merge GitHub Action and stop agents from committing generated navigation (merged)
+- `TASK-0357` — Isolate PR-capability test from local gh installation (merged)
+- `TASK-0356` — Prepare quantum direct source artifact intake path (merged)
+- `TASK-0355` — Review atomic-clock direct ratio source artifact (merged)
+- `TASK-0354` — Add exoplanet mass-radius loader dry run (merged)
+- `TASK-0353` — Ingest pinned exoplanet PSCompPars mass-radius snapshot (merged)
+- `TASK-0352` — Define nuclear no-leakage local-curvature freeze protocol (merged)
+- `TASK-0351` — Run nuclear local-curvature adversarial control lane (merged)
+- `TASK-0350` — Add CI-aware maintainer review validation (merged)
+- `TASK-0349` — Optimize self-hosted CI with a fast pull-request test gate (merged)
+- `TASK-0348` — Route Python CI jobs to the self-hosted APL runner (merged)
+- `TASK-0347` — Triage open quantum-dot direct table sources (merged)
+- `TASK-0346` — Define exoplanet mass-radius baseline protocol (merged)
+- `TASK-0345` — Prepare exoplanet PSCompPars snapshot ingestion plan (merged)
+- `TASK-0344` — Review atomic-clock covariance and uncertainty semantics (merged)
+- `TASK-0343` — Run nuclear high-error cluster hypothesis lane (merged)
+- `TASK-0342` — Run nuclear uncertainty-weighted residual hypothesis lane (merged)
+- `TASK-0341` — Run nuclear extrapolated-measured boundary hypothesis lane (merged)
+- `TASK-0340` — Run nuclear odd-even shell-interaction hypothesis lane (merged)
+- `TASK-0339` — Run nuclear local residual curvature hypothesis lane (merged)
+- `TASK-0338` — Run nuclear deformation-proxy hypothesis lane (merged)
+- `TASK-0337` — Scaffold exoplanet mass-radius source surface (merged)
 - `TASK-0335` — Define quantum calibration-curve consistency benchmark scope (merged)
+- `TASK-0334` — Package quantum Jasieniak 2011 deterministic source artifact (merged)
+- `TASK-0333` — Synthesize nuclear shell-axis post-audit decision (merged)
+- `TASK-0332` — Run atomic-clock real-row source gate (merged)
+- `TASK-0331` — Review atomic-clock drift-bound derived-constraint source class (merged)
+- `TASK-0330` — Review atomic-clock primary frequency-ratio source class (merged)
 - `TASK-0329` — Align public-alpha candidate wording before release signoff refresh (merged)
 - `TASK-0328` — Add atomic-clock synthetic loader dry-run (merged)
 - `TASK-0327` — Add atomic-clock source manifest template (merged)
@@ -2327,12 +2595,18 @@ None.
 - `TASK-0325` — Prepare quantum direct-measurement digitization package (merged)
 - `TASK-0324` — Run nuclear shell-axis neutron-rich tail audit (merged)
 - `TASK-0323` — Run nuclear shell-axis isotope-chain transfer audit (merged)
+- `TASK-0322` — Raise auto-task-runner max-turns default and detect max-turns exit (merged)
 - `TASK-0321` — Run nuclear shell-axis magic-N versus magic-Z asymmetry audit (merged)
 - `TASK-0320` — Run nuclear shell-axis light-nuclei regression audit (merged)
+- `TASK-0319` — Fix autonomous task runner: weekly budget window and open-PR guard (merged)
 - `TASK-0318` — Add autonomous task runner utility with Claude Code budget gate (merged)
 - `TASK-0317` — Run nuclear shell-axis specificity controls (merged)
+- `TASK-0316` — Run nuclear shell-axis coefficient stability audit (merged)
+- `TASK-0315` — Map nuclear shell-axis validity domain after full-known audit (merged)
 - `TASK-0314` — Sync mission recommendation after nuclear source blocker (merged)
 - `TASK-0313` — Optimize GitHub Actions CI fast path for task and docs PRs (merged)
+- `TASK-0312` — Run final v0.2 public-alpha go/no-go review (merged)
+- `TASK-0311` — Scaffold atomic-clock residuals source surface (merged)
 - `TASK-0310` — Run nuclear shell-axis full-known-data retrospective audit (merged)
 - `TASK-0309` — Define fresh-data source policy for non-saturated physics datasets (merged)
 - `TASK-0308` — Define anomaly registry schema and admissibility rules (merged)
@@ -2368,6 +2642,9 @@ None.
 - `TASK-0274` — Summarize nuclear prediction registry evidence after PRED-0062 (merged)
 - `TASK-0273` — Add nuclear prediction synthetic reveal dry-run harness (merged)
 - `TASK-0272` — Audit nuclear prediction registry breadth after feature-term wave (merged)
+- `TASK-0271` — Default apl_new_worktree.sh path inside project to avoid outside-cwd permission prompts (merged)
+- `TASK-0270` — Persist agent-discipline learnings to the repository (merged)
+- `TASK-0269` — Polish README landing entrypoint for agents, scientists, and reviewers (merged)
 - `TASK-0268` — Consolidate canonical validation list: drop redundant non-strict validate-repo (merged)
 - `TASK-0267` — Add git merge to Claude Code permissions allowlist (merged)
 - `TASK-0266` — Define nuclear prediction reveal protocol (merged)
@@ -2612,18 +2889,24 @@ None.
 
 ## BLOCKED
 
-- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
 - `TASK-0225` — Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
 - `TASK-0226` — Run first autonomous quantum-size-effect hypothesis pilot (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
-- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
-- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 - `TASK-0276` — Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`)
 - `TASK-0277` — Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0293` — Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0305` — Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
+- `TASK-0415` — Run first AGENT_VALIDATED replay of an agent-published result (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0416` — Run first scoped claim-promotion smoke test on Pendulum (`claim_review`, priority `high`, difficulty `medium`)
+- `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
+
+## SUPERSEDED
+
+- `TASK-0178` — Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`)
+- `TASK-0233` — Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0234` — Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0235` — Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`)
+- `TASK-0237` — Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`)
 
 ## REJECTED
 

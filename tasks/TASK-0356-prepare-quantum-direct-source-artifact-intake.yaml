@@ -1,0 +1,52 @@
+id: TASK-0356
+title: "Prepare quantum direct source artifact intake path"
+type: scientific_dataset
+status: DONE
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Unblock Quantum Size Effects by making maintainer-provided or open direct source artifacts easy to review."
+  - "Avoid wasting agent time on inaccessible or calibration-polynomial-only quantum-dot sources."
+  - "Keep row curation deterministic before TASK-0225 is unblocked."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-jasieniak-2011-source-artifact-package.md"
+    - "docs/reviews/quantum-open-direct-table-source-triage.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "tasks/TASK-0336-curate-quantum-band-edge-rows-from-source-artifact.yaml"
+  planning_context: >
+    Quantum is scientifically promising but blocked on direct measurement
+    rows. This task creates the maintainer-facing intake path for a supplied
+    SI PDF, table, digitization export, or open source artifact so agents can
+    move quickly once a real source file exists.
+
+requirements:
+  - "Define the expected local artifact directory, filename convention, checksum command, and metadata fields for maintainer-provided quantum-dot source files."
+  - "Define what evidence is sufficient for direct table rows versus digitized figure rows versus blocked calibration-polynomial rows."
+  - "Provide a curator checklist for accepting or rejecting a source before any `qd-*.yaml` rows are created."
+  - "State how the intake path hands off to TASK-0336 or a new row-curation task."
+  - "Do not copy measurement values, estimate figure coordinates, run benchmarks, or unblock TASK-0225 in this task."
+
+accepted_outputs:
+  - "docs/quantum-direct-source-artifact-intake.md"
+  - "optional source-artifact README stub under data/quantum_dots/source_artifacts/ with no measurement values"
+  - "data/quantum_dots/source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

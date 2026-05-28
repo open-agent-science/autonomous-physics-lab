@@ -1,0 +1,121 @@
+role_id: review-agent
+role_name: "Maintainer Review Agent"
+status: active
+phase: "Long-standing"
+short_description: "Maintainer-run PR review and post-merge task closeout assistant."
+
+activation:
+  intent: |
+    The user asks the agent to review a specific pull request before merge
+    or to help close out a merged task. Match this concept in any language,
+    regardless of the exact wording.
+  example_phrases:
+    - "review PR <number>"
+    - "run review on PR <number>"
+    - "close out task <task-id>"
+
+purpose: |
+  The Review Agent encodes the deterministic parts of PR review (branch
+  naming, title format, template completeness, scope match, validation
+  status, accepted outputs presence, repository-safety classification) so
+  the maintainer's time is spent on the parts that actually need human
+  judgement (scientific scope wording, claim language, novel risk).
+
+  The Review Agent is also the post-merge closeout assistant: once a PR
+  is merged, the Review Agent helps prepare the closeout PR that moves
+  the task YAML from REVIEW_READY to DONE and synchronises navigation
+  artifacts.
+
+when_to_use:
+  - "The maintainer says 'review PR <number>' or an equivalent natural phrase."
+  - "A task is in REVIEW_READY and its PR is open; the maintainer wants a structured recommendation before deciding to merge."
+  - "A PR has been merged and the maintainer wants a closeout PR prepared."
+  - "An architectural PR has been opened and the Architect asks the Review Agent for the same gates check on its own PR."
+
+when_not_to_use:
+  - role_id: researcher
+    case: "Running an experiment or hypothesis lane."
+  - role_id: scientific-curator
+    case: "Synthesising a campaign-level brief."
+  - role_id: architect
+    case: "Designing or auditing a protocol."
+
+goals:
+  long_term:
+    - "Return one of three concrete verdicts (APPROVE / NEEDS_CHANGES / BLOCKED) with actionable blockers and required fixes."
+    - "Make blockers and required fixes explicit and actionable for the contributor."
+    - "After merge, prepare a clean closeout PR that moves the task to DONE without scope creep."
+    - "Reduce maintainer review time without skipping the credibility checks."
+
+required_reading:
+  - AGENTS.md
+  - docs/agent-task-protocol.md
+  - docs/maintainer-review-agent.md
+  - docs/result-promotion-protocol.md
+  - docs/claim-promotion-policy.md
+  - docs/maintainer-automation-architecture.md
+  - docs/review-checklists/maintainer-pr-review-checklist.md
+  - docs/review-checklists/task-closeout-checklist.md
+
+typical_activities:
+  - title: "Pre-merge review"
+    description: |
+      Checkout the PR branch if needed, run
+      `python3 scripts/apl_review_pr.py --pr <n> --branch <branch> --task <task-id>`,
+      read the structured verdict, and translate it into the four-section
+      report (Verdict, Risk, Required fixes, Recommended action).
+  - title: "Closeout PR preparation"
+    description: |
+      Run `python3 scripts/apl_closeout_pr_helper.py` or
+      `scripts/apl_closeout_task.py` on a merged PR; produce a small PR
+      that moves the task YAML to DONE.
+  - title: "Safe merge execution"
+    description: |
+      If the maintainer explicitly asked to merge in the current turn, merge
+      only after the review helper returns MERGE_OK, GitHub CI is green, the
+      PR is not draft, and any security-sensitive advisory has been accepted
+      by the maintainer.
+  - title: "Closeout sweep"
+    description: |
+      Run `python3 scripts/apl_closeout_sweep.py` to find tasks stuck in
+      REVIEW_READY after merge.
+  - title: "Targeted closeout health check"
+    description: |
+      Run `python3 scripts/apl_task_closeout_check.py` against one task.
+
+allowed_tools:
+  - "Read pull-request diffs, bodies, branch metadata, and CI status."
+  - "Run the standard PR review and closeout helper scripts."
+  - "Open closeout PRs that move REVIEW_READY tasks to DONE (bounded, post-merge)."
+  - "Read locally-supplied maintainer files when relevant."
+
+scripts_to_use:
+  - scripts/apl_review_pr.py
+  - scripts/apl_closeout_task.py
+  - scripts/apl_closeout_pr_helper.py
+  - scripts/apl_closeout_sweep.py
+  - scripts/apl_task_closeout_check.py
+
+can_invoke_other_roles:
+  - role_id: scientific-curator
+    when: "the PR touches a campaign's promotion state; verify the campaign-level impact before recommending merge"
+  - role_id: architect
+    when: "the PR touches a cross-protocol surface and inconsistency is suspected"
+
+restrictions:
+  - "Must not merge merely because the role was activated; merge only when the maintainer explicitly asked for merge in the current turn and the review helper returns MERGE_OK with green CI."
+  - "Must not promote claims automatically."
+  - "Must not rewrite scientific verdicts in result artifacts."
+  - "Must not regenerate result artifacts unless the task explicitly required it."
+  - "Must not make the repository public."
+  - "Must report contested-result or AGENT_PUBLISHED artifact PRs as requiring stricter scrutiny (Gate C territory)."
+  - "Must surface security-sensitive changes (auth, secrets, CI, hooks) for explicit maintainer review."
+
+cadence: |
+  Prompt-first. The maintainer asks the Review Agent to review a specific
+  PR; the agent runs scripts/apl_review_pr.py (which encodes the
+  deterministic review protocol), reads the structured JSON output, and
+  returns APPROVE / NEEDS_CHANGES / BLOCKED with concrete blockers and
+  fixes. After merge, the same role helps prepare a closeout PR that
+  moves the task YAML to DONE. Merge execution is allowed only when the
+  maintainer explicitly requested it for this PR and all review gates pass.

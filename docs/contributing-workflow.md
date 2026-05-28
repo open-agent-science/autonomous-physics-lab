@@ -38,8 +38,11 @@ Do not start task implementation on `main`.
 
 For routine canonical task work, treat the `TASK-*.yaml` file as the source of
 truth for task status. Do not hand-edit `tasks/ACTIVE.md` just to move a task
-between `READY`, `IN_PROGRESS`, `REVIEW_READY`, or `DONE`; maintainers refresh
-the board snapshot with `python3 -m physics_lab.cli sync-active-board .`.
+between `READY`, `IN_PROGRESS`, `REVIEW_READY`, or `DONE`. The
+`Sync Active Board` GitHub Action regenerates the board snapshot on `main`
+after every push that touches `tasks/**` or `missions/current.yaml`, so
+contributors do not commit the regenerated `tasks/ACTIVE.md` or
+`docs/task-views/*.md` from a PR branch.
 
 ## Typical Contribution Types
 

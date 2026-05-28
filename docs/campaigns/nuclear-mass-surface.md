@@ -10,6 +10,12 @@ The target is not a universal mass formula. The target is a disciplined
 benchmark surface where compact, physically constrained correction terms can be
 tested against real dataset structure, subset behavior, and negative controls.
 
+New-reader summary: Nuclear is APL's flagship validation surface, but it is
+currently in diagnostic and source-gated mode. The useful work is stress
+review, no-leakage falsification handling, no-peek reveal readiness,
+domain-limit mapping, and negative-result preservation, not new broad
+prediction waves.
+
 ## Orientation Note for New Contributors
 
 This campaign started scaffold-first and now has a benchmark stack,
@@ -40,6 +46,11 @@ post-registry stress review, reveal readiness, and evidence packaging:
   outside a maintainer-reviewed reveal task;
 - do not write result artifacts or claims that imply a broad nuclear mass
   law.
+
+Fresh source or reveal-adjacent data work should also follow the
+[Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md), so source
+candidate, pinned artifact, extraction, row curation, baseline readiness, and
+benchmark readiness remain separate gates.
 
 ## Why It Matters
 
@@ -151,23 +162,37 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   mass-region, baseline, and deterministic random matched-degree controls on
   full-known and primary-holdout MAE, but smooth-A and asymmetry controls are
   not inert; the verdict is `SHELL_SPECIFIC_BUT_BOUNDED`.
-- `TASK-0320` and `TASK-0321` are prepared as independent post-0315 follow-up
-  audits: one isolates the light `A<50` regression zone, and the other checks
-  whether support is magic-N dominant, magic-Z dominant, symmetric, or too
-  sparse to interpret.
+- `TASK-0320` isolates the light `A<50` regression zone and keeps that region
+  as a warning zone rather than a positive support surface.
+- `TASK-0321` checks whether support is magic-N dominant, magic-Z dominant,
+  symmetric, or too sparse to interpret.
 - `TASK-0321` records the magic-axis asymmetry audit as
   `NEUTRON_DOMINANT_BUT_SPARSE`: all three primary shell-axis candidates
   improve magic-N more than magic-Z, while double-magic and matched
   double-magic remain sparse diagnostic panels.
-- `TASK-0323` and `TASK-0324` are prepared as the next independent Nuclear
-  audits: isotope-chain transfer and neutron-rich tail behavior. They keep the
-  campaign in falsification/domain-mapping mode rather than adding more
-  prediction-registry entries.
+- `TASK-0323` and `TASK-0324` add isotope-chain transfer and neutron-rich tail
+  audits. They keep the campaign in falsification/domain-mapping mode rather
+  than adding more prediction-registry entries.
 - `TASK-0333` synthesizes the completed shell-axis post-audit wave and
   recommends `DIAGNOSTIC_ONLY`: preserve shell-axis as sandbox diagnostic
   evidence, but stop additional retrospective shell-axis audits, registry
   expansion, reveal scoring, and claim promotion unless a later
   maintainer-approved source-gated task changes the scope.
+- `TASK-0368` locks the residual-feature no-leakage contract. Only explicitly
+  classified families may enter a future predictive implementation task, and
+  source-status features are permanently blocked from predictive use.
+- `TASK-0365` synthesizes the post-uncertainty Nuclear lanes. The strongest
+  remaining signal is `LOCAL-CURVATURE-001`, which receives a guarded **GO**
+  only for a future no-leakage implementation task. High-error cluster work is
+  held diagnostic until labels are rebuilt from residual-free Z/N/A features.
+  Odd-even shell interaction, deformation proxy, and measured/extrapolated
+  boundary lanes are stopped as negative or control-dominated evidence.
+- `TASK-0394` implements the no-leakage local-curvature prototype and
+  falsifies `LOCAL-CURVATURE-001` under the bounded no-leakage/control panel.
+  The candidate regresses full-known MAE (+0.019599 MeV), loses to the
+  strongest no-leakage control, and has subset win-rate 0.000. This supersedes
+  the earlier guarded implementation GO as a positive path and should be
+  preserved as negative/inconclusive memory through `TASK-0428`.
 
 Historical context:
 
@@ -179,11 +204,25 @@ Historical context:
 Current campaign state in one sentence:
 the scientific direction is now explicit, baseline-backed, holdout-defined,
 factory-supported, and prospectively frozen through selected registry entries,
-but it has not yet reached a future-measurement reveal; until a source
-manifest is accepted, the safest Nuclear follow-up is retrospective
-full-known-data stress review rather than reveal scoring. The first such audit
-is now recorded as sandbox evidence in `AGENT-RUN-0018`; reveal scoring remains
+but it has not yet reached a future-measurement reveal. The safest Nuclear
+follow-up is local-curvature falsification packaging, high-error cluster
+residual-free diagnostics, and reveal readiness reporting, not more broad
+audits or new prediction entries. The first full-known shell-axis audit is
+preserved as sandbox evidence in `AGENT-RUN-0018`; reveal scoring remains
 blocked.
+
+Current next Nuclear posture:
+
+- `TASK-0428` should run the result-promotion preflight mainly to preserve the
+  `LOCAL-CURVATURE-001` no-leakage falsification and block positive promotion
+  unless the scorecard exposes a very narrow, reviewed negative-result
+  publication artifact.
+- `TASK-0395` is the next non-duplicative diagnostic lane: rebuild high-error
+  cluster labels from residual-free Z/N/A-style features and decide whether the
+  lane survives as diagnostic-only or is retired.
+- `TASK-0396` should keep reveal-source readiness separate from every
+  retrospective audit. No real reveal scoring is allowed until a source-grade
+  post-freeze release passes the no-peek source gate.
 
 Start here:
 
@@ -242,9 +281,20 @@ Start here:
   artifact, or a sparse subset diagnostic?
 - Is the strongest shell-axis support driven by neutron magic structure,
   proton magic structure, both, or neither after matched controls?
+- After `TASK-0394`, what is the cleanest negative/inconclusive artifact for
+  the local-curvature lane, and what wording prevents future agents from
+  repeating it as a positive candidate?
+- Do residual-free high-error cluster labels reveal a real diagnostic domain,
+  or should that lane be retired as another leakage-sensitive negative result?
 
 ## Recommended Tasks
 
+- Run `TASK-0428` before any local-curvature publication or follow-up wording:
+  the expected path is negative/inconclusive memory, not positive promotion.
+- Run `TASK-0395` as the next Nuclear diagnostic lane only if the agent can
+  keep labels residual-free and controls explicit.
+- Run `TASK-0396` for reveal-source readiness; keep it independent from
+  retrospective model audits and do not score live measurements.
 - Future reveal tasks should use the `TASK-0266` protocol and the source
   readiness checklist instead of ad hoc source comparison.
 - Use the Nuclear scout evidence card as the compact maintainer orientation
@@ -328,6 +378,38 @@ Start here:
 - Keep broad `TASK-0178` blocked until the narrower factory and reveal
   protocol work is reviewed.
 
+## New-Lanes Decision After Uncertainty And Adversarial Controls (TASK-0365)
+
+`docs/reviews/nuclear-new-lanes-decision-after-uncertainty.md` is
+the maintainer-facing go/no-go for the recent Nuclear hypothesis wave, but its
+local-curvature positive path has now been consumed by the later no-leakage
+prototype in `TASK-0394`. Updated summary:
+
+- **SUPERSEDED/FAILED** for the no-leakage local-curvature implementation
+  path: `TASK-0394` falsified `LOCAL-CURVATURE-001` under the bounded
+  no-leakage/control panel;
+- **HOLD diagnostic** on high-error cluster (label refactor
+  required before predictive use);
+- **STOP** on odd-even shell interaction, deformation proxy, and
+  measured/extrapolated boundary (preserved sandbox memory only);
+- **HOLD diagnostic** on uncertainty-weighted residual as the
+  TASK-0368 F5 anchor.
+
+## Residual-Feature No-Leakage Contract (TASK-0368)
+
+`docs/nuclear-residual-feature-no-leakage-contract.md` is the
+cross-family eligibility gate for any future no-leakage predictive
+implementation. It classifies the five surfaced residual feature
+families (local curvature, high-error cluster, shell axis, source
+status, uncertainty-weighted) into predictive-eligible,
+diagnostic-only, and blocked, and defines the minimum artifact
+checklist any later predictive task must deliver before a
+`PRED-XXXX.yaml` entry or reveal-scoring task is opened. The
+companion review at
+`docs/reviews/nuclear-residual-feature-no-leakage-contract-review.md`
+records the rationale and explicit non-goals. Read both before
+proposing any Nuclear predictive lane.
+
 ## Recommended Contributor Types
 
 - nuclear-data curators;
@@ -339,6 +421,7 @@ Start here:
 
 - Do not say APL found a nuclear mass formula.
 - Do not say shell-aware corrections imply new nuclear theory.
+- Do not say `LOCAL-CURVATURE-001` survived no-leakage validation.
 - Do not report sandbox fit improvements as canonical benchmark results.
 - Do not blur measured values, extrapolated values, and derived targets.
 - Do not describe baseline residual maps as evidence of a broader conclusion by

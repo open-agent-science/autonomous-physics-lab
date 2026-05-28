@@ -1,0 +1,50 @@
+id: TASK-0415
+title: "Run first AGENT_VALIDATED replay of an agent-published result"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Demonstrate the first agent-to-agent validation loop."
+  - "Turn one AGENT_PUBLISHED result into independently replayed scientific memory."
+  - "Show that maintainers endorse interpretation while agents can validate evidence."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "tasks/TASK-0412-backfill-first-agent-published-result.yaml"
+    - "tasks/TASK-0414-add-gate-b-independent-replay-runner.yaml"
+  planning_context: >
+    This task is the first live use of Gate B. It should run after at least one
+    AGENT_PUBLISHED RESULT exists and after the Gate B replay runner exists.
+    A different agent should replay the result and either upgrade it to
+    AGENT_VALIDATED with a validation_record or produce a contested-result PR.
+
+requirements:
+  - "TASK-0412 and TASK-0414 are DONE; this task is now ready for first Gate B replay."
+  - "Use a different agent/session than the original AGENT_PUBLISHED author."
+  - "Replay the published deterministic command using the recorded inputs and hashes."
+  - "If metrics and verdict match within tolerance, update only review_tier and agent_proposal_evaluation/validation_record fields."
+  - "If metrics drift, do not upgrade; create a contested-result review artifact instead."
+  - "Do not promote any CLAIM-* status."
+  - "Do not pin the result to `results/golden-results.yaml`."
+
+accepted_outputs:
+  - "one AGENT_PUBLISHED RESULT upgraded to AGENT_VALIDATED or a contested-result review artifact"
+  - "docs/reviews/first-agent-validated-replay.md"
+  - "validation command transcript or machine-readable replay summary"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

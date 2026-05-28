@@ -38,5 +38,6 @@ evidence:
     - RESULT-0004
     - RESULT-0008
     - RESULT-0013
+    - RESULT-0017
 
 verdict: "Systematic gauntlets confirm range-limited pendulum correction formulas, including a 102-candidate asymptotic-refined follow-up. Evidence remains benchmark-scoped and does not establish a symbolic exact or globally valid formula."

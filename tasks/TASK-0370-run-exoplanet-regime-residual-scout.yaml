@@ -1,0 +1,53 @@
+id: TASK-0370
+title: "Run exoplanet regime residual scout"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Use the new exoplanet baseline to test bounded, interpretable residual hypotheses."
+  - "Target known regime boundaries without claiming a universal planet-composition law."
+  - "Create a fast, visual, scientifically useful result lane for APL."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-mass-radius-baseline-benchmark.md"
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+  planning_context: >
+    The first exoplanet benchmark suggests the frozen Chen-Kipping baseline is
+    useful on the true-mass axis but should be broken down by physical regimes.
+    This scout should test bounded residual hypotheses around sub-Neptune /
+    super-Earth transition behavior and Jovian-radius residual structure using
+    explicit null and sample-size controls.
+
+requirements:
+  - "Generate 4-8 bounded residual hypotheses using only committed catalog fields and the frozen baseline residuals."
+  - "Execute 1-3 hypotheses focused on regime behavior such as super-Earth/sub-Neptune transition, Jovian radius plateau, or high-irradiation/hot-Jupiter residuals when the needed fields are available."
+  - "Include per-class median, shuffled-regime, and sample-size-matched controls."
+  - "Require minimum slice counts before interpreting any residual pattern."
+  - "Report negative and inconclusive outcomes visibly."
+  - "Do not infer composition, habitability, life, biosignatures, target priority, or universal laws."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0035/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0035/metrics.json"
+  - "agent_runs/AGENT-RUN-0035/report.md"
+  - "docs/reviews/exoplanet-regime-residual-scout.md"
+  - "optional deterministic runner and tests if reusable code is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

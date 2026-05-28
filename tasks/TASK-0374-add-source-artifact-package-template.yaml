@@ -1,0 +1,54 @@
+id: TASK-0374
+title: "Add cross-campaign source artifact package template"
+type: research_infrastructure
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Give agents a standard artifact package shape before they pin source PDFs, CSVs, SI files, or digitisation outputs."
+  - "Make checksum, provenance, license, and extraction notes first-class artifacts."
+  - "Prevent campaign-specific source directories from drifting into incompatible conventions."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_data_policy
+  related_objects:
+    - "docs/notes/fresh-data-source-policy.md"
+    - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/README.md"
+    - "data/exoplanets/source_manifest.yaml"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/reviews/campaign-curator-brief-2026-05-24.md"
+  planning_context: >
+    Quantum and Atomic both exposed source-artifact blockers, while Exoplanets
+    succeeded because it used a pinned snapshot with manifest and checksums.
+    This task creates a reusable package template so future source pinning
+    starts from the same artifact discipline.
+
+requirements:
+  - "Create a reusable source artifact package template with README, provenance, checksum, license review, extraction notes, raw/derived policy, and blocker notes."
+  - "Document which files may contain value-bearing data and which must stay metadata-only."
+  - "Include redistribution and archival policy fields."
+  - "Include examples for PDF, CSV, supplementary table, figure digitisation, and API snapshot sources without committing new external data."
+  - "Do not fetch or ingest live source artifacts."
+
+accepted_outputs:
+  - "templates/source_artifact_package/README.md"
+  - "templates/source_artifact_package/provenance.yaml"
+  - "templates/source_artifact_package/license_review.md"
+  - "templates/source_artifact_package/extraction_notes.md"
+  - "templates/source_artifact_package/raw_derived_policy.md"
+  - "templates/source_artifact_package/blocker_notes.md"
+  - "docs/reviews/source-artifact-package-template-review.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

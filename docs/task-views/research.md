@@ -6,11 +6,15 @@
 
 ## READY
 
-- `TASK-0330` - Review atomic-clock primary frequency-ratio source class (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0331` - Review atomic-clock drift-bound derived-constraint source class (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0332` - Run atomic-clock real-row source gate (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0334` - Package quantum Jasieniak 2011 deterministic source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
-- `TASK-0337` - Scaffold exoplanet mass-radius source surface (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0393` - Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0395` - Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0398` - Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
+- `TASK-0400` - Verify Kang-Wise 1997 PbS direct-source path (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
+- `TASK-0402` - Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
+- `TASK-0403` - Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
+- `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
+- `TASK-0428` - Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0439` - Scaffold Materials Property Residuals campaign (`campaign_scaffold`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 
 ## IN_PROGRESS
 
@@ -18,8 +22,5 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0311` - Scaffold atomic-clock residuals source surface (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0315` - Map nuclear shell-axis validity domain after full-known audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0316` - Run nuclear shell-axis coefficient stability audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0319` - Fix autonomous task runner: weekly budget window and open-PR guard (`tooling_fix`, priority `high`, difficulty `medium`, domain `tooling`)
-- `TASK-0333` - Synthesize nuclear shell-axis post-audit decision (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0404` - Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+- `TASK-0438` - Scaffold Textbook Formula Audit campaign (`campaign_scaffold`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)

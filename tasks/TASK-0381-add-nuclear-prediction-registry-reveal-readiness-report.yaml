@@ -1,0 +1,53 @@
+id: TASK-0381
+title: "Add nuclear prediction registry count and reveal-readiness report"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make Nuclear prediction-registry state machine-readable before any reveal scoring."
+  - "Reduce confusion between highest PRED identifier, actual entry count, templates, and reveal-ready entries."
+  - "Keep prospective predictions frozen without peeking at future measurements."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "prediction_registry/nuclear_masses"
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "docs/reviews/nuclear-prediction-registry-status-after-pred-0062.md"
+    - "docs/reviews/strategy-curator-response-2026-05-24.md"
+  planning_context: >
+    The Nuclear campaign has many frozen prediction entries and several reveal
+    blockers. Maintainers need a deterministic report that distinguishes
+    actual registry entries from templates, reports the highest PRED id,
+    summarizes reveal-readiness states, and lists which entries are blocked by
+    missing source artifacts, no-peek review, or maintainer approval.
+
+requirements:
+  - "Create a deterministic registry summary for `prediction_registry/nuclear_masses`."
+  - "Report `highest_pred_id`, `actual_entry_count`, `template_count`, `blocked_reveal_count`, `ready_for_reveal_count`, and `awaiting_source_count`."
+  - "Group entries by model family or lane when the metadata supports it."
+  - "List entries that must not be scored before source preflight, no-peek review, and explicit maintainer approval."
+  - "Write conservative docs wording that prevents treating registry volume as scientific success."
+  - "Do not fetch live external nuclear data, score predictions, reveal hidden targets, or promote claims."
+
+accepted_outputs:
+  - "scripts/nuclear_prediction_registry_report.py"
+  - "prediction_registry/nuclear_masses/registry_summary.yaml"
+  - "docs/reviews/nuclear-prediction-registry-reveal-readiness-report.md"
+  - "tests/test_nuclear_prediction_registry_report.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

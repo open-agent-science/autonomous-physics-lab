@@ -1,0 +1,51 @@
+id: TASK-0383
+title: "Add READY science task pool health policy"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the open agent network supplied with independent scientific work."
+  - "Prevent agents from drifting into blocked lanes or inventing unreviewed proposals when the READY pool is thin."
+  - "Make queue health visible without turning it into a hard CI blocker for every PR."
+
+input:
+  mode: workflow
+  related_domain: agent_network
+  related_objects:
+    - "docs/agent-operating-model.md"
+    - "docs/task-views/research.md"
+    - "scripts/apl_mission.py"
+    - "docs/reviews/strategy-curator-response-2026-05-24.md"
+  planning_context: >
+    The strategic target is to keep at least five independent READY scientific
+    tasks, ideally across three active campaigns, so multiple agents can work
+    in parallel. The policy should warn maintainers when the pool is too small
+    and explain how to add bounded task-queue PRs without overloading the repo
+    with infrastructure-only work.
+
+requirements:
+  - "Define the target READY science pool: minimum 5 independent READY scientific tasks and preferred 6-10 when public/open-agent onboarding is active."
+  - "Require at least three active campaign surfaces when possible, while allowing source-gated campaigns to contribute source/review tasks instead of hypothesis pilots."
+  - "Document what counts as independent: distinct campaign, artifact surface, dataset/source, or hypothesis family."
+  - "Add a warning-only health check or documented command that reports when the READY science pool is below target."
+  - "Do not fail normal PR validation solely because the READY pool is low."
+  - "Do not create automatic task files from the warning."
+
+accepted_outputs:
+  - "docs/task-queue-health-policy.md"
+  - "warning-only helper or mission-control enhancement for READY science pool counts"
+  - "tests for count semantics if code changes are added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,57 @@
+id: TASK-0412
+title: "Backfill first AGENT_PUBLISHED result from mature existing evidence"
+type: result_publication
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Create the first low-risk canonical AGENT_PUBLISHED RESULT from mature evidence."
+  - "Prove that agents can move reproducible evidence into public scientific memory without claim endorsement."
+  - "Start with a conservative, mature benchmark before attempting higher-risk nuclear or exoplanet publication."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "results/"
+    - "agent_runs/"
+    - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+    - "hypotheses/HYP-0011-anharmonic-oscillator-period.yaml"
+    - "experiments/EXP-0001-pendulum-formula-discovery.yaml"
+    - "experiments/EXP-0011-anharmonic-oscillator-period-benchmark.yaml"
+  planning_context: >
+    The first AGENT_PUBLISHED result should be deliberately boring and safe:
+    pendulum, anharmonic oscillator, or another mature benchmark with stable
+    deterministic replay. This task should not start until the Gate A checker
+    and templates are available or the maintainer explicitly approves a manual
+    Gate A checklist for this one publication.
+
+requirements:
+  - "Remain BLOCKED until TASK-0408 and TASK-0409 are DONE, or until the maintainer explicitly authorizes a manual Gate A publication."
+  - "Choose one mature, low-risk candidate result; prefer Pendulum or Anharmonic before Nuclear."
+  - "Create exactly one new RESULT-* artifact with review_tier: AGENT_PUBLISHED."
+  - "Populate `agent_proposal_evaluation` with Gate A checks and an explicit trust qualifier."
+  - "Do not pin the result to `results/golden-results.yaml`."
+  - "Do not promote any CLAIM-* status."
+  - "Keep wording scoped to benchmark/replay evidence, not discovery."
+
+accepted_outputs:
+  - "one new results/EXP-XXXX/RUN-XXXX/result.yaml or protocol-approved equivalent RESULT-* artifact"
+  - "docs/reviews/first-agent-published-result-review.md"
+  - "updated HYP-0011 evidence reference if required to avoid an orphan RESULT-* artifact"
+  - "updated tests or validation fixture if required by the result schema"
+
+validation:
+  commands:
+    - "python3 scripts/apl_check_result_publication.py results/EXP-0011/RUN-0002/result.yaml"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

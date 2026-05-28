@@ -24,12 +24,15 @@ instruction, may perform closeout after merge.
 ## Closeout Actions
 
 - Set the task file status to `DONE`.
-- Prefer YAML-only per-task closeout PRs and avoid regenerating
-  [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md) in every closeout branch.
-- Run `python3 -m physics_lab.cli sync-active-board .` later in a dedicated
-  board-sync step or serialized `TASK-CLOSEOUT` PR so the board catches up
-  without becoming the main conflict surface.
-- If the merged PR or the applied board-sync step touched files that feed
+- Keep closeout PRs YAML-only. Do not regenerate
+  [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md) or
+  `docs/task-views/*.md` in the closeout branch; the post-merge
+  `Sync Active Board` GitHub Action regenerates them on `main` after the
+  closeout merges. Run
+  `python3 -m physics_lab.cli sync-active-board .` by hand only for an
+  explicit audit (set `APL_ENFORCE_BOARD_STALENESS=1`) or when the action
+  is temporarily disabled.
+- If the merged PR or a maintainer-side sync step touched files that feed
   `CONTEXT.md`, rerun `python3 scripts/generate_context_bundle.py` and stage
   `CONTEXT.md` in a later maintainer branch if it changed.
 - If the merged work changes experiments, results, campaign profiles, agent
@@ -48,6 +51,11 @@ instruction, may perform closeout after merge.
 - In larger cleanup batches, sanity-check open `READY`, `REVIEW_READY`, and
   `BLOCKED` tasks so the board does not keep advertising already-merged or no
   longer relevant work.
+- During closeout, unblock dependent tasks from `BLOCKED` to `READY` only when
+  the blocker is deterministic and fully satisfied inside the repository, for
+  example `Remain BLOCKED until TASK-XXXX and TASK-YYYY are DONE`. Keep tasks
+  blocked when the unblock condition depends on source access, external data,
+  maintainer waiver, artifact existence, or scientific judgment.
 - When opening a closeout PR, prefer
   `python3 scripts/apl_closeout_pr_helper.py scaffold ...` plus
   `python3 scripts/apl_closeout_pr_helper.py preflight ...` so the PR body

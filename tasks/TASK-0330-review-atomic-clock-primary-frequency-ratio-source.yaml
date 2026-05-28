@@ -1,7 +1,7 @@
 id: TASK-0330
 title: "Review atomic-clock primary frequency-ratio source class"
 type: scientific_dataset
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

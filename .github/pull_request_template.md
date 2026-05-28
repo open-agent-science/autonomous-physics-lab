@@ -85,8 +85,12 @@ Common narrow microtask/docs path:
 - [ ] `./scripts/validate_quick.sh`
 - [ ] `python3 -m physics_lab.cli validate-repo .`
 - [ ] `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`
-- [ ] `python3 -m physics_lab.cli sync-active-board .`
 - [ ] `./scripts/apl_review_bundle.sh`
+
+Note: agents no longer commit regenerated `tasks/ACTIVE.md` or
+`docs/task-views/*.md` from task PRs. The `Sync Active Board` post-merge
+GitHub Action regenerates them on `main` after every merge that touches
+`tasks/**` or `missions/current.yaml`.
 
 Broader code/science path when applicable:
 
@@ -105,6 +109,26 @@ Broader code/science path when applicable:
 - [ ] I used `--output-dir` for routine validation runs, or no workflow runs were needed.
 - [ ] I intentionally updated committed `results/` artifacts, or I left them untouched.
 - [ ] If canonical artifacts changed, the change is scientifically meaningful and explained in this PR.
+
+## Output Routing
+
+Use this section for research, validation, benchmark, source-curation,
+prediction, result, claim, or knowledge-facing PRs. Delete only when the PR is
+pure docs/task-admin and no scientific output class is involved.
+
+- Task verdict:
+- Canonical destination:
+- Review tier: `none`, `AGENT_PUBLISHED`, `AGENT_VALIDATED`, `MAINTAINER_REVIEWED`, `EXTERNAL_REPLICATED`, or `LEGACY_UNTIERED`
+- Gate A status:
+- Gate B status:
+- Claim impact:
+- Knowledge impact:
+- Limitations / blockers:
+
+If this PR contains `AGENT_PUBLISHED` or `AGENT_VALIDATED` artifacts, keep the
+qualifier explicit in the summary and changed-file notes. Claim status
+transitions are maintainer-only in Phase 1, and missing publication tooling
+must be reported as blocked rather than replaced by prose claims.
 
 ## Agent / Contributor Metadata
 

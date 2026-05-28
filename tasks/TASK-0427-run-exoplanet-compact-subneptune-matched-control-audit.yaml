@@ -1,0 +1,57 @@
+id: TASK-0427
+title: "Run exoplanet compact/sub-Neptune matched-control audit"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Validate the strongest new exoplanet residual signal from the compact/sub-Neptune pilot."
+  - "Move the exoplanet campaign toward a scientist-facing benchmark result without promoting a new law."
+  - "Give parallel agents a bounded, high-value follow-up that does not conflict with neptunian or host-selection audits."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-compact-subneptune-residual-hypothesis-pilot.md"
+    - "agent_runs/AGENT-RUN-0036/metrics.json"
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  planning_context: >
+    The compact/sub-Neptune pilot found the strongest current exoplanet sandbox
+    signal in compact true-mass planets, with weaker but still elevated residual
+    stress in sub-Neptune slices. This task should test whether that signal is
+    robust to matched controls before any promotion scorecard treats it as a
+    scientist-facing benchmark feature.
+
+requirements:
+  - "Use only the committed PSCompPars snapshot and committed exoplanet baseline artifacts; do not live-fetch or inspect newer catalog rows."
+  - "Reproduce the CSN-001, CSN-002, and CSN-003 eligible counts and RMSE values from AGENT-RUN-0036 before adding controls, or document deterministic drift."
+  - "Build matched controls for compact (`R < 1.5 R_earth`), sub-Neptune (`1.5 <= R < 4 R_earth`), and combined (`R < 4 R_earth`) true-mass slices."
+  - "Include controls for radius proximity, planet class, host temperature when available, detection method, mass/radius uncertainty bands, and sample-size matched resampling."
+  - "Include at least three deterministic negative controls, such as radius-label shuffle within the true-mass eligible set, uncertainty-equalized subsets, and adverse per-class or nearest-radius baselines."
+  - "Report whether each residual stress pattern survives controls, is explained by controls, or is underpowered."
+  - "Keep minimum-mass rows diagnostic-only and separate from true-mass metrics."
+  - "Do not claim composition, habitability, target priority, formation mechanism, or a new mass-radius law."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0042/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0042/metrics.json"
+  - "agent_runs/AGENT-RUN-0042/report.md"
+  - "docs/reviews/exoplanet-compact-subneptune-matched-control-audit.md"
+  - "optional deterministic runner and tests if reusable code is added"
+
+validation:
+  commands:
+    - "python3 scripts/run_exoplanet_compact_subneptune_matched_control_audit.py"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_compact_subneptune_matched_control_audit.py tests/test_exoplanet_compact_subneptune_residual_pilot.py tests/test_exoplanet_neptunian_residual_matched_control_audit.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,53 @@
+id: TASK-0397
+title: "Run nuclear local-curvature negative-control expansion"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stress-test the most promising Nuclear local-curvature lane before any predictive implementation is trusted."
+  - "Prioritize falsification and negative controls over adding more prediction entries."
+  - "Create a second Nuclear lane that can run independently of the prototype implementation."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/nuclear-local-curvature-no-leakage-freeze.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "docs/reviews/nuclear-local-curvature-adversarial-controls.md"
+    - "agent_runs/AGENT-RUN-0031/agent_run.yaml"
+  planning_context: >
+    Before the local-curvature lane can become a stronger Nuclear candidate, it
+    needs more negative controls that test whether the apparent improvement is
+    just smoothness, mass-number locality, or shell proximity in disguise. This
+    can run independently from the implementation prototype as an adversarial
+    validation task.
+
+requirements:
+  - "Design and run at least five negative controls for the local-curvature lane."
+  - "Include chain-shuffled, mass-number-only, magic-distance-only, smooth-window, and near-null neighborhood controls when feasible."
+  - "Compare control performance to the previously reported local-curvature behavior with identical metric definitions."
+  - "Report which controls explain the signal, if any."
+  - "Do not add prediction entries, reveal-score predictions, or promote claims."
+  - "Do not use live external data."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0041/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0041/metrics.json"
+  - "agent_runs/AGENT-RUN-0041/report.md"
+  - "docs/reviews/nuclear-local-curvature-negative-control-expansion.md"
+  - "tests for any reusable code that is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

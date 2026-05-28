@@ -1,0 +1,52 @@
+id: TASK-0373
+title: "Define cross-campaign fresh-data intake protocol"
+type: research_infrastructure
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Raise fresh-data ingestion maturity by standardizing source-to-row stages across campaigns."
+  - "Reduce repeated blocker analysis in Nuclear, Quantum, Atomic, and Exoplanets."
+  - "Keep data ingestion deterministic, reviewable, and resistant to LLM-fabricated numerical claims."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_data_policy
+  related_objects:
+    - "docs/notes/fresh-data-source-policy.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/reviews/campaign-curator-brief-2026-05-24.md"
+  planning_context: >
+    Fresh-data ingestion is the largest blocker across active campaigns. This
+    task defines one shared protocol for moving from source candidate to pinned
+    artifact, extraction ledger, curated rows, readiness gate, baseline, and
+    benchmark without claim promotion or live-source ambiguity.
+
+requirements:
+  - "Define standard lifecycle stages: SOURCE_CANDIDATE, SOURCE_ARTIFACT_PINNED, TABLE_OR_FIGURE_EXTRACTED, ROWS_CURATED, ROW_SCHEMA_VALIDATED, BASELINE_READY, BENCHMARK_READY."
+  - "Specify entry and exit criteria for each stage."
+  - "Define which artifacts are mandatory at each stage and which are campaign-specific."
+  - "Include explicit handling for direct measurements, derived constraints, calibration curves, model-derived rows, and figure digitisation."
+  - "State that LLM-recalled values and prose-only numerical claims are never admissible as data."
+  - "Do not ingest data, add benchmark metrics, or promote claims."
+
+accepted_outputs:
+  - "docs/fresh-data-intake-protocol.md"
+  - "docs/reviews/fresh-data-intake-protocol-review.md"
+  - "short links from active campaign pages and the fresh-data source policy"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

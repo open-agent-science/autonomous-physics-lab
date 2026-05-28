@@ -1,0 +1,119 @@
+id: EXP-PROPOSAL-0016
+title: "Sandbox exoplanet regime residual scout"
+campaign_profile_id: exoplanet-mass-radius
+proposal_kind: falsification
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact, prediction registry entry, habitability label, composition inference, or target-prioritization output."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0370
+
+input_references:
+  - "campaign_profiles/exoplanet-mass-radius.yaml"
+  - "docs/campaigns/exoplanet-mass-radius.md"
+  - "docs/exoplanet-mass-radius-baseline-protocol.md"
+  - "docs/reviews/exoplanet-mass-radius-baseline-benchmark.md"
+  - "agent_runs/AGENT-RUN-0032/metrics.json"
+  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  - "hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0050-exoplanet-regime-residual-scout.yaml"
+
+question: "On the post-filter pinned PSCompPars eligible slice (true mass + transit radius), does at least one of three executed regime hypotheses (super-Earth/sub-Neptune transition, Jovian-radius plateau, hot-Jupiter high-irradiation) produce a frozen-CK17 log10 RMSE meaningfully lower than the eligible-set baseline AND lower than the strongest of three matched controls (per-class median shift, shuffled-regime, sample-size-matched mass-neighbor)?"
+
+method:
+  summary: "Load the committed exo-0001-pscomppars-snapshot.yaml via physics_lab.datasets.exoplanets.load_and_filter and the committed quality-filter thresholds. Compute frozen CK17 log10-radius residuals on the eligible true-mass + transit-radius set. Generate six bounded regime hypotheses using only committed catalog fields. Execute three (super-Earth/sub-Neptune transition, Jovian plateau, hot-Jupiter high-irradiation) and report per-regime log10 RMSE/MAE/bias plus three controls: per-CK17-class median shift, shuffled-regime (deterministic seed), and sample-size-matched mass-neighbor. Enforce a minimum slice count of 30 rows before any verdict is interpreted. Emit deterministic agent_runs/AGENT-RUN-0035/ artifacts and a docs/reviews note."
+  code_references:
+    - "physics_lab/engines/exoplanet_mass_radius.py"
+    - "physics_lab/datasets/exoplanets.py"
+    - "scripts/run_exoplanet_regime_residual_scout.py"
+    - "tests/test_exoplanet_regime_residual_scout.py"
+  commands:
+    - "python3 scripts/run_exoplanet_regime_residual_scout.py"
+    - "python3 -m pytest tests/test_exoplanet_regime_residual_scout.py"
+  parameters:
+    min_regime_row_count: 30
+    survival_log10_rmse_margin: 0.022
+    shuffle_seed: 20260524
+    generated_hypothesis_count: 6
+    executed_hypothesis_count: 3
+    controls_per_executed_regime:
+      - per_class_median
+      - shuffled_regime
+      - matched_size_neighbor
+    frozen_baseline: "Chen-Kipping 2017 piecewise median (ApJ 834, 17)"
+
+inputs:
+  datasets:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  constants:
+    - "Frozen CK17 segment slopes (0.279, 0.589, -0.044, 0.881)."
+    - "Frozen CK17 changepoints (2.04 M_earth, 0.414 M_jup, 0.0800 M_sun)."
+    - "Frozen CK17 terran anchor (R = 1.008 R_earth at M = 1 M_earth)."
+  prior_results:
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "docs/reviews/exoplanet-mass-radius-baseline-benchmark.md"
+  assumptions:
+    - "No live NASA Exoplanet Archive fetch is performed."
+    - "No CK17 segment is refit on the snapshot."
+    - "No prediction registry entry, claim update, knowledge file edit, or canonical result artifact is produced."
+    - "Per-class median, shuffled-regime, and sample-size-matched controls share rows with the candidate; the controls are floors, not orthogonal nulls."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0035/"
+    - "docs/reviews/exoplanet-regime-residual-scout.md"
+  metrics:
+    - "per_regime_log10_rmse_candidate"
+    - "per_regime_log10_rmse_per_class_median_control"
+    - "per_regime_log10_rmse_shuffled_regime_control"
+    - "per_regime_log10_rmse_matched_size_neighbor_control"
+    - "delta_log10_rmse_eligible_minus_candidate"
+    - "delta_log10_rmse_strongest_control_minus_candidate"
+    - "regime_row_counts"
+    - "eligible_true_mass_with_transit_radius"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0035/report.md"
+    - "agent_runs/AGENT-RUN-0035/limitations.md"
+    - "agent_runs/AGENT-RUN-0035/review_summary.md"
+    - "docs/reviews/exoplanet-regime-residual-scout.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, three controls are reported per executed regime, the minimum-slice gate is respected, at least one executed regime beats the eligible-set baseline AND its strongest control by the survival margin (0.022 log10 RMSE), and no canonical result, PRED, claim, knowledge, or habitability/biosignature/target-prioritization output is produced."
+  fail_condition: "Fail if the runner fetches live data, refits any CK17 segment, omits any of the three controls, ignores the minimum-slice gate, or frames a regime as a habitability, biosignature, composition, or target-priority claim."
+  baseline_or_reference: "Frozen Chen-Kipping 2017 piecewise median mass-radius baseline (ApJ 834, 17, DOI 10.3847/1538-4357/834/1/17), compared against a per-CK17-class median null baseline plus shuffled-regime and matched-neighbor controls."
+  expected_failure_modes:
+    - "Regimes depending on equilibrium temperature or orbital period are smaller because those fields are present for only a subset of rows."
+    - "Per-class median and matched-neighbor controls share rows with the candidate; controls beat or tie the candidate when the regime cut does not add structure."
+    - "Shuffled-regime control may visually match the candidate when the eligible residual distribution is narrow."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No habitability, biosignature, composition, or target-priority claim from a regime residual."
+    - "No description of CK17 as a discovery or a new physical law."
+    - "No promotion of a regime cut as a universal planet-class boundary."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Three controls per executed regime."
+    - "Minimum-slice gate of 30 rows enforced before any verdict."
+    - "Preserve negative and inconclusive outcomes."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "Per-regime CK17 is not refit; the candidate is the eligible-set CK17 residual restricted to the regime."
+  - "Controls are interpreted as floors, not orthogonal nulls."
+  - "Minimum slice count is 30; smaller regimes are flagged under_minimum_slice."
+  - "Shuffled-regime control is single-draw with a deterministic seed."
+  - "No habitability, biosignature, composition, target-priority, PRED-*, RESULT-*, claim, or knowledge promotion is authorised."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Decide whether any executed regime warrants a narrower follow-up task under the existing exoplanet baseline protocol, or whether the scout is preserved as a bounded regime atlas only."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed canonical experiment task before any RESULT-*, PRED-*, claim, knowledge, or habitability / biosignature / target-prioritization promotion."

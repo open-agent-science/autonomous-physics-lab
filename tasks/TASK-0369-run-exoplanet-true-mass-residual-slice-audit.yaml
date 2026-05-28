@@ -1,0 +1,56 @@
+id: TASK-0369
+title: "Run exoplanet true-mass residual slice audit"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the first Exoplanet Mass-Radius baseline into a concrete failure-map surface."
+  - "Focus on the true-mass axis where the frozen Chen-Kipping baseline beat the null."
+  - "Preserve catalog-selection and measurement-quality limitations before public-facing summaries."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-mass-radius-baseline-benchmark.md"
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+  planning_context: >
+    TASK-0361 produced an INCONCLUSIVE overall verdict because the minimum-mass
+    axis had only two eligible rows and lost to the null. The true-mass with
+    transit-radius axis has 1207 eligible rows and beat the per-class median
+    null, so it is the correct first surface for a residual slice audit.
+
+requirements:
+  - "Use the committed snapshot and frozen baseline artifacts only; do not fetch live archive data."
+  - "Audit residuals on the true_mass_with_transit_radius axis by planet class, mass regime, radius regime, detection method, uncertainty band, and available host-star context."
+  - "Keep minimum-mass rows out of headline metrics and discuss them only as a sparse diagnostic axis."
+  - "Report MAE/RMSE/bias or log-residual equivalents plus row counts for every slice."
+  - "Identify robust, weak, and sample-size-blocked residual patterns without claiming a new planet law."
+  - "Do not add habitability, biosignature, target-priority, or discovery claims."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0034/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0034/metrics.json"
+  - "agent_runs/AGENT-RUN-0034/report.md"
+  - "agent_runs/AGENT-RUN-0034/limitations.md"
+  - "agent_runs/AGENT-RUN-0034/preflight.md"
+  - "agent_runs/AGENT-RUN-0034/review_summary.md"
+  - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+  - "optional script under scripts/ if reusable deterministic slicing code is added"
+  - "tests updated only if reusable code is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,49 @@
+id: TASK-0396
+title: "Update nuclear shell-axis mini-wave reveal source readiness"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep the frozen Nuclear prediction registry actionable without scoring unrevealed predictions."
+  - "Clarify what source or no-peek conditions block PRED-0063 through PRED-0068."
+  - "Prevent registry volume from being mistaken for scientific success."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "prediction_registry/nuclear_masses"
+    - "docs/reviews/nuclear-prediction-registry-reveal-readiness-report.md"
+    - "docs/nuclear-prediction-reveal-readiness-protocol.md"
+    - "docs/reviews/nuclear-shell-axis-mini-wave-source-preflight.md"
+  planning_context: >
+    Nuclear has sixty actual prediction entries through PRED-0068, but all are
+    blocked for reveal scoring because no accepted future source and no-peek
+    authorization exist. This task updates the mini-wave source-readiness state
+    without scoring or peeking at future values.
+
+requirements:
+  - "Review PRED-0063 through PRED-0068 against the existing reveal-readiness protocol and source-manifest checklist."
+  - "Record for each entry whether it is source-awaiting, no-peek-awaiting, maintainer-approval-awaiting, or structurally invalid."
+  - "Update only review/readiness artifacts unless a schema helper already exists for registry summaries."
+  - "Do not fetch or copy new nuclear mass values."
+  - "Do not score predictions, change frozen values, or create new PRED entries."
+  - "Do not use success or discovery wording."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-shell-axis-mini-wave-reveal-source-readiness-update.md"
+  - "optional machine-readable readiness summary if consistent with existing registry summary tooling"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
