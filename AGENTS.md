@@ -46,8 +46,8 @@ gated evidence publication when the selected task explicitly allows it.
 For machine-readable context or a copy-paste agent prompt, run:
 
 ```bash
-python3 scripts/apl_mission.py --json
-python3 scripts/apl_mission.py --agent-prompt
+python3 scripts/apl_mission.py --output json
+python3 scripts/apl_mission.py --output agent
 ```
 
 Use explicit modes when the maintainer asks for non-research work:

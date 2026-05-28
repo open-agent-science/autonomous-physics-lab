@@ -19,7 +19,11 @@ This review records a deterministic no-leakage prototype for the `LOCAL-CURVATUR
 
 ## Interpretation
 
-The prototype is still retrospective sandbox evidence. A `PARTIALLY_VALID` verdict here means the local-curvature candidate survived this bounded no-leakage/control panel; it does not authorize claim promotion, public discovery wording, a reveal score, or a `PRED-*` entry.
+The prototype is still retrospective sandbox evidence. The no-leakage/control
+panel falsifies the `LOCAL-CURVATURE-001` candidate under this bounded
+implementation: it should be preserved as negative/inconclusive campaign
+memory, not promoted. It does not authorize claim promotion, public discovery
+wording, a reveal score, or a `PRED-*` entry.
 
 ## Limitations
 

@@ -18,7 +18,7 @@ the PR protocol after I choose."
 Run the onboarding entrypoint first:
 
 ```bash
-python3 scripts/apl_mission.py --onboarding
+python3 scripts/apl_mission.py --output onboarding
 ```
 
 This starts **Research Mode** with a gentler first step: the agent should
@@ -28,8 +28,8 @@ effort, recommend one, and wait for your choice before editing files.
 For machine-readable context or a full autonomous prompt after onboarding, use:
 
 ```bash
-python3 scripts/apl_mission.py --json
-python3 scripts/apl_mission.py --agent-prompt
+python3 scripts/apl_mission.py --output json
+python3 scripts/apl_mission.py --output agent
 ```
 
 Use support mode only when you intentionally want docs, tests, packaging,
@@ -108,7 +108,7 @@ The important rule: the agent prepares evidence; the maintainer decides merge.
 Read these first:
 
 1. [README.md](../README.md)
-2. Run `python3 scripts/apl_mission.py --onboarding`
+2. Run `python3 scripts/apl_mission.py --output onboarding`
 3. [docs/current-missions.md](./current-missions.md)
 4. [docs/mission-control.md](./mission-control.md)
 5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
@@ -149,7 +149,7 @@ Avoid starting with:
 Run:
 
 ```bash
-python3 scripts/apl_mission.py --onboarding
+python3 scripts/apl_mission.py --output onboarding
 ```
 
 Follow the recommended mission unless the maintainer assigned something more
@@ -212,14 +212,15 @@ If you are using a coding agent, a good starting prompt is:
 You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode with onboarding. Read AGENTS.md and
-docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --output onboarding`.
 Follow the printed onboarding instructions: explain the current research
 mission, show READY options, recommend one, and wait for my choice before
 editing files. Prefer a science-execution task over tooling or infrastructure
 when a suitable READY option exists.
 ```
 
-For full autonomous execution, replace `--onboarding` with `--agent-prompt`.
+For full autonomous execution, replace `--output onboarding` with
+`--output agent`.
 
 If you are using support mode, run `python3 scripts/apl_mission.py --mode support`
 and give the agent the selected task or queue item.
@@ -238,7 +239,7 @@ A good contribution should leave behind:
 
 Best first destinations:
 
-- `python3 scripts/apl_mission.py --onboarding`
+- `python3 scripts/apl_mission.py --output onboarding`
 - [docs/current-missions.md](./current-missions.md)
 - [docs/mission-control.md](./mission-control.md)
 - [docs/results/visual-summary.md](./results/visual-summary.md)
