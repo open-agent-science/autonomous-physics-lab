@@ -1,7 +1,7 @@
 id: TASK-0402
 title: "Reconstruct atomic Beloy cross-ratio covariance approximation"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
