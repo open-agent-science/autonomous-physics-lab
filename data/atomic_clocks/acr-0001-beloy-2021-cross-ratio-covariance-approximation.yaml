@@ -1,0 +1,224 @@
+approximation_id: ACR-0001-COV-APPROX-BELOY-2021
+schema_version: 0.1.0
+task_id: TASK-0402
+campaign_profile_id: atomic-clock-residuals
+status: source_derived_approximation
+created_by:
+  contributor_id: roman
+  agent_id: claude
+
+derived_from:
+  dataset_id: ACR-0001-BELOY-2021-DIRECT-RATIOS
+  dataset_path: data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml
+  source_artifact_id: ACLOCK-SRC-ARTIFACT-2021-BELOY-BACON
+  source_paragraph_cite: |
+    arXiv:2005.14694 Table 1 (per-clock systematic contributions and
+    Bayesian-model totals); Sec. 4.5 "Comprehensive Bayesian model"
+    (within-row full-correlation-across-days assumption).
+
+scope:
+  purpose: |
+    Source-derived approximate cross-ratio covariance matrix for the three
+    Beloy 2021 / BACON direct frequency-ratio rows (ACR-0001-ROW-001..003).
+    The off-diagonal entries capture ONLY the shared-clock systematic
+    coupling that is deterministically reconstructible from per-clock
+    systematic contributions published in Table 1 of the source paper.
+  sandbox_only: true
+  benchmark_allowed: false
+  drift_fitting_allowed: false
+  derived_constants_constraint_allowed: false
+  claim_promotion_allowed: false
+  prediction_registry_allowed: false
+  intended_use: |
+    Reviewable input for a future benchmark task that must decide whether
+    to treat the three Beloy rows as correlated, partially correlated, or
+    independent-with-documented-warning. This file does not authorise any
+    benchmark, fit, drift estimate, or claim promotion.
+
+approximation_class: source_derived_lower_bound_shared_clock_only
+
+methodology:
+  unit_convention: dimensionless fractional uncertainty; matrix entries reported in (1e-18)^2 = 1e-36 units
+  diagonal_source: |
+    Per-row Bayesian-model 1-sigma total (Table 1 final row) squared.
+    Values: row-001 = 5.9e-18, row-002 = 8.0e-18, row-003 = 6.8e-18.
+  off_diagonal_rule: |
+    For each unordered pair (i, j) and shared clock c that appears in both
+    rows, the shared-systematic cross-row covariance contribution is:
+      Cov_c(i, j) = sign_c(i) * sign_c(j) * sigma_{c,i} * sigma_{c,j}
+    where sign_c(row) = +1 if clock c is in the numerator of that ratio
+    and sign_c(row) = -1 if clock c is in the denominator.
+    Total Cov(i, j) = sum over shared clocks c of Cov_c(i, j).
+    The sigma_{c,row} values are the per-clock systematic contributions
+    listed in Table 1 of arXiv:2005.14694 and committed in the dataset
+    under each row's `uncertainty.systematic_components_e_minus_18`.
+  signs_per_row:
+    ACR-0001-ROW-001:
+      ratio: Al+/Yb
+      numerator_clock: BACON-CLOCK-AL27PLUS
+      denominator_clock: BACON-CLOCK-YB171
+      Al+_sign: +1
+      Yb_sign: -1
+    ACR-0001-ROW-002:
+      ratio: Al+/Sr
+      numerator_clock: BACON-CLOCK-AL27PLUS
+      denominator_clock: BACON-CLOCK-SR87
+      Al+_sign: +1
+      Sr_sign: -1
+    ACR-0001-ROW-003:
+      ratio: Yb/Sr
+      numerator_clock: BACON-CLOCK-YB171
+      denominator_clock: BACON-CLOCK-SR87
+      Yb_sign: +1
+      Sr_sign: -1
+
+per_pair_decomposition_e_minus_36:
+  - pair: [ACR-0001-ROW-001, ACR-0001-ROW-002]
+    shared_clocks:
+      - clock_id: BACON-CLOCK-AL27PLUS
+        sigma_i_e_minus_18: 1.7
+        sigma_j_e_minus_18: 1.5
+        sign_product: +1
+        cov_contribution_e_minus_36: +2.55
+    total_cov_e_minus_36: +2.55
+    correlation_rho: +0.0540
+
+  - pair: [ACR-0001-ROW-001, ACR-0001-ROW-003]
+    shared_clocks:
+      - clock_id: BACON-CLOCK-YB171
+        sigma_i_e_minus_18: 1.4
+        sigma_j_e_minus_18: 1.4
+        sign_product: -1
+        cov_contribution_e_minus_36: -1.96
+    total_cov_e_minus_36: -1.96
+    correlation_rho: -0.0489
+
+  - pair: [ACR-0001-ROW-002, ACR-0001-ROW-003]
+    shared_clocks:
+      - clock_id: BACON-CLOCK-SR87
+        sigma_i_e_minus_18: 4.8
+        sigma_j_e_minus_18: 5.0
+        sign_product: +1
+        cov_contribution_e_minus_36: +24.00
+    total_cov_e_minus_36: +24.00
+    correlation_rho: +0.4412
+
+covariance_matrix_e_minus_36:
+  row_order: [ACR-0001-ROW-001, ACR-0001-ROW-002, ACR-0001-ROW-003]
+  matrix:
+    - [34.81,  2.55, -1.96]
+    - [ 2.55, 64.00, 24.00]
+    - [-1.96, 24.00, 46.24]
+  positive_semidefinite_check:
+    eigenvalues_e_minus_36: [28.1211, 36.1981, 80.7308]
+    leading_minor_2x2_determinant_e_minus_72: 2221.338
+    full_determinant_e_minus_108: 82178.32
+    psd_verdict: PASS
+
+correlation_matrix:
+  row_order: [ACR-0001-ROW-001, ACR-0001-ROW-002, ACR-0001-ROW-003]
+  matrix:
+    - [+1.0000, +0.0540, -0.0489]
+    - [+0.0540, +1.0000, +0.4412]
+    - [-0.0489, +0.4412, +1.0000]
+
+partial_correlation_classification:
+  - pair: [ACR-0001-ROW-002, ACR-0001-ROW-003]
+    rho_magnitude: 0.4412
+    class: load_bearing_correlation
+    rationale: |
+      The Sr clock is the dominant systematic in both ROW-002 (Al+/Sr) and
+      ROW-003 (Yb/Sr). Treating these two rows as independent in any
+      benchmark consumer would substantially understate joint uncertainty.
+      Any downstream consumer combining ROW-002 and ROW-003 must use this
+      approximation OR document explicit independence as a benchmark
+      limitation.
+  - pair: [ACR-0001-ROW-001, ACR-0001-ROW-002]
+    rho_magnitude: 0.0540
+    class: small_positive_correlation
+    rationale: |
+      Al+ is a minor systematic in both Al+/Yb and Al+/Sr; the induced
+      cross-ratio correlation is small. Independence is an acceptable
+      first-pass approximation if explicitly noted.
+  - pair: [ACR-0001-ROW-001, ACR-0001-ROW-003]
+    rho_magnitude: 0.0489
+    class: small_negative_correlation
+    rationale: |
+      Yb appears in the denominator of Al+/Yb and the numerator of Yb/Sr,
+      producing a small anti-correlation. Independence is an acceptable
+      first-pass approximation if explicitly noted.
+
+excluded_from_off_diagonals:
+  - component: network_link_systematic
+    per_row_magnitude_e_minus_18:
+      ACR-0001-ROW-001: 0.3
+      ACR-0001-ROW-002: 0.5
+      ACR-0001-ROW-003: 0.5
+    rationale: |
+      Network link noise is shared lab-wide for the BACON 2018 campaign
+      and physically common across all three ratios, but Table 1 of the
+      source does NOT publish a sign convention or a per-ratio direction
+      that would let us assign deterministic cross-row signs. The shared
+      lab-wide nature implies non-zero correlation; the magnitude is at
+      most |sigma_N,i * sigma_N,j| per pair (i.e. +0.15, +0.15, +0.25 in
+      1e-36 units for pairs (1,2), (1,3), (2,3) respectively). This
+      approximation conservatively excludes that contribution; a future
+      benchmark may add it as a sensitivity check with the sign
+      ambiguity flagged.
+  - component: geopotential_systematic
+    per_row_magnitude_e_minus_18:
+      ACR-0001-ROW-001: 0.2
+      ACR-0001-ROW-002: 0.4
+      ACR-0001-ROW-003: 0.4
+    rationale: |
+      Geopotential redshift contributions depend on the height difference
+      between each pair of clocks. The published per-row geopotential
+      numbers do not separate the per-clock components needed to assign
+      signs deterministically across rows. As with network noise, the
+      omitted cross-row contribution is at most |sigma_G,i * sigma_G,j|
+      (i.e. +0.08, +0.08, +0.16 in 1e-36 units for the three pairs).
+  - component: statistical_uncertainty
+    rationale: |
+      Per-row statistical contributions are not shared across rows in the
+      paper's model (each ratio's daily measurements are independent
+      campaigns within the BACON 2018 window). Cross-row statistical
+      correlation is treated as zero by construction.
+
+how_to_reproduce:
+  steps:
+    - "Open data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml."
+    - "Read each row's uncertainty.systematic_components_e_minus_18 dict."
+    - "For each unordered pair (i, j) and each shared clock c:"
+    - "  - look up sigma_{c,i}, sigma_{c,j} from the dataset;"
+    - "  - look up sign_c(i), sign_c(j) from the ratio orientation (numerator = +1, denominator = -1);"
+    - "  - accumulate Cov(i, j) += sign_c(i) * sign_c(j) * sigma_{c,i} * sigma_{c,j}."
+    - "Place the per-row Bayesian-model 1-sigma squared on the diagonal."
+    - "Verify positive-semidefiniteness via eigenvalue or leading-minor check."
+  fully_deterministic_from_committed_artifacts: true
+
+limitations:
+  - "Off-diagonals capture ONLY shared-clock systematic coupling; they omit network, geopotential, and lab-wide effects that are physically shared but not deterministically signable from the published per-row decomposition."
+  - "Therefore the reconstructed |Cov(i, j)| values are LOWER BOUNDS on the true magnitude of cross-row systematic coupling. A benchmark consumer should treat this matrix as an under-correlated approximation."
+  - "Diagonals use the Bayesian-model 1-sigma totals, which themselves absorb within-row systematic full-correlation across days per arXiv:2005.14694 Sec. 4.5. Off-diagonals therefore mix Bayesian-total variances with per-systematic-only covariances; consumers must accept this hybrid construction or rebuild diagonals from per-systematic quadrature."
+  - "Statistical cross-row correlation is treated as zero; if a future analysis revisits the daily measurement schedule and finds shared days, the statistical block of the matrix must be revisited."
+  - "The matrix is NOT a published 3x3 covariance matrix; it is a source-derived approximation. Do not present it as a paper result."
+  - "Sandbox-only. Do not benchmark, fit drifts, derive constants constraints, or promote claims from this approximation without explicit maintainer-approved follow-up."
+
+promotion_boundary:
+  writes_real_clock_values: false
+  writes_derived_constraint_values: false
+  writes_benchmark_metrics: false
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: |
+    Maintainer review of the approximation, then optional use as a
+    correlated-input model in a future Atomic-Clock benchmark task. The
+    TASK-0344 covariance/uncertainty contract and the TASK-0332/0401
+    readiness gates remain authoritative; this approximation does not
+    relax them.
+
+global_limitations:
+  - "Source-derived approximation; not a paper-published matrix."
+  - "Lower-bound shared-clock covariance only; lab-wide network and geopotential contributions are intentionally omitted from off-diagonals."
+  - "Sandbox-only; no benchmark, fit, drift, or claim is authorised by this file."
