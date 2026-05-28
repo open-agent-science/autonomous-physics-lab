@@ -16,3 +16,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0436` - Align agent docs with multi-campaign evidence-publication strategy (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `multi_campaign_architecture`)
+- `TASK-0443` - Add public campaign science dashboard and monitoring links (`documentation`, priority `high`, difficulty `medium`, domain `cross_campaign_status`)
