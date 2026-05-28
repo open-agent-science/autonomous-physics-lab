@@ -79,6 +79,7 @@ None.
 - `TASK-0435` — Add campaign-at-a-glance snapshot summary (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0436` — Align agent docs with multi-campaign evidence-publication strategy (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0441` — Upgrade Scientific Campaign Curator into Scientific Campaign Director role (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0442` — Sync campaign guidance after director review (`documentation`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
