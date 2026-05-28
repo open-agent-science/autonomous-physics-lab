@@ -1,0 +1,157 @@
+manifest_id: ACLOCK-SOURCE-MANIFEST-0001
+schema_version: 0.1.0
+task_id: TASK-0403
+status: live_manifest
+campaign_profile_id: atomic-clock-residuals
+template_ref: data/atomic_clocks/source_manifest_template.yaml
+created_by:
+  contributor_id: roman
+  agent_id: claude
+
+scope:
+  purpose: >
+    Live atomic-clock direct-ratio source manifest. Lists the source
+    families currently considered for the Atomic-Clock Residuals
+    campaign, the status of each, and the gating evidence pointers.
+    This manifest does not ingest any new clock value: pinned source
+    artifacts and the rows derived from them live in their own
+    dataset/provenance files.
+  value_policy: no_new_measurement_values_recorded_in_this_manifest
+  live_fetch_allowed: false
+  benchmark_allowed: false
+  claim_promotion_allowed: false
+  prediction_registry_allowed: false
+
+source_families:
+  - source_family_id: ACLOCK-SRC-CLASS-001
+    row_class: direct_frequency_ratio_measurement
+    title: Primary optical frequency-ratio measurement papers
+    members:
+      - source_id: ACLOCK-SRC-ARTIFACT-2021-BELOY-BACON
+        status: pinned
+        ratio_set:
+          - Al+/Yb
+          - Al+/Sr
+          - Yb/Sr
+        lab: BACON_NIST_JILA_NIST
+        epoch_start: 2017-11
+        epoch_end: 2018-06
+        source_locator: https://arxiv.org/abs/2005.14694
+        archive_url: https://arxiv.org/pdf/2005.14694
+        retrieval_date: 2026-05-25
+        checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
+        checksum_scope: arxiv_preprint_pdf
+        provenance_path: data/atomic_clocks/source_artifacts/2021-beloy-bacon/provenance.yaml
+        license_note: arXiv_perpetual_licence_for_committed_preprint
+        publication_of_record:
+          doi: 10.1038/s41586-021-03253-4
+          journal: Nature
+          year: 2021
+          redistributable_here: false
+        value_status: values_pinned_in_dataset
+        dataset_path: data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml
+        covariance_artifact_path: data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml
+        readiness_state: PINNED_DATASET
+        readiness_evidence:
+          - docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md
+          - docs/reviews/atomic-clock-beloy-2021-direct-ratio-row-curation.md
+          - docs/reviews/atomic-beloy-2021-row-readiness-recheck.md
+          - docs/reviews/atomic-beloy-2021-cross-ratio-covariance-approximation.md
+        stop_conditions_cleared:
+          - SOURCE_ARTIFACT_VERSION_DRIFT
+          - uncertainty_semantics_recoverable
+          - covariance_branch_documented
+        outstanding_blockers_for_baseline_ready:
+          - holdout_or_reveal_freeze_manifest_unset
+          - real_row_loader_path_not_validated
+          - single_source_campaign_until_a_second_source_pinned
+
+      - source_id: ACLOCK-SRC-CANDIDATE-2016-NEMITZ-RIKEN
+        status: triage_only_no_values
+        ratio_set:
+          - Yb/Sr
+        lab: RIKEN
+        epoch_start: null
+        epoch_end: null
+        source_locator: https://arxiv.org/abs/1403.5836
+        archive_url: https://arxiv.org/pdf/1403.5836
+        retrieval_date: null
+        checksum_sha256: null
+        checksum_scope: not_yet_retrieved
+        provenance_path: null
+        license_note: arXiv_perpetual_licence_for_future_committed_preprint
+        publication_of_record:
+          doi: 10.1038/nphoton.2016.20
+          journal: Nature Photonics
+          volume: 10
+          page: 258
+          year: 2016
+          redistributable_here: false
+        value_status: metadata_only_no_values
+        dataset_path: null
+        covariance_artifact_path: null
+        readiness_state: CANDIDATE_TRIAGED_SOURCE_INGESTION_BLOCKED
+        readiness_evidence:
+          - docs/reviews/atomic-second-direct-ratio-source-triage.md
+        triage_role: |
+          Strongest direct independent cross-check for the Beloy 2021
+          Yb/Sr row (ACR-0001-ROW-003) because the species pair matches
+          and the lab is fully independent of the NIST + JILA + NIST
+          BACON 2018 campaign. Resolves the candidate-selection step of
+          TASK-0401 Blocker 4; ingestion is deferred to a follow-up task.
+        ingestion_blockers:
+          - source_artifact_pdf_not_committed
+          - checksum_sidecar_missing
+          - retrieval_date_unset
+          - arxiv_vs_nature_version_drift_cross_check_pending
+          - per_systematic_budget_not_transcribed_under_task_0344
+          - transition_labels_epoch_window_not_locked
+          - holdout_or_reveal_freeze_manifest_unset
+
+      - source_family_member_planning_only:
+          notes: |
+            Pizzocaro 2020 (INRIM Yb/Sr) is held as a secondary fallback
+            if Nemitz 2016 is not ingestible under the gates above. Lange
+            2021 (PTB Yb+/Cs) provides species breadth but not a direct
+            Yb/Sr cross-check. Both remain candidates only; no entries
+            are created in this manifest until a triage review names
+            them.
+
+manifest_global_stop_conditions:
+  - SOURCE_ARTIFACT_VERSION_DRIFT
+  - source_omits_uncertainty_semantics
+  - source_mentions_covariance_or_shared_systematics_without_recoverable_notes
+  - source_lacks_retrieval_date_or_archive_plan
+  - source_license_or_reuse_terms_unclear
+
+next_actions:
+  - description: |
+      Future source-ingestion task should commit the Nemitz 2016 source
+      artifact (arXiv PDF + checksum sidecar + provenance.yaml), then
+      add ACR-0002-NEMITZ-2016-DIRECT-RATIO rows under a fresh dataset
+      id following the TASK-0363/TASK-0371 layout.
+    blocking_task: TASK-0403
+    enables: TASK-0401_blocker_4_resolution
+  - description: |
+      Maintainer decision: keep one aggregate source_manifest.yaml (this
+      shape) or split into per-source-family manifests as the campaign
+      grows. This manifest currently follows the aggregate pattern with
+      explicit member-level entries.
+    blocking_task: maintainer_decision
+    enables: campaign_structure_lock
+
+promotion_boundary:
+  writes_new_clock_values: false
+  writes_derived_constraint_values: false
+  writes_benchmark_metrics: false
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: |
+    Maintainer review of the manifest shape and the Nemitz 2016 triage
+    decision before any source-ingestion follow-up task is run.
+
+global_limitations:
+  - "This manifest records source-family status only; pinned values live in their dataset files and pinned provenance lives under data/atomic_clocks/source_artifacts/."
+  - "The Nemitz 2016 entry is triage-only; no PDF, checksum, or row is committed for it by this PR."
+  - "Sandbox-only. Do not ingest values, benchmark, fit drifts, derive constants constraints, or promote claims from this manifest."
