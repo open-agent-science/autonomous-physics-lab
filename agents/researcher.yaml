@@ -2,7 +2,7 @@ role_id: researcher
 role_name: "Researcher (default agent)"
 status: active
 phase: "Long-standing default"
-short_description: "Default role for new agents: pick one READY task, execute it through the canonical task lifecycle to REVIEW_READY."
+short_description: "Default role for new agents: pick one READY task, execute it through the canonical task lifecycle to REVIEW_READY, and route outputs through the evidence-publication protocol when allowed."
 
 activation:
   intent: |
@@ -19,8 +19,8 @@ purpose: |
   The Researcher is the role most APL work happens in. It is the default
   contributor-facing agent that picks one atomic READY task and carries
   it through the canonical lifecycle to REVIEW_READY. Most science
-  execution, dataset curation, audit, replay, and small workflow tasks
-  are done in this role.
+  execution, dataset curation, source readiness, audit, replay,
+  result-promotion preflight, and small workflow tasks are done in this role.
 
 when_to_use:
   - "A fresh agent session opens and no other activation intent fires."
