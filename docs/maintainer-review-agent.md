@@ -600,6 +600,20 @@ closeout actions. It does not edit files.
 
 Use `--suggest` for additional closeout suggestions without applying changes.
 
+## Repository Snapshot Location
+
+When the maintainer asks for a repository snapshot, use the default project-local
+location:
+
+```bash
+./scripts/apl_snapshot.sh
+```
+
+The snapshot must be written under `_snapshots/` in the repository checkout so
+the maintainer can find it immediately. `APL_SNAPSHOT_DIR=/tmp/...` is allowed
+only for disposable smoke tests of the snapshot script; do not use it for the
+final snapshot handoff.
+
 ## Context Bundle
 
 After major batches of merges, regenerate the single-file context bundle so
