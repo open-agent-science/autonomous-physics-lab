@@ -42,7 +42,7 @@ required_quality_checks:
 forbidden_claims:
   - "A sandbox candidate explains all exoplanet masses or radii."
   - "Residual improvement alone is evidence of a broader physical conclusion about planet structure."
-  - "Habitability, biosignature, target-prioritization, or planet-discovery framing is permitted."
+  - "Habitability, biosignature, target-prioritization, or planet-discovery framing is forbidden."
   - "Advanced-model comparisons are required before the frozen Chen-Kipping-style baseline exists."
   - "Random or full-snapshot improvement alone is enough to claim generalization."
   - "Live NASA Exoplanet Archive fetches may bypass the snapshot pinning policy."

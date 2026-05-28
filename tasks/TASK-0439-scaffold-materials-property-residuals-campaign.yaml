@@ -1,0 +1,47 @@
+id: TASK-0439
+title: "Scaffold Materials Property Residuals campaign"
+type: campaign_scaffold
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Prepare a high-throughput fresh-data campaign surface for many agents."
+  - "Keep materials work source-first before residual modeling or property-prediction claims."
+  - "Expand the campaign portfolio beyond nuclear, exoplanet, quantum, and atomic clocks without creating ungated formula search."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/campaigns/"
+    - "campaign_profiles/"
+    - "data/"
+  planning_context: >
+    Materials/JARVIS-style property residuals are promising for parallel
+    agent work because source surfaces can produce many bounded tasks. This
+    scaffold should define admissible source classes, schema expectations,
+    baseline families, and guardrails before any real data ingestion.
+
+requirements:
+  - "Create `docs/campaigns/materials-property-residuals.md`."
+  - "Create `campaign_profiles/materials-property-residuals.yaml`."
+  - "Create `data/materials/README.md` or `data/materials/source_manifest.yaml` as a placeholder/source policy, without live data ingestion."
+  - "Define allowed source-manifest, schema, baseline, holdout, and residual-map tasks."
+  - "Forbid real material-property claims, broad materials discovery wording, and live database fetches before pinned snapshot policy exists."
+
+accepted_outputs:
+  - "campaign page"
+  - "campaign profile"
+  - "source-manifest placeholder or source policy"
+  - "follow-up task recommendations for pinned source snapshot planning"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
