@@ -55,6 +55,9 @@ def test_render_strategic_context_map_explains_current_project_stage() -> None:
 
     assert "### Strategic Snapshot Front Page" in rendered
     assert "Current Architecture Stage" in rendered
+    assert "Campaigns At A Glance" in rendered
+    assert "Recommended Parallel Allocation" in rendered
+    assert "Recent Scientific Learnings" in rendered
     assert "Campaign Motion" in rendered
     assert "Scientific Memory Conveyor" in rendered
     assert "Critical Files And Directories" in rendered
@@ -63,6 +66,9 @@ def test_render_strategic_context_map_explains_current_project_stage() -> None:
     assert "`agent_runs/`" in rendered
     assert "`results/`" in rendered
     assert "nuclear-mass-surface" in rendered
+    assert "Quantum Size Effects" in rendered
+    assert "Exoplanet Mass-Radius" in rendered
+    assert "Agent 1:" in rendered
     assert "AGENT_PUBLISHED" in rendered or "AGENT_VALIDATED" in rendered
 
 
