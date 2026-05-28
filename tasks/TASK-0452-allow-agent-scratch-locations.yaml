@@ -48,6 +48,7 @@ requirements:
   - "Gitignore the directory's contents while keeping .gitkeep and README.md tracked, so contributors who clone fresh get the same convention."
   - "Add a short .claude/scratch/README.md explaining that the directory is for agent scratch (PR-body scaffolds, helper notes), is gitignored, and must not be used as an audit-trail or as a publication surface."
   - "Update .claude/settings.json to add permissions.additionalDirectories with /tmp and to extend permissions.allow with explicit Read/Write/Edit patterns for /tmp/apl-*.md and .claude/scratch/**, so the workspace boundary and the policy allowlist agree."
+  - "Update canonical onboarding/protocol surfaces so future agents discover the convention: CLAUDE.md (Agent Scratch Directory section), docs/agent-task-protocol.md (example body-file paths), docs/maintainer-review-agent.md (closeout body-file path)."
   - "Do not change behavior of any committed scientific artifact, dataset, claim, knowledge entry, prediction, or canonical result."
   - "Do not modify hooks or other sandbox-enforcing settings."
 
@@ -56,6 +57,9 @@ accepted_outputs:
   - ".claude/scratch/README.md"
   - "updated .gitignore"
   - "updated .claude/settings.json"
+  - "updated CLAUDE.md"
+  - "updated docs/agent-task-protocol.md"
+  - "updated docs/maintainer-review-agent.md"
   - "this canonical task file"
 
 validation:

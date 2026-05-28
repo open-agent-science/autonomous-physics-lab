@@ -21,6 +21,24 @@ This directory is for **agent throwaway artifacts** only:
 - **Safe to delete at any time.** Agents and contributors may clear
   the directory between tasks without losing reviewable state.
 
+## Canonical filenames used by helpers
+
+Common scratch artifacts agents and helpers write here:
+
+- `apl-pr-body.md` / `apl-pr-body-<task-id>.md` — task PR body
+  scaffolds produced by `scripts/apl_task_pr_helper.py`.
+- `apl-closeout-pr-body.md` — closeout PR body produced by
+  `scripts/apl_closeout_pr_helper.py`.
+- `apl-microtask-pr-body.md` — microtask PR body produced by
+  `scripts/apl_microtask_pr_helper.py`.
+
+The directory is registered in `.claude/settings.json` via
+`permissions.allow` (`Read|Write|Edit(.claude/scratch/**)`) so writes
+do not prompt the user.
+
+See `docs/agent-task-protocol.md` and `CLAUDE.md` for the canonical
+references.
+
 ## Why this exists
 
 Agents previously wrote PR-body scaffolds to `/tmp/apl-pr-body-*.md`,

@@ -23,6 +23,15 @@ Read these files first:
 5. `tasks/ACTIVE.md`
 6. `docs/strategy.md`
 
+## Agent Scratch Directory
+
+Write PR-body scaffolds and other throwaway artifacts under
+`.claude/scratch/`, not under `/tmp/`. The directory is gitignored
+(see `.claude/scratch/README.md`) and registered in
+`.claude/settings.json` so writes do not trigger permission prompts.
+`_snapshots/` is reserved for `./scripts/apl_review_bundle.sh` output
+(review audit trail) and must not be reused for scratch.
+
 Default to the recommended research mission unless the maintainer explicitly
 assigns a support, review, closeout, or specific `TASK-XXXX` workflow.
 For support work, run `python3 scripts/apl_mission.py --mode support`.

@@ -347,10 +347,17 @@ available:
 
 ```bash
 git push origin agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>
-gh pr create --draft --base main --head agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> --title "TASK-XXXX: <short title>" --body-file /path/to/apl-pr-body.md
+gh pr create --draft --base main --head agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> --title "TASK-XXXX: <short title>" --body-file .claude/scratch/apl-pr-body.md
 python3 scripts/apl_review_pr.py --pr <number>
 gh pr ready <number>
 ```
+
+Agent scratch artifacts such as PR-body scaffolds should live under
+`.claude/scratch/` (gitignored; see `.claude/scratch/README.md`). The
+directory is registered in `.claude/settings.json` so writes do not
+prompt the user. `_snapshots/` is reserved for
+`./scripts/apl_review_bundle.sh` output (review audit trail) and must
+not be reused for scratch.
 
 The agent should also offer to help the maintainer set up access, for example
 by suggesting `gh auth login` or a `GH_TOKEN`/`GITHUB_TOKEN`, but setup is not
@@ -390,15 +397,15 @@ python3 scripts/apl_task_pr_helper.py scaffold \
   --slug <short-slug> \
   --description "<short title>" \
   --summary "<verification-first summary>" \
-  --body-file /tmp/apl-pr-body.md
+  --body-file .claude/scratch/apl-pr-body.md
 python3 scripts/apl_task_pr_helper.py preflight \
   --branch "agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>" \
   --title "TASK-XXXX: <short title>" \
-  --body-file /tmp/apl-pr-body.md
+  --body-file .claude/scratch/apl-pr-body.md
 python3 scripts/apl_task_pr_helper.py create \
   --branch "agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>" \
   --title "TASK-XXXX: <short title>" \
-  --body-file /tmp/apl-pr-body.md
+  --body-file .claude/scratch/apl-pr-body.md
 ```
 
 After the PR exists, run the PR-number review, not only branch preflight:

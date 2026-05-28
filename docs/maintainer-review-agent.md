@@ -415,7 +415,7 @@ Use this mode only after the maintainer has already merged the PR.
      --description "mark task done" \
      --include-active-board \
      --include-context \
-     --body-only > /tmp/apl-closeout-pr-body.md
+     --body-only > .claude/scratch/apl-closeout-pr-body.md
    ```
 
    If `--agent-tool` is omitted, the helper infers it from `--agent-id`
@@ -429,7 +429,7 @@ Use this mode only after the maintainer has already merged the PR.
    python3 scripts/apl_closeout_pr_helper.py preflight \
      --branch agent/<contributor-id>/<agent-id>/closeout-<closeout-slug> \
      --title "TASK-CLOSEOUT: <short title>" \
-     --body-file /tmp/apl-closeout-pr-body.md
+     --body-file .claude/scratch/apl-closeout-pr-body.md
    ```
 10. After the closeout PR is open and the review agent reports `MERGE_OK` with
     green CI, do not end with a passive status update. If the maintainer already
