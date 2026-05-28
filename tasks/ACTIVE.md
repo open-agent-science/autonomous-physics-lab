@@ -75,18 +75,18 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`)
-- `TASK-0433` — Add strategic campaign context to repository snapshots (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0434` — Document standard repository snapshot handoff location (`maintainer_workflow`, priority `medium`, difficulty `low`)
-- `TASK-0435` — Add campaign-at-a-glance snapshot summary (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0436` — Align agent docs with multi-campaign evidence-publication strategy (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0438` — Scaffold Textbook Formula Audit campaign (`campaign_scaffold`, priority `high`, difficulty `medium`)
-- `TASK-0441` — Upgrade Scientific Campaign Curator into Scientific Campaign Director role (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0442` — Sync campaign guidance after director review (`documentation`, priority `high`, difficulty `low`)
-- `TASK-0443` — Add public campaign science dashboard and monitoring links (`documentation`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0443` — Add public campaign science dashboard and monitoring links (merged)
+- `TASK-0442` — Sync campaign guidance after director review (merged)
+- `TASK-0441` — Upgrade Scientific Campaign Curator into Scientific Campaign Director role (merged)
+- `TASK-0438` — Scaffold Textbook Formula Audit campaign (merged)
+- `TASK-0436` — Align agent docs with multi-campaign evidence-publication strategy (merged)
+- `TASK-0435` — Add campaign-at-a-glance snapshot summary (merged)
+- `TASK-0434` — Document standard repository snapshot handoff location (merged)
+- `TASK-0433` — Add strategic campaign context to repository snapshots (merged)
 - `TASK-0431` — Clarify result-publication PR protocol edge cases (merged)
 - `TASK-0430` — Add safe closeout-time task unblocking (merged)
 - `TASK-0429` — Add advisory quality score to maintainer review output (merged)
@@ -108,6 +108,7 @@ None.
 - `TASK-0407` — Enforce review-tier metadata guardrails in repository validation (merged)
 - `TASK-0406` — Define multi-class scientific output promotion protocol (merged)
 - `TASK-0405` — Disable validation commands in snapshot script (merged)
+- `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (merged)
 - `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (merged)
 - `TASK-0397` — Run nuclear local-curvature negative-control expansion (merged)
 - `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (merged)
