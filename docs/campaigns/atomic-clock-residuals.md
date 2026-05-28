@@ -13,8 +13,9 @@ schema scaffold needed before any future ingestion task can add rows.
 
 ## Current Status
 
-Source-surface scaffold with synthetic loader, source-class reviews, covariance
-semantics, and version-drift stop conditions. No real-row benchmark yet.
+Pinned-dataset source surface with one committed direct-ratio seed, a
+source-derived covariance approximation, and a triaged second-source path. No
+real-row benchmark yet.
 
 ## Public Monitoring Snapshot
 
@@ -22,21 +23,23 @@ semantics, and version-drift stop conditions. No real-row benchmark yet.
 curated with source provenance, covariance, and version-drift semantics intact
 before any residual analysis?
 
-**Shareable result:** APL has a value-free atomic-clock source surface,
-synthetic loader, source-class reviews, covariance semantics, and a
-version-drift stop condition. The campaign is deliberately not fitting
-constants drift yet.
+**Shareable result:** APL has pinned Beloy 2021 / BACON as a sandbox-only
+direct-frequency-ratio seed (`PINNED_DATASET`), reconstructed a positive-
+semidefinite source-derived covariance approximation, and selected Nemitz 2016
+RIKEN Yb/Sr as the next independent source candidate. The campaign is
+deliberately not fitting constants drift yet.
 
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0401` re-checks Beloy 2021 row readiness,
-`TASK-0402` reconstructs the covariance approximation, and `TASK-0403`
-triages a second direct-ratio source.
+**Active next work:** `TASK-0452` ingests the Nemitz 2016 source if gates pass,
+`TASK-0453` adds a real direct-row loader, and `TASK-0454` defines the
+holdout/no-peek boundary before any benchmark consumer runs.
 
-**Expected next result:** a row-readiness decision or blocker that says
-whether a real direct frequency-ratio row can enter the campaign without
-weakening provenance.
+**Expected next result:** a `BASELINE_READY` go/no-go path: second source
+committed or blocked, real-row loader available, holdout/no-peek manifest
+declared, and then a readiness gate deciding whether a first Yb/Sr
+cross-source consistency benchmark can run.
 
 `TASK-0311` adds:
 
@@ -48,9 +51,10 @@ weakening provenance.
 - the source-candidate and stop-condition note at
   [`docs/notes/atomic-clock-source-candidates.md`](../notes/atomic-clock-source-candidates.md).
 
-No atomic-clock dataset has been ingested. No benchmark, residual map,
-prediction registry entry, canonical result, claim, or knowledge artifact is
-created by this scaffold or the manifest template.
+One atomic-clock direct-row seed has been ingested as sandbox-only data:
+Beloy 2021 / BACON (`ACR-0001`). No benchmark, residual map, prediction
+registry entry, canonical result, claim, or knowledge artifact has been
+created from it.
 
 Current next tasks:
 
@@ -74,18 +78,25 @@ Current next tasks:
 - `TASK-0372` added the `SOURCE_ARTIFACT_VERSION_DRIFT` stop condition so
   arXiv, version-of-record, or supplement disagreements halt row curation
   before any value-bearing row is committed;
-- `TASK-0371` is the next row-curation task, but it should add Beloy 2021
-  direct-ratio rows only if the source artifact, uncertainty semantics,
-  covariance notes, and version-drift checks all pass.
+- `TASK-0371` added the first Beloy 2021 / BACON direct-ratio seed under
+  sandbox-only flags;
+- `TASK-0401` re-ran the row-readiness gate and classified Atomic as
+  `PINNED_DATASET`, not `BASELINE_READY`;
+- `TASK-0402` reconstructed a source-derived, positive-semidefinite
+  cross-ratio covariance approximation for the Beloy rows;
+- `TASK-0403` triaged Nemitz 2016 / RIKEN Yb/Sr as the recommended second
+  independent direct-ratio source, but left ingestion to a follow-up task;
+- `TASK-0452`, `TASK-0453`, and `TASK-0454` are the next executable blockers
+  to close before `TASK-0455` can rerun the baseline-readiness gate.
 
-`TASK-0332` records `READY_FOR_SOURCE_SPECIFIC_REVIEW` and
-`NOT_READY_FOR_REAL_ROWS`: the campaign has enough scaffold to review concrete
-sources, but real rows stay blocked until a source artifact, source review,
-checksum or archive plan, row-class label, uncertainty semantics, covariance
-notes, holdout or reveal boundary, and real-row validation path exist.
+`TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
+source-reviewed, but Atomic is not `BASELINE_READY`. The remaining blockers are
+second-source ingestion or waiver, holdout/no-peek boundary, deterministic
+real-row loader, and benchmark-time covariance policy acceptance.
 
-These tasks can run in parallel because source-class review and readiness-gate
-review own separate artifacts. None should ingest real clock values.
+The next tasks can run in parallel because they own separate surfaces:
+Nemitz source ingestion, real-row loader, and holdout/no-peek manifest. None
+should fit drift, derive constants constraints, or promote a claim.
 
 ## Why This Could Matter Later
 
@@ -187,6 +198,13 @@ Safe future tasks:
 - run a real-row readiness gate before any future row seed;
 - curate a single source-specific row seed only when covariance, confidence
   level, direct-vs-derived, and version-drift stop conditions are satisfied;
+- ingest Nemitz 2016 as the second direct Yb/Sr source if arXiv/Nature
+  version-drift, checksum, license, and uncertainty gates pass;
+- add a deterministic real-row loader for committed direct_measurement rows;
+- define a holdout/no-peek manifest before any benchmark consumer touches
+  atomic rows;
+- rerun the baseline-readiness gate after source, loader, and holdout blockers
+  are closed;
 - define a no-peek freeze package for a future source update;
 - audit whether derived constraints can be separated from direct measurements.
 
@@ -197,6 +215,8 @@ Unsafe next tasks:
 - merge direct rows and derived constraints in one unflagged table;
 - add prediction registry entries before a source manifest and holdout policy
   exist.
+- run the Yb/Sr cross-source consistency benchmark before `TASK-0455` declares
+  Atomic `BASELINE_READY`.
 
 ## What Not To Claim
 

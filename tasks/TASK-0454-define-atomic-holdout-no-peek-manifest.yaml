@@ -1,0 +1,54 @@
+id: TASK-0454
+title: "Define Atomic holdout and no-peek manifest for first benchmark"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Resolve the Atomic holdout/reveal-boundary blocker before any model selection or cross-source comparison."
+  - "Keep Beloy and future Nemitz rows frozen before benchmark consumers are written."
+  - "Make Atomic benchmark-readiness explicit without fitting constants drift."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-beloy-2021-row-readiness-recheck.md"
+    - "docs/reviews/atomic-second-direct-ratio-source-triage.md"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/source_manifest.yaml"
+    - "docs/fresh-data-intake-protocol.md"
+  planning_context: >
+    TASK-0401 records holdout/no-peek boundary as a blocker before Atomic can
+    move from PINNED_DATASET to BASELINE_READY. This task defines the campaign
+    freeze manifest and row-role policy for the first Atomic benchmark so
+    future ingestion and loader work can attach rows to a predeclared boundary
+    rather than deciding after values are visible.
+
+requirements:
+  - "Create a campaign-level Atomic holdout/no-peek manifest or protocol file before any benchmark task consumes rows."
+  - "Declare train/reference, holdout, cross-source validation, and excluded roles for Beloy 2021 and future Nemitz-style rows."
+  - "Define how rows with shared physical campaigns, shared clocks, or approximate covariance matrices enter or stay out of benchmark axes."
+  - "Define whether the first benchmark may be single-source diagnostic, cross-source Yb/Sr consistency, or still blocked."
+  - "Record how holdout.split and freeze_manifest should be populated in row YAML by future row-curation tasks."
+  - "Do not edit value-bearing rows unless the task can do so without model-selection leakage; prefer a manifest/protocol artifact over row rewrites."
+  - "Do not fit drift, compare values, create prediction entries, create RESULT artifacts, or promote claims."
+
+accepted_outputs:
+  - "data/atomic_clocks/atomic_holdout_manifest.yaml or docs/reviews/atomic-holdout-no-peek-manifest.md"
+  - "docs/reviews/atomic-holdout-no-peek-manifest.md"
+  - "optional docs/campaigns/atomic-clock-residuals.md update if the benchmark boundary changes public status"
+  - "optional tests only if a machine-readable manifest schema is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

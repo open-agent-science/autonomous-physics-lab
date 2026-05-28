@@ -1,0 +1,62 @@
+id: TASK-0452
+title: "Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Resolve the Atomic single-source replay blocker with an independent direct Yb/Sr ratio source."
+  - "Move Atomic Clock Residuals from PINNED_DATASET toward BASELINE_READY without fitting drift or promoting claims."
+  - "Create a future value-on-value cross-source comparison surface for Beloy 2021 Yb/Sr under strict source gates."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/proposals/20260528-roman-ingest-nemitz-2016-yb-sr-source.yaml"
+    - "docs/reviews/atomic-second-direct-ratio-source-triage.md"
+    - "docs/reviews/atomic-beloy-2021-row-readiness-recheck.md"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "docs/reviews/atomic-clock-source-artifact-version-drift-stop-condition.md"
+    - "data/atomic_clocks/source_manifest.yaml"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/schema.md"
+  planning_context: >
+    TASK-0403 selected Nemitz et al. 2016 / RIKEN Yb/Sr as the strongest
+    independent source candidate for the load-bearing Beloy 2021 Yb/Sr row.
+    This task turns the accepted proposal into a canonical ingestion task:
+    commit a redistributable arXiv source artifact, checksum and provenance,
+    then add ACR-0002 direct-measurement rows only if version-drift and
+    uncertainty-semantics gates pass.
+
+requirements:
+  - "Commit the arXiv:1403.5836 preprint PDF under data/atomic_clocks/source_artifacts/2016-nemitz-riken/ with a sidecar SHA-256 file."
+  - "Add provenance.yaml with retrieval date, license/reuse notes, locator, and arXiv-vs-Nature Photonics version-drift cross-check verdict."
+  - "Do not commit the Nature Photonics version-of-record PDF; cite it by DOI only."
+  - "Add data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml only if source, version-drift, and TASK-0344 uncertainty gates pass."
+  - "For every row, preserve direct_measurement row class, ratio orientation, transition labels, epoch/campaign window, total/statistical/systematic uncertainties, per-systematic components when recoverable, confidence-level label, bound style, covariance reference, source citation, checksum, and sandbox-only flags."
+  - "Update data/atomic_clocks/source_manifest.yaml to move Nemitz from triage candidate to pinned source only if the artifact and row gates pass."
+  - "If any source or uncertainty gate fails, write a blocker review and do not add rows."
+  - "Do not fit drift, derive constants-variation constraints, compare against Beloy values, create prediction entries, create RESULT artifacts, or promote claims."
+
+accepted_outputs:
+  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1403.5836.pdf or a blocker review explaining why it cannot be committed"
+  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1403.5836.sha256 if artifact is committed"
+  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml if artifact is committed"
+  - "data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml if row gates pass"
+  - "docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md"
+  - "updated data/atomic_clocks/source_manifest.yaml only if the source state changes"
+  - "tests for row schema or manifest coverage if new validation helpers are added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

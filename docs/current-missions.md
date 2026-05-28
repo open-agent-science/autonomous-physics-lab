@@ -53,8 +53,9 @@ the verdict, destination, review tier, Gate A/B status, limitations, and
 blockers.
 
 If the Nuclear queue is saturated or a maintainer wants parallel breadth, the
-next best active surface is Exoplanet Mass-Radius. Quantum Size Effects and
-Atomic-Clock Residuals remain valuable source-readiness lanes. New campaign
+next best active surface is Exoplanet Mass-Radius. Quantum Size Effects remains
+a source-readiness lane, while Atomic-Clock Residuals is now a pinned-dataset
+lane moving toward benchmark readiness. New campaign
 ideas should enter through source/schema/baseline scaffolds first, not broad
 hypothesis batches.
 
@@ -72,7 +73,7 @@ turning watchlist topics into formula-search work.
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is now falsified under `TASK-0394` | local-curvature negative/preflight packaging, registry/reveal-readiness reporting, residual-free high-error cluster diagnostics, negative-result preservation |
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, baseline comparison, failure-map/slice audits, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` scorecard | independent compact-radius replay, normalized checksum cleanup, evidence-card packaging, second-snapshot no-live-fetch protocol |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface still in source/covariance/version-drift hardening | Beloy 2021 row curation only after source artifact, covariance, and version checks; otherwise preserve blockers |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows and a source-derived covariance approximation | Nemitz 2016 ingestion, real-row loader, holdout/no-peek manifest, then baseline-readiness gate |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas | Stellar Mass-Luminosity OOD source/baseline planning before any metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
@@ -94,7 +95,8 @@ Near-term portfolio shape:
 | --- | --- | --- |
 | Active flagship | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature as a falsified no-leakage lane unless a later review creates a narrower negative-result publication artifact. Continue bounded diagnostics and result-promotion preflights. |
 | Active secondary | Exoplanet Mass-Radius | Continue pinned-snapshot residual maps, matched controls, selection-effect audits, result-promotion scoring, and future prediction-readiness work. |
-| Prepare/source-readiness | Quantum Size Effects, Atomic-Clock Residuals | Stay source/covariance/direct-row first before modeling or fitting. |
+| Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting. |
+| Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Close second-source, loader, holdout/no-peek, and covariance-policy blockers before the first Yb/Sr consistency benchmark. |
 | New public-friendly scaffold | Textbook Formula Audit | Start with Stellar Mass-Luminosity source/baseline planning; no metrics before source, schema, holdout, and verification gates. |
 | Candidate new lanes | Materials Property Residuals | Scaffold source, baseline, and holdout rules before any hypothesis batches. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
