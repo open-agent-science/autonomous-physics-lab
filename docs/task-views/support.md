@@ -11,6 +11,8 @@
 - `TASK-0422` - Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0423` - Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `maintainer_review`)
 - `TASK-0432` - Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`, domain `result_promotion`)
+- `TASK-0437` - Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
+- `TASK-0440` - Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `agent_capacity`)
 
 ## IN_PROGRESS
 

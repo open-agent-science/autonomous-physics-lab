@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0436` - Align agent docs with multi-campaign evidence-publication strategy (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `multi_campaign_architecture`)
