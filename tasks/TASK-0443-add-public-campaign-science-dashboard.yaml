@@ -32,11 +32,14 @@ requirements:
   - "Add a public science dashboard that summarizes active campaigns, current questions, existing evidence, active tasks, and expected next results."
   - "Link the dashboard from README and the campaign map."
   - "Add compact public monitoring snapshots to the main active campaign pages."
+  - "Keep the dashboard reader-facing: shareable result cards, evidence links, status, scope, and next visible artifacts."
+  - "Move process criteria, agent instructions, and publication-policy guidance into protocol docs rather than public dashboard copy."
   - "Keep all wording benchmark/failure-map/source-gate oriented; do not use discovery, breakthrough, universal-law, habitability, or new-physics framing."
   - "Do not commit generated task views or generated active-board files from this PR."
 
 accepted_outputs:
   - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaign-curator-protocol.md or docs/scientific-campaign-curator.md if the public/protocol boundary needs clarification"
   - "README.md"
   - "docs/campaigns/README.md"
   - "campaign page updates for Nuclear, Exoplanets, Quantum, Atomic, and Textbook Formula Audit"

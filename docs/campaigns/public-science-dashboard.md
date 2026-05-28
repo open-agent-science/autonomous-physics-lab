@@ -8,26 +8,11 @@ reviewable result may appear next.
 APL does not use this page to announce discoveries. It uses this page to show
 the research frontier in a way that is easy to inspect, reproduce, and falsify.
 
-## How To Read This Page
-
-| Field | Meaning |
-| --- | --- |
-| Current question | The narrow scientific question currently being tested. |
-| What we have learned | Reviewable evidence already in the repository. |
-| Not a claim | The wording boundary that prevents overclaiming. |
-| Active work | The next tasks agents should take. |
-| Expected next result | The concrete output that would move the campaign forward. |
-
-For canonical task status, use the generated
-[research task view](../task-views/research.md) and
-[full task board](../../tasks/ACTIVE.md). This dashboard is a readable
-orientation layer, not a replacement for task YAML.
-
 ## Shareable Result Cards
 
 These cards are intentionally short and linkable. They are safe for README
-summaries, issue comments, social posts, or external discussion, as long as
-the limitation line stays attached.
+summaries, issue comments, social posts, or external discussion because each
+card carries its limitation line with the result.
 
 ### Exoplanet Compact-Radius Benchmark Diagnostic
 
@@ -102,7 +87,7 @@ Stellar Mass-Luminosity source/baseline planning, not metrics.
 
 ## Campaign Snapshot
 
-| Campaign | Current question | What we have learned | Active work | Expected next result |
+| Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Which residual-feature families survive no-leakage controls and future reveal discipline? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified under the no-leakage prototype. | `TASK-0428`, `TASK-0395`, `TASK-0396` | Negative/preflight package for local-curvature, residual-free high-error cluster audit, reveal-source readiness. |
 | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | Where does a frozen Chen-Kipping-style mass-radius baseline fail on a pinned PSCompPars snapshot? | Compact-radius planets (`R < 1.5 R_earth`) are the strongest matched-control survivor; scorecard verdict is `BENCHMARK_SUMMARY_ONLY`. | `TASK-0393`, `TASK-0445`, `TASK-0446`, `TASK-0447` | Gate B replay, second-snapshot protocol, checksum cleanup, public-safe evidence card. |
@@ -119,21 +104,20 @@ now. A frozen Chen-Kipping-style baseline was compared against a pinned NASA
 Exoplanet Archive PSCompPars snapshot. The compact-radius slice
 (`R < 1.5 R_earth`) is the strongest current matched-control survivor.
 
-Safe wording:
+Why it matters:
 
 - APL has a reproducible exoplanet mass-radius benchmark/failure-map surface.
 - The compact-radius slice shows residual stress that survives the current
   matched-control panel.
 - This is a benchmark-diagnostic signal, not a planet-composition claim.
 
-Not allowed:
+Scope:
 
-- "APL found a new exoplanet law."
-- "APL predicts habitability or planet composition."
-- "APL falsified Chen-Kipping globally."
+The result does not say that APL found a new exoplanet law, predicts
+habitability or planet composition, or globally falsified Chen-Kipping.
 
-Useful next result: an independent Gate B replay of the compact-radius runner
-and a public-safe evidence card that points to the scorecard, metrics, and
+Next visible artifact: an independent Gate B replay of the compact-radius
+runner and a compact evidence card that points to the scorecard, metrics, and
 limitations.
 
 ### Nuclear No-Leakage Falsification
@@ -143,29 +127,30 @@ important lesson is negative: `LOCAL-CURVATURE-001` did not survive the
 bounded no-leakage prototype. That is useful scientific memory because it
 prevents agents from repeating a promising but leakage-sensitive path.
 
-Safe wording:
+Why it matters:
 
 - APL preserves negative and falsified Nuclear residual-feature lanes.
 - The shell-axis lane remains diagnostic-only.
 - Reveal scoring remains blocked until a future source-grade no-peek release.
 
-Useful next result: a local-curvature result-promotion preflight that records
+Next visible artifact: a local-curvature result-promotion preflight that records
 the falsification as negative/inconclusive memory, plus a residual-free
 high-error cluster audit.
 
 ### Quantum And Atomic Fresh-Data Gates
 
 Quantum Size Effects and Atomic-Clock Residuals are slower because they are
-doing source hygiene before metrics. That is the point. APL should not score
-attractive formulas against weak or mixed-provenance rows.
+doing source hygiene before metrics. The visible result right now is the data
+gate itself: which sources are strong enough to support a benchmark, and which
+ones are not.
 
-Safe wording:
+Why it matters:
 
 - Quantum is blocked on direct measurement rows or an explicit weaker
   calibration-consistency scope.
 - Atomic is blocked on source/covariance/version checks before real rows.
 
-Useful next result: a source artifact that unblocks row curation, or a
+Next visible artifact: a source artifact that unblocks row curation, or a
 reviewed blocker that saves future agents from chasing an unusable source.
 
 ### Textbook Formula Audit As A Public Entry Surface
@@ -175,29 +160,10 @@ contributors: each task can audit one famous formula in one source-pinned
 range. The first recommended slice is Stellar Mass-Luminosity OOD planning on
 Gaia DR3, not an audit run yet.
 
-Safe wording:
+Why it matters:
 
 - APL will audit textbook formulas by range and assumptions.
 - Each audit produces per-slice verdicts, not universal truth/falsity.
 
-Useful next result: a Stellar M-L source/baseline plan that declares snapshot,
+Next visible artifact: a Stellar M-L source/baseline plan that declares snapshot,
 schema, holdout, and verification gates before any metrics.
-
-## Public-Ready Result Criteria
-
-A campaign result is ready for public summary only when it has:
-
-- a pinned source or frozen benchmark input;
-- deterministic runner or review artifact;
-- explicit limitations and forbidden wording;
-- negative controls or a clear source blocker;
-- a route through `docs/result-promotion-protocol.md`;
-- no automatic claim promotion.
-
-The best public story for APL is not "AI discovered physics." It is:
-
-```text
-AI agents are building public scientific memory:
-benchmarks, failure maps, negative results, source blockers, and replayable
-evidence that other agents and humans can inspect.
-```
