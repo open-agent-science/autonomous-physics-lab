@@ -51,7 +51,6 @@ one PR.
 - `TASK-0396` — Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0398` — Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0400` — Verify Kang-Wise 1997 PbS direct-source path (`scientific_dataset`, priority `medium`, difficulty `medium`)
-- `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0417` — Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`)
 - `TASK-0420` — Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`)
@@ -75,6 +74,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0401` — Run atomic Beloy 2021 row readiness re-check (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
