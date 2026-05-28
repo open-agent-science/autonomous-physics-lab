@@ -1,0 +1,59 @@
+id: TASK-0449
+title: "Run Nuclear residual-free high-error cluster hypothesis audit"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test a new Nuclear hypothesis lane while explicitly avoiding residual-label leakage."
+  - "Determine whether high-error regions can be described by Z/N/A-style nuclear features before any predictive use."
+  - "Preserve a clear negative result if the residual-free labels do not survive controls."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+    - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
+    - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "agent_runs/AGENT-RUN-0030/agent_run.yaml"
+    - "tasks/TASK-0395-refactor-nuclear-high-error-cluster-labels-to-residual-free-features.yaml"
+  planning_context: >
+    The previous high-error cluster lane showed notable retrospective behavior
+    but was not authorized for predictive use because residual-derived labels
+    can leak target information. This task tests the stricter version: labels
+    must be built only from residual-free nuclear features such as Z, N, A,
+    parity, magic-distance, asymmetry, and committed uncertainty metadata.
+    It can run in parallel with other Nuclear hypothesis lanes because it owns
+    a distinct feature family and review artifact.
+
+requirements:
+  - "Use only residual-free inputs to build cluster labels; do not use residual magnitude, baseline error rank, target residual sign, or any target-known error-derived label."
+  - "Declare the exact label construction before scoring candidate behavior."
+  - "Compare against at least two controls, including a matched random label control and a smooth-A or asymmetry-only control."
+  - "Include target-exclusion or leave-one-out logic where a target row could otherwise influence its own label."
+  - "Report full-known, primary-holdout, and relevant subset metrics separately; do not rely on a single aggregate score."
+  - "Verdict must be one of: BOUNDED_FOLLOWUP_CANDIDATE, DIAGNOSTIC_ONLY, NEGATIVE_RESULT, or INCONCLUSIVE."
+  - "Do not create PRED entries, reveal scores, claims, knowledge entries, or canonical RESULT artifacts."
+  - "Do not use discovery, new nuclear law, or broad formula wording."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+  - "tests for any reusable runner or feature-labeling code"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

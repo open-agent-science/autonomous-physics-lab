@@ -1,0 +1,56 @@
+id: TASK-0450
+title: "Run Nuclear neutron-rich boundary transfer hypothesis lane"
+type: autonomous_research_pilot
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test whether a physically bounded neutron-rich boundary signal transfers across isotope chains."
+  - "Avoid another local retrospective fit by requiring chain-transfer and matched-boundary controls."
+  - "Generate either a narrow follow-up candidate or a useful negative result for the Nuclear campaign."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md"
+    - "docs/reviews/nuclear-shell-axis-isotope-chain-transfer-audit.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Prior shell-axis work found neutron-rich high-error tail behavior, but
+    matched non-neutron-rich high-error controls also improved and isotope-chain
+    transfer was mixed. This task tests a fresh bounded hypothesis family:
+    whether a neutron-rich boundary feature can transfer across isotope chains
+    without simply selecting high-error rows or repeating shell-axis slicing.
+
+requirements:
+  - "Define one neutron-rich boundary hypothesis family before running metrics; keep it compact and physically interpretable."
+  - "Use only committed Nuclear inputs and no live external fetch."
+  - "Separate neutron-rich boundary behavior from generic high-error behavior with a matched high-error non-neutron-rich control."
+  - "Include an isotope-chain transfer test: improvements must not be confined to one chain or one local neighborhood."
+  - "Include at least one negative control, such as sign-inverted boundary distance, shuffled boundary labels, or matched smooth-A/asymmetry control."
+  - "Report regressions explicitly, especially light-nuclei, sparse-chain, and measured/extrapolated boundary failures if present."
+  - "Stop after one bounded hypothesis family; do not spawn additional variants in the same PR."
+  - "Do not create PRED entries, reveal scores, claims, knowledge entries, or canonical RESULT artifacts."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-neutron-rich-boundary-transfer-hypothesis-lane.md"
+  - "tests for any reusable runner code"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

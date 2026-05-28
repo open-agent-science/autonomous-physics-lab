@@ -246,6 +246,10 @@ Current next Nuclear posture:
 - `TASK-0396` should keep reveal-source readiness separate from every
   retrospective audit. No real reveal scoring is allowed until a source-grade
   post-freeze release passes the no-peek source gate.
+- `TASK-0448` through `TASK-0451` reopen Nuclear hypothesis testing in a
+  controls-first form: one reusable hypothesis gauntlet plus three bounded
+  parallel lanes. These are not broad formula-search tasks and they must not
+  create prediction entries, reveal scores, claims, or canonical results.
 
 Start here:
 
@@ -309,6 +313,9 @@ Start here:
   repeating it as a positive candidate?
 - Do residual-free high-error cluster labels reveal a real diagnostic domain,
   or should that lane be retired as another leakage-sensitive negative result?
+- Can any fresh Nuclear hypothesis family survive if the failure condition,
+  negative controls, leakage audit, and output routing are declared before
+  candidate fitting starts?
 
 ## Recommended Tasks
 
@@ -316,6 +323,13 @@ Start here:
   the expected path is negative/inconclusive memory, not positive promotion.
 - Run `TASK-0395` as the next Nuclear diagnostic lane only if the agent can
   keep labels residual-free and controls explicit.
+- Run `TASK-0448` before expanding the hypothesis queue further: the template
+  should make controls, forbidden inputs, leakage checks, and stop conditions
+  explicit for every future Nuclear lane.
+- Run `TASK-0449`, `TASK-0450`, and `TASK-0451` as independent parallel
+  Nuclear hypothesis lanes after or alongside `TASK-0448`. Each lane owns a
+  distinct feature family and should terminate as bounded follow-up,
+  diagnostic-only, negative result, or inconclusive memory.
 - Run `TASK-0396` for reveal-source readiness; keep it independent from
   retrospective model audits and do not score live measurements.
 - Future reveal tasks should use the `TASK-0266` protocol and the source
