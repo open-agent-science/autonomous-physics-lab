@@ -1,7 +1,7 @@
 id: TASK-0404
 title: "Run result-promotion scorecard on exoplanet failure map"
 type: research_quality_gate
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

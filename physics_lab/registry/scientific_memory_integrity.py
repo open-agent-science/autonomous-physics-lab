@@ -49,6 +49,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "benchmark_protocol",
     "ci_infrastructure",
     "ci_optimization",
+    "campaign_scaffold",
     "claim_review",
     "dataset_workflow",
     "physics_dataset_extension",
