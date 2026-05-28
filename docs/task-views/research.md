@@ -24,4 +24,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0427` - Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.

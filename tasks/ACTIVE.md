@@ -73,7 +73,6 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0433` — Add strategic campaign context to repository snapshots (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0434` — Document standard repository snapshot handoff location (`maintainer_workflow`, priority `medium`, difficulty `low`)
 - `TASK-0435` — Add campaign-at-a-glance snapshot summary (`maintainer_workflow`, priority `high`, difficulty `medium`)
@@ -86,6 +85,7 @@ None.
 - `TASK-0431` — Clarify result-publication PR protocol edge cases (merged)
 - `TASK-0430` — Add safe closeout-time task unblocking (merged)
 - `TASK-0429` — Add advisory quality score to maintainer review output (merged)
+- `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (merged)
 - `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (merged)
 - `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
 - `TASK-0424` — Add agent role profiles under agents/ (pure YAML) (merged)
