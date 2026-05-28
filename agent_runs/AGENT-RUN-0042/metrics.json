@@ -1,0 +1,525 @@
+{
+  "agent_run_id": "AGENT-RUN-0042",
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "data_boundary": {
+    "baseline_refit_performed": false,
+    "live_external_fetch_performed": false,
+    "minimum_mass_rows_in_headline_metrics": false,
+    "true_mass_axis_primary": true
+  },
+  "diagnostics": {
+    "eligible_detection_method_counts": {
+      "transit": 1205,
+      "transit_timing_variation": 2
+    },
+    "eligible_uncertainty_band_counts": {
+      "loose_gt15pct": 378,
+      "missing": 8,
+      "moderate_5_15pct": 627,
+      "tight_le5pct": 194
+    },
+    "minimum_mass_sparse_diagnostic": {
+      "count": 2,
+      "log10_bias": -0.15221436873853847,
+      "log10_mae": 0.15221436873853847,
+      "log10_median": -0.15221436873853847,
+      "log10_rmse": 0.20772770601626744
+    },
+    "per_class_medians_log10_residual": {
+      "jovian": -0.00958761212169612,
+      "neptunian": -0.05518168228072785,
+      "terran": 0.007781633939265037
+    }
+  },
+  "eligible_pilot_reproduction": {
+    "count_delta": 0,
+    "current_count": 1207,
+    "current_log10_rmse": 0.15817019267448623,
+    "log10_rmse_delta": -5.551115123125783e-17,
+    "pilot_agent_run_id": "AGENT-RUN-0036",
+    "pilot_count": 1207,
+    "pilot_log10_rmse": 0.1581701926744863,
+    "reproduces_pilot": true,
+    "tolerance": 1e-09
+  },
+  "eligible_true_mass_stats": {
+    "count": 1207,
+    "log10_bias": -0.04084365240259168,
+    "log10_mae": 0.10442982096618053,
+    "log10_median": -0.02540307663185465,
+    "log10_rmse": 0.15817019267448623
+  },
+  "loader_summary": {
+    "eligible_true_mass_with_transit_radius": 1207,
+    "minimum_mass_with_transit_radius_diagnostic": 2,
+    "post_filter_included_count": 4301,
+    "pre_filter_included_count": 6157,
+    "total_rows": 6291
+  },
+  "pilot_reproduction_status": "match",
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "target_slices": [
+    {
+      "classification": {
+        "adverse_control": "per_class_median",
+        "delta_log10_rmse_target_minus_adverse_control": 0.025679576629077605,
+        "delta_log10_rmse_target_minus_eligible": 0.10517983500216965,
+        "explanation": "target log10 RMSE = 0.2633500276766559; eligible log10 RMSE = 0.15817019267448623; adverse control = per_class_median (log10 RMSE = 0.23767045104757828); margin = 0.022.",
+        "outcome": "residual_stress_above_eligible_and_controls",
+        "verdict": "SANDBOX_PASS"
+      },
+      "controls": {
+        "adverse_nearest_radius_outside_slice": {
+          "interpretation": "Adverse-negative control: nearest-radius matched cohort drawn strictly from outside-slice rows. If residual stress is radius-position driven (not slice-driven), this cohort should rise toward the target RMSE.",
+          "kind": "negative_control_adverse",
+          "label": "adverse_nearest_radius_outside_slice",
+          "stats": {
+            "count": 92,
+            "log10_bias": -0.10757573612801148,
+            "log10_mae": 0.13521091938085375,
+            "log10_median": -0.06626943690657333,
+            "log10_rmse": 0.19608671241704967
+          },
+          "status": "usable_control"
+        },
+        "detection_method_outside_slice": {
+          "interpretation": "Outside-slice eligible rows sharing each target row's detection_method, broken by nearest log mass; controls for discovery-pipeline selection effects.",
+          "kind": "matched_cohort",
+          "label": "detection_method_outside_slice",
+          "stats": {
+            "count": 92,
+            "log10_bias": 0.038352298500265655,
+            "log10_mae": 0.09190219159977606,
+            "log10_median": 0.02659645393760854,
+            "log10_rmse": 0.12736767505777238
+          },
+          "status": "usable_control"
+        },
+        "host_temperature_outside_slice": {
+          "interpretation": "Outside-slice eligible rows greedily matched to each target row's host effective temperature; controls for host-context selection effects. Targets without host Teff are excluded.",
+          "kind": "matched_cohort",
+          "label": "host_temperature_outside_slice",
+          "stats": {
+            "count": 90,
+            "log10_bias": -0.06900249937050944,
+            "log10_mae": 0.11005914470607438,
+            "log10_median": -0.061967092118925565,
+            "log10_rmse": 0.1582519715232442
+          },
+          "status": "usable_control"
+        },
+        "nearest_radius_outside_slice": {
+          "interpretation": "Outside-slice eligible rows greedily matched to each target row's radius; tests whether the residual stress is driven by radius position rather than slice membership.",
+          "kind": "matched_cohort",
+          "label": "nearest_radius_outside_slice",
+          "stats": {
+            "count": 92,
+            "log10_bias": -0.10757573612801148,
+            "log10_mae": 0.13521091938085375,
+            "log10_median": -0.06626943690657333,
+            "log10_rmse": 0.19608671241704967
+          },
+          "status": "usable_control"
+        },
+        "per_class_median": {
+          "interpretation": "Per-class median residual shift on the target rows; controls for CK17 mass-class bias but is not an independent row slice.",
+          "kind": "residual_shift",
+          "label": "per_class_median",
+          "stats": {
+            "count": 92,
+            "log10_bias": -0.11697702681633453,
+            "log10_mae": 0.1383244215237312,
+            "log10_median": -0.03625043764952718,
+            "log10_rmse": 0.23767045104757828
+          },
+          "status": "usable_control"
+        },
+        "sample_size_random_outside": {
+          "interpretation": "Deterministic seeded random sample of the same size drawn from outside-slice eligible rows; expected to sit near the eligible RMSE by construction.",
+          "kind": "sample_size_matched_random",
+          "label": "sample_size_random_outside",
+          "stats": {
+            "count": 92,
+            "log10_bias": -0.029736005760105943,
+            "log10_mae": 0.08189850224890692,
+            "log10_median": -0.026172628297522205,
+            "log10_rmse": 0.11505957774557321
+          },
+          "status": "usable_control"
+        },
+        "shuffled_radius_label": {
+          "interpretation": "Each target's radius is replaced by a deterministically shuffled radius drawn from the eligible pool; residual is recomputed. Tests whether the signal is mass-position driven independent of the true radius assignment.",
+          "kind": "negative_control_shuffle",
+          "label": "shuffled_radius_label",
+          "stats": {
+            "count": 92,
+            "log10_bias": 0.5677901486581236,
+            "log10_mae": 0.6517825602715364,
+            "log10_median": 0.6841784604622763,
+            "log10_rmse": 0.7481901072294658
+          },
+          "status": "usable_control"
+        },
+        "uncertainty_band_outside_slice": {
+          "interpretation": "Outside-slice eligible rows sharing each target row's combined mass/radius uncertainty band, broken by nearest log mass; controls for measurement-quality selection.",
+          "kind": "matched_cohort",
+          "label": "uncertainty_band_outside_slice",
+          "stats": {
+            "count": 92,
+            "log10_bias": 0.01756657027529308,
+            "log10_mae": 0.10530908592997226,
+            "log10_median": 0.017658001687757538,
+            "log10_rmse": 0.1475383894580991
+          },
+          "status": "usable_control"
+        },
+        "uncertainty_equalized_subset": {
+          "interpretation": "Target subset restricted to combined relative uncertainty <= 15%; tests whether residual stress collapses when only tight-uncertainty rows are kept.",
+          "kind": "negative_control_uncertainty",
+          "label": "uncertainty_equalized_subset",
+          "stats": {
+            "count": 70,
+            "log10_bias": -0.17968048900951128,
+            "log10_mae": 0.19228842081482717,
+            "log10_median": -0.10342039674065828,
+            "log10_rmse": 0.2972412846624993
+          },
+          "status": "partial_control"
+        }
+      },
+      "description": "Compact true-mass/transit-radius rows with R/Re < 1.5; tests whether the pilot residual stress survives matched and negative controls.",
+      "id": "CSN-001",
+      "label": "compact_radius_lt1p5Re",
+      "pilot_reproduction": {
+        "count_delta": 0,
+        "current_count": 92,
+        "current_log10_rmse": 0.2633500276766559,
+        "log10_rmse_delta": -5.551115123125783e-17,
+        "pilot_agent_run_id": "AGENT-RUN-0036",
+        "pilot_count": 92,
+        "pilot_log10_rmse": 0.26335002767665594,
+        "pilot_task_id": "TASK-0390",
+        "reproduces_pilot": true,
+        "tolerance": 1e-09
+      },
+      "target_stats": {
+        "count": 92,
+        "log10_bias": -0.1468365058346739,
+        "log10_mae": 0.16246699197558523,
+        "log10_median": -0.06732674148138831,
+        "log10_rmse": 0.2633500276766559
+      }
+    },
+    {
+      "classification": {
+        "adverse_control": "nearest_radius_outside_slice",
+        "delta_log10_rmse_target_minus_adverse_control": 0.007627108182247239,
+        "delta_log10_rmse_target_minus_eligible": 0.046004417623764726,
+        "explanation": "target log10 RMSE = 0.20417461029825096; eligible log10 RMSE = 0.15817019267448623; adverse control = nearest_radius_outside_slice (log10 RMSE = 0.19654750211600372); margin = 0.022.",
+        "outcome": "control_sensitive_residual_stress",
+        "verdict": "INCONCLUSIVE"
+      },
+      "controls": {
+        "adverse_nearest_radius_outside_slice": {
+          "interpretation": "Adverse-negative control: nearest-radius matched cohort drawn strictly from outside-slice rows. If residual stress is radius-position driven (not slice-driven), this cohort should rise toward the target RMSE.",
+          "kind": "negative_control_adverse",
+          "label": "adverse_nearest_radius_outside_slice",
+          "stats": {
+            "count": 340,
+            "log10_bias": -0.07915540392173237,
+            "log10_mae": 0.14205686461152423,
+            "log10_median": -0.09572847985878867,
+            "log10_rmse": 0.19654750211600372
+          },
+          "status": "usable_control"
+        },
+        "detection_method_outside_slice": {
+          "interpretation": "Outside-slice eligible rows sharing each target row's detection_method, broken by nearest log mass; controls for discovery-pipeline selection effects.",
+          "kind": "matched_cohort",
+          "label": "detection_method_outside_slice",
+          "stats": {
+            "count": 340,
+            "log10_bias": -0.03845783819583117,
+            "log10_mae": 0.12604464366671744,
+            "log10_median": -0.02194693143373,
+            "log10_rmse": 0.18633585490880566
+          },
+          "status": "usable_control"
+        },
+        "host_temperature_outside_slice": {
+          "interpretation": "Outside-slice eligible rows greedily matched to each target row's host effective temperature; controls for host-context selection effects. Targets without host Teff are excluded.",
+          "kind": "matched_cohort",
+          "label": "host_temperature_outside_slice",
+          "stats": {
+            "count": 324,
+            "log10_bias": -0.05006407493317647,
+            "log10_mae": 0.09869341145237476,
+            "log10_median": -0.039882585485093824,
+            "log10_rmse": 0.15326108965028276
+          },
+          "status": "usable_control"
+        },
+        "nearest_radius_outside_slice": {
+          "interpretation": "Outside-slice eligible rows greedily matched to each target row's radius; tests whether the residual stress is driven by radius position rather than slice membership.",
+          "kind": "matched_cohort",
+          "label": "nearest_radius_outside_slice",
+          "stats": {
+            "count": 340,
+            "log10_bias": -0.07915540392173237,
+            "log10_mae": 0.14205686461152423,
+            "log10_median": -0.09572847985878867,
+            "log10_rmse": 0.19654750211600372
+          },
+          "status": "usable_control"
+        },
+        "per_class_median": {
+          "interpretation": "Per-class median residual shift on the target rows; controls for CK17 mass-class bias but is not an independent row slice.",
+          "kind": "residual_shift",
+          "label": "per_class_median",
+          "stats": {
+            "count": 340,
+            "log10_bias": -0.04660994676489427,
+            "log10_mae": 0.12406324279900964,
+            "log10_median": -0.015836016790050367,
+            "log10_rmse": 0.18804621735380353
+          },
+          "status": "usable_control"
+        },
+        "sample_size_random_outside": {
+          "interpretation": "Deterministic seeded random sample of the same size drawn from outside-slice eligible rows; expected to sit near the eligible RMSE by construction.",
+          "kind": "sample_size_matched_random",
+          "label": "sample_size_random_outside",
+          "stats": {
+            "count": 340,
+            "log10_bias": -0.021908149231959526,
+            "log10_mae": 0.0981665136674183,
+            "log10_median": -0.008308685082824674,
+            "log10_rmse": 0.1561170753039012
+          },
+          "status": "usable_control"
+        },
+        "shuffled_radius_label": {
+          "interpretation": "Each target's radius is replaced by a deterministically shuffled radius drawn from the eligible pool; residual is recomputed. Tests whether the signal is mass-position driven independent of the true radius assignment.",
+          "kind": "negative_control_shuffle",
+          "label": "shuffled_radius_label",
+          "stats": {
+            "count": 340,
+            "log10_bias": 0.3125438182207351,
+            "log10_mae": 0.49193443394906294,
+            "log10_median": 0.4480101042236951,
+            "log10_rmse": 0.5623970195156094
+          },
+          "status": "usable_control"
+        },
+        "uncertainty_band_outside_slice": {
+          "interpretation": "Outside-slice eligible rows sharing each target row's combined mass/radius uncertainty band, broken by nearest log mass; controls for measurement-quality selection.",
+          "kind": "matched_cohort",
+          "label": "uncertainty_band_outside_slice",
+          "stats": {
+            "count": 336,
+            "log10_bias": -0.02832062618085741,
+            "log10_mae": 0.12181811514948818,
+            "log10_median": -0.00612148028972874,
+            "log10_rmse": 0.17283508872144376
+          },
+          "status": "partial_control"
+        },
+        "uncertainty_equalized_subset": {
+          "interpretation": "Target subset restricted to combined relative uncertainty <= 15%; tests whether residual stress collapses when only tight-uncertainty rows are kept.",
+          "kind": "negative_control_uncertainty",
+          "label": "uncertainty_equalized_subset",
+          "stats": {
+            "count": 178,
+            "log10_bias": -0.12182058852933002,
+            "log10_mae": 0.16036145024182932,
+            "log10_median": -0.0810111338012853,
+            "log10_rmse": 0.23190917314920087
+          },
+          "status": "partial_control"
+        }
+      },
+      "description": "Sub-Neptune true-mass/transit-radius rows with 1.5 <= R/Re < 4; tests whether the pilot residual stress survives matched and negative controls.",
+      "id": "CSN-002",
+      "label": "sub_neptune_radius_1p5_4Re",
+      "pilot_reproduction": {
+        "count_delta": 0,
+        "current_count": 340,
+        "current_log10_rmse": 0.20417461029825096,
+        "log10_rmse_delta": 2.7755575615628914e-17,
+        "pilot_agent_run_id": "AGENT-RUN-0036",
+        "pilot_count": 340,
+        "pilot_log10_rmse": 0.20417461029825093,
+        "pilot_task_id": "TASK-0390",
+        "reproduces_pilot": true,
+        "tolerance": 1e-09
+      },
+      "target_stats": {
+        "count": 340,
+        "log10_bias": -0.10008025453376822,
+        "log10_mae": 0.1408351733865413,
+        "log10_median": -0.0710176990707782,
+        "log10_rmse": 0.20417461029825096
+      }
+    },
+    {
+      "classification": {
+        "adverse_control": "per_class_median",
+        "delta_log10_rmse_target_minus_adverse_control": 0.018475622966713262,
+        "delta_log10_rmse_target_minus_eligible": 0.05995614112097772,
+        "explanation": "target log10 RMSE = 0.21812633379546395; eligible log10 RMSE = 0.15817019267448623; adverse control = per_class_median (log10 RMSE = 0.1996507108287507); margin = 0.022.",
+        "outcome": "control_sensitive_residual_stress",
+        "verdict": "INCONCLUSIVE"
+      },
+      "controls": {
+        "adverse_nearest_radius_outside_slice": {
+          "interpretation": "Adverse-negative control: nearest-radius matched cohort drawn strictly from outside-slice rows. If residual stress is radius-position driven (not slice-driven), this cohort should rise toward the target RMSE.",
+          "kind": "negative_control_adverse",
+          "label": "adverse_nearest_radius_outside_slice",
+          "stats": {
+            "count": 432,
+            "log10_bias": -0.047022557850870145,
+            "log10_mae": 0.09871468577308841,
+            "log10_median": -0.057456002506207415,
+            "log10_rmse": 0.13134297008667245
+          },
+          "status": "usable_control"
+        },
+        "detection_method_outside_slice": {
+          "interpretation": "Outside-slice eligible rows sharing each target row's detection_method, broken by nearest log mass; controls for discovery-pipeline selection effects.",
+          "kind": "matched_cohort",
+          "label": "detection_method_outside_slice",
+          "stats": {
+            "count": 432,
+            "log10_bias": -0.0048908414905400495,
+            "log10_mae": 0.09425275056060099,
+            "log10_median": -0.0068501815091215335,
+            "log10_rmse": 0.1259294219864085
+          },
+          "status": "usable_control"
+        },
+        "host_temperature_outside_slice": {
+          "interpretation": "Outside-slice eligible rows greedily matched to each target row's host effective temperature; controls for host-context selection effects. Targets without host Teff are excluded.",
+          "kind": "matched_cohort",
+          "label": "host_temperature_outside_slice",
+          "stats": {
+            "count": 414,
+            "log10_bias": -0.03036228338366511,
+            "log10_mae": 0.08661745557852288,
+            "log10_median": -0.035894560192750835,
+            "log10_rmse": 0.1180574972611504
+          },
+          "status": "usable_control"
+        },
+        "nearest_radius_outside_slice": {
+          "interpretation": "Outside-slice eligible rows greedily matched to each target row's radius; tests whether the residual stress is driven by radius position rather than slice membership.",
+          "kind": "matched_cohort",
+          "label": "nearest_radius_outside_slice",
+          "stats": {
+            "count": 432,
+            "log10_bias": -0.047022557850870145,
+            "log10_mae": 0.09871468577308841,
+            "log10_median": -0.057456002506207415,
+            "log10_rmse": 0.13134297008667245
+          },
+          "status": "usable_control"
+        },
+        "per_class_median": {
+          "interpretation": "Per-class median residual shift on the target rows; controls for CK17 mass-class bias but is not an independent row slice.",
+          "kind": "residual_shift",
+          "label": "per_class_median",
+          "stats": {
+            "count": 432,
+            "log10_bias": -0.061595528627701,
+            "log10_mae": 0.1271003456755707,
+            "log10_median": -0.019588911023433575,
+            "log10_rmse": 0.1996507108287507
+          },
+          "status": "usable_control"
+        },
+        "sample_size_random_outside": {
+          "interpretation": "Deterministic seeded random sample of the same size drawn from outside-slice eligible rows; expected to sit near the eligible RMSE by construction.",
+          "kind": "sample_size_matched_random",
+          "label": "sample_size_random_outside",
+          "stats": {
+            "count": 432,
+            "log10_bias": -0.006214863522142646,
+            "log10_mae": 0.08207127897082232,
+            "log10_median": -0.007306362071538008,
+            "log10_rmse": 0.11166369618538671
+          },
+          "status": "usable_control"
+        },
+        "shuffled_radius_label": {
+          "interpretation": "Each target's radius is replaced by a deterministically shuffled radius drawn from the eligible pool; residual is recomputed. Tests whether the signal is mass-position driven independent of the true radius assignment.",
+          "kind": "negative_control_shuffle",
+          "label": "shuffled_radius_label",
+          "stats": {
+            "count": 432,
+            "log10_bias": 0.3740693252732826,
+            "log10_mae": 0.5243921826558736,
+            "log10_median": 0.492752632500289,
+            "log10_rmse": 0.6101398143617744
+          },
+          "status": "usable_control"
+        },
+        "uncertainty_band_outside_slice": {
+          "interpretation": "Outside-slice eligible rows sharing each target row's combined mass/radius uncertainty band, broken by nearest log mass; controls for measurement-quality selection.",
+          "kind": "matched_cohort",
+          "label": "uncertainty_band_outside_slice",
+          "stats": {
+            "count": 428,
+            "log10_bias": -0.003485902010018955,
+            "log10_mae": 0.09625298754652342,
+            "log10_median": -0.0012472487376103958,
+            "log10_rmse": 0.1304058150966435
+          },
+          "status": "partial_control"
+        },
+        "uncertainty_equalized_subset": {
+          "interpretation": "Target subset restricted to combined relative uncertainty <= 15%; tests whether residual stress collapses when only tight-uncertainty rows are kept.",
+          "kind": "negative_control_uncertainty",
+          "label": "uncertainty_equalized_subset",
+          "stats": {
+            "count": 248,
+            "log10_bias": -0.13815201205196184,
+            "log10_mae": 0.1693730951616271,
+            "log10_median": -0.08341278433715282,
+            "log10_rmse": 0.25207076730281097
+          },
+          "status": "partial_control"
+        }
+      },
+      "description": "Combined compact/sub-Neptune envelope with R/Re < 4; tests the bounded high-stress envelope claim under matched and negative controls.",
+      "id": "CSN-003",
+      "label": "compact_or_sub_neptune_radius_lt4Re",
+      "pilot_reproduction": {
+        "count_delta": 0,
+        "current_count": 432,
+        "current_log10_rmse": 0.21812633379546395,
+        "log10_rmse_delta": -2.7755575615628914e-17,
+        "pilot_agent_run_id": "AGENT-RUN-0036",
+        "pilot_count": 432,
+        "pilot_log10_rmse": 0.21812633379546398,
+        "pilot_task_id": "TASK-0390",
+        "reproduces_pilot": true,
+        "tolerance": 1e-09
+      },
+      "target_stats": {
+        "count": 432,
+        "log10_bias": -0.11003760434784998,
+        "log10_mae": 0.1454419495675413,
+        "log10_median": -0.06993850419949664,
+        "log10_rmse": 0.21812633379546395
+      }
+    }
+  ],
+  "task_id": "TASK-0427",
+  "thresholds": {
+    "control_margin_log10_rmse": 0.022,
+    "min_slice_row_count": 30,
+    "pilot_reproduction_tolerance": 1e-09,
+    "random_outside_seed": 20260528,
+    "shuffle_seed": 20260528
+  },
+  "verdict": "SANDBOX_PASS"
+}
