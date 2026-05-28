@@ -44,12 +44,13 @@ audits, refactoring proposals, and agent-role organisation.
 Pre-merge pull-request review and post-merge task closeout. Returns an
 explicit verdict; never merges.
 
-### [Scientific Campaign Curator](scientific-curator.yaml)
+### [Scientific Campaign Director](scientific-curator.yaml)
 
-Campaign-level research brief assistant. Summarises what a campaign has
-learned, which directions look promising, and what should run next.
-Leads campaigns toward significant scientific results, not toward task
-throughput.
+Campaign-level scientific direction assistant. Also responds to the older
+Scientific Campaign Curator / campaign-curator aliases. It summarises what a
+campaign has learned, maintains campaign-page and mission hygiene, recommends
+promotion/replay/do-not-promote decisions, and designs useful next task waves
+without creating work merely to keep agents busy.
 
 ### [Researcher](researcher.yaml)
 
@@ -75,8 +76,9 @@ role, the agent:
 1. Matches the request against the `activation.intent` of each role
    file. Activation is **concept-based**, not phrase-based: any
    natural-language wording in any language that expresses the same
-   intent should fire the role. The `activation.example_phrases` list
-   in each role file is informational only.
+   intent should fire the role. Do not encode or depend on literal translated
+   phrases for non-English requests. The `activation.example_phrases` list in
+   each role file is informational only.
 2. Loads the role's `required_reading` list.
 3. Applies the role's `scope`, `goals`, `restrictions`, and
    `cadence` for the rest of the session.

@@ -507,7 +507,7 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
 
 def test_apl_mission_script_onboarding_runs_from_repo_root() -> None:
     result = subprocess.run(
-        [sys.executable, "scripts/apl_mission.py", "--onboarding"],
+        [sys.executable, "scripts/apl_mission.py", "--output", "onboarding"],
         check=True,
         capture_output=True,
         text=True,
@@ -517,6 +517,30 @@ def test_apl_mission_script_onboarding_runs_from_repo_root() -> None:
     assert "Do not edit files yet" in result.stdout
     assert "estimated time" in result.stdout
     assert "docs/result-promotion-protocol.md" in result.stdout
+
+
+def test_apl_mission_script_legacy_onboarding_alias_runs_from_repo_root() -> None:
+    result = subprocess.run(
+        [sys.executable, "scripts/apl_mission.py", "--onboarding"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "with onboarding" in result.stdout
+    assert "Do not edit files yet" in result.stdout
+
+
+def test_apl_mission_script_output_agent_runs_from_repo_root() -> None:
+    result = subprocess.run(
+        [sys.executable, "scripts/apl_mission.py", "--output", "agent"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "Agent First Research Mode" in result.stdout
+    assert "Execute the full loop autonomously" in result.stdout
 
 
 def test_cli_mission_json_runs_from_repo_root() -> None:
