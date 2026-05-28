@@ -8,7 +8,8 @@ The short version:
 
 - **Current flagship:** Nuclear Mass Surface.
 - **Most shareable current benchmark surface:** Exoplanet Mass-Radius.
-- **Fresh-data buildout:** Quantum Size Effects and Atomic-Clock Residuals.
+- **Fresh-data buildout:** Quantum Size Effects and Atomic-Clock Residuals
+  (now pinned-dataset, not benchmark-ready).
 - **Candidate new lanes:** Textbook Formula Audit and Materials Property
   Residuals, pending source/baseline scaffolds.
 - **Quality floor:** Pendulum, Dimensional Analysis, and Particle Mass
@@ -23,7 +24,7 @@ The short version:
 | see what can be shared publicly today | [Public Science Dashboard](./public-science-dashboard.md) | It has linkable result cards, safe wording, current questions, and expected next results per active campaign. |
 | review the strongest current research surface | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, and explicit negative controls. |
 | help build the next direct-measurement dataset | [Quantum Size Effects](./quantum-size-effects.md) | It is blocked on source-grade direct rows before benchmark work can honestly begin. |
-| work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It needs source, covariance, and direct-vs-derived semantics before modeling. |
+| work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It has Beloy rows pinned; next work closes second-source, loader, holdout, and benchmark-readiness gates. |
 | work on an accessible catalog benchmark | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | It now has a pinned snapshot plus an inconclusive first baseline/regime scout, so residual-map packaging is the next useful artifact. |
 | replay mature evidence | [Pendulum Formula Falsification](./pendulum-formula-falsification.md) or [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | These are safer quality-floor tracks with deterministic replay value. |
 | propose a longer-horizon direction | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) or [Anomaly Registry](./anomaly-registry.md) | These are planning surfaces; keep them schema- and guardrail-first. |
@@ -35,7 +36,7 @@ The short version:
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, no-leakage policy, shell-axis diagnostic-only decision, and local-curvature no-leakage falsification. | `TASK-0428` local-curvature negative/preflight packaging, `TASK-0395` residual-free high-error cluster audit, or `TASK-0396` reveal-readiness reporting. |
 | [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, CK17-style baseline, residual/failure map, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` promotion scorecard. | `TASK-0445` Gate B replay, `TASK-0393` second-snapshot protocol, `TASK-0446` checksum cleanup, or `TASK-0447` public-safe evidence card. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds, direct-source triage, and source-artifact intake path exist; measurement-grade baseline remains blocked. | APS direct-table source artifact, deterministic digitization/table path, or readiness-gate update after a direct seed. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Source surface, schema sketch, manifest template, synthetic loader, source-class reviews, covariance semantics, and version-drift stop condition. | Beloy 2021 direct-row curation only if source artifact, covariance, and version checks are satisfied; otherwise preserve blockers. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy 2021 pinned direct rows, source-derived covariance approximation, and Nemitz 2016 second-source candidate. | `TASK-0452` Nemitz ingestion, `TASK-0453` real-row loader, `TASK-0454` holdout/no-peek manifest, then `TASK-0455` baseline-readiness gate. |
 
 These four are the main public-facing surfaces today. They should be presented
 as disciplined research infrastructure, not as finished discoveries.
