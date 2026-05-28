@@ -282,7 +282,7 @@ This re-check is metadata-only. It does not:
 - modify the synthetic-only `physics_lab/engines/atomic_clock_residuals.py`;
 - create or modify any `prediction_registry/` entry;
 - modify any `claims/`, `knowledge/`, or canonical `results/` artifact;
-- claim a discovery, new physics, or breakthrough.
+- claim a discovery or breakthrough.
 
 The committed Beloy 2021 rows remain `status: sandbox_first_seed` with
 all of `benchmark_allowed`, `drift_fitting_allowed`,
