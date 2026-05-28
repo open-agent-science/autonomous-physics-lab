@@ -28,7 +28,7 @@ APL is concentrating on four public-facing research surfaces:
 | --- | --- | --- |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; local-curvature no-leakage is now a falsified lane, so next useful work is negative/preflight packaging, residual-free diagnostics, and reveal-readiness reporting |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Direct measurement rows and source artifacts are still the gate |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Source artifact, covariance, and version checks before any real-row modeling |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy 2021 pinned rows exist; next blockers are Nemitz second-source ingestion, real-row loader, holdout/no-peek manifest, and baseline-readiness gate |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Compact-radius independent replay, normalized checksum cleanup, evidence card, and second-snapshot protocol after `BENCHMARK_SUMMARY_ONLY` scorecard |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign for famous formulas tested by source, range, assumptions, and OOD failure maps | Stellar Mass-Luminosity source/baseline planning before any Gaia DR3 metrics |
 
@@ -69,6 +69,9 @@ Highlights:
   matched-control survivor, and a `BENCHMARK_SUMMARY_ONLY` scorecard. This is
   the strongest current public-safe benchmark surface, not a claim about
   planet composition.
+- Atomic-Clock Residuals now has Beloy 2021 / BACON pinned as sandbox-only
+  direct frequency-ratio rows and a source-derived PSD covariance
+  approximation. It is still not a benchmark or constants-drift result.
 - Textbook Formula Audit has a scaffold and ranked candidate slate. Its first
   useful next step is Stellar Mass-Luminosity source/baseline planning, not an
   audit run.
@@ -103,7 +106,9 @@ Important operating rules:
 - Quantum Size Effects remains blocked for baseline benchmarking until direct
   measurement rows or a maintainer-approved weaker calibration-consistency
   scope exists.
-- Atomic-clock work is still in source/covariance/version-gate hardening.
+- Atomic-clock work is pinned-dataset but not `BASELINE_READY`; it still needs
+  Nemitz ingestion, loader, holdout/no-peek, and readiness-gate work before
+  any Yb/Sr consistency benchmark.
 - Exoplanet work is ready for residual/failure-map packaging, but not for
   habitability, target-priority, or composition-law claims.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad

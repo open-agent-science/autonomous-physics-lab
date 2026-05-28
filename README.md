@@ -131,7 +131,7 @@ planet-composition or habitability claim.
 | --- | --- |
 | [Nuclear Mass Surface](docs/campaigns/nuclear-mass-surface.md) | Current flagship validation campaign with baseline residuals, sandbox scouts, prediction registry, and reveal-readiness gates |
 | [Quantum Size Effects](docs/campaigns/quantum-size-effects.md) | Source-readiness campaign; direct measurement rows remain the main blocker |
-| [Atomic-Clock Residuals](docs/campaigns/atomic-clock-residuals.md) | Fresh-data source surface with manifest and covariance guardrails |
+| [Atomic-Clock Residuals](docs/campaigns/atomic-clock-residuals.md) | Pinned Beloy direct-row seed with covariance guardrails; moving toward benchmark readiness |
 | [Exoplanet Mass-Radius Benchmark](docs/campaigns/exoplanet-mass-radius.md) | Active catalog benchmark with a public-safe `BENCHMARK_SUMMARY_ONLY` scorecard |
 | [Textbook Formula Audit](docs/campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas |
 
