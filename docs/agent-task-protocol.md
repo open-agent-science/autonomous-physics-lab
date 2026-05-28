@@ -347,19 +347,10 @@ available:
 
 ```bash
 git push origin agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>
-gh pr create --draft --base main --head agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> --title "TASK-XXXX: <short title>" --body-file .claude/scratch/apl-pr-body.md
+gh pr create --draft --base main --head agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> --title "TASK-XXXX: <short title>" --body-file /path/to/apl-pr-body.md
 python3 scripts/apl_review_pr.py --pr <number>
 gh pr ready <number>
 ```
-
-Agent scratch artifacts such as PR-body scaffolds belong in a
-per-tool scratch location, not in `_snapshots/` (which is reserved for
-`./scripts/apl_review_bundle.sh` output / maintainer review audit
-trail). Claude Code agents use `.claude/scratch/` (see
-`.claude/scratch/README.md` and `CLAUDE.md`). Codex and other agents
-should use their own native scratch convention. The example commands
-below use `.claude/scratch/apl-pr-body.md`; substitute the
-tool-appropriate scratch path.
 
 The agent should also offer to help the maintainer set up access, for example
 by suggesting `gh auth login` or a `GH_TOKEN`/`GITHUB_TOKEN`, but setup is not
@@ -399,15 +390,15 @@ python3 scripts/apl_task_pr_helper.py scaffold \
   --slug <short-slug> \
   --description "<short title>" \
   --summary "<verification-first summary>" \
-  --body-file .claude/scratch/apl-pr-body.md
+  --body-file /tmp/apl-pr-body.md
 python3 scripts/apl_task_pr_helper.py preflight \
   --branch "agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>" \
   --title "TASK-XXXX: <short title>" \
-  --body-file .claude/scratch/apl-pr-body.md
+  --body-file /tmp/apl-pr-body.md
 python3 scripts/apl_task_pr_helper.py create \
   --branch "agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>" \
   --title "TASK-XXXX: <short title>" \
-  --body-file .claude/scratch/apl-pr-body.md
+  --body-file /tmp/apl-pr-body.md
 ```
 
 After the PR exists, run the PR-number review, not only branch preflight:
