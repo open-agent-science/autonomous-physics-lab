@@ -182,18 +182,13 @@ def render_strategic_context_map(root: Path, *, recent_agent_run_limit: int = 8,
     lines = [
         "### Strategic Snapshot Front Page",
         "",
-        "Use this section first when briefing a strategy, curator, or new execution agent.",
-        "The archive sections later in the snapshot are supporting evidence, not the",
-        "fastest way to understand current project motion.",
-        "",
-        "#### Current Architecture Stage",
-        "",
-        "- APL has moved from sandbox-only experiments toward a gated scientific-memory conveyor.",
-        "- Current flow: `sandbox evidence -> AGENT_PUBLISHED result -> AGENT_VALIDATED replay -> maintainer-scoped claim review`.",
-        "- Campaign work is coordinated through `missions/current.yaml`, `campaign_profiles/`, `docs/campaigns/`, task queues, agent runs, review artifacts, and canonical results.",
-        "- Maintainers endorse interpretation; agents can publish reproducible evidence only when the task scope and Gate A/B rules allow it.",
+        "_Generated from structured repository files; use later archive sections for deep audit context._",
     ]
 
+    lines.extend(_render_repository_state_signals(entries, missions, agent_runs, result_tiers, prediction_count))
+    lines.extend(_render_campaign_at_a_glance(missions))
+    lines.extend(_render_recent_scientific_learnings(missions, agent_runs))
+    lines.extend(_render_recommended_parallel_allocation(missions))
     lines.extend(_render_context_file_map(root))
     lines.extend(_render_campaign_rows(missions))
     lines.extend(_render_task_queue_snapshot(entries))
@@ -259,6 +254,131 @@ def _render_context_file_map(root: Path) -> list[str]:
         status = "present" if exists else "missing"
         lines.append(f"- `{path}` ({status}) — {description}.")
     return lines
+
+
+def _render_repository_state_signals(
+    entries: tuple,
+    missions: list[dict],
+    agent_runs: list[AgentRunSnapshot],
+    result_tiers: dict[str, int],
+    prediction_count: int,
+) -> list[str]:
+    status_counts: dict[str, int] = {}
+    for entry in entries:
+        status_counts[entry.status] = status_counts.get(entry.status, 0) + 1
+    tier_text = ", ".join(f"{tier} {count}" for tier, count in sorted(result_tiers.items())) or "none"
+    task_text = ", ".join(
+        f"{status} {status_counts.get(status, 0)}"
+        for status in ("READY", "REVIEW_READY", "BLOCKED", "DONE")
+    )
+    return [
+        "",
+        "#### Repository State Signals",
+        "",
+        f"- Campaign rows in `missions/current.yaml`: {len(missions)}.",
+        f"- Task status counts: {task_text}.",
+        f"- Recent agent-run artifacts included here: {len(agent_runs)}.",
+        f"- Canonical RESULT review tiers: {tier_text}.",
+        f"- Frozen prediction entries: {prediction_count}.",
+    ]
+
+
+def _render_campaign_at_a_glance(missions: list[dict]) -> list[str]:
+    lines = [
+        "",
+        "#### Campaigns At A Glance",
+        "",
+        "| Campaign | Status | Can agents run now? | Best next action | Blocker | Risk |",
+        "| --- | --- | --- | --- | --- | --- |",
+    ]
+    if not missions:
+        lines.append("| none | unknown | unknown | see `missions/current.yaml` | unknown | unknown |")
+        return lines
+    for mission in missions[:8]:
+        lines.append(
+            "| "
+            f"{_table_cell(str(mission.get('title', mission.get('id', 'unknown'))))} | "
+            f"{_table_cell(str(mission.get('status', 'unknown')))} | "
+            f"{_table_cell(_can_agents_run_now(mission))} | "
+            f"{_table_cell(_one_line(str(mission.get('recommendation', '')), limit=120))} | "
+            f"{_table_cell(_mission_blocker(mission))} | "
+            f"{_table_cell(str(mission.get('risk', mission.get('scientific_value', 'unknown'))))} |"
+        )
+    return lines
+
+
+def _render_recent_scientific_learnings(
+    missions: list[dict],
+    agent_runs: list[AgentRunSnapshot],
+) -> list[str]:
+    lines = [
+        "",
+        "#### Recent Scientific Learnings",
+        "",
+    ]
+    for mission in missions[:6]:
+        why_now = mission.get("why_now") or []
+        if why_now:
+            title = mission.get("title", mission.get("id", "unknown"))
+            lines.append(f"- {title}: {_one_line(str(why_now[-1]))}")
+    if agent_runs:
+        verdict_counts: dict[str, int] = {}
+        for run in agent_runs:
+            verdict_counts[run.verdict] = verdict_counts.get(run.verdict, 0) + 1
+        counts = ", ".join(f"{verdict} {count}" for verdict, count in sorted(verdict_counts.items()))
+        lines.append(f"- Recent agent-run verdict mix: {counts}.")
+    if len(lines) == 3:
+        lines.append("- No recent campaign learnings were found in `missions/current.yaml` or `agent_runs/`.")
+    return lines
+
+
+def _render_recommended_parallel_allocation(missions: list[dict]) -> list[str]:
+    active_missions = [mission for mission in missions if _can_agents_run_now(mission) != "no"]
+    lines = [
+        "",
+        "#### Recommended Parallel Allocation",
+        "",
+    ]
+    for index, mission in enumerate(active_missions[:4], start=1):
+        title = str(mission.get("title", mission.get("id", "unknown")))
+        run_state = _can_agents_run_now(mission)
+        recommendation = _one_line(str(mission.get("recommendation", "")), limit=150)
+        lines.append(f"- Agent {index}: {title} (`{run_state}`) — {recommendation}")
+    lines.append("- One additional agent, when available: review/curator/closeout pass over recent evidence and blockers.")
+    lines.append("- Support/release/docs agents should run only when they unblock science or public-readiness work.")
+    return lines
+
+
+def _can_agents_run_now(mission: dict) -> str:
+    status = str(mission.get("status", "")).lower()
+    if "blocked" in status:
+        return "no"
+    if any(marker in status for marker in ("source", "readiness", "planned", "prepare")):
+        return "limited"
+    return "yes"
+
+
+def _mission_blocker(mission: dict) -> str:
+    actions = mission.get("actions") or []
+    for action in actions:
+        if not isinstance(action, dict):
+            continue
+        gated_by = action.get("gated_by") or []
+        if gated_by:
+            return _one_line("gated by: " + ", ".join(str(item) for item in gated_by[:3]), limit=120)
+        expected_outputs = action.get("expected_outputs") or []
+        for output in expected_outputs:
+            text = str(output)
+            if any(marker in text.lower() for marker in ("blocked", "until")):
+                return _one_line(text, limit=120)
+    forbidden = mission.get("forbidden") or []
+    if forbidden:
+        return _one_line("guardrail: " + str(forbidden[0]), limit=120)
+    return "none"
+
+
+def _table_cell(value: str) -> str:
+    return value.replace("|", "/")
 
 
 def _render_campaign_rows(missions: list[dict]) -> list[str]:

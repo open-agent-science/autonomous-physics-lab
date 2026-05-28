@@ -1,6 +1,8 @@
 import re
 from pathlib import Path
 
+import yaml
+
 from physics_lab.registry.snapshot import (
     build_snapshot_context,
     render_authority_notes,
@@ -50,11 +52,21 @@ def test_render_current_state_summary_uses_structured_repository_state() -> None
     assert "`EXP-0012`" in rendered
 
 
-def test_render_strategic_context_map_explains_current_project_stage() -> None:
+def test_render_strategic_context_map_uses_dynamic_repository_signals() -> None:
     rendered = render_strategic_context_map(Path("."))
+    mission_payload = yaml.safe_load(Path("missions/current.yaml").read_text(encoding="utf-8"))
+    mission_titles = [
+        str(mission.get("title", mission.get("id", "")))
+        for mission in mission_payload.get("missions", [])
+    ]
 
     assert "### Strategic Snapshot Front Page" in rendered
-    assert "Current Architecture Stage" in rendered
+    assert "Repository State Signals" in rendered
+    assert re.search(r"Campaign rows in `missions/current.yaml`: \d+", rendered)
+    assert re.search(r"Task status counts: READY \d+", rendered)
+    assert "Campaigns At A Glance" in rendered
+    assert "Recommended Parallel Allocation" in rendered
+    assert "Recent Scientific Learnings" in rendered
     assert "Campaign Motion" in rendered
     assert "Scientific Memory Conveyor" in rendered
     assert "Critical Files And Directories" in rendered
@@ -62,7 +74,8 @@ def test_render_strategic_context_map_explains_current_project_stage() -> None:
     assert "`docs/result-promotion-protocol.md`" in rendered
     assert "`agent_runs/`" in rendered
     assert "`results/`" in rendered
-    assert "nuclear-mass-surface" in rendered
+    assert any(title and title in rendered for title in mission_titles)
+    assert "Agent 1:" in rendered
     assert "AGENT_PUBLISHED" in rendered or "AGENT_VALIDATED" in rendered
 
 

@@ -1,0 +1,59 @@
+id: TASK-0435
+title: "Add campaign-at-a-glance snapshot summary"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make repository snapshots immediately useful for strategy agents and campaign-level steering."
+  - "Give strategy, curator, review, and executor agents a compact dynamic view of campaign state, workflow architecture, and unblock priorities."
+  - "Expose where agents can safely work now without forcing them to reconstruct state from long task/history sections."
+  - "Support parallel AI-agent routing across active campaigns while preserving blockers and overclaim guardrails."
+
+input:
+  mode: workflow
+  related_domain: snapshot_context
+  related_objects:
+    - "physics_lab/registry/snapshot.py"
+    - "scripts/apl_snapshot.sh"
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/task-views/research.md"
+    - "docs/task-views/blocked.md"
+  planning_context: >
+    TASK-0433 added a strategic snapshot front page. A strategy-agent review
+    found the new structure useful, but recommended one compact dynamic campaign block
+    that shows campaign status, whether agents can run now, best next action,
+    blocker, risk, recent learning, and recommended parallel allocation. This
+    should be a concise snapshot-first summary for campaign steering and agent
+    orientation, not a new static registry, executor prompt, or dashboard.
+
+requirements:
+  - "Add a compact `Campaigns at a glance` section to the strategic snapshot front page."
+  - "For each major campaign, summarize status, can-agents-run-now, best next action, blocker, and risk."
+  - "Optimize the block for all agents that need quick campaign orientation; executor agents should still use mission/task entrypoints as their primary source for task selection."
+  - "Add a short `Recommended parallel allocation` section for 4-6 agents across science execution, source/data readiness, review/curation, and support/release lanes."
+  - "Add a short `Recent scientific learnings` section that captures current conclusions without promoting claims."
+  - "Add a short dynamic repository-state signal block derived from counts and structured artifacts, not hardcoded strategy text."
+  - "Keep wording conservative: no breakthrough/discovery framing, no automatic claim promotion, and no reveal scoring unless blockers are resolved."
+  - "Do not duplicate long docs/current-missions.md text; keep this block compact and snapshot-first."
+  - "Preserve the existing snapshot default output location under `_snapshots/`."
+
+accepted_outputs:
+  - "updated strategic snapshot renderer"
+  - "tests proving the new compact campaign block is present"
+  - "one real snapshot smoke run confirming the output remains concise and read-only"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/snapshot.py tests/test_snapshot.py"
+    - "python3 -m pytest tests/test_snapshot.py"
+    - "./scripts/apl_snapshot.sh"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
