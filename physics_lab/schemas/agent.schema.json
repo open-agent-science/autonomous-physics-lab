@@ -54,7 +54,7 @@
         "intent": {
           "type": "string",
           "minLength": 40,
-          "description": "Language-agnostic concept the agent matches against, regardless of exact user wording."
+          "description": "Language-agnostic concept the agent matches against, regardless of exact user wording. Role activation is concept-based and must not depend on literal translated phrases."
         },
         "example_phrases": {
           "type": "array",

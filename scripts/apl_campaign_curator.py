@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a maintainer-facing Scientific Campaign Curator brief."""
+"""Build a maintainer-facing Scientific Campaign Director brief."""
 
 from __future__ import annotations
 
@@ -13,10 +13,11 @@ if str(REPO_ROOT) not in sys.path:
 
 from physics_lab.registry.campaign_curator import (  # noqa: E402
     SUPPORTED_CAMPAIGN_CURATOR_MODES,
+    SUPPORTED_CAMPAIGN_CURATOR_OUTPUTS,
     build_campaign_brief,
     campaign_brief_json,
-    render_campaign_agent_prompt,
     render_campaign_brief,
+    render_campaign_role_instructions,
 )
 
 
@@ -25,7 +26,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Print an advisory campaign-level brief for a maintainer-run "
-            "Scientific Campaign Curator agent."
+            "Scientific Campaign Director agent. Scientific Campaign Curator "
+            "and campaign-curator remain accepted aliases."
         )
     )
     parser.add_argument(
@@ -39,14 +41,32 @@ def build_parser() -> argparse.ArgumentParser:
         help="Curator mode. Defaults to cycle-review.",
     )
     parser.add_argument(
+        "--role",
+        choices=("director", "curator"),
+        default="director",
+        help=(
+            "Role framing for the brief. `director` is the current stronger "
+            "campaign-direction role; `curator` is the backward-compatible alias."
+        ),
+    )
+    parser.add_argument(
         "--json",
         action="store_true",
-        help="Emit machine-readable campaign curator JSON.",
+        help="Backward-compatible alias for --output json.",
     )
     parser.add_argument(
         "--agent-prompt",
         action="store_true",
-        help="Emit a copy-paste prompt for a maintainer-run campaign curator agent.",
+        help="Backward-compatible alias for --output agent.",
+    )
+    parser.add_argument(
+        "--output",
+        choices=SUPPORTED_CAMPAIGN_CURATOR_OUTPUTS,
+        default="brief",
+        help=(
+            "Output format. `brief` is human-readable, `json` is machine-readable, "
+            "and `agent` prints role activation instructions."
+        ),
     )
     parser.add_argument(
         "--root",
@@ -64,10 +84,17 @@ def main() -> int:
         root,
         campaign_id=args.campaign,
         mode=args.mode,
+        role=args.role,
     )
+    output = args.output
     if args.agent_prompt:
-        print(render_campaign_agent_prompt(brief))
+        output = "agent"
     elif args.json:
+        output = "json"
+
+    if output == "agent":
+        print(render_campaign_role_instructions(brief))
+    elif output == "json":
         print(campaign_brief_json(brief))
     else:
         print(render_campaign_brief(brief))

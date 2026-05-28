@@ -57,8 +57,11 @@ required_reading:
 typical_activities:
   - title: "Confirm the current mission"
     description: |
-      Run `python3 scripts/apl_mission.py --onboarding` (or
-      `--agent-prompt`) to confirm the current research mission.
+      Run `python3 scripts/apl_mission.py --output onboarding` to confirm
+      the current research mission with a guided first-run flow. Use
+      `--output agent` for the full autonomous Researcher instructions. The
+      older `--onboarding` and `--agent-prompt` flags remain compatibility
+      aliases.
   - title: "Pick one READY task"
     description: |
       Choose exactly one task from the current READY pool.

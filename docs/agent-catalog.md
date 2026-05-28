@@ -118,19 +118,24 @@ task closeout recommendation.
 
 Status: active and heavily used.
 
-### 6. Scientific Campaign Curator / Campaign Curator
+### 6. Scientific Campaign Director / Campaign Curator
 
 Use this path when the maintainer wants a campaign-level research brief after a
 wave of hypothesis proposals, sandbox runs, reviews, or result artifacts.
 
 - Typical work: summarize campaign evidence, identify promising and failed
-  directions, recommend the next 2-5 tasks, suggest parallel agent lanes
+  directions, recommend the next 2-5 tasks, suggest parallel agent lanes,
+  maintain campaign-page hygiene, and keep useful agent work available without
+  creating busywork
 - Role profile: [`agents/scientific-curator.yaml`](../agents/scientific-curator.yaml)
 - Primary docs:
   - [scientific-campaign-curator.md](./scientific-campaign-curator.md)
   - [campaign-curator-protocol.md](./campaign-curator-protocol.md)
 - Helper script:
   - `python3 scripts/apl_campaign_curator.py --campaign nuclear-mass-surface`
+  - `python3 scripts/apl_campaign_curator.py --role director --campaign nuclear-mass-surface`
+  - `python3 scripts/apl_campaign_curator.py --role curator --campaign nuclear-mass-surface`
+  - `python3 scripts/apl_campaign_curator.py --role director --campaign nuclear-mass-surface --output agent`
 
 Status: active maintainer-facing advisory mode. It must not run experiments,
 promote claims, create canonical tasks without explicit maintainer approval, or
