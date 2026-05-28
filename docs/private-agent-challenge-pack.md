@@ -28,7 +28,7 @@ Every contributor-agent pair should begin with the same baseline:
 
 1. Read `AGENTS.md`.
 2. Read [Agent Task Protocol](./agent-task-protocol.md).
-3. Run `python3 scripts/apl_mission.py --onboarding`.
+3. Run `python3 scripts/apl_mission.py --output onboarding`.
 4. Pick exactly one `READY` task, one approved microtask item, or one
    maintainer-assigned challenge. Prefer research, replay, audit, or
    hypothesis-testing tasks when the maintainer has not asked for support work.

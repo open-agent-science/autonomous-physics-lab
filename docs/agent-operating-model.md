@@ -53,7 +53,7 @@ For actual multi-agent work, use separate branches or git worktrees:
   until the PR is ready;
 - no guessed canonical task ids during parallel work.
 
-`python3 scripts/apl_mission.py --json` exposes several live task candidates so
+`python3 scripts/apl_mission.py --output json` exposes several live task candidates so
 maintainers can assign independent work in parallel without treating
 `missions/current.yaml` as a hand-maintained live queue.
 

@@ -12,7 +12,7 @@ tested against real dataset structure, subset behavior, and negative controls.
 
 New-reader summary: Nuclear is APL's flagship validation surface, but it is
 currently in diagnostic and source-gated mode. The useful work is stress
-review, no-leakage predictive discipline, no-peek reveal readiness,
+review, no-leakage falsification handling, no-peek reveal readiness,
 domain-limit mapping, and negative-result preservation, not new broad
 prediction waves.
 
@@ -187,6 +187,12 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   held diagnostic until labels are rebuilt from residual-free Z/N/A features.
   Odd-even shell interaction, deformation proxy, and measured/extrapolated
   boundary lanes are stopped as negative or control-dominated evidence.
+- `TASK-0394` implements the no-leakage local-curvature prototype and
+  falsifies `LOCAL-CURVATURE-001` under the bounded no-leakage/control panel.
+  The candidate regresses full-known MAE (+0.019599 MeV), loses to the
+  strongest no-leakage control, and has subset win-rate 0.000. This supersedes
+  the earlier guarded implementation GO as a positive path and should be
+  preserved as negative/inconclusive memory through `TASK-0428`.
 
 Historical context:
 
@@ -199,20 +205,24 @@ Current campaign state in one sentence:
 the scientific direction is now explicit, baseline-backed, holdout-defined,
 factory-supported, and prospectively frozen through selected registry entries,
 but it has not yet reached a future-measurement reveal. The safest Nuclear
-follow-up is no-leakage local-curvature implementation planning and reveal
-readiness reporting, not more broad audits or new prediction entries. The first
-full-known shell-axis audit is preserved as sandbox evidence in
-`AGENT-RUN-0018`; reveal scoring remains blocked.
+follow-up is local-curvature falsification packaging, high-error cluster
+residual-free diagnostics, and reveal readiness reporting, not more broad
+audits or new prediction entries. The first full-known shell-axis audit is
+preserved as sandbox evidence in `AGENT-RUN-0018`; reveal scoring remains
+blocked.
 
 Current next Nuclear posture:
 
-- `TASK-0381` should make registry counts and reveal-readiness state
-  machine-readable before anyone discusses reveal scoring again.
-- `TASK-0367` should stress the high-error cluster lane only as an adversarial
-  diagnostic, not as a predictive implementation.
-- A future maintainer-approved task may implement `LOCAL-CURVATURE-001` under
-  the `TASK-0352` freeze protocol and `TASK-0368` no-leakage contract. That
-  task must not create a `PRED-*` entry; prediction registration is downstream.
+- `TASK-0428` should run the result-promotion preflight mainly to preserve the
+  `LOCAL-CURVATURE-001` no-leakage falsification and block positive promotion
+  unless the scorecard exposes a very narrow, reviewed negative-result
+  publication artifact.
+- `TASK-0395` is the next non-duplicative diagnostic lane: rebuild high-error
+  cluster labels from residual-free Z/N/A-style features and decide whether the
+  lane survives as diagnostic-only or is retired.
+- `TASK-0396` should keep reveal-source readiness separate from every
+  retrospective audit. No real reveal scoring is allowed until a source-grade
+  post-freeze release passes the no-peek source gate.
 
 Start here:
 
@@ -271,9 +281,20 @@ Start here:
   artifact, or a sparse subset diagnostic?
 - Is the strongest shell-axis support driven by neutron magic structure,
   proton magic structure, both, or neither after matched controls?
+- After `TASK-0394`, what is the cleanest negative/inconclusive artifact for
+  the local-curvature lane, and what wording prevents future agents from
+  repeating it as a positive candidate?
+- Do residual-free high-error cluster labels reveal a real diagnostic domain,
+  or should that lane be retired as another leakage-sensitive negative result?
 
 ## Recommended Tasks
 
+- Run `TASK-0428` before any local-curvature publication or follow-up wording:
+  the expected path is negative/inconclusive memory, not positive promotion.
+- Run `TASK-0395` as the next Nuclear diagnostic lane only if the agent can
+  keep labels residual-free and controls explicit.
+- Run `TASK-0396` for reveal-source readiness; keep it independent from
+  retrospective model audits and do not score live measurements.
 - Future reveal tasks should use the `TASK-0266` protocol and the source
   readiness checklist instead of ad hoc source comparison.
 - Use the Nuclear scout evidence card as the compact maintainer orientation
@@ -360,11 +381,13 @@ Start here:
 ## New-Lanes Decision After Uncertainty And Adversarial Controls (TASK-0365)
 
 `docs/reviews/nuclear-new-lanes-decision-after-uncertainty.md` is
-the maintainer-facing go/no-go for the recent Nuclear hypothesis
-wave. Summary:
+the maintainer-facing go/no-go for the recent Nuclear hypothesis wave, but its
+local-curvature positive path has now been consumed by the later no-leakage
+prototype in `TASK-0394`. Updated summary:
 
-- **GO** on a no-leakage local-curvature predictive implementation
-  for `LOCAL-CURVATURE-001` (only F1-admissible candidate);
+- **SUPERSEDED/FAILED** for the no-leakage local-curvature implementation
+  path: `TASK-0394` falsified `LOCAL-CURVATURE-001` under the bounded
+  no-leakage/control panel;
 - **HOLD diagnostic** on high-error cluster (label refactor
   required before predictive use);
 - **STOP** on odd-even shell interaction, deformation proxy, and
@@ -398,6 +421,7 @@ proposing any Nuclear predictive lane.
 
 - Do not say APL found a nuclear mass formula.
 - Do not say shell-aware corrections imply new nuclear theory.
+- Do not say `LOCAL-CURVATURE-001` survived no-leakage validation.
 - Do not report sandbox fit improvements as canonical benchmark results.
 - Do not blur measured values, extrapolated values, and derived targets.
 - Do not describe baseline residual maps as evidence of a broader conclusion by

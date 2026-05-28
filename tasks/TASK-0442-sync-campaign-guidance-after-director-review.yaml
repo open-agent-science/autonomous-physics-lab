@@ -1,0 +1,57 @@
+id: TASK-0442
+title: "Sync campaign guidance after director review"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep public-facing campaign guidance aligned with the latest Director review and landed task evidence."
+  - "Prevent agents from treating falsified or inconclusive lanes as surviving positive candidates."
+  - "Move contributor docs to the explicit role/output command style introduced by the new mission and director helpers."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_status
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/current-missions.md"
+    - "docs/status.md"
+    - "missions/current.yaml"
+    - "tasks/TASK-0395-refactor-nuclear-high-error-cluster-labels-to-residual-free-features.yaml"
+    - "tasks/TASK-0404-run-result-promotion-scorecard-on-exoplanet-failure-map.yaml"
+    - "tasks/TASK-0428-run-nuclear-local-curvature-result-promotion-preflight.yaml"
+  planning_context: >
+    Director review after TASK-0394 and recent Exoplanet audits showed that
+    campaign guidance needed a conservative refresh: Nuclear local-curvature
+    should be treated as a no-leakage falsification / negative-memory path, and
+    Exoplanet compact/sub-Neptune work should stay sandbox-only until matched
+    controls and result-promotion scoring are reviewed. Contributor docs should
+    also prefer the explicit `apl_mission.py --output ...` command style.
+
+requirements:
+  - "Update Nuclear guidance so LOCAL-CURVATURE-001 is not described as a surviving no-leakage candidate after TASK-0394."
+  - "Update Exoplanet guidance to reflect recent residual, matched-control, and selection-effect audits without promoting planet-composition or discovery claims."
+  - "Update mission docs and task contracts so the next agents see the correct blockers and follow-up tasks."
+  - "Update public/contributor docs to prefer `python3 scripts/apl_mission.py --output onboarding|agent|json` while preserving compatibility aliases."
+  - "Do not create claims, knowledge files, prediction entries, canonical results, or new scientific data."
+
+accepted_outputs:
+  - "updated campaign guidance pages"
+  - "updated current mission guidance"
+  - "updated relevant READY task contracts"
+  - "updated contributor command examples"
+  - "canonical task spec for TASK-0442"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
