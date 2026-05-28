@@ -1,0 +1,51 @@
+id: TASK-0416
+title: "Run first scoped claim-promotion smoke test on Pendulum"
+type: claim_review
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Test the full evidence-to-claim path on the lowest-risk mature benchmark."
+  - "Keep claim endorsement maintainer-only while agents prepare evidence assembly."
+  - "Avoid starting claim-promotion smoke tests on high-risk frontier campaigns."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "claims/CLAIM-0001-pendulum-period-amplitude.md"
+    - "docs/claim-promotion-policy.md"
+    - "docs/result-promotion-protocol.md"
+    - "tasks/TASK-0412-backfill-first-agent-published-result.yaml"
+    - "tasks/TASK-0415-run-first-agent-validated-replay.yaml"
+  planning_context: >
+    Pendulum is the safest first claim-promotion smoke test because it is
+    mature, deterministic, and low-risk. Agents may assemble evidence and a
+    proposed scoped wording, but the actual CLAIM status transition remains a
+    maintainer Gate C action in Phase 1.
+
+requirements:
+  - "A relevant Pendulum RESULT is now AGENT_PUBLISHED; keep any claim transition maintainer-only."
+  - "Review CLAIM-0001 against the claim-promotion policy and result-promotion protocol."
+  - "Prepare a narrowly scoped status-transition recommendation; do not overclaim beyond benchmark evidence."
+  - "If a status transition is proposed, keep it as maintainer-reviewed Gate C work."
+  - "Do not use this task to change claims in other domains."
+  - "Do not mark any claim SUPPORTED unless the claim-promotion policy clearly allows it and the maintainer explicitly approves."
+
+accepted_outputs:
+  - "docs/reviews/pendulum-claim-promotion-smoke-test.md"
+  - "optional CLAIM-0001 evidence-reference update or maintainer-approved status transition"
+  - "clear verdict: no-change, DRAFT retained, PARTIALLY_SUPPORTED candidate, or maintainer-approved transition"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -87,7 +87,9 @@ generated navigation and PR body drafts.
 out to the network and do not modify canonical artifacts beyond their
 documented scope. `apl_new_worktree.sh` accepts a branch name and an
 optional path argument; it refuses to overwrite an existing branch and
-bases the new worktree on `origin/main`.
+bases the new worktree on `origin/main`. Its default path is inside the
+project under `.worktrees/<branch-slug>/`; pass an explicit second argument
+only when a task has a specific reason to place the worktree elsewhere.
 
 ### 3.3 Git read-only inspection
 
@@ -198,7 +200,7 @@ checkout. If you run multiple Claude Code or Codex sessions in parallel
 against the same repository, prefer one of:
 
 - a dedicated `git worktree` per session, created with
-  `git worktree add ../<branch-slug> <branch>`;
+  `./scripts/apl_new_worktree.sh <branch>` under `.worktrees/` by default;
 - distinct local repository clones;
 - coordinating which session "owns" the checkout for a given time window.
 

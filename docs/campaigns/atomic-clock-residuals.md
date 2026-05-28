@@ -13,7 +13,8 @@ schema scaffold needed before any future ingestion task can add rows.
 
 ## Current Status
 
-Planning scaffold only.
+Source-surface scaffold with synthetic loader, source-class reviews, covariance
+semantics, and version-drift stop conditions. No real-row benchmark yet.
 
 `TASK-0311` adds:
 
@@ -40,10 +41,26 @@ Current next tasks:
   [`physics_lab/engines/atomic_clock_residuals.py`](../../physics_lab/engines/atomic_clock_residuals.py),
   and
   [`docs/reviews/atomic-clock-synthetic-loader-dry-run.md`](../reviews/atomic-clock-synthetic-loader-dry-run.md).
-- `TASK-0330` and `TASK-0331` review the two most important source classes:
-  direct frequency-ratio measurements and derived drift/constraint sources.
-- `TASK-0332` runs the real-row readiness gate before any real clock value can
-  be added.
+- `TASK-0330` and `TASK-0331` reviewed the two most important source classes:
+  direct frequency-ratio measurements and derived drift/constraint sources;
+- `TASK-0332` ran the real-row readiness gate before any real clock value can
+  be added;
+- `TASK-0344` locked the uncertainty and covariance semantics required before
+  direct rows or derived constraints can enter a residual axis;
+- `TASK-0355` and `TASK-0363` continue the Beloy 2021 source-artifact and
+  covariance hardening path;
+- `TASK-0372` added the `SOURCE_ARTIFACT_VERSION_DRIFT` stop condition so
+  arXiv, version-of-record, or supplement disagreements halt row curation
+  before any value-bearing row is committed;
+- `TASK-0371` is the next row-curation task, but it should add Beloy 2021
+  direct-ratio rows only if the source artifact, uncertainty semantics,
+  covariance notes, and version-drift checks all pass.
+
+`TASK-0332` records `READY_FOR_SOURCE_SPECIFIC_REVIEW` and
+`NOT_READY_FOR_REAL_ROWS`: the campaign has enough scaffold to review concrete
+sources, but real rows stay blocked until a source artifact, source review,
+checksum or archive plan, row-class label, uncertainty semantics, covariance
+notes, holdout or reveal boundary, and real-row validation path exist.
 
 These tasks can run in parallel because source-class review and readiness-gate
 review own separate artifacts. None should ingest real clock values.
@@ -99,6 +116,10 @@ Atomic-clock evidence must be split before ingestion into three classes:
 Future tasks must coordinate with the
 [Fresh-Data Source Policy](../notes/fresh-data-source-policy.md) before adding
 any real rows.
+They should also follow the
+[Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md) so direct
+frequency-ratio rows, derived constraints, covariance blockers, and reveal
+boundaries are reviewed before row curation.
 
 ## Minimal Future Schema
 
@@ -142,6 +163,8 @@ Safe future tasks:
 - review one source class for admissibility and preserve blockers;
 - run a synthetic-only loader dry-run with fabricated rows;
 - run a real-row readiness gate before any future row seed;
+- curate a single source-specific row seed only when covariance, confidence
+  level, direct-vs-derived, and version-drift stop conditions are satisfied;
 - define a no-peek freeze package for a future source update;
 - audit whether derived constraints can be separated from direct measurements.
 
@@ -156,7 +179,7 @@ Unsafe next tasks:
 ## What Not To Claim
 
 - Do not claim evidence for constants drift.
-- Do not claim evidence for new constants or new physics.
+- Do not claim evidence for new constants or broad anomaly explanations.
 - Do not frame clock comparisons as a broad anomaly explanation surface.
 - Do not treat source-surface readiness as benchmark readiness.
 - Do not promote any atomic-clock result without a later maintainer-reviewed

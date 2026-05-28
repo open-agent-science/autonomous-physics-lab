@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
+import pytest
 from typer.testing import CliRunner
 
 from physics_lab.cli import _latest_result_path, app
@@ -613,7 +614,7 @@ def test_registry_files_validate_against_schemas() -> None:
     load_experiment(repo_root / "experiments" / "EXP-0001-pendulum-formula-discovery.yaml")
     load_knowledge(repo_root / "knowledge" / "classical_mechanics" / "pendulum.md")
     load_task(repo_root / "tasks" / "TASK-0001-fit-better-pendulum-model.yaml")
-    load_agent(repo_root / "agents" / "example-agent.yaml")
+    load_agent(repo_root / "tests" / "fixtures" / "example-agent.yaml")
 
 
 def test_cli_validate_hypothesis_smoke() -> None:
@@ -637,6 +638,7 @@ def test_cli_validate_result_smoke(tmp_path: Path) -> None:
     assert "Validated results/EXP-0001/RUN-0002/result.yaml as result." in result.stdout
 
 
+@pytest.mark.full_repo
 def test_validate_repository_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
@@ -659,7 +661,7 @@ def test_validate_repository_smoke(tmp_path: Path) -> None:
     assert summary.counts["experiments"] == len(list((repo_root / "experiments").glob("EXP-*.yaml")))
     assert summary.counts["knowledge"] == expected_knowledge_count
     assert summary.counts["tasks"] == expected_task_count
-    assert summary.counts["agents"] == 1
+    assert summary.counts["agents"] == len(list((repo_root / "agents").glob("*.yaml")))
     assert summary.counts["results"] == len(list((repo_root / "results").glob("*/*/result.yaml")))
 
 
@@ -814,6 +816,7 @@ def test_validate_repository_keeps_science_task_references_strict(tmp_path) -> N
         raise AssertionError("Expected science task reference validation to fail")
 
 
+@pytest.mark.full_repo
 def test_cli_validate_repo_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(
@@ -831,6 +834,7 @@ def test_cli_validate_repo_smoke(tmp_path: Path) -> None:
     assert f"- knowledge: {summary.counts['knowledge']}" in result.stdout
 
 
+@pytest.mark.full_repo
 def test_cli_validate_repo_strict_smoke() -> None:
     runner = CliRunner()
     result = runner.invoke(app, ["validate-repo", ".", "--strict"])
@@ -841,6 +845,7 @@ def test_cli_validate_repo_strict_smoke() -> None:
     assert "INFO" in result.stdout
 
 
+@pytest.mark.full_repo
 def test_cli_status_smoke(tmp_path: Path) -> None:
     repo_root = Path(__file__).resolve().parent.parent
     run_pendulum_experiment_with_output(

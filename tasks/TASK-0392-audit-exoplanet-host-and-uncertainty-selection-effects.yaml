@@ -1,0 +1,51 @@
+id: TASK-0392
+title: "Audit exoplanet host and uncertainty selection effects"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Separate exoplanet residual structure from catalog-selection and measurement-quality artifacts."
+  - "Make the exoplanet campaign safer before running more autonomous hypothesis lanes."
+  - "Produce a scientist-readable limitations artifact for the current exoplanet benchmark."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  planning_context: >
+    The true-mass residual slice audit flagged host and uncertainty bins as
+    possible selection-effect surfaces. This task should quantify how much of
+    the apparent residual behavior is explained by host-star fields,
+    measurement uncertainty, detection method, or missingness patterns.
+
+requirements:
+  - "Audit residual summaries by host-star temperature, stellar radius/mass if available, detection method, mass uncertainty, radius uncertainty, and missingness indicators."
+  - "Compare each slice to sample-size-matched controls and report where the controls erase the apparent signal."
+  - "Separate true-mass rows from minimum-mass rows throughout the report."
+  - "Produce a limitations table that future exoplanet tasks must cite."
+  - "Do not claim causal host-star physics, composition, habitability, or target priority."
+  - "Do not use live external fetches."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0038/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0038/metrics.json"
+  - "agent_runs/AGENT-RUN-0038/report.md"
+  - "docs/reviews/exoplanet-host-uncertainty-selection-effects.md"
+  - "optional deterministic runner and tests if reusable code is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

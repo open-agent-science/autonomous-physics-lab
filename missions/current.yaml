@@ -1,14 +1,16 @@
 default_mode: research
-updated: "2026-05-12"
+updated: "2026-05-28"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-14"
-  source: "TASK-0243"
+  updated: "2026-05-27"
+  source: "TASK-0411"
   note: >
-    Mission metadata and generated task navigation were refreshed after adding
-    docs/task-views and freshness validation. The flagship mission did not
-    change; support recommendations now reference only actionable READY tasks.
+    Mission guidance now routes end-of-task research outputs through
+    docs/result-promotion-protocol.md. The flagship mission did not change;
+    agents still start from bounded research lanes, but qualifying evidence can
+    be proposed as AGENT_PUBLISHED or AGENT_VALIDATED only when the task scope
+    and gates allow it.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -18,11 +20,15 @@ policy:
     closeout lanes remain available as explicit modes. Multiple agents are
     encouraged to work in parallel across different campaigns, or within the
     same campaign when they use separate branches/worktrees and disjoint
-    hypothesis families, datasets, or artifact surfaces.
+    hypothesis families, datasets, or artifact surfaces. Agents publish
+    reproducible evidence when gates pass, agents validate each other,
+    maintainers endorse interpretation, and external data confirms predictions.
   defaults:
     - "Start in research mode unless the maintainer explicitly asks for support, review, or closeout."
     - "Prefer hypothesis testing, replay, falsification, or sandbox result drafts over docs-only work."
-    - "Keep all research outputs reviewable and sandbox-only until maintainer review."
+    - "Use docs/result-promotion-protocol.md at handoff to state verdict, destination, review tier, Gate A/B status, limitations, and blockers."
+    - "Keep outputs sandbox-only unless the task scope and result-promotion gates explicitly allow AGENT_PUBLISHED or AGENT_VALIDATED RESULT/PRED artifacts."
+    - "Keep claim status transitions and knowledge endorsement maintainer-only in Phase 1."
     - "Prefer several bounded parallel science lanes over one oversized catch-all task when multiple agents are available."
     - "Parallel agents may work inside the same campaign when their hypothesis lanes and write surfaces are disjoint."
     - "Never promote claims, rewrite canonical results, or use breakthrough-style wording automatically."
@@ -41,7 +47,7 @@ global_forbidden:
 modes:
   research:
     label: "Research Mode"
-    description: "Default lane for autonomous scientific work: audit, replay, hypothesis testing, sandbox runs, and reviewable PR artifacts."
+    description: "Default lane for autonomous scientific work: audit, replay, hypothesis testing, sandbox runs, result-routing, and reviewable PR artifacts."
   audit:
     label: "Research Audit Mode"
     description: "Adversarial validation of existing sandbox evidence before follow-up work expands the surface."
@@ -59,7 +65,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: keep the shell-axis mini-wave frozen, leave reveal scoring blocked, and use the completed full-known audit as sandbox review evidence while choosing the next READY task from live candidates."
+    recommendation: "Main direction now: keep shell-axis diagnostic-only, preserve local-curvature as a no-leakage falsification, leave reveal scoring blocked, and run only fresh bounded Nuclear diagnostic lanes in parallel."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -71,6 +77,8 @@ missions:
       - "PRED-0063 through PRED-0068 now freeze the shell-axis-balanced-001 prospective mini-wave"
       - "source preflight and synthetic reveal mechanics are done, but TASK-0307 found no acceptable post-registration source manifest"
       - "AGENT-RUN-0018 now records the full-known-data retrospective audit without prospective reveal scoring"
+      - "TASK-0333 fixed shell-axis as diagnostic-only, so fresh hypothesis lanes should replace additional shell-axis slicing"
+      - "TASK-0394 falsified LOCAL-CURVATURE-001 under the bounded no-leakage/control panel, so local-curvature is now negative/inconclusive memory unless TASK-0428 narrows the publication boundary"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -81,6 +89,8 @@ missions:
       - "do not promote any second-batch sandbox candidate after TASK-0204 without a maintainer-approved follow-up task"
       - "do not score PRED-0063 through PRED-0068 before source preflight, no-peek review, and explicit maintainer approval"
       - "do not add more shell-axis PRED entries before the mini-wave reveal-readiness implications are reviewed"
+      - "do not treat shell-axis diagnostic evidence as a reason to stop Nuclear hypothesis testing"
+      - "do not present LOCAL-CURVATURE-001 as a surviving no-leakage Nuclear candidate after TASK-0394"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -107,7 +117,7 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Prefer the post-0310 Nuclear validation wave before registry expansion"
+        label: "Prefer fresh bounded Nuclear hypothesis lanes before registry expansion"
         task_id: null
         mode: research
         priority: high
@@ -115,10 +125,13 @@ missions:
         recommended: true
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
-          - "Prefer TASK-0333 for the next Nuclear shell-axis synthesis before more audits or registry expansion"
-          - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
+          - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
+          - "Treat TASK-0394 as a no-leakage falsification for LOCAL-CURVATURE-001 unless TASK-0428 identifies a narrower negative-result publication artifact"
+          - "Use live_task_candidates before naming any remaining READY Nuclear hypothesis lane"
+          - "Use live_task_candidates from python3 scripts/apl_mission.py --output json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
-          - "Keep outputs sandbox-only or documentation-only unless the selected task explicitly allows promotion"
+          - "Use docs/result-promotion-protocol.md to decide whether the final output is sandbox-only, RESULT/PRED draft, review note, source artifact, or task proposal"
+          - "Publish RESULT/PRED artifacts only when the selected task explicitly allows it and Gate A or maintainer-approved manual Gate A review passes"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
         validation:
           - "python3 -m ruff check ."
@@ -160,6 +173,65 @@ missions:
           - "use READY TASK-0228 through TASK-0237 as parallel lanes"
           - "each lane adds two frozen PRED-0021+ entries plus pre-reveal validation"
           - "no live external fetch, reveal comparison, claim promotion, or retrospective metric framing"
+      - id: nuclear-deformation-proxy-lane
+        label: "Run Nuclear deformation-proxy hypothesis lane"
+        task_id: TASK-0338
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "sandbox mini-loop with controls and verdict"
+      - id: nuclear-local-curvature-lane
+        label: "Run Nuclear local residual curvature hypothesis lane"
+        task_id: TASK-0339
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "sandbox mini-loop with chain-transfer diagnostics"
+      - id: nuclear-odd-even-shell-lane
+        label: "Run Nuclear odd-even shell-interaction hypothesis lane"
+        task_id: TASK-0340
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "interaction candidates compared to pairing-only and shell-only controls"
+      - id: nuclear-boundary-lane
+        label: "Run Nuclear measured/extrapolated boundary hypothesis lane"
+        task_id: TASK-0341
+        mode: research
+        status: review_ready
+        priority: medium
+        difficulty: high
+        recommended: false
+        expected_outputs:
+          - "source-status diagnostics or blocker review"
+      - id: nuclear-uncertainty-weighted-lane
+        label: "Run Nuclear uncertainty-weighted residual lane"
+        task_id: TASK-0342
+        mode: research
+        status: review_ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "uncertainty preflight and weighted residual diagnostics"
+      - id: nuclear-high-error-cluster-lane
+        label: "Run Nuclear high-error cluster hypothesis lane"
+        task_id: TASK-0343
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: high
+        expected_outputs:
+          - "cluster hypotheses with matched negative controls"
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
@@ -196,13 +268,15 @@ missions:
           - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
           - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
       - id: quantum-jasieniak-source-artifact
-        label: "Package Jasieniak 2011 deterministic source artifact"
-        task_id: TASK-0334
+        label: "Review TASK-0334 Jasieniak 2011 source-artifact package before unblocking row curation"
+        task_id: null
         mode: research
+        status: review_ready
         priority: high
         difficulty: high
         expected_outputs:
-          - "source artifact package or explicit deterministic blocker"
+          - "use docs/reviews/quantum-jasieniak-2011-source-artifact-package.md after merge"
+          - "keep TASK-0336, TASK-0293, and TASK-0225 blocked until a checksum-pinned SI/table extraction or deterministic digitisation artifact is reviewed"
       - id: quantum-calibration-consistency-scope
         label: "Define calibration-curve consistency benchmark scope"
         task_id: TASK-0335
@@ -212,6 +286,16 @@ missions:
         difficulty: medium
         expected_outputs:
           - "calibration-only benchmark scope without metrics"
+      - id: quantum-open-direct-source-triage
+        label: "Triage open quantum-dot direct table sources"
+        task_id: TASK-0347
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "ranked alternative direct-source candidates without row values"
 
   - id: atomic-clock-residuals
     title: "Atomic Clock Residuals"
@@ -253,6 +337,7 @@ missions:
         label: "Review atomic-clock direct frequency-ratio source class"
         task_id: TASK-0330
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
@@ -261,6 +346,7 @@ missions:
         label: "Review atomic-clock derived drift/constraint source class"
         task_id: TASK-0331
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
@@ -269,40 +355,107 @@ missions:
         label: "Run atomic-clock real-row source gate"
         task_id: TASK-0332
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
         expected_outputs:
           - "go/no-go gate before first real atomic-clock row seed"
+      - id: atomic-covariance-semantics
+        label: "Review atomic-clock covariance and uncertainty semantics"
+        task_id: TASK-0344
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "value-free uncertainty and covariance source semantics"
 
   - id: exoplanet-mass-radius
     title: "Exoplanet Mass-Radius Benchmark"
     rank: 4
-    status: planned_fourth_campaign
+    status: active_secondary_benchmark
     scientific_value: medium
     risk: medium
-    recommendation: "Planned fourth campaign: create the value-free source, schema, and holdout surface before any catalog snapshot or mass-radius benchmark."
+    recommendation: "Active secondary benchmark: use the merged compact/sub-Neptune matched-control audit as sandbox-only evidence, then prioritize result-promotion scoring and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
       - "planet class, discovery method, host-star context, and measurement quality provide natural holdouts"
       - "the campaign can produce useful failure maps without claiming a new planet law"
+      - "pinned PSCompPars snapshot, loader dry-run, first baseline, residual scouts, and selection-effect audits now exist"
     forbidden:
       - "do not fetch live archive data before a pinned snapshot policy exists"
       - "do not run mass-radius metrics before schema and holdout protocol exist"
       - "do not claim habitability, biosignatures, planet prioritization, or discovery of a universal planet law"
       - "do not mix true mass, minimum mass, and model-derived values without explicit row-class flags"
+      - "do not present compact/sub-Neptune matched-control survival as a canonical result, prediction, composition claim, or planet-law claim without result-promotion scoring and maintainer review"
     actions:
       - id: exoplanet-source-schema-scaffold
         label: "Scaffold exoplanet mass-radius source surface"
         task_id: TASK-0337
         mode: research
+        status: review_ready
         priority: high
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "value-free exoplanet data README and source-manifest template"
           - "mass-radius row schema or schema sketch"
           - "holdout protocol and source-surface review"
           - "no live rows, metrics, prediction registry entries, or claims"
+      - id: exoplanet-pscomppars-ingestion-plan
+        label: "Prepare Exoplanet PSCompPars snapshot ingestion plan"
+        task_id: TASK-0345
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "value-free retrieval and inclusion plan before any row fetch"
+      - id: exoplanet-baseline-protocol
+        label: "Define Exoplanet mass-radius baseline protocol"
+        task_id: TASK-0346
+        mode: research
+        status: review_ready
+        priority: medium
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "baseline, metrics, holdout, and negative-control protocol without rows"
+      - id: exoplanet-compact-subneptune-control
+        label: "Compact/sub-Neptune matched-control audit landed (TASK-0427); follow-up is deeper compact-slice pilot or cross-tool Gate B replay"
+        task_id: null
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "PR #609 (merged) added agent_runs/AGENT-RUN-0042 and docs/reviews/exoplanet-compact-subneptune-matched-control-audit.md"
+          - "next action: open a cross-tool Gate B replay task on scripts/run_exoplanet_compact_subneptune_matched_control_audit.py or a deeper compact-slice (R<1.5 R_earth) pilot"
+      - id: exoplanet-result-promotion-scorecard
+        label: "Exoplanet failure-map result-promotion scorecard landed (TASK-0404); verdict BENCHMARK_SUMMARY_ONLY"
+        task_id: null
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md + companion result_candidate_review.yaml record the BENCHMARK_SUMMARY_ONLY verdict and forbid claim-candidate framing"
+          - "TASK-0427 confirmed as a strengthening prerequisite for compact/sub-Neptune wording, not a blocker"
+      - id: exoplanet-second-snapshot-protocol
+        label: "Prepare second-snapshot no-live-fetch protocol"
+        task_id: TASK-0393
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "no-live-fetch protocol for future cross-snapshot or prediction-readiness work"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"

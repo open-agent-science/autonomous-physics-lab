@@ -62,6 +62,7 @@ def test_render_active_board_snapshot_groups_task_statuses(tmp_path: Path) -> No
     _write_task(tmp_path, task_id="TASK-0002", title="Review task", status="REVIEW_READY")
     _write_task(tmp_path, task_id="TASK-0001", title="Ready task", status="READY")
     _write_task(tmp_path, task_id="TASK-0003", title="Done task", status="DONE")
+    _write_task(tmp_path, task_id="TASK-0004", title="Old task", status="SUPERSEDED")
 
     rendered = render_active_board_snapshot(tmp_path)
 
@@ -71,6 +72,8 @@ def test_render_active_board_snapshot_groups_task_statuses(tmp_path: Path) -> No
     assert "- `TASK-0002` — Review task (`documentation`, priority `medium`, difficulty `low`)" in rendered
     assert "## DONE RECENTLY" in rendered
     assert "- `TASK-0003` — Done task (merged)" in rendered
+    assert "## SUPERSEDED" in rendered
+    assert "- `TASK-0004` — Old task (`documentation`, priority `medium`, difficulty `low`)" in rendered
 
 
 def test_sync_active_board_replaces_generated_block(tmp_path: Path) -> None:

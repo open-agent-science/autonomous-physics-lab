@@ -1,0 +1,53 @@
+id: TASK-0407
+title: "Enforce review-tier metadata guardrails in repository validation"
+type: validation_infrastructure
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the result-promotion protocol from guidance into enforceable repository behavior."
+  - "Prevent agent-published artifacts from bypassing the required audit metadata."
+  - "Keep legacy artifacts backward-compatible while making new review-tiered artifacts checkable."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "physics_lab/schemas/result.schema.json"
+    - "physics_lab/schemas/claim.schema.json"
+    - "physics_lab/schemas/knowledge.schema.json"
+    - "physics_lab/schemas/prediction.schema.json"
+    - "physics_lab/registry/validation.py"
+  planning_context: >
+    TASK-0406 added optional review-tier metadata fields so legacy artifacts
+    continue to validate. The next step is a repository-level validator that
+    enforces the protocol only when new artifacts explicitly set
+    review_tier. This keeps backwards compatibility while preventing weak
+    AGENT_PUBLISHED or AGENT_VALIDATED entries from entering canonical memory.
+
+requirements:
+  - "Add validation checks for artifacts that set `review_tier`."
+  - "Require `agent_proposal_evaluation` when `review_tier` is `AGENT_PUBLISHED` or `AGENT_VALIDATED`."
+  - "Reject `agent_proposal_evaluation.review_tier_proposed` values that do not match the artifact's review tier."
+  - "Keep legacy artifacts without `review_tier` valid as `LEGACY_UNTIERED` compatibility artifacts."
+  - "Do not promote any claim, result, prediction, or knowledge artifact."
+  - "Do not require existing legacy artifacts to be rewritten."
+
+accepted_outputs:
+  - "physics_lab/registry/validation.py or a focused registry validation helper"
+  - "tests covering result, claim, prediction, and knowledge review-tier validation behavior"
+  - "docs/result-promotion-protocol.md clarification only if the validator reveals ambiguous wording"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

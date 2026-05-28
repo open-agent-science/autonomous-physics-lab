@@ -1,7 +1,7 @@
 id: TASK-0332
 title: "Run atomic-clock real-row source gate"
 type: scientific_validation
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

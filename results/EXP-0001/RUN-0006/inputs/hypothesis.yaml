@@ -1,0 +1,43 @@
+id: HYP-0001
+title: "Pendulum period correction with amplitude terms"
+domain: classical_mechanics
+status: TESTING
+
+hypothesis:
+  statement: "The pendulum period ratio can be approximated by low-order amplitude correction formulas."
+  formula_candidates:
+    - "T/T0 = 1 + a*theta^2"
+    - "T/T0 = 1 + a*theta^2 + b*theta^4"
+    - "T/T0 = 1 + a*sin(theta/2)^2"
+    - "T/T0 = 1 + a*x + b*x^2, x = sin(theta/2)^2"
+    - "T/T0 = 1 + a*x + b*x^2 + c*x*log(1/(1 - x)), x = sin(theta/2)^2"
+
+assumptions:
+  - "Ideal mathematical pendulum"
+  - "No friction"
+  - "No driving force"
+  - "theta is measured in radians"
+
+variables:
+  theta:
+    unit: radian
+    description: "Initial angular amplitude"
+  T:
+    unit: second
+    description: "True pendulum period"
+  T0:
+    unit: second
+    description: "Small-angle pendulum period"
+
+evidence:
+  experiments:
+    - EXP-0001
+  results:
+    - RESULT-0001
+    - RESULT-0003
+    - RESULT-0004
+    - RESULT-0008
+    - RESULT-0013
+    - RESULT-0017
+
+verdict: "Systematic gauntlets confirm range-limited pendulum correction formulas, including a 102-candidate asymptotic-refined follow-up. Evidence remains benchmark-scoped and does not establish a symbolic exact or globally valid formula."

@@ -1,0 +1,49 @@
+id: TASK-0402
+title: "Reconstruct atomic Beloy cross-ratio covariance approximation"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Strengthen Atomic uncertainty handling before any benchmark consumes the Beloy rows."
+  - "Turn a known source/covariance blocker into a reviewable approximation or explicit negative result."
+  - "Prevent misleading independent-row treatment for shared-clock frequency ratios."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-clock-beloy-2021-direct-ratio-row-curation.md"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "data/atomic_clocks/acr-0001-beloy-2021-frequency-ratio-seed.yaml"
+  planning_context: >
+    The Beloy 2021 seed contains three direct ratios sharing clocks, so treating
+    them as independent would be scientifically unsafe. This task should build
+    a clearly labeled covariance approximation from the committed source notes
+    when feasible, or preserve a blocker explaining why it cannot be
+    reconstructed.
+
+requirements:
+  - "Attempt a deterministic covariance or correlation approximation for the three Beloy 2021 cross-ratios using only committed source artifacts and documented uncertainty components."
+  - "Clearly label any reconstructed covariance as approximate and source-derived."
+  - "If the source does not support reconstruction, write a blocker review and do not invent covariance entries."
+  - "Check whether downstream benchmark code would need to treat rows as correlated, partially correlated, or independent-with-warning."
+  - "Do not fit constants drift, infer new physics, or promote a RESULT."
+
+accepted_outputs:
+  - "docs/reviews/atomic-beloy-2021-cross-ratio-covariance-approximation.md"
+  - "optional data/atomic_clocks/*covariance*.yaml only if reconstruction is deterministic and reviewable"
+  - "optional tests only if schema or loader code is changed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

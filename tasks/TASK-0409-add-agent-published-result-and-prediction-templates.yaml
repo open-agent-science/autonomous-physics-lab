@@ -1,0 +1,52 @@
+id: TASK-0409
+title: "Add AGENT_PUBLISHED RESULT and PRED templates"
+type: contributor_experience
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Make the first AGENT_PUBLISHED artifacts easy for agents to create consistently."
+  - "Avoid improvised `agent_proposal_evaluation` blocks across campaigns."
+  - "Support fast canonical evidence publication while keeping trust qualifiers visible."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "physics_lab/schemas/result.schema.json"
+    - "physics_lab/schemas/prediction.schema.json"
+    - "prediction_registry/README.md"
+  planning_context: >
+    Agents should not invent their own AGENT_PUBLISHED RESULT/PRED shapes.
+    Templates should show the required fields, gate checklist, trust qualifier,
+    and no-claim wording so the first publication tasks can focus on evidence
+    rather than formatting.
+
+requirements:
+  - "Add a RESULT template for review_tier: AGENT_PUBLISHED."
+  - "Add a generic PRED template for review_tier: AGENT_PUBLISHED."
+  - "Include an `agent_proposal_evaluation` block with all required Gate A checklist keys."
+  - "Include explicit trust qualifier wording: agent-published, not independently validated or maintainer-reviewed."
+  - "Keep templates domain-neutral; domain-specific examples may be linked but should not become the only path."
+  - "Do not create live RESULT-* or PRED-* entries."
+
+accepted_outputs:
+  - "results/RESULT-TEMPLATE.agent-published.yaml"
+  - "prediction_registry/PRED-TEMPLATE.agent-published.yaml"
+  - "docs/templates/agent-published-result.md"
+  - "docs/templates/agent-published-prediction.md"
+  - "tests or docs-link checks updated if the new template paths need coverage"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_promotion_protocol.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

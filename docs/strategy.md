@@ -2,12 +2,11 @@
 
 ## Current Phase
 
-`v0.1-private-alpha — scientific campaign and contributor workflow validation`
+`v0.2-public-alpha candidate — multi-campaign agent research network hardening`
 
-Near-term packaging target:
-
-`v0.2` public-facing material preparation, still gated behind private review
-and release discipline.
+The repository is still gated by maintainer review and release discipline, but
+the strategic center has moved from a single flagship/private-alpha dry run to a
+multi-campaign network where many agents can safely work in parallel.
 
 ## Mission
 
@@ -25,60 +24,76 @@ and public scientific memory.
 
 ## Strategic Shift
 
-The repository is no longer focused mainly on bootstrap infrastructure work.
-That base now exists well enough to support a new emphasis:
+The repository is no longer focused mainly on bootstrap infrastructure work or a
+single scientific lane. The base now exists well enough to support a new
+emphasis:
 
-- curate active scientific campaigns with clear scope and honest limitations;
-- validate private contributors and their agents through a branch-based,
-  reviewable workflow before any public opening;
-- improve project-level orientation so results, tasks, and risks stay legible;
-- keep public-launch work gated behind validation and review discipline.
+- maintain many safe, bounded, data-backed research lanes rather than minimizing
+  task count for its own sake;
+- distinguish good task growth (campaign-scoped, gated, dataset-backed lanes)
+  from bad task sprawl (open-ended work without baselines, holdouts, or review
+  gates);
+- turn high-quality sandbox evidence into `AGENT_PUBLISHED` and
+  `AGENT_VALIDATED` scientific memory when explicit result-promotion gates pass;
+- curate active and preparing campaigns with clear source state, allowed work,
+  forbidden work, and honest limitations;
+- keep public-launch work gated behind validation, review discipline, and
+  conservative claim boundaries.
 
 ## Current Priorities
 
-1. Curate scientific campaigns rather than broadening into many unfinished
-   benchmark ideas at once.
-2. Elevate a nuclear mass surface campaign as the next flagship science track,
+1. Operate APL as a multi-campaign open agent research network, not as a small
+   collection of isolated local experiments.
+2. Keep Nuclear Mass Surface as the flagship science track,
    using baseline residual maps, shell-closure diagnostics, holdout discipline,
    post-AME2020 time-split validation, and conservative correction-term framing
    instead of broad discovery claims.
-3. Validate the private contributor and agent workflow with measurable gates:
+3. Promote Exoplanet Mass-Radius as the active secondary benchmark surface:
+   pinned snapshots, baseline comparisons, residual failure maps, and
+   selection-effect audits are useful without claiming a new planet law.
+4. Prepare new campaign lanes through source-first scaffolds before hypothesis
+   batches: Textbook Formula Audit, Materials/JARVIS-style property residuals,
+   Quantum Size Effects, and Atomic-Clock Residuals.
+5. Validate the contributor and agent workflow with measurable gates:
    task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
-   clean review-helper behavior, closeout, and zero automatic claim promotion.
-4. Prepare and maintain a clear Mission Control and campaign-map layer so new
+   clean review-helper behavior, closeout, gated result publication, and zero
+   automatic claim promotion.
+6. Prepare and maintain a clear Mission Control and campaign-map layer so new
    contributors can see what APL is trying to do and where evidence already
    exists.
-5. Treat open-agent-network coordination as a first-class design goal: many
+7. Treat open-agent-network coordination as a first-class design goal: many
    agents may work in parallel, but only through task contracts, disjoint
-   branches or worktrees, sandbox-first evidence, and maintainer review.
-6. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+   branches or worktrees, disjoint artifact surfaces, evidence gates, and
+   maintainer review.
+8. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-7. Improve visual result summaries, campaign summaries, and contributor-facing
+9. Improve visual result summaries, campaign summaries, and contributor-facing
    navigation around the strongest current evidence, including negative-result
    surfaces.
-8. Package the current result layer into a coherent v0.2 story without
+10. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-9. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+11. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-10. Distinguish retrospective time-split benchmarks from prospective prediction:
+12. Distinguish retrospective time-split benchmarks from prospective prediction:
    post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
    true future predictions require a pre-registered prediction artifact.
-11. Prepare public launch only after the explicit gates in
+13. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 Future research direction is curated through
 [future-research-portfolio.md](./future-research-portfolio.md). The current
-portfolio keeps Nuclear Mass Surface in `NOW`, scoped quantum-size,
-thought-experiment, and electromagnetic-invariance work in `NEXT`, and keeps
-Hubble tension, muon g-2 follow-up, broad constants derivation, and broad
-mass-relation searches in `WATCHLIST`.
+portfolio should be read as a campaign portfolio, not a scarcity list:
+`ACTIVE` lanes should stay bounded and data-backed; `PREPARE` lanes should
+build source, schema, baseline, and holdout readiness; `GUARDRAIL` and
+`WATCHLIST` lanes should not become implementation work without a new
+maintainer-approved task and stronger gates.
 
 ## Current Goal
 
-Demonstrate that APL can run honest scientific campaigns and a disciplined
-private contributor validation phase at the same time, without relaxing
-verification standards or overstating benchmark results.
+Demonstrate that APL can run honest scientific campaigns, gated evidence
+publication, and multi-agent contributor work at the same time, without
+relaxing verification standards or overstating benchmark results.
 
 ## Current North-Star Outcomes
 

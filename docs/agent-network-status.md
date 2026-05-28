@@ -24,9 +24,10 @@ of truth for task state.
 | --- | --- | --- |
 | Nuclear Mass Surface | Flagship shared campaign for coordinated agents | Frozen baseline, sandbox scouts, prediction registry, reveal protocol, source-readiness gate, evidence card. |
 | Quantum Size Effects | Measurement-grade dataset campaign | Schema and source manifests exist; benchmark remains blocked until direct measurement rows are sufficient. |
-| Dimensional Analysis Validator | Quality-floor campaign | Useful for bounded validation and edge-case challenge tasks. |
-| Particle Mass Relations | Falsification-first campaign | Keep narrow and overclaim-resistant. |
-| Thought-Experiment Consistency | Future consistency-check campaign | Planning surface; do not present as implemented benchmark. |
+| Atomic-Clock Residuals | High-precision fresh-data source surface | Manifest, synthetic loader, source-class, and covariance review work before real-row ingestion. |
+| Exoplanet Mass-Radius | Catalog-snapshot benchmark surface | Pinned snapshot and loader work are emerging; baseline interpretation remains protocol-gated. |
+| Mature benchmark floor | Pendulum, Dimensional Analysis, Particle Mass Relations | Useful for replay, guardrail, and falsification hygiene rather than default flagship expansion. |
+| Planning/watchlist | Fresh Data Axes, Anomaly Registry, Thought Experiments | Schema and admissibility work only; do not present as implemented benchmark results. |
 
 ## Recent Agent Evidence
 
@@ -52,10 +53,12 @@ Use generated task views for live task availability:
 
 Near-term useful work should prefer:
 
-- synthesizing recent Nuclear scout stress evidence before new registry waves;
-- comparing agent-designed scout lanes against deterministic factory baselines;
-- designing source-gated Nuclear registry target batches only after synthesis;
+- Nuclear source-readiness, evidence synthesis, and negative-control packaging
+  before any reveal scoring;
 - curating direct-measurement Quantum Size Effects sources;
+- reviewing atomic-clock source classes, covariance semantics, and real-row
+  blockers;
+- hardening exoplanet snapshot provenance, row classes, and baseline protocol;
 - improving contributor orientation without weakening review gates.
 
 ## Network Health Checks
@@ -66,7 +69,7 @@ Before opening the network more broadly, maintainers should keep checking:
 - Are parallel agents using disjoint branches, worktrees, and artifact surfaces?
 - Are negative, inconclusive, and overfitted results preserved?
 - Are prospective predictions clearly separated from measured successes?
-- Are public-facing docs free of discovery-style overclaim?
+- Are public-facing docs free of validated-result overclaim?
 - Are generated task views and `CONTEXT.md` refreshed after closeout waves?
 
 ## What Not To Do

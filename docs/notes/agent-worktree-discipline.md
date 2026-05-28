@@ -52,8 +52,13 @@ The script:
 
 1. Refuses to overwrite an existing branch — name conflicts usually
    mean another agent already claimed the task.
-2. Creates the worktree at `../<branch-with-slashes-replaced>/` by
-   default (override with a second argument).
+2. Creates the worktree at `.worktrees/<branch-with-slashes-as-underscores>/`
+   inside the project by default. `.worktrees/` is already gitignored so the
+   new directory does not show up in `git status`. Keeping the worktree
+   inside the project also avoids the permission prompts that Claude Code
+   raises for paths outside the current working directory (see TASK-0271).
+   Pass a second argument to override the path (it may point anywhere
+   when the agent has a specific reason).
 3. Bases the new branch on `origin/main` when the remote ref is
    present, otherwise on local `main`.
 4. Runs [`scripts/apl_setup_worktree.sh`](../../scripts/apl_setup_worktree.sh)

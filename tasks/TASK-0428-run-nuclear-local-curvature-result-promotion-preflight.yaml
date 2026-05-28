@@ -1,0 +1,58 @@
+id: TASK-0428
+title: "Run nuclear local-curvature result-promotion preflight"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Preserve the Nuclear local-curvature no-leakage falsification as negative or inconclusive memory unless the scorecard exposes a narrower reviewed artifact."
+  - "Prevent retrospective Nuclear signals from being promoted before no-leakage validation."
+  - "Create a clear handoff from controlled Nuclear hypothesis testing to result-promotion gates."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/result-promotion-scorecard.md"
+    - "tasks/TASK-0394-implement-nuclear-local-curvature-no-leakage-prototype.yaml"
+    - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
+    - "agent_runs/AGENT-RUN-0039/metrics.json"
+    - "docs/reviews/nuclear-local-curvature-negative-control-expansion.md"
+    - "agent_runs/AGENT-RUN-0041/metrics.json"
+  planning_context: >
+    TASK-0397 left LOCAL-CURVATURE-001 as the strongest retrospective Nuclear
+    sandbox candidate after expanded negative controls. TASK-0394 then
+    produced the no-leakage prototype and falsified LOCAL-CURVATURE-001 under
+    the bounded no-leakage/control panel. This task should now formalize that
+    result-promotion boundary: the expected outcome is negative/inconclusive
+    memory unless the scorecard identifies a narrow, reviewed publication
+    artifact about the falsification itself.
+
+requirements:
+  - "TASK-0394 is DONE and its no-leakage review artifact exists; apply the result-promotion scorecard before any publication task."
+  - "Apply the result-promotion scorecard to the combined TASK-0394 and TASK-0397 artifact set."
+  - "Classify the lane as AGENT_PUBLISHED result candidate, sandbox-follow-up, negative/inconclusive memory, or not-ready."
+  - "List exact Gate A blockers, including source provenance, leakage risk, metric reproducibility, uncertainty handling, and public wording risk."
+  - "Preserve the TASK-0394 no-leakage falsification as the main result if the scorecard agrees."
+  - "Only propose a publication follow-up for a negative/inconclusive artifact; do not reopen LOCAL-CURVATURE-001 as a positive candidate."
+  - "Do not create or modify claims, knowledge entries, canonical results, or prediction_registry entries."
+  - "Do not use discovery, breakthrough, new nuclear law, or reveal-success wording."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-local-curvature-result-promotion-preflight.md"
+  - "optional result_candidate_review.yaml only if the schema already supports it"
+  - "optional task proposal for a Gate A publication task if and only if the preflight passes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

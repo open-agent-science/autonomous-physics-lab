@@ -101,6 +101,30 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
             tmp_path / "tasks" / "TASK-FALSIFIER.yaml",
             {"id": "TASK-FALSIFIER", "status": "DONE", "type": "scientific_falsification"},
         ),
+        (
+            tmp_path / "tasks" / "TASK-CI.yaml",
+            {"id": "TASK-CI", "status": "DONE", "type": "ci_optimization"},
+        ),
+        (
+            tmp_path / "tasks" / "TASK-TOOLING-FIX.yaml",
+            {"id": "TASK-TOOLING-FIX", "status": "DONE", "type": "tooling_fix"},
+        ),
+        (
+            tmp_path / "tasks" / "TASK-VALIDATION-INFRA.yaml",
+            {
+                "id": "TASK-VALIDATION-INFRA",
+                "status": "DONE",
+                "type": "validation_infrastructure",
+            },
+        ),
+        (
+            tmp_path / "tasks" / "TASK-WORKFLOW-PROTOCOL.yaml",
+            {"id": "TASK-WORKFLOW-PROTOCOL", "status": "DONE", "type": "workflow_protocol"},
+        ),
+        (
+            tmp_path / "tasks" / "TASK-CLAIM-REVIEW.yaml",
+            {"id": "TASK-CLAIM-REVIEW", "status": "DONE", "type": "claim_review"},
+        ),
     ]
 
     issues = collect_scientific_memory_integrity_issues(

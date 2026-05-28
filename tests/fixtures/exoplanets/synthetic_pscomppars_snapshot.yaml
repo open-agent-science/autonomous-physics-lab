@@ -1,0 +1,470 @@
+dataset_id: synthetic-pscomppars-snapshot-001
+title: Synthetic PSCompPars dry-run fixture for TASK-0354 loader
+status: draft
+description: >
+  Synthetic exoplanet rows for exercising the loader's inclusion/exclusion
+  filter chain (TASK-0345 + TASK-0346). Every numerical value in this file
+  is fabricated and must not be cited as a measured exoplanet parameter.
+  The fixture intentionally spans the canonical row classes so each
+  filter branch in physics_lab/datasets/exoplanets.py is touched at least
+  once.
+source_policy: >
+  Synthetic dry-run fixture. No NASA Exoplanet Archive TAP query was run
+  to produce this file. No real planet values, no real host-star values,
+  and no real reference IDs are recorded. The synthetic source family id
+  is reused from EXO-SRC-CLASS-001 so the fixture exercises the same
+  source-family branch the production loader will use.
+snapshot_provenance:
+  source_family_id: EXO-SRC-CLASS-001
+  source_locator: synthetic://dry-run/synthetic-pscomppars-snapshot-001
+  retrieval_date_utc: "2026-05-23T00:00:00Z"
+  release_date_or_publication_date: null
+  snapshot_kind: synthetic_dry_run
+  live_external_fetch_allowed: false
+  raw_checksum_sha256: null
+  normalized_checksum_sha256: null
+  parser_or_normalizer: null
+  license_or_reuse_notes: "Synthetic test fixture; no real data."
+row_class_coverage:
+  - direct_mass_radius_measurement
+  - transit_radius_with_rv_minimum_mass
+  - transit_radius_only
+  - rv_minimum_mass_only
+  - microlensing_or_astrometry_mass
+  - model_inferred
+fake_source_warning: >
+  All entries below are fabricated toy rows used by the TASK-0354 loader
+  dry-run tests. They are not measured exoplanet parameters, must not be
+  cited as observations, and must not be promoted to any claim, knowledge
+  entry, prediction registry entry, or canonical result.
+entries:
+
+  # ---------- 1. Earth-like direct mass + transit radius (included) -------
+  - row_id: SYN-001-EARTH-LIKE
+    row_class: direct_mass_radius_measurement
+    planet_name: SYNTH-EARTH-LIKE-001 b
+    host_star:
+      name: SYNTH-EARTH-LIKE-001
+      spectral_type: G2V
+      effective_temperature_K: 5778.0
+      stellar_mass_msun: 1.0
+      stellar_radius_rsun: 1.0
+      metallicity_fe_h: 0.0
+      stellar_age_gyr: 4.6
+      notes: synthetic
+    detection_method: transit_and_radial_velocity
+    mass:
+      value: 1.0
+      unit: mearth
+      uncertainty_upper: 0.05
+      uncertainty_lower: -0.05
+      uncertainty_semantics: 1-sigma
+      mass_class: true_mass
+      mass_method_label: synthetic transit-and-RV mass
+    radius:
+      value: 1.0
+      unit: rearth
+      uncertainty_upper: 0.03
+      uncertainty_lower: -0.03
+      uncertainty_semantics: 1-sigma
+      radius_class: transit_radius
+      radius_method_label: synthetic transit radius
+    equilibrium_temperature_K: 255.0
+    irradiation_flux_earth_units: 1.0
+    orbital_period_days: 365.25
+    orbital_semimajor_axis_au: 1.0
+    discovery_year: 2026
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-001
+    inclusion_status: included
+    inclusion_reason: synthetic_earth_like_direct_measurement
+    provenance_notes: synthetic toy row; not a real planet
+
+  # ---------- 2. Sub-Neptune transit + RV true mass (included) ------------
+  - row_id: SYN-002-SUB-NEPTUNE
+    row_class: direct_mass_radius_measurement
+    planet_name: SYNTH-SUB-NEPTUNE-002 b
+    host_star:
+      name: SYNTH-SUB-NEPTUNE-002
+      spectral_type: K1V
+      effective_temperature_K: 5000.0
+      stellar_mass_msun: 0.85
+      stellar_radius_rsun: 0.82
+      metallicity_fe_h: -0.1
+      stellar_age_gyr: 5.0
+      notes: synthetic
+    detection_method: transit_and_radial_velocity
+    mass:
+      value: 6.0
+      unit: mearth
+      uncertainty_upper: 0.5
+      uncertainty_lower: -0.5
+      uncertainty_semantics: 1-sigma
+      mass_class: true_mass
+      mass_method_label: synthetic transit-and-RV mass
+    radius:
+      value: 2.5
+      unit: rearth
+      uncertainty_upper: 0.1
+      uncertainty_lower: -0.1
+      uncertainty_semantics: 1-sigma
+      radius_class: transit_radius
+      radius_method_label: synthetic transit radius
+    equilibrium_temperature_K: 420.0
+    irradiation_flux_earth_units: 8.0
+    orbital_period_days: 12.0
+    orbital_semimajor_axis_au: 0.09
+    discovery_year: 2025
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-002
+    inclusion_status: included
+    inclusion_reason: synthetic_sub_neptune_direct_measurement
+    provenance_notes: synthetic toy row; not a real planet
+
+  # ---------- 3. Hot Jupiter direct (included) ----------------------------
+  - row_id: SYN-003-HOT-JUPITER
+    row_class: direct_mass_radius_measurement
+    planet_name: SYNTH-HOT-JUPITER-003 b
+    host_star:
+      name: SYNTH-HOT-JUPITER-003
+      spectral_type: F8V
+      effective_temperature_K: 6100.0
+      stellar_mass_msun: 1.15
+      stellar_radius_rsun: 1.2
+      metallicity_fe_h: 0.05
+      stellar_age_gyr: 3.0
+      notes: synthetic
+    detection_method: transit_and_radial_velocity
+    mass:
+      value: 200.0
+      unit: mearth
+      uncertainty_upper: 15.0
+      uncertainty_lower: -15.0
+      uncertainty_semantics: 1-sigma
+      mass_class: true_mass
+      mass_method_label: synthetic transit-and-RV mass
+    radius:
+      value: 12.5
+      unit: rearth
+      uncertainty_upper: 0.5
+      uncertainty_lower: -0.5
+      uncertainty_semantics: 1-sigma
+      radius_class: transit_radius
+      radius_method_label: synthetic transit radius
+    equilibrium_temperature_K: 1500.0
+    irradiation_flux_earth_units: 2000.0
+    orbital_period_days: 3.5
+    orbital_semimajor_axis_au: 0.045
+    discovery_year: 2024
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-003
+    inclusion_status: included
+    inclusion_reason: synthetic_hot_jupiter_direct_measurement
+    provenance_notes: synthetic toy row; not a real planet
+
+  # ---------- 4. M sin i only (included, lives on minimum-mass axis) ------
+  - row_id: SYN-004-MSINI-ONLY
+    row_class: rv_minimum_mass_only
+    planet_name: SYNTH-MSINI-004 b
+    host_star:
+      name: SYNTH-MSINI-004
+      spectral_type: K5V
+      effective_temperature_K: 4400.0
+      stellar_mass_msun: 0.7
+      stellar_radius_rsun: 0.7
+      metallicity_fe_h: -0.2
+      stellar_age_gyr: 6.0
+      notes: synthetic
+    detection_method: radial_velocity
+    mass:
+      value: 50.0
+      unit: msini_mearth
+      uncertainty_upper: 3.0
+      uncertainty_lower: -3.0
+      uncertainty_semantics: 1-sigma
+      mass_class: minimum_mass_msini
+      mass_method_label: synthetic RV M sin i
+    radius:
+      value: null
+      unit: rearth
+      uncertainty_upper: null
+      uncertainty_lower: null
+      uncertainty_semantics: null
+      radius_class: not_measured
+      radius_method_label: null
+    equilibrium_temperature_K: null
+    irradiation_flux_earth_units: null
+    orbital_period_days: 200.0
+    orbital_semimajor_axis_au: 0.62
+    discovery_year: 2026
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-004
+    inclusion_status: included
+    inclusion_reason: synthetic_msini_only_minimum_mass_axis
+    provenance_notes: synthetic toy row; lives on minimum-mass axis only
+
+  # ---------- 5. Model-inferred mass (excluded; circular validation) ------
+  - row_id: SYN-005-MODEL-INFERRED-MASS
+    row_class: model_inferred
+    planet_name: SYNTH-MODEL-INFERRED-005 b
+    host_star:
+      name: SYNTH-MODEL-INFERRED-005
+      spectral_type: G5V
+      effective_temperature_K: 5500.0
+      stellar_mass_msun: 0.95
+      stellar_radius_rsun: 0.95
+      metallicity_fe_h: 0.0
+      stellar_age_gyr: 4.0
+      notes: synthetic
+    detection_method: transit
+    mass:
+      value: 8.0
+      unit: mearth
+      uncertainty_upper: 1.0
+      uncertainty_lower: -1.0
+      uncertainty_semantics: 1-sigma
+      mass_class: model_inferred
+      mass_method_label: imputed from synthetic mass-radius relation
+    radius:
+      value: 2.2
+      unit: rearth
+      uncertainty_upper: 0.1
+      uncertainty_lower: -0.1
+      uncertainty_semantics: 1-sigma
+      radius_class: transit_radius
+      radius_method_label: synthetic transit radius
+    equilibrium_temperature_K: 500.0
+    irradiation_flux_earth_units: 30.0
+    orbital_period_days: 5.5
+    orbital_semimajor_axis_au: 0.06
+    discovery_year: 2025
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-005
+    inclusion_status: included
+    inclusion_reason: should_be_excluded_by_loader_circular_validation_guard
+    provenance_notes: >
+      Mass is imputed; loader must exclude this row from the true-mass
+      residual axis (mass_inferred_from_mass_radius_relationship).
+
+  # ---------- 6. Model-inferred radius (excluded) -------------------------
+  - row_id: SYN-006-MODEL-INFERRED-RADIUS
+    row_class: model_inferred
+    planet_name: SYNTH-MODEL-INFERRED-006 b
+    host_star:
+      name: SYNTH-MODEL-INFERRED-006
+      spectral_type: G0V
+      effective_temperature_K: 5900.0
+      stellar_mass_msun: 1.05
+      stellar_radius_rsun: 1.05
+      metallicity_fe_h: 0.1
+      stellar_age_gyr: 3.5
+      notes: synthetic
+    detection_method: radial_velocity
+    mass:
+      value: 15.0
+      unit: mearth
+      uncertainty_upper: 1.0
+      uncertainty_lower: -1.0
+      uncertainty_semantics: 1-sigma
+      mass_class: true_mass
+      mass_method_label: synthetic dynamical mass
+    radius:
+      value: 3.0
+      unit: rearth
+      uncertainty_upper: 0.2
+      uncertainty_lower: -0.2
+      uncertainty_semantics: 1-sigma
+      radius_class: model_inferred
+      radius_method_label: imputed from synthetic mass-radius relation
+    equilibrium_temperature_K: null
+    irradiation_flux_earth_units: null
+    orbital_period_days: 30.0
+    orbital_semimajor_axis_au: 0.18
+    discovery_year: 2025
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-006
+    inclusion_status: included
+    inclusion_reason: should_be_excluded_by_loader_non_transit_radius_guard
+    provenance_notes: >
+      Radius is imputed; loader must exclude this row
+      (radius_inferred_from_non_transit_method).
+
+  # ---------- 7. High mass uncertainty (excluded post-filter) -------------
+  - row_id: SYN-007-HIGH-MASS-SIGMA
+    row_class: direct_mass_radius_measurement
+    planet_name: SYNTH-HIGH-MASS-SIGMA-007 b
+    host_star:
+      name: SYNTH-HIGH-MASS-SIGMA-007
+      spectral_type: K2V
+      effective_temperature_K: 4900.0
+      stellar_mass_msun: 0.82
+      stellar_radius_rsun: 0.80
+      metallicity_fe_h: -0.05
+      stellar_age_gyr: 5.5
+      notes: synthetic
+    detection_method: transit_and_radial_velocity
+    mass:
+      value: 10.0
+      unit: mearth
+      uncertainty_upper: 4.0
+      uncertainty_lower: -4.0
+      uncertainty_semantics: 1-sigma
+      mass_class: true_mass
+      mass_method_label: synthetic noisy mass
+    radius:
+      value: 2.5
+      unit: rearth
+      uncertainty_upper: 0.1
+      uncertainty_lower: -0.1
+      uncertainty_semantics: 1-sigma
+      radius_class: transit_radius
+      radius_method_label: synthetic transit radius
+    equilibrium_temperature_K: 350.0
+    irradiation_flux_earth_units: 3.0
+    orbital_period_days: 20.0
+    orbital_semimajor_axis_au: 0.14
+    discovery_year: 2026
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-007
+    inclusion_status: included
+    inclusion_reason: included_in_pre_filter_should_drop_post_filter
+    provenance_notes: >
+      sigma_M/M = 0.40 > default mass threshold 0.30; loader must drop
+      this row in the quality-filter pass.
+
+  # ---------- 8. High radius uncertainty (excluded post-filter) -----------
+  - row_id: SYN-008-HIGH-RADIUS-SIGMA
+    row_class: direct_mass_radius_measurement
+    planet_name: SYNTH-HIGH-RADIUS-SIGMA-008 b
+    host_star:
+      name: SYNTH-HIGH-RADIUS-SIGMA-008
+      spectral_type: F5V
+      effective_temperature_K: 6500.0
+      stellar_mass_msun: 1.3
+      stellar_radius_rsun: 1.4
+      metallicity_fe_h: 0.15
+      stellar_age_gyr: 2.5
+      notes: synthetic
+    detection_method: transit_and_radial_velocity
+    mass:
+      value: 5.0
+      unit: mearth
+      uncertainty_upper: 0.3
+      uncertainty_lower: -0.3
+      uncertainty_semantics: 1-sigma
+      mass_class: true_mass
+      mass_method_label: synthetic transit-and-RV mass
+    radius:
+      value: 2.0
+      unit: rearth
+      uncertainty_upper: 0.5
+      uncertainty_lower: -0.5
+      uncertainty_semantics: 1-sigma
+      radius_class: transit_radius
+      radius_method_label: synthetic noisy transit radius
+    equilibrium_temperature_K: 700.0
+    irradiation_flux_earth_units: 60.0
+    orbital_period_days: 8.0
+    orbital_semimajor_axis_au: 0.08
+    discovery_year: 2026
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-008
+    inclusion_status: included
+    inclusion_reason: included_in_pre_filter_should_drop_post_filter
+    provenance_notes: >
+      sigma_R/R = 0.25 > default radius threshold 0.15; loader must drop
+      this row in the quality-filter pass.
+
+  # ---------- 9. Microlensing mass (alternate axis, included) -------------
+  - row_id: SYN-009-MICROLENSING
+    row_class: microlensing_or_astrometry_mass
+    planet_name: SYNTH-MICROLENSING-009 L b
+    host_star:
+      name: SYNTH-MICROLENSING-009 L
+      spectral_type: null
+      effective_temperature_K: null
+      stellar_mass_msun: 0.3
+      stellar_radius_rsun: null
+      metallicity_fe_h: null
+      stellar_age_gyr: null
+      notes: synthetic microlensing lens
+    detection_method: microlensing
+    mass:
+      value: 30.0
+      unit: mearth
+      uncertainty_upper: 5.0
+      uncertainty_lower: -5.0
+      uncertainty_semantics: 1-sigma
+      mass_class: microlensing_mass
+      mass_method_label: synthetic microlensing mass
+    radius:
+      value: null
+      unit: rearth
+      uncertainty_upper: null
+      uncertainty_lower: null
+      uncertainty_semantics: null
+      radius_class: not_measured
+      radius_method_label: null
+    equilibrium_temperature_K: null
+    irradiation_flux_earth_units: null
+    orbital_period_days: null
+    orbital_semimajor_axis_au: 2.0
+    discovery_year: 2026
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-009
+    inclusion_status: included
+    inclusion_reason: synthetic_microlensing_alternate_axis
+    provenance_notes: synthetic toy row; alternate-method axis
+
+  # ---------- 10. Snapshot-time excluded (preserved) ----------------------
+  - row_id: SYN-010-SNAPSHOT-EXCLUDED
+    row_class: direct_mass_radius_measurement
+    planet_name: SYNTH-SNAPSHOT-EXCLUDED-010 b
+    host_star:
+      name: SYNTH-SNAPSHOT-EXCLUDED-010
+      spectral_type: G7V
+      effective_temperature_K: 5300.0
+      stellar_mass_msun: 0.9
+      stellar_radius_rsun: 0.88
+      metallicity_fe_h: 0.0
+      stellar_age_gyr: 4.5
+      notes: synthetic
+    detection_method: transit_and_radial_velocity
+    mass:
+      value: 2.0
+      unit: mearth
+      uncertainty_upper: 0.1
+      uncertainty_lower: -0.1
+      uncertainty_semantics: 1-sigma
+      mass_class: true_mass
+      mass_method_label: synthetic transit-and-RV mass
+    radius:
+      value: 1.3
+      unit: rearth
+      uncertainty_upper: 0.05
+      uncertainty_lower: -0.05
+      uncertainty_semantics: 1-sigma
+      radius_class: transit_radius
+      radius_method_label: synthetic transit radius
+    equilibrium_temperature_K: 280.0
+    irradiation_flux_earth_units: 1.2
+    orbital_period_days: 100.0
+    orbital_semimajor_axis_au: 0.41
+    discovery_year: 2026
+    source_id: EXO-SRC-CLASS-001
+    source_table_ref: synthetic-010
+    inclusion_status: excluded
+    inclusion_reason: solution_type_not_confirmed
+    provenance_notes: >
+      Snapshot-time exclusion (synthetic equivalent of soltype != Published Confirmed).
+      Loader must preserve this exclusion verbatim under the
+      inclusion_reason it was marked with.
+
+limitations:
+  - All values are synthetic and must not be cited as observations.
+  - The fixture exists only to exercise loader filter branches; it does
+    not represent any physically realistic planet population.
+  - Tests should not assume the row IDs or row counts in this file are
+    stable for downstream benchmarks; this fixture is owned by TASK-0354
+    and may be extended only with synthetic rows that exercise
+    additional filter paths.

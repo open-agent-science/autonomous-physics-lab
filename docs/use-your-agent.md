@@ -9,23 +9,27 @@ The goal is not to let an agent improvise physics claims. The goal is to let
 an agent help with reproducible, reviewable work inside the repository's
 protocol.
 
+The best first session is not "agent, go do anything." It is: "agent, show me
+the current research lanes, recommend a bounded task, then execute it through
+the PR protocol after I choose."
+
 ## Quickstart: Start In Research Mode
 
-Run the mission entrypoint first:
+Run the onboarding entrypoint first:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --output onboarding
 ```
 
-This starts **Research Mode** by default. It recommends the highest-value
-scientific mission and gives guardrails for reviewable sandbox work.
+This starts **Research Mode** with a gentler first step: the agent should
+explain the current scientific mission, show a few `READY` options, estimate
+effort, recommend one, and wait for your choice before editing files.
 
-For a coding agent, use:
+For machine-readable context or a full autonomous prompt after onboarding, use:
 
 ```bash
-python3 scripts/apl_mission.py --json
-python3 scripts/apl_mission.py --onboarding
-python3 scripts/apl_mission.py --agent-prompt
+python3 scripts/apl_mission.py --output json
+python3 scripts/apl_mission.py --output agent
 ```
 
 Use support mode only when you intentionally want docs, tests, packaging,
@@ -41,103 +45,70 @@ Use maintainer mode for review and closeout assistance:
 python3 scripts/apl_mission.py --mode maintainer
 ```
 
-The default contribution path is now mission-first:
+The default contribution path is mission-first:
 
-```mermaid
-flowchart TD
-    classDef quick  fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a,font-weight:bold
-    classDef task   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
-    classDef prop   fill:#fef3c7,stroke:#d97706,color:#78350f,font-weight:bold
-    classDef finish fill:#f1f5f9,stroke:#64748b,color:#1e293b,font-weight:bold
+| Path | Use when | Expected output |
+| --- | --- | --- |
+| Research mission | You want the agent to help with science work | bounded hypothesis test, replay, audit, source review, or sandbox artifact |
+| Assigned `READY` task | A maintainer already chose the task | one branch, one PR, validation evidence |
+| Support mode | You intentionally want docs, tests, packaging, or queue hygiene | narrow non-research improvement |
+| Proposal | No existing task fits the idea | task proposal, not an invented task id |
 
-    Start(["▶ Start here"]) --> Mission["🚀 Run apl_mission.py"]
-    Mission --> Mode{"Which mode?"}
+For a first run, prefer onboarding. It gives the user a pause point before the
+agent starts editing files.
 
-    Mode -->|"default"| Research["🔬 Research mission\nhypothesis · replay · audit"]:::task
-    Mode -->|"support"| MT["⚡ Microtask / support task\ntasks/microtasks/README.md"]:::quick
-    Mode -->|"assigned TASK"| RT["🎯 READY task\ntasks/ACTIVE.md"]:::task
-    Mode -->|"new idea"| Prop["💡 Proposal\ntasks/proposals/"]:::prop
+## Best First Tasks
 
-    Research --> PR["📬 branch → commit → PR\n→ maintainer review"]:::finish
-    MT  --> PR
-    RT  --> PR
-    Prop --> PropPR["📋 Proposal PR\nwait for TASK-XXXX id"]:::prop
-```
+Good first tasks usually have a visible scientific reason and a bounded output:
 
-**Rule of thumb:**
-- Research mission — default path for capable coding agents; test, replay, or
-  audit hypotheses and produce PR-ready artifacts.
-- Microtask — support path for one queue item, under 30 minutes, narrow scope.
-- READY task — assigned task from `tasks/ACTIVE.md`, 1-2 hours, broader scope.
-- Proposal — new idea without a canonical `TASK-XXXX` id yet; use `tasks/proposals/`.
+| Surface | Good first contribution |
+| --- | --- |
+| Nuclear Mass Surface | evidence synthesis, source-readiness review, domain-limit audit, or negative-control packaging |
+| Quantum Size Effects | direct-source triage, source-artifact package, or readiness-gate note |
+| Atomic-Clock Residuals | source-class review, covariance semantics, or synthetic loader/readiness work |
+| Exoplanet Mass-Radius | snapshot provenance, row-class checks, or baseline-protocol review |
+
+Support tasks are still useful, but use support mode when that is the goal.
+For ordinary onboarding, start with the research mission options first.
 
 ## One-Task One-Branch Discipline
 
 Every contribution must follow this flow — no exceptions:
 
-```mermaid
-flowchart LR
-    classDef must fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,font-weight:bold
-    classDef ok   fill:#dcfce7,stroke:#16a34a,color:#14532d,font-weight:bold
-
-    T["📋 Pick ONE task\nor ONE microtask batch"]:::ok
-    B["🌿 Create ONE branch\nagent/you/tool/task-XXXX-slug"]:::ok
-    W["💻 Do the work\non that branch only"]:::ok
-    V["✅ Validate\nruff · pytest · validate-repo"]:::ok
-    PR["📬 Open ONE PR\ndo not merge yourself"]:::ok
-    M["🔍 Maintainer review\n→ merge"]:::ok
-
-    T --> B --> W --> V --> PR --> M
-
-    NEVER["🚫 Never work on main\nNever invent a task id\nNever merge your own PR"]:::must
-```
+1. Pick one `READY` task, one approved microtask batch, or one proposal.
+2. Create one branch or worktree for that task.
+3. Change only files that belong to the task scope.
+4. Run validation and record what passed or failed.
+5. Open one PR with the repository template.
+6. Wait for maintainer review; do not merge your own PR.
 
 **Branch format:** `agent/<contributor-id>/<agent-id>/task-<number>-<short-slug>`
 
 Example: `agent/akutenyov/claude/task-0120-use-your-agent-quickstart-diagrams`
 
+Never work directly on `main`, invent a canonical task id, or mix unrelated
+tasks into one branch.
+
 ## What the Review Cycle Looks Like
 
 After you push your branch and open a PR, here is what happens:
 
-```mermaid
-sequenceDiagram
-    participant You as You + Agent
-    participant CI as GitHub CI
-    participant M as Maintainer
+1. GitHub CI checks the PR.
+2. The maintainer or review agent reads the diff, artifacts, limits, and task
+   fit.
+3. If CI or review fails, fix the same branch and push again.
+4. If review passes, the maintainer merges.
+5. Closeout marks the task `DONE`, syncs navigation, and preserves the result
+   or negative result in public memory.
 
-    You->>CI: git push → open PR
-    CI->>CI: pytest · ruff · validate-repo
-    CI-->>You: ✅ green or ❌ red
-
-    alt CI fails
-        You->>You: fix and push again
-    end
-
-    M->>M: review PR (fast or full lane)
-    M-->>You: APPROVE / NEEDS_CHANGES / BLOCKED
-
-    alt NEEDS_CHANGES
-        You->>You: fix issues
-        You->>CI: push fix
-    end
-
-    M->>M: merge into main
-    M->>M: task closeout (DONE)
-```
-
-**Key points:**
-- CI runs automatically on every push — check Actions tab on GitHub.
-- Maintainer review happens after CI is green.
-- You never merge your own PR.
-- Task moves to `DONE` only after maintainer closeout.
+The important rule: the agent prepares evidence; the maintainer decides merge.
 
 ## Before You Start
 
 Read these first:
 
 1. [README.md](../README.md)
-2. Run `python3 scripts/apl_mission.py --json`
+2. Run `python3 scripts/apl_mission.py --output onboarding`
 3. [docs/current-missions.md](./current-missions.md)
 4. [docs/mission-control.md](./mission-control.md)
 5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
@@ -160,9 +131,9 @@ Good starting work:
 - documentation and onboarding improvements when support mode is selected;
 - validation, wording, and contributor-workflow tasks.
 
-Invited private-alpha contributors can use the
-[Private Agent Challenge Pack](./private-agent-challenge-pack.md) to choose a
-Level 1, Level 2, or Level 3 onboarding challenge before taking broader work.
+New contributors can use the
+[Private Agent Challenge Pack](./private-agent-challenge-pack.md) as a bounded
+practice path before taking broader work.
 
 Avoid starting with:
 
@@ -178,7 +149,7 @@ Avoid starting with:
 Run:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --output onboarding
 ```
 
 Follow the recommended mission unless the maintainer assigned something more
@@ -229,8 +200,8 @@ metrics, caveats, and the intentionally skipped Muon g-2 stress-test lane.
 - do not invent a new task id
 - do not promote a claim without maintainer review
 - do not rewrite canonical `results/` artifacts casually
-- do not say "AI resolved physics"
-- do not use "proof" or discovery-framing language for benchmark results
+- do not say "AI finalized physics"
+- do not use certainty or validated-result framing for benchmark results
 - do not hide limitations
 
 ## Practical Prompt Pattern
@@ -241,19 +212,15 @@ If you are using a coding agent, a good starting prompt is:
 You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode with onboarding. Read AGENTS.md and
-docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
-Explain the current research mission briefly, show a few READY options with
-estimated time, recommend one, and wait for my choice before editing files.
-When listing available work, include only READY tasks; do not offer REVIEW_READY
-tasks as executor options. After I choose, execute the selected task
-autonomously: create the task branch, inspect evidence, test or audit the
-hypothesis, preserve negative results, run validation, generate a review
-bundle, and prepare a PR. Keep outputs sandbox-only unless a canonical task
-explicitly allows promotion. Do not promote claims, rewrite canonical results,
-or use breakthrough-style wording.
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --output onboarding`.
+Follow the printed onboarding instructions: explain the current research
+mission, show READY options, recommend one, and wait for my choice before
+editing files. Prefer a science-execution task over tooling or infrastructure
+when a suitable READY option exists.
 ```
 
-For full autonomous execution, replace `--onboarding` with `--agent-prompt`.
+For full autonomous execution, replace `--output onboarding` with
+`--output agent`.
 
 If you are using support mode, run `python3 scripts/apl_mission.py --mode support`
 and give the agent the selected task or queue item.
@@ -272,7 +239,7 @@ A good contribution should leave behind:
 
 Best first destinations:
 
-- `python3 scripts/apl_mission.py`
+- `python3 scripts/apl_mission.py --output onboarding`
 - [docs/current-missions.md](./current-missions.md)
 - [docs/mission-control.md](./mission-control.md)
 - [docs/results/visual-summary.md](./results/visual-summary.md)

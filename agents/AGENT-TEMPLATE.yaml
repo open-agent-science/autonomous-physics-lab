@@ -1,0 +1,72 @@
+# Canonical shape for any agent role profile.
+#
+# Copy to agents/<role-id>.yaml and fill every required field.
+# Schema: physics_lab/schemas/agent.schema.json
+# Conformance test: tests/test_agent_role_profiles.py
+
+role_id: example-role
+role_name: "Example Role Name"
+status: planned                     # active | planned | deprecated
+phase: ""                           # optional, e.g. "Phase 2 (proactive)"
+short_description: "One-sentence purpose of the role."
+
+activation:
+  intent: |
+    Language-agnostic concept describing what the user is asking for when
+    invoking this role. The agent should match this concept regardless of
+    the language or exact wording of the request. Do not depend on literal
+    translated phrases.
+  example_phrases:                  # informational only; not authoritative
+    - "act as <role>"
+    - "switch to <role> mode"
+
+purpose: |
+  Multi-paragraph explanation of why this role exists. Treat as the first
+  thing a fresh agent reads after loading this file. Keep it generic and
+  durable; specific names, dates, or current-state numbers do not belong
+  here.
+
+when_to_use:
+  - "Concrete trigger 1."
+  - "Concrete trigger 2."
+
+when_not_to_use:
+  - role_id: ""                     # name a sibling role when applicable
+    case: "Anti-trigger description."
+
+goals:
+  long_term:                        # durable goals that rarely change
+    - "Global goal 1."
+    - "Global goal 2."
+  current_targets: []               # optional tunable numeric / time-boxed targets
+
+required_reading:
+  - AGENTS.md
+  - docs/agent-task-protocol.md
+  # Add other authoritative protocol files here. Every entry must be a
+  # real repository path; templated paths with <...> are forbidden.
+
+typical_activities:
+  - title: "Activity 1"
+    description: |
+      Short paragraph: what this activity is and how it maps to repository
+      files or scripts.
+
+allowed_tools:                       # generic capability descriptions, not machine paths
+  - "Capability 1."
+  - "Capability 2."
+
+scripts_to_use:
+  - scripts/apl_mission.py
+
+can_invoke_other_roles:              # cross-role calling: list role_ids this role may delegate to
+  - role_id: example-other-role
+    when: "Short trigger description."
+
+restrictions:
+  - "Must not 1."
+  - "Must not 2."
+
+cadence: |
+  How the role works day to day: who triggers it, what the steady-state
+  cadence looks like, and what reports (if any) it produces.

@@ -1,0 +1,73 @@
+proposal_id: 20260524-claude-tests-conftest-syspath-autoload
+title: "Auto-insert repo root on sys.path in tests/conftest.py"
+status: PROPOSED
+type: workflow_optimization
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Eliminate a recurring CI failure mode that costs an agent round-trip plus a CI re-run on every task that imports a scripts/* runner from a test."
+  - "Encode the existing pattern from tests/test_agent_run_pr_helper.py once in conftest.py instead of in every importing test."
+  - "Reduce contributor surprise when locally-passing tests fail in CI for sys.path reasons."
+
+summary: >
+  Add tests/conftest.py that inserts the repository root onto sys.path
+  at collection time, so every test can import scripts.* without
+  ModuleNotFoundError in CI environments where pytest does not start
+  from the repo root. Verify the fix by removing the local
+  _ensure_repo_root_on_sys_path helper from
+  tests/test_agent_run_pr_helper.py and from
+  tests/test_exoplanet_mass_radius_baseline.py (added in TASK-0361),
+  and confirming both fast tests and the main matrix still pass.
+
+rationale: >
+  PR #515 (TASK-0361) shipped a green local pytest run but failed CI
+  with "ModuleNotFoundError: No module named 'scripts'" because the CI
+  runner does not put the repo root on sys.path by default. The fix
+  was a one-line sys.path.insert in the test file, but discovering
+  the failure cost one CI iteration plus a separate agent turn.
+  This pattern will recur on every new test that imports a script
+  runner. The conftest fix encodes the convention once.
+
+input:
+  mode: planning_only
+  related_domain: tooling
+  related_objects:
+    - "tests/test_agent_run_pr_helper.py"
+    - "tests/test_exoplanet_mass_radius_baseline.py"
+    - "scripts/run_exoplanet_mass_radius_baseline.py"
+    - "scripts/apl_agent_run_pr_helper.py"
+    - ".github/workflows/python-tests.yml or equivalent CI config"
+  planning_context: >
+    The repo already treats scripts/ as a package (scripts/__init__.py
+    exists). The blocker is only that CI invokes pytest from a path
+    that does not put the repo root on sys.path. A single conftest at
+    tests/conftest.py runs before collection and is the canonical
+    fix. The proposal does not change pytest configuration in
+    pyproject.toml and does not add new dependencies.
+
+requirements:
+  - "Add tests/conftest.py that inserts the repository root onto sys.path."
+  - "Remove the local _ensure_repo_root_on_sys_path helper from tests/test_agent_run_pr_helper.py and the sys.path.insert from tests/test_exoplanet_mass_radius_baseline.py once the conftest is in place."
+  - "Confirm that python3 -m pytest passes locally and in CI without those local helpers."
+  - "Do not edit pyproject.toml addopts or move scripts/ into a different package layout in the same PR."
+  - "Do not silently change pytest collection rules or add dependencies."
+
+accepted_outputs:
+  - "tests/conftest.py with a small documented sys.path.insert"
+  - "edits to tests/test_agent_run_pr_helper.py and tests/test_exoplanet_mass_radius_baseline.py removing the local sys.path helpers"
+  - "short note in docs/agent-task-protocol.md (or a tests/README.md) documenting that tests may import scripts.* directly"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Lightweight infrastructure PR; should be assignable to a single short follow-up task."

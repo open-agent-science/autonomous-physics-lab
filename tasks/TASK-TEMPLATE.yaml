@@ -38,7 +38,7 @@ requirements:
   - "Use deterministic code"
   - "Keep claims range-aware"
   - "Do not promote claims automatically"
-  - "Do not change unrelated task-state transitions or generated navigation. Own-task REVIEW_READY transition and generated navigation sync are allowed when required by the canonical task protocol."
+  - "Do not change unrelated task-state transitions or commit generated navigation from routine task PRs. Own-task REVIEW_READY transition is allowed when required by the canonical task protocol."
 
 accepted_outputs:
   - "code reference"

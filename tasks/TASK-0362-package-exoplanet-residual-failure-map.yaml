@@ -1,0 +1,49 @@
+id: TASK-0362
+title: "Package exoplanet mass-radius residual failure map"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the first Exoplanet Mass-Radius benchmark into a reviewable failure-map artifact."
+  - "Create a public-facing visual result surface while preserving conservative scientific wording."
+  - "Separate visualization and interpretation from baseline implementation."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "tasks/TASK-0361-run-exoplanet-mass-radius-baseline-benchmark.yaml"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  planning_context: >
+    This follow-up is blocked until TASK-0361 lands a benchmark artifact with
+    committed metrics. Once that exists, this task packages the residual
+    structure into a failure map that is useful for scientists and readable
+    for public communication without turning residual patterns into claims.
+
+requirements:
+  - "Wait until TASK-0361 is DONE with committed benchmark metrics."
+  - "Package residual breakdowns by planet class, mass/radius regime, detection method, mass provenance, host-star context where available, and uncertainty filters."
+  - "Include at least one visual or tabular artifact suitable for a public-alpha result summary."
+  - "Separate true-mass, minimum-mass, radius-only, and model-inferred axes; do not mix them into a single success metric."
+  - "State which residual patterns are robust, weak, or blocked by catalog-selection effects."
+  - "Do not add habitability, biosignature, target-priority, or discovery claims."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+  - "docs/results/exoplanet-mass-radius-baseline-summary.md"
+  - "tests updated only if reusable plotting or summary code is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

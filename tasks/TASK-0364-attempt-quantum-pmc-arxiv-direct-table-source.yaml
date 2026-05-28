@@ -1,0 +1,55 @@
+id: TASK-0364
+title: "Attempt quantum PMC/arXiv direct-table source curation"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Quantum Size Effects from source triage toward measurement-grade rows."
+  - "Prefer open-access direct tables over ACS blocker paths and calibration-polynomial rows."
+  - "Preserve blockers honestly when no direct rows can be curated."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/reviews/quantum-open-direct-table-source-triage.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "tasks/TASK-0356-prepare-quantum-direct-source-artifact-intake.yaml"
+  planning_context: >
+    TASK-0347 ranked PMC open-access reprints and arXiv supplements above the
+    Jasieniak ACS blocker path. This task makes one concrete attempt to find
+    and package a direct table source from those open routes. It may curate
+    rows only if direct provenance is clean; otherwise it must preserve a
+    blocker review.
+
+requirements:
+  - "Search or inspect a small bounded set of PMC/arXiv candidates from the TASK-0347 ranking, prioritizing printed or machine-readable size versus band-edge, absorption-peak, emission-peak, or bandgap tables."
+  - "Select at most one source artifact for row curation in this PR; do not mix multiple source families."
+  - "Record source locator, access route, retrieval date, checksum or archive plan, license/reuse note, material family, property kind, and direct-provenance assessment."
+  - "If the selected source has clean direct table rows, curate a small seed set with schema-valid provenance; if not, produce a blocker review and no rows."
+  - "Do not use calibration polynomials, sizing equations, LLM-estimated figure coordinates, memory-derived values, or non-redistributable publisher tables."
+  - "Do not run the quantum baseline benchmark, autonomous pilot, or claim promotion in this task."
+
+accepted_outputs:
+  - "docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md"
+  - "optional source-artifact README under data/quantum_dots/source_artifacts/"
+  - "optional data/quantum_dots/qd-*.yaml seed only if direct rows pass provenance checks"
+  - "data/quantum_dots/source_manifest.yaml if the attempt records source metadata or a blocker verification round"
+  - "tests updated if any `qd-*.yaml` row is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

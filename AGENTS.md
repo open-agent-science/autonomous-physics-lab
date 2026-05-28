@@ -20,6 +20,18 @@ python3 scripts/generate_context_bundle.py
 This writes `CONTEXT.md` — a bundle of the core instructions, strategy, and
 active task board. The file is also committed to the repo root for download.
 
+For a repository snapshot intended for the maintainer, strategy agents, or
+handoff context, run the snapshot script without overriding its output
+directory:
+
+```bash
+./scripts/apl_snapshot.sh
+```
+
+This writes to the canonical project-local `_snapshots/` directory. Use
+`APL_SNAPSHOT_DIR=/tmp/...` only for disposable test runs, never for the final
+snapshot you want the maintainer or another agent to consume.
+
 ## Agent First Default
 
 New contributors and coding agents should start with the mission entrypoint:
@@ -29,12 +41,13 @@ python3 scripts/apl_mission.py
 ```
 
 Default mode is `research`. The script recommends the highest-value current
-scientific mission and provides guardrails for sandbox-only, reviewable work.
+scientific mission and provides guardrails for bounded, reviewable work with
+gated evidence publication when the selected task explicitly allows it.
 For machine-readable context or a copy-paste agent prompt, run:
 
 ```bash
-python3 scripts/apl_mission.py --json
-python3 scripts/apl_mission.py --agent-prompt
+python3 scripts/apl_mission.py --output json
+python3 scripts/apl_mission.py --output agent
 ```
 
 Use explicit modes when the maintainer asks for non-research work:
@@ -46,8 +59,9 @@ python3 scripts/apl_mission.py --mode maintainer
 
 Agent First does not replace the task protocol, maintainer review agent, or
 closeout flow. It only changes the default onboarding posture: research,
-replay, audit, hypothesis testing, and sandbox result drafts come before
-microtasks or docs-only support unless the maintainer says otherwise.
+replay, audit, hypothesis testing, source readiness, and gated evidence
+publication come before microtasks or docs-only support unless the maintainer
+says otherwise.
 
 Executor agents should treat only `READY` tasks as available work. Do not offer
 `REVIEW_READY` tasks as task choices unless the maintainer explicitly asks for
@@ -95,8 +109,11 @@ Documentation, scripts, config, and fixes all follow the same flow.
 Pushing directly to `main` violates the repository protocol.
 
 The only operations allowed directly on `main` are:
-- post-merge task closeout (`status: DONE` + `sync-active-board`)
+- post-merge task closeout (`status: DONE`)
 - `CONTEXT.md` regeneration after a batch merge
+- regeneration of `tasks/ACTIVE.md` and `docs/task-views/*.md` by the
+  `Sync Active Board` post-merge GitHub Action (the action commits with a
+  `[skip-board-sync]` marker and never edits canonical task YAML)
 
 ## Core Principle
 
@@ -146,6 +163,14 @@ Every agent output must include:
 - limitations;
 - verdict.
 
+For research, validation, benchmark, source-curation, prediction, result,
+claim, or knowledge-facing tasks, the final output must also include an
+output-routing summary following `docs/result-promotion-protocol.md`: canonical
+destination, review tier when applicable, Gate A/Gate B status when applicable,
+claim impact, knowledge impact, and any publication blocker. Missing tooling or
+source provenance blocks publication; it does not authorize unsupported prose
+claims.
+
 No anonymous unverifiable scientific claim should be accepted as a result.
 
 ## Shared Task Pool
@@ -166,6 +191,8 @@ Use these files as the shared coordination layer:
 - `docs/agent-task-protocol.md`
 - `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
+- `docs/result-promotion-protocol.md` — master mapping rule from task verdict to canonical output class; required reading before writing any final task output (replaces the default "write only an `AGENT-RUN-*`" pattern).
+- `agents/README.md` — index of agent role profiles (`agents/<role-id>.yaml`). When the maintainer asks the agent to act in a role (in any language), the agent matches the request against each role file's `activation.intent`, loads the matching profile as its first action, and applies that role for the session.
 - `docs/task-views/research.md`
 - `docs/task-views/support.md`
 - `docs/task-views/release.md`
@@ -177,8 +204,13 @@ Use these files as the shared coordination layer:
 
 `tasks/ACTIVE.md` remains the generated full-status board, including DONE
 history. The generated files under `docs/task-views/` are the lighter
-navigation surface for current work; they are synchronized from canonical
-`tasks/TASK-*.yaml` files through `python3 -m physics_lab.cli sync-active-board .`.
+navigation surface for current work; both are derived from canonical
+`tasks/TASK-*.yaml` files and regenerated automatically on `main` by the
+`Sync Active Board` GitHub Action after any push that touches `tasks/**` or
+`missions/current.yaml`. Agents do not commit regenerated versions of these
+files from a task PR; the action handles that on `main`. Maintainers may
+still run `python3 -m physics_lab.cli sync-active-board .` by hand in a
+dedicated board-sync PR when the action is disabled or for explicit audits.
 
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
@@ -201,6 +233,10 @@ repository checkout, prefer a dedicated `git worktree` per task so that
 for the helpers (`scripts/apl_new_worktree.sh`) and the optional
 [`scripts/apl_branch_precondition.py`](scripts/apl_branch_precondition.py)
 check that catches "wrong branch / surprise files" before any commit.
+
+See [`docs/notes/agent-discipline-collected.md`](docs/notes/agent-discipline-collected.md)
+for the collected agent-discipline learnings index (worktree usage,
+mock-first testing, dependent-PR serialisation, harness-artifact handling).
 
 ## Task Proposal Rule
 

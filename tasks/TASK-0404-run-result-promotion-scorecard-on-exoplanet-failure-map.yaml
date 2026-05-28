@@ -1,0 +1,64 @@
+id: TASK-0404
+title: "Run result-promotion scorecard on exoplanet failure map"
+type: research_quality_gate
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decide whether the exoplanet failure map is ready for scientist-facing summary without claim promotion."
+  - "Use the new result-promotion scorecard on the most visible current campaign output."
+  - "Convert APL's current results into reviewable public/scientific communication boundaries."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/result-promotion-scorecard.md"
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+    - "docs/reviews/exoplanet-regime-residual-scout.md"
+    - "docs/reviews/exoplanet-compact-subneptune-residual-hypothesis-pilot.md"
+    - "docs/reviews/exoplanet-neptunian-residual-matched-control-audit.md"
+    - "docs/reviews/exoplanet-host-uncertainty-selection-effects.md"
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "agent_runs/AGENT-RUN-0034/metrics.json"
+    - "agent_runs/AGENT-RUN-0035/metrics.json"
+    - "agent_runs/AGENT-RUN-0036/metrics.json"
+    - "agent_runs/AGENT-RUN-0037/metrics.json"
+    - "agent_runs/AGENT-RUN-0038/metrics.json"
+  planning_context: >
+    The exoplanet campaign now has a baseline, failure map, true-mass slice
+    audit, regime scout, compact/sub-Neptune residual pilot, neptunian
+    matched-control audit, and host/uncertainty selection-effects audit. This
+    is the best current candidate for a scientist-facing benchmark story, but
+    the newer controls are mixed or inconclusive. The scorecard must decide
+    whether the artifact set is benchmark-only, needs the TASK-0427 compact /
+    sub-Neptune matched-control audit first, or is not ready for public-facing
+    scientist wording.
+
+requirements:
+  - "Apply the result-promotion scorecard to the exoplanet failure-map artifact set."
+  - "Classify the output as claim-candidate, benchmark-only, sandbox-follow-up, public-summary-only, or not-ready."
+  - "List source provenance, holdout quality, uncertainty handling, negative controls, leakage risk, reproducibility, and public wording risk."
+  - "Explicitly state whether TASK-0427 is a blocker, prerequisite, or follow-up before any compact/sub-Neptune wording is allowed."
+  - "Treat TASK-0391 and TASK-0392 as inconclusive diagnostic controls, not as promoted planet-physics results."
+  - "Recommend which exact wording is allowed for scientists and public-alpha docs."
+  - "Do not create or modify claims, knowledge entries, canonical results, or prediction entries."
+  - "Do not use discovery, new law, habitability, target-priority, or composition wording."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+  - "optional result_candidate_review.yaml only if the schema already supports it"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

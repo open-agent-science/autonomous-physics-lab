@@ -1,0 +1,56 @@
+schema_version: "1"
+artifact_type: result_candidate_review
+review_id: RESULT-CANDIDATE-REVIEW-0001
+campaign_id: exoplanet-mass-radius
+task_id: TASK-0404
+
+result_refs:
+  - docs/reviews/exoplanet-mass-radius-residual-failure-map.md
+  - docs/reviews/exoplanet-true-mass-residual-slice-audit.md
+  - docs/reviews/exoplanet-regime-residual-scout.md
+  - docs/reviews/exoplanet-compact-subneptune-residual-hypothesis-pilot.md
+  - docs/reviews/exoplanet-neptunian-residual-matched-control-audit.md
+  - docs/reviews/exoplanet-host-uncertainty-selection-effects.md
+  - docs/reviews/exoplanet-compact-subneptune-matched-control-audit.md
+  - agent_runs/AGENT-RUN-0032/metrics.json
+  - agent_runs/AGENT-RUN-0034/metrics.json
+  - agent_runs/AGENT-RUN-0035/metrics.json
+  - agent_runs/AGENT-RUN-0036/metrics.json
+  - agent_runs/AGENT-RUN-0037/metrics.json
+  - agent_runs/AGENT-RUN-0038/metrics.json
+  - agent_runs/AGENT-RUN-0042/metrics.json
+  - data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+
+candidate_scope: benchmark_summary
+
+scores:
+  baseline_strength: PASS
+  source_provenance: PASS
+  artifact_checksums: PARTIAL
+  holdout_or_reveal_quality: PARTIAL
+  uncertainty_handling: PASS
+  negative_controls: PASS
+  leakage_risk: PASS
+  reproducibility: PASS
+  external_comparability: PARTIAL
+  public_wording_risk: PASS
+
+eligibility:
+  sandbox_followup: ALLOW
+  public_summary: ALLOW
+  claim_candidate: BLOCK
+
+final_verdict: BENCHMARK_SUMMARY_ONLY
+human_review_required: true
+claim_promotion_allowed: false
+
+limitations:
+  - Normalized-snapshot SHA-256 checksum is null in data/exoplanets/exo-0001-pscomppars-snapshot.yaml and should be filled before any external-replication framing.
+  - The minimum-mass-with-transit-radius axis has only 2 post-filter rows and is structurally underpowered; the failure map records it as blocked.
+  - All audits are same-tool (Claude Code or Codex); no cross-tool Gate B replay of any exoplanet runner has been recorded yet.
+  - No formal predict-then-reveal protocol for the exoplanet residual surface exists; TASK-0393 is the natural next planning step.
+  - Three of seven artifacts carry per-slice SANDBOX_PASS verdicts; the remaining four are INCONCLUSIVE. The scorecard verdict aggregates without overwriting any per-artifact verdict.
+  - CSN-001 (R<1.5 R_earth) is the only matched-control survivor and is a benchmark-diagnostic signal, not a claim candidate.
+  - Public wording must not infer composition, habitability, biosignature, atmospheric, inflation, target priority, or new mass-radius law from this artifact set.
+
+reviewer: roman/claude-code/TASK-0404

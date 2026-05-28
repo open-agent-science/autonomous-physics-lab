@@ -1,0 +1,49 @@
+id: TASK-0438
+title: "Scaffold Textbook Formula Audit campaign"
+type: campaign_scaffold
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Add a public-friendly verifier campaign where agents audit famous formulas by range, assumptions, and out-of-distribution failure modes."
+  - "Create a safe lane for many agents without inviting broad formula-search or discovery claims."
+  - "Use curated formulas as reproducibility and falsification exercises before any claim-level interpretation."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/campaigns/"
+    - "campaign_profiles/"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Strategy review identified Textbook Formula Audit as a strong active/meta
+    campaign candidate. The first deep slice should be a Stellar
+    Mass-Luminosity out-of-distribution audit, but this task should only create
+    the campaign scaffold, candidate list, guardrails, and first-task queue.
+
+requirements:
+  - "Create `docs/campaigns/textbook-formula-audit.md` with verifier-first positioning."
+  - "Create `campaign_profiles/textbook-formula-audit.yaml` with allowed work, required gates, and forbidden claims."
+  - "Add `docs/notes/textbook-formula-audit-candidate-list.md` including Stellar Mass-Luminosity OOD Audit as the first recommended slice."
+  - "Define the required dataset/baseline/holdout expectations before agents can run formula audits."
+  - "Forbid broad 'prove/disprove physics textbook' framing and unsupported discovery language."
+
+accepted_outputs:
+  - "campaign page"
+  - "campaign profile"
+  - "candidate formula audit list"
+  - "first follow-up task proposal or READY task for Stellar Mass-Luminosity OOD source/baseline planning"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_research_proposals.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,61 @@
+artifact_id: ACLOCK-SRC-ARTIFACT-2021-BELOY-BACON
+schema_version: 0.1.0
+task_id: TASK-0371
+campaign_profile_id: atomic-clock-residuals
+created_by:
+  contributor_id: roman
+  agent_id: claude
+
+source_locator: https://arxiv.org/abs/2005.14694
+archive_url: https://arxiv.org/pdf/2005.14694
+retrieval_date_utc: 2026-05-25
+checksum_sha256: bec1548829e7d4697ffd78dec453c00990c2937b71cc624c420a58e31ca60467
+checksum_scope: arxiv_preprint_pdf
+license_or_reuse_notes: |
+  The committed PDF is the arXiv preprint of the Boulder Atomic Clock Optical Network
+  (BACON) paper. The arXiv perpetual licence permits archival redistribution of the
+  author's accepted manuscript, which is what this artifact contains. The
+  Nature-published version-of-record PDF is NOT committed; verbatim redistribution
+  of the Nature PDF is forbidden. The Nature DOI is the publication-of-record
+  citation for downstream provenance.
+
+publication_of_record:
+  doi: 10.1038/s41586-021-03253-4
+  journal: Nature
+  volume: 591
+  page: 564
+  year: 2021
+  redistributable_here: false
+  citation_role: primary_citation_only_no_pdf_committed
+
+authors_short: "Beloy, K., et al. (BACON Collaboration)"
+
+version_check_with_publication_of_record:
+  performed: true
+  performed_on: 2026-05-25
+  performer: "roman (maintainer-side local cross-check)"
+  result: NO_DRIFT
+  method: |
+    Local-only side-by-side comparison of the three primary frequency-ratio
+    values in the arXiv preprint (this committed artifact) against the Nature
+    paper-of-record PDF (held locally on the maintainer machine, never
+    committed to this repository). Specifically compared, character-for-character:
+      - nu(Al+)/nu(Yb)  = 2.162887127516663703(13)
+      - nu(Al+)/nu(Sr)  = 2.611701431781463025(21)
+      - nu(Yb)/nu(Sr)   = 1.2075070393433378482(82)
+    and the final 1-sigma fractional uncertainties of the three ratios
+    (5.9 x 10^-18, 8.0 x 10^-18, 6.8 x 10^-18 respectively) from the
+    figure caption in both versions. All values matched bit-for-bit between
+    arXiv and Nature. No SOURCE_ARTIFACT_VERSION_DRIFT detected.
+  not_recheckable_from_committed_artifacts_alone: true
+  follow_up_note: |
+    A future maintainer with continued institutional access to Nature can
+    re-verify by comparing this committed arXiv PDF against
+    doi:10.1038/s41586-021-03253-4 using the same value list above. This
+    re-verification is documentation-only; no new commit is required if the
+    values still match.
+
+non_goals_of_this_artifact:
+  - "Does not include Supplementary Information (SI) as a separate file. SI sections of the arXiv preprint appear in the same PDF (pages 13+)."
+  - "Does not include a published 3x3 ratio covariance matrix (none exists in either version)."
+  - "Does not commit any drift fit, derived constants constraint, or claim."

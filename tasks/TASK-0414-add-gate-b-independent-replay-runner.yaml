@@ -1,0 +1,53 @@
+id: TASK-0414
+title: "Add Gate B independent replay runner for AGENT_PUBLISHED results"
+type: validation_infrastructure
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Enable agent-to-agent validation as the next trust tier after AGENT_PUBLISHED."
+  - "Make AGENT_VALIDATED an operational state, not just protocol wording."
+  - "Create the deterministic replay lane needed for scalable scientific memory."
+
+input:
+  mode: workflow
+  related_domain: result_promotion
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "physics_lab/schemas/result.schema.json"
+    - "results/"
+  planning_context: >
+    Gate B says a different agent can upgrade AGENT_PUBLISHED to
+    AGENT_VALIDATED after deterministic replay. The protocol is final, but
+    the tooling is not. This task should add a replay helper that reads a
+    RESULT-* artifact, runs or validates the recorded command, compares
+    metrics within tolerance, and emits a validation_record draft or a
+    contested-result report.
+
+requirements:
+  - "Add a replay validation helper for AGENT_PUBLISHED RESULT-* artifacts."
+  - "Require exact input hashes and deterministic command metadata before replay."
+  - "Compare reported metrics to replayed metrics with explicit tolerances."
+  - "Emit a validation_record patch/draft only when metrics match and verdict is unchanged."
+  - "Emit a contested-result report when drift is observed; do not silently upgrade."
+  - "Do not edit any live RESULT-* artifact in this task."
+  - "Keep the helper safe for local execution and fast enough for review-agent use."
+
+accepted_outputs:
+  - "physics_lab/registry/agent_replay_validation.py"
+  - "scripts/apl_validate_agent_published_result.py"
+  - "tests/test_agent_replay_validation.py"
+  - "docs/review-checklists/agent-validated-result-checklist.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_replay_validation.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

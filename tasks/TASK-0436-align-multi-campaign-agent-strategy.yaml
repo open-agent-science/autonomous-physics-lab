@@ -1,0 +1,51 @@
+id: TASK-0436
+title: "Align agent docs with multi-campaign evidence-publication strategy"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move APL wording from single-campaign private-alpha posture toward a multi-campaign open agent research network."
+  - "Reduce stale sandbox-only wording now that result-promotion gates allow AGENT_PUBLISHED and AGENT_VALIDATED artifacts."
+  - "Keep expansion safe by distinguishing bounded campaign growth from open-ended task sprawl."
+
+input:
+  mode: workflow
+  related_domain: multi_campaign_architecture
+  related_objects:
+    - "AGENTS.md"
+    - "docs/strategy.md"
+    - "docs/current-missions.md"
+    - "campaign_profiles/README.md"
+    - "campaign_profiles/exoplanet-mass-radius.yaml"
+    - "agents/researcher.yaml"
+  planning_context: >
+    Strategy review recommended positioning APL as a multi-campaign scientific
+    agent network rather than a single-campaign sandbox lab. Some docs and
+    agent instructions still implied sandbox-only work as the default ceiling.
+    The update should preserve claim guardrails while making evidence
+    publication and multiple bounded research lanes explicit.
+
+requirements:
+  - "Update strategy and mission docs to describe multi-campaign bounded research lanes."
+  - "Clarify that good task growth is campaign-scoped and data-backed, while bad task sprawl is open-ended and ungated."
+  - "Update agent-facing wording so agents know RESULT/PRED publication is allowed only when task scope and result-promotion gates pass."
+  - "Fix any stale campaign-profile guardrail wording discovered during the docs sweep."
+  - "Avoid broad-discovery, public-launch hype, or automatic claim-promotion wording."
+  - "Do not create duplicate Exoplanet activation tasks because the exoplanet campaign already has source, baseline, and residual-audit work."
+
+accepted_outputs:
+  - "updated strategy/current-mission wording"
+  - "updated agent/campaign-profile wording"
+  - "canonical follow-up tasks for genuinely new architecture or campaign-lane work"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

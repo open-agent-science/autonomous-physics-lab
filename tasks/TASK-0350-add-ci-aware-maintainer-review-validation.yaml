@@ -1,0 +1,53 @@
+id: TASK-0350
+title: "Add CI-aware maintainer review validation"
+type: maintainer_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review strong while avoiding duplicate local validation after GitHub CI has already passed."
+  - "Preserve local-only deep checks for review-agent runs so PR review remains safer than CI alone."
+
+input:
+  mode: workflow
+  related_objects:
+    - "scripts/apl_review_pr.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    After self-hosted CI optimization, PR fast CI already runs ruff, fast
+    pytest, and repository validation. The maintainer review helper should not
+    duplicate those checks when GitHub reports them green, but it should still
+    run local-only validation such as the full_repo pytest slice and
+    task-specific commands. The CI workflow should also have an explicit
+    GitHub-hosted fallback switch for periods when the self-hosted runner is
+    offline.
+
+requirements:
+  - "Add a CI-aware review validation mode for PR-number reviews."
+  - "Keep strict validation available and safe for deep review or branch-only review."
+  - "Do not skip task-specific validation commands."
+  - "When PR CI is green and a task requests bare pytest, run only the local full_repo pytest slice during review."
+  - "Allow maintainers to route Python CI jobs to GitHub-hosted runners through repository variables without editing the workflow."
+  - "Do not weaken blocker, overclaim, protected-artifact, PR-template, branch, or task-status checks."
+
+accepted_outputs:
+  - "scripts/apl_review_pr.py exposes a validation mode option"
+  - "physics_lab/registry/maintainer_review.py supports CI-aware validation without weakening review policy"
+  - ".github/workflows/ci.yml supports repository-variable runner labels for self-hosted or GitHub-hosted routing"
+  - "docs/automation/self-hosted-ci-runner.md documents the fallback switch"
+  - "tests/test_maintainer_review.py covers CI-aware validation behavior"
+  - "docs/maintainer-review-agent.md documents when to use strict versus CI-aware validation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

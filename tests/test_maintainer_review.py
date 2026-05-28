@@ -5,6 +5,7 @@ import sys
 from unittest.mock import patch
 
 from physics_lab.registry.maintainer_review import (
+    ArtifactReviewSignal,
     ReviewReport,
     PullRequestMetadata,
     ValidationSummary,
@@ -14,7 +15,9 @@ from physics_lab.registry.maintainer_review import (
     branch_task_queue_slug,
     branch_task_id,
     build_review_report,
+    classify_artifact_review_changes,
     changed_task_proposal_files,
+    ci_aware_validation_command,
     line_is_rule_catalog_line,
     missing_pr_metadata_fields,
     missing_pr_template_sections,
@@ -22,6 +25,7 @@ from physics_lab.registry.maintainer_review import (
     overclaim_hits,
     parse_added_lines,
     _portable_validation_command,
+    output_routing_value,
     render_review_report,
     run_task_validation,
     security_pattern_hits,
@@ -342,6 +346,116 @@ def test_missing_pr_metadata_fields_accepts_task_id_alias() -> None:
     assert missing_pr_metadata_fields(body) == ()
 
 
+def test_output_routing_value_extracts_review_fields() -> None:
+    body = "\n".join(
+        [
+            "## Output Routing",
+            "",
+            "- Review tier: `AGENT_PUBLISHED`",
+            "- Gate A status: pass",
+            "- Gate B status: not_applicable",
+        ]
+    )
+
+    assert output_routing_value(body, "Review tier") == "AGENT_PUBLISHED"
+    assert output_routing_value(body, "Gate A status") == "pass"
+
+
+def test_artifact_review_change_classification_uses_distinct_classes(tmp_path: Path) -> None:
+    changed_files = (
+        "results/EXP-9999/RUN-9999/result.yaml",
+        "prediction_registry/test/PRED-9999.yaml",
+        "claims/CLAIM-9999-test.md",
+        "knowledge/KNOW-9999-test.yaml",
+    )
+
+    with (
+        patch(
+            "physics_lab.registry.maintainer_review.load_yaml_payload_from_ref",
+            side_effect=[
+                {"review_tier": "AGENT_PUBLISHED"},
+                {"review_tier": "AGENT_VALIDATED"},
+                {"review_tier": "MAINTAINER_REVIEWED"},
+            ],
+        ),
+        patch(
+            "physics_lab.registry.maintainer_review.load_claim_status_from_ref",
+            side_effect=[None, "DRAFT"],
+        ),
+    ):
+        signals = classify_artifact_review_changes(
+            tmp_path,
+            target_branch="agent/roman/codex/task-0410-review-helper-artifact-classes",
+            base_ref="origin/main",
+            changed_files=changed_files,
+        )
+
+    assert [signal.artifact_class for signal in signals] == [
+        "result_publication",
+        "prediction_publication",
+        "draft_claim_authoring",
+        "knowledge_phase1_maintainer_only",
+    ]
+    assert signals[0].review_tier == "AGENT_PUBLISHED"
+    assert signals[1].review_tier == "AGENT_VALIDATED"
+
+
+def test_build_review_report_requires_agent_published_output_routing(
+    tmp_path: Path,
+) -> None:
+    _write_review_task(tmp_path, "TASK-0410")
+    branch = "agent/roman/codex/task-0410-review-helper-artifact-classes"
+    pr_metadata = PullRequestMetadata(
+        number=410,
+        title="TASK-0410: Teach review helper artifact classes",
+        body=_full_pr_body(
+            task_ref="TASK-0410",
+            branch=branch,
+            primary_reference="- Task ID: `TASK-0410`\n- Task File: `tasks/TASK-0410-helper.yaml`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=("tasks/TASK-0410-helper.yaml",),
+    )
+
+    gate_report = type("GateReportFixture", (), {"ok": True, "issues": ()})()
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=("tasks/TASK-0410-helper.yaml",)),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch(
+            "physics_lab.registry.maintainer_review.classify_artifact_review_changes",
+            return_value=(
+                ArtifactReviewSignal(
+                    path="results/EXP-9999/RUN-9999/result.yaml",
+                    artifact_class="result_publication",
+                    review_tier="AGENT_PUBLISHED",
+                ),
+            ),
+        ),
+        patch("physics_lab.registry.maintainer_review.load_yaml_payload_from_ref", return_value={}),
+        patch("physics_lab.registry.maintainer_review.check_payload", return_value=gate_report),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=410)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("PR Output Routing must repeat that tier" in item for item in report.required_fixes)
+    assert any("Gate A status" in item for item in report.required_fixes)
+    assert any("Gate A checker passed" in item for item in report.advisory_warnings)
+
+
 def test_agent_tool_metadata_mismatch_detects_claude_branch_with_codex_body() -> None:
     body = "\n".join(
         [
@@ -477,6 +591,28 @@ def test_render_review_report_includes_security_section() -> None:
     assert "Advisory warnings:" in rendered
 
 
+def test_render_review_report_includes_advisory_quality_score() -> None:
+    report = ReviewReport(
+        verdict="MERGE_OK",
+        risk="medium",
+        task_id="TASK-0429",
+        branch="agent/roman/codex/task-0429-review-agent-quality-score",
+        changed_files=("physics_lab/registry/maintainer_review.py",),
+        validation="pass",
+        security_risks=("Repository scripts changed. Path: physics_lab/registry/maintainer_review.py",),
+        blockers=(),
+        required_fixes=(),
+        recommended_action="Merge after GitHub CI is green.",
+    )
+
+    rendered = render_review_report(report)
+
+    assert "Quality: 8/10" in rendered
+    assert "Quality notes:" in rendered
+    assert "- medium-risk change surface" in rendered
+    assert "- security-sensitive paths need maintainer attention" in rendered
+
+
 def test_run_task_validation_skips_self_referential_review_command(tmp_path) -> None:
     payload = {
         "validation": {
@@ -509,6 +645,60 @@ def test_run_task_validation_uses_active_python_for_python3_commands(tmp_path) -
     summary = run_task_validation(tmp_path, payload, enabled=True)
 
     assert summary.status == "pass"
+
+
+def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:
+    assert ci_aware_validation_command("python3 -m ruff check .") is None
+    assert ci_aware_validation_command("python3 -m physics_lab.cli validate-repo .") is None
+    assert (
+        ci_aware_validation_command(
+            "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+        )
+        is None
+    )
+    assert (
+        ci_aware_validation_command("python3 -m pytest")
+        == "python3 -m pytest -m full_repo"
+    )
+    assert (
+        ci_aware_validation_command(
+            "python3 scripts/run_nuclear_local_curvature_lane.py --help"
+        )
+        == "python3 scripts/run_nuclear_local_curvature_lane.py --help"
+    )
+
+
+def test_run_task_validation_ci_aware_skips_ci_duplicates_but_runs_remainder(
+    tmp_path,
+) -> None:
+    payload = {
+        "validation": {
+            "commands": [
+                "python3 -m ruff check .",
+                "python3 -m pytest",
+                "python3 scripts/example_task_check.py",
+                "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+            ]
+        }
+    }
+    seen_commands: list[str] = []
+
+    def fake_run_command(command: str, **kwargs: object) -> CommandResult:
+        del kwargs
+        seen_commands.append(command)
+        return CommandResult(returncode=0, stdout="", stderr="")
+
+    with patch("physics_lab.registry.maintainer_review.run_command", fake_run_command):
+        summary = run_task_validation(tmp_path, payload, enabled=True, ci_aware=True)
+
+    assert summary.status == "pass"
+    assert len(seen_commands) == 2
+    assert any("-m full_repo" in command for command in seen_commands)
+    assert any("scripts/example_task_check.py" in command for command in seen_commands)
+    assert summary.skipped_commands == (
+        "python3 -m ruff check .",
+        "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+    )
 
 
 def test_portable_validation_command_uses_git_bash_for_repo_shell_script() -> None:
@@ -611,7 +801,7 @@ _EMPTY_DIFF = CommandResult(returncode=0, stdout="", stderr="")
 
 
 def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) -> None:
-    """A PR with multiple tasks/proposals/*.yaml files must not produce a BLOCKED verdict."""
+    """A PR with multiple proposal files must run proposal-level validation."""
     proposals_dir = tmp_path / "tasks" / "proposals"
     proposals_dir.mkdir(parents=True)
     proposal_slugs = ("alpha", "beta", "gamma")
@@ -624,19 +814,42 @@ def test_build_review_report_multi_proposal_pr_is_not_blocked(tmp_path: Path) ->
     branch = "agent/roman/claude/propose-task-multi-test"
     changed = tuple(proposal_paths) + ("docs/notes/some-planning-note.md",)
 
+    validation_payloads: list[dict[str, object]] = []
+
+    def fake_validation(
+        _root: Path,
+        payload: dict[str, object],
+        *,
+        enabled: bool,
+        **_kwargs: object,
+    ) -> ValidationSummary:
+        validation_payloads.append(payload)
+        assert enabled
+        commands = tuple(payload.get("validation", {}).get("commands", ()))  # type: ignore[union-attr]
+        assert "python3 -m physics_lab.cli validate-repo ." in commands
+        assert (
+            "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+            in commands
+        )
+        return ValidationSummary(status="pass", failed_commands=())
+
     with (
-        patch("physics_lab.registry.maintainer_review.current_branch", return_value="main"),
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
         patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
         patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
         patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
         patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch("physics_lab.registry.maintainer_review.run_task_validation", side_effect=fake_validation),
     ):
         report = build_review_report(tmp_path, branch=branch)
 
-    assert report.verdict != "BLOCKED", f"Expected non-BLOCKED verdict, got blockers: {report.blockers}"
+    assert validation_payloads
+    assert report.verdict == "MERGE_OK"
     assert not any("multiple" in b.lower() and "proposal" in b.lower() for b in report.blockers), (
         f"Unexpected multi-proposal blocker: {report.blockers}"
     )
+    assert "Validation commands were not executed during this review run." not in report.required_fixes
 
 
 def test_load_claim_status_from_ref_handles_git_worktree_layout(tmp_path: Path) -> None:
@@ -1276,6 +1489,91 @@ def test_build_review_report_accepts_task_queue_pr_with_ready_future_task(
     assert report.blockers == ()
     assert not any("REVIEW_READY" in item for item in report.required_fixes)
     assert not any("Accepted outputs" in item for item in report.required_fixes)
+    assert any(
+        "TASK-QUEUE PR includes generated task navigation" in item
+        for item in report.advisory_warnings
+    )
+
+
+def test_build_review_report_accepts_task_queue_pr_without_generated_navigation(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "ACTIVE.md").write_text("# active board\n", encoding="utf-8")
+    (tasks_dir / "TASK-0999-future-coverage-audit.yaml").write_text(
+        "\n".join(
+            [
+                "id: TASK-0999",
+                'title: "Future coverage audit"',
+                "type: test_infrastructure",
+                "status: READY",
+                "difficulty: medium",
+                "priority: medium",
+                "strategy_alignment:",
+                '  - "Task queue regression fixture"',
+                "input:",
+                "  mode: workflow",
+                '  related_domain: "testing"',
+                "  related_objects: []",
+                '  planning_context: "Future task fixture"',
+                "requirements:",
+                '  - "Keep future task READY in task-queue PR"',
+                "accepted_outputs:",
+                '  - "future implementation"',
+                "validation:",
+                "  commands:",
+                '    - "python3 -m physics_lab.cli validate-repo ."',
+                "can_be_done_by: [human]",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    branch = "agent/roman/codex/task-queue-coverage-audit"
+    changed = ("tasks/TASK-0999-future-coverage-audit.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=175,
+        title="TASK-QUEUE: Add coverage audit task",
+        body=_full_pr_body(
+            task_ref="TASK-QUEUE",
+            branch=branch,
+            kind="Canonical task PR",
+            primary_reference="- Task ID: `TASK-QUEUE`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=175)
+
+    assert report.task_id == "TASK-QUEUE"
+    assert report.verdict == "MERGE_OK"
+    assert report.blockers == ()
+    assert not any("sync tasks/ACTIVE.md" in item for item in report.required_fixes)
+    assert not any("sync docs/task-views" in item for item in report.required_fixes)
+    assert not any(
+        "generated task navigation" in item for item in report.advisory_warnings
+    )
 
 
 def test_build_review_report_blocks_task_queue_pr_that_changes_results(

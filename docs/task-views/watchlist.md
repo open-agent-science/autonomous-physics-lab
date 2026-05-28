@@ -1,7 +1,7 @@
 # Task Watchlist
 
 > This file is generated from canonical `tasks/TASK-*.yaml` files.
-> Use it for proposals, rejected ideas, and deferred directions that should not be picked as executor work.
+> Use it for proposals, superseded work, rejected ideas, and deferred directions that should not be picked as executor work.
 > Refresh with `python3 -m physics_lab.cli sync-active-board .`.
 
 ## PROPOSED
@@ -9,6 +9,14 @@
 - `TASK-0016` - Plan an electromagnetic invariance mini-benchmark (`benchmark_planning`, priority `medium`, difficulty `medium`, domain `electromagnetism`)
 - `TASK-0089` - Search for empirical formula for muon g-2 anomaly using fundamental constants (`benchmark_planning`, priority `medium`, difficulty `high`, domain `particle_physics`)
 - `TASK-0090` - Design empirical formula search for Hubble tension reconciliation (`benchmark_planning`, priority `low`, difficulty `high`, domain `cosmology`)
+
+## SUPERSEDED
+
+- `TASK-0178` - Run second nuclear-mass sandbox batch after independent audit (`autonomous_research_pilot`, priority `medium`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0233` - Register nuclear prediction variants for mass-region stratified controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0234` - Register nuclear prediction variants for negative-control families (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0235` - Register nuclear prediction variants for uncertainty and ensemble-style controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0237` - Register nuclear prediction variants for adversarial and null stress controls (`scientific_validation`, priority `low`, difficulty `medium`, domain `nuclear_physics`)
 
 ## REJECTED
 

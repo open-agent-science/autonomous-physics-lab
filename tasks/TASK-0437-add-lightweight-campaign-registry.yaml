@@ -1,0 +1,49 @@
+id: TASK-0437
+title: "Add lightweight campaign registry for parallel agent research lanes"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make campaign portfolio state machine-readable as APL grows beyond a few hand-curated docs."
+  - "Support many parallel agents without forcing each session to reconstruct campaign status from narrative documents."
+  - "Give mission control, snapshots, and the campaign curator a shared campaign source of truth."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "missions/current.yaml"
+    - "campaign_profiles/"
+    - "docs/campaigns/"
+    - "physics_lab/registry/snapshot.py"
+  planning_context: >
+    APL now has flagship, active secondary, source-readiness, guardrail, and
+    watchlist campaign surfaces. A lightweight registry should consolidate
+    campaign status, stage, agent capacity, allowed work, forbidden work, gates,
+    and current result pointers without introducing a database or dashboard.
+
+requirements:
+  - "Add a lightweight `campaigns/catalog.yaml` or equivalent structured registry."
+  - "Define fields for id, title, status, domain, current stage, agent capacity, best next actions, required gates, allowed work, forbidden work, current results, open questions, and curator review metadata."
+  - "Document the registry in `docs/campaign-registry.md`."
+  - "Add validation coverage that catches duplicate campaign ids and missing required fields."
+  - "Do not replace `missions/current.yaml`; define how the registry and missions relate."
+
+accepted_outputs:
+  - "campaign registry YAML"
+  - "campaign registry documentation"
+  - "validation/tests for required fields and duplicate ids"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

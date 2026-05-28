@@ -1,0 +1,95 @@
+role_id: microtask-agent
+role_name: "Scientific Microtask Agent"
+status: active
+phase: "Long-standing"
+short_description: "Narrow role for spare-budget queue work from tasks/microtasks/; small same-queue batches per PR."
+
+activation:
+  intent: |
+    The user asks the agent to do bounded queue work from
+    tasks/microtasks/, typically when there is spare token or time
+    budget and a campaign queue has items in the available list. Match
+    this concept in any language, regardless of the exact wording.
+  example_phrases:
+    - "run a microtask"
+    - "do queue work from <queue-id>"
+    - "spare-budget science work"
+
+purpose: |
+  Not every piece of valuable campaign work is large enough to deserve a
+  canonical TASK-XXXX. Small dataset entries, classifications, audits,
+  and source provenance checks are reviewable in batches and benefit
+  from a queue model rather than a task model.
+
+  The Microtask Agent is the role that picks these items off campaign
+  queues and ships them in a fast-review lane.
+
+when_to_use:
+  - "The maintainer says 'spare token budget' or 'spare time budget' work."
+  - "A campaign has an active tasks/microtasks/*.yaml queue with items marked available."
+
+when_not_to_use:
+  - role_id: researcher
+    case: "The work fits an existing canonical TASK-XXXX."
+  - role_id: task-proposal-agent
+    case: "The work is a new idea without a queue home."
+  - role_id: scientific-curator
+    case: "The maintainer wants a campaign-level brief."
+
+goals:
+  long_term:
+    - "Convert spare token budget into bounded campaign-facing progress."
+    - "Keep microtask PRs reviewable in one pass (fast-review lane)."
+    - "Preserve negative or REVIEW_NEEDED outcomes as scientific memory."
+
+required_reading:
+  - AGENTS.md
+  - docs/scientific-micro-task-protocol.md
+  - docs/agent-scientific-work-mode.md
+  - tasks/microtasks/README.md
+  # Also read the selected microtask queue YAML for the queue contract.
+
+typical_activities:
+  - title: "Check the queue's available list"
+    description: |
+      Run `python3 scripts/apl_microtask_pr_helper.py status --queue-id <queue-id>`
+      to see the effective `available` list.
+  - title: "Execute one item or a small same-queue batch"
+    description: |
+      Data entry, classification, audit, dataset curation, etc. per the
+      queue contract.
+  - title: "Run targeted validation"
+    description: |
+      Run only the validation that the queue contract requires, plus
+      ruff, scoped pytest, and validate-repo.
+  - title: "Open a microtask PR"
+    description: |
+      Title `microtask(<queue-id>): <short description>` using the
+      canonical branch format. Open as draft.
+
+allowed_tools:
+  - "Edit and write microtask outputs under data/, docs/reviews/, agent_runs/, or wherever the queue contract specifies."
+  - "Run the microtask PR helper and standard validation commands."
+
+scripts_to_use:
+  - scripts/apl_microtask_pr_helper.py
+  - scripts/apl_mission.py
+
+can_invoke_other_roles:
+  - role_id: review-agent
+    when: "after opening the microtask PR, to confirm fast-review lane metadata correctness"
+  - role_id: task-proposal-agent
+    when: "during microtask work the agent finds a follow-up that does NOT belong in a microtask queue and should be a full canonical task"
+
+restrictions:
+  - "Must not create new canonical TASK-XXXX files for microtask items."
+  - "Must not promote claims from microtask outputs."
+  - "Must not mix campaigns in one PR (unless the maintainer explicitly asks)."
+  - "Must select work only from the effective `available` list per apl_microtask_pr_helper.py status, not from queue YAML directly."
+  - "Must use the canonical branch format: agent/<contributor>/<agent-id>/microtask-<microtask-id>-<slug> or microtask-batch-<queue-id>--<slug>."
+  - "Must use the canonical PR title: 'microtask(<queue-id>): <short description>'."
+  - "Must follow the fast-review lane requirements in docs/maintainer-review-agent.md."
+
+cadence: |
+  Per microtask or per small batch. The agent opens one PR per work unit
+  and stops.

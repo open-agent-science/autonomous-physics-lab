@@ -24,6 +24,7 @@ from physics_lab.registry.review_git import (
 from physics_lab.registry.generated_state import sync_generated_task_state
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
+    load_claim_status_from_ref,  # noqa: F401 — re-exported; tests import from here
     overclaim_advisory_hits,
     overclaim_hits,
     security_pattern_hits,
@@ -32,6 +33,7 @@ from physics_lab.registry.review_checks import (
     unexpected_protected_changes,
     claim_status_promotions,
 )
+from physics_lab.registry.result_publication_gate import check_payload
 from physics_lab.registry.review_policy import (
     BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
     CLOSEOUT_BRANCH_PATTERN,  # noqa: F401 — re-exported for backwards compatibility
@@ -61,6 +63,7 @@ from physics_lab.registry.task_closeout import (
     PUBLIC_STATE_CLOSEOUT_DOCS,
     render_public_state_doc_checklist,
 )
+from physics_lab.registry.task_unblock import safe_unblock_candidates
 
 
 REVIEW_BUNDLE_BRANCH_PATTERN = re.compile(r"^- branch: `(?P<branch>.+)`$")
@@ -78,6 +81,10 @@ TASK_QUEUE_VALIDATION_COMMANDS = (
     "python3 -m physics_lab.cli validate-repo .",
     "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
 )
+TASK_PROPOSAL_VALIDATION_COMMANDS = (
+    "python3 -m physics_lab.cli validate-repo .",
+    "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+)
 TASK_QUEUE_ALLOWED_STATUSES = frozenset({"PROPOSED", "READY", "BLOCKED"})
 TASK_QUEUE_FORBIDDEN_PREFIXES = (
     "agent_runs/",
@@ -89,6 +96,7 @@ TASK_QUEUE_FORBIDDEN_PREFIXES = (
     "knowledge/",
     "results/",
 )
+AGENT_PUBLICATION_TIERS = frozenset({"AGENT_PUBLISHED", "AGENT_VALIDATED"})
 CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
     {
         "AGENTS.md",
@@ -169,6 +177,8 @@ class ValidationSummary:
 
     status: str
     failed_commands: tuple[str, ...]
+    executed_commands: tuple[str, ...] = ()
+    skipped_commands: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -186,6 +196,17 @@ class ReviewReport:
     required_fixes: tuple[str, ...]
     recommended_action: str
     advisory_warnings: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class ArtifactReviewSignal:
+    """Classification for scientific-memory artifacts changed by a PR."""
+
+    path: str
+    artifact_class: str
+    review_tier: str | None = None
+    before_status: str | None = None
+    after_status: str | None = None
 
 
 @dataclass(frozen=True)
@@ -317,23 +338,56 @@ def _git_bash_path() -> str | None:
     return None
 
 
+def ci_aware_validation_command(command_text: str) -> str | None:
+    """Return the local validation command still needed after green PR CI.
+
+    PR CI already runs ruff, fast pytest, and repository validation. The
+    maintainer review helper should not duplicate those checks when GitHub has
+    already reported them green, but it should still run the local-only
+    full-repo pytest slice for task files that request a bare pytest run.
+    """
+    normalized = " ".join(command_text.strip().split())
+    if normalized == "python3 -m ruff check .":
+        return None
+    if normalized.startswith("python3 -m physics_lab.cli validate-repo ."):
+        return None
+    if normalized == "python3 -m pytest":
+        return "python3 -m pytest -m full_repo"
+    if normalized.startswith("python3 -m pytest --basetemp="):
+        return command_text.replace("python3 -m pytest", "python3 -m pytest -m full_repo", 1)
+    if normalized.startswith("python3 -m pytest -m 'not full_repo'"):
+        return None
+    if normalized.startswith('python3 -m pytest -m "not full_repo"'):
+        return None
+    return command_text
+
+
 def run_task_validation(
     root: Path,
     task_payload: dict[str, Any],
     *,
     enabled: bool,
     skip_commands_containing: tuple[str, ...] = (),
+    ci_aware: bool = False,
 ) -> ValidationSummary:
     """Run validation commands from the task file when feasible."""
     if not enabled:
         return ValidationSummary(status="not_run", failed_commands=())
     failed_commands: list[str] = []
+    executed_commands: list[str] = []
+    skipped_commands: list[str] = []
     for command in task_payload.get("validation", {}).get("commands", []):
         command_text = str(command)
         if any(token in command_text for token in skip_commands_containing):
+            skipped_commands.append(command_text)
             continue
+        local_command = ci_aware_validation_command(command_text) if ci_aware else command_text
+        if local_command is None:
+            skipped_commands.append(command_text)
+            continue
+        executed_commands.append(local_command)
         result = run_command(
-            _portable_validation_command(command_text),
+            _portable_validation_command(local_command),
             cwd=root,
             shell=True,
             timeout=300,
@@ -341,8 +395,18 @@ def run_task_validation(
         if result.returncode != 0:
             failed_commands.append(command_text)
     if failed_commands:
-        return ValidationSummary(status="fail", failed_commands=tuple(failed_commands))
-    return ValidationSummary(status="pass", failed_commands=())
+        return ValidationSummary(
+            status="fail",
+            failed_commands=tuple(failed_commands),
+            executed_commands=tuple(executed_commands),
+            skipped_commands=tuple(skipped_commands),
+        )
+    return ValidationSummary(
+        status="pass",
+        failed_commands=(),
+        executed_commands=tuple(executed_commands),
+        skipped_commands=tuple(skipped_commands),
+    )
 
 
 def load_pr_metadata(root: Path, number: int) -> PullRequestMetadata | None:
@@ -463,6 +527,138 @@ def _public_state_docs_need_review(
     return any(marker in haystack for marker in PUBLIC_STATE_TASK_MARKERS)
 
 
+def load_yaml_payload_from_ref(root: Path, ref: str, repo_path: str) -> dict[str, Any] | None:
+    """Load a YAML mapping from a git ref, or from the worktree for the current branch."""
+    result = run_command(["git", "show", f"{ref}:{repo_path}"], cwd=root, timeout=30)
+    text: str | None = result.stdout if result.returncode == 0 else None
+    if text is None and ref == current_branch(root):
+        path = root / repo_path
+        if path.exists():
+            text = path.read_text(encoding="utf-8")
+    if text is None:
+        return None
+    payload = yaml.safe_load(text)
+    return payload if isinstance(payload, dict) else None
+
+
+def output_routing_value(body: str, field: str) -> str | None:
+    """Return a value from the PR Output Routing section."""
+    prefix = f"- {field}:"
+    for line in body.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith(prefix):
+            continue
+        value = stripped.split(":", 1)[1].strip()
+        return value.strip("`").strip() or None
+    return None
+
+
+def classify_artifact_review_changes(
+    root: Path,
+    *,
+    target_branch: str,
+    base_ref: str,
+    changed_files: tuple[str, ...],
+) -> tuple[ArtifactReviewSignal, ...]:
+    """Classify changed scientific-memory artifacts for maintainer review."""
+    signals: list[ArtifactReviewSignal] = []
+    for path in changed_files:
+        if path.startswith("results/") and path.endswith("/result.yaml"):
+            payload = load_yaml_payload_from_ref(root, target_branch, path)
+            review_tier = payload.get("review_tier") if isinstance(payload, dict) else None
+            signals.append(
+                ArtifactReviewSignal(
+                    path=path,
+                    artifact_class="result_publication",
+                    review_tier=str(review_tier) if review_tier else None,
+                )
+            )
+            continue
+        if (
+            path.startswith("prediction_registry/")
+            and path.endswith(".yaml")
+            and Path(path).name.startswith("PRED-")
+        ):
+            payload = load_yaml_payload_from_ref(root, target_branch, path)
+            review_tier = payload.get("review_tier") if isinstance(payload, dict) else None
+            signals.append(
+                ArtifactReviewSignal(
+                    path=path,
+                    artifact_class="prediction_publication",
+                    review_tier=str(review_tier) if review_tier else None,
+                )
+            )
+            continue
+        if path.startswith("claims/") and path.endswith(".md"):
+            before = load_claim_status_from_ref(root, base_ref, path)
+            after = load_claim_status_from_ref(root, target_branch, path)
+            if before is None and after == "DRAFT":
+                artifact_class = "draft_claim_authoring"
+            elif before != after:
+                artifact_class = "claim_status_transition"
+            else:
+                artifact_class = "claim_text_update"
+            signals.append(
+                ArtifactReviewSignal(
+                    path=path,
+                    artifact_class=artifact_class,
+                    before_status=before,
+                    after_status=after,
+                )
+            )
+            continue
+        if (
+            path.startswith("knowledge/")
+            and path.endswith((".md", ".yaml", ".yml"))
+            and Path(path).name.startswith("KNOW-")
+        ):
+            payload = load_yaml_payload_from_ref(root, target_branch, path)
+            review_tier = payload.get("review_tier") if isinstance(payload, dict) else None
+            signals.append(
+                ArtifactReviewSignal(
+                    path=path,
+                    artifact_class="knowledge_phase1_maintainer_only",
+                    review_tier=str(review_tier) if review_tier else None,
+                )
+            )
+    return tuple(signals)
+
+
+def render_artifact_review_signal(signal: ArtifactReviewSignal) -> str:
+    """Render a compact artifact-class signal for review output."""
+    details: list[str] = [signal.path, signal.artifact_class]
+    if signal.review_tier:
+        details.append(f"review_tier={signal.review_tier}")
+    if signal.before_status != signal.after_status:
+        details.append(f"status={signal.before_status or 'new'}->{signal.after_status or 'missing'}")
+    return " ".join(details)
+
+
+def _explicit_output_routing(value: str | None) -> bool:
+    if value is None:
+        return False
+    normalized = value.strip().strip("`").lower()
+    return normalized not in {"", "none", "n/a", "not_applicable", "not applicable"}
+
+
+def _agent_tier_pr_body_issues(
+    signal: ArtifactReviewSignal,
+    body: str,
+) -> tuple[str, ...]:
+    required: list[str] = []
+    review_tier_value = output_routing_value(body, "Review tier")
+    if signal.review_tier not in (review_tier_value or ""):
+        required.append(
+            f"{signal.path} sets review_tier {signal.review_tier}; PR Output Routing must repeat that tier explicitly."
+        )
+    gate_field = "Gate A status" if signal.review_tier == "AGENT_PUBLISHED" else "Gate B status"
+    if not _explicit_output_routing(output_routing_value(body, gate_field)):
+        required.append(
+            f"{signal.path} sets {signal.review_tier}; PR Output Routing must include an explicit {gate_field}."
+        )
+    return tuple(required)
+
+
 def diff_base_ref(root: Path, pr_metadata: PullRequestMetadata | None) -> str:
     """Return the best available diff base ref for PR review."""
     base_branch = pr_metadata.base_branch if pr_metadata is not None else "main"
@@ -478,8 +674,11 @@ def build_review_report(
     pull_request: int | None = None,
     branch: str | None = None,
     task_id: str | None = None,
+    validation_mode: str = "strict",
 ) -> ReviewReport:
     """Build a maintainer review verdict for the current or provided branch."""
+    if validation_mode not in {"strict", "ci-aware"}:
+        raise ValueError(f"Unsupported validation mode: {validation_mode}")
     current = current_branch(root)
     pr_metadata = load_pr_metadata(root, pull_request) if pull_request is not None else None
     target_branch = branch or (pr_metadata.branch if pr_metadata is not None else current)
@@ -512,6 +711,19 @@ def build_review_report(
     if not changed_files:
         blockers.append("Diff vs main is empty. There is no reviewable task change.")
 
+    artifact_signals = classify_artifact_review_changes(
+        root,
+        target_branch=target_branch,
+        base_ref=base_ref,
+        changed_files=changed_files,
+    )
+    if artifact_signals:
+        advisory_warnings.append(
+            "Artifact review classes: "
+            + "; ".join(render_artifact_review_signal(signal) for signal in artifact_signals)
+            + "."
+        )
+
     branch_task = protocol.branch_task_id
     branch_microtask = protocol.microtask_id
     branch_microtask_queue = protocol.microtask_queue_id
@@ -537,6 +749,10 @@ def build_review_report(
                     required_fixes.append(
                         f"Proposal {pf} status is {payload['status']}. Keep it PROPOSED while requesting acceptance."
                     )
+        if proposal_files:
+            validation_payload = {
+                "validation": {"commands": list(TASK_PROPOSAL_VALIDATION_COMMANDS)}
+            }
         canonical_task_files = tuple(
             path
             for path in changed_files
@@ -571,10 +787,10 @@ def build_review_report(
         elif target_branch == current:
             for task_path in closeout_task_files:
                 payload = load_task(root / task_path)
-                if str(payload["status"]) in {"DONE", "READY", "REJECTED"}:
+                if str(payload["status"]) in {"DONE", "READY", "REJECTED", "SUPERSEDED"}:
                     continue
                 required_fixes.append(
-                    f"Closeout PR should mark {task_path} as DONE, READY, or REJECTED."
+                    f"Closeout PR should mark {task_path} as DONE, READY, REJECTED, or SUPERSEDED."
                 )
         validation_payload = {
             "validation": {
@@ -605,10 +821,17 @@ def build_review_report(
                 required_fixes.append(
                     f"TASK-QUEUE PR should leave {task_path} in PROPOSED, READY, or BLOCKED; found {status}."
                 )
-        if "tasks/ACTIVE.md" not in changed_files:
-            required_fixes.append("TASK-QUEUE PR should sync tasks/ACTIVE.md.")
-        if not any(path.startswith("docs/task-views/") for path in changed_files):
-            required_fixes.append("TASK-QUEUE PR should sync docs/task-views/*.md.")
+        generated_navigation_changes = tuple(
+            path
+            for path in changed_files
+            if path == "tasks/ACTIVE.md" or path.startswith("docs/task-views/")
+        )
+        if generated_navigation_changes:
+            advisory_warnings.append(
+                "TASK-QUEUE PR includes generated task navigation; this is allowed, "
+                "but the post-merge Sync Active Board action normally regenerates "
+                "tasks/ACTIVE.md and docs/task-views/*.md on main."
+            )
         forbidden_paths = tuple(
             path
             for path in changed_files
@@ -724,6 +947,11 @@ def build_review_report(
         agent_tool_mismatch = agent_tool_metadata_mismatch(target_branch, pr_metadata.body)
         if agent_tool_mismatch is not None:
             required_fixes.append(agent_tool_mismatch)
+        for signal in artifact_signals:
+            if signal.review_tier in AGENT_PUBLICATION_TIERS:
+                required_fixes.extend(
+                    _agent_tier_pr_body_issues(signal, pr_metadata.body)
+                )
         if pr_metadata.status_checks_passed is False:
             blockers.append("GitHub status checks are failing.")
         elif pr_metadata.status_checks_pending:
@@ -755,6 +983,34 @@ def build_review_report(
         promotions = claim_status_promotions(root, target_branch, changed_files)
         if promotions:
             blockers.append("Claim status promotion detected: " + ", ".join(promotions) + ".")
+
+    for signal in artifact_signals:
+        if signal.artifact_class == "knowledge_phase1_maintainer_only":
+            blockers.append(
+                f"KNOW-* changes are maintainer-only in Phase 1: {signal.path}."
+            )
+        if signal.artifact_class == "claim_status_transition":
+            advisory_warnings.append(
+                f"Claim status transition detected for {signal.path}; Phase 1 transitions require maintainer judgment."
+            )
+        if signal.review_tier == "AGENT_PUBLISHED":
+            payload = load_yaml_payload_from_ref(root, target_branch, signal.path)
+            if payload is None:
+                blockers.append(f"Could not load {signal.path} for Gate A classification.")
+                continue
+            gate_report = check_payload(payload, artifact_path=signal.path, root=root)
+            if gate_report.ok:
+                advisory_warnings.append(f"Gate A checker passed for {signal.path}.")
+            else:
+                blockers.append(
+                    f"Gate A checker failed for {signal.path}: "
+                    + ", ".join(issue.code for issue in gate_report.issues)
+                    + "."
+                )
+        elif signal.review_tier == "AGENT_VALIDATED":
+            advisory_warnings.append(
+                f"{signal.path} is AGENT_VALIDATED; Gate B replay helper is not yet wired, so inspect replay metadata manually."
+            )
 
     overclaim_lines = tuple(
         parse_added_lines(
@@ -823,7 +1079,20 @@ def build_review_report(
         and target_branch == current
         and git_status_clean(root),
         skip_commands_containing=("scripts/apl_review_pr.py",),
+        ci_aware=bool(
+            validation_mode == "ci-aware"
+            and pr_metadata is not None
+            and pr_metadata.status_checks_passed is True
+        ),
     )
+    if validation_mode == "ci-aware" and validation.skipped_commands:
+        executed = ", ".join(validation.executed_commands) or "no local-only commands"
+        advisory_warnings.append(
+            "CI-aware validation reused already-green GitHub checks for duplicated "
+            "commands and ran local remainder: "
+            + executed
+            + "."
+        )
     if validation.status == "fail":
         blockers.append(
             "Validation commands failed: " + ", ".join(validation.failed_commands) + "."
@@ -873,8 +1142,10 @@ def build_review_report(
 
 def render_review_report(report: ReviewReport) -> str:
     """Render a stable PR review report."""
+    quality_score, quality_notes = review_quality_score(report)
     lines = [
         f"Verdict: {report.verdict}",
+        f"Quality: {quality_score}/10",
         f"Risk: {report.risk}",
         f"Task: {report.task_id}",
         f"Branch: {report.branch}",
@@ -905,9 +1176,50 @@ def render_review_report(report: ReviewReport) -> str:
         lines.extend(f"- {item}" for item in report.required_fixes)
     else:
         lines.append("- none")
+    lines.append("Quality notes:")
+    if quality_notes:
+        lines.extend(f"- {item}" for item in quality_notes)
+    else:
+        lines.append("- clean low-risk review surface")
     lines.append("Recommended action:")
     lines.append(f"- {report.recommended_action}")
     return "\n".join(lines)
+
+
+def review_quality_score(report: ReviewReport) -> tuple[int, tuple[str, ...]]:
+    """Return an advisory human triage score for a review report.
+
+    The score is deliberately not part of verdict calculation. It only makes
+    review output easier to compare across many open PRs.
+    """
+    score = 10
+    notes: list[str] = []
+
+    if report.blockers:
+        score -= 4
+        notes.append("blockers remain")
+    if report.required_fixes:
+        score -= 2
+        notes.append("required fixes remain")
+    if report.risk == "high":
+        score -= 2
+        notes.append("high-risk change surface")
+    elif report.risk == "medium":
+        score -= 1
+        notes.append("medium-risk change surface")
+    if report.security_risks:
+        score -= 1
+        notes.append("security-sensitive paths need maintainer attention")
+    if report.advisory_warnings:
+        score -= 1
+        notes.append("advisory warnings need context check")
+
+    if report.verdict != "MERGE_OK" and "verdict is not MERGE_OK" not in notes:
+        score -= 1
+        notes.append("verdict is not MERGE_OK")
+
+    bounded_score = max(1, min(10, score))
+    return bounded_score, tuple(dict.fromkeys(notes))
 
 
 def update_task_status(task_file: Path, new_status: str) -> None:
@@ -1058,9 +1370,30 @@ def build_closeout_report(
     else:
         outcome = "READY_TO_APPLY"
 
+    unblock_candidates = safe_unblock_candidates(root)
+    safe_unblocks = tuple(item for item in unblock_candidates if item.safe_to_unblock)
+    pending_unblocks = tuple(item for item in unblock_candidates if not item.safe_to_unblock)
+    if not apply:
+        for item in safe_unblocks:
+            suggested_actions.append(
+                f"Safe unblock candidate: {item.task_id} can move from BLOCKED to READY; "
+                f"all explicit dependencies are DONE ({', '.join(item.dependencies)})."
+            )
+        for item in pending_unblocks:
+            suggested_actions.append(f"Blocked unblock candidate: {item.task_id} — {item.reason}")
+
     if apply and outcome == "APPLIED":
         update_task_status(task_file, "DONE")
         applied_changes.append(f"Updated {task_file.as_posix()} status to DONE.")
+        for item in safe_unblock_candidates(root):
+            if not item.safe_to_unblock:
+                suggested_actions.append(f"Blocked unblock candidate: {item.task_id} — {item.reason}")
+                continue
+            update_task_status(item.task_file, "READY")
+            applied_changes.append(
+                f"Safely unblocked {item.task_file.as_posix()} from BLOCKED to READY "
+                f"after explicit dependencies were DONE ({', '.join(item.dependencies)})."
+            )
         if sync_board:
             update_active_board_for_done(root, task_id, str(task_payload["title"]))
             applied_changes.append(
@@ -1068,8 +1401,11 @@ def build_closeout_report(
             )
         else:
             applied_changes.append(
-                "Deferred generated task navigation sync; run python3 -m physics_lab.cli "
-                "sync-active-board . later in a dedicated board-sync step."
+                "Deferred generated task navigation sync; the Sync Active Board "
+                "GitHub Action regenerates tasks/ACTIVE.md and docs/task-views/*.md "
+                "on main after the closeout merges. Run python3 -m physics_lab.cli "
+                "sync-active-board . by hand only for explicit audits or when the "
+                "action is temporarily disabled."
             )
         if should_append_dry_run_entry(task_payload):
             if append_dry_run_entry(root, task_id, pull_request):

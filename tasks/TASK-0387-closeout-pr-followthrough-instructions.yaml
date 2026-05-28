@@ -1,0 +1,53 @@
+id: TASK-0387
+title: "Clarify closeout PR follow-through instructions"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Reduce stale local closeout diffs by making closeout agents finish the PR, review, and merge loop when authorized."
+  - "Keep task-state synchronization reliable as more maintainer and AI-agent sessions run in parallel."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "docs/automation/maintainer-action-mode.md"
+    - "docs/automation/maintainer-manual-mode.md"
+    - "docs/automation/maintainer-routine-mode.md"
+  planning_context: >
+    Closeout batches were applied locally and validated, but the agent stopped
+    before committing, opening a closeout PR, running the review agent, and
+    merging after MERGE_OK. The maintainer clarified that closeout agents should
+    not leave task-state and generated context changes uncommitted in the repo:
+    once closeout edits are applied, the agent must continue through the PR,
+    review, and authorized merge path unless a concrete blocker appears.
+
+requirements:
+  - "Clarify that local closeout edits are not a completed closeout."
+  - "Require closeout agents to continue through branch commit, push, PR creation, maintainer-review-agent review, and authorized merge for pure closeout bookkeeping."
+  - "Require agents to report concrete blockers and exact next commands when tooling, permissions, CI, conflicts, or review findings prevent completion."
+  - "Do not weaken maintainer authorization, review-agent, CI, claim-promotion, or protected-artifact guardrails."
+  - "Do not change scientific task state, results, claims, experiments, or generated navigation beyond this task's own canonical task file."
+
+accepted_outputs:
+  - "docs/maintainer-review-agent.md"
+  - "docs/automation/maintainer-action-mode.md"
+  - "docs/automation/maintainer-manual-mode.md"
+  - "docs/automation/maintainer-routine-mode.md"
+  - "tasks/TASK-0387-closeout-pr-followthrough-instructions.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "./scripts/apl_review_bundle.sh"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

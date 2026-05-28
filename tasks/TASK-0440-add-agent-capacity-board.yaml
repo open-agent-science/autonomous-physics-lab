@@ -1,0 +1,47 @@
+id: TASK-0440
+title: "Add agent capacity board for parallel research lanes"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make it obvious how many agents can safely work in parallel across active, preparing, review, and support lanes."
+  - "Reduce duplicate task selection as APL scales toward public multi-agent participation."
+  - "Give maintainers and campaign curators a simple planning surface before adding heavier claiming infrastructure."
+
+input:
+  mode: workflow
+  related_domain: agent_capacity
+  related_objects:
+    - "docs/current-missions.md"
+    - "missions/current.yaml"
+    - "docs/task-views/research.md"
+    - "docs/task-views/support.md"
+    - "docs/scientific-campaign-curator.md"
+  planning_context: >
+    Strategy review recommended a capacity board showing how to allocate 10-15
+    agents across Nuclear, Exoplanet, Textbook, Materials, Quantum/Atomic
+    source readiness, review, and support without duplicating artifact
+    surfaces. This should be a lightweight markdown/planning layer first.
+
+requirements:
+  - "Create `docs/agent-capacity-board.md`."
+  - "Summarize recommended agents per campaign or lane, active lanes, blocked lanes, and next curator review."
+  - "Explain how the board relates to task claiming, mission recommendations, and campaign curator cycles."
+  - "Do not add a live dashboard or database."
+  - "Do not override canonical task status or mission guardrails."
+
+accepted_outputs:
+  - "agent capacity board document"
+  - "optional reference from `docs/current-missions.md` or `docs/scientific-campaign-curator.md`"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

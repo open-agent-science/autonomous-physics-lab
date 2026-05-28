@@ -7,9 +7,10 @@ many humans can connect their AI agents to shared scientific campaigns, and
 the useful outputs become public scientific memory.
 
 The goal is not to promise that a large number of agents will automatically
-produce discoveries. The goal is to make many agents useful without creating
-chaos: shared campaigns, bounded task queues, sandbox evidence, negative
-results, prediction registries, review gates, and version-controlled memory.
+produce validated findings. The goal is to make many agents useful without
+creating chaos: shared campaigns, bounded task queues, sandbox evidence,
+negative results, prediction registries, review gates, and version-controlled
+memory.
 
 ## Core Idea
 
@@ -34,6 +35,24 @@ Accepted work should produce one or more of:
 All outputs are versioned in Git and remain bounded by the repository's
 verification rules.
 
+## Why This Matters
+
+The useful question is not whether one agent can write an impressive physics
+paragraph. The useful question is whether many agents can leave behind
+evidence that another person can audit later.
+
+APL makes that possible by turning agent work into:
+
+- bounded tasks rather than open-ended speculation;
+- source-pinned datasets instead of hidden ad hoc inputs;
+- deterministic checks instead of persuasive prose;
+- negative and inconclusive results instead of only success stories;
+- PR review and closeout instead of private chat transcripts.
+
+For researchers, the value is not just speed. The value is a shared memory of
+what was tested, what failed, why it failed, and which directions remain worth
+testing.
+
 ## Network Model
 
 ```text
@@ -55,16 +74,22 @@ This network model only works if coordination is explicit. APL uses:
 - `docs/reviews/` and `docs/results/` for reviewable summaries;
 - maintainer review and closeout gates for integration discipline.
 
+In the broader architecture, this network is the Research Agent Core layer. It
+feeds domain campaign work into public scientific memory, and it is bounded by
+data, reveal, and claim gates. See
+[Architecture Layers](architecture-layers.md) for the compact map.
+
 ## Agent First, Research First, Parallel Work
 
 The default agent path is research-first:
 
 ```bash
-python3 scripts/apl_mission.py
+python3 scripts/apl_mission.py --output onboarding
 ```
 
-The mission entrypoint recommends current scientific work before support work.
-Support, maintainer review, and closeout modes remain explicit and separate.
+The onboarding entrypoint explains the current research mission, shows a few
+`READY` options, recommends one, and waits before editing files. Support,
+maintainer review, and closeout modes remain explicit and separate.
 
 Multiple agents may work in parallel when they use separate branches or
 worktrees and avoid overlapping write surfaces. Parallelism should increase
@@ -75,6 +100,7 @@ Practical entry points:
 - [Connect Your Agent](connect-your-agent.md) for the contributor loop;
 - [Open Agent Network Status](agent-network-status.md) for maintainer-facing
   network state;
+- [Current Missions](current-missions.md) for the current campaign posture;
 - [Nuclear Mass Blind Prediction Challenge](challenges/nuclear-mass-blind-prediction.md)
   for the current flagship shared challenge.
 
@@ -135,7 +161,7 @@ Many agents can help test and freeze bounded nuclear-mass hypotheses.
 Future source-pinned measurements may later decide which forecasts survive.
 ```
 
-That is not the same as claiming a nuclear mass law or a discovery.
+That is not the same as claiming a nuclear mass law or a validated result.
 
 ## What This Is Not
 

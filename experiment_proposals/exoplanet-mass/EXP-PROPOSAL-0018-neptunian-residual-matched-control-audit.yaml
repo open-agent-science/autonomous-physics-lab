@@ -1,0 +1,119 @@
+id: EXP-PROPOSAL-0018
+title: "Sandbox neptunian residual matched-control audit"
+campaign_profile_id: exoplanet-mass-radius
+proposal_kind: falsification
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact, prediction registry entry, atmospheric-composition inference, inflation-physics claim, habitability label, target-priority output, new mass-radius law, claim update, or knowledge edit."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0391
+
+input_references:
+  - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+  - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+  - "agent_runs/AGENT-RUN-0032/metrics.json"
+  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  - "hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0052-neptunian-residual-matched-control-audit.yaml"
+
+question: "Does the neptunian CK17 mass-class residual stress on the committed true-mass/transit-radius PSCompPars surface remain above the eligible surface and matched controls?"
+
+method:
+  summary: "Load the committed PSCompPars snapshot, apply repository quality filters, compute frozen CK17 log10-radius residuals on true-mass/transit-radius rows, isolate the neptunian CK17 mass class, and compare it with per-class median, nearest-radius non-neptunian, host-temperature matched, and uncertainty-band matched controls."
+  code_references:
+    - "physics_lab/engines/exoplanet_mass_radius.py"
+    - "physics_lab/datasets/exoplanets.py"
+    - "scripts/run_exoplanet_neptunian_residual_matched_control_audit.py"
+    - "tests/test_exoplanet_neptunian_residual_matched_control_audit.py"
+  commands:
+    - "python3 scripts/run_exoplanet_neptunian_residual_matched_control_audit.py"
+    - "python3 -m pytest tests/test_exoplanet_neptunian_residual_matched_control_audit.py"
+  parameters:
+    min_slice_row_count: 30
+    control_margin_log10_rmse: 0.022
+    controls:
+      - per_class_median
+      - nearest_radius_non_neptunian
+      - host_temperature_non_neptunian
+      - uncertainty_band_non_neptunian
+    frozen_baseline: "Chen-Kipping 2017 piecewise median mass-radius relation"
+
+inputs:
+  datasets:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  constants:
+    - "Frozen CK17 neptunian class: 2.04 <= M/M_earth < 131.58."
+    - "Frozen CK17 segment slopes (0.279, 0.589, -0.044, 0.881)."
+    - "Control survival margin: 0.022 log10 RMSE."
+  prior_results:
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+  assumptions:
+    - "No live NASA Exoplanet Archive fetch is performed."
+    - "No CK17 segment is refit on the snapshot."
+    - "True-mass/transit-radius rows are the primary interpretable surface."
+    - "Minimum-mass rows are diagnostic-only."
+    - "No canonical result, prediction registry entry, claim update, or knowledge edit is produced."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0037/"
+    - "docs/reviews/exoplanet-neptunian-residual-matched-control-audit.md"
+  metrics:
+    - "neptunian_log10_rmse"
+    - "eligible_true_mass_log10_rmse"
+    - "per_class_median_control_log10_rmse"
+    - "nearest_radius_control_log10_rmse"
+    - "host_temperature_control_log10_rmse"
+    - "uncertainty_band_control_log10_rmse"
+    - "delta_log10_rmse_neptunian_minus_eligible"
+    - "delta_log10_rmse_neptunian_minus_adverse_control"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0037/report.md"
+    - "agent_runs/AGENT-RUN-0037/limitations.md"
+    - "agent_runs/AGENT-RUN-0037/review_summary.md"
+    - "docs/reviews/exoplanet-neptunian-residual-matched-control-audit.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, all required controls are reported with counts and underpowered flags, and the neptunian residual RMSE exceeds both the eligible surface and adverse matched control by 0.022 log10 RMSE."
+  fail_condition: "Fail if the runner fetches live data, refits CK17, uses minimum-mass rows in headline metrics, omits required controls, hides underpowered controls, or frames residual stress as composition, inflation physics, habitability, target priority, or a new mass-radius law."
+  baseline_or_reference: "Frozen Chen-Kipping 2017 piecewise median mass-radius baseline with per-class median, nearest-radius, host-temperature, and uncertainty-band controls."
+  expected_failure_modes:
+    - "Nearest-radius controls may explain the class residual pattern."
+    - "Host-temperature controls may be partial because some rows lack host effective temperature."
+    - "Uncertainty-band controls may show the residual follows measurement-quality strata."
+    - "Matched controls are diagnostic and not causal."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No atmospheric-composition, inflation-physics, habitability, or target-priority claim."
+    - "No description of neptunian residual stress as a new mass-radius law."
+    - "No RESULT-*, PRED-*, claim, or knowledge promotion."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Use true-mass rows as the primary axis."
+    - "Report all controls with counts."
+    - "Preserve control-sensitive and underpowered outcomes."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "Controls use committed snapshot fields and frozen CK17 residuals only."
+  - "Matched controls are diagnostic slices, not causal adjustments."
+  - "Per-class median control is a target-row residual shift rather than an independent row slice."
+  - "Host-temperature control excludes rows without host effective temperature."
+  - "Minimum-mass rows are sparse diagnostics only."
+  - "No composition, inflation-physics, habitability, target-priority, prediction, claim, or knowledge output is authorized."
+
+verdict: INCONCLUSIVE
+maintainer_decision_requested: "Review the control-sensitive outcome before any follow-up treats the neptunian residual as physical structure."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up task before any RESULT-*, PRED-*, claim, knowledge, composition, inflation-physics, habitability, target-priority, or mass-radius-law promotion."

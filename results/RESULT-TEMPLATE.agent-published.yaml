@@ -1,0 +1,87 @@
+# Template only. Copy into results/EXP-XXXX/RUN-XXXX/result.yaml and replace
+# every placeholder before opening an AGENT_PUBLISHED result PR.
+result_id: RESULT-9999
+run_id: RUN-9999
+experiment_id: EXP-9999
+title: "Agent-published result title"
+hypothesis_id: HYP-9999
+task_id: TASK-9999
+generated_at: "2026-05-26T00:00:00Z"
+engine_version: "REPLACE_WITH_ENGINE_OR_PACKAGE_VERSION"
+git_commit: "REPLACE_WITH_GIT_COMMIT_SHA"
+command: "python3 -m physics_lab.cli run examples/example.yaml --output-dir results/EXP-9999/RUN-9999"
+input_file_hashes:
+  config:
+    path: "results/EXP-9999/RUN-9999/inputs/config.yaml"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  experiment:
+    path: "results/EXP-9999/RUN-9999/inputs/experiment.yaml"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  hypothesis:
+    path: "results/EXP-9999/RUN-9999/inputs/hypothesis.yaml"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  task:
+    path: "results/EXP-9999/RUN-9999/inputs/task.yaml"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+code_reference: "physics_lab/workflows/example.py"
+limitations:
+  - "Agent-published, not yet independently validated or maintainer-reviewed."
+  - "Replace this with the actual scope, data, model, and source limitations."
+train_range:
+  - 0.0
+  - 1.0
+test_range:
+  - 1.0
+  - 2.0
+best_model_id: model_example
+best_verdict: INCONCLUSIVE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: INCONCLUSIVE
+  gates_checked:
+    deterministic_run: false
+    verification_block_populated: false
+    input_hashes_recorded: false
+    limitations_listed: false
+    engine_version_and_commit_pinned: false
+    schema_validation_passes: false
+    no_protected_artifact_rewrite: false
+    no_forbidden_overclaim_wording: false
+    dataset_provenance_valid: false
+  evidence_summary: >
+    Template only. Replace with a two- or three-sentence summary of what the
+    deterministic run produced and why the proposed verdict is appropriate.
+  followup_for_maintainer: >
+    Keep the trust qualifier explicit: agent-published, not independently
+    validated or maintainer-reviewed.
+verification:
+  passed: false
+  checks:
+    - name: replace_with_check_name
+      status: PLACEHOLDER
+      details: "Replace with the deterministic validation check details."
+      metrics: {}
+artifacts:
+  report: "results/EXP-9999/RUN-9999/report.md"
+  metrics: "results/EXP-9999/RUN-9999/metrics.json"
+  claim_update: "results/EXP-9999/RUN-9999/claim_update.md"
+  claim_update_patch: "results/EXP-9999/RUN-9999/claim_update.patch.md"
+  knowledge_update: "results/EXP-9999/RUN-9999/knowledge_update.md"
+  knowledge_update_patch: "results/EXP-9999/RUN-9999/knowledge_update.patch.md"
+  review_summary: "results/EXP-9999/RUN-9999/review_summary.md"
+  review_metadata: "results/EXP-9999/RUN-9999/review_metadata.yaml"
+scores:
+  - model_id: model_example
+    formula: "replace_with_formula_or_model_description"
+    coefficients:
+      placeholder: 0.0
+    complexity_score: 1
+    train_metrics:
+      mean_relative_error: 0.0
+      max_relative_error: 0.0
+    test_metrics:
+      mean_relative_error: 0.0
+      max_relative_error: 0.0
+    composite_score: 0.0
+    verdict: INCONCLUSIVE

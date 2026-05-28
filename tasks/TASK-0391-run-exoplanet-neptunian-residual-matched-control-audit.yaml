@@ -1,0 +1,53 @@
+id: TASK-0391
+title: "Run exoplanet neptunian residual matched-control audit"
+type: scientific_validation
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Validate whether the neptunian residual failure region is robust or a sample/control artifact."
+  - "Keep exoplanet work visual and scientifically useful without promoting a new law."
+  - "Create an independent exoplanet lane that can run beside other residual hypothesis pilots."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  planning_context: >
+    The exoplanet residual failure map identified the neptunian class as a
+    robust failure region, while the true-mass audit showed selection effects
+    can matter. This task should test the neptunian residual signal against
+    matched controls before any follow-up hypothesis lane treats it as a real
+    physical structure.
+
+requirements:
+  - "Build matched-control slices for the neptunian class using committed snapshot fields only."
+  - "Compare neptunian residual summaries against at least per-class, nearest-radius, host-temperature, and uncertainty-band controls when fields are available."
+  - "Report slice counts and reject interpretations for underpowered slices."
+  - "Preserve null or control-sensitive outcomes as the main result if controls explain the residual pattern."
+  - "Do not claim atmospheric composition, inflation physics, habitability, target priority, or new mass-radius laws."
+  - "Do not use live external fetches."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0037/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0037/metrics.json"
+  - "agent_runs/AGENT-RUN-0037/report.md"
+  - "docs/reviews/exoplanet-neptunian-residual-matched-control-audit.md"
+  - "optional deterministic runner and tests if reusable code is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

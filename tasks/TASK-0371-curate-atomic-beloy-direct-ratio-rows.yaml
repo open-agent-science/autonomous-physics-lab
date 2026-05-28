@@ -1,0 +1,54 @@
+id: TASK-0371
+title: "Curate atomic Beloy 2021 direct-ratio rows"
+type: scientific_dataset
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Atomic-Clock Residuals from source preflight toward the first value-bearing direct-row gate."
+  - "Use Beloy 2021 only through the locked arXiv artifact, checksum, and covariance protocol."
+  - "Keep direct frequency-ratio rows separate from derived constants-drift constraints."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md"
+    - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/README.md"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "data/atomic_clocks/schema.md"
+    - "data/atomic_clocks/source_manifest_template.yaml"
+  planning_context: >
+    TASK-0363 locked the redistribution policy, extraction shape, and covariance
+    verification branches for Beloy 2021 / BACON. This task is the first
+    maintainer-approved attempt to fetch the arXiv artifact, pin checksums, and
+    curate direct frequency-ratio rows if the covariance and version-drift gates
+    pass.
+
+requirements:
+  - "Fetch or otherwise obtain only the arXiv preprint artifact permitted by the TASK-0363 policy; do not commit the Nature PDF."
+  - "Commit SHA-256 checksum sidecar and provenance metadata for every source artifact that is committed."
+  - "Verify whether the SI/covariance evidence satisfies Branch A or Branch B from TASK-0363; if neither holds, stop with a blocker review and do not commit rows."
+  - "Extract only the first-batch per-ratio totals for Al+/Yb, Al+/Sr, and Yb/Sr if the source and covariance gates pass."
+  - "Record shared_clock_systems, uncertainty semantics, covariance reference, source citation, DOI/arXiv locator, retrieval date, and inclusion/exclusion reason for every row."
+  - "Do not fit drift, add derived constraints, create prediction entries, promote claims, or mix direct rows with derived rows."
+
+accepted_outputs:
+  - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.sha256 or a blocker note explaining why the artifact could not be committed"
+  - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/provenance.yaml or equivalent source-artifact provenance"
+  - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml if and only if covariance and source gates pass"
+  - "docs/reviews/atomic-clock-beloy-2021-direct-ratio-row-curation.md"
+  - "tests/test_atomic_clock_beloy_rows.py if row validation helpers are added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

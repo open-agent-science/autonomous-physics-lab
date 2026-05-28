@@ -1,0 +1,811 @@
+task_id: TASK-0381
+summary_scope:
+  registry_path: prediction_registry/nuclear_masses
+  generated_by: scripts/nuclear_prediction_registry_report.py
+  live_external_fetch_performed: false
+  scoring_performed: false
+  frozen_prediction_values_modified: false
+highest_pred_id: PRED-0068
+actual_entry_count: 60
+template_count: 1
+blocked_reveal_count: 60
+ready_for_reveal_count: 0
+awaiting_source_count: 60
+target_row_count: 261
+id_gaps:
+- PRED-0031
+- PRED-0032
+- PRED-0033
+- PRED-0034
+- PRED-0035
+- PRED-0036
+- PRED-0039
+- PRED-0040
+source_task_counts:
+- label: TASK-0205
+  count: 20
+- label: TASK-0265
+  count: 12
+- label: TASK-0251
+  count: 10
+- label: TASK-0297
+  count: 6
+- label: TASK-0228
+  count: 2
+- label: TASK-0229
+  count: 2
+- label: TASK-0230
+  count: 2
+- label: TASK-0231
+  count: 2
+- label: TASK-0232
+  count: 2
+- label: TASK-0236
+  count: 2
+target_batch_counts:
+- label: frontier-next-row
+  count: 14
+- label: shell-axis-balanced-001
+  count: 6
+- label: heavy-extension-row
+  count: 4
+- label: n50-forward-row
+  count: 4
+- label: n82-neighborhood-row
+  count: 4
+- label: neutron-rich-stress
+  count: 4
+- label: nickel-isotope-chain
+  count: 4
+- label: odd-even-stress-row
+  count: 4
+- label: shell-magic-probe
+  count: 4
+- label: odd-even-probe
+  count: 3
+- label: neutron-excess-control-probe
+  count: 2
+- label: shell-magic-control-probe
+  count: 2
+- label: mid-mass-stable
+  count: 1
+- label: null-pairing-control-probe
+  count: 1
+- label: odd-even-pairing-sensitivity-probe
+  count: 1
+- label: sn-chain-isotope-extrapolation
+  count: 1
+- label: zn-chain-asymmetry-sensitivity-probe
+  count: 1
+model_family_counts:
+- label: pairing_or_odd_even
+  count: 15
+- label: feature_term_selected
+  count: 12
+- label: factory_coefficient_transform
+  count: 10
+- label: baseline_or_manual_control
+  count: 7
+- label: shell_axis
+  count: 6
+- label: smooth_or_reference_control
+  count: 6
+- label: neutron_excess_or_asymmetry
+  count: 2
+- label: shell_or_magic_control
+  count: 2
+reveal_state_counts:
+- label: AWAITING_SOURCE_PREFLIGHT
+  count: 60
+blocker_counts:
+- label: MAINTAINER_APPROVAL_REQUIRED
+  count: 60
+- label: NO_PEEK_REVIEW_REQUIRED
+  count: 60
+- label: SOURCE_PREFLIGHT_REQUIRED
+  count: 60
+- label: SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+  count: 54
+- label: REVEAL_PROTOCOL_REFERENCE_MISSING
+  count: 42
+entries_must_not_be_scored_before_reveal_gate:
+- prediction_id: PRED-0001
+  task_id: TASK-0205
+  target_batch: frontier-next-row
+  model_family: baseline_or_manual_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0002
+  task_id: TASK-0205
+  target_batch: n50-forward-row
+  model_family: baseline_or_manual_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0003
+  task_id: TASK-0205
+  target_batch: n82-neighborhood-row
+  model_family: baseline_or_manual_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0004
+  task_id: TASK-0205
+  target_batch: heavy-extension-row
+  model_family: baseline_or_manual_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0005
+  task_id: TASK-0205
+  target_batch: odd-even-stress-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0006
+  task_id: TASK-0205
+  target_batch: frontier-next-row
+  model_family: smooth_or_reference_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0007
+  task_id: TASK-0205
+  target_batch: n50-forward-row
+  model_family: smooth_or_reference_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0008
+  task_id: TASK-0205
+  target_batch: n82-neighborhood-row
+  model_family: smooth_or_reference_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0009
+  task_id: TASK-0205
+  target_batch: heavy-extension-row
+  model_family: smooth_or_reference_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0010
+  task_id: TASK-0205
+  target_batch: odd-even-stress-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0011
+  task_id: TASK-0205
+  target_batch: frontier-next-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0012
+  task_id: TASK-0205
+  target_batch: n50-forward-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0013
+  task_id: TASK-0205
+  target_batch: n82-neighborhood-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0014
+  task_id: TASK-0205
+  target_batch: heavy-extension-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0015
+  task_id: TASK-0205
+  target_batch: odd-even-stress-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0016
+  task_id: TASK-0205
+  target_batch: frontier-next-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0017
+  task_id: TASK-0205
+  target_batch: n50-forward-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0018
+  task_id: TASK-0205
+  target_batch: n82-neighborhood-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0019
+  task_id: TASK-0205
+  target_batch: heavy-extension-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0020
+  task_id: TASK-0205
+  target_batch: odd-even-stress-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0021
+  task_id: TASK-0228
+  target_batch: frontier-next-row
+  model_family: smooth_or_reference_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0022
+  task_id: TASK-0228
+  target_batch: frontier-next-row
+  model_family: smooth_or_reference_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0023
+  task_id: TASK-0229
+  target_batch: odd-even-pairing-sensitivity-probe
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0024
+  task_id: TASK-0229
+  target_batch: null-pairing-control-probe
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0025
+  task_id: TASK-0230
+  target_batch: shell-magic-control-probe
+  model_family: shell_or_magic_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0026
+  task_id: TASK-0230
+  target_batch: shell-magic-control-probe
+  model_family: shell_or_magic_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0027
+  task_id: TASK-0231
+  target_batch: neutron-excess-control-probe
+  model_family: neutron_excess_or_asymmetry
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0028
+  task_id: TASK-0231
+  target_batch: neutron-excess-control-probe
+  model_family: baseline_or_manual_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0029
+  task_id: TASK-0232
+  target_batch: sn-chain-isotope-extrapolation
+  model_family: baseline_or_manual_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0030
+  task_id: TASK-0232
+  target_batch: zn-chain-asymmetry-sensitivity-probe
+  model_family: neutron_excess_or_asymmetry
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0037
+  task_id: TASK-0236
+  target_batch: frontier-next-row
+  model_family: baseline_or_manual_control
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0038
+  task_id: TASK-0236
+  target_batch: frontier-next-row
+  model_family: pairing_or_odd_even
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0041
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_family: factory_coefficient_transform
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0042
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_family: factory_coefficient_transform
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0043
+  task_id: TASK-0251
+  target_batch: mid-mass-stable
+  model_family: factory_coefficient_transform
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0044
+  task_id: TASK-0251
+  target_batch: odd-even-probe
+  model_family: factory_coefficient_transform
+  target_row_count: 3
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0045
+  task_id: TASK-0251
+  target_batch: odd-even-probe
+  model_family: factory_coefficient_transform
+  target_row_count: 3
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0046
+  task_id: TASK-0251
+  target_batch: odd-even-probe
+  model_family: factory_coefficient_transform
+  target_row_count: 3
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0047
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_family: factory_coefficient_transform
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0048
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_family: factory_coefficient_transform
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0049
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_family: factory_coefficient_transform
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0050
+  task_id: TASK-0251
+  target_batch: frontier-next-row
+  model_family: factory_coefficient_transform
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - REVEAL_PROTOCOL_REFERENCE_MISSING
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0051
+  task_id: TASK-0265
+  target_batch: shell-magic-probe
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0052
+  task_id: TASK-0265
+  target_batch: shell-magic-probe
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0053
+  task_id: TASK-0265
+  target_batch: shell-magic-probe
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0054
+  task_id: TASK-0265
+  target_batch: shell-magic-probe
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0055
+  task_id: TASK-0265
+  target_batch: neutron-rich-stress
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0056
+  task_id: TASK-0265
+  target_batch: neutron-rich-stress
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0057
+  task_id: TASK-0265
+  target_batch: neutron-rich-stress
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0058
+  task_id: TASK-0265
+  target_batch: neutron-rich-stress
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0059
+  task_id: TASK-0265
+  target_batch: nickel-isotope-chain
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0060
+  task_id: TASK-0265
+  target_batch: nickel-isotope-chain
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0061
+  task_id: TASK-0265
+  target_batch: nickel-isotope-chain
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0062
+  task_id: TASK-0265
+  target_batch: nickel-isotope-chain
+  model_family: feature_term_selected
+  target_row_count: 4
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+  - SOURCE_READINESS_CHECKLIST_REFERENCE_MISSING
+- prediction_id: PRED-0063
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_family: shell_axis
+  target_row_count: 8
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0064
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_family: shell_axis
+  target_row_count: 8
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0065
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_family: shell_axis
+  target_row_count: 8
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0066
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_family: shell_axis
+  target_row_count: 8
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0067
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_family: shell_axis
+  target_row_count: 8
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+- prediction_id: PRED-0068
+  task_id: TASK-0297
+  target_batch: shell-axis-balanced-001
+  model_family: shell_axis
+  target_row_count: 8
+  reveal_state: AWAITING_SOURCE_PREFLIGHT
+  blockers:
+  - SOURCE_PREFLIGHT_REQUIRED
+  - NO_PEEK_REVIEW_REQUIRED
+  - MAINTAINER_APPROVAL_REQUIRED
+wording_boundary:
+- Registry volume is bookkeeping, not scientific success.
+- No entry is reveal-ready until source preflight, no-peek review, and maintainer approval pass.
+- This summary performs no live source fetch, prediction scoring, reveal, or claim promotion.

@@ -29,6 +29,7 @@ manifest_version: "1"
 campaign_id: quantum-size-effects
 created_at: "2026-05-15"
 live_external_fetch_allowed: false
+source_artifact_intake_protocol: "docs/quantum-direct-source-artifact-intake.md"
 
 sources:
   - source_id: yu-2003-cm-absorption
@@ -95,7 +96,7 @@ sources:
     journal: "ACS Nano"
     volume: "5"
     pages: "5888-5902"
-    table_reference: "band-edge energy surfaces as a function of nanocrystal size"
+    table_reference: "ACS Supporting Information file nn201681s_si_001.pdf; verify tabulated energy points and size-dependent energy-level diagrams before row curation"
     properties:
       - bandgap_eV
     materials:
@@ -116,7 +117,10 @@ sources:
     notes: >
       Use only for a bandgap_eV residual surface or a separately reviewed
       band-edge extension. Do not combine with absorption_peak_eV or
-      emission_peak_eV entries.
+      emission_peak_eV entries. TASK-0334 records a metadata-only source
+      artifact package under data/quantum_dots/source_artifacts/jasieniak-2011/;
+      row curation still requires a checksum-pinned SI/table extraction or a
+      deterministic digitization artifact.
 
   - source_id: dabbousi-1997-jpcb-emission
     title: "(CdSe)ZnS Core-Shell Quantum Dots: Synthesis and Characterization of a Size Series of Highly Luminescent Nanocrystallites"
@@ -171,3 +175,254 @@ sources:
     notes: >
       Kept in the source manifest to distinguish baseline-model provenance
       from measurement-data provenance.
+
+  - source_id: hens-moreels-2012-rsc-open-table-candidate
+    title: "Light Absorption by Colloidal Semiconductor Quantum Dots"
+    authors: "Hens, Z.; Moreels, I."
+    year: 2012
+    doi: "10.1039/c2jm30760j"
+    journal: "Journal of Materials Chemistry"
+    volume: "22"
+    pages: "10406-10415"
+    table_reference: "metadata-only TASK-0347 open-direct-table triage candidate; verify public SI/table access and primary-source attribution before row curation"
+    properties:
+      - absorption_peak_eV
+      - bandgap_eV
+    materials:
+      - PbS
+      - CdSe
+      - PbSe
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      TASK-0347 (original triage) ranked this as a plausible direct-table
+      fallback candidate, but no source artifact, row table, licence
+      verification, or deterministic extraction has been committed. It
+      remains excluded until a future row-curation task verifies public access
+      and source-specific reuse terms.
+    license_note: "RSC publication; DOI-pinned metadata only. Do not redistribute article, SI, tables, or figures unless the future source-artifact task verifies compatible public reuse terms."
+    checksum_policy: doi_pinned
+    notes: >
+      Metadata-only candidate seed from TASK-0347. Dataset rows must not
+      reference this source_id until a separate reviewed task commits a
+      checksum-pinned source artifact and confirms whether rows are direct,
+      digitized, or compilation-derived with preserved primary attribution.
+
+  - source_id: norris-bawendi-1996-prb-cdse-band-edge
+    title: "Measurement and Assignment of the Size-Dependent Optical Spectrum in CdSe Quantum Dots"
+    authors: "Norris, D. J.; Bawendi, M. G."
+    year: 1996
+    doi: "10.1103/PhysRevB.53.16338"
+    journal: "Physical Review B"
+    volume: "53"
+    pages: "16338-16346"
+    table_reference: "metadata-only TASK-0347 open-direct-table triage candidate (rank 1); Article body table of size-versus-first-exciton-transition-energy for CdSe nanocrystal size series; verify APS open-access status and table contents before row curation"
+    properties:
+      - absorption_peak_eV
+      - bandgap_eV
+    materials:
+      - CdSe
+    measurement_type: optical_absorption
+    size_axis: radius_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      TASK-0347 ranks this as the top candidate (rank 1) for a table_derived
+      CdSe direct-measurement seed on the absorption_peak_eV and bandgap_eV
+      axes. APS Physical Review B 1996 articles are likely accessible via APS
+      public-access policy. No source artifact, row table, licence
+      verification, or deterministic extraction has been committed. Remains
+      excluded until a future row-curation task verifies APS open-access
+      status and article table content. **TASK-0364 (2026-05-25) verified
+      the paper PDF via maintainer-provided sandbox copy: zero printed
+      tables and zero inline (size → energy) body-text pairs; verified class
+      = figure_derived; not admissible for table_derived row curation under
+      TASK-0364 strict policy. See
+      docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md and the
+      attempted_verifications block at the bottom of this manifest.**
+    license_note: "APS publication (Physical Review B); DOI-pinned metadata only. APS public-access policy may allow free reading of articles older than one year, but redistribution of tables or figures requires compliance with APS copyright terms. Curator must verify per-article reuse terms before committing extracted table content."
+    checksum_policy: doi_pinned
+    notes: >
+      Metadata-only candidate seed from TASK-0347 (rank 1 of 6). Bawendi
+      group; widely cited CdSe size-series characterisation using PLE
+      spectroscopy and SAXS sizing. Article body table of first-exciton
+      transition energies versus nanocrystal size makes this a high-priority
+      source-artifact attempt for TASK-0291 and TASK-0292. Dataset rows must
+      not reference this source_id until a separate reviewed task commits a
+      checksum-pinned source artifact confirming table accessibility and
+      direct-measurement provenance.
+
+  - source_id: kang-wise-1997-prb-pbs-band-edge
+    title: "Electronic structure and optical properties of PbS and PbSe quantum dots"
+    authors: "Kang, I.; Wise, F. W."
+    year: 1997
+    doi: "10.1103/PhysRevB.56.9377"
+    journal: "Physical Review B"
+    volume: "56"
+    pages: "9377-9382"
+    table_reference: "metadata-only TASK-0347 open-direct-table triage candidate (rank 2); empirical band-edge comparison data for PbS nanocrystal size series; verify APS open-access and table contents before row curation"
+    properties:
+      - bandgap_eV
+      - absorption_peak_eV
+    materials:
+      - PbS
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      TASK-0347 ranks this as the second candidate (rank 2) for a PbS
+      direct-measurement seed on the bandgap_eV and absorption_peak_eV axes.
+      APS Physical Review B 1997 articles are likely accessible via APS
+      public-access policy. The paper combines theory and empirical data;
+      only the empirical comparison points are eligible for direct-measurement
+      dataset rows. Remains excluded until a future row-curation task verifies
+      APS access and confirms which data points are empirical versus
+      model-derived. **TASK-0364 (2026-05-25) did not verify this paper in
+      that round (PDF not provided by maintainer); the four other top
+      candidates that were verified all turned out to be figure-only, so
+      the publication-pattern prior used by the TASK-0347 triage is in
+      doubt for this entry too. See attempted_verifications block below.**
+    license_note: "APS publication (Physical Review B); DOI-pinned metadata only. APS public-access policy may allow free reading; redistribution of tables or figures requires APS copyright compliance. Curator must distinguish empirical rows from theory-derived rows before committing."
+    checksum_policy: doi_pinned
+    notes: >
+      Metadata-only candidate seed from TASK-0347 (rank 2 of 6). Wise group;
+      covers PbS in the 2-8 nm diameter range. Theory-derived values must be
+      committed with mass_class: model_inferred and excluded from the
+      direct-measurement benchmark axis. Dataset rows must not reference this
+      source_id until a separate reviewed task commits a checksum-pinned
+      source artifact and confirms empirical vs. model provenance for each
+      data point.
+
+attempted_verifications:
+  - verification_round_id: TASK-0364-2026-05-25
+    task_id: TASK-0364
+    review_doc: docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md
+    method: |
+      Maintainer-provided publisher PDFs were held locally on the maintainer
+      machine (sandbox `/tmp/` paths only) and inspected via `pdftotext`. No
+      publisher PDF was committed to this repository. Verification looked
+      for printed `Table N` headers and inline body-text (size → energy)
+      value pairs that would satisfy the TASK-0364 `table_derived`
+      provenance class without invoking the TASK-0306 figure-digitization
+      protocol.
+    candidates_checked:
+      - source_id: norris-bawendi-1996-prb-cdse-band-edge
+        triage_rank: 1
+        triage_predicted_class: table_derived
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+      - source_id: kang-wise-1997-prb-pbs-band-edge
+        triage_rank: 2
+        triage_predicted_class: table_derived
+        verified_class: not_verified_in_this_round
+        printed_tables_found: null
+        inline_size_energy_pairs_found: null
+        outcome: pdf_not_provided_by_maintainer_this_round
+      - source_id_external_not_in_manifest: c1-peng-1997-cdse-cds-core-shell
+        triage_rank: 3
+        triage_doi: "10.1021/ja970754m"
+        triage_predicted_class: table_derived
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+        manifest_note: not_added_as_source_entry_because_excluded
+      - source_id_external_not_in_manifest: c2-murray-1993-cdse-synthesis
+        triage_rank: 6
+        triage_doi: "10.1021/ja00072a025"
+        triage_predicted_class: digitization_required
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+        manifest_note: not_added_as_source_entry_because_excluded
+      - source_id_external_not_in_manifest: c4-andreev-1999-pbs-pbse
+        triage_rank: 4
+        triage_doi: "10.1103/PhysRevB.59.15402"
+        triage_predicted_class: table_derived_or_digitization
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+        manifest_note: not_added_as_source_entry_because_excluded
+      - source_id_external_not_in_manifest: c6-banin-1998-inas
+        triage_rank: 5
+        triage_doi: "10.1063/1.476797"
+        triage_predicted_class: table_derived_if_arxiv_found
+        verified_class: figure_derived
+        printed_tables_found: 0
+        inline_size_energy_pairs_found: 0
+        outcome: not_admissible_for_table_derived_curation
+        manifest_note: not_added_as_source_entry_because_excluded
+    overall_outcome: BLOCKER_NO_PRINTED_TABLES_FOUND
+    rows_added: 0
+    qd_files_added: 0
+    publisher_pdfs_committed: 0
+    recommended_next_paths:
+      - "Run TASK-0306 figure-digitization protocol on Norris-Bawendi 1996 PLE-spectra figures (proper home for figure-coordinate extraction)."
+      - "Re-target source search to post-2015 quantum-dot papers with explicit machine-readable supplements (PMC / institutional repositories)."
+      - "Downgrade `table_derived (probable)` labels on C5 / C3 / C4 in docs/reviews/quantum-open-direct-table-source-triage.md."
+      - "Do not re-attempt the verified five candidates without first satisfying TASK-0306."
+
+  - verification_round_id: TASK-0399-2026-05-27
+    task_id: TASK-0399
+    review_doc: docs/reviews/quantum-post-2015-machine-readable-supplement-triage.md
+    method: |
+      Probed five independent index surfaces for post-2015 quantum-dot
+      publications carrying a machine-readable supplement (CSV / XLSX /
+      TSV / plain-text) with direct size + first-exciton-energy or
+      size + bandgap measurement points acceptable for `table_derived`
+      row curation: (1) arXiv search API + ancillary-files endpoint;
+      (2) NCBI PMC E-utilities (esearch.fcgi + esummary.fcgi);
+      (3) Europe PMC `/search` + `/supplementaryFiles` API; (4) Zenodo
+      dataset API; (5) Figshare dataset API. No publisher PDF, no
+      supplement file, no instrument-data zip was committed to the
+      repository in this round; all downloads stayed in `/tmp/`.
+    surfaces_probed:
+      - surface: arxiv_search_api
+        queries: 4
+        ancillary_endpoint_probes_returning_anc_files: 0
+        outcome: no_ancillary_data_supplements_for_experimental_candidates
+      - surface: ncbi_pmc_eutilities
+        queries: 4
+        oa_package_https_mirror_status: returned_404_for_every_probed_id
+        outcome: index_layer_returned_candidate_ids_but_oa_package_layer_unreachable_via_https_mirror
+      - surface: europepmc_search_supplementaryfiles
+        candidates_probed: 12
+        supplement_file_types_returned: ["pdf", "wmv"]
+        machine_readable_data_supplements_returned: 0
+        outcome: pdf_only_convention_across_all_probed_venues
+        probed_venues:
+          - "Nat Commun"
+          - "Sci Adv"
+          - "Adv Sci"
+          - "ACS Photonics"
+          - "Materials (Basel)"
+          - "Heliyon"
+          - "Chemistry-A European Journal"
+          - "Acc Chem Res"
+      - surface: zenodo_dataset_api
+        queries: 2
+        admissible_size_energy_table_hits: 0
+        non_admissible_hits_inspected:
+          - "Raw STM scans (10.5281/zenodo.13710482, 521 MB, .spm + .tif raw instrument data)"
+          - "Plasmonic-mode dataset for twisted bilayer graphene (not colloidal QD)"
+      - surface: figshare_dataset_api
+        queries: 1
+        admissible_size_energy_table_hits: 0
+        non_admissible_hits_inspected:
+          - "10.1021/acs.chemmater.4c00602.s002 (10 CdSe cluster .xyz coordinate files; DFT inputs, not measurements; CC BY-NC 4.0)"
+          - "10.3389/fchem.2018.00567.s001 (Data_Sheet_1 published as a single PDF)"
+    overall_outcome: BLOCKER_NO_MACHINE_READABLE_SIZE_ENERGY_SUPPLEMENT_FOUND
+    rows_added: 0
+    qd_files_added: 0
+    publisher_pdfs_committed: 0
+    supplement_files_committed: 0
+    new_source_entries_added_to_manifest: 0
+    recommended_next_paths:
+      - "Promote TASK-0306 (figure-digitization protocol) to the critical path for unblocking Quantum Size Effects; the combined TASK-0364 + TASK-0399 outcome confirms machine-readable supplements are not a viable discovery surface for this campaign."
+      - "Open a maintainer-decision task on whether OCR / human-supervised extraction from the Adv Sci / Nat Commun supplement PDFs catalogued in the TASK-0399 review is admissible as `table_derived`, `digitization_derived`, or a new provenance class. Requires explicit maintainer waiver."
+      - "Do not re-attempt the same five index surfaces (arXiv ancillary, PMC OA, Europe PMC supplementaryFiles, Zenodo, Figshare) in a new task unless the maintainer signals a new index surface has become available."
+      - "Reflect the closed-supplement-surface conclusion in docs/strategy.md so newly onboarded agents do not propose another variant of the same search."

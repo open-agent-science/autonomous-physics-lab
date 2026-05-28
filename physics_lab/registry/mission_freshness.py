@@ -12,7 +12,14 @@ from physics_lab.registry.tasks import load_task
 
 
 CURRENT_ACTION_INACTIVE_STATUSES = {"done", "review_ready", "blocked", "review_required"}
-DISALLOWED_TASK_STATUSES = {"DONE", "REVIEW_READY", "BLOCKED", "REJECTED", "PROPOSED"}
+DISALLOWED_TASK_STATUSES = {
+    "DONE",
+    "REVIEW_READY",
+    "BLOCKED",
+    "REJECTED",
+    "SUPERSEDED",
+    "PROPOSED",
+}
 RECOMMENDED_MISSION_PATTERN = re.compile(
     r"## Recommended Mission Now(?P<section>.*?)(?:\n## |\Z)",
     re.DOTALL,

@@ -1,0 +1,53 @@
+id: TASK-0419
+title: "Update agent protocol for final output-class routing"
+type: contributor_experience
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Teach agents to finish tasks by deciding the canonical output class instead of defaulting to sandbox notes."
+  - "Make result-promotion-protocol.md part of normal task closeout without weakening claim guardrails."
+  - "Improve external-agent consistency across research, validation, and review PRs."
+
+input:
+  mode: workflow
+  related_domain: agent_protocol
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - ".github/pull_request_template.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "AGENTS.md"
+  planning_context: >
+    TASK-0406 adds the canonical mapping from task verdict to output class, but
+    normal agent task flow still mostly says to create sandbox/review artifacts
+    and PRs. Agents should now end each research task with a small routing
+    statement: verdict, canonical destination, review tier, Gate A/Gate B
+    status, claim impact, and knowledge impact.
+
+requirements:
+  - "Update the agent task protocol to require an end-of-task output routing summary for research/science tasks."
+  - "Add PR-template guidance for AGENT_PUBLISHED and AGENT_VALIDATED qualifiers when a PR contains tiered artifacts."
+  - "Keep claim status transitions maintainer-only in Phase 1."
+  - "Do not tell agents to auto-merge AGENT_PUBLISHED artifact PRs."
+  - "Mention that tooling gaps should be reported as blocked publication, not bypassed by prose claims."
+  - "Do not add public article, launch, or DOU wording."
+
+accepted_outputs:
+  - "docs/agent-task-protocol.md"
+  - ".github/pull_request_template.md"
+  - "docs/maintainer-review-agent.md if reviewer instructions need alignment"
+  - "tests/test_task_pr_helper.py or tests/test_maintainer_review.py if template validation changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_pr_helper.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

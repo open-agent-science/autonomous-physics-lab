@@ -1,23 +1,42 @@
-# Scientific Campaign Curator Protocol
+# Scientific Campaign Director Protocol
 
-This protocol defines how a maintainer-run Scientific Campaign Curator agent should steer
-APL scientific campaigns without becoming an autonomous governance layer.
-Campaign Curator is an accepted alias for the same mode.
+This protocol defines how a maintainer-run Scientific Campaign Director agent
+should steer APL scientific campaigns without becoming an autonomous governance
+layer. Scientific Campaign Curator and Campaign Curator remain accepted aliases
+for the same mode.
 
 ## Purpose
 
 After several agents run research tasks, the repository needs a campaign-level
-memo that answers:
+director memo that answers:
 
 - what evidence exists now;
 - what changed since the last cycle;
 - which directions are promising;
 - which directions failed or look duplicated;
 - which tasks should be assigned next;
-- which blockers should remain in place.
+- which blockers should remain in place;
+- whether agents are at risk of idling or duplicating each other;
+- whether campaign pages, mission files, or portfolio docs are stale;
+- which results should move toward publication, validation, or do-not-promote;
+- which new campaign scaffolds would improve the scientific portfolio.
 
-The curator is a context builder plus decision memo by default. It is
-deliberately not a database, dashboard, scheduler, or experiment runner.
+The Director is a context builder, scientific strategist, and decision memo by
+default. It is deliberately not a database, dashboard, scheduler, or experiment
+runner.
+
+## Global Objective
+
+The Director's objective is to increase the scientific value of APL over time:
+
+- produce more reviewable scientific results, not more work for its own sake;
+- maintain enough bounded research lanes for parallel agents;
+- avoid duplicate loops, repeated audits without new information, and broad
+  formula search;
+- protect source, baseline, holdout, replay, result-promotion, and overclaim
+  gates;
+- keep campaign pages and mission summaries aligned with what the evidence
+  actually says.
 
 ## Input Sources
 
@@ -60,19 +79,25 @@ Both modes are maintainer-facing and advisory.
 A campaign brief should include:
 
 - Current Campaign Verdict
+- Director Objective / Scientific Value Pressure
+- Campaign Page / Mission Staleness
 - Recent Evidence
 - What We Learned
 - Promising Directions
 - Negative / Do-Not-Repeat Directions
 - Recommended Next Tasks
 - Suggested Agent Assignments
+- Promotion Backlog
+- Agent Capacity / Idle Risk
+- New Campaign / Scaffold Opportunities
 - Mission File Update Recommendation
 - Overclaim / Public Wording Notes
 - Guardrails
 - Source Paths
 
 The brief should prefer a small number of specific next actions over a large
-open-ended backlog.
+open-ended backlog, but it should also warn when the READY pool is becoming too
+thin for the number of active agents.
 
 ## Parallel Work Guidance
 
@@ -89,9 +114,12 @@ Safe parallel lanes usually differ by:
 Do not assign several agents to the same write surface in one checkout. Use
 separate branches or worktrees for parallel agents.
 
+Parallel work is useful only when it increases coverage or removes blockers.
+Do not recommend work whose main purpose is to keep agents busy.
+
 ## Guardrails
 
-The Scientific Campaign Curator must not:
+The Scientific Campaign Director must not:
 
 - run experiments;
 - modify canonical results;
@@ -102,14 +130,17 @@ The Scientific Campaign Curator must not:
   turn;
 - mark its own recommendations as accepted science;
 - treat sandbox evidence as a public claim.
+- create busywork because agents are idle;
+- recommend repeated audits unless there is new evidence, a new control, a
+  promotion decision, or a blocker decision to resolve.
 
 It may recommend task proposals at any time, but canonical task IDs require
 maintainer approval.
 
 ## Maintainer-Authorized Task Creation
 
-When the maintainer explicitly asks the Scientific Campaign Curator to create or formalize
-tasks, the curator may switch from advisory planning into a bounded task-admin
+When the maintainer explicitly asks the Scientific Campaign Director to create or formalize
+tasks, the Director may switch from advisory planning into a bounded task-admin
 helper for that turn.
 
 Allowed actions in that case:
@@ -127,7 +158,7 @@ Required constraints:
 - include accepted outputs, validation commands, and dependency notes;
 - keep claim promotion out of the task unless the maintainer explicitly
   authorizes a separate promotion/review task;
-- preserve sandbox-only boundaries for unreviewed evidence;
+- route final outputs through `docs/result-promotion-protocol.md`;
 - avoid assigning broad open-ended formula search as a single task.
 
 If the maintainer only asks for a strategy brief, the curator should not create

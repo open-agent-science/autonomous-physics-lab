@@ -1,7 +1,7 @@
 id: TASK-0233
 title: "Register nuclear prediction variants for mass-region stratified controls"
 type: scientific_validation
-status: BLOCKED
+status: SUPERSEDED
 difficulty: medium
 priority: low
 
@@ -29,6 +29,7 @@ input:
     selected slate before filling manual PRED-0031/PRED-0032 gaps.
 
 requirements:
+  - "Closed during blocked-task hygiene as superseded by the nuclear prediction factory, selected slate registration, and registry evidence summary; reopen only through a fresh maintainer-approved task if a hand-curated mass-region pair is still needed."
   - "Do not start unless the maintainer explicitly reactivates this manual lane, or unless TASK-0250 shows that a hand-curated mass-region control pair is still needed."
   - "Create exactly two prospective registry entries unless the maintainer approves a larger batch."
   - "Use the suggested ids PRED-0031 and PRED-0032 unless a parallel branch collision requires renumbering before review."

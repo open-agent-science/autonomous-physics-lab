@@ -1,0 +1,55 @@
+id: TASK-0389
+title: "Polish onboarding prompt for cross-platform first-run flow"
+type: contributor_experience
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Make first-run Agent First onboarding clearer for new contributors and external agents."
+  - "Keep onboarding interactive without weakening the full autonomous agent flow."
+  - "Avoid platform-specific shell assumptions in the default first prompt."
+
+input:
+  mode: workflow
+  related_domain: onboarding
+  related_objects:
+    - "README.md"
+    - "physics_lab/registry/mission_control.py"
+    - "docs/use-your-agent.md"
+    - "docs/connect-your-agent.md"
+    - "docs/current-missions.md"
+  planning_context: >
+    The README onboarding prompt should stay short and human-readable while the
+    generated onboarding prompt carries the detailed first-run instructions.
+    The generated prompt should recommend science-execution work before support
+    or infrastructure during onboarding, and should avoid assuming that every
+    contributor can run Unix-style shell scripts on Windows.
+
+requirements:
+  - "Keep `--agent-prompt`, support mode, and maintainer mode behavior unchanged."
+  - "Shorten the README onboarding copy-paste prompt and avoid duplicating the generated onboarding prompt."
+  - "Clarify that onboarding should prefer science-execution tasks over infrastructure/support when a suitable READY science option exists."
+  - "Make worktree guidance platform-aware for macOS/Linux/WSL/Git Bash versus plain Windows shells."
+  - "Preserve the pause-before-editing onboarding behavior."
+
+accepted_outputs:
+  - "README.md"
+  - "physics_lab/registry/mission_control.py"
+  - "docs/use-your-agent.md"
+  - "docs/connect-your-agent.md"
+  - "docs/current-missions.md"
+  - "tests/test_mission_control.py"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_mission_control.py -q"
+    - "python3 scripts/apl_mission.py --onboarding"
+    - "python3 scripts/apl_mission.py --agent-prompt"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

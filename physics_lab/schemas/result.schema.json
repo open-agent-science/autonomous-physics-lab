@@ -141,7 +141,10 @@
     },
     "gauntlet_candidate_set": {
       "type": "string",
-      "enum": ["current_11", "legacy_10"]
+      "enum": [
+        "current_11",
+        "legacy_10"
+      ]
     },
     "verification": {
       "$ref": "#/$defs/verificationSummary"
@@ -350,6 +353,75 @@
           "type": "string"
         }
       }
+    },
+    "review_tier": {
+      "type": "string",
+      "enum": [
+        "AGENT_PUBLISHED",
+        "AGENT_VALIDATED",
+        "MAINTAINER_REVIEWED",
+        "EXTERNAL_REPLICATED"
+      ],
+      "description": "Multi-tier review level introduced by docs/result-promotion-protocol.md. Optional for backward compatibility; files without this field are treated as LEGACY_UNTIERED for validation only."
+    },
+    "agent_proposal_evaluation": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Required when review_tier is AGENT_PUBLISHED or AGENT_VALIDATED. Records which Gate A or Gate B conditions were checked. See docs/result-promotion-protocol.md.",
+      "properties": {
+        "review_tier_proposed": {
+          "type": "string",
+          "enum": [
+            "AGENT_PUBLISHED",
+            "AGENT_VALIDATED"
+          ]
+        },
+        "best_verdict_proposed": {
+          "type": "string"
+        },
+        "gates_checked": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        },
+        "evidence_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "followup_for_maintainer": {
+          "type": "string"
+        },
+        "validation_record": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Present when review_tier_proposed is AGENT_VALIDATED. Records the independent replay metadata.",
+          "properties": {
+            "replayed_by": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "replayed_at_utc": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "replay_command": {
+              "type": "string"
+            },
+            "tolerance_used": {
+              "type": "number"
+            },
+            "drift_observed": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "review_tier_proposed",
+        "gates_checked",
+        "evidence_summary"
+      ]
     }
   },
   "oneOf": [

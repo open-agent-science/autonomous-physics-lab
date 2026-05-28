@@ -1,0 +1,110 @@
+id: EXP-PROPOSAL-0013
+title: "Sandbox nuclear odd-even shell-interaction scout"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0340
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  - "docs/reviews/nuclear-pairing-odd-even-variant-scout-001.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0047-odd-even-shell-interaction-scout-batch.yaml"
+
+question: "Do bounded odd-even by shell-proximity interaction terms reduce EXP-0012 baseline residuals more convincingly than pairing-only, shell-only, smooth-A, and shuffled-interaction controls?"
+
+method:
+  summary: "Generate six bounded interaction variants, execute three interaction candidates and four controls, fit residual coefficients on the NMD-0002 training slice, and evaluate full-known, holdout, even-even, odd-even, odd-odd, magic-Z, magic-N, light-A, and neutron-rich diagnostics against the frozen RESULT-0015 baseline."
+  code_references:
+    - "scripts/run_nuclear_odd_even_shell_interaction_lane.py"
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "tests/test_nuclear_odd_even_shell_interaction_lane.py"
+  commands:
+    - "python3 scripts/run_nuclear_odd_even_shell_interaction_lane.py"
+    - "python3 -m pytest tests/test_nuclear_odd_even_shell_interaction_lane.py"
+  parameters:
+    generated_interaction_variants: 6
+    executed_interaction_candidates: 3
+    executed_controls: 4
+    lower_complexity_controls:
+      - "pairing-only"
+      - "shell-only"
+      - "smooth-A"
+    shuffled_controls: 1
+    shuffle_scheme: "cyclic-shift-3"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "docs/reviews/nuclear-pairing-odd-even-variant-scout-001.md"
+  assumptions:
+    - "No live source fetch is performed."
+    - "No prediction registry entries are created."
+    - "No EXP-0012, RESULT-0015, claims, knowledge, or canonical datasets are updated."
+    - "Controls can block interaction interpretation."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0027/"
+  metrics:
+    - "generated_variant_count"
+    - "executed_interaction_count"
+    - "executed_control_count"
+    - "delta_mae_by_subset_mev"
+    - "lower_complexity_control_gate"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0027/report.md"
+    - "agent_runs/AGENT-RUN-0027/limitations.md"
+    - "docs/reviews/nuclear-odd-even-shell-interaction-lane.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, interaction candidates and controls are reported with subset diagnostics, negative or inconclusive outcomes are preserved, and no registry, result, claim, knowledge, or canonical dataset files are modified."
+  fail_condition: "Sandbox fail if the lane writes prediction entries, fetches live data, hides control behavior, or frames retrospective deltas as validated physics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  expected_failure_modes:
+    - "A lower-complexity control can explain the interaction candidate."
+    - "A shuffled interaction control can match candidate behavior."
+    - "Odd-odd diagnostics can be too sparse for interpretation."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a prediction reveal."
+    - "Do not call sandbox candidates discoveries."
+    - "Do not imply registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Preserve controls and subset regressions."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "The candidate fit surface is small and retrospective."
+  - "Odd-odd behavior is sparse."
+  - "Controls are decisive for interpretation."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Confirm whether the lane should remain bounded sandbox evidence and whether any narrower follow-up is warranted."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work."

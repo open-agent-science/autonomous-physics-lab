@@ -1,0 +1,104 @@
+id: EXP-PROPOSAL-0015
+title: "Sandbox nuclear uncertainty-weighted residual review"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: audit
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact."
+
+proposed_by:
+  contributor_id: master
+  agent_id: codex
+  task_id: TASK-0342
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0049-uncertainty-weighted-residual-review.yaml"
+
+question: "Does the frozen EXP-0012 baseline residual surface change materially under conservative uncertainty weighting or filtering?"
+
+method:
+  summary: "Load committed NMD-0002 and post-AME2020 rows, attach review-only uncertainty metadata, evaluate an unweighted baseline reference, two inverse-variance diagnostics, and low/high uncertainty median filters against frozen RESULT-0015 residuals."
+  code_references:
+    - "scripts/run_nuclear_uncertainty_weighted_residual_lane.py"
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "tests/test_nuclear_uncertainty_weighted_residual_lane.py"
+  commands:
+    - "python3 scripts/run_nuclear_uncertainty_weighted_residual_lane.py"
+    - "python3 -m pytest tests/test_nuclear_uncertainty_weighted_residual_lane.py"
+  parameters:
+    variants: 5
+    weighting_variants: 2
+    filtering_variants: 2
+    uncertainty_grade: "review_only"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015."
+  prior_results:
+    - "RESULT-0015"
+  assumptions:
+    - "No live source fetch is performed."
+    - "No prediction registry entries are created."
+    - "No EXP-0012, RESULT-0015, claims, knowledge, or canonical datasets are updated."
+    - "Uncertainty fields are review-only for residual stability diagnostics."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0029/"
+  metrics:
+    - "variant_count"
+    - "uncertainty_field_grade"
+    - "mae_mev"
+    - "rmse_mev"
+    - "weighted_mae_mev"
+    - "weighted_rmse_mev"
+    - "mean_abs_uncertainty_normalized_error"
+    - "prior_lane_uncertainty_sensitivity"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0029/report.md"
+    - "agent_runs/AGENT-RUN-0029/limitations.md"
+    - "docs/reviews/nuclear-uncertainty-weighted-residual-lane.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, uncertainty field grade is explicit, weighted/filter diagnostics are reported, negative or inconclusive outcomes are preserved, and no registry, result, claim, knowledge, or canonical dataset files are modified."
+  fail_condition: "Sandbox fail if the lane writes prediction entries, fetches live data, hides uncertainty limitations, or frames review-only diagnostics as validated physics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline."
+  expected_failure_modes:
+    - "Review-only uncertainty semantics can block fit-grade interpretation."
+    - "Weight concentration can make aggregate deltas unstable."
+    - "High- and low-uncertainty subsets can disagree."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call this a prediction reveal."
+    - "Do not call uncertainty-weighted baseline diagnostics a discovery."
+    - "Do not imply registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Preserve uncertainty limitations and sensitivity gates."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "The uncertainty fields are review-only for this task."
+  - "Baseline model uncertainty is not included."
+  - "This is a residual-stability diagnostic, not a candidate correction lane."
+
+verdict: SANDBOX_PASS
+maintainer_decision_requested: "Confirm whether uncertainty weighting should be required before future Nuclear residual follow-up work."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work."

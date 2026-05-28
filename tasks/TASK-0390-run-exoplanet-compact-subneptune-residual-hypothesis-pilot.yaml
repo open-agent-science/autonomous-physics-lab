@@ -1,0 +1,55 @@
+id: TASK-0390
+title: "Run exoplanet compact/sub-Neptune residual hypothesis pilot"
+type: autonomous_research_pilot
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move the exoplanet campaign from a baseline failure map into bounded residual hypothesis testing."
+  - "Use the strongest current public-data surface without making composition, habitability, or target-priority claims."
+  - "Give one agent an independent, high-value lane that does not touch Nuclear, Quantum, or Atomic artifacts."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-mass-radius-residual-failure-map.md"
+    - "docs/reviews/exoplanet-true-mass-residual-slice-audit.md"
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "agent_runs/AGENT-RUN-0034/metrics.json"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  planning_context: >
+    The exoplanet failure map found reproducible Chen-Kipping residual stress
+    in compact planets and the sub-Neptune range, with true-mass rows much more
+    interpretable than minimum-mass rows. This task should test a small set of
+    bounded residual hypotheses on the committed snapshot only, preserve nulls,
+    and avoid turning residual structure into a planet-composition claim.
+
+requirements:
+  - "Generate 4-8 compact/sub-Neptune residual hypotheses using only committed snapshot fields and frozen baseline residuals."
+  - "Execute 1-3 hypotheses with deterministic code, including shuffled-label, per-class median, and sample-size controls."
+  - "Use true-mass rows as the primary interpretable axis; treat minimum-mass rows as diagnostic only unless a task-local control justifies otherwise."
+  - "Report all rejected, null, and inconclusive hypotheses visibly."
+  - "Do not refit or replace the frozen Chen-Kipping baseline in a way that changes the baseline benchmark."
+  - "Do not infer composition, habitability, biosignatures, target priority, or universal planet laws."
+  - "Do not use live external fetches."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-0036/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0036/metrics.json"
+  - "agent_runs/AGENT-RUN-0036/report.md"
+  - "docs/reviews/exoplanet-compact-subneptune-residual-hypothesis-pilot.md"
+  - "optional deterministic runner and tests if reusable code is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

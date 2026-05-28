@@ -6,7 +6,8 @@
 
 ## READY
 
-None.
+- `TASK-0396` - Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0401` - Run atomic Beloy 2021 row readiness re-check (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 
 ## IN_PROGRESS
 
@@ -14,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0312` - Run final v0.2 public-alpha go/no-go review (`release_review`, priority `high`, difficulty `medium`, domain `public_alpha_readiness`)
+- `TASK-0436` - Align agent docs with multi-campaign evidence-publication strategy (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `multi_campaign_architecture`)
