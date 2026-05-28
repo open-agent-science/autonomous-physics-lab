@@ -1,0 +1,55 @@
+id: TASK-0448
+title: "Define Nuclear controls-first hypothesis gauntlet template"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Let Nuclear continue testing new hypotheses without reopening a broad numerology loop."
+  - "Make every future Nuclear hypothesis controls-first, leakage-aware, and bounded before any model run starts."
+  - "Give parallel agents a reusable contract for proposing, testing, failing, and preserving Nuclear residual hypotheses."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
+    - "docs/reviews/nuclear-new-lanes-decision-after-uncertainty.md"
+  planning_context: >
+    Nuclear remains APL's flagship validation surface, but recent evidence
+    shows that retrospective improvements are easy to overread. Shell-axis is
+    diagnostic-only and LOCAL-CURVATURE-001 is falsified under no-leakage.
+    Before adding more Nuclear hypothesis lanes, the campaign needs a compact
+    gauntlet template that forces each lane to declare inputs, forbidden
+    leakage paths, controls, holdouts, failure conditions, and output routing.
+
+requirements:
+  - "Create a reusable Nuclear hypothesis gauntlet template under docs/ or docs/notes/."
+  - "Define mandatory sections: hypothesis family, allowed inputs, forbidden inputs, baseline, controls, holdout or split, leakage audit, failure condition, output routing, and public wording boundary."
+  - "Require at least two negative controls for every future Nuclear residual hypothesis lane."
+  - "Require an explicit stop condition that preserves negative or inconclusive results rather than spawning follow-up work automatically."
+  - "State that new lanes may not create PRED entries, reveal scores, claims, knowledge entries, or canonical RESULT artifacts unless a later task explicitly authorizes that artifact class."
+  - "Keep shell-axis diagnostic-only and LOCAL-CURVATURE-001 falsified under no-leakage; do not reopen either as a positive candidate."
+  - "Do not commit generated task views or generated active-board files."
+
+accepted_outputs:
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "optional docs/campaigns/nuclear-mass-surface.md update pointing future contributors to the gauntlet"
+  - "optional task-template note or task-protocol cross-reference if the gauntlet becomes reusable outside Nuclear"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

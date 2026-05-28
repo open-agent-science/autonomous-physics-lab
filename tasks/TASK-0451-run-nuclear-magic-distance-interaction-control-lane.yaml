@@ -1,0 +1,56 @@
+id: TASK-0451
+title: "Run Nuclear magic-distance interaction control lane"
+type: autonomous_research_pilot
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test a fresh Nuclear hypothesis family adjacent to shell structure without reopening shell-axis registry expansion."
+  - "Separate magic-distance interaction behavior from smooth-A, asymmetry, parity, and random matched controls."
+  - "Keep the lane diagnostic unless it survives predeclared controls and bounded holdouts."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "docs/reviews/nuclear-shell-axis-specificity-controls.md"
+    - "docs/reviews/nuclear-shell-axis-magic-asymmetry-audit.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Shell-axis evidence is diagnostic-only and should not receive more
+    retrospective slicing or registry expansion. A useful fresh test is a
+    bounded interaction family between distance-to-magic N/Z, parity, and
+    asymmetry, with controls designed to decide whether any signal is
+    shell-specific or merely smooth-A/asymmetry behavior in disguise.
+
+requirements:
+  - "Define exactly one compact magic-distance interaction family before running metrics."
+  - "Do not reuse shell-axis PRED entries, target batches, or reveal-scoring machinery."
+  - "Compare against smooth-A, asymmetry-only, parity-only, and deterministic random matched-degree controls where applicable."
+  - "Report magic-N, magic-Z, double-magic, light A<50, isotope-chain, and neutron-rich subset behavior separately when the committed data supports those slices."
+  - "Treat sparse subset wins as diagnostic only; do not promote them."
+  - "Include a coefficient-stability or resampling check if the runner fits coefficients."
+  - "Verdict must be one of: SHELL_ADJACENT_DIAGNOSTIC, CONTROL_DOMINATED, FRAGILE_INCONCLUSIVE, or NEGATIVE_RESULT."
+  - "Do not create PRED entries, reveal scores, claims, knowledge entries, or canonical RESULT artifacts."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-magic-distance-interaction-control-lane.md"
+  - "tests for any reusable runner code"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
