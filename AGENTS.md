@@ -41,7 +41,8 @@ python3 scripts/apl_mission.py
 ```
 
 Default mode is `research`. The script recommends the highest-value current
-scientific mission and provides guardrails for sandbox-only, reviewable work.
+scientific mission and provides guardrails for bounded, reviewable work with
+gated evidence publication when the selected task explicitly allows it.
 For machine-readable context or a copy-paste agent prompt, run:
 
 ```bash
@@ -58,8 +59,9 @@ python3 scripts/apl_mission.py --mode maintainer
 
 Agent First does not replace the task protocol, maintainer review agent, or
 closeout flow. It only changes the default onboarding posture: research,
-replay, audit, hypothesis testing, and sandbox result drafts come before
-microtasks or docs-only support unless the maintainer says otherwise.
+replay, audit, hypothesis testing, source readiness, and gated evidence
+publication come before microtasks or docs-only support unless the maintainer
+says otherwise.
 
 Executor agents should treat only `READY` tasks as available work. Do not offer
 `REVIEW_READY` tasks as task choices unless the maintainer explicitly asks for

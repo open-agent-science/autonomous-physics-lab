@@ -49,17 +49,18 @@ the verdict, destination, review tier, Gate A/B status, limitations, and
 blockers.
 
 If the Nuclear queue is saturated or a maintainer wants parallel breadth, the
-next best surfaces are Quantum Size Effects, Atomic-Clock Residuals, and
-Exoplanet Mass-Radius. Exoplanets has crossed into benchmark/failure-map work;
-Quantum and Atomic should stay source- and protocol-first until direct rows are
-ready.
+next best active surface is Exoplanet Mass-Radius. Quantum Size Effects and
+Atomic-Clock Residuals remain valuable source-readiness lanes. New campaign
+ideas should enter through source/schema/baseline scaffolds first, not broad
+hypothesis batches.
 
 ## Current Mission Shape
 
-APL currently has one flagship validation campaign and three fresh-data
-surfaces that are intentionally moving more slowly. That mix is deliberate:
-some agents can stress the strongest current evidence, while others build the
-source discipline needed for future campaigns.
+APL currently has one flagship validation campaign, one active secondary
+benchmark surface, and two source-readiness surfaces. That mix is deliberate:
+some agents can stress the strongest current evidence, others can build
+source/baseline discipline, and curators can prepare new campaign lanes without
+turning watchlist topics into formula-search work.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
@@ -73,6 +74,23 @@ Particle Mass Relations keep the repository honest about exact references,
 falsification, and overclaim resistance. They are not the default landing-page
 focus unless the maintainer asks for replay, documentation, or benchmark
 hygiene work.
+
+## Campaign Portfolio Direction
+
+APL should grow by adding bounded campaign lanes, not by asking agents to search
+open-endedly. Good growth means each lane has a source surface, baseline,
+holdout or replay discipline, allowed work, forbidden work, and a clear
+promotion route for evidence.
+
+Near-term portfolio shape:
+
+| Portfolio role | Campaigns | Notes |
+| --- | --- | --- |
+| Active flagship | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Continue bounded diagnostics and result-promotion preflights. |
+| Active secondary | Exoplanet Mass-Radius | Continue pinned-snapshot residual maps, matched controls, selection-effect audits, and future prediction-readiness work. |
+| Prepare/source-readiness | Quantum Size Effects, Atomic-Clock Residuals | Stay source/covariance/direct-row first before modeling or fitting. |
+| Candidate new lanes | Textbook Formula Audit, Materials Property Residuals | Scaffold source, baseline, and holdout rules before any hypothesis batches. |
+| Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
 ## Default Research Mode
 
