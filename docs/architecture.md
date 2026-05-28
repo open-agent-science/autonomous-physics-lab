@@ -182,7 +182,7 @@ Do not introduce these without an explicit maintainer-approved task:
 - distributed execution frameworks;
 - broad literature-ingestion automation;
 - claim-promotion shortcuts;
-- speculative discovery or "theory of everything" framing;
+- speculative discovery or unlimited-scope framing;
 - large filesystem migrations without a concrete migration plan.
 
 ## Upgrade Path
