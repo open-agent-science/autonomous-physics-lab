@@ -7,7 +7,7 @@ data surface, and where agents can help without overclaiming.
 The short version:
 
 - **Current flagship:** Nuclear Mass Surface.
-- **Active result surface:** Exoplanet Mass-Radius.
+- **Most shareable current benchmark surface:** Exoplanet Mass-Radius.
 - **Fresh-data buildout:** Quantum Size Effects and Atomic-Clock Residuals.
 - **Candidate new lanes:** Textbook Formula Audit and Materials Property
   Residuals, pending source/baseline scaffolds.
@@ -20,6 +20,7 @@ The short version:
 
 | If you want to... | Start here | Why |
 | --- | --- | --- |
+| see what can be shared publicly today | [Public Science Dashboard](./public-science-dashboard.md) | It has linkable result cards, safe wording, current questions, and expected next results per active campaign. |
 | review the strongest current research surface | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, and explicit negative controls. |
 | help build the next direct-measurement dataset | [Quantum Size Effects](./quantum-size-effects.md) | It is blocked on source-grade direct rows before benchmark work can honestly begin. |
 | work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It needs source, covariance, and direct-vs-derived semantics before modeling. |
@@ -31,8 +32,8 @@ The short version:
 
 | Campaign | Current maturity | Best next contribution |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, no-leakage policy, and source-readiness blockers. | No-leakage local-curvature implementation planning, reveal-readiness reporting, or high-error cluster adversarial stability. |
-| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, loader path, first CK17-style baseline benchmark, and bounded regime scout. | Residual failure-map packaging, true-mass slice audit, or narrower regime follow-up with matched controls. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, no-leakage policy, shell-axis diagnostic-only decision, and local-curvature no-leakage falsification. | `TASK-0428` local-curvature negative/preflight packaging, `TASK-0395` residual-free high-error cluster audit, or `TASK-0396` reveal-readiness reporting. |
+| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, CK17-style baseline, residual/failure map, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` promotion scorecard. | `TASK-0445` Gate B replay, `TASK-0393` second-snapshot protocol, `TASK-0446` checksum cleanup, or `TASK-0447` public-safe evidence card. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds, direct-source triage, and source-artifact intake path exist; measurement-grade baseline remains blocked. | APS direct-table source artifact, deterministic digitization/table path, or readiness-gate update after a direct seed. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Source surface, schema sketch, manifest template, synthetic loader, source-class reviews, covariance semantics, and version-drift stop condition. | Beloy 2021 direct-row curation only if source artifact, covariance, and version checks are satisfied; otherwise preserve blockers. |
 

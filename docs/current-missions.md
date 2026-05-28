@@ -32,6 +32,7 @@ Mission policy and campaign guardrails live in
 [`../missions/current.yaml`](../missions/current.yaml). Live task candidates
 come from canonical `tasks/TASK-*.yaml` files through the mission script. For
 lighter navigation than the full generated board, use:
+[`public-science-dashboard.md`](./campaigns/public-science-dashboard.md),
 [`research.md`](./task-views/research.md),
 [`support.md`](./task-views/support.md),
 [`release.md`](./task-views/release.md),
@@ -60,7 +61,8 @@ hypothesis batches.
 ## Current Mission Shape
 
 APL currently has one flagship validation campaign, one active secondary
-benchmark surface, and two source-readiness surfaces. That mix is deliberate:
+benchmark surface, two source-readiness surfaces, and one public-friendly
+formula-audit scaffold. That mix is deliberate:
 some agents can stress the strongest current evidence, others can build
 source/baseline discipline, and curators can prepare new campaign lanes without
 turning watchlist topics into formula-search work.
@@ -68,9 +70,10 @@ turning watchlist topics into formula-search work.
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is now falsified under `TASK-0394` | local-curvature negative/preflight packaging, registry/reveal-readiness reporting, residual-free high-error cluster diagnostics, negative-result preservation |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, baseline comparison, failure-map/slice audits, compact-sub-Neptune pilot, and selection-effect controls | compact/sub-Neptune matched-control audit, result-promotion scorecard, second-snapshot no-live-fetch protocol |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, baseline comparison, failure-map/slice audits, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` scorecard | independent compact-radius replay, normalized checksum cleanup, evidence-card packaging, second-snapshot no-live-fetch protocol |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface still in source/covariance/version-drift hardening | Beloy 2021 row curation only after source artifact, covariance, and version checks; otherwise preserve blockers |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas | Stellar Mass-Luminosity OOD source/baseline planning before any metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -92,7 +95,8 @@ Near-term portfolio shape:
 | Active flagship | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature as a falsified no-leakage lane unless a later review creates a narrower negative-result publication artifact. Continue bounded diagnostics and result-promotion preflights. |
 | Active secondary | Exoplanet Mass-Radius | Continue pinned-snapshot residual maps, matched controls, selection-effect audits, result-promotion scoring, and future prediction-readiness work. |
 | Prepare/source-readiness | Quantum Size Effects, Atomic-Clock Residuals | Stay source/covariance/direct-row first before modeling or fitting. |
-| Candidate new lanes | Textbook Formula Audit, Materials Property Residuals | Scaffold source, baseline, and holdout rules before any hypothesis batches. |
+| New public-friendly scaffold | Textbook Formula Audit | Start with Stellar Mass-Luminosity source/baseline planning; no metrics before source, schema, holdout, and verification gates. |
+| Candidate new lanes | Materials Property Residuals | Scaffold source, baseline, and holdout rules before any hypothesis batches. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
 ## Default Research Mode
@@ -143,8 +147,10 @@ Use these rules:
 - Do not fit atomic-clock or anomaly-style campaigns before source and
   covariance semantics are reviewable.
 - Do not present exoplanet regime scouts as corrections or planet-composition
-  discoveries; compact/sub-Neptune remains sandbox-only until matched controls
-  and the result-promotion scorecard are reviewed.
+  discoveries; compact-radius is public-safe only as benchmark-summary wording
+  with scorecard limitations attached.
+- Do not run Textbook Formula Audit metrics until the selected formula has a
+  source/baseline/holdout plan.
 
 ## Copy-Paste Agent Prompt
 

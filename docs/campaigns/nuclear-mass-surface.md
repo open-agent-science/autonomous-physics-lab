@@ -16,6 +16,29 @@ review, no-leakage falsification handling, no-peek reveal readiness,
 domain-limit mapping, and negative-result preservation, not new broad
 prediction waves.
 
+## Public Monitoring Snapshot
+
+**Current question:** which nuclear residual-feature families survive
+no-leakage controls, source-readiness gates, and future reveal discipline?
+
+**Shareable result:** APL tested `LOCAL-CURVATURE-001`, a promising
+local-curvature residual candidate, under a bounded no-leakage prototype and
+falsified it. This is useful negative scientific memory, not a failure of the
+campaign.
+
+**Not a claim:** APL has not found a nuclear mass formula, has not scored the
+frozen prospective registry against future measurements, and should not
+describe shell-axis or local-curvature evidence as discovery-level physics.
+
+**Active next work:** `TASK-0428` packages local-curvature as
+negative/inconclusive memory, `TASK-0395` tests residual-free high-error
+cluster labels, and `TASK-0396` keeps reveal-source readiness separate from
+retrospective audits.
+
+**Expected next result:** either a clean negative/preflight package for
+local-curvature or a bounded diagnostic result showing whether high-error
+cluster labels survive without residual leakage.
+
 ## Orientation Note for New Contributors
 
 This campaign started scaffold-first and now has a benchmark stack,

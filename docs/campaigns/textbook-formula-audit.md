@@ -52,6 +52,27 @@ covers source ingestion, baseline definition, and holdout policy for that
 slice. See `docs/notes/textbook-formula-audit-candidate-list.md` for the
 ordered candidate slate.
 
+## Public Monitoring Snapshot
+
+**Current question:** can APL audit famous formulas by source, range,
+assumptions, verification gates, and out-of-distribution failure maps without
+claiming universal truth or falsity?
+
+**Shareable result:** the campaign scaffold and candidate slate now exist.
+The first recommended slice is Stellar Mass-Luminosity OOD planning on Gaia
+DR3, because it is recognizable, public-data-backed, and naturally
+range-limited.
+
+**Not a claim:** no textbook formula audit has run yet. This campaign does
+not claim that any formula is globally right or wrong.
+
+**Active next work:** `TASK-0444` should turn the Stellar M-L proposal into a
+canonical source/baseline planning artifact. No metrics should run before the
+snapshot, schema, holdout, and verification gates are declared.
+
+**Expected next result:** a Gaia DR3 source/baseline plan that lets agents
+later run a range-aware M-L audit without improvising data or assumptions.
+
 ## Why It Matters
 
 The textbook formula surface is unique to APL's value proposition:

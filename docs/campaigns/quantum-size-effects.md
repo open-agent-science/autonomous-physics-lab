@@ -17,6 +17,28 @@ holdouts.
 This campaign is currently **scaffold-complete with source-manifest evidence,
 but not yet row-level benchmark-ready**.
 
+## Public Monitoring Snapshot
+
+**Current question:** can APL curate direct quantum-dot size/optical-property
+measurement rows before running attractive size-effect baselines?
+
+**Shareable result:** the campaign is intentionally blocked from benchmark
+metrics because committed rows are calibration-derived rather than direct
+measurement rows. That blocker is useful public scientific memory: it shows
+APL refusing to score a model against weak provenance.
+
+**Not a claim:** there is no quantum-dot size-effect benchmark result yet, no
+new material law, and no device, synthesis, biomedical, or design claim.
+
+**Active next work:** `TASK-0398` packages the Norris-Bawendi 1996
+digitization preflight, `TASK-0400` verifies the Kang-Wise 1997 PbS direct
+source path, and `TASK-0336` stays blocked until an approved source artifact
+exists.
+
+**Expected next result:** either a source artifact that unlocks direct row
+curation or a blocker review that prevents another weak source path from being
+repeated.
+
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
 reviewed source-manifest seed. `TASK-0281` and `TASK-0282` added two
