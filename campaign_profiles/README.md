@@ -31,6 +31,7 @@ contract.
 | `exoplanet-mass-radius.yaml` | `WHITELISTED_LIMITED` | Pinned-snapshot residual maps, matched controls, and source/baseline discipline for the active secondary campaign |
 | `quantum-size-effects.yaml` | `SOURCE_READINESS` | Direct-row/source-artifact readiness before baseline or hypothesis batches |
 | `particle-mass-relations.yaml` | `GUARDRAIL_ONLY` | Falsification-first and provenance-focused proposal work |
+| `textbook-formula-audit.yaml` | `SCAFFOLD` | Per-formula sandbox audits of textbook formulas against pinned public datasets; first slice queued is the Stellar Mass-Luminosity OOD audit |
 
 ## Review Rule
 

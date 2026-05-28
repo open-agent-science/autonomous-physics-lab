@@ -57,7 +57,7 @@ the newer campaigns can be stricter.
 | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning and source-policy layer. | Source-policy review or manifest-only triage for less-saturated data axes. |
 | [Anomaly Registry](./anomaly-registry.md) | Schema/admissibility scaffold, not a joint-fit campaign. | Schema validation, admissibility examples, or synthetic-only likelihood contracts. |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical benchmark run yet. | Scoped scenario planning and deterministic validator design. |
-| Textbook Formula Audit | Candidate scaffold task pending. | Audit famous formulas by source, range, assumptions, baseline, holdout, and OOD failure modes; do not frame as "checking all of physics." |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed (TASK-0438): campaign page, profile, candidate slate, and first follow-up task proposal (Stellar Mass-Luminosity OOD audit source/baseline planning). | Audit famous formulas by source, range, assumptions, baseline, holdout, and OOD failure modes; do not frame as "checking all of physics." Start the first audit slice by accepting the Stellar M-L source/baseline planning proposal. |
 | Materials Property Residuals | Candidate scaffold task pending. | Source-manifest, schema, pinned snapshot, and baseline planning before any property-residual modeling. |
 
 Do not turn planning surfaces into broad formula searches. A planning campaign
