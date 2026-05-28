@@ -5,6 +5,7 @@ from physics_lab.registry.snapshot import (
     build_snapshot_context,
     render_authority_notes,
     render_current_state_summary,
+    render_strategic_context_map,
 )
 
 
@@ -49,6 +50,22 @@ def test_render_current_state_summary_uses_structured_repository_state() -> None
     assert "`EXP-0012`" in rendered
 
 
+def test_render_strategic_context_map_explains_current_project_stage() -> None:
+    rendered = render_strategic_context_map(Path("."))
+
+    assert "### Strategic Snapshot Front Page" in rendered
+    assert "Current Architecture Stage" in rendered
+    assert "Campaign Motion" in rendered
+    assert "Scientific Memory Conveyor" in rendered
+    assert "Critical Files And Directories" in rendered
+    assert "`missions/current.yaml`" in rendered
+    assert "`docs/result-promotion-protocol.md`" in rendered
+    assert "`agent_runs/`" in rendered
+    assert "`results/`" in rendered
+    assert "nuclear-mass-surface" in rendered
+    assert "AGENT_PUBLISHED" in rendered or "AGENT_VALIDATED" in rendered
+
+
 def test_snapshot_script_open_pr_section_uses_pr_list_result() -> None:
     script = Path("scripts/apl_snapshot.sh").read_text(encoding="utf-8")
 
@@ -67,3 +84,20 @@ def test_snapshot_script_does_not_run_validation_commands() -> None:
     assert "ruff check" not in script
     assert "validate-repo" not in script
     assert "examples/pendulum.yaml" not in script
+
+
+def test_snapshot_script_includes_strategic_context_and_current_mission_docs() -> None:
+    script = Path("scripts/apl_snapshot.sh").read_text(encoding="utf-8")
+
+    assert 'section "Strategic Context For Agents"' in script
+    assert 'section "Task Registry Snapshot"' in script
+    assert 'section "Current Task Contracts"' in script
+    assert 'section "Repository Structure Map"' in script
+    assert "render_strategic_context_map" in script
+    assert "docs/current-missions.md" in script
+    assert "docs/result-promotion-protocol.md" in script
+    assert "docs/scientific-memory-review-tiers.md" in script
+    assert "Historical DONE and older PROPOSED task files" in script
+    assert "tasks/*.yaml" not in script
+    assert "tasks/proposals/*.yaml" not in script
+    assert "older task files omitted" in script

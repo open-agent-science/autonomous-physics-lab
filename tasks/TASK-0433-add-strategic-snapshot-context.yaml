@@ -1,0 +1,55 @@
+id: TASK-0433
+title: "Add strategic campaign context to repository snapshots"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make snapshots useful for strategy agents and campaign curators, not only archive audits."
+  - "Expose current campaign motion, workflow architecture, evidence tiers, and blockers in one compact front page."
+  - "Reduce stale-context risk after APL moved from sandbox-only work toward gated agent-published scientific memory."
+
+input:
+  mode: workflow
+  related_domain: snapshot_context
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - "physics_lab/registry/snapshot.py"
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/result-promotion-protocol.md"
+    - "agent_runs/"
+    - "results/"
+  planning_context: >
+    The existing snapshot is valuable as an archive, but strategy agents need a
+    shorter front page that explains how the project has changed: active
+    campaigns, mission recommendations, recent agent evidence, scientific-memory
+    review tiers, current READY/BLOCKED work, and the important files or
+    directories to inspect next.
+
+requirements:
+  - "Keep the snapshot script read-only and free of validation/test side effects."
+  - "Add a concise strategic context section before verbose archive dumps."
+  - "Summarize campaign motion from missions/current.yaml."
+  - "Summarize recent agent_runs, RESULT review tiers, prediction counts, and blocked-work context."
+  - "Include a critical-file map so new strategy agents know where architecture, protocols, campaigns, reviews, and results live."
+  - "Do not commit generated snapshot files."
+
+accepted_outputs:
+  - "scripts/apl_snapshot.sh includes a strategic context section"
+  - "physics_lab/registry/snapshot.py renders the strategic context map"
+  - "tests cover the new strategic snapshot section"
+
+validation:
+  commands:
+    - "python3 -m ruff check physics_lab/registry/snapshot.py tests/test_snapshot.py"
+    - "python3 -m pytest tests/test_snapshot.py"
+    - "APL_SNAPSHOT_DIR=/tmp/apl-snapshot-test ./scripts/apl_snapshot.sh"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
