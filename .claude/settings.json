@@ -88,8 +88,23 @@
       "Read(/private/tmp/claude-*/**)",
       "Write(/tmp/apl-*)",
       "Write(/tmp/apl-*/**)",
+      "Write(/tmp/apl-*.md)",
+      "Write(/private/tmp/apl-*)",
+      "Write(/private/tmp/apl-*/**)",
+      "Write(/private/tmp/apl-*.md)",
       "Edit(/tmp/apl-*)",
-      "Edit(/tmp/apl-*/**)"
+      "Edit(/tmp/apl-*/**)",
+      "Edit(/tmp/apl-*.md)",
+      "Edit(/private/tmp/apl-*)",
+      "Edit(/private/tmp/apl-*/**)",
+      "Edit(/private/tmp/apl-*.md)",
+      "Read(.claude/scratch/**)",
+      "Write(.claude/scratch/**)",
+      "Edit(.claude/scratch/**)"
+    ],
+    "additionalDirectories": [
+      "/tmp",
+      "/private/tmp"
     ]
   }
 }

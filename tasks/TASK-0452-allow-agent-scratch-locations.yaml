@@ -1,0 +1,71 @@
+id: TASK-0452
+title: "Add agent scratch directory and lift /tmp permission noise"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Reduce repeat permission prompts during agent task PR lifecycles."
+  - "Keep scratch artifacts separated from the audit-trail _snapshots/ directory."
+  - "Make the agent scratch convention discoverable and contributor-portable."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - ".claude/settings.json"
+    - ".gitignore"
+    - "CLAUDE.md"
+    - "docs/agent-task-protocol.md"
+    - "scripts/apl_task_pr_helper.py"
+    - "_snapshots/"
+  planning_context: >
+    Claude Code agents currently write PR-body scaffolds and other
+    throwaway artifacts under /tmp (for example
+    /tmp/apl-pr-body-0402.md). Two friction sources appeared during the
+    Atomic-Clock Residuals PR wave:
+
+    1. The harness blocked Write operations to /tmp paths with
+       "Path is outside allowed working directories", even though
+       .claude/settings.json already listed Write(/tmp/apl-*) in the
+       permission allowlist. The allowlist gates the policy decision;
+       the workspace boundary is a separate setting
+       (permissions.additionalDirectories).
+    2. The _snapshots/ directory was the only existing in-repo scratch
+       location, but it is reserved for apl_review_bundle.sh outputs
+       used as a review audit trail. Reusing it for PR-body scaffolds
+       would pollute that audit trail.
+
+    This task introduces a dedicated agent-scratch directory inside the
+    project (.claude/scratch/), gitignores its contents while
+    preserving the directory itself, registers the directory and the
+    /tmp/apl-*.md pattern explicitly in .claude/settings.json so future
+    agents and contributors do not hit the same prompts.
+
+requirements:
+  - "Add a dedicated .claude/scratch/ directory inside the project for agent throwaway artifacts."
+  - "Gitignore the directory's contents while keeping .gitkeep and README.md tracked, so contributors who clone fresh get the same convention."
+  - "Add a short .claude/scratch/README.md explaining that the directory is for agent scratch (PR-body scaffolds, helper notes), is gitignored, and must not be used as an audit-trail or as a publication surface."
+  - "Update .claude/settings.json to add permissions.additionalDirectories with /tmp and to extend permissions.allow with explicit Read/Write/Edit patterns for /tmp/apl-*.md and .claude/scratch/**, so the workspace boundary and the policy allowlist agree."
+  - "Do not change behavior of any committed scientific artifact, dataset, claim, knowledge entry, prediction, or canonical result."
+  - "Do not modify hooks or other sandbox-enforcing settings."
+
+accepted_outputs:
+  - ".claude/scratch/.gitkeep"
+  - ".claude/scratch/README.md"
+  - "updated .gitignore"
+  - "updated .claude/settings.json"
+  - "this canonical task file"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
