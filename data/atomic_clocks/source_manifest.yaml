@@ -73,8 +73,8 @@ source_families:
         lab: RIKEN
         epoch_start: null
         epoch_end: null
-        source_locator: https://arxiv.org/abs/1511.07738
-        archive_url: https://arxiv.org/pdf/1511.07738
+        source_locator: https://arxiv.org/abs/1403.5836
+        archive_url: https://arxiv.org/pdf/1403.5836
         retrieval_date: null
         checksum_sha256: null
         checksum_scope: not_yet_retrieved

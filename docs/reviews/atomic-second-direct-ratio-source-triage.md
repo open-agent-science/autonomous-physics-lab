@@ -24,10 +24,12 @@ must be satisfied by a future source-ingestion task before any row is
 committed.
 
 This document does **not** commit a source PDF, copy any clock value,
-record any uncertainty number, create or modify any
-`data/atomic_clocks/*.yaml`, change the source manifest template, fit
-any drift, derive any constants-variation constraint, write to the
-prediction registry, or promote any claim or knowledge entry.
+record any uncertainty number, create any value-bearing dataset row,
+change the source manifest template, fit any drift, derive any
+constants-variation constraint, write to the prediction registry, or
+promote any claim or knowledge entry. This PR adds a metadata-only
+aggregate source manifest so the candidate-selection decision is
+visible to future source-ingestion tasks without ingesting values.
 
 ## Candidate Sources Considered
 
@@ -37,7 +39,7 @@ BACON 2018 campaign behind Beloy 2021:
 
 | Candidate | Ratio | Lab | Year | Source class | Why considered |
 | --- | --- | --- | --- | --- | --- |
-| Nemitz, N., et al. | ⁸⁸Sr / ¹⁷¹Yb (neutral optical lattice clocks) | RIKEN (Japan) | 2016 | Primary frequency-ratio measurement paper | Same clock species as Beloy 2021 `Yb/Sr`; independent lab; published with explicit uncertainty budget; arXiv preprint available. Strongest direct cross-check for the Beloy `ACR-0001-ROW-003` row. |
+| Nemitz, N., et al. | ⁸⁷Sr / ¹⁷¹Yb (neutral optical lattice clocks) | RIKEN (Japan) | 2016 | Primary frequency-ratio measurement paper | Same clock species as Beloy 2021 `Yb/Sr`; independent lab; published with explicit uncertainty budget; arXiv preprint available. Strongest direct cross-check for the Beloy `ACR-0001-ROW-003` row. |
 | Pizzocaro, M., et al. | ¹⁷¹Yb / ⁸⁷Sr | INRIM (Italy) | 2020 | Primary frequency-ratio measurement paper | Same species pair as Beloy `Yb/Sr`; independent lab; published values. |
 | Lange, R., et al. | ¹⁷¹Yb⁺ E3 / ¹³³Cs | PTB (Germany) | 2021 | Primary frequency-ratio measurement paper | Independent lab, different clock species (Yb⁺ ion, not neutral Yb; Cs microwave reference). Useful for atomic-clock breadth, weaker for direct cross-check of Beloy. |
 | Schwarz, R., et al. | ¹⁷¹Yb⁺ E2 / ¹⁷¹Yb⁺ E3 | PTB (Germany) | 2020 | Within-ion clock-transition ratio | Same ion, different transitions; not a cross-clock comparison; weaker independence story. |
@@ -47,7 +49,7 @@ BACON 2018 campaign behind Beloy 2021:
 
 **Nemitz, N., et al. (RIKEN), "Frequency ratio of Yb and Sr clocks with
 5×10⁻¹⁷ uncertainty at 150 seconds averaging time", Nature Photonics
-10, 258 (2016); arXiv:1511.07738.**
+10, 258 (2016); arXiv:1403.5836.**
 
 Rationale:
 
@@ -82,26 +84,24 @@ review.**
 | Is there a checksum or archive policy? | Not yet — a checksum sidecar (analogous to `data/atomic_clocks/source_artifacts/2021-beloy-bacon/arxiv-2005.14694.sha256`) must be committed at ingestion time. |
 | What is the retrieval date? | Not yet — must be recorded at ingestion. |
 | Is the license recoverable? | The arXiv perpetual licence is the documented reusable path (same pattern as Beloy 2021); the Nature version-of-record PDF is publisher-restricted and must not be redistributed. |
-| Which transition, isotope, ratio partner, epoch? | Public metadata identifies the ratio as ⁸⁸Sr (or ⁸⁷Sr — to be confirmed at ingestion) optical lattice clock vs ¹⁷¹Yb optical lattice clock, RIKEN campaign 2014. Exact transition labels (`1S0_to_3P0`) and campaign window must be transcribed from the source artifact at ingestion. |
+| Which transition, isotope, ratio partner, epoch? | Public metadata identifies the ratio as ⁸⁷Sr optical lattice clock vs ¹⁷¹Yb optical lattice clock, RIKEN campaign 2014. Exact transition labels (`1S0_to_3P0`) and campaign window must be transcribed from the source artifact at ingestion. |
 | Uncertainty semantics and covariance notes recoverable? | The paper is known to report a per-systematic budget with statistical/systematic separation. The exact field names, asymmetric/symmetric handling, and per-systematic-component table can only be locked at ingestion under the `TASK-0344` contract. |
 | Is the row direct, derived, review-summary, or synthetic? | `direct_measurement` (single optical-clock-pair ratio measurement). |
 | Holdout / no-peek boundary? | Must be set at ingestion. The Beloy rows currently carry `holdout.split: unassigned`; the same gap applies here and remains Blocker 2 of `TASK-0401`. |
 
 ## Source-Manifest Decision
 
-`TASK-0403` lists `data/atomic_clocks/source_manifest.yaml` as a
-possible update target, but the file does not exist in the
-repository — only the template
-`data/atomic_clocks/source_manifest_template.yaml` is committed under
-`TASK-0327`. Creating a non-template manifest would be a structural
-campaign decision (single multi-source manifest vs per-source
-manifest), and it is outside the triage-only scope of this task.
+`TASK-0403` lists `data/atomic_clocks/source_manifest.yaml` as an
+accepted output. This PR therefore creates a metadata-only aggregate
+manifest that lists pinned and candidate source families, while keeping
+the value-bearing source artifact, checksum, provenance, row, and
+covariance work deferred to future ingestion tasks.
 
-**Decision:** do not create or update a source manifest in this PR.
-Defer to the future source-ingestion task to decide whether to use the
-template-shaped manifest pattern (one manifest per source family) or
-to introduce a campaign-level aggregate manifest. The decision is
-itself worth maintainer input.
+**Decision:** create `data/atomic_clocks/source_manifest.yaml` as a
+campaign-level routing manifest only. It records source status,
+locators, and blockers; it does not record measurement values,
+uncertainties, systematic components, benchmark metrics, predictions,
+claims, or results.
 
 ## Stop Conditions That Would Block Ingestion
 
@@ -175,8 +175,8 @@ This triage is metadata-only. It does not:
 - commit any source artifact, checksum sidecar, or provenance file;
 - copy any clock value, ratio, uncertainty number, or systematic
   component;
-- create or modify any `data/atomic_clocks/*.yaml` (including the
-  source manifest template);
+- create any new value-bearing `data/atomic_clocks/*.yaml` dataset row
+  or modify the source manifest template;
 - create, modify, or extend the synthetic-only loader at
   `physics_lab/engines/atomic_clock_residuals.py`;
 - create or modify any `prediction_registry/`, `claims/`,
@@ -190,7 +190,8 @@ This triage is metadata-only. It does not:
   source-triage workflow output.
 - **Canonical destination:**
   `docs/reviews/atomic-second-direct-ratio-source-triage.md` (this
-  file). Review-only artifact; no data files added.
+  file) and metadata-only `data/atomic_clocks/source_manifest.yaml`.
+  No value-bearing data rows are added.
 - **Review tier:** `none` (no `RESULT/PRED` tier applies).
 - **Gate A status:** `not_attempted` (no `RESULT/PRED` artifact
   proposed).
@@ -218,9 +219,9 @@ This triage is metadata-only. It does not:
   preference (e.g. broader species coverage via Lange 2021 Yb⁺/Cs)
   would be an acceptable scope change for the ingestion task; this
   triage is not a maintainer decision.
-- The triage does not create or update a source manifest file; that
-  structural decision is left for the maintainer-reviewed ingestion
-  task.
+- The triage creates a metadata-only aggregate source manifest entry
+  for the candidate, but does not create any value-bearing source
+  artifact, row, checksum, or covariance file.
 - The triage does not attempt to perform any value-on-value
   cross-source comparison between Beloy 2021 and the candidate; such
   comparison must live inside a future benchmark task with the
@@ -229,7 +230,7 @@ This triage is metadata-only. It does not:
 ## Verdict
 
 `CANDIDATE_TRIAGED_SOURCE_INGESTION_BLOCKED` (sandbox-only).
-**Nemitz, N., et al. (RIKEN), arXiv:1511.07738 / Nature Photonics 10,
+**Nemitz, N., et al. (RIKEN), arXiv:1403.5836 / Nature Photonics 10,
 258 (2016)** is the recommended candidate to resolve Blocker 4 of
 `TASK-0401`. Ingestion is intentionally deferred to a maintainer-
 reviewed follow-up task that will commit the source artifact, compute
