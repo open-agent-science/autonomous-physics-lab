@@ -182,18 +182,10 @@ def render_strategic_context_map(root: Path, *, recent_agent_run_limit: int = 8,
     lines = [
         "### Strategic Snapshot Front Page",
         "",
-        "Use this section first when briefing strategy, curator, review, or execution agents.",
-        "The archive sections later in the snapshot are supporting evidence, not the",
-        "fastest way to understand current project motion.",
-        "",
-        "#### Current Architecture Stage",
-        "",
-        "- APL has moved from sandbox-only experiments toward a gated scientific-memory conveyor.",
-        "- Current flow: `sandbox evidence -> AGENT_PUBLISHED result -> AGENT_VALIDATED replay -> maintainer-scoped claim review`.",
-        "- Campaign work is coordinated through `missions/current.yaml`, `campaign_profiles/`, `docs/campaigns/`, task queues, agent runs, review artifacts, and canonical results.",
-        "- Maintainers endorse interpretation; agents can publish reproducible evidence only when the task scope and Gate A/B rules allow it.",
+        "_Generated from structured repository files; use later archive sections for deep audit context._",
     ]
 
+    lines.extend(_render_repository_state_signals(entries, missions, agent_runs, result_tiers, prediction_count))
     lines.extend(_render_campaign_at_a_glance(missions))
     lines.extend(_render_recent_scientific_learnings(missions, agent_runs))
     lines.extend(_render_recommended_parallel_allocation(missions))
@@ -262,6 +254,33 @@ def _render_context_file_map(root: Path) -> list[str]:
         status = "present" if exists else "missing"
         lines.append(f"- `{path}` ({status}) — {description}.")
     return lines
+
+
+def _render_repository_state_signals(
+    entries: tuple,
+    missions: list[dict],
+    agent_runs: list[AgentRunSnapshot],
+    result_tiers: dict[str, int],
+    prediction_count: int,
+) -> list[str]:
+    status_counts: dict[str, int] = {}
+    for entry in entries:
+        status_counts[entry.status] = status_counts.get(entry.status, 0) + 1
+    tier_text = ", ".join(f"{tier} {count}" for tier, count in sorted(result_tiers.items())) or "none"
+    task_text = ", ".join(
+        f"{status} {status_counts.get(status, 0)}"
+        for status in ("READY", "REVIEW_READY", "BLOCKED", "DONE")
+    )
+    return [
+        "",
+        "#### Repository State Signals",
+        "",
+        f"- Campaign rows in `missions/current.yaml`: {len(missions)}.",
+        f"- Task status counts: {task_text}.",
+        f"- Recent agent-run artifacts included here: {len(agent_runs)}.",
+        f"- Canonical RESULT review tiers: {tier_text}.",
+        f"- Frozen prediction entries: {prediction_count}.",
+    ]
 
 
 def _render_campaign_at_a_glance(missions: list[dict]) -> list[str]:
