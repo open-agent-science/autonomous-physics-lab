@@ -75,12 +75,8 @@ requirements:
   - "Do not fit drift, derive constants-variation constraints, perform any value-on-value comparison with ACR-0001, create prediction_registry entries, or promote claims in this task."
 
 accepted_outputs:
-  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1511.07738.pdf"
-  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1511.07738.sha256"
-  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml"
-  - "data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml"
-  - "docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md"
-  - "updated data/atomic_clocks/source_manifest.yaml (Nemitz entry moved from triage_only to pinned)"
+  - "canonical task spec (TASK-XXXX) for the Nemitz 2016 source ingestion"
+  - "this proposal yaml under tasks/proposals/"
 
 validation:
   commands:
@@ -92,6 +88,15 @@ promotion:
   canonical_task_id: null
   decision: pending
   notes: |
+    Expected accepted outputs of the future canonical task (informational;
+    not artifacts of this proposal PR):
+      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1511.07738.pdf
+      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1511.07738.sha256
+      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml
+      - data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml
+      - docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md
+      - updated data/atomic_clocks/source_manifest.yaml (Nemitz entry moved from triage_only to pinned)
+
     Stop conditions for the future canonical task:
       - arXiv preprint vs Nature version-of-record disagree on any
         value-bearing field (SOURCE_ARTIFACT_VERSION_DRIFT per TASK-0372).
