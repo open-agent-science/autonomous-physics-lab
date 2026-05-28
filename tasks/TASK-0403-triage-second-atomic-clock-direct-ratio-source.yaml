@@ -1,7 +1,7 @@
 id: TASK-0403
 title: "Triage second atomic-clock direct-ratio source"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
