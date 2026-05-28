@@ -377,7 +377,7 @@ missions:
     status: active_secondary_benchmark
     scientific_value: medium
     risk: medium
-    recommendation: "Active secondary benchmark: complete matched controls, result-promotion scoring, and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
+    recommendation: "Active secondary benchmark: use the merged compact/sub-Neptune matched-control audit as sandbox-only evidence, then prioritize result-promotion scoring and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -389,7 +389,7 @@ missions:
       - "do not run mass-radius metrics before schema and holdout protocol exist"
       - "do not claim habitability, biosignatures, planet prioritization, or discovery of a universal planet law"
       - "do not mix true mass, minimum mass, and model-derived values without explicit row-class flags"
-      - "do not present compact/sub-Neptune residual pilots as control-surviving until TASK-0427 lands"
+      - "do not present compact/sub-Neptune matched-control survival as a canonical result, prediction, composition claim, or planet-law claim without result-promotion scoring and maintainer review"
     actions:
       - id: exoplanet-source-schema-scaffold
         label: "Scaffold exoplanet mass-radius source surface"
@@ -428,7 +428,7 @@ missions:
         label: "Compact/sub-Neptune matched-control audit landed (TASK-0427); follow-up is deeper compact-slice pilot or cross-tool Gate B replay"
         task_id: null
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
