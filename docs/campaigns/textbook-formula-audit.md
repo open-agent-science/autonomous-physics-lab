@@ -7,7 +7,7 @@ Stand up a verifier-first APL scientific campaign that audits well-known
 against modern open datasets, with explicit range, assumption, and
 out-of-distribution failure mapping.
 
-The target is **not** to "prove or disprove" any textbook formula in
+The target is **not** to validate or falsify any textbook formula in
 universal terms. The target is a disciplined per-formula benchmark surface
 where each audited formula is reported with:
 
@@ -76,7 +76,7 @@ dataset surfaces or hypothesis lanes.
 ## What This Campaign Does Not Do
 
 - It does **not** generate or claim new physical laws.
-- It does **not** attempt to "prove" any textbook formula universally.
+- It does **not** attempt to validate any textbook formula universally.
 - It does **not** make discovery claims about cosmology, fundamental
   constants, particle masses, or stellar evolution.
 - It does **not** infer composition, habitability, biosignatures, target
@@ -146,8 +146,9 @@ Each audit task must declare and pin:
 The following framings are forbidden in any audit produced under this
 campaign:
 
-- "We proved / disproved [textbook formula]." — every audit is per-slice and
-  per-range.
+- "We validated / falsified [textbook formula]." — every audit is per-slice and
+  per-range, and the per-slice verdict does not generalize to the formula as a
+  whole.
 - "[Textbook formula] is wrong / is right." — verdicts are scoped to the
   audited slice and the declared tolerance.
 - Any **discovery framing** ("APL discovered that X law fails for Y class")

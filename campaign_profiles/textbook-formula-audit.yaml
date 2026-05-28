@@ -41,7 +41,7 @@ required_quality_checks:
   - "State that no universal-law wording, application-domain inference, or discovery claim is produced."
 
 forbidden_claims:
-  - "Any audit proved or disproved a textbook formula in universal terms."
+  - "Any audit validated or falsified a textbook formula in universal terms."
   - "A single slice's pass or failure generalizes across the whole formula or to other formulas."
   - "Application-domain inference (composition, evolutionary fate, habitability, biosignatures, drug efficacy, target priority, treatment recommendation, biological body-plan generalization, etc.)."
   - "Discovery framing such as 'APL discovered that X formula fails for Y class'."
