@@ -10,7 +10,7 @@ python3 scripts/auto_run_next_task.py --max-turns 200
 The runner:
 
 - checks the local Claude Code budget using `scripts/check_claude_budget.py`;
-- reads `scripts/apl_mission.py --json`;
+- reads `scripts/apl_mission.py --output json`;
 - selects the highest-ranked `READY` task;
 - skips tasks that already have an open PR;
 - builds a task-execution prompt for Claude Code;

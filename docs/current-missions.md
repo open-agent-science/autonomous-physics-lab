@@ -6,7 +6,7 @@ The default path for a new coding agent is not "scan every file and pick
 something small." The default path is:
 
 ```bash
-python3 scripts/apl_mission.py --onboarding
+python3 scripts/apl_mission.py --output onboarding
 ```
 
 Onboarding mode should explain the current scientific mission, show a few
@@ -15,8 +15,11 @@ files. For autonomous agent context after the user already understands the
 flow, use:
 
 ```bash
-python3 scripts/apl_mission.py --agent-prompt
+python3 scripts/apl_mission.py --output agent
 ```
+
+The older `--onboarding` and `--agent-prompt` aliases are preserved for
+compatibility, but new docs should prefer the explicit `--output ...` form.
 
 Support, review, and closeout work remain explicit:
 
@@ -40,7 +43,7 @@ lighter navigation than the full generated board, use:
 **Nuclear Mass Surface** remains the flagship validation surface.
 
 Recommended default: start with the live `research` recommendation from
-`python3 scripts/apl_mission.py --onboarding`. The best default work is not
+`python3 scripts/apl_mission.py --output onboarding`. The best default work is not
 more broad formula expansion; it is source-readiness, stress synthesis,
 no-peek reveal discipline, domain-limit mapping, evidence packaging, and
 negative-result preservation. At handoff, agents should route the output
@@ -64,8 +67,8 @@ turning watchlist topics into formula-search work.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers | no-leakage implementation planning, registry/reveal-readiness reporting, high-error cluster adversarial stability, negative-result preservation |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, first baseline comparison, and inconclusive regime scout | residual failure-map packaging, true-mass slice audit, narrow matched-control regime follow-up |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is now falsified under `TASK-0394` | local-curvature negative/preflight packaging, registry/reveal-readiness reporting, residual-free high-error cluster diagnostics, negative-result preservation |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, baseline comparison, failure-map/slice audits, compact-sub-Neptune pilot, and selection-effect controls | compact/sub-Neptune matched-control audit, result-promotion scorecard, second-snapshot no-live-fetch protocol |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface still in source/covariance/version-drift hardening | Beloy 2021 row curation only after source artifact, covariance, and version checks; otherwise preserve blockers |
 
@@ -86,8 +89,8 @@ Near-term portfolio shape:
 
 | Portfolio role | Campaigns | Notes |
 | --- | --- | --- |
-| Active flagship | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Continue bounded diagnostics and result-promotion preflights. |
-| Active secondary | Exoplanet Mass-Radius | Continue pinned-snapshot residual maps, matched controls, selection-effect audits, and future prediction-readiness work. |
+| Active flagship | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature as a falsified no-leakage lane unless a later review creates a narrower negative-result publication artifact. Continue bounded diagnostics and result-promotion preflights. |
+| Active secondary | Exoplanet Mass-Radius | Continue pinned-snapshot residual maps, matched controls, selection-effect audits, result-promotion scoring, and future prediction-readiness work. |
 | Prepare/source-readiness | Quantum Size Effects, Atomic-Clock Residuals | Stay source/covariance/direct-row first before modeling or fitting. |
 | Candidate new lanes | Textbook Formula Audit, Materials Property Residuals | Scaffold source, baseline, and holdout rules before any hypothesis batches. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
@@ -133,19 +136,22 @@ Use these rules:
 - Do not run Nuclear reveal scoring until a source-grade post-freeze data
   release passes the reveal source gate.
 - Do not treat retrospective Nuclear audits as future blind validation.
+- Do not present `LOCAL-CURVATURE-001` as a surviving Nuclear no-leakage
+  candidate after `TASK-0394`; route it through negative/inconclusive memory.
 - Do not start the Quantum baseline benchmark until direct measurement rows or
   an explicit weaker calibration-consistency scope is approved.
 - Do not fit atomic-clock or anomaly-style campaigns before source and
   covariance semantics are reviewable.
 - Do not present exoplanet regime scouts as corrections or planet-composition
-  discoveries; the next public-safe artifact is a residual/failure map.
+  discoveries; compact/sub-Neptune remains sandbox-only until matched controls
+  and the result-promotion scorecard are reviewed.
 
 ## Copy-Paste Agent Prompt
 
 Generate the current prompt with:
 
 ```bash
-python3 scripts/apl_mission.py --agent-prompt
+python3 scripts/apl_mission.py --output agent
 ```
 
 Short onboarding version:
@@ -154,7 +160,7 @@ Short onboarding version:
 You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode with onboarding. Read AGENTS.md and
-docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --output onboarding`.
 Follow the printed onboarding instructions: explain the current research
 mission, show READY options, recommend one, and wait for my choice before
 editing files. Prefer a science-execution task over tooling or infrastructure

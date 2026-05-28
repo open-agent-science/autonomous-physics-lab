@@ -19,7 +19,7 @@ public scientific memory rather than isolated local chat artifacts.
 New contributors and coding agents should start from the mission script:
 
 ```bash
-python3 scripts/apl_mission.py --onboarding
+python3 scripts/apl_mission.py --output onboarding
 ```
 
 Onboarding mode keeps the first run human-friendly: it explains the current
@@ -39,7 +39,7 @@ normal contributor path research-first.
 For humans, the practical path is:
 
 1. read the short project pitch in [README.md](../README.md);
-2. run `python3 scripts/apl_mission.py --onboarding`;
+2. run `python3 scripts/apl_mission.py --output onboarding`;
 3. choose one `READY` task or ask the agent to explain the options;
 4. review the PR evidence and limitations before merge.
 
@@ -180,7 +180,7 @@ Low-risk contribution patterns right now:
 
 ## Read Order For New Contributors
 
-1. Run `python3 scripts/apl_mission.py --onboarding` for the current research-first mission.
+1. Run `python3 scripts/apl_mission.py --output onboarding` for the current research-first mission.
 2. [README.md](../README.md)
 3. [docs/current-missions.md](./current-missions.md)
 4. [docs/mission-control.md](./mission-control.md)

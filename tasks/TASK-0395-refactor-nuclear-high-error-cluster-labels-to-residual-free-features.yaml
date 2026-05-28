@@ -16,13 +16,16 @@ input:
   related_objects:
     - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
     - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
+    - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
     - "agent_runs/AGENT-RUN-0030/agent_run.yaml"
   planning_context: >
     The high-error cluster lane produced a notable retrospective delta MAE but
     failed stability checks and is not authorized for predictive use. A useful
     follow-up is to rebuild the cluster labels from residual-free nuclear
     features only, then rerun the relevant controls to decide whether the lane
-    should be retired or kept as diagnostic.
+    should be retired or kept as diagnostic. After TASK-0394 falsified the
+    local-curvature no-leakage candidate, this residual-free high-error audit
+    is the next non-duplicative Nuclear diagnostic lane.
 
 requirements:
   - "Define high-error cluster labels using only residual-free features such as Z, N, A, magic-number distance, parity, and committed uncertainty metadata."

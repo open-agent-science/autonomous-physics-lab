@@ -13,7 +13,7 @@ This page is the human-readable status surface. For the live task queue, run
 `python3 scripts/apl_mission.py` or use the generated task views.
 
 If you are deciding where to help, use this page for orientation and then let
-`python3 scripts/apl_mission.py --onboarding` choose from live `READY` tasks.
+`python3 scripts/apl_mission.py --output onboarding` choose from live `READY` tasks.
 This page should motivate the work; the task registry decides what is actually
 available.
 
@@ -23,10 +23,10 @@ APL is concentrating on four public-facing research surfaces:
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; next useful work is no-leakage implementation planning and reveal-readiness reporting |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; local-curvature no-leakage is now a falsified lane, so next useful work is negative/preflight packaging, residual-free diagnostics, and reveal-readiness reporting |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Direct measurement rows and source artifacts are still the gate |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Source artifact, covariance, and version checks before any real-row modeling |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Residual/failure-map packaging after an inconclusive first baseline and regime scout |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Matched-control audit, result-promotion scoring, and second-snapshot protocol after mixed/inconclusive residual scouts |
 
 Older and mature tracks still define the quality floor:
 [Pendulum](./campaigns/pendulum-formula-falsification.md),
@@ -60,9 +60,11 @@ Highlights:
 - `PRED-0001` through `PRED-0068` are frozen prospective nuclear predictions
   awaiting future maintainer-reviewed reveal data. They are forecasts, not
   current scientific wins.
-- Exoplanet Mass-Radius now has an inconclusive first baseline benchmark and
-  an inconclusive regime residual scout on the pinned PSCompPars snapshot.
-  These are useful failure-map inputs, not claims about planet composition.
+- Exoplanet Mass-Radius now has an inconclusive first baseline benchmark,
+  an inconclusive regime residual scout, a compact/sub-Neptune sandbox pilot,
+  and inconclusive matched-control or selection-effect audits on the pinned
+  PSCompPars snapshot. These are useful failure-map inputs, not claims about
+  planet composition.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete
@@ -79,7 +81,7 @@ shared campaign -> READY task -> agent branch -> deterministic check
 
 Important operating rules:
 
-- Agents should normally start with `python3 scripts/apl_mission.py --onboarding`.
+- Agents should normally start with `python3 scripts/apl_mission.py --output onboarding`.
 - Scientific work should prefer bounded hypothesis tests, replay, audit,
   source curation, and negative-result preservation.
 - Sandbox evidence stays sandbox-only unless a canonical task and maintainer

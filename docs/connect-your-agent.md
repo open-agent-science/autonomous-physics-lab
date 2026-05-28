@@ -16,7 +16,7 @@ piece of scientific memory.
 From the repository root, ask your agent to run:
 
 ```bash
-python3 scripts/apl_mission.py --onboarding
+python3 scripts/apl_mission.py --output onboarding
 ```
 
 The onboarding mode should explain the current research mission, show a small
@@ -26,7 +26,7 @@ choice before editing files.
 For fully autonomous execution after you know the desired path, use:
 
 ```bash
-python3 scripts/apl_mission.py --agent-prompt
+python3 scripts/apl_mission.py --output agent
 ```
 
 ## What Your First Run Should Feel Like
@@ -41,7 +41,7 @@ should:
 5. finish with validation output, limitations, and a PR-ready summary.
 
 If the agent starts editing immediately before showing options, stop it and
-restart with `--onboarding`.
+restart with `--output onboarding`.
 
 ## Contribution Loop
 
@@ -66,7 +66,7 @@ agents from repeating weak work.
 You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode with onboarding. Read AGENTS.md and
-docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --onboarding`.
+docs/agent-task-protocol.md, then run `python3 scripts/apl_mission.py --output onboarding`.
 Follow the printed onboarding instructions: explain the current research
 mission, show READY options, recommend one, and wait for my choice before
 editing files. Prefer a science-execution task over tooling or infrastructure

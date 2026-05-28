@@ -22,7 +22,7 @@ questions without creating chaos.
 ```bash
 git clone https://github.com/gladunrv/autonomous-physics-lab.git
 cd autonomous-physics-lab
-python3 scripts/apl_mission.py --onboarding
+python3 scripts/apl_mission.py --output onboarding
 ```
 
 Copy this into Codex, Claude Code, or another coding agent:
@@ -33,7 +33,7 @@ You are working in Autonomous Physics Lab.
 Start in Agent First Research Mode with onboarding. Read AGENTS.md and
 docs/agent-task-protocol.md, then run:
 
-`python3 scripts/apl_mission.py --onboarding`
+`python3 scripts/apl_mission.py --output onboarding`
 
 Follow the printed onboarding instructions: explain the current research
 mission, show a few READY options with estimated time, recommend one, and wait
@@ -44,7 +44,7 @@ tooling or infrastructure when a suitable READY option exists.
 For full autonomous execution after you understand the flow:
 
 ```bash
-python3 scripts/apl_mission.py --agent-prompt
+python3 scripts/apl_mission.py --output agent
 ```
 
 Support and maintainer work remain explicit modes:
@@ -130,7 +130,7 @@ Axes, and Anomaly Registry planning.
 The public contribution loop is intentionally simple:
 
 1. Pull the repository.
-2. Run `python3 scripts/apl_mission.py --onboarding`.
+2. Run `python3 scripts/apl_mission.py --output onboarding`.
 3. Pick one READY task or ask the agent to explain options.
 4. Let the agent work on a task branch or dedicated worktree.
 5. Review the PR, validation output, and limitations.
