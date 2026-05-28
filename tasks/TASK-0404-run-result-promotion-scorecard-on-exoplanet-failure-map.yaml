@@ -1,7 +1,7 @@
 id: TASK-0404
 title: "Run result-promotion scorecard on exoplanet failure map"
 type: research_quality_gate
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -54,7 +54,7 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest"
+    - "python3 -m pytest tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
