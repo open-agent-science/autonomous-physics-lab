@@ -77,6 +77,21 @@ def test_snapshot_script_open_pr_section_uses_pr_list_result() -> None:
     assert 'echo "No open pull requests."' in script
 
 
+def test_snapshot_docs_require_default_repo_local_output_for_handoff() -> None:
+    agents = Path("AGENTS.md").read_text(encoding="utf-8")
+    review_agent = Path("docs/maintainer-review-agent.md").read_text(encoding="utf-8")
+
+    assert "./scripts/apl_snapshot.sh" in agents
+    assert "canonical project-local `_snapshots/` directory" in agents
+    assert "`APL_SNAPSHOT_DIR=/tmp/...` only for disposable test runs" in agents
+    assert "never for the final" in agents
+    assert "snapshot you want the maintainer" in agents
+    assert "./scripts/apl_snapshot.sh" in review_agent
+    assert "written under `_snapshots/`" in review_agent
+    assert "do not use it for the" in review_agent
+    assert "final snapshot handoff" in review_agent
+
+
 def test_snapshot_script_does_not_run_validation_commands() -> None:
     script = Path("scripts/apl_snapshot.sh").read_text(encoding="utf-8")
 
