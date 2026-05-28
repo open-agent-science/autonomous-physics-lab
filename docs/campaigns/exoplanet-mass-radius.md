@@ -19,6 +19,28 @@ baseline comparison, residual/failure-map work, and several bounded residual
 audits. The campaign has useful reviewable sandbox evidence, but no claim,
 prediction registry entry, RESULT-*, or public article artifact yet.
 
+## Public Monitoring Snapshot
+
+**Current question:** where does a frozen Chen-Kipping-style mass-radius
+baseline fail on a pinned NASA Exoplanet Archive PSCompPars snapshot, and
+which residual slices survive matched controls?
+
+**Shareable result:** the compact-radius slice (`R < 1.5 R_earth`) is the
+strongest current matched-control survivor in the campaign. The promotion
+scorecard verdict is `BENCHMARK_SUMMARY_ONLY`.
+
+**Not a claim:** this does not infer composition, habitability, atmospheric
+physics, target priority, or a new mass-radius law. It is a benchmark
+diagnostic and failure-map surface.
+
+**Active next work:** `TASK-0393` defines a second-snapshot no-live-fetch
+protocol; `TASK-0445` should run an independent Gate B replay of the compact
+slice; `TASK-0446` should close the normalized-snapshot checksum gap; and
+`TASK-0447` should package a public-safe evidence card.
+
+**Expected next result:** a scientist-shareable evidence card backed by a
+cross-tool replay and a cleaner snapshot checksum trail.
+
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,
 normalized YAML, checksums, row-class labels, and inclusion/exclusion reasons.

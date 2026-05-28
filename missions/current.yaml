@@ -377,19 +377,21 @@ missions:
     status: active_secondary_benchmark
     scientific_value: medium
     risk: medium
-    recommendation: "Active secondary benchmark: use the merged compact/sub-Neptune matched-control audit as sandbox-only evidence, then prioritize result-promotion scoring and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
+    recommendation: "Active secondary benchmark: treat the compact-radius slice as a BENCHMARK_SUMMARY_ONLY diagnostic, then prioritize independent replay, checksum cleanup, evidence-card packaging, and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
       - "planet class, discovery method, host-star context, and measurement quality provide natural holdouts"
       - "the campaign can produce useful failure maps without claiming a new planet law"
       - "pinned PSCompPars snapshot, loader dry-run, first baseline, residual scouts, and selection-effect audits now exist"
+      - "TASK-0427 found the compact-radius slice (R < 1.5 R_earth) to be the strongest matched-control survivor"
+      - "TASK-0404 scored the current artifact set as BENCHMARK_SUMMARY_ONLY, not claim-candidate"
     forbidden:
       - "do not fetch live archive data before a pinned snapshot policy exists"
       - "do not run mass-radius metrics before schema and holdout protocol exist"
       - "do not claim habitability, biosignatures, planet prioritization, or discovery of a universal planet law"
       - "do not mix true mass, minimum mass, and model-derived values without explicit row-class flags"
-      - "do not present compact/sub-Neptune matched-control survival as a canonical result, prediction, composition claim, or planet-law claim without result-promotion scoring and maintainer review"
+      - "do not present compact/sub-Neptune matched-control survival as a canonical result, prediction, composition claim, habitability claim, or planet-law claim"
     actions:
       - id: exoplanet-source-schema-scaffold
         label: "Scaffold exoplanet mass-radius source surface"
@@ -456,10 +458,73 @@ missions:
         recommended: true
         expected_outputs:
           - "no-live-fetch protocol for future cross-snapshot or prediction-readiness work"
+      - id: exoplanet-compact-radius-independent-replay
+        label: "Run independent replay of compact-radius matched-control audit"
+        task_id: TASK-0445
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "independent replay verdict for scripts/run_exoplanet_compact_subneptune_matched_control_audit.py"
+          - "no claim promotion; benchmark-summary wording only"
+      - id: exoplanet-normalized-checksum-gap
+        label: "Close normalized PSCompPars snapshot checksum gap"
+        task_id: TASK-0446
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "stable normalized checksum semantics or explicit blocker review"
+          - "no live fetch and no row-value changes"
+      - id: exoplanet-benchmark-evidence-card
+        label: "Package shareable exoplanet benchmark evidence card"
+        task_id: TASK-0447
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "docs/results/exoplanet-compact-radius-benchmark-card.md"
+          - "scorecard-approved public wording with limitations attached"
+
+  - id: textbook-formula-audit
+    title: "Textbook Formula Audit"
+    rank: 5
+    status: active_scaffold
+    scientific_value: medium
+    risk: low
+    recommendation: "Prepare the first range-aware formula audit through Stellar Mass-Luminosity source/baseline planning before any metrics."
+    why_now:
+      - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
+      - "famous formulas are easy for contributors to understand and share"
+      - "each audit can be bounded by source, range, assumptions, verification gates, and OOD failure map"
+      - "Stellar Mass-Luminosity on Gaia DR3 is the best first slice because it is recognizable, public-data-backed, and naturally range-limited"
+    forbidden:
+      - "do not claim any textbook formula is universally right or wrong"
+      - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
+      - "do not turn this campaign into broad symbolic-regression or formula-discovery work"
+    actions:
+      - id: textbook-stellar-ml-source-baseline-plan
+        label: "Plan Stellar Mass-Luminosity OOD source and baseline"
+        task_id: TASK-0444
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "Gaia DR3 source/query plan without live fetch"
+          - "row schema, baseline parameters, holdout policy, and verification gates"
+          - "no audit metrics, result, claim, or discovery framing"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
-    rank: 5
+    rank: 6
     status: methodology_validation
     scientific_value: high
     risk: low
@@ -487,7 +552,7 @@ missions:
 
   - id: dimensional-validator
     title: "Dimensional Analysis Validator"
-    rank: 6
+    rank: 7
     status: quality_floor
     scientific_value: medium
     risk: low

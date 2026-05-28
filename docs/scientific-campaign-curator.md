@@ -33,6 +33,13 @@ what should advance, what should stop, which campaign pages and task queues
 need updates, which results deserve promotion or replay, and where agents
 should work next.
 
+When the maintainer asks to update documentation, campaign pages, or public
+science pages, the Director should make those updates in the repository. Public
+pages should be written for readers: useful results, evidence links, scope,
+limitations, and current campaign status. Put agent instructions,
+publication criteria, and workflow recommendations in protocol docs or task
+YAML instead of placing them on public dashboards.
+
 ## Global Objective
 
 The Director's global objective is to increase APL's scientific quality and
@@ -128,6 +135,10 @@ The Director produces a campaign brief with:
 - new-campaign or scaffold recommendations when relevant;
 - overclaim and public wording notes;
 - guardrails and source paths.
+
+If the output is a documentation update rather than a brief, preserve the
+same separation: public pages explain the science; protocol pages instruct
+agents.
 
 ## Authority Boundary
 

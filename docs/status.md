@@ -17,6 +17,9 @@ If you are deciding where to help, use this page for orientation and then let
 This page should motivate the work; the task registry decides what is actually
 available.
 
+For linkable, public-safe summaries of active campaign results, use the
+[Public Science Dashboard](./campaigns/public-science-dashboard.md).
+
 ## Current Focus
 
 APL is concentrating on four public-facing research surfaces:
@@ -26,7 +29,8 @@ APL is concentrating on four public-facing research surfaces:
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; local-curvature no-leakage is now a falsified lane, so next useful work is negative/preflight packaging, residual-free diagnostics, and reveal-readiness reporting |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Direct measurement rows and source artifacts are still the gate |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Source artifact, covariance, and version checks before any real-row modeling |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Matched-control audit, result-promotion scoring, and second-snapshot protocol after mixed/inconclusive residual scouts |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Compact-radius independent replay, normalized checksum cleanup, evidence card, and second-snapshot protocol after `BENCHMARK_SUMMARY_ONLY` scorecard |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign for famous formulas tested by source, range, assumptions, and OOD failure maps | Stellar Mass-Luminosity source/baseline planning before any Gaia DR3 metrics |
 
 Older and mature tracks still define the quality floor:
 [Pendulum](./campaigns/pendulum-formula-falsification.md),
@@ -60,11 +64,14 @@ Highlights:
 - `PRED-0001` through `PRED-0068` are frozen prospective nuclear predictions
   awaiting future maintainer-reviewed reveal data. They are forecasts, not
   current scientific wins.
-- Exoplanet Mass-Radius now has an inconclusive first baseline benchmark,
-  an inconclusive regime residual scout, a compact/sub-Neptune sandbox pilot,
-  and inconclusive matched-control or selection-effect audits on the pinned
-  PSCompPars snapshot. These are useful failure-map inputs, not claims about
+- Exoplanet Mass-Radius now has a pinned PSCompPars snapshot, an inconclusive
+  first baseline benchmark, residual/failure-map audits, a compact-radius
+  matched-control survivor, and a `BENCHMARK_SUMMARY_ONLY` scorecard. This is
+  the strongest current public-safe benchmark surface, not a claim about
   planet composition.
+- Textbook Formula Audit has a scaffold and ranked candidate slate. Its first
+  useful next step is Stellar Mass-Luminosity source/baseline planning, not an
+  audit run.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete

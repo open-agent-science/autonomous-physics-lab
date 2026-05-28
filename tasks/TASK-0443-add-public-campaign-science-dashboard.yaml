@@ -1,0 +1,57 @@
+id: TASK-0443
+title: "Add public campaign science dashboard and monitoring links"
+type: documentation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare APL's public repository surface so scientists can monitor active campaigns from README to campaign pages."
+  - "Make current scientific results legible without turning sandbox evidence into claims."
+  - "Connect campaign pages, review artifacts, and next tasks into one public-facing orientation layer."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_status
+  related_objects:
+    - "README.md"
+    - "docs/campaigns/README.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    The maintainer asked for a public-repo-ready way for scientists and
+    contributors to move from the main README into campaign pages and monitor
+    what each campaign is testing, what results exist, what is blocked, and
+    what agents are expected to test next.
+
+requirements:
+  - "Add a public science dashboard that summarizes active campaigns, current questions, existing evidence, active tasks, and expected next results."
+  - "Link the dashboard from README and the campaign map."
+  - "Add compact public monitoring snapshots to the main active campaign pages."
+  - "Keep the dashboard reader-facing: shareable result cards, evidence links, status, scope, and next visible artifacts."
+  - "Move process criteria, agent instructions, and publication-policy guidance into protocol docs rather than public dashboard copy."
+  - "Keep all wording benchmark/failure-map/source-gate oriented; do not use discovery, breakthrough, universal-law, habitability, or new-physics framing."
+  - "Do not commit generated task views or generated active-board files from this PR."
+
+accepted_outputs:
+  - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaign-curator-protocol.md or docs/scientific-campaign-curator.md if the public/protocol boundary needs clarification"
+  - "README.md"
+  - "docs/campaigns/README.md"
+  - "campaign page updates for Nuclear, Exoplanets, Quantum, Atomic, and Textbook Formula Audit"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
