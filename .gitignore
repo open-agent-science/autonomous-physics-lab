@@ -2,9 +2,6 @@
 .claude/settings.local.json
 .claude/worktrees/
 .claude/scheduled_tasks.lock
-.claude/scratch/*
-!.claude/scratch/.gitkeep
-!.claude/scratch/README.md
 __pycache__/
 .pytest_cache/
 .pytest-basetemp/

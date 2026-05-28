@@ -97,10 +97,7 @@
       "Edit(/tmp/apl-*.md)",
       "Edit(/private/tmp/apl-*)",
       "Edit(/private/tmp/apl-*/**)",
-      "Edit(/private/tmp/apl-*.md)",
-      "Read(.claude/scratch/**)",
-      "Write(.claude/scratch/**)",
-      "Edit(.claude/scratch/**)"
+      "Edit(/private/tmp/apl-*.md)"
     ],
     "additionalDirectories": [
       "/tmp",

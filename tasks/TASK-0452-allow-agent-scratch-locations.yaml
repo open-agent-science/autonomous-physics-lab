@@ -1,67 +1,53 @@
 id: TASK-0452
-title: "Add agent scratch directory and lift /tmp permission noise"
+title: "Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes"
 type: contributor_experience
 status: REVIEW_READY
 difficulty: low
 priority: medium
 
 strategy_alignment:
-  - "Reduce repeat permission prompts during agent task PR lifecycles."
-  - "Keep scratch artifacts separated from the audit-trail _snapshots/ directory."
-  - "Make the agent scratch convention discoverable and contributor-portable."
+  - "Reduce repeat permission prompts during Claude Code agent task PR lifecycles."
+  - "Keep the change scoped: configuration only, no new directories, no protocol/onboarding/script changes, no shared-namespace touch."
 
 input:
   mode: workflow
   related_domain: contributor_experience
   related_objects:
     - ".claude/settings.json"
-    - ".gitignore"
-    - "CLAUDE.md"
-    - "docs/agent-task-protocol.md"
     - "scripts/apl_task_pr_helper.py"
-    - "_snapshots/"
   planning_context: >
-    Claude Code agents currently write PR-body scaffolds and other
-    throwaway artifacts under /tmp (for example
-    /tmp/apl-pr-body-0402.md). Two friction sources appeared during the
-    Atomic-Clock Residuals PR wave:
+    Claude Code agents write PR-body scaffolds and other throwaway
+    artifacts under /tmp (for example /tmp/apl-pr-body-0402.md). The
+    harness blocked Write operations to /tmp paths with "Path is
+    outside allowed working directories", even though
+    .claude/settings.json already listed Write(/tmp/apl-*) in the
+    permission allowlist. The allowlist gates the policy decision; the
+    workspace boundary is a separate setting
+    (permissions.additionalDirectories). Fixing the boundary so the
+    existing allowlist actually executes is the smallest correct
+    change.
 
-    1. The harness blocked Write operations to /tmp paths with
-       "Path is outside allowed working directories", even though
-       .claude/settings.json already listed Write(/tmp/apl-*) in the
-       permission allowlist. The allowlist gates the policy decision;
-       the workspace boundary is a separate setting
-       (permissions.additionalDirectories).
-    2. The _snapshots/ directory was the only existing in-repo scratch
-       location, but it is reserved for apl_review_bundle.sh outputs
-       used as a review audit trail. Reusing it for PR-body scaffolds
-       would pollute that audit trail.
-
-    This task introduces a dedicated agent-scratch directory inside the
-    project (.claude/scratch/), gitignores its contents while
-    preserving the directory itself, registers the directory and the
-    /tmp/apl-*.md pattern explicitly in .claude/settings.json so future
-    agents and contributors do not hit the same prompts.
+    Earlier iterations of this task explored creating an in-repo
+    scratch directory (.claude/scratch/ or _agent-scratch/) and
+    updating CLAUDE.md, AGENTS.md, CODEX_TASK.md,
+    docs/agent-task-protocol.md, and docs/maintainer-review-agent.md.
+    Maintainer review preferred the minimal configuration-only fix:
+    no new directories to learn, no new conventions to teach, no
+    protocol surfaces touched, Codex and Windows users entirely
+    unaffected.
 
 requirements:
-  - "Add a dedicated .claude/scratch/ directory inside the project for agent throwaway artifacts."
-  - "Gitignore the directory's contents while keeping .gitkeep and README.md tracked, so contributors who clone fresh get the same convention."
-  - "Add a short .claude/scratch/README.md explaining that the directory is for agent scratch (PR-body scaffolds, helper notes), is gitignored, and must not be used as an audit-trail or as a publication surface."
-  - "Update .claude/settings.json to add permissions.additionalDirectories with /tmp and to extend permissions.allow with explicit Read/Write/Edit patterns for /tmp/apl-*.md and .claude/scratch/**, so the workspace boundary and the policy allowlist agree."
-  - "Update Claude-scoped onboarding/protocol surfaces so future Claude Code sessions discover the convention: CLAUDE.md (Agent Scratch Directory section), docs/agent-task-protocol.md (example body-file paths plus a tool-neutral note), docs/maintainer-review-agent.md (closeout body-file path)."
-  - "Keep .claude/ as a Claude Code namespace: do not push the Claude scratch convention into AGENTS.md or CODEX_TASK.md; Codex and other agents continue to use their own native scratch convention (e.g. ~/.codex/worktrees/)."
-  - "Document that .claude/scratch/ is a repo-relative forward-slash path portable across macOS/Linux/WSL/Git Bash/plain Windows for Claude Code, and that /tmp entries in additionalDirectories are a Unix-only backward-compat fallback that is a no-op on Windows."
+  - "Update .claude/settings.json to add permissions.additionalDirectories with /tmp and /private/tmp so the workspace boundary stops blocking writes the existing Write(/tmp/apl-*) allowlist already permits in policy."
+  - "Extend permissions.allow with explicit .md variants for /tmp/apl-* and /private/tmp/apl-* so the patterns cover the actual files agents write."
+  - "Do not create any new directory inside the repo (no .claude/scratch/, no _agent-scratch/)."
+  - "Do not modify CLAUDE.md, AGENTS.md, CODEX_TASK.md, docs/agent-task-protocol.md, docs/maintainer-review-agent.md, or any shared protocol surface."
+  - "Do not modify .gitignore."
+  - "Do not change scripts/apl_task_pr_helper.py or any helper default."
   - "Do not change behavior of any committed scientific artifact, dataset, claim, knowledge entry, prediction, or canonical result."
   - "Do not modify hooks or other sandbox-enforcing settings."
 
 accepted_outputs:
-  - ".claude/scratch/.gitkeep"
-  - ".claude/scratch/README.md"
-  - "updated .gitignore"
-  - "updated .claude/settings.json"
-  - "updated CLAUDE.md"
-  - "updated docs/agent-task-protocol.md"
-  - "updated docs/maintainer-review-agent.md"
+  - "updated .claude/settings.json (permissions.additionalDirectories + extended /tmp/apl-*.md allow patterns)"
   - "this canonical task file"
 
 validation:

@@ -23,20 +23,6 @@ Read these files first:
 5. `tasks/ACTIVE.md`
 6. `docs/strategy.md`
 
-## Agent Scratch Directory (Claude Code only)
-
-Write PR-body scaffolds and other throwaway artifacts under
-`.claude/scratch/`, not under `/tmp/` or `%TEMP%`. The directory is
-gitignored (see `.claude/scratch/README.md`) and registered in
-`.claude/settings.json` so writes do not trigger permission prompts.
-The path is repo-relative and portable across macOS, Linux, WSL, Git
-Bash, and plain Windows shells. `_snapshots/` is reserved for
-`./scripts/apl_review_bundle.sh` output (review audit trail) and must
-not be reused for scratch.
-
-This is a Claude Code convention. Codex and other agents use their
-own scratch path; the `.claude/` namespace is not theirs.
-
 Default to the recommended research mission unless the maintainer explicitly
 assigns a support, review, closeout, or specific `TASK-XXXX` workflow.
 For support work, run `python3 scripts/apl_mission.py --mode support`.
