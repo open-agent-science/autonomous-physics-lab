@@ -1,0 +1,138 @@
+proposal_id: 20260528-roman-ingest-nemitz-2016-yb-sr-source
+title: "Ingest Nemitz 2016 (RIKEN Yb/Sr) as second atomic direct-ratio source"
+status: PROPOSED
+type: scientific_dataset
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Resolve TASK-0401 Blocker 4 (single-source replay risk) by committing a second independent atomic-clock direct-ratio source."
+  - "Move Atomic-Clock Residuals from PINNED_DATASET toward BASELINE_READY in a reviewable, source-discipline-preserving step."
+  - "Establish a value-on-value cross-check candidate for the load-bearing Beloy 2021 Yb/Sr row (ACR-0001-ROW-003) before any benchmark consumer touches it."
+
+summary: >
+  Commit the Nemitz et al. 2016 (RIKEN) arXiv preprint and a fresh
+  ACR-0002 dataset of direct Yb/Sr frequency-ratio rows under the same
+  source-readiness and uncertainty-discipline contracts already used
+  for the Beloy 2021 / BACON ingestion (TASK-0363 / TASK-0371).
+
+rationale: >
+  TASK-0403 triaged candidate independent direct-ratio sources for the
+  Atomic-Clock Residuals campaign and selected Nemitz, N., et al.,
+  "Frequency ratio of Yb and Sr clocks with 5×10⁻¹⁷ uncertainty at 150
+  seconds averaging time", Nature Photonics 10, 258 (2016) /
+  arXiv:1403.5836 as the strongest cross-check for the Beloy 2021
+  Yb/Sr row (same species pair, independent lab, arXiv-redistributable
+  preprint). The triage explicitly deferred ingestion to a follow-up
+  task because committing source artifacts, computing checksums,
+  recording retrieval/license, transcribing per-systematic budget under
+  the TASK-0344 contract, and running an arXiv-vs-Nature version-drift
+  cross-check together constitute their own reviewable scope.
+
+  This proposal turns that follow-up step into a canonical TASK request.
+  Until it lands, the Atomic-Clock Residuals campaign remains
+  single-source and TASK-0401 Blocker 4 stays open, blocking any
+  BASELINE_READY promotion or cross-source value comparison.
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-second-direct-ratio-source-triage.md"
+    - "data/atomic_clocks/source_manifest.yaml"
+    - "docs/reviews/atomic-beloy-2021-row-readiness-recheck.md"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "docs/reviews/atomic-clock-source-artifact-version-drift-stop-condition.md"
+    - "docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md"
+    - "docs/reviews/atomic-clock-beloy-2021-direct-ratio-row-curation.md"
+    - "data/atomic_clocks/source_artifacts/2021-beloy-bacon/provenance.yaml"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/schema.md"
+  planning_context: >
+    The ingestion task must follow the TASK-0363 / TASK-0371 layout
+    that the Beloy 2021 artifact used: a committed PDF + sidecar
+    SHA-256 + provenance.yaml under
+    data/atomic_clocks/source_artifacts/2016-nemitz-riken/, plus a
+    fresh ACR-0002 dataset YAML carrying one or more direct-measurement
+    rows that pass the TASK-0344 uncertainty contract. The arXiv-vs-
+    Nature version-drift cross-check from TASK-0372 must run before any
+    row is committed; if a drift is detected, the task halts and
+    records a blocker review.
+
+requirements:
+  - "Commit the arXiv preprint PDF (arXiv:1403.5836) under data/atomic_clocks/source_artifacts/2016-nemitz-riken/ with a sidecar SHA-256 file."
+  - "Add provenance.yaml recording retrieval date, license (arXiv perpetual), and a maintainer-side arXiv-vs-Nature version-drift cross-check verdict per TASK-0372."
+  - "Do not commit the Nature Photonics version-of-record PDF; cite it by DOI only."
+  - "Add a fresh dataset id ACR-0002-NEMITZ-2016-DIRECT-RATIO under data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml following the same row shape as ACR-0001-BELOY-2021-DIRECT-RATIOS."
+  - "For every committed row, satisfy the full TASK-0344 uncertainty-semantics contract: total (with basis), statistical, systematic, per-systematic component breakdown, confidence_level_label, bound_style, covariance_reference, asymmetric handling when applicable."
+  - "Label every row sandbox-only with benchmark_allowed/drift_fitting_allowed/derived_constants_constraint_allowed/claim_promotion_allowed/prediction_registry_allowed all set to false."
+  - "Update data/atomic_clocks/source_manifest.yaml to move the Nemitz entry from triage_only_no_values to pinned with the new dataset path and checksum."
+  - "Write docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md applying the TASK-0332 readiness gate to the new dataset, analogous to docs/reviews/atomic-beloy-2021-row-readiness-recheck.md."
+  - "Run validate-repo --strict --fail-on-warnings, pytest, and ruff before handoff; clean any auto-synced docs/task-views/* and tasks/ACTIVE.md before commit."
+  - "Do not fit drift, derive constants-variation constraints, perform any value-on-value comparison with ACR-0001, create prediction_registry entries, or promote claims in this task."
+
+accepted_outputs:
+  - "canonical task spec (TASK-XXXX) for the Nemitz 2016 source ingestion"
+  - "this proposal yaml under tasks/proposals/"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: |
+    Expected accepted outputs of the future canonical task (informational;
+    not artifacts of this proposal PR):
+      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1403.5836.pdf
+      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1403.5836.sha256
+      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml
+      - data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml
+      - docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md
+      - updated data/atomic_clocks/source_manifest.yaml (Nemitz entry moved from triage_only to pinned)
+
+    Stop conditions for the future canonical task:
+      - arXiv preprint vs Nature version-of-record disagree on any
+        value-bearing field (SOURCE_ARTIFACT_VERSION_DRIFT per TASK-0372).
+      - Per-systematic uncertainty budget cannot be transcribed under the
+        TASK-0344 contract without inferring from plots.
+      - License or reuse terms for the chosen archive are not explicitly
+        resolvable.
+      - Holdout / no-peek freeze manifest cannot be set before commit.
+      - Direct/derived row classes mix inside the source (e.g. paper also
+        reports a derived constants-variation constraint without flags).
+
+    Non-goals:
+      - Cross-source value-on-value comparison between Beloy 2021 Yb/Sr
+        and Nemitz 2016 Yb/Sr.
+      - Any benchmark, drift fit, constants-variation constraint, or
+        prediction_registry entry.
+      - Promotion of TASK-0401 from PINNED_DATASET to BASELINE_READY
+        (still blocked on holdout manifest and real-row loader).
+      - Schema or loader code changes to
+        physics_lab/engines/atomic_clock_residuals.py (out of scope;
+        the synthetic-only loader gap is its own follow-up).
+
+    Dependencies resolved by this task:
+      - TASK-0401 Blocker 4 (single-source replay risk) is fully resolved
+        when this task is DONE.
+
+    Dependencies not resolved by this task:
+      - TASK-0401 Blocker 1 (cross-ratio covariance) — already addressed
+        by TASK-0402 for the Beloy dataset; the Nemitz dataset will need
+        its own covariance treatment if/when it has multiple ratios.
+      - TASK-0401 Blocker 2 (holdout / no-peek freeze manifest) — still
+        open campaign-wide.
+      - TASK-0401 Blocker 3 (real-row loader path) — still open; a
+        separate task should extend
+        physics_lab/engines/atomic_clock_residuals.py to accept
+        direct_measurement rows.
+
+    Estimated effort: 1–2 hours focused work; medium difficulty due to
+    source-artifact provenance and uncertainty-semantics transcription.
