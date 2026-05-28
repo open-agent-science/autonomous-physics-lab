@@ -25,5 +25,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0404` - Run result-promotion scorecard on exoplanet failure map (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0438` - Scaffold Textbook Formula Audit campaign (`campaign_scaffold`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.
