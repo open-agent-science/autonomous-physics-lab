@@ -1,0 +1,75 @@
+proposal_id: 20260528-roman-stellar-mass-luminosity-ood-source-baseline-planning
+title: "Plan Stellar Mass-Luminosity OOD audit source and baseline"
+status: PROPOSED
+type: scientific_dataset
+priority: high
+
+proposed_by:
+  contributor_id: "roman"
+  agent_id: "claude-code"
+
+strategy_alignment:
+  - "Bootstrap the first concrete audit slice under the Textbook Formula Audit campaign without authorizing audit execution yet."
+  - "Pin a Gaia DR3 main-sequence source surface that can serve both the Stellar Mass-Luminosity audit and the future Stefan-Boltzmann audit."
+  - "Establish per-formula source/baseline planning discipline as the standard first step of every textbook-formula-audit candidate."
+
+summary: >
+  Plan the source, baseline, holdout policy, and verification-gate slate for
+  the Stellar Mass-Luminosity (M-L) out-of-distribution audit on Gaia DR3
+  main-sequence stars. Planning-only task: no audit run, no metrics, no
+  result artifact produced. The output is a source/baseline planning
+  artifact that a subsequent execution task can rely on.
+
+rationale: >
+  TASK-0438 scaffolds the Textbook Formula Audit campaign and identifies the
+  Stellar M-L OOD audit as the first recommended slice (see
+  docs/notes/textbook-formula-audit-candidate-list.md). The campaign profile
+  (campaign_profiles/textbook-formula-audit.yaml) requires per-audit
+  declaration of the dataset snapshot, row schema, inclusion/exclusion
+  filter, frozen baseline, holdout policy, and verification-gate slate
+  before any audit runs. This proposal exists to do that planning step for
+  the M-L audit as a standalone, reviewable artifact.
+
+  Because Gaia DR3 is also the dataset surface for the future
+  Stefan-Boltzmann audit (slate item 4), the planning artifact must be
+  shaped so the same snapshot can serve both audits without re-ingestion.
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "campaign_profiles/textbook-formula-audit.yaml"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/research-quality-gate.md"
+  planning_context: >
+    The audit target is the standard main-sequence L = L0 * (M/M_sun)^alpha
+    relation, with documented piecewise alpha by mass range (alpha ~= 2.3
+    for M < 0.43 M_sun, alpha ~= 4 for 0.43-2 M_sun, alpha ~= 3.5 for 2-20
+    M_sun, alpha ~= 1 above 55 M_sun; see Salaris and Cassisi 2005). The
+    audit must report per-mass-range verdicts, not a single global alpha
+    fit. The planning artifact should declare which mass bins are train,
+    which are holdout, and how rows outside the main sequence are excluded.
+
+requirements:
+  - "Identify the exact Gaia DR3 query producing the candidate stellar sample with the columns required for the audit (gaia_source.source_id, gaia_source.parallax / parallax_error, gaia_source.phot_g_mean_mag, gaia_source.bp_rp, derived mass and luminosity, quality flags). No live fetch may be run as part of this planning task; the task only declares the query."
+  - "Declare the minimum row schema for the snapshot: source_id, parallax, parallax error, derived L, derived M, derived M uncertainty, derived L uncertainty, metallicity proxy where available, evolutionary-stage flag where available, provenance fields."
+  - "Declare the inclusion/exclusion filter chain: main-sequence restriction, quality-flag floor, parallax-uncertainty cap, metallicity range, and explicit reasons for each exclusion."
+  - "Declare the frozen baseline formula's parameter values per mass bin with primary-source references (Salaris and Cassisi 2005 or equivalent), and forbid in-task refit on the full snapshot."
+  - "Declare the holdout policy: by mass bin, by metallicity quartile, by evolutionary stage, or a combination; pre- and post-filter row counts per bin."
+  - "Declare the verification-gate slate that the future audit runner must apply: dimensional consistency on L vs M units, monotonicity in mass within each bin, limiting behaviour at low and high mass, asymptotic alignment at the convective-radiative boundary, and per-bin tolerance values."
+  - "Forbid any audit execution, metric computation, claim wording, or discovery framing in this task. The task output is a planning artifact only."
+  - "Preserve negative outcomes (e.g. 'no published parameter set is admissible for the audit slate') as valid planning verdicts."
+
+accepted_outputs:
+  - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md (or a similarly-named planning artifact under docs/campaigns/ or docs/notes/)"
+  - "An updated docs/notes/textbook-formula-audit-candidate-list.md cross-reference if the plan changes the slate ordering"
+  - "An optional explicit blocker review if the Gaia DR3 main-sequence subset cannot be pinned per the policy"
+  - "No audit RESULT, PRED, CLAIM, KNOW artifact"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"

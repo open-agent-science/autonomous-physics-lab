@@ -1,0 +1,89 @@
+id: textbook-formula-audit
+title: "Textbook Formula Audit"
+autonomy_status: SCAFFOLD
+pilot_rank: 7
+
+source_docs:
+  - docs/campaigns/textbook-formula-audit.md
+  - docs/notes/textbook-formula-audit-candidate-list.md
+  - docs/result-promotion-protocol.md
+  - docs/research-quality-gate.md
+  - docs/strategy.md
+
+allowed_hypothesis_families:
+  - "Published textbook or canonical formula candidates with named primary source, declared validity range, and named independent variables."
+  - "Compact agent-proposed range or boundary modifications of a published formula that add no new free parameters fit on the full snapshot."
+  - "Null-baseline floors (per-slice median, per-class median, constant offset) that quantify a minimum non-trivial signal against which the audited formula is compared."
+  - "Negative-control candidates that intentionally collapse one diagnostic axis (e.g. shuffled-label, uncertainty-equalized subset)."
+
+allowed_experiment_families:
+  - "Deterministic per-slice residual replay of a frozen textbook formula against a pinned public catalog or compendium snapshot."
+  - "Baseline-versus-null-baseline comparisons under the committed inclusion/exclusion filter chain."
+  - "Sandbox-only matched-control audits that preserve explicit negative, inconclusive, or control-sensitive results."
+  - "Verification-gate runs (dimensional consistency, limiting behaviour, asymptotic alignment, monotonicity, evenness, separatrix where relevant) applied to the audited formula."
+
+required_inputs:
+  - "Pinned dataset snapshot source, version, and SHA-256 checksum policy."
+  - "Row schema with explicit units, uncertainty semantics, and provenance fields."
+  - "Frozen baseline formula with published primary-source reference and explicit parameter values."
+  - "Reviewed inclusion/exclusion filter chain with pre- and post-filter row counts."
+  - "Declared holdout policy (which rows are train, which are test, and along which axis)."
+  - "Declared verification-gate slate with per-gate tolerance values."
+  - "No live external fetch."
+
+required_quality_checks:
+  - "Report pre-filter and post-filter row counts before any metric is computed."
+  - "Report per-slice metrics and per-class or per-method subset behaviour, not aggregate fit alone."
+  - "Apply each declared verification gate and record PASS or FAIL with numeric margin."
+  - "Build at least one matched control or one deterministic negative control per interpreted slice."
+  - "Preserve negative, inconclusive, or null-beats-baseline outcomes as valid review surfaces."
+  - "Run the shared research quality gate before any later autonomy PR handoff."
+  - "State that no universal-law wording, application-domain inference, or discovery claim is produced."
+
+forbidden_claims:
+  - "Any audit proved or disproved a textbook formula in universal terms."
+  - "A single slice's pass or failure generalizes across the whole formula or to other formulas."
+  - "Application-domain inference (composition, evolutionary fate, habitability, biosignatures, drug efficacy, target priority, treatment recommendation, biological body-plan generalization, etc.)."
+  - "Discovery framing such as 'APL discovered that X formula fails for Y class'."
+  - "Universal physical-law statements derived from any audit slice."
+  - "Refitting a frozen baseline formula on the full snapshot inside an audit task."
+  - "Live external fetch that bypasses snapshot pinning."
+  - "Auto-promotion of any audited formula's CLAIM status (claim endorsement remains maintainer-only)."
+
+sandbox_permissions:
+  may_create:
+    - scoped_notes
+    - candidate_triage_notes
+    - future_hypothesis_proposals
+    - future_experiment_proposals
+    - sandbox_agent_run_outputs
+  must_not_edit:
+    - claims
+    - knowledge
+    - canonical_hypotheses
+    - canonical_experiments
+    - canonical_results
+    - golden_results
+    - other_campaign_dataset_snapshots
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - audited_formula_id
+  - audited_formula_primary_source
+  - dataset_source_and_version
+  - baseline_definition
+  - filter_chain_reference
+  - holdout_policy_reference
+  - verification_gate_slate
+  - per_slice_metrics
+  - matched_or_negative_controls
+  - limitations
+  - verdict
+  - maintainer_decision_requested

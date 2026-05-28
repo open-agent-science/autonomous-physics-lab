@@ -1,7 +1,7 @@
 id: TASK-0438
 title: "Scaffold Textbook Formula Audit campaign"
 type: campaign_scaffold
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -38,6 +38,8 @@ accepted_outputs:
 
 validation:
   commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_research_proposals.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
