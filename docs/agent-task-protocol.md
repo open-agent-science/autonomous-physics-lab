@@ -352,12 +352,14 @@ python3 scripts/apl_review_pr.py --pr <number>
 gh pr ready <number>
 ```
 
-Agent scratch artifacts such as PR-body scaffolds should live under
-`.claude/scratch/` (gitignored; see `.claude/scratch/README.md`). The
-directory is registered in `.claude/settings.json` so writes do not
-prompt the user. `_snapshots/` is reserved for
-`./scripts/apl_review_bundle.sh` output (review audit trail) and must
-not be reused for scratch.
+Agent scratch artifacts such as PR-body scaffolds belong in a
+per-tool scratch location, not in `_snapshots/` (which is reserved for
+`./scripts/apl_review_bundle.sh` output / maintainer review audit
+trail). Claude Code agents use `.claude/scratch/` (see
+`.claude/scratch/README.md` and `CLAUDE.md`). Codex and other agents
+should use their own native scratch convention. The example commands
+below use `.claude/scratch/apl-pr-body.md`; substitute the
+tool-appropriate scratch path.
 
 The agent should also offer to help the maintainer set up access, for example
 by suggesting `gh auth login` or a `GH_TOKEN`/`GITHUB_TOKEN`, but setup is not
