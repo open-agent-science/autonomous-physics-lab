@@ -13,6 +13,7 @@
 - `TASK-0432` - Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0437` - Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
 - `TASK-0440` - Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `agent_capacity`)
+- `TASK-0447` - Package exoplanet benchmark evidence card (`documentation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 

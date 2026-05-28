@@ -64,6 +64,10 @@ one PR.
 - `TASK-0437` — Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0439` — Scaffold Materials Property Residuals campaign (`campaign_scaffold`, priority `medium`, difficulty `medium`)
 - `TASK-0440` — Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0444` — Plan Stellar Mass-Luminosity OOD source and baseline (`scientific_dataset`, priority `high`, difficulty `medium`)
+- `TASK-0445` — Run independent replay of exoplanet compact-radius matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0446` — Close exoplanet normalized-snapshot checksum gap (`scientific_dataset`, priority `medium`, difficulty `medium`)
+- `TASK-0447` — Package exoplanet benchmark evidence card (`documentation`, priority `high`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -79,6 +83,7 @@ None.
 - `TASK-0438` — Scaffold Textbook Formula Audit campaign (`campaign_scaffold`, priority `high`, difficulty `medium`)
 - `TASK-0441` — Upgrade Scientific Campaign Curator into Scientific Campaign Director role (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0442` — Sync campaign guidance after director review (`documentation`, priority `high`, difficulty `low`)
+- `TASK-0443` — Add public campaign science dashboard and monitoring links (`documentation`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
