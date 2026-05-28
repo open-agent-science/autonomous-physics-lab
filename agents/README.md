@@ -76,8 +76,9 @@ role, the agent:
 1. Matches the request against the `activation.intent` of each role
    file. Activation is **concept-based**, not phrase-based: any
    natural-language wording in any language that expresses the same
-   intent should fire the role. The `activation.example_phrases` list
-   in each role file is informational only.
+   intent should fire the role. Do not encode or depend on literal translated
+   phrases for non-English requests. The `activation.example_phrases` list in
+   each role file is informational only.
 2. Loads the role's `required_reading` list.
 3. Applies the role's `scope`, `goals`, `restrictions`, and
    `cadence` for the rest of the session.

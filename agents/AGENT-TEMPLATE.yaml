@@ -14,7 +14,8 @@ activation:
   intent: |
     Language-agnostic concept describing what the user is asking for when
     invoking this role. The agent should match this concept regardless of
-    the language or exact wording of the request.
+    the language or exact wording of the request. Do not depend on literal
+    translated phrases.
   example_phrases:                  # informational only; not authoritative
     - "act as <role>"
     - "switch to <role> mode"

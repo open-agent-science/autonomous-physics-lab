@@ -167,6 +167,23 @@ class TestRoleFileConformance:
                 f"{role_file.name}: scripts_to_use entry {entry!r} does not exist"
             )
 
+    @pytest.mark.parametrize("role_file", _role_files(), ids=lambda p: p.name)
+    def test_activation_intent_is_concept_based_and_multilingual(
+        self, role_file: Path
+    ) -> None:
+        payload = _load_yaml(role_file)
+        intent = payload["activation"]["intent"].lower()
+        assert "concept" in intent, (
+            f"{role_file.name}: activation.intent must explicitly say role "
+            "matching is concept-based."
+        )
+        assert "any language" in intent, (
+            f"{role_file.name}: activation.intent must apply to any language."
+        )
+        assert "exact wording" in intent, (
+            f"{role_file.name}: activation.intent must not depend on exact wording."
+        )
+
 
 # ---------------------------------------------------------------------------
 # Required active roles
