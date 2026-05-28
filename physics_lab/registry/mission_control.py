@@ -15,6 +15,7 @@ from physics_lab.registry.tasks import load_task
 
 
 SUPPORTED_MODES = ("research", "audit", "support", "maintainer")
+SUPPORTED_MISSION_OUTPUTS = ("human", "json", "agent", "onboarding")
 PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2}
 DIFFICULTY_RANK = {"low": 0, "medium": 1, "high": 2}
 DIFFICULTY_TIME_ESTIMATES = {
@@ -585,8 +586,9 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
         [
             "",
             "Suggested commands:",
-            "- python3 scripts/apl_mission.py --json",
-            "- python3 scripts/apl_mission.py --agent-prompt",
+            "- python3 scripts/apl_mission.py --output json",
+            "- python3 scripts/apl_mission.py --output agent",
+            "- python3 scripts/apl_mission.py --output onboarding",
             "- python3 scripts/apl_mission.py --mode support",
             "- python3 scripts/apl_mission.py --mode maintainer",
         ]

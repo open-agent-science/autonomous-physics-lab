@@ -44,12 +44,13 @@ audits, refactoring proposals, and agent-role organisation.
 Pre-merge pull-request review and post-merge task closeout. Returns an
 explicit verdict; never merges.
 
-### [Scientific Campaign Curator](scientific-curator.yaml)
+### [Scientific Campaign Director](scientific-curator.yaml)
 
-Campaign-level research brief assistant. Summarises what a campaign has
-learned, which directions look promising, and what should run next.
-Leads campaigns toward significant scientific results, not toward task
-throughput.
+Campaign-level scientific direction assistant. Also responds to the older
+Scientific Campaign Curator / campaign-curator aliases. It summarises what a
+campaign has learned, maintains campaign-page and mission hygiene, recommends
+promotion/replay/do-not-promote decisions, and designs useful next task waves
+without creating work merely to keep agents busy.
 
 ### [Researcher](researcher.yaml)
 

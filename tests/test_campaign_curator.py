@@ -32,6 +32,7 @@ def test_campaign_curator_defaults_to_top_campaign() -> None:
         item.status != "REVIEW_READY" for item in brief.recommended_next_tasks
     )
     assert all(item.task_id != "TASK-0251" for item in brief.recommended_next_tasks)
+    assert all(item.task_id != "TASK-0417" for item in brief.recommended_next_tasks)
     live_ready = [
         item
         for item in brief.recommended_next_tasks
@@ -71,13 +72,15 @@ def test_campaign_curator_prompt_preserves_authority_boundary() -> None:
     brief = build_campaign_brief(ROOT, campaign_id="nuclear-mass-surface")
     prompt = render_campaign_agent_prompt(brief)
 
-    assert "You are the APL Scientific Campaign Curator." in prompt
-    assert "Canonical short command/name: campaign-curator." in prompt
+    assert "You are the APL Scientific Campaign Director." in prompt
+    assert "campaign-curator" in prompt
+    assert "науковий куратор" in prompt
     assert "Natural-language requests" in prompt
-    assert "not\na task runner" in prompt
+    assert "not a task runner" in prompt
     assert "Do not:" in prompt
     assert "run experiments" in prompt
     assert "promote claims" in prompt
+    assert "busywork" in prompt
     assert "nuclear-mass-surface" in prompt
 
 
@@ -85,7 +88,9 @@ def test_campaign_curator_markdown_contains_expected_sections() -> None:
     brief = build_campaign_brief(ROOT, campaign_id="nuclear-mass-surface")
     rendered = render_campaign_brief(brief)
 
-    assert "# Scientific Campaign Curator Brief" in rendered
+    assert "# Scientific Campaign Director Brief" in rendered
+    assert "## Director Objective" in rendered
+    assert "## Portfolio Health / Agent Capacity" in rendered
     assert "## Current Campaign Verdict" in rendered
     assert "## Recommended Next Tasks" in rendered
     assert "## Overclaim / Public Wording Notes" in rendered
@@ -108,4 +113,73 @@ def test_campaign_curator_script_json_smoke() -> None:
     payload = json.loads(result.stdout)
 
     assert payload["campaign_id"] == "nuclear-mass-surface"
+    assert payload["role_name"] == "Scientific Campaign Director"
+    assert "campaign-curator" in payload["accepted_aliases"]
     assert payload["recommended_next_tasks"]
+
+
+def test_campaign_curator_script_role_director_prompt_smoke() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_campaign_curator.py",
+            "--role",
+            "director",
+            "--campaign",
+            "nuclear-mass-surface",
+            "--output",
+            "agent",
+        ],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+
+    assert "Scientific Campaign Director" in result.stdout
+    assert "This is not the normal researcher prompt" not in result.stdout
+    assert "campaign-curator" in result.stdout
+    assert "work-for-work loops" in result.stdout
+
+
+def test_campaign_curator_script_legacy_agent_prompt_alias_still_works() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_campaign_curator.py",
+            "--role",
+            "director",
+            "--campaign",
+            "nuclear-mass-surface",
+            "--agent-prompt",
+        ],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+
+    assert "Scientific Campaign Director" in result.stdout
+    assert "campaign-curator" in result.stdout
+
+
+def test_campaign_curator_script_role_curator_json_smoke() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_campaign_curator.py",
+            "--role",
+            "curator",
+            "--campaign",
+            "nuclear-mass-surface",
+            "--json",
+        ],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    payload = json.loads(result.stdout)
+
+    assert payload["role_name"] == "Scientific Campaign Curator"
+    assert "Summarize campaign evidence" in payload["director_objective"][0]

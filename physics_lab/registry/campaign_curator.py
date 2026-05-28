@@ -1,9 +1,10 @@
-"""Maintainer-facing Scientific Campaign Curator helpers.
+"""Maintainer-facing Scientific Campaign Director helpers.
 
-The Scientific Campaign Curator is intentionally advisory: it summarizes
-campaign state for a maintainer or a maintainer-run AI agent, but it does not
-execute experiments, create tasks, promote claims, or rewrite canonical
-artifacts.
+The Scientific Campaign Director (formerly Scientific Campaign Curator) is
+intentionally advisory: it summarizes campaign state for a maintainer or a
+maintainer-run AI agent, recommends scientific direction, and designs the next
+research cycle, but it does not execute experiments, promote claims, merge PRs,
+or rewrite canonical artifacts.
 """
 
 from __future__ import annotations
@@ -20,6 +21,8 @@ from physics_lab.registry.mission_control import load_current_missions
 
 
 SUPPORTED_CAMPAIGN_CURATOR_MODES = ("cycle-review", "planning")
+SUPPORTED_CAMPAIGN_CURATOR_ROLES = ("director", "curator")
+SUPPORTED_CAMPAIGN_CURATOR_OUTPUTS = ("brief", "json", "agent")
 
 CAMPAIGN_PROPOSAL_DIRS = {
     "nuclear-mass-surface": "nuclear-mass",
@@ -75,9 +78,13 @@ class CampaignCuratorBrief:
 
     campaign_id: str
     campaign_title: str
+    role_name: str
+    accepted_aliases: tuple[str, ...]
     mode: str
     maintainer_facing: bool
     advisory_only: bool
+    director_objective: tuple[str, ...]
+    portfolio_health_notes: tuple[str, ...]
     campaign_verdict: dict[str, str]
     recent_evidence: tuple[CampaignEvidence, ...]
     what_we_learned: tuple[str, ...]
@@ -100,12 +107,18 @@ def build_campaign_brief(
     *,
     campaign_id: str | None = None,
     mode: str = "cycle-review",
+    role: str = "director",
 ) -> CampaignCuratorBrief:
     """Build an advisory campaign-level steering brief."""
     if mode not in SUPPORTED_CAMPAIGN_CURATOR_MODES:
         supported = ", ".join(SUPPORTED_CAMPAIGN_CURATOR_MODES)
         raise ValueError(
             f"Unsupported Scientific Campaign Curator mode: {mode}. Use: {supported}"
+        )
+    if role not in SUPPORTED_CAMPAIGN_CURATOR_ROLES:
+        supported = ", ".join(SUPPORTED_CAMPAIGN_CURATOR_ROLES)
+        raise ValueError(
+            f"Unsupported campaign role: {role}. Use: {supported}"
         )
 
     root = root.resolve()
@@ -121,9 +134,23 @@ def build_campaign_brief(
     return CampaignCuratorBrief(
         campaign_id=selected_campaign_id,
         campaign_title=campaign_title,
+        role_name=(
+            "Scientific Campaign Director"
+            if role == "director"
+            else "Scientific Campaign Curator"
+        ),
+        accepted_aliases=(
+            "Scientific Campaign Curator",
+            "campaign-director",
+            "campaign-curator",
+            "науковий куратор",
+            "науковий керівник кампанії",
+        ),
         mode=mode,
         maintainer_facing=True,
         advisory_only=True,
+        director_objective=_director_objective(role),
+        portfolio_health_notes=_portfolio_health_notes(board_entries, live_tasks),
         campaign_verdict=_campaign_verdict(campaign, evidence, live_tasks),
         recent_evidence=evidence,
         what_we_learned=_what_we_learned(selected_campaign_id, evidence),
@@ -145,14 +172,31 @@ def build_campaign_brief(
 def render_campaign_brief(brief: CampaignCuratorBrief) -> str:
     """Render a maintainer-readable campaign steering memo."""
     lines = [
-        "# Scientific Campaign Curator Brief",
+        "# Scientific Campaign Director Brief",
         "",
         f"Campaign: {brief.campaign_title} (`{brief.campaign_id}`)",
         f"Mode: `{brief.mode}`",
-        "Role: maintainer-run Scientific Campaign Curator for scientific campaign steering",
+        f"Role: maintainer-run {brief.role_name} for scientific campaign direction",
+        f"Aliases: {', '.join(brief.accepted_aliases)}",
         "",
-        "## Current Campaign Verdict",
+        "## Director Objective",
     ]
+    lines.extend(f"- {item}" for item in brief.director_objective)
+
+    lines.extend(
+        [
+            "",
+            "## Portfolio Health / Agent Capacity",
+        ]
+    )
+    lines.extend(f"- {item}" for item in brief.portfolio_health_notes)
+
+    lines.extend(
+        [
+            "",
+            "## Current Campaign Verdict",
+        ]
+    )
     for key, value in brief.campaign_verdict.items():
         lines.append(f"- {key.replace('_', ' ')}: {value}")
 
@@ -198,24 +242,34 @@ def campaign_brief_json(brief: CampaignCuratorBrief) -> str:
     return json.dumps(brief.to_json_data(), indent=2, sort_keys=False)
 
 
-def render_campaign_agent_prompt(brief: CampaignCuratorBrief) -> str:
-    """Render a copy-paste prompt for a Scientific Campaign Curator AI agent."""
+def render_campaign_role_instructions(brief: CampaignCuratorBrief) -> str:
+    """Render activation instructions for a Scientific Campaign Director agent."""
     task_lines = "\n".join(
         f"- {item.task_id or 'proposal'}: {item.title} ({item.reason})"
         for item in brief.recommended_next_tasks
     )
     guardrail_lines = "\n".join(f"- {item}" for item in brief.guardrails)
-    return f"""You are the APL Scientific Campaign Curator.
-Canonical short command/name: campaign-curator.
-Natural-language requests for a scientific campaign curator in Ukrainian or English should map to this mode.
+    objective_lines = "\n".join(f"- {item}" for item in brief.director_objective)
+    capacity_lines = "\n".join(f"- {item}" for item in brief.portfolio_health_notes)
+    return f"""You are the APL Scientific Campaign Director.
+Accepted aliases: Scientific Campaign Curator, campaign-director, campaign-curator, науковий куратор, науковий керівник кампанії.
+Natural-language requests for a scientific campaign curator/director in Ukrainian or English should map to this mode.
 
 Campaign:
 {brief.campaign_id}
 
 Your role:
-Analyze the current scientific campaign state for the maintainer. You are not
-a task runner and not a PR review agent. Synthesize recent evidence, identify
-promising and failed directions, and recommend the next research cycle.
+Analyze and direct the current scientific campaign state for the maintainer.
+You are not a task runner and not a PR review agent. Synthesize recent evidence,
+identify promising and failed directions, maintain campaign-page/mission hygiene,
+recommend the next research cycle, and keep useful parallel agent lanes
+available without creating work-for-work loops.
+
+Global objective:
+{objective_lines}
+
+Portfolio / capacity signals:
+{capacity_lines}
 
 Recommended next tasks:
 {task_lines}
@@ -230,9 +284,13 @@ Produce:
 4. negative or do-not-repeat directions;
 5. recommended next 3-5 tasks or task proposals;
 6. which agents should run which lanes;
-7. what must stay blocked;
-8. overclaim risks;
-9. whether missions/current.yaml should change.
+7. promotion backlog: publish, validate, replay, do-not-promote;
+8. what must stay blocked;
+9. campaign page / mission / task-queue updates needed;
+10. idle-agent or duplicate-work risks;
+11. new campaign scaffold opportunities when useful;
+12. overclaim risks;
+13. whether missions/current.yaml should change.
 
 Do not:
 - run experiments;
@@ -240,8 +298,56 @@ Do not:
 - modify canonical results;
 - invent unsupported scientific conclusions;
 - auto-create canonical task files without maintainer approval;
+- create busywork just because agents are available;
+- recommend repeated audits without new evidence, new controls, or a promotion/blocker decision;
 - recommend broad formula search without holdout, time-split, and robustness gates.
 """
+
+
+def render_campaign_agent_prompt(brief: CampaignCuratorBrief) -> str:
+    """Backward-compatible alias for role activation instructions."""
+    return render_campaign_role_instructions(brief)
+
+
+def _director_objective(role: str) -> tuple[str, ...]:
+    director_objective = (
+        "Increase APL's scientific quality and rate of reviewable scientific results.",
+        "Turn agent activity into durable scientific memory: source artifacts, RESULT/PRED candidates, validations, negative results, blockers, and campaign decisions.",
+        "Keep enough bounded research lanes available for parallel agents without creating work merely to keep agents busy.",
+        "Design new campaign work through source, baseline, holdout, controls, stop conditions, and result-promotion gates.",
+    )
+    if role == "director":
+        return director_objective
+    return (
+        "Summarize campaign evidence and recommend the next bounded research cycle.",
+        "Preserve negative, inconclusive, and blocker evidence as scientific memory.",
+        "Keep recommendations advisory unless the maintainer explicitly authorizes task creation.",
+    )
+
+
+def _portfolio_health_notes(
+    entries: tuple[TaskBoardEntry, ...],
+    tasks: tuple[CampaignTaskRecommendation, ...],
+) -> tuple[str, ...]:
+    ready_entries = [entry for entry in entries if entry.status == "READY"]
+    review_ready_entries = [entry for entry in entries if entry.status == "REVIEW_READY"]
+    notes = [
+        f"Live READY pool: {len(ready_entries)} tasks; current campaign-aligned recommendations: {len(tasks)}.",
+        f"REVIEW_READY pool: {len(review_ready_entries)} tasks; route these to review/closeout, not new executor work.",
+    ]
+    if len(ready_entries) < 5:
+        notes.append(
+            "READY pool looks thin for parallel agents; propose source, baseline, validation, or evidence-publication tasks before agents idle."
+        )
+    else:
+        notes.append(
+            "READY pool is not empty; prefer high-signal tasks and avoid creating duplicate work."
+        )
+    if not tasks:
+        notes.append(
+            "No live campaign-aligned READY tasks were found; propose a bounded task only if it removes a real blocker or opens a useful evidence path."
+        )
+    return tuple(notes)
 
 
 def _select_campaign(payload: dict[str, Any], campaign_id: str | None) -> dict[str, Any]:
@@ -270,6 +376,8 @@ def _keywords(campaign_id: str) -> tuple[str, ...]:
 
 def _matches_campaign(text: str, campaign_id: str) -> bool:
     lowered = text.lower()
+    if campaign_id == "nuclear-mass-surface" and "non-nuclear" in lowered:
+        return False
     return any(keyword in lowered for keyword in _keywords(campaign_id))
 
 
@@ -500,17 +608,41 @@ def _agent_assignments(
     campaign_id: str,
     tasks: tuple[CampaignTaskRecommendation, ...],
 ) -> tuple[str, ...]:
-    if campaign_id == "nuclear-mass-surface":
-        return (
-            "Science Agent B1: take TASK-0201 pairing/odd-even if still READY.",
-            "Science Agent B2: take prediction-registry policy work if TASK-0189 is still READY.",
-            "Audit Agent: wait for enough second-batch outputs before TASK-0204.",
-            "Support Agent: keep docs/status/mission-control synchronized via TASK-0175.",
+    if tasks:
+        assignments = [
+            _agent_assignment_for_task(index, task)
+            for index, task in enumerate(tasks[:4], start=1)
+        ]
+        assignments.append(
+            "Keep one review/closeout-capable agent available if REVIEW_READY work accumulates; do not divert science executors into review unless asked."
         )
-    return tuple(
-        f"Assign one agent to {task.task_id or task.title} on a separate branch/worktree."
-        for task in tasks[:4]
-    ) or ("Assign one agent to collect context and draft a task proposal.",)
+        return tuple(assignments)
+    return (
+        f"No live READY task was found for `{campaign_id}`; assign one Director/Curator pass to propose a bounded unblocker or task queue only if it opens real evidence.",
+        "Do not keep agents busy with repeated audits unless a new source, control, promotion gate, or blocker decision exists.",
+    )
+
+
+def _agent_assignment_for_task(
+    index: int,
+    task: CampaignTaskRecommendation,
+) -> str:
+    task_ref = task.task_id or task.title
+    title = task.title.lower()
+    if any(marker in title for marker in ("source", "artifact", "curate", "row")):
+        role = "Source-readiness agent"
+    elif any(marker in title for marker in ("replay", "validate", "gate")):
+        role = "Validation/replay agent"
+    elif any(marker in title for marker in ("result", "publish", "prediction")):
+        role = "Evidence-publication agent"
+    elif any(marker in title for marker in ("audit", "control", "stress")):
+        role = "Adversarial-audit agent"
+    else:
+        role = "Science-execution agent"
+    return (
+        f"{role} {index}: take `{task_ref}` on a separate branch/worktree; "
+        f"expected scope is {task.priority}/{task.difficulty} and must stay within the task contract."
+    )
 
 
 def _mission_update_recommendations(
@@ -551,7 +683,7 @@ def _overclaim_notes(campaign_id: str) -> tuple[str, ...]:
 
 def _guardrails(campaign_id: str, campaign: dict[str, Any]) -> tuple[str, ...]:
     return (
-        "Scientific Campaign Curator is advisory and maintainer-facing.",
+        "Scientific Campaign Director is advisory and maintainer-facing.",
         "Do not execute experiments from this mode.",
         "Do not modify canonical results, claims, or accepted knowledge.",
         "Do not auto-create canonical task files without maintainer approval.",

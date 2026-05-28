@@ -13,6 +13,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from physics_lab.registry.mission_control import (  # noqa: E402
     SUPPORTED_MODES,
+    SUPPORTED_MISSION_OUTPUTS,
     load_current_missions,
     mission_json,
     render_agent_prompt,
@@ -34,17 +35,27 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--json",
         action="store_true",
-        help="Emit a compact machine-readable mission recommendation.",
+        help="Backward-compatible alias for --output json.",
     )
     parser.add_argument(
         "--agent-prompt",
         action="store_true",
-        help="Emit a copy-paste prompt for Codex, Claude Code, or another coding agent.",
+        help="Backward-compatible alias for --output agent.",
     )
     parser.add_argument(
         "--onboarding",
         action="store_true",
-        help="Emit a guided first-run prompt that explains options before editing files.",
+        help="Backward-compatible alias for --output onboarding.",
+    )
+    parser.add_argument(
+        "--output",
+        choices=SUPPORTED_MISSION_OUTPUTS,
+        default="human",
+        help=(
+            "Output format. `human` prints the mission menu, `json` is machine-readable, "
+            "`agent` prints default Researcher role instructions, and `onboarding` prints "
+            "the guided first-run Researcher flow."
+        ),
     )
     parser.add_argument(
         "--root",
@@ -59,11 +70,19 @@ def main() -> int:
     args = build_parser().parse_args()
     root = Path(args.root).resolve()
     payload = load_current_missions(root)
+    output = args.output
     if args.onboarding:
-        print(render_onboarding_prompt(payload, root=root))
+        output = "onboarding"
     elif args.agent_prompt:
-        print(render_agent_prompt(payload, root=root))
+        output = "agent"
     elif args.json:
+        output = "json"
+
+    if output == "onboarding":
+        print(render_onboarding_prompt(payload, root=root))
+    elif output == "agent":
+        print(render_agent_prompt(payload, root=root))
+    elif output == "json":
         print(mission_json(payload, args.mode, root=root))
     else:
         print(render_human_mission(payload, args.mode, root=root))
