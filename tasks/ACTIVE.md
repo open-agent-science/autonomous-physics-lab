@@ -71,6 +71,7 @@ None.
 ## REVIEW_READY
 
 - `TASK-0433` — Add strategic campaign context to repository snapshots (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0434` — Document standard repository snapshot handoff location (`maintainer_workflow`, priority `medium`, difficulty `low`)
 
 ## DONE RECENTLY
 
