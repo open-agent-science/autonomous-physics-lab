@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0401` - Run atomic Beloy 2021 row readiness re-check (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+None.

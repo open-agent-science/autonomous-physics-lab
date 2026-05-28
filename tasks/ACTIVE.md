@@ -76,9 +76,7 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0401` — Run atomic Beloy 2021 row readiness re-check (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0403` — Triage second atomic-clock direct-ratio source (`scientific_dataset`, priority `medium`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
@@ -112,6 +110,9 @@ None.
 - `TASK-0406` — Define multi-class scientific output promotion protocol (merged)
 - `TASK-0405` — Disable validation commands in snapshot script (merged)
 - `TASK-0404` — Run result-promotion scorecard on exoplanet failure map (merged)
+- `TASK-0403` — Triage second atomic-clock direct-ratio source (merged)
+- `TASK-0402` — Reconstruct atomic Beloy cross-ratio covariance approximation (merged)
+- `TASK-0401` — Run atomic Beloy 2021 row readiness re-check (merged)
 - `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (merged)
 - `TASK-0397` — Run nuclear local-curvature negative-control expansion (merged)
 - `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (merged)
