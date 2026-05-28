@@ -1,0 +1,54 @@
+id: TASK-0445
+title: "Run independent replay of exoplanet compact-radius matched-control audit"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Strengthen the most shareable Exoplanet benchmark diagnostic before broader public reuse."
+  - "Move the compact-radius matched-control audit from same-tool reproducibility toward independent replay evidence."
+  - "Keep exoplanet wording benchmark-only while improving external comparability."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-compact-subneptune-matched-control-audit.md"
+    - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+    - "agent_runs/AGENT-RUN-0042/metrics.json"
+    - "scripts/run_exoplanet_compact_subneptune_matched_control_audit.py"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  planning_context: >
+    TASK-0427 produced the strongest current Exoplanet benchmark diagnostic:
+    the compact-radius slice (R < 1.5 R_earth) survived the current
+    matched-control panel as sandbox evidence. TASK-0404 allowed public
+    benchmark-summary wording but noted that external comparability remains
+    PARTIAL until an independent replay exists. This task performs a
+    Gate-B-style independent replay of the runner and records whether the
+    metrics reproduce without promoting any claim.
+
+requirements:
+  - "Use a different agent/session/tooling context than the original TASK-0427 author when practical; record the replay agent/tool."
+  - "Rerun the compact/sub-Neptune matched-control audit using only committed inputs and the existing runner."
+  - "Compare reproduced metrics against agent_runs/AGENT-RUN-0042/metrics.json with explicit tolerances."
+  - "If metrics match, write an independent replay review; if metrics drift, write a contested replay review and do not strengthen public wording."
+  - "Do not edit CLAIM, KNOW, PRED, or canonical RESULT artifacts."
+  - "Do not use composition, habitability, target-priority, discovery, or new mass-radius law wording."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-compact-radius-independent-replay.md"
+  - "optional agent_runs/AGENT-RUN-0043/ with replay metrics if the agent-run shape is appropriate"
+  - "optional small update to docs/campaigns/exoplanet-mass-radius.md only if the replay outcome changes the campaign monitoring snapshot"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_compact_subneptune_matched_control_audit.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

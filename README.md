@@ -111,6 +111,20 @@ inside private chats.
 Use [docs/status.md](docs/status.md) for the current state and
 [docs/results/visual-summary.md](docs/results/visual-summary.md) for figures.
 
+## Follow The Current Science
+
+Start with the [Public Science Dashboard](docs/campaigns/public-science-dashboard.md)
+if you want the current research frontier in one place. It gives each active
+campaign a shareable result card, the current scientific question, what APL
+has learned, what is not yet a claim, and which tasks agents are running next.
+
+The most shareable current result is the
+[Exoplanet Compact-Radius Benchmark Diagnostic](docs/campaigns/public-science-dashboard.md#exoplanet-compact-radius-benchmark-diagnostic):
+on a pinned NASA Exoplanet Archive snapshot, the compact-radius slice
+(`R < 1.5 R_earth`) is the strongest matched-control survivor in APL's frozen
+mass-radius failure-map audit. It is a benchmark diagnostic, not a
+planet-composition or habitability claim.
+
 ## Main Campaigns
 
 | Campaign | Current role |
@@ -118,7 +132,8 @@ Use [docs/status.md](docs/status.md) for the current state and
 | [Nuclear Mass Surface](docs/campaigns/nuclear-mass-surface.md) | Current flagship validation campaign with baseline residuals, sandbox scouts, prediction registry, and reveal-readiness gates |
 | [Quantum Size Effects](docs/campaigns/quantum-size-effects.md) | Source-readiness campaign; direct measurement rows remain the main blocker |
 | [Atomic-Clock Residuals](docs/campaigns/atomic-clock-residuals.md) | Fresh-data source surface with manifest and covariance guardrails |
-| [Exoplanet Mass-Radius Benchmark](docs/campaigns/exoplanet-mass-radius.md) | Emerging catalog-snapshot benchmark surface |
+| [Exoplanet Mass-Radius Benchmark](docs/campaigns/exoplanet-mass-radius.md) | Active catalog benchmark with a public-safe `BENCHMARK_SUMMARY_ONLY` scorecard |
+| [Textbook Formula Audit](docs/campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas |
 
 Older and mature benchmark tracks still matter, but they are not the landing
 page focus. See the full [campaign map](docs/campaigns/README.md) for Pendulum,

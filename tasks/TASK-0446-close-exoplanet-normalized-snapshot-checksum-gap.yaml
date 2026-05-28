@@ -1,0 +1,50 @@
+id: TASK-0446
+title: "Close exoplanet normalized-snapshot checksum gap"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Remove a documented exoplanet scorecard limitation before external replication or public reuse."
+  - "Strengthen source provenance for the pinned PSCompPars snapshot without fetching live data."
+  - "Make the most visible non-nuclear benchmark surface easier for scientists to replay."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "data/exoplanets/README.md"
+    - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+    - "tests/test_exoplanet_mass_radius_dataset_schema.py"
+  planning_context: >
+    TASK-0404 scored artifact_checksums as PARTIAL because the raw PSCompPars
+    CSV checksum is committed, but the normalized snapshot checksum field is
+    null. This task should close that provenance gap using the committed
+    normalized snapshot only. It must not fetch live archive data or change
+    scientific rows.
+
+requirements:
+  - "Compute or document a deterministic normalized-snapshot checksum from the committed normalized snapshot representation."
+  - "Update the snapshot metadata and/or README so external reviewers know what was hashed and how to reproduce it."
+  - "Add or update tests so future snapshot changes cannot silently invalidate the checksum semantics."
+  - "Do not fetch live Exoplanet Archive data."
+  - "Do not alter row values, filters, baseline metrics, claims, predictions, or result artifacts."
+
+accepted_outputs:
+  - "updated data/exoplanets/exo-0001-pscomppars-snapshot.yaml metadata or an explicit blocker review if checksum semantics cannot be made stable"
+  - "documentation note for normalized checksum reproduction"
+  - "tests covering the checksum or blocker semantics"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_dataset_schema.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

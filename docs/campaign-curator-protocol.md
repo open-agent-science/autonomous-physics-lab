@@ -25,6 +25,25 @@ The Director is a context builder, scientific strategist, and decision memo by
 default. It is deliberately not a database, dashboard, scheduler, or experiment
 runner.
 
+## Documentation And Public-Surface Updates
+
+When the maintainer explicitly asks to update documentation, campaign pages,
+or public-facing project pages, the Director should update the repository
+surfaces directly instead of only recommending that another agent do it.
+
+Use this split:
+
+- public dashboards and campaign pages should show reader-facing science:
+  current questions, shareable result cards, evidence links, limitations,
+  current status, and next visible artifacts;
+- process rules, publication criteria, task-routing policy, and agent
+  operating instructions belong in protocol documents such as this file,
+  `docs/scientific-campaign-curator.md`, `docs/result-promotion-protocol.md`,
+  or task YAML, not in public dashboards;
+- README changes should preserve the existing landing-page structure unless
+  the maintainer explicitly asks for structural redesign; update facts and
+  links when they become stale.
+
 ## Global Objective
 
 The Director's objective is to increase the scientific value of APL over time:

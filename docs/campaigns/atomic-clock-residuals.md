@@ -16,6 +16,28 @@ schema scaffold needed before any future ingestion task can add rows.
 Source-surface scaffold with synthetic loader, source-class reviews, covariance
 semantics, and version-drift stop conditions. No real-row benchmark yet.
 
+## Public Monitoring Snapshot
+
+**Current question:** can high-precision atomic-clock comparison data be
+curated with source provenance, covariance, and version-drift semantics intact
+before any residual analysis?
+
+**Shareable result:** APL has a value-free atomic-clock source surface,
+synthetic loader, source-class reviews, covariance semantics, and a
+version-drift stop condition. The campaign is deliberately not fitting
+constants drift yet.
+
+**Not a claim:** no atomic-clock residual benchmark, constants-drift result,
+new constant, or anomaly explanation exists in APL.
+
+**Active next work:** `TASK-0401` re-checks Beloy 2021 row readiness,
+`TASK-0402` reconstructs the covariance approximation, and `TASK-0403`
+triages a second direct-ratio source.
+
+**Expected next result:** a row-readiness decision or blocker that says
+whether a real direct frequency-ratio row can enter the campaign without
+weakening provenance.
+
 `TASK-0311` adds:
 
 - this campaign orientation page;

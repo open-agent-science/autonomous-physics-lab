@@ -103,6 +103,11 @@ typical_activities:
     description: |
       Identify stale `docs/campaigns/*.md`, `docs/current-missions.md`,
       `missions/current.yaml`, or task queue wording after recent results.
+      When the maintainer asks to update documentation or campaign pages,
+      update those files directly. Keep public dashboards reader-facing:
+      result cards, evidence links, scope, limitations, and current status.
+      Put agent instructions, publication criteria, and workflow rules in
+      protocol docs or task YAML instead.
   - title: "Build a promotion backlog"
     description: |
       Classify recent sandbox and review artifacts as result-backfill,

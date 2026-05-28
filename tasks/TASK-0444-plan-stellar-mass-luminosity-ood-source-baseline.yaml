@@ -1,0 +1,57 @@
+id: TASK-0444
+title: "Plan Stellar Mass-Luminosity OOD source and baseline"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the accepted Textbook Formula Audit scaffold into its first concrete source/baseline planning task."
+  - "Start with a recognizable, public-data-backed formula surface before running any metrics."
+  - "Create a reusable Gaia DR3 source plan that can later support both Stellar Mass-Luminosity and Stefan-Boltzmann audits."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "campaign_profiles/textbook-formula-audit.yaml"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "tasks/proposals/20260528-roman-stellar-mass-luminosity-ood-source-baseline-planning.yaml"
+    - "docs/result-promotion-protocol.md"
+    - "docs/research-quality-gate.md"
+  planning_context: >
+    TASK-0438 scaffolded the Textbook Formula Audit campaign and selected
+    Stellar Mass-Luminosity OOD as the first recommended slice. This task
+    accepts the existing proposal as a canonical planning task. It must
+    declare the source query, row schema, inclusion/exclusion policy, frozen
+    baseline parameters, holdout policy, and verification gates before any
+    Gaia DR3 metrics or audit run are allowed.
+
+requirements:
+  - "Identify the exact Gaia DR3 source/query plan needed for the candidate stellar sample, but do not run a live fetch."
+  - "Declare the minimum row schema, units, uncertainty semantics, source provenance, and quality flags required for a future audit."
+  - "Declare the main-sequence inclusion/exclusion filter chain and the intended pre/post-filter row-count reporting fields."
+  - "Declare frozen mass-luminosity baseline parameter values per mass bin with primary-source references; forbid in-task refit on the full snapshot."
+  - "Declare holdout policy by mass bin, metallicity proxy, evolutionary-stage flag, or another justified axis."
+  - "Declare verification gates for dimensional consistency, monotonicity, low/high-mass limiting behavior, and convective/radiative boundary alignment."
+  - "Forbid audit execution, metric computation, claim wording, and discovery framing in this task."
+  - "Preserve a blocker review if the Gaia DR3 source plan cannot satisfy the campaign source policy."
+
+accepted_outputs:
+  - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md"
+  - "optional docs/reviews/textbook-stellar-ml-source-baseline-blocker.md if the plan cannot be made admissible"
+  - "optional update to docs/notes/textbook-formula-audit-candidate-list.md only if the plan changes the candidate ordering"
+  - "no audit RESULT, PRED, CLAIM, KNOW, or metric artifact"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
