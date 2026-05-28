@@ -24,7 +24,7 @@ rationale: >
   Atomic-Clock Residuals campaign and selected Nemitz, N., et al.,
   "Frequency ratio of Yb and Sr clocks with 5×10⁻¹⁷ uncertainty at 150
   seconds averaging time", Nature Photonics 10, 258 (2016) /
-  arXiv:1511.07738 as the strongest cross-check for the Beloy 2021
+  arXiv:1403.5836 as the strongest cross-check for the Beloy 2021
   Yb/Sr row (same species pair, independent lab, arXiv-redistributable
   preprint). The triage explicitly deferred ingestion to a follow-up
   task because committing source artifacts, computing checksums,
@@ -63,7 +63,7 @@ input:
     records a blocker review.
 
 requirements:
-  - "Commit the arXiv preprint PDF (arXiv:1511.07738) under data/atomic_clocks/source_artifacts/2016-nemitz-riken/ with a sidecar SHA-256 file."
+  - "Commit the arXiv preprint PDF (arXiv:1403.5836) under data/atomic_clocks/source_artifacts/2016-nemitz-riken/ with a sidecar SHA-256 file."
   - "Add provenance.yaml recording retrieval date, license (arXiv perpetual), and a maintainer-side arXiv-vs-Nature version-drift cross-check verdict per TASK-0372."
   - "Do not commit the Nature Photonics version-of-record PDF; cite it by DOI only."
   - "Add a fresh dataset id ACR-0002-NEMITZ-2016-DIRECT-RATIO under data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml following the same row shape as ACR-0001-BELOY-2021-DIRECT-RATIOS."
@@ -90,8 +90,8 @@ promotion:
   notes: |
     Expected accepted outputs of the future canonical task (informational;
     not artifacts of this proposal PR):
-      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1511.07738.pdf
-      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1511.07738.sha256
+      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1403.5836.pdf
+      - data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1403.5836.sha256
       - data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml
       - data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml
       - docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md
