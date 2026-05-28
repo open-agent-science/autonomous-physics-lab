@@ -1,0 +1,55 @@
+id: TASK-0453
+title: "Add Atomic real direct-row loader and schema reconciliation"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Resolve the Atomic deterministic real-row loader blocker before any benchmark consumes committed rows."
+  - "Keep synthetic loader behavior while adding a validated path for row_class: direct_measurement data."
+  - "Prevent source/source_metadata and uncertainty-field naming drift from silently blocking future Atomic benchmarks."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "physics_lab/engines/atomic_clock_residuals.py"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/schema.md"
+    - "docs/reviews/atomic-beloy-2021-row-readiness-recheck.md"
+    - "docs/reviews/atomic-clock-synthetic-loader-dry-run.md"
+  planning_context: >
+    TASK-0401 classified Atomic as PINNED_DATASET and identified the missing
+    deterministic real-row loader as a blocker before BASELINE_READY. The
+    current loader validates synthetic rows; the Beloy real-row seed follows
+    the schema sketch but uses fields such as source, uncertainty.total, and
+    direct_measurement row classes that need an explicit deterministic loader
+    contract.
+
+requirements:
+  - "Extend physics_lab/engines/atomic_clock_residuals.py or add a sibling loader for committed real direct_measurement rows."
+  - "Keep existing synthetic-loader tests passing; do not break synthetic dry-run behavior."
+  - "Validate required real-row groups: row_id, row_class, observable, uncertainty, source, classification, holdout, and limitations."
+  - "Reconcile source vs source_metadata naming explicitly rather than silently accepting arbitrary keys."
+  - "Validate uncertainty.total, confidence_level_label, bound_style, covariance_reference, and direct/derived/synthetic classification flags."
+  - "Add tests using the committed Beloy seed fixture."
+  - "Do not fit drift, compute residuals, derive constants constraints, create prediction entries, create RESULT artifacts, or promote claims."
+
+accepted_outputs:
+  - "physics_lab/engines/atomic_clock_residuals.py or a sibling loader module"
+  - "tests/test_atomic_clock_real_rows.py or equivalent targeted tests"
+  - "docs/reviews/atomic-real-direct-row-loader-review.md"
+  - "optional update to data/atomic_clocks/schema.md if field naming is clarified"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_real_rows.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
