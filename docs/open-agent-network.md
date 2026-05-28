@@ -84,7 +84,7 @@ data, reveal, and claim gates. See
 The default agent path is research-first:
 
 ```bash
-python3 scripts/apl_mission.py --onboarding
+python3 scripts/apl_mission.py --output onboarding
 ```
 
 The onboarding entrypoint explains the current research mission, shows a few

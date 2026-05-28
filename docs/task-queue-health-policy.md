@@ -42,7 +42,7 @@ Independence can come from any of:
 Mission control exposes a warning-only health summary:
 
 ```bash
-python3 scripts/apl_mission.py --json
+python3 scripts/apl_mission.py --output json
 ```
 
 The JSON includes `ready_science_pool_health` with:

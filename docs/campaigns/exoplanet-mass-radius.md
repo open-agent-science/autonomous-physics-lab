@@ -15,9 +15,9 @@ effects kept visible.
 ## Current Status
 
 Active benchmark surface with a pinned source snapshot, loader dry-run, first
-baseline comparison, and one bounded regime scout. The campaign has useful
-reviewable residual evidence, but no claim, prediction registry entry, RESULT-*,
-or public article artifact yet.
+baseline comparison, residual/failure-map work, and several bounded residual
+audits. The campaign has useful reviewable sandbox evidence, but no claim,
+prediction registry entry, RESULT-*, or public article artifact yet.
 
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,
@@ -25,7 +25,9 @@ normalized YAML, checksums, row-class labels, and inclusion/exclusion reasons.
 `TASK-0354` added a loader dry-run for validating the ingestion path. `TASK-0361`
 ran the first frozen Chen-Kipping-style baseline comparison on the committed
 snapshot. `TASK-0370` ran a bounded regime residual scout over known transition
-regions.
+regions. `TASK-0390` tested a compact/sub-Neptune residual hypothesis pilot,
+`TASK-0391` ran a neptunian matched-control audit, and `TASK-0392` audited
+host/uncertainty selection effects.
 
 Current scientific reading:
 
@@ -37,9 +39,16 @@ Current scientific reading:
   residual structure, especially hot-Jupiter and Jovian-radius subsets, but the
   strongest matched controls explain enough of the improvement that no regime
   correction is promoted.
-- `TASK-0362` and `TASK-0369` are the next useful science tasks: package the
-  residual/failure map and audit the true-mass slice before opening a narrower
-  correction-hypothesis task.
+- `TASK-0390` is **SANDBOX_PASS** only for a bounded compact/sub-Neptune
+  follow-up surface. It is not yet control-surviving evidence because the
+  matched-control audit is still a separate task.
+- `TASK-0391` is **INCONCLUSIVE**: neptunian matched controls do not currently
+  justify a promoted correction.
+- `TASK-0392` is **INCONCLUSIVE**: host and uncertainty slices expose selection
+  effects, but they are diagnostics rather than causal planet-physics claims.
+- `TASK-0427`, `TASK-0404`, and `TASK-0393` are the next useful science tasks:
+  run the compact/sub-Neptune matched-control audit, score the result-promotion
+  boundary, and prepare the second-snapshot no-live-fetch protocol.
 
 `TASK-0337` created the first source and schema surface before any agent runs
 metrics:
@@ -98,7 +107,9 @@ Allowed current work:
 - holdout protocol;
 - residual failure-map packaging from the frozen baseline;
 - true-mass residual slice audit;
-- bounded regime follow-up only when matched controls stay explicit.
+- bounded regime follow-up only when matched controls stay explicit;
+- result-promotion scorecards that decide benchmark/public wording without
+  promoting a composition, habitability, or discovery claim.
 
 Not allowed yet:
 
@@ -126,10 +137,16 @@ The campaign should mature in this order:
 4. Conservative Chen-Kipping-style baseline reproduction (`TASK-0361`, DONE;
    inconclusive but useful).
 5. Bounded regime residual scout (`TASK-0370`, DONE; no correction promoted).
-6. Residual and failure-map report (`TASK-0362`, READY).
-7. True-mass residual slice audit (`TASK-0369`, READY).
-8. Bounded autonomous hypothesis pilot only after the residual map and
-   true-mass audit identify a narrow, control-surviving target.
+6. Residual/failure-map and true-mass/selection-effect audits through
+   `TASK-0392` (sandbox evidence; no claim promotion).
+7. Compact/sub-Neptune matched-control audit (`TASK-0427`, READY) before
+   treating the `TASK-0390` pilot as a surviving hypothesis lane.
+8. Result-promotion scorecard (`TASK-0404`, READY) to decide whether the
+   failure-map package is scientist-facing, benchmark-only, or not ready.
+9. Second-snapshot no-live-fetch protocol (`TASK-0393`, READY) before any
+   cross-snapshot or prediction-readiness story.
+10. Bounded autonomous hypothesis pilot only after a narrow target survives
+    matched controls and the promotion scorecard keeps wording conservative.
 
 This campaign is now the fastest APL path to a visible, scientist-readable
 benchmark artifact. It is not yet a discovery surface.

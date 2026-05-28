@@ -1,5 +1,5 @@
 default_mode: research
-updated: "2026-05-27"
+updated: "2026-05-28"
 
 curator_cycle:
   decision: updated
@@ -65,7 +65,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: keep shell-axis diagnostic-only, leave reveal scoring blocked, and run multiple fresh bounded Nuclear hypothesis lanes in parallel."
+    recommendation: "Main direction now: keep shell-axis diagnostic-only, preserve local-curvature as a no-leakage falsification, leave reveal scoring blocked, and run only fresh bounded Nuclear diagnostic lanes in parallel."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -78,6 +78,7 @@ missions:
       - "source preflight and synthetic reveal mechanics are done, but TASK-0307 found no acceptable post-registration source manifest"
       - "AGENT-RUN-0018 now records the full-known-data retrospective audit without prospective reveal scoring"
       - "TASK-0333 fixed shell-axis as diagnostic-only, so fresh hypothesis lanes should replace additional shell-axis slicing"
+      - "TASK-0394 falsified LOCAL-CURVATURE-001 under the bounded no-leakage/control panel, so local-curvature is now negative/inconclusive memory unless TASK-0428 narrows the publication boundary"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -89,6 +90,7 @@ missions:
       - "do not score PRED-0063 through PRED-0068 before source preflight, no-peek review, and explicit maintainer approval"
       - "do not add more shell-axis PRED entries before the mini-wave reveal-readiness implications are reviewed"
       - "do not treat shell-axis diagnostic evidence as a reason to stop Nuclear hypothesis testing"
+      - "do not present LOCAL-CURVATURE-001 as a surviving no-leakage Nuclear candidate after TASK-0394"
     actions:
       - id: row-level-post-ame2020-holdout
         label: "Add reviewed row-level post-AME2020 holdout dataset before active time-split metrics"
@@ -124,8 +126,9 @@ missions:
         expected_outputs:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
           - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
+          - "Treat TASK-0394 as a no-leakage falsification for LOCAL-CURVATURE-001 unless TASK-0428 identifies a narrower negative-result publication artifact"
           - "Use live_task_candidates before naming any remaining READY Nuclear hypothesis lane"
-          - "Use live_task_candidates from python3 scripts/apl_mission.py --json"
+          - "Use live_task_candidates from python3 scripts/apl_mission.py --output json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
           - "Use docs/result-promotion-protocol.md to decide whether the final output is sandbox-only, RESULT/PRED draft, review note, source artifact, or task proposal"
           - "Publish RESULT/PRED artifacts only when the selected task explicitly allows it and Gate A or maintainer-approved manual Gate A review passes"
@@ -371,20 +374,22 @@ missions:
   - id: exoplanet-mass-radius
     title: "Exoplanet Mass-Radius Benchmark"
     rank: 4
-    status: planned_fourth_campaign
+    status: active_secondary_benchmark
     scientific_value: medium
     risk: medium
-    recommendation: "Planned fourth campaign: create the value-free source, schema, and holdout surface before any catalog snapshot or mass-radius benchmark."
+    recommendation: "Active secondary benchmark: use the merged compact/sub-Neptune matched-control audit as sandbox-only evidence, then prioritize result-promotion scoring and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
       - "planet class, discovery method, host-star context, and measurement quality provide natural holdouts"
       - "the campaign can produce useful failure maps without claiming a new planet law"
+      - "pinned PSCompPars snapshot, loader dry-run, first baseline, residual scouts, and selection-effect audits now exist"
     forbidden:
       - "do not fetch live archive data before a pinned snapshot policy exists"
       - "do not run mass-radius metrics before schema and holdout protocol exist"
       - "do not claim habitability, biosignatures, planet prioritization, or discovery of a universal planet law"
       - "do not mix true mass, minimum mass, and model-derived values without explicit row-class flags"
+      - "do not present compact/sub-Neptune matched-control survival as a canonical result, prediction, composition claim, or planet-law claim without result-promotion scoring and maintainer review"
     actions:
       - id: exoplanet-source-schema-scaffold
         label: "Scaffold exoplanet mass-radius source surface"
@@ -419,6 +424,38 @@ missions:
         recommended: false
         expected_outputs:
           - "baseline, metrics, holdout, and negative-control protocol without rows"
+      - id: exoplanet-compact-subneptune-control
+        label: "Compact/sub-Neptune matched-control audit landed (TASK-0427); follow-up is deeper compact-slice pilot or cross-tool Gate B replay"
+        task_id: null
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "PR #609 (merged) added agent_runs/AGENT-RUN-0042 and docs/reviews/exoplanet-compact-subneptune-matched-control-audit.md"
+          - "next action: open a cross-tool Gate B replay task on scripts/run_exoplanet_compact_subneptune_matched_control_audit.py or a deeper compact-slice (R<1.5 R_earth) pilot"
+      - id: exoplanet-result-promotion-scorecard
+        label: "Exoplanet failure-map result-promotion scorecard landed (TASK-0404); verdict BENCHMARK_SUMMARY_ONLY"
+        task_id: null
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md + companion result_candidate_review.yaml record the BENCHMARK_SUMMARY_ONLY verdict and forbid claim-candidate framing"
+          - "TASK-0427 confirmed as a strengthening prerequisite for compact/sub-Neptune wording, not a blocker"
+      - id: exoplanet-second-snapshot-protocol
+        label: "Prepare second-snapshot no-live-fetch protocol"
+        task_id: TASK-0393
+        mode: research
+        status: ready
+        priority: medium
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "no-live-fetch protocol for future cross-snapshot or prediction-readiness work"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
