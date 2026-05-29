@@ -64,7 +64,6 @@ one PR.
 - `TASK-0445` — Run independent replay of exoplanet compact-radius matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0446` — Close exoplanet normalized-snapshot checksum gap (`scientific_dataset`, priority `medium`, difficulty `medium`)
 - `TASK-0447` — Package exoplanet benchmark evidence card (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0448` — Define Nuclear controls-first hypothesis gauntlet template (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0449` — Run Nuclear residual-free high-error cluster hypothesis audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0450` — Run Nuclear neutron-rich boundary transfer hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0451` — Run Nuclear magic-distance interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
@@ -78,7 +77,7 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0448` — Define Nuclear controls-first hypothesis gauntlet template (`research_quality_gate`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
