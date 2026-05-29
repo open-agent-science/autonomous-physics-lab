@@ -8,7 +8,6 @@
 
 - `TASK-0420` - Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_curator`)
 - `TASK-0421` - Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `multi_agent_coordination`)
-- `TASK-0422` - Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0423` - Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `maintainer_review`)
 - `TASK-0432` - Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0440` - Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `agent_capacity`)
@@ -22,4 +21,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0422` - Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0465` - Clarify task execution publishes a draft PR (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_automation`)
