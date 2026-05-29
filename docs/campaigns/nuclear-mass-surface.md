@@ -31,13 +31,15 @@ frozen prospective registry against future measurements, and should not
 describe shell-axis or local-curvature evidence as discovery-level physics.
 
 **Active next work:** `TASK-0428` packages local-curvature as
-negative/inconclusive memory, `TASK-0395` tests residual-free high-error
-cluster labels, and `TASK-0396` keeps reveal-source readiness separate from
-retrospective audits.
+negative/inconclusive memory, `TASK-0396` keeps reveal-source readiness
+separate from retrospective audits, and `TASK-0450` / `TASK-0451` are the
+next controls-first Nuclear hypothesis lanes.
 
 **Expected next result:** either a clean negative/preflight package for
-local-curvature or a bounded diagnostic result showing whether high-error
-cluster labels survive without residual leakage.
+local-curvature, or a bounded diagnostic result from the neutron-rich boundary
+or magic-distance interaction lanes. `TASK-0449` already showed that the first
+residual-free high-error cluster taxonomy is too sparse on the current
+training slice and remains `INCONCLUSIVE`.
 
 ## Orientation Note for New Contributors
 
@@ -216,6 +218,14 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   strongest no-leakage control, and has subset win-rate 0.000. This supersedes
   the earlier guarded implementation GO as a positive path and should be
   preserved as negative/inconclusive memory through `TASK-0428`.
+- `TASK-0448` defines the controls-first Nuclear hypothesis gauntlet. Future
+  Nuclear lanes must predeclare allowed/forbidden inputs, at least two negative
+  controls, leakage checks, stop conditions, and output routing before fitting.
+- `TASK-0449` runs the residual-free high-error cluster audit. The setup is
+  no-leakage compliant, but the current NMD-0002 training slice has only one
+  cluster with at least two training rows, so the lane lands at
+  `INCONCLUSIVE`; the candidate also regresses full-known MAE by about
+  1.2 MeV versus the frozen baseline and controls. F2 stays diagnostic-only.
 
 Historical context:
 
@@ -228,10 +238,10 @@ Current campaign state in one sentence:
 the scientific direction is now explicit, baseline-backed, holdout-defined,
 factory-supported, and prospectively frozen through selected registry entries,
 but it has not yet reached a future-measurement reveal. The safest Nuclear
-follow-up is local-curvature falsification packaging, high-error cluster
-residual-free diagnostics, and reveal readiness reporting, not more broad
-audits or new prediction entries. The first full-known shell-axis audit is
-preserved as sandbox evidence in `AGENT-RUN-0018`; reveal scoring remains
+follow-up is local-curvature falsification packaging, reveal readiness
+reporting, and the two remaining controls-first hypothesis lanes, not more
+broad audits or new prediction entries. The first full-known shell-axis audit
+is preserved as sandbox evidence in `AGENT-RUN-0018`; reveal scoring remains
 blocked.
 
 Current next Nuclear posture:
@@ -240,20 +250,23 @@ Current next Nuclear posture:
   `LOCAL-CURVATURE-001` no-leakage falsification and block positive promotion
   unless the scorecard exposes a very narrow, reviewed negative-result
   publication artifact.
-- `TASK-0395` is the next non-duplicative diagnostic lane: rebuild high-error
-  cluster labels from residual-free Z/N/A-style features and decide whether the
-  lane survives as diagnostic-only or is retired.
+- `TASK-0449` has now tested the first residual-free high-error cluster
+  taxonomy and landed `INCONCLUSIVE` because the current training slice is too
+  sparse for per-cluster leave-one-out evaluation. Do not repeat the same
+  taxonomy as another near-miss; any future F2 retry needs a declared finer
+  taxonomy or a larger curated training slice.
 - `TASK-0396` should keep reveal-source readiness separate from every
   retrospective audit. No real reveal scoring is allowed until a source-grade
   post-freeze release passes the no-peek source gate.
 - `TASK-0448` through `TASK-0451` reopen Nuclear hypothesis testing in a
   controls-first form: one reusable hypothesis gauntlet plus three bounded
-  parallel lanes. These are not broad formula-search tasks and they must not
-  create prediction entries, reveal scores, claims, or canonical results.
+  parallel lanes. `TASK-0449` is now preserved as inconclusive evidence; the
+  remaining executable lanes are `TASK-0450` and `TASK-0451`. These are not
+  broad formula-search tasks and they must not create prediction entries,
+  reveal scores, claims, or canonical results.
   The gauntlet template lives at
   [`docs/notes/nuclear-controls-first-hypothesis-gauntlet.md`](../notes/nuclear-controls-first-hypothesis-gauntlet.md);
-  `TASK-0449`, `TASK-0450`, and `TASK-0451` are the first three lanes
-  expected to comply with it.
+  `TASK-0450` and `TASK-0451` are the next lanes expected to comply with it.
 
 Start here:
 
@@ -315,8 +328,9 @@ Start here:
 - After `TASK-0394`, what is the cleanest negative/inconclusive artifact for
   the local-curvature lane, and what wording prevents future agents from
   repeating it as a positive candidate?
-- Do residual-free high-error cluster labels reveal a real diagnostic domain,
-  or should that lane be retired as another leakage-sensitive negative result?
+- Can a finer residual-free high-error cluster taxonomy or larger curated
+  training slice ever make F2 testable, or should the current inconclusive
+  `TASK-0449` result keep that lane diagnostic-only?
 - Can any fresh Nuclear hypothesis family survive if the failure condition,
   negative controls, leakage audit, and output routing are declared before
   candidate fitting starts?
@@ -325,15 +339,14 @@ Start here:
 
 - Run `TASK-0428` before any local-curvature publication or follow-up wording:
   the expected path is negative/inconclusive memory, not positive promotion.
-- Run `TASK-0395` as the next Nuclear diagnostic lane only if the agent can
-  keep labels residual-free and controls explicit.
-- Run `TASK-0448` before expanding the hypothesis queue further: the template
-  should make controls, forbidden inputs, leakage checks, and stop conditions
-  explicit for every future Nuclear lane.
-- Run `TASK-0449`, `TASK-0450`, and `TASK-0451` as independent parallel
-  Nuclear hypothesis lanes after or alongside `TASK-0448`. Each lane owns a
-  distinct feature family and should terminate as bounded follow-up,
-  diagnostic-only, negative result, or inconclusive memory.
+- Treat `TASK-0449` as completed inconclusive sandbox evidence, not as a
+  reason to run the same cluster taxonomy again.
+- Use the `TASK-0448` gauntlet for every remaining Nuclear hypothesis lane:
+  controls, forbidden inputs, leakage checks, and stop conditions must be
+  explicit before fitting.
+- Run `TASK-0450` and `TASK-0451` as independent parallel Nuclear hypothesis
+  lanes. Each lane owns a distinct feature family and should terminate as
+  bounded follow-up, diagnostic-only, negative result, or inconclusive memory.
 - Run `TASK-0396` for reveal-source readiness; keep it independent from
   retrospective model audits and do not score live measurements.
 - Future reveal tasks should use the `TASK-0266` protocol and the source

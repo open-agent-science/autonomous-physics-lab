@@ -127,6 +127,7 @@ missions:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
           - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
           - "Treat TASK-0394 as a no-leakage falsification for LOCAL-CURVATURE-001 unless TASK-0428 identifies a narrower negative-result publication artifact"
+          - "Treat TASK-0449 as inconclusive residual-free high-error cluster memory; do not repeat the same taxonomy as a near-miss"
           - "Use live_task_candidates before naming any remaining READY Nuclear hypothesis lane"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --output json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
@@ -247,14 +248,16 @@ missions:
         expected_outputs:
           - "uncertainty preflight and weighted residual diagnostics"
       - id: nuclear-high-error-cluster-lane
-        label: "Run Nuclear high-error cluster hypothesis lane"
-        task_id: TASK-0343
+        label: "Preserve Nuclear high-error cluster lane as diagnostic-only history"
+        task_id: TASK-0449
         mode: research
         status: review_ready
         priority: high
         difficulty: high
+        recommended: false
         expected_outputs:
-          - "cluster hypotheses with matched negative controls"
+          - "TASK-0449 residual-free taxonomy is INCONCLUSIVE under current training sparsity"
+          - "do not repeat the same cluster taxonomy without a declared finer taxonomy or larger curated training slice"
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
