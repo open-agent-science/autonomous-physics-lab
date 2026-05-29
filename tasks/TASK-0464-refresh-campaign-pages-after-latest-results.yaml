@@ -1,0 +1,65 @@
+id: TASK-0464
+title: "Refresh campaign pages after latest Nuclear and campaign registry results"
+type: campaign_status_refresh
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep public campaign pages aligned with canonical merged scientific results."
+  - "Prevent agents from treating completed or inconclusive Nuclear lanes as still-open positive candidates."
+  - "Make the next active science surfaces clear without creating unnecessary new tasks."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/campaigns/README.md"
+    - "docs/current-missions.md"
+    - "docs/status.md"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+    - "campaigns/catalog.yaml"
+    - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+  planning_context: >
+    TASK-0449 landed a residual-free high-error cluster audit with an
+    INCONCLUSIVE sandbox-only verdict; TASK-0448 landed the controls-first
+    Nuclear gauntlet; TASK-0437 landed the campaign registry; TASK-0450 and
+    TASK-0451 have now landed as negative/control-dominated sandbox memory.
+    Campaign pages should point Nuclear agents toward negative/preflight
+    packaging, reveal readiness, or genuinely disjoint future controls-first
+    lanes, not stale high-error, neutron-rich boundary, or magic-distance
+    planning.
+
+requirements:
+  - "Update campaign-facing pages to record TASK-0449 as inconclusive sandbox-only evidence."
+  - "Keep local-curvature falsification, shell-axis diagnostic-only state, and reveal-source blockers visible."
+  - "Do not present TASK-0450 or TASK-0451 as active READY work after they have landed as sandbox memory."
+  - "Point active Nuclear execution toward negative/preflight packaging, reveal readiness, or a genuinely disjoint future controls-first lane rather than more broad audits."
+  - "Update campaign portfolio metadata and regenerate the campaign catalog if profile metadata changes."
+  - "Do not create new scientific claims, RESULT artifacts, prediction entries, or knowledge entries."
+  - "Do not commit generated tasks/ACTIVE.md or generated docs/task-views/*.md files."
+
+accepted_outputs:
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaigns/README.md"
+  - "docs/current-missions.md"
+  - "docs/status.md"
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "campaigns/catalog.yaml"
+  - "this task file"
+
+validation:
+  commands:
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

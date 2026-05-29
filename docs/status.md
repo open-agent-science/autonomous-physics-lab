@@ -26,7 +26,7 @@ APL is concentrating on four public-facing research surfaces:
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; local-curvature no-leakage is now a falsified lane, so next useful work is negative/preflight packaging, residual-free diagnostics, and reveal-readiness reporting |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; local-curvature is falsified, the residual-free high-error lane is inconclusive, neutron-rich boundary transfer is negative, and magic-distance interaction is control-dominated, so next useful work is negative/preflight packaging, reveal-readiness reporting, or a genuinely disjoint controls-first lane |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Direct measurement rows and source artifacts are still the gate |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy 2021 pinned rows exist; next blockers are Nemitz second-source ingestion, real-row loader, holdout/no-peek manifest, and baseline-readiness gate |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Compact-radius independent replay, normalized checksum cleanup, evidence card, and second-snapshot protocol after `BENCHMARK_SUMMARY_ONLY` scorecard |
@@ -64,6 +64,10 @@ Highlights:
 - `PRED-0001` through `PRED-0068` are frozen prospective nuclear predictions
   awaiting future maintainer-reviewed reveal data. They are forecasts, not
   current scientific wins.
+- The newest Nuclear residual-free high-error cluster audit is useful
+  sandbox memory, but not a positive candidate: its no-leakage taxonomy is
+  too sparse on the current training slice and regresses against the frozen
+  baseline and controls.
 - Exoplanet Mass-Radius now has a pinned PSCompPars snapshot, an inconclusive
   first baseline benchmark, residual/failure-map audits, a compact-radius
   matched-control survivor, and a `BENCHMARK_SUMMARY_ONLY` scorecard. This is
