@@ -404,7 +404,7 @@ missions:
         label: "Define Atomic holdout and no-peek manifest"
         task_id: TASK-0454
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
         recommended: true
