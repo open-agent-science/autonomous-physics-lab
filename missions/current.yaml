@@ -150,16 +150,6 @@ missions:
         expected_outputs:
           - "chain-transfer test with matched high-error non-neutron-rich controls"
           - "one bounded hypothesis family only"
-      - id: nuclear-magic-distance-interaction-controls
-        label: "Run magic-distance interaction control lane"
-        task_id: TASK-0451
-        mode: research
-        status: ready
-        priority: high
-        difficulty: high
-        recommended: true
-        expected_outputs:
-          - "magic-distance interaction candidate compared to smooth-A, asymmetry-only, parity-only, and matched random controls"
       - id: audit-agent-run-0005
         label: "Adversarially audit AGENT-RUN-0005 / HYP-PROPOSAL-0021"
         mode: audit
