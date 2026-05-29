@@ -36,7 +36,7 @@ requirements:
   - "Do not fit drift, compare values, create prediction entries, create RESULT artifacts, or promote claims."
 
 accepted_outputs:
-  - "data/atomic_clocks/atomic_holdout_manifest.yaml or docs/reviews/atomic-holdout-no-peek-manifest.md"
+  - "data/atomic_clocks/atomic_holdout_manifest.yaml"
   - "docs/reviews/atomic-holdout-no-peek-manifest.md"
   - "optional docs/campaigns/atomic-clock-residuals.md update if the benchmark boundary changes public status"
   - "optional tests only if a machine-readable manifest schema is added"
