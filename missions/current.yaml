@@ -549,12 +549,12 @@ missions:
           - "TASK-0427 confirmed as a strengthening prerequisite for compact/sub-Neptune wording, not a blocker"
       - id: exoplanet-second-snapshot-protocol
         label: "Prepare second-snapshot no-live-fetch protocol"
-        task_id: TASK-0393
+        task_id: null
         mode: research
-        status: ready
+        status: review_ready
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "no-live-fetch protocol for future cross-snapshot or prediction-readiness work"
       - id: exoplanet-compact-radius-independent-replay
