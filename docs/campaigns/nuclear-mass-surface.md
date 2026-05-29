@@ -250,6 +250,10 @@ Current next Nuclear posture:
   controls-first form: one reusable hypothesis gauntlet plus three bounded
   parallel lanes. These are not broad formula-search tasks and they must not
   create prediction entries, reveal scores, claims, or canonical results.
+  The gauntlet template lives at
+  [`docs/notes/nuclear-controls-first-hypothesis-gauntlet.md`](../notes/nuclear-controls-first-hypothesis-gauntlet.md);
+  `TASK-0449`, `TASK-0450`, and `TASK-0451` are the first three lanes
+  expected to comply with it.
 
 Start here:
 

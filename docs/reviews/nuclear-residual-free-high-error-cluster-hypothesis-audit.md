@@ -67,15 +67,9 @@ fit, so it cannot rescue an empty training-side cluster.
 
 | Surface | baseline | candidate | matched_random | smooth_a |
 | --- | ---: | ---: | ---: | ---: |
-| `training_loo` | 4.4904 | 5.6923 | 4.5924 | 4.4942 |
-| `primary_holdout` | 4.4904 | 5.6923 | 4.5924 | 4.4942 |
+| `training_loo` | 2.8245 | 3.1595 | 3.1256 | 4.0252 |
+| `primary_holdout` | 4.5526 | 5.7868 | 4.6471 | 4.5117 |
 | `full_known` | 4.4904 | 5.6923 | 4.5924 | 4.4942 |
-
-(`training_loo`, `primary_holdout`, and `full_known` show identical
-aggregate MAE in this run because the cluster taxonomy collapses to
-essentially one populated training-side cluster, so the LOO offset
-behaves the same way across all surfaces. Per-cluster diagnostics
-below restore the per-surface differentiation.)
 
 Numerical deltas vs the candidate:
 
