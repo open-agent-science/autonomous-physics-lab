@@ -22,4 +22,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0465` - Clarify task execution publishes a draft PR (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_automation`)
