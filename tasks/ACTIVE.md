@@ -73,24 +73,24 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
-- `TASK-0437` — Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`)
-- `TASK-0445` — Run independent replay of exoplanet compact-radius matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
-- `TASK-0447` — Package exoplanet benchmark evidence card (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0448` — Define Nuclear controls-first hypothesis gauntlet template (`research_quality_gate`, priority `high`, difficulty `medium`)
-- `TASK-0449` — Run Nuclear residual-free high-error cluster hypothesis audit (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0450` — Run Nuclear neutron-rich boundary transfer hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0451` — Run Nuclear magic-distance interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0464` — Refresh campaign pages after latest Nuclear and campaign registry results (`campaign_status_refresh`, priority `high`, difficulty `medium`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0464` — Refresh campaign pages after latest Nuclear and campaign registry results (merged)
 - `TASK-0458` — Refresh architecture overview and top-level repository map (merged)
 - `TASK-0457` — Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes (merged)
+- `TASK-0451` — Run Nuclear magic-distance interaction control lane (merged)
+- `TASK-0450` — Run Nuclear neutron-rich boundary transfer hypothesis lane (merged)
+- `TASK-0449` — Run Nuclear residual-free high-error cluster hypothesis audit (merged)
+- `TASK-0448` — Define Nuclear controls-first hypothesis gauntlet template (merged)
+- `TASK-0447` — Package exoplanet benchmark evidence card (merged)
+- `TASK-0445` — Run independent replay of exoplanet compact-radius matched-control audit (merged)
 - `TASK-0443` — Add public campaign science dashboard and monitoring links (merged)
 - `TASK-0442` — Sync campaign guidance after director review (merged)
 - `TASK-0441` — Upgrade Scientific Campaign Curator into Scientific Campaign Director role (merged)
 - `TASK-0438` — Scaffold Textbook Formula Audit campaign (merged)
+- `TASK-0437` — Add lightweight campaign registry for parallel agent research lanes (merged)
 - `TASK-0436` — Align agent docs with multi-campaign evidence-publication strategy (merged)
 - `TASK-0435` — Add campaign-at-a-glance snapshot summary (merged)
 - `TASK-0434` — Document standard repository snapshot handoff location (merged)
@@ -98,6 +98,7 @@ None.
 - `TASK-0431` — Clarify result-publication PR protocol edge cases (merged)
 - `TASK-0430` — Add safe closeout-time task unblocking (merged)
 - `TASK-0429` — Add advisory quality score to maintainer review output (merged)
+- `TASK-0428` — Run nuclear local-curvature result-promotion preflight (merged)
 - `TASK-0427` — Run exoplanet compact/sub-Neptune matched-control audit (merged)
 - `TASK-0426` — Cross-reference agent role profiles from docs/agent-catalog.md (merged)
 - `TASK-0425` — Migrate agents/example-agent.yaml test fixture out of agents/ into tests/fixtures/ (merged)
