@@ -1,0 +1,187 @@
+# Evergreen Science Task Template
+#
+# Purpose: define ONE bounded scientific attempt that a campaign curator can
+# re-issue repeatedly without creating open-ended "search until it works" agent
+# churn. Every instance of this template must end in exactly one reviewable
+# terminal outcome (see `terminal_outcomes` below).
+#
+# This is a TEMPLATE, not a canonical task. To turn it into real work:
+#   1. A maintainer (or maintainer-authorized campaign director) assigns a
+#      canonical TASK-XXXX id per docs/agent-task-protocol.md, OR an agent files
+#      a proposal under tasks/proposals/ using this shape.
+#   2. Replace every <PLACEHOLDER> and remove guidance comments that no longer
+#      apply.
+#   3. Keep the attempt bounded: one campaign, one pinned data surface, one
+#      hypothesis family, declared controls, a declared stop condition.
+#
+# Routing rule: the final output of every instance routes through
+# docs/result-promotion-protocol.md. Sandbox-only is the default. RESULT/PRED
+# promotion is allowed only when the instance explicitly scopes it AND Gate A
+# passes. Claim and knowledge promotion stay maintainer-only in Phase 1.
+#
+# See docs/evergreen-science-queues.md for how curators use this template and
+# docs/reviews/evergreen-science-task-template-review.md for the design review.
+
+id: TASK-XXXX
+title: "<campaign>: one bounded <hypothesis-family> attempt on <data-surface>"
+type: evergreen_science_attempt
+status: PROPOSED            # READY only after maintainer assigns the canonical id
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "<which campaign objective this single bounded attempt advances>"
+  - "Force one controlled attempt to end in a reviewable terminal outcome, not an open search."
+
+# --- Bounded-attempt contract -------------------------------------------------
+# Every field here must be filled before the attempt runs. An attempt that
+# cannot fill one of these stops as a `source_blocker` terminal outcome rather
+# than improvising.
+bounded_attempt:
+  campaign: "<campaign-id, e.g. nuclear-mass-surface>"
+  campaign_profile: "campaign_profiles/<campaign-id>.yaml"
+
+  # Pinned data / source surface. No live external fetch inside the attempt.
+  data_surface:
+    source_ref: "<committed dataset path or pinned snapshot id>"
+    snapshot_pin: "<SHA-256 / version / retrieval-date, or 'committed-in-repo'>"
+    no_live_fetch: true
+
+  # Frozen baseline the attempt is measured against. No in-task refit on the
+  # full snapshot.
+  baseline:
+    reference: "<frozen baseline path or published primary source>"
+    parameters: "<explicit frozen parameter values or 'see reference'>"
+    refit_on_full_snapshot_forbidden: true
+
+  # Exactly one hypothesis family. Must use leakage-free / residual-free
+  # features where the campaign requires it.
+  hypothesis_family:
+    name: "<single named family, e.g. magic-distance-interaction>"
+    free_parameters: "<count and what they are; keep small>"
+    leakage_contract: "<why this cannot peek at residuals / holdout / future rows>"
+
+  # Controls are mandatory. At least one matched control or one deterministic
+  # negative control per interpreted slice.
+  controls:
+    - "<matched control, e.g. smooth-baseline-only>"
+    - "<negative control, e.g. shuffled-label or matched-degree-random>"
+    - "<null baseline the candidate must beat, e.g. per-slice median>"
+
+  # Metrics computed deterministically in code, not asserted in prose.
+  metrics:
+    - "<primary metric, e.g. mean / max relative residual vs baseline>"
+    - "<robustness metric, e.g. leave-one-out coefficient stability>"
+
+  # The single declared condition that ends the attempt. Stating this up front
+  # is what makes the queue evergreen instead of open-ended.
+  stop_condition: >
+    <one sentence: e.g. "Stop after one fit + four declared controls + LOO
+    stability; do not expand the feature set or rerun with new bins.">
+
+  # Verdict vocabulary the attempt may emit. Prefer the weakest accurate verdict.
+  allowed_verdicts:
+    - VALID_IN_RANGE
+    - PARTIALLY_VALID
+    - INCONCLUSIVE
+    - OVERFITTED
+    - FALSIFIED
+
+  forbidden_claims:
+    - "no universal-scope or 'globally valid' wording"
+    - "no discovery / breakthrough / proof framing"
+    - "no automatic claim or knowledge promotion"
+    - "no application-domain inference beyond the audited quantity"
+    - "no live external fetch that bypasses the pinned snapshot"
+
+# --- Accepted outputs ---------------------------------------------------------
+# Sandbox attempt artifacts are always required. The negative/blocker note is
+# required whenever the terminal outcome is negative, inconclusive, or blocked.
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml      # run metadata, preflight, sandbox_only flag"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json        # deterministic metrics"
+  - "agent_runs/AGENT-RUN-XXXX/report.md           # method, controls, per-slice findings"
+  - "agent_runs/AGENT-RUN-XXXX/limitations.md      # range, sample, assumption limits"
+  - "docs/reviews/<campaign>-<attempt-slug>-review.md  # required for negative / blocker outcomes"
+  - "tests for any reusable code that is added"
+
+# --- Terminal outcomes --------------------------------------------------------
+# Every instance ends in exactly ONE of these. Each names its intended artifact
+# class so the curator and reviewer know where the output belongs.
+terminal_outcomes:
+  - name: result_candidate
+    when: "the attempt produced a stable per-slice pass/fail under matched controls"
+    intended_artifact_class: "RESULT candidate (review_tier: AGENT_PUBLISHED)"
+    gate: "Requires Gate A (Result Publication Gate) per docs/result-promotion-protocol.md; agent_proposal_evaluation block must be populated. No automatic claim promotion."
+
+  - name: negative_result
+    when: "the candidate was contradicted by the configured check under controls"
+    intended_artifact_class: "RESULT candidate with best_verdict: FALSIFIED, or sandbox-only negative note"
+    gate: "FALSIFIED RESULT may be AGENT_PUBLISHED via Gate A; otherwise keep sandbox-only. Negatives are preserved, never deleted."
+
+  - name: inconclusive_result
+    when: "the run did not decide the question (e.g. too few rows, unstable LOO)"
+    intended_artifact_class: "sandbox-only (agent_runs/ + review note)"
+    gate: "No promotion. Record why it was inconclusive so the lane is not blindly repeated."
+
+  - name: source_blocker
+    when: "a required bounded-attempt field (data, baseline, control) cannot be satisfied"
+    intended_artifact_class: "no-promotion blocker review (docs/reviews/...-blocker.md)"
+    gate: "No metric run. Surface the blocker; do not substitute model-derived or unpinned data to force a run."
+
+  - name: next_task_proposal
+    when: "the attempt is sound but the useful next step is a different bounded task"
+    intended_artifact_class: "task proposal (tasks/proposals/...) or PRED candidate"
+    gate: "A PRED candidate uses Gate A per prediction-registry-policy.md. Claim/knowledge proposals stay maintainer-only."
+
+# --- Worked examples ----------------------------------------------------------
+# Three filled shapes the curator can copy. Each is one bounded attempt.
+examples:
+  - kind: residual_mining
+    title: "Nuclear: one residual-free feature vs frozen mass baseline"
+    bounded_attempt:
+      campaign: nuclear-mass-surface
+      data_surface: "data/nuclear_masses/ committed rows + frozen RESULT baseline; no live fetch"
+      baseline: "frozen nuclear mass-baseline residuals (e.g. RESULT-0015)"
+      hypothesis_family: "one residual-free feature (Z, N, A, magic-distance, parity); small free-parameter count"
+      controls: ["smooth-baseline-only", "parity-only", "matched-degree-random", "LOO coefficient stability"]
+      metrics: ["mean/max residual reduction vs baseline", "LOO sign-flip count"]
+      stop_condition: "one fit + four controls; do not grow the feature set or re-bin"
+    typical_terminal_outcome: "inconclusive_result or negative_result (sandbox-only unless Gate A passes)"
+
+  - kind: source_curation
+    title: "Atomic: validate one committed direct-measurement row group"
+    bounded_attempt:
+      campaign: atomic_clock_residuals
+      data_surface: "one committed direct_measurement row (e.g. Beloy 2021 seed); no live fetch"
+      baseline: "schema + holdout manifest (no drift fit, no residual computation)"
+      hypothesis_family: "schema/provenance admissibility check (not a physics fit)"
+      controls: ["required-field completeness", "source vs source_metadata reconciliation"]
+      metrics: ["fields validated", "rows admissible vs rejected"]
+      stop_condition: "validate the named row group only; do not fit constants or compute residuals"
+    typical_terminal_outcome: "source_blocker (if fields missing) or next_task_proposal (loader-ready)"
+
+  - kind: adversarial_control
+    title: "Cross-campaign: stress one published sandbox candidate with matched controls"
+    bounded_attempt:
+      campaign: cross_campaign_quality
+      data_surface: "the exact pinned snapshot the original candidate used; no new fetch"
+      baseline: "the candidate's own reported metrics as the comparison target"
+      hypothesis_family: "control battery (shuffled-label, uncertainty-equalized subset, split-sensitivity)"
+      controls: ["shuffled-label", "uncertainty-equalized subset", "alternate train/test split"]
+      metrics: ["candidate metric under each control vs original", "stability margin"]
+      stop_condition: "run the declared control battery once; do not redesign the candidate"
+    typical_terminal_outcome: "negative_result or inconclusive_result; never auto-promotes the candidate"
+
+# --- Standard validation ------------------------------------------------------
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
