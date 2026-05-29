@@ -1,7 +1,7 @@
 id: TASK-0395
 title: "Refactor nuclear high-error cluster labels to residual-free features"
 type: scientific_validation
-status: SUPERSEDED
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
