@@ -133,23 +133,13 @@ missions:
           - "Use docs/result-promotion-protocol.md to decide whether the final output is sandbox-only, RESULT/PRED draft, review note, source artifact, or task proposal"
           - "Publish RESULT/PRED artifacts only when the selected task explicitly allows it and Gate A or maintainer-approved manual Gate A review passes"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
-          - "Use the TASK-0448 gauntlet for remaining controls-first Nuclear lanes such as TASK-0450 and TASK-0451"
+          - "Use the TASK-0448 gauntlet for any future maintainer-approved controls-first Nuclear lane"
+          - "Treat TASK-0450 and TASK-0451 as review-ready negative/control-dominated sandbox memory, not executable READY options"
           - "New Nuclear hypothesis lanes must predeclare leakage checks, negative controls, and stop conditions before candidate fitting"
         validation:
           - "python3 -m ruff check ."
           - "python3 -m pytest"
           - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
-      - id: nuclear-neutron-rich-boundary-transfer
-        label: "Run neutron-rich boundary transfer hypothesis lane"
-        task_id: TASK-0450
-        mode: research
-        status: ready
-        priority: high
-        difficulty: high
-        recommended: true
-        expected_outputs:
-          - "chain-transfer test with matched high-error non-neutron-rich controls"
-          - "one bounded hypothesis family only"
       - id: audit-agent-run-0005
         label: "Adversarially audit AGENT-RUN-0005 / HYP-PROPOSAL-0021"
         mode: audit
