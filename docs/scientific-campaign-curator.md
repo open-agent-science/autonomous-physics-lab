@@ -184,3 +184,24 @@ In that case, it may create canonical `tasks/TASK-XXXX-*.yaml` files only when:
 
 If maintainer intent is unclear, the curator should recommend task proposals or
 ask for confirmation instead of creating canonical task files.
+
+## Evergreen Science Task Template
+
+When the Director wants to re-issue the same kind of bounded scientific attempt
+across campaign waves (Nuclear, Exoplanet, Quantum, Atomic, Textbook, and
+future lanes), use the evergreen science task template instead of inventing a
+fresh open-ended task each time:
+
+- `docs/templates/evergreen-science-task-template.yaml` — the canonical
+  per-attempt contract (one campaign, one pinned data surface, one hypothesis
+  family, mandatory controls, a declared stop condition, and exactly one
+  terminal outcome);
+- `docs/evergreen-science-queues.md` — how to issue an evergreen attempt and how
+  each terminal outcome (result candidate, negative result, inconclusive result,
+  source blocker, next-task proposal) routes through
+  `docs/result-promotion-protocol.md`.
+
+The template never grants claim-promotion authority and never authorizes
+open-ended "search until it works" tasks; it standardizes bounded, reviewable
+attempts. Canonical task ids still require maintainer approval per the rules
+above.
