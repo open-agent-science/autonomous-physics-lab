@@ -1,0 +1,109 @@
+id: HYP-PROPOSAL-0053
+title: "Nuclear magic-distance Z×N interaction hypothesis"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox hypothesis only. No prediction registry, canonical result, claim, or knowledge promotion is authorized."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0451
+
+input_references:
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  - "docs/reviews/nuclear-shell-axis-specificity-controls.md"
+  - "docs/reviews/nuclear-shell-axis-magic-asymmetry-audit.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+
+hypothesis:
+  statement: "If shell structure carries a genuine product interaction between proximity to magic-Z and proximity to magic-N (beyond the additive shell-axis behavior already classified as diagnostic-only by TASK-0333), then a single residual-free interaction feature `r_corr = beta * gauss(Z_dist, 2) * gauss(N_dist, 2)` fit on the NMD-0002 training slice should beat smooth-A, asymmetry-only, parity-only, and deterministic matched-degree random controls by the 0.25 MeV survival margin on full_known and survive a leave-one-out coefficient-stability check, without regressing the post-AME2020 primary holdout."
+  variables:
+    - "Z, N, A: proton, neutron, mass number"
+    - "z_dist: min(|Z - m|) over published magic numbers"
+    - "n_dist: min(|N - m|) over published magic numbers"
+    - "gauss_z = exp(-z_dist^2 / 8): Gaussian shell proximity in Z"
+    - "gauss_n = exp(-n_dist^2 / 8): Gaussian shell proximity in N"
+    - "interaction_feature = gauss_z * gauss_n (residual-free, deterministic from Z, N)"
+    - "baseline_residual_mev: signed binding-energy residual against frozen RESULT-0015 (fit target, NOT a feature input)"
+  assumptions:
+    - "Interaction feature is a closed-form product of two Gaussian shell-proximity terms; no residual input enters feature construction."
+    - "Single coefficient beta fit via least squares on NMD-0002 training rows; LOO coefficient-stability check refits beta on each training-row exclusion."
+    - "Frozen RESULT-0015 baseline reused; no candidate-fit residual feeds downstream features."
+    - "All four controls (smooth-A, asymmetry-only, parity-only, matched-degree random) share the same fit and evaluation surfaces."
+    - "No live data fetch; only committed NMD-0002 + post-AME2020 holdout rows."
+  expected_scope: "Bounded retrospective test of one magic-distance Z×N interaction correction with four controls plus coefficient stability."
+  expected_failure_modes:
+    - "A smooth-A control may match the apparent improvement (interaction signal is mass-scale in disguise)."
+    - "Asymmetry-only or parity-only controls may match (no shell-specific information)."
+    - "Matched-degree deterministic random control may match (no actual structure)."
+    - "Coefficient sign may flip under leave-one-out resampling (fragile fit)."
+    - "Candidate may improve aggregate but regress light A<50 or primary holdout."
+
+novelty_check:
+  checked_files:
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "docs/reviews/nuclear-shell-axis-specificity-controls.md"
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  possible_overlap: "Distinct from existing shell-axis lanes which test additive proximity (s_z OR s_n) or sums. This tests the PRODUCT (s_z × s_n) — an interaction term that is zero unless both Z and N are simultaneously near magic numbers. The lane does not reuse shell-axis PRED entries, target batches, or reveal-scoring machinery."
+  notes: "Shell-axis decision (TASK-0333) keeps shell-axis diagnostic-only. This lane respects that classification: even if the interaction candidate survives the gauntlet, the verdict caps at SHELL_ADJACENT_DIAGNOSTIC by the custom verdict vocabulary; no registry expansion is authorized."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_magic_distance_interaction_control_lane.py and compare committed metrics to recomputed metrics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on committed NMD-0002 and post-AME2020 holdout."
+  pass_condition: "Sandbox pass if exactly one interaction candidate is fit, all four controls (smooth_a, asymmetry_only, parity_only, matched_degree_random) report metrics, coefficient-stability LOO check is reported, per-subset metrics (magic-N, magic-Z, double-magic, light A<50, neutron-rich) are reported, verdict is one of {SHELL_ADJACENT_DIAGNOSTIC, CONTROL_DOMINATED, FRAGILE_INCONCLUSIVE, NEGATIVE_RESULT}, and no PRED/CLAIM/KNOW/RESULT artifact is written."
+  fail_condition: "Fail if multiple candidate variants run, controls are skipped, coefficient-stability check is omitted, shell-axis PRED entries are reused, or any canonical artifact is written."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe the interaction term as discovery, new nuclear law, broad formula, or shell-axis breakthrough."
+    - "Do not call retrospective full_known improvements predictive validation."
+    - "Do not imply reveal readiness, registry expansion, or anomaly explanation."
+  mitigations:
+    - "Keep outputs sandbox-only with explicit promotion_boundary."
+    - "Preserve all four controls and the coefficient-stability diagnostic in the report."
+    - "Cap the verdict at SHELL_ADJACENT_DIAGNOSTIC by vocabulary even if the gauntlet passes; no registry expansion is authorized by this lane."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_magic_distance_interaction_control_lane.py"
+    - "python3 -m pytest tests/test_nuclear_magic_distance_interaction_control_lane.py"
+  code_references:
+    - "scripts/run_nuclear_magic_distance_interaction_control_lane.py"
+    - "tests/test_nuclear_magic_distance_interaction_control_lane.py"
+  metrics:
+    - "candidate_coefficient_beta_mev"
+    - "candidate_coefficient_loo_std_mev"
+    - "candidate_coefficient_loo_sign_flip_count"
+    - "baseline_mae_per_surface_mev"
+    - "candidate_mae_per_surface_mev"
+    - "control_smooth_a_mae_per_surface_mev"
+    - "control_asymmetry_only_mae_per_surface_mev"
+    - "control_parity_only_mae_per_surface_mev"
+    - "control_matched_degree_random_mae_per_surface_mev"
+    - "per_subset_delta_mae_mev"
+    - "verdict"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0045/"
+    - "docs/reviews/nuclear-magic-distance-interaction-control-lane.md"
+
+limitations:
+  - "NMD-0002 has 11 training rows; coefficient LOO stability has only 11 refit folds."
+  - "Frozen baseline residuals are retrospective; this is not a blind prediction."
+  - "Gaussian-width sigma=sqrt(8/2)~=2 is declared before the run; not retuned."
+  - "Custom verdict vocabulary caps at SHELL_ADJACENT_DIAGNOSTIC; no registry expansion is authorized regardless of outcome."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Review whether the magic-distance interaction lane should remain diagnostic-only or close as negative."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed follow-up before any RESULT, PRED, claim, knowledge, or reveal-scoring work. Shell-axis post-audit decision (TASK-0333) remains in force."

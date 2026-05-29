@@ -1,0 +1,116 @@
+id: EXP-PROPOSAL-0019
+title: "Sandbox nuclear magic-distance Z×N interaction control lane"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only. No canonical result, PRED, claim, or knowledge artifact is authorized."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0451
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0053-magic-distance-interaction.yaml"
+
+question: "Does a single residual-free magic-distance Z×N interaction feature `r_corr = beta * exp(-z_dist^2/8) * exp(-n_dist^2/8)` beat baseline, smooth-A, asymmetry-only, parity-only, and deterministic matched-degree random controls on full_known MAE by >= 0.25 MeV; survive a leave-one-out coefficient-stability check; and not regress the post-AME2020 primary holdout?"
+
+method:
+  summary: "Fit one scalar coefficient beta via least squares on the NMD-0002 training slice against frozen RESULT-0015 baseline residuals, using the interaction feature. Evaluate the candidate plus four controls (smooth_a linear, asymmetry_only linear, parity_only mean-class offset, matched_degree_random cyclic shift). Run a leave-one-out coefficient-stability check on the training slice. Report MAE/RMSE on training_lstsq, primary_holdout, full_known, and per subset (magic_n, magic_z, double_magic, light_a_lt_50, isotope_chain, neutron_rich). Apply the custom verdict vocabulary."
+  code_references:
+    - "scripts/run_nuclear_magic_distance_interaction_control_lane.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "tests/test_nuclear_magic_distance_interaction_control_lane.py"
+  commands:
+    - "python3 scripts/run_nuclear_magic_distance_interaction_control_lane.py"
+    - "python3 -m pytest tests/test_nuclear_magic_distance_interaction_control_lane.py"
+  parameters:
+    gaussian_variance_two_sigma_squared: 8.0
+    matched_degree_random_seed: 451
+    survival_margin_mev: 0.25
+    coefficient_loo_sign_flip_threshold: 2
+    required_controls:
+      - "smooth_a_linear"
+      - "asymmetry_only_linear"
+      - "parity_only_class_offset"
+      - "matched_degree_random_cyclic_shift"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen RESULT-0015 semi-empirical baseline coefficients."
+    - "Published magic numbers: {2, 8, 20, 28, 50, 82, 126, 184}."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+  assumptions:
+    - "No live source fetch."
+    - "No PRED, RESULT, claim, or knowledge artifact is modified."
+    - "Interaction feature is a closed-form product of Z- and N-distance Gaussians."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0045/"
+  metrics:
+    - "candidate_coefficient_beta_mev"
+    - "candidate_coefficient_loo_std_mev"
+    - "candidate_coefficient_loo_sign_flip_count"
+    - "candidate_mae_per_surface_mev"
+    - "baseline_mae_per_surface_mev"
+    - "control_smooth_a_mae_per_surface_mev"
+    - "control_asymmetry_only_mae_per_surface_mev"
+    - "control_parity_only_mae_per_surface_mev"
+    - "control_matched_degree_random_mae_per_surface_mev"
+    - "per_subset_candidate_full_known"
+    - "candidate_vs_baseline_full_known_delta_mev"
+    - "verdict"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0045/report.md"
+    - "agent_runs/AGENT-RUN-0045/limitations.md"
+    - "docs/reviews/nuclear-magic-distance-interaction-control-lane.md"
+
+validation:
+  pass_condition: "Sandbox pass if exactly one candidate is fit, all four controls report metrics, coefficient-stability LOO is reported, per-subset metrics are reported, verdict is one of {SHELL_ADJACENT_DIAGNOSTIC, CONTROL_DOMINATED, FRAGILE_INCONCLUSIVE, NEGATIVE_RESULT}, and no PRED/CLAIM/KNOW/RESULT artifact is modified."
+  fail_condition: "Sandbox fail if multiple candidate variants run, any control is skipped, coefficient-stability check is omitted, shell-axis PRED entries are reused, or any canonical artifact is written."
+  baseline_or_reference: "Frozen RESULT-0015 semi-empirical baseline."
+  expected_failure_modes:
+    - "smooth_a or asymmetry_only control matches the candidate (signal is not shell-specific)."
+    - "Matched-degree random control matches the candidate (no actual structure)."
+    - "Coefficient sign flips under LOO refit (fragile)."
+    - "Candidate regresses light A<50 or primary holdout."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call magic-distance interaction fits a discovery or shell-axis breakthrough."
+    - "Do not imply reveal or registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only with explicit promotion_boundary."
+    - "Cap the verdict at SHELL_ADJACENT_DIAGNOSTIC by vocabulary regardless of fit quality."
+    - "Preserve all four controls and the coefficient-stability diagnostic in the report."
+
+limitations:
+  - "Retrospective evaluation on committed surfaces only."
+  - "NMD-0002 has 11 training rows; LOO coefficient stability has only 11 refit folds."
+  - "Gaussian width is declared before the run and not retuned."
+  - "Custom verdict caps at SHELL_ADJACENT_DIAGNOSTIC; no registry expansion is authorized regardless of outcome."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Confirm whether the lane remains diagnostic-only or closes as negative."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work. Shell-axis post-audit decision (TASK-0333) remains in force."
