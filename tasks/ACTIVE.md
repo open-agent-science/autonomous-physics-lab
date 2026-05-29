@@ -74,6 +74,7 @@ None.
 - `TASK-0444` — Plan Stellar Mass-Luminosity OOD source and baseline (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0454` — Define Atomic holdout and no-peek manifest for first benchmark (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0465` — Clarify task execution publishes a draft PR (`maintainer_workflow`, priority `high`, difficulty `low`)
+- `TASK-0466` — Reduce agent-flow friction in protocol tooling and validation (`maintainer_workflow`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 

@@ -23,3 +23,4 @@ None.
 
 - `TASK-0422` - Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0465` - Clarify task execution publishes a draft PR (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_automation`)
+- `TASK-0466` - Reduce agent-flow friction in protocol tooling and validation (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
