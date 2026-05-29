@@ -1,0 +1,53 @@
+id: TASK-0463
+title: "Add capacity summary section to project snapshots"
+type: snapshot_tooling
+status: BLOCKED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make repository snapshots useful for launching a batch of parallel agents."
+  - "Expose current campaign capacity, blockers, and safe next lanes in maintainer handoff artifacts."
+  - "Keep snapshot context aligned with generated campaign and capacity views."
+
+input:
+  mode: workflow
+  related_domain: snapshot_tooling
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - "tasks/TASK-0437-add-lightweight-campaign-registry.yaml"
+    - "tasks/TASK-0459-generate-agent-capacity-board-from-campaign-catalog.yaml"
+    - "campaigns/catalog.yaml"
+    - "docs/agent-capacity-board.md after TASK-0459 lands"
+  planning_context: >
+    Maintainer snapshots are already the handoff surface for strategy agents
+    and multi-agent sessions. Once campaign capacity is registry-driven, the
+    snapshot should include a compact capacity section so a maintainer can see
+    which lanes can accept agents, which are blocked, and which curator review
+    is due next.
+
+requirements:
+  - "Do not start until TASK-0459 or an equivalent registry-driven capacity board exists."
+  - "Update the snapshot flow to include a compact campaign capacity summary."
+  - "Source the summary from generated campaign/capacity artifacts instead of duplicating lane text."
+  - "Include safe agent counts, allowed-now work, blockers, and next curator review where available."
+  - "Keep the snapshot read-only with respect to campaign data; it must not rewrite task statuses or campaign profiles."
+  - "Add tests or a disposable snapshot run that proves the capacity section is present."
+
+accepted_outputs:
+  - "updated snapshot script or snapshot-generation helper"
+  - "snapshot fixture/test or documented disposable verification run"
+  - "short documentation note if snapshot contents change"
+
+validation:
+  commands:
+    - "APL_SNAPSHOT_DIR=/tmp/apl-snapshot-check ./scripts/apl_snapshot.sh"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
