@@ -390,7 +390,12 @@ def run_task_validation(
             _portable_validation_command(local_command),
             cwd=root,
             shell=True,
-            timeout=300,
+            # The full local pytest fallback (used when GitHub checks are not yet
+            # green and ci-aware cannot reuse them) runs close to 300s, so a 300s
+            # timeout crashed the review tool. Give the fallback ample headroom;
+            # ci-aware mode still skips this re-run when checks are already green.
+            # See TASK-0466, F3.
+            timeout=900,
         )
         if result.returncode != 0:
             failed_commands.append(command_text)
