@@ -100,6 +100,21 @@ existing metrics:
 
 No new primary metric may be selected after seeing the second snapshot.
 
+### Mass Measurement Axis Boundary
+
+The second snapshot must preserve the first benchmark's mass-axis discipline:
+
+- true-mass rows and `M sin i` rows are scored on separate residual axes;
+- each axis has separate row counts, metric summaries, and blocker labels;
+- no aggregate success or null verdict may average true-mass and `M sin i`
+  rows into one headline number;
+- any row whose mass provenance cannot be mapped to the frozen field contract
+  is a blocker for that row or slice, not a license to infer or relabel the
+  measurement class after inspection.
+
+This boundary must be frozen before acquisition alongside the baseline,
+metric, slice, and exclusion rules.
+
 ## Reveal Conditions
 
 A future reveal is permitted only when all of the following are true:
