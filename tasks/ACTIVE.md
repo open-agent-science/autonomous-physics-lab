@@ -61,7 +61,6 @@ one PR.
 - `TASK-0440` — Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0444` — Plan Stellar Mass-Luminosity OOD source and baseline (`scientific_dataset`, priority `high`, difficulty `medium`)
 - `TASK-0446` — Close exoplanet normalized-snapshot checksum gap (`scientific_dataset`, priority `medium`, difficulty `medium`)
-- `TASK-0451` — Run Nuclear magic-distance interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0452` — Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0453` — Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0454` — Define Atomic holdout and no-peek manifest for first benchmark (`benchmark_protocol`, priority `high`, difficulty `medium`)
@@ -81,6 +80,7 @@ None.
 - `TASK-0448` — Define Nuclear controls-first hypothesis gauntlet template (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0449` — Run Nuclear residual-free high-error cluster hypothesis audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0450` — Run Nuclear neutron-rich boundary transfer hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0451` — Run Nuclear magic-distance interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
