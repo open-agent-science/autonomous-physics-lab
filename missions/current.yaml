@@ -454,7 +454,7 @@ missions:
     status: active_secondary_benchmark
     scientific_value: medium
     risk: medium
-    recommendation: "Active secondary benchmark: treat the compact-radius slice as a BENCHMARK_SUMMARY_ONLY diagnostic, then prioritize independent replay, checksum cleanup, evidence-card packaging, and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
+    recommendation: "Active secondary benchmark: treat the compact-radius slice as a BENCHMARK_SUMMARY_ONLY diagnostic, then prioritize checksum cleanup, evidence-card packaging, and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -537,16 +537,16 @@ missions:
           - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md freezes acquisition, checksums, no-peek, metrics, slices, and true-mass vs M sin i boundaries"
           - "next action: use TASK-0446/TASK-0447 or a future maintainer-approved ingestion-only task; do not live-fetch rows from onboarding"
       - id: exoplanet-compact-radius-independent-replay
-        label: "Run independent replay of compact-radius matched-control audit"
-        task_id: TASK-0445
+        label: "Independent replay of compact-radius matched-control audit is review-ready"
+        task_id: null
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "independent replay verdict for scripts/run_exoplanet_compact_subneptune_matched_control_audit.py"
-          - "no claim promotion; benchmark-summary wording only"
+          - "TASK-0445 records an independent replay verdict for scripts/run_exoplanet_compact_subneptune_matched_control_audit.py"
+          - "review before any public wording update; no claim promotion and benchmark-summary wording only"
       - id: exoplanet-normalized-checksum-gap
         label: "Close normalized PSCompPars snapshot checksum gap"
         task_id: TASK-0446
