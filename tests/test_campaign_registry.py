@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib.util
 from pathlib import Path
 
 import pytest
@@ -9,11 +10,22 @@ import pytest
 from physics_lab.registry.campaigns import load_campaign_catalog
 from physics_lab.registry.repository import validate_repository
 from physics_lab.registry.validation import infer_kind_from_path
-from scripts.generate_campaign_catalog import build_catalog, render_catalog
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CATALOG_PATH = REPO_ROOT / "campaigns" / "catalog.yaml"
+GENERATOR_PATH = REPO_ROOT / "scripts" / "generate_campaign_catalog.py"
+
+_GENERATOR_SPEC = importlib.util.spec_from_file_location(
+    "generate_campaign_catalog",
+    GENERATOR_PATH,
+)
+if _GENERATOR_SPEC is None or _GENERATOR_SPEC.loader is None:
+    raise RuntimeError(f"Could not load campaign catalog generator: {GENERATOR_PATH}")
+_GENERATOR = importlib.util.module_from_spec(_GENERATOR_SPEC)
+_GENERATOR_SPEC.loader.exec_module(_GENERATOR)
+build_catalog = _GENERATOR.build_catalog
+render_catalog = _GENERATOR.render_catalog
 
 
 def _minimal_catalog(campaign_id: str = "example-campaign") -> str:
