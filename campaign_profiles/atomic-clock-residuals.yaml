@@ -1,0 +1,97 @@
+id: atomic-clock-residuals
+title: "Atomic-clock residuals"
+autonomy_status: SOURCE_READINESS
+pilot_rank: 6
+
+source_docs:
+  - docs/campaigns/atomic-clock-residuals.md
+  - data/atomic_clocks/README.md
+  - data/atomic_clocks/schema.md
+  - docs/notes/atomic-clock-source-candidates.md
+  - docs/research-quality-gate.md
+
+allowed_hypothesis_families:
+  - "Source-readiness and provenance notes for direct frequency-ratio rows."
+  - "Holdout/no-peek manifest proposals before any benchmark consumer runs."
+  - "Covariance-policy and version-drift reviews with explicit blockers."
+
+allowed_experiment_families:
+  - "Deterministic loader dry-runs against committed real or synthetic rows."
+  - "Baseline-readiness gates that return go/no-go status without fitting drift."
+  - "Cross-source consistency benchmark planning after required source gates pass."
+
+required_inputs:
+  - "Pinned primary source or source-artifact package."
+  - "Direct-vs-derived row classification."
+  - "Frequency-ratio, epoch, uncertainty, and covariance semantics."
+  - "Version-drift stop condition when source versions disagree."
+  - "Holdout/no-peek manifest before any benchmark interpretation."
+
+required_quality_checks:
+  - "State that no constants-drift or new-constant claim is made."
+  - "Keep direct measurements separate from derived constraints."
+  - "Preserve covariance and uncertainty semantics before benchmark metrics."
+  - "Stop on source-artifact version drift."
+
+forbidden_claims:
+  - "APL has found constants drift."
+  - "Atomic-clock residuals imply a new constant or anomaly explanation."
+  - "A benchmark may run before real rows, second-source policy, and holdout/no-peek manifest exist."
+  - "Covariance can be ignored for high-precision interpretation."
+
+sandbox_permissions:
+  may_create:
+    - source_artifact_notes
+    - loader_dry_run_outputs
+    - holdout_manifest_proposals
+    - readiness_gate_reviews
+  must_not_edit:
+    - claims
+    - canonical_results
+    - knowledge
+
+validation_commands:
+  - "python3 -m ruff check ."
+  - "python3 -m pytest"
+  - "python3 -m physics_lab.cli validate-repo ."
+  - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+handoff_requires:
+  - task_id_or_microtask_id
+  - campaign_profile_id
+  - source_or_manifest_reference
+  - row_or_covariance_semantics
+  - limitations
+  - verdict
+  - maintainer_decision_requested
+
+portfolio:
+  status: pinned_dataset
+  domain: precision_metrology
+  current_stage: "Beloy 2021 pinned rows and covariance approximation, moving toward benchmark readiness"
+  recommended_parallel_agents: 2
+  coordination_notes: "Second-source ingestion, loader work, and holdout/no-peek manifest can proceed in separate branches."
+  best_next_actions:
+    - task_id: TASK-0453
+      label: "Add atomic real direct row loader"
+    - task_id: TASK-0454
+      label: "Define atomic holdout and no-peek manifest"
+    - task_id: TASK-0455
+      label: "Rerun atomic baseline-readiness gate"
+  required_gates:
+    - "Second-source provenance review."
+    - "Real-row loader and schema validation."
+    - "Holdout/no-peek manifest before benchmark claims."
+    - "Covariance semantics must remain explicit."
+  current_results:
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml"
+    - "docs/campaigns/atomic-clock-residuals.md"
+  open_questions:
+    - "Can Nemitz 2016 serve as a source-grade second direct-ratio source?"
+    - "Which uncertainty/covariance policy is acceptable for the first benchmark?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-05-29"
+    source: "TASK-QUEUE atomic baseline-readiness wave"
+    notes: "High-prestige lane, but benchmark work remains gated on source and covariance semantics."

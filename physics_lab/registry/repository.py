@@ -12,6 +12,7 @@ import yaml
 
 from physics_lab.registry.agents import load_agent
 from physics_lab.registry.agent_runs import load_agent_run
+from physics_lab.registry.campaigns import load_campaign_catalog
 from physics_lab.registry.active_board import active_board_is_synced
 from physics_lab.registry.claims import load_claim
 from physics_lab.registry.docs_links import find_docs_link_issues
@@ -45,6 +46,7 @@ from physics_lab.workflows.artifacts import hash_file
 Loader = Callable[[Union[str, Path]], dict[str, Any]]
 LOADERS: dict[str, Loader] = {
     "agents": load_agent,
+    "campaigns": load_campaign_catalog,
     "agent_runs": load_agent_run,
     "claims": load_claim,
     "examples": load_example_config,
@@ -61,6 +63,7 @@ LOADERS: dict[str, Loader] = {
 }
 PATTERNS: dict[str, str] = {
     "agents": "*.yaml",
+    "campaigns": "catalog.yaml",
     "agent_runs": "*/agent_run.yaml",
     "claims": "*.md",
     "examples": "*.yaml",
@@ -738,6 +741,7 @@ def validate_repository(
     agent_runs = _load_directory(root_path, "agent_runs")
     microtask_runs = _load_directory(root_path, "microtask_runs")
     agents = _load_directory(root_path, "agents")
+    campaign_catalogs = _load_directory(root_path, "campaigns")
     claims = _load_directory(root_path, "claims")
     knowledge_files = _load_directory(root_path, "knowledge")
     example_configs = [
@@ -771,6 +775,7 @@ def validate_repository(
         "agent_runs": len(agent_runs),
         "microtask_runs": len(microtask_runs),
         "agents": len(agents),
+        "campaigns": len(campaign_catalogs),
         "claims": len(claims),
         "knowledge": len(knowledge_files),
         "examples": len(example_configs),
