@@ -55,7 +55,6 @@ one PR.
 - `TASK-0421` — Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0422` — Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
-- `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0432` — Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0439` — Scaffold Materials Property Residuals campaign (`campaign_scaffold`, priority `medium`, difficulty `medium`)
 - `TASK-0440` — Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`)
@@ -74,6 +73,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0437` — Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0445` — Run independent replay of exoplanet compact-radius matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0447` — Package exoplanet benchmark evidence card (`documentation`, priority `high`, difficulty `medium`)
@@ -81,6 +81,7 @@ None.
 - `TASK-0449` — Run Nuclear residual-free high-error cluster hypothesis audit (`scientific_validation`, priority `high`, difficulty `high`)
 - `TASK-0450` — Run Nuclear neutron-rich boundary transfer hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0451` — Run Nuclear magic-distance interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0464` — Refresh campaign pages after latest Nuclear and campaign registry results (`campaign_status_refresh`, priority `high`, difficulty `medium`)
 
 ## DONE RECENTLY
 
