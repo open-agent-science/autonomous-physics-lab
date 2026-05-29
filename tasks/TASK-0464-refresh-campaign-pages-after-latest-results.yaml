@@ -1,7 +1,7 @@
 id: TASK-0464
 title: "Refresh campaign pages after latest Nuclear and campaign registry results"
 type: campaign_status_refresh
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
