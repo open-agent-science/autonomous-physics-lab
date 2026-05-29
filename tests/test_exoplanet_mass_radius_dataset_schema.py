@@ -92,3 +92,18 @@ def test_pscomppars_snapshot_preserves_separate_row_classes() -> None:
         "transit_radius_with_rv_minimum_mass",
     }
     assert all(entry["source_id"] == "EXO-SRC-CLASS-001" for entry in payload["entries"])
+
+def test_pscomppars_normalized_checksum_semantics_are_documented() -> None:
+    readme = (ROOT / "data" / "exoplanets" / "README.md").read_text(encoding="utf-8")
+
+    assert "## Normalized Snapshot Checksum" in readme
+    assert "normalized_checksum_sha256" in readme
+    assert "committed normalized YAML snapshot file exactly as stored in git" in readme
+    assert "sha256sum data/exoplanets/exo-0001-pscomppars-snapshot.yaml" in readme
+    assert (
+        "Get-FileHash data\\exoplanets\\exo-0001-pscomppars-snapshot.yaml -Algorithm SHA256"
+        in readme
+    )
+    assert "not a canonical\nre-serialization of selected rows" in readme
+    assert "source-provenance guard only" in readme
+

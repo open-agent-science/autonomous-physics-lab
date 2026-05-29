@@ -534,10 +534,10 @@ missions:
         label: "Close normalized PSCompPars snapshot checksum gap"
         task_id: TASK-0446
         mode: research
-        status: ready
+        status: review_ready
         priority: medium
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "stable normalized checksum semantics or explicit blocker review"
           - "no live fetch and no row-value changes"
