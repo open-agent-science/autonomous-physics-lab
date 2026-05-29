@@ -532,7 +532,7 @@ missions:
           - "review before any public wording update; no claim promotion and benchmark-summary wording only"
       - id: exoplanet-normalized-checksum-gap
         label: "Close normalized PSCompPars snapshot checksum gap"
-        task_id: null
+        task_id: TASK-0446
         mode: research
         status: review_ready
         priority: medium
