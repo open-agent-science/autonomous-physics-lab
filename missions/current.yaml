@@ -149,18 +149,6 @@ missions:
         recommended: true
         expected_outputs:
           - "reusable Nuclear hypothesis template with allowed inputs, controls, leakage audit, failure condition, and output routing"
-      - id: nuclear-residual-free-high-error-cluster
-        label: "Run residual-free high-error cluster hypothesis audit"
-        task_id: TASK-0449
-        mode: research
-        status: ready
-        priority: high
-        difficulty: high
-        recommended: true
-        expected_outputs:
-          - "cluster labels from Z/N/A-style inputs only"
-          - "matched random-label and smooth-A/asymmetry controls"
-          - "bounded follow-up, diagnostic-only, negative, or inconclusive verdict"
       - id: nuclear-neutron-rich-boundary-transfer
         label: "Run neutron-rich boundary transfer hypothesis lane"
         task_id: TASK-0450

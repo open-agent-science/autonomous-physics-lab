@@ -1,0 +1,219 @@
+{
+  "agent_run_id": "AGENT-RUN-0043",
+  "task_id": "TASK-0449",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "data_boundary": {
+    "live_fetch": false,
+    "training_dataset": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "holdout_dataset": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "frozen_baseline_result": "results/EXP-0012/RUN-0001/result.yaml"
+  },
+  "cluster_taxonomy": [
+    "near_magic_z_or_n",
+    "neutron_rich",
+    "light_a_lt_50",
+    "other"
+  ],
+  "cluster_label_inputs": [
+    "Z",
+    "N",
+    "A",
+    "magic_distance_z",
+    "magic_distance_n",
+    "asymmetry = (N - Z) / A"
+  ],
+  "cluster_label_forbidden_inputs": [
+    "baseline_residual_mev",
+    "candidate_fit_residual",
+    "baseline_error_rank",
+    "target_residual_sign",
+    "high_error_percentile_flag",
+    "source_status"
+  ],
+  "cluster_label_thresholds": {
+    "magic_distance_threshold": 2,
+    "neutron_rich_asymmetry_threshold": 0.18,
+    "light_a_threshold": 50
+  },
+  "cluster_counts": {
+    "training_loo": {
+      "near_magic_z_or_n": 10,
+      "neutron_rich": 1,
+      "light_a_lt_50": 0,
+      "other": 0
+    },
+    "primary_holdout": {
+      "near_magic_z_or_n": 116,
+      "neutron_rich": 101,
+      "light_a_lt_50": 5,
+      "other": 73
+    },
+    "full_known": {
+      "near_magic_z_or_n": 126,
+      "neutron_rich": 102,
+      "light_a_lt_50": 5,
+      "other": 73
+    }
+  },
+  "training_loo_offsets_mev": {
+    "nmd-0002::He-4": 0.701777,
+    "nmd-0002::N-14": 0.536714,
+    "nmd-0002::O-16": 0.946393,
+    "nmd-0002::O-17": 1.14058,
+    "nmd-0002::Ca-40": 1.262256,
+    "nmd-0002::Ca-48": 0.874984,
+    "nmd-0002::Fe-56": 1.209115,
+    "nmd-0002::Fe-57": 1.183393,
+    "nmd-0002::Sn-120": 1.085838,
+    "nmd-0002::Pb-208": 0.06092,
+    "nmd-0002::U-238": 0.0
+  },
+  "full_training_cluster_means_mev": {
+    "near_magic_z_or_n": 0.900197,
+    "neutron_rich": -6.226201,
+    "light_a_lt_50": 0.0,
+    "other": 0.0
+  },
+  "baseline": {
+    "training_loo": {
+      "count": 11,
+      "mae_mev": 2.8245215982589085,
+      "rmse_mev": 3.6971171457892873,
+      "mean_signed_error_mev": 0.2523424964176548
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.552568580201034,
+      "rmse_mev": 5.879636991075279,
+      "mean_signed_error_mev": 0.6850732345105123
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.490449244248866,
+      "rmse_mev": 5.815390925720301,
+      "mean_signed_error_mev": 0.6695175543829911
+    }
+  },
+  "candidate": {
+    "training_loo": {
+      "count": 11,
+      "mae_mev": 3.159458952437122,
+      "rmse_mev": 3.89085698395649,
+      "mean_signed_error_mev": -0.5660182722975762
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 5.7867902316756075,
+      "rmse_mev": 7.440655249111323,
+      "mean_signed_error_mev": 2.462779900390304
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 5.692343682421936,
+      "rmse_mev": 7.3428447357597735,
+      "mean_signed_error_mev": 2.3539015347054453
+    }
+  },
+  "control_matched_random": {
+    "training_loo": {
+      "count": 11,
+      "mae_mev": 3.1255972472389506,
+      "rmse_mev": 4.0813949349964895,
+      "mean_signed_error_mev": -0.11484075743845552
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.647079704079065,
+      "rmse_mev": 5.962665308533935,
+      "mean_signed_error_mev": 0.9587528898396027
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.592385890271087,
+      "rmse_mev": 5.905431757261497,
+      "mean_signed_error_mev": 0.9201596541531367
+    }
+  },
+  "control_smooth_a": {
+    "training_loo": {
+      "count": 11,
+      "mae_mev": 4.025168269043253,
+      "rmse_mev": 5.902246816670289,
+      "mean_signed_error_mev": -0.09738477773741555
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.511682510345607,
+      "rmse_mev": 5.820610353276483,
+      "mean_signed_error_mev": 0.5474917405292661
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.494193436311863,
+      "rmse_mev": 5.8235648273547165,
+      "mean_signed_error_mev": 0.5243099049053004
+    }
+  },
+  "per_cluster_candidate_full_known": {
+    "near_magic_z_or_n": {
+      "count": 126,
+      "mae_mev": 4.408885420328952,
+      "rmse_mev": 5.791657151643904,
+      "mean_signed_error_mev": 1.5936342047180685
+    },
+    "neutron_rich": {
+      "count": 102,
+      "mae_mev": 8.372201174432545,
+      "rmse_mev": 10.146951966114708,
+      "mean_signed_error_mev": 8.209541741527348
+    },
+    "light_a_lt_50": {
+      "count": 5,
+      "mae_mev": 1.2715073293496175,
+      "rmse_mev": 1.4304281562872323,
+      "mean_signed_error_mev": 0.30507027452855484
+    },
+    "other": {
+      "count": 73,
+      "mae_mev": 4.465966403024614,
+      "rmse_mev": 4.910213958827613,
+      "mean_signed_error_mev": -4.375378755932089
+    }
+  },
+  "per_cluster_baseline_full_known": {
+    "near_magic_z_or_n": {
+      "count": 126,
+      "mae_mev": 4.546848288820384,
+      "rmse_mev": 6.085241212240383,
+      "mean_signed_error_mev": 2.4938310503048347
+    },
+    "neutron_rich": {
+      "count": 102,
+      "mae_mev": 4.596093140012154,
+      "rmse_mev": 6.193346028535086,
+      "mean_signed_error_mev": 2.044381932482214
+    },
+    "light_a_lt_50": {
+      "count": 5,
+      "mae_mev": 1.2715073293496175,
+      "rmse_mev": 1.4304281562872323,
+      "mean_signed_error_mev": 0.30507027452855484
+    },
+    "other": {
+      "count": 73,
+      "mae_mev": 4.465966403024614,
+      "rmse_mev": 4.910213958827613,
+      "mean_signed_error_mev": -4.375378755932089
+    }
+  },
+  "survival_margin_mev": 0.25,
+  "matched_random_seed": 449,
+  "candidate_vs_matched_random_full_known_delta_mev": -1.0999577921508488,
+  "candidate_vs_smooth_a_full_known_delta_mev": -1.1981502461100728,
+  "candidate_vs_baseline_full_known_delta_mev": -1.2018944381730696,
+  "primary_holdout_regression_flag": true,
+  "verdict": "INCONCLUSIVE",
+  "verdict_rationale": [
+    "Fewer than two clusters have \u22652 training rows; leave-one-out cannot evaluate per-cluster structure."
+  ]
+}
