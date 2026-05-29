@@ -540,7 +540,7 @@ missions:
         label: "Exoplanet failure-map result-promotion scorecard landed (TASK-0404); verdict BENCHMARK_SUMMARY_ONLY"
         task_id: null
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -548,15 +548,16 @@ missions:
           - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md + companion result_candidate_review.yaml record the BENCHMARK_SUMMARY_ONLY verdict and forbid claim-candidate framing"
           - "TASK-0427 confirmed as a strengthening prerequisite for compact/sub-Neptune wording, not a blocker"
       - id: exoplanet-second-snapshot-protocol
-        label: "Prepare second-snapshot no-live-fetch protocol"
+        label: "Second-snapshot no-live-fetch protocol landed (TASK-0393)"
         task_id: null
         mode: research
-        status: review_ready
+        status: done
         priority: medium
         difficulty: medium
         recommended: false
         expected_outputs:
-          - "no-live-fetch protocol for future cross-snapshot or prediction-readiness work"
+          - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md freezes acquisition, checksums, no-peek, metrics, slices, and true-mass vs M sin i boundaries"
+          - "next action: use TASK-0446/TASK-0447 or a future maintainer-approved ingestion-only task; do not live-fetch rows from onboarding"
       - id: exoplanet-compact-radius-independent-replay
         label: "Run independent replay of compact-radius matched-control audit"
         task_id: TASK-0445
