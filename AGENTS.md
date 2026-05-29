@@ -476,6 +476,13 @@ request for that task. This approval applies only to the selected task branch.
 It does not allow pushing `main`, force-pushing, merging, tagging, or pushing
 unrelated branches.
 
+For canonical task execution (`TASK-XXXX`), "do/take/run this task" means the
+full task lifecycle by default: implement the task, validate it, commit it,
+push the task branch, and publish a draft PR. Completed task work must not be
+left only in a local worktree unless the maintainer explicitly asks for
+local-only, no-PR, or planning-only work. Non-task requests keep the normal
+explicit commit/push/PR rules.
+
 Before starting implementation for a full PR lifecycle request, agents may run:
 
 ```bash
