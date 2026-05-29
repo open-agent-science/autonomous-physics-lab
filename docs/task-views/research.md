@@ -29,4 +29,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0393` - Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.
