@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0395` — Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0396` — Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0398` — Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0400` — Verify Kang-Wise 1997 PbS direct-source path (`scientific_dataset`, priority `medium`, difficulty `medium`)
@@ -72,6 +71,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0395` — Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0454` — Define Atomic holdout and no-peek manifest for first benchmark (`benchmark_protocol`, priority `high`, difficulty `medium`)
 - `TASK-0465` — Clarify task execution publishes a draft PR (`maintainer_workflow`, priority `high`, difficulty `low`)
 
