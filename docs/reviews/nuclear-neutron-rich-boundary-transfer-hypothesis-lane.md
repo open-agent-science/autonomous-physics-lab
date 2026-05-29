@@ -40,15 +40,15 @@ claims, or edit knowledge files.
 
 The negative coefficient is itself a warning sign: the candidate
 *subtracts* mass-defect predictions for neutron-rich rows because the
-training slice (which contains only 1 neutron-rich row) cannot
-constrain the sign meaningfully.
+training slice has only two neutron-rich rows with opposing residual
+signs, so it cannot constrain a transferable sign meaningfully.
 
 ## Aggregate MAE (MeV)
 
 | Surface | baseline | candidate | matched_high_error | sign_inverted |
 | --- | ---: | ---: | ---: | ---: |
-| `training_lstsq` | 2.8245 | 2.7569 | 2.4929 | 2.8920 |
-| `primary_holdout` | 4.5526 | 4.6970 | 4.7100 | 4.4117 |
+| `training_lstsq` | 2.8245 | 2.8134 | 2.8245 | 2.8356 |
+| `primary_holdout` | 4.5526 | 4.7014 | 4.7168 | 4.4067 |
 | `full_known` | 4.4904 | 4.6335 | 4.6488 | 4.3502 |
 
 Numerical deltas vs the candidate on `full_known`:
@@ -118,12 +118,11 @@ This is a clean negative outcome:
 
 Two structural reasons:
 
-1. **Training-slice sparsity.** NMD-0002 has 11 rows. Only 1 row has
-   `(N-Z)/A ≥ 0.18` (it is a single neutron-rich training observation).
-   With one positive-boundary-distance training row, least squares
-   cannot identify a stable coefficient. The fit becomes dominated by
-   the residual sign of that one row plus the contribution of nearby
-   smaller-boundary rows; the resulting beta is not generalizable.
+1. **Training-slice sparsity.** NMD-0002 has 11 rows. Only two rows
+   have `(N-Z)/A ≥ 0.18` (`Pb-208` and `U-238`), and their baseline
+   residuals have opposite signs. With only two positive-boundary-distance
+   training rows, least squares cannot identify a stable transferable
+   coefficient. The resulting beta is not generalizable.
 2. **Holdout dominance.** The post-AME2020 primary holdout has 101
    neutron-rich rows. Applying a sparse-training-fit coefficient to
    100× more data points than the training slice that produced it
@@ -173,8 +172,9 @@ evidence.
 
 ## Limitations
 
-- NMD-0002 has 11 training rows; only 1 is neutron-rich, so least
-  squares cannot identify a stable boundary-distance coefficient.
+- NMD-0002 has 11 training rows; only two are neutron-rich under the
+  declared threshold, with opposite-sign residuals, so least squares
+  cannot identify a stable boundary-distance coefficient.
 - Frozen RESULT-0015 baseline residuals are retrospective; this is
   not a blind prediction.
 - The boundary threshold (0.18) was declared before the run and is
