@@ -1,0 +1,106 @@
+id: HYP-PROPOSAL-0051
+title: "Nuclear residual-free high-error cluster hypothesis"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox hypothesis only. No prediction registry, canonical result, claim, or knowledge promotion is authorized."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0449
+
+input_references:
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+  - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+
+hypothesis:
+  statement: "If high-error nuclear baseline-residual structure reflects real underlying physics rather than data-snooping, then cluster labels defined only from residual-free nuclear features (Z, N, A, parity, magic-number proximity, asymmetry) should also capture a noticeable per-cluster correction that beats matched-random and smooth-A controls under leave-one-out fitting on the NMD-0002 training slice and does not regress the post-AME2020 primary holdout."
+  variables:
+    - "Z, N, A: proton, neutron, mass number"
+    - "parity_class: (Z%2, N%2) pair"
+    - "magic_distance_z: min(|Z - m|) over published magic numbers"
+    - "magic_distance_n: min(|N - m|) over published magic numbers"
+    - "asymmetry: (N - Z) / A"
+    - "baseline_residual_mev: signed binding-energy residual against frozen RESULT-0015 semi-empirical baseline (per-cluster correction target, NOT a label input)"
+  assumptions:
+    - "Cluster labels are deterministic functions of Z, N, A only. The target row's residual, baseline error rank, or any residual-derived quantity does NOT enter label construction."
+    - "Per-cluster correction is fit on NMD-0002 training rows under leave-one-out within each cluster, then applied to held-out rows."
+    - "Frozen RESULT-0015 baseline coefficients are reused; no candidate-fit residuals feed any neighbor aggregate or label."
+    - "Matched-random and smooth-A controls are run end-to-end with the same fold logic and reported alongside the candidate."
+    - "No live data fetch; only committed NMD-0002 + post-AME2020 holdout rows are used."
+  expected_scope: "Bounded retrospective test of whether residual-free cluster labels survive controls on full_known and the primary holdout."
+  expected_failure_modes:
+    - "Cluster cells are sparse on the 11-row NMD-0002 training slice; per-cluster offsets may have 0-2 effective training rows."
+    - "A smooth-A control can match the apparent improvement if the candidate is mostly mass-scale."
+    - "A matched-random control can match the improvement if cluster structure carries no information beyond chance partition."
+    - "The candidate may improve aggregate full_known MAE while regressing the post-AME2020 primary holdout panel."
+    - "Leave-one-out can degenerate to a zero correction for singleton clusters."
+
+novelty_check:
+  checked_files:
+    - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+    - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  possible_overlap: "Builds directly on the original TASK-0343 high-error cluster lane (AGENT-RUN-0030) but refactors labels from residual-derived to residual-free per the F2 promotion path in docs/nuclear-residual-feature-no-leakage-contract.md."
+  notes: "This proposal does not reopen LOCAL-CURVATURE-001 or shell-axis as positive candidates; both remain bounded per their existing reviews."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_residual_free_high_error_cluster_audit.py and compare committed metrics to recomputed metrics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on committed NMD-0002 and post-AME2020 holdout rows."
+  pass_condition: "Sandbox pass if the candidate is evaluated end-to-end against the matched-random and smooth-A controls under leave-one-out, all metrics are reported per surface and per cluster, the verdict is one of {BOUNDED_FOLLOWUP_CANDIDATE, DIAGNOSTIC_ONLY, NEGATIVE_RESULT, INCONCLUSIVE}, and no PRED/CLAIM/KNOW/RESULT artifact is written."
+  fail_condition: "Fail if the lane uses any residual-derived label, fetches live data, hides controls, writes PRED entries or canonical results, or claims discovery / new nuclear law / broad formula."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not describe cluster-correction deltas as discovery, new nuclear law, broad formula, or first-principles result."
+    - "Do not treat retrospective per-cluster offsets as predictive validation."
+    - "Do not imply reveal readiness or registry promotion."
+  mitigations:
+    - "Keep outputs sandbox-only with explicit promotion_boundary block."
+    - "Report holdout regressions and per-cluster sparsity diagnostics."
+    - "Require maintainer review before any follow-up."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_residual_free_high_error_cluster_audit.py"
+    - "python3 -m pytest tests/test_nuclear_residual_free_cluster_audit.py"
+  code_references:
+    - "scripts/run_nuclear_residual_free_high_error_cluster_audit.py"
+    - "tests/test_nuclear_residual_free_cluster_audit.py"
+  metrics:
+    - "cluster_counts_training"
+    - "cluster_counts_holdout"
+    - "baseline_mae_per_surface"
+    - "candidate_mae_per_surface"
+    - "control_matched_random_mae_per_surface"
+    - "control_smooth_a_mae_per_surface"
+    - "candidate_vs_matched_random_delta_mev"
+    - "candidate_vs_smooth_a_delta_mev"
+    - "per_cluster_offset_training_loo"
+    - "primary_holdout_regression_flag"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0043/"
+    - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+
+limitations:
+  - "NMD-0002 has only 11 training rows; per-cluster leave-one-out can be sparse for small cells."
+  - "Frozen baseline residuals are still retrospective; this is not a blind prediction."
+  - "The cluster taxonomy is fixed before the run and may not exhaust useful residual-free partitions."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Review whether the residual-free cluster lane should remain diagnostic-only or motivate a narrower bounded follow-up."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed follow-up before any RESULT, PRED, claim, knowledge, or reveal-scoring work."

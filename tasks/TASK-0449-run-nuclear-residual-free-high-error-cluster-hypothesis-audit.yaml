@@ -1,7 +1,7 @@
 id: TASK-0449
 title: "Run Nuclear residual-free high-error cluster hypothesis audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -40,9 +40,9 @@ requirements:
   - "Do not use discovery, new nuclear law, or broad formula wording."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0043/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0043/metrics.json"
+  - "agent_runs/AGENT-RUN-0043/report.md"
   - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
   - "tests for any reusable runner or feature-labeling code"
 
