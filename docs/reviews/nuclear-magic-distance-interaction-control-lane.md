@@ -53,9 +53,9 @@ claims, or edit knowledge files.
 
 | Surface | baseline | candidate | smooth_a | asymmetry_only | parity_only | matched_degree_random |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `training_lstsq` | 2.8245 | 2.5775 | 2.8920 | 2.7951 | 2.8245 | 2.8244 |
-| `primary_holdout` | 4.5526 | 4.4831 | 4.4815 | 4.4860 | 4.4910 | 4.4837 |
-| `full_known` | 4.4904 | 4.4204 | 4.4501 | 4.4528 | 4.5121 | 4.4250 |
+| `training_lstsq` | 2.8245 | 2.7977 | 2.7999 | 2.8349 | 2.2156 | 2.7737 |
+| `primary_holdout` | 4.5526 | 4.4809 | 4.5117 | 4.5279 | 4.6258 | 4.4867 |
+| `full_known` | 4.4904 | 4.4204 | 4.4501 | 4.4671 | 4.5392 | 4.4251 |
 
 Numerical deltas vs the candidate on `full_known`:
 
@@ -70,7 +70,7 @@ Numerical deltas vs the candidate on `full_known`:
 ## Coefficient Stability (leave-one-out)
 
 - LOO folds: 11.
-- mean beta: +1.7710 MeV.
+- mean beta: +1.7526 MeV.
 - std beta: 0.4706 MeV (≈ 27% relative variation).
 - sign-flip count vs mean: **0** (sign is stable across all 11
   refits).
