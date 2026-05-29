@@ -1,7 +1,7 @@
 id: TASK-0451
 title: "Run Nuclear magic-distance interaction control lane"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -37,9 +37,9 @@ requirements:
   - "Do not create PRED entries, reveal scores, claims, knowledge entries, or canonical RESULT artifacts."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0045/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0045/metrics.json"
+  - "agent_runs/AGENT-RUN-0045/report.md"
   - "docs/reviews/nuclear-magic-distance-interaction-control-lane.md"
   - "tests for any reusable runner code"
 
