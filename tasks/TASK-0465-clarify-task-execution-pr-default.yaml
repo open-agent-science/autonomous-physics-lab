@@ -1,0 +1,47 @@
+id: TASK-0465
+title: "Clarify task execution publishes a draft PR"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Prevent completed canonical task work from being left only in a local worktree."
+  - "Make maintainer shorthand such as 'do TASK-XXXX' unambiguous for agents."
+  - "Keep non-task requests on the existing explicit commit/push/PR rule."
+
+input:
+  mode: workflow
+  related_domain: maintainer_automation
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "TASK-0247"
+  planning_context: >
+    A TASK-0454 agent run completed the local task work before opening a PR
+    because the maintainer shorthand "роби 0454" was interpreted as local task
+    execution rather than the full PR lifecycle. The maintainer clarified that
+    full canonical task execution should mean publication as a draft PR, while
+    non-task requests should keep the normal explicit commit/push/PR rules.
+
+requirements:
+  - "Add a concise AGENTS.md rule stating that canonical TASK-XXXX execution means implementation, validation, commit, push, and draft PR publication by default."
+  - "Clarify that completed canonical task work must not remain local-only unless the maintainer asks for local-only, no-PR, or planning-only work."
+  - "Clarify that non-task requests keep the normal explicit commit/push/PR rules."
+  - "Do not duplicate the detailed rule in docs/agent-task-protocol.md."
+  - "Do not relax the ban on pushing main, merging, force-pushing, tagging, or marking tasks DONE."
+
+accepted_outputs:
+  - "AGENTS.md"
+  - "tasks/TASK-0465-clarify-task-execution-pr-default.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
