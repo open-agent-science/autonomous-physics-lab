@@ -1,0 +1,209 @@
+manifest_id: ACLOCK-FIRST-BENCHMARK-NOPEEK-0001
+schema_version: 0.1.0
+task_id: TASK-0454
+campaign_profile_id: atomic-clock-residuals
+status: draft
+created_by:
+  contributor_id: roman
+  agent_id: codex
+created_utc: 2026-05-29
+
+purpose: >
+  Campaign-wide no-peek freeze for the first Atomic-Clock residual benchmark.
+  This manifest declares allowed row roles, cross-row covariance handling,
+  and holdout-split values before any future benchmark task reads
+  value-bearing rows.
+
+scope:
+  audience: bench-task and gate-review authors
+  benchmark_ready_predicates:
+    requires_real_row_loader: true
+    requires_covariance_policy: true
+    requires_second_source_for_cross_validation: true
+  promotion_boundary:
+    claims_not_allowed: true
+    results_not_allowed: true
+    predictor_registry_not_allowed: true
+
+baseline_readiness_policy:
+  summary: >
+    The campaign is in a transition state. Until a second direct-ratio source
+    is committed and the real-row loader exists, this manifesto defines the
+    first-benchmark shape but does not license production scoring.
+  first_task_mode:
+    status: blocked
+    rationale: >
+      No second direct-ratio source has been committed yet; blind cross-source
+      replay cannot be run on the current single-source dataset.
+  alternative_task_mode:
+    status: diagnostic_single_source_only
+    requires_maintainer_waiver: true
+    limits:
+      - "No claim statements."
+      - "No final benchmark-ready result publication."
+      - "Only sandbox diagnostics with explicitly frozen rows."
+
+holdout_schema:
+  allowed_split_values:
+    - train
+    - holdout
+    - cross_source_reference
+    - cross_source_target
+    - excluded
+  required_row_fields:
+    "holdout.split": train|holdout|cross_source_reference|cross_source_target|excluded
+    "holdout.freeze_manifest": data/atomic_clocks/atomic_holdout_manifest.yaml
+  freeze_lock:
+    mutable_after_benchmarking_starts: false
+    no_peek_enforcement:
+      - "Do not tune split labels, exclusion status, or target axes after row values are inspected."
+      - "Do not add value-bearing rows that match an unscoped split contract."
+
+axis_policies:
+  - axis_id: direct_frequency_ratio_residual_axis
+    axis_name: direct_ratio_residual
+    row_class_required: direct_measurement
+    include_if:
+      holdout.split:
+        - train
+        - holdout
+        - cross_source_reference
+        - cross_source_target
+    require_freeze_manifest: true
+    covariance_requirements:
+      - If two or more rows share a physical campaign_id, the task must:
+        - declare whether rows are represented as a single correlated block
+        - set split labels consistently for the block
+        - set shared-campaign policy in its review
+      - >
+        If rows share a clock and can be assigned deterministic sign, use
+        data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml
+        only when that file is explicitly referenced in the task.
+      - >
+        If full covariance logic is not used, set affected rows with split:
+        excluded and document the approximation gap.
+    excluded_on_violation:
+      - shared campaign without declared covariance policy
+      - shared clock logic not documented
+      - missing source artifact or checksum policy
+
+  - axis_id: review_summary_axis
+    axis_name: review_summary_only
+    row_class_allowed:
+      - review_summary
+      - synthetic_dry_run
+    include_if:
+      holdout.split:
+        - excluded
+        - unassigned
+    require_freeze_manifest: true
+    notes:
+      - "Review-only rows must never enter a scored residual axis."
+
+row_roles:
+  - role_id: beloy_reference_family
+    description: >
+      Beloy 2021 / BACON rows are the first pinned real source and act as the
+      initial reference family.
+    selection:
+      dataset_id: ACR-0001-BELOY-2021-DIRECT-RATIOS
+      source_artifact: ACLOCK-SRC-ARTIFACT-2021-BELOY-BACON
+      source_family: ACLOCK-SRC-CLASS-001
+    default_split:
+      Al+/Yb: train
+      Al+/Sr: train
+      Yb/Sr: train
+    allowed_cross_source_role:
+      Yb/Sr: cross_source_reference
+    benchmark_rules:
+      - "If the task is single-source diagnostic, keep all 3 rows in `train`."
+      - "For cross-source consistency, only one Beloy `Yb/Sr` row may enter the
+        `cross_source_reference` split and no Beloy row may be split to `holdout`
+        before the second source is added."
+
+  - role_id: nemitz_future_ratio_family
+    description: >
+      Future direct-ratio rows from the Nemitz 2016 follow-up task.
+      These rows are intended primarily for Yb/Sr replay and should be treated
+      conservatively as a second-source check before any broad residual shape.
+    expected_dataset_prefix: ACR-0002-NEMITZ-2016
+    source_family: ACLOCK-SRC-CLASS-001
+    default_split_by_ratio:
+      Yb/Sr: cross_source_target
+      all_other_ratios: excluded
+    required_policy_notes:
+      - "Cross-source comparison is meaningful only when the ratio partner
+        matches Beloy's Yb/Sr definition."
+      - "Do not use a different species or reference ratio as the primary
+        cross-source target without adding a new manifest revision."
+
+  - role_id: excluded_replay_insufficient
+    description: >
+      Rows that share clocks/campaigns but cannot be placed into a deterministic
+      covariance policy remain excluded from scored metrics.
+    default_split: excluded
+    exclusion_reasons:
+      - shared_campaign_without_block
+      - shared_clock_without_sign_convention
+      - approximate_covariance_rejected
+
+future_rows:
+  templates:
+    - row_class: direct_measurement
+      holdout:
+        split: "<train|holdout|cross_source_reference|cross_source_target|excluded>"
+        freeze_manifest: "data/atomic_clocks/atomic_holdout_manifest.yaml"
+    - row_class: derived_constraint
+      holdout:
+        split: excluded
+        freeze_manifest: "data/atomic_clocks/atomic_holdout_manifest.yaml"
+    - row_class: review_summary
+      holdout:
+        split: excluded
+        freeze_manifest: "data/atomic_clocks/atomic_holdout_manifest.yaml"
+
+cross_row_handling:
+  campaign_sharing:
+    rule: >
+      Rows sharing one or more campaign-level fields (`campaign_window`,
+      `covariance_group`, or `source_locator`) enter the same campaign block.
+    policy:
+      train_cross_row: allowed
+      holdout_cross_row: allowed only if covariance policy is explicitly declared
+      undocumented_covariance: must set split to excluded
+  clock_sharing:
+    rule: >
+      Rows sharing a clock-system (`clock_id`, `clock_id` appears in numerator or
+      denominator) must be assigned a signed correlation convention in task
+      notes before combined use.
+    policy:
+      supported: >
+        Use shared-clock sign convention from
+        `data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml`
+        or a later replacement artifact.
+      unsupported: row_id stays in excluded role.
+  approximate_covariance:
+    policy:
+      accepted_if_explicit: true
+      accepted_artifact: data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml
+      required_warning: >
+        Approximate off-diagonal usage is lower-bound only; every consuming task
+        must repeat this warning in its limitation block.
+
+next_task_mapping:
+  blocked_until:
+    - TASK-0452 adds the second source dataset and source artifact chain.
+    - TASK-0453 adds the real-row loader.
+  allowed_after_blockers_cleared:
+    - "TASK-0456 may define the first cross-source Yb/Sr benchmark split with
+      `cross_source_reference`/`cross_source_target` roles."
+  allowed_without_cross_source:
+    - "Only a maintainer-waived diagnostic run using `train` rows."
+
+go_no_go:
+  can_seed_benchmark_scoring_now: false
+  required_for_scoring:
+    - "row-level holdout split and freeze_manifest fields are populated from this manifest"
+    - "real-row loader passes direct_measurement validation for all benchmark rows"
+    - "covariance policy for shared-campaign and shared-clock groups is declared"
+    - "second direct source is available for cross-source replay"
