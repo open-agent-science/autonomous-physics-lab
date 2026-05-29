@@ -1,0 +1,53 @@
+id: TASK-0462
+title: "Add curator review cadence fields to campaign portfolio metadata"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make campaign review freshness visible without relying on prose notes."
+  - "Help the capacity board show when each lane needs curator attention."
+  - "Avoid stale campaign guidance as the number of active lanes grows."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "tasks/TASK-0437-add-lightweight-campaign-registry.yaml"
+    - "campaign_profiles/*.yaml"
+    - "campaigns/catalog.yaml"
+    - "docs/campaign-curator-protocol.md"
+    - "docs/scientific-campaign-curator.md"
+  planning_context: >
+    TASK-0437 records `curator_review.last_reviewed`, source, status, and
+    notes. For operational scaling, campaign directors also need a structured
+    cadence: how often each lane should be reviewed, when the next review is
+    due, and why. This task adds those fields to the portfolio metadata and
+    generator/schema checks.
+
+requirements:
+  - "Use existing campaign profile portfolio metadata as the editable source."
+  - "Add review cadence fields such as `review_interval`, `next_review_due`, and `review_reason` under each campaign `curator_review` block."
+  - "Update the campaign catalog generator and schema so cadence fields are validated and rendered."
+  - "Use concrete ISO dates for due dates and short stable labels for interval/reason values."
+  - "Document how maintainers should choose cadence values for active, blocked, source-readiness, and quality-floor campaigns."
+  - "Do not change scientific verdicts, task statuses, claims, results, or knowledge files."
+
+accepted_outputs:
+  - "updated campaign portfolio metadata fields"
+  - "updated campaign catalog generator/schema/tests"
+  - "documentation for curator review cadence semantics"
+
+validation:
+  commands:
+    - "python3 scripts/generate_campaign_catalog.py --check"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

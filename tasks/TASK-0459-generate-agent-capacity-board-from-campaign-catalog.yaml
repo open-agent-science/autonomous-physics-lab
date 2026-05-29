@@ -1,0 +1,53 @@
+id: TASK-0459
+title: "Generate agent capacity board from campaign catalog"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep the agent capacity board from becoming a stale hand-maintained planning document."
+  - "Let maintainers allocate 10-15 parallel agents from one registry-driven surface."
+  - "Reuse campaign profile metadata instead of copying lane capacity and blocker text across documents."
+
+input:
+  mode: workflow
+  related_domain: agent_capacity
+  related_objects:
+    - "tasks/TASK-0437-add-lightweight-campaign-registry.yaml"
+    - "tasks/TASK-0440-add-agent-capacity-board.yaml"
+    - "campaigns/catalog.yaml"
+    - "campaign_profiles/"
+    - "missions/current.yaml"
+  planning_context: >
+    TASK-0440 creates the first human-readable capacity board. Now that the
+    campaign catalog exists, the board should become a generated or checkable
+    view over `campaigns/catalog.yaml` instead of another source of campaign
+    truth. This task adds a lightweight generator/check workflow for that board.
+
+requirements:
+  - "Use existing `campaigns/catalog.yaml` as the campaign portfolio source."
+  - "Add `scripts/generate_agent_capacity_board.py` or an equivalent narrow generator with `--write` and `--check` modes."
+  - "Generate or verify `docs/agent-capacity-board.md` from `campaigns/catalog.yaml` plus minimal task-status context."
+  - "Preserve human-readable sections for campaign/lane, recommended agents, allowed-now work, blockers, active tasks, and next curator review."
+  - "Do not create a live dashboard, database, web app, or separate hand-maintained capacity registry."
+  - "Do not override canonical task status, mission recommendations, or campaign profile guardrails."
+
+accepted_outputs:
+  - "scripts/generate_agent_capacity_board.py or equivalent generator"
+  - "docs/agent-capacity-board.md"
+  - "tests or a check path proving the generated board is synced"
+  - "documentation note describing the source-of-truth relationship"
+
+validation:
+  commands:
+    - "python3 scripts/generate_agent_capacity_board.py --check"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
