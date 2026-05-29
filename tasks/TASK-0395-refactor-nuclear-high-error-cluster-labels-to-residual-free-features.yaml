@@ -1,7 +1,7 @@
 id: TASK-0395
 title: "Refactor nuclear high-error cluster labels to residual-free features"
 type: scientific_validation
-status: READY
+status: SUPERSEDED
 difficulty: medium
 priority: high
 
@@ -18,14 +18,21 @@ input:
     - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
     - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
     - "agent_runs/AGENT-RUN-0030/agent_run.yaml"
+    - "tasks/TASK-0449-run-nuclear-residual-free-high-error-cluster-hypothesis-audit.yaml"
+    - "agent_runs/AGENT-RUN-0043/metrics.json"
+    - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
   planning_context: >
     The high-error cluster lane produced a notable retrospective delta MAE but
     failed stability checks and is not authorized for predictive use. A useful
-    follow-up is to rebuild the cluster labels from residual-free nuclear
+    follow-up was to rebuild the cluster labels from residual-free nuclear
     features only, then rerun the relevant controls to decide whether the lane
-    should be retired or kept as diagnostic. After TASK-0394 falsified the
-    local-curvature no-leakage candidate, this residual-free high-error audit
-    is the next non-duplicative Nuclear diagnostic lane.
+    should be retired or kept as diagnostic. TASK-0449 subsequently executed
+    that residual-free audit under AGENT-RUN-0043 and found an INCONCLUSIVE
+    sandbox-only result driven by training-cluster sparsity. TASK-0395 is now
+    retained as SUPERSEDED coordination memory rather than rerunning the same
+    taxonomy or minting duplicate science artifacts; see AGENT-RUN-0040 and
+    docs/reviews/nuclear-high-error-cluster-residual-free-label-audit.md for
+    the handoff routing note.
 
 requirements:
   - "Define high-error cluster labels using only residual-free features such as Z, N, A, magic-number distance, parity, and committed uncertainty metadata."

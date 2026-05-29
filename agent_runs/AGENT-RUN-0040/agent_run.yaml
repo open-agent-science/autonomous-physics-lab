@@ -1,0 +1,39 @@
+id: AGENT-RUN-0040
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0395
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0051-residual-free-high-error-cluster.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0017-nuclear-residual-free-high-error-cluster.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0040/metrics.json
+  report: agent_runs/AGENT-RUN-0040/report.md
+  limitations: agent_runs/AGENT-RUN-0040/limitations.md
+  preflight: agent_runs/AGENT-RUN-0040/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0040/review_summary.md
+preflight:
+  passed: true
+  checks:
+    - name: duplicate_lane_check
+      status: PASS
+      notes: TASK-0449 already executed the residual-free high-error cluster audit requested by TASK-0395.
+    - name: no_duplicate_science_artifact
+      status: PASS
+      notes: This handoff does not rerun, refit, or reinterpret the residual-free taxonomy.
+    - name: promotion_boundary
+      status: PASS
+      notes: No prediction registry, canonical RESULT artifact, claim, or knowledge file is written.
+limitations:
+  - This is a coordination and routing artifact, not a new numerical run.
+  - The scientific verdict is inherited from the committed TASK-0449 / AGENT-RUN-0043 audit.
+  - The inherited audit verdict is INCONCLUSIVE because the NMD-0002 training slice has fewer than two residual-free clusters with at least two training rows.
+  - No follow-up taxonomy, prediction entry, claim promotion, or RESULT artifact is authorized by this handoff.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review of this supersession note; use TASK-0449 / AGENT-RUN-0043 as the canonical residual-free high-error cluster audit memory.

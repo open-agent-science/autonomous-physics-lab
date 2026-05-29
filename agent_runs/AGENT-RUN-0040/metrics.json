@@ -1,0 +1,24 @@
+{
+  "agent_run_id": "AGENT-RUN-0040",
+  "task_id": "TASK-0395",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "sandbox_only": true,
+  "execution_mode": "supersession_handoff",
+  "superseded_by_task_id": "TASK-0449",
+  "superseded_by_agent_run_id": "AGENT-RUN-0043",
+  "rerun_performed": false,
+  "duplicate_taxonomy_avoided": true,
+  "linked_committed_metrics_path": "agent_runs/AGENT-RUN-0043/metrics.json",
+  "linked_committed_review_path": "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md",
+  "linked_verdict": "INCONCLUSIVE",
+  "task_0395_resolution": "SUPERSEDED",
+  "output_routing": {
+    "canonical_destination": "review_note_and_sandbox_agent_run",
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_attempted",
+    "claim_impact": "no_claim_change",
+    "knowledge_impact": "no_knowledge_change",
+    "publication_blocker": "superseded_by_existing_sandbox_audit; no RESULT/PRED artifact authorized"
+  }
+}
