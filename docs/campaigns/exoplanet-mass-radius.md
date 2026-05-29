@@ -33,13 +33,14 @@ scorecard verdict is `BENCHMARK_SUMMARY_ONLY`.
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** `TASK-0393` defines a second-snapshot no-live-fetch
-protocol; `TASK-0445` should run an independent Gate B replay of the compact
-slice; `TASK-0446` should close the normalized-snapshot checksum gap; and
-`TASK-0447` should package a public-safe evidence card.
+**Active next work:** `TASK-0446` should close the normalized-snapshot checksum
+gap. The second-snapshot no-live-fetch protocol, independent compact-slice
+replay, and public-safe evidence card are now reviewable campaign memory.
 
-**Expected next result:** a scientist-shareable evidence card backed by a
-cross-tool replay and a cleaner snapshot checksum trail.
+**Current shareable artifact:** the
+[compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
+packages the scorecard-approved wording, evidence trail, limitations, and next
+validation steps.
 
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,
@@ -68,9 +69,11 @@ Current scientific reading:
   justify a promoted correction.
 - `TASK-0392` is **INCONCLUSIVE**: host and uncertainty slices expose selection
   effects, but they are diagnostics rather than causal planet-physics claims.
-- `TASK-0427`, `TASK-0404`, and `TASK-0393` are the next useful science tasks:
-  run the compact/sub-Neptune matched-control audit, score the result-promotion
-  boundary, and prepare the second-snapshot no-live-fetch protocol.
+- `TASK-0427`, `TASK-0404`, `TASK-0393`, `TASK-0445`, and `TASK-0447` are the
+  current exoplanet visibility spine: matched-control audit, benchmark-summary
+  scorecard, second-snapshot no-live-fetch protocol, independent replay, and a
+  public-safe evidence card. They do not promote claims, knowledge, predictions,
+  or canonical results.
 
 `TASK-0337` created the first source and schema surface before any agent runs
 metrics:
@@ -161,13 +164,16 @@ The campaign should mature in this order:
 5. Bounded regime residual scout (`TASK-0370`, DONE; no correction promoted).
 6. Residual/failure-map and true-mass/selection-effect audits through
    `TASK-0392` (sandbox evidence; no claim promotion).
-7. Compact/sub-Neptune matched-control audit (`TASK-0427`, READY) before
+7. Compact/sub-Neptune matched-control audit (`TASK-0427`, DONE) before
    treating the `TASK-0390` pilot as a surviving hypothesis lane.
-8. Result-promotion scorecard (`TASK-0404`, READY) to decide whether the
+8. Result-promotion scorecard (`TASK-0404`, DONE) to decide whether the
    failure-map package is scientist-facing, benchmark-only, or not ready.
-9. Second-snapshot no-live-fetch protocol (`TASK-0393`, READY) before any
+9. Second-snapshot no-live-fetch protocol (`TASK-0393`, DONE) before any
    cross-snapshot or prediction-readiness story.
-10. Bounded autonomous hypothesis pilot only after a narrow target survives
+10. Independent compact-radius replay (`TASK-0445`, REVIEW_READY) and evidence
+    card (`TASK-0447`, REVIEW_READY) to make the benchmark surface inspectable
+    without strengthening it into a claim.
+11. Bounded autonomous hypothesis pilot only after a narrow target survives
     matched controls and the promotion scorecard keeps wording conservative.
 
 This campaign is now the fastest APL path to a visible, scientist-readable

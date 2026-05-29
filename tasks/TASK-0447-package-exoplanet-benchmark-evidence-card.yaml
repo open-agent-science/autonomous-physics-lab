@@ -1,7 +1,7 @@
 id: TASK-0447
 title: "Package exoplanet benchmark evidence card"
 type: documentation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -36,8 +36,8 @@ requirements:
 
 accepted_outputs:
   - "docs/results/exoplanet-compact-radius-benchmark-card.md"
-  - "optional link update in docs/campaigns/public-science-dashboard.md"
-  - "optional link update in docs/campaigns/exoplanet-mass-radius.md"
+  - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaigns/exoplanet-mass-radius.md"
 
 validation:
   commands:

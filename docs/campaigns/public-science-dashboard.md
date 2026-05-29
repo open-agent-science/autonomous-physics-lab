@@ -31,8 +31,10 @@ mass-radius-law claim. The current scorecard verdict is
 
 **Evidence trail:**
 
+- [Compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
 - [Exoplanet failure-map result-promotion scorecard](../reviews/exoplanet-failure-map-result-promotion-scorecard.md)
 - [Compact/sub-Neptune matched-control audit](../reviews/exoplanet-compact-subneptune-matched-control-audit.md)
+- [Independent compact-radius replay](../reviews/exoplanet-compact-radius-independent-replay.md)
 - [Exoplanet campaign page](./exoplanet-mass-radius.md)
 
 ### Nuclear Local-Curvature Falsification
@@ -90,7 +92,7 @@ Stellar Mass-Luminosity source/baseline planning, not metrics.
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Which residual-feature families survive no-leakage controls and future reveal discipline? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified under the no-leakage prototype. | `TASK-0428`, `TASK-0395`, `TASK-0396` | Negative/preflight package for local-curvature, residual-free high-error cluster audit, reveal-source readiness. |
-| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | Where does a frozen Chen-Kipping-style mass-radius baseline fail on a pinned PSCompPars snapshot? | Compact-radius planets (`R < 1.5 R_earth`) are the strongest matched-control survivor; scorecard verdict is `BENCHMARK_SUMMARY_ONLY`. | `TASK-0393`, `TASK-0445`, `TASK-0446`, `TASK-0447` | Gate B replay, second-snapshot protocol, checksum cleanup, public-safe evidence card. |
+| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | Where does a frozen Chen-Kipping-style mass-radius baseline fail on a pinned PSCompPars snapshot? | Compact-radius planets (`R < 1.5 R_earth`) are the strongest matched-control survivor; scorecard verdict is `BENCHMARK_SUMMARY_ONLY`; independent replay matched the sandbox metrics exactly. | `TASK-0446` and follow-up no-live-fetch snapshot work | Checksum cleanup and later second-snapshot/reveal-style readiness. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist, but direct measurement rows are still the blocker. | `TASK-0398`, `TASK-0400`, blocked `TASK-0336` once an artifact exists | A source artifact or blocker review that either unblocks direct row curation or narrows the source path. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; Nemitz 2016 is triaged as the next independent Yb/Sr source. | `TASK-0452`, `TASK-0453`, `TASK-0454` | Nemitz ingestion or blocker, real-row loader, holdout/no-peek manifest, then baseline-readiness gate. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; no audit has run yet. | `TASK-0444` | Stellar mass-luminosity source/baseline plan for a future Gaia DR3 audit. |
@@ -116,9 +118,8 @@ Scope:
 The result does not say that APL found a new exoplanet law, predicts
 habitability or planet composition, or globally falsified Chen-Kipping.
 
-Next visible artifact: an independent Gate B replay of the compact-radius
-runner and a compact evidence card that points to the scorecard, metrics, and
-limitations.
+Current visible artifact: a compact evidence card that points to the scorecard,
+metrics, independent replay, and limitations.
 
 ### Nuclear No-Leakage Falsification
 
