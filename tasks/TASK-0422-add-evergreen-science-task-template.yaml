@@ -41,7 +41,7 @@ accepted_outputs:
   - "docs/templates/evergreen-science-task-template.yaml"
   - "docs/evergreen-science-queues.md"
   - "docs/reviews/evergreen-science-task-template-review.md"
-  - "optional update to docs/scientific-campaign-curator.md"
+  - "docs/scientific-campaign-curator.md"
 
 validation:
   commands:
