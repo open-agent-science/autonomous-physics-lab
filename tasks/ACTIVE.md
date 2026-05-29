@@ -66,6 +66,9 @@ one PR.
 - `TASK-0452` — Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0453` — Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0454` — Define Atomic holdout and no-peek manifest for first benchmark (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0459` — Generate agent capacity board from campaign catalog (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0460` — Add task-to-campaign lane index (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0462` — Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -492,6 +495,8 @@ None.
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0455` — Rerun Atomic baseline-readiness gate after source, loader, and holdout work (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0456` — Run first Atomic Yb/Sr cross-source consistency benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
+- `TASK-0461` — Add lane collision preflight for parallel agent work (`contributor_experience`, priority `high`, difficulty `medium`)
+- `TASK-0463` — Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`)
 
 ## SUPERSEDED
 
