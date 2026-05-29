@@ -14,12 +14,17 @@ from physics_lab.registry.tasks import load_task
 CURRENT_ACTION_INACTIVE_STATUSES = {"done", "review_ready", "blocked", "review_required"}
 DISALLOWED_TASK_STATUSES = {
     "DONE",
-    "REVIEW_READY",
     "BLOCKED",
     "REJECTED",
     "SUPERSEDED",
     "PROPOSED",
 }
+# REVIEW_READY is a normal transient lifecycle state: an agent reaches it the
+# moment it finishes a task, before maintainer closeout moves the task to DONE.
+# A mission action that still references such a task is only transiently stale,
+# so it is reported as INFO (non-failing under --fail-on-warnings) rather than
+# blocking the agent's own REVIEW_READY transition. See TASK-0466.
+INFO_TASK_STATUSES = {"REVIEW_READY"}
 RECOMMENDED_MISSION_PATTERN = re.compile(
     r"## Recommended Mission Now(?P<section>.*?)(?:\n## |\Z)",
     re.DOTALL,
@@ -221,6 +226,20 @@ def _task_reference_issues(
                 severity="ERROR",
                 code="mission_missing_task_reference",
                 message=f"{owner} references missing canonical task {task_id}.",
+                path="missions/current.yaml",
+            )
+        ]
+    if task_status in INFO_TASK_STATUSES:
+        return [
+            MissionFreshnessIssue(
+                severity="INFO",
+                code="mission_review_ready_task_reference",
+                message=(
+                    f"{owner} references {task_id} with transient status {task_status}. "
+                    "This is expected right after task handoff; the mission action can be "
+                    "refreshed at maintainer closeout. Agents do not need to edit "
+                    "missions/current.yaml for their own REVIEW_READY transition."
+                ),
                 path="missions/current.yaml",
             )
         ]

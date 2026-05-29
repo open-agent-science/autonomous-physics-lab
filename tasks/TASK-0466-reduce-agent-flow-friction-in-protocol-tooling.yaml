@@ -1,0 +1,68 @@
+id: TASK-0466
+title: "Reduce agent-flow friction in protocol tooling and validation"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Remove validation and review-tooling friction that the normal READY -> REVIEW_READY -> validate -> review flow hits, so parallel agents do not waste cycles on the same false failures."
+  - "Keep derived state (mission action status, generated board files, accepted-output parsing) from surfacing as hard errors during routine task handoff."
+  - "Lean PR verification toward GitHub CI and the maintainer review agent instead of duplicating the full local test suite under a tight timeout."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "physics_lab/registry/mission_freshness.py"
+    - "tests/test_validate_repo_auto_sync.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/task_pr_helper.py"
+    - "docs/agent-task-protocol.md"
+    - "AGENTS.md"
+  planning_context: >
+    Architect-role analysis after executing TASK-0444 and TASK-0422 surfaced five
+    code-verified friction points that the normal task flow hits. This task
+    fixes all five as one coherent agent-flow-friction reduction:
+    F1 mission-staleness ERROR on a referenced task moving to REVIEW_READY;
+    F2 the live auto-sync smoke test dirtying tracked board files during the
+    required full pytest run, which then blocks the review tool;
+    F3 the review tool's 300s subprocess timeout crashing on the full pytest
+    fallback when GitHub checks are not yet green;
+    F4 normalize_output_path flagging an explicitly optional accepted output as
+    missing when it ends in a known extension;
+    F5 the review bundle being treated as a mandatory PR step via a preflight
+    warning and agent instructions, even though it is not required.
+
+requirements:
+  - "F1: a mission action that references a task now in REVIEW_READY must not fail strict validation. Downgrade that case to INFO (non-failing under --fail-on-warnings); keep ERROR for DONE, BLOCKED, REJECTED, SUPERSEDED, and PROPOSED references."
+  - "F2: the live validate-repo --auto-sync smoke test must not leave tracked board files (tasks/ACTIVE.md, docs/task-views/*.md) modified in the working tree after it runs."
+  - "F3: raise the maintainer-review task-validation subprocess timeout so the full local pytest fallback completes gracefully instead of crashing at 300s; ci-aware remains the default validation mode."
+  - "F4: normalize_output_path must treat explicitly optional or conditional accepted-output entries as never-required (skip them) instead of flagging a present-or-absent path as missing."
+  - "F5: remove the mandatory review-bundle preflight warning and soften agent instructions so generating a review bundle is optional; keep scripts/apl_review_bundle.sh and the review agent's bundle handling unchanged."
+  - "Add or update tests for F1 (REVIEW_READY -> INFO) and F4 (normalize_output_path), and fix the F2 test itself."
+  - "Do not weaken any safety guardrail, do not change repository-wide forbidden-action rules, and do not promote any claim."
+
+accepted_outputs:
+  - "physics_lab/registry/mission_freshness.py"
+  - "tests/test_validate_repo_auto_sync.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "physics_lab/registry/review_checks.py"
+  - "physics_lab/registry/task_pr_helper.py"
+  - "tests/test_mission_freshness.py"
+  - "tests/test_review_checks.py"
+  - "docs/agent-task-protocol.md"
+  - "AGENTS.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -133,6 +133,27 @@ def test_validate_mission_freshness_flags_done_support_action(tmp_path: Path) ->
     assert any(issue.code == "mission_stale_task_reference" for issue in issues)
 
 
+def test_validate_mission_freshness_review_ready_reference_is_info(tmp_path: Path) -> None:
+    """A referenced task moving to REVIEW_READY is transient, not a hard error.
+
+    Agents reach REVIEW_READY the moment they finish a task, so this must not
+    fail strict validation (TASK-0466, F1). It is reported as INFO instead, and
+    not as the ERROR-severity mission_stale_task_reference used for DONE/etc.
+    """
+    _write_task(tmp_path, task_id="TASK-0001", title="Docs sync", status="REVIEW_READY")
+    _write_current_missions(tmp_path)
+    _write_current_missions_doc(tmp_path)
+
+    issues = validate_mission_freshness(tmp_path)
+
+    review_ready_issues = [
+        issue for issue in issues if issue.code == "mission_review_ready_task_reference"
+    ]
+    assert len(review_ready_issues) == 1
+    assert review_ready_issues[0].severity == "INFO"
+    assert not any(issue.code == "mission_stale_task_reference" for issue in issues)
+
+
 def test_validate_mission_freshness_flags_missing_curator_cycle_and_title_drift(
     tmp_path: Path,
 ) -> None:

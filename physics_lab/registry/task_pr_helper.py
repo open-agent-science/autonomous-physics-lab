@@ -232,8 +232,9 @@ def preflight_task_pr(
         except (FileNotFoundError, ValueError) as exc:
             errors.append(str(exc))
 
-    if "./scripts/apl_review_bundle.sh" not in body_text and "apl_review_bundle.sh" not in body_text:
-        warnings.append("PR body does not mention the generated review bundle.")
+    # The review bundle is optional, not a mandatory PR step (see TASK-0466, F5),
+    # so its absence is no longer flagged. scripts/apl_review_bundle.sh remains
+    # available for maintainers who want a full diff snapshot.
     if "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings" not in body_text:
         warnings.append("PR body does not mention strict repository validation.")
 
