@@ -1,0 +1,123 @@
+id: EXP-PROPOSAL-0017
+title: "Sandbox nuclear residual-free high-error cluster audit"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only. No canonical result, PRED, claim, or knowledge artifact is authorized."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0449
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0051-residual-free-high-error-cluster.yaml"
+
+question: "Do residual-free cluster labels (built only from Z, N, A, parity, magic-distance, asymmetry) produce a per-cluster correction that beats matched-random and smooth-A controls under leave-one-out fitting on NMD-0002 and does not regress the post-AME2020 primary holdout?"
+
+method:
+  summary: "Assign each committed nuclear-mass row to one of a small, mutually-exclusive set of clusters defined purely from Z, N, A, parity, magic-distance, and asymmetry. Compute leave-one-out per-cluster mean baseline-residual offsets on the NMD-0002 training slice. Apply offsets to (a) the training rows themselves under LOO, (b) the post-AME2020 primary holdout rows using the full training-slice cluster means. Compare the candidate against (i) a matched-random control that shuffles cluster labels across rows under the same fold logic and (ii) a smooth-A control that replaces the per-cluster offset with a single linear (a + b*A) fit. Report MAE and RMSE per surface (training_loo, primary_holdout, full_known) and per cluster. Apply the controls-first gauntlet verdict logic with a 0.25 MeV survival margin on full_known."
+  code_references:
+    - "scripts/run_nuclear_residual_free_high_error_cluster_audit.py"
+    - "scripts/run_nuclear_shell_axis_full_known_audit.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "tests/test_nuclear_residual_free_cluster_audit.py"
+  commands:
+    - "python3 scripts/run_nuclear_residual_free_high_error_cluster_audit.py"
+    - "python3 -m pytest tests/test_nuclear_residual_free_cluster_audit.py"
+  parameters:
+    magic_distance_threshold: 2
+    neutron_rich_asymmetry_threshold: 0.18
+    light_a_threshold: 50
+    matched_random_seed: 449
+    survival_margin_mev: 0.25
+    required_controls:
+      - "matched_random_cluster_label"
+      - "smooth_a_linear"
+    cluster_taxonomy:
+      - "near_magic_z_or_n"
+      - "neutron_rich"
+      - "light_a_lt_50"
+      - "other"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen fitted baseline coefficients from RESULT-0015 (semi-empirical mass formula)."
+    - "Published magic numbers: {2, 8, 20, 28, 50, 82, 126, 184}."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-high-error-cluster-hypothesis-lane.md"
+    - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
+  assumptions:
+    - "No live source fetch."
+    - "No PRED entries, RESULT artifacts, claims, or knowledge files are modified."
+    - "Cluster labels are residual-free per F2 promotion path of the no-leakage contract."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0043/"
+  metrics:
+    - "cluster_taxonomy_definition"
+    - "cluster_counts_per_surface"
+    - "baseline_mae_per_surface_mev"
+    - "candidate_mae_per_surface_mev"
+    - "matched_random_control_mae_per_surface_mev"
+    - "smooth_a_control_mae_per_surface_mev"
+    - "candidate_vs_matched_random_delta_mev"
+    - "candidate_vs_smooth_a_delta_mev"
+    - "per_cluster_offset_training_loo_mev"
+    - "per_cluster_delta_mae_mev"
+    - "primary_holdout_regression_flag"
+    - "verdict"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0043/report.md"
+    - "agent_runs/AGENT-RUN-0043/limitations.md"
+    - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+
+validation:
+  pass_condition: "Sandbox pass if cluster labels are deterministic functions of Z/N/A only, leave-one-out logic is applied to all per-cluster offsets, both required controls are executed under the same fold logic, all metrics are reported per surface and per cluster, the verdict is one of {BOUNDED_FOLLOWUP_CANDIDATE, DIAGNOSTIC_ONLY, NEGATIVE_RESULT, INCONCLUSIVE}, and no PRED/CLAIM/KNOW/RESULT artifact is modified."
+  fail_condition: "Sandbox fail if labels use any residual-derived quantity, leave-one-out is skipped, a control is omitted, the verdict invents a new category, or any canonical artifact is written."
+  baseline_or_reference: "Frozen RESULT-0015 semi-empirical baseline."
+  expected_failure_modes:
+    - "Per-cluster cells are sparse on the 11-row training slice; some clusters yield singleton or empty LOO."
+    - "A smooth-A control matches the candidate when most cluster signal is mass-scale."
+    - "A matched-random control matches the candidate when cluster structure carries no information."
+    - "Candidate improves training_loo but regresses primary_holdout."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call per-cluster offsets a discovery, new nuclear law, or broad formula."
+    - "Do not call residual-free cluster labels validated corrections."
+    - "Do not imply reveal or registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only with explicit promotion_boundary."
+    - "Preserve controls and per-cluster diagnostics in the report."
+    - "Require maintainer review before any follow-up."
+
+limitations:
+  - "Retrospective evaluation on committed surfaces only."
+  - "NMD-0002 has 11 training rows; per-cluster sparsity can dominate the verdict."
+  - "Frozen baseline is the same one used in earlier high-error cluster lanes."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Confirm whether the residual-free cluster lane remains diagnostic-only or motivates a narrower bounded follow-up."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work."
