@@ -1,0 +1,48 @@
+id: TASK-0458
+title: "Refresh architecture overview and top-level repository map"
+type: documentation
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep contributor and agent orientation current as APL moves from v0.1 bootstrap docs to the v0.2 multi-campaign architecture."
+  - "Reduce root-directory confusion without performing a risky filesystem migration."
+  - "Preserve the four-layer architecture model as the canonical orientation layer for protocol, memory, campaign, and gate surfaces."
+
+input:
+  mode: workflow
+  related_domain: architecture
+  related_objects:
+    - "docs/architecture.md"
+    - "docs/architecture-index.md"
+    - "docs/architecture-layers.md"
+    - "AGENTS.md"
+  planning_context: >
+    The maintainer asked for an architectural review of the top-level folder
+    structure and noted that docs/architecture.md may be stale or removable.
+    The document is still a human-facing architecture entrypoint, so this task
+    refreshes it to match the current v0.2 architecture and records a concise
+    top-level directory map instead of deleting it.
+
+requirements:
+  - "Treat docs/architecture.md as a human-facing overview if it is still linked and useful."
+  - "Remove stale v0.1-only wording or update it to the current v0.2 multi-campaign posture."
+  - "Document the top-level directory groups so the repository root is easier to understand."
+  - "Do not move, rename, or delete canonical scientific memory directories in this task."
+  - "Do not alter unrelated task states or commit unrelated generated navigation churn."
+
+accepted_outputs:
+  - "tasks/TASK-0458-refresh-architecture-overview.yaml"
+  - "updated docs/architecture.md with current architecture posture and top-level directory map"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
