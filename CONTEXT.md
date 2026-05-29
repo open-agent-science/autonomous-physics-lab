@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-05-29 07:12 UTC
+Generated: 2026-05-29 16:05 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -877,7 +877,7 @@ turning watchlist topics into formula-search work.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is now falsified under `TASK-0394` | local-curvature negative/preflight packaging, registry/reveal-readiness reporting, residual-free high-error cluster diagnostics, negative-result preservation |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is falsified under `TASK-0394`, `TASK-0449` is `INCONCLUSIVE`, `TASK-0450` is negative, and `TASK-0451` is control-dominated | local-curvature negative/preflight packaging, registry/reveal-readiness reporting, negative-result preservation, or a future controls-first lane that is disjoint from the completed failures |
 | [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, baseline comparison, failure-map/slice audits, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` scorecard | independent compact-radius replay, normalized checksum cleanup, evidence-card packaging, second-snapshot no-live-fetch protocol |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows and a source-derived covariance approximation | Nemitz 2016 ingestion, real-row loader, holdout/no-peek manifest, then baseline-readiness gate |
@@ -1117,61 +1117,20 @@ missions:
           - "Treat AGENT-RUN-0018 as sandbox retrospective evidence only"
           - "Treat TASK-0333 as the stop point for the shell-axis audit loop"
           - "Treat TASK-0394 as a no-leakage falsification for LOCAL-CURVATURE-001 unless TASK-0428 identifies a narrower negative-result publication artifact"
+          - "Treat TASK-0449 as inconclusive residual-free high-error cluster memory; do not repeat the same taxonomy as a near-miss"
           - "Use live_task_candidates before naming any remaining READY Nuclear hypothesis lane"
           - "Use live_task_candidates from python3 scripts/apl_mission.py --output json"
           - "Keep at least five independent READY scientific tasks available across three active campaigns when possible"
           - "Use docs/result-promotion-protocol.md to decide whether the final output is sandbox-only, RESULT/PRED draft, review note, source artifact, or task proposal"
           - "Publish RESULT/PRED artifacts only when the selected task explicitly allows it and Gate A or maintainer-approved manual Gate A review passes"
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
-          - "Use TASK-0448 through TASK-0451 for the next controls-first Nuclear hypothesis wave"
+          - "Use the TASK-0448 gauntlet for any future maintainer-approved controls-first Nuclear lane"
+          - "Treat TASK-0450 and TASK-0451 as review-ready negative/control-dominated sandbox memory, not executable READY options"
           - "New Nuclear hypothesis lanes must predeclare leakage checks, negative controls, and stop conditions before candidate fitting"
         validation:
           - "python3 -m ruff check ."
           - "python3 -m pytest"
           - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
-      - id: nuclear-controls-first-gauntlet
-        label: "Define the Nuclear controls-first hypothesis gauntlet before wider expansion"
-        task_id: TASK-0448
-        mode: research
-        status: ready
-        priority: high
-        difficulty: medium
-        recommended: true
-        expected_outputs:
-          - "reusable Nuclear hypothesis template with allowed inputs, controls, leakage audit, failure condition, and output routing"
-      - id: nuclear-residual-free-high-error-cluster
-        label: "Run residual-free high-error cluster hypothesis audit"
-        task_id: TASK-0449
-        mode: research
-        status: ready
-        priority: high
-        difficulty: high
-        recommended: true
-        expected_outputs:
-          - "cluster labels from Z/N/A-style inputs only"
-          - "matched random-label and smooth-A/asymmetry controls"
-          - "bounded follow-up, diagnostic-only, negative, or inconclusive verdict"
-      - id: nuclear-neutron-rich-boundary-transfer
-        label: "Run neutron-rich boundary transfer hypothesis lane"
-        task_id: TASK-0450
-        mode: research
-        status: ready
-        priority: high
-        difficulty: high
-        recommended: true
-        expected_outputs:
-          - "chain-transfer test with matched high-error non-neutron-rich controls"
-          - "one bounded hypothesis family only"
-      - id: nuclear-magic-distance-interaction-controls
-        label: "Run magic-distance interaction control lane"
-        task_id: TASK-0451
-        mode: research
-        status: ready
-        priority: high
-        difficulty: high
-        recommended: true
-        expected_outputs:
-          - "magic-distance interaction candidate compared to smooth-A, asymmetry-only, parity-only, and matched random controls"
       - id: audit-agent-run-0005
         label: "Adversarially audit AGENT-RUN-0005 / HYP-PROPOSAL-0021"
         mode: audit
@@ -1259,14 +1218,16 @@ missions:
         expected_outputs:
           - "uncertainty preflight and weighted residual diagnostics"
       - id: nuclear-high-error-cluster-lane
-        label: "Run Nuclear high-error cluster hypothesis lane"
-        task_id: TASK-0343
+        label: "Preserve Nuclear high-error cluster lane as diagnostic-only history"
+        task_id: TASK-0449
         mode: research
         status: review_ready
         priority: high
         difficulty: high
+        recommended: false
         expected_outputs:
-          - "cluster hypotheses with matched negative controls"
+          - "TASK-0449 residual-free taxonomy is INCONCLUSIVE under current training sparsity"
+          - "do not repeat the same cluster taxonomy without a declared finer taxonomy or larger curated training slice"
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
@@ -1466,7 +1427,7 @@ missions:
     status: active_secondary_benchmark
     scientific_value: medium
     risk: medium
-    recommendation: "Active secondary benchmark: treat the compact-radius slice as a BENCHMARK_SUMMARY_ONLY diagnostic, then prioritize independent replay, checksum cleanup, evidence-card packaging, and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
+    recommendation: "Active secondary benchmark: treat the compact-radius slice as a BENCHMARK_SUMMARY_ONLY diagnostic, then prioritize checksum cleanup and future second-snapshot discipline before any planet-law, composition, or prediction-readiness story."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -1549,16 +1510,16 @@ missions:
           - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md freezes acquisition, checksums, no-peek, metrics, slices, and true-mass vs M sin i boundaries"
           - "next action: use TASK-0446/TASK-0447 or a future maintainer-approved ingestion-only task; do not live-fetch rows from onboarding"
       - id: exoplanet-compact-radius-independent-replay
-        label: "Run independent replay of compact-radius matched-control audit"
-        task_id: TASK-0445
+        label: "Independent replay of compact-radius matched-control audit is review-ready"
+        task_id: null
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "independent replay verdict for scripts/run_exoplanet_compact_subneptune_matched_control_audit.py"
-          - "no claim promotion; benchmark-summary wording only"
+          - "TASK-0445 records an independent replay verdict for scripts/run_exoplanet_compact_subneptune_matched_control_audit.py"
+          - "review before any public wording update; no claim promotion and benchmark-summary wording only"
       - id: exoplanet-normalized-checksum-gap
         label: "Close normalized PSCompPars snapshot checksum gap"
         task_id: TASK-0446
@@ -1571,16 +1532,16 @@ missions:
           - "stable normalized checksum semantics or explicit blocker review"
           - "no live fetch and no row-value changes"
       - id: exoplanet-benchmark-evidence-card
-        label: "Package shareable exoplanet benchmark evidence card"
-        task_id: TASK-0447
+        label: "Shareable exoplanet benchmark evidence card is review-ready"
+        task_id: null
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "docs/results/exoplanet-compact-radius-benchmark-card.md"
-          - "scorecard-approved public wording with limitations attached"
+          - "TASK-0447 packages docs/results/exoplanet-compact-radius-benchmark-card.md"
+          - "review before broad reuse; scorecard-approved public wording with limitations attached"
 
   - id: textbook-formula-audit
     title: "Textbook Formula Audit"
@@ -2746,20 +2707,16 @@ one PR.
 - `TASK-0423` — Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0428` — Run nuclear local-curvature result-promotion preflight (`research_quality_gate`, priority `high`, difficulty `medium`)
 - `TASK-0432` — Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`)
-- `TASK-0437` — Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0439` — Scaffold Materials Property Residuals campaign (`campaign_scaffold`, priority `medium`, difficulty `medium`)
 - `TASK-0440` — Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 - `TASK-0444` — Plan Stellar Mass-Luminosity OOD source and baseline (`scientific_dataset`, priority `high`, difficulty `medium`)
-- `TASK-0445` — Run independent replay of exoplanet compact-radius matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0446` — Close exoplanet normalized-snapshot checksum gap (`scientific_dataset`, priority `medium`, difficulty `medium`)
-- `TASK-0447` — Package exoplanet benchmark evidence card (`documentation`, priority `high`, difficulty `medium`)
-- `TASK-0448` — Define Nuclear controls-first hypothesis gauntlet template (`research_quality_gate`, priority `high`, difficulty `medium`)
-- `TASK-0449` — Run Nuclear residual-free high-error cluster hypothesis audit (`scientific_validation`, priority `high`, difficulty `high`)
-- `TASK-0450` — Run Nuclear neutron-rich boundary transfer hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
-- `TASK-0451` — Run Nuclear magic-distance interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 - `TASK-0452` — Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0453` — Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0454` — Define Atomic holdout and no-peek manifest for first benchmark (`benchmark_protocol`, priority `high`, difficulty `medium`)
+- `TASK-0459` — Generate agent capacity board from campaign catalog (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0460` — Add task-to-campaign lane index (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0462` — Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -2767,12 +2724,18 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
-- `TASK-0457` — Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes (`contributor_experience`, priority `medium`, difficulty `low`)
-- `TASK-0458` — Refresh architecture overview and top-level repository map (`documentation`, priority `medium`, difficulty `low`)
+- `TASK-0437` — Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0445` — Run independent replay of exoplanet compact-radius matched-control audit (`scientific_validation`, priority `high`, difficulty `medium`)
+- `TASK-0447` — Package exoplanet benchmark evidence card (`documentation`, priority `high`, difficulty `medium`)
+- `TASK-0448` — Define Nuclear controls-first hypothesis gauntlet template (`research_quality_gate`, priority `high`, difficulty `medium`)
+- `TASK-0449` — Run Nuclear residual-free high-error cluster hypothesis audit (`scientific_validation`, priority `high`, difficulty `high`)
+- `TASK-0450` — Run Nuclear neutron-rich boundary transfer hypothesis lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
+- `TASK-0451` — Run Nuclear magic-distance interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`)
 
 ## DONE RECENTLY
 
+- `TASK-0458` — Refresh architecture overview and top-level repository map (merged)
+- `TASK-0457` — Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes (merged)
 - `TASK-0443` — Add public campaign science dashboard and monitoring links (merged)
 - `TASK-0442` — Sync campaign guidance after director review (merged)
 - `TASK-0441` — Upgrade Scientific Campaign Curator into Scientific Campaign Director role (merged)
@@ -2809,6 +2772,7 @@ None.
 - `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (merged)
 - `TASK-0397` — Run nuclear local-curvature negative-control expansion (merged)
 - `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (merged)
+- `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (merged)
 - `TASK-0392` — Audit exoplanet host and uncertainty selection effects (merged)
 - `TASK-0391` — Run exoplanet neptunian residual matched-control audit (merged)
 - `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (merged)
@@ -3181,6 +3145,8 @@ None.
 - `TASK-0336` — Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`)
 - `TASK-0455` — Rerun Atomic baseline-readiness gate after source, loader, and holdout work (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0456` — Run first Atomic Yb/Sr cross-source consistency benchmark (`scientific_benchmark`, priority `high`, difficulty `high`)
+- `TASK-0461` — Add lane collision preflight for parallel agent work (`contributor_experience`, priority `high`, difficulty `medium`)
+- `TASK-0463` — Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`)
 
 ## SUPERSEDED
 
