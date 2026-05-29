@@ -1,0 +1,63 @@
+id: TASK-0457
+title: "Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes"
+type: contributor_experience
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Reduce repeat permission prompts during Claude Code agent task PR lifecycles."
+  - "Keep the change scoped: configuration only, no new directories, no protocol/onboarding/script changes, no shared-namespace touch."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - ".claude/settings.json"
+    - "scripts/apl_task_pr_helper.py"
+  planning_context: >
+    Claude Code agents write PR-body scaffolds and other throwaway
+    artifacts under /tmp (for example /tmp/apl-pr-body-0402.md). The
+    harness blocked Write operations to /tmp paths with "Path is
+    outside allowed working directories", even though
+    .claude/settings.json already listed Write(/tmp/apl-*) in the
+    permission allowlist. The allowlist gates the policy decision; the
+    workspace boundary is a separate setting
+    (permissions.additionalDirectories). Fixing the boundary so the
+    existing allowlist actually executes is the smallest correct
+    change.
+
+    Earlier iterations of this task explored creating an in-repo
+    scratch directory (.claude/scratch/ or _agent-scratch/) and
+    updating CLAUDE.md, AGENTS.md, CODEX_TASK.md,
+    docs/agent-task-protocol.md, and docs/maintainer-review-agent.md.
+    Maintainer review preferred the minimal configuration-only fix:
+    no new directories to learn, no new conventions to teach, no
+    protocol surfaces touched, Codex and Windows users entirely
+    unaffected.
+
+requirements:
+  - "Update .claude/settings.json to add permissions.additionalDirectories with /tmp and /private/tmp so the workspace boundary stops blocking writes the existing Write(/tmp/apl-*) allowlist already permits in policy."
+  - "Extend permissions.allow with explicit .md variants for /tmp/apl-* and /private/tmp/apl-* so the patterns cover the actual files agents write."
+  - "Do not create any new directory inside the repo (no .claude/scratch/, no _agent-scratch/)."
+  - "Do not modify CLAUDE.md, AGENTS.md, CODEX_TASK.md, docs/agent-task-protocol.md, docs/maintainer-review-agent.md, or any shared protocol surface."
+  - "Do not modify .gitignore."
+  - "Do not change scripts/apl_task_pr_helper.py or any helper default."
+  - "Do not change behavior of any committed scientific artifact, dataset, claim, knowledge entry, prediction, or canonical result."
+  - "Do not modify hooks or other sandbox-enforcing settings."
+
+accepted_outputs:
+  - "updated .claude/settings.json (permissions.additionalDirectories + extended /tmp/apl-*.md allow patterns)"
+  - "this canonical task file"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

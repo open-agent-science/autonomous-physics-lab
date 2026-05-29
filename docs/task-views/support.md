@@ -21,4 +21,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0457` - Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
