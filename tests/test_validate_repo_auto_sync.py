@@ -195,10 +195,29 @@ def test_fail_on_warnings_still_requires_strict_even_with_auto_sync() -> None:
 
 @pytest.mark.full_repo
 def test_cli_validate_repo_auto_sync_live_smoke() -> None:
-    """Real-repo smoke: passing --auto-sync on a healthy state still passes."""
-    runner = CliRunner()
-    result = runner.invoke(app, ["validate-repo", ".", "--strict", "--auto-sync"])
+    """Real-repo smoke: passing --auto-sync on a healthy state still passes.
 
-    if result.exit_code != 0:
-        pytest.fail(f"validate-repo --strict --auto-sync failed: {result.stdout}")
-    assert "Strict validation: PASS" in result.stdout
+    --auto-sync regenerates the tracked board files (tasks/ACTIVE.md and the
+    generated task views). On a branch whose task YAML changed, that
+    regeneration differs from the committed content and would otherwise leave
+    the working tree dirty, which then blocks the review tool. The smoke test
+    only needs to confirm the command runs and passes, so it snapshots and
+    restores those board files instead of persisting the regeneration. See
+    TASK-0466, F2.
+    """
+    repo_root = Path(__file__).resolve().parents[1]
+    board_files = [repo_root / "tasks" / "ACTIVE.md"]
+    board_files.extend(sorted((repo_root / "docs" / "task-views").glob("*.md")))
+    original = {p: p.read_text(encoding="utf-8") for p in board_files if p.exists()}
+
+    runner = CliRunner()
+    try:
+        result = runner.invoke(app, ["validate-repo", ".", "--strict", "--auto-sync"])
+
+        if result.exit_code != 0:
+            pytest.fail(f"validate-repo --strict --auto-sync failed: {result.stdout}")
+        assert "Strict validation: PASS" in result.stdout
+    finally:
+        for path, text in original.items():
+            if path.read_text(encoding="utf-8") != text:
+                path.write_text(text, encoding="utf-8")

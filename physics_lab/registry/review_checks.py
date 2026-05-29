@@ -52,16 +52,6 @@ SEMANTIC_PROTECTED_PREFIX_HINTS = {
         "reproducible benchmark result artifacts",
     ),
 }
-KNOWN_OUTPUT_EXTENSIONS = (
-    ".md",
-    ".yaml",
-    ".yml",
-    ".py",
-    ".json",
-    ".txt",
-    ".csv",
-    ".ipynb",
-)
 SENSITIVE_PATH_RULES = (
     (".github/workflows/", "CI workflow files changed."),
     ("scripts/", "Repository scripts changed."),
@@ -162,18 +152,24 @@ def sensitive_surface_hits(changed_files: tuple[str, ...]) -> tuple[str, ...]:
 
 
 def normalize_output_path(raw_output: str) -> str | None:
-    """Extract a path-like accepted output from a human string."""
+    """Extract a required path-like accepted output from a human string.
+
+    Returns ``None`` unless the entry is a single concrete required path token.
+    Multi-word descriptive entries are skipped even when they end in a known
+    file extension, and entries explicitly marked optional or conditional are
+    never required (so they are not reported as missing). See TASK-0466, F4.
+    """
     cleaned = raw_output.strip().strip("`")
+    lowered = cleaned.lower()
+    if lowered.startswith("optional") or " only if " in lowered:
+        return None
     if cleaned.startswith("updated "):
         cleaned = cleaned.removeprefix("updated ").strip().strip("`")
     if "/" not in cleaned:
         return None
-    if cleaned.endswith(KNOWN_OUTPUT_EXTENSIONS):
-        return cleaned
-    parts = cleaned.split()
-    if len(parts) == 1:
-        return cleaned
-    return None
+    if len(cleaned.split()) != 1:
+        return None
+    return cleaned
 
 
 def output_paths(task_payload: dict[str, Any]) -> tuple[str, ...]:

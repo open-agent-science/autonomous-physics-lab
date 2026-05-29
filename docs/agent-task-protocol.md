@@ -451,7 +451,9 @@ git diff --exit-code
 Use `--output-dir` for routine example runs so committed canonical artifacts do
 not change accidentally.
 
-Before opening a PR, also generate a review bundle for the maintainer:
+Before opening a PR, agents may optionally generate a review bundle for the
+maintainer. This is no longer a required step and its absence is not flagged by
+the PR preflight:
 
 ```bash
 ./scripts/apl_review_bundle.sh
