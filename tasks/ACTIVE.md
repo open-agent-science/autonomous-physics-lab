@@ -78,12 +78,12 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
-- `TASK-0457` — Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes (`contributor_experience`, priority `medium`, difficulty `low`)
-- `TASK-0458` — Refresh architecture overview and top-level repository map (`documentation`, priority `medium`, difficulty `low`)
+None.
 
 ## DONE RECENTLY
 
+- `TASK-0458` — Refresh architecture overview and top-level repository map (merged)
+- `TASK-0457` — Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes (merged)
 - `TASK-0443` — Add public campaign science dashboard and monitoring links (merged)
 - `TASK-0442` — Sync campaign guidance after director review (merged)
 - `TASK-0441` — Upgrade Scientific Campaign Curator into Scientific Campaign Director role (merged)
@@ -120,6 +120,7 @@ None.
 - `TASK-0399` — Triage post-2015 quantum-dot machine-readable supplements (merged)
 - `TASK-0397` — Run nuclear local-curvature negative-control expansion (merged)
 - `TASK-0394` — Implement nuclear local-curvature no-leakage prototype (merged)
+- `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (merged)
 - `TASK-0392` — Audit exoplanet host and uncertainty selection effects (merged)
 - `TASK-0391` — Run exoplanet neptunian residual matched-control audit (merged)
 - `TASK-0390` — Run exoplanet compact/sub-Neptune residual hypothesis pilot (merged)
