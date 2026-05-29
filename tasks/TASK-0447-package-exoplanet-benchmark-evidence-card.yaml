@@ -36,8 +36,8 @@ requirements:
 
 accepted_outputs:
   - "docs/results/exoplanet-compact-radius-benchmark-card.md"
-  - "optional link update in docs/campaigns/public-science-dashboard.md"
-  - "optional link update in docs/campaigns/exoplanet-mass-radius.md"
+  - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaigns/exoplanet-mass-radius.md"
 
 validation:
   commands:
