@@ -559,7 +559,7 @@ missions:
     status: active_scaffold
     scientific_value: medium
     risk: low
-    recommendation: "Prepare the first range-aware formula audit through Stellar Mass-Luminosity source/baseline planning before any metrics."
+    recommendation: "Stellar Mass-Luminosity source/baseline planning (TASK-0444) is review-ready; review it before opening the model-independent-mass ingestion task and before any metrics."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -574,14 +574,15 @@ missions:
         label: "Plan Stellar Mass-Luminosity OOD source and baseline"
         task_id: TASK-0444
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "Gaia DR3 source/query plan without live fetch"
           - "row schema, baseline parameters, holdout policy, and verification gates"
           - "no audit metrics, result, claim, or discovery framing"
+          - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md is review-ready"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"
