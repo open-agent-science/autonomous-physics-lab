@@ -68,3 +68,26 @@ handoff_requires:
   - limitation
   - verdict
   - maintainer_decision_requested
+
+portfolio:
+  status: quality_floor
+  domain: physics_validation
+  current_stage: "mature validator MVP with challenge-entry and limitation-probe follow-up value"
+  recommended_parallel_agents: 1
+  coordination_notes: "Best for small challenge-entry or limitation-probe work; avoid concurrent edits to the same challenge set."
+  best_next_actions:
+    - task_id: null
+      label: "Add bounded challenge examples or limitation notes when a task explicitly asks for validator coverage"
+  required_gates:
+    - "Do not change frozen RESULT-0007 replay scope."
+    - "Separate live curation from canonical MVP metrics."
+  current_results:
+    - "results/EXP-0006/RUN-0006/result.yaml"
+    - "docs/results/dimensional-analysis-validator-summary.md"
+  open_questions:
+    - "Which hard boundary cases best expose current validator limitations?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-05-29"
+    source: "docs/status.md"
+    notes: "Quality-floor track for fast formula sanity checks and benchmark hygiene."

@@ -17,6 +17,13 @@ The short version:
 - **Planning/watchlist:** Fresh Physics Data Axes, Anomaly Registry, and
   Thought-Experiment Consistency.
 
+For a compact machine-readable portfolio map, see
+[`campaigns/catalog.yaml`](../../campaigns/catalog.yaml) and
+[`docs/campaign-registry.md`](../campaign-registry.md). The catalog summarizes
+status, stage, agent capacity, gates, allowed work, forbidden work, and result
+pointers for parallel agent planning; it does not replace this human-readable
+campaign map or `missions/current.yaml`.
+
 ## Start By Intent
 
 | If you want to... | Start here | Why |
@@ -74,4 +81,5 @@ Pair these campaign pages with:
 - [Project Status](../status.md)
 - [Open Agent Network](../open-agent-network.md)
 - [Architecture Layers](../architecture-layers.md)
+- [Campaign Registry](../campaign-registry.md)
 - [Active Task Board](../../tasks/ACTIVE.md)

@@ -76,3 +76,33 @@ handoff_requires:
   - limitations
   - verdict
   - maintainer_decision_requested
+
+portfolio:
+  status: flagship_validation
+  domain: nuclear_physics
+  current_stage: "frozen baseline, sandbox diagnostics, no-leakage controls, and reveal-readiness blockers"
+  recommended_parallel_agents: 3
+  coordination_notes: "Parallel work is useful when lanes are disjoint: negative/preflight packaging, residual-free diagnostics, reveal-readiness, or controls-first templates."
+  best_next_actions:
+    - task_id: TASK-0428
+      label: "Run local-curvature result-promotion preflight"
+    - task_id: TASK-0395
+      label: "Refactor high-error cluster labels to residual-free features"
+    - task_id: TASK-0448
+      label: "Define controls-first hypothesis gauntlet template"
+  required_gates:
+    - "No reveal scoring before a source-grade no-peek release passes preflight."
+    - "Leakage checks, negative controls, and stop conditions must be declared before candidate fitting."
+    - "Result-promotion routing must follow docs/result-promotion-protocol.md."
+  current_results:
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
+    - "prediction_registry/nuclear_masses/"
+  open_questions:
+    - "Which residual-free diagnostics survive matched controls?"
+    - "What future source can satisfy the reveal-readiness checklist?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-05-29"
+    source: "missions/current.yaml"
+    notes: "Flagship lane remains high-value, but current progress should preserve negative memory and source gates."

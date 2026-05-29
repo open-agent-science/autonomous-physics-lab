@@ -67,3 +67,32 @@ handoff_requires:
   - scope_statement
   - limitations
   - maintainer_decision_requested
+
+portfolio:
+  status: source_readiness
+  domain: condensed_matter
+  current_stage: "source artifacts and direct-row readiness before any baseline benchmark"
+  recommended_parallel_agents: 1
+  coordination_notes: "Best handled sequentially until a direct table or digitization source unblocks row curation."
+  best_next_actions:
+    - task_id: TASK-0398
+      label: "Package Norris-Bawendi digitization preflight"
+    - task_id: TASK-0400
+      label: "Verify Kang-Wise PbS direct source path"
+    - task_id: null
+      label: "Revisit blocked row curation only after a source artifact exists"
+  required_gates:
+    - "Direct measurement row provenance or approved weaker calibration-consistency scope."
+    - "Source artifact package before benchmark metrics."
+    - "Dataset schema and source manifest checks."
+  current_results:
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/campaigns/quantum-size-effects.md"
+  open_questions:
+    - "Which source provides direct measurement rows with usable provenance?"
+    - "Is a weaker calibration-consistency benchmark worth approving?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-05-29"
+    source: "docs/status.md"
+    notes: "Source blocker is intentional scientific hygiene, not a failed campaign."
