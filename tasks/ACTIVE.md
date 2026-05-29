@@ -46,7 +46,6 @@ one PR.
 
 ## READY
 
-- `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0395` — Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`)
 - `TASK-0396` — Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`)
 - `TASK-0398` — Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`)
@@ -79,6 +78,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0393` — Define exoplanet second-snapshot no-live-fetch protocol (`benchmark_protocol`, priority `medium`, difficulty `medium`)
 - `TASK-0457` — Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes (`contributor_experience`, priority `medium`, difficulty `low`)
 - `TASK-0458` — Refresh architecture overview and top-level repository map (`documentation`, priority `medium`, difficulty `low`)
 
