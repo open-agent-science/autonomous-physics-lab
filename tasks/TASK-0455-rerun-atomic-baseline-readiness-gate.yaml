@@ -1,0 +1,50 @@
+id: TASK-0455
+title: "Rerun Atomic baseline-readiness gate after source, loader, and holdout work"
+type: scientific_validation
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Promote Atomic only when the remaining BASELINE_READY blockers are explicitly resolved."
+  - "Create a single go/no-go artifact before the first Atomic benchmark task can run."
+  - "Prevent direct-row ingestion from being mistaken for benchmark readiness."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/TASK-0401-run-atomic-beloy-2021-row-readiness-recheck.yaml"
+    - "tasks/TASK-0402-reconstruct-atomic-beloy-cross-ratio-covariance-approximation.yaml"
+    - "tasks/TASK-0452-ingest-atomic-nemitz-2016-yb-sr-source.yaml"
+    - "tasks/TASK-0453-add-atomic-real-direct-row-loader.yaml"
+    - "tasks/TASK-0454-define-atomic-holdout-no-peek-manifest.yaml"
+    - "docs/reviews/atomic-beloy-2021-row-readiness-recheck.md"
+  planning_context: >
+    TASK-0401 classified Atomic as PINNED_DATASET but not BASELINE_READY. This
+    future gate should run only after the second-source, real-row-loader, and
+    holdout/no-peek blockers are closed or explicitly waived by the maintainer.
+
+requirements:
+  - "Start only after TASK-0452, TASK-0453, and TASK-0454 are DONE or explicitly waived by the maintainer."
+  - "Re-evaluate all TASK-0401 blockers: covariance policy, holdout/no-peek boundary, deterministic real-row loader, and second-source replay risk."
+  - "Classify Atomic as BASELINE_READY, still PINNED_DATASET, or SOURCE_BLOCKED with exact blocker list."
+  - "If BASELINE_READY, recommend one narrow first benchmark shape without running it."
+  - "Do not fit drift, compare values, create prediction entries, create RESULT artifacts, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md"
+  - "optional machine-readable readiness summary if the existing schema supports it"
+  - "optional update to docs/campaigns/atomic-clock-residuals.md if the campaign maturity state changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,7 +1,7 @@
 id: TASK-0401
 title: "Run atomic Beloy 2021 row readiness re-check"
 type: scientific_validation
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

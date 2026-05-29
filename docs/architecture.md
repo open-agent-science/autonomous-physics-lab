@@ -1,298 +1,199 @@
+# Architecture Overview
+
 ## Purpose
 
-Autonomous Physics Lab (APL) is an open verification infrastructure for physics hypotheses.
+Autonomous Physics Lab (APL) is verification-first infrastructure for physics
+hypotheses. It is a file-based scientific engine for proposing, testing,
+falsifying, reviewing, and preserving physics evidence.
 
-The system is built around a strict principle:
+APL is not a chatbot and does not treat generated prose as evidence. Numerical,
+symbolic, dataset, and claim-facing statements must be backed by deterministic
+code, committed artifacts, and reviewable provenance.
 
-> Hypotheses may be proposed freely, but only become reusable knowledge after deterministic verification.
+For fast navigation, use [Architecture Index](./architecture-index.md). For the
+short layer model, use [Architecture Layers](./architecture-layers.md). This
+page is the human-facing overview that ties those maps together.
 
----
+## Current Posture
 
-## Strategic Positioning
+APL is now organized around multiple bounded research campaigns, agent-run
+evidence, result-promotion gates, maintainer review helpers, and
+source/readiness protocols.
 
-APL is infrastructure for systematic theory search, not an "AI physicist" and not a system that claims direct discovery of fundamental physics.
+The current architectural goal is not to add a dashboard, web API, database, or
+large framework. The goal is to keep the repository easy for humans and agents
+to inspect while preserving scientific memory in version-controlled files.
 
-The correct positioning is:
+## Four-Layer Model
 
-* open-source;
-* verification-first;
-* reproducible;
-* public scientific memory;
-* compatible with human and agent collaboration.
+APL is easiest to understand as four layers:
 
----
+1. **Research Agent Core** - mission control, task selection, task YAML,
+   generated task views, PR review helpers, closeout, and campaign-curator
+   tooling.
+2. **Scientific Memory** - hypotheses, experiments, canonical results, sandbox
+   agent runs, claims, knowledge notes, prediction registries, reviews, and
+   negative or inconclusive evidence.
+3. **Domain Campaigns** - bounded scientific surfaces such as Nuclear Mass
+   Surface, Exoplanet Mass-Radius, Atomic Clock Residuals, Quantum Size Effects,
+   Particle Mass Relations, and Pendulum Formula Falsification.
+4. **Data / Reveal / Claim Gates** - source manifests, checksums, direct-row
+   provenance, no-peek/reveal protocols, holdout policies, result-promotion
+   checks, and public wording review.
 
-## Experiment Flow
+This model is an orientation layer, not a request to move files. Broad
+filesystem refactors should happen only when a task identifies a concrete pain
+point and migration plan.
 
-This document provides a visual overview of the Autonomous Physics Lab (APL) experiment lifecycle.
+## Repository Layout
 
-The diagram illustrates the verification-first workflow from task selection through implementation, validation, review, and integration into scientific memory.
+The top level intentionally exposes the main scientific artifact classes. This
+can look busy, but it makes evidence reviewable without a database or hidden
+runtime state.
 
----
+```text
+autonomous-physics-lab/
+  physics_lab/              Python package: CLI, engines, workflows, registries, schemas
+  scripts/                  Maintainer, review, mission, snapshot, and run helpers
+  tests/                    Fast deterministic tests and repository integrity checks
+  examples/                 Reproducible workflow configs
 
-## Experiment Lifecycle (Happy Path)
+  tasks/                    Canonical task contracts and task proposals
+  missions/                 Mission-control policy and campaign recommendations
+  agents/                   Machine-readable agent role profiles
+  .github/                  CI and repository automation
 
-The following diagram illustrates the standard APL verification-first workflow from task selection to integration into scientific memory.
+  hypotheses/               Reviewed hypothesis artifacts
+  experiments/              Reviewed experiment definitions
+  results/                  Canonical benchmark/result packages
+  claims/                   Claim records and evidence links
+  knowledge/                Reusable reviewed knowledge notes
+  prediction_registry/      Pre-registered prediction artifacts
+
+  agent_runs/               Sandbox or task-scoped agent evidence bundles
+  microtask_runs/           Completed scientific microtask records
+  hypothesis_proposals/     Campaign-scoped hypothesis proposal artifacts
+  experiment_proposals/     Campaign-scoped experiment proposal artifacts
+  hypothesis_register/      Lightweight hypothesis-register entries
+
+  campaign_profiles/        Machine-readable campaign autonomy profiles
+  data/                     Curated datasets, manifests, source artifacts, checksums
+  docs/                     Protocols, campaign pages, reviews, notes, release docs
+  templates/                Reusable source, result, and extraction templates
+```
+
+Local or generated working directories such as `.worktrees/`, `_snapshots/`,
+`.pytest_cache/`, `.ruff_cache/`, and `.pytest-basetemp/` are not part of the
+canonical architecture even when they are visible in a local checkout.
+
+## Experiment and Evidence Flow
+
+Most work starts with a task, not an ad hoc edit. The task defines the scope,
+accepted outputs, validation commands, and review expectations.
 
 ```mermaid
 flowchart TD
-    T_READY["TASK (READY)"] --> BR["Create branch"]
-    BR --> CODE["Implement changes"]
-    CODE --> VAL["Validation (ruff, pytest, CLI)"]
-    VAL --> PR["Open Pull Request"]
-    PR --> MAINT["Maintainer review"]
-    VAL -- Failure --> CODE
-    MAINT -- Needs changes --> CODE
-    MAINT -- Approved --> MERGE["Merge to main"]
-    MERGE --> EXP["Run experiment"]
-    EXP --> RES["Generate results"]
-    RES --> EVAL["Evaluate results"]
-    EVAL --> KNOW["Update claims / knowledge"]
+    T_READY["TASK YAML (READY)"] --> BRANCH["Task branch or worktree"]
+    BRANCH --> WORK["Implementation or research run"]
+    WORK --> VALIDATE["Validation: ruff, pytest, validate-repo"]
+    VALIDATE --> PR["Draft pull request"]
+    PR --> REVIEW["Maintainer or review-agent pass"]
+    REVIEW --> MERGE["Maintainer merge"]
+    MERGE --> MEMORY["Scientific memory or task closeout"]
 
-    classDef task fill:#1f2937,stroke:#374151,color:#ffffff;
-    classDef dev fill:#1d4ed8,stroke:#1e40af,color:#ffffff;
-    classDef validation fill:#b45309,stroke:#92400e,color:#ffffff;
-    classDef review fill:#7c3aed,stroke:#5b21b6,color:#ffffff;
-    classDef science fill:#065f46,stroke:#047857,color:#ffffff;
-
-    class T_READY task;
-    class BR,CODE dev;
-    class VAL validation;
-    class PR,MAINT,MERGE review;
-    class EXP,RES,EVAL,KNOW science;
-
+    WORK --> SANDBOX["agent_runs/ or docs/reviews/"]
+    SANDBOX --> GATE["Result-promotion or reveal gate"]
+    GATE --> RESULT["results/ or prediction_registry/"]
+    RESULT --> CLAIM["claims/ or knowledge/ only with higher review"]
 ```
 
+The important safety rule is separation of evidence from interpretation:
+agents may publish gated evidence when the task and protocols allow it, but
+claim endorsement remains review-gated.
 
+## Core Code Surfaces
 
-## References
+The Python package is deliberately small and file-oriented:
 
-* `docs/agent-task-protocol.md`
-* `AGENTS.md`
-* `docs/strategy.md`
+- `physics_lab/cli.py` exposes repository validation and workflow commands.
+- `physics_lab/workflows/` contains experiment/workflow orchestration.
+- `physics_lab/engines/` contains deterministic scientific calculations,
+  scoring, fitting, and domain helpers.
+- `physics_lab/registry/` loads, validates, reviews, indexes, and packages
+  repository artifacts.
+- `physics_lab/schemas/` defines JSON schemas for structured artifacts.
+- `physics_lab/datasets/` contains dataset loaders and source-specific helpers
+  when the logic is reusable.
 
----
-
-## Core System Model
-
-APL is organized around three core subsystems.
-
-All workflows must follow the canonical agent-task protocol defined in
-`docs/agent-task-protocol.md`.
-
-For current contributor and agent orientation, APL is also described by the
-lighter four-layer model in [docs/architecture-layers.md](./architecture-layers.md):
-
-1. Research Agent Core;
-2. Scientific Memory;
-3. Domain Campaigns;
-4. Data / Reveal / Claim Gates.
-
-That layer model is an operational map, not a package-refactor plan.
-
-### 1. Hypothesis Engine
-
-Responsible for:
-
-* generating or loading candidate hypotheses;
-* simulating reference behavior;
-* fitting approximation families;
-* scoring model quality;
-* producing verdicts and reproducible reports.
-
-These capabilities are implemented incrementally across modules in
-`physics_lab/engines`.
-
----
-
-### 2. Public Knowledge Base
-
-Responsible for storing:
-
-* hypotheses;
-* claims;
-* experiments;
-* results;
-* reusable knowledge notes;
-* tasks;
-* agent manifests.
-
-All objects are stored as version-controlled artifacts using structured schemas.
-
-In v0.1 this system is file-based and managed through Git.
-
----
-
-### 3. Open Agent Task Network
-
-Responsible for:
-
-* publishing structured tasks;
-* enabling human and agent contributions;
-* enforcing reproducibility and evidence standards;
-* linking tasks to experiments and results.
-
-Tasks are the primary coordination unit. Agents do not own roles; tasks define execution.
-
----
+`physics_lab/workflows/runner.py` should stay thin. Domain-specific science
+belongs in workflow and engine modules, while repository coordination belongs in
+registry modules and scripts.
 
 ## Verification Stack
 
-APL uses a layered verification approach.
-
-The architecture is designed to support:
+APL supports layered verification:
 
 1. dimensional analysis;
 2. symbolic consistency checks;
 3. known-limit validation;
-4. symmetry checks;
-5. conservation-law checks;
-6. numerical simulation;
-7. benchmark comparison against known solutions;
-8. comparison with experimental or reference data;
-9. literature cross-check;
-10. reproducible report generation.
+4. symmetry or conservation-law checks when applicable;
+5. numerical simulation;
+6. benchmark comparison against known solutions;
+7. dataset or source-manifest validation;
+8. holdout, no-peek, or reveal-readiness checks;
+9. reproducible report and metrics generation;
+10. review-tier and result-promotion gates.
 
-Not every workflow uses all layers in v0.1, but the system is structured to support them incrementally.
+Not every campaign uses every layer. Campaign maturity controls what kind of
+task is safe: source-gated campaigns should receive source/readiness work,
+while mature benchmark campaigns can run bounded hypothesis tests.
 
-These layers are implemented progressively within `physics_lab/engines`.
+## Scientific Object Model
 
----
+APL distinguishes:
 
-## Repository Layout
+- `Hypothesis` - an unverified proposed relation, model, or diagnostic.
+- `Experiment` - a deterministic test or benchmark configuration.
+- `Result` - reproducible output from an experiment or gate.
+- `Prediction` - a pre-registered statement awaiting reveal or scoring.
+- `Claim` - a statement about nature backed by evidence and review.
+- `Knowledge` - reusable reviewed information distilled from stronger evidence.
+- `Task` - the execution contract for humans and agents.
+- `Agent run` - sandbox or task-scoped evidence that may or may not qualify for
+  promotion.
 
-```text
-autonomous-physics-lab/
-  README.md
-  AGENTS.md
-  CODEX_TASK.md
-
-  physics_lab/
-    cli.py
-    engines/
-      simulation.py
-      formula_discovery.py
-      symbolic.py
-      scoring.py
-      critic.py
-    registry/
-      hypotheses.py
-      claims.py
-      experiments.py
-      tasks.py
-    workflows/
-      runner.py
-    schemas/
-      hypothesis.schema.json
-      claim.schema.json
-      experiment.schema.json
-      task.schema.json
-      agent.schema.json
-      result.schema.json
-
-  hypotheses/
-  claims/
-  experiments/
-  results/
-  knowledge/
-  tasks/
-  agents/
-  examples/
-  tests/
-  docs/
-```
-
----
-
-## Knowledge Object Model
-
-APL distinguishes the following object types:
-
-* Hypothesis
-* Claim
-* Equation
-* Assumption
-* Experiment
-* Dataset
-* Result
-* Paper
-* Task
-* Agent
-* Theory
-
-### Core Relationships
-
-* `Hypothesis -> tested_by -> Experiment`
-* `Experiment -> produced -> Result`
-* `Result -> supports -> Claim`
-* `Result -> falsifies -> Hypothesis`
-* `Claim -> derived_from -> Paper`
-* `Hypothesis -> depends_on -> Assumption`
-* `Theory -> contains -> Hypothesis`
-* `Task -> assigned_to -> Agent`
-
----
-
-## MVP Boundary (v0.1)
-
-The current version intentionally limits scope.
-
-Active benchmark slices:
-
-* `Pendulum Formula Discovery`
-* `Damped Oscillator Regime Verification`
-
-Constraints:
-
-* classical mechanics only;
-* deterministic workflows only;
-* a small set of curated benchmark results;
-* artifacts must remain human-reviewable.
-
----
-
-## Data Flow (Conceptual)
-
-The canonical workflow is defined by the experiment lifecycle diagram.
-
-At a conceptual level, the system operates as:
+Core relationships:
 
 ```text
-Hypothesis
-  -> Experiment configuration
-  -> Simulation / data generation
-  -> Model fitting
-  -> Scoring and validation
-  -> Result artifact generation
-  -> Claim update
-  -> Knowledge integration
+Task -> scopes -> Work
+Hypothesis -> tested_by -> Experiment
+Experiment -> produces -> Result
+Result -> supports_or_falsifies -> Claim or Hypothesis
+Prediction -> scored_by -> Result
+Reviewed Results/Claims -> may_distill -> Knowledge
 ```
 
-This section complements, but does not replace, the lifecycle diagram.
+## Non-Goals
 
----
+Do not introduce these without an explicit maintainer-approved task:
 
-## Non-Goals for v0.1
-
-Do not introduce:
-
-* dashboards;
-* web APIs;
-* heavy agent frameworks;
-* large-scale literature ingestion;
-* database backends;
-* distributed execution;
-* speculative "theory of everything" claims.
-
----
+- dashboard or public API work;
+- database backends;
+- distributed execution frameworks;
+- broad literature-ingestion automation;
+- claim-promotion shortcuts;
+- speculative discovery or unlimited-scope framing;
+- large filesystem migrations without a concrete migration plan.
 
 ## Upgrade Path
 
-After stabilizing current benchmarks, the system should evolve toward:
+Near-term architecture work should prefer:
 
-1. full schema validation for all public objects;
-2. expanded symbolic and dimensional validation;
-3. task registry tooling;
-4. literature ingestion adapters;
-5. graph/database integration;
-6. multi-agent execution and review workflows.
+1. clearer repository navigation and directory maps;
+2. stronger validation for existing artifact classes;
+3. smaller reviewable task and PR surfaces;
+4. better campaign status and result-promotion visibility;
+5. source/readiness gates before new formula-search lanes;
+6. cleanup of stale docs only when a canonical replacement exists.
+
+When in doubt, keep APL simple, file-based, deterministic, and reviewable.
