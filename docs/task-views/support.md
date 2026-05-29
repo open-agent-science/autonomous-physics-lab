@@ -22,3 +22,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0457` - Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes (`contributor_experience`, priority `medium`, difficulty `low`, domain `contributor_experience`)
+- `TASK-0458` - Refresh architecture overview and top-level repository map (`documentation`, priority `medium`, difficulty `low`, domain `architecture`)
