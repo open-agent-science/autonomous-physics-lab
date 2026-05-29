@@ -1,7 +1,7 @@
 id: TASK-0445
 title: "Run independent replay of exoplanet compact-radius matched-control audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
