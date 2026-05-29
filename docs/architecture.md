@@ -16,9 +16,9 @@ page is the human-facing overview that ties those maps together.
 
 ## Current Posture
 
-APL is in a `v0.2-public-alpha candidate` posture. The repository now supports
-multiple bounded research campaigns, agent-run evidence, result-promotion
-gates, maintainer review helpers, and source/readiness protocols.
+APL is now organized around multiple bounded research campaigns, agent-run
+evidence, result-promotion gates, maintainer review helpers, and
+source/readiness protocols.
 
 The current architectural goal is not to add a dashboard, web API, database, or
 large framework. The goal is to keep the repository easy for humans and agents
