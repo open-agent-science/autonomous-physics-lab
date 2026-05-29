@@ -55,6 +55,30 @@ locator, release date, retrieval date, checksum (or explicit
 `not_committed_reason`), license note, value semantics, uncertainty semantics,
 detection-method coverage, and stop conditions.
 
+## Normalized Snapshot Checksum
+
+For the pinned PSCompPars snapshot, `normalized_checksum_sha256` is the SHA-256
+hash of the committed normalized YAML snapshot file exactly as stored in git.
+
+Linux/macOS reproduction:
+
+```bash
+sha256sum data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+```
+
+Windows PowerShell reproduction:
+
+```powershell
+Get-FileHash data\exoplanets\exo-0001-pscomppars-snapshot.yaml -Algorithm SHA256
+```
+
+The checksum covers the entire committed normalized YAML file, not a canonical
+re-serialization of selected rows. Any byte-level change to the committed
+snapshot file changes the checksum.
+
+This checksum is a source-provenance guard only. It does not validate scientific
+correctness, benchmark metrics, planet classifications, or residual claims.
+
 ## Allowed Future Contents
 
 A future maintainer-approved task may add:
