@@ -1,19 +1,20 @@
-id: TASK-PROPOSAL-windows-pytest-cli-validation
-proposal_type: canonical_task
-status: PROPOSED
+proposal_id: 20260529-akutenyov-windows-pytest-cli-validation
 title: "Make Windows pytest and CLI validation path handling robust"
+status: PROPOSED
 type: developer_infrastructure
 priority: medium
-difficulty: medium
 
-proposer:
+proposed_by:
   contributor_id: akutenyov
-  github_username: akutenyov
-  agent_tool: codex
-  source_context: TASK-0446 local validation follow-up
+  agent_id: codex
+
+strategy_alignment:
+  - "Improve contributor reliability on Windows workstations used by human reviewers and agents."
+  - "Reduce false-negative validation failures caused by local path, temp-dir, and Python launcher differences."
+  - "Keep scientific validation deterministic without weakening repository validation rules."
 
 summary: >
-  Add a canonical developer-infrastructure task to make the repository's pytest
+  Propose a focused developer-infrastructure task to make the repository's pytest
   and CLI validation workflow robust on Windows. During TASK-0446 execution,
   task-specific validation and CI passed, but local full-suite pytest initially
   produced many PermissionError [WinError 5] failures from temporary path
@@ -23,103 +24,64 @@ summary: >
   as a focused repository-infrastructure task rather than mixed into a science
   provenance PR.
 
-problem_statement: >
+rationale: >
   Windows contributors should be able to run the repository's standard pytest
   and CLI validation commands without false-negative failures caused by
   repository-root temp path cleanup, accidental path materialization inside the
   checkout, or ambiguous use of a bare python launcher instead of the active
-  interpreter. These failures obscure real validation status and make task PR
-  handoff less reliable.
+  interpreter. The observed local failures included PermissionError [WinError 5]
+  during full pytest, improvement after setting PYTEST_ADDOPTS to use an
+  external basetemp, and a subprocess failure reporting that Python was not
+  found and suggesting the Microsoft Store alias. These failures obscure real
+  validation status and make task PR handoff less reliable.
 
-observed_failures:
-  - "PermissionError: [WinError 5] Access is denied during full pytest on Windows when temporary paths were created under or near the repository checkout."
-  - "Full pytest improved after setting PYTEST_ADDOPTS=--basetemp=$env:TEMP\\apl-pytest-task-0446."
-  - "A remaining subprocess failure reported: Python was not found; run without arguments to install from the Microsoft Store."
-  - "Strict validation smoke tests can obscure task-local success when unrelated repository mission references are stale or missing."
+input:
+  mode: planning_only
+  related_domain: repository_validation
+  related_objects:
+    - "tests/test_result_publication_gate.py"
+    - "tests/test_validate_repo_auto_sync.py"
+    - "tests/test_pendulum.py"
+    - "tests/test_damped_oscillator.py"
+    - "tests/test_active_board.py"
+    - "tests/test_review_git.py"
+    - "pyproject.toml"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    The future canonical task should reproduce or characterize the Windows
+    failure modes from TASK-0446 using a clean working tree. It should audit
+    tests and helpers that create temporary repositories, worktrees, generated
+    task views, agent runs, or result artifacts so they use pytest tmp_path,
+    tmp_path_factory, or another external temporary directory rather than
+    repository-root-derived accidental paths. It should also audit subprocess
+    invocations so Windows uses sys.executable or the active Python interpreter
+    instead of relying on a bare python launcher where that would be ambiguous.
 
-proposed_task:
-  id: TASK-XXXX
-  title: "Make Windows pytest and CLI validation path handling robust"
-  type: developer_infrastructure
-  status: READY
-  difficulty: medium
-  priority: medium
-  strategy_alignment:
-    - "Improve contributor reliability on Windows workstations used by human reviewers and agents."
-    - "Reduce false-negative validation failures caused by local path, temp-dir, and Python launcher differences."
-    - "Keep scientific validation deterministic without weakening repository validation rules."
-  input:
-    mode: workflow
-    related_domain: repository_validation
-    related_objects:
-      - "tests/test_result_publication_gate.py"
-      - "tests/test_validate_repo_auto_sync.py"
-      - "tests/test_pendulum.py"
-      - "tests/test_damped_oscillator.py"
-      - "tests/test_active_board.py"
-      - "tests/test_review_git.py"
-      - "pyproject.toml"
-      - "docs/agent-task-protocol.md"
-    planning_context: >
-      During TASK-0446 execution on Windows, the task-specific exoplanet tests,
-      ruff, example runs, and non-strict repository validation passed. The full
-      pytest suite initially produced many PermissionError [WinError 5] failures
-      when pytest temporary paths were created under the repository checkout.
-      Re-running with an explicit external basetemp reduced the failure surface,
-      but several Windows-specific failures remained, including a Python launcher
-      issue where a test subprocess reported: "Python was not found; run without
-      arguments to install from the Microsoft Store". This task should make the
-      repository's test and CLI validation path handling robust on Windows
-      without relaxing scientific validation semantics.
-  requirements:
-    - "Reproduce or characterize the Windows failure modes from TASK-0446 using a clean working tree."
-    - "Ensure tests that create temporary repositories, worktrees, generated task views, agent runs, or result artifacts use pytest tmp_path/tmp_path_factory or another external temp directory, not repository-root-derived accidental paths."
-    - "Audit subprocess invocations in tests and helpers so Windows uses sys.executable or the active Python interpreter instead of relying on a bare python launcher when that would be ambiguous."
-    - "Preserve Linux/macOS behavior and existing CI expectations."
-    - "Do not weaken validate-repo, strict validation, scientific memory checks, or result publication gates."
-    - "Do not commit generated task navigation files unless the task explicitly requires a board-sync change."
-    - "Do not modify scientific result artifacts, claims, predictions, datasets, or benchmark outputs."
-  accepted_outputs:
-    - "Windows-safe test/helper changes for temp directory and subprocess Python handling."
-    - "One or more regression tests covering the Windows path/interpreter behavior."
-    - "Documentation note or maintainer note explaining the Windows validation workaround or new supported behavior."
-    - "Evidence that task-specific and repository validation commands were run."
-  validation:
-    commands:
-      - "python -m ruff check ."
-      - "python -m pytest tests/test_result_publication_gate.py tests/test_validate_repo_auto_sync.py tests/test_pendulum.py tests/test_damped_oscillator.py"
-      - "python -m pytest"
-      - "python -m physics_lab.cli validate-repo ."
-      - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
-  windows_validation_notes:
-    recommended_commands:
-      - "$env:PYTEST_ADDOPTS=\"--basetemp=$env:TEMP\\apl-pytest-windows-validation\""
-      - "python -m pytest"
-      - "Remove-Item Env:\\PYTEST_ADDOPTS"
-    expected_behavior: >
-      Full pytest should not fail with repository-root PermissionError caused by
-      temporary path handling. Tests that need Python subprocesses should use the
-      active interpreter path rather than relying on a Windows Store python alias.
-  risk_level: medium
-  forbidden_changes:
-    - "do not disable failing tests"
-    - "do not skip Windows tests broadly without a narrow documented reason"
-    - "do not relax strict repository validation to hide real repository errors"
-    - "do not treat local Windows environment issues as scientific result failures"
-    - "do not modify committed results/ artifacts"
-    - "do not promote claims or knowledge entries"
-  can_be_done_by:
-    - human
-    - codex
-    - claude_code
-    - llm_agent
+requirements:
+  - "Keep the proposal atomic and scoped to Windows pytest/CLI validation robustness."
+  - "Do not disable failing tests."
+  - "Do not skip Windows tests broadly without a narrow documented reason."
+  - "Do not relax strict repository validation to hide real repository errors."
+  - "Do not treat local Windows environment issues as scientific result failures."
+  - "Do not modify committed results/ artifacts."
+  - "Do not promote claims or knowledge entries."
+  - "Preserve Linux/macOS behavior and existing CI expectations."
 
-review_notes:
-  - "Maintainer should assign the canonical TASK-XXXX id if accepted."
-  - "The proposal is intentionally scoped to validation infrastructure, not to TASK-0446's exoplanet checksum semantics."
-  - "The task should remain separate from science result, claim, prediction, or dataset work."
+accepted_outputs:
+  - "canonical task spec for Windows pytest and CLI validation path robustness"
+  - "scope note listing the observed TASK-0446 Windows failure modes"
+  - "validation plan covering ruff, targeted pytest, full pytest, and validate-repo"
+  - "maintainer decision on whether to assign a canonical TASK-XXXX id"
 
 validation:
   commands:
     - "python -m physics_lab.cli validate-repo ."
     - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    If accepted, maintainer should assign a canonical TASK-XXXX id and convert
+    this proposal into a task file. The resulting task should remain separate
+    from TASK-0446 so the checksum provenance PR stays narrow and reviewable.
