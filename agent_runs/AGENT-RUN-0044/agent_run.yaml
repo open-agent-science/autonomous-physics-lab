@@ -1,0 +1,54 @@
+id: AGENT-RUN-0044
+campaign_profile_id: nuclear-mass-surface
+task_id: TASK-0450
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: claude
+proposal_paths:
+  hypothesis: hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0052-neutron-rich-boundary-transfer.yaml
+  experiment: experiment_proposals/nuclear-mass/EXP-PROPOSAL-0018-nuclear-neutron-rich-boundary-transfer.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0044/metrics.json
+  report: agent_runs/AGENT-RUN-0044/report.md
+  limitations: agent_runs/AGENT-RUN-0044/limitations.md
+  preflight: agent_runs/AGENT-RUN-0044/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0044/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: controls_first_gauntlet_compliance
+    status: PASS
+    notes: 'Lane follows docs/notes/nuclear-controls-first-hypothesis-gauntlet.md:
+      one bounded family, residual-free feature, three declared controls (matched_high_error,
+      sign_inverted, isotope_chain_transfer), declared failure condition, declared
+      output routing, declared wording boundary.'
+  - name: no_leakage_contract
+    status: PASS
+    notes: Feature is a closed-form function of Z/N/A; no residual or future comparison
+      row contributes.
+  - name: data_boundary
+    status: PASS
+    notes: Only committed NMD-0002 and post-AME2020 holdout rows and frozen RESULT-0015
+      baseline; no live fetch.
+  - name: control_boundary
+    status: PASS
+    notes: matched_high_error, sign_inverted, and per-chain transfer metrics all reported.
+  - name: promotion_boundary
+    status: PASS
+    notes: No prediction registry, canonical result, claim, or knowledge file is written.
+limitations:
+- NMD-0002 has 11 training rows; the neutron-rich subset is sparse.
+- Frozen baseline residuals are retrospective; this is not a blind prediction.
+- The boundary threshold (0.18) is declared before the run and not retuned.
+- Chain-transfer metric is computed only on chains with >=2 rows on the full_known
+  surface.
+- Matched-high-error control depends on baseline residual rank from the same frozen
+  baseline; the control is a non-neutron-rich proxy, not a fully orthogonal regressor.
+verdict: FALSIFIED
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any follow-up. No PRED, RESULT, claim,
+    knowledge, or reveal-scoring task is authorized by this agent run.

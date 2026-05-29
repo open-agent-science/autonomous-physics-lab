@@ -1,0 +1,114 @@
+id: EXP-PROPOSAL-0018
+title: "Sandbox nuclear neutron-rich boundary transfer lane"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only. No canonical result, PRED, claim, or knowledge artifact is authorized."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+  task_id: TASK-0450
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0052-neutron-rich-boundary-transfer.yaml"
+
+question: "Does a single residual-free neutron-rich boundary-distance correction `r_corr = beta * max(0, (N-Z)/A - 0.18)` beat baseline, a matched high-error non-neutron-rich control, and a sign-inverted control on full_known MAE by >= 0.25 MeV, without regressing the post-AME2020 primary holdout or being confined to one isotope chain?"
+
+method:
+  summary: "Fit one scalar coefficient beta via least squares on the NMD-0002 training slice against frozen RESULT-0015 baseline residuals. Evaluate the candidate, a matched high-error non-neutron-rich control (rows with asymmetry < 0.18 whose baseline-residual rank matches the neutron-rich subset), a sign-inverted control (same beta with opposite sign), and an isotope-chain transfer test (per-chain delta_MAE). Report MAE/RMSE on training_lstsq, primary_holdout, full_known, and per chain. Apply the controls-first gauntlet verdict logic with a 0.25 MeV survival margin."
+  code_references:
+    - "scripts/run_nuclear_neutron_rich_boundary_transfer_lane.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "tests/test_nuclear_neutron_rich_boundary_transfer_lane.py"
+  commands:
+    - "python3 scripts/run_nuclear_neutron_rich_boundary_transfer_lane.py"
+    - "python3 -m pytest tests/test_nuclear_neutron_rich_boundary_transfer_lane.py"
+  parameters:
+    neutron_rich_asymmetry_threshold: 0.18
+    matched_high_error_seed: 450
+    survival_margin_mev: 0.25
+    required_controls:
+      - "matched_high_error_non_neutron_rich"
+      - "sign_inverted_boundary"
+      - "isotope_chain_transfer"
+    chain_min_rows: 2
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen RESULT-0015 semi-empirical baseline coefficients."
+  prior_results:
+    - "RESULT-0015"
+    - "docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md"
+    - "docs/reviews/nuclear-shell-axis-isotope-chain-transfer-audit.md"
+  assumptions:
+    - "No live source fetch."
+    - "No PRED, RESULT, claim, or knowledge artifact is modified."
+    - "Boundary-distance feature is a closed-form function of Z, N, A only."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0044/"
+  metrics:
+    - "candidate_coefficient_beta"
+    - "candidate_mae_per_surface_mev"
+    - "baseline_mae_per_surface_mev"
+    - "matched_high_error_control_mae_per_surface_mev"
+    - "sign_inverted_control_mae_per_surface_mev"
+    - "per_chain_delta_mae_mev"
+    - "isotope_chain_transfer_rate"
+    - "per_subset_delta_mae_mev"
+    - "candidate_vs_baseline_full_known_delta_mev"
+    - "candidate_vs_matched_high_error_full_known_delta_mev"
+    - "primary_holdout_regression_flag"
+    - "verdict"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0044/report.md"
+    - "agent_runs/AGENT-RUN-0044/limitations.md"
+    - "docs/reviews/nuclear-neutron-rich-boundary-transfer-hypothesis-lane.md"
+
+validation:
+  pass_condition: "Sandbox pass if exactly one candidate is fit, the matched_high_error_non_neutron_rich and sign_inverted controls report metrics, per-chain delta_MAE is reported with chain-transfer rate, per-subset (light, sparse-chain, measured/extrapolated) deltas are reported, the verdict is in {BOUNDED_FOLLOWUP_CANDIDATE, DIAGNOSTIC_ONLY, NEGATIVE_RESULT, INCONCLUSIVE}, and no PRED/CLAIM/KNOW/RESULT artifact is modified."
+  fail_condition: "Sandbox fail if multiple candidate variants run, controls are skipped, chain-transfer test is omitted, or any canonical artifact is written."
+  baseline_or_reference: "Frozen RESULT-0015 semi-empirical baseline."
+  expected_failure_modes:
+    - "Matched high-error non-neutron-rich control matches the candidate (signal is generic high-error, not neutron-rich-specific)."
+    - "Chain-transfer rate < 0.5 (improvement is chain-local, not transferable)."
+    - "Sign-inverted control also fits some rows (coefficient sign is unstable)."
+    - "Candidate regresses light A<50 or primary holdout."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call boundary-distance fits a discovery, new nuclear law, or broad formula."
+    - "Do not imply reveal or registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only with explicit promotion_boundary."
+    - "Preserve controls, per-chain deltas, and subset regressions in the report."
+    - "Require maintainer review before any follow-up."
+
+limitations:
+  - "Retrospective evaluation on committed surfaces only."
+  - "NMD-0002 has 11 training rows; the neutron-rich subset is sparse."
+  - "Chain-transfer metric is reported only on chains with >=2 rows on full_known."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Confirm whether the lane remains diagnostic-only, motivates a bounded follow-up, or closes as negative."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work."
