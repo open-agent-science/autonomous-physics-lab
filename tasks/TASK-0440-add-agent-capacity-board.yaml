@@ -16,6 +16,7 @@ input:
   related_objects:
     - "docs/current-missions.md"
     - "missions/current.yaml"
+    - "campaigns/catalog.yaml"
     - "docs/task-views/research.md"
     - "docs/task-views/support.md"
     - "docs/scientific-campaign-curator.md"
@@ -28,6 +29,7 @@ input:
 requirements:
   - "Create `docs/agent-capacity-board.md`."
   - "Summarize recommended agents per campaign or lane, active lanes, blocked lanes, and next curator review."
+  - "Use the generated `campaigns/catalog.yaml` as the portfolio source instead of duplicating campaign profile metadata by hand."
   - "Explain how the board relates to task claiming, mission recommendations, and campaign curator cycles."
   - "Do not add a live dashboard or database."
   - "Do not override canonical task status or mission guardrails."

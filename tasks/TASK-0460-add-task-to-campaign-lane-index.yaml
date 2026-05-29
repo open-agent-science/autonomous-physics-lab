@@ -1,0 +1,55 @@
+id: TASK-0460
+title: "Add task-to-campaign lane index"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make it obvious which READY tasks belong to which campaign lane before multiple agents claim work."
+  - "Reduce duplicate or conflicting task selection across Nuclear, Exoplanet, Textbook, Quantum, Atomic, Review, and Support lanes."
+  - "Give campaign directors a compact queue-health view without reading every task file."
+
+input:
+  mode: workflow
+  related_domain: agent_capacity
+  related_objects:
+    - "tasks/TASK-0437-add-lightweight-campaign-registry.yaml"
+    - "campaigns/catalog.yaml"
+    - "tasks/TASK-*.yaml"
+    - "docs/task-views/research.md"
+    - "docs/task-views/support.md"
+    - "missions/current.yaml"
+  planning_context: >
+    A capacity board answers how many agents are safe per lane, but agents also
+    need to know which concrete task belongs to which campaign and whether its
+    artifact surface conflicts with other active work. This task adds a
+    generated or checkable lane index that maps canonical tasks to campaign
+    lanes using existing task metadata and campaign registry ids.
+
+requirements:
+  - "Use existing campaign ids from `campaigns/catalog.yaml` where they are available."
+  - "Create a generated or checkable task-to-campaign index such as `docs/task-views/by-campaign.md` or `campaigns/task-index.yaml`."
+  - "For each active task, record task id, title, status, campaign or support lane, likely artifact surface, and whether it is safe for parallel work."
+  - "Prefer existing task metadata (`related_domain`, related objects, campaign ids) over new duplicated task fields."
+  - "Flag unknown or ambiguous campaign mapping for curator review instead of guessing silently."
+  - "Do not change task statuses except this task's own lifecycle transition."
+  - "Do not commit generated `tasks/ACTIVE.md` or `docs/task-views/*.md` unless the implementation intentionally owns that generated view."
+
+accepted_outputs:
+  - "task-to-campaign lane index artifact"
+  - "generator or validation helper if the artifact is generated"
+  - "tests covering campaign mapping and ambiguous-task handling"
+  - "short documentation note for maintainers and agents"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,53 @@
+id: TASK-0461
+title: "Add lane collision preflight for parallel agent work"
+type: contributor_experience
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent two agents from accidentally claiming the same lane or editing the same artifact surface."
+  - "Turn parallel-agent scaling from maintainer intuition into a quick local preflight."
+  - "Reduce merge conflicts and duplicate research runs before they happen."
+
+input:
+  mode: workflow
+  related_domain: agent_capacity
+  related_objects:
+    - "tasks/TASK-0437-add-lightweight-campaign-registry.yaml"
+    - "tasks/TASK-0460-add-task-to-campaign-lane-index.yaml"
+    - "campaigns/catalog.yaml"
+    - "docs/notes/agent-worktree-discipline.md"
+    - "scripts/apl_branch_precondition.py"
+  planning_context: >
+    Once campaigns and task lanes are indexed, agents need a small preflight
+    that catches likely lane collisions before they start editing files. The
+    first version should be local and conservative: warn on active conflicting
+    branches, duplicated task ids, overlapping artifact surfaces, and blocked
+    campaign lanes.
+
+requirements:
+  - "Do not start until TASK-0460 or an equivalent task-to-campaign lane index exists."
+  - "Add `scripts/apl_lane_precondition.py` or extend an existing precondition helper with lane-collision checks."
+  - "Given a task id or branch name, report campaign lane, task status, likely artifact surface, and known blockers."
+  - "Warn when another local branch or worktree appears to own the same task, same campaign artifact surface, or incompatible generated file."
+  - "Keep the helper advisory by default; do not block normal git operations unless an explicit `--strict` mode is requested."
+  - "Do not require GitHub network access for the first version."
+  - "Document how agents should run the preflight before claiming a task."
+
+accepted_outputs:
+  - "lane preflight script or extension to an existing precondition helper"
+  - "tests for duplicate task, same-lane, blocked-lane, and clean-lane cases"
+  - "documentation update in agent worktree or task protocol notes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
