@@ -22,5 +22,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0437` - Add lightweight campaign registry for parallel agent research lanes (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
-- `TASK-0447` - Package exoplanet benchmark evidence card (`documentation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.
