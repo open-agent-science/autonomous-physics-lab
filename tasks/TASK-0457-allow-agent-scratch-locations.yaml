@@ -1,7 +1,7 @@
 id: TASK-0457
 title: "Lift Claude Code /tmp workspace-boundary noise for /tmp/apl-* writes"
 type: contributor_experience
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
