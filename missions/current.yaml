@@ -454,7 +454,7 @@ missions:
     status: active_secondary_benchmark
     scientific_value: medium
     risk: medium
-    recommendation: "Active secondary benchmark: treat the compact-radius slice as a BENCHMARK_SUMMARY_ONLY diagnostic, then prioritize checksum cleanup, evidence-card packaging, and second-snapshot protocol before any planet-law, composition, or prediction-readiness story."
+    recommendation: "Active secondary benchmark: treat the compact-radius slice as a BENCHMARK_SUMMARY_ONLY diagnostic, then prioritize checksum cleanup and future second-snapshot discipline before any planet-law, composition, or prediction-readiness story."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -559,16 +559,16 @@ missions:
           - "stable normalized checksum semantics or explicit blocker review"
           - "no live fetch and no row-value changes"
       - id: exoplanet-benchmark-evidence-card
-        label: "Package shareable exoplanet benchmark evidence card"
-        task_id: TASK-0447
+        label: "Shareable exoplanet benchmark evidence card is review-ready"
+        task_id: null
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "docs/results/exoplanet-compact-radius-benchmark-card.md"
-          - "scorecard-approved public wording with limitations attached"
+          - "TASK-0447 packages docs/results/exoplanet-compact-radius-benchmark-card.md"
+          - "review before broad reuse; scorecard-approved public wording with limitations attached"
 
   - id: textbook-formula-audit
     title: "Textbook Formula Audit"
