@@ -15,7 +15,6 @@
 - `TASK-0446` - Close exoplanet normalized-snapshot checksum gap (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0452` - Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0453` - Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0454` - Define Atomic holdout and no-peek manifest for first benchmark (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 
 ## IN_PROGRESS
 
@@ -23,4 +22,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0454` - Define Atomic holdout and no-peek manifest for first benchmark (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
