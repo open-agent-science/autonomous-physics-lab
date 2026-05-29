@@ -87,3 +87,28 @@ handoff_requires:
   - limitations
   - verdict
   - maintainer_decision_requested
+
+portfolio:
+  status: scaffold
+  domain: cross_domain_physics
+  current_stage: "campaign scaffold and candidate slate; first source/baseline planning task is ready"
+  recommended_parallel_agents: 1
+  coordination_notes: "Use one formula slice at a time until source, schema, baseline, and holdout conventions are proven."
+  best_next_actions:
+    - task_id: TASK-0444
+      label: "Plan Stellar Mass-Luminosity OOD source and baseline"
+  required_gates:
+    - "Source and range assumptions before metrics."
+    - "Baseline and OOD failure-map plan."
+    - "No universal formula-audit claims."
+  current_results:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+  open_questions:
+    - "Which source snapshot and baseline should define the Stellar M-L first slice?"
+    - "What public wording keeps formula audits useful without overclaiming?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-05-29"
+    source: "TASK-0438"
+    notes: "Best public-friendly entry lane once the first source/baseline plan lands."

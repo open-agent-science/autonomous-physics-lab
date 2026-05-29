@@ -1,7 +1,7 @@
 id: TASK-0437
 title: "Add lightweight campaign registry for parallel agent research lanes"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -33,6 +33,7 @@ requirements:
 
 accepted_outputs:
   - "campaign registry YAML"
+  - "campaign registry generation helper"
   - "campaign registry documentation"
   - "validation/tests for required fields and duplicate ids"
 
@@ -40,6 +41,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest"
+    - "python3 scripts/generate_campaign_catalog.py --check"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

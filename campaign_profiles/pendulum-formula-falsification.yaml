@@ -70,3 +70,26 @@ handoff_requires:
   - limitations
   - verdict
   - maintainer_decision_requested
+
+portfolio:
+  status: quality_floor
+  domain: classical_mechanics
+  current_stage: "mature deterministic exact-reference benchmark and gauntlet replay surface"
+  recommended_parallel_agents: 1
+  coordination_notes: "Use mainly for replay, validation hardening, and examples; not the default expansion lane."
+  best_next_actions:
+    - task_id: null
+      label: "Replay or package result capsules when public documentation needs a quality-floor example"
+  required_gates:
+    - "Exact-reference and configured-range wording."
+    - "No exactness claim without symbolic proof."
+  current_results:
+    - "results/EXP-0001/"
+    - "docs/results/pendulum-gauntlet-100-summary.md"
+  open_questions:
+    - "Which pendulum capsule should be the default external replay example?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-05-29"
+    source: "docs/status.md"
+    notes: "Quality-floor track remains useful for reproducibility and public examples."

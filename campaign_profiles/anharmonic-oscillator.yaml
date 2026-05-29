@@ -67,3 +67,26 @@ handoff_requires:
   - limitations
   - verdict
   - maintainer_decision_requested
+
+portfolio:
+  status: quality_floor
+  domain: classical_mechanics
+  current_stage: "validated-in-range benchmark with replay and candidate-limit comparison value"
+  recommended_parallel_agents: 1
+  coordination_notes: "Use as a bounded replay/follow-up benchmark; avoid broad candidate expansion without a task."
+  best_next_actions:
+    - task_id: null
+      label: "Replay and compare candidate limits when a maintainer asks for benchmark hygiene"
+  required_gates:
+    - "Train, holdout, and stress metrics must remain separated."
+    - "No exactness or broad-range wording."
+  current_results:
+    - "results/EXP-0011/"
+    - "docs/results/anharmonic-oscillator-summary.md"
+  open_questions:
+    - "Which candidate limits are useful enough to become a public replay capsule?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-05-29"
+    source: "docs/status.md"
+    notes: "Quality-floor benchmark that is useful for replay and range-limit discipline."

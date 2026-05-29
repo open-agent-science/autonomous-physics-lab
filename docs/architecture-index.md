@@ -100,6 +100,7 @@ identifies a concrete pain point.
 - `physics_lab/registry/results.py`
 - `physics_lab/registry/tasks.py`
 - `physics_lab/registry/agents.py`
+- `physics_lab/registry/campaigns.py`
 
 ### Validation
 
@@ -129,6 +130,7 @@ identifies a concrete pain point.
 - `knowledge/`
 - `tasks/`
 - `agents/`
+- `campaigns/`
 - `results/`
 
 ### Current Canonical Results
