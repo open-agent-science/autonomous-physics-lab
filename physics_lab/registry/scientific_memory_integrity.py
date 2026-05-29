@@ -50,6 +50,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "ci_infrastructure",
     "ci_optimization",
     "campaign_scaffold",
+    "campaign_status_refresh",
     "claim_review",
     "dataset_workflow",
     "physics_dataset_extension",

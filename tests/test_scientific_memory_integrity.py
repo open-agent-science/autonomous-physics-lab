@@ -125,6 +125,14 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
             tmp_path / "tasks" / "TASK-CLAIM-REVIEW.yaml",
             {"id": "TASK-CLAIM-REVIEW", "status": "DONE", "type": "claim_review"},
         ),
+        (
+            tmp_path / "tasks" / "TASK-CAMPAIGN-STATUS.yaml",
+            {
+                "id": "TASK-CAMPAIGN-STATUS",
+                "status": "DONE",
+                "type": "campaign_status_refresh",
+            },
+        ),
     ]
 
     issues = collect_scientific_memory_integrity_issues(

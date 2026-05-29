@@ -1,7 +1,7 @@
 id: TASK-0437
 title: "Add lightweight campaign registry for parallel agent research lanes"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
