@@ -91,7 +91,7 @@ Stellar Mass-Luminosity source/baseline planning, not metrics.
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Which residual-feature families survive no-leakage controls and future reveal discipline? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified under the no-leakage prototype; the first residual-free high-error cluster audit (`TASK-0449`) is `INCONCLUSIVE` because the training slice is too sparse. | `TASK-0428`, `TASK-0396`, `TASK-0450`, `TASK-0451` | Negative/preflight package for local-curvature, reveal-source readiness, neutron-rich boundary transfer lane, magic-distance interaction lane. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Which residual-feature families survive no-leakage controls and future reveal discipline? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; `TASK-0449` is `INCONCLUSIVE`; `TASK-0450` is negative under transfer/matched controls; `TASK-0451` is control-dominated. | `TASK-0428`, `TASK-0396`, or a future disjoint controls-first lane | Negative/preflight package for local-curvature, reveal-source readiness, or a new maintainer-approved Nuclear lane that does not repeat the completed failure modes. |
 | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | Where does a frozen Chen-Kipping-style mass-radius baseline fail on a pinned PSCompPars snapshot? | Compact-radius planets (`R < 1.5 R_earth`) are the strongest matched-control survivor; scorecard verdict is `BENCHMARK_SUMMARY_ONLY`; independent replay matched the sandbox metrics exactly. | `TASK-0446` and follow-up no-live-fetch snapshot work | Checksum cleanup and later second-snapshot/reveal-style readiness. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist, but direct measurement rows are still the blocker. | `TASK-0398`, `TASK-0400`, blocked `TASK-0336` once an artifact exists | A source artifact or blocker review that either unblocks direct row curation or narrows the source path. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; Nemitz 2016 is triaged as the next independent Yb/Sr source. | `TASK-0452`, `TASK-0453`, `TASK-0454` | Nemitz ingestion or blocker, real-row loader, holdout/no-peek manifest, then baseline-readiness gate. |
@@ -135,10 +135,11 @@ Why it matters:
 - Reveal scoring remains blocked until a future source-grade no-peek release.
 
 Next visible artifact: a local-curvature result-promotion preflight that records
-the falsification as negative/inconclusive memory, plus controls-first results
-from the neutron-rich boundary and magic-distance interaction lanes. The
-residual-free high-error cluster audit already landed as `INCONCLUSIVE` and
-should be treated as diagnostic memory, not a positive near-miss.
+the falsification as negative/inconclusive memory, reveal-source readiness, or
+a genuinely new controls-first lane. The residual-free high-error cluster
+audit, neutron-rich boundary transfer, and magic-distance interaction lanes
+have all landed as non-positive sandbox memory and should not be treated as
+positive near-misses.
 
 ### Quantum And Atomic Fresh-Data Gates
 

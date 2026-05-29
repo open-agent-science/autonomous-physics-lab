@@ -80,16 +80,16 @@ handoff_requires:
 portfolio:
   status: flagship_validation
   domain: nuclear_physics
-  current_stage: "frozen baseline, sandbox diagnostics, no-leakage controls, reveal-readiness blockers, and inconclusive residual-free cluster evidence"
+  current_stage: "frozen baseline, sandbox diagnostics, no-leakage controls, reveal-readiness blockers, and negative/control-dominated controls-first evidence"
   recommended_parallel_agents: 3
-  coordination_notes: "Parallel work is useful when lanes are disjoint: negative/preflight packaging, reveal-readiness, neutron-rich boundary transfer, or magic-distance interaction controls."
+  coordination_notes: "Parallel work is useful when lanes are disjoint: negative/preflight packaging, reveal-readiness, future maintainer-approved controls-first lanes, or independent replay/validation of already landed sandbox evidence."
   best_next_actions:
     - task_id: TASK-0428
       label: "Run local-curvature result-promotion preflight"
-    - task_id: TASK-0450
-      label: "Run neutron-rich boundary transfer hypothesis lane"
-    - task_id: TASK-0451
-      label: "Run magic-distance interaction control lane"
+    - task_id: TASK-0396
+      label: "Run reveal-source readiness without live scoring"
+    - task_id: null
+      label: "Propose a new controls-first Nuclear lane only if it is disjoint from TASK-0449 through TASK-0451"
   required_gates:
     - "No reveal scoring before a source-grade no-peek release passes preflight."
     - "Leakage checks, negative controls, and stop conditions must be declared before candidate fitting."
@@ -98,14 +98,16 @@ portfolio:
     - "results/EXP-0012/RUN-0001/result.yaml"
     - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
     - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+    - "docs/reviews/nuclear-neutron-rich-boundary-transfer-hypothesis-lane.md"
+    - "docs/reviews/nuclear-magic-distance-interaction-control-lane.md"
     - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
     - "prediction_registry/nuclear_masses/"
   open_questions:
-    - "Can any remaining controls-first Nuclear lane survive matched controls without leakage?"
+    - "What future controls-first Nuclear lane is genuinely disjoint from the TASK-0449 through TASK-0451 negative/control-dominated results?"
     - "Would F2 require a finer residual-free taxonomy or larger curated training slice before another test?"
     - "What future source can satisfy the reveal-readiness checklist?"
   curator_review:
     status: current
     last_reviewed: "2026-05-29"
-    source: "TASK-0449 and campaign refresh"
-    notes: "Flagship lane remains high-value; TASK-0449 adds inconclusive residual-free cluster memory, so next Nuclear execution should use TASK-0450/0451 and preserve source gates."
+    source: "TASK-0449 through TASK-0451 and campaign refresh"
+    notes: "Flagship lane remains high-value, but the latest controls-first lanes did not create a positive follow-up path: TASK-0449 is inconclusive, TASK-0450 is negative under transfer/matched controls, and TASK-0451 is control-dominated. Next Nuclear work should package negative/preflight evidence, preserve reveal-readiness, or propose a clearly disjoint controls-first lane."

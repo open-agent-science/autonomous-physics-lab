@@ -25,14 +25,18 @@ input:
   planning_context: >
     TASK-0449 landed a residual-free high-error cluster audit with an
     INCONCLUSIVE sandbox-only verdict; TASK-0448 landed the controls-first
-    Nuclear gauntlet; TASK-0437 landed the campaign registry. Campaign pages
-    should now point Nuclear agents toward TASK-0450 and TASK-0451 plus
-    local-curvature/reveal preflights, not stale high-error cluster planning.
+    Nuclear gauntlet; TASK-0437 landed the campaign registry; TASK-0450 and
+    TASK-0451 have now landed as negative/control-dominated sandbox memory.
+    Campaign pages should point Nuclear agents toward negative/preflight
+    packaging, reveal readiness, or genuinely disjoint future controls-first
+    lanes, not stale high-error, neutron-rich boundary, or magic-distance
+    planning.
 
 requirements:
   - "Update campaign-facing pages to record TASK-0449 as inconclusive sandbox-only evidence."
   - "Keep local-curvature falsification, shell-axis diagnostic-only state, and reveal-source blockers visible."
-  - "Point active Nuclear execution toward TASK-0450 and TASK-0451 rather than more broad audits."
+  - "Do not present TASK-0450 or TASK-0451 as active READY work after they have landed as sandbox memory."
+  - "Point active Nuclear execution toward negative/preflight packaging, reveal readiness, or a genuinely disjoint future controls-first lane rather than more broad audits."
   - "Update campaign portfolio metadata and regenerate the campaign catalog if profile metadata changes."
   - "Do not create new scientific claims, RESULT artifacts, prediction entries, or knowledge entries."
   - "Do not commit generated tasks/ACTIVE.md or generated docs/task-views/*.md files."
