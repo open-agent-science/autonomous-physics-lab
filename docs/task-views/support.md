@@ -21,12 +21,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0422` - Add evergreen science task template with stop conditions (`scientific_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0465` - Clarify task execution publishes a draft PR (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_automation`)
-- `TASK-0466` - Reduce agent-flow friction in protocol tooling and validation (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0467` - Improve task-proposal creation tooling and schema errors (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0468` - Triage task-proposal backlog (`maintainer_workflow`, priority `high`, difficulty `low`, domain `repository_coordination`)
-- `TASK-0470` - Decide generated board file architecture (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
-- `TASK-0471` - Add proposal-pool triage, drift detection, and closeout tooling (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
-- `TASK-0472` - Decouple task closeout from tasks/ACTIVE.md (B2 step 1) (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
-- `TASK-0473` - Delete tasks/ACTIVE.md and redirect navigation to task views (B2 step 2) (`maintainer_workflow`, priority `medium`, difficulty `high`, domain `repository_coordination`)
+None.
