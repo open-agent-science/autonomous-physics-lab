@@ -31,6 +31,7 @@ mass-radius-law claim. The current scorecard verdict is
 
 **Evidence trail:**
 
+- [External-reviewer replication capsule](../results/exoplanet-external-reviewer-replication-capsule.md)
 - [Compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
 - [Exoplanet failure-map result-promotion scorecard](../reviews/exoplanet-failure-map-result-promotion-scorecard.md)
 - [Compact/sub-Neptune matched-control audit](../reviews/exoplanet-compact-subneptune-matched-control-audit.md)
