@@ -256,11 +256,11 @@ sources:
     title: "Electronic structure and optical properties of PbS and PbSe quantum dots"
     authors: "Kang, I.; Wise, F. W."
     year: 1997
-    doi: "10.1103/PhysRevB.56.9377"
-    journal: "Physical Review B"
-    volume: "56"
-    pages: "9377-9382"
-    table_reference: "metadata-only TASK-0347 open-direct-table triage candidate (rank 2); empirical band-edge comparison data for PbS nanocrystal size series; verify APS open-access and table contents before row curation"
+    doi: "10.1364/JOSAB.14.001632"
+    journal: "Journal of the Optical Society of America B"
+    volume: "14"
+    pages: "1632-1646"
+    table_reference: "metadata-only TASK-0347 open-direct-table triage candidate (rank 2), corrected by TASK-0400; primary Optica page lists two article tables, but they are model-parameter tables rather than direct size-energy measurement rows"
     properties:
       - bandgap_eV
       - absorption_peak_eV
@@ -270,28 +270,27 @@ sources:
     size_axis: diameter_nm
     inclusion_decision: excluded
     inclusion_rationale: >
-      TASK-0347 ranks this as the second candidate (rank 2) for a PbS
-      direct-measurement seed on the bandgap_eV and absorption_peak_eV axes.
-      APS Physical Review B 1997 articles are likely accessible via APS
-      public-access policy. The paper combines theory and empirical data;
-      only the empirical comparison points are eligible for direct-measurement
-      dataset rows. Remains excluded until a future row-curation task verifies
-      APS access and confirms which data points are empirical versus
-      model-derived. **TASK-0364 (2026-05-25) did not verify this paper in
-      that round (PDF not provided by maintainer); the four other top
-      candidates that were verified all turned out to be figure-only, so
-      the publication-pattern prior used by the TASK-0347 triage is in
-      doubt for this entry too. See attempted_verifications block below.**
-    license_note: "APS publication (Physical Review B); DOI-pinned metadata only. APS public-access policy may allow free reading; redistribution of tables or figures requires APS copyright compliance. Curator must distinguish empirical rows from theory-derived rows before committing."
+      TASK-0347 ranked this as the second candidate (rank 2) for a PbS
+      direct-measurement seed on the bandgap_eV and absorption_peak_eV axes,
+      but TASK-0400 corrected the source path from the earlier PRB/APS
+      assumption to the Optica JOSA B article DOI 10.1364/JOSAB.14.001632.
+      The primary article page lists two article tables; both visible table
+      captions describe Hamiltonian and anisotropy-perturbation parameters,
+      not direct PbS quantum-dot size-energy measurement rows. The page also
+      lists 13 figures, but no deterministic digitization artifact exists.
+      Remains excluded until a future source-artifact task verifies legitimate
+      access and either confirms direct printed values or runs the full
+      figure-digitization protocol with committed calibration artifacts.
+    license_note: "Optica / Journal of the Optical Society of America B publication; DOI-pinned metadata only. Publisher page marks article, tables, and figures as subscriber-gated for this session. Do not redistribute article, tables, or figures unless a future source-artifact task verifies compatible reuse terms."
     checksum_policy: doi_pinned
     notes: >
-      Metadata-only candidate seed from TASK-0347 (rank 2 of 6). Wise group;
-      covers PbS in the 2-8 nm diameter range. Theory-derived values must be
-      committed with mass_class: model_inferred and excluded from the
-      direct-measurement benchmark axis. Dataset rows must not reference this
-      source_id until a separate reviewed task commits a checksum-pinned
-      source artifact and confirms empirical vs. model provenance for each
-      data point.
+      Metadata-only candidate seed from TASK-0347 (rank 2 of 6), updated by
+      TASK-0400. Wise group; paper combines theory/model parameters with
+      comparison to experimental data, but no direct row-level
+      (diameter_nm, bandgap_eV) or (diameter_nm, absorption_peak_eV) table was
+      verified. Dataset rows must not reference this source_id until a
+      separate reviewed task commits a checksum-pinned source artifact and
+      confirms empirical versus model provenance for each data point.
 
 attempted_verifications:
   - verification_round_id: TASK-0364-2026-05-25
@@ -316,10 +315,10 @@ attempted_verifications:
       - source_id: kang-wise-1997-prb-pbs-band-edge
         triage_rank: 2
         triage_predicted_class: table_derived
-        verified_class: not_verified_in_this_round
-        printed_tables_found: null
-        inline_size_energy_pairs_found: null
-        outcome: pdf_not_provided_by_maintainer_this_round
+        verified_class: blocked_no_direct_rows_found
+        printed_tables_found: 2
+        inline_size_energy_pairs_found: 0
+        outcome: task_0400_corrected_source_path_to_optica_josa_b_and_found_only_model_parameter_tables_in_visible_primary_metadata
       - source_id_external_not_in_manifest: c1-peng-1997-cdse-cds-core-shell
         triage_rank: 3
         triage_doi: "10.1021/ja970754m"
