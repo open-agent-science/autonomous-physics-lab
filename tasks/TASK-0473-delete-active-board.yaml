@@ -1,7 +1,7 @@
 id: TASK-0473
 title: "Delete tasks/ACTIVE.md and redirect navigation to task views (B2 step 2)"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: medium
 

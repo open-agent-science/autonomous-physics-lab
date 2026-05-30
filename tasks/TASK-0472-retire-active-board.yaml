@@ -1,7 +1,7 @@
 id: TASK-0472
 title: "Decouple task closeout from tasks/ACTIVE.md (B2 step 1)"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
