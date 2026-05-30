@@ -1,0 +1,113 @@
+id: EXP-PROPOSAL-0022
+title: "Sandbox nuclear pairing-asymmetry interaction control lane"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only. No canonical result, PRED, claim, or knowledge artifact is authorized."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0474
+
+input_references:
+  - "campaign_profiles/nuclear-mass-surface.yaml"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0056-pairing-asymmetry-interaction.yaml"
+
+question: "Does a single residual-free pairing-asymmetry interaction feature `r_corr = beta * pairing_sign(Z,N) * ((N-Z)/A)` beat the frozen baseline and pairing-only, asymmetry-only, smooth-A, and deterministic matched-degree random controls on committed nuclear-mass surfaces without regressing primary_holdout?"
+
+method:
+  summary: "Fit one scalar coefficient beta via least squares on the NMD-0002 training slice against frozen RESULT-0015 baseline residuals. Evaluate the candidate and four controls on training_lstsq, primary_holdout, full_known, and declared subsets. Run leave-one-out coefficient-stability diagnostics and apply conservative sandbox verdict language."
+  code_references:
+    - "scripts/run_nuclear_pairing_asymmetry_interaction_control_lane.py"
+    - "physics_lab/engines/nuclear_mass_baselines.py"
+    - "tests/test_nuclear_pairing_asymmetry_interaction_control_lane.py"
+  commands:
+    - "python3 scripts/run_nuclear_pairing_asymmetry_interaction_control_lane.py"
+    - "python3 -m pytest tests/test_nuclear_pairing_asymmetry_interaction_control_lane.py"
+  parameters:
+    candidate_feature: "pairing_sign(Z,N) * ((N-Z)/A)"
+    survival_margin_mev: 0.25
+    coefficient_loo_sign_flip_threshold: 2
+    required_controls:
+      - "pairing_only_a_inverse_sqrt"
+      - "asymmetry_only_linear"
+      - "smooth_a_linear"
+      - "matched_degree_random_cyclic_shift"
+
+inputs:
+  datasets:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+  constants:
+    - "Frozen RESULT-0015 semi-empirical baseline coefficients."
+    - "Pairing sign rule derived only from Z and N parity."
+  prior_results:
+    - "RESULT-0015"
+  assumptions:
+    - "No live source fetch."
+    - "No PRED, RESULT, claim, or knowledge artifact is modified."
+    - "Candidate and controls use residual-free identifier-derived features only."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0046/"
+  metrics:
+    - "candidate_coefficient_beta_mev"
+    - "candidate_coefficient_loo_std_mev"
+    - "candidate_coefficient_loo_sign_flip_count"
+    - "candidate_mae_per_surface_mev"
+    - "baseline_mae_per_surface_mev"
+    - "control_pairing_only_mae_per_surface_mev"
+    - "control_asymmetry_only_mae_per_surface_mev"
+    - "control_smooth_a_mae_per_surface_mev"
+    - "control_matched_degree_random_mae_per_surface_mev"
+    - "candidate_vs_baseline_full_known_delta_mev"
+    - "verdict"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0046/report.md"
+    - "agent_runs/AGENT-RUN-0046/limitations.md"
+    - "docs/reviews/nuclear-pairing-asymmetry-interaction-control-lane.md"
+
+validation:
+  pass_condition: "Sandbox pass only if exactly one candidate is fit, all four controls report metrics, coefficient-stability and subset metrics are reported, and no PRED/CLAIM/KNOW/RESULT artifact is modified."
+  fail_condition: "Sandbox fail if multiple variants run, any control is skipped, residual-derived features are used, or canonical artifacts are written."
+  baseline_or_reference: "Frozen RESULT-0015 semi-empirical baseline plus pairing-only, asymmetry-only, smooth-A, and matched-degree random controls."
+  expected_failure_modes:
+    - "Pairing-only or asymmetry-only controls match the candidate."
+    - "Smooth-A control matches the candidate."
+    - "Matched-degree random control matches the candidate."
+    - "Candidate regresses primary_holdout or important subsets."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call the pairing-asymmetry fit a discovery or validated formula."
+    - "Do not imply reveal or registry readiness."
+  mitigations:
+    - "Keep outputs sandbox-only with explicit promotion_boundary."
+    - "Preserve all required controls and coefficient-stability diagnostics in the report."
+    - "Use conservative review vocabulary regardless of apparent fit quality."
+
+limitations:
+  - "Retrospective committed-data evaluation only."
+  - "Small training surface limits coefficient-stability power."
+  - "Pairing sign is a coarse parity proxy."
+  - "The lane cannot promote results or claims."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Confirm whether the lane should close as negative/control-dominated or seed a separate reviewed follow-up."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up before any PRED, RESULT, claim, knowledge, or reveal-scoring work."
