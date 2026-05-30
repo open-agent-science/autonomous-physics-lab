@@ -82,4 +82,4 @@ Pair these campaign pages with:
 - [Open Agent Network](../open-agent-network.md)
 - [Architecture Layers](../architecture-layers.md)
 - [Campaign Registry](../campaign-registry.md)
-- [Active Task Board](../../tasks/ACTIVE.md)
+- [Task views (current work)](../task-views/research.md)

@@ -29,8 +29,8 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help=(
             "Also regenerate generated task navigation during apply mode "
-            "(tasks/ACTIVE.md and docs/task-views/*.md). Leave unset for "
-            "lower-conflict YAML-only closeout."
+            "(docs/task-views/*.md). Leave unset for lower-conflict YAML-only "
+            "closeout."
         ),
     )
     return parser

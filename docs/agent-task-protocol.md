@@ -17,12 +17,13 @@ Before starting a task, read:
    [./task-views/research.md](./task-views/research.md),
    [./task-views/support.md](./task-views/support.md), or
    [./task-views/release.md](./task-views/release.md)
-5. [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for the full generated status board
+5. [./task-views/research.md](./task-views/research.md) for the generated current-work navigation
 6. the matching `tasks/TASK-XXXX-*.yaml` file when working on a canonical task
 7. [./strategy.md](./strategy.md)
 
-`tasks/ACTIVE.md` is the complete generated board, including DONE history.
-`docs/task-views/*.md` are the lighter navigation surfaces for current work.
+`docs/task-views/*.md` are the generated current-work navigation surfaces, and
+`git log` is the task history. (The legacy `tasks/ACTIVE.md` full board was
+retired — see TASK-0470/TASK-0473.)
 
 Use [./agent-operating-model.md](./agent-operating-model.md) and
 [./contributing-workflow.md](./contributing-workflow.md) for supporting
@@ -97,7 +98,7 @@ Task-queue PR title format:
 Task-queue PR scope:
 
 - new or updated canonical `tasks/TASK-XXXX-*.yaml` files;
-- synced generated task navigation (`tasks/ACTIVE.md` and `docs/task-views/*.md`);
+- synced generated task navigation (`docs/task-views/*.md`);
 - optional protocol or planning docs needed to explain the queue.
 
 Do not use `TASK-QUEUE` for normal contributor ideas without maintainer
@@ -531,8 +532,7 @@ The maintainer review agent may:
 - return `MERGE_OK`, `NEEDS_CHANGES`, or `BLOCKED`;
 - help close a merged task by updating the task file and synchronizing
   generated task navigation
-  ([../tasks/ACTIVE.md](../tasks/ACTIVE.md),
-  [./task-views/research.md](./task-views/research.md),
+  ([./task-views/research.md](./task-views/research.md),
   [./task-views/support.md](./task-views/support.md), and
   [./task-views/release.md](./task-views/release.md)).
 
@@ -551,19 +551,18 @@ The maintainer review agent must not:
 3. Create and switch to the branch using the required naming format before any
    repository edits.
 4. Set the task status to `IN_PROGRESS` in the task file.
-5. Do not edit [../tasks/ACTIVE.md](../tasks/ACTIVE.md) for routine task
-   status transitions. Task YAML is the canonical source of truth; the board
-   is a maintainer-synchronized snapshot regenerated automatically by the
+5. Do not hand-edit the generated `docs/task-views/*.md` for routine task
+   status transitions. Task YAML is the canonical source of truth; the views
+   are a maintainer-synchronized snapshot regenerated automatically by the
    post-merge `Sync Active Board` GitHub Action after each merge to `main`.
-6. Do not hand-edit `docs/task-views/*.md` and do not commit regenerated
-   versions of those files or `tasks/ACTIVE.md` from a task PR. They are
-   generated from canonical task YAML files and the post-merge action keeps
-   them in sync on `main`.
+6. Do not commit regenerated versions of `docs/task-views/*.md` from a task PR.
+   They are generated from canonical task YAML files and the post-merge action
+   keeps them in sync on `main`.
 7. Agents may run `python3 -m physics_lab.cli sync-active-board .` locally
    for visual confirmation of how their task YAML change will render, but
    should **not** stage or commit the resulting regeneration on a task PR
    branch. `validate-repo --strict --fail-on-warnings` reports a stale
-   `tasks/ACTIVE.md` or `docs/task-views/*.md` as `INFO` (not `ERROR`) by
+   `docs/task-views/*.md` as `INFO` (not `ERROR`) by
    default, so a non-regenerated branch passes strict validation. Set
    `APL_ENFORCE_BOARD_STALENESS=1` only when explicitly auditing the
    action's output. If strict validation ever reports generated board
@@ -582,7 +581,7 @@ After merge, maintainer closeout may also:
 
 12. set the task to `DONE`;
 13. let the post-merge `Sync Active Board` GitHub Action regenerate
-    [../tasks/ACTIVE.md](../tasks/ACTIVE.md) and the generated task views
+    the generated task views
     ([./task-views/research.md](./task-views/research.md),
     [./task-views/support.md](./task-views/support.md), and
     [./task-views/release.md](./task-views/release.md)). The action runs on

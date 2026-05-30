@@ -387,7 +387,7 @@ def _source_paths(root: Path, campaign_id: str) -> tuple[str, ...]:
         "docs/current-missions.md",
         f"campaign_profiles/{campaign_id}.yaml",
         f"docs/campaigns/{campaign_id}.md",
-        "tasks/ACTIVE.md",
+        "docs/task-views/research.md",
         f"hypothesis_proposals/{proposal_dir}",
         f"experiment_proposals/{proposal_dir}",
         "agent_runs",
