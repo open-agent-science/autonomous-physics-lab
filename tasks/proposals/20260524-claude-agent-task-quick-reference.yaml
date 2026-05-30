@@ -1,6 +1,6 @@
 proposal_id: 20260524-claude-agent-task-quick-reference
 title: "Add docs/agent-task-quick-reference.md schema and validator cheat-sheet"
-status: PROPOSED
+status: SUPERSEDED
 type: documentation
 priority: high
 
@@ -74,6 +74,9 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Documentation-only PR; estimated ~3-4 hours; expected to recoup itself on the next 2-3 autonomous_research_pilot tasks."
+  canonical_task_id: TASK-0467
+  decision: superseded
+  notes: >
+    Superseded by the lighter proposal helper/schema-error work in TASK-0467
+    plus the agent role profiles. Do not add a broad cheat-sheet unless a
+    future validation failure shows a still-missing high-value reference.

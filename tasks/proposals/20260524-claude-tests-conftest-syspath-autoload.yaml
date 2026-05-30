@@ -1,6 +1,6 @@
 proposal_id: 20260524-claude-tests-conftest-syspath-autoload
 title: "Auto-insert repo root on sys.path in tests/conftest.py"
-status: PROPOSED
+status: SUPERSEDED
 type: workflow_optimization
 priority: medium
 
@@ -68,6 +68,9 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Lightweight infrastructure PR; should be assignable to a single short follow-up task."
+  canonical_task_id: TASK-0469
+  decision: superseded
+  notes: >
+    Folded into TASK-0469's broader Windows/path/interpreter robustness scope.
+    Avoid adding global sys.path behavior unless the focused validation task
+    proves it is needed.

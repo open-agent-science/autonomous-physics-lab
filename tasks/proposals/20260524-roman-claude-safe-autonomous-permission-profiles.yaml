@@ -1,6 +1,6 @@
 proposal_id: 20260524-roman-claude-safe-autonomous-permission-profiles
 title: "Define safe and autonomous Claude permission profiles"
-status: PROPOSED
+status: REJECTED
 type: contributor_experience
 priority: medium
 
@@ -72,8 +72,8 @@ validation:
 
 promotion:
   canonical_task_id: null
-  decision: pending
+  decision: rejected
   notes: >
-    PR #371 was closed as stale/superseded. Promote this proposal only if the
-    maintainer wants a fresh canonical task for Claude permission-profile
-    cleanup.
+    Rejected for now. PR #371 was closed as stale, and current agent-role
+    profiles plus explicit permission/setup docs are the preferred path. Reopen
+    only if a concrete permission incident shows the shared baseline is unsafe.

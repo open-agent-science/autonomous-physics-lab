@@ -1,6 +1,6 @@
 proposal_id: 20260528-roman-stellar-mass-luminosity-ood-source-baseline-planning
 title: "Plan Stellar Mass-Luminosity OOD audit source and baseline"
-status: PROPOSED
+status: ACCEPTED
 type: scientific_dataset
 priority: high
 
@@ -73,3 +73,10 @@ validation:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: TASK-0444
+  decision: accepted
+  notes: >
+    Accepted as TASK-0444 after the Textbook Formula Audit scaffold selected
+    Stellar Mass-Luminosity OOD as its first concrete source/baseline slice.
