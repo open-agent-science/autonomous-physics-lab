@@ -29,3 +29,4 @@ None.
 - `TASK-0470` - Decide generated board file architecture (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
 - `TASK-0471` - Add proposal-pool triage, drift detection, and closeout tooling (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0472` - Decouple task closeout from tasks/ACTIVE.md (B2 step 1) (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
+- `TASK-0473` - Delete tasks/ACTIVE.md and redirect navigation to task views (B2 step 2) (`maintainer_workflow`, priority `medium`, difficulty `high`, domain `repository_coordination`)
