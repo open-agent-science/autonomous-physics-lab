@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator
+from jsonschema.exceptions import ValidationError
 
 
 SCHEMA_DIRECTORY = Path(__file__).resolve().parent.parent / "schemas"
@@ -89,15 +90,43 @@ def get_validator(kind: str) -> Draft202012Validator:
     return Draft202012Validator(load_schema(kind))
 
 
+def _error_path(error: ValidationError) -> str:
+    return ".".join(str(part) for part in error.absolute_path) or "<root>"
+
+
+def _describe_error(error: ValidationError) -> str:
+    """Render a schema error, drilling into oneOf/anyOf branches when present.
+
+    A bare ``oneOf``/``anyOf`` failure reports only "is not valid under any of
+    the given schemas", which hides the actual missing or invalid field. When
+    the error carries sub-errors (``error.context``), group them by branch and
+    surface the closest branch (the one with the fewest sub-errors) so authors
+    can see, for example, that ``planning_context`` is the required property
+    that is missing.
+    """
+    description = f"{_error_path(error)}: {error.message}"
+    if not error.context:
+        return description
+    by_branch: dict[Any, list[ValidationError]] = {}
+    for sub in error.context:
+        branch_key = sub.schema_path[0] if sub.schema_path else None
+        by_branch.setdefault(branch_key, []).append(sub)
+    if not by_branch:
+        return description
+    closest_branch = min(by_branch.values(), key=len)
+    parts = [
+        f"{('.'.join(str(part) for part in sub.absolute_path) or _error_path(error))}: {sub.message}"
+        for sub in closest_branch
+    ]
+    return f"{description} (closest match — {'; '.join(parts)})"
+
+
 def validate_document(data: dict[str, Any], kind: str, source: str | Path) -> dict[str, Any]:
     """Validate a structured document and return it unchanged on success."""
     validator = get_validator(kind)
     errors = sorted(validator.iter_errors(data), key=lambda error: list(error.absolute_path))
     if errors:
-        details = "; ".join(
-            f"{'.'.join(str(part) for part in error.absolute_path) or '<root>'}: {error.message}"
-            for error in errors
-        )
+        details = "; ".join(_describe_error(error) for error in errors)
         raise ValueError(f"{source} failed {kind} schema validation: {details}")
     validate_review_tier_metadata(data, kind, source)
     return data
