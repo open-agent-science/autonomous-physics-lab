@@ -113,7 +113,7 @@ def _print_human(report, role_filter: str | None) -> None:
 
     if report.duplicates and not role_filter:
         sys.stdout.write(
-            f"Possible duplicates ({len(report.duplicates)}) — advisory only; "
+            f"Possible duplicates ({len(report.duplicates)}) — low-confidence advisory only; "
             "an agent decides, never the script:\n"
         )
         for candidate in report.duplicates:

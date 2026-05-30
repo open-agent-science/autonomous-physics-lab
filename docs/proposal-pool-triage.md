@@ -64,7 +64,7 @@ proposes a likely owner:
 | **Scientific Campaign Director** | pending proposals with a clear science signal |
 | **Architect** | pending proposals with a clear infra / workflow signal |
 | **unrouted** | ambiguous (both signals or neither) — shown to every role to claim by judgment |
-| (none) | in-flight `accepted`, parked `deferred`, or terminal `rejected`/`superseded` |
+| (none) | in-flight `accepted` or terminal `rejected`/`superseded` |
 
 Science vs infra is decided from keyword signals over the proposal `type` and
 `related_domain`. A proposal is suggested to the Director only when it has a
@@ -77,9 +77,10 @@ the script never forces a guess.
 ## Duplicate detection is advisory
 
 The tool reports `possible duplicate` clusters (shared slug tokens among
-pending proposals). This is **advisory only** — the **agent decides, never the
-script**. The tool never sets `REJECTED` or `SUPERSEDED`; a role or the
-maintainer confirms or dismisses each pair by judgment.
+pending proposals). This is a **low-confidence advisory signal only** — the
+**agent decides, never the script**. The tool never sets `REJECTED` or
+`SUPERSEDED`; a role or the maintainer confirms or dismisses each pair by
+judgment.
 
 ## Who accepts a proposal, and when
 
@@ -128,11 +129,12 @@ escalate it to an error with `APL_ENFORCE_PROPOSAL_DRIFT=1`.
 
 The accepted-but-not-closed debt regrows unless delivery updates the proposal.
 The tool's **Suggested closeouts** section lists proposals whose canonical task
-is `DONE` but whose status is still open, with the exact change (set status to
-`ACCEPTED`). Applying it stays a **maintainer-approved, manual** step — there is
-no automatic post-merge rewrite in this first iteration. The review-agent
-closeout lane is the natural place to apply these in a small board-sync-style
-PR.
+is `DONE` but whose declared proposal status is still open. The practical file
+change is still `status: ACCEPTED`; `resolved` is a computed effective state,
+not a YAML status. Applying it stays a **maintainer-approved, manual** step —
+there is no automatic post-merge rewrite in this first iteration. The
+review-agent closeout lane is the natural place to apply these in a small
+board-sync-style PR.
 
 ## Cadence
 

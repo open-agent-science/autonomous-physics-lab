@@ -1,4 +1,4 @@
-"""Tests for proposal-pool triage logic (TASK-0468)."""
+"""Tests for proposal-pool triage logic (TASK-0471)."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Mechanical triage for the task-proposal pool (TASK-0468).
+"""Mechanical triage for the task-proposal pool (TASK-0471).
 
 This is the Stage 0/1 layer of the proposal-pool processing architecture
 (`docs/proposal-pool-triage.md`): it reconciles each proposal's *declared*
@@ -139,7 +139,7 @@ class ProposalState:
 
 @dataclass(frozen=True)
 class DuplicateCandidate:
-    """Advisory possible-duplicate pair (never an automatic decision)."""
+    """Low-confidence possible-duplicate pair (never an automatic decision)."""
 
     left: str
     right: str
