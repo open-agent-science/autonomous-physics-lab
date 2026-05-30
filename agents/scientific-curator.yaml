@@ -74,7 +74,7 @@ required_reading:
   - docs/result-promotion-protocol.md
   - docs/strategy.md
   - missions/current.yaml
-  - tasks/ACTIVE.md
+  - docs/task-views/research.md
 
 typical_activities:
   - title: "Run the campaign curator script"

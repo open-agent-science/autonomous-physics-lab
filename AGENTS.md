@@ -111,7 +111,7 @@ Pushing directly to `main` violates the repository protocol.
 The only operations allowed directly on `main` are:
 - post-merge task closeout (`status: DONE`)
 - `CONTEXT.md` regeneration after a batch merge
-- regeneration of `tasks/ACTIVE.md` and `docs/task-views/*.md` by the
+- regeneration of `docs/task-views/*.md` by the
   `Sync Active Board` post-merge GitHub Action (the action commits with a
   `[skip-board-sync]` marker and never edits canonical task YAML)
 
@@ -198,13 +198,13 @@ Use these files as the shared coordination layer:
 - `docs/task-views/release.md`
 - `docs/task-views/watchlist.md`
 - `docs/task-views/blocked.md`
-- `tasks/ACTIVE.md`
 - `tasks/TASK-TEMPLATE.yaml`
 - `tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml`
 
-`tasks/ACTIVE.md` remains the generated full-status board, including DONE
-history. The generated files under `docs/task-views/` are the lighter
-navigation surface for current work; both are derived from canonical
+The generated files under `docs/task-views/` are the human navigation surface
+for current work (the legacy `tasks/ACTIVE.md` full board was retired — see
+TASK-0470/TASK-0473; use `git log` for history and `apl_mission.py` for the
+agent entry point). They are derived from canonical
 `tasks/TASK-*.yaml` files and regenerated automatically on `main` by the
 `Sync Active Board` GitHub Action after any push that touches `tasks/**` or
 `missions/current.yaml`. Agents do not commit regenerated versions of these
@@ -304,7 +304,6 @@ To continue work consistently, use these project documents:
 - `docs/agent-operating-model.md` for the shared agent workflow;
 - `docs/task-views/research.md`, `docs/task-views/support.md`, and
   `docs/task-views/release.md` for lane-specific current work;
-- `tasks/ACTIVE.md` for the full generated task-status board;
 - `docs/implementation-plan.md` for the broader phased strategy;
 - `docs/next-steps.md` for the current short-term execution queue;
 - `docs/backlog.md` for deferred or medium-term work.

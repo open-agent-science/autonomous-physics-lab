@@ -135,7 +135,7 @@ Operational entry points:
   evidence before learning the contributor workflow;
 - [docs/agent-work-menu.md](./agent-work-menu.md) for a fast time-budgeted
   menu of safe, reviewable work (30 min / 1 h / 2 h);
-- [tasks/ACTIVE.md](../tasks/ACTIVE.md) for the live board of canonical tasks;
+- [docs/task-views/research.md](./task-views/research.md) for the live READY/blocked/release task navigation (the retired `tasks/ACTIVE.md` full board is replaced by these generated views and `git log`);
 - [tasks/microtasks/README.md](../tasks/microtasks/README.md) for campaign-specific scientific microtask queues;
 - [docs/negative-results-registry.md](./negative-results-registry.md) for the
   current falsification index;
@@ -186,5 +186,5 @@ Low-risk contribution patterns right now:
 4. [docs/mission-control.md](./mission-control.md)
 5. [docs/campaigns/README.md](./campaigns/README.md)
 6. [docs/status.md](./status.md)
-7. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+7. [docs/task-views/research.md](./task-views/research.md)
 8. [docs/agent-task-protocol.md](./agent-task-protocol.md)

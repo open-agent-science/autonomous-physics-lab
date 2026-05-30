@@ -20,7 +20,7 @@ Read these files first:
 2. Run `python3 scripts/apl_mission.py --json`
 3. `docs/agent-task-protocol.md`
 4. `docs/current-missions.md`
-5. `tasks/ACTIVE.md`
+5. `docs/task-views/research.md`
 6. `docs/strategy.md`
 
 Default to the recommended research mission unless the maintainer explicitly

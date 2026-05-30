@@ -110,7 +110,6 @@ CONTEXT_BUNDLE_SOURCE_FILES = frozenset(
         "docs/contributing-workflow.md",
         "docs/maintainer-review-agent.md",
         "docs/scientific-micro-task-protocol.md",
-        "tasks/ACTIVE.md",
         "scripts/generate_context_bundle.py",
     }
 )
@@ -476,9 +475,8 @@ def context_bundle_followups(
     sync_board: bool = False,
 ) -> tuple[str, ...]:
     """Return reminders when merged work touched CONTEXT.md source surfaces."""
+    del sync_board  # tasks/ACTIVE.md was retired; the board is no longer a bundle source.
     touched = {path for path in changed_files if path in CONTEXT_BUNDLE_SOURCE_FILES}
-    if sync_board:
-        touched.add("tasks/ACTIVE.md")
     if not touched:
         return ()
     rendered = ", ".join(sorted(touched))
@@ -769,10 +767,6 @@ def build_review_report(
                 + ", ".join(canonical_task_files)
                 + "."
             )
-        if "tasks/ACTIVE.md" in changed_files:
-            required_fixes.append(
-                "Task proposal PR should not update tasks/ACTIVE.md before maintainer acceptance."
-            )
         task_view_changes = tuple(
             path for path in changed_files if path.startswith("docs/task-views/")
         )
@@ -829,13 +823,13 @@ def build_review_report(
         generated_navigation_changes = tuple(
             path
             for path in changed_files
-            if path == "tasks/ACTIVE.md" or path.startswith("docs/task-views/")
+            if path.startswith("docs/task-views/")
         )
         if generated_navigation_changes:
             advisory_warnings.append(
                 "TASK-QUEUE PR includes generated task navigation; this is allowed, "
                 "but the post-merge Sync Active Board action normally regenerates "
-                "tasks/ACTIVE.md and docs/task-views/*.md on main."
+                "docs/task-views/*.md on main."
             )
         forbidden_paths = tuple(
             path
@@ -1243,7 +1237,7 @@ def update_task_status(task_file: Path, new_status: str) -> None:
 
 
 def update_active_board_for_done(root: Path, task_id: str, task_title: str) -> None:
-    """Refresh generated task navigation after a task transitions to DONE."""
+    """Refresh generated task navigation (docs/task-views/*.md) after DONE."""
     del task_id, task_title
     sync_generated_task_state(root)
 
@@ -1402,15 +1396,15 @@ def build_closeout_report(
         if sync_board:
             update_active_board_for_done(root, task_id, str(task_payload["title"]))
             applied_changes.append(
-                "Synchronized generated task navigation: tasks/ACTIVE.md and docs/task-views/*.md."
+                "Synchronized generated task navigation: docs/task-views/*.md."
             )
         else:
             applied_changes.append(
                 "Deferred generated task navigation sync; the Sync Active Board "
-                "GitHub Action regenerates tasks/ACTIVE.md and docs/task-views/*.md "
-                "on main after the closeout merges. Run python3 -m physics_lab.cli "
-                "sync-active-board . by hand only for explicit audits or when the "
-                "action is temporarily disabled."
+                "GitHub Action regenerates docs/task-views/*.md on main after the "
+                "closeout merges. Run python3 -m physics_lab.cli sync-active-board . "
+                "by hand only for explicit audits or when the action is temporarily "
+                "disabled."
             )
         if should_append_dry_run_entry(task_payload):
             if append_dry_run_entry(root, task_id, pull_request):

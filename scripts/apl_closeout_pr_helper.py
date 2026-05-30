@@ -42,7 +42,6 @@ def build_parser() -> argparse.ArgumentParser:
     scaffold.add_argument("--slug", required=True)
     scaffold.add_argument("--description", required=True)
     scaffold.add_argument("--changed-file", action="append", default=[])
-    scaffold.add_argument("--include-active-board", action="store_true")
     scaffold.add_argument("--include-task-views", action="store_true")
     scaffold.add_argument("--include-context", action="store_true")
     scaffold.add_argument("--body-only", action="store_true")
@@ -69,7 +68,6 @@ def command_scaffold(args: argparse.Namespace) -> int:
         agent_tool=args.agent_tool or infer_agent_tool(args.agent_id),
         human_reviewer=args.human_reviewer,
         changed_files=tuple(args.changed_file),
-        include_active_board=args.include_active_board,
         include_task_views=args.include_task_views,
         include_context=args.include_context,
         model_version=args.model_version,

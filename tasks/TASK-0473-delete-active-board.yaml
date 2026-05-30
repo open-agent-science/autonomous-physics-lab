@@ -1,0 +1,60 @@
+id: TASK-0473
+title: "Delete tasks/ACTIVE.md and redirect navigation to task views (B2 step 2)"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Second of two PRs implementing the TASK-0470 B2 decision to retire tasks/ACTIVE.md."
+  - "Remove the largest generated-board churn source and its ~125-link maintenance cost now that closeout no longer depends on it (TASK-0472)."
+  - "Keep docs/task-views/* as the human navigation surface, apl_mission.py as the agent entry point, and git log as history."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "docs/notes/generated-task-navigation-architecture-decision.md"
+    - "tasks/ACTIVE.md"
+    - "physics_lab/registry/active_board.py"
+    - "physics_lab/registry/generated_state.py"
+    - "physics_lab/registry/repository.py"
+    - ".github/workflows/sync-active-board.yml"
+  planning_context: >
+    Step 2 of the B2 retirement. TASK-0472 already decoupled closeout from
+    tasks/ACTIVE.md, so the file is no longer load-bearing. This PR stops
+    generating it, deletes it, removes its validation/context-bundle/closeout
+    consumers, updates the Sync Active Board workflow and CI to regenerate only
+    the task views, and redirects documentation references to docs/task-views/*,
+    apl_mission.py, or git log. Deletion and the link-checked doc fixes ship in
+    one PR because the docs link checker would otherwise fail.
+
+requirements:
+  - "Stop generating/syncing tasks/ACTIVE.md (generated_state.py, active_board.py) while keeping docs/task-views/* generation intact; keep the shared task-entry loader (TaskBoardEntry, load_board_entries, STATUS_SECTION_ORDER)."
+  - "Remove the tasks/ACTIVE.md staleness/missing checks from repository.py; keep the generated task-view staleness check."
+  - "Remove tasks/ACTIVE.md from the context bundle, the review CONTEXT_BUNDLE source files, the closeout PR helper include_active_board option, and other code references."
+  - "Update the sync-active-board GitHub workflow and CI to regenerate only docs/task-views/*; update the PR template."
+  - "Delete tasks/ACTIVE.md."
+  - "Update or remove tests that assert tasks/ACTIVE.md behavior; keep task-view tests."
+  - "Redirect documentation/protocol references from tasks/ACTIVE.md to docs/task-views/* (current work), apl_mission.py (agent entry), or git log (history); fix the link-checked surfaces in the same PR."
+  - "Do not change task-view generation or apl_mission.py; do not remove the post-merge Action (it keeps generating task views); do not promote any claim."
+
+accepted_outputs:
+  - "physics_lab/registry/* generation/validation updates"
+  - "removal of tasks/ACTIVE.md"
+  - ".github/ workflow, CI, and PR-template updates"
+  - "test updates"
+  - "documentation/protocol redirects"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/test_docs_links.py"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
