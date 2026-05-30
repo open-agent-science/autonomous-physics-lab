@@ -126,6 +126,14 @@ typical_activities:
     description: |
       With explicit maintainer approval, write
       `tasks/proposals/<date>-...-<slug>.yaml` for each recommended task.
+  - title: "Monitor science-routed proposals"
+    description: |
+      As a standing responsibility, run
+      `python3 scripts/apl_proposal_triage.py --role scientific-director`
+      to see pending proposals routed to the Director (new research ideas,
+      science datasets, methodology). Recommend take-now / defer / reject /
+      merge-with-X with campaign fit; do not assign canonical ids or set
+      REJECTED/SUPERSEDED. See `docs/proposal-pool-triage.md`.
 
 allowed_tools:
   - "Read campaign documents, hypothesis and experiment YAMLs, sandbox agent-run metrics, result artifacts, and prediction registry entries."
@@ -136,6 +144,7 @@ scripts_to_use:
   - scripts/apl_campaign_curator.py
   - scripts/apl_mission.py
   - scripts/apl_review_pr.py
+  - scripts/apl_proposal_triage.py
 
 can_invoke_other_roles:
   - role_id: review-agent

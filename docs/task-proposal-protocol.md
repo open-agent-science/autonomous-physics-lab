@@ -129,6 +129,16 @@ Salvaged ideas may be grouped into one clean proposal PR when they are closely
 related and the PR remains proposal-only. If the ideas are unrelated, split
 them into separate proposal PRs.
 
+## Processing The Proposal Pool
+
+Once proposals exist, `docs/proposal-pool-triage.md` defines how the pool is
+processed: a mechanical reconciliation tool
+(`scripts/apl_proposal_triage.py`) reports each proposal's effective state,
+status drift, suggested closeouts, and routing (science → Scientific Campaign
+Director, infra/workflow → Architect, drift/done → review-agent), plus advisory
+possible-duplicate pairs. `validate-repo --strict` reports proposal status
+drift as an `INFO` advisory.
+
 ## Proposal Tooling
 
 Use `scripts/apl_proposal_pr_helper.py` to scaffold and check a proposal the

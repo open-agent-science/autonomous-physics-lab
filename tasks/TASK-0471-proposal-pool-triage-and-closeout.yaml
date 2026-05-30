@@ -1,0 +1,73 @@
+id: TASK-0471
+title: "Add proposal-pool triage, drift detection, and closeout tooling"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the task-proposal pool processable as agent self-reporting increases, so proposals do not silently accumulate."
+  - "Separate mechanical reconciliation (automatable) from domain decisions (routed to the right role) without weakening the maintainer gate."
+  - "Stop the accepted-but-not-closed bookkeeping debt from inflating the pending queue again after manual sweeps."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "tasks/proposals/"
+    - "tasks/TASK-0468-triage-task-proposal-backlog.yaml"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/task_proposals.py"
+    - "physics_lab/registry/tasks.py"
+    - "agents/scientific-curator.yaml"
+    - "agents/architect.yaml"
+    - "docs/task-proposal-protocol.md"
+  planning_context: >
+    Follow-up after TASK-0468, which performed a one-time proposal backlog
+    triage sweep and reduced the active PROPOSED pool. This task adds the
+    Stage 0 mechanical layer of the agreed triage architecture so the backlog
+    does not regrow silently: a tool that computes each proposal's
+    effective_state from canonical signals, flags drift, routes genuinely
+    pending proposals to the right role, and surfaces low-confidence possible
+    duplicate candidates as advisory only. It adds an advisory (INFO,
+    env-escalatable) validate-repo drift check, advisory proposal closeout
+    suggestions (no automatic post-merge fix), and gives the Scientific
+    Campaign Director and Architect roles a standing responsibility to monitor
+    the pool. Scope is deliberately mechanical: declared status stays explicit
+    (not derived), no new top-level statuses are added, and dedup never
+    auto-rejects.
+
+requirements:
+  - "Add physics_lab/registry/proposal_triage.py with pure functions: effective_state per proposal (from declared status, promotion.decision, promotion.canonical_task_id, canonical task existence and its status, and accepted-by-reference via task input.related_objects), drift detection, role routing, and advisory duplicate candidates."
+  - "Add scripts/apl_proposal_triage.py CLI that prints a human-readable report (counts, per-proposal effective_state vs declared status, drift, routing target, possible duplicates) with an optional --json output."
+  - "Route science proposals to scientific-director, infra/workflow proposals to architect, and already-done/mechanical-closeout proposals to review-agent."
+  - "Treat duplicate detection as low-confidence advisory only: report possible-duplicate clusters; the agent decides, the script never sets REJECTED or SUPERSEDED."
+  - "Treat routing as a suggestion: every role can read all pending proposals and self-select; when fit cannot be determined confidently (both or neither signal), mark the proposal unrouted and surface it to every role instead of forcing a guess."
+  - "Add a validate-repo strict advisory check (severity INFO by default so --fail-on-warnings stays green; escalatable to ERROR via an env var) that flags proposal status drift."
+  - "Provide proposal-closeout suggestions for proposals whose canonical task is DONE; make any file edit opt-in (advisory report by default), not an automatic post-merge fix."
+  - "Keep proposal status explicit (not derived) and do not add new top-level proposal statuses: an idea not taken now stays an active PROPOSED proposal, and a confirmed duplicate is SUPERSEDED with the canonical reference as metadata (no DEFERRED/DUPLICATE_OF status)."
+  - "Do not auto-fix proposals on merge in this task."
+  - "Give the scientific-director and architect role profiles a standing responsibility to monitor the proposal pool via the triage report."
+  - "Add tests for effective_state, drift, routing, and duplicate-candidate detection. Do not promote any claim."
+
+accepted_outputs:
+  - "physics_lab/registry/proposal_triage.py"
+  - "scripts/apl_proposal_triage.py"
+  - "physics_lab/registry/repository.py"
+  - "docs/proposal-pool-triage.md"
+  - "agents/scientific-curator.yaml"
+  - "agents/architect.yaml"
+  - "docs/task-proposal-protocol.md"
+  - "tests/test_proposal_triage.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
