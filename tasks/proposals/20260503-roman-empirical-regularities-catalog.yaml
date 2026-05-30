@@ -1,6 +1,6 @@
 proposal_id: 20260503-roman-empirical-regularities-catalog
 title: "Define empirical regularities catalog micro-task track"
-status: PROPOSED
+status: SUPERSEDED
 type: physics_dataset_extension
 priority: medium
 
@@ -70,10 +70,9 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0438
+  decision: superseded
   notes: >
-    Related to the Koide track but broader in scope. Should be reviewed
-    alongside the hypothesis-register-protocol proposal since both produce
-    input for future falsification tasks. Numerology guardrails from
-    TASK-0042 apply to all entries.
+    Superseded by the more focused Textbook Formula Audit campaign scaffold in
+    TASK-0438. Future empirical-formula catalog work should enter through that
+    campaign's source/baseline gates rather than this broad micro-task track.

@@ -1,6 +1,6 @@
 proposal_id: 20260524-claude-scaffold-agent-run-and-proposals
 title: "Add apl_scaffold helpers for agent-run and proposal bundles"
-status: PROPOSED
+status: SUPERSEDED
 type: tooling
 priority: medium
 
@@ -91,6 +91,9 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Pairs well with the quick-reference doc proposal; together they cover the schema-discovery and shape-building costs identified by the TASK-0361 + TASK-0363 audit."
+  canonical_task_id: TASK-0467
+  decision: superseded
+  notes: >
+    Proposal-scaffolding scope was superseded by TASK-0467. Agent-run
+    scaffolding can be proposed again later if agent-run bundle creation
+    remains a measured bottleneck.

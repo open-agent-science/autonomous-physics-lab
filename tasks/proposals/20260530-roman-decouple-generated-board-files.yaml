@@ -1,6 +1,6 @@
 proposal_id: 20260530-roman-decouple-generated-board-files
 title: "Decouple generated board files from the committed working tree"
-status: PROPOSED
+status: ACCEPTED
 type: maintainer_workflow
 priority: medium
 
@@ -97,9 +97,9 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0470
+  decision: accepted
   notes: >
-    Architect-role follow-up to TASK-0466. Addresses the shared root cause of
-    F1/F2 (generated board state coupled to the committed tree). Planning-only;
-    implementation is deferred to a maintainer-accepted canonical task.
+    Accepted as TASK-0470 as a decision task. Generated-board behavior remains
+    unchanged until that task recommends and the maintainer accepts a migration
+    path.
