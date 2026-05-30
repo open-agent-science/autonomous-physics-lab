@@ -1,7 +1,7 @@
 id: TASK-0476
 title: "Run Nuclear isotope-chain leave-family-out audit"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -33,8 +33,8 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/nuclear-isotope-chain-leave-family-out-audit.md"
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml if code is executed"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json if code is executed"
+  - "agent_runs/AGENT-RUN-0048/agent_run.yaml if code is executed"
+  - "agent_runs/AGENT-RUN-0048/metrics.json if code is executed"
   - "tests for any reusable audit helper"
 
 validation:

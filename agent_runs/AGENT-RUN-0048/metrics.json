@@ -1,0 +1,2123 @@
+{
+  "agent_run_id": "AGENT-RUN-0048",
+  "task_id": "TASK-0476",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "lane": "isotope_chain_leave_family_out_audit",
+  "sandbox_only": true,
+  "evidence_class": "retrospective_full_known_isotope_chain_leave_family_out_audit",
+  "live_external_fetch_allowed": false,
+  "summary": {
+    "chain_count": 74,
+    "chain_min_rows_for_interpretation": 3,
+    "transfer_verdict": "MIXED_CHAIN_LOCAL",
+    "canonical_results_changed": false,
+    "canonical_claims_changed": false,
+    "prediction_registry_changed": false,
+    "claim_promotion_allowed": false
+  },
+  "frozen_baseline": {
+    "result_id": "RESULT-0015",
+    "model_id": "model_fitted_semi_empirical",
+    "coefficients": {
+      "volume": 15.51423612106804,
+      "surface": 17.2931812095177,
+      "coulomb": 0.6878156091568888,
+      "asymmetry": 23.846557883948485,
+      "pairing": 15.990845113398912
+    }
+  },
+  "datasets": {
+    "training_residual_source": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "holdout_source": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "training_row_count": 11,
+    "post_ame2020_primary_holdout_row_count": 295,
+    "full_known_unique_row_count": 306,
+    "duplicate_post_rows_excluded_from_full_known": []
+  },
+  "candidate_fit_coefficients": {
+    "FULLKNOWN-SHELL-001": {
+      "s_z2": 1.162735825365395
+    },
+    "FULLKNOWN-SHELL-002": {
+      "s_z2_times_s_n2": 1.754815105523876
+    },
+    "FULLKNOWN-SHELL-003": {
+      "s_n2": 1.6049071729432316
+    }
+  },
+  "non_shell_control_fit_coefficients": {
+    "SPECIFICITY-CONTROL-001": {
+      "a_centered_120": -0.45715684324532
+    },
+    "SPECIFICITY-CONTROL-002": {
+      "neutron_excess_fraction": 0.48694312380471105
+    },
+    "SPECIFICITY-CONTROL-003": {
+      "light_a_lt_50_indicator": 0.8079138101370557
+    },
+    "SPECIFICITY-CONTROL-004": {
+      "stable_hash_feature": 1.3231869615510266
+    }
+  },
+  "transfer_summary": {
+    "verdict": "MIXED_CHAIN_LOCAL",
+    "interpretable_chain_count": 48,
+    "too_sparse_chain_count": 26,
+    "best_shell_improved_chain_count": 21,
+    "best_shell_regressed_chain_count": 20,
+    "interpretation": "Shell-axis behavior transfers unevenly by isotope chain; chain-level regressions remain visible and block broad support wording.",
+    "claim_promotion_allowed": false
+  },
+  "candidate_transfer_summary": {
+    "FULLKNOWN-SHELL-001": {
+      "interpretable_chain_count": 48,
+      "improved_chain_count": 19,
+      "regressed_chain_count": 24,
+      "neutral_chain_count": 5,
+      "improvement_rate": 0.3958333333333333,
+      "regression_rate": 0.5,
+      "worst_chain_regressions": [
+        {
+          "chain_id": "Z_080",
+          "Z": 80,
+          "row_count": 3,
+          "delta_mae_mev": 0.7052349272303227
+        },
+        {
+          "chain_id": "Z_025",
+          "Z": 25,
+          "row_count": 4,
+          "delta_mae_mev": 0.3774850545908066
+        },
+        {
+          "chain_id": "Z_026",
+          "Z": 26,
+          "row_count": 12,
+          "delta_mae_mev": 0.16965567624364075
+        },
+        {
+          "chain_id": "Z_078",
+          "Z": 78,
+          "row_count": 3,
+          "delta_mae_mev": 0.15735918225527712
+        },
+        {
+          "chain_id": "Z_022",
+          "Z": 22,
+          "row_count": 5,
+          "delta_mae_mev": 0.14104698544607563
+        },
+        {
+          "chain_id": "Z_016",
+          "Z": 16,
+          "row_count": 3,
+          "delta_mae_mev": 0.05245306075172129
+        },
+        {
+          "chain_id": "Z_077",
+          "Z": 77,
+          "row_count": 3,
+          "delta_mae_mev": 0.05108704678059439
+        },
+        {
+          "chain_id": "Z_023",
+          "Z": 23,
+          "row_count": 6,
+          "delta_mae_mev": 0.033663678392751195
+        }
+      ]
+    },
+    "FULLKNOWN-SHELL-002": {
+      "interpretable_chain_count": 48,
+      "improved_chain_count": 18,
+      "regressed_chain_count": 26,
+      "neutral_chain_count": 4,
+      "improvement_rate": 0.375,
+      "regression_rate": 0.5416666666666666,
+      "worst_chain_regressions": [
+        {
+          "chain_id": "Z_020",
+          "Z": 20,
+          "row_count": 4,
+          "delta_mae_mev": 0.3683492169272995
+        },
+        {
+          "chain_id": "Z_022",
+          "Z": 22,
+          "row_count": 5,
+          "delta_mae_mev": 0.3340602292684478
+        },
+        {
+          "chain_id": "Z_026",
+          "Z": 26,
+          "row_count": 12,
+          "delta_mae_mev": 0.12218189104598798
+        },
+        {
+          "chain_id": "Z_028",
+          "Z": 28,
+          "row_count": 3,
+          "delta_mae_mev": 0.08571857017568618
+        },
+        {
+          "chain_id": "Z_025",
+          "Z": 25,
+          "row_count": 4,
+          "delta_mae_mev": 0.07335432269668729
+        },
+        {
+          "chain_id": "Z_016",
+          "Z": 16,
+          "row_count": 3,
+          "delta_mae_mev": 0.06417592143682782
+        },
+        {
+          "chain_id": "Z_023",
+          "Z": 23,
+          "row_count": 6,
+          "delta_mae_mev": 0.04031962750379614
+        },
+        {
+          "chain_id": "Z_024",
+          "Z": 24,
+          "row_count": 10,
+          "delta_mae_mev": 0.018975596464730682
+        }
+      ]
+    },
+    "FULLKNOWN-SHELL-003": {
+      "interpretable_chain_count": 48,
+      "improved_chain_count": 18,
+      "regressed_chain_count": 26,
+      "neutral_chain_count": 4,
+      "improvement_rate": 0.375,
+      "regression_rate": 0.5416666666666666,
+      "worst_chain_regressions": [
+        {
+          "chain_id": "Z_071",
+          "Z": 71,
+          "row_count": 4,
+          "delta_mae_mev": 1.1289238154903956
+        },
+        {
+          "chain_id": "Z_070",
+          "Z": 70,
+          "row_count": 8,
+          "delta_mae_mev": 0.8991451930188532
+        },
+        {
+          "chain_id": "Z_072",
+          "Z": 72,
+          "row_count": 3,
+          "delta_mae_mev": 0.5216590599631372
+        },
+        {
+          "chain_id": "Z_073",
+          "Z": 73,
+          "row_count": 3,
+          "delta_mae_mev": 0.5216590599631363
+        },
+        {
+          "chain_id": "Z_022",
+          "Z": 22,
+          "row_count": 5,
+          "delta_mae_mev": 0.5037215948203992
+        },
+        {
+          "chain_id": "Z_069",
+          "Z": 69,
+          "row_count": 3,
+          "delta_mae_mev": 0.501556405738711
+        },
+        {
+          "chain_id": "Z_016",
+          "Z": 16,
+          "row_count": 3,
+          "delta_mae_mev": 0.4336902220616139
+        },
+        {
+          "chain_id": "Z_020",
+          "Z": 20,
+          "row_count": 4,
+          "delta_mae_mev": 0.2887396241841742
+        }
+      ]
+    }
+  },
+  "chain_items": [
+    {
+      "chain_id": "Z_002",
+      "Z": 2,
+      "row_count": 1,
+      "nuclide_ids": [
+        "He-4"
+      ],
+      "A_min": 4,
+      "A_max": 4,
+      "baseline_mae_mev": 2.685975463054639,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -1.1627358253653952,
+        "FULLKNOWN-SHELL-002": -1.7548151055238748,
+        "FULLKNOWN-SHELL-003": -1.604907172943232
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": -1.7548151055238748,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-003",
+      "best_non_shell_control_delta_mae_mev": -0.8079138101370553,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_007",
+      "Z": 7,
+      "row_count": 1,
+      "nuclide_ids": [
+        "N-14"
+      ],
+      "A_min": 14,
+      "A_max": 14,
+      "baseline_mae_mev": 4.171541575253599,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -1.0261107644091112,
+        "FULLKNOWN-SHELL-002": -1.366651378327532,
+        "FULLKNOWN-SHELL-003": -1.4163256090582053
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -1.4163256090582053,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.9187379319622835,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_008",
+      "Z": 8,
+      "row_count": 2,
+      "nuclide_ids": [
+        "O-16",
+        "O-17"
+      ],
+      "A_min": 16,
+      "A_max": 17,
+      "baseline_mae_mev": 0.8738410517530966,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.6783020536821169,
+        "FULLKNOWN-SHELL-002": 1.1672832286954105,
+        "FULLKNOWN-SHELL-003": 1.0261826193174386
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.6783020536821169,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.001904820180193667,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_010",
+      "Z": 10,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Ne-24",
+        "Ne-25",
+        "Ne-26"
+      ],
+      "A_min": 24,
+      "A_max": 26,
+      "baseline_mae_mev": 1.4245780614328112,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.23507830907679295,
+        "FULLKNOWN-SHELL-002": -0.05966146096742864,
+        "FULLKNOWN-SHELL-003": -0.08996211950654742
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.23507830907679295,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-003",
+      "best_non_shell_control_delta_mae_mev": -0.2335498263566933,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_014",
+      "Z": 14,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Si-23",
+        "Si-24"
+      ],
+      "A_min": 23,
+      "A_max": 24,
+      "baseline_mae_mev": 2.2667350620070295,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": -0.002689875385982532,
+        "FULLKNOWN-SHELL-003": -0.2214501013376946
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.2214501013376946,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.0019048201802007725,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_015",
+      "Z": 15,
+      "row_count": 2,
+      "nuclide_ids": [
+        "P-26",
+        "P-27"
+      ],
+      "A_min": 26,
+      "A_max": 27,
+      "baseline_mae_mev": 1.1894062928468543,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": -0.007298290547183228,
+        "FULLKNOWN-SHELL-003": -0.1519182533791934
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.1519182533791934,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.0019048201801865616,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_016",
+      "Z": 16,
+      "row_count": 3,
+      "nuclide_ids": [
+        "S-27",
+        "S-28",
+        "S-36"
+      ],
+      "A_min": 27,
+      "A_max": 36,
+      "baseline_mae_mev": 2.01133460332566,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.05245306075172129,
+        "FULLKNOWN-SHELL-002": 0.06417592143682782,
+        "FULLKNOWN-SHELL-003": 0.4336902220616139
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.05245306075172129,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.3668229976498574,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_017",
+      "Z": 17,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Cl-36"
+      ],
+      "A_min": 36,
+      "A_max": 36,
+      "baseline_mae_mev": 1.2048973432109165,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.3774850545908066,
+        "FULLKNOWN-SHELL-002": 0.5027629453352915,
+        "FULLKNOWN-SHELL-003": 1.4163256090582195
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.3774850545908066,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": 0.02705239576692975,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_018",
+      "Z": 18,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Ar-31",
+        "Ar-36"
+      ],
+      "A_min": 31,
+      "A_max": 36,
+      "baseline_mae_mev": 1.4790203991932316,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": 0.2993980809124679,
+        "FULLKNOWN-SHELL-003": 0.45145535322672004
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.009524100900932808,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_019",
+      "Z": 19,
+      "row_count": 1,
+      "nuclide_ids": [
+        "K-36"
+      ],
+      "A_min": 36,
+      "A_max": 36,
+      "baseline_mae_mev": 0.2928450893899708,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 1.0261107644091112,
+        "FULLKNOWN-SHELL-002": 0.5027629453352915,
+        "FULLKNOWN-SHELL-003": 0.5210370735771335
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.5027629453352915,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.02705239576692975,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_020",
+      "Z": 20,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Ca-40",
+        "Ca-48",
+        "Ca-36",
+        "Ca-54"
+      ],
+      "A_min": 36,
+      "A_max": 54,
+      "baseline_mae_mev": 3.2760277745194486,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.017811035747683945,
+        "FULLKNOWN-SHELL-002": 0.3683492169272995,
+        "FULLKNOWN-SHELL-003": 0.2887396241841742
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.017811035747683945,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.0653766231034183,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_021",
+      "Z": 21,
+      "row_count": 6,
+      "nuclide_ids": [
+        "Sc-50",
+        "Sc-51",
+        "Sc-52",
+        "Sc-53",
+        "Sc-54",
+        "Sc-55"
+      ],
+      "A_min": 50,
+      "A_max": 55,
+      "baseline_mae_mev": 3.185376547130886,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.960685240516701,
+        "FULLKNOWN-SHELL-002": -0.4807709688871946,
+        "FULLKNOWN-SHELL-003": -0.48819163944880506
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.960685240516701,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.2754908923137407,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_022",
+      "Z": 22,
+      "row_count": 5,
+      "nuclide_ids": [
+        "Ti-43",
+        "Ti-52",
+        "Ti-54",
+        "Ti-55",
+        "Ti-56"
+      ],
+      "A_min": 43,
+      "A_max": 56,
+      "baseline_mae_mev": 1.6856163103673225,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.14104698544607563,
+        "FULLKNOWN-SHELL-002": 0.3340602292684478,
+        "FULLKNOWN-SHELL-003": 0.5037215948203992
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.14104698544607563,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.018380586578064184,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_023",
+      "Z": 23,
+      "row_count": 6,
+      "nuclide_ids": [
+        "V-54",
+        "V-55",
+        "V-56",
+        "V-57",
+        "V-58",
+        "V-59"
+      ],
+      "A_min": 54,
+      "A_max": 59,
+      "baseline_mae_mev": 0.7139225501249769,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.033663678392751195,
+        "FULLKNOWN-SHELL-002": 0.04031962750379614,
+        "FULLKNOWN-SHELL-003": 0.11358379035513622
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.033663678392751195,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.008200121833292884,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_024",
+      "Z": 24,
+      "row_count": 10,
+      "nuclide_ids": [
+        "Cr-46",
+        "Cr-56",
+        "Cr-57",
+        "Cr-58",
+        "Cr-59",
+        "Cr-61",
+        "Cr-62",
+        "Cr-63",
+        "Cr-64",
+        "Cr-65"
+      ],
+      "A_min": 46,
+      "A_max": 65,
+      "baseline_mae_mev": 2.5138080619873504,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": 0.018975596464730682,
+        "FULLKNOWN-SHELL-003": 0.12823393042571674
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.027873930166276484,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_025",
+      "Z": 25,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Mn-48",
+        "Mn-57",
+        "Mn-58",
+        "Mn-59"
+      ],
+      "A_min": 48,
+      "A_max": 59,
+      "baseline_mae_mev": 1.8314472731647982,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.3774850545908066,
+        "FULLKNOWN-SHELL-002": 0.07335432269668729,
+        "FULLKNOWN-SHELL-003": 0.20664531213841997
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.07335432269668729,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": 0.04523869107170242,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_026",
+      "Z": 26,
+      "row_count": 12,
+      "nuclide_ids": [
+        "Fe-56",
+        "Fe-57",
+        "Fe-50",
+        "Fe-51",
+        "Fe-63",
+        "Fe-64",
+        "Fe-65",
+        "Fe-66",
+        "Fe-67",
+        "Fe-68",
+        "Fe-69",
+        "Fe-70"
+      ],
+      "A_min": 50,
+      "A_max": 70,
+      "baseline_mae_mev": 2.318915670951592,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.16965567624364075,
+        "FULLKNOWN-SHELL-002": 0.12218189104598798,
+        "FULLKNOWN-SHELL-003": 0.18423521156836875
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.12218189104598798,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.2632763399034368,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_027",
+      "Z": 27,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Co-69",
+        "Co-70"
+      ],
+      "A_min": 69,
+      "A_max": 70,
+      "baseline_mae_mev": 3.2545796373872236,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -1.0261107644090544,
+        "FULLKNOWN-SHELL-002": -0.001953546921470206,
+        "FULLKNOWN-SHELL-003": -0.002024553282069519
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -1.0261107644090544,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.5000436949964637,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_028",
+      "Z": 28,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Ni-54",
+        "Ni-74",
+        "Ni-75"
+      ],
+      "A_min": 54,
+      "A_max": 75,
+      "baseline_mae_mev": 5.622629313897657,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.38757860845513914,
+        "FULLKNOWN-SHELL-002": 0.08571857017568618,
+        "FULLKNOWN-SHELL-003": 0.07839592199561185
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.38757860845513914,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.08661315997257724,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_029",
+      "Z": 29,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Cu-56",
+        "Cu-76",
+        "Cu-77",
+        "Cu-78"
+      ],
+      "A_min": 56,
+      "A_max": 78,
+      "baseline_mae_mev": 7.894563434757117,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -1.0261107644090686,
+        "FULLKNOWN-SHELL-002": -1.0438376355399583,
+        "FULLKNOWN-SHELL-003": -1.0817784245191007
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -1.0817784245191007,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.18381514738824478,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_030",
+      "Z": 30,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Zn-58",
+        "Zn-79"
+      ],
+      "A_min": 58,
+      "A_max": 79,
+      "baseline_mae_mev": 4.566332904697106,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.34068732148548975,
+        "FULLKNOWN-SHELL-002": -0.2781551597566363,
+        "FULLKNOWN-SHELL-003": -0.2463965395429284
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.34068732148548975,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.19619647855947164,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_031",
+      "Z": 31,
+      "row_count": 6,
+      "nuclide_ids": [
+        "Ga-60",
+        "Ga-61",
+        "Ga-62",
+        "Ga-63",
+        "Ga-83",
+        "Ga-84"
+      ],
+      "A_min": 60,
+      "A_max": 84,
+      "baseline_mae_mev": 8.56401696795958,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.12582835153027006,
+        "FULLKNOWN-SHELL-002": -0.13259567554432827,
+        "FULLKNOWN-SHELL-003": -0.3331855390054841
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.3331855390054841,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.047620504504712,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_032",
+      "Z": 32,
+      "row_count": 7,
+      "nuclide_ids": [
+        "Ge-62",
+        "Ge-63",
+        "Ge-82",
+        "Ge-83",
+        "Ge-84",
+        "Ge-85",
+        "Ge-86"
+      ],
+      "A_min": 62,
+      "A_max": 86,
+      "baseline_mae_mev": 5.834183725362761,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.06743964953792769,
+        "FULLKNOWN-SHELL-002": -0.06845881941931786,
+        "FULLKNOWN-SHELL-003": -0.4626333355457426
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.4626333355457426,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.08608646291718625,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_033",
+      "Z": 33,
+      "row_count": 13,
+      "nuclide_ids": [
+        "As-64",
+        "As-65",
+        "As-69",
+        "As-75",
+        "As-76",
+        "As-82",
+        "As-83",
+        "As-84",
+        "As-85",
+        "As-86",
+        "As-87",
+        "As-88",
+        "As-89"
+      ],
+      "A_min": 64,
+      "A_max": 89,
+      "baseline_mae_mev": 5.238221924001978,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.01178931848782927,
+        "FULLKNOWN-SHELL-002": -0.020305560326924876,
+        "FULLKNOWN-SHELL-003": -0.4226723009737192
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.4226723009737192,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.05887135540967847,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_034",
+      "Z": 34,
+      "row_count": 14,
+      "nuclide_ids": [
+        "Se-66",
+        "Se-67",
+        "Se-70",
+        "Se-71",
+        "Se-77",
+        "Se-82",
+        "Se-84",
+        "Se-85",
+        "Se-86",
+        "Se-87",
+        "Se-88",
+        "Se-89",
+        "Se-90",
+        "Se-91"
+      ],
+      "A_min": 66,
+      "A_max": 91,
+      "baseline_mae_mev": 4.406958639013136,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.0036905223596797043,
+        "FULLKNOWN-SHELL-002": -0.004777402246856077,
+        "FULLKNOWN-SHELL-003": -0.2588698469570785
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.2588698469570785,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.05558837462702293,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_035",
+      "Z": 35,
+      "row_count": 8,
+      "nuclide_ids": [
+        "Br-71",
+        "Br-73",
+        "Br-85",
+        "Br-86",
+        "Br-89",
+        "Br-90",
+        "Br-91",
+        "Br-92"
+      ],
+      "A_min": 71,
+      "A_max": 92,
+      "baseline_mae_mev": 4.185763682913731,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.0012717371453732085,
+        "FULLKNOWN-SHELL-002": -0.0009955166143527094,
+        "FULLKNOWN-SHELL-003": -0.41621791373177075
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.41621791373177075,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.07382920475542676,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_036",
+      "Z": 36,
+      "row_count": 6,
+      "nuclide_ids": [
+        "Kr-70",
+        "Kr-71",
+        "Kr-75",
+        "Kr-89",
+        "Kr-91",
+        "Kr-92"
+      ],
+      "A_min": 70,
+      "A_max": 92,
+      "baseline_mae_mev": 3.7299204915937025,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": -3.594857399003004e-05,
+        "FULLKNOWN-SHELL-003": -0.09800677001049962
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.09800677001049962,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.0503052569601814,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_037",
+      "Z": 37,
+      "row_count": 7,
+      "nuclide_ids": [
+        "Rb-90",
+        "Rb-91",
+        "Rb-99",
+        "Rb-100",
+        "Rb-101",
+        "Rb-102",
+        "Rb-103"
+      ],
+      "A_min": 90,
+      "A_max": 103,
+      "baseline_mae_mev": 4.780162890337839,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -4.658535658563778e-05,
+        "FULLKNOWN-SHELL-002": -4.620063822180498e-06,
+        "FULLKNOWN-SHELL-003": -0.10546252370717735
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.10546252370717735,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.11829282537023911,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_038",
+      "Z": 38,
+      "row_count": 9,
+      "nuclide_ids": [
+        "Sr-75",
+        "Sr-79",
+        "Sr-99",
+        "Sr-100",
+        "Sr-101",
+        "Sr-102",
+        "Sr-103",
+        "Sr-104",
+        "Sr-105"
+      ],
+      "A_min": 75,
+      "A_max": 105,
+      "baseline_mae_mev": 4.778255940729802,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -2.407285061956088e-06,
+        "FULLKNOWN-SHELL-002": 5.801759073165158e-11,
+        "FULLKNOWN-SHELL-003": 1.4238150419565443e-05
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -2.407285061956088e-06,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.617877736998607,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_039",
+      "Z": 39,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Y-81",
+        "Y-104"
+      ],
+      "A_min": 81,
+      "A_max": 104,
+      "baseline_mae_mev": 5.495469277398627,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": 7.94670995674096e-11,
+        "FULLKNOWN-SHELL-003": 0.00026919318838736217
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.7442911962828589,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_040",
+      "Z": 40,
+      "row_count": 5,
+      "nuclide_ids": [
+        "Zr-80",
+        "Zr-81",
+        "Zr-82",
+        "Zr-83",
+        "Zr-106"
+      ],
+      "A_min": 80,
+      "A_max": 106,
+      "baseline_mae_mev": 4.306754122954908,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 2.5998678658822882e-06,
+        "FULLKNOWN-SHELL-002": 3.3571039281810044e-09,
+        "FULLKNOWN-SHELL-003": 0.0008238777159474964
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 3.3571039281810044e-09,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.01679004409827556,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_041",
+      "Z": 41,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Nb-104",
+        "Nb-109"
+      ],
+      "A_min": 104,
+      "A_max": 109,
+      "baseline_mae_mev": 2.1702414746729914,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -4.658535658563778e-05,
+        "FULLKNOWN-SHELL-002": 0.0,
+        "FULLKNOWN-SHELL-003": -5.553033588512335e-10
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -4.658535658563778e-05,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.39275592626563594,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_042",
+      "Z": 42,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Mo-87",
+        "Mo-94",
+        "Mo-111",
+        "Mo-112"
+      ],
+      "A_min": 87,
+      "A_max": 112,
+      "baseline_mae_mev": 3.500713034605468,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": 9.57284818809967e-05,
+        "FULLKNOWN-SHELL-003": 0.2609850201989161
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.7416341868851362,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_043",
+      "Z": 43,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Tc-115"
+      ],
+      "A_min": 115,
+      "A_max": 115,
+      "baseline_mae_mev": 4.438325512874712,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.002543474290746417,
+        "FULLKNOWN-SHELL-002": -1.4305328477348667e-08,
+        "FULLKNOWN-SHELL-003": -5.980932428428787e-06
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.002543474290746417,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.9239285771302548,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_044",
+      "Z": 44,
+      "row_count": 6,
+      "nuclide_ids": [
+        "Ru-91",
+        "Ru-108",
+        "Ru-110",
+        "Ru-111",
+        "Ru-112",
+        "Ru-113"
+      ],
+      "A_min": 91,
+      "A_max": 113,
+      "baseline_mae_mev": 1.2227014882144924,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": 0.001054808576175903,
+        "FULLKNOWN-SHELL-003": 0.08683951208371354
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.00019775272583433257,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_045",
+      "Z": 45,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Rh-93",
+        "Rh-111",
+        "Rh-112",
+        "Rh-113"
+      ],
+      "A_min": 93,
+      "A_max": 113,
+      "baseline_mae_mev": 0.6051423988563442,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.025543523390297196,
+        "FULLKNOWN-SHELL-002": 0.011691059638138768,
+        "FULLKNOWN-SHELL-003": 0.24335635158678315
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.011691059638138768,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-003",
+      "best_non_shell_control_delta_mae_mev": 0.0,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_046",
+      "Z": 46,
+      "row_count": 6,
+      "nuclide_ids": [
+        "Pd-95",
+        "Pd-111",
+        "Pd-112",
+        "Pd-113",
+        "Pd-116",
+        "Pd-123"
+      ],
+      "A_min": 95,
+      "A_max": 123,
+      "baseline_mae_mev": 3.0322014459201228,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": -0.03666954874442263,
+        "FULLKNOWN-SHELL-003": -0.18981596784019894
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.18981596784019894,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.4853460364747284,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_047",
+      "Z": 47,
+      "row_count": 5,
+      "nuclide_ids": [
+        "Ag-95",
+        "Ag-96",
+        "Ag-97",
+        "Ag-111",
+        "Ag-113"
+      ],
+      "A_min": 95,
+      "A_max": 113,
+      "baseline_mae_mev": 3.111968967939879,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.07549701091816141,
+        "FULLKNOWN-SHELL-002": -0.28360231623812515,
+        "FULLKNOWN-SHELL-003": -0.7989316376695115
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.7989316376695115,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.4415505605187948,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_048",
+      "Z": 48,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Cd-118",
+        "Cd-119",
+        "Cd-125"
+      ],
+      "A_min": 118,
+      "A_max": 125,
+      "baseline_mae_mev": 3.163894099750299,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.21101822396190073,
+        "FULLKNOWN-SHELL-002": -0.015588169891278536,
+        "FULLKNOWN-SHELL-003": -0.023505036247987388
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.21101822396190073,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.23189819835355774,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_049",
+      "Z": 49,
+      "row_count": 18,
+      "nuclide_ids": [
+        "In-99",
+        "In-100",
+        "In-101",
+        "In-117",
+        "In-118",
+        "In-119",
+        "In-120",
+        "In-121",
+        "In-123",
+        "In-124",
+        "In-126",
+        "In-127",
+        "In-128",
+        "In-129",
+        "In-131",
+        "In-132",
+        "In-133",
+        "In-134"
+      ],
+      "A_min": 99,
+      "A_max": 134,
+      "baseline_mae_mev": 7.9821101429926165,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.6335047778464586,
+        "FULLKNOWN-SHELL-002": -0.5519699199518806,
+        "FULLKNOWN-SHELL-003": -0.5720325940141349
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.6335047778464586,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.06233809773026966,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_050",
+      "Z": 50,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Sn-120",
+        "Sn-103"
+      ],
+      "A_min": 103,
+      "A_max": 120,
+      "baseline_mae_mev": 1.86829693755044,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0,
+        "FULLKNOWN-SHELL-002": -0.284852513520093,
+        "FULLKNOWN-SHELL-003": -0.2605185245672601
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": -0.284852513520093,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.08818865884597926,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_051",
+      "Z": 51,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Sb-104",
+        "Sb-128",
+        "Sb-133",
+        "Sb-137"
+      ],
+      "A_min": 104,
+      "A_max": 137,
+      "baseline_mae_mev": 9.782538045347337,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -1.0261107644091396,
+        "FULLKNOWN-SHELL-002": -0.5822515457471411,
+        "FULLKNOWN-SHELL-003": -0.6034148783171531
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -1.0261107644091396,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.14374242979911855,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_052",
+      "Z": 52,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Te-107",
+        "Te-133"
+      ],
+      "A_min": 107,
+      "A_max": 133,
+      "baseline_mae_mev": 5.726273968238047,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 5.684341886080802e-14,
+        "FULLKNOWN-SHELL-002": -0.44626030080752344,
+        "FULLKNOWN-SHELL-003": -0.6729054545644431
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.6729054545644431,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.04626147870027353,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_053",
+      "Z": 53,
+      "row_count": 8,
+      "nuclide_ids": [
+        "I-108",
+        "I-133",
+        "I-136",
+        "I-137",
+        "I-138",
+        "I-139",
+        "I-141",
+        "I-142"
+      ],
+      "A_min": 108,
+      "A_max": 142,
+      "baseline_mae_mev": 8.28798145900707,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.3596707271854882,
+        "FULLKNOWN-SHELL-002": -0.18606420313396654,
+        "FULLKNOWN-SHELL-003": -0.5241585488205089
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-003",
+      "best_shell_delta_mae_mev": -0.5241585488205089,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.09978888013948506,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_054",
+      "Z": 54,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Xe-111"
+      ],
+      "A_min": 111,
+      "A_max": 111,
+      "baseline_mae_mev": 2.882991434627229,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.15735918225516343,
+        "FULLKNOWN-SHELL-002": 0.0005195037641669842,
+        "FULLKNOWN-SHELL-003": 0.003510720186341132
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.0005195037641669842,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-003",
+      "best_non_shell_control_delta_mae_mev": 0.0,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_055",
+      "Z": 55,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Cs-112"
+      ],
+      "A_min": 112,
+      "A_max": 112,
+      "baseline_mae_mev": 2.2057381630477266,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.05108704678059439,
+        "FULLKNOWN-SHELL-002": 0.00016865817883626733,
+        "FULLKNOWN-SHELL-003": 0.003510720186341132
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.00016865817883626733,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.03163693118256106,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_057",
+      "Z": 57,
+      "row_count": 1,
+      "nuclide_ids": [
+        "La-151"
+      ],
+      "A_min": 151,
+      "A_max": 151,
+      "baseline_mae_mev": 4.101535691755316,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.002543474290860104,
+        "FULLKNOWN-SHELL-002": -5.843503458891064e-11,
+        "FULLKNOWN-SHELL-003": -2.4442670110147446e-08
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.002543474290860104,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.11931718927667134,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_058",
+      "Z": 58,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Ce-151",
+        "Ce-152",
+        "Ce-153",
+        "Ce-154"
+      ],
+      "A_min": 151,
+      "A_max": 154,
+      "baseline_mae_mev": 3.459645309196503,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -0.0003900544154475938,
+        "FULLKNOWN-SHELL-002": -4.206412995699793e-11,
+        "FULLKNOWN-SHELL-003": -1.1470268646007753e-07
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -0.0003900544154475938,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.11652713257552705,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_059",
+      "Z": 59,
+      "row_count": 5,
+      "nuclide_ids": [
+        "Pr-152",
+        "Pr-153",
+        "Pr-154",
+        "Pr-156",
+        "Pr-157"
+      ],
+      "A_min": 152,
+      "A_max": 157,
+      "baseline_mae_mev": 3.503306317398392,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -4.658535658563778e-05,
+        "FULLKNOWN-SHELL-002": -4.001687869958914e-12,
+        "FULLKNOWN-SHELL-003": -9.175496407110018e-08
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -4.658535658563778e-05,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.1147438621350827,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_060",
+      "Z": 60,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Nd-151",
+        "Nd-152",
+        "Nd-157"
+      ],
+      "A_min": 151,
+      "A_max": 157,
+      "baseline_mae_mev": 1.361156628659425,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -1.4443710369960172e-06,
+        "FULLKNOWN-SHELL-002": 7.920175626452419e-11,
+        "FULLKNOWN-SHELL-003": 1.9440049982222263e-05
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -1.4443710369960172e-06,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.03910106088869725,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_061",
+      "Z": 61,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Pm-151",
+        "Pm-152",
+        "Pm-153",
+        "Pm-161"
+      ],
+      "A_min": 151,
+      "A_max": 161,
+      "baseline_mae_mev": 1.848581310228269,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 1.5694479316152865e-07,
+        "FULLKNOWN-SHELL-002": 4.490630090003833e-11,
+        "FULLKNOWN-SHELL-003": 0.00015216709834930953
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 4.490630090003833e-11,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.05238255495521571,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_062",
+      "Z": 62,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Sm-153"
+      ],
+      "A_min": 153,
+      "A_max": 153,
+      "baseline_mae_mev": 2.392364023331993,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 1.7708543964545242e-08,
+        "FULLKNOWN-SHELL-002": 1.1368683772161603e-12,
+        "FULLKNOWN-SHELL-003": 6.430108328459028e-05
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 1.1368683772161603e-12,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.791790118044446,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_063",
+      "Z": 63,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Eu-163",
+        "Eu-165"
+      ],
+      "A_min": 163,
+      "A_max": 165,
+      "baseline_mae_mev": 2.7342219225279223,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -7.780727173667401e-10,
+        "FULLKNOWN-SHELL-002": 0.0,
+        "FULLKNOWN-SHELL-003": 0.0
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": -7.780727173667401e-10,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -1.0657786870781365,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_065",
+      "Z": 65,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Tb-148",
+        "Tb-155"
+      ],
+      "A_min": 148,
+      "A_max": 155,
+      "baseline_mae_mev": 4.493474637563168,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 6.821210263296962e-13,
+        "FULLKNOWN-SHELL-002": 4.547473508864641e-13,
+        "FULLKNOWN-SHELL-003": 0.7084319977179803
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 4.547473508864641e-13,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.12000367135192391,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_067",
+      "Z": 67,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Ho-152"
+      ],
+      "A_min": 152,
+      "A_max": 152,
+      "baseline_mae_mev": 5.556878504032056,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 6.821210263296962e-13,
+        "FULLKNOWN-SHELL-002": 4.547473508864641e-13,
+        "FULLKNOWN-SHELL-003": 0.5210370735771903
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 4.547473508864641e-13,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.4111136063770573,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_068",
+      "Z": 68,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Er-151"
+      ],
+      "A_min": 151,
+      "A_max": 151,
+      "baseline_mae_mev": 4.425256335332506,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 2.660272002685815e-11,
+        "FULLKNOWN-SHELL-002": 3.54702933691442e-11,
+        "FULLKNOWN-SHELL-003": 1.4163256090582763
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 2.660272002685815e-11,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.11809885117168051,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_069",
+      "Z": 69,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Tm-152",
+        "Tm-156",
+        "Tm-157"
+      ],
+      "A_min": 152,
+      "A_max": 157,
+      "baseline_mae_mev": 6.192227322541309,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 7.780727173667401e-10,
+        "FULLKNOWN-SHELL-002": 3.6698111216537654e-10,
+        "FULLKNOWN-SHELL-003": 0.501556405738711
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 3.6698111216537654e-10,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.38105488170905755,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_070",
+      "Z": 70,
+      "row_count": 8,
+      "nuclide_ids": [
+        "Yb-150",
+        "Yb-151",
+        "Yb-152",
+        "Yb-153",
+        "Yb-154",
+        "Yb-155",
+        "Yb-156",
+        "Yb-157"
+      ],
+      "A_min": 150,
+      "A_max": 157,
+      "baseline_mae_mev": 5.112497492459056,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 1.7708543964545242e-08,
+        "FULLKNOWN-SHELL-002": 1.4973011275287718e-08,
+        "FULLKNOWN-SHELL-003": 0.8991451930188532
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 1.4973011275287718e-08,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.12762295207267016,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_071",
+      "Z": 71,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Lu-151",
+        "Lu-153",
+        "Lu-154",
+        "Lu-156"
+      ],
+      "A_min": 151,
+      "A_max": 156,
+      "baseline_mae_mev": 4.287402172923748,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 3.138895863230573e-07,
+        "FULLKNOWN-SHELL-002": 3.332283995405305e-07,
+        "FULLKNOWN-SHELL-003": 1.1289238154903956
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-001",
+      "best_shell_delta_mae_mev": 3.138895863230573e-07,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -1.0271090739247484,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_072",
+      "Z": 72,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Hf-156",
+        "Hf-157",
+        "Hf-159"
+      ],
+      "A_min": 156,
+      "A_max": 159,
+      "baseline_mae_mev": 5.5607889845252885,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 4.333113110988052e-06,
+        "FULLKNOWN-SHELL-002": 2.1256275131165125e-06,
+        "FULLKNOWN-SHELL-003": 0.5216590599631372
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 2.1256275131165125e-06,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.14222657345408152,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_073",
+      "Z": 73,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Ta-157",
+        "Ta-158",
+        "Ta-160"
+      ],
+      "A_min": 157,
+      "A_max": 160,
+      "baseline_mae_mev": 5.152431026300216,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 4.658535658563778e-05,
+        "FULLKNOWN-SHELL-002": 2.2852650165994248e-05,
+        "FULLKNOWN-SHELL-003": 0.5216590599631363
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 2.2852650165994248e-05,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.14603621381449283,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_074",
+      "Z": 74,
+      "row_count": 3,
+      "nuclide_ids": [
+        "W-160",
+        "W-161",
+        "W-163"
+      ],
+      "A_min": 160,
+      "A_max": 163,
+      "baseline_mae_mev": 6.105864855648481,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.0003900544154475938,
+        "FULLKNOWN-SHELL-002": 3.560692433346446e-05,
+        "FULLKNOWN-SHELL-003": 0.09707532897815963
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 3.560692433346446e-05,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.449075820829421,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_075",
+      "Z": 75,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Re-161",
+        "Re-162",
+        "Re-164"
+      ],
+      "A_min": 161,
+      "A_max": 164,
+      "baseline_mae_mev": 5.634144473242411,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.002543474290860104,
+        "FULLKNOWN-SHELL-002": 0.00023218631311738847,
+        "FULLKNOWN-SHELL-003": 0.09707532897815874
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.00023218631311738847,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.2654620267817336,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_076",
+      "Z": 76,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Os-164",
+        "Os-165",
+        "Os-167"
+      ],
+      "A_min": 164,
+      "A_max": 167,
+      "baseline_mae_mev": 6.535085661040057,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.012916828258767055,
+        "FULLKNOWN-SHELL-002": 8.666196549711458e-05,
+        "FULLKNOWN-SHELL-003": 0.007134643166030408
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 8.666196549711458e-05,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -1.1123549108112156,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_077",
+      "Z": 77,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Ir-165",
+        "Ir-166",
+        "Ir-168"
+      ],
+      "A_min": 165,
+      "A_max": 168,
+      "baseline_mae_mev": 6.053972764942728,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.05108704678059439,
+        "FULLKNOWN-SHELL-002": 0.0003427547224719163,
+        "FULLKNOWN-SHELL-003": 0.007134643166030408
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.0003427547224719163,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.17651333669747782,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_078",
+      "Z": 78,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Pt-168",
+        "Pt-169",
+        "Pt-171"
+      ],
+      "A_min": 168,
+      "A_max": 171,
+      "baseline_mae_mev": 6.9761069156007425,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.15735918225527712,
+        "FULLKNOWN-SHELL-002": 2.9749212596463792e-05,
+        "FULLKNOWN-SHELL-003": 0.00020104023944167437
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 2.9749212596463792e-05,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.19073655309701554,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_079",
+      "Z": 79,
+      "row_count": 2,
+      "nuclide_ids": [
+        "Au-170",
+        "Au-172"
+      ],
+      "A_min": 170,
+      "A_max": 172,
+      "baseline_mae_mev": 6.795733834917769,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.3774850545908066,
+        "FULLKNOWN-SHELL-002": 1.1489599387459748e-05,
+        "FULLKNOWN-SHELL-003": 3.236717031995795e-05
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 1.1489599387459748e-05,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.19429165837925666,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_080",
+      "Z": 80,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Hg-172",
+        "Hg-173",
+        "Hg-175"
+      ],
+      "A_min": 172,
+      "A_max": 175,
+      "baseline_mae_mev": 7.389005585255139,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 0.7052349272303227,
+        "FULLKNOWN-SHELL-002": 1.4181672067792306e-06,
+        "FULLKNOWN-SHELL-003": 2.1384212232078426e-06
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 1.4181672067792306e-06,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.20318081922020248,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_081",
+      "Z": 81,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Tl-176"
+      ],
+      "A_min": 176,
+      "A_max": 176,
+      "baseline_mae_mev": 6.548527009171494,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 1.026110764409168,
+        "FULLKNOWN-SHELL-002": 1.0363692126702517e-09,
+        "FULLKNOWN-SHELL-003": 1.073885869118385e-09
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 1.0363692126702517e-09,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.21333986018112228,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_082",
+      "Z": 82,
+      "row_count": 1,
+      "nuclide_ids": [
+        "Pb-208"
+      ],
+      "A_min": 208,
+      "A_max": 208,
+      "baseline_mae_mev": 8.45368795685954,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": -1.1627358253654165,
+        "FULLKNOWN-SHELL-002": -1.7548151055239032,
+        "FULLKNOWN-SHELL-003": -1.6049071729432853
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": -1.7548151055239032,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-002",
+      "best_non_shell_control_delta_mae_mev": -0.10300719926635793,
+      "shell_beats_best_non_shell_control": true,
+      "diagnostic_class": "too_sparse"
+    },
+    {
+      "chain_id": "Z_091",
+      "Z": 91,
+      "row_count": 3,
+      "nuclide_ids": [
+        "Pa-235",
+        "Pa-236",
+        "Pa-237"
+      ],
+      "A_min": 235,
+      "A_max": 237,
+      "baseline_mae_mev": 5.767046275352793,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 4.658535658563778e-05,
+        "FULLKNOWN-SHELL-002": 0.0,
+        "FULLKNOWN-SHELL-003": 0.0
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.7325100456309883,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_092",
+      "Z": 92,
+      "row_count": 8,
+      "nuclide_ids": [
+        "U-238",
+        "U-235",
+        "U-236",
+        "U-237",
+        "U-239",
+        "U-240",
+        "U-241",
+        "U-242"
+      ],
+      "A_min": 235,
+      "A_max": 242,
+      "baseline_mae_mev": 5.962140821253627,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 4.333113110988052e-06,
+        "FULLKNOWN-SHELL-002": 0.0,
+        "FULLKNOWN-SHELL-003": 0.0
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.4514423827047267,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_093",
+      "Z": 93,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Np-239",
+        "Np-240",
+        "Np-241",
+        "Np-242"
+      ],
+      "A_min": 239,
+      "A_max": 242,
+      "baseline_mae_mev": 5.9450743766254845,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 3.138895863230573e-07,
+        "FULLKNOWN-SHELL-002": 0.0,
+        "FULLKNOWN-SHELL-003": 0.0
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-004",
+      "best_non_shell_control_delta_mae_mev": -0.5955135152842672,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    },
+    {
+      "chain_id": "Z_094",
+      "Z": 94,
+      "row_count": 4,
+      "nuclide_ids": [
+        "Pu-239",
+        "Pu-240",
+        "Pu-241",
+        "Pu-242"
+      ],
+      "A_min": 239,
+      "A_max": 242,
+      "baseline_mae_mev": 6.6145223593466085,
+      "shell_axis_delta_mae_mev": {
+        "FULLKNOWN-SHELL-001": 1.7708543964545242e-08,
+        "FULLKNOWN-SHELL-002": 0.0,
+        "FULLKNOWN-SHELL-003": 0.0
+      },
+      "best_shell_candidate_id": "FULLKNOWN-SHELL-002",
+      "best_shell_delta_mae_mev": 0.0,
+      "best_non_shell_control_id": "SPECIFICITY-CONTROL-001",
+      "best_non_shell_control_delta_mae_mev": -0.45906166342547294,
+      "shell_beats_best_non_shell_control": false,
+      "diagnostic_class": "interpretable"
+    }
+  ],
+  "promotion_boundary": {
+    "writes_prediction_registry": false,
+    "writes_canonical_result": false,
+    "claim_promotion_allowed": false,
+    "writes_knowledge": false,
+    "required_next_step": "Maintainer review before any shell-axis expansion, reveal scoring, RESULT-* artifact, claim, or knowledge update."
+  },
+  "limitations": [
+    "Sandbox-only retrospective audit; no prediction registry, canonical result, claim, or knowledge artifact is updated.",
+    "Chains with fewer than three committed rows are diagnostic only.",
+    "Best non-shell controls reuse TASK-0317 definitions; no new formula family is fit.",
+    "Shell-axis and control coefficients are fit on the 11-row NMD-0002 residual slice.",
+    "The full-known surface is committed repository data; this is not a future-measurement reveal."
+  ]
+}
