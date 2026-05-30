@@ -5,6 +5,7 @@ from __future__ import annotations
 from copy import deepcopy
 from pathlib import Path
 import subprocess
+import sys
 
 import yaml
 
@@ -186,7 +187,7 @@ def test_cli_returns_success_for_valid_artifact(tmp_path: Path) -> None:
 
     completed = subprocess.run(
         [
-            "python3",
+            sys.executable,
             "scripts/apl_check_result_publication.py",
             str(artifact),
             "--root",
