@@ -1,7 +1,7 @@
 id: TASK-0459
 title: "Generate agent capacity board from campaign catalog"
 type: maintainer_workflow
-status: READY
+status: BLOCKED
 difficulty: medium
 priority: high
 
@@ -20,10 +20,14 @@ input:
     - "campaign_profiles/"
     - "missions/current.yaml"
   planning_context: >
-    TASK-0440 creates the first human-readable capacity board. Now that the
-    campaign catalog exists, the board should become a generated or checkable
-    view over `campaigns/catalog.yaml` instead of another source of campaign
-    truth. This task adds a lightweight generator/check workflow for that board.
+    BLOCKED ON TASK-0440. This task generates/checks
+    `docs/agent-capacity-board.md`, which TASK-0440 is responsible for creating
+    first; there is nothing to generate or verify until TASK-0440 lands. Keep
+    this task BLOCKED until TASK-0440 is DONE, then move it back to READY.
+    Now that the campaign catalog exists, the board should become a generated
+    or checkable view over `campaigns/catalog.yaml` instead of another source of
+    campaign truth. This task adds a lightweight generator/check workflow for
+    that board.
 
 requirements:
   - "Use existing `campaigns/catalog.yaml` as the campaign portfolio source."
