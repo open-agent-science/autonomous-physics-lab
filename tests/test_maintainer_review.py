@@ -647,9 +647,17 @@ def test_run_task_validation_uses_active_python_for_python3_commands(tmp_path) -
     assert summary.status == "pass"
 
 
+def test_portable_validation_command_uses_active_python_for_python_launcher() -> None:
+    assert _portable_validation_command("python -c \"print(456)\"").startswith(
+        f'"{sys.executable}" '
+    )
+
+
 def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:
     assert ci_aware_validation_command("python3 -m ruff check .") is None
+    assert ci_aware_validation_command("python -m ruff check .") is None
     assert ci_aware_validation_command("python3 -m physics_lab.cli validate-repo .") is None
+    assert ci_aware_validation_command("python -m physics_lab.cli validate-repo .") is None
     assert (
         ci_aware_validation_command(
             "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
@@ -660,6 +668,7 @@ def test_ci_aware_validation_keeps_local_full_repo_pytest_slice() -> None:
         ci_aware_validation_command("python3 -m pytest")
         == "python3 -m pytest -m full_repo"
     )
+    assert ci_aware_validation_command("python -m pytest") == "python -m pytest -m full_repo"
     assert (
         ci_aware_validation_command(
             "python3 scripts/run_nuclear_local_curvature_lane.py --help"
