@@ -1,7 +1,7 @@
 id: TASK-0475
 title: "Run Nuclear magic-parity boundary control lane"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -32,9 +32,9 @@ requirements:
   - "Do not create PRED entries, reveal scores, RESULT artifacts, claims, or knowledge entries."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0047/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0047/metrics.json"
+  - "agent_runs/AGENT-RUN-0047/report.md"
   - "docs/reviews/nuclear-magic-parity-boundary-control-lane.md"
   - "tests for any reusable runner code"
 
