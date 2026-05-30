@@ -1,7 +1,7 @@
 id: TASK-0486
 title: "Define Atomic first-benchmark covariance policy"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
