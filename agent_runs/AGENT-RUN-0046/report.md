@@ -1,42 +1,69 @@
-# Exoplanet Compact-Radius Mass-Quartile Scout
+# Nuclear Pairing-Asymmetry Interaction Control Lane
 
-**Task:** `TASK-0480`  
-**Agent run:** `AGENT-RUN-0046`  
-**Verdict boundary:** sandbox benchmark diagnostic only
+**Task:** `TASK-0474`
+**Agent run:** `AGENT-RUN-0046`
+**Campaign:** `nuclear-mass-surface`
+**Verdict:** `NEGATIVE_RESULT` (maps to agent_run schema `FALSIFIED`)
+**Sandbox only:** true
 
-## Summary
+## Candidate
 
-This scout tests whether the compact-radius residual stress is concentrated in a predeclared mass quartile inside the `R < 1.5 R_earth` true-mass/transit-radius slice. It uses the committed PSCompPars snapshot only and does not perform a live fetch or baseline refit.
+- Feature: `interaction = pairing_sign(Z,N) * ((N-Z)/A)` (closed-form, residual-free).
+- Fit: `r_corr = beta * interaction` via least squares on the 11-row NMD-0002 training slice. `beta = +1.9170 MeV`.
 
-## Headline Metrics
+## Aggregate MAE (MeV)
 
-| Quantity | Value |
-| --- | ---: |
-| Eligible true-mass/transit-radius rows | `1207` |
-| Eligible log10 RMSE | `0.1581701926744863` |
-| Compact rows | `92` |
-| Compact log10 RMSE | `0.26335002767665594` |
+| Surface | baseline | candidate | smooth_a | asymmetry_only | pairing_only | matched_degree_random |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `training_lstsq` | 2.8245 | 2.8396 | 2.7999 | 2.8349 | 2.8245 | 2.8372 |
+| `primary_holdout` | 4.5526 | 4.5653 | 4.5117 | 4.5279 | 4.5526 | 4.5626 |
+| `full_known` | 4.4904 | 4.5032 | 4.4501 | 4.4671 | 4.4904 | 4.5006 |
 
-## Quartile Results
+## Coefficient Stability (leave-one-out)
 
-| Quartile | Mass range M_earth | Rows | log10 RMSE | Verdict | Outcome | Adverse control | Delta vs eligible | Delta vs adverse |
-| --- | ---: | ---: | ---: | --- | --- | --- | ---: | ---: |
-| `CMQ-001` | `0.07`-`1.48` | `23` | `0.13605384325110495` | `INCONCLUSIVE` | `under_minimum_slice` | `None` | `None` | `None` |
-| `CMQ-002` | `1.54`-`2.44` | `23` | `0.08678735588519272` | `INCONCLUSIVE` | `under_minimum_slice` | `None` | `None` | `None` |
-| `CMQ-003` | `2.46`-`4.28` | `23` | `0.17265605946469456` | `INCONCLUSIVE` | `under_minimum_slice` | `None` | `None` | `None` |
-| `CMQ-004` | `4.3`-`99.2` | `23` | `0.47070175274197384` | `INCONCLUSIVE` | `under_minimum_slice` | `None` | `None` | `None` |
+- LOO folds: 11
+- mean beta: 1.9597 MeV
+- std beta: 6.3248 MeV
+- sign-flip count vs mean: 1 (threshold 2)
 
-## Interpretation Boundary
+## Verdict Rationale
 
-This scout may identify benchmark substructure or negative/control-sensitive memory. It does not support composition, habitability, target-priority, atmospheric, or new mass-radius-law wording.
+- full_known candidate vs baseline: -0.0128 MeV
+- Candidate fails the 0.25 MeV survival margin on full_known vs baseline.
 
-## Output Routing
+## Per-Subset Behavior (full_known)
 
-- Task verdict: sandbox benchmark diagnostic only
-- Canonical destination: `agent_runs/AGENT-RUN-0046/` and `docs/reviews/exoplanet-compact-radius-mass-quartile-scout.md`
-- Review tier: none
-- Gate A status: not attempted
-- Gate B status: not attempted
-- Claim impact: no claim change
-- Knowledge impact: no knowledge change
-- Result artifact impact: no canonical `RESULT-*` created or edited
+| Subset | count | baseline MAE | candidate MAE | delta |
+| --- | ---: | ---: | ---: | ---: |
+| `double_magic` | 5 | 3.0219 | 2.8769 | 0.1450 |
+| `light_a_lt_50` | 24 | 1.8723 | 1.8167 | 0.0556 |
+| `magic_n` | 17 | 4.9920 | 4.9285 | 0.0636 |
+| `magic_z` | 13 | 3.5843 | 3.4572 | 0.1271 |
+| `neutron_rich` | 162 | 5.3198 | 5.3449 | -0.0252 |
+
+## Leakage Audit
+
+- Feature uses only `Z`, `N`, and `A` through pairing sign and neutron excess. No baseline residual, error rank, candidate-fit residual, source-status, or future comparison row enters feature construction. PASS
+- `beta` is fit by closed-form least squares on training only; no candidate-fit residual feeds controls. ✅
+- All four controls (smooth_a, asymmetry_only, pairing_only, matched_degree_random) share the same fit and evaluation surfaces. ✅
+- Coefficient stability LOO uses only training-row exclusion; no candidate-fit residual feeds the stability check. ✅
+
+## Custom Verdict Vocabulary
+
+Per the TASK-0474 specification, this lane uses a custom verdict set capped at `BOUNDED_DIAGNOSTIC`. No registry expansion is authorized regardless of outcome; the Nuclear controls-first gauntlet (TASK-0333) remains in force.
+
+| Custom verdict | Meaning | Maps to schema |
+| --- | --- | --- |
+| `BOUNDED_DIAGNOSTIC` | candidate beat baseline + all four controls and is sign-stable, but the lane caps here (no registry expansion) | `REVIEW_NEEDED` |
+| `CONTROL_DOMINATED` | at least one control matches the candidate within the margin | `REVIEW_NEEDED` |
+| `FRAGILE_INCONCLUSIVE` | coefficient sign flips under LOO or a control MAE is undefined | `INCONCLUSIVE` |
+| `NEGATIVE_RESULT` | candidate fails the 0.25 MeV survival margin against baseline | `FALSIFIED` |
+
+## Promotion Boundary
+
+- `sandbox_only: true`
+- `writes_canonical_result: false`
+- `claim_promotion_allowed: false`
+- `prediction_registry_allowed: false`
+- Required next step: maintainer review before any follow-up. No `PRED-XXXX`, `RESULT-XXXX`, `CLAIM-XXXX`, or `KNOW-XXXX` artifact is created by this run.
+

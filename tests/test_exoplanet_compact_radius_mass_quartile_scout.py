@@ -70,7 +70,7 @@ def test_build_metrics_on_synthetic_fixture_records_boundaries() -> None:
     metrics = scout.build_metrics(SYNTHETIC_FIXTURE)
 
     assert metrics["task_id"] == "TASK-0480"
-    assert metrics["agent_run_id"] == "AGENT-RUN-0046"
+    assert metrics["agent_run_id"] == "AGENT-RUN-0049"
     assert metrics["live_fetch_performed"] is False
     assert metrics["baseline_refit_performed"] is False
     assert metrics["predeclared_bins"]["method"] == (
@@ -104,7 +104,7 @@ def test_write_outputs_uses_schema_valid_sandbox_agent_run_paths(tmp_path: Path)
 
     assert "canonical `RESULT-*` created or edited" in report
     assert "canonical `RESULT-*` created or edited" in review
-    assert "id: AGENT-RUN-0046" in agent_run
+    assert "id: AGENT-RUN-0049" in agent_run
     assert "status: SANDBOX_COMPLETE" in agent_run
     assert "sandbox_only: true" in agent_run
     assert "promotion_boundary:" in agent_run

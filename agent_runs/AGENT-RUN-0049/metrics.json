@@ -1,0 +1,383 @@
+{
+  "agent_run_id": "AGENT-RUN-0049",
+  "baseline_refit_performed": false,
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "compact_radius_threshold_Rearth": 1.5,
+  "control_margin_log10_rmse": 0.022,
+  "forbidden_interpretations": [
+    "composition_inference",
+    "habitability_or_biosignature_inference",
+    "target_prioritization",
+    "atmospheric_state_inference",
+    "new_mass_radius_law",
+    "claim_promotion"
+  ],
+  "headline": {
+    "compact_radius_lt1p5Re": {
+      "count": 92,
+      "log10_bias": -0.1468365058346739,
+      "log10_mae": 0.16246699197558523,
+      "log10_median": -0.06732674148138831,
+      "log10_rmse": 0.26335002767665594
+    },
+    "eligible_true_mass_transit_radius": {
+      "count": 1207,
+      "log10_bias": -0.0408436524025917,
+      "log10_mae": 0.10442982096618056,
+      "log10_median": -0.02540307663185465,
+      "log10_rmse": 0.1581701926744863
+    },
+    "interpretable_quartiles": [],
+    "underpowered_quartiles": [
+      "CMQ-001",
+      "CMQ-002",
+      "CMQ-003",
+      "CMQ-004"
+    ]
+  },
+  "live_fetch_performed": false,
+  "minimum_slice_row_count": 30,
+  "predeclared_bins": {
+    "method": "rank_balanced_mass_quartiles_within_compact_slice",
+    "quartile_count": 4,
+    "sort_key": [
+      "mass.value",
+      "row_id"
+    ]
+  },
+  "quartiles": [
+    {
+      "classification": {
+        "adverse_control": null,
+        "delta_log10_rmse_target_minus_adverse_control": null,
+        "delta_log10_rmse_target_minus_eligible": null,
+        "explanation": "Quartile has 23 rows (< 30); no residual interpretation is allowed.",
+        "outcome": "under_minimum_slice",
+        "verdict": "INCONCLUSIVE"
+      },
+      "compact_slice_stats": {
+        "count": 92,
+        "log10_bias": -0.1468365058346739,
+        "log10_mae": 0.16246699197558523,
+        "log10_median": -0.06732674148138831,
+        "log10_rmse": 0.26335002767665594
+      },
+      "controls": {
+        "nearest_mass_other_compact_quartiles": {
+          "interpretation": "Compact rows outside the target quartile, greedily matched by log mass; tests whether residual stress is specific to this compact mass rank bin.",
+          "kind": "matched_cohort",
+          "label": "nearest_mass_other_compact_quartiles",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.020849435441754483,
+            "log10_mae": 0.052053898576711395,
+            "log10_median": -0.001050778794820434,
+            "log10_rmse": 0.08678735588519272
+          },
+          "status": "underpowered"
+        },
+        "nearest_mass_outside_compact_slice": {
+          "interpretation": "Non-compact eligible rows greedily matched by log mass; tests whether the mass subrange outside compact radius reproduces the target stress.",
+          "kind": "matched_cohort",
+          "label": "nearest_mass_outside_compact_slice",
+          "stats": {
+            "count": 23,
+            "log10_bias": 0.06754151068994338,
+            "log10_mae": 0.08364389750955158,
+            "log10_median": 0.0584440716713293,
+            "log10_rmse": 0.11073443728569766
+          },
+          "status": "underpowered"
+        },
+        "per_class_median": {
+          "interpretation": "Per-class median residual shift on target rows; controls for baseline mass-class bias but is not an independent row slice.",
+          "kind": "residual_shift",
+          "label": "per_class_median",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.047666155625478934,
+            "log10_mae": 0.07003884229416739,
+            "log10_median": -0.002076269877076903,
+            "log10_rmse": 0.13853496159948414
+          },
+          "status": "underpowered"
+        }
+      },
+      "description": "Predeclared rank-balanced mass quartile inside compact R < 1.5 R_earth true-mass/transit-radius rows.",
+      "detection_method_counts": {
+        "transit": 23
+      },
+      "eligible_stats": {
+        "count": 1207,
+        "log10_bias": -0.0408436524025917,
+        "log10_mae": 0.10442982096618056,
+        "log10_median": -0.02540307663185465,
+        "log10_rmse": 0.1581701926744863
+      },
+      "id": "CMQ-001",
+      "label": "compact_mass_quartile_1",
+      "mass_max_Mearth": 1.48,
+      "mass_min_Mearth": 0.07,
+      "rank_end_exclusive": 23,
+      "rank_start_inclusive": 0,
+      "target_stats": {
+        "count": 23,
+        "log10_bias": -0.03988452168621389,
+        "log10_mae": 0.07120200311490231,
+        "log10_median": 0.005705364062188134,
+        "log10_rmse": 0.13605384325110495
+      }
+    },
+    {
+      "classification": {
+        "adverse_control": null,
+        "delta_log10_rmse_target_minus_adverse_control": null,
+        "delta_log10_rmse_target_minus_eligible": null,
+        "explanation": "Quartile has 23 rows (< 30); no residual interpretation is allowed.",
+        "outcome": "under_minimum_slice",
+        "verdict": "INCONCLUSIVE"
+      },
+      "compact_slice_stats": {
+        "count": 92,
+        "log10_bias": -0.1468365058346739,
+        "log10_mae": 0.16246699197558523,
+        "log10_median": -0.06732674148138831,
+        "log10_rmse": 0.26335002767665594
+      },
+      "controls": {
+        "nearest_mass_other_compact_quartiles": {
+          "interpretation": "Compact rows outside the target quartile, greedily matched by log mass; tests whether residual stress is specific to this compact mass rank bin.",
+          "kind": "matched_cohort",
+          "label": "nearest_mass_other_compact_quartiles",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.04055530902976188,
+            "log10_mae": 0.055005203087074885,
+            "log10_median": -0.037270180949675547,
+            "log10_rmse": 0.0905124082179423
+          },
+          "status": "underpowered"
+        },
+        "nearest_mass_outside_compact_slice": {
+          "interpretation": "Non-compact eligible rows greedily matched by log mass; tests whether the mass subrange outside compact radius reproduces the target stress.",
+          "kind": "matched_cohort",
+          "label": "nearest_mass_outside_compact_slice",
+          "stats": {
+            "count": 23,
+            "log10_bias": 0.06754151068994338,
+            "log10_mae": 0.08364389750955158,
+            "log10_median": 0.0584440716713293,
+            "log10_rmse": 0.11073443728569766
+          },
+          "status": "underpowered"
+        },
+        "per_class_median": {
+          "interpretation": "Per-class median residual shift on target rows; controls for baseline mass-class bias but is not an independent row slice.",
+          "kind": "residual_shift",
+          "label": "per_class_median",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.003993249990587518,
+            "log10_mae": 0.05408568927343827,
+            "log10_median": 0.01483663580150757,
+            "log10_rmse": 0.08611286803978718
+          },
+          "status": "underpowered"
+        }
+      },
+      "description": "Predeclared rank-balanced mass quartile inside compact R < 1.5 R_earth true-mass/transit-radius rows.",
+      "detection_method_counts": {
+        "transit": 23
+      },
+      "eligible_stats": {
+        "count": 1207,
+        "log10_bias": -0.0408436524025917,
+        "log10_mae": 0.10442982096618056,
+        "log10_median": -0.02540307663185465,
+        "log10_rmse": 0.1581701926744863
+      },
+      "id": "CMQ-002",
+      "label": "compact_mass_quartile_2",
+      "mass_max_Mearth": 2.44,
+      "mass_min_Mearth": 1.54,
+      "rank_end_exclusive": 46,
+      "rank_start_inclusive": 23,
+      "target_stats": {
+        "count": 23,
+        "log10_bias": -0.020849435441754483,
+        "log10_mae": 0.052053898576711395,
+        "log10_median": -0.001050778794820434,
+        "log10_rmse": 0.08678735588519272
+      }
+    },
+    {
+      "classification": {
+        "adverse_control": null,
+        "delta_log10_rmse_target_minus_adverse_control": null,
+        "delta_log10_rmse_target_minus_eligible": null,
+        "explanation": "Quartile has 23 rows (< 30); no residual interpretation is allowed.",
+        "outcome": "under_minimum_slice",
+        "verdict": "INCONCLUSIVE"
+      },
+      "compact_slice_stats": {
+        "count": 92,
+        "log10_bias": -0.1468365058346739,
+        "log10_mae": 0.16246699197558523,
+        "log10_median": -0.06732674148138831,
+        "log10_rmse": 0.26335002767665594
+      },
+      "controls": {
+        "nearest_mass_other_compact_quartiles": {
+          "interpretation": "Compact rows outside the target quartile, greedily matched by log mass; tests whether residual stress is specific to this compact mass rank bin.",
+          "kind": "matched_cohort",
+          "label": "nearest_mass_other_compact_quartiles",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.16370060321388077,
+            "log10_mae": 0.17904132086641927,
+            "log10_median": -0.1897954360188803,
+            "log10_rmse": 0.22080542918423315
+          },
+          "status": "underpowered"
+        },
+        "nearest_mass_outside_compact_slice": {
+          "interpretation": "Non-compact eligible rows greedily matched by log mass; tests whether the mass subrange outside compact radius reproduces the target stress.",
+          "kind": "matched_cohort",
+          "label": "nearest_mass_outside_compact_slice",
+          "stats": {
+            "count": 23,
+            "log10_bias": 0.04449129975557672,
+            "log10_mae": 0.06859283408374361,
+            "log10_median": 0.026442051064844097,
+            "log10_rmse": 0.1009807206069746
+          },
+          "status": "underpowered"
+        },
+        "per_class_median": {
+          "interpretation": "Per-class median residual shift on target rows; controls for baseline mass-class bias but is not an independent row slice.",
+          "kind": "residual_shift",
+          "label": "per_class_median",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.07092546435516477,
+            "log10_mae": 0.08384991723321242,
+            "log10_median": -0.03200803143494453,
+            "log10_rmse": 0.13761367639600863
+          },
+          "status": "underpowered"
+        }
+      },
+      "description": "Predeclared rank-balanced mass quartile inside compact R < 1.5 R_earth true-mass/transit-radius rows.",
+      "detection_method_counts": {
+        "transit": 23
+      },
+      "eligible_stats": {
+        "count": 1207,
+        "log10_bias": -0.0408436524025917,
+        "log10_mae": 0.10442982096618056,
+        "log10_median": -0.02540307663185465,
+        "log10_rmse": 0.1581701926744863
+      },
+      "id": "CMQ-003",
+      "label": "compact_mass_quartile_3",
+      "mass_max_Mearth": 4.28,
+      "mass_min_Mearth": 2.46,
+      "rank_end_exclusive": 69,
+      "rank_start_inclusive": 46,
+      "target_stats": {
+        "count": 23,
+        "log10_bias": -0.1261071466358926,
+        "log10_mae": 0.1261071466358926,
+        "log10_median": -0.08718971371567237,
+        "log10_rmse": 0.17265605946469456
+      }
+    },
+    {
+      "classification": {
+        "adverse_control": null,
+        "delta_log10_rmse_target_minus_adverse_control": null,
+        "delta_log10_rmse_target_minus_eligible": null,
+        "explanation": "Quartile has 23 rows (< 30); no residual interpretation is allowed.",
+        "outcome": "under_minimum_slice",
+        "verdict": "INCONCLUSIVE"
+      },
+      "compact_slice_stats": {
+        "count": 92,
+        "log10_bias": -0.1468365058346739,
+        "log10_mae": 0.16246699197558523,
+        "log10_median": -0.06732674148138831,
+        "log10_rmse": 0.26335002767665594
+      },
+      "controls": {
+        "nearest_mass_other_compact_quartiles": {
+          "interpretation": "Compact rows outside the target quartile, greedily matched by log mass; tests whether residual stress is specific to this compact mass rank bin.",
+          "kind": "matched_cohort",
+          "label": "nearest_mass_other_compact_quartiles",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.1261071466358926,
+            "log10_mae": 0.1261071466358926,
+            "log10_median": -0.08718971371567237,
+            "log10_rmse": 0.17265605946469456
+          },
+          "status": "underpowered"
+        },
+        "nearest_mass_outside_compact_slice": {
+          "interpretation": "Non-compact eligible rows greedily matched by log mass; tests whether the mass subrange outside compact radius reproduces the target stress.",
+          "kind": "matched_cohort",
+          "label": "nearest_mass_outside_compact_slice",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.003724785986306454,
+            "log10_mae": 0.11615664948404274,
+            "log10_median": -0.037408477140811525,
+            "log10_rmse": 0.15851410561028792
+          },
+          "status": "underpowered"
+        },
+        "per_class_median": {
+          "interpretation": "Per-class median residual shift on target rows; controls for baseline mass-class bias but is not an independent row slice.",
+          "kind": "residual_shift",
+          "label": "per_class_median",
+          "stats": {
+            "count": 23,
+            "log10_bias": -0.34532323729410674,
+            "log10_mae": 0.34532323729410674,
+            "log10_median": -0.30031170437497823,
+            "log10_rmse": 0.4247400235979693
+          },
+          "status": "underpowered"
+        }
+      },
+      "description": "Predeclared rank-balanced mass quartile inside compact R < 1.5 R_earth true-mass/transit-radius rows.",
+      "detection_method_counts": {
+        "transit": 23
+      },
+      "eligible_stats": {
+        "count": 1207,
+        "log10_bias": -0.0408436524025917,
+        "log10_mae": 0.10442982096618056,
+        "log10_median": -0.02540307663185465,
+        "log10_rmse": 0.1581701926744863
+      },
+      "id": "CMQ-004",
+      "label": "compact_mass_quartile_4",
+      "mass_max_Mearth": 99.2,
+      "mass_min_Mearth": 4.3,
+      "rank_end_exclusive": 92,
+      "rank_start_inclusive": 69,
+      "target_stats": {
+        "count": 23,
+        "log10_bias": -0.4005049195748346,
+        "log10_mae": 0.4005049195748346,
+        "log10_median": -0.35549338665570607,
+        "log10_rmse": 0.47070175274197384
+      }
+    }
+  ],
+  "schema_version": "0.1.0",
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "source_agent_run_id": "AGENT-RUN-0042",
+  "source_task_id": "TASK-0427",
+  "task_id": "TASK-0480"
+}

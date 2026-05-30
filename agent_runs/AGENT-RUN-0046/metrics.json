@@ -1,383 +1,313 @@
 {
   "agent_run_id": "AGENT-RUN-0046",
-  "baseline_refit_performed": false,
-  "campaign_profile_id": "exoplanet-mass-radius",
-  "compact_radius_threshold_Rearth": 1.5,
-  "control_margin_log10_rmse": 0.022,
-  "forbidden_interpretations": [
-    "composition_inference",
-    "habitability_or_biosignature_inference",
-    "target_prioritization",
-    "atmospheric_state_inference",
-    "new_mass_radius_law",
-    "claim_promotion"
+  "task_id": "TASK-0474",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "data_boundary": {
+    "live_fetch": false,
+    "training_dataset": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "holdout_dataset": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "frozen_baseline_result": "results/EXP-0012/RUN-0001/result.yaml"
+  },
+  "feature_definition": {
+    "name": "pairing_asymmetry_interaction",
+    "formula": "pairing_sign(Z,N) * ((N-Z)/A)",
+    "inputs": [
+      "Z",
+      "N",
+      "A"
+    ],
+    "forbidden_inputs": [
+      "baseline_residual_mev",
+      "candidate_fit_residual",
+      "baseline_error_rank",
+      "source_status",
+      "future_comparison_row"
+    ]
+  },
+  "candidate_coefficient_beta_mev": 1.916976,
+  "coefficient_loo_stability": {
+    "count": 11,
+    "mean_mev": 1.9596919301407036,
+    "std_mev": 6.324837880579155,
+    "sign_flip_count": 1
+  },
+  "coefficient_loo_betas_mev": [
+    1.916976,
+    1.916976,
+    1.916976,
+    1.916976,
+    1.916976,
+    0.874413,
+    2.866162,
+    1.916976,
+    3.324159,
+    -13.265329,
+    16.255349
   ],
-  "headline": {
-    "compact_radius_lt1p5Re": {
-      "count": 92,
-      "log10_bias": -0.1468365058346739,
-      "log10_mae": 0.16246699197558523,
-      "log10_median": -0.06732674148138831,
-      "log10_rmse": 0.26335002767665594
-    },
-    "eligible_true_mass_transit_radius": {
-      "count": 1207,
-      "log10_bias": -0.0408436524025917,
-      "log10_mae": 0.10442982096618056,
-      "log10_median": -0.02540307663185465,
-      "log10_rmse": 0.1581701926744863
-    },
-    "interpretable_quartiles": [],
-    "underpowered_quartiles": [
-      "CMQ-001",
-      "CMQ-002",
-      "CMQ-003",
-      "CMQ-004"
-    ]
-  },
-  "live_fetch_performed": false,
-  "minimum_slice_row_count": 30,
-  "predeclared_bins": {
-    "method": "rank_balanced_mass_quartiles_within_compact_slice",
-    "quartile_count": 4,
-    "sort_key": [
-      "mass.value",
-      "row_id"
-    ]
-  },
-  "quartiles": [
+  "training_rows_overview": [
     {
-      "classification": {
-        "adverse_control": null,
-        "delta_log10_rmse_target_minus_adverse_control": null,
-        "delta_log10_rmse_target_minus_eligible": null,
-        "explanation": "Quartile has 23 rows (< 30); no residual interpretation is allowed.",
-        "outcome": "under_minimum_slice",
-        "verdict": "INCONCLUSIVE"
-      },
-      "compact_slice_stats": {
-        "count": 92,
-        "log10_bias": -0.1468365058346739,
-        "log10_mae": 0.16246699197558523,
-        "log10_median": -0.06732674148138831,
-        "log10_rmse": 0.26335002767665594
-      },
-      "controls": {
-        "nearest_mass_other_compact_quartiles": {
-          "interpretation": "Compact rows outside the target quartile, greedily matched by log mass; tests whether residual stress is specific to this compact mass rank bin.",
-          "kind": "matched_cohort",
-          "label": "nearest_mass_other_compact_quartiles",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.020849435441754483,
-            "log10_mae": 0.052053898576711395,
-            "log10_median": -0.001050778794820434,
-            "log10_rmse": 0.08678735588519272
-          },
-          "status": "underpowered"
-        },
-        "nearest_mass_outside_compact_slice": {
-          "interpretation": "Non-compact eligible rows greedily matched by log mass; tests whether the mass subrange outside compact radius reproduces the target stress.",
-          "kind": "matched_cohort",
-          "label": "nearest_mass_outside_compact_slice",
-          "stats": {
-            "count": 23,
-            "log10_bias": 0.06754151068994338,
-            "log10_mae": 0.08364389750955158,
-            "log10_median": 0.0584440716713293,
-            "log10_rmse": 0.11073443728569766
-          },
-          "status": "underpowered"
-        },
-        "per_class_median": {
-          "interpretation": "Per-class median residual shift on target rows; controls for baseline mass-class bias but is not an independent row slice.",
-          "kind": "residual_shift",
-          "label": "per_class_median",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.047666155625478934,
-            "log10_mae": 0.07003884229416739,
-            "log10_median": -0.002076269877076903,
-            "log10_rmse": 0.13853496159948414
-          },
-          "status": "underpowered"
-        }
-      },
-      "description": "Predeclared rank-balanced mass quartile inside compact R < 1.5 R_earth true-mass/transit-radius rows.",
-      "detection_method_counts": {
-        "transit": 23
-      },
-      "eligible_stats": {
-        "count": 1207,
-        "log10_bias": -0.0408436524025917,
-        "log10_mae": 0.10442982096618056,
-        "log10_median": -0.02540307663185465,
-        "log10_rmse": 0.1581701926744863
-      },
-      "id": "CMQ-001",
-      "label": "compact_mass_quartile_1",
-      "mass_max_Mearth": 1.48,
-      "mass_min_Mearth": 0.07,
-      "rank_end_exclusive": 23,
-      "rank_start_inclusive": 0,
-      "target_stats": {
-        "count": 23,
-        "log10_bias": -0.03988452168621389,
-        "log10_mae": 0.07120200311490231,
-        "log10_median": 0.005705364062188134,
-        "log10_rmse": 0.13605384325110495
-      }
+      "row_id": "nmd-0002::He-4",
+      "Z": 2,
+      "N": 2,
+      "A": 4,
+      "pairing_sign": 1,
+      "neutron_excess": 0.0,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": 2.685975
     },
     {
-      "classification": {
-        "adverse_control": null,
-        "delta_log10_rmse_target_minus_adverse_control": null,
-        "delta_log10_rmse_target_minus_eligible": null,
-        "explanation": "Quartile has 23 rows (< 30); no residual interpretation is allowed.",
-        "outcome": "under_minimum_slice",
-        "verdict": "INCONCLUSIVE"
-      },
-      "compact_slice_stats": {
-        "count": 92,
-        "log10_bias": -0.1468365058346739,
-        "log10_mae": 0.16246699197558523,
-        "log10_median": -0.06732674148138831,
-        "log10_rmse": 0.26335002767665594
-      },
-      "controls": {
-        "nearest_mass_other_compact_quartiles": {
-          "interpretation": "Compact rows outside the target quartile, greedily matched by log mass; tests whether residual stress is specific to this compact mass rank bin.",
-          "kind": "matched_cohort",
-          "label": "nearest_mass_other_compact_quartiles",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.04055530902976188,
-            "log10_mae": 0.055005203087074885,
-            "log10_median": -0.037270180949675547,
-            "log10_rmse": 0.0905124082179423
-          },
-          "status": "underpowered"
-        },
-        "nearest_mass_outside_compact_slice": {
-          "interpretation": "Non-compact eligible rows greedily matched by log mass; tests whether the mass subrange outside compact radius reproduces the target stress.",
-          "kind": "matched_cohort",
-          "label": "nearest_mass_outside_compact_slice",
-          "stats": {
-            "count": 23,
-            "log10_bias": 0.06754151068994338,
-            "log10_mae": 0.08364389750955158,
-            "log10_median": 0.0584440716713293,
-            "log10_rmse": 0.11073443728569766
-          },
-          "status": "underpowered"
-        },
-        "per_class_median": {
-          "interpretation": "Per-class median residual shift on target rows; controls for baseline mass-class bias but is not an independent row slice.",
-          "kind": "residual_shift",
-          "label": "per_class_median",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.003993249990587518,
-            "log10_mae": 0.05408568927343827,
-            "log10_median": 0.01483663580150757,
-            "log10_rmse": 0.08611286803978718
-          },
-          "status": "underpowered"
-        }
-      },
-      "description": "Predeclared rank-balanced mass quartile inside compact R < 1.5 R_earth true-mass/transit-radius rows.",
-      "detection_method_counts": {
-        "transit": 23
-      },
-      "eligible_stats": {
-        "count": 1207,
-        "log10_bias": -0.0408436524025917,
-        "log10_mae": 0.10442982096618056,
-        "log10_median": -0.02540307663185465,
-        "log10_rmse": 0.1581701926744863
-      },
-      "id": "CMQ-002",
-      "label": "compact_mass_quartile_2",
-      "mass_max_Mearth": 2.44,
-      "mass_min_Mearth": 1.54,
-      "rank_end_exclusive": 46,
-      "rank_start_inclusive": 23,
-      "target_stats": {
-        "count": 23,
-        "log10_bias": -0.020849435441754483,
-        "log10_mae": 0.052053898576711395,
-        "log10_median": -0.001050778794820434,
-        "log10_rmse": 0.08678735588519272
-      }
+      "row_id": "nmd-0002::N-14",
+      "Z": 7,
+      "N": 7,
+      "A": 14,
+      "pairing_sign": -1,
+      "neutron_excess": 0.0,
+      "interaction_feature": -0.0,
+      "baseline_residual_mev": 4.171542
     },
     {
-      "classification": {
-        "adverse_control": null,
-        "delta_log10_rmse_target_minus_adverse_control": null,
-        "delta_log10_rmse_target_minus_eligible": null,
-        "explanation": "Quartile has 23 rows (< 30); no residual interpretation is allowed.",
-        "outcome": "under_minimum_slice",
-        "verdict": "INCONCLUSIVE"
-      },
-      "compact_slice_stats": {
-        "count": 92,
-        "log10_bias": -0.1468365058346739,
-        "log10_mae": 0.16246699197558523,
-        "log10_median": -0.06732674148138831,
-        "log10_rmse": 0.26335002767665594
-      },
-      "controls": {
-        "nearest_mass_other_compact_quartiles": {
-          "interpretation": "Compact rows outside the target quartile, greedily matched by log mass; tests whether residual stress is specific to this compact mass rank bin.",
-          "kind": "matched_cohort",
-          "label": "nearest_mass_other_compact_quartiles",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.16370060321388077,
-            "log10_mae": 0.17904132086641927,
-            "log10_median": -0.1897954360188803,
-            "log10_rmse": 0.22080542918423315
-          },
-          "status": "underpowered"
-        },
-        "nearest_mass_outside_compact_slice": {
-          "interpretation": "Non-compact eligible rows greedily matched by log mass; tests whether the mass subrange outside compact radius reproduces the target stress.",
-          "kind": "matched_cohort",
-          "label": "nearest_mass_outside_compact_slice",
-          "stats": {
-            "count": 23,
-            "log10_bias": 0.04449129975557672,
-            "log10_mae": 0.06859283408374361,
-            "log10_median": 0.026442051064844097,
-            "log10_rmse": 0.1009807206069746
-          },
-          "status": "underpowered"
-        },
-        "per_class_median": {
-          "interpretation": "Per-class median residual shift on target rows; controls for baseline mass-class bias but is not an independent row slice.",
-          "kind": "residual_shift",
-          "label": "per_class_median",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.07092546435516477,
-            "log10_mae": 0.08384991723321242,
-            "log10_median": -0.03200803143494453,
-            "log10_rmse": 0.13761367639600863
-          },
-          "status": "underpowered"
-        }
-      },
-      "description": "Predeclared rank-balanced mass quartile inside compact R < 1.5 R_earth true-mass/transit-radius rows.",
-      "detection_method_counts": {
-        "transit": 23
-      },
-      "eligible_stats": {
-        "count": 1207,
-        "log10_bias": -0.0408436524025917,
-        "log10_mae": 0.10442982096618056,
-        "log10_median": -0.02540307663185465,
-        "log10_rmse": 0.1581701926744863
-      },
-      "id": "CMQ-003",
-      "label": "compact_mass_quartile_3",
-      "mass_max_Mearth": 4.28,
-      "mass_min_Mearth": 2.46,
-      "rank_end_exclusive": 69,
-      "rank_start_inclusive": 46,
-      "target_stats": {
-        "count": 23,
-        "log10_bias": -0.1261071466358926,
-        "log10_mae": 0.1261071466358926,
-        "log10_median": -0.08718971371567237,
-        "log10_rmse": 0.17265605946469456
-      }
+      "row_id": "nmd-0002::O-16",
+      "Z": 8,
+      "N": 8,
+      "A": 16,
+      "pairing_sign": 1,
+      "neutron_excess": 0.0,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": 0.484434
     },
     {
-      "classification": {
-        "adverse_control": null,
-        "delta_log10_rmse_target_minus_adverse_control": null,
-        "delta_log10_rmse_target_minus_eligible": null,
-        "explanation": "Quartile has 23 rows (< 30); no residual interpretation is allowed.",
-        "outcome": "under_minimum_slice",
-        "verdict": "INCONCLUSIVE"
-      },
-      "compact_slice_stats": {
-        "count": 92,
-        "log10_bias": -0.1468365058346739,
-        "log10_mae": 0.16246699197558523,
-        "log10_median": -0.06732674148138831,
-        "log10_rmse": 0.26335002767665594
-      },
-      "controls": {
-        "nearest_mass_other_compact_quartiles": {
-          "interpretation": "Compact rows outside the target quartile, greedily matched by log mass; tests whether residual stress is specific to this compact mass rank bin.",
-          "kind": "matched_cohort",
-          "label": "nearest_mass_other_compact_quartiles",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.1261071466358926,
-            "log10_mae": 0.1261071466358926,
-            "log10_median": -0.08718971371567237,
-            "log10_rmse": 0.17265605946469456
-          },
-          "status": "underpowered"
-        },
-        "nearest_mass_outside_compact_slice": {
-          "interpretation": "Non-compact eligible rows greedily matched by log mass; tests whether the mass subrange outside compact radius reproduces the target stress.",
-          "kind": "matched_cohort",
-          "label": "nearest_mass_outside_compact_slice",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.003724785986306454,
-            "log10_mae": 0.11615664948404274,
-            "log10_median": -0.037408477140811525,
-            "log10_rmse": 0.15851410561028792
-          },
-          "status": "underpowered"
-        },
-        "per_class_median": {
-          "interpretation": "Per-class median residual shift on target rows; controls for baseline mass-class bias but is not an independent row slice.",
-          "kind": "residual_shift",
-          "label": "per_class_median",
-          "stats": {
-            "count": 23,
-            "log10_bias": -0.34532323729410674,
-            "log10_mae": 0.34532323729410674,
-            "log10_median": -0.30031170437497823,
-            "log10_rmse": 0.4247400235979693
-          },
-          "status": "underpowered"
-        }
-      },
-      "description": "Predeclared rank-balanced mass quartile inside compact R < 1.5 R_earth true-mass/transit-radius rows.",
-      "detection_method_counts": {
-        "transit": 23
-      },
-      "eligible_stats": {
-        "count": 1207,
-        "log10_bias": -0.0408436524025917,
-        "log10_mae": 0.10442982096618056,
-        "log10_median": -0.02540307663185465,
-        "log10_rmse": 0.1581701926744863
-      },
-      "id": "CMQ-004",
-      "label": "compact_mass_quartile_4",
-      "mass_max_Mearth": 99.2,
-      "mass_min_Mearth": 4.3,
-      "rank_end_exclusive": 92,
-      "rank_start_inclusive": 69,
-      "target_stats": {
-        "count": 23,
-        "log10_bias": -0.4005049195748346,
-        "log10_mae": 0.4005049195748346,
-        "log10_median": -0.35549338665570607,
-        "log10_rmse": 0.47070175274197384
-      }
+      "row_id": "nmd-0002::O-17",
+      "Z": 8,
+      "N": 9,
+      "A": 17,
+      "pairing_sign": 0,
+      "neutron_excess": 0.058824,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": -1.263248
+    },
+    {
+      "row_id": "nmd-0002::Ca-40",
+      "Z": 20,
+      "N": 20,
+      "A": 40,
+      "pairing_sign": 1,
+      "neutron_excess": 0.0,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": -2.358333
+    },
+    {
+      "row_id": "nmd-0002::Ca-48",
+      "Z": 20,
+      "N": 28,
+      "A": 48,
+      "pairing_sign": 1,
+      "neutron_excess": 0.166667,
+      "interaction_feature": 0.166667,
+      "baseline_residual_mev": 1.127114
+    },
+    {
+      "row_id": "nmd-0002::Fe-56",
+      "Z": 26,
+      "N": 30,
+      "A": 56,
+      "pairing_sign": 1,
+      "neutron_excess": 0.071429,
+      "interaction_feature": 0.071429,
+      "baseline_residual_mev": -1.880064
+    },
+    {
+      "row_id": "nmd-0002::Fe-57",
+      "Z": 26,
+      "N": 31,
+      "A": 57,
+      "pairing_sign": 0,
+      "neutron_excess": 0.087719,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": -1.648565
+    },
+    {
+      "row_id": "nmd-0002::Sn-120",
+      "Z": 50,
+      "N": 70,
+      "A": 120,
+      "pairing_sign": 1,
+      "neutron_excess": 0.166667,
+      "interaction_feature": 0.166667,
+      "baseline_residual_mev": -0.770573
+    },
+    {
+      "row_id": "nmd-0002::Pb-208",
+      "Z": 82,
+      "N": 126,
+      "A": 208,
+      "pairing_sign": 1,
+      "neutron_excess": 0.211538,
+      "interaction_feature": 0.211538,
+      "baseline_residual_mev": 8.453688
+    },
+    {
+      "row_id": "nmd-0002::U-238",
+      "Z": 92,
+      "N": 146,
+      "A": 238,
+      "pairing_sign": 1,
+      "neutron_excess": 0.226891,
+      "interaction_feature": 0.226891,
+      "baseline_residual_mev": -6.226201
     }
   ],
-  "schema_version": "0.1.0",
-  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
-  "source_agent_run_id": "AGENT-RUN-0042",
-  "source_task_id": "TASK-0427",
-  "task_id": "TASK-0480"
+  "baseline": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.8245215982589085,
+      "rmse_mev": 3.6971171457892873
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.552568580201034,
+      "rmse_mev": 5.879636991075279
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.490449244248866,
+      "rmse_mev": 5.815390925720301
+    }
+  },
+  "candidate": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.8396449476848673,
+      "rmse_mev": 3.6900222291045117
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.565270199564199,
+      "rmse_mev": 5.923657565567854
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.5032379192678835,
+      "rmse_mev": 5.858139412188414
+    }
+  },
+  "control_smooth_a": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.799872901813154,
+      "rmse_mev": 3.6803489316294664
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.511682510345607,
+      "rmse_mev": 5.820610353276483
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.450146870823199,
+      "rmse_mev": 5.757475558773489
+    }
+  },
+  "control_asymmetry_only": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.834850268108084,
+      "rmse_mev": 3.6966272393997093
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.527945776804333,
+      "rmse_mev": 5.848298175274561
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.467082866361003,
+      "rmse_mev": 5.784834830446992
+    }
+  },
+  "control_pairing_only": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.824521598258807,
+      "rmse_mev": 3.697117145789293
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.552568580201079,
+      "rmse_mev": 5.8796369910753326
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.490449244248906,
+      "rmse_mev": 5.815390925720353
+    }
+  },
+  "control_matched_degree_random": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.8371786981657494,
+      "rmse_mev": 3.6902110854385364
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.562609779279982,
+      "rmse_mev": 5.915861022916213
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.500584478978489,
+      "rmse_mev": 5.850543427899408
+    }
+  },
+  "per_subset_candidate_full_known": {
+    "double_magic": {
+      "count": 5,
+      "baseline_mae_mev": 3.0219088633367606,
+      "candidate_mae_mev": 2.876906827394383,
+      "delta_mae_mev": 0.14500203594237737
+    },
+    "light_a_lt_50": {
+      "count": 24,
+      "baseline_mae_mev": 1.8722524000307066,
+      "candidate_mae_mev": 1.8166640247794748,
+      "delta_mae_mev": 0.055588375251231836
+    },
+    "magic_n": {
+      "count": 17,
+      "baseline_mae_mev": 4.992013567782692,
+      "candidate_mae_mev": 4.92845427817587,
+      "delta_mae_mev": 0.06355928960682178
+    },
+    "magic_z": {
+      "count": 13,
+      "baseline_mae_mev": 3.5843029567916935,
+      "candidate_mae_mev": 3.4571648110614137,
+      "delta_mae_mev": 0.12713814573027982
+    },
+    "neutron_rich": {
+      "count": 162,
+      "baseline_mae_mev": 5.319790082655775,
+      "candidate_mae_mev": 5.344946188354955,
+      "delta_mae_mev": -0.02515610569918003
+    }
+  },
+  "survival_margin_mev": 0.25,
+  "loo_sign_flip_threshold": 2,
+  "custom_verdict_vocabulary": [
+    "BOUNDED_DIAGNOSTIC",
+    "CONTROL_DOMINATED",
+    "FRAGILE_INCONCLUSIVE",
+    "NEGATIVE_RESULT"
+  ],
+  "candidate_vs_baseline_full_known_delta_mev": -0.012788675019017148,
+  "candidate_vs_smooth_a_full_known_delta_mev": -0.05309104844468493,
+  "candidate_vs_asymmetry_only_full_known_delta_mev": -0.03615505290688059,
+  "candidate_vs_pairing_only_full_known_delta_mev": -0.01278867501897718,
+  "candidate_vs_matched_degree_random_full_known_delta_mev": -0.0026534402893947373,
+  "primary_holdout_regression_flag": true,
+  "verdict": "NEGATIVE_RESULT",
+  "verdict_rationale": [
+    "full_known candidate vs baseline: -0.0128 MeV",
+    "Candidate fails the 0.25 MeV survival margin on full_known vs baseline."
+  ],
+  "schema_verdict": "FALSIFIED"
 }
