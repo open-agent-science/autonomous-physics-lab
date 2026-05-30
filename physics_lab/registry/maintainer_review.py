@@ -308,8 +308,9 @@ def review_bundle_branch(path: Path) -> str | None:
 
 def _portable_validation_command(command_text: str) -> str:
     """Run validation through local portable executables where needed."""
-    if command_text.startswith("python3 "):
-        return f'"{sys.executable}" {command_text.removeprefix("python3 ")}'
+    for launcher in ("python3 ", "python "):
+        if command_text.startswith(launcher):
+            return f'"{sys.executable}" {command_text.removeprefix(launcher)}'
     if _looks_like_repo_shell_script(command_text):
         bash = _git_bash_path()
         if bash is not None:
@@ -346,17 +347,25 @@ def ci_aware_validation_command(command_text: str) -> str | None:
     full-repo pytest slice for task files that request a bare pytest run.
     """
     normalized = " ".join(command_text.strip().split())
-    if normalized == "python3 -m ruff check .":
+    python_launcher = ""
+    python_args = normalized
+    for launcher in ("python3 ", "python "):
+        if normalized.startswith(launcher):
+            python_launcher = launcher.strip()
+            python_args = normalized.removeprefix(launcher)
+            break
+    if python_args == "-m ruff check .":
         return None
-    if normalized.startswith("python3 -m physics_lab.cli validate-repo ."):
+    if python_args.startswith("-m physics_lab.cli validate-repo ."):
         return None
-    if normalized == "python3 -m pytest":
-        return "python3 -m pytest -m full_repo"
-    if normalized.startswith("python3 -m pytest --basetemp="):
-        return command_text.replace("python3 -m pytest", "python3 -m pytest -m full_repo", 1)
-    if normalized.startswith("python3 -m pytest -m 'not full_repo'"):
+    if python_args == "-m pytest":
+        return f"{python_launcher or 'python3'} -m pytest -m full_repo"
+    if python_args.startswith("-m pytest --basetemp="):
+        target = f"{python_launcher or 'python3'} -m pytest"
+        return command_text.replace(target, f"{target} -m full_repo", 1)
+    if python_args.startswith("-m pytest -m 'not full_repo'"):
         return None
-    if normalized.startswith('python3 -m pytest -m "not full_repo"'):
+    if python_args.startswith('-m pytest -m "not full_repo"'):
         return None
     return command_text
 
