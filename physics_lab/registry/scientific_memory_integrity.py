@@ -59,6 +59,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_visualization",
     "scientific_safety_review",
     "scientific_tooling",
+    "scientific_workflow",
     "scientific_validation",
     "schema_extension",
     "scoring_design",
