@@ -1,0 +1,91 @@
+artifact_id: ACLOCK-SRC-ARTIFACT-2016-NEMITZ-RIKEN
+schema_version: 0.1.0
+task_id: TASK-0452
+campaign_profile_id: atomic-clock-residuals
+created_by:
+  contributor_id: roman
+  agent_id: codex
+
+source_locator: https://arxiv.org/abs/1601.04582
+archive_url: https://arxiv.org/pdf/1601.04582
+retrieval_date_utc: 2026-05-30
+checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
+checksum_scope: arxiv_preprint_pdf
+license_or_reuse_notes: |
+  The committed PDF is the arXiv preprint for Nemitz et al. 2016. The arXiv
+  source page exposes a license link and provides a redistributable preprint
+  artifact. The Nature Photonics version-of-record PDF is NOT committed; it is
+  cited by DOI only.
+
+publication_of_record:
+  doi: 10.1038/nphoton.2016.20
+  journal: Nature Photonics
+  volume: 10
+  page: 258
+  year: 2016
+  redistributable_here: false
+  citation_role: primary_citation_only_no_pdf_committed
+  public_page: https://www.nature.com/articles/nphoton.2016.20
+
+authors_short: "Nemitz, N., et al. (RIKEN)"
+
+source_locator_correction:
+  performed: true
+  result: TRIAGE_LOCATOR_CORRECTED
+  notes: |
+    TASK-0403, the accepted proposal, and the prior source_manifest entry named
+    Nemitz 2016 but cited arXiv:1403.5836. That arXiv record is Akamatsu et al.
+    2014, "Frequency ratio measurement of 171Yb and 87Sr optical lattice
+    clocks", Optics Express, not Nemitz et al. 2016 / Nature Photonics. The
+    correct Nemitz 2016 arXiv source is arXiv:1601.04582, whose arXiv page links
+    DOI 10.1038/nphoton.2016.20 and lists the same title/authors as the Nature
+    Photonics paper.
+
+version_check_with_publication_of_record:
+  performed: true
+  performed_on: 2026-05-30
+  performer: "roman via Codex source-gate review"
+  result: PARTIAL_NO_DRIFT_PUBLIC_ABSTRACT_ONLY_ROW_GATE_BLOCKED
+  method: |
+    Compared the arXiv:1601.04582 public abstract/title/authors/DOI metadata and
+    extracted arXiv PDF text against the public Nature Photonics article page.
+    The Nature public page reports the same title, authors, DOI, publication
+    venue, and abstract-level value-bearing ratio statement:
+    R = 1.207507039343337749(55), fractional uncertainty 4.6e-17, and
+    instability 4e-16 (tau/s)^-1/2. The arXiv PDF text reports the same ratio
+    and uncertainty in the abstract and body.
+  blocker: |
+    The public Nature page does not expose the full Table 1 uncertainty budget.
+    Because TASK-0452 requires an arXiv-vs-Nature version-drift verdict before
+    value-bearing rows are committed, the source artifact can be pinned but
+    ACR-0002 rows remain blocked until a maintainer with version-of-record
+    access performs the same table-level comparison used for the Beloy 2021
+    artifact.
+  nature_public_change_history_note: |
+    The Nature page records a 2016-03-15 correction: in the originally published
+    online Letter, a Table 2 column heading "171Yb" was mistakenly included and
+    later corrected. This public correction does not mention the Yb/Sr ratio
+    value or Table 1 uncertainty budget, but it reinforces that row curation
+    needs a table-level version check before values are pinned.
+  not_recheckable_from_committed_artifacts_alone: true
+  required_follow_up: |
+    Maintainer-side Nature Photonics PDF/table comparison against the committed
+    arXiv PDF for all value-bearing and row-defining fields before any
+    data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml rows are added.
+
+arxiv_row_gate_observations:
+  direct_ratio_orientation: "nu_Yb / nu_Sr"
+  ratio_value_visible_in_arxiv: "1.207507039343337749(43)sys(35)stat; abstract shorthand 1.207507039343337749(55)"
+  total_fractional_uncertainty_visible_in_arxiv: 4.6e-17
+  statistical_uncertainty_visible_in_arxiv: 28.6e-18
+  systematic_uncertainty_visible_in_arxiv: 36.0e-18
+  table_1_systematic_components_recoverable_from_arxiv: true
+  clock_transition_labels_visible: "171Yb and 87Sr neutral optical lattice clock 1S0-3P0 transitions"
+  campaign_window_visible: "ten measurements over a period of four months; exact calendar start/end not stated in the extracted arXiv text"
+  row_gate_result: BLOCKED_PENDING_TABLE_LEVEL_VERSION_DRIFT_AND_EPOCH_LOCK
+
+non_goals_of_this_artifact:
+  - "Does not commit Nature Photonics version-of-record PDF."
+  - "Does not add ACR-0002 value-bearing rows because row gates are not fully cleared."
+  - "Does not compare Nemitz 2016 values against Beloy 2021."
+  - "Does not fit drift, derive constants constraints, create prediction entries, or promote claims."

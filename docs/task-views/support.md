@@ -13,7 +13,6 @@
 - `TASK-0440` - Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0460` - Add task-to-campaign lane index (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
-- `TASK-0469` - Make Windows pytest and CLI validation path handling robust (`developer_infrastructure`, priority `high`, difficulty `medium`, domain `repository_validation`)
 
 ## IN_PROGRESS
 
@@ -21,4 +20,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0469` - Make Windows pytest and CLI validation path handling robust (`developer_infrastructure`, priority `high`, difficulty `medium`, domain `repository_validation`)
 - `TASK-0495` - Redirect remaining tasks/ACTIVE.md doc references to task views (B2 step 3) (`maintainer_workflow`, priority `low`, difficulty `medium`, domain `repository_coordination`)

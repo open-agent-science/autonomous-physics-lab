@@ -67,19 +67,19 @@ source_families:
           - single_source_campaign_until_a_second_source_pinned
 
       - source_id: ACLOCK-SRC-CANDIDATE-2016-NEMITZ-RIKEN
-        status: triage_only_no_values
+        status: source_artifact_pinned_rows_blocked
         ratio_set:
           - Yb/Sr
         lab: RIKEN
         epoch_start: null
         epoch_end: null
-        source_locator: https://arxiv.org/abs/1403.5836
-        archive_url: https://arxiv.org/pdf/1403.5836
-        retrieval_date: null
-        checksum_sha256: null
-        checksum_scope: not_yet_retrieved
-        provenance_path: null
-        license_note: arXiv_perpetual_licence_for_future_committed_preprint
+        source_locator: https://arxiv.org/abs/1601.04582
+        archive_url: https://arxiv.org/pdf/1601.04582
+        retrieval_date: 2026-05-30
+        checksum_sha256: 9835ebc240296cdb9a70e94448fb5761292fd1d7146a4f17ed6c22cf497b33ce
+        checksum_scope: arxiv_preprint_pdf
+        provenance_path: data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml
+        license_note: arXiv_perpetual_licence_for_committed_preprint
         publication_of_record:
           doi: 10.1038/nphoton.2016.20
           journal: Nature Photonics
@@ -87,23 +87,27 @@ source_families:
           page: 258
           year: 2016
           redistributable_here: false
-        value_status: metadata_only_no_values
+        value_status: source_artifact_pinned_no_values
         dataset_path: null
         covariance_artifact_path: null
-        readiness_state: CANDIDATE_TRIAGED_SOURCE_INGESTION_BLOCKED
+        readiness_state: SOURCE_ARTIFACT_PINNED_ROWS_BLOCKED
         readiness_evidence:
           - docs/reviews/atomic-second-direct-ratio-source-triage.md
+          - docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md
         triage_role: |
           Strongest direct independent cross-check for the Beloy 2021
           Yb/Sr row (ACR-0001-ROW-003) because the species pair matches
           and the lab is fully independent of the NIST + JILA + NIST
           BACON 2018 campaign. Resolves the candidate-selection step of
           TASK-0401 Blocker 4; ingestion is deferred to a follow-up task.
+        source_locator_correction: |
+          Prior triage text cited arXiv:1403.5836 while naming Nemitz 2016.
+          That arXiv record is Akamatsu et al. 2014, not Nemitz et al. 2016.
+          TASK-0452 pins the corrected Nemitz 2016 arXiv source:
+          arXiv:1601.04582.
         ingestion_blockers:
-          - source_artifact_pdf_not_committed
-          - checksum_sidecar_missing
-          - retrieval_date_unset
-          - arxiv_vs_nature_version_drift_cross_check_pending
+          - table_level_arxiv_vs_nature_version_drift_cross_check_pending
+          - exact_campaign_window_not_locked_from_committed_artifact
           - per_systematic_budget_not_transcribed_under_task_0344
           - transition_labels_epoch_window_not_locked
           - holdout_or_reveal_freeze_manifest_unset
@@ -126,10 +130,11 @@ manifest_global_stop_conditions:
 
 next_actions:
   - description: |
-      Future source-ingestion task should commit the Nemitz 2016 source
-      artifact (arXiv PDF + checksum sidecar + provenance.yaml), then
-      add ACR-0002-NEMITZ-2016-DIRECT-RATIO rows under a fresh dataset
-      id following the TASK-0363/TASK-0371 layout.
+      Future Nemitz row-curation task should complete the table-level
+      arXiv-vs-Nature version-drift comparison and exact campaign-window
+      lock, then add ACR-0002-NEMITZ-2016-DIRECT-RATIO rows under a fresh
+      dataset id following the TASK-0363/TASK-0371 layout if the row gates
+      pass.
     blocking_task: TASK-0403
     enables: TASK-0401_blocker_4_resolution
   - description: |
@@ -153,5 +158,5 @@ promotion_boundary:
 
 global_limitations:
   - "This manifest records source-family status only; pinned values live in their dataset files and pinned provenance lives under data/atomic_clocks/source_artifacts/."
-  - "The Nemitz 2016 entry is triage-only; no PDF, checksum, or row is committed for it by this PR."
+  - "The Nemitz 2016 entry has a pinned arXiv source artifact but no value-bearing rows; ACR-0002 remains blocked pending table-level version-drift and row-readiness gates."
   - "Sandbox-only. Do not ingest values, benchmark, fit drifts, derive constants constraints, or promote claims from this manifest."
