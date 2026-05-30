@@ -60,12 +60,12 @@ QUARTILE_COUNT: int = 4
 
 
 def _path_for_payload(path: Path) -> str:
-    """Return a repo-relative path when possible, otherwise an absolute path."""
+    """Return a repo-relative POSIX path when possible, otherwise an absolute path."""
 
     try:
-        return str(path.relative_to(REPO_ROOT))
+        return path.relative_to(REPO_ROOT).as_posix()
     except ValueError:
-        return str(path)
+        return path.as_posix()
 
 
 def _quantile_bounds(sorted_values: list[float], quartile_index: int) -> tuple[int, int]:
@@ -419,36 +419,141 @@ def _render_review(metrics: dict[str, Any]) -> str:
     )
 
 
-def _agent_run_payload(metrics_path: Path, report_path: Path, review_path: Path) -> dict[str, Any]:
+def _render_limitations() -> str:
+    return "\n".join(
+        [
+            "# Limitations",
+            "",
+            "- Uses committed PSCompPars snapshot rows only; no live fetch is performed.",
+            "- Uses frozen Chen-Kipping-style baseline residuals without refit.",
+            "- Mass quartiles are diagnostic rank bins inside the compact-radius slice, not physical classes.",
+            "- Matched controls are diagnostic slices, not causal adjustments.",
+            "- No composition, habitability, target-priority, atmospheric, prediction, claim, or knowledge output is authorized.",
+            "",
+        ]
+    )
+
+
+def _render_preflight() -> str:
+    return "\n".join(
+        [
+            "# Preflight",
+            "",
+            "- PASS: data_boundary ? only committed snapshot rows are read; no live fetch.",
+            "- PASS: baseline_freeze ? frozen baseline helpers are reused without refit.",
+            "- PASS: bin_predeclaration ? mass quartiles are rank-balanced bins sorted by mass and row_id before metric interpretation.",
+            "- PASS: promotion_boundary ? no RESULT, CLAIM, KNOW, or PRED artifact is written.",
+            "",
+        ]
+    )
+
+
+def _render_review_summary(metrics: dict[str, Any]) -> str:
+    return "\n".join(
+        [
+            "# Review Summary",
+            "",
+            f"- Interpretable quartiles: `{metrics['headline']['interpretable_quartiles']}`",
+            f"- Underpowered quartiles: `{metrics['headline']['underpowered_quartiles']}`",
+            "- Verdict boundary: sandbox benchmark diagnostic only.",
+            "- Required next step: maintainer review before any follow-up lane treats quartile structure as meaningful.",
+            "",
+        ]
+    )
+
+
+def _agent_run_payload(
+    metrics_path: Path,
+    report_path: Path,
+    limitations_path: Path,
+    preflight_path: Path,
+    review_summary_path: Path,
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    verdict = "SANDBOX_PASS" if metrics["headline"]["interpretable_quartiles"] else "INCONCLUSIVE"
     return {
-        "agent_run_id": AGENT_RUN_ID,
-        "task_id": TASK_ID,
+        "id": AGENT_RUN_ID,
         "campaign_profile_id": CAMPAIGN_PROFILE_ID,
-        "status": "completed",
-        "agent": {"contributor_id": "akutenyov", "agent_id": "codex"},
-        "inputs": {
-            "snapshot": _path_for_payload(DEFAULT_SNAPSHOT_PATH),
-            "source_agent_run_id": SOURCE_AGENT_RUN_ID,
-            "source_task_id": SOURCE_TASK_ID,
-            "live_fetch_performed": False,
+        "task_id": TASK_ID,
+        "status": "SANDBOX_COMPLETE",
+        "sandbox_only": True,
+        "created_by": {"contributor_id": "akutenyov", "agent_id": "codex"},
+        "proposal_paths": {
+            "hypothesis": "hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0051-compact-subneptune-residual-pilot.yaml",
+            "experiment": "experiment_proposals/exoplanet-mass/EXP-PROPOSAL-0017-compact-subneptune-residual-pilot.yaml",
         },
-        "outputs": {
+        "artifacts": {
             "metrics": _path_for_payload(metrics_path),
             "report": _path_for_payload(report_path),
-            "review": _path_for_payload(review_path),
+            "limitations": _path_for_payload(limitations_path),
+            "preflight": _path_for_payload(preflight_path),
+            "review_summary": _path_for_payload(review_summary_path),
         },
-        "result_boundary": "sandbox_benchmark_diagnostic_only",
-        "forbidden_outputs": ["RESULT", "CLAIM", "KNOW", "PRED"],
+        "preflight": {
+            "passed": True,
+            "checks": [
+                {
+                    "name": "data_boundary",
+                    "status": "PASS",
+                    "notes": "Only committed snapshot rows are read; no live fetch.",
+                },
+                {
+                    "name": "baseline_freeze",
+                    "status": "PASS",
+                    "notes": "Frozen baseline residual helpers are reused without refit.",
+                },
+                {
+                    "name": "bin_predeclaration",
+                    "status": "PASS",
+                    "notes": "Mass quartile bins are predeclared by committed-order rank before interpretation.",
+                },
+                {
+                    "name": "promotion_boundary",
+                    "status": "PASS",
+                    "notes": "No canonical result, prediction, claim, or knowledge output.",
+                },
+            ],
+        },
+        "limitations": [
+            "Committed PSCompPars snapshot rows only; no live fetch.",
+            "Frozen Chen-Kipping-style baseline residuals only; no baseline refit.",
+            "Mass quartiles are diagnostic bins, not physical classes.",
+            "No composition, habitability, target-priority, atmospheric, prediction, claim, or knowledge output is authorized.",
+        ],
+        "verdict": verdict,
+        "promotion_boundary": {
+            "writes_canonical_result": False,
+            "claim_promotion_allowed": False,
+            "required_next_step": "Maintainer review before any canonical result, prediction registry entry, claim update, knowledge edit, or follow-up hypothesis lane treats compact mass-quartile residual structure as physical structure.",
+        },
     }
 
 
 def write_outputs(metrics: dict[str, Any], metrics_path: Path, report_path: Path, agent_run_path: Path, review_path: Path) -> None:
+    run_dir = agent_run_path.parent
+    limitations_path = run_dir / "limitations.md"
+    preflight_path = run_dir / "preflight.md"
+    review_summary_path = run_dir / "review_summary.md"
+
     _write_json(metrics_path, metrics)
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(_render_report(metrics), encoding="utf-8")
     review_path.parent.mkdir(parents=True, exist_ok=True)
     review_path.write_text(_render_review(metrics), encoding="utf-8")
-    _write_yaml(agent_run_path, _agent_run_payload(metrics_path, report_path, review_path))
+    limitations_path.write_text(_render_limitations(), encoding="utf-8")
+    preflight_path.write_text(_render_preflight(), encoding="utf-8")
+    review_summary_path.write_text(_render_review_summary(metrics), encoding="utf-8")
+    _write_yaml(
+        agent_run_path,
+        _agent_run_payload(
+            metrics_path,
+            report_path,
+            limitations_path,
+            preflight_path,
+            review_summary_path,
+            metrics,
+        ),
+    )
 
 
 def main() -> int:

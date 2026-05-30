@@ -376,7 +376,7 @@
     }
   ],
   "schema_version": "0.1.0",
-  "snapshot_path": "data\\exoplanets\\exo-0001-pscomppars-snapshot.yaml",
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
   "source_agent_run_id": "AGENT-RUN-0042",
   "source_task_id": "TASK-0427",
   "task_id": "TASK-0480"
