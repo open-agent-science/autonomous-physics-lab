@@ -25,7 +25,7 @@ instruction, may perform closeout after merge.
 
 - Set the task file status to `DONE`.
 - Keep closeout PRs YAML-only. Do not regenerate
-  [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md) or
+  [the task views](../task-views/research.md) or
   `docs/task-views/*.md` in the closeout branch; the post-merge
   `Sync Active Board` GitHub Action regenerates them on `main` after the
   closeout merges. Run
@@ -41,7 +41,7 @@ instruction, may perform closeout after merge.
   [../mission-control.md](../mission-control.md), and
   [../next-steps.md](../next-steps.md) against authoritative structured state.
 - Treat public docs sync as check-and-follow-up by default. Routine closeout may
-  update task status, [../../tasks/ACTIVE.md](../../tasks/ACTIVE.md), and
+  update task status, [the task views](../task-views/research.md), and
   `CONTEXT.md`; it should update public narrative docs only when the current
   task explicitly includes public-doc sync. Otherwise update an existing
   docs-sync task or create a follow-up task.

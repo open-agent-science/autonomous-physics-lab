@@ -212,7 +212,7 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```
 
-Active-board synchronization (`tasks/ACTIVE.md` and `docs/task-views/*.md`)
+Generated task-view synchronization (`docs/task-views/*.md`)
 runs automatically via the post-merge `Sync Active Board` GitHub Action;
 agents do not need to commit regenerated versions of those files from a
 micro-task PR. `python3 -m physics_lab.cli sync-active-board .` remains

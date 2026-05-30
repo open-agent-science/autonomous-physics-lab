@@ -111,7 +111,7 @@ Read these first:
 2. Run `python3 scripts/apl_mission.py --output onboarding`
 3. [docs/current-missions.md](./current-missions.md)
 4. [docs/mission-control.md](./mission-control.md)
-5. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+5. [task views](task-views/research.md)
 6. [docs/agent-task-protocol.md](./agent-task-protocol.md)
 7. [docs/agent-catalog.md](./agent-catalog.md)
 
@@ -157,7 +157,7 @@ specific. Keep work sandbox-only and reviewable.
 
 ### 2. Pick One READY Task
 
-Open [tasks/ACTIVE.md](../tasks/ACTIVE.md) and choose one task with:
+Open the [task views](task-views/research.md) and choose one task with:
 
 - `status: READY`
 - atomic scope
@@ -245,7 +245,7 @@ Best first destinations:
 - [docs/results/visual-summary.md](./results/visual-summary.md)
 - [docs/results/koide-campaign-summary.md](./results/koide-campaign-summary.md)
 - [docs/negative-results-registry.md](./negative-results-registry.md)
-- [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+- [task views](task-views/research.md)
 
 These give the agent a better current snapshot than asking it to infer project
 state from old commits.

@@ -20,7 +20,7 @@ Every meaningful change should connect back to one or more of:
 2. Read [docs/agent-task-protocol.md](./agent-task-protocol.md).
 3. Read [docs/status.md](./status.md).
 4. Read [docs/strategy.md](./strategy.md).
-5. Read [tasks/ACTIVE.md](../tasks/ACTIVE.md).
+5. Read the [task views](task-views/research.md).
 6. Read [docs/agent-operating-model.md](./agent-operating-model.md).
 7. Pick one existing `READY` task, benchmark, or documentation gap.
 8. If no existing `READY` task fits, create a task proposal using
@@ -37,11 +37,11 @@ Every meaningful change should connect back to one or more of:
 Do not start task implementation on `main`.
 
 For routine canonical task work, treat the `TASK-*.yaml` file as the source of
-truth for task status. Do not hand-edit `tasks/ACTIVE.md` just to move a task
+truth for task status. Do not hand-edit `docs/task-views/*.md` just to move a task
 between `READY`, `IN_PROGRESS`, `REVIEW_READY`, or `DONE`. The
 `Sync Active Board` GitHub Action regenerates the board snapshot on `main`
 after every push that touches `tasks/**` or `missions/current.yaml`, so
-contributors do not commit the regenerated `tasks/ACTIVE.md` or
+contributors do not commit the regenerated
 `docs/task-views/*.md` from a PR branch.
 
 ## Typical Contribution Types

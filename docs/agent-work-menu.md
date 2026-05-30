@@ -78,7 +78,7 @@ Effort: 15–30 min · Risk: medium · autonomy: agent_can_complete
 
 ### Canonical READY task (low difficulty)
 
-Open [`tasks/ACTIVE.md`](../tasks/ACTIVE.md) and pick any task where:
+Open the [task views](task-views/research.md) and pick any task where:
 - `status: READY`
 - `difficulty: low`
 
@@ -118,7 +118,7 @@ Queue: `tasks/microtasks/particle-mass-relations.yaml` → PMR-003 / PMR-004
 
 ## Navigation
 
-- [tasks/ACTIVE.md](../tasks/ACTIVE.md) — canonical task board
+- [task views](task-views/research.md) — current-work navigation
 - [tasks/microtasks/README.md](../tasks/microtasks/README.md) — all campaign queues
 - [docs/agent-scientific-work-mode.md](./agent-scientific-work-mode.md) — spare-budget mode details
 - [docs/scientific-micro-task-protocol.md](./scientific-micro-task-protocol.md) — queue and batching rules

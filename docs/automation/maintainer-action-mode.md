@@ -133,7 +133,7 @@ ask a clear yes/no merge question, for example `Closeout PR #274 is MERGE_OK
 and CI green. Merge it now?`
 
 A closeout PR is pure closeout bookkeeping only when it changes task status,
-`tasks/ACTIVE.md`, generated context/snapshot files, closeout notes,
+generated `docs/task-views/*.md`, context/snapshot files, closeout notes,
 closeout-agent instructions, directly dependent task unblocks from `BLOCKED` to
 `READY` after explicit prerequisites are satisfied, or stale/superseded task
 closures to `REJECTED` or `SUPERSEDED` after maintainer approval. These stale-task closures are

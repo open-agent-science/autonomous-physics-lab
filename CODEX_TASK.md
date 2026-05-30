@@ -12,7 +12,7 @@ Read these files in order:
 4. `docs/current-missions.md`
 5. `docs/status.md`
 6. `docs/strategy.md`
-7. `tasks/ACTIVE.md`
+7. `docs/task-views/research.md`
 8. `docs/agent-operating-model.md`
 
 Then:

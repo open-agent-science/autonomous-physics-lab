@@ -29,7 +29,7 @@ Good examples:
 - current `main`
 - open PR list
 - canonical task YAML files
-- `tasks/ACTIVE.md`
+- `docs/task-views/*.md`
 - `docs/strategy.md`
 - `docs/roadmap.md`
 - `docs/status.md`

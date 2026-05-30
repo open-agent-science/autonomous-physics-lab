@@ -49,7 +49,7 @@ Use generated task views for live task availability:
 - support lane: `docs/task-views/support.md`;
 - release lane: `docs/task-views/release.md`;
 - blocked lane: `docs/task-views/blocked.md`;
-- full board: `tasks/ACTIVE.md`.
+- current-work views: `docs/task-views/*.md`.
 
 Near-term useful work should prefer:
 
