@@ -98,7 +98,7 @@ entrypoint before choosing a task or microtask.
 - Primary docs:
   - [use-your-agent.md](./use-your-agent.md)
   - [agent-work-menu.md](./agent-work-menu.md)
-  - [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+  - [task views](task-views/research.md)
 
 Status: active and recommended for new contributors.
 
@@ -223,7 +223,7 @@ Read:
 
 1. [use-your-agent.md](./use-your-agent.md)
 2. [agent-task-protocol.md](./agent-task-protocol.md)
-3. [tasks/ACTIVE.md](../tasks/ACTIVE.md)
+3. [task views](task-views/research.md)
 
 ### If you are a coding agent starting normal task work
 

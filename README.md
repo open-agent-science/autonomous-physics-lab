@@ -158,7 +158,7 @@ Useful entrypoints:
 - [Agent Task Protocol](docs/agent-task-protocol.md)
 - [Current Missions](docs/current-missions.md)
 - [Generated Research Task View](docs/task-views/research.md)
-- [Full Task Board](tasks/ACTIVE.md)
+- [Task views](docs/task-views/research.md)
 
 ## Propose A Hypothesis
 

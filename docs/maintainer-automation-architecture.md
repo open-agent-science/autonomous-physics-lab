@@ -120,7 +120,7 @@ Purpose:
 
 This agent should be conservative:
 - do not mark a task `DONE` unless merge is confirmed;
-- do not trust `tasks/ACTIVE.md` alone;
+- do not trust generated `docs/task-views/*.md` alone;
 - always verify canonical task YAML and repository state.
 
 ### 5. Future Specialized Agents
@@ -160,7 +160,7 @@ Depending on mode, inputs may include:
 - selected PR number;
 - selected task id;
 - canonical task YAML files;
-- `tasks/ACTIVE.md`;
+- `docs/task-views/*.md`;
 - `docs/strategy.md`;
 - `docs/roadmap.md`;
 - `docs/status.md`;

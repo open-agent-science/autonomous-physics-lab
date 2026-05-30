@@ -98,7 +98,7 @@ section 3.8 documents agent-owned `/tmp/apl-*` paths. The
 holds the in-process defense-in-depth list. Add new entries there with
 a PR, not by stashing.
 
-Generated task navigation is similar: `tasks/ACTIVE.md` and
+Generated task navigation is similar:
 `docs/task-views/*.md` are derived files. Normal task PRs should not
 commit regenerated board/view updates unless the maintainer explicitly
 asks for a dedicated board-sync or closeout/audit PR. The post-merge
