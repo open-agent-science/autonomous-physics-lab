@@ -61,6 +61,8 @@ one PR.
 - `TASK-0459` — Generate agent capacity board from campaign catalog (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0460` — Add task-to-campaign lane index (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0462` — Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`)
+- `TASK-0469` — Make Windows pytest and CLI validation path handling robust (`developer_infrastructure`, priority `high`, difficulty `medium`)
+- `TASK-0470` — Decide generated board file architecture (`maintainer_workflow`, priority `medium`, difficulty `medium`)
 
 ## IN_PROGRESS
 
@@ -76,6 +78,7 @@ None.
 - `TASK-0465` — Clarify task execution publishes a draft PR (`maintainer_workflow`, priority `high`, difficulty `low`)
 - `TASK-0466` — Reduce agent-flow friction in protocol tooling and validation (`maintainer_workflow`, priority `high`, difficulty `medium`)
 - `TASK-0467` — Improve task-proposal creation tooling and schema errors (`maintainer_workflow`, priority `high`, difficulty `medium`)
+- `TASK-0468` — Triage task-proposal backlog (`maintainer_workflow`, priority `high`, difficulty `low`)
 
 ## DONE RECENTLY
 
