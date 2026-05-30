@@ -74,7 +74,7 @@ required_reading:
   - docs/maintainer-review-agent.md
   - docs/scientific-campaign-curator.md
   - docs/agent-catalog.md
-  - tasks/ACTIVE.md
+  - docs/task-views/research.md
   - missions/current.yaml
 
 typical_activities:

@@ -32,7 +32,6 @@ CORE_FILES: list[tuple[str, str]] = [
     ("Mission Control (Current Phase)", "docs/mission-control.md"),
     ("Agent Task Protocol", "docs/agent-task-protocol.md"),
     ("Agent Scientific Work Mode", "docs/agent-scientific-work-mode.md"),
-    ("Active Task Board", "tasks/ACTIVE.md"),
 ]
 
 EXTENDED_FILES: list[tuple[str, str]] = [

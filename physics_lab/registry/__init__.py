@@ -1,6 +1,5 @@
 """Registry helpers for public scientific memory."""
 
-from physics_lab.registry.active_board import sync_active_board
 from physics_lab.registry.agent_runs import load_agent_run
 from physics_lab.registry.agent_run_pr import build_agent_run_pr_context
 from physics_lab.registry.claims import load_claim
@@ -26,7 +25,6 @@ __all__ = [
     "build_agent_run_pr_context",
     "load_agent",
     "load_agent_run",
-    "sync_active_board",
     "load_claim",
     "load_example_config",
     "load_experiment_proposal",

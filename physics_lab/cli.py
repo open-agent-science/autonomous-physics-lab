@@ -193,8 +193,8 @@ def validate_repo(
         False,
         "--auto-sync",
         help=(
-            "Refresh generated task navigation (tasks/ACTIVE.md and "
-            "docs/task-views/*.md) from canonical task YAML before validating. "
+            "Refresh generated task navigation (docs/task-views/*.md) from "
+            "canonical task YAML before validating. "
             "Opt-in: the default behaviour treats stale navigation as an error."
         ),
     ),
