@@ -1,0 +1,47 @@
+id: TASK-0479
+title: "Run Nuclear training-slice expansion feasibility review"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Investigate whether Nuclear diagnostics are limited by the current small NMD-0002 training slice."
+  - "Separate dataset expansion feasibility from candidate fitting."
+  - "Prepare a source-gated path toward more meaningful controls-first audits."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+  planning_context: >
+    Several Nuclear lanes are underpowered by the 11-row training slice. This
+    task reviews whether a larger curated training slice can be created from
+    already committed source materials without weakening holdout or reveal
+    boundaries.
+
+requirements:
+  - "Do not add new measurement values unless the task can cite an existing committed source artifact and schema path."
+  - "Review current Nuclear data files and identify what expansion would be source-safe."
+  - "Keep post-AME2020 holdout and future reveal boundaries separate from any proposed training expansion."
+  - "Report exact blocker list if expansion is not source-safe."
+  - "Do not run candidate metrics or promote any lane."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-training-slice-expansion-feasibility.md"
+  - "optional task proposal or follow-up recommendation for a source-gated dataset task"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -6,7 +6,7 @@
 
 ## READY
 
-None.
+- `TASK-0484` - Package exoplanet external-reviewer replication capsule (`scientific_communication`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0396` - Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
+None.

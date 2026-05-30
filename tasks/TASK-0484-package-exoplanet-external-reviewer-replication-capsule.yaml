@@ -1,0 +1,46 @@
+id: TASK-0484
+title: "Package exoplanet external-reviewer replication capsule"
+type: scientific_communication
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the strongest exoplanet benchmark surface easy for external scientists to inspect."
+  - "Convert existing deterministic replay evidence into a concise replication guide."
+  - "Improve virality without weakening scientific wording."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/results/exoplanet-compact-radius-benchmark-card.md"
+    - "docs/reviews/exoplanet-compact-radius-independent-replay.md"
+    - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+  planning_context: >
+    Exoplanet is the strongest public-safe benchmark surface. This task
+    packages a minimal external-reviewer replication capsule with commands,
+    expected files, checksums, and limitation wording.
+
+requirements:
+  - "Do not change metrics or scientific verdicts."
+  - "Create a concise replication capsule that points to committed data, runner, metrics, and review notes."
+  - "Include exact local validation/replay commands if available."
+  - "Include forbidden wording and limitation lines."
+  - "Do not promote claims or create RESULT artifacts."
+
+accepted_outputs:
+  - "docs/results/exoplanet-external-reviewer-replication-capsule.md"
+  - "optional link from docs/campaigns/public-science-dashboard.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

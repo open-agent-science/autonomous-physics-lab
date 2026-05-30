@@ -1,0 +1,47 @@
+id: TASK-0493
+title: "Plan Textbook Formula Audit for Stefan-Boltzmann law"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Add a second public-friendly Textbook Formula Audit slice with clear assumptions and units."
+  - "Reuse source and gate discipline before any formula metrics."
+  - "Prepare a bounded audit that can later share data surface with stellar luminosity work if appropriate."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "tasks/TASK-0444-plan-stellar-mass-luminosity-ood-source-baseline.yaml"
+  planning_context: >
+    Stefan-Boltzmann is accessible and linkable, but real stellar data adds
+    radius, temperature, luminosity, extinction, and catalog-selection
+    complications. This task plans the audit surface and decides whether a
+    blackbody exact-reference path or Gaia-style observational slice is safer.
+
+requirements:
+  - "Pin the formula source, units, constants, and validity assumptions."
+  - "Compare candidate data routes: exact-reference blackbody fixture, stellar catalog slice, or both separated."
+  - "Define schema, uncertainty, and holdout requirements for the recommended route."
+  - "Declare verification gates and public wording boundaries."
+  - "Do not run metrics or claim validation/falsification."
+
+accepted_outputs:
+  - "docs/reviews/textbook-stefan-boltzmann-source-baseline-plan.md"
+  - "optional task proposal or experiment proposal for a later audit run"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,7 +1,7 @@
 id: TASK-0467
 title: "Improve task-proposal creation tooling and schema errors"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

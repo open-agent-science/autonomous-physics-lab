@@ -1,0 +1,47 @@
+id: TASK-0478
+title: "Define Nuclear F2 finer-taxonomy preflight"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Avoid repeating the failed TASK-0449 residual-free cluster taxonomy."
+  - "Make any future F2 retry declare a finer taxonomy before metrics."
+  - "Keep high-error cluster work diagnostic unless data coverage improves."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  planning_context: >
+    TASK-0449 showed that the first residual-free F2 taxonomy collapses on the
+    NMD-0002 training slice. This task is a pre-metric protocol: define what a
+    future finer taxonomy would need, and what data-coverage threshold must be
+    met before another F2 scoring task is allowed.
+
+requirements:
+  - "Do not compute candidate metrics."
+  - "Define candidate residual-free feature bins using only Z, N, A, parity, magic distance, and asymmetry."
+  - "Declare minimum training-cell counts and automatic stop conditions."
+  - "List forbidden post-hoc choices that would make the next audit invalid."
+  - "Recommend either a future scoring task, a source/data expansion task, or retirement of F2 until data coverage improves."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-f2-finer-taxonomy-preflight.md"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md if F2 status changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

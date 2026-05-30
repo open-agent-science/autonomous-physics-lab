@@ -1,0 +1,46 @@
+id: TASK-0492
+title: "Plan Textbook Formula Audit for Wien displacement"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Expand Textbook Formula Audit with a highly recognizable, bounded formula slice."
+  - "Create source, baseline, unit, and holdout planning before any metrics."
+  - "Give new agents a science task that is accessible but still verification-first."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Wien displacement is a recognizable textbook formula with clear units and
+    range assumptions. This task creates the source/baseline/holdout plan only;
+    no metrics should run until a later audit task exists.
+
+requirements:
+  - "Pin the formula source and constants convention."
+  - "Identify an admissible open dataset or synthetic exact-reference route for a future audit."
+  - "Define row schema, units, uncertainty expectations, and inclusion/exclusion rules."
+  - "Define verification gates: dimensional consistency, limiting behavior, monotonicity, and range validity."
+  - "Do not run metrics or claim the formula is validated/falsified."
+
+accepted_outputs:
+  - "docs/reviews/textbook-wien-displacement-source-baseline-plan.md"
+  - "optional task proposal or experiment proposal for a later audit run"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

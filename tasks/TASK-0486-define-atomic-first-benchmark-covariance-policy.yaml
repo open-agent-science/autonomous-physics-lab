@@ -1,0 +1,46 @@
+id: TASK-0486
+title: "Define Atomic first-benchmark covariance policy"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Close one of the key Atomic benchmark-readiness blockers without fitting drift."
+  - "Make high-precision uncertainty and covariance assumptions explicit before any Yb/Sr comparison."
+  - "Prevent benchmark metrics from hiding approximate covariance semantics."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml"
+    - "docs/reviews/atomic-clock-covariance-uncertainty-semantics.md"
+    - "tasks/TASK-0455-rerun-atomic-baseline-readiness-gate.yaml"
+  planning_context: >
+    Atomic has a PSD covariance approximation, but the first benchmark needs a
+    declared policy for when covariance is required, approximated, blocked, or
+    reported as sensitivity-only.
+
+requirements:
+  - "Do not compute real benchmark residuals."
+  - "Define covariance handling states for direct rows, shared systematic components, source-derived PSD approximations, and missing covariance."
+  - "State which benchmark outputs are allowed under each covariance state."
+  - "Define stop conditions for overinterpreting high-precision comparisons."
+  - "Do not fit constants drift or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+  - "optional update to docs/campaigns/atomic-clock-residuals.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
