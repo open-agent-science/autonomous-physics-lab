@@ -1,7 +1,7 @@
 id: TASK-0474
 title: "Run Nuclear pairing-asymmetry interaction control lane"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -34,9 +34,9 @@ requirements:
   - "Do not create PRED entries, reveal scores, RESULT artifacts, claims, or knowledge entries."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0046/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0046/metrics.json"
+  - "agent_runs/AGENT-RUN-0046/report.md"
   - "docs/reviews/nuclear-pairing-asymmetry-interaction-control-lane.md"
   - "tests for any reusable runner code"
 
