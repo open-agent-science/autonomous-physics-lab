@@ -1,0 +1,46 @@
+id: TASK-0485
+title: "Triage Atomic second-source fallbacks"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Atomic moving if Nemitz ingestion blocks on source or version-drift gates."
+  - "Avoid single-source dependence before benchmark readiness."
+  - "Preserve blocker reviews as useful source memory."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/TASK-0452-ingest-atomic-nemitz-2016-yb-sr-source.yaml"
+    - "docs/reviews/atomic-second-direct-ratio-source-triage.md"
+    - "data/atomic_clocks/source_manifest.yaml"
+  planning_context: >
+    Nemitz 2016 is the preferred second source, but source artifact or
+    version-drift gates may block ingestion. This task ranks fallback
+    direct-ratio sources without adding value-bearing rows.
+
+requirements:
+  - "Do not add real measurement rows."
+  - "Review candidate fallback sources for direct-ratio status, access path, uncertainty semantics, covariance visibility, and version-drift risk."
+  - "Rank at least three fallback candidates or explain why fewer are admissible."
+  - "Update no source state unless the task can justify a metadata-only manifest entry."
+  - "Do not fit drift, derive constants constraints, create RESULT artifacts, or promote claims."
+
+accepted_outputs:
+  - "docs/reviews/atomic-second-source-fallback-triage.md"
+  - "optional metadata-only update to data/atomic_clocks/source_manifest.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

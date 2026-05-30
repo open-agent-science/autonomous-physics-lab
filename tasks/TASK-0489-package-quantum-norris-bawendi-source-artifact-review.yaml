@@ -1,0 +1,47 @@
+id: TASK-0489
+title: "Package Quantum Norris-Bawendi source artifact review"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Attack the Quantum direct-row blocker through a ranked open-source candidate."
+  - "Preserve source blockers clearly if no admissible table or digitization artifact can be produced."
+  - "Move Quantum toward direct measurement rows without accepting calibration-derived shortcuts."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/TASK-0398-package-norris-bawendi-1996-digitization-preflight.yaml"
+    - "docs/reviews/quantum-open-direct-table-source-triage.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+  planning_context: >
+    Norris-Bawendi 1996 is a ranked direct-source candidate for Quantum. This
+    task packages the source artifact review and either prepares a compliant
+    artifact path or records a blocker.
+
+requirements:
+  - "Do not fabricate row values from memory or prose."
+  - "Commit only redistributable source artifacts, checksums, metadata, or review notes allowed by source policy."
+  - "If no compliant artifact is available, write a blocker review and do not add qd-*.yaml rows."
+  - "Separate direct table values, digitized figure points, and calibration-derived values."
+  - "Do not run baseline metrics or formula search."
+
+accepted_outputs:
+  - "docs/reviews/quantum-norris-bawendi-source-artifact-review.md"
+  - "optional source artifact metadata/checksum under data/quantum_dots/source_artifacts/ if allowed"
+  - "optional source_manifest update if source state changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

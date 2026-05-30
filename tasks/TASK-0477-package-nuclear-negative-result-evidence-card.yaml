@@ -1,0 +1,48 @@
+id: TASK-0477
+title: "Package Nuclear negative-result evidence card"
+type: scientific_communication
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make Nuclear's strongest negative results visible to scientists and future agents."
+  - "Prevent repeated work on falsified or diagnostic-only lanes."
+  - "Improve public-facing scientific memory without promoting claims."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
+    - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    Nuclear currently has scientifically useful negative and inconclusive
+    memory, but the clearest public card is still Exoplanets. This task
+    packages a concise Nuclear evidence card that explains what failed, why it
+    matters, and what remains blocked.
+
+requirements:
+  - "Create a short, linkable evidence card for Nuclear negative/inconclusive memory."
+  - "Include local-curvature no-leakage falsification and TASK-0449 inconclusive residual-free cluster evidence."
+  - "Carry limitation lines: no mass formula, no reveal score, no discovery claim."
+  - "Point future agents away from repeating completed failure modes."
+  - "Do not create or promote claims, knowledge, prediction entries, or RESULT artifacts."
+
+accepted_outputs:
+  - "docs/results/nuclear-negative-result-evidence-card.md or docs/reviews/nuclear-negative-result-evidence-card.md"
+  - "optional update to docs/campaigns/public-science-dashboard.md linking the card"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
