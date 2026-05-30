@@ -33,7 +33,7 @@ maintainer context.
 - Were validation commands run and reported?
 - Did local validation pass before review?
 - Did CI pass before merge?
-- Were generated files such as `tasks/ACTIVE.md` and `CONTEXT.md` synced when
+- Were generated files such as `docs/task-views/*.md` and `CONTEXT.md` synced when
   needed?
 
 ### Scientific Safety

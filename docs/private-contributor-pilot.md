@@ -34,7 +34,7 @@ pip install -e ".[dev]"
 
 ## Pick a Task
 
-Choose one `READY` task from [../tasks/ACTIVE.md](../tasks/ACTIVE.md).
+Choose one `READY` task from [the task views](task-views/research.md).
 If the maintainer asks you to start from an onboarding challenge, choose a
 Level 1, Level 2, or Level 3 item from
 [private-agent-challenge-pack.md](./private-agent-challenge-pack.md) and still
@@ -179,5 +179,5 @@ claim status.
 After merge, the maintainer may use
 [maintainer-review-agent.md](./maintainer-review-agent.md) to confirm that the
 accepted outputs landed in `main`, move the task to `DONE`, update
-[../tasks/ACTIVE.md](../tasks/ACTIVE.md), and record a dry-run note when the PR
+[the task views](task-views/research.md), and record a dry-run note when the PR
 belongs to the private pilot.

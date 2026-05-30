@@ -103,7 +103,7 @@ Every proposal file in a batched PR must still:
 
 - keep `status: PROPOSED`;
 - avoid guessing canonical `TASK-XXXX` ids;
-- avoid touching `tasks/ACTIVE.md` or canonical task files.
+- avoid touching generated `docs/task-views/*.md` or canonical task files.
 
 Maintainer review agents should validate every changed proposal file in the
 batch and run proposal-level repository validation once for the PR. A
@@ -214,7 +214,7 @@ Promotion flow:
 2. Decide whether to accept, reject, or defer it.
 3. If accepted, assign the next available canonical `TASK-XXXX` id.
 4. Create `tasks/TASK-XXXX-<short-slug>.yaml`.
-5. Update `tasks/ACTIVE.md`.
+5. Update the generated `docs/task-views/*.md`.
 6. Optionally update the original proposal file status to `ACCEPTED` and record
    the canonical id, or remove the proposal after the canonical task lands.
 

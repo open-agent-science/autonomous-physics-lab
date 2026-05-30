@@ -21,7 +21,7 @@ Use this checklist during pre-merge maintainer review.
 - Accepted outputs from the task file are present.
 - Missing outputs are explained explicitly.
 - Changed files match the accepted output surface.
-- Routine task PRs do not edit `tasks/ACTIVE.md` unless the task itself is
+- Routine task PRs do not edit generated `docs/task-views/*.md` unless the task itself is
   about board behavior or board-generation workflow.
 
 ## Validation
