@@ -1,0 +1,47 @@
+proposal_id: 20260530-roman-decouple-context-bundle
+title: Decouple the generated CONTEXT.md bundle from the committed tree
+status: PROPOSED
+type: maintainer_workflow
+priority: medium
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+strategy_alignment:
+- Extend the TASK-0470 B2 principle (generated state should not be a committed merge-conflict
+  source) to the last remaining committed generated aggregate.
+- Remove a recurring merge-conflict surface for parallel PRs without losing the single-file
+  context bundle's convenience.
+summary: Decide how to stop the committed generated CONTEXT.md bundle from causing the same
+  merge-conflict / stale-file friction class that TASK-0470/0473 removed for tasks/ACTIVE.md.
+rationale: Decide how to stop the committed generated CONTEXT.md bundle from causing the same
+  merge-conflict / stale-file friction class that TASK-0470/0473 removed for tasks/ACTIVE.md.
+input:
+  mode: planning_only
+  related_domain: repository_coordination
+  related_objects:
+  - CONTEXT.md
+  - scripts/generate_context_bundle.py
+  - docs/notes/generated-task-navigation-architecture-decision.md
+  - .github/workflows/sync-active-board.yml
+  planning_context: 'During the TASK-0494 doc-cleanup PR, the only merge conflict was in the
+    generated CONTEXT.md bundle (main regenerated it at a different timestamp than the branch).
+    CONTEXT.md is a committed, generated aggregation of source docs with no post-merge regeneration
+    Action, so it recreates the exact churn class B2 just retired. This planning task surveys
+    how CONTEXT.md is generated/consumed and recommends one of: generate-on-demand (drop from
+    the committed tree), post-merge Action regeneration like the task views, or committed-but-ephemeral
+    handling.'
+requirements:
+- Survey how CONTEXT.md is generated (scripts/generate_context_bundle.py), what it bundles,
+  who consumes it, and whether anything regenerates it on main.
+- 'Compare options: generate-on-demand (stop committing), post-merge Action regeneration,
+  and committed-but-ephemeral; weigh against the convenience of a single downloadable context
+  file.'
+- Recommend one option and a migration path; do not change CONTEXT.md handling in the proposal
+  PR.
+accepted_outputs:
+- architecture decision note for the CONTEXT.md bundle
+- recommended migration path and optional follow-up task spec
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
