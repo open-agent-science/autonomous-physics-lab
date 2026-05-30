@@ -91,6 +91,12 @@ Current next tasks:
 - `TASK-0452`, `TASK-0453`, and the `TASK-0485` through `TASK-0488` wave are
   the next executable blockers to close before a later baseline-readiness gate
   can honestly run.
+- `TASK-0486` defines the first-benchmark covariance policy:
+  [`docs/reviews/atomic-first-benchmark-covariance-policy.md`](../reviews/atomic-first-benchmark-covariance-policy.md).
+  Exact committed covariance can support correlated diagnostics,
+  source-derived PSD approximations are sensitivity-only, diagonal-only
+  assumptions are exploratory, and shared-systematic ambiguity blocks
+  high-precision interpretation.
 
 `TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
 source-reviewed, but Atomic is not `BASELINE_READY`. The remaining blockers are
