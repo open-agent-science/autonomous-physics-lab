@@ -11,9 +11,6 @@
 - `TASK-0439` - Scaffold Materials Property Residuals campaign (`campaign_scaffold`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0452` - Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0453` - Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0474` - Run Nuclear pairing-asymmetry interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0475` - Run Nuclear magic-parity boundary control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0476` - Run Nuclear isotope-chain leave-family-out audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0477` - Package Nuclear negative-result evidence card (`scientific_communication`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0478` - Define Nuclear F2 finer-taxonomy preflight (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0479` - Run Nuclear training-slice expansion feasibility review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
@@ -37,4 +34,6 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0474` - Run Nuclear pairing-asymmetry interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0475` - Run Nuclear magic-parity boundary control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0476` - Run Nuclear isotope-chain leave-family-out audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
