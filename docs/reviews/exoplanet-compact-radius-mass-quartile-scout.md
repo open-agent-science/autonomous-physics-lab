@@ -1,7 +1,7 @@
 # Exoplanet Compact-Radius Mass-Quartile Scout Review
 
 **Task:** `TASK-0480`  
-**Agent run:** `AGENT-RUN-0046`  
+**Agent run:** `AGENT-RUN-0049`  
 **Verdict boundary:** sandbox benchmark diagnostic only
 
 ## Summary
@@ -33,7 +33,7 @@ This scout may identify benchmark substructure or negative/control-sensitive mem
 ## Output Routing
 
 - Task verdict: sandbox benchmark diagnostic only
-- Canonical destination: `agent_runs/AGENT-RUN-0046/` and `docs/reviews/exoplanet-compact-radius-mass-quartile-scout.md`
+- Canonical destination: `agent_runs/AGENT-RUN-0049/` and `docs/reviews/exoplanet-compact-radius-mass-quartile-scout.md`
 - Review tier: none
 - Gate A status: not attempted
 - Gate B status: not attempted
