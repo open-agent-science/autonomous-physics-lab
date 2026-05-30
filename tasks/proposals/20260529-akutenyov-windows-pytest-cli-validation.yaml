@@ -1,6 +1,6 @@
 proposal_id: 20260529-akutenyov-windows-pytest-cli-validation
 title: "Make Windows pytest and CLI validation path handling robust"
-status: PROPOSED
+status: ACCEPTED
 type: developer_infrastructure
 priority: medium
 
@@ -79,9 +79,9 @@ validation:
     - "python -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0469
+  decision: accepted
   notes: >
-    If accepted, maintainer should assign a canonical TASK-XXXX id and convert
-    this proposal into a task file. The resulting task should remain separate
-    from TASK-0446 so the checksum provenance PR stays narrow and reviewable.
+    Accepted as TASK-0469 during the proposal backlog triage sweep. The
+    resulting task remains separate from TASK-0446 so checksum provenance and
+    Windows validation hardening stay independently reviewable.

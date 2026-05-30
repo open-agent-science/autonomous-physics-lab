@@ -1,0 +1,51 @@
+id: TASK-0468
+title: "Triage task-proposal backlog"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the proposal backlog useful for maintainers, strategist agents, and Scientific Campaign Director runs."
+  - "Move already-accepted or superseded proposal records out of the active PROPOSED pool without executing large follow-up work in the same PR."
+  - "Create clear canonical follow-up tasks only for proposal items that are still current and immediately useful."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "tasks/proposals/"
+    - "docs/task-proposal-protocol.md"
+    - "scripts/apl_proposal_pr_helper.py"
+  planning_context: >
+    After the proposal helper landed, the repository had 26 task-proposal files:
+    four already ACCEPTED and twenty-two still PROPOSED. Several PROPOSED
+    records were historical artifacts whose canonical tasks had already landed,
+    while two recent infrastructure proposals were current enough to promote
+    into explicit follow-up tasks. This sweep updates proposal status/promotion
+    metadata only; it does not implement the proposed work.
+
+requirements:
+  - "Mark proposal files as ACCEPTED only when a canonical task already exists or is added in this PR."
+  - "Mark proposal files as SUPERSEDED only when a newer canonical task or campaign scaffold clearly covers the same intent."
+  - "Leave genuinely long-horizon ideas as PROPOSED rather than forcing premature rejection."
+  - "Create canonical follow-up task specs for the current Windows validation and generated-board architecture proposals."
+  - "Do not edit generated task views or tasks/ACTIVE.md from this PR."
+  - "Do not promote claims or scientific results."
+
+accepted_outputs:
+  - "updated tasks/proposals/*.yaml status and promotion metadata"
+  - "tasks/TASK-0469-make-windows-pytest-cli-validation-robust.yaml"
+  - "tasks/TASK-0470-decide-generated-board-file-architecture.yaml"
+  - "tasks/TASK-0468-triage-task-proposal-backlog.yaml"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_task_proposals.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

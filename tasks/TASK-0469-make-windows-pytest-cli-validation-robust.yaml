@@ -1,0 +1,54 @@
+id: TASK-0469
+title: "Make Windows pytest and CLI validation path handling robust"
+type: developer_infrastructure
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce false-negative validation failures for Windows contributors and agents."
+  - "Keep strict validation semantics intact while making path and interpreter handling deterministic."
+  - "Separate local environment issues from scientific task verdicts."
+
+input:
+  mode: workflow
+  related_domain: repository_validation
+  related_objects:
+    - "tasks/proposals/20260529-akutenyov-windows-pytest-cli-validation.yaml"
+    - "tests/test_validate_repo_auto_sync.py"
+    - "tests/test_review_git.py"
+    - "tests/test_active_board.py"
+    - "pyproject.toml"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    TASK-0446 surfaced Windows-specific validation friction: PermissionError
+    [WinError 5] during full-suite pytest when temporary paths were created near
+    the checkout, and subprocess failures when tests relied on a bare `python`
+    launcher instead of the active interpreter. This task should make those
+    paths deterministic without disabling tests or relaxing repository
+    validation.
+
+requirements:
+  - "Audit tests and helpers that create temporary repositories, worktrees, generated task views, agent runs, or result artifacts."
+  - "Ensure those tests use pytest tmp_path/tmp_path_factory or another external temporary directory rather than repository-root-derived accidental paths."
+  - "Replace ambiguous subprocess `python` invocations with sys.executable or another active-interpreter-safe path where appropriate."
+  - "Do not skip Windows tests broadly; any platform-specific skip must be narrow and justified."
+  - "Do not relax strict repository validation to hide real repository errors."
+  - "Preserve Linux/macOS behavior and existing CI expectations."
+
+accepted_outputs:
+  - "tests or helper changes that remove Windows temp-path false failures"
+  - "subprocess invocation fixes using the active Python interpreter where needed"
+  - "short protocol note if the standard Windows validation command changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
