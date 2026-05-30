@@ -1,0 +1,62 @@
+id: TASK-0494
+title: "Refresh campaign pages after next science wave"
+type: campaign_status_refresh
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep public campaign pages aligned with the newly merged READY science wave."
+  - "Make the current multi-campaign research frontier easy for scientists and agents to inspect."
+  - "Point agents toward reviewable science outputs without promoting claims."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "docs/campaigns/README.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "tasks/TASK-0474-run-nuclear-pairing-asymmetry-interaction-control-lane.yaml"
+    - "tasks/TASK-0493-plan-textbook-stefan-boltzmann-audit.yaml"
+  planning_context: >
+    PR #663 seeded TASK-0474 through TASK-0493 as the next cross-campaign
+    science wave. Campaign pages should no longer imply that the previous
+    wave is the only active research frontier. They should surface the new
+    Nuclear, Exoplanet, Atomic, Quantum, and Textbook Formula Audit work while
+    preserving conservative claim boundaries.
+
+requirements:
+  - "Update campaign-facing pages to point at the current READY science wave."
+  - "Keep Nuclear negative/control-dominated memory visible and avoid discovery wording."
+  - "Keep Exoplanet wording benchmark-only; do not infer composition or habitability."
+  - "Keep Atomic and Quantum source-gated; do not imply benchmark readiness where gates are still open."
+  - "Keep Textbook Formula Audit framed as verifier-first public science, not universal formula judgment."
+  - "Do not create RESULT, PRED, CLAIM, or KNOW artifacts."
+  - "Do not commit generated docs/task-views/*.md files."
+
+accepted_outputs:
+  - "docs/campaigns/README.md"
+  - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/campaigns/exoplanet-mass-radius.md"
+  - "docs/campaigns/atomic-clock-residuals.md"
+  - "docs/campaigns/quantum-size-effects.md"
+  - "docs/campaigns/textbook-formula-audit.md"
+  - "this task file"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
