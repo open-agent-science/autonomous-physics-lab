@@ -11,7 +11,6 @@
 - `TASK-0423` - Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `maintainer_review`)
 - `TASK-0432` - Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0440` - Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `agent_capacity`)
-- `TASK-0459` - Generate agent capacity board from campaign catalog (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0460` - Add task-to-campaign lane index (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
 - `TASK-0469` - Make Windows pytest and CLI validation path handling robust (`developer_infrastructure`, priority `high`, difficulty `medium`, domain `repository_validation`)

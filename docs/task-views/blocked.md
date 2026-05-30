@@ -21,5 +21,6 @@
 
 - `TASK-0276` - Package quantum-size baseline residual visuals (`documentation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
+- `TASK-0459` - Generate agent capacity board from campaign catalog (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0461` - Add lane collision preflight for parallel agent work (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0463` - Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`, domain `snapshot_tooling`)
