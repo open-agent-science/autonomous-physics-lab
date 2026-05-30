@@ -36,7 +36,6 @@ from scripts.run_exoplanet_compact_subneptune_matched_control_audit import (  # 
     _mass_value,
     _per_class_median_control_residuals,
     _per_class_median_residuals,
-    _radius_value,
     _residual_map,
     _residual_values,
     _row_has_true_mass_and_transit_radius,
@@ -58,6 +57,15 @@ DEFAULT_REVIEW_PATH = REPO_ROOT / "docs" / "reviews" / "exoplanet-compact-radius
 
 COMPACT_RADIUS_THRESHOLD_REARTH: float = 1.5
 QUARTILE_COUNT: int = 4
+
+
+def _path_for_payload(path: Path) -> str:
+    """Return a repo-relative path when possible, otherwise an absolute path."""
+
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
 
 
 def _quantile_bounds(sorted_values: list[float], quartile_index: int) -> tuple[int, int]:
@@ -104,10 +112,6 @@ def _quartile_specs(compact_entries: list[dict[str, Any]]) -> list[dict[str, Any
             }
         )
     return specs
-
-
-def _row_ids_predicate(row_ids: set[str]):
-    return lambda row: row["row_id"] in row_ids
 
 
 def _nearest_mass_outside_compact_control(
@@ -304,7 +308,7 @@ def build_metrics(snapshot_path: Path) -> dict[str, Any]:
         "campaign_profile_id": CAMPAIGN_PROFILE_ID,
         "source_task_id": SOURCE_TASK_ID,
         "source_agent_run_id": SOURCE_AGENT_RUN_ID,
-        "snapshot_path": str(snapshot_path.relative_to(REPO_ROOT)),
+        "snapshot_path": _path_for_payload(snapshot_path),
         "live_fetch_performed": False,
         "baseline_refit_performed": False,
         "compact_radius_threshold_Rearth": COMPACT_RADIUS_THRESHOLD_REARTH,
@@ -423,15 +427,15 @@ def _agent_run_payload(metrics_path: Path, report_path: Path, review_path: Path)
         "status": "completed",
         "agent": {"contributor_id": "akutenyov", "agent_id": "codex"},
         "inputs": {
-            "snapshot": str(DEFAULT_SNAPSHOT_PATH.relative_to(REPO_ROOT)),
+            "snapshot": _path_for_payload(DEFAULT_SNAPSHOT_PATH),
             "source_agent_run_id": SOURCE_AGENT_RUN_ID,
             "source_task_id": SOURCE_TASK_ID,
             "live_fetch_performed": False,
         },
         "outputs": {
-            "metrics": str(metrics_path.relative_to(REPO_ROOT)),
-            "report": str(report_path.relative_to(REPO_ROOT)),
-            "review": str(review_path.relative_to(REPO_ROOT)),
+            "metrics": _path_for_payload(metrics_path),
+            "report": _path_for_payload(report_path),
+            "review": _path_for_payload(review_path),
         },
         "result_boundary": "sandbox_benchmark_diagnostic_only",
         "forbidden_outputs": ["RESULT", "CLAIM", "KNOW", "PRED"],
