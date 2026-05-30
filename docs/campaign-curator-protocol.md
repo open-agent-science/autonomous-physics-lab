@@ -65,7 +65,7 @@ For a campaign, read the relevant subset of:
 - `docs/current-missions.md`
 - `campaign_profiles/`
 - `docs/campaigns/`
-- `tasks/ACTIVE.md`
+- `docs/task-views/research.md`
 - `tasks/TASK-*.yaml`
 - `hypothesis_proposals/`
 - `experiment_proposals/`
@@ -166,7 +166,7 @@ Allowed actions in that case:
 
 - create canonical `tasks/TASK-XXXX-*.yaml` files;
 - update task dependencies and statuses for the newly created tasks;
-- synchronize `tasks/ACTIVE.md`;
+- synchronize `docs/task-views/*.md`;
 - explain why each task belongs in the next campaign cycle.
 
 Required constraints:

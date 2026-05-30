@@ -53,7 +53,7 @@ the artifact:
   evidence reference;
 - list those companion updates in `accepted_outputs` so review automation can
   distinguish intended scope from accidental protected-artifact drift;
-- do not commit regenerated `tasks/ACTIVE.md` or `docs/task-views/*.md` for
+- do not commit regenerated `docs/task-views/*.md` for
   routine task status transitions, and remove local generated diffs before
   producing the review bundle.
 

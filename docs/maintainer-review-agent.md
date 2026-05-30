@@ -74,7 +74,7 @@ flowchart TD
     G --> H["Post-merge closeout helper verifies\nmerged PR, outputs, CI, and blockers"]
     H --> I{Closeout ready?}
     I -->|"No"| J["Report blocker\nno task status promotion"]
-    I -->|"Yes"| K["Maintainer closeout PR may set task DONE\nand optionally sync ACTIVE.md"]
+    I -->|"Yes"| K["Maintainer closeout PR may set task DONE\nand optionally sync task views"]
     K --> L["Maintainer reviews and merges closeout PR"]
 ```
 
@@ -250,7 +250,7 @@ This mode supports:
    unless the maintainer explicitly requested queue triage, unblock, closeout,
    or stale-task cleanup.
    Task-queue PRs do not need to commit generated navigation; the post-merge
-   `Sync Active Board` GitHub Action regenerates `tasks/ACTIVE.md` and
+   `Sync Active Board` GitHub Action regenerates
    `docs/task-views/*.md` on `main`.
 6. The changed files match the task or proposal scope and accepted outputs.
 7. Validation commands are reported.
@@ -276,7 +276,7 @@ This mode supports:
 17. Salvaged ideas from stale PRs should appear in a clean replacement
     `propose-task-...` PR rather than being patched onto a generic or
     mixed-context branch.
-18. Task-queue PRs should sync `tasks/ACTIVE.md` and must not change canonical
+18. Task-queue PRs should sync `docs/task-views/*.md` and must not change canonical
     scientific artifacts such as claims, hypotheses, experiments, results, or
     knowledge.
 19. Missing result-publication tooling, source provenance, or replay support
@@ -445,8 +445,7 @@ Use this mode only after the maintainer has already merged the PR.
 - in normal operation, **do not** run
   `python3 -m physics_lab.cli sync-active-board .` from the closeout PR;
   the post-merge `Sync Active Board` GitHub Action regenerates
-  ([../tasks/ACTIVE.md](../tasks/ACTIVE.md),
-  [./task-views/research.md](./task-views/research.md),
+  ([./task-views/research.md](./task-views/research.md),
   [./task-views/support.md](./task-views/support.md), and
   [./task-views/release.md](./task-views/release.md)) automatically on
   `main` after the closeout merges. Run the command by hand only for
@@ -482,7 +481,7 @@ Use this mode only after the maintainer has already merged the PR.
   queue hygiene, not a required closeout step
 
 Pure closeout bookkeeping means task status transitions, generated task
-navigation (`tasks/ACTIVE.md` plus `docs/task-views/*.md`), generated
+navigation (`docs/task-views/*.md`), generated
 context/snapshot files, closeout notes, dependent-task unblocks, optional
 stale-task closures, and closeout-agent instructions. Do not
 auto-merge closeout PRs that touch claims, results, experiments, hypotheses,
@@ -548,7 +547,7 @@ Default behavior:
   docs drift checklist for `README.md`, `docs/status.md`,
   `docs/mission-control.md`, and `docs/next-steps.md`
 - closeout helpers may automatically update task status, generated task
-  navigation (`tasks/ACTIVE.md` and `docs/task-views/*.md`), and `CONTEXT.md`;
+  navigation (`docs/task-views/*.md`), and `CONTEXT.md`;
   they should treat public narrative docs as check-and-follow-up surfaces
   unless an explicit docs-sync task authorizes editing them
 - after applying closeout edits, the helper should remind the operator to
@@ -595,7 +594,7 @@ python3 scripts/apl_task_closeout_check.py --task TASK-XXXX
 ```
 
 This helper is intentionally lightweight. It reports the task file path, task
-status, `tasks/ACTIVE.md` presence, accepted outputs, warnings, and suggested
+status, accepted outputs, warnings, and suggested
 closeout actions. It does not edit files.
 
 Use `--suggest` for additional closeout suggestions without applying changes.
@@ -634,7 +633,7 @@ drift that should be reviewed before PR merge or closeout.
 Run this after:
 - merging several tasks in a batch;
 - updating `docs/strategy.md` or `docs/mission-control.md`;
-- significant changes to `tasks/ACTIVE.md` beyond a routine board sync.
+- significant changes to generated `docs/task-views/*.md` beyond a routine board sync.
 
 ## Maintainer Prompts
 

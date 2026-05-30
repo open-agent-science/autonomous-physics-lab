@@ -13,7 +13,7 @@ Use it for:
 Use [implementation-plan.md](./implementation-plan.md)
 for the broader phased strategy.
 
-Use [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+Use [the task views](task-views/research.md)
 for the live task board and actual claimable work.
 
 Use [backlog.md](./backlog.md)
@@ -401,7 +401,7 @@ Always keep these files aligned when priorities change:
 
 - [status.md](./status.md)
 - [strategy.md](./strategy.md)
-- [../tasks/ACTIVE.md](../tasks/ACTIVE.md)
+- [task views](task-views/research.md)
 - [public-release-gates.md](./public-release-gates.md)
 - [private-contributor-pilot.md](./private-contributor-pilot.md)
 

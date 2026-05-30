@@ -1,0 +1,51 @@
+id: TASK-0474
+title: "Redirect remaining tasks/ACTIVE.md doc references to task views (B2 step 3)"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: low
+
+strategy_alignment:
+  - "Finish the TASK-0470 B2 retirement: remove the residual prose/link references to the deleted tasks/ACTIVE.md across documentation."
+  - "Avoid broken markdown links (404 on GitHub) and stale claims that ACTIVE.md still exists."
+  - "Point readers to docs/task-views/* (current work), apl_mission.py (agent entry), and git log (history)."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "docs/notes/generated-task-navigation-architecture-decision.md"
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/mission-control.md"
+  planning_context: >
+    TASK-0473 deleted tasks/ACTIVE.md, fixed the code/tests/Action and the
+    link-checked and canonical doc surfaces. This step-3 PR is pure
+    documentation hygiene: redirect the remaining ~60 prose and markdown-link
+    references to tasks/ACTIVE.md across lower-traffic docs (runbooks,
+    checklists, release notes, automation docs) to docs/task-views/*,
+    apl_mission.py, or git log. Generated files (CONTEXT.md, docs/task-views/*)
+    are regenerated, not hand-edited; the architecture decision note keeps its
+    intentional references to the retired board.
+
+requirements:
+  - "Replace broken markdown links [tasks/ACTIVE.md](...) with links to docs/task-views/* or remove the list item where redundant."
+  - "Update prose that claims tasks/ACTIVE.md exists or is regenerated to reference docs/task-views/* (and git log for history)."
+  - "Do not hand-edit generated files (CONTEXT.md, docs/task-views/*); regenerate CONTEXT.md instead."
+  - "Keep the architecture decision note's intentional references to the retired board."
+  - "Do not change code behavior or promote any claim."
+
+accepted_outputs:
+  - "documentation reference redirects across affected docs"
+  - "regenerated CONTEXT.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

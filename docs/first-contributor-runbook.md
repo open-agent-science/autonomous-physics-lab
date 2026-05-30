@@ -43,11 +43,11 @@ Read these files in order:
 2. `docs/agent-task-protocol.md`
 3. `docs/status.md`
 4. `docs/strategy.md`
-5. `tasks/ACTIVE.md`
+5. `docs/task-views/research.md`
 
 ## 5) Pick one READY task
 
-Choose one atomic task from the `READY` section in `tasks/ACTIVE.md`.
+Choose one atomic task from the `READY` section in `docs/task-views/research.md`.
 Do not start multiple tasks in one branch.
 
 ## 6) Create a task branch
@@ -123,7 +123,7 @@ Example:
 - Create and activate `.venv`.
 - Install `.[dev]` dependencies.
 - Read `AGENTS.md` and `docs/agent-task-protocol.md`.
-- Pick one `READY` task from `tasks/ACTIVE.md`.
+- Pick one `READY` task from `docs/task-views/research.md`.
 - Create branch with the required naming pattern.
 - Run quick validation.
 - Run full required validation before PR handoff.
