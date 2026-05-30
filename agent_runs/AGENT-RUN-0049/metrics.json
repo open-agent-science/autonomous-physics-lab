@@ -1,0 +1,609 @@
+{
+  "agent_run_id": "AGENT-RUN-0049",
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "compact_slice_reproduction": {
+    "anchor": "CSN-001_compact_slice",
+    "anchor_count": 92,
+    "anchor_log10_rmse": 0.26335002767665594,
+    "count_delta": 0,
+    "current_count": 92,
+    "current_log10_rmse": 0.2633500276766559,
+    "log10_rmse_delta": -5.551115123125783e-17,
+    "reproduces_anchor": true,
+    "tolerance": 1e-09
+  },
+  "compact_slice_stats": {
+    "count": 92,
+    "log10_bias": -0.1468365058346739,
+    "log10_mae": 0.16246699197558523,
+    "log10_median": -0.06732674148138831,
+    "log10_rmse": 0.2633500276766559
+  },
+  "data_boundary": {
+    "baseline_refit_performed": false,
+    "bins_predeclared_before_metrics": true,
+    "live_external_fetch_performed": false,
+    "minimum_mass_rows_in_headline_metrics": false,
+    "true_mass_axis_primary": true
+  },
+  "diagnostics": {
+    "compact_uncertainty_band_counts": {
+      "loose_gt15pct": 22,
+      "moderate_5_15pct": 45,
+      "tight_le5pct": 25
+    },
+    "per_class_medians_log10_residual": {
+      "jovian": -0.00958761212169612,
+      "neptunian": -0.05518168228072785,
+      "terran": 0.007781633939265037
+    }
+  },
+  "eligible_reproduction": {
+    "anchor": "eligible_true_mass",
+    "anchor_count": 1207,
+    "anchor_log10_rmse": 0.15817019267448623,
+    "count_delta": 0,
+    "current_count": 1207,
+    "current_log10_rmse": 0.15817019267448623,
+    "log10_rmse_delta": 0.0,
+    "reproduces_anchor": true,
+    "tolerance": 1e-09
+  },
+  "eligible_true_mass_stats": {
+    "count": 1207,
+    "log10_bias": -0.04084365240259168,
+    "log10_mae": 0.10442982096618053,
+    "log10_median": -0.02540307663185465,
+    "log10_rmse": 0.15817019267448623
+  },
+  "loader_summary": {
+    "compact_slice_count": 92,
+    "eligible_true_mass_with_transit_radius": 1207,
+    "outside_compact_count": 1115,
+    "post_filter_included_count": 4301,
+    "pre_filter_included_count": 6157,
+    "total_rows": 6291
+  },
+  "partitions": [
+    {
+      "bins": [
+        {
+          "bin_id": "Q1",
+          "bin_stats": {
+            "count": 23,
+            "log10_bias": -0.039884521686213904,
+            "log10_mae": 0.07120200311490231,
+            "log10_median": 0.005705364062188134,
+            "log10_rmse": 0.13605384325110495
+          },
+          "classification": {
+            "adverse_control": null,
+            "delta_log10_rmse_bin_minus_adverse_control": null,
+            "delta_log10_rmse_bin_minus_eligible": -0.022116349423381282,
+            "explanation": "Bin has 23 rows (< 30); no residual interpretation is allowed at this resolution.",
+            "interpretable": false,
+            "outcome": "under_minimum_bin",
+            "verdict": "INCONCLUSIVE"
+          },
+          "controls": {
+            "nearest_mass_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's log mass; if the bin's residual stress is mass-position driven, this cohort should rise toward the bin RMSE.",
+              "kind": "matched_cohort",
+              "label": "nearest_mass_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": 0.0675415106899434,
+                "log10_mae": 0.0836438975095516,
+                "log10_median": 0.0584440716713293,
+                "log10_rmse": 0.11073443728569768
+              },
+              "status": "underpowered"
+            },
+            "nearest_radius_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's radius; tests whether the residual stress is driven by radius position rather than compact-slice membership.",
+              "kind": "matched_cohort",
+              "label": "nearest_radius_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.12148859738720619,
+                "log10_mae": 0.13351040844400147,
+                "log10_median": -0.06614977797717331,
+                "log10_rmse": 0.18976574947278538
+              },
+              "status": "underpowered"
+            },
+            "per_class_median": {
+              "interpretation": "Per-class median residual shift on the bin's own rows; controls for CK17 mass-class bias but is not an independent row slice.",
+              "kind": "residual_shift",
+              "label": "per_class_median",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.047666155625478934,
+                "log10_mae": 0.0700388422941674,
+                "log10_median": -0.002076269877076903,
+                "log10_rmse": 0.13853496159948414
+              },
+              "status": "underpowered"
+            },
+            "sample_size_random_outside_compact": {
+              "interpretation": "Deterministic seeded same-size random draw from eligible rows with R/Re >= 1.5; expected to sit near the eligible RMSE by construction.",
+              "kind": "sample_size_matched_random",
+              "label": "sample_size_random_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.04862093759515829,
+                "log10_mae": 0.08115027814904707,
+                "log10_median": -0.006692179745989124,
+                "log10_rmse": 0.14907122817201957
+              },
+              "status": "underpowered"
+            }
+          },
+          "delta_log10_rmse_bin_minus_compact_slice": -0.12729618442555093,
+          "mass_edges": {
+            "mass_max_mearth": 1.48,
+            "mass_min_mearth": 0.07
+          },
+          "uncertainty_band_counts": {
+            "loose_gt15pct": 5,
+            "moderate_5_15pct": 10,
+            "tight_le5pct": 8
+          }
+        },
+        {
+          "bin_id": "Q2",
+          "bin_stats": {
+            "count": 23,
+            "log10_bias": -0.020849435441754476,
+            "log10_mae": 0.05205389857671139,
+            "log10_median": -0.001050778794820434,
+            "log10_rmse": 0.08678735588519271
+          },
+          "classification": {
+            "adverse_control": null,
+            "delta_log10_rmse_bin_minus_adverse_control": null,
+            "delta_log10_rmse_bin_minus_eligible": -0.07138283678929352,
+            "explanation": "Bin has 23 rows (< 30); no residual interpretation is allowed at this resolution.",
+            "interpretable": false,
+            "outcome": "under_minimum_bin",
+            "verdict": "INCONCLUSIVE"
+          },
+          "controls": {
+            "nearest_mass_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's log mass; if the bin's residual stress is mass-position driven, this cohort should rise toward the bin RMSE.",
+              "kind": "matched_cohort",
+              "label": "nearest_mass_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": 0.0675415106899434,
+                "log10_mae": 0.0836438975095516,
+                "log10_median": 0.0584440716713293,
+                "log10_rmse": 0.11073443728569768
+              },
+              "status": "underpowered"
+            },
+            "nearest_radius_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's radius; tests whether the residual stress is driven by radius position rather than compact-slice membership.",
+              "kind": "matched_cohort",
+              "label": "nearest_radius_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.12148859738720619,
+                "log10_mae": 0.13351040844400147,
+                "log10_median": -0.06614977797717331,
+                "log10_rmse": 0.18976574947278538
+              },
+              "status": "underpowered"
+            },
+            "per_class_median": {
+              "interpretation": "Per-class median residual shift on the bin's own rows; controls for CK17 mass-class bias but is not an independent row slice.",
+              "kind": "residual_shift",
+              "label": "per_class_median",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.003993249990587519,
+                "log10_mae": 0.054085689273438285,
+                "log10_median": 0.01483663580150757,
+                "log10_rmse": 0.0861128680397872
+              },
+              "status": "underpowered"
+            },
+            "sample_size_random_outside_compact": {
+              "interpretation": "Deterministic seeded same-size random draw from eligible rows with R/Re >= 1.5; expected to sit near the eligible RMSE by construction.",
+              "kind": "sample_size_matched_random",
+              "label": "sample_size_random_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.04862093759515829,
+                "log10_mae": 0.08115027814904707,
+                "log10_median": -0.006692179745989124,
+                "log10_rmse": 0.14907122817201957
+              },
+              "status": "underpowered"
+            }
+          },
+          "delta_log10_rmse_bin_minus_compact_slice": -0.17656267179146318,
+          "mass_edges": {
+            "mass_max_mearth": 2.44,
+            "mass_min_mearth": 1.54
+          },
+          "uncertainty_band_counts": {
+            "loose_gt15pct": 8,
+            "moderate_5_15pct": 11,
+            "tight_le5pct": 4
+          }
+        },
+        {
+          "bin_id": "Q3",
+          "bin_stats": {
+            "count": 23,
+            "log10_bias": -0.1261071466358926,
+            "log10_mae": 0.1261071466358926,
+            "log10_median": -0.08718971371567237,
+            "log10_rmse": 0.17265605946469456
+          },
+          "classification": {
+            "adverse_control": null,
+            "delta_log10_rmse_bin_minus_adverse_control": null,
+            "delta_log10_rmse_bin_minus_eligible": 0.01448586679020833,
+            "explanation": "Bin has 23 rows (< 30); no residual interpretation is allowed at this resolution.",
+            "interpretable": false,
+            "outcome": "under_minimum_bin",
+            "verdict": "INCONCLUSIVE"
+          },
+          "controls": {
+            "nearest_mass_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's log mass; if the bin's residual stress is mass-position driven, this cohort should rise toward the bin RMSE.",
+              "kind": "matched_cohort",
+              "label": "nearest_mass_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": 0.04259002351964867,
+                "log10_mae": 0.06890052103319422,
+                "log10_median": 0.026442051064844097,
+                "log10_rmse": 0.10104732003205759
+              },
+              "status": "underpowered"
+            },
+            "nearest_radius_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's radius; tests whether the residual stress is driven by radius position rather than compact-slice membership.",
+              "kind": "matched_cohort",
+              "label": "nearest_radius_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.12148859738720619,
+                "log10_mae": 0.13351040844400147,
+                "log10_median": -0.06614977797717331,
+                "log10_rmse": 0.18976574947278538
+              },
+              "status": "underpowered"
+            },
+            "per_class_median": {
+              "interpretation": "Per-class median residual shift on the bin's own rows; controls for CK17 mass-class bias but is not an independent row slice.",
+              "kind": "residual_shift",
+              "label": "per_class_median",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.07092546435516475,
+                "log10_mae": 0.08384991723321242,
+                "log10_median": -0.03200803143494453,
+                "log10_rmse": 0.1376136763960086
+              },
+              "status": "underpowered"
+            },
+            "sample_size_random_outside_compact": {
+              "interpretation": "Deterministic seeded same-size random draw from eligible rows with R/Re >= 1.5; expected to sit near the eligible RMSE by construction.",
+              "kind": "sample_size_matched_random",
+              "label": "sample_size_random_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.04862093759515829,
+                "log10_mae": 0.08115027814904707,
+                "log10_median": -0.006692179745989124,
+                "log10_rmse": 0.14907122817201957
+              },
+              "status": "underpowered"
+            }
+          },
+          "delta_log10_rmse_bin_minus_compact_slice": -0.09069396821196132,
+          "mass_edges": {
+            "mass_max_mearth": 4.28,
+            "mass_min_mearth": 2.46
+          },
+          "uncertainty_band_counts": {
+            "loose_gt15pct": 5,
+            "moderate_5_15pct": 15,
+            "tight_le5pct": 3
+          }
+        },
+        {
+          "bin_id": "Q4",
+          "bin_stats": {
+            "count": 23,
+            "log10_bias": -0.4005049195748346,
+            "log10_mae": 0.4005049195748346,
+            "log10_median": -0.35549338665570607,
+            "log10_rmse": 0.47070175274197384
+          },
+          "classification": {
+            "adverse_control": null,
+            "delta_log10_rmse_bin_minus_adverse_control": null,
+            "delta_log10_rmse_bin_minus_eligible": 0.3125315600674876,
+            "explanation": "Bin has 23 rows (< 30); no residual interpretation is allowed at this resolution.",
+            "interpretable": false,
+            "outcome": "under_minimum_bin",
+            "verdict": "INCONCLUSIVE"
+          },
+          "controls": {
+            "nearest_mass_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's log mass; if the bin's residual stress is mass-position driven, this cohort should rise toward the bin RMSE.",
+              "kind": "matched_cohort",
+              "label": "nearest_mass_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.0037247859863064553,
+                "log10_mae": 0.11615664948404271,
+                "log10_median": -0.037408477140811525,
+                "log10_rmse": 0.15851410561028792
+              },
+              "status": "underpowered"
+            },
+            "nearest_radius_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's radius; tests whether the residual stress is driven by radius position rather than compact-slice membership.",
+              "kind": "matched_cohort",
+              "label": "nearest_radius_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.12148859738720619,
+                "log10_mae": 0.13351040844400147,
+                "log10_median": -0.06614977797717331,
+                "log10_rmse": 0.18976574947278538
+              },
+              "status": "underpowered"
+            },
+            "per_class_median": {
+              "interpretation": "Per-class median residual shift on the bin's own rows; controls for CK17 mass-class bias but is not an independent row slice.",
+              "kind": "residual_shift",
+              "label": "per_class_median",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.3453232372941067,
+                "log10_mae": 0.3453232372941067,
+                "log10_median": -0.30031170437497823,
+                "log10_rmse": 0.42474002359796925
+              },
+              "status": "underpowered"
+            },
+            "sample_size_random_outside_compact": {
+              "interpretation": "Deterministic seeded same-size random draw from eligible rows with R/Re >= 1.5; expected to sit near the eligible RMSE by construction.",
+              "kind": "sample_size_matched_random",
+              "label": "sample_size_random_outside_compact",
+              "stats": {
+                "count": 23,
+                "log10_bias": -0.04862093759515829,
+                "log10_mae": 0.08115027814904707,
+                "log10_median": -0.006692179745989124,
+                "log10_rmse": 0.14907122817201957
+              },
+              "status": "underpowered"
+            }
+          },
+          "delta_log10_rmse_bin_minus_compact_slice": 0.20735172506531796,
+          "mass_edges": {
+            "mass_max_mearth": 99.2,
+            "mass_min_mearth": 4.3
+          },
+          "uncertainty_band_counts": {
+            "loose_gt15pct": 4,
+            "moderate_5_15pct": 9,
+            "tight_le5pct": 10
+          }
+        }
+      ],
+      "description": "Predeclared primary partition: 4 equal-count contiguous bins of the compact slice ordered by ascending true mass. Headline scout question (mass-subrange localization) is decided on this partition.",
+      "id": "mass_quartile",
+      "interpretable_bin_count": 0,
+      "n_bins": 4,
+      "partition_outcome": "underpowered_no_interpretable_bin",
+      "role": "primary",
+      "survivor_bin_ids": []
+    },
+    {
+      "bins": [
+        {
+          "bin_id": "H1",
+          "bin_stats": {
+            "count": 46,
+            "log10_bias": -0.030366978563984192,
+            "log10_mae": 0.06162795084580683,
+            "log10_median": 0.004575114887548318,
+            "log10_rmse": 0.11411111559558809
+          },
+          "classification": {
+            "adverse_control": "sample_size_random_outside_compact",
+            "delta_log10_rmse_bin_minus_adverse_control": -0.06145693223984733,
+            "delta_log10_rmse_bin_minus_eligible": -0.04405907707889814,
+            "explanation": "bin log10 RMSE = 0.11411111559558809; eligible log10 RMSE = 0.15817019267448623; adverse control = sample_size_random_outside_compact (log10 RMSE = 0.17556804783543542); margin = 0.022.",
+            "interpretable": true,
+            "outcome": "residual_below_eligible",
+            "verdict": "INCONCLUSIVE"
+          },
+          "controls": {
+            "nearest_mass_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's log mass; if the bin's residual stress is mass-position driven, this cohort should rise toward the bin RMSE.",
+              "kind": "matched_cohort",
+              "label": "nearest_mass_outside_compact",
+              "stats": {
+                "count": 46,
+                "log10_bias": 0.0565248724851938,
+                "log10_mae": 0.07597329049156158,
+                "log10_median": 0.04629142544242003,
+                "log10_rmse": 0.10073674132499703
+              },
+              "status": "usable_control"
+            },
+            "nearest_radius_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's radius; tests whether the residual stress is driven by radius position rather than compact-slice membership.",
+              "kind": "matched_cohort",
+              "label": "nearest_radius_outside_compact",
+              "stats": {
+                "count": 46,
+                "log10_bias": -0.11021723894711741,
+                "log10_mae": 0.12554862120900576,
+                "log10_median": -0.09073311732549495,
+                "log10_rmse": 0.16396566489647801
+              },
+              "status": "usable_control"
+            },
+            "per_class_median": {
+              "interpretation": "Per-class median residual shift on the bin's own rows; controls for CK17 mass-class bias but is not an independent row slice.",
+              "kind": "residual_shift",
+              "label": "per_class_median",
+              "stats": {
+                "count": 46,
+                "log10_bias": -0.02582970280803323,
+                "log10_mae": 0.06206226578380285,
+                "log10_median": 0.0021245831247505287,
+                "log10_rmse": 0.11534158319402493
+              },
+              "status": "usable_control"
+            },
+            "sample_size_random_outside_compact": {
+              "interpretation": "Deterministic seeded same-size random draw from eligible rows with R/Re >= 1.5; expected to sit near the eligible RMSE by construction.",
+              "kind": "sample_size_matched_random",
+              "label": "sample_size_random_outside_compact",
+              "stats": {
+                "count": 46,
+                "log10_bias": -0.06414814605039065,
+                "log10_mae": 0.09829226200197727,
+                "log10_median": -0.02304006297139438,
+                "log10_rmse": 0.17556804783543542
+              },
+              "status": "usable_control"
+            }
+          },
+          "delta_log10_rmse_bin_minus_compact_slice": -0.1492389120810678,
+          "mass_edges": {
+            "mass_max_mearth": 2.44,
+            "mass_min_mearth": 0.07
+          },
+          "uncertainty_band_counts": {
+            "loose_gt15pct": 13,
+            "moderate_5_15pct": 21,
+            "tight_le5pct": 12
+          }
+        },
+        {
+          "bin_id": "H2",
+          "bin_stats": {
+            "count": 46,
+            "log10_bias": -0.26330603310536355,
+            "log10_mae": 0.26330603310536355,
+            "log10_median": -0.21341688747181542,
+            "log10_rmse": 0.3545209830914402
+          },
+          "classification": {
+            "adverse_control": "per_class_median",
+            "delta_log10_rmse_bin_minus_adverse_control": 0.03881414789680199,
+            "delta_log10_rmse_bin_minus_eligible": 0.19635079041695397,
+            "explanation": "bin log10 RMSE = 0.3545209830914402; eligible log10 RMSE = 0.15817019267448623; adverse control = per_class_median (log10 RMSE = 0.3157068351946382); margin = 0.022.",
+            "interpretable": true,
+            "outcome": "residual_stress_above_eligible_and_controls",
+            "verdict": "SANDBOX_PASS"
+          },
+          "controls": {
+            "nearest_mass_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's log mass; if the bin's residual stress is mass-position driven, this cohort should rise toward the bin RMSE.",
+              "kind": "matched_cohort",
+              "label": "nearest_mass_outside_compact",
+              "stats": {
+                "count": 46,
+                "log10_bias": 0.020049157355519865,
+                "log10_mae": 0.09314512384746722,
+                "log10_median": 0.011339914249144697,
+                "log10_rmse": 0.13311181475940084
+              },
+              "status": "usable_control"
+            },
+            "nearest_radius_outside_compact": {
+              "interpretation": "Eligible rows with R/Re >= 1.5 greedily matched to each bin row's radius; tests whether the residual stress is driven by radius position rather than compact-slice membership.",
+              "kind": "matched_cohort",
+              "label": "nearest_radius_outside_compact",
+              "stats": {
+                "count": 46,
+                "log10_bias": -0.11021723894711741,
+                "log10_mae": 0.12554862120900576,
+                "log10_median": -0.09073311732549495,
+                "log10_rmse": 0.16396566489647801
+              },
+              "status": "usable_control"
+            },
+            "per_class_median": {
+              "interpretation": "Per-class median residual shift on the bin's own rows; controls for CK17 mass-class bias but is not an independent row slice.",
+              "kind": "residual_shift",
+              "label": "per_class_median",
+              "stats": {
+                "count": 46,
+                "log10_bias": -0.20812435082463576,
+                "log10_mae": 0.2145865772636596,
+                "log10_median": -0.15823520519108758,
+                "log10_rmse": 0.3157068351946382
+              },
+              "status": "usable_control"
+            },
+            "sample_size_random_outside_compact": {
+              "interpretation": "Deterministic seeded same-size random draw from eligible rows with R/Re >= 1.5; expected to sit near the eligible RMSE by construction.",
+              "kind": "sample_size_matched_random",
+              "label": "sample_size_random_outside_compact",
+              "stats": {
+                "count": 46,
+                "log10_bias": -0.06414814605039065,
+                "log10_mae": 0.09829226200197727,
+                "log10_median": -0.02304006297139438,
+                "log10_rmse": 0.17556804783543542
+              },
+              "status": "usable_control"
+            }
+          },
+          "delta_log10_rmse_bin_minus_compact_slice": 0.09117095541478432,
+          "mass_edges": {
+            "mass_max_mearth": 99.2,
+            "mass_min_mearth": 2.46
+          },
+          "uncertainty_band_counts": {
+            "loose_gt15pct": 9,
+            "moderate_5_15pct": 24,
+            "tight_le5pct": 13
+          }
+        }
+      ],
+      "description": "Predeclared coarse fallback partition: 2 equal-count contiguous bins by ascending true mass. Reported as a supporting diagnostic when the quartile resolution is underpowered; does not drive the headline verdict.",
+      "id": "mass_half",
+      "interpretable_bin_count": 2,
+      "n_bins": 2,
+      "partition_outcome": "localized_residual_stress_in_subrange",
+      "role": "fallback_diagnostic",
+      "survivor_bin_ids": [
+        "H2"
+      ]
+    }
+  ],
+  "reproduction_status": "match",
+  "scout_outcome": "compact_slice_underpowered_for_mass_quartile_localization",
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "source_slice": {
+    "definition": "compact true-mass/transit-radius rows with R/Re < 1.5",
+    "id": "CSN-001",
+    "source_agent_run_id": "AGENT-RUN-0042",
+    "source_task_id": "TASK-0427"
+  },
+  "task_id": "TASK-0480",
+  "thresholds": {
+    "compact_radius_threshold_rearth": 1.5,
+    "control_margin_log10_rmse": 0.022,
+    "min_bin_row_count": 30,
+    "random_outside_seed": 20260530,
+    "reproduction_tolerance": 1e-09
+  },
+  "verdict": "INCONCLUSIVE"
+}
