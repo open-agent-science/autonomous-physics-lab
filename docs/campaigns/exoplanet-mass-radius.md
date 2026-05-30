@@ -33,9 +33,10 @@ scorecard verdict is `BENCHMARK_SUMMARY_ONLY`.
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** `TASK-0446` should close the normalized-snapshot checksum
-gap. The second-snapshot no-live-fetch protocol, independent compact-slice
-replay, and public-safe evidence card are now reviewable campaign memory.
+**Active next work:** the `TASK-0480`-`TASK-0484` wave hardens the current
+benchmark surface: compact-radius mass-quartile scout, host-context preflight,
+second-snapshot target freeze, null-baseline family audit, and an external
+reviewer replication capsule. All work stays no-live-fetch and benchmark-only.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -72,8 +73,9 @@ Current scientific reading:
 - `TASK-0427`, `TASK-0404`, `TASK-0393`, `TASK-0445`, and `TASK-0447` are the
   current exoplanet visibility spine: matched-control audit, benchmark-summary
   scorecard, second-snapshot no-live-fetch protocol, independent replay, and a
-  public-safe evidence card. They do not promote claims, knowledge, predictions,
-  or canonical results.
+- `TASK-0470`-era visibility work is now campaign memory, and `TASK-0480`
+  through `TASK-0484` are the current benchmark-hardening wave. They do not
+  promote claims, knowledge, predictions, or canonical results.
 
 `TASK-0337` created the first source and schema surface before any agent runs
 metrics:

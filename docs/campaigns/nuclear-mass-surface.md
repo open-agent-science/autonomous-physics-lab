@@ -30,16 +30,17 @@ campaign.
 frozen prospective registry against future measurements, and should not
 describe shell-axis or local-curvature evidence as discovery-level physics.
 
-**Active next work:** `TASK-0428` packages local-curvature as
-negative/inconclusive memory, `TASK-0396` keeps reveal-source readiness
-separate from retrospective audits, and any new controls-first Nuclear lane
-must be disjoint from the already-landed `TASK-0449` through `TASK-0451`
-negative/control-dominated memory.
+**Active next work:** the `TASK-0474`-`TASK-0479` wave reopens Nuclear only
+through bounded, controls-first surfaces: pairing-asymmetry interaction,
+magic-parity boundary controls, isotope-chain leave-family-out transfer,
+negative evidence packaging, F2 taxonomy preflight, and training-slice
+feasibility. These tasks must stay disjoint from the already-landed
+`TASK-0449` through `TASK-0451` negative/control-dominated memory.
 
-**Expected next result:** a clean negative/preflight package for
-local-curvature, a reveal-readiness artifact, or a maintainer-approved fresh
-controls-first lane that does not repeat the high-error cluster,
-neutron-rich boundary transfer, or magic-distance interaction failures.
+**Expected next result:** either a new disjoint hypothesis-lane verdict that
+survives predeclared controls, or a clean negative/preflight package that
+prevents another weak Nuclear loop. Reveal scoring remains separate and
+source-gated.
 
 ## Orientation Note for New Contributors
 

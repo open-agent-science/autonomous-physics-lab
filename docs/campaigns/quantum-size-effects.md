@@ -31,9 +31,11 @@ APL refusing to score a model against weak provenance.
 new material law, and no device, synthesis, biomedical, or design claim.
 
 **Active next work:** `TASK-0398` packages the Norris-Bawendi 1996
-digitization preflight, `TASK-0400` verifies the Kang-Wise 1997 PbS direct
-source path, and `TASK-0336` stays blocked until an approved source artifact
-exists.
+digitization preflight, `TASK-0489` reviews the Norris-Bawendi source artifact
+path, `TASK-0490` dry-runs the figure-digitization fixture on synthetic data,
+and `TASK-0491` defines the go/no-go scorecard for any weaker
+calibration-consistency benchmark. `TASK-0336` stays blocked until an approved
+source artifact exists or the scope is explicitly rewritten.
 
 **Expected next result:** either a source artifact that unlocks direct row
 curation or a blocker review that prevents another weak source path from being
