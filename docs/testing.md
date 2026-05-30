@@ -10,9 +10,10 @@ python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 ```
 
-Pytest uses the workspace-local `.pytest-basetemp/` directory by default. This
-keeps `tmp_path` based tests stable on Windows systems where the user-level
-temporary directory is locked down.
+Normal pytest runs use the operating system temporary directory for `tmp_path`
+fixtures and disable pytest's cache provider. This keeps Windows validation
+from writing test scratch state into a repository checkout that may be locked by
+Git, antivirus, or another agent session.
 
 ## Coverage Reporting
 
@@ -49,9 +50,9 @@ On Windows PowerShell, use the same helper with the active environment's Python:
 python scripts\apl_coverage_report.py
 ```
 
-The helper uses `.pytest-basetemp/` as the temporary base by default so coverage
-runs stay stable on Windows systems where the user-level temporary directory is
-locked down. To pass additional pytest selectors, append them after `--`:
+The helper uses `.pytest-basetemp/` as a dedicated temporary base by default so
+coverage runs can be inspected without mixing with ordinary pytest scratch
+state. To pass additional pytest selectors, append them after `--`:
 
 ```bash
 python3 scripts/apl_coverage_report.py -- tests/test_maintainer_review.py
