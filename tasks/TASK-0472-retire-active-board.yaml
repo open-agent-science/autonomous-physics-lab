@@ -1,0 +1,54 @@
+id: TASK-0472
+title: "Decouple task closeout from tasks/ACTIVE.md (B2 step 1)"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "First of two PRs implementing the TASK-0470 B2 decision to retire tasks/ACTIVE.md."
+  - "Make canonical task YAML status the single source of truth for closeout, so ACTIVE.md is no longer load-bearing and can be deleted safely in step 2."
+  - "Keep ACTIVE.md generation and the file intact in this PR so the repository stays green."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "docs/notes/generated-task-navigation-architecture-decision.md"
+    - "physics_lab/registry/task_closeout.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "physics_lab/registry/closeout_pr_helper.py"
+    - "scripts/apl_closeout_task.py"
+    - "scripts/apl_closeout_pr_helper.py"
+  planning_context: >
+    TASK-0470 decided B2 (retire tasks/ACTIVE.md; no agent or human consumer).
+    Audit found ACTIVE.md is woven into the closeout subsystem: closeout reads
+    it (find_task_in_active_board / ActiveBoardMatch) and writes it
+    (update_active_board_for_done), so the file cannot be deleted until closeout
+    stops depending on it. This step-1 PR removes that coupling — closeout uses
+    canonical YAML status only; ACTIVE.md regeneration stays owned by the
+    post-merge Action. Step 2 (separate PR) deletes the file, its generation,
+    and redirects the docs.
+
+requirements:
+  - "Remove the only hard ACTIVE.md read-dependency in closeout (find_task_in_active_board, ActiveBoardMatch, the active_board_match report field and its rendering, the board-presence/section warnings, and the now-unused section patterns); closeout decisions rely on canonical task YAML status."
+  - "Keep ACTIVE.md generation, the file, repository staleness checks, and task-view generation unchanged in this PR. update_active_board_for_done and the closeout-helper include_active_board flag are NOT read-dependencies (they only invoke the generator / annotate a checklist) and are handled in step 2 together with generation removal."
+  - "Update closeout tests accordingly; keep the rest of the closeout behavior (status transition, public-state docs checklist) intact."
+  - "Do not delete tasks/ACTIVE.md or change docs links in this PR; do not promote any claim."
+
+accepted_outputs:
+  - "physics_lab/registry/task_closeout.py"
+  - "closeout test updates"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "python3 -m pytest tests/test_docs_links.py"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
