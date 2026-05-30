@@ -1,0 +1,174 @@
+freeze_id: EXO-SECOND-SNAPSHOT-TARGET-FREEZE-0001
+schema_version: 0.1.0
+task_id: TASK-0482
+campaign_profile_id: exoplanet-mass-radius
+status: rule_frozen_no_future_values
+created_by:
+  contributor_id: roman
+  agent_id: codex
+
+scope:
+  purpose: |
+    Pre-reveal target-freeze rule for a future second PSCompPars snapshot.
+    This file selects targets only by rules applied to the committed EXO-0001
+    snapshot and does not fetch, inspect, summarize, or score future catalog
+    data.
+  future_data_values_included: false
+  live_fetch_allowed: false
+  prediction_registry_allowed: false
+  claim_promotion_allowed: false
+
+source_inputs:
+  first_snapshot_path: data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+  query_contract_path: data/exoplanets/snapshot_plans/pscomppars_query.adql
+  no_live_fetch_protocol_path: docs/exoplanet-second-snapshot-no-live-fetch-protocol.md
+  protocol_review_path: docs/reviews/exoplanet-second-snapshot-protocol-review.md
+
+identity_key:
+  primary: pl_name
+  secondary_context:
+    - hostname
+    - discoverymethod
+    - disc_year
+  matching_rule: |
+    The future reveal must match second-snapshot rows to this frozen target
+    surface by exact `pl_name` first. `hostname`, `discoverymethod`, and
+    `disc_year` are audit context for renamed, split, or merged rows; they do
+    not authorize post-reveal target substitution.
+
+target_axes:
+  true_mass_transit_radius:
+    description: |
+      Rows from the committed first snapshot with a recoverable planet radius
+      and a mass-provenance label indicating true mass rather than minimum
+      mass or model-derived mass.
+    required_fields:
+      - pl_name
+      - hostname
+      - pl_rade
+      - pl_radeerr1
+      - pl_radeerr2
+      - pl_bmasse
+      - pl_bmasseerr1
+      - pl_bmasseerr2
+      - pl_bmassprov
+    mass_provenance_rule: |
+      Include only committed first-snapshot rows whose `pl_bmassprov` can be
+      mapped before reveal to a true-mass class. Ambiguous, missing,
+      model-derived, or minimum-mass provenance is excluded from this axis.
+    frozen_membership_rule: |
+      Membership is determined from EXO-0001 only. A future second snapshot may
+      update comparable field values for the same frozen `pl_name`, but it may
+      not add new planets to this axis after reveal.
+
+  minimum_mass_transit_radius:
+    description: |
+      Rows from the committed first snapshot with a recoverable planet radius
+      and a mass-provenance label indicating `M sin i` or equivalent minimum
+      mass semantics.
+    required_fields:
+      - pl_name
+      - hostname
+      - pl_rade
+      - pl_radeerr1
+      - pl_radeerr2
+      - pl_bmasse
+      - pl_bmasseerr1
+      - pl_bmasseerr2
+      - pl_bmassprov
+    mass_provenance_rule: |
+      Include only committed first-snapshot rows whose `pl_bmassprov` can be
+      mapped before reveal to a minimum-mass class. True-mass, ambiguous,
+      missing, or model-derived provenance is excluded from this axis.
+    frozen_membership_rule: |
+      Membership is determined from EXO-0001 only. This axis must be scored and
+      reported separately from the true-mass axis, including row counts and
+      blockers.
+
+field_comparison_contract:
+  identity_and_provenance:
+    - pl_name
+    - hostname
+    - default_flag
+    - soltype
+    - pl_refname
+    - st_refname
+    - disc_refname
+  planet_observables:
+    - pl_rade
+    - pl_radeerr1
+    - pl_radeerr2
+    - pl_radj
+    - pl_bmasse
+    - pl_bmasseerr1
+    - pl_bmasseerr2
+    - pl_bmassj
+    - pl_bmassprov
+    - pl_dens
+  orbital_and_context_fields:
+    - pl_orbper
+    - pl_orbsmax
+    - pl_orbeccen
+    - pl_eqt
+    - pl_insol
+    - discoverymethod
+    - disc_year
+  host_context_fields:
+    - st_spectype
+    - st_teff
+    - st_tefferr1
+    - st_tefferr2
+    - st_rad
+    - st_mass
+    - st_met
+    - st_meterr1
+    - st_meterr2
+    - st_age
+    - st_logg
+    - sy_dist
+
+exclusion_rules:
+  - rule_id: EXO-FREEZE-EXCLUDE-001
+    rule: "Exclude rows not present in the committed EXO-0001 snapshot."
+  - rule_id: EXO-FREEZE-EXCLUDE-002
+    rule: "Exclude rows with missing `pl_name` or no exact future-row identity match."
+  - rule_id: EXO-FREEZE-EXCLUDE-003
+    rule: "Exclude rows whose first-snapshot radius or mass field required for the selected axis is missing."
+  - rule_id: EXO-FREEZE-EXCLUDE-004
+    rule: "Exclude rows with mass-provenance semantics that cannot be mapped before reveal to true-mass or minimum-mass."
+  - rule_id: EXO-FREEZE-EXCLUDE-005
+    rule: "Exclude model-derived mass rows from both reveal axes unless a later pre-reveal amendment creates a separate model-derived diagnostic axis."
+  - rule_id: EXO-FREEZE-EXCLUDE-006
+    rule: "Exclude rows whose future source schema cannot map the frozen required fields without a pre-reveal amendment."
+
+reveal_conditions:
+  - "A maintainer approves the exact source URL, query artifact, acquisition actor, storage path, and checksum method before acquisition."
+  - "The future second snapshot uses the committed ADQL query contract or a separately merged pre-reveal amendment."
+  - "Raw and normalized future artifacts receive SHA-256 checksums before scoring."
+  - "No benchmark metric, eligible slice, threshold, target axis, or mass-provenance mapping changes after future row inspection."
+  - "True-mass and minimum-mass axes remain separate in row counts, metrics, blockers, and wording."
+  - "Newly appearing planets in the second snapshot may be reported as context only; they are not part of the frozen target set."
+
+blocker_conditions:
+  - "Future snapshot retrieval lacks timestamp, checksum, row count, or no-peek attestation."
+  - "The future query differs from the frozen query without a merged pre-reveal amendment."
+  - "Required fields are renamed, removed, or semantically changed without a deterministic pre-reveal mapping."
+  - "A target row changes mass-provenance class in a way that cannot be resolved without inspecting future values."
+  - "Either target axis collapses below a pre-declared sample-size floor in the future reveal task."
+  - "Any post-reveal analysis attempts to mix true-mass and minimum-mass rows into one headline metric."
+
+promotion_boundary:
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  knowledge_promotion_allowed: false
+  required_next_step: |
+    A later maintainer-approved second-snapshot acquisition task may compute
+    the concrete frozen target list from EXO-0001, record its row count, and
+    pin future raw/normalized artifacts. This file alone does not authorize
+    acquisition or scoring.
+
+limitations:
+  - "This is a rule freeze rather than an enumerated target-list artifact."
+  - "Exact `pl_bmassprov` label mapping must be resolved from committed EXO-0001 rows before any future reveal scoring."
+  - "The normalized EXO-0001 checksum gap noted by the promotion scorecard remains outside this task."
