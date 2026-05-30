@@ -8,10 +8,11 @@ The short version:
 
 - **Current flagship:** Nuclear Mass Surface.
 - **Most shareable current benchmark surface:** Exoplanet Mass-Radius.
-- **Fresh-data buildout:** Quantum Size Effects and Atomic-Clock Residuals
-  (now pinned-dataset, not benchmark-ready).
-- **Candidate new lanes:** Textbook Formula Audit and Materials Property
-  Residuals, pending source/baseline scaffolds.
+- **Fresh-data buildout:** Atomic-Clock Residuals and Quantum Size Effects
+  (source-gated; Atomic has pinned rows, Quantum still needs direct rows).
+- **Public verifier lane:** Textbook Formula Audit.
+- **Candidate new lanes:** Materials Property Residuals, pending
+  source/baseline scaffolds.
 - **Quality floor:** Pendulum, Dimensional Analysis, and Particle Mass
   Relations.
 - **Planning/watchlist:** Fresh Physics Data Axes, Anomaly Registry, and
@@ -40,10 +41,10 @@ campaign map or `missions/current.yaml`.
 
 | Campaign | Current maturity | Best next contribution |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, no-leakage policy, shell-axis diagnostic-only decision, local-curvature no-leakage falsification, and `TASK-0449` residual-free high-error cluster inconclusive evidence. | `TASK-0428` local-curvature negative/preflight packaging, `TASK-0396` reveal-readiness reporting, `TASK-0450` neutron-rich boundary transfer, or `TASK-0451` magic-distance interaction controls. |
-| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, CK17-style baseline, residual/failure map, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` promotion scorecard. | `TASK-0445` Gate B replay, `TASK-0393` second-snapshot protocol, `TASK-0446` checksum cleanup, or `TASK-0447` public-safe evidence card. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds, direct-source triage, and source-artifact intake path exist; measurement-grade baseline remains blocked. | APS direct-table source artifact, deterministic digitization/table path, or readiness-gate update after a direct seed. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy 2021 pinned direct rows, source-derived covariance approximation, and Nemitz 2016 second-source candidate. | `TASK-0452` Nemitz ingestion, `TASK-0453` real-row loader, `TASK-0454` holdout/no-peek manifest, then `TASK-0455` baseline-readiness gate. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, no-leakage policy, shell-axis diagnostic-only decision, local-curvature no-leakage falsification, and several negative/control-dominated residual lanes. | The `TASK-0474`-`TASK-0479` wave: two disjoint controls-first hypothesis lanes, isotope-chain leave-family-out audit, negative evidence card, F2 taxonomy preflight, and training-slice feasibility review. |
+| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, CK17-style baseline, residual/failure map, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` promotion scorecard. | The `TASK-0480`-`TASK-0484` wave: compact-radius quartile scout, host-context preflight, second-snapshot target freeze, null-baseline audit, and external reviewer replication capsule. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds, direct-source triage, and source-artifact intake path exist; measurement-grade baseline remains blocked. | `TASK-0398`, `TASK-0489`, `TASK-0490`, and `TASK-0491`: source artifact review, synthetic digitization dry-run, and go/no-go criteria for any weaker calibration-consistency benchmark. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy 2021 pinned direct rows, source-derived covariance approximation, and Nemitz 2016 second-source candidate. | `TASK-0452`, `TASK-0453`, `TASK-0485`, `TASK-0486`, `TASK-0487`, and `TASK-0488`: second-source ingestion/fallbacks, loader, covariance policy, direct-vs-derived separation, and synthetic dry-run before baseline readiness. |
 
 These four are the main public-facing surfaces today. They should be presented
 as disciplined research infrastructure, not as finished discoveries.
@@ -66,7 +67,7 @@ the newer campaigns can be stricter.
 | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) | Planning and source-policy layer. | Source-policy review or manifest-only triage for less-saturated data axes. |
 | [Anomaly Registry](./anomaly-registry.md) | Schema/admissibility scaffold, not a joint-fit campaign. | Schema validation, admissibility examples, or synthetic-only likelihood contracts. |
 | [Thought-Experiment Consistency](./thought-experiment-consistency.md) | Planning active, no canonical benchmark run yet. | Scoped scenario planning and deterministic validator design. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed (TASK-0438): campaign page, profile, candidate slate, and first follow-up task proposal (Stellar Mass-Luminosity OOD audit source/baseline planning). | Audit famous formulas by source, range, assumptions, baseline, holdout, and OOD failure modes; do not frame as "checking all of physics." Start the first audit slice by accepting the Stellar M-L source/baseline planning proposal. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Scaffold landed (TASK-0438), Stellar M-L planning exists, and first public-verifier follow-ups are queued. | `TASK-0492` and `TASK-0493` plan Wien displacement and Stefan-Boltzmann audits; keep them source/baseline/holdout-first before any metrics. |
 | Materials Property Residuals | Candidate scaffold task pending. | Source-manifest, schema, pinned snapshot, and baseline planning before any property-residual modeling. |
 
 Do not turn planning surfaces into broad formula searches. A planning campaign

@@ -33,8 +33,10 @@ deliberately not fitting constants drift yet.
 new constant, or anomaly explanation exists in APL.
 
 **Active next work:** `TASK-0452` ingests the Nemitz 2016 source if gates pass,
-`TASK-0453` adds a real direct-row loader, and `TASK-0454` defines the
-holdout/no-peek boundary before any benchmark consumer runs.
+`TASK-0453` adds a real direct-row loader, and the `TASK-0485`-`TASK-0488`
+wave closes second-source fallbacks, covariance policy, direct-vs-derived
+row separation, and synthetic cross-source dry-run boundaries before any
+benchmark consumer runs.
 
 **Expected next result:** a `BASELINE_READY` go/no-go path: second source
 committed or blocked, real-row loader available, holdout/no-peek manifest
@@ -86,8 +88,9 @@ Current next tasks:
   cross-ratio covariance approximation for the Beloy rows;
 - `TASK-0403` triaged Nemitz 2016 / RIKEN Yb/Sr as the recommended second
   independent direct-ratio source, but left ingestion to a follow-up task;
-- `TASK-0452`, `TASK-0453`, and `TASK-0454` are the next executable blockers
-  to close before `TASK-0455` can rerun the baseline-readiness gate.
+- `TASK-0452`, `TASK-0453`, and the `TASK-0485` through `TASK-0488` wave are
+  the next executable blockers to close before a later baseline-readiness gate
+  can honestly run.
 
 `TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
 source-reviewed, but Atomic is not `BASELINE_READY`. The remaining blockers are
