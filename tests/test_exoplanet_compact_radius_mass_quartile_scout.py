@@ -235,8 +235,18 @@ def test_write_outputs_and_validate_agent_run(tmp_path, metrics):
     loaded = json.loads(out.read_text(encoding="utf-8"))
     assert loaded["verdict"] == "INCONCLUSIVE"
 
-    # Agent-run manifest conforms to the sandbox schema and boundary rules.
+    # Temp-output manifests can validate schema/boundary rules without pretending
+    # that disposable files under tmp_path are committed repository artifacts.
     payload = scout._build_agent_run_payload(metrics)
-    validate_agent_run_payload(payload, source=agent_run, root=ROOT)
+    validate_agent_run_payload(payload, source=agent_run)
     assert payload["sandbox_only"] is True
     assert payload["promotion_boundary"]["writes_canonical_result"] is False
+
+
+def test_committed_agent_run_manifest_validates_under_repo_root():
+    payload = scout._build_agent_run_payload(scout.build_metrics(SNAPSHOT_PATH))
+    validate_agent_run_payload(
+        payload,
+        source=ROOT / "agent_runs" / scout.AGENT_RUN_ID / "agent_run.yaml",
+        root=ROOT,
+    )
