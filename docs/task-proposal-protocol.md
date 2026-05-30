@@ -129,6 +129,34 @@ Salvaged ideas may be grouped into one clean proposal PR when they are closely
 related and the PR remains proposal-only. If the ideas are unrelated, split
 them into separate proposal PRs.
 
+## Proposal Tooling
+
+Use `scripts/apl_proposal_pr_helper.py` to scaffold and check a proposal the
+same way `apl_task_pr_helper.py` works for canonical tasks. It gets the branch,
+PR title, filename, and required fields (including `planning_context`) right
+before anything is pushed:
+
+```bash
+# Emit a schema-valid proposal YAML, branch name, and PR title.
+python3 scripts/apl_proposal_pr_helper.py scaffold \
+  --date 20260530 --contributor-id roman --agent-id claude \
+  --slug short-slug --title "Short title" --type maintainer_workflow \
+  --related-domain cross_campaign_quality \
+  --summary "What this proposes." \
+  --planning-context "What this is setting up." --write
+
+# Lightweight preflight: branch, title, filename, and schema only (no pytest).
+python3 scripts/apl_proposal_pr_helper.py preflight \
+  --branch agent/roman/claude/propose-task-short-slug \
+  --title "TASK-PROPOSAL: Short title" \
+  --proposal-path tasks/proposals/20260530-roman-short-slug.yaml
+```
+
+The `preflight` subcommand is the lighter proposal validation path: it validates
+the proposal against the `task_proposal` schema and the canonical formats
+without running the full test suite. Schema failures name the offending field
+(for example, a missing `planning_context`).
+
 ## Proposal Validation
 
 Task proposal PRs should stay lightweight.
@@ -141,14 +169,17 @@ for the batch.
 Recommended validation:
 
 ```bash
-./scripts/validate_quick.sh
+python3 scripts/apl_proposal_pr_helper.py preflight \
+  --branch <proposal-branch> --title "<TASK-PROPOSAL title>" \
+  --proposal-path tasks/proposals/<file>.yaml
 python3 -m physics_lab.cli validate-repo .
 python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
-./scripts/apl_review_bundle.sh
 ```
 
-Use heavier benchmark execution only when the proposal PR also changes code
-that genuinely requires it.
+`./scripts/validate_quick.sh` (lint + full pytest) and
+`./scripts/apl_review_bundle.sh` remain available but are not required for a
+proposal-only PR. Use heavier benchmark execution only when the proposal PR also
+changes code that genuinely requires it.
 
 ## Proposal Review Checklist
 

@@ -1,0 +1,64 @@
+id: TASK-0467
+title: "Improve task-proposal creation tooling and schema errors"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Lower the activation energy of filing a task proposal so agents actually surface bugs and friction instead of dropping them."
+  - "Give proposals the same scaffold/preflight/create helper that canonical tasks, microtasks, and closeouts already have."
+  - "Make schema validation errors name the missing field so authors can fix proposals without dumping the schema."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "scripts/apl_task_pr_helper.py"
+    - "physics_lab/registry/task_pr_helper.py"
+    - "physics_lab/registry/review_policy.py"
+    - "physics_lab/registry/validation.py"
+    - "physics_lab/registry/task_proposals.py"
+    - "tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml"
+    - "docs/task-proposal-protocol.md"
+  planning_context: >
+    Architect-role follow-up: agents almost never file task proposals, so bugs
+    and friction they notice never reach the board. Hands-on creation of the
+    20260530 board-decoupling proposal surfaced four mechanical frictions
+    (P1-P4): there is no proposal PR helper (only task/microtask/closeout/
+    agent_run have one); the oneOf input schema error says only "is not valid
+    under any of the given schemas" without naming the missing field
+    (planning_context); proposal validation runs the full pytest suite for a
+    one-file YAML; and the filename/branch/title conventions are enforced only
+    in prose. This task fixes the mechanical wins. The structural prompts
+    (R1-R4: onboarding/handoff prompts and a lightweight finding-capture lane)
+    are deferred to a separate proposal.
+
+requirements:
+  - "Add a proposal PR helper (scripts/apl_proposal_pr_helper.py + a backing module) with scaffold, preflight, and create subcommands mirroring the canonical task helper."
+  - "scaffold must emit a schema-valid proposal YAML including the required planning_context field, plus the canonical branch name and TASK-PROPOSAL title."
+  - "preflight must check branch format, PR title format, proposal filename format (YYYYMMDD-<contributor>-<slug>.yaml), and task_proposal schema validity, without running the full pytest suite (this is the lighter proposal validation path)."
+  - "Improve validate_document so oneOf/anyOf schema failures surface the closest-matching branch's specific error (e.g. name the missing planning_context field)."
+  - "Add tests for the schema-error improvement and for scaffold/preflight (clean pass and each failure mode)."
+  - "Update docs/task-proposal-protocol.md to reference the helper and the lighter preflight validation path."
+  - "Do not change the structural funnel, onboarding prompts, or add a new finding artifact lane in this task; do not promote any claim."
+
+accepted_outputs:
+  - "scripts/apl_proposal_pr_helper.py"
+  - "physics_lab/registry/proposal_pr_helper.py"
+  - "physics_lab/registry/validation.py"
+  - "tests/test_proposal_pr_helper.py"
+  - "tests/test_validation_schema_errors.py"
+  - "docs/task-proposal-protocol.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
