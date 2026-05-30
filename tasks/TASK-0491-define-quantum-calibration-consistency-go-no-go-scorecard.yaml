@@ -1,0 +1,46 @@
+id: TASK-0491
+title: "Define Quantum calibration-consistency go/no-go scorecard"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Decide whether a weaker Quantum calibration-curve benchmark is worth running without confusing it with direct measurement validation."
+  - "Keep the original direct measurement-versus-model benchmark blocked until source-grade rows exist."
+  - "Give maintainers a clean go/no-go artifact before calibration-derived metrics."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-calibration-consistency-waiver-decision.md"
+    - "docs/reviews/quantum-calibration-curve-consistency-benchmark-scope.md"
+    - "tasks/TASK-0225-implement-quantum-size-effect-baseline.yaml"
+  planning_context: >
+    TASK-0326 allowed only a separate, weaker calibration-curve consistency
+    benchmark after maintainer approval. This task defines the scorecard and
+    stop conditions for that decision without running metrics.
+
+requirements:
+  - "Do not run benchmark metrics."
+  - "Define how calibration-derived rows may and may not be used."
+  - "State that direct measurement-versus-model claims remain blocked."
+  - "Define required labels, limitations, negative controls, and public wording if a calibration-consistency task is later approved."
+  - "Recommend GO, NO_GO, or NEEDS_MAINTAINER_DECISION for a future scoped task."
+
+accepted_outputs:
+  - "docs/reviews/quantum-calibration-consistency-go-no-go-scorecard.md"
+  - "optional update to docs/campaigns/quantum-size-effects.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

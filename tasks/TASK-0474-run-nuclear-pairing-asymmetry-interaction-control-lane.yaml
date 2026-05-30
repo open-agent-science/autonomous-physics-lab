@@ -1,0 +1,53 @@
+id: TASK-0474
+title: "Run Nuclear pairing-asymmetry interaction control lane"
+type: autonomous_research_pilot
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Keep Nuclear hypothesis testing active without reopening completed shell-axis, local-curvature, or high-error cluster lanes."
+  - "Test one physically bounded residual-feature family under the controls-first gauntlet."
+  - "Preserve negative or control-dominated evidence as useful scientific memory."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "docs/reviews/nuclear-local-curvature-no-leakage-prototype.md"
+    - "docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md"
+  planning_context: >
+    Recent Nuclear lanes closed as non-positive memory. This task tests a
+    fresh, compact pairing-asymmetry interaction family under the TASK-0448
+    controls-first gauntlet. It must not reuse completed positive-looking
+    shell-axis, local-curvature, or high-error cluster framings.
+
+requirements:
+  - "Declare exactly one pairing-asymmetry interaction family before computing metrics."
+  - "Use only committed Nuclear data and no live external fetch."
+  - "Use residual-free inputs only; do not use baseline error rank, residual magnitude, source status, or target-known error labels as features."
+  - "Compare against pairing-only, asymmetry-only, smooth-A, and matched random controls where the data supports them."
+  - "Report full-known, primary-holdout, and relevant subset metrics separately."
+  - "Stop after one bounded hypothesis family; do not spawn variants in the same PR."
+  - "Do not create PRED entries, reveal scores, RESULT artifacts, claims, or knowledge entries."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-pairing-asymmetry-interaction-control-lane.md"
+  - "tests for any reusable runner code"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

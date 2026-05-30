@@ -1,0 +1,46 @@
+id: TASK-0487
+title: "Audit Atomic direct-vs-derived row separation"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Atomic direct measurements separate from derived constraints before benchmark work."
+  - "Prevent constants-drift constraints from contaminating frequency-ratio rows."
+  - "Create reusable source discipline for future precision-metrology tasks."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "data/atomic_clocks/schema.md"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "docs/campaigns/atomic-clock-residuals.md"
+  planning_context: >
+    Atomic's value depends on strict row-class separation. This task audits the
+    current schema and Beloy rows for direct-vs-derived boundaries and records
+    what future derived constraints must not do.
+
+requirements:
+  - "Review schema fields for direct measurement rows, derived constraints, and review-summary values."
+  - "Check committed Beloy rows for row_class and classification clarity."
+  - "List required fields for any future derived-constraint task."
+  - "Do not add new measurement or derived values."
+  - "Do not fit drift or promote new-physics wording."
+
+accepted_outputs:
+  - "docs/reviews/atomic-direct-vs-derived-row-separation-audit.md"
+  - "optional schema note update if field semantics are clarified"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

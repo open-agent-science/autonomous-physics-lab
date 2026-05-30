@@ -1,7 +1,7 @@
 id: TASK-0466
 title: "Reduce agent-flow friction in protocol tooling and validation"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

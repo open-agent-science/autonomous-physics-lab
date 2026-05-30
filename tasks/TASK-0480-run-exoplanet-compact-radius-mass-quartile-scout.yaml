@@ -1,0 +1,51 @@
+id: TASK-0480
+title: "Run exoplanet compact-radius mass-quartile scout"
+type: autonomous_research_pilot
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Deepen the strongest current exoplanet benchmark diagnostic without promoting planet-physics claims."
+  - "Test whether compact-radius residual stress is concentrated in a mass subrange."
+  - "Produce a bounded sandbox result or negative/control-sensitive memory."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+    - "docs/reviews/exoplanet-compact-radius-independent-replay.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  planning_context: >
+    The compact-radius slice is the strongest exoplanet matched-control
+    survivor, but the campaign needs narrower diagnostics before any stronger
+    external-facing result. This task tests mass-quartile substructure inside
+    the compact-radius slice with controls.
+
+requirements:
+  - "Use the committed PSCompPars snapshot only; no live fetch."
+  - "Predeclare compact-radius mass-quartile bins before computing metrics."
+  - "Compare each interpreted bin against matched outside-slice controls and per-class median controls."
+  - "Report row counts, uncertainty filters, and underpowered bins."
+  - "Do not infer composition, habitability, target priority, atmospheric state, or a new mass-radius law."
+  - "Do not create RESULT, CLAIM, KNOW, or PRED artifacts."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/exoplanet-compact-radius-mass-quartile-scout.md"
+  - "tests for any reusable runner code"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
