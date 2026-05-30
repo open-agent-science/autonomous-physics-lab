@@ -150,6 +150,41 @@ def _board_staleness_severity() -> str:
     return "INFO"
 
 
+# Proposal-status drift (declared status vs effective state derived from the
+# canonical task pool) is reported as INFO by default so it never breaks the
+# standard --strict --fail-on-warnings flow. A maintainer running an explicit
+# proposal-pool audit can escalate it to ERROR. See TASK-0468.
+PROPOSAL_DRIFT_ENV_VAR: str = "APL_ENFORCE_PROPOSAL_DRIFT"
+
+
+def _proposal_drift_severity() -> str:
+    """Severity used for task-proposal status-drift issues."""
+
+    if os.environ.get(PROPOSAL_DRIFT_ENV_VAR) == "1":
+        return "ERROR"
+    return "INFO"
+
+
+def _strict_proposal_drift_issues(root_path: Path) -> list[ValidationIssue]:
+    from physics_lab.registry.proposal_triage import proposal_drift_paths
+
+    severity = _proposal_drift_severity()
+    issues: list[ValidationIssue] = []
+    for path, reasons in proposal_drift_paths(root_path):
+        issues.append(
+            _issue(
+                severity,
+                "proposal_status_drift",
+                "Proposal status drifts from its effective state: "
+                + "; ".join(reasons)
+                + ". Run scripts/apl_proposal_triage.py and reconcile via a "
+                "maintainer-approved closeout.",
+                path=path,
+            )
+        )
+    return issues
+
+
 def _strict_generated_task_navigation_issues(root_path: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     active_board_path = root_path / "tasks" / "ACTIVE.md"
@@ -721,6 +756,8 @@ def _collect_strict_issues(
                 root=root_path,
             )
         )
+
+    issues.extend(_strict_proposal_drift_issues(root_path))
 
     return issues
 
