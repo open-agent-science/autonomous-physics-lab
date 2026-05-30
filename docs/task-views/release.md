@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0396` - Update nuclear shell-axis mini-wave reveal source readiness (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
+None.

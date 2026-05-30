@@ -18,8 +18,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0395` - Refactor nuclear high-error cluster labels to residual-free features (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0400` - Verify Kang-Wise 1997 PbS direct-source path (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0444` - Plan Stellar Mass-Luminosity OOD source and baseline (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0446` - Close exoplanet normalized-snapshot checksum gap (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0454` - Define Atomic holdout and no-peek manifest for first benchmark (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+None.
