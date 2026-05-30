@@ -88,16 +88,15 @@ def build_closeout_report(root: Path, task_id: str) -> TaskCloseoutReport:
             "Verify accepted outputs exist in main before updating the task file."
         )
         suggested_actions.append(
-            "Keep the closeout YAML-only. tasks/ACTIVE.md and docs/task-views/*.md "
-            "are regenerated automatically on main by the Sync Active Board GitHub "
-            "Action after the closeout merges. Run python3 -m physics_lab.cli "
-            "sync-active-board . by hand only for explicit audits "
-            "(APL_ENFORCE_BOARD_STALENESS=1) or when the action is temporarily "
-            "disabled."
+            "Keep the closeout YAML-only. docs/task-views/*.md are regenerated "
+            "automatically on main by the Sync Active Board GitHub Action after "
+            "the closeout merges. Run python3 -m physics_lab.cli sync-active-board "
+            ". by hand only for explicit audits (APL_ENFORCE_BOARD_STALENESS=1) or "
+            "when the action is temporarily disabled."
         )
     elif status == "DONE":
         suggested_actions.append(
-            "Confirm the ACTIVE board and any dry-run notes reflect the merged task."
+            "Confirm the task views and any dry-run notes reflect the merged task."
         )
     else:
         suggested_actions.append(
@@ -177,7 +176,7 @@ def render_public_state_doc_checklist(
 
     policy = (
         "Closeout docs-sync policy: routine closeout may update task status, "
-        "generated task navigation (tasks/ACTIVE.md and docs/task-views/*.md), "
+        "generated task navigation (docs/task-views/*.md), "
         "and CONTEXT.md automatically; edit README/status/mission-control/"
         "next-steps only when the current task explicitly asks for public-doc "
         "sync. Otherwise update an existing docs-sync task or create a "

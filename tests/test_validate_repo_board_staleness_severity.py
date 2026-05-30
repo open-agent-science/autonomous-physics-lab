@@ -37,14 +37,6 @@ from physics_lab.registry.task_views import TASK_VIEW_PATHS
 # ---------------------------------------------------------------------------
 
 
-def _write_active_board(repo: Path, body: str = "stale-content") -> Path:
-    tasks_dir = repo / "tasks"
-    tasks_dir.mkdir(parents=True, exist_ok=True)
-    path = tasks_dir / "ACTIVE.md"
-    path.write_text(body, encoding="utf-8")
-    return path
-
-
 def _write_task_view(repo: Path, relpath: str, body: str = "stale-view") -> Path:
     target = repo / relpath
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -89,85 +81,11 @@ class TestBoardStalenessSeverity:
 
 
 class TestStalenessIssuesUseConfiguredSeverity:
-    def test_stale_active_board_is_info_by_default(
-        self,
-        tmp_path: Path,
-        monkeypatch: pytest.MonkeyPatch,
-    ) -> None:
-        monkeypatch.delenv(BOARD_STALENESS_ENV_VAR, raising=False)
-        _write_active_board(tmp_path, body="not-in-sync-content")
-
-        # active_board_is_synced reads canonical task files; we override it
-        # via patch to simulate a stale state without building a full fixture
-        # repository.
-        with patch(
-            "physics_lab.registry.repository.active_board_is_synced",
-            return_value=False,
-        ):
-            issues = _strict_generated_task_navigation_issues(tmp_path)
-
-        stale_issues = [issue for issue in issues if issue.code == "stale_active_board"]
-        assert len(stale_issues) == 1
-        assert stale_issues[0].severity == "INFO"
-        assert "sync-active-board" in stale_issues[0].message.lower()
-
-    def test_stale_active_board_is_error_when_enforced(
-        self,
-        tmp_path: Path,
-        monkeypatch: pytest.MonkeyPatch,
-    ) -> None:
-        monkeypatch.setenv(BOARD_STALENESS_ENV_VAR, "1")
-        _write_active_board(tmp_path, body="not-in-sync-content")
-
-        with patch(
-            "physics_lab.registry.repository.active_board_is_synced",
-            return_value=False,
-        ):
-            issues = _strict_generated_task_navigation_issues(tmp_path)
-
-        stale_issues = [issue for issue in issues if issue.code == "stale_active_board"]
-        assert len(stale_issues) == 1
-        assert stale_issues[0].severity == "ERROR"
-
-    def test_missing_active_board_stays_error_regardless_of_env(
-        self,
-        tmp_path: Path,
-        monkeypatch: pytest.MonkeyPatch,
-    ) -> None:
-        """A missing tasks/ACTIVE.md is a real bug; the env var must not
-        downgrade it. The function still needs at least one generated task
-        view to trigger its main path, so we create one to keep the
-        early-return guard out of the way."""
-
-        # Add at least one task view so the early-return guard does not fire.
-        any_view = next(iter(TASK_VIEW_PATHS.values()))
-        _write_task_view(tmp_path, any_view, body="placeholder")
-
-        monkeypatch.delenv(BOARD_STALENESS_ENV_VAR, raising=False)
-        with patch(
-            "physics_lab.registry.repository.render_task_views",
-            return_value={lane: "placeholder" for lane in TASK_VIEW_PATHS},
-        ):
-            issues_default = _strict_generated_task_navigation_issues(tmp_path)
-
-        monkeypatch.setenv(BOARD_STALENESS_ENV_VAR, "1")
-        with patch(
-            "physics_lab.registry.repository.render_task_views",
-            return_value={lane: "placeholder" for lane in TASK_VIEW_PATHS},
-        ):
-            issues_enforced = _strict_generated_task_navigation_issues(tmp_path)
-
-        for issues in (issues_default, issues_enforced):
-            missing = [issue for issue in issues if issue.code == "missing_active_board"]
-            assert len(missing) == 1
-            assert missing[0].severity == "ERROR"
-
     def test_stale_generated_task_view_severity_tracks_env(
         self,
         tmp_path: Path,
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
-        _write_active_board(tmp_path, body="placeholder")
         any_view_relpath = next(iter(TASK_VIEW_PATHS.values()))
         any_view_lane = next(iter(TASK_VIEW_PATHS))
         _write_task_view(tmp_path, any_view_relpath, body="actual-content")
@@ -176,9 +94,6 @@ class TestStalenessIssuesUseConfiguredSeverity:
         # Make every view stale by having actual != expected.
 
         with patch(
-            "physics_lab.registry.repository.active_board_is_synced",
-            return_value=True,
-        ), patch(
             "physics_lab.registry.repository.render_task_views",
             return_value=rendered,
         ):
@@ -213,7 +128,6 @@ class TestStalenessIssuesUseConfiguredSeverity:
         tmp_path: Path,
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
-        _write_active_board(tmp_path, body="placeholder")
         any_view_relpath = next(iter(TASK_VIEW_PATHS.values()))
         other_view_relpath = list(TASK_VIEW_PATHS.values())[1]
         # Provide ONE view file so any_task_views_exist is True, then leave
@@ -222,9 +136,6 @@ class TestStalenessIssuesUseConfiguredSeverity:
 
         rendered = {lane: "placeholder" for lane in TASK_VIEW_PATHS}
         with patch(
-            "physics_lab.registry.repository.active_board_is_synced",
-            return_value=True,
-        ), patch(
             "physics_lab.registry.repository.render_task_views",
             return_value=rendered,
         ):

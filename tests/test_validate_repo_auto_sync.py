@@ -197,17 +197,15 @@ def test_fail_on_warnings_still_requires_strict_even_with_auto_sync() -> None:
 def test_cli_validate_repo_auto_sync_live_smoke() -> None:
     """Real-repo smoke: passing --auto-sync on a healthy state still passes.
 
-    --auto-sync regenerates the tracked board files (tasks/ACTIVE.md and the
-    generated task views). On a branch whose task YAML changed, that
-    regeneration differs from the committed content and would otherwise leave
-    the working tree dirty, which then blocks the review tool. The smoke test
-    only needs to confirm the command runs and passes, so it snapshots and
-    restores those board files instead of persisting the regeneration. See
-    TASK-0466, F2.
+    --auto-sync regenerates the tracked task views (docs/task-views/*.md). On a
+    branch whose task YAML changed, that regeneration differs from the committed
+    content and would otherwise leave the working tree dirty, which then blocks
+    the review tool. The smoke test only needs to confirm the command runs and
+    passes, so it snapshots and restores those views instead of persisting the
+    regeneration. See TASK-0466 (F2) and TASK-0473 (ACTIVE.md retirement).
     """
     repo_root = Path(__file__).resolve().parents[1]
-    board_files = [repo_root / "tasks" / "ACTIVE.md"]
-    board_files.extend(sorted((repo_root / "docs" / "task-views").glob("*.md")))
+    board_files = sorted((repo_root / "docs" / "task-views").glob("*.md"))
     original = {p: p.read_text(encoding="utf-8") for p in board_files if p.exists()}
 
     runner = CliRunner()

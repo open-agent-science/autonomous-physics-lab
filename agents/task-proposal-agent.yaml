@@ -23,7 +23,7 @@ purpose: |
   accepts the proposal and assigns the id in a separate step.
 
 when_to_use:
-  - "The maintainer or a contributor wants a task done, but no existing READY task in tasks/ACTIVE.md or docs/task-views/*.md covers it."
+  - "The maintainer or a contributor wants a task done, but no existing READY task in docs/task-views/*.md covers it."
   - "A salvage pass on stale work surfaces 1-5 closely related ideas that belong as proposals (small same-salvage batch allowed in one PR)."
   - "The Researcher role finds, mid-task, that an adjacent piece of work must also be done; the Researcher opens a separate proposal for it rather than expanding scope."
 
@@ -45,7 +45,7 @@ required_reading:
   - docs/task-proposal-protocol.md
   - docs/agent-task-protocol.md
   - tasks/proposals/TASK-PROPOSAL-TEMPLATE.yaml
-  - tasks/ACTIVE.md
+  - docs/task-views/research.md
   - docs/task-views/research.md
 
 typical_activities:

@@ -82,13 +82,13 @@ jobs:
         id: detect
         shell: bash
         run: |
-          if git diff --quiet -- tasks/ACTIVE.md docs/task-views/; then
+          if git diff --quiet -- docs/task-views/; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No regeneration diff; task navigation is already in sync."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "Detected regeneration diff in tasks/ACTIVE.md or docs/task-views/."
-            git --no-pager diff --stat -- tasks/ACTIVE.md docs/task-views/
+            echo "Detected regeneration diff in docs/task-views/."
+            git --no-pager diff --stat -- docs/task-views/
           fi
 
       - name: Commit and push regenerated navigation
@@ -97,7 +97,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tasks/ACTIVE.md docs/task-views/
+          git add docs/task-views/
           git commit -m "chore(board-sync): regenerate task navigation after $(git rev-parse --short HEAD~1) [skip-board-sync]"
           # If the push races with a concurrent merge, retry once after a fresh fetch+rebase.
           if ! git push origin HEAD:main; then

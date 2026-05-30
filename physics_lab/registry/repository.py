@@ -13,7 +13,6 @@ import yaml
 from physics_lab.registry.agents import load_agent
 from physics_lab.registry.agent_runs import load_agent_run
 from physics_lab.registry.campaigns import load_campaign_catalog
-from physics_lab.registry.active_board import active_board_is_synced
 from physics_lab.registry.claims import load_claim
 from physics_lab.registry.docs_links import find_docs_link_issues
 from physics_lab.registry.examples import load_example_config
@@ -187,9 +186,8 @@ def _strict_proposal_drift_issues(root_path: Path) -> list[ValidationIssue]:
 
 def _strict_generated_task_navigation_issues(root_path: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    active_board_path = root_path / "tasks" / "ACTIVE.md"
     any_task_views_exist = any((root_path / relpath).exists() for relpath in TASK_VIEW_PATHS.values())
-    if not active_board_path.exists() and not any_task_views_exist:
+    if not any_task_views_exist:
         return issues
 
     staleness_severity = _board_staleness_severity()
@@ -197,29 +195,6 @@ def _strict_generated_task_navigation_issues(root_path: Path) -> list[Validation
         " The post-merge sync-active-board GitHub Action regenerates this "
         "file automatically; agents do not need to commit it."
     )
-
-    if active_board_path.exists():
-        if not active_board_is_synced(root_path):
-            issues.append(
-                _issue(
-                    staleness_severity,
-                    "stale_active_board",
-                    "tasks/ACTIVE.md is stale." + staleness_message_suffix,
-                    path=active_board_path,
-                    root=root_path,
-                )
-            )
-    else:
-        # Missing file is a real bug regardless of the staleness env var.
-        issues.append(
-            _issue(
-                "ERROR",
-                "missing_active_board",
-                "tasks/ACTIVE.md is missing.",
-                path=active_board_path,
-                root=root_path,
-            )
-        )
 
     if any_task_views_exist:
         rendered_views = render_task_views(root_path)
