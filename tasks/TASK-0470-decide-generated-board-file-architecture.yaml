@@ -1,0 +1,52 @@
+id: TASK-0470
+title: "Decide generated board file architecture"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Resolve the remaining architectural question behind generated task-board churn."
+  - "Keep task YAML as the source of truth while preserving a useful human navigation surface."
+  - "Avoid repeated one-off fixes for stale or dirty generated board files."
+
+input:
+  mode: planning_only
+  related_domain: repository_coordination
+  related_objects:
+    - "tasks/proposals/20260530-roman-decouple-generated-board-files.yaml"
+    - "tasks/ACTIVE.md"
+    - "docs/task-views/"
+    - ".github/workflows/sync-active-board.yml"
+    - "physics_lab/registry/generated_state.py"
+    - "physics_lab/registry/repository.py"
+  planning_context: >
+    TASK-0466 reduced several false blockers caused by generated board state,
+    and TASK-0358 moved routine synchronization to a post-merge GitHub Action.
+    The remaining question is whether generated navigation should stay
+    committed, become on-demand/artifact-only, or use a hybrid shape. This task
+    is a decision task: document the options and recommend one migration path.
+
+requirements:
+  - "Survey how tasks/ACTIVE.md and docs/task-views/*.md are generated, validated, linked, and consumed by agents and humans."
+  - "Compare at least three options: generate-on-demand only, committed-but-ephemeral, and hybrid committed pointer plus generated heavy views."
+  - "Evaluate each option against human browsability, external links, merge conflict risk, validation noise, and public-agent onboarding."
+  - "Recommend one option and define the migration plan if a behavior change is needed."
+  - "Do not change generated-board behavior in this decision task unless the maintainer explicitly asks for implementation."
+  - "Do not edit generated task views or tasks/ACTIVE.md from this PR."
+
+accepted_outputs:
+  - "architecture decision note for generated task navigation"
+  - "recommended migration path"
+  - "optional follow-up implementation task spec if behavior should change"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

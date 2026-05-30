@@ -1,6 +1,6 @@
 proposal_id: 20260503-roman-validation-temp-output-isolation
 title: "Isolate validation temp output paths across concurrent smoke runs"
-status: PROPOSED
+status: SUPERSEDED
 type: validation_hardening
 priority: medium
 
@@ -62,8 +62,8 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0469
+  decision: superseded
   notes: >
-    Good candidate for a small maintainer-approved workflow hardening task once
-    TASK-0037 and the next Koide execution steps are safely handed off.
+    Folded into TASK-0469, which covers Windows and cross-platform validation
+    temp-path robustness without weakening strict validation.

@@ -1,6 +1,6 @@
 proposal_id: 20260503-roman-active-board-conflict-reduction
 title: "Reduce tasks/ACTIVE.md merge-conflict pressure"
-status: PROPOSED
+status: ACCEPTED
 type: maintainer_workflow
 priority: high
 
@@ -68,9 +68,8 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
+  canonical_task_id: TASK-0044
+  decision: accepted
   notes: >
-    This proposal is intended to become a single maintainer-workflow task if
-    accepted, rather than splitting immediately into multiple implementation
-    tasks before the preferred flow is chosen.
+    Accepted and implemented as TASK-0044, which made canonical task YAML the
+    source of truth for generated active-board synchronization.
