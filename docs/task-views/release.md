@@ -6,7 +6,7 @@
 
 ## READY
 
-- `TASK-0484` - Package exoplanet external-reviewer replication capsule (`scientific_communication`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0484` - Package exoplanet external-reviewer replication capsule (`scientific_communication`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
