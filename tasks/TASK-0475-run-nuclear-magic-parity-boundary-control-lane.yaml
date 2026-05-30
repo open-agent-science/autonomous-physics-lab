@@ -1,0 +1,51 @@
+id: TASK-0475
+title: "Run Nuclear magic-parity boundary control lane"
+type: autonomous_research_pilot
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test a shell-adjacent Nuclear lane without reviving shell-axis registry expansion."
+  - "Separate magic-distance behavior from parity, smooth-A, and asymmetry controls."
+  - "Create a bounded diagnostic or negative result for the Nuclear campaign."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+    - "docs/reviews/nuclear-shell-axis-post-audit-decision.md"
+    - "docs/reviews/nuclear-magic-distance-interaction-control-lane.md"
+  planning_context: >
+    Shell-axis is diagnostic-only and the prior magic-distance interaction lane
+    was control-dominated. This task tests a different, predeclared
+    magic-parity boundary family with explicit controls and stop conditions.
+
+requirements:
+  - "Declare one magic-parity boundary feature family before scoring."
+  - "Do not reuse shell-axis PRED entries, reveal machinery, or completed TASK-0451 metrics."
+  - "Compare against parity-only, magic-distance-only, asymmetry-only, smooth-A, and shuffled-label controls."
+  - "Report magic-N, magic-Z, double-magic, neutron-rich, and light A<50 subsets when present."
+  - "Treat sparse subset wins as diagnostic only."
+  - "Verdict must be CONTROL_DOMINATED, FRAGILE_INCONCLUSIVE, NEGATIVE_RESULT, or BOUNDED_DIAGNOSTIC."
+  - "Do not create PRED entries, reveal scores, RESULT artifacts, claims, or knowledge entries."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-magic-parity-boundary-control-lane.md"
+  - "tests for any reusable runner code"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

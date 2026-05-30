@@ -1,0 +1,50 @@
+id: TASK-0476
+title: "Run Nuclear isotope-chain leave-family-out audit"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test whether any Nuclear residual diagnostics transfer across isotope-chain families."
+  - "Prioritize generalization and failure-mode mapping over new candidate registration."
+  - "Reduce overreading of local retrospective improvements."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "docs/reviews/nuclear-shell-axis-isotope-chain-transfer-audit.md"
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  planning_context: >
+    Several Nuclear lanes improved local or subset metrics but did not prove
+    transfer. This task runs a chain-family leave-out audit over committed
+    Nuclear residual artifacts and records which families are too local to
+    support future predictive use.
+
+requirements:
+  - "Use only committed Nuclear datasets, frozen baselines, and existing sandbox metrics."
+  - "Define isotope-chain family groups before computing transfer metrics."
+  - "Do not fit a new candidate unless needed for a predeclared replay of an existing lane."
+  - "Report leave-family-out regressions and sparse-family blockers explicitly."
+  - "Compare to at least one smooth-A or asymmetry-only transfer control."
+  - "Do not create prediction entries, reveal scores, RESULT artifacts, claims, or knowledge entries."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-isotope-chain-leave-family-out-audit.md"
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml if code is executed"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json if code is executed"
+  - "tests for any reusable audit helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
