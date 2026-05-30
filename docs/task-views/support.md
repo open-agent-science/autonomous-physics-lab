@@ -21,4 +21,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0495` - Redirect remaining tasks/ACTIVE.md doc references to task views (B2 step 3) (`maintainer_workflow`, priority `low`, difficulty `medium`, domain `repository_coordination`)
