@@ -1,0 +1,313 @@
+{
+  "agent_run_id": "AGENT-RUN-0046",
+  "task_id": "TASK-0474",
+  "campaign_profile_id": "nuclear-mass-surface",
+  "data_boundary": {
+    "live_fetch": false,
+    "training_dataset": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "holdout_dataset": "data/nuclear_masses/post_ame2020_holdout.yaml",
+    "frozen_baseline_result": "results/EXP-0012/RUN-0001/result.yaml"
+  },
+  "feature_definition": {
+    "name": "pairing_asymmetry_interaction",
+    "formula": "pairing_sign(Z,N) * ((N-Z)/A)",
+    "inputs": [
+      "Z",
+      "N",
+      "A"
+    ],
+    "forbidden_inputs": [
+      "baseline_residual_mev",
+      "candidate_fit_residual",
+      "baseline_error_rank",
+      "source_status",
+      "future_comparison_row"
+    ]
+  },
+  "candidate_coefficient_beta_mev": 1.916976,
+  "coefficient_loo_stability": {
+    "count": 11,
+    "mean_mev": 1.9596919301407036,
+    "std_mev": 6.324837880579155,
+    "sign_flip_count": 1
+  },
+  "coefficient_loo_betas_mev": [
+    1.916976,
+    1.916976,
+    1.916976,
+    1.916976,
+    1.916976,
+    0.874413,
+    2.866162,
+    1.916976,
+    3.324159,
+    -13.265329,
+    16.255349
+  ],
+  "training_rows_overview": [
+    {
+      "row_id": "nmd-0002::He-4",
+      "Z": 2,
+      "N": 2,
+      "A": 4,
+      "pairing_sign": 1,
+      "neutron_excess": 0.0,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": 2.685975
+    },
+    {
+      "row_id": "nmd-0002::N-14",
+      "Z": 7,
+      "N": 7,
+      "A": 14,
+      "pairing_sign": -1,
+      "neutron_excess": 0.0,
+      "interaction_feature": -0.0,
+      "baseline_residual_mev": 4.171542
+    },
+    {
+      "row_id": "nmd-0002::O-16",
+      "Z": 8,
+      "N": 8,
+      "A": 16,
+      "pairing_sign": 1,
+      "neutron_excess": 0.0,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": 0.484434
+    },
+    {
+      "row_id": "nmd-0002::O-17",
+      "Z": 8,
+      "N": 9,
+      "A": 17,
+      "pairing_sign": 0,
+      "neutron_excess": 0.058824,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": -1.263248
+    },
+    {
+      "row_id": "nmd-0002::Ca-40",
+      "Z": 20,
+      "N": 20,
+      "A": 40,
+      "pairing_sign": 1,
+      "neutron_excess": 0.0,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": -2.358333
+    },
+    {
+      "row_id": "nmd-0002::Ca-48",
+      "Z": 20,
+      "N": 28,
+      "A": 48,
+      "pairing_sign": 1,
+      "neutron_excess": 0.166667,
+      "interaction_feature": 0.166667,
+      "baseline_residual_mev": 1.127114
+    },
+    {
+      "row_id": "nmd-0002::Fe-56",
+      "Z": 26,
+      "N": 30,
+      "A": 56,
+      "pairing_sign": 1,
+      "neutron_excess": 0.071429,
+      "interaction_feature": 0.071429,
+      "baseline_residual_mev": -1.880064
+    },
+    {
+      "row_id": "nmd-0002::Fe-57",
+      "Z": 26,
+      "N": 31,
+      "A": 57,
+      "pairing_sign": 0,
+      "neutron_excess": 0.087719,
+      "interaction_feature": 0.0,
+      "baseline_residual_mev": -1.648565
+    },
+    {
+      "row_id": "nmd-0002::Sn-120",
+      "Z": 50,
+      "N": 70,
+      "A": 120,
+      "pairing_sign": 1,
+      "neutron_excess": 0.166667,
+      "interaction_feature": 0.166667,
+      "baseline_residual_mev": -0.770573
+    },
+    {
+      "row_id": "nmd-0002::Pb-208",
+      "Z": 82,
+      "N": 126,
+      "A": 208,
+      "pairing_sign": 1,
+      "neutron_excess": 0.211538,
+      "interaction_feature": 0.211538,
+      "baseline_residual_mev": 8.453688
+    },
+    {
+      "row_id": "nmd-0002::U-238",
+      "Z": 92,
+      "N": 146,
+      "A": 238,
+      "pairing_sign": 1,
+      "neutron_excess": 0.226891,
+      "interaction_feature": 0.226891,
+      "baseline_residual_mev": -6.226201
+    }
+  ],
+  "baseline": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.8245215982589085,
+      "rmse_mev": 3.6971171457892873
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.552568580201034,
+      "rmse_mev": 5.879636991075279
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.490449244248866,
+      "rmse_mev": 5.815390925720301
+    }
+  },
+  "candidate": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.8396449476848673,
+      "rmse_mev": 3.6900222291045117
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.565270199564199,
+      "rmse_mev": 5.923657565567854
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.5032379192678835,
+      "rmse_mev": 5.858139412188414
+    }
+  },
+  "control_smooth_a": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.799872901813154,
+      "rmse_mev": 3.6803489316294664
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.511682510345607,
+      "rmse_mev": 5.820610353276483
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.450146870823199,
+      "rmse_mev": 5.757475558773489
+    }
+  },
+  "control_asymmetry_only": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.834850268108084,
+      "rmse_mev": 3.6966272393997093
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.527945776804333,
+      "rmse_mev": 5.848298175274561
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.467082866361003,
+      "rmse_mev": 5.784834830446992
+    }
+  },
+  "control_pairing_only": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.824521598258807,
+      "rmse_mev": 3.697117145789293
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.552568580201079,
+      "rmse_mev": 5.8796369910753326
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.490449244248906,
+      "rmse_mev": 5.815390925720353
+    }
+  },
+  "control_matched_degree_random": {
+    "training_lstsq": {
+      "count": 11,
+      "mae_mev": 2.8371786981657494,
+      "rmse_mev": 3.6902110854385364
+    },
+    "primary_holdout": {
+      "count": 295,
+      "mae_mev": 4.562609779279982,
+      "rmse_mev": 5.915861022916213
+    },
+    "full_known": {
+      "count": 306,
+      "mae_mev": 4.500584478978489,
+      "rmse_mev": 5.850543427899408
+    }
+  },
+  "per_subset_candidate_full_known": {
+    "double_magic": {
+      "count": 5,
+      "baseline_mae_mev": 3.0219088633367606,
+      "candidate_mae_mev": 2.876906827394383,
+      "delta_mae_mev": 0.14500203594237737
+    },
+    "light_a_lt_50": {
+      "count": 24,
+      "baseline_mae_mev": 1.8722524000307066,
+      "candidate_mae_mev": 1.8166640247794748,
+      "delta_mae_mev": 0.055588375251231836
+    },
+    "magic_n": {
+      "count": 17,
+      "baseline_mae_mev": 4.992013567782692,
+      "candidate_mae_mev": 4.92845427817587,
+      "delta_mae_mev": 0.06355928960682178
+    },
+    "magic_z": {
+      "count": 13,
+      "baseline_mae_mev": 3.5843029567916935,
+      "candidate_mae_mev": 3.4571648110614137,
+      "delta_mae_mev": 0.12713814573027982
+    },
+    "neutron_rich": {
+      "count": 162,
+      "baseline_mae_mev": 5.319790082655775,
+      "candidate_mae_mev": 5.344946188354955,
+      "delta_mae_mev": -0.02515610569918003
+    }
+  },
+  "survival_margin_mev": 0.25,
+  "loo_sign_flip_threshold": 2,
+  "custom_verdict_vocabulary": [
+    "BOUNDED_DIAGNOSTIC",
+    "CONTROL_DOMINATED",
+    "FRAGILE_INCONCLUSIVE",
+    "NEGATIVE_RESULT"
+  ],
+  "candidate_vs_baseline_full_known_delta_mev": -0.012788675019017148,
+  "candidate_vs_smooth_a_full_known_delta_mev": -0.05309104844468493,
+  "candidate_vs_asymmetry_only_full_known_delta_mev": -0.03615505290688059,
+  "candidate_vs_pairing_only_full_known_delta_mev": -0.01278867501897718,
+  "candidate_vs_matched_degree_random_full_known_delta_mev": -0.0026534402893947373,
+  "primary_holdout_regression_flag": true,
+  "verdict": "NEGATIVE_RESULT",
+  "verdict_rationale": [
+    "full_known candidate vs baseline: -0.0128 MeV",
+    "Candidate fails the 0.25 MeV survival margin on full_known vs baseline."
+  ],
+  "schema_verdict": "FALSIFIED"
+}
