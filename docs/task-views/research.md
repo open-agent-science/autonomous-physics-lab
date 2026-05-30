@@ -37,3 +37,4 @@ None.
 - `TASK-0474` - Run Nuclear pairing-asymmetry interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0475` - Run Nuclear magic-parity boundary control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0476` - Run Nuclear isotope-chain leave-family-out audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0494` - Refresh campaign pages after next science wave (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
