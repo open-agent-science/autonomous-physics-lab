@@ -1,7 +1,7 @@
 id: TASK-0452
 title: "Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -28,10 +28,12 @@ input:
     This task turns the accepted proposal into a canonical ingestion task:
     commit a redistributable arXiv source artifact, checksum and provenance,
     then add ACR-0002 direct-measurement rows only if version-drift and
-    uncertainty-semantics gates pass.
+    uncertainty-semantics gates pass. TASK-0452 corrected the prior triage
+    locator from arXiv:1403.5836 (Akamatsu 2014) to arXiv:1601.04582
+    (Nemitz 2016).
 
 requirements:
-  - "Commit the arXiv:1403.5836 preprint PDF under data/atomic_clocks/source_artifacts/2016-nemitz-riken/ with a sidecar SHA-256 file."
+  - "Commit the corrected arXiv:1601.04582 preprint PDF under data/atomic_clocks/source_artifacts/2016-nemitz-riken/ with a sidecar SHA-256 file; do not commit the erroneous arXiv:1403.5836 PDF because it is Akamatsu 2014, not Nemitz 2016."
   - "Add provenance.yaml with retrieval date, license/reuse notes, locator, and arXiv-vs-Nature Photonics version-drift cross-check verdict."
   - "Do not commit the Nature Photonics version-of-record PDF; cite it by DOI only."
   - "Add data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml only if source, version-drift, and TASK-0344 uncertainty gates pass."
@@ -41,8 +43,8 @@ requirements:
   - "Do not fit drift, derive constants-variation constraints, compare against Beloy values, create prediction entries, create RESULT artifacts, or promote claims."
 
 accepted_outputs:
-  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1403.5836.pdf or a blocker review explaining why it cannot be committed"
-  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1403.5836.sha256 if artifact is committed"
+  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1601.04582.pdf or a blocker review explaining why it cannot be committed"
+  - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/arxiv-1601.04582.sha256 if artifact is committed"
   - "data/atomic_clocks/source_artifacts/2016-nemitz-riken/provenance.yaml if artifact is committed"
   - "data/atomic_clocks/acr-0002-nemitz-2016-direct-ratio.yaml if row gates pass"
   - "docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md"
