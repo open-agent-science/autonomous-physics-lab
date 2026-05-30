@@ -28,3 +28,4 @@ None.
 - `TASK-0466` - Reduce agent-flow friction in protocol tooling and validation (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0467` - Improve task-proposal creation tooling and schema errors (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0468` - Triage task-proposal backlog (`maintainer_workflow`, priority `high`, difficulty `low`, domain `repository_coordination`)
+- `TASK-0471` - Add proposal-pool triage, drift detection, and closeout tooling (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
