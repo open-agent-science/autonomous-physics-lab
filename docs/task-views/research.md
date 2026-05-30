@@ -13,7 +13,6 @@
 - `TASK-0477` - Package Nuclear negative-result evidence card (`scientific_communication`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0478` - Define Nuclear F2 finer-taxonomy preflight (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0479` - Run Nuclear training-slice expansion feasibility review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0480` - Run exoplanet compact-radius mass-quartile scout (`autonomous_research_pilot`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0481` - Run exoplanet compact-radius host-context preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0482` - Define exoplanet second-snapshot target freeze (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0483` - Run exoplanet null-baseline family audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
@@ -37,4 +36,5 @@ None.
 - `TASK-0474` - Run Nuclear pairing-asymmetry interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0475` - Run Nuclear magic-parity boundary control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0476` - Run Nuclear isotope-chain leave-family-out audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0480` - Run exoplanet compact-radius mass-quartile scout (`autonomous_research_pilot`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0494` - Refresh campaign pages after next science wave (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
