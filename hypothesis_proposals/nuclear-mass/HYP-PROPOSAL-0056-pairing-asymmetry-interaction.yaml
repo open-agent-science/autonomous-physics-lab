@@ -1,0 +1,104 @@
+id: HYP-PROPOSAL-0056
+title: "Nuclear pairing-asymmetry interaction hypothesis"
+campaign_profile_id: nuclear-mass-surface
+proposal_kind: formula_search
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox hypothesis only. No prediction registry, canonical result, claim, or knowledge promotion is authorized."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0474
+
+input_references:
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  - "results/EXP-0012/RUN-0001/result.yaml"
+  - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+  - "data/nuclear_masses/post_ame2020_holdout.yaml"
+
+hypothesis:
+  statement: "If odd-even pairing structure has a measurable interaction with neutron-proton asymmetry, then a single residual-free feature `r_corr = beta * pairing_sign(Z,N) * ((N-Z)/A)` fit on the NMD-0002 training slice should improve the frozen nuclear-mass baseline against pairing-only, asymmetry-only, smooth-A, and deterministic matched-degree random controls without regressing the primary post-AME2020 holdout."
+  variables:
+    - "Z, N, A: proton number, neutron number, and mass number."
+    - "pairing_sign(Z,N): +1 for even-even, -1 for odd-odd, and 0 for odd-A nuclei."
+    - "neutron_excess = (N-Z)/A, computed only from nuclide identifiers."
+    - "interaction_feature = pairing_sign(Z,N) * neutron_excess."
+    - "baseline_residual_mev: signed binding-energy residual against frozen RESULT-0015, used only as the fit target."
+  assumptions:
+    - "The candidate family is exactly one closed-form pairing-asymmetry interaction feature."
+    - "No residual, baseline error, or held-out target value enters feature construction."
+    - "A single coefficient beta is fit by least squares on the committed NMD-0002 training rows."
+    - "Controls share the same committed data surfaces and frozen baseline."
+    - "No live data fetch is allowed."
+  expected_scope: "Bounded retrospective control-lane test of one pairing-asymmetry interaction feature."
+  expected_failure_modes:
+    - "Pairing-only or asymmetry-only controls may match the candidate, indicating no interaction-specific signal."
+    - "Smooth-A control may match the candidate, indicating mass-scale leakage rather than pairing-asymmetry structure."
+    - "Matched-degree deterministic random control may match the candidate."
+    - "The candidate may improve full_known while regressing primary_holdout or subset surfaces."
+    - "Leave-one-out coefficient refits may show sign flips or high relative instability."
+
+novelty_check:
+  checked_files:
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0038-pairing-a-inverse.yaml"
+    - "hypothesis_proposals/nuclear-mass/HYP-PROPOSAL-0039-pairing-class-offsets.yaml"
+  possible_overlap: "Related to prior pairing proposals, but this lane tests a product interaction between pairing sign and neutron excess rather than a pairing-only amplitude or class offset."
+  notes: "The lane is sandbox-only and does not authorize registry expansion even if the candidate beats controls."
+
+falsification_plan:
+  deterministic_check: "Run scripts/run_nuclear_pairing_asymmetry_interaction_control_lane.py and compare committed metrics to recomputed metrics."
+  baseline_or_reference: "Frozen RESULT-0015 baseline on committed NMD-0002 and post-AME2020 holdout rows, plus pairing-only, asymmetry-only, smooth-A, and matched-degree random controls."
+  pass_condition: "Sandbox pass only if exactly one candidate family is fit, all controls report metrics, coefficient-stability diagnostics are reported, per-surface and per-subset metrics are present, and no PRED/CLAIM/KNOW/RESULT artifact is written."
+  fail_condition: "Fail if multiple candidate variants run, any required control is skipped, residual-derived features are used, or any canonical artifact is written."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "Do not call the candidate a discovery, new nuclear law, or validated mass formula."
+    - "Do not describe retrospective full_known improvement as predictive validation."
+    - "Do not imply reveal readiness, registry expansion, or claim promotion."
+  mitigations:
+    - "Keep outputs sandbox-only with explicit promotion_boundary."
+    - "Report all required controls and holdout/subset surfaces."
+    - "Use conservative control-lane verdict language."
+
+sandbox_evidence:
+  commands:
+    - "python3 scripts/run_nuclear_pairing_asymmetry_interaction_control_lane.py"
+    - "python3 -m pytest tests/test_nuclear_pairing_asymmetry_interaction_control_lane.py"
+  code_references:
+    - "scripts/run_nuclear_pairing_asymmetry_interaction_control_lane.py"
+    - "tests/test_nuclear_pairing_asymmetry_interaction_control_lane.py"
+  metrics:
+    - "candidate_coefficient_beta_mev"
+    - "candidate_coefficient_loo_std_mev"
+    - "candidate_coefficient_loo_sign_flip_count"
+    - "candidate_mae_per_surface_mev"
+    - "control_pairing_only_mae_per_surface_mev"
+    - "control_asymmetry_only_mae_per_surface_mev"
+    - "control_smooth_a_mae_per_surface_mev"
+    - "control_matched_degree_random_mae_per_surface_mev"
+    - "per_subset_delta_mae_mev"
+    - "verdict"
+  output_paths:
+    - "agent_runs/AGENT-RUN-0046/"
+    - "docs/reviews/nuclear-pairing-asymmetry-interaction-control-lane.md"
+
+limitations:
+  - "Retrospective committed-data lane only; not a blind prediction."
+  - "NMD-0002 has a small training slice, so coefficient-stability diagnostics are low power."
+  - "The pairing sign is a coarse identifier-level proxy and cannot represent microscopic pairing physics."
+  - "The candidate is capped at sandbox review regardless of fit quality."
+
+verdict: REVIEW_NEEDED
+maintainer_decision_requested: "Review whether the pairing-asymmetry interaction lane should close as control-dominated, negative, or worthy of a separate maintainer-approved follow-up."
+
+promotion_boundary:
+  canonical_result_allowed: false
+  claim_promotion_allowed: false
+  required_next_step: "Separate maintainer-reviewed follow-up before any RESULT, PRED, claim, knowledge, or reveal-scoring work."

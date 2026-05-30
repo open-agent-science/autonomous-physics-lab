@@ -1,7 +1,7 @@
 id: TASK-0474
 title: "Run Nuclear pairing-asymmetry interaction control lane"
 type: autonomous_research_pilot
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
