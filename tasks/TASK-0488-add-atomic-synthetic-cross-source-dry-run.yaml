@@ -1,0 +1,48 @@
+id: TASK-0488
+title: "Add Atomic synthetic cross-source benchmark dry-run"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare Atomic benchmark plumbing without touching real cross-source values."
+  - "Exercise loader, covariance, and holdout semantics with fabricated data only."
+  - "Reduce risk before TASK-0455 and TASK-0456."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "physics_lab/engines/atomic_clock_residuals.py"
+    - "data/atomic_clocks/synthetic_loader_dry_run.yaml"
+    - "tasks/TASK-0456-run-first-atomic-yb-sr-cross-source-consistency-benchmark.yaml"
+  planning_context: >
+    Before any real Yb/Sr cross-source consistency benchmark, APL should test
+    the benchmark plumbing with fabricated rows. This preserves the no-peek and
+    source-readiness boundaries while giving agents a deterministic validation
+    task.
+
+requirements:
+  - "Use fabricated synthetic values only."
+  - "Do not read or compare real Nemitz or Beloy values beyond existing loader fixtures."
+  - "Exercise row roles, covariance states, and holdout/no-peek flags in the synthetic fixture."
+  - "Document why this dry-run does not unblock real Atomic benchmark work."
+  - "Do not create RESULT artifacts or claims."
+
+accepted_outputs:
+  - "data/atomic_clocks/synthetic_cross_source_dry_run.yaml"
+  - "docs/reviews/atomic-synthetic-cross-source-dry-run.md"
+  - "tests/test_atomic_clock_synthetic_cross_source.py or equivalent targeted tests"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_synthetic_cross_source.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

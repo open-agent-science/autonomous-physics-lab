@@ -1,0 +1,49 @@
+id: TASK-0483
+title: "Run exoplanet null-baseline family audit"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Strengthen the exoplanet benchmark by quantifying how much simple null baselines explain."
+  - "Prevent compact-radius residual stress from being overread."
+  - "Create a reusable control panel for future exoplanet residual pilots."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+    - "docs/reviews/exoplanet-compact-subneptune-matched-control-audit.md"
+  planning_context: >
+    Exoplanet has a public-safe benchmark diagnostic. A stronger null-baseline
+    family audit can show which residual slices remain interesting after
+    per-class, nearest-radius, nearest-mass, and uncertainty-band baselines.
+
+requirements:
+  - "Use the committed snapshot only; no live fetch."
+  - "Compare CK17-style residuals against at least three deterministic null baselines."
+  - "Report compact-radius, sub-Neptune, Jovian-radius, hot-Jupiter if available, true-mass, and minimum-mass axes separately."
+  - "Preserve control-sensitive and underpowered verdicts."
+  - "Do not infer composition, habitability, target priority, or new mass-radius laws."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+  - "tests for any reusable runner code"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

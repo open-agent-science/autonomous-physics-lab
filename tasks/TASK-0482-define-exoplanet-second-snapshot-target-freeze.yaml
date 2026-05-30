@@ -1,0 +1,47 @@
+id: TASK-0482
+title: "Define exoplanet second-snapshot target freeze"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move exoplanet from same-snapshot benchmark diagnostics toward future reveal-style validation."
+  - "Create a no-live-fetch target freeze before any second snapshot is ingested."
+  - "Preserve the no-peek boundary around updated catalog values."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+  planning_context: >
+    The second-snapshot protocol exists, but agents need a concrete
+    target-freeze plan before anyone fetches or ingests a newer catalog
+    snapshot. This task defines target rows, fields, and reveal conditions
+    without fetching live data.
+
+requirements:
+  - "Do not fetch NASA Exoplanet Archive data."
+  - "Select or define a target-freeze rule from the committed exo-0001 snapshot only."
+  - "Declare fields to compare, exclusion rules, and reveal conditions for a future second snapshot."
+  - "Separate true-mass and minimum-mass axes."
+  - "Do not create prediction entries unless explicitly approved in a later task."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-second-snapshot-target-freeze.md"
+  - "optional data/exoplanets/second_snapshot_target_freeze.yaml if no values from future data are included"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

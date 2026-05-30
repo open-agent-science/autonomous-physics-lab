@@ -1,0 +1,48 @@
+id: TASK-0490
+title: "Run Quantum figure-digitization fixture dry-run"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare deterministic Quantum digitization tooling without using uncertain real figure reads."
+  - "Let agents validate the extraction ledger and uncertainty fields on a synthetic fixture."
+  - "Reduce risk before real quantum-dot figure points enter row-level data."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "physics_lab/schemas/quantum_dot_size_effect.schema.json"
+    - "data/quantum_dots/README.md"
+  planning_context: >
+    Quantum is blocked partly because figure-derived points need deterministic
+    provenance and uncertainty handling. This task creates a synthetic fixture
+    dry-run for the digitization ledger; it must not create real measurement
+    rows.
+
+requirements:
+  - "Use synthetic or fixture points only."
+  - "Exercise axis calibration, point provenance, uncertainty, and exclusion fields."
+  - "Do not add real qd-*.yaml measurement rows."
+  - "Do not run size-effect baseline metrics."
+  - "Document how the fixture maps to future WebPlotDigitizer-class artifacts."
+
+accepted_outputs:
+  - "data/quantum_dots/digitization_fixture.yaml or equivalent fixture"
+  - "docs/reviews/quantum-figure-digitization-fixture-dry-run.md"
+  - "tests for fixture/schema validation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
