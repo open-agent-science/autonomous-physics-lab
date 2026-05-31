@@ -30,4 +30,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0496` - Refresh mission priorities after latest science results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
