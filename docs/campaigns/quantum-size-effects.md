@@ -32,10 +32,11 @@ new material law, and no device, synthesis, biomedical, or design claim.
 
 **Active next work:** `TASK-0398` packages the Norris-Bawendi 1996
 digitization preflight, `TASK-0489` reviews the Norris-Bawendi source artifact
-path, `TASK-0490` dry-runs the figure-digitization fixture on synthetic data,
-and `TASK-0491` defines the go/no-go scorecard for any weaker
-calibration-consistency benchmark. `TASK-0336` stays blocked until an approved
-source artifact exists or the scope is explicitly rewritten.
+path, and `TASK-0491` defines the go/no-go scorecard for any weaker
+calibration-consistency benchmark. `TASK-0490` has already dry-run the future
+figure-digitization ledger on synthetic data, but it does not authorize real
+rows. `TASK-0336` stays blocked until an approved source artifact exists or the
+scope is explicitly rewritten.
 
 **Expected next result:** either a source artifact that unlocks direct row
 curation or a blocker review that prevents another weak source path from being
@@ -109,9 +110,12 @@ Current task posture:
 - `TASK-0356` — direct source-artifact intake path (DONE; defines the artifact
   directory layout, required metadata, checksum policy, and row-type evidence
   checklist before any `qd-*.yaml` seed can be curated).
-- `TASK-0364` — PMC/arXiv/direct-table source curation attempt (READY; should
-  start with the ranked candidates from `TASK-0347`, not with another
-  calibration-polynomial path).
+- `TASK-0364` — PMC/arXiv/direct-table source curation attempt (DONE; it
+  preserved source blockers and recommended staying with ranked
+  `TASK-0347` candidates rather than another calibration-polynomial path).
+- `TASK-0490` — synthetic figure-digitization fixture dry run (DONE; validates
+  axis calibration, point provenance, uncertainty, and included/excluded point
+  states for future WebPlotDigitizer-class artifacts, but adds no real rows).
 
 Safe next contributions are:
 
@@ -190,6 +194,9 @@ Current evidence is infrastructure and source curation only:
   1997 PbS, then Andreev-Lipovskii 1999 PbS if the first two fail.
 - `TASK-0356` gives curators a concrete intake path for maintainer-provided or
   open source files, including required metadata and checksum handling.
+- `TASK-0490` validates the shape of a future figure-digitization ledger with
+  synthetic data only; it is infrastructure for later row curation, not a
+  quantum-dot measurement result.
 
 Historical context:
 

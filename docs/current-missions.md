@@ -73,9 +73,9 @@ turning watchlist topics into formula-search work.
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is falsified, the residual-free cluster lane is inconclusive, pairing-asymmetry and magic-parity controls are negative, and shell-axis transfer is mixed/chain-local | negative evidence card, F2 finer-taxonomy preflight, training-slice feasibility, and reveal-source readiness; do not repeat completed weak lanes |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control survivor, mass-quartile underpowered diagnostic, target-freeze protocol, and external-reviewer capsule | null-baseline family audit, host-context preflight, second-snapshot discipline, and benchmark-only evidence packaging |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control diagnostic, null-baseline control panel, mass-quartile underpowered diagnostic, target-freeze protocol, and external-reviewer capsule | host-context preflight, then a control-aware go/no-go before any further residual pilot |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows, Nemitz 2016 source artifact pinned but rows blocked, and first-benchmark covariance policy defined | real-row loader, fallback source triage, direct-vs-derived separation, synthetic cross-source dry-run, then baseline-readiness gate |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows, deterministic real-row loader, synthetic cross-source dry-run, Nemitz 2016 source artifact pinned but rows blocked, and first-benchmark covariance policy defined | fallback source triage, direct-vs-derived separation, then baseline-readiness gate |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas | Stellar Mass-Luminosity review, plus Wien and Stefan-Boltzmann source/baseline planning before any metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
@@ -151,8 +151,9 @@ Use these rules:
 - Do not fit atomic-clock or anomaly-style campaigns before source and
   covariance semantics are reviewable.
 - Do not present exoplanet regime scouts as corrections or planet-composition
-  discoveries; compact-radius is public-safe only as benchmark-summary wording
-  with scorecard limitations attached.
+  discoveries; after the null-baseline family audit, compact-radius is public-
+  safe only as a control-sensitive benchmark diagnostic with scorecard
+  limitations attached.
 - Do not run Textbook Formula Audit metrics until the selected formula has a
   source/baseline/holdout plan.
 

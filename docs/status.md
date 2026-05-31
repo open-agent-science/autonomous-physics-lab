@@ -70,16 +70,18 @@ Highlights:
   mixed and chain-local.
 - Exoplanet Mass-Radius now has a pinned PSCompPars snapshot, an inconclusive
   first baseline benchmark, residual/failure-map audits, a compact-radius
-  matched-control survivor, a mass-quartile scout that is underpowered at
+  matched-control diagnostic, a mass-quartile scout that is underpowered at
   quartile resolution, a second-snapshot target freeze, an external-reviewer
-  replication capsule, and a `BENCHMARK_SUMMARY_ONLY` scorecard. This is the
-  strongest current public-safe benchmark surface, not a claim about planet
-  composition.
+  replication capsule, a `BENCHMARK_SUMMARY_ONLY` scorecard, and a
+  null-baseline family audit showing the highlighted slices are
+  control-sensitive. This is the strongest current public-safe benchmark
+  surface, not a claim about planet composition.
 - Atomic-Clock Residuals now has Beloy 2021 / BACON pinned as sandbox-only
   direct frequency-ratio rows, a source-derived PSD covariance approximation,
-  the correct Nemitz 2016 source artifact pinned with rows blocked, and a
-  first-benchmark covariance policy. It is still not a benchmark or
-  constants-drift result.
+  a deterministic real-row loader, a synthetic cross-source dry run, the
+  correct Nemitz 2016 source artifact pinned with rows blocked, and a first-
+  benchmark covariance policy. It is still not a benchmark or constants-drift
+  result.
 - Textbook Formula Audit has a scaffold and ranked candidate slate. Its first
   useful next step is Stellar Mass-Luminosity source/baseline planning, not an
   audit run.
