@@ -76,6 +76,42 @@ Immediate v0.2 packaging work:
   promoting sandbox candidates;
 - run one final public overclaim audit before any public-opening decision.
 
+## v0.3 — Research Factory Layer — Planned
+
+**Goal:** APL can run bounded campaign factories that test many hypotheses, route
+candidates through controls, and produce reviewable scientific memory without
+claim promotion.
+
+`v0.3` is the next capability milestone after the `v0.2` public-alpha hardening.
+It is a deliberate step change, not more hardening: APL moves from
+one-lane-at-a-time hypothesis audits to a reusable **Research Factory** — a
+deterministic bounded workflow that campaign adapters call to generate many
+scoped candidates under locked controls and route the output into scientific
+memory without promoting claims. See
+[notes/research-factory-layer-plan.md](notes/research-factory-layer-plan.md).
+
+`v0.3` is defined by an evidence-facing milestone, not by "the code exists". Exit
+criteria:
+
+- reusable factory **protocol** (TASK-0504) and **summary-artifact schema**
+  (TASK-0505) are merged;
+- the **factory core + first (Nuclear) adapter** (TASK-0506) is implemented;
+- at least **one completed factory sprint** (TASK-0507) routes real bounded
+  candidates into `NEGATIVE_RESULT` / `INCONCLUSIVE` / `SHORTLIST_CANDIDATE`
+  memory under mandatory controls, with **no automatic claims, predictions, or
+  discovery wording**;
+- a **second-campaign adapter contract** (TASK-0508, Exoplanet) demonstrates
+  reuse — proving the factory is a *layer*, not a Nuclear-only tool;
+- the version marker is reconciled (see below) and public-facing wording stays
+  benchmark/negative-evidence honest.
+
+Sequencing: `v0.3` may be planned in parallel but is closed only after the
+`v0.2` public-launch gates above are satisfied.
+
+Version-marker hygiene: the narrative version (`v0.2`, then `v0.3`) must be
+reconciled with the package marker in `pyproject.toml` (currently `0.1.0`) so
+the version has a single source of truth tied to release gates rather than prose.
+
 ## Public Task Network — Future
 
 After private-alpha gates are satisfied, APL can expand toward a more openly
