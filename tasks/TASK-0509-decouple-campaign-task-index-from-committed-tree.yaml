@@ -1,0 +1,55 @@
+id: TASK-0509
+title: "Decouple campaign task index from the committed tree"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep canonical task state in `tasks/TASK-*.yaml` instead of generated cache files."
+  - "Avoid reintroducing `tasks/ACTIVE.md`-style churn through a committed campaign task index."
+  - "Preserve useful campaign lane and conflict queries for the Scientific Campaign Director and review workflows."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "tasks/TASK-0460-add-task-to-campaign-lane-index.yaml"
+    - "scripts/apl_task_campaign_index.py"
+    - "physics_lab/registry/task_campaign_index.py"
+    - "docs/notes/task-to-campaign-lane-index.md"
+  planning_context: >
+    TASK-0460 added useful task-to-campaign lane mapping, but committing
+    `campaigns/task-index.yaml` creates a second frequently-changing board-like
+    artifact. The architecture should keep the mapping queryable on demand while
+    avoiding another committed generated file that agents must refresh in every
+    task PR.
+
+requirements:
+  - "Remove the committed `campaigns/task-index.yaml` cache."
+  - "Keep the task-to-campaign lane mapping available through the existing script and pure helper functions."
+  - "Remove write/check semantics that treat the index as a committed freshness artifact."
+  - "Update documentation to tell agents, reviewers, and Scientific Campaign Director flows to query the index on demand."
+  - "Preserve tests for lane mapping, ambiguous tasks, parallel-safety, and path-conflict detection."
+  - "Do not change canonical task statuses except this task's own lifecycle transition."
+
+accepted_outputs:
+  - "scripts/apl_task_campaign_index.py"
+  - "physics_lab/registry/task_campaign_index.py"
+  - "docs/notes/task-to-campaign-lane-index.md"
+  - "docs/agent-capacity-board.md"
+  - "docs/automation/homogeneous-science-pr-batch-review.md"
+  - "docs/reviews/homogeneous-science-pr-batch-review-protocol.md"
+  - "tests/test_task_campaign_index.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_campaign_index.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
