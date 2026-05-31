@@ -1,0 +1,290 @@
+{
+  "agent_run_id": "AGENT-RUN-0051",
+  "axis_recommendations": {
+    "benchmark_usable": [],
+    "blocked_by_missingness": [],
+    "conditional_or_partition_underpowered": [
+      "host_effective_temperature_K",
+      "host_metallicity_fe_h",
+      "stellar_radius_rsun",
+      "equilibrium_temperature_K",
+      "irradiation_flux_earth_units"
+    ]
+  },
+  "campaign_profile_id": "exoplanet-mass-radius",
+  "data_boundary": {
+    "baseline_refit_performed": false,
+    "canonical_result_written": false,
+    "claim_or_knowledge_update_performed": false,
+    "compact_radius_threshold_rearth": 1.5,
+    "correction_model_fit_performed": false,
+    "live_external_fetch_performed": false,
+    "only_committed_snapshot_fields_used": true,
+    "prediction_written": false,
+    "true_mass_transit_radius_axis_only": true
+  },
+  "field_coverage": {
+    "compact_radius": [
+      {
+        "bin_counts": {
+          "F_6000_7500K": 5,
+          "G_5200_6000K": 20,
+          "K_3900_5200K": 17,
+          "M_lt3900K": 48,
+          "missing": 2
+        },
+        "coverage_fraction": 0.9782608695652174,
+        "coverage_percent": 97.826,
+        "denominator": 92,
+        "field_id": "host_effective_temperature_K",
+        "interpretable_bin_count": 1,
+        "interpretable_bins": {
+          "M_lt3900K": 48
+        },
+        "label": "host Teff",
+        "missing_count": 2,
+        "present_count": 90,
+        "role": "host_star",
+        "status": "coverage_usable_partition_underpowered"
+      },
+      {
+        "bin_counts": {
+          "metal_poor_lt_minus0p2": 18,
+          "metal_rich_gt0p2": 4,
+          "missing": 11,
+          "near_solar_minus0p2_0p2": 59
+        },
+        "coverage_fraction": 0.8804347826086957,
+        "coverage_percent": 88.043,
+        "denominator": 92,
+        "field_id": "host_metallicity_fe_h",
+        "interpretable_bin_count": 1,
+        "interpretable_bins": {
+          "near_solar_minus0p2_0p2": 59
+        },
+        "label": "host metallicity [Fe/H]",
+        "missing_count": 11,
+        "present_count": 81,
+        "role": "host_star",
+        "status": "coverage_usable_partition_underpowered"
+      },
+      {
+        "bin_counts": {
+          "large_ge1p5Rsun": 4,
+          "small_lt0p7Rsun": 57,
+          "solar_high_1p0_1p5Rsun": 12,
+          "subsolar_0p7_1p0Rsun": 19
+        },
+        "coverage_fraction": 1.0,
+        "coverage_percent": 100.0,
+        "denominator": 92,
+        "field_id": "stellar_radius_rsun",
+        "interpretable_bin_count": 1,
+        "interpretable_bins": {
+          "small_lt0p7Rsun": 57
+        },
+        "label": "stellar radius",
+        "missing_count": 0,
+        "present_count": 92,
+        "role": "host_star",
+        "status": "coverage_usable_partition_underpowered"
+      },
+      {
+        "bin_counts": {
+          "high_ge1000K": 22,
+          "low_lt500K": 16,
+          "mid_500_1000K": 32,
+          "missing": 22
+        },
+        "coverage_fraction": 0.7608695652173914,
+        "coverage_percent": 76.087,
+        "denominator": 92,
+        "field_id": "equilibrium_temperature_K",
+        "interpretable_bin_count": 1,
+        "interpretable_bins": {
+          "mid_500_1000K": 32
+        },
+        "label": "equilibrium temperature",
+        "missing_count": 22,
+        "present_count": 70,
+        "role": "equilibrium_temperature_proxy",
+        "status": "conditionally_usable"
+      },
+      {
+        "bin_counts": {
+          "high_ge100Searth": 19,
+          "low_lt10Searth": 20,
+          "mid_10_100Searth": 22,
+          "missing": 31
+        },
+        "coverage_fraction": 0.6630434782608695,
+        "coverage_percent": 66.304,
+        "denominator": 92,
+        "field_id": "irradiation_flux_earth_units",
+        "interpretable_bin_count": 0,
+        "interpretable_bins": {},
+        "label": "irradiation flux",
+        "missing_count": 31,
+        "present_count": 61,
+        "role": "equilibrium_temperature_proxy",
+        "status": "conditionally_usable"
+      }
+    ],
+    "eligible_true_mass_transit_radius": [
+      {
+        "bin_counts": {
+          "F_6000_7500K": 285,
+          "G_5200_6000K": 492,
+          "K_3900_5200K": 235,
+          "M_lt3900K": 140,
+          "hot_ge7500K": 14,
+          "missing": 41
+        },
+        "coverage_fraction": 0.9660314830157415,
+        "coverage_percent": 96.603,
+        "denominator": 1207,
+        "field_id": "host_effective_temperature_K",
+        "interpretable_bin_count": 4,
+        "interpretable_bins": {
+          "F_6000_7500K": 285,
+          "G_5200_6000K": 492,
+          "K_3900_5200K": 235,
+          "M_lt3900K": 140
+        },
+        "label": "host Teff",
+        "missing_count": 41,
+        "present_count": 1166,
+        "role": "host_star",
+        "status": "benchmark_usable"
+      },
+      {
+        "bin_counts": {
+          "metal_poor_lt_minus0p2": 95,
+          "metal_rich_gt0p2": 262,
+          "missing": 114,
+          "near_solar_minus0p2_0p2": 736
+        },
+        "coverage_fraction": 0.9055509527754764,
+        "coverage_percent": 90.555,
+        "denominator": 1207,
+        "field_id": "host_metallicity_fe_h",
+        "interpretable_bin_count": 3,
+        "interpretable_bins": {
+          "metal_poor_lt_minus0p2": 95,
+          "metal_rich_gt0p2": 262,
+          "near_solar_minus0p2_0p2": 736
+        },
+        "label": "host metallicity [Fe/H]",
+        "missing_count": 114,
+        "present_count": 1093,
+        "role": "host_star",
+        "status": "benchmark_usable"
+      },
+      {
+        "bin_counts": {
+          "large_ge1p5Rsun": 242,
+          "missing": 4,
+          "small_lt0p7Rsun": 229,
+          "solar_high_1p0_1p5Rsun": 387,
+          "subsolar_0p7_1p0Rsun": 345
+        },
+        "coverage_fraction": 0.9966859983429992,
+        "coverage_percent": 99.669,
+        "denominator": 1207,
+        "field_id": "stellar_radius_rsun",
+        "interpretable_bin_count": 4,
+        "interpretable_bins": {
+          "large_ge1p5Rsun": 242,
+          "small_lt0p7Rsun": 229,
+          "solar_high_1p0_1p5Rsun": 387,
+          "subsolar_0p7_1p0Rsun": 345
+        },
+        "label": "stellar radius",
+        "missing_count": 4,
+        "present_count": 1203,
+        "role": "host_star",
+        "status": "benchmark_usable"
+      },
+      {
+        "bin_counts": {
+          "high_ge1000K": 518,
+          "low_lt500K": 106,
+          "mid_500_1000K": 310,
+          "missing": 273
+        },
+        "coverage_fraction": 0.7738193869096934,
+        "coverage_percent": 77.382,
+        "denominator": 1207,
+        "field_id": "equilibrium_temperature_K",
+        "interpretable_bin_count": 3,
+        "interpretable_bins": {
+          "high_ge1000K": 518,
+          "low_lt500K": 106,
+          "mid_500_1000K": 310
+        },
+        "label": "equilibrium temperature",
+        "missing_count": 273,
+        "present_count": 934,
+        "role": "equilibrium_temperature_proxy",
+        "status": "conditionally_usable"
+      },
+      {
+        "bin_counts": {
+          "high_ge100Searth": 265,
+          "low_lt10Searth": 74,
+          "mid_10_100Searth": 133,
+          "missing": 735
+        },
+        "coverage_fraction": 0.39105219552609777,
+        "coverage_percent": 39.105,
+        "denominator": 1207,
+        "field_id": "irradiation_flux_earth_units",
+        "interpretable_bin_count": 3,
+        "interpretable_bins": {
+          "high_ge100Searth": 265,
+          "low_lt10Searth": 74,
+          "mid_10_100Searth": 133
+        },
+        "label": "irradiation flux",
+        "missing_count": 735,
+        "present_count": 472,
+        "role": "equilibrium_temperature_proxy",
+        "status": "blocked_by_missingness"
+      }
+    ]
+  },
+  "loader_summary": {
+    "compact_slice_count": 92,
+    "eligible_true_mass_with_transit_radius": 1207,
+    "outside_compact_count": 1115,
+    "post_filter_included_count": 4301,
+    "pre_filter_included_count": 6157,
+    "total_rows": 6291
+  },
+  "preflight_status": "conditional_only_partition_underpowered",
+  "scope": {
+    "compact_radius": {
+      "count": 92,
+      "radius_max_rearth": 1.498,
+      "radius_min_rearth": 0.3098
+    },
+    "eligible_true_mass_transit_radius": {
+      "count": 1207,
+      "radius_max_rearth": 23.53885947,
+      "radius_min_rearth": 0.3098
+    },
+    "outside_compact": {
+      "count": 1115,
+      "radius_max_rearth": 23.53885947,
+      "radius_min_rearth": 1.504
+    }
+  },
+  "snapshot_path": "data/exoplanets/exo-0001-pscomppars-snapshot.yaml",
+  "task_id": "TASK-0481",
+  "thresholds": {
+    "benchmark_coverage_fraction": 0.8,
+    "conditional_coverage_fraction": 0.5,
+    "min_interpretable_rows": 30
+  },
+  "verdict": "INCONCLUSIVE"
+}

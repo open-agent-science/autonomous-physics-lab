@@ -1,7 +1,7 @@
 id: TASK-0481
 title: "Run exoplanet compact-radius host-context preflight"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -31,8 +31,14 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/exoplanet-compact-radius-host-context-preflight.md"
-  - "optional metrics JSON under agent_runs/AGENT-RUN-XXXX/ if code is used"
-  - "tests for any reusable field-coverage helper"
+  - "agent_runs/AGENT-RUN-0051/metrics.json"
+  - "agent_runs/AGENT-RUN-0051/report.md"
+  - "agent_runs/AGENT-RUN-0051/agent_run.yaml"
+  - "agent_runs/AGENT-RUN-0051/limitations.md"
+  - "agent_runs/AGENT-RUN-0051/preflight.md"
+  - "agent_runs/AGENT-RUN-0051/review_summary.md"
+  - "scripts/run_exoplanet_compact_radius_host_context_preflight.py"
+  - "tests/test_exoplanet_compact_radius_host_context_preflight.py"
 
 validation:
   commands:
