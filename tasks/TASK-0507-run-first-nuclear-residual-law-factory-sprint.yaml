@@ -1,0 +1,68 @@
+id: TASK-0507
+title: "Run first Nuclear residual-law factory sprint"
+type: scientific_validation
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test whether Nuclear has any bounded residual-law candidates worth replay or prediction-freeze consideration."
+  - "Replace slow one-lane Nuclear churn with a controlled high-throughput sprint."
+  - "Produce either a real shortlist or strong negative memory across feature families."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/research-factory-protocol.md"
+    - "docs/research-factory-adapter-contract.md"
+    - "docs/nuclear-residual-factory-sprint-protocol.md"
+    - "physics_lab/schemas/factory_summary.schema.json"
+    - "scripts/run_research_factory.py"
+    - "physics_lab/factories/"
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "docs/nuclear-mass-holdout-protocol.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  planning_context: >
+    The first full Nuclear factory sprint should call the shared Research
+    Factory layer through the Nuclear adapter, test 50-100 bounded residual
+    candidates across approved feature families, compare them against the
+    frozen baseline, run mandatory controls, and route the result into
+    shortlist, replay, prediction-freeze readiness, inconclusive, or negative
+    memory. This task is intentionally BLOCKED until TASK-0504, TASK-0505, and
+    TASK-0506 are DONE. It must not promote a discovery claim.
+
+requirements:
+  - "Do not run the sprint until TASK-0504, TASK-0505, and TASK-0506 have landed."
+  - "Generate and execute 50-100 bounded candidates across at least four approved Nuclear feature families."
+  - "Use committed datasets and locked split definitions only."
+  - "Use the shared Research Factory runner/adapter contract, not a one-off Nuclear-only script."
+  - "Report generated, preflight-rejected, executed, shortlisted, and rejected-by-control counts."
+  - "Run mandatory controls: baseline comparison, train/holdout, post-AME2020 check when applicable, leave-family or leave-chain stress, shuffled/null target, matched random slice, complexity penalty, and leakage check."
+  - "Rank top candidates by holdout improvement after controls, not by training fit."
+  - "Preserve negative and rejected-by-control families as scientific memory."
+  - "Use route verdicts from the Research Factory protocol."
+  - "Do not write PRED entries unless a separate maintainer-approved prediction-freeze task is created later."
+  - "Do not claim a universal nuclear mass formula or discovery."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/factory_summary.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/results/nuclear-residual-factory-sprint.md or docs/reviews/nuclear-residual-factory-sprint.md, depending on result-promotion routing"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md with shortlist or negative-memory status"
+  - "optional follow-up task proposals only if a candidate reaches READY_FOR_REPLAY or READY_FOR_PRED_FREEZE"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_residual_factory.py"
+    - "python3 scripts/run_research_factory.py --config examples/nuclear_residual_factory_sprint.yaml --output-dir /tmp/apl-nuclear-factory-sprint"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

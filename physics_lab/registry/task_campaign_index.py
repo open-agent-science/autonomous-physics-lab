@@ -40,6 +40,7 @@ SUPPORT_DOMAINS = frozenset(
         "repository_coordination",
         "multi_agent_coordination",
         "snapshot_tooling",
+        "cross_campaign_research_factory",
     }
 )
 SUPPORT_TYPES = frozenset(
@@ -108,9 +109,12 @@ def map_lane(
 ) -> tuple[str, str]:
     """Map a task payload to ``(lane, mapping_basis)``.
 
-    Resolution order: exact ``related_domain`` match to a campaign id, then a
-    ``docs/campaigns/<id>`` reference in related objects / accepted outputs, then
-    a known support domain/type, otherwise ``UNMAPPED`` for curator review.
+    Resolution order: exact ``related_domain`` match to a campaign id, then the
+    special cross-campaign factory support domain, then a ``docs/campaigns/<id>``
+    reference in related objects / accepted outputs, then other known support
+    domains/types, otherwise ``UNMAPPED`` for curator review. The factory
+    special-case prevents a cross-campaign protocol task from being misclassified
+    just because it mentions a campaign profile as an example or first adopter.
     """
     task_input = payload.get("input") or {}
     domain = str(task_input.get("related_domain") or "")
@@ -118,6 +122,9 @@ def map_lane(
         normalized = _normalize_domain(domain)
         if normalized in campaign_ids:
             return normalized, f"related_domain={domain}"
+
+    if domain == "cross_campaign_research_factory":
+        return SUPPORT_LANE, f"support domain={domain}"
 
     references: list[str] = []
     references.extend(str(item) for item in task_input.get("related_objects", []) or [])
@@ -237,7 +244,11 @@ def _output_path_conflicts(root: Path) -> list[dict[str, Any]]:
         for raw in payload.get("accepted_outputs", []) or []:
             token = str(raw).strip().strip("`")
             candidate = token.split()[0] if token else ""
-            if "/" not in candidate or candidate.endswith("/"):
+            if (
+                "/" not in candidate
+                or candidate.endswith("/")
+                or _is_placeholder_output_path(candidate)
+            ):
                 continue
             owners.setdefault(candidate, []).append(task_id)
     return [
@@ -245,6 +256,11 @@ def _output_path_conflicts(root: Path) -> list[dict[str, Any]]:
         for path, tasks in sorted(owners.items())
         if len(set(tasks)) > 1
     ]
+
+
+def _is_placeholder_output_path(path: str) -> bool:
+    """Return True for template paths that should not count as real collisions."""
+    return "XXXX" in path or "<" in path or ">" in path
 
 
 def render_yaml(index: dict[str, Any]) -> str:

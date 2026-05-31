@@ -43,6 +43,19 @@ def test_map_lane_support_domain() -> None:
     assert lane == "support"
 
 
+def test_map_lane_support_domain_takes_precedence_over_campaign_reference() -> None:
+    payload = {
+        "input": {
+            "related_domain": "cross_campaign_research_factory",
+            "related_objects": ["campaign_profiles/nuclear-mass-surface.yaml"],
+        },
+        "type": "research_protocol",
+    }
+    lane, basis = map_lane(payload, CAMPAIGNS)
+    assert lane == "support"
+    assert "cross_campaign_research_factory" in basis
+
+
 def test_map_lane_support_type_fallback() -> None:
     payload = {"input": {"related_domain": "novel_thing"}, "type": "workflow_protocol"}
     lane, _basis = map_lane(payload, CAMPAIGNS)
@@ -143,3 +156,26 @@ def test_build_index_detects_output_path_conflict(tmp_path: Path) -> None:
     assert index["path_conflicts"] == [
         {"path": "docs/shared-target.md", "tasks": ["TASK-0001", "TASK-0002"]}
     ]
+
+
+def test_build_index_ignores_placeholder_output_path_conflicts(tmp_path: Path) -> None:
+    (tmp_path / "campaigns").mkdir()
+    (tmp_path / "campaigns" / "catalog.yaml").write_text(
+        yaml.safe_dump({"campaigns": []}), encoding="utf-8"
+    )
+    (tmp_path / "tasks").mkdir()
+    for n in (1, 2):
+        (tmp_path / "tasks" / f"TASK-000{n}-placeholder.yaml").write_text(
+            yaml.safe_dump(
+                {
+                    "id": f"TASK-000{n}",
+                    "title": "placeholder",
+                    "type": "maintainer_workflow",
+                    "status": "READY",
+                    "input": {"related_domain": "maintainer_review"},
+                    "accepted_outputs": ["agent_runs/AGENT-RUN-XXXX/report.md"],
+                }
+            ),
+            encoding="utf-8",
+        )
+    assert build_index(tmp_path)["path_conflicts"] == []
