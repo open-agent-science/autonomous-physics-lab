@@ -1,0 +1,54 @@
+id: TASK-0511
+title: "Define the v0.3 Research Factory Layer milestone in roadmap and strategy"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Give the Research Factory Layer a named release milestone (v0.3) with explicit, evidence-facing exit criteria instead of an implicit 'when the code exists' target."
+  - "Keep the version narrative consistent across roadmap, strategy, and architecture docs."
+  - "Tie v0.3 to the already-seeded factory tasks (TASK-0504..0508) and flag the version-marker hygiene gap."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "docs/roadmap.md"
+    - "docs/strategy.md"
+    - "docs/architecture.md"
+    - "docs/notes/research-factory-layer-plan.md"
+    - "tasks/TASK-0504-define-bounded-research-factory-protocol.yaml"
+    - "tasks/TASK-0508-define-exoplanet-factory-reuse-contract.yaml"
+  planning_context: >
+    The Research Factory Layer (seeded by the #706 TASK-QUEUE: TASK-0504 protocol,
+    TASK-0505 schema, TASK-0506 core+Nuclear adapter, TASK-0507 first sprint,
+    TASK-0508 Exoplanet reuse contract) is the next capability step after the
+    v0.2 public-alpha hardening. This task names it the v0.3 milestone and records
+    its exit criteria so "fully ready" is defined by demonstrated, controlled
+    factory output and second-campaign reuse rather than by code presence alone.
+    It also flags that the pyproject version marker (0.1.0) must be reconciled
+    with the narrative version.
+
+requirements:
+  - "Add a v0.3 Research Factory Layer milestone to docs/roadmap.md with explicit exit criteria tied to TASK-0504..0508."
+  - "Define v0.3 by an evidence-facing milestone (a completed controlled sprint plus a second-campaign reuse contract), not by code presence."
+  - "Add a short forward pointer in docs/strategy.md and docs/architecture.md to the v0.3 milestone."
+  - "Note that v0.3 closes only after the v0.2 public-launch gates are satisfied."
+  - "Flag the version-marker hygiene gap (pyproject 0.1.0 vs narrative version) without bumping the version in this task."
+  - "Do not change campaign/result/claim artifacts or task statuses except this task's own lifecycle."
+
+accepted_outputs:
+  - "docs/roadmap.md v0.3 milestone section"
+  - "docs/strategy.md and docs/architecture.md forward pointers"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
