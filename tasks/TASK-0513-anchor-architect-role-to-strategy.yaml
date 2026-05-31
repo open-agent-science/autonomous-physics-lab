@@ -1,0 +1,52 @@
+id: TASK-0513
+title: "Anchor the architect role to long-horizon strategy and goal"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Make the architect role plan from the project's main goal and roadmap trajectory, not from the immediate task."
+  - "Prevent temporary local fixes that get reverted (ACTIVE.md, task-index.yaml, agent-capacity-board) by requiring a long-horizon, durable-decision lens."
+  - "Tie architectural judgment to durable scientific-output throughput rather than task or PR count."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "agents/architect.yaml"
+    - "docs/strategy.md"
+    - "docs/roadmap.md"
+    - "docs/generated-file-policy.md"
+    - "docs/architecture.md"
+  planning_context: >
+    Maintainer feedback: the architect role has been making short-term,
+    temporary decisions instead of planning several steps ahead from the
+    project's main goal and strategy. Recent evidence is the build-then-revert
+    cycle (the committed task-index board and the agent-capacity-board, both
+    retired soon after being added). The role profile did not explicitly require
+    anchoring to docs/strategy.md and docs/roadmap.md (the v0.2 -> v0.3 Research
+    Factory -> public-network trajectory) or planning durable decisions over
+    convenient temporary ones. This task updates the architect role instructions
+    to encode a strategy-first, long-horizon mandate.
+
+requirements:
+  - "Add a strategy-first, long-horizon mandate to the architect role purpose: re-read strategy, roadmap, and standing policies before proposing or building; optimize for durable scientific-output throughput, not task/PR count."
+  - "Add long-horizon goals: anchor decisions to the goal/roadmap trajectory and plan several steps ahead; do not add artifacts a near-term milestone will obsolete or force a revert."
+  - "Add a restriction to validate every proposal against strategy.md and roadmap.md before building, and to surface the longer-horizon plan instead of building superseded work."
+  - "Add docs/roadmap.md and docs/generated-file-policy.md to architect required_reading."
+  - "Do not change other agent roles, task statuses, or scientific artifacts."
+
+accepted_outputs:
+  - "updated agents/architect.yaml (purpose, goals, restrictions, required_reading)"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
