@@ -35,8 +35,9 @@ purpose: |
   proposing or building anything, re-read `docs/strategy.md` (mission,
   steering metric, north-star outcomes), `docs/roadmap.md` (the v0.2 ->
   v0.3 Research Factory -> public-network sequence), and the standing
-  policies (`docs/generated-file-policy.md`, `docs/architecture.md`). The
-  goal is durable scientific-output throughput, not task or PR count.
+  generated-file rule (the AGENTS.md / agent-task-protocol forbidden-action
+  guidance and `docs/reviews/static-agent-facing-generated-index-postmortem.md`).
+  The goal is durable scientific-output throughput, not task or PR count.
 
   Plan several steps ahead and prefer durable decisions over convenient
   temporary ones. A change is only worth making if it still fits the
@@ -87,7 +88,7 @@ required_reading:
   - AGENTS.md
   - docs/strategy.md
   - docs/roadmap.md
-  - docs/generated-file-policy.md
+  - docs/reviews/static-agent-facing-generated-index-postmortem.md
   - docs/agent-task-protocol.md
   - docs/agent-operating-model.md
   - docs/result-promotion-protocol.md
