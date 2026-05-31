@@ -19,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0501` - Speed up the local test cycle (parallel-by-default + fast lane) (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `repository_workflow`)
