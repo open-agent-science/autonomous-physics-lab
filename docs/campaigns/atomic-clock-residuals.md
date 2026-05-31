@@ -14,7 +14,8 @@ schema scaffold needed before any future ingestion task can add rows.
 ## Current Status
 
 Pinned-dataset source surface with one committed direct-ratio seed, a
-source-derived covariance approximation, and a triaged second-source path. No
+source-derived covariance approximation, a corrected Nemitz 2016 source
+artifact pinned with rows blocked, and a first-benchmark covariance policy. No
 real-row benchmark yet.
 
 ## Public Monitoring Snapshot
@@ -25,18 +26,20 @@ before any residual analysis?
 
 **Shareable result:** APL has pinned Beloy 2021 / BACON as a sandbox-only
 direct-frequency-ratio seed (`PINNED_DATASET`), reconstructed a positive-
-semidefinite source-derived covariance approximation, and selected Nemitz 2016
-RIKEN Yb/Sr as the next independent source candidate. The campaign is
-deliberately not fitting constants drift yet.
+semidefinite source-derived covariance approximation, pinned the correct
+Nemitz 2016 RIKEN Yb/Sr arXiv source artifact, and defined conservative
+covariance states for the first benchmark. The campaign is deliberately not
+fitting constants drift yet.
 
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0452` ingests the Nemitz 2016 source if gates pass,
-`TASK-0453` adds a real direct-row loader, and the `TASK-0485`-`TASK-0488`
-wave closes second-source fallbacks, covariance policy, direct-vs-derived
-row separation, and synthetic cross-source dry-run boundaries before any
-benchmark consumer runs.
+**Active next work:** `TASK-0453` adds a real direct-row loader, while
+`TASK-0485`, `TASK-0487`, and `TASK-0488` cover fallback source triage,
+direct-vs-derived row separation, and synthetic cross-source dry-run
+boundaries before any benchmark consumer runs. `TASK-0452` pinned Nemitz but
+did not add value-bearing rows because version-of-record table review and
+campaign-window lock remain open.
 
 **Expected next result:** a `BASELINE_READY` go/no-go path: second source
 committed or blocked, real-row loader available, holdout/no-peek manifest
@@ -87,10 +90,14 @@ Current next tasks:
 - `TASK-0402` reconstructed a source-derived, positive-semidefinite
   cross-ratio covariance approximation for the Beloy rows;
 - `TASK-0403` triaged Nemitz 2016 / RIKEN Yb/Sr as the recommended second
-  independent direct-ratio source, but left ingestion to a follow-up task;
-- `TASK-0452`, `TASK-0453`, and the `TASK-0485` through `TASK-0488` wave are
-  the next executable blockers to close before a later baseline-readiness gate
-  can honestly run.
+  independent direct-ratio source;
+- `TASK-0452` pinned the correct Nemitz 2016 arXiv artifact
+  (`arXiv:1601.04582`) with checksum/provenance and corrected the older
+  locator error, but rows remain blocked by version-of-record table review and
+  campaign-window lock;
+- `TASK-0453`, `TASK-0485`, `TASK-0487`, and `TASK-0488` are the next
+  executable blockers to close before a later baseline-readiness gate can
+  honestly run.
 - `TASK-0486` defines the first-benchmark covariance policy:
   [`docs/reviews/atomic-first-benchmark-covariance-policy.md`](../reviews/atomic-first-benchmark-covariance-policy.md).
   Exact committed covariance can support correlated diagnostics,
@@ -104,8 +111,9 @@ second-source ingestion or waiver, holdout/no-peek boundary, deterministic
 real-row loader, and benchmark-time covariance policy acceptance.
 
 The next tasks can run in parallel because they own separate surfaces:
-Nemitz source ingestion, real-row loader, and holdout/no-peek manifest. None
-should fit drift, derive constants constraints, or promote a claim.
+real-row loader, fallback source triage, direct-vs-derived policy, and
+synthetic cross-source dry-run. None should fit drift, derive constants
+constraints, or promote a claim.
 
 ## Why This Could Matter Later
 
@@ -207,8 +215,8 @@ Safe future tasks:
 - run a real-row readiness gate before any future row seed;
 - curate a single source-specific row seed only when covariance, confidence
   level, direct-vs-derived, and version-drift stop conditions are satisfied;
-- ingest Nemitz 2016 as the second direct Yb/Sr source if arXiv/Nature
-  version-drift, checksum, license, and uncertainty gates pass;
+- curate Nemitz 2016 value-bearing rows only after arXiv/Nature version-drift,
+  table-level uncertainty, campaign-window, checksum, and license gates pass;
 - add a deterministic real-row loader for committed direct_measurement rows;
 - define a holdout/no-peek manifest before any benchmark consumer touches
   atomic rows;

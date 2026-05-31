@@ -19,7 +19,9 @@ card carries its limitation line with the result.
 **Short version:** On a pinned NASA Exoplanet Archive PSCompPars snapshot, APL
 finds that the compact-radius slice (`R < 1.5 R_earth`) is the strongest
 current matched-control survivor in a frozen Chen-Kipping-style mass-radius
-failure-map audit.
+failure-map audit. A later mass-quartile scout found that the compact slice is
+still underpowered for quartile localization, while leaving an upper-mass-half
+diagnostic hint.
 
 **Why it is interesting:** this is a clear, visual benchmark surface:
 mass-radius baseline, residual map, matched controls, deterministic replay,
@@ -92,17 +94,17 @@ Stellar Mass-Luminosity source/baseline planning, not metrics.
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Which residual-feature families survive no-leakage controls and future reveal discipline? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; `TASK-0449` is `INCONCLUSIVE`; `TASK-0450` is negative under transfer/matched controls; `TASK-0451` is control-dominated. | `TASK-0474`-`TASK-0479` controls-first/preflight wave | A new disjoint hypothesis-lane verdict, a negative evidence card, or a preflight decision that prevents another weak Nuclear loop. |
-| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | Where does a frozen Chen-Kipping-style mass-radius baseline fail on a pinned PSCompPars snapshot? | Compact-radius planets (`R < 1.5 R_earth`) are the strongest matched-control survivor; scorecard verdict is `BENCHMARK_SUMMARY_ONLY`; independent replay matched the sandbox metrics exactly. | `TASK-0480`-`TASK-0484` benchmark-hardening wave | Compact-radius quartile stress, null-baseline comparison, second-snapshot freeze protocol, or reviewer replication capsule. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Which residual-feature families survive no-leakage controls and future reveal discipline? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; residual-free F2 is inconclusive; pairing-asymmetry and magic-parity controls are negative/control-dominated; isotope-chain transfer is mixed and chain-local. | Negative evidence card, F2 finer-taxonomy preflight, training-slice feasibility, and reveal-source readiness | A negative/preflight package that prevents another weak Nuclear loop, or a genuinely disjoint controls-first lane. |
+| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | Where does a frozen Chen-Kipping-style mass-radius baseline fail on a pinned PSCompPars snapshot? | Compact-radius planets (`R < 1.5 R_earth`) are the strongest matched-control survivor; mass-quartile localization is underpowered; the target-freeze protocol and external-reviewer capsule are landed; scorecard verdict is `BENCHMARK_SUMMARY_ONLY`. | Null-baseline family audit and host-context preflight | A stronger benchmark-control panel that tells whether compact-radius residual stress survives simple null baselines and host-context checks. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist, but direct measurement rows are still the blocker. | `TASK-0398`, `TASK-0489`, `TASK-0490`, `TASK-0491` | A source artifact/blocker, synthetic digitization fixture, or explicit scorecard for any weaker calibration-consistency path. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; Nemitz 2016 is triaged as the next independent Yb/Sr source. | `TASK-0452`, `TASK-0453`, `TASK-0485`-`TASK-0488` | Second-source ingestion/fallbacks, covariance policy, direct-vs-derived separation, and synthetic cross-source dry-run before benchmark readiness. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; no audit has run yet. | `TASK-0492`, `TASK-0493` plus Stellar M-L planning | Wien and Stefan-Boltzmann source/baseline plans that make the first public formula audits runnable later. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; Nemitz 2016 source artifact is pinned but rows remain blocked; first-benchmark covariance policy is defined. | Real-row loader, fallback source triage, direct-vs-derived separation, and synthetic cross-source dry-run | A source/covariance readiness package that says whether a first narrow Yb/Sr consistency benchmark can become legitimate later. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; no audit has run yet. | Wien and Stefan-Boltzmann planning plus Stellar M-L review | Source/baseline plans that make the first public formula audits runnable later. |
 
 ## What Is Interesting Right Now
 
 ### Exoplanet Compact-Radius Residual Stress
 
-The exoplanet campaign has the clearest public-ready benchmark story right
+The exoplanet campaign has the clearest near-term public benchmark story right
 now. A frozen Chen-Kipping-style baseline was compared against a pinned NASA
 Exoplanet Archive PSCompPars snapshot. The compact-radius slice
 (`R < 1.5 R_earth`) is the strongest current matched-control survivor.
@@ -112,6 +114,9 @@ Why it matters:
 - APL has a reproducible exoplanet mass-radius benchmark/failure-map surface.
 - The compact-radius slice shows residual stress that survives the current
   matched-control panel.
+- Mass-quartile localization is currently underpowered, so the next useful
+  tests are null baselines and host-context preflight rather than stronger
+  planet-physics interpretation.
 - This is a benchmark-diagnostic signal, not a planet-composition claim.
 
 Scope:

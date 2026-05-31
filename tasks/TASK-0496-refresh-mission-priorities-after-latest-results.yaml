@@ -1,0 +1,70 @@
+id: TASK-0496
+title: "Refresh mission priorities after latest science results"
+type: campaign_status_refresh
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Agent First mission routing aligned with the newest review-ready scientific artifacts."
+  - "Move agents toward the fastest reviewable science-output surface without demoting Nuclear as the flagship validation challenge."
+  - "Prevent stale mission guidance from routing agents into completed or negative-control Nuclear lanes."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "missions/current.yaml"
+    - "docs/current-missions.md"
+    - "docs/status.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/campaigns/README.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "tasks/TASK-0474-run-nuclear-pairing-asymmetry-interaction-control-lane.yaml"
+    - "tasks/TASK-0475-run-nuclear-magic-parity-boundary-control-lane.yaml"
+    - "tasks/TASK-0476-run-nuclear-isotope-chain-leave-family-out-audit.yaml"
+    - "tasks/TASK-0480-run-exoplanet-compact-radius-mass-quartile-scout.yaml"
+    - "tasks/TASK-0482-define-exoplanet-second-snapshot-target-freeze.yaml"
+    - "tasks/TASK-0484-package-exoplanet-external-reviewer-replication-capsule.yaml"
+    - "tasks/TASK-0452-ingest-atomic-nemitz-2016-yb-sr-source.yaml"
+    - "tasks/TASK-0486-define-atomic-first-benchmark-covariance-policy.yaml"
+  planning_context: >
+    The latest merged wave changed the scientific posture: Nuclear produced
+    more useful negative/control/local memory, Exoplanets now has the clearest
+    benchmark-output sprint, and Atomic gained source-artifact and covariance
+    policy clarity while rows remain gated. Mission routing and public status
+    pages should reflect that state before more agents start work.
+
+requirements:
+  - "Update mission ranking so the default research recommendation points at the nearest reviewable science-output sprint."
+  - "Keep Nuclear described as the flagship validation challenge, but not as a broad fresh-hypothesis default."
+  - "Record the latest Nuclear, Exoplanet, and Atomic review-ready outcomes without promoting claims."
+  - "Keep Quantum and Textbook Formula Audit source/planning-gated."
+  - "Do not create RESULT, PRED, CLAIM, or KNOW artifacts."
+  - "Do not commit generated docs/task-views/*.md files."
+
+accepted_outputs:
+  - "missions/current.yaml"
+  - "docs/current-missions.md"
+  - "docs/status.md"
+  - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaigns/README.md"
+  - "docs/campaigns/nuclear-mass-surface.md"
+  - "docs/campaigns/exoplanet-mass-radius.md"
+  - "docs/campaigns/atomic-clock-residuals.md"
+  - "this task file"
+
+validation:
+  commands:
+    - "python3 scripts/apl_mission.py --output json"
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

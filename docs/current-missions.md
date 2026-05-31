@@ -41,23 +41,25 @@ lighter navigation than the full generated board, use:
 
 ## Recommended Mission Now
 
-**Nuclear Mass Surface** remains the flagship validation surface.
+**Exoplanet Mass-Radius Benchmark** is the default near-term science-output
+sprint.
 
 Recommended default: start with the live `research` recommendation from
-`python3 scripts/apl_mission.py --output onboarding`. The best default work is not
-more broad formula expansion; it is source-readiness, stress synthesis,
-no-peek reveal discipline, domain-limit mapping, evidence packaging, and
-negative-result preservation. At handoff, agents should route the output
-through [`result-promotion-protocol.md`](./result-promotion-protocol.md): state
-the verdict, destination, review tier, Gate A/B status, limitations, and
-blockers.
+`python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
+default work is not another broad Nuclear hypothesis burst; it is hardening the
+Exoplanet benchmark diagnostic with null baselines, host-context preflight,
+and frozen second-snapshot discipline while keeping all wording benchmark-only.
+At handoff, agents should route the output through
+[`result-promotion-protocol.md`](./result-promotion-protocol.md): state the
+verdict, destination, review tier, Gate A/B status, limitations, and blockers.
 
-If the Nuclear queue is saturated or a maintainer wants parallel breadth, the
-next best active surface is Exoplanet Mass-Radius. Quantum Size Effects remains
-a source-readiness lane, while Atomic-Clock Residuals is now a pinned-dataset
-lane moving toward benchmark readiness. New campaign
-ideas should enter through source/schema/baseline scaffolds first, not broad
-hypothesis batches.
+Nuclear Mass Surface remains the flagship validation challenge, but the latest
+controls-first lanes landed as negative, inconclusive, or chain-local memory.
+The best Nuclear work now is packaging, preflight, training-slice feasibility,
+and reveal-source readiness. Quantum Size Effects remains a source-readiness
+lane, while Atomic-Clock Residuals is a pinned-source/covariance lane moving
+toward benchmark readiness. New campaign ideas should enter through
+source/schema/baseline scaffolds first, not broad hypothesis batches.
 
 ## Current Mission Shape
 
@@ -70,11 +72,11 @@ turning watchlist topics into formula-search work.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation surface with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is falsified under `TASK-0394`, `TASK-0449` is `INCONCLUSIVE`, `TASK-0450` is negative, and `TASK-0451` is control-dominated | local-curvature negative/preflight packaging, registry/reveal-readiness reporting, negative-result preservation, or a future controls-first lane that is disjoint from the completed failures |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Active catalog benchmark surface with a pinned snapshot, baseline comparison, failure-map/slice audits, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` scorecard | independent compact-radius replay, normalized checksum cleanup, evidence-card packaging, second-snapshot no-live-fetch protocol |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is falsified, the residual-free cluster lane is inconclusive, pairing-asymmetry and magic-parity controls are negative, and shell-axis transfer is mixed/chain-local | negative evidence card, F2 finer-taxonomy preflight, training-slice feasibility, and reveal-source readiness; do not repeat completed weak lanes |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control survivor, mass-quartile underpowered diagnostic, target-freeze protocol, and external-reviewer capsule | null-baseline family audit, host-context preflight, second-snapshot discipline, and benchmark-only evidence packaging |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows and a source-derived covariance approximation | Nemitz 2016 ingestion, real-row loader, holdout/no-peek manifest, then baseline-readiness gate |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas | Stellar Mass-Luminosity OOD source/baseline planning before any metrics |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows, Nemitz 2016 source artifact pinned but rows blocked, and first-benchmark covariance policy defined | real-row loader, fallback source triage, direct-vs-derived separation, synthetic cross-source dry-run, then baseline-readiness gate |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas | Stellar Mass-Luminosity review, plus Wien and Stefan-Boltzmann source/baseline planning before any metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -93,8 +95,8 @@ Near-term portfolio shape:
 
 | Portfolio role | Campaigns | Notes |
 | --- | --- | --- |
-| Active flagship | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature as a falsified no-leakage lane unless a later review creates a narrower negative-result publication artifact. Continue bounded diagnostics and result-promotion preflights. |
-| Active secondary | Exoplanet Mass-Radius | Continue pinned-snapshot residual maps, matched controls, selection-effect audits, result-promotion scoring, and future prediction-readiness work. |
+| Flagship validation challenge | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature, pairing-asymmetry, magic-parity, and mixed shell-axis transfer as negative/control/local memory unless a later review creates a narrower publication artifact. Continue packaging and preflights before new fitting. |
+| Default science-output sprint | Exoplanet Mass-Radius | Continue pinned-snapshot residual maps, matched controls, null-baseline audits, host-context preflights, target-freeze protocol, and benchmark-only replication packaging. |
 | Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting. |
 | Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Close second-source, loader, holdout/no-peek, and covariance-policy blockers before the first Yb/Sr consistency benchmark. |
 | New public-friendly scaffold | Textbook Formula Audit | Start with Stellar Mass-Luminosity source/baseline planning; no metrics before source, schema, holdout, and verification gates. |

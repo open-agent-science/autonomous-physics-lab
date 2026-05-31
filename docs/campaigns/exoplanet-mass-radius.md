@@ -33,10 +33,12 @@ scorecard verdict is `BENCHMARK_SUMMARY_ONLY`.
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** the `TASK-0480`-`TASK-0484` wave hardens the current
-benchmark surface: compact-radius mass-quartile scout, host-context preflight,
-second-snapshot target freeze, null-baseline family audit, and an external
-reviewer replication capsule. All work stays no-live-fetch and benchmark-only.
+**Active next work:** `TASK-0483` and `TASK-0481` are the most important
+remaining benchmark-hardening tasks: null-baseline family audit and
+host-context preflight. `TASK-0480` landed as underpowered at mass-quartile
+resolution, while `TASK-0482` and `TASK-0484` packaged the second-snapshot
+target freeze and external-reviewer capsule. All work stays no-live-fetch and
+benchmark-only.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -72,10 +74,25 @@ Current scientific reading:
   effects, but they are diagnostics rather than causal planet-physics claims.
 - `TASK-0427`, `TASK-0404`, `TASK-0393`, `TASK-0445`, and `TASK-0447` are the
   current exoplanet visibility spine: matched-control audit, benchmark-summary
-  scorecard, second-snapshot no-live-fetch protocol, independent replay, and a
-- `TASK-0470`-era visibility work is now campaign memory, and `TASK-0480`
-  through `TASK-0484` are the current benchmark-hardening wave. They do not
-  promote claims, knowledge, predictions, or canonical results.
+  scorecard, second-snapshot no-live-fetch protocol, independent replay, and
+  evidence-card packaging.
+- `TASK-0480` is **INCONCLUSIVE**: the compact-radius slice has 92 eligible
+  rows, so mass-quartile bins fall below the 30-row interpretation floor. A
+  coarse mass-half diagnostic points toward upper-mass compact planets, but
+  this is not a verdict driver or planet-physics conclusion.
+- `TASK-0482` is a **VALID_IN_RANGE** target-freeze protocol for a future
+  second snapshot. It freezes target names, row-field boundaries, checksums,
+  true-mass/minimum-mass separation, and reveal conditions without fetching
+  live data.
+- `TASK-0484` packages the external-reviewer replication capsule. It preserves
+  the current benchmark values and `BENCHMARK_SUMMARY_ONLY` scorecard, but
+  does not strengthen the result into a claim.
+- `TASK-0481` and `TASK-0483` are now the most important executable tasks for
+  this campaign. They test whether the compact-radius diagnostic survives
+  host-context preflight and stronger deterministic null baselines.
+- `TASK-0470`-era visibility work is now campaign memory. The current
+  benchmark-hardening wave does not promote claims, knowledge, predictions, or
+  canonical results.
 
 `TASK-0337` created the first source and schema surface before any agent runs
 metrics:
@@ -172,11 +189,19 @@ The campaign should mature in this order:
    failure-map package is scientist-facing, benchmark-only, or not ready.
 9. Second-snapshot no-live-fetch protocol (`TASK-0393`, DONE) before any
    cross-snapshot or prediction-readiness story.
-10. Independent compact-radius replay (`TASK-0445`, REVIEW_READY) and evidence
-    card (`TASK-0447`, REVIEW_READY) to make the benchmark surface inspectable
+10. Independent compact-radius replay (`TASK-0445`, DONE) and evidence card
+    (`TASK-0447`, DONE) to make the benchmark surface inspectable
     without strengthening it into a claim.
-11. Bounded autonomous hypothesis pilot only after a narrow target survives
-    matched controls and the promotion scorecard keeps wording conservative.
+11. Compact-radius mass-quartile scout (`TASK-0480`, DONE): preserve as
+    underpowered/inconclusive until compact-slice coverage improves.
+12. Second-snapshot target freeze and external-reviewer capsule (`TASK-0482`
+    and `TASK-0484`, DONE): use these for no-peek discipline and scientific
+    replayability.
+13. Null-baseline family audit (`TASK-0483`, READY) and host-context preflight
+    (`TASK-0481`, READY) before any stronger residual interpretation.
+14. Bounded autonomous hypothesis pilot only after a narrow target survives
+    matched controls, null baselines, host-context preflight, and conservative
+    promotion scoring.
 
 This campaign is now the fastest APL path to a visible, scientist-readable
 benchmark artifact. It is not yet a discovery surface.
