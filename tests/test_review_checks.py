@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
-from physics_lab.registry.review_checks import normalize_output_path, output_paths
+from physics_lab.registry.review_checks import (
+    cross_platform_advisory_hits,
+    cross_platform_surface_hits,
+    normalize_output_path,
+    output_paths,
+)
 
 
 def test_normalize_output_path_returns_bare_path() -> None:
@@ -58,3 +63,55 @@ def test_output_paths_collects_only_required_paths() -> None:
         "docs/required-one.md",
         "physics_lab/engines/loader.py",
     )
+
+
+# --- Cross-platform advisory checks (TASK-0503) ---
+
+
+def test_cross_platform_flags_hardcoded_tmp() -> None:
+    hits = cross_platform_advisory_hits(('    path = "/tmp/scratch.json"',))
+    assert len(hits) == 1
+    assert "tempfile" in hits[0]
+
+
+def test_cross_platform_flags_hardcoded_python3_executable() -> None:
+    hits = cross_platform_advisory_hits(("    run([\"python3\", \"-m\", \"ruff\"])",))
+    assert any("sys.executable" in hit for hit in hits)
+
+
+def test_cross_platform_flags_direct_shell_script_invocation() -> None:
+    hits = cross_platform_advisory_hits(('    run(["./scripts/apl_review_bundle.sh"])',))
+    assert any("cross-platform (Python) entrypoint" in hit for hit in hits)
+
+
+def test_cross_platform_flags_home_env_read() -> None:
+    hits = cross_platform_advisory_hits(('    home = os.getenv("HOME")',))
+    assert any("Path.home()" in hit for hit in hits)
+
+
+def test_cross_platform_ignores_clean_portable_code() -> None:
+    clean = (
+        "    home = Path.home()",
+        "    tmp = tempfile.gettempdir()",
+        "    run([sys.executable, \"-m\", \"pytest\"])",
+    )
+    assert cross_platform_advisory_hits(clean) == ()
+
+
+def test_cross_platform_skips_rule_catalog_lines() -> None:
+    # A diff that only adds rule-catalog lines (this module's own patterns)
+    # must not flag itself.
+    catalog = ('        re.compile(r"""[\'"]/tmp/"""),',)
+    assert cross_platform_advisory_hits(catalog) == ()
+
+
+def test_cross_platform_surface_flags_changed_shell_scripts() -> None:
+    hits = cross_platform_surface_hits(
+        ("scripts/validate_quick.sh", "docs/foo.md", "scripts/apl_setup_worktree.sh")
+    )
+    assert len(hits) == 2
+    assert all(".sh" in hit for hit in hits)
+
+
+def test_cross_platform_surface_ignores_non_shell_files() -> None:
+    assert cross_platform_surface_hits(("docs/foo.md", "physics_lab/cli.py")) == ()
