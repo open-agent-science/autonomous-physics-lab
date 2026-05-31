@@ -24,3 +24,4 @@
 - `TASK-0059` - Prepare Koide tau holdout public summary package (`documentation`, priority `medium`, difficulty `low`, domain `particle_physics`)
 - `TASK-0065` - Finalize Koide tau holdout public result package (`release_preparation`, priority `medium`, difficulty `medium`, domain `particle_physics`)
 - `TASK-0091` - Find analytic correction to Bethe-Weizsäcker formula for nuclear magic numbers (`scientific_experiment`, priority `medium`, difficulty `medium`, domain `nuclear_physics`)
+- `TASK-0459` - Generate agent capacity board from campaign catalog (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `agent_capacity`)
