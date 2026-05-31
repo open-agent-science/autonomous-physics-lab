@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0398` - Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0439` - Scaffold Materials Property Residuals campaign (`campaign_scaffold`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0477` - Package Nuclear negative-result evidence card (`scientific_communication`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
@@ -28,4 +27,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0398` - Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0502` - Refresh campaign docs after null-baseline and fresh-data gate results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
