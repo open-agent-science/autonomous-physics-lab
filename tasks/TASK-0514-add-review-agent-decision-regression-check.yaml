@@ -1,0 +1,54 @@
+id: TASK-0514
+title: "Add review-agent decision-regression sanity checks"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent review-agent from approving a locally correct implementation of a strategically regressive task."
+  - "Make recently retired architecture patterns visible during PR review, especially static agent-facing generated state."
+  - "Require explicit maintainer confirmation when a PR adds a duplicate source of truth or revives a retired coordination layer."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "docs/reviews/static-agent-facing-generated-index-postmortem.md"
+    - "agents/architect.yaml"
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/maintainer_review.py"
+  planning_context: >
+    Maintainer feedback after TASK-0460/TASK-0510/TASK-0512: review-agent should
+    not only check whether an implementation satisfies its task contract. If the
+    task contract itself enables a recently rejected architecture pattern, such
+    as a committed static agent-facing task index or redundant capacity board,
+    review should pause and require explicit maintainer confirmation or Architect
+    review. This task adds that decision-regression sanity check to the review
+    instructions and deterministic review helper.
+
+requirements:
+  - "Add a maintainer-review checklist item for decision regressions: duplicate source of truth, retired architecture pattern, or static agent-facing generated state."
+  - "Add a deterministic review-helper heuristic that flags likely decision regressions as required fixes unless the PR body records explicit maintainer confirmation."
+  - "Keep guardrail/postmortem text non-blocking so documentation that warns against the pattern does not block itself."
+  - "Add tests for both positive detection and guardrail-context suppression."
+  - "Do not change scientific artifacts, claims, results, or task statuses except this task's own lifecycle."
+
+accepted_outputs:
+  - "docs/maintainer-review-agent.md"
+  - "physics_lab/registry/review_checks.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_maintainer_review.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
