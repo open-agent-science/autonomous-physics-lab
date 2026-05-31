@@ -25,4 +25,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0502` - Refresh campaign docs after null-baseline and fresh-data gate results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
