@@ -1,0 +1,91 @@
+name: Task claim
+about: Claim one canonical APL task before substantial implementation work
+title: "TASK-XXXX claim: <short title>"
+labels: ["task-claim", "claimed"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to claim exactly one canonical `TASK-XXXX` and declare expected write surfaces before substantial implementation work.
+  - type: input
+    id: task_id
+    attributes:
+      label: Task ID
+      description: Canonical task identifier.
+      placeholder: TASK-0421
+    validations:
+      required: true
+  - type: input
+    id: task_file
+    attributes:
+      label: Task file
+      description: Path to the canonical task YAML.
+      placeholder: tasks/TASK-0421-add-github-task-claiming-ledger.yaml
+    validations:
+      required: true
+  - type: input
+    id: contributor_agent
+    attributes:
+      label: Contributor and agent
+      description: Contributor id and execution tool.
+      placeholder: akutenyov / codex
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Planned branch
+      description: Canonical branch name.
+      placeholder: agent/akutenyov/codex/task-0421-task-claiming-ledger
+    validations:
+      required: true
+  - type: textarea
+    id: write_surfaces
+    attributes:
+      label: Expected write surfaces
+      description: List exact paths or namespaces the task expects to edit.
+      placeholder: |
+        - docs/agent-task-claiming.md
+        - .github/ISSUE_TEMPLATE/task-claim.yml
+    validations:
+      required: true
+  - type: dropdown
+    id: artifact_tier
+    attributes:
+      label: Artifact tier
+      description: Select the highest artifact tier this task is expected to touch.
+      options:
+        - not-applicable
+        - sandbox-only
+        - AGENT_PUBLISHED
+        - AGENT_VALIDATED
+        - maintainer-reviewed
+    validations:
+      required: true
+  - type: textarea
+    id: duplicate_search
+    attributes:
+      label: Existing PR / claim search
+      description: Paste the search terms used and whether anything conflicts.
+      placeholder: |
+        Searched:
+        - is:pr is:open TASK-0421
+        - TASK-0421 claim
+        Result: no conflicting open PR or active claim found.
+    validations:
+      required: true
+  - type: input
+    id: expiry
+    attributes:
+      label: Claim expiry
+      description: Expiry timestamp or default policy reference.
+      placeholder: Default policy: 24h no branch/PR activity, 48h no commits/comments, active PR within 7d
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / maintainer routing
+      description: Optional routing note, blockers, or review-only status.
+    validations:
+      required: false
