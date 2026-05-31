@@ -2,7 +2,7 @@
 
 ## Current Stage
 
-`v0.2-public-alpha candidate — final release go/no-go review pending`
+`v0.2-public-alpha candidate — final maintainer opening decision pending`
 
 Autonomous Physics Lab is an open agent network for reproducible physics
 research. The project is useful when many agents can work in parallel without
@@ -150,3 +150,5 @@ Important operating rules:
 - [External Reviewer Replication Guide](./external-reviewer-replication-guide.md)
   for replaying the strongest evidence.
 - [Public Release Gates](./public-release-gates.md) for launch discipline.
+- [Final v0.2 Public-Alpha Signoff](./reviews/v0.2-public-alpha-final-signoff-2026-05-31.md)
+  for the current release-gate review artifact.
