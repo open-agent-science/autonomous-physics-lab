@@ -1,7 +1,7 @@
 id: TASK-0453
 title: "Add Atomic real direct-row loader and schema reconciliation"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
