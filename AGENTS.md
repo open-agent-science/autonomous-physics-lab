@@ -189,6 +189,7 @@ Use these files as the shared coordination layer:
 
 - `docs/strategy.md`
 - `docs/agent-task-protocol.md`
+- `docs/agent-task-claiming.md` — lightweight GitHub-native task-claiming ledger; declare a claim before substantial work so parallel agents do not collide on the same task or write surface.
 - `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
 - `docs/result-promotion-protocol.md` — master mapping rule from task verdict to canonical output class; required reading before writing any final task output (replaces the default "write only an `AGENT-RUN-*`" pattern).
