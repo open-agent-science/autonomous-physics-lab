@@ -1,0 +1,61 @@
+id: TASK-0501
+title: "Standardize Windows Python environment discovery for APL agents"
+type: developer_infrastructure
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce repeated Windows setup friction for Codex, Claude Code, and human contributors running APL validation."
+  - "Make interpreter selection deterministic so validation failures are separated from local launcher or PATH ambiguity."
+  - "Preserve cross-platform validation semantics while documenting the Windows-specific fallback path clearly."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/contributing-workflow.md"
+    - "docs/testing.md"
+    - "scripts/apl_pr_capability_check.py"
+    - "scripts/apl_task_pr_helper.py"
+    - "scripts/auto_run_next_task.py"
+    - "tasks/TASK-0469-make-windows-pytest-cli-validation-robust.yaml"
+  planning_context: >
+    Several Windows agent sessions needed manual discovery or attachment of a
+    usable python.exe before running pytest, repository validation, and APL
+    helper scripts. TASK-0469 made many subprocess calls active-interpreter
+    safe, but agents still lack a canonical repository-level way to discover
+    and report the intended interpreter on Windows when `python3`, `python`,
+    the repo venv, and system python.exe differ. This task should standardize
+    that discovery path without weakening validation or introducing
+    environment-specific scientific behavior.
+
+requirements:
+  - "Audit documented validation commands and helper scripts that assume `python3`, `python`, or an activated virtual environment on Windows."
+  - "Define a deterministic interpreter priority order for Windows agents, including the repository venv when present, an explicitly supplied Python path, and a system python.exe fallback."
+  - "Add or update a small helper, documented command, or protocol note that lets agents report which interpreter will run validation before task execution."
+  - "Use sys.executable for subprocesses where the active interpreter is the correct source of truth; do not replace intentional user-supplied interpreter options."
+  - "Keep Linux/macOS behavior unchanged except for shared documentation or tests that are inherently cross-platform."
+  - "Do not require network access, package installation, or PATH mutation to pass repository validation."
+  - "Do not relax strict validation, skip broad Windows test coverage, or hide real dependency failures behind fallback logic."
+  - "Do not promote or modify scientific claims, results, predictions, datasets, or knowledge artifacts."
+
+accepted_outputs:
+  - "documented Windows interpreter discovery and fallback policy"
+  - "helper or script updates that expose the selected Python interpreter for APL validation"
+  - "tests covering Windows-style interpreter discovery or subprocess command construction where feasible"
+  - "this canonical task file"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
