@@ -1,0 +1,53 @@
+id: AGENT-RUN-0050
+campaign_profile_id: exoplanet-mass-radius
+task_id: TASK-0483
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0054-exoplanet-null-baseline-family-audit.yaml
+  experiment: experiment_proposals/exoplanet-mass/EXP-PROPOSAL-0020-exoplanet-null-baseline-family-audit.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0050/metrics.json
+  report: agent_runs/AGENT-RUN-0050/report.md
+  limitations: agent_runs/AGENT-RUN-0050/limitations.md
+  preflight: agent_runs/AGENT-RUN-0050/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0050/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: data_boundary
+    status: PASS
+    notes: Only the committed snapshot is read; no live fetch.
+  - name: baseline_freeze
+    status: PASS
+    notes: CK17 residuals are reused without refitting.
+  - name: null_family
+    status: PASS
+    notes: Four deterministic null baselines are reported.
+  - name: axis_separation
+    status: PASS
+    notes: True-mass and minimum-mass axes are separate.
+  - name: promotion_boundary
+    status: PASS
+    notes: No RESULT, PRED, claim, knowledge, or target-facing output.
+limitations:
+- The audit uses only the committed PSCompPars snapshot and frozen CK17 residuals.
+- Null baselines are same-snapshot controls, not independent physical models.
+- The nearest-radius baseline uses observed radius to choose a neighbor and is an
+  oracle-like diagnostic, not a deployable predictor.
+- The minimum-mass axis is sparse and remains diagnostic-only.
+- Slice counts below the interpretation floor are preserved as underpowered rather
+  than retried with tuned cuts.
+- No live archive fetch, second-snapshot inspection, CK17 refit, composition inference,
+  habitability inference, target-priority output, prediction entry, canonical result,
+  claim update, or knowledge edit is authorized.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any canonical result, prediction registry
+    entry, claim update, knowledge edit, composition inference, habitability wording,
+    target-priority output, or new mass-radius-law wording.

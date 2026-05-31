@@ -1,0 +1,118 @@
+id: EXP-PROPOSAL-0020
+title: "Sandbox exoplanet null-baseline family audit"
+campaign_profile_id: exoplanet-mass-radius
+proposal_kind: falsification
+status: REVIEW_READY
+
+claim_ceiling: "Sandbox experiment proposal only; no canonical result artifact, prediction registry entry, composition inference, habitability label, biosignature wording, target-prioritization output, claim update, or knowledge edit."
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+  task_id: TASK-0483
+
+input_references:
+  - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  - "hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0054-exoplanet-null-baseline-family-audit.yaml"
+  - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+  - "docs/reviews/exoplanet-compact-subneptune-matched-control-audit.md"
+
+question: "How much of the committed exoplanet CK17 residual structure is explained by simple deterministic null baselines across required residual axes and slices?"
+
+method:
+  summary: "Load the committed PSCompPars snapshot, apply repository exoplanet filters, compute frozen CK17 log10-radius residuals, and compare each required axis or slice against per-class, nearest-mass, nearest-radius, and uncertainty-band residual-shift null baselines."
+  code_references:
+    - "physics_lab/engines/exoplanet_mass_radius.py"
+    - "physics_lab/datasets/exoplanets.py"
+    - "scripts/run_exoplanet_null_baseline_family_audit.py"
+    - "tests/test_exoplanet_null_baseline_family_audit.py"
+  commands:
+    - "python3 scripts/run_exoplanet_null_baseline_family_audit.py"
+    - "python3 -m pytest tests/test_exoplanet_null_baseline_family_audit.py"
+  parameters:
+    min_interpretable_rows: 30
+    null_improvement_margin_log10_rmse: 0.022
+    null_baselines:
+      - per_class_median_residual_shift
+      - nearest_mass_residual_shift
+      - nearest_radius_residual_shift
+      - uncertainty_band_median_residual_shift
+    frozen_baseline: "Chen-Kipping 2017 piecewise median mass-radius relation"
+
+inputs:
+  datasets:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+  constants:
+    - "Frozen CK17 segment slopes (0.279, 0.589, -0.044, 0.881)."
+    - "Frozen CK17 changepoints (2.04 M_earth, 0.414 M_jup, 0.0800 M_sun)."
+    - "Compact radius cut: R/Re < 1.5."
+    - "Sub-Neptune radius cut: 1.5 <= R/Re < 4.0."
+    - "Jovian-radius cut: 8 <= R/Re < 16."
+    - "Hot-Jupiter diagnostic cut: M > 30 M_earth and equilibrium_temperature_K > 1500."
+    - "Null-family interpretation margin: 0.022 log10 RMSE."
+  prior_results:
+    - "agent_runs/AGENT-RUN-0032/metrics.json"
+    - "agent_runs/AGENT-RUN-0042/metrics.json"
+    - "agent_runs/AGENT-RUN-0049/metrics.json"
+  assumptions:
+    - "No live NASA Exoplanet Archive fetch is performed."
+    - "No CK17 segment is refit on the snapshot."
+    - "True-mass and minimum-mass rows stay on separate axes."
+    - "Nearest-radius is reported as an oracle-like diagnostic rather than a predictive baseline."
+    - "No prediction registry entry, claim update, knowledge file edit, or canonical result artifact is produced."
+
+outputs:
+  sandbox_output_paths:
+    - "agent_runs/AGENT-RUN-0050/"
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+  metrics:
+    - "per_slice_ck17_log10_rmse"
+    - "per_slice_null_family_log10_rmse"
+    - "best_null_per_slice"
+    - "delta_log10_rmse_ck17_minus_best_null"
+    - "control_sensitive_slice_status"
+    - "underpowered_slice_status"
+  plots:
+    - "NONE"
+  notes:
+    - "agent_runs/AGENT-RUN-0050/report.md"
+    - "agent_runs/AGENT-RUN-0050/limitations.md"
+    - "agent_runs/AGENT-RUN-0050/preflight.md"
+    - "agent_runs/AGENT-RUN-0050/review_summary.md"
+
+validation:
+  pass_condition: "Sandbox pass if metrics are deterministic, all required slices are reported, at least three null baselines are compared, true-mass and minimum-mass axes stay separate, and control-sensitive or underpowered outcomes are preserved."
+  fail_condition: "Fail if the runner fetches live data, refits CK17, mixes mass axes, omits required slices, hides null outcomes, or frames residual stress as composition, habitability, target priority, or a new mass-radius law."
+  baseline_or_reference: "Frozen CK17 residuals plus four deterministic null residual-shift baselines."
+  expected_failure_modes:
+    - "Simple null baselines may explain the compact-radius stress."
+    - "The nearest-radius diagnostic may dominate because it uses the target coordinate."
+    - "Minimum-mass rows may be underpowered."
+    - "Hot-Jupiter slices may be controlled by broad Jovian-radius or irradiation-selection effects."
+
+overclaim_risk:
+  public_claim_allowed: false
+  forbidden_language:
+    - "No habitability, biosignature, composition, or target-priority claim from residual stress."
+    - "No description of CK17 residual structure as a discovery or a new physical law."
+    - "No promotion of compact-radius or hot-Jupiter cuts as universal planet-class boundaries."
+  mitigations:
+    - "Keep outputs sandbox-only."
+    - "Report null-family controls as diagnostics."
+    - "Preserve minimum-mass rows as diagnostic-only."
+    - "Require maintainer review before any follow-up promotion."
+
+limitations:
+  - "Null baselines are same-snapshot controls, not independent physical models."
+  - "Nearest-radius uses observed radius to pick a neighbor and is non-predictive."
+  - "Controls share rows with the evaluated slices where they overlap."
+  - "Minimum-mass rows are sparse and diagnostic-only."
+  - "No composition, habitability, biosignature, target-priority, PRED-*, RESULT-*, claim, or knowledge promotion is authorized."
+
+verdict: INCONCLUSIVE
+maintainer_decision_requested: "Decide whether the null-family control panel is sufficient to gate future compact-radius follow-ups."
+
+promotion_boundary:
+  writes_canonical_result: false
+  writes_claim_update: false
+  required_next_step: "Maintainer-reviewed follow-up task before any RESULT-*, PRED-*, claim, knowledge, composition, habitability, biosignature, or target-priority promotion."
