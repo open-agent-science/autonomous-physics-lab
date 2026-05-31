@@ -601,16 +601,23 @@ The maintainer review agent must not:
    navigation churn. If a local sync or validation comparison leaves generated
    board files dirty, do not stage them; remove those generated diffs before
    creating the review bundle.
-8. Make the smallest reproducible change that satisfies the task.
-9. Run the required validation commands.
-10. Set the task to `REVIEW_READY` when implementation and validation are
+8. Do not add committed static files whose primary consumer is another agent
+   and whose content changes with ordinary task churn. For agent routing,
+   queue filtering, campaign-lane mapping, conflict scans, or current-state
+   summaries, prefer scripts/CLI output, snapshot sections, or CI artifacts.
+   Commit generated output only when it is canonical source or explicit
+   human-facing navigation with a defined regeneration owner. See
+   [static-agent-facing-generated-index-postmortem.md](./reviews/static-agent-facing-generated-index-postmortem.md).
+9. Make the smallest reproducible change that satisfies the task.
+10. Run the required validation commands.
+11. Set the task to `REVIEW_READY` when implementation and validation are
     done.
-11. Leave clear maintainer review notes and limitations.
+12. Leave clear maintainer review notes and limitations.
 
 After merge, maintainer closeout may also:
 
-12. set the task to `DONE`;
-13. let the post-merge `Sync Active Board` GitHub Action regenerate
+13. set the task to `DONE`;
+14. let the post-merge `Sync Active Board` GitHub Action regenerate
     the generated task views
     ([./task-views/research.md](./task-views/research.md),
     [./task-views/support.md](./task-views/support.md), and
@@ -620,7 +627,7 @@ After merge, maintainer closeout may also:
     regeneration diff exists. Maintainers may still run
     `python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
     board-sync PR when the action is disabled or needs a manual audit;
-14. add a dry-run note when the merged PR belongs to a contributor pilot.
+15. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution
 

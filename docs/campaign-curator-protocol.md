@@ -219,7 +219,9 @@ Allowed actions in that case:
 
 - create canonical `tasks/TASK-XXXX-*.yaml` files;
 - update task dependencies and statuses for the newly created tasks;
-- synchronize `docs/task-views/*.md`;
+- use `docs/task-views/*.md`, `apl_mission.py`, snapshots, or CLI/query
+  helpers to inspect current work, but do not commit regenerated task views or
+  volatile agent-facing query output from the task-admin PR;
 - explain why each task belongs in the next campaign cycle.
 
 Required constraints:

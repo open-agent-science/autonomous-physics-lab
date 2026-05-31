@@ -224,6 +224,13 @@ files from a task PR; the action handles that on `main`. Maintainers may
 still run `python3 -m physics_lab.cli sync-active-board .` by hand in a
 dedicated board-sync PR when the action is disabled or for explicit audits.
 
+Do not add committed static files primarily for agent routing when the content
+changes frequently. Agents may use committed human-facing navigation and may
+call scripts, CLI filters, or snapshot generation to get current state, but
+volatile agent-facing query output should remain dynamic rather than becoming a
+second generated board in the committed tree. See
+`docs/reviews/static-agent-facing-generated-index-postmortem.md`.
+
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
 Use `docs/agent-task-protocol.md`.

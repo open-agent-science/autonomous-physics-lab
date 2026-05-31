@@ -287,9 +287,10 @@ This mode supports:
 17. Salvaged ideas from stale PRs should appear in a clean replacement
     `propose-task-...` PR rather than being patched onto a generic or
     mixed-context branch.
-18. Task-queue PRs should sync `docs/task-views/*.md` and must not change canonical
-    scientific artifacts such as claims, hypotheses, experiments, results, or
-    knowledge.
+18. Task-queue PRs should not commit regenerated `docs/task-views/*.md`;
+    the post-merge action syncs those human navigation views on `main`.
+    Task-queue PRs also must not change canonical scientific artifacts such as
+    claims, hypotheses, experiments, results, or knowledge.
 19. Missing result-publication tooling, source provenance, or replay support
     must be treated as a blocked publication or follow-up task, not as a reason
     to bypass the result-promotion protocol with narrative claims.
@@ -300,6 +301,12 @@ This mode supports:
     helper surfaces these as advisory warnings (it does not auto-block); ask for
     a portable alternative when the smell is on a contributor-facing path. See
     `docs/cross-platform-compatibility.md`.
+21. Generated-state architecture: if a PR adds a generated or checkable
+    repository-state file, identify whether it is canonical source,
+    human-facing stable navigation, or agent-facing volatile query output.
+    Frequently changing agent-facing views should remain scripts/CLI output,
+    snapshot sections, or CI artifacts rather than committed static files. See
+    `docs/reviews/static-agent-facing-generated-index-postmortem.md`.
 
 Branch-only review is a preflight, not a final PR-body check. If the review was
 run with `--branch`, run it again with `--pr <number>` after opening the PR so

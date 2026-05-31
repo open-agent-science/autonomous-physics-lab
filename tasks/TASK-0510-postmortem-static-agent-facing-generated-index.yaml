@@ -1,0 +1,54 @@
+id: TASK-0510
+title: "Postmortem static agent-facing generated index decision"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Prevent generated cache files from re-entering the repository as agent-facing coordination surfaces."
+  - "Keep canonical state in task YAML and dynamic query helpers rather than frequently changing committed views."
+  - "Make maintainer review check architecture fit, not only validation pass/fail."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "tasks/TASK-0460-add-task-to-campaign-lane-index.yaml"
+    - "tasks/TASK-0509-decouple-campaign-task-index-from-committed-tree.yaml"
+    - "https://github.com/gladunrv/autonomous-physics-lab/pull/634"
+    - "https://github.com/gladunrv/autonomous-physics-lab/pull/703"
+    - "https://github.com/gladunrv/autonomous-physics-lab/pull/710"
+  planning_context: >
+    The committed `campaigns/task-index.yaml` cache from TASK-0460 was removed
+    by TASK-0509 because it duplicated canonical task YAML and created another
+    high-churn board-like artifact for agent coordination. This task records
+    why that decision was accepted, which instructions allowed it, and the
+    guardrails needed to prevent the same mistake.
+
+requirements:
+  - "Record a concise postmortem of the TASK-0460 static index decision."
+  - "Identify the task-queue, implementation, and review gates that allowed the committed cache."
+  - "Clarify the distinction between human-facing stable generated docs and agent-facing dynamic query/snapshot views."
+  - "Update maintainer review guidance so static generated agent-facing files are challenged before merge."
+  - "Update agent/director protocols to prefer scripts, CLI filters, or snapshots for frequently changing agent context."
+
+accepted_outputs:
+  - "docs/reviews/static-agent-facing-generated-index-postmortem.md"
+  - "AGENTS.md"
+  - "docs/agent-task-protocol.md"
+  - "docs/agent-operating-model.md"
+  - "docs/campaign-curator-protocol.md"
+  - "docs/maintainer-review-agent.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

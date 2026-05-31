@@ -124,6 +124,13 @@ truth, `apl_mission.py` is the agent entry point, `docs/task-views/*.md` (still
 generated and committed-but-ephemeral) are the human navigation surface, and
 `git log` is the history. There is no separate full-board file.**
 
+Scope clarification after TASK-0510: this decision does **not** authorize new
+committed generated files for agent routing. The retained `docs/task-views/*.md`
+are a specific human-facing navigation exception with a post-merge regeneration
+owner. Frequently changing agent-facing queue filters, lane indexes, conflict
+scans, and strategy summaries should be produced by scripts/CLI output,
+snapshot sections, or CI artifacts rather than committed static caches.
+
 ## Migration plan (B2)
 
 `tasks/ACTIVE.md` is woven through ~26 code files, 6 test files, ~38 docs, and
