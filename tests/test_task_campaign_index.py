@@ -130,6 +130,7 @@ def test_build_index_smoke(tmp_path: Path) -> None:
     assert by_id["TASK-0002"]["parallel_safe"] is False
     # render_yaml is deterministic and round-trips.
     assert yaml.safe_load(render_yaml(index))["summary"]["active_tasks"] == 2
+    assert "Do not commit this output" in render_yaml(index)
 
 
 def test_build_index_detects_output_path_conflict(tmp_path: Path) -> None:

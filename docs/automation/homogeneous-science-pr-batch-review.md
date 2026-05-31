@@ -30,7 +30,9 @@ reveal scoring, claim edits, or any PR flagged for deep review.
 ## Inputs
 
 - current `main`;
-- the open PR list filtered to one campaign lane (`campaigns/task-index.yaml`);
+- the open PR list filtered to one campaign lane, using the on-demand lane
+  query (`python3 scripts/apl_task_campaign_index.py --format markdown`) as
+  supporting context;
 - each PR's review-agent verdict (`scripts/apl_review_pr.py`).
 
 ## Sweep steps
