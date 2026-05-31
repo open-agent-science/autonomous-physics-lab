@@ -17,7 +17,7 @@ input:
     - "agents/architect.yaml"
     - "docs/strategy.md"
     - "docs/roadmap.md"
-    - "docs/generated-file-policy.md"
+    - "docs/reviews/static-agent-facing-generated-index-postmortem.md"
     - "docs/architecture.md"
   planning_context: >
     Maintainer feedback: the architect role has been making short-term,
@@ -34,7 +34,7 @@ requirements:
   - "Add a strategy-first, long-horizon mandate to the architect role purpose: re-read strategy, roadmap, and standing policies before proposing or building; optimize for durable scientific-output throughput, not task/PR count."
   - "Add long-horizon goals: anchor decisions to the goal/roadmap trajectory and plan several steps ahead; do not add artifacts a near-term milestone will obsolete or force a revert."
   - "Add a restriction to validate every proposal against strategy.md and roadmap.md before building, and to surface the longer-horizon plan instead of building superseded work."
-  - "Add docs/roadmap.md and docs/generated-file-policy.md to architect required_reading."
+  - "Add docs/roadmap.md and the generated-state postmortem to architect required_reading."
   - "Do not change other agent roles, task statuses, or scientific artifacts."
 
 accepted_outputs:
