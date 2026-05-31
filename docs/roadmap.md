@@ -78,6 +78,10 @@ Immediate v0.2 packaging work:
 
 ## v0.3 — Research Factory Layer — Planned
 
+**Goal:** APL can run bounded campaign factories that test many hypotheses, route
+candidates through controls, and produce reviewable scientific memory without
+claim promotion.
+
 `v0.3` is the next capability milestone after the `v0.2` public-alpha hardening.
 It is a deliberate step change, not more hardening: APL moves from
 one-lane-at-a-time hypothesis audits to a reusable **Research Factory** — a
