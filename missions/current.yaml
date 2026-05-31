@@ -309,7 +309,7 @@ missions:
     status: active_pinned_dataset
     scientific_value: medium
     risk: medium
-    recommendation: "Active third campaign: move from Beloy PINNED_DATASET to BASELINE_READY by ingesting Nemitz 2016, adding a real-row loader, and defining the holdout/no-peek boundary before any benchmark."
+    recommendation: "Active third campaign: move from Beloy PINNED_DATASET to BASELINE_READY by adding the real-row loader, resolving the Nemitz row-level source blocker, and then rerunning the baseline-readiness gate before any benchmark."
     why_now:
       - "fresh-data source policy exists"
       - "atomic-clock campaign scaffold and schema sketch exist"
@@ -317,6 +317,9 @@ missions:
       - "Beloy 2021 direct-ratio rows are committed as sandbox-only ACR-0001 with source artifact, checksum, and provenance"
       - "TASK-0402 added a PSD source-derived covariance approximation for the Beloy cross-ratios"
       - "TASK-0403 selected Nemitz 2016 / RIKEN Yb/Sr as the strongest independent second-source candidate"
+      - "TASK-0452 pinned the Nemitz arXiv source artifact but kept ACR-0002 value rows blocked pending table-level version-drift and campaign-window checks"
+      - "TASK-0454 defined the first Atomic holdout/no-peek manifest"
+      - "TASK-0486 defined conservative covariance policy states for the first benchmark"
     forbidden:
       - "do not ingest real clock values before source-manifest, checksum, version-drift, and uncertainty review"
       - "do not claim constants drift, new constants, or new physics"
@@ -381,15 +384,15 @@ missions:
         expected_outputs:
           - "value-free uncertainty and covariance source semantics"
       - id: atomic-nemitz-second-source-ingestion
-        label: "Ingest Nemitz 2016 Yb/Sr as second direct-ratio source"
+        label: "Nemitz 2016 Yb/Sr source artifact pinned; value rows remain blocked"
         task_id: TASK-0452
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "arXiv source artifact, checksum, provenance, version-drift check, and ACR-0002 direct rows if gates pass"
+          - "arXiv source artifact, checksum, provenance, and explicit row-level blocker"
       - id: atomic-real-row-loader
         label: "Add Atomic real direct-row loader and schema reconciliation"
         task_id: TASK-0453
@@ -404,12 +407,22 @@ missions:
         label: "Define Atomic holdout and no-peek manifest"
         task_id: TASK-0454
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "campaign-level row-role and no-peek manifest before benchmark consumers run"
+      - id: atomic-first-benchmark-covariance-policy
+        label: "Define Atomic first-benchmark covariance policy"
+        task_id: TASK-0486
+        mode: research
+        status: done
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "policy for exact, source-derived PSD, diagonal-only, and blocked covariance states"
       - id: atomic-baseline-readiness-gate
         label: "Rerun Atomic baseline-readiness gate"
         task_id: TASK-0455

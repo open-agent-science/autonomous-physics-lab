@@ -1,7 +1,7 @@
 id: TASK-0494
 title: "Refresh campaign pages after next science wave"
 type: campaign_status_refresh
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
