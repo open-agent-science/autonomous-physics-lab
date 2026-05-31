@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_campaign_curator_defaults_to_top_campaign() -> None:
     brief = build_campaign_brief(ROOT)
 
-    assert brief.campaign_id == "nuclear-mass-surface"
+    assert brief.campaign_id == "exoplanet-mass-radius"
     assert brief.maintainer_facing is True
     assert brief.advisory_only is True
     assert "Do not execute experiments from this mode." in brief.guardrails

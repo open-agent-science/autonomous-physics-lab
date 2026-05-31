@@ -34,8 +34,9 @@ describe shell-axis or local-curvature evidence as discovery-level physics.
 through bounded, controls-first surfaces: pairing-asymmetry interaction,
 magic-parity boundary controls, isotope-chain leave-family-out transfer,
 negative evidence packaging, F2 taxonomy preflight, and training-slice
-feasibility. These tasks must stay disjoint from the already-landed
-`TASK-0449` through `TASK-0451` negative/control-dominated memory.
+feasibility. The first three lanes have now landed as negative/control/local
+memory, so the remaining highest-value work is packaging and preflight rather
+than another broad fitting burst.
 
 **Expected next result:** either a new disjoint hypothesis-lane verdict that
 survives predeclared controls, or a clean negative/preflight package that
@@ -237,6 +238,15 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   but it fails the predeclared survival margin and is matched by a
   deterministic same-degree random control, so it does not support a
   shell-specific follow-up.
+- `TASK-0474` runs the pairing-asymmetry interaction control lane and records
+  a negative result: the candidate regresses the frozen full-known baseline
+  and does not justify a follow-up formula lane.
+- `TASK-0475` runs the magic-parity boundary control lane and records a
+  negative/control result: the candidate regresses the frozen full-known
+  baseline and should not be treated as a shell-specific near-miss.
+- `TASK-0476` runs isotope-chain leave-family-out transfer and records a mixed
+  chain-local result: shell-axis variants improve some chains but regress a
+  comparable or larger number of chains, blocking broad transfer wording.
 
 Historical context:
 
@@ -273,9 +283,11 @@ Current next Nuclear posture:
   controls-first form: one reusable hypothesis gauntlet plus three bounded
   parallel lanes. `TASK-0449` is preserved as inconclusive evidence,
   `TASK-0450` as negative transfer/matched-control evidence, and `TASK-0451`
-  as control-dominated magic-distance evidence. These are not broad
-  formula-search tasks and they did not create prediction entries, reveal
-  scores, claims, or canonical results.
+  as control-dominated magic-distance evidence. `TASK-0474` and `TASK-0475`
+  extend that negative/control memory, while `TASK-0476` makes shell-axis
+  transfer explicitly mixed and chain-local. These are not broad formula-search
+  tasks and they did not create prediction entries, reveal scores, claims, or
+  canonical results.
   The gauntlet template lives at
   [`docs/notes/nuclear-controls-first-hypothesis-gauntlet.md`](../notes/nuclear-controls-first-hypothesis-gauntlet.md);
   future Nuclear lanes should reuse it only when the proposed feature family
@@ -344,6 +356,10 @@ Start here:
 - Can a finer residual-free high-error cluster taxonomy or larger curated
   training slice ever make F2 testable, or should the current inconclusive
   `TASK-0449` result keep that lane diagnostic-only?
+- Should Nuclear pause new fitting until `TASK-0477`, `TASK-0478`, and
+  `TASK-0479` package the latest negative memory, define a finer F2 taxonomy,
+  and decide whether the current training slice is large enough for another
+  high-error-family test?
 - Can any fresh Nuclear hypothesis family survive if the failure condition,
   negative controls, leakage audit, and output routing are declared before
   candidate fitting starts?
@@ -360,6 +376,10 @@ Start here:
 - Treat `TASK-0450` and `TASK-0451` as completed negative/control-dominated
   sandbox memory. Do not offer them as READY work or repeat their feature
   families without a new maintainer-approved rationale.
+- Treat `TASK-0474` and `TASK-0475` as additional negative/control memory, and
+  `TASK-0476` as mixed chain-local transfer evidence.
+- Prefer `TASK-0477`, `TASK-0478`, and `TASK-0479` before opening another
+  Nuclear hypothesis-lane batch.
 - Run `TASK-0396` for reveal-source readiness; keep it independent from
   retrospective model audits and do not score live measurements.
 - Future reveal tasks should use the `TASK-0266` protocol and the source
