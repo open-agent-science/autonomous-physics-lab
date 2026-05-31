@@ -519,18 +519,19 @@ missions:
     status: active_science_output_sprint
     scientific_value: high
     risk: medium
-    recommendation: "Default near-term science-output sprint: harden the compact-radius benchmark diagnostic with null baselines, host-context preflight, and frozen second-snapshot discipline while keeping all wording benchmark-only."
+    recommendation: "Default near-term science-output sprint: after the null-baseline audit, run host-context preflight and a control-aware go/no-go before any further compact-radius residual pilot."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
       - "planet class, discovery method, host-star context, and measurement quality provide natural holdouts"
       - "the campaign can produce useful failure maps without claiming a new planet law"
       - "pinned PSCompPars snapshot, loader dry-run, first baseline, residual scouts, and selection-effect audits now exist"
-      - "TASK-0427 found the compact-radius slice (R < 1.5 R_earth) to be the strongest matched-control survivor"
+      - "TASK-0427 found the compact-radius slice (R < 1.5 R_earth) to be the strongest earlier matched-control diagnostic"
       - "TASK-0404 scored the current artifact set as BENCHMARK_SUMMARY_ONLY, not claim-candidate"
       - "TASK-0480 found the mass-quartile compact-radius scout underpowered but left an upper-mass-half diagnostic hint"
       - "TASK-0482 froze the second-snapshot target set and reveal conditions without live fetching"
       - "TASK-0484 packaged an external-reviewer replication capsule around the current benchmark metrics"
+      - "TASK-0483 found that nearest-radius null baselines match or beat CK17-style residuals across the highlighted true-mass slices, so the compact-radius story is control-sensitive"
     forbidden:
       - "do not fetch live archive data before a pinned snapshot policy exists"
       - "do not run mass-radius metrics before schema and holdout protocol exist"
