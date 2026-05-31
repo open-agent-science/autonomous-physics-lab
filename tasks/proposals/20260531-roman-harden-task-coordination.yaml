@@ -1,0 +1,51 @@
+proposal_id: 20260531-roman-harden-task-coordination
+title: Harden multi-agent task coordination beyond the claiming ledger
+status: PROPOSED
+type: maintainer_workflow
+priority: medium
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+strategy_alignment:
+- Complete the multi-agent coordination story that TASK-0421 started, covering new-task id
+  allocation and automated duplicate detection.
+- Reduce wasted cycles from id-collision renumbering and duplicate implementation PRs as the
+  agent pool scales.
+summary: 'Two follow-ups surfaced by the TASK-0421 review that are out of that task''s scope:
+  (1) canonical task-id reservation to stop new-task id collisions during parallel work, and
+  (2) advisory duplicate-PR detection in the review agent to harden the manual pre-claim search.'
+rationale: 'Two follow-ups surfaced by the TASK-0421 review that are out of that task''s scope:
+  (1) canonical task-id reservation to stop new-task id collisions during parallel work, and
+  (2) advisory duplicate-PR detection in the review agent to harden the manual pre-claim search.'
+input:
+  mode: planning_only
+  related_domain: repository_coordination
+  related_objects:
+  - docs/agent-task-claiming.md
+  - docs/agent-task-protocol.md
+  - physics_lab/registry/maintainer_review.py
+  - physics_lab/registry/mission_freshness.py
+  planning_context: 'TASK-0421 added a GitHub-native claiming ledger that prevents two agents
+    working the SAME existing TASK-XXXX or write surface. Two gaps remain. (a) Canonical-id
+    collisions on NEW tasks: while one agent works a long task, main advances and a maintainer/TASK-QUEUE
+    assigns the next number, so a freshly created task file collides (observed repeatedly
+    this cycle: TASK-0465->0466, TASK-0474->0494). The claiming ledger does not cover new-id
+    allocation. (b) The ledger''s pre-claim duplicate search is manual and easy to skip; the
+    maintainer review agent already inspects PRs and could advisory-flag an existing open
+    PR for the same TASK-XXXX. This planning task surveys both and recommends scoped follow-up
+    tasks; it changes no behavior.'
+requirements:
+- Survey how canonical task ids are currently allocated and where collisions occurred (TASK-0465/0466,
+  TASK-0474/0494); recommend a reservation or proposals-first allocation approach (no custom
+  server/db).
+- Evaluate an advisory duplicate-PR check in the maintainer review agent (flag an open PR
+  for the same TASK-XXXX) reusing existing review tooling, advisory-only.
+- Recommend scoped follow-up tasks; do not change behavior in the proposal PR; do not promote
+  claims.
+accepted_outputs:
+- architecture/decision note recommending id-allocation and duplicate-detection approaches
+- optional scoped follow-up task specs for maintainer acceptance
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
