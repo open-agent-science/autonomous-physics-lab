@@ -1,0 +1,132 @@
+fixture_id: QD-DIGITIZATION-FIXTURE-0001
+task_id: TASK-0490
+status: synthetic_fixture_only
+description: >
+  Synthetic figure-digitization ledger used to validate axis calibration,
+  point provenance, uncertainty, and exclusion fields before any real quantum
+  dot figure-derived measurement rows are curated.
+synthetic: true
+contains_real_measurement_rows: false
+baseline_metrics_allowed: false
+claim_promotion_allowed: false
+source_policy: >
+  Fabricated fixture only. No publication figure, PDF page, image crop, or
+  real digitized point is committed by this file.
+digitization_context:
+  source_id: synthetic_quantum_digitization_fixture
+  figure_ref: synthetic_figure_1_panel_a
+  property_kind: absorption_peak_eV
+  material: CdSe
+  extraction_tool:
+    name: synthetic_webplotdigitizer_class_fixture
+    version: "0.0"
+    export_format: yaml_fixture
+  future_artifact_layout:
+    - data/quantum_dots/digitization/<source_id>/README.md
+    - data/quantum_dots/digitization/<source_id>/axis_calibration.csv
+    - data/quantum_dots/digitization/<source_id>/extracted_points.csv
+    - data/quantum_dots/digitization/<source_id>/notes.md
+axis_calibration:
+  x_axis:
+    label: diameter_nm
+    units: nm
+    anchors:
+      - anchor_id: x0
+        pixel_x: 100.0
+        pixel_y: 500.0
+        axis_value: 2.0
+      - anchor_id: x1
+        pixel_x: 900.0
+        pixel_y: 500.0
+        axis_value: 8.0
+  y_axis:
+    label: absorption_peak_eV
+    units: eV
+    anchors:
+      - anchor_id: y0
+        pixel_x: 100.0
+        pixel_y: 500.0
+        axis_value: 2.8
+      - anchor_id: y1
+        pixel_x: 100.0
+        pixel_y: 100.0
+        axis_value: 1.8
+calibration_quality:
+  minimum_anchor_count: 4
+  pixel_coordinate_system: synthetic_image_pixels
+  reviewer_replay_required: true
+  raw_figure_asset_committed: false
+extracted_points:
+  - point_id: QD-FIXTURE-PT-001
+    raw_pixel_x: 180.0
+    raw_pixel_y: 420.0
+    diameter_nm: 2.6
+    value_eV: 2.60
+    material: CdSe
+    property_kind: absorption_peak_eV
+    primary_source_id: synthetic_fixture_primary
+    axis_calibration_ref: QD-DIGITIZATION-FIXTURE-0001.axis_calibration
+    coordinate_uncertainty:
+      diameter_nm: 0.12
+      value_eV: 0.025
+      basis: synthetic_pixel_read_error_plus_fixture_floor
+    formula_cross_check:
+      formula_id: synthetic_monotone_calibration_curve
+      formula_value_eV: 2.58
+      residual_eV: 0.02
+      inside_uncertainty_band: true
+    inclusion_status: included
+    notes: "Synthetic included point for ledger validation."
+  - point_id: QD-FIXTURE-PT-002
+    raw_pixel_x: 420.0
+    raw_pixel_y: 300.0
+    diameter_nm: 4.4
+    value_eV: 2.30
+    material: CdSe
+    property_kind: absorption_peak_eV
+    primary_source_id: synthetic_fixture_primary
+    axis_calibration_ref: QD-DIGITIZATION-FIXTURE-0001.axis_calibration
+    coordinate_uncertainty:
+      diameter_nm: 0.15
+      value_eV: 0.030
+      basis: synthetic_pixel_read_error_plus_fixture_floor
+    formula_cross_check:
+      formula_id: synthetic_monotone_calibration_curve
+      formula_value_eV: 2.34
+      residual_eV: -0.04
+      inside_uncertainty_band: false
+    inclusion_status: included
+    notes: "Synthetic point exercising out-of-band review flag without exclusion."
+  - point_id: QD-FIXTURE-PT-003
+    raw_pixel_x: 760.0
+    raw_pixel_y: 220.0
+    diameter_nm: 6.9
+    value_eV: 2.10
+    material: CdSe
+    property_kind: absorption_peak_eV
+    primary_source_id: synthetic_fixture_secondary
+    axis_calibration_ref: QD-DIGITIZATION-FIXTURE-0001.axis_calibration
+    coordinate_uncertainty:
+      diameter_nm: 0.20
+      value_eV: 0.035
+      basis: synthetic_pixel_read_error_plus_fixture_floor
+    formula_cross_check:
+      formula_id: synthetic_monotone_calibration_curve
+      formula_value_eV: 2.08
+      residual_eV: 0.02
+      inside_uncertainty_band: true
+    inclusion_status: excluded
+    exclusion_reason: "synthetic primary-source provenance intentionally incomplete"
+    notes: "Synthetic excluded point for exclusion-field validation."
+future_row_mapping:
+  qd_yaml_allowed_from_fixture: false
+  required_before_real_rows:
+    - "replace synthetic source_id with registered source_manifest entry"
+    - "commit replayable axis_calibration.csv and extracted_points.csv"
+    - "record real extraction tool version and reviewer attribution"
+    - "run residual-vs-formula cross-check without overwriting digitized values"
+    - "exclude every point lacking primary-source provenance"
+limitations:
+  - "Synthetic fixture only; no real quantum-dot measurement row is produced."
+  - "Does not validate figure quality, copyright status, or real axis readability."
+  - "Does not unblock TASK-0225 or any size-effect baseline metric."
