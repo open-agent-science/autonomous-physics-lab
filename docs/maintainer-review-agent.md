@@ -128,6 +128,17 @@ Use this lane whenever any of the following is true:
 Deep review should include the full deterministic helper cycle and content
 verification appropriate to the changed surface.
 
+### Batch Review (homogeneous science PRs)
+
+During a many-agent wave, same-campaign, same-type, same-validation-surface,
+disjoint-write-path PRs may be processed in one pass using the
+[homogeneous science PR batch review protocol](reviews/homogeneous-science-pr-batch-review-protocol.md)
+and its [operating mode](automation/homogeneous-science-pr-batch-review.md).
+Batch review never relaxes per-PR gates: every PR keeps its own verdict,
+validation, limitations, and review tier. Result promotion, prediction reveal
+scoring, claim edits, mixed-campaign artifacts, and conflicting write surfaces
+are never batched — they get individual deep review.
+
 ### Validation Mode
 
 The pre-merge helper defaults to `ci-aware` validation for PR-number reviews.
