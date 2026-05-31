@@ -1,0 +1,53 @@
+id: TASK-0505
+title: "Add factory summary artifact schema"
+type: artifact_schema
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make high-throughput hypothesis tests reviewable instead of free-form markdown reports."
+  - "Give every Research Factory adapter a shared machine-readable artifact for candidate counts, controls, routing, and limitations."
+  - "Keep factory outputs auditable before any result-promotion or prediction-freeze decision."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_research_factory
+  related_objects:
+    - "agent_runs/README.md"
+    - "physics_lab/schemas/"
+    - "docs/result-promotion-protocol.md"
+    - "docs/notes/research-factory-layer-plan.md"
+  planning_context: >
+    A bounded factory can generate dozens of candidates in one run. The
+    repository needs a stable `factory_summary` artifact contract so all
+    campaign adapters report generated/executed/rejected counts, controls, top
+    candidates, negative results, route verdicts, and limitations consistently.
+
+requirements:
+  - "Define a machine-readable factory_summary schema with factory id, campaign id, adapter id/version, task id, dataset, baseline, candidate counts, controls, top candidates, negative results, route verdicts, limitations, and reproducibility metadata."
+  - "Include campaign-agnostic fields first, with optional campaign_specific blocks for Nuclear, Exoplanet, Quantum, Atomic, or Textbook audit adapters."
+  - "Include candidate-level fields for family, parameters, train/holdout metrics, control outcomes, complexity, leakage status, and route verdict."
+  - "Require explicit distinction between generated, preflight-rejected, executed, shortlisted, and rejected-by-control candidates."
+  - "Require output-routing fields compatible with docs/result-promotion-protocol.md."
+  - "Add tests or schema validation coverage."
+  - "Do not implement a Nuclear runner or run science metrics in this task."
+  - "Do not create RESULT, PRED, CLAIM, or KNOW artifacts."
+
+accepted_outputs:
+  - "physics_lab/schemas/factory_summary.schema.json"
+  - "docs/factory-summary-artifact.md"
+  - "updated agent_runs/README.md"
+  - "tests/test_factory_summary_schema.py or equivalent schema-validation coverage"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_factory_summary_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
