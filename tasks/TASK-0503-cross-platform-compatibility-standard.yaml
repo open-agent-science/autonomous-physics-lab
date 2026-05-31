@@ -1,0 +1,62 @@
+id: TASK-0503
+title: "Establish cross-platform compatibility standard for agents and review"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep APL usable by third-party agents on Linux, macOS, and Windows without changing CI runners."
+  - "Make portability a shared, enforced expectation for agents writing code and for the maintainer review agent."
+  - "Reduce needless bash-only wrappers that block non-bash (Windows) agents on the task and review critical path."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "agents/architect.yaml"
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "scripts/apl_review_bundle.sh"
+    - "scripts/validate_quick.sh"
+  planning_context: >
+    CI runs on Linux only, so cross-platform compatibility depends on the
+    agents writing the code and on the maintainer review agent rather than on a
+    Windows/macOS CI matrix (runners are intentionally not changed by this
+    task). The repository already adopts pathlib widely (132 files), but a few
+    portability smells exist (hardcoded /tmp, shell=True) and several
+    scripts/*.sh files are on third-party agents' critical path. This task
+    establishes a canonical portability standard, bakes it into agent
+    instructions and the architect role, adds advisory cross-platform checks to
+    maintainer review, and audits the existing shell scripts for needless
+    wrappers.
+
+requirements:
+  - "Add a canonical cross-platform compatibility standard documenting portable-code rules (paths, temp files, home dir, interpreter, subprocess, encoding) and a shell-script needless-wrapper policy."
+  - "Bake the standard into agent-facing instructions (AGENTS.md, docs/agent-task-protocol.md) including a forbidden-action entry."
+  - "Give the architect role a standing cross-platform audit responsibility."
+  - "Add an advisory (non-blocking) cross-platform review check that flags portability smells in added code and changed shell scripts, wired into the maintainer review report."
+  - "Audit the existing scripts/*.sh and record which are needless wrappers, which are critical-path and need a Python equivalent, and which are maintainer-only."
+  - "Do not change CI runners or add a Windows/macOS CI matrix."
+  - "Do not rewrite existing shell scripts in this task; record portability follow-ups instead."
+
+accepted_outputs:
+  - "docs/cross-platform-compatibility.md"
+  - "updates to AGENTS.md, docs/agent-task-protocol.md, docs/maintainer-review-agent.md, and agents/architect.yaml"
+  - "advisory cross-platform checks in physics_lab/registry/review_checks.py wired into physics_lab/registry/maintainer_review.py"
+  - "tests for the new review checks"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_review_checks.py tests/test_maintainer_review.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

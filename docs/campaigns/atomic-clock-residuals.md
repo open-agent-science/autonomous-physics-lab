@@ -14,7 +14,8 @@ schema scaffold needed before any future ingestion task can add rows.
 ## Current Status
 
 Pinned-dataset source surface with one committed direct-ratio seed, a
-source-derived covariance approximation, a corrected Nemitz 2016 source
+deterministic real-row loader, a source-derived covariance approximation,
+synthetic cross-source dry-run plumbing, a corrected Nemitz 2016 source
 artifact pinned with rows blocked, and a first-benchmark covariance policy. No
 real-row benchmark yet.
 
@@ -28,18 +29,19 @@ before any residual analysis?
 direct-frequency-ratio seed (`PINNED_DATASET`), reconstructed a positive-
 semidefinite source-derived covariance approximation, pinned the correct
 Nemitz 2016 RIKEN Yb/Sr arXiv source artifact, and defined conservative
-covariance states for the first benchmark. The campaign is deliberately not
-fitting constants drift yet.
+covariance states for the first benchmark. `TASK-0453` also landed a
+deterministic loader for committed `direct_measurement` rows, and `TASK-0488`
+landed a synthetic-only cross-source fixture. The campaign is deliberately
+not fitting constants drift yet.
 
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0453` adds a real direct-row loader, while
-`TASK-0485`, `TASK-0487`, and `TASK-0488` cover fallback source triage,
-direct-vs-derived row separation, and synthetic cross-source dry-run
-boundaries before any benchmark consumer runs. `TASK-0452` pinned Nemitz but
-did not add value-bearing rows because version-of-record table review and
-campaign-window lock remain open.
+**Active next work:** `TASK-0485`, `TASK-0487`, and then `TASK-0455` are the
+important remaining gates: fallback source triage, direct-vs-derived row
+separation, and baseline-readiness review before any benchmark consumer runs.
+`TASK-0452` pinned Nemitz but did not add value-bearing rows because
+version-of-record table review and campaign-window lock remain open.
 
 **Expected next result:** a `BASELINE_READY` go/no-go path: second source
 committed or blocked, real-row loader available, holdout/no-peek manifest
@@ -95,9 +97,14 @@ Current next tasks:
   (`arXiv:1601.04582`) with checksum/provenance and corrected the older
   locator error, but rows remain blocked by version-of-record table review and
   campaign-window lock;
-- `TASK-0453`, `TASK-0485`, `TASK-0487`, and `TASK-0488` are the next
-  executable blockers to close before a later baseline-readiness gate can
-  honestly run.
+- `TASK-0453` added the deterministic real direct-row loader and
+  source-field split (`source` for real rows, `source_metadata` for synthetic
+  fixtures);
+- `TASK-0488` added a synthetic-only cross-source dry run that exercises row
+  roles, covariance-state labels, and no-peek flags without unblocking real
+  benchmark work;
+- `TASK-0485`, `TASK-0487`, and `TASK-0455` are the remaining executable gates
+  before a later baseline-readiness decision can honestly run.
 - `TASK-0486` defines the first-benchmark covariance policy:
   [`docs/reviews/atomic-first-benchmark-covariance-policy.md`](../reviews/atomic-first-benchmark-covariance-policy.md).
   Exact committed covariance can support correlated diagnostics,
@@ -107,13 +114,13 @@ Current next tasks:
 
 `TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
 source-reviewed, but Atomic is not `BASELINE_READY`. The remaining blockers are
-second-source ingestion or waiver, holdout/no-peek boundary, deterministic
-real-row loader, and benchmark-time covariance policy acceptance.
+second-source ingestion or waiver, holdout/no-peek boundary, direct-vs-derived
+separation, and benchmark-time covariance policy acceptance.
 
 The next tasks can run in parallel because they own separate surfaces:
-real-row loader, fallback source triage, direct-vs-derived policy, and
-synthetic cross-source dry-run. None should fit drift, derive constants
-constraints, or promote a claim.
+fallback source triage, direct-vs-derived policy, and baseline-readiness
+review. None should fit drift, derive constants constraints, or promote a
+claim.
 
 ## Why This Could Matter Later
 

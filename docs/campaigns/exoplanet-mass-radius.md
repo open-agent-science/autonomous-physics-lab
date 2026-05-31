@@ -15,35 +15,41 @@ effects kept visible.
 ## Current Status
 
 Active benchmark surface with a pinned source snapshot, loader dry-run, first
-baseline comparison, residual/failure-map work, and several bounded residual
-audits. The campaign has useful reviewable sandbox evidence, but no claim,
-prediction registry entry, RESULT-*, or public article artifact yet.
+baseline comparison, residual/failure-map work, bounded residual audits, and a
+new null-baseline control panel. The campaign has useful reviewable sandbox
+evidence, but no claim, prediction registry entry, RESULT-*, or public article
+artifact yet.
 
 ## Public Monitoring Snapshot
 
-**Current question:** where does a frozen Chen-Kipping-style mass-radius
-baseline fail on a pinned NASA Exoplanet Archive PSCompPars snapshot, and
-which residual slices survive matched controls?
+**Current question:** after stronger null-baseline controls, is any
+Chen-Kipping-style residual slice still worth a host-context preflight on the
+pinned NASA Exoplanet Archive PSCompPars snapshot?
 
-**Shareable result:** the compact-radius slice (`R < 1.5 R_earth`) is the
-strongest current matched-control survivor in the campaign. The promotion
-scorecard verdict is `BENCHMARK_SUMMARY_ONLY`.
+**Shareable result:** the compact-radius slice (`R < 1.5 R_earth`) was the
+strongest earlier matched-control diagnostic, but `TASK-0483` found that a
+simple nearest-radius null baseline matches or beats the frozen CK17-style
+baseline across the compact, sub-Neptune, Jovian-radius, and hot-Jupiter
+true-mass slices. That is now the main public-safe result: the apparent
+residual stress is control-sensitive.
 
 **Not a claim:** this does not infer composition, habitability, atmospheric
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** `TASK-0483` and `TASK-0481` are the most important
-remaining benchmark-hardening tasks: null-baseline family audit and
-host-context preflight. `TASK-0480` landed as underpowered at mass-quartile
-resolution, while `TASK-0482` and `TASK-0484` packaged the second-snapshot
-target freeze and external-reviewer capsule. All work stays no-live-fetch and
-benchmark-only.
+**Active next work:** `TASK-0481` is the important remaining benchmark-
+hardening task: preflight whether host-star context can support a meaningful
+follow-up after the null-baseline audit. `TASK-0480` landed as underpowered at
+mass-quartile resolution, `TASK-0482` and `TASK-0484` packaged the
+second-snapshot target freeze and external-reviewer capsule, and `TASK-0483`
+landed as an `INCONCLUSIVE` null-baseline control panel. All work stays
+no-live-fetch and benchmark-only.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
-packages the scorecard-approved wording, evidence trail, limitations, and next
-validation steps.
+still packages the earlier scorecard-approved wording, but readers should pair
+it with the [null-baseline family audit](../reviews/exoplanet-null-baseline-family-audit.md)
+before interpreting the compact-radius diagnostic.
 
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,
@@ -87,9 +93,14 @@ Current scientific reading:
 - `TASK-0484` packages the external-reviewer replication capsule. It preserves
   the current benchmark values and `BENCHMARK_SUMMARY_ONLY` scorecard, but
   does not strengthen the result into a claim.
-- `TASK-0481` and `TASK-0483` are now the most important executable tasks for
-  this campaign. They test whether the compact-radius diagnostic survives
-  host-context preflight and stronger deterministic null baselines.
+- `TASK-0483` is **INCONCLUSIVE**: deterministic nearest-radius null baselines
+  match or beat the frozen CK17-style baseline in the compact, sub-Neptune,
+  Jovian-radius, and hot-Jupiter true-mass slices. This downgrades the
+  compact-radius diagnostic from "strongest survivor" to "control-sensitive
+  benchmark target."
+- `TASK-0481` is now the most important executable task for this campaign. It
+  should decide whether host-context fields can support a meaningful follow-up
+  before any more residual interpretation.
 - `TASK-0470`-era visibility work is now campaign memory. The current
   benchmark-hardening wave does not promote claims, knowledge, predictions, or
   canonical results.
@@ -197,8 +208,10 @@ The campaign should mature in this order:
 12. Second-snapshot target freeze and external-reviewer capsule (`TASK-0482`
     and `TASK-0484`, DONE): use these for no-peek discipline and scientific
     replayability.
-13. Null-baseline family audit (`TASK-0483`, READY) and host-context preflight
-    (`TASK-0481`, READY) before any stronger residual interpretation.
+13. Null-baseline family audit (`TASK-0483`, DONE) found the main residual
+    slices control-sensitive; host-context preflight (`TASK-0481`, READY) is
+    now the next benchmark-hardening step before any stronger residual
+    interpretation.
 14. Bounded autonomous hypothesis pilot only after a narrow target survives
     matched controls, null baselines, host-context preflight, and conservative
     promotion scoring.

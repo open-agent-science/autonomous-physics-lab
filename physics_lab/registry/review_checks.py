@@ -69,6 +69,28 @@ SECURITY_BLOCK_RULES = (
     ),
     (re.compile(r"curl\b.*\|\s*(?:sh|bash)\b"), "Introduces curl-pipe-shell execution."),
 )
+CROSS_PLATFORM_ADVISORY_RULES = (
+    (
+        re.compile(r"""['"]/tmp/"""),
+        "Hardcoded /tmp path; use tempfile.gettempdir() or "
+        "tempfile.TemporaryDirectory() for a cross-platform temporary location.",
+    ),
+    (
+        re.compile(r"""['"]python3['"]"""),
+        "Hardcoded 'python3' executable; prefer sys.executable so the command "
+        "also resolves on Windows (python / py launcher).",
+    ),
+    (
+        re.compile(r"""['"]\./scripts/[^'"]+\.sh['"]"""),
+        "Invokes a .sh script directly; ensure a cross-platform (Python) "
+        "entrypoint exists so non-bash (Windows) agents are not blocked.",
+    ),
+    (
+        re.compile(r"""\bos\.(?:getenv|environ(?:\.get)?)\(\s*['"]HOME['"]"""),
+        "Reads the HOME environment variable directly; use Path.home() so the "
+        "home directory also resolves on Windows (USERPROFILE).",
+    ),
+)
 QUOTED_LINE_PATTERN = re.compile(r'^\s*["\'].*["\'],?\s*$')
 
 
@@ -137,6 +159,36 @@ def security_pattern_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
         for pattern, description in SECURITY_BLOCK_RULES:
             if pattern.search(lowered):
                 hits.append(description)
+    return tuple(dict.fromkeys(hits))
+
+
+def cross_platform_advisory_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
+    """Return non-blocking cross-platform portability smells in added diff lines.
+
+    These are advisory only: APL must run on Linux, macOS, and Windows for
+    third-party agents, so portability regressions are surfaced to the reviewer
+    rather than blocking a merge. See docs/cross-platform-compatibility.md.
+    """
+    hits: list[str] = []
+    for line in added_lines:
+        if line_is_rule_catalog_line(line):
+            continue
+        for pattern, description in CROSS_PLATFORM_ADVISORY_RULES:
+            if pattern.search(line):
+                hits.append(description)
+    return tuple(dict.fromkeys(hits))
+
+
+def cross_platform_surface_hits(changed_files: tuple[str, ...]) -> tuple[str, ...]:
+    """Return changed shell scripts that need a cross-platform-entrypoint check."""
+    hits: list[str] = []
+    for path in changed_files:
+        if path.endswith(".sh"):
+            hits.append(
+                f"Shell script changed ({path}): confirm it is not a needless "
+                "wrapper around a Python command and that non-bash (Windows) "
+                "agents have an equivalent path."
+            )
     return tuple(dict.fromkeys(hits))
 
 

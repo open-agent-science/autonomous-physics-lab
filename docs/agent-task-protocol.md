@@ -492,6 +492,25 @@ specific queue id used by the PR. Placeholders may remain only in task
 templates, future `READY` tasks, or proposal files that are not being handed off
 as completed work.
 
+## Cross-Platform Compatibility
+
+APL must run on Linux, macOS, and Windows so third-party agents can contribute,
+even though CI runs on Linux only. When a task touches code or tooling, keep it
+portable:
+
+- build paths with `pathlib.Path` / `os.path.join`, never hardcoded `/`;
+- use `tempfile` for temporary paths, never hardcoded `/tmp`;
+- use `Path.home()` (not `HOME`) and `sys.executable` (not literal `python3`);
+- call subprocesses with an argument list and `shell=False`; avoid shell-only
+  features;
+- always pass `encoding="utf-8"` to file reads and writes;
+- do not add a `.sh` script on the task-execution or review critical path
+  without a cross-platform (Python) equivalent — and do not add a `.sh` script
+  that is merely a thin wrapper around one or two commands.
+
+See [./cross-platform-compatibility.md](./cross-platform-compatibility.md) for
+the full standard and the audit of existing shell scripts.
+
 ## End-Of-Task Output Routing
 
 At the end of any research, validation, benchmark, source-curation, prediction,
@@ -639,6 +658,10 @@ Rules:
 - do not make the repository public
 - do not promote claims or knowledge without review
 - do not silently rewrite canonical scientific artifacts
+- do not introduce platform-specific code (bash-only critical-path scripts,
+  hardcoded `/tmp`, hardcoded `python3`, hardcoded `/` paths, or `HOME` reads)
+  without a cross-platform equivalent; see
+  [./cross-platform-compatibility.md](./cross-platform-compatibility.md)
 
 ## Standard Prompt
 
