@@ -126,6 +126,12 @@ committed result artifacts. Large repository tree dumps, task dumps, result
 dumps, and knowledge dumps remain useful for deep audit, but they are archive
 context and should not override the structured current-state summary.
 
+For agent-facing current-state needs, prefer dynamic queries over committed
+generated caches. An agent may read committed human-facing navigation such as
+`docs/task-views/*.md`, but new routing aids for agents should usually be
+scripts, CLI filters, or snapshot sections rather than static files that change
+after every task merge.
+
 ## Choosing a Task
 
 1. Start with a `READY` task from the [task views](task-views/research.md).
@@ -140,7 +146,9 @@ Before substantial work:
 
 1. update the corresponding `TASK-*.yaml` status to `IN_PROGRESS`;
 2. do not edit `docs/task-views/*.md` for ordinary task-state changes;
-3. note local handoff details in PR metadata or supporting docs if useful.
+3. do not add volatile agent-facing generated files as committed coordination
+   surfaces;
+4. note local handoff details in PR metadata or supporting docs if useful.
 
 After completion:
 
@@ -148,7 +156,9 @@ After completion:
 2. update `docs/status.md` or `docs/next-steps.md` if project reality changed.
 3. leave `docs/task-views/*.md` to maintainer sync unless the task explicitly
    changes board behavior.
-4. wait for maintainer review before the task becomes `DONE`.
+4. leave agent-routing query output uncommitted unless the maintainer explicitly
+   accepts a human-facing generated artifact and its regeneration owner.
+5. wait for maintainer review before the task becomes `DONE`.
 
 ## Validation Protocol
 
