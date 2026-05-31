@@ -18,7 +18,6 @@
 - `TASK-0493` - Plan Textbook Formula Audit for Stefan-Boltzmann law (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0504` - Define reusable bounded Research Factory protocol (`research_protocol`, priority `high`, difficulty `medium`, domain `cross_campaign_research_factory`)
 - `TASK-0505` - Add factory summary artifact schema (`artifact_schema`, priority `high`, difficulty `medium`, domain `cross_campaign_research_factory`)
-- `TASK-0508` - Define Exoplanet adapter contract for Research Factory reuse (`research_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 
@@ -29,3 +28,4 @@ None.
 - `TASK-0398` - Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0481` - Run exoplanet compact-radius host-context preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0502` - Refresh campaign docs after null-baseline and fresh-data gate results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
+- `TASK-0508` - Define Exoplanet adapter contract for Research Factory reuse (`research_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
