@@ -34,7 +34,9 @@ python3 -m pytest
 python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum
 python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped
 python3 -m physics_lab.cli validate-repo .
-python3 -m physics_lab.cli status .
+python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+python3 scripts/apl_mission.py --output json
+python3 scripts/reproduce_core_results.py --output-dir /tmp/apl-core-reproduction --python python3
 git diff --exit-code
 ```
 
@@ -51,6 +53,13 @@ Expected:
 
 - no path leaks in tracked docs or artifacts;
 - no cache directories tracked by git.
+
+## Final Signoff
+
+Before opening the repository, add or refresh a dated signoff artifact under
+`docs/reviews/` against the exact default-branch commit that will be opened.
+The signoff should record local validation, default-branch CI, public path leak
+status, public wording review, and any remaining maintainer-only decisions.
 
 ## Release Artifacts to Review
 
