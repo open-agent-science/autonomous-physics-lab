@@ -1,0 +1,55 @@
+id: TASK-0512
+title: "Retire the redundant agent capacity board; capacity lives in the catalog"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Remove a duplicated source of truth: the capacity board only re-rendered campaigns/catalog.yaml agent_capacity data."
+  - "Apply the generated-file policy — do not keep (or generate) a second capacity surface that drifts from the catalog."
+  - "Keep one canonical, on-demand path for parallel-capacity planning instead of a hand-maintained snapshot."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "docs/agent-capacity-board.md"
+    - "campaigns/catalog.yaml"
+    - "docs/current-missions.md"
+    - "tasks/TASK-0440-add-agent-capacity-board.yaml"
+    - "tasks/TASK-0459-generate-agent-capacity-board-from-campaign-catalog.yaml"
+    - "docs/generated-file-policy.md"
+  planning_context: >
+    Architect review found docs/agent-capacity-board.md (TASK-0440) is redundant:
+    its per-campaign recommended_parallel_agents and coordination notes are a
+    hand-copied snapshot of campaigns/catalog.yaml agent_capacity, no script or
+    mission tooling consumes it, and it had a single inbound link (added by the
+    same PR). The catalog is already the single registry-driven capacity surface,
+    and the on-demand task-to-campaign index covers per-task parallel-safety, so
+    the board solved no problem the catalog did not already solve while adding a
+    drift surface. Generating the board (TASK-0459) would re-render the same data,
+    so it is rejected rather than executed.
+
+requirements:
+  - "Remove docs/agent-capacity-board.md."
+  - "Repoint the only inbound reference (docs/current-missions.md) to the canonical capacity sources: campaigns/catalog.yaml agent_capacity blocks and the on-demand task-to-campaign index."
+  - "Reject TASK-0459 (generate the board) with a rationale, since generating a redundant rendering is not worth a maintained surface."
+  - "Do not introduce a replacement committed capacity file; capacity is read on demand from the catalog and the index."
+  - "Do not change scientific artifacts or other task statuses."
+
+accepted_outputs:
+  - "removal of docs/agent-capacity-board.md"
+  - "updated docs/current-missions.md pointer"
+  - "tasks/TASK-0459-*.yaml set to REJECTED with rationale"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
