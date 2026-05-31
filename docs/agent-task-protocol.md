@@ -38,6 +38,11 @@ context, not as competing protocol definitions.
    unless a human explicitly redirects you.
 4. If no existing task fits, ask for or propose a new task before doing
    substantial work.
+5. Before substantial work on the chosen task, declare a claim per
+   [./agent-task-claiming.md](./agent-task-claiming.md). The lightweight,
+   GitHub-native claiming ledger prevents two agents from implementing the same
+   `TASK-XXXX` or writing the same `agent_runs/`, `results/`, or
+   `docs/reviews/` path.
 
 When an executor agent reports "available tasks", it should list only
 `READY` tasks. `REVIEW_READY` tasks are not available executor work; they belong
