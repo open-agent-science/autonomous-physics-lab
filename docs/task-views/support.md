@@ -26,3 +26,4 @@ None.
 - `TASK-0511` - Define the v0.3 Research Factory Layer milestone in roadmap and strategy (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `repository_coordination`)
 - `TASK-0512` - Retire the redundant agent capacity board; capacity lives in the catalog (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `repository_coordination`)
 - `TASK-0513` - Anchor the architect role to long-horizon strategy and goal (`maintainer_workflow`, priority `high`, difficulty `low`, domain `repository_coordination`)
+- `TASK-0514` - Add review-agent decision-regression sanity checks (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_review`)
