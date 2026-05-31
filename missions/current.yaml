@@ -346,15 +346,17 @@ missions:
     status: active_pinned_dataset
     scientific_value: medium
     risk: medium
-    recommendation: "Active third campaign: move from pinned source artifacts to benchmark readiness by adding the real-row loader, separating direct and derived rows, and dry-running cross-source mechanics before any benchmark."
+    recommendation: "Active third campaign: move from Beloy PINNED_DATASET toward BASELINE_READY by adding the real-row loader, resolving the Nemitz row-level source blocker, separating direct and derived rows, and dry-running cross-source mechanics before any benchmark."
     why_now:
       - "fresh-data source policy exists"
       - "atomic-clock campaign scaffold and schema sketch exist"
       - "high-precision repeated measurements can support future freeze/reveal work if provenance is handled first"
       - "Beloy 2021 direct-ratio rows are committed as sandbox-only ACR-0001 with source artifact, checksum, and provenance"
       - "TASK-0402 added a PSD source-derived covariance approximation for the Beloy cross-ratios"
-      - "TASK-0452 pinned the correct Nemitz 2016 arXiv source artifact but blocked value-bearing rows pending version-of-record table review and campaign-window lock"
-      - "TASK-0486 defined the first-benchmark covariance policy, including exact, source-derived PSD approximation, diagonal-only, single-row, and blocked shared-systematic states"
+      - "TASK-0403 selected Nemitz 2016 / RIKEN Yb/Sr as the strongest independent second-source candidate"
+      - "TASK-0452 pinned the correct Nemitz 2016 arXiv source artifact but kept ACR-0002 value rows blocked pending table-level version-drift and campaign-window checks"
+      - "TASK-0454 defined the first Atomic holdout/no-peek manifest"
+      - "TASK-0486 defined conservative covariance policy states for the first benchmark"
     forbidden:
       - "do not ingest real clock values before source-manifest, checksum, version-drift, and uncertainty review"
       - "do not claim constants drift, new constants, or new physics"
@@ -419,15 +421,15 @@ missions:
         expected_outputs:
           - "value-free uncertainty and covariance source semantics"
       - id: atomic-nemitz-second-source-ingestion
-        label: "Nemitz 2016 source artifact pinned; rows remain blocked"
+        label: "Nemitz 2016 Yb/Sr source artifact pinned; value rows remain blocked"
         task_id: TASK-0452
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: high
         recommended: false
         expected_outputs:
-          - "correct arXiv:1601.04582 artifact, checksum, and provenance are review-ready"
+          - "correct arXiv:1601.04582 artifact, checksum, provenance, and explicit row-level blocker"
           - "ACR-0002 rows remain blocked by version-of-record table review and campaign-window lock"
       - id: atomic-real-row-loader
         label: "Add Atomic real direct-row loader and schema reconciliation"
@@ -443,7 +445,7 @@ missions:
         label: "Define Atomic holdout and no-peek manifest"
         task_id: TASK-0454
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -459,15 +461,16 @@ missions:
         recommended: false
         expected_outputs:
           - "ranked fallback direct-ratio sources without value-bearing rows"
-      - id: atomic-covariance-policy
-        label: "First-benchmark covariance policy landed"
+      - id: atomic-first-benchmark-covariance-policy
+        label: "Atomic first-benchmark covariance policy landed"
         task_id: TASK-0486
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
         expected_outputs:
+          - "policy for exact, source-derived PSD, diagonal-only, and blocked covariance states"
           - "future benchmarks must declare covariance state before metrics"
       - id: atomic-direct-derived-separation
         label: "Audit Atomic direct-vs-derived row separation"
@@ -561,7 +564,7 @@ missions:
         label: "Compact-radius mass-quartile scout is underpowered; use only as diagnostic memory"
         task_id: TASK-0480
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -569,20 +572,20 @@ missions:
           - "verdict INCONCLUSIVE because quartile bins fall below the interpretation floor"
           - "upper-mass-half residual stress is directional diagnostic only, not a planet-physics conclusion"
       - id: exoplanet-second-snapshot-target-freeze
-        label: "Second-snapshot target freeze is review-ready"
+        label: "Second-snapshot target freeze landed"
         task_id: TASK-0482
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
         expected_outputs:
           - "freeze target set, row fields, checksums, and reveal conditions before any future second-snapshot data comparison"
       - id: exoplanet-external-reviewer-capsule
-        label: "External-reviewer replication capsule is review-ready"
+        label: "External-reviewer replication capsule landed"
         task_id: TASK-0484
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -593,7 +596,7 @@ missions:
         label: "Scaffold exoplanet mass-radius source surface"
         task_id: TASK-0337
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -606,7 +609,7 @@ missions:
         label: "Prepare Exoplanet PSCompPars snapshot ingestion plan"
         task_id: TASK-0345
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -616,7 +619,7 @@ missions:
         label: "Define Exoplanet mass-radius baseline protocol"
         task_id: TASK-0346
         mode: research
-        status: review_ready
+        status: done
         priority: medium
         difficulty: medium
         recommended: false
@@ -654,12 +657,12 @@ missions:
         recommended: false
         expected_outputs:
           - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md freezes acquisition, checksums, no-peek, metrics, slices, and true-mass vs M sin i boundaries"
-          - "next action: use TASK-0446/TASK-0447 or a future maintainer-approved ingestion-only task; do not live-fetch rows from onboarding"
+          - "TASK-0446/TASK-0447 are now landed context; future second-snapshot work still needs a maintainer-approved ingestion-only task"
       - id: exoplanet-compact-radius-independent-replay
-        label: "Independent replay of compact-radius matched-control audit is review-ready"
+        label: "Independent replay of compact-radius matched-control audit landed"
         task_id: null
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -670,7 +673,7 @@ missions:
         label: "Close normalized PSCompPars snapshot checksum gap"
         task_id: TASK-0446
         mode: research
-        status: review_ready
+        status: done
         priority: medium
         difficulty: medium
         recommended: false
@@ -678,10 +681,10 @@ missions:
           - "stable normalized checksum semantics or explicit blocker review"
           - "no live fetch and no row-value changes"
       - id: exoplanet-benchmark-evidence-card
-        label: "Shareable exoplanet benchmark evidence card is review-ready"
+        label: "Shareable exoplanet benchmark evidence card landed"
         task_id: null
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -695,7 +698,7 @@ missions:
     status: active_scaffold
     scientific_value: medium
     risk: low
-    recommendation: "Use Textbook Formula Audit as a public-friendly planning surface: keep Stellar M-L review-ready, then prepare Wien and Stefan-Boltzmann source/baseline plans before any metrics."
+    recommendation: "Use Textbook Formula Audit as a public-friendly planning surface: keep Stellar M-L as landed planning memory, then prepare Wien and Stefan-Boltzmann source/baseline plans before any metrics."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
@@ -708,10 +711,10 @@ missions:
       - "do not turn this campaign into broad symbolic-regression or formula-discovery work"
     actions:
       - id: textbook-stellar-ml-source-baseline-plan
-        label: "Plan Stellar Mass-Luminosity OOD source and baseline"
+        label: "Stellar Mass-Luminosity OOD source and baseline plan landed"
         task_id: TASK-0444
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -719,7 +722,7 @@ missions:
           - "Gaia DR3 source/query plan without live fetch"
           - "row schema, baseline parameters, holdout policy, and verification gates"
           - "no audit metrics, result, claim, or discovery framing"
-          - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md is review-ready"
+          - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md is landed planning memory"
       - id: textbook-wien-displacement-plan
         label: "Plan Textbook Formula Audit for Wien displacement"
         task_id: TASK-0492

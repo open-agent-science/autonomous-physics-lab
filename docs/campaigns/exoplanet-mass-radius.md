@@ -189,14 +189,14 @@ The campaign should mature in this order:
    failure-map package is scientist-facing, benchmark-only, or not ready.
 9. Second-snapshot no-live-fetch protocol (`TASK-0393`, DONE) before any
    cross-snapshot or prediction-readiness story.
-10. Independent compact-radius replay (`TASK-0445`, REVIEW_READY) and evidence
-    card (`TASK-0447`, REVIEW_READY) to make the benchmark surface inspectable
+10. Independent compact-radius replay (`TASK-0445`, DONE) and evidence card
+    (`TASK-0447`, DONE) to make the benchmark surface inspectable
     without strengthening it into a claim.
-11. Compact-radius mass-quartile scout (`TASK-0480`, REVIEW_READY): preserve
-    as underpowered/inconclusive until compact-slice coverage improves.
+11. Compact-radius mass-quartile scout (`TASK-0480`, DONE): preserve as
+    underpowered/inconclusive until compact-slice coverage improves.
 12. Second-snapshot target freeze and external-reviewer capsule (`TASK-0482`
-    and `TASK-0484`, REVIEW_READY): use these for no-peek discipline and
-    scientific replayability.
+    and `TASK-0484`, DONE): use these for no-peek discipline and scientific
+    replayability.
 13. Null-baseline family audit (`TASK-0483`, READY) and host-context preflight
     (`TASK-0481`, READY) before any stronger residual interpretation.
 14. Bounded autonomous hypothesis pilot only after a narrow target survives
