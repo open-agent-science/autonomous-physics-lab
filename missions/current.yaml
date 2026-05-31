@@ -1,16 +1,16 @@
 default_mode: research
-updated: "2026-05-28"
+updated: "2026-05-31"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-27"
-  source: "TASK-0411"
+  updated: "2026-05-31"
+  source: "TASK-0496"
   note: >
-    Mission guidance now routes end-of-task research outputs through
-    docs/result-promotion-protocol.md. The flagship mission did not change;
-    agents still start from bounded research lanes, but qualifying evidence can
-    be proposed as AGENT_PUBLISHED or AGENT_VALIDATED only when the task scope
-    and gates allow it.
+    Mission guidance now reflects the latest merged science wave. Nuclear
+    remains the flagship validation challenge, but recent controls-first lanes
+    landed as negative, inconclusive, or chain-local memory. The default
+    near-term science-output sprint moves to Exoplanet Mass-Radius while
+    Atomic and Quantum continue through source/covariance gates.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -61,11 +61,11 @@ modes:
 missions:
   - id: nuclear-mass-surface
     title: "Nuclear Mass Surface"
-    rank: 1
+    rank: 2
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Main direction now: keep shell-axis diagnostic-only, preserve local-curvature as a no-leakage falsification, leave reveal scoring blocked, and run only fresh bounded Nuclear diagnostic lanes in parallel."
+    recommendation: "Flagship validation challenge, but not the nearest positive-result sprint: preserve the latest negative/control/local lanes, finish F2/training-slice preflights, and keep reveal scoring blocked until a source-grade no-peek release exists."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -79,6 +79,7 @@ missions:
       - "AGENT-RUN-0018 now records the full-known-data retrospective audit without prospective reveal scoring"
       - "TASK-0333 fixed shell-axis as diagnostic-only, so fresh hypothesis lanes should replace additional shell-axis slicing"
       - "TASK-0394 falsified LOCAL-CURVATURE-001 under the bounded no-leakage/control panel, so local-curvature is now negative/inconclusive memory unless TASK-0428 narrows the publication boundary"
+      - "TASK-0474 and TASK-0475 landed as negative/control results, while TASK-0476 showed shell-axis transfer is mixed and chain-local rather than broadly predictive"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -117,7 +118,7 @@ missions:
           - "agent_runs/AGENT-RUN-0008/report.md"
           - "docs/reviews/post-ame2020-time-split-benchmark-result.md"
       - id: nuclear-validation-queue
-        label: "Prefer fresh bounded Nuclear hypothesis lanes before registry expansion"
+        label: "Finish Nuclear negative-result packaging and preflight decisions before another hypothesis burst"
         task_id: null
         mode: research
         priority: high
@@ -136,6 +137,9 @@ missions:
           - "Keep TASK-0305 blocked until a future source manifest satisfies the no-peek checklist"
           - "Use the TASK-0448 gauntlet for any future maintainer-approved controls-first Nuclear lane"
           - "Treat TASK-0450 and TASK-0451 as review-ready negative/control-dominated sandbox memory, not executable READY options"
+          - "Treat TASK-0474 and TASK-0475 as additional negative/control memory, not promising formula candidates"
+          - "Treat TASK-0476 as evidence that shell-axis behavior is chain-local and mixed under leave-family-out transfer"
+          - "Prefer TASK-0477, TASK-0478, and TASK-0479 over new broad Nuclear fitting lanes"
           - "New Nuclear hypothesis lanes must predeclare leakage checks, negative controls, and stop conditions before candidate fitting"
         validation:
           - "python3 -m ruff check ."
@@ -241,7 +245,7 @@ missions:
 
   - id: quantum-size-effects
     title: "Quantum Size Effects"
-    rank: 2
+    rank: 4
     status: active_data_readiness
     scientific_value: medium
     risk: medium
@@ -250,6 +254,7 @@ missions:
       - "campaign scaffold, dataset schema, holdout protocol, and source manifest exist"
       - "calibration-derived row-level seeds exist, but measurement-grade rows are still missing"
       - "the campaign is visually explainable and can become a real-data benchmark once provenance is fixed"
+      - "TASK-0491 can decide whether a weaker calibration-consistency path is allowed without unblocking the direct-row benchmark"
     forbidden:
       - "do not run autonomous formula search before a frozen baseline exists"
       - "do not treat calibration-derived rows as direct measurement evidence"
@@ -268,8 +273,10 @@ missions:
         label: "Review TASK-0326 waiver decision before creating any calibration-consistency benchmark"
         task_id: null
         mode: research
+        status: done
         priority: medium
         difficulty: medium
+        recommended: false
         expected_outputs:
           - "use docs/reviews/quantum-calibration-consistency-waiver-decision.md after merge"
           - "keep TASK-0225 blocked unless a future maintainer-approved scope change lands"
@@ -302,6 +309,36 @@ missions:
         recommended: false
         expected_outputs:
           - "ranked alternative direct-source candidates without row values"
+      - id: quantum-norris-bawendi-source-artifact
+        label: "Package Norris/Bawendi source-artifact review"
+        task_id: TASK-0489
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "source artifact/blocker review without synthetic or calibration-derived row promotion"
+      - id: quantum-digitization-fixture-dry-run
+        label: "Run quantum figure-digitization fixture dry-run"
+        task_id: TASK-0490
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "synthetic fixture that tests digitization mechanics without claiming real measurement rows"
+      - id: quantum-calibration-consistency-scorecard
+        label: "Define Quantum calibration-consistency go/no-go scorecard"
+        task_id: TASK-0491
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "explicit decision on whether a weaker calibration-consistency benchmark may exist separately from TASK-0225"
 
   - id: atomic-clock-residuals
     title: "Atomic Clock Residuals"
@@ -309,14 +346,15 @@ missions:
     status: active_pinned_dataset
     scientific_value: medium
     risk: medium
-    recommendation: "Active third campaign: move from Beloy PINNED_DATASET to BASELINE_READY by ingesting Nemitz 2016, adding a real-row loader, and defining the holdout/no-peek boundary before any benchmark."
+    recommendation: "Active third campaign: move from pinned source artifacts to benchmark readiness by adding the real-row loader, separating direct and derived rows, and dry-running cross-source mechanics before any benchmark."
     why_now:
       - "fresh-data source policy exists"
       - "atomic-clock campaign scaffold and schema sketch exist"
       - "high-precision repeated measurements can support future freeze/reveal work if provenance is handled first"
       - "Beloy 2021 direct-ratio rows are committed as sandbox-only ACR-0001 with source artifact, checksum, and provenance"
       - "TASK-0402 added a PSD source-derived covariance approximation for the Beloy cross-ratios"
-      - "TASK-0403 selected Nemitz 2016 / RIKEN Yb/Sr as the strongest independent second-source candidate"
+      - "TASK-0452 pinned the correct Nemitz 2016 arXiv source artifact but blocked value-bearing rows pending version-of-record table review and campaign-window lock"
+      - "TASK-0486 defined the first-benchmark covariance policy, including exact, source-derived PSD approximation, diagonal-only, single-row, and blocked shared-systematic states"
     forbidden:
       - "do not ingest real clock values before source-manifest, checksum, version-drift, and uncertainty review"
       - "do not claim constants drift, new constants, or new physics"
@@ -381,15 +419,16 @@ missions:
         expected_outputs:
           - "value-free uncertainty and covariance source semantics"
       - id: atomic-nemitz-second-source-ingestion
-        label: "Ingest Nemitz 2016 Yb/Sr as second direct-ratio source"
+        label: "Nemitz 2016 source artifact pinned; rows remain blocked"
         task_id: TASK-0452
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: high
-        recommended: true
+        recommended: false
         expected_outputs:
-          - "arXiv source artifact, checksum, provenance, version-drift check, and ACR-0002 direct rows if gates pass"
+          - "correct arXiv:1601.04582 artifact, checksum, and provenance are review-ready"
+          - "ACR-0002 rows remain blocked by version-of-record table review and campaign-window lock"
       - id: atomic-real-row-loader
         label: "Add Atomic real direct-row loader and schema reconciliation"
         task_id: TASK-0453
@@ -407,9 +446,49 @@ missions:
         status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "campaign-level row-role and no-peek manifest before benchmark consumers run"
+      - id: atomic-fallback-source-triage
+        label: "Triage Atomic second-source fallbacks while Nemitz rows are blocked"
+        task_id: TASK-0485
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "ranked fallback direct-ratio sources without value-bearing rows"
+      - id: atomic-covariance-policy
+        label: "First-benchmark covariance policy landed"
+        task_id: TASK-0486
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "future benchmarks must declare covariance state before metrics"
+      - id: atomic-direct-derived-separation
+        label: "Audit Atomic direct-vs-derived row separation"
+        task_id: TASK-0487
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "policy/audit artifact that prevents direct ratios and derived constraints from sharing one residual axis"
+      - id: atomic-synthetic-cross-source-dry-run
+        label: "Add Atomic synthetic cross-source dry-run"
+        task_id: TASK-0488
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "fabricated-row cross-source pipeline check with covariance-state labels"
       - id: atomic-baseline-readiness-gate
         label: "Rerun Atomic baseline-readiness gate"
         task_id: TASK-0455
@@ -433,11 +512,11 @@ missions:
 
   - id: exoplanet-mass-radius
     title: "Exoplanet Mass-Radius Benchmark"
-    rank: 4
-    status: active_secondary_benchmark
-    scientific_value: medium
+    rank: 1
+    status: active_science_output_sprint
+    scientific_value: high
     risk: medium
-    recommendation: "Active secondary benchmark: treat the compact-radius slice as a BENCHMARK_SUMMARY_ONLY diagnostic, then prioritize checksum cleanup and future second-snapshot discipline before any planet-law, composition, or prediction-readiness story."
+    recommendation: "Default near-term science-output sprint: harden the compact-radius benchmark diagnostic with null baselines, host-context preflight, and frozen second-snapshot discipline while keeping all wording benchmark-only."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -446,6 +525,9 @@ missions:
       - "pinned PSCompPars snapshot, loader dry-run, first baseline, residual scouts, and selection-effect audits now exist"
       - "TASK-0427 found the compact-radius slice (R < 1.5 R_earth) to be the strongest matched-control survivor"
       - "TASK-0404 scored the current artifact set as BENCHMARK_SUMMARY_ONLY, not claim-candidate"
+      - "TASK-0480 found the mass-quartile compact-radius scout underpowered but left an upper-mass-half diagnostic hint"
+      - "TASK-0482 froze the second-snapshot target set and reveal conditions without live fetching"
+      - "TASK-0484 packaged an external-reviewer replication capsule around the current benchmark metrics"
     forbidden:
       - "do not fetch live archive data before a pinned snapshot policy exists"
       - "do not run mass-radius metrics before schema and holdout protocol exist"
@@ -453,6 +535,60 @@ missions:
       - "do not mix true mass, minimum mass, and model-derived values without explicit row-class flags"
       - "do not present compact/sub-Neptune matched-control survival as a canonical result, prediction, composition claim, habitability claim, or planet-law claim"
     actions:
+      - id: exoplanet-null-baseline-family-audit
+        label: "Run exoplanet null-baseline family audit"
+        task_id: TASK-0483
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "compare CK17-style residuals against deterministic null baselines on the committed snapshot only"
+          - "separate compact-radius, sub-Neptune, Jovian-radius, hot-Jupiter, true-mass, and minimum-mass axes when available"
+          - "preserve control-sensitive and underpowered verdicts without composition, habitability, or new-law claims"
+      - id: exoplanet-host-context-preflight
+        label: "Preflight compact-radius host-context residual slice"
+        task_id: TASK-0481
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "declare source columns, sample-size floors, controls, and stop conditions before any host-context residual metrics"
+      - id: exoplanet-compact-radius-mass-quartile-scout
+        label: "Compact-radius mass-quartile scout is underpowered; use only as diagnostic memory"
+        task_id: TASK-0480
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "verdict INCONCLUSIVE because quartile bins fall below the interpretation floor"
+          - "upper-mass-half residual stress is directional diagnostic only, not a planet-physics conclusion"
+      - id: exoplanet-second-snapshot-target-freeze
+        label: "Second-snapshot target freeze is review-ready"
+        task_id: TASK-0482
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "freeze target set, row fields, checksums, and reveal conditions before any future second-snapshot data comparison"
+      - id: exoplanet-external-reviewer-capsule
+        label: "External-reviewer replication capsule is review-ready"
+        task_id: TASK-0484
+        mode: research
+        status: review_ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "scientist-readable replay commands and exact current benchmark metrics"
+          - "scorecard remains BENCHMARK_SUMMARY_ONLY"
       - id: exoplanet-source-schema-scaffold
         label: "Scaffold exoplanet mass-radius source surface"
         task_id: TASK-0337
@@ -559,12 +695,13 @@ missions:
     status: active_scaffold
     scientific_value: medium
     risk: low
-    recommendation: "Stellar Mass-Luminosity source/baseline planning (TASK-0444) is review-ready; review it before opening the model-independent-mass ingestion task and before any metrics."
+    recommendation: "Use Textbook Formula Audit as a public-friendly planning surface: keep Stellar M-L review-ready, then prepare Wien and Stefan-Boltzmann source/baseline plans before any metrics."
     why_now:
       - "TASK-0438 landed the campaign scaffold, profile, and candidate slate"
       - "famous formulas are easy for contributors to understand and share"
       - "each audit can be bounded by source, range, assumptions, verification gates, and OOD failure map"
       - "Stellar Mass-Luminosity on Gaia DR3 is the best first slice because it is recognizable, public-data-backed, and naturally range-limited"
+      - "TASK-0492 and TASK-0493 keep the next famous-formula audits source/baseline-first instead of metric-first"
     forbidden:
       - "do not claim any textbook formula is universally right or wrong"
       - "do not run metrics before source, schema, baseline, holdout, and verification gates are declared"
@@ -583,6 +720,26 @@ missions:
           - "row schema, baseline parameters, holdout policy, and verification gates"
           - "no audit metrics, result, claim, or discovery framing"
           - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md is review-ready"
+      - id: textbook-wien-displacement-plan
+        label: "Plan Textbook Formula Audit for Wien displacement"
+        task_id: TASK-0492
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "source/baseline/holdout plan without metrics or universal formula wording"
+      - id: textbook-stefan-boltzmann-plan
+        label: "Plan Textbook Formula Audit for Stefan-Boltzmann law"
+        task_id: TASK-0493
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: false
+        expected_outputs:
+          - "source/baseline/holdout plan without metrics or universal formula wording"
 
   - id: anharmonic-oscillator
     title: "Anharmonic Oscillator Period Benchmark"

@@ -6,8 +6,8 @@ data surface, and where agents can help without overclaiming.
 
 The short version:
 
-- **Current flagship:** Nuclear Mass Surface.
-- **Most shareable current benchmark surface:** Exoplanet Mass-Radius.
+- **Flagship validation challenge:** Nuclear Mass Surface.
+- **Default near-term science-output sprint:** Exoplanet Mass-Radius.
 - **Fresh-data buildout:** Atomic-Clock Residuals and Quantum Size Effects
   (source-gated; Atomic has pinned rows, Quantum still needs direct rows).
 - **Public verifier lane:** Textbook Formula Audit.
@@ -30,10 +30,10 @@ campaign map or `missions/current.yaml`.
 | If you want to... | Start here | Why |
 | --- | --- | --- |
 | see what can be shared publicly today | [Public Science Dashboard](./public-science-dashboard.md) | It has linkable result cards, safe wording, current questions, and expected next results per active campaign. |
-| review the strongest current research surface | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, and explicit negative controls. |
+| review the flagship validation challenge | [Nuclear Mass Surface](./nuclear-mass-surface.md) | It has a frozen baseline, sandbox scout evidence, prediction registry entries, source gates, explicit negative controls, and several useful negative/control results. |
 | help build the next direct-measurement dataset | [Quantum Size Effects](./quantum-size-effects.md) | It is blocked on source-grade direct rows before benchmark work can honestly begin. |
-| work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It has Beloy rows pinned; next work closes second-source, loader, holdout, and benchmark-readiness gates. |
-| work on an accessible catalog benchmark | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | It now has a pinned snapshot plus an inconclusive first baseline/regime scout, so residual-map packaging is the next useful artifact. |
+| work on high-precision fresh data | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | It has Beloy rows pinned, Nemitz source artifact pinned with rows blocked, and a covariance policy; next work closes loader, direct-vs-derived, fallback, and dry-run gates. |
+| work on the default science-output sprint | [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | It now has a pinned snapshot, benchmark diagnostics, target-freeze protocol, and reviewer capsule, so null-baseline and host-context hardening are the next useful artifacts. |
 | replay mature evidence | [Pendulum Formula Falsification](./pendulum-formula-falsification.md) or [Dimensional Analysis Validator](./dimensional-analysis-validator.md) | These are safer quality-floor tracks with deterministic replay value. |
 | propose a longer-horizon direction | [Fresh Physics Data Axes](./fresh-physics-data-axes.md) or [Anomaly Registry](./anomaly-registry.md) | These are planning surfaces; keep them schema- and guardrail-first. |
 
@@ -41,10 +41,10 @@ campaign map or `missions/current.yaml`.
 
 | Campaign | Current maturity | Best next contribution |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, no-leakage policy, shell-axis diagnostic-only decision, local-curvature no-leakage falsification, and several negative/control-dominated residual lanes. | The `TASK-0474`-`TASK-0479` wave: two disjoint controls-first hypothesis lanes, isotope-chain leave-family-out audit, negative evidence card, F2 taxonomy preflight, and training-slice feasibility review. |
-| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, CK17-style baseline, residual/failure map, compact-radius matched-control survivor, and `BENCHMARK_SUMMARY_ONLY` promotion scorecard. | The `TASK-0480`-`TASK-0484` wave: compact-radius quartile scout, host-context preflight, second-snapshot target freeze, null-baseline audit, and external reviewer replication capsule. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Baseline benchmark, sandbox pilots, deterministic factory, frozen prospective registry, no-leakage policy, shell-axis diagnostic-only decision, local-curvature no-leakage falsification, and several negative/control/local residual lanes. | `TASK-0477`, `TASK-0478`, and `TASK-0479`: negative evidence card, F2 taxonomy preflight, and training-slice feasibility review before another fitting wave. |
+| [Exoplanet Mass-Radius Benchmark](./exoplanet-mass-radius.md) | Pinned catalog snapshot, CK17-style baseline, residual/failure map, compact-radius matched-control survivor, underpowered mass-quartile scout, target-freeze protocol, reviewer capsule, and `BENCHMARK_SUMMARY_ONLY` promotion scorecard. | `TASK-0483` and `TASK-0481`: null-baseline family audit and host-context preflight. |
 | [Quantum Size Effects](./quantum-size-effects.md) | Scaffold, calibration-derived seeds, direct-source triage, and source-artifact intake path exist; measurement-grade baseline remains blocked. | `TASK-0398`, `TASK-0489`, `TASK-0490`, and `TASK-0491`: source artifact review, synthetic digitization dry-run, and go/no-go criteria for any weaker calibration-consistency benchmark. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy 2021 pinned direct rows, source-derived covariance approximation, and Nemitz 2016 second-source candidate. | `TASK-0452`, `TASK-0453`, `TASK-0485`, `TASK-0486`, `TASK-0487`, and `TASK-0488`: second-source ingestion/fallbacks, loader, covariance policy, direct-vs-derived separation, and synthetic dry-run before baseline readiness. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Beloy 2021 pinned direct rows, source-derived covariance approximation, Nemitz 2016 source artifact pinned with rows blocked, and first-benchmark covariance policy. | `TASK-0453`, `TASK-0485`, `TASK-0487`, and `TASK-0488`: loader, fallback source triage, direct-vs-derived separation, and synthetic dry-run before baseline readiness. |
 
 These four are the main public-facing surfaces today. They should be presented
 as disciplined research infrastructure, not as finished discoveries.

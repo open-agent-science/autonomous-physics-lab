@@ -22,14 +22,14 @@ For linkable, public-safe summaries of active campaign results, use the
 
 ## Current Focus
 
-APL is concentrating on four public-facing research surfaces:
+APL is concentrating on five public-facing research surfaces:
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship campaign for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; local-curvature is falsified, the residual-free high-error lane is inconclusive, neutron-rich boundary transfer is negative, and magic-distance interaction is control-dominated, so next useful work is negative/preflight packaging, reveal-readiness reporting, or a genuinely disjoint controls-first lane |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | The flagship validation challenge for blind/prospective prediction discipline, no-leakage residual-feature testing, and agent-vs-baseline verification | Waiting for future source-grade reveal data; local-curvature is falsified, residual-free high-error is inconclusive, neutron-rich boundary and pairing-asymmetry controls are negative, magic-distance/magic-parity controls are control-dominated, and isotope-chain transfer is mixed/chain-local, so next useful work is negative/preflight packaging and reveal-readiness reporting |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | A test of whether agents can build a direct-measurement row-level dataset before running attractive benchmarks | Direct measurement rows and source artifacts are still the gate |
-| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy 2021 pinned rows exist; next blockers are Nemitz second-source ingestion, real-row loader, holdout/no-peek manifest, and baseline-readiness gate |
-| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | A fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Compact-radius independent replay, normalized checksum cleanup, evidence card, and second-snapshot protocol after `BENCHMARK_SUMMARY_ONLY` scorecard |
+| [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy 2021 pinned rows exist; Nemitz 2016 source artifact is pinned but rows are blocked; covariance policy is defined; next work is real-row loader, direct-vs-derived separation, fallback sources, and synthetic cross-source dry-run |
+| [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | The default near-term science-output sprint: a fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Null-baseline family audit, host-context preflight, and second-snapshot target-freeze discipline after `BENCHMARK_SUMMARY_ONLY` scorecard and external-reviewer capsule |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign for famous formulas tested by source, range, assumptions, and OOD failure maps | Stellar Mass-Luminosity source/baseline planning before any Gaia DR3 metrics |
 
 Older and mature tracks still define the quality floor:
@@ -64,18 +64,22 @@ Highlights:
 - `PRED-0001` through `PRED-0068` are frozen prospective nuclear predictions
   awaiting future maintainer-reviewed reveal data. They are forecasts, not
   current scientific wins.
-- The newest Nuclear residual-free high-error cluster audit is useful
-  sandbox memory, but not a positive candidate: its no-leakage taxonomy is
-  too sparse on the current training slice and regresses against the frozen
-  baseline and controls.
+- The newest Nuclear controls-first lanes are useful sandbox memory, but not
+  positive candidates: pairing-asymmetry and magic-parity interaction controls
+  regress the frozen baseline, while isotope-chain leave-family-out transfer is
+  mixed and chain-local.
 - Exoplanet Mass-Radius now has a pinned PSCompPars snapshot, an inconclusive
   first baseline benchmark, residual/failure-map audits, a compact-radius
-  matched-control survivor, and a `BENCHMARK_SUMMARY_ONLY` scorecard. This is
-  the strongest current public-safe benchmark surface, not a claim about
-  planet composition.
+  matched-control survivor, a mass-quartile scout that is underpowered at
+  quartile resolution, a second-snapshot target freeze, an external-reviewer
+  replication capsule, and a `BENCHMARK_SUMMARY_ONLY` scorecard. This is the
+  strongest current public-safe benchmark surface, not a claim about planet
+  composition.
 - Atomic-Clock Residuals now has Beloy 2021 / BACON pinned as sandbox-only
-  direct frequency-ratio rows and a source-derived PSD covariance
-  approximation. It is still not a benchmark or constants-drift result.
+  direct frequency-ratio rows, a source-derived PSD covariance approximation,
+  the correct Nemitz 2016 source artifact pinned with rows blocked, and a
+  first-benchmark covariance policy. It is still not a benchmark or
+  constants-drift result.
 - Textbook Formula Audit has a scaffold and ranked candidate slate. Its first
   useful next step is Stellar Mass-Luminosity source/baseline planning, not an
   audit run.
@@ -113,8 +117,9 @@ Important operating rules:
 - Atomic-clock work is pinned-dataset but not `BASELINE_READY`; it still needs
   Nemitz ingestion, loader, holdout/no-peek, and readiness-gate work before
   any Yb/Sr consistency benchmark.
-- Exoplanet work is ready for residual/failure-map packaging, but not for
-  habitability, target-priority, or composition-law claims.
+- Exoplanet work is ready for null-baseline and host-context benchmark
+  hardening, but not for habitability, target-priority, or composition-law
+  claims.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 
