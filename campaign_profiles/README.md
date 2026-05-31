@@ -11,6 +11,9 @@ Each profile defines:
 - required inputs and references;
 - required quality gates;
 - forbidden claims;
+- optional Research Factory fields (`allowed_factory_families`,
+  `required_factory_controls`, and `factory_stop_rules`) when a campaign has
+  an adapter contract;
 - validation commands;
 - PR handoff requirements.
 

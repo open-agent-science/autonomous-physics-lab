@@ -39,6 +39,46 @@ required_quality_checks:
   - "Report which axes were active (true-mass-with-transit-radius, minimum-mass-with-transit-radius) and whether any class or method slice regressed."
   - "Run the shared research quality gate before any later autonomy PR handoff."
 
+allowed_factory_families:
+  - id: radius_regime
+    description: "Compact, sub-Neptune, Jovian-radius, hot-Jupiter, and declared transition slices against frozen baselines."
+    required_guard: "Compare against nearest-radius and shuffled/null controls before any positive route."
+  - id: mass_provenance
+    description: "True-mass and minimum-mass axes as separate candidate surfaces."
+    required_guard: "Never pool true mass with minimum mass or M sin i in headline metrics."
+  - id: detection_method
+    description: "Detection-method and method-missingness diagnostics when count-supported."
+    required_guard: "Use sample-size and mass/radius matched controls."
+  - id: host_context
+    description: "Host Teff, stellar radius, and metallicity fields only after coverage gates."
+    required_guard: "Compact-radius host context remains conditional/underpowered after TASK-0481."
+  - id: irradiation_proxy
+    description: "Equilibrium-temperature and irradiation-flux proxy diagnostics when present."
+    required_guard: "Report missingness and forbid habitability or target-priority wording."
+  - id: measurement_quality
+    description: "Mass/radius uncertainty bands and missing-uncertainty flags."
+    required_guard: "Use uncertainty-matched controls and route missingness blockers explicitly."
+  - id: null_baseline_family
+    description: "Per-class medians, nearest-neighbor nulls, shuffled labels, and other deterministic null competitors."
+    required_guard: "A null that matches or beats the candidate routes to negative/control memory."
+
+required_factory_controls:
+  - "Null-baseline comparison is mandatory; TASK-0483 showed highlighted slices are control-sensitive."
+  - "Host-context coverage gate is mandatory; TASK-0481 found no compact-radius host-context axis benchmark-usable under the current coarse-bin floor."
+  - "True-mass and minimum-mass rows must be evaluated and routed separately."
+  - "Matched controls, shuffled/null controls, and uncertainty controls must be declared before metrics."
+  - "Every candidate must record a complexity penalty for added splits, features, or parameters."
+  - "No live fetch, baseline refit, prediction entry, claim promotion, result promotion, or knowledge edit is allowed from a factory run by default."
+
+factory_stop_rules:
+  - "Stop if the task does not name a pinned snapshot and source policy."
+  - "Stop if live NASA Exoplanet Archive fetches are requested."
+  - "Stop if true-mass and minimum-mass rows are pooled in one headline metric."
+  - "Stop if compact-radius host context is treated as benchmark-usable without a new maintainer-approved task that revises the TASK-0481 blocker."
+  - "Stop if a null baseline matches or beats a candidate and the candidate is still routed as positive."
+  - "Stop if habitability, biosignature, atmosphere, composition, discovery, or target-priority wording appears in a candidate family."
+  - "Stop if a factory run would create RESULT, PRED, CLAIM, or KNOW artifacts without a separate maintainer-approved promotion task."
+
 forbidden_claims:
   - "A sandbox candidate explains all exoplanet masses or radii."
   - "Residual improvement alone is evidence of a broader physical conclusion about planet structure."

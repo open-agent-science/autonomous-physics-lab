@@ -1,7 +1,7 @@
 id: TASK-0508
 title: "Define Exoplanet adapter contract for Research Factory reuse"
 type: research_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -39,9 +39,10 @@ requirements:
 
 accepted_outputs:
   - "docs/exoplanet-factory-adapter-contract.md"
-  - "updated campaign_profiles/exoplanet-mass-radius.yaml with allowed_factory_families / required_factory_controls if useful"
-  - "optional update to docs/campaigns/exoplanet-mass-radius.md"
-  - "recommended follow-up task shape for a later Exoplanet adapter implementation or factory sprint, without creating the sprint as READY"
+  - "campaign_profiles/exoplanet-mass-radius.yaml"
+  - "campaign_profiles/README.md"
+  - "docs/campaigns/exoplanet-mass-radius.md"
+  - "recommended follow-up task shapes in docs/exoplanet-factory-adapter-contract.md, without creating the sprint as READY"
 
 validation:
   commands:
