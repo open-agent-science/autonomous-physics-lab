@@ -1,7 +1,7 @@
 id: TASK-0421
 title: "Add GitHub-based task claiming ledger"
 type: maintainer_workflow
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
