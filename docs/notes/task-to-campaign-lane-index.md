@@ -1,15 +1,14 @@
-# Task-to-Campaign Lane Index (TASK-0460)
+# Task-to-Campaign Lane Index (TASK-0460/TASK-0509)
 
 A compact map from active canonical tasks to campaign (or support) lanes, so
 agents and the Scientific Campaign Director can see which `READY` task belongs
 to which lane — and whether it is safe for parallel work — without reading every
 task file. It complements the campaign **capacity** view (how many agents are
-safe per lane) with a per-task **ownership** view.
+safe per lane) with an on-demand per-task **ownership** view.
 
 ## Artifacts
 
-- `campaigns/task-index.yaml` — generated machine-readable index.
-- `scripts/apl_task_campaign_index.py` — generator and checker.
+- `scripts/apl_task_campaign_index.py` — query helper for YAML or Markdown output.
 - `physics_lab/registry/task_campaign_index.py` — mapping logic (pure functions).
 
 ## Usage
@@ -17,15 +16,13 @@ safe per lane) with a per-task **ownership** view.
 ```bash
 python3 scripts/apl_task_campaign_index.py                 # print YAML
 python3 scripts/apl_task_campaign_index.py --format markdown
-python3 scripts/apl_task_campaign_index.py --write         # refresh campaigns/task-index.yaml
-python3 scripts/apl_task_campaign_index.py --check         # exit 1 if the committed file is stale
 ```
 
-The index is **regenerated on demand**, not a hand-maintained source of truth
-and not auto-synced by a post-merge action. Treat a stale committed copy as
-informational; rerun `--write` when you need a current view. This mirrors how
-snapshots work and deliberately avoids adding another generated file that the
-repository must keep perfectly fresh (cf. the retired `tasks/ACTIVE.md`).
+The index is **computed on demand** from canonical task YAML. Do not commit the
+rendered output as a repository board or cache. This keeps the architecture
+aligned with the retirement of `tasks/ACTIVE.md`: agents and directors query
+current state when they need it, while `tasks/TASK-*.yaml` remains the only task
+source of truth.
 
 ## How a task is mapped to a lane
 
@@ -62,3 +59,6 @@ Resolution order (first match wins), reusing existing task metadata:
 - A task whose campaign id is not yet in the catalog is `UNMAPPED` by design;
   add the campaign profile (and regenerate `campaigns/catalog.yaml`) to map it.
 - The index is descriptive: it never changes task status or campaign metadata.
+- Because the output is intentionally not committed, historical state should be
+  read from task files, snapshots, and git history rather than from a stale
+  generated cache.

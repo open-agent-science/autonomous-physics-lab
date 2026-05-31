@@ -24,12 +24,12 @@ input:
     A capacity board answers how many agents are safe per lane, but agents also
     need to know which concrete task belongs to which campaign and whether its
     artifact surface conflicts with other active work. This task adds a
-    generated or checkable lane index that maps canonical tasks to campaign
-    lanes using existing task metadata and campaign registry ids.
+    queryable lane index that maps canonical tasks to campaign lanes using
+    existing task metadata and campaign registry ids.
 
 requirements:
   - "Use existing campaign ids from `campaigns/catalog.yaml` where they are available."
-  - "Create a generated or checkable task-to-campaign index such as `docs/task-views/by-campaign.md` or `campaigns/task-index.yaml`."
+  - "Create a queryable task-to-campaign index helper rather than a hand-maintained board."
   - "For each active task, record task id, title, status, campaign or support lane, likely artifact surface, and whether it is safe for parallel work."
   - "Prefer existing task metadata (`related_domain`, related objects, campaign ids) over new duplicated task fields."
   - "Flag unknown or ambiguous campaign mapping for curator review instead of guessing silently."
@@ -37,8 +37,7 @@ requirements:
   - "Do not commit generated `tasks/ACTIVE.md` or `docs/task-views/*.md` unless the implementation intentionally owns that generated view."
 
 accepted_outputs:
-  - "task-to-campaign lane index artifact"
-  - "generator or validation helper if the artifact is generated"
+  - "task-to-campaign lane index query helper"
   - "tests covering campaign mapping and ambiguous-task handling"
   - "short documentation note for maintainers and agents"
 

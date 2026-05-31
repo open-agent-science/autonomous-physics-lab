@@ -15,14 +15,17 @@ is a manual/agent-readable review discipline, layered on
 
 A batch is eligible for batch review only when **all** of the following hold:
 
-- **Same campaign / lane** — every PR maps to the same campaign lane (see
-  `campaigns/task-index.yaml`, TASK-0460).
+- **Same campaign / lane** — every PR maps to the same campaign lane. Use the
+  on-demand lane query (`python3 scripts/apl_task_campaign_index.py --format
+  markdown`, TASK-0460/TASK-0509) as supporting context instead of a committed
+  generated board.
 - **Same task type** — e.g. all source triage, all residual-scout audits, all
   adversarial-control runs, all negative-result notes, or all evidence cards.
 - **Same validation surface** — the PRs run the same validation commands against
   the same kind of artifact, so a reviewer can apply one mental model.
 - **Disjoint write paths** — no two PRs in the batch modify the same file. Write
-  surfaces must be non-overlapping (check `path_conflicts` in the lane index).
+  surfaces must be non-overlapping (check `path_conflicts` in the on-demand
+  lane index).
 
 If any condition fails, review the PRs individually.
 

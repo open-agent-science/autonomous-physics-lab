@@ -42,8 +42,9 @@ profile changes; do not hand-edit campaign numbers here.
 
 ## Review and support lanes
 
-These are cross-campaign lanes (see the `support` lane in
-[`campaigns/task-index.yaml`](../campaigns/task-index.yaml), TASK-0460):
+These are cross-campaign lanes (query the on-demand task-to-campaign index with
+`python3 scripts/apl_task_campaign_index.py --format markdown` when you need
+the current `support` task list):
 
 | Lane | Recommended parallel agents | Notes |
 | --- | --- | --- |
@@ -56,8 +57,9 @@ These are cross-campaign lanes (see the `support` lane in
   board says *how many* agents fit a lane; the claiming ledger records *which*
   agent took *which* task so two agents do not collide. Use both.
 - **Task-to-campaign index** ([`notes/task-to-campaign-lane-index.md`](notes/task-to-campaign-lane-index.md),
-  TASK-0460): maps each active task to a lane and flags parallel-safety and
-  write-path conflicts — the per-task companion to this per-lane board.
+  TASK-0460/TASK-0509): maps each active task to a lane and flags
+  parallel-safety and write-path conflicts on demand — the per-task companion
+  to this per-lane board, without committing another generated board file.
 - **Mission recommendations** ([`current-missions.md`](current-missions.md),
   `missions/current.yaml`): remain the authority on *what to work on next*. The
   board does not override mission guardrails or task status.
