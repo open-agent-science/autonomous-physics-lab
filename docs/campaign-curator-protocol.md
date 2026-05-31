@@ -118,6 +118,59 @@ The brief should prefer a small number of specific next actions over a large
 open-ended backlog, but it should also warn when the READY pool is becoming too
 thin for the number of active agents.
 
+## Promotion Backlog
+
+The Promotion Backlog is an advisory triage section for existing sandbox or
+review evidence. It helps the maintainer decide what should move toward
+canonical scientific memory and what should explicitly stay out of promotion
+paths.
+
+The backlog must not create artifacts automatically. It can recommend future
+work, but any `RESULT-*`, `PRED-*`, `CLAIM-*`, or `KNOW-*` creation still needs a
+separate reviewed task and the gates in `docs/result-promotion-protocol.md`.
+
+Each backlog candidate should include:
+
+- candidate id or short label;
+- source path, usually under `agent_runs/`, `docs/reviews/`, `results/`,
+  `claims/`, or `knowledge/`;
+- candidate class;
+- recommended next action;
+- promotion blocker or do-not-promote reason;
+- evidence quality notes;
+- overclaim risk notes;
+- owner or suggested follow-up task when applicable.
+
+Use exactly these candidate classes:
+
+| Class | Meaning | Allowed recommendation |
+| --- | --- | --- |
+| `result-backfill` | Sandbox evidence appears strong enough to package as a canonical result after review. | Create a scoped result-promotion task or reviewer checklist. |
+| `negative-result-backfill` | A failed or falsified lane is useful enough to preserve as public negative scientific memory. | Create a negative-result evidence card or result-promotion preflight. |
+| `replay-needed` | Evidence is promising or important, but deterministic replay, source verification, or independent rerun is missing. | Create a replay, source-audit, or validation task before promotion. |
+| `claim-review-candidate` | Existing evidence may support updating a `CLAIM-*` after maintainer review. | Create a claim-review task; do not edit the claim from the curator brief. |
+| `do-not-promote` | Evidence should remain sandbox-only, inconclusive, blocked, superseded, duplicated, or overclaim-prone. | State why promotion is blocked and, if useful, what evidence would change the decision. |
+
+Every `do-not-promote` item must include an explicit reason. Valid reason types
+include:
+
+- `underpowered_rows`
+- `missing_replay`
+- `source_blocker`
+- `leakage_or_holdout_risk`
+- `control_sensitive`
+- `duplicate_or_superseded`
+- `overclaim_risk`
+- `not_scientific_memory`
+- `needs_maintainer_decision`
+
+If the reason does not fit one of those labels, use a short custom reason and
+explain it in plain language.
+
+The curator should keep the backlog small. Prefer the strongest 3-7 candidates
+per cycle and group everything else as "not reviewed this cycle" rather than
+creating a long pseudo-database.
+
 ## Parallel Work Guidance
 
 The curator may recommend parallel agent lanes when they are disjoint.
