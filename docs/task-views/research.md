@@ -30,11 +30,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0452` - Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0474` - Run Nuclear pairing-asymmetry interaction control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0475` - Run Nuclear magic-parity boundary control lane (`autonomous_research_pilot`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0476` - Run Nuclear isotope-chain leave-family-out audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0480` - Run exoplanet compact-radius mass-quartile scout (`autonomous_research_pilot`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0482` - Define exoplanet second-snapshot target freeze (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0486` - Define Atomic first-benchmark covariance policy (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0494` - Refresh campaign pages after next science wave (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
+None.
