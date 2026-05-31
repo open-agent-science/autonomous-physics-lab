@@ -95,6 +95,16 @@ Demonstrate that APL can run honest scientific campaigns, gated evidence
 publication, and multi-agent contributor work at the same time, without
 relaxing verification standards or overstating benchmark results.
 
+## Steering Metric
+
+Task throughput is not the north-star metric. APL should optimize for durable
+scientific-output throughput: reproducible `RESULT-*` artifacts, preserved
+negative and inconclusive evidence, registered predictions awaiting reveal,
+agent-validated replays, maintainer-reviewed scoped claims, and reusable
+knowledge. A healthy campaign is not the one with the most activity; it is the
+one that steadily converts bounded work into reviewable scientific memory while
+making blockers and failed ideas visible.
+
 ## Current North-Star Outcomes
 
 - campaign-oriented scientific work with explicit boundaries, current evidence,

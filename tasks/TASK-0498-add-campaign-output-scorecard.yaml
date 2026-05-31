@@ -1,0 +1,56 @@
+id: TASK-0498
+title: "Add campaign output scorecard for scientific-memory throughput"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Shift project steering from raw task throughput toward durable scientific output throughput."
+  - "Make campaign health visible through canonical results, predictions, claims, negative results, and validation tiers."
+  - "Help the Scientific Campaign Director and strategy agents route parallel agents without reconstructing evidence state from many PRs."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "campaigns/catalog.yaml"
+    - "docs/scientific-memory-review-tiers.md"
+    - "docs/result-promotion-protocol.md"
+    - "results/"
+    - "prediction_registry/"
+    - "claims/"
+    - "agent_runs/"
+    - "tasks/TASK-*.yaml"
+  planning_context: >
+    APL now has agent-published and agent-validated evidence lanes, but
+    campaign steering still leans heavily on task counts and recent PR memory.
+    Add a compact scorecard that reports scientific-memory throughput per
+    campaign so agents and maintainers can see whether a lane is producing
+    durable evidence, not just activity.
+
+requirements:
+  - "Compute a campaign-level scorecard from committed canonical artifacts and task metadata."
+  - "Include counts for AGENT_PUBLISHED, AGENT_VALIDATED, MAINTAINER_REVIEWED, and LEGACY_UNTIERED artifacts where available."
+  - "Track RESULT, PRED, CLAIM, KNOW, negative/inconclusive/overfit outputs, predictions awaiting reveal, and external-review or source-readiness blockers when inferable."
+  - "Separate durable scientific outputs from sandbox-only agent runs."
+  - "Keep the scorecard descriptive; it must not promote claims, edit review tiers, or auto-rank scientific truth."
+  - "Avoid public-post or DOU-specific language."
+
+accepted_outputs:
+  - "scripts/apl_campaign_scorecard.py or equivalent helper"
+  - "docs/campaign-output-scorecard.md or generated scorecard documentation"
+  - "tests covering campaign grouping and review-tier counts"
+  - "brief guidance for how strategy agents and the Scientific Campaign Director should use the scorecard"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

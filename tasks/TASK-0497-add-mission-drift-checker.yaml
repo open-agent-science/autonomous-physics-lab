@@ -1,0 +1,52 @@
+id: TASK-0497
+title: "Add mission drift checker for live task and campaign routing"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Agent First mission routing aligned with current task state, campaign status, and scientific output gates."
+  - "Prevent stale mission actions from routing agents into completed, blocked, superseded, or no-longer-priority work."
+  - "Reduce maintainer-only manual sync burden after large merge waves."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "missions/current.yaml"
+    - "campaigns/catalog.yaml"
+    - "tasks/TASK-*.yaml"
+    - "scripts/apl_mission.py"
+    - "docs/current-missions.md"
+  planning_context: >
+    Recent campaign waves have repeatedly required manual mission-priority
+    refreshes after tasks moved to DONE, BLOCKED, SUPERSEDED, or shifted
+    campaign priority. Add a deterministic advisory checker that detects
+    stale mission recommendations before new agents are routed into them.
+
+requirements:
+  - "Implement a deterministic mission-drift checker that reads canonical task YAML, campaign registry data, and missions/current.yaml."
+  - "Flag recommended task ids or mission actions that point to DONE, REJECTED, SUPERSEDED, or scientifically blocked work."
+  - "Flag campaign recommendations that conflict with catalog status, current blockers, or forbidden-work notes."
+  - "Start as an advisory helper unless maintainers explicitly choose to wire it into strict validation."
+  - "Do not rewrite missions/current.yaml automatically."
+  - "Do not commit generated docs/task-views/*.md files."
+
+accepted_outputs:
+  - "scripts/apl_check_mission_drift.py or equivalent CLI/helper"
+  - "tests covering stale DONE/BLOCKED/SUPERSEDED task references"
+  - "documentation note explaining when maintainers or agents should run the checker"
+  - "optional validate-repo advisory integration if it does not add noisy false positives"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_drift.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
