@@ -1,5 +1,12 @@
 # Generated Task-Navigation Architecture — Decision
 
+> **Generalized into a canonical rule:** the principle behind this decision —
+> *generated, frequently-changing state must not be committed as an agent data
+> source* — is now [docs/generated-file-policy.md](../generated-file-policy.md).
+> A repeat of this mistake (`campaigns/task-index.yaml`) is analyzed in
+> [static-task-index-retrospective.md](static-task-index-retrospective.md)
+> (TASK-0509/TASK-0510).
+
 **Task:** TASK-0470 (decision task; no board behavior changed here)
 **Status:** architecture decision note + recommended migration path
 **Inputs:** `tasks/proposals/20260530-roman-decouple-generated-board-files.yaml`,

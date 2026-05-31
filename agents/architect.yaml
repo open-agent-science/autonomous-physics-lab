@@ -39,6 +39,7 @@ when_to_use:
   - "Unused, orphaned, or duplicated artifacts have accumulated and need to be cleaned up."
   - "A periodic architectural audit is due (the role runs at least one repository-wide audit per fortnight in proactive mode)."
   - "Cross-platform portability needs review — new tooling, scripts, or code paths must keep the repository runnable on Linux, macOS, and Windows for third-party agents (CI runs on Linux only)."
+  - "A PR proposes committing a new generated or cache file as an agent data source — enforce docs/generated-file-policy.md (no new committed frequently-changing board-like files; expose on-demand scripts instead)."
 
 when_not_to_use:
   - role_id: researcher

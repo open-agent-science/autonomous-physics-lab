@@ -511,6 +511,22 @@ portable:
 See [./cross-platform-compatibility.md](./cross-platform-compatibility.md) for
 the full standard and the audit of existing shell scripts.
 
+## Generated Files and Static Snapshots
+
+Generated, frequently-changing state must **not** be committed as an
+agent-facing data source. Agents get current state by running the
+generator/script on demand (`apl_mission.py`, `apl_task_campaign_index.py`) or by
+reading the canonical source files (`tasks/TASK-*.yaml`, `campaign_profiles/*.yaml`,
+`missions/current.yaml`).
+
+Committed generated files are allowed only as **human-facing** navigation that
+the post-merge `Sync Active Board` action auto-regenerates (`docs/task-views/*.md`)
+or as source-coupled metadata with a CI `--check` (`campaigns/catalog.yaml`). Do
+not introduce a new committed generated/cache file for agents to read — if a view
+is useful, expose it through an on-demand script. This is why `tasks/ACTIVE.md`
+was retired (TASK-0470) and `campaigns/task-index.yaml` was removed (TASK-0509).
+See [./generated-file-policy.md](./generated-file-policy.md).
+
 ## End-Of-Task Output Routing
 
 At the end of any research, validation, benchmark, source-curation, prediction,
@@ -658,6 +674,10 @@ Rules:
 - do not make the repository public
 - do not promote claims or knowledge without review
 - do not silently rewrite canonical scientific artifacts
+- do not commit a new frequently-changing generated/cache file as an
+  agent-facing data source (the `tasks/ACTIVE.md` / `campaigns/task-index.yaml`
+  mistake); expose on-demand views through a script — see
+  [./generated-file-policy.md](./generated-file-policy.md)
 - do not introduce platform-specific code (bash-only critical-path scripts,
   hardcoded `/tmp`, hardcoded `python3`, hardcoded `/` paths, or `HOME` reads)
   without a cross-platform equivalent; see

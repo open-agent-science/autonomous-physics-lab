@@ -224,6 +224,15 @@ files from a task PR; the action handles that on `main`. Maintainers may
 still run `python3 -m physics_lab.cli sync-active-board .` by hand in a
 dedicated board-sync PR when the action is disabled or for explicit audits.
 
+Do not commit a **new** frequently-changing generated file as an agent data
+source. Agents get current state by running a script on demand
+(`apl_mission.py`, `apl_task_campaign_index.py`) or by reading canonical
+`tasks/TASK-*.yaml` / `campaign_profiles/*.yaml`. Committed generated files are
+allowed only as human-facing navigation that the `Sync Active Board` action
+auto-regenerates. See [docs/generated-file-policy.md](docs/generated-file-policy.md)
+(the retired `tasks/ACTIVE.md` and removed `campaigns/task-index.yaml` are why
+this rule exists).
+
 Do not treat `CODEX_TASK.md` as the single source of truth for active work.
 Do not invent task branch, commit, PR, or task-state formats locally.
 Use `docs/agent-task-protocol.md`.

@@ -1,0 +1,56 @@
+id: TASK-0510
+title: "Codify generated-file policy after the committed task-index retrospective"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Stop repeating the committed-generated-file mistake (tasks/ACTIVE.md, campaigns/task-index.yaml) by promoting the lesson from a one-off decision to a canonical, discoverable rule."
+  - "Make the rule enforceable at the points where agents and reviewers actually look: agent instructions, the task protocol's forbidden actions, the review checklist, and the architect role."
+  - "Document who proposed/executed/reviewed the mistake so the fix targets the instruction gap, not individuals."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "tasks/TASK-0460-add-task-to-campaign-lane-index.yaml"
+    - "tasks/TASK-0509-decouple-campaign-task-index-from-committed-tree.yaml"
+    - "docs/notes/generated-task-navigation-architecture-decision.md"
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/maintainer-review-agent.md"
+    - "agents/architect.yaml"
+  planning_context: >
+    TASK-0460 committed a generated campaigns/task-index.yaml as an agent data
+    source, re-creating the tasks/ACTIVE.md failure mode that TASK-0470 had just
+    retired. TASK-0509 removed the committed cache (instance fix). The root cause
+    was that the TASK-0470 lesson lived only as a one-off decision note, not as a
+    canonical principle in the documents agents read or in the review checklist,
+    so both the proposing agent (codex, via the TASK-QUEUE that drafted
+    TASK-0460) and the executing agent (claude, PR #703) passed it through. This
+    task records the retrospective and codifies the generated-file policy.
+
+requirements:
+  - "Write a retrospective documenting who proposed, accepted, executed, and reviewed the committed task-index decision and the root cause."
+  - "Add a canonical generated-file policy document."
+  - "Reference the policy from AGENTS.md, docs/agent-task-protocol.md (guidance + forbidden action), docs/maintainer-review-agent.md (required check), and agents/architect.yaml."
+  - "Generalize the TASK-0470 decision note with a pointer to the canonical policy."
+  - "Do not change task statuses except this task's own lifecycle transition; do not re-add any committed generated cache file."
+
+accepted_outputs:
+  - "docs/generated-file-policy.md"
+  - "docs/notes/static-task-index-retrospective.md"
+  - "updates to AGENTS.md, docs/agent-task-protocol.md, docs/maintainer-review-agent.md, agents/architect.yaml, and the TASK-0470 decision note"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
