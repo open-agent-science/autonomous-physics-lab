@@ -13,7 +13,6 @@
 - `TASK-0440` - Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0460` - Add task-to-campaign lane index (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
-- `TASK-0497` - Add mission drift checker for live task and campaign routing (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
 - `TASK-0498` - Add campaign output scorecard for scientific-memory throughput (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
 - `TASK-0499` - Define claim-review cadence for low-risk scientific-memory ratification (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `scientific_memory`)
 
@@ -23,4 +22,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0497` - Add mission drift checker for live task and campaign routing (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
