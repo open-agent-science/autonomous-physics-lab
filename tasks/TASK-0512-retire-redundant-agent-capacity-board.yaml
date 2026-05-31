@@ -27,9 +27,9 @@ input:
     mission tooling consumes it, and it had a single inbound link (added by the
     same PR). The catalog is already the single registry-driven capacity surface,
     and the on-demand task-to-campaign index covers per-task parallel-safety, so
-    the board solved no problem the catalog did not already solve while adding a
-    drift surface. Generating the board (TASK-0459) would re-render the same data,
-    so it is rejected rather than executed.
+    the board did not address a coordination need beyond what the catalog already
+    covers while adding a drift surface. Generating the board (TASK-0459) would
+    re-render the same data, so it is rejected rather than executed.
 
 requirements:
   - "Remove docs/agent-capacity-board.md."
