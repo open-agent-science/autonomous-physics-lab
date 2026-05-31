@@ -1,0 +1,56 @@
+id: TASK-0508
+title: "Define Exoplanet adapter contract for Research Factory reuse"
+type: research_protocol
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep the Research Factory layer reusable beyond Nuclear without distracting from the Nuclear-first sprint."
+  - "Use Exoplanets as the second campaign testbed only after its null-baseline and host-context gates are explicit."
+  - "Prevent exoplanet residual factories from becoming habitability, composition, or target-priority claims."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "tasks/TASK-0481-run-exoplanet-compact-radius-host-context-preflight.yaml"
+    - "campaign_profiles/exoplanet-mass-radius.yaml"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/notes/research-factory-layer-plan.md"
+    - "docs/research-factory-adapter-contract.md"
+  planning_context: >
+    Nuclear is the first Research Factory testbed, but Exoplanets should be
+    prepared as the second campaign adapter. TASK-0483 showed that the
+    highlighted exoplanet residual slices are control-sensitive; this task
+    defines how an exoplanet adapter would plug into the shared factory layer
+    later and what must remain blocked until host-context preflight is
+    complete.
+
+requirements:
+  - "Do not run exoplanet metrics or candidate corrections."
+  - "Map Exoplanet-specific datasets, baseline definitions, candidate families, controls, and route verdicts onto the shared Research Factory adapter contract."
+  - "Define allowed Exoplanet factory families: radius regimes, mass provenance, detection method, host context, irradiation proxies, and measurement-quality/uncertainty effects."
+  - "Require null-baseline comparison, host-context coverage gates, true-mass/minimum-mass separation, shuffled/null controls, matched controls, and complexity penalty."
+  - "State that any full Exoplanet factory sprint remains blocked until TASK-0481 either identifies usable host-context axes or explicitly rejects them."
+  - "Forbid habitability, composition, biosignature, target-priority, or new mass-radius-law claims."
+  - "Update campaign profile or campaign docs only if it clarifies the reuse contract."
+
+accepted_outputs:
+  - "docs/exoplanet-factory-adapter-contract.md"
+  - "updated campaign_profiles/exoplanet-mass-radius.yaml with allowed_factory_families / required_factory_controls if useful"
+  - "optional update to docs/campaigns/exoplanet-mass-radius.md"
+  - "recommended follow-up task shape for a later Exoplanet adapter implementation or factory sprint, without creating the sprint as READY"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

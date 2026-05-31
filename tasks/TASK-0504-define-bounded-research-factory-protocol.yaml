@@ -1,0 +1,62 @@
+id: TASK-0504
+title: "Define reusable bounded Research Factory protocol"
+type: research_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move APL from one-off hypothesis audits toward bounded high-throughput campaign testing."
+  - "Define a reusable layer that campaigns can call through shared runner and adapter contracts."
+  - "Make Nuclear Mass Surface the first factory testbed without creating a Nuclear-only architecture."
+  - "Keep factory outputs routed through reviewable scientific memory rather than automatic claim promotion."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_research_factory
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "campaign_profiles/nuclear-mass-surface.yaml"
+    - "docs/campaigns/nuclear-mass-surface.md"
+    - "docs/notes/research-factory-layer-plan.md"
+  planning_context: >
+    APL needs a bounded Research Factory layer so agents can test many
+    candidate feature families per campaign without turning the repository
+    into a numerology machine. This task defines the reusable protocol,
+    adapter contract, and output routing, with Nuclear as the first required
+    testbed rather than the only supported campaign.
+
+requirements:
+  - "Define what a bounded research factory is and what it is not."
+  - "Declare required inputs: pinned dataset, frozen baseline, allowed feature families, split definitions, controls, candidate cap, and output routing."
+  - "Define the shared callable layer contract: factory spec, campaign adapter, candidate generator, control suite, ranking policy, artifact writer, and CLI/runner entrypoint responsibilities."
+  - "Define route verdicts including NEGATIVE_RESULT, INCONCLUSIVE, SHORTLIST_CANDIDATE, READY_FOR_REPLAY, READY_FOR_PRED_FREEZE, REJECTED_BY_CONTROL, LOCAL_ONLY, and DATA_QUALITY_BLOCKED."
+  - "Define Nuclear-first allowed families: shell distance, odd-even/pairing, asymmetry, residual-free local topology, separation-energy-derived features, and local curvature only under no-leakage guards."
+  - "Define how non-Nuclear campaigns declare allowed_factory_families, required_factory_controls, and factory_stop_rules in campaign profiles."
+  - "Declare forbidden work: new PRED entries, reveal scoring, universal mass-law wording, post-hoc cherry-picking, and live external fetch."
+  - "State how future campaign adapters may reuse the protocol without requiring a framework rewrite."
+  - "Do not implement a factory runner in this task."
+  - "Do not create RESULT, PRED, CLAIM, or KNOW artifacts."
+
+accepted_outputs:
+  - "docs/research-factory-protocol.md"
+  - "docs/nuclear-residual-factory-sprint-protocol.md"
+  - "docs/research-factory-adapter-contract.md"
+  - "updated campaign_profiles/nuclear-mass-surface.yaml with allowed_factory_families / required_factory_controls if useful"
+  - "updated campaign_profiles/README.md if factory profile fields need an index"
+  - "updated docs/campaigns/nuclear-mass-surface.md if the campaign posture changes"
+  - "optional update to docs/result-promotion-protocol.md only for factory output routing vocabulary"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

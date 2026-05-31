@@ -1,0 +1,68 @@
+id: TASK-0506
+title: "Implement reusable Research Factory core with Nuclear adapter"
+type: scientific_tooling
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the Research Factory protocol into an executable reusable layer with a shared runner and campaign adapters."
+  - "Use Nuclear Mass Surface as the first adapter and smoke test."
+  - "Enable high-throughput residual-law candidate testing without broad claim promotion."
+  - "Keep controls, leakage checks, and factory_summary output mandatory before any sprint runs."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/research-factory-protocol.md"
+    - "docs/nuclear-residual-factory-sprint-protocol.md"
+    - "physics_lab/schemas/factory_summary.schema.json"
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+  planning_context: >
+    After the protocol and artifact schema land, APL needs a reusable
+    Research Factory core that campaign adapters can call. Nuclear should be
+    the first adapter and smoke test: it must generate bounded residual-law
+    candidates, apply required controls, and emit a factory_summary artifact.
+    This task is intentionally BLOCKED until TASK-0504 and TASK-0505 are DONE.
+    It builds the shared core, Nuclear adapter, and smoke fixtures; it does not
+    run the full 50-100 candidate sprint.
+
+requirements:
+  - "Do not start implementation until TASK-0504 and TASK-0505 have landed."
+  - "Implement a reusable runner surface rather than a Nuclear-only script."
+  - "Define shared objects or functions for factory specs, campaign adapters, candidate generation, controls, ranking, route verdicts, and factory_summary writing."
+  - "Expose one deterministic callable entrypoint, preferably `scripts/run_research_factory.py --config <config> --output-dir <dir>`."
+  - "Register a first Nuclear residual-law adapter that uses the shared runner contract."
+  - "Support a small Nuclear smoke candidate set across at least two allowed feature families."
+  - "Use committed nuclear datasets only; no live external fetch."
+  - "Keep raw mass_excess_mev, baseline residuals, separation-energy-derived features, and local-neighbor features separated and documented."
+  - "Implement leakage guards for any local-neighbor or curvature features."
+  - "Emit a schema-valid factory_summary artifact for a smoke run."
+  - "Document how a second campaign adapter would plug into the same runner without copying the Nuclear code path."
+  - "Do not write prediction_registry entries."
+  - "Do not create claim, knowledge, or canonical result artifacts."
+
+accepted_outputs:
+  - "physics_lab/factories/ package with reusable core, adapter interface, controls/ranking helpers, and Nuclear adapter"
+  - "scripts/run_research_factory.py or equivalent shared deterministic entrypoint"
+  - "examples/nuclear_residual_factory_smoke.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/factory_summary.yaml for a smoke run, or a documented temporary-output path if committed agent_runs are not appropriate"
+  - "docs/reviews/research-factory-core-and-nuclear-adapter.md"
+  - "tests/test_research_factory_core.py"
+  - "tests/test_nuclear_residual_factory.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_research_factory_core.py tests/test_nuclear_residual_factory.py"
+    - "python3 scripts/run_research_factory.py --config examples/nuclear_residual_factory_smoke.yaml --output-dir /tmp/apl-nuclear-factory-smoke"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
