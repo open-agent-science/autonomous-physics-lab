@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0500` - Refresh v0.2 public-alpha final release signoff on current main (`release_review`, priority `high`, difficulty `medium`, domain `public_release_readiness`)
