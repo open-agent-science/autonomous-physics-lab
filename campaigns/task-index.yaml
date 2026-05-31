@@ -19,7 +19,7 @@ campaign_ids:
 - quantum-size-effects
 - textbook-formula-audit
 summary:
-  active_tasks: 33
+  active_tasks: 38
   lanes: 7
   unmapped: 4
   needs_curator_review:
@@ -41,10 +41,13 @@ lanes:
   exoplanet-mass-radius:
   - TASK-0481
   - TASK-0502
+  - TASK-0508
   nuclear-mass-surface:
   - TASK-0477
   - TASK-0478
   - TASK-0479
+  - TASK-0506
+  - TASK-0507
   quantum-size-effects:
   - TASK-0276
   - TASK-0277
@@ -66,6 +69,8 @@ lanes:
   - TASK-0463
   - TASK-0501
   - TASK-0503
+  - TASK-0504
+  - TASK-0505
   textbook-formula-audit:
   - TASK-0493
 tasks:
@@ -160,7 +165,7 @@ tasks:
   parallel_safe: true
 - task_id: TASK-0423
   title: Add homogeneous science PR batch review protocol
-  status: READY
+  status: REVIEW_READY
   lane: support
   mapping_basis: support domain=maintainer_review
   artifact_surface:
@@ -182,7 +187,7 @@ tasks:
   parallel_safe: true
 - task_id: TASK-0440
   title: Add agent capacity board for parallel research lanes
-  status: READY
+  status: REVIEW_READY
   lane: support
   mapping_basis: support domain=agent_capacity
   artifact_surface: []
@@ -335,6 +340,54 @@ tasks:
   status: REVIEW_READY
   lane: support
   mapping_basis: support domain=repository_coordination
+  artifact_surface:
+  - docs/
+  parallel_safe: true
+- task_id: TASK-0504
+  title: Define reusable bounded Research Factory protocol
+  status: READY
+  lane: support
+  mapping_basis: support domain=cross_campaign_research_factory
+  artifact_surface:
+  - docs/
+  parallel_safe: true
+- task_id: TASK-0505
+  title: Add factory summary artifact schema
+  status: READY
+  lane: support
+  mapping_basis: support domain=cross_campaign_research_factory
+  artifact_surface:
+  - docs/
+  - physics_lab/
+  - tests/
+  parallel_safe: true
+- task_id: TASK-0506
+  title: Implement reusable Research Factory core with Nuclear adapter
+  status: BLOCKED
+  lane: nuclear-mass-surface
+  mapping_basis: related_domain=nuclear_mass_surface
+  artifact_surface:
+  - agent_runs/
+  - docs/
+  - examples/
+  - physics_lab/
+  - scripts/
+  - tests/
+  parallel_safe: true
+- task_id: TASK-0507
+  title: Run first Nuclear residual-law factory sprint
+  status: BLOCKED
+  lane: nuclear-mass-surface
+  mapping_basis: related_domain=nuclear_mass_surface
+  artifact_surface:
+  - agent_runs/
+  - docs/
+  parallel_safe: true
+- task_id: TASK-0508
+  title: Define Exoplanet adapter contract for Research Factory reuse
+  status: READY
+  lane: exoplanet-mass-radius
+  mapping_basis: related_domain=exoplanet_mass_radius
   artifact_surface:
   - docs/
   parallel_safe: true
