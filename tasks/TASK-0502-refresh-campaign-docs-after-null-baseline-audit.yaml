@@ -1,0 +1,67 @@
+id: TASK-0502
+title: "Refresh campaign docs after null-baseline and fresh-data gate results"
+type: campaign_status_refresh
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep public campaign pages aligned with the newest reviewable scientific artifacts."
+  - "Prevent stale exoplanet wording from over-reading a compact-radius residual after stronger null-baseline controls."
+  - "Make Atomic and Quantum fresh-data progress visible without implying benchmark readiness."
+
+input:
+  mode: workflow
+  related_domain: campaign_portfolio
+  related_objects:
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "docs/reviews/atomic-real-direct-row-loader-review.md"
+    - "docs/reviews/atomic-synthetic-cross-source-dry-run.md"
+    - "docs/reviews/quantum-figure-digitization-fixture-dry-run.md"
+    - "docs/campaigns/public-science-dashboard.md"
+    - "docs/campaigns/README.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/campaigns/atomic-clock-residuals.md"
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/current-missions.md"
+    - "docs/status.md"
+    - "missions/current.yaml"
+  planning_context: >
+    The latest merged agent wave changed the science posture. TASK-0483 found
+    that simple nearest-radius null baselines match or beat the frozen
+    CK17-style baseline across the previously highlighted exoplanet slices.
+    Atomic gained deterministic real-row loader and synthetic cross-source
+    dry-run plumbing, while Quantum gained a synthetic figure-digitization
+    fixture but no real rows. Public and campaign docs should reflect this
+    updated state before more agents or readers use them as campaign guidance.
+
+requirements:
+  - "Refresh public/campaign wording for Exoplanets after TASK-0483 without promoting or burying the negative-control result."
+  - "Update Atomic wording so TASK-0453 and TASK-0488 are treated as landed plumbing, not future blockers."
+  - "Update Quantum wording so TASK-0490 is visible as a synthetic fixture while keeping the benchmark blocked on real source artifacts and rows."
+  - "Keep all wording public-safe: no discovery, habitability, constants-drift, new-law, or benchmark-readiness claims beyond the cited review artifacts."
+  - "Do not create RESULT, PRED, CLAIM, or KNOW artifacts."
+  - "Do not commit generated docs/task-views/*.md files."
+
+accepted_outputs:
+  - "docs/campaigns/public-science-dashboard.md"
+  - "docs/campaigns/README.md"
+  - "docs/campaigns/exoplanet-mass-radius.md"
+  - "docs/campaigns/atomic-clock-residuals.md"
+  - "docs/campaigns/quantum-size-effects.md"
+  - "docs/current-missions.md"
+  - "docs/status.md"
+  - "missions/current.yaml"
+  - "this task file"
+
+validation:
+  commands:
+    - "python3 scripts/apl_mission.py --output json"
+    - "python3 -m pytest tests/test_docs_links.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
