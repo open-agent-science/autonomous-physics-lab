@@ -99,6 +99,14 @@ higher tier.
 This separation — *verdict* (mechanical) versus *interpretation*
 (semantic) — is the core safety property of the protocol.
 
+> **Schema caveat (TASK-0432).** `result.schema.json` does **not** currently
+> accept `FALSIFIED` for `best_verdict`; it uses `INVALID` for the
+> negative/falsification verdict. Until the schema↔protocol split is resolved
+> (see [notes/result-verdict-vocabulary-audit.md](notes/result-verdict-vocabulary-audit.md)),
+> publish a negative `RESULT-*` with `best_verdict: INVALID` so it passes
+> `validate-repo --strict`. `FALSIFIED` remains the falsification term in the
+> `agent_run`, `hypothesis`, and `microtask_run` layers that feed the result.
+
 ## Verdict-to-Class Mapping Rule
 
 Every task verdict from this point forward maps onto exactly one canonical
