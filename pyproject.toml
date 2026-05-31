@@ -42,7 +42,11 @@ target-version = "py311"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 timeout = 60
-addopts = "-p no:cacheprovider"
+# Parallel by default with pytest-xdist (a dev dependency co-installed with
+# pytest), matching CI. `--dist loadfile` keeps each test file on one worker so
+# the full_repo smoke tests stay file-grouped. Override with `-n0` to run
+# serially (e.g. for a single-test debug). See TASK-0501.
+addopts = "-p no:cacheprovider -n auto --dist loadfile"
 markers = [
     "full_repo: slow full-repository smoke checks kept for main/nightly/full validation runs",
 ]
