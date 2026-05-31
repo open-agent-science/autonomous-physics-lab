@@ -45,6 +45,32 @@ This model is an orientation layer, not a request to move files. Broad
 filesystem refactors should happen only when a task identifies a concrete pain
 point and migration plan.
 
+## Generated State and Agent Data Access (standing policy)
+
+This is a general architectural principle, in force by default until a task
+explicitly changes it — not a reaction to any single case.
+
+- **Canonical source of truth lives in version-controlled source files**
+  (`tasks/TASK-*.yaml`, `campaign_profiles/*.yaml`, `missions/current.yaml`,
+  `campaigns/catalog.yaml`). There is exactly one source per fact.
+- **Agents obtain derived or current state by executing a script entry point**
+  (`apl_mission.py`, `apl_task_campaign_index.py`, …), or by reading the
+  canonical source files. A script is a **single governable entry point**: it
+  always reflects current state, and access rules can be updated in one place.
+- **Static/generated files are produced for humans, not as an agent data
+  source.** A committed generated file is a frozen copy that drifts from source
+  and multiplies sources of truth, so agents must not depend on one for current
+  state.
+- The only committed generated files are **human-facing navigation that the
+  post-merge `Sync Active Board` action auto-regenerates** (`docs/task-views/*.md`)
+  or **source-coupled metadata with a CI `--check`** (`campaigns/catalog.yaml`).
+  Do not introduce a new committed generated/cache file as an agent data source.
+
+This keeps the four-layer model honest: derived views are computed on demand from
+the canonical layer, never frozen into a second board the repository must keep
+fresh. The full rule and rationale are in
+[generated-file-policy.md](generated-file-policy.md).
+
 ## Repository Layout
 
 The top level intentionally exposes the main scientific artifact classes. This

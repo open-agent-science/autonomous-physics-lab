@@ -75,6 +75,7 @@ required_reading:
   - docs/prediction-registry-policy.md
   - docs/maintainer-review-agent.md
   - docs/cross-platform-compatibility.md
+  - docs/generated-file-policy.md
   - docs/scientific-campaign-curator.md
   - docs/agent-catalog.md
   - docs/task-views/research.md

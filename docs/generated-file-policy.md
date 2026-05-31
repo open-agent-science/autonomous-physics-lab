@@ -1,16 +1,26 @@
 # Generated File Policy
 
-This is the canonical rule for **generated and static files** in Autonomous
-Physics Lab. It exists because the repository made the same mistake twice — a
-committed, frequently-changing generated file used as an agent data source
-(`tasks/ACTIVE.md`, retired by TASK-0470; `campaigns/task-index.yaml`, removed by
-TASK-0509). See the retrospective in
-[notes/static-task-index-retrospective.md](notes/static-task-index-retrospective.md).
+This is a **standing architectural policy** for generated and static files in
+Autonomous Physics Lab. It is in force by default and applies to all future work
+— including sessions that lack any specific context — until a task explicitly
+changes it. It is a general principle, not a one-off reaction to a single case.
+It is also recorded as a core rule in
+[architecture.md](architecture.md#generated-state-and-agent-data-access-standing-policy).
 
-## The rule
+## The principle
 
 **Generated, frequently-changing state must not be committed as an agent-facing
-data source.**
+data source. Agents read data through a governed script entry point or from the
+canonical source files.**
+
+Why: a **script entry point** (e.g. `apl_mission.py`,
+`apl_task_campaign_index.py`) is a single, governable access point — it always
+reflects current state, and the rules for what agents see can be updated in one
+place. A committed **static file** is a frozen copy that drifts from its source,
+becomes a second source of truth, and forces churn to keep fresh. Prefer the
+entry point; reserve static files for human browsing.
+
+## The rule
 
 - **Agents** get current state by:
   - running the **generator/script on demand** (e.g.
