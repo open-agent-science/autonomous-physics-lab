@@ -1,7 +1,7 @@
 id: TASK-0432
 title: "Audit result verdict vocabulary consistency"
 type: workflow_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
