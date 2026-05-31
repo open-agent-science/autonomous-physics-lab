@@ -1,7 +1,7 @@
 id: TASK-0482
 title: "Define exoplanet second-snapshot target freeze"
 type: benchmark_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -14,7 +14,8 @@ input:
   mode: workflow
   related_domain: exoplanet_mass_radius
   related_objects:
-    - "docs/reviews/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+    - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+    - "docs/reviews/exoplanet-second-snapshot-protocol-review.md"
     - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
     - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
   planning_context: >
