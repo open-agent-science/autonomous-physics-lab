@@ -1,0 +1,4 @@
+- Nearest-radius neighbor is a diagnostic control that uses observed radius and is not prospective.
+- Minimum-mass axis remains sparse and diagnostic-only.
+- Null baselines are deterministic controls, not physical models.
+- No composition, habitability, target-priority, prediction, claim, or knowledge output is authorized.
