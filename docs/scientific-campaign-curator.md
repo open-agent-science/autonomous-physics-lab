@@ -140,6 +140,29 @@ If the output is a documentation update rather than a brief, preserve the
 same separation: public pages explain the science; protocol pages instruct
 agents.
 
+## Promotion Backlog Output
+
+The `promotion backlog recommendations` section is advisory triage for existing
+sandbox evidence, review notes, and result candidates. It should answer what
+might be worth promoting later, what needs replay or review first, and what
+should explicitly stay sandbox-only.
+
+Use the candidate classes from `docs/campaign-curator-protocol.md`:
+
+- `result-backfill`
+- `negative-result-backfill`
+- `replay-needed`
+- `claim-review-candidate`
+- `do-not-promote`
+
+For each candidate, include a source path, recommended next action, evidence
+quality note, overclaim risk note, and blocker or do-not-promote reason. A
+`do-not-promote` candidate without a reason is incomplete.
+
+Keep this section small and maintainer-facing. The Director may recommend a
+future task, but it must not create `RESULT-*`, `PRED-*`, `CLAIM-*`, or
+`KNOW-*` artifacts from this mode.
+
 ## Authority Boundary
 
 The Scientific Campaign Director is advisory by default.

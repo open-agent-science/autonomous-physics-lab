@@ -1,0 +1,159 @@
+dataset_id: ACLOCK-SYNTHETIC-CROSS-SOURCE-0001
+task_id: TASK-0488
+status: synthetic_cross_source_dry_run_only
+description: >
+  Fabricated atomic-clock cross-source rows for exercising future benchmark
+  plumbing without reading, comparing, or approximating real Beloy or Nemitz
+  values. Values are intentionally synthetic and must never be used as physics
+  evidence.
+synthetic: true
+contains_real_clock_values: false
+benchmark_allowed: false
+claim_promotion_allowed: false
+source:
+  citation: "fabricated synthetic cross-source dry run"
+  retrieval_date: null
+  checksum_sha256: null
+  license_note: "not applicable; fabricated test fixture"
+cross_source_dry_run:
+  purpose: "Exercise row roles, covariance states, and no-peek flags with fabricated rows only."
+  real_benchmark_unblocked: false
+  row_roles:
+    ACLOCK-XSR-SYN-ROW-0001: synthetic_source_alpha_yb_sr_anchor
+    ACLOCK-XSR-SYN-ROW-0002: synthetic_source_beta_yb_sr_comparator
+    ACLOCK-XSR-SYN-ROW-0003: synthetic_negative_control_shifted_ratio
+  covariance_states:
+    synthetic_source_alpha_family: COV_SYNTHETIC_DIAGONAL_ONLY_DECLARED
+    synthetic_source_beta_family: COV_SYNTHETIC_SOURCE_DERIVED_PSD_APPROX
+    synthetic_cross_source_pair: COV_SYNTHETIC_SENSITIVITY_ONLY
+  holdout_policy:
+    split: synthetic_only
+    no_peek_boundary: "not applicable to fabricated rows; real source values are forbidden"
+  real_benchmark_blockers_preserved:
+    - "real second-source rows not committed by this fixture"
+    - "real holdout/no-peek manifest not assigned"
+    - "real covariance policy acceptance not exercised by fabricated values"
+rows:
+  - row_id: ACLOCK-XSR-SYN-ROW-0001
+    row_class: synthetic_dry_run
+    observable_id: synthetic_cross_source_frequency_ratio_yb_sr_alpha
+    clock_system:
+      species: Yb
+      isotope: "171"
+      transition_label: synthetic_yb_transition
+    reference_system:
+      species: Sr
+      isotope: "87"
+      transition_label: synthetic_sr_transition
+    observable:
+      value_kind: frequency_ratio
+      value: 1.000000000000010
+      residual_form: synthetic_cross_source_difference
+      units: dimensionless_ratio
+      epoch_start: "2099-03-01"
+      epoch_end: "2099-03-02"
+    uncertainty:
+      total: 2.0e-18
+      statistical: 1.2e-18
+      systematic: 1.6e-18
+      covariance_group: synthetic_source_alpha_family
+      correlation_notes: "fabricated diagonal-only source-family state"
+    source_metadata:
+      source_class: synthetic_rows
+      locator: synthetic_cross_source_fixture
+      retrieval_date: null
+      checksum_sha256: null
+      archive_plan: not_applicable_synthetic
+      license_note: not_applicable_synthetic
+    classification:
+      direct_measurement: false
+      derived_constraint: false
+      review_summary: false
+      synthetic: true
+    holdout:
+      split: synthetic_only
+      freeze_manifest: synthetic_cross_source_dry_run
+    limitations:
+      - "Fabricated source-alpha value for cross-source plumbing only."
+  - row_id: ACLOCK-XSR-SYN-ROW-0002
+    row_class: synthetic_dry_run
+    observable_id: synthetic_cross_source_frequency_ratio_yb_sr_beta
+    clock_system:
+      species: Yb
+      isotope: "171"
+      transition_label: synthetic_yb_transition
+    reference_system:
+      species: Sr
+      isotope: "87"
+      transition_label: synthetic_sr_transition
+    observable:
+      value_kind: frequency_ratio
+      value: 1.000000000000012
+      residual_form: synthetic_cross_source_difference
+      units: dimensionless_ratio
+      epoch_start: "2099-04-01"
+      epoch_end: "2099-04-03"
+    uncertainty:
+      total: 3.0e-18
+      statistical: 1.8e-18
+      systematic: 2.4e-18
+      covariance_group: synthetic_source_beta_family
+      correlation_notes: "fabricated PSD-approximation source-family state"
+    source_metadata:
+      source_class: synthetic_rows
+      locator: synthetic_cross_source_fixture
+      retrieval_date: null
+      checksum_sha256: null
+      archive_plan: not_applicable_synthetic
+      license_note: not_applicable_synthetic
+    classification:
+      direct_measurement: false
+      derived_constraint: false
+      review_summary: false
+      synthetic: true
+    holdout:
+      split: synthetic_only
+      freeze_manifest: synthetic_cross_source_dry_run
+    limitations:
+      - "Fabricated source-beta value for cross-source plumbing only."
+  - row_id: ACLOCK-XSR-SYN-ROW-0003
+    row_class: synthetic_dry_run
+    observable_id: synthetic_cross_source_negative_control_yb_sr
+    clock_system:
+      species: Yb
+      isotope: "171"
+      transition_label: synthetic_yb_transition
+    reference_system:
+      species: Sr
+      isotope: "87"
+      transition_label: synthetic_sr_transition
+    observable:
+      value_kind: frequency_ratio
+      value: 0.999999999999980
+      residual_form: synthetic_negative_control_shift
+      units: dimensionless_ratio
+      epoch_start: "2099-05-01"
+      epoch_end: "2099-05-02"
+    uncertainty:
+      total: 5.0e-18
+      statistical: 3.0e-18
+      systematic: 4.0e-18
+      covariance_group: synthetic_negative_control_family
+      correlation_notes: "fabricated shifted-ratio negative control"
+    source_metadata:
+      source_class: synthetic_rows
+      locator: synthetic_cross_source_fixture
+      retrieval_date: null
+      checksum_sha256: null
+      archive_plan: not_applicable_synthetic
+      license_note: not_applicable_synthetic
+    classification:
+      direct_measurement: false
+      derived_constraint: false
+      review_summary: false
+      synthetic: true
+    holdout:
+      split: synthetic_only
+      freeze_manifest: synthetic_cross_source_dry_run
+    limitations:
+      - "Fabricated negative-control value for cross-source plumbing only."

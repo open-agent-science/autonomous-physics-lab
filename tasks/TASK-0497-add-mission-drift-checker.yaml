@@ -1,7 +1,7 @@
 id: TASK-0497
 title: "Add mission drift checker for live task and campaign routing"
 type: maintainer_workflow
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

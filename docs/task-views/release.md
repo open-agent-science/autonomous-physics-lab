@@ -6,7 +6,7 @@
 
 ## READY
 
-None.
+- `TASK-0455` - Rerun Atomic baseline-readiness gate after source, loader, and holdout work (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 
 ## IN_PROGRESS
 
@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0500` - Refresh v0.2 public-alpha final release signoff on current main (`release_review`, priority `high`, difficulty `medium`, domain `public_release_readiness`)
+None.

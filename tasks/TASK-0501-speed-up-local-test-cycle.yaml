@@ -1,0 +1,53 @@
+id: TASK-0501
+title: "Speed up the local test cycle (parallel-by-default + fast lane)"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Reduce the local validation cycle so parallel agents and contributors are not blocked on multi-minute serial test runs."
+  - "Make the default local test command match CI, which already runs pytest with xdist."
+  - "Keep the slow full-repository smoke tests serial-safe and clearly separable."
+
+input:
+  mode: workflow
+  related_domain: repository_workflow
+  related_objects:
+    - "pyproject.toml"
+    - ".github/workflows/ci.yml"
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+  planning_context: >
+    Architect timing measurement: the full local suite runs serially in
+    ~270-380s, while CI already runs pytest with `-n auto --dist loadfile`
+    (pytest-xdist is already a dev dependency). The local default
+    `python3 -m pytest` does not enable xdist, so agents pay the serial cost
+    on every PR. Running the full suite with xdist locally takes ~131s (1293
+    tests, green, full_repo included) — a 2-3x speedup. This task makes the
+    local default parallel (matching CI) and adds a fast iteration lane,
+    without changing test behavior or weakening coverage.
+
+requirements:
+  - "Enable pytest-xdist by default for local runs by adding `-n auto --dist loadfile` to the pytest addopts (pytest and pytest-xdist are in the same dev extra, so any dev install has xdist; this matches the CI invocation)."
+  - "Add a fast iteration lane with a single cross-platform Python entrypoint (scripts/validate_fast.py) that runs ruff plus the non-full_repo tests, for the inner development loop."
+  - "Update AGENTS.md and docs/agent-task-protocol.md validation guidance to note parallel-by-default, the cross-platform fast lane, and that the dev extras install (pip install -e \".[dev]\") provides xdist."
+  - "Keep full_repo smoke tests covered by the default run and CI; do not delete or weaken any test."
+  - "Do not change test logic or coverage; do not promote any claim."
+
+accepted_outputs:
+  - "pyproject.toml addopts update"
+  - "scripts/validate_fast.py"
+  - "AGENTS.md and docs/agent-task-protocol.md validation-guidance updates"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

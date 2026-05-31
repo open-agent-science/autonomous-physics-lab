@@ -564,6 +564,12 @@ python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings
 git diff --exit-code
 ```
 
+`python3 -m pytest` runs in parallel by default via `pytest-xdist` (installed
+with the dev extras: `pip install -e ".[dev]"`), matching CI on Windows,
+macOS, and Linux. For a faster cross-platform inner loop while iterating, run
+`python3 scripts/validate_fast.py` (lint plus the non-`full_repo` tests). Use
+`python3 -m pytest -n0` to force a serial run when debugging a single test.
+
 If a change touches CLI behavior, include a smoke test.
 If a change touches scientific formulas, include a numerical regression test.
 For branch naming, commit messages, PR titles, task-state transitions, and the
