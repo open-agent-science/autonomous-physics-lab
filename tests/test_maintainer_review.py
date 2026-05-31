@@ -21,6 +21,7 @@ from physics_lab.registry.maintainer_review import (
     line_is_rule_catalog_line,
     missing_pr_metadata_fields,
     missing_pr_template_sections,
+    decision_regression_advisory_hits,
     overclaim_advisory_hits,
     overclaim_hits,
     parse_added_lines,
@@ -568,6 +569,27 @@ def test_sensitive_surface_hits_flags_repository_safety_surfaces() -> None:
     assert any("Repository scripts changed." in item for item in hits)
     assert any("CI workflow files changed." in item for item in hits)
     assert all("docs/maintainer-review-agent.md" not in item for item in hits)
+
+
+def test_decision_regression_hits_flag_static_agent_state_layers() -> None:
+    added_lines = (
+        "Add campaigns/task-index.yaml as a generated static index for agents.",
+        "Create a second source of truth for task routing.",
+    )
+
+    hits = decision_regression_advisory_hits(added_lines)
+
+    assert any("campaign task-index" in item for item in hits)
+    assert any("source-of-truth" in item for item in hits)
+
+
+def test_decision_regression_hits_ignore_guardrail_context() -> None:
+    added_lines = (
+        "Do not add campaigns/task-index.yaml as a generated static index for agents.",
+        "The postmortem says a second source of truth is redundant.",
+    )
+
+    assert decision_regression_advisory_hits(added_lines) == ()
 
 
 def test_render_review_report_includes_security_section() -> None:

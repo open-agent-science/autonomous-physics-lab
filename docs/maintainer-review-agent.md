@@ -307,6 +307,14 @@ This mode supports:
     Frequently changing agent-facing views should remain scripts/CLI output,
     snapshot sections, or CI artifacts rather than committed static files. See
     `docs/reviews/static-agent-facing-generated-index-postmortem.md`.
+22. Decision-regression sanity check: if a PR correctly implements its task but
+    appears to revive a recently retired architecture decision, add a duplicate
+    source of truth, or create a new static agent-facing state layer, pause the
+    merge path. The correct review response is not "the task contract allowed
+    it" but "this needs explicit maintainer confirmation". If the maintainer
+    intentionally accepts the tradeoff, record that confirmation in the PR body
+    before merge. Otherwise, return it for task-scope correction or route it to
+    the Architect.
 
 Branch-only review is a preflight, not a final PR-body check. If the review was
 run with `--branch`, run it again with `--pr <number>` after opening the PR so
