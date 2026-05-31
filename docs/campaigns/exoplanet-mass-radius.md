@@ -53,6 +53,14 @@ still packages the earlier scorecard-approved wording, but readers should pair
 it with the [null-baseline family audit](../reviews/exoplanet-null-baseline-family-audit.md)
 before interpreting the compact-radius diagnostic.
 
+**Research Factory posture:** Exoplanets are the second intended campaign
+adapter after the Nuclear-first Research Factory sprint. The
+[Exoplanet Research Factory adapter contract](../exoplanet-factory-adapter-contract.md)
+keeps this as contract-only work for now: future factory runs must preserve
+null-baseline controls, host-context coverage blockers, true-mass/minimum-mass
+separation, and no habitability, composition, atmosphere, target-priority, or
+new-law wording.
+
 This page records the strategic plan and source-ingestion posture. `TASK-0353`
 produced a pinned NASA Exoplanet Archive PSCompPars snapshot with raw CSV,
 normalized YAML, checksums, row-class labels, and inclusion/exclusion reasons.
@@ -218,6 +226,9 @@ The campaign should mature in this order:
 14. Make a control-aware go/no-go synthesis before any bounded autonomous
     residual pilot: either define a narrow conditional missingness-aware task
     or preserve compact-radius host context as negative/control memory.
+15. Treat the Exoplanet Research Factory adapter as contract-only until the
+    shared factory protocol/schema lands and a maintainer accepts a narrow
+    post-`TASK-0481` execution scope.
 
 This campaign is now the fastest APL path to a visible, scientist-readable
 benchmark artifact. It is not yet a discovery surface.
