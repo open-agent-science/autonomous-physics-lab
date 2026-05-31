@@ -16,7 +16,6 @@
 - `TASK-0481` - Run exoplanet compact-radius host-context preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0483` - Run exoplanet null-baseline family audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0485` - Triage Atomic second-source fallbacks (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0486` - Define Atomic first-benchmark covariance policy (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0487` - Audit Atomic direct-vs-derived row separation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0488` - Add Atomic synthetic cross-source benchmark dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0489` - Package Quantum Norris-Bawendi source artifact review (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
@@ -37,4 +36,5 @@ None.
 - `TASK-0476` - Run Nuclear isotope-chain leave-family-out audit (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0480` - Run exoplanet compact-radius mass-quartile scout (`autonomous_research_pilot`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0482` - Define exoplanet second-snapshot target freeze (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0486` - Define Atomic first-benchmark covariance policy (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0494` - Refresh campaign pages after next science wave (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
