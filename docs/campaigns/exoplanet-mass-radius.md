@@ -37,13 +37,15 @@ residual stress is control-sensitive.
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** `TASK-0481` is the important remaining benchmark-
-hardening task: preflight whether host-star context can support a meaningful
-follow-up after the null-baseline audit. `TASK-0480` landed as underpowered at
-mass-quartile resolution, `TASK-0482` and `TASK-0484` packaged the
-second-snapshot target freeze and external-reviewer capsule, and `TASK-0483`
-landed as an `INCONCLUSIVE` null-baseline control panel. All work stays
-no-live-fetch and benchmark-only.
+**Active next work:** `TASK-0481` is review-ready as the host-context
+preflight after the null-baseline audit. It found no compact-radius
+host-context axis that is benchmark-usable under the current coarse-bin floor;
+the next useful step is a control-aware go/no-go that either declares a narrow
+conditional follow-up or demotes the host-context lane to negative/control
+memory. `TASK-0480` landed as underpowered at mass-quartile resolution,
+`TASK-0482` and `TASK-0484` packaged the second-snapshot target freeze and
+external-reviewer capsule, and `TASK-0483` landed as an `INCONCLUSIVE`
+null-baseline control panel. All work stays no-live-fetch and benchmark-only.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -98,9 +100,10 @@ Current scientific reading:
   Jovian-radius, and hot-Jupiter true-mass slices. This downgrades the
   compact-radius diagnostic from "strongest survivor" to "control-sensitive
   benchmark target."
-- `TASK-0481` is now the most important executable task for this campaign. It
-  should decide whether host-context fields can support a meaningful follow-up
-  before any more residual interpretation.
+- `TASK-0481` is **INCONCLUSIVE / review-ready**: host-context field coverage
+  is often present in the compact-radius slice, but coarse bin power is
+  underpowered; no compact-radius host-context axis is benchmark-usable at the
+  current interpretation floor.
 - `TASK-0470`-era visibility work is now campaign memory. The current
   benchmark-hardening wave does not promote claims, knowledge, predictions, or
   canonical results.
@@ -209,12 +212,12 @@ The campaign should mature in this order:
     and `TASK-0484`, DONE): use these for no-peek discipline and scientific
     replayability.
 13. Null-baseline family audit (`TASK-0483`, DONE) found the main residual
-    slices control-sensitive; host-context preflight (`TASK-0481`, READY) is
-    now the next benchmark-hardening step before any stronger residual
-    interpretation.
-14. Bounded autonomous hypothesis pilot only after a narrow target survives
-    matched controls, null baselines, host-context preflight, and conservative
-    promotion scoring.
+    slices control-sensitive; host-context preflight (`TASK-0481`,
+    REVIEW_READY) found conditional/underpowered host-context coverage rather
+    than a benchmark-usable compact-radius host axis.
+14. Make a control-aware go/no-go synthesis before any bounded autonomous
+    residual pilot: either define a narrow conditional missingness-aware task
+    or preserve compact-radius host context as negative/control memory.
 
 This campaign is now the fastest APL path to a visible, scientist-readable
 benchmark artifact. It is not yet a discovery surface.

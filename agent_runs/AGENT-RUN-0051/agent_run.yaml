@@ -1,0 +1,45 @@
+id: AGENT-RUN-0051
+campaign_profile_id: exoplanet-mass-radius
+task_id: TASK-0481
+status: SANDBOX_COMPLETE
+sandbox_only: true
+created_by:
+  contributor_id: roman
+  agent_id: codex
+proposal_paths:
+  hypothesis: hypothesis_proposals/exoplanet-mass/HYP-PROPOSAL-0051-compact-subneptune-residual-pilot.yaml
+  experiment: experiment_proposals/exoplanet-mass/EXP-PROPOSAL-0017-compact-subneptune-residual-pilot.yaml
+artifacts:
+  metrics: agent_runs/AGENT-RUN-0051/metrics.json
+  report: agent_runs/AGENT-RUN-0051/report.md
+  limitations: agent_runs/AGENT-RUN-0051/limitations.md
+  preflight: agent_runs/AGENT-RUN-0051/preflight.md
+  review_summary: agent_runs/AGENT-RUN-0051/review_summary.md
+preflight:
+  passed: true
+  checks:
+  - name: data_boundary
+    status: PASS
+    notes: Only committed snapshot fields are read.
+  - name: no_live_fetch
+    status: PASS
+    notes: No external source refresh is performed.
+  - name: no_correction_model
+    status: PASS
+    notes: Coverage and missingness are reported without fitting.
+  - name: promotion_boundary
+    status: PASS
+    notes: No canonical result, prediction, claim, or knowledge output.
+limitations:
+- Coverage preflight only; no correction model is fit.
+- Only committed snapshot fields are read.
+- Compact-slice bin power is limited and reported explicitly.
+- Field presence does not remove measurement or source-selection bias.
+- No composition, habitability, atmosphere, target-priority, prediction, claim, or
+  knowledge output is authorized.
+verdict: INCONCLUSIVE
+promotion_boundary:
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  required_next_step: Maintainer review before any follow-up task treats host context
+    as an explanatory model for compact-radius residual stress.

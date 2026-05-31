@@ -519,7 +519,7 @@ missions:
     status: active_science_output_sprint
     scientific_value: high
     risk: medium
-    recommendation: "Default near-term science-output sprint: after the null-baseline audit, run host-context preflight and a control-aware go/no-go before any further compact-radius residual pilot."
+    recommendation: "Default near-term science-output sprint: review the host-context preflight and make a control-aware go/no-go decision before any further compact-radius residual pilot."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -555,12 +555,26 @@ missions:
         label: "Preflight compact-radius host-context residual slice"
         task_id: TASK-0481
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
         recommended: false
         expected_outputs:
-          - "declare source columns, sample-size floors, controls, and stop conditions before any host-context residual metrics"
+          - "agent_runs/AGENT-RUN-0051 and docs/reviews/exoplanet-compact-radius-host-context-preflight.md report field coverage and missingness"
+          - "no compact-radius host-context axis is benchmark-usable under the current coarse-bin floor"
+          - "future host-context work must be framed as conditional/underpowered unless a new task declares a narrower missingness analysis"
+      - id: exoplanet-control-aware-go-no-go
+        label: "Review host-context preflight and decide whether any compact-radius residual follow-up remains warranted"
+        task_id: null
+        mode: research
+        status: ready
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "compare TASK-0481 host-context coverage against TASK-0483 null-baseline controls"
+          - "either define a narrow conditional follow-up or demote compact-radius host context to negative/control memory"
+          - "keep all wording benchmark-only with no composition, habitability, atmosphere, target-priority, claim, prediction, or knowledge promotion"
       - id: exoplanet-compact-radius-mass-quartile-scout
         label: "Compact-radius mass-quartile scout is underpowered; use only as diagnostic memory"
         task_id: TASK-0480
