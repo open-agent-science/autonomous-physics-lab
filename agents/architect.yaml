@@ -38,6 +38,7 @@ when_to_use:
   - "Existing role files, templates, or schemas need to be brought into a common shape."
   - "Unused, orphaned, or duplicated artifacts have accumulated and need to be cleaned up."
   - "A periodic architectural audit is due (the role runs at least one repository-wide audit per fortnight in proactive mode)."
+  - "Cross-platform portability needs review — new tooling, scripts, or code paths must keep the repository runnable on Linux, macOS, and Windows for third-party agents (CI runs on Linux only)."
 
 when_not_to_use:
   - role_id: researcher
@@ -72,6 +73,7 @@ required_reading:
   - docs/claim-promotion-policy.md
   - docs/prediction-registry-policy.md
   - docs/maintainer-review-agent.md
+  - docs/cross-platform-compatibility.md
   - docs/scientific-campaign-curator.md
   - docs/agent-catalog.md
   - docs/task-views/research.md
@@ -88,6 +90,13 @@ typical_activities:
     description: |
       Identify the operational step that is preventing canonical output
       accumulation; propose mechanical or protocol-level fixes.
+  - title: "Cross-platform compatibility audit"
+    description: |
+      Keep the repository runnable on Linux, macOS, and Windows for third-party
+      agents even though CI runs on Linux only. Flag portability regressions
+      (hardcoded /tmp, python3, HOME, POSIX paths, shell=True) and needless
+      bash-only wrappers on the critical path; recommend Python equivalents.
+      See docs/cross-platform-compatibility.md.
   - title: "Refactoring proposals"
     description: |
       When the same pattern is implemented multiple ways across the
