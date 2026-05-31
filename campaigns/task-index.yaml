@@ -168,7 +168,7 @@ tasks:
   parallel_safe: true
 - task_id: TASK-0432
   title: Audit result verdict vocabulary consistency
-  status: READY
+  status: REVIEW_READY
   lane: support
   mapping_basis: support domain=result_promotion
   artifact_surface: []
@@ -215,7 +215,7 @@ tasks:
   parallel_safe: true
 - task_id: TASK-0460
   title: Add task-to-campaign lane index
-  status: READY
+  status: REVIEW_READY
   lane: support
   mapping_basis: support domain=agent_capacity
   artifact_surface: []
