@@ -122,6 +122,17 @@ claims must be verified by deterministic code.
 
 Never trust an LLM-generated formula without validation.
 
+## Cross-Platform Compatibility
+
+APL must run on Linux, macOS, and Windows so third-party agents can contribute.
+CI runs on Linux only, so agents are responsible for writing portable code:
+use `pathlib.Path` (never hardcoded `/`), `tempfile` (never `/tmp`),
+`Path.home()` (never `HOME`), `sys.executable` (never hardcoded `python3`),
+argument-list subprocesses with `shell=False`, and `encoding="utf-8"`. Do not
+add `.sh` scripts on the task-execution or review critical path without a
+cross-platform (Python) equivalent. See
+[docs/cross-platform-compatibility.md](docs/cross-platform-compatibility.md).
+
 ## Public Scientific Memory
 
 The project must maintain a public scientific memory.

@@ -282,6 +282,13 @@ This mode supports:
 19. Missing result-publication tooling, source provenance, or replay support
     must be treated as a blocked publication or follow-up task, not as a reason
     to bypass the result-promotion protocol with narrative claims.
+20. Cross-platform compatibility (advisory): the PR does not introduce
+    portability regressions for Linux/macOS/Windows agents — hardcoded `/tmp`,
+    hardcoded `python3`, `HOME` reads, hardcoded `/` paths, `shell=True`, or a
+    new bash-only critical-path script with no Python equivalent. The review
+    helper surfaces these as advisory warnings (it does not auto-block); ask for
+    a portable alternative when the smell is on a contributor-facing path. See
+    `docs/cross-platform-compatibility.md`.
 
 Branch-only review is a preflight, not a final PR-body check. If the review was
 run with `--branch`, run it again with `--pr <number>` after opening the PR so

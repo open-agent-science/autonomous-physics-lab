@@ -29,6 +29,8 @@ from physics_lab.registry.review_checks import (
     overclaim_hits,
     security_pattern_hits,
     sensitive_surface_hits,
+    cross_platform_advisory_hits,
+    cross_platform_surface_hits,
     missing_expected_outputs,
     unexpected_protected_changes,
     claim_status_promotions,
@@ -1067,6 +1069,14 @@ def build_review_report(
             "Dangerous code patterns detected: " + ", ".join(dangerous_patterns) + "."
         )
     security_risks.extend(sensitive_surface_hits(changed_files))
+
+    cross_platform_advisories = cross_platform_advisory_hits(security_lines)
+    if cross_platform_advisories:
+        advisory_warnings.append(
+            "Cross-platform portability review (advisory): "
+            + " ".join(cross_platform_advisories)
+        )
+    advisory_warnings.extend(cross_platform_surface_hits(changed_files))
 
     bundle_path, bundle_status = ensure_review_bundle(
         root,
