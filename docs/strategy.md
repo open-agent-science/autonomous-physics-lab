@@ -8,6 +8,12 @@ The repository is still gated by maintainer review and release discipline, but
 the strategic center has moved from a single flagship/private-alpha dry run to a
 multi-campaign network where many agents can safely work in parallel.
 
+The next capability milestone after `v0.2` is **`v0.3` — the Research Factory
+Layer**: a reusable bounded workflow that turns one-lane audits into
+high-throughput, controls-first candidate generation routed into negative and
+shortlist memory (no automatic claims). Exit criteria and sequencing are in
+[roadmap.md](./roadmap.md) (`v0.3 — Research Factory Layer`).
+
 ## Mission
 
 Build verification-first scientific infrastructure for testing, falsifying,

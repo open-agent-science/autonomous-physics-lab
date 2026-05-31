@@ -196,4 +196,12 @@ Near-term architecture work should prefer:
 5. source/readiness gates before new formula-search lanes;
 6. cleanup of stale docs only when a canonical replacement exists.
 
+The next **capability** milestone (`v0.3`) is the **Research Factory Layer**: a
+reusable bounded workflow plus campaign adapters that generate scoped candidates
+under locked controls and route output into negative/shortlist scientific memory
+without automatic claims. It is a vertical slice (shared runner + adapters), not
+a framework rewrite. Exit criteria and sequencing live in
+[roadmap.md](roadmap.md) (`v0.3 — Research Factory Layer`); the design is in
+[notes/research-factory-layer-plan.md](notes/research-factory-layer-plan.md).
+
 When in doubt, keep APL simple, file-based, deterministic, and reviewable.
