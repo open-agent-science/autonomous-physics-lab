@@ -31,6 +31,7 @@ from physics_lab.registry.review_checks import (
     sensitive_surface_hits,
     cross_platform_advisory_hits,
     cross_platform_surface_hits,
+    decision_regression_advisory_hits,
     missing_expected_outputs,
     unexpected_protected_changes,
     claim_status_promotions,
@@ -1047,6 +1048,23 @@ def build_review_report(
             + ", ".join(overclaim_advisories)
             + "."
         )
+    decision_regressions = decision_regression_advisory_hits(overclaim_lines)
+    if decision_regressions:
+        confirmation_markers = (
+            "maintainer confirmation: architecture tradeoff accepted",
+            "maintainer confirmation: decision-regression accepted",
+            "architecture regression accepted",
+        )
+        confirmation_text = (pr_metadata.body if pr_metadata is not None else "").lower()
+        message = (
+            "Potential architecture decision regression: "
+            + " ".join(decision_regressions)
+            + " If intentional, add explicit maintainer confirmation before merge."
+        )
+        if any(marker in confirmation_text for marker in confirmation_markers):
+            advisory_warnings.append(message)
+        else:
+            required_fixes.append(message)
     security_lines = tuple(
         parse_added_lines(
             run_command(

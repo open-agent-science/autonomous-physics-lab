@@ -92,6 +92,55 @@ CROSS_PLATFORM_ADVISORY_RULES = (
     ),
 )
 QUOTED_LINE_PATTERN = re.compile(r'^\s*["\'].*["\'],?\s*$')
+DECISION_REGRESSION_GUARDRAIL_MARKERS = (
+    *GUARDRAIL_CONTEXT_MARKERS,
+    "retire",
+    "retired",
+    "remove",
+    "removed",
+    "reject",
+    "rejected",
+    "redundant",
+    "postmortem",
+    "decision-regression",
+    "regression guard",
+    "sanity check",
+    "explicit maintainer confirmation",
+)
+DECISION_REGRESSION_RULES = (
+    (
+        re.compile(r"\b(?:add|create|generate|write|commit|sync)\b.*\btasks/active\.md\b"),
+        "Potential regression to retired tasks/ACTIVE.md generated-board workflow.",
+    ),
+    (
+        re.compile(
+            r"\b(?:add|create|generate|write|commit|sync)\b.*\bcampaigns/task-index\.yaml\b"
+        ),
+        "Potential regression to retired committed campaign task-index cache.",
+    ),
+    (
+        re.compile(
+            r"\b(?:add|create|generate|write|commit|sync)\b.*\bagent-capacity-board\.md\b"
+        ),
+        "Potential regression to retired agent capacity board layer.",
+    ),
+    (
+        re.compile(
+            r"\b(?:add|create|generate|write|commit|sync)\b.*\bstatic\b.*\bagent\b"
+        ),
+        "Potential static agent-facing state layer; agents should query canonical YAML, CLI, or snapshots.",
+    ),
+    (
+        re.compile(
+            r"\b(?:add|create|generate|write|commit|sync)\b.*\bagent\b.*\bstatic\b"
+        ),
+        "Potential static agent-facing state layer; agents should query canonical YAML, CLI, or snapshots.",
+    ),
+    (
+        re.compile(r"\b(?:new|second|duplicate)\b.*\bsource of truth\b"),
+        "Potential duplicate source-of-truth architecture decision.",
+    ),
+)
 
 
 def line_is_rule_catalog_line(line: str) -> bool:
@@ -189,6 +238,40 @@ def cross_platform_surface_hits(changed_files: tuple[str, ...]) -> tuple[str, ..
                 "wrapper around a Python command and that non-bash (Windows) "
                 "agents have an equivalent path."
             )
+    return tuple(dict.fromkeys(hits))
+
+
+def line_is_decision_regression_guardrail(
+    line: str,
+    previous_lines: tuple[str, ...] = (),
+) -> bool:
+    """Return whether a decision-regression term appears in a rule-against context."""
+    context = " ".join((*previous_lines[-2:], line)).lower()
+    return any(marker in context for marker in DECISION_REGRESSION_GUARDRAIL_MARKERS)
+
+
+def decision_regression_advisory_hits(added_lines: tuple[str, ...]) -> tuple[str, ...]:
+    """Return architecture-decision regressions that need maintainer confirmation.
+
+    This is intentionally heuristic. It catches PRs that may implement a task
+    correctly while reviving a retired coordination pattern or adding a duplicate
+    source-of-truth layer. Guardrail/postmortem text is ignored so documentation
+    that warns against the pattern does not block itself.
+    """
+    hits: list[str] = []
+    previous_lines: list[str] = []
+    for line in added_lines:
+        if line_is_rule_catalog_line(line):
+            previous_lines.append(line)
+            continue
+        if line_is_decision_regression_guardrail(line, tuple(previous_lines)):
+            previous_lines.append(line)
+            continue
+        lowered = line.lower()
+        for pattern, description in DECISION_REGRESSION_RULES:
+            if pattern.search(lowered):
+                hits.append(description)
+        previous_lines.append(line)
     return tuple(dict.fromkeys(hits))
 
 
