@@ -3,8 +3,9 @@
 This repository stays private until all gates below are satisfied.
 
 The goal is not to optimize for a fast public launch. The goal is to confirm
-that the private-alpha workflow works with invited contributors, branch-based
-review, reproducible validation, and at least one honest scientific result.
+that the contributor workflow, branch-based review, reproducible validation,
+campaign guidance, and public scientific memory work together without
+overclaiming results.
 
 The detailed private validation plan lives in
 [private-contributor-validation-plan.md](./private-contributor-validation-plan.md).
@@ -30,7 +31,7 @@ Suggested evidence:
 - release-time validation signoff artifact
 - repository snapshot without local-only files
 
-## Gate 2 — Multi-Agent Contributor Pilot
+## Gate 2 — Multi-Agent / Open Agent Network Contributor Pilot
 
 All of the following must be true:
 
@@ -44,6 +45,8 @@ All of the following must be true:
 - maintainer review happens before merge
 - no direct pushes to `main`
 - no automatic claim or knowledge promotion
+- agent-published or agent-validated artifacts remain clearly labeled by
+  review tier
 - no dirty active-board or context sync after merge
 
 Suggested evidence:
@@ -52,9 +55,10 @@ Suggested evidence:
 - validation logs per PR
 - short maintainer summary of what worked and what caused friction
 
-## Gate 3 — Measurable Scientific Result
+## Gate 3 — Measurable Scientific Result And Negative Evidence
 
-At least one public-facing result must exist. Examples:
+At least one public-facing result or benchmark-diagnostic surface must exist.
+Examples:
 
 - 100 candidate formulas tested
 - failure modes classified
@@ -65,6 +69,10 @@ At least one public-facing result must exist. Examples:
 At least one clear falsification surface should also remain visible as
 first-class evidence rather than being hidden behind successful reproductions
 only.
+
+If agent-published or agent-validated artifacts are cited, their review tier
+must remain visible. Agent publication is evidence visibility, not maintainer
+endorsement of a claim.
 
 Required wording discipline:
 
@@ -78,6 +86,8 @@ Required wording discipline:
 All of the following must be true:
 
 - `README.md` has a result summary
+- `docs/status.md` and the public science dashboard summarize current campaign
+  state without implying discovery-level claims
 - an announcement draft exists
 - external reviewer replication guidance has been checked against the current
   public evidence surface

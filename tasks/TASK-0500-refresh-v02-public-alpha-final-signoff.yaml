@@ -1,0 +1,61 @@
+id: TASK-0500
+title: "Refresh v0.2 public-alpha final release signoff on current main"
+type: release_review
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make the public-opening decision depend on current evidence, not stale private-alpha signoff artifacts."
+  - "Recheck release gates after the multi-campaign, agent-published evidence, and output-funnel updates."
+  - "Keep public opening gated by validation, wording discipline, and maintainer decision."
+
+input:
+  mode: workflow
+  related_domain: public_release_readiness
+  related_objects:
+    - "docs/public-release-gates.md"
+    - "docs/release-checklist.md"
+    - "docs/reviews/public-release-validation-signoff.md"
+    - "docs/reviews/v0.2-public-alpha-final-signoff-2026-05-31.md"
+    - "docs/status.md"
+    - "README.md"
+  planning_context: >
+    Previous v0.2 release signoff artifacts were created before the current
+    multi-campaign architecture, public science dashboard, agent-published
+    result lanes, and latest mission-priority updates. Refresh the release
+    gate review against the current default-branch commit and record whether
+    the repository is ready for a maintainer public-opening decision.
+
+requirements:
+  - "Review the existing public-release gates against the current multi-campaign repository state."
+  - "Run release-time validation from the current main cut or a branch based exactly on that cut."
+  - "Record GitHub CI, local validation, path-leak, mission, example-smoke, and core-reproduction evidence."
+  - "Update release gate/checklist wording only where it is stale or missing the current review-tier/multi-campaign architecture."
+  - "Do not promote any CLAIM, RESULT, PRED, or KNOW artifact."
+  - "Do not claim the repository is public; the final public-opening action remains a maintainer decision outside this task."
+  - "Do not create public-post or external-announcement content."
+
+accepted_outputs:
+  - "docs/reviews/v0.2-public-alpha-final-signoff-2026-05-31.md"
+  - "updated docs/public-release-gates.md if gate wording is stale"
+  - "updated docs/release-checklist.md if release commands are stale"
+  - "updated docs/status.md only if release-state wording is stale"
+  - "this task file"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 scripts/check_public_path_leaks.py"
+    - "python3 scripts/apl_mission.py --output json"
+    - "python3 -m physics_lab.cli run examples/pendulum.yaml --output-dir /tmp/apl-pendulum-task-0500"
+    - "python3 -m physics_lab.cli run examples/damped_oscillator.yaml --output-dir /tmp/apl-damped-task-0500"
+    - "python3 scripts/reproduce_core_results.py --output-dir /tmp/apl-core-reproduction-task-0500 --python python3"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
