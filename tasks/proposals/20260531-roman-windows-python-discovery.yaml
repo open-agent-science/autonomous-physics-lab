@@ -1,0 +1,69 @@
+proposal_id: 20260531-roman-windows-python-discovery
+title: "Standardize Windows Python environment discovery for APL agents"
+status: PROPOSED
+type: developer_infrastructure
+priority: high
+
+proposed_by:
+  contributor_id: roman
+  agent_id: codex
+
+strategy_alignment:
+  - "Reduce repeated Windows setup friction for Codex, Claude Code, and human contributors running APL validation."
+  - "Make interpreter selection deterministic so validation failures are separated from local launcher or PATH ambiguity."
+  - "Preserve cross-platform validation semantics while documenting the Windows-specific fallback path clearly."
+
+summary: >
+  Propose a future canonical task to standardize how APL agents discover,
+  report, and use the intended Python interpreter on Windows before running
+  pytest, repository validation, and APL helper scripts.
+rationale: >
+  Several Windows agent sessions needed manual discovery or attachment of a
+  usable python.exe before validation could run. TASK-0469 made many
+  subprocess calls active-interpreter safe, but agents still lack a canonical
+  repository-level discovery path when `python3`, `python`, the repo venv, and
+  system python.exe differ. Capturing this as a proposal keeps the idea
+  reviewable before assigning a canonical TASK id.
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/contributing-workflow.md"
+    - "docs/testing.md"
+    - "scripts/apl_pr_capability_check.py"
+    - "scripts/apl_task_pr_helper.py"
+    - "scripts/auto_run_next_task.py"
+    - "tasks/TASK-0469-make-windows-pytest-cli-validation-robust.yaml"
+  planning_context: >
+    The proposed future task should audit documented validation commands and
+    helper scripts that assume `python3`, `python`, or an activated virtual
+    environment on Windows. It should define a deterministic interpreter
+    priority order, expose the selected interpreter before task execution, and
+    avoid hiding real dependency failures behind fallback logic.
+
+requirements:
+  - "Keep the proposal atomic: future work should cover Windows interpreter discovery only."
+  - "Future implementation should define a deterministic interpreter priority order for Windows agents."
+  - "Future implementation should document how agents report the selected interpreter before validation."
+  - "Future implementation should use sys.executable for subprocesses where the active interpreter is the correct source of truth."
+  - "Do not require network access, package installation, or PATH mutation to pass repository validation."
+  - "Do not relax strict validation, skip broad Windows test coverage, or hide real dependency failures behind fallback logic."
+  - "Do not promote or modify scientific claims, results, predictions, datasets, or knowledge artifacts."
+
+accepted_outputs:
+  - "canonical task spec for Windows Python interpreter discovery"
+  - "maintainer decision on whether to promote this proposal into a TASK-XXXX item"
+
+validation:
+  commands:
+    - "python3 scripts/apl_proposal_pr_helper.py preflight --branch agent/roman/codex/propose-task-windows-python-discovery --title \"TASK-PROPOSAL: Standardize Windows Python environment discovery for APL agents\" --proposal-path tasks/proposals/20260531-roman-windows-python-discovery.yaml"
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: "Promote only after maintainer acceptance; do not pre-assign TASK-0501."

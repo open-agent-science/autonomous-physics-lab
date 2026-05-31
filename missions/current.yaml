@@ -772,7 +772,7 @@ missions:
         priority: medium
         difficulty: high
 
-  - id: dimensional-validator
+  - id: dimensional-analysis-validator
     title: "Dimensional Analysis Validator"
     rank: 7
     status: quality_floor

@@ -9,7 +9,6 @@
 - `TASK-0398` - Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0439` - Scaffold Materials Property Residuals campaign (`campaign_scaffold`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0453` - Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0477` - Package Nuclear negative-result evidence card (`scientific_communication`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0478` - Define Nuclear F2 finer-taxonomy preflight (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0479` - Run Nuclear training-slice expansion feasibility review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
@@ -30,4 +29,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0453` - Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0496` - Refresh mission priorities after latest science results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
