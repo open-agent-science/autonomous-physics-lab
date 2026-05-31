@@ -39,6 +39,9 @@ lighter navigation than the full generated board, use:
 [`watchlist.md`](./task-views/watchlist.md), and
 [`blocked.md`](./task-views/blocked.md).
 
+For parallel-capacity planning — how many agents fit each lane before claiming
+work — see the [agent capacity board](./agent-capacity-board.md).
+
 ## Recommended Mission Now
 
 **Exoplanet Mass-Radius Benchmark** is the default near-term science-output
