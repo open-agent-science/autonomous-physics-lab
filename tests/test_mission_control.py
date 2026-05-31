@@ -553,8 +553,8 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
 
     rendered = json.loads(result.stdout)
     assert rendered["selected_mode"] == "research"
-    assert rendered["recommended"]["action"] == "exoplanet-null-baseline-family-audit"
-    assert rendered["recommended"]["task_id"] == "TASK-0483"
+    assert rendered["recommended"]["action"] == "exoplanet-host-context-preflight"
+    assert rendered["recommended"]["task_id"] == "TASK-0481"
     assert "parallel_work_policy" in rendered
     assert any(
         "result-promotion-protocol.md" in item
