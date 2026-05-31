@@ -13,7 +13,6 @@
 - `TASK-0478` - Define Nuclear F2 finer-taxonomy preflight (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0479` - Run Nuclear training-slice expansion feasibility review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0481` - Run exoplanet compact-radius host-context preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0483` - Run exoplanet null-baseline family audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0485` - Triage Atomic second-source fallbacks (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0487` - Audit Atomic direct-vs-derived row separation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0488` - Add Atomic synthetic cross-source benchmark dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
@@ -30,4 +29,5 @@ None.
 ## REVIEW_READY
 
 - `TASK-0453` - Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+- `TASK-0483` - Run exoplanet null-baseline family audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0496` - Refresh mission priorities after latest science results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
