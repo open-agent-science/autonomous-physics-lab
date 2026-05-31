@@ -9,5 +9,4 @@
 #   pip install -e ".[dev]"
 set -euo pipefail
 cd "$(dirname "$0")/.."
-python3 -m ruff check .
-python3 -m pytest -m "not full_repo"
+exec python3 scripts/validate_fast.py "$@"

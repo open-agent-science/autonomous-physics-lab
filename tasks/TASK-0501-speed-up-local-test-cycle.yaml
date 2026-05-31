@@ -30,13 +30,14 @@ input:
 
 requirements:
   - "Enable pytest-xdist by default for local runs by adding `-n auto --dist loadfile` to the pytest addopts (pytest and pytest-xdist are in the same dev extra, so any dev install has xdist; this matches the CI invocation)."
-  - "Add a fast iteration lane (scripts/validate_fast.sh) that runs ruff plus the non-full_repo tests, for the inner development loop."
-  - "Update AGENTS.md and docs/agent-task-protocol.md validation guidance to note parallel-by-default, the fast lane, and that the dev extras install (pip install -e \".[dev]\") provides xdist."
+  - "Add a fast iteration lane with a cross-platform Python entrypoint (scripts/validate_fast.py) plus a Unix shell wrapper (scripts/validate_fast.sh) that runs ruff plus the non-full_repo tests, for the inner development loop."
+  - "Update AGENTS.md and docs/agent-task-protocol.md validation guidance to note parallel-by-default, the cross-platform fast lane, and that the dev extras install (pip install -e \".[dev]\") provides xdist."
   - "Keep full_repo smoke tests covered by the default run and CI; do not delete or weaken any test."
   - "Do not change test logic or coverage; do not promote any claim."
 
 accepted_outputs:
   - "pyproject.toml addopts update"
+  - "scripts/validate_fast.py"
   - "scripts/validate_fast.sh"
   - "AGENTS.md and docs/agent-task-protocol.md validation-guidance updates"
 

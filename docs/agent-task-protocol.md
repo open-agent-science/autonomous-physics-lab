@@ -453,9 +453,11 @@ Use `--output-dir` for routine example runs so committed canonical artifacts do
 not change accidentally.
 
 `python3 -m pytest` runs in parallel by default via `pytest-xdist` (part of the
-dev extras: `pip install -e ".[dev]"`), matching CI. For a faster inner loop
-use `./scripts/validate_fast.sh` (lint plus non-`full_repo` tests); add `-n0`
-to force a serial run when debugging a single test.
+dev extras: `pip install -e ".[dev]"`), matching CI on Windows, macOS, and
+Linux. For a faster cross-platform inner loop use
+`python3 scripts/validate_fast.py` (lint plus non-`full_repo` tests); macOS and
+Linux users may also use `./scripts/validate_fast.sh`. Add `-n0` to force a
+serial run when debugging a single test.
 
 Before opening a PR, agents may optionally generate a review bundle for the
 maintainer. This is no longer a required step and its absence is not flagged by

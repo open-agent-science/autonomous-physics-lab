@@ -564,10 +564,11 @@ git diff --exit-code
 ```
 
 `python3 -m pytest` runs in parallel by default via `pytest-xdist` (installed
-with the dev extras: `pip install -e ".[dev]"`), matching CI. For a faster
-inner loop while iterating, run `./scripts/validate_fast.sh` (lint plus the
-non-`full_repo` tests). Use `python3 -m pytest -n0` to force a serial run when
-debugging a single test.
+with the dev extras: `pip install -e ".[dev]"`), matching CI on Windows,
+macOS, and Linux. For a faster cross-platform inner loop while iterating, run
+`python3 scripts/validate_fast.py` (lint plus the non-`full_repo` tests); macOS
+and Linux users may also use the `./scripts/validate_fast.sh` wrapper. Use
+`python3 -m pytest -n0` to force a serial run when debugging a single test.
 
 If a change touches CLI behavior, include a smoke test.
 If a change touches scientific formulas, include a numerical regression test.
