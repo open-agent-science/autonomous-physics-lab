@@ -19,7 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0420` - Add Campaign Curator promotion backlog view (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_curator`)
-- `TASK-0497` - Add mission drift checker for live task and campaign routing (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
-- `TASK-0498` - Add campaign output scorecard for scientific-memory throughput (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
-- `TASK-0499` - Define claim-review cadence for low-risk scientific-memory ratification (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `scientific_memory`)
+None.

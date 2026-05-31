@@ -323,7 +323,7 @@ missions:
         label: "Run quantum figure-digitization fixture dry-run"
         task_id: TASK-0490
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -435,10 +435,10 @@ missions:
         label: "Add Atomic real direct-row loader and schema reconciliation"
         task_id: TASK-0453
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "deterministic loader/tests for committed direct_measurement rows"
       - id: atomic-holdout-no-peek-manifest
@@ -486,7 +486,7 @@ missions:
         label: "Add Atomic synthetic cross-source dry-run"
         task_id: TASK-0488
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -496,10 +496,10 @@ missions:
         label: "Rerun Atomic baseline-readiness gate"
         task_id: TASK-0455
         mode: research
-        status: blocked
+        status: ready
         priority: high
         difficulty: medium
-        recommended: false
+        recommended: true
         expected_outputs:
           - "BASELINE_READY / PINNED_DATASET / SOURCE_BLOCKED go-no-go after TASK-0452 through TASK-0454"
       - id: atomic-yb-sr-cross-source-benchmark
@@ -542,10 +542,10 @@ missions:
         label: "Run exoplanet null-baseline family audit"
         task_id: TASK-0483
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "compare CK17-style residuals against deterministic null baselines on the committed snapshot only"
           - "separate compact-radius, sub-Neptune, Jovian-radius, hot-Jupiter, true-mass, and minimum-mass axes when available"
@@ -727,10 +727,10 @@ missions:
         label: "Plan Textbook Formula Audit for Wien displacement"
         task_id: TASK-0492
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "source/baseline/holdout plan without metrics or universal formula wording"
       - id: textbook-stefan-boltzmann-plan
@@ -738,9 +738,9 @@ missions:
         task_id: TASK-0493
         mode: research
         status: ready
+        recommended: true
         priority: high
         difficulty: medium
-        recommended: false
         expected_outputs:
           - "source/baseline/holdout plan without metrics or universal formula wording"
 

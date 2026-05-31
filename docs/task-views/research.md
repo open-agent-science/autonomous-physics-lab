@@ -25,9 +25,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0453` - Add Atomic real direct-row loader and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0483` - Run exoplanet null-baseline family audit (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0488` - Add Atomic synthetic cross-source benchmark dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0490` - Run Quantum figure-digitization fixture dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0492` - Plan Textbook Formula Audit for Wien displacement (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0496` - Refresh mission priorities after latest science results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
+None.
