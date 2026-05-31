@@ -24,3 +24,4 @@ None.
 - `TASK-0509` - Decouple campaign task index from the committed tree (`maintainer_workflow`, priority `high`, difficulty `low`, domain `repository_coordination`)
 - `TASK-0510` - Postmortem static agent-facing generated index decision (`maintainer_workflow`, priority `high`, difficulty `low`, domain `repository_coordination`)
 - `TASK-0511` - Define the v0.3 Research Factory Layer milestone in roadmap and strategy (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `repository_coordination`)
+- `TASK-0512` - Retire the redundant agent capacity board; capacity lives in the catalog (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `repository_coordination`)
