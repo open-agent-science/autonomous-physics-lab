@@ -1,0 +1,54 @@
+id: TASK-0499
+title: "Define claim-review cadence for low-risk scientific-memory ratification"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the result-promotion protocol into a recurring review cycle instead of a one-off smoke test."
+  - "Move mature low-risk evidence toward maintainer-reviewed scientific memory without relaxing claim boundaries."
+  - "Avoid endless sandbox or audit loops by giving agents a clear output-funnel endpoint."
+
+input:
+  mode: workflow
+  related_domain: scientific_memory
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/scientific-memory-review-tiers.md"
+    - "claims/"
+    - "results/"
+    - "tasks/TASK-0415-run-first-agent-validated-replay.yaml"
+    - "tasks/TASK-0416-run-pendulum-claim-promotion-smoke-test.yaml"
+  planning_context: >
+    Gate A and Gate B now exist, and the first smoke tests have demonstrated
+    the route from agent-published evidence to agent-validated artifacts. APL
+    still needs a conservative cadence for selecting mature low-risk artifacts
+    for maintainer claim/result review so the corpus does not accumulate
+    validated evidence without ratified scientific memory.
+
+requirements:
+  - "Define a maintainer-gated claim/result review cadence that starts with low-risk mature domains such as Pendulum, Anharmonic, or Dimensional Analysis."
+  - "Specify candidate selection criteria, required evidence package, allowed outcomes, and stop conditions."
+  - "Preserve the rule that agents may prepare review material but must not promote claims automatically."
+  - "Include a first-cycle template that can classify candidates as promote, keep draft, retire, supersede, or needs more replay."
+  - "Do not change existing CLAIM, RESULT, KNOW, or PRED review tiers as part of this planning task."
+  - "Avoid public-post or DOU-specific language."
+
+accepted_outputs:
+  - "docs/claim-review-cadence.md"
+  - "docs/reviews/claim-review-cycle-001.md or equivalent first-cycle template"
+  - "updates to role/profile guidance only if needed to route this cadence to maintainer review and the Scientific Campaign Director"
+  - "tests or docs-link validation for new documentation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
