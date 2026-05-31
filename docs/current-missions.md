@@ -39,8 +39,11 @@ lighter navigation than the full generated board, use:
 [`watchlist.md`](./task-views/watchlist.md), and
 [`blocked.md`](./task-views/blocked.md).
 
-For parallel-capacity planning — how many agents fit each lane before claiming
-work — see the [agent capacity board](./agent-capacity-board.md).
+For parallel-capacity planning — how many agents fit each lane — read each
+campaign's `agent_capacity` block in
+[`campaigns/catalog.yaml`](../campaigns/catalog.yaml) (the canonical source) and
+query the on-demand task-to-campaign index
+(`python3 scripts/apl_task_campaign_index.py`).
 
 ## Recommended Mission Now
 

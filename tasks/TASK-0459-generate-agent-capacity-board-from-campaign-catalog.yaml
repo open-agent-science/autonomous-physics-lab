@@ -1,7 +1,7 @@
 id: TASK-0459
 title: "Generate agent capacity board from campaign catalog"
 type: maintainer_workflow
-status: BLOCKED
+status: REJECTED
 difficulty: medium
 priority: high
 
@@ -20,6 +20,14 @@ input:
     - "campaign_profiles/"
     - "missions/current.yaml"
   planning_context: >
+    REJECTED by TASK-0512. Generating docs/agent-capacity-board.md would
+    re-render data that already lives in campaigns/catalog.yaml (per-campaign
+    agent_capacity.recommended_parallel_agents and coordination_notes), which is
+    already the single registry-driven capacity surface; the on-demand
+    task-to-campaign index covers per-task parallel-safety. A generated board is
+    a redundant second rendering, not new information, so the hand-maintained
+    board (TASK-0440) was retired and this generation task is rejected rather
+    than executed. Original context follows.
     BLOCKED ON TASK-0440. This task generates/checks
     `docs/agent-capacity-board.md`, which TASK-0440 is responsible for creating
     first; there is nothing to generate or verify until TASK-0440 lands. Keep
