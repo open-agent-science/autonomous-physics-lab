@@ -20,5 +20,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0469` - Make Windows pytest and CLI validation path handling robust (`developer_infrastructure`, priority `high`, difficulty `medium`, domain `repository_validation`)
-- `TASK-0495` - Redirect remaining tasks/ACTIVE.md doc references to task views (B2 step 3) (`maintainer_workflow`, priority `low`, difficulty `medium`, domain `repository_coordination`)
+None.
