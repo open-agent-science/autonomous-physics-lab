@@ -501,7 +501,7 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
 
     rendered = json.loads(result.stdout)
     assert rendered["default_mode"] == "research"
-    assert rendered["recommended"]["mission"] == "nuclear-mass-surface"
+    assert rendered["recommended"]["mission"] == "exoplanet-mass-radius"
     assert "live_task_candidates" in rendered
 
 
@@ -553,8 +553,8 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
 
     rendered = json.loads(result.stdout)
     assert rendered["selected_mode"] == "research"
-    assert rendered["recommended"]["action"] == "nuclear-validation-queue"
-    assert rendered["recommended"]["task_id"] is None
+    assert rendered["recommended"]["action"] == "exoplanet-null-baseline-family-audit"
+    assert rendered["recommended"]["task_id"] == "TASK-0483"
     assert "parallel_work_policy" in rendered
     assert any(
         "result-promotion-protocol.md" in item
