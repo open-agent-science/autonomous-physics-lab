@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0421` - Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `multi_agent_coordination`)
 - `TASK-0423` - Add homogeneous science PR batch review protocol (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `maintainer_review`)
 - `TASK-0432` - Audit result verdict vocabulary consistency (`workflow_protocol`, priority `high`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0440` - Add agent capacity board for parallel research lanes (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `agent_capacity`)
@@ -19,5 +18,6 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0421` - Add GitHub-based task claiming ledger (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `multi_agent_coordination`)
 - `TASK-0501` - Speed up the local test cycle (parallel-by-default + fast lane) (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `repository_workflow`)
 - `TASK-0503` - Establish cross-platform compatibility standard for agents and review (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `repository_coordination`)
