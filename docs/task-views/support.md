@@ -21,3 +21,4 @@ None.
 - `TASK-0460` - Add task-to-campaign lane index (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0501` - Speed up the local test cycle (parallel-by-default + fast lane) (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `repository_workflow`)
 - `TASK-0503` - Establish cross-platform compatibility standard for agents and review (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `repository_coordination`)
+- `TASK-0509` - Decouple campaign task index from the committed tree (`maintainer_workflow`, priority `high`, difficulty `low`, domain `repository_coordination`)
