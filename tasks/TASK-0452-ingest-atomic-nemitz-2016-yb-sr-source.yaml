@@ -1,7 +1,7 @@
 id: TASK-0452
 title: "Ingest Nemitz 2016 Yb/Sr as second atomic direct-ratio source"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

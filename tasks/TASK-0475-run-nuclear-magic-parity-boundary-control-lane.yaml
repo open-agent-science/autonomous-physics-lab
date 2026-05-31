@@ -1,7 +1,7 @@
 id: TASK-0475
 title: "Run Nuclear magic-parity boundary control lane"
 type: autonomous_research_pilot
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 

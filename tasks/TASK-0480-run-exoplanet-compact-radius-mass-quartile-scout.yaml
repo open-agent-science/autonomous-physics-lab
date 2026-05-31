@@ -1,7 +1,7 @@
 id: TASK-0480
 title: "Run exoplanet compact-radius mass-quartile scout"
 type: autonomous_research_pilot
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

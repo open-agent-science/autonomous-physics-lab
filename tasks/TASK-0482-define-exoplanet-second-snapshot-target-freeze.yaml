@@ -1,7 +1,7 @@
 id: TASK-0482
 title: "Define exoplanet second-snapshot target freeze"
 type: benchmark_protocol
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
