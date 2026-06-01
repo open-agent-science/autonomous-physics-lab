@@ -449,6 +449,8 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
     """Render a compact JSON response for coding agents."""
     selection = select_mission(payload, mode)
     live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
+    recommended_task_id = selection.action.get("task_id") if selection.action else None
+    recommended_is_executable = bool(recommended_task_id)
     ready_pool_health = (
         ready_science_pool_health(root).to_json() if root is not None else {}
     )
@@ -461,7 +463,9 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
             "mission_title": selection.mission.get("title") if selection.mission else None,
             "action": selection.action.get("id") if selection.action else None,
             "label": selection.action.get("label") if selection.action else None,
-            "task_id": selection.action.get("task_id") if selection.action else None,
+            "task_id": recommended_task_id,
+            "is_executable": recommended_is_executable,
+            "guidance_only": bool(selection.action and not recommended_task_id),
             "priority": selection.action.get("priority") if selection.action else None,
             "difficulty": selection.action.get("difficulty") if selection.action else None,
             "expected_outputs": selection.action.get("expected_outputs", [])
@@ -617,7 +621,13 @@ def render_agent_prompt(payload: dict[str, Any], *, root: Path | None = None) ->
     task_instruction = (
         f"Use canonical task {task_id} and create its task branch before editing files."
         if task_id
-        else "If the action has no task_id, create a task proposal before editing implementation files."
+        else (
+            "The recommended action is campaign guidance with no task_id; choose one executable READY "
+            "task from the task registry candidates before editing files. Create a task proposal only "
+            "if no READY candidate fits the maintainer's request."
+            if live_candidates
+            else "If the action has no task_id, create a task proposal before editing implementation files."
+        )
     )
     return f"""You are working in Autonomous Physics Lab.
 
@@ -648,6 +658,11 @@ def render_onboarding_prompt(payload: dict[str, Any], *, root: Path | None = Non
     live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
     mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
     action_label = selection.action.get("label") if selection.action else "the recommended action"
+    action_suffix = (
+        " (campaign guidance; choose from executable READY options below)"
+        if selection.action is not None and not selection.action.get("task_id")
+        else ""
+    )
     candidate_block = ""
     if live_candidates:
         rendered_candidates = "\n".join(
@@ -668,7 +683,7 @@ Start in Agent First Research Mode with onboarding.
 3. Do not edit files yet.
 4. Briefly explain why the recommended mission is scientifically useful.
 5. Recommended mission now: {mission_title}.
-6. Recommended action now: {action_label}.
+6. Recommended action now: {action_label}{action_suffix}.
 7. Show 3-5 executable READY options with estimated time and difficulty.
 8. For onboarding, prefer recommending a simpler science-execution option first
    when one is available: hypothesis testing, validation, sandbox runs, replay,
