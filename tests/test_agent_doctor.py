@@ -1,10 +1,18 @@
 from __future__ import annotations
 
+import importlib.util
 from pathlib import Path
 import subprocess
 import sys
 
-from scripts.apl_agent_doctor import build_report
+
+SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "apl_agent_doctor.py"
+SPEC = importlib.util.spec_from_file_location("apl_agent_doctor", SCRIPT_PATH)
+assert SPEC is not None and SPEC.loader is not None
+MODULE = importlib.util.module_from_spec(SPEC)
+sys.modules[SPEC.name] = MODULE
+SPEC.loader.exec_module(MODULE)
+build_report = MODULE.build_report
 
 
 def test_agent_doctor_builds_report_without_network_auth_check(tmp_path: Path) -> None:
