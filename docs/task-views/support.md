@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0523` - Add adaptive Windows validation planner and pytest runtime probe (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `contributor_experience`)

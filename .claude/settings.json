@@ -97,11 +97,18 @@
       "Edit(/tmp/apl-*.md)",
       "Edit(/private/tmp/apl-*)",
       "Edit(/private/tmp/apl-*/**)",
-      "Edit(/private/tmp/apl-*.md)"
+      "Edit(/private/tmp/apl-*.md)",
+      "Read(C:/tmp/apl-*)",
+      "Read(C:/tmp/apl-*/**)",
+      "Write(C:/tmp/apl-*)",
+      "Write(C:/tmp/apl-*/**)",
+      "Edit(C:/tmp/apl-*)",
+      "Edit(C:/tmp/apl-*/**)"
     ],
     "additionalDirectories": [
       "/tmp",
-      "/private/tmp"
+      "/private/tmp",
+      "C:/tmp"
     ]
   }
 }
