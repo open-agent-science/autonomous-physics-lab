@@ -24,8 +24,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0398` - Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
-- `TASK-0481` - Run exoplanet compact-radius host-context preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0485` - Triage Atomic second-source fallbacks (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0502` - Refresh campaign docs after null-baseline and fresh-data gate results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
-- `TASK-0508` - Define Exoplanet adapter contract for Research Factory reuse (`research_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
+None.
