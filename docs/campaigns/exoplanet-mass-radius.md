@@ -22,9 +22,9 @@ artifact yet.
 
 ## Public Monitoring Snapshot
 
-**Current question:** after stronger null-baseline controls and host-context
-missingness checks, is any Chen-Kipping-style residual slice still worth a
-bounded follow-up on the pinned NASA Exoplanet Archive PSCompPars snapshot?
+**Current question:** after the control-aware no-go synthesis, what materially
+changed pinned snapshot or coverage gate would justify reopening a bounded
+Chen-Kipping-style residual audit?
 
 **Shareable result:** the compact-radius slice (`R < 1.5 R_earth`) was the
 strongest earlier matched-control diagnostic, but `TASK-0483` found that a
@@ -37,13 +37,13 @@ residual stress is control-sensitive.
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** `TASK-0515` is the control-aware go/no-go synthesis
-after the null-baseline audit and landed host-context preflight. `TASK-0481`
-found no compact-radius host-context axis that is benchmark-usable under the
-current coarse-bin floor; `TASK-0515` should either declare a narrow
-conditional follow-up with explicit missingness/underpowered caveats or demote
-the host-context lane to negative/control memory. `TASK-0480` landed as
-underpowered at mass-quartile resolution,
+**Active next work:** `TASK-0515` records
+`NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY` for additional compact-radius residual
+or host-context pilots on the current pinned snapshot. `TASK-0481` found no
+compact-radius host-context axis that is benchmark-usable under the current
+coarse-bin floor, and `TASK-0480` landed as underpowered at mass-quartile resolution.
+Future work should reopen the residual lane only after a materially changed
+pinned snapshot or an explicitly revised coverage gate.
 `TASK-0482` and `TASK-0484` packaged the second-snapshot target freeze and
 external-reviewer capsule, and `TASK-0483` landed as an `INCONCLUSIVE`
 null-baseline control panel. All work stays no-live-fetch and benchmark-only.
@@ -114,6 +114,11 @@ Current scientific reading:
   is often present in the compact-radius slice, but coarse bin power is
   underpowered; no compact-radius host-context axis is benchmark-usable at the
   current interpretation floor.
+- `TASK-0515` records **NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY**: do not
+  repeat compact-radius residual, host-context coarse-bin, or mass-quartile
+  localization pilots on the current pinned snapshot. The Research Factory
+  adapter remains contract-only until a materially changed input surface is
+  reviewed.
 - `TASK-0470`-era visibility work is now campaign memory. The current
   benchmark-hardening wave does not promote claims, knowledge, predictions, or
   canonical results.
@@ -225,12 +230,13 @@ The campaign should mature in this order:
     slices control-sensitive; host-context preflight (`TASK-0481`, DONE) found
     conditional/underpowered host-context coverage rather
     than a benchmark-usable compact-radius host axis.
-14. Run the control-aware go/no-go synthesis (`TASK-0515`, READY) before any bounded autonomous
-    residual pilot: either define a narrow conditional missingness-aware task
-    or preserve compact-radius host context as negative/control memory.
-15. Treat the Exoplanet Research Factory adapter as contract-only until the
-    shared factory protocol/schema lands and a maintainer accepts a narrow
-    post-`TASK-0481` execution scope.
+14. Preserve the control-aware go/no-go synthesis (`TASK-0515`) as negative
+    control memory: no additional compact-radius residual, host-context
+    coarse-bin, or mass-quartile pilot should run on the current snapshot.
+15. Treat the Exoplanet Research Factory adapter as contract-only. Shared
+    factory protocol/schema availability alone does not authorize a smoke run;
+    a later maintainer-approved task needs a materially changed input surface
+    or explicitly revised coverage gate.
 
 This campaign is now the fastest APL path to a visible, scientist-readable
 benchmark artifact. It is not yet a discovery surface.
