@@ -214,7 +214,7 @@ def test_mission_json_includes_live_task_candidates(tmp_path: Path) -> None:
 
 
 def test_ready_science_pool_health_reports_warning_only_short_pool(tmp_path: Path) -> None:
-    for index in range(4):
+    for index in range(7):
         _write_task(
             tmp_path,
             task_id=f"TASK-01{index:02d}",
@@ -222,7 +222,7 @@ def test_ready_science_pool_health_reports_warning_only_short_pool(tmp_path: Pat
             status="READY",
             task_type="scientific_validation",
             priority="high",
-            related_domain="surface_a" if index < 2 else "surface_b",
+            related_domain="surface_a" if index < 3 else "surface_b",
         )
     _write_task(
         tmp_path,
@@ -236,17 +236,32 @@ def test_ready_science_pool_health_reports_warning_only_short_pool(tmp_path: Pat
 
     health = ready_science_pool_health(tmp_path)
 
-    assert health.ready_science_count == 4
+    assert health.minimum_ready_science_tasks == 8
+    assert health.preferred_ready_science_tasks == 12
+    assert health.target_active_surfaces == 4
+    assert health.max_ready_science_surface_share == 0.40
+    assert health.ready_science_count == 7
     assert health.active_surfaces == ("surface_a", "surface_b")
+    assert health.surface_task_counts == {"surface_a": 3, "surface_b": 4}
     assert health.below_minimum is True
     assert health.below_surface_target is True
+    assert health.above_surface_concentration_target is True
     assert health.task_queue_needed is True
     assert health.warning_only is True
 
 
-def test_ready_science_pool_health_accepts_minimum_across_three_surfaces(tmp_path: Path) -> None:
+def test_ready_science_pool_health_accepts_minimum_across_four_surfaces(tmp_path: Path) -> None:
     for index, surface in enumerate(
-        ("surface_a", "surface_a", "surface_b", "surface_c", "surface_c")
+        (
+            "surface_a",
+            "surface_a",
+            "surface_b",
+            "surface_b",
+            "surface_c",
+            "surface_c",
+            "surface_d",
+            "surface_d",
+        )
     ):
         _write_task(
             tmp_path,
@@ -260,12 +275,63 @@ def test_ready_science_pool_health_accepts_minimum_across_three_surfaces(tmp_pat
 
     health = ready_science_pool_health(tmp_path)
 
-    assert health.ready_science_count == 5
-    assert health.active_surfaces == ("surface_a", "surface_b", "surface_c")
+    assert health.ready_science_count == 8
+    assert health.active_surfaces == ("surface_a", "surface_b", "surface_c", "surface_d")
     assert health.below_minimum is False
     assert health.below_surface_target is False
+    assert health.above_surface_concentration_target is False
     assert health.task_queue_needed is False
     assert health.below_preferred is True
+
+
+def test_ready_science_pool_health_flags_same_surface_concentration(tmp_path: Path) -> None:
+    surfaces = (
+        "surface_a",
+        "surface_a",
+        "surface_a",
+        "surface_a",
+        "surface_b",
+        "surface_b",
+        "surface_c",
+        "surface_c",
+        "surface_d",
+        "surface_d",
+    )
+    for index, surface in enumerate(surfaces):
+        _write_task(
+            tmp_path,
+            task_id=f"TASK-03{index:02d}",
+            title=f"Research candidate {index}",
+            status="READY",
+            task_type="scientific_validation",
+            priority="high",
+            related_domain=surface,
+        )
+
+    health = ready_science_pool_health(tmp_path)
+
+    assert health.ready_science_count == 10
+    assert health.below_minimum is False
+    assert health.below_surface_target is False
+    assert health.above_surface_concentration_target is False
+    assert health.task_queue_needed is False
+
+    _write_task(
+        tmp_path,
+        task_id="TASK-0310",
+        title="Over-concentrated research candidate",
+        status="READY",
+        task_type="scientific_validation",
+        priority="high",
+        related_domain="surface_a",
+    )
+
+    concentrated = ready_science_pool_health(tmp_path)
+
+    assert concentrated.ready_science_count == 11
+    assert concentrated.surface_task_counts["surface_a"] == 5
+    assert concentrated.above_surface_concentration_target is True
+    assert concentrated.task_queue_needed is True
 
 
 def test_task_candidates_support_parallel_safe_options(tmp_path: Path) -> None:
