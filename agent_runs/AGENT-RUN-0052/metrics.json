@@ -1,0 +1,87 @@
+{
+  "factory_id": "nuclear-residual-factory-sprint-001",
+  "task_id": "TASK-0507",
+  "campaign_id": "nuclear-mass-surface",
+  "candidate_counts": {
+    "generated": 73,
+    "preflight_rejected": 1,
+    "executed": 72,
+    "shortlisted": 0,
+    "rejected_by_control": 0
+  },
+  "route_verdict_summary": {
+    "INCONCLUSIVE": 6,
+    "NEGATIVE_RESULT": 66,
+    "DATA_QUALITY_BLOCKED": 1
+  },
+  "families_evaluated": [
+    "asymmetry",
+    "local_curvature",
+    "odd_even_pairing",
+    "shell_distance",
+    "valence_n",
+    "valence_z"
+  ],
+  "ranking_metric": "effective_reduction (holdout reduction minus complexity penalty), after controls",
+  "top_candidates_by_holdout": [
+    {
+      "candidate_id": "CAND-0001",
+      "family": "shell_distance",
+      "route_verdict": "INCONCLUSIVE",
+      "holdout_reduction": 0.144141,
+      "effective_reduction": 0.124141,
+      "shuffled_reduction": -0.656258,
+      "random_slice_reduction": -0.056978
+    },
+    {
+      "candidate_id": "CAND-0019",
+      "family": "valence_z",
+      "route_verdict": "INCONCLUSIVE",
+      "holdout_reduction": 0.144141,
+      "effective_reduction": 0.124141,
+      "shuffled_reduction": -0.656258,
+      "random_slice_reduction": -0.056978
+    },
+    {
+      "candidate_id": "CAND-0011",
+      "family": "shell_distance",
+      "route_verdict": "INCONCLUSIVE",
+      "holdout_reduction": 0.154186,
+      "effective_reduction": 0.094186,
+      "shuffled_reduction": -1.437866,
+      "random_slice_reduction": -0.951205
+    },
+    {
+      "candidate_id": "CAND-0029",
+      "family": "valence_z",
+      "route_verdict": "INCONCLUSIVE",
+      "holdout_reduction": 0.154186,
+      "effective_reduction": 0.094186,
+      "shuffled_reduction": -1.437866,
+      "random_slice_reduction": -0.951205
+    },
+    {
+      "candidate_id": "CAND-0037",
+      "family": "valence_n",
+      "route_verdict": "INCONCLUSIVE",
+      "holdout_reduction": 0.105451,
+      "effective_reduction": 0.085451,
+      "shuffled_reduction": -1.355011,
+      "random_slice_reduction": -1.249416
+    }
+  ],
+  "shortlist_count": 0,
+  "controls": [
+    "null_baseline",
+    "shuffled_feature",
+    "matched_random_slice",
+    "complexity_penalty",
+    "post_ame2020_check"
+  ],
+  "limitations": [
+    "Bounded sprint over a committed 11-nuclide measured slice; holdout is small and underpowered.",
+    "Frozen baseline coefficients are slice-specific (RESULT-0012); not a holdout-validated surface.",
+    "post-AME2020 time-split check is not applicable on this slice and is deferred.",
+    "Sandbox factory run; no claim, prediction, result, or knowledge promotion."
+  ]
+}
