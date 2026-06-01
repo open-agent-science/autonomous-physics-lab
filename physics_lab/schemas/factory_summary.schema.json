@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Factory Summary",
+  "description": "Per-run output artifact of a bounded research factory (TASK-0505). Campaign-agnostic core with optional campaign-specific blocks. It never promotes claims; route verdicts are routing signals, not canonical artifacts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "factory_id",
+    "campaign_id",
+    "adapter_id",
+    "adapter_version",
+    "task_id",
+    "dataset",
+    "baseline",
+    "candidate_cap",
+    "candidate_counts",
+    "controls",
+    "candidates",
+    "route_verdict_summary",
+    "limitations",
+    "reproducibility"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "factory_id": { "type": "string" },
+    "campaign_id": { "type": "string" },
+    "adapter_id": { "type": "string" },
+    "adapter_version": { "type": "string" },
+    "task_id": { "type": "string", "pattern": "^TASK-[0-9]{4}$" },
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["snapshot_ref", "retrieval_policy", "checksum_policy"],
+      "properties": {
+        "snapshot_ref": { "type": "string" },
+        "source_id": { "type": "string" },
+        "retrieval_policy": { "type": "string" },
+        "checksum_policy": { "type": "string" }
+      }
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_id", "baseline_type"],
+      "properties": {
+        "baseline_id": { "type": "string" },
+        "baseline_type": { "type": "string", "enum": ["frozen", "null"] }
+      }
+    },
+    "splits": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional train/holdout/stress split definitions and no-leakage guard references."
+    },
+    "candidate_cap": { "type": "integer", "minimum": 1 },
+    "candidate_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Explicit distinction between candidate states; counts must reconcile with the candidates array.",
+      "required": [
+        "generated",
+        "preflight_rejected",
+        "executed",
+        "shortlisted",
+        "rejected_by_control"
+      ],
+      "properties": {
+        "generated": { "type": "integer", "minimum": 0 },
+        "preflight_rejected": { "type": "integer", "minimum": 0 },
+        "executed": { "type": "integer", "minimum": 0 },
+        "shortlisted": { "type": "integer", "minimum": 0 },
+        "rejected_by_control": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "controls": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "outcome"],
+        "properties": {
+          "name": { "type": "string" },
+          "outcome": { "type": "string" }
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate" }
+    },
+    "route_verdict_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Counts per canonical route verdict. Keys not present default to zero.",
+      "properties": {
+        "NEGATIVE_RESULT": { "type": "integer", "minimum": 0 },
+        "INCONCLUSIVE": { "type": "integer", "minimum": 0 },
+        "SHORTLIST_CANDIDATE": { "type": "integer", "minimum": 0 },
+        "READY_FOR_REPLAY": { "type": "integer", "minimum": 0 },
+        "READY_FOR_PRED_FREEZE": { "type": "integer", "minimum": 0 },
+        "REJECTED_BY_CONTROL": { "type": "integer", "minimum": 0 },
+        "LOCAL_ONLY": { "type": "integer", "minimum": 0 },
+        "DATA_QUALITY_BLOCKED": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "reproducibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code_reference", "command", "run_date"],
+      "properties": {
+        "code_reference": { "type": "string" },
+        "command": { "type": "string" },
+        "run_date": { "type": "string" },
+        "seed": { "type": ["integer", "string"] }
+      }
+    },
+    "campaign_specific": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional adapter-specific fields (Nuclear, Exoplanet, Quantum, Atomic, Textbook audit). Defined by each adapter contract."
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "family",
+        "complexity",
+        "leakage_status",
+        "candidate_state",
+        "route_verdict"
+      ],
+      "properties": {
+        "candidate_id": { "type": "string" },
+        "family": { "type": "string" },
+        "parameters": { "type": "object", "additionalProperties": true },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Train/holdout/stress metrics; train and holdout must never be pooled."
+        },
+        "control_outcomes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "outcome"],
+            "properties": {
+              "name": { "type": "string" },
+              "outcome": { "type": "string" }
+            }
+          }
+        },
+        "complexity": { "type": "number", "minimum": 0 },
+        "leakage_status": {
+          "type": "string",
+          "enum": ["CHECKED_CLEAN", "NOT_CHECKED", "LEAKAGE_FOUND"]
+        },
+        "candidate_state": {
+          "type": "string",
+          "enum": [
+            "GENERATED",
+            "PREFLIGHT_REJECTED",
+            "EXECUTED",
+            "SHORTLISTED",
+            "REJECTED_BY_CONTROL"
+          ]
+        },
+        "route_verdict": {
+          "type": "string",
+          "enum": [
+            "NEGATIVE_RESULT",
+            "INCONCLUSIVE",
+            "SHORTLIST_CANDIDATE",
+            "READY_FOR_REPLAY",
+            "READY_FOR_PRED_FREEZE",
+            "REJECTED_BY_CONTROL",
+            "LOCAL_ONLY",
+            "DATA_QUALITY_BLOCKED"
+          ]
+        }
+      }
+    }
+  }
+}

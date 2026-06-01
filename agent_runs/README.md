@@ -32,6 +32,14 @@ The `agent_run.yaml` manifest is validated by
 `physics_lab/schemas/agent_run.schema.json` and
 `physics_lab.registry.agent_runs`.
 
+A bounded research-factory run (see
+[../docs/research-factory-protocol.md](../docs/research-factory-protocol.md))
+also writes a `factory_summary` artifact in its run directory, validated by
+`physics_lab/schemas/factory_summary.schema.json` (kind `factory_summary`). It is
+sandbox evidence — candidate counts, controls, and route verdicts — and like all
+agent-run output it cannot promote a claim, prediction, result, or knowledge
+artifact by itself. See [../docs/factory-summary-artifact.md](../docs/factory-summary-artifact.md).
+
 ## Proposal Inputs
 
 Every agent run must point at:

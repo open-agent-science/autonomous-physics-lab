@@ -40,6 +40,7 @@ SCHEMA_FILE_BY_KIND = {
     "quantum_dot_size_effect": "quantum_dot_size_effect.schema.json",
     "exoplanet_mass_radius": "exoplanet_mass_radius.schema.json",
     "source_manifest_minimum": "source_manifest_minimum.schema.json",
+    "factory_summary": "factory_summary.schema.json",
 }
 REVIEW_TIERS_REQUIRING_AGENT_EVALUATION = frozenset(
     {"AGENT_PUBLISHED", "AGENT_VALIDATED"}
