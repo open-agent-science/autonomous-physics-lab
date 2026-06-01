@@ -87,6 +87,51 @@ warnings (never auto-blocking), via `cross_platform_advisory_hits` and
 Reviewers treat these as a checklist prompt, not a merge blocker, and ask for a
 portable alternative when the smell is on a contributor-facing path.
 
+## Windows Agent Bootstrap
+
+Windows contributors and Codex sessions may start with stale process-level
+`PATH` values even after Python, Git, or GitHub CLI have been installed. Before
+starting task work or before publishing a PR from Windows, run the read-only
+doctor:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\apl_agent_doctor.py
+```
+
+If the repository virtual environment is not usable yet, run the same script
+with whichever Python the contributor intends to use. The doctor reports:
+
+- the active Python executable and whether `pip`, `pytest`, `ruff`, and
+  `yaml` are importable;
+- discovered `git` and `gh` paths, including common Git for Windows and
+  GitHub CLI install locations when the current shell `PATH` is stale;
+- token fallback availability (`GH_TOKEN` / `GITHUB_TOKEN`);
+- suspicious proxy variables such as `HTTP_PROXY=http://127.0.0.1:9` that make
+  GitHub CLI failures look like authentication failures.
+
+The doctor does **not** install packages, mutate global `PATH`, store
+credentials, or relax validation. Treat missing modules as environment setup
+work, not as a task failure. Treat a `127.0.0.1:9` proxy warning as a local
+publication blocker: unset the proxy variables for the single `gh`/PR helper
+command after confirming network access is allowed.
+
+For `cmd.exe`, do not use PowerShell's call operator (`&`). For example:
+
+```cmd
+"C:\Program Files\GitHub CLI\gh.exe" auth login --hostname github.com --git-protocol https --web --scopes repo
+```
+
+For PowerShell, the equivalent is:
+
+```powershell
+& "C:\Program Files\GitHub CLI\gh.exe" auth login --hostname github.com --git-protocol https --web --scopes repo
+```
+
+The canonical PR helpers (`scripts/apl_task_pr_helper.py` and
+`scripts/apl_proposal_pr_helper.py`) now run GitHub CLI with discovered Git and
+GitHub CLI directories prepended to the subprocess `PATH`, so a newly installed
+Windows `gh.exe` can work without restarting the entire agent session.
+
 ## See Also
 
 - `AGENTS.md` — Cross-Platform Compatibility principle
