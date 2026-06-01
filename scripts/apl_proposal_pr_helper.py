@@ -153,7 +153,11 @@ def _manual_create_commands(args: argparse.Namespace) -> None:
 
 
 def command_create(args: argparse.Namespace) -> int:
-    from physics_lab.registry.pr_capability import find_gh_path
+    from physics_lab.registry.pr_capability import (
+        env_with_discovered_tool_paths,
+        find_gh_path,
+        suspicious_proxy_env_names,
+    )
 
     gh_path = find_gh_path()
     if gh_path is None:
@@ -162,6 +166,13 @@ def command_create(args: argparse.Namespace) -> int:
         )
         _manual_create_commands(args)
         return 127
+    proxy_names = suspicious_proxy_env_names()
+    if proxy_names:
+        sys.stderr.write(
+            "Warning: proxy env may block GitHub CLI calls: "
+            + ", ".join(proxy_names)
+            + ". Unset them for the publication command if gh reports a 127.0.0.1 connection error.\n"
+        )
     command = [
         gh_path,
         "pr",
@@ -177,7 +188,13 @@ def command_create(args: argparse.Namespace) -> int:
     ]
     if not args.ready:
         command.insert(3, "--draft")
-    completed = subprocess.run(command, check=False, text=True, capture_output=True)
+    completed = subprocess.run(
+        command,
+        check=False,
+        text=True,
+        capture_output=True,
+        env=env_with_discovered_tool_paths(),
+    )
     sys.stdout.write(completed.stdout)
     sys.stderr.write(completed.stderr)
     if completed.returncode != 0:
