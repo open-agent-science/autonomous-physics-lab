@@ -85,6 +85,11 @@ This file exists to support the first baseline residual benchmark under
 - no claim that this slice substitutes for a full AME2020 import.
 
 A broader pinned AME-style table is still a later task.
+`TASK-0516` now scopes that unblock as `NMD-0003`: a source-gated AME2020
+measured-row training surface with a pinned source artifact or retrieval
+manifest, checksum, measured/extrapolated row semantics, and a frozen split
+manifest. Until that task lands, `NMD-0002` remains a bootstrap slice rather
+than a sufficiently broad Research Factory training surface.
 
 The repository also includes a reviewed source manifest for the future
 post-AME2020 time-split lane:

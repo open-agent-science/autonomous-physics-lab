@@ -1,0 +1,59 @@
+id: TASK-0518
+title: "Run NMD-0002 uncertainty perturbation control for Nuclear factory candidates"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Use the existing 11-row Nuclear slice only as a robustness control, not as a substitute for new data."
+  - "Measure whether TASK-0507 apparent top candidates are fragile under uncertainty perturbations."
+  - "Preserve instability as negative scientific memory before larger-surface testing resumes."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "agent_runs/AGENT-RUN-0052/factory_summary.yaml"
+    - "agent_runs/AGENT-RUN-0052/metrics.json"
+    - "agent_runs/AGENT-RUN-0052/report.md"
+    - "docs/research-factory-protocol.md"
+    - "docs/nuclear-residual-factory-sprint-protocol.md"
+    - "tasks/TASK-0516-add-nmd-0003-ame2020-measured-training-dataset.yaml"
+  planning_context: >
+    The maintainer asked whether the current Nuclear slice could be tested with
+    uncertainty perturbations while NMD-0003 is prepared. This is useful as a
+    robustness/control lane: it can show whether the top TASK-0507 apparent
+    reductions are stable under measurement uncertainty. It must not be treated
+    as independent evidence for a law because it resamples the same 11 rows.
+
+requirements:
+  - "Use NMD-0002 only; do not fetch or add new measurement rows."
+  - "Use the committed uncertainty fields and deterministic random seeds."
+  - "Perturb atomic-mass or mass-excess values within declared uncertainties and re-run the relevant frozen baseline/candidate comparison enough times to estimate stability."
+  - "Track whether the top TASK-0507 candidate ordering, route verdicts, and effective reductions are stable or fragile under perturbation."
+  - "Report sensitivity to the coarse NMD-0002 uncertainty floor separately from source-grade per-row uncertainty."
+  - "Do not promote a candidate because it survives perturbation; survival only justifies replay on NMD-0003 when that dataset exists."
+  - "Do not write PRED entries, reveal scores, canonical claims, or discovery wording."
+  - "Route the final output through docs/result-promotion-protocol.md as sandbox control evidence or negative/inconclusive memory."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nmd0002-uncertainty-perturbation-control.md"
+  - "tests or deterministic smoke coverage for any new perturbation helper"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md only if the control changes campaign posture"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_residual_factory.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
