@@ -87,10 +87,19 @@ jobs:
         run: |
           ruff check .
 
+      - name: Validate repository artifacts
+        run: |
+          python -m physics_lab.cli validate-repo .
+
+      - name: Strict validate repository artifacts
+        run: |
+          python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+
       - name: Run targeted docs/task tests
         if: needs.classify.outputs.docs_task_only == 'true'
         run: |
           pytest \
+            --durations=10 \
             tests/test_active_board.py \
             tests/test_task_views.py \
             tests/test_task_proposals.py \
@@ -102,15 +111,7 @@ jobs:
       - name: Run full tests
         if: needs.classify.outputs.docs_task_only != 'true'
         run: |
-          pytest -n auto --dist loadfile -m "not full_repo"
-
-      - name: Validate repository artifacts
-        run: |
-          python -m physics_lab.cli validate-repo .
-
-      - name: Strict validate repository artifacts
-        run: |
-          python -m physics_lab.cli validate-repo . --strict --fail-on-warnings
+          pytest --durations=10 -n auto --dist loadgroup -m "not full_repo"
 
   main-matrix:
     name: Python tests (main matrix)
@@ -147,7 +148,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest -n auto --dist loadfile
+          pytest --durations=10 -n auto --dist loadgroup
 
       - name: Run example workflows
         run: |
