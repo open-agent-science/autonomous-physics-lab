@@ -1,0 +1,49 @@
+id: TASK-0521
+title: "Document agent doctor troubleshooting in onboarding protocols"
+type: developer_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Make the Windows/bootstrap diagnostics added by TASK-0519 visible from the standard agent onboarding and task execution path."
+  - "Reduce repeated maintainer intervention when agents cannot find Python, Git, GitHub CLI, or publish PRs from stale shells."
+  - "Keep diagnostics advisory and read-only so agent workflow improves without weakening validation or publication rules."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "AGENTS.md"
+    - "docs/agent-task-protocol.md"
+    - "docs/cross-platform-compatibility.md"
+    - "scripts/apl_agent_doctor.py"
+    - "tasks/TASK-0519-harden-windows-agent-bootstrap-pr-publication.yaml"
+  planning_context: >
+    TASK-0519 added a read-only agent doctor and hardened PR publication
+    diagnostics, but agents that only read the standard onboarding and task
+    protocol may not discover it before repeating manual troubleshooting. This
+    task links the doctor into the canonical agent-visible docs without changing
+    task lifecycle, validation, or permission semantics.
+
+requirements:
+  - "Mention scripts/apl_agent_doctor.py in AGENTS.md near the PR capability troubleshooting guidance."
+  - "Mention scripts/apl_agent_doctor.py in docs/agent-task-protocol.md near PR publication diagnostics."
+  - "State that the doctor is advisory/read-only and does not replace validation, task protocol, or PR helpers."
+  - "Avoid adding new required pre-work gates or platform-specific workflow forks."
+
+accepted_outputs:
+  - "AGENTS.md troubleshooting note"
+  - "docs/agent-task-protocol.md troubleshooting note"
+  - "This task file"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
