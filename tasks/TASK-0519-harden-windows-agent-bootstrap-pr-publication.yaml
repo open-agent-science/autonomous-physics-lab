@@ -1,0 +1,58 @@
+id: TASK-0519
+title: "Harden Windows agent bootstrap and PR publication diagnostics"
+type: developer_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce repeated Windows setup friction for Codex, Claude Code, and human contributors."
+  - "Separate local runtime and GitHub publication failures from task implementation failures."
+  - "Keep cross-platform validation semantics intact while making diagnostics actionable."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "docs/cross-platform-compatibility.md"
+    - "scripts/apl_pr_capability_check.py"
+    - "scripts/apl_task_pr_helper.py"
+    - "scripts/apl_proposal_pr_helper.py"
+    - "physics_lab/registry/pr_capability.py"
+    - "tasks/TASK-0469-make-windows-pytest-cli-validation-robust.yaml"
+  planning_context: >
+    A Windows Codex task run completed the scientific work but hit avoidable
+    handoff friction: python3 resolved to a WindowsApps stub, the repository
+    venv lacked dev tooling, Git and GitHub CLI were installed outside the
+    current PATH, GitHub CLI auth was valid but hidden behind proxy variables,
+    and PR helpers could not find gh/git until PATH was patched manually. This
+    task adds a lightweight diagnostic layer and Windows-aware executable
+    discovery for the PR publication path.
+
+requirements:
+  - "Add a read-only agent doctor helper that reports Python runtime, key Python modules, Git, GitHub CLI, token fallback, and suspicious proxy environment variables."
+  - "Teach PR capability discovery to find common Git for Windows and GitHub CLI installation paths when PATH is stale."
+  - "Make task/proposal PR create helpers run GitHub CLI with discovered Git/GitHub CLI directories on PATH."
+  - "Warn about known local proxy blockers such as 127.0.0.1:9 without silently mutating proxy configuration."
+  - "Document the Windows bootstrap path and keep all commands cross-platform or explicitly shell-scoped."
+  - "Do not install packages, mutate global PATH, store credentials, or relax validation."
+
+accepted_outputs:
+  - "scripts/apl_agent_doctor.py"
+  - "Windows-aware PR capability helper updates"
+  - "task/proposal PR helper publication-path updates"
+  - "tests covering Windows-style discovery and proxy diagnostics"
+  - "docs/cross-platform-compatibility.md update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_pr_capability.py"
+    - "python3 -m pytest tests/test_agent_doctor.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -6,7 +6,12 @@ import subprocess
 import sys
 from textwrap import dedent
 
-from physics_lab.registry.pr_capability import check_pr_capability
+from physics_lab.registry.pr_capability import (
+    check_pr_capability,
+    env_with_discovered_tool_paths,
+    find_git_path,
+    suspicious_proxy_env_names,
+)
 
 
 def _write_gh_stub(bin_dir: Path, *, exit_code: int = 0) -> Path:
@@ -77,6 +82,82 @@ def test_pr_capability_discovers_homebrew_style_gh_path(
     assert report.gh_path == str(fake_gh)
 
 
+def test_pr_capability_discovers_windows_style_gh_path(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    fake_gh = _write_gh_stub(tmp_path / "GitHub CLI")
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.shutil.which",
+        lambda _name, path=None: None,
+    )
+
+    report = check_pr_capability(
+        tmp_path,
+        env={},
+        candidate_paths=(str(fake_gh),),
+        require_gh_auth=False,
+    )
+
+    assert report.ok
+    assert report.gh_path == str(fake_gh)
+
+
+def test_pr_capability_discovers_git_from_candidate_paths(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    fake_git = _write_gh_stub(tmp_path / "Git" / "cmd")
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.shutil.which",
+        lambda _name, path=None: None,
+    )
+
+    assert find_git_path(candidate_paths=(str(fake_git),), env={}) == str(fake_git)
+
+
+def test_proxy_blocker_detection_reports_loopback_port() -> None:
+    hits = suspicious_proxy_env_names(
+        {
+            "HTTPS_PROXY": "http://127.0.0.1:9",
+            "HTTP_PROXY": "http://proxy.example.test:8080",
+        }
+    )
+
+    assert hits == ("HTTPS_PROXY",)
+
+
+def test_proxy_blocker_detection_deduplicates_case_variants() -> None:
+    hits = suspicious_proxy_env_names(
+        {
+            "HTTP_PROXY": "http://127.0.0.1:9",
+            "http_proxy": "http://127.0.0.1:9",
+        }
+    )
+
+    assert hits == ("HTTP_PROXY",)
+
+
+def test_env_with_discovered_tool_paths_prepends_tool_dirs(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    fake_gh = _write_gh_stub(tmp_path / "GitHub CLI")
+    fake_git = _write_gh_stub(tmp_path / "Git" / "cmd")
+    calls = {"gh": fake_gh, "git": fake_git}
+
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.shutil.which",
+        lambda name, path=None: str(calls[name]) if path in ("", None) else None,
+    )
+
+    env = env_with_discovered_tool_paths({"PATH": ""})
+    parts = [Path(part) for part in env["PATH"].split(os.pathsep)]
+
+    assert fake_gh.parent in parts
+    assert fake_git.parent in parts
+
+
 def test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     env = os.environ.copy()
@@ -105,6 +186,8 @@ def test_pr_capability_cli_reports_missing_tooling_as_warning_from_repo_root() -
 
     assert result.returncode == 0
     assert "PR capability check" in result.stdout
+    assert "git path:" in result.stdout
+    assert "suspicious proxy env:" in result.stdout
     assert "Warnings:" in result.stdout
     assert "Direct PR creation" in result.stdout or "not authenticated" in result.stdout
 

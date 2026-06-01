@@ -39,8 +39,15 @@ def main() -> int:
     else:
         print("PR capability check")
         print(f"- gh path: {report.gh_path or 'not found'}")
+        print(f"- git path: {report.git_path or 'not found'}")
         token_label = ", ".join(report.token_env_names) if report.token_env_names else "none"
         print(f"- token fallback: {token_label}")
+        proxy_label = (
+            ", ".join(report.suspicious_proxy_env_names)
+            if report.suspicious_proxy_env_names
+            else "none"
+        )
+        print(f"- suspicious proxy env: {proxy_label}")
         if report.errors:
             print("Errors:")
             for item in report.errors:

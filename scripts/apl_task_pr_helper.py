@@ -154,7 +154,11 @@ def _print_manual_create_commands(args: argparse.Namespace) -> None:
 
 
 def command_create(args: argparse.Namespace) -> int:
-    from physics_lab.registry.pr_capability import find_gh_path
+    from physics_lab.registry.pr_capability import (
+        env_with_discovered_tool_paths,
+        find_gh_path,
+        suspicious_proxy_env_names,
+    )
 
     gh_path = find_gh_path()
     if gh_path is None:
@@ -163,6 +167,13 @@ def command_create(args: argparse.Namespace) -> int:
         )
         _print_manual_create_commands(args)
         return 127
+    proxy_names = suspicious_proxy_env_names()
+    if proxy_names:
+        sys.stderr.write(
+            "Warning: proxy env may block GitHub CLI calls: "
+            + ", ".join(proxy_names)
+            + ". Unset them for the publication command if gh reports a 127.0.0.1 connection error.\n"
+        )
     command = [
         gh_path,
         "pr",
@@ -183,6 +194,7 @@ def command_create(args: argparse.Namespace) -> int:
         check=False,
         text=True,
         capture_output=True,
+        env=env_with_discovered_tool_paths(),
     )
     sys.stdout.write(completed.stdout)
     sys.stderr.write(completed.stderr)
@@ -197,7 +209,11 @@ def _print_manual_ready_command(args: argparse.Namespace) -> None:
 
 
 def command_ready(args: argparse.Namespace) -> int:
-    from physics_lab.registry.pr_capability import find_gh_path
+    from physics_lab.registry.pr_capability import (
+        env_with_discovered_tool_paths,
+        find_gh_path,
+        suspicious_proxy_env_names,
+    )
 
     gh_path = find_gh_path()
     if gh_path is None:
@@ -206,11 +222,19 @@ def command_ready(args: argparse.Namespace) -> int:
         )
         _print_manual_ready_command(args)
         return 127
+    proxy_names = suspicious_proxy_env_names()
+    if proxy_names:
+        sys.stderr.write(
+            "Warning: proxy env may block GitHub CLI calls: "
+            + ", ".join(proxy_names)
+            + ". Unset them for the publication command if gh reports a 127.0.0.1 connection error.\n"
+        )
     completed = subprocess.run(
         [gh_path, "pr", "ready", args.pr],
         check=False,
         text=True,
         capture_output=True,
+        env=env_with_discovered_tool_paths(),
     )
     sys.stdout.write(completed.stdout)
     sys.stderr.write(completed.stderr)
