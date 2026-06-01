@@ -1,0 +1,68 @@
+id: TASK-0516
+title: "Add source-gated AME2020 measured-row Nuclear training dataset (NMD-0003)"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Unblock Nuclear Mass Surface from the 11-row NMD-0002 bootstrap slice."
+  - "Create the broader source-gated training surface required before another meaningful Nuclear factory sprint."
+  - "Preserve the post-AME2020 holdout/reveal boundary by keeping later measurements out of training."
+  - "Move Nuclear from underpowered sandbox diagnostics toward reviewable large-surface residual testing."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/post_ame2020_holdout.yaml"
+    - "data/nuclear_masses/post_ame2020_sources.yaml"
+    - "data/nuclear_masses/README.md"
+    - "data/nuclear_masses/schema.md"
+    - "docs/reviews/nuclear-training-slice-expansion-feasibility.md"
+    - "docs/research-factory-protocol.md"
+    - "docs/nuclear-residual-factory-sprint-protocol.md"
+  planning_context: >
+    TASK-0507 showed that the first Nuclear residual-law factory sprint is
+    underpowered on the committed 11-row NMD-0002 training slice: 73 candidates
+    produced no shortlist, and the holdout contained only three nuclides.
+    TASK-0479 then found that immediate training expansion is blocked because
+    the repository does not yet contain a broader parsed AME2020 measured-row
+    training surface. This task creates the source-gated NMD-0003 dataset path
+    needed before any stronger Nuclear factory result can be expected.
+
+requirements:
+  - "Pin the exact AME2020/AMDC source artifact or immutable retrieval manifest used for training rows, including source URL, access date, citation, checksum, and redistribution note."
+  - "Prefer the official AMDC AME2020 ASCII mass table source; if an official artifact cannot be fetched or redistributed safely, write a blocker review that states the exact missing source/permission/checksum requirement."
+  - "Parse row-level AME2020 values into a new committed training dataset only when source provenance and redistribution boundaries are acceptable."
+  - "Preserve measured, extrapolated, and unspecified row semantics explicitly; default training eligibility must be measured rows only."
+  - "Record nuclide_id, Z, N, A, evaluation, source row id, units, mass-excess or atomic-mass value, uncertainty, and source provenance for each row."
+  - "Create a frozen split manifest before any model or factory candidate uses the new surface."
+  - "Keep post_ame2020_holdout.yaml separate from training and assert that primary post-AME2020 holdout nuclides are excluded from the NMD-0003 training split."
+  - "Preserve NMD-0002 rows either as overlap audit rows or explicitly superseded training rows; do not silently merge them without a manifest rule."
+  - "Add deterministic loader/schema tests for row-count stability, A == Z + N, duplicate nuclide ids, explicit evaluation labels, unit semantics, checksum metadata, and holdout exclusion."
+  - "Do not run residual-law candidates, Research Factory metrics, prediction reveals, or claim/result promotion in this task."
+  - "Route the final output through docs/result-promotion-protocol.md as source-curation/dataset readiness, not as a scientific claim."
+
+accepted_outputs:
+  - "data/nuclear_masses/nmd-0003-source-manifest.yaml"
+  - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml, if row-value redistribution is source-safe"
+  - "data/nuclear_masses/nmd-0003-split-manifest.yaml, if the dataset is committed"
+  - "parser or normalization helper under scripts/ or physics_lab/ if needed"
+  - "tests covering schema, row-count stability, measured/extrapolated separation, checksum metadata, and post-AME2020 holdout exclusion"
+  - "docs/reviews/nmd-0003-ame2020-training-dataset-review.md documenting source checksum, extraction method, row semantics, split policy, and any blocker"
+  - "optional update to data/nuclear_masses/README.md with NMD-0003 status"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_dataset.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
