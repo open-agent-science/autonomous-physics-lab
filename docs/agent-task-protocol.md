@@ -362,6 +362,19 @@ The agent should also offer to help the maintainer set up access, for example
 by suggesting `gh auth login` or a `GH_TOKEN`/`GITHUB_TOKEN`, but setup is not
 required for completing local validation work.
 
+If Python, Git, GitHub CLI, proxy settings, or Windows shell startup look
+inconsistent, run the read-only agent doctor before adding local workaround
+steps:
+
+```bash
+python3 scripts/apl_agent_doctor.py
+```
+
+The doctor reports environment diagnostics only. It does not install packages,
+mutate global `PATH`, store credentials, relax validation, or replace the task
+protocol. Use it to identify the next safe troubleshooting step, then continue
+with the standard PR helper flow.
+
 Use the repository PR helpers instead of calling bare `gh` in Codex sessions.
 Codex may omit Homebrew paths from `PATH`; the helpers search common GitHub CLI
 locations such as `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
