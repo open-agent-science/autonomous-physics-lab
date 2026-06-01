@@ -23,6 +23,7 @@ RANGE_LANGUAGE_MARKERS = (
 )
 STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "agent_workflow",
+    "artifact_schema",
     "code_quality_refactor",
     "evidence_policy",
     "knowledge_update",
