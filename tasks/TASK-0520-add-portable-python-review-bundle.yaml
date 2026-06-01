@@ -1,0 +1,57 @@
+id: TASK-0520
+title: "Add portable Python review-bundle generator"
+type: developer_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer review usable on Linux, macOS, and Windows."
+  - "Remove a bash-only failure from the local review-agent path."
+  - "Preserve the existing review-bundle artifact shape while making generation portable."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "scripts/apl_review_bundle.sh"
+    - "physics_lab/registry/maintainer_review.py"
+    - "docs/cross-platform-compatibility.md"
+    - "tasks/TASK-0503-cross-platform-compatibility-standard.yaml"
+  planning_context: >
+    On Windows, scripts/apl_review_pr.py failed before review because
+    ensure_review_bundle invoked ./scripts/apl_review_bundle.sh directly and
+    Windows returned WinError 193. The review bundle is optional for task PR
+    preflight but maintainer review still generates one when local branch
+    context exists. This task adds a portable Python implementation, keeps the
+    shell script as a convenience wrapper, and switches the review helper to
+    the portable entrypoint.
+
+requirements:
+  - "Add a Python review-bundle generator that preserves branch, base, timestamp, status, commit, changed-file, stat, and full-diff sections."
+  - "Invoke the Python generator from maintainer review using sys.executable."
+  - "Keep scripts/apl_review_bundle.sh as a Linux/macOS convenience wrapper."
+  - "Add focused tests for bundle content and maintainer-review generation."
+  - "Update cross-platform documentation and protocol examples to prefer the Python entrypoint."
+  - "Do not relax review checks or remove bundle validation."
+
+accepted_outputs:
+  - "physics_lab/registry/review_bundle.py"
+  - "scripts/apl_review_bundle.py"
+  - "portable maintainer-review invocation"
+  - "thin bash compatibility wrapper"
+  - "tests for portable review bundle generation"
+  - "documentation updates"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_review_bundle.py"
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
