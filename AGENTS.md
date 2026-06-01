@@ -525,6 +525,17 @@ commit, staged diff, title, or PR body as a completed pull request lifecycle;
 if the agent cannot create the PR directly, the final response must say what
 was attempted and include the manual publication commands.
 
+When Python, Git, GitHub CLI, proxy, or Windows shell setup looks inconsistent,
+run the read-only doctor before inventing local fixes:
+
+```bash
+python3 scripts/apl_agent_doctor.py
+```
+
+The doctor is diagnostic only. It does not install packages, mutate global
+`PATH`, store credentials, relax validation, or replace the PR helpers and task
+protocol. Use its output to choose the next safe troubleshooting step.
+
 Codex sessions may omit Homebrew paths from `PATH`. Use repository helpers such
 as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
 instead of calling bare `gh`; they check common GitHub CLI locations such as
