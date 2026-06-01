@@ -14,7 +14,6 @@
 - `TASK-0489` - Package Quantum Norris-Bawendi source artifact review (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0491` - Define Quantum calibration-consistency go/no-go scorecard (`research_quality_gate`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0493` - Plan Textbook Formula Audit for Stefan-Boltzmann law (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0515` - Run Exoplanet control-aware go/no-go synthesis (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0518` - Run NMD-0002 uncertainty perturbation control for Nuclear factory candidates (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## IN_PROGRESS
@@ -25,4 +24,5 @@ None.
 
 - `TASK-0479` - Run Nuclear training-slice expansion feasibility review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0507` - Run first Nuclear residual-law factory sprint (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0515` - Run Exoplanet control-aware go/no-go synthesis (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0516` - Add source-gated AME2020 measured-row Nuclear training dataset (NMD-0003) (`scientific_dataset`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
