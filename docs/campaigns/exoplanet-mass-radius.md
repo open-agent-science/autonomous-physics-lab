@@ -22,9 +22,9 @@ artifact yet.
 
 ## Public Monitoring Snapshot
 
-**Current question:** after stronger null-baseline controls, is any
-Chen-Kipping-style residual slice still worth a host-context preflight on the
-pinned NASA Exoplanet Archive PSCompPars snapshot?
+**Current question:** after stronger null-baseline controls and host-context
+missingness checks, is any Chen-Kipping-style residual slice still worth a
+bounded follow-up on the pinned NASA Exoplanet Archive PSCompPars snapshot?
 
 **Shareable result:** the compact-radius slice (`R < 1.5 R_earth`) was the
 strongest earlier matched-control diagnostic, but `TASK-0483` found that a
@@ -37,12 +37,13 @@ residual stress is control-sensitive.
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** `TASK-0481` is review-ready as the host-context
-preflight after the null-baseline audit. It found no compact-radius
-host-context axis that is benchmark-usable under the current coarse-bin floor;
-the next useful step is a control-aware go/no-go that either declares a narrow
-conditional follow-up or demotes the host-context lane to negative/control
-memory. `TASK-0480` landed as underpowered at mass-quartile resolution,
+**Active next work:** `TASK-0515` is the control-aware go/no-go synthesis
+after the null-baseline audit and landed host-context preflight. `TASK-0481`
+found no compact-radius host-context axis that is benchmark-usable under the
+current coarse-bin floor; `TASK-0515` should either declare a narrow
+conditional follow-up with explicit missingness/underpowered caveats or demote
+the host-context lane to negative/control memory. `TASK-0480` landed as
+underpowered at mass-quartile resolution,
 `TASK-0482` and `TASK-0484` packaged the second-snapshot target freeze and
 external-reviewer capsule, and `TASK-0483` landed as an `INCONCLUSIVE`
 null-baseline control panel. All work stays no-live-fetch and benchmark-only.
@@ -51,6 +52,7 @@ null-baseline control panel. All work stays no-live-fetch and benchmark-only.
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
 still packages the earlier scorecard-approved wording, but readers should pair
 it with the [null-baseline family audit](../reviews/exoplanet-null-baseline-family-audit.md)
+and [host-context preflight](../reviews/exoplanet-compact-radius-host-context-preflight.md)
 before interpreting the compact-radius diagnostic.
 
 **Research Factory posture:** Exoplanets are the second intended campaign
@@ -108,7 +110,7 @@ Current scientific reading:
   Jovian-radius, and hot-Jupiter true-mass slices. This downgrades the
   compact-radius diagnostic from "strongest survivor" to "control-sensitive
   benchmark target."
-- `TASK-0481` is **INCONCLUSIVE / review-ready**: host-context field coverage
+- `TASK-0481` is **INCONCLUSIVE**: host-context field coverage
   is often present in the compact-radius slice, but coarse bin power is
   underpowered; no compact-radius host-context axis is benchmark-usable at the
   current interpretation floor.
@@ -220,10 +222,10 @@ The campaign should mature in this order:
     and `TASK-0484`, DONE): use these for no-peek discipline and scientific
     replayability.
 13. Null-baseline family audit (`TASK-0483`, DONE) found the main residual
-    slices control-sensitive; host-context preflight (`TASK-0481`,
-    REVIEW_READY) found conditional/underpowered host-context coverage rather
+    slices control-sensitive; host-context preflight (`TASK-0481`, DONE) found
+    conditional/underpowered host-context coverage rather
     than a benchmark-usable compact-radius host axis.
-14. Make a control-aware go/no-go synthesis before any bounded autonomous
+14. Run the control-aware go/no-go synthesis (`TASK-0515`, READY) before any bounded autonomous
     residual pilot: either define a narrow conditional missingness-aware task
     or preserve compact-radius host context as negative/control memory.
 15. Treat the Exoplanet Research Factory adapter as contract-only until the
