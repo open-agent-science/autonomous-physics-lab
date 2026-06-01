@@ -115,6 +115,32 @@ work, not as a task failure. Treat a `127.0.0.1:9` proxy warning as a local
 publication blocker: unset the proxy variables for the single `gh`/PR helper
 command after confirming network access is allowed.
 
+The default doctor path is read-only. If parallel pytest fails on Windows,
+run the opt-in disposable runtime probe:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\apl_agent_doctor.py --probe-pytest-runtime --no-gh-auth-check
+```
+
+The probe checks the default xdist path, then tries a unique short basetemp
+such as `--basetemp=C:/tmp/apl-pytest-<unique-id>` on Windows, then tries an
+ignored workspace-local fallback such as
+`--basetemp=.pytest-basetemp/session-<unique-id>`. Prefer the short system-temp
+fallback when it works: deep worktree paths can hit Windows path-length limits.
+Use a unique path so parallel agents do not share scratch state. A restricted
+sandbox may deny all fallback paths; in that case request permission for the
+targeted pytest command instead of switching to a serial full-suite run. For
+narrow task PRs, do not automatically run the full suite serially after an
+xdist or temp-directory failure. Use targeted `-n0` debugging and rely on CI
+for the broad cross-platform lane. The advisory
+`scripts/apl_task_validation_plan.py --task TASK-XXXX` helper prints the
+task-specific local commands and flags changed surfaces that warrant the
+parallel fast lane.
+
+`scripts/validate_fast.py` also isolates measured `resource_sensitive` tests
+as a final serial layer on Windows while leaving the rest of the suite
+parallel. This is deliberately narrower than a serial full-suite fallback.
+
 For `cmd.exe`, do not use PowerShell's call operator (`&`). For example:
 
 ```cmd
