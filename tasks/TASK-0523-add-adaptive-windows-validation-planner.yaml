@@ -1,4 +1,4 @@
-id: TASK-0522
+id: TASK-0523
 title: "Add adaptive Windows validation planner and pytest runtime probe"
 type: maintainer_workflow
 status: REVIEW_READY
@@ -59,7 +59,7 @@ validation:
     - "python3 -m pytest tests/test_agent_doctor.py tests/test_task_validation_plan.py tests/test_docs_links.py"
     - "python3 -m pytest tests/test_validate_fast.py"
     - "python3 scripts/validate_fast.py"
-    - "python3 scripts/apl_task_validation_plan.py --task TASK-0522"
+    - "python3 scripts/apl_task_validation_plan.py --task TASK-0523"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
