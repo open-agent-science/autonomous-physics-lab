@@ -1,7 +1,7 @@
 id: TASK-0512
 title: "Retire the redundant agent capacity board; capacity lives in the catalog"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
