@@ -1,7 +1,7 @@
 id: TASK-0507
 title: "Run first Nuclear residual-law factory sprint"
 type: scientific_validation
-status: BLOCKED
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -58,7 +58,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_nuclear_residual_factory.py"
-    - "python3 scripts/run_research_factory.py --config examples/nuclear_residual_factory_sprint.yaml --output-dir /tmp/apl-nuclear-factory-sprint"
+    - "python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_sprint.yaml --output-dir /tmp/apl-nuclear-factory-sprint"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
