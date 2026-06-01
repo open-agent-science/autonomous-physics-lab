@@ -23,7 +23,7 @@ input:
     - "agent_runs/AGENT-RUN-0052/report.md"
     - "docs/reviews/nuclear-training-slice-expansion-feasibility.md"
   planning_context: >
-    TASK-0507 proved that the shared Nuclear Research Factory can generate,
+    TASK-0507 showed that the shared Nuclear Research Factory can generate,
     control, rank, and route many candidates, but its 11-row NMD-0002 surface is
     too small to support a shortlist. This task is the first large-surface
     factory sprint and must remain blocked until TASK-0516 lands a source-safe
