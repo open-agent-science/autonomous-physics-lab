@@ -47,10 +47,10 @@ requirements:
   - "Do not claim a universal nuclear mass formula or discovery."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/factory_summary.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
-  - "docs/results/nuclear-residual-factory-sprint.md or docs/reviews/nuclear-residual-factory-sprint.md, depending on result-promotion routing"
+  - "agent_runs/AGENT-RUN-0052/factory_summary.yaml"
+  - "agent_runs/AGENT-RUN-0052/metrics.json"
+  - "agent_runs/AGENT-RUN-0052/report.md"
+  - "docs/reviews/nuclear-residual-factory-sprint.md"
   - "optional update to docs/campaigns/nuclear-mass-surface.md with shortlist or negative-memory status"
   - "optional follow-up task proposals only if a candidate reaches READY_FOR_REPLAY or READY_FOR_PRED_FREEZE"
 
