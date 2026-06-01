@@ -1,7 +1,7 @@
 id: TASK-0505
 title: "Add factory summary artifact schema"
 type: artifact_schema
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
