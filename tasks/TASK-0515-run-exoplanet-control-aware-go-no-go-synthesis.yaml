@@ -1,7 +1,7 @@
 id: TASK-0515
 title: "Run Exoplanet control-aware go/no-go synthesis"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
