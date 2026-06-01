@@ -28,9 +28,10 @@ near-term task selection.
 
 ## NOW
 
-APL currently keeps three active scientific campaigns. "Active" does not mean
-claim-ready; it means there are concrete, reviewable tasks that can move the
-evidence surface forward without discovery framing.
+APL should keep at least four active scientific surfaces visible in the READY
+pool when parallel agents are available. "Active" does not mean claim-ready; it
+means there are concrete, reviewable tasks that can move the evidence surface
+forward without discovery framing.
 
 ### Nuclear Mass Surface
 

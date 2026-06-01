@@ -11,10 +11,12 @@ task ids.
 
 The target pool is:
 
-- minimum: 5 independent READY science tasks;
-- preferred during public/open-agent onboarding: 6-10 READY science tasks;
-- campaign/surface coverage: at least 3 active scientific surfaces when
+- minimum: 8 independent READY science tasks;
+- preferred during public/open-agent onboarding: 12-15 READY science tasks;
+- campaign/surface coverage: at least 4 active scientific surfaces when
   possible.
+- concentration guard: no single campaign/surface should hold more than about
+  40% of READY science tasks.
 
 ## What Counts
 
@@ -50,7 +52,9 @@ The JSON includes `ready_science_pool_health` with:
 - `ready_science_count`;
 - `ready_science_task_ids`;
 - `active_surfaces`;
+- `surface_task_counts`;
 - minimum/preferred/target thresholds;
+- same-surface concentration threshold and warning flag;
 - `task_queue_needed`;
 - advisory notes.
 
@@ -67,6 +71,15 @@ When the pool is below target, prefer adding a small task queue with:
 - 1 packaging or blocker-review task;
 - at most one infrastructure task unless it directly unblocks a campaign.
 
+For a larger parallel-agent wave, prefer a queue that restores the preferred
+range across multiple surfaces rather than filling all tasks in one campaign:
+
+- 3-5 Nuclear tasks only when they remove a real data, replay, or promotion
+  blocker;
+- 2-4 Exoplanet or other large-public-data benchmark tasks;
+- 2-4 source-gated Quantum / Atomic / Materials tasks;
+- 1-2 evidence-card or negative-result preservation tasks.
+
 Do not add broad formula-search tasks only to inflate the READY count. Source
 gates, negative results, and blocker reviews are valid scientific work when
 they move a campaign toward reviewable outputs.
@@ -77,4 +90,6 @@ they move a campaign toward reviewable outputs.
   tasks as executor choices.
 - Do not auto-create canonical task files from the health warning.
 - Do not treat READY pool size as scientific success.
+- Do not let one campaign dominate more than about 40% of READY science tasks
+  unless the maintainer explicitly chooses a temporary focused sprint.
 - Do not let a low READY pool justify claim promotion or discovery wording.
