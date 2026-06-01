@@ -14,11 +14,12 @@ from __future__ import annotations
 from pathlib import Path
 
 import numpy as np
+import yaml
 
 from physics_lab.engines.nuclear_mass_baselines import (
     MAGIC_NUMBERS,
+    SemiEmpiricalCoefficients,
     evaluate_baseline,
-    fit_semi_empirical_coefficients,
     pairing_sign,
 )
 from physics_lab.engines.nuclear_masses import load_nuclear_mass_dataset
@@ -34,6 +35,7 @@ LEAKAGE_SENSITIVE_FAMILIES = (
 )
 MIN_HOLDOUT_ROWS = 3
 SHORTLIST_MIN_REDUCTION = 0.05
+COEFFICIENT_KEYS = ("volume", "surface", "coulomb", "asymmetry", "pairing")
 
 
 def _nearest_magic_distance(value: int) -> int:
@@ -61,6 +63,47 @@ def _fit_coefficient(feature: np.ndarray, residual: np.ndarray) -> float:
     return float(np.sum(feature * residual) / denom)
 
 
+def _coefficients_from_mapping(payload: dict[str, object]) -> SemiEmpiricalCoefficients:
+    missing = [key for key in COEFFICIENT_KEYS if key not in payload]
+    if missing:
+        raise ValueError(f"Frozen baseline coefficients missing keys: {', '.join(missing)}")
+    return SemiEmpiricalCoefficients(
+        volume=float(payload["volume"]),
+        surface=float(payload["surface"]),
+        coulomb=float(payload["coulomb"]),
+        asymmetry=float(payload["asymmetry"]),
+        pairing=float(payload["pairing"]),
+    )
+
+
+def _load_frozen_coefficients(baseline: dict[str, object]) -> SemiEmpiricalCoefficients:
+    if "coefficients" in baseline:
+        coefficients = baseline["coefficients"]
+        if not isinstance(coefficients, dict):
+            raise ValueError("baseline.coefficients must be a mapping")
+        return _coefficients_from_mapping(coefficients)
+
+    coefficients_ref = baseline.get("coefficients_ref")
+    if not coefficients_ref:
+        raise ValueError(
+            "Nuclear factory requires frozen baseline coefficients via "
+            "baseline.coefficients or baseline.coefficients_ref; no baseline refit is allowed."
+        )
+
+    path = Path(str(coefficients_ref))
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    scores = payload.get("scores", [])
+    wanted_model = str(baseline.get("coefficients_model_id", "model_fitted_semi_empirical"))
+    for score in scores:
+        if isinstance(score, dict) and score.get("model_id") == wanted_model:
+            coefficients = score.get("coefficients")
+            if not isinstance(coefficients, dict):
+                raise ValueError(f"Model {wanted_model!r} has no coefficient mapping")
+            return _coefficients_from_mapping(coefficients)
+
+    raise ValueError(f"Frozen baseline coefficient model {wanted_model!r} not found in {path}")
+
+
 class NuclearResidualFactoryAdapter:
     """Bounded residual-law adapter over a committed nuclear-mass slice."""
 
@@ -72,7 +115,7 @@ class NuclearResidualFactoryAdapter:
         dataset = load_nuclear_mass_dataset(Path(snapshot_ref))
         entries = list(dataset.entries)
 
-        coefficients = fit_semi_empirical_coefficients(entries)
+        coefficients = _load_frozen_coefficients(spec.baseline)
         baseline_rows = evaluate_baseline(
             entries=entries,
             model_id=str(spec.baseline.get("baseline_id", "nuclear-semi-empirical-fit")),
@@ -89,12 +132,11 @@ class NuclearResidualFactoryAdapter:
         train_idx = list(range(split))
         holdout_idx = list(range(split, len(rows)))
 
-        leakage_checked = bool(spec.options.get("leakage_check_applied", False))
         candidates: list[Candidate] = []
         for family in spec.families:
             if len(candidates) >= spec.candidate_cap:
                 break
-            if family in LEAKAGE_SENSITIVE_FAMILIES and not leakage_checked:
+            if family in LEAKAGE_SENSITIVE_FAMILIES:
                 candidates.append(
                     Candidate(
                         candidate_id=f"CAND-{len(candidates) + 1:04d}",
@@ -105,7 +147,10 @@ class NuclearResidualFactoryAdapter:
                         route_verdict="DATA_QUALITY_BLOCKED",
                         parameters={"form": "linear"},
                         control_outcomes=(
-                            {"name": "leakage_guard", "outcome": "blocked: no leakage check applied"},
+                            {
+                                "name": "leakage_guard",
+                                "outcome": "blocked: family requires a dedicated no-leakage implementation",
+                            },
                         ),
                     )
                 )
@@ -168,6 +213,7 @@ class NuclearResidualFactoryAdapter:
             "train_count": len(train_idx),
             "holdout_count": len(holdout_idx),
             "baseline_model_id": baseline_block["baseline_id"],
+            "baseline_coefficients_ref": str(spec.baseline.get("coefficients_ref", "inline")),
         }
         return FactoryRun(
             dataset=dataset_block,

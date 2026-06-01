@@ -36,6 +36,16 @@ def test_smoke_config_runs_and_is_schema_valid() -> None:
     assert validate_document(summary, "factory_summary", "x/factory_summary.yaml") is summary
 
 
+def test_smoke_config_uses_committed_frozen_baseline_coefficients() -> None:
+    spec = _smoke_spec()
+    summary = run_factory(spec, get_adapter(spec.adapter_id))
+
+    assert spec.baseline["coefficients_ref"] == "results/EXP-0012/RUN-0001/result.yaml"
+    assert summary["campaign_specific"]["baseline_coefficients_ref"] == (
+        "results/EXP-0012/RUN-0001/result.yaml"
+    )
+
+
 def test_route_verdicts_are_canonical() -> None:
     summary = run_factory(_smoke_spec(), get_adapter("nuclear_residual_factory"))
     canonical = {
@@ -65,11 +75,13 @@ def test_leakage_sensitive_family_is_blocked_without_check() -> None:
     assert candidate["route_verdict"] == "DATA_QUALITY_BLOCKED"
 
 
-def test_leakage_sensitive_family_runs_when_check_applied() -> None:
+def test_leakage_sensitive_family_stays_blocked_even_with_generic_flag() -> None:
     config = yaml.safe_load(SMOKE_CONFIG.read_text(encoding="utf-8"))
-    config["families"] = ["shell_distance"]
+    config["families"] = ["local_curvature"]
     config["options"] = {"leakage_check_applied": True}
     spec = FactorySpec.from_config(config)
     summary = run_factory(spec, get_adapter("nuclear_residual_factory"))
+
     assert summary["candidate_counts"]["generated"] == 1
-    assert summary["candidates"][0]["candidate_state"] != "PREFLIGHT_REJECTED"
+    assert summary["candidates"][0]["candidate_state"] == "PREFLIGHT_REJECTED"
+    assert summary["candidates"][0]["route_verdict"] == "DATA_QUALITY_BLOCKED"

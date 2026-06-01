@@ -18,7 +18,8 @@ artifact.
   validation of the summary before it leaves the core**), and
   `write_factory_summary`.
 - `physics_lab/factories/nuclear.py` — `NuclearResidualFactoryAdapter`: loads the
-  committed nuclide slice, fits the frozen semi-empirical baseline (reusing
+  committed nuclide slice, reads frozen semi-empirical baseline coefficients from
+  the committed `RESULT-0015` artifact (reusing
   `physics_lab/engines/nuclear_mass_baselines.py`), builds residual-correction
   candidates from `shell_distance` and `odd_even_pairing`, applies a null-baseline
   and a shuffled-feature control, and routes each candidate.
@@ -52,8 +53,8 @@ vocabulary, and schema validity for every adapter.
 - Leakage-sensitive families (`residual_free_local_topology`,
   `separation_energy_derived`, `local_curvature`) are **blocked**
   (`PREFLIGHT_REJECTED` / `DATA_QUALITY_BLOCKED`, `leakage_status: NOT_CHECKED`)
-  unless the config sets `options.leakage_check_applied: true`, per the
-  no-leakage contracts.
+  in this smoke adapter until a dedicated no-leakage implementation is added.
+  They do not silently execute just because a config flag is present.
 
 ## Deviation from the task's accepted-output path
 
@@ -68,6 +69,8 @@ validation green without weakening it.
 
 - Bounded two-family smoke over an 11-nuclide committed slice; the numbers are
   plumbing, not a scientific result.
+- The baseline is not refit during the factory run; coefficients are read from
+  the committed `results/EXP-0012/RUN-0001/result.yaml` artifact.
 - No `prediction_registry`, `results/`, `claims/`, or `knowledge/` writes; the
   `factory_summary` is a per-run sandbox artifact written to the chosen
   `--output-dir`.

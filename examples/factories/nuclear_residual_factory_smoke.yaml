@@ -13,6 +13,8 @@ dataset:
 baseline:
   baseline_id: nuclear-semi-empirical-fit
   baseline_type: frozen
+  coefficients_ref: results/EXP-0012/RUN-0001/result.yaml
+  coefficients_model_id: model_fitted_semi_empirical
 families:
   - shell_distance
   - odd_even_pairing
