@@ -67,7 +67,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge, but the next positive-result path is data-gated: create source-gated NMD-0003 AME2020 measured training data before another full factory sprint, preserve latest negative/control/local lanes, and keep reveal scoring blocked until a source-grade no-peek release exists."
+    recommendation: "Flagship validation challenge, and the next positive-result path is now the source-gated NMD-0003 factory sprint: run bounded Research Factory candidates on the committed AME2020 measured training surface, preserve latest negative/control/local lanes, and keep reveal scoring blocked until a source-grade no-peek release exists."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -84,6 +84,7 @@ missions:
       - "TASK-0474 and TASK-0475 landed as negative/control results, while TASK-0476 showed shell-axis transfer is mixed and chain-local rather than broadly predictive"
       - "TASK-0507 ran the first Research Factory sprint on NMD-0002 and produced no shortlist: the current 11-row training slice is underpowered for strong residual-law conclusions"
       - "TASK-0479 identified NMD-0003 source-gated AME2020 measured training data as the blocker before another meaningful Nuclear factory sprint"
+      - "TASK-0516 landed the NMD-0003 source-gated AME2020 measured training surface with 2309 committed rows and frozen holdout exclusions"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -144,8 +145,8 @@ missions:
           - "Treat TASK-0474 and TASK-0475 as additional negative/control memory, not promising formula candidates"
           - "Treat TASK-0476 as evidence that shell-axis behavior is chain-local and mixed under leave-family-out transfer"
           - "Prefer TASK-0477, TASK-0478, and TASK-0479 over new broad Nuclear fitting lanes"
-          - "Prefer TASK-0516 as the next Nuclear unblock: source-gated NMD-0003 training data before another full factory sprint"
-          - "Keep TASK-0517 blocked until NMD-0003 exists with a frozen split manifest"
+          - "Prefer TASK-0517 as the next Nuclear large-surface test: run the Research Factory on source-gated NMD-0003 training data"
+          - "Keep post_ame2020_holdout.yaml out of training; use it only through explicit retrospective/reveal-style validation tasks"
           - "Use TASK-0518 only as an NMD-0002 uncertainty-control lane, not as independent validation data"
           - "New Nuclear hypothesis lanes must predeclare leakage checks, negative controls, and stop conditions before candidate fitting"
         validation:
