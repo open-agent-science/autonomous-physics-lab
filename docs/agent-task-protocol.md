@@ -473,8 +473,23 @@ not change accidentally.
 `python3 -m pytest` runs in parallel by default via `pytest-xdist` (part of the
 dev extras: `pip install -e ".[dev]"`), matching CI on Windows, macOS, and
 Linux. For a faster cross-platform inner loop use
-`python3 scripts/validate_fast.py` (lint plus non-`full_repo` tests). Add
-`-n0` to force a serial run when debugging a single test.
+`python3 scripts/validate_fast.py` (lint, strict repository validation, then
+non-`full_repo` tests with a slowest-ten timing report). Add
+`-n0` to force a serial run when debugging a single test. For a narrow task
+PR, start with the validation commands declared in its task YAML and use
+`python3 scripts/apl_task_validation_plan.py --task TASK-XXXX` for advisory
+diff-aware guidance. If a Windows sandbox blocks parallel pytest, run
+`python3 scripts/apl_agent_doctor.py --probe-pytest-runtime --no-gh-auth-check`.
+Do not automatically replace a narrow PR's validation with a serial full-suite
+run: use targeted `-n0` debugging and let CI provide broad cross-platform
+coverage.
+
+Treat test priority as a staged-lane concern. Run cheap deterministic gates
+before the parallel pytest layer and keep slow `full_repo` smoke tests at the
+end. Do not introduce dependencies between individual tests merely to control
+their xdist scheduling order. Put tests with measured xdist resource or path
+sensitivity in the same `xdist_group`, which keeps them on one worker while
+unrelated tests continue in parallel.
 
 Before opening a PR, agents may optionally generate a review bundle for the
 maintainer. This is no longer a required step and its absence is not flagged by

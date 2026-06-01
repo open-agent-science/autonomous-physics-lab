@@ -8,6 +8,11 @@ from pathlib import Path
 
 import pytest
 
+pytestmark = [
+    pytest.mark.resource_sensitive,
+    pytest.mark.xdist_group(name="exoplanet_snapshot"),
+]
+
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -243,8 +248,8 @@ def test_write_outputs_and_validate_agent_run(tmp_path, metrics):
     assert payload["promotion_boundary"]["writes_canonical_result"] is False
 
 
-def test_committed_agent_run_manifest_validates_under_repo_root():
-    payload = scout._build_agent_run_payload(scout.build_metrics(SNAPSHOT_PATH))
+def test_committed_agent_run_manifest_validates_under_repo_root(metrics):
+    payload = scout._build_agent_run_payload(metrics)
     validate_agent_run_payload(
         payload,
         source=ROOT / "agent_runs" / scout.AGENT_RUN_ID / "agent_run.yaml",
