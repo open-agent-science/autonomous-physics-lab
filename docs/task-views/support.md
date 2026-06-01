@@ -14,6 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0520` - Add portable Python review-bundle generator (`developer_infrastructure`, priority `high`, difficulty `medium`, domain `maintainer_review`)
-- `TASK-0521` - Document agent doctor troubleshooting in onboarding protocols (`developer_infrastructure`, priority `medium`, difficulty `low`, domain `contributor_experience`)
-- `TASK-0522` - Raise READY science pool targets for larger parallel agent waves (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `mission_control`)
+None.

@@ -22,7 +22,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0479` - Run Nuclear training-slice expansion feasibility review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0507` - Run first Nuclear residual-law factory sprint (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0515` - Run Exoplanet control-aware go/no-go synthesis (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0516` - Add source-gated AME2020 measured-row Nuclear training dataset (NMD-0003) (`scientific_dataset`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+None.

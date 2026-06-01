@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0519` - Harden Windows agent bootstrap and PR publication diagnostics (`developer_infrastructure`, priority `high`, difficulty `medium`, domain `contributor_experience`)
+None.
