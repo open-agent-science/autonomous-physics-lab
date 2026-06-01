@@ -18,7 +18,7 @@ from physics_lab.registry.task_validation_plan import build_task_validation_plan
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--task", required=True, help="Canonical task id, for example TASK-0522.")
+    parser.add_argument("--task", required=True, help="Canonical task id, for example TASK-XXXX.")
     parser.add_argument("--root", default=".")
     parser.add_argument("--changed-file", action="append", default=None)
     parser.add_argument("--json", action="store_true")
