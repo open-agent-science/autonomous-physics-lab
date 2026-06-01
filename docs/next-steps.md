@@ -207,16 +207,18 @@ The nuclear queue should stay conservative:
   evidence, but not a discovery candidate, not a reveal-scoring
   justification, and not a reason to keep slicing the same lane.
 
-Portfolio status: APL now keeps three active scientific campaigns with
-different maturity levels: Nuclear Mass Surface as the flagship validation
-track, Quantum Size Effects as the measurement-readiness track, and Atomic
-Clock Residuals as the fresh-data source-surface track. Exoplanet Mass-Radius
-is the planned fourth campaign; it should stay source/schema-only until a
-pinned catalog snapshot, holdout protocol, and baseline task exist.
+Portfolio status: APL should keep at least four active scientific surfaces in
+the READY pool when parallel agents are available. Nuclear Mass Surface remains
+the flagship validation track, while Quantum Size Effects, Atomic Clock
+Residuals, Exoplanet Mass-Radius, Textbook Formula Audit, and future Materials
+lanes should carry source, baseline, holdout, and blocker-review work at
+different maturity levels.
 
-The next parallel research wave should maintain at least five independent
-scientific `READY` tasks across those campaigns. The current task-queue wave
-opens fresh lanes instead of extending the shell-axis audit loop:
+The next parallel research wave should maintain at least eight independent
+scientific `READY` tasks, prefer 12-15 during larger agent waves, span at least
+four surfaces, and avoid letting one campaign hold more than about 40% of the
+READY science pool. The current task-queue wave opens fresh lanes instead of
+extending the shell-axis audit loop:
 
 - `TASK-0338` for Nuclear deformation-proxy hypothesis testing;
 - `TASK-0339` for Nuclear local residual curvature and kink testing;

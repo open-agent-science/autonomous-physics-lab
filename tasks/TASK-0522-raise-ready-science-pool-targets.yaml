@@ -1,0 +1,56 @@
+id: TASK-0522
+title: "Raise READY science pool targets for larger parallel agent waves"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep enough meaningful READY science tasks available for larger multi-agent waves."
+  - "Prevent the Scientific Campaign Director from treating a 5-6 task pool as sufficient for 20-50 agents."
+  - "Encourage portfolio breadth by requiring more active scientific surfaces and warning on single-campaign concentration."
+
+input:
+  mode: workflow
+  related_domain: mission_control
+  related_objects:
+    - "physics_lab/registry/mission_control.py"
+    - "docs/task-queue-health-policy.md"
+    - "docs/agent-operating-model.md"
+    - "docs/future-research-portfolio.md"
+    - "docs/next-steps.md"
+  planning_context: >
+    The maintainer wants the Scientific Campaign Director and mission-control
+    tooling to support larger parallel agent waves. The old advisory target
+    of 5 minimum / 6 preferred READY science tasks across 3 surfaces is too
+    small for that operating mode. This task raises the policy and JSON health
+    thresholds while keeping them warning-only and non-blocking for normal CI.
+
+requirements:
+  - "Raise the minimum READY science task target to 8."
+  - "Raise the preferred READY science task target to 12, with documentation describing the 12-15 preferred range."
+  - "Raise the target active scientific surfaces to 4."
+  - "Add an advisory concentration guard so no single campaign/surface should hold more than about 40% of READY science tasks."
+  - "Expose the new thresholds and concentration status in mission-control JSON."
+  - "Keep the health check warning-only; it must not fail repository validation or auto-create tasks."
+  - "Update tests and policy docs to match the new targets."
+  - "Do not create filler tasks or change scientific claim/promotion policy."
+
+accepted_outputs:
+  - "updated physics_lab/registry/mission_control.py"
+  - "updated tests/test_mission_control.py"
+  - "updated docs/task-queue-health-policy.md"
+  - "small strategy/status doc updates only where old target numbers would mislead agents"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py tests/test_docs_links.py"
+    - "python3 scripts/apl_mission.py --output json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
