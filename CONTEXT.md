@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-06-01 06:48 UTC
+Generated: 2026-06-01 19:26 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -543,6 +543,17 @@ commit, staged diff, title, or PR body as a completed pull request lifecycle;
 if the agent cannot create the PR directly, the final response must say what
 was attempted and include the manual publication commands.
 
+When Python, Git, GitHub CLI, proxy, or Windows shell setup looks inconsistent,
+run the read-only doctor before inventing local fixes:
+
+```bash
+python3 scripts/apl_agent_doctor.py
+```
+
+The doctor is diagnostic only. It does not install packages, mutate global
+`PATH`, store credentials, relax validation, or replace the PR helpers and task
+protocol. Use its output to choose the next safe troubleshooting step.
+
 Codex sessions may omit Homebrew paths from `PATH`. Use repository helpers such
 as `scripts/apl_pr_capability_check.py` and `scripts/apl_task_pr_helper.py`
 instead of calling bare `gh`; they check common GitHub CLI locations such as
@@ -903,14 +914,17 @@ query the on-demand task-to-campaign index
 ## Recommended Mission Now
 
 **Exoplanet Mass-Radius Benchmark** is the default near-term science-output
-sprint.
+sprint. `TASK-0515` records `NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY` for
+another compact-radius residual or host-context pilot on the current pinned
+snapshot. Reopen the residual lane only after a materially changed pinned
+snapshot or explicitly revised coverage gate.
 
 Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
-default work is not another broad Nuclear hypothesis burst; it is hardening the
-Exoplanet benchmark diagnostic with null baselines, review-ready host-context
-preflight, and frozen second-snapshot discipline while keeping all wording
-benchmark-only.
+default work is not another broad Nuclear hypothesis burst; it is preserving
+the Exoplanet benchmark negative/control memory, frozen second-snapshot
+discipline, and benchmark-only wording until a materially changed input surface
+is reviewed.
 At handoff, agents should route the output through
 [`result-promotion-protocol.md`](./result-promotion-protocol.md): state the
 verdict, destination, review tier, Gate A/B status, limitations, and blockers.
@@ -935,7 +949,7 @@ turning watchlist topics into formula-search work.
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is falsified, the residual-free cluster lane is inconclusive, pairing-asymmetry and magic-parity controls are negative, and shell-axis transfer is mixed/chain-local | negative evidence card, F2 finer-taxonomy preflight, training-slice feasibility, and reveal-source readiness; do not repeat completed weak lanes |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control diagnostic, null-baseline control panel, mass-quartile underpowered diagnostic, target-freeze protocol, external-reviewer capsule, and review-ready host-context preflight | control-aware go/no-go before any further residual pilot |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control diagnostic, null-baseline control panel, mass-quartile underpowered diagnostic, target-freeze protocol, external-reviewer capsule, landed host-context preflight, and `TASK-0515` no-go synthesis | Preserve negative/control memory until a materially changed pinned snapshot or coverage gate is reviewed |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows, deterministic real-row loader, synthetic cross-source dry-run, Nemitz 2016 source artifact pinned but rows blocked, and first-benchmark covariance policy defined | fallback source triage, direct-vs-derived separation, then baseline-readiness gate |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas | Stellar Mass-Luminosity review, plus Wien and Stefan-Boltzmann source/baseline planning before any metrics |
@@ -958,7 +972,7 @@ Near-term portfolio shape:
 | Portfolio role | Campaigns | Notes |
 | --- | --- | --- |
 | Flagship validation challenge | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature, pairing-asymmetry, magic-parity, and mixed shell-axis transfer as negative/control/local memory unless a later review creates a narrower publication artifact. Continue packaging and preflights before new fitting. |
-| Default science-output sprint | Exoplanet Mass-Radius | Continue pinned-snapshot residual maps, matched controls, null-baseline audits, target-freeze protocol, benchmark-only replication packaging, and the next control-aware go/no-go after host-context preflight. |
+| Default science-output sprint | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source discipline and reopen residual audits only after a materially changed snapshot or coverage gate. |
 | Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting. |
 | Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Close second-source, loader, holdout/no-peek, and covariance-policy blockers before the first Yb/Sr consistency benchmark. |
 | New public-friendly scaffold | Textbook Formula Audit | Start with Stellar Mass-Luminosity source/baseline planning; no metrics before source, schema, holdout, and verification gates. |
@@ -1047,18 +1061,20 @@ when a suitable READY option exists.
 <!-- source: missions/current.yaml -->
 
 default_mode: research
-updated: "2026-05-31"
+updated: "2026-06-01"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-31"
-  source: "TASK-0496"
+  updated: "2026-06-01"
+  source: "TASK-0515"
   note: >
     Mission guidance now reflects the latest merged science wave. Nuclear
     remains the flagship validation challenge, but recent controls-first lanes
     landed as negative, inconclusive, or chain-local memory. The default
     near-term science-output sprint moves to Exoplanet Mass-Radius while
-    Atomic and Quantum continue through source/covariance gates.
+    Atomic and Quantum continue through source/covariance gates. TASK-0515 now
+    preserves the current Exoplanet compact-radius surface as negative/control
+    memory until a materially changed snapshot or coverage gate is reviewed.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -1113,7 +1129,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge, but not the nearest positive-result sprint: preserve the latest negative/control/local lanes, finish F2/training-slice preflights, and keep reveal scoring blocked until a source-grade no-peek release exists."
+    recommendation: "Flagship validation challenge, but the next positive-result path is data-gated: create source-gated NMD-0003 AME2020 measured training data before another full factory sprint, preserve latest negative/control/local lanes, and keep reveal scoring blocked until a source-grade no-peek release exists."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1128,6 +1144,8 @@ missions:
       - "TASK-0333 fixed shell-axis as diagnostic-only, so fresh hypothesis lanes should replace additional shell-axis slicing"
       - "TASK-0394 falsified LOCAL-CURVATURE-001 under the bounded no-leakage/control panel, so local-curvature is now negative/inconclusive memory unless TASK-0428 narrows the publication boundary"
       - "TASK-0474 and TASK-0475 landed as negative/control results, while TASK-0476 showed shell-axis transfer is mixed and chain-local rather than broadly predictive"
+      - "TASK-0507 ran the first Research Factory sprint on NMD-0002 and produced no shortlist: the current 11-row training slice is underpowered for strong residual-law conclusions"
+      - "TASK-0479 identified NMD-0003 source-gated AME2020 measured training data as the blocker before another meaningful Nuclear factory sprint"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1188,6 +1206,9 @@ missions:
           - "Treat TASK-0474 and TASK-0475 as additional negative/control memory, not promising formula candidates"
           - "Treat TASK-0476 as evidence that shell-axis behavior is chain-local and mixed under leave-family-out transfer"
           - "Prefer TASK-0477, TASK-0478, and TASK-0479 over new broad Nuclear fitting lanes"
+          - "Prefer TASK-0516 as the next Nuclear unblock: source-gated NMD-0003 training data before another full factory sprint"
+          - "Keep TASK-0517 blocked until NMD-0003 exists with a frozen split manifest"
+          - "Use TASK-0518 only as an NMD-0002 uncertainty-control lane, not as independent validation data"
           - "New Nuclear hypothesis lanes must predeclare leakage checks, negative controls, and stop conditions before candidate fitting"
         validation:
           - "python3 -m ruff check ."
@@ -1568,7 +1589,7 @@ missions:
     status: active_science_output_sprint
     scientific_value: high
     risk: medium
-    recommendation: "Default near-term science-output sprint: review the host-context preflight and make a control-aware go/no-go decision before any further compact-radius residual pilot."
+    recommendation: "Default near-term science-output sprint: preserve the current compact-radius residual surface as negative/control memory and reopen only after a materially changed pinned snapshot or coverage gate is reviewed."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -1581,6 +1602,7 @@ missions:
       - "TASK-0482 froze the second-snapshot target set and reveal conditions without live fetching"
       - "TASK-0484 packaged an external-reviewer replication capsule around the current benchmark metrics"
       - "TASK-0483 found that nearest-radius null baselines match or beat CK17-style residuals across the highlighted true-mass slices, so the compact-radius story is control-sensitive"
+      - "TASK-0515 recorded NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY for another compact-radius residual or host-context pilot on the current pinned snapshot"
     forbidden:
       - "do not fetch live archive data before a pinned snapshot policy exists"
       - "do not run mass-radius metrics before schema and holdout protocol exist"
@@ -1614,16 +1636,28 @@ missions:
           - "future host-context work must be framed as conditional/underpowered unless a new task declares a narrower missingness analysis"
       - id: exoplanet-control-aware-go-no-go
         label: "Review host-context preflight and decide whether any compact-radius residual follow-up remains warranted"
-        task_id: null
+        task_id: TASK-0515
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "compare TASK-0481 host-context coverage against TASK-0483 null-baseline controls"
           - "either define a narrow conditional follow-up or demote compact-radius host context to negative/control memory"
           - "keep all wording benchmark-only with no composition, habitability, atmosphere, target-priority, claim, prediction, or knowledge promotion"
+      - id: exoplanet-negative-control-memory
+        label: "Preserve Exoplanet negative/control memory until a materially changed snapshot or coverage gate exists"
+        task_id: null
+        mode: research
+        status: configured
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "do not repeat compact-radius residual, host-context coarse-bin, or mass-quartile localization pilots on the current pinned snapshot"
+          - "keep the Exoplanet Research Factory adapter contract-only"
+          - "reopen the campaign only after a reviewed later pinned snapshot or explicitly revised coverage gate"
       - id: exoplanet-compact-radius-mass-quartile-scout
         label: "Compact-radius mass-quartile scout is underpowered; use only as diagnostic memory"
         task_id: TASK-0480
@@ -2452,6 +2486,19 @@ The agent should also offer to help the maintainer set up access, for example
 by suggesting `gh auth login` or a `GH_TOKEN`/`GITHUB_TOKEN`, but setup is not
 required for completing local validation work.
 
+If Python, Git, GitHub CLI, proxy settings, or Windows shell startup look
+inconsistent, run the read-only agent doctor before adding local workaround
+steps:
+
+```bash
+python3 scripts/apl_agent_doctor.py
+```
+
+The doctor reports environment diagnostics only. It does not install packages,
+mutate global `PATH`, store credentials, relax validation, or replace the task
+protocol. Use it to identify the next safe troubleshooting step, then continue
+with the standard PR helper flow.
+
 Use the repository PR helpers instead of calling bare `gh` in Codex sessions.
 Codex may omit Homebrew paths from `PATH`; the helpers search common GitHub CLI
 locations such as `/opt/homebrew/bin/gh` and `/usr/local/bin/gh`.
@@ -2558,7 +2605,7 @@ maintainer. This is no longer a required step and its absence is not flagged by
 the PR preflight:
 
 ```bash
-./scripts/apl_review_bundle.sh
+python3 scripts/apl_review_bundle.py
 ```
 
 This produces `_snapshots/review_<branch>_<timestamp>.md` with the full diff

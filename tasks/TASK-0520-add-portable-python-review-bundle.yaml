@@ -1,7 +1,7 @@
 id: TASK-0520
 title: "Add portable Python review-bundle generator"
 type: developer_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
