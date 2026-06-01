@@ -1,7 +1,7 @@
 id: TASK-0504
 title: "Define reusable bounded Research Factory protocol"
 type: research_protocol
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
