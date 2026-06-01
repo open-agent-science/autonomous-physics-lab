@@ -1,7 +1,7 @@
 id: TASK-0506
 title: "Implement reusable Research Factory core with Nuclear adapter"
 type: scientific_tooling
-status: BLOCKED
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -48,7 +48,7 @@ requirements:
 accepted_outputs:
   - "physics_lab/factories/ package with reusable core, adapter interface, controls/ranking helpers, and Nuclear adapter"
   - "scripts/run_research_factory.py or equivalent shared deterministic entrypoint"
-  - "examples/nuclear_residual_factory_smoke.yaml"
+  - "examples/factories/nuclear_residual_factory_smoke.yaml"
   - "agent_runs/AGENT-RUN-XXXX/factory_summary.yaml for a smoke run, or a documented temporary-output path if committed agent_runs are not appropriate"
   - "docs/reviews/research-factory-core-and-nuclear-adapter.md"
   - "tests/test_research_factory_core.py"
@@ -58,7 +58,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_research_factory_core.py tests/test_nuclear_residual_factory.py"
-    - "python3 scripts/run_research_factory.py --config examples/nuclear_residual_factory_smoke.yaml --output-dir /tmp/apl-nuclear-factory-smoke"
+    - "python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_smoke.yaml --output-dir /tmp/apl-nuclear-factory-smoke"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
