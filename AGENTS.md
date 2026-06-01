@@ -596,8 +596,21 @@ git diff --exit-code
 `python3 -m pytest` runs in parallel by default via `pytest-xdist` (installed
 with the dev extras: `pip install -e ".[dev]"`), matching CI on Windows,
 macOS, and Linux. For a faster cross-platform inner loop while iterating, run
-`python3 scripts/validate_fast.py` (lint plus the non-`full_repo` tests). Use
+`python3 scripts/validate_fast.py` (lint, strict repository validation, then
+the non-`full_repo` tests with a slowest-ten timing report). Use
 `python3 -m pytest -n0` to force a serial run when debugging a single test.
+For narrow task PRs, run the task YAML validation commands first and use
+`python3 scripts/apl_task_validation_plan.py --task TASK-XXXX` for advisory
+diff-aware guidance. If parallel pytest fails in a Windows sandbox, run
+`python3 scripts/apl_agent_doctor.py --probe-pytest-runtime --no-gh-auth-check`;
+do not automatically replace a narrow PR's validation with a serial full-suite
+run. Use targeted `-n0` debugging and keep broad cross-platform coverage in CI.
+Treat test ordering as a staged-lane concern: run cheap deterministic gates
+first and keep slow `full_repo` smoke tests at the end. Do not add dependencies
+between individual tests merely to control their parallel execution order.
+Tests with measured xdist resource or path sensitivity belong in the
+same `xdist_group`, which keeps them on one worker while unrelated tests
+continue in parallel.
 
 If a change touches CLI behavior, include a smoke test.
 If a change touches scientific formulas, include a numerical regression test.
