@@ -16,8 +16,9 @@ schema scaffold needed before any future ingestion task can add rows.
 Pinned-dataset source surface with one committed direct-ratio seed, a
 deterministic real-row loader, a source-derived covariance approximation,
 synthetic cross-source dry-run plumbing, a corrected Nemitz 2016 source
-artifact pinned with rows blocked, and a first-benchmark covariance policy. No
-real-row benchmark yet.
+artifact pinned with rows blocked, a first-benchmark covariance policy, and a
+baseline-readiness gate rerun that keeps the campaign at `PINNED_DATASET`.
+No real-row benchmark yet.
 
 ## Public Monitoring Snapshot
 
@@ -31,22 +32,25 @@ semidefinite source-derived covariance approximation, pinned the correct
 Nemitz 2016 RIKEN Yb/Sr arXiv source artifact, and defined conservative
 covariance states for the first benchmark. `TASK-0453` also landed a
 deterministic loader for committed `direct_measurement` rows, and `TASK-0488`
-landed a synthetic-only cross-source fixture. The campaign is deliberately
-not fitting constants drift yet.
+landed a synthetic-only cross-source fixture. `TASK-0455` reran the
+baseline-readiness gate and kept Atomic below `BASELINE_READY` because no
+second value-bearing direct source row is committed and the Beloy row-level
+holdout assignments remain unpopulated. The campaign is deliberately not
+fitting constants drift yet.
 
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0485`, `TASK-0487`, and then `TASK-0455` are the
-important remaining gates: fallback source triage, direct-vs-derived row
-separation, and baseline-readiness review before any benchmark consumer runs.
-`TASK-0452` pinned Nemitz but did not add value-bearing rows because
-version-of-record table review and campaign-window lock remain open.
+**Active next work:** `TASK-0487` remains the immediate direct-vs-derived row
+separation audit before broad derived-constraint or mixed-axis work. A later
+source-curation task must commit Nemitz 2016 or fallback Yb/Sr rows before any
+cross-source benchmark consumer runs. `TASK-0452` pinned Nemitz but did not
+add value-bearing rows because version-of-record table review and
+campaign-window lock remain open.
 
-**Expected next result:** a `BASELINE_READY` go/no-go path: second source
-committed or blocked, real-row loader available, holdout/no-peek manifest
-declared, and then a readiness gate deciding whether a first Yb/Sr
-cross-source consistency benchmark can run.
+**Expected next result:** a path back to the `BASELINE_READY` gate after a
+second source row is committed or explicitly waived and row-level
+holdout/no-peek fields are populated from the manifest.
 
 `TASK-0311` adds:
 
@@ -103,24 +107,30 @@ Current next tasks:
 - `TASK-0488` added a synthetic-only cross-source dry run that exercises row
   roles, covariance-state labels, and no-peek flags without unblocking real
   benchmark work;
-- `TASK-0485`, `TASK-0487`, and `TASK-0455` are the remaining executable gates
-  before a later baseline-readiness decision can honestly run.
+- `TASK-0485` ranked second-source fallback candidates if Nemitz remains
+  row-blocked;
 - `TASK-0486` defines the first-benchmark covariance policy:
   [`docs/reviews/atomic-first-benchmark-covariance-policy.md`](../reviews/atomic-first-benchmark-covariance-policy.md).
   Exact committed covariance can support correlated diagnostics,
   source-derived PSD approximations are sensitivity-only, diagonal-only
   assumptions are exploratory, and shared-systematic ambiguity blocks
   high-precision interpretation.
+- `TASK-0455` reran the baseline-readiness gate:
+  [`docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md`](../reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md).
+  The verdict remains `PINNED_DATASET`, not `BASELINE_READY`.
 
 `TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
-source-reviewed, but Atomic is not `BASELINE_READY`. The remaining blockers are
-second-source ingestion or waiver, holdout/no-peek boundary, direct-vs-derived
-separation, and benchmark-time covariance policy acceptance.
+source-reviewed, but Atomic is not `BASELINE_READY`. After `TASK-0455`, the
+remaining blockers are second-source value-bearing row ingestion or waiver,
+row-level holdout/no-peek assignment from the manifest, and direct-vs-derived
+separation for broad derived-constraint or mixed-axis work. The real-row
+loader and first-benchmark covariance policy blockers are cleared at the
+policy/validation level.
 
-The next tasks can run in parallel because they own separate surfaces:
-fallback source triage, direct-vs-derived policy, and baseline-readiness
-review. None should fit drift, derive constants constraints, or promote a
-claim.
+The next tasks can run in parallel only when they own separate surfaces:
+direct-vs-derived policy, second-source row curation, or maintainer-waived
+single-source diagnostic planning. None should fit drift, derive constants
+constraints, or promote a claim.
 
 ## Why This Could Matter Later
 
@@ -224,11 +234,10 @@ Safe future tasks:
   level, direct-vs-derived, and version-drift stop conditions are satisfied;
 - curate Nemitz 2016 value-bearing rows only after arXiv/Nature version-drift,
   table-level uncertainty, campaign-window, checksum, and license gates pass;
-- add a deterministic real-row loader for committed direct_measurement rows;
-- define a holdout/no-peek manifest before any benchmark consumer touches
-  atomic rows;
-- rerun the baseline-readiness gate after source, loader, and holdout blockers
-  are closed;
+- populate row-level holdout/no-peek fields from the manifest before any
+  benchmark consumer touches atomic rows;
+- rerun the baseline-readiness gate only after a second value-bearing source
+  row is committed or explicitly waived;
 - define a no-peek freeze package for a future source update;
 - audit whether derived constraints can be separated from direct measurements.
 
