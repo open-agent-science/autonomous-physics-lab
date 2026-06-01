@@ -73,7 +73,7 @@ without re-encoding conversion logic in every workflow.
 
 ## Current State
 
-The repository now includes one small measured benchmark slice:
+The repository includes one small measured benchmark slice:
 
 - `nmd-0002-curated-measured-slice.yaml`
 
@@ -84,12 +84,17 @@ This file exists to support the first baseline residual benchmark under
 - no silent extrapolated merge;
 - no claim that this slice substitutes for a full AME2020 import.
 
-A broader pinned AME-style table is still a later task.
-`TASK-0516` now scopes that unblock as `NMD-0003`: a source-gated AME2020
-measured-row training surface with a pinned source artifact or retrieval
-manifest, checksum, measured/extrapolated row semantics, and a frozen split
-manifest. Until that task lands, `NMD-0002` remains a bootstrap slice rather
-than a sufficiently broad Research Factory training surface.
+The repository also includes a broader source-gated AME2020 measured-row
+training surface:
+
+- `nmd-0003-source-manifest.yaml`
+- `nmd-0003-ame2020-measured-training.yaml`
+- `nmd-0003-split-manifest.yaml`
+
+`NMD-0003` is intended to supersede `NMD-0002` for larger Nuclear Research
+Factory training after maintainer review. It excludes AME2020 estimated rows
+and primary post-AME2020 holdout nuclide ids, preserving the time-split
+validation boundary.
 
 The repository also includes a reviewed source manifest for the future
 post-AME2020 time-split lane:
