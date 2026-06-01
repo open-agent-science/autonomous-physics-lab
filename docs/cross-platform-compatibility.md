@@ -139,7 +139,9 @@ parallel fast lane.
 
 `scripts/validate_fast.py` also isolates measured `resource_sensitive` tests
 as a final serial layer on Windows while leaving the rest of the suite
-parallel. This is deliberately narrower than a serial full-suite fallback.
+parallel. It automatically falls back to the ignored workspace-local
+`.pytest-basetemp/session-*` root when `C:/tmp` is unavailable. This is
+deliberately narrower than a serial full-suite fallback.
 
 For `cmd.exe`, do not use PowerShell's call operator (`&`). For example:
 

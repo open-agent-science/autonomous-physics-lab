@@ -50,6 +50,9 @@ fallback should use a unique path such as `.pytest-basetemp/session-<unique-id>`
 for that session. On Windows, `validate_fast.py` prefers a short unique
 `C:/tmp/apl-pytest-*` path because deep worktree paths can hit path-length
 limits. Override its root with `APL_PYTEST_BASETEMP_ROOT` when needed.
+If the short system root is unavailable, the helper falls back to the ignored
+workspace-local `.pytest-basetemp/session-*` path instead of weakening the test
+lane.
 
 ## Coverage Reporting
 

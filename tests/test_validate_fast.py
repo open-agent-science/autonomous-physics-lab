@@ -59,6 +59,31 @@ def test_adaptive_pytest_args_adds_short_unique_windows_basetemp(
     assert args[1:] == ["tests/test_example.py"]
 
 
+def test_adaptive_pytest_args_falls_back_to_workspace_basetemp(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(MODULE.platform, "system", lambda: "Windows")
+    monkeypatch.delenv("APL_PYTEST_BASETEMP_ROOT", raising=False)
+    monkeypatch.setattr(MODULE.uuid, "uuid4", lambda: type("UUID", (), {"hex": "abcd1234efgh"})())
+
+    attempted: list[Path] = []
+
+    def fake_ensure_directory(path: Path) -> None:
+        attempted.append(path)
+        if path == Path("C:/tmp"):
+            raise PermissionError("blocked test temp root")
+
+    monkeypatch.setattr(MODULE, "_ensure_directory", fake_ensure_directory)
+
+    args = MODULE.adaptive_pytest_args(["tests/test_example.py"])
+
+    assert attempted == [Path("C:/tmp"), MODULE.ROOT / ".pytest-basetemp"]
+    assert Path(args[0].split("=", 1)[1]) == (
+        MODULE.ROOT / ".pytest-basetemp" / "session-abcd1234efgh"
+    )
+    assert args[1:] == ["tests/test_example.py"]
+
+
 def test_windows_fast_lane_isolates_resource_sensitive_group(monkeypatch) -> None:
     monkeypatch.setattr(MODULE.platform, "system", lambda: "Windows")
 

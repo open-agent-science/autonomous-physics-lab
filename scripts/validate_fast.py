@@ -20,13 +20,37 @@ def run(command: list[str]) -> None:
     subprocess.run(command, cwd=ROOT, check=True)
 
 
+def _ensure_directory(path: Path) -> None:
+    path.mkdir(parents=True, exist_ok=True)
+
+
+def _windows_basetemp_root() -> Path:
+    """Return the first writable short pytest temp root for Windows."""
+    configured = os.environ.get("APL_PYTEST_BASETEMP_ROOT")
+    candidates = [Path(configured)] if configured else [Path("C:/tmp")]
+    candidates.append(ROOT / ".pytest-basetemp")
+
+    last_error: OSError | None = None
+    for root in candidates:
+        try:
+            _ensure_directory(root)
+        except OSError as exc:
+            last_error = exc
+            continue
+        return root
+
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("No Windows pytest basetemp candidate was available.")
+
+
 def adaptive_pytest_args(argv: list[str]) -> list[str]:
     """Add a short unique Windows basetemp unless the caller chose one."""
     if platform.system() != "Windows" or any(arg.startswith("--basetemp") for arg in argv):
         return argv
-    root = Path(os.environ.get("APL_PYTEST_BASETEMP_ROOT", "C:/tmp"))
-    root.mkdir(parents=True, exist_ok=True)
-    return [f"--basetemp={root / f'apl-pytest-{uuid.uuid4().hex[:12]}'}", *argv]
+    root = _windows_basetemp_root()
+    prefix = "session" if root == ROOT / ".pytest-basetemp" else "apl-pytest"
+    return [f"--basetemp={root / f'{prefix}-{uuid.uuid4().hex[:12]}'}", *argv]
 
 
 def pytest_commands(pytest_args: list[str]) -> list[list[str]]:
