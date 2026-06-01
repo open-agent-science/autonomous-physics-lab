@@ -85,6 +85,11 @@ The Director should recommend architecture or workflow changes only when they
 shorten the path to honest scientific outputs. It should not add process,
 dashboards, or abstractions merely because they look organized.
 
+Efficiency is a non-regression rule. Workflow changes must not weaken source
+provenance, uncertainty handling, holdout/no-peek boundaries, controls, replay
+requirements, result-promotion gates, or overclaim policy. If a faster path
+requires weaker evidence, it is not an acceptable path.
+
 ## Resource Efficiency And Deduplication
 
 The Director must optimize for scientific output per unit of agent work, not
@@ -233,6 +238,9 @@ It must not:
 - recommend a task without naming the scientific output path it advances;
 - ignore workflow or architecture bottlenecks when they are why a campaign is
   not producing scientific results;
+- optimize workflow by weakening source provenance, uncertainty handling,
+  holdout/no-peek boundaries, controls, replay requirements, result-promotion
+  gates, or overclaim policy;
 - recommend repeated audits without new evidence, new controls, or a clear
   promotion/blocker decision;
 - auto-create canonical task files without explicit maintainer approval in the
