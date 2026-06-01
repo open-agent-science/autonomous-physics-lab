@@ -91,7 +91,7 @@ git diff --exit-code
 Before opening PR, generate the maintainer review snapshot:
 
 ```bash
-./scripts/apl_review_bundle.sh
+python3 scripts/apl_review_bundle.py
 ```
 
 This creates:
