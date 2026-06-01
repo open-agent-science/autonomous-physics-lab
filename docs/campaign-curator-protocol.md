@@ -169,6 +169,11 @@ Recommended workflow changes must be tied to a concrete scientific output path.
 If the best answer is "run the existing task, not more architecture," the
 Director should say that.
 
+Workflow efficiency must be a scientific non-regression. The Director must not
+recommend a faster workflow if it weakens source provenance, uncertainty
+handling, holdout/no-peek boundaries, controls, replay requirements,
+result-promotion gates, or overclaim policy.
+
 ## Promotion Backlog
 
 The Promotion Backlog is an advisory triage section for existing sandbox or
@@ -259,6 +264,9 @@ The Scientific Campaign Director must not:
 - recommend a task without naming the scientific output path it advances;
 - ignore workflow or architecture bottlenecks when they are why a campaign is
   not producing scientific results;
+- optimize workflow by weakening source provenance, uncertainty handling,
+  holdout/no-peek boundaries, controls, replay requirements, result-promotion
+  gates, or overclaim policy;
 - recommend repeated audits unless there is new evidence, a new control, a
   promotion decision, or a blocker decision to resolve.
 
@@ -293,6 +301,9 @@ Required constraints:
   duplicate an existing status/digest surface;
 - include workflow/architecture changes only when they remove a real bottleneck
   or shorten the path to a reviewable scientific output;
+- reject workflow shortcuts that weaken source provenance, uncertainty
+  handling, holdout/no-peek boundaries, controls, replay requirements,
+  result-promotion gates, or overclaim policy;
 - avoid assigning broad open-ended formula search as a single task.
 
 If the maintainer only asks for a strategy brief, the curator should not create
