@@ -1,7 +1,7 @@
 id: TASK-0491
 title: "Define Quantum calibration-consistency go/no-go scorecard"
 type: research_quality_gate
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
