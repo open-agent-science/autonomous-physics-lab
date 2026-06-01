@@ -50,6 +50,10 @@ The Director's objective is to increase the scientific value of APL over time:
 
 - produce more reviewable scientific results, not more work for its own sake;
 - maintain enough bounded research lanes for parallel agents;
+- reduce duplicated status surfaces, digest pages, and task-list filler that
+  create future cleanup work;
+- review whether the scientific workflow and campaign architecture are helping
+  or slowing the path to reviewable results;
 - avoid duplicate loops, repeated audits without new information, and broad
   formula search;
 - protect source, baseline, holdout, replay, result-promotion, and overclaim
@@ -106,6 +110,7 @@ A campaign brief should include:
 - Negative / Do-Not-Repeat Directions
 - Recommended Next Tasks
 - Suggested Agent Assignments
+- Scientific Architecture / Workflow Efficiency
 - Promotion Backlog
 - Agent Capacity / Idle Risk
 - New Campaign / Scaffold Opportunities
@@ -117,6 +122,52 @@ A campaign brief should include:
 The brief should prefer a small number of specific next actions over a large
 open-ended backlog, but it should also warn when the READY pool is becoming too
 thin for the number of active agents.
+
+## Deduplication And Scientific Output Filter
+
+Before recommending a new task or documentation surface, the Director must
+apply this filter:
+
+1. **Deduplicate first.** If the information belongs on an existing campaign
+   page, public dashboard, mission file, task, review note, result artifact, or
+   protocol, update that surface instead of creating a new digest/status page.
+2. **Name the output path.** Every recommended task must advance at least one
+   concrete scientific output path: source gate, dataset, baseline, holdout,
+   replay/control, negative memory, result promotion, prediction/reveal
+   readiness, or campaign go/no-go decision.
+3. **Reject filler.** Do not add tasks merely to reach a numeric READY target,
+   keep agents occupied, or make a task list look substantial.
+4. **Prefer replacement over addition.** A new documentation surface is
+   acceptable only if it removes a drift source, replaces an older surface, or
+   directly unlocks a scientific workflow.
+
+When a proposed task fails this filter, the Director should say so plainly and
+either fold the update into an existing task/page or drop it.
+
+## Scientific Architecture / Workflow Efficiency Review
+
+Every Director cycle should include a short architecture/workflow judgment when
+the campaign is not producing results at the desired rate. The purpose is to
+decide whether the current process is an efficient path to scientific output,
+not to design infrastructure by default.
+
+The Director should check:
+
+- whether source intake, dataset contracts, holdout rules, replay gates, or
+  result-promotion gates are the current bottleneck;
+- whether task shapes are too broad, too fragmented, duplicated, or sequenced
+  poorly for parallel agents;
+- whether agents are spending most effort on documentation/audit loops instead
+  of source gates, baselines, controls, replay, negative memory, or promotion
+  decisions;
+- whether a reusable adapter, protocol, or queue would reduce repeated work
+  across campaigns without creating a new drift surface;
+- which smallest workflow change would most improve time-to-result while
+  preserving source provenance, controls, and conservative wording.
+
+Recommended workflow changes must be tied to a concrete scientific output path.
+If the best answer is "run the existing task, not more architecture," the
+Director should say that.
 
 ## Promotion Backlog
 
@@ -203,6 +254,11 @@ The Scientific Campaign Director must not:
 - mark its own recommendations as accepted science;
 - treat sandbox evidence as a public claim.
 - create busywork because agents are idle;
+- create duplicate digests, dashboards, status pages, or filler task waves when
+  existing surfaces can be updated instead;
+- recommend a task without naming the scientific output path it advances;
+- ignore workflow or architecture bottlenecks when they are why a campaign is
+  not producing scientific results;
 - recommend repeated audits unless there is new evidence, a new control, a
   promotion decision, or a blocker decision to resolve.
 
@@ -233,6 +289,10 @@ Required constraints:
 - keep claim promotion out of the task unless the maintainer explicitly
   authorizes a separate promotion/review task;
 - route final outputs through `docs/result-promotion-protocol.md`;
+- state the scientific output path each task advances and reject tasks that only
+  duplicate an existing status/digest surface;
+- include workflow/architecture changes only when they remove a real bottleneck
+  or shorten the path to a reviewable scientific output;
 - avoid assigning broad open-ended formula search as a single task.
 
 If the maintainer only asks for a strategy brief, the curator should not create
