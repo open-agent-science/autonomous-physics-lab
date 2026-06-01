@@ -481,7 +481,7 @@ maintainer. This is no longer a required step and its absence is not flagged by
 the PR preflight:
 
 ```bash
-./scripts/apl_review_bundle.sh
+python3 scripts/apl_review_bundle.py
 ```
 
 This produces `_snapshots/review_<branch>_<timestamp>.md` with the full diff
