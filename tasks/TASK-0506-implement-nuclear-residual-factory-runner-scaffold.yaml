@@ -48,7 +48,7 @@ requirements:
 accepted_outputs:
   - "physics_lab/factories/ package with reusable core, adapter interface, controls/ranking helpers, and Nuclear adapter"
   - "scripts/run_research_factory.py or equivalent shared deterministic entrypoint"
-  - "examples/nuclear_residual_factory_smoke.yaml"
+  - "examples/factories/nuclear_residual_factory_smoke.yaml"
   - "agent_runs/AGENT-RUN-XXXX/factory_summary.yaml for a smoke run, or a documented temporary-output path if committed agent_runs are not appropriate"
   - "docs/reviews/research-factory-core-and-nuclear-adapter.md"
   - "tests/test_research_factory_core.py"
