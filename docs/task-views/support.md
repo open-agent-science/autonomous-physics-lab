@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0521` - Document agent doctor troubleshooting in onboarding protocols (`developer_infrastructure`, priority `medium`, difficulty `low`, domain `contributor_experience`)
