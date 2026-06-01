@@ -159,19 +159,17 @@ campaigns:
   title: Exoplanet mass-radius benchmark
   status: active_secondary
   domain: astrophysics
-  current_stage: pinned PSCompPars snapshot, baseline residual maps, matched controls, and
-    benchmark-summary scorecard
+  current_stage: pinned PSCompPars snapshot, baseline residual maps, matched controls, null-baseline
+    controls, host-context preflight, and benchmark-summary scorecard
   agent_capacity:
     recommended_parallel_agents: 2
     coordination_notes: Parallel-safe for replay, checksum cleanup, evidence-card packaging,
       and second-snapshot protocol work on separate branches.
   best_next_actions:
-  - task_id: TASK-0445
-    label: Run independent compact-radius matched-control replay
-  - task_id: TASK-0446
-    label: Close normalized snapshot checksum gap
-  - task_id: TASK-0447
-    label: Package benchmark evidence card
+  - task_id: TASK-0515
+    label: Run control-aware go/no-go synthesis before any further residual pilot
+  - task_id: TASK-0508
+    label: Keep Exoplanet Research Factory reuse contract aligned with the go/no-go decision
   required_gates:
   - Pinned snapshot and checksum state must remain explicit.
   - Benchmark outputs must keep BENCHMARK_SUMMARY_ONLY wording until stronger review passes.
@@ -196,13 +194,17 @@ campaigns:
   current_results:
   - docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md
   - docs/reviews/exoplanet-compact-subneptune-matched-control-audit.md
+  - docs/reviews/exoplanet-null-baseline-family-audit.md
+  - docs/reviews/exoplanet-compact-radius-host-context-preflight.md
   - data/exoplanets/exo-0001-pscomppars-snapshot.yaml
   open_questions:
-  - Does the compact-radius signal replay under Gate B?
-  - How should the second snapshot be frozen and compared?
+  - Should compact-radius host context receive a narrow conditional follow-up or be preserved
+    as negative/control memory?
+  - Can the Exoplanet Research Factory adapter move beyond contract-only after the go/no-go
+    decision?
   curator_review:
     status: current
-    last_reviewed: '2026-05-29'
+    last_reviewed: '2026-06-01'
     source: docs/campaigns/public-science-dashboard.md
     notes: Strongest current public-safe benchmark surface, not a composition claim.
   source_docs:

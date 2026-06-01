@@ -566,7 +566,7 @@ missions:
           - "future host-context work must be framed as conditional/underpowered unless a new task declares a narrower missingness analysis"
       - id: exoplanet-control-aware-go-no-go
         label: "Review host-context preflight and decide whether any compact-radius residual follow-up remains warranted"
-        task_id: null
+        task_id: TASK-0515
         mode: research
         status: ready
         priority: high

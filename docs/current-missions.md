@@ -53,7 +53,7 @@ sprint.
 Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
 default work is not another broad Nuclear hypothesis burst; it is hardening the
-Exoplanet benchmark diagnostic with null baselines, review-ready host-context
+Exoplanet benchmark diagnostic with null baselines, landed host-context
 preflight, and frozen second-snapshot discipline while keeping all wording
 benchmark-only.
 At handoff, agents should route the output through
@@ -80,7 +80,7 @@ turning watchlist topics into formula-search work.
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
 | [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is falsified, the residual-free cluster lane is inconclusive, pairing-asymmetry and magic-parity controls are negative, and shell-axis transfer is mixed/chain-local | negative evidence card, F2 finer-taxonomy preflight, training-slice feasibility, and reveal-source readiness; do not repeat completed weak lanes |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control diagnostic, null-baseline control panel, mass-quartile underpowered diagnostic, target-freeze protocol, external-reviewer capsule, and review-ready host-context preflight | control-aware go/no-go before any further residual pilot |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control diagnostic, null-baseline control panel, mass-quartile underpowered diagnostic, target-freeze protocol, external-reviewer capsule, and landed host-context preflight | `TASK-0515` control-aware go/no-go before any further residual pilot |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows, deterministic real-row loader, synthetic cross-source dry-run, Nemitz 2016 source artifact pinned but rows blocked, and first-benchmark covariance policy defined | fallback source triage, direct-vs-derived separation, then baseline-readiness gate |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas | Stellar Mass-Luminosity review, plus Wien and Stefan-Boltzmann source/baseline planning before any metrics |

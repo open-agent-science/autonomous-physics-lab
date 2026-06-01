@@ -1,0 +1,62 @@
+id: TASK-0515
+title: "Run Exoplanet control-aware go/no-go synthesis"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the latest Exoplanet control evidence into a clear campaign decision before any further residual pilot."
+  - "Prevent compact-radius residual work from drifting from benchmark diagnostics into planet-physics claims."
+  - "Keep Exoplanets as a visible science-output surface while preserving null-baseline and host-context blockers."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+    - "docs/reviews/exoplanet-compact-radius-host-context-preflight.md"
+    - "docs/reviews/exoplanet-compact-radius-mass-quartile-scout.md"
+    - "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+    - "docs/results/exoplanet-compact-radius-benchmark-card.md"
+    - "docs/results/exoplanet-external-reviewer-replication-capsule.md"
+    - "docs/exoplanet-factory-adapter-contract.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+  planning_context: >
+    Exoplanets now has a pinned PSCompPars snapshot, CK17-style baseline,
+    compact-radius matched-control evidence, a null-baseline family audit, a
+    mass-quartile underpowered scout, and a host-context preflight. The
+    combined state is not a positive planet-law result: nearest-radius nulls
+    match or beat CK17-style residuals in highlighted true-mass slices, and no
+    compact-radius host-context axis is benchmark-usable under the current
+    coarse-bin floor. This task makes the campaign-level go/no-go decision
+    before any further residual pilot or Research Factory adapter run.
+
+requirements:
+  - "Do not fetch live NASA Exoplanet Archive data."
+  - "Do not run new mass-radius metrics or fit correction models."
+  - "Compare the implications of TASK-0483 null-baseline controls, TASK-0481 host-context coverage, TASK-0480 mass-quartile power, and the existing benchmark evidence card."
+  - "Decide one route: GO_NARROW_CONDITIONAL_FOLLOWUP, NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY, or NEEDS_MAINTAINER_DECISION."
+  - "If GO_NARROW_CONDITIONAL_FOLLOWUP, define the exact allowed follow-up scope, missingness/underpowered caveats, required controls, and stop conditions."
+  - "If NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY, specify which compact-radius/host-context lanes future agents should not repeat."
+  - "State whether the Exoplanet Research Factory adapter should remain contract-only or can proceed to a smoke-run task after shared factory protocol/schema land."
+  - "Do not create RESULT, PRED, CLAIM, KNOW, or prediction_registry artifacts."
+  - "Forbid composition, habitability, atmosphere, biosignature, target-priority, discovery, or universal mass-radius-law wording."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-control-aware-go-no-go-synthesis.md"
+  - "optional update to docs/campaigns/exoplanet-mass-radius.md if campaign posture changes"
+  - "optional update to docs/campaigns/public-science-dashboard.md if public wording changes"
+  - "optional follow-up task proposal only if the decision is GO_NARROW_CONDITIONAL_FOLLOWUP or NEEDS_MAINTAINER_DECISION"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
