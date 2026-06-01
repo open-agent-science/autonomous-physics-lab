@@ -198,15 +198,15 @@ Stop before ingestion or benchmark consumption when:
 - a task proposes prediction-registry, claim, or knowledge promotion before a
   reviewed baseline-readiness gate.
 
-## Impact On TASK-0455
+## Impact On Baseline-Readiness Gates
 
-This audit supports, but does not complete, the future `TASK-0455` baseline-
-readiness gate.
+This audit provides the direct-vs-derived boundary check used by Atomic
+baseline-readiness gates such as `TASK-0455`.
 
-`TASK-0455` should treat direct-vs-derived separation as currently intact for
-Beloy `ACR-0001`, but still blocked for any benchmark that requires derived
-constraints, because no derived-constraint rows exist and no separate
-source-gated derived-constraint ingestion task has passed.
+Baseline-readiness reviews should treat direct-vs-derived separation as
+currently intact for Beloy `ACR-0001`, but still blocked for any benchmark that
+requires derived constraints, because no derived-constraint rows exist and no
+separate source-gated derived-constraint ingestion task has passed.
 
 ## Limitations
 
