@@ -1,0 +1,31 @@
+# Bounded Nuclear residual-law factory smoke config (TASK-0506).
+# Not the full 50-100 candidate sprint (TASK-0507): a small two-family smoke that
+# exercises the reusable runner, controls, leakage guard, and factory_summary.
+factory_id: nuclear-residual-factory-smoke
+campaign_id: nuclear-mass-surface
+adapter_id: nuclear_residual_factory
+adapter_version: "0.1"
+task_id: TASK-0506
+dataset:
+  snapshot_ref: data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  retrieval_policy: no_live_fetch
+  checksum_policy: source recorded in the curated-slice manifest
+baseline:
+  baseline_id: nuclear-semi-empirical-fit
+  baseline_type: frozen
+families:
+  - shell_distance
+  - odd_even_pairing
+controls:
+  - null_baseline
+  - shuffled_feature
+candidate_cap: 25
+splits:
+  policy: deterministic 70/30 train/holdout by sorted (A, Z, N)
+limitations:
+  - "Bounded two-family smoke run over a committed 11-nuclide slice; not a sprint."
+  - "Sandbox evidence only; no claim, prediction, result, or knowledge promotion."
+reproducibility:
+  code_reference: physics_lab/factories/nuclear.py
+  command: python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_smoke.yaml --output-dir <dir>
+  run_date: "2026-06-01"
