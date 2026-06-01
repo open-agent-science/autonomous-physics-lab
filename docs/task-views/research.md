@@ -11,6 +11,7 @@
 - `TASK-0478` - Define Nuclear F2 finer-taxonomy preflight (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0489` - Package Quantum Norris-Bawendi source artifact review (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0491` - Define Quantum calibration-consistency go/no-go scorecard (`research_quality_gate`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+- `TASK-0517` - Run Nuclear factory sprint on NMD-0003 measured training surface (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0518` - Run NMD-0002 uncertainty perturbation control for Nuclear factory candidates (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## IN_PROGRESS
