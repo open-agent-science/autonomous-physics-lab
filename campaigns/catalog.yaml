@@ -219,22 +219,25 @@ campaigns:
   title: Nuclear mass surface
   status: flagship_validation
   domain: nuclear_physics
-  current_stage: frozen baseline, sandbox diagnostics, no-leakage controls, reveal-readiness
-    blockers, and negative/control-dominated controls-first evidence
+  current_stage: frozen baseline, sandbox diagnostics, Research Factory available, NMD-0002
+    underpowered, NMD-0003 source-gated training surface needed before the next full factory
+    sprint
   agent_capacity:
     recommended_parallel_agents: 3
-    coordination_notes: 'Parallel work is useful when lanes are disjoint: negative/preflight
-      packaging, reveal-readiness, future maintainer-approved controls-first lanes, or independent
-      replay/validation of already landed sandbox evidence.'
+    coordination_notes: 'Parallel work is useful when lanes are disjoint: NMD-0003 source
+      curation, NMD-0002 uncertainty controls, negative/preflight packaging, reveal-readiness,
+      or independent replay/validation of already landed sandbox evidence. Do not launch another
+      full Nuclear factory sprint on NMD-0002.'
   best_next_actions:
-  - task_id: TASK-0428
-    label: Run local-curvature result-promotion preflight
-  - task_id: TASK-0396
-    label: Run reveal-source readiness without live scoring
-  - task_id: null
-    label: Propose a new controls-first Nuclear lane only if it is disjoint from TASK-0449
-      through TASK-0451
+  - task_id: TASK-0516
+    label: Add source-gated AME2020 measured-row Nuclear training dataset (NMD-0003)
+  - task_id: TASK-0518
+    label: Run NMD-0002 uncertainty perturbation control as robustness-only evidence
+  - task_id: TASK-0477
+    label: Package Nuclear negative-result evidence card
   required_gates:
+  - A broad Nuclear factory sprint requires a source-gated NMD-0003 measured-row training
+    surface and frozen split manifest.
   - No reveal scoring before a source-grade no-peek release passes preflight.
   - Leakage checks, negative controls, and stop conditions must be declared before candidate
     fitting.
@@ -257,6 +260,8 @@ campaigns:
   - Random holdout improvement alone is enough to claim generalization.
   current_results:
   - results/EXP-0012/RUN-0001/result.yaml
+  - agent_runs/AGENT-RUN-0052/report.md
+  - docs/reviews/nuclear-training-slice-expansion-feasibility.md
   - docs/reviews/nuclear-local-curvature-no-leakage-prototype.md
   - docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md
   - docs/reviews/nuclear-neutron-rich-boundary-transfer-hypothesis-lane.md
@@ -264,20 +269,21 @@ campaigns:
   - docs/notes/nuclear-controls-first-hypothesis-gauntlet.md
   - prediction_registry/nuclear_masses/
   open_questions:
-  - What future controls-first Nuclear lane is genuinely disjoint from the TASK-0449 through
-    TASK-0451 negative/control-dominated results?
-  - Would F2 require a finer residual-free taxonomy or larger curated training slice before
-    another test?
+  - Can TASK-0516 create a source-safe NMD-0003 AME2020 measured-row training surface with
+    checksums and frozen splits?
+  - After NMD-0003 exists, does the Research Factory produce any shortlist beyond underpowered
+    NMD-0002 behavior?
+  - Would F2 require a finer residual-free taxonomy or the larger NMD-0003 training slice
+    before another test?
   - What future source can satisfy the reveal-readiness checklist?
   curator_review:
     status: current
-    last_reviewed: '2026-05-29'
-    source: TASK-0449 through TASK-0451 and campaign refresh
-    notes: 'Flagship lane remains high-value, but the latest controls-first lanes did not
-      create a positive follow-up path: TASK-0449 is inconclusive, TASK-0450 is negative under
-      transfer/matched controls, and TASK-0451 is control-dominated. Next Nuclear work should
-      package negative/preflight evidence, preserve reveal-readiness, or propose a clearly
-      disjoint controls-first lane.'
+    last_reviewed: '2026-06-01'
+    source: TASK-0479, TASK-0507, and NMD-0003 task-queue refresh
+    notes: Flagship lane remains high-value, but the first full Research Factory sprint on
+      NMD-0002 produced no shortlist and is underpowered. Next Nuclear work should create
+      the source-gated NMD-0003 measured-row training surface, preserve negative/preflight
+      evidence, and keep reveal-readiness separate from training expansion.
   source_docs:
   - docs/campaigns/nuclear-mass-surface.md
   - docs/notes/nuclear-mass-campaign-plan.md
