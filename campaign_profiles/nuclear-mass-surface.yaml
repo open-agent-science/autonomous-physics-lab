@@ -77,6 +77,42 @@ handoff_requires:
   - verdict
   - maintainer_decision_requested
 
+allowed_factory_families:
+  - id: shell_distance
+    description: "Distance-to-magic-number and shell-closure residual features."
+    required_guard: "Apply the no-leakage residual-feature contract; use a shuffled-shell control."
+  - id: odd_even_pairing
+    description: "Odd-even staggering and pairing-term residual features."
+    required_guard: "Use a parity-matched control."
+  - id: asymmetry
+    description: "Isospin / (N-Z) asymmetry residual features."
+    required_guard: "Use a matched-(N,Z) control."
+  - id: residual_free_local_topology
+    description: "Local residual-cluster topology features."
+    required_guard: "Apply the local-curvature no-leakage freeze protocol; use a null-neighbor control."
+  - id: separation_energy_derived
+    description: "Features derived from separation energies."
+    required_guard: "Verify the prediction target is not encoded (leakage check)."
+  - id: local_curvature
+    description: "Local curvature of the mass surface."
+    required_guard: "Only under the no-leakage freeze protocol with mandatory adversarial controls."
+
+required_factory_controls:
+  - "Null-baseline comparison against the frozen Nuclear residual surface is mandatory."
+  - "Per-family shuffled-label / destroyed-structure negative control is mandatory."
+  - "Matched controls (matched (N,Z), matched shell region) for slice candidates."
+  - "No-leakage verification for every residual feature (nuclear-residual-feature-no-leakage-contract.md)."
+  - "Holdout and post-AME2020 time-split must be reported separately, not pooled."
+  - "Complexity penalty for every added feature, split, or parameter."
+  - "No baseline refit and no live fetch from a factory run by default."
+
+factory_stop_rules:
+  - "Stop if the no-leakage contracts are not satisfied for a residual feature."
+  - "Stop if the candidate pool exceeds the declared cap or expands after metrics are seen."
+  - "Stop if a feature encodes the prediction target (leakage)."
+  - "Stop if a factory run would create RESULT, PRED, CLAIM, or KNOW artifacts, or trigger reveal scoring, without a maintainer-approved promotion task."
+  - "Stop if baseline refit or live fetch is requested."
+
 portfolio:
   status: flagship_validation
   domain: nuclear_physics
