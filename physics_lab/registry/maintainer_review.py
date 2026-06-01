@@ -289,8 +289,11 @@ def ensure_review_bundle(root: Path, branch: str, *, can_generate: bool) -> tupl
         return bundle, "invalid"
     if not can_generate:
         return None, "missing"
+    script = Path(__file__).resolve().parents[2] / "scripts" / "apl_review_bundle.py"
+    if not script.exists():
+        script = root / "scripts" / "apl_review_bundle.py"
     result = run_command(
-        [sys.executable, "scripts/apl_review_bundle.py"],
+        [sys.executable, str(script), "--root", str(root)],
         cwd=root,
         timeout=120,
     )
