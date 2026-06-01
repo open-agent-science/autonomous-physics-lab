@@ -12,6 +12,41 @@ from physics_lab.registry.validation import validate_document
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SMOKE_CONFIG = REPO_ROOT / "examples" / "factories" / "nuclear_residual_factory_smoke.yaml"
+SPRINT_CONFIG = REPO_ROOT / "examples" / "factories" / "nuclear_residual_factory_sprint.yaml"
+
+
+def _sprint_summary() -> dict:
+    config = yaml.safe_load(SPRINT_CONFIG.read_text(encoding="utf-8"))
+    spec = FactorySpec.from_config(config)
+    return run_factory(spec, get_adapter(spec.adapter_id))
+
+
+def test_sprint_generates_bounded_multi_family_sweep() -> None:
+    summary = _sprint_summary()
+    counts = summary["candidate_counts"]
+    assert 50 <= counts["generated"] <= 100
+    executed_families = {
+        c["family"] for c in summary["candidates"] if c["candidate_state"] != "PREFLIGHT_REJECTED"
+    }
+    assert len(executed_families) >= 4
+    assert validate_document(summary, "factory_summary", "x/factory_summary.yaml") is summary
+
+
+def test_sprint_produces_no_false_positive_shortlist_on_small_slice() -> None:
+    summary = _sprint_summary()
+    # The committed slice has only 3 holdout nuclides -> shortlist is impossible.
+    assert summary["candidate_counts"]["shortlisted"] == 0
+    routes = summary["route_verdict_summary"]
+    assert routes.get("NEGATIVE_RESULT", 0) > 0
+    # Negative + inconclusive memory dominates the executed candidates.
+    assert routes.get("NEGATIVE_RESULT", 0) + routes.get("INCONCLUSIVE", 0) >= 50
+
+
+def test_sprint_preflight_blocks_leakage_sensitive_family() -> None:
+    summary = _sprint_summary()
+    blocked = [c for c in summary["candidates"] if c["candidate_state"] == "PREFLIGHT_REJECTED"]
+    assert any(c["family"] == "local_curvature" for c in blocked)
+    assert all(c["route_verdict"] == "DATA_QUALITY_BLOCKED" for c in blocked)
 
 
 def _smoke_spec() -> FactorySpec:
