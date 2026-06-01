@@ -139,3 +139,56 @@ def test_loader_rejects_inconsistent_nucleon_counts(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="Z \\+ N != A"):
         load_nuclear_mass_dataset(path)
+
+
+def test_nmd0003_ame2020_training_dataset_is_source_gated() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    dataset_path = (
+        repo_root / "data" / "nuclear_masses" / "nmd-0003-ame2020-measured-training.yaml"
+    )
+    source_manifest_path = repo_root / "data" / "nuclear_masses" / "nmd-0003-source-manifest.yaml"
+
+    dataset = load_nuclear_mass_dataset(dataset_path)
+    source_manifest = yaml.safe_load(source_manifest_path.read_text(encoding="utf-8"))
+
+    assert dataset.dataset_id == "NMD-0003"
+    assert len(dataset.entries) == 2309
+    assert dataset.source_dataset["checksum_sha256"] == (
+        "e8599c6d7f724fac91934e59f1b9de8fb8f63e820f4b39456b790665ed2a3307"
+    )
+    assert source_manifest["filtering"]["committed_training_row_count"] == len(dataset.entries)
+    assert source_manifest["filtering"]["estimated_or_missing_rows_excluded"] == 1008
+
+    seen: set[str] = set()
+    for entry in dataset.entries:
+        assert entry.evaluation == "measured"
+        assert entry.Z > 0
+        assert entry.A == entry.Z + entry.N
+        assert entry.nuclide_id not in seen
+        seen.add(entry.nuclide_id)
+        assert entry.atomic_mass_uncertainty_u is not None
+        assert entry.mass_excess_uncertainty_keV is not None
+
+
+def test_nmd0003_split_manifest_excludes_primary_post_ame2020_holdout() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    split_path = repo_root / "data" / "nuclear_masses" / "nmd-0003-split-manifest.yaml"
+    holdout_path = repo_root / "data" / "nuclear_masses" / "post_ame2020_holdout.yaml"
+    nmd0002_path = repo_root / "data" / "nuclear_masses" / "nmd-0002-curated-measured-slice.yaml"
+
+    split = yaml.safe_load(split_path.read_text(encoding="utf-8"))
+    holdout = yaml.safe_load(holdout_path.read_text(encoding="utf-8"))
+    nmd0002 = load_nuclear_mass_dataset(nmd0002_path)
+
+    training_ids = set(split["training_split"]["nuclide_ids"])
+    primary_holdout_ids = {
+        entry["nuclide_id"]
+        for entry in holdout["entries"]
+        if entry["included_in_time_split_holdout"]
+    }
+    nmd0002_ids = {entry.nuclide_id for entry in nmd0002.entries}
+
+    assert split["training_split"]["row_count"] == 2309
+    assert len(primary_holdout_ids) == 295
+    assert training_ids.isdisjoint(primary_holdout_ids)
+    assert nmd0002_ids <= training_ids

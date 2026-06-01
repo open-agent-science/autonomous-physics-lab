@@ -1,0 +1,43 @@
+manifest_id: NMD-0003-SOURCE-MANIFEST
+task_id: TASK-0516
+dataset_id: NMD-0003
+status: review_ready_source_manifest
+created_on: '2026-06-01'
+source:
+  authority: Atomic Mass Data Center / AMDC
+  official_page: https://amdc.impcas.ac.cn/web/masseval.html
+  retrieval_url: https://www-nds.iaea.org/amdc/ame2020/mass_1.mas20.txt
+  mirror_role: IAEA Nuclear Data Services AMDC mirror
+  version: AME2020 mass_1.mas20 unrounded atomic mass table
+  sha256: e8599c6d7f724fac91934e59f1b9de8fb8f63e820f4b39456b790665ed2a3307
+  byte_size: 472648
+  accessed_on: '2026-06-01'
+  format_note: 'Fixed-width AME2020 mass table; header records # as an estimated (non-experimental)
+    value marker.'
+citation:
+  part_i: Chinese Physics C 45, 030002 (2021), doi:10.1088/1674-1137/abddb0
+  part_ii: Chinese Physics C 45, 030003 (2021), doi:10.1088/1674-1137/abddaf
+  citation_rule: Cite the AME2020 papers rather than the electronic files.
+redistribution_boundary:
+  raw_source_vendored: false
+  committed_values: Normalized measured row values needed for deterministic APL validation.
+  note: The source manifest pins the raw artifact checksum and retrieval location;
+    the repository commits structured row values, not the publisher/AMDC raw ASCII
+    artifact.
+filtering:
+  source_data_rows: 3558
+  z0_rows_excluded: 1
+  estimated_or_missing_rows_excluded: 1008
+  primary_post_ame2020_holdout_rows_excluded: 240
+  primary_post_ame2020_holdout_row_count: 295
+  committed_training_row_count: 2309
+  measured_rule: 'A row is eligible only when mass-excess and atomic-mass value and
+    uncertainty fields contain no # estimated-value marker and no * not-calculable
+    marker.'
+committed_artifacts:
+  training_dataset: data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+  training_dataset_sha256: f36ca012704ad8d5ffd039f2b8f01b5553690685d447aee3bab0f9983edf9d52
+  split_manifest: data/nuclear_masses/nmd-0003-split-manifest.yaml
+  split_manifest_sha256: a5fdb116f2f70e448722a77a2c8d11b21b8875123c2b3d5a4b7f145d05dd2002
+claim_ceiling: Source-curated training dataset only. No candidate metric, benchmark
+  result, prediction, claim, or knowledge artifact is promoted.
