@@ -48,9 +48,10 @@ Scaffold plus first planning lanes. This page records the campaign charter,
 candidate list, and guardrails. No formula audit has run yet under this
 campaign. The first recommended slice is the **Stellar Mass-Luminosity (M-L)
 out-of-distribution audit** on Gaia DR3 main-sequence stars, and the current
-public-verifier wave also plans Wien displacement and Stefan-Boltzmann audit
-surfaces. See `docs/notes/textbook-formula-audit-candidate-list.md` for the
-ordered candidate slate.
+public-verifier wave now has planning artifacts for Wien displacement and
+Stefan-Boltzmann audit surfaces. See
+`docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
+candidate slate.
 
 ## Public Monitoring Snapshot
 
@@ -58,18 +59,18 @@ ordered candidate slate.
 assumptions, verification gates, and out-of-distribution failure maps without
 claiming universal truth or falsity?
 
-**Shareable result:** the campaign scaffold and candidate slate now exist.
-The first recommended slice is Stellar Mass-Luminosity OOD planning on Gaia
-DR3, because it is recognizable, public-data-backed, and naturally
-range-limited.
+**Shareable result:** the campaign scaffold, candidate slate, and first
+source/baseline planning artifacts now exist. The first recommended empirical
+slice remains Stellar Mass-Luminosity OOD planning, while Wien and
+Stefan-Boltzmann are planned as separated exact-reference and empirical routes
+before any metrics.
 
 **Not a claim:** no textbook formula audit has run yet. This campaign does
 not claim that any formula is globally right or wrong.
 
-**Active next work:** keep Stellar M-L source/baseline planning as the first
-Gaia slice, while `TASK-0492` and `TASK-0493` plan Wien displacement and
-Stefan-Boltzmann audits. No metrics should run before each audit has a source,
-baseline, holdout, and verification-gate plan.
+**Active next work:** convert one planning artifact into a pinned source or
+synthetic exact-reference fixture task. No metrics should run before each audit
+has a source, baseline, holdout, and verification-gate plan.
 
 **Expected next result:** source/baseline plans that let agents later run
 range-aware, public-friendly formula audits without improvising data,
