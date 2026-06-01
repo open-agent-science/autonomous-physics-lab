@@ -1,7 +1,7 @@
 id: TASK-0506
 title: "Implement reusable Research Factory core with Nuclear adapter"
 type: scientific_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
