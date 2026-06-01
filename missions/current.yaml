@@ -1,16 +1,18 @@
 default_mode: research
-updated: "2026-05-31"
+updated: "2026-06-01"
 
 curator_cycle:
   decision: updated
-  updated: "2026-05-31"
-  source: "TASK-0496"
+  updated: "2026-06-01"
+  source: "TASK-0515"
   note: >
     Mission guidance now reflects the latest merged science wave. Nuclear
     remains the flagship validation challenge, but recent controls-first lanes
     landed as negative, inconclusive, or chain-local memory. The default
     near-term science-output sprint moves to Exoplanet Mass-Radius while
-    Atomic and Quantum continue through source/covariance gates.
+    Atomic and Quantum continue through source/covariance gates. TASK-0515 now
+    preserves the current Exoplanet compact-radius surface as negative/control
+    memory until a materially changed snapshot or coverage gate is reviewed.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -525,7 +527,7 @@ missions:
     status: active_science_output_sprint
     scientific_value: high
     risk: medium
-    recommendation: "Default near-term science-output sprint: review the host-context preflight and make a control-aware go/no-go decision before any further compact-radius residual pilot."
+    recommendation: "Default near-term science-output sprint: preserve the current compact-radius residual surface as negative/control memory and reopen only after a materially changed pinned snapshot or coverage gate is reviewed."
     why_now:
       - "public catalog data can support a recognizable, visual benchmark once source policy is pinned"
       - "standard mass-radius baselines create a clear comparison anchor"
@@ -538,6 +540,7 @@ missions:
       - "TASK-0482 froze the second-snapshot target set and reveal conditions without live fetching"
       - "TASK-0484 packaged an external-reviewer replication capsule around the current benchmark metrics"
       - "TASK-0483 found that nearest-radius null baselines match or beat CK17-style residuals across the highlighted true-mass slices, so the compact-radius story is control-sensitive"
+      - "TASK-0515 recorded NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY for another compact-radius residual or host-context pilot on the current pinned snapshot"
     forbidden:
       - "do not fetch live archive data before a pinned snapshot policy exists"
       - "do not run mass-radius metrics before schema and holdout protocol exist"
@@ -573,14 +576,26 @@ missions:
         label: "Review host-context preflight and decide whether any compact-radius residual follow-up remains warranted"
         task_id: TASK-0515
         mode: research
-        status: ready
+        status: review_ready
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "compare TASK-0481 host-context coverage against TASK-0483 null-baseline controls"
           - "either define a narrow conditional follow-up or demote compact-radius host context to negative/control memory"
           - "keep all wording benchmark-only with no composition, habitability, atmosphere, target-priority, claim, prediction, or knowledge promotion"
+      - id: exoplanet-negative-control-memory
+        label: "Preserve Exoplanet negative/control memory until a materially changed snapshot or coverage gate exists"
+        task_id: null
+        mode: research
+        status: configured
+        priority: high
+        difficulty: medium
+        recommended: true
+        expected_outputs:
+          - "do not repeat compact-radius residual, host-context coarse-bin, or mass-quartile localization pilots on the current pinned snapshot"
+          - "keep the Exoplanet Research Factory adapter contract-only"
+          - "reopen the campaign only after a reviewed later pinned snapshot or explicitly revised coverage gate"
       - id: exoplanet-compact-radius-mass-quartile-scout
         label: "Compact-radius mass-quartile scout is underpowered; use only as diagnostic memory"
         task_id: TASK-0480
