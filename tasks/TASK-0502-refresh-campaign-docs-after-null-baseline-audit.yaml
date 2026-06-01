@@ -1,7 +1,7 @@
 id: TASK-0502
 title: "Refresh campaign docs after null-baseline and fresh-data gate results"
 type: campaign_status_refresh
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

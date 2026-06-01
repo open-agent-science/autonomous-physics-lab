@@ -452,15 +452,16 @@ missions:
         expected_outputs:
           - "campaign-level row-role and no-peek manifest before benchmark consumers run"
       - id: atomic-fallback-source-triage
-        label: "Triage Atomic second-source fallbacks while Nemitz rows are blocked"
+        label: "Atomic second-source fallback triage completed"
         task_id: TASK-0485
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
         expected_outputs:
           - "ranked fallback direct-ratio sources without value-bearing rows"
+          - "Pizzocaro 2020 identified as the best fallback candidate, but Atomic remains source-blocked until row-level provenance and covariance semantics are resolved"
       - id: atomic-first-benchmark-covariance-policy
         label: "Atomic first-benchmark covariance policy landed"
         task_id: TASK-0486
@@ -555,7 +556,7 @@ missions:
         label: "Preflight compact-radius host-context residual slice"
         task_id: TASK-0481
         mode: research
-        status: review_ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false

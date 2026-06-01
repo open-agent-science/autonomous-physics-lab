@@ -1,7 +1,7 @@
 id: TASK-0510
 title: "Postmortem static agent-facing generated index decision"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

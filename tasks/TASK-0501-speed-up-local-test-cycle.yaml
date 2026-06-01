@@ -1,7 +1,7 @@
 id: TASK-0501
 title: "Speed up the local test cycle (parallel-by-default + fast lane)"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: medium
 
