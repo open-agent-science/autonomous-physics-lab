@@ -25,3 +25,4 @@ None.
 
 - `TASK-0504` - Define reusable bounded Research Factory protocol (`research_protocol`, priority `high`, difficulty `medium`, domain `cross_campaign_research_factory`)
 - `TASK-0505` - Add factory summary artifact schema (`artifact_schema`, priority `high`, difficulty `medium`, domain `cross_campaign_research_factory`)
+- `TASK-0506` - Implement reusable Research Factory core with Nuclear adapter (`scientific_tooling`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)

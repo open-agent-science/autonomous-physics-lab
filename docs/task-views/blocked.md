@@ -16,7 +16,6 @@
 - `TASK-0277` - Review quantum-size baseline before autonomous pilot (`scientific_validation`, priority `medium`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0456` - Run first Atomic Yb/Sr cross-source consistency benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0506` - Implement reusable Research Factory core with Nuclear adapter (`scientific_tooling`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 
 ## Support Blockers
 
