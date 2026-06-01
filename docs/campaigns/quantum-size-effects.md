@@ -31,12 +31,12 @@ APL refusing to score a model against weak provenance.
 new material law, and no device, synthesis, biomedical, or design claim.
 
 **Active next work:** `TASK-0398` packages the Norris-Bawendi 1996
-digitization preflight, `TASK-0489` reviews the Norris-Bawendi source artifact
-path, and `TASK-0491` defines the go/no-go scorecard for any weaker
-calibration-consistency benchmark. `TASK-0490` has already dry-run the future
-figure-digitization ledger on synthetic data, but it does not authorize real
-rows. `TASK-0336` stays blocked until an approved source artifact exists or the
-scope is explicitly rewritten.
+digitization preflight, and `TASK-0489` reviews the Norris-Bawendi source
+artifact path. `TASK-0491` records `NEEDS_MAINTAINER_DECISION` before any
+separate weaker calibration-consistency sandbox benchmark can run. `TASK-0490`
+has already dry-run the future figure-digitization ledger on synthetic data,
+but it does not authorize real rows. `TASK-0336` stays blocked until an
+approved source artifact exists or the scope is explicitly rewritten.
 
 **Expected next result:** either a source artifact that unlocks direct row
 curation or a blocker review that prevents another weak source path from being
@@ -116,6 +116,10 @@ Current task posture:
 - `TASK-0490` — synthetic figure-digitization fixture dry run (DONE; validates
   axis calibration, point provenance, uncertainty, and included/excluded point
   states for future WebPlotDigitizer-class artifacts, but adds no real rows).
+- `TASK-0491` — calibration-consistency go/no-go scorecard (DONE; records
+  `NEEDS_MAINTAINER_DECISION` before any separate sandbox-only implementation,
+  preserves the `TASK-0225` and `TASK-0293` blockers, and defines mandatory
+  labels, negative controls, stop conditions, and public wording).
 
 Safe next contributions are:
 
@@ -197,6 +201,10 @@ Current evidence is infrastructure and source curation only:
 - `TASK-0490` validates the shape of a future figure-digitization ledger with
   synthetic data only; it is infrastructure for later row curation, not a
   quantum-dot measurement result.
+- `TASK-0491` records `NEEDS_MAINTAINER_DECISION` for any separate
+  `quantum_calibration_curve_consistency` sandbox implementation. It defines
+  mandatory labels, negative controls, and stop conditions without running
+  metrics or unblocking the direct-row benchmark.
 
 Historical context:
 
@@ -257,6 +265,10 @@ Historical context:
   SI/table extraction or deterministic digitisation artifact is reviewed;
 - use `TASK-0335` as the weak `calibration_curve_consistency` scope contract;
   do not run metrics or pretend to unblock the measurement benchmark;
+- use `TASK-0491` as the go/no-go scorecard: a separate sandbox-only
+  calibration-consistency task requires explicit maintainer approval, all
+  declared labels, frozen negative controls, and the preserved `TASK-0225`
+  and `TASK-0293` blockers;
 - keep `TASK-0336` blocked until `TASK-0334` lands a deterministic artifact or
   the maintainer supplies equivalent table/digitisation evidence;
 - run `TASK-0364` against the ranked `TASK-0347` candidates before returning
