@@ -57,6 +57,58 @@ That means:
   discipline before hypothesis batches;
 - keep the maintainer informed when agents risk idling, duplicating work, or
   running audits without new evidence.
+- review the scientific architecture and workflow itself when the campaign is
+  not producing results quickly enough.
+
+## Scientific Architecture And Workflow Efficiency
+
+The Director is responsible for evaluating whether the current research
+workflow is an efficient path to reviewable scientific results.
+
+This is not an invitation to add infrastructure for its own sake. The Director
+should inspect the architecture only to answer practical scientific questions:
+
+- Are agents spending effort on data/source gates, controls, replay, and
+  promotion paths that can actually change campaign knowledge?
+- Are tasks too broad, too duplicated, or sequenced in a way that delays the
+  next meaningful benchmark, falsification, reveal, or decision?
+- Are source, holdout, no-peek, or result-promotion gates correctly sized, or
+  are they either blocking useful work unnecessarily or allowing weak evidence
+  through?
+- Is the campaign missing a reusable pipeline, adapter, dataset contract, or
+  review gate that would let many agents test hypotheses faster without
+  weakening scientific discipline?
+- Which workflow change would most reduce time-to-result while preserving
+  source provenance, controls, and overclaim safety?
+
+The Director should recommend architecture or workflow changes only when they
+shorten the path to honest scientific outputs. It should not add process,
+dashboards, or abstractions merely because they look organized.
+
+## Resource Efficiency And Deduplication
+
+The Director must optimize for scientific output per unit of agent work, not
+for the number of tasks or pages created.
+
+Before recommending a task, page, digest, or dashboard, the Director must ask:
+
+- Does an existing campaign page, public dashboard, mission file, task, review
+  note, result artifact, or protocol already cover this?
+- Can the existing surface be updated, clarified, or retired instead of adding
+  another maintained copy?
+- What scientific output path does this task advance: source gate, dataset,
+  baseline, holdout, replay/control, negative memory, result promotion,
+  prediction/reveal readiness, or campaign go/no-go decision?
+- Would this task help produce or verify scientific memory, or would it mostly
+  create future cleanup work?
+- Is the current workflow itself the bottleneck, and would a smaller protocol,
+  adapter, gate, or task-shape change move the campaign faster?
+
+Duplicate digests, duplicate status pages, and documentation-only tasks that do
+not unlock a real scientific workflow should be rejected or folded into an
+existing surface. A new documentation surface is justified only when it removes
+an existing drift source, replaces another surface, or directly unlocks a
+scientific workflow.
 
 ## When To Use It
 
@@ -176,6 +228,11 @@ It must not:
 - modify canonical results;
 - modify accepted knowledge;
 - create work only to keep agents busy;
+- create duplicate digests, dashboards, status pages, or filler tasks when an
+  existing surface can be updated instead;
+- recommend a task without naming the scientific output path it advances;
+- ignore workflow or architecture bottlenecks when they are why a campaign is
+  not producing scientific results;
 - recommend repeated audits without new evidence, new controls, or a clear
   promotion/blocker decision;
 - auto-create canonical task files without explicit maintainer approval in the
@@ -204,6 +261,8 @@ In that case, it may create canonical `tasks/TASK-XXXX-*.yaml` files only when:
 - the task routes final output through `docs/result-promotion-protocol.md`;
 - the task either creates a meaningful science/output path or removes a real
   blocker; it is not work-for-work.
+- the task is not a duplicate digest, status page, or documentation copy unless
+  it replaces or retires an existing surface.
 
 If maintainer intent is unclear, the curator should recommend task proposals or
 ask for confirmation instead of creating canonical task files.
