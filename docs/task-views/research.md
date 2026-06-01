@@ -15,7 +15,6 @@
 - `TASK-0489` - Package Quantum Norris-Bawendi source artifact review (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0491` - Define Quantum calibration-consistency go/no-go scorecard (`research_quality_gate`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0493` - Plan Textbook Formula Audit for Stefan-Boltzmann law (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0507` - Run first Nuclear residual-law factory sprint (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0515` - Run Exoplanet control-aware go/no-go synthesis (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
@@ -24,4 +23,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0507` - Run first Nuclear residual-law factory sprint (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
