@@ -11,7 +11,6 @@
 - `TASK-0477` - Package Nuclear negative-result evidence card (`scientific_communication`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0478` - Define Nuclear F2 finer-taxonomy preflight (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 - `TASK-0479` - Run Nuclear training-slice expansion feasibility review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0485` - Triage Atomic second-source fallbacks (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0487` - Audit Atomic direct-vs-derived row separation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0489` - Package Quantum Norris-Bawendi source artifact review (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0491` - Define Quantum calibration-consistency go/no-go scorecard (`research_quality_gate`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
@@ -27,5 +26,6 @@ None.
 
 - `TASK-0398` - Package Norris-Bawendi 1996 digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0481` - Run exoplanet compact-radius host-context preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0485` - Triage Atomic second-source fallbacks (`scientific_dataset`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0502` - Refresh campaign docs after null-baseline and fresh-data gate results (`campaign_status_refresh`, priority `high`, difficulty `medium`, domain `campaign_portfolio`)
 - `TASK-0508` - Define Exoplanet adapter contract for Research Factory reuse (`research_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
