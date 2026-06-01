@@ -1,0 +1,65 @@
+id: TASK-0517
+title: "Run Nuclear factory sprint on NMD-0003 measured training surface"
+type: scientific_validation
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Use the Research Factory layer on a sufficiently broad Nuclear training surface."
+  - "Test whether bounded residual-feature families produce any shortlist after controls on NMD-0003."
+  - "Turn the TASK-0507 underpowered result into a stronger large-surface follow-up, not another 11-row rerun."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "tasks/TASK-0516-add-nmd-0003-ame2020-measured-training-dataset.yaml"
+    - "docs/research-factory-protocol.md"
+    - "docs/nuclear-residual-factory-sprint-protocol.md"
+    - "physics_lab/schemas/factory_summary.schema.json"
+    - "scripts/run_research_factory.py"
+    - "physics_lab/factories/"
+    - "agent_runs/AGENT-RUN-0052/report.md"
+    - "docs/reviews/nuclear-training-slice-expansion-feasibility.md"
+  planning_context: >
+    TASK-0507 showed that the shared Nuclear Research Factory can generate,
+    control, rank, and route many candidates, but its 11-row NMD-0002 surface is
+    too small to support a shortlist. This task is the first large-surface
+    factory sprint and must remain blocked until TASK-0516 lands a source-safe
+    NMD-0003 dataset and split manifest.
+
+requirements:
+  - "BLOCKED by TASK-0516: requires a committed, source-gated NMD-0003 AME2020 measured-row training dataset and frozen split manifest."
+  - "Do not unblock by running this sprint on NMD-0002 or by absorbing post_ame2020_holdout.yaml into training."
+  - "Do not start until TASK-0516 is DONE and NMD-0003 has a committed source manifest, row-level training dataset, and frozen split manifest."
+  - "Use the shared Research Factory runner and Nuclear adapter contract, not a one-off Nuclear script."
+  - "Use committed datasets only; no live external fetch and no baseline refit unless TASK-0516 or a later task explicitly authorizes it."
+  - "Generate and execute a predeclared bounded candidate set across at least four approved Nuclear factory families."
+  - "Apply mandatory controls: frozen baseline comparison, train/holdout split, post-AME2020 time-split check when applicable, shuffled/null target, matched random slice, complexity penalty, and leakage checks."
+  - "Rank candidates by holdout or validation improvement after controls, not by training fit."
+  - "Report generated, preflight-rejected, executed, shortlisted, rejected-by-control, and data-quality-blocked counts."
+  - "Route every candidate through the Research Factory verdict vocabulary."
+  - "Preserve negative and control-dominated families as scientific memory."
+  - "Do not write PRED entries, reveal scores, CLAIM files, KNOW files, or discovery wording."
+
+accepted_outputs:
+  - "examples/factories/nuclear_residual_factory_nmd0003_sprint.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/factory_summary.yaml"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-residual-factory-nmd0003-sprint.md or docs/results/nuclear-residual-factory-nmd0003-sprint.md, depending on result-promotion routing"
+  - "optional follow-up task proposal only if a candidate reaches READY_FOR_REPLAY or READY_FOR_PRED_FREEZE"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_residual_factory.py"
+    - "python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_nmd0003_sprint.yaml --output-dir /tmp/apl-nuclear-factory-nmd0003-sprint"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
