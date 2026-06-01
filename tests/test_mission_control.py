@@ -541,6 +541,7 @@ def test_apl_mission_script_output_agent_runs_from_repo_root() -> None:
 
     assert "Agent First Research Mode" in result.stdout
     assert "Execute the full loop autonomously" in result.stdout
+    assert "choose one executable READY task" in result.stdout
 
 
 def test_cli_mission_json_runs_from_repo_root() -> None:
@@ -555,6 +556,8 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
     assert rendered["selected_mode"] == "research"
     assert rendered["recommended"]["action"] == "exoplanet-negative-control-memory"
     assert rendered["recommended"]["task_id"] is None
+    assert rendered["recommended"]["is_executable"] is False
+    assert rendered["recommended"]["guidance_only"] is True
     assert "parallel_work_policy" in rendered
     assert any(
         "result-promotion-protocol.md" in item
