@@ -1,7 +1,7 @@
 id: TASK-0517
 title: "Run Nuclear factory sprint on NMD-0003 measured training surface"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -25,14 +25,13 @@ input:
   planning_context: >
     TASK-0507 showed that the shared Nuclear Research Factory can generate,
     control, rank, and route many candidates, but its 11-row NMD-0002 surface is
-    too small to support a shortlist. This task is the first large-surface
-    factory sprint and must remain blocked until TASK-0516 lands a source-safe
-    NMD-0003 dataset and split manifest.
+    too small to support a shortlist. TASK-0516 has now landed a source-gated
+    NMD-0003 AME2020 measured-row training surface and frozen split manifest,
+    so this task is the first large-surface factory sprint.
 
 requirements:
-  - "BLOCKED by TASK-0516: requires a committed, source-gated NMD-0003 AME2020 measured-row training dataset and frozen split manifest."
-  - "Do not unblock by running this sprint on NMD-0002 or by absorbing post_ame2020_holdout.yaml into training."
-  - "Do not start until TASK-0516 is DONE and NMD-0003 has a committed source manifest, row-level training dataset, and frozen split manifest."
+  - "Use the committed source-gated NMD-0003 AME2020 measured-row training dataset and frozen split manifest from TASK-0516."
+  - "Do not run this sprint on NMD-0002 and do not absorb post_ame2020_holdout.yaml into training."
   - "Use the shared Research Factory runner and Nuclear adapter contract, not a one-off Nuclear script."
   - "Use committed datasets only; no live external fetch and no baseline refit unless TASK-0516 or a later task explicitly authorizes it."
   - "Generate and execute a predeclared bounded candidate set across at least four approved Nuclear factory families."

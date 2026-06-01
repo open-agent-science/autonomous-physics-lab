@@ -10,18 +10,19 @@ The target is not a universal mass formula. The target is a disciplined
 benchmark surface where compact, physically constrained correction terms can be
 tested against real dataset structure, subset behavior, and negative controls.
 
-New-reader summary: Nuclear is APL's flagship validation surface, but it is
-currently in diagnostic and source-gated mode. The useful work is broader
-training-surface curation, stress review, no-leakage falsification handling,
-no-peek reveal readiness, domain-limit mapping, and negative-result
+New-reader summary: Nuclear is APL's flagship validation surface, and it has
+now moved from an 11-row bootstrap slice to a source-gated AME2020 measured-row
+training surface (`NMD-0003`). The useful work is the first large Research
+Factory sprint on that surface, stress review, no-leakage falsification
+handling, no-peek reveal readiness, domain-limit mapping, and negative-result
 preservation, not new broad prediction waves on the 11-row bootstrap slice.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can APL build a source-gated AME2020 measured-row
-training surface (`NMD-0003`) large enough for Research Factory sprints to test
-residual-feature families without being dominated by the 11-row bootstrap
-slice?
+**Current question:** does the Research Factory produce any bounded,
+control-surviving residual-feature candidates on the source-gated
+`NMD-0003` AME2020 measured-row training surface, after the 11-row `NMD-0002`
+sprint produced no shortlist?
 
 **Shareable result:** APL tested `LOCAL-CURVATURE-001`, a promising
 local-curvature residual candidate, under a bounded no-leakage prototype and
@@ -35,18 +36,15 @@ describe shell-axis or local-curvature evidence as discovery-level physics.
 **Active next work:** `TASK-0507` ran the first Research Factory sprint over
 `NMD-0002` and produced no shortlist: 73 generated candidates routed to 66
 negative results, 6 underpowered inconclusive results, and 1 data-quality
-blocker. `TASK-0479` then identified the blocker: the campaign needs a broader
-source-gated AME2020 measured-row training dataset (`NMD-0003`) before another
-meaningful factory sprint. `TASK-0516` is the data-unblock task; `TASK-0517`
-stays blocked until that dataset lands; `TASK-0518` can run a limited
-uncertainty-perturbation control on `NMD-0002` without treating it as new
-evidence.
+blocker. `TASK-0516` then landed `NMD-0003`: a source-gated AME2020 measured
+training surface with 2309 committed rows and frozen exclusion of the primary
+post-AME2020 holdout. `TASK-0517` is now the next large-surface factory sprint;
+`TASK-0518` can still run a limited uncertainty-perturbation control on
+`NMD-0002` without treating it as independent evidence.
 
-**Expected next result:** a source-readiness verdict for `NMD-0003`: either a
-committed checksum-backed measured-row training surface with frozen splits, or
-a precise blocker explaining which AME2020 source artifact / redistribution /
-parser requirement still prevents it. Reveal scoring remains separate and
-source-gated.
+**Expected next result:** a large-surface factory verdict: either no candidate
+survives controls on `NMD-0003`, or a narrow shortlist reaches replay /
+prediction-freeze review. Reveal scoring remains separate and source-gated.
 
 ## Orientation Note for New Contributors
 
@@ -59,7 +57,7 @@ post-registry stress review, reveal readiness, and evidence packaging:
 
 - campaign map and guardrail wording;
 - pinned-dataset and provenance expansion work;
-- source-gated `NMD-0003` training-surface work;
+- source-gated `NMD-0003` factory sprint work;
 - subset and holdout curation;
 - registry coverage audits across frozen `PRED-*` entries;
 - synthetic reveal dry-runs that use fake data only;
@@ -266,6 +264,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
 - `TASK-0507` runs the first Nuclear residual-law factory sprint on
   `NMD-0002`: 73 candidates generated, 72 executed, 0 shortlisted. The result
   is strong negative / underpowered memory, not a formula discovery.
+- `TASK-0516` lands `NMD-0003`, a source-gated AME2020 measured-row training
+  surface with 2309 committed training rows, a pinned source checksum, and a
+  frozen split manifest that keeps primary post-AME2020 holdout nuclides out of
+  training.
 
 Historical context:
 
@@ -277,23 +279,19 @@ Historical context:
 Current campaign state in one sentence:
 the scientific direction is now explicit, baseline-backed, holdout-defined,
 factory-supported, and prospectively frozen through selected registry entries,
-but it has not yet reached a future-measurement reveal or a sufficiently broad
-source-gated training surface. The safest Nuclear follow-up is `NMD-0003`
-source curation, local-curvature falsification packaging, reveal readiness
-reporting, and only genuinely fresh controls-first lanes that do not repeat
-completed negative/control modes. The first factory sprint is preserved as
+but it has not yet reached a future-measurement reveal. The safest Nuclear
+follow-up is the first `NMD-0003` large-surface factory sprint,
+local-curvature falsification packaging, reveal readiness reporting, and only
+genuinely fresh controls-first lanes that do not repeat completed
+negative/control modes. The first `NMD-0002` factory sprint is preserved as
 negative/underpowered memory in `AGENT-RUN-0052`; reveal scoring remains
 blocked.
 
 Current next Nuclear posture:
 
-- `TASK-0516` should run before another full Nuclear factory sprint: it must
-  pin a source-safe AME2020 measured-row training surface (`NMD-0003`) with
-  checksums, row semantics, and frozen split boundaries, or document the exact
-  source blocker.
-- `TASK-0517` remains blocked until `TASK-0516` lands a committed `NMD-0003`
-  dataset and split manifest. Do not substitute `post_ame2020_holdout.yaml` as
-  training data.
+- `TASK-0517` should run the next full Nuclear factory sprint on the committed
+  `NMD-0003` dataset and frozen split manifest from `TASK-0516`. Do not
+  substitute `post_ame2020_holdout.yaml` as training data.
 - `TASK-0518` may run as a robustness control over the existing `NMD-0002`
   slice, but uncertainty perturbations of the same 11 rows are not independent
   evidence for a residual law.
@@ -386,11 +384,8 @@ Start here:
 - Can a finer residual-free high-error cluster taxonomy or larger curated
   training slice ever make F2 testable, or should the current inconclusive
   `TASK-0449` result keep that lane diagnostic-only?
-- Can `TASK-0516` create a source-safe `NMD-0003` AME2020 measured-row
-  training dataset, or is the campaign blocked by source artifact,
-  redistribution, or parser provenance requirements?
-- Once `NMD-0003` exists, does a Research Factory sprint produce any candidate
-  that survives controls on a larger measured training surface, or do the
+- Does a Research Factory sprint on the committed `NMD-0003` AME2020 measured
+  training surface produce any candidate that survives controls, or do the
   current residual-feature families remain negative/control-dominated?
 - Should Nuclear pause new fitting until `TASK-0477`, `TASK-0478`, and
   `TASK-0479` package the latest negative memory, define a finer F2 taxonomy,
@@ -414,11 +409,11 @@ Start here:
   families without a new maintainer-approved rationale.
 - Treat `TASK-0474` and `TASK-0475` as additional negative/control memory, and
   `TASK-0476` as mixed chain-local transfer evidence.
-- Prefer `TASK-0477`, `TASK-0478`, and `TASK-0479` before opening another
-  Nuclear hypothesis-lane batch.
-- Run `TASK-0516` as the highest-value Nuclear unblock: source-gated
-  `NMD-0003` training data first, then factory sprint.
-- Keep `TASK-0517` blocked until `NMD-0003` exists with frozen splits.
+- Prefer `TASK-0517` as the next large Nuclear hypothesis-lane batch: run the
+  Research Factory on the source-gated `NMD-0003` training surface with frozen
+  splits and mandatory controls.
+- Keep `TASK-0477` and `TASK-0478` useful as negative-result packaging and F2
+  taxonomy preflight; do not let them delay the first `NMD-0003` sprint.
 - Use `TASK-0518` only as a sensitivity-control lane on `NMD-0002`; do not
   treat uncertainty perturbations as independent validation data.
 - Run `TASK-0396` for reveal-source readiness; keep it independent from
