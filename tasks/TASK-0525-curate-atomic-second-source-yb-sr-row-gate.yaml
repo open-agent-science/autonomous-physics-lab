@@ -1,0 +1,56 @@
+id: TASK-0525
+title: "Curate Atomic second-source Yb/Sr direct-row gate"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Atomic from PINNED_DATASET toward BASELINE_READY by attacking the load-bearing second-source blocker."
+  - "Prefer source-gated direct rows over drift fits or derived-constraint claims."
+  - "Keep the first Atomic benchmark blocked unless a second value-bearing direct source passes provenance, uncertainty, covariance, and holdout gates."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md"
+    - "docs/reviews/atomic-direct-vs-derived-row-separation-audit.md"
+    - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+    - "docs/reviews/atomic-holdout-no-peek-manifest.md"
+    - "data/atomic_clocks/schema.md"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+  planning_context: >
+    TASK-0455 kept Atomic at PINNED_DATASET because no second value-bearing
+    direct Yb/Sr row is committed. Nemitz 2016 remains the preferred path and
+    Pizzocaro 2020 is the ranked fallback. This task either curates a compliant
+    second-source row package or records a precise source blocker.
+
+requirements:
+  - "Review Nemitz 2016 first; if it cannot pass source gates, review the Pizzocaro 2020 fallback."
+  - "Do not copy row values unless they are direct table values, machine-readable source values, or independently reproducible extraction artifacts with citation, locator, checksum, and uncertainty semantics."
+  - "Keep direct measurements, derived constraints, review summaries, and synthetic rows separate."
+  - "Declare covariance state using the Atomic first-benchmark covariance policy."
+  - "If a row is curated, keep benchmark_allowed, drift_fitting_allowed, claim_promotion_allowed, and prediction_registry_allowed false unless a later gate explicitly changes them."
+  - "If no compliant row can be committed, write a blocker review with the exact missing artifact, license, version, uncertainty, or covariance condition."
+  - "Do not run cross-source benchmark metrics, constants-drift fits, prediction entries, claims, or knowledge artifacts."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/atomic-second-source-yb-sr-row-gate.md"
+  - "optional data/atomic_clocks/acr-0002-*.yaml only if source, row, uncertainty, and covariance gates pass"
+  - "optional data/atomic_clocks/source_manifest.yaml update if the source state changes"
+  - "tests for any new atomic row package or manifest entry"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_real_rows.py tests/test_atomic_clock_source_manifest.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

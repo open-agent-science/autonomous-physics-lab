@@ -1,0 +1,52 @@
+id: TASK-0529
+title: "Define Exoplanet second-snapshot reopen coverage gate"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prevent Exoplanet from repeating current-snapshot residual pilots after the NO-GO synthesis."
+  - "Define exactly what must materially change before the campaign reopens a residual hypothesis lane."
+  - "Prepare future second-snapshot work without live fetch, row inspection, or target-priority claims."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-control-aware-go-no-go-synthesis.md"
+    - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+    - "docs/reviews/exoplanet-second-snapshot-target-freeze.md"
+    - "data/exoplanets/second_snapshot_target_freeze.yaml"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+  planning_context: >
+    TASK-0515 says Exoplanet should not run more compact-radius or
+    host-context residual pilots on the current pinned snapshot. The allowed
+    future path is a materially changed pinned snapshot or explicitly revised
+    coverage gate. This task defines that reopen gate before any second
+    snapshot is acquired or scored.
+
+requirements:
+  - "Do not fetch live exoplanet data or add a second snapshot."
+  - "Declare minimum row-count, true-mass/minimum-mass separation, host-context coverage, and null-baseline competition criteria for reopening a residual lane."
+  - "Keep all target axes, metrics, slice thresholds, null rules, and stop conditions fixed before future row inspection."
+  - "State which current-snapshot lanes remain do-not-repeat unless the gate passes."
+  - "Do not propose habitability, biosignature, target-priority, composition, or universal mass-radius law claims."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-second-snapshot-reopen-coverage-gate.md"
+  - "optional update to docs/campaigns/exoplanet-mass-radius.md if campaign posture changes"
+  - "optional machine-readable gate/checklist if consistent with existing exoplanet protocol files"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
