@@ -114,6 +114,10 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
             {"id": "TASK-SCI-COMM", "status": "DONE", "type": "scientific_communication"},
         ),
         (
+            tmp_path / "tasks" / "TASK-SCI-BENCHMARK.yaml",
+            {"id": "TASK-SCI-BENCHMARK", "status": "DONE", "type": "scientific_benchmark"},
+        ),
+        (
             tmp_path / "tasks" / "TASK-TOOLING-FIX.yaml",
             {"id": "TASK-TOOLING-FIX", "status": "DONE", "type": "tooling_fix"},
         ),
