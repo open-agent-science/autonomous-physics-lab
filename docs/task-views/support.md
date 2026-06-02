@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0539` - Provide Nuclear F2 coverage-clearing training slice (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+None.
