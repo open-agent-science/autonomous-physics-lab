@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 
 from physics_lab.registry.review_policy import (
     BRANCH_PATTERN,
@@ -21,6 +22,13 @@ PLACEHOLDER_MARKERS = (
     "tasks/TASK-XXXX-short-slug.yaml",
     "agent/<contributor-id>/<agent-id>/task-<task-number>-<short-slug>",
     "<short title>",
+)
+STRICT_VALIDATE_REPO_PATTERN = re.compile(
+    r'(?:^|[\s`])(?:"[^"]*[\\/]python(?:3)?(?:\.exe)?"|'
+    r"(?:\S*[\\/])?(?:python3?|py)(?:\.exe)?)"
+    r"\s+-m\s+physics_lab\.cli\s+validate-repo\s+\."
+    r"\s+--strict\s+--fail-on-warnings(?:$|[\s`)])",
+    re.IGNORECASE,
 )
 
 
@@ -65,6 +73,18 @@ def task_pr_body(
     validation_commands: tuple[str, ...],
     scientific_claim_impact: str,
     result_artifact_impact: str,
+    task_verdict: str = "not_applicable",
+    canonical_destination: str = "none",
+    review_tier: str = "none",
+    gate_a_status: str = "not_applicable",
+    gate_b_status: str = "not_applicable",
+    claim_impact: str = "No claim promotion.",
+    knowledge_impact: str = "No knowledge promotion.",
+    limitations_blockers: str = "None for this PR shape.",
+    branch_pushed: bool = False,
+    draft_pr_opened: bool = False,
+    post_pr_review_run: bool = False,
+    ready_for_review: bool = False,
     model_version: str | None = None,
     root: Path = Path("."),
 ) -> str:
@@ -104,10 +124,10 @@ def task_pr_body(
             "",
             "## PR Lifecycle",
             "",
-            "- [x] Branch pushed",
-            "- [x] Draft PR opened by agent or manual PR creation commands provided",
-            "- [x] Post-PR review command run or manual review command provided if no PR number is available",
-            "- [ ] Marked ready for review after CI passes and review agent returns `MERGE_OK`, or manual ready command provided",
+            f"- {_render_checkbox(branch_pushed)} Branch pushed",
+            f"- {_render_checkbox(draft_pr_opened)} Draft PR opened by agent or manual PR creation commands provided",
+            f"- {_render_checkbox(post_pr_review_run)} Post-PR review command run or manual review command provided if no PR number is available",
+            f"- {_render_checkbox(ready_for_review)} Marked ready for review after CI passes and review agent returns `MERGE_OK`, or manual ready command provided",
             "",
             "## Summary",
             "",
@@ -139,14 +159,14 @@ def task_pr_body(
             "",
             "## Output Routing",
             "",
-            "- Task verdict: `not_applicable`",
-            "- Canonical destination: `none`",
-            "- Review tier: `none`",
-            "- Gate A status: `not_applicable`",
-            "- Gate B status: `not_applicable`",
-            "- Claim impact: No claim promotion.",
-            "- Knowledge impact: No knowledge promotion.",
-            "- Limitations / blockers: None for this PR shape.",
+            f"- Task verdict: `{task_verdict}`",
+            f"- Canonical destination: `{canonical_destination}`",
+            f"- Review tier: `{review_tier}`",
+            f"- Gate A status: `{gate_a_status}`",
+            f"- Gate B status: `{gate_b_status}`",
+            f"- Claim impact: {claim_impact}",
+            f"- Knowledge impact: {knowledge_impact}",
+            f"- Limitations / blockers: {limitations_blockers}",
             "",
             "If this PR contains `AGENT_PUBLISHED` or `AGENT_VALIDATED` artifacts, "
             "keep the qualifier explicit and document Gate A/Gate B status.",
@@ -182,6 +202,7 @@ def preflight_task_pr(
     body_text: str,
 ) -> TaskPrPreflightReport:
     """Check whether a canonical task PR shape looks repository-ready."""
+    body_text = body_text.lstrip("\ufeff")
     errors: list[str] = []
     warnings: list[str] = []
 
@@ -235,7 +256,7 @@ def preflight_task_pr(
     # The review bundle is optional, not a mandatory PR step (see TASK-0466, F5),
     # so its absence is no longer flagged. scripts/apl_review_bundle.sh remains
     # available for maintainers who want a full diff snapshot.
-    if "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings" not in body_text:
+    if STRICT_VALIDATE_REPO_PATTERN.search(body_text) is None:
         warnings.append("PR body does not mention strict repository validation.")
 
     return TaskPrPreflightReport(errors=tuple(errors), warnings=tuple(warnings))
