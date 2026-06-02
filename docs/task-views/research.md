@@ -19,7 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0477` - Package Nuclear negative-result evidence card (`scientific_communication`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
-- `TASK-0487` - Audit Atomic direct-vs-derived row separation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0491` - Define Quantum calibration-consistency go/no-go scorecard (`research_quality_gate`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
-- `TASK-0493` - Plan Textbook Formula Audit for Stefan-Boltzmann law (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.
