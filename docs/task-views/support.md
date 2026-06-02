@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
+- `TASK-0529` - Define Exoplanet second-snapshot reopen coverage gate (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 

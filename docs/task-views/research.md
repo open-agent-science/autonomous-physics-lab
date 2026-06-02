@@ -12,6 +12,10 @@
 - `TASK-0489` - Package Quantum Norris-Bawendi source artifact review (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0517` - Run Nuclear factory sprint on NMD-0003 measured training surface (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0518` - Run NMD-0002 uncertainty perturbation control for Nuclear factory candidates (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0525` - Curate Atomic second-source Yb/Sr direct-row gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
+- `TASK-0526` - Assign Atomic Beloy freeze-manifest row roles (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+- `TASK-0527` - Build Textbook Stefan-Boltzmann exact-reference fixture (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+- `TASK-0528` - Fill Exoplanet normalized snapshot checksum gap (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 
