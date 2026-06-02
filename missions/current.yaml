@@ -152,7 +152,7 @@ missions:
           - "Treat TASK-0517 as completed control-dominated negative memory: do not rerun the same NMD-0003 factory sprint without a new baseline or new approved feature family"
           - "Keep post_ame2020_holdout.yaml out of training; use it only through explicit retrospective/reveal-style validation tasks"
           - "Treat TASK-0518 as completed NMD-0002 uncertainty-control memory, not as independent validation data"
-          - "TASK-0531 shows simple broad-surface NMD-0003 refit is not enough: validation holdout MAE regressed, so Nuclear needs TASK-0534-style baseline-family and split/domain gating before another factory sprint"
+          - "TASK-0531 shows simple broad-surface NMD-0003 refit is not enough: validation holdout MAE regressed, so Nuclear needs TASK-0535-style baseline-family and split/domain gating before another factory sprint"
           - "New Nuclear hypothesis lanes must predeclare leakage checks, negative controls, and stop conditions before candidate fitting"
         validation:
           - "python3 -m ruff check ."

@@ -62,7 +62,7 @@ claiming universal truth or falsity?
 
 **Shareable result:** the campaign scaffold, candidate slate, and first
 source/baseline planning artifacts now exist. `TASK-0527` turned
-Stefan-Boltzmann into a deterministic exact-reference fixture; `TASK-0536` is
+Stefan-Boltzmann into a deterministic exact-reference fixture; `TASK-0537` is
 the paired Wien displacement exact-reference fixture. These are software and
 verification-gate results, not empirical validation of the laws.
 
