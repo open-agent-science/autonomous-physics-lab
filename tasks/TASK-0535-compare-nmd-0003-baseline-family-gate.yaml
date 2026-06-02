@@ -1,7 +1,7 @@
 id: TASK-0535
 title: "Compare NMD-0003 baseline-family gate"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 

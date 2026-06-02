@@ -1,0 +1,51 @@
+# TASK-0535 NMD-0003 baseline-family gate config.
+#
+# Compares physically standard nuclear-mass baseline families on the committed
+# NMD-0003 AME2020 measured surface under two predeclared deterministic splits.
+# No residual-feature, shell-axis, local-curvature, or post-hoc correction term
+# is introduced. The only degrees of freedom are the five liquid-drop
+# coefficients and the declared fit policies below.
+task_id: TASK-0535
+benchmark_id: nmd0003-baseline-family-gate
+dataset:
+  snapshot_ref: data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+  split_manifest_ref: data/nuclear_masses/nmd-0003-split-manifest.yaml
+  retrieval_policy: no_live_fetch
+baseline:
+  inherited_coefficients_ref: results/EXP-0012/RUN-0001/result.yaml
+  inherited_model_id: model_fitted_semi_empirical
+splits:
+  validation_holdout_fraction: 0.3
+  declared:
+    sorted_aZN_70_30: deterministic 70/30 train/validation split by sorted (A, Z, N); validation holdout is the heavy-mass tail (extrapolation holdout)
+    stratified_interleaved_70_30: deterministic stratified split over the same sorted order; validation when sorted index modulo 10 is >= 7 (interpolation holdout)
+  post_ame2020_holdout_policy: excluded_from_fit_and_not_reveal_scored
+families:
+  ordinary_least_squares:
+    description: TASK-0531 NMD-0003 global refit
+  weighted_least_squares:
+    weight_policy: inverse_mass_number
+    description: per-row weights 1/A, down-weighting heavy-mass leverage
+  ridge:
+    alpha: 1.0
+    description: ridge penalty on standardized liquid-drop design columns, no intercept
+  region_stratified_diagnostic:
+    regions:
+      - "A<=40"
+      - "41<=A<=100"
+      - "101<=A<=180"
+      - "A>180"
+    description: independent OLS coefficients fit per A region on the train split
+fitted_parameters:
+  - volume
+  - surface
+  - coulomb
+  - asymmetry
+  - pairing
+complexity_score: 5
+stop_conditions:
+  - "Stop if the NMD-0003 split manifest does not exactly match the committed dataset rows."
+  - "Stop if post_ame2020_holdout rows are requested for fitting or reveal scoring."
+  - "Stop if any residual-feature candidate family is introduced."
+  - "Stop if live external fetch is requested."
+claim_ceiling: Sandbox benchmark evidence only; no PRED, CLAIM, KNOW, or discovery wording.
