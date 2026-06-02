@@ -48,6 +48,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "physics_reference",
     "scientific_governance",
     "scientific_audit",
+    "scientific_benchmark",
     "scientific_falsification",
     "benchmark_protocol",
     "ci_infrastructure",
