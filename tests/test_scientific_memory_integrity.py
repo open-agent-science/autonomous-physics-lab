@@ -149,6 +149,10 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
             tmp_path / "tasks" / "TASK-ARTIFACT-SCHEMA.yaml",
             {"id": "TASK-ARTIFACT-SCHEMA", "status": "DONE", "type": "artifact_schema"},
         ),
+        (
+            tmp_path / "tasks" / "TASK-MAINTAINER-TOOLING.yaml",
+            {"id": "TASK-MAINTAINER-TOOLING", "status": "DONE", "type": "maintainer_tooling"},
+        ),
     ]
 
     issues = collect_scientific_memory_integrity_issues(
