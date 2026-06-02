@@ -43,6 +43,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "contributor_pilot",
     "developer_infrastructure",
     "maintainer_workflow",
+    "maintainer_tooling",
     "numerical_audit",
     "documentation",
     "physics_reference",

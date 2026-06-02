@@ -1,7 +1,7 @@
 id: TASK-0532
 title: "Strengthen strategy snapshot output context"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
