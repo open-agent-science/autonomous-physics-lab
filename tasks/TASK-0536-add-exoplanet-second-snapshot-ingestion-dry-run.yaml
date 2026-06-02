@@ -1,7 +1,7 @@
 id: TASK-0536
 title: "Add Exoplanet second-snapshot ingestion dry-run"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -40,14 +40,13 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/exoplanet-second-snapshot-ingestion-dry-run.md"
-  - "optional fixture under data/exoplanets/fixtures/ if needed for deterministic replay"
-  - "optional script/helper update only if it reuses existing ingestion code and does not fetch live data"
-  - "tests covering the second-snapshot dry-run, checksum replay, and row-class/no-peek separation"
+  - "tests/test_exoplanet_second_snapshot_dry_run.py"
 
 validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_exoplanet_mass_radius_dataset_schema.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 -m pytest tests/test_exoplanet_second_snapshot_dry_run.py"
     - "python3 -m pytest tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
