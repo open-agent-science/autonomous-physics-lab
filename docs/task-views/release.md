@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0455` - Rerun Atomic baseline-readiness gate after source, loader, and holdout work (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
+None.
