@@ -341,10 +341,10 @@ missions:
         label: "Define Quantum calibration-consistency go/no-go scorecard"
         task_id: TASK-0491
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "explicit decision on whether a weaker calibration-consistency benchmark may exist separately from TASK-0225"
 
@@ -485,7 +485,7 @@ missions:
         label: "Audit Atomic direct-vs-derived row separation"
         task_id: TASK-0487
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -505,10 +505,10 @@ missions:
         label: "Rerun Atomic baseline-readiness gate"
         task_id: TASK-0455
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "BASELINE_READY / PINNED_DATASET / SOURCE_BLOCKED go-no-go after TASK-0452 through TASK-0454"
       - id: atomic-yb-sr-cross-source-benchmark
@@ -774,8 +774,8 @@ missions:
         label: "Plan Textbook Formula Audit for Stefan-Boltzmann law"
         task_id: TASK-0493
         mode: research
-        status: ready
-        recommended: true
+        status: done
+        recommended: false
         priority: high
         difficulty: medium
         expected_outputs:
