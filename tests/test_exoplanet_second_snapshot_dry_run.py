@@ -29,6 +29,10 @@ def _load_yaml(path: Path) -> dict:
     return payload
 
 
+def _single_line(text: str) -> str:
+    return " ".join(text.split())
+
+
 def test_second_snapshot_target_freeze_is_no_live_fetch_no_peek_metadata() -> None:
     freeze = _load_yaml(TARGET_FREEZE_PATH)
 
@@ -63,7 +67,9 @@ def test_second_snapshot_target_freeze_keeps_mass_axes_separate() -> None:
 def test_second_snapshot_target_freeze_declares_blockers_before_real_reveal() -> None:
     freeze = _load_yaml(TARGET_FREEZE_PATH)
     blockers = "\n".join(freeze["blocker_conditions"])
-    required_next_step = freeze["promotion_boundary"]["required_next_step"]
+    required_next_step = _single_line(
+        freeze["promotion_boundary"]["required_next_step"]
+    )
 
     assert "Future snapshot retrieval lacks timestamp, checksum, row count" in blockers
     assert "future query differs from the frozen query" in blockers
