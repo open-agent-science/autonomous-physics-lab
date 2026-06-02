@@ -13,17 +13,20 @@ tested against real dataset structure, subset behavior, and negative controls.
 New-reader summary: Nuclear is APL's flagship validation surface, and it has
 now moved from an 11-row bootstrap slice to a source-gated AME2020 measured-row
 training surface (`NMD-0003`). The first large Research Factory sprint on that
-surface produced control-dominated negative memory with no shortlist. The next
-useful work is a broad-surface `NMD-0003` baseline freeze/refit, no-leakage
-falsification handling, no-peek reveal readiness, domain-limit mapping, and
-negative-result preservation, not new broad prediction waves or reruns on the
-11-row bootstrap slice.
+surface produced control-dominated negative memory with no shortlist. The first
+simple broad-surface baseline refit improved train/full-surface metrics but
+regressed on the validation holdout, so the next useful work is a
+baseline-family and split/domain gate, no-leakage falsification handling,
+no-peek reveal readiness, domain-limit mapping, and negative-result
+preservation, not new broad prediction waves or reruns on the 11-row bootstrap
+slice.
 
 ## Public Monitoring Snapshot
 
-**Current question:** can APL freeze a broad-surface `NMD-0003` baseline and
-residual map strong enough to justify any new bounded residual-feature family
-after the first large factory sprint produced no control-surviving shortlist?
+**Current question:** can APL identify a broad-surface `NMD-0003`
+baseline-family and validation policy strong enough to justify any new bounded
+residual-feature family after the first large factory sprint produced no
+control-surviving shortlist and the first simple refit regressed on validation?
 
 **Shareable result:** APL tested `LOCAL-CURVATURE-001`, a promising
 local-curvature residual candidate, under a bounded no-leakage prototype and
@@ -41,10 +44,12 @@ frozen exclusion of the primary post-AME2020 holdout. `TASK-0517` then ran the
 first large `NMD-0003` factory sprint: 73 candidates generated, 72 executed, 0
 shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 `TASK-0518` preserved the `NMD-0002` uncertainty perturbation lane as
-`INCONCLUSIVE` control evidence only.
+`INCONCLUSIVE` control evidence only. `TASK-0531` froze a first broad-surface
+baseline refit and found a useful blocker: train/full-surface MAE improved, but
+validation-holdout MAE regressed.
 
-**Expected next result:** a broad-surface `NMD-0003` baseline/residual map that
-decides whether later factory work needs a refit baseline, a new disjoint
+**Expected next result:** a baseline-family and split/domain gate that decides
+whether later factory work needs a different frozen baseline, a new disjoint
 feature family, or a pause. Reveal scoring remains separate and source-gated.
 
 ## Orientation Note for New Contributors
@@ -276,6 +281,10 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
 - `TASK-0518` runs the `NMD-0002` uncertainty perturbation control and keeps
   all tracked candidates `INCONCLUSIVE`; perturbation survival is not promotion
   evidence.
+- `TASK-0531` freezes the first broad-surface `NMD-0003` baseline refit and
+  records an `INCONCLUSIVE` benchmark result: train/full-surface MAE improves,
+  but validation-holdout MAE regresses, so it is not a promotable baseline
+  improvement.
 
 Historical context:
 
@@ -288,10 +297,12 @@ Current campaign state in one sentence:
 the scientific direction is now explicit, baseline-backed, holdout-defined,
 factory-supported, and prospectively frozen through selected registry entries,
 but it has not yet reached a future-measurement reveal. The safest Nuclear
-follow-up is now a broad-surface `NMD-0003` baseline freeze/refit and residual
-map before more expressive factory families. The `NMD-0002` and `NMD-0003`
-factory sprints are preserved as negative/control memory in `AGENT-RUN-0052`
-and `AGENT-RUN-0053`; reveal scoring remains blocked.
+follow-up is now a baseline-family and split/domain gate over `NMD-0003`
+before more expressive factory families. The `NMD-0002` and `NMD-0003` factory
+sprints are preserved as negative/control memory in `AGENT-RUN-0052` and
+`AGENT-RUN-0053`; the first broad-surface refit is preserved as inconclusive
+sandbox benchmark evidence in `AGENT-RUN-0055`; reveal scoring remains
+blocked.
 
 Current next Nuclear posture:
 
@@ -416,8 +427,8 @@ Start here:
 - Treat `TASK-0474` and `TASK-0475` as additional negative/control memory, and
   `TASK-0476` as mixed chain-local transfer evidence.
 - Treat `TASK-0517` as completed control-dominated negative memory; the next
-  Nuclear science task should freeze/refit a broad-surface `NMD-0003` baseline
-  before another large factory sprint.
+  Nuclear science task should compare baseline families and split/domain
+  behavior on `NMD-0003` before another large factory sprint.
 - Keep `TASK-0477` and `TASK-0478` useful as negative-result packaging and F2
   taxonomy preflight; do not let them delay the first `NMD-0003` sprint.
 - Treat `TASK-0518` as completed sensitivity-control memory on `NMD-0002`; do

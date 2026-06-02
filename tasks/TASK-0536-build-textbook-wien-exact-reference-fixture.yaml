@@ -1,0 +1,53 @@
+id: TASK-0536
+title: "Build Textbook Wien displacement exact-reference fixture"
+type: scientific_benchmark
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the Wien displacement planning artifact into a deterministic verifier-first audit path."
+  - "Give Textbook Formula Audit a public-friendly exact-reference task that tests units, peak-domain conventions, and negative controls."
+  - "Keep empirical blackbody-source ingestion separate from software/plumbing verification."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-wien-displacement-source-baseline-plan.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0492 recommended a synthetic exact-reference fixture as the cleanest
+    first Wien route. The fixture should test the wavelength-domain Wien
+    displacement convention, Planck peak-finding plumbing, unit conversions,
+    monotonicity, and wrong-domain or wrong-constant negative controls before
+    any empirical spectrum is ingested.
+
+requirements:
+  - "Use the frozen CODATA 2022 Wien wavelength displacement constant declared in the planning note, or document the exact source convention used."
+  - "Generate deterministic exact-reference rows over a predeclared temperature grid using lambda_peak = b / T."
+  - "If a sampled Planck-spectrum peak finder is implemented, keep the wavelength-domain spectral-radiance convention explicit."
+  - "Include negative controls for wrong constant, wrong temperature unit, and frequency-domain/wavelength-domain peak confusion when feasible."
+  - "Report only software/gate behavior; do not ingest empirical spectra or claim that APL validated or falsified Wien displacement."
+  - "Keep outputs sandbox-only unless result-promotion Gate A is explicitly satisfied by the implementation and review."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "examples/textbook_wien_displacement_exact_reference.yaml or equivalent fixture/config"
+  - "deterministic runner or helper for Wien exact-reference checks"
+  - "agent_runs/AGENT-RUN-XXXX/report.md or docs/reviews/textbook-wien-displacement-exact-reference-fixture.md"
+  - "tests for unit conversion, lambda_peak scaling, monotonicity, and negative controls"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

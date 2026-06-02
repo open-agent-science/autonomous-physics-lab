@@ -1,18 +1,19 @@
 default_mode: research
-updated: "2026-06-01"
+updated: "2026-06-02"
 
 curator_cycle:
   decision: updated
-  updated: "2026-06-01"
-  source: "TASK-0515"
+  updated: "2026-06-02"
+  source: "TASK-0531"
   note: >
     Mission guidance now reflects the latest merged science wave. Nuclear
-    remains the flagship validation challenge, but recent controls-first lanes
-    landed as negative, inconclusive, or chain-local memory. The default
-    near-term science-output sprint moves to Exoplanet Mass-Radius while
-    Atomic and Quantum continue through source/covariance gates. TASK-0515 now
-    preserves the current Exoplanet compact-radius surface as negative/control
-    memory until a materially changed snapshot or coverage gate is reviewed.
+    remains the flagship validation challenge, but TASK-0517 found no
+    control-surviving NMD-0003 factory shortlist and TASK-0531 showed that a
+    simple broad-surface NMD-0003 refit regresses on the validation holdout.
+    The next Nuclear path is a baseline-family and split/domain gate before
+    another residual-feature sprint. Exoplanet remains preserved as
+    negative/control memory until a second-snapshot coverage gate and dry-run
+    are reviewed, while Atomic and Quantum continue through source gates.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -67,7 +68,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge. The NMD-0003 large-surface factory sprint produced control-dominated negative memory with no shortlist, so the next positive-result path is a broad-surface NMD-0003 baseline freeze/refit before any more expressive residual families or prediction-freeze work."
+    recommendation: "Flagship validation challenge. The NMD-0003 large-surface factory sprint produced control-dominated negative memory with no shortlist, and the first broad-surface NMD-0003 refit improved train/full metrics while regressing on the validation holdout. The next positive-result path is a baseline-family and split/domain gate before any more expressive residual families or prediction-freeze work."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -87,6 +88,7 @@ missions:
       - "TASK-0516 landed the NMD-0003 source-gated AME2020 measured training surface with 2309 committed rows and frozen holdout exclusions"
       - "TASK-0517 ran the first NMD-0003 Research Factory sprint: 73 generated candidates, 72 executed, 0 shortlisted, and the strongest apparent gains rejected by matched random-slice controls"
       - "TASK-0518 confirmed NMD-0002 perturbation survival remains INCONCLUSIVE control evidence, not independent validation"
+      - "TASK-0531 froze the first NMD-0003 broad-surface baseline refit and found a validation-holdout regression: useful sandbox evidence, but not a promotable baseline improvement"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -150,7 +152,7 @@ missions:
           - "Treat TASK-0517 as completed control-dominated negative memory: do not rerun the same NMD-0003 factory sprint without a new baseline or new approved feature family"
           - "Keep post_ame2020_holdout.yaml out of training; use it only through explicit retrospective/reveal-style validation tasks"
           - "Treat TASK-0518 as completed NMD-0002 uncertainty-control memory, not as independent validation data"
-          - "Next Nuclear hypothesis work should first freeze/refit a broad-surface NMD-0003 baseline and residual map"
+          - "TASK-0531 shows simple broad-surface NMD-0003 refit is not enough: validation holdout MAE regressed, so Nuclear needs TASK-0534-style baseline-family and split/domain gating before another factory sprint"
           - "New Nuclear hypothesis lanes must predeclare leakage checks, negative controls, and stop conditions before candidate fitting"
         validation:
           - "python3 -m ruff check ."

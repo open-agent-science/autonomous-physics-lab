@@ -1,0 +1,58 @@
+id: TASK-0535
+title: "Add Exoplanet second-snapshot ingestion dry-run"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Exoplanet toward a materially changed pinned snapshot without live fetch or residual-pilot repetition."
+  - "Turn the second-snapshot target freeze into replayable ingestion mechanics before any new rows are inspected."
+  - "Keep Exoplanet residual lanes closed until the reopen coverage gate passes."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-control-aware-go-no-go-synthesis.md"
+    - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+    - "docs/reviews/exoplanet-second-snapshot-target-freeze.md"
+    - "data/exoplanets/second_snapshot_target_freeze.yaml"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    The current Exoplanet snapshot should not receive more compact-radius,
+    host-context, or mass-quartile residual pilots. The next useful path is a
+    later pinned snapshot, but agents need a deterministic dry-run that proves
+    second-snapshot normalization, checksum, row-class separation, and
+    no-peek fields can be replayed without fetching live archive data.
+
+requirements:
+  - "Do not fetch live exoplanet archive data."
+  - "Do not add real second-snapshot row values."
+  - "Use a small deterministic fixture or the existing first snapshot metadata to exercise the second-snapshot ingestion path without row inspection."
+  - "Preserve true-mass, minimum-mass, model-derived, and excluded row classes as separate states."
+  - "Exercise checksum/canonicalization behavior for a future normalized second snapshot."
+  - "Exercise no-peek fields from the target-freeze artifact without scoring target planets."
+  - "Do not run mass-radius residual metrics, hypothesis pilots, habitability/composition claims, target-priority claims, or universal planet-law wording."
+  - "Record exactly which steps remain blocked until TASK-0529 defines the reopen coverage gate and a maintainer approves a real pinned snapshot task."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-second-snapshot-ingestion-dry-run.md"
+  - "optional fixture under data/exoplanets/fixtures/ if needed for deterministic replay"
+  - "optional script/helper update only if it reuses existing ingestion code and does not fetch live data"
+  - "tests covering the second-snapshot dry-run, checksum replay, and row-class/no-peek separation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_dataset_schema.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

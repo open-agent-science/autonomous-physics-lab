@@ -43,10 +43,13 @@ or host-context pilots on the current pinned snapshot. `TASK-0481` found no
 compact-radius host-context axis that is benchmark-usable under the current
 coarse-bin floor, and `TASK-0480` landed as underpowered at mass-quartile resolution.
 Future work should reopen the residual lane only after a materially changed
-pinned snapshot or an explicitly revised coverage gate.
-`TASK-0482` and `TASK-0484` packaged the second-snapshot target freeze and
-external-reviewer capsule, and `TASK-0483` landed as an `INCONCLUSIVE`
-null-baseline control panel. All work stays no-live-fetch and benchmark-only.
+pinned snapshot or an explicitly revised coverage gate. `TASK-0529` defines
+that reopen gate, while `TASK-0535` prepares a no-live-fetch ingestion dry-run
+so a later real second snapshot can be normalized and checksummed without
+weakening the no-peek boundary. `TASK-0482` and `TASK-0484` packaged the
+second-snapshot target freeze and external-reviewer capsule, and `TASK-0483`
+landed as an `INCONCLUSIVE` null-baseline control panel. All work stays
+no-live-fetch and benchmark-only.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -119,6 +122,9 @@ Current scientific reading:
   localization pilots on the current pinned snapshot. The Research Factory
   adapter remains contract-only until a materially changed input surface is
   reviewed.
+- `TASK-0529` is the current reopen-gate task for a future second snapshot,
+  and `TASK-0535` is the paired no-live-fetch ingestion dry-run. Neither task
+  runs residual metrics or promotes mass-radius interpretation.
 - `TASK-0470`-era visibility work is now campaign memory. The current
   benchmark-hardening wave does not promote claims, knowledge, predictions, or
   canonical results.

@@ -44,12 +44,13 @@ gates and to the multi-tier review-promotion protocol introduced by
 
 ## Current Status
 
-Scaffold plus first planning lanes. This page records the campaign charter,
-candidate list, and guardrails. No formula audit has run yet under this
-campaign. The first recommended slice is the **Stellar Mass-Luminosity (M-L)
-out-of-distribution audit** on Gaia DR3 main-sequence stars, and the current
-public-verifier wave now has planning artifacts for Wien displacement and
-Stefan-Boltzmann audit surfaces. See
+Scaffold plus first verifier lanes. This page records the campaign charter,
+candidate list, and guardrails. No empirical formula audit has run yet under
+this campaign. The first recommended empirical slice is the **Stellar
+Mass-Luminosity (M-L) out-of-distribution audit** on Gaia DR3 main-sequence
+stars, while the current public-verifier wave uses exact-reference fixtures for
+Stefan-Boltzmann and Wien displacement before any empirical rows are ingested.
+See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
 
@@ -60,21 +61,22 @@ assumptions, verification gates, and out-of-distribution failure maps without
 claiming universal truth or falsity?
 
 **Shareable result:** the campaign scaffold, candidate slate, and first
-source/baseline planning artifacts now exist. The first recommended empirical
-slice remains Stellar Mass-Luminosity OOD planning, while Wien and
-Stefan-Boltzmann are planned as separated exact-reference and empirical routes
-before any metrics.
+source/baseline planning artifacts now exist. `TASK-0527` turned
+Stefan-Boltzmann into a deterministic exact-reference fixture; `TASK-0536` is
+the paired Wien displacement exact-reference fixture. These are software and
+verification-gate results, not empirical validation of the laws.
 
 **Not a claim:** no textbook formula audit has run yet. This campaign does
 not claim that any formula is globally right or wrong.
 
-**Active next work:** convert one planning artifact into a pinned source or
-synthetic exact-reference fixture task. No metrics should run before each audit
-has a source, baseline, holdout, and verification-gate plan.
+**Active next work:** build the Wien displacement exact-reference fixture, then
+move only one empirical formula lane at a time through source, baseline,
+holdout, and verification-gate planning. No empirical metrics should run before
+each audit has that plan.
 
-**Expected next result:** source/baseline plans that let agents later run
-range-aware, public-friendly formula audits without improvising data,
-assumptions, or universal verdicts.
+**Expected next result:** exact-reference fixtures that let agents verify units,
+constant conventions, peak-domain conventions, monotonicity, negative controls,
+and result-routing before any real-source audit.
 
 ## Why It Matters
 
