@@ -1,7 +1,7 @@
 id: TASK-0528
 title: "Fill Exoplanet normalized snapshot checksum gap"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
