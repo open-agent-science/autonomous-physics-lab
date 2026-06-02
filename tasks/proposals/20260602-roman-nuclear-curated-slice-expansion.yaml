@@ -19,7 +19,8 @@ summary: Establish a curated nuclear training slice that clears the TASK-0478 F2
 rationale: TASK-0449 collapsed because the NMD-0002 training slice (11 rows) cannot populate
   even the coarse F2 taxonomy with >=2 cells of >=2 rows. TASK-0478 declared the finer taxonomy
   and froze the coverage gate but explicitly identified training-slice coverage as the binding,
-  fixable blocker. Filed per the TASK-0534 mandatory fixable-gap self-reporting rule.
+  fixable blocker. Filed as a formal follow-up proposal so the coverage-expansion path is
+  reviewable instead of remaining only in PR-note prose.
 input:
   mode: workflow
   related_domain: nuclear_mass_surface
