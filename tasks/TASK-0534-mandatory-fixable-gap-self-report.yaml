@@ -1,0 +1,54 @@
+id: TASK-0534
+title: "Make fixable-repo-gap self-reporting mandatory in agent task protocol"
+type: agent_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Close the structural blind spot where agents notice fixable repository gaps but only describe them in prose, so they never reach the board."
+  - "Wire mandatory self-reporting into the canonical execution protocol, not just maintainer guidance, with a precise trigger condition."
+  - "Keep the trigger narrow: an explicit, fixable repository shortcoming the agent can concretely fix, not the agent's own error and not speculative ideas."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/agent-task-protocol.md"
+    - "docs/task-proposal-protocol.md"
+  planning_context: >
+    Maintainer-directed canonical task. While executing TASK-0526 an agent
+    identified a fixable schema/loader gap (the active atomic-clock loader and
+    test cannot express manifest-backed holdout.split / freeze_manifest / row
+    roles) and the concrete fix, but recorded it only as prose in a review note
+    instead of filing a task proposal. The task-proposal mechanism intent
+    requires mandatory agent self-reporting, but the canonical Task Execution
+    Flow and PR preflight do not enforce it, so the prose-only outcome was
+    protocol-compliant. This task adds the missing mandatory self-reporting rule
+    to docs/agent-task-protocol.md with a precise trigger: an explicit, fixable
+    repository gap the agent can see how to fix.
+
+requirements:
+  - "Add a 'Mandatory Blocker And Gap Self-Reporting' section to docs/agent-task-protocol.md."
+  - "Scope the mandatory trigger to all of: an explicit blocker/gap, that is a repository shortcoming (not the agent's own execution error), that is fixable, and where the agent can see a concrete in-repo fix."
+  - "State that a prose mention in a review note, PR body, or output-routing summary is not a substitute for filing a task proposal."
+  - "Add one Task Execution Flow step that references the new rule."
+  - "Keep softer findings (speculative ideas, non-blocking friction, gaps with no visible fix) as encouraged, not mandatory; they must not gate handoff."
+  - "Reference docs/task-proposal-protocol.md; do not invent new proposal branch, PR, or filename formats; do not bundle proposals into the current task PR."
+  - "Do not retroactively auto-create proposals and do not weaken existing protocol rules."
+
+accepted_outputs:
+  - "docs/agent-task-protocol.md update (new section plus one execution-flow step)"
+  - "tasks/TASK-0534-mandatory-fixable-gap-self-report.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

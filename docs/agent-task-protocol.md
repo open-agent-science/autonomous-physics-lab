@@ -599,6 +599,46 @@ the task scope and [./result-promotion-protocol.md](./result-promotion-protocol.
 allow it. Claim status transitions remain maintainer-only in Phase 1. Do not
 auto-merge PRs that publish tiered artifacts.
 
+## Mandatory Blocker And Gap Self-Reporting
+
+Self-reporting is **mandatory**, not optional, when all of the following hold
+while you work a task:
+
+- you hit an **explicit blocker or repository gap** (for example a missing or
+  under-specified schema, loader, validator, protocol step, helper, test, or
+  fixture);
+- the gap is a **shortcoming of the repository itself**, not your own execution
+  error and not a one-off environment problem;
+- the gap is **fixable**; and
+- you can **see a concrete way to fix it in this repository**.
+
+When all four conditions hold, a prose mention in a review note, PR body, or
+output-routing summary is **not** sufficient. File the finding so it reaches the
+board:
+
+- create a task proposal under `tasks/proposals/` per
+  [./task-proposal-protocol.md](./task-proposal-protocol.md), using a separate
+  `propose-task-<short-slug>` branch and a `TASK-PROPOSAL:` PR. Proposals are
+  proposal-only; do not bundle them into the current task PR; or
+- if the maintainer explicitly directs a canonical task instead, create the
+  `TASK-XXXX` directly per the canonical rules.
+
+The proposal must name the concrete blocker or gap, why it is a repository
+shortcoming, and the concrete fix you can see. Keep proposal validation
+lightweight (schema and format preflight). Do not block your current task on the
+proposal: the current task may still reach `REVIEW_READY` with the blocker
+recorded as a filed proposal rather than as untracked prose.
+
+This rule exists because the workflow is optimized to execute known `READY`
+tasks and is otherwise structurally blind to discovering new fixable gaps. If
+fixable repository gaps are only described in prose, they never reach the board
+and never get fixed.
+
+Self-reporting remains **encouraged but not mandatory** for softer findings such
+as speculative research ideas, non-blocking friction, or gaps where you cannot
+yet see a concrete in-repo fix. File those as proposals when useful, but they do
+not gate handoff.
+
 ## Maintainer Review And Closeout
 
 Maintainers may use [./maintainer-review-agent.md](./maintainer-review-agent.md)
@@ -665,12 +705,16 @@ The maintainer review agent must not:
 10. Run the required validation commands.
 11. Set the task to `REVIEW_READY` when implementation and validation are
     done.
-12. Leave clear maintainer review notes and limitations.
+12. File mandatory self-report proposals for any explicit, fixable repository
+    gap you found and can see how to fix, per
+    [Mandatory Blocker And Gap Self-Reporting](#mandatory-blocker-and-gap-self-reporting).
+    A prose mention in the review or PR body is not a substitute.
+13. Leave clear maintainer review notes and limitations.
 
 After merge, maintainer closeout may also:
 
-13. set the task to `DONE`;
-14. let the post-merge `Sync Active Board` GitHub Action regenerate
+14. set the task to `DONE`;
+15. let the post-merge `Sync Active Board` GitHub Action regenerate
     the generated task views
     ([./task-views/research.md](./task-views/research.md),
     [./task-views/support.md](./task-views/support.md), and
@@ -680,7 +724,7 @@ After merge, maintainer closeout may also:
     regeneration diff exists. Maintainers may still run
     `python3 -m physics_lab.cli sync-active-board .` by hand in a dedicated
     board-sync PR when the action is disabled or needs a manual audit;
-15. add a dry-run note when the merged PR belongs to a contributor pilot.
+16. add a dry-run note when the merged PR belongs to a contributor pilot.
 
 ## AI Agent Attribution
 
