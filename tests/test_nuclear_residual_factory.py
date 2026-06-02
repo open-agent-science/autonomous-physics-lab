@@ -13,10 +13,19 @@ from physics_lab.registry.validation import validate_document
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SMOKE_CONFIG = REPO_ROOT / "examples" / "factories" / "nuclear_residual_factory_smoke.yaml"
 SPRINT_CONFIG = REPO_ROOT / "examples" / "factories" / "nuclear_residual_factory_sprint.yaml"
+NMD0003_SPRINT_CONFIG = (
+    REPO_ROOT / "examples" / "factories" / "nuclear_residual_factory_nmd0003_sprint.yaml"
+)
 
 
 def _sprint_summary() -> dict:
     config = yaml.safe_load(SPRINT_CONFIG.read_text(encoding="utf-8"))
+    spec = FactorySpec.from_config(config)
+    return run_factory(spec, get_adapter(spec.adapter_id))
+
+
+def _nmd0003_sprint_summary() -> dict:
+    config = yaml.safe_load(NMD0003_SPRINT_CONFIG.read_text(encoding="utf-8"))
     spec = FactorySpec.from_config(config)
     return run_factory(spec, get_adapter(spec.adapter_id))
 
@@ -47,6 +56,38 @@ def test_sprint_preflight_blocks_leakage_sensitive_family() -> None:
     blocked = [c for c in summary["candidates"] if c["candidate_state"] == "PREFLIGHT_REJECTED"]
     assert any(c["family"] == "local_curvature" for c in blocked)
     assert all(c["route_verdict"] == "DATA_QUALITY_BLOCKED" for c in blocked)
+
+
+def test_nmd0003_sprint_uses_split_manifest_and_large_training_surface() -> None:
+    summary = _nmd0003_sprint_summary()
+
+    assert summary["task_id"] == "TASK-0517"
+    assert summary["dataset"]["snapshot_ref"] == (
+        "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    )
+    assert summary["splits"]["split_manifest_ref"] == (
+        "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    )
+    assert summary["campaign_specific"]["training_surface_count"] == 2309
+    assert summary["campaign_specific"]["holdout_count"] >= 600
+    post_ame2020 = {c["name"]: c["outcome"] for c in summary["controls"]}["post_ame2020_check"]
+    assert post_ame2020.startswith("applied: NMD-0003-SPLIT-MANIFEST excludes")
+    assert validate_document(summary, "factory_summary", "x/factory_summary.yaml") is summary
+
+
+def test_nmd0003_sprint_reports_controlled_route_counts_without_prediction_freeze() -> None:
+    summary = _nmd0003_sprint_summary()
+    counts = summary["candidate_counts"]
+    routes = summary["route_verdict_summary"]
+
+    assert 50 <= counts["generated"] <= 100
+    executed_families = {
+        c["family"] for c in summary["candidates"] if c["candidate_state"] != "PREFLIGHT_REJECTED"
+    }
+    assert len(executed_families) >= 4
+    assert routes.get("READY_FOR_PRED_FREEZE", 0) == 0
+    assert routes.get("DATA_QUALITY_BLOCKED", 0) >= 1
+    assert routes.get("NEGATIVE_RESULT", 0) + routes.get("REJECTED_BY_CONTROL", 0) > 0
 
 
 def _smoke_spec() -> FactorySpec:

@@ -1,0 +1,2177 @@
+schema_version: '1'
+factory_id: nuclear-residual-factory-nmd0003-sprint-001
+campaign_id: nuclear-mass-surface
+adapter_id: nuclear_residual_factory
+adapter_version: '0.3'
+task_id: TASK-0517
+dataset:
+  snapshot_ref: data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+  retrieval_policy: no_live_fetch
+  checksum_policy: source and committed artifact checksums recorded in data/nuclear_masses/nmd-0003-source-manifest.yaml
+baseline:
+  baseline_id: nuclear-semi-empirical-fit
+  baseline_type: frozen
+candidate_cap: 100
+candidate_counts:
+  generated: 73
+  preflight_rejected: 1
+  executed: 72
+  shortlisted: 0
+  rejected_by_control: 30
+controls:
+- name: null_baseline
+  outcome: applied
+- name: shuffled_feature
+  outcome: applied
+- name: matched_random_slice
+  outcome: applied
+- name: complexity_penalty
+  outcome: per_param 0.02
+- name: post_ame2020_check
+  outcome: 'applied: NMD-0003-SPLIT-MANIFEST excludes primary post-AME2020 holdout
+    rows; no reveal scoring'
+candidates:
+- candidate_id: CAND-0001
+  family: shell_distance
+  complexity: 1.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.295922
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.622582
+    train_reduction: 0.041621
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.001296
+    holdout_reduction: 0.227924
+    effective_reduction: 0.207924
+    shuffled_reduction: -0.06502
+    random_slice_reduction: 0.194343
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0650
+  - name: matched_random_slice
+    outcome: reduction 0.1943
+- candidate_id: CAND-0002
+  family: shell_distance
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: 0.57054
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.846487
+    train_reduction: 0.003456
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.58242
+    holdout_reduction: -0.016162
+    effective_reduction: -0.056162
+    shuffled_reduction: 0.029525
+    random_slice_reduction: 0.021331
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0295
+  - name: matched_random_slice
+    outcome: reduction 0.0213
+- candidate_id: CAND-0003
+  family: shell_distance
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -1.335082
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.670352
+    train_reduction: 0.033478
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.328283
+    holdout_reduction: 0.177446
+    effective_reduction: 0.137446
+    shuffled_reduction: -0.022398
+    random_slice_reduction: 0.169894
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0224
+  - name: matched_random_slice
+    outcome: reduction 0.1699
+- candidate_id: CAND-0004
+  family: shell_distance
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: 3.581909
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.807827
+    train_reduction: 0.010046
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.592774
+    holdout_reduction: -0.01776
+    effective_reduction: -0.07776
+    shuffled_reduction: 0.024682
+    random_slice_reduction: 0.016805
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0247
+  - name: matched_random_slice
+    outcome: reduction 0.0168
+- candidate_id: CAND-0005
+  family: shell_distance
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -4.460105
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.767356
+    train_reduction: 0.016944
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.815676
+    holdout_reduction: 0.102204
+    effective_reduction: 0.062204
+    shuffled_reduction: 0.016922
+    random_slice_reduction: 0.133427
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0169
+  - name: matched_random_slice
+    outcome: reduction 0.1334
+- candidate_id: CAND-0006
+  family: shell_distance
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: 15.337754
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.738659
+    train_reduction: 0.021835
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.56017
+    holdout_reduction: -0.012727
+    effective_reduction: -0.072727
+    shuffled_reduction: 0.014682
+    random_slice_reduction: 0.00802
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0147
+  - name: matched_random_slice
+    outcome: reduction 0.0080
+- candidate_id: CAND-0007
+  family: shell_distance
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.022575
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.719096
+    train_reduction: 0.02517
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.274522
+    holdout_reduction: 0.185745
+    effective_reduction: 0.145745
+    shuffled_reduction: -0.136767
+    random_slice_reduction: 0.151499
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.1368
+  - name: matched_random_slice
+    outcome: reduction 0.1515
+- candidate_id: CAND-0008
+  family: shell_distance
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: 0.184202
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.859774
+    train_reduction: 0.001191
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.534769
+    holdout_reduction: -0.008806
+    effective_reduction: -0.068806
+    shuffled_reduction: 0.023146
+    random_slice_reduction: 0.019566
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0231
+  - name: matched_random_slice
+    outcome: reduction 0.0196
+- candidate_id: CAND-0009
+  family: shell_distance
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -0.120483
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.7173
+    train_reduction: 0.025476
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.369489
+    holdout_reduction: 0.171085
+    effective_reduction: 0.111085
+    shuffled_reduction: -0.097502
+    random_slice_reduction: 0.13955
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0975
+  - name: matched_random_slice
+    outcome: reduction 0.1396
+- candidate_id: CAND-0010
+  family: shell_distance
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: 1.318282
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.841531
+    train_reduction: 0.004301
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.549801
+    holdout_reduction: -0.011126
+    effective_reduction: -0.091126
+    shuffled_reduction: 0.019732
+    random_slice_reduction: 0.01546
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0197
+  - name: matched_random_slice
+    outcome: reduction 0.0155
+- candidate_id: CAND-0011
+  family: shell_distance
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -0.611112
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.725343
+    train_reduction: 0.024105
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.512664
+    holdout_reduction: 0.148982
+    effective_reduction: 0.088982
+    shuffled_reduction: -0.061034
+    random_slice_reduction: 0.125975
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0610
+  - name: matched_random_slice
+    outcome: reduction 0.1260
+- candidate_id: CAND-0012
+  family: shell_distance
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: 6.572255
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.802329
+    train_reduction: 0.010983
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.539131
+    holdout_reduction: -0.009479
+    effective_reduction: -0.089479
+    shuffled_reduction: 0.013007
+    random_slice_reduction: 0.00835
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0130
+  - name: matched_random_slice
+    outcome: reduction 0.0083
+- candidate_id: CAND-0013
+  family: shell_distance
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.001273
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.796394
+    train_reduction: 0.011995
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.544072
+    holdout_reduction: 0.144133
+    effective_reduction: 0.084133
+    shuffled_reduction: -0.198178
+    random_slice_reduction: 0.124071
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.1982
+  - name: matched_random_slice
+    outcome: reduction 0.1241
+- candidate_id: CAND-0014
+  family: shell_distance
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: 0.054834
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.864415
+    train_reduction: 0.0004
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.508497
+    holdout_reduction: -0.00475
+    effective_reduction: -0.08475
+    shuffled_reduction: 0.018875
+    random_slice_reduction: 0.017697
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0189
+  - name: matched_random_slice
+    outcome: reduction 0.0177
+- candidate_id: CAND-0015
+  family: shell_distance
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -0.007084
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.792304
+    train_reduction: 0.012692
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.581663
+    holdout_reduction: 0.13833
+    effective_reduction: 0.05833
+    shuffled_reduction: -0.153558
+    random_slice_reduction: 0.116258
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.1536
+  - name: matched_random_slice
+    outcome: reduction 0.1163
+- candidate_id: CAND-0016
+  family: shell_distance
+  complexity: 5.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: 0.453386
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.85562
+    train_reduction: 0.001899
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.52277
+    holdout_reduction: -0.006953
+    effective_reduction: -0.106953
+    shuffled_reduction: 0.016089
+    random_slice_reduction: 0.013881
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0161
+  - name: matched_random_slice
+    outcome: reduction 0.0139
+- candidate_id: CAND-0017
+  family: shell_distance
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -0.039001
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.788573
+    train_reduction: 0.013328
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.637473
+    holdout_reduction: 0.129714
+    effective_reduction: 0.049714
+    shuffled_reduction: -0.115445
+    random_slice_reduction: 0.107982
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.1154
+  - name: matched_random_slice
+    outcome: reduction 0.1080
+- candidate_id: CAND-0018
+  family: shell_distance
+  complexity: 5.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: 2.418358
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.8359
+    train_reduction: 0.005261
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.519107
+    holdout_reduction: -0.006388
+    effective_reduction: -0.106388
+    shuffled_reduction: 0.010888
+    random_slice_reduction: 0.00782
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0109
+  - name: matched_random_slice
+    outcome: reduction 0.0078
+- candidate_id: CAND-0019
+  family: valence_z
+  complexity: 1.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.249217
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.558502
+    train_reduction: 0.052544
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.041951
+    holdout_reduction: 0.221648
+    effective_reduction: 0.201648
+    shuffled_reduction: -0.013866
+    random_slice_reduction: 0.173418
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0139
+  - name: matched_random_slice
+    outcome: reduction 0.1734
+- candidate_id: CAND-0020
+  family: valence_z
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: -0.03497
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.865756
+    train_reduction: 0.000172
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.464389
+    holdout_reduction: 0.002059
+    effective_reduction: -0.037941
+    shuffled_reduction: 0.006669
+    random_slice_reduction: 0.012074
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0067
+  - name: matched_random_slice
+    outcome: reduction 0.0121
+- candidate_id: CAND-0021
+  family: valence_z
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -1.108087
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.621275
+    train_reduction: 0.041844
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.392327
+    holdout_reduction: 0.167559
+    effective_reduction: 0.127559
+    shuffled_reduction: 0.011223
+    random_slice_reduction: 0.149953
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0112
+  - name: matched_random_slice
+    outcome: reduction 0.1500
+- candidate_id: CAND-0022
+  family: valence_z
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: 0.215125
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.86495
+    train_reduction: 0.000309
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.492255
+    holdout_reduction: -0.002243
+    effective_reduction: -0.062243
+    shuffled_reduction: 0.008344
+    random_slice_reduction: 0.011279
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0083
+  - name: matched_random_slice
+    outcome: reduction 0.0113
+- candidate_id: CAND-0023
+  family: valence_z
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -3.752256
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.737261
+    train_reduction: 0.022074
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.854109
+    holdout_reduction: 0.096271
+    effective_reduction: 0.056271
+    shuffled_reduction: 0.033322
+    random_slice_reduction: 0.117296
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0333
+  - name: matched_random_slice
+    outcome: reduction 0.1173
+- candidate_id: CAND-0024
+  family: valence_z
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: 3.52566
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.835916
+    train_reduction: 0.005258
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.519567
+    holdout_reduction: -0.006459
+    effective_reduction: -0.066459
+    shuffled_reduction: 0.008529
+    random_slice_reduction: 0.00846
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0085
+  - name: matched_random_slice
+    outcome: reduction 0.0085
+- candidate_id: CAND-0025
+  family: valence_z
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.021479
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.554483
+    train_reduction: 0.053229
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.12735
+    holdout_reduction: 0.208465
+    effective_reduction: 0.168465
+    shuffled_reduction: -0.032721
+    random_slice_reduction: 0.135603
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0327
+  - name: matched_random_slice
+    outcome: reduction 0.1356
+- candidate_id: CAND-0026
+  family: valence_z
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: -0.014185
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.845683
+    train_reduction: 0.003593
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.442422
+    holdout_reduction: 0.00545
+    effective_reduction: -0.05455
+    shuffled_reduction: -0.00022
+    random_slice_reduction: 0.003649
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0002
+  - name: matched_random_slice
+    outcome: reduction 0.0036
+- candidate_id: CAND-0027
+  family: valence_z
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -0.111183
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.559443
+    train_reduction: 0.052383
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.273371
+    holdout_reduction: 0.185923
+    effective_reduction: 0.125923
+    shuffled_reduction: -0.01736
+    random_slice_reduction: 0.121731
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0174
+  - name: matched_random_slice
+    outcome: reduction 0.1217
+- candidate_id: CAND-0028
+  family: valence_z
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: -0.063821
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.850133
+    train_reduction: 0.002835
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.450616
+    holdout_reduction: 0.004185
+    effective_reduction: -0.075815
+    shuffled_reduction: 0.000453
+    random_slice_reduction: 0.003752
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0005
+  - name: matched_random_slice
+    outcome: reduction 0.0038
+- candidate_id: CAND-0029
+  family: valence_z
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -0.54942
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.581646
+    train_reduction: 0.048599
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.463287
+    holdout_reduction: 0.156604
+    effective_reduction: 0.096604
+    shuffled_reduction: -0.002864
+    random_slice_reduction: 0.107497
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0029
+  - name: matched_random_slice
+    outcome: reduction 0.1075
+- candidate_id: CAND-0030
+  family: valence_z
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: -0.229407
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.857921
+    train_reduction: 0.001507
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.461035
+    holdout_reduction: 0.002577
+    effective_reduction: -0.077423
+    shuffled_reduction: 0.001269
+    random_slice_reduction: 0.003802
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0013
+  - name: matched_random_slice
+    outcome: reduction 0.0038
+- candidate_id: CAND-0031
+  family: valence_z
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.001494
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.603794
+    train_reduction: 0.044823
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.372131
+    holdout_reduction: 0.170677
+    effective_reduction: 0.110677
+    shuffled_reduction: -0.038907
+    random_slice_reduction: 0.115333
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0389
+  - name: matched_random_slice
+    outcome: reduction 0.1153
+- candidate_id: CAND-0032
+  family: valence_z
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: -0.001255
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.837441
+    train_reduction: 0.004998
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.450608
+    holdout_reduction: 0.004187
+    effective_reduction: -0.075813
+    shuffled_reduction: -0.000948
+    random_slice_reduction: 0.001345
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0009
+  - name: matched_random_slice
+    outcome: reduction 0.0013
+- candidate_id: CAND-0033
+  family: valence_z
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -0.008017
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.597537
+    train_reduction: 0.04589
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.408206
+    holdout_reduction: 0.165108
+    effective_reduction: 0.085108
+    shuffled_reduction: -0.026548
+    random_slice_reduction: 0.10454
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0265
+  - name: matched_random_slice
+    outcome: reduction 0.1045
+- candidate_id: CAND-0034
+  family: valence_z
+  complexity: 5.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: -0.006394
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.838555
+    train_reduction: 0.004808
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.45448
+    holdout_reduction: 0.003589
+    effective_reduction: -0.096411
+    shuffled_reduction: -0.000677
+    random_slice_reduction: 0.001365
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0007
+  - name: matched_random_slice
+    outcome: reduction 0.0014
+- candidate_id: CAND-0035
+  family: valence_z
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -0.042478
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.594208
+    train_reduction: 0.046457
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.484403
+    holdout_reduction: 0.153345
+    effective_reduction: 0.073345
+    shuffled_reduction: -0.016028
+    random_slice_reduction: 0.094105
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0160
+  - name: matched_random_slice
+    outcome: reduction 0.0941
+- candidate_id: CAND-0036
+  family: valence_z
+  complexity: 5.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: -0.031597
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.840812
+    train_reduction: 0.004423
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.458394
+    holdout_reduction: 0.002985
+    effective_reduction: -0.097015
+    shuffled_reduction: -0.000384
+    random_slice_reduction: 0.001403
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0004
+  - name: matched_random_slice
+    outcome: reduction 0.0014
+- candidate_id: CAND-0037
+  family: valence_n
+  complexity: 1.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.193286
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.611883
+    train_reduction: 0.043445
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 4.402568
+    holdout_reduction: 0.320353
+    effective_reduction: 0.300353
+    shuffled_reduction: -0.134053
+    random_slice_reduction: 0.301423
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.1341
+  - name: matched_random_slice
+    outcome: reduction 0.3014
+- candidate_id: CAND-0038
+  family: valence_n
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: -0.00033
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.866762
+    train_reduction: 0.0
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.476914
+    holdout_reduction: 0.000126
+    effective_reduction: -0.039874
+    shuffled_reduction: 0.067177
+    random_slice_reduction: 0.074686
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0672
+  - name: matched_random_slice
+    outcome: reduction 0.0747
+- candidate_id: CAND-0039
+  family: valence_n
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -0.821705
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.681068
+    train_reduction: 0.031652
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 4.9252
+    holdout_reduction: 0.239672
+    effective_reduction: 0.199672
+    shuffled_reduction: -0.056371
+    random_slice_reduction: 0.265924
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0564
+  - name: matched_random_slice
+    outcome: reduction 0.2659
+- candidate_id: CAND-0040
+  family: valence_n
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: 0.420014
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.857346
+    train_reduction: 0.001605
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.672575
+    holdout_reduction: -0.03008
+    effective_reduction: -0.09008
+    shuffled_reduction: 0.06552
+    random_slice_reduction: 0.0681
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0655
+  - name: matched_random_slice
+    outcome: reduction 0.0681
+- candidate_id: CAND-0041
+  family: valence_n
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -2.371672
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.795121
+    train_reduction: 0.012211
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.692408
+    holdout_reduction: 0.121234
+    effective_reduction: 0.081234
+    shuffled_reduction: 0.016233
+    random_slice_reduction: 0.210111
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0162
+  - name: matched_random_slice
+    outcome: reduction 0.2101
+- candidate_id: CAND-0042
+  family: valence_n
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: 4.33197
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.797736
+    train_reduction: 0.011766
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.847679
+    holdout_reduction: -0.057111
+    effective_reduction: -0.117111
+    shuffled_reduction: 0.057199
+    random_slice_reduction: 0.050116
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0572
+  - name: matched_random_slice
+    outcome: reduction 0.0501
+- candidate_id: CAND-0043
+  family: valence_n
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.012517
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.64508
+    train_reduction: 0.037786
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 4.30706
+    holdout_reduction: 0.335097
+    effective_reduction: 0.295097
+    shuffled_reduction: -0.371559
+    random_slice_reduction: 0.291409
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.3716
+  - name: matched_random_slice
+    outcome: reduction 0.2914
+- candidate_id: CAND-0044
+  family: valence_n
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: -0.011908
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.848503
+    train_reduction: 0.003112
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.053676
+    holdout_reduction: 0.065463
+    effective_reduction: 0.005463
+    shuffled_reduction: 0.058339
+    random_slice_reduction: 0.084342
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0583
+  - name: matched_random_slice
+    outcome: reduction 0.0843
+- candidate_id: CAND-0045
+  family: valence_n
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -0.064665
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.653449
+    train_reduction: 0.03636
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 4.43816
+    holdout_reduction: 0.314859
+    effective_reduction: 0.254859
+    shuffled_reduction: -0.276837
+    random_slice_reduction: 0.276473
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.2768
+  - name: matched_random_slice
+    outcome: reduction 0.2765
+- candidate_id: CAND-0046
+  family: valence_n
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: -0.04192
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.856663
+    train_reduction: 0.001722
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.186157
+    holdout_reduction: 0.045011
+    effective_reduction: -0.034989
+    shuffled_reduction: 0.056547
+    random_slice_reduction: 0.080131
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0565
+  - name: matched_random_slice
+    outcome: reduction 0.0801
+- candidate_id: CAND-0047
+  family: valence_n
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -0.311181
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.681896
+    train_reduction: 0.031511
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 4.715186
+    holdout_reduction: 0.272093
+    effective_reduction: 0.212093
+    shuffled_reduction: -0.186672
+    random_slice_reduction: 0.255689
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.1867
+  - name: matched_random_slice
+    outcome: reduction 0.2557
+- candidate_id: CAND-0048
+  family: valence_n
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: -0.065054
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.865611
+    train_reduction: 0.000196
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.389506
+    holdout_reduction: 0.013619
+    effective_reduction: -0.066381
+    shuffled_reduction: 0.055766
+    random_slice_reduction: 0.073468
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0558
+  - name: matched_random_slice
+    outcome: reduction 0.0735
+- candidate_id: CAND-0049
+  family: valence_n
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.000608
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.716761
+    train_reduction: 0.025568
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 4.82536
+    holdout_reduction: 0.255084
+    effective_reduction: 0.195084
+    shuffled_reduction: -0.643393
+    random_slice_reduction: 0.250217
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.6434
+  - name: matched_random_slice
+    outcome: reduction 0.2502
+- candidate_id: CAND-0050
+  family: valence_n
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.0
+    mask: near_magic
+    coefficient: -0.001168
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.836328
+    train_reduction: 0.005188
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.92941
+    holdout_reduction: 0.084647
+    effective_reduction: 0.004647
+    shuffled_reduction: 0.056817
+    random_slice_reduction: 0.082613
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0568
+  - name: matched_random_slice
+    outcome: reduction 0.0826
+- candidate_id: CAND-0051
+  family: valence_n
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -0.003331
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.712248
+    train_reduction: 0.026337
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 4.727859
+    holdout_reduction: 0.270136
+    effective_reduction: 0.190136
+    shuffled_reduction: -0.518043
+    random_slice_reduction: 0.248353
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.5180
+  - name: matched_random_slice
+    outcome: reduction 0.2484
+- candidate_id: CAND-0052
+  family: valence_n
+  complexity: 5.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.3333
+    mask: near_magic
+    coefficient: -0.005236
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.840658
+    train_reduction: 0.00445
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 5.964763
+    holdout_reduction: 0.079189
+    effective_reduction: -0.020811
+    shuffled_reduction: 0.053752
+    random_slice_reduction: 0.079286
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0538
+  - name: matched_random_slice
+    outcome: reduction 0.0793
+- candidate_id: CAND-0053
+  family: valence_n
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -0.017883
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.711532
+    train_reduction: 0.026459
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 4.722802
+    holdout_reduction: 0.270917
+    effective_reduction: 0.190917
+    shuffled_reduction: -0.40633
+    random_slice_reduction: 0.242156
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.4063
+  - name: matched_random_slice
+    outcome: reduction 0.2422
+- candidate_id: CAND-0054
+  family: valence_n
+  complexity: 5.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.6667
+    mask: near_magic
+    coefficient: -0.021627
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.847352
+    train_reduction: 0.003309
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.048526
+    holdout_reduction: 0.066258
+    effective_reduction: -0.033742
+    shuffled_reduction: 0.051095
+    random_slice_reduction: 0.074925
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0511
+  - name: matched_random_slice
+    outcome: reduction 0.0749
+- candidate_id: CAND-0055
+  family: odd_even_pairing
+  complexity: 1.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.423839
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.859008
+    train_reduction: 0.001322
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.460614
+    holdout_reduction: 0.002642
+    effective_reduction: -0.017358
+    shuffled_reduction: -0.000207
+    random_slice_reduction: 0.001243
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0002
+  - name: matched_random_slice
+    outcome: reduction 0.0012
+- candidate_id: CAND-0056
+  family: odd_even_pairing
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -2.416252
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.85147
+    train_reduction: 0.002607
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.461726
+    holdout_reduction: 0.00247
+    effective_reduction: -0.03753
+    shuffled_reduction: -0.000149
+    random_slice_reduction: 0.000422
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0001
+  - name: matched_random_slice
+    outcome: reduction 0.0004
+- candidate_id: CAND-0057
+  family: odd_even_pairing
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -10.109685
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.839892
+    train_reduction: 0.00458
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.465604
+    holdout_reduction: 0.001872
+    effective_reduction: -0.038128
+    shuffled_reduction: -0.000124
+    random_slice_reduction: -0.000215
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0001
+  - name: matched_random_slice
+    outcome: reduction -0.0002
+- candidate_id: CAND-0058
+  family: odd_even_pairing
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.567798
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.852838
+    train_reduction: 0.002373
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.282768
+    holdout_reduction: 0.030097
+    effective_reduction: -0.009903
+    shuffled_reduction: 0.033446
+    random_slice_reduction: 0.090963
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0334
+  - name: matched_random_slice
+    outcome: reduction 0.0910
+- candidate_id: CAND-0059
+  family: odd_even_pairing
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.3333
+    mask: all
+    coefficient: 0.928721
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.864506
+    train_reduction: 0.000385
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.53408
+    holdout_reduction: -0.008699
+    effective_reduction: -0.068699
+    shuffled_reduction: 0.040278
+    random_slice_reduction: 0.063851
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0403
+  - name: matched_random_slice
+    outcome: reduction 0.0639
+- candidate_id: CAND-0060
+  family: odd_even_pairing
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.6667
+    mask: all
+    coefficient: 15.106679
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.806594
+    train_reduction: 0.010256
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.633872
+    holdout_reduction: -0.024105
+    effective_reduction: -0.084105
+    shuffled_reduction: 0.028935
+    random_slice_reduction: 0.030008
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0289
+  - name: matched_random_slice
+    outcome: reduction 0.0300
+- candidate_id: CAND-0061
+  family: odd_even_pairing
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.423839
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.859008
+    train_reduction: 0.001322
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.460614
+    holdout_reduction: 0.002642
+    effective_reduction: -0.057358
+    shuffled_reduction: -0.000207
+    random_slice_reduction: 0.001243
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0002
+  - name: matched_random_slice
+    outcome: reduction 0.0012
+- candidate_id: CAND-0062
+  family: odd_even_pairing
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -2.416252
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.85147
+    train_reduction: 0.002607
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.461726
+    holdout_reduction: 0.00247
+    effective_reduction: -0.07753
+    shuffled_reduction: -0.000149
+    random_slice_reduction: 0.000422
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0001
+  - name: matched_random_slice
+    outcome: reduction 0.0004
+- candidate_id: CAND-0063
+  family: odd_even_pairing
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.6667
+    mask: all
+    coefficient: -10.109685
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.839892
+    train_reduction: 0.00458
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.465604
+    holdout_reduction: 0.001872
+    effective_reduction: -0.078128
+    shuffled_reduction: -0.000124
+    random_slice_reduction: -0.000215
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0001
+  - name: matched_random_slice
+    outcome: reduction -0.0002
+- candidate_id: CAND-0064
+  family: asymmetry
+  complexity: 1.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: REJECTED_BY_CONTROL
+  route_verdict: REJECTED_BY_CONTROL
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.0
+    mask: all
+    coefficient: -0.016955
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.858548
+    train_reduction: 0.0014
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.036971
+    holdout_reduction: 0.068042
+    effective_reduction: 0.048042
+    shuffled_reduction: -0.069701
+    random_slice_reduction: 0.238869
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0697
+  - name: matched_random_slice
+    outcome: reduction 0.2389
+- candidate_id: CAND-0065
+  family: asymmetry
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.3333
+    mask: all
+    coefficient: -0.012501
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.866588
+    train_reduction: 3.0e-05
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.421862
+    holdout_reduction: 0.008624
+    effective_reduction: -0.031376
+    shuffled_reduction: -0.022129
+    random_slice_reduction: 0.221045
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0221
+  - name: matched_random_slice
+    outcome: reduction 0.2210
+- candidate_id: CAND-0066
+  family: asymmetry
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 1
+    scale_exp: 0.6667
+    mask: all
+    coefficient: 0.485227
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.855518
+    train_reduction: 0.001917
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 6.849691
+    holdout_reduction: -0.057422
+    effective_reduction: -0.097422
+    shuffled_reduction: 0.017659
+    random_slice_reduction: 0.19487
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction 0.0177
+  - name: matched_random_slice
+    outcome: reduction 0.1949
+- candidate_id: CAND-0067
+  family: asymmetry
+  complexity: 2.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.0
+    mask: all
+    coefficient: 0.000434
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.86279
+    train_reduction: 0.000677
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 7.00014
+    holdout_reduction: -0.080647
+    effective_reduction: -0.120647
+    shuffled_reduction: -0.205894
+    random_slice_reduction: 0.207071
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.2059
+  - name: matched_random_slice
+    outcome: reduction 0.2071
+- candidate_id: CAND-0068
+  family: asymmetry
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.3333
+    mask: all
+    coefficient: 0.003883
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.855247
+    train_reduction: 0.001963
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 7.258418
+    holdout_reduction: -0.120519
+    effective_reduction: -0.180519
+    shuffled_reduction: -0.137393
+    random_slice_reduction: 0.205364
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.1374
+  - name: matched_random_slice
+    outcome: reduction 0.2054
+- candidate_id: CAND-0069
+  family: asymmetry
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 2
+    scale_exp: 0.6667
+    mask: all
+    coefficient: 0.032572
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.83682
+    train_reduction: 0.005104
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 7.575398
+    holdout_reduction: -0.169453
+    effective_reduction: -0.229453
+    shuffled_reduction: -0.07612
+    random_slice_reduction: 0.198962
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.0761
+  - name: matched_random_slice
+    outcome: reduction 0.1990
+- candidate_id: CAND-0070
+  family: asymmetry
+  complexity: 3.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.0
+    mask: all
+    coefficient: 3.6e-05
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.840573
+    train_reduction: 0.004464
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 8.73393
+    holdout_reduction: -0.348302
+    effective_reduction: -0.408302
+    shuffled_reduction: -0.390687
+    random_slice_reduction: 0.135079
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.3907
+  - name: matched_random_slice
+    outcome: reduction 0.1351
+- candidate_id: CAND-0071
+  family: asymmetry
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.3333
+    mask: all
+    coefficient: 0.000225
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.830761
+    train_reduction: 0.006137
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 8.769041
+    holdout_reduction: -0.353722
+    effective_reduction: -0.433722
+    shuffled_reduction: -0.293653
+    random_slice_reduction: 0.154221
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.2937
+  - name: matched_random_slice
+    outcome: reduction 0.1542
+- candidate_id: CAND-0072
+  family: asymmetry
+  complexity: 4.0
+  leakage_status: CHECKED_CLEAN
+  candidate_state: EXECUTED
+  route_verdict: NEGATIVE_RESULT
+  parameters:
+    form: linear_transformed_feature
+    power: 3
+    scale_exp: 0.6667
+    mask: all
+    coefficient: 0.001408
+  metrics:
+    train_baseline_rms_mev: 5.866763
+    train_candidate_rms_mev: 5.816748
+    train_reduction: 0.008525
+    holdout_baseline_rms_mev: 6.477728
+    holdout_candidate_rms_mev: 8.809608
+    holdout_reduction: -0.359984
+    effective_reduction: -0.439984
+    shuffled_reduction: -0.213564
+    random_slice_reduction: 0.163717
+  control_outcomes:
+  - name: null_baseline
+    outcome: holdout baseline rms 6.4777 MeV
+  - name: shuffled_feature
+    outcome: reduction -0.2136
+  - name: matched_random_slice
+    outcome: reduction 0.1637
+- candidate_id: CAND-0073
+  family: local_curvature
+  complexity: 1.0
+  leakage_status: NOT_CHECKED
+  candidate_state: PREFLIGHT_REJECTED
+  route_verdict: DATA_QUALITY_BLOCKED
+  parameters:
+    form: linear
+  control_outcomes:
+  - name: leakage_guard
+    outcome: 'blocked: family requires a dedicated no-leakage implementation'
+route_verdict_summary:
+  REJECTED_BY_CONTROL: 30
+  NEGATIVE_RESULT: 42
+  DATA_QUALITY_BLOCKED: 1
+limitations:
+- Bounded sprint over the committed NMD-0003 AME2020 measured-row training surface;
+  no live fetch.
+- The frozen semi-empirical baseline coefficients come from RESULT-0015/NMD-0002 and
+  are reused without refit; broad-surface baseline weakness is a limitation, not a
+  new-law signal.
+- post-AME2020 rows remain excluded by the NMD-0003 split manifest; this sprint performs
+  no reveal scoring and writes no PRED entries.
+- Leakage-sensitive local-curvature candidates remain preflight-blocked until a dedicated
+  no-leakage implementation is available.
+- Sandbox factory run; no claim, prediction, result, or knowledge promotion.
+reproducibility:
+  code_reference: physics_lab/factories/nuclear.py
+  command: python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_nmd0003_sprint.yaml
+    --output-dir <dir>
+  run_date: '2026-06-02'
+  seed: 0
+splits:
+  split_manifest_ref: data/nuclear_masses/nmd-0003-split-manifest.yaml
+  post_ame2020_holdout_ref: data/nuclear_masses/post_ame2020_holdout.yaml
+  policy: deterministic 70/30 train/holdout by sorted (A, Z, N) within the NMD-0003
+    measured training surface
+  validation_holdout_fraction: 0.3
+  holdout_boundary: post_ame2020_holdout.yaml remains excluded from training and is
+    not reveal-scored in this sprint
+campaign_specific:
+  magic_numbers:
+  - 2
+  - 8
+  - 20
+  - 28
+  - 50
+  - 82
+  - 126
+  candidate_grid: sweep
+  training_surface_count: 2309
+  train_count: 1616
+  holdout_count: 693
+  baseline_model_id: nuclear-semi-empirical-fit
+  baseline_coefficients_ref: results/EXP-0012/RUN-0001/result.yaml
+  split_manifest_ref: data/nuclear_masses/nmd-0003-split-manifest.yaml
