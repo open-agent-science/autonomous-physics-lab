@@ -1,0 +1,54 @@
+id: TASK-0532
+title: "Strengthen strategy snapshot output context"
+type: maintainer_tooling
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Help strategy agents avoid duplicate recommendations by showing recent DONE work in the strategic front page."
+  - "Expose durable scientific-output throughput in snapshots using the existing campaign scorecard rather than static hand-written state."
+  - "Keep repository snapshots useful for Scientific Campaign Director and architect handoffs without adding generated board files for agents."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_snapshot.sh"
+    - "physics_lab/registry/snapshot.py"
+    - "docs/campaign-output-scorecard.md"
+    - "scripts/apl_campaign_scorecard.py"
+    - "tests/test_snapshot.py"
+  planning_context: >
+    A strategy-agent audit missed existing scorecard and already-created or
+    already-completed tasks because the snapshot front page emphasized campaign
+    motion but did not include the durable campaign-output scorecard or a compact
+    recent DONE signal. This task strengthens the snapshot generator using
+    dynamic repository state only.
+
+requirements:
+  - "Do not hard-code current campaign outcomes or scientific verdicts into the snapshot script."
+  - "Render campaign-output metrics from committed source-of-truth artifacts through the existing scorecard helper."
+  - "Include enough recent DONE context for strategy agents to avoid duplicate task proposals without dumping hundreds of historical task files."
+  - "Include docs/campaign-output-scorecard.md in the snapshot's core documentation context."
+  - "Do not reintroduce static generated task-index or board files for agent consumption."
+  - "Do not run validation, experiments, or network fetches from the snapshot script."
+
+accepted_outputs:
+  - "physics_lab/registry/snapshot.py"
+  - "scripts/apl_snapshot.sh"
+  - "tests/test_snapshot.py"
+  - "A smoke-run snapshot under the canonical _snapshots/ directory"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_snapshot.py tests/test_campaign_scorecard.py"
+    - "./scripts/apl_snapshot.sh"
+    - "python3 -m ruff check physics_lab/registry/snapshot.py tests/test_snapshot.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
