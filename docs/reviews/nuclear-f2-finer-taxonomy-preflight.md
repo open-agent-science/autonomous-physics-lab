@@ -201,4 +201,3 @@ explains nuclear masses.
   expansion task must establish.
 - NMD-0002 is curated for mid/heavy nuclei, so `light_a_lt_50` may stay empty
   even after expansion; that bin is expected to remain context-only.
-</content>
