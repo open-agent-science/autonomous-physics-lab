@@ -250,7 +250,13 @@ sources:
       source-artifact attempt for TASK-0291 and TASK-0292. Dataset rows must
       not reference this source_id until a separate reviewed task commits a
       checksum-pinned source artifact confirming table accessibility and
-      direct-measurement provenance.
+      direct-measurement provenance. TASK-0489 (2026-06-02) records a
+      metadata-only source-artifact package under
+      data/quantum_dots/source_artifacts/norris-bawendi-1996-prb-cdse-band-edge/;
+      because TASK-0364 verified this source as figure_derived, the only
+      admissible future artifact is a deterministic figure-digitization package,
+      not a printed-table extraction. See
+      docs/reviews/quantum-norris-bawendi-source-artifact-review.md.
 
   - source_id: kang-wise-1997-prb-pbs-band-edge
     title: "Electronic structure and optical properties of PbS and PbSe quantum dots"
