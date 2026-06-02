@@ -20,7 +20,9 @@ and verification-gate artifact only.
 Implemented surfaces:
 
 - `examples/textbook_wien_displacement_exact_reference.yaml`
+- `data/textbook_formula_audit/fixtures/wien_displacement_exact_reference.yaml`
 - `physics_lab/engines/textbook_wien.py`
+- `physics_lab/registry/examples.py`
 - `tests/test_textbook_wien.py`
 
 The checker verifies:
@@ -32,6 +34,10 @@ The checker verifies:
    - wrong displacement constant;
    - wrong temperature unit;
    - frequency-domain/wavelength-domain peak-convention confusion.
+
+The `examples/` copy is classified as `textbook_wien_exact_reference_fixture`
+by the examples registry so repository validation does not treat it as a normal
+runnable benchmark config that must point at a new canonical result.
 
 ## Scope Boundaries
 
