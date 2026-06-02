@@ -13,7 +13,6 @@
 - `TASK-0525` - Curate Atomic second-source Yb/Sr direct-row gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0526` - Assign Atomic Beloy freeze-manifest row roles (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0527` - Build Textbook Stefan-Boltzmann exact-reference fixture (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0531` - Freeze NMD-0003 broad-surface Nuclear baseline (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 
 ## IN_PROGRESS
 
@@ -22,3 +21,4 @@ None.
 ## REVIEW_READY
 
 - `TASK-0528` - Fill Exoplanet normalized snapshot checksum gap (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0531` - Freeze NMD-0003 broad-surface Nuclear baseline (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
