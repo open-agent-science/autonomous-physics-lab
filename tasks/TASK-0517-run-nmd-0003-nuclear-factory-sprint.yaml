@@ -44,9 +44,9 @@ requirements:
 
 accepted_outputs:
   - "examples/factories/nuclear_residual_factory_nmd0003_sprint.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/factory_summary.yaml"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0053/factory_summary.yaml"
+  - "agent_runs/AGENT-RUN-0053/metrics.json"
+  - "agent_runs/AGENT-RUN-0053/report.md"
   - "docs/reviews/nuclear-residual-factory-nmd0003-sprint.md or docs/results/nuclear-residual-factory-nmd0003-sprint.md, depending on result-promotion routing"
   - "optional follow-up task proposal only if a candidate reaches READY_FOR_REPLAY or READY_FOR_PRED_FREEZE"
 
