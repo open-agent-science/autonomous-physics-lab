@@ -1,0 +1,28 @@
+# TASK-0531 NMD-0003 broad-surface baseline freeze config.
+task_id: TASK-0531
+benchmark_id: nmd0003-broad-surface-baseline-freeze
+dataset:
+  snapshot_ref: data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+  split_manifest_ref: data/nuclear_masses/nmd-0003-split-manifest.yaml
+  retrieval_policy: no_live_fetch
+baseline:
+  inherited_coefficients_ref: results/EXP-0012/RUN-0001/result.yaml
+  inherited_model_id: model_fitted_semi_empirical
+  broad_surface_model_id: nmd0003_train_fitted_frozen
+splits:
+  policy: deterministic 70/30 train/validation split by sorted (A, Z, N) inside NMD-0003 measured rows
+  validation_holdout_fraction: 0.3
+  post_ame2020_holdout_policy: excluded_from_fit_and_not_reveal_scored
+fitted_parameters:
+  - volume
+  - surface
+  - coulomb
+  - asymmetry
+  - pairing
+complexity_score: 5
+stop_conditions:
+  - "Stop if the NMD-0003 split manifest does not exactly match the committed dataset rows."
+  - "Stop if post_ame2020_holdout rows are requested for fitting or reveal scoring."
+  - "Stop if any residual-feature candidate family is introduced."
+  - "Stop if live external fetch is requested."
+claim_ceiling: Sandbox benchmark evidence only; no PRED, CLAIM, KNOW, or discovery wording.
