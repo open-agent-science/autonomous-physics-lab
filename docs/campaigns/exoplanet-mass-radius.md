@@ -53,7 +53,9 @@ and `data/exoplanets/second_snapshot_reopen_coverage_gate.yaml` declare the
 frozen per-axis row-count floors (30-row per-bin, 150-row per-axis-slice, +50%
 material growth, ≥3 host-context bins) and the decisive null-baseline
 competition criterion that a materially changed snapshot must clear before any
-residual lane reopens. All work stays no-live-fetch and benchmark-only.
+residual lane reopens. `TASK-0536` is the paired no-live-fetch ingestion dry-run
+so a later real second snapshot can be normalized and checksummed without
+weakening the no-peek boundary. All work stays no-live-fetch and benchmark-only.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -126,6 +128,9 @@ Current scientific reading:
   localization pilots on the current pinned snapshot. The Research Factory
   adapter remains contract-only until a materially changed input surface is
   reviewed.
+- `TASK-0529` is the current reopen-gate task for a future second snapshot,
+  and `TASK-0536` is the paired no-live-fetch ingestion dry-run. Neither task
+  runs residual metrics or promotes mass-radius interpretation.
 - `TASK-0470`-era visibility work is now campaign memory. The current
   benchmark-hardening wave does not promote claims, knowledge, predictions, or
   canonical results.
