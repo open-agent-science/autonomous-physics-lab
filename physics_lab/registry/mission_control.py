@@ -5,13 +5,21 @@ from __future__ import annotations
 from collections import Counter
 from dataclasses import dataclass
 import json
+import os
 from pathlib import Path
 import random
-from typing import Any, Optional
+import re
+import subprocess
+from typing import Any, Mapping, Optional
 
 import yaml
 
 from physics_lab.registry.active_board import TaskBoardEntry, load_board_entries
+from physics_lab.registry.pr_capability import (
+    env_with_discovered_tool_paths,
+    find_gh_path,
+    suspicious_proxy_env_names,
+)
 from physics_lab.registry.tasks import load_task
 
 
@@ -48,6 +56,7 @@ MIN_READY_SCIENCE_TASKS = 8
 PREFERRED_READY_SCIENCE_TASKS = 12
 TARGET_READY_SCIENCE_SURFACES = 4
 MAX_READY_SCIENCE_SURFACE_SHARE = 0.40
+TASK_ID_PATTERN = re.compile(r"\bTASK-\d{4}\b")
 
 
 @dataclass(frozen=True)
@@ -85,6 +94,30 @@ class MissionTaskCandidate:
             "mode": self.mode,
             "parallel_hint": self.parallel_hint,
             "estimated_time": _estimated_time(self.difficulty),
+        }
+
+
+@dataclass(frozen=True)
+class TaskAvailabilitySnapshot:
+    """Dynamic GitHub coordination state used to filter READY options."""
+
+    checked: bool
+    source: str
+    excluded_task_ids: tuple[str, ...]
+    reasons: dict[str, tuple[str, ...]]
+    warnings: tuple[str, ...]
+
+    def to_json(self) -> dict[str, Any]:
+        """Return a compact JSON-safe representation."""
+        return {
+            "checked": self.checked,
+            "source": self.source,
+            "excluded_task_ids": list(self.excluded_task_ids),
+            "reasons": {
+                task_id: list(items)
+                for task_id, items in sorted(self.reasons.items())
+            },
+            "warnings": list(self.warnings),
         }
 
 
@@ -137,6 +170,169 @@ def load_current_missions(root: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError("missions/current.yaml must contain a mapping")
     return payload
+
+
+def _local_registry_availability(*warnings: str) -> TaskAvailabilitySnapshot:
+    return TaskAvailabilitySnapshot(
+        checked=False,
+        source="local_registry_only",
+        excluded_task_ids=(),
+        reasons={},
+        warnings=tuple(warnings),
+    )
+
+
+def _task_ids_from_text(*values: object) -> tuple[str, ...]:
+    combined = " ".join(str(value or "") for value in values)
+    return tuple(sorted(set(TASK_ID_PATTERN.findall(combined))))
+
+
+def _run_gh_json(
+    command: list[str],
+    *,
+    root: Path,
+    env: Mapping[str, str],
+    timeout: int,
+) -> tuple[list[dict[str, Any]] | None, str | None]:
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=root,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            env=dict(env),
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return None, f"{type(exc).__name__}: {exc}"
+    if completed.returncode != 0:
+        details = completed.stderr.strip() or completed.stdout.strip()
+        return None, details or f"gh exited with status {completed.returncode}"
+    try:
+        payload = json.loads(completed.stdout)
+    except json.JSONDecodeError as exc:
+        return None, f"gh returned invalid JSON: {exc}"
+    if not isinstance(payload, list):
+        return None, "gh returned a non-list JSON payload"
+    return [item for item in payload if isinstance(item, dict)], None
+
+
+def collect_github_task_availability(
+    root: Path,
+    *,
+    env: Mapping[str, str] | None = None,
+    gh_path: str | None = None,
+    clear_suspicious_proxy: bool = False,
+    timeout: int = 15,
+) -> TaskAvailabilitySnapshot:
+    """Return live GitHub task occupancy or a clear registry-only fallback."""
+    source_env = dict(os.environ if env is None else env)
+    proxy_names = suspicious_proxy_env_names(source_env)
+    if proxy_names and not clear_suspicious_proxy:
+        return _local_registry_availability(
+            "Live GitHub availability was not checked because known local blocker "
+            "proxy variables are set: "
+            + ", ".join(proxy_names)
+            + ". Retry with --ignore-suspicious-proxy when network access is allowed."
+        )
+
+    child_env = env_with_discovered_tool_paths(
+        source_env,
+        clear_suspicious_proxy=clear_suspicious_proxy,
+    )
+    resolved_gh_path = gh_path or find_gh_path(env=child_env)
+    if resolved_gh_path is None:
+        return _local_registry_availability(
+            "Live GitHub availability was not checked because GitHub CLI `gh` "
+            "is not installed or discoverable."
+        )
+
+    prs, pr_error = _run_gh_json(
+        [
+            resolved_gh_path,
+            "pr",
+            "list",
+            "--state",
+            "all",
+            "--limit",
+            "100",
+            "--json",
+            "number,title,state,mergedAt,headRefName",
+        ],
+        root=root,
+        env=child_env,
+        timeout=timeout,
+    )
+    if pr_error is not None:
+        return _local_registry_availability(
+            "Live GitHub PR availability lookup failed; using local registry-only "
+            f"options. Details: {pr_error}"
+        )
+
+    issues, issue_error = _run_gh_json(
+        [
+            resolved_gh_path,
+            "issue",
+            "list",
+            "--state",
+            "open",
+            "--label",
+            "task-claim",
+            "--limit",
+            "100",
+            "--json",
+            "number,title,body",
+        ],
+        root=root,
+        env=child_env,
+        timeout=timeout,
+    )
+    if issue_error is not None:
+        return _local_registry_availability(
+            "Live GitHub claim availability lookup failed; using local registry-only "
+            f"options. Details: {issue_error}"
+        )
+
+    ready_task_ids = {
+        entry.task_id
+        for entry in load_board_entries(root)
+        if entry.status == "READY"
+    }
+    reasons: dict[str, list[str]] = {}
+    for pr in prs or []:
+        state = str(pr.get("state") or "").upper()
+        if state not in {"OPEN", "MERGED"}:
+            continue
+        number = pr.get("number")
+        reason = (
+            f"open PR #{number}"
+            if state == "OPEN"
+            else f"merged PR #{number} pending local closeout"
+        )
+        for task_id in _task_ids_from_text(pr.get("title"), pr.get("headRefName")):
+            if task_id not in ready_task_ids:
+                continue
+            reasons.setdefault(task_id, []).append(reason)
+
+    for issue in issues or []:
+        number = issue.get("number")
+        for task_id in _task_ids_from_text(issue.get("title"), issue.get("body")):
+            if task_id not in ready_task_ids:
+                continue
+            reasons.setdefault(task_id, []).append(f"open claim #{number}")
+
+    normalized_reasons = {
+        task_id: tuple(dict.fromkeys(items))
+        for task_id, items in sorted(reasons.items())
+    }
+    return TaskAvailabilitySnapshot(
+        checked=True,
+        source="github",
+        excluded_task_ids=tuple(normalized_reasons),
+        reasons=normalized_reasons,
+        warnings=(),
+    )
 
 
 def _mission_actions_for_mode(
@@ -355,6 +551,7 @@ def task_candidates(
     mode: str = "research",
     limit: int = 5,
     shuffle_equal_rank: Optional[bool] = None,
+    unavailable_task_ids: frozenset[str] = frozenset(),
 ) -> tuple[MissionTaskCandidate, ...]:
     """Return live task candidates from canonical task YAML files.
 
@@ -366,6 +563,8 @@ def task_candidates(
     candidates: list[MissionTaskCandidate] = []
     for entry in entries:
         if entry.status != "READY":
+            continue
+        if entry.task_id in unavailable_task_ids:
             continue
         entry_mode = _task_mode(entry)
         if mode in {"research", "audit"} and entry_mode != "research":
@@ -392,6 +591,8 @@ def task_candidates(
         for entry in entries:
             if entry.status != "READY":
                 continue
+            if entry.task_id in unavailable_task_ids:
+                continue
             entry_mode = _task_mode(entry)
             if entry_mode != "support":
                 continue
@@ -414,6 +615,8 @@ def task_candidates(
         # research default.
         for entry in entries:
             if entry.status != "READY":
+                continue
+            if entry.task_id in unavailable_task_ids:
                 continue
             candidates.append(
                 MissionTaskCandidate(
@@ -479,10 +682,52 @@ def select_mission(payload: dict[str, Any], mode: str | None = None) -> MissionS
     return MissionSelection(mode=selected_mode, mission=None, action=None, alternatives=())
 
 
-def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path | None = None) -> str:
+def _availability_or_local(
+    availability: TaskAvailabilitySnapshot | None,
+) -> TaskAvailabilitySnapshot:
+    return availability or _local_registry_availability(
+        "Live GitHub availability filtering was not requested."
+    )
+
+
+def _availability_lines(availability: TaskAvailabilitySnapshot | None) -> list[str]:
+    snapshot = _availability_or_local(availability)
+    lines = ["", "Live GitHub task availability:"]
+    if snapshot.checked:
+        lines.append("- checked dynamically from open claims and open/merged PRs")
+        if snapshot.excluded_task_ids:
+            lines.append(
+                "- omitted occupied or merged-pending-closeout tasks: "
+                + ", ".join(snapshot.excluded_task_ids)
+            )
+        else:
+            lines.append("- no occupied READY task ids were detected")
+    else:
+        lines.append("- unavailable; showing local registry-only READY options")
+    lines.extend(f"- note: {warning}" for warning in snapshot.warnings)
+    return lines
+
+
+def mission_json(
+    payload: dict[str, Any],
+    mode: str | None = None,
+    *,
+    root: Path | None = None,
+    availability: TaskAvailabilitySnapshot | None = None,
+) -> str:
     """Render a compact JSON response for coding agents."""
     selection = select_mission(payload, mode)
-    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
+    snapshot = _availability_or_local(availability)
+    unavailable_task_ids = frozenset(snapshot.excluded_task_ids)
+    live_candidates = (
+        task_candidates(
+            root,
+            mode=selection.mode,
+            unavailable_task_ids=unavailable_task_ids,
+        )
+        if root is not None
+        else ()
+    )
     recommended_task_id = selection.action.get("task_id") if selection.action else None
     recommended_is_executable = bool(recommended_task_id)
     ready_pool_health = (
@@ -517,6 +762,7 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
             for action in selection.alternatives
         ],
         "live_task_candidates": [candidate.to_json() for candidate in live_candidates],
+        "github_task_availability": snapshot.to_json(),
         "ready_science_pool_health": ready_pool_health,
         "task_visibility_policy": {
             "executor_modes": "Only READY tasks are executable candidates.",
@@ -534,10 +780,27 @@ def mission_json(payload: dict[str, Any], mode: str | None = None, *, root: Path
     return json.dumps(data, indent=2, sort_keys=False)
 
 
-def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, root: Path | None = None) -> str:
+def render_human_mission(
+    payload: dict[str, Any],
+    mode: str | None = None,
+    *,
+    root: Path | None = None,
+    availability: TaskAvailabilitySnapshot | None = None,
+) -> str:
     """Render a concise human-readable mission menu."""
     selection = select_mission(payload, mode)
-    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
+    unavailable_task_ids = frozenset(
+        _availability_or_local(availability).excluded_task_ids
+    )
+    live_candidates = (
+        task_candidates(
+            root,
+            mode=selection.mode,
+            unavailable_task_ids=unavailable_task_ids,
+        )
+        if root is not None
+        else ()
+    )
     ready_pool_health = ready_science_pool_health(root) if root is not None else None
     mode_info = payload.get("modes", {}).get(selection.mode, {})
     lines = [
@@ -610,6 +873,7 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
                 f"- task_queue_needed: {str(ready_pool_health.task_queue_needed).lower()} (warning-only)",
             ]
         )
+    lines.extend(_availability_lines(availability))
     lines.extend(
         [
             "",
@@ -634,10 +898,26 @@ def render_human_mission(payload: dict[str, Any], mode: str | None = None, *, ro
     return "\n".join(lines)
 
 
-def render_agent_prompt(payload: dict[str, Any], *, root: Path | None = None) -> str:
+def render_agent_prompt(
+    payload: dict[str, Any],
+    *,
+    root: Path | None = None,
+    availability: TaskAvailabilitySnapshot | None = None,
+) -> str:
     """Render a copy-paste prompt that asks an agent to run the full PR loop."""
     selection = select_mission(payload, None)
-    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
+    unavailable_task_ids = frozenset(
+        _availability_or_local(availability).excluded_task_ids
+    )
+    live_candidates = (
+        task_candidates(
+            root,
+            mode=selection.mode,
+            unavailable_task_ids=unavailable_task_ids,
+        )
+        if root is not None
+        else ()
+    )
     mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
     action_label = selection.action.get("label") if selection.action else "the recommended action"
     task_id = selection.action.get("task_id") if selection.action else None
@@ -663,6 +943,7 @@ def render_agent_prompt(payload: dict[str, Any], *, root: Path | None = None) ->
             else "If the action has no task_id, create a task proposal before editing implementation files."
         )
     )
+    availability_block = "\n".join(_availability_lines(availability))
     return f"""You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode.
@@ -682,14 +963,31 @@ Start in Agent First Research Mode.
 12. If multiple agents are working locally, use separate branches or worktrees and choose disjoint artifact surfaces.
 13. When reporting available tasks, list only executable READY tasks. Do not offer REVIEW_READY tasks as options for executor work; those belong to maintainer review or closeout.
 {candidate_block}
+{availability_block}
 
 Return the selected mission, changed files, validation results, limitations, and PR-ready summary."""
 
 
-def render_onboarding_prompt(payload: dict[str, Any], *, root: Path | None = None) -> str:
+def render_onboarding_prompt(
+    payload: dict[str, Any],
+    *,
+    root: Path | None = None,
+    availability: TaskAvailabilitySnapshot | None = None,
+) -> str:
     """Render a copy-paste prompt for a guided first agent response."""
     selection = select_mission(payload, None)
-    live_candidates = task_candidates(root, mode=selection.mode) if root is not None else ()
+    unavailable_task_ids = frozenset(
+        _availability_or_local(availability).excluded_task_ids
+    )
+    live_candidates = (
+        task_candidates(
+            root,
+            mode=selection.mode,
+            unavailable_task_ids=unavailable_task_ids,
+        )
+        if root is not None
+        else ()
+    )
     mission_title = selection.mission.get("title") if selection.mission else "the recommended APL mission"
     action_label = selection.action.get("label") if selection.action else "the recommended action"
     action_suffix = (
@@ -708,6 +1006,7 @@ def render_onboarding_prompt(payload: dict[str, Any], *, root: Path | None = Non
             "\n\nCurrent executable READY task candidates from the task registry:\n"
             f"{rendered_candidates}"
         )
+    availability_block = "\n".join(_availability_lines(availability))
     return f"""You are working in Autonomous Physics Lab.
 
 Start in Agent First Research Mode with onboarding.
@@ -744,5 +1043,6 @@ Start in Agent First Research Mode with onboarding.
     Before `git add` / `commit` / `push`, run
     `python3 scripts/apl_branch_precondition.py --expected-branch <branch>`.
 {candidate_block}
+{availability_block}
 
 When the work is complete, summarize what changed, the scientific or workflow value of the result, validation results, limitations, and the best next task to continue."""

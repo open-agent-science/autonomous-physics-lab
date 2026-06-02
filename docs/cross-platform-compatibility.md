@@ -112,8 +112,21 @@ with whichever Python the contributor intends to use. The doctor reports:
 The doctor does **not** install packages, mutate global `PATH`, store
 credentials, or relax validation. Treat missing modules as environment setup
 work, not as a task failure. Treat a `127.0.0.1:9` proxy warning as a local
-publication blocker: unset the proxy variables for the single `gh`/PR helper
-command after confirming network access is allowed.
+publication blocker. After confirming network access is allowed, prefer the
+explicit `--ignore-suspicious-proxy` flag on
+`scripts/apl_task_pr_helper.py create` or `ready`. The flag clears only known
+loopback blocker values for the child `gh` process; it does not mutate the
+parent shell or remove legitimate proxies. Other GitHub CLI commands may still
+need the equivalent one-command environment override.
+
+`scripts/apl_mission.py --output onboarding` also attempts a dynamic GitHub
+availability check before showing `READY` options. It excludes tasks with an
+open claim, an open PR, or a merged PR pending local closeout when metadata is
+available. If `gh`, network access, or proxy settings block the lookup, the
+script reports a local registry-only fallback instead of hiding tasks or
+failing normal offline contributor onboarding. Use
+`--github-availability required --ignore-suspicious-proxy` when an operator
+wants the live check to be mandatory in an approved networked session.
 
 The default doctor path is read-only. If parallel pytest fails on Windows,
 run the opt-in disposable runtime probe:

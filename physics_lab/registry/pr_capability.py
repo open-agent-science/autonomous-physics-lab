@@ -253,9 +253,31 @@ def suspicious_proxy_env_names(env: Mapping[str, str] | None = None) -> tuple[st
     return tuple(dict.fromkeys(hits))
 
 
-def env_with_discovered_tool_paths(env: Mapping[str, str] | None = None) -> dict[str, str]:
-    """Return an environment with discovered GitHub CLI and Git dirs on PATH."""
+def without_suspicious_proxy_env(env: Mapping[str, str] | None = None) -> dict[str, str]:
+    """Return a copy without known local-blocker proxy variables.
+
+    This helper is deliberately opt-in. It removes only variables whose value
+    points at the known loopback blocker port and leaves legitimate proxy
+    configuration untouched.
+    """
     env_map = dict(os.environ if env is None else env)
+    blocked_keys = {name.lower() for name in suspicious_proxy_env_names(env_map)}
+    return {
+        name: value
+        for name, value in env_map.items()
+        if name.lower() not in blocked_keys
+    }
+
+
+def env_with_discovered_tool_paths(
+    env: Mapping[str, str] | None = None,
+    *,
+    clear_suspicious_proxy: bool = False,
+) -> dict[str, str]:
+    """Return a child environment with discovered tool dirs on PATH."""
+    env_map = dict(os.environ if env is None else env)
+    if clear_suspicious_proxy:
+        env_map = without_suspicious_proxy_env(env_map)
     path_parts = [
         part
         for part in (env_map.get("PATH") or "").split(os.pathsep)

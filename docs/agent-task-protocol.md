@@ -50,6 +50,25 @@ to maintainer review, merge decisions, or post-merge closeout. Mention
 `REVIEW_READY` items only when the maintainer explicitly asks for review,
 closeout, or queue triage.
 
+For guided onboarding, use:
+
+```bash
+python3 scripts/apl_mission.py --output onboarding
+```
+
+The onboarding path dynamically tries to exclude `READY` tasks that already
+have an open claim, an open PR, or a merged PR pending local closeout. This is
+stdout-only coordination state; do not commit a generated availability cache.
+When GitHub CLI or network metadata is unavailable, onboarding reports that it
+is showing local registry-only options. Agents must then perform the manual
+pre-claim search from `docs/agent-task-claiming.md` before starting work.
+
+For an explicit live check from another output mode, add
+`--github-availability auto` or use `--github-availability required` when a
+registry-only fallback should fail clearly. If an approved Codex sandbox sets
+the known loopback blocker proxy, add `--ignore-suspicious-proxy`; this clears
+only blocker-valued proxy variables for the child GitHub CLI process.
+
 ## Task Proposals
 
 If no existing `READY` task fits, do not guess the next canonical task number
@@ -432,6 +451,12 @@ ready:
 ```bash
 python3 scripts/apl_task_pr_helper.py ready --pr <number>
 ```
+
+When `scripts/apl_agent_doctor.py` reports the known loopback blocker proxy
+(`127.0.0.1:9` or `localhost:9`) and network access is allowed, add
+`--ignore-suspicious-proxy` to `apl_task_pr_helper.py create` or `ready`.
+The flag is opt-in, applies only to the child `gh` command, and does not remove
+legitimate proxy configuration or mutate the parent shell.
 
 ## Pull Request Requirements
 

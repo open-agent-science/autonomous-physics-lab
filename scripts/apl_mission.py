@@ -14,6 +14,7 @@ if str(REPO_ROOT) not in sys.path:
 from physics_lab.registry.mission_control import (  # noqa: E402
     SUPPORTED_MODES,
     SUPPORTED_MISSION_OUTPUTS,
+    collect_github_task_availability,
     load_current_missions,
     mission_json,
     render_agent_prompt,
@@ -62,6 +63,22 @@ def build_parser() -> argparse.ArgumentParser:
         default=str(REPO_ROOT),
         help="Repository root. Defaults to the checkout containing this script.",
     )
+    parser.add_argument(
+        "--github-availability",
+        choices=("off", "auto", "required"),
+        help=(
+            "Filter READY options using live GitHub claims and PRs. Defaults to "
+            "`auto` for onboarding and `off` for deterministic non-onboarding output."
+        ),
+    )
+    parser.add_argument(
+        "--ignore-suspicious-proxy",
+        action="store_true",
+        help=(
+            "Clear only known loopback blocker proxy variables for live GitHub "
+            "availability lookup."
+        ),
+    )
     return parser
 
 
@@ -78,14 +95,28 @@ def main() -> int:
     elif args.json:
         output = "json"
 
+    availability_mode = args.github_availability or (
+        "auto" if output == "onboarding" else "off"
+    )
+    availability = None
+    if availability_mode != "off":
+        availability = collect_github_task_availability(
+            root,
+            clear_suspicious_proxy=args.ignore_suspicious_proxy,
+        )
+        if availability_mode == "required" and not availability.checked:
+            for warning in availability.warnings:
+                print(warning, file=sys.stderr)
+            return 1
+
     if output == "onboarding":
-        print(render_onboarding_prompt(payload, root=root))
+        print(render_onboarding_prompt(payload, root=root, availability=availability))
     elif output == "agent":
-        print(render_agent_prompt(payload, root=root))
+        print(render_agent_prompt(payload, root=root, availability=availability))
     elif output == "json":
-        print(mission_json(payload, args.mode, root=root))
+        print(mission_json(payload, args.mode, root=root, availability=availability))
     else:
-        print(render_human_mission(payload, args.mode, root=root))
+        print(render_human_mission(payload, args.mode, root=root, availability=availability))
     return 0
 
 
