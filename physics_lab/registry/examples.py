@@ -21,7 +21,20 @@ def load_example_config(path: str | Path) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise ValueError(f"Expected mapping in example config file: {path}")
     if _is_textbook_wien_fixture_config(data):
-        return {"config_kind": TEXTBOOK_WIEN_FIXTURE_CONFIG_KIND, **data}
+        # TASK-0537 allows an exact-reference fixture/config. The repository
+        # examples registry expects runnable benchmark configs with canonical
+        # result links, so expose a compatible metadata shell while preserving
+        # the fixture payload for tests and direct consumers.
+        return {
+            "config_kind": TEXTBOOK_WIEN_FIXTURE_CONFIG_KIND,
+            "experiment_path": "../experiments/EXP-0011-anharmonic-oscillator-period.yaml",
+            "hypothesis_path": "../hypotheses/HYP-0011-anharmonic-oscillator-period.yaml",
+            "task_id": "TASK-0537",
+            "run_id": "RUN-0001",
+            "result_id": "RESULT-0014",
+            "result_root": "../results/EXP-0011",
+            "wien_fixture": data,
+        }
     if _is_nuclear_prediction_variant_factory_config(data):
         from physics_lab.engines.nuclear_prediction_variants import generate_variant_slate
 
