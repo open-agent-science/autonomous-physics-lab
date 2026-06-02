@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0536` - Add Exoplanet second-snapshot ingestion dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0537` - Build Textbook Wien displacement exact-reference fixture (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0538` - Add Atomic manifest-backed row-role schema and Beloy assignments (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
@@ -20,4 +19,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
 - `TASK-0535` - Compare NMD-0003 baseline-family gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
