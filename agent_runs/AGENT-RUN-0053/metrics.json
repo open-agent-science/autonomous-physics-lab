@@ -1,0 +1,273 @@
+{
+  "task_id": "TASK-0517",
+  "factory_id": "nuclear-residual-factory-nmd0003-sprint-001",
+  "candidate_counts": {
+    "generated": 73,
+    "preflight_rejected": 1,
+    "executed": 72,
+    "shortlisted": 0,
+    "rejected_by_control": 30
+  },
+  "route_verdict_summary": {
+    "REJECTED_BY_CONTROL": 30,
+    "NEGATIVE_RESULT": 42,
+    "DATA_QUALITY_BLOCKED": 1
+  },
+  "training_surface_count": 2309,
+  "train_count": 1616,
+  "holdout_count": 693,
+  "shortlist_count": 0,
+  "ready_for_prediction_freeze_count": 0,
+  "top_by_effective_holdout_reduction": [
+    {
+      "candidate_id": "CAND-0037",
+      "family": "valence_n",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 1.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 1,
+        "scale_exp": 0.0,
+        "mask": "all",
+        "coefficient": -0.193286
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.611883,
+        "train_reduction": 0.043445,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 4.402568,
+        "holdout_reduction": 0.320353,
+        "effective_reduction": 0.300353,
+        "shuffled_reduction": -0.134053,
+        "random_slice_reduction": 0.301423
+      }
+    },
+    {
+      "candidate_id": "CAND-0043",
+      "family": "valence_n",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 2.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 2,
+        "scale_exp": 0.0,
+        "mask": "all",
+        "coefficient": -0.012517
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.64508,
+        "train_reduction": 0.037786,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 4.30706,
+        "holdout_reduction": 0.335097,
+        "effective_reduction": 0.295097,
+        "shuffled_reduction": -0.371559,
+        "random_slice_reduction": 0.291409
+      }
+    },
+    {
+      "candidate_id": "CAND-0045",
+      "family": "valence_n",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 3.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 2,
+        "scale_exp": 0.3333,
+        "mask": "all",
+        "coefficient": -0.064665
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.653449,
+        "train_reduction": 0.03636,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 4.43816,
+        "holdout_reduction": 0.314859,
+        "effective_reduction": 0.254859,
+        "shuffled_reduction": -0.276837,
+        "random_slice_reduction": 0.276473
+      }
+    },
+    {
+      "candidate_id": "CAND-0047",
+      "family": "valence_n",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 3.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 2,
+        "scale_exp": 0.6667,
+        "mask": "all",
+        "coefficient": -0.311181
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.681896,
+        "train_reduction": 0.031511,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 4.715186,
+        "holdout_reduction": 0.272093,
+        "effective_reduction": 0.212093,
+        "shuffled_reduction": -0.186672,
+        "random_slice_reduction": 0.255689
+      }
+    },
+    {
+      "candidate_id": "CAND-0001",
+      "family": "shell_distance",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 1.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 1,
+        "scale_exp": 0.0,
+        "mask": "all",
+        "coefficient": -0.295922
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.622582,
+        "train_reduction": 0.041621,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 5.001296,
+        "holdout_reduction": 0.227924,
+        "effective_reduction": 0.207924,
+        "shuffled_reduction": -0.06502,
+        "random_slice_reduction": 0.194343
+      }
+    },
+    {
+      "candidate_id": "CAND-0019",
+      "family": "valence_z",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 1.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 1,
+        "scale_exp": 0.0,
+        "mask": "all",
+        "coefficient": -0.249217
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.558502,
+        "train_reduction": 0.052544,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 5.041951,
+        "holdout_reduction": 0.221648,
+        "effective_reduction": 0.201648,
+        "shuffled_reduction": -0.013866,
+        "random_slice_reduction": 0.173418
+      }
+    },
+    {
+      "candidate_id": "CAND-0039",
+      "family": "valence_n",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 2.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 1,
+        "scale_exp": 0.3333,
+        "mask": "all",
+        "coefficient": -0.821705
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.681068,
+        "train_reduction": 0.031652,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 4.9252,
+        "holdout_reduction": 0.239672,
+        "effective_reduction": 0.199672,
+        "shuffled_reduction": -0.056371,
+        "random_slice_reduction": 0.265924
+      }
+    },
+    {
+      "candidate_id": "CAND-0049",
+      "family": "valence_n",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 3.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 3,
+        "scale_exp": 0.0,
+        "mask": "all",
+        "coefficient": -0.000608
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.716761,
+        "train_reduction": 0.025568,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 4.82536,
+        "holdout_reduction": 0.255084,
+        "effective_reduction": 0.195084,
+        "shuffled_reduction": -0.643393,
+        "random_slice_reduction": 0.250217
+      }
+    },
+    {
+      "candidate_id": "CAND-0053",
+      "family": "valence_n",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 4.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 3,
+        "scale_exp": 0.6667,
+        "mask": "all",
+        "coefficient": -0.017883
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.711532,
+        "train_reduction": 0.026459,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 4.722802,
+        "holdout_reduction": 0.270917,
+        "effective_reduction": 0.190917,
+        "shuffled_reduction": -0.40633,
+        "random_slice_reduction": 0.242156
+      }
+    },
+    {
+      "candidate_id": "CAND-0051",
+      "family": "valence_n",
+      "route_verdict": "REJECTED_BY_CONTROL",
+      "candidate_state": "REJECTED_BY_CONTROL",
+      "complexity": 4.0,
+      "parameters": {
+        "form": "linear_transformed_feature",
+        "power": 3,
+        "scale_exp": 0.3333,
+        "mask": "all",
+        "coefficient": -0.003331
+      },
+      "metrics": {
+        "train_baseline_rms_mev": 5.866763,
+        "train_candidate_rms_mev": 5.712248,
+        "train_reduction": 0.026337,
+        "holdout_baseline_rms_mev": 6.477728,
+        "holdout_candidate_rms_mev": 4.727859,
+        "holdout_reduction": 0.270136,
+        "effective_reduction": 0.190136,
+        "shuffled_reduction": -0.518043,
+        "random_slice_reduction": 0.248353
+      }
+    }
+  ]
+}

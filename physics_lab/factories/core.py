@@ -209,6 +209,8 @@ def run_factory(spec: FactorySpec, adapter: CampaignAdapter) -> dict[str, Any]:
         or ["Sandbox factory run; no claim, prediction, or result promotion."],
         "reproducibility": spec.reproducibility,
     }
+    if spec.splits:
+        summary["splits"] = spec.splits
     if run.campaign_specific:
         summary["campaign_specific"] = run.campaign_specific
 
