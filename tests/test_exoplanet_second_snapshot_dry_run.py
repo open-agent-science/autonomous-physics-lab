@@ -14,7 +14,9 @@ from physics_lab.datasets.exoplanets import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET_FREEZE_PATH = ROOT / "data" / "exoplanets" / "second_snapshot_target_freeze.yaml"
+TARGET_FREEZE_PATH = (
+    ROOT / "data" / "exoplanets" / "second_snapshot_target_freeze.yaml"
+)
 SYNTHETIC_FIXTURE = (
     ROOT / "tests" / "fixtures" / "exoplanets" / "synthetic_pscomppars_snapshot.yaml"
 )
