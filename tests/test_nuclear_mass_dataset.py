@@ -192,3 +192,76 @@ def test_nmd0003_split_manifest_excludes_primary_post_ame2020_holdout() -> None:
     assert len(primary_holdout_ids) == 295
     assert training_ids.isdisjoint(primary_holdout_ids)
     assert nmd0002_ids <= training_ids
+
+
+def test_f2_bin_assignment_is_z_n_a_only_and_ordered() -> None:
+    from physics_lab.engines.nuclear_f2_coverage import (
+        F2_MAGIC_NUMBERS,
+        assign_f2_bin,
+    )
+
+    # 184 is part of the F2 magic list (and absent from the baseline list).
+    assert 184 in F2_MAGIC_NUMBERS
+    # doubly magic: Z=8 (magic), N=8 (magic) -> dZ=0, dN=0.
+    assert assign_f2_bin(8, 8, 16) == "doubly_magic_near"
+    # magic Z only: Z=20 (magic), N=27 (dN=1 from 28) would be magic_n; use N=24.
+    assert assign_f2_bin(20, 24, 44) == "magic_z_near"
+    # magic N only: N=28 (magic), Z=24 (dZ=4) -> magic_n_near.
+    assert assign_f2_bin(24, 28, 52) == "magic_n_near"
+    # neutron-rich mid-shell: eta >= 0.18, not near magic.
+    assert assign_f2_bin(40, 65, 105) == "mid_shell_neutron_rich"
+    # balanced mid-shell heavy: eta < 0.18, A >= 50, not near magic.
+    assert assign_f2_bin(46, 60, 106) == "mid_shell_balanced"
+    # light: A < 50, not near magic, eta < 0.18.
+    assert assign_f2_bin(15, 16, 31) == "light_a_lt_50"
+
+
+def test_f2_bin_assignment_rejects_invalid_coordinates() -> None:
+    from physics_lab.engines.nuclear_f2_coverage import assign_f2_bin
+
+    with pytest.raises(ValueError):
+        assign_f2_bin(-1, 5, 4)
+    with pytest.raises(ValueError):
+        assign_f2_bin(2, 2, 0)
+
+
+def test_nmd0003_clears_f2_coverage_gate() -> None:
+    from physics_lab.engines.nuclear_f2_coverage import (
+        F2_TAXONOMY,
+        evaluate_f2_coverage_for_dataset,
+    )
+
+    coverage = evaluate_f2_coverage_for_dataset(
+        "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    )
+    gate = coverage["gate"]
+
+    # Every declared bin is populated above the per-cell floor on NMD-0003.
+    assert set(gate["bins"]) == set(F2_TAXONOMY)
+    assert all(info["clears_per_cell_floor"] for info in gate["bins"].values())
+
+    # The three TASK-0478 floors are all satisfied.
+    assert gate["gate_criteria"]["multi_cell_floor_met"] is True
+    assert gate["gate_criteria"]["outside_near_magic_floor_met"] is True
+    assert gate["gate_criteria"]["total_scored_floor_met"] is True
+    assert gate["gate_clears"] is True
+
+    # At least two scored bins are outside the dominant near-magic family.
+    assert len(gate["scored_bins_outside_near_magic"]) >= 2
+    assert gate["row_count"] == 2309
+
+
+def test_f2_coverage_selection_manifest_matches_engine() -> None:
+    manifest_path = Path("data/nuclear_masses/f2-coverage-selection-manifest.yaml")
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+
+    from physics_lab.engines.nuclear_f2_coverage import evaluate_f2_coverage_for_dataset
+
+    coverage = evaluate_f2_coverage_for_dataset(manifest["source_dataset"])
+    gate = coverage["gate"]
+
+    assert manifest["gate_result"]["gate_clears"] == gate["gate_clears"]
+    assert manifest["gate_result"]["total_scored_rows"] == gate["total_scored_rows"]
+    manifest_counts = {row["bin"]: row["count"] for row in manifest["bins"]}
+    engine_counts = {bin_id: info["count"] for bin_id, info in gate["bins"].items()}
+    assert manifest_counts == engine_counts
