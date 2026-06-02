@@ -17,7 +17,8 @@ This review records the first pinned NASA Exoplanet Archive Planetary Systems sn
 - Raw snapshot: `data/exoplanets/raw/exo-pscomppars-20260523T171549Z.csv`
 - Raw SHA-256: `a86aefd7d0fd7c2e93aaad87f97adb4c96f1246d8fc00abae7d7c43082ba4e54`
 - Normalized snapshot: `data/exoplanets/exo-0001-pscomppars-snapshot.yaml`
-- Normalized SHA-256: `d86dc539c5175cafae44fadcb55194c00ac91d21b8f0ace1754fae3412dc1a6c`
+- Normalized file SHA-256: `bd7c919e4ba1de5acb01e45c78f64aa2b5af859edd62f0e88eaa62a44fb54c2d`
+- Embedded canonical-payload SHA-256: `dc4d8df2d0860f87d6384a1a1bebbe8e3e51a400175593f2b48e6c64a33ae5ee`
 
 ## Counts
 

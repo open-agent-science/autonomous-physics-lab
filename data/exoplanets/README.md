@@ -57,8 +57,21 @@ detection-method coverage, and stop conditions.
 
 ## Normalized Snapshot Checksum
 
-For the pinned PSCompPars snapshot, `normalized_checksum_sha256` is the SHA-256
-hash of the committed normalized YAML snapshot file exactly as stored in git.
+The pinned PSCompPars snapshot carries two SHA-256 checksums with distinct
+scopes:
+
+- `source_manifest.yaml` records the SHA-256 hash of the committed normalized YAML snapshot file exactly as stored in git;
+- the snapshot's embedded `snapshot_provenance.normalized_checksum_sha256`
+  records a deterministic canonical-payload SHA-256. The canonicalizer parses
+  the YAML mapping, replaces the embedded checksum field with `null`, encodes
+  the full payload as sorted compact JSON, and hashes the UTF-8 bytes. This
+  avoids a self-referential file hash while detecting row and metadata drift.
+
+Cross-platform embedded-checksum replay:
+
+```bash
+python3 scripts/check_exoplanet_normalized_snapshot_checksum.py
+```
 
 Linux/macOS reproduction:
 
@@ -72,9 +85,11 @@ Windows PowerShell reproduction:
 Get-FileHash data\exoplanets\exo-0001-pscomppars-snapshot.yaml -Algorithm SHA256
 ```
 
-The checksum covers the entire committed normalized YAML file, not a canonical
-re-serialization of selected rows. Any byte-level change to the committed
-snapshot file changes the checksum.
+The manifest checksum covers the entire committed normalized YAML file, not a
+canonical re-serialization of selected rows. Any byte-level change to the
+committed snapshot file changes that checksum. The embedded canonical-payload
+checksum detects semantic payload changes while remaining stable across YAML
+formatting changes.
 
 This checksum is a source-provenance guard only. It does not validate scientific
 correctness, benchmark metrics, planet classifications, or residual claims.

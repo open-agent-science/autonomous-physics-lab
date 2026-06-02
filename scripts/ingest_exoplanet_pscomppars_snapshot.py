@@ -27,7 +27,11 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from physics_lab.datasets.exoplanets import load_and_filter, summarize  # noqa: E402
+from physics_lab.datasets.exoplanets import (  # noqa: E402
+    load_and_filter,
+    normalized_snapshot_checksum,
+    summarize,
+)
 from physics_lab.registry.validation import validate_document  # noqa: E402
 
 
@@ -605,6 +609,9 @@ def main(argv: list[str] | None = None) -> int:
         raw_checksum=raw_checksum,
         normalized_checksum=None,
         entries=entries,
+    )
+    payload["snapshot_provenance"]["normalized_checksum_sha256"] = (
+        normalized_snapshot_checksum(payload)
     )
     validate_document(payload, "exoplanet_mass_radius", DATASET_PATH)
     DATASET_PATH.write_text(
