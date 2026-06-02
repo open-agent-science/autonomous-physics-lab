@@ -1,7 +1,7 @@
 id: TASK-0534
 title: "Add review-agent advisory for informal follow-up task mentions"
 type: maintainer_tooling
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 
