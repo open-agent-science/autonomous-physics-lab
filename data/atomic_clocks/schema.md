@@ -62,6 +62,20 @@ limitations:
   - "Planning placeholder; no value ingested."
 ```
 
+## Source Block Naming (`source` vs `source_metadata`)
+
+Real rows (`direct_measurement`, `derived_constraint`, `review_summary`) use a
+`source` block with citation, DOI/archive locator, and checksum fields, as shown
+above. Synthetic dry-run rows instead use a `source_metadata` block with
+`source_class: synthetic_rows`.
+
+These two keys are a deliberate, mutually exclusive contract, not interchangeable
+aliases. The real direct-row loader
+(`physics_lab/engines/atomic_clock_residuals.load_atomic_clock_direct_dataset`,
+TASK-0453) requires `source` and rejects any `source_metadata` key on a direct
+row; the synthetic loader requires `source_metadata`. Do not mix the two on one
+row.
+
 ## Derived Constraint Additions
 
 Rows with `row_class: derived_constraint` must additionally record:
