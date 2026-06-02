@@ -1,7 +1,7 @@
 id: TASK-0523
 title: "Add adaptive Windows validation planner and pytest runtime probe"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
