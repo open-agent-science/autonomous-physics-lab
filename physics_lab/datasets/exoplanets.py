@@ -38,6 +38,9 @@ What this module does NOT do
 
 from __future__ import annotations
 
+import copy
+import hashlib
+import json
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
@@ -123,6 +126,33 @@ DEFAULT_RADIUS_SIGMA_THRESHOLD: float = 0.15
 
 
 # ---------------------------------------------------------------------------
+# Normalized snapshot checksum.
+# ---------------------------------------------------------------------------
+
+
+def normalized_snapshot_checksum(snapshot: dict[str, Any]) -> str:
+    """Return the stable SHA-256 for a normalized snapshot payload.
+
+    The embedded checksum field is normalized to ``None`` before a sorted,
+    compact JSON encoding is hashed. This avoids a self-referential file hash
+    while making row-level or metadata drift visible across YAML serializers.
+    """
+
+    canonical_snapshot = copy.deepcopy(snapshot)
+    provenance = canonical_snapshot.get("snapshot_provenance")
+    if not isinstance(provenance, dict):
+        raise ValueError("snapshot_provenance must be a mapping")
+    provenance["normalized_checksum_sha256"] = None
+    encoded = json.dumps(
+        canonical_snapshot,
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+# ---------------------------------------------------------------------------
 # Result dataclasses.
 # ---------------------------------------------------------------------------
 
@@ -203,6 +233,16 @@ def load_exoplanet_snapshot(path: Path) -> dict[str, Any]:
             raise ValueError(
                 f"Snapshot {path} sets live_external_fetch_allowed: true on a "
                 "non-synthetic snapshot; this is forbidden"
+            )
+
+    expected_checksum = provenance.get("normalized_checksum_sha256")
+    if expected_checksum is not None:
+        actual_checksum = normalized_snapshot_checksum(payload)
+        if expected_checksum != actual_checksum:
+            raise ValueError(
+                f"Snapshot {path} normalized_checksum_sha256 does not match "
+                f"canonical payload checksum: expected {expected_checksum}, "
+                f"computed {actual_checksum}"
             )
 
     return payload
