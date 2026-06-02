@@ -12,7 +12,7 @@ from physics_lab.engines.textbook_wien import (
 )
 
 
-FIXTURE_PATH = Path("examples/textbook_wien_displacement_exact_reference.yaml")
+FIXTURE_PATH = Path("data/textbook_formula_audit/fixtures/wien_displacement_exact_reference.yaml")
 
 
 def test_lambda_peak_scaling_uses_kelvin_temperature() -> None:
@@ -40,7 +40,7 @@ def test_wien_fixture_expected_peaks_are_strictly_monotonic() -> None:
     fixture = load_wien_fixture(FIXTURE_PATH)
     expected = [float(value) for value in fixture["expected_lambda_peak_m"]]
 
-    assert all(left > right for left, right in zip(expected, expected[1:], strict=False))
+    assert all(left > right for left, right in zip(expected, expected[1:]))
 
 
 def test_wien_fixture_negative_controls_fail_as_controls() -> None:
