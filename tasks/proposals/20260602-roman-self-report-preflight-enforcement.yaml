@@ -1,0 +1,37 @@
+proposal_id: 20260602-roman-self-report-preflight-enforcement
+title: Enforce TASK-0534 fixable-gap self-reporting in task PR preflight and template
+status: PROPOSED
+type: agent_workflow
+priority: medium
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+strategy_alignment:
+- Make mandatory self-reporting enforceable at handoff, not just documented.
+summary: Wire the TASK-0534 mandatory fixable-gap self-reporting rule into scripts/apl_task_pr_helper.py
+  preflight and the PR template so it is surfaced/checked at handoff, instead of relying on
+  agents to remember the rule.
+rationale: TASK-0534 added the mandatory rule to docs/agent-task-protocol.md but enforcement
+  is not wired into tooling; an agent following the execution flow can still skip it. This
+  closes the documented enforcement gap.
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+  - scripts/apl_task_pr_helper.py
+  - .github/pull_request_template.md
+  - docs/agent-task-protocol.md
+  planning_context: Follow-up to TASK-0534. Add a preflight reminder/check and a PR-template
+    prompt for fixable-gap self-reporting.
+requirements:
+- Keep the check a non-blocking reminder unless the maintainer chooses a hard gate.
+- Do not invent new proposal branch/PR/filename formats.
+- Do not auto-create proposals; only prompt the agent to file one.
+accepted_outputs:
+- canonical task spec
+- preflight reminder in apl_task_pr_helper.py
+- PR template prompt
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.

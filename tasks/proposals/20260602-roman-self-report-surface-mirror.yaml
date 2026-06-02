@@ -1,0 +1,36 @@
+proposal_id: 20260602-roman-self-report-surface-mirror
+title: Mirror TASK-0534 fixable-gap self-reporting rule into AGENTS.md and result-promotion-protocol.md
+status: PROPOSED
+type: documentation
+priority: medium
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+strategy_alignment:
+- Keep canonical surfaces consistent so the self-reporting rule is discoverable from every
+  entry point.
+summary: Reflect the mandatory fixable-gap self-reporting rule (added to docs/agent-task-protocol.md
+  by TASK-0534) into the other canonical surfaces — AGENTS.md and docs/result-promotion-protocol.md
+  — so the convention is consistent across canonical docs.
+rationale: When introducing a convention, all canonical surfaces should carry it, not a single
+  doc; otherwise agents reading AGENTS.md or the routing protocol miss the rule.
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+  - AGENTS.md
+  - docs/result-promotion-protocol.md
+  - docs/agent-task-protocol.md
+  planning_context: Follow-up to TASK-0534. Surface-alignment only; do not change the rule's
+    meaning.
+requirements:
+- Mirror, do not redefine, the rule from docs/agent-task-protocol.md.
+- Keep edits minimal; link back to the canonical section.
+accepted_outputs:
+- canonical task spec
+- AGENTS.md update
+- docs/result-promotion-protocol.md update
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
