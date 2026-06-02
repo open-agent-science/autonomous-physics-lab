@@ -1,0 +1,123 @@
+gate_id: EXO-SECOND-SNAPSHOT-REOPEN-COVERAGE-GATE-0001
+schema_version: 0.1.0
+task_id: TASK-0529
+campaign_profile_id: exoplanet-mass-radius
+status: rule_frozen_no_future_values
+created_by:
+  contributor_id: roman
+  agent_id: claude
+
+scope:
+  purpose: |
+    Pre-reveal reopen-coverage gate for the Exoplanet Mass-Radius campaign.
+    After the TASK-0515 NO_GO synthesis, a residual-hypothesis lane may reopen
+    only on a materially changed pinned snapshot whose eligible per-axis slice
+    clears the frozen coverage floors below and then survives null-baseline
+    competition. This file declares the floors that the no-live-fetch protocol
+    and target freeze referenced but never set. It contains no second-snapshot
+    row values and does not fetch, inspect, summarize, or score future data.
+  future_data_values_included: false
+  live_fetch_allowed: false
+  prediction_registry_allowed: false
+  claim_promotion_allowed: false
+
+source_inputs:
+  first_snapshot_path: data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+  no_live_fetch_protocol_path: docs/exoplanet-second-snapshot-no-live-fetch-protocol.md
+  target_freeze_path: data/exoplanets/second_snapshot_target_freeze.yaml
+  go_no_go_synthesis_path: docs/reviews/exoplanet-control-aware-go-no-go-synthesis.md
+  gate_review_path: docs/reviews/exoplanet-second-snapshot-reopen-coverage-gate.md
+
+evaluation_rule: |
+  All gates are evaluated per mass axis (true_mass_transit_radius and
+  minimum_mass_transit_radius) and never pooled. A lane reopens only on the
+  specific axis and slice that passes every applicable gate. All criteria are
+  frozen before any future row inspection; changing any after reveal makes the
+  run exploratory, not prospective.
+
+baseline_counts_reference:
+  compact_radius_slice_eligible_rows_exo_0001: 92
+  note: |
+    The 92-row compact-radius slice (R < 1.5 R_earth) is the committed
+    reference count from TASK-0480. Per-axis per-slice EXO-0001 baseline counts
+    used by gate_3 must be recomputed deterministically from committed EXO-0001
+    rows by the future reveal task; this file does not enumerate them.
+
+gates:
+  - gate_id: gate_0_material_snapshot
+    requirement: |
+      A residual lane may reopen only against a maintainer-approved,
+      checksum-pinned NEW PSCompPars snapshot acquired under the no-live-fetch
+      protocol and the target freeze. Re-running on EXO-0001 never reopens a
+      lane.
+  - gate_id: gate_1_per_bin_interpretation_floor
+    min_eligible_rows_per_scored_bin: 30
+    requirement: |
+      Any scored sub-slice (mass quartile, host-context bin, regime bin) must
+      have at least this many eligible rows on the scored axis to be
+      interpreted. Reuses the TASK-0480 floor. Bins below it are context-only.
+  - gate_id: gate_2_per_axis_slice_floor
+    min_eligible_rows_per_axis_slice: 150
+    requirement: |
+      A partitioned residual lane may reopen on a slice only if that slice has
+      at least this many eligible rows on the scored axis. Derived as four
+      interpretable bins at the 30-row floor plus exclusion margin, and set
+      materially above the current 92-row compact slice.
+  - gate_id: gate_3_material_growth
+    min_fractional_growth_vs_exo_0001: 0.5
+    requirement: |
+      The eligible per-axis row count for the slice must increase by at least
+      50% over its EXO-0001 eligible count for the same slice and axis, and must
+      still clear gate_2. Prevents catalog churn from counting as a material
+      change.
+  - gate_id: gate_4_mass_axis_separation
+    requirement: |
+      True-mass and minimum-mass axes are evaluated and reported separately with
+      separate row counts, metrics, blockers, and wording. No pooled headline
+      metric. Passing on one axis does not authorize the other.
+  - gate_id: gate_5_host_context_coverage
+    min_populated_bins: 3
+    min_eligible_rows_per_bin: 30
+    requirement: |
+      A host-context residual lane may reopen only if the frozen host-context
+      field yields at least 3 populated bins, each with at least 30 eligible
+      rows on the scored axis (≥ ~90 rows across ≥3 bins, not concentrated in
+      one). Answers the TASK-0481 underpowered-host-context finding.
+  - gate_id: gate_6_null_baseline_competition
+    must_beat: nearest_radius_null_baseline_family
+    metric_set:
+      - log10_radius_mae
+      - log10_radius_rmse
+      - z_score_residual_summary_where_uncertainty_support_exists
+    requirement: |
+      The pre-registered residual hypothesis must beat the nearest-radius
+      null-baseline family (TASK-0483 controls), not merely the frozen
+      CK17-style baseline, on the frozen slice and axis, by a margin exceeding
+      the slice's sampling/bootstrap uncertainty. If the null matches or beats
+      the hypothesis within uncertainty, the lane stops on control match and
+      does not reopen regardless of row count. Decisive gate.
+
+do_not_repeat_unless_gate_passes:
+  - "Another positive-framed CK17-style compact-radius residual pilot."
+  - "Compact-radius host-context coarse-bin audits at the current coverage floor."
+  - "Compact-radius mass-quartile localization on the same 92 eligible rows."
+  - "Positive interpretation of the coarse upper-mass-half diagnostic."
+  - "An Exoplanet Research Factory candidate sprint that treats nearest-radius nulls as decorative controls."
+  - "Any pooled headline metric that mixes true-mass and minimum-mass rows."
+
+promotion_boundary:
+  writes_prediction_registry: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
+  knowledge_promotion_allowed: false
+  required_next_step: |
+    A later maintainer-approved second-snapshot acquisition/scoring task may
+    evaluate these gates against a checksum-pinned new snapshot. Passing a lane
+    authorizes only bounded, slice-scoped, null-checked residual scoring under
+    the no-live-fetch protocol; it does not authorize predictions, claims,
+    knowledge, or canonical results.
+
+limitations:
+  - "This is a frozen gate rule, not a reveal; no second snapshot is acquired, inspected, or scored."
+  - "Numeric floors are conservative pre-reveal declarations; a maintainer may revise them only through a pre-reveal amendment merged before acquisition, never after row inspection."
+  - "Per-slice EXO-0001 baseline counts and the pl_bmassprov true-mass/minimum-mass mapping are deferred to the future reveal task."

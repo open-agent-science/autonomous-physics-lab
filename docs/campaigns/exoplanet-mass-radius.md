@@ -46,7 +46,14 @@ Future work should reopen the residual lane only after a materially changed
 pinned snapshot or an explicitly revised coverage gate.
 `TASK-0482` and `TASK-0484` packaged the second-snapshot target freeze and
 external-reviewer capsule, and `TASK-0483` landed as an `INCONCLUSIVE`
-null-baseline control panel. All work stays no-live-fetch and benchmark-only.
+null-baseline control panel. `TASK-0529` now supplies the "explicitly revised
+coverage gate" half of the reopen condition: the
+[second-snapshot reopen coverage gate](../reviews/exoplanet-second-snapshot-reopen-coverage-gate.md)
+and `data/exoplanets/second_snapshot_reopen_coverage_gate.yaml` declare the
+frozen per-axis row-count floors (30-row per-bin, 150-row per-axis-slice, +50%
+material growth, ≥3 host-context bins) and the decisive null-baseline
+competition criterion that a materially changed snapshot must clear before any
+residual lane reopens. All work stays no-live-fetch and benchmark-only.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -237,6 +244,11 @@ The campaign should mature in this order:
     factory protocol/schema availability alone does not authorize a smoke run;
     a later maintainer-approved task needs a materially changed input surface
     or explicitly revised coverage gate.
+16. Lock the second-snapshot reopen coverage gate (`TASK-0529`, DONE): a
+    residual lane reopens only on a materially changed, checksum-pinned snapshot
+    that clears the frozen per-axis row-count floors and then beats the
+    nearest-radius null-baseline family. See
+    [the reopen coverage gate](../reviews/exoplanet-second-snapshot-reopen-coverage-gate.md).
 
 This campaign is now the fastest APL path to a visible, scientist-readable
 benchmark artifact. It is not yet a discovery surface.
