@@ -19,5 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0417` - Register first non-nuclear AGENT_PUBLISHED prediction entry (`prediction_registry`, priority `medium`, difficulty `medium`, domain `result_promotion`)
-- `TASK-0535` - Compare NMD-0003 baseline-family gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+None.
