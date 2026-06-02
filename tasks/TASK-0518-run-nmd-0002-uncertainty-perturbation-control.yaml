@@ -1,7 +1,7 @@
 id: TASK-0518
 title: "Run NMD-0002 uncertainty perturbation control for Nuclear factory candidates"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -39,8 +39,8 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md as sandbox control evidence or negative/inconclusive memory."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0054/metrics.json"
+  - "agent_runs/AGENT-RUN-0054/report.md"
   - "docs/reviews/nmd0002-uncertainty-perturbation-control.md"
   - "tests or deterministic smoke coverage for any new perturbation helper"
   - "optional update to docs/campaigns/nuclear-mass-surface.md only if the control changes campaign posture"

@@ -17,6 +17,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import yaml
@@ -176,12 +177,15 @@ class NuclearResidualFactoryAdapter:
     """Bounded residual-law adapter over a committed nuclear-mass slice."""
 
     adapter_id = "nuclear_residual_factory"
-    adapter_version = "0.2"
+    adapter_version = "0.3"
 
     def build_run(self, spec: FactorySpec) -> FactoryRun:
         snapshot_ref = str(spec.dataset["snapshot_ref"])
         dataset = load_nuclear_mass_dataset(Path(snapshot_ref))
         entries = list(dataset.entries)
+        split_manifest = _load_split_manifest(spec)
+        if split_manifest is not None:
+            _assert_split_manifest_matches_dataset(split_manifest, entries, snapshot_ref)
 
         coefficients = _load_frozen_coefficients(spec.baseline)
         baseline_rows = evaluate_baseline(
@@ -195,10 +199,20 @@ class NuclearResidualFactoryAdapter:
         z_values = [r.Z for r in rows]
         n_values = [r.N for r in rows]
 
-        split = max(1, int(round(0.7 * len(rows))))
+        holdout_fraction = float(spec.splits.get("validation_holdout_fraction", 0.3))
+        split = max(1, int(round((1.0 - holdout_fraction) * len(rows))))
+        if len(rows) > 1:
+            split = min(split, len(rows) - 1)
         train_idx = list(range(split))
         holdout_idx = list(range(split, len(rows)))
         grid = str(spec.options.get("candidate_grid", "smoke"))
+        post_ame2020_outcome = "not_applicable: slice has no time-split split manifest"
+        if split_manifest is not None:
+            split_id = str(split_manifest.get("split_manifest_id", "unknown"))
+            post_ame2020_outcome = (
+                f"applied: {split_id} excludes primary post-AME2020 holdout rows; "
+                "no reveal scoring"
+            )
 
         # Deterministic matched-random target permutation (random-slice control).
         rng = np.random.default_rng(0)
@@ -254,16 +268,18 @@ class NuclearResidualFactoryAdapter:
                 {"name": "shuffled_feature", "outcome": "applied"},
                 {"name": "matched_random_slice", "outcome": "applied"},
                 {"name": "complexity_penalty", "outcome": f"per_param {COMPLEXITY_PENALTY_PER_PARAM}"},
-                {"name": "post_ame2020_check", "outcome": "not_applicable: slice has no time-split rows"},
+                {"name": "post_ame2020_check", "outcome": post_ame2020_outcome},
             ),
             candidates=tuple(candidates),
             campaign_specific={
                 "magic_numbers": list(MAGIC_NUMBERS),
                 "candidate_grid": grid,
+                "training_surface_count": len(rows),
                 "train_count": len(train_idx),
                 "holdout_count": len(holdout_idx),
                 "baseline_model_id": str(spec.baseline.get("baseline_id", "nuclear-semi-empirical-fit")),
                 "baseline_coefficients_ref": str(spec.baseline.get("coefficients_ref", "inline")),
+                "split_manifest_ref": str(spec.splits.get("split_manifest_ref", "none")),
             },
         )
 
@@ -300,8 +316,11 @@ class NuclearResidualFactoryAdapter:
         f_holdout, r_holdout = feature[holdout_idx], residual[holdout_idx]
 
         coef = _fit_coefficient(f_train, r_train)
+        train_baseline_rms = _rms(r_train)
+        train_candidate_rms = _rms(r_train - coef * f_train)
         baseline_rms = _rms(r_holdout)
         candidate_rms = _rms(r_holdout - coef * f_holdout)
+        train_reduction = _reduction(train_baseline_rms, train_candidate_rms)
         reduction = _reduction(baseline_rms, candidate_rms)
 
         # Shuffled-feature control (destroy feature->residual pairing).
@@ -329,6 +348,9 @@ class NuclearResidualFactoryAdapter:
             route_verdict=verdict,
             parameters={**variant.params, "coefficient": round(coef, 6)},
             metrics={
+                "train_baseline_rms_mev": round(train_baseline_rms, 6),
+                "train_candidate_rms_mev": round(train_candidate_rms, 6),
+                "train_reduction": round(train_reduction, 6),
                 "holdout_baseline_rms_mev": round(baseline_rms, 6),
                 "holdout_candidate_rms_mev": round(candidate_rms, 6),
                 "holdout_reduction": round(reduction, 6),
@@ -364,6 +386,47 @@ class NuclearResidualFactoryAdapter:
             # Survives controls but the holdout is too small to shortlist.
             return "EXECUTED", "INCONCLUSIVE"
         return "SHORTLISTED", "SHORTLIST_CANDIDATE"
+
+
+def _load_split_manifest(spec: FactorySpec) -> dict[str, Any] | None:
+    split_ref = spec.splits.get("split_manifest_ref") or spec.dataset.get("split_manifest_ref")
+    if not split_ref:
+        return None
+    path = Path(str(split_ref))
+    payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    if not isinstance(payload, dict):
+        raise ValueError(f"Expected mapping in split manifest: {path}")
+    return payload
+
+
+def _assert_split_manifest_matches_dataset(
+    split_manifest: dict[str, Any],
+    entries: list[object],
+    snapshot_ref: str,
+) -> None:
+    source_dataset = str(split_manifest.get("source_dataset", ""))
+    if source_dataset and source_dataset != snapshot_ref:
+        raise ValueError(
+            f"Split manifest source_dataset {source_dataset!r} does not match "
+            f"factory snapshot_ref {snapshot_ref!r}"
+        )
+    training_split = split_manifest.get("training_split", {})
+    if not isinstance(training_split, dict):
+        raise ValueError("Split manifest missing training_split mapping")
+    manifest_ids = set(str(x) for x in training_split.get("nuclide_ids", []))
+    dataset_ids = set(str(getattr(entry, "nuclide_id")) for entry in entries)
+    if manifest_ids != dataset_ids:
+        missing = sorted(manifest_ids - dataset_ids)[:5]
+        extra = sorted(dataset_ids - manifest_ids)[:5]
+        raise ValueError(
+            "Split manifest training ids do not match dataset entries "
+            f"(missing={missing}, extra={extra})"
+        )
+    row_count = int(training_split.get("row_count", -1))
+    if row_count != len(entries):
+        raise ValueError(
+            f"Split manifest row_count {row_count} does not match dataset entries {len(entries)}"
+        )
 
 
 register_adapter(NuclearResidualFactoryAdapter())
