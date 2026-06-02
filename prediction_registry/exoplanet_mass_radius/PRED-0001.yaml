@@ -1,0 +1,120 @@
+prediction_id: PRED-0001
+title: "Prospective exoplanet second-snapshot protocol outcome forecast"
+registry_status: REGISTERED
+campaign_profile_id: exoplanet-mass-radius
+task_id: TASK-0417
+evidence_class: prospective_prediction_registry
+claim_ceiling: "Registered prospective prediction only; no claim until later maintainer-reviewed comparison."
+
+registered_by:
+  contributor_id: akutenyov
+  agent_id: codex
+
+registered_at_utc: "2026-06-02T18:34:35Z"
+
+source_state:
+  git_commit: 6a3e402cf52f681ee5001133afd9ca196bb990b1
+  model_reference:
+    model_id: "EXOPLANET-SECOND-SNAPSHOT-RULE-FREEZE-0001::categorical_protocol_outcome"
+    source_path: "data/exoplanets/second_snapshot_target_freeze.yaml"
+    frozen_parameters_note: >
+      The frozen forecast uses the committed EXO-0001 target-freeze rule,
+      separate true-mass and minimum-mass axes, the committed PSCompPars query
+      contract, and the existing null/control memory. The categorical forecast
+      is NULL_OR_BLOCKER for each frozen reveal axis unless a later
+      maintainer-reviewed reveal task clears the pre-declared source,
+      checksum, row-count, sample-size, axis-separation, and null-baseline
+      conditions.
+  baseline_reference:
+    source_path: "docs/reviews/exoplanet-failure-map-result-promotion-scorecard.md"
+    supporting_paths:
+      - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+      - "docs/reviews/exoplanet-control-aware-go-no-go-synthesis.md"
+  training_data_references:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "data/exoplanets/second_snapshot_target_freeze.yaml"
+    - "data/exoplanets/snapshot_plans/pscomppars_query.adql"
+  holdout_protocol_references:
+    - "docs/prediction-registry-policy.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+    - "docs/reviews/exoplanet-second-snapshot-target-freeze.md"
+  live_external_fetch_allowed: false
+  source_data_state_note: >
+    Registration used only committed repository files. No live NASA Exoplanet
+    Archive fetch, browser lookup, newer PSCompPars snapshot, future row
+    summary, future value inspection, or second-snapshot scoring was performed
+    while preparing this entry.
+
+target_set:
+  label: "exo-second-snapshot-frozen-reveal-axes"
+  quantity: "future_second_snapshot_reveal_outcome"
+  unit: "categorical_protocol_outcome"
+  targets:
+    - target_id: "true_mass_transit_radius_axis"
+      predicted_value: "NULL_OR_BLOCKER"
+      uncertainty: null
+      confidence_note: >
+        Categorical protocol-outcome forecast only. A later reveal must score
+        true-mass rows separately and may report a different outcome only after
+        maintainer-reviewed source acquisition, checksums, row counts,
+        sample-size floors, axis separation, and null-baseline comparison.
+    - target_id: "minimum_mass_transit_radius_axis"
+      predicted_value: "NULL_OR_BLOCKER"
+      uncertainty: null
+      confidence_note: >
+        Categorical protocol-outcome forecast only. A later reveal must score
+        M sin i or equivalent minimum-mass rows separately and may report a
+        different outcome only after maintainer-reviewed source acquisition,
+        checksums, row counts, sample-size floors, axis separation, and
+        null-baseline comparison.
+
+uncertainty_semantics: >
+  Categorical protocol forecast only. No numeric uncertainty, planet mass,
+  planet radius, residual value, composition interpretation, habitability
+  assessment, or target-priority score is registered.
+
+reveal_conditions:
+  comparison_source_class: >
+    Maintainer-approved future NASA Exoplanet Archive PSCompPars second
+    snapshot, acquired through the committed ADQL query contract or a merged
+    pre-reveal amendment, with raw and normalized checksums recorded before
+    scoring.
+  reveal_controlled_by: "maintainer"
+  no_peek_rule: >
+    Do not alter the frozen source state, target axes, categorical predicted
+    values, exclusion rules, baseline/null controls, sample-size floors, or
+    wording after reveal-relevant second-snapshot rows become visible. Later
+    comparison must be a separate reviewed reveal task.
+  partial_reveal_allowed: false
+  expected_reveal_window: "unknown"
+
+limitations:
+  - "Agent-published, not yet independently validated or maintainer-reviewed."
+  - "Prospective registry entry only; not a claim, result, or knowledge artifact."
+  - "Forecast is categorical and protocol-facing; it does not register planet-level measured values."
+  - "Future reveal requires maintainer-approved acquisition, checksums, no-peek attestation, and separate scoring."
+  - "The normalized EXO-0001 checksum gap remains outside this task and may block later reveal scoring."
+
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  gates_checked:
+    no_peek_state: true
+    frozen_model_reference: true
+    named_target_set: true
+    reveal_conditions_explicit: true
+    non_claim_ceiling: true
+    live_external_fetch_disabled: true
+    schema_validation_passes: true
+    no_forbidden_overclaim_wording: true
+  evidence_summary: >
+    This entry freezes a first non-nuclear AGENT_PUBLISHED prediction for the
+    exoplanet mass-radius campaign. It uses only committed EXO-0001,
+    second-snapshot target-freeze, and no-live-fetch protocol files, and
+    registers a categorical NULL_OR_BLOCKER forecast for the two frozen reveal
+    axes pending a later maintainer-reviewed second-snapshot comparison.
+  followup_for_maintainer: >
+    Keep the trust qualifier explicit: agent-published, not independently
+    validated or maintainer-reviewed. The later reveal task should leave this
+    entry unchanged and write a separate reviewed comparison artifact.
