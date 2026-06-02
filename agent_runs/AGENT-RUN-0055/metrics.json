@@ -1,0 +1,765 @@
+{
+  "task_id": "TASK-0531",
+  "benchmark_id": "nmd0003-broad-surface-baseline-freeze",
+  "input_references": {
+    "dataset": "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml",
+    "split_manifest": "data/nuclear_masses/nmd-0003-split-manifest.yaml",
+    "inherited_baseline_result": "results/EXP-0012/RUN-0001/result.yaml"
+  },
+  "dataset_summary": {
+    "dataset_id": "NMD-0003",
+    "row_count": 2309,
+    "train_count": 1616,
+    "validation_holdout_count": 693,
+    "split_policy": "deterministic 70/30 train/validation split by sorted (A, Z, N) inside NMD-0003 measured rows",
+    "post_ame2020_holdout_excluded": true
+  },
+  "stop_conditions": [
+    "Stop if the NMD-0003 split manifest does not exactly match the committed dataset rows.",
+    "Stop if post_ame2020_holdout rows are requested for fitting or reveal scoring.",
+    "Stop if any residual-feature candidate family is introduced.",
+    "Stop if live external fetch is requested."
+  ],
+  "baseline_summaries": {
+    "inherited_result0015_nmd0002_frozen": {
+      "description": "Frozen RESULT-0015 / NMD-0002 coefficients reused without refit.",
+      "coefficients": {
+        "volume": 15.51423612106804,
+        "surface": 17.2931812095177,
+        "coulomb": 0.6878156091568888,
+        "asymmetry": 23.846557883948485,
+        "pairing": 15.990845113398912
+      },
+      "complexity_score": 5,
+      "fit_policy": "frozen_external",
+      "metrics": {
+        "train": {
+          "count": 1616,
+          "mae_mev": 4.289037,
+          "rmse_mev": 5.866763,
+          "median_abs_residual_mev": 3.550916,
+          "p90_abs_residual_mev": 7.726949,
+          "max_abs_residual_mev": 39.904303,
+          "mean_abs_normalized_residual": 1832203.214417
+        },
+        "validation_holdout": {
+          "count": 693,
+          "mae_mev": 5.760713,
+          "rmse_mev": 6.477728,
+          "median_abs_residual_mev": 6.249488,
+          "p90_abs_residual_mev": 9.400384,
+          "max_abs_residual_mev": 12.130053,
+          "mean_abs_normalized_residual": 1141.930942
+        },
+        "full_nmd0003_training_surface": {
+          "count": 2309,
+          "mae_mev": 4.730731,
+          "rmse_mev": 6.056608,
+          "median_abs_residual_mev": 4.15294,
+          "p90_abs_residual_mev": 8.740792,
+          "max_abs_residual_mev": 39.904303,
+          "mean_abs_normalized_residual": 1282408.816909
+        }
+      },
+      "subset_metrics": {
+        "a_range": {
+          "101<=A<=180": {
+            "count": 913,
+            "mae_mev": 4.523384,
+            "rmse_mev": 5.398782,
+            "median_abs_residual_mev": 4.144677,
+            "p90_abs_residual_mev": 7.802612,
+            "max_abs_residual_mev": 17.850042,
+            "mean_abs_normalized_residual": 8957.469205
+          },
+          "41<=A<=100": {
+            "count": 484,
+            "mae_mev": 3.11148,
+            "rmse_mev": 3.872176,
+            "median_abs_residual_mev": 2.616087,
+            "p90_abs_residual_mev": 6.075963,
+            "max_abs_residual_mev": 13.400178,
+            "mean_abs_normalized_residual": 17981.244678
+          },
+          "A<=40": {
+            "count": 246,
+            "mae_mev": 5.958182,
+            "rmse_mev": 9.68105,
+            "median_abs_residual_mev": 2.729463,
+            "p90_abs_residual_mev": 17.069887,
+            "max_abs_residual_mev": 39.904303,
+            "mean_abs_normalized_residual": 12008763.976293
+          },
+          "A>180": {
+            "count": 666,
+            "mae_mev": 5.738346,
+            "rmse_mev": 6.458002,
+            "median_abs_residual_mev": 6.209115,
+            "p90_abs_residual_mev": 9.46764,
+            "max_abs_residual_mev": 12.130053,
+            "mean_abs_normalized_residual": 1158.083222
+          }
+        },
+        "z_range": {
+          "21<=Z<=50": {
+            "count": 630,
+            "mae_mev": 3.231605,
+            "rmse_mev": 4.267706,
+            "median_abs_residual_mev": 2.715045,
+            "p90_abs_residual_mev": 6.054739,
+            "max_abs_residual_mev": 17.850042,
+            "mean_abs_normalized_residual": 12593.980086
+          },
+          "51<=Z<=82": {
+            "count": 934,
+            "mae_mev": 4.582219,
+            "rmse_mev": 5.327194,
+            "median_abs_residual_mev": 4.577636,
+            "p90_abs_residual_mev": 7.978053,
+            "max_abs_residual_mev": 15.969945,
+            "mean_abs_normalized_residual": 7966.555939
+          },
+          "Z<=20": {
+            "count": 291,
+            "mae_mev": 5.829445,
+            "rmse_mev": 9.192664,
+            "median_abs_residual_mev": 3.188377,
+            "p90_abs_residual_mev": 15.242416,
+            "max_abs_residual_mev": 39.904303,
+            "mean_abs_normalized_residual": 10151471.118388
+          },
+          "Z>82": {
+            "count": 454,
+            "mae_mev": 6.412302,
+            "rmse_mev": 6.981496,
+            "median_abs_residual_mev": 6.781314,
+            "p90_abs_residual_mev": 9.862492,
+            "max_abs_residual_mev": 12.130053,
+            "mean_abs_normalized_residual": 1096.815843
+          }
+        },
+        "n_range": {
+          "29<=N<=82": {
+            "count": 857,
+            "mae_mev": 3.681229,
+            "rmse_mev": 4.50613,
+            "median_abs_residual_mev": 3.428555,
+            "p90_abs_residual_mev": 6.529718,
+            "max_abs_residual_mev": 17.850042,
+            "mean_abs_normalized_residual": 14868.074587
+          },
+          "83<=N<=126": {
+            "count": 798,
+            "mae_mev": 5.015533,
+            "rmse_mev": 5.925471,
+            "median_abs_residual_mev": 5.035825,
+            "p90_abs_residual_mev": 8.809664,
+            "max_abs_residual_mev": 17.819541,
+            "mean_abs_normalized_residual": 2774.545354
+          },
+          "N<=28": {
+            "count": 337,
+            "mae_mev": 5.1311,
+            "rmse_mev": 8.459516,
+            "median_abs_residual_mev": 2.667587,
+            "p90_abs_residual_mev": 14.209612,
+            "max_abs_residual_mev": 39.904303,
+            "mean_abs_normalized_residual": 8763134.448708
+          },
+          "N>126": {
+            "count": 317,
+            "mae_mev": 6.425452,
+            "rmse_mev": 6.916062,
+            "median_abs_residual_mev": 6.771285,
+            "p90_abs_residual_mev": 9.608282,
+            "max_abs_residual_mev": 12.130053,
+            "mean_abs_normalized_residual": 1357.563238
+          }
+        },
+        "magic_distance": {
+          "far_distance_gt8": {
+            "count": 403,
+            "mae_mev": 4.969158,
+            "rmse_mev": 5.861062,
+            "median_abs_residual_mev": 5.614176,
+            "p90_abs_residual_mev": 8.786979,
+            "max_abs_residual_mev": 12.130053,
+            "mean_abs_normalized_residual": 4481.512912
+          },
+          "magic": {
+            "count": 224,
+            "mae_mev": 5.243358,
+            "rmse_mev": 7.517418,
+            "median_abs_residual_mev": 3.492866,
+            "p90_abs_residual_mev": 11.476997,
+            "max_abs_residual_mev": 36.506188,
+            "mean_abs_normalized_residual": 988611.293635
+          },
+          "mid_distance_3_8": {
+            "count": 1020,
+            "mae_mev": 4.689069,
+            "rmse_mev": 5.599483,
+            "median_abs_residual_mev": 4.496644,
+            "p90_abs_residual_mev": 8.076094,
+            "max_abs_residual_mev": 35.421673,
+            "mean_abs_normalized_residual": 12162.830928
+          },
+          "near_magic_1_2": {
+            "count": 662,
+            "mae_mev": 4.47632,
+            "rmse_mev": 6.292964,
+            "median_abs_residual_mev": 3.305728,
+            "p90_abs_residual_mev": 9.292958,
+            "max_abs_residual_mev": 39.904303,
+            "mean_abs_normalized_residual": 4121238.248717
+          }
+        },
+        "odd_even_class": {
+          "even_even": {
+            "count": 609,
+            "mae_mev": 4.930831,
+            "rmse_mev": 6.18121,
+            "median_abs_residual_mev": 4.293598,
+            "p90_abs_residual_mev": 8.929746,
+            "max_abs_residual_mev": 36.506188,
+            "mean_abs_normalized_residual": 73168.792997
+          },
+          "odd_a": {
+            "count": 1147,
+            "mae_mev": 4.723996,
+            "rmse_mev": 5.99247,
+            "median_abs_residual_mev": 4.199553,
+            "p90_abs_residual_mev": 8.678111,
+            "max_abs_residual_mev": 35.421673,
+            "mean_abs_normalized_residual": 1900279.644923
+          },
+          "odd_odd": {
+            "count": 553,
+            "mae_mev": 4.524334,
+            "rmse_mev": 6.050299,
+            "median_abs_residual_mev": 3.856956,
+            "p90_abs_residual_mev": 8.522672,
+            "max_abs_residual_mev": 39.904303,
+            "mean_abs_normalized_residual": 1330365.588713
+          }
+        },
+        "neutron_richness": {
+          "neutron_rich": {
+            "count": 1224,
+            "mae_mev": 5.045394,
+            "rmse_mev": 6.017837,
+            "median_abs_residual_mev": 4.908216,
+            "p90_abs_residual_mev": 9.174051,
+            "max_abs_residual_mev": 17.850042,
+            "mean_abs_normalized_residual": 5928.506968
+          },
+          "not_neutron_rich": {
+            "count": 1085,
+            "mae_mev": 4.375756,
+            "rmse_mev": 6.10005,
+            "median_abs_residual_mev": 3.627794,
+            "p90_abs_residual_mev": 7.675329,
+            "max_abs_residual_mev": 39.904303,
+            "mean_abs_normalized_residual": 2723748.20747
+          }
+        }
+      },
+      "top_abs_residual_rows": [
+        {
+          "nuclide_id": "H-6",
+          "Z": 1,
+          "N": 5,
+          "A": 6,
+          "pairing_class": "odd_odd",
+          "residual_mev": 39.904303,
+          "abs_residual_mev": 39.904303,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "He-10",
+          "Z": 2,
+          "N": 8,
+          "A": 10,
+          "pairing_class": "even_even",
+          "residual_mev": 36.506188,
+          "abs_residual_mev": 36.506188,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "B-21",
+          "Z": 5,
+          "N": 16,
+          "A": 21,
+          "pairing_class": "odd_a",
+          "residual_mev": 35.421673,
+          "abs_residual_mev": 35.421673,
+          "near_magic": false,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "B-20",
+          "Z": 5,
+          "N": 15,
+          "A": 20,
+          "pairing_class": "odd_odd",
+          "residual_mev": 33.121906,
+          "abs_residual_mev": 33.121906,
+          "near_magic": false,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "He-9",
+          "Z": 2,
+          "N": 7,
+          "A": 9,
+          "pairing_class": "odd_a",
+          "residual_mev": 32.238242,
+          "abs_residual_mev": 32.238242,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "Li-13",
+          "Z": 3,
+          "N": 10,
+          "A": 13,
+          "pairing_class": "odd_a",
+          "residual_mev": 31.162544,
+          "abs_residual_mev": 31.162544,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "Li-12",
+          "Z": 3,
+          "N": 9,
+          "A": 12,
+          "pairing_class": "odd_odd",
+          "residual_mev": 27.928698,
+          "abs_residual_mev": 27.928698,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "C-22",
+          "Z": 6,
+          "N": 16,
+          "A": 22,
+          "pairing_class": "even_even",
+          "residual_mev": 26.074901,
+          "abs_residual_mev": 26.074901,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "H-1",
+          "Z": 1,
+          "N": 0,
+          "A": 1,
+          "pairing_class": "odd_a",
+          "residual_mev": 25.625503,
+          "abs_residual_mev": 25.625503,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "B-19",
+          "Z": 5,
+          "N": 14,
+          "A": 19,
+          "pairing_class": "odd_a",
+          "residual_mev": 24.853281,
+          "abs_residual_mev": 24.853281,
+          "near_magic": false,
+          "neutron_rich": false
+        }
+      ]
+    },
+    "nmd0003_train_fitted_frozen": {
+      "description": "Least-squares coefficients fit only on the predeclared NMD-0003 train split.",
+      "coefficients": {
+        "volume": 14.809441496470567,
+        "surface": 15.306509735031547,
+        "coulomb": 0.643293867925504,
+        "asymmetry": 20.366526207230077,
+        "pairing": 10.931047317633816
+      },
+      "complexity_score": 5,
+      "fit_policy": "fit_train_split_only",
+      "metrics": {
+        "train": {
+          "count": 1616,
+          "mae_mev": 2.393635,
+          "rmse_mev": 3.256589,
+          "median_abs_residual_mev": 1.985875,
+          "p90_abs_residual_mev": 4.664568,
+          "max_abs_residual_mev": 26.227488,
+          "mean_abs_normalized_residual": 1304122.844801
+        },
+        "validation_holdout": {
+          "count": 693,
+          "mae_mev": 7.730045,
+          "rmse_mev": 9.803923,
+          "median_abs_residual_mev": 4.793139,
+          "p90_abs_residual_mev": 16.861922,
+          "max_abs_residual_mev": 21.446166,
+          "mean_abs_normalized_residual": 1732.276986
+        },
+        "full_nmd0003_training_surface": {
+          "count": 2309,
+          "mae_mev": 3.995251,
+          "rmse_mev": 6.022453,
+          "median_abs_residual_mev": 2.491175,
+          "p90_abs_residual_mev": 11.818918,
+          "max_abs_residual_mev": 26.227488,
+          "mean_abs_normalized_residual": 913067.098052
+        }
+      },
+      "subset_metrics": {
+        "a_range": {
+          "101<=A<=180": {
+            "count": 913,
+            "mae_mev": 2.148696,
+            "rmse_mev": 2.727558,
+            "median_abs_residual_mev": 1.929359,
+            "p90_abs_residual_mev": 3.887882,
+            "max_abs_residual_mev": 11.399599,
+            "mean_abs_normalized_residual": 8989.942138
+          },
+          "41<=A<=100": {
+            "count": 484,
+            "mae_mev": 2.058019,
+            "rmse_mev": 2.607007,
+            "median_abs_residual_mev": 1.733909,
+            "p90_abs_residual_mev": 4.063639,
+            "max_abs_residual_mev": 12.448105,
+            "mean_abs_normalized_residual": 13355.389756
+          },
+          "A<=40": {
+            "count": 246,
+            "mae_mev": 4.011838,
+            "rmse_mev": 5.439381,
+            "median_abs_residual_mev": 3.243112,
+            "p90_abs_residual_mev": 6.554869,
+            "max_abs_residual_mev": 26.227488,
+            "mean_abs_normalized_residual": 8536737.894947
+          },
+          "A>180": {
+            "count": 666,
+            "mae_mev": 7.928352,
+            "rmse_mev": 9.984004,
+            "median_abs_residual_mev": 5.062483,
+            "p90_abs_residual_mev": 17.163649,
+            "max_abs_residual_mev": 21.446166,
+            "mean_abs_normalized_residual": 1781.159503
+          }
+        },
+        "z_range": {
+          "21<=Z<=50": {
+            "count": 630,
+            "mae_mev": 2.195087,
+            "rmse_mev": 2.864942,
+            "median_abs_residual_mev": 1.871148,
+            "p90_abs_residual_mev": 4.394805,
+            "max_abs_residual_mev": 12.448105,
+            "mean_abs_normalized_residual": 8370.024382
+          },
+          "51<=Z<=82": {
+            "count": 934,
+            "mae_mev": 2.216525,
+            "rmse_mev": 2.65835,
+            "median_abs_residual_mev": 2.114758,
+            "p90_abs_residual_mev": 3.79353,
+            "max_abs_residual_mev": 9.172669,
+            "mean_abs_normalized_residual": 8520.024768
+          },
+          "Z<=20": {
+            "count": 291,
+            "mae_mev": 3.737657,
+            "rmse_mev": 5.123825,
+            "median_abs_residual_mev": 3.095669,
+            "p90_abs_residual_mev": 5.937375,
+            "max_abs_residual_mev": 26.227488,
+            "mean_abs_normalized_residual": 7217753.639506
+          },
+          "Z>82": {
+            "count": 454,
+            "mae_mev": 10.317705,
+            "rmse_mev": 11.90418,
+            "median_abs_residual_mev": 11.236421,
+            "p90_abs_residual_mev": 18.025036,
+            "max_abs_residual_mev": 21.446166,
+            "mean_abs_normalized_residual": 2157.463335
+          }
+        },
+        "n_range": {
+          "29<=N<=82": {
+            "count": 857,
+            "mae_mev": 2.037953,
+            "rmse_mev": 2.744594,
+            "median_abs_residual_mev": 1.624093,
+            "p90_abs_residual_mev": 4.291248,
+            "max_abs_residual_mev": 12.448105,
+            "mean_abs_normalized_residual": 12920.293291
+          },
+          "83<=N<=126": {
+            "count": 798,
+            "mae_mev": 2.607512,
+            "rmse_mev": 2.974606,
+            "median_abs_residual_mev": 2.425627,
+            "p90_abs_residual_mev": 4.592574,
+            "max_abs_residual_mev": 9.929741,
+            "mean_abs_normalized_residual": 2228.714718
+          },
+          "N<=28": {
+            "count": 337,
+            "mae_mev": 3.639752,
+            "rmse_mev": 4.917842,
+            "median_abs_residual_mev": 3.098721,
+            "p90_abs_residual_mev": 5.776039,
+            "max_abs_residual_mev": 26.227488,
+            "mean_abs_normalized_residual": 6230853.944269
+          },
+          "N>126": {
+            "count": 317,
+            "mae_mev": 13.158101,
+            "rmse_mev": 13.994181,
+            "median_abs_residual_mev": 14.102642,
+            "p90_abs_residual_mev": 18.718544,
+            "max_abs_residual_mev": 21.446166,
+            "mean_abs_normalized_residual": 2967.606735
+          }
+        },
+        "magic_distance": {
+          "far_distance_gt8": {
+            "count": 403,
+            "mae_mev": 7.213383,
+            "rmse_mev": 9.862774,
+            "median_abs_residual_mev": 2.757087,
+            "p90_abs_residual_mev": 17.293484,
+            "max_abs_residual_mev": 21.446166,
+            "mean_abs_normalized_residual": 4875.999798
+          },
+          "magic": {
+            "count": 224,
+            "mae_mev": 3.676112,
+            "rmse_mev": 4.828666,
+            "median_abs_residual_mev": 3.129255,
+            "p90_abs_residual_mev": 7.261735,
+            "max_abs_residual_mev": 23.363426,
+            "mean_abs_normalized_residual": 582338.003696
+          },
+          "mid_distance_3_8": {
+            "count": 1020,
+            "mae_mev": 3.353231,
+            "rmse_mev": 5.254389,
+            "median_abs_residual_mev": 2.140285,
+            "p90_abs_residual_mev": 9.180007,
+            "max_abs_residual_mev": 20.929547,
+            "mean_abs_normalized_residual": 16656.247634
+          },
+          "near_magic_1_2": {
+            "count": 662,
+            "mae_mev": 3.13338,
+            "rmse_mev": 4.106252,
+            "median_abs_residual_mev": 2.607134,
+            "p90_abs_residual_mev": 5.918502,
+            "max_abs_residual_mev": 26.227488,
+            "mean_abs_normalized_residual": 2962119.136114
+          }
+        },
+        "odd_even_class": {
+          "even_even": {
+            "count": 609,
+            "mae_mev": 4.180026,
+            "rmse_mev": 6.265784,
+            "median_abs_residual_mev": 2.552487,
+            "p90_abs_residual_mev": 12.638757,
+            "max_abs_residual_mev": 23.363426,
+            "mean_abs_normalized_residual": 80472.384447
+          },
+          "odd_a": {
+            "count": 1147,
+            "mae_mev": 3.99785,
+            "rmse_mev": 6.008481,
+            "median_abs_residual_mev": 2.521839,
+            "p90_abs_residual_mev": 11.570663,
+            "max_abs_residual_mev": 21.446166,
+            "mean_abs_normalized_residual": 1502359.41283
+          },
+          "odd_odd": {
+            "count": 553,
+            "mae_mev": 3.786374,
+            "rmse_mev": 5.772841,
+            "median_abs_residual_mev": 2.359047,
+            "p90_abs_residual_mev": 10.276567,
+            "max_abs_residual_mev": 26.227488,
+            "mean_abs_normalized_residual": 606194.224313
+          }
+        },
+        "neutron_richness": {
+          "neutron_rich": {
+            "count": 1224,
+            "mae_mev": 5.482594,
+            "rmse_mev": 7.640121,
+            "median_abs_residual_mev": 3.074324,
+            "p90_abs_residual_mev": 15.247015,
+            "max_abs_residual_mev": 21.446166,
+            "mean_abs_normalized_residual": 7151.480237
+          },
+          "not_neutron_rich": {
+            "count": 1085,
+            "mae_mev": 2.317364,
+            "rmse_mev": 3.367047,
+            "median_abs_residual_mev": 1.713051,
+            "p90_abs_residual_mev": 4.718617,
+            "max_abs_residual_mev": 26.227488,
+            "mean_abs_normalized_residual": 1935982.88791
+          }
+        }
+      },
+      "top_abs_residual_rows": [
+        {
+          "nuclide_id": "H-6",
+          "Z": 1,
+          "N": 5,
+          "A": 6,
+          "pairing_class": "odd_odd",
+          "residual_mev": 26.227488,
+          "abs_residual_mev": 26.227488,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "He-10",
+          "Z": 2,
+          "N": 8,
+          "A": 10,
+          "pairing_class": "even_even",
+          "residual_mev": 23.363426,
+          "abs_residual_mev": 23.363426,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "Cm-251",
+          "Z": 96,
+          "N": 155,
+          "A": 251,
+          "pairing_class": "odd_a",
+          "residual_mev": -21.446166,
+          "abs_residual_mev": 21.446166,
+          "near_magic": false,
+          "neutron_rich": true
+        },
+        {
+          "nuclide_id": "Cf-254",
+          "Z": 98,
+          "N": 156,
+          "A": 254,
+          "pairing_class": "even_even",
+          "residual_mev": -20.94579,
+          "abs_residual_mev": 20.94579,
+          "near_magic": false,
+          "neutron_rich": true
+        },
+        {
+          "nuclide_id": "Fr-233",
+          "Z": 87,
+          "N": 146,
+          "A": 233,
+          "pairing_class": "odd_a",
+          "residual_mev": -20.929547,
+          "abs_residual_mev": 20.929547,
+          "near_magic": false,
+          "neutron_rich": true
+        },
+        {
+          "nuclide_id": "H-1",
+          "Z": 1,
+          "N": 0,
+          "A": 1,
+          "pairing_class": "odd_a",
+          "residual_mev": 20.863595,
+          "abs_residual_mev": 20.863595,
+          "near_magic": true,
+          "neutron_rich": false
+        },
+        {
+          "nuclide_id": "Fm-257",
+          "Z": 100,
+          "N": 157,
+          "A": 257,
+          "pairing_class": "odd_a",
+          "residual_mev": -20.632058,
+          "abs_residual_mev": 20.632058,
+          "near_magic": false,
+          "neutron_rich": true
+        },
+        {
+          "nuclide_id": "Es-255",
+          "Z": 99,
+          "N": 156,
+          "A": 255,
+          "pairing_class": "odd_a",
+          "residual_mev": -20.541397,
+          "abs_residual_mev": 20.541397,
+          "near_magic": false,
+          "neutron_rich": true
+        },
+        {
+          "nuclide_id": "Cm-250",
+          "Z": 96,
+          "N": 154,
+          "A": 250,
+          "pairing_class": "even_even",
+          "residual_mev": -20.523033,
+          "abs_residual_mev": 20.523033,
+          "near_magic": false,
+          "neutron_rich": true
+        },
+        {
+          "nuclide_id": "He-9",
+          "Z": 2,
+          "N": 7,
+          "A": 9,
+          "pairing_class": "odd_a",
+          "residual_mev": 20.276003,
+          "abs_residual_mev": 20.276003,
+          "near_magic": true,
+          "neutron_rich": false
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "train": {
+      "mae_improvement_mev": 1.895402,
+      "mae_relative_improvement": 0.441918,
+      "rmse_improvement_mev": 2.610174,
+      "rmse_relative_improvement": 0.444909
+    },
+    "validation_holdout": {
+      "mae_improvement_mev": -1.969332,
+      "mae_relative_improvement": -0.341856,
+      "rmse_improvement_mev": -3.326195,
+      "rmse_relative_improvement": -0.513482
+    },
+    "full_nmd0003_training_surface": {
+      "mae_improvement_mev": 0.73548,
+      "mae_relative_improvement": 0.155469,
+      "rmse_improvement_mev": 0.034155,
+      "rmse_relative_improvement": 0.005639
+    }
+  },
+  "task0517_interpretation_update": "The train-fitted NMD-0003 baseline improves train/full-surface MAE but worsens the predeclared validation holdout versus inherited NMD-0002 coefficients. TASK-0517 therefore remains control-dominated memory, and a future factory sprint should not assume that a broad-surface least-squares baseline alone removes baseline mismatch. Full-surface MAE relative improvement: 0.155469; validation MAE relative improvement: -0.341856.",
+  "verdict": "INCONCLUSIVE",
+  "limitations": [
+    "NMD-0003 train/validation split is retrospective within AME2020 measured rows, not a post-AME2020 reveal.",
+    "The broad-surface baseline is a fitted liquid-drop-style baseline, not a new residual-feature family.",
+    "The post-AME2020 primary holdout remains excluded and unscored.",
+    "Sandbox benchmark evidence only; no PRED, CLAIM, KNOW, or discovery wording is promoted."
+  ]
+}
