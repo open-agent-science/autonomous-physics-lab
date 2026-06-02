@@ -1,0 +1,57 @@
+id: TASK-0539
+title: "Provide Nuclear F2 coverage-clearing training slice"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Unblock F2 by attacking the binding training-slice coverage constraint, not by retuning labels."
+  - "Decide whether F2 can become testable on NMD-0003 or should remain diagnostic-only until data coverage improves."
+  - "Keep Nuclear hypothesis scoring gated behind source-safe coverage evidence."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml"
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    - "docs/reviews/nuclear-f2-finer-taxonomy-preflight.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "tasks/proposals/20260602-roman-nuclear-curated-slice-expansion.yaml"
+  planning_context: >
+    TASK-0449 collapsed because NMD-0002 has too few rows to populate even the
+    coarse F2 taxonomy. TASK-0478 froze a finer taxonomy and a reopen coverage
+    gate. This task checks whether the committed NMD-0003 training surface
+    clears that gate using Z/N/A-only labels, and if not, records the exact
+    source-safe row coverage still needed.
+
+requirements:
+  - "Use only committed Nuclear data and split manifests; no live external fetch."
+  - "Compute F2 bin populations deterministically from Z, N, A, and parity/magic-distance labels allowed by TASK-0478; do not use residuals, baseline errors, source status, or target labels."
+  - "Freeze the TASK-0478 coverage floors before inspection: at least 30 scored rows, at least 3 declared bins with at least 5 train rows each, and at least 2 populated bins outside the dominant near-magic family."
+  - "If NMD-0003 already clears the gate, write a coverage-confirmation review and optional split/selection manifest for a later separate F2 scoring task."
+  - "If NMD-0003 does not clear the gate, write the exact missing bin counts and a source-safe row-acquisition requirement; do not adjust the gate post hoc."
+  - "Do not fit any candidate, compute candidate metrics, score F2, add residual-feature terms, write prediction entries, or promote claims."
+  - "Keep F2 `diagnostic_only` until a separate gated scoring task is approved."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-f2-coverage-clearing-slice.md"
+  - "optional data/nuclear_masses/f2-coverage-selection-manifest.yaml if the gate clears"
+  - "tests for any new F2 coverage-bin helper"
+  - "optional docs/campaigns/nuclear-mass-surface.md update only if F2 status changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_dataset.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

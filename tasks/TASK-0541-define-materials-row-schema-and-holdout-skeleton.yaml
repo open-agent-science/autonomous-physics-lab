@@ -1,0 +1,50 @@
+id: TASK-0541
+title: "Define Materials row schema and holdout skeleton"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare Materials for row-level ingestion without waiting for modeling tasks."
+  - "Make property kind, units, structure semantics, and computed-vs-measured provenance explicit before any baseline."
+  - "Give agents an independent Materials task that does not collide with source-snapshot planning."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/campaigns/materials-property-residuals.md"
+    - "campaign_profiles/materials-property-residuals.yaml"
+    - "docs/fresh-data-intake-protocol.md"
+  planning_context: >
+    Materials can become a high-throughput campaign only if rows carry
+    property kind, units, structure/composition semantics, provenance class,
+    inclusion status, and holdout fields from the beginning. This task defines
+    that schema and a no-peek holdout skeleton without ingesting values.
+
+requirements:
+  - "Define a materials row schema for future source-pinned rows, including material id, formula/composition, structure/prototype fields, property kind, value, unit, uncertainty where available, provenance class, source id, inclusion status, and exclusion reason."
+  - "Represent computed, measured, model-derived, and excluded rows as distinct provenance/row classes."
+  - "Define a holdout/no-peek skeleton covering material family, structure prototype, property range, source date/version, and property kind."
+  - "Keep the schema generic enough for the first pinned source selected by TASK-0540, but do not require TASK-0540 to be complete before drafting schema fields."
+  - "Do not ingest material-property values, choose benchmark thresholds, run baseline metrics, or make materials-discovery claims."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "physics_lab/schemas/materials_property_residual.schema.json or equivalent schema artifact"
+  - "data/materials/schema.md"
+  - "data/materials/holdout_manifest.yaml or holdout protocol skeleton"
+  - "tests for schema validation or fixture loading if a loader/schema validator is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

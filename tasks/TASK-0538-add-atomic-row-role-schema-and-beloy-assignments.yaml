@@ -1,0 +1,57 @@
+id: TASK-0538
+title: "Add Atomic manifest-backed row-role schema and Beloy assignments"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Unblock the first Atomic cross-source benchmark prerequisites by making row roles enforceable in code, not prose."
+  - "Turn the TASK-0526 Beloy row-role decision into schema-checked dataset memory without running benchmark metrics."
+  - "Preserve Atomic no-peek discipline before any second-source Yb/Sr row is scored."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "physics_lab/engines/atomic_clock_residuals.py"
+    - "tests/test_atomic_clock_real_rows.py"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/atomic_holdout_manifest.yaml"
+    - "docs/reviews/atomic-beloy-freeze-manifest-row-roles.md"
+    - "tasks/proposals/20260602-roman-atomic-row-role-schema.yaml"
+  planning_context: >
+    TASK-0526 fixed the Beloy 2021 row roles in review, but could not write
+    them into `acr-0001` because the loader and tests cannot yet express
+    manifest-backed `holdout.split`, `holdout.freeze_manifest`, or a row-role
+    vocabulary cleanly. This task makes that decision enforceable before any
+    cross-source benchmark can consume the rows.
+
+requirements:
+  - "Validate `holdout.split` against the committed Atomic holdout-manifest vocabulary; keep `unassigned` valid only for pre-assignment rows."
+  - "Read and validate `holdout.freeze_manifest` when a row is assigned to a benchmark role."
+  - "Add a narrow row-role vocabulary if needed, with explicit allowed values for reference, target, training/context, and excluded rows."
+  - "Apply only the roles already fixed by `docs/reviews/atomic-beloy-freeze-manifest-row-roles.md`; do not reselect the target axis after inspection."
+  - "Assign the Beloy Yb/Sr direct row as the cross-source reference and keep Al+/Yb and Al+/Sr rows as non-primary context/train rows according to the review decision."
+  - "Update tests that currently pin every Beloy row to `unassigned` so they assert the manifest-backed roles instead."
+  - "Do not ingest a second-source row, run cross-source benchmark metrics, fit constants drift, write prediction entries, promote claims, or mark TASK-0456 unblocked."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "atomic-clock loader/schema update for manifest-backed row roles"
+  - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml role assignment"
+  - "tests/test_atomic_clock_real_rows.py updates for the assigned roles"
+  - "docs/reviews/atomic-row-role-schema-and-beloy-assignments.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_real_rows.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
