@@ -56,6 +56,11 @@ instruction, may perform closeout after merge.
   example `Remain BLOCKED until TASK-XXXX and TASK-YYYY are DONE`. Keep tasks
   blocked when the unblock condition depends on source access, external data,
   maintainer waiver, artifact existence, or scientific judgment.
+- After task status reaches `DONE`, run
+  `python3 scripts/apl_close_task_claim_issues.py` to find stale GitHub
+  task-claim issues. Close only the issues whose canonical task is already
+  `DONE` (`--apply` after reviewing the printed list). Keep `REVIEW_READY`
+  claim issues open until the task closeout PR merges.
 - When opening a closeout PR, prefer
   `python3 scripts/apl_closeout_pr_helper.py scaffold ...` plus
   `python3 scripts/apl_closeout_pr_helper.py preflight ...` so the PR body

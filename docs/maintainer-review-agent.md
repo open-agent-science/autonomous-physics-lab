@@ -620,6 +620,28 @@ Expected behavior:
   the candidate must stay blocked or needs-attention rather than advancing to
   an automatic closeout PR.
 
+### Task-claim issue closeout helper
+
+Task-claim GitHub issues are coordination markers. They must not outlive the
+canonical task after closeout, or onboarding agents will think a finished task
+is still occupied.
+
+After a closeout sweep or merged closeout PR, run:
+
+```bash
+python3 scripts/apl_close_task_claim_issues.py
+```
+
+Expected behavior:
+
+- issues whose canonical `TASK-XXXX` is already `DONE` are safe closeout
+  candidates;
+- issues whose task is still `REVIEW_READY` are reported as "task closeout
+  first" and must not be auto-closed;
+- issue detection must handle both labeled `task-claim` issues and unlabeled
+  issue bodies/titles that include `Task ID: TASK-XXXX`;
+- use `--apply` only after reviewing the printed closeable list.
+
 For a quick local closeout snapshot, run:
 
 ```bash
