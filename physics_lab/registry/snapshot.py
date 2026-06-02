@@ -9,6 +9,7 @@ import subprocess
 import yaml
 
 from physics_lab.registry.active_board import STATUS_SECTION_ORDER, load_board_entries
+from physics_lab.registry.campaign_scorecard import build_scorecard
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.results import load_result
 
@@ -187,11 +188,13 @@ def render_strategic_context_map(root: Path, *, recent_agent_run_limit: int = 8,
 
     lines.extend(_render_repository_state_signals(entries, missions, agent_runs, result_tiers, prediction_count))
     lines.extend(_render_campaign_at_a_glance(missions))
+    lines.extend(_render_campaign_output_scorecard(root))
     lines.extend(_render_recent_scientific_learnings(missions, agent_runs))
     lines.extend(_render_recommended_parallel_allocation(missions))
     lines.extend(_render_context_file_map(root))
     lines.extend(_render_campaign_rows(missions))
     lines.extend(_render_task_queue_snapshot(entries))
+    lines.extend(_render_recent_done_signal(entries))
     lines.extend(_render_agent_run_rows(agent_runs))
     lines.extend(_render_scientific_memory_snapshot(result_tiers, prediction_count))
     lines.extend(_render_blocked_work_snapshot(root, entries, limit=blocked_limit))
@@ -228,6 +231,7 @@ def _render_context_file_map(root: Path) -> list[str]:
         ("docs/open-agent-network.md", "public collaboration model for many agents working on shared campaigns"),
         ("docs/agent-operating-model.md", "shared execution model for agent-first research and support work"),
         ("docs/result-promotion-protocol.md", "routing rules for sandbox, RESULT, PRED, CLAIM, and knowledge outputs"),
+        ("docs/campaign-output-scorecard.md", "durable scientific-output metric for campaign steering"),
         ("docs/scientific-memory-review-tiers.md", "meaning of AGENT_PUBLISHED, AGENT_VALIDATED, and maintainer-reviewed tiers"),
         ("docs/result-artifacts-index.md", "index of canonical result artifacts and their review posture"),
         ("docs/negative-results-registry.md", "preserved falsifications, failures, and do-not-repeat evidence"),
@@ -307,6 +311,54 @@ def _render_campaign_at_a_glance(missions: list[dict]) -> list[str]:
     return lines
 
 
+def _render_campaign_output_scorecard(root: Path) -> list[str]:
+    report = build_scorecard(root)
+    totals = report.totals()
+    lines = [
+        "",
+        "#### Campaign Output Scorecard",
+        "",
+        "Descriptive only: generated from committed `results/`, `prediction_registry/`,",
+        "`agent_runs/`, `claims/`, and campaign profiles. It does not promote",
+        "claims or rank scientific truth.",
+        "",
+        f"- Repo-wide RESULT artifacts: {totals['results_total']} "
+        f"({totals['results_mapped_to_campaign']} profile-mapped).",
+        f"- Frozen predictions: {totals['predictions']}.",
+        f"- Sandbox agent runs: {totals['sandbox_agent_runs']}.",
+        f"- Claims: {totals['claims']}; knowledge artifacts: {totals['knowledge']}.",
+        f"- RESULT verdict mix: {_format_counts(report.repo_result_verdicts)}.",
+        f"- RESULT review-tier mix: {_format_counts(report.repo_result_tiers)}.",
+        f"- Claim status mix: {_format_counts(report.repo_claims)}.",
+        "",
+        "| Campaign | Status | RESULT | PRED | Sandbox runs |",
+        "| --- | --- | ---: | ---: | ---: |",
+    ]
+    shown = False
+    for campaign in report.campaigns:
+        if not (campaign.result_count or campaign.prediction_count or campaign.sandbox_agent_runs):
+            continue
+        shown = True
+        lines.append(
+            "| "
+            f"{_table_cell(campaign.campaign_id)} | "
+            f"{_table_cell(campaign.status)} | "
+            f"{campaign.result_count} | "
+            f"{campaign.prediction_count} | "
+            f"{campaign.sandbox_agent_runs} |"
+        )
+    if not shown:
+        lines.append("| none | unknown | 0 | 0 | 0 |")
+    if report.unmapped_results:
+        lines.append(
+            f"- Coverage note: {len(report.unmapped_results)} RESULT artifacts are not "
+            "referenced by campaign-profile `portfolio.current_results`; they remain "
+            "counted repo-wide, not per campaign."
+        )
+    lines.append("- Details: `docs/campaign-output-scorecard.md` and `scripts/apl_campaign_scorecard.py --json`.")
+    return lines
+
+
 def _render_recent_scientific_learnings(
     missions: list[dict],
     agent_runs: list[AgentRunSnapshot],
@@ -381,6 +433,12 @@ def _table_cell(value: str) -> str:
     return value.replace("|", "/")
 
 
+def _format_counts(counts: dict | None) -> str:
+    if not counts:
+        return "none"
+    return ", ".join(f"{key} {value}" for key, value in sorted(counts.items()))
+
+
 def _render_campaign_rows(missions: list[dict]) -> list[str]:
     lines = ["", "#### Campaign Motion", ""]
     if not missions:
@@ -419,6 +477,24 @@ def _render_task_queue_snapshot(entries: tuple) -> list[str]:
             )
     else:
         lines.append("- No READY tasks are currently available.")
+    return lines
+
+
+def _render_recent_done_signal(entries: tuple, *, limit: int = 12) -> list[str]:
+    done_entries = [entry for entry in entries if entry.status == "DONE"]
+    lines = ["", "#### Recent DONE Signal", ""]
+    if not done_entries:
+        lines.append("- No DONE tasks found.")
+        return lines
+
+    lines.append(
+        "Highest-numbered DONE tasks are shown so strategy agents can avoid "
+        "re-proposing work that was just created, executed, or closed."
+    )
+    for entry in sorted(done_entries, key=lambda entry: entry.task_number, reverse=True)[:limit]:
+        lines.append(f"- `{entry.task_id}` — {entry.title} (`{entry.type}`).")
+    if len(done_entries) > limit:
+        lines.append(f"- ... plus {len(done_entries) - limit} older DONE tasks summarized only.")
     return lines
 
 
