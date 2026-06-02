@@ -48,6 +48,18 @@ def build_parser() -> argparse.ArgumentParser:
     scaffold.add_argument("--validation-command", action="append", default=[])
     scaffold.add_argument("--scientific-claim-impact", default="No claim promotion.")
     scaffold.add_argument("--result-artifact-impact", default="No committed result artifacts changed.")
+    scaffold.add_argument("--task-verdict", default="not_applicable")
+    scaffold.add_argument("--canonical-destination", default="none")
+    scaffold.add_argument("--review-tier", default="none")
+    scaffold.add_argument("--gate-a-status", default="not_applicable")
+    scaffold.add_argument("--gate-b-status", default="not_applicable")
+    scaffold.add_argument("--claim-impact", default="No claim promotion.")
+    scaffold.add_argument("--knowledge-impact", default="No knowledge promotion.")
+    scaffold.add_argument("--limitations-blockers", default="None for this PR shape.")
+    scaffold.add_argument("--branch-pushed", action="store_true")
+    scaffold.add_argument("--draft-pr-opened", action="store_true")
+    scaffold.add_argument("--post-pr-review-run", action="store_true")
+    scaffold.add_argument("--ready-for-review", action="store_true")
     scaffold.add_argument("--body-only", action="store_true")
     scaffold.add_argument("--body-file")
     scaffold.add_argument("--root", default=".")
@@ -64,9 +76,19 @@ def build_parser() -> argparse.ArgumentParser:
     create.add_argument("--body-file", required=True)
     create.add_argument("--base", default="main")
     create.add_argument("--ready", action="store_true", help="Create a ready PR instead of a draft.")
+    create.add_argument(
+        "--ignore-suspicious-proxy",
+        action="store_true",
+        help="Clear only known loopback blocker proxy variables for the child gh command.",
+    )
 
     ready = subparsers.add_parser("ready", help="Mark an existing draft task PR ready for review.")
     ready.add_argument("--pr", required=True)
+    ready.add_argument(
+        "--ignore-suspicious-proxy",
+        action="store_true",
+        help="Clear only known loopback blocker proxy variables for the child gh command.",
+    )
 
     return parser
 
@@ -88,6 +110,18 @@ def command_scaffold(args: argparse.Namespace) -> int:
         validation_commands=tuple(args.validation_command),
         scientific_claim_impact=args.scientific_claim_impact,
         result_artifact_impact=args.result_artifact_impact,
+        task_verdict=args.task_verdict,
+        canonical_destination=args.canonical_destination,
+        review_tier=args.review_tier,
+        gate_a_status=args.gate_a_status,
+        gate_b_status=args.gate_b_status,
+        claim_impact=args.claim_impact,
+        knowledge_impact=args.knowledge_impact,
+        limitations_blockers=args.limitations_blockers,
+        branch_pushed=args.branch_pushed,
+        draft_pr_opened=args.draft_pr_opened,
+        post_pr_review_run=args.post_pr_review_run,
+        ready_for_review=args.ready_for_review,
         model_version=args.model_version,
         root=Path(args.root),
     )
@@ -104,7 +138,7 @@ def command_scaffold(args: argparse.Namespace) -> int:
 
 def command_preflight(args: argparse.Namespace) -> int:
     preflight_task_pr, _, _, _, _ = _load_helper()
-    body_text = Path(args.body_file).read_text(encoding="utf-8")
+    body_text = Path(args.body_file).read_text(encoding="utf-8-sig")
     report = preflight_task_pr(
         Path(args.root),
         branch=args.branch,
@@ -169,11 +203,18 @@ def command_create(args: argparse.Namespace) -> int:
         return 127
     proxy_names = suspicious_proxy_env_names()
     if proxy_names:
-        sys.stderr.write(
-            "Warning: proxy env may block GitHub CLI calls: "
-            + ", ".join(proxy_names)
-            + ". Unset them for the publication command if gh reports a 127.0.0.1 connection error.\n"
-        )
+        if args.ignore_suspicious_proxy:
+            sys.stderr.write(
+                "Clearing known local blocker proxy variables for child gh command: "
+                + ", ".join(proxy_names)
+                + ".\n"
+            )
+        else:
+            sys.stderr.write(
+                "Warning: proxy env may block GitHub CLI calls: "
+                + ", ".join(proxy_names)
+                + ". Retry with --ignore-suspicious-proxy if gh reports a 127.0.0.1 connection error.\n"
+            )
     command = [
         gh_path,
         "pr",
@@ -194,7 +235,9 @@ def command_create(args: argparse.Namespace) -> int:
         check=False,
         text=True,
         capture_output=True,
-        env=env_with_discovered_tool_paths(),
+        env=env_with_discovered_tool_paths(
+            clear_suspicious_proxy=args.ignore_suspicious_proxy,
+        ),
     )
     sys.stdout.write(completed.stdout)
     sys.stderr.write(completed.stderr)
@@ -224,17 +267,26 @@ def command_ready(args: argparse.Namespace) -> int:
         return 127
     proxy_names = suspicious_proxy_env_names()
     if proxy_names:
-        sys.stderr.write(
-            "Warning: proxy env may block GitHub CLI calls: "
-            + ", ".join(proxy_names)
-            + ". Unset them for the publication command if gh reports a 127.0.0.1 connection error.\n"
-        )
+        if args.ignore_suspicious_proxy:
+            sys.stderr.write(
+                "Clearing known local blocker proxy variables for child gh command: "
+                + ", ".join(proxy_names)
+                + ".\n"
+            )
+        else:
+            sys.stderr.write(
+                "Warning: proxy env may block GitHub CLI calls: "
+                + ", ".join(proxy_names)
+                + ". Retry with --ignore-suspicious-proxy if gh reports a 127.0.0.1 connection error.\n"
+            )
     completed = subprocess.run(
         [gh_path, "pr", "ready", args.pr],
         check=False,
         text=True,
         capture_output=True,
-        env=env_with_discovered_tool_paths(),
+        env=env_with_discovered_tool_paths(
+            clear_suspicious_proxy=args.ignore_suspicious_proxy,
+        ),
     )
     sys.stdout.write(completed.stdout)
     sys.stderr.write(completed.stderr)

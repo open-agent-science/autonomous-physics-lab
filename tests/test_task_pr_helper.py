@@ -4,6 +4,8 @@ from pathlib import Path
 import subprocess
 import sys
 
+import pytest
+
 from physics_lab.registry.task_pr_helper import (
     preflight_task_pr,
     task_branch,
@@ -45,6 +47,8 @@ def test_task_pr_body_mentions_template_sections_and_metadata() -> None:
 
     assert "## PR Kind" in body
     assert "- [x] Canonical task PR" in body
+    assert "- [ ] Branch pushed" in body
+    assert "- [ ] Draft PR opened" in body
     assert "manual PR creation commands provided" in body
     assert "manual ready command provided" in body
     assert "tasks/TASK-0247-add-pr-lifecycle-guardrails.yaml" in body
@@ -96,6 +100,73 @@ def test_preflight_task_pr_accepts_clean_shape() -> None:
 
     assert report.ok
     assert report.warnings == ()
+
+
+@pytest.mark.parametrize(
+    "strict_command",
+    (
+        r"..\..\.venv\Scripts\python.exe -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+        ".venv/bin/python -m physics_lab.cli validate-repo . --strict --fail-on-warnings",
+        r'"C:\Program Files\Python312\python.exe" -m physics_lab.cli validate-repo . --strict --fail-on-warnings',
+    ),
+)
+def test_preflight_task_pr_accepts_bom_and_portable_venv_validation(
+    strict_command: str,
+) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    branch = "agent/roman/codex/task-0247-pr-lifecycle-guardrails"
+    title = "TASK-0247: add PR lifecycle guardrails"
+    body = task_pr_body(
+        task_id="TASK-0247",
+        branch=branch,
+        title=title,
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_tool="Codex",
+        human_reviewer="gladunrv",
+        summary="Add PR lifecycle checks for agents.",
+        changed_files=("scripts/apl_task_pr_helper.py",),
+        validation_commands=(strict_command,),
+        scientific_claim_impact="No claim promotion.",
+        result_artifact_impact="No committed result artifacts changed.",
+        root=repo_root,
+    )
+
+    report = preflight_task_pr(
+        repo_root,
+        branch=branch,
+        title=title,
+        body_text="\ufeff" + body,
+    )
+
+    assert report.ok
+    assert report.warnings == ()
+
+
+def test_task_pr_body_accepts_explicit_output_routing() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    body = task_pr_body(
+        task_id="TASK-0247",
+        branch="agent/roman/codex/task-0247-pr-lifecycle-guardrails",
+        title="TASK-0247: add PR lifecycle guardrails",
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_tool="Codex",
+        human_reviewer="gladunrv",
+        summary="Add PR lifecycle checks for agents.",
+        changed_files=("scripts/apl_task_pr_helper.py",),
+        validation_commands=(),
+        scientific_claim_impact="No claim promotion.",
+        result_artifact_impact="No committed result artifacts changed.",
+        task_verdict="REVIEW_READY",
+        canonical_destination="docs/reviews/example.md",
+        limitations_blockers="Offline fallback remains advisory.",
+        root=repo_root,
+    )
+
+    assert "- Task verdict: `REVIEW_READY`" in body
+    assert "- Canonical destination: `docs/reviews/example.md`" in body
+    assert "- Limitations / blockers: Offline fallback remains advisory." in body
 
 
 def test_preflight_task_pr_flags_agent_tool_mismatch() -> None:
