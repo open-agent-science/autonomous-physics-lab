@@ -10,6 +10,9 @@ import yaml
 from physics_lab.registry.validation import validate_document
 
 
+TEXTBOOK_WIEN_FIXTURE_CONFIG_KIND = "textbook_wien_exact_reference_fixture"
+
+
 def load_example_config(path: str | Path) -> dict[str, Any]:
     """Load and validate an example config."""
     config_path = Path(path)
@@ -17,6 +20,8 @@ def load_example_config(path: str | Path) -> dict[str, Any]:
         data = yaml.safe_load(handle)
     if not isinstance(data, dict):
         raise ValueError(f"Expected mapping in example config file: {path}")
+    if _is_textbook_wien_fixture_config(data):
+        return {"config_kind": TEXTBOOK_WIEN_FIXTURE_CONFIG_KIND, **data}
     if _is_nuclear_prediction_variant_factory_config(data):
         from physics_lab.engines.nuclear_prediction_variants import generate_variant_slate
 
@@ -36,4 +41,12 @@ def _is_nuclear_prediction_variant_factory_config(data: dict[str, Any]) -> bool:
         and "baseline_model" in data
         and ("target_batches" in data or "target_batch_library" in data)
         and "variants" in data
+    )
+
+
+def _is_textbook_wien_fixture_config(data: dict[str, Any]) -> bool:
+    return (
+        data.get("id") == "textbook-wien-displacement-exact-reference"
+        and data.get("campaign") == "textbook_formula_audit"
+        and data.get("formula") == "wien_displacement_wavelength_domain"
     )
