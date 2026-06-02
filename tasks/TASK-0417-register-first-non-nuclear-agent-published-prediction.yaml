@@ -1,7 +1,7 @@
 id: TASK-0417
 title: "Register first non-nuclear AGENT_PUBLISHED prediction entry"
 type: prediction_registry
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
@@ -36,7 +36,7 @@ requirements:
   - "Do not modify nuclear prediction entries in this task."
 
 accepted_outputs:
-  - "one prediction_registry/<domain>/PRED-XXXX.yaml entry"
+  - "prediction_registry/exoplanet_mass_radius/PRED-0001.yaml"
   - "docs/reviews/first-non-nuclear-agent-published-prediction.md"
   - "schema/validation tests if a new domain directory requires loader or registry support"
 

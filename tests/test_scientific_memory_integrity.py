@@ -166,3 +166,68 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
     )
 
     assert not any(issue.code == "done_task_without_result" for issue in issues)
+
+
+def test_scientific_memory_integrity_allows_done_prediction_tasks_with_pred_artifact(
+    tmp_path: Path,
+) -> None:
+    prediction_path = (
+        tmp_path / "prediction_registry" / "exoplanet_mass_radius" / "PRED-0001.yaml"
+    )
+    prediction_path.parent.mkdir(parents=True)
+    prediction_path.write_text("prediction_id: PRED-0001\n", encoding="utf-8")
+    tasks = [
+        (
+            tmp_path / "tasks" / "TASK-PREDICTION.yaml",
+            {
+                "id": "TASK-PREDICTION",
+                "status": "DONE",
+                "type": "prediction_registry",
+                "accepted_outputs": [
+                    "prediction_registry/exoplanet_mass_radius/PRED-0001.yaml",
+                ],
+            },
+        ),
+    ]
+
+    issues = collect_scientific_memory_integrity_issues(
+        hypotheses=[],
+        tasks=tasks,
+        claims=[],
+        knowledge_files=[],
+        example_configs=[],
+        results=[],
+        root_path=tmp_path,
+    )
+
+    assert not any(issue.code == "done_task_without_result" for issue in issues)
+
+
+def test_scientific_memory_integrity_warns_when_prediction_task_lacks_pred_artifact(
+    tmp_path: Path,
+) -> None:
+    tasks = [
+        (
+            tmp_path / "tasks" / "TASK-PREDICTION.yaml",
+            {
+                "id": "TASK-PREDICTION",
+                "status": "DONE",
+                "type": "prediction_registry",
+                "accepted_outputs": [
+                    "prediction_registry/exoplanet_mass_radius/PRED-0001.yaml",
+                ],
+            },
+        ),
+    ]
+
+    issues = collect_scientific_memory_integrity_issues(
+        hypotheses=[],
+        tasks=tasks,
+        claims=[],
+        knowledge_files=[],
+        example_configs=[],
+        results=[],
+        root_path=tmp_path,
+    )
+
+    assert any(issue.code == "done_task_without_result" for issue in issues)
