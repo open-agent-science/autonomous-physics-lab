@@ -17,7 +17,8 @@ summary: 'Make holdout.split / freeze_manifest / row roles schema-clean in the a
 rationale: TASK-0526 defined the no-peek Beloy row roles but could not write them to acr-0001
   because the active loader/test cannot express them cleanly (test pins split=unassigned;
   freeze_manifest/row_role are unread). This is an explicit, fixable repository gap with a
-  concrete in-repo fix, recorded per the TASK-0534 self-reporting rule.
+  concrete in-repo fix, recorded as a formal proposal so the follow-up is not lost in
+  review-note prose.
 input:
   mode: workflow
   related_domain: atomic_clock_residuals
