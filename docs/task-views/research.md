@@ -20,5 +20,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0528` - Fill Exoplanet normalized snapshot checksum gap (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0531` - Freeze NMD-0003 broad-surface Nuclear baseline (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+None.

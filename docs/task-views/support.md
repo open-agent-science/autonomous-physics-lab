@@ -15,6 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0523` - Add adaptive Windows validation planner and pytest runtime probe (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `contributor_experience`)
-- `TASK-0524` - Add Scientific Campaign Director efficiency, architecture, and deduplication rule (`maintainer_workflow`, priority `high`, difficulty `low`, domain `scientific_campaign_director`)
-- `TASK-0530` - Harden agent onboarding availability and canonical task PR flow (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `contributor_experience`)
+None.
