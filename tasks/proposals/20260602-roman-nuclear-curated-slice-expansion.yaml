@@ -1,6 +1,6 @@
 proposal_id: 20260602-roman-nuclear-curated-slice-expansion
 title: Provide an F2-coverage-clearing curated nuclear training slice
-status: PROPOSED
+status: ACCEPTED
 type: scientific_dataset
 priority: medium
 proposed_by:
@@ -46,6 +46,6 @@ accepted_outputs:
 - coverage-confirmation review note
 - optional split/selection manifest under data/nuclear_masses/
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0539
+  decision: accepted
+  notes: Promoted by TASK-QUEUE PR to a canonical Nuclear follow-up task.
