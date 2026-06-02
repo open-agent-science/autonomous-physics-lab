@@ -1,0 +1,49 @@
+proposal_id: 20260602-roman-atomic-row-role-schema
+title: Express manifest-backed atomic row roles in loader/schema and assign Beloy roles
+status: PROPOSED
+type: schema_extension
+priority: medium
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+strategy_alignment:
+- Unblock the first Atomic cross-source benchmark prerequisites by making row roles enforceable
+  in code, not prose.
+summary: 'Make holdout.split / freeze_manifest / row roles schema-clean in the atomic-clock
+  loader so the TASK-0526 Beloy row-role assignment can be written to acr-0001: validate holdout.split
+  against the atomic_holdout_manifest vocabulary, read+validate holdout.freeze_manifest, optionally
+  add a validated row_role enum, update the test that currently pins split=unassigned, then
+  assign Yb/Sr=cross_source_reference and Al+ rows=train with freeze_manifest bound.'
+rationale: TASK-0526 defined the no-peek Beloy row roles but could not write them to acr-0001
+  because the active loader/test cannot express them cleanly (test pins split=unassigned;
+  freeze_manifest/row_role are unread). This is an explicit, fixable repository gap with a
+  concrete in-repo fix, recorded as a formal proposal so the follow-up is not lost in
+  review-note prose.
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+  - physics_lab/engines/atomic_clock_residuals.py
+  - tests/test_atomic_clock_real_rows.py
+  - data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml
+  - data/atomic_clocks/atomic_holdout_manifest.yaml
+  planning_context: Follow-up to TASK-0526 and docs/reviews/atomic-beloy-freeze-manifest-row-roles.md.
+    The roles are already fixed pre-inspection in that review, so writing them later does
+    not break the no-peek boundary.
+requirements:
+- Validate holdout.split against the manifest split vocabulary; keep 'unassigned' as the only
+  pre-assignment value.
+- Read and validate holdout.freeze_manifest path when a scored role is set.
+- Update tests/test_atomic_clock_real_rows.py to expect the assigned splits instead of pinning
+  unassigned.
+- 'Preserve no-peek: use the roles already fixed in the TASK-0526 review; do not re-select
+  the target axis after inspection.'
+- Do not select thresholds or metrics, do not unlock TASK-0456, keep sandbox flags false.
+accepted_outputs:
+- canonical task spec
+- loader and test changes
+- acr-0001 holdout role assignment
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
