@@ -15,6 +15,14 @@ Future rows must declare one of:
 | `review_summary` | Evaluation or review value that combines sources. | Not ingestible unless provenance and combination rules are explicit. |
 | `synthetic_dry_run` | Fabricated row for testing schema or loaders. | Allowed only when clearly marked synthetic. |
 
+`row_class` and the booleans in `classification` must agree. For real direct
+measurement rows, `classification.direct_measurement` must be `true` and
+`classification.derived_constraint`, `classification.review_summary`, and
+`classification.synthetic` must all be `false`. Future derived-constraint or
+review-summary rows must use their own row class and must not be ingested into
+a direct-frequency-ratio residual axis unless a later task defines an explicit,
+reviewed separation rule.
+
 ## Minimal Fields
 
 ```yaml
