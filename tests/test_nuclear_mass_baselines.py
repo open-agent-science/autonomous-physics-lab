@@ -2,13 +2,18 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
 from physics_lab.cli import app
+from physics_lab.engines.nmd0003_baseline_family_gate import run_nmd0003_baseline_family_gate
 from physics_lab.engines.nuclear_mass_baselines import (
     REFERENCE_SEMI_EMPIRICAL_COEFFICIENTS,
+    design_matrix,
     evaluate_baseline,
     fit_semi_empirical_coefficients,
+    fit_semi_empirical_coefficients_ridge,
+    fit_semi_empirical_coefficients_weighted,
     pairing_class,
     pairing_sign,
     semi_empirical_binding_energy,
@@ -55,6 +60,89 @@ def test_fitted_baseline_improves_overall_mae_on_curated_slice() -> None:
     reference_mae = sum(abs(row.residual_mev) for row in reference_rows) / len(reference_rows)
     fitted_mae = sum(abs(row.residual_mev) for row in fitted_rows) / len(fitted_rows)
     assert fitted_mae < reference_mae
+
+
+def test_weighted_least_squares_matches_ols_for_uniform_weights() -> None:
+    dataset = load_nuclear_mass_dataset("data/nuclear_masses/nmd-0002-curated-measured-slice.yaml")
+    ols = fit_semi_empirical_coefficients(dataset.entries)
+    uniform = fit_semi_empirical_coefficients_weighted(
+        dataset.entries, weights=[1.0] * len(dataset.entries)
+    )
+    for key in ("volume", "surface", "coulomb", "asymmetry", "pairing"):
+        assert getattr(uniform, key) == pytest.approx(getattr(ols, key), rel=1e-6)
+
+
+def test_weighted_least_squares_rejects_mismatched_weight_length() -> None:
+    dataset = load_nuclear_mass_dataset("data/nuclear_masses/nmd-0002-curated-measured-slice.yaml")
+    with pytest.raises(ValueError):
+        fit_semi_empirical_coefficients_weighted(dataset.entries, weights=[1.0, 2.0])
+
+
+def test_ridge_shrinks_coefficients_toward_zero_as_alpha_grows() -> None:
+    dataset = load_nuclear_mass_dataset("data/nuclear_masses/nmd-0002-curated-measured-slice.yaml")
+    ols = fit_semi_empirical_coefficients(dataset.entries)
+    weak = fit_semi_empirical_coefficients_ridge(dataset.entries, alpha=1e-9)
+    strong = fit_semi_empirical_coefficients_ridge(dataset.entries, alpha=1000.0)
+    # A negligible penalty reproduces the ordinary least-squares solution.
+    for key in ("volume", "surface", "coulomb", "asymmetry", "pairing"):
+        assert getattr(weak, key) == pytest.approx(getattr(ols, key), rel=1e-4)
+    # A large penalty shrinks the standardized coefficients, lowering the
+    # dominant volume term magnitude.
+    assert abs(strong.volume) < abs(ols.volume)
+
+
+def test_design_matrix_shape_matches_entries() -> None:
+    dataset = load_nuclear_mass_dataset("data/nuclear_masses/nmd-0002-curated-measured-slice.yaml")
+    matrix = design_matrix(dataset.entries)
+    assert matrix.shape == (len(dataset.entries), 5)
+
+
+def test_baseline_family_gate_separates_domain_mismatch_from_family_weakness() -> None:
+    config = Path("examples/benchmarks/nuclear_mass_baseline_family_nmd0003.yaml")
+    metrics = run_nmd0003_baseline_family_gate(config)
+
+    assert metrics["task_id"] == "TASK-0535"
+    assert metrics["verdict"] == "INCONCLUSIVE"
+    assert set(metrics["splits"]) == {"sorted_aZN_70_30", "stratified_interleaved_70_30"}
+
+    expected_families = {
+        "inherited_result0015_nmd0002_frozen",
+        "nmd0003_train_fitted_ols",
+        "nmd0003_train_fitted_wls",
+        "nmd0003_train_fitted_ridge",
+        "nmd0003_region_stratified_diagnostic",
+    }
+    for split in metrics["splits"].values():
+        assert set(split["baseline_summaries"]) == expected_families
+
+    sensitivity = metrics["split_sensitivity_diagnostic"]["per_family"]["nmd0003_train_fitted_ols"]
+    # The OLS refit regresses on the sorted (extrapolation) holdout but improves
+    # on the stratified (interpolation) holdout: the domain-mismatch signature.
+    assert sensitivity["sorted_validation_mae_relative_improvement"] < 0.0
+    assert sensitivity["stratified_validation_mae_relative_improvement"] > 0.0
+    assert sensitivity["domain_mismatch_signature"] is True
+    assert (
+        metrics["split_sensitivity_diagnostic"]["dominant_factor"]
+        == "domain_mismatch_extrapolation_split"
+    )
+
+    # Region coefficient drift is reported and non-trivial.
+    assert metrics["region_coefficient_diagnostic"]["max_relative_coefficient_range"] > 0.0
+
+    recommendation = metrics["recommendation"]["decision"]
+    assert recommendation in {
+        "promote a scoped baseline benchmark result",
+        "create_narrower_baseline_follow_up",
+        "permit a bounded residual-feature sprint with the winning baseline frozen",
+        "pause_nuclear_factory_work_until_baseline_or_split_coverage_improves",
+    }
+
+
+def test_baseline_family_gate_is_deterministic() -> None:
+    config = Path("examples/benchmarks/nuclear_mass_baseline_family_nmd0003.yaml")
+    first = run_nmd0003_baseline_family_gate(config)
+    second = run_nmd0003_baseline_family_gate(config)
+    assert first == second
 
 
 def test_nuclear_mass_registry_files_validate() -> None:
