@@ -141,6 +141,15 @@ DECISION_REGRESSION_RULES = (
         "Potential duplicate source-of-truth architecture decision.",
     ),
 )
+FOLLOW_UP_TASK_PATTERNS = (
+    re.compile(r"\bfollow[- ]up task\b"),
+    re.compile(r"\bfollow[- ]up tasks\b"),
+    re.compile(r"\bseparate task\b"),
+    re.compile(r"\bminimal schema follow[- ]up\b"),
+)
+FORMAL_FOLLOW_UP_PATH_PREFIXES = (
+    "tasks/proposals/",
+)
 
 
 def line_is_rule_catalog_line(line: str) -> bool:
@@ -273,6 +282,44 @@ def decision_regression_advisory_hits(added_lines: tuple[str, ...]) -> tuple[str
                 hits.append(description)
         previous_lines.append(line)
     return tuple(dict.fromkeys(hits))
+
+
+def follow_up_task_advisory_hits(
+    added_lines: tuple[str, ...],
+    changed_files: tuple[str, ...],
+    *,
+    pr_title: str = "",
+    pr_body: str = "",
+) -> tuple[str, ...]:
+    """Return advisory warnings for informal follow-up task mentions.
+
+    Review notes may legitimately mention future work without creating it.
+    However, when a PR says a follow-up task is needed but does not include a
+    formal task proposal or task-queue artifact, the reviewer should surface
+    that handoff explicitly so useful work is not lost in PR prose.
+    """
+    if pr_title.startswith("TASK-QUEUE:"):
+        return ()
+    if any(path.startswith(FORMAL_FOLLOW_UP_PATH_PREFIXES) for path in changed_files):
+        return ()
+
+    searchable_lines = [
+        line.lower()
+        for line in added_lines
+        if not line_is_rule_catalog_line(line)
+    ]
+    if pr_body:
+        searchable_lines.extend(pr_body.lower().splitlines())
+
+    for line in searchable_lines:
+        if any(pattern.search(line) for pattern in FOLLOW_UP_TASK_PATTERNS):
+            return (
+                "Follow-up task is mentioned but no TASK-QUEUE or "
+                "tasks/proposals/ artifact is changed. If the follow-up is "
+                "required to preserve the work, create a formal task/proposal; "
+                "otherwise state that it is advisory only.",
+            )
+    return ()
 
 
 def sensitive_surface_hits(changed_files: tuple[str, ...]) -> tuple[str, ...]:
