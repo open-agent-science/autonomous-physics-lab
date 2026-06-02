@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0532` - Strengthen strategy snapshot output context (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
