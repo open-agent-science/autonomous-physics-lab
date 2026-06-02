@@ -1,0 +1,36 @@
+task_id: TASK-0527
+fixture_id: textbook-stefan-boltzmann-exact-reference-001
+route: synthetic_blackbody_exact_reference
+boundary: >
+  Synthetic SI software/gate fixture only. Do not interpret this fixture as an
+  empirical audit or as validation or falsification of the Stefan-Boltzmann law.
+constant:
+  name: Stefan-Boltzmann constant
+  symbol: sigma
+  value_w_m2_k4: 5.670374419e-8
+  source_convention: NIST Fundamental Physical Constants database, CODATA 2022 adjustment
+  source_url: https://physics.nist.gov/cgi-bin/cuu/Value?sigma
+grid:
+  radii_m:
+    - 69570000.0
+    - 695700000.0
+    - 6957000000.0
+    - 69570000000.0
+  temperatures_K:
+    - 2500.0
+    - 5772.0
+    - 10000.0
+    - 40000.0
+holdout:
+  rule: alternating_radius_temperature_grid_cells
+  fitting_allowed: false
+tolerances:
+  relative_error: 1.0e-12
+negative_controls:
+  wrong_temperature_exponent: 3.0
+  wrong_spherical_area_multiplier: 1.0
+promotion_boundary:
+  sandbox_only: true
+  empirical_rows_allowed: false
+  writes_canonical_result: false
+  claim_promotion_allowed: false
