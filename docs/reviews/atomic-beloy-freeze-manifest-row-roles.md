@@ -174,4 +174,3 @@ data edit is enforced by code, not asserted by prose.
   follow-up task is required before assignment, and the second-source row that
   would activate the `cross_source_target` binding is still blocked
   (see `TASK-0525`).
-</content>
