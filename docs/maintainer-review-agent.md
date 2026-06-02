@@ -315,6 +315,13 @@ This mode supports:
     intentionally accepts the tradeoff, record that confirmation in the PR body
     before merge. Otherwise, return it for task-scope correction or route it to
     the Architect.
+23. Follow-up task handoff (advisory): if the PR body or added review notes say
+    that a follow-up task, separate task, or minimal schema follow-up is needed,
+    check whether the PR also creates a `TASK-QUEUE` item or a
+    `tasks/proposals/` artifact. If it does not, surface an advisory warning:
+    either create a formal task/proposal before the idea is lost, or state that
+    the follow-up is intentionally advisory-only. Treat this as a blocker only
+    when the current task's accepted outputs depend on that missing follow-up.
 
 Branch-only review is a preflight, not a final PR-body check. If the review was
 run with `--branch`, run it again with `--pr <number>` after opening the PR so
