@@ -14,5 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0529` - Define Exoplanet second-snapshot reopen coverage gate (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0534` - Add review-agent advisory for informal follow-up task mentions (`maintainer_tooling`, priority `high`, difficulty `low`, domain `review_agent`)
+None.
