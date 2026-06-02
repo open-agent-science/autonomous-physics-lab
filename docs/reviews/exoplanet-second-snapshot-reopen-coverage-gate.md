@@ -203,4 +203,3 @@ priority, anomalous physics, discovery, or a universal mass-radius law.
 - **Limitations / blockers:** no live fetch performed; floors are pre-reveal
   declarations amendable only before acquisition; per-slice `EXO-0001` baseline
   counts and `pl_bmassprov` mapping are deferred to the future reveal task.
-</content>

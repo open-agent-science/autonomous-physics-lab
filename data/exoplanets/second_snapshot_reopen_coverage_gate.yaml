@@ -121,4 +121,3 @@ limitations:
   - "This is a frozen gate rule, not a reveal; no second snapshot is acquired, inspected, or scored."
   - "Numeric floors are conservative pre-reveal declarations; a maintainer may revise them only through a pre-reveal amendment merged before acquisition, never after row inspection."
   - "Per-slice EXO-0001 baseline counts and the pl_bmassprov true-mass/minimum-mass mapping are deferred to the future reveal task."
-</content>
