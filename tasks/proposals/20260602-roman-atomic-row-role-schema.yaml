@@ -1,6 +1,6 @@
 proposal_id: 20260602-roman-atomic-row-role-schema
 title: Express manifest-backed atomic row roles in loader/schema and assign Beloy roles
-status: PROPOSED
+status: ACCEPTED
 type: schema_extension
 priority: medium
 proposed_by:
@@ -44,6 +44,6 @@ accepted_outputs:
 - loader and test changes
 - acr-0001 holdout role assignment
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0538
+  decision: accepted
+  notes: Promoted by TASK-QUEUE PR to a canonical Atomic follow-up task.
