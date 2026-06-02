@@ -172,4 +172,3 @@ A future row-curation task may commit an `ACR-0002` Yb/Sr row only after:
   version-of-record table and campaign-window lock; Pizzocaro fallback has no
   pinned source artifact; holdout binding awaits the `TASK-0526` schema
   follow-up. No live fetch available to this agent.
-</content>
