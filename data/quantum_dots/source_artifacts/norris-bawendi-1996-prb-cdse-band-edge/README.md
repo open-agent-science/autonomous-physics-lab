@@ -131,5 +131,3 @@ coordinate uncertainty exists under
 - Do not run `TASK-0225`, `TASK-0293`, or `TASK-0336` from this package alone.
 - Do not promote scientific claims, device claims, synthesis guidance, or
   biomedical claims from this source-artifact blocker.
-</content>
-</invoke>

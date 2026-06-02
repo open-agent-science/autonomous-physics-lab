@@ -227,4 +227,3 @@ Per `docs/result-promotion-protocol.md`:
 The Norris-Bawendi 1996 candidate stays excluded from curated `qd-*.yaml` rows
 and must not be used to unblock the quantum size-effect baseline benchmark
 until a deterministic figure-digitization artifact is committed and reviewed.
-</content>
