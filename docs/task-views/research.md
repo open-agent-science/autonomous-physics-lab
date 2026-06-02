@@ -21,5 +21,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0517` - Run Nuclear factory sprint on NMD-0003 measured training surface (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0518` - Run NMD-0002 uncertainty perturbation control for Nuclear factory candidates (`scientific_validation`, priority `medium`, difficulty `medium`, domain `nuclear_mass_surface`)
+None.
