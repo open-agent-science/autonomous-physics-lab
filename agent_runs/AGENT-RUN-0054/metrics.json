@@ -1,0 +1,233 @@
+{
+  "task_id": "TASK-0518",
+  "input_references": {
+    "dataset": "data/nuclear_masses/nmd-0002-curated-measured-slice.yaml",
+    "factory_summary": "agent_runs/AGENT-RUN-0052/factory_summary.yaml",
+    "baseline_result": "results/EXP-0012/RUN-0001/result.yaml"
+  },
+  "method": "Perturb atomic masses by deterministic normal draws around each committed NMD-0002 value, recompute frozen-baseline residuals, refit each predeclared candidate coefficient on the deterministic train split, and re-route by effective holdout reduction after controls.",
+  "seed": 518,
+  "trials_per_mode": 200,
+  "top_candidate_ids": [
+    "CAND-0001",
+    "CAND-0019",
+    "CAND-0011",
+    "CAND-0029",
+    "CAND-0037"
+  ],
+  "dataset_summary": {
+    "dataset_id": "NMD-0002",
+    "row_count": 11,
+    "uncertainty_floor_u": 1e-05,
+    "max_declared_uncertainty_u": 1e-05,
+    "all_rows_share_same_uncertainty": true,
+    "source_grade_per_row_uncertainty_available": false,
+    "uncertainty_note": "NMD-0002 records a coarse curated uncertainty floor rather than source-grade per-row uncertainties; the 10x mode is a floor-stress control, not source evidence."
+  },
+  "mode_summaries": {
+    "declared_uncertainty": {
+      "sigma_scale": 1.0,
+      "top1_counts": {
+        "CAND-0001": 200
+      },
+      "candidate_stability": [
+        {
+          "candidate_id": "CAND-0001",
+          "family": "shell_distance",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.124141,
+          "effective_reduction_mean": 0.124113,
+          "effective_reduction_std": 0.000982,
+          "effective_reduction_min": 0.1215,
+          "effective_reduction_max": 0.126813,
+          "effective_reduction_drift_from_original": -2.8e-05,
+          "holdout_reduction_mean": 0.144113,
+          "rank_median": 1.0,
+          "rank_min": 1,
+          "rank_max": 1,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        },
+        {
+          "candidate_id": "CAND-0019",
+          "family": "valence_z",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.124141,
+          "effective_reduction_mean": 0.124113,
+          "effective_reduction_std": 0.000982,
+          "effective_reduction_min": 0.1215,
+          "effective_reduction_max": 0.126813,
+          "effective_reduction_drift_from_original": -2.8e-05,
+          "holdout_reduction_mean": 0.144113,
+          "rank_median": 2.0,
+          "rank_min": 2,
+          "rank_max": 2,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        },
+        {
+          "candidate_id": "CAND-0011",
+          "family": "shell_distance",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.094186,
+          "effective_reduction_mean": 0.094107,
+          "effective_reduction_std": 0.001615,
+          "effective_reduction_min": 0.089805,
+          "effective_reduction_max": 0.098643,
+          "effective_reduction_drift_from_original": -7.9e-05,
+          "holdout_reduction_mean": 0.154107,
+          "rank_median": 3.0,
+          "rank_min": 3,
+          "rank_max": 4,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        },
+        {
+          "candidate_id": "CAND-0029",
+          "family": "valence_z",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.094186,
+          "effective_reduction_mean": 0.094107,
+          "effective_reduction_std": 0.001615,
+          "effective_reduction_min": 0.089805,
+          "effective_reduction_max": 0.098643,
+          "effective_reduction_drift_from_original": -7.9e-05,
+          "holdout_reduction_mean": 0.154107,
+          "rank_median": 4.0,
+          "rank_min": 4,
+          "rank_max": 5,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        },
+        {
+          "candidate_id": "CAND-0037",
+          "family": "valence_n",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.085451,
+          "effective_reduction_mean": 0.085507,
+          "effective_reduction_std": 0.001833,
+          "effective_reduction_min": 0.079797,
+          "effective_reduction_max": 0.090136,
+          "effective_reduction_drift_from_original": 5.6e-05,
+          "holdout_reduction_mean": 0.105507,
+          "rank_median": 5.0,
+          "rank_min": 3,
+          "rank_max": 5,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        }
+      ]
+    },
+    "coarse_floor_stress_10x": {
+      "sigma_scale": 10.0,
+      "top1_counts": {
+        "CAND-0001": 184,
+        "CAND-0037": 16
+      },
+      "candidate_stability": [
+        {
+          "candidate_id": "CAND-0001",
+          "family": "shell_distance",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.124141,
+          "effective_reduction_mean": 0.123823,
+          "effective_reduction_std": 0.009947,
+          "effective_reduction_min": 0.087685,
+          "effective_reduction_max": 0.146488,
+          "effective_reduction_drift_from_original": -0.000318,
+          "holdout_reduction_mean": 0.143823,
+          "rank_median": 1.0,
+          "rank_min": 1,
+          "rank_max": 2,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        },
+        {
+          "candidate_id": "CAND-0019",
+          "family": "valence_z",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.124141,
+          "effective_reduction_mean": 0.123823,
+          "effective_reduction_std": 0.009947,
+          "effective_reduction_min": 0.087685,
+          "effective_reduction_max": 0.146488,
+          "effective_reduction_drift_from_original": -0.000318,
+          "holdout_reduction_mean": 0.143823,
+          "rank_median": 2.0,
+          "rank_min": 2,
+          "rank_max": 3,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        },
+        {
+          "candidate_id": "CAND-0011",
+          "family": "shell_distance",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.094186,
+          "effective_reduction_mean": 0.092534,
+          "effective_reduction_std": 0.016581,
+          "effective_reduction_min": 0.026461,
+          "effective_reduction_max": 0.125308,
+          "effective_reduction_drift_from_original": -0.001652,
+          "holdout_reduction_mean": 0.152534,
+          "rank_median": 3.0,
+          "rank_min": 3,
+          "rank_max": 4,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        },
+        {
+          "candidate_id": "CAND-0029",
+          "family": "valence_z",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.094186,
+          "effective_reduction_mean": 0.092534,
+          "effective_reduction_std": 0.016581,
+          "effective_reduction_min": 0.026461,
+          "effective_reduction_max": 0.125308,
+          "effective_reduction_drift_from_original": -0.001652,
+          "holdout_reduction_mean": 0.152534,
+          "rank_median": 4.0,
+          "rank_min": 4,
+          "rank_max": 5,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        },
+        {
+          "candidate_id": "CAND-0037",
+          "family": "valence_n",
+          "original_route_verdict": "INCONCLUSIVE",
+          "original_effective_reduction": 0.085451,
+          "effective_reduction_mean": 0.084794,
+          "effective_reduction_std": 0.018791,
+          "effective_reduction_min": 0.02737,
+          "effective_reduction_max": 0.118006,
+          "effective_reduction_drift_from_original": -0.000657,
+          "holdout_reduction_mean": 0.104794,
+          "rank_median": 5.0,
+          "rank_min": 1,
+          "rank_max": 5,
+          "route_verdict_counts": {
+            "INCONCLUSIVE": 200
+          }
+        }
+      ]
+    }
+  },
+  "verdict": "INCONCLUSIVE",
+  "limitations": [
+    "NMD-0002 has only 11 rows and a 3-row holdout; survival cannot promote a candidate.",
+    "The slice uses a coarse curated uncertainty floor rather than source-grade row uncertainty.",
+    "The frozen baseline coefficients are NMD-0002 slice-specific and are not refit.",
+    "Sandbox control evidence only; no RESULT, PRED, CLAIM, or KNOW artifact is promoted."
+  ]
+}
