@@ -323,15 +323,16 @@ missions:
         expected_outputs:
           - "ranked alternative direct-source candidates without row values"
       - id: quantum-norris-bawendi-source-artifact
-        label: "Package Norris/Bawendi source-artifact review"
+        label: "Norris/Bawendi source-artifact review completed; direct rows still blocked"
         task_id: TASK-0489
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
         expected_outputs:
-          - "source artifact/blocker review without synthetic or calibration-derived row promotion"
+          - "source artifact/blocker review landed without synthetic or calibration-derived row promotion"
+          - "keep direct-row curation blocked until a deterministic table or digitization artifact is approved"
       - id: quantum-digitization-fixture-dry-run
         label: "Run quantum figure-digitization fixture dry-run"
         task_id: TASK-0490
