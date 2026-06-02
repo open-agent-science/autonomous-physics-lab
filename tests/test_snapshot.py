@@ -65,15 +65,21 @@ def test_render_strategic_context_map_uses_dynamic_repository_signals() -> None:
     assert re.search(r"Campaign rows in `missions/current.yaml`: \d+", rendered)
     assert re.search(r"Task status counts: READY \d+", rendered)
     assert "Campaigns At A Glance" in rendered
+    assert "Campaign Output Scorecard" in rendered
     assert "Recommended Parallel Allocation" in rendered
     assert "Recent Scientific Learnings" in rendered
     assert "Campaign Motion" in rendered
+    assert "Recent DONE Signal" in rendered
     assert "Scientific Memory Conveyor" in rendered
     assert "Critical Files And Directories" in rendered
     assert "`missions/current.yaml`" in rendered
     assert "`docs/result-promotion-protocol.md`" in rendered
+    assert "`docs/campaign-output-scorecard.md`" in rendered
     assert "`agent_runs/`" in rendered
     assert "`results/`" in rendered
+    assert re.search(r"Repo-wide RESULT artifacts: \d+", rendered)
+    assert re.search(r"Frozen predictions: \d+", rendered)
+    assert re.search(r"Sandbox agent runs: \d+", rendered)
     assert any(title and title in rendered for title in mission_titles)
     assert "Agent 1:" in rendered
     assert "AGENT_PUBLISHED" in rendered or "AGENT_VALIDATED" in rendered
@@ -124,6 +130,7 @@ def test_snapshot_script_includes_strategic_context_and_current_mission_docs() -
     assert "render_strategic_context_map" in script
     assert "docs/current-missions.md" in script
     assert "docs/result-promotion-protocol.md" in script
+    assert "docs/campaign-output-scorecard.md" in script
     assert "docs/scientific-memory-review-tiers.md" in script
     assert "Historical DONE and older PROPOSED task files" in script
     assert "tasks/*.yaml" not in script

@@ -258,6 +258,7 @@ PY
     docs/maintainer-review-agent.md \
     docs/review-checklists/task-closeout-checklist.md \
     docs/result-promotion-protocol.md \
+    docs/campaign-output-scorecard.md \
     docs/scientific-memory-review-tiers.md \
     docs/result-artifacts-index.md \
     docs/negative-results-registry.md \
