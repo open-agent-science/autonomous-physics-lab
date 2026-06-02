@@ -1,0 +1,42 @@
+# Materials Property Residuals Source Manifest (placeholder)
+#
+# Value-free source policy created by the TASK-0439 campaign scaffold.
+# A source must appear here, with verified license/version/checksum policy,
+# before any dataset file may reference it. No live external fetching is
+# permitted; sources must be pinned at commit time by a future snapshot task.
+#
+# Required fields per future entry (defined by a later schema task):
+#   source_id        — short unique identifier used in dataset files
+#   title            — database or compilation title
+#   provider         — database/provider name
+#   version          — pinned database version or release tag
+#   record_locator   — API/record locator or citation
+#   properties       — list of property_kind values (with units)
+#   provenance       — computed_dft | measured | model_only
+#   license_note     — redistribution / reuse terms
+#   checksum_policy   — doi_pinned | sha256_file | url_archived
+#   inclusion_decision — accepted | excluded
+#   notes            — provenance and scope notes
+
+manifest_version: "0"
+campaign_id: materials-property-residuals
+status: placeholder_no_sources_registered
+created_by:
+  contributor_id: roman
+  agent_id: claude
+live_external_fetch_allowed: false
+no_values_recorded_here: true
+
+# No sources are registered yet. A future source-manifest task adds entries
+# only after verifying license, version, and a pinned-snapshot checksum policy.
+sources: []
+
+candidate_source_classes_for_future_review:
+  - "Open computed-property databases (JARVIS-DFT, Materials Project, OQMD, AFLOW) with DFT functional and version recorded."
+  - "Curated experimental property compilations with explicit primary-source citation."
+  - "Reference/model-only descriptors, admissible only as explicitly excluded context."
+
+global_limitations:
+  - "Placeholder manifest: no sources registered and no values recorded."
+  - "Computed and measured properties must stay on separate residual axes with explicit provenance."
+  - "Do not ingest values, fetch live data, or run benchmarks from this placeholder."
