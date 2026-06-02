@@ -1,0 +1,64 @@
+id: TASK-0531
+title: "Freeze NMD-0003 broad-surface Nuclear baseline"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the TASK-0517 control-dominated factory result into the next actionable Nuclear science step."
+  - "Separate broad-surface baseline mismatch from residual-feature hypothesis evidence before another factory sprint."
+  - "Create a reviewable NMD-0003 residual map that can decide whether later Nuclear hypotheses are worth running."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "agent_runs/AGENT-RUN-0053/report.md"
+    - "agent_runs/AGENT-RUN-0053/factory_summary.yaml"
+    - "docs/reviews/nuclear-residual-factory-nmd0003-sprint.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0517 ran the first large Research Factory sprint on the committed
+    NMD-0003 AME2020 measured training surface and found no control-surviving
+    shortlist. Its main limitation is that the frozen baseline coefficients
+    came from RESULT-0015 / NMD-0002 rather than a baseline explicitly fit and
+    frozen for the 2309-row NMD-0003 surface. This task creates that
+    broad-surface baseline/residual map before any more expressive residual
+    families are tested.
+
+requirements:
+  - "Use only the committed NMD-0003 dataset and split manifest; no live external fetch."
+  - "Keep the primary post-AME2020 holdout excluded from fitting and do not perform reveal scoring."
+  - "Compare at least two baseline states: the inherited RESULT-0015/NMD-0002 frozen baseline and a broad-surface NMD-0003-frozen baseline or explicitly documented fit-free alternative."
+  - "Predeclare train/holdout handling, fitted parameters, complexity, and stop conditions before reporting residual improvements."
+  - "Report MAE/RMSE/residual distributions overall and by interpretable subsets such as A range, Z range, N range, magic-distance bins, odd/even classes, and neutron-richness bins."
+  - "Preserve rows with missing or ambiguous uncertainty/source semantics as excluded or diagnostic, not silently fitted evidence."
+  - "Record whether broad-surface baseline improvement changes the interpretation of TASK-0517 control-dominated factory memory."
+  - "Do not fit or test new residual-feature candidate families in this task."
+  - "Do not write prediction entries, reveal scores, CLAIM files, KNOW files, or discovery wording."
+  - "Route the final output through docs/result-promotion-protocol.md; publish a RESULT only if the task implementation satisfies Gate A and the output remains scoped to the NMD-0003 benchmark."
+
+accepted_outputs:
+  - "examples/nuclear_mass_baseline_nmd0003.yaml or equivalent deterministic benchmark config"
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nmd0003-broad-surface-baseline.md or a scoped RESULT artifact if Gate A passes"
+  - "tests for any new baseline/residual-map helper"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md only if the campaign posture changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_nuclear_mass_dataset.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
