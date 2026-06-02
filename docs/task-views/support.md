@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0533` - Add task-claim issue closeout hygiene (`maintainer_tooling`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
+None.

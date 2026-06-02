@@ -19,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0527` - Build Textbook Stefan-Boltzmann exact-reference fixture (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.
