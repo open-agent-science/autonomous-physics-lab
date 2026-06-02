@@ -43,11 +43,13 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "contributor_pilot",
     "developer_infrastructure",
     "maintainer_workflow",
+    "maintainer_tooling",
     "numerical_audit",
     "documentation",
     "physics_reference",
     "scientific_governance",
     "scientific_audit",
+    "scientific_benchmark",
     "scientific_falsification",
     "benchmark_protocol",
     "ci_infrastructure",
@@ -156,6 +158,7 @@ def collect_scientific_memory_integrity_issues(
             task_status == "DONE"
             and task_id not in result_task_ids
             and task_type not in STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS
+            and not _task_has_committed_prediction_output(task_payload, root_path=root_path)
         ):
             issues.append(
                 _issue(
@@ -201,6 +204,25 @@ def collect_scientific_memory_integrity_issues(
             )
 
     return issues
+
+
+def _task_has_committed_prediction_output(
+    task_payload: dict[str, Any], *, root_path: Path
+) -> bool:
+    """Return true when a DONE task points at a committed PRED artifact."""
+    for output in task_payload.get("accepted_outputs", []):
+        if not isinstance(output, str):
+            continue
+        output_path = Path(output)
+        if (
+            output_path.parts
+            and output_path.parts[0] == "prediction_registry"
+            and output_path.name.startswith("PRED-")
+            and output_path.suffix == ".yaml"
+            and (root_path / output_path).is_file()
+        ):
+            return True
+    return False
 
 
 def _required_run_artifact_issues(

@@ -5,6 +5,7 @@ from __future__ import annotations
 from physics_lab.registry.review_checks import (
     cross_platform_advisory_hits,
     cross_platform_surface_hits,
+    follow_up_task_advisory_hits,
     normalize_output_path,
     output_paths,
 )
@@ -115,3 +116,41 @@ def test_cross_platform_surface_flags_changed_shell_scripts() -> None:
 
 def test_cross_platform_surface_ignores_non_shell_files() -> None:
     assert cross_platform_surface_hits(("docs/foo.md", "physics_lab/cli.py")) == ()
+
+
+# --- Follow-up task advisory checks (TASK-0534) ---
+
+
+def test_follow_up_task_advisory_flags_informal_pr_body_mention() -> None:
+    hits = follow_up_task_advisory_hits(
+        (),
+        ("docs/reviews/foo.md", "tasks/TASK-0123-foo.yaml"),
+        pr_body="A minimal schema follow-up task is proposed for this blocker.",
+    )
+    assert len(hits) == 1
+    assert "TASK-QUEUE" in hits[0]
+
+
+def test_follow_up_task_advisory_flags_added_review_note_mention() -> None:
+    hits = follow_up_task_advisory_hits(
+        ("A separate task should add the validated row role enum.",),
+        ("docs/reviews/foo.md", "tasks/TASK-0123-foo.yaml"),
+    )
+    assert len(hits) == 1
+
+
+def test_follow_up_task_advisory_ignores_task_queue_pr() -> None:
+    hits = follow_up_task_advisory_hits(
+        ("A follow-up task is created in this queue.",),
+        ("tasks/TASK-0124-follow-up.yaml",),
+        pr_title="TASK-QUEUE: Add follow-up work",
+    )
+    assert hits == ()
+
+
+def test_follow_up_task_advisory_ignores_formal_proposal_file() -> None:
+    hits = follow_up_task_advisory_hits(
+        ("A follow-up task is proposed.",),
+        ("tasks/proposals/20260602-roman-follow-up.yaml",),
+    )
+    assert hits == ()

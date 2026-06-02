@@ -1,0 +1,48 @@
+id: TASK-0534
+title: "Add review-agent advisory for informal follow-up task mentions"
+type: maintainer_tooling
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Prevent useful follow-up work from being lost in PR prose."
+  - "Keep review-agent warnings advisory unless a missing follow-up blocks the current task."
+  - "Reduce hidden task debt without forcing automatic task creation."
+
+input:
+  mode: workflow
+  related_domain: review_agent
+  related_objects:
+    - "docs/maintainer-review-agent.md"
+    - "physics_lab/registry/review_checks.py"
+    - "physics_lab/registry/maintainer_review.py"
+  planning_context: >
+    Recent blocker-review PRs mention useful schema/source follow-ups in PR
+    bodies or review notes. Those mentions are visible to humans but are not
+    canonical tasks. The maintainer wants the review agent to surface them so a
+    follow-up task or proposal can be created when needed.
+
+requirements:
+  - "Do not auto-create tasks from PR prose."
+  - "Surface informal follow-up task mentions as advisory warnings."
+  - "Do not block merge unless the missing follow-up is required for the current task's accepted outputs."
+  - "Ignore formal TASK-QUEUE and tasks/proposals/ PRs because they already preserve the follow-up."
+
+accepted_outputs:
+  - "docs/maintainer-review-agent.md"
+  - "physics_lab/registry/review_checks.py"
+  - "physics_lab/registry/maintainer_review.py"
+  - "tests/test_review_checks.py"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_review_checks.py"
+    - "python3 -m ruff check physics_lab/registry/review_checks.py physics_lab/registry/maintainer_review.py tests/test_review_checks.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

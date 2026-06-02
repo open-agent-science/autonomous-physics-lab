@@ -94,36 +94,36 @@ it must not become a broad constants-drift or new-physics campaign.
 
 ### Exoplanet Mass-Radius Benchmark
 
-Exoplanet Mass-Radius is the planned fourth campaign, not a current benchmark
-result surface.
+Exoplanet Mass-Radius has moved from planned fourth campaign to an active
+benchmark surface. Keep this portfolio entry as strategic context only; the
+current operational state lives on the campaign page and mission files.
 
-The strategic goal is to prepare a high-visibility, data-backed campaign around
-planet mass, radius, uncertainty, and residual structure. The expected first
-scientific artifact is a conservative benchmark showing where standard
-mass-radius forecasts work or fail across planet classes, discovery methods,
-host-star context, and measurement-quality filters.
+The strategic goal remains a high-visibility, data-backed campaign around
+planet mass, radius, uncertainty, and residual structure. The first benchmark
+and control-aware residual audits are now useful negative/control memory; the
+next strategic path is a materially changed pinned snapshot with a reviewed
+coverage gate.
 
-Immediate work should focus on:
+Near-term strategic work should focus on:
 
-- source-manifest and catalog snapshot policy;
-- row schema for mass, radius, uncertainties, true-mass versus minimum-mass
-  flags, and provenance;
-- holdout protocol across planet class, detection method, source date,
+- second-snapshot reopen coverage gate;
+- no-live-fetch ingestion dry-run before any new row values are inspected;
+- continued true-mass versus minimum-mass separation and provenance checks;
+- holdout discipline across planet class, detection method, source date,
   host-star context, and mass/radius regimes;
-- baseline reproduction plan for a Chen-Kipping-style forecast after a frozen
-  snapshot exists;
 - limitation language for selection effects, heterogeneous measurements, and
   model-derived catalog values.
 
-This track is planned because it has public data, strong visual explainability,
-recognized baselines, natural holdouts, and real residual structure. It should
-remain preparation-only until `TASK-0337` or a follow-up task creates the
-source/schema surface needed for a later benchmark.
+This track remains valuable because it has public data, strong visual
+explainability, recognized baselines, natural holdouts, and real residual
+structure. It should not repeat current-snapshot compact-radius residual pilots
+until the second-snapshot gate passes.
 
 Not allowed yet:
 
 - live archive ingestion without a pinned snapshot policy;
-- benchmark metrics or residual maps before schema and holdout protocol exist;
+- new benchmark metrics or residual maps before the second-snapshot gate
+  passes;
 - habitability, life, biosignature, or planet-prioritization claims;
 - public "APL discovered a planet law" framing.
 

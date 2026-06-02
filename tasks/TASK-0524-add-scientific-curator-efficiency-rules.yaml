@@ -1,0 +1,59 @@
+id: TASK-0524
+title: "Add Scientific Campaign Director efficiency, architecture, and deduplication rule"
+type: maintainer_workflow
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep the Scientific Campaign Director focused on scientific results, not task churn."
+  - "Prevent duplicate dashboards, digests, status pages, and filler task waves that create cleanup work."
+  - "Make every curator-created task justify a direct path to source gates, benchmarks, controls, negative memory, replay, promotion, or a campaign decision."
+  - "Make workflow and scientific-architecture efficiency review an explicit Director responsibility."
+
+input:
+  mode: workflow
+  related_domain: scientific_campaign_director
+  related_objects:
+    - "agents/scientific-curator.yaml"
+    - "docs/scientific-campaign-curator.md"
+    - "docs/campaign-curator-protocol.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Maintainer feedback after the post-NMD-0003 task planning discussion:
+    the Scientific Campaign Director must reduce duplication and avoid
+    inventing digest/status tasks or filler task-list items that do not move a
+    campaign toward data, verification, falsification, result promotion, or a
+    concrete decision. The Director must also review the scientific
+    architecture and workflow itself: whether agents are being used efficiently,
+    whether gates or task shapes slow down real results, and whether a campaign
+    needs a better pipeline. Duplicate documentation creates future cleanup
+    work and wastes agent capacity that should be aimed at scientific outputs.
+
+requirements:
+  - "Add an explicit deduplication rule to the Scientific Campaign Director role."
+  - "State that duplicate dashboards, digests, and status pages are disallowed unless they remove an existing drift source or replace another surface."
+  - "Require curator-recommended tasks to name the scientific output path they advance: source gate, dataset, baseline, holdout, replay/control, negative memory, result promotion, prediction/reveal readiness, or campaign go/no-go decision."
+  - "Add an explicit responsibility to review scientific architecture and workflow efficiency: campaign gates, task shapes, agent allocation, bottlenecks, and whether the current process is the fastest honest path to reviewable results."
+  - "State that efficiency changes must not weaken source provenance, uncertainty handling, holdout/no-peek boundaries, controls, replay requirements, result-promotion gates, or overclaim policy."
+  - "Tell the Director to update an existing campaign page, task, protocol, or result artifact instead of creating a new surface when that is enough."
+  - "Keep the rule maintainer-facing; do not add new public dashboard sections or public-facing duplication."
+  - "Do not create new science campaign tasks in this PR."
+
+accepted_outputs:
+  - "updated agents/scientific-curator.yaml"
+  - "updated docs/scientific-campaign-curator.md"
+  - "updated docs/campaign-curator-protocol.md"
+  - "this task file set to REVIEW_READY"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

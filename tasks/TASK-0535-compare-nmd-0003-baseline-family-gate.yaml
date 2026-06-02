@@ -1,0 +1,62 @@
+id: TASK-0535
+title: "Compare NMD-0003 baseline-family gate"
+type: scientific_benchmark
+status: DONE
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the TASK-0531 validation-holdout regression into a concrete next Nuclear science gate."
+  - "Decide whether NMD-0003 needs a better baseline family or a different validation split before any new residual-feature factory sprint."
+  - "Keep baseline diagnostics separate from residual-law discovery or prediction-freeze work."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    - "results/EXP-0012/RUN-0001/result.yaml"
+    - "agent_runs/AGENT-RUN-0055/metrics.json"
+    - "agent_runs/AGENT-RUN-0055/report.md"
+    - "docs/reviews/nmd0003-broad-surface-baseline.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0531 showed that a simple NMD-0003 train-fitted liquid-drop-style
+    refit improves train/full-surface MAE but worsens the predeclared
+    validation holdout. Before another Nuclear hypothesis sprint, APL needs a
+    baseline-family gate that compares physically standard baseline choices
+    and split behavior without introducing new residual-feature candidates.
+
+requirements:
+  - "Use only committed NMD-0003 rows and the committed split manifest; no live external fetch."
+  - "Keep primary post-AME2020 holdout rows excluded from fitting and scoring."
+  - "Compare the inherited RESULT-0015 baseline, the TASK-0531 NMD-0003 global refit, and at least two predeclared baseline-family alternatives such as weighted least-squares, ridge-regularized liquid-drop coefficients, or region-stratified coefficient diagnostics."
+  - "Declare all baseline families, train/validation handling, regularization choices, weights, and stop conditions before reporting metrics."
+  - "Do not introduce residual-feature hypothesis families, shell-axis terms, local-curvature terms, high-error cluster labels, or post-hoc selected correction terms."
+  - "Report MAE/RMSE and residual summaries for train, validation holdout, and interpretable domain slices including A range, Z range, N range, odd/even class, magic-distance bin, and neutron-richness bin."
+  - "Run at least one split-sensitivity or stratification diagnostic that can explain whether TASK-0531 regression is dominated by a domain mismatch or by baseline-family weakness."
+  - "Recommend one of: promote a scoped baseline benchmark result, create a narrower baseline follow-up, permit a bounded residual-feature sprint with the winning baseline frozen, or pause Nuclear factory work until source/split coverage improves."
+  - "Do not write prediction entries, reveal scores, CLAIM files, KNOW files, or discovery wording."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "examples/benchmarks/nuclear_mass_baseline_family_nmd0003.yaml"
+  - "agent_runs/AGENT-RUN-0056/metrics.json"
+  - "agent_runs/AGENT-RUN-0056/report.md"
+  - "docs/reviews/nmd0003-baseline-family-gate.md"
+  - "tests in tests/test_nuclear_mass_baselines.py for the baseline-family helpers and split diagnostic"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md only if the Nuclear campaign posture changes (not changed: posture unchanged)"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_nuclear_mass_dataset.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

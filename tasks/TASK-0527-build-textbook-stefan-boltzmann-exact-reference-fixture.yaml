@@ -1,0 +1,54 @@
+id: TASK-0527
+title: "Build Textbook Stefan-Boltzmann exact-reference fixture"
+type: scientific_benchmark
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the Stefan-Boltzmann planning artifact into a deterministic verifier-first audit path."
+  - "Give Textbook Formula Audit a public-friendly execution task without empirical overclaim."
+  - "Test APL's units, constants, gates, and negative controls before any stellar dataset is ingested."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-stefan-boltzmann-source-baseline-plan.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "physics_lab/engines/"
+    - "examples/"
+  planning_context: >
+    TASK-0493 recommended a synthetic exact-reference fixture before any
+    empirical Stefan-Boltzmann audit. This task implements that fixture and
+    runner so future agents can verify SI units, CODATA constant usage, T^4
+    scaling, area scaling, monotonicity, and wrong-exponent controls without
+    claiming empirical validation of the law.
+
+requirements:
+  - "Use the frozen NIST/CODATA 2022 Stefan-Boltzmann constant value declared in the planning note or document the exact source convention used."
+  - "Create deterministic synthetic emitter rows with known area/radius, temperature, and luminosity generated from the reference equation."
+  - "Include wrong-exponent and wrong-area negative controls."
+  - "Report only software/gate behavior; do not ingest stellar rows or compute empirical audit metrics."
+  - "Keep any output sandbox-only unless result-promotion Gate A is explicitly satisfied by the task implementation and review."
+  - "Forbid wording that APL validated or falsified the Stefan-Boltzmann law."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "examples/textbook_stefan_boltzmann_exact_reference.yaml or equivalent fixture/config"
+  - "deterministic runner or engine helper for Stefan-Boltzmann exact-reference checks"
+  - "agent_runs/AGENT-RUN-XXXX/report.md or docs/reviews/textbook-stefan-boltzmann-exact-reference-fixture.md"
+  - "tests for units, T^4 scaling, area scaling, monotonicity, and negative controls"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

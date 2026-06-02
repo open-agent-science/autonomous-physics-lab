@@ -1,0 +1,69 @@
+id: TASK-0523
+title: "Add adaptive Windows validation planner and pytest runtime probe"
+type: maintainer_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce repeated local validation time without weakening task-specific checks or Linux CI coverage."
+  - "Keep pytest parallel by default while making Windows temp and xdist failures diagnosable."
+  - "Separate a narrow PR handoff path from expensive broad validation that CI already runs."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "scripts/apl_agent_doctor.py"
+    - "scripts/validate_fast.py"
+    - "docs/agent-task-protocol.md"
+    - "docs/cross-platform-compatibility.md"
+    - ".claude/settings.json"
+    - "tasks/TASK-0469-make-windows-pytest-cli-validation-robust.yaml"
+    - "tasks/TASK-0501-speed-up-local-test-cycle.yaml"
+    - "tasks/TASK-0519-harden-windows-agent-bootstrap-pr-publication.yaml"
+  planning_context: >
+    A Windows Codex run spent about thirty minutes on repeated serial full-suite
+    validation after the default parallel pytest path encountered temp-directory
+    and worker instability. Linux and macOS normally complete the relevant
+    parallel test lane in a few minutes. The repository already enables xdist
+    by default, so this task preserves parallel execution, adds an opt-in
+    Windows runtime probe with a workspace-local basetemp fallback check, and
+    provides an advisory task validation planner that keeps narrow PRs from
+    automatically falling back to a serial full-suite run.
+
+requirements:
+  - "Add a dynamic stdout-only task validation planner that reports task-specific commands and whether the changed surface warrants the local fast lane."
+  - "Extend the agent doctor with an opt-in pytest runtime probe that checks default xdist execution and, after failure, a workspace-local basetemp fallback."
+  - "Run cheap deterministic fast-lane and PR-CI gates before the broader pytest layer, and report the ten slowest pytest durations for future tuning."
+  - "Group measured resource-sensitive exoplanet tests onto one xdist worker while preserving overlap with the rest of the parallel suite."
+  - "Isolate the measured resource-sensitive group as a final serial layer in the Windows fast helper when whole-suite worker contention remains unstable."
+  - "Reuse module-scoped exoplanet snapshot fixtures so regression coverage does not reparse or recompute the same 11 MB snapshot unnecessarily."
+  - "Keep the normal agent doctor read-only unless the contributor explicitly requests the disposable pytest runtime probe."
+  - "Document that a failed Windows xdist path does not authorize an automatic serial full-suite fallback for a narrow PR; use targeted `-n0` debugging and delegate broad coverage to CI."
+  - "Do not weaken CI, disable xdist by default, add committed generated routing state, or promote any scientific claim."
+
+accepted_outputs:
+  - "scripts/apl_task_validation_plan.py"
+  - "physics_lab/registry/task_validation_plan.py"
+  - "scripts/apl_agent_doctor.py opt-in pytest runtime probe"
+  - "scripts/validate_fast.py and PR CI staged validation order"
+  - "xdist loadgroup coverage for measured resource-sensitive exoplanet tests"
+  - "tests covering planner classification and doctor runtime-probe fallback behavior"
+  - "AGENTS.md, docs/agent-task-protocol.md, and docs/cross-platform-compatibility.md guidance updates"
+  - "Claude Code Windows temp allowlist update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_doctor.py tests/test_task_validation_plan.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_validate_fast.py"
+    - "python3 scripts/validate_fast.py"
+    - "python3 scripts/apl_task_validation_plan.py --task TASK-0523"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

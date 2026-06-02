@@ -1,0 +1,53 @@
+id: TASK-0533
+title: "Add task-claim issue closeout hygiene"
+type: maintainer_tooling
+status: DONE
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Prevent stale GitHub task-claim issues from making DONE tasks look occupied."
+  - "Keep onboarding and mission availability aligned with canonical task YAML after closeout."
+  - "Make closeout hygiene repeatable instead of relying on manual issue cleanup."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_close_task_claim_issues.py"
+    - "physics_lab/registry/task_claim_issues.py"
+    - "docs/maintainer-review-agent.md"
+    - "docs/review-checklists/task-closeout-checklist.md"
+  planning_context: >
+    Several GitHub task-claim issues stayed open after their tasks were already
+    merged and/or closed. This confused the current-work queue because agents
+    can read those issues as active claims. The repository needs a conservative
+    helper that closes stale claim issues only after canonical task closeout.
+
+requirements:
+  - "Detect task-claim-like issues both by label and by title/body content containing a TASK-XXXX claim."
+  - "Close only issues whose canonical task status is DONE."
+  - "Report REVIEW_READY task claims as needing task closeout first instead of auto-closing them."
+  - "Keep the helper opt-in with a dry-run default and an explicit --apply mode."
+  - "Update closeout protocol/checklist so this cleanup is part of routine closeout hygiene."
+  - "Do not make validate-repo depend on GitHub network access."
+
+accepted_outputs:
+  - "physics_lab/registry/task_claim_issues.py"
+  - "scripts/apl_close_task_claim_issues.py"
+  - "tests/test_task_claim_issues.py"
+  - "docs/maintainer-review-agent.md"
+  - "docs/review-checklists/task-closeout-checklist.md"
+
+validation:
+  commands:
+    - "python3 -m pytest -n0 tests/test_task_claim_issues.py"
+    - "python3 scripts/apl_close_task_claim_issues.py"
+    - "python3 -m ruff check physics_lab/registry/task_claim_issues.py scripts/apl_close_task_claim_issues.py tests/test_task_claim_issues.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

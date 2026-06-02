@@ -57,7 +57,10 @@ Reveal scoring remains blocked until a future source-grade no-peek release.
 
 **Evidence trail:**
 
+- [Nuclear negative-result evidence card](../reviews/nuclear-negative-result-evidence-card.md)
 - [Nuclear local-curvature no-leakage prototype review](../reviews/nuclear-local-curvature-no-leakage-prototype.md)
+- [Residual-free high-error cluster audit](../reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md)
+- [Nuclear residual-law factory sprint review](../reviews/nuclear-residual-factory-sprint.md)
 - [Nuclear Mass Surface campaign page](./nuclear-mass-surface.md)
 
 ### Quantum Direct-Measurement Data Gate
@@ -85,8 +88,9 @@ formulas by source, range, assumptions, and out-of-distribution failure maps.
 **Why it is interesting:** it is an accessible way for many agents to run
 bounded, reviewable audits without claiming new laws.
 
-**Limitation:** no textbook formula audit has run yet. The first task is
-Stellar Mass-Luminosity source/baseline planning, not metrics.
+**Limitation:** no empirical textbook formula audit has run yet. The first
+formula tasks are exact-reference fixtures and source/baseline planning, not
+universal validation or falsification.
 
 **Evidence trail:**
 
@@ -97,11 +101,11 @@ Stellar Mass-Luminosity source/baseline planning, not metrics.
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
-| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Which residual-feature families survive no-leakage controls and future reveal discipline? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; residual-free F2 is inconclusive; pairing-asymmetry and magic-parity controls are negative/control-dominated; isotope-chain transfer is mixed and chain-local. | Negative evidence card, F2 finer-taxonomy preflight, training-slice feasibility, and reveal-source readiness | A negative/preflight package that prevents another weak Nuclear loop, or a genuinely disjoint controls-first lane. |
-| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What materially changed pinned snapshot or coverage gate would justify reopening a bounded residual audit? | Compact-radius was the strongest earlier matched-control diagnostic, but `TASK-0483` found nearest-radius nulls match or beat CK17-style residuals in the highlighted true-mass slices, `TASK-0481` found no benchmark-usable compact-radius host-context axis under the current coarse-bin floor, and `TASK-0515` records `NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY`. | Preserve negative/control memory; reopen only after a materially changed pinned snapshot or explicitly revised coverage gate. | A later source-maintenance or snapshot-review artifact, not another current-snapshot residual pilot. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist; `TASK-0490` landed a synthetic digitization fixture, but direct measurement rows are still the blocker. | `TASK-0398`, `TASK-0489`, and `TASK-0491` | A source artifact/blocker or explicit scorecard for any weaker calibration-consistency path. |
+| [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can a broad-surface `NMD-0003` baseline-family and validation policy make later residual-feature tests interpretable after the first large factory sprint produced no shortlist? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; residual-free F2 is inconclusive; pairing-asymmetry and magic-parity controls are negative/control-dominated; isotope-chain transfer is mixed and chain-local; `TASK-0517` ran 72 `NMD-0003` candidates with 0 shortlisted; `TASK-0531` showed simple broad-surface refit improves train/full metrics but regresses on validation holdout. | Baseline-family gate, F2 finer-taxonomy preflight, and reveal-source readiness | A source-safe `NMD-0003` baseline-family decision or a pause on same-family factory reruns. |
+| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What materially changed pinned snapshot or coverage gate would justify reopening a bounded residual audit? | Compact-radius was the strongest earlier matched-control diagnostic, but `TASK-0483` found nearest-radius nulls match or beat CK17-style residuals in the highlighted true-mass slices, `TASK-0481` found no benchmark-usable compact-radius host-context axis under the current coarse-bin floor, and `TASK-0515` records `NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY`. | Define the second-snapshot reopen gate and dry-run no-live-fetch ingestion mechanics. | A later source-maintenance or snapshot-review artifact, not another current-snapshot residual pilot. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist; `TASK-0490` landed a synthetic digitization fixture, and `TASK-0491` records `NEEDS_MAINTAINER_DECISION` before any weaker sandbox benchmark. Direct measurement rows are still the blocker. | `TASK-0398` and `TASK-0489`; maintainer decision required before any separate calibration-consistency sandbox task. | A source artifact/blocker or an explicit maintainer decision on the bounded weaker lane. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; the real-row loader and synthetic cross-source dry-run have landed; Nemitz 2016 rows remain blocked. | Fallback source triage, direct-vs-derived separation, then baseline-readiness gate | A source/covariance readiness package that says whether a first narrow Yb/Sr consistency benchmark can become legitimate later. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; no audit has run yet. | Wien and Stefan-Boltzmann planning plus Stellar M-L review | Source/baseline plans that make the first public formula audits runnable later. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; Stefan-Boltzmann now has an exact-reference fixture, while empirical audits have not run yet. | Wien exact-reference fixture plus empirical source planning | Exact-reference fixtures that make the first public formula audits runnable later. |
 
 ## What Is Interesting Right Now
 

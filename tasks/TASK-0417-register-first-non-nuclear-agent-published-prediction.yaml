@@ -1,7 +1,7 @@
 id: TASK-0417
 title: "Register first non-nuclear AGENT_PUBLISHED prediction entry"
 type: prediction_registry
-status: READY
+status: DONE
 difficulty: medium
 priority: medium
 
@@ -36,13 +36,13 @@ requirements:
   - "Do not modify nuclear prediction entries in this task."
 
 accepted_outputs:
-  - "one prediction_registry/<domain>/PRED-XXXX.yaml entry"
+  - "prediction_registry/exoplanet_mass_radius/PRED-0001.yaml"
   - "docs/reviews/first-non-nuclear-agent-published-prediction.md"
   - "schema/validation tests if a new domain directory requires loader or registry support"
 
 validation:
   commands:
-    - "python3 scripts/apl_check_result_publication.py <new-prediction-path>"
+    - "python3 scripts/apl_check_result_publication.py prediction_registry/exoplanet_mass_radius/PRED-0001.yaml --root ."
     - "python3 -m ruff check ."
     - "python3 -m pytest"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"

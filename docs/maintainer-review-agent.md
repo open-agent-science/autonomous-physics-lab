@@ -315,6 +315,13 @@ This mode supports:
     intentionally accepts the tradeoff, record that confirmation in the PR body
     before merge. Otherwise, return it for task-scope correction or route it to
     the Architect.
+23. Follow-up task handoff (advisory): if the PR body or added review notes say
+    that a follow-up task, separate task, or minimal schema follow-up is needed,
+    check whether the PR also creates a `TASK-QUEUE` item or a
+    `tasks/proposals/` artifact. If it does not, surface an advisory warning:
+    either create a formal task/proposal before the idea is lost, or state that
+    the follow-up is intentionally advisory-only. Treat this as a blocker only
+    when the current task's accepted outputs depend on that missing follow-up.
 
 Branch-only review is a preflight, not a final PR-body check. If the review was
 run with `--branch`, run it again with `--pr <number>` after opening the PR so
@@ -619,6 +626,28 @@ Expected behavior:
 - if GitHub PR metadata is unavailable or does not match the expected task id,
   the candidate must stay blocked or needs-attention rather than advancing to
   an automatic closeout PR.
+
+### Task-claim issue closeout helper
+
+Task-claim GitHub issues are coordination markers. They must not outlive the
+canonical task after closeout, or onboarding agents will think a finished task
+is still occupied.
+
+After a closeout sweep or merged closeout PR, run:
+
+```bash
+python3 scripts/apl_close_task_claim_issues.py
+```
+
+Expected behavior:
+
+- issues whose canonical `TASK-XXXX` is already `DONE` are safe closeout
+  candidates;
+- issues whose task is still `REVIEW_READY` are reported as "task closeout
+  first" and must not be auto-closed;
+- issue detection must handle both labeled `task-claim` issues and unlabeled
+  issue bodies/titles that include `Task ID: TASK-XXXX`;
+- use `--apply` only after reviewing the printed closeable list.
 
 For a quick local closeout snapshot, run:
 

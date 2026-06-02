@@ -11,6 +11,7 @@ from physics_lab.registry.pr_capability import (
     env_with_discovered_tool_paths,
     find_git_path,
     suspicious_proxy_env_names,
+    without_suspicious_proxy_env,
 )
 
 
@@ -136,6 +137,47 @@ def test_proxy_blocker_detection_deduplicates_case_variants() -> None:
     )
 
     assert hits == ("HTTP_PROXY",)
+
+
+def test_without_suspicious_proxy_env_removes_only_known_blocker_values() -> None:
+    env = without_suspicious_proxy_env(
+        {
+            "HTTP_PROXY": "http://127.0.0.1:9",
+            "http_proxy": "http://127.0.0.1:9",
+            "HTTPS_PROXY": "http://proxy.example.test:8080",
+            "PATH": "test-path",
+        }
+    )
+
+    assert "HTTP_PROXY" not in env
+    assert "http_proxy" not in env
+    assert env["HTTPS_PROXY"] == "http://proxy.example.test:8080"
+    assert env["PATH"] == "test-path"
+
+
+def test_env_with_discovered_tool_paths_can_clear_known_blocker_proxy(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.find_gh_path",
+        lambda env=None: None,
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.pr_capability.find_git_path",
+        lambda env=None: None,
+    )
+
+    env = env_with_discovered_tool_paths(
+        {
+            "PATH": "",
+            "HTTPS_PROXY": "http://127.0.0.1:9",
+            "HTTP_PROXY": "http://proxy.example.test:8080",
+        },
+        clear_suspicious_proxy=True,
+    )
+
+    assert "HTTPS_PROXY" not in env
+    assert env["HTTP_PROXY"] == "http://proxy.example.test:8080"
 
 
 def test_env_with_discovered_tool_paths_prepends_tool_dirs(

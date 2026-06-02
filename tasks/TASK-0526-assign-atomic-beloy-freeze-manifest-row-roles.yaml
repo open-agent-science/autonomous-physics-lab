@@ -1,0 +1,54 @@
+id: TASK-0526
+title: "Assign Atomic Beloy freeze-manifest row roles"
+type: benchmark_protocol
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Remove the remaining Atomic holdout/freeze-manifest blocker without starting benchmark scoring."
+  - "Make the first Atomic benchmark no-peek boundary explicit before any second-source row is scored."
+  - "Keep benchmark readiness separate from constants-drift interpretation."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md"
+    - "docs/reviews/atomic-holdout-no-peek-manifest.md"
+    - "docs/reviews/atomic-direct-vs-derived-row-separation-audit.md"
+    - "data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml"
+    - "data/atomic_clocks/schema.md"
+  planning_context: >
+    TASK-0455 kept Atomic below BASELINE_READY partly because Beloy row-level
+    holdout splits and freeze-manifest fields remain unassigned. This task
+    defines the Beloy reference-side row roles and no-peek fields needed for a
+    future cross-source Yb/Sr benchmark, while keeping scoring blocked until a
+    second real direct-source row exists.
+
+requirements:
+  - "Do not add new measurement values."
+  - "Assign or document freeze_manifest and row_role semantics for the existing Beloy rows only if the schema supports the fields cleanly."
+  - "Keep Yb/Sr as the intended first benchmark axis and mark Al/Yb or Al/Sr rows as context or non-primary unless the review justifies another role."
+  - "Do not select success thresholds, fit drift, compute residual metrics, or unlock TASK-0456."
+  - "Document how a future second-source row would bind to the Beloy reference row without changing target axes after row inspection."
+  - "If the current schema cannot express the roles safely, write the blocker and propose the minimal schema follow-up."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/atomic-beloy-freeze-manifest-row-roles.md"
+  - "optional minimal update to data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml if role fields are schema-consistent"
+  - "tests covering any added or changed row-role/freeze-manifest fields"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_real_rows.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

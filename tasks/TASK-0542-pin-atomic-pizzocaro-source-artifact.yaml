@@ -1,0 +1,54 @@
+id: TASK-0542
+title: "Pin Atomic Pizzocaro Yb/Sr source artifact"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Create an Atomic fallback path after the Nemitz second-source row remains blocked on version-of-record access."
+  - "Move Atomic toward a second independent Yb/Sr direct source without copying values prematurely."
+  - "Keep source-artifact pinning separate from row curation and benchmark scoring."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-second-source-yb-sr-row-gate.md"
+    - "data/atomic_clocks/source_manifest.yaml"
+    - "docs/reviews/source-artifact-package-template-review.md"
+    - "docs/extraction-ledger-template.md"
+    - "docs/fresh-data-intake-protocol.md"
+  planning_context: >
+    TASK-0525 confirmed that Nemitz 2016 remains blocked for a value-bearing
+    second-source row because the version-of-record table and campaign window
+    are not committed. The same review identified Pizzocaro 2020 / INRIM as the
+    fallback, but it has no pinned source artifact yet. This task pins or
+    rejects that fallback source before any row gate tries to use it.
+
+requirements:
+  - "Review Pizzocaro 2020 / INRIM only as a source-artifact candidate for a future Yb/Sr direct-row gate."
+  - "Pin a redistributable source artifact only if it can be committed with provenance, locator, checksum, and source-version notes under the repository source-artifact policy."
+  - "If a redistributable artifact cannot be committed, write a blocker review that names the exact access, license, checksum, version, table, uncertainty, or campaign-window condition that is missing."
+  - "Record publication-of-record identity and whether it is redistributable; do not redistribute copyrighted publisher PDFs."
+  - "Do not copy or transcribe ratio values, systematic-budget values, row values, benchmark metrics, constants-drift interpretations, predictions, claims, or knowledge artifacts."
+  - "Do not mark TASK-0456 unblocked; a later row-gate task must still decide row admissibility after source pinning."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/README.md or equivalent source-artifact package if admissible"
+  - "data/atomic_clocks/source_manifest.yaml metadata-only update"
+  - "docs/reviews/atomic-pizzocaro-source-artifact-review.md"
+  - "tests for source-manifest/source-artifact validation if the manifest schema changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

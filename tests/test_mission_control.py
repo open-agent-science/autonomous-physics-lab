@@ -8,6 +8,8 @@ import sys
 
 from physics_lab.registry import mission_control
 from physics_lab.registry.mission_control import (
+    TaskAvailabilitySnapshot,
+    collect_github_task_availability,
     load_current_missions,
     mission_json,
     ready_science_pool_health,
@@ -358,6 +360,169 @@ def test_task_candidates_support_parallel_safe_options(tmp_path: Path) -> None:
     assert "separate branch/worktree" in candidates[0].parallel_hint
 
 
+def test_task_candidates_omit_live_github_occupied_tasks(tmp_path: Path) -> None:
+    for task_id in ("TASK-0005", "TASK-0006"):
+        _write_task(
+            tmp_path,
+            task_id=task_id,
+            title=f"Candidate {task_id}",
+            status="READY",
+            task_type="scientific_audit",
+            priority="high",
+        )
+
+    candidates = task_candidates(
+        tmp_path,
+        mode="research",
+        unavailable_task_ids=frozenset({"TASK-0005"}),
+    )
+
+    assert [candidate.task_id for candidate in candidates] == ["TASK-0006"]
+
+
+def test_collect_github_task_availability_reports_open_claims_and_prs(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    for task_id in ("TASK-0005", "TASK-0006", "TASK-0008"):
+        _write_task(
+            tmp_path,
+            task_id=task_id,
+            title=f"Ready candidate {task_id}",
+            status="READY",
+            task_type="scientific_audit",
+            priority="high",
+        )
+    _write_task(
+        tmp_path,
+        task_id="TASK-0009",
+        title="Already closed out",
+        status="DONE",
+        task_type="scientific_audit",
+        priority="high",
+    )
+    responses = [
+        subprocess.CompletedProcess(
+            args=[],
+            returncode=0,
+            stdout=json.dumps(
+                [
+                    {
+                        "number": 10,
+                        "title": "TASK-0005: open implementation",
+                        "state": "OPEN",
+                        "mergedAt": None,
+                        "headRefName": "agent/roman/codex/task-0005-open",
+                    },
+                    {
+                        "number": 11,
+                        "title": "TASK-0006: merged implementation",
+                        "state": "MERGED",
+                        "mergedAt": "2026-06-01T00:00:00Z",
+                        "headRefName": "agent/roman/codex/task-0006-merged",
+                    },
+                    {
+                        "number": 12,
+                        "title": "TASK-0007: closed replacement",
+                        "state": "CLOSED",
+                        "mergedAt": None,
+                        "headRefName": "agent/roman/codex/task-0007-closed",
+                    },
+                    {
+                        "number": 14,
+                        "title": "TASK-0009: merged and closed out",
+                        "state": "MERGED",
+                        "mergedAt": "2026-06-01T00:00:00Z",
+                        "headRefName": "agent/roman/codex/task-0009-done",
+                    },
+                ]
+            ),
+            stderr="",
+        ),
+        subprocess.CompletedProcess(
+            args=[],
+            returncode=0,
+            stdout=json.dumps(
+                [
+                    {
+                        "number": 13,
+                        "title": "Task claim: TASK-0008 claimed",
+                        "body": "Task ID: TASK-0008",
+                    }
+                ]
+            ),
+            stderr="",
+        ),
+    ]
+    monkeypatch.setattr(mission_control, "find_gh_path", lambda env=None: "gh")
+    monkeypatch.setattr(
+        mission_control.subprocess,
+        "run",
+        lambda *args, **kwargs: responses.pop(0),
+    )
+
+    snapshot = collect_github_task_availability(tmp_path, env={"PATH": ""})
+
+    assert snapshot.checked is True
+    assert snapshot.excluded_task_ids == ("TASK-0005", "TASK-0006", "TASK-0008")
+    assert snapshot.reasons["TASK-0005"] == ("open PR #10",)
+    assert snapshot.reasons["TASK-0006"] == ("merged PR #11 pending local closeout",)
+    assert snapshot.reasons["TASK-0008"] == ("open claim #13",)
+    assert "TASK-0007" not in snapshot.reasons
+    assert "TASK-0009" not in snapshot.reasons
+
+
+def test_collect_github_task_availability_degrades_on_known_proxy(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    def unexpected_run(*args, **kwargs):
+        raise AssertionError("gh should not run without explicit proxy bypass")
+
+    monkeypatch.setattr(mission_control.subprocess, "run", unexpected_run)
+
+    snapshot = collect_github_task_availability(
+        tmp_path,
+        env={"HTTPS_PROXY": "http://127.0.0.1:9"},
+    )
+
+    assert snapshot.checked is False
+    assert snapshot.source == "local_registry_only"
+    assert "--ignore-suspicious-proxy" in snapshot.warnings[0]
+
+
+def test_render_onboarding_prompt_omits_live_github_occupied_task(tmp_path: Path) -> None:
+    _write_missions(tmp_path)
+    for task_id in ("TASK-0007", "TASK-0008"):
+        _write_task(
+            tmp_path,
+            task_id=task_id,
+            title=f"Scientific replay {task_id}",
+            status="READY",
+            task_type="scientific_audit",
+            priority="high",
+        )
+    payload = load_current_missions(tmp_path)
+    availability = TaskAvailabilitySnapshot(
+        checked=True,
+        source="github",
+        excluded_task_ids=("TASK-0007",),
+        reasons={"TASK-0007": ("open PR #20",)},
+        warnings=(),
+    )
+
+    rendered = render_onboarding_prompt(
+        payload,
+        root=tmp_path,
+        availability=availability,
+    )
+
+    assert "TASK-0007" in rendered
+    assert "omitted occupied or merged-pending-closeout tasks: TASK-0007" in rendered
+    assert "- TASK-0007: Scientific replay TASK-0007" not in rendered
+    assert "- TASK-0008: Scientific replay TASK-0008" in rendered
+
+
 def test_task_candidates_shuffle_equal_rank_research_groups(tmp_path: Path, monkeypatch) -> None:
     class FakeRandomizer:
         def shuffle(self, items: list) -> None:
@@ -573,7 +738,7 @@ def test_apl_mission_script_json_runs_from_repo_root() -> None:
 
 def test_apl_mission_script_onboarding_runs_from_repo_root() -> None:
     result = subprocess.run(
-        [sys.executable, "scripts/apl_mission.py", "--output", "onboarding"],
+        [sys.executable, "scripts/apl_mission.py", "--output", "onboarding", "--github-availability", "off"],
         check=True,
         capture_output=True,
         text=True,
@@ -587,7 +752,7 @@ def test_apl_mission_script_onboarding_runs_from_repo_root() -> None:
 
 def test_apl_mission_script_legacy_onboarding_alias_runs_from_repo_root() -> None:
     result = subprocess.run(
-        [sys.executable, "scripts/apl_mission.py", "--onboarding"],
+        [sys.executable, "scripts/apl_mission.py", "--onboarding", "--github-availability", "off"],
         check=True,
         capture_output=True,
         text=True,
@@ -825,6 +990,15 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
         "TASK-0491",
         "TASK-0492",
         "TASK-0493",
+        "TASK-0525",
+        "TASK-0526",
+        "TASK-0527",
+        "TASK-0528",
+        "TASK-0529",
+        "TASK-0531",
+        "TASK-0535",
+        "TASK-0536",
+        "TASK-0537",
     }
     if rendered["live_task_candidates"]:
         assert (

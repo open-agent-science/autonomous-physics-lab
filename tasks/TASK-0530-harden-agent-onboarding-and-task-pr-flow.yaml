@@ -1,0 +1,62 @@
+id: TASK-0530
+title: "Harden agent onboarding availability and canonical task PR flow"
+type: maintainer_workflow
+status: DONE
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce duplicate task starts by reconciling onboarding READY options with live GitHub coordination state."
+  - "Remove repeated manual PR-body repairs without weakening repository review metadata."
+  - "Keep GitHub proxy workarounds explicit, narrow, and portable across Linux, macOS, Windows, Claude Code, and Codex."
+
+input:
+  mode: workflow
+  related_domain: contributor_experience
+  related_objects:
+    - "scripts/apl_mission.py"
+    - "physics_lab/registry/mission_control.py"
+    - "scripts/apl_task_pr_helper.py"
+    - "physics_lab/registry/task_pr_helper.py"
+    - "physics_lab/registry/pr_capability.py"
+    - "docs/agent-task-protocol.md"
+    - "docs/cross-platform-compatibility.md"
+  planning_context: >
+    A Windows Codex TASK-0491 session completed successfully, but onboarding
+    initially surfaced READY tasks that already had open or merged PRs, the
+    canonical task PR scaffold needed manual routing and lifecycle repairs,
+    PowerShell UTF-8 BOM output confused preflight, a Windows .venv strict
+    validation command was not recognized as equivalent to python3, and
+    GitHub publication commands needed repeated manual unsetting of the known
+    local blocker proxy. This implements a bounded subset of the broader
+    coordination and Windows-discovery proposals without marking those wider
+    proposals resolved. Harden these paths without introducing committed
+    generated agent-routing state or silently changing normal proxy behavior.
+
+requirements:
+  - "Add dynamic stdout-only live GitHub availability filtering for onboarding; exclude READY tasks with open claims, open PRs, or merged PRs pending local closeout."
+  - "Degrade clearly to local registry-only onboarding when gh, network access, or GitHub metadata is unavailable."
+  - "Keep live GitHub lookup optional outside onboarding so deterministic CLI and test paths do not acquire an external dependency."
+  - "Make canonical task PR preflight tolerate UTF-8 BOM input and recognize equivalent python3, Python venv, and Windows python.exe strict repository validation commands."
+  - "Render scaffold lifecycle checkboxes unchecked until the corresponding publication actions actually happen."
+  - "Allow callers to fill output-routing fields during scaffold generation instead of repairing the body by hand."
+  - "Add an explicit opt-in PR-helper flag that clears only known local blocker proxy values for the child GitHub CLI command."
+  - "Do not silently clear legitimate proxies, mutate the parent environment, add a static task-availability cache, weaken review checks, or change scientific artifacts."
+
+accepted_outputs:
+  - "live onboarding GitHub availability filter with graceful offline fallback"
+  - "canonical task PR scaffold and preflight hardening"
+  - "opt-in known-blocker proxy clearing for canonical task PR create/ready"
+  - "cross-platform regression tests and protocol guidance"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py tests/test_task_pr_helper.py tests/test_pr_capability.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

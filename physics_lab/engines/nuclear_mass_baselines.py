@@ -155,6 +155,76 @@ def fit_semi_empirical_coefficients(
     )
 
 
+def design_matrix(entries: Iterable[NuclearMassEntry]) -> np.ndarray:
+    """Return the liquid-drop design matrix for a set of nuclear-mass entries."""
+    return np.asarray([_design_row(entry.Z, entry.N) for entry in entries], dtype=float)
+
+
+def fit_semi_empirical_coefficients_weighted(
+    entries: Iterable[NuclearMassEntry],
+    *,
+    weights: Iterable[float],
+) -> SemiEmpiricalCoefficients:
+    """Fit semi-empirical coefficients by weighted least squares.
+
+    ``weights`` are per-row non-negative weights applied to the squared
+    binding-energy residual. The solve is the standard ``sqrt(w)`` row-scaling
+    of the ordinary least-squares design.
+    """
+    rows = list(entries)
+    design = design_matrix(rows)
+    targets = np.asarray([entry.binding_energy_mev for entry in rows], dtype=float)
+    weight_array = np.asarray(list(weights), dtype=float)
+    if weight_array.shape[0] != design.shape[0]:
+        raise ValueError("weights length does not match number of entries.")
+    if np.any(weight_array < 0):
+        raise ValueError("weights must be non-negative.")
+    sqrt_weights = np.sqrt(weight_array)
+    weighted_design = design * sqrt_weights[:, None]
+    weighted_targets = targets * sqrt_weights
+    solution, *_ = np.linalg.lstsq(weighted_design, weighted_targets, rcond=None)
+    return SemiEmpiricalCoefficients(
+        volume=float(solution[0]),
+        surface=float(solution[1]),
+        coulomb=float(solution[2]),
+        asymmetry=float(solution[3]),
+        pairing=float(solution[4]),
+    )
+
+
+def fit_semi_empirical_coefficients_ridge(
+    entries: Iterable[NuclearMassEntry],
+    *,
+    alpha: float,
+) -> SemiEmpiricalCoefficients:
+    """Fit ridge-regularized liquid-drop coefficients.
+
+    Each design column is scaled by its population standard deviation so the
+    ridge penalty ``alpha`` acts on dimensionless standardized coefficients. The
+    liquid-drop model has no intercept, so columns are scaled but not centered.
+    """
+    if alpha < 0:
+        raise ValueError("alpha must be non-negative.")
+    rows = list(entries)
+    design = design_matrix(rows)
+    targets = np.asarray([entry.binding_energy_mev for entry in rows], dtype=float)
+    scale = design.std(axis=0, ddof=0)
+    scale = np.where(scale == 0.0, 1.0, scale)
+    standardized = design / scale
+    n_features = standardized.shape[1]
+    gram = standardized.T @ standardized + alpha * np.eye(n_features)
+    moment = standardized.T @ targets
+    standardized_solution = np.linalg.solve(gram, moment)
+    solution = standardized_solution / scale
+    return SemiEmpiricalCoefficients(
+        volume=float(solution[0]),
+        surface=float(solution[1]),
+        coulomb=float(solution[2]),
+        asymmetry=float(solution[3]),
+        pairing=float(solution[4]),
+    )
+
+
 def evaluate_baseline(
     *,
     entries: Iterable[NuclearMassEntry],

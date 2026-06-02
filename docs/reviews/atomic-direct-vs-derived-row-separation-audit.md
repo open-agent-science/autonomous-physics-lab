@@ -1,84 +1,81 @@
-# Atomic Direct-Vs-Derived Row Separation Audit
+# Atomic Direct-vs-Derived Row Separation Audit
 
 **Task:** `TASK-0487`
-**Campaign:** `atomic-clock-residuals`
-**Audit class:** scientific validation / source discipline
-**Status:** no new measurement values, no derived values, no drift fit, no claim
+**Campaign:** Atomic Clock Residuals
+**Verdict:** `DIRECT_DERIVED_BOUNDARY_INTACT_WITH_FUTURE_DERIVED_CONSTRAINT_REQUIREMENTS`
 
 ## Scope
 
-This audit checks the current Atomic-Clock schema sketch, committed Beloy 2021
-rows, loader rules, and source-review notes for direct-vs-derived separation.
-It records the boundary that future derived-constraint tasks must preserve
-before any benchmark consumer runs.
+This audit reviews the current Atomic Clock Residuals schema sketch, committed
+Beloy 2021 / BACON direct-ratio seed rows, loader rules, and campaign review
+notes for direct-vs-derived row separation.
 
-Inputs reviewed:
+This task does not add measurement values, derived constants constraints,
+review-summary values, benchmark metrics, drift fits, prediction-registry
+entries, claims, results, or knowledge artifacts.
 
-- `data/atomic_clocks/schema.md`;
-- `data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml`;
-- `data/atomic_clocks/atomic_holdout_manifest.yaml`;
-- `physics_lab/engines/atomic_clock_residuals.py`;
-- `docs/campaigns/atomic-clock-residuals.md`;
-- `docs/reviews/atomic-clock-primary-frequency-ratio-source-review.md`;
-- `docs/reviews/atomic-clock-derived-constraint-source-review.md`;
-- `docs/reviews/atomic-clock-beloy-2021-direct-ratio-row-curation.md`;
-- `docs/reviews/atomic-holdout-no-peek-manifest.md`;
-- `docs/reviews/atomic-first-benchmark-covariance-policy.md`.
+## Reviewed Surfaces
 
-No live source fetch, row ingestion, benchmark metric, prediction-registry
-entry, result artifact, claim, or knowledge entry is added.
+- `data/atomic_clocks/schema.md`
+- `data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml`
+- `data/atomic_clocks/atomic_holdout_manifest.yaml`
+- `physics_lab/engines/atomic_clock_residuals.py`
+- `docs/campaigns/atomic-clock-residuals.md`
+- `docs/reviews/atomic-clock-primary-frequency-ratio-source-review.md`
+- `docs/reviews/atomic-clock-derived-constraint-source-review.md`
+- `docs/reviews/atomic-clock-beloy-2021-direct-ratio-row-curation.md`
+- `docs/reviews/atomic-holdout-no-peek-manifest.md`
+- `docs/reviews/atomic-first-benchmark-covariance-policy.md`
 
-## Pre-Claim Search
+## Schema Boundary Check
 
-Before implementation, open-PR search found no active implementation PR for:
+`data/atomic_clocks/schema.md` separates future Atomic evidence into four row
+classes:
 
-- `TASK-0487`;
-- `atomic direct derived row separation`.
-
-Claim surface for this PR:
-
-- `tasks/TASK-0487-audit-atomic-direct-vs-derived-row-separation.yaml`;
-- `docs/reviews/atomic-direct-vs-derived-row-separation-audit.md`;
-- `data/atomic_clocks/schema.md`.
-
-## Current Schema Boundary
-
-The schema sketch already names four row classes:
-
-| Row class | Allowed role |
+| Row class | Current boundary |
 | --- | --- |
-| `direct_measurement` | Primary measured frequency ratio or comparison row. |
+| `direct_measurement` | Primary measured frequency-ratio or comparison row. |
 | `derived_constraint` | Drift or constants-variation constraint derived from measurements plus sensitivity/model assumptions. |
 | `review_summary` | Evaluation or review value that combines sources; not ingestible unless provenance and combination rules are explicit. |
 | `synthetic_dry_run` | Fabricated loader/schema exercise row only. |
 
-The schema now makes the consistency rule explicit: `row_class` must agree with
-the `classification` booleans. Real direct rows must set only
-`classification.direct_measurement: true`; the derived, review-summary, and
-synthetic flags must be `false`.
+`row_class` and the `classification` booleans must agree. For real direct
+measurement rows, only `classification.direct_measurement` may be `true`; the
+derived, review-summary, and synthetic flags must be `false`.
 
-## Beloy Row Audit
+## Beloy 2021 Row Check
 
-The committed Beloy seed file contains three rows:
+`data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml` contains three
+committed direct rows:
 
-| Row | Observable | Row class | Classification state | Separation verdict |
-| --- | --- | --- | --- | --- |
-| `ACR-0001-ROW-001` | Al+/Yb frequency ratio | `direct_measurement` | direct `true`; derived/review/synthetic `false` | `PASS` |
-| `ACR-0001-ROW-002` | Al+/Sr frequency ratio | `direct_measurement` | direct `true`; derived/review/synthetic `false` | `PASS` |
-| `ACR-0001-ROW-003` | Yb/Sr frequency ratio | `direct_measurement` | direct `true`; derived/review/synthetic `false` | `PASS` |
+| Row | Observable | Declared `row_class` | Direct flag | Derived flag | Review-summary flag | Synthetic flag |
+| --- | --- | --- | --- | --- | --- | --- |
+| `ACR-0001-ROW-001` | `frequency_ratio_al27plus_yb171_beloy2021` | `direct_measurement` | true | false | false | false |
+| `ACR-0001-ROW-002` | `frequency_ratio_al27plus_sr87_beloy2021` | `direct_measurement` | true | false | false | false |
+| `ACR-0001-ROW-003` | `frequency_ratio_yb171_sr87_beloy2021` | `direct_measurement` | true | false | false | false |
 
-The file-level scope flags also preserve the boundary:
+Each row records source provenance, clock/reference systems, dimensionless
+ratio units, campaign interval, uncertainty components, covariance notes,
+holdout status, and limitations. These interpretation fields do not make the
+row a derived constraint as long as the row value remains the primary reported
+frequency-ratio measurement and no constants-drift quantity is computed or
+copied as the observable value.
 
-- `benchmark_allowed: false`;
-- `drift_fitting_allowed: false`;
-- `derived_constants_constraint_allowed: false`;
-- `claim_promotion_allowed: false`;
-- `prediction_registry_allowed: false`;
-- `promotion_boundary.writes_derived_constraint_values: false`.
+## Dataset-Level Boundary
 
-Verdict: the Beloy seed rows are direct measurement rows only. Their
-per-systematic-component notes and covariance-group metadata are uncertainty
-context for the direct measurements, not derived constants constraints.
+The Beloy dataset preserves the boundary with file-level flags:
+
+```yaml
+benchmark_allowed: false
+drift_fitting_allowed: false
+derived_constants_constraint_allowed: false
+claim_promotion_allowed: false
+prediction_registry_allowed: false
+```
+
+Its promotion boundary writes real clock values only as a first seed. Derived
+constraint values, benchmark metrics, prediction-registry entries, canonical
+results, and claim promotion remain blocked.
 
 ## Loader Boundary
 
@@ -96,61 +93,89 @@ from synthetic fixtures and derived synthetic rows:
 - synthetic dry-run rows are accepted only through the synthetic loader path,
   and derived synthetic rows require `derived_constraint` metadata.
 
-This means a future derived-constraint row cannot silently enter the current
+A future derived-constraint row therefore cannot silently enter the current
 real direct-row loader.
 
 ## Future Derived-Constraint Requirements
 
-A future task that writes `row_class: derived_constraint` must record at least:
+Any future task that adds `row_class: derived_constraint` must include at
+least:
 
-| Requirement | Reason |
-| --- | --- |
-| `derived_constraint.quantity` | Names the constrained quantity instead of reusing a direct-ratio label. |
-| `sensitivity_coefficients.source` and coefficient values | Preserves the model bridge from frequency ratios to constants constraints. |
-| `input_measurement_rows` | Prevents treating a derived value and its input direct rows as independent evidence. |
-| Interval or epoch semantics | Distinguishes a campaign bound, repeated comparison, slope, or fitted coefficient. |
-| Unit and bound semantics | Separates point estimates, limits, confidence intervals, and coverage conventions. |
-| Model assumptions | Records which constants vary, which are fixed, and whether multiple constants are fit together. |
-| Covariance/correlation notes | Keeps shared measurements, shared clocks, and coefficient correlations visible. |
-| Source locator, retrieval date, checksum or archive policy, and license note | Matches the direct-row provenance floor. |
-| `holdout.split: excluded` unless a later manifest revision authorizes otherwise | Keeps derived constraints out of scored direct residual axes by default. |
+| Field family | Required content | Stop condition if missing |
+| --- | --- | --- |
+| Constraint identity | Quantity, value kind, units, confidence or bound style. | Cannot distinguish drift bound from direct ratio. |
+| Sensitivity model | Coefficient source, coefficient values, assumptions. | Cannot audit model dependency. |
+| Measurement provenance | Input rows or primary source measurements. | High risk of direct/derived double counting. |
+| Time interval | Epoch or interval semantics. | Drift bounds are not comparable. |
+| Uncertainty semantics | Confidence level, covariance/correlation notes. | Constraint cannot be benchmarked. |
+| Source artifact | DOI/archive locator, retrieval date, checksum or archive policy. | Fails fresh-data source policy. |
+| Promotion boundary | Claim/result/prediction status and limitations. | Overclaim risk. |
 
-Derived constraints must not be loaded through the direct-row loader, must not be
-used as direct benchmark rows, and must not be combined with their own input
-measurements as independent evidence without a later reviewed dependency rule.
+The `input_measurement_rows` field must list all direct measurement rows that
+feed the constraint, or explicitly state that the source does not publish
+enough information to map the constraint to source rows. A constraint without
+this mapping is not benchmark-ready.
 
 ## Review-Summary Boundary
 
-`review_summary` rows remain review-only unless a future task can recover and
-record:
+A `review_summary` value must not be promoted as a direct row. Future review or
+evaluation values are admissible only as planning metadata unless they carry:
 
-- the primary measurements combined by the review value;
-- the combination or evaluation rule;
-- uncertainty, covariance, and confidence semantics;
-- source artifact provenance and reuse terms;
-- whether the value duplicates direct rows or derived constraints already in
-  the repository.
+- the primary measurements used in the summary;
+- the combination rule;
+- covariance or correlation assumptions;
+- interval semantics;
+- source checksums or archive policy;
+- an explicit reason why the review summary is not double-counting rows already
+  present in the repository.
 
-Absent those fields, a review summary may be preserved as source-review memory
-but must remain excluded from scored residual axes.
+Without that metadata, the value should remain a review note, not an Atomic
+row.
 
-## Verdict
+## Stop Conditions For Future Atomic Work
 
-`VALID_IN_RANGE`
+Stop before ingestion or benchmark consumption when:
 
-Atomic's current Beloy seed rows preserve direct-vs-derived separation for the
-current source-readiness stage. The repository has direct rows only; no derived
-constraint values are committed. The real direct-row loader rejects derived,
-review-summary, and synthetic classifications, and the schema now states the
-row-class/classification consistency rule explicitly.
+- a task mixes `direct_measurement` and `derived_constraint` rows in one table
+  without explicit `row_class` and classification flags;
+- a constants-drift bound is copied as if it were a primary frequency ratio;
+- a direct frequency-ratio row is used as an independent row after it has
+  already contributed to a derived constraint in the same benchmark surface;
+- sensitivity coefficients are used without source citation, values, and
+  assumptions;
+- a review-summary value hides which primary measurements were combined;
+- a benchmark consumer ignores the dataset's `benchmark_allowed: false` or
+  `derived_constants_constraint_allowed: false` flags;
+- a task proposes prediction-registry, claim, result, or knowledge promotion
+  before a reviewed baseline-readiness gate.
+
+## Impact On Baseline-Readiness Gates
+
+Baseline-readiness reviews should treat direct-vs-derived separation as intact
+for Beloy `ACR-0001`, but still blocked for any benchmark that requires
+derived constraints. No derived-constraint rows exist and no separate
+source-gated derived-constraint ingestion task has passed.
 
 ## Limitations
 
-- This audit does not add or inspect new source values.
-- It does not validate any future derived-constraint source-specific row.
-- It does not unblock constants-drift fitting or any new benchmark result.
-- The Beloy rows remain sandbox-only first-seed data until the baseline
-  readiness gate accepts all source, holdout, loader, and covariance blockers.
+- This audit does not inspect the original Beloy PDF or recompute row values.
+- This audit does not add or validate a derived-constraint schema in code.
+- This audit does not run an Atomic benchmark.
+- This audit does not decide whether single-source Beloy rows are enough for a
+  baseline; that remains a separate source/replay/holdout decision.
+- This audit does not promote the Atomic campaign to `BASELINE_READY`.
+
+## Verdict
+
+`DIRECT_DERIVED_BOUNDARY_INTACT_WITH_FUTURE_DERIVED_CONSTRAINT_REQUIREMENTS`
+
+The current Beloy `ACR-0001` rows are consistently represented as sandbox-only
+`direct_measurement` rows with derived constraints, review summaries, benchmark
+use, drift fitting, prediction registry, result publication, and claim
+promotion disabled. Future Atomic derived-constraint work must use a distinct
+row class, explicit sensitivity-model metadata, input-measurement provenance,
+interval semantics, and source checksums before it can be considered for
+benchmark or scientific-memory routing.
 
 ## Output Routing Summary
 

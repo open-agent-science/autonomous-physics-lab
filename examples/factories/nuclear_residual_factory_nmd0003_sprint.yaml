@@ -1,0 +1,53 @@
+# Nuclear residual-law factory sprint over the NMD-0003 AME2020 measured surface
+# (TASK-0517). Uses the shared Research Factory runner and Nuclear adapter; no
+# live fetch, baseline refit, prediction reveal, claim, or knowledge promotion.
+factory_id: nuclear-residual-factory-nmd0003-sprint-001
+campaign_id: nuclear-mass-surface
+adapter_id: nuclear_residual_factory
+adapter_version: "0.3"
+task_id: TASK-0517
+dataset:
+  source_id: NMD-0003
+  snapshot_ref: data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+  split_manifest_ref: data/nuclear_masses/nmd-0003-split-manifest.yaml
+  retrieval_policy: no_live_fetch
+  checksum_policy: source and committed artifact checksums recorded in data/nuclear_masses/nmd-0003-source-manifest.yaml
+baseline:
+  baseline_id: nuclear-semi-empirical-fit
+  baseline_type: frozen
+  coefficients_ref: results/EXP-0012/RUN-0001/result.yaml
+  coefficients_model_id: model_fitted_semi_empirical
+families:
+  - shell_distance
+  - valence_z
+  - valence_n
+  - odd_even_pairing
+  - asymmetry
+  - local_curvature
+controls:
+  - null_baseline
+  - shuffled_feature
+  - matched_random_slice
+  - complexity_penalty
+  - leakage_check
+  - post_ame2020_check
+candidate_cap: 100
+options:
+  candidate_grid: sweep
+splits:
+  split_manifest_ref: data/nuclear_masses/nmd-0003-split-manifest.yaml
+  post_ame2020_holdout_ref: data/nuclear_masses/post_ame2020_holdout.yaml
+  policy: deterministic 70/30 train/holdout by sorted (A, Z, N) within the NMD-0003 measured training surface
+  validation_holdout_fraction: 0.3
+  holdout_boundary: post_ame2020_holdout.yaml remains excluded from training and is not reveal-scored in this sprint
+limitations:
+  - "Bounded sprint over the committed NMD-0003 AME2020 measured-row training surface; no live fetch."
+  - "The frozen semi-empirical baseline coefficients come from RESULT-0015/NMD-0002 and are reused without refit; broad-surface baseline weakness is a limitation, not a new-law signal."
+  - "post-AME2020 rows remain excluded by the NMD-0003 split manifest; this sprint performs no reveal scoring and writes no PRED entries."
+  - "Leakage-sensitive local-curvature candidates remain preflight-blocked until a dedicated no-leakage implementation is available."
+  - "Sandbox factory run; no claim, prediction, result, or knowledge promotion."
+reproducibility:
+  code_reference: physics_lab/factories/nuclear.py
+  command: python3 scripts/run_research_factory.py --config examples/factories/nuclear_residual_factory_nmd0003_sprint.yaml --output-dir <dir>
+  run_date: "2026-06-02"
+  seed: 0
