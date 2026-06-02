@@ -32,6 +32,7 @@ from physics_lab.registry.review_checks import (
     cross_platform_advisory_hits,
     cross_platform_surface_hits,
     decision_regression_advisory_hits,
+    follow_up_task_advisory_hits,
     missing_expected_outputs,
     unexpected_protected_changes,
     claim_status_promotions,
@@ -1072,6 +1073,13 @@ def build_review_report(
             advisory_warnings.append(message)
         else:
             required_fixes.append(message)
+    follow_up_task_advisories = follow_up_task_advisory_hits(
+        overclaim_lines,
+        changed_files,
+        pr_title=pr_metadata.title if pr_metadata is not None else "",
+        pr_body=pr_metadata.body if pr_metadata is not None else "",
+    )
+    advisory_warnings.extend(follow_up_task_advisories)
     security_lines = tuple(
         parse_added_lines(
             run_command(

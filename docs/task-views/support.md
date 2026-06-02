@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0534` - Add review-agent advisory for informal follow-up task mentions (`maintainer_tooling`, priority `high`, difficulty `low`, domain `review_agent`)
