@@ -1,0 +1,50 @@
+proposal_id: 20260602-roman-nuclear-curated-slice-expansion
+title: Provide an F2-coverage-clearing curated nuclear training slice
+status: PROPOSED
+type: scientific_dataset
+priority: medium
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+strategy_alignment:
+- Unblock F2 by attacking the binding training-slice coverage constraint, not by re-tuning
+  labels.
+summary: Establish a curated nuclear training slice that clears the TASK-0478 F2 reopen coverage
+  gate (>=3 declared residual-free bins each with >=5 training rows, >=2 outside the dominant
+  near-magic family, >=30 total), so a future gated F2 finer-taxonomy scoring task can run.
+  Check whether the existing nmd-0003-ame2020-measured-training slice already satisfies the
+  gate under the frozen Z/N/A-only bin scheme; if it does, the deliverable is a coverage-confirmation
+  review and a split/selection manifest; if not, curate additional measured rows under the
+  existing source/no-leakage discipline.
+rationale: TASK-0449 collapsed because the NMD-0002 training slice (11 rows) cannot populate
+  even the coarse F2 taxonomy with >=2 cells of >=2 rows. TASK-0478 declared the finer taxonomy
+  and froze the coverage gate but explicitly identified training-slice coverage as the binding,
+  fixable blocker. Filed per the TASK-0534 mandatory fixable-gap self-reporting rule.
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+  - data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  - data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+  - docs/nuclear-residual-feature-no-leakage-contract.md
+  - docs/notes/nuclear-controls-first-hypothesis-gauntlet.md
+  planning_context: Follow-up to TASK-0478 (docs/reviews/nuclear-f2-finer-taxonomy-preflight.md).
+    Prerequisite for any future F2 finer-taxonomy scoring task. No candidate metrics; coverage
+    is checked deterministically from Z/N/A only before any score.
+requirements:
+- Compute bin populations deterministically from Z/N/A only; no residual, baseline-error,
+  or source-status inputs.
+- Freeze the coverage check against the TASK-0478 declared taxonomy and floors; do not re-tune
+  floors after inspection.
+- Do not compute candidate metrics, fit a candidate, or author any PRED/CLAIM/KNOW/RESULT
+  artifact.
+- If curating new rows, follow the existing nuclear source manifest and no-leakage discipline;
+  keep F2 diagnostic_only until a separate gated scoring task runs.
+accepted_outputs:
+- canonical task spec
+- coverage-confirmation review note
+- optional split/selection manifest under data/nuclear_masses/
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
