@@ -10,6 +10,7 @@
 - `TASK-0540` - Plan Materials pinned source snapshot (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0541` - Define Materials row schema and holdout skeleton (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0542` - Pin Atomic Pizzocaro Yb/Sr source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
+- `TASK-0547` - Materials open pinned-snapshot acquisition pilot (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 
 ## IN_PROGRESS
 

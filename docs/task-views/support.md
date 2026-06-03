@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0545` - Define source acquisition, pinning, and extraction lane (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+None.
