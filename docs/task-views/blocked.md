@@ -23,4 +23,3 @@
 - `TASK-0305` - Score nuclear shell-axis mini-wave reveal (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_physics`)
 - `TASK-0461` - Add lane collision preflight for parallel agent work (`contributor_experience`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0463` - Add capacity summary section to project snapshots (`snapshot_tooling`, priority `medium`, difficulty `medium`, domain `snapshot_tooling`)
-- `TASK-0544` - Add Fresh Source Scout role and source candidate brief template (`agent_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
