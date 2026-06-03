@@ -1,7 +1,7 @@
 id: TASK-0540
 title: "Plan Materials pinned source snapshot"
 type: scientific_dataset
-status: READY
+status: SUPERSEDED
 difficulty: medium
 priority: high
 
@@ -18,11 +18,10 @@ input:
     - "campaign_profiles/materials-property-residuals.yaml"
     - "docs/fresh-data-intake-protocol.md"
   planning_context: >
-    The Materials campaign scaffold identifies JARVIS-DFT, Materials Project,
-    OQMD, AFLOW, and curated experimental compilations as possible source
-    classes. The next useful step is a source-snapshot plan that chooses one
-    first source and one first property axis with license, version, checksum,
-    and no-live-fetch rules fixed before ingestion.
+    Superseded by TASK-0547 and TASK-0548: Materials Project was selected,
+    registered, narrowed to a stable-binary-oxides pilot, and pinned as the first
+    checksummed Materials source dataset. Create a fresh bounded task if a wider
+    Materials source comparison or second source is needed.
 
 requirements:
   - "Compare at least three candidate source classes from the campaign scaffold for license, public accessibility, version pinning, checksum feasibility, row provenance, and first-property suitability."
