@@ -1,0 +1,53 @@
+id: TASK-0554
+title: "Prepare Exoplanet second-snapshot acquisition package"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Exoplanet from dry-run mechanics toward a real materially changed pinned snapshot."
+  - "Keep the second-snapshot fetch separate from residual scoring and no-peek target evaluation."
+  - "Use the acquisition lane instead of repeating current-snapshot residual pilots."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-second-snapshot-ingestion-dry-run.md"
+    - "data/exoplanets/second_snapshot_reopen_coverage_gate.yaml"
+    - "data/exoplanets/second_snapshot_target_freeze.yaml"
+    - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >
+    TASK-0536 proved the second-snapshot ingestion path can replay checksums,
+    row-class separation, and no-peek metadata without live values. The next
+    useful step is an acquisition package for a real later PSCompPars snapshot,
+    still without scoring residuals or target planets.
+
+requirements:
+  - "Prepare a source-acquisition package for a later NASA Exoplanet Archive / PSCompPars snapshot under the acquisition lane."
+  - "Do not fetch or commit real second-snapshot rows unless the task is explicitly run as an approved source-acquisition task with network permission and the resulting artifact is checksum-pinned."
+  - "If no fetch is performed, commit a runbook/manifest shape with exact query, fields, row-class rules, checksum policy, and no-peek attestation requirements."
+  - "Preserve true-mass, minimum-mass, model-derived, and excluded row classes as separate states."
+  - "Do not inspect target values, run mass-radius residual metrics, score target planets, or create prediction/result/claim/knowledge artifacts."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/runbooks/exoplanet-second-snapshot-acquisition-runbook.md"
+  - "data/exoplanets/second_snapshot_manifest.yaml or metadata-only manifest shape"
+  - "docs/reviews/exoplanet-second-snapshot-acquisition-package.md"
+  - "optional pinned snapshot artifact only if the acquisition lane is explicitly approved and all checksums/provenance fields are filled"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_dataset_schema.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
