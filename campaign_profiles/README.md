@@ -37,9 +37,13 @@ contract.
 | `particle-mass-relations.yaml` | `GUARDRAIL_ONLY` | Falsification-first and provenance-focused proposal work |
 | `textbook-formula-audit.yaml` | `SCAFFOLD` | Per-formula sandbox audits of textbook formulas against pinned public datasets; first slice queued is the Stellar Mass-Luminosity OOD audit |
 
-Profiles may also include a `portfolio` block. That block is the source for the
-generated `campaigns/catalog.yaml` portfolio registry; edit profiles, then run
-`python3 scripts/generate_campaign_catalog.py --write`.
+Profiles may also include a `portfolio` block. That block is the editable
+source for the generated `campaign_profiles/_catalog.yaml` portfolio index;
+edit profiles, then run `python3 scripts/generate_campaign_catalog.py --write`.
+
+`_catalog.yaml` is a service-style generated aggregate, not an editable campaign
+profile. Profile discovery ignores `_*.yaml` files so generated helpers can live
+next to the source profiles without being mistaken for campaign contracts.
 
 ## Review Rule
 

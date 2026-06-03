@@ -2,9 +2,9 @@
 
 Maps active canonical tasks to campaign lanes using existing task metadata
 (`related_domain`, related objects, accepted outputs) and the campaign ids from
-`campaigns/catalog.yaml`, so agents and the Scientific Campaign Director can see
-which READY task belongs to which lane and whether it is safe for parallel work
-without reading every task file.
+`campaign_profiles/_catalog.yaml`, so agents and the Scientific Campaign
+Director can see which READY task belongs to which lane and whether it is safe
+for parallel work without reading every task file.
 
 Design boundaries:
 - descriptive only: it never changes task status, never promotes claims, and
@@ -24,6 +24,8 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+
+from physics_lab.registry.campaigns import campaign_catalog_path
 
 ACTIVE_STATUSES = ("READY", "IN_PROGRESS", "REVIEW_READY", "BLOCKED")
 
@@ -62,7 +64,7 @@ SHARED_MUTABLE_SURFACES = (
     "prediction_registry/",
     "hypotheses/",
     "experiments/",
-    "campaigns/catalog.yaml",
+    "campaign_profiles/_catalog.yaml",
     "missions/current.yaml",
 )
 
@@ -85,8 +87,8 @@ class TaskLaneEntry:
 
 
 def load_campaign_ids(root: Path) -> tuple[str, ...]:
-    """Return campaign ids declared in campaigns/catalog.yaml."""
-    catalog_path = root / "campaigns" / "catalog.yaml"
+    """Return campaign ids declared in the generated campaign portfolio index."""
+    catalog_path = campaign_catalog_path(root)
     if not catalog_path.exists():
         return ()
     payload = yaml.safe_load(catalog_path.read_text(encoding="utf-8")) or {}

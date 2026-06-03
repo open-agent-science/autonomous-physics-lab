@@ -62,7 +62,7 @@ LOADERS: dict[str, Loader] = {
 }
 PATTERNS: dict[str, str] = {
     "agents": "*.yaml",
-    "campaigns": "catalog.yaml",
+    "campaigns": "_catalog.yaml",
     "agent_runs": "*/agent_run.yaml",
     "claims": "*.md",
     "examples": "*.yaml",
@@ -254,11 +254,14 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
     loader = LOADERS[directory]
     pattern = PATTERNS[directory]
     items: list[tuple[Path, dict[str, Any]]] = []
-    base_path = (
-        root / "tasks" / "proposals"
-        if directory == "task_proposals"
-        else root / directory
-    )
+    if directory == "task_proposals":
+        base_path = root / "tasks" / "proposals"
+    elif directory == "campaigns":
+        # Historical validation count key; the generated portfolio index now
+        # lives beside editable campaign profiles.
+        base_path = root / "campaign_profiles"
+    else:
+        base_path = root / directory
     recursive_directories = {"knowledge", "results"}
     iterator = (
         base_path.rglob(pattern)

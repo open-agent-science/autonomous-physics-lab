@@ -169,6 +169,7 @@ def validate_review_tier_metadata(
 
 
 FILENAME_KIND_MAP: dict[str, str] = {
+    "_catalog.yaml": "campaign_catalog",
     "review_metadata.yaml": "review_metadata",
     "result_candidate_review.yaml": "result_candidate_review",
     "agent_run.yaml": "agent_run",
