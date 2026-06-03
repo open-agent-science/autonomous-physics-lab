@@ -1,7 +1,7 @@
 id: TASK-0550
 title: "Run first Materials MD-0001 baseline residual benchmark"
 type: scientific_benchmark
-status: READY
+status: BLOCKED
 difficulty: high
 priority: high
 
@@ -24,15 +24,17 @@ input:
   planning_context: >
     TASK-0548 landed MD-0001: a pinned Materials Project stable-binary-oxides
     pilot with 169 rows and two separate computed-DFT property axes. The next
-    useful scientific step is a first conservative baseline/residual benchmark
-    over the committed rows only, reported as benchmark evidence, not a
-    materials-discovery result.
+    useful scientific step after TASK-0541 lands the holdout/no-peek manifest
+    is a first conservative baseline/residual benchmark over the committed rows
+    only, reported as benchmark evidence, not a materials-discovery result.
+    Keep this task blocked until the holdout boundary is committed so the first
+    Materials benchmark does not need an avoidable replay.
 
 requirements:
   - "Use only committed MD-0001 rows and the committed snapshot manifest; no live external fetch."
   - "Analyze `formation_energy_per_atom` and `band_gap` as separate axes; never pool the metrics."
   - "Declare all baselines and null controls before reporting metrics. At minimum include a global-mean/median null and one simple composition-aware baseline per axis."
-  - "If TASK-0541 has not landed a holdout manifest yet, use an explicitly documented temporary deterministic split and record that a later replay may be required."
+  - "Use the TASK-0541 holdout/no-peek manifest; do not substitute a temporary split unless a maintainer explicitly amends this task."
   - "Report MAE/RMSE and residual summaries per axis, including interpretable slices by cation group, formula family where feasible, spacegroup/prototype where feasible, and property range."
   - "Do not train complex ML models, propose material candidates, infer synthesis/design guidance, or create material-discovery claims."
   - "Route the final output through docs/result-promotion-protocol.md and keep any result scoped to the MD-0001 benchmark."
