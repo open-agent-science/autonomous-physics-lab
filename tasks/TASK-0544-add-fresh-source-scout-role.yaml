@@ -1,0 +1,53 @@
+id: TASK-0544
+title: "Add Fresh Source Scout role and source candidate brief template"
+type: agent_workflow
+status: BLOCKED
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Add the front-of-funnel layer that finds and classifies published sources without curating rows."
+  - "Route each source candidate to the correct unblock lane via a blocker_type verdict."
+  - "Keep source scouting distinct from campaign direction and from task-proposal formatting."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/source-manifest-minimum-schema.md"
+    - "agents/AGENT-TEMPLATE.yaml"
+    - "agents/scientific-curator.yaml"
+    - "agents/task-proposal-agent.yaml"
+  planning_context: >
+    Deferred follow-up (wave 2) of the data-source layer. Adds a Fresh Source
+    Scout role that finds/assesses published sources and emits an admissibility
+    verdict plus a blocker_type and a follow-up proposal, but never curates
+    rows, never creates benchmark metrics, and never auto-unblocks downstream
+    tasks. Source candidate briefs are review notes + task proposals, not a new
+    committed machine-readable index. BLOCKED until TASK-0543 (standard) and
+    TASK-0545 (acquisition lane) merge, and the first Materials acquisition
+    (TASK-0547) is reviewed, so the scout's verdicts route into real lanes.
+
+requirements:
+  - "Add agents/fresh-source-scout.yaml, schema-valid and registered in agents/README.md and docs/agent-catalog.md."
+  - "Add a source candidate brief template with a blocker_type field aligned to the TASK-0543 standard."
+  - "Scout may not curate rows, create benchmark metrics, or auto-unblock downstream tasks; it emits admissibility verdict + blocker_type + follow-up proposal."
+  - "Position the scout explicitly relative to scientific-curator (direction) and task-proposal-agent (proposal formatting)."
+
+accepted_outputs:
+  - "agents/fresh-source-scout.yaml"
+  - "templates/source-candidate-brief.yaml"
+  - "agents/README.md and docs/agent-catalog.md registration"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_agent_role_profiles.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

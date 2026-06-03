@@ -1,0 +1,60 @@
+id: TASK-0547
+title: "Materials open pinned-snapshot acquisition pilot"
+type: scientific_dataset
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Produce APL's first new reusable, provenance-rich dataset from an open-licensed source (the actual goal, not another protocol)."
+  - "Prove the acquisition lane end to end on a greenfield campaign (Materials)."
+  - "Prefer an open, redistributable source so the curated rows are committable and citable."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/campaigns/materials-property-residuals.md"
+    - "data/materials/README.md"
+    - "data/materials/source_manifest.yaml"
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/source-manifest-minimum-schema.md"
+  planning_context: >
+    Wave-1 item C of the data-source layer (maintainer-authorized, 2026-06-03).
+    Runs the acquisition lane (TASK-0545) for the Materials campaign scaffold
+    (TASK-0439). Primary source: Materials Project (CC BY 4.0, requires
+    attribution); fallback: JARVIS-DFT (NIST) after a license/source note.
+    Because Materials Project needs a personal API key, the default deliverable
+    is a runbook + schema + expected snapshot manifest + validator that the
+    maintainer runs locally; a committed snapshot lands only if a public,
+    key-free, license-clean fetch is possible without committing secrets.
+    BLOCKED until TASK-0545 (acquisition lane) lands; TASK-0543 (standard) is
+    already on main. Flip to READY once the sanctioned lane exists on main.
+
+requirements:
+  - "Pick one open source: Materials Project (CC BY 4.0) primary, JARVIS-DFT fallback; record license_status and attribution."
+  - "Define the materials row schema (property kind + units, structure/composition, computed-vs-measured provenance, inclusion status)."
+  - "Add a Materials Project (or JARVIS) entry to data/materials/source_manifest.yaml with version, endpoint/query, license, and checksum policy."
+  - "Produce a maintainer-run acquisition runbook (exact API query, fields, dedup, normalization, checksum, manifest format) per the TASK-0545 runbook contract."
+  - "If a public key-free fetch is possible: commit a pinned, checksummed, normalized snapshot; otherwise commit runbook + expected manifest for maintainer-run fetch."
+  - "Never commit API keys, tokens, cookies, or private files. No live fetch in any benchmark runner. No claim, no model training, no benchmark metric."
+
+accepted_outputs:
+  - "data/materials/schema.md"
+  - "data/materials/source_manifest.yaml update (Materials Project or JARVIS entry)"
+  - "data/materials/materials_snapshot_manifest.yaml"
+  - "docs/runbooks/materials-snapshot-acquisition-runbook.md"
+  - "docs/reviews/materials-pinned-snapshot-acquisition.md"
+  - "data/materials/materials_snapshot_v0_1.yaml only if a public key-free license-clean snapshot is committable"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
