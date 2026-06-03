@@ -1,0 +1,54 @@
+id: TASK-0543
+title: "Unify published-source and reusable-dataset standard"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Close the cross-campaign fresh-data bottleneck by unifying scattered source/intake docs into one standard."
+  - "Make APL a producer of provenance-rich, reusable, citable benchmark datasets, not only results."
+  - "Add the missing published-vs-redistributable rule and a blocker_type vocabulary that routes each source to the right unblock lane."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/source-manifest-minimum-schema.md"
+    - "docs/fresh-data-stop-conditions.md"
+    - "docs/fresh-data-readiness-matrix.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Maintainer-directed canonical task (architect + strategist convergence,
+    2026-06-03). Standards already exist but are scattered and miss two things:
+    an explicit published != redistributable rule and a reusable-dataset
+    publication standard. This task unifies them and adds a blocker_type
+    vocabulary (T1_access / T2_extraction_tool / T3_coverage /
+    T4_snapshot_approval / none) used by the acquisition lane (TASK-0545) and a
+    future Fresh Source Scout (deferred TASK-0544). It generalizes existing
+    docs; it does not duplicate them or fetch any data.
+
+requirements:
+  - "Create docs/published-source-dataset-standard.md that references and unifies the existing fresh-data docs rather than duplicating them."
+  - "Define admissible source classes and the metadata-only vs row-curation decision."
+  - "Define the published != redistributable rule and the copyright/license/ToS/EU-database-right guardrails."
+  - "Define the blocker_type vocabulary and how each value routes to an unblock lane."
+  - "Define the reusable-dataset publication standard (dataset_id, version, changelog, schema, source_manifest, row provenance classes, uncertainty semantics, license/citation, validator tests, README, no-claim boundary)."
+  - "Cross-link from docs/fresh-data-intake-protocol.md; do not fetch live data or commit third-party copyrighted material."
+
+accepted_outputs:
+  - "docs/published-source-dataset-standard.md"
+  - "docs/fresh-data-intake-protocol.md pointer update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
