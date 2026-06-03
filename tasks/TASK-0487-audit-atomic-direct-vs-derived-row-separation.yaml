@@ -1,7 +1,7 @@
 id: TASK-0487
 title: "Audit Atomic direct-vs-derived row separation"
 type: scientific_validation
-status: DONE
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
