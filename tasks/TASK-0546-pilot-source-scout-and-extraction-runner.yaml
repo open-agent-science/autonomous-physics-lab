@@ -1,0 +1,52 @@
+id: TASK-0546
+title: "Pilot Fresh Source Scout and add deterministic extraction runner"
+type: research_infrastructure
+status: BLOCKED
+difficulty: high
+priority: medium
+
+strategy_alignment:
+  - "Empirically prove the scout + acquisition + extraction pipeline on real blocked surfaces."
+  - "Add the deterministic extraction/digitization runner that T2 (figure-only) sources need."
+  - "Confirm most blocked surfaces route to maintainer acquisition rather than discovery, validating the lane priority."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/digitization_fixture.yaml"
+    - "data/atomic_clocks/source_manifest.yaml"
+  planning_context: >
+    Deferred follow-up (wave 2) of the data-source layer. Two parts: (a) run the
+    Fresh Source Scout on the Atomic Yb/Sr second source and the Quantum
+    band-edge source and classify each blocker_type; (b) generalize the
+    TASK-0490 digitization fixture into a deterministic extraction/digitization
+    runner so T2 figure-only sources can produce reviewable artifacts. The pilot
+    adds no rows; it produces source-candidate briefs and proposals. BLOCKED
+    until TASK-0544 (scout role) and TASK-0545 (acquisition lane) merge.
+
+requirements:
+  - "Run the scout on at least two blocked surfaces (Atomic Yb/Sr second source, Quantum band-edge) and record blocker_type per source."
+  - "Add a deterministic extraction/digitization runner (script + tests) producing axis calibration + per-point artifacts, no LLM eyeballing."
+  - "Produce source-candidate briefs and follow-up proposals; add no measurement rows and no benchmark metrics."
+  - "Preserve copyright/license and no-secret guardrails; no live fetch in benchmark code."
+
+accepted_outputs:
+  - "docs/source-candidates/atomic/*.md"
+  - "docs/source-candidates/quantum/*.md"
+  - "scripts/run_source_extraction.py and its tests"
+  - "tasks/proposals/*source-curation*.yaml"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

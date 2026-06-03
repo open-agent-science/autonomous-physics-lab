@@ -1,0 +1,55 @@
+id: TASK-0545
+title: "Define source acquisition, pinning, and extraction lane"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Add the missing sanctioned acquisition/pinning lane that actually unblocks T1/T4 data surfaces across campaigns."
+  - "Make data acquisition a documented, auditable, maintainer-run step instead of an ad hoc per-campaign action."
+  - "Keep no-live-fetch, no-secret-leakage, and provenance discipline intact while enabling real reusable datasets."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/fresh-data-intake-protocol.md"
+    - "docs/source-manifest-minimum-schema.md"
+    - "agents/AGENT-TEMPLATE.yaml"
+    - "agents/scientific-curator.yaml"
+  planning_context: >
+    Wave-1 item B of the data-source layer (maintainer-authorized canonical
+    batch, 2026-06-03). Sits under the TASK-0543 published-source/reusable-dataset
+    standard. Defines the T1/T2/T3/T4 acquisition/pinning/extraction lanes, the
+    maintainer-run runbook contract, the no-secret rule, and a maintainer-run
+    data-acquisition role profile. Does not fetch data, run a crawler, or commit
+    secrets; rows still require a separate row-curation task. TASK-0543 (the
+    published-source/reusable-dataset standard) has landed on main, so this
+    workflow lane can now be defined without becoming a research-onboarding
+    science candidate.
+
+requirements:
+  - "Create docs/source-acquisition-lane.md defining the T1/T2/T3/T4 lanes and how blocker_type routes into them."
+  - "Define the maintainer-run acquisition runbook contract: source URL/query, license decision, retrieval timestamp, checksum, row count, field list, no-peek attestation."
+  - "Define the no-secret rule: never commit API keys, tokens, cookies, or private files; agent prepares runbook, maintainer runs key-gated fetches."
+  - "Add agents/data-acquisition.yaml as a maintainer-run role profile, schema-valid against physics_lab/schemas/agent.schema.json, registered in agents/README.md and docs/agent-catalog.md."
+  - "State that an autonomous crawler/ingester is forbidden and rows still require a separate row-curation task."
+  - "Cross-link from docs/published-source-dataset-standard.md once that standard (TASK-0543) is merged."
+
+accepted_outputs:
+  - "docs/source-acquisition-lane.md"
+  - "agents/data-acquisition.yaml"
+  - "agents/README.md and docs/agent-catalog.md registration of the new role"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_agent_role_profiles.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
