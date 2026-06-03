@@ -1,6 +1,7 @@
 # Materials Project snapshot manifest (TASK-0548 filled). No secrets recorded.
 manifest_id: MD-SNAPSHOT-MATERIALS-PROJECT-0001
 schema_version: 0.1.0
+dataset_version: 0.1.0
 task_id: TASK-0547
 campaign_id: materials-property-residuals
 status: fetched_and_curated

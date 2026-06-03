@@ -3,7 +3,7 @@
 **Task:** `TASK-0548` (row curation; follows `TASK-0547` acquisition runbook)
 **Campaign:** Materials Property Residuals
 **Source:** Materials Project, `database_version` 2025.09.25 (CC BY 4.0)
-**Decision:** `DATASET_PINNED` — APL's first new reusable, provenance-rich dataset
+**Decision:** `DATASET_PINNED` — APL's first new reusable, provenance-rich source dataset
 
 ## What landed
 
@@ -22,6 +22,7 @@ This task commits the result:
   timestamp, row count, checksum, `no_peek_attestation: true`).
 - `data/materials/source_manifest.yaml` — version pinned to 2025.09.25.
 - `tests/test_materials_dataset.py` — checksum + schema guard.
+- `data/materials/README.md` — current data-area guidance and no-claim boundary.
 
 ## Scope (frozen before fetch, no-peek)
 
@@ -35,6 +36,8 @@ This task commits the result:
 
 - Provenance: `computed_dft` (Materials Project GGA/GGA+U convention), pinned to
   `database_version` 2025.09.25 with a stable `material_id` per row.
+- Dataset version: `0.1.0`, with a changelog and explicit uncertainty semantics
+  (`absent_in_source_snapshot`).
 - License: CC BY 4.0 — redistribution of curated rows is allowed **with
   attribution**, which is recorded on every dataset file:
   "Data from The Materials Project (materialsproject.org), licensed CC BY 4.0;
@@ -51,7 +54,9 @@ and manifest checksums match the committed snapshot file.
 - Task verdict: `DATASET_PINNED` (data artifact; no scientific claim).
 - Canonical destination: `data/materials/` dataset + snapshot + manifest, guarded
   by `tests/test_materials_dataset.py`.
-- Review tier: `AGENT_PUBLISHED` (pinned source data; not a benchmark result).
+- Dataset publication class: reusable source dataset `0.1.0`.
+- RESULT/PRED review tier: none; this is not an `AGENT_PUBLISHED` result or
+  prediction artifact.
 - Gate A/B: not applicable (no RESULT/PRED metric).
 - Claim impact: none. Knowledge impact: none.
 - Limitations / blockers: computed DFT only; bounded pilot scope; no baseline,

@@ -1,5 +1,6 @@
 # Materials Project pinned dataset (TASK-0548). CC BY 4.0; see attribution field.
 dataset_id: MD-0001-materials-project-formation-energy
+dataset_version: 0.1.0
 task_id: TASK-0548
 campaign_id: materials-property-residuals
 source_id: materials-project
@@ -9,12 +10,21 @@ provenance_class: computed_dft
 method: DFT (GGA/GGA+U, Materials Project convention)
 database_version: 2025.09.25
 retrieved_at_utc: '2026-06-03T13:57:17.886949Z'
+changelog:
+- version: 0.1.0
+  date: '2026-06-03'
+  changes: Initial pinned stable-binary-oxides pilot slice from Materials Project.
 snapshot_file: snapshots/materials_project_binary_oxides_2025-09-25.json
 snapshot_checksum_sha256: bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101
 license: CC BY 4.0
 attribution: Data from The Materials Project (materialsproject.org), licensed CC BY 4.0; cite Jain et
   al., APL Materials 1, 011002 (2013).
 row_count: 169
+uncertainty:
+  value: null
+  basis: absent_in_source_snapshot
+  note: Materials Project summary export did not provide per-row uncertainty.
+no_claim_boundary: Dataset artifact only; no benchmark metric, residual law, material-discovery claim, or model claim.
 limitations:
 - Computed DFT values (formation energy / band gap); not experimental measurements.
 - 'Bounded pilot scope: stable binary oxides only.'

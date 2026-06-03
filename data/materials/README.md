@@ -1,30 +1,37 @@
-# Materials Property Residuals — Data Area (Source Policy Placeholder)
+# Materials Property Residuals — Data Area
 
-This directory is the **value-free** data area for the Materials Property
-Residuals campaign (`docs/campaigns/materials-property-residuals.md`,
+This directory holds source manifests and pinned datasets for the Materials
+Property Residuals campaign (`docs/campaigns/materials-property-residuals.md`,
 `campaign_profiles/materials-property-residuals.yaml`).
 
-**No measurement or computed property values are committed here yet.** No live
-materials-database data has been fetched or ingested. This is a source-policy
-placeholder created by the campaign scaffold (TASK-0439).
+The first pinned dataset is a compact Materials Project pilot:
+
+- `md-0001-materials-project-formation-energy.yaml`
+- `md-0001-materials-project-band-gap.yaml`
+- `snapshots/materials_project_binary_oxides_2025-09-25.json`
+- `materials_snapshot_manifest.yaml`
+
+It covers stable binary oxides from Materials Project `database_version`
+`2025.09.25` under CC BY 4.0 attribution. It is a reusable source dataset, not a
+benchmark result, model, prediction, or scientific claim.
 
 ## Source Policy
 
 - A source must be registered in `source_manifest.yaml` with database/version,
   license, and checksum policy **before** any dataset file may reference it.
-- No live external fetching inside agent tasks. Sources must be pinned at commit
-  time via a deterministic, version-pinned, checksum-recorded snapshot policy
-  defined by a future task.
+- No live external fetching inside benchmark code or ordinary agent tasks.
+  Sources must be pinned via the acquisition lane with version, checksum,
+  attribution, and no-secret guardrails.
 - Keep computed (DFT) and measured properties on separate residual axes with
   explicit provenance; never merge them or merge different property kinds under
   one residual metric.
 - Do not commit non-redistributable database dumps; record locators, versions,
-  and checksums per the future pinned-snapshot policy.
+  and checksums per the pinned-snapshot policy.
 
 ## Guardrails
 
-- Do not add real material-property values without a reviewed source-manifest
-  entry and pinned snapshot policy.
+- Do not add material-property values without a reviewed source-manifest entry,
+  pinned snapshot, checksum, license/attribution note, and validation test.
 - Do not treat `source_manifest.yaml` as benchmark data.
 - Do not add synthesis recipes, device-fabrication steps, chemical-handling
   guidance, or biomedical content.
@@ -35,8 +42,9 @@ placeholder created by the campaign scaffold (TASK-0439).
 
 ```text
 data/materials/
-  README.md            # this source-policy placeholder
-  source_manifest.yaml # registered sources (no values until reviewed)
-  <future> md-*.yaml   # pinned, schema-valid property rows once a snapshot and
-                       # schema task land
+  README.md
+  source_manifest.yaml
+  materials_snapshot_manifest.yaml
+  snapshots/
+  md-*.yaml
 ```

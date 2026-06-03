@@ -42,10 +42,14 @@ def test_snapshot_present_and_checksum_matches():
 def test_dataset_header_is_pinned_and_attributed(kind):
     path, units = DATASETS[kind]
     doc = _load(path)
+    assert doc["dataset_version"] == "0.1.0"
+    assert doc["changelog"], "dataset changelog is required for reusable datasets"
     assert doc["property_kind"] == kind
     assert doc["units"] == units
     assert doc["provenance_class"] == "computed_dft"
     assert doc["database_version"]  # pinned, non-empty
+    assert doc["uncertainty"]["basis"] == "absent_in_source_snapshot"
+    assert "no benchmark metric" in doc["no_claim_boundary"]
     assert "CC BY 4.0" in doc["license"]
     assert "Materials Project" in doc["attribution"]
     assert doc["row_count"] == len(doc["rows"])
