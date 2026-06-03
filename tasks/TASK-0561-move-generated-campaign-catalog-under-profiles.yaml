@@ -1,5 +1,5 @@
 id: TASK-0561
-title: "Move generated campaign catalog under campaign_profiles"
+title: "Move generated campaign portfolio index under campaign_profiles"
 type: repo_architecture
 status: READY
 difficulty: medium
@@ -22,24 +22,29 @@ input:
   planning_context: >
     `campaigns/catalog.yaml` is a useful generated portfolio registry, but the
     root-level `campaigns/` directory contains only that generated file. Move the
-    generated catalog into `campaign_profiles/` so profile source files and their
-    generated aggregate view live together.
+    generated aggregate view into `campaign_profiles/` so profile source files
+    and their generated portfolio index live together without making the index
+    look like an editable campaign profile.
 
 requirements:
   - "Do not remove the generated campaign catalog functionality."
   - "Do not turn the catalog into a hand-maintained source of truth."
   - "Keep `campaign_profiles/*.yaml` portfolio blocks as the editable source."
   - "Update code, tests, schemas, scripts, docs, and task references that point to `campaigns/catalog.yaml`."
+  - "Prefer a service-style generated filename such as `campaign_profiles/_catalog.yaml` unless the implementation identifies a clearer name; avoid a filename that looks like an ordinary campaign profile."
+  - "Document the chosen name and why it distinguishes generated aggregate state from editable campaign profiles."
+  - "Make profile discovery ignore generated/service files such as `_*.yaml` if they live under `campaign_profiles/`."
   - "Remove the root `campaigns/` directory only after all live references are migrated."
   - "Do not add a new static agent-facing board or duplicate campaign index."
   - "Preserve cross-platform path handling with `pathlib.Path`."
 
 accepted_outputs:
-  - "Generated catalog path moved to `campaign_profiles/catalog.yaml` or another clearly documented file under `campaign_profiles/`."
+  - "Generated catalog/index path moved to `campaign_profiles/_catalog.yaml` or another clearly documented service-style file under `campaign_profiles/`."
+  - "The chosen filename is documented as generated aggregate state, not an editable campaign profile."
   - "`scripts/generate_campaign_catalog.py` writes and checks the new catalog path."
   - "Campaign catalog loaders and validators read the new path."
   - "Tests updated for the new path and stale-catalog checks."
-  - "Docs updated to explain `campaign_profiles/*.yaml` as editable profiles and the colocated catalog as generated output."
+  - "Docs updated to explain `campaign_profiles/*.yaml` as editable profiles and the colocated service-style catalog/index as generated output."
   - "Legacy references to `campaigns/catalog.yaml` are either migrated or explicitly documented as historical task references when they should not be rewritten."
   - "Root `campaigns/` directory removed if it becomes empty."
 
