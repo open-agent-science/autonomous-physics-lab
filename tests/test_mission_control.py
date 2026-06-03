@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import textwrap
@@ -1011,5 +1011,3 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
         assert rendered["task_visibility_policy"]["executor_modes"].startswith(
             "Only READY tasks"
         )
-
-

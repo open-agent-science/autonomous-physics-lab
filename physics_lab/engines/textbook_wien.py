@@ -65,15 +65,13 @@ def check_wien_fixture(fixture: dict[str, Any]) -> WienFixtureCheckResult:
     calculated = [lambda_peak_m(temperature, constant) for temperature in temperatures]
     relative_errors = [
         abs(calculated_value - expected_value) / expected_value
-        for calculated_value, expected_value in zip(calculated, expected, strict=True)
+        for calculated_value, expected_value in zip(calculated, expected)
     ]
     max_relative_error = max(relative_errors, default=0.0)
-    monotonic_decreasing = all(
-        left > right for left, right in zip(expected, expected[1:], strict=False)
-    )
+    monotonic_decreasing = all(left > right for left, right in zip(expected, expected[1:]))
     scaling_check_passed = all(
         abs((temperature * wavelength) - constant) / constant <= tolerance
-        for temperature, wavelength in zip(temperatures, expected, strict=True)
+        for temperature, wavelength in zip(temperatures, expected)
     ) and max_relative_error <= tolerance
 
     negative_controls_passed = _check_negative_controls(fixture, temperatures, tolerance)
@@ -97,7 +95,7 @@ def _check_negative_controls(
     wrong_constant_lambdas = [lambda_peak_m(temperature, wrong_constant) for temperature in temperatures]
     wrong_constant_fails = any(
         abs(control - expected_value) / expected_value > tolerance
-        for control, expected_value in zip(wrong_constant_lambdas, expected, strict=True)
+        for control, expected_value in zip(wrong_constant_lambdas, expected)
     )
 
     wrong_temperature_unit_fails = controls["wrong_temperature_unit"].get("input_unit") != "kelvin"

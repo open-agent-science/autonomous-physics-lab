@@ -10,6 +10,7 @@ from physics_lab.engines.textbook_wien import (
     lambda_peak_m,
     load_wien_fixture,
 )
+from physics_lab.registry.examples import load_example_config
 
 
 FIXTURE_PATH = Path("data/textbook_formula_audit/fixtures/wien_displacement_exact_reference.yaml")
@@ -59,3 +60,13 @@ def test_wien_fixture_rejects_frequency_domain_convention() -> None:
 
     with pytest.raises(ValueError, match="wavelength-domain"):
         check_wien_fixture(fixture)
+
+
+def test_wien_example_copy_is_non_runnable_fixture_not_unrelated_result() -> None:
+    payload = load_example_config("examples/textbook_wien_displacement_exact_reference.yaml")
+
+    assert payload["config_kind"] == "textbook_wien_exact_reference_fixture"
+    assert payload["task_id"] == "TASK-0537"
+    assert payload["wien_fixture"]["id"] == "textbook-wien-displacement-exact-reference"
+    assert "experiment_path" not in payload
+    assert "result_id" not in payload
