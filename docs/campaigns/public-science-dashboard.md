@@ -97,6 +97,28 @@ universal validation or falsification.
 - [Textbook Formula Audit campaign page](./textbook-formula-audit.md)
 - [Candidate slate](../notes/textbook-formula-audit-candidate-list.md)
 
+### Materials Reusable Dataset Seed
+
+**Short version:** APL now has a first reusable-dataset candidate:
+`MD-0001`, a Materials Project stable-binary-oxides pilot with 169 rows, CC BY
+4.0 attribution, checksum, dataset version, schema guidance, and validator
+coverage.
+
+**Why it is interesting:** this is the first concrete proof that APL can turn a
+published/open source into a provenance-rich benchmark dataset before modeling.
+It is a dataset artifact, not a claim.
+
+**Limitation:** the rows are computed DFT values from Materials Project, not
+experimental measurements. No baseline, residual map, model, material
+recommendation, external dataset repository, or DOI exists yet.
+
+**Evidence trail:**
+
+- [Materials Property Residuals campaign page](./materials-property-residuals.md)
+- [Materials binary-oxides dataset review](../reviews/materials-binary-oxides-dataset.md)
+- [Materials data area](../../data/materials/README.md)
+- [Published-source and reusable-dataset standard](../published-source-dataset-standard.md)
+
 ## Campaign Snapshot
 
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
@@ -106,6 +128,7 @@ universal validation or falsification.
 | [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist; `TASK-0490` landed a synthetic digitization fixture, and `TASK-0491` records `NEEDS_MAINTAINER_DECISION` before any weaker sandbox benchmark. Direct measurement rows are still the blocker. | `TASK-0398` and `TASK-0489`; maintainer decision required before any separate calibration-consistency sandbox task. | A source artifact/blocker or an explicit maintainer decision on the bounded weaker lane. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; the real-row loader and synthetic cross-source dry-run have landed; Nemitz 2016 rows remain blocked. | Fallback source triage, direct-vs-derived separation, then baseline-readiness gate | A source/covariance readiness package that says whether a first narrow Yb/Sr consistency benchmark can become legitimate later. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; Stefan-Boltzmann now has an exact-reference fixture, while empirical audits have not run yet. | Wien exact-reference fixture plus empirical source planning | Exact-reference fixtures that make the first public formula audits runnable later. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate: 169 stable binary oxides from Materials Project `2025.09.25`, with formation-energy and band-gap axes kept separate, CC BY attribution, checksum, version, and validator coverage. | Holdout manifest, citation/reuse metadata, and first conservative baseline benchmark | A Materials baseline/residual benchmark over `MD-0001`, not a materials-discovery claim. |
 
 ## What Is Interesting Right Now
 
@@ -189,3 +212,25 @@ Why it matters:
 
 Next visible artifact: a Stellar M-L source/baseline plan that declares snapshot,
 schema, holdout, and verification gates before any metrics.
+
+### Materials Dataset-To-Benchmark Path
+
+Materials is now the fastest path from dataset artifact to a new benchmark
+surface. The first pinned dataset is small by design, openly licensed, and
+validated in the repo. The next public artifact should be a conservative
+baseline/residual map, not a model leaderboard or material recommendation.
+
+Why it matters:
+
+- APL can produce reusable, provenance-rich scientific datasets, not only
+  benchmark reports.
+- The dataset can later become externally citable once it has a stable version,
+  citation/DOI plan, and enough usefulness for other projects.
+- Keeping axes separate (formation energy vs band gap, computed DFT vs future
+  measured rows) makes future residual maps scientifically reviewable.
+
+Scope:
+
+No external dataset repository or DOI is planned for the current step. The main
+repo remains the home for small curated seed datasets, schemas, loaders, tests,
+examples, and benchmark configs.

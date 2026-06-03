@@ -1,0 +1,53 @@
+id: TASK-0556
+title: "Classify Quantum direct-source candidates with blocker types"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Attack the Quantum direct-row blocker through source classification, not formula search."
+  - "Use the published-source standard to route each candidate to access, extraction, coverage, or row-curation lanes."
+  - "Prepare the future Fresh Source Scout pilot without waiting for the role implementation."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/campaigns/quantum-size-effects.md"
+    - "docs/quantum-direct-source-artifact-intake.md"
+    - "docs/published-source-dataset-standard.md"
+    - "docs/source-acquisition-lane.md"
+    - "data/quantum_dots/source_manifest.yaml"
+    - "docs/reviews/quantum-norris-bawendi-source-artifact-review.md"
+  planning_context: >
+    Quantum remains blocked on direct measurement rows or deterministic
+    digitization artifacts. TASK-0544 will formalize a Fresh Source Scout role,
+    but agents can already produce a bounded source-candidate classification
+    using the standard's blocker_type vocabulary and existing Quantum intake
+    docs.
+
+requirements:
+  - "Review at least three Quantum direct-source candidates already named in campaign memory, such as Norris-Bawendi 1996, Kang-Wise 1997, Jasieniak 2011, Yu 2003 source tables/figures, or Moreels 2009 direct rows."
+  - "Assign exactly one blocker_type to each candidate: T1_access, T2_extraction_tool, T3_coverage, T4_snapshot_approval, or none."
+  - "For each candidate, state the source locator, expected row type, license/redistribution posture, extraction feasibility, and next unblock lane."
+  - "Do not copy or transcribe measurement values, run digitization, add qd rows, run baseline metrics, or create claims."
+  - "Recommend one next bounded source-acquisition, extraction-runner, or row-curation task only if a candidate is clearly superior."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/source-candidates/quantum/quantum-direct-source-candidate-brief.md"
+  - "optional data/quantum_dots/source_manifest.yaml metadata-only updates if source states change"
+  - "optional task proposal for the best next unblock lane"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

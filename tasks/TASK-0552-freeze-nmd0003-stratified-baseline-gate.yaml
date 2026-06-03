@@ -1,0 +1,55 @@
+id: TASK-0552
+title: "Freeze NMD-0003 stratified baseline gate"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Convert the NMD-0003 baseline-family gate into a frozen readiness gate for future Nuclear residual-feature work."
+  - "Separate baseline/split choice from later hypothesis scoring."
+  - "Prevent another broad Nuclear factory sprint until the validation policy is fixed."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nmd0003-baseline-family-gate.md"
+    - "agent_runs/AGENT-RUN-0056/report.md"
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "data/nuclear_masses/nmd-0003-split-manifest.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0535 found that the earlier NMD-0003 validation regression was
+    dominated by domain mismatch: the sorted heavy-tail holdout is an
+    extrapolation split, while a stratified interleaved split gives strong
+    interpolation gains. This task freezes the stratified baseline gate and
+    working baseline family before any future residual-feature sprint.
+
+requirements:
+  - "Use committed NMD-0003 rows only; no live external fetch and no post-AME2020 holdout scoring."
+  - "Freeze a deterministic stratified validation split or split-manifest extension suitable for interpolation-style readiness."
+  - "Freeze the working baseline family for future residual-feature comparisons: either a single global OLS refit or an explicitly justified region-aware baseline diagnostic."
+  - "Record the heavy-tail sorted split as extrapolation diagnostic, not the primary readiness gate."
+  - "Do not introduce residual-feature candidates, score F2, write prediction entries, or promote claims."
+  - "Recommend whether future Nuclear tasks may run a bounded residual-feature sprint and under which frozen baseline/split contract."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml or equivalent split/baseline manifest"
+  - "docs/reviews/nmd0003-stratified-baseline-gate.md"
+  - "tests for any new split/baseline manifest helper"
+  - "optional docs/campaigns/nuclear-mass-surface.md update if the Nuclear campaign posture changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_nuclear_mass_dataset.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

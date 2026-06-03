@@ -108,11 +108,38 @@ or external citation) only when it carries all of:
 Datasets that meet this bar are APL's second public output class (alongside
 results): provenance-rich benchmark datasets others can verify, cite, and reuse.
 
+## Current Repository Boundary
+
+For the current private-repository phase, APL keeps reusable dataset candidates
+inside the main repository:
+
+- small curated seed datasets;
+- schemas, source manifests, loaders, tests, examples, and benchmark configs;
+- citation and reuse metadata when a dataset reaches a stable internal version.
+
+Separate public dataset repositories are deferred until a dataset is genuinely
+reusable: stable version, clear license and attribution, validator coverage,
+README/limitations, citation/DOI plan, and enough size or usefulness for other
+projects. Moving a dataset to `open-agent-science` or any public dataset repo
+requires a separate maintainer-approved publication task.
+
+The current public organization boundary is
+`https://github.com/open-agent-science`, and citation planning may use the
+maintainer identity:
+
+- Roman Hladun — ORCID: `https://orcid.org/0009-0004-4853-5212`
+
+This identity does not replace per-source attribution. For example, a Materials
+Project-derived dataset must still preserve Materials Project CC BY attribution
+and citation text for every reusable artifact.
+
 ## What This Standard Does Not Authorize
 
 - live fetching or autonomous crawling inside agent task PRs;
 - committing copyrighted PDFs, tables, or figures;
 - adding measurement rows without a bounded row-curation task;
+- moving a dataset into an external repository or minting a DOI without a
+  separate maintainer-approved publication task;
 - auto-unblocking a benchmark task from a source verdict;
 - promoting any claim, knowledge entry, or canonical result.
 
