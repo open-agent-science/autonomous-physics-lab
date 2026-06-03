@@ -20,7 +20,7 @@ input:
     - "docs/exoplanet-second-snapshot-no-live-fetch-protocol.md"
     - "docs/source-acquisition-lane.md"
   planning_context: >
-    TASK-0536 proved the second-snapshot ingestion path can replay checksums,
+    TASK-0536 showed the second-snapshot ingestion path can replay checksums,
     row-class separation, and no-peek metadata without live values. The next
     useful step is an acquisition package for a real later PSCompPars snapshot,
     still without scoring residuals or target planets.
