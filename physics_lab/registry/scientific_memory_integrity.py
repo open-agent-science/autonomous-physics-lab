@@ -35,6 +35,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "release_preparation",
     "release_prep",
     "release_review",
+    "repo_architecture",
     "review_workflow",
     "benchmark_planning",
     "contributor_experience",
