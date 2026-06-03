@@ -16,6 +16,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0538` - Add Atomic manifest-backed row-role schema and Beloy assignments (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0555` - Plan Textbook Stellar mass-luminosity empirical audit (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
-- `TASK-0556` - Classify Quantum direct-source candidates with blocker types (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+None.
