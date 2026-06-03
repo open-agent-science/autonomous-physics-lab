@@ -1,7 +1,7 @@
 id: TASK-0558
 title: "Audit sparse legacy and experimental registries"
 type: architecture
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -45,6 +45,10 @@ accepted_outputs:
   - "docs/reviews/sparse-registry-architecture-audit.md"
   - "optional small docs pointers that label the audited registries as pending lifecycle decision"
   - "recommended follow-up TASK-QUEUE entries only if the audit finds safe, useful migrations"
+  - "constants_verification/README.md"
+  - "hypothesis_register/README.md"
+  - "approximation_probes/README.md"
+  - "docs/architecture.md lifecycle clarification"
 
 validation:
   commands:
