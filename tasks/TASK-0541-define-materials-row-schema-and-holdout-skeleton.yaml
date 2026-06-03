@@ -1,7 +1,7 @@
 id: TASK-0541
 title: "Finalize Materials holdout manifest and schema reconciliation"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
