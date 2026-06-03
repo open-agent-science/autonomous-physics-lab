@@ -12,6 +12,7 @@ import yaml
 REPO = pathlib.Path(__file__).resolve().parents[1]
 MATERIALS = REPO / "data" / "materials"
 SNAPSHOT = MATERIALS / "snapshots" / "materials_project_binary_oxides_2025-09-25.json"
+CITATION = MATERIALS / "md-0001-citation.yaml"
 
 DATASETS = {
     "formation_energy_per_atom": (MATERIALS / "md-0001-materials-project-formation-energy.yaml", "eV_per_atom"),
@@ -78,3 +79,22 @@ def test_axes_are_not_pooled():
     bg = _load(DATASETS["band_gap"][0])
     assert fe["property_kind"] != bg["property_kind"]
     assert fe["units"] != bg["units"]
+
+
+def test_md0001_citation_metadata_preserves_reuse_boundary():
+    citation = _load(CITATION)
+    assert citation["metadata_id"] == "MD-0001-CITATION-0001"
+    assert citation["dataset"]["dataset_family_id"] == "MD-0001"
+    assert citation["dataset"]["dataset_version"] == "0.1.0"
+    assert citation["source_attribution"]["source_license"] == "CC BY 4.0"
+    assert "Materials Project" in citation["source_attribution"]["required_attribution"]
+    maintainer = citation["apl_citation_planning"]["maintainer"]
+    assert maintainer["name"] == "Roman Hladun"
+    assert maintainer["orcid"] == "https://orcid.org/0009-0004-4853-5212"
+    external_org = citation["apl_citation_planning"]["current_external_organization"]
+    assert external_org["url"] == "https://github.com/open-agent-science"
+    assert citation["reuse_boundary"]["internal_reuse_allowed"] is True
+    assert citation["reuse_boundary"]["external_publication_allowed_by_this_file"] is False
+    assert citation["reuse_boundary"]["zenodo_release_allowed_by_this_file"] is False
+    assert citation["reuse_boundary"]["benchmark_result"] is False
+    assert citation["reuse_boundary"]["scientific_claim"] is False

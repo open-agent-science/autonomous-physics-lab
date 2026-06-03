@@ -8,12 +8,27 @@ The first pinned dataset is a compact Materials Project pilot:
 
 - `md-0001-materials-project-formation-energy.yaml`
 - `md-0001-materials-project-band-gap.yaml`
+- `md-0001-citation.yaml`
 - `snapshots/materials_project_binary_oxides_2025-09-25.json`
 - `materials_snapshot_manifest.yaml`
 
 It covers stable binary oxides from Materials Project `database_version`
 `2025.09.25` under CC BY 4.0 attribution. It is a reusable source dataset, not a
 benchmark result, model, prediction, or scientific claim.
+
+## Citation And Reuse Boundary
+
+`md-0001-citation.yaml` records internal citation and reuse metadata for the
+MD-0001 dataset family. It preserves Materials Project CC BY 4.0 attribution,
+the recommended source citation, the maintainer citation-planning identity
+(Roman Hladun, ORCID `https://orcid.org/0009-0004-4853-5212`), and the current
+external organization boundary (`https://github.com/open-agent-science`).
+
+MD-0001 remains an internal repository artifact. This metadata does not publish
+the dataset, mint a DOI, create a Zenodo or GitHub release, move files into an
+external repository, or grant permission to make benchmark, material-discovery,
+device, synthesis, or biomedical claims. Any external publication path requires
+a separate maintainer-approved publication task.
 
 ## Source Policy
 
@@ -45,6 +60,7 @@ data/materials/
   README.md
   source_manifest.yaml
   materials_snapshot_manifest.yaml
+  md-0001-citation.yaml
   snapshots/
   md-*.yaml
 ```
