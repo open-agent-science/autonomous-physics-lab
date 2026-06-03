@@ -201,6 +201,25 @@ redefinitions, protocol rewrites, removing or renaming a public artifact)
 still require joint decision with the maintainer before execution. The
 Architect never merges and never promotes scientific claims.
 
+### 10. Data Acquisition / Source-Pinning
+
+Use this path when the maintainer wants to acquire, snapshot, pin, checksum, or
+license-clear a published data source for a campaign, or to prepare a runbook so
+the maintainer can run a key-gated or access-restricted fetch locally.
+
+- Typical work: bounded public/key-free snapshot acquisition with checksum and
+  source manifest entry; runbook preparation for key-gated maintainer-run
+  fetches; precise access/license blocker preservation
+- Role profile: [`agents/data-acquisition.yaml`](../agents/data-acquisition.yaml)
+- Primary docs:
+  - [source-acquisition-lane.md](./source-acquisition-lane.md)
+  - [published-source-dataset-standard.md](./published-source-dataset-standard.md)
+  - [fresh-data-intake-protocol.md](./fresh-data-intake-protocol.md)
+
+Status: active, maintainer-run. Never curates rows, never commits secrets or
+copyrighted artifacts, never live-fetches inside benchmark code, and never
+promotes claims. Rows require a separate row-curation task.
+
 ## Planned Future Specialized Agents
 
 The repository also names several future automation surfaces:
