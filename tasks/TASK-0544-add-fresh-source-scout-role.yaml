@@ -1,7 +1,7 @@
 id: TASK-0544
 title: "Add Fresh Source Scout role and source candidate brief template"
 type: agent_workflow
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: medium
 
@@ -25,9 +25,9 @@ input:
     verdict plus a blocker_type and a follow-up proposal, but never curates
     rows, never creates benchmark metrics, and never auto-unblocks downstream
     tasks. Source candidate briefs are review notes + task proposals, not a new
-    committed machine-readable index. BLOCKED until TASK-0543 (standard) and
-    TASK-0545 (acquisition lane) merge, and the first Materials acquisition
-    (TASK-0547) is reviewed, so the scout's verdicts route into real lanes.
+    committed machine-readable index. TASK-0543 (standard), TASK-0545
+    (acquisition lane), and the first Materials acquisition review (TASK-0547)
+    are now merged, so the scout's verdicts can route into real lanes.
 
 requirements:
   - "Add agents/fresh-source-scout.yaml, schema-valid and registered in agents/README.md and docs/agent-catalog.md."
