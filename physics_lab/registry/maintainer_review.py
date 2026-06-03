@@ -908,6 +908,7 @@ def build_review_report(
                 f"Explicit task id {task_id} does not match branch task id {branch_task}."
             )
 
+    looks_like_task_queue_pr = False
     if (
         not is_proposal_review
         and not is_closeout_review
@@ -915,13 +916,52 @@ def build_review_report(
         and not is_microtask_review
         and resolved_task_id != "TASK-UNKNOWN"
     ):
-        try:
-            task_file = resolve_task_file(root, resolved_task_id)
-            task_payload = load_task(task_file)
-        except (FileNotFoundError, ValueError) as exc:
-            blockers.append(str(exc))
+        queue_like_task_files = tuple(
+            path
+            for path in changed_files
+            if path.startswith("tasks/TASK-") and path.endswith(".yaml")
+        )
+        queue_like_non_task_files = tuple(
+            path
+            for path in changed_files
+            if path not in queue_like_task_files
+            and not path.startswith("docs/task-views/")
+            and path != "tasks/ACTIVE.md"
+        )
+        queue_like_statuses: list[str] = []
+        if queue_like_task_files and not queue_like_non_task_files:
+            for task_path in queue_like_task_files:
+                try:
+                    payload = load_task(root / task_path)
+                except (FileNotFoundError, ValueError):
+                    queue_like_statuses = []
+                    break
+                queue_like_statuses.append(str(payload["status"]))
+            looks_like_task_queue_pr = bool(queue_like_statuses) and all(
+                status in TASK_QUEUE_ALLOWED_STATUSES
+                for status in queue_like_statuses
+            )
+        if looks_like_task_queue_pr:
+            required_fixes.append(
+                "This PR only adds or updates future task files in "
+                "PROPOSED, READY, or BLOCKED. Use TASK-QUEUE title, "
+                "agent/<contributor-id>/<agent-id>/task-queue-<short-slug> "
+                "branch naming, and TASK-QUEUE metadata instead of marking "
+                "queued future tasks REVIEW_READY."
+            )
             task_file = None
-        if task_payload is not None and str(task_payload["status"]) != "REVIEW_READY":
+        else:
+            try:
+                task_file = resolve_task_file(root, resolved_task_id)
+                task_payload = load_task(task_file)
+            except (FileNotFoundError, ValueError) as exc:
+                blockers.append(str(exc))
+                task_file = None
+        if (
+            not looks_like_task_queue_pr
+            and task_payload is not None
+            and str(task_payload["status"]) != "REVIEW_READY"
+        ):
             required_fixes.append(
                 f"Task status is {task_payload['status']}. Set it to REVIEW_READY before merge."
             )
