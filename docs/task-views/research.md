@@ -10,7 +10,6 @@
 - `TASK-0540` - Plan Materials pinned source snapshot (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0541` - Define Materials row schema and holdout skeleton (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0542` - Pin Atomic Pizzocaro Yb/Sr source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0547` - Materials open pinned-snapshot acquisition pilot (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 
 ## IN_PROGRESS
 
@@ -21,3 +20,4 @@ None.
 - `TASK-0536` - Add Exoplanet second-snapshot ingestion dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0537` - Build Textbook Wien displacement exact-reference fixture (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0543` - Unify published-source and reusable-dataset standard (`research_infrastructure`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+- `TASK-0547` - Materials open pinned-snapshot acquisition pilot (`scientific_dataset`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
