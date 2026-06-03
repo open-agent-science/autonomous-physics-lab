@@ -8,6 +8,7 @@ __pycache__/
 .ruff_cache/
 _snapshots/
 .worktrees/
+_worktrees/
 .DS_Store
 *.pyc
 *.pyo

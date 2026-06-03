@@ -202,5 +202,6 @@ Start with [tasks/proposals/README.md](tasks/proposals/README.md) and
 | Visual result summary | [docs/results/visual-summary.md](docs/results/visual-summary.md) |
 | External reviewer guide | [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md) |
 | Negative results | [docs/negative-results-registry.md](docs/negative-results-registry.md) |
+| Repository map | [docs/repository-map.md](docs/repository-map.md) |
 | Architecture map | [docs/architecture-index.md](docs/architecture-index.md) |
 | Single-file LLM context | [CONTEXT.md](CONTEXT.md) |

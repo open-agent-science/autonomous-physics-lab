@@ -1,7 +1,7 @@
 id: TASK-0557
 title: "Document repository map and artifact lifecycle classes"
 type: architecture
-status: READY
+status: REVIEW_READY
 difficulty: low
 priority: high
 
@@ -42,6 +42,8 @@ accepted_outputs:
   - "docs/repository-map.md or an equivalent strengthened architecture page"
   - "links from README.md, AGENTS.md, or docs/architecture.md where useful"
   - "notes identifying which root paths are stable contracts versus cleanup candidates"
+  - ".gitignore updated for local `_worktrees/` checkout artifacts"
+  - "live docs/code comments redirected away from retired `tasks/ACTIVE.md` wording"
 
 validation:
   commands:
