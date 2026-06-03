@@ -130,19 +130,18 @@ class RepositoryValidationSummary:
         return sum(1 for issue in self.issues if issue.severity == "INFO")
 
 
-# Env var that restores the historical ERROR severity for the staleness
-# checks on tasks/ACTIVE.md and the generated task views. The default
-# severity is INFO because the post-merge sync-active-board GitHub
-# Action regenerates those files on main automatically, so PR branches
-# do not need to carry the regeneration. Set
-# APL_ENFORCE_BOARD_STALENESS=1 in environments that explicitly want a
-# strict audit (for example, a maintainer dry-run before disabling the
-# action). Missing files remain ERROR regardless.
+# Env var that restores the historical ERROR severity for generated task-view
+# staleness checks. The default severity is INFO because the post-merge
+# sync-active-board GitHub Action regenerates task views on main automatically,
+# so PR branches do not need to carry regeneration. Set
+# APL_ENFORCE_BOARD_STALENESS=1 in environments that explicitly want a strict
+# audit (for example, a maintainer dry-run before disabling the action).
+# Missing files remain ERROR regardless.
 BOARD_STALENESS_ENV_VAR: str = "APL_ENFORCE_BOARD_STALENESS"
 
 
 def _board_staleness_severity() -> str:
-    """Severity used for tasks/ACTIVE.md and task-view staleness issues."""
+    """Severity used for generated task-view staleness issues."""
 
     if os.environ.get(BOARD_STALENESS_ENV_VAR) == "1":
         return "ERROR"

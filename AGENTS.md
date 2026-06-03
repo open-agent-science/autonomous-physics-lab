@@ -32,6 +32,10 @@ This writes to the canonical project-local `_snapshots/` directory. Use
 `APL_SNAPSHOT_DIR=/tmp/...` only for disposable test runs, never for the final
 snapshot you want the maintainer or another agent to consume.
 
+If the repository root feels busy, use `docs/repository-map.md` to distinguish
+core runtime, current-work coordination, scientific memory, legacy archives,
+and local/generated checkout artifacts.
+
 ## Agent First Default
 
 New contributors and coding agents should start with the mission entrypoint:
@@ -204,6 +208,7 @@ Use these files as the shared coordination layer:
 - `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
 - `docs/result-promotion-protocol.md` — master mapping rule from task verdict to canonical output class; required reading before writing any final task output (replaces the default "write only an `AGENT-RUN-*`" pattern).
+- `docs/repository-map.md` — human-facing map of root paths, scientific memory, legacy archives, and local/generated artifacts.
 - `agents/README.md` — index of agent role profiles (`agents/<role-id>.yaml`). When the maintainer asks the agent to act in a role (in any language), the agent matches the request against each role file's `activation.intent`, loads the matching profile as its first action, and applies that role for the session.
 - `docs/task-views/research.md`
 - `docs/task-views/support.md`
