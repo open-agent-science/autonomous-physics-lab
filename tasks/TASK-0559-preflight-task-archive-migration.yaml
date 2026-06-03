@@ -1,0 +1,55 @@
+id: TASK-0559
+title: "Preflight tasks archive migration without moving task files"
+type: architecture
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Reduce task-directory noise safely by testing whether loaders and validators can support future archival layout."
+  - "Avoid a large disruptive move of hundreds of DONE task files before tooling is ready."
+  - "Keep dynamic task views and mission tooling as the agent-facing source instead of creating new static indexes."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "tasks/"
+    - "physics_lab/registry/tasks.py"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/task_views.py"
+    - "scripts/apl_closeout_task.py"
+    - "scripts/apl_closeout_sweep.py"
+    - "scripts/apl_mission.py"
+  planning_context: >
+    Most canonical task YAML files are DONE, which makes `tasks/` noisy for
+    humans. Moving them directly to `tasks/archive/` would be risky because
+    multiple scripts and validators currently assume a flat `tasks/*.yaml`
+    layout. This task designs and tests the migration path without moving the
+    historical task files yet.
+
+requirements:
+  - "Inventory task-loading, closeout, mission, validation, snapshot, and task-view code paths that assume flat `tasks/*.yaml`."
+  - "Define the future archive layout, for example `tasks/archive/YYYY/` or `tasks/archive/done/`, with explicit pros and cons."
+  - "Add or propose tests that prove task discovery can handle both current flat layout and future archived paths."
+  - "Keep current task IDs, links, task views, and closeout behavior stable."
+  - "Do not move DONE, SUPERSEDED, or REJECTED task files in this PR."
+  - "Do not add a committed static task index for agents; use dynamic scripts and generated human task views."
+
+accepted_outputs:
+  - "docs/task-archive-migration-plan.md"
+  - "tests or documented test plan covering recursive task discovery before any future move"
+  - "explicit blocker list for an eventual task-file migration PR"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_tasks.py tests/test_task_views.py tests/test_docs_links.py"
+    - "python3 scripts/apl_mission.py --output json"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

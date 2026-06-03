@@ -1,0 +1,50 @@
+id: TASK-0560
+title: "Define docs reviews and notes retention policy"
+type: documentation_architecture
+status: READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep review and note accumulation useful without hiding scientific memory."
+  - "Give humans a cleaner entry point into `docs/reviews/` and `docs/notes/`."
+  - "Avoid mass-moving old review files until link impact is understood."
+
+input:
+  mode: workflow
+  related_domain: documentation_architecture
+  related_objects:
+    - "docs/reviews/"
+    - "docs/notes/"
+    - "docs/architecture.md"
+    - "docs/reviews/README.md"
+    - "docs/notes/README.md"
+  planning_context: >
+    `docs/reviews/` and `docs/notes/` have grown as APL preserved PR reviews,
+    campaign decisions, source notes, and architecture notes. That is useful
+    memory, but it is hard to scan. This task defines a retention and indexing
+    policy before any bulk path migration.
+
+requirements:
+  - "Add or update README/index files for `docs/reviews/` and `docs/notes/`."
+  - "Define which documents are public scientific memory, architecture decisions, campaign reviews, source notes, or historical notes."
+  - "Recommend a future grouping policy for new files, such as year/quarter or topic subfolders, only if it reduces navigation noise."
+  - "Avoid mass-moving existing files unless a link audit shows it is safe."
+  - "Document how review-agent and Scientific Campaign Director should reference old reviews without creating duplicate summary pages."
+
+accepted_outputs:
+  - "docs/reviews/README.md"
+  - "docs/notes/README.md"
+  - "small pointers from architecture or contributor docs if useful"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
