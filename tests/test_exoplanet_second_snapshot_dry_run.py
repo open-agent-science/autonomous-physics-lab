@@ -17,6 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 TARGET_FREEZE_PATH = (
     ROOT / "data" / "exoplanets" / "second_snapshot_target_freeze.yaml"
 )
+SECOND_SNAPSHOT_MANIFEST = (
+    ROOT / "data" / "exoplanets" / "second_snapshot_manifest.yaml"
+)
 SYNTHETIC_FIXTURE = (
     ROOT / "tests" / "fixtures" / "exoplanets" / "synthetic_pscomppars_snapshot.yaml"
 )
@@ -100,3 +103,26 @@ def test_synthetic_fixture_checksum_replay_is_deterministic_for_dry_run() -> Non
     assert first == second
     assert len(first) == 64
     assert all(char in "0123456789abcdef" for char in first)
+
+
+def test_second_snapshot_manifest_is_metadata_only_acquisition_shape() -> None:
+    manifest = _load_yaml(SECOND_SNAPSHOT_MANIFEST)
+
+    assert manifest["status"] == "metadata_only_acquisition_package"
+    assert manifest["scope"]["live_fetch_performed"] is False
+    assert manifest["scope"]["future_data_values_included"] is False
+    assert manifest["scope"]["raw_snapshot_committed"] is False
+    assert manifest["scope"]["normalized_snapshot_committed"] is False
+    assert manifest["scope"]["benchmark_allowed"] is False
+    assert manifest["source"]["query_contract_sha256"] == (
+        "4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4"
+    )
+    assert manifest["checksum_policy"]["raw_checksum_sha256"] is None
+    assert manifest["planned_acquisition"]["retrieval_timestamp_utc"] is None
+    assert set(manifest["row_class_rules"]["preserve_separate_states"]) == {
+        "true_mass_transit_radius",
+        "minimum_mass_transit_radius",
+        "model_inferred",
+        "excluded",
+        "radius_only_or_mass_only_context",
+    }
