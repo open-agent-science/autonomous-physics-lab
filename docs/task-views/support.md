@@ -10,7 +10,6 @@
 - `TASK-0544` - Add Fresh Source Scout role and source candidate brief template (`agent_workflow`, priority `medium`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0559` - Preflight tasks archive migration without moving task files (`architecture`, priority `medium`, difficulty `medium`, domain `task_architecture`)
 - `TASK-0560` - Define docs reviews and notes retention policy (`documentation_architecture`, priority `medium`, difficulty `low`, domain `documentation_architecture`)
-- `TASK-0561` - Move generated campaign portfolio index under campaign_profiles (`repo_architecture`, priority `high`, difficulty `medium`, domain `repository_architecture`)
 
 ## IN_PROGRESS
 
@@ -20,3 +19,4 @@ None.
 
 - `TASK-0557` - Document repository map and artifact lifecycle classes (`architecture`, priority `high`, difficulty `low`, domain `repository_architecture`)
 - `TASK-0558` - Audit sparse legacy and experimental registries (`architecture`, priority `high`, difficulty `medium`, domain `repository_architecture`)
+- `TASK-0561` - Move generated campaign portfolio index under campaign_profiles (`repo_architecture`, priority `high`, difficulty `medium`, domain `repository_architecture`)
