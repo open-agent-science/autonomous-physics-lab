@@ -13,6 +13,7 @@ REPO = pathlib.Path(__file__).resolve().parents[1]
 MATERIALS = REPO / "data" / "materials"
 SNAPSHOT = MATERIALS / "snapshots" / "materials_project_binary_oxides_2025-09-25.json"
 CITATION = MATERIALS / "md-0001-citation.yaml"
+HOLDOUT_MANIFEST = MATERIALS / "holdout_manifest.yaml"
 
 DATASETS = {
     "formation_energy_per_atom": (MATERIALS / "md-0001-materials-project-formation-energy.yaml", "eV_per_atom"),
@@ -98,3 +99,22 @@ def test_md0001_citation_metadata_preserves_reuse_boundary():
     assert citation["reuse_boundary"]["zenodo_release_allowed_by_this_file"] is False
     assert citation["reuse_boundary"]["benchmark_result"] is False
     assert citation["reuse_boundary"]["scientific_claim"] is False
+
+
+def test_holdout_manifest_preserves_no_peek_boundaries():
+    manifest = _load(HOLDOUT_MANIFEST)
+    assert manifest["manifest_id"] == "MD-0001-HOLDOUT-NOPEEK-0001"
+    assert manifest["promotion_boundary"]["benchmark_allowed_by_this_manifest"] is False
+    assert manifest["promotion_boundary"]["claims_allowed"] is False
+    assert set(manifest["holdout_schema"]["allowed_split_values"]) == {
+        "train",
+        "validation",
+        "holdout",
+        "stress",
+        "excluded",
+    }
+    axes = {axis["property_kind"]: axis for axis in manifest["axis_policies"]}
+    assert set(axes) == {"formation_energy_per_atom", "band_gap"}
+    assert axes["formation_energy_per_atom"]["units"] == "eV_per_atom"
+    assert axes["band_gap"]["units"] == "eV"
+    assert "property_range" in manifest["pre_score_split_axes"]
