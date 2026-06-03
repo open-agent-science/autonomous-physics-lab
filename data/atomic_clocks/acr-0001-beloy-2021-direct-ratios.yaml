@@ -165,8 +165,9 @@ rows:
       review_summary: false
       synthetic: false
     holdout:
-      split: unassigned
-      freeze_manifest: null
+      split: train
+      freeze_manifest: data/atomic_clocks/atomic_holdout_manifest.yaml
+      row_role: training_context
     limitations:
       - "Per-ratio total is the Bayesian-model 1-sigma; per-clock systematic decomposition is informational, not a 3x3 cross-ratio covariance."
       - "Cross-ratio shared-clock systematics (Yb in this row and ROW-003) are visible in Table 1 but not decomposed in the source."
@@ -235,8 +236,9 @@ rows:
       review_summary: false
       synthetic: false
     holdout:
-      split: unassigned
-      freeze_manifest: null
+      split: train
+      freeze_manifest: data/atomic_clocks/atomic_holdout_manifest.yaml
+      row_role: training_context
     limitations:
       - "Per-ratio total is the Bayesian-model 1-sigma; per-clock systematic decomposition is informational, not a 3x3 cross-ratio covariance."
       - "Statistical uncertainty in this row uses standard error without chi2red deflation (the dagger footnote of Table 1) because the daily ratios are under-scattered (chi2red = 0.2)."
@@ -306,8 +308,9 @@ rows:
       review_summary: false
       synthetic: false
     holdout:
-      split: unassigned
-      freeze_manifest: null
+      split: cross_source_reference
+      freeze_manifest: data/atomic_clocks/atomic_holdout_manifest.yaml
+      row_role: cross_source_reference
     limitations:
       - "Per-ratio total is the Bayesian-model 1-sigma; per-clock systematic decomposition is informational, not a 3x3 cross-ratio covariance."
       - "Cross-ratio shared-clock systematics: Yb in ROW-001, Sr in ROW-002."

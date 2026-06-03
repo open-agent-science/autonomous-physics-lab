@@ -66,9 +66,45 @@ classification:
 holdout:
   split: unassigned
   freeze_manifest: null
+  row_role: unassigned
 limitations:
   - "Planning placeholder; no value ingested."
 ```
+
+## Manifest-Backed Holdout Roles
+
+Direct measurement rows validated by the active loader must use the split
+vocabulary from
+`data/atomic_clocks/atomic_holdout_manifest.yaml`:
+
+- `train`
+- `holdout`
+- `cross_source_reference`
+- `cross_source_target`
+- `excluded`
+
+The loader also accepts `unassigned`, but only for pre-assignment rows with
+`holdout.freeze_manifest: null` and `holdout.row_role: unassigned`.
+
+Assigned direct rows must set:
+
+```yaml
+holdout:
+  split: train  # or holdout, cross_source_reference, cross_source_target, excluded
+  freeze_manifest: data/atomic_clocks/atomic_holdout_manifest.yaml
+  row_role: training_context  # or cross_source_reference, cross_source_target, excluded
+```
+
+Allowed `row_role` values are deliberately narrow:
+
+| `holdout.split` | Allowed `holdout.row_role` |
+| --- | --- |
+| `train` | `training_context` |
+| `holdout` | `training_context` |
+| `cross_source_reference` | `cross_source_reference` |
+| `cross_source_target` | `cross_source_target` |
+| `excluded` | `excluded` |
+| `unassigned` | `unassigned` |
 
 ## Derived Constraint Additions
 
