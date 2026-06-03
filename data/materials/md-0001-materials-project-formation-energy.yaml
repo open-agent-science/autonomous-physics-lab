@@ -1,0 +1,2736 @@
+# Materials Project pinned dataset (TASK-0548). CC BY 4.0; see attribution field.
+dataset_id: MD-0001-materials-project-formation-energy
+dataset_version: 0.1.0
+task_id: TASK-0548
+campaign_id: materials-property-residuals
+source_id: materials-project
+property_kind: formation_energy_per_atom
+units: eV_per_atom
+provenance_class: computed_dft
+method: DFT (GGA/GGA+U, Materials Project convention)
+database_version: 2025.09.25
+retrieved_at_utc: '2026-06-03T13:57:17.886949Z'
+changelog:
+- version: 0.1.0
+  date: '2026-06-03'
+  changes: Initial pinned stable-binary-oxides pilot slice from Materials Project.
+snapshot_file: snapshots/materials_project_binary_oxides_2025-09-25.json
+snapshot_checksum_sha256: bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101
+license: CC BY 4.0
+attribution: Data from The Materials Project (materialsproject.org), licensed CC BY 4.0; cite Jain et
+  al., APL Materials 1, 011002 (2013).
+row_count: 169
+uncertainty:
+  value: null
+  basis: absent_in_source_snapshot
+  note: Materials Project summary export did not provide per-row uncertainty.
+no_claim_boundary: Dataset artifact only; no benchmark metric, residual law, material-discovery claim, or model claim.
+limitations:
+- Computed DFT values (formation energy / band gap); not experimental measurements.
+- 'Bounded pilot scope: stable binary oxides only.'
+- No baseline, residual metric, or claim derived here.
+rows:
+- row_id: MD-0001-FE-0001
+  material_id: mp-1274279
+  formula_pretty: FeO
+  composition:
+    Fe: 4
+    O: 4
+  nsites: 8
+  spacegroup_symbol: C2/m
+  property_kind: formation_energy_per_atom
+  value: -1.481519387499999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0002
+  material_id: mp-19921
+  formula_pretty: PbO
+  composition:
+    O: 2
+    Pb: 2
+  nsites: 4
+  spacegroup_symbol: P4/nmm
+  property_kind: formation_energy_per_atom
+  value: -1.469972337031249
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0003
+  material_id: mp-2097
+  formula_pretty: SnO
+  composition:
+    O: 2
+    Sn: 2
+  nsites: 4
+  spacegroup_symbol: P4/nmm
+  property_kind: formation_energy_per_atom
+  value: -1.629702402499999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0004
+  material_id: mp-1336
+  formula_pretty: PdO
+  composition:
+    O: 2
+    Pd: 2
+  nsites: 4
+  spacegroup_symbol: P4_2/mmc
+  property_kind: formation_energy_per_atom
+  value: -0.789826404999999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0005
+  material_id: mp-1692
+  formula_pretty: CuO
+  composition:
+    Cu: 2
+    O: 2
+  nsites: 4
+  spacegroup_symbol: P4_2/mmc
+  property_kind: formation_energy_per_atom
+  value: -0.9427949424999991
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0006
+  material_id: mp-2803876
+  formula_pretty: AgO
+  composition:
+    Ag: 2
+    O: 2
+  nsites: 4
+  spacegroup_symbol: P4_2/mmc
+  property_kind: formation_energy_per_atom
+  value: -0.442571765833331
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0007
+  material_id: mp-1215377
+  formula_pretty: Zr4O
+  composition:
+    O: 3
+    Zr: 12
+  nsites: 15
+  spacegroup_symbol: R-3
+  property_kind: formation_energy_per_atom
+  value: -1.240729299
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0008
+  material_id: mp-2591
+  formula_pretty: Ti3O
+  composition:
+    O: 4
+    Ti: 12
+  nsites: 16
+  spacegroup_symbol: P-31c
+  property_kind: formation_energy_per_atom
+  value: -1.569913962499999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0009
+  material_id: mp-554098
+  formula_pretty: Ti6O
+  composition:
+    O: 2
+    Ti: 12
+  nsites: 14
+  spacegroup_symbol: P-31c
+  property_kind: formation_energy_per_atom
+  value: -0.9166954207142841
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0010
+  material_id: mp-1215
+  formula_pretty: Ti2O
+  composition:
+    O: 1
+    Ti: 2
+  nsites: 3
+  spacegroup_symbol: P-3m1
+  property_kind: formation_energy_per_atom
+  value: -2.035562333888889
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0011
+  material_id: mp-1346
+  formula_pretty: B6O
+  composition:
+    B: 12
+    O: 2
+  nsites: 14
+  spacegroup_symbol: R-3m
+  property_kind: formation_energy_per_atom
+  value: -0.8052726050000011
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0012
+  material_id: mp-27484
+  formula_pretty: Tl2O
+  composition:
+    O: 2
+    Tl: 4
+  nsites: 6
+  spacegroup_symbol: R-3m
+  property_kind: formation_energy_per_atom
+  value: -0.8140924155555621
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0013
+  material_id: mp-753746
+  formula_pretty: Rb2O
+  composition:
+    O: 1
+    Rb: 2
+  nsites: 3
+  spacegroup_symbol: R-3m
+  property_kind: formation_energy_per_atom
+  value: -1.133168373333332
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0014
+  material_id: mp-7988
+  formula_pretty: Cs2O
+  composition:
+    Cs: 2
+    O: 1
+  nsites: 3
+  spacegroup_symbol: R-3m
+  property_kind: formation_energy_per_atom
+  value: -1.180246544770117
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0015
+  material_id: mp-14024
+  formula_pretty: Zr3O
+  composition:
+    O: 2
+    Zr: 6
+  nsites: 8
+  spacegroup_symbol: R-3c
+  property_kind: formation_energy_per_atom
+  value: -1.5461592956249999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0016
+  material_id: mp-2133
+  formula_pretty: ZnO
+  composition:
+    O: 2
+    Zn: 2
+  nsites: 4
+  spacegroup_symbol: P6_3mc
+  property_kind: formation_energy_per_atom
+  value: -1.7908991124999991
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0017
+  material_id: mp-2542
+  formula_pretty: BeO
+  composition:
+    Be: 2
+    O: 2
+  nsites: 4
+  spacegroup_symbol: P6_3mc
+  property_kind: formation_energy_per_atom
+  value: -3.102855802499999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0018
+  material_id: mp-1071163
+  formula_pretty: TiO
+  composition:
+    O: 3
+    Ti: 3
+  nsites: 6
+  spacegroup_symbol: P-62m
+  property_kind: formation_energy_per_atom
+  value: -2.907956279166666
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0019
+  material_id: mp-510262
+  formula_pretty: Cs3O
+  composition:
+    Cs: 6
+    O: 2
+  nsites: 8
+  spacegroup_symbol: P6_3/mcm
+  property_kind: formation_energy_per_atom
+  value: -0.9187472859913781
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0020
+  material_id: mp-22408
+  formula_pretty: CoO
+  composition:
+    Co: 2
+    O: 2
+  nsites: 4
+  spacegroup_symbol: F-43m
+  property_kind: formation_energy_per_atom
+  value: -1.2718311462500012
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0021
+  material_id: mp-2311
+  formula_pretty: NbO
+  composition:
+    Nb: 3
+    O: 3
+  nsites: 6
+  spacegroup_symbol: Pm-3m
+  property_kind: formation_energy_per_atom
+  value: -2.287660930833333
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0022
+  material_id: mp-353
+  formula_pretty: Ag2O
+  composition:
+    Ag: 4
+    O: 2
+  nsites: 6
+  spacegroup_symbol: Pn-3m
+  property_kind: formation_energy_per_atom
+  value: -0.31563385777777403
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0023
+  material_id: mp-361
+  formula_pretty: Cu2O
+  composition:
+    Cu: 4
+    O: 2
+  nsites: 6
+  spacegroup_symbol: Pn-3m
+  property_kind: formation_energy_per_atom
+  value: -0.6445054383333331
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0024
+  material_id: mp-10688
+  formula_pretty: CeO
+  composition:
+    Ce: 1
+    O: 1
+  nsites: 2
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.232231492499998
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0025
+  material_id: mp-1132
+  formula_pretty: CdO
+  composition:
+    Cd: 1
+    O: 1
+  nsites: 2
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -1.346151347499999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0026
+  material_id: mp-1265
+  formula_pretty: MgO
+  composition:
+    Mg: 1
+    O: 1
+  nsites: 2
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.03830917
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0027
+  material_id: mp-1342
+  formula_pretty: BaO
+  composition:
+    Ba: 1
+    O: 1
+  nsites: 2
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -2.8236427075
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0028
+  material_id: mp-19009
+  formula_pretty: NiO
+  composition:
+    Ni: 1
+    O: 1
+  nsites: 2
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -1.218085299999999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0029
+  material_id: mp-1960
+  formula_pretty: Li2O
+  composition:
+    Li: 2
+    O: 1
+  nsites: 3
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -2.061597913888889
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0030
+  material_id: mp-21394
+  formula_pretty: EuO
+  composition:
+    Eu: 1
+    O: 1
+  nsites: 2
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.123422545000004
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0031
+  material_id: mp-2352
+  formula_pretty: Na2O
+  composition:
+    Na: 2
+    O: 1
+  nsites: 3
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -1.425738685919539
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0032
+  material_id: mp-2472
+  formula_pretty: SrO
+  composition:
+    O: 1
+    Sr: 1
+  nsites: 2
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.075623527499999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0033
+  material_id: mp-2605
+  formula_pretty: CaO
+  composition:
+    Ca: 1
+    O: 1
+  nsites: 2
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.306019392499999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0034
+  material_id: mp-971
+  formula_pretty: K2O
+  composition:
+    K: 4
+    O: 2
+  nsites: 6
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -1.233878036499999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0035
+  material_id: mp-697111
+  formula_pretty: H2O
+  composition:
+    H: 8
+    O: 4
+  nsites: 12
+  spacegroup_symbol: Cmc2_1
+  property_kind: formation_energy_per_atom
+  value: -1.280002993333333
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0036
+  material_id: mp-1232659
+  formula_pretty: MnO
+  composition:
+    Mn: 4
+    O: 4
+  nsites: 8
+  spacegroup_symbol: Pmmn
+  property_kind: formation_energy_per_atom
+  value: -2.032569766465519
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0037
+  material_id: mp-1095223
+  formula_pretty: OF2
+  composition:
+    F: 8
+    O: 4
+  nsites: 12
+  spacegroup_symbol: Pnma
+  property_kind: formation_energy_per_atom
+  value: -0.496055719166667
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0038
+  material_id: mp-1224
+  formula_pretty: HgO
+  composition:
+    Hg: 4
+    O: 4
+  nsites: 8
+  spacegroup_symbol: Pnma
+  property_kind: formation_energy_per_atom
+  value: -0.635057482500004
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0039
+  material_id: mp-27561
+  formula_pretty: Rb9O2
+  composition:
+    O: 4
+    Rb: 18
+  nsites: 22
+  spacegroup_symbol: P2_1/m
+  property_kind: formation_energy_per_atom
+  value: -0.6578798943181801
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0040
+  material_id: mp-31049
+  formula_pretty: NdO2
+  composition:
+    Nd: 2
+    O: 4
+  nsites: 6
+  spacegroup_symbol: C2/m
+  property_kind: formation_energy_per_atom
+  value: -3.1596579241666642
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0041
+  material_id: mp-541404
+  formula_pretty: VO2
+  composition:
+    O: 8
+    V: 4
+  nsites: 12
+  spacegroup_symbol: C2/m
+  property_kind: formation_energy_per_atom
+  value: -2.522468176666668
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0042
+  material_id: mp-644514
+  formula_pretty: MnO2
+  composition:
+    Mn: 6
+    O: 12
+  nsites: 18
+  spacegroup_symbol: C2/m
+  property_kind: formation_energy_per_atom
+  value: -1.8225279240325691
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0043
+  material_id: mp-726
+  formula_pretty: SeO2
+  composition:
+    O: 16
+    Se: 8
+  nsites: 24
+  spacegroup_symbol: P4_2/mbc
+  property_kind: formation_energy_per_atom
+  value: -1.154143574114583
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0044
+  material_id: mp-1018886
+  formula_pretty: PdO2
+  composition:
+    O: 4
+    Pd: 2
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -0.7275267350000001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0045
+  material_id: mp-19177
+  formula_pretty: CrO2
+  composition:
+    Cr: 2
+    O: 4
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -2.04770086166665
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0046
+  material_id: mp-19372
+  formula_pretty: WO2
+  composition:
+    O: 4
+    W: 2
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -2.036666524999999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0047
+  material_id: mp-20725
+  formula_pretty: PbO2
+  composition:
+    O: 4
+    Pb: 2
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -1.299647031666666
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0048
+  material_id: mp-2723
+  formula_pretty: IrO2
+  composition:
+    Ir: 2
+    O: 4
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -1.260892841666664
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0049
+  material_id: mp-470
+  formula_pretty: GeO2
+  composition:
+    Ge: 2
+    O: 4
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -2.156655663333334
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0050
+  material_id: mp-510536
+  formula_pretty: MoO2
+  composition:
+    Mo: 4
+    O: 8
+  nsites: 12
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -2.021555188333332
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0051
+  material_id: mp-725
+  formula_pretty: RhO2
+  composition:
+    O: 4
+    Rh: 2
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -1.218954728333332
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0052
+  material_id: mp-825
+  formula_pretty: RuO2
+  composition:
+    O: 4
+    Ru: 2
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -1.457661898333333
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0053
+  material_id: mp-856
+  formula_pretty: SnO2
+  composition:
+    O: 4
+    Sn: 2
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -2.107482005
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0054
+  material_id: mp-996
+  formula_pretty: OsO2
+  composition:
+    O: 4
+    Os: 2
+  nsites: 6
+  spacegroup_symbol: P4_2/mnm
+  property_kind: formation_energy_per_atom
+  value: -1.343400869999998
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0055
+  material_id: mp-1105
+  formula_pretty: BaO2
+  composition:
+    Ba: 1
+    O: 2
+  nsites: 3
+  spacegroup_symbol: I4/mmm
+  property_kind: formation_energy_per_atom
+  value: -2.170192663333334
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0056
+  material_id: mp-12105
+  formula_pretty: RbO2
+  composition:
+    O: 2
+    Rb: 1
+  nsites: 3
+  spacegroup_symbol: I4/mmm
+  property_kind: formation_energy_per_atom
+  value: -0.9722602958333331
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0057
+  material_id: mp-2697
+  formula_pretty: SrO2
+  composition:
+    O: 2
+    Sr: 1
+  nsites: 3
+  spacegroup_symbol: I4/mmm
+  property_kind: formation_energy_per_atom
+  value: -2.204479133333331
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0058
+  material_id: mp-634859
+  formula_pretty: CaO2
+  composition:
+    Ca: 1
+    O: 2
+  nsites: 3
+  spacegroup_symbol: I4/mmm
+  property_kind: formation_energy_per_atom
+  value: -2.206560153333333
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0059
+  material_id: mp-1524394
+  formula_pretty: WO2
+  composition:
+    O: 8
+    W: 4
+  nsites: 12
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -2.067517555833333
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0060
+  material_id: mp-1545216
+  formula_pretty: NaO2
+  composition:
+    Na: 4
+    O: 8
+  nsites: 12
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -0.9077286621264361
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0061
+  material_id: mp-2858
+  formula_pretty: ZrO2
+  composition:
+    O: 8
+    Zr: 4
+  nsites: 12
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -3.813617754999999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0062
+  material_id: mp-33137
+  formula_pretty: TcO2
+  composition:
+    O: 8
+    Tc: 4
+  nsites: 12
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -1.883364699166667
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0063
+  material_id: mp-352
+  formula_pretty: HfO2
+  composition:
+    Hf: 4
+    O: 8
+  nsites: 12
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -4.019811040833332
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0064
+  material_id: mp-390
+  formula_pretty: TiO2
+  composition:
+    O: 4
+    Ti: 2
+  nsites: 6
+  spacegroup_symbol: I4_1/amd
+  property_kind: formation_energy_per_atom
+  value: -3.5080554519444442
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0065
+  material_id: mp-1819
+  formula_pretty: SbO2
+  composition:
+    O: 8
+    Sb: 4
+  nsites: 12
+  spacegroup_symbol: C2/c
+  property_kind: formation_energy_per_atom
+  value: -1.839006646249989
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0066
+  material_id: mp-557993
+  formula_pretty: BiO2
+  composition:
+    Bi: 4
+    O: 8
+  nsites: 12
+  spacegroup_symbol: C2/c
+  property_kind: formation_energy_per_atom
+  value: -1.459764126666667
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0067
+  material_id: mp-7000
+  formula_pretty: SiO2
+  composition:
+    O: 6
+    Si: 3
+  nsites: 9
+  spacegroup_symbol: P3_121
+  property_kind: formation_energy_per_atom
+  value: -3.27283134388889
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0068
+  material_id: mp-2340
+  formula_pretty: Na2O2
+  composition:
+    Na: 6
+    O: 6
+  nsites: 12
+  spacegroup_symbol: P-62m
+  property_kind: formation_energy_per_atom
+  value: -1.2980963948563211
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0069
+  material_id: mp-8377
+  formula_pretty: TeO2
+  composition:
+    O: 8
+    Te: 4
+  nsites: 12
+  spacegroup_symbol: P2_12_12_1
+  property_kind: formation_energy_per_atom
+  value: -1.4950600038888862
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0070
+  material_id: mp-841
+  formula_pretty: Li2O2
+  composition:
+    Li: 4
+    O: 4
+  nsites: 8
+  spacegroup_symbol: P6_3/mmc
+  property_kind: formation_energy_per_atom
+  value: -1.650170236666666
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0071
+  material_id: mp-2789
+  formula_pretty: NO2
+  composition:
+    N: 6
+    O: 12
+  nsites: 18
+  spacegroup_symbol: Im-3
+  property_kind: formation_energy_per_atom
+  value: -0.685685905
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0072
+  material_id: mp-20066
+  formula_pretty: CO2
+  composition:
+    C: 4
+    O: 8
+  nsites: 12
+  spacegroup_symbol: Pa-3
+  property_kind: formation_energy_per_atom
+  value: -1.768723351666668
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0073
+  material_id: mp-1597
+  formula_pretty: UO2
+  composition:
+    O: 2
+    U: 1
+  nsites: 3
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.75044424
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0074
+  material_id: mp-1959
+  formula_pretty: PuO2
+  composition:
+    O: 2
+    Pu: 1
+  nsites: 3
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.493067072916661
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0075
+  material_id: mp-20194
+  formula_pretty: CeO2
+  composition:
+    Ce: 1
+    O: 2
+  nsites: 3
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.9271761966666663
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0076
+  material_id: mp-2364
+  formula_pretty: PaO2
+  composition:
+    O: 2
+    Pa: 1
+  nsites: 3
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -4.02262173
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0077
+  material_id: mp-2616
+  formula_pretty: NpO2
+  composition:
+    Np: 1
+    O: 2
+  nsites: 3
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.601204179583336
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0078
+  material_id: mp-643
+  formula_pretty: ThO2
+  composition:
+    O: 2
+    Th: 1
+  nsites: 3
+  spacegroup_symbol: Fm-3m
+  property_kind: formation_energy_per_atom
+  value: -4.36779017333333
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0079
+  material_id: mp-27726
+  formula_pretty: SO2
+  composition:
+    O: 4
+    S: 2
+  nsites: 6
+  spacegroup_symbol: Aea2
+  property_kind: formation_energy_per_atom
+  value: -1.521880410833333
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0080
+  material_id: mp-1285
+  formula_pretty: PtO2
+  composition:
+    O: 4
+    Pt: 2
+  nsites: 6
+  spacegroup_symbol: Pnnm
+  property_kind: formation_energy_per_atom
+  value: -0.9266031233333341
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0081
+  material_id: mp-23207
+  formula_pretty: ClO2
+  composition:
+    Cl: 8
+    O: 16
+  nsites: 24
+  spacegroup_symbol: Pbca
+  property_kind: formation_energy_per_atom
+  value: -0.352869884583334
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0082
+  material_id: mp-2672
+  formula_pretty: K2O2
+  composition:
+    K: 4
+    O: 4
+  nsites: 8
+  spacegroup_symbol: Cmce
+  property_kind: formation_energy_per_atom
+  value: -1.284958853625
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0083
+  material_id: mp-2035026
+  formula_pretty: KO2
+  composition:
+    K: 4
+    O: 8
+  nsites: 12
+  spacegroup_symbol: Immm
+  property_kind: formation_energy_per_atom
+  value: -0.9974404065833331
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0084
+  material_id: mp-2037681
+  formula_pretty: CsO2
+  composition:
+    Cs: 2
+    O: 4
+  nsites: 6
+  spacegroup_symbol: Immm
+  property_kind: formation_energy_per_atom
+  value: -1.010515681551724
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0085
+  material_id: mp-7895
+  formula_pretty: Rb2O2
+  composition:
+    O: 2
+    Rb: 2
+  nsites: 4
+  spacegroup_symbol: Immm
+  property_kind: formation_energy_per_atom
+  value: -1.23299356125
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0086
+  material_id: mp-7896
+  formula_pretty: Cs2O2
+  composition:
+    Cs: 2
+    O: 2
+  nsites: 4
+  spacegroup_symbol: Immm
+  property_kind: formation_energy_per_atom
+  value: -1.224223352327586
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0087
+  material_id: mp-1400906
+  formula_pretty: CoO2
+  composition:
+    Co: 4
+    O: 8
+  nsites: 12
+  spacegroup_symbol: I4/m
+  property_kind: formation_energy_per_atom
+  value: -1.072432660000001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0088
+  material_id: mp-557057
+  formula_pretty: NbO2
+  composition:
+    Nb: 8
+    O: 16
+  nsites: 24
+  spacegroup_symbol: I4_1/a
+  property_kind: formation_energy_per_atom
+  value: -2.897628194166666
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0089
+  material_id: mp-27684
+  formula_pretty: Tl4O3
+  composition:
+    O: 6
+    Tl: 8
+  nsites: 14
+  spacegroup_symbol: P2_1/m
+  property_kind: formation_energy_per_atom
+  value: -0.9325564547619061
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0090
+  material_id: mp-1101301
+  formula_pretty: TeO3
+  composition:
+    O: 12
+    Te: 4
+  nsites: 16
+  spacegroup_symbol: C2/m
+  property_kind: formation_energy_per_atom
+  value: -1.341681144166666
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0091
+  material_id: mp-886
+  formula_pretty: Ga2O3
+  composition:
+    Ga: 4
+    O: 6
+  nsites: 10
+  spacegroup_symbol: C2/m
+  property_kind: formation_energy_per_atom
+  value: -2.268996668999999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0092
+  material_id: mp-861975
+  formula_pretty: PaO3
+  composition:
+    O: 3
+    Pa: 1
+  nsites: 4
+  spacegroup_symbol: I4/mmm
+  property_kind: formation_energy_per_atom
+  value: -3.081037021250002
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0093
+  material_id: mp-1204579
+  formula_pretty: NO3
+  composition:
+    N: 16
+    O: 48
+  nsites: 64
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -0.56358408953125
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0094
+  material_id: mp-1582
+  formula_pretty: As2O3
+  composition:
+    As: 8
+    O: 12
+  nsites: 20
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -1.626348611000001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0095
+  material_id: mp-23262
+  formula_pretty: Bi2O3
+  composition:
+    Bi: 8
+    O: 12
+  nsites: 20
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -1.641727215000003
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0096
+  material_id: mp-28933
+  formula_pretty: Br2O3
+  composition:
+    Br: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -0.198695136500001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0097
+  material_id: mp-561397
+  formula_pretty: SO3
+  composition:
+    O: 12
+    S: 4
+  nsites: 16
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -1.580818240208334
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0098
+  material_id: mp-306
+  formula_pretty: B2O3
+  composition:
+    B: 6
+    O: 9
+  nsites: 15
+  spacegroup_symbol: P3_121
+  property_kind: formation_energy_per_atom
+  value: -2.798056310000001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0099
+  material_id: mp-1017564
+  formula_pretty: Eu2O3
+  composition:
+    Eu: 2
+    O: 3
+  nsites: 5
+  spacegroup_symbol: P-3m1
+  property_kind: formation_energy_per_atom
+  value: -3.4451725570000002
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0100
+  material_id: mp-11107
+  formula_pretty: Ac2O3
+  composition:
+    Ac: 2
+    O: 3
+  nsites: 5
+  spacegroup_symbol: P-3m1
+  property_kind: formation_energy_per_atom
+  value: -3.737668289999997
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0101
+  material_id: mp-1968
+  formula_pretty: La2O3
+  composition:
+    La: 2
+    O: 3
+  nsites: 5
+  spacegroup_symbol: P-3m1
+  property_kind: formation_energy_per_atom
+  value: -3.8759289195
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0102
+  material_id: mp-1143
+  formula_pretty: Al2O3
+  composition:
+    Al: 4
+    O: 6
+  nsites: 10
+  spacegroup_symbol: R-3c
+  property_kind: formation_energy_per_atom
+  value: -3.426551008
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0103
+  material_id: mp-19399
+  formula_pretty: Cr2O3
+  composition:
+    Cr: 4
+    O: 6
+  nsites: 10
+  spacegroup_symbol: R-3c
+  property_kind: formation_energy_per_atom
+  value: -2.366587769
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0104
+  material_id: mp-19770
+  formula_pretty: Fe2O3
+  composition:
+    Fe: 4
+    O: 6
+  nsites: 10
+  spacegroup_symbol: R-3c
+  property_kind: formation_energy_per_atom
+  value: -1.7070913529999991
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0105
+  material_id: mp-458
+  formula_pretty: Ti2O3
+  composition:
+    O: 6
+    Ti: 4
+  nsites: 10
+  spacegroup_symbol: R-3c
+  property_kind: formation_energy_per_atom
+  value: -3.303439634333334
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0106
+  material_id: mp-1045
+  formula_pretty: Nd2O3
+  composition:
+    Nd: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.781547341499998
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0107
+  material_id: mp-1056
+  formula_pretty: Tb2O3
+  composition:
+    O: 24
+    Tb: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.9821810734166663
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0108
+  material_id: mp-1427
+  formula_pretty: Lu2O3
+  composition:
+    Lu: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -4.123783570916665
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0109
+  material_id: mp-1658
+  formula_pretty: Tl2O3
+  composition:
+    O: 24
+    Tl: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -1.100437307333334
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0110
+  material_id: mp-16705
+  formula_pretty: Pr2O3
+  composition:
+    O: 24
+    Pr: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.729270369416666
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0111
+  material_id: mp-1767
+  formula_pretty: Tm2O3
+  composition:
+    O: 24
+    Tm: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -4.090072903500003
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0112
+  material_id: mp-21579
+  formula_pretty: V2O3
+  composition:
+    O: 24
+    V: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -2.53454769325
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0113
+  material_id: mp-216
+  formula_pretty: Sc2O3
+  composition:
+    O: 24
+    Sc: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.968732640749999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0114
+  material_id: mp-218
+  formula_pretty: Sm2O3
+  composition:
+    O: 24
+    Sm: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.86195246725
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0115
+  material_id: mp-22598
+  formula_pretty: In2O3
+  composition:
+    In: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -1.994067387666665
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0116
+  material_id: mp-2345
+  formula_pretty: Dy2O3
+  composition:
+    Dy: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -4.005045779666665
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0117
+  material_id: mp-2652
+  formula_pretty: Y2O3
+  composition:
+    O: 24
+    Y: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.953871922749999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0118
+  material_id: mp-2814
+  formula_pretty: Yb2O3
+  composition:
+    O: 24
+    Yb: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -4.052655219750003
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0119
+  material_id: mp-504886
+  formula_pretty: Gd2O3
+  composition:
+    Gd: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.895411792000001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0120
+  material_id: mp-542313
+  formula_pretty: Ce2O3
+  composition:
+    Ce: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.768251280249999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0121
+  material_id: mp-553921
+  formula_pretty: Pm2O3
+  composition:
+    O: 24
+    Pm: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.836100897500001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0122
+  material_id: mp-637224
+  formula_pretty: Pu2O3
+  composition:
+    O: 24
+    Pu: 16
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -3.305053022499996
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0123
+  material_id: mp-679
+  formula_pretty: Er2O3
+  composition:
+    Er: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -4.057094096999998
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0124
+  material_id: mp-812
+  formula_pretty: Ho2O3
+  composition:
+    Ho: 16
+    O: 24
+  nsites: 40
+  spacegroup_symbol: Ia-3
+  property_kind: formation_energy_per_atom
+  value: -4.027559444749998
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0125
+  material_id: mp-190
+  formula_pretty: ReO3
+  composition:
+    O: 12
+    Re: 4
+  nsites: 16
+  spacegroup_symbol: Pm-3m
+  property_kind: formation_energy_per_atom
+  value: -2.134489004375001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0126
+  material_id: mp-375
+  formula_pretty: UO3
+  composition:
+    O: 3
+    U: 1
+  nsites: 4
+  spacegroup_symbol: Pm-3m
+  property_kind: formation_energy_per_atom
+  value: -3.612179313749998
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0127
+  material_id: mp-27253
+  formula_pretty: Au2O3
+  composition:
+    Au: 4
+    O: 6
+  nsites: 10
+  spacegroup_symbol: Fdd2
+  property_kind: formation_energy_per_atom
+  value: -0.45785339499999805
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0128
+  material_id: mp-760432
+  formula_pretty: Cu2O3
+  composition:
+    Cu: 4
+    O: 6
+  nsites: 10
+  spacegroup_symbol: Fdd2
+  property_kind: formation_energy_per_atom
+  value: -0.851877498249999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0129
+  material_id: mp-2136
+  formula_pretty: Sb2O3
+  composition:
+    O: 12
+    Sb: 8
+  nsites: 20
+  spacegroup_symbol: Pccn
+  property_kind: formation_energy_per_atom
+  value: -1.751737501999998
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0130
+  material_id: mp-2383161
+  formula_pretty: WO3
+  composition:
+    O: 24
+    W: 8
+  nsites: 32
+  spacegroup_symbol: Pbcn
+  property_kind: formation_energy_per_atom
+  value: -2.190860606562499
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0131
+  material_id: mp-1172875
+  formula_pretty: Mn2O3
+  composition:
+    Mn: 32
+    O: 48
+  nsites: 80
+  spacegroup_symbol: Pbca
+  property_kind: formation_energy_per_atom
+  value: -2.013919843547413
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0132
+  material_id: mp-1097041
+  formula_pretty: IrO3
+  composition:
+    Ir: 8
+    O: 24
+  nsites: 32
+  spacegroup_symbol: Cmcm
+  property_kind: formation_energy_per_atom
+  value: -0.9821975675000001
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0133
+  material_id: mp-715584
+  formula_pretty: MoO3
+  composition:
+    Mo: 4
+    O: 12
+  nsites: 16
+  spacegroup_symbol: Pc
+  property_kind: formation_energy_per_atom
+  value: -1.9246418721875
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0134
+  material_id: mp-22869
+  formula_pretty: ClO3
+  composition:
+    Cl: 4
+    O: 12
+  nsites: 16
+  spacegroup_symbol: Cc
+  property_kind: formation_energy_per_atom
+  value: -0.33921599625000004
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0135
+  material_id: mp-1524458
+  formula_pretty: OsO4
+  composition:
+    O: 4
+    Os: 1
+  nsites: 5
+  spacegroup_symbol: I-42m
+  property_kind: formation_energy_per_atom
+  value: -1.529192906999997
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0136
+  material_id: mp-22633
+  formula_pretty: Pb3O4
+  composition:
+    O: 16
+    Pb: 12
+  nsites: 28
+  spacegroup_symbol: P4_2/mbc
+  property_kind: formation_energy_per_atom
+  value: -1.44698115428571
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0137
+  material_id: mp-1605
+  formula_pretty: Ag3O4
+  composition:
+    Ag: 6
+    O: 8
+  nsites: 14
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -0.40144617142857003
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0138
+  material_id: mp-18759
+  formula_pretty: Mn3O4
+  composition:
+    Mn: 6
+    O: 8
+  nsites: 14
+  spacegroup_symbol: I4_1/amd
+  property_kind: formation_energy_per_atom
+  value: -2.050409240541872
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0139
+  material_id: mp-1271793
+  formula_pretty: Co3O4
+  composition:
+    Co: 6
+    O: 8
+  nsites: 14
+  spacegroup_symbol: R-3m
+  property_kind: formation_energy_per_atom
+  value: -1.290338224285714
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0140
+  material_id: mp-554791
+  formula_pretty: RuO4
+  composition:
+    O: 32
+    Ru: 8
+  nsites: 40
+  spacegroup_symbol: P-43n
+  property_kind: formation_energy_per_atom
+  value: -1.181973681749999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0141
+  material_id: mp-1604
+  formula_pretty: Pt3O4
+  composition:
+    O: 8
+    Pt: 6
+  nsites: 14
+  spacegroup_symbol: Pm-3n
+  property_kind: formation_energy_per_atom
+  value: -0.8267827357142831
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0142
+  material_id: mp-656887
+  formula_pretty: Ni3O4
+  composition:
+    Ni: 6
+    O: 8
+  nsites: 14
+  spacegroup_symbol: Cmmm
+  property_kind: formation_energy_per_atom
+  value: -1.046750069285714
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0143
+  material_id: mp-23261
+  formula_pretty: I2O5
+  composition:
+    I: 8
+    O: 20
+  nsites: 28
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -0.7564620653571411
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0144
+  material_id: mp-27358
+  formula_pretty: Se2O5
+  composition:
+    O: 20
+    Se: 8
+  nsites: 28
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -1.022062649955356
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0145
+  material_id: mp-10390
+  formula_pretty: Ta2O5
+  composition:
+    O: 10
+    Ta: 4
+  nsites: 14
+  spacegroup_symbol: C2/c
+  property_kind: formation_energy_per_atom
+  value: -3.346563131380951
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0146
+  material_id: mp-1705
+  formula_pretty: Sb2O5
+  composition:
+    O: 10
+    Sb: 4
+  nsites: 14
+  spacegroup_symbol: C2/c
+  property_kind: formation_energy_per_atom
+  value: -1.74803409
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0147
+  material_id: mp-554714
+  formula_pretty: Np2O5
+  composition:
+    Np: 8
+    O: 20
+  nsites: 28
+  spacegroup_symbol: C2/c
+  property_kind: formation_energy_per_atom
+  value: -3.448520474642858
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0148
+  material_id: mp-1788
+  formula_pretty: As2O5
+  composition:
+    As: 8
+    O: 20
+  nsites: 28
+  spacegroup_symbol: P2_12_12_1
+  property_kind: formation_energy_per_atom
+  value: -1.557510087142856
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0149
+  material_id: mp-581967
+  formula_pretty: Nb2O5
+  composition:
+    Nb: 28
+    O: 70
+  nsites: 98
+  spacegroup_symbol: P2
+  property_kind: formation_energy_per_atom
+  value: -3.034205274693879
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0150
+  material_id: mp-12177
+  formula_pretty: Te2O5
+  composition:
+    O: 10
+    Te: 4
+  nsites: 14
+  spacegroup_symbol: P2_1
+  property_kind: formation_energy_per_atom
+  value: -1.417868102619037
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0151
+  material_id: mp-25279
+  formula_pretty: V2O5
+  composition:
+    O: 10
+    V: 4
+  nsites: 14
+  spacegroup_symbol: Pmmn
+  property_kind: formation_energy_per_atom
+  value: -2.2890218171428582
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0152
+  material_id: mp-2173
+  formula_pretty: P2O5
+  composition:
+    O: 20
+    P: 8
+  nsites: 28
+  spacegroup_symbol: Pnma
+  property_kind: formation_energy_per_atom
+  value: -2.449045707040817
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0153
+  material_id: mp-8057
+  formula_pretty: Ti3O5
+  composition:
+    O: 10
+    Ti: 6
+  nsites: 16
+  spacegroup_symbol: Cmcm
+  property_kind: formation_energy_per_atom
+  value: -3.382133738125
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0154
+  material_id: mp-978114
+  formula_pretty: Sn5O6
+  composition:
+    O: 12
+    Sn: 10
+  nsites: 22
+  spacegroup_symbol: P2_1/c
+  property_kind: formation_energy_per_atom
+  value: -1.762198781818187
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0155
+  material_id: mp-31050
+  formula_pretty: Cl2O7
+  composition:
+    Cl: 4
+    O: 14
+  nsites: 18
+  spacegroup_symbol: C2/c
+  property_kind: formation_energy_per_atom
+  value: -0.30258604611111
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0156
+  material_id: mp-1016092
+  formula_pretty: Re2O7
+  composition:
+    O: 56
+    Re: 16
+  nsites: 72
+  spacegroup_symbol: P2_12_12_1
+  property_kind: formation_energy_per_atom
+  value: -2.025868364583333
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0157
+  material_id: mp-30303
+  formula_pretty: Bi4O7
+  composition:
+    Bi: 8
+    O: 14
+  nsites: 22
+  spacegroup_symbol: P-1
+  property_kind: formation_energy_per_atom
+  value: -1.569201818181821
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0158
+  material_id: mp-27485
+  formula_pretty: Tc2O7
+  composition:
+    O: 28
+    Tc: 8
+  nsites: 36
+  spacegroup_symbol: Pbca
+  property_kind: formation_energy_per_atom
+  value: -1.799278561388888
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0159
+  material_id: mp-560402
+  formula_pretty: U3O8
+  composition:
+    O: 16
+    U: 6
+  nsites: 22
+  spacegroup_symbol: Cmcm
+  property_kind: formation_energy_per_atom
+  value: -3.709680540454551
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0160
+  material_id: mp-1235059
+  formula_pretty: LiO8
+  composition:
+    Li: 1
+    O: 8
+  nsites: 9
+  spacegroup_symbol: Cm
+  property_kind: formation_energy_per_atom
+  value: -0.42706908814814803
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0161
+  material_id: mp-32613
+  formula_pretty: Ce5O9
+  composition:
+    Ce: 10
+    O: 18
+  nsites: 28
+  spacegroup_symbol: P-1
+  property_kind: formation_energy_per_atom
+  value: -3.9571209660714253
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0162
+  material_id: mp-1182576
+  formula_pretty: BaO10
+  composition:
+    Ba: 2
+    O: 20
+  nsites: 22
+  spacegroup_symbol: P4/mcc
+  property_kind: formation_energy_per_atom
+  value: -0.6015697763636351
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0163
+  material_id: mp-2629
+  formula_pretty: Ce7O12
+  composition:
+    Ce: 7
+    O: 12
+  nsites: 19
+  spacegroup_symbol: R-3
+  property_kind: formation_energy_per_atom
+  value: -3.917592265263155
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0164
+  material_id: mp-773920
+  formula_pretty: Cr5O12
+  composition:
+    Cr: 20
+    O: 48
+  nsites: 68
+  spacegroup_symbol: Pbcn
+  property_kind: formation_energy_per_atom
+  value: -1.832207719999999
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0165
+  material_id: mp-560190
+  formula_pretty: Mo8O23
+  composition:
+    Mo: 32
+    O: 92
+  nsites: 124
+  spacegroup_symbol: P2/c
+  property_kind: formation_energy_per_atom
+  value: -1.935219598870967
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0166
+  material_id: mp-706490
+  formula_pretty: Mo9O26
+  composition:
+    Mo: 36
+    O: 104
+  nsites: 140
+  spacegroup_symbol: C2/c
+  property_kind: formation_energy_per_atom
+  value: -1.9340294184285711
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0167
+  material_id: mp-1470
+  formula_pretty: Nb12O29
+  composition:
+    Nb: 24
+    O: 58
+  nsites: 82
+  spacegroup_symbol: Cmcm
+  property_kind: formation_energy_per_atom
+  value: -3.039089709756097
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0168
+  material_id: mp-674332
+  formula_pretty: U17O31
+  composition:
+    O: 31
+    U: 17
+  nsites: 48
+  spacegroup_symbol: Cm
+  property_kind: formation_energy_per_atom
+  value: -3.642409971145831
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included
+- row_id: MD-0001-FE-0169
+  material_id: mp-705564
+  formula_pretty: Co23O32
+  composition:
+    Co: 23
+    O: 32
+  nsites: 55
+  spacegroup_symbol: P1
+  property_kind: formation_energy_per_atom
+  value: -1.272912193454546
+  units: eV_per_atom
+  method: DFT (GGA/GGA+U, Materials Project convention)
+  energy_above_hull: 0.0
+  is_stable: true
+  provenance_class: computed_dft
+  inclusion_status: included

@@ -1,0 +1,61 @@
+id: TASK-0548
+title: "Curate first Materials Project pinned-snapshot dataset (stable binary oxides)"
+type: scientific_dataset
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Land APL's first new reusable, provenance-rich dataset from an open-licensed source (the actual data-layer goal)."
+  - "Prove the acquisition lane end to end: maintainer-run fetch -> pinned snapshot -> curated, checksummed, attributed rows."
+  - "Keep computed-vs-measured separation, provenance, and license discipline intact."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "data/materials/schema.md"
+    - "data/materials/source_manifest.yaml"
+    - "data/materials/materials_snapshot_manifest.yaml"
+    - "docs/runbooks/materials-snapshot-acquisition-runbook.md"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >
+    Row-curation follow-up to TASK-0547 (acquisition runbook + scaffold, merged).
+    The maintainer ran the runbook locally with their own MP_API_KEY (never
+    committed) against a bounded pilot scope (stable binary oxides:
+    elements contains O, num_elements=2, is_stable=true). Materials Project
+    database_version 2025.09.25; 169 rows, each with formation_energy_per_atom
+    (eV/atom) and band_gap (eV), all computed_dft. This task commits the pinned
+    snapshot, the normalized per-axis dataset files, fills the snapshot manifest,
+    and adds a self-guarding validator test. No benchmark metric, baseline,
+    model training, or claim; that is a separate task.
+
+requirements:
+  - "Commit the pinned raw snapshot with a recorded SHA-256 checksum."
+  - "Normalize rows into one file per property axis (formation energy, band gap) under data/materials/schema.md, never pooling axes."
+  - "Record CC BY 4.0 license + Materials Project attribution + citation and the pinned database_version on every dataset file."
+  - "Fill data/materials/materials_snapshot_manifest.yaml PENDING fields (database_version, retrieval timestamp, row_count, checksum, no_peek_attestation, normalized paths)."
+  - "Update data/materials/source_manifest.yaml version from PENDING to the pinned database_version."
+  - "Add a validator test that checks required fields, units, provenance, attribution, and that the snapshot checksum matches the committed file."
+  - "No benchmark metric, baseline, model training, or claim."
+
+accepted_outputs:
+  - "data/materials/snapshots/materials_project_binary_oxides_2025-09-25.json"
+  - "data/materials/md-0001-materials-project-formation-energy.yaml"
+  - "data/materials/md-0001-materials-project-band-gap.yaml"
+  - "data/materials/materials_snapshot_manifest.yaml (PENDING fields filled)"
+  - "data/materials/source_manifest.yaml (version pinned)"
+  - "tests/test_materials_dataset.py"
+  - "docs/reviews/materials-binary-oxides-dataset.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_dataset.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
