@@ -17,7 +17,6 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0487` - Audit Atomic direct-vs-derived row separation (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0536` - Add Exoplanet second-snapshot ingestion dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0537` - Build Textbook Wien displacement exact-reference fixture (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0543` - Unify published-source and reusable-dataset standard (`research_infrastructure`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
