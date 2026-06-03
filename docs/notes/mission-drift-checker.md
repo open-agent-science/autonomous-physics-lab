@@ -2,7 +2,7 @@
 
 `scripts/apl_check_mission_drift.py` is an advisory check that detects when
 `missions/current.yaml` routes agents into work the canonical state no longer
-supports. It reads canonical task YAML, `campaigns/catalog.yaml`, and
+supports. It reads canonical task YAML, `campaign_profiles/_catalog.yaml`, and
 `missions/current.yaml` and reports:
 
 - **stale_task_reference** — a current/recommended mission action (or any
@@ -14,7 +14,7 @@ supports. It reads canonical task YAML, `campaigns/catalog.yaml`, and
 - **campaign_conflict** — a mission still lists a campaign the catalog marks
   non-actionable (`blocked`, `superseded`, `retired`, `archived`, `deprecated`);
 - **dangling_campaign** — a mission references a campaign id absent from
-  `campaigns/catalog.yaml`.
+  `campaign_profiles/_catalog.yaml`.
 
 ## Relationship to mission_freshness / validate-repo
 

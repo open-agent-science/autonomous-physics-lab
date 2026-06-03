@@ -133,7 +133,7 @@ identifies a concrete pain point.
 - `knowledge/`
 - `tasks/`
 - `agents/`
-- `campaigns/`
+- `campaign_profiles/`
 - `results/`
 
 ### Current Canonical Results

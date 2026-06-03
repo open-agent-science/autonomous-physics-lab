@@ -21,7 +21,7 @@ The short version:
   Thought-Experiment Consistency.
 
 For a compact machine-readable portfolio map, see
-[`campaigns/catalog.yaml`](../../campaigns/catalog.yaml) and
+[`campaign_profiles/_catalog.yaml`](../../campaign_profiles/_catalog.yaml) and
 [`docs/campaign-registry.md`](../campaign-registry.md). The catalog summarizes
 status, stage, agent capacity, gates, allowed work, forbidden work, and result
 pointers for parallel agent planning; it does not replace this human-readable

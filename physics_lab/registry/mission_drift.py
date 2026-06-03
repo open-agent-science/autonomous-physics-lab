@@ -20,6 +20,7 @@ from typing import Any
 
 import yaml
 
+from physics_lab.registry.campaigns import campaign_catalog_path
 from physics_lab.registry.mission_control import load_current_missions
 from physics_lab.registry.mission_freshness import (
     DISALLOWED_TASK_STATUSES,
@@ -128,7 +129,7 @@ def _task_reference_items(payload, statuses) -> list[MissionDriftItem]:
 
 
 def _load_catalog_statuses(root: Path) -> dict[str, str]:
-    path = root / "campaigns" / "catalog.yaml"
+    path = campaign_catalog_path(root)
     if not path.exists():
         return {}
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -157,7 +158,7 @@ def _campaign_conflict_items(payload, catalog_statuses) -> list[MissionDriftItem
                     kind="dangling_campaign",
                     owner=f"mission {mission_id}",
                     detail=f"mission references campaign id {mission_id!r} not present "
-                    "in campaigns/catalog.yaml",
+                    "in campaign_profiles/_catalog.yaml",
                 )
             )
             continue
