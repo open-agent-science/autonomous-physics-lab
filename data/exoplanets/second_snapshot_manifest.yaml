@@ -1,0 +1,147 @@
+manifest_id: EXO-SECOND-SNAPSHOT-ACQUISITION-PACKAGE-0001
+schema_version: 0.1.0
+task_id: TASK-0554
+campaign_profile_id: exoplanet-mass-radius
+status: metadata_only_acquisition_package
+created_by:
+  contributor_id: akutenyov
+  agent_id: codex
+created_utc: 2026-06-03
+
+scope:
+  purpose: >
+    Metadata-only source-acquisition package for a future second NASA Exoplanet
+    Archive PSCompPars snapshot. This file records the acquisition shape before
+    any new catalog rows are fetched, normalized, inspected, or scored.
+  live_fetch_performed: false
+  future_data_values_included: false
+  raw_snapshot_committed: false
+  normalized_snapshot_committed: false
+  benchmark_allowed: false
+  prediction_registry_allowed: false
+  claim_promotion_allowed: false
+  result_artifact_allowed: false
+
+source:
+  source_id: EXO-SRC-CLASS-001
+  source_family: NASA Exoplanet Archive Planetary Systems Composite Parameters
+  tap_endpoint: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+  archive_homepage: https://exoplanetarchive.ipac.caltech.edu/
+  documentation: https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html
+  query_contract_path: data/exoplanets/snapshot_plans/pscomppars_query.adql
+  query_contract_sha256: 4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4
+  first_snapshot_reference: data/exoplanets/exo-0001-pscomppars-snapshot.yaml
+  source_manifest_reference: data/exoplanets/source_manifest.yaml
+
+selected_fields:
+  identity_and_provenance:
+    - pl_name
+    - hostname
+    - default_flag
+    - soltype
+    - pl_refname
+    - st_refname
+    - disc_refname
+  planet_observables:
+    - pl_orbper
+    - pl_orbsmax
+    - pl_orbeccen
+    - pl_eqt
+    - pl_insol
+    - pl_rade
+    - pl_radeerr1
+    - pl_radeerr2
+    - pl_radj
+    - pl_bmasse
+    - pl_bmasseerr1
+    - pl_bmasseerr2
+    - pl_bmassj
+    - pl_bmassprov
+    - pl_dens
+  discovery_and_host_context:
+    - disc_year
+    - discoverymethod
+    - st_spectype
+    - st_teff
+    - st_tefferr1
+    - st_tefferr2
+    - st_rad
+    - st_mass
+    - st_met
+    - st_meterr1
+    - st_meterr2
+    - st_age
+    - st_logg
+    - sy_dist
+
+planned_acquisition:
+  approval_required_before_fetch: true
+  acquisition_actor: maintainer_or_explicitly_approved_acquisition_actor
+  retrieval_timestamp_utc: null
+  response_format: csv_or_votable_recorded_before_run
+  raw_artifact_path_template: data/exoplanets/raw/exo-pscomppars-second-snapshot-<retrieval_timestamp_utc>.csv
+  normalized_artifact_path_template: data/exoplanets/exo-0002-pscomppars-snapshot.yaml
+  raw_row_count: null
+  normalized_row_count: null
+  included_post_filter_count: null
+  excluded_count: null
+  redistribution_decision: pending_approved_acquisition
+
+checksum_policy:
+  algorithm: sha256
+  query_contract_sha256_required: true
+  raw_checksum_sha256: null
+  normalized_file_checksum_sha256: null
+  normalized_payload_checksum_sha256: null
+  requirement: >
+    Raw and normalized checksums must be recorded before any row curation,
+    benchmark scoring, result artifact, or reveal review uses the second
+    snapshot.
+
+row_class_rules:
+  preserve_separate_states:
+    - true_mass_transit_radius
+    - minimum_mass_transit_radius
+    - model_inferred
+    - excluded
+    - radius_only_or_mass_only_context
+  true_mass_axis:
+    mass_class_required: true_mass
+    radius_class_required: transit_radius
+    scoring_allowed_by_this_manifest: false
+  minimum_mass_axis:
+    mass_class_required: minimum_mass_msini
+    radius_class_required: transit_radius
+    scoring_allowed_by_this_manifest: false
+  model_derived_rows:
+    default_inclusion_status: excluded
+    reason: "Model-derived mass or radius rows must not enter scored residual axes."
+  excluded_rows:
+    required_field: exclusion_reason
+
+no_peek_attestation_requirements:
+  - "Use the committed query contract byte-for-byte, or merge a pre-acquisition amendment before fetching."
+  - "Record retrieval timestamp, row count, raw checksum, and normalized checksum before scoring."
+  - "Do not change target axes, residual hypotheses, metrics, thresholds, or exclusion rules after row inspection."
+  - "Keep true-mass and minimum-mass rows separate in row counts, metrics, blockers, and wording."
+  - "Do not inspect target values, run residual metrics, score target planets, or create predictions/results/claims in the acquisition task."
+
+blocked_until_filled:
+  - planned_acquisition.retrieval_timestamp_utc
+  - planned_acquisition.raw_row_count
+  - checksum_policy.raw_checksum_sha256
+  - checksum_policy.normalized_file_checksum_sha256
+  - checksum_policy.normalized_payload_checksum_sha256
+  - no_peek_attestation_by_approved_actor
+
+related_protocols:
+  - docs/exoplanet-second-snapshot-no-live-fetch-protocol.md
+  - docs/source-acquisition-lane.md
+  - data/exoplanets/second_snapshot_target_freeze.yaml
+  - data/exoplanets/second_snapshot_reopen_coverage_gate.yaml
+  - docs/runbooks/exoplanet-second-snapshot-acquisition-runbook.md
+
+limitations:
+  - "No live fetch was performed for this task."
+  - "This manifest is metadata-only and does not contain second-snapshot row values."
+  - "This file does not unblock scoring, result publication, prediction entries, or claim promotion."
