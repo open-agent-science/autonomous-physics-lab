@@ -18,24 +18,24 @@ input:
     - "docs/architecture-index.md"
     - "AGENTS.md"
     - "README.md"
-    - "constants_verification/"
+    - "docs/legacy/constants-verification/"
     - "approximation_probes/"
-    - "hypothesis_register/"
+    - "docs/legacy/hypothesis-register/"
     - "campaigns/catalog.yaml"
     - "campaign_profiles/"
   planning_context: >
-    The maintainer wants the top-level repository to feel cleaner for humans
-    before any risky filesystem migration. This task adds a concise repository
-    map and lifecycle vocabulary so readers can distinguish active core
-    surfaces from legacy, experimental, generated, local, and review artifacts.
-    It should clarify the existing layout, not move files.
+    The maintainer wants the top-level repository to feel cleaner for humans.
+    TASK-0558 has already archived two legacy root registries under
+    docs/legacy/. This task adds a concise repository map and lifecycle
+    vocabulary so readers can distinguish active core surfaces from legacy,
+    experimental, generated, local, and review artifacts.
 
 requirements:
   - "Create or update a human-facing repository map that groups current top-level paths by role."
   - "Define lifecycle classes such as core, active campaign, scientific memory, sandbox evidence, generated navigation, local/generated checkout artifact, experimental, legacy, and deprecated."
-  - "Mark `constants_verification/`, `hypothesis_register/`, and `approximation_probes/` as candidates for explicit lifecycle review rather than silently deleting or promoting them."
+  - "Mark `docs/legacy/constants-verification/`, `docs/legacy/hypothesis-register/`, and `approximation_probes/` with explicit lifecycle roles."
   - "Clarify the difference between `campaigns/catalog.yaml` and `campaign_profiles/`."
-  - "State that broad path moves must wait for a migration task that updates loaders, validators, links, tests, snapshots, and agent instructions."
+  - "State that any further broad path moves must wait for a migration task that updates loaders, validators, links, tests, snapshots, and agent instructions."
   - "Do not move files, delete scientific memory, or introduce a new static agent-facing index."
 
 accepted_outputs:
