@@ -7,9 +7,10 @@
 ## Why This Exists
 
 APL's data bottleneck is not missing standards — it is a missing **executor
-lane**. Agents are correctly forbidden from live-fetch, so the one step that
-actually acquires data (snapshot an open database, retrieve a version-of-record,
-run a digitization pass) is a maintainer-only manual action that rarely happens.
+lane**. Ordinary agent task PRs are correctly forbidden from live-fetch, so the
+one step that actually acquires data (snapshot an open database, retrieve a
+version-of-record, run a digitization pass) is usually a maintainer-only manual
+action that rarely happens.
 Exoplanet has data only because a maintainer ran the snapshot+pin (TASK-0353);
 no equivalent ran for the other campaigns.
 
@@ -32,10 +33,10 @@ never adds measurement rows itself.
 
 ## Who Runs The Fetch
 
-- **Public, key-free, and network is allowed** → an agent may run a bounded
-  acquisition in a single task: one approved source, snapshot only, checksum,
-  source manifest entry, license note. No live-fetch inside any benchmark
-  runner.
+- **Public, key-free, explicitly acquisition-scoped, and network is approved**
+  → an agent may run a bounded acquisition in a single acquisition task: one
+  approved source, snapshot only, checksum, source manifest entry, license note.
+  No live-fetch inside ordinary agent task PRs or any benchmark runner.
 - **Needs an API key, login, cookie, or private artifact** → the **maintainer**
   runs the fetch locally. The agent prepares the runbook, schema, expected
   snapshot manifest, and validator so the maintainer's run is one command.
@@ -72,7 +73,7 @@ A runbook that cannot fill `checksum_sha256`, `license_status`, or
 
 ## What This Lane Does Not Authorize
 
-- autonomous crawler/ingester or live-fetch inside agent task PRs;
+- autonomous crawler/ingester or live-fetch inside ordinary agent task PRs;
 - committing copyrighted PDFs/tables/figures or any secret;
 - adding measurement rows (rows need a separate row-curation task);
 - auto-unblocking a benchmark task from an acquisition;

@@ -20,12 +20,13 @@ activation:
 
 purpose: |
   APL's cross-campaign bottleneck is not missing standards but a missing
-  executor: agents may not live-fetch, so acquisition is a maintainer-only
-  manual step that rarely happens. This role makes that step documented,
-  auditable, and repeatable. It takes a source candidate with a declared
-  blocker_type, runs (or prepares a runbook for) a bounded acquisition, and
-  emits a pinned artifact with checksum, license note, retrieval timestamp, and
-  provenance, or a recorded access/license blocker.
+  executor: ordinary agent task PRs may not live-fetch, so acquisition is
+  usually a maintainer-only manual step that rarely happens. This role makes
+  that step documented, auditable, and repeatable. It takes a source candidate
+  with a declared blocker_type, runs an explicitly approved public/key-free
+  bounded acquisition (or prepares a runbook for maintainer-run acquisition),
+  and emits a pinned artifact with checksum, license note, retrieval timestamp,
+  and provenance, or a recorded access/license blocker.
 
   The role exists to keep the no-live-fetch and no-secret-leakage discipline
   intact while still letting APL produce real, reusable, citable datasets.
@@ -62,9 +63,10 @@ required_reading:
 typical_activities:
   - title: "Bounded public acquisition"
     description: |
-      For a public, key-free source with network allowed, run a single bounded
-      snapshot acquisition and commit a checksummed artifact plus a source
-      manifest entry, license note, and retrieval timestamp.
+      For a public, key-free source in an explicitly acquisition-scoped task
+      with network approval, run a single bounded snapshot acquisition and
+      commit a checksummed artifact plus a source manifest entry, license note,
+      and retrieval timestamp.
   - title: "Key-gated runbook preparation"
     description: |
       For a source needing an API key, login, or maintainer-held
@@ -79,7 +81,7 @@ typical_activities:
 allowed_tools:
   - "Read and write repository files for source manifests, runbooks, and review notes."
   - "Compute and record SHA-256 checksums of acquired artifacts."
-  - "Run a bounded fetch only for public, key-free sources when network access is explicitly allowed."
+  - "Run a bounded fetch only for public, key-free sources in an explicitly acquisition-scoped task when network access is approved."
 
 scripts_to_use:
   - scripts/apl_mission.py
