@@ -1,14 +1,14 @@
 id: TASK-0541
-title: "Define Materials row schema and holdout skeleton"
+title: "Finalize Materials holdout manifest and schema reconciliation"
 type: scientific_validation
 status: READY
 difficulty: medium
 priority: high
 
 strategy_alignment:
-  - "Prepare Materials for row-level ingestion without waiting for modeling tasks."
-  - "Make property kind, units, structure semantics, and computed-vs-measured provenance explicit before any baseline."
-  - "Give agents an independent Materials task that does not collide with source-snapshot planning."
+  - "Reconcile the landed MD-0001 Materials Project dataset with a benchmark-ready holdout/no-peek manifest."
+  - "Keep property kind, units, structure semantics, and computed-vs-measured provenance explicit before any baseline."
+  - "Prevent the first Materials baseline from choosing splits after seeing residuals."
 
 input:
   mode: workflow
@@ -18,23 +18,25 @@ input:
     - "campaign_profiles/materials-property-residuals.yaml"
     - "docs/fresh-data-intake-protocol.md"
   planning_context: >
-    Materials can become a high-throughput campaign only if rows carry
-    property kind, units, structure/composition semantics, provenance class,
-    inclusion status, and holdout fields from the beginning. This task defines
-    that schema and a no-peek holdout skeleton without ingesting values.
+    TASK-0547 and TASK-0548 landed the first pinned Materials Project pilot
+    dataset (`MD-0001`) and a row schema for stable binary oxides. This task is
+    no longer a pre-ingestion schema sketch. It now reconciles the committed
+    dataset with a holdout/no-peek manifest and any missing schema details
+    needed before the first Materials baseline/residual benchmark runs.
 
 requirements:
-  - "Define a materials row schema for future source-pinned rows, including material id, formula/composition, structure/prototype fields, property kind, value, unit, uncertainty where available, provenance class, source id, inclusion status, and exclusion reason."
-  - "Represent computed, measured, model-derived, and excluded rows as distinct provenance/row classes."
-  - "Define a holdout/no-peek skeleton covering material family, structure prototype, property range, source date/version, and property kind."
-  - "Keep the schema generic enough for the first pinned source selected by TASK-0540, but do not require TASK-0540 to be complete before drafting schema fields."
-  - "Do not ingest material-property values, choose benchmark thresholds, run baseline metrics, or make materials-discovery claims."
+  - "Use the committed MD-0001 Materials Project stable-binary-oxides dataset; do not fetch or ingest new rows."
+  - "Review `data/materials/schema.md` against the actual MD-0001 row fields and add only missing schema semantics required for benchmark safety."
+  - "Create a holdout/no-peek manifest for MD-0001 that declares pre-score split options such as composition family, cation group, structure prototype, property range, and source version."
+  - "Keep `formation_energy_per_atom` and `band_gap` as separate axes; do not pool property kinds."
+  - "Represent computed, measured, model-derived, and excluded rows as distinct provenance/row classes for future widening, even though MD-0001 is computed DFT only."
+  - "Do not choose benchmark thresholds after inspecting residuals, run baseline metrics, or make materials-discovery claims."
   - "Route the final output through docs/result-promotion-protocol.md."
 
 accepted_outputs:
-  - "physics_lab/schemas/materials_property_residual.schema.json or equivalent schema artifact"
-  - "data/materials/schema.md"
-  - "data/materials/holdout_manifest.yaml or holdout protocol skeleton"
+  - "data/materials/schema.md reconciliation update if needed"
+  - "data/materials/holdout_manifest.yaml"
+  - "docs/reviews/materials-holdout-manifest-and-schema-reconciliation.md"
   - "tests for schema validation or fixture loading if a loader/schema validator is added"
 
 validation:

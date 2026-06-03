@@ -21,12 +21,38 @@ overclaim resistance in place.
 
 ## Current Status
 
-**Scaffold-only.** This page and the campaign profile
-(`campaign_profiles/materials-property-residuals.yaml`) define scope, admissible
-source classes, schema expectations, baseline/holdout/residual-map task types,
-and guardrails. There is **no** pinned source snapshot, dataset, schema, loader,
-baseline, claim, prediction registry entry, `RESULT-*`, or public artifact yet.
-No live materials-database data has been fetched or ingested.
+**Pinned seed dataset, no benchmark yet.** This page and the campaign profile
+(`campaign_profiles/materials-property-residuals.yaml`) define scope,
+admissible source classes, schema expectations, baseline/holdout/residual-map
+task types, and guardrails. `TASK-0547` prepared the Materials Project
+acquisition runbook and source registration. `TASK-0548` then landed `MD-0001`,
+APL's first reusable-dataset candidate: a Materials Project stable binary-oxide
+pilot at database version `2025.09.25`, with 169 rows and separate
+`formation_energy_per_atom` and `band_gap` axes. `TASK-0549` narrowed the
+runbook to that compact pilot scope.
+
+There is still **no** baseline, residual map, claim, prediction registry entry,
+`RESULT-*`, external dataset repository, or DOI. The dataset remains a
+source-pinned data artifact inside the main repo.
+
+## Public Monitoring Snapshot
+
+**Current question:** can APL turn a small, openly licensed Materials Project
+snapshot into a conservative residual benchmark without making material-design
+claims?
+
+**Shareable result:** APL now has a first reusable-dataset candidate:
+`MD-0001`, a CC BY 4.0 Materials Project stable-binary-oxides pilot with 169
+rows, source attribution, checksum, version, schema guidance, two separate
+property axes, and validator coverage.
+
+**Not a claim:** `MD-0001` is not a benchmark result, model, material
+recommendation, or discovery claim. It contains computed DFT rows only and does
+not support synthesis, device, biomedical, or material-design guidance.
+
+**Active next work:** finalize the holdout/no-peek manifest for `MD-0001`, add
+citation/reuse metadata inside the main repo, and run the first conservative
+baseline/residual benchmark over the committed rows only.
 
 ## Admissible Source Classes
 
@@ -104,17 +130,18 @@ readiness stay separate.
 
 ## Recommended Next Tasks
 
-These are recommendations only; this scaffold creates no canonical tasks beyond
-itself. Each would be a separate maintainer-approved task or proposal:
+These are recommendations only. Current canonical tasks cover the first three
+steps below:
 
-1. **Pinned materials source snapshot plan** — pick one license-clean, version
-   pinnable database (JARVIS-DFT is a strong first candidate), define the
-   checksum and retrieval policy, and name the first property kind and material
-   scope. No ingestion.
-2. **Materials row schema** — define fields, units, structure semantics, and the
-   computed-vs-measured provenance separation.
-3. **First conservative baseline + holdout protocol** — only after a pinned
-   snapshot and schema exist.
+1. **Holdout/no-peek manifest** — reconcile the landed `MD-0001` rows with
+   pre-score split options before any baseline metric.
+2. **Citation/reuse metadata** — make the dataset internally citable and ready
+   for future publication review, without moving it to an external repo yet.
+3. **First conservative baseline + residual benchmark** — compare null and
+   simple composition-aware baselines separately for formation energy and band
+   gap.
+4. **Optional widening** — only after the first benchmark, consider a separate
+   pre-fetch-amended task for ternary oxides or another Materials Project slice.
 
 ## Why It Matters
 

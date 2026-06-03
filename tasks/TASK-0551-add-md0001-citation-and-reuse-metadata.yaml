@@ -1,0 +1,53 @@
+id: TASK-0551
+title: "Add MD-0001 citation and reuse metadata"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare APL datasets for reuse by other projects without prematurely moving them to external repositories."
+  - "Make citation, authorship, ORCID, license, source attribution, and future DOI plans explicit for the first reusable dataset candidate."
+  - "Keep datasets as data artifacts, not claims or benchmark results."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/published-source-dataset-standard.md"
+    - "data/materials/md-0001-materials-project-formation-energy.yaml"
+    - "data/materials/md-0001-materials-project-band-gap.yaml"
+    - "data/materials/materials_snapshot_manifest.yaml"
+    - "data/materials/README.md"
+  planning_context: >
+    The maintainer wants APL datasets to become reusable by other projects, but
+    external dataset repositories are intentionally deferred until a dataset has
+    a stable version, citation/DOI plan, and enough usefulness. MD-0001 is the
+    first concrete candidate. This task adds citation/reuse metadata inside the
+    main repo only.
+
+requirements:
+  - "Do not publish or move any dataset to an external repository."
+  - "Add a lightweight reusable-dataset citation metadata file or section for MD-0001, including dataset id, version, source attribution, dataset license, limitations, recommended citation wording, and future DOI status."
+  - "Include maintainer identity for citation planning: Roman Hladun, ORCID https://orcid.org/0009-0004-4853-5212."
+  - "Record that the current external organization is Open Agent Science (`https://github.com/open-agent-science`) but that MD-0001 remains private/internal until a separate maintainer-approved publication task."
+  - "Preserve Materials Project CC BY 4.0 attribution and do not imply APL owns the source data."
+  - "Do not create claims, results, benchmark metrics, Zenodo releases, tags, or external repos."
+
+accepted_outputs:
+  - "data/materials/md-0001-citation.yaml or equivalent citation metadata artifact"
+  - "data/materials/README.md update with internal reuse/publication boundary"
+  - "docs/published-source-dataset-standard.md update if needed to record the internal-vs-external dataset boundary"
+  - "tests or validation coverage if a new citation metadata schema/check is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_dataset.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
