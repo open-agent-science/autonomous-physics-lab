@@ -68,6 +68,14 @@ Bounded queue work from `tasks/microtasks/`. Typically used when there
 is spare token or time budget and a campaign queue has items in its
 available list.
 
+### [Data Acquisition / Source-Pinning](data-acquisition.yaml)
+
+Maintainer-run lane that turns an admissible published source into a pinned,
+checksummed, provenance-rich artifact (or a precise blocker). Runs bounded
+public/key-free fetches or prepares a runbook for maintainer-run key-gated
+fetches; never curates rows, never commits secrets, never live-fetches inside
+benchmark code. See `docs/source-acquisition-lane.md`.
+
 ## Activation Convention
 
 When the maintainer (or any contributor) asks the agent to act in a
