@@ -15,6 +15,8 @@ For the short conceptual map, start with
 [Architecture Layers](./architecture-layers.md). The layer model explains how
 agent coordination, scientific memory, domain campaigns, and data/reveal/claim
 gates fit together without requiring a repository layout refactor.
+For a directory-by-directory root map, use
+[Repository Map](./repository-map.md).
 
 ## Start Here
 
@@ -28,6 +30,7 @@ For a new contributor or a new LLM session, read in this order:
 6. [docs/contributing-workflow.md](./contributing-workflow.md)
 7. [docs/claim-promotion-policy.md](./claim-promotion-policy.md)
 8. [docs/architecture-layers.md](./architecture-layers.md)
+9. [docs/repository-map.md](./repository-map.md)
 
 ## Four-Layer Model
 

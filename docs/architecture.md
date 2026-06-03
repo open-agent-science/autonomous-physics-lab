@@ -11,8 +11,9 @@ symbolic, dataset, and claim-facing statements must be backed by deterministic
 code, committed artifacts, and reviewable provenance.
 
 For fast navigation, use [Architecture Index](./architecture-index.md). For the
-short layer model, use [Architecture Layers](./architecture-layers.md). This
-page is the human-facing overview that ties those maps together.
+short layer model, use [Architecture Layers](./architecture-layers.md). For a
+directory-by-directory orientation, use [Repository Map](./repository-map.md).
+This page is the human-facing overview that ties those maps together.
 
 ## Current Posture
 

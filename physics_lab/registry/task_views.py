@@ -229,7 +229,7 @@ def _render_blocked_view(entries: tuple[TaskViewEntry, ...]) -> str:
         "# Blocked Tasks",
         "",
         "> This file is generated from canonical `tasks/TASK-*.yaml` files.",
-        "> Use it to see what is blocked without scanning the full DONE history in `tasks/ACTIVE.md`.",
+        "> Use it to see what is blocked without scanning the full historical task file set.",
         "> Refresh with `python3 -m physics_lab.cli sync-active-board .`.",
         "",
     ]

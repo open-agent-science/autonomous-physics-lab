@@ -135,7 +135,7 @@ Operational entry points:
   evidence before learning the contributor workflow;
 - [docs/agent-work-menu.md](./agent-work-menu.md) for a fast time-budgeted
   menu of safe, reviewable work (30 min / 1 h / 2 h);
-- [docs/task-views/research.md](./task-views/research.md) for the live READY/blocked/release task navigation (the retired `tasks/ACTIVE.md` full board is replaced by these generated views and `git log`);
+- [docs/task-views/research.md](./task-views/research.md) for generated current-work navigation; use `git log` for task history;
 - [tasks/microtasks/README.md](../tasks/microtasks/README.md) for campaign-specific scientific microtask queues;
 - [docs/negative-results-registry.md](./negative-results-registry.md) for the
   current falsification index;
