@@ -56,6 +56,18 @@ REQUIRED_DIRECT_SOURCE_KEYS = {
     "checksum_scope",
     "license_note",
 }
+REPO_ROOT = Path(__file__).resolve().parents[2]
+ATOMIC_HOLDOUT_MANIFEST_PATH = "data/atomic_clocks/atomic_holdout_manifest.yaml"
+PRE_ASSIGNMENT_SPLIT = "unassigned"
+PRE_ASSIGNMENT_ROW_ROLE = "unassigned"
+DIRECT_ROW_ROLES_BY_SPLIT = {
+    "train": {"training_context"},
+    "holdout": {"training_context"},
+    "cross_source_reference": {"cross_source_reference"},
+    "cross_source_target": {"cross_source_target"},
+    "excluded": {"excluded"},
+    PRE_ASSIGNMENT_SPLIT: {PRE_ASSIGNMENT_ROW_ROLE},
+}
 
 
 @dataclass(frozen=True)
@@ -107,6 +119,8 @@ class AtomicClockDirectRow:
     value_kind: str
     units: str
     split: str
+    freeze_manifest: str | None
+    row_role: str
     total_uncertainty: float
     confidence_level_label: str
     bound_style: str
@@ -202,6 +216,56 @@ def _require_number(value: Any, *, label: str) -> float:
     return float(value)
 
 
+def _load_atomic_holdout_manifest() -> dict[str, Any]:
+    manifest_path = REPO_ROOT / ATOMIC_HOLDOUT_MANIFEST_PATH
+    payload = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    return _require_mapping(payload, label=ATOMIC_HOLDOUT_MANIFEST_PATH)
+
+
+def _validate_direct_row_holdout(holdout: dict[str, Any], *, row_id: str) -> tuple[str, str | None, str]:
+    manifest = _load_atomic_holdout_manifest()
+    holdout_schema = _require_mapping(
+        manifest.get("holdout_schema"),
+        label=f"{ATOMIC_HOLDOUT_MANIFEST_PATH}.holdout_schema",
+    )
+    allowed_manifest_splits = holdout_schema.get("allowed_split_values")
+    if not isinstance(allowed_manifest_splits, list) or not allowed_manifest_splits:
+        raise ValueError(f"{ATOMIC_HOLDOUT_MANIFEST_PATH} allowed_split_values must be a non-empty list")
+    allowed_splits = {PRE_ASSIGNMENT_SPLIT, *allowed_manifest_splits}
+
+    split = _require_string(holdout.get("split"), label=f"{row_id}.holdout.split")
+    if split not in allowed_splits:
+        raise ValueError(f"{row_id}.holdout.split must be one of {sorted(allowed_splits)}")
+
+    row_role = holdout.get("row_role", PRE_ASSIGNMENT_ROW_ROLE)
+    row_role = _require_string(row_role, label=f"{row_id}.holdout.row_role")
+    allowed_roles = DIRECT_ROW_ROLES_BY_SPLIT.get(split)
+    if allowed_roles is None or row_role not in allowed_roles:
+        raise ValueError(f"{row_id}.holdout.row_role {row_role!r} is not allowed for split {split!r}")
+
+    freeze_manifest = holdout.get("freeze_manifest")
+    if split == PRE_ASSIGNMENT_SPLIT:
+        if freeze_manifest is not None:
+            raise ValueError(f"{row_id}.holdout.freeze_manifest must be null for unassigned rows")
+        return split, None, row_role
+
+    required_fields = _require_mapping(
+        holdout_schema.get("required_row_fields"),
+        label=f"{ATOMIC_HOLDOUT_MANIFEST_PATH}.holdout_schema.required_row_fields",
+    )
+    expected_manifest = _require_string(
+        required_fields.get("holdout.freeze_manifest"),
+        label=f"{ATOMIC_HOLDOUT_MANIFEST_PATH}.holdout_schema.required_row_fields.holdout.freeze_manifest",
+    )
+    freeze_manifest = _require_string(freeze_manifest, label=f"{row_id}.holdout.freeze_manifest")
+    if freeze_manifest != expected_manifest:
+        raise ValueError(f"{row_id}.holdout.freeze_manifest must be {expected_manifest}")
+    if not (REPO_ROOT / freeze_manifest).is_file():
+        raise ValueError(f"{row_id}.holdout.freeze_manifest must point to an existing manifest")
+
+    return split, freeze_manifest, row_role
+
+
 def _validate_direct_row(row: dict[str, Any], *, dataset_id: str) -> AtomicClockDirectRow:
     if "source_metadata" in row:
         raise ValueError(f"{dataset_id} direct rows must use source, not source_metadata")
@@ -263,7 +327,7 @@ def _validate_direct_row(row: dict[str, Any], *, dataset_id: str) -> AtomicClock
         raise ValueError(f"{row_id} source needs doi or archive_url")
 
     holdout = _require_mapping(row["holdout"], label=f"{row_id}.holdout")
-    split = _require_string(holdout.get("split"), label=f"{row_id}.holdout.split")
+    split, freeze_manifest, row_role = _validate_direct_row_holdout(holdout, row_id=row_id)
     limitations = row["limitations"]
     if not isinstance(limitations, list) or not limitations:
         raise ValueError(f"{row_id} must preserve limitations")
@@ -279,6 +343,8 @@ def _validate_direct_row(row: dict[str, Any], *, dataset_id: str) -> AtomicClock
         value_kind=value_kind,
         units=units,
         split=split,
+        freeze_manifest=freeze_manifest,
+        row_role=row_role,
         total_uncertainty=total_uncertainty,
         confidence_level_label=confidence_level_label,
         bound_style=bound_style,
