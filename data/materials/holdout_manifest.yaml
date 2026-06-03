@@ -1,0 +1,178 @@
+manifest_id: MD-0001-HOLDOUT-NOPEEK-0001
+schema_version: 0.1.0
+task_id: TASK-0541
+campaign_id: materials-property-residuals
+status: draft_no_peek_manifest
+created_by:
+  contributor_id: akutenyov
+  agent_id: codex
+created_utc: 2026-06-03
+
+purpose: >
+  Freeze the pre-score split vocabulary and admissible holdout axes for the
+  first Materials Property Residuals benchmark over the committed MD-0001
+  Materials Project stable-binary-oxides pilot dataset.
+
+scope:
+  dataset_family: MD-0001
+  source_id: materials-project
+  source_manifest: data/materials/source_manifest.yaml
+  snapshot_manifest: data/materials/materials_snapshot_manifest.yaml
+  raw_snapshot: data/materials/snapshots/materials_project_binary_oxides_2025-09-25.json
+  dataset_files:
+    - data/materials/md-0001-materials-project-formation-energy.yaml
+    - data/materials/md-0001-materials-project-band-gap.yaml
+  database_version: "2025.09.25"
+  snapshot_checksum_sha256: bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101
+  row_count_per_axis: 169
+  material_scope: stable_binary_oxides
+
+promotion_boundary:
+  benchmark_allowed_by_this_manifest: false
+  claims_allowed: false
+  results_allowed: false
+  prediction_registry_allowed: false
+  live_fetch_allowed: false
+  notes:
+    - "This manifest enables future benchmark tasks to declare splits before scoring; it does not score rows."
+    - "No train, validation, holdout, or stress row assignment is made by this task."
+
+holdout_schema:
+  allowed_split_values:
+    - train
+    - validation
+    - holdout
+    - stress
+    - excluded
+  required_benchmark_binding:
+    dataset_family: MD-0001
+    holdout_manifest: data/materials/holdout_manifest.yaml
+    snapshot_checksum_sha256: bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101
+  no_peek_enforcement:
+    - "Declare split rules before residuals, metrics, model errors, or candidate corrections are inspected."
+    - "Do not tune bins, cation groups, structure groups, or exclusion status after scoring."
+    - "Do not pool property_kind axes or provenance_class axes in one metric."
+
+axis_policies:
+  - axis_id: md0001_formation_energy_per_atom
+    dataset_file: data/materials/md-0001-materials-project-formation-energy.yaml
+    property_kind: formation_energy_per_atom
+    units: eV_per_atom
+    provenance_class: computed_dft
+    row_class: computed_property
+    include_if:
+      inclusion_status: included
+      is_stable: true
+      composition_family: binary_oxide
+    must_not_pool_with:
+      - md0001_band_gap
+      - measured_property_rows
+      - model_only_rows
+
+  - axis_id: md0001_band_gap
+    dataset_file: data/materials/md-0001-materials-project-band-gap.yaml
+    property_kind: band_gap
+    units: eV
+    provenance_class: computed_dft
+    row_class: computed_property
+    include_if:
+      inclusion_status: included
+      is_stable: true
+      composition_family: binary_oxide
+    must_not_pool_with:
+      - md0001_formation_energy_per_atom
+      - measured_property_rows
+      - model_only_rows
+
+provenance_row_classes:
+  computed_property:
+    provenance_class: computed_dft
+    benchmark_axis_allowed: true
+    notes: "Only computed DFT rows are present in MD-0001."
+  measured_property:
+    provenance_class: measured
+    benchmark_axis_allowed: true
+    notes: "Future measured rows require their own source review and must not be mixed with computed DFT rows."
+  model_only_context:
+    provenance_class: model_only
+    benchmark_axis_allowed: false
+    default_split: excluded
+  excluded_row:
+    provenance_class: excluded
+    benchmark_axis_allowed: false
+    default_split: excluded
+    required_field: exclusion_reason
+
+pre_score_split_axes:
+  composition_family:
+    md0001_value: binary_oxide
+    allowed_future_values:
+      - ternary_oxide
+      - non_oxide_binary
+      - mixed_anion
+    rule: "Future values require a separate source/snapshot task before use."
+
+  cation_group:
+    source_fields:
+      - composition
+      - formula_pretty
+    md0001_definition: "Non-oxygen element or elements in the binary oxide formula."
+    allowed_grouping_examples:
+      - alkali_or_alkaline_earth
+      - transition_metal
+      - post_transition_metal
+      - metalloid_or_p_block
+      - rare_earth_or_lanthanoid
+      - mixed_or_ambiguous
+    rule: "Group definitions must be frozen in the benchmark task before scoring."
+
+  structure_prototype:
+    source_fields:
+      - spacegroup_symbol
+      - nsites
+    md0001_definition: "Use committed spacegroup_symbol as the first conservative structure bucket."
+    allowed_grouping_examples:
+      - same_spacegroup_symbol
+      - low_symmetry
+      - high_symmetry
+      - small_cell
+      - large_cell
+    rule: "Any prototype collapsing beyond exact spacegroup must be documented before scoring."
+
+  property_range:
+    source_fields:
+      - value
+      - property_kind
+    md0001_policy: >
+      Property-range bins are allowed only if the benchmark task declares the
+      numeric thresholds before residual inspection and reports them separately
+      for formation_energy_per_atom and band_gap.
+    example_bins:
+      formation_energy_per_atom:
+        - near_zero
+        - moderate_negative
+        - strongly_negative
+      band_gap:
+        - metallic_or_zero_gap
+        - small_gap
+        - moderate_or_large_gap
+
+  source_version:
+    source_fields:
+      - database_version
+      - snapshot_checksum_sha256
+    md0001_value: "2025.09.25 / bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101"
+    rule: "A later Materials Project snapshot must use a new manifest revision or a separate second-snapshot manifest."
+
+blocked_actions:
+  - "Fetch or ingest new Materials Project rows."
+  - "Run baseline metrics or residual maps."
+  - "Choose split thresholds after inspecting residuals."
+  - "Pool formation_energy_per_atom with band_gap."
+  - "Mix computed DFT rows with measured rows."
+  - "Promote material-discovery, design, device, synthesis, or biomedical claims."
+
+next_allowed_work:
+  - "A benchmark task may bind to this manifest and then assign row-level splits before scoring."
+  - "A citation/reuse task may add internal citation metadata without changing benchmark splits."
+  - "A widening task may propose a new snapshot family only through source acquisition and review."
