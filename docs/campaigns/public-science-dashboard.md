@@ -104,9 +104,9 @@ universal validation or falsification.
 4.0 attribution, checksum, dataset version, schema guidance, and validator
 coverage.
 
-**Why it is interesting:** this is the first concrete proof that APL can turn a
-published/open source into a provenance-rich benchmark dataset before modeling.
-It is a dataset artifact, not a claim.
+**Why it is interesting:** this is the first concrete evidence trail showing
+APL can turn a published/open source into a provenance-rich benchmark dataset
+before modeling. It is a dataset artifact, not a claim.
 
 **Limitation:** the rows are computed DFT values from Materials Project, not
 experimental measurements. No baseline, residual map, model, material
