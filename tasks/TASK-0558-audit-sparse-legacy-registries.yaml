@@ -1,7 +1,7 @@
 id: TASK-0558
 title: "Audit sparse legacy and experimental registries"
 type: architecture
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -14,9 +14,9 @@ input:
   mode: workflow
   related_domain: repository_architecture
   related_objects:
-    - "constants_verification/"
+    - "docs/legacy/constants-verification/"
     - "approximation_probes/"
-    - "hypothesis_register/"
+    - "docs/legacy/hypothesis-register/"
     - "physics_lab/registry/validation.py"
     - "physics_lab/registry/repository.py"
     - "physics_lab/schemas/constant_verification.schema.json"
@@ -35,8 +35,8 @@ input:
 requirements:
   - "Inventory each sparse registry, schema, loader/validator reference, test reference, documentation reference, and current scientific use."
   - "Classify each surface as core, active, experimental, legacy, deprecated, or consolidation candidate."
-  - "For `hypothesis_register/`, decide whether it should merge conceptually into `hypotheses/`, `hypothesis_proposals/`, or remain distinct."
-  - "For `constants_verification/`, decide whether it is a real current campaign/validator track or should be deprecated as an early experiment."
+  - "For the legacy hypothesis-register artifacts, decide whether they should merge conceptually into `hypotheses/`, `hypothesis_proposals/`, or remain archived historical memory."
+  - "For the legacy constants-verification artifact, decide whether it is a real current campaign/validator track or should be archived as an early experiment."
   - "For `approximation_probes/`, account for its existing engine and tests before recommending removal or retention."
   - "Produce a migration/deprecation recommendation with explicit follow-up tasks; do not perform broad moves in this audit PR."
   - "Do not delete artifacts, schemas, or validation mappings unless the maintainer explicitly approves a follow-up implementation task."
@@ -45,6 +45,10 @@ accepted_outputs:
   - "docs/reviews/sparse-registry-architecture-audit.md"
   - "optional small docs pointers that label the audited registries as pending lifecycle decision"
   - "recommended follow-up TASK-QUEUE entries only if the audit finds safe, useful migrations"
+  - "docs/legacy/constants-verification/README.md"
+  - "docs/legacy/hypothesis-register/README.md"
+  - "approximation_probes/README.md"
+  - "docs/architecture.md lifecycle clarification"
 
 validation:
   commands:

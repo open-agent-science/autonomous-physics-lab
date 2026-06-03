@@ -6,21 +6,27 @@ Status: REVIEW_READY
 
 ---
 
+## Lifecycle Notice
+
+This is a legacy protocol note. The `HRE-*` artifacts have been archived under
+`docs/legacy/hypothesis-register/`, and agents should not add new
+`hypothesis_register/` root entries. New hypothesis ideas now route through
+`hypothesis_proposals/`; reviewed hypotheses route through `hypotheses/`.
+
 ## Purpose
 
-The hypothesis register is a machine-readable catalog of physics hypotheses
-at the `PROPOSED` or `FORMALIZED` lifecycle stage — before they are backed
-by a full experiment (`HYP-XXXX`).
+The hypothesis register was an early machine-readable catalog of physics
+hypotheses at the `PROPOSED` or `FORMALIZED` lifecycle stage, before APL had
+the current `hypothesis_proposals/`, `hypotheses/`, `results/`, and
+result-promotion layers.
 
-It lowers the contribution barrier: any agent can add a well-scoped
-hypothesis in 5–15 minutes without running a benchmark. The hypothesis is
-explicitly `PROPOSED` and may not be promoted to a project-level claim until
-a separate canonical verification task runs.
+It lowered the contribution barrier during the early private-alpha phase. That
+role is now covered by task proposals and campaign-scoped hypothesis proposals.
 
 ## Register Location
 
 ```
-hypothesis_register/
+docs/legacy/hypothesis-register/
   HRE-0001-*.yaml
   HRE-0002-*.yaml
   ...
@@ -32,8 +38,8 @@ Files follow the pattern `HRE-XXXX-<short-slug>.yaml`.
 
 Schema file: `physics_lab/schemas/hypothesis_register_entry.schema.json`
 
-Registered in `physics_lab/registry/validation.py` under key
-`"hypothesis_register"` → `"hypothesis_register_entry"`.
+The legacy schema remains in the repository, but root-directory inference for
+`hypothesis_register/` is no longer active by default.
 
 ### Required Fields
 
@@ -64,13 +70,9 @@ Registered in `physics_lab/registry/validation.py` under key
 | `PROMOTED` | Promoted to a full `HYP-XXXX` hypothesis with an experiment |
 | `REJECTED` | Entry withdrawn or found to be a duplicate / overclaim |
 
-Transition rules:
-- Any agent may add a `PROPOSED` entry.
-- Any agent may move `PROPOSED → FORMALIZED` if they sharpen the math.
-- Only a maintainer-approved canonical task may move `FORMALIZED → PROMOTED`.
-- `PROMOTED` entries should reference their `HYP-XXXX` successor in `related_objects`.
-- Agents must not skip `FORMALIZED` when promoting a hypothesis that has not
-  had its mathematical form reviewed.
+Historical transition rules are preserved below for context, but this registry
+is no longer open for new entries. New work should use the current task,
+proposal, result, and claim lifecycle.
 
 ## Claim Restrictions
 
