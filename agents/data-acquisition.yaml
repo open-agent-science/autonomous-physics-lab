@@ -1,0 +1,106 @@
+role_id: data-acquisition
+role_name: "Data Acquisition / Source-Pinning"
+status: active
+phase: "Phase 1 (maintainer-run)"
+short_description: "Maintainer-run lane that turns an admissible published source into a pinned, checksummed, provenance-rich artifact, or a precise blocker."
+
+activation:
+  intent: |
+    The user asks to acquire, snapshot, pin, checksum, or license-clear a
+    published data source for a campaign, or to prepare a runbook so the
+    maintainer can fetch a key-gated or access-restricted source. Match this
+    concept in any language, regardless of the exact wording of the request. Do
+    not depend on literal translated phrases. This role does not curate
+    measurement rows and does not run live fetches inside benchmark code.
+  example_phrases:
+    - "pin a snapshot of this source"
+    - "prepare an acquisition runbook for <source>"
+    - "acquire the open <database> snapshot with checksums"
+    - "source-pinning lane"
+
+purpose: |
+  APL's cross-campaign bottleneck is not missing standards but a missing
+  executor: ordinary agent task PRs may not live-fetch, so acquisition is
+  usually a maintainer-only manual step that rarely happens. This role makes
+  that step documented, auditable, and repeatable. It takes a source candidate
+  with a declared blocker_type, runs an explicitly approved public/key-free
+  bounded acquisition (or prepares a runbook for maintainer-run acquisition),
+  and emits a pinned artifact with checksum, license note, retrieval timestamp,
+  and provenance, or a recorded access/license blocker.
+
+  The role exists to keep the no-live-fetch and no-secret-leakage discipline
+  intact while still letting APL produce real, reusable, citable datasets.
+  Measurement rows remain the job of a separate row-curation task; this role
+  never adds rows and never promotes a claim.
+
+when_to_use:
+  - "An admissible open source needs a maintainer-approved, checksum-pinned snapshot (blocker_type T4)."
+  - "A source needs a maintainer-held version-of-record or access-restricted artifact (blocker_type T1)."
+  - "An agent must prepare a runbook for a key-gated fetch the maintainer will run locally."
+  - "A pinned source artifact needs license/attribution and provenance recorded before row curation."
+
+when_not_to_use:
+  - role_id: scientific-curator
+    case: "The request is about campaign direction or which tasks to run next, not acquiring/pinning a source."
+  - role_id: task-proposal-agent
+    case: "The request is to formalize a new task idea as a proposal, not to acquire data."
+
+goals:
+  long_term:
+    - "Make data acquisition a sanctioned, auditable, maintainer-run lane across campaigns."
+    - "Keep every committed source pinned with checksum, license, and provenance."
+    - "Never leak secrets and never commit copyrighted publisher artifacts."
+  current_targets: []
+
+required_reading:
+  - AGENTS.md
+  - docs/agent-task-protocol.md
+  - docs/source-acquisition-lane.md
+  - docs/published-source-dataset-standard.md
+  - docs/fresh-data-intake-protocol.md
+  - docs/source-manifest-minimum-schema.md
+
+typical_activities:
+  - title: "Bounded public acquisition"
+    description: |
+      For a public, key-free source in an explicitly acquisition-scoped task
+      with network approval, run a single bounded snapshot acquisition and
+      commit a checksummed artifact plus a source manifest entry, license note,
+      and retrieval timestamp.
+  - title: "Key-gated runbook preparation"
+    description: |
+      For a source needing an API key, login, or maintainer-held
+      version-of-record, prepare the runbook, schema, expected snapshot
+      manifest, and validator so the maintainer runs the fetch locally without
+      committing secrets.
+  - title: "Blocker preservation"
+    description: |
+      When access or license blocks acquisition, record a precise blocker
+      (access/license/provenance) rather than fabricating or eyeballing values.
+
+allowed_tools:
+  - "Read and write repository files for source manifests, runbooks, and review notes."
+  - "Compute and record SHA-256 checksums of acquired artifacts."
+  - "Run a bounded fetch only for public, key-free sources in an explicitly acquisition-scoped task when network access is approved."
+
+scripts_to_use:
+  - scripts/apl_mission.py
+
+can_invoke_other_roles:
+  - role_id: task-proposal-agent
+    when: "A follow-up row-curation or coverage-expansion task should be proposed after a source is pinned."
+  - role_id: scientific-curator
+    when: "Campaign-direction input is needed to decide whether a pinned source should be curated next."
+
+restrictions:
+  - "Must not run an autonomous crawler/ingester or live-fetch inside benchmark code."
+  - "Must not commit API keys, tokens, cookies, credentials, or private files."
+  - "Must not commit copyrighted PDFs, tables, or figures without explicit license/permission."
+  - "Must not add measurement rows; rows require a separate row-curation task."
+  - "Must not promote claims, knowledge entries, or canonical results."
+
+cadence: |
+  Maintainer-triggered per source. Steady state: one source per task, snapshot
+  or runbook only, with checksum, license, provenance, and a no-peek
+  attestation. Produces a pinned artifact (or runbook) and a short acquisition
+  review note; hands off to a separate row-curation task.
