@@ -74,11 +74,9 @@ autonomous-physics-lab/
   microtask_runs/           Completed scientific microtask records
   hypothesis_proposals/     Campaign-scoped hypothesis proposal artifacts
   experiment_proposals/     Campaign-scoped experiment proposal artifacts
-  hypothesis_register/      Legacy hypothesis-register pilot entries; new ideas use hypothesis_proposals/
 
   campaign_profiles/        Machine-readable campaign autonomy profiles
   approximation_probes/      Narrow deterministic approximation-breakdown probes
-  constants_verification/    Legacy constants-verification worked example
   data/                     Curated datasets, manifests, source artifacts, checksums
   docs/                     Protocols, campaign pages, reviews, notes, release docs
   templates/                Reusable source, result, and extraction templates
@@ -88,11 +86,10 @@ Local or generated working directories such as `.worktrees/`, `_snapshots/`,
 `.pytest_cache/`, `.ruff_cache/`, and `.pytest-basetemp/` are not part of the
 canonical architecture even when they are visible in a local checkout.
 
-Some early root-level registries are intentionally retained as historical or
-narrow deterministic memory rather than active default lanes. See
+Some early registries are intentionally retained only as historical memory
+under `docs/legacy/`, not as active root-level lanes. See
 `docs/reviews/sparse-registry-architecture-audit.md` before deleting or moving
-`constants_verification/`, `hypothesis_register/`, or
-`approximation_probes/`.
+legacy constants-verification or hypothesis-register artifacts.
 
 ## Experiment and Evidence Flow
 

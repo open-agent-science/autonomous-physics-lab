@@ -48,8 +48,6 @@ REVIEW_TIERS_REQUIRING_AGENT_EVALUATION = frozenset(
 KIND_BY_DIRECTORY = {
     "claims": "claim",
     "hypotheses": "hypothesis",
-    "constants_verification": "constant_verification",
-    "hypothesis_register": "hypothesis_register_entry",
     "experiments": "experiment",
     "knowledge": "knowledge",
     "proposals": "task_proposal",

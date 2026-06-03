@@ -5,32 +5,33 @@ Task: `TASK-0558`
 
 ## Verdict
 
-Do not delete these registries in one broad cleanup PR. They are small, but
-they preserve early scientific-memory decisions and a few deterministic
-examples. The useful cleanup is to classify them explicitly and stop treating
-all three as equal active registry surfaces.
+Do not delete these artifacts outright. They are small, but they preserve early
+scientific-memory decisions and a few deterministic examples. The useful
+cleanup is to remove inactive registries from the repository root, archive the
+historical artifacts under `docs/legacy/`, and keep only the narrow live probe
+surface at the root.
 
 | Surface | Current role | Decision | Rationale |
 | --- | --- | --- | --- |
-| `constants_verification/` | Legacy worked example | Keep for history; no new entries by default | `CV-0001` is definitionally true and useful as an early format example, but it is not a current campaign lane. Future constants work should use Textbook Formula Audit, source/dataset standards, or canonical results rather than expanding this root registry. |
-| `hypothesis_register/` | Legacy pilot registry | Keep for history; no new `HRE-*` entries | It duplicates concepts now covered by `hypothesis_proposals/`, `hypotheses/`, `results/`, and `claims/`. Its existing entries are useful historical memory, especially the rejected neutrino Koide and formalized anharmonic examples, but new hypotheses should not route here. |
+| `docs/legacy/constants-verification/` | Legacy worked example | Archived out of root; no new entries by default | `CV-0001` is definitionally true and useful as an early format example, but it is not a current campaign lane. Future constants work should use Textbook Formula Audit, source/dataset standards, or canonical results rather than expanding a root registry. |
+| `docs/legacy/hypothesis-register/` | Legacy pilot registry | Archived out of root; no new `HRE-*` entries | It duplicates concepts now covered by `hypothesis_proposals/`, `hypotheses/`, `results/`, and `claims/`. Its existing entries are useful historical memory, especially the rejected neutrino Koide and formalized anharmonic examples, but new hypotheses should not route here. |
 | `approximation_probes/` | Small retained deterministic probe track | Retain as active-but-narrow | Unlike the other two, it has live deterministic code and tests in `physics_lab/engines/approximation_probes.py` and `tests/test_approximation_probes.py`. It can support Textbook Formula Audit style exact-reference probes, but should not become a broad root-level registry without a campaign need. |
 
 ## Dependency Inventory
 
-`constants_verification/`
+`docs/legacy/constants-verification/`
 
-- Artifact: `constants_verification/CV-0001-fine-structure-constant.yaml`
+- Artifact: `docs/legacy/constants-verification/CV-0001-fine-structure-constant.yaml`
 - Schema: `physics_lab/schemas/constant_verification.schema.json`
-- Schema inference: `physics_lab/registry/validation.py`
+- Schema inference: legacy schema is retained, but root directory inference is removed.
 - Docs: `docs/notes/physical-constants-verification-track.md`
 - Current code/tests: no dedicated loader or test path was found in the main repository validation index.
 
-`hypothesis_register/`
+`docs/legacy/hypothesis-register/`
 
-- Artifacts: `hypothesis_register/HRE-0001` through `HRE-0005`
+- Artifacts: `docs/legacy/hypothesis-register/HRE-0001` through `HRE-0005`
 - Schema: `physics_lab/schemas/hypothesis_register_entry.schema.json`
-- Schema inference: `physics_lab/registry/validation.py`
+- Schema inference: legacy schema is retained, but root directory inference is removed.
 - Docs: `docs/notes/hypothesis-register-protocol.md`,
   `docs/reviews/hypothesis-register-pilot-01.md`,
   `docs/drafts/anharmonic-period-experiment-plan.md`
@@ -48,19 +49,18 @@ all three as equal active registry surfaces.
 
 ## Recommended Follow-Ups
 
-1. Leave paths stable until a broader registry migration has tests for loader,
-   validator, docs-link, snapshot, and agent-instruction compatibility.
+1. Keep the archived legacy paths stable unless a later docs-only cleanup has
+   link-audit coverage.
 2. Route future hypothesis ideas to `hypothesis_proposals/` or canonical
-   `hypotheses/`, not `hypothesis_register/`.
+   `hypotheses/`, not a new `hypothesis_register/` root directory.
 3. Route future constants examples through Textbook Formula Audit, source
    artifacts, reusable datasets, or canonical `results/` when they produce
    reviewable evidence.
 4. Keep `approximation_probes/` only for deterministic exact-reference
    breakdown probes with code and tests; do not expand it into a catch-all
    formula-audit registry.
-5. If a later cleanup wants fewer root directories, migrate these paths only
-   through a compatibility PR that updates `validation.py`, docs, tests, and
-   historical links together.
+5. Do not recreate `constants_verification/` or `hypothesis_register/` at the
+   repository root without a new maintainer-approved architecture task.
 
 ## Claim Impact
 

@@ -1,10 +1,11 @@
 # Constants Verification
 
-Lifecycle: **legacy worked example**.
+Lifecycle: **archived legacy worked example**.
 
-This directory currently preserves `CV-0001`, an early verification-format
-example for the fine-structure constant. It is useful historical memory, but it
-is not a current default campaign lane.
+This directory preserves `CV-0001`, an early verification-format example for
+the fine-structure constant. It used to live at repository root as
+`constants_verification/`; it is now archived here because it is useful
+historical memory, not a current default campaign lane.
 
 Do not add new constants-verification entries here by default. Future constants
 or formula checks should normally route through one of these paths:
@@ -14,5 +15,5 @@ or formula checks should normally route through one of these paths:
 - `results/` when a reproducible reviewed result is being published;
 - `knowledge/` only after the relevant result or claim review gate.
 
-Keep this directory until a dedicated migration task updates schemas, docs,
-validation inference, and historical links together.
+Do not recreate `constants_verification/` at repository root without a new
+maintainer-approved architecture task.

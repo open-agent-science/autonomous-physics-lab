@@ -7,12 +7,20 @@ Protocol: `docs/scientific-micro-task-protocol.md`
 
 ---
 
+## Lifecycle Notice
+
+This is a legacy track note. `CV-0001` has been archived under
+`docs/legacy/constants-verification/`, and agents should not recreate
+`constants_verification/` at repository root by default. Future constants or
+formula checks should route through Textbook Formula Audit, source artifacts,
+canonical `results/`, or reviewed `knowledge/` when appropriate.
+
 ## Purpose
 
-The constants-verification track gives any agent a deterministic, overclaim-safe
-contribution path: each micro-task verifies one derived physical constant
-(alpha, a_0, sigma, b, R∞, ...) from base CODATA values using `scipy.constants`
-and returns a structured result artifact.
+The constants-verification track was an early deterministic, overclaim-safe
+contribution path: each micro-task verified one derived physical constant from
+base CODATA values using `scipy.constants` and returned a structured result
+artifact.
 
 Because the ground truth is published by CODATA / BIPM, every micro-task is
 strictly verifiable. This track also exercises the scientific micro-task
@@ -22,20 +30,20 @@ hypothesis work.
 ## Track Location
 
 ```
-constants_verification/
+docs/legacy/constants-verification/
   CV-0001-fine-structure-constant.yaml
-  CV-XXXX-*.yaml
-  ...
 ```
 
-Files follow the pattern `CV-XXXX-<short-slug>.yaml`.
+The current archive preserves `CV-0001`. Do not add new root-level
+`constants_verification/` entries without a maintainer-approved architecture
+task.
 
 ## Result Artifact Format
 
 Schema file: `physics_lab/schemas/constant_verification.schema.json`
 
-Registered in `physics_lab/registry/validation.py` under key
-`"constants_verification"` → `"constant_verification"`.
+The legacy schema remains in the repository, but root-directory inference for
+`constants_verification/` is no longer active by default.
 
 ### Required Fields
 
@@ -105,7 +113,7 @@ Josephson constant K_J = 2e/h, conductance quantum G_0 = 2e^2/h.
 
 ## Worked Example: CV-0001 Fine-Structure Constant
 
-- **Artifact:** `constants_verification/CV-0001-fine-structure-constant.yaml`
+- **Artifact:** `docs/legacy/constants-verification/CV-0001-fine-structure-constant.yaml`
 - **Code:** `physics_lab/engines/constants_verifier.py:fine_structure_constant`
 - **Test:** `tests/test_constants_verifier.py::test_fine_structure_constant_within_tolerance`
 
@@ -138,14 +146,14 @@ physical origin or theoretical significance.
 
 ## Execution Workflow for One Micro-Task
 
-1. Pick one CV-XXXX from the candidate list (or propose a new one consistent with the schema).
+1. Prefer a current campaign/task path instead of creating a new CV artifact.
 2. Implement a function in `physics_lab/engines/constants_verifier.py` that
    computes the constant from base inputs and returns
    `(computed, reference, relative_error)`.
 3. Add a pytest in `tests/test_constants_verifier.py` asserting the
    tolerance.
-4. Create the YAML artifact in `constants_verification/CV-XXXX-<slug>.yaml`
-   following the schema, filling all required fields.
+4. If a maintainer explicitly reactivates this path, use a dedicated task to
+   define where the artifact belongs and how it is validated.
 5. Run `python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings`.
 6. Open a PR with the conventional commit prefix `feat(task-XXXX):` linking to
    the parent execution task.
