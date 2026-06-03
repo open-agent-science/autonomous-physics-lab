@@ -31,6 +31,8 @@ pilot at database version `2025.09.25`, with 169 rows and separate
 `formation_energy_per_atom` and `band_gap` axes. `TASK-0549` narrowed the
 runbook to that compact pilot scope.
 
+`TASK-0541` has since reconciled the holdout/no-peek manifest with the landed
+rows, and `TASK-0551` added internal citation/reuse metadata for the dataset.
 There is still **no** baseline, residual map, claim, prediction registry entry,
 `RESULT-*`, external dataset repository, or DOI. The dataset remains a
 source-pinned data artifact inside the main repo.
@@ -50,9 +52,10 @@ property axes, and validator coverage.
 recommendation, or discovery claim. It contains computed DFT rows only and does
 not support synthesis, device, biomedical, or material-design guidance.
 
-**Active next work:** finalize the holdout/no-peek manifest for `MD-0001`, add
-citation/reuse metadata inside the main repo, and run the first conservative
-baseline/residual benchmark over the committed rows only.
+**Active next work:** run the first conservative baseline/residual benchmark
+over the committed rows only (`TASK-0550`). After metrics exist, package the
+benchmark through a separate result-promotion preflight (`TASK-0566`) before
+any public result wording changes.
 
 ## Admissible Source Classes
 
@@ -130,17 +133,16 @@ readiness stay separate.
 
 ## Recommended Next Tasks
 
-These are recommendations only. Current canonical tasks cover the first three
-steps below:
+These are recommendations only. Current canonical tasks cover the first two
+open steps below:
 
-1. **Holdout/no-peek manifest** — reconcile the landed `MD-0001` rows with
-   pre-score split options before any baseline metric.
-2. **Citation/reuse metadata** — make the dataset internally citable and ready
-   for future publication review, without moving it to an external repo yet.
-3. **First conservative baseline + residual benchmark** — compare null and
+1. **First conservative baseline + residual benchmark** — compare null and
    simple composition-aware baselines separately for formation energy and band
-   gap.
-4. **Optional widening** — only after the first benchmark, consider a separate
+   gap (`TASK-0550`).
+2. **Benchmark promotion preflight** — decide whether the benchmark remains a
+   review note, becomes a scoped result candidate, needs replay, or should not
+   be promoted (`TASK-0566`, blocked until `TASK-0550` lands).
+3. **Optional widening** — only after the first benchmark, consider a separate
    pre-fetch-amended task for ternary oxides or another Materials Project slice.
 
 ## Why It Matters

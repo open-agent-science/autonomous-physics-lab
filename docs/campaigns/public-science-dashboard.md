@@ -78,6 +78,7 @@ failure.
 **Evidence trail:**
 
 - [Quantum Size Effects campaign page](./quantum-size-effects.md)
+- [Quantum direct-source candidate brief](../source-candidates/quantum/quantum-direct-source-candidate-brief.md)
 - [Fresh-Data Intake Protocol](../fresh-data-intake-protocol.md)
 
 ### Textbook Formula Audit Scaffold
@@ -124,11 +125,11 @@ recommendation, external dataset repository, or DOI exists yet.
 | Campaign | Current question | What we have learned | Current focus | Next visible artifact |
 | --- | --- | --- | --- | --- |
 | [Nuclear Mass Surface](./nuclear-mass-surface.md) | Can a broad-surface `NMD-0003` baseline-family and validation policy make later residual-feature tests interpretable after the first large factory sprint produced no shortlist? | Baseline and sandbox evidence exist; shell-axis is diagnostic-only; `LOCAL-CURVATURE-001` is falsified; residual-free F2 is inconclusive; pairing-asymmetry and magic-parity controls are negative/control-dominated; isotope-chain transfer is mixed and chain-local; `TASK-0517` ran 72 `NMD-0003` candidates with 0 shortlisted; `TASK-0531` showed simple broad-surface refit improves train/full metrics but regresses on validation holdout. | Baseline-family gate, F2 finer-taxonomy preflight, and reveal-source readiness | A source-safe `NMD-0003` baseline-family decision or a pause on same-family factory reruns. |
-| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What materially changed pinned snapshot or coverage gate would justify reopening a bounded residual audit? | Compact-radius was the strongest earlier matched-control diagnostic, but `TASK-0483` found nearest-radius nulls match or beat CK17-style residuals in the highlighted true-mass slices, `TASK-0481` found no benchmark-usable compact-radius host-context axis under the current coarse-bin floor, and `TASK-0515` records `NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY`. | Define the second-snapshot reopen gate and dry-run no-live-fetch ingestion mechanics. | A later source-maintenance or snapshot-review artifact, not another current-snapshot residual pilot. |
-| [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist; `TASK-0490` landed a synthetic digitization fixture, and `TASK-0491` records `NEEDS_MAINTAINER_DECISION` before any weaker sandbox benchmark. Direct measurement rows are still the blocker. | `TASK-0398` and `TASK-0489`; maintainer decision required before any separate calibration-consistency sandbox task. | A source artifact/blocker or an explicit maintainer decision on the bounded weaker lane. |
-| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; the real-row loader and synthetic cross-source dry-run have landed; Nemitz 2016 rows remain blocked. | Fallback source triage, direct-vs-derived separation, then baseline-readiness gate | A source/covariance readiness package that says whether a first narrow Yb/Sr consistency benchmark can become legitimate later. |
-| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; Stefan-Boltzmann now has an exact-reference fixture, while empirical audits have not run yet. | Wien exact-reference fixture plus empirical source planning | Exact-reference fixtures that make the first public formula audits runnable later. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate: 169 stable binary oxides from Materials Project `2025.09.25`, with formation-energy and band-gap axes kept separate, CC BY attribution, checksum, version, and validator coverage. | Holdout manifest, citation/reuse metadata, and first conservative baseline benchmark | A Materials baseline/residual benchmark over `MD-0001`, not a materials-discovery claim. |
+| [Exoplanet Mass-Radius](./exoplanet-mass-radius.md) | What materially changed pinned snapshot or coverage gate would justify reopening a bounded residual audit? | Compact-radius was the strongest earlier matched-control diagnostic, but `TASK-0483` found nearest-radius nulls match or beat CK17-style residuals in the highlighted true-mass slices, `TASK-0481` found no benchmark-usable compact-radius host-context axis under the current coarse-bin floor, and `TASK-0515` records `NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY`. `TASK-0554` packaged the second-snapshot acquisition path. | Execute the second-snapshot source-acquisition gate without residual scoring. | A checksummed second snapshot or a precise acquisition blocker. |
+| [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist; `TASK-0490` landed a synthetic digitization fixture, `TASK-0491` records `NEEDS_MAINTAINER_DECISION` before any weaker sandbox benchmark, and `TASK-0556` selects Norris-Bawendi 1996 as the strongest direct-source path. | Deterministic Norris-Bawendi digitization preflight. | A source-safe extraction package/blocker, not model metrics. |
+| [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; the real-row loader and synthetic cross-source dry-run have landed; Beloy row roles are assigned; Nemitz remains row-blocked. | Pin or reject Pizzocaro as a second Yb/Sr source, then run row-admissibility if it clears. | A source/covariance readiness package that says whether a first narrow Yb/Sr consistency benchmark can become legitimate later. |
+| [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; Stefan-Boltzmann and Wien have exact-reference fixtures; Stellar M-L has a source/baseline plan, but empirical audits have not run yet. | Exact-reference result preflight plus Stellar M-L pinned-source package. | Either a scoped exact-reference software result preflight or a Stellar M-L source package. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate: 169 stable binary oxides from Materials Project `2025.09.25`, with formation-energy and band-gap axes kept separate, CC BY attribution, checksum, version, validator coverage, holdout manifest, and citation metadata. | First conservative baseline benchmark, then benchmark promotion preflight. | A Materials baseline/residual benchmark over `MD-0001`, not a materials-discovery claim. |
 
 ## What Is Interesting Right Now
 
@@ -189,36 +190,39 @@ Why it matters:
 
 - Quantum is blocked on direct measurement rows or an explicit weaker
   calibration-consistency scope, even though a synthetic digitization fixture
-  now exercises the future ledger shape.
+  now exercises the future ledger shape and Norris-Bawendi 1996 has been
+  selected as the strongest current direct-source path.
 - Atomic has one pinned direct-row seed and a deterministic real-row loader,
   but benchmark readiness is still blocked on a second source or waiver,
-  holdout/no-peek boundary, direct-vs-derived separation, and covariance
-  policy acceptance.
+  with Pizzocaro currently serving as the next source-artifact gate. Beloy
+  row-role assignments and the first-benchmark covariance policy are no longer
+  the main blockers.
 
-Next visible artifact: a source artifact that unblocks row curation, or a
-reviewed blocker that saves future agents from chasing an unusable source.
+Next visible artifact: a Norris-Bawendi digitization preflight or blocker for
+Quantum, and a Pizzocaro source/admissibility package or blocker for Atomic.
 
 ### Textbook Formula Audit As A Public Entry Surface
 
 Textbook Formula Audit is the most accessible future campaign for new
 contributors: each task can audit one famous formula in one source-pinned
-range. The first recommended slice is Stellar Mass-Luminosity OOD planning on
-Gaia DR3, not an audit run yet.
+range. The first recommended empirical slice is Stellar Mass-Luminosity OOD on
+Gaia DR3; its source/baseline plan has landed, but it is not an audit run yet.
 
 Why it matters:
 
 - APL will audit textbook formulas by range and assumptions.
 - Each audit produces per-slice verdicts, not universal truth/falsity.
 
-Next visible artifact: a Stellar M-L source/baseline plan that declares snapshot,
-schema, holdout, and verification gates before any metrics.
+Next visible artifact: a Stellar M-L pinned-source package or an exact-reference
+fixture result preflight before any empirical metrics.
 
 ### Materials Dataset-To-Benchmark Path
 
 Materials is now the fastest path from dataset artifact to a new benchmark
-surface. The first pinned dataset is small by design, openly licensed, and
-validated in the repo. The next public artifact should be a conservative
-baseline/residual map, not a model leaderboard or material recommendation.
+surface. The first pinned dataset is small by design, openly licensed, validated
+in the repo, and now has holdout plus citation metadata. The next public
+artifact should be a conservative baseline/residual map, not a model
+leaderboard or material recommendation.
 
 Why it matters:
 

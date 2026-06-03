@@ -1,0 +1,56 @@
+id: TASK-0565
+title: "Run Exoplanet second-snapshot source acquisition"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Move Exoplanet from metadata-only second-snapshot packaging toward a real materially changed pinned snapshot."
+  - "Keep acquisition, row curation, reopen coverage checks, and residual scoring as separate no-peek gates."
+  - "Avoid repeating current-snapshot residual pilots until a new source surface exists."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-second-snapshot-acquisition-package.md"
+    - "docs/runbooks/exoplanet-second-snapshot-acquisition-runbook.md"
+    - "data/exoplanets/second_snapshot_manifest.yaml"
+    - "data/exoplanets/snapshot_plans/pscomppars_query.adql"
+    - "docs/source-acquisition-lane.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0554 prepared the exact metadata-only acquisition package for a future
+    PSCompPars second snapshot. This task is the source-acquisition execution
+    step: either fill the manifest with a reviewed, checksummed later snapshot
+    under the approved query contract, or record a precise acquisition blocker.
+    It must not score residuals or inspect target values.
+
+requirements:
+  - "Use the committed query contract unless a separate pre-acquisition amendment PR has changed it."
+  - "Perform live acquisition only with explicit maintainer/network approval and no committed secrets; otherwise write a blocker review with the exact missing approval or access condition."
+  - "If acquisition succeeds, commit raw and normalized snapshot artifacts only with retrieval timestamp, row counts, SHA-256 checksums, source URL, query hash, row-class rules, and no-peek attestation filled."
+  - "Preserve true-mass, minimum-mass, model-derived, and excluded rows as separate states."
+  - "Do not run reopen coverage metrics, mass-radius residual metrics, target scoring, predictions, claims, or knowledge promotion."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "filled data/exoplanets/second_snapshot_manifest.yaml or acquisition blocker review"
+  - "optional data/exoplanets/snapshots/second_snapshot_raw.csv if acquisition is approved and checksum-pinned"
+  - "optional data/exoplanets/exo-0002-pscomppars-second-snapshot.yaml if acquisition is approved and normalized deterministically"
+  - "docs/reviews/exoplanet-second-snapshot-source-acquisition.md"
+  - "tests for second-snapshot manifest/loader validation if rows are committed"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_dataset_schema.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

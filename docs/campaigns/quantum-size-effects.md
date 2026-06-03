@@ -30,13 +30,15 @@ APL refusing to score a model against weak provenance.
 **Not a claim:** there is no quantum-dot size-effect benchmark result yet, no
 new material law, and no device, synthesis, biomedical, or design claim.
 
-**Active next work:** `TASK-0398` packages the Norris-Bawendi 1996
-digitization preflight, and `TASK-0489` reviews the Norris-Bawendi source
-artifact path. `TASK-0491` records `NEEDS_MAINTAINER_DECISION` before any
-separate weaker calibration-consistency sandbox benchmark can run. `TASK-0490`
-has already dry-run the future figure-digitization ledger on synthetic data,
-but it does not authorize real rows. `TASK-0336` stays blocked until an
-approved source artifact exists or the scope is explicitly rewritten.
+**Active next work:** `TASK-0556` classified the direct-source candidates and
+kept Norris-Bawendi 1996 as the strongest current unblock path. `TASK-0563`
+now turns that recommendation into a deterministic digitization preflight or a
+precise blocker, using the existing WebPlotDigitizer-class protocol and source
+artifact reviews. `TASK-0491` still records `NEEDS_MAINTAINER_DECISION`
+before any separate weaker calibration-consistency sandbox benchmark can run.
+`TASK-0490` has already dry-run the future figure-digitization ledger on
+synthetic data, but it does not authorize real rows. `TASK-0336` stays blocked
+until an approved source artifact exists or the scope is explicitly rewritten.
 
 **Expected next result:** either a source artifact that unlocks direct row
 curation or a blocker review that prevents another weak source path from being
@@ -120,6 +122,12 @@ Current task posture:
   `NEEDS_MAINTAINER_DECISION` before any separate sandbox-only implementation,
   preserves the `TASK-0225` and `TASK-0293` blockers, and defines mandatory
   labels, negative controls, stop conditions, and public wording).
+- `TASK-0556` — direct-source candidate classification (DONE; recommends
+  Norris-Bawendi 1996 as the best current direct-row unblock path, with
+  calibration-derived or table-inaccessible candidates kept as blockers);
+- `TASK-0563` — deterministic Norris-Bawendi digitization preflight (READY;
+  produce a source-safe extraction package or blocker only, with no `qd-*`
+  rows or baseline metrics).
 
 Safe next contributions are:
 
