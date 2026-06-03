@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0462` - Add curator review cadence fields to campaign portfolio metadata (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `campaign_portfolio`)
+- `TASK-0545` - Define source acquisition, pinning, and extraction lane (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 
 ## IN_PROGRESS
 
