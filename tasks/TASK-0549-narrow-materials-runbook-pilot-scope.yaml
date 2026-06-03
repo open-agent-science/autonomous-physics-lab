@@ -1,0 +1,46 @@
+id: TASK-0549
+title: "Narrow Materials acquisition runbook to the compact binary-oxides pilot"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the documented runbook scope consistent with the pinned pilot dataset actually committed."
+  - "Default to a small, well-understood data slice; widen only when a study needs it."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/runbooks/materials-snapshot-acquisition-runbook.md"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >
+    The TASK-0547 runbook froze a broad scope (num_elements<=3, is_stable=true =
+    tens of thousands of rows), but the first pinned dataset (TASK-0548) used a
+    compact slice: stable binary oxides (elements contains O, num_elements=2,
+    is_stable=true), 169 rows at database_version 2025.09.25. This task aligns the
+    runbook's frozen query and example fetch script to that compact pilot and
+    marks broader scopes as optional future widenings via a separate
+    pre-fetch-amended snapshot task. Documentation-only; no data fetched, no
+    secrets, no manifest/dataset changes (those live in TASK-0548).
+
+requirements:
+  - "Update the runbook frozen scope filter to stable binary oxides (elements contains O, num_elements=2, is_stable=true)."
+  - "Update the example fetch script query to match the compact scope."
+  - "State that broader scopes are optional future widenings via a separate pre-fetch-amended snapshot task."
+  - "No data fetch, no secrets, no dataset/manifest edits in this task."
+
+accepted_outputs:
+  - "docs/runbooks/materials-snapshot-acquisition-runbook.md (scope narrowed to the compact pilot)"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -32,11 +32,18 @@ deterministic; do not widen it after seeing rows (no-peek).
 - Endpoint: `https://api.materialsproject.org` (via `mp-api`)
 - Property axes (separate, never pooled): `formation_energy_per_atom` (eV/atom),
   `band_gap` (eV)
-- Scope filter (first snapshot): `num_elements <= 3` AND `is_stable = true`
-  (a bounded, stable subset; revise only via a pre-fetch amendment)
+- Scope filter (compact pilot): `elements ⊇ {O}` AND `num_elements = 2` AND
+  `is_stable = true` (stable binary oxides — a small, well-understood subset;
+  ~169 rows at `database_version` 2025.09.25). Revise only via a pre-fetch
+  amendment.
 - Fields: `material_id`, `formula_pretty`, `composition`, `nsites`,
   `symmetry`, `formation_energy_per_atom`, `band_gap`, `energy_above_hull`,
   `is_stable`, `elements`
+
+> Why so small: the full `num_elements <= 3, is_stable = true` set is tens of
+> thousands of rows — more than the pilot needs. Start with the compact
+> binary-oxides slice; widen later (ternary oxides, other chemistries) only via a
+> separate pre-fetch-amended snapshot task if a study actually needs it.
 
 ## Fetch script (maintainer runs locally)
 
@@ -52,12 +59,13 @@ FIELDS = ["material_id","formula_pretty","composition","nsites","symmetry",
 
 with MPRester(API_KEY) as mpr:
     docs = mpr.materials.summary.search(
-        num_elements=(1, 3), is_stable=True, fields=FIELDS,
+        elements=["O"], num_elements=2, is_stable=True, fields=FIELDS,   # stable binary oxides
     )
     db_version = mpr.get_database_version()
 
 rows = [{k: getattr(d, k, None) for k in FIELDS} for d in docs]
-raw = json.dumps({"database_version": db_version, "query": "num_elements<=3,is_stable=true",
+raw = json.dumps({"database_version": db_version,
+                  "query": "elements>={O},num_elements=2,is_stable=true (stable binary oxides)",
                   "fields": FIELDS, "rows": rows}, sort_keys=True, default=str).encode()
 open("materials_snapshot_raw.json","wb").write(raw)
 print("rows:", len(rows))
