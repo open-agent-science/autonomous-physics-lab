@@ -1,0 +1,50 @@
+id: TASK-0555
+title: "Plan Textbook Stellar mass-luminosity empirical audit"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Textbook Formula Audit from exact-reference fixtures toward its first empirical dataset audit."
+  - "Use source, schema, holdout, and verification-gate planning before any Gaia metrics."
+  - "Create a public-friendly but range-aware formula-audit lane."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/notes/textbook-formula-audit-candidate-list.md"
+    - "docs/published-source-dataset-standard.md"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >
+    Textbook Formula Audit now has exact-reference fixtures for Stefan-Boltzmann
+    and Wien. The first empirical audit should be planned before any Gaia DR3
+    rows or mass-luminosity metrics are touched, so the formula range, source,
+    schema, exclusions, and holdout gates are explicit.
+
+requirements:
+  - "Plan the Stellar Mass-Luminosity empirical audit as a source/baseline/holdout task only; do not fetch Gaia data or run metrics."
+  - "Declare candidate source surfaces, minimum row fields, units, source license posture, and likely acquisition lane (`T4_snapshot_approval` or blocker)."
+  - "Define the baseline formula convention, validity range, unit conversion needs, and per-slice verification gates."
+  - "Define exclusion rules for non-main-sequence stars, uncertain distances, unresolved binaries, model-derived masses, and rows outside the declared audit range."
+  - "Do not claim the mass-luminosity relation is validated/falsified; this is an empirical audit plan."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/textbook-stellar-mass-luminosity-source-baseline-plan.md"
+  - "optional task proposal for Gaia snapshot acquisition if the source plan is admissible"
+  - "optional docs/campaigns/textbook-formula-audit.md update if the first empirical lane posture changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

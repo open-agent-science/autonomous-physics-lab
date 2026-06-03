@@ -1,0 +1,54 @@
+id: TASK-0553
+title: "Run Nuclear F2 finer-taxonomy controls-first scoring"
+type: scientific_benchmark
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Use the cleared F2 coverage gate only after the NMD-0003 baseline/split contract is frozen."
+  - "Test one residual-free Nuclear feature family under controls without making it predictive-eligible."
+  - "Keep F2 diagnostic-only unless a later maintainer-approved promotion task changes that status."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-f2-coverage-clearing-slice.md"
+    - "data/nuclear_masses/f2-coverage-selection-manifest.yaml"
+    - "docs/reviews/nuclear-f2-finer-taxonomy-preflight.md"
+    - "docs/nuclear-residual-feature-no-leakage-contract.md"
+    - "tasks/TASK-0552-freeze-nmd0003-stratified-baseline-gate.yaml"
+  planning_context: >
+    TASK-0539 showed that NMD-0003 clears the pre-score F2 coverage gate. This
+    task is intentionally blocked until TASK-0552 freezes the baseline/split
+    gate, because F2 scoring should not select its validation contract after
+    seeing residual behavior.
+
+requirements:
+  - "Start only after TASK-0552 lands a frozen NMD-0003 baseline/split gate."
+  - "Use the F2 taxonomy and floors frozen by TASK-0478 and the selection manifest from TASK-0539; do not retune labels, thresholds, or bin ordering."
+  - "Run the controls-first gauntlet declared by TASK-0539, including matched_random, smooth_a, asymmetry_only, and cluster_label_shuffle controls."
+  - "Require the predeclared survival margin before interpreting any positive signal."
+  - "Do not create PRED entries, CLAIM files, KNOW files, reveal scores, or discovery wording."
+  - "Keep F2 `diagnostic_only` regardless of outcome unless a later promotion task is explicitly approved."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-f2-controls-first-scoring.md"
+  - "tests for any new F2 scoring/control helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_mass_baselines.py tests/test_nuclear_mass_dataset.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
