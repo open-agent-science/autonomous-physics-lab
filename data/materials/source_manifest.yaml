@@ -18,18 +18,47 @@
 #   inclusion_decision — accepted | excluded
 #   notes            — provenance and scope notes
 
-manifest_version: "0"
+manifest_version: "1"
 campaign_id: materials-property-residuals
-status: placeholder_no_sources_registered
+status: first_source_registered_no_values
 created_by:
   contributor_id: roman
   agent_id: claude
 live_external_fetch_allowed: false
 no_values_recorded_here: true
 
-# No sources are registered yet. A future source-manifest task adds entries
-# only after verifying license, version, and a pinned-snapshot checksum policy.
-sources: []
+# One source registered (TASK-0547). No measurement values are recorded here;
+# the pinned snapshot + checksum land via the maintainer-run acquisition runbook
+# (docs/runbooks/materials-snapshot-acquisition-runbook.md). Materials Project
+# requires a personal API key, so the fetch is maintainer-run and the key is
+# never committed.
+sources:
+  - source_id: materials-project
+    title: "The Materials Project"
+    provider: "Materials Project (LBNL)"
+    version: PENDING_pin_db_version_at_acquisition   # record summary.database_version at fetch
+    record_locator: "https://api.materialsproject.org (mp-api summary endpoint)"
+    landing_page: "https://next-gen.materialsproject.org/"
+    citation: "A. Jain et al., 'Commentary: The Materials Project: A materials genome approach to accelerating materials innovation', APL Materials 1, 011002 (2013), doi:10.1063/1.4812323."
+    properties:
+      - formation_energy_per_atom  # eV/atom
+      - band_gap                   # eV
+    materials:
+      - "open-ended (bounded by the runbook query at acquisition time)"
+    provenance: computed_dft
+    dft_functional: "GGA / GGA+U (per Materials Project convention; record per record)"
+    measurement_type: theoretical_calculation
+    license_note: "Materials Project data are licensed CC BY 4.0; redistribution of curated rows is allowed WITH attribution. Attribution + citation are mandatory in any committed dataset. The API key is never committed."
+    attribution_text: "Data from The Materials Project (materialsproject.org), licensed CC BY 4.0; cite Jain et al., APL Materials 1, 011002 (2013)."
+    checksum_policy: sha256_file
+    access: api_key_required_maintainer_run
+    inclusion_decision: accepted
+    notes: >
+      Registered by TASK-0547 as the first open, redistributable Materials source
+      (CC BY 4.0). No values committed here. The maintainer runs the acquisition
+      runbook with their own MP_API_KEY (never committed); the pinned, checksummed,
+      normalized snapshot and its database_version land via that runbook. JARVIS-DFT
+      (NIST) remains the fallback after a separate license/source note.
 
 candidate_source_classes_for_future_review:
   - "Open computed-property databases (JARVIS-DFT, Materials Project, OQMD, AFLOW) with DFT functional and version recorded."
@@ -37,6 +66,6 @@ candidate_source_classes_for_future_review:
   - "Reference/model-only descriptors, admissible only as explicitly excluded context."
 
 global_limitations:
-  - "Placeholder manifest: no sources registered and no values recorded."
+  - "One source registered (Materials Project, CC BY 4.0); no measurement values are recorded in this manifest."
   - "Computed and measured properties must stay on separate residual axes with explicit provenance."
   - "Do not ingest values, fetch live data, or run benchmarks from this placeholder."
