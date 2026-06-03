@@ -1,0 +1,76 @@
+metadata_id: MD-0001-CITATION-0001
+schema_version: 0.1.0
+task_id: TASK-0551
+status: internal_reuse_metadata
+
+dataset:
+  dataset_family_id: MD-0001
+  dataset_version: 0.1.0
+  title: "MD-0001 Materials Project stable binary oxides pilot"
+  campaign_id: materials-property-residuals
+  dataset_files:
+    - data/materials/md-0001-materials-project-formation-energy.yaml
+    - data/materials/md-0001-materials-project-band-gap.yaml
+  snapshot_manifest: data/materials/materials_snapshot_manifest.yaml
+  source_manifest: data/materials/source_manifest.yaml
+  row_count_per_axis: 169
+  property_axes:
+    - property_kind: formation_energy_per_atom
+      units: eV_per_atom
+      provenance_class: computed_dft
+    - property_kind: band_gap
+      units: eV
+      provenance_class: computed_dft
+
+source_attribution:
+  source_name: "The Materials Project"
+  source_url: https://materialsproject.org
+  database_version: "2025.09.25"
+  source_license: "CC BY 4.0"
+  required_attribution: >
+    Data from The Materials Project (materialsproject.org), licensed CC BY 4.0;
+    cite Jain et al., APL Materials 1, 011002 (2013).
+  source_citation: >
+    A. Jain et al., "Commentary: The Materials Project: A materials genome
+    approach to accelerating materials innovation", APL Materials 1, 011002
+    (2013), doi:10.1063/1.4812323.
+  ownership_boundary: >
+    APL does not own the source Materials Project data. This repository records
+    a curated, checksum-pinned internal dataset artifact with required source
+    attribution preserved.
+
+apl_citation_planning:
+  maintainer:
+    name: Roman Hladun
+    orcid: https://orcid.org/0009-0004-4853-5212
+  current_external_organization:
+    name: Open Agent Science
+    url: https://github.com/open-agent-science
+  recommended_citation_wording: >
+    Hladun, R. (2026). MD-0001 Materials Project stable binary oxides pilot
+    dataset, version 0.1.0, Autonomous Physics Lab. Curated from Materials
+    Project data licensed CC BY 4.0; cite Jain et al., APL Materials 1, 011002
+    (2013). Internal repository artifact; no DOI minted yet.
+  future_doi_status: deferred_until_maintainer_approved_publication_task
+  external_repository_status: >
+    Not published to Open Agent Science or any external dataset repository.
+    Publication, DOI minting, release tags, or repository moves require a
+    separate maintainer-approved publication task.
+
+reuse_boundary:
+  internal_reuse_allowed: true
+  external_publication_allowed_by_this_file: false
+  zenodo_release_allowed_by_this_file: false
+  github_release_allowed_by_this_file: false
+  benchmark_result: false
+  scientific_claim: false
+  intended_internal_uses:
+    - "source-pinned dataset reuse planning"
+    - "future benchmark task references"
+    - "citation and attribution review"
+
+limitations:
+  - "Computed DFT values only; not experimental measurements."
+  - "Stable binary oxides pilot scope only."
+  - "No benchmark metrics, residual maps, model claims, or material-discovery claims are created by this metadata."
+  - "Per-row uncertainty is absent in the source snapshot and remains explicit in the dataset files."
