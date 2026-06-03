@@ -21,5 +21,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0536` - Add Exoplanet second-snapshot ingestion dry-run (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0537` - Build Textbook Wien displacement exact-reference fixture (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.
