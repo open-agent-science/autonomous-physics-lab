@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0538` - Add Atomic manifest-backed row-role schema and Beloy assignments (`scientific_validation`, priority `high`, difficulty `medium`, domain `atomic_clock_residuals`)
-- `TASK-0541` - Finalize Materials holdout manifest and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0542` - Pin Atomic Pizzocaro Yb/Sr source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0551` - Add MD-0001 citation and reuse metadata (`scientific_dataset`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0552` - Freeze NMD-0003 stratified baseline gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
@@ -21,4 +20,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0541` - Finalize Materials holdout manifest and schema reconciliation (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
