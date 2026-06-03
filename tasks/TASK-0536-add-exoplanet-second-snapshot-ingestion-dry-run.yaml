@@ -1,7 +1,7 @@
 id: TASK-0536
 title: "Add Exoplanet second-snapshot ingestion dry-run"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
