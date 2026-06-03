@@ -1,0 +1,55 @@
+id: textbook-wien-displacement-exact-reference
+version: 1
+campaign: textbook_formula_audit
+formula: wien_displacement_wavelength_domain
+source_convention:
+  constant_name: CODATA 2022 Wien wavelength displacement law constant
+  symbol: b
+  value_m_k: 0.002897771955
+  unit: m*K
+  convention: wavelength-domain spectral radiance peak, lambda_peak = b / T
+  note: >
+    This fixture is synthetic and exact-reference only. It does not ingest
+    empirical spectra and does not validate or falsify Wien displacement
+    against observations.
+temperature_grid_k:
+  - 2500.0
+  - 3000.0
+  - 4000.0
+  - 5000.0
+  - 5772.0
+  - 6500.0
+  - 8000.0
+  - 10000.0
+expected_lambda_peak_m:
+  - 0.000001159108782
+  - 0.000000965923985
+  - 0.00000072444298875
+  - 0.000000579554391
+  - 0.0000005020394932432432
+  - 0.00000044581107
+  - 0.000000362221494375
+  - 0.0000002897771955
+checks:
+  relative_tolerance: 1.0e-12
+  monotonic: strictly_decreasing_lambda_with_increasing_temperature
+  scaling: lambda_peak_times_temperature_equals_b
+negative_controls:
+  wrong_constant:
+    value_m_k: 0.000002897771955
+    expected: fail_scaling_check
+  wrong_temperature_unit:
+    input_unit: celsius
+    expected: fail_temperature_unit_check
+  wrong_peak_domain:
+    convention: frequency-domain spectral radiance peak
+    expected: fail_wavelength_domain_constant_check
+publication_scope:
+  route: sandbox_only
+  claim_impact: none
+  knowledge_impact: none
+  blocked_actions:
+    - empirical spectrum ingestion
+    - observational validation claim
+    - textbook formula falsification claim
+    - universal formula wording
