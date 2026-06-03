@@ -1,57 +1,48 @@
-# Materials Project snapshot manifest (EXPECTED SHAPE — no values yet)
-#
-# Task: TASK-0547. This is the manifest the maintainer-run acquisition runbook
-# fills in after fetching (docs/runbooks/materials-snapshot-acquisition-runbook.md).
-# It is committed value-free now so the acquisition output has a fixed, reviewable
-# shape. PENDING fields are filled at fetch time. No API key is ever recorded here.
-
+# Materials Project snapshot manifest (TASK-0548 filled). No secrets recorded.
 manifest_id: MD-SNAPSHOT-MATERIALS-PROJECT-0001
 schema_version: 0.1.0
 task_id: TASK-0547
 campaign_id: materials-property-residuals
-status: expected_shape_pending_maintainer_fetch
+status: fetched_and_curated
 source_id: materials-project
-
 acquisition:
-  acquisition_actor: maintainer            # MP requires a personal API key
-  source_url_or_endpoint: "https://api.materialsproject.org"
-  query: "num_elements<=3, is_stable=true"
+  acquisition_actor: maintainer
+  source_url_or_endpoint: https://api.materialsproject.org
+  query: elements>={O}, num_elements=2, is_stable=true (stable binary oxides)
   selected_fields:
-    - material_id
-    - formula_pretty
-    - composition
-    - nsites
-    - symmetry
-    - formation_energy_per_atom
-    - band_gap
-    - energy_above_hull
-    - is_stable
-    - elements
-  database_version: PENDING                 # mpr.get_database_version() at fetch
-  retrieval_timestamp_utc: PENDING
-  row_count: PENDING
-  raw_artifact_path: PENDING                # or "not_committed (large); regenerate via runbook"
+  - material_id
+  - formula_pretty
+  - composition
+  - nsites
+  - symmetry
+  - formation_energy_per_atom
+  - band_gap
+  - energy_above_hull
+  - is_stable
+  - elements
+  database_version: 2025.09.25
+  retrieval_timestamp_utc: '2026-06-03T13:57:17.886949Z'
+  row_count: 169
+  raw_artifact_path: data/materials/snapshots/materials_project_binary_oxides_2025-09-25.json
   normalized_artifact_paths:
-    - "data/materials/md-0001-materials-project-formation-energy.yaml (PENDING)"
-    - "data/materials/md-0001-materials-project-band-gap.yaml (PENDING)"
-  checksum_sha256: PENDING                  # of the raw snapshot JSON
-  redistribution_decision: file_committed_with_permission   # CC BY 4.0 allows curated rows + attribution
-  no_peek_attestation: PENDING              # set true only if no scope/metric tuning after row inspection
-
+  - data/materials/md-0001-materials-project-formation-energy.yaml
+  - data/materials/md-0001-materials-project-band-gap.yaml
+  checksum_sha256: bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101
+  redistribution_decision: file_committed_with_permission
+  no_peek_attestation: true
 license:
   license_status: open
-  license: "CC BY 4.0"
-  attribution_text: "Data from The Materials Project (materialsproject.org), licensed CC BY 4.0; cite Jain et al., APL Materials 1, 011002 (2013)."
-
+  license: CC BY 4.0
+  attribution_text: Data from The Materials Project (materialsproject.org), licensed CC BY 4.0; cite Jain
+    et al., APL Materials 1, 011002 (2013).
 property_axes:
-  - property_kind: formation_energy_per_atom
-    units: eV_per_atom
-    provenance_class: computed_dft
-  - property_kind: band_gap
-    units: eV
-    provenance_class: computed_dft
-
+- property_kind: formation_energy_per_atom
+  units: eV_per_atom
+  provenance_class: computed_dft
+- property_kind: band_gap
+  units: eV
+  provenance_class: computed_dft
 limitations:
-  - "Expected shape only; no measurement values recorded until the maintainer runs the runbook."
-  - "Keep formation_energy_per_atom and band_gap on separate residual axes."
-  - "Never commit MP_API_KEY or any secret. No benchmark metric or claim from this manifest."
+- Maintainer-run fetch completed (database_version 2025.09.25, 169 stable binary oxides); curated rows live in the normalized dataset files.
+- Computed DFT values only; keep formation_energy_per_atom and band_gap on separate residual axes and never mix with experimental data.
+- No MP_API_KEY or secret is recorded. No benchmark metric, baseline, or claim is derived from this snapshot.
