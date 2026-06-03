@@ -15,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0549` - Narrow Materials acquisition runbook to the compact binary-oxides pilot (`maintainer_workflow`, priority `medium`, difficulty `low`, domain `materials_property_residuals`)
