@@ -4,7 +4,7 @@
 Reports when missions/current.yaml routes agents into work canonical state no
 longer supports: recommended actions pointing at DONE/BLOCKED/REJECTED/
 SUPERSEDED/PROPOSED tasks, references to missing tasks, and mission campaign
-recommendations that conflict with campaigns/catalog.yaml.
+recommendations that conflict with campaign_profiles/_catalog.yaml.
 
 Advisory by default (exit 0). Pass --strict to exit non-zero when drift is
 found. It never rewrites missions/current.yaml. It complements the existing

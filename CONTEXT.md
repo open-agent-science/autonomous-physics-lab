@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-06-01 19:26 UTC
+Generated: 2026-06-03 22:28 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -49,6 +49,10 @@ directory:
 This writes to the canonical project-local `_snapshots/` directory. Use
 `APL_SNAPSHOT_DIR=/tmp/...` only for disposable test runs, never for the final
 snapshot you want the maintainer or another agent to consume.
+
+If the repository root feels busy, use `docs/repository-map.md` to distinguish
+core runtime, current-work coordination, scientific memory, legacy archives,
+and local/generated checkout artifacts.
 
 ## Agent First Default
 
@@ -222,6 +226,7 @@ Use these files as the shared coordination layer:
 - `docs/task-proposal-protocol.md`
 - `docs/agent-operating-model.md`
 - `docs/result-promotion-protocol.md` — master mapping rule from task verdict to canonical output class; required reading before writing any final task output (replaces the default "write only an `AGENT-RUN-*`" pattern).
+- `docs/repository-map.md` — human-facing map of root paths, scientific memory, legacy archives, and local/generated artifacts.
 - `agents/README.md` — index of agent role profiles (`agents/<role-id>.yaml`). When the maintainer asks the agent to act in a role (in any language), the agent matches the request against each role file's `activation.intent`, loads the matching profile as its first action, and applies that role for the session.
 - `docs/task-views/research.md`
 - `docs/task-views/support.md`
@@ -614,8 +619,21 @@ git diff --exit-code
 `python3 -m pytest` runs in parallel by default via `pytest-xdist` (installed
 with the dev extras: `pip install -e ".[dev]"`), matching CI on Windows,
 macOS, and Linux. For a faster cross-platform inner loop while iterating, run
-`python3 scripts/validate_fast.py` (lint plus the non-`full_repo` tests). Use
+`python3 scripts/validate_fast.py` (lint, strict repository validation, then
+the non-`full_repo` tests with a slowest-ten timing report). Use
 `python3 -m pytest -n0` to force a serial run when debugging a single test.
+For narrow task PRs, run the task YAML validation commands first and use
+`python3 scripts/apl_task_validation_plan.py --task TASK-XXXX` for advisory
+diff-aware guidance. If parallel pytest fails in a Windows sandbox, run
+`python3 scripts/apl_agent_doctor.py --probe-pytest-runtime --no-gh-auth-check`;
+do not automatically replace a narrow PR's validation with a serial full-suite
+run. Use targeted `-n0` debugging and keep broad cross-platform coverage in CI.
+Treat test ordering as a staged-lane concern: run cheap deterministic gates
+first and keep slow `full_repo` smoke tests at the end. Do not add dependencies
+between individual tests merely to control their parallel execution order.
+Tests with measured xdist resource or path sensitivity belong in the
+same `xdist_group`, which keeps them on one worker while unrelated tests
+continue in parallel.
 
 If a change touches CLI behavior, include a smoke test.
 If a change touches scientific formulas, include a numerical regression test.
@@ -907,7 +925,8 @@ lighter navigation than the full generated board, use:
 
 For parallel-capacity planning — how many agents fit each lane — read each
 campaign's `agent_capacity` block in
-[`campaigns/catalog.yaml`](../campaigns/catalog.yaml) (the canonical source) and
+[`campaign_profiles/_catalog.yaml`](../campaign_profiles/_catalog.yaml) (the
+generated portfolio index) and
 query the on-demand task-to-campaign index
 (`python3 scripts/apl_task_campaign_index.py`).
 
@@ -917,7 +936,9 @@ query the on-demand task-to-campaign index
 sprint. `TASK-0515` records `NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY` for
 another compact-radius residual or host-context pilot on the current pinned
 snapshot. Reopen the residual lane only after a materially changed pinned
-snapshot or explicitly revised coverage gate.
+snapshot or explicitly revised coverage gate. The active path is now the
+second-snapshot reopen gate plus a no-live-fetch ingestion dry-run, not another
+current-snapshot residual pilot.
 
 Recommended default: start with the live `research` recommendation from
 `python3 scripts/apl_mission.py --output onboarding`. Right now the strongest
@@ -931,10 +952,12 @@ verdict, destination, review tier, Gate A/B status, limitations, and blockers.
 
 Nuclear Mass Surface remains the flagship validation challenge, but the latest
 controls-first lanes landed as negative, inconclusive, or chain-local memory.
-The best Nuclear work now is packaging, preflight, training-slice feasibility,
-and reveal-source readiness. Quantum Size Effects remains a source-readiness
-lane, while Atomic-Clock Residuals is a pinned-source/covariance lane moving
-toward benchmark readiness. New campaign ideas should enter through
+`TASK-0531` adds a sharper blocker: a simple `NMD-0003` broad-surface refit
+improves train/full metrics but regresses on validation holdout. The best
+Nuclear work now is baseline-family gating, F2 preflight, and reveal-source
+readiness. Quantum Size Effects remains a source-readiness lane, while
+Atomic-Clock Residuals is a pinned-source/covariance lane moving toward
+benchmark readiness. New campaign ideas should enter through
 source/schema/baseline scaffolds first, not broad hypothesis batches.
 
 ## Current Mission Shape
@@ -948,11 +971,11 @@ turning watchlist topics into formula-search work.
 
 | Surface | Role right now | Good agent work |
 | --- | --- | --- |
-| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is falsified, the residual-free cluster lane is inconclusive, pairing-asymmetry and magic-parity controls are negative, and shell-axis transfer is mixed/chain-local | negative evidence card, F2 finer-taxonomy preflight, training-slice feasibility, and reveal-source readiness; do not repeat completed weak lanes |
-| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control diagnostic, null-baseline control panel, mass-quartile underpowered diagnostic, target-freeze protocol, external-reviewer capsule, landed host-context preflight, and `TASK-0515` no-go synthesis | Preserve negative/control memory until a materially changed pinned snapshot or coverage gate is reviewed |
+| [Nuclear Mass Surface](./campaigns/nuclear-mass-surface.md) | Flagship validation challenge with baseline residuals, sandbox scouts, frozen predictions, no-leakage contract, and reveal-readiness blockers; local-curvature no-leakage is falsified, the residual-free cluster lane is inconclusive, pairing-asymmetry and magic-parity controls are negative, shell-axis transfer is mixed/chain-local, and the first `NMD-0003` refit regresses on validation holdout | baseline-family gate, F2 finer-taxonomy preflight, and reveal-source readiness; do not repeat completed weak lanes |
+| [Exoplanet Mass-Radius](./campaigns/exoplanet-mass-radius.md) | Default near-term science-output sprint with a pinned snapshot, baseline comparison, compact-radius matched-control diagnostic, null-baseline control panel, mass-quartile underpowered diagnostic, target-freeze protocol, external-reviewer capsule, landed host-context preflight, and `TASK-0515` no-go synthesis | Preserve negative/control memory; define the second-snapshot reopen gate and dry-run no-live-fetch ingestion before any new residual audit |
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows, deterministic real-row loader, synthetic cross-source dry-run, Nemitz 2016 source artifact pinned but rows blocked, and first-benchmark covariance policy defined | fallback source triage, direct-vs-derived separation, then baseline-readiness gate |
-| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas | Stellar Mass-Luminosity review, plus Wien and Stefan-Boltzmann source/baseline planning before any metrics |
+| [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas; Stefan-Boltzmann exact-reference fixture has landed, while empirical audits have not | Wien exact-reference fixture and empirical source/baseline planning before any real-source metrics |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -971,11 +994,11 @@ Near-term portfolio shape:
 
 | Portfolio role | Campaigns | Notes |
 | --- | --- | --- |
-| Flagship validation challenge | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature, pairing-asymmetry, magic-parity, and mixed shell-axis transfer as negative/control/local memory unless a later review creates a narrower publication artifact. Continue packaging and preflights before new fitting. |
-| Default science-output sprint | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source discipline and reopen residual audits only after a materially changed snapshot or coverage gate. |
+| Flagship validation challenge | Nuclear Mass Surface | Keep reveal scoring blocked until a no-peek source passes. Preserve local-curvature, pairing-asymmetry, magic-parity, mixed shell-axis transfer, and the simple `NMD-0003` refit regression as negative/inconclusive memory unless a later review creates a narrower publication artifact. Run baseline-family gates before new fitting. |
+| Default science-output sprint | Exoplanet Mass-Radius | Preserve the current pinned-snapshot compact-radius surface as negative/control memory; continue source discipline and reopen residual audits only after a materially changed snapshot or coverage gate plus dry-run ingestion. |
 | Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting. |
 | Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Close second-source, loader, holdout/no-peek, and covariance-policy blockers before the first Yb/Sr consistency benchmark. |
-| New public-friendly scaffold | Textbook Formula Audit | Start with Stellar Mass-Luminosity source/baseline planning; no metrics before source, schema, holdout, and verification gates. |
+| New public-friendly scaffold | Textbook Formula Audit | Use exact-reference fixtures first, then empirical source/baseline planning; no real-source metrics before source, schema, holdout, and verification gates. |
 | Candidate new lanes | Materials Property Residuals | Scaffold source, baseline, and holdout rules before any hypothesis batches. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
@@ -1061,20 +1084,21 @@ when a suitable READY option exists.
 <!-- source: missions/current.yaml -->
 
 default_mode: research
-updated: "2026-06-01"
+updated: "2026-06-02"
 
 curator_cycle:
   decision: updated
-  updated: "2026-06-01"
-  source: "TASK-0515"
+  updated: "2026-06-02"
+  source: "TASK-0531"
   note: >
     Mission guidance now reflects the latest merged science wave. Nuclear
-    remains the flagship validation challenge, but recent controls-first lanes
-    landed as negative, inconclusive, or chain-local memory. The default
-    near-term science-output sprint moves to Exoplanet Mass-Radius while
-    Atomic and Quantum continue through source/covariance gates. TASK-0515 now
-    preserves the current Exoplanet compact-radius surface as negative/control
-    memory until a materially changed snapshot or coverage gate is reviewed.
+    remains the flagship validation challenge, but TASK-0517 found no
+    control-surviving NMD-0003 factory shortlist and TASK-0531 showed that a
+    simple broad-surface NMD-0003 refit regresses on the validation holdout.
+    The next Nuclear path is a baseline-family and split/domain gate before
+    another residual-feature sprint. Exoplanet remains preserved as
+    negative/control memory until a second-snapshot coverage gate and dry-run
+    are reviewed, while Atomic and Quantum continue through source gates.
 
 policy:
   name: "Agent First, Research First, Parallel Work"
@@ -1129,7 +1153,7 @@ missions:
     status: flagship_validation
     scientific_value: high
     risk: medium
-    recommendation: "Flagship validation challenge, but the next positive-result path is data-gated: create source-gated NMD-0003 AME2020 measured training data before another full factory sprint, preserve latest negative/control/local lanes, and keep reveal scoring blocked until a source-grade no-peek release exists."
+    recommendation: "Flagship validation challenge. The NMD-0003 large-surface factory sprint produced control-dominated negative memory with no shortlist, and the first broad-surface NMD-0003 refit improved train/full metrics while regressing on the validation holdout. The next positive-result path is a baseline-family and split/domain gate before any more expressive residual families or prediction-freeze work."
     why_now:
       - "real AME-style nuclear-mass dataset surface exists"
       - "frozen baseline and holdout protocol exist"
@@ -1146,6 +1170,10 @@ missions:
       - "TASK-0474 and TASK-0475 landed as negative/control results, while TASK-0476 showed shell-axis transfer is mixed and chain-local rather than broadly predictive"
       - "TASK-0507 ran the first Research Factory sprint on NMD-0002 and produced no shortlist: the current 11-row training slice is underpowered for strong residual-law conclusions"
       - "TASK-0479 identified NMD-0003 source-gated AME2020 measured training data as the blocker before another meaningful Nuclear factory sprint"
+      - "TASK-0516 landed the NMD-0003 source-gated AME2020 measured training surface with 2309 committed rows and frozen holdout exclusions"
+      - "TASK-0517 ran the first NMD-0003 Research Factory sprint: 73 generated candidates, 72 executed, 0 shortlisted, and the strongest apparent gains rejected by matched random-slice controls"
+      - "TASK-0518 confirmed NMD-0002 perturbation survival remains INCONCLUSIVE control evidence, not independent validation"
+      - "TASK-0531 froze the first NMD-0003 broad-surface baseline refit and found a validation-holdout regression: useful sandbox evidence, but not a promotable baseline improvement"
     forbidden:
       - "do not promote HYP-PROPOSAL-0021 to a claim automatically"
       - "do not describe the residual candidate as breakthrough physics"
@@ -1206,9 +1234,10 @@ missions:
           - "Treat TASK-0474 and TASK-0475 as additional negative/control memory, not promising formula candidates"
           - "Treat TASK-0476 as evidence that shell-axis behavior is chain-local and mixed under leave-family-out transfer"
           - "Prefer TASK-0477, TASK-0478, and TASK-0479 over new broad Nuclear fitting lanes"
-          - "Prefer TASK-0516 as the next Nuclear unblock: source-gated NMD-0003 training data before another full factory sprint"
-          - "Keep TASK-0517 blocked until NMD-0003 exists with a frozen split manifest"
-          - "Use TASK-0518 only as an NMD-0002 uncertainty-control lane, not as independent validation data"
+          - "Treat TASK-0517 as completed control-dominated negative memory: do not rerun the same NMD-0003 factory sprint without a new baseline or new approved feature family"
+          - "Keep post_ame2020_holdout.yaml out of training; use it only through explicit retrospective/reveal-style validation tasks"
+          - "Treat TASK-0518 as completed NMD-0002 uncertainty-control memory, not as independent validation data"
+          - "TASK-0531 shows simple broad-surface NMD-0003 refit is not enough: validation holdout MAE regressed, so Nuclear needs TASK-0535-style baseline-family and split/domain gating before another factory sprint"
           - "New Nuclear hypothesis lanes must predeclare leakage checks, negative controls, and stop conditions before candidate fitting"
         validation:
           - "python3 -m ruff check ."
@@ -1379,15 +1408,16 @@ missions:
         expected_outputs:
           - "ranked alternative direct-source candidates without row values"
       - id: quantum-norris-bawendi-source-artifact
-        label: "Package Norris/Bawendi source-artifact review"
+        label: "Norris/Bawendi source-artifact review completed; direct rows still blocked"
         task_id: TASK-0489
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
         expected_outputs:
-          - "source artifact/blocker review without synthetic or calibration-derived row promotion"
+          - "source artifact/blocker review landed without synthetic or calibration-derived row promotion"
+          - "keep direct-row curation blocked until a deterministic table or digitization artifact is approved"
       - id: quantum-digitization-fixture-dry-run
         label: "Run quantum figure-digitization fixture dry-run"
         task_id: TASK-0490
@@ -1402,10 +1432,10 @@ missions:
         label: "Define Quantum calibration-consistency go/no-go scorecard"
         task_id: TASK-0491
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "explicit decision on whether a weaker calibration-consistency benchmark may exist separately from TASK-0225"
 
@@ -1546,7 +1576,7 @@ missions:
         label: "Audit Atomic direct-vs-derived row separation"
         task_id: TASK-0487
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
         recommended: false
@@ -1566,10 +1596,10 @@ missions:
         label: "Rerun Atomic baseline-readiness gate"
         task_id: TASK-0455
         mode: research
-        status: ready
+        status: done
         priority: high
         difficulty: medium
-        recommended: true
+        recommended: false
         expected_outputs:
           - "BASELINE_READY / PINNED_DATASET / SOURCE_BLOCKED go-no-go after TASK-0452 through TASK-0454"
       - id: atomic-yb-sr-cross-source-benchmark
@@ -1835,8 +1865,8 @@ missions:
         label: "Plan Textbook Formula Audit for Stefan-Boltzmann law"
         task_id: TASK-0493
         mode: research
-        status: ready
-        recommended: true
+        status: done
+        recommended: false
         priority: high
         difficulty: medium
         expected_outputs:
@@ -2062,7 +2092,7 @@ Operational entry points:
   evidence before learning the contributor workflow;
 - [docs/agent-work-menu.md](./agent-work-menu.md) for a fast time-budgeted
   menu of safe, reviewable work (30 min / 1 h / 2 h);
-- [docs/task-views/research.md](./task-views/research.md) for the live READY/blocked/release task navigation (the retired `tasks/ACTIVE.md` full board is replaced by these generated views and `git log`);
+- [docs/task-views/research.md](./task-views/research.md) for generated current-work navigation; use `git log` for task history;
 - [tasks/microtasks/README.md](../tasks/microtasks/README.md) for campaign-specific scientific microtask queues;
 - [docs/negative-results-registry.md](./negative-results-registry.md) for the
   current falsification index;
@@ -2173,6 +2203,25 @@ When an executor agent reports "available tasks", it should list only
 to maintainer review, merge decisions, or post-merge closeout. Mention
 `REVIEW_READY` items only when the maintainer explicitly asks for review,
 closeout, or queue triage.
+
+For guided onboarding, use:
+
+```bash
+python3 scripts/apl_mission.py --output onboarding
+```
+
+The onboarding path dynamically tries to exclude `READY` tasks that already
+have an open claim, an open PR, or a merged PR pending local closeout. This is
+stdout-only coordination state; do not commit a generated availability cache.
+When GitHub CLI or network metadata is unavailable, onboarding reports that it
+is showing local registry-only options. Agents must then perform the manual
+pre-claim search from `docs/agent-task-claiming.md` before starting work.
+
+For an explicit live check from another output mode, add
+`--github-availability auto` or use `--github-availability required` when a
+registry-only fallback should fail clearly. If an approved Codex sandbox sets
+the known loopback blocker proxy, add `--ignore-suspicious-proxy`; this clears
+only blocker-valued proxy variables for the child GitHub CLI process.
 
 ## Task Proposals
 
@@ -2557,6 +2606,12 @@ ready:
 python3 scripts/apl_task_pr_helper.py ready --pr <number>
 ```
 
+When `scripts/apl_agent_doctor.py` reports the known loopback blocker proxy
+(`127.0.0.1:9` or `localhost:9`) and network access is allowed, add
+`--ignore-suspicious-proxy` to `apl_task_pr_helper.py create` or `ready`.
+The flag is opt-in, applies only to the child `gh` command, and does not remove
+legitimate proxy configuration or mutate the parent shell.
+
 ## Pull Request Requirements
 
 Every PR should include:
@@ -2597,8 +2652,23 @@ not change accidentally.
 `python3 -m pytest` runs in parallel by default via `pytest-xdist` (part of the
 dev extras: `pip install -e ".[dev]"`), matching CI on Windows, macOS, and
 Linux. For a faster cross-platform inner loop use
-`python3 scripts/validate_fast.py` (lint plus non-`full_repo` tests). Add
-`-n0` to force a serial run when debugging a single test.
+`python3 scripts/validate_fast.py` (lint, strict repository validation, then
+non-`full_repo` tests with a slowest-ten timing report). Add
+`-n0` to force a serial run when debugging a single test. For a narrow task
+PR, start with the validation commands declared in its task YAML and use
+`python3 scripts/apl_task_validation_plan.py --task TASK-XXXX` for advisory
+diff-aware guidance. If a Windows sandbox blocks parallel pytest, run
+`python3 scripts/apl_agent_doctor.py --probe-pytest-runtime --no-gh-auth-check`.
+Do not automatically replace a narrow PR's validation with a serial full-suite
+run: use targeted `-n0` debugging and let CI provide broad cross-platform
+coverage.
+
+Treat test priority as a staged-lane concern. Run cheap deterministic gates
+before the parallel pytest layer and keep slow `full_repo` smoke tests at the
+end. Do not introduce dependencies between individual tests merely to control
+their xdist scheduling order. Put tests with measured xdist resource or path
+sensitivity in the same `xdist_group`, which keeps them on one worker while
+unrelated tests continue in parallel.
 
 Before opening a PR, agents may optionally generate a review bundle for the
 maintainer. This is no longer a required step and its absence is not flagged by
