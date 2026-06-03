@@ -1,0 +1,59 @@
+id: TASK-0558
+title: "Audit sparse legacy and experimental registries"
+type: architecture
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce repository architecture noise by deciding which early registry surfaces are still useful."
+  - "Prevent near-empty registries from looking like active campaign infrastructure when they are not."
+  - "Protect scientific memory by making deprecation, consolidation, or retention decisions explicitly."
+
+input:
+  mode: workflow
+  related_domain: repository_architecture
+  related_objects:
+    - "constants_verification/"
+    - "approximation_probes/"
+    - "hypothesis_register/"
+    - "physics_lab/registry/validation.py"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/schemas/constant_verification.schema.json"
+    - "physics_lab/schemas/approximation_probe.schema.json"
+    - "physics_lab/schemas/hypothesis_register_entry.schema.json"
+    - "docs/notes/physical-constants-verification-track.md"
+    - "docs/notes/approximation-breakdown-probes-track.md"
+    - "docs/notes/hypothesis-register-protocol.md"
+  planning_context: >
+    Root-level registries with only one to five artifacts may be legacy,
+    experimental, or still useful as small validator-backed tracks. This task
+    performs a structured audit before any deletion or path migration. It must
+    identify actual code/docs/test dependencies and recommend keep, deprecate,
+    consolidate, archive, or promote decisions for each sparse registry.
+
+requirements:
+  - "Inventory each sparse registry, schema, loader/validator reference, test reference, documentation reference, and current scientific use."
+  - "Classify each surface as core, active, experimental, legacy, deprecated, or consolidation candidate."
+  - "For `hypothesis_register/`, decide whether it should merge conceptually into `hypotheses/`, `hypothesis_proposals/`, or remain distinct."
+  - "For `constants_verification/`, decide whether it is a real current campaign/validator track or should be deprecated as an early experiment."
+  - "For `approximation_probes/`, account for its existing engine and tests before recommending removal or retention."
+  - "Produce a migration/deprecation recommendation with explicit follow-up tasks; do not perform broad moves in this audit PR."
+  - "Do not delete artifacts, schemas, or validation mappings unless the maintainer explicitly approves a follow-up implementation task."
+
+accepted_outputs:
+  - "docs/reviews/sparse-registry-architecture-audit.md"
+  - "optional small docs pointers that label the audited registries as pending lifecycle decision"
+  - "recommended follow-up TASK-QUEUE entries only if the audit finds safe, useful migrations"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_approximation_probes.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
