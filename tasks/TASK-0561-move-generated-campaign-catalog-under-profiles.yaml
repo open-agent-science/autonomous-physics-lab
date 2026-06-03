@@ -1,7 +1,7 @@
 id: TASK-0561
 title: "Move generated campaign catalog under campaign_profiles"
 type: repo_architecture
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
