@@ -1,7 +1,7 @@
 id: TASK-0537
 title: "Build Textbook Wien displacement exact-reference fixture"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 

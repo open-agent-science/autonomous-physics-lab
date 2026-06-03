@@ -490,6 +490,7 @@ def _validate_references(
         if payload.get("config_kind") in {
             "nuclear_prediction_variant_factory",
             "nuclear_prediction_synthetic_reveal",
+            "textbook_wien_exact_reference_fixture",
         }:
             continue
         experiment_path = (path.parent / payload["experiment_path"]).resolve()
