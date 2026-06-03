@@ -1,5 +1,10 @@
 # Fresh-Data Intake Protocol
 
+> Sits under the [Published-Source and Reusable-Dataset Standard](published-source-dataset-standard.md),
+> which adds the published≠redistributable rule, the `blocker_type` routing
+> vocabulary, and the reusable-dataset publication standard. Read that standard
+> first for source admissibility and dataset-publication rules.
+
 ## Purpose
 
 This protocol defines the shared source-to-row workflow for fresh-data work
