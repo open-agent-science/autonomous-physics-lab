@@ -1,7 +1,7 @@
 id: TASK-0547
 title: "Materials open pinned-snapshot acquisition pilot"
 type: scientific_dataset
-status: READY
+status: BLOCKED
 difficulty: medium
 priority: high
 
@@ -28,6 +28,8 @@ input:
     is a runbook + schema + expected snapshot manifest + validator that the
     maintainer runs locally; a committed snapshot lands only if a public,
     key-free, license-clean fetch is possible without committing secrets.
+    BLOCKED until TASK-0545 (acquisition lane) and TASK-0543 (standard) land;
+    flip to READY once the sanctioned lane exists on main.
 
 requirements:
   - "Pick one open source: Materials Project (CC BY 4.0) primary, JARVIS-DFT fallback; record license_status and attribution."

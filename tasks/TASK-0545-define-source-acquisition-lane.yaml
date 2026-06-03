@@ -1,7 +1,7 @@
 id: TASK-0545
 title: "Define source acquisition, pinning, and extraction lane"
 type: research_infrastructure
-status: READY
+status: BLOCKED
 difficulty: medium
 priority: high
 
@@ -25,6 +25,8 @@ input:
     maintainer-run runbook contract, the no-secret rule, and a maintainer-run
     data-acquisition role profile. Does not fetch data, run a crawler, or commit
     secrets; rows still require a separate row-curation task.
+    BLOCKED until TASK-0543 (the published-source/reusable-dataset standard,
+    PR #794) merges; flip to READY once that standard lands on main.
 
 requirements:
   - "Create docs/source-acquisition-lane.md defining the T1/T2/T3/T4 lanes and how blocker_type routes into them."
