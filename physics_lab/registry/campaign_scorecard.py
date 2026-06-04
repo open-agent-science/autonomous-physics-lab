@@ -22,6 +22,8 @@ from typing import Any
 
 import yaml
 
+from physics_lab.registry.campaigns import campaign_catalog_path
+
 
 # Prediction-registry subdirectories map to campaigns by directory name.
 PREDICTION_DOMAIN_TO_CAMPAIGN = {
@@ -77,7 +79,7 @@ def _safe_load(path: Path) -> dict[str, Any]:
 
 
 def _catalog_campaigns(root: Path) -> list[tuple[str, str]]:
-    data = _safe_load(root / "campaigns" / "catalog.yaml")
+    data = _safe_load(campaign_catalog_path(root))
     out: list[tuple[str, str]] = []
     for campaign in data.get("campaigns", []) or []:
         if isinstance(campaign, dict) and campaign.get("id"):

@@ -1,7 +1,7 @@
 id: TASK-0561
 title: "Move generated campaign portfolio index under campaign_profiles"
 type: repo_architecture
-status: READY
+status: DONE
 difficulty: medium
 priority: high
 

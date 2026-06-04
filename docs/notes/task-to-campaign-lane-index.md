@@ -28,7 +28,7 @@ source of truth.
 
 Resolution order (first match wins), reusing existing task metadata:
 
-1. **`related_domain` exact match** to a campaign id from `campaigns/catalog.yaml`
+1. **`related_domain` exact match** to a campaign id from `campaign_profiles/_catalog.yaml`
    (normalizing `_` → `-`), e.g. `nuclear_mass_surface` → `nuclear-mass-surface`.
 2. **Campaign reference** in `related_objects` or `accepted_outputs`, e.g. a
    `docs/campaigns/<campaign-id>.md` path or the campaign id itself.
@@ -47,7 +47,8 @@ Resolution order (first match wins), reusing existing task metadata:
   `accepted_outputs` path tokens.
 - `parallel_safe` — `false` when the task writes a shared mutable canonical
   surface (`results/`, `claims/`, `knowledge/`, `prediction_registry/`,
-  `hypotheses/`, `experiments/`, `campaigns/catalog.yaml`, `missions/current.yaml`);
+  `hypotheses/`, `experiments/`, `campaign_profiles/_catalog.yaml`,
+  `missions/current.yaml`);
   `true` for planning/doc/script tasks that only touch their own files.
 - `path_conflicts` (index-level) — concrete `accepted_outputs` paths claimed by
   more than one active task, the clearest signal of a real write collision.
@@ -57,7 +58,8 @@ Resolution order (first match wins), reusing existing task metadata:
 - `parallel_safe` is a conservative per-task heuristic from declared accepted
   outputs; it does not parse code to find every file a task might touch.
 - A task whose campaign id is not yet in the catalog is `UNMAPPED` by design;
-  add the campaign profile (and regenerate `campaigns/catalog.yaml`) to map it.
+  add the campaign profile (and regenerate `campaign_profiles/_catalog.yaml`)
+  to map it.
 - The index is descriptive: it never changes task status or campaign metadata.
 - Because the output is intentionally not committed, historical state should be
   read from task files, snapshots, and git history rather than from a stale

@@ -88,8 +88,8 @@ def test_is_parallel_safe_flags_shared_mutable_surface() -> None:
 
 def test_build_index_smoke(tmp_path: Path) -> None:
     # Minimal synthetic repo: a catalog and two tasks (one mapped, one unmapped).
-    (tmp_path / "campaigns").mkdir()
-    (tmp_path / "campaigns" / "catalog.yaml").write_text(
+    (tmp_path / "campaign_profiles").mkdir()
+    (tmp_path / "campaign_profiles" / "_catalog.yaml").write_text(
         yaml.safe_dump({"campaigns": [{"id": "nuclear-mass-surface"}]}),
         encoding="utf-8",
     )
@@ -134,8 +134,8 @@ def test_build_index_smoke(tmp_path: Path) -> None:
 
 
 def test_build_index_detects_output_path_conflict(tmp_path: Path) -> None:
-    (tmp_path / "campaigns").mkdir()
-    (tmp_path / "campaigns" / "catalog.yaml").write_text(
+    (tmp_path / "campaign_profiles").mkdir()
+    (tmp_path / "campaign_profiles" / "_catalog.yaml").write_text(
         yaml.safe_dump({"campaigns": []}), encoding="utf-8"
     )
     (tmp_path / "tasks").mkdir()
@@ -160,8 +160,8 @@ def test_build_index_detects_output_path_conflict(tmp_path: Path) -> None:
 
 
 def test_build_index_ignores_placeholder_output_path_conflicts(tmp_path: Path) -> None:
-    (tmp_path / "campaigns").mkdir()
-    (tmp_path / "campaigns" / "catalog.yaml").write_text(
+    (tmp_path / "campaign_profiles").mkdir()
+    (tmp_path / "campaign_profiles" / "_catalog.yaml").write_text(
         yaml.safe_dump({"campaigns": []}), encoding="utf-8"
     )
     (tmp_path / "tasks").mkdir()

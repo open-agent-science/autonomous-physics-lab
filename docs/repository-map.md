@@ -22,8 +22,8 @@ artifact classes. Not every visible directory is an active work lane.
 | `docs/task-views/` | Generated human navigation over current work. Agents should query `apl_mission.py` or these views, not a committed static task index. |
 | `missions/` | Mission-control policy and current campaign recommendation data. |
 | `agents/` | Machine-readable role profiles for review, architecture, scientific direction, and other agent roles. |
-| `campaigns/catalog.yaml` | Generated campaign portfolio state from campaign profiles. |
-| `campaign_profiles/` | Per-campaign autonomy, safety, capacity, and portfolio source fields. Edit profiles, then regenerate the catalog. |
+| `campaign_profiles/` | Per-campaign autonomy, safety, capacity, and portfolio source fields. Edit profiles, then regenerate `_catalog.yaml`. |
+| `campaign_profiles/_catalog.yaml` | Generated campaign portfolio index colocated with the source profiles; service-style name marks it as generated aggregate state, not an editable campaign profile. |
 
 ## Scientific Memory
 

@@ -10,8 +10,16 @@ import yaml
 from physics_lab.registry.validation import validate_document
 
 
+CAMPAIGN_PORTFOLIO_INDEX_PATH = Path("campaign_profiles") / "_catalog.yaml"
+
+
+def campaign_catalog_path(root: str | Path) -> Path:
+    """Return the generated campaign portfolio index path under ``root``."""
+    return Path(root) / CAMPAIGN_PORTFOLIO_INDEX_PATH
+
+
 def load_campaign_catalog(path: str | Path) -> dict[str, Any]:
-    """Load and validate the lightweight campaign catalog."""
+    """Load and validate the generated campaign portfolio index."""
     source = Path(path)
     with source.open("r", encoding="utf-8") as handle:
         data = yaml.safe_load(handle)

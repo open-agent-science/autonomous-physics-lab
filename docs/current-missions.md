@@ -41,7 +41,8 @@ lighter navigation than the full generated board, use:
 
 For parallel-capacity planning — how many agents fit each lane — read each
 campaign's `agent_capacity` block in
-[`campaigns/catalog.yaml`](../campaigns/catalog.yaml) (the canonical source) and
+[`campaign_profiles/_catalog.yaml`](../campaign_profiles/_catalog.yaml) (the
+generated portfolio index) and
 query the on-demand task-to-campaign index
 (`python3 scripts/apl_task_campaign_index.py`).
 

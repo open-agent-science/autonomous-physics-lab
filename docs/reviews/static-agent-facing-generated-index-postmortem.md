@@ -81,7 +81,7 @@ Generated outputs fall into three classes:
 
 | Class | Commit? | Examples | Rule |
 | --- | --- | --- | --- |
-| Canonical source | Yes | `tasks/TASK-*.yaml`, `campaigns/catalog.yaml`, `missions/current.yaml` | Hand-authored or explicitly generated source of truth. |
+| Canonical source | Yes | `tasks/TASK-*.yaml`, `campaign_profiles/_catalog.yaml`, `missions/current.yaml` | Hand-authored or explicitly generated source of truth. |
 | Human-facing stable navigation | Sometimes | `docs/task-views/*.md`, public status pages | May be committed only when a post-merge action or explicit human navigation contract owns it. |
 | Agent-facing volatile query output | No | task lane index output, queue filters, conflict scans | Generate on demand via scripts/CLI/snapshot; do not commit as a static cache. |
 

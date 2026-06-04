@@ -13,7 +13,7 @@ from physics_lab.registry.validation import infer_kind_from_path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-CATALOG_PATH = REPO_ROOT / "campaigns" / "catalog.yaml"
+CATALOG_PATH = REPO_ROOT / "campaign_profiles" / "_catalog.yaml"
 GENERATOR_PATH = REPO_ROOT / "scripts" / "generate_campaign_catalog.py"
 
 _GENERATOR_SPEC = importlib.util.spec_from_file_location(
@@ -66,6 +66,38 @@ campaigns:
 """
 
 
+def _minimal_profile(campaign_id: str = "example-campaign") -> str:
+    return f"""
+id: {campaign_id}
+title: "Example Campaign"
+source_docs:
+  - docs/campaigns/example-campaign.md
+portfolio:
+  status: scaffold
+  domain: example_domain
+  current_stage: "scaffold only"
+  recommended_parallel_agents: 1
+  coordination_notes: "Use one test agent."
+  best_next_actions:
+    - task_id: null
+      label: "Define source surface"
+  required_gates:
+    - "Source gate"
+  allowed_work:
+    - "Planning"
+  forbidden_work:
+    - "Unsupported claims"
+  current_results: []
+  open_questions:
+    - "What source is usable?"
+  curator_review:
+    status: current
+    last_reviewed: "2026-05-29"
+    source: "test"
+    notes: "Synthetic test profile."
+"""
+
+
 def test_campaign_catalog_loads_current_generated_file() -> None:
     catalog = load_campaign_catalog(CATALOG_PATH)
     ids = {campaign["id"] for campaign in catalog["campaigns"]}
@@ -79,6 +111,17 @@ def test_campaign_catalog_loads_current_generated_file() -> None:
 def test_campaign_catalog_is_synced_with_profiles() -> None:
     expected = render_catalog(build_catalog(REPO_ROOT))
     assert CATALOG_PATH.read_text(encoding="utf-8") == expected
+
+
+def test_campaign_catalog_generator_ignores_service_files(tmp_path: Path) -> None:
+    profile_dir = tmp_path / "campaign_profiles"
+    profile_dir.mkdir()
+    (profile_dir / "_catalog.yaml").write_text(_minimal_catalog("generated-index"), encoding="utf-8")
+    (profile_dir / "example-campaign.yaml").write_text(_minimal_profile(), encoding="utf-8")
+
+    catalog = build_catalog(tmp_path)
+
+    assert [campaign["id"] for campaign in catalog["campaigns"]] == ["example-campaign"]
 
 
 def test_campaign_catalog_rejects_duplicate_ids(tmp_path: Path) -> None:
@@ -106,9 +149,9 @@ def test_campaign_catalog_rejects_missing_required_fields(tmp_path: Path) -> Non
 
 
 def test_validate_repository_counts_campaign_catalog(tmp_path: Path) -> None:
-    campaign_dir = tmp_path / "campaigns"
-    campaign_dir.mkdir()
-    (campaign_dir / "catalog.yaml").write_text(_minimal_catalog(), encoding="utf-8")
+    profile_dir = tmp_path / "campaign_profiles"
+    profile_dir.mkdir()
+    (profile_dir / "_catalog.yaml").write_text(_minimal_catalog(), encoding="utf-8")
 
     summary = validate_repository(tmp_path)
 
@@ -116,4 +159,4 @@ def test_validate_repository_counts_campaign_catalog(tmp_path: Path) -> None:
 
 
 def test_infer_kind_from_campaign_catalog_path() -> None:
-    assert infer_kind_from_path("campaigns/catalog.yaml") == "campaign_catalog"
+    assert infer_kind_from_path("campaign_profiles/_catalog.yaml") == "campaign_catalog"
