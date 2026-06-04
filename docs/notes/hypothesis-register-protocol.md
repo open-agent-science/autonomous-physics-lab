@@ -36,10 +36,13 @@ Files follow the pattern `HRE-XXXX-<short-slug>.yaml`.
 
 ## Schema
 
-Schema file: `physics_lab/schemas/hypothesis_register_entry.schema.json`
+Historical schema file:
+`physics_lab/schemas/hypothesis_register_entry.schema.json` (removed after the
+root-level registry was archived).
 
-The legacy schema remains in the repository, but root-directory inference for
-`hypothesis_register/` is no longer active by default.
+The legacy schema contract is no longer active in repository validation. Treat
+the field list below as historical context only; reactivation would require a
+new maintainer-approved architecture task.
 
 ### Required Fields
 
