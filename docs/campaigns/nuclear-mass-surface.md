@@ -48,9 +48,10 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed.
 
-**Expected next result:** a baseline-family and split/domain gate that decides
-whether later factory work needs a different frozen baseline, a new disjoint
-feature family, or a pause. Reveal scoring remains separate and source-gated.
+**Expected next result:** after `TASK-0552`, the next useful Nuclear result is a
+bounded residual-feature sprint that uses the frozen NMD-0003 stratified
+readiness split and baseline contract. Reveal scoring remains separate and
+source-gated.
 
 ## Orientation Note for New Contributors
 
