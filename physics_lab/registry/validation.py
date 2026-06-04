@@ -26,8 +26,6 @@ SCHEMA_FILE_BY_KIND = {
     "prediction": "prediction.schema.json",
     "review_metadata": "review_metadata.schema.json",
     "result_candidate_review": "result_candidate_review.schema.json",
-    "constant_verification": "constant_verification.schema.json",
-    "hypothesis_register_entry": "hypothesis_register_entry.schema.json",
     "approximation_probe": "approximation_probe.schema.json",
     "hypothesis_proposal": "hypothesis_proposal.schema.json",
     "experiment_proposal": "experiment_proposal.schema.json",

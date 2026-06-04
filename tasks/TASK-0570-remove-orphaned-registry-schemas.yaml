@@ -1,0 +1,49 @@
+id: TASK-0570
+title: "Remove orphaned registry schemas left after constants/hypothesis-register removal"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: low
+priority: medium
+
+strategy_alignment:
+  - "Keep the validator schema surface consistent with the directories that actually exist."
+  - "Remove dead configuration promptly so a future contributor does not revive a non-functional registry type."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "physics_lab/registry/validation.py"
+    - "physics_lab/schemas/"
+  planning_context: >
+    Architecture audit follow-up. The constants_verification/ and
+    hypothesis_register/ top-level registries were removed and their
+    KIND_BY_DIRECTORY entries dropped, but two dead SCHEMA_FILE_BY_KIND entries
+    ("constant_verification", "hypothesis_register_entry") and their orphaned
+    schema JSON files were left behind. A full-repo scan confirms no loader,
+    test, directory, FILENAME_KIND_MAP entry, or $ref consumes these two kinds,
+    so removing them is a behavior-neutral dead-config cleanup. approximation_probes/
+    now has content and stays wired; it is not touched.
+
+requirements:
+  - "Remove the dead SCHEMA_FILE_BY_KIND entries for constant_verification and hypothesis_register_entry from physics_lab/registry/validation.py."
+  - "Delete the orphaned schema files physics_lab/schemas/constant_verification.schema.json and hypothesis_register_entry.schema.json."
+  - "Confirm no remaining references to either kind in physics_lab/scripts/tests and that validate-repo still passes."
+  - "Do not touch the still-active approximation_probe schema or any directory with content."
+
+accepted_outputs:
+  - "physics_lab/registry/validation.py (two dead SCHEMA_FILE_BY_KIND entries removed)"
+  - "deletion of physics_lab/schemas/constant_verification.schema.json"
+  - "deletion of physics_lab/schemas/hypothesis_register_entry.schema.json"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_validation_schema_errors.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
