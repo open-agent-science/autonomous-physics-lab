@@ -89,7 +89,7 @@ by the preflight test.
 - **Heavy schema validation → scoped to active** `tasks/*.yaml`; archive gets a
   minimal parse + id-field + uniqueness check only.
 
-Concrete discovery rule (proved by the preflight test):
+Concrete discovery rule (exercised by the preflight test):
 
 ```python
 def iter_canonical_task_files(tasks_root):
@@ -170,7 +170,7 @@ This avoids churn on every task close and keeps each archival batch auditable.
 ## Test plan / coverage
 
 `tests/test_task_archive_discovery_preflight.py` (added by this task, no files
-moved) proves on a temporary fixture that the recommended discovery rule:
+moved) demonstrates on a temporary fixture that the recommended discovery rule:
 
 - finds canonical tasks in **both** flat `tasks/*.yaml` and archived
   `tasks/archive/<bucket>/*.yaml`;

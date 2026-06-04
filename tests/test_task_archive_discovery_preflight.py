@@ -1,6 +1,6 @@
 """Preflight for the task-archive migration (TASK-0559).
 
-Proves the recommended archive-aware discovery rule on a temporary fixture,
+Demonstrates the recommended archive-aware discovery rule on a temporary fixture,
 without moving any real task files. The rule is a recursive glob for canonical
 task ids, which is layout-agnostic: it returns the same set on today's flat
 ``tasks/*.yaml`` tree and on a future ``tasks/archive/<bucket>/`` layout, while

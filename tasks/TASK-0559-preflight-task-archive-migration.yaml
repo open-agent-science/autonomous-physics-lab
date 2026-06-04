@@ -31,7 +31,7 @@ input:
 requirements:
   - "Inventory task-loading, closeout, mission, validation, snapshot, and task-view code paths that assume flat `tasks/*.yaml`."
   - "Define the future archive layout, for example `tasks/archive/YYYY/` or `tasks/archive/done/`, with explicit pros and cons."
-  - "Add or propose tests that prove task discovery can handle both current flat layout and future archived paths."
+  - "Add or propose tests that demonstrate task discovery can handle both current flat layout and future archived paths."
   - "Keep current task IDs, links, task views, and closeout behavior stable."
   - "Do not move DONE, SUPERSEDED, or REJECTED task files in this PR."
   - "Do not add a committed static task index for agents; use dynamic scripts and generated human task views."
