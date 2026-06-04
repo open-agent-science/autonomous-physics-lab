@@ -9,6 +9,11 @@
 - `TASK-0542` - Pin Atomic Pizzocaro Yb/Sr source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0550` - Run first Materials MD-0001 baseline residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
 - `TASK-0552` - Freeze NMD-0003 stratified baseline gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0563` - Run deterministic Quantum Norris-Bawendi digitization preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
+- `TASK-0564` - Prepare Textbook Stellar M-L pinned-source acquisition package (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+- `TASK-0565` - Run Exoplanet second-snapshot source acquisition (`scientific_dataset`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
+- `TASK-0568` - Package Textbook exact-reference fixture result preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+- `TASK-0569` - Package NMD-0003 factory sprint negative-result preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
 
 ## IN_PROGRESS
 

@@ -8,6 +8,7 @@
 
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
+- `TASK-0567` - Run Atomic Pizzocaro Yb/Sr row-admissibility gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 
 ## Research Blockers
 
@@ -16,6 +17,7 @@
 - `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0456` - Run first Atomic Yb/Sr cross-source consistency benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0546` - Pilot Fresh Source Scout and add deterministic extraction runner (`research_infrastructure`, priority `medium`, difficulty `high`, domain `cross_campaign_quality`)
+- `TASK-0566` - Package Materials MD-0001 benchmark promotion preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 
 ## Support Blockers
 
