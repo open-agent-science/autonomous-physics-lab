@@ -1,0 +1,49 @@
+id: TASK-0569
+title: "Package NMD-0003 factory sprint negative-result preflight"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Preserve the large NMD-0003 factory sprint as useful negative/control memory instead of rerunning the same candidate families."
+  - "Convert 72 executed candidates with zero shortlist into an explicit promotion decision."
+  - "Keep Nuclear moving toward reviewable scientific memory while TASK-0552 handles the next baseline gate."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "tasks/TASK-0517-run-nmd-0003-nuclear-factory-sprint.yaml"
+    - "docs/reviews/nuclear-residual-factory-nmd0003-sprint.md"
+    - "docs/reviews/nmd0003-baseline-family-gate.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0517 ran the first large NMD-0003 Research Factory sprint: 72 executed
+    candidates and no shortlist after controls. This is scientifically useful
+    negative/control memory and should be routed explicitly instead of repeated
+    as another broad factory sprint.
+
+requirements:
+  - "Review the NMD-0003 factory sprint evidence and decide whether it should become a negative-result preflight, replay-needed item, or do-not-promote memory."
+  - "Do not run new candidate generation, alter factory metrics, or change the baseline/split gate that TASK-0552 owns."
+  - "Preserve the interpretation that zero-shortlist controls are negative/control memory, not proof that no Nuclear residual structure exists."
+  - "Name any blockers to AGENT_PUBLISHED result packaging, including replay, schema, baseline-gate, or wording blockers."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/nmd0003-factory-negative-result-promotion-preflight.md"
+  - "optional RESULT-* negative/inconclusive candidate only if Gate A is satisfied and the task output is scoped to the factory sprint"
+  - "optional docs/campaigns/nuclear-mass-surface.md update if the promotion route changes campaign status"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_nuclear_mass_baselines.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

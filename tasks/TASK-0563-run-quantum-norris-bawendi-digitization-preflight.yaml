@@ -1,0 +1,52 @@
+id: TASK-0563
+title: "Run deterministic Quantum Norris-Bawendi digitization preflight"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Attack the Quantum direct-row blocker through a deterministic extraction artifact, not formula search."
+  - "Use the TASK-0556 source-candidate classification to move the best source path into a concrete preflight."
+  - "Keep publisher artifacts, digitized facts, row curation, and benchmark scoring as separate gates."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/source-candidates/quantum/quantum-direct-source-candidate-brief.md"
+    - "docs/reviews/quantum-norris-bawendi-source-artifact-review.md"
+    - "docs/reviews/quantum-norris-bawendi-1996-digitization-preflight.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "docs/published-source-dataset-standard.md"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >
+    TASK-0556 classified Norris-Bawendi 1996 as the clearest Quantum unblock
+    path because the source locator is concrete and the needed artifact shape
+    is already documented. This task should produce a deterministic
+    WebPlotDigitizer-class preflight or a precise blocker; it must not curate
+    qd rows or score a size-effect baseline.
+
+requirements:
+  - "Use DOI 10.1103/PhysRevB.53.16338 only through a legitimate source copy or a maintainer-provided artifact; do not commit publisher PDFs, figures, or raster panels unless redistribution permission is explicit."
+  - "Create a deterministic digitization-preflight package with source locator, tool/version, axis calibration notes, point-state vocabulary, uncertainty notes, extraction ledger, and checksum/locator metadata for any non-publisher intermediate files committed."
+  - "If source access or redistribution is blocked, write a blocker review that names the missing access, license, source-copy, checksum, figure, axis, or uncertainty condition."
+  - "Do not add `qd-*.yaml` measurement rows, run Quantum baselines, compare models, create predictions, promote claims, or imply a quantum-dot design law."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "data/quantum_dots/digitization/norris-bawendi-1996-prb-cdse-band-edge/README.md or equivalent blocker-safe preflight package"
+  - "docs/reviews/quantum-norris-bawendi-1996-digitization-runner.md"
+  - "optional tests for digitization artifact metadata if a validator is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,49 @@
+id: TASK-0566
+title: "Package Materials MD-0001 benchmark promotion preflight"
+type: scientific_validation
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Prepare the first Materials benchmark for conservative result routing after metrics exist."
+  - "Separate benchmark evidence packaging from material-property claims."
+  - "Make the dataset-to-result path explicit without forcing a claim."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "tasks/TASK-0550-run-materials-md0001-baseline-residual-benchmark.yaml"
+    - "docs/result-promotion-protocol.md"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    This task is intentionally blocked until TASK-0550 lands the first
+    Materials MD-0001 baseline/residual benchmark. Once metrics exist, a
+    separate promotion preflight should decide whether the benchmark should
+    remain a review note, become an AGENT_PUBLISHED result candidate, or stay
+    sandbox-only.
+
+requirements:
+  - "Start only after TASK-0550 has merged with benchmark metrics and a review note."
+  - "Run the result-promotion scorecard on the benchmark output without adding new metrics."
+  - "Check source provenance, checksum references, holdout/no-peek binding, axis separation, null controls, uncertainty limitations, and public wording."
+  - "Do not create material-discovery, material-selection, synthesis, device, biomedical, or new-law claims."
+  - "Recommend exactly one route: stay review-note only, package AGENT_PUBLISHED RESULT candidate, replay-needed, or do-not-promote with reason."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0001-benchmark-promotion-preflight.md"
+  - "optional RESULT-* artifact only if the task explicitly satisfies Gate A and repository schema/tooling allows it"
+  - "optional docs/campaigns/materials-property-residuals.md update if the promotion route changes campaign status"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_dataset.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

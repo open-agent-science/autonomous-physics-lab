@@ -1,0 +1,53 @@
+id: TASK-0567
+title: "Run Atomic Pizzocaro Yb/Sr row-admissibility gate"
+type: scientific_dataset
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Convert a pinned Pizzocaro source artifact into an admissibility decision before Atomic benchmark work."
+  - "Keep source pinning, row curation, covariance semantics, and cross-source scoring separated."
+  - "Move Atomic toward BASELINE_READY without fitting constants drift."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "tasks/TASK-0542-pin-atomic-pizzocaro-source-artifact.yaml"
+    - "data/atomic_clocks/source_manifest.yaml"
+    - "data/atomic_clocks/atomic_holdout_manifest.yaml"
+    - "docs/reviews/atomic-row-role-schema-and-beloy-assignments.md"
+    - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+  planning_context: >
+    Atomic now has manifest-backed Beloy row roles, but cross-source benchmark
+    readiness still needs a second value-bearing Yb/Sr row or a reviewed
+    blocker. This task waits for TASK-0542 to pin or reject Pizzocaro as a
+    source artifact, then decides whether a row can be curated under the
+    campaign's direct-row and covariance rules.
+
+requirements:
+  - "Start only after TASK-0542 lands a Pizzocaro source artifact package or a blocker review."
+  - "If the source is admissible, decide row-level admissibility for the Yb/Sr direct comparison, including source table/figure locator, uncertainty semantics, campaign window, version-of-record status, checksum references, and row role."
+  - "If the source is not admissible, record the precise blocker and recommend whether another fallback candidate should be tried."
+  - "Do not fit constants drift, add derived constraints, run cross-source benchmark metrics, create predictions, or promote claims."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/atomic-pizzocaro-yb-sr-row-admissibility-gate.md"
+  - "optional data/atomic_clocks/acr-0002-pizzocaro-2020-direct-ratio.yaml only if row provenance and redistribution policy clear"
+  - "tests for any new row fixture if a row is committed"
+  - "optional docs/campaigns/atomic-clock-residuals.md update if Atomic moves closer to BASELINE_READY"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_real_rows.py tests/test_atomic_clock_source_manifest.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
