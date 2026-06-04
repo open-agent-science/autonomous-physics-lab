@@ -35,7 +35,7 @@ input:
     - "docs/claim-promotion-policy.md"
     - "docs/results/pendulum-gauntlet-100-summary.md"
     - "docs/notes/pendulum-separatrix-followup.md"
-    - "tasks/TASK-0050-approximation-breakdown-probes-track.yaml"
+    - "TASK-0050"
     - "results"
   planning_context: >
     This proposal is salvaged from the old private-alpha batch in PR #22, but

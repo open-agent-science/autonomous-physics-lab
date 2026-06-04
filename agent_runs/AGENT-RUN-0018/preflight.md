@@ -6,7 +6,7 @@
 
 ## Inputs Checked
 
-- `tasks/TASK-0310-run-nuclear-full-known-data-retrospective-audit.yaml`
+- `TASK-0310`
 - `results/EXP-0012/RUN-0001/result.yaml`
 - `data/nuclear_masses/nmd-0002-curated-measured-slice.yaml`
 - `data/nuclear_masses/post_ame2020_holdout.yaml`

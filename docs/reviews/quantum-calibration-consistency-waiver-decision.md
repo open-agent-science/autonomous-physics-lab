@@ -19,8 +19,8 @@ Inputs reviewed:
 - `data/quantum_dots/qd-0002-moreels-2009-pbs-absorption.yaml`
 - `docs/reviews/quantum-size-direct-absorption-seed-review.md`
 - `docs/reviews/quantum-size-direct-band-edge-seed-review.md`
-- `tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml`
-- `tasks/TASK-0293-rerun-quantum-row-level-readiness-gate-after-direct-seed.yaml`
+- `TASK-0225`
+- `TASK-0293`
 - `docs/campaigns/quantum-size-effects.md`
 
 No new numerical rows were added. No baseline model was fit. No claim,

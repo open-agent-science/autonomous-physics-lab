@@ -39,7 +39,7 @@ PR title:
 
 Accepted proposals may be promoted into canonical task files such as:
 
-`tasks/TASK-0043-example-task.yaml`
+`TASK-0043`
 
 Only the maintainer, or a maintainer-directed task-admin/review agent, should
 assign that canonical id.

@@ -6,7 +6,7 @@
 
 ## Inputs Checked
 
-- `tasks/TASK-0280-run-nuclear-pairing-odd-even-variant-scout.yaml`
+- `TASK-0280`
 - `experiments/EXP-0012-nuclear-mass-baseline.yaml`
 - `results/EXP-0012/RUN-0001/result.yaml`
 - `data/nuclear_masses/nmd-0002-curated-measured-slice.yaml`

@@ -39,7 +39,9 @@ def test_closeout_pr_body_mentions_closed_task_files_and_metadata() -> None:
 
     assert "## PR Kind" in body
     assert "Closed Task Files" in body
-    assert "tasks/TASK-0244-fix-snapshot-canonical-experiment-list.yaml" in body
+    # Location-independent: the helper resolves the path at runtime, so assert on
+    # the filename (not the directory) so it survives the archive move.
+    assert "TASK-0244-fix-snapshot-canonical-experiment-list.yaml" in body
     assert "- Contributor ID: `roman`" in body
     assert "Agent session ID" not in body
 

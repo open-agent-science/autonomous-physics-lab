@@ -417,5 +417,5 @@ intake document as its sole authority:
   ranked candidate list for alternative open sources
 - `physics_lab/schemas/quantum_dot_size_effect.schema.json` — schema that all
   future `qd-*.yaml` files must satisfy
-- `tasks/TASK-0336-curate-quantum-band-edge-rows-from-source-artifact.yaml` —
+- `TASK-0336` —
   the blocked row-curation task that this intake path is designed to unblock

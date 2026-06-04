@@ -230,7 +230,7 @@ curation task for every newly queued task.
 
 Promotion target:
 
-`tasks/TASK-0043-short-slug.yaml`
+`TASK-0043`
 
 Only the maintainer, or a maintainer-directed task-admin/review agent, may do
 this id assignment.

@@ -23,7 +23,7 @@ The policy answers one narrow question:
 - `docs/reviews/atomic-clock-covariance-uncertainty-semantics.md`
 - `data/atomic_clocks/acr-0001-beloy-2021-cross-ratio-covariance-approximation.yaml`
 - `docs/campaigns/atomic-clock-residuals.md`
-- `tasks/TASK-0455-rerun-atomic-baseline-readiness-gate.yaml`
+- `TASK-0455`
 
 ## Covariance Handling States
 

@@ -19,8 +19,8 @@ artifact is written.
 
 ## Input References
 
-- `tasks/TASK-0395-refactor-nuclear-high-error-cluster-labels-to-residual-free-features.yaml`
-- `tasks/TASK-0449-run-nuclear-residual-free-high-error-cluster-hypothesis-audit.yaml`
+- `TASK-0395`
+- `TASK-0449`
 - `agent_runs/AGENT-RUN-0043/metrics.json`
 - `docs/reviews/nuclear-residual-free-high-error-cluster-hypothesis-audit.md`
 - `docs/result-promotion-protocol.md`

@@ -12,7 +12,7 @@
 - `docs/quantum-direct-measurement-digitization-protocol.md`
 - `data/quantum_dots/digitization/README.md`
 - `physics_lab/schemas/quantum_dot_size_effect.schema.json`
-- `tasks/TASK-0291-curate-quantum-direct-measurement-absorption-seed.yaml`
+- `TASK-0291`
 - Yu, W. W.; Qu, L.; Guo, W.; Peng, X. *Chem. Mater.* **2003**, *15*, 2854–2860,
   DOI [10.1021/cm034081k](https://doi.org/10.1021/cm034081k), full PDF
   accessed via the publicly mirrored copy at

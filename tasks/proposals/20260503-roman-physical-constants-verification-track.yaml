@@ -35,7 +35,7 @@ input:
   related_domain: fundamental_constants
   related_objects:
     - "docs/scientific-micro-task-protocol.md"
-    - "tasks/TASK-0027-units-and-constants-reference.yaml"
+    - "TASK-0027"
     - "AGENTS.md"
   planning_context: >
     Define the track: which constants to verify, what tolerance to require,

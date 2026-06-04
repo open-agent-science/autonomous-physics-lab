@@ -6,7 +6,7 @@
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0379-add-source-artifact-package-validator-helper.yaml`
+- `TASK-0379`
 - `templates/source_artifact_package/`
 - `docs/fresh-data-intake-protocol.md`
 - `docs/fresh-data-stop-conditions.md`

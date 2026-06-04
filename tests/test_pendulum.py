@@ -23,6 +23,7 @@ from physics_lab.registry import (
     load_task,
 )
 from physics_lab.registry.repository import validate_repository
+from physics_lab.registry.task_discovery import find_task_file
 from physics_lab.workflows.runner import (
     run_experiment_with_output,
     run_pendulum_experiment,
@@ -613,7 +614,7 @@ def test_registry_files_validate_against_schemas() -> None:
     load_hypothesis(repo_root / "hypotheses" / "HYP-0001-pendulum-correction.yaml")
     load_experiment(repo_root / "experiments" / "EXP-0001-pendulum-formula-discovery.yaml")
     load_knowledge(repo_root / "knowledge" / "classical_mechanics" / "pendulum.md")
-    load_task(repo_root / "tasks" / "TASK-0001-fit-better-pendulum-model.yaml")
+    load_task(find_task_file(repo_root, "TASK-0001"))
     load_agent(repo_root / "tests" / "fixtures" / "example-agent.yaml")
 
 

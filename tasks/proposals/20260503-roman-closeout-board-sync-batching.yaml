@@ -33,7 +33,7 @@ input:
   related_domain: task_coordination
   related_objects:
     - "tasks/ACTIVE.md"
-    - "tasks/TASK-0044-active-board-sync-and-conflict-reduction.yaml"
+    - "TASK-0044"
     - "docs/agent-task-protocol.md"
     - "docs/maintainer-review-agent.md"
     - "docs/review-checklists/task-closeout-checklist.md"

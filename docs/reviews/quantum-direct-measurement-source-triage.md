@@ -14,8 +14,8 @@
 - `docs/reviews/quantum-size-moreels-2009-pbs-row-level-extension-review.md`
 - `docs/reviews/quantum-size-source-manifest-seed-review.md`
 - `docs/campaigns/quantum-size-effects.md`
-- `tasks/TASK-0291-curate-quantum-direct-measurement-absorption-seed.yaml`
-- `tasks/TASK-0292-curate-quantum-direct-measurement-band-edge-seed.yaml`
+- `TASK-0291`
+- `TASK-0292`
 
 ## Scope
 

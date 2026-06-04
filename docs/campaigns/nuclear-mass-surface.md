@@ -356,13 +356,13 @@ Start here:
 - [Nuclear Scout Evidence Card](../results/nuclear-scout-evidence-card.md)
 - [Nuclear Prediction Reveal Protocol](../nuclear-prediction-reveal-protocol.md)
 - [Nuclear Reveal Source Readiness Checklist](../nuclear-reveal-source-readiness-checklist.md)
-- [TASK-0272](../../tasks/TASK-0272-audit-nuclear-prediction-registry-coverage.yaml)
-- [TASK-0273](../../tasks/TASK-0273-add-nuclear-synthetic-reveal-dry-run-harness.yaml)
-- [TASK-0274](../../tasks/TASK-0274-summarize-nuclear-prediction-registry-evidence.yaml)
-- [TASK-0278](../../tasks/TASK-0278-run-nuclear-shell-neighborhood-variant-scout.yaml)
-- [TASK-0279](../../tasks/TASK-0279-run-nuclear-neutron-rich-variant-scout.yaml)
-- [TASK-0280](../../tasks/TASK-0280-run-nuclear-pairing-odd-even-variant-scout.yaml)
-- [TASK-0285](../../tasks/TASK-0285-synthesize-nuclear-scout-lanes-after-registry-status.yaml)
+- TASK-0272
+- TASK-0273
+- TASK-0274
+- TASK-0278
+- TASK-0279
+- TASK-0280
+- TASK-0285
 
 ## Open Questions
 

@@ -6,7 +6,7 @@
 
 ## Inputs Checked
 
-- `tasks/TASK-0317-run-nuclear-shell-axis-specificity-controls.yaml`
+- `TASK-0317`
 - `scripts/run_nuclear_shell_axis_full_known_audit.py`
 - `agent_runs/AGENT-RUN-0018/metrics.json`
 - `agent_runs/AGENT-RUN-0019/metrics.json`

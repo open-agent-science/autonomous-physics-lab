@@ -13,6 +13,7 @@ from physics_lab.engines.damped_oscillator import (
     generate_damped_oscillator_dataset,
 )
 from physics_lab.registry import load_claim, load_experiment, load_hypothesis, load_knowledge, load_task
+from physics_lab.registry.task_discovery import find_task_file
 from physics_lab.registry.results import load_result
 from physics_lab.registry.repository import validate_repository
 from physics_lab.workflows.artifacts import hash_file
@@ -55,7 +56,7 @@ def test_damped_oscillator_dataset_energy_decays() -> None:
 def test_damped_oscillator_registry_files_validate() -> None:
     load_hypothesis("hypotheses/HYP-0002-damped-oscillator-regimes.yaml")
     load_experiment("experiments/EXP-0002-damped-oscillator-regimes.yaml")
-    load_task("tasks/TASK-0002-verify-damped-oscillator-regimes.yaml")
+    load_task(find_task_file(".", "TASK-0002"))
     load_claim("claims/CLAIM-0002-damped-oscillator-regimes.md")
     load_knowledge("knowledge/classical_mechanics/damped_oscillator.md")
 

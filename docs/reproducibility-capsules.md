@@ -113,7 +113,7 @@ python3 -m physics_lab.cli run examples/pendulum_gauntlet.yaml --output-dir /tmp
 - `examples/pendulum_gauntlet.yaml`
 - `experiments/EXP-0001-pendulum-formula-discovery.yaml`
 - `hypotheses/HYP-0001-pendulum-correction.yaml`
-- `tasks/TASK-0010-pendulum-hypothesis-gauntlet-100.yaml`
+- `TASK-0010`
 - exact pendulum reference computed by `physics_lab/workflows/gauntlet.py`
 
 ### Expected Key Metrics
@@ -161,7 +161,7 @@ python3 -m physics_lab.cli run examples/dimensional_analysis.yaml --output-dir /
 - `examples/dimensional_analysis.yaml`
 - `experiments/EXP-0006-dimensional-analysis-validator.yaml`
 - `hypotheses/HYP-0006-dimensional-analysis-validator.yaml`
-- `tasks/TASK-0064-implement-dimensional-analysis-validator-mvp.yaml`
+- `TASK-0064`
 - `knowledge/challenge_sets/dimensional_analysis_challenge_set_mvp_50.yaml`
 
 ### Expected Key Metrics
@@ -211,7 +211,7 @@ python3 -m physics_lab.cli run examples/koide_charged_lepton.yaml --output-dir /
 - `examples/koide_charged_lepton.yaml`
 - `experiments/EXP-0004-koide-charged-lepton-reproduction.yaml`
 - `hypotheses/HYP-0004-koide-charged-lepton-reproduction.yaml`
-- `tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml`
+- `TASK-0037`
 - `data/particle_masses/charged_leptons.yaml`
 
 ### Expected Key Metrics
@@ -249,7 +249,7 @@ python3 -m physics_lab.cli run examples/koide_tau_holdout.yaml --output-dir /tmp
 - `examples/koide_tau_holdout.yaml`
 - `experiments/EXP-0005-koide-tau-holdout.yaml`
 - `hypotheses/HYP-0005-koide-tau-holdout.yaml`
-- `tasks/TASK-0038-historical-tau-holdout-prediction.yaml`
+- `TASK-0038`
 - `data/particle_masses/charged_leptons.yaml`
 
 ### Expected Key Metrics
@@ -287,7 +287,7 @@ python3 -m physics_lab.cli run examples/koide_neutrino.yaml --output-dir /tmp/ap
 - `examples/koide_neutrino.yaml`
 - `experiments/EXP-0007-neutrino-koide-consistency.yaml`
 - `hypotheses/HYP-0007-neutrino-koide-consistency.yaml`
-- `tasks/TASK-0093-neutrino-koide-extension.yaml`
+- `TASK-0093`
 - `data/particle_physics/neutrino_oscillations.yaml`
 
 ### Expected Key Metrics
@@ -324,7 +324,7 @@ python3 -m physics_lab.cli run examples/koide_quark.yaml --output-dir /tmp/apl-r
 - `examples/koide_quark.yaml`
 - `experiments/EXP-0008-quark-koide-cascade.yaml`
 - `hypotheses/HYP-0008-quark-koide-brannen.yaml`
-- `tasks/TASK-0088-quark-koide-cascade.yaml`
+- `TASK-0088`
 - `knowledge/particle_physics/quark_masses.yaml`
 
 ### Expected Key Metrics
@@ -360,7 +360,7 @@ python3 -m physics_lab.cli run examples/particle_mass_falsifier.yaml --output-di
 - `examples/particle_mass_falsifier.yaml`
 - `experiments/EXP-0009-particle-mass-relation-falsifier.yaml`
 - `hypotheses/HYP-0009-particle-mass-koide-family-survival.yaml`
-- `tasks/TASK-0040-particle-mass-relation-falsifier-mvp.yaml`
+- `TASK-0040`
 - `data/particle_masses/fundamental_fermion_families.yaml`
 
 ### Expected Key Metrics
