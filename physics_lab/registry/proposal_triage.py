@@ -22,6 +22,7 @@ from typing import Any
 
 import yaml
 
+from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.tasks import load_task
 
 
@@ -206,7 +207,7 @@ def task_status_index(root: Path) -> dict[str, str]:
     tasks_dir = root / "tasks"
     if not tasks_dir.is_dir():
         return index
-    for path in sorted(tasks_dir.glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    for path in iter_canonical_task_files(root):
         payload = load_task(path)
         index[str(payload["id"])] = str(payload["status"])
     return index
@@ -218,7 +219,7 @@ def proposal_reference_index(root: Path) -> dict[str, list[str]]:
     tasks_dir = root / "tasks"
     if not tasks_dir.is_dir():
         return index
-    for path in sorted(tasks_dir.glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    for path in iter_canonical_task_files(root):
         payload = load_task(path)
         task_id = str(payload["id"])
         related = payload.get("input", {}).get("related_objects", []) or []

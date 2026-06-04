@@ -8,6 +8,7 @@ import re
 from typing import Any
 
 from physics_lab.registry.mission_control import load_current_missions
+from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.tasks import load_task
 
 
@@ -207,7 +208,7 @@ def _validate_recommended_mission_title(
 
 def _task_statuses(root: Path) -> dict[str, str]:
     statuses: dict[str, str] = {}
-    for path in sorted((root / "tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    for path in iter_canonical_task_files(root):
         payload = load_task(path)
         statuses[str(payload["id"])] = str(payload["status"])
     return statuses
