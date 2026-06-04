@@ -15,7 +15,7 @@ Inputs reviewed:
 - `agent_runs/AGENT-RUN-0053/factory_summary.yaml`
 - `docs/reviews/nuclear-residual-factory-nmd0003-sprint.md`
 - `docs/reviews/nmd0003-baseline-family-gate.md`
-- `tasks/TASK-0517-run-nmd-0003-nuclear-factory-sprint.yaml`
+- `TASK-0517`
 - `docs/result-promotion-protocol.md`
 
 No new candidate generation, baseline fitting, factory run, or metric rewrite
