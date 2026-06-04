@@ -26,7 +26,7 @@ source:
   archive_homepage: https://exoplanetarchive.ipac.caltech.edu/
   documentation: https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html
   query_contract_path: data/exoplanets/snapshot_plans/pscomppars_query.adql
-  query_contract_sha256: 4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4
+  query_contract_sha256: 28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8
   first_snapshot_reference: data/exoplanets/exo-0001-pscomppars-snapshot.yaml
   source_manifest_reference: data/exoplanets/source_manifest.yaml
 selected_fields:
@@ -88,7 +88,7 @@ checksum_policy:
   algorithm: sha256
   query_contract_sha256_required: true
   raw_checksum_sha256: 9a12e1e4e09bc2fc1093236494b521e3da9a8a5b4a98f5b66d391e9bba630c2b
-  normalized_file_checksum_sha256: 432aa663b916addbf41d38d42efa5b8f6260a097d44c0e3245dbfc2c662fb330
+  normalized_file_checksum_sha256: d519b432acd8ccf58fe20df7a21f33110142b9ad99e98d0189268a377e63e5fe
   normalized_payload_checksum_sha256: 90894e978269c787a89de9ee51709255e3b2eb442b1c957e30a89ed28bfdc8ca
   requirement: 'Raw and normalized checksums must be recorded before any row curation, benchmark scoring,
     result artifact, or reveal review uses the second snapshot.

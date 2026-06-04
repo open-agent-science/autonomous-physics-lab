@@ -16,11 +16,11 @@ This review records the second pinned NASA Exoplanet Archive Planetary Systems s
 - Source family: `EXO-SRC-CLASS-001`
 - TAP endpoint: `https://exoplanetarchive.ipac.caltech.edu/TAP/sync`
 - Query contract: `data/exoplanets/snapshot_plans/pscomppars_query.adql`
-- Query SHA-256: `4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4`
+- Query SHA-256: `28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8`
 - Raw snapshot: `data/exoplanets/raw/exo-pscomppars-second-snapshot-20260604T185011Z.csv`
 - Raw SHA-256: `9a12e1e4e09bc2fc1093236494b521e3da9a8a5b4a98f5b66d391e9bba630c2b`
 - Normalized snapshot: `data/exoplanets/exo-0002-pscomppars-snapshot.yaml`
-- Normalized file SHA-256: `432aa663b916addbf41d38d42efa5b8f6260a097d44c0e3245dbfc2c662fb330`
+- Normalized file SHA-256: `d519b432acd8ccf58fe20df7a21f33110142b9ad99e98d0189268a377e63e5fe`
 - Normalized payload SHA-256: `90894e978269c787a89de9ee51709255e3b2eb442b1c957e30a89ed28bfdc8ca`
 
 ## Counts

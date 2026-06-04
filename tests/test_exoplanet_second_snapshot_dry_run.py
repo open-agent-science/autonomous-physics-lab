@@ -118,7 +118,7 @@ def test_second_snapshot_manifest_records_second_acquisition_without_scoring() -
     assert manifest["scope"]["claim_promotion_allowed"] is False
     assert manifest["scope"]["result_artifact_allowed"] is False
     assert manifest["source"]["query_contract_sha256"] == (
-        "4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4"
+        "28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8"
     )
     assert isinstance(manifest["checksum_policy"]["raw_checksum_sha256"], str)
     assert isinstance(manifest["planned_acquisition"]["retrieval_timestamp_utc"], str)

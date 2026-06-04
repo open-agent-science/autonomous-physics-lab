@@ -31,7 +31,7 @@ from physics_lab.registry.validation import validate_document  # noqa: E402
 from scripts import ingest_exoplanet_pscomppars_snapshot as first_snapshot  # noqa: E402
 
 TASK_ID = "TASK-0565"
-EXPECTED_QUERY_SHA256 = "4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4"
+EXPECTED_QUERY_SHA256 = "28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8"
 DATASET_ID = "exo-0002-pscomppars-snapshot"
 ROW_ID_PREFIX = "EXO-0002"
 
