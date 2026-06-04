@@ -39,7 +39,7 @@ from physics_lab.registry.scientific_memory_integrity import (
 from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.task_views import TASK_VIEW_PATHS, render_task_views
 from physics_lab.registry.task_proposals import load_task_proposal
-from physics_lab.registry.tasks import load_task, task_input_mode
+from physics_lab.registry.tasks import load_task, load_task_minimal, task_input_mode
 from physics_lab.workflows.artifacts import hash_file
 
 
@@ -352,6 +352,12 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
             continue
         if directory in {"hypothesis_proposals", "experiment_proposals", "agent_runs", "microtask_runs"}:
             items.append((path, loader(path, root=root)))
+        elif directory == "tasks" and (root / "tasks" / "archive") in path.parents:
+            # Archived tasks are frozen history: parse without full schema
+            # validation so an evolving task schema never forces edits to
+            # history (see docs/task-archive-migration-plan.md). Active tasks
+            # under tasks/ still go through full load_task schema validation.
+            items.append((path, load_task_minimal(path)))
         else:
             items.append((path, loader(path)))
     return items
