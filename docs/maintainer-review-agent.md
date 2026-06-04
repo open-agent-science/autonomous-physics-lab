@@ -256,6 +256,10 @@ This mode supports:
    create or update future canonical tasks that remain `PROPOSED`, `READY`, or
    `BLOCKED`; task proposal PRs keep proposal status at `PROPOSED`.
    Microtask PRs have no task-status requirement.
+   If a PR only adds or updates future canonical task files in queue-allowed
+   statuses, treat it as a misclassified `TASK-QUEUE` PR and fix the PR title,
+   branch, and metadata rather than moving those future tasks to
+   `REVIEW_READY`.
    A canonical task PR may include its own task-file lifecycle transition and
    generated navigation sync. Treat unrelated task-status changes as scope drift
    unless the maintainer explicitly requested queue triage, unblock, closeout,
