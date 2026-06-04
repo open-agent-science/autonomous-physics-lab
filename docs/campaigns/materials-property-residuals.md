@@ -21,7 +21,7 @@ overclaim resistance in place.
 
 ## Current Status
 
-**Pinned seed dataset and first benchmark PR.** This page and the campaign profile
+**Pinned seed dataset and first benchmark evidence.** This page and the campaign profile
 (`campaign_profiles/materials-property-residuals.yaml`) define scope,
 admissible source classes, schema expectations, baseline/holdout/residual-map
 task types, and guardrails. `TASK-0547` prepared the Materials Project
@@ -34,9 +34,14 @@ runbook to that compact pilot scope.
 `TASK-0541` has since reconciled the holdout/no-peek manifest with the landed
 rows, and `TASK-0551` added internal citation/reuse metadata for the dataset.
 `TASK-0550` has now produced the first conservative baseline/residual benchmark
-as sandbox evidence. There is still **no** promoted `RESULT-*`, claim,
-prediction registry entry, external dataset repository, or DOI. The dataset and
-benchmark remain source-pinned review artifacts inside the main repo.
+as sandbox evidence. Formation energy shows a clearer composition-aware
+baseline advantage than band gap: the best formation-energy holdout baseline
+is `cation_group_mean` with MAE `0.646030` eV versus global median holdout MAE
+`0.967090` eV, while band-gap holdout remains mixed (`cation_group_mean`
+MAE `1.247901` eV versus global median holdout MAE `1.349133` eV). There is
+still **no** promoted `RESULT-*`, claim, prediction registry entry, external
+dataset repository, or DOI. The dataset and benchmark remain source-pinned
+review artifacts inside the main repo.
 
 ## Public Monitoring Snapshot
 
@@ -44,18 +49,20 @@ benchmark remain source-pinned review artifacts inside the main repo.
 snapshot into a conservative residual benchmark without making material-design
 claims?
 
-**Shareable result:** APL now has a first reusable-dataset candidate:
-`MD-0001`, a CC BY 4.0 Materials Project stable-binary-oxides pilot with 169
-rows, source attribution, checksum, version, schema guidance, two separate
-property axes, and validator coverage.
+**Shareable result:** APL now has a first reusable-dataset candidate and first
+baseline evidence: `MD-0001`, a CC BY 4.0 Materials Project stable-binary-
+oxides pilot with 169 rows, plus a conservative benchmark showing that simple
+composition-aware baselines help formation energy more clearly than band gap.
 
-**Not a claim:** `MD-0001` is not a benchmark result, model, material
-recommendation, or discovery claim. It contains computed DFT rows only and does
-not support synthesis, device, biomedical, or material-design guidance.
+**Not a claim:** `MD-0001` and the first benchmark are not material
+recommendations, material-design results, experimental measurements, or a
+new-law claim. The rows are computed DFT values only and do not support
+synthesis, device, biomedical, or material-design guidance.
 
 **Active next work:** package the first benchmark through a separate
-result-promotion preflight (`TASK-0566`) before any public result wording
-changes.
+result-promotion preflight (`TASK-0566`), independently replay the benchmark
+(`TASK-0578`), and stress the weaker band-gap axis with null controls
+(`TASK-0579`) before any widening.
 
 ## Admissible Source Classes
 
@@ -136,13 +143,14 @@ readiness stay separate.
 These are recommendations only. Current canonical tasks cover the first two
 open steps below:
 
-1. **First conservative baseline + residual benchmark** — compare null and
-   simple composition-aware baselines separately for formation energy and band
-   gap (`TASK-0550`).
-2. **Benchmark promotion preflight** — decide whether the benchmark remains a
+1. **Benchmark promotion preflight** — decide whether the benchmark remains a
    review note, becomes a scoped result candidate, needs replay, or should not
-   be promoted (`TASK-0566`, blocked until `TASK-0550` lands).
-3. **Optional widening** — only after the first benchmark, consider a separate
+   be promoted (`TASK-0566`).
+2. **Independent replay** — reproduce the `TASK-0550` metrics from committed
+   data and code before promotion or widening (`TASK-0578`).
+3. **Band-gap null-control audit** — test whether the weaker band-gap axis
+   survives deterministic controls before interpretation (`TASK-0579`).
+4. **Optional widening** — only after the first benchmark, consider a separate
    pre-fetch-amended task for ternary oxides or another Materials Project slice.
 
 ## Why It Matters

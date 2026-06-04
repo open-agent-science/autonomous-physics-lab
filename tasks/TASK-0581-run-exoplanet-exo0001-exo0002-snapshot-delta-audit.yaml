@@ -1,0 +1,49 @@
+id: TASK-0581
+title: "Run Exoplanet EXO-0001 vs EXO-0002 snapshot delta audit"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Measure what changed between pinned exoplanet snapshots before rerunning benchmarks."
+  - "Keep data-surface evolution separate from residual interpretation."
+  - "Protect true-mass/minimum-mass row-class boundaries."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "data/exoplanets/exo-0002-pscomppars-snapshot.yaml"
+    - "docs/reviews/exoplanet-second-snapshot-source-acquisition.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+  planning_context: >
+    The second exoplanet snapshot is now committed, but a scientific rerun
+    should not start until the campaign knows which rows, row classes, and
+    target slices actually changed relative to EXO-0001.
+
+requirements:
+  - "Compare EXO-0001 and EXO-0002 using committed normalized snapshot files only."
+  - "Report total rows, included rows, excluded rows, true-mass rows, minimum-mass rows, new/removed/changed planet identifiers, and target overlap for slices used in previous audits."
+  - "Do not compute residual metrics, refit baselines, infer planet composition, or fetch live archive data."
+  - "Flag any schema or identifier drift that blocks later benchmark replay."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-exo0001-exo0002-snapshot-delta-audit.md"
+  - "optional delta summary artifact under data/exoplanets/ if it is schema-backed"
+  - "tests for any new snapshot-delta helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_dataset_schema.py tests/test_exoplanet_mass_radius_loader.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

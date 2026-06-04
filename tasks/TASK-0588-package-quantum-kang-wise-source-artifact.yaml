@@ -1,0 +1,49 @@
+id: TASK-0588
+title: "Package Quantum Kang-Wise fallback source artifact"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Quantum direct-row unblocking moving in parallel with Norris-Bawendi."
+  - "Use source-artifact review before any quantum-dot row curation."
+  - "Preserve blockers for inaccessible or non-direct sources."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-direct-measurement-source-triage.md"
+    - "docs/reviews/quantum-norris-bawendi-1996-digitization-runner.md"
+    - "docs/quantum-direct-source-artifact-intake.md"
+    - "docs/campaigns/quantum-size-effects.md"
+  planning_context: >
+    Norris-Bawendi remains the first direct-source path, but Kang-Wise 1997 is
+    the ranked fallback. This task packages or rejects that fallback as a
+    source artifact so Quantum does not wait on a single source path.
+
+requirements:
+  - "Review Kang-Wise 1997 only as a source-artifact candidate: locator, access, license/redistribution, checksum feasibility, direct-table/figure status, and row-class evidence."
+  - "Do not transcribe measurement values, add qd-*.yaml rows, run digitization, or compute baseline metrics."
+  - "If the source is not admissible, write the precise blocker so agents do not repeat the path."
+  - "If the source is admissible, prepare the source-artifact package or handoff checklist needed before row curation."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/quantum-kang-wise-1997-source-artifact-package.md"
+  - "optional data/quantum_dots/source_artifacts/kang-wise-1997-*/metadata.yaml if redistribution/source policy clears"
+  - "optional docs/campaigns/quantum-size-effects.md update if source status changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_source_artifact_package_validation.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

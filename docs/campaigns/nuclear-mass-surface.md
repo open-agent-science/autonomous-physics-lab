@@ -15,11 +15,12 @@ now moved from an 11-row bootstrap slice to a source-gated AME2020 measured-row
 training surface (`NMD-0003`). The first large Research Factory sprint on that
 surface produced control-dominated negative memory with no shortlist. The first
 simple broad-surface baseline refit improved train/full-surface metrics but
-regressed on the validation holdout, so the next useful work is a
-baseline-family and split/domain gate, no-leakage falsification handling,
-no-peek reveal readiness, domain-limit mapping, and negative-result
-preservation, not new broad prediction waves or reruns on the 11-row bootstrap
-slice.
+regressed on the validation holdout. `TASK-0552` then froze a stratified
+NMD-0003 readiness split where the region-stratified diagnostic validation
+MAE is `1.899279` MeV. The next useful work is independent gate replay, one
+bounded residual-feature sprint under that gate, F2 controls-first scoring,
+no-peek reveal-source scouting, and negative-result preservation, not broad
+prediction waves or reruns on the 11-row bootstrap slice.
 
 ## Public Monitoring Snapshot
 
@@ -48,10 +49,11 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed.
 
-**Expected next result:** after `TASK-0552`, the next useful Nuclear result is a
-bounded residual-feature sprint that uses the frozen NMD-0003 stratified
-readiness split and baseline contract. Reveal scoring remains separate and
-source-gated.
+**Expected next result:** the next useful Nuclear result is either an
+independent replay of the frozen NMD-0003 stratified gate (`TASK-0583`), a
+bounded residual-feature sprint that uses that gate (`TASK-0584`), or an F2
+controls-first scoring decision (`TASK-0553`). Reveal scoring remains separate
+and source-gated.
 
 ## Orientation Note for New Contributors
 
@@ -286,6 +288,13 @@ This campaign now has an executable benchmark, sandbox, and prediction stack:
   records an `INCONCLUSIVE` benchmark result: train/full-surface MAE improves,
   but validation-holdout MAE regresses, so it is not a promotable baseline
   improvement.
+- `TASK-0552` freezes the current stratified NMD-0003 readiness gate:
+  1617 train rows, 692 validation rows, and region-stratified diagnostic
+  validation MAE `1.899279` MeV. This is now the validation contract for
+  bounded follow-up scoring, not a discovery result.
+- `TASK-0569` packages the first NMD-0003 factory sprint as negative/control
+  memory: 72 executed candidates, no shortlist, and apparent gains blocked by
+  controls.
 
 Historical context:
 
@@ -302,8 +311,8 @@ follow-up is now a baseline-family and split/domain gate over `NMD-0003`
 before more expressive factory families. The `NMD-0002` and `NMD-0003` factory
 sprints are preserved as negative/control memory in `AGENT-RUN-0052` and
 `AGENT-RUN-0053`; the first broad-surface refit is preserved as inconclusive
-sandbox benchmark evidence in `AGENT-RUN-0055`; reveal scoring remains
-blocked.
+sandbox benchmark evidence in `AGENT-RUN-0055`; the stratified gate is frozen
+for bounded follow-up; reveal scoring remains blocked.
 
 Current next Nuclear posture:
 
@@ -313,6 +322,14 @@ Current next Nuclear posture:
 - Treat `TASK-0518` as completed `NMD-0002` control evidence. Uncertainty
   perturbations of the same 11 rows are not independent evidence for a residual
   law.
+- Treat `TASK-0552` as the current NMD-0003 gate. Run independent replay
+  (`TASK-0583`) and bounded residual-feature scoring (`TASK-0584`) against that
+  gate rather than selecting a validation policy after seeing candidate
+  behavior.
+- `TASK-0553` can now run F2 finer-taxonomy controls-first scoring because the
+  NMD-0003 stratified gate has landed.
+- Use `TASK-0585` for reveal-source manifest scouting only; do not record
+  target mass values or score prediction entries.
 - `TASK-0428` should run the result-promotion preflight mainly to preserve the
   `LOCAL-CURVATURE-001` no-leakage falsification and block positive promotion
   unless the scorecard exposes a very narrow, reviewed negative-result
@@ -430,6 +447,14 @@ Start here:
 - Treat `TASK-0517` as completed control-dominated negative memory; the next
   Nuclear science task should compare baseline families and split/domain
   behavior on `NMD-0003` before another large factory sprint.
+- Run `TASK-0583` and `TASK-0584` as the current source-safe Nuclear follow-up
+  pair: replay the frozen stratified gate, then test exactly one materially new
+  residual-feature family under controls.
+- Run `TASK-0553` for F2 only under the frozen NMD-0003 gate. F2 remains
+  diagnostic-only regardless of outcome unless a later promotion task changes
+  scope.
+- Use `TASK-0585` to scout post-AME2020 reveal source manifests without target
+  values. It is reveal-readiness work, not reveal scoring.
 - Keep `TASK-0477` and `TASK-0478` useful as negative-result packaging and F2
   taxonomy preflight; do not let them delay the first `NMD-0003` sprint.
 - Treat `TASK-0518` as completed sensitivity-control memory on `NMD-0002`; do

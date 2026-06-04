@@ -41,12 +41,12 @@ fitting constants drift yet.
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0538` populated the Beloy row-role assignments, so
-the main remaining Atomic source gate is a second value-bearing Yb/Sr source.
-`TASK-0542` should pin or reject Pizzocaro as that source artifact. If it
-lands a source-safe artifact, `TASK-0567` can decide row-level admissibility;
-if it blocks, the campaign should preserve the exact blocker instead of
-running constants-drift or mixed-axis metrics.
+**Active next work:** `TASK-0538` populated the Beloy row-role assignments, and
+`TASK-0542` pinned the Pizzocaro source artifacts with checksum/provenance.
+The main remaining Atomic source gate is row-level admissibility:
+`TASK-0567` can now decide whether Pizzocaro can become a second
+value-bearing Yb/Sr row or whether the campaign should preserve a precise
+blocker instead of running constants-drift or mixed-axis metrics.
 
 **Expected next result:** a path back to the `BASELINE_READY` gate after a
 second source row is committed or explicitly waived and row-level
@@ -120,8 +120,12 @@ Current next tasks:
   The verdict remains `PINNED_DATASET`, not `BASELINE_READY`.
 - `TASK-0538` assigned Beloy row roles through the manifest-backed schema,
   removing the old row-role assignment blocker for the current seed rows.
-- `TASK-0542` is the current Pizzocaro source-artifact task, and `TASK-0567`
-  is blocked behind it as the row-admissibility gate.
+- `TASK-0542` pinned the Pizzocaro source artifacts with matched hashes and
+  provenance; rows remain blocked pending table-to-row mapping, ratio
+  orientation, campaign window, uncertainty/covariance, and direct-vs-derived
+  row classification.
+- `TASK-0567` is now the row-admissibility gate that decides whether a
+  Pizzocaro row can be committed or whether the source remains blocker memory.
 
 `TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
 source-reviewed, but Atomic is not `BASELINE_READY`. After `TASK-0455`, the
@@ -132,10 +136,9 @@ loader and first-benchmark covariance policy blockers are cleared at the
 policy/validation level.
 
 The next tasks can run in parallel only when they own separate surfaces:
-Pizzocaro source artifact pinning, row-admissibility review after source
-pinning, direct-vs-derived policy, or maintainer-waived single-source
-diagnostic planning. None should fit drift, derive constants constraints, or
-promote a claim.
+Pizzocaro row-admissibility review, direct-vs-derived policy, or
+maintainer-waived single-source diagnostic planning. None should fit drift,
+derive constants constraints, or promote a claim.
 
 ## Why This Could Matter Later
 

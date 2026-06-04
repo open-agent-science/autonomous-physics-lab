@@ -1,7 +1,7 @@
 id: TASK-0553
 title: "Run Nuclear F2 finer-taxonomy controls-first scoring"
 type: scientific_benchmark
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -20,9 +20,9 @@ input:
     - "docs/nuclear-residual-feature-no-leakage-contract.md"
     - "tasks/TASK-0552-freeze-nmd0003-stratified-baseline-gate.yaml"
   planning_context: >
-    TASK-0539 showed that NMD-0003 clears the pre-score F2 coverage gate. This
-    task is intentionally blocked until TASK-0552 freezes the baseline/split
-    gate, because F2 scoring should not select its validation contract after
+    TASK-0539 showed that NMD-0003 clears the pre-score F2 coverage gate.
+    TASK-0552 has now frozen the baseline/split gate, so F2 scoring can run
+    under the predeclared validation contract without selecting it after
     seeing residual behavior.
 
 requirements:

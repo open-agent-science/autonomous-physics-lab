@@ -1,7 +1,7 @@
 id: TASK-0566
 title: "Package Materials MD-0001 benchmark promotion preflight"
 type: scientific_validation
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -18,11 +18,10 @@ input:
     - "docs/result-promotion-protocol.md"
     - "docs/campaigns/materials-property-residuals.md"
   planning_context: >
-    This task is intentionally blocked until TASK-0550 lands the first
-    Materials MD-0001 baseline/residual benchmark. Once metrics exist, a
-    separate promotion preflight should decide whether the benchmark should
-    remain a review note, become an AGENT_PUBLISHED result candidate, or stay
-    sandbox-only.
+    TASK-0550 landed the first Materials MD-0001 baseline/residual benchmark.
+    This separate promotion preflight should decide whether the benchmark
+    should remain a review note, become an AGENT_PUBLISHED result candidate,
+    or stay sandbox-only.
 
 requirements:
   - "Start only after TASK-0550 has merged with benchmark metrics and a review note."
