@@ -20,3 +20,4 @@ None.
 - `TASK-0558` - Audit sparse legacy and experimental registries (`architecture`, priority `high`, difficulty `medium`, domain `repository_architecture`)
 - `TASK-0559` - Preflight tasks archive migration without moving task files (`architecture`, priority `medium`, difficulty `medium`, domain `task_architecture`)
 - `TASK-0562` - Harden review helper against task-queue misclassification (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_review`)
+- `TASK-0575` - Make the repository task loader archive-aware (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)
