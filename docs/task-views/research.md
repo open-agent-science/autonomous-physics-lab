@@ -24,3 +24,4 @@ None.
 - `TASK-0570` - Remove orphaned registry schemas left after constants/hypothesis-register removal (`research_infrastructure`, priority `medium`, difficulty `low`, domain `cross_campaign_quality`)
 - `TASK-0571` - Add archive-aware task discovery helper and resolver CLI (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)
 - `TASK-0572` - Route find-task-by-id call sites through the archive-aware helper (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)
+- `TASK-0573` - Route enumerate-all task call sites through the archive-aware helper (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)
