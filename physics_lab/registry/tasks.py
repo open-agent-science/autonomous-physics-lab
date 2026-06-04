@@ -28,14 +28,15 @@ def load_task_minimal(path: str | Path) -> dict[str, Any]:
     Archived (historical, terminal) task files are frozen records. Re-validating
     them against an evolving task schema would force edits to history, so the
     archive is held to a minimal contract: the file must parse to a mapping with
-    an ``id``. All other fields are read as-is. Active tasks still go through the
-    full :func:`load_task` schema validation.
+    a non-empty string ``id``. All other fields are read as-is. Active tasks
+    still go through the full :func:`load_task` schema validation.
     """
     with Path(path).open("r", encoding="utf-8") as handle:
         data = yaml.safe_load(handle)
-    if not isinstance(data, dict) or "id" not in data:
+    task_id = data.get("id") if isinstance(data, dict) else None
+    if not isinstance(task_id, str) or not task_id.strip():
         raise ValueError(
-            f"Expected mapping with an 'id' in archived task file: {path}"
+            f"Expected mapping with a non-empty string 'id' in archived task file: {path}"
         )
     return data
 

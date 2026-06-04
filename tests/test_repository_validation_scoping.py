@@ -1,8 +1,8 @@
 """Validation scoping for archived tasks (TASK-0576).
 
 Active tasks under tasks/ get full schema validation; archived tasks under
-tasks/archive/<bucket>/ get only a minimal parse (mapping with an id), so an
-evolving task schema never forces edits to frozen history.
+tasks/archive/<bucket>/ get only a minimal parse (mapping with a non-empty
+string id), so an evolving task schema never forces edits to frozen history.
 """
 from __future__ import annotations
 
@@ -53,5 +53,14 @@ def test_archived_minimal_contract_requires_id(tmp_path: Path):
     archive.mkdir(parents=True)
     # Even the archive must parse to a mapping with an id.
     (archive / "TASK-9005-noid.yaml").write_text("status: DONE\n", encoding="utf-8")
+    with pytest.raises(Exception):
+        repository._load_directory(tmp_path, "tasks")
+
+
+def test_archived_minimal_contract_requires_string_id(tmp_path: Path):
+    tasks_dir = tmp_path / "tasks"
+    archive = tasks_dir / "archive" / "9000-9499"
+    archive.mkdir(parents=True)
+    (archive / "TASK-9007-nonstr.yaml").write_text("id: 9007\n", encoding="utf-8")
     with pytest.raises(Exception):
         repository._load_directory(tmp_path, "tasks")
