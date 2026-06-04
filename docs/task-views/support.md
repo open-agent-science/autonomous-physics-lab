@@ -19,3 +19,4 @@ None.
 
 - `TASK-0557` - Document repository map and artifact lifecycle classes (`architecture`, priority `high`, difficulty `low`, domain `repository_architecture`)
 - `TASK-0558` - Audit sparse legacy and experimental registries (`architecture`, priority `high`, difficulty `medium`, domain `repository_architecture`)
+- `TASK-0562` - Harden review helper against task-queue misclassification (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_review`)
