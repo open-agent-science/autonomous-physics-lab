@@ -21,4 +21,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0570` - Remove orphaned registry schemas left after constants/hypothesis-register removal (`research_infrastructure`, priority `medium`, difficulty `low`, domain `cross_campaign_quality`)
