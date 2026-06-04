@@ -52,6 +52,14 @@ import yaml
 YAML_LOADER = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
 
 
+def _safe_load_yaml_stream(stream: Any) -> Any:
+    loader = YAML_LOADER(stream)
+    try:
+        return loader.get_single_data()
+    finally:
+        loader.dispose()
+
+
 # ---------------------------------------------------------------------------
 # Canonical class buckets (mirror the schema enums).
 # ---------------------------------------------------------------------------
@@ -211,7 +219,7 @@ def load_exoplanet_snapshot(path: Path) -> dict[str, Any]:
 
     path = Path(path)
     with path.open("r", encoding="utf-8") as fh:
-        payload = yaml.load(fh, Loader=YAML_LOADER)
+        payload = _safe_load_yaml_stream(fh)
     if not isinstance(payload, dict):
         raise ValueError(f"Expected mapping at top of {path}")
     entries = payload.get("entries")
