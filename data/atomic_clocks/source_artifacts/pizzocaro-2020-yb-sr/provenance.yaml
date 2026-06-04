@@ -1,0 +1,76 @@
+artifact_id: ACLOCK-SRC-ARTIFACT-2020-PIZZOCARO-VLBI
+schema_version: 0.1.0
+task_id: TASK-0542
+campaign_profile_id: atomic-clock-residuals
+created_by:
+  contributor_id: roman
+  agent_id: codex
+
+source_locator: https://zenodo.org/records/5592085
+dataset_doi: 10.5281/zenodo.5592085
+dataset_version: v1
+retrieval_date_utc: 2026-06-04
+license_or_reuse_notes: |
+  Zenodo record 10.5281/zenodo.5592085 lists the dataset as open and licensed
+  under Creative Commons Attribution 4.0 International. The Nature Physics
+  publisher PDF is not committed here.
+
+publication_of_record:
+  doi: 10.1038/s41567-020-01038-6
+  title: Intercontinental comparison of optical atomic clocks through very long baseline interferometry
+  journal: Nature Physics
+  volume: 17
+  pages: 223-227
+  year: 2021
+  article_publication_date: 2020-10-05
+  redistributable_here: false
+  citation_role: related_publication_only_no_pdf_committed
+
+authors_short: "Pizzocaro, M., Sekido, M., et al."
+
+source_artifact_files:
+  - path: data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/galav-delay-resolution-function.csv
+    source_url: https://zenodo.org/records/5592085/files/galav-delay-resolution-function.csv?download=1
+    size_bytes: 338120
+    zenodo_md5: 9c242a41929822686ced4a745ff83776
+    checksum_sha256: 13170564200227bad9b6fbcca8d611069d16ed28f22dfd00000b1d3228bf01a8
+    checksum_scope: zenodo_csv_file
+    source_role: delay_resolution_function_source_data
+  - path: data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measurements-IPPP.csv
+    source_url: https://zenodo.org/records/5592085/files/Yb-Sr-ratio-measurements-IPPP.csv?download=1
+    size_bytes: 6903
+    zenodo_md5: 637902ae5a73939e88b4514cede9ee21
+    checksum_sha256: afd12267bb161f408e8bbad77511de087ccf5ffca919d06161333c89259bde58
+    checksum_scope: zenodo_csv_file
+    source_role: yb_sr_ratio_measurement_source_data_ippp
+  - path: data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measuremets.csv
+    source_url: https://zenodo.org/records/5592085/files/Yb-Sr-ratio-measuremets.csv?download=1
+    size_bytes: 8318
+    zenodo_md5: d742a7cf813827a1f2fb3804cfd8de57
+    checksum_sha256: fa81da6f0afadedfc5028352ed2af8c87dc64f1217eb2fb84efd0c6c064c87d2
+    checksum_scope: zenodo_csv_file
+    source_role: yb_sr_ratio_measurement_source_data_vlbi
+    filename_note: "Original Zenodo filename preserves the spelling 'measuremets'."
+
+retrieval_attempt_notes:
+  publisher_pdf_committed: false
+  inrim_postprint_committed: false
+  notes: |
+    Initial direct-download attempts for an unrelated INRiM-hosted Metrologia
+    Pizzocaro PDF failed or were not the Yb/Sr VLBI source requested by this
+    task. The committed artifacts are the Zenodo files linked to the target
+    Nature Physics Yb/Sr VLBI publication.
+
+row_gate_status:
+  value_status: source_artifact_pinned_no_rows_curated
+  readiness_state: SOURCE_ARTIFACT_PINNED_ROWS_BLOCKED
+  required_follow_up: |
+    Run the TASK-0567 row-admissibility gate before creating any
+    data/atomic_clocks/acr-*.yaml rows, benchmarks, predictions, results,
+    claims, or knowledge artifacts.
+
+non_goals_of_this_artifact:
+  - "Does not commit the Nature Physics publisher PDF."
+  - "Does not create value-bearing ACR rows."
+  - "Does not compare Pizzocaro/VLBI values against Beloy 2021."
+  - "Does not fit drift, derive constants constraints, create prediction entries, or promote claims."
