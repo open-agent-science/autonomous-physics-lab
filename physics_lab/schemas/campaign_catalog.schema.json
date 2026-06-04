@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CampaignCatalog",
-  "description": "Lightweight machine-readable campaign portfolio registry for parallel agent research lanes. Lives at campaigns/catalog.yaml and complements missions/current.yaml plus campaign_profiles/.",
+  "description": "Lightweight machine-readable campaign portfolio index for parallel agent research lanes. Lives at campaign_profiles/_catalog.yaml and complements missions/current.yaml plus editable campaign_profiles/*.yaml.",
   "type": "object",
   "additionalProperties": false,
   "required": [

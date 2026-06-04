@@ -58,12 +58,12 @@ repo-wide totals as the full durable-output picture.
   claim-review cadence is due — see `docs/claim-review-cadence.md` when present).
 
 The scorecard is a data layer for those roles; it does not replace the
-`apl_campaign_curator.py` narrative brief or `campaigns/catalog.yaml`.
+`apl_campaign_curator.py` narrative brief or `campaign_profiles/_catalog.yaml`.
 
 ## Cross-references
 
 - `docs/strategy.md` — the durable-output steering metric.
 - `docs/scientific-memory-review-tiers.md` — the review-tier definitions.
 - `docs/result-promotion-protocol.md` — how artifacts earn tiers.
-- `campaigns/catalog.yaml` — campaign portfolio map.
+- `campaign_profiles/_catalog.yaml` — generated campaign portfolio map.
 - `docs/scientific-campaign-curator.md` — the Director role that consumes this.

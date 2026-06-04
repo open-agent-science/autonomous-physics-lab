@@ -2,7 +2,7 @@
 """Task-to-campaign lane index query helper (TASK-0460/TASK-0509).
 
 Maps active canonical tasks to campaign lanes using existing task metadata and
-the campaign ids in campaigns/catalog.yaml, so agents and the Scientific
+the campaign ids in campaign_profiles/_catalog.yaml, so agents and the Scientific
 Campaign Director can see lane ownership and parallel-safety without reading
 every task file.
 
