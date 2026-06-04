@@ -1,7 +1,7 @@
 id: TASK-0550
 title: "Run first Materials MD-0001 baseline residual benchmark"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
