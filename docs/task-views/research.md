@@ -14,7 +14,6 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0550` - Run first Materials MD-0001 baseline residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
 - `TASK-0565` - Run Exoplanet second-snapshot source acquisition (`scientific_dataset`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
 - `TASK-0570` - Remove orphaned registry schemas left after constants/hypothesis-register removal (`research_infrastructure`, priority `medium`, difficulty `low`, domain `cross_campaign_quality`)
 - `TASK-0571` - Add archive-aware task discovery helper and resolver CLI (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)

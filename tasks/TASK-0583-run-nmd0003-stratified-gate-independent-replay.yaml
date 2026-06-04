@@ -1,0 +1,50 @@
+id: TASK-0583
+title: "Run NMD-0003 stratified gate independent replay"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Replay the new Nuclear stratified gate before using it for more hypothesis scoring."
+  - "Separate validation-contract reproducibility from new candidate generation."
+  - "Keep post-AME2020 holdout/reveal boundaries untouched."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "tasks/TASK-0552-freeze-nmd0003-stratified-baseline-gate.yaml"
+    - "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml"
+    - "docs/reviews/nmd0003-stratified-baseline-gate.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    TASK-0552 froze a stratified NMD-0003 readiness split and reported a
+    region-stratified diagnostic validation MAE. A separate replay should check
+    that the gate is reproducible before multiple agents score new feature
+    families against it.
+
+requirements:
+  - "Use only committed NMD-0003 data, split manifests, and gate artifacts."
+  - "Replay the frozen train/validation membership and baseline metrics reported by TASK-0552."
+  - "Do not generate candidates, alter splits, add prediction entries, or score post-AME2020 reveal data."
+  - "Report exact metric agreement or any drift/blocker before future scoring tasks rely on the gate."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/nmd0003-stratified-gate-independent-replay.md"
+  - "optional replay artifact under agent_runs/AGENT-RUN-XXXX/"
+  - "tests for any new replay helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nmd0003_baseline_freeze.py tests/test_nuclear_mass_dataset.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

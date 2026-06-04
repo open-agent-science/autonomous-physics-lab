@@ -1,0 +1,51 @@
+id: TASK-0580
+title: "Run Exoplanet second-snapshot reopen coverage check"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Apply the predeclared reopen gate before any second-snapshot residual scoring."
+  - "Keep Exoplanet residual work closed unless the new snapshot materially changes coverage."
+  - "Preserve null-baseline discipline from the current pinned snapshot."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "tasks/TASK-0565-run-exoplanet-second-snapshot-acquisition.yaml"
+    - "data/exoplanets/exo-0002-pscomppars-snapshot.yaml"
+    - "data/exoplanets/second_snapshot_reopen_coverage_gate.yaml"
+    - "docs/reviews/exoplanet-second-snapshot-source-acquisition.md"
+    - "docs/reviews/exoplanet-second-snapshot-reopen-coverage-gate.md"
+  planning_context: >
+    TASK-0565 acquired a second pinned PSCompPars snapshot. This task applies
+    the already frozen reopen-coverage gate and decides whether the residual
+    lane remains closed, opens only for a narrow slice, or needs a blocker
+    review.
+
+requirements:
+  - "Use only committed EXO-0002 rows and the frozen second-snapshot coverage gate."
+  - "Report pre-filter/post-filter counts, true-mass and minimum-mass counts, per-axis slice counts, and whether every declared reopen floor is satisfied."
+  - "Do not run CK17-style residual metrics, fit variants, update public claims, or fetch live archive data."
+  - "If the gate fails, stop with a precise blocker and preserve negative/control memory."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-second-snapshot-reopen-coverage-check.md"
+  - "optional machine-readable coverage summary under data/exoplanets/ if a schema already supports it"
+  - "tests for any coverage-check helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_second_snapshot_acquisition.py tests/test_exoplanet_mass_radius_dataset_schema.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
