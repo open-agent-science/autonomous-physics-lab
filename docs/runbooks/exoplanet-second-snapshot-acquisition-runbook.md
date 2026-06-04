@@ -23,7 +23,7 @@ The future acquisition step must be explicitly approved under
 - TAP endpoint: `https://exoplanetarchive.ipac.caltech.edu/TAP/sync`
 - Query contract: `data/exoplanets/snapshot_plans/pscomppars_query.adql`
 - Query SHA-256:
-  `4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4`
+  `28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8`
 - Response format for acquisition: CSV or VOTable, recorded before the run
 - First snapshot reference:
   `data/exoplanets/exo-0001-pscomppars-snapshot.yaml`

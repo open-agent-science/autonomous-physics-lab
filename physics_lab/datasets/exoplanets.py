@@ -49,6 +49,23 @@ from typing import Any
 import yaml
 
 
+YAML_LOADER = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+
+
+def _safe_yaml_load_mapping(path: Path) -> dict[str, Any]:
+    """Load YAML using the fastest available safe loader."""
+
+    with path.open("r", encoding="utf-8") as fh:
+        loader = YAML_LOADER(fh)
+        try:
+            payload = loader.get_single_data()
+        finally:
+            loader.dispose()
+    if not isinstance(payload, dict):
+        raise ValueError(f"Expected mapping at top of {path}")
+    return payload
+
+
 # ---------------------------------------------------------------------------
 # Canonical class buckets (mirror the schema enums).
 # ---------------------------------------------------------------------------
@@ -207,10 +224,7 @@ def load_exoplanet_snapshot(path: Path) -> dict[str, Any]:
     """
 
     path = Path(path)
-    with path.open("r", encoding="utf-8") as fh:
-        payload = yaml.safe_load(fh)
-    if not isinstance(payload, dict):
-        raise ValueError(f"Expected mapping at top of {path}")
+    payload = _safe_yaml_load_mapping(path)
     entries = payload.get("entries")
     if not isinstance(entries, list) or not entries:
         raise ValueError(f"Snapshot {path} must include a non-empty entries list")
