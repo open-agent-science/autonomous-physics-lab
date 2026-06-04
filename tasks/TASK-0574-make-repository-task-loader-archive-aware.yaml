@@ -1,0 +1,54 @@
+id: TASK-0574
+title: "Make the repository task loader archive-aware"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make the central task loader see archived tasks so validate-repo, id-uniqueness, and scientific-memory-integrity stay correct after the future archive move."
+  - "Route the keystone loader through the shared discovery helper instead of a hardcoded flat glob."
+  - "Stay behavior-neutral on the current flat tree (no task files moved)."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/task_discovery.py"
+    - "docs/task-archive-migration-plan.md"
+  planning_context: >
+    Keystone increment of the task-archive migration plan (TASK-0559), following
+    the call-site migrations (TASK-0572, TASK-0573). repository._load_directory
+    loaded tasks with a flat `tasks/*.yaml` glob; its output feeds validate-repo,
+    the _validate_unique_task_ids guard, and scientific_memory_integrity, so the
+    flat glob was the central archive blindspot. This routes the tasks load
+    through iter_canonical_task_files (recursive, TASK-NNNN-*.yaml, excluding the
+    template and the proposals/microtasks subtrees). The only non-canonical yaml
+    at tasks/ root is TASK-TEMPLATE.yaml (already skipped), so on the current
+    flat tree the loaded set is identical (parity-verified). No task files are
+    moved. NOTE: PR-2 (validation scoping — full schema on active, minimal on
+    archive) must land before PR-3 (the actual move) so archived files are not
+    full-schema-validated; today no tasks/archive/ exists, so recursive == flat.
+
+requirements:
+  - "Route the repository tasks loader through iter_canonical_task_files."
+  - "Preserve parity on the flat tree (loaded id set unchanged) and keep TASK-TEMPLATE.yaml excluded."
+  - "Add tests for flat-tree parity, archived-task pickup, and template exclusion."
+  - "Do not move any task files; do not change validation scope in this PR."
+
+accepted_outputs:
+  - "physics_lab/registry/repository.py (tasks loader uses iter_canonical_task_files)"
+  - "tests/test_repository_archive_aware.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_repository_archive_aware.py tests/test_scientific_memory_integrity.py tests/test_validation_schema_errors.py tests/test_task_discovery.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

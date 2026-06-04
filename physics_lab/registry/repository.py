@@ -36,6 +36,7 @@ from physics_lab.registry.scientific_memory_integrity import (
     RANGE_LANGUAGE_MARKERS,
     collect_scientific_memory_integrity_issues,
 )
+from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.task_views import TASK_VIEW_PATHS, render_task_views
 from physics_lab.registry.task_proposals import load_task_proposal
 from physics_lab.registry.tasks import load_task, task_input_mode
@@ -263,11 +264,17 @@ def _load_directory(root: Path, directory: str) -> list[tuple[Path, dict[str, An
     else:
         base_path = root / directory
     recursive_directories = {"knowledge", "results"}
-    iterator = (
-        base_path.rglob(pattern)
-        if directory in recursive_directories
-        else base_path.glob(pattern)
-    )
+    if directory == "tasks":
+        # Archive-aware: canonical task files may live flat under tasks/ or in
+        # tasks/archive/<bucket>/ (see docs/task-archive-migration-plan.md). The
+        # shared helper matches TASK-NNNN-*.yaml recursively, excluding the
+        # template and the proposals/microtasks subtrees. On the current flat
+        # tree this is identical to the previous flat glob.
+        iterator: Any = iter_canonical_task_files(root)
+    elif directory in recursive_directories:
+        iterator = base_path.rglob(pattern)
+    else:
+        iterator = base_path.glob(pattern)
     for path in sorted(iterator):
         if directory == "tasks" and path.name == "TASK-TEMPLATE.yaml":
             continue
