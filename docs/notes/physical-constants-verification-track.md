@@ -40,10 +40,13 @@ task.
 
 ## Result Artifact Format
 
-Schema file: `physics_lab/schemas/constant_verification.schema.json`
+Historical schema file:
+`physics_lab/schemas/constant_verification.schema.json` (removed after the
+root-level registry was archived).
 
-The legacy schema remains in the repository, but root-directory inference for
-`constants_verification/` is no longer active by default.
+The legacy schema contract is no longer active in repository validation. Treat
+the field list below as historical context only; reactivation would require a
+new maintainer-approved architecture task.
 
 ### Required Fields
 
