@@ -8,6 +8,8 @@
 *.yaml text eol=lf
 *.yml text eol=lf
 
+data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/*.csv binary
+
 *.gif binary
 *.jpg binary
 *.jpeg binary
