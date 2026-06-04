@@ -6,7 +6,19 @@
 
 ## READY
 
-None.
+- `TASK-0553` - Run Nuclear F2 finer-taxonomy controls-first scoring (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0566` - Package Materials MD-0001 benchmark promotion preflight (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
+- `TASK-0567` - Run Atomic Pizzocaro Yb/Sr row-admissibility gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
+- `TASK-0578` - Run Materials MD-0001 independent baseline replay (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
+- `TASK-0579` - Run Materials MD-0001 band-gap null-control audit (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
+- `TASK-0581` - Run Exoplanet EXO-0001 vs EXO-0002 snapshot delta audit (`scientific_dataset`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0582` - Run Exoplanet second-snapshot baseline replay preflight (`scientific_benchmark`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
+- `TASK-0583` - Run NMD-0003 stratified gate independent replay (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0584` - Run NMD-0003 bounded residual-feature sprint under stratified gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+- `TASK-0585` - Scout post-AME2020 Nuclear reveal source manifest (`scientific_dataset`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
+- `TASK-0586` - Package Textbook exact-reference scoped result (`scientific_validation`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+- `TASK-0588` - Package Quantum Kang-Wise fallback source artifact (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+- `TASK-0589` - Prepare Quantum Norris-Bawendi source-copy handoff (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 
 ## IN_PROGRESS
 
