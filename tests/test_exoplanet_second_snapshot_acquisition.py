@@ -5,10 +5,11 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+import pytest
 import yaml
 
 from physics_lab.datasets.exoplanets import (
-    load_and_filter,
+    apply_inclusion_filters,
     load_exoplanet_snapshot,
     normalized_snapshot_checksum,
     summarize,
@@ -17,6 +18,10 @@ from physics_lab.registry.validation import validate_document
 
 
 ROOT = Path(__file__).resolve().parents[1]
+pytestmark = [
+    pytest.mark.resource_sensitive,
+    pytest.mark.xdist_group(name="exoplanet_snapshot"),
+]
 MANIFEST_PATH = ROOT / "data" / "exoplanets" / "second_snapshot_manifest.yaml"
 SNAPSHOT_PATH = ROOT / "data" / "exoplanets" / "exo-0002-pscomppars-snapshot.yaml"
 QUERY_PATH = ROOT / "data" / "exoplanets" / "snapshot_plans" / "pscomppars_query.adql"
@@ -31,6 +36,11 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _sha256_lf_text(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    return hashlib.sha256(text.replace("\r\n", "\n").encode("utf-8")).hexdigest()
+
+
 def _load_yaml(path: Path) -> dict:
     with path.open("r", encoding="utf-8") as fh:
         payload = yaml.safe_load(fh)
@@ -39,7 +49,7 @@ def _load_yaml(path: Path) -> dict:
 
 
 def test_second_snapshot_query_contract_remains_frozen() -> None:
-    assert _sha256(QUERY_PATH) == EXPECTED_QUERY_SHA256
+    assert _sha256_lf_text(QUERY_PATH) == EXPECTED_QUERY_SHA256
 
 
 def test_second_snapshot_manifest_records_acquisition_without_scoring() -> None:
@@ -76,7 +86,7 @@ def test_second_snapshot_committed_checksums_replay() -> None:
     assert raw_path.exists()
     assert normalized_path == SNAPSHOT_PATH
     assert checksum_policy["raw_checksum_sha256"] == _sha256(raw_path)
-    assert checksum_policy["normalized_file_checksum_sha256"] == _sha256(
+    assert checksum_policy["normalized_file_checksum_sha256"] == _sha256_lf_text(
         normalized_path
     )
 
@@ -91,7 +101,7 @@ def test_second_snapshot_validates_and_loader_counts_match_manifest() -> None:
     manifest = _load_yaml(MANIFEST_PATH)
     acquisition = manifest["planned_acquisition"]
     payload = load_exoplanet_snapshot(SNAPSHOT_PATH)
-    summary = summarize(load_and_filter(SNAPSHOT_PATH))
+    summary = summarize(apply_inclusion_filters(payload))
 
     validate_document(payload, "exoplanet_mass_radius", SNAPSHOT_PATH)
     assert payload["dataset_id"] == "exo-0002-pscomppars-snapshot"

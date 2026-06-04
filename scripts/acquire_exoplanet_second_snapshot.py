@@ -54,6 +54,11 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _sha256_lf_text(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    return hashlib.sha256(text.replace("\r\n", "\n").encode("utf-8")).hexdigest()
+
+
 def _retrieval_slug(timestamp: str) -> str:
     return timestamp.replace("-", "").replace(":", "").removesuffix("Z") + "Z"
 
@@ -294,7 +299,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--raw-path", type=Path)
     args = parser.parse_args(argv)
 
-    query_hash = _sha256_file(QUERY_PATH)
+    query_hash = _sha256_lf_text(QUERY_PATH)
     if query_hash != EXPECTED_QUERY_SHA256:
         raise RuntimeError(
             "Committed PSCompPars query hash drifted before acquisition: "
@@ -344,7 +349,7 @@ def main(argv: list[str] | None = None) -> int:
         yaml.safe_dump(payload, sort_keys=False, allow_unicode=False, width=100),
         encoding="utf-8",
     )
-    normalized_file_checksum = _sha256_file(DATASET_PATH)
+    normalized_file_checksum = _sha256_lf_text(DATASET_PATH)
 
     filtered = load_and_filter(DATASET_PATH)
     filter_summary = summarize(filtered)
