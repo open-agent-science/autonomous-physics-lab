@@ -1,0 +1,73 @@
+# Source data for Extended Data Figure 4
+#
+# Extended Data Figure 4a: Yb/Sr ratio measurement via IPPP
+# Columns are (all measurements in relative units, all uncertainties corresponds to 1 standard deviation):
+# MJDstart: start date in MJD
+# MJDstop: stop date in MJD
+# MJDmed: mid point date in MJD
+# y1=Yb/HMI: ratio between Yb clock and H Maser at INRIM
+# uA1: statistical uncertainty of y1
+# uB1-comb: systematic uncertainty of y1 due to comb
+# uB1-clock: systematic uncertainty of y1 due to clocks
+# e16=extrap.: extrapolation over maser measurement
+# udead16: uncertainty of e16 due to deadtime
+# udrift16: uncertainty of e16 due to maser drift
+# y6=HMM/HMN: ratio between the H Maser at  INAF and NICT measured with IPPP
+# uA6: statistical uncertainty of y2
+# e64=extrap.: extrapolation over maser measurement
+# udead64: uncertainty of e64 due to deadtime
+# udrift64: uncertainty of e64 due to maser drift
+# y4=HMN/Sr: ratio between H Maser at NICT and Sr clock
+# uA4: statistical uncertainty of y4
+# uB4-comb: systematic uncertainty of y4 due to comb
+# uB4-clock: systematic uncertainty of y4 due to clocks
+# yIPPP=Yb/Sr: final ratio beween the Yb and the Sr clocks via IPPP
+# u: final uncertainty of yIPPP
+#
+# MJDstart,MJDstop,MJDmed,y1=Yb/HMI,uA1,uB1-comb,uB1-clock,e16=extrap.,udead16,udrift16,y6=HMI/HMN,uA6,e16=extrap.,udead64,udrift64,y4=HMN/Sr,uA4,uB4-comb,uB4-clock,yIPPP=Yb/Sr,u
+58401.417,58404.625,58403.034,8.876118e-13,1.28e-16,8.00e-17,4.31e-17,-3.88e-16,6.97e-16,8.69e-18,-5.798299e-13,2.81e-16,2.24e-16,4.40e-16,1.03e-17,-3.08e-13,1.864665e-16,8.00e-17,9.08e-17,-2.97e-16,9.11e-16
+58422.000,58423.125,58422.562,8.940283e-13,1.08e-16,8.00e-17,4.08e-17,1.41e-16,4.18e-16,3.17e-18,-5.745520e-13,8.00e-16,-7.58e-16,4.83e-16,3.47e-17,-3.19e-13,1.864545e-16,8.00e-17,9.08e-17,-5.11e-16,1.06e-15
+58428.000,58432.000,58430.000,8.979987e-13,8.32e-17,8.00e-17,4.23e-17,-2.44e-16,3.53e-16,5.46e-18,-5.742558e-13,2.25e-16,-1.00e-15,4.70e-16,4.60e-17,-3.23e-13,1.931265e-16,8.00e-17,9.08e-17,-2.23e-16,6.81e-16
+58458.208,58461.208,58459.708,9.054163e-13,1.69e-16,8.00e-17,3.90e-17,2.01e-17,7.64e-16,2.62e-19,-5.639837e-13,3.00e-16,3.53e-18,2.47e-17,7.27e-20,-3.42e-13,4.074022e-17,8.00e-17,9.08e-17,-1.57e-16,8.51e-16
+58462.875,58464.875,58463.875,9.074285e-13,6.54e-17,8.00e-17,3.86e-17,-1.06e-16,2.10e-16,1.39e-18,-5.635142e-13,4.50e-16,-2.70e-16,1.28e-16,5.56e-18,-3.44e-13,7.015700e-17,8.00e-17,9.08e-17,-4.02e-17,5.41e-16
+58491.500,58493.750,58492.610,9.235328e-13,1.18e-16,8.00e-17,3.61e-17,-3.26e-17,4.73e-16,4.25e-19,-5.629876e-13,4.00e-16,-1.67e-16,3.97e-16,2.87e-18,-3.61e-13,1.770000e-16,8.00e-17,9.86e-17,-4.59e-16,7.79e-16
+58504.625,58506.875,58505.750,9.278101e-13,6.02e-17,8.00e-17,2.54e-17,1.02e-16,2.19e-16,1.32e-18,-5.601260e-13,4.00e-16,-2.37e-16,4.28e-16,4.06e-18,-3.68e-13,1.920000e-16,8.00e-17,9.86e-17,-4.20e-16,6.72e-16
+58513.500,58515.875,58514.710,9.296161e-13,7.75e-17,8.00e-17,2.50e-17,-1.75e-18,2.74e-16,6.25e-19,-5.558754e-13,4.24e-16,-2.06e-16,4.32e-16,3.53e-18,-3.74e-13,1.882655e-16,8.00e-17,7.84e-17,-5.34e-16,7.09e-16
+58521.125,58523.125,58522.125,9.292644e-13,7.99e-17,8.00e-17,2.54e-17,2.46e-18,2.70e-16,8.75e-19,-5.512069e-13,4.50e-16,1.13e-16,4.17e-16,1.93e-18,-3.79e-13,1.866346e-16,8.00e-17,7.26e-17,-6.23e-16,7.15e-16
+58527.375,58529.708,58528.542,9.294874e-13,5.22e-17,8.00e-17,2.54e-17,4.22e-18,1.36e-16,1.50e-18,-5.480865e-13,3.86e-16,1.77e-16,1.15e-16,3.03e-18,-3.82e-13,6.273252e-17,8.00e-17,7.26e-17,-2.38e-16,4.55e-16
+
+# Extended Data Figure 4a: Yb/Sr ratio measurement via PPP
+# Columns are (all measurements in relative units, all uncertainties corresponds to 1 standard deviation):
+# MJDstart: start date in MJD
+# MJDstop: stop date in MJD
+# MJDmed: mid point date in MJD
+# y1=Yb/HMI: ratio between Yb clock and H Maser at INRIM
+# uA1: statistical uncertainty of y1
+# uB1-comb: systematic uncertainty of y1 due to comb
+# uB1-clock: systematic uncertainty of y1 due to clocks
+# e15=extrap.: extrapolation over maser measurement
+# udead15: uncertainty of e15 due to deadtime
+# udrift15: uncertainty of e15 due to maser drift
+# y5=HMM/HMN: ratio between the H Maser at  INAF and NICT measured with PPP
+# uA5: statistical uncertainty of y2
+# e54=extrap.: extrapolation over maser measurement
+# udead54: uncertainty of e54 due to deadtime
+# udrift54: uncertainty of e54 due to maser drift
+# y4=HMN/Sr: ratio between H Maser at NICT and Sr clock
+# uA4: statistical uncertainty of y4
+# uB4-comb: systematic uncertainty of y4 due to comb
+# uB4-clock: systematic uncertainty of y4 due to clocks
+# yPPP=Yb/Sr: final ratio beween the Yb and the Sr clocks via PPP
+# u: final uncertainty of yPPP
+#
+# MJDstart,MJDstop,MJDmed,y1=Yb/HMI,uA1,uB1-comb,uB1-clock,e15=extrap.,udead15,udrift15,y5=HMI/HMN,uA5,e54=extrap.,udead54,udrift54,y4=HMN/Sr,uA4,uB4-comb,uB4-clock,yPPP=Yb/Sr,u
+58401.417,58404.625,58403.025,8.876118e-13,1.28e-16,8.00e-17,4.31e-17,-3.92e-16,6.98e-16,8.78e-18,-5.783808e-13,8.92e-16,2.30e-16,4.62e-16,1.05e-17,-3.079147e-13,1.86e-16,8.00e-17,9.08e-17,1.15e-15,1.25e-15
+58422.000,58423.125,58422.531,8.940283e-13,1.08e-16,8.00e-17,4.08e-17,1.28e-16,4.08e-16,2.88e-18,-5.749375e-13,1.45e-15,-7.39e-16,5.00e-16,3.39e-17,-3.193707e-13,1.86e-16,8.00e-17,9.08e-17,-8.90e-16,1.60e-15
+58428.000,58432.000,58430.000,8.979987e-13,8.32e-17,8.00e-17,4.23e-17,-2.44e-16,3.61e-16,5.46e-18,-5.738564e-13,8.08e-16,-1.00e-15,4.52e-16,4.60e-17,-3.227180e-13,1.93e-16,8.00e-17,9.08e-17,1.76e-16,1.03e-15
+58458.208,58461.208,58459.708,9.054163e-13,1.69e-16,8.00e-17,3.90e-17,2.01e-17,8.21e-16,2.62e-19,-5.643563e-13,9.21e-16,3.51e-18,2.90e-17,7.23e-20,-3.416130e-13,4.07e-17,8.00e-17,9.08e-17,-5.29e-16,1.25e-15
+58462.875,58464.875,58463.874,9.074285e-13,6.54e-17,8.00e-17,3.86e-17,-1.07e-16,2.16e-16,1.39e-18,-5.638112e-13,1.11e-15,-2.69e-16,1.41e-16,5.55e-18,-3.435784e-13,7.02e-17,8.00e-17,9.08e-17,-3.37e-16,1.15e-15
+58491.625,58493.750,58492.702,9.235328e-13,1.18e-16,8.00e-17,3.61e-17,1.27e-17,4.88e-16,1.65e-19,-5.638058e-13,1.08e-15,-2.20e-16,4.01e-16,3.77e-18,-3.608037e-13,1.77e-16,8.00e-17,9.86e-17,-1.28e-15,1.27e-15
+58504.708,58506.875,58505.793,9.278101e-13,6.02e-17,8.00e-17,2.54e-17,1.22e-16,2.21e-16,1.60e-18,-5.599225e-13,1.06e-15,-2.62e-16,4.51e-16,4.48e-18,-3.679682e-13,1.92e-16,8.00e-17,9.86e-17,-2.20e-16,1.20e-15
+58513.500,58515.875,58514.696,9.296161e-13,7.75e-17,8.00e-17,2.50e-17,-2.26e-18,2.66e-16,8.06e-19,-5.553932e-13,1.02e-15,-1.98e-16,4.07e-16,3.40e-18,-3.740664e-13,1.88e-16,8.00e-17,7.84e-17,-4.42e-17,1.16e-15
+58521.125,58523.125,58522.124,9.292644e-13,7.99e-17,8.00e-17,2.54e-17,2.41e-18,2.64e-16,8.58e-19,-5.513212e-13,1.10e-15,1.13e-16,4.35e-16,1.94e-18,-3.787955e-13,1.87e-16,8.00e-17,7.26e-17,-7.36e-16,1.24e-15
+58527.375,58529.708,58528.542,9.294874e-13,5.22e-17,8.00e-17,2.54e-17,4.22e-18,1.44e-16,1.51e-18,-5.480690e-13,1.03e-15,1.77e-16,1.14e-16,3.03e-18,-3.818202e-13,6.27e-17,8.00e-17,7.26e-17,-2.21e-16,1.06e-15

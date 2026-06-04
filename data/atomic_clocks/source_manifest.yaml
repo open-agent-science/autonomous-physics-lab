@@ -112,14 +112,57 @@ source_families:
           - transition_labels_epoch_window_not_locked
           - holdout_or_reveal_freeze_manifest_unset
 
+      - source_id: ACLOCK-SRC-ARTIFACT-2020-PIZZOCARO-VLBI
+        status: source_artifact_pinned_rows_blocked
+        ratio_set:
+          - Yb/Sr
+        lab: INRIM_NICT_VLBI
+        epoch_start: null
+        epoch_end: null
+        source_locator: https://zenodo.org/records/5592085
+        archive_url: https://zenodo.org/records/5592085/files
+        retrieval_date: 2026-06-04
+        checksum_sha256: null
+        checksum_scope: per_file_sha256_in_provenance
+        provenance_path: data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/provenance.yaml
+        license_note: zenodo_cc_by_4_0_for_committed_dataset_files
+        publication_of_record:
+          doi: 10.1038/s41567-020-01038-6
+          journal: Nature Physics
+          volume: 17
+          page: 223
+          year: 2021
+          redistributable_here: false
+        value_status: source_artifact_pinned_no_values
+        dataset_path: null
+        covariance_artifact_path: null
+        readiness_state: SOURCE_ARTIFACT_PINNED_ROWS_BLOCKED
+        readiness_evidence:
+          - docs/reviews/atomic-second-source-yb-sr-row-gate.md
+          - docs/reviews/atomic-pizzocaro-source-artifact-review.md
+        triage_role: |
+          Secondary Yb/Sr fallback after Nemitz 2016. TASK-0542 pins the
+          open Zenodo source dataset linked to the Pizzocaro et al. Nature
+          Physics VLBI clock-comparison paper. Row curation remains deferred
+          to TASK-0567 because source-file mapping, uncertainty/covariance
+          semantics, campaign-window handling, and holdout binding still need
+          a dedicated row-admissibility gate.
+        source_artifact_files:
+          - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/galav-delay-resolution-function.csv
+          - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measurements-IPPP.csv
+          - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measuremets.csv
+        ingestion_blockers:
+          - source_file_to_row_mapping_pending
+          - uncertainty_and_covariance_semantics_pending
+          - campaign_window_semantics_pending
+          - direct_vs_derived_row_class_review_pending
+          - holdout_or_reveal_freeze_manifest_unset
+
       - source_family_member_planning_only:
           notes: |
-            Pizzocaro 2020 (INRIM Yb/Sr) is held as a secondary fallback
-            if Nemitz 2016 is not ingestible under the gates above. Lange
-            2021 (PTB Yb+/Cs) provides species breadth but not a direct
-            Yb/Sr cross-check. Both remain candidates only; no entries
-            are created in this manifest until a triage review names
-            them.
+            Lange 2021 (PTB Yb+/Cs) provides species breadth but not a direct
+            Yb/Sr cross-check. It remains a candidate only; no entry is
+            created in this manifest until a triage review names it.
 
 manifest_global_stop_conditions:
   - SOURCE_ARTIFACT_VERSION_DRIFT
@@ -137,6 +180,13 @@ next_actions:
       pass.
     blocking_task: TASK-0403
     enables: TASK-0401_blocker_4_resolution
+  - description: |
+      Future Pizzocaro row-admissibility task should review the pinned Zenodo
+      source files, decide whether any Yb/Sr source values can become ACR rows,
+      and preserve extraction-ledger evidence before changing any
+      data/atomic_clocks/acr-*.yaml dataset.
+    blocking_task: TASK-0567
+    enables: TASK-0456_second_source_path
   - description: |
       Maintainer decision: keep one aggregate source_manifest.yaml (this
       shape) or split into per-source-family manifests as the campaign
@@ -159,4 +209,5 @@ promotion_boundary:
 global_limitations:
   - "This manifest records source-family status only; pinned values live in their dataset files and pinned provenance lives under data/atomic_clocks/source_artifacts/."
   - "The Nemitz 2016 entry has a pinned arXiv source artifact but no value-bearing rows; ACR-0002 remains blocked pending table-level version-drift and row-readiness gates."
+  - "The Pizzocaro/VLBI entry has pinned Zenodo source artifacts but no value-bearing rows; future row curation must map source files, uncertainty/covariance semantics, and campaign-window boundaries before any ACR row is added."
   - "Sandbox-only. Do not ingest values, benchmark, fit drifts, derive constants constraints, or promote claims from this manifest."
