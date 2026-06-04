@@ -1,8 +1,8 @@
 # Private Multi-Agent Dry Run
 
-This note records the private contributor pilot behind [TASK-0012](../tasks/TASK-0012-private-multi-agent-dry-run.yaml)
+This note records the private contributor pilot behind TASK-0012
 and the first friend-contributor evidence required by
-[TASK-0030](../tasks/TASK-0030-record-friend-contributor-dry-run.yaml).
+TASK-0030.
 
 It is repository memory for what actually happened during the pilot:
 which tasks were used, which contributors and agent tools were involved,
@@ -13,7 +13,7 @@ automation and contributor docs.
 
 - Date: `2026-05-02`
 - Task: `TASK-0014`
-- Task file: `tasks/TASK-0014-thought-experiment-consistency-suite-planning.yaml`
+- Task file: `TASK-0014`
 - Contributor: `roman`
 - Agent: `claude`
 - Agent branch: `agent/claude/task-0014-thought-experiment-plan`
@@ -46,7 +46,7 @@ automation and contributor docs.
 
 - Date: `2026-05-02`
 - Task: `TASK-0033`
-- Task file: `tasks/TASK-0033-standardize-contributor-agent-identity-format.yaml`
+- Task file: `TASK-0033`
 - Contributor: `roman`
 - Agent: `codex`
 - Agent branch: `agent/roman/codex/task-0033-standardize-contributor-agent-identity-format`
@@ -78,7 +78,7 @@ automation and contributor docs.
 
 - Date: `2026-05-03` to `2026-05-04`
 - Task: `TASK-0027`
-- Task file: `tasks/TASK-0027-units-and-constants-reference.yaml`
+- Task file: `TASK-0027`
 - Contributor: `akutenyov`
 - Agent: `claude`
 - Agent branch: `agent/akutenyov/claude/task-0027-units-and-constants-reference`
@@ -95,7 +95,7 @@ automation and contributor docs.
 - `knowledge/reference/physical-constants.yaml`
 - `physics_lab/schemas/knowledge.schema.json`
 - `tests/test_pendulum.py`
-- `tasks/TASK-0027-units-and-constants-reference.yaml`
+- `TASK-0027`
 
 ### Outcome
 

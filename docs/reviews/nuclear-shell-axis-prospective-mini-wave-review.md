@@ -14,7 +14,7 @@ promote the shell-axis sandbox evidence.
 
 ## Inputs
 
-- `tasks/TASK-0296-design-nuclear-shell-axis-registry-target-batch.yaml`
+- `TASK-0296`
 - `data/nuclear_masses/shell_axis_target_batch_proposal.yaml`
 - `docs/reviews/nuclear-shell-axis-registry-target-batch-design.md`
 - `docs/reviews/nuclear-shell-axis-stress-scout-001.md`

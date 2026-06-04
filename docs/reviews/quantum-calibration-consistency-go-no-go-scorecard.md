@@ -23,7 +23,7 @@ Inputs reviewed:
 - `data/quantum_dots/source_manifest.yaml`
 - `data/quantum_dots/qd-0001-yu-2003-absorption.yaml`
 - `data/quantum_dots/qd-0002-moreels-2009-pbs-absorption.yaml`
-- `tasks/TASK-0225-implement-quantum-size-effect-baseline-residual-benchmark.yaml`
+- `TASK-0225`
 
 ## Current evidence state
 

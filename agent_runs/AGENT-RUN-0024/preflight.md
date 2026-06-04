@@ -6,7 +6,7 @@
 
 ## Inputs Checked
 
-- `tasks/TASK-0324-run-nuclear-shell-axis-neutron-rich-tail-audit.yaml`
+- `TASK-0324`
 - `agent_runs/AGENT-RUN-0018/metrics.json`
 - `agent_runs/AGENT-RUN-0019/metrics.json`
 - `agent_runs/AGENT-RUN-0020/metrics.json`

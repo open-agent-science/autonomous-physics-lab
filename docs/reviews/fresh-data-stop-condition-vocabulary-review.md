@@ -6,7 +6,7 @@
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0377-add-fresh-data-stop-condition-vocabulary.yaml`
+- `TASK-0377`
 - `docs/fresh-data-intake-protocol.md`
 - `docs/notes/fresh-data-source-policy.md`
 - `docs/reviews/quantum-size-row-level-data-readiness-for-baseline.md`

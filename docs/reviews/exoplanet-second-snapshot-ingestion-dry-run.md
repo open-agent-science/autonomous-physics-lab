@@ -7,7 +7,7 @@ planets, and does not run mass-radius residual metrics.
 
 ## Inputs
 
-- Task: `tasks/TASK-0536-add-exoplanet-second-snapshot-ingestion-dry-run.yaml`
+- Task: `TASK-0536`
 - No-live-fetch protocol: `docs/exoplanet-second-snapshot-no-live-fetch-protocol.md`
 - Target freeze: `data/exoplanets/second_snapshot_target_freeze.yaml`
 - First pinned snapshot metadata: `data/exoplanets/exo-0001-pscomppars-snapshot.yaml`

@@ -19,7 +19,7 @@ Inputs are committed review artifacts only:
 - `docs/reviews/nuclear-shell-axis-light-regression-audit.md`
 - `docs/reviews/nuclear-shell-axis-isotope-chain-transfer-audit.md`
 - `docs/reviews/nuclear-shell-axis-neutron-rich-tail-audit.md`
-- `tasks/TASK-0324-run-nuclear-shell-axis-neutron-rich-tail-audit.yaml`
+- `TASK-0324`
 
 `TASK-0324` is `DONE` in the current task board, so no maintainer waiver is
 needed for this synthesis.

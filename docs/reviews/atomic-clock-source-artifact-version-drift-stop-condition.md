@@ -16,7 +16,7 @@ fits, add prediction entries, or promote claims.
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0372-add-atomic-source-artifact-version-drift-stop-condition.yaml`
+- `TASK-0372`
 - `docs/reviews/atomic-clock-beloy-2021-source-artifact-covariance-preflight.md`
 - `data/atomic_clocks/source_manifest_template.yaml`
 - `data/atomic_clocks/source_artifacts/2021-beloy-bacon/README.md`

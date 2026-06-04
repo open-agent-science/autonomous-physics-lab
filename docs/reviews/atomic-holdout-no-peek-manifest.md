@@ -14,7 +14,7 @@ are produced in this task.
 
 ## Inputs
 
-- `tasks/TASK-0454-define-atomic-holdout-no-peek-manifest.yaml`
+- `TASK-0454`
 - `data/atomic_clocks/schema.md`
 - `data/atomic_clocks/source_manifest.yaml`
 - `data/atomic_clocks/acr-0001-beloy-2021-direct-ratios.yaml`

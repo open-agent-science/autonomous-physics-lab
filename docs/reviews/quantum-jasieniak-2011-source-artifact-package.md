@@ -19,7 +19,7 @@ unblock `TASK-0225`, `TASK-0293`, or `TASK-0336`.
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0334-package-quantum-jasieniak-source-artifact.yaml`
+- `TASK-0334`
 - `docs/campaigns/quantum-size-effects.md`
 - `docs/reviews/quantum-size-direct-band-edge-seed-review.md`
 - `docs/reviews/quantum-direct-measurement-digitization-package.md`

@@ -18,7 +18,7 @@ at `PINNED_DATASET` (per `TASK-0455`).
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0525-curate-atomic-second-source-yb-sr-row-gate.yaml`
+- `TASK-0525`
 - `docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md`
 - `docs/reviews/atomic-direct-vs-derived-row-separation-audit.md`
 - `docs/reviews/atomic-first-benchmark-covariance-policy.md`

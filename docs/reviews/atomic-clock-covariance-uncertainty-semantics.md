@@ -12,7 +12,7 @@
 - `docs/reviews/atomic-clock-real-row-readiness-gate.md`
 - `data/atomic_clocks/schema.md`
 - `data/atomic_clocks/source_manifest_template.yaml`
-- `tasks/TASK-0332-run-atomic-clock-real-row-readiness-gate.yaml`
+- `TASK-0332`
 
 ## Scope
 

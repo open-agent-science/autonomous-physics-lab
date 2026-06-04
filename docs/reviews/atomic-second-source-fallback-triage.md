@@ -18,8 +18,8 @@ claims.
 
 ## Inputs
 
-- `tasks/TASK-0485-triage-atomic-second-source-fallbacks.yaml`
-- `tasks/TASK-0452-ingest-atomic-nemitz-2016-yb-sr-source.yaml`
+- `TASK-0485`
+- `TASK-0452`
 - `docs/reviews/atomic-second-direct-ratio-source-triage.md`
 - `docs/reviews/atomic-nemitz-2016-source-artifact-and-row-readiness.md`
 - `docs/reviews/atomic-clock-direct-ratio-source-artifact-review.md`

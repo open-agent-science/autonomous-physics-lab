@@ -6,7 +6,7 @@
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0376-add-fresh-data-extraction-ledger-template.yaml`
+- `TASK-0376`
 - `docs/quantum-direct-measurement-digitization-protocol.md`
 - `docs/notes/fresh-data-source-policy.md`
 - `docs/reviews/quantum-size-direct-absorption-seed-review.md`

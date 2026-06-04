@@ -39,8 +39,8 @@ input:
   related_objects:
     - "docs/scientific-micro-task-protocol.md"
     - "docs/notes/particle-mass-relation-track.md"
-    - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
-    - "tasks/TASK-0039-design-koide-like-triplet-search.yaml"
+    - "TASK-0037"
+    - "TASK-0039"
     - "AGENTS.md"
   planning_context: >
     Define: catalog file location and schema, the per-entry micro-task

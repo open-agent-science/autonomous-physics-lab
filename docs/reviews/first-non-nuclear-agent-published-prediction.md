@@ -32,7 +32,7 @@ Before implementation, GitHub PR search found no open implementation PR for:
 
 Claim surface for this PR:
 
-- `tasks/TASK-0417-register-first-non-nuclear-agent-published-prediction.yaml`;
+- `TASK-0417`;
 - `prediction_registry/exoplanet_mass_radius/README.md`;
 - `prediction_registry/exoplanet_mass_radius/PRED-0001.yaml`;
 - `docs/reviews/first-non-nuclear-agent-published-prediction.md`.

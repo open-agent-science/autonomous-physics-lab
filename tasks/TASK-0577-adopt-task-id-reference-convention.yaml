@@ -1,0 +1,56 @@
+id: TASK-0577
+title: "Adopt id-only task reference convention (drop task paths in prose)"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Decouple task references from file location so archiving is a pure move with zero reference rewriting."
+  - "Reference tasks by immutable id (TASK-XXXX); resolve location via the helper/resolver when needed."
+  - "Prevent regressions with a lint that forbids new task-path references in prose."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "docs/task-reference-convention.md"
+    - "docs/task-archive-migration-plan.md"
+    - "scripts/apl_task_path.py"
+  planning_context: >
+    Convention step of the task-archive migration plan (TASK-0559). Instead of
+    rewriting hundreds of task paths on every archive move, the repo now
+    references tasks by id. This converts 55 docs/proposal files' literal
+    tasks/TASK-XXXX-*.yaml references to bare TASK-XXXX (markdown links collapse
+    to the id), points the few real test path-loads (anharmonic TASK-0159, damped
+    TASK-0002, pendulum TASK-0001, robustness TASK-0178) at find_task_file, makes
+    the closeout-helper test assertion location-independent, documents the
+    convention, and adds a lint. Generated output (PR bodies, reports) may still
+    print a runtime-resolved path. Synthetic test fixtures with fabricated task
+    ids are unaffected (they reference no real files). After this, the archive
+    sweep is a pure git mv with no reference rewriting.
+
+requirements:
+  - "Convert literal tasks/TASK-XXXX-*.yaml|md references in docs and tasks/proposals to bare TASK-XXXX ids."
+  - "Convert real test path-loads to find_task_file(root, task_id)."
+  - "Make the closeout-helper test assertion location-independent (filename, not directory)."
+  - "Add docs/task-reference-convention.md and a lint (tests/test_task_reference_convention.py) forbidding task paths in prose."
+  - "Keep docs links valid (docs_links) and behavior unchanged; no task files moved."
+
+accepted_outputs:
+  - "55 docs/proposal files converted to id-only references"
+  - "tests/test_anharmonic_oscillator.py, test_damped_oscillator.py, test_pendulum.py, test_nuclear_mass_robustness_gate.py, test_closeout_pr_helper.py updated"
+  - "docs/task-reference-convention.md"
+  - "tests/test_task_reference_convention.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_reference_convention.py tests/test_docs_links.py tests/test_anharmonic_oscillator.py tests/test_damped_oscillator.py tests/test_closeout_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

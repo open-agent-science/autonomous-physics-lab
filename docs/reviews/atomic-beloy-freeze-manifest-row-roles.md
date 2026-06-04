@@ -18,7 +18,7 @@ campaign at `PINNED_DATASET` (per `TASK-0455`).
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0526-assign-atomic-beloy-freeze-manifest-row-roles.yaml`
+- `TASK-0526`
 - `docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md`
 - `docs/reviews/atomic-holdout-no-peek-manifest.md`
 - `docs/reviews/atomic-direct-vs-derived-row-separation-audit.md`

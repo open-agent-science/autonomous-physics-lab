@@ -6,7 +6,7 @@
 
 ## Inputs Checked
 
-- `tasks/TASK-0289-run-nuclear-asymmetry-frontier-stress-scout.yaml`
+- `TASK-0289`
 - `results/EXP-0012/RUN-0001/result.yaml`
 - `data/nuclear_masses/nmd-0002-curated-measured-slice.yaml`
 - `data/nuclear_masses/post_ame2020_holdout.yaml`
