@@ -187,7 +187,7 @@ This avoids churn on every task close and keeps each archival batch auditable.
    flat. Add the `scripts/apl_task_path.py` resolver CLI (id -> path, active or
    archived) and a reference-integrity check that flags mentions of non-existent
    ids. No behavior change (helper returns the same set on a flat tree). Ship the
-   preflight test from this task as the regression guard.
+   `tests/test_task_discovery.py` regression guard with this PR.
 2. **PR-2 (validation scoping):** make `validate-repo` apply full schema to
    active `tasks/*.yaml` and a minimal check to `tasks/archive/**`.
 3. **PR-3 (the move):** add `apl_archive_sweep.py`; add `tasks/archive/README.md`
@@ -208,14 +208,21 @@ This avoids churn on every task close and keeps each archival batch auditable.
 
 ## Test plan / coverage
 
-`tests/test_task_archive_discovery_preflight.py` (added by this task, no files
-moved) demonstrates on a temporary fixture that the recommended discovery rule:
+`tests/test_task_discovery.py` (guards the shipped
+`physics_lab/registry/task_discovery.py` helper; no task files moved)
+demonstrates on a temporary fixture, and against the real repository, that the
+discovery rule:
 
+- has **parity** with today's flat enumeration on the real repo (adopting the
+  helper is behavior-neutral);
 - finds canonical tasks in **both** flat `tasks/*.yaml` and archived
   `tasks/archive/<bucket>/*.yaml`;
 - **excludes** `tasks/proposals/`, `tasks/microtasks/`, and `TASK-TEMPLATE.yaml`;
-- supports **find-one-by-id** across flat + archive;
+- supports **find-one-by-id** across flat + archive (also via the
+  `scripts/apl_task_path.py` resolver CLI);
 - a uniqueness scan across flat + archive **catches a duplicate id** (the
   primary safety invariant).
 
-This locks the discovery contract before any real migration PR.
+This locks the discovery contract before any real migration PR. (The earlier
+inline preflight test was consolidated into this module-level test, which is a
+strictly stronger guard because it exercises the shipped helper.)
