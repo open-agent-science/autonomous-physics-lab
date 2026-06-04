@@ -1,0 +1,55 @@
+id: TASK-0576
+title: "Scope task validation: full schema on active, minimal on archive"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Let the future task archive avoid schema-drift mass failures by holding frozen history to a minimal contract."
+  - "Keep full schema validation on active tasks while archived tasks need only parse to a mapping with an id."
+  - "Final validation enabler before the actual archive move."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/tasks.py"
+    - "docs/task-archive-migration-plan.md"
+  planning_context: >
+    PR-2 of the task-archive migration plan (TASK-0559), after the archive-aware
+    repository loader (TASK-0575). load_task validates against the full task
+    schema at load time, so once tasks move under tasks/archive/<bucket>/ an
+    evolving schema would force edits to frozen history. This adds
+    load_task_minimal (parse + require an id, no schema validation) and routes
+    archived task files through it in repository._load_directory, while active
+    tasks under tasks/ keep full load_task validation. There is no separate
+    per-file task schema scan in validate-repo (infer_kind_from_path is only used
+    by the explicit validate-file CLI command), so scoping at the loader is
+    sufficient. No task files are moved; today no tasks/archive/ exists, so this
+    is parity on the current tree. This is the last validation enabler before the
+    actual move (PR-3).
+
+requirements:
+  - "Add load_task_minimal(path) to physics_lab/registry/tasks.py (parse + require id, no full schema)."
+  - "Route archived task files (under tasks/archive/) through load_task_minimal in repository._load_directory; keep active tasks on full load_task."
+  - "Add tests proving archived schema-invalid-but-parseable tasks are tolerated, active schema-invalid tasks still fail, and the archive minimal contract requires an id."
+  - "Do not move any task files; keep behavior identical on the current flat tree."
+
+accepted_outputs:
+  - "physics_lab/registry/tasks.py (load_task_minimal)"
+  - "physics_lab/registry/repository.py (archive-scoped task loading)"
+  - "tests/test_repository_validation_scoping.py"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_repository_validation_scoping.py tests/test_repository_archive_aware.py tests/test_scientific_memory_integrity.py tests/test_validation_schema_errors.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
