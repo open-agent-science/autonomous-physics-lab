@@ -1,0 +1,128 @@
+manifest_id: NMD-0003-STRATIFIED-BASELINE-GATE
+task_id: TASK-0552
+dataset_id: NMD-0003
+status: frozen_readiness_gate
+source_dataset: data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+source_split_manifest: data/nuclear_masses/nmd-0003-split-manifest.yaml
+evidence_source:
+  agent_run: agent_runs/AGENT-RUN-0056/metrics.json
+  review: docs/reviews/nmd0003-baseline-family-gate.md
+live_external_fetch_allowed: false
+post_ame2020_holdout_scoring_allowed: false
+residual_feature_candidates_allowed: false
+prediction_entries_allowed: false
+claim_promotion_allowed: false
+
+split_contract:
+  primary_readiness_split_id: stratified_interleaved_70_30
+  purpose: interpolation_readiness_gate
+  row_order: "sort committed NMD-0003 measured rows by (A, Z, N)"
+  train_rule: "sorted_index % 10 in {0, 1, 2, 3, 4, 5, 6}"
+  validation_holdout_rule: "sorted_index % 10 in {7, 8, 9}"
+  train_count: 1617
+  validation_holdout_count: 692
+  rationale: >
+    Every mass region is represented in both train and validation, so the gate
+    measures interpolation skill on the committed AME2020 measured surface
+    rather than heavy-mass extrapolation.
+
+diagnostic_splits:
+  - split_id: sorted_aZN_70_30
+    purpose: extrapolation_diagnostic_only
+    train_count: 1616
+    validation_holdout_count: 693
+    interpretation: >
+      The inherited sorted split places the heavy-mass tail in validation and
+      must not be used as the primary readiness gate by itself.
+
+baseline_contract:
+  primary_readiness_baseline:
+    baseline_id: nmd0003_region_stratified_diagnostic
+    fit_policy: fit_train_split_only_region_stratified_ols
+    complexity_note: "four independent five-coefficient liquid-drop vectors; diagnostic/readiness baseline only"
+    validation_mae_mev: 1.899279
+    validation_rmse_mev: 2.587583
+    validation_mae_relative_improvement_vs_inherited: 0.618566
+    coefficients_by_a_region:
+      "A<=40":
+        volume: 13.823895191363448
+        surface: 13.927242702616127
+        coulomb: 0.4761857931447765
+        asymmetry: 16.286707289202617
+        pairing: 6.879924421834727
+      "41<=A<=100":
+        volume: 14.624815309242
+        surface: 15.209173376150943
+        coulomb: 0.6014964897836454
+        asymmetry: 19.521670109082674
+        pairing: 12.071858834878567
+      "101<=A<=180":
+        volume: 14.61159306812937
+        surface: 14.254266648861952
+        coulomb: 0.6431367336775092
+        asymmetry: 20.477608280676556
+        pairing: 16.281483125308124
+      "A>180":
+        volume: 17.414864995805814
+        surface: 23.73391577447617
+        coulomb: 0.811072995449682
+        asymmetry: 27.300923752870826
+        pairing: 12.89515411652111
+
+  required_audit_baseline:
+    baseline_id: nmd0003_train_fitted_ols
+    fit_policy: fit_train_split_only_ols
+    validation_mae_mev: 2.61432
+    validation_rmse_mev: 3.804107
+    validation_mae_relative_improvement_vs_inherited: 0.474964
+    coefficients:
+      volume: 15.230642197914822
+      surface: 16.287719114297985
+      coulomb: 0.6829963405221187
+      asymmetry: 22.041540119261434
+      pairing: 10.351073973927111
+    rationale: >
+      Any future residual-feature sprint that uses the region-stratified
+      readiness baseline should also report the single-vector OLS audit
+      baseline so improvements are not hidden by region-aware flexibility.
+
+  inherited_control_baseline:
+    baseline_id: inherited_result0015_nmd0002_frozen
+    fit_policy: frozen_external
+    validation_mae_mev: 4.979318
+    validation_rmse_mev: 6.253063
+    coefficients:
+      volume: 15.51423612106804
+      surface: 17.2931812095177
+      coulomb: 0.6878156091568888
+      asymmetry: 23.846557883948485
+      pairing: 15.990845113398912
+
+readiness_decision:
+  future_bounded_residual_feature_sprint_allowed: true
+  allowed_only_if:
+    - "Use committed NMD-0003 measured rows only."
+    - "Use stratified_interleaved_70_30 as the primary validation gate."
+    - "Compare against the frozen primary readiness baseline and the required global OLS audit baseline."
+    - "Keep sorted_aZN_70_30 as extrapolation diagnostic only."
+    - "Do not score post-AME2020 holdout rows."
+    - "Do not write PRED, CLAIM, KNOW, or discovery wording."
+    - "Use disjoint residual-feature families from already rejected/control-dominated TASK-0517 slate unless explicitly justified."
+  blocked_until_changed:
+    - "Any sprint that still uses sorted_aZN_70_30 as the sole readiness gate."
+    - "Any sprint that refits baselines after inspecting residual-feature holdout behavior."
+    - "Any sprint that introduces leakage-sensitive local-curvature features without a dedicated no-leakage implementation."
+
+output_routing:
+  task_verdict: STRATIFIED_BASELINE_GATE_FROZEN
+  canonical_destination: data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml
+  review_tier: none
+  gate_a_status: not_attempted
+  gate_b_status: not_applicable
+  claim_impact: none
+  knowledge_impact: none
+  result_impact: no RESULT artifact created
+  limitations:
+    - "Retrospective AME2020 measured-row readiness gate, not post-AME2020 reveal scoring."
+    - "Region-stratified coefficients are a baseline readiness contract, not residual-feature evidence."
+    - "Future result promotion still requires a scoped benchmark task and maintainer review."

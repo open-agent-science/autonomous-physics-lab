@@ -1,7 +1,7 @@
 id: TASK-0552
 title: "Freeze NMD-0003 stratified baseline gate"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
