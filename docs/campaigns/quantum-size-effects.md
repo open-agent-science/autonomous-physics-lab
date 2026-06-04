@@ -32,17 +32,18 @@ new material law, and no device, synthesis, biomedical, or design claim.
 
 **Active next work:** `TASK-0556` classified the direct-source candidates and
 kept Norris-Bawendi 1996 as the strongest current unblock path. `TASK-0563`
-now turns that recommendation into a deterministic digitization preflight or a
-precise blocker, using the existing WebPlotDigitizer-class protocol and source
-artifact reviews. `TASK-0491` still records `NEEDS_MAINTAINER_DECISION`
-before any separate weaker calibration-consistency sandbox benchmark can run.
-`TASK-0490` has already dry-run the future figure-digitization ledger on
-synthetic data, but it does not authorize real rows. `TASK-0336` stays blocked
-until an approved source artifact exists or the scope is explicitly rewritten.
+turned that recommendation into a deterministic digitization preflight, but
+the campaign remains blocked pending a legitimate source copy, target panel,
+redistribution decision, WebPlotDigitizer-class tool run, axis calibration,
+extracted points, uncertainty, and replay. `TASK-0589` turns that blocker into
+a maintainer-ready source-copy handoff, while `TASK-0588` packages or rejects
+the Kang-Wise 1997 fallback source in parallel. `TASK-0491` still records
+`NEEDS_MAINTAINER_DECISION` before any separate weaker calibration-consistency
+sandbox benchmark can run.
 
-**Expected next result:** either a source artifact that unlocks direct row
-curation or a blocker review that prevents another weak source path from being
-repeated.
+**Expected next result:** either a legitimate source-artifact handoff that
+unlocks direct row curation or a blocker review that prevents another weak
+source path from being repeated.
 
 The first scaffold, dataset/schema surface, and holdout protocol have landed
 under `TASK-0222`, `TASK-0223`, and `TASK-0224`. `TASK-0275` added the first
@@ -125,9 +126,13 @@ Current task posture:
 - `TASK-0556` — direct-source candidate classification (DONE; recommends
   Norris-Bawendi 1996 as the best current direct-row unblock path, with
   calibration-derived or table-inaccessible candidates kept as blockers);
-- `TASK-0563` — deterministic Norris-Bawendi digitization preflight (READY;
-  produce a source-safe extraction package or blocker only, with no `qd-*`
-  rows or baseline metrics).
+- `TASK-0563` — deterministic Norris-Bawendi digitization preflight (DONE;
+  preserved a precise source-copy/tool-run blocker, with no `qd-*` rows or
+  baseline metrics).
+- `TASK-0588` — Kang-Wise 1997 fallback source-artifact package (READY; source
+  package or blocker only, no rows or metrics).
+- `TASK-0589` — Norris-Bawendi source-copy handoff (READY; maintainer-facing
+  checklist only, no values or copyrighted source copies).
 
 Safe next contributions are:
 

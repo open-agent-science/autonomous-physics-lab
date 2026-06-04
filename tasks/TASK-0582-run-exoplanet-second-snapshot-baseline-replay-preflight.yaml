@@ -1,0 +1,51 @@
+id: TASK-0582
+title: "Run Exoplanet second-snapshot baseline replay preflight"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Allow a bounded second-snapshot benchmark only if the source gate clears first."
+  - "Separate frozen-baseline replay from new exoplanet hypothesis search."
+  - "Keep null-baseline competition visible before interpreting residuals."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "data/exoplanets/exo-0002-pscomppars-snapshot.yaml"
+    - "data/exoplanets/second_snapshot_reopen_coverage_gate.yaml"
+    - "docs/exoplanet-mass-radius-baseline-protocol.md"
+    - "docs/reviews/exoplanet-null-baseline-family-audit.md"
+  planning_context: >
+    This is the earliest legitimate metric-adjacent second-snapshot task. It
+    must first re-apply the reopen coverage gate. If the gate does not clear,
+    the task stops as a blocker. If it clears, it may run only the frozen
+    baseline replay and null-baseline comparison, with no new hypothesis.
+
+requirements:
+  - "Start by applying the second-snapshot reopen coverage gate; stop if it fails."
+  - "If the gate clears, replay the frozen baseline and declared null baselines on the eligible EXO-0002 slices only."
+  - "Do not add new baselines, change row-class handling, tune parameters, or make habitability/composition/target-priority claims."
+  - "Report whether the second snapshot materially changes the benchmark posture or simply preserves current negative/control memory."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/exoplanet-second-snapshot-baseline-replay-preflight.md"
+  - "tests for any new replay helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_baseline.py tests/test_exoplanet_null_baseline_family_audit.py"
+    - "python3 -m pytest tests/test_exoplanet_second_snapshot_acquisition.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

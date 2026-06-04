@@ -1,0 +1,49 @@
+id: TASK-0578
+title: "Run Materials MD-0001 independent baseline replay"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Independently replay the first Materials benchmark before promotion or widening."
+  - "Separate reproducibility evidence from new model search."
+  - "Keep formation-energy and band-gap axes separate."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "tasks/TASK-0550-run-materials-md0001-baseline-residual-benchmark.yaml"
+    - "docs/reviews/materials-md0001-baseline-residual-benchmark.md"
+    - "data/materials/md-0001-binary-oxides.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    TASK-0550 produced the first conservative MD-0001 benchmark. Before
+    promotion or dataset widening, a separate agent should replay the same
+    baseline outputs and report whether the published metrics are reproducible
+    from the committed dataset and code.
+
+requirements:
+  - "Use only committed data, examples, configs, and code; do not fetch live Materials Project data."
+  - "Replay the TASK-0550 benchmark outputs exactly enough to check the reported formation-energy and band-gap metrics."
+  - "Do not add new baselines, tune parameters, widen the dataset, or make material-property claims."
+  - "Report any exact/near-exact metric match, drift, missing reproducibility input, or blocker."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0001-independent-baseline-replay.md"
+  - "optional replay metrics artifact under agent_runs/AGENT-RUN-XXXX/"
+  - "tests only if a replay helper or fixture is added"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_dataset.py tests/test_materials_md0001_baseline.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

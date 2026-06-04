@@ -43,7 +43,7 @@ or host-context pilots on the current pinned snapshot. `TASK-0481` found no
 compact-radius host-context axis that is benchmark-usable under the current
 coarse-bin floor, and `TASK-0480` landed as underpowered at mass-quartile resolution.
 Future work should reopen the residual lane only after a materially changed
-pinned snapshot or an explicitly revised coverage gate.
+pinned snapshot clears the explicitly revised coverage gate.
 `TASK-0482` and `TASK-0484` packaged the second-snapshot target freeze and
 external-reviewer capsule, and `TASK-0483` landed as an `INCONCLUSIVE`
 null-baseline control panel. `TASK-0529` now supplies the "explicitly revised
@@ -56,11 +56,11 @@ competition criterion that a materially changed snapshot must clear before any
 residual lane reopens. `TASK-0536` is the paired no-live-fetch ingestion dry-run
 so a later real second snapshot can be normalized and checksummed without
 weakening the no-peek boundary. `TASK-0554` then packaged the concrete
-second-snapshot acquisition runbook and manifest shape. `TASK-0565` is the
-next source-acquisition gate: either fill that manifest with a checksummed,
-approved later snapshot, or record the exact access/approval blocker. All work
-stays benchmark-only; acquisition does not authorize residual scoring by
-itself.
+second-snapshot acquisition runbook and manifest shape. `TASK-0565` acquired a
+checksummed second PSCompPars snapshot (`EXO-0002`): 6298 raw rows, 4308
+post-filter included rows, 2110 true-mass rows, and 985 minimum-mass rows.
+All work stays benchmark-only; acquisition does not authorize residual scoring
+by itself.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -133,14 +133,16 @@ Current scientific reading:
   localization pilots on the current pinned snapshot. The Research Factory
   adapter remains contract-only until a materially changed input surface is
   reviewed.
-- `TASK-0529` is the current reopen-gate task for a future second snapshot,
-  and `TASK-0536` is the paired no-live-fetch ingestion dry-run. `TASK-0554`
-  adds the acquisition package that a future source gate can execute. None of
-  these tasks runs residual metrics or promotes mass-radius interpretation.
-- `TASK-0565` is the current second-snapshot source-acquisition execution
-  gate. It may only add rows if source/network approval, checksums, query
-  contract, row classes, and no-peek attestation are satisfied; otherwise it
-  should preserve a blocker review.
+- `TASK-0529` is the reopen-gate task for a future second snapshot, and
+  `TASK-0536` is the paired no-live-fetch ingestion dry-run. `TASK-0554` adds
+  the acquisition package that a future source gate can execute. None of these
+  tasks runs residual metrics or promotes mass-radius interpretation.
+- `TASK-0565` landed `EXO-0002` as a pinned source artifact, but did not run
+  residual metrics.
+- `TASK-0580`, `TASK-0581`, and `TASK-0582` are the next second-snapshot
+  sequence: apply the reopen coverage gate, compare `EXO-0001` versus
+  `EXO-0002`, and only then run a bounded frozen-baseline replay preflight if
+  the gate clears.
 - `TASK-0470`-era visibility work is now campaign memory. The current
   benchmark-hardening wave does not promote claims, knowledge, predictions, or
   canonical results.
@@ -264,10 +266,11 @@ The campaign should mature in this order:
     that clears the frozen per-axis row-count floors and then beats the
     nearest-radius null-baseline family. See
     [the reopen coverage gate](../reviews/exoplanet-second-snapshot-reopen-coverage-gate.md).
-17. Execute the second-snapshot acquisition gate (`TASK-0565`) only under the
-    approved query/source contract. A successful acquisition creates the input
-    surface for later coverage/reopen checks; a failed acquisition is useful
-    blocker memory.
+17. Treat the second-snapshot acquisition gate (`TASK-0565`) as complete:
+    `EXO-0002` is now the input surface for coverage/reopen checks, not a
+    residual-scoring result.
+18. Run the second-snapshot coverage gate, snapshot delta audit, and bounded
+    baseline replay preflight in that order (`TASK-0580` through `TASK-0582`).
 
 This campaign is now the fastest APL path to a visible, scientist-readable
 benchmark artifact. It is not yet a discovery surface.

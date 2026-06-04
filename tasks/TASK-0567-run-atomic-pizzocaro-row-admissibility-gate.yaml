@@ -1,7 +1,7 @@
 id: TASK-0567
 title: "Run Atomic Pizzocaro Yb/Sr row-admissibility gate"
 type: scientific_dataset
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
@@ -20,11 +20,11 @@ input:
     - "docs/reviews/atomic-row-role-schema-and-beloy-assignments.md"
     - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
   planning_context: >
-    Atomic now has manifest-backed Beloy row roles, but cross-source benchmark
-    readiness still needs a second value-bearing Yb/Sr row or a reviewed
-    blocker. This task waits for TASK-0542 to pin or reject Pizzocaro as a
-    source artifact, then decides whether a row can be curated under the
-    campaign's direct-row and covariance rules.
+    Atomic now has manifest-backed Beloy row roles, and TASK-0542 has pinned
+    the Pizzocaro source artifacts. Cross-source benchmark readiness still
+    needs a second value-bearing Yb/Sr row or a reviewed blocker, so this task
+    decides whether a row can be curated under the campaign's direct-row and
+    covariance rules.
 
 requirements:
   - "Start only after TASK-0542 lands a Pizzocaro source artifact package or a blocker review."

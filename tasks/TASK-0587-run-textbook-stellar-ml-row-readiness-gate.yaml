@@ -1,0 +1,48 @@
+id: TASK-0587
+title: "Run Textbook Stellar M-L row-readiness gate"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move the first empirical Textbook audit through source and row readiness before metrics."
+  - "Keep Gaia source packaging separate from Stellar M-L formula interpretation."
+  - "Prevent empirical audits from starting without row provenance and holdout semantics."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0555-plan-textbook-stellar-ml-empirical-audit.yaml"
+    - "tasks/TASK-0564-prepare-textbook-stellar-ml-pinned-source-package.yaml"
+    - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+  planning_context: >
+    Stellar Mass-Luminosity is the first recommended empirical Textbook audit,
+    but no empirical metrics should run until pinned-source and row-readiness
+    checks say the data surface is admissible.
+
+requirements:
+  - "Review the Stellar M-L source package and decide whether row-level curation can begin."
+  - "Check source version, checksum, licensing, required Gaia fields, row filters, units, uncertainty semantics, and holdout/no-peek split expectations."
+  - "Do not run mass-luminosity metrics, fit exponents, create claims, or fetch live Gaia data."
+  - "If source packaging is incomplete, record the exact blocker and stop."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/textbook-stellar-ml-row-readiness-gate.md"
+  - "optional source/row-readiness manifest if the existing schema supports it"
+  - "optional docs/campaigns/textbook-formula-audit.md update if the empirical lane status changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py tests/test_source_artifact_package_validation.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

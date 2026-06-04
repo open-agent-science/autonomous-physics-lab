@@ -1,0 +1,50 @@
+id: TASK-0585
+title: "Scout post-AME2020 Nuclear reveal source manifest"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Nuclear reveal readiness forward without touching target values."
+  - "Keep source manifest scouting separate from reveal scoring."
+  - "Protect the no-peek boundary around frozen prediction registry entries."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/nuclear-prediction-reveal-protocol.md"
+    - "docs/nuclear-reveal-source-readiness-checklist.md"
+    - "data/nuclear_masses/shell_axis_reveal_source_manifest_template.yaml"
+    - "docs/reviews/nuclear-shell-axis-mini-wave-source-preflight.md"
+  planning_context: >
+    Nuclear prospective scoring remains blocked because no acceptable
+    post-registration source manifest has cleared the no-peek checklist. This
+    task scouts source candidates and writes a manifest-readiness review only,
+    without recording target mass values.
+
+requirements:
+  - "Do not fetch, copy, transcribe, or inspect target mass values for registered prediction targets."
+  - "Review possible post-AME2020 source candidates at metadata level: release date, versioning, DOI/archive locator, license/access, checksum feasibility, and whether the source postdates the freeze."
+  - "Either prepare a value-free manifest candidate or record why no candidate is admissible."
+  - "Do not score predictions, modify PRED entries, or run reveal metrics."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-post-ame2020-reveal-source-manifest-scout.md"
+  - "optional value-free manifest candidate if no-peek requirements can be satisfied"
+  - "optional docs/campaigns/nuclear-mass-surface.md update if reveal readiness changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_prediction_reveal.py tests/test_nuclear_mass_prediction_registry.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

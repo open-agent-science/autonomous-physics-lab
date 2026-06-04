@@ -1,0 +1,50 @@
+id: TASK-0589
+title: "Prepare Quantum Norris-Bawendi source-copy handoff"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Convert the Norris-Bawendi blocker into an actionable legal/source handoff."
+  - "Keep direct measurement digitization source-safe and replayable."
+  - "Avoid weak calibration-derived quantum-dot benchmark rows."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "tasks/TASK-0563-run-quantum-norris-bawendi-digitization-preflight.yaml"
+    - "docs/reviews/quantum-norris-bawendi-1996-digitization-runner.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "docs/quantum-direct-source-artifact-intake.md"
+  planning_context: >
+    TASK-0563 produced a deterministic preflight package but kept row
+    extraction blocked pending a legitimate source copy, redistribution
+    decision, target panel, and tool run. This task turns that blocker into a
+    maintainer-ready handoff checklist without extracting values.
+
+requirements:
+  - "Create a maintainer-facing handoff checklist for a legitimate Norris-Bawendi source copy: expected path, checksum command, metadata fields, allowed local-only handling, redistribution decision, and panel/figure locator requirements."
+  - "Do not commit copyrighted source copies, transcribe measurement values, add qd-*.yaml rows, or run baseline metrics."
+  - "Define the exact artifact names a later digitization task should produce once a source copy is provided."
+  - "Keep the original TASK-0225 measurement-versus-model benchmark blocked until direct rows exist."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/quantum-norris-bawendi-source-copy-handoff.md"
+  - "optional source-artifact metadata template under data/quantum_dots/digitization/norris-bawendi-1996-prb-cdse-band-edge/"
+  - "optional docs/campaigns/quantum-size-effects.md update if the handoff clarifies the unblock path"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_digitization_fixture.py tests/test_quantum_dot_dataset_schema.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
