@@ -25,8 +25,8 @@ source-package task (see the "Relationship To TASK-0489" section of
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0489-package-quantum-norris-bawendi-source-artifact-review.yaml`
-- `tasks/TASK-0398-package-norris-bawendi-1996-digitization-preflight.yaml`
+- `TASK-0489`
+- `TASK-0398`
 - `docs/reviews/quantum-norris-bawendi-1996-digitization-preflight.md`
 - `docs/reviews/quantum-open-direct-table-source-triage.md`
 - `docs/reviews/quantum-pmc-arxiv-direct-table-source-attempt.md`

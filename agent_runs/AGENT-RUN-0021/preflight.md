@@ -6,7 +6,7 @@
 
 ## Inputs Checked
 
-- `tasks/TASK-0321-run-nuclear-magic-axis-asymmetry-audit.yaml`
+- `TASK-0321`
 - `scripts/run_nuclear_shell_axis_full_known_audit.py`
 - `agent_runs/AGENT-RUN-0018/metrics.json`
 - `docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md`

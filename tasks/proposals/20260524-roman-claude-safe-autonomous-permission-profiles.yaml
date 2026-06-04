@@ -36,8 +36,8 @@ input:
     - "scripts/apl_setup_worktree.sh"
     - "docs/notes/claude-code-permissions-allowlist.md"
     - "docs/agent-task-protocol.md"
-    - "tasks/TASK-0255-add-worktree-settings-sync-script.yaml"
-    - "tasks/TASK-0258-track-claude-settings-baseline.yaml"
+    - "TASK-0255"
+    - "TASK-0258"
   planning_context: >
     PR #371 proposed an autonomous Claude permission profile and setup-script
     opt-in, but it is stale: it reuses TASK-0269, touches generated task views,

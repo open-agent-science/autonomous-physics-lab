@@ -36,7 +36,7 @@ input:
     - "scripts/apl_pr_capability_check.py"
     - "scripts/apl_task_pr_helper.py"
     - "scripts/auto_run_next_task.py"
-    - "tasks/TASK-0469-make-windows-pytest-cli-validation-robust.yaml"
+    - "TASK-0469"
   planning_context: >
     The proposed future task should audit documented validation commands and
     helper scripts that assume `python3`, `python`, or an activated virtual

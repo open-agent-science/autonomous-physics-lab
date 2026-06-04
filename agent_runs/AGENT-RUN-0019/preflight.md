@@ -6,7 +6,7 @@
 
 ## Inputs Checked
 
-- `tasks/TASK-0316-run-nuclear-shell-axis-coefficient-stability-audit.yaml`
+- `TASK-0316`
 - `scripts/run_nuclear_shell_axis_full_known_audit.py`
 - `agent_runs/AGENT-RUN-0018/metrics.json`
 - `data/nuclear_masses/nmd-0002-curated-measured-slice.yaml`

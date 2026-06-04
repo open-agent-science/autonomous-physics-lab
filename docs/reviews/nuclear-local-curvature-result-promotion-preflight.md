@@ -26,7 +26,7 @@ reopen `LOCAL-CURVATURE-001` as a positive candidate.
 | --- | --- |
 | `docs/result-promotion-protocol.md` | Promotion-protocol authority. |
 | `docs/result-promotion-scorecard.md` | Required-scores list and verdict vocabulary. |
-| `tasks/TASK-0394-implement-nuclear-local-curvature-no-leakage-prototype.yaml` | No-leakage prototype task scope. |
+| `TASK-0394` | No-leakage prototype task scope. |
 | `docs/reviews/nuclear-local-curvature-no-leakage-prototype.md` | TASK-0394 falsification review. |
 | `agent_runs/AGENT-RUN-0039/metrics.json` | TASK-0394 prototype metrics + no-leakage contract block. |
 | `docs/reviews/nuclear-local-curvature-negative-control-expansion.md` | TASK-0397 expanded-controls review. |

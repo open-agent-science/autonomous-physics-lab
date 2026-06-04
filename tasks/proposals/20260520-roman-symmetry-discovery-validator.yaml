@@ -59,8 +59,8 @@ input:
   related_objects:
     - "docs/strategy.md"
     - "docs/future-research-portfolio.md"
-    - "tasks/TASK-0016-electromagnetic-invariance-mini-benchmark-planning.yaml"
-    - "tasks/TASK-0017-dimensional-analysis-challenge-set.yaml"
+    - "TASK-0016"
+    - "TASK-0017"
     - "docs/research-quality-gate.md"
   planning_context: >
     Define the methodology, benchmark set, and rediscovery-gating

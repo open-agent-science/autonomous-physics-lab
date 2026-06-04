@@ -33,10 +33,10 @@ input:
   mode: planning_only
   related_domain: particle_physics
   related_objects:
-    - "tasks/TASK-0037-reproduce-koide-charged-lepton-relation.yaml"
-    - "tasks/TASK-0038-historical-tau-holdout-prediction.yaml"
-    - "tasks/TASK-0036-particle-mass-dataset-scaffold.yaml"
-    - "tasks/TASK-0042-particle-mass-numerology-guardrails.yaml"
+    - "TASK-0037"
+    - "TASK-0038"
+    - "TASK-0036"
+    - "TASK-0042"
     - "docs/notes/particle-mass-relation-track.md"
     - "physics_lab/schemas/experiment.schema.json"
     - "physics_lab/schemas/example_config.schema.json"

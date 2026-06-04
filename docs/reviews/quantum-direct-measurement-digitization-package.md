@@ -24,7 +24,7 @@ promote a claim, result, or knowledge artifact.
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0325-prepare-quantum-direct-measurement-digitization-package.yaml`
+- `TASK-0325`
 - `docs/campaigns/quantum-size-effects.md`
 - `docs/reviews/quantum-direct-measurement-source-triage.md`
 - `docs/reviews/quantum-size-direct-band-edge-seed-review.md`

@@ -73,7 +73,7 @@ not.
 Start here:
 
 - [Thought-Experiment Consistency Suite](../notes/thought-experiment-consistency-suite.md)
-- [TASK-0028](../../tasks/TASK-0028-light-clock-consistency-check-planning.yaml)
+- TASK-0028
 
 ## Open Questions
 

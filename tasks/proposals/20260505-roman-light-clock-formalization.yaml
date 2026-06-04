@@ -31,7 +31,7 @@ input:
   mode: planning_only
   related_domain: relativity
   related_objects:
-    - "tasks/TASK-0028-light-clock-consistency-check-planning.yaml"
+    - "TASK-0028"
     - "docs/notes/light-clock-consistency-check.md"
     - "docs/campaigns/thought-experiment-consistency.md"
   planning_context: >

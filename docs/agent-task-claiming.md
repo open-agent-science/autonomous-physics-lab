@@ -210,7 +210,7 @@ the lifecycle status.
 
 ```text
 Task ID: TASK-0483
-Task file: tasks/TASK-0483-run-exoplanet-null-baseline-family-audit.yaml
+Task file: TASK-0483
 Contributor / agent: roman / codex
 Branch: agent/roman/codex/task-0483-exoplanet-null-baselines
 Write surfaces:

@@ -179,7 +179,7 @@ No generated-board behavior is changed by this decision task itself.
 
 - `tasks/proposals/20260530-roman-decouple-generated-board-files.yaml` — the
   proposal that asked this question (accepted as TASK-0470).
-- `tasks/TASK-0466-reduce-agent-flow-friction-in-protocol-tooling.yaml` — fixed
+- `TASK-0466` — fixed
   F1/F2 symptoms.
 - `.github/workflows/sync-active-board.yml` — the post-merge regenerator.
 - `physics_lab/registry/repository.py` — board-staleness severity logic.

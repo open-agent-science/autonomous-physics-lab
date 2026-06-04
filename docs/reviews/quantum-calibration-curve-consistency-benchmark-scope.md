@@ -26,7 +26,7 @@ Inputs reviewed:
 - `docs/campaigns/quantum-size-effects.md`
 - `data/quantum_dots/source_manifest.yaml`
 - `data/quantum_dots/README.md`
-- `tasks/TASK-0326-decide-quantum-calibration-consistency-waiver.yaml`
+- `TASK-0326`
 
 No new numerical rows were added. No baseline model was fit. No result,
 claim, or knowledge artifact was promoted.

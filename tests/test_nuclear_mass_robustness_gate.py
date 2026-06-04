@@ -4,6 +4,8 @@ from pathlib import Path
 
 import yaml
 
+from physics_lab.registry.task_discovery import find_task_file
+
 
 def _repo_root() -> Path:
     return Path(__file__).resolve().parent.parent
@@ -30,7 +32,7 @@ def test_nuclear_robustness_gate_defines_required_checks() -> None:
 
 
 def test_second_nuclear_batch_remains_archived_behind_robustness_gate() -> None:
-    task_path = _repo_root() / "tasks" / "TASK-0178-run-second-nuclear-mass-sandbox-batch.yaml"
+    task_path = find_task_file(_repo_root(), "TASK-0178")
     payload = yaml.safe_load(task_path.read_text(encoding="utf-8"))
     requirements = "\n".join(payload["requirements"])
     accepted_outputs = "\n".join(payload["accepted_outputs"])
