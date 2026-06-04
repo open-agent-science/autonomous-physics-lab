@@ -49,6 +49,9 @@ from typing import Any
 import yaml
 
 
+YAML_LOADER = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+
+
 # ---------------------------------------------------------------------------
 # Canonical class buckets (mirror the schema enums).
 # ---------------------------------------------------------------------------
@@ -208,7 +211,7 @@ def load_exoplanet_snapshot(path: Path) -> dict[str, Any]:
 
     path = Path(path)
     with path.open("r", encoding="utf-8") as fh:
-        payload = yaml.safe_load(fh)
+        payload = yaml.load(fh, Loader=YAML_LOADER)
     if not isinstance(payload, dict):
         raise ValueError(f"Expected mapping at top of {path}")
     entries = payload.get("entries")

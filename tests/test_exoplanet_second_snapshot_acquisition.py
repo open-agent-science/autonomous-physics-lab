@@ -25,7 +25,7 @@ pytestmark = [
 MANIFEST_PATH = ROOT / "data" / "exoplanets" / "second_snapshot_manifest.yaml"
 SNAPSHOT_PATH = ROOT / "data" / "exoplanets" / "exo-0002-pscomppars-snapshot.yaml"
 QUERY_PATH = ROOT / "data" / "exoplanets" / "snapshot_plans" / "pscomppars_query.adql"
-EXPECTED_QUERY_SHA256 = "4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4"
+EXPECTED_QUERY_SHA256 = "28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8"
 
 
 def _sha256(path: Path) -> str:
@@ -41,12 +41,6 @@ def _sha256_lf_text(path: Path) -> str:
     return hashlib.sha256(text.replace("\r\n", "\n").encode("utf-8")).hexdigest()
 
 
-def _sha256_crlf_text(path: Path) -> str:
-    text = path.read_text(encoding="utf-8")
-    lf_text = text.replace("\r\n", "\n")
-    return hashlib.sha256(lf_text.replace("\n", "\r\n").encode("utf-8")).hexdigest()
-
-
 def _load_yaml(path: Path) -> dict:
     with path.open("r", encoding="utf-8") as fh:
         payload = yaml.safe_load(fh)
@@ -55,7 +49,7 @@ def _load_yaml(path: Path) -> dict:
 
 
 def test_second_snapshot_query_contract_remains_frozen() -> None:
-    assert _sha256_crlf_text(QUERY_PATH) == EXPECTED_QUERY_SHA256
+    assert _sha256_lf_text(QUERY_PATH) == EXPECTED_QUERY_SHA256
 
 
 def test_second_snapshot_manifest_records_acquisition_without_scoring() -> None:

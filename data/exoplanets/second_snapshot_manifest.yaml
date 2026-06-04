@@ -26,7 +26,7 @@ source:
   archive_homepage: https://exoplanetarchive.ipac.caltech.edu/
   documentation: https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html
   query_contract_path: data/exoplanets/snapshot_plans/pscomppars_query.adql
-  query_contract_sha256: 4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4
+  query_contract_sha256: 28b8baf9f14e4ba544658fccbad5ef1271a21f91228afe8afff4db968512acf8
   first_snapshot_reference: data/exoplanets/exo-0001-pscomppars-snapshot.yaml
   source_manifest_reference: data/exoplanets/source_manifest.yaml
 selected_fields:
