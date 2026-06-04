@@ -1,4 +1,4 @@
-"""The repository task loader is archive-aware (TASK-0574).
+"""The repository task loader is archive-aware (TASK-0575).
 
 Making `_load_directory(root, "tasks")` use the shared discovery helper means
 validate-repo, the task-id uniqueness check, and scientific-memory-integrity all
