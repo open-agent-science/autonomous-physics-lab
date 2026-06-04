@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.tasks import load_task
 
 
@@ -52,7 +53,7 @@ class TaskBoardEntry:
 def load_board_entries(root: Path) -> tuple[TaskBoardEntry, ...]:
     """Load all canonical task files as compact board entries."""
     entries: list[TaskBoardEntry] = []
-    for path in sorted((root / "tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    for path in iter_canonical_task_files(root):
         payload = load_task(path)
         status = STATUS_ALIASES.get(str(payload["status"]), str(payload["status"]))
         entries.append(

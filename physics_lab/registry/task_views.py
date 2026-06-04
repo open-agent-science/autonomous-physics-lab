@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.tasks import load_task
 
 
@@ -85,7 +86,7 @@ class TaskViewEntry:
 def load_task_view_entries(root: Path) -> tuple[TaskViewEntry, ...]:
     """Load canonical task files as view-ready entries."""
     entries: list[TaskViewEntry] = []
-    for path in sorted((root / "tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    for path in iter_canonical_task_files(root):
         payload = load_task(path)
         status = str(payload["status"])
         input_payload = payload.get("input", {})

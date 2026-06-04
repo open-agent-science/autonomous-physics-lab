@@ -26,6 +26,7 @@ from typing import Any
 import yaml
 
 from physics_lab.registry.campaigns import campaign_catalog_path
+from physics_lab.registry.task_discovery import iter_canonical_task_files
 
 ACTIVE_STATUSES = ("READY", "IN_PROGRESS", "REVIEW_READY", "BLOCKED")
 
@@ -170,7 +171,7 @@ def is_parallel_safe(surfaces: tuple[str, ...]) -> bool:
 
 def _iter_active_tasks(root: Path) -> list[tuple[str, dict[str, Any]]]:
     rows: list[tuple[int, str, dict[str, Any]]] = []
-    for path in sorted((root / "tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    for path in iter_canonical_task_files(root):
         payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
         if str(payload.get("status")) not in ACTIVE_STATUSES:
             continue

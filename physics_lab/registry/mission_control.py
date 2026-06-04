@@ -20,6 +20,7 @@ from physics_lab.registry.pr_capability import (
     find_gh_path,
     suspicious_proxy_env_names,
 )
+from physics_lab.registry.task_discovery import iter_canonical_task_files
 from physics_lab.registry.tasks import load_task
 
 
@@ -434,7 +435,7 @@ def ready_science_pool_health(
     """
     ready_science_task_ids: list[str] = []
     surface_counts: Counter[str] = Counter()
-    for path in sorted((root / "tasks").glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")):
+    for path in iter_canonical_task_files(root):
         payload = load_task(path)
         if str(payload.get("status")) != "READY":
             continue
