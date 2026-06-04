@@ -12,6 +12,7 @@ from physics_lab.registry.active_board import STATUS_SECTION_ORDER, load_board_e
 from physics_lab.registry.campaign_scorecard import build_scorecard
 from physics_lab.registry.experiments import load_experiment
 from physics_lab.registry.results import load_result
+from physics_lab.registry.task_discovery import find_task_files
 
 
 @dataclass(frozen=True)
@@ -604,7 +605,7 @@ def _result_review_tier_counts(root: Path) -> dict[str, int]:
 
 
 def _load_task_payload(root: Path, task_id: str) -> dict:
-    matches = sorted((root / "tasks").glob(f"{task_id}-*.yaml"))
+    matches = find_task_files(root, task_id)
     if not matches:
         return {}
     return _load_yaml(matches[0])

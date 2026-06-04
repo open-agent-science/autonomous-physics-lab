@@ -22,6 +22,7 @@ from physics_lab.registry.review_git import (
     parse_added_lines,  # noqa: F401 — re-exported; tests import from here
 )
 from physics_lab.registry.generated_state import sync_generated_task_state
+from physics_lab.registry.task_discovery import find_task_files
 from physics_lab.registry.review_checks import (
     line_is_rule_catalog_line,  # noqa: F401 — re-exported
     load_claim_status_from_ref,  # noqa: F401 — re-exported; tests import from here
@@ -232,7 +233,7 @@ class CloseoutReport:
 
 def resolve_task_file(root: Path, task_id: str) -> Path:
     """Resolve a task id to its unique task file."""
-    matches = sorted((root / "tasks").glob(f"{task_id}-*.yaml"))
+    matches = find_task_files(root, task_id)
     if not matches:
         raise FileNotFoundError(f"No task file found for {task_id}")
     if len(matches) > 1:

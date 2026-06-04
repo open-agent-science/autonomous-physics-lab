@@ -1,0 +1,54 @@
+id: TASK-0572
+title: "Route find-task-by-id call sites through the archive-aware helper"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make the find-one-by-id call sites archive-aware so closeout, review, snapshot, and conveyor keep resolving tasks after the future archive move."
+  - "Centralize task-file lookup on the shared helper instead of hardcoded flat globs."
+  - "Stay behavior-neutral on the current flat tree (no task files moved)."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "physics_lab/registry/task_discovery.py"
+    - "docs/task-archive-migration-plan.md"
+  planning_context: >
+    Increment PR-1b-1 of the task-archive migration plan (TASK-0559), building on
+    the helper shipped in TASK-0571. Replaces the
+    `sorted((root / "tasks").glob(f"{task_id}-*.yaml"))` idiom (and one
+    `next(... .glob(...))`) in the in-package find-one-by-id call sites with
+    `find_task_files` / `find_task_file`, which resolve a task whether it is flat
+    under tasks/ or in a future tasks/archive/<bucket>/. Each substitution keeps
+    the existing downstream logic and error messages, so behavior on the current
+    flat tree is unchanged. A new plural `find_task_files` helper preserves the
+    "expected exactly one" / "multiple found" diagnostics. scripts/auto_run_next_task.py
+    is intentionally not migrated here: it only resolves the next active task
+    (never archived) and migrating it would add a package-import change; it is
+    tracked for a later scripts pass. The enumerate-all call sites are PR-1b-2.
+
+requirements:
+  - "Add find_task_files(repo_root, task_id) -> list[Path] to physics_lab/registry/task_discovery.py and implement find_task_file in terms of it."
+  - "Route artifacts.task_path, task_validation_plan, maintainer_review.resolve_task_file, task_claim_issues.load_task_status, task_closeout.find_task_file, snapshot._load_task_payload, and science_output_conveyor through the helper."
+  - "Preserve each call site's existing uniqueness diagnostics and behavior on the flat tree (parity)."
+  - "Do not move any task files; do not migrate enumerate-all call sites or scripts in this PR."
+
+accepted_outputs:
+  - "physics_lab/registry/task_discovery.py (find_task_files added)"
+  - "7 in-package find-by-id call sites routed through the helper"
+  - "tests/test_task_discovery.py (find_task_files + archived-resolution coverage)"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_discovery.py tests/test_task_closeout.py tests/test_maintainer_review.py tests/test_task_validation_plan.py tests/test_snapshot.py tests/test_science_output_conveyor.py tests/test_task_claim_issues.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
