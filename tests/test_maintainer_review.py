@@ -1743,6 +1743,53 @@ def test_build_review_report_task_queue_wrong_title_needs_changes(
     assert report.blockers == ()
 
 
+def test_build_review_report_redirects_queue_shaped_canonical_pr(
+    tmp_path: Path,
+) -> None:
+    tasks_dir = tmp_path / "tasks"
+    tasks_dir.mkdir(parents=True)
+    _write_review_task(tmp_path, "TASK-0999", status="READY", slug="future-coverage-audit")
+    branch = "agent/roman/codex/task-0999-coverage-audit"
+    changed = ("tasks/TASK-0999-future-coverage-audit.yaml",)
+    pr_metadata = PullRequestMetadata(
+        number=176,
+        title="TASK-0999: Add coverage audit task",
+        body=_full_pr_body(
+            task_ref="TASK-0999",
+            branch=branch,
+            kind="Canonical task PR",
+            primary_reference="- Task ID: `TASK-0999`",
+        ),
+        branch=branch,
+        base_branch="main",
+        state="OPEN",
+        merged=False,
+        status_checks_passed=True,
+        status_checks_pending=False,
+        changed_files=changed,
+    )
+
+    with (
+        patch("physics_lab.registry.maintainer_review.current_branch", return_value=branch),
+        patch("physics_lab.registry.maintainer_review.local_branch_exists", return_value=True),
+        patch("physics_lab.registry.maintainer_review.changed_files_vs_main", return_value=changed),
+        patch("physics_lab.registry.maintainer_review.git_status_clean", return_value=True),
+        patch("physics_lab.registry.maintainer_review.load_pr_metadata", return_value=pr_metadata),
+        patch("physics_lab.registry.maintainer_review.run_command", return_value=_EMPTY_DIFF),
+        patch("physics_lab.registry.maintainer_review.ensure_review_bundle", return_value=(None, "present")),
+        patch(
+            "physics_lab.registry.maintainer_review.run_task_validation",
+            return_value=ValidationSummary(status="pass", failed_commands=()),
+        ),
+    ):
+        report = build_review_report(tmp_path, pull_request=176)
+
+    assert report.verdict == "NEEDS_CHANGES"
+    assert any("TASK-QUEUE" in item for item in report.required_fixes)
+    assert not any("Set it to REVIEW_READY" in item for item in report.required_fixes)
+    assert report.blockers == ()
+
+
 def test_build_review_report_prefers_origin_main_as_diff_base_for_prs(tmp_path: Path) -> None:
     tasks_dir = tmp_path / "tasks"
     tasks_dir.mkdir(parents=True)

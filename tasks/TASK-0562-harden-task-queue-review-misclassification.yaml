@@ -1,0 +1,48 @@
+id: TASK-0562
+title: "Harden review helper against task-queue misclassification"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Prevent review tooling from pushing future queued tasks into execution lifecycle states."
+  - "Keep TASK-QUEUE PRs distinct from canonical task execution PRs."
+  - "Reduce maintainer-review regressions before public/open-agent onboarding."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "physics_lab/registry/maintainer_review.py"
+    - "tests/test_maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    A future-task queue PR was initially opened with canonical task PR shape.
+    The deterministic review helper then asked for the newly queued task to be
+    marked REVIEW_READY. Add a guardrail so queue-shaped PRs are redirected to
+    TASK-QUEUE protocol instead of receiving canonical execution lifecycle
+    advice.
+
+requirements:
+  - "Do not weaken canonical task PR lifecycle checks."
+  - "TASK-QUEUE PRs must continue to allow future tasks in PROPOSED, READY, or BLOCKED."
+  - "Canonical execution PRs must still require their task file to be REVIEW_READY before merge."
+  - "Add regression coverage for a misclassified future-task PR."
+
+accepted_outputs:
+  - "Review helper detects PRs that only add/update future task files in queue-allowed statuses and recommends TASK-QUEUE protocol."
+  - "Review helper does not recommend changing such future tasks to REVIEW_READY."
+  - "Regression test covering the misclassification path."
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_maintainer_review.py"
+    - "python3 -m ruff check physics_lab/registry/maintainer_review.py tests/test_maintainer_review.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
