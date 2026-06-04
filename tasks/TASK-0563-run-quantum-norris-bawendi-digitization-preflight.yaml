@@ -1,7 +1,7 @@
 id: TASK-0563
 title: "Run deterministic Quantum Norris-Bawendi digitization preflight"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 

@@ -49,11 +49,14 @@ against the publicly available source, not stand in for that source.
 
 ## Status
 
-This directory currently contains one blocker package and no row-producing
-digitisation artifact:
+This directory currently contains blocker/preflight packages and no
+row-producing digitisation artifact:
 
 - `jasieniak-2011-acs-nano-band-edge/README.md` records the TASK-0325
   access/evidence blocker for the Jasieniak 2011 band-edge source path.
+- `norris-bawendi-1996-prb-cdse-band-edge/` records the TASK-0563 deterministic
+  preflight templates and blocker state for the Norris-Bawendi 1996 CdSe
+  source path.
 
 The first row-producing artifact must still add source-specific
 `axis_calibration.csv`, `extracted_points.csv`, and extraction notes before
