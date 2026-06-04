@@ -131,6 +131,42 @@ the target is trivially computable for both writing and lookup. At the observed
 without coupling to dates. (Year-only is rejected: ~6000 tasks/year would refill
 the same noise.)
 
+## Findability: archiving must make past tasks *easier* to find
+
+Decluttering is only acceptable if it keeps historical tasks easy to locate —
+there are many cross-references to past task ids (`linked_objects.tasks`,
+"depends on TASK-XXXX", and plain-text mentions across docs/claims/results).
+Archiving must improve lookup, not bury it. Mechanisms (in priority order):
+
+1. **Deterministic location (the biggest win).** Because the bucket is a pure
+   function of the id (`id // 500`), any task's file lives at a *computable*
+   path: `tasks/archive/<lo>-<hi>/TASK-<id>-<slug>.yaml`. Finding `TASK-0559`
+   means looking in `tasks/archive/0500-0999/`. This is strictly easier than
+   scanning one flat directory of ~560 mixed-state files.
+2. **A resolver CLI (added in PR-1):** `python3 scripts/apl_task_path.py TASK-0559`
+   (and a `--open`/`--print` mode) wraps `find_task_file(root, id)` and returns
+   the path whether the task is active or archived. One command, layout-agnostic.
+   This is dynamic tooling, not a committed static index (respects the
+   static-index postmortem).
+3. **`git grep` / ripgrep stay whole-tree.** `git grep TASK-0559 -- tasks/`
+   finds the file and every reference regardless of bucket; nothing is hidden
+   from text search.
+4. **Reference integrity check.** The link/reference checker resolves task-id
+   mentions through the same recursive helper, so references to archived tasks
+   keep resolving and a reference to a *non-existent* id is flagged. Moving a
+   file never silently breaks a back-reference.
+5. **`tasks/archive/README.md` (added in PR-3):** documents the bucket scheme,
+   the `id // 500` rule, and the resolver command, so a human landing in the
+   archive immediately knows how to navigate.
+6. **Active surfaces stay focused.** Mission and task-views continue to show
+   only current work; historical lookup is via id (deterministic path), the
+   resolver CLI, or grep — the right tool for "find a specific past task"
+   instead of scrolling a 560-line board.
+
+Net effect: "find task by id" goes from "scan a flat directory / grep" to
+"computable path + one resolver command", while cross-references remain valid by
+construction.
+
 ## Cadence: deferred periodic sweep (never per-close)
 
 - **Closeout stays simple:** `apl_closeout_task.py` marks `DONE` in place; it
@@ -146,15 +182,18 @@ This avoids churn on every task close and keeps each archival batch auditable.
 
 ## Migration sequence (future PRs, after this preflight)
 
-1. **PR-1 (enabler):** add the shared `iter_canonical_task_files` /
-   `find_task_file` helper; route all ~15 call sites through it; keep files flat.
-   No behavior change (helper returns the same set on a flat tree). Ship the
+1. **PR-1 (enabler + findability):** add the shared `iter_canonical_task_files`
+   / `find_task_file` helper; route all ~15 call sites through it; keep files
+   flat. Add the `scripts/apl_task_path.py` resolver CLI (id -> path, active or
+   archived) and a reference-integrity check that flags mentions of non-existent
+   ids. No behavior change (helper returns the same set on a flat tree). Ship the
    preflight test from this task as the regression guard.
 2. **PR-2 (validation scoping):** make `validate-repo` apply full schema to
    active `tasks/*.yaml` and a minimal check to `tasks/archive/**`.
-3. **PR-3 (the move):** add `apl_archive_sweep.py`; run the first batch
-   (`git mv` terminal tasks into buckets); confirm id-uniqueness, by-id lookup,
-   links, mission/views, snapshot all still pass.
+3. **PR-3 (the move):** add `apl_archive_sweep.py`; add `tasks/archive/README.md`
+   (bucket scheme + resolver usage); run the first batch (`git mv` terminal tasks
+   into buckets); confirm id-uniqueness, by-id lookup, links, mission/views,
+   snapshot all still pass.
 4. **PR-4 (cadence):** document the threshold/monthly sweep in the closeout and
    maintainer-automation docs.
 
