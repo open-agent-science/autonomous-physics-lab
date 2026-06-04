@@ -1,0 +1,55 @@
+id: TASK-0571
+title: "Add archive-aware task discovery helper and resolver CLI"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Establish a single archive-aware discovery API so finding a past task is one command, before any task files move."
+  - "Make the future task-archive migration safe by centralizing task-file location instead of hardcoded flat globs."
+  - "Improve findability now (resolver CLI) without changing current behavior."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "docs/task-archive-migration-plan.md"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/task_views.py"
+  planning_context: >
+    First enabler step (PR-1) of the task-archive migration plan (TASK-0559).
+    Adds the shared, recursive, archive-aware discovery helper and a resolver CLI
+    that locates a task by id whether it is flat under tasks/ or in a future
+    tasks/archive/<bucket>/ directory. This PR is deliberately additive and
+    behavior-neutral: it does NOT move any task files and does NOT yet rewire the
+    ~15 existing flat-glob call sites (that migration, plus a reference-integrity
+    check, are tracked as the next increment so each PR stays reviewable). A
+    parity test demonstrates the helper returns the same set as today's flat
+    enumeration on the real repository.
+
+requirements:
+  - "Add physics_lab/registry/task_discovery.py with iter_canonical_task_files, find_task_file, and task_id_from_path (recursive, archive-aware, excluding TASK-TEMPLATE.yaml, proposals/, and microtasks/)."
+  - "Add scripts/apl_task_path.py resolver CLI (id -> path, active or archived; accepts bare numbers; --list mode)."
+  - "Add tests covering parity with the current flat enumeration, flat+archive discovery, non-canonical exclusion, find-by-id, id-uniqueness scan, and a CLI smoke."
+  - "Do not move any task files and do not change current discovery behavior (parity-verified)."
+  - "Consolidate the earlier inline preflight test into the module-level test."
+
+accepted_outputs:
+  - "physics_lab/registry/task_discovery.py"
+  - "scripts/apl_task_path.py"
+  - "tests/test_task_discovery.py"
+  - "docs/task-archive-migration-plan.md (test/CLI references updated)"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_discovery.py tests/test_docs_links.py"
+    - "python3 scripts/apl_task_path.py TASK-0559 --root ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
