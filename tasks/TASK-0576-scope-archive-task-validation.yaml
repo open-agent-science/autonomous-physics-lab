@@ -1,7 +1,7 @@
 id: TASK-0576
 title: "Scope task validation: full schema on active, minimal on archive"
 type: research_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
