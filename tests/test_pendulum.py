@@ -647,10 +647,12 @@ def test_validate_repository_smoke(tmp_path: Path) -> None:
         output_dir=tmp_path / "apl-pendulum-repo-validate",
     )
     summary = validate_repository(repo_root)
+    # Archive-aware: canonical tasks live flat under tasks/ or in
+    # tasks/archive/<bucket>/, so count recursively to match the loader.
     expected_task_count = len(
         [
             path
-            for path in (repo_root / "tasks").glob("TASK-*.yaml")
+            for path in (repo_root / "tasks").rglob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")
             if path.name != "TASK-TEMPLATE.yaml"
         ]
     )

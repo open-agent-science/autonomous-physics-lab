@@ -558,7 +558,7 @@ def write_agent_run_support_files(metrics: dict[str, Any], run_dir: Path) -> Non
         "",
         "## Inputs Checked",
         "",
-        "- `tasks/TASK-0476-run-nuclear-isotope-chain-leave-family-out-audit.yaml`",
+        "- `TASK-0476`",
         "- `agent_runs/AGENT-RUN-0018/metrics.json`",
         "- `agent_runs/AGENT-RUN-0020/metrics.json`",
         "- `agent_runs/AGENT-RUN-0021/metrics.json`",
