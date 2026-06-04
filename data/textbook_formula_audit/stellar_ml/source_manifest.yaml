@@ -1,0 +1,119 @@
+manifest_version: "1"
+campaign_id: textbook-formula-audit
+surface_id: stellar-mass-luminosity
+task_id: TASK-0564
+status: metadata_only_acquisition_package
+created_by:
+  contributor_id: roman
+  agent_id: codex
+live_external_fetch_allowed: false
+live_fetch_performed: false
+no_values_recorded_here: true
+
+baseline_convention:
+  formula: "L / L_sun = (M / M_sun)^alpha"
+  frozen_alpha_for_first_audit: 3.5
+  primary_audit_mass_range_solar:
+    min: 0.5
+    max: 2.0
+  boundary_status: planning_frozen_before_source_acquisition
+  notes:
+    - "No exponent fitting or residual inspection is authorized by this manifest."
+    - "Rows outside the first audit range are excluded or diagnostic, not formula failures."
+
+candidate_sources:
+  - source_id: gaia-dr3-archive
+    title: "Gaia Data Release 3 archive"
+    provider: "ESA Gaia Archive"
+    candidate_role: astrometry_photometry_and_derived_luminosity_context
+    locator_shape: "Pinned ADQL query against reviewed Gaia DR3 archive tables such as gaiadr3.gaia_source and DR3 astrophysical-parameter tables."
+    acquisition_lane: T4_snapshot_approval
+    blocker_type: T4_snapshot_approval
+    license_status: to_be_verified_before_fetch
+    redistribution_decision: metadata_only_until_snapshot_approved
+    checksum_policy: sha256_raw_and_normalized_artifacts
+    value_bearing_artifact_committed: false
+    selected_field_groups:
+      identity:
+        - source_id
+        - source_table
+        - source_version
+        - source_row_id
+        - source_locator
+      astrometry_photometry:
+        - parallax_mas
+        - parallax_uncertainty_mas
+        - photometric_band
+        - magnitude_or_flux
+        - extinction_correction_notes
+      stellar_context:
+        - effective_temperature_k
+        - radius_solar
+        - luminosity_solar
+        - evolutionary_class_source
+        - multiplicity_flag
+    row_class_policy:
+      direct_observation: "Allowed only for directly observed/source-reported quantities with provenance and uncertainty semantics."
+      derived_luminosity: "Allowed as a separate row class when luminosity is computed from pinned inputs and conversion notes."
+      model_derived_mass: "Diagnostic or excluded unless a later task explicitly accepts model-derived mass rows."
+      excluded: "Required for rows outside mass range, non-main-sequence rows, unresolved multiples, or missing provenance."
+    notes:
+      - "Gaia-derived mass/luminosity fields, if used, must not be silently treated as direct measurements."
+
+  - source_id: literature-benchmark-stars
+    title: "Reviewed literature benchmark-star or eclipsing-binary source set"
+    provider: "DOI/VizieR/source-catalog records to be selected in a later acquisition task"
+    candidate_role: dynamical_mass_and_luminosity_anchor_candidates
+    locator_shape: "Exact DOI, VizieR catalog id, or source artifact path once a maintainer-approved source is selected."
+    acquisition_lane: T1_access
+    blocker_type: T1_access
+    license_status: unknown_until_source_review
+    redistribution_decision: metadata_only_until_license_review
+    checksum_policy: sha256_if_artifact_is_committable
+    value_bearing_artifact_committed: false
+    selected_field_groups:
+      identity:
+        - star_name
+        - source_row_id
+        - source_locator
+      stellar_values:
+        - mass_solar
+        - mass_uncertainty
+        - luminosity_solar
+        - luminosity_uncertainty
+        - spectral_type
+        - main_sequence_flag
+      provenance:
+        - mass_provenance_class
+        - luminosity_provenance_class
+        - uncertainty_semantics
+        - citation
+        - license_note
+    row_class_policy:
+      direct_observation: "Allowed for dynamical masses or directly reported luminosities when source provenance is clear."
+      derived_luminosity: "Allowed only with conversion notes and uncertainty semantics."
+      model_derived_mass: "Excluded from the primary empirical slice unless separately approved."
+      excluded: "Required when license, multiplicity, class, uncertainty, or range gates fail."
+
+planned_normalized_surface:
+  path_shape: "data/textbook_formula_audit/stellar_ml/<snapshot-id>.yaml"
+  schema_status: deferred_to_row_curation_task
+  row_roles:
+    - direct_observation
+    - derived_luminosity
+    - model_derived_mass
+    - holdout
+    - excluded
+  holdout_policy:
+    status: predeclared_required_before_metrics
+    no_peek_requirement: true
+    forbidden_after_holdout_inspection:
+      - exponent_fitting
+      - mass_range_tuning
+      - exclusion_rule_tuning
+      - residual_metric_selection
+
+global_limitations:
+  - "This manifest records a source-acquisition package only; it contains no stellar rows or values."
+  - "Future source acquisition must fill source version, retrieval timestamp, row count, checksums, license, attribution, and no-peek attestation."
+  - "No empirical validation, falsification, universal-law claim, prediction, result, or knowledge artifact is produced here."
