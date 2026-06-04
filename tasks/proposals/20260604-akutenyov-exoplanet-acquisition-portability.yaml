@@ -1,0 +1,58 @@
+proposal_id: 20260604-akutenyov-exoplanet-acquisition-portability
+title: Harden Exoplanet source-acquisition portability checks
+status: PROPOSED
+type: workflow_hardening
+priority: medium
+proposed_by:
+  contributor_id: akutenyov
+  agent_id: codex
+strategy_alignment:
+- Reduce repeat failures in source-acquisition tasks before additional Exoplanet reopen or
+  benchmark gates.
+- Keep workflow hardening separate from scientific scoring, predictions, claims, and knowledge
+  promotion.
+summary: Propose a narrow hardening task for source-acquisition portability issues exposed
+  by TASK-0565, including LF-canonical text checksums, safe YAML loading patterns, and PR
+  helper behavior under Codex worktree safe-directory constraints.
+rationale: 'TASK-0565 completed scientifically, but execution exposed repeatable portability
+  and review-flow failures: Windows/Linux line-ending checksum drift, large YAML load timeout
+  risk, security-pattern false positives around YAML loading, and helper failures caused by
+  Git safe.directory ownership checks. A focused follow-up task would prevent these issues
+  from recurring in future source-acquisition PRs without changing scientific metrics or claims.'
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+  - TASK-0565
+  - data/exoplanets/second_snapshot_manifest.yaml
+  - data/exoplanets/snapshot_plans/pscomppars_query.adql
+  - scripts/acquire_exoplanet_second_snapshot.py
+  - scripts/apl_task_pr_helper.py
+  - scripts/apl_review_pr.py
+  - physics_lab/datasets/exoplanets.py
+  - docs/runbooks/exoplanet-second-snapshot-acquisition-runbook.md
+  planning_context: Post-TASK-0565 source acquisition follow-up. The future task should harden
+    workflow and tests only; it must not fetch new data, run residual metrics, alter prediction
+    registry entries, or promote claims/knowledge.
+requirements:
+- Define and document a single LF-canonical checksum rule for text artifacts while preserving
+  raw byte checksums for raw source files.
+- Add or update tests that exercise Windows/Linux checksum parity for query contracts and
+  normalized YAML source artifacts.
+- Keep YAML parsing on safe loaders and avoid code patterns that PR review tooling flags as
+  unsafe.
+- Audit PR helper/review helper behavior under Codex safe.directory ownership constraints
+  and document or implement a narrow workaround.
+- Do not fetch new source data, compute residual metrics, score targets, write predictions,
+  promote claims, or promote knowledge.
+accepted_outputs:
+- Updated source-acquisition checksum documentation or runbook notes.
+- Focused portability tests for LF-canonical text checksums and committed source artifacts.
+- Safe YAML loader implementation or review-rule adjustment, if needed.
+- Narrow PR helper/review helper safe-directory handling improvement or documented maintainer
+  workaround.
+- Validation evidence showing proposal implementation does not change scientific outputs.
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
