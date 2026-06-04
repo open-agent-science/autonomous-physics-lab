@@ -105,20 +105,23 @@ def test_synthetic_fixture_checksum_replay_is_deterministic_for_dry_run() -> Non
     assert all(char in "0123456789abcdef" for char in first)
 
 
-def test_second_snapshot_manifest_is_metadata_only_acquisition_shape() -> None:
+def test_second_snapshot_manifest_records_second_acquisition_without_scoring() -> None:
     manifest = _load_yaml(SECOND_SNAPSHOT_MANIFEST)
 
-    assert manifest["status"] == "metadata_only_acquisition_package"
-    assert manifest["scope"]["live_fetch_performed"] is False
-    assert manifest["scope"]["future_data_values_included"] is False
-    assert manifest["scope"]["raw_snapshot_committed"] is False
-    assert manifest["scope"]["normalized_snapshot_committed"] is False
+    assert manifest["status"] == "pinned_snapshot_acquired"
+    assert manifest["scope"]["live_fetch_performed"] is True
+    assert manifest["scope"]["future_data_values_included"] is True
+    assert manifest["scope"]["raw_snapshot_committed"] is True
+    assert manifest["scope"]["normalized_snapshot_committed"] is True
     assert manifest["scope"]["benchmark_allowed"] is False
+    assert manifest["scope"]["prediction_registry_allowed"] is False
+    assert manifest["scope"]["claim_promotion_allowed"] is False
+    assert manifest["scope"]["result_artifact_allowed"] is False
     assert manifest["source"]["query_contract_sha256"] == (
         "4364d83855a19cfc638f733b4aea32c1873af9b78338f0b84a9b25f51e0de3e4"
     )
-    assert manifest["checksum_policy"]["raw_checksum_sha256"] is None
-    assert manifest["planned_acquisition"]["retrieval_timestamp_utc"] is None
+    assert isinstance(manifest["checksum_policy"]["raw_checksum_sha256"], str)
+    assert isinstance(manifest["planned_acquisition"]["retrieval_timestamp_utc"], str)
     assert set(manifest["row_class_rules"]["preserve_separate_states"]) == {
         "true_mass_transit_radius",
         "minimum_mass_transit_radius",
