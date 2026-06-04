@@ -26,12 +26,17 @@ def _write_campaign_profile(root: Path) -> None:
     )
 
 
-def _write_hypothesis_proposal(path: Path, *, baseline: str = "exact reference baseline") -> None:
+def _write_hypothesis_proposal(
+    path: Path,
+    *,
+    proposal_id: str = "HYP-PROPOSAL-0001",
+    baseline: str = "exact reference baseline",
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         textwrap.dedent(
             f"""\
-            id: HYP-PROPOSAL-0001
+            id: {proposal_id}
             title: "Sandbox pendulum candidate"
             campaign_profile_id: pendulum-formula-falsification
             proposal_kind: formula_search
@@ -91,12 +96,16 @@ def _write_hypothesis_proposal(path: Path, *, baseline: str = "exact reference b
     )
 
 
-def _write_experiment_proposal(path: Path) -> None:
+def _write_experiment_proposal(
+    path: Path,
+    *,
+    proposal_id: str = "EXP-PROPOSAL-0001",
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         textwrap.dedent(
-            """\
-            id: EXP-PROPOSAL-0001
+            f"""\
+            id: {proposal_id}
             title: "Sandbox pendulum candidate check"
             campaign_profile_id: pendulum-formula-falsification
             proposal_kind: formula_search
@@ -226,6 +235,62 @@ def test_validate_repository_counts_nested_campaign_research_proposals(tmp_path:
 
     assert summary.counts["hypothesis_proposals"] == 1
     assert summary.counts["experiment_proposals"] == 1
+
+
+def test_validate_repository_reports_duplicate_research_proposal_ids_as_info(tmp_path: Path) -> None:
+    _write_campaign_profile(tmp_path)
+    _write_hypothesis_proposal(
+        tmp_path / "hypothesis_proposals" / "nuclear-mass" / "HYP-PROPOSAL-0049-a.yaml",
+        proposal_id="HYP-PROPOSAL-0049",
+    )
+    _write_hypothesis_proposal(
+        tmp_path / "hypothesis_proposals" / "exoplanet-mass" / "HYP-PROPOSAL-0049-b.yaml",
+        proposal_id="HYP-PROPOSAL-0049",
+    )
+    _write_experiment_proposal(
+        tmp_path / "experiment_proposals" / "nuclear-mass" / "EXP-PROPOSAL-0015-a.yaml",
+        proposal_id="EXP-PROPOSAL-0015",
+    )
+    _write_experiment_proposal(
+        tmp_path / "experiment_proposals" / "exoplanet-mass" / "EXP-PROPOSAL-0015-b.yaml",
+        proposal_id="EXP-PROPOSAL-0015",
+    )
+
+    summary = validate_repository(tmp_path, strict=True)
+    duplicate_issues = [
+        issue for issue in summary.issues if issue.code == "duplicate_research_proposal_id"
+    ]
+
+    assert len(duplicate_issues) == 2
+    assert {issue.severity for issue in duplicate_issues} == {"INFO"}
+    assert any("HYP-PROPOSAL-0049" in issue.message for issue in duplicate_issues)
+    assert any("EXP-PROPOSAL-0015" in issue.message for issue in duplicate_issues)
+    assert summary.warning_count == 0
+
+
+def test_duplicate_research_proposal_ids_can_be_escalated_to_error(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("APL_ENFORCE_RESEARCH_PROPOSAL_ID_UNIQUENESS", "1")
+    _write_campaign_profile(tmp_path)
+    _write_hypothesis_proposal(
+        tmp_path / "hypothesis_proposals" / "nuclear-mass" / "HYP-PROPOSAL-0049-a.yaml",
+        proposal_id="HYP-PROPOSAL-0049",
+    )
+    _write_hypothesis_proposal(
+        tmp_path / "hypothesis_proposals" / "exoplanet-mass" / "HYP-PROPOSAL-0049-b.yaml",
+        proposal_id="HYP-PROPOSAL-0049",
+    )
+
+    summary = validate_repository(tmp_path, strict=True)
+
+    assert any(
+        issue.code == "duplicate_research_proposal_id"
+        and issue.severity == "ERROR"
+        and "HYP-PROPOSAL-0049" in issue.message
+        for issue in summary.issues
+    )
 
 
 def test_infer_kind_from_research_proposal_paths() -> None:
