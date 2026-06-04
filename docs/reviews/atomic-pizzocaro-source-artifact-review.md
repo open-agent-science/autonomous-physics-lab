@@ -14,7 +14,7 @@ fit drift, create predictions, promote claims, or mark `TASK-0456` unblocked.
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0542-pin-atomic-pizzocaro-source-artifact.yaml`
+- `TASK-0542`
 - `docs/reviews/atomic-second-source-yb-sr-row-gate.md`
 - `data/atomic_clocks/source_manifest.yaml`
 - `docs/fresh-data-intake-protocol.md`
