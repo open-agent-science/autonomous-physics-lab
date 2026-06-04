@@ -1,0 +1,53 @@
+id: TASK-0573
+title: "Route enumerate-all task call sites through the archive-aware helper"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make the enumerate-all task consumers archive-aware so full-set logic (proposal dedup, status maps) keeps working after the future archive move."
+  - "Decouple 'which tasks exist' from 'where the file sits' so active-only views exclude history by status, not by directory location."
+  - "Stay behavior-neutral on the current flat tree (no task files moved)."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "physics_lab/registry/task_discovery.py"
+    - "docs/task-archive-migration-plan.md"
+  planning_context: >
+    Increment PR-1b-2 of the task-archive migration plan (TASK-0559), after the
+    find-one-by-id migration (TASK-0572). Replaces the flat
+    `glob("TASK-[0-9][0-9][0-9][0-9]-*.yaml")` enumerate-all idiom with
+    `iter_canonical_task_files(root)` in the six in-package enumerate-all call
+    sites. The canonical 4-digit pattern is identical to the helper's, so on the
+    current flat tree the set is unchanged (parity). The migration matters most
+    for full-set consumers (proposal_triage dedup index and mission_freshness
+    status map), which would silently drop archived tasks after the move; the
+    active-only consumers (active_board, task_views, mission_control,
+    task_campaign_index) already filter by status, so they stay correct and the
+    change is consistency hygiene. The `TASK-*.yaml` enumerate sites
+    (task_unblock, closeout_sweep, snapshot existence check) and
+    scripts/auto_run_next_task.py are out of scope here (different pattern /
+    template-inclusion semantics) and tracked separately.
+
+requirements:
+  - "Replace flat enumerate-all globs with iter_canonical_task_files(root) in active_board, task_views, mission_control, mission_freshness, task_campaign_index, and proposal_triage (both loops)."
+  - "Preserve each site's status filtering and downstream logic (parity on the flat tree)."
+  - "Do not move any task files; do not migrate the TASK-*.yaml enumerate sites or scripts in this PR."
+
+accepted_outputs:
+  - "six in-package enumerate-all call sites routed through iter_canonical_task_files"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_active_board.py tests/test_task_views.py tests/test_mission_control.py tests/test_mission_freshness.py tests/test_task_campaign_index.py tests/test_proposal_triage.py tests/test_task_discovery.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
