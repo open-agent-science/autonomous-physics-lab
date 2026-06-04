@@ -1,7 +1,7 @@
 id: TASK-0577
 title: "Adopt id-only task reference convention (drop task paths in prose)"
 type: research_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
