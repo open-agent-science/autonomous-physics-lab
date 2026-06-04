@@ -1,7 +1,7 @@
 id: TASK-0565
 title: "Run Exoplanet second-snapshot source acquisition"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
