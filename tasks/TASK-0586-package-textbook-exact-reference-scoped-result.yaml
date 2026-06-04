@@ -1,0 +1,51 @@
+id: TASK-0586
+title: "Package Textbook exact-reference scoped result"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn exact-reference fixture evidence into canonical memory only if routing gates allow it."
+  - "Exercise the public verifier lane without making empirical formula claims."
+  - "Keep software-result scope separate from real-world validation."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0568-package-textbook-exact-reference-result-preflight.yaml"
+    - "docs/reviews/textbook-exact-reference-fixture-result-preflight.md"
+    - "docs/reviews/textbook-stefan-boltzmann-exact-reference-fixture.md"
+    - "docs/reviews/textbook-wien-displacement-exact-reference-fixture.md"
+  planning_context: >
+    TASK-0568 completed the exact-reference preflight. If that review says the
+    fixtures clear Gate A for a scoped software/benchmark result, this task
+    packages that narrow result. If the preflight blocks promotion, this task
+    records the blocker and stops.
+
+requirements:
+  - "Start from the TASK-0568 preflight route; do not override it."
+  - "If Gate A is cleared, create only a scoped exact-reference software/benchmark RESULT artifact."
+  - "If Gate A is not cleared, preserve a blocker review and do not create RESULT artifacts."
+  - "Do not fetch empirical datasets, run a Stellar M-L audit, or claim Stefan-Boltzmann/Wien empirical validation."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "optional results/EXP-XXXX/RUN-XXXX/result.yaml scoped to exact-reference fixture validation"
+  - "docs/reviews/textbook-exact-reference-scoped-result-packaging.md"
+  - "optional docs/campaigns/textbook-formula-audit.md update if a scoped result lands"
+  - "tests for any new result schema fixture"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_textbook_stefan_boltzmann_exact_reference.py tests/test_textbook_wien.py"
+    - "python3 -m pytest tests/test_docs_links.py tests/test_scientific_memory_integrity.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

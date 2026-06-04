@@ -1,0 +1,50 @@
+id: TASK-0579
+title: "Run Materials MD-0001 band-gap null-control audit"
+type: scientific_benchmark
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Stress-test the weaker MD-0001 band-gap axis before interpreting residual structure."
+  - "Prefer null-control evidence over a premature materials model story."
+  - "Keep benchmark diagnostics separate from material recommendations."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0001-baseline-residual-benchmark.md"
+    - "data/materials/md-0001-binary-oxides.yaml"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    The first MD-0001 benchmark found a clearer composition-aware advantage for
+    formation energy than for band gap. This task tests whether the band-gap
+    residual pattern survives simple null controls before any agent treats it
+    as a scientific signal.
+
+requirements:
+  - "Use the committed MD-0001 dataset and frozen holdout semantics only."
+  - "Audit the band-gap axis with at least two deterministic controls such as label shuffle, composition-group shuffle, or nearest/global null comparisons."
+  - "Keep formation-energy metrics as reference context only; do not merge axes into one score."
+  - "Do not add new rows, change holdout membership, or make material-design claims."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/materials-md0001-band-gap-null-control-audit.md"
+  - "tests for any new null-control helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_dataset.py tests/test_materials_md0001_baseline.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

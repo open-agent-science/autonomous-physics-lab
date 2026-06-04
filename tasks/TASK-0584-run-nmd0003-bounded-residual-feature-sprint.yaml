@@ -1,0 +1,52 @@
+id: TASK-0584
+title: "Run NMD-0003 bounded residual-feature sprint under stratified gate"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test a genuinely new Nuclear residual-feature family under the frozen NMD-0003 gate."
+  - "Avoid rerunning the zero-shortlist TASK-0517 factory families."
+  - "Preserve controls-first discipline before any prediction or claim path."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+    - "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml"
+    - "docs/reviews/nmd0003-factory-negative-result-promotion-preflight.md"
+    - "docs/reviews/nmd0003-stratified-baseline-gate.md"
+  planning_context: >
+    TASK-0517 produced no NMD-0003 shortlist, and TASK-0552 now provides a
+    frozen stratified validation gate. This task authorizes one new bounded
+    residual-feature sprint only if the chosen feature family is materially
+    disjoint from the completed zero-shortlist factory slate.
+
+requirements:
+  - "Select exactly one feature family and declare why it is disjoint from TASK-0517 candidate families before fitting."
+  - "Use the frozen NMD-0003 stratified gate; do not alter split membership, row filters, or baseline selection."
+  - "Run at least matched random-slice, label-shuffle, and smooth-control negative controls."
+  - "Stop after one bounded sprint; report positive, negative, or inconclusive evidence with no claim promotion."
+  - "Do not create PRED entries, reveal scores, CLAIM files, KNOW files, or discovery wording."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nmd0003-bounded-residual-feature-sprint.md"
+  - "tests for any new feature/control helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_residual_factory.py tests/test_nmd0003_baseline_freeze.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
