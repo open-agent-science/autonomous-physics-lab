@@ -163,6 +163,24 @@ def _proposal_drift_severity() -> str:
     return "INFO"
 
 
+# Research proposal ids were initially allocated inside campaign folders, so
+# historical files contain duplicate unscoped ids such as HYP-PROPOSAL-0049 in
+# multiple campaigns. Keep the default as INFO so current strict validation does
+# not fail on history, but let explicit architecture audits promote this to an
+# ERROR while the namespace is being cleaned up.
+RESEARCH_PROPOSAL_ID_UNIQUENESS_ENV_VAR: str = (
+    "APL_ENFORCE_RESEARCH_PROPOSAL_ID_UNIQUENESS"
+)
+
+
+def _research_proposal_id_uniqueness_severity() -> str:
+    """Severity used for duplicate research-proposal id issues."""
+
+    if os.environ.get(RESEARCH_PROPOSAL_ID_UNIQUENESS_ENV_VAR) == "1":
+        return "ERROR"
+    return "INFO"
+
+
 def _strict_proposal_drift_issues(root_path: Path) -> list[ValidationIssue]:
     from physics_lab.registry.proposal_triage import proposal_drift_paths
 
@@ -178,6 +196,50 @@ def _strict_proposal_drift_issues(root_path: Path) -> list[ValidationIssue]:
                 + ". Run scripts/apl_proposal_triage.py and reconcile via a "
                 "maintainer-approved closeout.",
                 path=path,
+            )
+        )
+    return issues
+
+
+def _strict_research_proposal_id_issues(
+    *,
+    proposal_kind: str,
+    proposals: list[tuple[Path, dict[str, Any]]],
+    root_path: Path,
+) -> list[ValidationIssue]:
+    """Report duplicate unscoped research-proposal ids.
+
+    Hypothesis and experiment proposal files are campaign-scoped by path, but
+    their ids look globally scoped. Until the historical duplicates are
+    normalized, references should include the full path. This check keeps that
+    ambiguity visible without making old scientific memory fail CI by default.
+    """
+
+    seen: dict[str, Path] = {}
+    duplicates: dict[str, list[Path]] = {}
+    for path, payload in proposals:
+        proposal_id = str(payload.get("id") or "").strip()
+        if not proposal_id:
+            continue
+        previous_path = seen.get(proposal_id)
+        if previous_path is not None:
+            duplicates.setdefault(proposal_id, [previous_path]).append(path)
+        else:
+            seen[proposal_id] = path
+
+    severity = _research_proposal_id_uniqueness_severity()
+    issues: list[ValidationIssue] = []
+    for proposal_id, paths in sorted(duplicates.items()):
+        rel_paths = [_relative_path(path, root_path) for path in paths]
+        issues.append(
+            _issue(
+                severity,
+                "duplicate_research_proposal_id",
+                f"{proposal_kind} id {proposal_id} is declared by multiple files: "
+                + ", ".join(rel_paths)
+                + ". Treat references to this proposal as path-scoped until the "
+                "namespace is normalized; do not add new duplicate unscoped ids.",
+                path=rel_paths[0],
             )
         )
     return issues
@@ -640,6 +702,8 @@ def _collect_strict_issues(
     *,
     hypotheses: list[tuple[Path, dict[str, Any]]],
     experiments: list[tuple[Path, dict[str, Any]]],
+    hypothesis_proposals: list[tuple[Path, dict[str, Any]]],
+    experiment_proposals: list[tuple[Path, dict[str, Any]]],
     tasks: list[tuple[Path, dict[str, Any]]],
     claims: list[tuple[Path, dict[str, Any]]],
     knowledge_files: list[tuple[Path, dict[str, Any]]],
@@ -711,6 +775,20 @@ def _collect_strict_issues(
         )
     )
     issues.extend(_strict_golden_result_issues(root_path))
+    issues.extend(
+        _strict_research_proposal_id_issues(
+            proposal_kind="Hypothesis proposal",
+            proposals=hypothesis_proposals,
+            root_path=root_path,
+        )
+    )
+    issues.extend(
+        _strict_research_proposal_id_issues(
+            proposal_kind="Experiment proposal",
+            proposals=experiment_proposals,
+            root_path=root_path,
+        )
+    )
 
     for link_issue in find_docs_link_issues(root_path):
         issues.append(
@@ -800,6 +878,8 @@ def validate_repository(
         _collect_strict_issues(
             hypotheses=hypotheses,
             experiments=experiments,
+            hypothesis_proposals=hypothesis_proposals,
+            experiment_proposals=experiment_proposals,
             tasks=tasks,
             claims=claims,
             knowledge_files=knowledge_files,
