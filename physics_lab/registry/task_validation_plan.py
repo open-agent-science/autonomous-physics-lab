@@ -11,6 +11,7 @@ from physics_lab.registry.review_git import (
     current_branch,
     working_tree_changed_files,
 )
+from physics_lab.registry.task_discovery import find_task_files
 from physics_lab.registry.tasks import load_task
 
 
@@ -43,7 +44,7 @@ class TaskValidationPlan:
 
 
 def _task_file(root: Path, task_id: str) -> Path:
-    matches = sorted((root / "tasks").glob(f"{task_id}-*.yaml"))
+    matches = find_task_files(root, task_id)
     if len(matches) != 1:
         raise ValueError(f"Expected exactly one canonical task file for {task_id}; found {len(matches)}")
     return matches[0]

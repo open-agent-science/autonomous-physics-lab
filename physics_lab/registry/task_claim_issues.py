@@ -17,6 +17,8 @@ from typing import Any
 
 import yaml
 
+from physics_lab.registry.task_discovery import find_task_files
+
 
 TASK_ID_PATTERN = re.compile(r"\bTASK-[0-9]{4}\b")
 BRANCH_PATTERN = re.compile(r"(?im)^Branch:\s*(?P<branch>\S+)\s*$")
@@ -81,7 +83,7 @@ def is_task_claim_like(issue: dict[str, Any]) -> bool:
 
 def load_task_status(root: Path, task_id: str) -> str | None:
     """Load the canonical task status for a task id."""
-    matches = sorted((root / "tasks").glob(f"{task_id}-*.yaml"))
+    matches = find_task_files(root, task_id)
     if not matches:
         return None
     payload = yaml.safe_load(matches[0].read_text(encoding="utf-8")) or {}

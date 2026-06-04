@@ -12,6 +12,7 @@ import yaml
 from physics_lab.registry.active_board import TaskBoardEntry, load_board_entries
 from physics_lab.registry.mission_control import ready_science_pool_health
 from physics_lab.registry.results import load_result
+from physics_lab.registry.task_discovery import find_task_file
 from physics_lab.registry.tasks import load_task
 
 
@@ -258,7 +259,7 @@ def _blocked_lane_reasons(
     summaries: list[ConveyorTaskSummary] = []
     for entry in blocked[:limit]:
         notes: tuple[str, ...] = ()
-        path = next((root / "tasks").glob(f"{entry.task_id}-*.yaml"), None)
+        path = find_task_file(root, entry.task_id)
         if path is not None:
             payload = load_task(path)
             notes = _blocked_reason_notes(payload)
