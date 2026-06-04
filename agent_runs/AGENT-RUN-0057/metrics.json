@@ -1,0 +1,3759 @@
+{
+  "task_id": "TASK-0550",
+  "benchmark_id": "materials-md0001-baseline-residual-benchmark",
+  "input_references": {
+    "holdout_manifest": "data/materials/holdout_manifest.yaml",
+    "snapshot_manifest": "data/materials/materials_snapshot_manifest.yaml",
+    "formation_energy_dataset": "data/materials/md-0001-materials-project-formation-energy.yaml",
+    "band_gap_dataset": "data/materials/md-0001-materials-project-band-gap.yaml"
+  },
+  "dataset_summary": {
+    "dataset_family": "MD-0001",
+    "source_id": "materials-project",
+    "snapshot_checksum_sha256": "bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101",
+    "row_count_per_axis": 169,
+    "live_external_fetch": false
+  },
+  "split_policy": {
+    "split_id": "material_id_mod10_70_10_20",
+    "row_order": "sort by material_id",
+    "train_rule": "sorted_index % 10 in {0, 1, 2, 3, 4, 5, 6}",
+    "validation_rule": "sorted_index % 10 == 7",
+    "holdout_rule": "sorted_index % 10 in {8, 9}",
+    "binding_manifest": "data/materials/holdout_manifest.yaml"
+  },
+  "axis_outputs": {
+    "formation_energy_per_atom": {
+      "dataset_file": "data/materials/md-0001-materials-project-formation-energy.yaml",
+      "units": "eV_per_atom",
+      "provenance_class": "computed_dft",
+      "row_count": 169,
+      "split_counts": {
+        "train": 119,
+        "validation": 17,
+        "holdout": 33
+      },
+      "declared_baselines": {
+        "global_mean": "Train-split global mean null baseline.",
+        "global_median": "Train-split global median null baseline.",
+        "cation_group_mean": "Train-split cation-group mean baseline with global-mean fallback."
+      },
+      "baseline_summaries": {
+        "global_mean": {
+          "metrics": {
+            "train": {
+              "count": 119,
+              "mae": 0.961574,
+              "rmse": 1.120656,
+              "median_abs_residual": 0.914732,
+              "p90_abs_residual": 1.785822,
+              "max_abs_residual": 2.234103
+            },
+            "validation": {
+              "count": 17,
+              "mae": 1.061136,
+              "rmse": 1.211057,
+              "median_abs_residual": 0.900518,
+              "p90_abs_residual": 1.858419,
+              "max_abs_residual": 1.956386
+            },
+            "holdout": {
+              "count": 33,
+              "mae": 1.020563,
+              "rmse": 1.179805,
+              "median_abs_residual": 1.161427,
+              "p90_abs_residual": 1.734276,
+              "max_abs_residual": 1.934992
+            },
+            "full_md0001_axis": {
+              "count": 169,
+              "mae": 0.983107,
+              "rmse": 1.141772,
+              "median_abs_residual": 0.951713,
+              "p90_abs_residual": 1.793686,
+              "max_abs_residual": 2.234103
+            }
+          },
+          "subset_metrics": {
+            "cation_group": {
+              "alkali_or_alkaline_earth": {
+                "count": 26,
+                "mae": 0.886395,
+                "rmse": 0.98727,
+                "median_abs_residual": 0.9257,
+                "p90_abs_residual": 1.350883,
+                "max_abs_residual": 1.706618
+              },
+              "metalloid_or_p_block": {
+                "count": 26,
+                "mae": 0.952217,
+                "rmse": 1.105224,
+                "median_abs_residual": 0.753912,
+                "p90_abs_residual": 1.787644,
+                "max_abs_residual": 1.934992
+              },
+              "mixed_or_ambiguous": {
+                "count": 13,
+                "mae": 1.463163,
+                "rmse": 1.504367,
+                "median_abs_residual": 1.478492,
+                "p90_abs_residual": 1.834499,
+                "max_abs_residual": 2.234103
+              },
+              "post_transition_metal": {
+                "count": 15,
+                "mae": 0.662552,
+                "rmse": 0.773571,
+                "median_abs_residual": 0.663715,
+                "p90_abs_residual": 1.256171,
+                "max_abs_residual": 1.319595
+              },
+              "rare_earth_or_lanthanoid": {
+                "count": 21,
+                "mae": 1.668657,
+                "rmse": 1.694749,
+                "median_abs_residual": 1.761725,
+                "p90_abs_residual": 1.923407,
+                "max_abs_residual": 1.990097
+              },
+              "transition_metal": {
+                "count": 68,
+                "mae": 0.799118,
+                "rmse": 0.973937,
+                "median_abs_residual": 0.816817,
+                "p90_abs_residual": 1.677063,
+                "max_abs_residual": 1.886124
+              }
+            },
+            "formula_family": {
+              "dioxide": {
+                "count": 44,
+                "mae": 0.88573,
+                "rmse": 1.076353,
+                "median_abs_residual": 0.893763,
+                "p90_abs_residual": 1.750551,
+                "max_abs_residual": 2.234103
+              },
+              "intermediate_oxide": {
+                "count": 13,
+                "mae": 1.069282,
+                "rmse": 1.196775,
+                "median_abs_residual": 1.086937,
+                "p90_abs_residual": 1.773572,
+                "max_abs_residual": 1.823434
+              },
+              "monoxide": {
+                "count": 26,
+                "mae": 0.854838,
+                "rmse": 0.927661,
+                "median_abs_residual": 0.881275,
+                "p90_abs_residual": 1.267376,
+                "max_abs_residual": 1.691115
+              },
+              "oxygen_poor": {
+                "count": 19,
+                "mae": 1.017453,
+                "rmse": 1.117178,
+                "median_abs_residual": 1.000519,
+                "p90_abs_residual": 1.518871,
+                "max_abs_residual": 1.818053
+              },
+              "oxygen_rich": {
+                "count": 32,
+                "mae": 0.83964,
+                "rmse": 1.012665,
+                "median_abs_residual": 0.846262,
+                "p90_abs_residual": 1.575404,
+                "max_abs_residual": 1.831101
+              },
+              "sesquioxide": {
+                "count": 35,
+                "mae": 1.281328,
+                "rmse": 1.43245,
+                "median_abs_residual": 1.603981,
+                "p90_abs_residual": 1.921632,
+                "max_abs_residual": 1.990097
+              }
+            },
+            "spacegroup_bucket": {
+              "Aea2": {
+                "count": 1,
+                "mae": 0.611807,
+                "rmse": 0.611807,
+                "median_abs_residual": 0.611807,
+                "p90_abs_residual": 0.611807,
+                "max_abs_residual": 0.611807
+              },
+              "C2/c": {
+                "count": 7,
+                "mae": 0.844675,
+                "rmse": 1.019971,
+                "median_abs_residual": 0.673923,
+                "p90_abs_residual": 1.52134,
+                "max_abs_residual": 1.831101
+              },
+              "C2/m": {
+                "count": 6,
+                "mae": 0.550899,
+                "rmse": 0.628688,
+                "median_abs_residual": 0.520474,
+                "p90_abs_residual": 0.908988,
+                "max_abs_residual": 1.025971
+              },
+              "Cc": {
+                "count": 1,
+                "mae": 1.794471,
+                "rmse": 1.794471,
+                "median_abs_residual": 1.794471,
+                "p90_abs_residual": 1.794471,
+                "max_abs_residual": 1.794471
+              },
+              "Cm": {
+                "count": 2,
+                "mae": 1.60767,
+                "rmse": 1.610713,
+                "median_abs_residual": 1.60767,
+                "p90_abs_residual": 1.686828,
+                "max_abs_residual": 1.706618
+              },
+              "Cmc2_1": {
+                "count": 1,
+                "mae": 0.853684,
+                "rmse": 0.853684,
+                "median_abs_residual": 0.853684,
+                "p90_abs_residual": 0.853684,
+                "max_abs_residual": 0.853684
+              },
+              "Cmce": {
+                "count": 1,
+                "mae": 0.848728,
+                "rmse": 0.848728,
+                "median_abs_residual": 0.848728,
+                "p90_abs_residual": 0.848728,
+                "max_abs_residual": 0.848728
+              },
+              "Cmcm": {
+                "count": 4,
+                "mae": 1.220333,
+                "rmse": 1.24379,
+                "median_abs_residual": 1.199968,
+                "p90_abs_residual": 1.47773,
+                "max_abs_residual": 1.575994
+              },
+              "Cmmm": {
+                "count": 1,
+                "mae": 1.086937,
+                "rmse": 1.086937,
+                "median_abs_residual": 1.086937,
+                "p90_abs_residual": 1.086937,
+                "max_abs_residual": 1.086937
+              },
+              "F-43m": {
+                "count": 1,
+                "mae": 0.861856,
+                "rmse": 0.861856,
+                "median_abs_residual": 0.861856,
+                "p90_abs_residual": 0.861856,
+                "max_abs_residual": 0.861856
+              },
+              "Fdd2": {
+                "count": 2,
+                "mae": 1.478822,
+                "rmse": 1.491887,
+                "median_abs_residual": 1.478822,
+                "p90_abs_residual": 1.636431,
+                "max_abs_residual": 1.675834
+              },
+              "Fm-3m": {
+                "count": 17,
+                "mae": 1.149429,
+                "rmse": 1.258109,
+                "median_abs_residual": 0.989736,
+                "p90_abs_residual": 1.831667,
+                "max_abs_residual": 2.234103
+              },
+              "I-42m": {
+                "count": 1,
+                "mae": 0.604494,
+                "rmse": 0.604494,
+                "median_abs_residual": 0.604494,
+                "p90_abs_residual": 0.604494,
+                "max_abs_residual": 0.604494
+              },
+              "I4/m": {
+                "count": 1,
+                "mae": 1.061254,
+                "rmse": 1.061254,
+                "median_abs_residual": 1.061254,
+                "p90_abs_residual": 1.061254,
+                "max_abs_residual": 1.061254
+              },
+              "I4/mmm": {
+                "count": 5,
+                "mae": 0.45779,
+                "rmse": 0.672018,
+                "median_abs_residual": 0.072873,
+                "p90_abs_residual": 1.075796,
+                "max_abs_residual": 1.161427
+              },
+              "I4_1/a": {
+                "count": 1,
+                "mae": 0.763941,
+                "rmse": 0.763941,
+                "median_abs_residual": 0.763941,
+                "p90_abs_residual": 0.763941,
+                "max_abs_residual": 0.763941
+              },
+              "I4_1/amd": {
+                "count": 2,
+                "mae": 0.728823,
+                "rmse": 0.973608,
+                "median_abs_residual": 0.728823,
+                "p90_abs_residual": 1.245259,
+                "max_abs_residual": 1.374368
+              },
+              "Ia-3": {
+                "count": 19,
+                "mae": 1.57228,
+                "rmse": 1.652714,
+                "median_abs_residual": 1.761725,
+                "p90_abs_residual": 1.930003,
+                "max_abs_residual": 1.990097
+              },
+              "Im-3": {
+                "count": 1,
+                "mae": 1.448001,
+                "rmse": 1.448001,
+                "median_abs_residual": 1.448001,
+                "p90_abs_residual": 1.448001,
+                "max_abs_residual": 1.448001
+              },
+              "Immm": {
+                "count": 4,
+                "mae": 1.017394,
+                "rmse": 1.02359,
+                "median_abs_residual": 1.016317,
+                "p90_abs_residual": 1.132324,
+                "max_abs_residual": 1.136247
+              },
+              "P-1": {
+                "count": 2,
+                "mae": 1.19396,
+                "rmse": 1.349732,
+                "median_abs_residual": 1.19396,
+                "p90_abs_residual": 1.697539,
+                "max_abs_residual": 1.823434
+              },
+              "P-31c": {
+                "count": 2,
+                "mae": 0.890382,
+                "rmse": 0.948396,
+                "median_abs_residual": 0.890382,
+                "p90_abs_residual": 1.15167,
+                "max_abs_residual": 1.216992
+              },
+              "P-3m1": {
+                "count": 4,
+                "mae": 1.188958,
+                "rmse": 1.354417,
+                "median_abs_residual": 1.457733,
+                "p90_abs_residual": 1.700764,
+                "max_abs_residual": 1.742242
+              },
+              "P-43n": {
+                "count": 1,
+                "mae": 0.951713,
+                "rmse": 0.951713,
+                "median_abs_residual": 0.951713,
+                "p90_abs_residual": 0.951713,
+                "max_abs_residual": 0.951713
+              },
+              "P-62m": {
+                "count": 2,
+                "mae": 0.80493,
+                "rmse": 0.805514,
+                "median_abs_residual": 0.80493,
+                "p90_abs_residual": 0.829458,
+                "max_abs_residual": 0.835591
+              },
+              "P1": {
+                "count": 1,
+                "mae": 0.860775,
+                "rmse": 0.860775,
+                "median_abs_residual": 0.860775,
+                "p90_abs_residual": 0.860775,
+                "max_abs_residual": 0.860775
+              },
+              "P2": {
+                "count": 1,
+                "mae": 0.900518,
+                "rmse": 0.900518,
+                "median_abs_residual": 0.900518,
+                "p90_abs_residual": 0.900518,
+                "max_abs_residual": 0.900518
+              },
+              "P2/c": {
+                "count": 1,
+                "mae": 0.198467,
+                "rmse": 0.198467,
+                "median_abs_residual": 0.198467,
+                "p90_abs_residual": 0.198467,
+                "max_abs_residual": 0.198467
+              },
+              "P2_1": {
+                "count": 1,
+                "mae": 0.715819,
+                "rmse": 0.715819,
+                "median_abs_residual": 0.715819,
+                "p90_abs_residual": 0.715819,
+                "max_abs_residual": 0.715819
+              },
+              "P2_1/c": {
+                "count": 14,
+                "mae": 1.054167,
+                "rmse": 1.231586,
+                "median_abs_residual": 1.168791,
+                "p90_abs_residual": 1.839959,
+                "max_abs_residual": 1.934992
+              },
+              "P2_1/m": {
+                "count": 2,
+                "mae": 1.338469,
+                "rmse": 1.345496,
+                "median_abs_residual": 1.338469,
+                "p90_abs_residual": 1.448339,
+                "max_abs_residual": 1.475807
+              },
+              "P2_12_12_1": {
+                "count": 3,
+                "mae": 0.440874,
+                "rmse": 0.500483,
+                "median_abs_residual": 0.576177,
+                "p90_abs_residual": 0.626137,
+                "max_abs_residual": 0.638627
+              },
+              "P3_121": {
+                "count": 2,
+                "mae": 0.901757,
+                "rmse": 0.93248,
+                "median_abs_residual": 0.901757,
+                "p90_abs_residual": 1.091667,
+                "max_abs_residual": 1.139144
+              },
+              "P4/mcc": {
+                "count": 1,
+                "mae": 1.532117,
+                "rmse": 1.532117,
+                "median_abs_residual": 1.532117,
+                "p90_abs_residual": 1.532117,
+                "max_abs_residual": 1.532117
+              },
+              "P4/nmm": {
+                "count": 2,
+                "mae": 0.58385,
+                "rmse": 0.589287,
+                "median_abs_residual": 0.58385,
+                "p90_abs_residual": 0.647742,
+                "max_abs_residual": 0.663715
+              },
+              "P4_2/mbc": {
+                "count": 2,
+                "mae": 0.833125,
+                "rmse": 0.845893,
+                "median_abs_residual": 0.833125,
+                "p90_abs_residual": 0.95026,
+                "max_abs_residual": 0.979543
+              },
+              "P4_2/mmc": {
+                "count": 3,
+                "mae": 1.408623,
+                "rmse": 1.424085,
+                "median_abs_residual": 1.343861,
+                "p90_abs_residual": 1.621664,
+                "max_abs_residual": 1.691115
+              },
+              "P4_2/mnm": {
+                "count": 11,
+                "mae": 0.530759,
+                "rmse": 0.699582,
+                "median_abs_residual": 0.676025,
+                "p90_abs_residual": 0.914732,
+                "max_abs_residual": 1.40616
+              },
+              "P6_3/mcm": {
+                "count": 1,
+                "mae": 1.21494,
+                "rmse": 1.21494,
+                "median_abs_residual": 1.21494,
+                "p90_abs_residual": 1.21494,
+                "max_abs_residual": 1.21494
+              },
+              "P6_3/mmc": {
+                "count": 1,
+                "mae": 0.483517,
+                "rmse": 0.483517,
+                "median_abs_residual": 0.483517,
+                "p90_abs_residual": 0.483517,
+                "max_abs_residual": 0.483517
+              },
+              "P6_3mc": {
+                "count": 2,
+                "mae": 0.655978,
+                "rmse": 0.726908,
+                "median_abs_residual": 0.655978,
+                "p90_abs_residual": 0.906531,
+                "max_abs_residual": 0.969169
+              },
+              "Pa-3": {
+                "count": 1,
+                "mae": 0.364964,
+                "rmse": 0.364964,
+                "median_abs_residual": 0.364964,
+                "p90_abs_residual": 0.364964,
+                "max_abs_residual": 0.364964
+              },
+              "Pbca": {
+                "count": 3,
+                "mae": 0.744998,
+                "rmse": 1.048409,
+                "median_abs_residual": 0.334408,
+                "p90_abs_residual": 1.491535,
+                "max_abs_residual": 1.780817
+              },
+              "Pbcn": {
+                "count": 2,
+                "mae": 0.179326,
+                "rmse": 0.216978,
+                "median_abs_residual": 0.179326,
+                "p90_abs_residual": 0.277049,
+                "max_abs_residual": 0.301479
+              },
+              "Pc": {
+                "count": 1,
+                "mae": 0.209045,
+                "rmse": 0.209045,
+                "median_abs_residual": 0.209045,
+                "p90_abs_residual": 0.209045,
+                "max_abs_residual": 0.209045
+              },
+              "Pccn": {
+                "count": 1,
+                "mae": 0.381949,
+                "rmse": 0.381949,
+                "median_abs_residual": 0.381949,
+                "p90_abs_residual": 0.381949,
+                "max_abs_residual": 0.381949
+              },
+              "Pm-3m": {
+                "count": 3,
+                "mae": 0.544423,
+                "rmse": 0.858225,
+                "median_abs_residual": 0.153974,
+                "p90_abs_residual": 1.213589,
+                "max_abs_residual": 1.478492
+              },
+              "Pm-3n": {
+                "count": 1,
+                "mae": 1.306904,
+                "rmse": 1.306904,
+                "median_abs_residual": 1.306904,
+                "p90_abs_residual": 1.306904,
+                "max_abs_residual": 1.306904
+              },
+              "Pmmn": {
+                "count": 2,
+                "mae": 0.128226,
+                "rmse": 0.13106,
+                "median_abs_residual": 0.128226,
+                "p90_abs_residual": 0.149913,
+                "max_abs_residual": 0.155335
+              },
+              "Pn-3m": {
+                "count": 2,
+                "mae": 1.653617,
+                "rmse": 1.661773,
+                "median_abs_residual": 1.653617,
+                "p90_abs_residual": 1.785166,
+                "max_abs_residual": 1.818053
+              },
+              "Pnma": {
+                "count": 3,
+                "mae": 1.15054,
+                "rmse": 1.294498,
+                "median_abs_residual": 1.49863,
+                "p90_abs_residual": 1.609831,
+                "max_abs_residual": 1.637631
+              },
+              "Pnnm": {
+                "count": 1,
+                "mae": 1.207084,
+                "rmse": 1.207084,
+                "median_abs_residual": 1.207084,
+                "p90_abs_residual": 1.207084,
+                "max_abs_residual": 1.207084
+              },
+              "R-3": {
+                "count": 2,
+                "mae": 1.338431,
+                "rmse": 1.410619,
+                "median_abs_residual": 1.338431,
+                "p90_abs_residual": 1.694811,
+                "max_abs_residual": 1.783905
+              },
+              "R-3c": {
+                "count": 5,
+                "mae": 0.741928,
+                "rmse": 0.851027,
+                "median_abs_residual": 0.587528,
+                "p90_abs_residual": 1.243619,
+                "max_abs_residual": 1.292864
+              },
+              "R-3m": {
+                "count": 5,
+                "mae": 1.089063,
+                "rmse": 1.107008,
+                "median_abs_residual": 1.000519,
+                "p90_abs_residual": 1.324886,
+                "max_abs_residual": 1.328414
+              }
+            },
+            "property_range": {
+              "moderate_negative": {
+                "count": 88,
+                "mae": 0.520413,
+                "rmse": 0.616563,
+                "median_abs_residual": 0.558321,
+                "p90_abs_residual": 0.926435,
+                "max_abs_residual": 1.123171
+              },
+              "near_zero_or_weakly_negative": {
+                "count": 32,
+                "mae": 1.458964,
+                "rmse": 1.477848,
+                "median_abs_residual": 1.427081,
+                "p90_abs_residual": 1.793106,
+                "max_abs_residual": 1.934992
+              },
+              "strongly_negative": {
+                "count": 49,
+                "mae": 1.503305,
+                "rmse": 1.545061,
+                "median_abs_residual": 1.595583,
+                "p90_abs_residual": 1.898892,
+                "max_abs_residual": 2.234103
+              }
+            }
+          }
+        },
+        "global_median": {
+          "metrics": {
+            "train": {
+              "count": 119,
+              "mae": 0.940351,
+              "rmse": 1.148273,
+              "median_abs_residual": 0.782927,
+              "p90_abs_residual": 2.016483,
+              "max_abs_residual": 2.484425
+            },
+            "validation": {
+              "count": 17,
+              "mae": 1.00848,
+              "rmse": 1.215205,
+              "median_abs_residual": 1.024592,
+              "p90_abs_residual": 1.998648,
+              "max_abs_residual": 2.206708
+            },
+            "holdout": {
+              "count": 33,
+              "mae": 0.96709,
+              "rmse": 1.160144,
+              "median_abs_residual": 0.966669,
+              "p90_abs_residual": 1.889965,
+              "max_abs_residual": 2.144195
+            },
+            "full_md0001_axis": {
+              "count": 169,
+              "mae": 0.952426,
+              "rmse": 1.157495,
+              "median_abs_residual": 0.885924,
+              "p90_abs_residual": 1.981383,
+              "max_abs_residual": 2.484425
+            }
+          },
+          "subset_metrics": {
+            "cation_group": {
+              "alkali_or_alkaline_earth": {
+                "count": 26,
+                "mae": 0.803827,
+                "rmse": 0.883566,
+                "median_abs_residual": 0.811523,
+                "p90_abs_residual": 1.25364,
+                "max_abs_residual": 1.456296
+              },
+              "metalloid_or_p_block": {
+                "count": 26,
+                "mae": 0.778917,
+                "rmse": 0.943368,
+                "median_abs_residual": 0.647451,
+                "p90_abs_residual": 1.537322,
+                "max_abs_residual": 1.68467
+              },
+              "mixed_or_ambiguous": {
+                "count": 13,
+                "mae": 1.674974,
+                "rmse": 1.729899,
+                "median_abs_residual": 1.728815,
+                "p90_abs_residual": 2.084822,
+                "max_abs_residual": 2.484425
+              },
+              "post_transition_metal": {
+                "count": 15,
+                "mae": 0.523625,
+                "rmse": 0.651694,
+                "median_abs_residual": 0.413392,
+                "p90_abs_residual": 1.021887,
+                "max_abs_residual": 1.543186
+              },
+              "rare_earth_or_lanthanoid": {
+                "count": 21,
+                "mae": 1.91898,
+                "rmse": 1.941711,
+                "median_abs_residual": 2.012047,
+                "p90_abs_residual": 2.173729,
+                "max_abs_residual": 2.240419
+              },
+              "transition_metal": {
+                "count": 68,
+                "mae": 0.733543,
+                "rmse": 0.927838,
+                "median_abs_residual": 0.630788,
+                "p90_abs_residual": 1.486974,
+                "max_abs_residual": 2.136446
+              }
+            },
+            "formula_family": {
+              "dioxide": {
+                "count": 44,
+                "mae": 0.868116,
+                "rmse": 1.098215,
+                "median_abs_residual": 0.696816,
+                "p90_abs_residual": 1.911301,
+                "max_abs_residual": 2.484425
+              },
+              "intermediate_oxide": {
+                "count": 13,
+                "mae": 0.998704,
+                "rmse": 1.20408,
+                "median_abs_residual": 0.836615,
+                "p90_abs_residual": 1.979191,
+                "max_abs_residual": 2.073756
+              },
+              "monoxide": {
+                "count": 26,
+                "mae": 0.789293,
+                "rmse": 0.889703,
+                "median_abs_residual": 0.66221,
+                "p90_abs_residual": 1.298587,
+                "max_abs_residual": 1.440793
+              },
+              "oxygen_poor": {
+                "count": 19,
+                "mae": 0.801913,
+                "rmse": 0.89519,
+                "median_abs_residual": 0.750196,
+                "p90_abs_residual": 1.268549,
+                "max_abs_residual": 1.567731
+              },
+              "oxygen_rich": {
+                "count": 32,
+                "mae": 0.779308,
+                "rmse": 0.972189,
+                "median_abs_residual": 0.633536,
+                "p90_abs_residual": 1.563055,
+                "max_abs_residual": 1.826316
+              },
+              "sesquioxide": {
+                "count": 35,
+                "mae": 1.402395,
+                "rmse": 1.589779,
+                "median_abs_residual": 1.68467,
+                "p90_abs_residual": 2.159252,
+                "max_abs_residual": 2.240419
+              }
+            },
+            "spacegroup_bucket": {
+              "Aea2": {
+                "count": 1,
+                "mae": 0.361484,
+                "rmse": 0.361484,
+                "median_abs_residual": 0.361484,
+                "p90_abs_residual": 0.361484,
+                "max_abs_residual": 0.361484
+              },
+              "C2/c": {
+                "count": 7,
+                "mae": 0.75187,
+                "rmse": 1.020631,
+                "median_abs_residual": 0.423601,
+                "p90_abs_residual": 1.571405,
+                "max_abs_residual": 1.580779
+              },
+              "C2/m": {
+                "count": 6,
+                "mae": 0.550899,
+                "rmse": 0.663914,
+                "median_abs_residual": 0.471764,
+                "p90_abs_residual": 0.957698,
+                "max_abs_residual": 1.276293
+              },
+              "Cc": {
+                "count": 1,
+                "mae": 1.544149,
+                "rmse": 1.544149,
+                "median_abs_residual": 1.544149,
+                "p90_abs_residual": 1.544149,
+                "max_abs_residual": 1.544149
+              },
+              "Cm": {
+                "count": 2,
+                "mae": 1.60767,
+                "rmse": 1.614781,
+                "median_abs_residual": 1.60767,
+                "p90_abs_residual": 1.72877,
+                "max_abs_residual": 1.759045
+              },
+              "Cmc2_1": {
+                "count": 1,
+                "mae": 0.603362,
+                "rmse": 0.603362,
+                "median_abs_residual": 0.603362,
+                "p90_abs_residual": 0.603362,
+                "max_abs_residual": 0.603362
+              },
+              "Cmce": {
+                "count": 1,
+                "mae": 0.598406,
+                "rmse": 0.598406,
+                "median_abs_residual": 0.598406,
+                "p90_abs_residual": 0.598406,
+                "max_abs_residual": 0.598406
+              },
+              "Cmcm": {
+                "count": 4,
+                "mae": 1.345494,
+                "rmse": 1.390103,
+                "median_abs_residual": 1.327247,
+                "p90_abs_residual": 1.728052,
+                "max_abs_residual": 1.826316
+              },
+              "Cmmm": {
+                "count": 1,
+                "mae": 0.836615,
+                "rmse": 0.836615,
+                "median_abs_residual": 0.836615,
+                "p90_abs_residual": 0.836615,
+                "max_abs_residual": 0.836615
+              },
+              "F-43m": {
+                "count": 1,
+                "mae": 0.611534,
+                "rmse": 0.611534,
+                "median_abs_residual": 0.611534,
+                "p90_abs_residual": 0.611534,
+                "max_abs_residual": 0.611534
+              },
+              "Fdd2": {
+                "count": 2,
+                "mae": 1.228499,
+                "rmse": 1.244196,
+                "median_abs_residual": 1.228499,
+                "p90_abs_residual": 1.386109,
+                "max_abs_residual": 1.425511
+              },
+              "Fm-3m": {
+                "count": 17,
+                "mae": 1.273471,
+                "rmse": 1.421865,
+                "median_abs_residual": 1.240058,
+                "p90_abs_residual": 2.08199,
+                "max_abs_residual": 2.484425
+              },
+              "I-42m": {
+                "count": 1,
+                "mae": 0.354172,
+                "rmse": 0.354172,
+                "median_abs_residual": 0.354172,
+                "p90_abs_residual": 0.354172,
+                "max_abs_residual": 0.354172
+              },
+              "I4/m": {
+                "count": 1,
+                "mae": 0.810932,
+                "rmse": 0.810932,
+                "median_abs_residual": 0.810932,
+                "p90_abs_residual": 0.810932,
+                "max_abs_residual": 0.810932
+              },
+              "I4/mmm": {
+                "count": 5,
+                "mae": 0.607983,
+                "rmse": 0.714755,
+                "median_abs_residual": 0.323195,
+                "p90_abs_residual": 1.083045,
+                "max_abs_residual": 1.197672
+              },
+              "I4_1/a": {
+                "count": 1,
+                "mae": 1.014263,
+                "rmse": 1.014263,
+                "median_abs_residual": 1.014263,
+                "p90_abs_residual": 1.014263,
+                "max_abs_residual": 1.014263
+              },
+              "I4_1/amd": {
+                "count": 2,
+                "mae": 0.895868,
+                "rmse": 1.154886,
+                "median_abs_residual": 0.895868,
+                "p90_abs_residual": 1.478926,
+                "max_abs_residual": 1.624691
+              },
+              "Ia-3": {
+                "count": 19,
+                "mae": 1.781556,
+                "rmse": 1.876025,
+                "median_abs_residual": 2.012047,
+                "p90_abs_residual": 2.180325,
+                "max_abs_residual": 2.240419
+              },
+              "Im-3": {
+                "count": 1,
+                "mae": 1.197679,
+                "rmse": 1.197679,
+                "median_abs_residual": 1.197679,
+                "p90_abs_residual": 1.197679,
+                "max_abs_residual": 1.197679
+              },
+              "Immm": {
+                "count": 4,
+                "mae": 0.767071,
+                "rmse": 0.77527,
+                "median_abs_residual": 0.765995,
+                "p90_abs_residual": 0.882002,
+                "max_abs_residual": 0.885924
+              },
+              "P-1": {
+                "count": 2,
+                "mae": 1.19396,
+                "rmse": 1.483099,
+                "median_abs_residual": 1.19396,
+                "p90_abs_residual": 1.897797,
+                "max_abs_residual": 2.073756
+              },
+              "P-31c": {
+                "count": 2,
+                "mae": 0.64006,
+                "rmse": 0.718575,
+                "median_abs_residual": 0.64006,
+                "p90_abs_residual": 0.901347,
+                "max_abs_residual": 0.966669
+              },
+              "P-3m1": {
+                "count": 4,
+                "mae": 1.390218,
+                "rmse": 1.57092,
+                "median_abs_residual": 1.708056,
+                "p90_abs_residual": 1.951086,
+                "max_abs_residual": 1.992564
+              },
+              "P-43n": {
+                "count": 1,
+                "mae": 0.701391,
+                "rmse": 0.701391,
+                "median_abs_residual": 0.701391,
+                "p90_abs_residual": 0.701391,
+                "max_abs_residual": 0.701391
+              },
+              "P-62m": {
+                "count": 2,
+                "mae": 0.80493,
+                "rmse": 0.834364,
+                "median_abs_residual": 0.80493,
+                "p90_abs_residual": 0.980659,
+                "max_abs_residual": 1.024592
+              },
+              "P1": {
+                "count": 1,
+                "mae": 0.610453,
+                "rmse": 0.610453,
+                "median_abs_residual": 0.610453,
+                "p90_abs_residual": 0.610453,
+                "max_abs_residual": 0.610453
+              },
+              "P2": {
+                "count": 1,
+                "mae": 1.150841,
+                "rmse": 1.150841,
+                "median_abs_residual": 1.150841,
+                "p90_abs_residual": 1.150841,
+                "max_abs_residual": 1.150841
+              },
+              "P2/c": {
+                "count": 1,
+                "mae": 0.051855,
+                "rmse": 0.051855,
+                "median_abs_residual": 0.051855,
+                "p90_abs_residual": 0.051855,
+                "max_abs_residual": 0.051855
+              },
+              "P2_1": {
+                "count": 1,
+                "mae": 0.465497,
+                "rmse": 0.465497,
+                "median_abs_residual": 0.465497,
+                "p90_abs_residual": 0.465497,
+                "max_abs_residual": 0.465497
+              },
+              "P2_1/c": {
+                "count": 14,
+                "mae": 0.901673,
+                "rmse": 1.143131,
+                "median_abs_residual": 0.918469,
+                "p90_abs_residual": 1.856578,
+                "max_abs_residual": 2.136446
+              },
+              "P2_1/m": {
+                "count": 2,
+                "mae": 1.088147,
+                "rmse": 1.096779,
+                "median_abs_residual": 1.088147,
+                "p90_abs_residual": 1.198017,
+                "max_abs_residual": 1.225485
+              },
+              "P2_12_12_1": {
+                "count": 3,
+                "mae": 0.285554,
+                "rmse": 0.304012,
+                "median_abs_residual": 0.325855,
+                "p90_abs_residual": 0.375815,
+                "max_abs_residual": 0.388305
+              },
+              "P3_121": {
+                "count": 2,
+                "mae": 1.152079,
+                "rmse": 1.176282,
+                "median_abs_residual": 1.152079,
+                "p90_abs_residual": 1.341989,
+                "max_abs_residual": 1.389467
+              },
+              "P4/mcc": {
+                "count": 1,
+                "mae": 1.281795,
+                "rmse": 1.281795,
+                "median_abs_residual": 1.281795,
+                "p90_abs_residual": 1.281795,
+                "max_abs_residual": 1.281795
+              },
+              "P4/nmm": {
+                "count": 2,
+                "mae": 0.333527,
+                "rmse": 0.342956,
+                "median_abs_residual": 0.333527,
+                "p90_abs_residual": 0.397419,
+                "max_abs_residual": 0.413392
+              },
+              "P4_2/mbc": {
+                "count": 2,
+                "mae": 0.582802,
+                "rmse": 0.600913,
+                "median_abs_residual": 0.582802,
+                "p90_abs_residual": 0.699937,
+                "max_abs_residual": 0.729221
+              },
+              "P4_2/mmc": {
+                "count": 3,
+                "mae": 1.1583,
+                "rmse": 1.177056,
+                "median_abs_residual": 1.093538,
+                "p90_abs_residual": 1.371342,
+                "max_abs_residual": 1.440793
+              },
+              "P4_2/mnm": {
+                "count": 11,
+                "mae": 0.449576,
+                "rmse": 0.537072,
+                "median_abs_residual": 0.425703,
+                "p90_abs_residual": 0.66441,
+                "max_abs_residual": 1.155838
+              },
+              "P6_3/mcm": {
+                "count": 1,
+                "mae": 0.964617,
+                "rmse": 0.964617,
+                "median_abs_residual": 0.964617,
+                "p90_abs_residual": 0.964617,
+                "max_abs_residual": 0.964617
+              },
+              "P6_3/mmc": {
+                "count": 1,
+                "mae": 0.233194,
+                "rmse": 0.233194,
+                "median_abs_residual": 0.233194,
+                "p90_abs_residual": 0.233194,
+                "max_abs_residual": 0.233194
+              },
+              "P6_3mc": {
+                "count": 2,
+                "mae": 0.655978,
+                "rmse": 0.864786,
+                "median_abs_residual": 0.655978,
+                "p90_abs_residual": 1.106789,
+                "max_abs_residual": 1.219491
+              },
+              "Pa-3": {
+                "count": 1,
+                "mae": 0.114641,
+                "rmse": 0.114641,
+                "median_abs_residual": 0.114641,
+                "p90_abs_residual": 0.114641,
+                "max_abs_residual": 0.114641
+              },
+              "Pbca": {
+                "count": 3,
+                "mae": 0.581712,
+                "rmse": 0.888168,
+                "median_abs_residual": 0.130555,
+                "p90_abs_residual": 1.250507,
+                "max_abs_residual": 1.530495
+              },
+              "Pbcn": {
+                "count": 2,
+                "mae": 0.179326,
+                "rmse": 0.220421,
+                "median_abs_residual": 0.179326,
+                "p90_abs_residual": 0.281862,
+                "max_abs_residual": 0.307496
+              },
+              "Pc": {
+                "count": 1,
+                "mae": 0.041277,
+                "rmse": 0.041277,
+                "median_abs_residual": 0.041277,
+                "p90_abs_residual": 0.041277,
+                "max_abs_residual": 0.041277
+              },
+              "Pccn": {
+                "count": 1,
+                "mae": 0.131627,
+                "rmse": 0.131627,
+                "median_abs_residual": 0.131627,
+                "p90_abs_residual": 0.131627,
+                "max_abs_residual": 0.131627
+              },
+              "Pm-3m": {
+                "count": 3,
+                "mae": 0.794745,
+                "rmse": 1.035265,
+                "median_abs_residual": 0.404296,
+                "p90_abs_residual": 1.463911,
+                "max_abs_residual": 1.728815
+              },
+              "Pm-3n": {
+                "count": 1,
+                "mae": 1.056582,
+                "rmse": 1.056582,
+                "median_abs_residual": 1.056582,
+                "p90_abs_residual": 1.056582,
+                "max_abs_residual": 1.056582
+              },
+              "Pmmn": {
+                "count": 2,
+                "mae": 0.277431,
+                "rmse": 0.30563,
+                "median_abs_residual": 0.277431,
+                "p90_abs_residual": 0.380012,
+                "max_abs_residual": 0.405657
+              },
+              "Pn-3m": {
+                "count": 2,
+                "mae": 1.403295,
+                "rmse": 1.412896,
+                "median_abs_residual": 1.403295,
+                "p90_abs_residual": 1.534844,
+                "max_abs_residual": 1.567731
+              },
+              "Pnma": {
+                "count": 3,
+                "mae": 1.067099,
+                "rmse": 1.125891,
+                "median_abs_residual": 1.248307,
+                "p90_abs_residual": 1.359509,
+                "max_abs_residual": 1.387309
+              },
+              "Pnnm": {
+                "count": 1,
+                "mae": 0.956762,
+                "rmse": 0.956762,
+                "median_abs_residual": 0.956762,
+                "p90_abs_residual": 0.956762,
+                "max_abs_residual": 0.956762
+              },
+              "R-3": {
+                "count": 2,
+                "mae": 1.338431,
+                "rmse": 1.508486,
+                "median_abs_residual": 1.338431,
+                "p90_abs_residual": 1.895068,
+                "max_abs_residual": 2.034228
+              },
+              "R-3c": {
+                "count": 5,
+                "mae": 0.791993,
+                "rmse": 0.977376,
+                "median_abs_residual": 0.483223,
+                "p90_abs_residual": 1.493942,
+                "max_abs_residual": 1.543186
+              },
+              "R-3m": {
+                "count": 5,
+                "mae": 0.838741,
+                "rmse": 0.861914,
+                "median_abs_residual": 0.750196,
+                "p90_abs_residual": 1.074564,
+                "max_abs_residual": 1.078092
+              }
+            },
+            "property_range": {
+              "moderate_negative": {
+                "count": 88,
+                "mae": 0.413132,
+                "rmse": 0.488297,
+                "median_abs_residual": 0.386968,
+                "p90_abs_residual": 0.760016,
+                "max_abs_residual": 1.024592
+              },
+              "near_zero_or_weakly_negative": {
+                "count": 32,
+                "mae": 1.208641,
+                "rmse": 1.231371,
+                "median_abs_residual": 1.176758,
+                "p90_abs_residual": 1.542783,
+                "max_abs_residual": 1.68467
+              },
+              "strongly_negative": {
+                "count": 49,
+                "mae": 1.753627,
+                "rmse": 1.789552,
+                "median_abs_residual": 1.845906,
+                "p90_abs_residual": 2.149214,
+                "max_abs_residual": 2.484425
+              }
+            }
+          }
+        },
+        "cation_group_mean": {
+          "metrics": {
+            "train": {
+              "count": 119,
+              "mae": 0.578137,
+              "rmse": 0.785628,
+              "median_abs_residual": 0.385731,
+              "p90_abs_residual": 1.408865,
+              "max_abs_residual": 2.186765
+            },
+            "validation": {
+              "count": 17,
+              "mae": 0.664637,
+              "rmse": 0.824567,
+              "median_abs_residual": 0.554277,
+              "p90_abs_residual": 1.370847,
+              "max_abs_residual": 1.587566
+            },
+            "holdout": {
+              "count": 33,
+              "mae": 0.64603,
+              "rmse": 0.842409,
+              "median_abs_residual": 0.556363,
+              "p90_abs_residual": 1.432223,
+              "max_abs_residual": 1.910418
+            },
+            "full_md0001_axis": {
+              "count": 169,
+              "mae": 0.600096,
+              "rmse": 0.80098,
+              "median_abs_residual": 0.445538,
+              "p90_abs_residual": 1.44376,
+              "max_abs_residual": 2.186765
+            }
+          },
+          "subset_metrics": {
+            "cation_group": {
+              "alkali_or_alkaline_earth": {
+                "count": 26,
+                "mae": 0.69911,
+                "rmse": 0.851337,
+                "median_abs_residual": 0.571425,
+                "p90_abs_residual": 1.549646,
+                "max_abs_residual": 1.798699
+              },
+              "metalloid_or_p_block": {
+                "count": 26,
+                "mae": 0.632738,
+                "rmse": 0.809532,
+                "median_abs_residual": 0.567297,
+                "p90_abs_residual": 1.257524,
+                "max_abs_residual": 1.694406
+              },
+              "mixed_or_ambiguous": {
+                "count": 13,
+                "mae": 0.422201,
+                "rmse": 0.699541,
+                "median_abs_residual": 0.242913,
+                "p90_abs_residual": 0.831989,
+                "max_abs_residual": 2.186765
+              },
+              "post_transition_metal": {
+                "count": 15,
+                "mae": 0.431138,
+                "rmse": 0.612828,
+                "median_abs_residual": 0.339697,
+                "p90_abs_residual": 0.792892,
+                "max_abs_residual": 1.772181
+              },
+              "rare_earth_or_lanthanoid": {
+                "count": 21,
+                "mae": 0.230119,
+                "rmse": 0.296454,
+                "median_abs_residual": 0.191093,
+                "p90_abs_residual": 0.558857,
+                "max_abs_residual": 0.667666
+              },
+              "transition_metal": {
+                "count": 68,
+                "mae": 0.735294,
+                "rmse": 0.929117,
+                "median_abs_residual": 0.631358,
+                "p90_abs_residual": 1.48578,
+                "max_abs_residual": 2.116611
+              }
+            },
+            "formula_family": {
+              "dioxide": {
+                "count": 44,
+                "mae": 0.602262,
+                "rmse": 0.782695,
+                "median_abs_residual": 0.545457,
+                "p90_abs_residual": 1.210591,
+                "max_abs_residual": 2.116611
+              },
+              "intermediate_oxide": {
+                "count": 13,
+                "mae": 0.551729,
+                "rmse": 0.747588,
+                "median_abs_residual": 0.207389,
+                "p90_abs_residual": 1.398431,
+                "max_abs_residual": 1.501754
+              },
+              "monoxide": {
+                "count": 26,
+                "mae": 0.734844,
+                "rmse": 0.916209,
+                "median_abs_residual": 0.595113,
+                "p90_abs_residual": 1.549646,
+                "max_abs_residual": 1.798699
+              },
+              "oxygen_poor": {
+                "count": 19,
+                "mae": 0.735308,
+                "rmse": 0.896035,
+                "median_abs_residual": 0.66247,
+                "p90_abs_residual": 1.324469,
+                "max_abs_residual": 2.186765
+              },
+              "oxygen_rich": {
+                "count": 32,
+                "mae": 0.505016,
+                "rmse": 0.678775,
+                "median_abs_residual": 0.330834,
+                "p90_abs_residual": 1.135401,
+                "max_abs_residual": 1.443363
+              },
+              "sesquioxide": {
+                "count": 35,
+                "mae": 0.528768,
+                "rmse": 0.799664,
+                "median_abs_residual": 0.266006,
+                "p90_abs_residual": 1.427304,
+                "max_abs_residual": 2.065533
+              }
+            },
+            "spacegroup_bucket": {
+              "Aea2": {
+                "count": 1,
+                "mae": 0.056545,
+                "rmse": 0.056545,
+                "median_abs_residual": 0.056545,
+                "p90_abs_residual": 0.056545,
+                "max_abs_residual": 0.056545
+              },
+              "C2/c": {
+                "count": 7,
+                "mae": 0.484725,
+                "rmse": 0.74132,
+                "median_abs_residual": 0.194606,
+                "p90_abs_residual": 1.342849,
+                "max_abs_residual": 1.443363
+              },
+              "C2/m": {
+                "count": 6,
+                "mae": 0.43407,
+                "rmse": 0.483103,
+                "median_abs_residual": 0.518154,
+                "p90_abs_residual": 0.625349,
+                "max_abs_residual": 0.63143
+              },
+              "Cc": {
+                "count": 1,
+                "mae": 1.239209,
+                "rmse": 1.239209,
+                "median_abs_residual": 1.239209,
+                "p90_abs_residual": 1.239209,
+                "max_abs_residual": 1.239209
+              },
+              "Cm": {
+                "count": 2,
+                "mae": 0.627947,
+                "rmse": 0.773884,
+                "median_abs_residual": 0.627947,
+                "p90_abs_residual": 0.989791,
+                "max_abs_residual": 1.080252
+              },
+              "Cmc2_1": {
+                "count": 1,
+                "mae": 2.186765,
+                "rmse": 2.186765,
+                "median_abs_residual": 2.186765,
+                "p90_abs_residual": 2.186765,
+                "max_abs_residual": 2.186765
+              },
+              "Cmce": {
+                "count": 1,
+                "mae": 0.222362,
+                "rmse": 0.222362,
+                "median_abs_residual": 0.222362,
+                "p90_abs_residual": 0.222362,
+                "max_abs_residual": 0.222362
+              },
+              "Cmcm": {
+                "count": 4,
+                "mae": 0.944685,
+                "rmse": 1.046989,
+                "median_abs_residual": 1.028446,
+                "p90_abs_residual": 1.376021,
+                "max_abs_residual": 1.478934
+              },
+              "Cmmm": {
+                "count": 1,
+                "mae": 0.85645,
+                "rmse": 0.85645,
+                "median_abs_residual": 0.85645,
+                "p90_abs_residual": 0.85645,
+                "max_abs_residual": 0.85645
+              },
+              "F-43m": {
+                "count": 1,
+                "mae": 0.631369,
+                "rmse": 0.631369,
+                "median_abs_residual": 0.631369,
+                "p90_abs_residual": 0.631369,
+                "max_abs_residual": 0.631369
+              },
+              "Fdd2": {
+                "count": 2,
+                "mae": 1.248334,
+                "rmse": 1.263785,
+                "median_abs_residual": 1.248334,
+                "p90_abs_residual": 1.405944,
+                "max_abs_residual": 1.445346
+              },
+              "Fm-3m": {
+                "count": 17,
+                "mae": 0.684099,
+                "rmse": 0.872337,
+                "median_abs_residual": 0.557048,
+                "p90_abs_residual": 1.545914,
+                "max_abs_residual": 1.798699
+              },
+              "I-42m": {
+                "count": 1,
+                "mae": 0.374007,
+                "rmse": 0.374007,
+                "median_abs_residual": 0.374007,
+                "p90_abs_residual": 0.374007,
+                "max_abs_residual": 0.374007
+              },
+              "I4/m": {
+                "count": 1,
+                "mae": 0.830767,
+                "rmse": 0.830767,
+                "median_abs_residual": 0.830767,
+                "p90_abs_residual": 0.830767,
+                "max_abs_residual": 0.830767
+              },
+              "I4/mmm": {
+                "count": 5,
+                "mae": 0.596012,
+                "rmse": 0.608185,
+                "median_abs_residual": 0.662872,
+                "p90_abs_residual": 0.698407,
+                "max_abs_residual": 0.699239
+              },
+              "I4_1/a": {
+                "count": 1,
+                "mae": 0.994428,
+                "rmse": 0.994428,
+                "median_abs_residual": 0.994428,
+                "p90_abs_residual": 0.994428,
+                "max_abs_residual": 0.994428
+              },
+              "I4_1/amd": {
+                "count": 2,
+                "mae": 0.876033,
+                "rmse": 1.139568,
+                "median_abs_residual": 0.876033,
+                "p90_abs_residual": 1.459091,
+                "max_abs_residual": 1.604856
+              },
+              "Ia-3": {
+                "count": 19,
+                "mae": 0.41674,
+                "rmse": 0.718862,
+                "median_abs_residual": 0.236471,
+                "p90_abs_residual": 0.915213,
+                "max_abs_residual": 2.065533
+              },
+              "Im-3": {
+                "count": 1,
+                "mae": 0.892739,
+                "rmse": 0.892739,
+                "median_abs_residual": 0.892739,
+                "p90_abs_residual": 0.892739,
+                "max_abs_residual": 0.892739
+              },
+              "Immm": {
+                "count": 4,
+                "mae": 0.391027,
+                "rmse": 0.406876,
+                "median_abs_residual": 0.389951,
+                "p90_abs_residual": 0.505958,
+                "max_abs_residual": 0.50988
+              },
+              "P-1": {
+                "count": 2,
+                "mae": 0.1256,
+                "rmse": 0.131948,
+                "median_abs_residual": 0.1256,
+                "p90_abs_residual": 0.157946,
+                "max_abs_residual": 0.166033
+              },
+              "P-31c": {
+                "count": 2,
+                "mae": 0.659895,
+                "rmse": 0.736298,
+                "median_abs_residual": 0.659895,
+                "p90_abs_residual": 0.921182,
+                "max_abs_residual": 0.986504
+              },
+              "P-3m1": {
+                "count": 4,
+                "mae": 0.208505,
+                "rmse": 0.233325,
+                "median_abs_residual": 0.201631,
+                "p90_abs_residual": 0.323411,
+                "max_abs_residual": 0.345916
+              },
+              "P-43n": {
+                "count": 1,
+                "mae": 0.721226,
+                "rmse": 0.721226,
+                "median_abs_residual": 0.721226,
+                "p90_abs_residual": 0.721226,
+                "max_abs_residual": 0.721226
+              },
+              "P-62m": {
+                "count": 2,
+                "mae": 0.60699,
+                "rmse": 0.72571,
+                "median_abs_residual": 0.60699,
+                "p90_abs_residual": 0.925203,
+                "max_abs_residual": 1.004757
+              },
+              "P1": {
+                "count": 1,
+                "mae": 0.630288,
+                "rmse": 0.630288,
+                "median_abs_residual": 0.630288,
+                "p90_abs_residual": 0.630288,
+                "max_abs_residual": 0.630288
+              },
+              "P2": {
+                "count": 1,
+                "mae": 1.131006,
+                "rmse": 1.131006,
+                "median_abs_residual": 1.131006,
+                "p90_abs_residual": 1.131006,
+                "max_abs_residual": 1.131006
+              },
+              "P2/c": {
+                "count": 1,
+                "mae": 0.03202,
+                "rmse": 0.03202,
+                "median_abs_residual": 0.03202,
+                "p90_abs_residual": 0.03202,
+                "max_abs_residual": 0.03202
+              },
+              "P2_1": {
+                "count": 1,
+                "mae": 0.160557,
+                "rmse": 0.160557,
+                "median_abs_residual": 0.160557,
+                "p90_abs_residual": 0.160557,
+                "max_abs_residual": 0.160557
+              },
+              "P2_1/c": {
+                "count": 14,
+                "mae": 0.732587,
+                "rmse": 1.02486,
+                "median_abs_residual": 0.577977,
+                "p90_abs_residual": 1.787819,
+                "max_abs_residual": 2.116611
+              },
+              "P2_1/m": {
+                "count": 2,
+                "mae": 0.785627,
+                "rmse": 0.788215,
+                "median_abs_residual": 0.785627,
+                "p90_abs_residual": 0.836678,
+                "max_abs_residual": 0.849441
+              },
+              "P2_12_12_1": {
+                "count": 3,
+                "mae": 0.07565,
+                "rmse": 0.086477,
+                "median_abs_residual": 0.083365,
+                "p90_abs_residual": 0.114808,
+                "max_abs_residual": 0.122669
+              },
+              "P3_121": {
+                "count": 2,
+                "mae": 1.457019,
+                "rmse": 1.47623,
+                "median_abs_residual": 1.457019,
+                "p90_abs_residual": 1.646929,
+                "max_abs_residual": 1.694406
+              },
+              "P4/mcc": {
+                "count": 1,
+                "mae": 0.905751,
+                "rmse": 0.905751,
+                "median_abs_residual": 0.905751,
+                "p90_abs_residual": 0.905751,
+                "max_abs_residual": 0.905751
+              },
+              "P4/nmm": {
+                "count": 2,
+                "mae": 0.104533,
+                "rmse": 0.13155,
+                "median_abs_residual": 0.104533,
+                "p90_abs_residual": 0.168425,
+                "max_abs_residual": 0.184398
+              },
+              "P4_2/mbc": {
+                "count": 2,
+                "mae": 0.315835,
+                "rmse": 0.333935,
+                "median_abs_residual": 0.315835,
+                "p90_abs_residual": 0.402592,
+                "max_abs_residual": 0.424282
+              },
+              "P4_2/mmc": {
+                "count": 3,
+                "mae": 1.178135,
+                "rmse": 1.19658,
+                "median_abs_residual": 1.113373,
+                "p90_abs_residual": 1.391177,
+                "max_abs_residual": 1.460628
+              },
+              "P4_2/mnm": {
+                "count": 11,
+                "mae": 0.480905,
+                "rmse": 0.563514,
+                "median_abs_residual": 0.453112,
+                "p90_abs_residual": 0.684245,
+                "max_abs_residual": 1.175673
+              },
+              "P6_3/mcm": {
+                "count": 1,
+                "mae": 0.588573,
+                "rmse": 0.588573,
+                "median_abs_residual": 0.588573,
+                "p90_abs_residual": 0.588573,
+                "max_abs_residual": 0.588573
+              },
+              "P6_3/mmc": {
+                "count": 1,
+                "mae": 0.14285,
+                "rmse": 0.14285,
+                "median_abs_residual": 0.14285,
+                "p90_abs_residual": 0.14285,
+                "max_abs_residual": 0.14285
+              },
+              "P6_3mc": {
+                "count": 2,
+                "mae": 0.853918,
+                "rmse": 1.131005,
+                "median_abs_residual": 0.853918,
+                "p90_abs_residual": 1.447212,
+                "max_abs_residual": 1.595535
+              },
+              "Pa-3": {
+                "count": 1,
+                "mae": 0.190298,
+                "rmse": 0.190298,
+                "median_abs_residual": 0.190298,
+                "p90_abs_residual": 0.190298,
+                "max_abs_residual": 0.190298
+              },
+              "Pbca": {
+                "count": 3,
+                "mae": 0.480066,
+                "rmse": 0.712985,
+                "median_abs_residual": 0.11072,
+                "p90_abs_residual": 1.002588,
+                "max_abs_residual": 1.225555
+              },
+              "Pbcn": {
+                "count": 2,
+                "mae": 0.179326,
+                "rmse": 0.20951,
+                "median_abs_residual": 0.179326,
+                "p90_abs_residual": 0.265994,
+                "max_abs_residual": 0.287661
+              },
+              "Pc": {
+                "count": 1,
+                "mae": 0.021442,
+                "rmse": 0.021442,
+                "median_abs_residual": 0.021442,
+                "p90_abs_residual": 0.021442,
+                "max_abs_residual": 0.021442
+              },
+              "Pccn": {
+                "count": 1,
+                "mae": 0.173312,
+                "rmse": 0.173312,
+                "median_abs_residual": 0.173312,
+                "p90_abs_residual": 0.173312,
+                "max_abs_residual": 0.173312
+              },
+              "Pm-3m": {
+                "count": 3,
+                "mae": 0.253721,
+                "rmse": 0.272305,
+                "median_abs_residual": 0.231289,
+                "p90_abs_residual": 0.353827,
+                "max_abs_residual": 0.384461
+              },
+              "Pm-3n": {
+                "count": 1,
+                "mae": 1.076417,
+                "rmse": 1.076417,
+                "median_abs_residual": 1.076417,
+                "p90_abs_residual": 1.076417,
+                "max_abs_residual": 1.076417
+              },
+              "Pmmn": {
+                "count": 2,
+                "mae": 0.257596,
+                "rmse": 0.287746,
+                "median_abs_residual": 0.257596,
+                "p90_abs_residual": 0.360177,
+                "max_abs_residual": 0.385822
+              },
+              "Pn-3m": {
+                "count": 2,
+                "mae": 1.42313,
+                "rmse": 1.432599,
+                "median_abs_residual": 1.42313,
+                "p90_abs_residual": 1.554679,
+                "max_abs_residual": 1.587566
+              },
+              "Pnma": {
+                "count": 3,
+                "mae": 1.073711,
+                "rmse": 1.085923,
+                "median_abs_residual": 1.08237,
+                "p90_abs_residual": 1.230988,
+                "max_abs_residual": 1.268142
+              },
+              "Pnnm": {
+                "count": 1,
+                "mae": 0.976597,
+                "rmse": 0.976597,
+                "median_abs_residual": 0.976597,
+                "p90_abs_residual": 0.976597,
+                "max_abs_residual": 0.976597
+              },
+              "R-3": {
+                "count": 2,
+                "mae": 0.394487,
+                "rmse": 0.476902,
+                "median_abs_residual": 0.394487,
+                "p90_abs_residual": 0.608874,
+                "max_abs_residual": 0.66247
+              },
+              "R-3c": {
+                "count": 5,
+                "mae": 0.837792,
+                "rmse": 1.047088,
+                "median_abs_residual": 0.463388,
+                "p90_abs_residual": 1.623405,
+                "max_abs_residual": 1.772181
+              },
+              "R-3m": {
+                "count": 5,
+                "mae": 0.585504,
+                "rmse": 0.620709,
+                "median_abs_residual": 0.612862,
+                "p90_abs_residual": 0.813428,
+                "max_abs_residual": 0.840278
+              }
+            },
+            "property_range": {
+              "moderate_negative": {
+                "count": 88,
+                "mae": 0.384826,
+                "rmse": 0.518118,
+                "median_abs_residual": 0.285379,
+                "p90_abs_residual": 0.705835,
+                "max_abs_residual": 2.186765
+              },
+              "near_zero_or_weakly_negative": {
+                "count": 32,
+                "mae": 1.034983,
+                "rmse": 1.072423,
+                "median_abs_residual": 1.033082,
+                "p90_abs_residual": 1.438785,
+                "max_abs_residual": 1.587566
+              },
+              "strongly_negative": {
+                "count": 49,
+                "mae": 0.702694,
+                "rmse": 0.989734,
+                "median_abs_residual": 0.298984,
+                "p90_abs_residual": 1.777485,
+                "max_abs_residual": 2.116611
+              }
+            }
+          }
+        }
+      },
+      "best_validation_baseline": {
+        "baseline_id": "cation_group_mean",
+        "mae": 0.664637,
+        "rmse": 0.824567
+      },
+      "best_holdout_baseline": {
+        "baseline_id": "cation_group_mean",
+        "mae": 0.64603,
+        "rmse": 0.842409
+      }
+    },
+    "band_gap": {
+      "dataset_file": "data/materials/md-0001-materials-project-band-gap.yaml",
+      "units": "eV",
+      "provenance_class": "computed_dft",
+      "row_count": 169,
+      "split_counts": {
+        "train": 119,
+        "validation": 17,
+        "holdout": 33
+      },
+      "declared_baselines": {
+        "global_mean": "Train-split global mean null baseline.",
+        "global_median": "Train-split global median null baseline.",
+        "cation_group_mean": "Train-split cation-group mean baseline with global-mean fallback."
+      },
+      "baseline_summaries": {
+        "global_mean": {
+          "metrics": {
+            "train": {
+              "count": 119,
+              "mae": 1.445287,
+              "rmse": 1.722101,
+              "median_abs_residual": 1.565818,
+              "p90_abs_residual": 2.407802,
+              "max_abs_residual": 5.067382
+            },
+            "validation": {
+              "count": 17,
+              "mae": 1.242556,
+              "rmse": 1.490768,
+              "median_abs_residual": 1.565818,
+              "p90_abs_residual": 1.876342,
+              "max_abs_residual": 3.332782
+            },
+            "holdout": {
+              "count": 33,
+              "mae": 1.371747,
+              "rmse": 1.714817,
+              "median_abs_residual": 1.565818,
+              "p90_abs_residual": 2.247342,
+              "max_abs_residual": 5.898082
+            },
+            "full_md0001_axis": {
+              "count": 169,
+              "mae": 1.410534,
+              "rmse": 1.698817,
+              "median_abs_residual": 1.565818,
+              "p90_abs_residual": 2.363742,
+              "max_abs_residual": 5.898082
+            }
+          },
+          "subset_metrics": {
+            "cation_group": {
+              "alkali_or_alkaline_earth": {
+                "count": 26,
+                "mae": 1.35905,
+                "rmse": 1.812412,
+                "median_abs_residual": 1.1601,
+                "p90_abs_residual": 2.463832,
+                "max_abs_residual": 5.898082
+              },
+              "metalloid_or_p_block": {
+                "count": 26,
+                "mae": 1.505659,
+                "rmse": 2.096551,
+                "median_abs_residual": 1.11105,
+                "p90_abs_residual": 3.874282,
+                "max_abs_residual": 5.067382
+              },
+              "mixed_or_ambiguous": {
+                "count": 13,
+                "mae": 1.760038,
+                "rmse": 1.952055,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 2.673662,
+                "max_abs_residual": 3.954382
+              },
+              "post_transition_metal": {
+                "count": 15,
+                "mae": 0.983802,
+                "rmse": 1.389643,
+                "median_abs_residual": 0.655018,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 4.287882
+              },
+              "rare_earth_or_lanthanoid": {
+                "count": 21,
+                "mae": 1.88538,
+                "rmse": 1.951783,
+                "median_abs_residual": 2.127382,
+                "p90_abs_residual": 2.379982,
+                "max_abs_residual": 2.455282
+              },
+              "transition_metal": {
+                "count": 68,
+                "mae": 1.274519,
+                "rmse": 1.380214,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 2.531482
+              }
+            },
+            "formula_family": {
+              "dioxide": {
+                "count": 44,
+                "mae": 1.467107,
+                "rmse": 1.701823,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.930082,
+                "max_abs_residual": 5.067382
+              },
+              "intermediate_oxide": {
+                "count": 13,
+                "mae": 1.2413,
+                "rmse": 1.33849,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "monoxide": {
+                "count": 26,
+                "mae": 1.228201,
+                "rmse": 1.695596,
+                "median_abs_residual": 1.067018,
+                "p90_abs_residual": 1.886632,
+                "max_abs_residual": 5.898082
+              },
+              "oxygen_poor": {
+                "count": 19,
+                "mae": 1.353717,
+                "rmse": 1.644573,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.919211,
+                "max_abs_residual": 3.954382
+              },
+              "oxygen_rich": {
+                "count": 32,
+                "mae": 1.085666,
+                "rmse": 1.375271,
+                "median_abs_residual": 1.084,
+                "p90_abs_residual": 1.594315,
+                "max_abs_residual": 3.595382
+              },
+              "sesquioxide": {
+                "count": 35,
+                "mae": 1.865584,
+                "rmse": 2.072574,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 2.462962,
+                "max_abs_residual": 4.735882
+              }
+            },
+            "spacegroup_bucket": {
+              "Aea2": {
+                "count": 1,
+                "mae": 1.270982,
+                "rmse": 1.270982,
+                "median_abs_residual": 1.270982,
+                "p90_abs_residual": 1.270982,
+                "max_abs_residual": 1.270982
+              },
+              "C2/c": {
+                "count": 7,
+                "mae": 1.001594,
+                "rmse": 1.174691,
+                "median_abs_residual": 1.060118,
+                "p90_abs_residual": 1.783284,
+                "max_abs_residual": 2.109482
+              },
+              "C2/m": {
+                "count": 6,
+                "mae": 0.827194,
+                "rmse": 0.976205,
+                "median_abs_residual": 0.70055,
+                "p90_abs_residual": 1.4351,
+                "max_abs_residual": 1.845382
+              },
+              "Cc": {
+                "count": 1,
+                "mae": 0.355518,
+                "rmse": 0.355518,
+                "median_abs_residual": 0.355518,
+                "p90_abs_residual": 0.355518,
+                "max_abs_residual": 0.355518
+              },
+              "Cm": {
+                "count": 2,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "Cmc2_1": {
+                "count": 1,
+                "mae": 3.954382,
+                "rmse": 3.954382,
+                "median_abs_residual": 3.954382,
+                "p90_abs_residual": 3.954382,
+                "max_abs_residual": 3.954382
+              },
+              "Cmce": {
+                "count": 1,
+                "mae": 0.791682,
+                "rmse": 0.791682,
+                "median_abs_residual": 0.791682,
+                "p90_abs_residual": 0.791682,
+                "max_abs_residual": 0.791682
+              },
+              "Cmcm": {
+                "count": 4,
+                "mae": 1.554543,
+                "rmse": 1.554666,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "Cmmm": {
+                "count": 1,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "F-43m": {
+                "count": 1,
+                "mae": 0.977818,
+                "rmse": 0.977818,
+                "median_abs_residual": 0.977818,
+                "p90_abs_residual": 0.977818,
+                "max_abs_residual": 0.977818
+              },
+              "Fdd2": {
+                "count": 2,
+                "mae": 1.063318,
+                "rmse": 1.124708,
+                "median_abs_residual": 1.063318,
+                "p90_abs_residual": 1.356518,
+                "max_abs_residual": 1.429818
+              },
+              "Fm-3m": {
+                "count": 17,
+                "mae": 1.517114,
+                "rmse": 1.76251,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 2.857082,
+                "max_abs_residual": 3.332782
+              },
+              "I-42m": {
+                "count": 1,
+                "mae": 1.597482,
+                "rmse": 1.597482,
+                "median_abs_residual": 1.597482,
+                "p90_abs_residual": 1.597482,
+                "max_abs_residual": 1.597482
+              },
+              "I4/m": {
+                "count": 1,
+                "mae": 0.975418,
+                "rmse": 0.975418,
+                "median_abs_residual": 0.975418,
+                "p90_abs_residual": 0.975418,
+                "max_abs_residual": 0.975418
+              },
+              "I4/mmm": {
+                "count": 5,
+                "mae": 1.250676,
+                "rmse": 1.293468,
+                "median_abs_residual": 1.283682,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "I4_1/a": {
+                "count": 1,
+                "mae": 1.283418,
+                "rmse": 1.283418,
+                "median_abs_residual": 1.283418,
+                "p90_abs_residual": 1.283418,
+                "max_abs_residual": 1.283418
+              },
+              "I4_1/amd": {
+                "count": 2,
+                "mae": 0.62255,
+                "rmse": 0.635931,
+                "median_abs_residual": 0.62255,
+                "p90_abs_residual": 0.726365,
+                "max_abs_residual": 0.752318
+              },
+              "Ia-3": {
+                "count": 19,
+                "mae": 1.988556,
+                "rmse": 2.037511,
+                "median_abs_residual": 2.200782,
+                "p90_abs_residual": 2.408722,
+                "max_abs_residual": 2.531482
+              },
+              "Im-3": {
+                "count": 1,
+                "mae": 1.260682,
+                "rmse": 1.260682,
+                "median_abs_residual": 1.260682,
+                "p90_abs_residual": 1.260682,
+                "max_abs_residual": 1.260682
+              },
+              "Immm": {
+                "count": 4,
+                "mae": 0.748825,
+                "rmse": 0.977562,
+                "median_abs_residual": 0.67285,
+                "p90_abs_residual": 1.441528,
+                "max_abs_residual": 1.565818
+              },
+              "P-1": {
+                "count": 2,
+                "mae": 1.110418,
+                "rmse": 1.200174,
+                "median_abs_residual": 1.110418,
+                "p90_abs_residual": 1.474738,
+                "max_abs_residual": 1.565818
+              },
+              "P-31c": {
+                "count": 2,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "P-3m1": {
+                "count": 4,
+                "mae": 1.83685,
+                "rmse": 1.85981,
+                "median_abs_residual": 1.7613,
+                "p90_abs_residual": 2.168322,
+                "max_abs_residual": 2.258982
+              },
+              "P-43n": {
+                "count": 1,
+                "mae": 0.899582,
+                "rmse": 0.899582,
+                "median_abs_residual": 0.899582,
+                "p90_abs_residual": 0.899582,
+                "max_abs_residual": 0.899582
+              },
+              "P-62m": {
+                "count": 2,
+                "mae": 0.86805,
+                "rmse": 1.113729,
+                "median_abs_residual": 0.86805,
+                "p90_abs_residual": 1.426265,
+                "max_abs_residual": 1.565818
+              },
+              "P1": {
+                "count": 1,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "P2": {
+                "count": 1,
+                "mae": 0.207282,
+                "rmse": 0.207282,
+                "median_abs_residual": 0.207282,
+                "p90_abs_residual": 0.207282,
+                "max_abs_residual": 0.207282
+              },
+              "P2/c": {
+                "count": 1,
+                "mae": 0.655018,
+                "rmse": 0.655018,
+                "median_abs_residual": 0.655018,
+                "p90_abs_residual": 0.655018,
+                "max_abs_residual": 0.655018
+              },
+              "P2_1": {
+                "count": 1,
+                "mae": 0.116382,
+                "rmse": 0.116382,
+                "median_abs_residual": 0.116382,
+                "p90_abs_residual": 0.116382,
+                "max_abs_residual": 0.116382
+              },
+              "P2_1/c": {
+                "count": 14,
+                "mae": 1.421773,
+                "rmse": 1.712245,
+                "median_abs_residual": 1.4517,
+                "p90_abs_residual": 2.462862,
+                "max_abs_residual": 3.595382
+              },
+              "P2_1/m": {
+                "count": 2,
+                "mae": 1.016218,
+                "rmse": 1.155318,
+                "median_abs_residual": 1.016218,
+                "p90_abs_residual": 1.455898,
+                "max_abs_residual": 1.565818
+              },
+              "P2_12_12_1": {
+                "count": 3,
+                "mae": 0.932694,
+                "rmse": 1.096582,
+                "median_abs_residual": 1.163682,
+                "p90_abs_residual": 1.428402,
+                "max_abs_residual": 1.494582
+              },
+              "P3_121": {
+                "count": 2,
+                "mae": 4.444532,
+                "rmse": 4.454071,
+                "median_abs_residual": 4.444532,
+                "p90_abs_residual": 4.677612,
+                "max_abs_residual": 4.735882
+              },
+              "P4/mcc": {
+                "count": 1,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "P4/nmm": {
+                "count": 2,
+                "mae": 0.629218,
+                "rmse": 0.820759,
+                "median_abs_residual": 0.629218,
+                "p90_abs_residual": 1.050818,
+                "max_abs_residual": 1.156218
+              },
+              "P4_2/mbc": {
+                "count": 2,
+                "mae": 1.0772,
+                "rmse": 1.255224,
+                "median_abs_residual": 1.0772,
+                "p90_abs_residual": 1.592705,
+                "max_abs_residual": 1.721582
+              },
+              "P4_2/mmc": {
+                "count": 3,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "P4_2/mnm": {
+                "count": 11,
+                "mae": 1.392218,
+                "rmse": 1.442667,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "P6_3/mcm": {
+                "count": 1,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "P6_3/mmc": {
+                "count": 1,
+                "mae": 0.408482,
+                "rmse": 0.408482,
+                "median_abs_residual": 0.408482,
+                "p90_abs_residual": 0.408482,
+                "max_abs_residual": 0.408482
+              },
+              "P6_3mc": {
+                "count": 2,
+                "mae": 3.3706,
+                "rmse": 4.212969,
+                "median_abs_residual": 3.3706,
+                "p90_abs_residual": 5.392585,
+                "max_abs_residual": 5.898082
+              },
+              "Pa-3": {
+                "count": 1,
+                "mae": 5.067382,
+                "rmse": 5.067382,
+                "median_abs_residual": 5.067382,
+                "p90_abs_residual": 5.067382,
+                "max_abs_residual": 5.067382
+              },
+              "Pbca": {
+                "count": 3,
+                "mae": 1.065173,
+                "rmse": 1.126046,
+                "median_abs_residual": 1.100582,
+                "p90_abs_residual": 1.415091,
+                "max_abs_residual": 1.493718
+              },
+              "Pbcn": {
+                "count": 2,
+                "mae": 0.2181,
+                "rmse": 0.218366,
+                "median_abs_residual": 0.2181,
+                "p90_abs_residual": 0.226725,
+                "max_abs_residual": 0.228882
+              },
+              "Pc": {
+                "count": 1,
+                "mae": 0.268482,
+                "rmse": 0.268482,
+                "median_abs_residual": 0.268482,
+                "p90_abs_residual": 0.268482,
+                "max_abs_residual": 0.268482
+              },
+              "Pccn": {
+                "count": 1,
+                "mae": 0.658082,
+                "rmse": 0.658082,
+                "median_abs_residual": 0.658082,
+                "p90_abs_residual": 0.658082,
+                "max_abs_residual": 0.658082
+              },
+              "Pm-3m": {
+                "count": 3,
+                "mae": 1.066939,
+                "rmse": 1.279109,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "Pm-3n": {
+                "count": 1,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "Pmmn": {
+                "count": 2,
+                "mae": 0.42525,
+                "rmse": 0.457946,
+                "median_abs_residual": 0.42525,
+                "p90_abs_residual": 0.561195,
+                "max_abs_residual": 0.595182
+              },
+              "Pn-3m": {
+                "count": 2,
+                "mae": 1.309468,
+                "rmse": 1.334325,
+                "median_abs_residual": 1.309468,
+                "p90_abs_residual": 1.514548,
+                "max_abs_residual": 1.565818
+              },
+              "Pnma": {
+                "count": 3,
+                "mae": 1.402994,
+                "rmse": 1.928614,
+                "median_abs_residual": 0.558282,
+                "p90_abs_residual": 2.728922,
+                "max_abs_residual": 3.271582
+              },
+              "Pnnm": {
+                "count": 1,
+                "mae": 0.919418,
+                "rmse": 0.919418,
+                "median_abs_residual": 0.919418,
+                "p90_abs_residual": 0.919418,
+                "max_abs_residual": 0.919418
+              },
+              "R-3": {
+                "count": 2,
+                "mae": 1.565818,
+                "rmse": 1.565818,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "R-3c": {
+                "count": 5,
+                "mae": 2.110231,
+                "rmse": 2.374577,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 3.199056,
+                "max_abs_residual": 4.287882
+              },
+              "R-3m": {
+                "count": 5,
+                "mae": 0.989111,
+                "rmse": 1.070281,
+                "median_abs_residual": 0.994118,
+                "p90_abs_residual": 1.384458,
+                "max_abs_residual": 1.565818
+              }
+            },
+            "property_range": {
+              "large_gap": {
+                "count": 35,
+                "mae": 2.72281,
+                "rmse": 2.91193,
+                "median_abs_residual": 2.359682,
+                "p90_abs_residual": 4.234002,
+                "max_abs_residual": 5.898082
+              },
+              "metallic_or_zero_gap": {
+                "count": 59,
+                "mae": 1.564342,
+                "rmse": 1.564362,
+                "median_abs_residual": 1.565818,
+                "p90_abs_residual": 1.565818,
+                "max_abs_residual": 1.565818
+              },
+              "moderate_gap": {
+                "count": 50,
+                "mae": 0.523226,
+                "rmse": 0.649615,
+                "median_abs_residual": 0.40735,
+                "p90_abs_residual": 1.177882,
+                "max_abs_residual": 1.375282
+              },
+              "small_gap": {
+                "count": 25,
+                "mae": 0.984974,
+                "rmse": 1.009306,
+                "median_abs_residual": 0.982618,
+                "p90_abs_residual": 1.232538,
+                "max_abs_residual": 1.493718
+              }
+            }
+          }
+        },
+        "global_median": {
+          "metrics": {
+            "train": {
+              "count": 119,
+              "mae": 1.399815,
+              "rmse": 1.784199,
+              "median_abs_residual": 1.0992,
+              "p90_abs_residual": 2.87442,
+              "max_abs_residual": 5.534
+            },
+            "validation": {
+              "count": 17,
+              "mae": 1.214165,
+              "rmse": 1.521731,
+              "median_abs_residual": 1.0992,
+              "p90_abs_residual": 2.34296,
+              "max_abs_residual": 3.7994
+            },
+            "holdout": {
+              "count": 33,
+              "mae": 1.349133,
+              "rmse": 1.774778,
+              "median_abs_residual": 1.0992,
+              "p90_abs_residual": 2.71396,
+              "max_abs_residual": 6.3647
+            },
+            "full_md0001_axis": {
+              "count": 169,
+              "mae": 1.371244,
+              "rmse": 1.757707,
+              "median_abs_residual": 1.0992,
+              "p90_abs_residual": 2.83036,
+              "max_abs_residual": 6.3647
+            }
+          },
+          "subset_metrics": {
+            "cation_group": {
+              "alkali_or_alkaline_earth": {
+                "count": 26,
+                "mae": 1.466731,
+                "rmse": 1.945686,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 2.93045,
+                "max_abs_residual": 6.3647
+              },
+              "metalloid_or_p_block": {
+                "count": 26,
+                "mae": 1.826292,
+                "rmse": 2.414516,
+                "median_abs_residual": 1.37665,
+                "p90_abs_residual": 4.3409,
+                "max_abs_residual": 5.534
+              },
+              "mixed_or_ambiguous": {
+                "count": 13,
+                "mae": 1.580569,
+                "rmse": 1.91153,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 3.14028,
+                "max_abs_residual": 4.421
+              },
+              "post_transition_metal": {
+                "count": 15,
+                "mae": 0.827193,
+                "rmse": 1.386695,
+                "median_abs_residual": 0.5275,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 4.7545
+              },
+              "rare_earth_or_lanthanoid": {
+                "count": 21,
+                "mae": 2.040919,
+                "rmse": 2.193743,
+                "median_abs_residual": 2.594,
+                "p90_abs_residual": 2.8466,
+                "max_abs_residual": 2.9219
+              },
+              "transition_metal": {
+                "count": 68,
+                "mae": 1.033926,
+                "rmse": 1.180219,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.4265,
+                "max_abs_residual": 2.9981
+              }
+            },
+            "formula_family": {
+              "dioxide": {
+                "count": 44,
+                "mae": 1.347889,
+                "rmse": 1.718153,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 2.3967,
+                "max_abs_residual": 5.534
+              },
+              "intermediate_oxide": {
+                "count": 13,
+                "mae": 0.851669,
+                "rmse": 0.938193,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "monoxide": {
+                "count": 26,
+                "mae": 1.243323,
+                "rmse": 1.753034,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 2.35325,
+                "max_abs_residual": 6.3647
+              },
+              "oxygen_poor": {
+                "count": 19,
+                "mae": 1.181805,
+                "rmse": 1.581892,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.63924,
+                "max_abs_residual": 4.421
+              },
+              "oxygen_rich": {
+                "count": 32,
+                "mae": 1.158928,
+                "rmse": 1.471144,
+                "median_abs_residual": 1.0805,
+                "p90_abs_residual": 2.03811,
+                "max_abs_residual": 4.062
+              },
+              "sesquioxide": {
+                "count": 35,
+                "mae": 1.985571,
+                "rmse": 2.29344,
+                "median_abs_residual": 1.8419,
+                "p90_abs_residual": 2.92958,
+                "max_abs_residual": 5.2025
+              }
+            },
+            "spacegroup_bucket": {
+              "Aea2": {
+                "count": 1,
+                "mae": 1.7376,
+                "rmse": 1.7376,
+                "median_abs_residual": 1.7376,
+                "p90_abs_residual": 1.7376,
+                "max_abs_residual": 1.7376
+              },
+              "C2/c": {
+                "count": 7,
+                "mae": 0.8553,
+                "rmse": 1.161391,
+                "median_abs_residual": 0.6008,
+                "p90_abs_residual": 1.68996,
+                "max_abs_residual": 2.5761
+              },
+              "C2/m": {
+                "count": 6,
+                "mae": 0.982733,
+                "rmse": 1.171626,
+                "median_abs_residual": 0.81255,
+                "p90_abs_residual": 1.68615,
+                "max_abs_residual": 2.312
+              },
+              "Cc": {
+                "count": 1,
+                "mae": 0.1111,
+                "rmse": 0.1111,
+                "median_abs_residual": 0.1111,
+                "p90_abs_residual": 0.1111,
+                "max_abs_residual": 0.1111
+              },
+              "Cm": {
+                "count": 2,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "Cmc2_1": {
+                "count": 1,
+                "mae": 4.421,
+                "rmse": 4.421,
+                "median_abs_residual": 4.421,
+                "p90_abs_residual": 4.421,
+                "max_abs_residual": 4.421
+              },
+              "Cmce": {
+                "count": 1,
+                "mae": 1.2583,
+                "rmse": 1.2583,
+                "median_abs_residual": 1.2583,
+                "p90_abs_residual": 1.2583,
+                "max_abs_residual": 1.2583
+              },
+              "Cmcm": {
+                "count": 4,
+                "mae": 1.087925,
+                "rmse": 1.0881,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "Cmmm": {
+                "count": 1,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "F-43m": {
+                "count": 1,
+                "mae": 0.5112,
+                "rmse": 0.5112,
+                "median_abs_residual": 0.5112,
+                "p90_abs_residual": 0.5112,
+                "max_abs_residual": 0.5112
+              },
+              "Fdd2": {
+                "count": 2,
+                "mae": 0.5967,
+                "rmse": 0.700266,
+                "median_abs_residual": 0.5967,
+                "p90_abs_residual": 0.8899,
+                "max_abs_residual": 0.9632
+              },
+              "Fm-3m": {
+                "count": 17,
+                "mae": 1.599459,
+                "rmse": 1.880583,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 3.3237,
+                "max_abs_residual": 3.7994
+              },
+              "I-42m": {
+                "count": 1,
+                "mae": 2.0641,
+                "rmse": 2.0641,
+                "median_abs_residual": 2.0641,
+                "p90_abs_residual": 2.0641,
+                "max_abs_residual": 2.0641
+              },
+              "I4/m": {
+                "count": 1,
+                "mae": 0.5088,
+                "rmse": 0.5088,
+                "median_abs_residual": 0.5088,
+                "p90_abs_residual": 0.5088,
+                "max_abs_residual": 0.5088
+              },
+              "I4/mmm": {
+                "count": 5,
+                "mae": 1.344,
+                "rmse": 1.37439,
+                "median_abs_residual": 1.136,
+                "p90_abs_residual": 1.7043,
+                "max_abs_residual": 1.7503
+              },
+              "I4_1/a": {
+                "count": 1,
+                "mae": 0.8168,
+                "rmse": 0.8168,
+                "median_abs_residual": 0.8168,
+                "p90_abs_residual": 0.8168,
+                "max_abs_residual": 0.8168
+              },
+              "I4_1/amd": {
+                "count": 2,
+                "mae": 0.62255,
+                "rmse": 0.707839,
+                "median_abs_residual": 0.62255,
+                "p90_abs_residual": 0.89203,
+                "max_abs_residual": 0.9594
+              },
+              "Ia-3": {
+                "count": 19,
+                "mae": 2.160468,
+                "rmse": 2.316032,
+                "median_abs_residual": 2.6674,
+                "p90_abs_residual": 2.87534,
+                "max_abs_residual": 2.9981
+              },
+              "Im-3": {
+                "count": 1,
+                "mae": 1.7273,
+                "rmse": 1.7273,
+                "median_abs_residual": 1.7273,
+                "p90_abs_residual": 1.7273,
+                "max_abs_residual": 1.7273
+              },
+              "Immm": {
+                "count": 4,
+                "mae": 0.748825,
+                "rmse": 0.777323,
+                "median_abs_residual": 0.67285,
+                "p90_abs_residual": 0.97491,
+                "max_abs_residual": 1.0992
+              },
+              "P-1": {
+                "count": 2,
+                "mae": 0.6438,
+                "rmse": 0.788586,
+                "median_abs_residual": 0.6438,
+                "p90_abs_residual": 1.00812,
+                "max_abs_residual": 1.0992
+              },
+              "P-31c": {
+                "count": 2,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "P-3m1": {
+                "count": 4,
+                "mae": 1.83685,
+                "rmse": 1.982312,
+                "median_abs_residual": 1.7613,
+                "p90_abs_residual": 2.63494,
+                "max_abs_residual": 2.7256
+              },
+              "P-43n": {
+                "count": 1,
+                "mae": 1.3662,
+                "rmse": 1.3662,
+                "median_abs_residual": 1.3662,
+                "p90_abs_residual": 1.3662,
+                "max_abs_residual": 1.3662
+              },
+              "P-62m": {
+                "count": 2,
+                "mae": 0.86805,
+                "rmse": 0.898299,
+                "median_abs_residual": 0.86805,
+                "p90_abs_residual": 1.05297,
+                "max_abs_residual": 1.0992
+              },
+              "P1": {
+                "count": 1,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "P2": {
+                "count": 1,
+                "mae": 0.6739,
+                "rmse": 0.6739,
+                "median_abs_residual": 0.6739,
+                "p90_abs_residual": 0.6739,
+                "max_abs_residual": 0.6739
+              },
+              "P2/c": {
+                "count": 1,
+                "mae": 0.1884,
+                "rmse": 0.1884,
+                "median_abs_residual": 0.1884,
+                "p90_abs_residual": 0.1884,
+                "max_abs_residual": 0.1884
+              },
+              "P2_1": {
+                "count": 1,
+                "mae": 0.583,
+                "rmse": 0.583,
+                "median_abs_residual": 0.583,
+                "p90_abs_residual": 0.583,
+                "max_abs_residual": 0.583
+              },
+              "P2_1/c": {
+                "count": 14,
+                "mae": 1.604736,
+                "rmse": 1.920923,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 2.92948,
+                "max_abs_residual": 4.062
+              },
+              "P2_1/m": {
+                "count": 2,
+                "mae": 0.5496,
+                "rmse": 0.777252,
+                "median_abs_residual": 0.5496,
+                "p90_abs_residual": 0.98928,
+                "max_abs_residual": 1.0992
+              },
+              "P2_12_12_1": {
+                "count": 3,
+                "mae": 1.3061,
+                "rmse": 1.484473,
+                "median_abs_residual": 1.6303,
+                "p90_abs_residual": 1.89502,
+                "max_abs_residual": 1.9612
+              },
+              "P3_121": {
+                "count": 2,
+                "mae": 4.91115,
+                "rmse": 4.919784,
+                "median_abs_residual": 4.91115,
+                "p90_abs_residual": 5.14423,
+                "max_abs_residual": 5.2025
+              },
+              "P4/mcc": {
+                "count": 1,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "P4/nmm": {
+                "count": 2,
+                "mae": 0.527,
+                "rmse": 0.551514,
+                "median_abs_residual": 0.527,
+                "p90_abs_residual": 0.65708,
+                "max_abs_residual": 0.6896
+              },
+              "P4_2/mbc": {
+                "count": 2,
+                "mae": 1.111,
+                "rmse": 1.547476,
+                "median_abs_residual": 1.111,
+                "p90_abs_residual": 1.97276,
+                "max_abs_residual": 2.1882
+              },
+              "P4_2/mmc": {
+                "count": 3,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "P4_2/mnm": {
+                "count": 11,
+                "mae": 0.946782,
+                "rmse": 0.999875,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "P6_3/mcm": {
+                "count": 1,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "P6_3/mmc": {
+                "count": 1,
+                "mae": 0.8751,
+                "rmse": 0.8751,
+                "median_abs_residual": 0.8751,
+                "p90_abs_residual": 0.8751,
+                "max_abs_residual": 0.8751
+              },
+              "P6_3mc": {
+                "count": 2,
+                "mae": 3.3706,
+                "rmse": 4.50839,
+                "median_abs_residual": 3.3706,
+                "p90_abs_residual": 5.76588,
+                "max_abs_residual": 6.3647
+              },
+              "Pa-3": {
+                "count": 1,
+                "mae": 5.534,
+                "rmse": 5.534,
+                "median_abs_residual": 5.534,
+                "p90_abs_residual": 5.534,
+                "max_abs_residual": 5.534
+              },
+              "Pbca": {
+                "count": 3,
+                "mae": 0.909633,
+                "rmse": 1.084615,
+                "median_abs_residual": 1.0271,
+                "p90_abs_residual": 1.45918,
+                "max_abs_residual": 1.5672
+              },
+              "Pbcn": {
+                "count": 2,
+                "mae": 0.4774,
+                "rmse": 0.52486,
+                "median_abs_residual": 0.4774,
+                "p90_abs_residual": 0.65188,
+                "max_abs_residual": 0.6955
+              },
+              "Pc": {
+                "count": 1,
+                "mae": 0.7351,
+                "rmse": 0.7351,
+                "median_abs_residual": 0.7351,
+                "p90_abs_residual": 0.7351,
+                "max_abs_residual": 0.7351
+              },
+              "Pccn": {
+                "count": 1,
+                "mae": 1.1247,
+                "rmse": 1.1247,
+                "median_abs_residual": 1.1247,
+                "p90_abs_residual": 1.1247,
+                "max_abs_residual": 1.1247
+              },
+              "Pm-3m": {
+                "count": 3,
+                "mae": 0.9114,
+                "rmse": 0.949309,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "Pm-3n": {
+                "count": 1,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "Pmmn": {
+                "count": 2,
+                "mae": 0.63655,
+                "rmse": 0.765528,
+                "median_abs_residual": 0.63655,
+                "p90_abs_residual": 0.97675,
+                "max_abs_residual": 1.0618
+              },
+              "Pn-3m": {
+                "count": 2,
+                "mae": 0.84285,
+                "rmse": 0.880972,
+                "median_abs_residual": 0.84285,
+                "p90_abs_residual": 1.04793,
+                "max_abs_residual": 1.0992
+              },
+              "Pnma": {
+                "count": 3,
+                "mae": 1.616867,
+                "rmse": 2.238468,
+                "median_abs_residual": 1.0249,
+                "p90_abs_residual": 3.19554,
+                "max_abs_residual": 3.7382
+              },
+              "Pnnm": {
+                "count": 1,
+                "mae": 0.4528,
+                "rmse": 0.4528,
+                "median_abs_residual": 0.4528,
+                "p90_abs_residual": 0.4528,
+                "max_abs_residual": 0.4528
+              },
+              "R-3": {
+                "count": 2,
+                "mae": 1.0992,
+                "rmse": 1.0992,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "R-3c": {
+                "count": 5,
+                "mae": 1.83026,
+                "rmse": 2.342573,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 3.29238,
+                "max_abs_residual": 4.7545
+              },
+              "R-3m": {
+                "count": 5,
+                "mae": 0.70914,
+                "rmse": 0.740697,
+                "median_abs_residual": 0.6458,
+                "p90_abs_residual": 0.9624,
+                "max_abs_residual": 1.0992
+              }
+            },
+            "property_range": {
+              "large_gap": {
+                "count": 35,
+                "mae": 3.189429,
+                "rmse": 3.352327,
+                "median_abs_residual": 2.8263,
+                "p90_abs_residual": 4.70062,
+                "max_abs_residual": 6.3647
+              },
+              "metallic_or_zero_gap": {
+                "count": 59,
+                "mae": 1.097724,
+                "rmse": 1.097752,
+                "median_abs_residual": 1.0992,
+                "p90_abs_residual": 1.0992,
+                "max_abs_residual": 1.0992
+              },
+              "moderate_gap": {
+                "count": 50,
+                "mae": 0.847712,
+                "rmse": 0.997689,
+                "median_abs_residual": 0.76135,
+                "p90_abs_residual": 1.6445,
+                "max_abs_residual": 1.8419
+              },
+              "small_gap": {
+                "count": 25,
+                "mae": 0.518356,
+                "rmse": 0.563219,
+                "median_abs_residual": 0.516,
+                "p90_abs_residual": 0.76592,
+                "max_abs_residual": 1.0271
+              }
+            }
+          }
+        },
+        "cation_group_mean": {
+          "metrics": {
+            "train": {
+              "count": 119,
+              "mae": 1.167869,
+              "rmse": 1.469197,
+              "median_abs_residual": 0.794884,
+              "p90_abs_residual": 2.523093,
+              "max_abs_residual": 4.56185
+            },
+            "validation": {
+              "count": 17,
+              "mae": 1.44253,
+              "rmse": 1.686875,
+              "median_abs_residual": 1.020816,
+              "p90_abs_residual": 2.523093,
+              "max_abs_residual": 3.363832
+            },
+            "holdout": {
+              "count": 33,
+              "mae": 1.247901,
+              "rmse": 1.62569,
+              "median_abs_residual": 1.051168,
+              "p90_abs_residual": 2.348508,
+              "max_abs_residual": 5.929132
+            },
+            "full_md0001_axis": {
+              "count": 169,
+              "mae": 1.211126,
+              "rmse": 1.523883,
+              "median_abs_residual": 0.888107,
+              "p90_abs_residual": 2.523093,
+              "max_abs_residual": 5.929132
+            }
+          },
+          "subset_metrics": {
+            "cation_group": {
+              "alkali_or_alkaline_earth": {
+                "count": 26,
+                "mae": 1.366215,
+                "rmse": 1.817867,
+                "median_abs_residual": 1.1601,
+                "p90_abs_residual": 2.494882,
+                "max_abs_residual": 5.929132
+              },
+              "metalloid_or_p_block": {
+                "count": 26,
+                "mae": 1.499287,
+                "rmse": 1.727186,
+                "median_abs_residual": 1.4905,
+                "p90_abs_residual": 2.66855,
+                "max_abs_residual": 3.227813
+              },
+              "mixed_or_ambiguous": {
+                "count": 13,
+                "mae": 1.630059,
+                "rmse": 1.911449,
+                "median_abs_residual": 1.227873,
+                "p90_abs_residual": 3.011607,
+                "max_abs_residual": 4.292327
+              },
+              "post_transition_metal": {
+                "count": 15,
+                "mae": 0.87885,
+                "rmse": 1.368767,
+                "median_abs_residual": 0.66135,
+                "p90_abs_residual": 1.29185,
+                "max_abs_residual": 4.56185
+              },
+              "rare_earth_or_lanthanoid": {
+                "count": 21,
+                "mae": 1.628992,
+                "rmse": 1.764862,
+                "median_abs_residual": 1.402407,
+                "p90_abs_residual": 2.523093,
+                "max_abs_residual": 2.523093
+              },
+              "transition_metal": {
+                "count": 68,
+                "mae": 0.905806,
+                "rmse": 1.13735,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 1.730816,
+                "max_abs_residual": 3.302416
+              }
+            },
+            "formula_family": {
+              "dioxide": {
+                "count": 44,
+                "mae": 1.127572,
+                "rmse": 1.39467,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 2.402635,
+                "max_abs_residual": 3.227813
+              },
+              "intermediate_oxide": {
+                "count": 13,
+                "mae": 0.929249,
+                "rmse": 1.190679,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 2.264049,
+                "max_abs_residual": 2.523093
+              },
+              "monoxide": {
+                "count": 26,
+                "mae": 1.138509,
+                "rmse": 1.679542,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 2.523093,
+                "max_abs_residual": 5.929132
+              },
+              "oxygen_poor": {
+                "count": 19,
+                "mae": 1.161287,
+                "rmse": 1.541314,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 1.911956,
+                "max_abs_residual": 4.292327
+              },
+              "oxygen_rich": {
+                "count": 32,
+                "mae": 1.242985,
+                "rmse": 1.411567,
+                "median_abs_residual": 1.227873,
+                "p90_abs_residual": 1.977317,
+                "max_abs_residual": 2.899687
+              },
+              "sesquioxide": {
+                "count": 35,
+                "mae": 1.472731,
+                "rmse": 1.741919,
+                "median_abs_residual": 1.259207,
+                "p90_abs_residual": 2.747025,
+                "max_abs_residual": 4.56185
+              }
+            },
+            "spacegroup_bucket": {
+              "Aea2": {
+                "count": 1,
+                "mae": 0.568588,
+                "rmse": 0.568588,
+                "median_abs_residual": 0.568588,
+                "p90_abs_residual": 0.568588,
+                "max_abs_residual": 0.568588
+              },
+              "C2/c": {
+                "count": 7,
+                "mae": 0.947801,
+                "rmse": 1.31885,
+                "median_abs_residual": 0.431816,
+                "p90_abs_residual": 1.985828,
+                "max_abs_residual": 2.899687
+              },
+              "C2/m": {
+                "count": 6,
+                "mae": 0.693522,
+                "rmse": 0.812548,
+                "median_abs_residual": 0.802029,
+                "p90_abs_residual": 1.133352,
+                "max_abs_residual": 1.245887
+              },
+              "Cc": {
+                "count": 1,
+                "mae": 2.195087,
+                "rmse": 2.195087,
+                "median_abs_residual": 2.195087,
+                "p90_abs_residual": 2.195087,
+                "max_abs_residual": 2.195087
+              },
+              "Cm": {
+                "count": 2,
+                "mae": 1.381321,
+                "rmse": 1.389818,
+                "median_abs_residual": 1.381321,
+                "p90_abs_residual": 1.504079,
+                "max_abs_residual": 1.534768
+              },
+              "Cmc2_1": {
+                "count": 1,
+                "mae": 4.292327,
+                "rmse": 4.292327,
+                "median_abs_residual": 4.292327,
+                "p90_abs_residual": 4.292327,
+                "max_abs_residual": 4.292327
+              },
+              "Cmce": {
+                "count": 1,
+                "mae": 0.822732,
+                "rmse": 0.822732,
+                "median_abs_residual": 0.822732,
+                "p90_abs_residual": 0.822732,
+                "max_abs_residual": 0.822732
+              },
+              "Cmcm": {
+                "count": 4,
+                "mae": 0.891857,
+                "rmse": 0.907534,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 1.066406,
+                "max_abs_residual": 1.182773
+              },
+              "Cmmm": {
+                "count": 1,
+                "mae": 0.794884,
+                "rmse": 0.794884,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 0.794884,
+                "max_abs_residual": 0.794884
+              },
+              "F-43m": {
+                "count": 1,
+                "mae": 0.206884,
+                "rmse": 0.206884,
+                "median_abs_residual": 0.206884,
+                "p90_abs_residual": 0.206884,
+                "max_abs_residual": 0.206884
+              },
+              "Fdd2": {
+                "count": 2,
+                "mae": 0.3665,
+                "rmse": 0.46884,
+                "median_abs_residual": 0.3665,
+                "p90_abs_residual": 0.600408,
+                "max_abs_residual": 0.658884
+              },
+              "Fm-3m": {
+                "count": 17,
+                "mae": 1.60403,
+                "rmse": 1.8762,
+                "median_abs_residual": 1.227873,
+                "p90_abs_residual": 3.01299,
+                "max_abs_residual": 3.363832
+              },
+              "I-42m": {
+                "count": 1,
+                "mae": 2.368416,
+                "rmse": 2.368416,
+                "median_abs_residual": 2.368416,
+                "p90_abs_residual": 2.368416,
+                "max_abs_residual": 2.368416
+              },
+              "I4/m": {
+                "count": 1,
+                "mae": 0.204484,
+                "rmse": 0.204484,
+                "median_abs_residual": 0.204484,
+                "p90_abs_residual": 0.204484,
+                "max_abs_residual": 0.204484
+              },
+              "I4/mmm": {
+                "count": 5,
+                "mae": 1.195507,
+                "rmse": 1.226513,
+                "median_abs_residual": 1.227873,
+                "p90_abs_residual": 1.446754,
+                "max_abs_residual": 1.534768
+              },
+              "I4_1/a": {
+                "count": 1,
+                "mae": 0.512484,
+                "rmse": 0.512484,
+                "median_abs_residual": 0.512484,
+                "p90_abs_residual": 0.512484,
+                "max_abs_residual": 0.512484
+              },
+              "I4_1/amd": {
+                "count": 2,
+                "mae": 0.641166,
+                "rmse": 0.893679,
+                "median_abs_residual": 0.641166,
+                "p90_abs_residual": 1.139206,
+                "max_abs_residual": 1.263716
+              },
+              "Ia-3": {
+                "count": 19,
+                "mae": 1.529061,
+                "rmse": 1.701192,
+                "median_abs_residual": 1.29185,
+                "p90_abs_residual": 2.624197,
+                "max_abs_residual": 3.302416
+              },
+              "Im-3": {
+                "count": 1,
+                "mae": 0.578887,
+                "rmse": 0.578887,
+                "median_abs_residual": 0.578887,
+                "p90_abs_residual": 0.578887,
+                "max_abs_residual": 0.578887
+              },
+              "Immm": {
+                "count": 4,
+                "mae": 0.748825,
+                "rmse": 0.958499,
+                "median_abs_residual": 0.67285,
+                "p90_abs_residual": 1.410478,
+                "max_abs_residual": 1.534768
+              },
+              "P-1": {
+                "count": 2,
+                "mae": 1.452071,
+                "rmse": 1.804328,
+                "median_abs_residual": 1.452071,
+                "p90_abs_residual": 2.308889,
+                "max_abs_residual": 2.523093
+              },
+              "P-31c": {
+                "count": 2,
+                "mae": 0.794884,
+                "rmse": 0.794884,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 0.794884,
+                "max_abs_residual": 0.794884
+              },
+              "P-3m1": {
+                "count": 4,
+                "mae": 1.728603,
+                "rmse": 1.868024,
+                "median_abs_residual": 1.798217,
+                "p90_abs_residual": 2.454583,
+                "max_abs_residual": 2.523093
+              },
+              "P-43n": {
+                "count": 1,
+                "mae": 1.670516,
+                "rmse": 1.670516,
+                "median_abs_residual": 1.670516,
+                "p90_abs_residual": 1.670516,
+                "max_abs_residual": 1.670516
+              },
+              "P-62m": {
+                "count": 2,
+                "mae": 0.498108,
+                "rmse": 0.579817,
+                "median_abs_residual": 0.498108,
+                "p90_abs_residual": 0.735529,
+                "max_abs_residual": 0.794884
+              },
+              "P1": {
+                "count": 1,
+                "mae": 0.794884,
+                "rmse": 0.794884,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 0.794884,
+                "max_abs_residual": 0.794884
+              },
+              "P2": {
+                "count": 1,
+                "mae": 0.978216,
+                "rmse": 0.978216,
+                "median_abs_residual": 0.978216,
+                "p90_abs_residual": 0.978216,
+                "max_abs_residual": 0.978216
+              },
+              "P2/c": {
+                "count": 1,
+                "mae": 0.115916,
+                "rmse": 0.115916,
+                "median_abs_residual": 0.115916,
+                "p90_abs_residual": 0.115916,
+                "max_abs_residual": 0.115916
+              },
+              "P2_1": {
+                "count": 1,
+                "mae": 1.723187,
+                "rmse": 1.723187,
+                "median_abs_residual": 1.723187,
+                "p90_abs_residual": 1.723187,
+                "max_abs_residual": 1.723187
+              },
+              "P2_1/c": {
+                "count": 14,
+                "mae": 1.281788,
+                "rmse": 1.527202,
+                "median_abs_residual": 0.848767,
+                "p90_abs_residual": 2.503727,
+                "max_abs_residual": 3.221616
+              },
+              "P2_1/m": {
+                "count": 2,
+                "mae": 0.863709,
+                "rmse": 1.093761,
+                "median_abs_residual": 0.863709,
+                "p90_abs_residual": 1.400557,
+                "max_abs_residual": 1.534768
+              },
+              "P2_12_12_1": {
+                "count": 3,
+                "mae": 1.419664,
+                "rmse": 1.610355,
+                "median_abs_residual": 1.934616,
+                "p90_abs_residual": 1.970433,
+                "max_abs_residual": 1.979387
+              },
+              "P3_121": {
+                "count": 2,
+                "mae": 2.604963,
+                "rmse": 2.621205,
+                "median_abs_residual": 2.604963,
+                "p90_abs_residual": 2.838043,
+                "max_abs_residual": 2.896313
+              },
+              "P4/mcc": {
+                "count": 1,
+                "mae": 1.534768,
+                "rmse": 1.534768,
+                "median_abs_residual": 1.534768,
+                "p90_abs_residual": 1.534768,
+                "max_abs_residual": 1.534768
+              },
+              "P4/nmm": {
+                "count": 2,
+                "mae": 0.527,
+                "rmse": 0.635556,
+                "median_abs_residual": 0.527,
+                "p90_abs_residual": 0.8112,
+                "max_abs_residual": 0.88225
+              },
+              "P4_2/mbc": {
+                "count": 2,
+                "mae": 0.138419,
+                "rmse": 0.139918,
+                "median_abs_residual": 0.138419,
+                "p90_abs_residual": 0.154764,
+                "max_abs_residual": 0.15885
+              },
+              "P4_2/mmc": {
+                "count": 3,
+                "mae": 0.794884,
+                "rmse": 0.794884,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 0.794884,
+                "max_abs_residual": 0.794884
+              },
+              "P4_2/mnm": {
+                "count": 11,
+                "mae": 0.94896,
+                "rmse": 1.038481,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 1.29185,
+                "max_abs_residual": 2.189687
+              },
+              "P6_3/mcm": {
+                "count": 1,
+                "mae": 1.534768,
+                "rmse": 1.534768,
+                "median_abs_residual": 1.534768,
+                "p90_abs_residual": 1.534768,
+                "max_abs_residual": 1.534768
+              },
+              "P6_3/mmc": {
+                "count": 1,
+                "mae": 0.439532,
+                "rmse": 0.439532,
+                "median_abs_residual": 0.439532,
+                "p90_abs_residual": 0.439532,
+                "max_abs_residual": 0.439532
+              },
+              "P6_3mc": {
+                "count": 2,
+                "mae": 3.000658,
+                "rmse": 4.19284,
+                "median_abs_residual": 3.000658,
+                "p90_abs_residual": 5.343437,
+                "max_abs_residual": 5.929132
+              },
+              "Pa-3": {
+                "count": 1,
+                "mae": 3.227813,
+                "rmse": 3.227813,
+                "median_abs_residual": 3.227813,
+                "p90_abs_residual": 3.227813,
+                "max_abs_residual": 3.227813
+              },
+              "Pbca": {
+                "count": 3,
+                "mae": 1.678362,
+                "rmse": 1.824137,
+                "median_abs_residual": 1.871516,
+                "p90_abs_residual": 2.326933,
+                "max_abs_residual": 2.440787
+              },
+              "Pbcn": {
+                "count": 2,
+                "mae": 0.781716,
+                "rmse": 0.811571,
+                "median_abs_residual": 0.781716,
+                "p90_abs_residual": 0.956196,
+                "max_abs_residual": 0.999816
+              },
+              "Pc": {
+                "count": 1,
+                "mae": 1.039416,
+                "rmse": 1.039416,
+                "median_abs_residual": 1.039416,
+                "p90_abs_residual": 1.039416,
+                "max_abs_residual": 1.039416
+              },
+              "Pccn": {
+                "count": 1,
+                "mae": 1.181487,
+                "rmse": 1.181487,
+                "median_abs_residual": 1.181487,
+                "p90_abs_residual": 1.181487,
+                "max_abs_residual": 1.181487
+              },
+              "Pm-3m": {
+                "count": 3,
+                "mae": 0.665632,
+                "rmse": 0.690274,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 0.794884,
+                "max_abs_residual": 0.794884
+              },
+              "Pm-3n": {
+                "count": 1,
+                "mae": 0.794884,
+                "rmse": 0.794884,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 0.794884,
+                "max_abs_residual": 0.794884
+              },
+              "Pmmn": {
+                "count": 2,
+                "mae": 0.940866,
+                "rmse": 1.032505,
+                "median_abs_residual": 0.940866,
+                "p90_abs_residual": 1.281066,
+                "max_abs_residual": 1.366116
+              },
+              "Pn-3m": {
+                "count": 2,
+                "mae": 0.538534,
+                "rmse": 0.596435,
+                "median_abs_residual": 0.538534,
+                "p90_abs_residual": 0.743614,
+                "max_abs_residual": 0.794884
+              },
+              "Pnma": {
+                "count": 3,
+                "mae": 1.035039,
+                "rmse": 1.132236,
+                "median_abs_residual": 1.281287,
+                "p90_abs_residual": 1.401867,
+                "max_abs_residual": 1.432012
+              },
+              "Pnnm": {
+                "count": 1,
+                "mae": 0.148484,
+                "rmse": 0.148484,
+                "median_abs_residual": 0.148484,
+                "p90_abs_residual": 0.148484,
+                "max_abs_residual": 0.148484
+              },
+              "R-3": {
+                "count": 2,
+                "mae": 1.658989,
+                "rmse": 1.87054,
+                "median_abs_residual": 1.658989,
+                "p90_abs_residual": 2.350272,
+                "max_abs_residual": 2.523093
+              },
+              "R-3c": {
+                "count": 5,
+                "mae": 1.548278,
+                "rmse": 2.160456,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 3.055064,
+                "max_abs_residual": 4.56185
+              },
+              "R-3m": {
+                "count": 5,
+                "mae": 1.019392,
+                "rmse": 1.060628,
+                "median_abs_residual": 0.951568,
+                "p90_abs_residual": 1.36194,
+                "max_abs_residual": 1.548988
+              }
+            },
+            "property_range": {
+              "large_gap": {
+                "count": 35,
+                "mae": 2.099389,
+                "rmse": 2.453225,
+                "median_abs_residual": 1.740032,
+                "p90_abs_residual": 3.339265,
+                "max_abs_residual": 5.929132
+              },
+              "metallic_or_zero_gap": {
+                "count": 59,
+                "mae": 1.156588,
+                "rmse": 1.285793,
+                "median_abs_residual": 0.794884,
+                "p90_abs_residual": 2.523093,
+                "max_abs_residual": 2.523093
+              },
+              "moderate_gap": {
+                "count": 50,
+                "mae": 0.930585,
+                "rmse": 1.109937,
+                "median_abs_residual": 0.769341,
+                "p90_abs_residual": 1.877826,
+                "max_abs_residual": 2.195087
+              },
+              "small_gap": {
+                "count": 25,
+                "mae": 0.657347,
+                "rmse": 0.952337,
+                "median_abs_residual": 0.512484,
+                "p90_abs_residual": 1.104828,
+                "max_abs_residual": 2.899687
+              }
+            }
+          }
+        }
+      },
+      "best_validation_baseline": {
+        "baseline_id": "global_median",
+        "mae": 1.214165,
+        "rmse": 1.521731
+      },
+      "best_holdout_baseline": {
+        "baseline_id": "cation_group_mean",
+        "mae": 1.247901,
+        "rmse": 1.62569
+      }
+    }
+  },
+  "verdict": "INCONCLUSIVE",
+  "limitations": [
+    "Computed DFT Materials Project rows only; no experimental measurements.",
+    "Stable binary oxides only; no material-discovery or synthesis guidance.",
+    "Baselines are simple null/composition-aware controls, not tuned ML models.",
+    "Formation energy and band gap are separate axes and are never pooled.",
+    "No RESULT, PRED, CLAIM, KNOW, or discovery wording is promoted."
+  ],
+  "output_routing": {
+    "canonical_destination": "agent_runs/AGENT-RUN-0057/",
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "claim_impact": "none",
+    "knowledge_impact": "none"
+  }
+}

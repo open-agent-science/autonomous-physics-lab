@@ -1,0 +1,58 @@
+# TASK-0550 Materials MD-0001 conservative baseline benchmark config.
+#
+# Uses only committed Materials Project stable-binary-oxide rows. Formation
+# energy and band gap are scored as separate axes. Baselines are declared here
+# before metrics: global mean, global median, and cation-group mean.
+task_id: TASK-0550
+benchmark_id: materials-md0001-baseline-residual-benchmark
+dataset:
+  dataset_family: MD-0001
+  source_id: materials-project
+  holdout_manifest_ref: data/materials/holdout_manifest.yaml
+  snapshot_manifest_ref: data/materials/materials_snapshot_manifest.yaml
+  snapshot_checksum_sha256: bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101
+  retrieval_policy: no_live_fetch
+  axes:
+    - property_kind: formation_energy_per_atom
+      units: eV_per_atom
+      provenance_class: computed_dft
+      dataset_file: data/materials/md-0001-materials-project-formation-energy.yaml
+    - property_kind: band_gap
+      units: eV
+      provenance_class: computed_dft
+      dataset_file: data/materials/md-0001-materials-project-band-gap.yaml
+split_policy:
+  split_id: material_id_mod10_70_10_20
+  train_rule: "sorted_index % 10 in {0, 1, 2, 3, 4, 5, 6}"
+  validation_rule: "sorted_index % 10 == 7"
+  holdout_rule: "sorted_index % 10 in {8, 9}"
+baselines:
+  - global_mean
+  - global_median
+  - cation_group_mean
+property_range_bins:
+  formation_energy_per_atom:
+    - id: strongly_negative
+      max: -3.0
+    - id: moderate_negative
+      min: -3.0
+      max: -1.0
+    - id: near_zero_or_weakly_negative
+      min: -1.0
+  band_gap:
+    - id: metallic_or_zero_gap
+      max: 0.05
+    - id: small_gap
+      min: 0.05
+      max: 1.0
+    - id: moderate_gap
+      min: 1.0
+      max: 3.0
+    - id: large_gap
+      min: 3.0
+stop_conditions:
+  - "Stop if any live external fetch is requested."
+  - "Stop if formation_energy_per_atom and band_gap are pooled."
+  - "Stop if computed_dft and measured rows are mixed."
+  - "Stop if split or bins are changed after residual inspection."
+claim_ceiling: Sandbox benchmark evidence only; no material-discovery, PRED, CLAIM, KNOW, or design guidance.

@@ -1,7 +1,7 @@
 id: TASK-0550
 title: "Run first Materials MD-0001 baseline residual benchmark"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -40,9 +40,9 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md and keep any result scoped to the MD-0001 benchmark."
 
 accepted_outputs:
-  - "examples/benchmarks/materials_md0001_baseline.yaml or equivalent deterministic benchmark config"
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "examples/benchmarks/materials_md0001_baseline.yaml"
+  - "agent_runs/AGENT-RUN-0057/metrics.json"
+  - "agent_runs/AGENT-RUN-0057/report.md"
   - "docs/reviews/materials-md0001-baseline-residual-benchmark.md"
   - "tests for any new materials baseline helper"
   - "optional docs/campaigns/materials-property-residuals.md update if the campaign posture changes"
