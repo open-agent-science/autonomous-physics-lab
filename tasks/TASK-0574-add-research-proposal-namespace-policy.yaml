@@ -1,0 +1,48 @@
+id: TASK-0574
+title: "Add research proposal namespace policy and duplicate-id audit"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep hypothesis and experiment proposal memory understandable for humans and agents."
+  - "Expose ambiguous research-proposal ids before they become hidden routing bugs."
+  - "Avoid a risky mass rename while preserving historical scientific memory."
+
+input:
+  mode: workflow
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "hypothesis_proposals/"
+    - "experiment_proposals/"
+    - "physics_lab/registry/repository.py"
+  planning_context: >
+    Proposal-pool review found duplicate unscoped HYP-PROPOSAL and
+    EXP-PROPOSAL ids across campaign folders. Existing references often use
+    full paths, so the safe first step is to document path-scoped semantics and
+    add a validator audit that keeps ambiguity visible without breaking normal
+    CI on historical duplicates.
+
+requirements:
+  - "Document that research proposal ids are currently path-scoped when bare ids are ambiguous."
+  - "Add strict validation INFO issues for duplicate HYP-PROPOSAL / EXP-PROPOSAL ids."
+  - "Allow explicit architecture audits to escalate duplicate research proposal ids to ERROR."
+  - "Do not rename historical proposal files or update scientific run references in this task."
+
+accepted_outputs:
+  - "docs/research-proposal-namespace-policy.md"
+  - "physics_lab/registry/repository.py duplicate research-proposal id audit"
+  - "tests covering default INFO severity and explicit ERROR escalation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_research_proposals.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
