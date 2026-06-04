@@ -22,6 +22,24 @@ def load_task(path: str | Path) -> dict[str, Any]:
     return validate_document(data, kind="task", source=path)
 
 
+def load_task_minimal(path: str | Path) -> dict[str, Any]:
+    """Parse an archived task file without full schema validation.
+
+    Archived (historical, terminal) task files are frozen records. Re-validating
+    them against an evolving task schema would force edits to history, so the
+    archive is held to a minimal contract: the file must parse to a mapping with
+    an ``id``. All other fields are read as-is. Active tasks still go through the
+    full :func:`load_task` schema validation.
+    """
+    with Path(path).open("r", encoding="utf-8") as handle:
+        data = yaml.safe_load(handle)
+    if not isinstance(data, dict) or "id" not in data:
+        raise ValueError(
+            f"Expected mapping with an 'id' in archived task file: {path}"
+        )
+    return data
+
+
 def task_input_mode(payload: dict[str, Any]) -> TaskInputMode:
     """Return the semantic input mode for a validated task payload."""
     input_payload = payload["input"]
