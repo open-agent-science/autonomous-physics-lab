@@ -1,0 +1,5 @@
+axis,anchor_id,source_figure_ref,printed_value,printed_units,pixel_x,pixel_y,notes
+x,x1,UNRESOLVED_FIGURE_PANEL,,,,,replace_with_tool_output
+x,x2,UNRESOLVED_FIGURE_PANEL,,,,,replace_with_tool_output
+y,y1,UNRESOLVED_FIGURE_PANEL,,,,,replace_with_tool_output
+y,y2,UNRESOLVED_FIGURE_PANEL,,,,,replace_with_tool_output

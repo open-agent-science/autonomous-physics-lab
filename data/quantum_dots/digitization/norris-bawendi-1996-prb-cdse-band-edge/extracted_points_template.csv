@@ -1,0 +1,2 @@
+point_id,source_figure_ref,raw_x,raw_y,converted_size_nm,converted_energy_eV,property_kind,point_state,primary_source_id,coordinate_uncertainty_size_nm,coordinate_uncertainty_energy_eV,publication_uncertainty_note,notes
+NB1996-P001,UNRESOLVED_FIGURE_PANEL,,,,,,review_needed,,,,replace_with_tool_output
