@@ -11,8 +11,10 @@ from pathlib import Path
 
 import pytest
 
+from physics_lab.registry import task_closeout
 from physics_lab.registry.task_discovery import (
     find_task_file,
+    find_task_files,
     iter_canonical_task_files,
     task_id_from_path,
 )
@@ -84,6 +86,21 @@ def test_id_uniqueness_scan_catches_duplicate_across_archive(hybrid_repo: Path):
             duplicates.append(task_id)
         seen[task_id] = path
     assert "TASK-0001" in duplicates
+
+
+def test_find_task_files_returns_all_matches(hybrid_repo: Path):
+    assert [p.name for p in find_task_files(hybrid_repo, "TASK-0559")] == ["TASK-0559-self.yaml"]
+    assert find_task_files(hybrid_repo, "TASK-9999") == []
+    # detect an accidental duplicate id across flat + archive
+    _write(hybrid_repo / "tasks" / "TASK-0559-dup.yaml", "TASK-0559")
+    assert len(find_task_files(hybrid_repo, "TASK-0559")) == 2
+
+
+def test_migrated_closeout_resolver_finds_archived_task(hybrid_repo: Path):
+    """A call site routed through the helper now resolves an archived task."""
+    resolved = task_closeout.find_task_file(hybrid_repo, "TASK-0559")
+    assert resolved.name == "TASK-0559-self.yaml"
+    assert resolved.parent.name == "0500-0999"
 
 
 def test_resolver_cli_smoke(hybrid_repo: Path):

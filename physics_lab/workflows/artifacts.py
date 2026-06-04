@@ -11,6 +11,7 @@ import subprocess
 from typing import Any
 
 from physics_lab.engines.scoring import ModelScore
+from physics_lab.registry.task_discovery import find_task_files
 
 
 TEXT_HASH_SUFFIXES = {
@@ -137,7 +138,7 @@ def snapshot_input_files(
 
 def task_path(repo_root: Path, task_id: str) -> Path:
     """Locate a task file by task id."""
-    matches = sorted((repo_root / "tasks").glob(f"{task_id}-*.yaml"))
+    matches = find_task_files(repo_root, task_id)
     if not matches:
         raise ValueError(f"Unable to locate task file for {task_id}")
     return matches[0]

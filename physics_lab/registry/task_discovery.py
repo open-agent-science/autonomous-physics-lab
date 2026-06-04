@@ -54,10 +54,25 @@ def find_task_file(repo_root: str | Path, task_id: str) -> Path | None:
     """Return the file for a canonical task id, or ``None`` if not found.
 
     Resolves whether the task is active (flat) or archived, so callers never
-    need to know the on-disk layout.
+    need to know the on-disk layout. If more than one file matches (which the
+    repository-wide uniqueness check forbids), the first by sorted path is
+    returned; use :func:`find_task_files` when the caller needs to detect that.
+    """
+    files = find_task_files(repo_root, task_id)
+    return files[0] if files else None
+
+
+def find_task_files(repo_root: str | Path, task_id: str) -> list[Path]:
+    """Return all canonical files matching a task id (sorted), flat or archived.
+
+    Normally zero or one; returning a list lets callers preserve their existing
+    "expected exactly one" / "multiple found" diagnostics during the archive
+    migration. This is the archive-aware replacement for
+    ``sorted((root / "tasks").glob(f"{task_id}-*.yaml"))``.
     """
     prefix = f"{task_id}-"
-    for path in iter_canonical_task_files(repo_root):
-        if path.name.startswith(prefix):
-            return path
-    return None
+    return [
+        path
+        for path in iter_canonical_task_files(repo_root)
+        if path.name.startswith(prefix)
+    ]

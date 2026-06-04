@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from physics_lab.registry.task_discovery import find_task_files
 from physics_lab.registry.tasks import load_task
 
 
@@ -47,7 +48,7 @@ class TaskCloseoutReport:
 
 def find_task_file(root: Path, task_id: str) -> Path:
     """Resolve a repository task id to its single task YAML file."""
-    matches = sorted((root / "tasks").glob(f"{task_id}-*.yaml"))
+    matches = find_task_files(root, task_id)
     if not matches:
         raise FileNotFoundError(
             f"No task file found for {task_id} under {root / 'tasks'}"
