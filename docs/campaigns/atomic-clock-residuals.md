@@ -16,9 +16,9 @@ schema scaffold needed before any future ingestion task can add rows.
 Pinned-dataset source surface with one committed direct-ratio seed, a
 deterministic real-row loader, a source-derived covariance approximation,
 synthetic cross-source dry-run plumbing, a corrected Nemitz 2016 source
-artifact pinned with rows blocked, a first-benchmark covariance policy, and a
-baseline-readiness gate rerun that keeps the campaign at `PINNED_DATASET`.
-No real-row benchmark yet.
+artifact pinned with rows blocked, a first-benchmark covariance policy,
+manifest-backed Beloy row-role assignments, and a baseline-readiness gate
+rerun that keeps the campaign at `PINNED_DATASET`. No real-row benchmark yet.
 
 ## Public Monitoring Snapshot
 
@@ -41,12 +41,12 @@ fitting constants drift yet.
 **Not a claim:** no atomic-clock residual benchmark, constants-drift result,
 new constant, or anomaly explanation exists in APL.
 
-**Active next work:** `TASK-0487` remains the immediate direct-vs-derived row
-separation audit before broad derived-constraint or mixed-axis work. A later
-source-curation task must commit Nemitz 2016 or fallback Yb/Sr rows before any
-cross-source benchmark consumer runs. `TASK-0452` pinned Nemitz but did not
-add value-bearing rows because version-of-record table review and
-campaign-window lock remain open.
+**Active next work:** `TASK-0538` populated the Beloy row-role assignments, so
+the main remaining Atomic source gate is a second value-bearing Yb/Sr source.
+`TASK-0542` should pin or reject Pizzocaro as that source artifact. If it
+lands a source-safe artifact, `TASK-0567` can decide row-level admissibility;
+if it blocks, the campaign should preserve the exact blocker instead of
+running constants-drift or mixed-axis metrics.
 
 **Expected next result:** a path back to the `BASELINE_READY` gate after a
 second source row is committed or explicitly waived and row-level
@@ -118,6 +118,10 @@ Current next tasks:
 - `TASK-0455` reran the baseline-readiness gate:
   [`docs/reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md`](../reviews/atomic-baseline-readiness-gate-after-nemitz-loader-holdout.md).
   The verdict remains `PINNED_DATASET`, not `BASELINE_READY`.
+- `TASK-0538` assigned Beloy row roles through the manifest-backed schema,
+  removing the old row-role assignment blocker for the current seed rows.
+- `TASK-0542` is the current Pizzocaro source-artifact task, and `TASK-0567`
+  is blocked behind it as the row-admissibility gate.
 
 `TASK-0401` records `PINNED_DATASET`: the Beloy rows are pinned and
 source-reviewed, but Atomic is not `BASELINE_READY`. After `TASK-0455`, the
@@ -128,9 +132,10 @@ loader and first-benchmark covariance policy blockers are cleared at the
 policy/validation level.
 
 The next tasks can run in parallel only when they own separate surfaces:
-direct-vs-derived policy, second-source row curation, or maintainer-waived
-single-source diagnostic planning. None should fit drift, derive constants
-constraints, or promote a claim.
+Pizzocaro source artifact pinning, row-admissibility review after source
+pinning, direct-vs-derived policy, or maintainer-waived single-source
+diagnostic planning. None should fit drift, derive constants constraints, or
+promote a claim.
 
 ## Why This Could Matter Later
 

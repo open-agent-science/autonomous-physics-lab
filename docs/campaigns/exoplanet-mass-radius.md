@@ -55,7 +55,12 @@ material growth, ≥3 host-context bins) and the decisive null-baseline
 competition criterion that a materially changed snapshot must clear before any
 residual lane reopens. `TASK-0536` is the paired no-live-fetch ingestion dry-run
 so a later real second snapshot can be normalized and checksummed without
-weakening the no-peek boundary. All work stays no-live-fetch and benchmark-only.
+weakening the no-peek boundary. `TASK-0554` then packaged the concrete
+second-snapshot acquisition runbook and manifest shape. `TASK-0565` is the
+next source-acquisition gate: either fill that manifest with a checksummed,
+approved later snapshot, or record the exact access/approval blocker. All work
+stays benchmark-only; acquisition does not authorize residual scoring by
+itself.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -129,8 +134,13 @@ Current scientific reading:
   adapter remains contract-only until a materially changed input surface is
   reviewed.
 - `TASK-0529` is the current reopen-gate task for a future second snapshot,
-  and `TASK-0536` is the paired no-live-fetch ingestion dry-run. Neither task
-  runs residual metrics or promotes mass-radius interpretation.
+  and `TASK-0536` is the paired no-live-fetch ingestion dry-run. `TASK-0554`
+  adds the acquisition package that a future source gate can execute. None of
+  these tasks runs residual metrics or promotes mass-radius interpretation.
+- `TASK-0565` is the current second-snapshot source-acquisition execution
+  gate. It may only add rows if source/network approval, checksums, query
+  contract, row classes, and no-peek attestation are satisfied; otherwise it
+  should preserve a blocker review.
 - `TASK-0470`-era visibility work is now campaign memory. The current
   benchmark-hardening wave does not promote claims, knowledge, predictions, or
   canonical results.
@@ -254,6 +264,10 @@ The campaign should mature in this order:
     that clears the frozen per-axis row-count floors and then beats the
     nearest-radius null-baseline family. See
     [the reopen coverage gate](../reviews/exoplanet-second-snapshot-reopen-coverage-gate.md).
+17. Execute the second-snapshot acquisition gate (`TASK-0565`) only under the
+    approved query/source contract. A successful acquisition creates the input
+    surface for later coverage/reopen checks; a failed acquisition is useful
+    blocker memory.
 
 This campaign is now the fastest APL path to a visible, scientist-readable
 benchmark artifact. It is not yet a discovery surface.

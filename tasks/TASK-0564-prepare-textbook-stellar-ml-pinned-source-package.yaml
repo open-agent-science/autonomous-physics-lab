@@ -1,0 +1,52 @@
+id: TASK-0564
+title: "Prepare Textbook Stellar M-L pinned-source acquisition package"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Textbook Formula Audit from planning into its first empirical source package without running metrics."
+  - "Keep Gaia/source acquisition, row schema, baseline convention, and residual scoring as separate gates."
+  - "Create a reusable acquisition package for a public-friendly empirical formula audit."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-stellar-mass-luminosity-source-baseline-plan.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/published-source-dataset-standard.md"
+    - "docs/source-acquisition-lane.md"
+  planning_context: >
+    TASK-0555 defined the source/baseline/holdout posture for a future
+    empirical Stellar Mass-Luminosity audit. The next useful step is a
+    pinned-source acquisition package: exact source/query candidates, schema,
+    license posture, row-role rules, and stop conditions, still without live
+    Gaia ingestion or mass-luminosity metrics.
+
+requirements:
+  - "Prepare a source-acquisition package for the first Stellar M-L empirical audit; do not fetch Gaia or cross-match rows in this task."
+  - "Declare candidate source surfaces, query or source locator shapes, selected fields, license/redistribution posture, checksum policy, row roles, exclusion rules, and no-peek/holdout requirements."
+  - "Freeze the baseline formula convention and the first audit slice boundaries at the planning level; do not fit exponents or inspect residuals."
+  - "Keep direct observations, derived luminosities, model-derived masses, and excluded rows as distinct row classes."
+  - "Do not claim the mass-luminosity relation is validated, falsified, universal, or newly discovered."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/runbooks/textbook-stellar-ml-source-acquisition-runbook.md"
+  - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml or metadata-only manifest shape"
+  - "docs/reviews/textbook-stellar-mass-luminosity-pinned-source-package.md"
+  - "optional docs/campaigns/textbook-formula-audit.md update if the empirical lane posture changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

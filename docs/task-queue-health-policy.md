@@ -12,7 +12,7 @@ task ids.
 The target pool is:
 
 - minimum: 8 independent READY science tasks;
-- preferred during public/open-agent onboarding: 12-15 READY science tasks;
+- preferred during public/open-agent onboarding: 15 READY science tasks;
 - campaign/surface coverage: at least 4 active scientific surfaces when
   possible.
 - concentration guard: no single campaign/surface should hold more than about
@@ -72,7 +72,7 @@ When the pool is below target, prefer adding a small task queue with:
 - at most one infrastructure task unless it directly unblocks a campaign.
 
 For a larger parallel-agent wave, prefer a queue that restores the preferred
-range across multiple surfaces rather than filling all tasks in one campaign:
+target across multiple surfaces rather than filling all tasks in one campaign:
 
 - 3-5 Nuclear tasks only when they remove a real data, replay, or promotion
   blocker;

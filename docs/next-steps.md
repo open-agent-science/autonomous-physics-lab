@@ -215,7 +215,7 @@ lanes should carry source, baseline, holdout, and blocker-review work at
 different maturity levels.
 
 The next parallel research wave should maintain at least eight independent
-scientific `READY` tasks, prefer 12-15 during larger agent waves, span at least
+scientific `READY` tasks, prefer 15 during larger agent waves, span at least
 four surfaces, and avoid letting one campaign hold more than about 40% of the
 READY science pool. The current task-queue wave opens fresh lanes instead of
 extending the shell-axis audit loop:

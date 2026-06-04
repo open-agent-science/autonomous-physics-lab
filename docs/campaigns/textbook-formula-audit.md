@@ -48,8 +48,10 @@ Scaffold plus first verifier lanes. This page records the campaign charter,
 candidate list, and guardrails. No empirical formula audit has run yet under
 this campaign. The first recommended empirical slice is the **Stellar
 Mass-Luminosity (M-L) out-of-distribution audit** on Gaia DR3 main-sequence
-stars, while the current public-verifier wave uses exact-reference fixtures for
-Stefan-Boltzmann and Wien displacement before any empirical rows are ingested.
+stars; `TASK-0555` has completed the source/baseline planning pass, and
+`TASK-0564` is the next pinned-source acquisition package. The current
+public-verifier wave now has exact-reference fixtures for Stefan-Boltzmann and
+Wien displacement before any empirical rows are ingested.
 See
 `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate.
@@ -62,21 +64,24 @@ claiming universal truth or falsity?
 
 **Shareable result:** the campaign scaffold, candidate slate, and first
 source/baseline planning artifacts now exist. `TASK-0527` turned
-Stefan-Boltzmann into a deterministic exact-reference fixture; `TASK-0537` is
-the paired Wien displacement exact-reference fixture. These are software and
-verification-gate results, not empirical validation of the laws.
+Stefan-Boltzmann into a deterministic exact-reference fixture; `TASK-0537`
+landed the paired Wien displacement exact-reference fixture; and `TASK-0555`
+planned the first empirical Stellar M-L source/baseline lane. These are
+software, source, and verification-gate results, not empirical validation of
+the laws.
 
 **Not a claim:** no textbook formula audit has run yet. This campaign does
 not claim that any formula is globally right or wrong.
 
-**Active next work:** build the Wien displacement exact-reference fixture, then
-move only one empirical formula lane at a time through source, baseline,
-holdout, and verification-gate planning. No empirical metrics should run before
-each audit has that plan.
+**Active next work:** package the exact-reference fixtures through a scoped
+result-routing preflight (`TASK-0568`), and move Stellar M-L through a
+pinned-source acquisition package (`TASK-0564`). No empirical metrics should
+run before the audit has source, schema, baseline convention, holdout, and
+verification gates pinned.
 
-**Expected next result:** exact-reference fixtures that let agents verify units,
-constant conventions, peak-domain conventions, monotonicity, negative controls,
-and result-routing before any real-source audit.
+**Expected next result:** either a scoped software/benchmark result preflight
+for the exact-reference fixtures or a pinned Stellar M-L source package that
+sets up the first empirical audit without yet running metrics.
 
 ## Why It Matters
 
@@ -221,9 +226,9 @@ Per `docs/result-promotion-protocol.md`:
 
 See `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate. The first recommended slice is the **Stellar Mass-Luminosity
-(M-L) out-of-distribution audit on Gaia DR3 main-sequence stars**. A
-proposal-first task for the M-L source/baseline planning step lives under
-`tasks/proposals/`.
+(M-L) out-of-distribution audit on Gaia DR3 main-sequence stars**. The
+source/baseline planning pass has landed; the next step is a canonical
+pinned-source acquisition package before any metric-bearing audit.
 
 ## Cross-References
 

@@ -53,7 +53,7 @@ SUPPORT_TASK_MARKERS = (
     "agent",
 )
 MIN_READY_SCIENCE_TASKS = 8
-PREFERRED_READY_SCIENCE_TASKS = 12
+PREFERRED_READY_SCIENCE_TASKS = 15
 TARGET_READY_SCIENCE_SURFACES = 4
 MAX_READY_SCIENCE_SURFACE_SHARE = 0.40
 TASK_ID_PATTERN = re.compile(r"\bTASK-\d{4}\b")
@@ -454,7 +454,12 @@ def ready_science_pool_health(
     largest_surface_count = max(surface_counts.values(), default=0)
     largest_surface_share = 0.0 if ready_count == 0 else largest_surface_count / ready_count
     above_surface_concentration_target = largest_surface_share > max_ready_science_surface_share
-    task_queue_needed = below_minimum or below_surface_target or above_surface_concentration_target
+    task_queue_needed = (
+        below_minimum
+        or below_preferred
+        or below_surface_target
+        or above_surface_concentration_target
+    )
     notes = _ready_science_pool_notes(
         ready_count=ready_count,
         surface_count=len(active_surfaces),

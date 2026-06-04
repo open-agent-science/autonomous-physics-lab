@@ -1,0 +1,50 @@
+id: TASK-0568
+title: "Package Textbook exact-reference fixture result preflight"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Turn the completed Stefan-Boltzmann and Wien exact-reference fixtures into a clear result-routing decision."
+  - "Use Textbook Formula Audit to exercise AGENT_PUBLISHED evidence paths before empirical rows arrive."
+  - "Keep exact-reference software validation separate from empirical formula validation."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-stefan-boltzmann-exact-reference-fixture.md"
+    - "docs/reviews/textbook-wien-displacement-exact-reference-fixture.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0527 and TASK-0537 landed exact-reference fixtures for
+    Stefan-Boltzmann and Wien displacement. These fixtures do not empirically
+    validate either law, but they may be useful benchmark/software results if
+    routed carefully. This task decides whether to package them as a scoped
+    result candidate, request replay, or keep them as review notes only.
+
+requirements:
+  - "Review the completed exact-reference fixture artifacts; do not fetch empirical data or run new formula audits."
+  - "Decide whether the fixtures meet Gate A for a scoped software/benchmark result, require independent replay first, or should remain review notes only."
+  - "Preserve the boundary that exact-reference fixtures validate deterministic conventions and gates, not real-world empirical truth of the formulas."
+  - "Do not create universal validation/falsification wording for Stefan-Boltzmann, Wien, blackbody physics, stars, or empirical datasets."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "docs/reviews/textbook-exact-reference-fixture-result-preflight.md"
+  - "optional RESULT-* artifact only if Gate A is satisfied and the artifact is scoped as exact-reference software validation"
+  - "optional docs/campaigns/textbook-formula-audit.md update if result-routing status changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
