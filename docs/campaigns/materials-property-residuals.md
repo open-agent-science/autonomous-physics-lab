@@ -21,7 +21,7 @@ overclaim resistance in place.
 
 ## Current Status
 
-**Pinned seed dataset, no benchmark yet.** This page and the campaign profile
+**Pinned seed dataset and first benchmark PR.** This page and the campaign profile
 (`campaign_profiles/materials-property-residuals.yaml`) define scope,
 admissible source classes, schema expectations, baseline/holdout/residual-map
 task types, and guardrails. `TASK-0547` prepared the Materials Project
@@ -33,9 +33,10 @@ runbook to that compact pilot scope.
 
 `TASK-0541` has since reconciled the holdout/no-peek manifest with the landed
 rows, and `TASK-0551` added internal citation/reuse metadata for the dataset.
-There is still **no** baseline, residual map, claim, prediction registry entry,
-`RESULT-*`, external dataset repository, or DOI. The dataset remains a
-source-pinned data artifact inside the main repo.
+`TASK-0550` has now produced the first conservative baseline/residual benchmark
+as sandbox evidence. There is still **no** promoted `RESULT-*`, claim,
+prediction registry entry, external dataset repository, or DOI. The dataset and
+benchmark remain source-pinned review artifacts inside the main repo.
 
 ## Public Monitoring Snapshot
 
@@ -52,10 +53,9 @@ property axes, and validator coverage.
 recommendation, or discovery claim. It contains computed DFT rows only and does
 not support synthesis, device, biomedical, or material-design guidance.
 
-**Active next work:** run the first conservative baseline/residual benchmark
-over the committed rows only (`TASK-0550`). After metrics exist, package the
-benchmark through a separate result-promotion preflight (`TASK-0566`) before
-any public result wording changes.
+**Active next work:** package the first benchmark through a separate
+result-promotion preflight (`TASK-0566`) before any public result wording
+changes.
 
 ## Admissible Source Classes
 
