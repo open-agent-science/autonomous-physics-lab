@@ -2,7 +2,7 @@ id: TASK-0602
 title: "Plan Materials MD-0002 wider replication slice"
 type: scientific_dataset
 status: READY
-difficulty: medium
+difficulty: high
 priority: high
 
 strategy_alignment:

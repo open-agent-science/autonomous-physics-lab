@@ -2,7 +2,7 @@ id: TASK-0596
 title: "Run NMD-0003 uncertainty-weighted baseline diagnostic"
 type: scientific_validation
 status: READY
-difficulty: medium
+difficulty: high
 priority: high
 
 strategy_alignment:

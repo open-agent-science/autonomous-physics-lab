@@ -2,7 +2,7 @@ id: TASK-0601
 title: "Run Materials MD-0001 split-sensitivity audit"
 type: scientific_validation
 status: READY
-difficulty: medium
+difficulty: high
 priority: high
 
 strategy_alignment:

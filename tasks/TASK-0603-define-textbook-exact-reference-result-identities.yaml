@@ -3,7 +3,7 @@ title: "Define Textbook exact-reference EXP/HYP identities for scoped result pub
 type: research_quality_gate
 status: READY
 difficulty: medium
-priority: high
+priority: medium
 
 strategy_alignment:
   - "Resolve the precise publication blocker found by TASK-0586 without broadening Textbook Formula Audit claims."

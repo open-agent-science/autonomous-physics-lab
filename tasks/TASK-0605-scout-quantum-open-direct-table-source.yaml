@@ -2,7 +2,7 @@ id: TASK-0605
 title: "Scout one open Quantum direct-table source beyond Norris and Kang"
 type: scientific_dataset
 status: READY
-difficulty: medium
+difficulty: high
 priority: high
 
 strategy_alignment:
