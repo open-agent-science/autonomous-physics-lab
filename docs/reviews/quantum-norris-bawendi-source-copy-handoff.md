@@ -14,7 +14,7 @@ WebPlotDigitizer; and it does not run quantum-size baseline metrics.
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0563-run-quantum-norris-bawendi-digitization-preflight.yaml`
+- `TASK-0563`
 - `docs/reviews/quantum-norris-bawendi-1996-digitization-runner.md`
 - `docs/reviews/quantum-norris-bawendi-source-artifact-review.md`
 - `docs/reviews/quantum-norris-bawendi-1996-digitization-preflight.md`
