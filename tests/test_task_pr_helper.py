@@ -7,9 +7,11 @@ import sys
 import pytest
 
 from physics_lab.registry.task_pr_helper import (
+    prepare_current_task_pr,
     preflight_task_pr,
     task_branch,
     task_pr_body,
+    task_slug_from_title,
     task_title,
 )
 
@@ -23,6 +25,17 @@ def test_task_branch_and_title_build_canonical_shape() -> None:
         task_title("TASK-0247", "add PR lifecycle guardrails")
         == "TASK-0247: add PR lifecycle guardrails"
     )
+
+
+def test_task_slug_from_title_builds_portable_ascii_slug() -> None:
+    assert (
+        task_slug_from_title(
+            "Harden Windows agent bootstrap and PR publication diagnostics",
+            fallback="task-0519",
+        )
+        == "harden-windows-agent-bootstrap-and-pr-publication-diagnostics"
+    )
+    assert task_slug_from_title("Задача", fallback="task-0609") == "task-0609"
 
 
 def test_task_pr_body_mentions_template_sections_and_metadata() -> None:
@@ -101,6 +114,73 @@ def test_preflight_task_pr_accepts_clean_shape() -> None:
 
     assert report.ok
     assert report.warnings == ()
+
+
+def test_prepare_current_task_pr_generates_body_from_task_and_current_branch(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.current_branch",
+        lambda root: "agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents",
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        lambda root, branch, base_ref="main": (
+            "scripts/apl_task_pr_helper.py",
+            "tests/test_task_pr_helper.py",
+        ),
+    )
+
+    prepared = prepare_current_task_pr(
+        repo_root,
+        task_id="TASK-0247",
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_id="codex",
+        human_reviewer="gladunrv",
+        summary="Add PR lifecycle checks for agents.",
+    )
+
+    assert prepared.preflight.ok
+    assert prepared.current_branch == prepared.expected_branch
+    assert prepared.title == "TASK-0247: Add PR lifecycle guardrails for autonomous agents"
+    assert "scripts/apl_task_pr_helper.py" in prepared.body
+    assert "tests/test_task_pr_helper.py" in prepared.body
+    assert any(
+        "validate-repo . --strict --fail-on-warnings" in command
+        for command in prepared.validation_commands
+    )
+
+
+def test_prepare_current_task_pr_rejects_wrong_current_branch(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.current_branch",
+        lambda root: "feature/task-0247-pr-lifecycle-guardrails",
+    )
+    monkeypatch.setattr(
+        "physics_lab.registry.task_pr_helper.changed_files_vs_main",
+        lambda root, branch, base_ref="main": ("scripts/apl_task_pr_helper.py",),
+    )
+
+    prepared = prepare_current_task_pr(
+        repo_root,
+        task_id="TASK-0247",
+        contributor_id="roman",
+        github_username="gladunrv",
+        agent_id="codex",
+        human_reviewer="gladunrv",
+        summary="Add PR lifecycle checks for agents.",
+    )
+
+    assert not prepared.preflight.ok
+    assert any("Branch must follow" in item for item in prepared.preflight.errors)
+    assert any("Current branch differs" in item for item in prepared.preflight.warnings)
 
 
 @pytest.mark.parametrize(
@@ -271,3 +351,41 @@ def test_cli_scaffold_infers_claude_agent_tool_from_agent_id() -> None:
     assert result.returncode == 0
     assert "agent/roman/claude/task-0247-pr-lifecycle-guardrails" in result.stdout
     assert "- Agent tool: `Claude Code`" in result.stdout
+
+
+def test_cli_prepare_current_rejects_noncanonical_current_branch(tmp_path: Path) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    body_file = tmp_path / "body.md"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/apl_task_pr_helper.py",
+            "prepare-current",
+            "--task-id",
+            "TASK-0247",
+            "--contributor-id",
+            "roman",
+            "--github-username",
+            "gladunrv",
+            "--agent-id",
+            "codex",
+            "--human-reviewer",
+            "gladunrv",
+            "--summary",
+            "Add PR lifecycle checks for agents.",
+            "--body-file",
+            str(body_file),
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode != 0
+    assert (
+        "Expected branch: agent/roman/codex/task-0247-add-pr-lifecycle-guardrails-for-autonomous-agents"
+        in result.stdout
+    )
+    assert "Current branch differs" in result.stdout
+    assert body_file.exists()

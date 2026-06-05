@@ -1,0 +1,58 @@
+id: TASK-0609
+title: "Harden canonical task PR publication helper"
+type: maintainer_workflow
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce repeated agent mistakes in canonical branch names, PR titles, PR body sections, and metadata."
+  - "Make task PR publication safer across Codex, Claude Code, humans, Windows, macOS, and Linux."
+  - "Keep formatting and PR-shape checks deterministic instead of relying on another judgment-only agent layer."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "scripts/apl_task_pr_helper.py"
+    - "physics_lab/registry/task_pr_helper.py"
+    - "docs/agent-task-protocol.md"
+    - "AGENTS.md"
+  planning_context: >
+    Agents repeatedly make avoidable publication mistakes: non-canonical
+    branches, short ad-hoc PR bodies, missing template sections, incomplete
+    metadata, and wrong task ids. The repository already has a task PR helper,
+    but it requires too many manual arguments and is easy to bypass. Add a
+    cross-platform current-branch preparation command that derives task metadata
+    and changed files from the repository, writes a full PR body, and runs
+    preflight before the agent opens a PR.
+
+requirements:
+  - "Keep the existing scaffold, preflight, create, and ready commands backward-compatible."
+  - "Use Python/pathlib/subprocess argument lists only; do not add shell-script critical path."
+  - "Derive task title, task file, validation commands, changed files, and canonical expected branch from the task id where possible."
+  - "Preflight the current branch/title/body before PR creation and fail clearly on non-canonical branches."
+  - "Document the correct helper route for canonical task, task proposal, microtask, and closeout PRs so agents do not use the canonical helper for every PR kind."
+  - "Work on Windows, macOS, Linux, Codex, Claude Code, and human terminals without relying on POSIX shell redirection."
+  - "Do not change result artifacts, scientific claims, or generated task views."
+
+accepted_outputs:
+  - "physics_lab/registry/task_pr_helper.py"
+  - "scripts/apl_task_pr_helper.py"
+  - "tests/test_task_pr_helper.py"
+  - "docs/agent-task-protocol.md"
+  - "AGENTS.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_pr_helper.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
