@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import json
 from pathlib import Path
 import re
 
@@ -104,8 +105,38 @@ def load_merged_task_pull_requests(
     *,
     limit: int = 200,
 ) -> dict[str, MergedTaskPullRequest]:
-    """Load merged PR metadata keyed by TASK-XXXX from local git history."""
+    """Load merged PR metadata keyed by TASK-XXXX.
+
+    Local merge history is the first source because it is deterministic and
+    works offline after the maintainer has pulled `main`. A GitHub CLI fallback
+    covers the common closeout case where PRs were merged remotely but the local
+    first-parent history has not yet been refreshed.
+    """
     remote_url = _origin_remote_web_url(root)
+    by_task = _load_merged_task_pull_requests_from_git(
+        root,
+        limit=limit,
+        remote_url=remote_url,
+    )
+    gh_prs = _load_merged_task_pull_requests_from_gh(
+        root,
+        limit=limit,
+        remote_url=remote_url,
+    )
+    for task_id, candidate in gh_prs.items():
+        previous = by_task.get(task_id)
+        if previous is None or candidate.merged_at > previous.merged_at:
+            by_task[task_id] = candidate
+    return by_task
+
+
+def _load_merged_task_pull_requests_from_git(
+    root: Path,
+    *,
+    limit: int,
+    remote_url: str | None,
+) -> dict[str, MergedTaskPullRequest]:
+    """Load merged PR metadata keyed by TASK-XXXX from local git history."""
     result = run_command(
         [
             "git",
@@ -148,6 +179,64 @@ def load_merged_task_pull_requests(
             number=pr_number,
             title=title,
             merged_at=merged_at.strip(),
+            url=(f"{remote_url}/pull/{pr_number}" if remote_url else ""),
+        )
+        previous = by_task.get(task_id)
+        if previous is None or candidate.merged_at > previous.merged_at:
+            by_task[task_id] = candidate
+    return by_task
+
+
+def _load_merged_task_pull_requests_from_gh(
+    root: Path,
+    *,
+    limit: int,
+    remote_url: str | None,
+) -> dict[str, MergedTaskPullRequest]:
+    """Load merged task PR metadata from GitHub CLI when it is available."""
+    result = run_command(
+        [
+            "gh",
+            "pr",
+            "list",
+            "--state",
+            "merged",
+            "--limit",
+            str(limit),
+            "--json",
+            "number,title,mergedAt",
+        ],
+        cwd=root,
+        timeout=60,
+    )
+    if result.returncode != 0:
+        return {}
+
+    try:
+        rows = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return {}
+    if not isinstance(rows, list):
+        return {}
+
+    by_task: dict[str, MergedTaskPullRequest] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        title = str(row.get("title") or "").strip()
+        title_match = PR_TITLE_TASK_PATTERN.match(title)
+        if title_match is None:
+            continue
+        try:
+            pr_number = int(row["number"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        task_id = title_match.group("task_id")
+        candidate = MergedTaskPullRequest(
+            task_id=task_id,
+            number=pr_number,
+            title=title,
+            merged_at=str(row.get("mergedAt") or "").strip(),
             url=(f"{remote_url}/pull/{pr_number}" if remote_url else ""),
         )
         previous = by_task.get(task_id)
