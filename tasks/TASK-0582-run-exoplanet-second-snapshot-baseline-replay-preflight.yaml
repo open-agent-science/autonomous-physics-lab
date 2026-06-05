@@ -32,8 +32,8 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0059/metrics.json"
+  - "agent_runs/AGENT-RUN-0059/report.md"
   - "docs/reviews/exoplanet-second-snapshot-baseline-replay-preflight.md"
   - "tests for any new replay helper"
 
