@@ -1,0 +1,43 @@
+id: TASK-0618
+title: "Validate task YAML validation command paths"
+type: repository_hardening
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Catch mechanical task-spec drift before agents lose time in PR review."
+  - "Improve cross-platform validation without weakening scientific or workflow gates."
+
+input:
+  mode: workflow
+  related_domain: repository_validation
+  related_objects:
+    - tasks/proposals/20260606-sviti-task-validation-command-paths.yaml
+    - physics_lab/registry/tasks.py
+    - physics_lab/registry/validation.py
+  planning_context: "Accepted follow-up from the agent speedup proposal bundle. A recent task reached review with a non-existent pytest path in validation.commands; strict validation should catch that class of mechanical error earlier."
+
+requirements:
+  - "Conservatively parse task validation.commands and detect repository-local pytest or script path arguments that do not exist."
+  - "Do not block external commands, runtime-generated paths, output directories, or accepted-output files that are intentionally created by the task."
+  - "Keep the check portable across Windows, macOS, and Linux by using pathlib and argument-list parsing where practical."
+  - "Do not weaken existing strict validation, task schema checks, or review-agent gates."
+  - "Do not change unrelated task-state transitions or generated task views."
+
+accepted_outputs:
+  - "A strict repository validation check or helper for missing validation command paths"
+  - "Regression tests for valid paths, missing paths, non-path arguments, and accepted-output-created paths"
+  - "A brief docs/protocol note if agents need to interpret the new warning or error"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_registry_validation.py tests/test_task_validation_plan.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

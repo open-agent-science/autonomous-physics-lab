@@ -51,11 +51,14 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed.
 
-**Expected next result:** the gate replay has now matched. The next useful
-Nuclear result is a bounded residual-feature verdict under the frozen
-NMD-0003 gate (`TASK-0584`, `TASK-0594`, or `TASK-0595`), an F2 controls-first
-scoring decision (`TASK-0553`), or an uncertainty-weighted baseline diagnostic
-(`TASK-0596`). Reveal scoring remains separate and source-gated.
+**Expected next result:** the gate replay has now matched, and recent bounded
+feature lanes are mostly negative or control-limited. `TASK-0553` remains the
+strongest current diagnostic signal: F2 improved validation/full-known metrics
+but did not clear the survival gate. The next useful Nuclear result is therefore
+not another broad search wave; it is an independent F2 replay/control ledger
+(`TASK-0612`) followed by a narrow promotion, ablation, diagnostic-only, or
+do-not-promote decision (`TASK-0613`). Reveal scoring remains separate and
+source-gated.
 
 ## Orientation Note for New Contributors
 

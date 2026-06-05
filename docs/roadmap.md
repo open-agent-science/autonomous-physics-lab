@@ -1,5 +1,15 @@
 # Roadmap
 
+## Open Agent Science Context
+
+Open Agent Science is the umbrella direction: shared public scientific memory
+produced by human-owned agents, with reproducibility, review tiers, and
+citation readiness visible in the repository.
+
+Autonomous Physics Lab is the first physics proof-of-work for that direction.
+The roadmap should therefore optimize for citable, replayable scientific
+outputs, not for raw task volume or discovery-style storytelling.
+
 ## Private Alpha Infrastructure — Mostly Done
 
 The repository already has the core private-alpha foundation needed to support
@@ -54,10 +64,15 @@ validation work.
 
 Before launch, APL needs:
 
+- maintainer-approved readiness for transfer to the `open-agent-science`
+  organization, with clone URLs and contributor docs updated only after the
+  transfer actually happens;
 - stable status, roadmap, and README narrative;
 - campaign-level result packaging that includes both reproductions and clean
   falsifications;
 - honest public-facing result summaries;
+- a citation and publication path for software, reusable datasets, and future
+  citable outputs;
 - a final wording audit across public-facing docs;
 - release-gate evidence across technical stability, contributor workflow, and
   measurable results;
@@ -76,11 +91,31 @@ Immediate v0.2 packaging work:
   promoting sandbox candidates;
 - run one final public overclaim audit before any public-opening decision.
 
-## v0.3 — Research Factory Layer — Planned
+## Publication And Citation Track — Planned
+
+**Goal:** APL can be cited as software and can prepare reusable datasets or
+benchmark artifacts for future DOI-backed publication without confusing
+dataset readiness, result promotion, and claim endorsement.
+
+See [publication-roadmap.md](./publication-roadmap.md). Near-term exit
+criteria:
+
+- software citation metadata exists (`CITATION.cff` and release metadata);
+- dataset publication rules are documented for source-pinned reusable datasets;
+- at least one dataset candidate, such as Materials `MD-0001` or an Exoplanet
+  snapshot surface, has explicit citation/reuse metadata and limitations;
+- release docs preserve review-tier labels for `AGENT_PUBLISHED`,
+  `AGENT_VALIDATED`, maintainer-reviewed, externally replicated, and legacy
+  artifacts.
+
+This track should be planned before public launch and completed only when the
+maintainer is ready to publish release artifacts.
+
+## v0.3 — Research Factory And Dataset Publication Layer — Planned
 
 **Goal:** APL can run bounded campaign factories that test many hypotheses, route
-candidates through controls, and produce reviewable scientific memory without
-claim promotion.
+candidates through controls, and produce reviewable scientific memory on
+source-pinned datasets without claim promotion.
 
 `v0.3` is the next capability milestone after the `v0.2` public-alpha hardening.
 It is a deliberate step change, not more hardening: APL moves from
@@ -102,6 +137,8 @@ criteria:
   discovery wording**;
 - a **second-campaign adapter contract** (TASK-0508, Exoplanet) demonstrates
   reuse — proving the factory is a *layer*, not a Nuclear-only tool;
+- at least one factory-compatible dataset surface has source, citation/reuse,
+  and holdout or replay metadata suitable for future publication review;
 - the version marker is reconciled (see below) and public-facing wording stays
   benchmark/negative-evidence honest.
 
@@ -112,18 +149,23 @@ Version-marker hygiene: the narrative version (`v0.2`, then `v0.3`) must be
 reconciled with the package marker in `pyproject.toml` (currently `0.1.0`) so
 the version has a single source of truth tied to release gates rather than prose.
 
-## Public Task Network — Future
+## v0.4 — External Agent Network Validation — Future
 
-After private-alpha gates are satisfied, APL can expand toward a more openly
-participatory task network.
+After public-alpha gates are satisfied, APL can test whether Open Agent Science
+works beyond the maintainer's own local agents.
 
-Future-facing possibilities include:
+Future-facing evidence should include:
 
-- broader public contributor intake;
-- more visible campaign dashboards or status surfaces;
-- additional benchmark families once current workflow discipline is stable.
+- external contributors or agent operators completing task PRs;
+- independent replay or adversarial audit PRs from outside the maintainer's
+  normal agent loop;
+- public discussion feedback that improves campaign direction or contributor
+  workflow;
+- at least one external reviewer or domain-scientist feedback artifact;
+- release or dataset artifacts that can be cited without hiding review tiers or
+  limitations.
 
-These remain future work, not current commitments.
+This remains future work, not a current commitment to public scale.
 
 ## Guiding Rule
 

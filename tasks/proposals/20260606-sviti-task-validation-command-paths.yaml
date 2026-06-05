@@ -1,0 +1,31 @@
+proposal_id: 20260606-sviti-task-validation-command-paths
+title: Validate task YAML validation command paths
+status: ACCEPTED
+type: workflow_hardening
+priority: medium
+proposed_by:
+  contributor_id: sviti
+  agent_id: codex
+strategy_alignment:
+- Keep agent time on scientific execution by catching mechanical task-spec drift early.
+summary: Teach strict validation to flag validation.commands that reference missing local
+  test or script paths.
+rationale: A task reached PR review with a non-existent pytest path in task YAML, blocking
+  the helper even though the intended test existed and passed.
+input:
+  mode: planning_only
+  related_domain: repository_validation
+  related_objects: []
+  planning_context: Post TASK-0605 review-helper blocker. This proposal targets cheap static
+    validation before a PR is opened.
+requirements:
+- Parse task validation.commands conservatively and detect missing repository-local pytest/script
+  path arguments.
+- Avoid blocking commands that are intentionally external, generated at runtime, or not path-bearing.
+accepted_outputs:
+- strict repository validation check for missing validation command paths
+- regression tests for valid paths, missing paths, and non-path command arguments
+promotion:
+  canonical_task_id: TASK-0618
+  decision: accepted
+  notes: Accepted as TASK-0618 to catch missing repository-local validation command paths before PR review.

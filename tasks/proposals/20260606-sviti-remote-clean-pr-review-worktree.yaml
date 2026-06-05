@@ -1,0 +1,31 @@
+proposal_id: 20260606-sviti-remote-clean-pr-review-worktree
+title: Review PRs from clean remote worktrees
+status: ACCEPTED
+type: workflow_hardening
+priority: medium
+proposed_by:
+  contributor_id: sviti
+  agent_id: codex
+strategy_alignment:
+- Reduce local checkout artifacts as blockers for scientific PR review.
+summary: Make apl_review_pr.py --pr review the remote PR branch in a disposable clean worktree
+  instead of depending on the caller's local branch state.
+rationale: A pushed PR branch can be correct while a local worktree is divergent or checked
+  out elsewhere; review should evaluate the PR content that GitHub will merge.
+input:
+  mode: planning_only
+  related_domain: maintainer_review
+  related_objects: []
+  planning_context: Post TASK-0600 review-helper friction. This proposal targets PR-number
+    review reliability after branches are pushed.
+requirements:
+- For --pr mode, resolve the PR headRefName and fetch the remote branch before validation.
+- Create or reuse a disposable clean worktree for review, and leave existing task worktrees
+  untouched.
+accepted_outputs:
+- apl_review_pr.py remote-clean-worktree review path
+- tests or scripted dry-run coverage for divergent local branch scenarios
+promotion:
+  canonical_task_id: TASK-0619
+  decision: accepted
+  notes: Accepted as TASK-0619 to make PR review run from clean remote worktrees when --pr is provided.
