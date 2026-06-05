@@ -23,3 +23,4 @@ None.
 - `TASK-0559` - Preflight tasks archive migration without moving task files (`architecture`, priority `medium`, difficulty `medium`, domain `task_architecture`)
 - `TASK-0562` - Harden review helper against task-queue misclassification (`maintainer_workflow`, priority `high`, difficulty `low`, domain `maintainer_review`)
 - `TASK-0580` - Run Exoplanet second-snapshot reopen coverage check (`scientific_validation`, priority `high`, difficulty `medium`, domain `exoplanet_mass_radius`)
+- `TASK-0593` - Harden closeout sweep remote PR discovery (`workflow`, priority `high`, difficulty `low`, domain `maintainer_workflow`)
