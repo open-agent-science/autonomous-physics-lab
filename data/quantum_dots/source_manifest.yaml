@@ -298,6 +298,41 @@ sources:
       separate reviewed task commits a checksum-pinned source artifact and
       confirms empirical versus model provenance for each data point.
 
+  - source_id: almeida-2023-nano-letters-inp-optical
+    title: "Size-Dependent Optical Properties of InP Colloidal Quantum Dots"
+    authors: "Almeida, G.; van der Poll, L.; Evers, W. H.; Szoboszlai, E.; Vonk, S. J. W.; Rabouw, F. T.; Houtepen, A. J."
+    year: 2023
+    doi: "10.1021/acs.nanolett.3c02630"
+    journal: "Nano Letters"
+    volume: "23"
+    pages: "8697-8703"
+    table_reference: "open-access article Figure 1b and Supporting Information figures; no direct size-energy table accepted by TASK-0605"
+    properties:
+      - absorption_peak_eV
+      - emission_peak_eV
+    materials:
+      - InP
+    measurement_type: optical_absorption
+    size_axis: diameter_nm
+    inclusion_decision: excluded
+    inclusion_rationale: >
+      TASK-0605 scouts this as a repository-compatible open candidate beyond
+      Norris-Bawendi and Kang-Wise. The article is open access and reports a
+      systematic core-only InP size series, but the size-energy surface is
+      exposed through figures/sizing curves rather than a direct row table.
+      It remains excluded until a future source-artifact or digitization task
+      checksum-pins the article/SI files, confirms reuse metadata, and runs
+      the quantum direct-measurement digitization protocol.
+    license_note: "ACS Nano Letters open-access article; DOI-pinned metadata only in this manifest. Public article copies indicate CC-BY 4.0. Do not commit publisher PDF, SI PDF, figures, or extracted rows in this metadata-only scout PR."
+    checksum_policy: doi_pinned
+    notes: >
+      Candidate for a future InP absorption_peak_eV digitization-required
+      source package. Expected row class is digitization_required, not
+      table_derived. Treat reported edge length/volume and E1s values as a
+      coupled morphology + optical surface requiring per-point provenance,
+      axis calibration, uncertainty notes, and direct-versus-derived labels
+      before any qd-*.yaml row curation.
+
 attempted_verifications:
   - verification_round_id: TASK-0364-2026-05-25
     task_id: TASK-0364
