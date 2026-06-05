@@ -1,0 +1,50 @@
+id: TASK-0613
+title: "Adjudicate Nuclear F2 promotion, ablation, or stop decision"
+type: research_quality_gate
+status: BLOCKED
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Prevent the strongest current Nuclear diagnostic signal from staying in indefinite sandbox limbo."
+  - "Decide whether F2 should move toward result-promotion preflight, narrower ablation, or explicit do-not-promote memory."
+  - "Keep Nuclear focused on science-output routing rather than endless residual-feature search."
+
+input:
+  mode: planning_only
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "tasks/TASK-0612-run-nuclear-f2-independent-replay-ledger.yaml"
+    - "docs/reviews/nuclear-f2-controls-first-scoring.md"
+    - "docs/result-promotion-protocol.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    F2 currently has the largest recent Nuclear diagnostic improvement, but no
+    promotion route. This task is intentionally blocked until TASK-0612 lands
+    an independent replay/control ledger. It then makes a narrow
+    promotion-or-stop decision.
+
+requirements:
+  - "Start only after TASK-0612 lands an independent replay/control ledger or an explicit replay mismatch blocker."
+  - "Classify the F2 signal as exactly one of: RESULT_PROMOTION_PREFLIGHT_CANDIDATE, ABLATION_NEEDED, DIAGNOSTIC_MEMORY_ONLY, or DO_NOT_PROMOTE."
+  - "If ablation is needed, specify exactly one next ablation family and stop; do not create a broad F2 search queue."
+  - "If promotion preflight is recommended, define the minimal replay/control evidence required before any RESULT artifact can be proposed."
+  - "If do-not-promote is recommended, preserve the blocker reason using the Director protocol reason vocabulary."
+  - "Do not edit claims, accepted knowledge, prediction registry entries, or canonical results."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-f2-promotion-or-stop-decision.md"
+  - "optional update to docs/campaigns/nuclear-mass-surface.md if the F2 lane state changes"
+  - "optional follow-up task recommendation for one ablation or result-promotion preflight"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

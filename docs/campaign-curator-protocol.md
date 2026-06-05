@@ -61,6 +61,34 @@ The Director's objective is to increase the scientific value of APL over time:
 - keep campaign pages and mission summaries aligned with what the evidence
   actually says.
 
+## Science-Output Funnel Requirement
+
+Each Director cycle should identify the nearest durable scientific output for
+every active campaign it discusses. The output can be a positive result, but it
+does not have to be. Negative results, source blockers, reusable datasets,
+independent replays, and campaign stop/go decisions are valid scientific
+outputs when they prevent weaker future work or make evidence reusable.
+
+Use this routing order before recommending new candidate generation:
+
+1. **Promotion/replay check:** Is there existing sandbox evidence that should
+   be replayed, promoted, rejected, or frozen as negative memory?
+2. **Source-to-row check:** Is the campaign blocked because rows, checksums,
+   source locator, license, uncertainty, covariance, or direct-vs-derived class
+   are unresolved?
+3. **Dataset/publication check:** Is there a source-pinned dataset candidate
+   that needs reuse metadata, split sensitivity, or result-promotion review?
+4. **Factory/adapter check:** Would a reusable bounded factory or adapter
+   shorten a repeated workflow across campaigns without weakening controls?
+5. **Only then candidate generation:** Add new hypothesis or factory attempts
+   only when the upstream gates are clear and the candidate family is disjoint
+   from exhausted lanes.
+
+If a campaign has a strong diagnostic signal, the Director must recommend a
+route decision: replay, ablation, result-promotion preflight, or explicit
+do-not-promote memory. Leaving it as "interesting" without a next gate is a
+failure of direction.
+
 ## Input Sources
 
 For a campaign, read the relevant subset of:
@@ -118,6 +146,10 @@ A campaign brief should include:
 - Overclaim / Public Wording Notes
 - Guardrails
 - Source Paths
+
+When the maintainer asks for a portfolio-level cycle rather than a single
+campaign brief, include a short `Science-Output Funnel` section that lists the
+nearest durable output and bottleneck for each active campaign.
 
 The brief should prefer a small number of specific next actions over a large
 open-ended backlog, but it should also warn when the READY pool is becoming too

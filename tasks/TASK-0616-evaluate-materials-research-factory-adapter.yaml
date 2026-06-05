@@ -1,0 +1,51 @@
+id: TASK-0616
+title: "Evaluate Materials as the second executable Research Factory adapter"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Decide whether v0.3 Research Factory reuse should advance through Materials rather than waiting on closed Exoplanet residual lanes."
+  - "Use a source-pinned reusable dataset surface to test the factory layer without weakening controls."
+  - "Avoid building a broad framework rewrite before a real second adapter is justified."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/research-factory-protocol.md"
+    - "docs/notes/research-factory-layer-plan.md"
+    - "docs/reviews/research-factory-core-and-nuclear-adapter.md"
+    - "docs/campaigns/materials-property-residuals.md"
+    - "data/materials/MD-0001/"
+  planning_context: >
+    The roadmap names Exoplanet as the second factory reuse case, but the
+    current Exoplanet residual lane is closed until a materially changed
+    snapshot clears the gate. Materials now has a source-pinned dataset and
+    baseline evidence, so it may be a better second executable adapter
+    candidate if the adapter can stay bounded and controls-first.
+
+requirements:
+  - "Compare Exoplanet and Materials as second executable Research Factory adapter candidates using current source, baseline, holdout, control, and publication readiness."
+  - "If Materials is recommended, define allowed factory families, required controls, candidate cap, stop rules, and forbidden outputs for one MD-0001 or MD-0002 smoke sprint."
+  - "If Materials is not recommended, state the blocker and keep Exoplanet as contract-only until its reopen gate changes."
+  - "Do not implement the adapter, run a factory sprint, create RESULT artifacts, or move data to an external repository."
+  - "Keep any recommendation tied to a concrete scientific output path: negative memory, replay/control, dataset publication, or scoped result preflight."
+
+accepted_outputs:
+  - "docs/reviews/materials-research-factory-adapter-fit-review.md"
+  - "optional update to docs/notes/research-factory-layer-plan.md"
+  - "optional follow-up task recommendation for one bounded adapter contract or smoke sprint"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
