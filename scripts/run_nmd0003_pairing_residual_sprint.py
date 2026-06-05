@@ -424,7 +424,7 @@ def _pairing_asymmetry_feature(entries: list[NuclearMassEntry]) -> dict[str, flo
 def _matched_random_feature(entries: list[NuclearMassEntry]) -> dict[str, float]:
     values = list(_pairing_asymmetry_feature(entries).values())
     random.Random(RANDOM_SEED).shuffle(values)
-    return {entry.nuclide_id: value for entry, value in zip(entries, values, strict=True)}
+    return {entry.nuclide_id: value for entry, value in zip(entries, values)}
 
 
 def _label_shuffle_feature(entries: list[NuclearMassEntry]) -> dict[str, float]:
@@ -435,7 +435,7 @@ def _label_shuffle_feature(entries: list[NuclearMassEntry]) -> dict[str, float]:
         region_entries = [entry for entry in entries if _a_region(entry.A) == region]
         values = [base[entry.nuclide_id] for entry in region_entries]
         rng.shuffle(values)
-        for entry, value in zip(region_entries, values, strict=True):
+        for entry, value in zip(region_entries, values):
             shuffled[entry.nuclide_id] = value
     return shuffled
 
