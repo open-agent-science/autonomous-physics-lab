@@ -1,7 +1,7 @@
 id: TASK-0553
 title: "Run Nuclear F2 finer-taxonomy controls-first scoring"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -35,8 +35,8 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0060/metrics.json"
+  - "agent_runs/AGENT-RUN-0060/report.md"
   - "docs/reviews/nuclear-f2-controls-first-scoring.md"
   - "tests for any new F2 scoring/control helper"
 
