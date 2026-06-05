@@ -125,8 +125,10 @@ def run_materials_md0001_baseline(config_path: Path) -> dict[str, Any]:
     config = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
     dataset_cfg = config["dataset"]
     axis_configs = dataset_cfg["axes"]
-    holdout_manifest_path = Path(dataset_cfg["holdout_manifest_ref"])
-    snapshot_manifest_path = Path(dataset_cfg["snapshot_manifest_ref"])
+    holdout_manifest_ref = str(dataset_cfg["holdout_manifest_ref"])
+    snapshot_manifest_ref = str(dataset_cfg["snapshot_manifest_ref"])
+    holdout_manifest_path = Path(holdout_manifest_ref)
+    snapshot_manifest_path = Path(snapshot_manifest_ref)
 
     holdout_manifest = yaml.safe_load(holdout_manifest_path.read_text(encoding="utf-8")) or {}
     snapshot_manifest = yaml.safe_load(snapshot_manifest_path.read_text(encoding="utf-8")) or {}
@@ -170,8 +172,8 @@ def run_materials_md0001_baseline(config_path: Path) -> dict[str, Any]:
         "task_id": "TASK-0550",
         "benchmark_id": "materials-md0001-baseline-residual-benchmark",
         "input_references": {
-            "holdout_manifest": str(holdout_manifest_path),
-            "snapshot_manifest": str(snapshot_manifest_path),
+            "holdout_manifest": holdout_manifest_ref,
+            "snapshot_manifest": snapshot_manifest_ref,
             "formation_energy_dataset": axis_configs[0]["dataset_file"],
             "band_gap_dataset": axis_configs[1]["dataset_file"],
         },
@@ -188,7 +190,7 @@ def run_materials_md0001_baseline(config_path: Path) -> dict[str, Any]:
             "train_rule": "sorted_index % 10 in {0, 1, 2, 3, 4, 5, 6}",
             "validation_rule": "sorted_index % 10 == 7",
             "holdout_rule": "sorted_index % 10 in {8, 9}",
-            "binding_manifest": str(holdout_manifest_path),
+            "binding_manifest": holdout_manifest_ref,
         },
         "axis_outputs": axis_outputs,
         "verdict": "INCONCLUSIVE",
