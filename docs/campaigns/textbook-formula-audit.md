@@ -74,15 +74,17 @@ the laws.
 **Not a claim:** no textbook formula audit has run yet. This campaign does
 not claim that any formula is globally right or wrong.
 
-**Active next work:** package or block the scoped exact-reference result
-candidate according to the `TASK-0568` preflight (`TASK-0586`), and move
-Stellar M-L through row readiness after its pinned-source package
-(`TASK-0587`). No empirical metrics should run before the audit has source,
-schema, baseline convention, holdout, and verification gates pinned.
+**Active next work:** `TASK-0586` replayed the exact-reference route but
+blocked `RESULT-*` publication because the scoped Textbook `EXP-*` / `HYP-*`
+identities do not exist and fixture metadata still declares sandbox-only
+boundaries. `TASK-0587` kept Stellar M-L row curation blocked because Gaia
+model-derived mass fields are not admissible benchmark truth. Current work is
+to define scoped exact-reference identities and select an independent Stellar
+M-L mass-source artifact before any empirical metrics run.
 
-**Expected next result:** either a scoped software/benchmark result preflight
-for the exact-reference fixtures or a pinned Stellar M-L source package that
-sets up the first empirical audit without yet running metrics.
+**Expected next result:** a scoped exact-reference identity gate that enables
+or blocks a later software/convention `RESULT-*`, or an independent
+mass-source selection for the first Stellar M-L empirical row package.
 
 ## Why It Matters
 

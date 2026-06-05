@@ -1,0 +1,54 @@
+id: TASK-0594
+title: "Run NMD-0003 pairing residual-feature sprint under stratified gate"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Keep Nuclear hypothesis testing active after the independent NMD-0003 gate replay matched."
+  - "Test one physically bounded pairing/odd-even family without rerunning the zero-shortlist TASK-0517 factory slate."
+  - "Preserve controls-first discipline before any prediction, result, or claim path."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml"
+    - "docs/reviews/nmd0003-stratified-gate-independent-replay.md"
+    - "docs/reviews/nmd0003-factory-negative-result-promotion-preflight.md"
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  planning_context: >
+    TASK-0583 independently reproduced the frozen NMD-0003 stratified gate.
+    This task authorizes one pairing/odd-even residual-feature sprint on the
+    committed NMD-0003 measured rows. The feature family must be materially
+    disjoint from the completed TASK-0517 zero-shortlist factory families and
+    must not reuse the old 11-row bootstrap logic.
+
+requirements:
+  - "Predeclare exactly one pairing/odd-even feature family and explain why it is disjoint from TASK-0517 and from TASK-0584 if that task has landed."
+  - "Use only committed NMD-0003 measured rows and the frozen stratified gate; do not alter split membership, row filters, or baseline selection."
+  - "Compare against the region-stratified readiness baseline, the global OLS audit baseline, and the inherited continuity baseline."
+  - "Run at least matched random-slice, label-shuffle, and same-degree parity-control negative controls."
+  - "Report train, stratified validation, sorted-aZN diagnostic, and subset behavior; stop after one bounded sprint."
+  - "Do not create PRED entries, reveal scores, CLAIM files, KNOW files, or discovery wording."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nmd0003-pairing-residual-feature-sprint.md"
+  - "tests for any new feature/control helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_residual_factory.py tests/test_nmd0003_baseline_freeze.py tests/test_nmd0003_baseline_family_gate.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

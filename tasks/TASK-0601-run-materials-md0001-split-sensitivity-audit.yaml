@@ -1,0 +1,49 @@
+id: TASK-0601
+title: "Run Materials MD-0001 split-sensitivity audit"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Check whether MD-0001 baseline conclusions depend on the current small holdout split."
+  - "Turn Materials from a single split benchmark into a more reliable reusable-dataset candidate."
+  - "Avoid widening before the seed dataset's split sensitivity is understood."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0001-baseline-residual-benchmark.md"
+    - "docs/reviews/materials-md0001-independent-baseline-replay.md"
+    - "data/materials/MD-0001/"
+  planning_context: >
+    MD-0001 has only 169 rows and a 33-row holdout. Before using it as the
+    basis for wider Materials tasks, agents should measure whether the main
+    formation-energy and band-gap baseline conclusions are stable under
+    predeclared alternative splits.
+
+requirements:
+  - "Use committed MD-0001 rows only; do not fetch or add data."
+  - "Define two or three deterministic alternative splits before scoring, such as cation-family, anion-family, and random-seed holdout diagnostics."
+  - "Report formation-energy and band-gap metrics separately."
+  - "Compare conclusions against the committed TASK-0550/TASK-0578 baseline replay."
+  - "Do not tune splits after seeing scores, promote claims, or issue materials guidance."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/materials-md0001-split-sensitivity-audit.md"
+  - "tests for any reusable split helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_md0001_replay.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

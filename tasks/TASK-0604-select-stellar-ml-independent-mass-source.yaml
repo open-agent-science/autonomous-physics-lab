@@ -1,0 +1,49 @@
+id: TASK-0604
+title: "Select Stellar M-L independent mass-source artifact candidates"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Unblock the Textbook Stellar M-L empirical lane through source truth, not Gaia model-derived masses."
+  - "Prepare a public-friendly formula audit that can later test range and OOD limits honestly."
+  - "Keep empirical row curation separate from fitting and formula verdicts."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-stellar-ml-row-readiness-gate.md"
+    - "docs/reviews/textbook-stellar-mass-luminosity-source-baseline-plan.md"
+    - "docs/campaigns/textbook-formula-audit/stellar-mass-luminosity-ood-source-baseline-plan.md"
+    - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+  planning_context: >
+    TASK-0587 kept Stellar M-L row curation blocked because Gaia-derived mass
+    fields are model-derived and not admissible as benchmark truth. This task
+    selects concrete independent mass-source candidates for the first
+    empirical row package.
+
+requirements:
+  - "Identify two or three candidate independent mass sources, such as detached eclipsing-binary or benchmark-star tables, with stable locator, citation, license/reuse posture, and expected row count."
+  - "State which source should be first and why, including main-sequence filtering, luminosity derivation needs, uncertainty semantics, and holdout implications."
+  - "Do not fetch value-bearing rows, compute luminosities, fit exponents, run metrics, or promote formula verdicts."
+  - "Do not use Gaia mass_flame or other isochrone/model-derived Gaia mass fields as benchmark truth."
+  - "Recommend a row-acquisition task only if one source has a clear artifact/checksum path."
+
+accepted_outputs:
+  - "docs/reviews/textbook-stellar-ml-independent-mass-source-selection.md"
+  - "optional update to data/textbook_formula_audit/stellar_ml/source_manifest.yaml with metadata-only candidate entries"
+  - "optional docs/campaigns/textbook-formula-audit.md update if the first source path changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

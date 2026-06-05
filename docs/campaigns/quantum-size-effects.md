@@ -30,16 +30,16 @@ APL refusing to score a model against weak provenance.
 **Not a claim:** there is no quantum-dot size-effect benchmark result yet, no
 new material law, and no device, synthesis, biomedical, or design claim.
 
-**Active next work:** `TASK-0556` classified the direct-source candidates and
-kept Norris-Bawendi 1996 as the strongest current unblock path. `TASK-0563`
-turned that recommendation into a deterministic digitization preflight, but
-the campaign remains blocked pending a legitimate source copy, target panel,
-redistribution decision, WebPlotDigitizer-class tool run, axis calibration,
-extracted points, uncertainty, and replay. `TASK-0589` turns that blocker into
-a maintainer-ready source-copy handoff, while `TASK-0588` packages or rejects
-the Kang-Wise 1997 fallback source in parallel. `TASK-0491` still records
-`NEEDS_MAINTAINER_DECISION` before any separate weaker calibration-consistency
-sandbox benchmark can run.
+**Active next work:** `TASK-0589` turned the Norris-Bawendi 1996 blocker into a
+maintainer-ready source-copy checklist, but it still needs a legitimate source
+copy, target panel, redistribution decision, WebPlotDigitizer-class tool run,
+axis calibration, extracted points, uncertainty, and replay before rows can be
+curated. `TASK-0588` rejected the Kang-Wise 1997 fallback as currently
+inadmissible: the visible tables are model parameters, not direct size-energy
+measurements, and no checksum-pinned source copy or deterministic
+digitization package exists. Current safe work is either a maintainer-supplied
+Norris-Bawendi source-copy/digitization path or scouting one genuinely open
+direct-table source beyond the exhausted Norris/Kang pair.
 
 **Expected next result:** either a legitimate source-artifact handoff that
 unlocks direct row curation or a blocker review that prevents another weak
@@ -129,10 +129,13 @@ Current task posture:
 - `TASK-0563` — deterministic Norris-Bawendi digitization preflight (DONE;
   preserved a precise source-copy/tool-run blocker, with no `qd-*` rows or
   baseline metrics).
-- `TASK-0588` — Kang-Wise 1997 fallback source-artifact package (READY; source
-  package or blocker only, no rows or metrics).
-- `TASK-0589` — Norris-Bawendi source-copy handoff (READY; maintainer-facing
+- `TASK-0588` — Kang-Wise 1997 fallback source-artifact package (DONE;
+  currently not admissible because visible tables are model-parameter tables
+  and figure access/digitization remains blocked).
+- `TASK-0589` — Norris-Bawendi source-copy handoff (DONE; maintainer-facing
   checklist only, no values or copyrighted source copies).
+- `TASK-0605` — scout one additional open direct-table source beyond the
+  exhausted Norris/Kang paths (READY; source-admissibility only).
 
 Safe next contributions are:
 
@@ -141,8 +144,8 @@ Safe next contributions are:
   `TASK-0283` readiness gate;
 - a maintainer-approved waiver package if the first benchmark is intentionally
   scoped as calibration-curve consistency rather than measurement-versus-model;
-- deterministic source-artifact packaging for Norris-Bawendi 1996,
-  Kang-Wise 1997, Jasieniak 2011, or an equivalent open direct-table source
+- deterministic source-artifact packaging for Norris-Bawendi 1996 after a
+  maintainer-provided source copy, or an equivalent open direct-table source
   before any direct band-edge row seed is added;
 - visualization sketches that do not require baseline residual artifacts.
 

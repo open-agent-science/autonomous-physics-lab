@@ -33,15 +33,17 @@ runbook to that compact pilot scope.
 
 `TASK-0541` has since reconciled the holdout/no-peek manifest with the landed
 rows, and `TASK-0551` added internal citation/reuse metadata for the dataset.
-`TASK-0550` has now produced the first conservative baseline/residual benchmark
-as sandbox evidence. Formation energy shows a clearer composition-aware
-baseline advantage than band gap: the best formation-energy holdout baseline
-is `cation_group_mean` with MAE `0.646030` eV versus global median holdout MAE
-`0.967090` eV, while band-gap holdout remains mixed (`cation_group_mean`
-MAE `1.247901` eV versus global median holdout MAE `1.349133` eV). There is
-still **no** promoted `RESULT-*`, claim, prediction registry entry, external
-dataset repository, or DOI. The dataset and benchmark remain source-pinned
-review artifacts inside the main repo.
+`TASK-0550` produced the first conservative baseline/residual benchmark as
+sandbox evidence, and `TASK-0578` independently replayed the committed metrics.
+Formation energy shows a clearer composition-aware baseline advantage than
+band gap: the best formation-energy holdout baseline is `cation_group_mean`
+with MAE `0.646030` eV versus global median holdout MAE `0.967090` eV. The
+band-gap axis is weaker but not empty: `TASK-0579` found the cation-group
+band-gap edge survives deterministic shuffle controls at a modest, borderline
+level (about 9% skill versus global mean; control fractions near 0.04 on a
+33-row holdout). `TASK-0566` still keeps the benchmark as review-note-only:
+there is **no** promoted `RESULT-*`, claim, prediction registry entry,
+external dataset repository, or DOI.
 
 ## Public Monitoring Snapshot
 
@@ -51,18 +53,19 @@ claims?
 
 **Shareable result:** APL now has a first reusable-dataset candidate and first
 baseline evidence: `MD-0001`, a CC BY 4.0 Materials Project stable-binary-
-oxides pilot with 169 rows, plus a conservative benchmark showing that simple
-composition-aware baselines help formation energy more clearly than band gap.
+oxides pilot with 169 rows. Independent replay matched the benchmark metrics;
+formation energy shows the clearer composition-aware baseline advantage, while
+the band-gap cation-group signal is weak but survived the first null-control
+audit.
 
 **Not a claim:** `MD-0001` and the first benchmark are not material
 recommendations, material-design results, experimental measurements, or a
 new-law claim. The rows are computed DFT values only and do not support
 synthesis, device, biomedical, or material-design guidance.
 
-**Active next work:** package the first benchmark through a separate
-result-promotion preflight (`TASK-0566`), independently replay the benchmark
-(`TASK-0578`), and stress the weaker band-gap axis with null controls
-(`TASK-0579`) before any widening.
+**Active next work:** stress the stronger formation-energy axis with the same
+null-control discipline, run split-sensitivity checks on the small holdout,
+and plan `MD-0002` only as a source/split task before any wider acquisition.
 
 ## Admissible Source Classes
 
