@@ -16,4 +16,5 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0608` - Refresh Open Agent Science strategy and publication path (`documentation`, priority `high`, difficulty `medium`, domain `strategy`)
 - `TASK-0609` - Harden canonical task PR publication helper (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `repository_coordination`)
