@@ -548,7 +548,7 @@ def write_agent_run_support_files(metrics: dict[str, Any], run_dir: Path) -> Non
         "",
         "## Inputs Checked",
         "",
-        "- `tasks/TASK-0320-run-nuclear-light-nuclei-regression-audit.yaml`",
+        "- `TASK-0320`",
         "- `agent_runs/AGENT-RUN-0018/metrics.json`",
         "- `docs/reviews/nuclear-shell-axis-validity-domain-after-0310.md`",
         "- `data/nuclear_masses/nmd-0002-curated-measured-slice.yaml`",
