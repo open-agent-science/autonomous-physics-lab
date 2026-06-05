@@ -1,7 +1,7 @@
 id: TASK-0573
 title: "Route enumerate-all task call sites through the archive-aware helper"
 type: research_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 

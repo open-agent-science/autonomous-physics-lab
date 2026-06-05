@@ -1,7 +1,7 @@
 id: TASK-0559
 title: "Preflight tasks archive migration without moving task files"
-type: architecture
-status: REVIEW_READY
+type: repo_architecture
+status: DONE
 difficulty: medium
 priority: medium
 

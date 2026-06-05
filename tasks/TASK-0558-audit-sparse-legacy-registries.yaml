@@ -1,7 +1,7 @@
 id: TASK-0558
 title: "Audit sparse legacy and experimental registries"
-type: architecture
-status: REVIEW_READY
+type: repo_architecture
+status: DONE
 difficulty: medium
 priority: high
 
