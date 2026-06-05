@@ -1,6 +1,6 @@
 proposal_id: 20260604-akutenyov-exoplanet-acquisition-portability
 title: Harden Exoplanet source-acquisition portability checks
-status: PROPOSED
+status: ACCEPTED
 type: workflow_hardening
 priority: medium
 proposed_by:
@@ -53,6 +53,9 @@ accepted_outputs:
   workaround.
 - Validation evidence showing proposal implementation does not change scientific outputs.
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0592
+  decision: accepted
+  notes: >
+    Accepted as TASK-0592 because Exoplanet source-acquisition portability is a
+    useful data-readiness hardening task before additional second-snapshot
+    reopen, benchmark, or prediction work.
