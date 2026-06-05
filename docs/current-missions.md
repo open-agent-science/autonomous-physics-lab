@@ -79,8 +79,9 @@ source/schema/baseline scaffolds first, not broad hypothesis batches.
 ## Current Mission Shape
 
 APL currently has one flagship validation campaign, one active secondary
-benchmark surface, two source-readiness surfaces, and one public-friendly
-formula-audit scaffold. That mix is deliberate:
+benchmark surface, two source-readiness surfaces, one public-friendly
+formula-audit scaffold, and one emerging reusable-dataset lane. That mix is
+deliberate:
 some agents can stress the strongest current evidence, others can build
 source/baseline discipline, and curators can prepare new campaign lanes without
 turning watchlist topics into formula-search work.
@@ -92,6 +93,7 @@ turning watchlist topics into formula-search work.
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows, deterministic real-row loader, synthetic cross-source dry-run, Nemitz 2016 source artifact pinned but rows blocked, and first-benchmark covariance policy defined | fallback source triage, direct-vs-derived separation, then baseline-readiness gate |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas; Stefan-Boltzmann exact-reference fixture has landed, while empirical audits have not | Wien exact-reference fixture and empirical source/baseline planning before any real-source metrics |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Emerging reusable-dataset lane with `MD-0001`, independent replay, do-not-promote preflight, and early null-control memory | formation-energy controls, split sensitivity, citation/reuse metadata, public-safe evidence card, and MD-0002 planning only if the current seed earns widening |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -115,7 +117,7 @@ Near-term portfolio shape:
 | Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting. |
 | Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Close second-source, loader, holdout/no-peek, and covariance-policy blockers before the first Yb/Sr consistency benchmark. |
 | New public-friendly scaffold | Textbook Formula Audit | Use exact-reference fixtures first, then empirical source/baseline planning; no real-source metrics before source, schema, holdout, and verification gates. |
-| Candidate new lanes | Materials Property Residuals | Scaffold source, baseline, and holdout rules before any hypothesis batches. |
+| Emerging reusable-dataset lane | Materials Property Residuals | Treat `MD-0001` as source-pinned dataset memory; run controls and citation/reuse hardening before widening or result promotion. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
 ## Default Research Mode
@@ -134,6 +136,10 @@ driven. Agents publish reproducible evidence only when task scope and gates
 allow it; agents validate each other; maintainers endorse interpretation; and
 external data confirms predictions. Claim status transitions and knowledge
 endorsement remain maintainer-only in Phase 1.
+
+The broader organization frame is Open Agent Science. APL is the first physics
+proof-of-work: agents should optimize for citable, replayable scientific memory
+and visible limitations, not for raw task count or dramatic discovery wording.
 
 ## Parallel Agent Policy
 
