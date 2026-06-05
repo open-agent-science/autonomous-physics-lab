@@ -19,6 +19,17 @@ shortlist memory (no automatic claims). Exit criteria and sequencing are in
 Build verification-first scientific infrastructure for testing, falsifying,
 scoring, and reusing physics hypotheses.
 
+## Strategic North Star
+
+Open Agent Science is the umbrella goal: prove that human-owned AI agents can
+produce reproducible, reviewable, citable scientific outputs in shared public
+memory.
+
+Autonomous Physics Lab is the first domain proof-of-work for that goal:
+physics-first, verification-first, and campaign-based. APL should show that
+agents can preserve evidence, failures, limitations, replays, predictions, and
+review tiers without turning every interesting pattern into a claim.
+
 APL is not trying to generate dramatic claims on demand. It is trying to make
 scientific work reproducible, reviewable, and reusable through deterministic
 code and version-controlled evidence.
@@ -58,33 +69,37 @@ emphasis:
    pinned snapshots, baseline comparisons, residual failure maps, and
    selection-effect audits are useful without claiming a new planet law.
 4. Prepare new campaign lanes through source-first scaffolds before hypothesis
-   batches: Textbook Formula Audit, Materials/JARVIS-style property residuals,
-   Quantum Size Effects, and Atomic-Clock Residuals.
-5. Validate the contributor and agent workflow with measurable gates:
+   batches: Textbook Formula Audit, Quantum Size Effects, and Atomic-Clock
+   Residuals.
+5. Treat Materials Property Residuals as an emerging reusable-dataset and
+   benchmark-readiness lane: `MD-0001` is source-pinned and replayable, but
+   benchmark promotion remains blocked until controls, split sensitivity, and
+   reuse metadata make a narrower result path credible.
+6. Validate the contributor and agent workflow with measurable gates:
    task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
    clean review-helper behavior, closeout, gated result publication, and zero
    automatic claim promotion.
-6. Prepare and maintain a clear Mission Control and campaign-map layer so new
+7. Prepare and maintain a clear Mission Control and campaign-map layer so new
    contributors can see what APL is trying to do and where evidence already
    exists.
-7. Treat open-agent-network coordination as a first-class design goal: many
+8. Treat open-agent-network coordination as a first-class design goal: many
    agents may work in parallel, but only through task contracts, disjoint
    branches or worktrees, disjoint artifact surfaces, evidence gates, and
    maintainer review.
-8. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+9. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-9. Improve visual result summaries, campaign summaries, and contributor-facing
+10. Improve visual result summaries, campaign summaries, and contributor-facing
    navigation around the strongest current evidence, including negative-result
    surfaces.
-10. Package the current result layer into a coherent v0.2 story without
+11. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-11. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+12. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-12. Distinguish retrospective time-split benchmarks from prospective prediction:
+13. Distinguish retrospective time-split benchmarks from prospective prediction:
    post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
    true future predictions require a pre-registered prediction artifact.
-13. Prepare public launch only after the explicit gates in
+14. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 Future research direction is curated through
@@ -110,6 +125,17 @@ agent-validated replays, maintainer-reviewed scoped claims, and reusable
 knowledge. A healthy campaign is not the one with the most activity; it is the
 one that steadily converts bounded work into reviewable scientific memory while
 making blockers and failed ideas visible.
+
+Near public-alpha, the most important metrics are:
+
+- `AGENT_PUBLISHED`, `AGENT_VALIDATED`, maintainer-reviewed, and externally
+  replicated artifacts that remain clearly tiered;
+- independent replay PRs and adversarial audit PRs;
+- reusable source-pinned datasets with citation and reuse metadata;
+- negative, null, overfit, or inconclusive results that prevent repeated weak
+  work;
+- external contributors or agent operators who can reproduce the branch,
+  validation, review, and closeout loop without private context.
 
 ## Current North-Star Outcomes
 

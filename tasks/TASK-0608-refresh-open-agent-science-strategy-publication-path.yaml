@@ -1,0 +1,55 @@
+id: TASK-0608
+title: "Refresh Open Agent Science strategy and publication path"
+type: documentation
+status: REVIEW_READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Align APL's public-alpha strategy with the Open Agent Science organization without changing scientific claims."
+  - "Shift steering language from raw task throughput toward citable, replayable scientific-memory outputs."
+  - "Make publication and citation readiness visible before repository transfer or public launch."
+
+input:
+  mode: planning_only
+  related_domain: strategy
+  related_objects:
+    - "docs/strategy.md"
+    - "docs/roadmap.md"
+    - "docs/status.md"
+    - "docs/current-missions.md"
+    - "docs/public-release-gates.md"
+  planning_context: >
+    The repository is moving toward public-alpha under the Open Agent Science
+    organization. Existing strategy already supports a multi-campaign agent
+    research network, but it should explicitly describe Open Agent Science as
+    the umbrella, APL as the first physics proof-of-work, and publication or
+    citation readiness as a near-term release concern.
+
+requirements:
+  - "Reframe Open Agent Science as the umbrella and Autonomous Physics Lab as the first physics proof-of-work."
+  - "Do not add discovery-level wording, DOU-specific references, or claims about final physics results."
+  - "Update success metrics toward citable datasets, promoted results, independent replay, external validation, and negative-result preservation."
+  - "Add a publication/citation roadmap covering software DOI, dataset DOI, and citable output readiness without claiming readiness before gates pass."
+  - "Represent Materials Property Residuals as an emerging reusable-dataset surface while preserving do-not-promote language."
+  - "Keep repository-transfer guidance conditional; do not change clone URLs before the maintainer completes the transfer."
+
+accepted_outputs:
+  - "docs/strategy.md"
+  - "docs/roadmap.md"
+  - "docs/status.md"
+  - "docs/current-missions.md"
+  - "docs/public-release-gates.md"
+  - "docs/publication-roadmap.md"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_docs_links.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+    - "git diff --check"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -9,6 +9,10 @@ shared scientific campaigns. Agents do not just chat about physics: they pick
 bounded tasks, run deterministic checks, preserve failures, produce reviewable
 artifacts, and add useful outputs to public scientific memory.
 
+APL is the first physics proof-of-work for Open Agent Science: a broader effort
+to make agent-assisted science reproducible, reviewable, and citable in shared
+public memory.
+
 APL is not claiming that many agents automatically produce discoveries. It is
 building the infrastructure that lets many agents work on real scientific
 questions without creating chaos.
@@ -134,6 +138,7 @@ planet-composition or habitability claim.
 | [Atomic-Clock Residuals](docs/campaigns/atomic-clock-residuals.md) | Pinned Beloy direct-row seed with covariance guardrails; moving toward benchmark readiness |
 | [Exoplanet Mass-Radius Benchmark](docs/campaigns/exoplanet-mass-radius.md) | Active catalog benchmark with a public-safe `BENCHMARK_SUMMARY_ONLY` scorecard |
 | [Textbook Formula Audit](docs/campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas |
+| [Materials Property Residuals](docs/campaigns/materials-property-residuals.md) | Emerging reusable-dataset lane around source-pinned `MD-0001`; not a promoted materials-law result |
 
 Older and mature benchmark tracks still matter, but they are not the landing
 page focus. See the full [campaign map](docs/campaigns/README.md) for Pendulum,
@@ -201,6 +206,7 @@ Start with [tasks/proposals/README.md](tasks/proposals/README.md) and
 | Campaign map | [docs/campaigns/README.md](docs/campaigns/README.md) |
 | Visual result summary | [docs/results/visual-summary.md](docs/results/visual-summary.md) |
 | External reviewer guide | [docs/external-reviewer-replication-guide.md](docs/external-reviewer-replication-guide.md) |
+| Publication roadmap | [docs/publication-roadmap.md](docs/publication-roadmap.md) |
 | Negative results | [docs/negative-results-registry.md](docs/negative-results-registry.md) |
 | Repository map | [docs/repository-map.md](docs/repository-map.md) |
 | Architecture map | [docs/architecture-index.md](docs/architecture-index.md) |
