@@ -6,6 +6,7 @@ from dataclasses import dataclass
 import os
 from pathlib import Path
 import subprocess
+import shlex
 from typing import Any, Callable, Union
 
 import yaml
@@ -93,6 +94,18 @@ LOCAL_PATH_MARKERS = (
     "Autonomous%20Physics%20Lab",
     "MacBook",
 )
+VALIDATION_COMMAND_PATH_PREFIXES = (
+    "tests/",
+    "scripts/",
+    "docs/",
+    "physics_lab/",
+    "examples/",
+    "data/",
+    "tasks/",
+    "agent_runs/",
+    "results/",
+)
+TASK_VALIDATION_PATH_ERROR_STATUSES = frozenset({"REVIEW_READY"})
 
 
 @dataclass(frozen=True)
@@ -286,6 +299,96 @@ def _strict_generated_task_navigation_issues(root_path: Path) -> list[Validation
                         root=root_path,
                     )
                 )
+    return issues
+
+
+def _task_validation_command_tokens(command: str) -> tuple[str, ...]:
+    try:
+        return tuple(shlex.split(command, posix=False))
+    except ValueError:
+        return ()
+
+
+def _normalize_validation_path_token(token: str) -> str | None:
+    candidate = token.strip().strip("\"'")
+    if not candidate or candidate.startswith("-"):
+        return None
+    if candidate in {".", ".."}:
+        return None
+    if "$" in candidate or "%" in candidate:
+        return None
+    if "://" in candidate or any(marker in candidate for marker in "*?"):
+        return None
+
+    candidate = candidate.split("::", 1)[0].rstrip(".,;)")
+    normalized = candidate.replace("\\", "/")
+    while normalized.startswith("./"):
+        normalized = normalized[2:]
+    if normalized.startswith("/") or ":" in Path(normalized).anchor:
+        return None
+    if not any(
+        normalized == prefix.rstrip("/") or normalized.startswith(prefix)
+        for prefix in VALIDATION_COMMAND_PATH_PREFIXES
+    ):
+        return None
+    return normalized
+
+
+def _accepted_output_paths(payload: dict[str, Any]) -> set[str]:
+    paths: set[str] = set()
+    for value in payload.get("accepted_outputs", []):
+        text = str(value).strip().replace("\\", "/")
+        if "/" in text:
+            paths.add(text.strip("/"))
+    return paths
+
+
+def _is_accepted_output_path(path_text: str, accepted_paths: set[str]) -> bool:
+    return any(
+        path_text == accepted_path or path_text.startswith(f"{accepted_path.rstrip('/')}/")
+        for accepted_path in accepted_paths
+    )
+
+
+def _strict_task_validation_command_path_issues(
+    *,
+    tasks: list[tuple[Path, dict[str, Any]]],
+    root_path: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    for path, payload in tasks:
+        if "archive" in path.parts:
+            continue
+        commands = payload.get("validation", {}).get("commands", [])
+        if not isinstance(commands, list):
+            continue
+        accepted_paths = _accepted_output_paths(payload)
+        missing_paths: list[str] = []
+        for command in commands:
+            if not isinstance(command, str):
+                continue
+            for token in _task_validation_command_tokens(command):
+                path_text = _normalize_validation_path_token(token)
+                if path_text is None or _is_accepted_output_path(path_text, accepted_paths):
+                    continue
+                if not (root_path / path_text).exists():
+                    missing_paths.append(path_text)
+        if not missing_paths:
+            continue
+
+        status = str(payload.get("status", ""))
+        severity = "ERROR" if status in TASK_VALIDATION_PATH_ERROR_STATUSES else "INFO"
+        unique_missing = ", ".join(sorted(set(missing_paths)))
+        issues.append(
+            _issue(
+                severity,
+                "missing_task_validation_command_path",
+                "Task validation.commands reference missing repository-local path(s): "
+                f"{unique_missing}. Update the task validation command before PR review.",
+                path=path,
+                root=root_path,
+            )
+        )
     return issues
 
 
@@ -814,6 +917,12 @@ def _collect_strict_issues(
         )
 
     issues.extend(_strict_generated_task_navigation_issues(root_path))
+    issues.extend(
+        _strict_task_validation_command_path_issues(
+            tasks=tasks,
+            root_path=root_path,
+        )
+    )
 
     for freshness_issue in validate_mission_freshness(root_path):
         issues.append(
