@@ -1,7 +1,7 @@
 id: TASK-0579
 title: "Run Materials MD-0001 band-gap null-control audit"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -31,8 +31,8 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0058/metrics.json"
+  - "agent_runs/AGENT-RUN-0058/report.md"
   - "docs/reviews/materials-md0001-band-gap-null-control-audit.md"
   - "tests for any new null-control helper"
 
