@@ -1,7 +1,7 @@
 id: TASK-0580
 title: "Run Exoplanet second-snapshot reopen coverage check"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: high
 
@@ -40,7 +40,7 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_exoplanet_second_snapshot_acquisition.py tests/test_exoplanet_mass_radius_dataset_schema.py"
+    - "python3 -m pytest tests/test_exoplanet_second_snapshot_acquisition.py tests/test_exoplanet_mass_radius_dataset_schema.py tests/test_exoplanet_second_snapshot_reopen_coverage_check.py"
     - "python3 -m pytest tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
