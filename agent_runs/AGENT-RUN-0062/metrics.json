@@ -1,0 +1,61 @@
+{
+  "task_id": "TASK-0600",
+  "audit_id": "materials-md0001-formation-energy-null-control-audit",
+  "axis": "formation_energy_per_atom",
+  "units": "eV_per_atom",
+  "provenance_class": "computed_dft",
+  "input_references": {
+    "formation_energy_dataset": "data/materials/md-0001-materials-project-formation-energy.yaml",
+    "holdout_manifest": "data/materials/holdout_manifest.yaml",
+    "snapshot_checksum_sha256": "bdcd57f09e2ad5dab7ef8c5b0ec5287cfbb25f8954f495231ca8ee5e369f7101"
+  },
+  "split_counts": {
+    "train": 119,
+    "holdout": 33
+  },
+  "config": {
+    "permutations": 5000,
+    "seed": 0
+  },
+  "real_baselines_holdout_mae": {
+    "global_mean_null": 1.020563,
+    "cation_group_mean": 0.64603,
+    "cation_group_skill_vs_global_null": 0.374534
+  },
+  "controls": {
+    "label_shuffle": {
+      "permutations": 5000,
+      "control_mae_mean": 1.028194,
+      "control_mae_p05": 0.899633,
+      "control_mae_p50": 1.026692,
+      "control_mae_p95": 1.160236,
+      "control_mae_min": 0.750556,
+      "fraction_controls_at_least_as_good_as_real": 0.0
+    },
+    "cation_group_shuffle": {
+      "permutations": 5000,
+      "control_mae_mean": 1.029574,
+      "control_mae_p05": 0.899988,
+      "control_mae_p50": 1.028888,
+      "control_mae_p95": 1.166575,
+      "control_mae_min": 0.738206,
+      "fraction_controls_at_least_as_good_as_real": 0.0
+    }
+  },
+  "verdict": "SIGNAL_SURVIVES_CONTROLS",
+  "limitations": [
+    "Computed-DFT stable binary oxides only; no experimental formation energies.",
+    "Frozen TASK-0550 split and holdout membership; not retuned.",
+    "Null-control audit only; no benchmark promotion, PRED, CLAIM, or material-design claim.",
+    "Band gap is not loaded or pooled with formation energy.",
+    "Small holdout (n=33): survived controls are diagnostic, not a promoted result."
+  ],
+  "output_routing": {
+    "canonical_destination": "agent_runs/AGENT-RUN-0062/",
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "claim_impact": "none",
+    "knowledge_impact": "none"
+  }
+}
