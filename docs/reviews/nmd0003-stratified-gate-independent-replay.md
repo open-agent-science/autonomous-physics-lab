@@ -14,7 +14,7 @@ post-AME2020 reveal rows, or promote claims.
 
 ## Inputs Reviewed
 
-- `tasks/TASK-0552-freeze-nmd0003-stratified-baseline-gate.yaml`
+- `TASK-0552`
 - `data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml`
 - `data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml`
 - `data/nuclear_masses/nmd-0003-split-manifest.yaml`
