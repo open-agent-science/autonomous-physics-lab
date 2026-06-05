@@ -15,6 +15,7 @@
 - `TASK-0604` - Select Stellar M-L independent mass-source artifact candidates (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
 - `TASK-0605` - Scout one open Quantum direct-table source beyond Norris and Kang (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0606` - Scout Atomic second Yb/Sr fallback source beyond Pizzocaro (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
+- `TASK-0611` - Draft Stellar M-L campaign promotion gate (`research_quality_gate`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
 
 ## IN_PROGRESS
 
