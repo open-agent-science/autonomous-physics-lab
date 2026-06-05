@@ -1,6 +1,6 @@
 proposal_id: 20260606-sviti-task-validation-command-paths
 title: Validate task YAML validation command paths
-status: ACCEPTED
+status: PROPOSED
 type: workflow_hardening
 priority: medium
 proposed_by:
@@ -26,6 +26,6 @@ accepted_outputs:
 - strict repository validation check for missing validation command paths
 - regression tests for valid paths, missing paths, and non-path command arguments
 promotion:
-  canonical_task_id: TASK-0613
-  decision: accepted
-  notes: Accepted into TASK-0613 as a strict validation-command path check.
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
