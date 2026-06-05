@@ -1,0 +1,443 @@
+{
+  "task_id": "TASK-0584",
+  "agent_run_id": "AGENT-RUN-0061",
+  "dataset": {
+    "dataset_id": "NMD-0003",
+    "path": "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml",
+    "row_count": 2309,
+    "train_count": 1617,
+    "validation_holdout_count": 692
+  },
+  "input_references": {
+    "stratified_gate": "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml",
+    "prior_factory_memory": "agent_runs/AGENT-RUN-0053/factory_summary.yaml",
+    "negative_result_preflight": "docs/reviews/nmd0003-factory-negative-result-promotion-preflight.md",
+    "gauntlet": "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  },
+  "selected_feature_family": {
+    "family_id": "coulomb_surface_interaction",
+    "feature": "Z*(Z-1)/A^(2/3), standardized on the frozen train split",
+    "coefficient_policy": "single least-squares coefficient fit on primary readiness baseline residuals",
+    "disjoint_from_task0517_families": [
+      "asymmetry",
+      "local_curvature",
+      "odd_even_pairing",
+      "shell_distance",
+      "valence_n",
+      "valence_z"
+    ],
+    "disjoint_rationale": "TASK-0517 swept shell_distance, asymmetry, odd_even_pairing, valence_z, valence_n, and blocked local_curvature families. This sprint tests a higher-order Coulomb surface coupling term against the frozen liquid-drop residuals instead of repeating those families or masks."
+  },
+  "baseline_contract": {
+    "primary_readiness_baseline": "nmd0003_region_stratified_diagnostic",
+    "required_audit_baseline": "nmd0003_train_fitted_ols",
+    "split_id": "stratified_interleaved_70_30",
+    "post_ame2020_holdout_scoring_allowed": false
+  },
+  "lanes_primary_readiness_baseline": {
+    "candidate_coulomb_surface_interaction": {
+      "coefficient_mev_per_standardized_feature": -0.02249,
+      "feature_summary": {
+        "mean": 0.006062,
+        "std": 0.998516,
+        "min": -1.771486,
+        "max": 2.317897
+      },
+      "baseline": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 1.822262,
+          "rmse_mev": 2.429148,
+          "median_abs_residual_mev": 1.418451,
+          "p90_abs_residual_mev": 3.709502,
+          "max_abs_residual_mev": 16.390055
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 1.899279,
+          "rmse_mev": 2.587583,
+          "median_abs_residual_mev": 1.405114,
+          "p90_abs_residual_mev": 3.792635,
+          "max_abs_residual_mev": 13.255499
+        },
+        "full_known": {
+          "count": 2309,
+          "mae_mev": 1.845344,
+          "rmse_mev": 2.477693,
+          "median_abs_residual_mev": 1.413655,
+          "p90_abs_residual_mev": 3.734917,
+          "max_abs_residual_mev": 16.390055
+        }
+      },
+      "corrected": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 1.820871,
+          "rmse_mev": 2.429043,
+          "median_abs_residual_mev": 1.419701,
+          "p90_abs_residual_mev": 3.722802,
+          "max_abs_residual_mev": 16.350214
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 1.898368,
+          "rmse_mev": 2.588063,
+          "median_abs_residual_mev": 1.403432,
+          "p90_abs_residual_mev": 3.786868,
+          "max_abs_residual_mev": 13.215795
+        },
+        "full_known": {
+          "count": 2309,
+          "mae_mev": 1.844097,
+          "rmse_mev": 2.477772,
+          "median_abs_residual_mev": 1.413561,
+          "p90_abs_residual_mev": 3.734455,
+          "max_abs_residual_mev": 16.350214
+        }
+      },
+      "improvement_vs_baseline": {
+        "train": {
+          "mae_improvement_mev": 0.001391,
+          "rmse_improvement_mev": 0.000105
+        },
+        "validation_holdout": {
+          "mae_improvement_mev": 0.000911,
+          "rmse_improvement_mev": -0.00048
+        },
+        "full_known": {
+          "mae_improvement_mev": 0.001247,
+          "rmse_improvement_mev": -7.9e-05
+        }
+      }
+    },
+    "matched_random_slice": {
+      "coefficient_mev_per_standardized_feature": -0.006742,
+      "feature_summary": {
+        "mean": -0.007563,
+        "std": 1.002436,
+        "min": -1.792089,
+        "max": 2.313349
+      },
+      "baseline": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 1.822262,
+          "rmse_mev": 2.429148,
+          "median_abs_residual_mev": 1.418451,
+          "p90_abs_residual_mev": 3.709502,
+          "max_abs_residual_mev": 16.390055
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 1.899279,
+          "rmse_mev": 2.587583,
+          "median_abs_residual_mev": 1.405114,
+          "p90_abs_residual_mev": 3.792635,
+          "max_abs_residual_mev": 13.255499
+        },
+        "full_known": {
+          "count": 2309,
+          "mae_mev": 1.845344,
+          "rmse_mev": 2.477693,
+          "median_abs_residual_mev": 1.413655,
+          "p90_abs_residual_mev": 3.734917,
+          "max_abs_residual_mev": 16.390055
+        }
+      },
+      "corrected": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 1.822255,
+          "rmse_mev": 2.429138,
+          "median_abs_residual_mev": 1.423875,
+          "p90_abs_residual_mev": 3.71541,
+          "max_abs_residual_mev": 16.389402
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 1.899432,
+          "rmse_mev": 2.587817,
+          "median_abs_residual_mev": 1.408088,
+          "p90_abs_residual_mev": 3.799603,
+          "max_abs_residual_mev": 13.262187
+        },
+        "full_known": {
+          "count": 2309,
+          "mae_mev": 1.845385,
+          "rmse_mev": 2.47776,
+          "median_abs_residual_mev": 1.415027,
+          "p90_abs_residual_mev": 3.740426,
+          "max_abs_residual_mev": 16.389402
+        }
+      },
+      "improvement_vs_baseline": {
+        "train": {
+          "mae_improvement_mev": 7e-06,
+          "rmse_improvement_mev": 1e-05
+        },
+        "validation_holdout": {
+          "mae_improvement_mev": -0.000153,
+          "rmse_improvement_mev": -0.000234
+        },
+        "full_known": {
+          "mae_improvement_mev": -4.1e-05,
+          "rmse_improvement_mev": -6.7e-05
+        }
+      }
+    },
+    "label_shuffle": {
+      "coefficient_mev_per_standardized_feature": -0.039052,
+      "feature_summary": {
+        "mean": -0.00095,
+        "std": 1.002176,
+        "min": -1.785013,
+        "max": 2.319361
+      },
+      "baseline": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 1.822262,
+          "rmse_mev": 2.429148,
+          "median_abs_residual_mev": 1.418451,
+          "p90_abs_residual_mev": 3.709502,
+          "max_abs_residual_mev": 16.390055
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 1.899279,
+          "rmse_mev": 2.587583,
+          "median_abs_residual_mev": 1.405114,
+          "p90_abs_residual_mev": 3.792635,
+          "max_abs_residual_mev": 13.255499
+        },
+        "full_known": {
+          "count": 2309,
+          "mae_mev": 1.845344,
+          "rmse_mev": 2.477693,
+          "median_abs_residual_mev": 1.413655,
+          "p90_abs_residual_mev": 3.734917,
+          "max_abs_residual_mev": 16.390055
+        }
+      },
+      "corrected": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 1.820044,
+          "rmse_mev": 2.428834,
+          "median_abs_residual_mev": 1.414794,
+          "p90_abs_residual_mev": 3.715803,
+          "max_abs_residual_mev": 16.327156
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 1.898565,
+          "rmse_mev": 2.589263,
+          "median_abs_residual_mev": 1.406144,
+          "p90_abs_residual_mev": 3.768662,
+          "max_abs_residual_mev": 13.191743
+        },
+        "full_known": {
+          "count": 2309,
+          "mae_mev": 1.843576,
+          "rmse_mev": 2.478004,
+          "median_abs_residual_mev": 1.414794,
+          "p90_abs_residual_mev": 3.737386,
+          "max_abs_residual_mev": 16.327156
+        }
+      },
+      "improvement_vs_baseline": {
+        "train": {
+          "mae_improvement_mev": 0.002218,
+          "rmse_improvement_mev": 0.000314
+        },
+        "validation_holdout": {
+          "mae_improvement_mev": 0.000714,
+          "rmse_improvement_mev": -0.00168
+        },
+        "full_known": {
+          "mae_improvement_mev": 0.001768,
+          "rmse_improvement_mev": -0.000311
+        }
+      }
+    },
+    "smooth_control": {
+      "coefficient_mev_per_standardized_feature": -0.036315,
+      "feature_summary": {
+        "mean": 0.001976,
+        "std": 0.998502,
+        "min": -2.635056,
+        "max": 1.764691
+      },
+      "baseline": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 1.822262,
+          "rmse_mev": 2.429148,
+          "median_abs_residual_mev": 1.418451,
+          "p90_abs_residual_mev": 3.709502,
+          "max_abs_residual_mev": 16.390055
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 1.899279,
+          "rmse_mev": 2.587583,
+          "median_abs_residual_mev": 1.405114,
+          "p90_abs_residual_mev": 3.792635,
+          "max_abs_residual_mev": 13.255499
+        },
+        "full_known": {
+          "count": 2309,
+          "mae_mev": 1.845344,
+          "rmse_mev": 2.477693,
+          "median_abs_residual_mev": 1.413655,
+          "p90_abs_residual_mev": 3.734917,
+          "max_abs_residual_mev": 16.390055
+        }
+      },
+      "corrected": {
+        "train": {
+          "count": 1617,
+          "mae_mev": 1.819814,
+          "rmse_mev": 2.428876,
+          "median_abs_residual_mev": 1.418922,
+          "p90_abs_residual_mev": 3.721458,
+          "max_abs_residual_mev": 16.294363
+        },
+        "validation_holdout": {
+          "count": 692,
+          "mae_mev": 1.897222,
+          "rmse_mev": 2.588722,
+          "median_abs_residual_mev": 1.403595,
+          "p90_abs_residual_mev": 3.769278,
+          "max_abs_residual_mev": 13.174077
+        },
+        "full_known": {
+          "count": 2309,
+          "mae_mev": 1.843013,
+          "rmse_mev": 2.477864,
+          "median_abs_residual_mev": 1.413459,
+          "p90_abs_residual_mev": 3.741975,
+          "max_abs_residual_mev": 16.294363
+        }
+      },
+      "improvement_vs_baseline": {
+        "train": {
+          "mae_improvement_mev": 0.002448,
+          "rmse_improvement_mev": 0.000272
+        },
+        "validation_holdout": {
+          "mae_improvement_mev": 0.002057,
+          "rmse_improvement_mev": -0.001139
+        },
+        "full_known": {
+          "mae_improvement_mev": 0.002331,
+          "rmse_improvement_mev": -0.000171
+        }
+      }
+    }
+  },
+  "candidate_required_audit_baseline": {
+    "coefficient_mev_per_standardized_feature": 0.03564,
+    "feature_summary": {
+      "mean": 0.006062,
+      "std": 0.998516,
+      "min": -1.771486,
+      "max": 2.317897
+    },
+    "baseline": {
+      "train": {
+        "count": 1617,
+        "mae_mev": 2.522538,
+        "rmse_mev": 3.660445,
+        "median_abs_residual_mev": 1.938894,
+        "p90_abs_residual_mev": 5.42672,
+        "max_abs_residual_mev": 31.170096
+      },
+      "validation_holdout": {
+        "count": 692,
+        "mae_mev": 2.61432,
+        "rmse_mev": 3.804107,
+        "median_abs_residual_mev": 1.822519,
+        "p90_abs_residual_mev": 5.586599,
+        "max_abs_residual_mev": 29.9561
+      },
+      "full_known": {
+        "count": 2309,
+        "mae_mev": 2.550045,
+        "rmse_mev": 3.704085,
+        "median_abs_residual_mev": 1.923224,
+        "p90_abs_residual_mev": 5.49708,
+        "max_abs_residual_mev": 31.170096
+      }
+    },
+    "corrected": {
+      "train": {
+        "count": 1617,
+        "mae_mev": 2.517444,
+        "rmse_mev": 3.660272,
+        "median_abs_residual_mev": 1.932174,
+        "p90_abs_residual_mev": 5.385053,
+        "max_abs_residual_mev": 31.233232
+      },
+      "validation_holdout": {
+        "count": 692,
+        "mae_mev": 2.607292,
+        "rmse_mev": 3.8049,
+        "median_abs_residual_mev": 1.821709,
+        "p90_abs_residual_mev": 5.592253,
+        "max_abs_residual_mev": 30.019017
+      },
+      "full_known": {
+        "count": 2309,
+        "mae_mev": 2.544371,
+        "rmse_mev": 3.704209,
+        "median_abs_residual_mev": 1.909688,
+        "p90_abs_residual_mev": 5.503095,
+        "max_abs_residual_mev": 31.233232
+      }
+    },
+    "improvement_vs_baseline": {
+      "train": {
+        "mae_improvement_mev": 0.005094,
+        "rmse_improvement_mev": 0.000173
+      },
+      "validation_holdout": {
+        "mae_improvement_mev": 0.007028,
+        "rmse_improvement_mev": -0.000793
+      },
+      "full_known": {
+        "mae_improvement_mev": 0.005674,
+        "rmse_improvement_mev": -0.000124
+      }
+    }
+  },
+  "decision": {
+    "candidate_validation_mae_improvement_mev": 0.000911,
+    "candidate_full_known_mae_improvement_mev": 0.001247,
+    "best_control_validation_mae_improvement_mev": 0.002057,
+    "candidate_minus_best_control_validation_mae_improvement_mev": -0.001146,
+    "survival_margin_mev": 0.25,
+    "survival_margin_clears": false,
+    "validation_holdout_regresses": false
+  },
+  "verdict": "INCONCLUSIVE_CONTROL_DOMINATED",
+  "limitations": [
+    "One bounded residual-feature family only; no follow-up wave or retuning.",
+    "Retrospective AME2020 measured-row validation only; no post-AME2020 reveal scoring.",
+    "No PRED, CLAIM, KNOW, RESULT, or discovery artifact is created."
+  ],
+  "output_routing": {
+    "task_verdict": "INCONCLUSIVE_CONTROL_DOMINATED",
+    "canonical_destination": [
+      "agent_runs/AGENT-RUN-0061/metrics.json",
+      "agent_runs/AGENT-RUN-0061/report.md",
+      "docs/reviews/nmd0003-bounded-residual-feature-sprint.md"
+    ],
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "claim_impact": "none",
+    "knowledge_impact": "none",
+    "result_impact": "no RESULT artifact created"
+  }
+}
