@@ -28,6 +28,4 @@ None.
 - `TASK-0571` - Add archive-aware task discovery helper and resolver CLI (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)
 - `TASK-0572` - Route find-task-by-id call sites through the archive-aware helper (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)
 - `TASK-0573` - Route enumerate-all task call sites through the archive-aware helper (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)
-- `TASK-0578` - Run Materials MD-0001 independent baseline replay (`scientific_validation`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
-- `TASK-0579` - Run Materials MD-0001 band-gap null-control audit (`scientific_benchmark`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0590` - Archive terminal tasks into id-range buckets (reusable sweep + first run) (`research_infrastructure`, priority `medium`, difficulty `medium`, domain `task_architecture`)
