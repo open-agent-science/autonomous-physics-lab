@@ -140,6 +140,7 @@ source_families:
         readiness_evidence:
           - docs/reviews/atomic-second-source-yb-sr-row-gate.md
           - docs/reviews/atomic-pizzocaro-source-artifact-review.md
+          - docs/reviews/atomic-pizzocaro-yb-sr-row-admissibility-gate.md
         triage_role: |
           Secondary Yb/Sr fallback after Nemitz 2016. TASK-0542 pins the
           open Zenodo source dataset linked to the Pizzocaro et al. Nature
@@ -152,10 +153,11 @@ source_families:
           - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measurements-IPPP.csv
           - data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr/Yb-Sr-ratio-measuremets.csv
         ingestion_blockers:
-          - source_file_to_row_mapping_pending
-          - uncertainty_and_covariance_semantics_pending
-          - campaign_window_semantics_pending
-          - direct_vs_derived_row_class_review_pending
+          - source_file_to_row_mapping_reviewed_blocked
+          - uncertainty_and_covariance_semantics_reviewed_blocked
+          - campaign_window_semantics_reviewed_blocked
+          - direct_vs_derived_row_class_reviewed_blocked
+          - extraction_ledger_required_before_acr_row
           - holdout_or_reveal_freeze_manifest_unset
 
       - source_family_member_planning_only:
@@ -181,10 +183,10 @@ next_actions:
     blocking_task: TASK-0403
     enables: TASK-0401_blocker_4_resolution
   - description: |
-      Future Pizzocaro row-admissibility task should review the pinned Zenodo
-      source files, decide whether any Yb/Sr source values can become ACR rows,
-      and preserve extraction-ledger evidence before changing any
-      data/atomic_clocks/acr-*.yaml dataset.
+      TASK-0567 reviewed the pinned Pizzocaro Zenodo source files and keeps
+      ACR rows blocked. A future extraction-ledger task must freeze one row
+      surface, direct-vs-derived class, covariance state, and campaign-window
+      binding before changing any data/atomic_clocks/acr-*.yaml dataset.
     blocking_task: TASK-0567
     enables: TASK-0456_second_source_path
   - description: |
@@ -209,5 +211,5 @@ promotion_boundary:
 global_limitations:
   - "This manifest records source-family status only; pinned values live in their dataset files and pinned provenance lives under data/atomic_clocks/source_artifacts/."
   - "The Nemitz 2016 entry has a pinned arXiv source artifact but no value-bearing rows; ACR-0002 remains blocked pending table-level version-drift and row-readiness gates."
-  - "The Pizzocaro/VLBI entry has pinned Zenodo source artifacts but no value-bearing rows; future row curation must map source files, uncertainty/covariance semantics, and campaign-window boundaries before any ACR row is added."
+  - "The Pizzocaro/VLBI entry has pinned Zenodo source artifacts but no value-bearing rows; TASK-0567 reviewed row admissibility and keeps ACR rows blocked until an extraction ledger freezes source mapping, uncertainty/covariance semantics, direct-vs-derived class, and campaign-window boundaries."
   - "Sandbox-only. Do not ingest values, benchmark, fit drifts, derive constants constraints, or promote claims from this manifest."
