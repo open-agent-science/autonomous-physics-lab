@@ -193,6 +193,62 @@ PR body.
 Use [./agent-scientific-work-mode.md](./agent-scientific-work-mode.md) for the
 practical operating pattern.
 
+## PR Helper Map
+
+APL has several PR shapes. Use the helper that matches the PR kind instead of
+forcing every PR through the canonical task helper.
+
+| PR kind | Use this helper | Branch shape |
+| --- | --- | --- |
+| Canonical `TASK-XXXX` implementation | `python3 scripts/apl_task_pr_helper.py prepare-current ...` | `agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>` |
+| Task proposal | `python3 scripts/apl_proposal_pr_helper.py scaffold/preflight/create ...` | `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>` |
+| Microtask | `python3 scripts/apl_microtask_pr_helper.py status/scaffold/preflight ...` | `agent/<contributor-id>/<agent-id>/microtask-...` |
+| Task closeout | `python3 scripts/apl_closeout_pr_helper.py scaffold/preflight ...` | `agent/<contributor-id>/<agent-id>/closeout-<short-slug>` |
+| Task queue | Use the repository PR template and canonical `TASK-QUEUE` branch/title rules; do not mark newly queued tasks `REVIEW_READY` or implement them in the same PR | `agent/<contributor-id>/<agent-id>/task-queue-<short-slug>` |
+
+The helpers are mechanical guardrails, not scientific reviewers. They format and
+preflight branches, titles, bodies, metadata, and obvious PR-shape mistakes.
+They do not decide whether a scientific result is true, whether a task should be
+accepted, or whether a PR should merge.
+
+## Canonical Task PR Helper
+
+Before opening a canonical task PR, prefer the Python helper over ad-hoc
+`gh pr create` commands. The helper is cross-platform and catches the common
+publication mistakes before GitHub review: wrong branch shape, mismatched task
+id, missing PR template sections, missing metadata, and missing strict
+validation mention.
+
+After committing task work on the canonical task branch, run:
+
+```bash
+python3 scripts/apl_task_pr_helper.py prepare-current \
+  --task-id TASK-XXXX \
+  --contributor-id <contributor-id> \
+  --github-username <github-username> \
+  --agent-id <codex|claude|other-agent-id> \
+  --human-reviewer <maintainer-github-username> \
+  --summary "What changed, in narrow verification-first terms." \
+  --body-file .apl-pr-body.md
+```
+
+If `prepare-current` reports errors, fix them before creating the PR. In
+particular, do not open a PR from a `feature/...` or other non-canonical branch
+for canonical task work. Use the printed expected branch as the branch target.
+
+Then create the draft PR using the helper-generated body:
+
+```bash
+python3 scripts/apl_task_pr_helper.py create \
+  --branch agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> \
+  --title "TASK-XXXX: <task title>" \
+  --body-file .apl-pr-body.md
+```
+
+The older `scaffold`, `preflight`, `create`, and `ready` subcommands remain
+available. `prepare-current` is the recommended final pre-publication check
+because it uses the actual current branch and current diff.
+
 ## Task Status Protocol
 
 Use these execution states:

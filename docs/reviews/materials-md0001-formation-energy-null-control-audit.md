@@ -1,7 +1,7 @@
 # Materials MD-0001 Formation-Energy Null-Control Audit
 
 **Task:** `TASK-0600`
-**Run:** `agent_runs/AGENT-RUN-0062/`
+**Run:** `agent_runs/AGENT-RUN-0064/`
 **Axis:** formation_energy_per_atom (eV_per_atom), computed_dft
 **Decision:** `SIGNAL_SURVIVES_CONTROLS` - diagnostic only
 
@@ -57,7 +57,7 @@ checks, and maintainer review of scope wording.
 ## Output Routing Summary
 
 - Task verdict: `SIGNAL_SURVIVES_CONTROLS` (diagnostic; no scientific claim).
-- Canonical destination: `agent_runs/AGENT-RUN-0062/` + this review +
+- Canonical destination: `agent_runs/AGENT-RUN-0064/` + this review +
   `physics_lab/engines/materials_md0001_formation_energy_null_control.py`.
 - Review tier: `none` (no RESULT/PRED promoted).
 - Gate A/B: not attempted / not applicable.

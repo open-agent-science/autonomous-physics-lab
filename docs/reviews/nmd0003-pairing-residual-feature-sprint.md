@@ -1,4 +1,4 @@
-# AGENT-RUN-0062 - NMD-0003 Pairing Residual-Feature Sprint
+# NMD-0003 Pairing Residual-Feature Sprint
 
 **Task:** `TASK-0594`
 **Verdict:** `NEGATIVE_RESULT`

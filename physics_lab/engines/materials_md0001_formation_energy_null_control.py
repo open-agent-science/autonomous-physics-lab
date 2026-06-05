@@ -170,7 +170,7 @@ def run_formation_energy_null_control_audit(
             "Small holdout (n=33): survived controls are diagnostic, not a promoted result.",
         ],
         "output_routing": {
-            "canonical_destination": "agent_runs/AGENT-RUN-0062/",
+            "canonical_destination": "agent_runs/AGENT-RUN-0064/",
             "review_tier": "none",
             "gate_a_status": "not_attempted",
             "gate_b_status": "not_applicable",

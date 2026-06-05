@@ -1,0 +1,51 @@
+id: TASK-0610
+title: "Evaluate Stellar M-L source candidates after TASK-0604"
+type: scientific_dataset
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Advance the Stellar M-L lane only if TASK-0604 identifies concrete independent mass-source candidates."
+  - "Keep the prospective Stellar campaign source-first instead of starting with formula search or Gaia model-derived masses."
+  - "Choose one admissible source path for row acquisition, or preserve a precise blocker if none is usable."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0604-select-stellar-ml-independent-mass-source.yaml"
+    - "docs/reviews/textbook-stellar-ml-row-readiness-gate.md"
+    - "docs/reviews/textbook-stellar-mass-luminosity-source-baseline-plan.md"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+  planning_context: >
+    TASK-0604 is expected to identify two or three independent mass-source
+    candidates for a future Stellar M-L empirical row package. This task is
+    intentionally blocked until that selection review exists; it then decides
+    which candidate can support source-artifact packaging and row curation.
+
+requirements:
+  - "Start only after TASK-0604 lands a source-selection review or explicitly records that no source candidate was found."
+  - "Review each candidate for source locator stability, license/reuse posture, checksum feasibility, row count, direct-versus-derived mass semantics, luminosity derivation requirements, uncertainty semantics, and holdout implications."
+  - "Select at most one first source for a row-acquisition task, or preserve a blocker review if no source clears the gate."
+  - "Do not fetch or transcribe value-bearing rows, compute luminosities, fit mass-luminosity exponents, run residual metrics, or promote formula verdicts."
+  - "Do not use Gaia `mass_flame`, isochrone-derived masses, or other model-derived catalog masses as benchmark truth."
+  - "Route the final output through docs/result-promotion-protocol.md with no claim, knowledge, or result promotion."
+
+accepted_outputs:
+  - "docs/reviews/textbook-stellar-ml-source-candidate-admissibility.md"
+  - "optional metadata-only update to data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
+  - "optional follow-up TASK proposal or TASK-QUEUE recommendation for source-artifact packaging if exactly one source is admissible"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

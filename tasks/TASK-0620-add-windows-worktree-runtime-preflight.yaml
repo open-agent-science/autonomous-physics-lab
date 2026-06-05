@@ -1,0 +1,43 @@
+id: TASK-0620
+title: "Add Windows worktree runtime preflight"
+type: workflow_hardening
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make task execution and PR publication safer for agents on Windows, macOS, and Linux."
+  - "Diagnose environment problems without weakening validation or mutating global machine state."
+
+input:
+  mode: workflow
+  related_domain: cross_platform_agent_flow
+  related_objects:
+    - tasks/proposals/20260606-sviti-windows-worktree-runtime-preflight.yaml
+    - scripts/apl_agent_doctor.py
+    - docs/cross-platform-compatibility.md
+  planning_context: "Accepted follow-up from the agent speedup proposal bundle. Agents need a diagnostic preflight for Windows/worktree runtime issues such as root Python mismatch, temp path handling, pytest basetemp, and git index-lock sandbox write failures."
+
+requirements:
+  - "Extend apl_agent_doctor.py or a related Python helper with read-only diagnostics for worktree runtime health."
+  - "Detect root Python mismatch, missing pytest/ruff visibility, unsafe temp path assumptions, and git index-lock sandbox/write issues where practical."
+  - "Provide actionable output and fallback commands without installing packages, editing global PATH, storing credentials, or relaxing validation."
+  - "Keep the helper useful on Windows, macOS, and Linux; avoid POSIX-only assumptions in the critical path."
+  - "Do not change unrelated task-state transitions or generated task views."
+
+accepted_outputs:
+  - "Read-only worktree/runtime preflight diagnostics in apl_agent_doctor.py or a companion helper"
+  - "Cross-platform tests or fixtures for detected runtime issues"
+  - "Documentation update showing agents when to run the preflight"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_agent_doctor.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

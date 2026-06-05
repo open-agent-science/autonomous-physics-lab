@@ -86,18 +86,38 @@ Required wording discipline:
 All of the following must be true:
 
 - `README.md` has a result summary
+- strategy and status docs describe APL as the first physics proof-of-work for
+  Open Agent Science without implying that organizational transfer has already
+  happened
 - `docs/status.md` and the public science dashboard summarize current campaign
   state without implying discovery-level claims
 - an announcement draft exists
+- a citation/publication path exists for software and reusable datasets, even
+  if DOI minting is deferred until maintainer-approved release
 - external reviewer replication guidance has been checked against the current
   public evidence surface
 - no final-answer, universal-theory, or discovery-level overclaim
 - claims remain review-gated
 - guarded stress-test outputs are not presented as flagship public successes
 
+## Gate 5 — Organization Transfer Readiness
+
+If the maintainer transfers the repository to
+`open-agent-science/autonomous-physics-lab`, all of the following must be true
+before public-facing docs are updated as though the transfer is complete:
+
+- the maintainer has explicitly approved the transfer;
+- branch protection, CI, self-hosted runner labels, and repository secrets have
+  been checked after transfer;
+- clone URLs, contributor docs, and citation metadata are updated in one
+  transfer-sync PR;
+- old owner paths are kept only as historical references or redirects;
+- no source artifact, result artifact, or prediction registry entry is rewritten
+  merely to match the new organization path.
+
 ## Release Decision
 
-The repository may become public only when all four gates are satisfied, the
-release-time validation signoff has been reviewed, and a maintainer explicitly
-decides that the current docs, task board, and scientific claims are aligned
-with the evidence.
+The repository may become public only when all applicable gates are satisfied,
+the release-time validation signoff has been reviewed, and a maintainer
+explicitly decides that the current docs, task board, and scientific claims are
+aligned with the evidence.

@@ -1,0 +1,34 @@
+proposal_id: 20260606-sviti-windows-worktree-runtime-preflight
+title: Add Windows worktree runtime preflight
+status: ACCEPTED
+type: workflow_hardening
+priority: medium
+proposed_by:
+  contributor_id: sviti
+  agent_id: codex
+strategy_alignment:
+- Improve cross-platform agent execution without weakening validation gates.
+summary: 'Add a compact preflight/helper path for Windows worktree runtime issues: root venv
+  discovery, workspace-local pytest temp, and git index-lock permission warnings.'
+rationale: Repeated task execution lost time to missing worktree .venv paths, pytest temp
+  permission errors, and git index.lock sandbox failures that could be diagnosed or avoided
+  up front.
+input:
+  mode: planning_only
+  related_domain: agent_capacity
+  related_objects: []
+  planning_context: Post multi-task science execution friction review. This proposal targets
+    the local execution environment before validation, commit, and review steps.
+requirements:
+- Expose a repo-root Python resolver usable from worktrees when .venv is only present in the
+  main checkout.
+- Prefer or document a workspace-local pytest basetemp for sandboxed Windows runs.
+- Detect likely git index-lock sandbox write failures and recommend the protocol escalation
+  path.
+accepted_outputs:
+- Windows/worktree runtime preflight helper or apl_agent_doctor extension
+- documentation update in the agent protocol or cross-platform notes
+promotion:
+  canonical_task_id: TASK-0620
+  decision: accepted
+  notes: Accepted as TASK-0620 to add read-only cross-platform worktree/runtime preflight diagnostics.

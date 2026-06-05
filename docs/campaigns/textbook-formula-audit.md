@@ -80,7 +80,10 @@ identities do not exist and fixture metadata still declares sandbox-only
 boundaries. `TASK-0587` kept Stellar M-L row curation blocked because Gaia
 model-derived mass fields are not admissible benchmark truth. Current work is
 to define scoped exact-reference identities and select an independent Stellar
-M-L mass-source artifact before any empirical metrics run.
+M-L mass-source artifact before any empirical metrics run. `TASK-0604` owns
+that source selection; `TASK-0610` evaluates the candidates after `TASK-0604`
+lands, and `TASK-0611` defines the promotion gate for deciding whether Stellar
+M-L should become a standalone campaign.
 
 **Expected next result:** a scoped exact-reference identity gate that enables
 or blocks a later software/convention `RESULT-*`, or an independent
@@ -230,8 +233,9 @@ Per `docs/result-promotion-protocol.md`:
 See `docs/notes/textbook-formula-audit-candidate-list.md` for the ordered
 candidate slate. The first recommended slice is the **Stellar Mass-Luminosity
 (M-L) out-of-distribution audit on Gaia DR3 main-sequence stars**. The
-source/baseline planning pass has landed; the next step is a canonical
-pinned-source acquisition package before any metric-bearing audit.
+source/baseline planning pass has landed; the next step is independent
+mass-source selection and admissibility review before any metric-bearing audit
+or standalone campaign scaffold.
 
 ## Cross-References
 
