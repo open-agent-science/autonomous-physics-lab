@@ -66,6 +66,11 @@ synthesis, device, biomedical, or material-design guidance.
 **Active next work:** stress the stronger formation-energy axis with the same
 null-control discipline, run split-sensitivity checks on the small holdout,
 and plan `MD-0002` only as a source/split task before any wider acquisition.
+After those checks, `TASK-0614` should decide whether the next durable output
+is a scoped result-promotion preflight, a reusable-dataset publication package,
+an `MD-0002` widening-first path, or do-not-promote memory. `TASK-0616`
+separately checks whether Materials is now the best second executable Research
+Factory adapter candidate.
 
 ## Admissible Source Classes
 

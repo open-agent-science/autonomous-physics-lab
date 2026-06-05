@@ -1,0 +1,54 @@
+id: TASK-0612
+title: "Run Nuclear F2 independent replay and control ledger"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Adjudicate the strongest current Nuclear diagnostic signal instead of launching another broad hypothesis wave."
+  - "Test whether the F2 validation/full-known MAE improvement is replayable under the frozen NMD-0003 stratified gate."
+  - "Prepare a clear promotion/no-go decision path for F2 without prediction, reveal, claim, or discovery wording."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "docs/reviews/nuclear-f2-controls-first-scoring.md"
+    - "agent_runs/AGENT-RUN-0060/metrics.json"
+    - "agent_runs/AGENT-RUN-0060/report.md"
+    - "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0553 found a large F2 diagnostic improvement on validation and
+    full-known NMD-0003 surfaces, but kept the lane diagnostic-only because the
+    survival gate was not cleared. This task independently replays the reported
+    F2 metrics and records a control ledger so the next task can decide whether
+    F2 deserves promotion preflight, deeper ablation, or explicit
+    do-not-promote memory.
+
+requirements:
+  - "Replay the F2 controls-first scoring using committed data, committed code, and the frozen NMD-0003 stratified gate; do not fetch live data."
+  - "Verify the reported train, validation_holdout, and full_known MAE/RMSE surfaces against AGENT-RUN-0060."
+  - "Record the exact control suite, survival-margin rule, and why the current verdict is diagnostic-only."
+  - "Report any mismatch as BLOCKED_REPLAY_MISMATCH and stop before interpretation."
+  - "Do not create PRED entries, reveal scores, RESULT artifacts, CLAIM files, KNOW files, or discovery wording."
+  - "Route the final output through docs/result-promotion-protocol.md."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nuclear-f2-independent-replay-and-control-ledger.md"
+  - "tests for any new replay helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_f2_controls_first_scoring.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

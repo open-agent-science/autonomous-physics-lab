@@ -60,6 +60,30 @@ That means:
 - review the scientific architecture and workflow itself when the campaign is
   not producing results quickly enough.
 
+## Science-Output Funnel
+
+The Director must treat each research wave as a funnel from agent activity to
+durable scientific memory. A useful wave should route at least one artifact
+toward a concrete output class:
+
+- source-to-row gate or source blocker;
+- reusable dataset candidate;
+- baseline or holdout benchmark;
+- independent replay or adversarial control;
+- negative, null, overfit, or inconclusive memory;
+- scoped `RESULT-*` promotion path;
+- prediction/reveal readiness decision;
+- campaign stop/go or scope-narrowing decision.
+
+The Director should therefore ask, before creating more work: "What is the
+nearest durable output this campaign can honestly produce?" If the answer is a
+promotion decision, replay, source ledger, or dataset publication gate, that
+task outranks another broad candidate-generation wave.
+
+Strong diagnostic signals must not remain in indefinite sandbox limbo. The
+Director should route them to replay, ablation, promotion/no-go adjudication, or
+explicit do-not-promote memory.
+
 ## Scientific Architecture And Workflow Efficiency
 
 The Director is responsible for evaluating whether the current research
