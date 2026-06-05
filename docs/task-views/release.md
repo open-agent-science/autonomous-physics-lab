@@ -16,4 +16,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0609` - Harden canonical task PR publication helper (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `repository_coordination`)
