@@ -1,0 +1,58 @@
+id: TASK-0590
+title: "Archive terminal tasks into id-range buckets (reusable sweep + first run)"
+type: research_infrastructure
+status: REVIEW_READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Finish the task-archive migration: declutter tasks/ from 570 to a small active set."
+  - "Ship the reusable, idempotent sweep mechanism for the periodic cadence."
+  - "Pure git mv with no reference rewriting, enabled by the id-only reference convention."
+
+input:
+  mode: workflow
+  related_domain: task_architecture
+  related_objects:
+    - "scripts/apl_archive_sweep.py"
+    - "docs/task-archive-migration-plan.md"
+    - "docs/task-reference-convention.md"
+  planning_context: >
+    Final step of the task-archive migration plan (TASK-0559), after the
+    enablers (TASK-0570/0571/0572/0573/0575/0576) and the id-only reference
+    convention (TASK-0577). Adds the reusable scripts/apl_archive_sweep.py (pure
+    git mv into tasks/archive/<bucket>/, bucket = id // 500), tasks/archive/README.md,
+    and tool tests, then runs the first full sweep: 530 terminal tasks
+    (DONE/SUPERSEDED/REJECTED) moved into the 0000-0499 and 0500-0999 buckets.
+    Because references are id-based, the move rewrites nothing. Two more tests
+    that loaded/asserted a task by flat path were made archive-robust
+    (test_nuclear_mass_baselines, test_task_pr_helper), and two repository-count
+    tests were made recursive (test_pendulum smoke, test_task_discovery parity).
+    Eight nuclear-audit scripts had their self-reference report strings switched
+    to ids. Lingering id-tolerant refs (frozen result snapshots, legacy HRE
+    files, a .github template, synthetic test fixtures) are not existence-checked
+    and do not break validation.
+
+requirements:
+  - "Add scripts/apl_archive_sweep.py (pure git mv; --dry-run/--limit/--status; idempotent)."
+  - "Add tasks/archive/README.md and tool tests."
+  - "Run the first full sweep moving terminal tasks into id-range buckets."
+  - "Keep validate-repo, the id-uniqueness check, docs_links, and the full suite green (no reference rewriting)."
+
+accepted_outputs:
+  - "scripts/apl_archive_sweep.py"
+  - "tasks/archive/README.md"
+  - "tests/test_archive_sweep.py"
+  - "tasks/archive/<bucket>/ populated with terminal tasks"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

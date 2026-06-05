@@ -24,15 +24,15 @@ FLAT_GLOB = "TASK-[0-9][0-9][0-9][0-9]-*.yaml"
 TEMPLATE = "TASK-TEMPLATE.yaml"
 
 
-def test_parity_with_current_flat_enumeration():
-    """On today's flat tree the helper matches the legacy glob exactly."""
-    legacy = {
+def test_discovery_matches_recursive_enumeration():
+    """The helper finds every canonical task, flat under tasks/ or archived."""
+    recursive = {
         p.resolve()
-        for p in (REPO_ROOT / "tasks").glob(FLAT_GLOB)
+        for p in (REPO_ROOT / "tasks").rglob(FLAT_GLOB)
         if p.name != TEMPLATE
     }
     helper = {p.resolve() for p in iter_canonical_task_files(REPO_ROOT)}
-    assert helper == legacy
+    assert helper == recursive
     assert len(helper) > 100  # sanity: the real repo has many canonical tasks
 
 

@@ -20,6 +20,7 @@ from physics_lab.engines.nuclear_mass_baselines import (
 )
 from physics_lab.engines.nuclear_masses import load_nuclear_mass_dataset
 from physics_lab.registry import load_claim, load_experiment, load_hypothesis, load_knowledge, load_task
+from physics_lab.registry.task_discovery import find_task_file
 from physics_lab.registry.results import load_result
 from physics_lab.workflows.nuclear_mass_baseline import run_nuclear_mass_baseline_experiment_with_output
 from physics_lab.workflows.runner import run_experiment_with_output
@@ -148,7 +149,7 @@ def test_baseline_family_gate_is_deterministic() -> None:
 def test_nuclear_mass_registry_files_validate() -> None:
     load_hypothesis("hypotheses/HYP-0012-nuclear-mass-baseline.yaml")
     load_experiment("experiments/EXP-0012-nuclear-mass-baseline.yaml")
-    load_task("tasks/TASK-0168-implement-nuclear-mass-baselines-and-residual-reports.yaml")
+    load_task(find_task_file(".", "TASK-0168"))
     load_claim("claims/CLAIM-0010-nuclear-mass-baseline.md")
     load_knowledge("knowledge/nuclear_physics/nuclear_mass_baseline.md")
 

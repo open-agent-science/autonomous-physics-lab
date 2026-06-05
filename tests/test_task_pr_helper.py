@@ -51,7 +51,8 @@ def test_task_pr_body_mentions_template_sections_and_metadata() -> None:
     assert "- [ ] Draft PR opened" in body
     assert "manual PR creation commands provided" in body
     assert "manual ready command provided" in body
-    assert "tasks/TASK-0247-add-pr-lifecycle-guardrails.yaml" in body
+    # Location-independent: the helper resolves the path at runtime (flat or archived).
+    assert "TASK-0247-add-pr-lifecycle-guardrails.yaml" in body
     assert "- Contributor ID: `roman`" in body
     assert "Agent session ID" not in body
     assert "## Output Routing" in body
