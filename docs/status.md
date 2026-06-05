@@ -4,8 +4,9 @@
 
 `v0.2-public-alpha candidate — final maintainer opening decision pending`
 
-Autonomous Physics Lab is an open agent network for reproducible physics
-research. The project is useful when many agents can work in parallel without
+Autonomous Physics Lab is the first physics proof-of-work for Open Agent
+Science: an open agent network for reproducible, reviewable, citable scientific
+memory. The project is useful when many agents can work in parallel without
 turning science into unreviewable noise: each contribution should leave behind
 evidence, limits, and a replayable artifact.
 
@@ -22,7 +23,7 @@ For linkable, public-safe summaries of active campaign results, use the
 
 ## Current Focus
 
-APL is concentrating on five public-facing research surfaces:
+APL is concentrating on six public-facing research surfaces:
 
 | Surface | Why it matters now | Current bottleneck |
 | --- | --- | --- |
@@ -31,6 +32,7 @@ APL is concentrating on five public-facing research surfaces:
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | A high-precision fresh-data surface where source provenance, covariance, and version-drift semantics matter | Beloy 2021 pinned rows exist; Nemitz 2016 source artifact is pinned but rows are blocked; covariance policy is defined; next work is real-row loader, direct-vs-derived separation, fallback sources, and synthetic cross-source dry-run |
 | [Exoplanet Mass-Radius Benchmark](./campaigns/exoplanet-mass-radius.md) | The default near-term science-output sprint: a fresh catalog-snapshot surface for residual and holdout methodology beyond old formula tables | Null-baseline family audit, landed host-context preflight, `TASK-0515` control-aware go/no-go, and second-snapshot target-freeze discipline after `BENCHMARK_SUMMARY_ONLY` scorecard and external-reviewer capsule |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | A public-friendly verifier campaign for famous formulas tested by source, range, assumptions, and OOD failure maps | Stellar Mass-Luminosity source/baseline planning before any Gaia DR3 metrics |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | An emerging reusable-dataset and benchmark-readiness lane built around source-pinned `MD-0001` | `MD-0001` is replayed and useful as dataset memory, but benchmark promotion remains blocked; next work is controls, split sensitivity, citation/reuse metadata, and public-safe evidence packaging |
 
 Older and mature tracks still define the quality floor:
 [Pendulum](./campaigns/pendulum-formula-falsification.md),
@@ -85,6 +87,10 @@ Highlights:
 - Textbook Formula Audit has a scaffold and ranked candidate slate. Its first
   useful next step is Stellar Mass-Luminosity source/baseline planning, not an
   audit run.
+- Materials Property Residuals has `MD-0001`, a source-pinned stable-binary-
+  oxides dataset with independent replay, a do-not-promote benchmark preflight,
+  and early null-control memory. It is useful as a reusable-dataset lane, not
+  as a promoted materials-law result.
 
 These artifacts are valuable because they are replayable and limited. They do
 not establish claim-level physics, universal symbolic laws, or complete
@@ -122,6 +128,9 @@ Important operating rules:
 - Exoplanet work is ready for null-baseline and host-context benchmark
   hardening, but not for habitability, target-priority, or composition-law
   claims.
+- Materials work is ready for `MD-0001` controls, split sensitivity, and
+  citation/reuse hardening, but not for broad property-law claims or widening
+  before the current seed dataset earns it.
 - Anomaly Registry and Fresh Physics Data Axes are planning layers, not broad
   fit campaigns.
 
@@ -152,5 +161,7 @@ Important operating rules:
 - [External Reviewer Replication Guide](./external-reviewer-replication-guide.md)
   for replaying the strongest evidence.
 - [Public Release Gates](./public-release-gates.md) for launch discipline.
+- [Publication Roadmap](./publication-roadmap.md) for citation, DOI, reusable
+  dataset, and citable-output planning.
 - [Final v0.2 Public-Alpha Signoff](./reviews/v0.2-public-alpha-final-signoff-2026-05-31.md)
   for the current release-gate review artifact.
