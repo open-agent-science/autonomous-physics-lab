@@ -8,7 +8,6 @@
 
 - `TASK-0553` - Run Nuclear F2 finer-taxonomy controls-first scoring (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0567` - Run Atomic Pizzocaro Yb/Sr row-admissibility gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
-- `TASK-0584` - Run NMD-0003 bounded residual-feature sprint under stratified gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0594` - Run NMD-0003 pairing residual-feature sprint under stratified gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0595` - Run NMD-0003 isotope-chain transfer residual sprint (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0596` - Run NMD-0003 uncertainty-weighted baseline diagnostic (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
@@ -27,4 +26,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0584` - Run NMD-0003 bounded residual-feature sprint under stratified gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
