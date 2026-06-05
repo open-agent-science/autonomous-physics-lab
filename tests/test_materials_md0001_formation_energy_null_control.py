@@ -11,7 +11,7 @@ from physics_lab.engines.materials_md0001_formation_energy_null_control import (
 
 REPO = Path(__file__).resolve().parents[1]
 CONFIG = REPO / "examples" / "benchmarks" / "materials_md0001_baseline.yaml"
-COMMITTED = REPO / "agent_runs" / "AGENT-RUN-0062" / "metrics.json"
+COMMITTED = REPO / "agent_runs" / "AGENT-RUN-0064" / "metrics.json"
 
 
 def test_audit_is_deterministic_for_fixed_seed():
