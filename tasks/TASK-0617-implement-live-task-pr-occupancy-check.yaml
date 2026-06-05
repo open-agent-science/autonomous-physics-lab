@@ -1,0 +1,43 @@
+id: TASK-0617
+title: "Implement live task PR occupancy check"
+type: workflow_hardening
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce duplicate agent work by checking live PR occupancy before task execution."
+  - "Keep task routing dynamic instead of adding volatile static agent-facing indexes."
+
+input:
+  mode: workflow
+  related_domain: agent_capacity
+  related_objects:
+    - tasks/proposals/20260606-sviti-live-task-pr-duplicate-check.yaml
+    - docs/agent-task-claiming.md
+    - scripts/apl_mission.py
+  planning_context: "Accepted follow-up from the agent speedup proposal bundle. Agents need a cheap, live way to detect whether a selected task is already occupied by an open, draft, or recently merged PR."
+
+requirements:
+  - "Use GitHub PR metadata from gh JSON, an available connector, or an equivalent explicit input fixture; do not create a committed static task index for agent routing."
+  - "Scan PR title, body, and headRefName for TASK-XXXX ids and classify each checked task as occupied, merged-pending-closeout, or apparently free."
+  - "Keep the helper advisory: it must prevent accidental duplicate work, not become a hard blocker when GitHub access is unavailable."
+  - "Provide cross-platform Python entrypoints and tests; do not add a shell-only critical path."
+  - "Do not change unrelated task-state transitions or generated task views."
+
+accepted_outputs:
+  - "A repository helper or apl_mission integration for live task occupancy checks"
+  - "Tests or fixtures covering search misses, multiple task ids, draft/open PRs, and merged-pending-closeout cases"
+  - "A short docs or protocol update showing agents when to run the occupancy check"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_mission_control.py tests/test_task_claiming.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
