@@ -1,0 +1,54 @@
+id: TASK-0591
+title: "Decouple the generated CONTEXT.md bundle from the committed tree"
+type: documentation_architecture
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Extend the generated-state cleanup policy beyond task views to the remaining committed context aggregate."
+  - "Reduce merge-conflict and stale-context friction for parallel agents without losing the convenience of a one-file project bundle."
+  - "Keep volatile agent-facing context dynamic unless there is a clear human-facing reason to commit it."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - "CONTEXT.md"
+    - "scripts/generate_context_bundle.py"
+    - "docs/notes/generated-task-navigation-architecture-decision.md"
+    - ".github/workflows/sync-active-board.yml"
+    - "tasks/proposals/20260530-roman-decouple-context-bundle.yaml"
+  planning_context: >
+    The generated CONTEXT.md bundle is convenient for handoff, but it is also a
+    committed aggregate that can become stale or create merge conflicts when
+    parallel agents regenerate it at different times. TASK-0470/TASK-0473
+    retired the analogous committed generated board pattern for active task
+    navigation. This task should decide the right architecture for CONTEXT.md
+    and, if safe, implement the chosen first migration step.
+
+requirements:
+  - "Survey how CONTEXT.md is generated, what source files it bundles, who consumes it, and whether any workflow currently regenerates it on main."
+  - "Compare at least three options: generate-on-demand only, post-merge Action regeneration, and committed-but-ephemeral handling."
+  - "Recommend one option with explicit tradeoffs for humans, agents, snapshots, and merge-conflict risk."
+  - "If the recommended first step is small and safe, implement it; otherwise create a precise follow-up task instead of changing behavior broadly."
+  - "Do not remove the ability to generate a one-file context bundle for maintainers or strategy agents."
+  - "Do not add a new volatile committed agent-facing index or board."
+
+accepted_outputs:
+  - "architecture decision note for CONTEXT.md handling"
+  - "recommended migration path"
+  - "optional small script/docs update if the selected first step is safe"
+  - "optional follow-up TASK proposal if behavior migration needs a larger staged change"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
