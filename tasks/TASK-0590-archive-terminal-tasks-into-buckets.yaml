@@ -1,7 +1,7 @@
 id: TASK-0590
 title: "Archive terminal tasks into id-range buckets (reusable sweep + first run)"
 type: research_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
