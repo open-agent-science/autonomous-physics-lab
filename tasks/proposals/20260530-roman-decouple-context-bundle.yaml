@@ -1,6 +1,6 @@
 proposal_id: 20260530-roman-decouple-context-bundle
 title: Decouple the generated CONTEXT.md bundle from the committed tree
-status: PROPOSED
+status: ACCEPTED
 type: maintainer_workflow
 priority: medium
 proposed_by:
@@ -42,6 +42,9 @@ accepted_outputs:
 - architecture decision note for the CONTEXT.md bundle
 - recommended migration path and optional follow-up task spec
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0591
+  decision: accepted
+  notes: >
+    Accepted as TASK-0591 to decide and, if safe, begin migrating CONTEXT.md
+    away from volatile committed generated-state friction while preserving the
+    on-demand one-file context bundle.
