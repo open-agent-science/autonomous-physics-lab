@@ -48,9 +48,12 @@ The main remaining Atomic source gate is row-level admissibility:
 value-bearing Yb/Sr row or whether the campaign should preserve a precise
 blocker instead of running constants-drift or mixed-axis metrics.
 
-**Expected next result:** a path back to the `BASELINE_READY` gate after a
-second source row is committed or explicitly waived and row-level
-holdout/no-peek fields are populated from the manifest.
+**Expected next result:** a source-to-row extraction ledger for the committed
+Pizzocaro artifacts (`TASK-0615`). That ledger should either identify one
+auditable row-of-record surface for future curation or preserve a precise
+blocker. Only after that can Atomic move back toward the `BASELINE_READY` gate
+through a second source row or an explicit waiver plus row-level holdout/no-peek
+fields from the manifest.
 
 `TASK-0311` adds:
 

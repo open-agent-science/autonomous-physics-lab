@@ -1,0 +1,53 @@
+id: TASK-0614
+title: "Adjudicate Materials MD-0001 result or dataset-publication path"
+type: research_quality_gate
+status: BLOCKED
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Move Materials from promising reusable-dataset evidence toward a concrete result, dataset, or do-not-promote decision."
+  - "Use MD-0001 controls and split sensitivity to decide whether formation energy can become a scoped result candidate."
+  - "Keep Materials publication value separate from material-design or experimental-material claims."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "tasks/TASK-0600-run-materials-md0001-formation-energy-null-control.yaml"
+    - "tasks/TASK-0601-run-materials-md0001-split-sensitivity-audit.yaml"
+    - "docs/reviews/materials-md0001-baseline-residual-benchmark.md"
+    - "docs/reviews/materials-md0001-benchmark-promotion-preflight.md"
+    - "docs/publication-roadmap.md"
+  planning_context: >
+    MD-0001 is APL's strongest current reusable-dataset candidate, and the
+    formation-energy axis appears more robust than band gap. This task is
+    blocked until formation-energy controls and split-sensitivity evidence are
+    available, then decides whether the next durable output is a scoped
+    RESULT preflight, reusable-dataset publication package, or do-not-promote
+    memory.
+
+requirements:
+  - "Start only after TASK-0600 and TASK-0601 land, or explicitly record why one cannot run."
+  - "Review formation-energy controls, split sensitivity, source/citation metadata, holdout semantics, and the existing do-not-promote preflight."
+  - "Choose exactly one next route: RESULT_PROMOTION_PREFLIGHT, DATASET_PUBLICATION_PACKAGE, MD0002_WIDENING_FIRST, or DO_NOT_PROMOTE."
+  - "Do not merge formation-energy and band-gap claims into one score."
+  - "Do not create material recommendation, synthesis, device, biomedical, prediction, claim, or knowledge outputs."
+  - "If dataset publication is recommended, list the missing citation/reuse/version artifacts without moving the dataset to an external repository."
+
+accepted_outputs:
+  - "docs/reviews/materials-md0001-result-or-dataset-publication-decision.md"
+  - "optional update to docs/campaigns/materials-property-residuals.md"
+  - "optional follow-up task recommendation for result-promotion preflight, dataset publication package, or MD-0002 widening"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

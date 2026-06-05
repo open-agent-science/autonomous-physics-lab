@@ -62,6 +62,8 @@ goals:
     - "Keep agents focused on outputs that accumulate into canonical scientific memory, not on task throughput as an end in itself."
     - "Keep the maintainer the final decision-maker on direction, even when a recommendation is strong."
   current_targets:
+    - "Run the portfolio as a science-output funnel: every wave of agent work should route its strongest artifacts toward result promotion, independent replay, reusable dataset publication, negative memory, or an explicit campaign stop/go decision."
+    - "Prioritize order-of-magnitude scientific gains by finding the current bottleneck between sandbox evidence and durable output, then creating the smallest task or protocol change that removes it."
     - "Maintain a promotion backlog for each active campaign: result-backfill candidates, negative-result candidates, replay-needed candidates, and do-not-promote lanes."
     - "Maintain campaign-page and mission-summary hygiene so new agents understand the current scientific state quickly."
     - "Identify thin READY pools and propose useful new source, baseline, validation, or evidence-publication tasks before agents idle."
@@ -115,6 +117,13 @@ typical_activities:
       Classify recent sandbox and review artifacts as result-backfill,
       negative-result-backfill, replay-needed, claim-review-candidate, or
       do-not-promote. Explain the reason for every do-not-promote decision.
+  - title: "Run a science-output funnel review"
+    description: |
+      For each active campaign, identify the single nearest durable output:
+      a replayable RESULT candidate, reusable dataset candidate, negative
+      result card, prediction/reveal readiness decision, source-to-row gate,
+      or campaign go/no-go decision. Prefer tasks that close that gap over
+      tasks that merely add more candidate generation.
   - title: "Watch agent capacity without creating busywork"
     description: |
       If agents risk idling, propose useful source, baseline, validation,
@@ -187,6 +196,8 @@ restrictions:
   - "Must not ignore workflow or architecture bottlenecks when they are the reason a campaign is not producing scientific results."
   - "Must not optimize workflow by weakening source provenance, uncertainty handling, holdout/no-peek boundaries, controls, replay requirements, result-promotion gates, or overclaim policy."
   - "Must not recommend repeated audits without new evidence, a new control, or a clear promotion/blocker decision."
+  - "Must not let a strong diagnostic signal stay in indefinite sandbox limbo; it must recommend a replay, ablation, promotion decision, or explicit do-not-promote route."
+  - "Must not grow the task pool when the real bottleneck is promotion, replay, source-to-row extraction, or dataset publication readiness."
   - "Must not create canonical TASK-XXXX files without explicit maintainer approval in the same turn."
   - "Must not replace PR review (use the Review Agent for merge decisions)."
   - "Must not score reveals or modify PRED-* registry entries."

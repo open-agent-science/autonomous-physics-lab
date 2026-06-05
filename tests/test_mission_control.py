@@ -1082,6 +1082,9 @@ def test_cli_mission_json_runs_from_repo_root() -> None:
         "TASK-0605",
         "TASK-0606",
         "TASK-0607",
+        "TASK-0612",
+        "TASK-0615",
+        "TASK-0616",
     }
     if rendered["live_task_candidates"]:
         assert (
