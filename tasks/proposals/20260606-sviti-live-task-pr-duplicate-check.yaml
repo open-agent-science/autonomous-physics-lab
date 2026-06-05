@@ -1,0 +1,31 @@
+proposal_id: 20260606-sviti-live-task-pr-duplicate-check
+title: Harden live task PR duplicate checks
+status: PROPOSED
+type: workflow_hardening
+priority: medium
+proposed_by:
+  contributor_id: sviti
+  agent_id: codex
+strategy_alignment:
+- Increase agent throughput without weakening one-task-per-PR coordination.
+summary: Add a robust live duplicate-PR check for selected task ids before agents claim or
+  start work.
+rationale: Recent multi-task execution depended on GitHub search behavior; a helper should
+  scan open PR metadata deterministically so agents do not duplicate occupied tasks.
+input:
+  mode: planning_only
+  related_domain: agent_capacity
+  related_objects: []
+  planning_context: Post multi-task science execution friction review. This proposal targets
+    the claim/intake step before task branches are created.
+requirements:
+- Scan open PR title, body, and headRefName for task ids using gh JSON or an equivalent connector
+  path.
+- Report occupied, merged-pending-closeout, and apparently-free task ids separately.
+accepted_outputs:
+- task duplicate-check helper or apl_mission integration
+- tests or fixtures covering search misses and multiple task ids
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: Awaiting maintainer acceptance and canonical task id.
