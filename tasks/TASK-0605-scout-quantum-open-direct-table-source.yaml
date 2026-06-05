@@ -1,0 +1,51 @@
+id: TASK-0605
+title: "Scout one open Quantum direct-table source beyond Norris and Kang"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep Quantum Size Effects moving while Norris-Bawendi waits for a maintainer source copy."
+  - "Search for a source path that can produce direct rows without publisher figure redistribution blockers."
+  - "Avoid formula search before a measurement-grade row dataset exists."
+
+input:
+  mode: planning_only
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-norris-bawendi-source-copy-handoff.md"
+    - "docs/reviews/quantum-kang-wise-1997-source-artifact-package.md"
+    - "docs/quantum-direct-source-artifact-intake.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    Norris-Bawendi remains the strongest path but is blocked on a legitimate
+    maintainer-held source copy. Kang-Wise is not currently admissible. This
+    task scouts one additional open or repository-compatible source candidate
+    that might expose direct size-energy rows without a paywalled figure-only
+    route.
+
+requirements:
+  - "Scout exactly one candidate source family not already exhausted by the Norris-Bawendi or Kang-Wise blockers."
+  - "Prefer open tables, machine-readable supplements, or repository-compatible artifacts over figure-only sources."
+  - "Report source locator, license/reuse posture, expected row class, checksum feasibility, material, property axis, and whether values are direct measurements or model-derived."
+  - "Do not transcribe values unless the task proves an explicitly open direct table and the protocol allows metadata-plus-row curation; otherwise stop at source-admissibility."
+  - "Do not run quantum-size baselines, formula search, synthesis guidance, biomedical/device claims, or material-design claims."
+
+accepted_outputs:
+  - "docs/reviews/quantum-open-direct-table-source-scout-02.md"
+  - "optional metadata-only update to data/quantum_dots/source_manifest.yaml if a candidate is admissible"
+  - "optional follow-up task proposal for source-artifact packaging or row curation"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

@@ -1,0 +1,49 @@
+id: TASK-0598
+title: "Inspect EXO-0002 overlapping-row mass-class drift"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Resolve the only substantive row-class drift surfaced by the EXO-0001/EXO-0002 delta audit."
+  - "Keep Exoplanet source and row-class semantics clean before any later snapshot reopens metrics."
+  - "Separate catalog drift inspection from residual scoring."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-exo0001-exo0002-snapshot-delta-audit.md"
+    - "data/exoplanets/exo-0001-pscomppars-snapshot.yaml"
+    - "data/exoplanets/exo-0002-pscomppars-snapshot.yaml"
+    - "physics_lab/datasets/exoplanets.py"
+  planning_context: >
+    TASK-0581 found two overlapping planet-name rows whose mass_class changed
+    between EXO-0001 and EXO-0002. This task inspects and documents those
+    rows without computing residual metrics or altering inclusion policy.
+
+requirements:
+  - "Identify the two overlapping rows with mass_class drift using deterministic loader code."
+  - "Report old/new mass_class, source table references, mass-value presence, uncertainty fields, and inclusion status."
+  - "Decide whether the drift is benign catalog metadata drift, a loader-classification issue, or a source-specific blocker needing a follow-up task."
+  - "Do not refit baselines, compute residuals, alter row filters, or merge true-mass and minimum-mass axes."
+  - "Do not promote claims or create prediction entries."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-second-snapshot-row-class-drift.md"
+  - "optional focused test if a loader bug is found"
+  - "optional loader fix only if the task proves a deterministic classification bug"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_exoplanet_mass_radius_dataset_schema.py tests/test_exoplanet_snapshot_delta_audit.py"
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

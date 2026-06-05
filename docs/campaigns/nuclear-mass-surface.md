@@ -17,10 +17,12 @@ surface produced control-dominated negative memory with no shortlist. The first
 simple broad-surface baseline refit improved train/full-surface metrics but
 regressed on the validation holdout. `TASK-0552` then froze a stratified
 NMD-0003 readiness split where the region-stratified diagnostic validation
-MAE is `1.899279` MeV. The next useful work is independent gate replay, one
-bounded residual-feature sprint under that gate, F2 controls-first scoring,
-no-peek reveal-source scouting, and negative-result preservation, not broad
-prediction waves or reruns on the 11-row bootstrap slice.
+MAE is `1.899279` MeV. `TASK-0583` independently replayed that gate and matched
+the frozen metrics exactly after a narrow path-normalization portability fix.
+The next useful work is bounded residual-feature testing under that gate, F2
+controls-first scoring, uncertainty-weighted diagnostics, and source-gated
+reveal scouting, not broad prediction waves or reruns on the 11-row bootstrap
+slice.
 
 ## Public Monitoring Snapshot
 
@@ -49,11 +51,11 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed.
 
-**Expected next result:** the next useful Nuclear result is either an
-independent replay of the frozen NMD-0003 stratified gate (`TASK-0583`), a
-bounded residual-feature sprint that uses that gate (`TASK-0584`), or an F2
-controls-first scoring decision (`TASK-0553`). Reveal scoring remains separate
-and source-gated.
+**Expected next result:** the gate replay has now matched. The next useful
+Nuclear result is a bounded residual-feature verdict under the frozen
+NMD-0003 gate (`TASK-0584`, `TASK-0594`, or `TASK-0595`), an F2 controls-first
+scoring decision (`TASK-0553`), or an uncertainty-weighted baseline diagnostic
+(`TASK-0596`). Reveal scoring remains separate and source-gated.
 
 ## Orientation Note for New Contributors
 
@@ -322,14 +324,15 @@ Current next Nuclear posture:
 - Treat `TASK-0518` as completed `NMD-0002` control evidence. Uncertainty
   perturbations of the same 11 rows are not independent evidence for a residual
   law.
-- Treat `TASK-0552` as the current NMD-0003 gate. Run independent replay
-  (`TASK-0583`) and bounded residual-feature scoring (`TASK-0584`) against that
-  gate rather than selecting a validation policy after seeing candidate
-  behavior.
+- Treat `TASK-0552` as the current NMD-0003 gate. `TASK-0583` has independently
+  replayed it with matching metrics, so bounded residual-feature scoring can
+  proceed against that gate rather than selecting a validation policy after
+  seeing candidate behavior.
 - `TASK-0553` can now run F2 finer-taxonomy controls-first scoring because the
   NMD-0003 stratified gate has landed.
-- Use `TASK-0585` for reveal-source manifest scouting only; do not record
-  target mass values or score prediction entries.
+- `TASK-0585` found no admissible post-freeze reveal source. Keep reveal
+  scoring blocked until a source postdating the 2026-05-20 freeze is pinned
+  without exposing target values.
 - `TASK-0428` should run the result-promotion preflight mainly to preserve the
   `LOCAL-CURVATURE-001` no-leakage falsification and block positive promotion
   unless the scorecard exposes a very narrow, reviewed negative-result

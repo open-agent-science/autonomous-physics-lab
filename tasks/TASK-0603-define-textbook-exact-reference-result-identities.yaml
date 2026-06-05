@@ -1,0 +1,52 @@
+id: TASK-0603
+title: "Define Textbook exact-reference EXP/HYP identities for scoped result publication"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Resolve the precise publication blocker found by TASK-0586 without broadening Textbook Formula Audit claims."
+  - "Allow exact-reference fixture evidence to become a scoped software/convention result only if identities and boundaries are explicit."
+  - "Keep empirical formula validation separate from deterministic fixture validation."
+
+input:
+  mode: workflow
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "docs/reviews/textbook-exact-reference-scoped-result-packaging.md"
+    - "docs/reviews/textbook-stefan-boltzmann-exact-reference-fixture.md"
+    - "docs/reviews/textbook-wien-displacement-exact-reference-fixture.md"
+    - "physics_lab/schemas/result.schema.json"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    TASK-0586 replayed the exact-reference fixture path successfully but
+    blocked canonical result packaging because no scoped Textbook EXP/HYP
+    identities exist and the fixture manifests remain sandbox-only. This task
+    defines those identities and publication boundaries without creating an
+    empirical physics claim.
+
+requirements:
+  - "Define a scoped Textbook Formula Audit experiment identity limited to exact-reference software/convention validation."
+  - "Define a scoped hypothesis identity that does not claim empirical truth of Stefan-Boltzmann, Wien, blackbody physics, or stellar observations."
+  - "Specify which fixture metadata boundary changes would be required before a RESULT artifact can be created."
+  - "Do not create CLAIM, KNOW, prediction, empirical dataset, or public-discovery wording."
+  - "If the task creates EXP/HYP files, include tests or validation evidence required by the registry/schema."
+
+accepted_outputs:
+  - "experiment_proposals or canonical experiment identity for the scoped exact-reference fixture route, as allowed by existing protocol"
+  - "hypothesis proposal or scoped hypothesis identity for software/convention validation"
+  - "docs/reviews/textbook-exact-reference-result-identity-gate.md"
+  - "optional follow-up task to publish the RESULT only after identities and fixture boundaries are accepted"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

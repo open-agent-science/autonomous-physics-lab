@@ -1,0 +1,51 @@
+id: TASK-0607
+title: "Package Materials MD-0001 public-safe evidence card"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Make the first Materials dataset and benchmark understandable without promoting a materials claim."
+  - "Use existing public/campaign surfaces rather than creating a duplicate dashboard."
+  - "Prepare shareable scientific memory after replay and null-control results clarified the limits."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0001-baseline-residual-benchmark.md"
+    - "docs/reviews/materials-md0001-independent-baseline-replay.md"
+    - "docs/reviews/materials-md0001-band-gap-null-control-audit.md"
+    - "docs/reviews/materials-md0001-benchmark-promotion-preflight.md"
+    - "docs/campaigns/materials-property-residuals.md"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    MD-0001 has enough reviewable evidence to explain publicly as a reusable
+    dataset/benchmark pilot, but TASK-0566 blocked promotion. This task
+    packages public-safe wording in existing surfaces and avoids a duplicate
+    status page.
+
+requirements:
+  - "Update existing campaign/public surfaces only; do not create a new dashboard or digest."
+  - "State the computed-DFT-only limitation, dataset size, formation-energy baseline advantage, weak band-gap control result, and do-not-promote decision."
+  - "Avoid material discovery, design, synthesis, device, biomedical, or new-law wording."
+  - "Do not create RESULT, CLAIM, PRED, or KNOW artifacts."
+  - "Recommend whether the next Materials task should be MD-0002 widening, formation-energy controls, or split sensitivity."
+
+accepted_outputs:
+  - "updated docs/campaigns/materials-property-residuals.md"
+  - "optional updated docs/campaigns/public-science-dashboard.md"
+  - "docs/reviews/materials-md0001-public-safe-evidence-card-routing.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

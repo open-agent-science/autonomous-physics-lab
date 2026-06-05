@@ -1,0 +1,51 @@
+id: TASK-0595
+title: "Run NMD-0003 isotope-chain transfer residual sprint"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test whether any residual-feature family transfers across isotope chains under the frozen NMD-0003 gate."
+  - "Avoid local row memorization by making chain-transfer behavior a first-class verdict input."
+  - "Turn Nuclear agent effort toward interpretable transfer evidence rather than broad formula search."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml"
+    - "docs/reviews/nmd0003-stratified-gate-independent-replay.md"
+    - "docs/reviews/nuclear-high-error-cluster-adversarial-stability.md"
+    - "docs/notes/nuclear-controls-first-hypothesis-gauntlet.md"
+  planning_context: >
+    Earlier Nuclear lanes often improved narrow regions but failed broader
+    transfer checks. This task tests one new residual-feature family with
+    isotope-chain transfer as a required control surface on NMD-0003.
+
+requirements:
+  - "Predeclare exactly one feature family whose expected mechanism should transfer across at least three isotope chains."
+  - "Use committed NMD-0003 measured rows and the frozen stratified gate; do not change split membership."
+  - "Report isotope-chain transfer panels separately from aggregate MAE/RMSE."
+  - "Run matched random-chain, sign-inverted, and label-shuffle controls."
+  - "Classify the verdict as BOUNDED_FOLLOWUP_CANDIDATE, DIAGNOSTIC_ONLY, NEGATIVE_RESULT, or INCONCLUSIVE."
+  - "Do not use source-status, measured/extrapolated flags, target-row labels, or post-AME2020 values as features."
+  - "Do not create PRED, RESULT, CLAIM, or KNOW artifacts."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/nmd0003-isotope-chain-transfer-sprint.md"
+  - "tests for any new transfer-control helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_residual_factory.py tests/test_nmd0003_baseline_freeze.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
