@@ -1,0 +1,51 @@
+id: TASK-0611
+title: "Draft Stellar M-L campaign promotion gate"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Define when Stellar M-L should become a standalone campaign instead of remaining a Textbook Formula Audit slice."
+  - "Prevent premature campaign scaffolding before source, dataset, baseline, and holdout gates are clear."
+  - "Keep the future campaign public-friendly while preserving APL's no-overclaim discipline."
+
+input:
+  mode: planning_only
+  related_domain: textbook_formula_audit
+  related_objects:
+    - "tasks/TASK-0604-select-stellar-ml-independent-mass-source.yaml"
+    - "docs/campaigns/textbook-formula-audit.md"
+    - "docs/campaigns/README.md"
+    - "docs/reviews/textbook-stellar-ml-row-readiness-gate.md"
+    - "docs/result-promotion-protocol.md"
+  planning_context: >
+    Stellar Mass-Luminosity / HR-Diagram residuals are a strong future public
+    science surface, but the lane should not become a full campaign until
+    independent source artifacts, row semantics, baseline scope, and holdout
+    policy are explicit. This task drafts the promotion gate only; it does not
+    create the full campaign scaffold.
+
+requirements:
+  - "Define the minimum conditions for promoting Stellar M-L from Textbook slice to standalone campaign: source artifact, row schema, direct mass semantics, luminosity derivation policy, baseline family, holdout policy, and public wording boundaries."
+  - "State which conditions require TASK-0604/TASK-0610 outputs and which can be decided before source selection."
+  - "List explicitly forbidden work before promotion: formula search, Gaia model-derived mass truth, HR-diagram discovery claims, stellar evolution claims, and public result wording."
+  - "Specify the first three tasks that should exist only after the gate passes: campaign scaffold, dataset/source manifest, and baseline/failure-map benchmark."
+  - "Do not create campaign profile files, canonical experiments, canonical results, claims, knowledge entries, or row datasets."
+
+accepted_outputs:
+  - "docs/notes/stellar-ml-campaign-promotion-gate.md"
+  - "optional short update to docs/campaigns/textbook-formula-audit.md pointing to the gate"
+  - "optional TASK-QUEUE recommendation for post-gate tasks, kept inactive until source admissibility is resolved"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
