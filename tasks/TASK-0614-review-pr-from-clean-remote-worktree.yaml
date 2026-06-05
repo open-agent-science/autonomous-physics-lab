@@ -1,0 +1,49 @@
+id: TASK-0614
+title: "Review PRs from clean remote worktrees"
+type: maintainer_workflow
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Make maintainer review evaluate the PR branch that GitHub will merge, not the caller's incidental local checkout."
+  - "Reduce false blockers during review-and-merge sweeps."
+  - "Preserve review strictness while improving multi-worktree reliability."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - "tasks/proposals/20260606-sviti-remote-clean-pr-review-worktree.yaml"
+    - "scripts/apl_review_pr.py"
+    - "physics_lab/registry/maintainer_review.py"
+    - "docs/maintainer-review-agent.md"
+  planning_context: >
+    PR-number review can currently fail or review the wrong state when the
+    maintainer checkout is on another branch, missing the PR branch, or holding
+    unrelated local artifacts. The review helper should be able to fetch the
+    PR head and validate it from a clean disposable worktree.
+
+requirements:
+  - "For --pr mode, resolve the PR headRefName/head SHA and fetch the remote PR branch before validation."
+  - "Create or reuse a disposable clean worktree for PR review without mutating the caller's active task worktree."
+  - "Keep generated review bundles and temporary artifacts outside the committed tree unless explicitly requested."
+  - "Preserve current direct-branch review behavior for local-only review when no PR number is supplied."
+  - "Document cleanup and failure behavior for interrupted reviews."
+
+accepted_outputs:
+  - "remote-clean-worktree review path in apl_review_pr.py or maintainer_review internals"
+  - "tests or dry-run coverage for missing local branch and divergent local branch scenarios"
+  - "documentation update in docs/maintainer-review-agent.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py tests/test_review_pr_helper.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

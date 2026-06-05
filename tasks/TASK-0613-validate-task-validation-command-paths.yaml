@@ -1,0 +1,49 @@
+id: TASK-0613
+title: "Validate task YAML validation command paths"
+type: repository_hardening
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Catch mechanical task-spec drift before agents reach PR review."
+  - "Keep agent time on scientific execution instead of missing-path debugging."
+  - "Improve validation quality without weakening task-specific command contracts."
+
+input:
+  mode: workflow
+  related_domain: repository_validation
+  related_objects:
+    - "tasks/proposals/20260606-sviti-task-validation-command-paths.yaml"
+    - "physics_lab/registry/repository.py"
+    - "physics_lab/registry/tasks.py"
+  planning_context: >
+    Recent task PR review found validation.commands that referenced missing
+    pytest paths even though the intended task-specific tests existed. Strict
+    repository validation should flag obvious missing repository-local script or
+    test paths early while avoiding false positives for external commands.
+
+requirements:
+  - "Parse task validation.commands conservatively and inspect path-like pytest/script arguments."
+  - "Flag missing repository-local test files, script files, and explicit local file arguments when the task is in a completed/review state or the referenced path is not declared as an accepted output."
+  - "Do not fail untouched READY tasks merely because they name tests that the task itself is expected to create."
+  - "Avoid blocking non-path command arguments, external commands, shell options, generated runtime paths, or glob-free plain words."
+  - "Provide clear issue messages that name the task file and missing path."
+  - "Work on Windows, macOS, and Linux using pathlib-style path handling."
+
+accepted_outputs:
+  - "strict repository validation check for missing task validation command paths"
+  - "regression tests for valid paths, missing paths, and non-path command arguments"
+  - "optional documentation note in the task protocol"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_repository_validation.py tests/test_task_validation_commands.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

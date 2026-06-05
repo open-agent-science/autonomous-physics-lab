@@ -8,6 +8,7 @@
 
 - `TASK-0596` - Run NMD-0003 uncertainty-weighted baseline diagnostic (`scientific_validation`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0597` - Preserve Exoplanet second-snapshot closed-lane negative memory (`scientific_validation`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
+- `TASK-0598` - Inspect EXO-0002 overlapping-row mass-class drift (`scientific_dataset`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)
 - `TASK-0599` - Plan EXO-0003 acquisition trigger after closed second-snapshot gate (`benchmark_protocol`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0600` - Run Materials MD-0001 formation-energy null-control audit (`scientific_benchmark`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
 - `TASK-0601` - Run Materials MD-0001 split-sensitivity audit (`scientific_validation`, priority `high`, difficulty `high`, domain `materials_property_residuals`)
@@ -27,4 +28,3 @@ None.
 - `TASK-0584` - Run NMD-0003 bounded residual-feature sprint under stratified gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0594` - Run NMD-0003 pairing residual-feature sprint under stratified gate (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0595` - Run NMD-0003 isotope-chain transfer residual sprint (`scientific_benchmark`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
-- `TASK-0598` - Inspect EXO-0002 overlapping-row mass-class drift (`scientific_dataset`, priority `high`, difficulty `high`, domain `exoplanet_mass_radius`)

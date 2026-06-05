@@ -1,6 +1,6 @@
 proposal_id: 20260606-sviti-windows-worktree-runtime-preflight
 title: Add Windows worktree runtime preflight
-status: PROPOSED
+status: ACCEPTED
 type: workflow_hardening
 priority: medium
 proposed_by:
@@ -29,6 +29,6 @@ accepted_outputs:
 - Windows/worktree runtime preflight helper or apl_agent_doctor extension
 - documentation update in the agent protocol or cross-platform notes
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: Awaiting maintainer acceptance and canonical task id.
+  canonical_task_id: TASK-0615
+  decision: accepted
+  notes: Accepted into TASK-0615 as a Windows/worktree runtime preflight task.

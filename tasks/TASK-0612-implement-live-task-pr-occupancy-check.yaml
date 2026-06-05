@@ -1,0 +1,51 @@
+id: TASK-0612
+title: "Implement live task PR occupancy check"
+type: workflow_hardening
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce duplicate task execution before agents create branches or claims."
+  - "Keep high agent throughput without weakening one-task-per-PR coordination."
+  - "Make task availability checks deterministic instead of relying on manual GitHub search."
+
+input:
+  mode: workflow
+  related_domain: agent_capacity
+  related_objects:
+    - "tasks/proposals/20260606-sviti-live-task-pr-duplicate-check.yaml"
+    - "docs/agent-task-claiming.md"
+    - "scripts/apl_mission.py"
+    - "scripts/apl_task_pr_helper.py"
+  planning_context: >
+    Parallel agents still lose time by starting tasks that already have open
+    PRs or recently merged work awaiting closeout. Add a deterministic live
+    occupancy helper that scans open PR metadata for one or more task ids and
+    reports whether each task appears occupied, merged-pending-closeout, or
+    apparently free.
+
+requirements:
+  - "Scan open PR title, body, and headRefName for explicit task ids using GitHub CLI JSON or an equivalent connector path."
+  - "Support checking one task id and a batch of task ids."
+  - "Report occupied, draft occupied, merged-pending-closeout, and apparently-free states separately."
+  - "Keep the helper advisory; do not automatically reject task work without maintainer review."
+  - "Do not add committed static task-index or generated board files for agent routing."
+  - "Work on Windows, macOS, and Linux without POSIX-shell-only assumptions."
+
+accepted_outputs:
+  - "task occupancy helper or apl_mission/apl_task_pr_helper integration"
+  - "tests or fixtures covering missed search, draft PRs, multiple task ids, and no-open-PR cases"
+  - "short documentation update in the agent task protocol or claiming guide"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_pr_helper.py tests/test_mission_control.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
