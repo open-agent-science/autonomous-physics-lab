@@ -1,7 +1,7 @@
 id: TASK-0595
 title: "Run NMD-0003 isotope-chain transfer residual sprint"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -33,15 +33,15 @@ requirements:
   - "Do not create PRED, RESULT, CLAIM, or KNOW artifacts."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0063/metrics.json"
+  - "agent_runs/AGENT-RUN-0063/report.md"
   - "docs/reviews/nmd0003-isotope-chain-transfer-sprint.md"
   - "tests for any new transfer-control helper"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_nuclear_residual_factory.py tests/test_nmd0003_baseline_freeze.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_nmd0003_isotope_transfer_sprint.py tests/test_nuclear_residual_factory.py tests/test_nmd0003_baseline_freeze.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
