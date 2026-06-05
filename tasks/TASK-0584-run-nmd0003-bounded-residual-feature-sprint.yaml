@@ -1,7 +1,7 @@
 id: TASK-0584
 title: "Run NMD-0003 bounded residual-feature sprint under stratified gate"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -33,8 +33,8 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0061/metrics.json"
+  - "agent_runs/AGENT-RUN-0061/report.md"
   - "docs/reviews/nmd0003-bounded-residual-feature-sprint.md"
   - "tests for any new feature/control helper"
 
