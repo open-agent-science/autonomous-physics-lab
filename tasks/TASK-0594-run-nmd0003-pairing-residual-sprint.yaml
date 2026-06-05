@@ -1,7 +1,7 @@
 id: TASK-0594
 title: "Run NMD-0003 pairing residual-feature sprint under stratified gate"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -35,15 +35,15 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0062/metrics.json"
+  - "agent_runs/AGENT-RUN-0062/report.md"
   - "docs/reviews/nmd0003-pairing-residual-feature-sprint.md"
   - "tests for any new feature/control helper"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_nuclear_residual_factory.py tests/test_nmd0003_baseline_freeze.py tests/test_nmd0003_baseline_family_gate.py"
+    - "python3 -m pytest tests/test_nmd0003_pairing_residual_sprint.py tests/test_nuclear_residual_factory.py tests/test_nmd0003_baseline_freeze.py"
     - "python3 -m pytest tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
