@@ -14,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0587` - Run Textbook Stellar M-L row-readiness gate (`scientific_dataset`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
+None.
