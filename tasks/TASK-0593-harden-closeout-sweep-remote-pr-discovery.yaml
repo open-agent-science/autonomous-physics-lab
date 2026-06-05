@@ -1,0 +1,41 @@
+id: TASK-0593
+title: "Harden closeout sweep remote PR discovery"
+type: workflow
+status: REVIEW_READY
+difficulty: low
+priority: high
+
+strategy_alignment:
+  - "Keep maintainer closeout sweeps reliable after remote PR merges."
+  - "Prevent REVIEW_READY tasks from accumulating when local merge history is stale."
+
+input:
+  mode: workflow
+  related_domain: maintainer_workflow
+  related_objects:
+    - "scripts/apl_closeout_sweep.py"
+    - "physics_lab/registry/closeout_sweep.py"
+  planning_context: "The closeout sweep helper skipped valid merged task PRs when local first-parent history had not been refreshed after remote merges."
+
+requirements:
+  - "Preserve the existing local git-history closeout discovery path."
+  - "Add a GitHub CLI fallback for merged task PR metadata when available."
+  - "Ignore non-canonical closeout, proposal, and task-queue PR titles in the fallback."
+  - "Add regression coverage for the remote PR discovery fallback."
+  - "Do not apply task closeout state changes in this helper-fix task."
+
+accepted_outputs:
+  - "Updated closeout sweep discovery helper"
+  - "Regression test for GitHub CLI merged-PR fallback"
+  - "Validation output"
+
+validation:
+  commands:
+    - "python3 -m pytest tests/test_closeout_sweep.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
