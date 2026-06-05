@@ -124,7 +124,9 @@ def _assert_split_manifest_matches_dataset(
     entries: list[NuclearMassEntry],
     dataset_path: Path,
 ) -> None:
-    if str(split_manifest.get("source_dataset")) != str(dataset_path):
+    manifest_dataset_path = Path(str(split_manifest.get("source_dataset"))).as_posix()
+    config_dataset_path = dataset_path.as_posix()
+    if manifest_dataset_path != config_dataset_path:
         raise ValueError("NMD-0003 split manifest source_dataset does not match config dataset.")
     training_split = split_manifest.get("training_split", {})
     training_ids = set(str(item) for item in training_split.get("nuclide_ids", []))
