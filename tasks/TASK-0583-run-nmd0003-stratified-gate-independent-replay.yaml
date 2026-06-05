@@ -1,7 +1,7 @@
 id: TASK-0583
 title: "Run NMD-0003 stratified gate independent replay"
 type: scientific_validation
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

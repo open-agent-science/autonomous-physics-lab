@@ -1,7 +1,7 @@
 id: TASK-0571
 title: "Add archive-aware task discovery helper and resolver CLI"
 type: research_infrastructure
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
