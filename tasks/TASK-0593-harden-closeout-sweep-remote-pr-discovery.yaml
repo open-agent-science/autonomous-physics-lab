@@ -1,7 +1,7 @@
 id: TASK-0593
 title: "Harden closeout sweep remote PR discovery"
-type: workflow
-status: REVIEW_READY
+type: maintainer_workflow
+status: DONE
 difficulty: low
 priority: high
 

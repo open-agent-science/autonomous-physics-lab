@@ -1,7 +1,7 @@
 id: TASK-0562
 title: "Harden review helper against task-queue misclassification"
 type: maintainer_workflow
-status: REVIEW_READY
+status: DONE
 difficulty: low
 priority: high
 

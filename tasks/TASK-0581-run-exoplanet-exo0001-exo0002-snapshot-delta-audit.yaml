@@ -1,7 +1,7 @@
 id: TASK-0581
 title: "Run Exoplanet EXO-0001 vs EXO-0002 snapshot delta audit"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 
