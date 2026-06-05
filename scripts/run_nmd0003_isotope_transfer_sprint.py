@@ -334,7 +334,7 @@ def _matched_random_chain_feature(entries: list[NuclearMassEntry]) -> dict[str, 
     for chain_entries in _group_by_chain(entries).values():
         values = [base[entry.nuclide_id] for entry in chain_entries]
         rng.shuffle(values)
-        for entry, value in zip(chain_entries, values, strict=True):
+        for entry, value in zip(chain_entries, values):
             out[entry.nuclide_id] = value
     return out
 
@@ -352,7 +352,7 @@ def _label_shuffle_feature(entries: list[NuclearMassEntry]) -> dict[str, float]:
         region_entries = [entry for entry in entries if _a_region(entry.A) == region]
         values = [base[entry.nuclide_id] for entry in region_entries]
         rng.shuffle(values)
-        for entry, value in zip(region_entries, values, strict=True):
+        for entry, value in zip(region_entries, values):
             out[entry.nuclide_id] = value
     return out
 
