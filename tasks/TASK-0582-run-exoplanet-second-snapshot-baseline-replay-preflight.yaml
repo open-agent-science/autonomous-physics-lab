@@ -1,7 +1,7 @@
 id: TASK-0582
 title: "Run Exoplanet second-snapshot baseline replay preflight"
 type: scientific_benchmark
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -32,8 +32,8 @@ requirements:
   - "Route the final output through docs/result-promotion-protocol.md."
 
 accepted_outputs:
-  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
-  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "agent_runs/AGENT-RUN-0059/metrics.json"
+  - "agent_runs/AGENT-RUN-0059/report.md"
   - "docs/reviews/exoplanet-second-snapshot-baseline-replay-preflight.md"
   - "tests for any new replay helper"
 
@@ -41,7 +41,7 @@ validation:
   commands:
     - "python3 -m ruff check ."
     - "python3 -m pytest tests/test_exoplanet_mass_radius_baseline.py tests/test_exoplanet_null_baseline_family_audit.py"
-    - "python3 -m pytest tests/test_exoplanet_second_snapshot_acquisition.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_exoplanet_second_snapshot_acquisition.py tests/test_exoplanet_second_snapshot_baseline_replay_preflight.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
