@@ -16,6 +16,7 @@ if str(REPO_ROOT) not in sys.path:
 
 def _load_helper():
     from physics_lab.registry.task_pr_helper import (
+        prepare_current_task_pr,
         preflight_task_pr,
         task_branch,
         task_pr_body,
@@ -23,7 +24,14 @@ def _load_helper():
     )
     from physics_lab.registry.review_policy import infer_agent_tool
 
-    return preflight_task_pr, task_branch, task_pr_body, task_title, infer_agent_tool
+    return (
+        prepare_current_task_pr,
+        preflight_task_pr,
+        task_branch,
+        task_pr_body,
+        task_title,
+        infer_agent_tool,
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -70,6 +78,43 @@ def build_parser() -> argparse.ArgumentParser:
     preflight.add_argument("--body-file", required=True)
     preflight.add_argument("--root", default=".")
 
+    prepare_current = subparsers.add_parser(
+        "prepare-current",
+        help="Generate and preflight a full canonical task PR body for the current branch.",
+    )
+    prepare_current.add_argument("--task-id", required=True)
+    prepare_current.add_argument("--contributor-id", required=True)
+    prepare_current.add_argument("--github-username", required=True)
+    prepare_current.add_argument("--agent-id", required=True)
+    prepare_current.add_argument(
+        "--agent-tool",
+        help="Human-readable agent tool label. Defaults from --agent-id when omitted.",
+    )
+    prepare_current.add_argument("--model-version")
+    prepare_current.add_argument("--human-reviewer", required=True)
+    prepare_current.add_argument("--slug")
+    prepare_current.add_argument("--description")
+    prepare_current.add_argument("--summary", required=True)
+    prepare_current.add_argument("--changed-file", action="append", default=[])
+    prepare_current.add_argument("--validation-command", action="append", default=[])
+    prepare_current.add_argument("--scientific-claim-impact", default="No claim promotion.")
+    prepare_current.add_argument(
+        "--result-artifact-impact",
+        default="No committed result artifacts changed.",
+    )
+    prepare_current.add_argument("--task-verdict", default="not_applicable")
+    prepare_current.add_argument("--canonical-destination", default="none")
+    prepare_current.add_argument("--review-tier", default="none")
+    prepare_current.add_argument("--gate-a-status", default="not_applicable")
+    prepare_current.add_argument("--gate-b-status", default="not_applicable")
+    prepare_current.add_argument("--claim-impact", default="No claim promotion.")
+    prepare_current.add_argument("--knowledge-impact", default="No knowledge promotion.")
+    prepare_current.add_argument("--limitations-blockers", default="None for this PR shape.")
+    prepare_current.add_argument("--base", default="main")
+    prepare_current.add_argument("--body-file")
+    prepare_current.add_argument("--body-only", action="store_true")
+    prepare_current.add_argument("--root", default=".")
+
     create = subparsers.add_parser("create", help="Create a draft task PR using GitHub CLI.")
     create.add_argument("--branch", required=True)
     create.add_argument("--title", required=True)
@@ -94,7 +139,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def command_scaffold(args: argparse.Namespace) -> int:
-    _, task_branch_fn, task_pr_body_fn, task_title_fn, infer_agent_tool = _load_helper()
+    _, _, task_branch_fn, task_pr_body_fn, task_title_fn, infer_agent_tool = _load_helper()
     branch = task_branch_fn(args.contributor_id, args.agent_id, args.task_id, args.slug)
     title = task_title_fn(args.task_id, args.description)
     body = task_pr_body_fn(
@@ -137,7 +182,7 @@ def command_scaffold(args: argparse.Namespace) -> int:
 
 
 def command_preflight(args: argparse.Namespace) -> int:
-    preflight_task_pr, _, _, _, _ = _load_helper()
+    _, preflight_task_pr, _, _, _, _ = _load_helper()
     body_text = Path(args.body_file).read_text(encoding="utf-8-sig")
     report = preflight_task_pr(
         Path(args.root),
@@ -158,6 +203,80 @@ def command_preflight(args: argparse.Namespace) -> int:
     else:
         sys.stdout.write("Warnings: none\n")
     return 0 if report.ok else 1
+
+
+def _print_preflight_report(errors: tuple[str, ...], warnings: tuple[str, ...]) -> None:
+    if errors:
+        sys.stdout.write("Errors:\n")
+        for item in errors:
+            sys.stdout.write(f"- {item}\n")
+    else:
+        sys.stdout.write("Errors: none\n")
+    if warnings:
+        sys.stdout.write("Warnings:\n")
+        for item in warnings:
+            sys.stdout.write(f"- {item}\n")
+    else:
+        sys.stdout.write("Warnings: none\n")
+
+
+def command_prepare_current(args: argparse.Namespace) -> int:
+    prepare_current_task_pr, _, _, _, _, _ = _load_helper()
+    prepared = prepare_current_task_pr(
+        Path(args.root),
+        task_id=args.task_id,
+        contributor_id=args.contributor_id,
+        github_username=args.github_username,
+        agent_id=args.agent_id,
+        human_reviewer=args.human_reviewer,
+        summary=args.summary,
+        slug=args.slug,
+        description=args.description,
+        changed_files=tuple(args.changed_file),
+        validation_commands=tuple(args.validation_command),
+        scientific_claim_impact=args.scientific_claim_impact,
+        result_artifact_impact=args.result_artifact_impact,
+        task_verdict=args.task_verdict,
+        canonical_destination=args.canonical_destination,
+        review_tier=args.review_tier,
+        gate_a_status=args.gate_a_status,
+        gate_b_status=args.gate_b_status,
+        claim_impact=args.claim_impact,
+        knowledge_impact=args.knowledge_impact,
+        limitations_blockers=args.limitations_blockers,
+        model_version=args.model_version,
+        base_ref=args.base,
+        agent_tool=args.agent_tool,
+    )
+    if args.body_file:
+        Path(args.body_file).write_text(prepared.body, encoding="utf-8")
+    sys.stdout.write(f"Task: {prepared.task_id}\n")
+    sys.stdout.write(f"Task file: {prepared.task_file.as_posix()}\n")
+    sys.stdout.write(f"Current branch: {prepared.current_branch}\n")
+    sys.stdout.write(f"Expected branch: {prepared.expected_branch}\n")
+    sys.stdout.write(f"Title: {prepared.title}\n")
+    if args.body_file:
+        sys.stdout.write(f"Body file: {Path(args.body_file).as_posix()}\n")
+    sys.stdout.write("Changed files:\n")
+    if prepared.changed_files:
+        for item in prepared.changed_files:
+            sys.stdout.write(f"- {item}\n")
+    else:
+        sys.stdout.write("- <none detected>\n")
+    sys.stdout.write("Validation commands:\n")
+    if prepared.validation_commands:
+        for command in prepared.validation_commands:
+            sys.stdout.write(f"- {command}\n")
+    else:
+        sys.stdout.write("- <none detected>\n")
+    _print_preflight_report(
+        prepared.preflight.errors,
+        prepared.preflight.warnings,
+    )
+    if args.body_only:
+        sys.stdout.write("\n")
+        sys.stdout.write(prepared.body)
+    return 0 if prepared.preflight.ok else 1
 
 
 def _quote_command(parts: list[str]) -> str:
@@ -302,6 +421,8 @@ def main() -> int:
         return command_scaffold(args)
     if args.command == "preflight":
         return command_preflight(args)
+    if args.command == "prepare-current":
+        return command_prepare_current(args)
     if args.command == "create":
         return command_create(args)
     if args.command == "ready":

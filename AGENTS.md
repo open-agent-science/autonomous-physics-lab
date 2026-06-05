@@ -554,6 +554,35 @@ lacks GitHub access. If CI fails, the review agent blocks, or the agent is
 still applying fixes, keep the PR in draft and report the next command or
 blocker.
 
+Before opening a PR, choose the helper that matches the PR kind:
+
+- canonical `TASK-XXXX`: `python3 scripts/apl_task_pr_helper.py`
+- task proposal: `python3 scripts/apl_proposal_pr_helper.py`
+- microtask: `python3 scripts/apl_microtask_pr_helper.py`
+- task closeout: `python3 scripts/apl_closeout_pr_helper.py`
+- task queue: use the repository PR template and `TASK-QUEUE` branch/title
+  rules; do not mark newly queued tasks `REVIEW_READY` or implement them in the
+  same PR.
+
+Before opening a canonical task PR, agents should prefer the repository-native
+Python helper instead of hand-writing branch/title/body metadata:
+
+```bash
+python3 scripts/apl_task_pr_helper.py prepare-current \
+  --task-id TASK-XXXX \
+  --contributor-id <contributor-id> \
+  --github-username <github-username> \
+  --agent-id <agent-id> \
+  --human-reviewer <maintainer-github-username> \
+  --summary "What changed, in narrow verification-first terms." \
+  --body-file .apl-pr-body.md
+```
+
+`prepare-current` uses the actual current branch and diff, so it catches
+non-canonical branch names and incomplete PR bodies before a bad draft PR is
+opened. It works through Python on Windows, macOS, and Linux and does not add a
+shell-script critical path.
+
 If `git add` or `git commit` fails inside Codex with
 `.git/index.lock: Operation not permitted`, treat it as a sandbox permission
 issue and retry the same git command with escalation. Do not tell the

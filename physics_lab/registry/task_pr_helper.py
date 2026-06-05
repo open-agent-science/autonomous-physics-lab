@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 import re
+import unicodedata
 
 from physics_lab.registry.review_policy import (
     BRANCH_PATTERN,
@@ -14,7 +15,9 @@ from physics_lab.registry.review_policy import (
     missing_pr_metadata_fields,
     missing_pr_template_sections,
 )
+from physics_lab.registry.review_git import changed_files_vs_main, current_branch
 from physics_lab.registry.task_closeout import find_task_file
+from physics_lab.registry.tasks import load_task
 
 
 PLACEHOLDER_MARKERS = (
@@ -44,6 +47,21 @@ class TaskPrPreflightReport:
         return not self.errors
 
 
+@dataclass(frozen=True)
+class PreparedTaskPr:
+    """Generated PR shape for the current branch."""
+
+    task_id: str
+    task_file: Path
+    expected_branch: str
+    current_branch: str
+    title: str
+    body: str
+    changed_files: tuple[str, ...]
+    validation_commands: tuple[str, ...]
+    preflight: TaskPrPreflightReport
+
+
 def task_branch(contributor_id: str, agent_id: str, task_id: str, short_slug: str) -> str:
     """Build a canonical task branch name."""
     task_number = task_id.removeprefix("TASK-")
@@ -53,6 +71,131 @@ def task_branch(contributor_id: str, agent_id: str, task_id: str, short_slug: st
 def task_title(task_id: str, short_description: str) -> str:
     """Build the canonical task PR title."""
     return f"{task_id}: {short_description}"
+
+
+def task_slug_from_title(title: str, *, fallback: str, max_length: int = 64) -> str:
+    """Build a portable ASCII branch slug from a task title."""
+    normalized = unicodedata.normalize("NFKD", title)
+    ascii_title = normalized.encode("ascii", "ignore").decode("ascii")
+    slug = re.sub(r"[^a-z0-9]+", "-", ascii_title.lower()).strip("-")
+    if not slug:
+        slug = fallback.lower()
+    if len(slug) <= max_length:
+        return slug
+    trimmed = slug[:max_length].rstrip("-")
+    return trimmed or fallback.lower()
+
+
+def task_payload(root: Path, task_id: str) -> tuple[Path, dict]:
+    """Load a task and return its path plus validated payload."""
+    task_file = find_task_file(root, task_id)
+    return task_file, load_task(task_file)
+
+
+def task_validation_commands_from_payload(payload: dict) -> tuple[str, ...]:
+    """Return task-declared validation commands, preserving order."""
+    validation = payload.get("validation", {})
+    if not isinstance(validation, dict):
+        return ()
+    commands = validation.get("commands", ())
+    if not isinstance(commands, list):
+        return ()
+    return tuple(str(command) for command in commands if str(command).strip())
+
+
+def prepare_current_task_pr(
+    root: Path,
+    *,
+    task_id: str,
+    contributor_id: str,
+    github_username: str,
+    agent_id: str,
+    human_reviewer: str,
+    summary: str,
+    slug: str | None = None,
+    description: str | None = None,
+    changed_files: tuple[str, ...] = (),
+    validation_commands: tuple[str, ...] = (),
+    scientific_claim_impact: str = "No claim promotion.",
+    result_artifact_impact: str = "No committed result artifacts changed.",
+    task_verdict: str = "not_applicable",
+    canonical_destination: str = "none",
+    review_tier: str = "none",
+    gate_a_status: str = "not_applicable",
+    gate_b_status: str = "not_applicable",
+    claim_impact: str = "No claim promotion.",
+    knowledge_impact: str = "No knowledge promotion.",
+    limitations_blockers: str = "None for this PR shape.",
+    model_version: str | None = None,
+    base_ref: str = "main",
+    agent_tool: str | None = None,
+) -> PreparedTaskPr:
+    """Generate and preflight a full task PR body for the current branch.
+
+    This helper intentionally uses the *current* branch in the generated body.
+    If the agent is on a non-canonical branch, preflight fails before the PR is
+    opened instead of hiding the mistake behind a generated expected branch.
+    """
+    from physics_lab.registry.review_policy import infer_agent_tool
+
+    task_file, payload = task_payload(root, task_id)
+    task_description = description or str(payload.get("title", task_id)).strip()
+    task_slug = slug or task_slug_from_title(task_description, fallback=task_id.lower())
+    expected_branch = task_branch(contributor_id, agent_id, task_id, task_slug)
+    branch = current_branch(root)
+    title = task_title(task_id, task_description)
+    auto_changed_files = changed_files_vs_main(root, branch, base_ref=base_ref)
+    merged_changed_files = tuple(dict.fromkeys((*auto_changed_files, *changed_files)))
+    task_commands = task_validation_commands_from_payload(payload)
+    merged_validation_commands = tuple(dict.fromkeys((*task_commands, *validation_commands)))
+    body = task_pr_body(
+        task_id=task_id,
+        branch=branch,
+        title=title,
+        contributor_id=contributor_id,
+        github_username=github_username,
+        agent_tool=agent_tool or infer_agent_tool(agent_id),
+        human_reviewer=human_reviewer,
+        summary=summary,
+        changed_files=merged_changed_files,
+        validation_commands=merged_validation_commands,
+        scientific_claim_impact=scientific_claim_impact,
+        result_artifact_impact=result_artifact_impact,
+        task_verdict=task_verdict,
+        canonical_destination=canonical_destination,
+        review_tier=review_tier,
+        gate_a_status=gate_a_status,
+        gate_b_status=gate_b_status,
+        claim_impact=claim_impact,
+        knowledge_impact=knowledge_impact,
+        limitations_blockers=limitations_blockers,
+        branch_pushed=False,
+        draft_pr_opened=False,
+        post_pr_review_run=False,
+        ready_for_review=False,
+        model_version=model_version,
+        root=root,
+    )
+    report = preflight_task_pr(root, branch=branch, title=title, body_text=body)
+    errors = list(report.errors)
+    warnings = list(report.warnings)
+    if branch != expected_branch:
+        warnings.append(
+            "Current branch differs from the generated suggested branch for this task: "
+            f"current `{branch}`, expected `{expected_branch}`."
+        )
+    report = TaskPrPreflightReport(errors=tuple(errors), warnings=tuple(warnings))
+    return PreparedTaskPr(
+        task_id=task_id,
+        task_file=task_file,
+        expected_branch=expected_branch,
+        current_branch=branch,
+        title=title,
+        body=body,
+        changed_files=merged_changed_files,
+        validation_commands=merged_validation_commands,
+        preflight=report,
+    )
 
 
 def _render_checkbox(is_checked: bool) -> str:
