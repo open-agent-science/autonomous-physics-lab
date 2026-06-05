@@ -1,0 +1,43 @@
+id: TASK-0619
+title: "Review PRs from clean remote worktrees"
+type: maintainer_workflow
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Make maintainer review reliable when the caller checkout has dirty files or the PR branch is not locally checked out."
+  - "Prevent review-agent false blockers caused by detached heads, stale local branches, or generated-view noise from the wrong checkout."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - tasks/proposals/20260606-sviti-remote-clean-pr-review-worktree.yaml
+    - scripts/apl_review_pr.py
+    - physics_lab/registry/maintainer_review.py
+  planning_context: "Accepted follow-up from the agent speedup proposal bundle. Maintainer review should be able to fetch a PR head and evaluate it from a disposable clean worktree instead of relying on the current local checkout."
+
+requirements:
+  - "Teach the PR review flow to resolve PR headRefName and head SHA, fetch the remote branch, and review from a disposable clean worktree when --pr is provided."
+  - "Preserve support for local branch review when no PR number is provided."
+  - "Avoid mutating the caller checkout, staging files, or relying on uncommitted local state."
+  - "Handle GitHub/network unavailability with clear diagnostics and maintainer-run fallback commands."
+  - "Keep behavior cross-platform; do not add shell-only worktree logic on the critical path."
+
+accepted_outputs:
+  - "Updated review helper logic for clean remote PR worktrees"
+  - "Tests or fixtures covering dirty caller checkout, missing local PR branch, detached head, and local-only review fallback"
+  - "Updated maintainer-review documentation for the remote clean-worktree path"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
