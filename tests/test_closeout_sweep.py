@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from unittest.mock import patch
 
@@ -86,6 +87,45 @@ def test_load_merged_task_pull_requests_parses_latest_by_task(tmp_path: Path) ->
     assert result["TASK-1000"].number == 12
     assert "TASK-CLOSEOUT" not in result
     assert result["TASK-1000"].url.endswith("/pull/12")
+
+
+def test_load_merged_task_pull_requests_falls_back_to_gh_pr_list(
+    tmp_path: Path,
+) -> None:
+    gh_payload = json.dumps(
+        [
+            {
+                "number": 14,
+                "title": "TASK-1002: Remote merged task",
+                "mergedAt": "2026-05-04T14:00:00Z",
+            },
+            {
+                "number": 15,
+                "title": "TASK-CLOSEOUT: Ignore closeout PR",
+                "mergedAt": "2026-05-04T15:00:00Z",
+            },
+        ]
+    )
+
+    def _fake_run_command(command, *, cwd, shell=False, timeout=60):  # noqa: ARG001
+        if command[:4] == ["git", "remote", "get-url", "origin"]:
+            return CommandResult(
+                returncode=0,
+                stdout="https://github.com/gladunrv/autonomous-physics-lab.git\n",
+                stderr="",
+            )
+        if command[:2] == ["git", "log"]:
+            return CommandResult(returncode=0, stdout="", stderr="")
+        if command[:3] == ["gh", "pr", "list"]:
+            return CommandResult(returncode=0, stdout=gh_payload, stderr="")
+        return CommandResult(returncode=1, stdout="", stderr="unexpected command")
+
+    with patch("physics_lab.registry.closeout_sweep.run_command", side_effect=_fake_run_command):
+        result = load_merged_task_pull_requests(tmp_path)
+
+    assert result["TASK-1002"].number == 14
+    assert result["TASK-1002"].url.endswith("/pull/14")
+    assert "TASK-CLOSEOUT" not in result
 
 
 def test_build_closeout_sweep_report_separates_ready_blocked_and_skipped(tmp_path: Path) -> None:
