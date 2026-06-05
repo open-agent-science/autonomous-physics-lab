@@ -37,30 +37,16 @@ residual stress is control-sensitive.
 physics, target priority, or a new mass-radius law. It is a benchmark
 diagnostic and failure-map surface.
 
-**Active next work:** `TASK-0515` records
-`NO_GO_PRESERVE_NEGATIVE_CONTROL_MEMORY` for additional compact-radius residual
-or host-context pilots on the current pinned snapshot. `TASK-0481` found no
-compact-radius host-context axis that is benchmark-usable under the current
-coarse-bin floor, and `TASK-0480` landed as underpowered at mass-quartile resolution.
-Future work should reopen the residual lane only after a materially changed
-pinned snapshot clears the explicitly revised coverage gate.
-`TASK-0482` and `TASK-0484` packaged the second-snapshot target freeze and
-external-reviewer capsule, and `TASK-0483` landed as an `INCONCLUSIVE`
-null-baseline control panel. `TASK-0529` now supplies the "explicitly revised
-coverage gate" half of the reopen condition: the
-[second-snapshot reopen coverage gate](../reviews/exoplanet-second-snapshot-reopen-coverage-gate.md)
-and `data/exoplanets/second_snapshot_reopen_coverage_gate.yaml` declare the
-frozen per-axis row-count floors (30-row per-bin, 150-row per-axis-slice, +50%
-material growth, ≥3 host-context bins) and the decisive null-baseline
-competition criterion that a materially changed snapshot must clear before any
-residual lane reopens. `TASK-0536` is the paired no-live-fetch ingestion dry-run
-so a later real second snapshot can be normalized and checksummed without
-weakening the no-peek boundary. `TASK-0554` then packaged the concrete
-second-snapshot acquisition runbook and manifest shape. `TASK-0565` acquired a
-checksummed second PSCompPars snapshot (`EXO-0002`): 6298 raw rows, 4308
-post-filter included rows, 2110 true-mass rows, and 985 minimum-mass rows.
-All work stays benchmark-only; acquisition does not authorize residual scoring
-by itself.
+**Active next work:** `TASK-0580` and `TASK-0582` closed the second-snapshot
+residual lane: `EXO-0002` has 6298 raw rows and 4308 post-filter included rows,
+but no declared axis/slice clears the frozen reopen coverage gate. Compact and
+sub-Neptune true-mass slices did not grow, the Jovian-radius slice gained only
+one eligible row, and the minimum-mass axis remains too small. Current work
+should therefore preserve the closed-lane negative/control memory, inspect the
+two mass-class drift rows surfaced by `TASK-0581`, and define when a future
+`EXO-0003` snapshot would be worth acquiring. Do not run CK17 replay or
+residual scoring on `EXO-0002` unless a later reviewed gate change explicitly
+allows it.
 
 **Current shareable artifact:** the
 [compact-radius benchmark evidence card](../results/exoplanet-compact-radius-benchmark-card.md)
@@ -139,10 +125,15 @@ Current scientific reading:
   tasks runs residual metrics or promotes mass-radius interpretation.
 - `TASK-0565` landed `EXO-0002` as a pinned source artifact, but did not run
   residual metrics.
-- `TASK-0580`, `TASK-0581`, and `TASK-0582` are the next second-snapshot
-  sequence: apply the reopen coverage gate, compare `EXO-0001` versus
-  `EXO-0002`, and only then run a bounded frozen-baseline replay preflight if
-  the gate clears.
+- `TASK-0581` is **VALID_IN_RANGE** as a snapshot delta audit: `EXO-0002`
+  adds seven post-filter rows and one true-mass transit-radius row, while the
+  prior compact, sub-Neptune, and hot-Jupiter slices stay stable. Two
+  overlapping rows changed `mass_class`, so row-class drift remains a source
+  question.
+- `TASK-0580` is **RESIDUAL_LANE_REMAINS_CLOSED**: no declared axis/slice
+  clears the frozen coverage gate.
+- `TASK-0582` is **BLOCKED_BY_REOPEN_COVERAGE_GATE**: the frozen baseline
+  replay was intentionally not run because the coverage gate failed.
 - `TASK-0470`-era visibility work is now campaign memory. The current
   benchmark-hardening wave does not promote claims, knowledge, predictions, or
   canonical results.
@@ -269,8 +260,12 @@ The campaign should mature in this order:
 17. Treat the second-snapshot acquisition gate (`TASK-0565`) as complete:
     `EXO-0002` is now the input surface for coverage/reopen checks, not a
     residual-scoring result.
-18. Run the second-snapshot coverage gate, snapshot delta audit, and bounded
-    baseline replay preflight in that order (`TASK-0580` through `TASK-0582`).
+18. Preserve the second-snapshot closed-lane decision (`TASK-0580` and
+    `TASK-0582`, DONE): `EXO-0002` does not materially change any residual
+    slice enough to reopen CK17 replay.
+19. Inspect the two overlapping mass-class drift rows and plan an `EXO-0003`
+    acquisition trigger before any future Exoplanet residual work.
 
-This campaign is now the fastest APL path to a visible, scientist-readable
-benchmark artifact. It is not yet a discovery surface.
+This campaign remains a visible, scientist-readable benchmark surface, but
+it should pause residual scoring until a materially changed snapshot or a
+reviewed gate revision exists.

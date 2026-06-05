@@ -1,0 +1,50 @@
+id: TASK-0596
+title: "Run NMD-0003 uncertainty-weighted baseline diagnostic"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Check whether Nuclear residual-feature decisions are sensitive to uncertainty weighting before more sprint waves."
+  - "Improve baseline-readiness discipline without touching reveal scoring or prediction entries."
+  - "Keep NMD-0003 sprint interpretation tied to source-gated measured rows and explicit diagnostics."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml"
+    - "data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml"
+    - "docs/reviews/nmd0003-stratified-baseline-gate.md"
+    - "docs/reviews/nmd0003-stratified-gate-independent-replay.md"
+  planning_context: >
+    The current NMD-0003 gate is reproducible, but later residual-feature
+    sprints should know whether uncertainty weighting changes baseline-family
+    ordering or subset interpretation. This is a diagnostic-only validation
+    task, not a new formula search.
+
+requirements:
+  - "Use only committed NMD-0003 measured rows and the frozen stratified split."
+  - "Compare unweighted baseline metrics with at least one predeclared uncertainty-weighted diagnostic, keeping rows with missing or ambiguous uncertainty explicitly reported."
+  - "Do not alter the frozen gate, baseline identity, or split manifest."
+  - "Report whether weighting changes candidate-readiness interpretation or only adds a limitation note."
+  - "Do not promote claims, create predictions, or score reveal rows."
+
+accepted_outputs:
+  - "docs/reviews/nmd0003-uncertainty-weighted-baseline-diagnostic.md"
+  - "optional agent_runs/AGENT-RUN-XXXX/metrics.json if a deterministic runner is added"
+  - "tests for any new weighting helper"
+  - "optional docs/campaigns/nuclear-mass-surface.md update if the diagnostic changes sprint guidance"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nmd0003_baseline_freeze.py tests/test_nmd0003_baseline_family_gate.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

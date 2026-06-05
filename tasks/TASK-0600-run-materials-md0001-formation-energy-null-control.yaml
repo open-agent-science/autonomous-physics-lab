@@ -1,0 +1,50 @@
+id: TASK-0600
+title: "Run Materials MD-0001 formation-energy null-control audit"
+type: scientific_benchmark
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Test the stronger MD-0001 formation-energy baseline signal with deterministic controls before any widening."
+  - "Keep Materials as a real-data benchmark surface while avoiding material-design claims."
+  - "Mirror the band-gap null-control discipline on the formation-energy axis."
+
+input:
+  mode: workflow
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0001-baseline-residual-benchmark.md"
+    - "docs/reviews/materials-md0001-independent-baseline-replay.md"
+    - "docs/reviews/materials-md0001-band-gap-null-control-audit.md"
+    - "data/materials/MD-0001/"
+  planning_context: >
+    The first MD-0001 benchmark showed clearer composition-aware baseline
+    advantage for formation energy than for band gap. The band-gap axis has
+    already received a null-control audit; formation energy needs the same
+    control discipline before widening or promotion.
+
+requirements:
+  - "Use only committed MD-0001 rows and the frozen holdout manifest."
+  - "Evaluate the best committed formation-energy baseline against global null and deterministic shuffle controls."
+  - "Use fixed seeds and report survival fractions, MAE/RMSE, and limitations."
+  - "Keep formation energy separate from band gap and from measured/experimental claims."
+  - "Do not promote material-design, synthesis, device, biomedical, prediction, claim, or knowledge outputs."
+
+accepted_outputs:
+  - "agent_runs/AGENT-RUN-XXXX/metrics.json"
+  - "agent_runs/AGENT-RUN-XXXX/report.md"
+  - "docs/reviews/materials-md0001-formation-energy-null-control-audit.md"
+  - "tests for any new control helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_materials_md0001_replay.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

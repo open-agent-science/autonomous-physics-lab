@@ -1,0 +1,50 @@
+id: TASK-0597
+title: "Preserve Exoplanet second-snapshot closed-lane negative memory"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Turn the EXO-0002 closed reopen-gate decision into searchable scientific memory."
+  - "Prevent agents from rerunning residual scoring on a snapshot that did not materially change."
+  - "Keep Exoplanet useful for public readers without strengthening it into a planet-physics claim."
+
+input:
+  mode: workflow
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-second-snapshot-reopen-coverage-check.md"
+    - "docs/reviews/exoplanet-second-snapshot-baseline-replay-preflight.md"
+    - "docs/reviews/exoplanet-exo0001-exo0002-snapshot-delta-audit.md"
+    - "docs/campaigns/exoplanet-mass-radius.md"
+    - "docs/campaigns/public-science-dashboard.md"
+  planning_context: >
+    TASK-0580 and TASK-0582 closed the EXO-0002 residual replay lane because
+    no declared axis/slice cleared the frozen coverage gate. This task
+    preserves that result in existing campaign/public surfaces instead of
+    creating a duplicate digest.
+
+requirements:
+  - "Update existing campaign/public surfaces only where they still describe TASK-0580 through TASK-0582 as future work."
+  - "Summarize the closed-lane decision with row counts, gate blockers, and no-scoring boundary."
+  - "State clearly that EXO-0002 did not authorize CK17 replay, residual metrics, composition, habitability, target-priority, prediction, or claim outputs."
+  - "Do not create a new dashboard, duplicate digest, RESULT, CLAIM, PRED, or KNOW artifact."
+  - "Route the output through docs/result-promotion-protocol.md in the final task report."
+
+accepted_outputs:
+  - "updated docs/campaigns/exoplanet-mass-radius.md"
+  - "optional updated docs/campaigns/public-science-dashboard.md"
+  - "docs/reviews/exoplanet-second-snapshot-negative-memory-routing.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

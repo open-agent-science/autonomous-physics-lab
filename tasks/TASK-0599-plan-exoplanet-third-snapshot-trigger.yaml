@@ -1,0 +1,49 @@
+id: TASK-0599
+title: "Plan EXO-0003 acquisition trigger after closed second-snapshot gate"
+type: benchmark_protocol
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Avoid repeated Exoplanet snapshots that cannot reopen residual scoring."
+  - "Define when a third pinned snapshot would be worth acquiring under the current gate."
+  - "Keep Exoplanet moving through source/reopen discipline rather than idle residual reruns."
+
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-second-snapshot-reopen-coverage-check.md"
+    - "docs/reviews/exoplanet-second-snapshot-baseline-replay-preflight.md"
+    - "data/exoplanets/second_snapshot_reopen_coverage_gate.yaml"
+    - "docs/runbooks/exoplanet-second-snapshot-acquisition-runbook.md"
+  planning_context: >
+    EXO-0002 did not materially change the declared residual slices. This task
+    defines a source/date/coverage trigger for a future EXO-0003 acquisition
+    so agents do not repeatedly fetch small catalog updates that cannot clear
+    the gate.
+
+requirements:
+  - "Define an EXO-0003 acquisition trigger in terms of elapsed time, expected row growth, target slice growth, and source version availability."
+  - "Keep the existing no-live-fetch and no-peek boundaries intact."
+  - "Do not fetch a new snapshot or inspect live archive target values."
+  - "Recommend whether the next Exoplanet work should wait, scout metadata only, or revise the gate through a separate review task."
+  - "Do not authorize residual metrics, habitability, composition, target-priority, prediction, or claim outputs."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-third-snapshot-trigger-plan.md"
+  - "optional docs/campaigns/exoplanet-mass-radius.md update if acquisition guidance changes"
+  - "optional follow-up task proposal only if the plan identifies a concrete source date or trigger"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
