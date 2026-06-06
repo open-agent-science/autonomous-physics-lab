@@ -42,6 +42,6 @@ evidence:
     - EXP-0012
   results:
     - RESULT-0015
-    - RESULT-0018
 
 verdict: "The benchmark is designed to characterize coarse baseline fit quality, shell-closure residual concentration, and pairing-sensitive subset diagnostics on the pinned slice."
+

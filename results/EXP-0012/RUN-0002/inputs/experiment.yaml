@@ -1,0 +1,39 @@
+id: EXP-0012
+title: "Nuclear Mass Baseline Residual Benchmark"
+domain: nuclear_physics
+status: COMPLETED
+
+hypothesis_id: HYP-0012
+
+method:
+  type: dataset_reproduction
+  simulator: explicit_nuclear_mass_dataset_loader
+  comparator: baseline_residual_report
+
+data:
+  dataset_path: ../data/nuclear_masses/nmd-0002-curated-measured-slice.yaml
+  dataset_kind: nuclear_mass_dataset
+  benchmark_scope: "Pinned measured slice only; holdout protocol deferred to TASK-0169."
+  expected_item_count: 11
+  sample_axes:
+    - Z
+    - N
+    - A
+    - pairing_class
+    - magic_number
+  notes: "Use the curated measured slice only; do not mix in extrapolated entries or live-fetched data."
+
+candidate_models:
+  - id: model_reference_liquid_drop_no_pairing
+    formula: "B = aV*A - aS*A^(2/3) - aC*Z*(Z-1)/A^(1/3) - aA*(N-Z)^2/A"
+  - id: model_reference_semi_empirical
+    formula: "B = aV*A - aS*A^(2/3) - aC*Z*(Z-1)/A^(1/3) - aA*(N-Z)^2/A + delta_pair"
+  - id: model_fitted_semi_empirical
+    formula: "Same semi-empirical structure with coefficients fit on the pinned measured slice"
+
+comparison_targets:
+  - id: target_magic_subset_mae
+    label: "Magic-subset MAE diagnostic target"
+    reference_value: 5.0
+    unit: MeV
+    notes: "Diagnostic threshold only; lower shell-subset MAE is better."
