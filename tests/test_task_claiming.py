@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -99,7 +100,7 @@ def test_task_occupancy_cli_json_runs_with_proxy_advisory() -> None:
         check=False,
         capture_output=True,
         text=True,
-        env={"HTTPS_PROXY": "http://127.0.0.1:9"},
+        env={**os.environ, "HTTPS_PROXY": "http://127.0.0.1:9"},
     )
 
     assert result.returncode == 0, (result.stdout, result.stderr)
