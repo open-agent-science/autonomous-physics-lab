@@ -1,7 +1,7 @@
 id: TASK-0602
 title: "Plan Materials MD-0002 wider replication slice"
 type: scientific_dataset
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -34,8 +34,8 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/materials-md0002-wider-replication-slice-plan.md"
-  - "optional docs/campaigns/materials-property-residuals.md update if the next slice is selected"
-  - "optional follow-up task proposal for acquisition only if source/version policy is clear"
+  - "docs/campaigns/materials-property-residuals.md (minimal pointer to the MD-0002 plan)"
+  - "acquisition follow-up described in the plan (not assigned a canonical id; maintainer/TASK-0614 to formalize)"
 
 validation:
   commands:
