@@ -34,8 +34,8 @@ requirements:
   - "If the task creates EXP/HYP files, include tests or validation evidence required by the registry/schema."
 
 accepted_outputs:
-  - "experiment_proposals or canonical experiment identity for the scoped exact-reference fixture route, as allowed by existing protocol"
-  - "hypothesis proposal or scoped hypothesis identity for software/convention validation"
+  - "experiments/EXP-0013-textbook-exact-reference-fixtures.yaml"
+  - "hypotheses/HYP-0013-textbook-exact-reference-fixtures.yaml"
   - "docs/reviews/textbook-exact-reference-result-identity-gate.md"
   - "optional follow-up task to publish the RESULT only after identities and fixture boundaries are accepted"
 
