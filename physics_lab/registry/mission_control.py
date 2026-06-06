@@ -53,9 +53,10 @@ SUPPORT_TASK_MARKERS = (
     "repository",
     "agent",
 )
-MIN_READY_SCIENCE_TASKS = 8
-PREFERRED_READY_SCIENCE_TASKS = 15
-TARGET_READY_SCIENCE_SURFACES = 4
+MIN_READY_SCIENCE_TASKS = 12
+PREFERRED_READY_SCIENCE_TASKS = 24
+MIN_READY_SCIENCE_SURFACES = 6
+PREFERRED_READY_SCIENCE_SURFACES = 8
 MAX_READY_SCIENCE_SURFACE_SHARE = 0.40
 
 
@@ -128,6 +129,7 @@ class ReadySciencePoolHealth:
     minimum_ready_science_tasks: int
     preferred_ready_science_tasks: int
     target_active_surfaces: int
+    preferred_active_surfaces: int
     max_ready_science_surface_share: float
     ready_science_count: int
     ready_science_task_ids: tuple[str, ...]
@@ -136,6 +138,7 @@ class ReadySciencePoolHealth:
     below_minimum: bool
     below_preferred: bool
     below_surface_target: bool
+    below_preferred_surface_target: bool
     above_surface_concentration_target: bool
     task_queue_needed: bool
     warning_only: bool
@@ -147,6 +150,7 @@ class ReadySciencePoolHealth:
             "minimum_ready_science_tasks": self.minimum_ready_science_tasks,
             "preferred_ready_science_tasks": self.preferred_ready_science_tasks,
             "target_active_surfaces": self.target_active_surfaces,
+            "preferred_active_surfaces": self.preferred_active_surfaces,
             "max_ready_science_surface_share": self.max_ready_science_surface_share,
             "ready_science_count": self.ready_science_count,
             "ready_science_task_ids": list(self.ready_science_task_ids),
@@ -155,6 +159,7 @@ class ReadySciencePoolHealth:
             "below_minimum": self.below_minimum,
             "below_preferred": self.below_preferred,
             "below_surface_target": self.below_surface_target,
+            "below_preferred_surface_target": self.below_preferred_surface_target,
             "above_surface_concentration_target": self.above_surface_concentration_target,
             "task_queue_needed": self.task_queue_needed,
             "warning_only": self.warning_only,
@@ -409,7 +414,8 @@ def ready_science_pool_health(
     *,
     minimum_ready_science_tasks: int = MIN_READY_SCIENCE_TASKS,
     preferred_ready_science_tasks: int = PREFERRED_READY_SCIENCE_TASKS,
-    target_active_surfaces: int = TARGET_READY_SCIENCE_SURFACES,
+    target_active_surfaces: int = MIN_READY_SCIENCE_SURFACES,
+    preferred_active_surfaces: int = PREFERRED_READY_SCIENCE_SURFACES,
     max_ready_science_surface_share: float = MAX_READY_SCIENCE_SURFACE_SHARE,
 ) -> ReadySciencePoolHealth:
     """Return a warning-only summary of READY science task supply.
@@ -437,6 +443,7 @@ def ready_science_pool_health(
     below_minimum = ready_count < minimum_ready_science_tasks
     below_preferred = ready_count < preferred_ready_science_tasks
     below_surface_target = len(active_surfaces) < target_active_surfaces
+    below_preferred_surface_target = len(active_surfaces) < preferred_active_surfaces
     largest_surface_count = max(surface_counts.values(), default=0)
     largest_surface_share = 0.0 if ready_count == 0 else largest_surface_count / ready_count
     above_surface_concentration_target = largest_surface_share > max_ready_science_surface_share
@@ -444,6 +451,7 @@ def ready_science_pool_health(
         below_minimum
         or below_preferred
         or below_surface_target
+        or below_preferred_surface_target
         or above_surface_concentration_target
     )
     notes = _ready_science_pool_notes(
@@ -453,14 +461,17 @@ def ready_science_pool_health(
         below_minimum=below_minimum,
         below_preferred=below_preferred,
         below_surface_target=below_surface_target,
+        below_preferred_surface_target=below_preferred_surface_target,
         above_surface_concentration_target=above_surface_concentration_target,
         target_active_surfaces=target_active_surfaces,
+        preferred_active_surfaces=preferred_active_surfaces,
         max_ready_science_surface_share=max_ready_science_surface_share,
     )
     return ReadySciencePoolHealth(
         minimum_ready_science_tasks=minimum_ready_science_tasks,
         preferred_ready_science_tasks=preferred_ready_science_tasks,
         target_active_surfaces=target_active_surfaces,
+        preferred_active_surfaces=preferred_active_surfaces,
         max_ready_science_surface_share=max_ready_science_surface_share,
         ready_science_count=ready_count,
         ready_science_task_ids=tuple(ready_science_task_ids),
@@ -469,6 +480,7 @@ def ready_science_pool_health(
         below_minimum=below_minimum,
         below_preferred=below_preferred,
         below_surface_target=below_surface_target,
+        below_preferred_surface_target=below_preferred_surface_target,
         above_surface_concentration_target=above_surface_concentration_target,
         task_queue_needed=task_queue_needed,
         warning_only=True,
@@ -493,8 +505,10 @@ def _ready_science_pool_notes(
     below_minimum: bool,
     below_preferred: bool,
     below_surface_target: bool,
+    below_preferred_surface_target: bool,
     above_surface_concentration_target: bool,
     target_active_surfaces: int,
+    preferred_active_surfaces: int,
     max_ready_science_surface_share: float,
 ) -> tuple[str, ...]:
     notes: list[str] = []
@@ -511,10 +525,16 @@ def _ready_science_pool_notes(
 
     if below_surface_target:
         notes.append(
-            f"READY science task pool spans fewer than {target_active_surfaces} active surfaces; parallel agents may collide more easily."
+            f"READY science task pool spans fewer than {target_active_surfaces} minimum active surfaces; parallel agents may collide more easily."
+        )
+    elif below_preferred_surface_target:
+        notes.append(
+            f"READY science task pool meets the minimum surface target but is below the preferred {preferred_active_surfaces}-surface breadth for larger waves."
         )
     else:
-        notes.append(f"READY science task pool spans at least {target_active_surfaces} active surfaces.")
+        notes.append(
+            f"READY science task pool spans at least {preferred_active_surfaces} preferred active surfaces."
+        )
 
     if above_surface_concentration_target:
         surface, count = max(surface_counts.items(), key=lambda item: item[1])
