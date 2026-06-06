@@ -1,0 +1,543 @@
+{
+  "task_id": "TASK-0601",
+  "benchmark_id": "materials-md0001-split-sensitivity-audit",
+  "input_references": {
+    "committed_metrics": "agent_runs/AGENT-RUN-0057/metrics.json",
+    "committed_baseline_task": "TASK-0550",
+    "committed_replay_task": "TASK-0578",
+    "formation_energy_dataset": "data/materials/md-0001-materials-project-formation-energy.yaml",
+    "band_gap_dataset": "data/materials/md-0001-materials-project-band-gap.yaml"
+  },
+  "declared_alternative_splits": {
+    "seeded_random_70_30": "Five predeclared seeded shuffles of the included rows, each split 70/30 into train/holdout. Measures whether the committed-split baseline ordering survives random resampling of the small holdout.",
+    "leave_one_cation_group_out": "Each cation group is held out once while baselines fit on the remaining groups. Extrapolation stress diagnostic: a fully held-out cation group has no train rows, so cation_group_mean falls back to the global mean.",
+    "leave_one_formula_family_out": "Each oxide stoichiometry family (monoxide, sesquioxide, dioxide, ...) is held out once. Extrapolation stress diagnostic to an unseen oxide stoichiometry. Note: all MD-0001 rows are oxides, so the anion family is degenerate and is replaced by this oxide-stoichiometry diagnostic."
+  },
+  "robustness_rule": {
+    "min_seed_wins": 4,
+    "seed_count": 5,
+    "rule": "split_robust iff the committed-holdout winner is also the seeded mean winner with >= min_seed_wins seed wins AND its seeded-mean margin over the runner-up exceeds the larger across-seed std."
+  },
+  "axis_outputs": {
+    "formation_energy_per_atom": {
+      "dataset_file": "data/materials/md-0001-materials-project-formation-energy.yaml",
+      "row_count": 169,
+      "committed_reference": {
+        "split_id": "material_id_mod10_70_10_20",
+        "best_holdout_baseline": {
+          "baseline_id": "cation_group_mean",
+          "mae": 0.64603,
+          "rmse": 0.842409
+        },
+        "best_validation_baseline": {
+          "baseline_id": "cation_group_mean",
+          "mae": 0.664637,
+          "rmse": 0.824567
+        }
+      },
+      "seeded_random_70_30": {
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "train_fraction": 0.7,
+        "per_seed": [
+          {
+            "seed": 0,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 1.030455,
+              "global_median": 0.954612,
+              "cation_group_mean": 0.698479
+            },
+            "winner": "cation_group_mean"
+          },
+          {
+            "seed": 1,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 1.004732,
+              "global_median": 1.030977,
+              "cation_group_mean": 0.659501
+            },
+            "winner": "cation_group_mean"
+          },
+          {
+            "seed": 2,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 0.944646,
+              "global_median": 1.009255,
+              "cation_group_mean": 0.564702
+            },
+            "winner": "cation_group_mean"
+          },
+          {
+            "seed": 3,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 1.016959,
+              "global_median": 0.980484,
+              "cation_group_mean": 0.627412
+            },
+            "winner": "cation_group_mean"
+          },
+          {
+            "seed": 4,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 0.945255,
+              "global_median": 0.91757,
+              "cation_group_mean": 0.630465
+            },
+            "winner": "cation_group_mean"
+          }
+        ],
+        "per_baseline": {
+          "global_mean": {
+            "holdout_mae_mean": 0.988409,
+            "holdout_mae_min": 0.944646,
+            "holdout_mae_max": 1.030455,
+            "holdout_mae_std": 0.036406,
+            "seed_win_count": 0
+          },
+          "global_median": {
+            "holdout_mae_mean": 0.97858,
+            "holdout_mae_min": 0.91757,
+            "holdout_mae_max": 1.030977,
+            "holdout_mae_std": 0.039967,
+            "seed_win_count": 0
+          },
+          "cation_group_mean": {
+            "holdout_mae_mean": 0.636112,
+            "holdout_mae_min": 0.564702,
+            "holdout_mae_max": 0.698479,
+            "holdout_mae_std": 0.043917,
+            "seed_win_count": 5
+          }
+        },
+        "mean_mae_winner": "cation_group_mean"
+      },
+      "leave_one_cation_group_out": {
+        "group_count": 6,
+        "per_group": {
+          "alkali_or_alkaline_earth": {
+            "holdout_count": 26,
+            "train_count": 143,
+            "holdout_mae": {
+              "global_mean": 0.898178,
+              "global_median": 0.816528,
+              "cation_group_mean": 0.898178
+            }
+          },
+          "metalloid_or_p_block": {
+            "holdout_count": 26,
+            "train_count": 143,
+            "holdout_mae": {
+              "global_mean": 1.012447,
+              "global_median": 0.874588,
+              "cation_group_mean": 1.012447
+            }
+          },
+          "mixed_or_ambiguous": {
+            "holdout_count": 13,
+            "train_count": 156,
+            "holdout_mae": {
+              "global_mean": 1.605613,
+              "global_median": 1.787918,
+              "cation_group_mean": 1.605613
+            }
+          },
+          "post_transition_metal": {
+            "holdout_count": 15,
+            "train_count": 154,
+            "holdout_mae": {
+              "global_mean": 0.653661,
+              "global_median": 0.533256,
+              "cation_group_mean": 0.653661
+            }
+          },
+          "rare_earth_or_lanthanoid": {
+            "holdout_count": 21,
+            "train_count": 148,
+            "holdout_mae": {
+              "global_mean": 1.965892,
+              "global_median": 2.174319,
+              "cation_group_mean": 1.965892
+            }
+          },
+          "transition_metal": {
+            "holdout_count": 68,
+            "train_count": 101,
+            "holdout_mae": {
+              "global_mean": 0.854194,
+              "global_median": 0.730934,
+              "cation_group_mean": 0.854194
+            }
+          }
+        },
+        "macro_holdout_mae": {
+          "global_mean": 1.164998,
+          "global_median": 1.152924,
+          "cation_group_mean": 1.164998
+        },
+        "macro_mae_winner": "global_median"
+      },
+      "leave_one_formula_family_out": {
+        "group_count": 6,
+        "per_group": {
+          "dioxide": {
+            "holdout_count": 44,
+            "train_count": 125,
+            "holdout_mae": {
+              "global_mean": 0.873455,
+              "global_median": 0.880153,
+              "cation_group_mean": 0.659945
+            }
+          },
+          "intermediate_oxide": {
+            "holdout_count": 13,
+            "train_count": 156,
+            "holdout_mae": {
+              "global_mean": 1.050108,
+              "global_median": 0.987683,
+              "cation_group_mean": 0.548881
+            }
+          },
+          "monoxide": {
+            "holdout_count": 26,
+            "train_count": 143,
+            "holdout_mae": {
+              "global_mean": 0.850293,
+              "global_median": 0.789293,
+              "cation_group_mean": 0.771149
+            }
+          },
+          "oxygen_poor": {
+            "holdout_count": 19,
+            "train_count": 150,
+            "holdout_mae": {
+              "global_mean": 1.086671,
+              "global_median": 0.897147,
+              "cation_group_mean": 0.809142
+            }
+          },
+          "oxygen_rich": {
+            "holdout_count": 32,
+            "train_count": 137,
+            "holdout_mae": {
+              "global_mean": 0.840114,
+              "global_median": 0.776111,
+              "cation_group_mean": 0.53383
+            }
+          },
+          "sesquioxide": {
+            "holdout_count": 35,
+            "train_count": 134,
+            "holdout_mae": {
+              "global_mean": 1.419677,
+              "global_median": 1.598386,
+              "cation_group_mean": 0.657323
+            }
+          }
+        },
+        "macro_holdout_mae": {
+          "global_mean": 1.020053,
+          "global_median": 0.988129,
+          "cation_group_mean": 0.663378
+        },
+        "macro_mae_winner": "cation_group_mean"
+      },
+      "split_robustness": {
+        "committed_holdout_winner": "cation_group_mean",
+        "seeded_mean_winner": "cation_group_mean",
+        "winner_seed_win_count": 5,
+        "runner_up_baseline": "global_median",
+        "seeded_mean_margin_over_runner_up": 0.342468,
+        "across_seed_noise": 0.043917,
+        "winner_consistent": true,
+        "margin_exceeds_noise": true,
+        "verdict": "split_robust"
+      }
+    },
+    "band_gap": {
+      "dataset_file": "data/materials/md-0001-materials-project-band-gap.yaml",
+      "row_count": 169,
+      "committed_reference": {
+        "split_id": "material_id_mod10_70_10_20",
+        "best_holdout_baseline": {
+          "baseline_id": "cation_group_mean",
+          "mae": 1.247901,
+          "rmse": 1.62569
+        },
+        "best_validation_baseline": {
+          "baseline_id": "global_median",
+          "mae": 1.214165,
+          "rmse": 1.521731
+        }
+      },
+      "seeded_random_70_30": {
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "train_fraction": 0.7,
+        "per_seed": [
+          {
+            "seed": 0,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 1.309914,
+              "global_median": 1.226702,
+              "cation_group_mean": 1.272929
+            },
+            "winner": "global_median"
+          },
+          {
+            "seed": 1,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 1.43484,
+              "global_median": 1.363492,
+              "cation_group_mean": 1.177756
+            },
+            "winner": "cation_group_mean"
+          },
+          {
+            "seed": 2,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 1.358127,
+              "global_median": 1.279125,
+              "cation_group_mean": 1.205647
+            },
+            "winner": "cation_group_mean"
+          },
+          {
+            "seed": 3,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 1.222367,
+              "global_median": 1.290962,
+              "cation_group_mean": 1.108383
+            },
+            "winner": "cation_group_mean"
+          },
+          {
+            "seed": 4,
+            "train_count": 118,
+            "holdout_count": 51,
+            "holdout_mae": {
+              "global_mean": 1.281747,
+              "global_median": 1.171455,
+              "cation_group_mean": 1.272722
+            },
+            "winner": "global_median"
+          }
+        ],
+        "per_baseline": {
+          "global_mean": {
+            "holdout_mae_mean": 1.321399,
+            "holdout_mae_min": 1.222367,
+            "holdout_mae_max": 1.43484,
+            "holdout_mae_std": 0.071735,
+            "seed_win_count": 0
+          },
+          "global_median": {
+            "holdout_mae_mean": 1.266347,
+            "holdout_mae_min": 1.171455,
+            "holdout_mae_max": 1.363492,
+            "holdout_mae_std": 0.064471,
+            "seed_win_count": 2
+          },
+          "cation_group_mean": {
+            "holdout_mae_mean": 1.207487,
+            "holdout_mae_min": 1.108383,
+            "holdout_mae_max": 1.272929,
+            "holdout_mae_std": 0.062044,
+            "seed_win_count": 3
+          }
+        },
+        "mean_mae_winner": "cation_group_mean"
+      },
+      "leave_one_cation_group_out": {
+        "group_count": 6,
+        "per_group": {
+          "alkali_or_alkaline_earth": {
+            "holdout_count": 26,
+            "train_count": 143,
+            "holdout_mae": {
+              "global_mean": 1.375922,
+              "global_median": 1.510208,
+              "cation_group_mean": 1.375922
+            }
+          },
+          "metalloid_or_p_block": {
+            "holdout_count": 26,
+            "train_count": 143,
+            "holdout_mae": {
+              "global_mean": 1.662269,
+              "global_median": 2.287815,
+              "cation_group_mean": 1.662269
+            }
+          },
+          "mixed_or_ambiguous": {
+            "holdout_count": 13,
+            "train_count": 156,
+            "holdout_mae": {
+              "global_mean": 1.766563,
+              "global_median": 1.609012,
+              "cation_group_mean": 1.766563
+            }
+          },
+          "post_transition_metal": {
+            "holdout_count": 15,
+            "train_count": 154,
+            "holdout_mae": {
+              "global_mean": 0.987025,
+              "global_median": 0.828763,
+              "cation_group_mean": 0.987025
+            }
+          },
+          "rare_earth_or_lanthanoid": {
+            "holdout_count": 21,
+            "train_count": 148,
+            "holdout_mae": {
+              "global_mean": 1.930963,
+              "global_median": 2.110686,
+              "cation_group_mean": 1.930963
+            }
+          },
+          "transition_metal": {
+            "holdout_count": 68,
+            "train_count": 101,
+            "holdout_mae": {
+              "global_mean": 1.585658,
+              "global_median": 1.388732,
+              "cation_group_mean": 1.585658
+            }
+          }
+        },
+        "macro_holdout_mae": {
+          "global_mean": 1.5514,
+          "global_median": 1.622536,
+          "cation_group_mean": 1.5514
+        },
+        "macro_mae_winner": "global_mean"
+      },
+      "leave_one_formula_family_out": {
+        "group_count": 6,
+        "per_group": {
+          "dioxide": {
+            "holdout_count": 44,
+            "train_count": 125,
+            "holdout_mae": {
+              "global_mean": 1.478158,
+              "global_median": 1.37462,
+              "cation_group_mean": 1.142793
+            }
+          },
+          "intermediate_oxide": {
+            "holdout_count": 13,
+            "train_count": 156,
+            "holdout_mae": {
+              "global_mean": 1.312684,
+              "global_median": 0.9497,
+              "cation_group_mean": 0.988913
+            }
+          },
+          "monoxide": {
+            "holdout_count": 26,
+            "train_count": 143,
+            "holdout_mae": {
+              "global_mean": 1.227115,
+              "global_median": 1.272308,
+              "cation_group_mean": 1.30346
+            }
+          },
+          "oxygen_poor": {
+            "holdout_count": 19,
+            "train_count": 150,
+            "holdout_mae": {
+              "global_mean": 1.368412,
+              "global_median": 1.218389,
+              "cation_group_mean": 1.255853
+            }
+          },
+          "oxygen_rich": {
+            "holdout_count": 32,
+            "train_count": 137,
+            "holdout_mae": {
+              "global_mean": 1.085666,
+              "global_median": 1.274953,
+              "cation_group_mean": 1.293615
+            }
+          },
+          "sesquioxide": {
+            "holdout_count": 35,
+            "train_count": 134,
+            "holdout_mae": {
+              "global_mean": 1.924241,
+              "global_median": 2.070867,
+              "cation_group_mean": 1.902353
+            }
+          }
+        },
+        "macro_holdout_mae": {
+          "global_mean": 1.399379,
+          "global_median": 1.360139,
+          "cation_group_mean": 1.314498
+        },
+        "macro_mae_winner": "cation_group_mean"
+      },
+      "split_robustness": {
+        "committed_holdout_winner": "cation_group_mean",
+        "seeded_mean_winner": "cation_group_mean",
+        "winner_seed_win_count": 3,
+        "runner_up_baseline": "global_median",
+        "seeded_mean_margin_over_runner_up": 0.05886,
+        "across_seed_noise": 0.064471,
+        "winner_consistent": false,
+        "margin_exceeds_noise": false,
+        "verdict": "split_sensitive"
+      }
+    }
+  },
+  "overall_split_robustness": {
+    "formation_energy_per_atom": "split_robust",
+    "band_gap": "split_sensitive"
+  },
+  "verdict": "INCONCLUSIVE",
+  "limitations": [
+    "Computed DFT Materials Project stable-binary-oxide rows only; 169 rows per axis is small, so even alternative splits share the same dataset.",
+    "Formation energy and band gap are separate axes and are never pooled.",
+    "Baselines are the committed null/composition-aware controls, not tuned ML models; the audit tests split stability, not model quality.",
+    "Leave-one-group-out diagnostics are extrapolation stress tests; with no train rows for a held-out group, cation_group_mean degenerates to the global mean by design.",
+    "Sandbox audit evidence only. No RESULT, PRED, CLAIM, KNOW, materials guidance, or discovery wording is promoted, and the committed MD-0001 split, datasets, and result artifact are unchanged."
+  ],
+  "output_routing": {
+    "task_verdict": "INCONCLUSIVE",
+    "canonical_destination": "docs/reviews/materials-md0001-split-sensitivity-audit.md",
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "claim_impact": "none",
+    "knowledge_impact": "none",
+    "result_impact": "no RESULT artifact created"
+  }
+}
