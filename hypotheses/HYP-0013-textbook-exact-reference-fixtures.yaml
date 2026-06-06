@@ -1,0 +1,54 @@
+id: HYP-0013
+title: "APL exact-reference textbook fixtures can validate software conventions without making empirical physics claims"
+domain: textbook_formula_audit
+status: FORMALIZED
+
+hypothesis:
+  statement: >
+    The committed Textbook Formula Audit exact-reference fixtures should
+    reproduce their declared synthetic reference values and reject their
+    declared convention controls within the APL software-fixture scope only.
+    This hypothesis is about repository software, units, constants, and
+    convention plumbing; it is not an empirical statement about
+    Stefan-Boltzmann, Wien displacement, blackbody physics, stellar
+    observations, laboratory spectra, or textbook formula truth.
+  formula_candidates:
+    - "L = 4 * pi * R^2 * sigma * T^4, using the declared CODATA 2022 Stefan-Boltzmann constant convention on synthetic SI fixture rows only"
+    - "lambda_peak = b / T, using the declared CODATA 2022 Wien wavelength-domain displacement constant convention on synthetic Kelvin fixture rows only"
+
+assumptions:
+  - "All fixture rows are synthetic exact-reference rows committed in the repository."
+  - "Fitting, empirical source ingestion, and observational interpretation are outside this hypothesis scope."
+  - "A passing result may show only that APL reproduces the declared fixture arithmetic and convention checks."
+  - "Failure of a negative control indicates a software/convention gate problem, not a physical-law result."
+  - "No claim, knowledge, prediction, or empirical Textbook Formula Audit result is implied by this identity."
+
+variables:
+  L:
+    unit: watt
+    description: "Synthetic luminosity for the Stefan-Boltzmann exact-reference fixture"
+  R:
+    unit: meter
+    description: "Synthetic spherical-emitter radius in the Stefan-Boltzmann fixture"
+  T:
+    unit: kelvin
+    description: "Synthetic temperature grid used by the exact-reference fixtures"
+  sigma:
+    unit: watt per square meter per kelvin^4
+    description: "Declared CODATA 2022 Stefan-Boltzmann constant convention"
+  lambda_peak:
+    unit: meter
+    description: "Synthetic wavelength-domain peak location in the Wien fixture"
+  b:
+    unit: meter kelvin
+    description: "Declared CODATA 2022 Wien wavelength displacement constant convention"
+
+evidence:
+  experiments:
+    - EXP-0013
+
+verdict: >
+  Scoped identity only. Future evidence may support a software/convention
+  RESULT artifact if the fixture metadata boundaries are explicitly updated
+  and the result-promotion gates pass, but this hypothesis does not support
+  empirical formula validation.

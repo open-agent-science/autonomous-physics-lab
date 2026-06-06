@@ -1,0 +1,46 @@
+id: EXP-0013
+title: "Textbook Exact-Reference Software Fixture Validation"
+domain: textbook_formula_audit
+status: PLANNED
+
+hypothesis_id: HYP-0013
+
+method:
+  type: exact_reference_software_fixture_validation
+  simulator: textbook_exact_reference_fixture_runners
+  comparator: exact_reference_convention_and_negative_control_gates
+
+data:
+  dataset_path: ../data/textbook_formula_audit/
+  dataset_kind: textbook_exact_reference_synthetic_fixtures
+  benchmark_scope: >
+    Synthetic exact-reference software fixtures only: Stefan-Boltzmann SI
+    constant/convention arithmetic and Wien wavelength-domain constant
+    convention arithmetic. No empirical spectra, stellar rows, laboratory rows,
+    formula-audit datasets, or observational validation are in scope.
+  expected_item_count: 2
+  sample_axes:
+    - stefan_boltzmann_synthetic_si_fixture
+    - wien_displacement_wavelength_domain_synthetic_fixture
+  notes: >
+    This experiment identity exists to unblock a later scoped RESULT packaging
+    task after fixture publication boundaries are explicitly changed. It does
+    not itself publish a result.
+
+candidate_models:
+  - id: model_stefan_boltzmann_exact_reference
+    formula: "L = 4 * pi * R^2 * sigma * T^4"
+  - id: model_wien_wavelength_exact_reference
+    formula: "lambda_peak = b / T"
+
+comparison_targets:
+  - id: target_exact_reference_relative_error_zero
+    label: "Exact-reference fixture relative error"
+    reference_value: 0.0
+    unit: relative_error
+    notes: "Used only for synthetic committed reference rows under declared fixture tolerances."
+  - id: target_declared_negative_controls_rejected
+    label: "Declared convention negative controls rejected"
+    reference_value: 1.0
+    unit: pass_fraction
+    notes: "A later RESULT should report all declared negative-control gates as rejected."
