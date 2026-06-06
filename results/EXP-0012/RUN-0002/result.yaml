@@ -1,0 +1,103 @@
+result_id: RESULT-0018
+run_id: RUN-0002
+experiment_id: EXP-0012
+title: Nuclear F2 Component-Ablation Diagnostic Preflight Result
+hypothesis_id: HYP-0012
+task_id: TASK-0633
+generated_at: "2026-06-06T17:25:00Z"
+engine_version: "0.1.0"
+git_commit: 8587687b69b8847c6257478e126ae0ca86b2903d
+command: "python scripts/run_nuclear_f2_component_ablation.py --output-dir .agent_scratch/TASK-0633-replay --review-path .agent_scratch/TASK-0633-replay/review.md"
+input_file_hashes:
+  config:
+    path: results/EXP-0012/RUN-0002/inputs/config.yaml
+    sha256: 5ae5f91edbe4a4b5406dfb4fe474d34d896492b1e843b54d282394b4ff849be0
+  experiment:
+    path: results/EXP-0012/RUN-0002/inputs/experiment.yaml
+    sha256: 3ef88bbb2ef71b5414e7e610d06ea58dec374ef824ccf5c21961f7ad7b878c32
+  hypothesis:
+    path: results/EXP-0012/RUN-0002/inputs/hypothesis.yaml
+    sha256: c72a967c7c09b37a863695b30aa322abeaeeb5ff686f6e01e2fd516f483d5beb
+  task:
+    path: results/EXP-0012/RUN-0002/inputs/task.yaml
+    sha256: cfcc08e236489ab56a37ad00cd66da3e11fdec555c871bef76a10c580646a022
+code_reference: scripts/run_nuclear_f2_component_ablation.py
+limitations:
+  - "Agent-published, not yet independently validated or maintainer-reviewed."
+  - "This is a retrospective AME2020 measured-row component ablation; no post-AME2020 reveal scoring is included."
+  - "The result records a diagnostic stop/preflight outcome only; it does not create a prediction, claim, knowledge entry, or broad nuclear mass formula statement."
+  - "The replayed metrics match the committed AGENT-RUN-0068 content after ignoring CRLF/LF line-ending differences; byte hashes differ only because of line endings."
+best_model_id: model_f2_component_ablation_full_reference
+best_verdict: INCONCLUSIVE
+review_tier: AGENT_PUBLISHED
+agent_proposal_evaluation:
+  review_tier_proposed: AGENT_PUBLISHED
+  best_verdict_proposed: INCONCLUSIVE
+  gates_checked:
+    deterministic_run: true
+    verification_block_populated: true
+    input_hashes_recorded: true
+    limitations_listed: true
+    engine_version_and_commit_pinned: true
+    schema_validation_passes: true
+    no_protected_artifact_rewrite: true
+    no_forbidden_overclaim_wording: true
+    dataset_provenance_valid: true
+  evidence_summary: >
+    The committed TASK-0625 component-ablation runner replayed successfully
+    against the frozen NMD-0003 dataset, stratified gate, F2 selection manifest,
+    and reused control ledger. The full F2 reference remains replayable, but no
+    ablation variant clears the predeclared controls-first survival margin, so
+    the scoped publication verdict is INCONCLUSIVE/diagnostic-only rather than
+    claim-supporting.
+  followup_for_maintainer: >
+    Keep this RESULT as agent-published diagnostic evidence unless a later
+    independent replay task upgrades it through Gate B.
+verification:
+  passed: true
+  checks:
+    - name: deterministic_component_ablation_replay
+      status: PASS
+      details: "Replay command completed and reproduced AGENT-RUN-0068 metric content after normalizing CRLF/LF line endings."
+      metrics:
+        committed_metrics_sha256_crlf: eeda772fa3f210570b30fc309911644f0323dae7f7fef0240dde8478c6b2d18f
+        replay_metrics_sha256_lf: 526db79b99d8013a46b13759b8f245a0c164399a6b4fe58ef09cef3412c3ef05
+        content_diff_ignoring_line_endings: false
+    - name: survival_margin_not_cleared
+      status: PASS
+      details: "No component-ablation variant clears the predeclared 0.25 MeV controls-first survival margin."
+      metrics:
+        survival_margin_mev: 0.25
+        full_reference_minus_best_control_mev: 0.19926
+        best_single_component_full_known_improvement_mev: 0.074761
+    - name: protected_result_not_rewritten
+      status: PASS
+      details: "RESULT-0018 is new and is not pinned in results/golden-results.yaml."
+      metrics:
+        protected_result_rewrite: false
+comparison_summary:
+  - target_id: target_f2_survival_margin_gap
+    label: F2 controls-first survival-margin diagnostic
+    reference_value: 0.25
+    observed_value: 0.19926
+    unit: MeV
+    absolute_difference: 0.05074
+    relative_difference: 0.20296
+    notes: "Observed value is candidate-minus-best-control full-known MAE improvement; the margin is not cleared."
+uncertainty_summary:
+  method: deterministic_replay_diagnostic_no_measurement_uncertainty
+  observed_uncertainty: null
+  reference_uncertainty: null
+  combined_uncertainty: null
+  z_score: null
+  within_combined_uncertainty: null
+  notes: "This publication preflight records deterministic replay and controls-first diagnostics, not a measurement uncertainty model."
+artifacts:
+  report: results/EXP-0012/RUN-0002/report.md
+  metrics: results/EXP-0012/RUN-0002/metrics.json
+  claim_update: results/EXP-0012/RUN-0002/claim_update.md
+  claim_update_patch: results/EXP-0012/RUN-0002/claim_update.patch.md
+  knowledge_update: results/EXP-0012/RUN-0002/knowledge_update.md
+  knowledge_update_patch: results/EXP-0012/RUN-0002/knowledge_update.patch.md
+  review_summary: results/EXP-0012/RUN-0002/review_summary.md
+  review_metadata: results/EXP-0012/RUN-0002/review_metadata.yaml
