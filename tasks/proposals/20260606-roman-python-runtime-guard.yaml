@@ -1,0 +1,81 @@
+proposal_id: 20260606-roman-python-runtime-guard
+title: "Enforce and document the 3.11+ Python runtime (env docs + fast-fail guard + doctor probe)"
+status: PROPOSED
+type: workflow_hardening
+priority: medium
+
+proposed_by:
+  contributor_id: roman
+  agent_id: claude
+
+strategy_alignment:
+  - "Reduce contributor/agent setup friction so work reaches the science goals faster."
+  - "Make the already-declared 3.11+ requirement fail fast and legibly instead of crashing cryptically."
+  - "Keep the project single-runtime (3.11+); do not add backward-compat shims for older Python."
+
+summary: >
+  The repository already pins requires-python = ">=3.11" and uses 3.10+ runtime
+  features (for example zip(strict=True) in
+  scripts/run_nuclear_f2_controls_first_scoring.py and
+  scripts/run_nmd0003_bounded_residual_feature_sprint.py). When an environment
+  runs the project under an older interpreter, the failure is a cryptic
+  "zip() takes no keyword arguments" rather than a clear "this project needs
+  Python 3.11+" message. There is also no contributor-facing recipe for creating
+  a 3.11+ virtual environment when the system Python is older or lacks the
+  project dependencies. This proposal adds explicit documentation, a fast-fail
+  runtime guard, and a doctor probe so the runtime requirement is discoverable
+  and self-diagnosing.
+
+rationale: >
+  During TASK-0612 (Nuclear F2 independent replay) the only local interpreter
+  with the project dependencies installed was Python 3.9.6, which cannot run the
+  committed F2 scoring code. Diagnosing this cost real time because the failure
+  was a cryptic zip() TypeError, not a version message, and no documented venv
+  recipe existed. Other agents and contributors will hit the same wall. The fix
+  is not to support old Python (the repo is intentionally 3.11+); it is to make
+  the requirement legible and self-diagnosing.
+
+input:
+  mode: planning_only
+  related_domain: developer_workflow
+  related_objects:
+    - "pyproject.toml"
+    - "scripts/apl_agent_doctor.py"
+    - "scripts/run_nuclear_f2_controls_first_scoring.py"
+    - "AGENTS.md"
+  planning_context: >
+    Proposal only. The canonical task should: (1) document the 3.11+ requirement
+    and a venv setup recipe on a contributor-facing surface (for example AGENTS.md
+    onboarding or a CONTRIBUTING/setup doc), including the "pip install -e \".[dev]\""
+    flow against a 3.11+ interpreter; (2) add a fast-fail runtime guard that raises
+    a clear "Autonomous Physics Lab requires Python 3.11+" error early (for example
+    in the package __init__ or CLI entry) before a cryptic syntax/runtime failure;
+    (3) extend scripts/apl_agent_doctor.py to detect when the project dependencies
+    import only under an interpreter below requires-python, and print the venv
+    remediation. Do not add 3.9/3.10 compatibility shims.
+
+requirements:
+  - "Keep the proposal atomic"
+  - "Do not promote claims automatically"
+  - "Do not add backward-compatibility shims for Python < 3.11"
+  - "The fast-fail guard must read the minimum version from a single source (requires-python) rather than hardcoding it in multiple places where practical"
+
+accepted_outputs:
+  - "canonical task spec"
+  - "contributor env-setup docs (3.11+ requirement and venv recipe)"
+  - "a fast-fail Python-version guard with a clear message"
+  - "an apl_agent_doctor.py probe for deps-only-under-old-interpreter"
+  - "tests for the guard and doctor probe"
+
+validation:
+  commands:
+    - "python3 -m physics_lab.cli validate-repo ."
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+promotion:
+  canonical_task_id: null
+  decision: pending
+  notes: >
+    Surfaces the Python-runtime friction found during TASK-0612 as a reviewable
+    workflow-hardening task. Scope chosen by the maintainer: docs + fast-fail
+    guard + doctor probe.
