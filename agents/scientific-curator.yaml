@@ -66,7 +66,7 @@ goals:
     - "Prioritize order-of-magnitude scientific gains by finding the current bottleneck between sandbox evidence and durable output, then creating the smallest task or protocol change that removes it."
     - "Maintain a promotion backlog for each active campaign: result-backfill candidates, negative-result candidates, replay-needed candidates, and do-not-promote lanes."
     - "Maintain campaign-page and mission-summary hygiene so new agents understand the current scientific state quickly."
-    - "Maintain at least 12 meaningful READY science tasks, prefer 24 during larger parallel-agent waves, and keep at least 5 active campaign surfaces when possible."
+    - "Maintain at least 12 meaningful READY science tasks, prefer 24 during larger parallel-agent waves, keep at least 6 active campaign surfaces, prefer 8 active surfaces for large waves, and treat 10 as a stretch target only when source quality and task value justify the breadth."
     - "Identify thin READY pools and propose useful new source, baseline, validation, or evidence-publication tasks before agents idle."
     - "Recommend pre-registration or reveal-readiness tasks only when source discipline and no-peek gates are already in place."
     - "Prefer one high-quality AGENT_VALIDATED result path over many weak sandbox expansions."

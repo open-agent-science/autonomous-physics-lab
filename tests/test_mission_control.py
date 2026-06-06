@@ -240,19 +240,21 @@ def test_ready_science_pool_health_reports_warning_only_short_pool(tmp_path: Pat
 
     assert health.minimum_ready_science_tasks == 12
     assert health.preferred_ready_science_tasks == 24
-    assert health.target_active_surfaces == 5
+    assert health.target_active_surfaces == 6
+    assert health.preferred_active_surfaces == 8
     assert health.max_ready_science_surface_share == 0.40
     assert health.ready_science_count == 7
     assert health.active_surfaces == ("surface_a", "surface_b")
     assert health.surface_task_counts == {"surface_a": 3, "surface_b": 4}
     assert health.below_minimum is True
     assert health.below_surface_target is True
+    assert health.below_preferred_surface_target is True
     assert health.above_surface_concentration_target is True
     assert health.task_queue_needed is True
     assert health.warning_only is True
 
 
-def test_ready_science_pool_health_accepts_minimum_across_five_surfaces(tmp_path: Path) -> None:
+def test_ready_science_pool_health_accepts_minimum_across_six_surfaces(tmp_path: Path) -> None:
     for index, surface in enumerate(
         (
             "surface_a",
@@ -266,7 +268,7 @@ def test_ready_science_pool_health_accepts_minimum_across_five_surfaces(tmp_path
             "surface_d",
             "surface_d",
             "surface_e",
-            "surface_e",
+            "surface_f",
         )
     ):
         _write_task(
@@ -282,9 +284,17 @@ def test_ready_science_pool_health_accepts_minimum_across_five_surfaces(tmp_path
     health = ready_science_pool_health(tmp_path)
 
     assert health.ready_science_count == 12
-    assert health.active_surfaces == ("surface_a", "surface_b", "surface_c", "surface_d", "surface_e")
+    assert health.active_surfaces == (
+        "surface_a",
+        "surface_b",
+        "surface_c",
+        "surface_d",
+        "surface_e",
+        "surface_f",
+    )
     assert health.below_minimum is False
     assert health.below_surface_target is False
+    assert health.below_preferred_surface_target is True
     assert health.above_surface_concentration_target is False
     assert health.task_queue_needed is True
     assert health.below_preferred is True
@@ -297,27 +307,27 @@ def test_ready_science_pool_health_accepts_preferred_target_across_surfaces(
         "surface_a",
         "surface_a",
         "surface_a",
-        "surface_a",
-        "surface_b",
         "surface_b",
         "surface_b",
         "surface_b",
         "surface_c",
         "surface_c",
         "surface_c",
-        "surface_c",
-        "surface_d",
         "surface_d",
         "surface_d",
         "surface_d",
         "surface_e",
         "surface_e",
         "surface_e",
-        "surface_e",
         "surface_f",
         "surface_f",
         "surface_f",
-        "surface_f",
+        "surface_g",
+        "surface_g",
+        "surface_g",
+        "surface_h",
+        "surface_h",
+        "surface_h",
     )
     for index, surface in enumerate(surfaces):
         _write_task(
@@ -336,6 +346,7 @@ def test_ready_science_pool_health_accepts_preferred_target_across_surfaces(
     assert health.below_minimum is False
     assert health.below_preferred is False
     assert health.below_surface_target is False
+    assert health.below_preferred_surface_target is False
     assert health.above_surface_concentration_target is False
     assert health.task_queue_needed is False
 
@@ -353,7 +364,7 @@ def test_ready_science_pool_health_flags_same_surface_concentration(tmp_path: Pa
         "surface_d",
         "surface_d",
         "surface_e",
-        "surface_e",
+        "surface_f",
     )
     for index, surface in enumerate(surfaces):
         _write_task(
@@ -371,6 +382,7 @@ def test_ready_science_pool_health_flags_same_surface_concentration(tmp_path: Pa
     assert health.ready_science_count == 12
     assert health.below_minimum is False
     assert health.below_surface_target is False
+    assert health.below_preferred_surface_target is True
     assert health.above_surface_concentration_target is False
     assert health.below_preferred is True
     assert health.task_queue_needed is True

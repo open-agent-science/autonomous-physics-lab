@@ -13,8 +13,9 @@ The target pool is:
 
 - minimum: 12 independent READY science tasks;
 - preferred during public/open-agent onboarding: 24 READY science tasks;
-- campaign/surface coverage: at least 5 active scientific surfaces when
-  possible.
+- campaign/surface coverage: at least 6 active scientific surfaces, with 8
+  preferred for larger parallel-agent waves and 10 as a stretch target only
+  when the sources and task quality justify it.
 - concentration guard: no single campaign/surface should hold more than about
   40% of READY science tasks.
 
@@ -79,6 +80,8 @@ target across multiple surfaces rather than filling all tasks in one campaign:
 - 2-4 Exoplanet or other large-public-data benchmark tasks;
 - 2-4 source-gated Quantum / Atomic / Materials tasks;
 - 1-2 evidence-card or negative-result preservation tasks.
+- enough additional source, baseline, or holdout work to keep at least 6
+  active campaign surfaces live; prefer 8 surfaces for 50-agent waves.
 
 Do not add broad formula-search tasks only to inflate the READY count. Source
 gates, negative results, and blocker reviews are valid scientific work when
