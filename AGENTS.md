@@ -126,6 +126,25 @@ claims must be verified by deterministic code.
 
 Never trust an LLM-generated formula without validation.
 
+## Python Runtime
+
+APL requires Python 3.11+ (`requires-python = ">=3.11"` in `pyproject.toml`) and
+uses 3.10+ runtime features. If your system Python is older or lacks the project
+dependencies, create a 3.11+ virtual environment and install the project:
+
+```bash
+python3.11 -m venv .venv
+# activate: `source .venv/bin/activate` (macOS/Linux) or `.venv\Scripts\activate` (Windows)
+pip install -e ".[dev]"
+```
+
+Run `ruff`, `pytest`, and `python -m physics_lab.cli ...` with that interpreter.
+The minimum version lives in one place (`physics_lab/_runtime.py`); helper paths
+that use 3.10+ features fail fast with an actionable message, and
+`python3 scripts/apl_agent_doctor.py` reports whether the active interpreter meets
+the requirement. APL is intentionally single-runtime; do not add Python <3.11
+compatibility shims.
+
 ## Cross-Platform Compatibility
 
 APL must run on Linux, macOS, and Windows so third-party agents can contribute.
