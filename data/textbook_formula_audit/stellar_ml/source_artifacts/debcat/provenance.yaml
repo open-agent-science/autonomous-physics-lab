@@ -1,0 +1,78 @@
+package_id: TFA-STELLAR-ML-SOURCE-DEBCAT-20260606
+schema_version: 0.1.0
+task_id: TASK-0628
+package_status: METADATA_ONLY_BLOCKER
+campaign_profile_id: textbook-formula-audit
+source_id: debcat-detached-eclipsing-binaries
+source_title: DEBCat catalogue of the physical properties of well-studied eclipsing binaries
+source_family: detached_eclipsing_binary_catalogue
+
+locators:
+  doi: null
+  arxiv_id: "1411.1219"
+  archive_url: https://arxiv.org/abs/1411.1219
+  source_url: https://astro.keele.ac.uk/jkt/debcat/
+  artifact_url: https://astro.keele.ac.uk/jkt/debcat/debs.dat
+  citation: "Southworth, J. (2015), The DEBCat detached eclipsing binary catalogue, ASP Conference Series, 496, 164."
+
+artifact:
+  artifact_type: ascii_catalogue_table
+  artifact_path: null
+  artifact_locator: https://astro.keele.ac.uk/jkt/debcat/debs.dat
+  retrieval_date_utc: 2026-06-06
+  retrieved_by: akutenyov/codex
+  checksum_sha256: 326902535b4da2fd94f227806ff339247d6df224ef8faea8857703e553b464da
+  checksum_scope: remote_ascii_table_debs_dat_not_committed
+  archive_policy: metadata_only_checksum_pinned_raw_not_committed
+  value_bearing_artifact: false
+  remote_http:
+    last_modified: "Sat, 16 May 2026 11:14:34 GMT"
+    etag: "\"17441-651ed6f2a15a0\""
+    content_length_bytes: 95297
+  source_version_notes:
+    catalogue_page_log_date: 2026-05-16
+    catalogue_page_system_count: 374
+    raw_line_count_including_header: 375
+
+redistribution:
+  redistribution_status: metadata_only_checksum_pinned_no_raw_commit
+  license_note: >
+    The consulted DEBCat catalogue page is public and asks users to cite the
+    DEBCat paper, but no explicit redistribution license for committing the
+    value-bearing ASCII table was found during TASK-0628. Raw table storage
+    remains blocked until maintainer/license review allows it.
+  citation_note: >
+    Cite the DEBCat paper requested on the catalogue page before any use of
+    DEBCat rows in a benchmark or review artifact.
+  raw_artifact_commit_allowed: false
+  derived_artifact_commit_allowed: false
+
+row_admissibility:
+  row_class: direct_dynamical_mass_source_candidate
+  inclusion_status: metadata_only
+  row_schema_kind: stellar_ml_component_rows_pending
+  extraction_method: not_extracted
+  uncertainty_semantics: >
+    DEBCat records component-level masses and uncertainties. A later row task
+    must preserve primary/secondary component pairing and uncertainty semantics
+    before any normalized benchmark rows are created.
+  accepted_for_benchmark: false
+  no_leakage_constraints:
+    - split_holdout_by_physical_binary_system_before_component_rows_are_used
+    - keep_primary_and_secondary_components_from_the_same_system_in_the_same_lane
+    - do_not_use_gaia_or_isochrone_model_derived_masses_as_truth
+  blocker_reasons:
+    - RAW_ARTIFACT_NOT_COMMITTED
+    - EXPLICIT_REDISTRIBUTION_LICENSE_NOT_FOUND
+    - COMPONENT_ROW_SCHEMA_NOT_REVIEWED
+    - LUMINOSITY_PROVENANCE_NOT_DEFINED
+    - HOLDOUT_POLICY_NOT_IMPLEMENTED
+
+review:
+  review_status: metadata_pinned_rows_blocked
+  reviewed_by: akutenyov/codex
+  review_notes: >
+    TASK-0628 pins the current DEBCat locator, retrieval metadata, checksum,
+    source timestamp, citation posture, and row blockers. It intentionally
+    does not commit value-bearing source rows or derived rows.
+  allowed_next_step: propose_or_execute_separate_debcat_row_curation_gate_after_license_and_schema_review
