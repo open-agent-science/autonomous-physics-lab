@@ -11,7 +11,6 @@
 - `TASK-0560` - Define docs reviews and notes retention policy (`documentation_architecture`, priority `medium`, difficulty `low`, domain `documentation_architecture`)
 - `TASK-0591` - Decouple the generated CONTEXT.md bundle from the committed tree (`documentation_architecture`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
 - `TASK-0592` - Harden Exoplanet source-acquisition portability checks (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
-- `TASK-0617` - Implement live task PR occupancy check (`workflow_hardening`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 
 ## IN_PROGRESS
 
@@ -19,6 +18,7 @@ None.
 
 ## REVIEW_READY
 
+- `TASK-0617` - Implement live task PR occupancy check (`workflow_hardening`, priority `high`, difficulty `medium`, domain `agent_capacity`)
 - `TASK-0618` - Validate task YAML validation command paths (`repository_hardening`, priority `high`, difficulty `medium`, domain `repository_validation`)
 - `TASK-0619` - Review PRs from clean remote worktrees (`maintainer_workflow`, priority `high`, difficulty `high`, domain `maintainer_review`)
 - `TASK-0620` - Add Windows worktree runtime preflight (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `cross_platform_agent_flow`)
