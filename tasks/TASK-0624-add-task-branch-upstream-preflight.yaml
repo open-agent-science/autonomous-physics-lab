@@ -1,7 +1,7 @@
 id: TASK-0624
 title: "Add task-branch upstream tracking preflight"
 type: workflow_hardening
-status: READY
+status: REVIEW_READY
 difficulty: medium
 priority: medium
 
@@ -38,7 +38,7 @@ accepted_outputs:
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_task_pr_helper.py tests/test_apl_branch_precondition.py -q"
+    - "python3 -m pytest tests/test_task_branch_upstream_preflight.py tests/test_task_pr_helper.py tests/test_apl_branch_precondition.py -q"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:

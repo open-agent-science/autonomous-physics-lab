@@ -111,6 +111,28 @@ python3 scripts/apl_branch_precondition.py \
 The check is opt-in and additive. It does not modify the working tree
 and does not gate any existing tooling.
 
+### Upstream tracking preflight (`--check-upstream`)
+
+When several agents run one task per worktree, a task branch can end up
+tracking `origin/main` (or have no upstream at all) instead of its own
+remote branch. A bare `git push` then targets the wrong upstream. The
+opt-in `--check-upstream` flag detects this for task-lifecycle branches
+(canonical task, `propose-task`, `task-queue`, `closeout`, microtask) and
+prints an exact, safe explicit-push command:
+
+```bash
+python3 scripts/apl_branch_precondition.py \
+    --expected-branch agent/roman/claude/task-0624-foo \
+    --check-upstream
+```
+
+If the branch tracks the wrong upstream or has none, the check fails and
+prints `git push origin HEAD:<current-branch>`. It never force-pushes,
+rewrites history, or mutates upstream tracking; it only reports and
+suggests a safe command. Detached HEAD and non-task branches (such as
+`main`) are skipped. Use `--remote` to target a remote other than
+`origin`.
+
 ## 5. How it fits the canonical task protocol
 
 Nothing in this note changes:

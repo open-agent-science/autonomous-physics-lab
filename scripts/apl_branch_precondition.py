@@ -81,7 +81,127 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             "expects. Can be passed multiple times."
         ),
     )
+    parser.add_argument(
+        "--check-upstream",
+        action="store_true",
+        help=(
+            "Also verify the current branch's upstream tracks its own remote "
+            "branch (not origin/main or a missing upstream) for task-lifecycle "
+            "branches, and print a safe explicit push command when it does not."
+        ),
+    )
+    parser.add_argument(
+        "--remote",
+        default="origin",
+        help="Remote name used for the safe push command (default: origin).",
+    )
     return parser.parse_args(argv)
+
+
+# Task-lifecycle branch kinds whose upstream should be their own remote branch,
+# never a shared branch such as origin/main.
+TASK_BRANCH_KINDS = ("task", "proposal", "queue", "closeout", "microtask")
+
+
+def classify_branch_kind(branch: str) -> str | None:
+    """Classify a branch as a task-lifecycle kind, or ``None`` for others.
+
+    Canonical agent branches look like
+    ``agent/<contributor>/<agent>/<kind-segment>``. The kind is read from the
+    fourth path segment so the upstream check only flags lifecycle branches that
+    are expected to publish to their own upstream (and not, for example, ``main``).
+    """
+    parts = branch.split("/")
+    if len(parts) < 4 or parts[0] != "agent":
+        return None
+    segment = parts[3]
+    # Order matters: ``task-queue-`` is checked before the generic ``task-``.
+    if segment.startswith("task-queue-"):
+        return "queue"
+    if segment.startswith("propose-task-"):
+        return "proposal"
+    if segment.startswith("closeout-"):
+        return "closeout"
+    if segment.startswith("microtask-"):
+        return "microtask"
+    if segment.startswith("task-"):
+        return "task"
+    return None
+
+
+def upstream_preflight(
+    *, branch: str, upstream: str | None, remote: str = "origin"
+) -> dict[str, object]:
+    """Evaluate whether ``branch`` tracks its own remote branch.
+
+    Pure decision logic (no git calls) so it is fully unit-testable. Returns a
+    mapping with ``status``, ``ok``, ``branch_kind``, ``message``, and a
+    ``safe_command`` (an explicit ``git push <remote> HEAD:<branch>``) when the
+    upstream is wrong or missing.
+    """
+    if not branch:
+        return {
+            "status": "detached_head",
+            "ok": True,
+            "branch_kind": None,
+            "message": "Detached HEAD; no branch upstream to check.",
+            "safe_command": None,
+        }
+    kind = classify_branch_kind(branch)
+    if kind is None:
+        return {
+            "status": "not_a_task_branch",
+            "ok": True,
+            "branch_kind": None,
+            "message": (
+                f"Branch {branch!r} is not a task-lifecycle branch; "
+                "upstream tracking not checked."
+            ),
+            "safe_command": None,
+        }
+    expected = f"{remote}/{branch}"
+    safe_command = f"git push {remote} HEAD:{branch}"
+    if not upstream:
+        return {
+            "status": "missing_upstream",
+            "ok": False,
+            "branch_kind": kind,
+            "message": (
+                f"Branch {branch!r} has no upstream. Publish it to its own remote "
+                "branch rather than relying on a default."
+            ),
+            "safe_command": safe_command,
+        }
+    if upstream != expected:
+        return {
+            "status": "upstream_mismatch",
+            "ok": False,
+            "branch_kind": kind,
+            "message": (
+                f"Branch {branch!r} tracks {upstream!r}, not {expected!r}. "
+                "Pushing now could target the wrong upstream."
+            ),
+            "safe_command": safe_command,
+        }
+    return {
+        "status": "ok",
+        "ok": True,
+        "branch_kind": kind,
+        "message": f"Branch {branch!r} correctly tracks {expected!r}.",
+        "safe_command": None,
+    }
+
+
+def _resolve_upstream(root: Path) -> str | None:
+    """Return the current branch's upstream ref (e.g. ``origin/...``) or ``None``."""
+    result = run_command(
+        ["git", "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"],
+        cwd=root,
+    )
+    if result.returncode != 0:
+        return None
+    upstream = result.stdout.strip()
+    return upstream or None
 
 
 def _filter_paths(paths: tuple[str, ...], patterns: list[str]) -> tuple[str, ...]:
@@ -139,6 +259,16 @@ def run(args: argparse.Namespace) -> int:
             f"Working tree has unexpected changes: {joined}. "
             "Stash, commit, or pass --allow-untracked / --allow-modified for each expected path."
         )
+
+    if getattr(args, "check_upstream", False):
+        remote = getattr(args, "remote", "origin")
+        verdict = upstream_preflight(
+            branch=actual_branch, upstream=_resolve_upstream(root), remote=remote
+        )
+        if not verdict["ok"]:
+            failures.append(str(verdict["message"]))
+            if verdict["safe_command"]:
+                failures.append(f"Safe publish command: {verdict['safe_command']}")
 
     if failures:
         print("Branch precondition FAILED:", file=sys.stderr)
