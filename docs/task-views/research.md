@@ -7,7 +7,6 @@
 ## READY
 
 - `TASK-0628` - Package Stellar M-L DEBCat source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
-- `TASK-0629` - Run EXO-0003 metadata-only source trigger scout (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 
@@ -15,4 +14,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0629` - Run EXO-0003 metadata-only source trigger scout (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
