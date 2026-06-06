@@ -13,6 +13,7 @@
 - `TASK-0592` - Harden Exoplanet source-acquisition portability checks (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 - `TASK-0622` - Add PR finish gate helper for review, CI, and ready transition (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_review`)
 - `TASK-0623` - Add subprocess environment guardrails for tests and helpers (`developer_infrastructure`, priority `medium`, difficulty `medium`, domain `repository_validation`)
+- `TASK-0650` - Specify Exoplanet source-version monitor contract (`maintainer_workflow`, priority `medium`, difficulty `medium`, domain `exoplanet_mass_radius`)
 
 ## IN_PROGRESS
 
