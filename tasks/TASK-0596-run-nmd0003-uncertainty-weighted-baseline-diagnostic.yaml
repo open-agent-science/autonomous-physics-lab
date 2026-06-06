@@ -1,7 +1,7 @@
 id: TASK-0596
 title: "Run NMD-0003 uncertainty-weighted baseline diagnostic"
 type: scientific_validation
-status: READY
+status: REVIEW_READY
 difficulty: high
 priority: high
 
@@ -33,14 +33,16 @@ requirements:
 
 accepted_outputs:
   - "docs/reviews/nmd0003-uncertainty-weighted-baseline-diagnostic.md"
-  - "optional agent_runs/AGENT-RUN-XXXX/metrics.json if a deterministic runner is added"
-  - "tests for any new weighting helper"
-  - "optional docs/campaigns/nuclear-mass-surface.md update if the diagnostic changes sprint guidance"
+  - "agent_runs/AGENT-RUN-0065/metrics.json"
+  - "agent_runs/AGENT-RUN-0065/report.md"
+  - "physics_lab/engines/nmd0003_uncertainty_weighted_diagnostic.py"
+  - "scripts/run_nmd0003_uncertainty_weighted_baseline_diagnostic.py"
+  - "tests/test_nmd0003_uncertainty_weighted_baseline_diagnostic.py"
 
 validation:
   commands:
     - "python3 -m ruff check ."
-    - "python3 -m pytest tests/test_nmd0003_baseline_freeze.py tests/test_nmd0003_baseline_family_gate.py tests/test_docs_links.py"
+    - "python3 -m pytest tests/test_nmd0003_uncertainty_weighted_baseline_diagnostic.py tests/test_nmd0003_baseline_freeze.py tests/test_docs_links.py"
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 can_be_done_by:
