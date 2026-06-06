@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0603` - Define Textbook exact-reference EXP/HYP identities for scoped result publication (`research_quality_gate`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0607` - Package Materials MD-0001 public-safe evidence card (`scientific_validation`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
 - `TASK-0614` - Adjudicate Materials MD-0001 result or dataset-publication path (`research_quality_gate`, priority `high`, difficulty `medium`, domain `materials_property_residuals`)
 
@@ -16,4 +15,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0603` - Define Textbook exact-reference EXP/HYP identities for scoped result publication (`research_quality_gate`, priority `medium`, difficulty `medium`, domain `textbook_formula_audit`)
