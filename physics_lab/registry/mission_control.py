@@ -8,7 +8,6 @@ import json
 import os
 from pathlib import Path
 import random
-import re
 import subprocess
 from typing import Any, Mapping, Optional
 
@@ -21,6 +20,7 @@ from physics_lab.registry.pr_capability import (
     suspicious_proxy_env_names,
 )
 from physics_lab.registry.task_discovery import iter_canonical_task_files
+from physics_lab.registry.task_occupancy import occupancy_by_task_id, task_ids_from_text
 from physics_lab.registry.tasks import load_task
 
 
@@ -57,7 +57,6 @@ MIN_READY_SCIENCE_TASKS = 8
 PREFERRED_READY_SCIENCE_TASKS = 15
 TARGET_READY_SCIENCE_SURFACES = 4
 MAX_READY_SCIENCE_SURFACE_SHARE = 0.40
-TASK_ID_PATTERN = re.compile(r"\bTASK-\d{4}\b")
 
 
 @dataclass(frozen=True)
@@ -183,11 +182,6 @@ def _local_registry_availability(*warnings: str) -> TaskAvailabilitySnapshot:
     )
 
 
-def _task_ids_from_text(*values: object) -> tuple[str, ...]:
-    combined = " ".join(str(value or "") for value in values)
-    return tuple(sorted(set(TASK_ID_PATTERN.findall(combined))))
-
-
 def _run_gh_json(
     command: list[str],
     *,
@@ -259,7 +253,7 @@ def collect_github_task_availability(
             "--limit",
             "100",
             "--json",
-            "number,title,state,mergedAt,headRefName",
+            "number,title,body,state,mergedAt,headRefName",
         ],
         root=root,
         env=child_env,
@@ -301,24 +295,15 @@ def collect_github_task_availability(
         if entry.status == "READY"
     }
     reasons: dict[str, list[str]] = {}
-    for pr in prs or []:
-        state = str(pr.get("state") or "").upper()
-        if state not in {"OPEN", "MERGED"}:
+    pr_occupancy = occupancy_by_task_id(sorted(ready_task_ids), prs or [])
+    for task_id, occupancy in sorted(pr_occupancy.items()):
+        if occupancy.classification == "apparently_free":
             continue
-        number = pr.get("number")
-        reason = (
-            f"open PR #{number}"
-            if state == "OPEN"
-            else f"merged PR #{number} pending local closeout"
-        )
-        for task_id in _task_ids_from_text(pr.get("title"), pr.get("headRefName")):
-            if task_id not in ready_task_ids:
-                continue
-            reasons.setdefault(task_id, []).append(reason)
+        reasons.setdefault(task_id, []).extend(occupancy.reasons)
 
     for issue in issues or []:
         number = issue.get("number")
-        for task_id in _task_ids_from_text(issue.get("title"), issue.get("body")):
+        for task_id in task_ids_from_text(issue.get("title"), issue.get("body")):
             if task_id not in ready_task_ids:
                 continue
             reasons.setdefault(task_id, []).append(f"open claim #{number}")
