@@ -1,0 +1,60 @@
+run_id: RUN-0002
+result_id: RESULT-0018
+experiment_id: EXP-0012
+task_id: TASK-0633
+source_agent_run_id: AGENT-RUN-0068
+publication_mode: gate_a_agent_published_result
+command: "python scripts/run_nuclear_f2_component_ablation.py --output-dir D:\\Python\\APLab\\tmp\\TASK-0633-replay --review-path D:\\Python\\APLab\\tmp\\TASK-0633-replay\\review.md"
+code_reference: scripts/run_nuclear_f2_component_ablation.py
+source_git_commit: 8587687b69b8847c6257478e126ae0ca86b2903d
+engine_version: "0.1.0"
+deterministic_replay:
+  replay_status: PASS
+  replay_output_dir: "D:\\Python\\APLab\\tmp\\TASK-0633-replay"
+  metric_content_diff_ignoring_line_endings: none
+  committed_metrics_sha256_crlf: eeda772fa3f210570b30fc309911644f0323dae7f7fef0240dde8478c6b2d18f
+  replay_metrics_sha256_lf: 526db79b99d8013a46b13759b8f245a0c164399a6b4fe58ef09cef3412c3ef05
+  committed_report_sha256_crlf: abff4d28b8537e8624e1fedf26ab1e00989048e5489608ec017c255c71b49be9
+  replay_report_sha256_lf: 8a053f3f07ebb7aeb9a824c5be2d65c666c70c546caec0c0714efbc7af33d650
+source_input_hashes:
+  dataset:
+    path: data/nuclear_masses/nmd-0003-ame2020-measured-training.yaml
+    sha256: f36ca012704ad8d5ffd039f2b8f01b5553690685d447aee3bab0f9983edf9d52
+  stratified_gate:
+    path: data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml
+    sha256: 2988c2eb28e0e1bee783bd4824a9680313b5ef81f1e9ae96698893e4525b8cd2
+  f2_selection_manifest:
+    path: data/nuclear_masses/f2-coverage-selection-manifest.yaml
+    sha256: 79a1561fb7fa3dda134b7051d01fdf215dd46ec8192db529b5f5a19efe806d14
+  controls_first_metrics:
+    path: agent_runs/AGENT-RUN-0060/metrics.json
+    sha256: 5915e99dcee18672db9c33b7be00427697d1d8ea50a7cce58f9803098a1ef826
+  independent_replay_metrics:
+    path: agent_runs/AGENT-RUN-0067/metrics.json
+    sha256: f5c386696e223f62876b9517fc2f6d544d6676b8a4e2df30a5bb42ca99d96aed
+  component_ablation_metrics:
+    path: agent_runs/AGENT-RUN-0068/metrics.json
+    sha256: eeda772fa3f210570b30fc309911644f0323dae7f7fef0240dde8478c6b2d18f
+  promotion_or_stop_decision:
+    path: docs/reviews/nuclear-f2-promotion-or-stop-decision.md
+    sha256: 00a6044060955e91dc3a26e461fb1d9eb5b79f91a9be08612af32699f035f1a0
+  component_ablation_script:
+    path: scripts/run_nuclear_f2_component_ablation.py
+    sha256: 6000db4fe7462cfdbf2db038cf743eaae6b256ded4ed1530b555300428d337e5
+gate_a_decision:
+  deterministic_run: true
+  verification_block_populated: true
+  input_hashes_recorded: true
+  limitations_listed: true
+  engine_version_and_commit_pinned: true
+  schema_validation_passes: true
+  no_protected_artifact_rewrite: true
+  no_forbidden_overclaim_wording: true
+  dataset_provenance_valid: true
+verdict_policy:
+  result_best_verdict: INCONCLUSIVE
+  diagnostic_verdict: COMPONENT_DIAGNOSTIC_ONLY
+  reason: >
+    The full F2 reference remains replayable, but no component ablation variant
+    clears the predeclared controls-first survival margin. The result is a
+    scoped diagnostic publication, not a nuclear mass law claim.
