@@ -1,0 +1,46 @@
+id: TASK-0659
+title: "Build cross-campaign result-promotion inventory"
+type: research_quality_gate
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Keep the science-output funnel explicit across campaigns instead of relying on ad hoc memory."
+  - "Identify the next AGENT_PUBLISHED, AGENT_VALIDATED, negative-result, and do-not-promote candidates."
+  - "Avoid duplicated digests by making this a one-time promotion inventory that routes to existing artifacts."
+
+input:
+  mode: planning_only
+  related_domain: cross_campaign_quality
+  related_objects:
+    - "docs/result-promotion-protocol.md"
+    - "docs/campaigns/README.md"
+    - "results"
+    - "docs/reviews"
+  planning_context: >
+    The portfolio now has several result-publication preflight tasks. This
+    task builds a one-time routing inventory so agents know which artifacts
+    should be promoted, replayed, preserved as negative memory, or left alone.
+
+requirements:
+  - "Inventory only recent/high-value campaign artifacts with clear promotion relevance; do not create a new recurring dashboard."
+  - "Classify each candidate as Gate A candidate, Gate B replay-needed, negative memory, dataset publication candidate, do-not-promote, or source-blocked."
+  - "Reference existing result/review/task files rather than duplicating their content."
+  - "Do not create or promote RESULT, CLAIM, KNOW, or PRED artifacts in this task."
+
+accepted_outputs:
+  - "docs/reviews/cross-campaign-result-promotion-inventory.md"
+  - "optional targeted task update only if an existing task is stale or unsafe"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

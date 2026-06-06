@@ -1,0 +1,45 @@
+id: TASK-0651
+title: "Review Atomic Pizzocaro covariance reconstruction feasibility"
+type: scientific_validation
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Clarify whether Pizzocaro can ever become benchmark rows or must remain diagnostic-only."
+  - "Separate covariance reconstruction feasibility from row transcription or constants-drift fitting."
+  - "Move Atomic toward a real row gate without weakening uncertainty semantics."
+
+input:
+  mode: workflow
+  related_domain: atomic_clock_residuals
+  related_objects:
+    - "docs/reviews/atomic-pizzocaro-vlbi-row-aggregation-covariance-gate.md"
+    - "docs/reviews/atomic-pizzocaro-source-to-row-extraction-ledger.md"
+    - "docs/reviews/atomic-first-benchmark-covariance-policy.md"
+    - "data/atomic_clocks/source_artifacts/pizzocaro-2020-yb-sr"
+  planning_context: >
+    Pizzocaro VLBI windows are blocked by shared systematics. This task asks
+    whether the committed source artifacts contain enough information for a
+    later covariance reconstruction, without performing a benchmark.
+
+requirements:
+  - "Inventory uncertainty components and shared-systematic fields available in committed Pizzocaro artifacts."
+  - "Decide whether a covariance reconstruction task is scientifically well-posed, under-specified, or blocked by missing source information."
+  - "Do not aggregate windows into benchmark rows, fit constants drift, fetch live data, or create result/claim artifacts."
+  - "Recommend exactly one route: covariance reconstruction task, diagnostic-only memory, or fallback-source priority."
+
+accepted_outputs:
+  - "docs/reviews/atomic-pizzocaro-covariance-reconstruction-feasibility.md"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_atomic_clock_source_manifest.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

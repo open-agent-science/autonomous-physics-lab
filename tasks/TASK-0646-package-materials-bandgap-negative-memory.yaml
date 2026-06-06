@@ -1,0 +1,46 @@
+id: TASK-0646
+title: "Package Materials band-gap split-fragility negative memory"
+type: negative_result_memory
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Prevent the split-fragile MD-0001 band-gap signal from being reused as a promoted result."
+  - "Keep Materials agents focused on formation-energy replication until wider data changes the evidence."
+  - "Preserve a useful negative result for public-safe campaign explanation."
+
+input:
+  mode: planning_only
+  related_domain: materials_property_residuals
+  related_objects:
+    - "docs/reviews/materials-md0001-band-gap-null-control-audit.md"
+    - "docs/reviews/materials-md0001-split-sensitivity-audit.md"
+    - "docs/reviews/materials-md0001-result-or-dataset-publication-decision.md"
+    - "docs/campaigns/materials-property-residuals.md"
+  planning_context: >
+    MD-0001 formation energy is split-robust enough to justify MD-0002
+    widening, but the band-gap edge is split-fragile. This should become
+    searchable negative memory so agents do not re-promote it.
+
+requirements:
+  - "Summarize the band-gap null/control and split-sensitivity evidence."
+  - "State what future evidence would reopen the band-gap lane, preferably MD-0002 larger-slice replication."
+  - "Do not rerun metrics, fetch rows, create claims, or modify dataset values."
+  - "Update the Materials campaign page only if current wording could imply band-gap promotion."
+
+accepted_outputs:
+  - "docs/reviews/materials-bandgap-split-fragility-negative-memory.md"
+  - "optional docs/campaigns/materials-property-residuals.md update"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

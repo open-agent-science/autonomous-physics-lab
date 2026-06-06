@@ -1,0 +1,47 @@
+id: TASK-0641
+title: "Build Nuclear prediction reveal-readiness matrix"
+type: scientific_validation
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Make Nuclear prediction registry status inspectable before any reveal scoring."
+  - "Separate frozen predictions that await source data from templates, diagnostics, and blocked entries."
+  - "Reduce confusion around whether Nuclear is blocked by formulas or by source-grade future data."
+
+input:
+  mode: workflow
+  related_domain: nuclear_mass_surface
+  related_objects:
+    - "prediction_registry/nuclear_masses"
+    - "docs/prediction-registry-policy.md"
+    - "docs/campaigns/nuclear-mass-surface.md"
+  planning_context: >
+    The Nuclear campaign has many frozen prediction entries, but reveal scoring
+    remains source-gated. This task creates a machine-readable readiness matrix
+    without scoring or modifying prediction values.
+
+requirements:
+  - "Inventory nuclear PRED entries and exclude templates or non-prediction fixtures from counts."
+  - "For each entry, record target count, quantity, source/reveal readiness state, no-peek state, and blocker reason."
+  - "Do not modify prediction values, target sets, reveal conditions, or registry semantics."
+  - "Do not fetch external data or score predictions."
+  - "Add or update tests only if a reusable registry summary helper is introduced."
+
+accepted_outputs:
+  - "docs/reviews/nuclear-prediction-reveal-readiness-matrix.md"
+  - "optional prediction_registry/nuclear_masses/reveal_readiness_summary.yaml"
+  - "optional tests for any new helper"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_nuclear_prediction_registry_report.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
