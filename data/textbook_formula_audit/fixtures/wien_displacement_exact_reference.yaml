@@ -44,8 +44,12 @@ negative_controls:
   wrong_peak_domain:
     convention: frequency-domain spectral radiance peak
     expected: fail_wavelength_domain_constant_check
+# Route changed by TASK-0634 from sandbox_only to scoped software-result
+# packaging for the EXP-0013 / HYP-0013 exact-reference software fixture.
+# Empirical spectrum ingestion and observational/formula claims stay blocked.
 publication_scope:
-  route: sandbox_only
+  route: scoped_software_result_packaging
+  scoped_result_route: "EXP-0013/HYP-0013 exact-reference software fixture only"
   claim_impact: none
   knowledge_impact: none
   blocked_actions:

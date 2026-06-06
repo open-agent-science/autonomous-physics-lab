@@ -43,7 +43,7 @@
     },
     "workflow": {
       "type": "string",
-      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline"]
+      "enum": ["standard", "gauntlet", "reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference"]
     },
     "amplitude_range_override": {
       "type": "object",
@@ -67,6 +67,18 @@
     "knowledge_path": {
       "type": "string",
       "minLength": 1
+    },
+    "fixture_config_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim_id": {
+      "type": "string",
+      "pattern": "^CLAIM-[0-9]{4}$"
+    },
+    "knowledge_id": {
+      "type": "string",
+      "pattern": "^KNOW-[0-9]{4}$"
     }
   },
   "allOf": [
@@ -75,7 +87,7 @@
         "required": ["workflow"],
         "properties": {
           "workflow": {
-            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline"]
+            "enum": ["reproduction", "dimensional_validation", "neutrino_koide", "quark_koide", "particle_mass_falsifier", "g2_formula_search", "anharmonic_oscillator", "nuclear_mass_baseline", "textbook_exact_reference"]
           }
         }
       },

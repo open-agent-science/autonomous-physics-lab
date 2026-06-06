@@ -28,6 +28,9 @@ from physics_lab.workflows.pendulum import (
     run_pendulum_experiment,
     run_pendulum_experiment_with_output,
 )
+from physics_lab.workflows.textbook_exact_reference import (
+    run_textbook_exact_reference_with_output,
+)
 
 
 def run_experiment(config_path: str | Path) -> ExperimentOutcome:
@@ -65,6 +68,11 @@ def run_experiment_with_output(
         )
     if workflow == "nuclear_mass_baseline":
         return run_nuclear_mass_baseline_experiment_with_output(
+            config_path=config_path,
+            output_dir=output_dir,
+        )
+    if workflow == "textbook_exact_reference":
+        return run_textbook_exact_reference_with_output(
             config_path=config_path,
             output_dir=output_dir,
         )
@@ -107,4 +115,5 @@ __all__ = [
     "run_particle_mass_falsifier_with_output",
     "run_g2_formula_experiment",
     "run_dimensional_validator_with_output",
+    "run_textbook_exact_reference_with_output",
 ]

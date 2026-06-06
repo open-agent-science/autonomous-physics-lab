@@ -48,6 +48,20 @@ def _render_report(metrics: dict[str, Any]) -> str:
     ]
     for name, gate in metrics["gates"].items():
         lines.append(f"| `{name}` | `{gate['status']}` |")
+    boundary = metrics.get("promotion_boundary", {})
+    if boundary.get("sandbox_only", True):
+        routing = [
+            "- Canonical destination: sandbox output directory and review note.",
+            "- Review tier: none.",
+            "- Gate A: not attempted.",
+        ]
+    else:
+        routing = [
+            "- Canonical destination: scoped software-result packaging route; "
+            "see the packaged results/<EXP>/<RUN>/result.yaml.",
+            "- Review tier: AGENT_PUBLISHED is decided in the packaged RESULT, not here.",
+            "- Gate A: evaluated by the result-publication gate on the packaged RESULT.",
+        ]
     lines.extend(
         [
             "",
@@ -57,9 +71,7 @@ def _render_report(metrics: dict[str, Any]) -> str:
             "",
             "## Output Routing",
             "",
-            "- Canonical destination: sandbox output directory and review note.",
-            "- Review tier: none.",
-            "- Gate A: not attempted.",
+            *routing,
             "- Gate B: not attempted.",
             "- Claim impact: no claim change.",
             "- Knowledge impact: no knowledge change.",

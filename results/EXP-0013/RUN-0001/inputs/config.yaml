@@ -1,0 +1,8 @@
+experiment_path: ../experiments/EXP-0013-textbook-exact-reference-fixtures.yaml
+hypothesis_path: ../hypotheses/HYP-0013-textbook-exact-reference-fixtures.yaml
+fixture_config_path: ../data/textbook_formula_audit/textbook_stefan_boltzmann_exact_reference.yaml
+task_id: TASK-0634
+run_id: RUN-0001
+result_id: RESULT-0019
+result_root: ../results/EXP-0013
+workflow: textbook_exact_reference

@@ -1,0 +1,18 @@
+schema_version: '1'
+artifact_type: review_metadata
+result_id: RESULT-0019
+run_id: RUN-0001
+experiment_id: EXP-0013
+claim_id: null
+knowledge_id: null
+generated_at: '2026-06-06T21:48:52+00:00'
+proposed_claim_status: null
+required_human_review: true
+evidence_basis:
+- RESULT-0019
+claim_target_file: null
+knowledge_target_file: null
+patch_artifacts:
+  claim_patch: results/EXP-0013/RUN-0001/claim_update.patch.md
+  knowledge_patch: results/EXP-0013/RUN-0001/knowledge_update.patch.md
+  review_summary: results/EXP-0013/RUN-0001/review_summary.md
