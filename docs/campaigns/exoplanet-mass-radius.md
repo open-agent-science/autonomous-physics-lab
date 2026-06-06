@@ -54,8 +54,11 @@ null-baseline scoring, composition, habitability, atmospheric, target-priority,
 prediction, or claim outputs. The two overlapping mass-class drift rows are
 recorded in the
 [row-class drift review](../reviews/exoplanet-second-snapshot-row-class-drift.md).
-The only forward step is to plan an `EXO-0003` acquisition trigger (`TASK-0599`);
-residual scoring stays closed until a materially changed, reviewed snapshot or an
+`TASK-0599` now says `EXO-0003` should wait for a material source trigger, not a
+routine timed pull. The only forward step is the metadata-only `TASK-0629`
+trigger scout: check source version, query compatibility, checksum feasibility,
+and slice-growth plausibility without fetching value-bearing rows. Residual
+scoring stays closed until a materially changed, reviewed snapshot or an
 explicitly revised coverage gate exists.
 
 **Current shareable artifact:** the

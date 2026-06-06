@@ -19,10 +19,9 @@ regressed on the validation holdout. `TASK-0552` then froze a stratified
 NMD-0003 readiness split where the region-stratified diagnostic validation
 MAE is `1.899279` MeV. `TASK-0583` independently replayed that gate and matched
 the frozen metrics exactly after a narrow path-normalization portability fix.
-The next useful work is bounded residual-feature testing under that gate, F2
-controls-first scoring, uncertainty-weighted diagnostics, and source-gated
-reveal scouting, not broad prediction waves or reruns on the 11-row bootstrap
-slice.
+The next useful work is F2 component ablation, source-gated reveal scouting,
+and negative/control memory packaging, not broad prediction waves or reruns on
+the 11-row bootstrap slice.
 
 ## Public Monitoring Snapshot
 
@@ -51,13 +50,12 @@ shortlisted, 30 rejected by controls, 42 negative, and 1 data-quality-blocked.
 baseline refit and found a useful blocker: train/full-surface MAE improved, but
 validation-holdout MAE regressed.
 
-**Expected next result:** the gate replay has now matched, and recent bounded
-feature lanes are mostly negative or control-limited. `TASK-0553` remains the
-strongest current diagnostic signal: F2 improved validation/full-known metrics
-but did not clear the survival gate. The next useful Nuclear result is therefore
-not another broad search wave; it is an independent F2 replay/control ledger
-(`TASK-0612`) followed by a narrow promotion, ablation, diagnostic-only, or
-do-not-promote decision (`TASK-0613`). Reveal scoring remains separate and
+**Expected next result:** the F2 replay/control ledger matched exactly and the
+promotion decision is now `ABLATION_NEEDED`: F2 improved validation/full-known
+metrics, but its best-control gap (`0.199260` MeV) missed the predeclared
+`0.25` MeV survival margin. The next useful Nuclear result is exactly one
+component-ablation family (`TASK-0625`) to decide whether a stable F2 component
+survives or the lane stays diagnostic-only. Reveal scoring remains separate and
 source-gated.
 
 ## Orientation Note for New Contributors

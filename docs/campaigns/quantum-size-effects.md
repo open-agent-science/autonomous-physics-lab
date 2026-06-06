@@ -39,7 +39,10 @@ inadmissible: the visible tables are model parameters, not direct size-energy
 measurements, and no checksum-pinned source copy or deterministic
 digitization package exists. Current safe work is either a maintainer-supplied
 Norris-Bawendi source-copy/digitization path or scouting one genuinely open
-direct-table source beyond the exhausted Norris/Kang pair.
+direct-table source beyond the exhausted Norris/Kang pair. `TASK-0605` scouted
+Almeida 2023 InP optical data as a promising but digitization-required open
+candidate; `TASK-0630` should now pin the source artifact and decide whether
+schema/axis semantics permit a future digitization package.
 
 **Expected next result:** either a legitimate source-artifact handoff that
 unlocks direct row curation or a blocker review that prevents another weak
