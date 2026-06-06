@@ -1,0 +1,128 @@
+{
+  "task_id": "TASK-0612",
+  "benchmark_id": "nuclear-f2-independent-replay-and-control-ledger",
+  "input_references": {
+    "committed_metrics": "agent_runs/AGENT-RUN-0060/metrics.json",
+    "committed_run_id": "AGENT-RUN-0060",
+    "source_scoring_task": "TASK-0553",
+    "controls_first_review": "docs/reviews/nuclear-f2-controls-first-scoring.md",
+    "frozen_gate": "data/nuclear_masses/nmd-0003-stratified-baseline-gate.yaml"
+  },
+  "replay_check": {
+    "full_metrics_deep_equal": true,
+    "candidate_surface_metrics_match": true,
+    "mismatch_count": 0,
+    "mismatch_paths": [],
+    "candidate_surface_verification": {
+      "train_loo": {
+        "committed": {
+          "baseline_mae_mev": 1.822262,
+          "baseline_rmse_mev": 2.429148,
+          "corrected_mae_mev": 1.618879,
+          "corrected_rmse_mev": 2.200008,
+          "mae_improvement_mev": 0.203383
+        },
+        "replayed": {
+          "baseline_mae_mev": 1.822262,
+          "baseline_rmse_mev": 2.429148,
+          "corrected_mae_mev": 1.618879,
+          "corrected_rmse_mev": 2.200008,
+          "mae_improvement_mev": 0.203383
+        },
+        "matches": true
+      },
+      "validation_holdout": {
+        "committed": {
+          "baseline_mae_mev": 1.899279,
+          "baseline_rmse_mev": 2.587583,
+          "corrected_mae_mev": 1.705814,
+          "corrected_rmse_mev": 2.333533,
+          "mae_improvement_mev": 0.193465
+        },
+        "replayed": {
+          "baseline_mae_mev": 1.899279,
+          "baseline_rmse_mev": 2.587583,
+          "corrected_mae_mev": 1.705814,
+          "corrected_rmse_mev": 2.333533,
+          "mae_improvement_mev": 0.193465
+        },
+        "matches": true
+      },
+      "full_known": {
+        "committed": {
+          "baseline_mae_mev": 1.845344,
+          "baseline_rmse_mev": 2.477693,
+          "corrected_mae_mev": 1.644933,
+          "corrected_rmse_mev": 2.24086,
+          "mae_improvement_mev": 0.200411
+        },
+        "replayed": {
+          "baseline_mae_mev": 1.845344,
+          "baseline_rmse_mev": 2.477693,
+          "corrected_mae_mev": 1.644933,
+          "corrected_rmse_mev": 2.24086,
+          "mae_improvement_mev": 0.200411
+        },
+        "matches": true
+      }
+    }
+  },
+  "replay_verdict": "REPLAY_MATCH",
+  "control_ledger": {
+    "candidate_lane": "candidate_f2_finer_taxonomy",
+    "controls": [
+      "matched_random",
+      "smooth_a",
+      "asymmetry_only",
+      "cluster_label_shuffle"
+    ],
+    "control_full_known_improvements_mev": {
+      "matched_random": {
+        "full_known_mae_improvement_mev": -0.009373,
+        "validation_holdout_mae_improvement_mev": -0.005051
+      },
+      "smooth_a": {
+        "full_known_mae_improvement_mev": -0.003254,
+        "validation_holdout_mae_improvement_mev": 0.001377
+      },
+      "asymmetry_only": {
+        "full_known_mae_improvement_mev": 0.001151,
+        "validation_holdout_mae_improvement_mev": 0.001119
+      },
+      "cluster_label_shuffle": {
+        "full_known_mae_improvement_mev": -0.006792,
+        "validation_holdout_mae_improvement_mev": -0.007939
+      }
+    },
+    "candidate_full_known_mae_improvement_mev": 0.200411,
+    "best_control_id": "asymmetry_only",
+    "best_control_full_known_mae_improvement_mev": 0.001151,
+    "survival_margin_rule_mev": 0.25,
+    "candidate_minus_best_control_mev": 0.19926,
+    "survival_margin_clears": false,
+    "validation_holdout_regresses": false,
+    "f2_scoring_verdict": "DIAGNOSTIC_ONLY_CONTROL_DOMINATED",
+    "why_diagnostic_only": "The F2 candidate improves the full-known surface by 0.200411 MeV, but the best control (asymmetry_only) already explains 0.001151 MeV, leaving a survival margin of 0.19926 MeV below the 0.25 MeV controls-first threshold. F2 is therefore control-dominated and stays diagnostic-only: no promotion, prediction, reveal score, or claim is authorized by this replay."
+  },
+  "limitations": [
+    "Retrospective AME2020 measured-row replay only; no post-AME2020 reveal scoring.",
+    "Replays committed TASK-0553 code and data under the frozen NMD-0003 stratified gate; it introduces no new fit, feature family, or label.",
+    "F2 remains diagnostic_only: the controls-first survival margin is not cleared.",
+    "Sandbox replay evidence only; no PRED, reveal score, RESULT, CLAIM, KNOW, or discovery wording is created."
+  ],
+  "output_routing": {
+    "task_verdict": "REPLAY_MATCH",
+    "canonical_destination": [
+      "agent_runs/AGENT-RUN-0067/metrics.json",
+      "agent_runs/AGENT-RUN-0067/report.md",
+      "docs/reviews/nuclear-f2-independent-replay-and-control-ledger.md"
+    ],
+    "review_tier": "none",
+    "gate_a_status": "not_attempted",
+    "gate_b_status": "not_applicable",
+    "claim_impact": "none",
+    "knowledge_impact": "none",
+    "result_impact": "no RESULT artifact created",
+    "publication_blocker": "none"
+  }
+}
