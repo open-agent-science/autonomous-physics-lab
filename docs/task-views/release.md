@@ -6,7 +6,6 @@
 
 ## READY
 
-- `TASK-0633` - Package Nuclear F2 diagnostic result-publication preflight (`scientific_result_publication`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0634` - Publish Textbook exact-reference scoped AGENT_PUBLISHED result (`scientific_result_publication`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0639` - Package NMD-0003 factory negative-result publication preflight (`scientific_result_publication`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0641` - Build Nuclear prediction reveal-readiness matrix (`scientific_validation`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
@@ -20,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0633` - Package Nuclear F2 diagnostic result-publication preflight (`scientific_result_publication`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
