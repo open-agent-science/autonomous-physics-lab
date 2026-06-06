@@ -14,7 +14,6 @@
 - `TASK-0621` - Enforce and document the Python 3.11+ runtime (`workflow_hardening`, priority `high`, difficulty `medium`, domain `developer_workflow`)
 - `TASK-0622` - Add PR finish gate helper for review, CI, and ready transition (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `maintainer_review`)
 - `TASK-0623` - Add subprocess environment guardrails for tests and helpers (`developer_infrastructure`, priority `medium`, difficulty `medium`, domain `repository_validation`)
-- `TASK-0624` - Add task-branch upstream tracking preflight (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
 
 ## IN_PROGRESS
 
@@ -22,4 +21,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0624` - Add task-branch upstream tracking preflight (`workflow_hardening`, priority `medium`, difficulty `medium`, domain `repository_coordination`)
