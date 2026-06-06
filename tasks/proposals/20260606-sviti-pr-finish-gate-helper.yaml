@@ -1,6 +1,6 @@
 proposal_id: 20260606-sviti-pr-finish-gate-helper
 title: "Add a PR finish gate helper for review, CI, and ready transition"
-status: PROPOSED
+status: ACCEPTED
 type: maintainer_workflow
 priority: high
 
@@ -71,6 +71,6 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Awaiting maintainer acceptance and canonical task id."
+  canonical_task_id: TASK-0622
+  decision: accepted
+  notes: "Accepted into TASK-0622 as a bounded PR finish-gate helper; it must not merge PRs or weaken review/CI gates."

@@ -1,0 +1,48 @@
+id: TASK-0622
+title: "Add PR finish gate helper for review, CI, and ready transition"
+type: maintainer_workflow
+status: READY
+difficulty: medium
+priority: high
+
+strategy_alignment:
+  - "Reduce repeated maintainer and agent time spent manually finishing PRs after implementation."
+  - "Compose existing clean remote review and GitHub CI checks without weakening either gate."
+  - "Keep PRs draft until deterministic review and CI are both clear."
+
+input:
+  mode: workflow
+  related_domain: maintainer_review
+  related_objects:
+    - tasks/proposals/20260606-sviti-pr-finish-gate-helper.yaml
+    - scripts/apl_review_pr.py
+    - scripts/apl_task_occupancy.py
+    - physics_lab/registry/maintainer_review.py
+    - docs/maintainer-review-agent.md
+  planning_context: "Accepted follow-up from the TASK-0617 through TASK-0620 workflow-hardening wave. Agents still spend time repeating the same review/CI/ready loop."
+
+requirements:
+  - "Add a bounded helper or subcommand that runs or consumes `python3 scripts/apl_review_pr.py --pr <number>` and requires `MERGE_OK` before any ready transition."
+  - "Poll GitHub check state through `gh` JSON or an equivalent explicit connector path and require all required checks to be green."
+  - "When CI fails, print the failing check name, URL, and exact inspection command or short diagnostic snippet."
+  - "When review or CI is blocked, leave the PR draft and print the next safe command."
+  - "Support canonical task PRs and TASK-PROPOSAL PRs without changing their review policy."
+  - "Use argument-list subprocesses and repository Python discovery; do not add shell-only critical-path logic."
+  - "Do not merge PRs, promote claims, relax review-helper checks, or bypass GitHub CI."
+
+accepted_outputs:
+  - "PR finish-gate helper or subcommand"
+  - "Tests or fixtures for MERGE_OK plus green CI, MERGE_OK plus failing CI, and review-blocked PRs"
+  - "Documentation update for the finish-gate workflow"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_maintainer_review.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
