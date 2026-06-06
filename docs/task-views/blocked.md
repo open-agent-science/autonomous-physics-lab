@@ -9,6 +9,7 @@
 - `TASK-0225` - Implement quantum-dot size-effect baseline and residual benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `condensed_matter`)
 - `TASK-0293` - Rerun quantum row-level readiness gate after direct seed (`scientific_validation`, priority `high`, difficulty `medium`, domain `condensed_matter`)
 - `TASK-0635` - Run first Gate B replay on an AGENT_PUBLISHED result (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
+- `TASK-0658` - Run Stellar M-L DEBCat row-readiness gate (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
 
 ## Research Blockers
 
@@ -17,6 +18,7 @@
 - `TASK-0336` - Curate quantum direct band-edge rows from approved source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `quantum_size_effects`)
 - `TASK-0456` - Run first Atomic Yb/Sr cross-source consistency benchmark (`scientific_benchmark`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0546` - Pilot Fresh Source Scout and add deterministic extraction runner (`research_infrastructure`, priority `medium`, difficulty `high`, domain `cross_campaign_quality`)
+- `TASK-0655` - Design Quantum non-spherical digitization fixture (`scientific_dataset_schema`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 
 ## Support Blockers
 
