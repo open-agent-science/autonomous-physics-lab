@@ -7,7 +7,7 @@ task_id: TASK-0633
 generated_at: "2026-06-06T17:25:00Z"
 engine_version: "0.1.0"
 git_commit: 8587687b69b8847c6257478e126ae0ca86b2903d
-command: "python scripts/run_nuclear_f2_component_ablation.py --output-dir D:\\Python\\APLab\\tmp\\TASK-0633-replay --review-path D:\\Python\\APLab\\tmp\\TASK-0633-replay\\review.md"
+command: "python scripts/run_nuclear_f2_component_ablation.py --output-dir .agent_scratch/TASK-0633-replay --review-path .agent_scratch/TASK-0633-replay/review.md"
 input_file_hashes:
   config:
     path: results/EXP-0012/RUN-0002/inputs/config.yaml

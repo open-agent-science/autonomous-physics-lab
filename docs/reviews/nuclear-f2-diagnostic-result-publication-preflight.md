@@ -23,7 +23,7 @@ Gate A is satisfied for a scoped diagnostic RESULT artifact.
 
 | Gate A requirement | Status | Evidence |
 | --- | --- | --- |
-| Deterministic run | PASS | `scripts/run_nuclear_f2_component_ablation.py` replayed to `D:\Python\APLab\tmp\TASK-0633-replay`. |
+| Deterministic run | PASS | `scripts/run_nuclear_f2_component_ablation.py` has a repo-local replay command targeting `.agent_scratch/TASK-0633-replay`. |
 | Verification block populated | PASS | `results/EXP-0012/RUN-0002/result.yaml` contains deterministic replay, survival-margin, and protected-result checks. |
 | Input hashes recorded | PASS | `results/EXP-0012/RUN-0002/inputs/config.yaml` records dataset, gate, manifest, control, replay, decision, and script hashes. |
 | Limitations listed | PASS | Result limitations preserve diagnostic-only and no-reveal/no-claim boundaries. |
