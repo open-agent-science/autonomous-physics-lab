@@ -16,6 +16,15 @@ build_report = MODULE.build_report
 pytest_runtime_probe = MODULE.pytest_runtime_probe
 worktree_runtime_preflight = MODULE.worktree_runtime_preflight
 
+RUNTIME_SPEC = importlib.util.spec_from_file_location(
+    "physics_lab_runtime",
+    Path(__file__).resolve().parents[1] / "physics_lab" / "_runtime.py",
+)
+assert RUNTIME_SPEC is not None and RUNTIME_SPEC.loader is not None
+RUNTIME_MODULE = importlib.util.module_from_spec(RUNTIME_SPEC)
+sys.modules[RUNTIME_SPEC.name] = RUNTIME_MODULE
+RUNTIME_SPEC.loader.exec_module(RUNTIME_MODULE)
+
 
 def _write_probe_target(root: Path) -> None:
     tests = root / "tests"
@@ -42,10 +51,12 @@ def test_agent_doctor_reports_python_minimum_version(tmp_path: Path) -> None:
     report = build_report(tmp_path, require_gh_auth=False)
 
     assert report.python.minimum_version == "3.11"
-    # The test suite itself only runs on a supported interpreter (3.11+), so the
-    # active interpreter meets the minimum and no remediation is attached.
-    assert report.python.meets_minimum is True
-    assert report.python.remediation is None
+    expected_supported = RUNTIME_MODULE.is_supported(sys.version_info)
+    assert report.python.meets_minimum is expected_supported
+    if expected_supported:
+        assert report.python.remediation is None
+    else:
+        assert report.python.remediation is not None
 
 
 def test_agent_doctor_cli_json_runs_from_repo_root() -> None:
