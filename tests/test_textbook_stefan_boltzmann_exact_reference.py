@@ -68,8 +68,11 @@ def test_exact_reference_fixture_passes_software_gates_and_rejects_controls() ->
     assert metrics["gates"]["dimensional_consistency"]["computed_verdict"] == "VALID"
     assert metrics["gates"]["wrong_temperature_exponent_control"]["control_rejected"] is True
     assert metrics["gates"]["wrong_area_control"]["control_rejected"] is True
-    assert metrics["promotion_boundary"]["sandbox_only"] is True
-    assert metrics["promotion_boundary"]["writes_canonical_result"] is False
+    # TASK-0634 changed the manifest route to scoped software-result packaging
+    # for the EXP-0013 / HYP-0013 identity; the engine now echoes that boundary.
+    assert metrics["promotion_boundary"]["sandbox_only"] is False
+    assert metrics["promotion_boundary"]["writes_canonical_result"] is True
+    assert metrics["promotion_boundary"]["claim_promotion_allowed"] is False
     assert metrics["promotion_boundary"]["empirical_audit_performed"] is False
 
 
@@ -97,4 +100,5 @@ def test_runner_writes_sandbox_metrics_and_report(tmp_path: Path) -> None:
     assert metrics["verdict"] == "VALID_IN_RANGE"
     assert "synthetic software/gate fixture only" in report
     assert "no empirical audit" in report
-    assert "Gate A: not attempted" in report
+    assert "scoped software-result packaging route" in report
+    assert "Gate A: evaluated by the result-publication gate" in report

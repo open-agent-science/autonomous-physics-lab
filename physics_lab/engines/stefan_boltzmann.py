@@ -113,6 +113,26 @@ def _dimensional_gate() -> dict[str, Any]:
     }
 
 
+def _promotion_boundary(config: dict[str, Any]) -> dict[str, Any]:
+    """Echo the fixture's declared promotion boundary.
+
+    The boundary is read from the fixture manifest so a maintainer-reviewed
+    route change (for example, sandbox-only -> scoped software-result packaging
+    for a canonical experiment/hypothesis identity) flows through the runner and
+    its report. ``empirical_audit_performed`` is always ``False`` because this
+    engine never ingests empirical emitter rows.
+    """
+
+    declared = config.get("promotion_boundary")
+    declared = declared if isinstance(declared, dict) else {}
+    return {
+        "sandbox_only": bool(declared.get("sandbox_only", True)),
+        "writes_canonical_result": bool(declared.get("writes_canonical_result", False)),
+        "claim_promotion_allowed": bool(declared.get("claim_promotion_allowed", False)),
+        "empirical_audit_performed": False,
+    }
+
+
 def audit_exact_reference_fixture(config: dict[str, Any]) -> dict[str, Any]:
     """Run software-only gates against a deterministic synthetic fixture."""
 
@@ -239,12 +259,7 @@ def audit_exact_reference_fixture(config: dict[str, Any]) -> dict[str, Any]:
         },
         "gates": gates,
         "rows": rows,
-        "promotion_boundary": {
-            "sandbox_only": True,
-            "writes_canonical_result": False,
-            "claim_promotion_allowed": False,
-            "empirical_audit_performed": False,
-        },
+        "promotion_boundary": _promotion_boundary(config),
         "limitations": [
             "Synthetic exact-reference fixture only; no empirical emitter rows were ingested.",
             "Passing gates verifies software behavior and the frozen SI convention only.",

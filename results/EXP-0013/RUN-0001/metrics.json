@@ -1,0 +1,235 @@
+{
+  "constant": {
+    "source_convention": "NIST Fundamental Physical Constants database, CODATA 2022 adjustment",
+    "value_w_m2_k4": 5.670374419e-08
+  },
+  "fixture_id": "textbook-stefan-boltzmann-exact-reference-001",
+  "gates": {
+    "constant_convention": {
+      "expected_value_w_m2_k4": 5.670374419e-08,
+      "status": "PASS"
+    },
+    "dimensional_consistency": {
+      "computed_verdict": "VALID",
+      "detail": "LHS = RHS = M L^2 T^-3",
+      "status": "PASS"
+    },
+    "exact_reference": {
+      "max_relative_error": 0.0,
+      "status": "PASS"
+    },
+    "monotonicity": {
+      "radius_increases_power": true,
+      "status": "PASS",
+      "temperature_increases_power": true
+    },
+    "radius_r2_area_scaling": {
+      "max_relative_error": 1.164153218269348e-16,
+      "status": "PASS"
+    },
+    "temperature_t4_scaling": {
+      "max_relative_error": 0.0,
+      "status": "PASS"
+    },
+    "wrong_area_control": {
+      "control_rejected": true,
+      "max_relative_error": 0.7500000000000001,
+      "status": "PASS"
+    },
+    "wrong_temperature_exponent_control": {
+      "control_rejected": true,
+      "max_relative_error": 0.9999750000000001,
+      "status": "PASS"
+    }
+  },
+  "limitations": [
+    "Synthetic exact-reference fixture only; no empirical emitter rows were ingested.",
+    "Passing gates verifies software behavior and the frozen SI convention only.",
+    "No universal Stefan-Boltzmann-law validation or falsification is authorized."
+  ],
+  "promotion_boundary": {
+    "claim_promotion_allowed": false,
+    "empirical_audit_performed": false,
+    "sandbox_only": false,
+    "writes_canonical_result": true
+  },
+  "rows": [
+    {
+      "area_m2": 6.082104402130212e+16,
+      "luminosity_expected_W": 1.3471800474815016e+23,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 69570000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R01-T01",
+      "split": "reference",
+      "temperature_K": 2500.0
+    },
+    {
+      "area_m2": 6.082104402130212e+16,
+      "luminosity_expected_W": 3.827990903152591e+24,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 69570000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R01-T02",
+      "split": "holdout",
+      "temperature_K": 5772.0
+    },
+    {
+      "area_m2": 6.082104402130212e+16,
+      "luminosity_expected_W": 3.448780921552644e+25,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 69570000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R01-T03",
+      "split": "reference",
+      "temperature_K": 10000.0
+    },
+    {
+      "area_m2": 6.082104402130212e+16,
+      "luminosity_expected_W": 8.828879159174769e+27,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 69570000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R01-T04",
+      "split": "holdout",
+      "temperature_K": 40000.0
+    },
+    {
+      "area_m2": 6.082104402130212e+18,
+      "luminosity_expected_W": 1.3471800474815015e+25,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 695700000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R02-T01",
+      "split": "holdout",
+      "temperature_K": 2500.0
+    },
+    {
+      "area_m2": 6.082104402130212e+18,
+      "luminosity_expected_W": 3.827990903152591e+26,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 695700000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R02-T02",
+      "split": "reference",
+      "temperature_K": 5772.0
+    },
+    {
+      "area_m2": 6.082104402130212e+18,
+      "luminosity_expected_W": 3.448780921552644e+27,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 695700000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R02-T03",
+      "split": "holdout",
+      "temperature_K": 10000.0
+    },
+    {
+      "area_m2": 6.082104402130212e+18,
+      "luminosity_expected_W": 8.828879159174768e+29,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 695700000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R02-T04",
+      "split": "reference",
+      "temperature_K": 40000.0
+    },
+    {
+      "area_m2": 6.08210440213021e+20,
+      "luminosity_expected_W": 1.3471800474815012e+27,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 6957000000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R03-T01",
+      "split": "reference",
+      "temperature_K": 2500.0
+    },
+    {
+      "area_m2": 6.08210440213021e+20,
+      "luminosity_expected_W": 3.82799090315259e+28,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 6957000000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R03-T02",
+      "split": "holdout",
+      "temperature_K": 5772.0
+    },
+    {
+      "area_m2": 6.08210440213021e+20,
+      "luminosity_expected_W": 3.448780921552643e+29,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 6957000000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R03-T03",
+      "split": "reference",
+      "temperature_K": 10000.0
+    },
+    {
+      "area_m2": 6.08210440213021e+20,
+      "luminosity_expected_W": 8.828879159174766e+31,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 6957000000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R03-T04",
+      "split": "holdout",
+      "temperature_K": 40000.0
+    },
+    {
+      "area_m2": 6.082104402130212e+22,
+      "luminosity_expected_W": 1.3471800474815015e+29,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 69570000000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R04-T01",
+      "split": "holdout",
+      "temperature_K": 2500.0
+    },
+    {
+      "area_m2": 6.082104402130212e+22,
+      "luminosity_expected_W": 3.827990903152591e+30,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 69570000000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R04-T02",
+      "split": "reference",
+      "temperature_K": 5772.0
+    },
+    {
+      "area_m2": 6.082104402130212e+22,
+      "luminosity_expected_W": 3.448780921552644e+31,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 69570000000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R04-T03",
+      "split": "holdout",
+      "temperature_K": 10000.0
+    },
+    {
+      "area_m2": 6.082104402130212e+22,
+      "luminosity_expected_W": 8.828879159174768e+33,
+      "luminosity_provenance_class": "exact_fixture",
+      "radius_m": 69570000000.0,
+      "route": "synthetic_blackbody",
+      "row_id": "SB-SYN-R04-T04",
+      "split": "reference",
+      "temperature_K": 40000.0
+    }
+  ],
+  "scope": {
+    "holdout_row_count": 8,
+    "radius_range_m": [
+      69570000.0,
+      69570000000.0
+    ],
+    "reference_row_count": 8,
+    "route": "synthetic_blackbody_exact_reference",
+    "row_count": 16,
+    "software_fixture_only": true,
+    "temperature_range_K": [
+      2500.0,
+      40000.0
+    ]
+  },
+  "task_id": "TASK-0527",
+  "verdict": "VALID_IN_RANGE"
+}
