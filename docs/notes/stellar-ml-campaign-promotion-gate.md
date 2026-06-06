@@ -15,7 +15,7 @@ datasets.
 
 Inputs reviewed:
 
-- `tasks/TASK-0604-select-stellar-ml-independent-mass-source.yaml`
+- `TASK-0604`
 - `docs/campaigns/textbook-formula-audit.md`
 - `docs/campaigns/README.md`
 - `docs/reviews/textbook-stellar-ml-row-readiness-gate.md`
