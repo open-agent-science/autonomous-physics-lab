@@ -21,4 +21,4 @@ None.
 
 ## REVIEW_READY
 
-None.
+- `TASK-0638` - Raise READY science pool health targets (`maintainer_workflow`, priority `high`, difficulty `medium`, domain `cross_campaign_queue_health`)
