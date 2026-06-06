@@ -1,6 +1,6 @@
 proposal_id: 20260606-sviti-task-branch-upstream-preflight
 title: "Add task-branch upstream tracking preflight"
-status: PROPOSED
+status: ACCEPTED
 type: workflow_hardening
 priority: medium
 
@@ -65,6 +65,6 @@ validation:
     - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
 
 promotion:
-  canonical_task_id: null
-  decision: pending
-  notes: "Awaiting maintainer acceptance and canonical task id."
+  canonical_task_id: TASK-0624
+  decision: accepted
+  notes: "Accepted into TASK-0624 as a task-branch upstream tracking preflight; no force-push or automatic upstream mutation is authorized."

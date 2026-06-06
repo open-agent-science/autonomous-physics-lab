@@ -1,0 +1,48 @@
+id: TASK-0624
+title: "Add task-branch upstream tracking preflight"
+type: workflow_hardening
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Reduce accidental pushes to the wrong upstream during one-task-per-worktree execution."
+  - "Make branch publication diagnostics explicit before an agent reaches the PR finish step."
+  - "Support fast, safe task execution across parallel agent worktrees."
+
+input:
+  mode: workflow
+  related_domain: repository_coordination
+  related_objects:
+    - tasks/proposals/20260606-sviti-task-branch-upstream-preflight.yaml
+    - scripts/apl_branch_precondition.py
+    - scripts/apl_task_pr_helper.py
+    - docs/agent-task-protocol.md
+    - docs/notes/agent-worktree-discipline.md
+  planning_context: "Accepted follow-up from the TASK-0617 CI fix, where a task branch tracked `origin/main` even though the safe publication target was the task branch."
+
+requirements:
+  - "Detect the current branch, upstream branch, and remote branch name using git commands with `shell=False`."
+  - "Flag canonical task, TASK-PROPOSAL, TASK-QUEUE, closeout, and microtask branches whose upstream does not match the branch name."
+  - "Print an exact safe command such as `git push origin HEAD:<current-branch>` when upstream tracking is wrong or missing."
+  - "Optionally integrate the check into `apl_task_pr_helper`, `apl_proposal_pr_helper`, or `apl_branch_precondition.py`."
+  - "Do not force-push, rewrite branch history, or mutate upstream tracking unless the maintainer explicitly requests an apply mode."
+  - "Add tests for correctly tracked branches, `origin/main` tracking, missing upstream, and detached HEAD."
+  - "Keep behavior cross-platform and avoid shell-only parsing."
+
+accepted_outputs:
+  - "Task-branch upstream tracking preflight"
+  - "Tests for safe and unsafe upstream states"
+  - "Documentation update for safe explicit push commands"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_task_pr_helper.py tests/test_apl_branch_precondition.py -q"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent
