@@ -23,7 +23,7 @@ input:
     candidate, and the landed TASK-0610 review selected the DEBCat source
     artifact path. The next useful step is source-artifact packaging before
     any row curation, luminosity calculation, exponent fitting, or empirical
-    formula audit.
+    formula audit while preserving the later row-acquisition blocker.
 
 requirements:
   - "Start from the landed TASK-0610 source-path decision; if the source artifact is not accessible or reuse terms block committed artifact packaging, preserve a precise blocker review."

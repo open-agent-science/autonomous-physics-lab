@@ -71,6 +71,7 @@ STRICT_DONE_TASK_TYPES_WITHOUT_RESULTS = {
     "scientific_validation",
     "schema_extension",
     "scoring_design",
+    "snapshot_tooling",
     "test_infrastructure",
     "tooling_fix",
     "thought_experiment_planning",

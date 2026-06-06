@@ -102,10 +102,13 @@ universal validation or falsification.
 
 **Short version:** APL now has a first reusable-dataset candidate and first
 baseline benchmark: `MD-0001`, a Materials Project stable-binary-oxides pilot
-with 169 rows, CC BY 4.0 attribution, checksum, dataset version, schema
-guidance, and validator coverage. The first conservative benchmark finds that
-simple composition-aware baselines help formation energy more clearly than
-band gap.
+with 169 computed-DFT rows, CC BY 4.0 attribution, checksum, dataset version,
+schema guidance, and validator coverage. The first conservative benchmark was
+replayed exactly. Formation energy is the clearer diagnostic axis: the
+composition-aware cation-group baseline beats global baselines, survives
+deterministic null controls, and is split-robust. Band gap is weaker: it
+survived the first null-control audit only modestly, and later split-sensitivity
+found the ordering split-fragile.
 
 **Why it is interesting:** this is the first concrete evidence trail showing
 APL can turn a published/open source into a provenance-rich benchmark dataset
@@ -113,13 +116,18 @@ before modeling. It is a dataset artifact, not a claim.
 
 **Limitation:** the rows are computed DFT values from Materials Project, not
 experimental measurements. This is not a material recommendation, synthesis
-guide, device claim, external dataset repository, or DOI.
+guide, device claim, biomedical claim, promoted result, external dataset
+repository, or DOI.
 
 **Evidence trail:**
 
 - [Materials Property Residuals campaign page](./materials-property-residuals.md)
 - [Materials binary-oxides dataset review](../reviews/materials-binary-oxides-dataset.md)
 - [Materials MD-0001 baseline benchmark](../reviews/materials-md0001-baseline-residual-benchmark.md)
+- [Materials MD-0001 independent replay](../reviews/materials-md0001-independent-baseline-replay.md)
+- [Materials MD-0001 formation-energy null-control audit](../reviews/materials-md0001-formation-energy-null-control-audit.md)
+- [Materials MD-0001 split-sensitivity audit](../reviews/materials-md0001-split-sensitivity-audit.md)
+- [Materials MD-0001 promotion preflight](../reviews/materials-md0001-benchmark-promotion-preflight.md)
 - [Materials data area](../../data/materials/README.md)
 - [Published-source and reusable-dataset standard](../published-source-dataset-standard.md)
 
@@ -132,7 +140,7 @@ guide, device claim, external dataset repository, or DOI.
 | [Quantum Size Effects](./quantum-size-effects.md) | Can APL build a direct-measurement row dataset before running size-effect baselines? | Calibration-derived rows and source triage exist; `TASK-0490` landed a synthetic digitization fixture; Norris-Bawendi has a maintainer source-copy handoff; Kang-Wise is currently inadmissible. | Maintainer source-copy/digitization for Norris-Bawendi or one open direct-table source scout. | A legal source-artifact handoff or blocker, not model metrics. |
 | [Atomic-Clock Residuals](./atomic-clock-residuals.md) | Can high-precision frequency-ratio data become a benchmark surface without hiding covariance or source-version risk? | Beloy 2021 is pinned as sandbox-only `ACR-0001`; a PSD source-derived covariance approximation exists; the real-row loader and synthetic cross-source dry-run have landed; Beloy row roles are assigned; Pizzocaro source artifacts are pinned, but rows remain blocked. | Pizzocaro row-admissibility gate. | A decision on whether Pizzocaro can become a second Yb/Sr row or remains blocker memory. |
 | [Textbook Formula Audit](./textbook-formula-audit.md) | Can APL audit famous formulas by source, range, assumptions, and OOD failure maps? | Campaign scaffold and ranked candidate slate exist; Stefan-Boltzmann and Wien have exact-reference fixtures; scoped result packaging is blocked on exact `EXP/HYP` identities; Stellar M-L is blocked on an independent mass source. | Define exact-reference result identities and select Stellar M-L independent mass-source candidates. | A scoped identity gate or mass-source selection, not empirical metrics. |
-| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; independent replay matched; formation energy is the clearer signal; band gap is weak but survived the first null-control audit; promotion remains blocked. | Formation-energy controls, split sensitivity, and MD-0002 widening plan. | A stronger Materials control verdict or a source-first MD-0002 plan. |
+| [Materials Property Residuals](./materials-property-residuals.md) | Can APL turn open, published materials databases into reusable benchmark datasets and conservative residual maps? | `MD-0001` landed as a first reusable-dataset candidate; independent replay matched exactly; formation energy survives deterministic controls and is split-robust; band gap is weak and split-fragile; promotion remains blocked. | Public-safe evidence routing and source-first MD-0002 widening only after the active gate authorizes it. | A source-first MD-0002 preflight, not a material recommendation. |
 
 ## What Is Interesting Right Now
 
@@ -226,10 +234,11 @@ Stellar M-L mass-source selection before any empirical metrics.
 Materials is now a fast path from dataset artifact to a new benchmark surface.
 The first pinned dataset is small by design, openly licensed, validated in the
 repo, and now has holdout, citation metadata, a first conservative baseline
-benchmark, independent replay, a do-not-promote decision, and a weak
-band-gap null-control survival result. The next public artifact should be a
-formation-energy control verdict, split-sensitivity decision, or source-first
-MD-0002 plan, not a model leaderboard or material recommendation.
+benchmark, independent replay, a do-not-promote decision, formation-energy null
+controls, and split-sensitivity evidence. Formation energy is the stronger
+axis; band gap stays diagnostic and split-fragile. The next public artifact
+should be a source-first MD-0002 preflight, not a model leaderboard or material
+recommendation.
 
 Why it matters:
 
