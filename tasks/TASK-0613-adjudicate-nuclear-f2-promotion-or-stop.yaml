@@ -1,7 +1,7 @@
 id: TASK-0613
 title: "Adjudicate Nuclear F2 promotion, ablation, or stop decision"
 type: research_quality_gate
-status: BLOCKED
+status: READY
 difficulty: high
 priority: high
 
