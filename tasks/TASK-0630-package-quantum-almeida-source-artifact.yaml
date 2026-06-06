@@ -1,0 +1,48 @@
+id: TASK-0630
+title: "Package Quantum Almeida 2023 source artifact and digitization feasibility"
+type: scientific_dataset
+status: READY
+difficulty: high
+priority: high
+
+strategy_alignment:
+  - "Advance Quantum Size Effects only through source-pinned direct-measurement or audited digitization paths."
+  - "Test whether Almeida 2023 can become a legitimate open source artifact before any row curation."
+  - "Avoid quantum-size formula search until measurement-grade rows exist."
+
+input:
+  mode: workflow
+  related_domain: quantum_size_effects
+  related_objects:
+    - "docs/reviews/quantum-open-direct-table-source-scout-02.md"
+    - "docs/quantum-direct-source-artifact-intake.md"
+    - "docs/quantum-direct-measurement-digitization-protocol.md"
+    - "data/quantum_dots/source_manifest.yaml"
+  planning_context: >
+    TASK-0605 classified Almeida 2023 InP optical data as
+    PROMISING_DIGITIZATION_REQUIRED_SOURCE. The next gate is source-artifact
+    pinning and axis/figure feasibility, not row extraction yet.
+
+requirements:
+  - "Pin article/SI locators, retrieval date, checksum feasibility, license/reuse posture, and exact figure/panel surfaces for Almeida 2023."
+  - "Decide whether tetrahedral edge length/volume can be represented by the current quantum-dot schema or requires a schema follow-up."
+  - "Record comparison-data provenance requirements for article data versus Xu et al. points."
+  - "Do not digitize coordinates, transcribe values, add `qd-*.yaml` rows, run baselines, or search formulas."
+  - "Recommend exactly one outcome: DIGITIZATION_READY, SCHEMA_EXTENSION_NEEDED, SOURCE_ARTIFACT_BLOCKED, or REJECT_SOURCE."
+
+accepted_outputs:
+  - "docs/reviews/quantum-almeida-2023-source-artifact-digitization-feasibility.md"
+  - "optional metadata-only source manifest update"
+  - "optional follow-up task recommendation for schema extension or digitization package"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_quantum_dot_dataset_schema.py tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

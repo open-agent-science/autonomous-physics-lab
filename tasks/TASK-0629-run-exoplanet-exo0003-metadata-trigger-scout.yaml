@@ -1,0 +1,46 @@
+id: TASK-0629
+title: "Run EXO-0003 metadata-only source trigger scout"
+type: scientific_dataset
+status: READY
+difficulty: medium
+priority: medium
+
+strategy_alignment:
+  - "Keep Exoplanet closed-lane memory intact while checking whether a future snapshot is scientifically justified."
+  - "Avoid another value-bearing acquisition until metadata shows material row growth is plausible."
+  - "Preserve Exoplanet as a disciplined public-data campaign without residual-scoring churn."
+
+input:
+  mode: planning_only
+  related_domain: exoplanet_mass_radius
+  related_objects:
+    - "docs/reviews/exoplanet-third-snapshot-trigger-plan.md"
+    - "docs/reviews/exoplanet-second-snapshot-negative-memory-routing.md"
+    - "data/exoplanets/second_snapshot_reopen_coverage_gate.yaml"
+    - "docs/runbooks/exoplanet-second-snapshot-acquisition-runbook.md"
+  planning_context: >
+    TASK-0599 says EXO-0003 should wait for a material source trigger, then
+    run a metadata-only scout before any value-bearing snapshot acquisition.
+
+requirements:
+  - "Check source version/release evidence, query compatibility, checksum feasibility, and whether at least one declared residual slice plausibly clears floor/growth thresholds."
+  - "Do not fetch or commit value-bearing PSCompPars rows."
+  - "Do not inspect residuals, target values, composition/habitability labels, target-priority labels, or baseline metrics."
+  - "Recommend exactly one outcome: WAIT, QUERY_AMENDMENT_REVIEW, SNAPSHOT_PREFLIGHT_READY, or GATE_REVISION_REVIEW."
+  - "Do not reopen residual scoring or create result/prediction/claim artifacts."
+
+accepted_outputs:
+  - "docs/reviews/exoplanet-exo0003-metadata-trigger-scout.md"
+  - "optional metadata-only update to the campaign page if the trigger state changes"
+
+validation:
+  commands:
+    - "python3 -m ruff check ."
+    - "python3 -m pytest tests/test_docs_links.py"
+    - "python3 -m physics_lab.cli validate-repo . --strict --fail-on-warnings"
+
+can_be_done_by:
+  - human
+  - codex
+  - claude_code
+  - llm_agent

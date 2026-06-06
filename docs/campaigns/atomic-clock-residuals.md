@@ -48,12 +48,13 @@ The main remaining Atomic source gate is row-level admissibility:
 value-bearing Yb/Sr row or whether the campaign should preserve a precise
 blocker instead of running constants-drift or mixed-axis metrics.
 
-**Expected next result:** a source-to-row extraction ledger for the committed
-Pizzocaro artifacts (`TASK-0615`). That ledger should either identify one
-auditable row-of-record surface for future curation or preserve a precise
-blocker. Only after that can Atomic move back toward the `BASELINE_READY` gate
-through a second source row or an explicit waiver plus row-level holdout/no-peek
-fields from the manifest.
+**Expected next result:** the Pizzocaro ledger identified Figure 2a VLBI
+time-series as the best row-of-record surface, but benchmark ingestion remains
+blocked until aggregation and covariance semantics are frozen. `TASK-0627` is
+the next gate: add at most a sandbox-flagged row/curation artifact if the VLBI
+surface is admissible, or preserve a precise blocker. `TASK-0606` also selected
+Lange/PTB Yb+ E3/Cs as a fallback candidate, still blocked on exact artifact
+locator and reuse review.
 
 `TASK-0311` adds:
 

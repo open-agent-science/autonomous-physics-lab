@@ -1,7 +1,7 @@
 id: TASK-0610
 title: "Evaluate Stellar M-L source candidates after TASK-0604"
 type: scientific_dataset
-status: BLOCKED
+status: READY
 difficulty: medium
 priority: high
 
@@ -20,13 +20,13 @@ input:
     - "docs/campaigns/textbook-formula-audit.md"
     - "data/textbook_formula_audit/stellar_ml/source_manifest.yaml"
   planning_context: >
-    TASK-0604 is expected to identify two or three independent mass-source
-    candidates for a future Stellar M-L empirical row package. This task is
-    intentionally blocked until that selection review exists; it then decides
-    which candidate can support source-artifact packaging and row curation.
+    TASK-0604 identified independent mass-source candidates for a future
+    Stellar M-L empirical row package, with DEBCat as the first-choice source.
+    This task now decides which candidate can support source-artifact packaging
+    and row curation.
 
 requirements:
-  - "Start only after TASK-0604 lands a source-selection review or explicitly records that no source candidate was found."
+  - "Start from the landed TASK-0604 source-selection review, which selected DEBCat as the first-choice candidate and Torres/Andersen/Gimenez plus Eker et al. as secondary candidates."
   - "Review each candidate for source locator stability, license/reuse posture, checksum feasibility, row count, direct-versus-derived mass semantics, luminosity derivation requirements, uncertainty semantics, and holdout implications."
   - "Select at most one first source for a row-acquisition task, or preserve a blocker review if no source clears the gate."
   - "Do not fetch or transcribe value-bearing rows, compute luminosities, fit mass-luminosity exponents, run residual metrics, or promote formula verdicts."
