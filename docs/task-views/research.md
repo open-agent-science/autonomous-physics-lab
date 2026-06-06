@@ -7,6 +7,7 @@
 ## READY
 
 - `TASK-0631` - Plan Materials MD-0002 acquisition preflight package (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `materials_property_residuals`)
+- `TASK-0635` - Run first Gate B replay on an AGENT_PUBLISHED result (`scientific_replay_validation`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
 - `TASK-0636` - Create Atomic Pizzocaro per-window diagnostic ledger (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0640` - Scout Nuclear post-AME2020 reveal source candidates (`scientific_dataset`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
 - `TASK-0642` - Map Nuclear do-not-repeat diagnostic lanes (`negative_result_memory`, priority `high`, difficulty `medium`, domain `nuclear_mass_surface`)
@@ -19,6 +20,7 @@
 - `TASK-0652` - Package Atomic Lange/PTB Yb+ source-artifact preflight (`scientific_dataset`, priority `high`, difficulty `high`, domain `atomic_clock_residuals`)
 - `TASK-0653` - Map Atomic cross-source benchmark blockers (`research_quality_gate`, priority `medium`, difficulty `medium`, domain `atomic_clock_residuals`)
 - `TASK-0654` - Package Quantum Almeida license and figure-surface review (`scientific_dataset`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+- `TASK-0655` - Design Quantum non-spherical digitization fixture (`scientific_dataset_schema`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0656` - Scout second Quantum open direct-table source (`scientific_dataset`, priority `medium`, difficulty `medium`, domain `quantum_size_effects`)
 - `TASK-0657` - Define Stellar M-L DEBCat holdout and leakage protocol (`benchmark_protocol`, priority `high`, difficulty `medium`, domain `textbook_formula_audit`)
 - `TASK-0659` - Build cross-campaign result-promotion inventory (`research_quality_gate`, priority `high`, difficulty `medium`, domain `cross_campaign_quality`)
@@ -30,5 +32,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0628` - Package Stellar M-L DEBCat source artifact (`scientific_dataset`, priority `high`, difficulty `high`, domain `textbook_formula_audit`)
-- `TASK-0637` - Extend Quantum Size Effects schema for non-spherical size axes (`scientific_dataset_schema`, priority `high`, difficulty `medium`, domain `quantum_size_effects`)
+None.

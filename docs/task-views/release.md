@@ -19,4 +19,4 @@ None.
 
 ## REVIEW_READY
 
-- `TASK-0633` - Package Nuclear F2 diagnostic result-publication preflight (`scientific_result_publication`, priority `high`, difficulty `high`, domain `nuclear_mass_surface`)
+None.
