@@ -1,6 +1,6 @@
 # Autonomous Physics Lab — Context Bundle
 
-Generated: 2026-06-03 22:28 UTC
+Generated: 2026-06-06 08:27 UTC
 Mode: core
 Repo: gladunrv/autonomous-physics-lab
 
@@ -572,6 +572,35 @@ lacks GitHub access. If CI fails, the review agent blocks, or the agent is
 still applying fixes, keep the PR in draft and report the next command or
 blocker.
 
+Before opening a PR, choose the helper that matches the PR kind:
+
+- canonical `TASK-XXXX`: `python3 scripts/apl_task_pr_helper.py`
+- task proposal: `python3 scripts/apl_proposal_pr_helper.py`
+- microtask: `python3 scripts/apl_microtask_pr_helper.py`
+- task closeout: `python3 scripts/apl_closeout_pr_helper.py`
+- task queue: use the repository PR template and `TASK-QUEUE` branch/title
+  rules; do not mark newly queued tasks `REVIEW_READY` or implement them in the
+  same PR.
+
+Before opening a canonical task PR, agents should prefer the repository-native
+Python helper instead of hand-writing branch/title/body metadata:
+
+```bash
+python3 scripts/apl_task_pr_helper.py prepare-current \
+  --task-id TASK-XXXX \
+  --contributor-id <contributor-id> \
+  --github-username <github-username> \
+  --agent-id <agent-id> \
+  --human-reviewer <maintainer-github-username> \
+  --summary "What changed, in narrow verification-first terms." \
+  --body-file .apl-pr-body.md
+```
+
+`prepare-current` uses the actual current branch and diff, so it catches
+non-canonical branch names and incomplete PR bodies before a bad draft PR is
+opened. It works through Python on Windows, macOS, and Linux and does not add a
+shell-script critical path.
+
 If `git add` or `git commit` fails inside Codex with
 `.git/index.lock: Operation not permitted`, treat it as a sandbox permission
 issue and retry the same git command with escalation. Do not tell the
@@ -726,6 +755,17 @@ shortlist memory (no automatic claims). Exit criteria and sequencing are in
 Build verification-first scientific infrastructure for testing, falsifying,
 scoring, and reusing physics hypotheses.
 
+## Strategic North Star
+
+Open Agent Science is the umbrella goal: prove that human-owned AI agents can
+produce reproducible, reviewable, citable scientific outputs in shared public
+memory.
+
+Autonomous Physics Lab is the first domain proof-of-work for that goal:
+physics-first, verification-first, and campaign-based. APL should show that
+agents can preserve evidence, failures, limitations, replays, predictions, and
+review tiers without turning every interesting pattern into a claim.
+
 APL is not trying to generate dramatic claims on demand. It is trying to make
 scientific work reproducible, reviewable, and reusable through deterministic
 code and version-controlled evidence.
@@ -765,33 +805,37 @@ emphasis:
    pinned snapshots, baseline comparisons, residual failure maps, and
    selection-effect audits are useful without claiming a new planet law.
 4. Prepare new campaign lanes through source-first scaffolds before hypothesis
-   batches: Textbook Formula Audit, Materials/JARVIS-style property residuals,
-   Quantum Size Effects, and Atomic-Clock Residuals.
-5. Validate the contributor and agent workflow with measurable gates:
+   batches: Textbook Formula Audit, Quantum Size Effects, and Atomic-Clock
+   Residuals.
+5. Treat Materials Property Residuals as an emerging reusable-dataset and
+   benchmark-readiness lane: `MD-0001` is source-pinned and replayable, but
+   benchmark promotion remains blocked until controls, split sensitivity, and
+   reuse metadata make a narrower result path credible.
+6. Validate the contributor and agent workflow with measurable gates:
    task-based PRs, scientific sandbox PRs, independent replay or audit PRs,
    clean review-helper behavior, closeout, gated result publication, and zero
    automatic claim promotion.
-6. Prepare and maintain a clear Mission Control and campaign-map layer so new
+7. Prepare and maintain a clear Mission Control and campaign-map layer so new
    contributors can see what APL is trying to do and where evidence already
    exists.
-7. Treat open-agent-network coordination as a first-class design goal: many
+8. Treat open-agent-network coordination as a first-class design goal: many
    agents may work in parallel, but only through task contracts, disjoint
    branches or worktrees, disjoint artifact surfaces, evidence gates, and
    maintainer review.
-8. Keep Koide and particle-mass work falsification-first, narrow in scope, and
+9. Keep Koide and particle-mass work falsification-first, narrow in scope, and
    resistant to numerology overclaim.
-9. Improve visual result summaries, campaign summaries, and contributor-facing
+10. Improve visual result summaries, campaign summaries, and contributor-facing
    navigation around the strongest current evidence, including negative-result
    surfaces.
-10. Package the current result layer into a coherent v0.2 story without
+11. Package the current result layer into a coherent v0.2 story without
    relaxing scope or limitation wording.
-11. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
+12. Use [blind-holdout-benchmark-protocol.md](./blind-holdout-benchmark-protocol.md)
    for future prediction-style benchmarks that need a visible before/after
    target reveal boundary.
-12. Distinguish retrospective time-split benchmarks from prospective prediction:
+13. Distinguish retrospective time-split benchmarks from prospective prediction:
    post-AME2020 nuclear-mass evaluation is a stronger holdout surface, while
    true future predictions require a pre-registered prediction artifact.
-13. Prepare public launch only after the explicit gates in
+14. Prepare public launch only after the explicit gates in
    [public-release-gates.md](./public-release-gates.md) are satisfied.
 
 Future research direction is curated through
@@ -817,6 +861,17 @@ agent-validated replays, maintainer-reviewed scoped claims, and reusable
 knowledge. A healthy campaign is not the one with the most activity; it is the
 one that steadily converts bounded work into reviewable scientific memory while
 making blockers and failed ideas visible.
+
+Near public-alpha, the most important metrics are:
+
+- `AGENT_PUBLISHED`, `AGENT_VALIDATED`, maintainer-reviewed, and externally
+  replicated artifacts that remain clearly tiered;
+- independent replay PRs and adversarial audit PRs;
+- reusable source-pinned datasets with citation and reuse metadata;
+- negative, null, overfit, or inconclusive results that prevent repeated weak
+  work;
+- external contributors or agent operators who can reproduce the branch,
+  validation, review, and closeout loop without private context.
 
 ## Current North-Star Outcomes
 
@@ -963,8 +1018,9 @@ source/schema/baseline scaffolds first, not broad hypothesis batches.
 ## Current Mission Shape
 
 APL currently has one flagship validation campaign, one active secondary
-benchmark surface, two source-readiness surfaces, and one public-friendly
-formula-audit scaffold. That mix is deliberate:
+benchmark surface, two source-readiness surfaces, one public-friendly
+formula-audit scaffold, and one emerging reusable-dataset lane. That mix is
+deliberate:
 some agents can stress the strongest current evidence, others can build
 source/baseline discipline, and curators can prepare new campaign lanes without
 turning watchlist topics into formula-search work.
@@ -976,6 +1032,7 @@ turning watchlist topics into formula-search work.
 | [Quantum Size Effects](./campaigns/quantum-size-effects.md) | Source-readiness campaign before any measurement benchmark | APS direct-table source artifact attempts, source-artifact packaging, digitization protocol review, readiness gates |
 | [Atomic-Clock Residuals](./campaigns/atomic-clock-residuals.md) | High-precision fresh-data surface with Beloy 2021 pinned as sandbox-only rows, deterministic real-row loader, synthetic cross-source dry-run, Nemitz 2016 source artifact pinned but rows blocked, and first-benchmark covariance policy defined | fallback source triage, direct-vs-derived separation, then baseline-readiness gate |
 | [Textbook Formula Audit](./campaigns/textbook-formula-audit.md) | New scaffold for range-aware audits of famous formulas; Stefan-Boltzmann exact-reference fixture has landed, while empirical audits have not | Wien exact-reference fixture and empirical source/baseline planning before any real-source metrics |
+| [Materials Property Residuals](./campaigns/materials-property-residuals.md) | Emerging reusable-dataset lane with `MD-0001`, independent replay, do-not-promote preflight, and early null-control memory | formation-energy controls, split sensitivity, citation/reuse metadata, public-safe evidence card, and MD-0002 planning only if the current seed earns widening |
 
 Mature quality-floor tracks still matter: Pendulum, Dimensional Analysis, and
 Particle Mass Relations keep the repository honest about exact references,
@@ -999,7 +1056,7 @@ Near-term portfolio shape:
 | Prepare/source-readiness | Quantum Size Effects | Stay direct-row/source-artifact first before modeling or fitting. |
 | Pinned-dataset to benchmark-readiness | Atomic-Clock Residuals | Close second-source, loader, holdout/no-peek, and covariance-policy blockers before the first Yb/Sr consistency benchmark. |
 | New public-friendly scaffold | Textbook Formula Audit | Use exact-reference fixtures first, then empirical source/baseline planning; no real-source metrics before source, schema, holdout, and verification gates. |
-| Candidate new lanes | Materials Property Residuals | Scaffold source, baseline, and holdout rules before any hypothesis batches. |
+| Emerging reusable-dataset lane | Materials Property Residuals | Treat `MD-0001` as source-pinned dataset memory; run controls and citation/reuse hardening before widening or result promotion. |
 | Guardrail/watchlist | g-2, Hubble, broad constants, particle-mass formula search | Keep schema, admissibility, or falsification-first only unless a maintainer creates a stronger gated task. |
 
 ## Default Research Mode
@@ -1018,6 +1075,10 @@ driven. Agents publish reproducible evidence only when task scope and gates
 allow it; agents validate each other; maintainers endorse interpretation; and
 external data confirms predictions. Claim status transitions and knowledge
 endorsement remain maintainer-only in Phase 1.
+
+The broader organization frame is Open Agent Science. APL is the first physics
+proof-of-work: agents should optimize for citable, replayable scientific memory
+and visible limitations, not for raw task count or dramatic discovery wording.
 
 ## Parallel Agent Policy
 
@@ -2346,6 +2407,62 @@ PR body.
 
 Use [./agent-scientific-work-mode.md](./agent-scientific-work-mode.md) for the
 practical operating pattern.
+
+## PR Helper Map
+
+APL has several PR shapes. Use the helper that matches the PR kind instead of
+forcing every PR through the canonical task helper.
+
+| PR kind | Use this helper | Branch shape |
+| --- | --- | --- |
+| Canonical `TASK-XXXX` implementation | `python3 scripts/apl_task_pr_helper.py prepare-current ...` | `agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug>` |
+| Task proposal | `python3 scripts/apl_proposal_pr_helper.py scaffold/preflight/create ...` | `agent/<contributor-id>/<agent-id>/propose-task-<short-slug>` |
+| Microtask | `python3 scripts/apl_microtask_pr_helper.py status/scaffold/preflight ...` | `agent/<contributor-id>/<agent-id>/microtask-...` |
+| Task closeout | `python3 scripts/apl_closeout_pr_helper.py scaffold/preflight ...` | `agent/<contributor-id>/<agent-id>/closeout-<short-slug>` |
+| Task queue | Use the repository PR template and canonical `TASK-QUEUE` branch/title rules; do not mark newly queued tasks `REVIEW_READY` or implement them in the same PR | `agent/<contributor-id>/<agent-id>/task-queue-<short-slug>` |
+
+The helpers are mechanical guardrails, not scientific reviewers. They format and
+preflight branches, titles, bodies, metadata, and obvious PR-shape mistakes.
+They do not decide whether a scientific result is true, whether a task should be
+accepted, or whether a PR should merge.
+
+## Canonical Task PR Helper
+
+Before opening a canonical task PR, prefer the Python helper over ad-hoc
+`gh pr create` commands. The helper is cross-platform and catches the common
+publication mistakes before GitHub review: wrong branch shape, mismatched task
+id, missing PR template sections, missing metadata, and missing strict
+validation mention.
+
+After committing task work on the canonical task branch, run:
+
+```bash
+python3 scripts/apl_task_pr_helper.py prepare-current \
+  --task-id TASK-XXXX \
+  --contributor-id <contributor-id> \
+  --github-username <github-username> \
+  --agent-id <codex|claude|other-agent-id> \
+  --human-reviewer <maintainer-github-username> \
+  --summary "What changed, in narrow verification-first terms." \
+  --body-file .apl-pr-body.md
+```
+
+If `prepare-current` reports errors, fix them before creating the PR. In
+particular, do not open a PR from a `feature/...` or other non-canonical branch
+for canonical task work. Use the printed expected branch as the branch target.
+
+Then create the draft PR using the helper-generated body:
+
+```bash
+python3 scripts/apl_task_pr_helper.py create \
+  --branch agent/<contributor-id>/<agent-id>/task-XXXX-<short-slug> \
+  --title "TASK-XXXX: <task title>" \
+  --body-file .apl-pr-body.md
+```
+
+The older `scaffold`, `preflight`, `create`, and `ready` subcommands remain
+available. `prepare-current` is the recommended final pre-publication check
+because it uses the actual current branch and current diff.
 
 ## Task Status Protocol
 

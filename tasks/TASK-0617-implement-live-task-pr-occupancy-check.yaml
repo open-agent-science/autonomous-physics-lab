@@ -1,7 +1,7 @@
 id: TASK-0617
 title: "Implement live task PR occupancy check"
 type: workflow_hardening
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: high
 

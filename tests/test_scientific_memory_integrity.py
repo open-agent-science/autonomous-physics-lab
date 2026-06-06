@@ -157,6 +157,22 @@ def test_scientific_memory_integrity_allows_done_tooling_tasks_without_results(
             tmp_path / "tasks" / "TASK-REPO-ARCHITECTURE.yaml",
             {"id": "TASK-REPO-ARCHITECTURE", "status": "DONE", "type": "repo_architecture"},
         ),
+        (
+            tmp_path / "tasks" / "TASK-REPOSITORY-HARDENING.yaml",
+            {
+                "id": "TASK-REPOSITORY-HARDENING",
+                "status": "DONE",
+                "type": "repository_hardening",
+            },
+        ),
+        (
+            tmp_path / "tasks" / "TASK-WORKFLOW-HARDENING.yaml",
+            {
+                "id": "TASK-WORKFLOW-HARDENING",
+                "status": "DONE",
+                "type": "workflow_hardening",
+            },
+        ),
     ]
 
     issues = collect_scientific_memory_integrity_issues(

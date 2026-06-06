@@ -1,7 +1,7 @@
 id: TASK-0600
 title: "Run Materials MD-0001 formation-energy null-control audit"
 type: scientific_benchmark
-status: REVIEW_READY
+status: DONE
 difficulty: high
 priority: high
 
