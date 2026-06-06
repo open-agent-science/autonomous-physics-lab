@@ -124,9 +124,21 @@ def test_snapshot_script_includes_strategic_context_and_current_mission_docs() -
     script = Path("scripts/apl_snapshot.sh").read_text(encoding="utf-8")
 
     assert 'section "Strategic Context For Agents"' in script
+    assert 'section "Current Strategy And Mission Sources"' in script
+    assert "docs/strategy.md" in script
+    assert "missions/current.yaml" in script
+    assert "campaign_profiles/_catalog.yaml" in script
+    assert "campaign_profiles/*.yaml" in script
+    assert "docs/campaign-curator-protocol.md" in script
+    assert "docs/scientific-campaign-curator.md" in script
+    assert "docs/research-factory-protocol.md" in script
+    assert "docs/public-release-gates.md" in script
     assert 'section "Task Registry Snapshot"' in script
     assert 'section "Current Task Contracts"' in script
     assert 'section "Repository Structure Map"' in script
+    assert 'section "Architecture Directory Structure"' in script
+    assert "ROOT_FOCUS_DIRS" in script
+    assert "MAX_DEPTH = 3" in script
     assert "render_strategic_context_map" in script
     assert "docs/current-missions.md" in script
     assert "docs/result-promotion-protocol.md" in script
