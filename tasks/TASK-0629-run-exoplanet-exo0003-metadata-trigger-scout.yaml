@@ -1,7 +1,7 @@
 id: TASK-0629
 title: "Run EXO-0003 metadata-only source trigger scout"
 type: scientific_dataset
-status: REVIEW_READY
+status: DONE
 difficulty: medium
 priority: medium
 
